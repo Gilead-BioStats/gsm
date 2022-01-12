@@ -2,7 +2,7 @@
 % Please edit documentation in R/AE_Assess.R
 \name{AE_Assess}
 \alias{AE_Assess}
-\title{AE Assessment using Poisson Regression}
+\title{AE Assessment}
 \usage{
 AE_Assess(
   dfInput,
@@ -29,5 +29,11 @@ AE_Assess(
 Finding data frame with columns for "SiteID", "N", "PValue", "Flag".
 }
 \description{
-AE Assessment using Poisson Regression
+AE Assessment
+}
+\examples{
+dfInput <- AE_Map( safetyData::adam_adsl, safetyData::adam_adae )
+SafetyAE <- AE_Assess( dfInput )
+SafetyAE_Wilk <- AE_Assess( dfInput, method="wilcoxon")
+
 }

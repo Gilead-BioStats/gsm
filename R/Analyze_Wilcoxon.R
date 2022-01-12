@@ -1,4 +1,4 @@
-#' AE_Wilcoxon_Analyze
+#' Analyze_Wilcoxon
 #'
 #' Creates Analyis results data for Adverse Event assessment using the Wilcoxon sign-ranked test
 #'
@@ -6,7 +6,7 @@
 #'
 #' @export
 
-AE_Wilcoxon_Analyze <- function(dfTransformed) {
+Analyze_Wilcoxon <- function(dfTransformed) {
     vSiteIndex <- unique( dfTransformed$SiteID )
     vStatistic <- rep( NA , length( vSiteIndex ) ) 
     vPValue <- rep( NA , length( vSiteIndex ) )
@@ -14,9 +14,8 @@ AE_Wilcoxon_Analyze <- function(dfTransformed) {
     colnames(dfSummary) <- c( "N" , "Mean" , "SD", "Median", "Q1", "Q3", "Min", "Max" )
 
     for( i in 1:length( vSiteIndex ) ){
-        #  Remove the warning with exact = FALSE
+        #Remove the warning with exact = FALSE
         lResults <- wilcox.test( dfTransformed$Rate ~ dfTransformed$SiteID == vSiteIndex[i], exact = FALSE)
-        
         vStatistic[i] <- lResults$statistic
         vPValue[i] <- lResults$p.value
         dfSummary[i,] <- Analyze_Wilcoxon_SummarizeCtsData( dfTransformed$Rate[dfTransformed$SiteID == vSiteIndex[i]] )

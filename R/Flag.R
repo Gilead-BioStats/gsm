@@ -14,18 +14,18 @@ Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA)){
     stopifnot(
         is.data.frame(dfAnalyzed), 
         is.character(strColumn),
-        is.numeric(dThreshold),
-        strColumn %in% names(dfAnalyzed)
+        is.numeric(vThreshold),
+        .data$strColumn %in% names(dfAnalyzed)
     )
 
-    if(!all(is.na(vThreshold))){
+    if(all(!is.na(vThreshold))){
         stopifnot(vThreshold[2]>vThreshold[1])
     }
 
     dfFlagged<-dfAnalyzed %>%
         mutate(ThresholdLow = vThreshold[1]) %>%
         mutate(ThresholdHigh= vThreshold[2]) %>%
-        mutate(ThresholdCol = strColumn) %>%
+        mutate(ThresholdCol = strColumn) 
 
     dfFlagged$Flag <- rep(0, nrow(dfFlagged))
     if(!is.na(vThreshold[1])) dfFlagged$Flag[dfFlagged[strColumn] < vThreshold[1]] <- -1 
