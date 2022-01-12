@@ -13,13 +13,10 @@
 PD_Assess <- function( dfInput, lThreshold=NULL, nCutoff=1, cLabel="", bDataList=FALSE){
     lAssess <- list()
     lAssess$dfInput <- dfInput
-    lAssess$dfTransformed <- gsm::PD_Transform( lAssess$dfInput )
-    lAssess$dfAnalyzed <- gsm::AE_Poisson_Analyze( lAssess$dfTransformed ) 
-    if(is.null(lThreshold)){
-        lThreshold <- AE_Poisson_Autothreshold(lAssess$dfAnalyzed$Residuals , nCutoff)
-    }
-    lAssess$dfFlagged <- gsm::AE_Poisson_Flag( lAssess$dfAnalyzed , lThreshold$ThresholdHi, lThreshold$ThresholdLo)
-    lAssess$dfSummary <- gsm::AE_Summarize( lAssess$dfFlagged, cAssessment="Protocol Deviations", cLabel= cLabel)
+    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput )
+    lAssess$dfAnalyzed <- gsm::Analyze_Poisson( lAssess$dfTransformed) 
+    lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , strColumn = 'Residuals', vThreshold =c(-5,5)) 
+    lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Safety", cLabel= cLabel)
 
     if(bDataList){
         return(lAssess)
