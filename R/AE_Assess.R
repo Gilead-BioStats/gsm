@@ -4,7 +4,7 @@
 #' @param lThreshold list of threshold values 
 #' @param nCutoff optional parameter to control the auto-thresholding 
 #' @param cLabel Assessment label 
-#' @param method valid methods are "poisson" (the default), "wilcoxon" and "negativebinomial"
+#' @param method valid methods are "poisson" (the default), or  "wilcoxon" 
 #' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned
 #'
 #' @examples 
