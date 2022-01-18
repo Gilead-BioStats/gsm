@@ -6,22 +6,22 @@
 \usage{
 AE_Assess(
   dfInput,
-  dThreshold = NULL,
+  vThreshold = NULL,
   cLabel = "",
-  method = "poisson",
+  cMethod = "poisson",
   bDataList = FALSE
 )
 }
 \arguments{
 \item{dfInput}{input data}
 
+\item{vThreshold}{numeric vector with 2 threshold values}
+
 \item{cLabel}{Assessment label}
 
-\item{method}{valid methods are "poisson" (the default), "wilcoxon" and "negativebinomial"}
+\item{cMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
 
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
-
-\item{lThreshold}{list of threshold values}
 
 \item{nCutoff}{optional parameter to control the auto-thresholding}
 }
