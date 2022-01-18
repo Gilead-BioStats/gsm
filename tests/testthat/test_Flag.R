@@ -1,5 +1,5 @@
 
-context("Tests for the AE_Poisson_Flag function")
+context("Tests for the Flag function")
 
 ae_input <- AE_Map(
     safetyData::adam_adsl, 
