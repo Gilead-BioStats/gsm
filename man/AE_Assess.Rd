@@ -15,7 +15,7 @@ AE_Assess(
 \arguments{
 \item{dfInput}{input data}
 
-\item{vThreshold}{numeric vector with 2 threshold values}
+\item{vThreshold}{numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon}
 
 \item{cLabel}{Assessment label}
 

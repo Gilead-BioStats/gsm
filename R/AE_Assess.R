@@ -1,7 +1,7 @@
 #' AE Assessment 
 #' 
 #' @param dfInput input data
-#' @param vThreshold numeric vector with 2 threshold values 
+#' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon
 #' @param nCutoff optional parameter to control the auto-thresholding 
 #' @param cLabel Assessment label 
 #' @param cMethod valid methods are "poisson" (the default), or  "wilcoxon" 
