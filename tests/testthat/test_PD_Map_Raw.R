@@ -1,22 +1,9 @@
 context("Tests for the PE_Map_Raw function")
 
-projectPath<- "p418/s4184279"
-#data_path <- paste0("/Volumes/biometrics/projects/", projectPath, "/cdp/rawdata/")
-data_path <- paste0("Y:/projects/", projectPath, "/cdp/rawdata/")
-
-dfPd2<-rio::import(paste0(data_path, "protdev.sas7bdat"))
-dfEx2<-rio::import(paste0(data_path, "ex.sas7bdat"))
-dfSubid2<-rio::import(paste0(data_path, "subid.sas7bdat"))
-
-
 # Need to create test datasets
 test_that("output created as expected and has correct structure",{
-  pd_input <- PD_Map_Raw(
-    dfPd=dfPd2, 
-    dfSubid=dfSubid2,
-    dfEx=dfEx2
-  )
-
+  # TODO: update when PD test data is added  
+  pd_input <- NULL
   expect_true(is.data.frame(pd_input))
   expect_equal(names(pd_input), c("SubjectID","SiteID",
                                   "EXSTDAT",   "EXENDAT" ,  "firstDose", "lastDose",

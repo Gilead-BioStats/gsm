@@ -1,6 +1,5 @@
 context("Tests for the Analyze_Poisson function")
 
-
 ae_input <- AE_Map(
     safetyData::adam_adsl, 
     safetyData::adam_adae
