@@ -17,6 +17,9 @@ test_that("list of df created when bDataList=TRUE",{
 test_that("incorrect inputs throw errors",{
     expect_error(PD_Assess(list()))
     expect_error(PD_Assess("Hi"))
+    expect_error(AE_Assess(pd_input, cLabel=123))
+    expect_error(AE_Assess(pd_input, cMethod="abacus"))
+    expect_error(AE_Assess(pd_input, bdataList="Yes"))
 })
 
 

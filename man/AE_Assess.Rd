@@ -8,18 +8,18 @@ AE_Assess(
   dfInput,
   vThreshold = NULL,
   cLabel = "",
-  method = "poisson",
+  cMethod = "poisson",
   bDataList = FALSE
 )
 }
 \arguments{
 \item{dfInput}{input data}
 
-\item{vThreshold}{list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon}
+\item{vThreshold}{numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon}
 
 \item{cLabel}{Assessment label}
 
-\item{method}{valid methods are "poisson" (the default), or  "wilcoxon"}
+\item{cMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
 
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
 
