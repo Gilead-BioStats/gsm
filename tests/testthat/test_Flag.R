@@ -8,6 +8,7 @@ ae_input <- AE_Map(
 
 ae_prep <- Transform_EventCount(ae_input)
 ae_anly <- Analyze_Poisson(ae_prep)
+ae_anly_wilcoxon <- Analyze_Wilcoxon(ae_prep)
 
 
 test_that("output created as expected and has correct structure",{
@@ -17,6 +18,14 @@ test_that("output created as expected and has correct structure",{
                                 "LogExposure","Residuals","PredictedCount","PValue","ThresholdLow",
                                 "ThresholdHigh", "ThresholdCol","Flag"))
     expect_equal(sort(unique(ae_input$SiteID)), sort(flag$SiteID))
+})
+
+test_that("strFlagValueColumn paramter works as intended",{
+  dfFlagged <- Flag( ae_anly_wilcoxon , strColumn = 'PValue', vThreshold =c(0.2,NA), strFlagValueColumn = 'Mean')
+  expect_equal(dfFlagged[1,'Flag'], 1)
+  dfFlagged <- Flag( ae_anly_wilcoxon , strColumn = 'PValue', vThreshold =c(0.2,NA), strFlagValueColumn = NULL)
+  expect_equal(dfFlagged[1,'Flag'], -1)
+  
 })
 
 test_that("incorrect inputs throw errors",{
