@@ -3,11 +3,10 @@
 #' Convert from raw data format to needed input format for Safety Assessment
 #' Requires the following raw datasets: subid, ex, ae, da (optional)
 #'
-#' @param strPath path to the raw datasets
-#' @param dfSubid directly input a subid dataset with columns SUBJID INVID
-#' @param dfEx directly input an ex dataset with columns SUBJID EXSTDAT EXENDAT
-#' @param dfDa directly input an ex dataset with columns SUBJID DADPDAT DARETDAT
-#' @param dfAe directly input an AE dataset with columns SUBJID and rows for each AE record
+#' @param dfSubid  subid dataset with columns SUBJID INVID
+#' @param dfEx ex dataset with columns SUBJID EXSTDAT EXENDAT
+#' @param dfDa da dataset with columns SUBJID DADPDAT DARETDAT
+#' @param dfAe AE dataset with columns SUBJID and rows for each AE record
 #' @param optTEAE option to restrict AE dataset to TEAEs defined as AE occuring on or after first dose date
 #' 
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate, Unit
@@ -16,55 +15,22 @@
 #' 
 #' @export
 
-AE_Map_Raw <- function( strPath = NULL,
-                        dfSubid = NULL ,
+AE_Map_Raw <- function( dfSubid = NULL ,
                         dfEx = NULL,
                         dfDa = NULL,
                         dfAe = NULL,
                         optTEAE = FALSE
                         ){
     
-    ### Check if file path is correct
-    vFiles <- list.files(strPath)
-    if( length(vFiles) == 0 & 
-        is.null(dfSubid) &
-        is.null(dfEx) &
-        is.null(dfDa) & 
-        is.null(dfAe) ){
-        
-        stop("No files found in specified file path")
-    }
-    
-    ### Check if required input parameters are provided
-    if( all( is.null(dfSubid),
-             is.null(dfEx),
-             is.null(dfDa),
-             is.null(dfAe),
-             is.null(strPath) ) ){
-        stop("Please enter path to datasets or directly input datasets")
-    }
-    
-    
-    ### Requires raw datasets: subid, ex, ae
-    if( is.null(dfSubid) ) {
-        if( !("subid.sas7bdat" %in% vFiles) ) stop("subid dataset not found")
-    }
-    if( is.null(dfEx) ) {
-        if( !("ex.sas7bdat" %in% vFiles) ) stop("ex dataset not found")
-    }
-    if( is.null(dfAe) ) {
-        if( !("ae.sas7bdat" %in% vFiles) ) stop("ae dataset not found")
-    }
-    
+  ### Requires raw datasets: subid, ex, ae
+  if( is.null(dfSubid) ) stop("subid dataset not found")
+  if( is.null(dfEx) )  stop("ex dataset not found")
+  if( is.null(dfAe) )  stop("ae dataset not found")
+
+ 
     ### Flag for whether to use da dataset
-    ifelse( ( "da.sas7bdat" %in% vFiles ) | !is.null(dfDa) , boolDa <- TRUE , boolDa <- FALSE )
-    
-    
-    ### Load in Required Data , if not provided directly
-    if( is.null(dfSubid) ) dfSubid <- read_sas( file.path( strPath , "subid.sas7bdat" ) )
-    if( is.null(dfEx) ) dfEx <- read_sas( file.path( strPath , "ex.sas7bdat" ) )
-    if( is.null(dfAe) ) dfAe <- read_sas( file.path( strPath , "ae.sas7bdat" ) )
-    if( is.null(dfDa) & boolDa ) dfDa <- read_sas( file.path( strPath , "da.sas7bdat" ) )
+  #  
+    ifelse( !is.null(dfDa)   , boolDa <- TRUE , boolDa <- FALSE )
 
     if( ! all(c("SUBJID","INVID") %in% names(dfSubid)) ){
        stop( "SUBJID and INVID columns are required in subid dataset" )

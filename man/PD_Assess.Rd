@@ -6,20 +6,23 @@
 \usage{
 PD_Assess(
   dfInput,
-  lThreshold = NULL,
+  vThreshold = NULL,
   nCutoff = 1,
   cLabel = "",
+  method = "poisson",
   bDataList = FALSE
 )
 }
 \arguments{
 \item{dfInput}{input data}
 
-\item{lThreshold}{list of threshold values}
+\item{vThreshold}{list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon}
 
 \item{nCutoff}{optional parameter to control the auto-thresholding}
 
 \item{cLabel}{Assessment label}
+
+\item{method}{valid methods are "poisson" (the default), or  "wilcoxon"}
 
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
 }
