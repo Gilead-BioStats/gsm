@@ -5,7 +5,6 @@
 \title{Safety Assessment Mapping from Raw Data- Make Input Data}
 \usage{
 AE_Map_Raw(
-  strPath = NULL,
   dfSubid = NULL,
   dfEx = NULL,
   dfDa = NULL,
@@ -14,15 +13,13 @@ AE_Map_Raw(
 )
 }
 \arguments{
-\item{strPath}{path to the raw datasets}
+\item{dfSubid}{subid dataset with columns SUBJID INVID}
 
-\item{dfSubid}{directly input a subid dataset with columns SUBJID INVID}
+\item{dfEx}{ex dataset with columns SUBJID EXSTDAT EXENDAT}
 
-\item{dfEx}{directly input an ex dataset with columns SUBJID EXSTDAT EXENDAT}
+\item{dfDa}{da dataset with columns SUBJID DADPDAT DARETDAT}
 
-\item{dfDa}{directly input an ex dataset with columns SUBJID DADPDAT DARETDAT}
-
-\item{dfAe}{directly input an AE dataset with columns SUBJID and rows for each AE record}
+\item{dfAe}{AE dataset with columns SUBJID and rows for each AE record}
 
 \item{optTEAE}{option to restrict AE dataset to TEAEs defined as AE occuring on or after first dose date}
 }

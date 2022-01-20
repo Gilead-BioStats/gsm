@@ -3,10 +3,9 @@
 #' Convert from raw data format to needed input format for Safety Assessment
 #' Requires the following raw datasets: subid, ex, pd
 #'
-#' @param strPath path to the raw datasets
-#' @param dfSubid directly input a subid dataset with columns SUBJID INVID
-#' @param dfEx directly input an ex dataset with columns SUBJID EXSTDAT EXENDAT
-#' @param dfPd directly input a PD dataset with columns SUBJID and rows for each Protocol Deviation 
+#' @param dfSubid  subid dataset with columns SUBJID INVID
+#' @param dfEx  ex dataset with columns SUBJID EXSTDAT EXENDAT
+#' @param dfPd  PD dataset with columns SUBJID and rows for each Protocol Deviation 
 
 #' 
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate, Unit
