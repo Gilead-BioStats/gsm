@@ -7,13 +7,11 @@
 PD_Map_Raw(dfSubid = NULL, dfEx = NULL, dfPd = NULL)
 }
 \arguments{
-\item{dfSubid}{directly input a subid dataset with columns SUBJID INVID}
+\item{dfSubid}{subid dataset with columns SUBJID INVID}
 
-\item{dfEx}{directly input an ex dataset with columns SUBJID EXSTDAT EXENDAT}
+\item{dfEx}{ex dataset with columns SUBJID EXSTDAT EXENDAT}
 
-\item{dfPd}{directly input a PD dataset with columns SUBJID and rows for each Protocol Deviation}
-
-\item{strPath}{path to the raw datasets}
+\item{dfPd}{PD dataset with columns SUBJID and rows for each Protocol Deviation}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate, Unit
