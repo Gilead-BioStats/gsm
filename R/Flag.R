@@ -12,43 +12,36 @@
 #' @export
 
 Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strFlagValueColumn = NULL){
-    stopifnot(
-        is.data.frame(dfAnalyzed), 
-        is.character(strColumn),
-        is.numeric(vThreshold),
-        .data$strColumn %in% names(dfAnalyzed)
-    )
+  stopifnot(
+      is.data.frame(dfAnalyzed), 
+      is.character(strColumn),
+      is.numeric(vThreshold),
+      .data$strColumn %in% names(dfAnalyzed)
+  )
 
-    if(all(!is.na(vThreshold))){
-        stopifnot(vThreshold[2]>vThreshold[1])
-    }
-  
-  
-  
+  if(all(!is.na(vThreshold))){
+    stopifnot(vThreshold[2]>vThreshold[1])
+  }
+
   dfFlagged<-dfAnalyzed %>%
     mutate(ThresholdLow = vThreshold[1]) %>%
     mutate(ThresholdHigh= vThreshold[2]) %>%
-    mutate(ThresholdCol = strColumn) 
-  
-  dfFlagged$Flag <- rep(0, nrow(dfFlagged))
-  
-  if(!is.na(vThreshold[1])) dfFlagged$Flag[dfFlagged[strColumn] < vThreshold[1]] <- -1 
-  if(!is.na(vThreshold[2])) dfFlagged$Flag[dfFlagged[strColumn] > vThreshold[2]] <- 1 
-  
-  
+    mutate(ThresholdCol = strColumn) %>% 
+    mutate(Flag = case_when(
+      !is.na(vThreshold[1]) & (.data[[strColumn]] < vThreshold[1]) ~ -1,
+      !is.na(vThreshold[2]) & (.data[[strColumn]] > vThreshold[2]) ~ 1,
+      TRUE ~ 0
+    )) 
+
   # if strFlagValueColumn is supplied, it can only affect sign of Flag (1 or -1)
   if(!is.null(strFlagValueColumn)){
-    
-    dmedian <-  median(dfFlagged[,strFlagValueColumn, drop = TRUE], na.rm = TRUE)
-    
-    dfFlagged$tempFlagValueColumn <-  dfFlagged[, strFlagValueColumn, drop = TRUE] 
-    dfFlagged$Flag1 = dfFlagged$Flag; dfFlagged$Flag = NULL
-    dfFlagged <- dfFlagged  %>%  mutate(Flag = 
-              ifelse(Flag1 != 0 & tempFlagValueColumn > dmedian , 1,
-              ifelse(Flag1 != 0  & tempFlagValueColumn  < dmedian, -1, 0 ) )) %>%
-      select(-tempFlagValueColumn, -Flag1) 
+    nMedian <-  dfFlagged %>% pull(strFlagValueColumn) %>% median(na.rm=TRUE)
+    dfFlagged <- dfFlagged  %>%  
+      mutate(Flag = case_when(
+        Flag != 0 & .data[[strFlagValueColumn]] >= nMedian ~ 1,
+        Flag != 0 & .data[[strFlagValueColumn]] < nMedian ~ -1,
+        TRUE ~ Flag
+      ))
   }
-  
-
-    return( dfFlagged )
+  return( dfFlagged )
 }

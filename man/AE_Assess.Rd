@@ -17,7 +17,7 @@ AE_Assess(
 
 \item{cLabel}{Assessment label}
 
-\item{method}{valid methods are "poisson" (the default), "wilcoxon" and "negativebinomial"}
+\item{method}{valid methods are "poisson" (the default), or  "wilcoxon"}
 
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
 

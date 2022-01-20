@@ -4,7 +4,12 @@
 \alias{Flag}
 \title{Make data frame with flagged values}
 \usage{
-Flag(dfAnalyzed, strColumn = "PValue", vThreshold = c(0.05, NA))
+Flag(
+  dfAnalyzed,
+  strColumn = "PValue",
+  vThreshold = c(0.05, NA),
+  strFlagValueColumn = NULL
+)
 }
 \arguments{
 \item{dfAnalyzed}{data frame in format produced by \code{\link{AE_Poisson_Analyze}}}
@@ -12,6 +17,8 @@ Flag(dfAnalyzed, strColumn = "PValue", vThreshold = c(0.05, NA))
 \item{strColumn}{Name of the Column to use for thresholding}
 
 \item{vThreshold}{vector of 2 numeric values representing lower and upper threshold values. If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold.}
+
+\item{strValueColumn}{Optional, Name of the Column to use for sign of Flag. If value for that row is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.}
 }
 \value{
 input data frame with the columns added for "ThresholdLow","ThresholdHigh","ThresholdCol" and "Flag"
