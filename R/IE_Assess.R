@@ -9,12 +9,11 @@
 #' 
 #' @export
 
-IE_Assess <- function( dfInput, nThreshold=NULL,  cLabel="", bDataList=FALSE){
+IE_Assess <- function( dfInput, nThreshold=0.5,  cLabel="", bDataList=FALSE){
   lAssess <- list()
   lAssess$dfInput <- dfInput
   lAssess$dfTransformed <- gsm::IE_Transform( lAssess$dfInput )
   lAssess$dfAnalyzed <- gsm::IE_Analyze( lAssess$dfTransformed ) 
-  if(is.null(nThreshold)) nThreshold<-0
   lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
   lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Inclusion/Exclusion", cLabel= cLabel)
   
