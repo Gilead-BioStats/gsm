@@ -9,12 +9,11 @@
 #' 
 #' @export
 
-Consent_Assess <- function( dfInput, nThreshold=NULL,  cLabel="", bDataList=FALSE){
+Consent_Assess <- function( dfInput, nThreshold=0.5,  cLabel="", bDataList=FALSE){
   lAssess <- list()
   lAssess$dfInput <- dfInput
   lAssess$dfTransformed <- gsm::Consent_Transform( lAssess$dfInput )
   lAssess$dfAnalyzed <- gsm::Consent_Analyze( lAssess$dfTransformed ) 
-  if(is.null(nThreshold)) nThreshold<-0
   lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
   lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Main Consent", cLabel= cLabel)
   
