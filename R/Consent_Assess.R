@@ -1,0 +1,26 @@
+#' Consent Assessment 
+#' 
+#' @param dfInput input dataset with subject information containing : (required variables)
+#' @param nThreshold integer threshold values Flagging, integer values greater than will be flagged.
+#' @param cLabel Assessment label 
+#' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned
+#'
+#' @return Finding data frame with columns for "SiteID", "N", "PValue", "Flag". 
+#' 
+#' @export
+
+Consent_Assess <- function( dfInput, nThreshold=0.5,  cLabel="", bDataList=FALSE){
+  lAssess <- list()
+  lAssess$dfInput <- dfInput
+  lAssess$dfTransformed <- gsm::Consent_Transform( lAssess$dfInput )
+  lAssess$dfAnalyzed <- gsm::Consent_Analyze( lAssess$dfTransformed ) 
+  lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
+  lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Main Consent", cLabel= cLabel)
+  
+  if(bDataList){
+    return(lAssess)
+  } else {
+    return(lAssess$dfSummary)
+  }
+}
+
