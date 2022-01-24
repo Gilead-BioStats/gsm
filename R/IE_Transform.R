@@ -2,18 +2,16 @@
 #' 
 #' DESCRIPTION
 #'
-#' @param dfInput 
-#' 
-#' @return  
+#' @param dfInput frame in format produced by \code{\link{IE_Map_Raw}}
 #' 
 #' @export
 
 IE_Transform <- function( dfInput ){
   dfTransformed <- dfInput  %>%
-    group_by(SiteID) %>%
+    group_by(.data$SiteID) %>%
     summarise(
       N=n(),  
-      Invalid=sum(Invalid>0 | Missing > 0)
+      Invalid=sum(.data$Invalid>0 | .data$Missing > 0)
     ) 
     
   return(dfTransformed)

@@ -7,10 +7,7 @@
 IE_Analyze(dfTransformed)
 }
 \arguments{
-\item{dfTransformed}{}
-}
-\value{
-
+\item{dfTransformed}{frame in format produced by \code{\link{IE_Transform}}}
 }
 \description{
 Analysis of Inclusion/Exclusion

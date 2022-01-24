@@ -19,22 +19,22 @@ IE_Map_Raw <- function(
   
   # filter records where SUBJID is missing and create basic flags
   dfInput_long <- dfIe %>% 
-    filter(SUBJID !="")%>%
-    select(SUBJID, INVID, IECAT, IETESTCD,IETEST,IEORRES) %>%
-    mutate(expected=ifelse(IECAT=="Exclusion","No","Yes")) %>%
-    mutate(valid=IEORRES==expected)%>%
-    mutate(invalid=IEORRES!=expected)%>%
-    mutate(missing=!(IEORRES %in% c("Yes","No")))
+    filter(.data$SUBJID !="")%>%
+    select(.data$SUBJID, .data$INVID, .data$IECAT, .data$IETESTCD, .data$IETEST, .data$IEORRES) %>%
+    mutate(expected=ifelse(.data$IECAT=="Exclusion","No","Yes")) %>%
+    mutate(valid=.data$IEORRES==.data$expected)%>%
+    mutate(invalid=.data$IEORRES!=.data$expected)%>%
+    mutate(missing=!(.data$IEORRES %in% c("Yes","No")))
   
   # collapse long data to one record per participant
   dfInput <- dfInput_long %>%
-    group_by(SUBJID) %>%
+    group_by(.data$SUBJID) %>%
     summarise(
-      SiteID=first(INVID),
+      SiteID=first(.data$INVID),
       Total=n(), 
-      Valid=sum(valid), 
-      Invalid=sum(invalid), 
-      Missing=sum(missing)
+      Valid=sum(.data$valid), 
+      Invalid=sum(.data$invalid), 
+      Missing=sum(.data$missing)
     )
 
   return(dfInput)
