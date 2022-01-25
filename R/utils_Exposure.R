@@ -2,9 +2,13 @@
 #'
 #' Calculates treatment exposure duration for subjects in a study using raw ex dataset
 #'
-#' @param  dfEx data frame of treatment information with required columns SUBJID INVID EXSTDAT EXENDAT
-#' @param  dfTrt optional, if no data frame is supplied will assume no subject completed treatment, otherwise
-#' requires data frame of treatment completion information with columns SUBJID SDRGYN_STD
+#' @param  dfEx data frame of treatment information with required columns SUBJID INVID EXSTDAT EXENDAT. If
+#' multiple treatments and only want to focus on one treatment then input data frame will need to be subset
+#' by user prior to input
+#' @param  dfSdrg optional, if no data frame is supplied will assume no subject completed treatment, otherwise
+#' requires data frame of treatment completion information with columns SUBJID SDRGYN_STD. If multiple treatments
+#' and only want to focus on one treatment then input data frame will need to be subset
+#' by user prior to input
 #' @param  dtSnapshot date of data snapshot, if NULL, will impute to be current date
 #'
 #' @examples
@@ -13,18 +17,18 @@
 #' @return dataframe of time on study with a column for site ID, subject ID, and a column for time on study in days
 #'
 #' @import dplyr
-#' @importFrom lubridate is.Date time_length
+#' @importFrom lubridate is.Date
 #'
 #' @export
 
 TimeOnStudy <- function(
     dfEx = NULL,
-    dfTrt = NULL,
+    dfSdrg = NULL,
     dtSnapshot = NULL
 ){
 
     # Stop if missing required variables
-    if( any(!is.null(dfTrt)) & ! all(c("SUBJID","SDRGYN_STD") %in% names(dfTrt)) ){
+    if( any(!is.null(dfSdrg)) & ! all(c("SUBJID","SDRGYN_STD") %in% names(dfSdrg)) ){
         stop( "SUBJID, SDRG_STD columns are required in studcomp dataset" )
     }
 
@@ -49,8 +53,8 @@ TimeOnStudy <- function(
     if( is.null(dtSnapshot) ) dtSnapshot <- Sys.Date()
 
     # Create a vector of IDs for those who are still on-going in study
-    if(!is.null(dfTrt)){
-        completedIDs <- dfTrt %>%
+    if(!is.null(dfSdrg)){
+        completedIDs <- dfSdrg %>%
             filter(SDRGYN_STD %in% c("Y","N") ) %>%
             pull(SUBJID) %>%
             unique()
@@ -62,14 +66,15 @@ TimeOnStudy <- function(
     dfExRange <- dfEx %>%
         select( SUBJID, INVID, EXSTDAT, EXENDAT ) %>%
         group_by( SUBJID, INVID ) %>%
-        mutate( firstDoseDate = max( EXSTDAT, na.rm=T) ) %>%
-
-        summarise(lastDate = if_else(
-            SUBJID %in% completedIDs,
-            max( EXENDAT , na.rm=T),
-            dtSnapshot
-        )) %>%
-        mutate( TimeOnStudy = difftime(lastDoseDate, firstDoseDate, units="days" ) + 1) %>%
+        summarise(
+            firstDoseDate = min( EXSTDAT, EXENDAT , na.rm=T),
+            lastDoseDate = if_else(
+                first(SUBJID) %in% completedIDs,
+                as.Date(max( EXSTDAT, EXENDAT , na.rm=T)),
+                as.Date(dtSnapshot)
+            )
+        ) %>%
+        mutate( Exposure = difftime(lastDoseDate, firstDoseDate, units="days" ) + 1) %>%
         rename( SubjectID=SUBJID, SiteID=INVID)
 
     return ( dfExRange )
