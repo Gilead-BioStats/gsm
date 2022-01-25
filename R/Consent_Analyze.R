@@ -2,9 +2,7 @@
 #' 
 #' Analysis of Inclusion/Exclusion
 #' 
-#' @param dfTransformed
-#'
-#' @return 
+#' @param dfTransformed frame in format produced by \code{\link{Consent_Transform}}
 #' 
 #' @export
 
@@ -14,7 +12,7 @@ Consent_Analyze <- function( dfTransformed ){
   # Estimate is the number of participants with consent issues in a site
   dfAnalyzed <- dfTransformed %>% 
     mutate(PValue = NA) %>% 
-    mutate(Estimate = Invalid) 
+    mutate(Estimate = .data$Invalid) 
 
   return(dfAnalyzed)
 }

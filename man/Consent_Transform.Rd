@@ -7,10 +7,7 @@
 Consent_Transform(dfInput)
 }
 \arguments{
-\item{dfInput}{}
-}
-\value{
-
+\item{dfInput}{frame in format produced by \code{\link{Consent_Map_Raw}}}
 }
 \description{
 DESCRIPTION

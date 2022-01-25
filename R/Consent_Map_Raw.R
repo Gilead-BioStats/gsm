@@ -2,11 +2,8 @@
 #' 
 #' Convert from raw data format to needed input format for Consent Assessment
 #'
-#' @param strPath path to the raw datasets
-#' @param dfSubid directly input a subid dataset with columns SUBJID INVID
-#' @param dfIe directly input a ie dataset with columns SUBJID IECAT IETEST IEORRES
-#' 
-#' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Total, Valid, Invalid, Missing, Details
+#' @param dfConsent consent data frame
+#' @param dfIxrsrand Ixrsand data frame
 #' 
 #' @import dplyr
 #' @import lubridate
@@ -24,19 +21,19 @@ Consent_Map_Raw <- function(
   
   # Merge randomization date and consent date
   rand <- dfIxrsrand %>% 
-    filter(SUBJID !="")%>%
-    select(SUBJID, RGMNDTN)
+    filter(.data$SUBJID !="")%>%
+    select(.data$SUBJID, .data$RGMNDTN)
 
   dfInput <- dfConsent %>%
-    filter(SUBJID !="")%>%
-    filter(CONSCAT_STD=="MAINCONSENT")%>%
+    filter(.data$SUBJID !="")%>%
+    filter(.data$CONSCAT_STD=="MAINCONSENT")%>%
     left_join(rand) %>% 
-    mutate(SiteID=INVID)%>%
-    mutate(flag_noconsent=CONSYN=="No") %>%
-    mutate(flag_missing_consent = is.na(CONSDAT))%>%
-    mutate(flag_missing_rand = is.na(RGMNDTN))%>%
-    mutate(flag_date_compare = CONSDAT >= RGMNDTN ) %>%
-    mutate(any_flag=flag_noconsent | flag_missing_consent | flag_missing_rand | flag_date_compare)
+    mutate(SiteID=.data$INVID)%>%
+    mutate(flag_noconsent=.data$CONSYN=="No") %>%
+    mutate(flag_missing_consent = is.na(.data$CONSDAT))%>%
+    mutate(flag_missing_rand = is.na(.data$RGMNDTN))%>%
+    mutate(flag_date_compare = .data$CONSDAT >= .data$RGMNDTN ) %>%
+    mutate(any_flag=.data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare)
 
   return(dfInput)
 }
