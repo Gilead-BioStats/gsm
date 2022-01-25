@@ -19,11 +19,15 @@ Transform_EventCount <- function( dfInput , cCountCol=NULL, cExposureCol=NULL, c
             TotalCount=sum(.data[[cCountCol]])
          )
     if(!is.null(cExposureCol)){
-        dfTransformed<- dfTransformed %>% 
+        dfExposure<- dfInput %>% 
+        group_by(SiteID) %>%
+        summarise(
             TotalExposure=sum(.data[[cExposureCol]]),
             Unit=first(Unit),
-        ) %>%
-        mutate(Rate = TotalCount/TotalExposure)
+        )
+        
+        dfTransformed <- rbind(dfTransformed, dfCount) %>%
+            mutate(Rate = TotalCount/TotalExposure)
     }
     return(dfTransformed)
 }
