@@ -66,12 +66,14 @@ TimeOnStudy <- function(
   # get first and last visit dates and calculate diff
   dfVisitRange <- dfTOS %>%
     group_by( SUBJID, INVID ) %>%
-    summarise(firstDate = min( RECORDDATE , na.rm=T)) %>%
-    summarise(lastDate = if_else(
-      SUBJID %in% completedIDs,
-      max( RECORDDATE , na.rm=T),
-      dtSnapshot
-    )) %>%
+    summarise(
+      firstDate = min( RECORDDATE , na.rm=T),
+      lastDate = if_else(
+        first(SUBJID) %in% completedIDs,
+        as.Date(max( RECORDDATE , na.rm=T)),
+        as.Date(dtSnapshot)
+      )
+    ) %>%
     mutate( TimeOnStudy = difftime(lastDate, firstDate, units="days" ) + 1) %>%
     rename( SubjectID=SUBJID, SiteID=INVID)
 
