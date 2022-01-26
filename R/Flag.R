@@ -2,7 +2,7 @@
 #' 
 #' Adds columns flagging sites that represent possible statistical outliers. Rows with PValue less than 0.05 are flagged by default.  
 #'
-#' @param dfAnalyzed data frame in format produced by \code{\link{AE_Poisson_Analyze}}
+#' @param dfAnalyzed data frame where flags should be added
 #' @param strColumn Name of the Column to use for thresholding
 #' @param vThreshold vector of 2 numeric values representing lower and upper threshold values (<,>). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. 
 #' @param strValueColumn Optional, Name of the Column to use for sign of Flag. If value for that row is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.
@@ -11,14 +11,21 @@
 #' 
 #' @export
 
-Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strFlagValueColumn = NULL){
+Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strValueColumn = NULL){
   stopifnot(
+<<<<<<< HEAD
       is.data.frame(dfAnalyzed), 
       is.character(strColumn),
       is.numeric(vThreshold),
       length(vThreshold) == 2,
       strColumn %in% names(dfAnalyzed),
       strFlagValueColumn %in% names(dfAnalyzed)
+=======
+    is.data.frame(dfAnalyzed), 
+    is.character(strColumn),
+    is.numeric(vThreshold),
+    .data$strColumn %in% names(dfAnalyzed)
+>>>>>>> dev
   )
 
   if(all(!is.na(vThreshold))){
@@ -35,13 +42,13 @@ Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strFlag
       !is.na(.data[[strColumn]]) ~ 0
     )) 
 
-  # if strFlagValueColumn is supplied, it can only affect sign of Flag (1 or -1)
-  if(!is.null(strFlagValueColumn)){
-    nMedian <-  dfFlagged %>% pull(strFlagValueColumn) %>% median(na.rm=TRUE)
+  # if strValueColumn is supplied, it can only affect sign of Flag (1 or -1)
+  if(!is.null(strValueColumn)){
+    nMedian <-  dfFlagged %>% pull(strValueColumn) %>% median(na.rm=TRUE)
     dfFlagged <- dfFlagged  %>%  
       mutate(Flag = case_when(
-        Flag != 0 & .data[[strFlagValueColumn]] >= nMedian ~ 1,
-        Flag != 0 & .data[[strFlagValueColumn]] < nMedian ~ -1,
+        Flag != 0 & .data[[strValueColumn]] >= nMedian ~ 1,
+        Flag != 0 & .data[[strValueColumn]] < nMedian ~ -1,
         TRUE ~ Flag
       ))
   }

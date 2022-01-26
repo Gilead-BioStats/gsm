@@ -4,14 +4,14 @@
 #' @param vThreshold list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon
 #' @param nCutoff optional parameter to control the auto-thresholding 
 #' @param cLabel Assessment label 
-#' @param method valid methods are "poisson" (the default), or  "wilcoxon" 
+#' @param cMethod valid methods are "poisson" (the default), or  "wilcoxon" 
 #' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned
 #'
 #' @return Finding data frame with columns for "SiteID", "N", "PValue", "Flag". 
 #' 
 #' @export
 
-PD_Assess <- function( dfInput, vThreshold=NULL, nCutoff=1, cLabel="",method="poisson", bDataList=FALSE){
+PD_Assess <- function( dfInput, vThreshold=NULL, nCutoff=1, cLabel="",cMethod="poisson", bDataList=FALSE){
     stopifnot(
         "dfInput is not a data.frame" = is.data.frame(dfInput),
         "cLabel is not character" = is.character(cLabel),
@@ -23,7 +23,7 @@ PD_Assess <- function( dfInput, vThreshold=NULL, nCutoff=1, cLabel="",method="po
     lAssess$dfInput <- dfInput
     lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput )
     
-    if(method == "poisson"){
+    if(cMethod == "poisson"){
         if(is.null(vThreshold)){
             vThreshold = c(-5,5)
         }else{
@@ -36,7 +36,7 @@ PD_Assess <- function( dfInput, vThreshold=NULL, nCutoff=1, cLabel="",method="po
 
         lAssess$dfAnalyzed <- gsm::Analyze_Poisson( lAssess$dfTransformed) 
         lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , strColumn = 'Residuals', vThreshold =vThreshold)
-    } else if(method=="wilcoxon"){
+    } else if(cMethod=="wilcoxon"){
         if(is.null(vThreshold)){
             vThreshold = c(0.0001,NA)
         }else{

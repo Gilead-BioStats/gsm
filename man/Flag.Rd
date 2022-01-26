@@ -8,11 +8,11 @@ Flag(
   dfAnalyzed,
   strColumn = "PValue",
   vThreshold = c(0.05, NA),
-  strFlagValueColumn = NULL
+  strValueColumn = NULL
 )
 }
 \arguments{
-\item{dfAnalyzed}{data frame in format produced by \code{\link{AE_Poisson_Analyze}}}
+\item{dfAnalyzed}{data frame where flags should be added}
 
 \item{strColumn}{Name of the Column to use for thresholding}
 

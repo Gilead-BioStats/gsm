@@ -32,35 +32,35 @@ PD_Map_Raw <- function(
             
     # Pull SUBJID and INVID from dfSubid
     dfInput01 <- dfSubid %>% 
-        filter(dfSubid$SUBJID != "") %>%
-        mutate(SubjectID = as.character(SUBJID)) %>%
-        mutate(SiteID = as.character(INVID)) %>%
-        select(SubjectID, SiteID)
+        filter(.data$SUBJID != "") %>%
+        mutate(SubjectID = as.character(.data$SUBJID)) %>%
+        mutate(SiteID = as.character(.data$INVID)) %>%
+        select(.data$SubjectID, .data$SiteID)
     
     # Calculate exposure from dfEx
     exposure<- dfEx %>% 
-        mutate(SubjectID = as.character(SUBJID)) %>%    
-        select(SubjectID, EXSTDAT, EXENDAT)
+        mutate(SubjectID = as.character(.data$SUBJID)) %>%    
+        select(.data$SubjectID, .data$EXSTDAT, .data$EXENDAT)
 
     dfInput02 <- dfInput01 %>%
         left_join(exposure) %>% 
-        mutate(firstDose = lubridate::ymd(EXSTDAT)) %>%
-        mutate(lastDose = lubridate::ymd(EXENDAT)) %>%
-        mutate(Exposure = time_length(lastDose-firstDose, unit="days")+1)
+        mutate(firstDose = lubridate::ymd(.data$EXSTDAT)) %>%
+        mutate(lastDose = lubridate::ymd(.data$EXENDAT)) %>%
+        mutate(Exposure = time_length(.data$lastDose-.data$firstDose, unit="days")+1)
 
     # get PD count
     pdCounts <- dfPd %>% 
-        mutate(SubjectID = as.character(SUBJID)) %>%
-        group_by(SubjectID)%>%
+        mutate(SubjectID = as.character(.data$SUBJID)) %>%
+        group_by(.data$SubjectID)%>%
         summarise(Count=n())%>%
-        select(SubjectID, Count)
+        select(.data$SubjectID, .data$Count)
 
     dfInput <- dfInput02 %>%
         left_join(pdCounts) %>%
-        mutate(Count = ifelse(is.na(Count),0,Count))%>%
-        mutate(Exposure = ifelse(is.na(Exposure),1,Exposure))%>%
+        mutate(Count = ifelse(is.na(.data$Count),0,.data$Count))%>%
+        mutate(Exposure = ifelse(is.na(.data$Exposure),1,.data$Exposure))%>%
         mutate(Unit="Days")%>%
-        mutate(Rate = Count / Exposure) 
+        mutate(Rate = .data$Count / .data$Exposure) 
 
     return(dfInput)    
 }
