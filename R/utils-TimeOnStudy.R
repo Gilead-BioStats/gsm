@@ -7,9 +7,6 @@
 #' requires data frame of study completion information with columns SUBJID COMPYN_STD COMPREAS
 #' @param  dtSnapshot date of data snapshot, if NULL, will impute to be current date
 #'
-#' @examples
-#'
-#'
 #' @return dataframe of time on study with a column for site ID, subject ID, and a column for time on study in weeks
 #'
 #' @import dplyr
@@ -34,11 +31,11 @@ TimeOnStudy <- function(
 
   # remove missing visits
   dfVisit <- dfVisit %>%
-    filter( SUBJID != "" ) %>%
-    filter( INVID != "")
+    filter( .data$SUBJID != "" ) %>%
+    filter( .data$INVID != "")
 
   # need to double check if any subjid has multiple INVIDs
-  if( anyDuplicated(dfVisit %>% select(SUBJID,INVID) %>% distinct() )) 
+  if( anyDuplicated(dfVisit %>% select(.data$SUBJID,.data$INVID) %>% distinct() )) 
     stop( "SUBJID has multiple INVID assignments in visdt")
 
   # Stop if snapshot date is not a date or NULL
@@ -51,8 +48,8 @@ TimeOnStudy <- function(
   # Create a vector of IDs for those who are still on-going in study
   if(!is.null(dfStud)){
     completedIDs <- dfStud %>%
-      filter(COMPYN_STD %in% c("Y","N") ) %>%
-      pull(SUBJID) %>%
+      filter(.data$COMPYN_STD %in% c("Y","N") ) %>%
+      pull(.data$SUBJID) %>%
       unique()
   } else {
     completedIDs<-c()
@@ -60,22 +57,22 @@ TimeOnStudy <- function(
 
   # Grab identifier information from SUBJID and remove missing SUBJID
   dfTOS <- dfVisit %>%
-    select( SUBJID, INVID, FOLDERNAME, RECORDDATE ) %>%
-    filter( !grepl( "Screening", FOLDERNAME) )
+    select( .data$SUBJID, .data$INVID, .data$FOLDERNAME, .data$RECORDDATE ) %>%
+    filter( !grepl( "Screening", .data$FOLDERNAME) )
 
   # get first and last visit dates and calculate diff
   dfVisitRange <- dfTOS %>%
-    group_by( SUBJID, INVID ) %>%
+    group_by( .data$SUBJID, .data$INVID ) %>%
     summarise(
-      firstDate = min( RECORDDATE , na.rm=T),
+      firstDate = min( .data$RECORDDATE , na.rm=T),
       lastDate = if_else(
-        first(SUBJID) %in% completedIDs,
-        as.Date(max( RECORDDATE , na.rm=T)),
+        first(.data$SUBJID) %in% completedIDs,
+        as.Date(max( .data$RECORDDATE , na.rm=T)),
         as.Date(dtSnapshot)
       )
     ) %>%
-    mutate( TimeOnStudy = difftime(lastDate, firstDate, units="days" ) + 1) %>%
-    rename( SubjectID=SUBJID, SiteID=INVID)
+    mutate( TimeOnStudy = difftime(.data$lastDate, .data$firstDate, units="days" ) + 1) %>%
+    rename( SubjectID=.data$SUBJID, SiteID=.data$INVID)
 
   return ( dfVisitRange )
 

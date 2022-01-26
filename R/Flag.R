@@ -13,19 +13,12 @@
 
 Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strValueColumn = NULL){
   stopifnot(
-<<<<<<< HEAD
       is.data.frame(dfAnalyzed), 
       is.character(strColumn),
       is.numeric(vThreshold),
       length(vThreshold) == 2,
       strColumn %in% names(dfAnalyzed),
-      strFlagValueColumn %in% names(dfAnalyzed)
-=======
-    is.data.frame(dfAnalyzed), 
-    is.character(strColumn),
-    is.numeric(vThreshold),
-    .data$strColumn %in% names(dfAnalyzed)
->>>>>>> dev
+      strValueColumn %in% names(dfAnalyzed)
   )
 
   if(all(!is.na(vThreshold))){
