@@ -20,7 +20,3 @@ dataframe of time on study with a column for site ID, subject ID, and a column f
 \description{
 Calculates time-on-study for subjects in a study using raw visit dataset
 }
-\examples{
-
-
-}
