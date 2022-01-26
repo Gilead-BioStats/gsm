@@ -21,7 +21,7 @@
 #'
 #' @export
 
-TimeOnStudy <- function(
+TreatmentExposure <- function(
     dfEx = NULL,
     dfSdrg = NULL,
     dtSnapshot = NULL
