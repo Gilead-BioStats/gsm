@@ -1,11 +1,18 @@
 Package: gsm
-Title:  Gilead Statistical Monitoring
+Title: Gilead Statistical Monitoring
 Version: 0.0.0
-Authors@R: 
-    person("George", "Wu", "george.wu@gilead.com", role = c("aut", "cre"))
+Authors@R: c(
+    person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
+    person("Jeremy", "Wildfire", email="jeremy.wildfire@gilead.com", role = c("aut")))
 Description: The Gilead Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring.
-License: TBD
+License: file LICENSE
 Encoding: UTF-8
+Imports:
+    dplyr,
+    lubridate, 
+    magrittr
+Suggests:
+    safetyData
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2

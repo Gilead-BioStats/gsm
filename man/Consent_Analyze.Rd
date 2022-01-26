@@ -7,10 +7,7 @@
 Consent_Analyze(dfTransformed)
 }
 \arguments{
-\item{dfTransformed}{}
-}
-\value{
-
+\item{dfTransformed}{frame in format produced by \code{\link{Transform_EventCount}}}
 }
 \description{
 Analysis of Inclusion/Exclusion

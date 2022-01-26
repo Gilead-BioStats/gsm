@@ -4,6 +4,8 @@
 #'
 #' @param  dfTransformed paramDescription 
 #'
+#' @importFrom stats wilcox.test
+#' 
 #' @export
 
 Analyze_Wilcoxon <- function(dfTransformed) {
@@ -35,17 +37,20 @@ return(dfAnalyzed)
 #' SummarizeCtsData
 #'
 #' Helper function for Wilcoxon sign-ranked test
-#'
+#' 
 #' @param vData data vector
 #' @param nDigits number of digits
+#' 
+#' @importFrom stats median sd quantile
 
 Analyze_Wilcoxon_SummarizeCtsData <- function( vData , nDigits = 3){
     vOutput <- c( 
         N = length( vData ) - sum( is.na( vData ) ) , 
-        Mean = mean( vData , na.rm = T ) , SD = sd( vData , na.rm = T ),
-        Median = median( vData , na.rm = T ), 
-        Q1 = quantile( vData , 1/4 , type=2 , na.rm = T ), 
-        Q3 = quantile( vData , 3/4 , type=2 , na.rm = T ),
+        Mean = mean( vData , na.rm = T ) , 
+        SD = stats::sd( vData , na.rm = T ),
+        Median = stats::median( vData , na.rm = T ), 
+        Q1 = stats::quantile( vData , 1/4 , type=2 , na.rm = T ), 
+        Q3 = stats::quantile( vData , 3/4 , type=2 , na.rm = T ),
         Min = min( vData , na.rm=T ) , Max = max( vData , na.rm=T ) 
     )
     vOutput <- round( vOutput , nDigits )

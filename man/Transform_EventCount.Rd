@@ -20,9 +20,6 @@ Transform_EventCount(
 
 \item{cUnitCol}{Optional, Unit Column (currently unused)}
 }
-\value{
-
-}
 \description{
 Transform Event Count
 }

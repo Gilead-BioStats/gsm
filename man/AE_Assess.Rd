@@ -22,8 +22,6 @@ AE_Assess(
 \item{cMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
 
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
-
-\item{nCutoff}{optional parameter to control the auto-thresholding}
 }
 \value{
 Finding data frame with columns for "SiteID", "N", "PValue", "Flag".
@@ -34,6 +32,6 @@ AE Assessment
 \examples{
 dfInput <- AE_Map( safetyData::adam_adsl, safetyData::adam_adae )
 SafetyAE <- AE_Assess( dfInput )
-SafetyAE_Wilk <- AE_Assess( dfInput, method="wilcoxon")
+SafetyAE_Wilk <- AE_Assess( dfInput, cMethod="wilcoxon")
 
 }

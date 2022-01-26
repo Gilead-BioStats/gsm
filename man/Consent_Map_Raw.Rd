@@ -7,14 +7,9 @@
 Consent_Map_Raw(dfConsent = NULL, dfIxrsrand = NULL)
 }
 \arguments{
-\item{strPath}{path to the raw datasets}
+\item{dfConsent}{consent data frame}
 
-\item{dfSubid}{directly input a subid dataset with columns SUBJID INVID}
-
-\item{dfIe}{directly input a ie dataset with columns SUBJID IECAT IETEST IEORRES}
-}
-\value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Total, Valid, Invalid, Missing, Details
+\item{dfIxrsrand}{Ixrsand data frame}
 }
 \description{
 Convert from raw data format to needed input format for Consent Assessment

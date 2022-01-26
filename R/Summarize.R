@@ -17,11 +17,11 @@ Summarize <- function( dfFlagged , cAssessment="", cLabel=""){
         is.character(cLabel),
         all(c("SiteID", "N", "PValue", "Flag") %in% names(dfFlagged))
     )
-   dfSummary <- dfFlagged %>% 
-    mutate(Assessment = cAssessment) %>% 
-    mutate(Label = cLabel) %>%
-    select(Assessment,Label, SiteID,N, PValue, Flag) %>%
-    arrange(PValue)
-   
+    dfSummary <- dfFlagged %>% 
+        mutate(Assessment = cAssessment) %>% 
+        mutate(Label = cLabel) %>%
+        select(.data$Assessment,.data$Label, .data$SiteID,.data$N, .data$PValue, .data$Flag) %>%
+        arrange(.data$PValue)
+
     return(dfSummary)
 }
