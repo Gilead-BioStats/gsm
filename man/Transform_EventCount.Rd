@@ -4,12 +4,7 @@
 \alias{Transform_EventCount}
 \title{Transform Event Count}
 \usage{
-Transform_EventCount(
-  dfInput,
-  cCountCol = NULL,
-  cExposureCol = NULL,
-  cUnitCol = NULL
-)
+Transform_EventCount(dfInput, cCountCol, cExposureCol = NULL, cUnitCol = NULL)
 }
 \arguments{
 \item{dfInput}{A data frame with one Record per person}
