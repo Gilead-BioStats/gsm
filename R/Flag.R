@@ -39,7 +39,10 @@ Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strValu
     mutate(Flag = case_when(
       !is.na(vThreshold[1]) & (.data[[strColumn]] < vThreshold[1]) ~ -1,
       !is.na(vThreshold[2]) & (.data[[strColumn]] > vThreshold[2]) ~ 1,
-      !is.na(.data[[strColumn]]) ~ 0
+      is.na(.data[[strColumn]]) ~ NA,
+      is.nan(.data[[strColumn]]) ~ NA, 
+      TRUE~0 # All other values set to 0 (not flagged)
+      
     )) 
 
   # if strValueColumn is supplied, it can only affect sign of Flag (1 or -1)
