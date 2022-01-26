@@ -2,16 +2,27 @@
 % Please edit documentation in R/Transform_EventCount.R
 \name{Transform_EventCount}
 \alias{Transform_EventCount}
-\title{Transform_EventCount}
+\title{Transform Event Count}
 \usage{
-Transform_EventCount(dfInput)
+Transform_EventCount(
+  dfInput,
+  cCountCol = NULL,
+  cExposureCol = NULL,
+  cUnitCol = NULL
+)
 }
 \arguments{
-\item{dfInput}{input data frame with one record per person containing the following columns - SiteID, Count, Exposure, Unit}
+\item{dfInput}{A data frame with one Record per person}
+
+\item{cCountCol}{required. Column to be counted. "InvalidorMissing" = Invalid>0 | Missing > 0 for IE Assessment.}
+
+\item{cExposureCol}{Optional, Exposure Column}
+
+\item{cUnitCol}{Optional, Unit Column (currently unused)}
 }
 \value{
-dataframe one record per site and columns for Site ("SiteID"), Number of participants ("N"), Number of events ("TotalCount"),  Total Exposure ("TotalExposure"), Exposure per person ("Rate"), Unit of measure for exposure ("Unit").
+
 }
 \description{
-Transform_EventCount
+Transform Event Count
 }

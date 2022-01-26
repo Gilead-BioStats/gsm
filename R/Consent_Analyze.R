@@ -14,7 +14,7 @@ Consent_Analyze <- function( dfTransformed ){
   # Estimate is the number of participants with consent issues in a site
   dfAnalyzed <- dfTransformed %>% 
     mutate(PValue = NA) %>% 
-    mutate(Estimate = Invalid) 
+    mutate(Estimate = TotalCount) 
 
   return(dfAnalyzed)
 }

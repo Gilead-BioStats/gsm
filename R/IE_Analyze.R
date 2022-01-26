@@ -14,7 +14,7 @@ IE_Analyze <- function( dfTransformed ){
   # Estimate is the number of participants with 1+ mismatched IE assessments in a site
   dfAnalyzed <- dfTransformed %>% 
     mutate(PValue = NA) %>% 
-    mutate(Estimate = Invalid) 
+    mutate(Estimate = TotalCount) 
 
   return(dfAnalyzed)
 }

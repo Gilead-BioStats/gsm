@@ -25,7 +25,7 @@ AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson", b
     )
     lAssess <- list()
     lAssess$dfInput <- dfInput
-    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput )
+    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
     if(cMethod == "poisson"){
         if(is.null(vThreshold)){
             vThreshold = c(-5,5)
