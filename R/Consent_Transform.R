@@ -2,18 +2,16 @@
 #' 
 #' DESCRIPTION
 #'
-#' @param dfInput 
-#' 
-#' @return  
+#' @param dfInput frame in format produced by \code{\link{Consent_Map_Raw}}
 #' 
 #' @export
 
 Consent_Transform <- function( dfInput ){
   dfTransformed <- dfInput  %>%
-    group_by(SiteID) %>%
+    group_by(.data$SiteID) %>%
     summarise(
       N=n(),  
-      Invalid=sum(any_flag)
+      Invalid=sum(.data$any_flag)
     ) 
     
   return(dfTransformed)

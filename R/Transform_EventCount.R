@@ -13,14 +13,14 @@ Transform_EventCount <- function( dfInput ){
     )
 
     dfTransformed <- dfInput  %>%
-        group_by(SiteID) %>%
+        group_by(.data$SiteID) %>%
         summarise(
             N=n(),
-            TotalCount=sum(Count),  
-            TotalExposure=sum(Exposure),
-            Unit=first(Unit),
+            TotalCount=sum(.data$Count),  
+            TotalExposure=sum(.data$Exposure),
+            Unit=first(.data$Unit),
         ) %>%
-        mutate(Rate = TotalCount/TotalExposure)
+        mutate(Rate = .data$TotalCount/.data$TotalExposure)
     
     return(dfTransformed)
 }

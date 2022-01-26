@@ -2,7 +2,6 @@
 #' 
 #' @param dfInput input data
 #' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon
-#' @param nCutoff optional parameter to control the auto-thresholding 
 #' @param cLabel Assessment label 
 #' @param cMethod valid methods are "poisson" (the default), or  "wilcoxon" 
 #' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned
@@ -10,7 +9,7 @@
 #' @examples 
 #' dfInput <- AE_Map( safetyData::adam_adsl, safetyData::adam_adae )
 #' SafetyAE <- AE_Assess( dfInput )
-#' SafetyAE_Wilk <- AE_Assess( dfInput, method="wilcoxon")
+#' SafetyAE_Wilk <- AE_Assess( dfInput, cMethod="wilcoxon")
 #'
 #' @return Finding data frame with columns for "SiteID", "N", "PValue", "Flag". 
 #'
