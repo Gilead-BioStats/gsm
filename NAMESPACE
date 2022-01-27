@@ -2,7 +2,7 @@
 
 export("%>%")
 export(AE_Assess)
-export(AE_Map)
+export(AE_Map_Adam)
 export(AE_Map_Raw)
 export(Analyze_Poisson)
 export(Analyze_Wilcoxon)

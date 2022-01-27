@@ -9,7 +9,7 @@
 #' 
 #' @export
 
-AE_Map <- function( dfADSL, dfADAE ){
+AE_Map_Adam <- function( dfADSL, dfADAE ){
   stopifnot(
     is.data.frame(dfADSL), 
     is.data.frame(dfADAE),

@@ -7,7 +7,7 @@
 #' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned
 #'
 #' @examples 
-#' dfInput <- AE_Map( safetyData::adam_adsl, safetyData::adam_adae )
+#' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 #' SafetyAE <- AE_Assess( dfInput )
 #' SafetyAE_Wilk <- AE_Assess( dfInput, cMethod="wilcoxon")
 #'
