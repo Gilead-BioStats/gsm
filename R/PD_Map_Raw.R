@@ -42,8 +42,9 @@ PD_Map_Raw <- function(
     dfInput <- dfInput02 %>%
         left_join(pdCounts) %>%
         mutate(Count = ifelse(is.na(.data$Count),0,.data$Count))%>%
+        mutate(TimeOnStudy = as.numeric(.data$TimeOnStudy)) %>%
         mutate(Unit="Days")%>%
-        mutate(Rate = .data$Count / as.numeric(.data$TimeOnStudy) ) %>%
+        mutate(Rate = .data$Count / .data$TimeOnStudy ) %>%
         select( .data$SubjectID,   .data$SiteID,  .data$Count ,  .data$TimeOnStudy ,  .data$Rate ,  .data$Unit)
 
     return(dfInput)    
