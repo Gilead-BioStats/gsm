@@ -4,7 +4,7 @@
 \alias{Transform_EventCount}
 \title{Transform Event Count}
 \usage{
-Transform_EventCount(dfInput, cCountCol, cExposureCol = NULL, cUnitCol = NULL)
+Transform_EventCount(dfInput, cCountCol, cExposureCol = NULL)
 }
 \arguments{
 \item{dfInput}{A data frame with one Record per person}
@@ -12,8 +12,6 @@ Transform_EventCount(dfInput, cCountCol, cExposureCol = NULL, cUnitCol = NULL)
 \item{cCountCol}{required. Column to be counted. "InvalidorMissing" = Invalid>0 | Missing > 0 for IE Assessment.}
 
 \item{cExposureCol}{Optional, Exposure Column}
-
-\item{cUnitCol}{Optional, Unit Column (currently unused)}
 }
 \description{
 Transform Event Count
