@@ -3,7 +3,7 @@ ae_input <- AE_Map_Adam(
     safetyData::adam_adae
 ) 
 
-dfTransformed <- Transform_EventCount( lAssess$dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+dfTransformed <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "Exposure" )
 dfAnalyzed <- gsm::Analyze_Poisson( dfTransformed) 
 dfFlagged <- gsm::Flag(dfAnalyzed , strColumn = 'Residuals', vThreshold =c(-5,5))
 

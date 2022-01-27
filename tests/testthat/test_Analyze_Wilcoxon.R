@@ -3,7 +3,7 @@ ae_input <- AE_Map_Adam(
     safetyData::adam_adae
 ) 
 
-ae_prep <- Transform_EventCount( lAssess$dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+ae_prep <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "Exposure" )
 
 test_that("output created as expected and has correct structure",{
     aew_anly <-Analyze_Wilcoxon(ae_prep)
