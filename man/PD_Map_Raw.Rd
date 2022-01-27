@@ -4,14 +4,14 @@
 \alias{PD_Map_Raw}
 \title{Protocol Deviation Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-PD_Map_Raw(dfSubid = NULL, dfEx = NULL, dfPd = NULL)
+PD_Map_Raw(dfPd = NULL, dfVisit = NULL, dfStud = NULL, dtSnapshot = NULL)
 }
 \arguments{
+\item{dfPd}{PD dataset with columns SUBJID and rows for each Protocol Deviation}
+
 \item{dfSubid}{subid dataset with columns SUBJID INVID}
 
 \item{dfEx}{ex dataset with columns SUBJID EXSTDAT EXENDAT}
-
-\item{dfPd}{PD dataset with columns SUBJID and rows for each Protocol Deviation}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate, Unit
