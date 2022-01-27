@@ -11,27 +11,27 @@ Transform_EventCount <- function( dfInput , cCountCol, cExposureCol=NULL ){
         is.data.frame(dfInput),
         cCountCol %in% names(dfInput),
         is.numeric(dfInput[[cCountCol]]),
-        is.null(cExposureCol) | cExposureCol %in% names(dfInput),
-        is.null(cExposureCol) | is.numeric(dfInput[[cExposureCol]])
+        is.null(cExposureCol) | cExposureCol %in% names(dfInput)
     )
+    if(!is.null(cExposureCol)) stopifnot(is.numeric(dfInput[[cExposureCol]]))
     
-  
-  dfTransformed <- dfInput  %>%
-    group_by(.data$SiteID) %>% 
-    summarise(
-      N=n(), 
-      TotalCount= sum(.data[[cCountCol]]),
-      TotalExposure=if_else(
-        is.null(cExposureCol),
-        NA_real_,
-        sum(.data[[cExposureCol]])
+  if(is.null(cExposureCol)){
+    dfTransformed <- dfInput  %>%
+      group_by(.data$SiteID) %>% 
+      summarise(
+        N=n(), 
+        TotalCount= sum(.data[[cCountCol]]),
       )
-    )%>%  
-    mutate(Rate = .data$TotalCount/.data$TotalExposure)
+  }else{
+    dfTransformed <- dfInput  %>%
+      group_by(.data$SiteID) %>% 
+      summarise(
+        N=n(), 
+        TotalCount= sum(.data[[cCountCol]]),
+        TotalExposure=sum(.data[[cExposureCol]])
+      )%>% 
+      mutate(Rate = .data$TotalCount/.data$TotalExposure)
+  }
 
-    if(is.null(cExposureCol)){
-      dfTransformed <- dfTransformed %>% select(-.data$TotalExposure, -.data$Rate)
-    }
-  
-    return(dfTransformed)
+  return(dfTransformed)
 }
