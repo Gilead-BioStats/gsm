@@ -9,12 +9,15 @@ PD_Map_Raw(dfPd = NULL, dfVisit = NULL, dfStud = NULL, dtSnapshot = NULL)
 \arguments{
 \item{dfPd}{PD dataset with columns SUBJID and rows for each Protocol Deviation}
 
-\item{dfSubid}{subid dataset with columns SUBJID INVID}
+\item{dfVisit}{data frame of visit information with required columns SUBJID INVID FOLDERNAME RECORDDATE}
 
-\item{dfEx}{ex dataset with columns SUBJID EXSTDAT EXENDAT}
+\item{dfStud}{optional, if no data frame is supplied will assume no subject completed study, otherwise
+requires data frame of study completion information with columns SUBJID COMPYN_STD COMPREAS}
+
+\item{dtSnapshot}{date of data snapshot, if NULL, will impute to be current date}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate, Unit
+Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Rate, Unit
 }
 \description{
 Convert from raw data format to needed input format for Safety Assessment
