@@ -13,7 +13,8 @@ Imports:
     magrittr
 Suggests:
     testthat (>= 3.0.0),
-    safetyData
+    safetyData,
+    covr
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
