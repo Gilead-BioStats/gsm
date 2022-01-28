@@ -38,11 +38,11 @@ TreatmentExposure <- function(
 
     # remove missing visits
     dfEx <- dfEx %>%
-        filter( SUBJID != "" ) %>%
-        filter( INVID != "")
+        filter( .data$SUBJID != "" ) %>%
+        filter( .data$INVID != "")
 
     # need to double check if any subjid has multiple INVIDs
-    if( anyDuplicated(dfEx %>% select(SUBJID,INVID) %>% distinct() ))
+    if( anyDuplicated(dfEx %>% select(.data$SUBJID,.data$INVID) %>% distinct() ))
         stop( "SUBJID has multiple INVID assignments in visdt")
 
     # Stop if snapshot date is not a date or NULL
@@ -55,8 +55,8 @@ TreatmentExposure <- function(
     # Create a vector of IDs for those who are still on-going in study
     if(!is.null(dfSdrg)){
         completedIDs <- dfSdrg %>%
-            filter(SDRGYN_STD %in% c("Y","N") ) %>%
-            pull(SUBJID) %>%
+            filter(.data$SDRGYN_STD %in% c("Y","N") ) %>%
+            pull(.data$SUBJID) %>%
             unique()
     } else {
         completedIDs<-c()
@@ -64,18 +64,18 @@ TreatmentExposure <- function(
 
     # calculate maximum treatment date
     dfExRange <- dfEx %>%
-        select( SUBJID, INVID, EXSTDAT, EXENDAT ) %>%
-        group_by( SUBJID, INVID ) %>%
+        select( .data$SUBJID, .data$INVID, .data$EXSTDAT, .data$EXENDAT ) %>%
+        group_by( .data$SUBJID, .data$INVID ) %>%
         summarise(
-            firstDoseDate = min( EXSTDAT, EXENDAT , na.rm=T),
+            firstDoseDate = min( .data$EXSTDAT, .data$EXENDAT , na.rm=T),
             lastDoseDate = if_else(
-                first(SUBJID) %in% completedIDs,
-                as.Date(max( EXSTDAT, EXENDAT , na.rm=T)),
+                first(.data$SUBJID) %in% completedIDs,
+                as.Date(max( .data$EXSTDAT, .data$EXENDAT , na.rm=T)),
                 as.Date(dtSnapshot)
             )
         ) %>%
-        mutate( Exposure = difftime(lastDoseDate, firstDoseDate, units="days" ) + 1) %>%
-        rename( SubjectID=SUBJID, SiteID=INVID)
+        mutate( Exposure = difftime(.data$lastDoseDate, .data$firstDoseDate, units="days" ) + 1) %>%
+        rename( SubjectID=.data$SUBJID, SiteID=.data$INVID)
 
     return ( dfExRange )
 
