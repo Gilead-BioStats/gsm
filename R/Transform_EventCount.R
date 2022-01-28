@@ -10,7 +10,7 @@ Transform_EventCount <- function( dfInput , cCountCol, cExposureCol=NULL ){
     stopifnot(
         is.data.frame(dfInput),
         cCountCol %in% names(dfInput),
-        is.numeric(dfInput[[cCountCol]]),
+        is.numeric(dfInput[[cCountCol]]) | is.logical(dfInput[[cCountCol]]),
         is.null(cExposureCol) | cExposureCol %in% names(dfInput)
     )
     if(!is.null(cExposureCol)) stopifnot(is.numeric(dfInput[[cExposureCol]]))
