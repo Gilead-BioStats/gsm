@@ -1,8 +1,8 @@
 #' Transform Event Count
 #'
 #' @param dfInput A data frame with one Record per person
-#' @param cCountCol required. Column to be counted. "InvalidorMissing" = Invalid>0 | Missing > 0 for IE Assessment.
-#' @param cExposureCol Optional, Exposure Column
+#' @param cCountCol required. numerical or logical. Column to be counted.
+#' @param cExposureCol Optional, numerical Exposure Column
 #'
 #' @export
 
