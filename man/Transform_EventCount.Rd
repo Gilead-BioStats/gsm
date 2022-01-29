@@ -9,9 +9,9 @@ Transform_EventCount(dfInput, cCountCol, cExposureCol = NULL)
 \arguments{
 \item{dfInput}{A data frame with one Record per person}
 
-\item{cCountCol}{required. Column to be counted. "InvalidorMissing" = Invalid>0 | Missing > 0 for IE Assessment.}
+\item{cCountCol}{required. numerical or logical. Column to be counted.}
 
-\item{cExposureCol}{Optional, Exposure Column}
+\item{cExposureCol}{Optional, numerical Exposure Column}
 }
 \description{
 Transform Event Count

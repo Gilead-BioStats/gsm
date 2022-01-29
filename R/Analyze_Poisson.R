@@ -2,7 +2,7 @@
 #' 
 #' Adds columns for site-level statistical assessment of distribution of reported safety outcomes
 #'
-#' @param dfTransformed frame in format produced by \code{\link{Transform_EventCount}}
+#' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}
 #'
 #' @importFrom stats glm offset poisson residuals pnorm
 #' 
