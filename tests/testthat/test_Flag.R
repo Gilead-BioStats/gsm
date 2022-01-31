@@ -1,12 +1,9 @@
-
-context("Tests for the Flag function")
-
-ae_input <- AE_Map(
+ae_input <- AE_Map_Adam(
     safetyData::adam_adsl, 
     safetyData::adam_adae
 ) 
 
-ae_prep <- Transform_EventCount(ae_input)
+ae_prep <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "Exposure" )
 ae_anly <- Analyze_Poisson(ae_prep)
 ae_anly_wilcoxon <- Analyze_Wilcoxon(ae_prep)
 
@@ -19,11 +16,10 @@ test_that("output created as expected and has correct structure",{
 })
 
 test_that("strFlagValueColumn paramter works as intended",{
-  dfFlagged <- Flag( ae_anly_wilcoxon , strColumn = 'PValue', vThreshold =c(0.2,NA), strFlagValueColumn = 'Mean')
+  dfFlagged <- Flag( ae_anly_wilcoxon , strColumn = 'PValue', vThreshold =c(0.2,NA), strValueColumn = 'Mean')
   expect_equal(dfFlagged[1,'Flag'], 1)
-  dfFlagged <- Flag( ae_anly_wilcoxon , strColumn = 'PValue', vThreshold =c(0.2,NA), strFlagValueColumn = NULL)
+  dfFlagged <- Flag( ae_anly_wilcoxon , strColumn = 'PValue', vThreshold =c(0.2,NA), strValueColumn = NULL)
   expect_equal(dfFlagged[1,'Flag'], -1)
-  
 })
 
 test_that("incorrect inputs throw errors",{

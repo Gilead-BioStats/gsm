@@ -35,7 +35,8 @@ IE_Map_Raw <- function(
       Valid=sum(.data$valid), 
       Invalid=sum(.data$invalid), 
       Missing=sum(.data$missing)
-    )
+    )%>%
+    mutate(InvalidMissing = .data$Invalid + .data$Missing)
 
   return(dfInput)
 }

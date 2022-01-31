@@ -9,12 +9,12 @@
 #' 
 #' @export
 
-AE_Map <- function( dfADSL, dfADAE ){
+AE_Map_Adam <- function( dfADSL, dfADAE ){
   stopifnot(
     is.data.frame(dfADSL), 
     is.data.frame(dfADAE),
     all(c("USUBJID", "SITEID", "TRTEDT", "TRTSDT") %in% names(dfADSL)),
-    "USUBJID" %in% names(dfADSL)
+    "USUBJID" %in% names(dfADAE)
   )
 
   dfADAE <- dfADAE[ which(dfADAE$USUBJID %in% dfADSL$USUBJID) ,]

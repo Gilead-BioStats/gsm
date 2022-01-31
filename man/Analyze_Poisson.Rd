@@ -7,7 +7,7 @@
 Analyze_Poisson(dfTransformed)
 }
 \arguments{
-\item{dfTransformed}{frame in format produced by \code{\link{Transform_EventCount}}}
+\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
 }
 \value{
 input data frame with the  columns added for "Residuals", "PredictedCount" and "PValue"

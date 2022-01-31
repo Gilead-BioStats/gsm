@@ -7,7 +7,7 @@
 Analyze_Wilcoxon(dfTransformed)
 }
 \arguments{
-\item{dfTransformed}{paramDescription}
+\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
 }
 \description{
 Creates Analyis results data for Adverse Event assessment using the Wilcoxon sign-ranked test

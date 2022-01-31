@@ -1,7 +1,5 @@
-context("Tests for the AE_Assess function")
-
 library(safetyData)
-ae_input <- AE_Map(
+ae_input <- AE_Map_Adam(
     safetyData::adam_adsl, 
     safetyData::adam_adae
 ) 

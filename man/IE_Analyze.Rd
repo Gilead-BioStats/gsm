@@ -7,7 +7,7 @@
 IE_Analyze(dfTransformed)
 }
 \arguments{
-\item{dfTransformed}{frame in format produced by \code{\link{IE_Transform}}}
+\item{dfTransformed}{frame in format produced by \code{\link{Transform_EventCount}}}
 }
 \description{
 Analysis of Inclusion/Exclusion

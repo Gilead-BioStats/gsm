@@ -1,13 +1,9 @@
-
-context("Tests for the Summarize function")
-
-
-ae_input <- AE_Map(
+ae_input <- AE_Map_Adam(
     safetyData::adam_adsl, 
     safetyData::adam_adae
 ) 
 
-dfTransformed <- Transform_EventCount(ae_input)
+dfTransformed <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "Exposure" )
 dfAnalyzed <- gsm::Analyze_Poisson( dfTransformed) 
 dfFlagged <- gsm::Flag(dfAnalyzed , strColumn = 'Residuals', vThreshold =c(-5,5))
 

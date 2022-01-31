@@ -1,26 +1,37 @@
-#' Transform_EventCount
+#' Transform Event Count
 #'
-#' @param dfInput input data frame with one record per person containing the following columns - SiteID, Count, Exposure, Unit 
+#' @param dfInput A data frame with one Record per person
+#' @param cCountCol required. numerical or logical. Column to be counted.
+#' @param cExposureCol Optional, numerical Exposure Column
 #'
-#' @return dataframe one record per site and columns for Site ("SiteID"), Number of participants ("N"), Number of events ("TotalCount"),  Total Exposure ("TotalExposure"), Exposure per person ("Rate"), Unit of measure for exposure ("Unit").
-#' 
 #' @export
 
-Transform_EventCount <- function( dfInput ){
+Transform_EventCount <- function( dfInput , cCountCol, cExposureCol=NULL ){
     stopifnot(
-        is.data.frame(dfInput), 
-        all(c("SiteID", "Count", "Exposure", "Unit" ) %in% names(dfInput))
+        is.data.frame(dfInput),
+        cCountCol %in% names(dfInput),
+        is.numeric(dfInput[[cCountCol]]) | is.logical(dfInput[[cCountCol]]),
+        is.null(cExposureCol) | cExposureCol %in% names(dfInput)
     )
-
-    dfTransformed <- dfInput  %>%
-        group_by(.data$SiteID) %>%
-        summarise(
-            N=n(),
-            TotalCount=sum(.data$Count),  
-            TotalExposure=sum(.data$Exposure),
-            Unit=first(.data$Unit),
-        ) %>%
-        mutate(Rate = .data$TotalCount/.data$TotalExposure)
+    if(!is.null(cExposureCol)) stopifnot(is.numeric(dfInput[[cExposureCol]]))
     
-    return(dfTransformed)
+  if(is.null(cExposureCol)){
+    dfTransformed <- dfInput  %>%
+      group_by(.data$SiteID) %>% 
+      summarise(
+        N=n(), 
+        TotalCount= sum(.data[[cCountCol]]),
+      )
+  }else{
+    dfTransformed <- dfInput  %>%
+      group_by(.data$SiteID) %>% 
+      summarise(
+        N=n(), 
+        TotalCount= sum(.data[[cCountCol]]),
+        TotalExposure=sum(.data[[cExposureCol]])
+      )%>% 
+      mutate(Rate = .data$TotalCount/.data$TotalExposure)
+  }
+
+  return(dfTransformed)
 }

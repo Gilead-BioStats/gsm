@@ -1,11 +1,9 @@
-context("Tests for the Analyze_Wilcoxon function")
-
-ae_input <- AE_Map(
+ae_input <- AE_Map_Adam(
     safetyData::adam_adsl, 
     safetyData::adam_adae
 ) 
 
-ae_prep <- Transform_EventCount(ae_input)
+ae_prep <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "Exposure" )
 
 test_that("output created as expected and has correct structure",{
     aew_anly <-Analyze_Wilcoxon(ae_prep)

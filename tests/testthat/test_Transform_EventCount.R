@@ -1,24 +1,44 @@
-context("Tests for the Transform_EventCount function")
-
-ae_input <- AE_Map(
+ae_input <- AE_Map_Adam(
     safetyData::adam_adsl, 
     safetyData::adam_adae
 ) 
 
 test_that("output created as expected and has correct structure",{
-    ae_prep <- Transform_EventCount(ae_input)
+    ae_prep <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "Exposure" )
     expect_true(is.data.frame(ae_prep))
-    expect_equal(names(ae_prep), c("SiteID", "N", "TotalCount", "TotalExposure",  "Unit","Rate"))
     expect_equal(sort(unique(ae_input$SiteID)), sort(ae_prep$SiteID))
 })
 
+test_that("cCount works as expected",{
+    sim<-data.frame(
+        SiteID = rep("site1",30), 
+        event = c(rep(0,5),rep(1,15),rep(2,10))
+    )
+    EventCount <- Transform_EventCount(sim, cCountCol="event")
+    expect_equal(EventCount, tibble(SiteID="site1", N=30, TotalCount=35))
+    sim2<-data.frame(
+      SiteID = c(rep("site1",10), rep("site2",8),rep("site3",12)),
+      event = c(rep(0,5),rep(1,15),rep(2,10))
+    )
+    EventCount2 <- Transform_EventCount(sim2, cCountCol="event")
+    expect_equal(EventCount2,tibble(SiteID=c("site1", "site2", "site3"), N=c(10,8,12), TotalCount=c(5,8,22)))
+    
+})
+
+test_that("cExposureCol works as expected",{
+  sim3<-data.frame(
+    SiteID = c(rep("site1",11), rep("site2",7),rep("site3",12)),
+    event = c(rep(0,6),rep(1,12),rep(2,12)),
+    ndays = c(rep(5,6),rep(10,12),rep(10,12))
+  )
+
+  EventCount3 <- Transform_EventCount(sim3, cCountCol="event", cExposureCol = 'ndays')
+  expect_equal(EventCount3,tibble(SiteID=c("site1", "site2", "site3"), N=c(11,7,12), TotalCount=c(5,7,24),
+                                  TotalExposure = c(80,70,120), Rate = c(0.0625, 0.1, 0.2)))
+  
+})
 test_that("incorrect inputs throw errors",{
     expect_error(Transform_EventCount(list()))
     expect_error(Transform_EventCount("Hi"))
-})
-
-test_that("error given if required column not found",{
-    expect_error(Transform_EventCount(ae_input %>% rename(site = SiteID)))
-    expect_error(Transform_EventCount(ae_input %>% select(-Unit)))
 })
 
