@@ -2,7 +2,7 @@
 #'
 #' Creates Analyis results data for Adverse Event assessment using the Wilcoxon sign-ranked test
 #'
-#' @param  dfTransformed paramDescription 
+#' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}} 
 #'
 #' @importFrom stats wilcox.test
 #' 

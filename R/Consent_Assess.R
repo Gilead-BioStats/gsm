@@ -12,7 +12,7 @@
 Consent_Assess <- function( dfInput, nThreshold=0.5,  cLabel="", bDataList=FALSE){
   lAssess <- list()
   lAssess$dfInput <- dfInput
-  lAssess$dfTransformed <- gsm::Consent_Transform( lAssess$dfInput )
+  lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, cCountCol = 'any_flag'  )
   lAssess$dfAnalyzed <- gsm::Consent_Analyze( lAssess$dfTransformed ) 
   lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
   lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Main Consent", cLabel= cLabel)

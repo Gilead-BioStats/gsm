@@ -2,7 +2,7 @@
 #' 
 #' Adds columns for site-level statistical assessment of distribution of reported safety outcomes
 #'
-#' @param dfTransformed frame in format produced by \code{\link{Transform_EventCount}}
+#' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}
 #'
 #' @importFrom stats glm offset poisson residuals pnorm
 #' 
@@ -14,7 +14,7 @@
 Analyze_Poisson <- function( dfTransformed ){
     stopifnot(
         is.data.frame(dfTransformed), 
-        all(c("SiteID", "N", "TotalExposure", "TotalCount", "Rate","Unit") %in% names(dfTransformed))    
+        all(c("SiteID", "N", "TotalExposure", "TotalCount", "Rate") %in% names(dfTransformed))    
     )
 
     dfTransformed$LogExposure <- log( dfTransformed$TotalExposure )

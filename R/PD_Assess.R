@@ -21,7 +21,7 @@ PD_Assess <- function( dfInput, vThreshold=NULL, nCutoff=1, cLabel="",cMethod="p
     
     lAssess <- list()
     lAssess$dfInput <- dfInput
-    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput )
+    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, cCountCol = "Count", cExposureCol = 'Exposure' )
     
     if(cMethod == "poisson"){
         if(is.null(vThreshold)){

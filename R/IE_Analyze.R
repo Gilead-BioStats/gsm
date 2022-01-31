@@ -2,7 +2,7 @@
 #' 
 #' Analysis of Inclusion/Exclusion
 #' 
-#' @param dfTransformed frame in format produced by \code{\link{IE_Transform}}
+#' @param dfTransformed frame in format produced by \code{\link{Transform_EventCount}}
 #' 
 #' @export
 
@@ -12,7 +12,7 @@ IE_Analyze <- function( dfTransformed ){
   # Estimate is the number of participants with 1+ mismatched IE assessments in a site
   dfAnalyzed <- dfTransformed %>% 
     mutate(PValue = NA) %>% 
-    mutate(Estimate = .data$Invalid) 
+    mutate(Estimate = .data$TotalCount) 
 
   return(dfAnalyzed)
 }

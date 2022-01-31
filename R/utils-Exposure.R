@@ -11,9 +11,6 @@
 #' by user prior to input
 #' @param  dtSnapshot date of data snapshot, if NULL, will impute to be current date
 #'
-#' @examples
-#'
-#'
 #' @return dataframe of time on study with a column for site ID, subject ID, and a column for time on study in days
 #'
 #' @import dplyr

@@ -30,7 +30,7 @@ Finding data frame with columns for "SiteID", "N", "PValue", "Flag".
 AE Assessment
 }
 \examples{
-dfInput <- AE_Map( safetyData::adam_adsl, safetyData::adam_adae )
+dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 SafetyAE <- AE_Assess( dfInput )
 SafetyAE_Wilk <- AE_Assess( dfInput, cMethod="wilcoxon")
 
