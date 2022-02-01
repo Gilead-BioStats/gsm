@@ -4,6 +4,8 @@
 #' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon
 #' @param cLabel Assessment label 
 #' @param cMethod valid methods are "poisson" (the default), or  "wilcoxon" 
+#' @param strValueColumn Optional, Name of the Column to use for sign of Flag. Only used if cMethod = 'wilcoxon'.
+#'  If value for that row is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.
 #' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned
 #'
 #' @examples 
@@ -15,7 +17,7 @@
 #'
 #' @export
 
-AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson", bDataList=FALSE){
+AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson", strValueColumn = NULL,bDataList=FALSE){
     stopifnot(
         "dfInput is not a data.frame" = is.data.frame(dfInput),
         "cLabel is not character" = is.character(cLabel),
@@ -49,7 +51,7 @@ AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson", b
             )
         }
         lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed ) 
-        lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold)
+        lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold, strValueColumn = strValueColumn)
     }
     
     lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Safety", cLabel= cLabel)

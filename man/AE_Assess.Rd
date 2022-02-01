@@ -9,6 +9,7 @@ AE_Assess(
   vThreshold = NULL,
   cLabel = "",
   cMethod = "poisson",
+  strValueColumn = NULL,
   bDataList = FALSE
 )
 }
@@ -20,6 +21,9 @@ AE_Assess(
 \item{cLabel}{Assessment label}
 
 \item{cMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
+
+\item{strValueColumn}{Optional, Name of the Column to use for sign of Flag. Only used if cMethod = 'wilcoxon'.
+If value for that row is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.}
 
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
 }
