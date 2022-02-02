@@ -1,21 +1,47 @@
 #' AE Assessment 
 #' 
-#' @param dfInput input data
-#' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon
+#' The Adverse Event Assessment flags sites that may be over- or under-reporting adverse events.
+#' 
+#' @details
+#'  
+#' The Adverse Event Assessment uses the standard  GSM data pipeline (TODO add link to data vignette) to flag possible outliers. More details regarding the data pipeline and statistical methods are described below. 
+#' 
+#' @section Data Pipeline:
+#' 
+#' The input data (`dfInput`) for the AE Assessment is typically created using \code{\link{AE_Map_Raw}} or \code{\link{AE_Map_Adam}} and should be one record per person with columns for: 
+#' - `SubjectID` - Unique subject ID
+#' - `SiteID` - Site ID
+#' - `Count` - Number of Adverse Events 
+#' - `Exposure` - Number of days of exposure 
+#' 
+#' The Assessment 
+#' - \code{\link{Transform_EventCount}} creates `dfTransformed`.
+#' - \code{\link{Analyze_Poisson}} or \code{\link{Analyze_Wilcoxon}} creates `dfAnalyzed`.
+#' - \code{\link{Flag}} creates `dfFlagged`.
+#' - \code{\link{Summarize}} creates `dfSummary`.
+#' 
+#' @section Statistical Assumptions: 
+#' 
+#' A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the `cMethod` parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in `vThreshold`. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
+#' 
+#' See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions. 
+#' 
+#' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure
+#' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.
 #' @param cLabel Assessment label 
 #' @param cMethod valid methods are "poisson" (the default), or  "wilcoxon" 
-#' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned
+#' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the Summary data frame is returned
 #'
 #' @examples 
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 #' SafetyAE <- AE_Assess( dfInput )
 #' SafetyAE_Wilk <- AE_Assess( dfInput, cMethod="wilcoxon")
 #'
-#' @return Finding data frame with columns for "SiteID", "N", "PValue", "Flag". 
+#' @return If `bDataList` is false (the default), the summary data frame (`dfSummary`) is returned. If `bDataList` is true, a list containing all data in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged` and `dfSummary`) is returned. 
 #'
 #' @export
 
-AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson", bDataList=FALSE){
+AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson",bDataList=FALSE){
     stopifnot(
         "dfInput is not a data.frame" = is.data.frame(dfInput),
         "cLabel is not character" = is.character(cLabel),
@@ -49,7 +75,7 @@ AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson", b
             )
         }
         lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed ) 
-        lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold)
+        lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold, strValueColumn = 'Statistic')
     }
     
     lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Safety", cLabel= cLabel)
