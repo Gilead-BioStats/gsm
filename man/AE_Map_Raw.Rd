@@ -7,12 +7,12 @@
 AE_Map_Raw(dfAE = NULL, dfExposure = NULL)
 }
 \arguments{
-\item{dfExposure}{exposure dataset calculated via \code{\link{Transform_Exposure}}}
+\item{dfAE}{AE dataset with columns SUBJID and rows for each AE record}
 
-\item{dfAe}{AE dataset with columns SUBJID and rows for each AE record}
+\item{dfExposure}{exposure dataset calculated via \code{\link{TreatmentExposure}}}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate, Unit
+Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate
 }
 \description{
 Convert from raw data format to needed input format for Safety Assessment
