@@ -17,3 +17,7 @@ Data frame with one record per person data frame with columns: SubjectID, SiteID
 \description{
 Convert from ADaM format to needed input format for Safety Assessment
 }
+\examples{
+dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+ 
+}
