@@ -5,14 +5,13 @@
 #' @param nCutoff optional parameter to control the auto-thresholding 
 #' @param cLabel Assessment label 
 #' @param cMethod valid methods are "poisson" (the default), or  "wilcoxon"
-#' @param cExposureCol select exposure column, default = 'TimeOnStudy' if using TimeOnStudy function before PD_Map function. 
 #' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned
 #'
 #' @return Finding data frame with columns for "SiteID", "N", "PValue", "Flag". 
 #' 
 #' @export
 
-PD_Assess <- function( dfInput, vThreshold=NULL, nCutoff=1, cLabel="",cMethod="poisson", cExposureCol = 'TimeOnStudy', bDataList=FALSE){
+PD_Assess <- function( dfInput, vThreshold=NULL, nCutoff=1, cLabel="",cMethod="poisson", bDataList=FALSE){
     stopifnot(
         "dfInput is not a data.frame" = is.data.frame(dfInput),
         "cLabel is not character" = is.character(cLabel),
@@ -22,7 +21,7 @@ PD_Assess <- function( dfInput, vThreshold=NULL, nCutoff=1, cLabel="",cMethod="p
     
     lAssess <- list()
     lAssess$dfInput <- dfInput
-    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, cCountCol = "Count", cExposureCol = cExposureCol)
+    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, cCountCol = "Count", cExposureCol = "TimeOnStudy")
     
     if(cMethod == "poisson"){
         if(is.null(vThreshold)){

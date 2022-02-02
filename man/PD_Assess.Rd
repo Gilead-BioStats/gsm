@@ -10,7 +10,6 @@ PD_Assess(
   nCutoff = 1,
   cLabel = "",
   cMethod = "poisson",
-  cExposureCol = "TimeOnStudy",
   bDataList = FALSE
 )
 }
@@ -24,8 +23,6 @@ PD_Assess(
 \item{cLabel}{Assessment label}
 
 \item{cMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
-
-\item{cExposureCol}{select exposure column, default = 'TimeOnStudy' if using TimeOnStudy function before PD_Map function.}
 
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
 }
