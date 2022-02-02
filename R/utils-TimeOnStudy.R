@@ -71,10 +71,9 @@ TimeOnStudy <- function(
         as.Date(dtSnapshot)
       )
     ) %>%
-    mutate( TimeOnStudy = difftime(.data$lastDate, .data$firstDate, units="days" ) + 1) %>%
+    mutate( TimeOnStudy = as.numeric(difftime(.data$lastDate, .data$firstDate, units="days" ) + 1)) %>%
     rename( SubjectID=.data$SUBJID, SiteID=.data$INVID)
 
   return ( dfVisitRange )
 
 }
-

@@ -7,7 +7,7 @@
 PD_Map_Raw(dfPD = NULL, dfTOS = NULL)
 }
 \arguments{
-\item{dfPD}{PD dataset with columns USUBJID and rows for each Protocol Deviation}
+\item{dfPD}{PD dataset with SUBJID column and rows for each Protocol Deviation}
 
 \item{dfTOS}{Time on Study data.set in format produced by \code{\link{TimeOnStudy}}}
 }

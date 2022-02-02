@@ -16,7 +16,7 @@ AE_Map_Raw <- function( dfAE = NULL, dfExposure = NULL){
         "ae dataset not found"=is.data.frame(dfAE),
         "exposure dataset is not found"=is.data.frame(dfExposure),
         "USUBJID column not found in dfAE"="USUBJID" %in% names(dfAE),
-        "SubjectID, SiteID and Exposure columns not found in dfExposure"=all(c("SubjectID","SiteID","Exposure") %in% names(dfAE))
+        "SubjectID, SiteID and Exposure columns not found in dfExposure"=all(c("SubjectID","SiteID","Exposure") %in% names(dfExposure))
     )
 
     dfInput <-  dfExposure %>% 
