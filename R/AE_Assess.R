@@ -41,7 +41,7 @@
 #'
 #' @export
 
-AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson", bDataList=FALSE){
+AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson",bDataList=FALSE){
     stopifnot(
         "dfInput is not a data.frame" = is.data.frame(dfInput),
         "cLabel is not character" = is.character(cLabel),
@@ -75,7 +75,7 @@ AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson", b
             )
         }
         lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed ) 
-        lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold)
+        lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold, strValueColumn = 'Statistic')
     }
     
     lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Safety", cLabel= cLabel)
