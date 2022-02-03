@@ -2,13 +2,22 @@
 % Please edit documentation in R/Analyze_Wilcoxon.R
 \name{Analyze_Wilcoxon}
 \alias{Analyze_Wilcoxon}
-\title{Analyze_Wilcoxon}
+\title{AE Wilcoxon Assessment - Analysis}
 \usage{
 Analyze_Wilcoxon(dfTransformed)
 }
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
 }
+\value{
+data.frame with one row per site, columns:   SiteID, N , Mean, SD, Median, Q1,  Q3,  Min, Max, Statistic, PValue
+}
 \description{
 Creates Analyis results data for Adverse Event assessment using the Wilcoxon sign-ranked test
+}
+\examples{
+dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+dfAnalyzed <- Analyze_Wilcoxon( dfTransformed ) 
+
 }

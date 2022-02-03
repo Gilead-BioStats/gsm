@@ -16,6 +16,11 @@
 #' @export
 
 Analyze_Wilcoxon <- function(dfTransformed) {
+  
+    stopifnot(
+      is.data.frame(dfTransformed), 
+      all(c("SiteID", "N", "TotalExposure", "TotalCount", "Rate") %in% names(dfTransformed))    
+    )
     vSiteIndex <- unique( dfTransformed$SiteID )
     vStatistic <- rep( NA , length( vSiteIndex ) ) 
     vPValue <- rep( NA , length( vSiteIndex ) )
