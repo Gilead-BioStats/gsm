@@ -1,17 +1,12 @@
 ---
-name: Assessment QC Template
-about: Conduct a full QC of an Assessment
-title: ''
-labels: ''
-assignees: ''
-
+name: "Assessment QC Pull Request Template"
+about: "Conduct a full QC of an Assessment"
+title: "QC: (fill in)"
 ---
-
-# QC for `AE_Map_Raw()`
 
 - [ ] Documentation
     - [ ] Function name captured in [Roxygen title](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block)(e.g. "Adverse Event Assessment")
-    - [x] Assessment Purpose captured in [Roxygen description](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) (e.g. "Evaluates site-level level Adverse Event Rates and flags rates that are abnormally high or low."
+    - [ ] Assessment Purpose captured in [Roxygen description](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) (e.g. "Evaluates site-level level Adverse Event Rates and flags rates that are abnormally high or low."
     - [ ] Input Data Requirements are described in the the [Roxygen details](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) under a Data section (`#' @details # Data Requirements`).
     - [ ] Parameters have detailed documentation using `@param`. Each parameter should include: parameter name, brief description, usage details, the default value (if any), is it required, list of valid options (if applicable)
     - [ ] All external dependencies are captured. Use `@importFrom` when importing 3 or fewer functions, and use `@import` otherwise. 
@@ -37,9 +32,8 @@ assignees: ''
 - [ ] Unit tests
     - Confirm that informative errors are thrown when data standard is not met. 
     - Confirm that output specifications are met using standard test data. 
-    - Confirm that tests confirm that missing data is handled appropriately
-
-- [ ] Unit tests
-    - Confirm that informative errors are thrown when data standard is not met. 
-    - Confirm that output specifications are met using standard test data. 
-    - Confirm that tests confirm that missing data is handled appropriately
+    - Confirm that tests confirm that missing data is handled appropriately.
+- [ ] Qualification tests
+    - Confirm that specifications have been created for new or updated assessments. 
+    - Confirm that test cases and test code have been created for new or updated assessments. 
+    - Confirm that qualification tests are all passing.
