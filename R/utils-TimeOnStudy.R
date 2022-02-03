@@ -7,7 +7,7 @@
 #' requires data frame of study completion information with columns SUBJID COMPYN_STD COMPREAS
 #' @param  dtSnapshot date of data snapshot, if NULL, will impute to be current date
 #'
-#' @return dataframe of time on study with a column for site ID, subject ID, and a column for time on study in weeks
+#' @return dataframe of time on study with a column for SiteID, SubjectID, and an Exposure column giving time on study in days
 #'
 #' @import dplyr
 #' @importFrom lubridate is.Date time_length
@@ -71,7 +71,7 @@ TimeOnStudy <- function(
         as.Date(dtSnapshot)
       )
     ) %>%
-    mutate( TimeOnStudy = as.numeric(difftime(.data$lastDate, .data$firstDate, units="days" ) + 1)) %>%
+    mutate( Exposure = as.numeric(difftime(.data$lastDate, .data$firstDate, units="days" ) + 1)) %>%
     rename( SubjectID=.data$SUBJID, SiteID=.data$INVID)
 
   return ( dfVisitRange )
