@@ -1,7 +1,21 @@
 #' Safety Assessment Mapping - Make Input Data
 #' 
 #' Convert from ADaM format to needed input format for Safety Assessment
+#' @details
+#'  
+#' This function maps ADAM ADSL and ADAE data to the required input for  \code{\link{AE_Assess}}. 
+#' 
+#' @section Data Pipeline:
+#' 
+#' The input data in (`ADSL`) Must have these required columns
+#' - `USUBJID` - Unique subject ID
+#' - `SITEID` - Site ID
+#' - `TRTEDT`  - end date
+#' - `TRTSDT`  - start date
 #'
+#' The input data in (`ADAE`) Must have these required columns
+#' - `USUBJID` - Unique subject ID
+#' 
 #' @param dfADSL ADaM demographics data with the following required columns:  USUBJID, SITEID, TRTEDT (end date), TRTSDT (start date)
 #' @param dfADAE ADaM AE data with the following required columns: USUBJID
 #'

@@ -19,3 +19,11 @@ Simplified finding data frame with columns for "SiteID", "N", "PValue", "Flag".
 \description{
 Adds columns flagging sites that represent possible statistical outliers
 }
+\examples{
+dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+dfAnalyzed <- Analyze_Wilcoxon( dfTransformed ) 
+dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Statistic')
+dfSummary <- Summarize(dfFlagged, cAssessment="Safety", cLabel= "")
+
+}

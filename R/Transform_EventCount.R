@@ -3,6 +3,10 @@
 #' @param dfInput A data frame with one Record per person
 #' @param cCountCol required. numerical or logical. Column to be counted.
 #' @param cExposureCol Optional, numerical Exposure Column
+#' 
+#' @examples 
+#' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+#' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
 #'
 #' @export
 

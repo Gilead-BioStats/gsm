@@ -26,3 +26,10 @@ input data frame with the columns added for "ThresholdLow","ThresholdHigh","Thre
 \description{
 Adds columns flagging sites that represent possible statistical outliers. Rows with PValue less than 0.05 are flagged by default.
 }
+\examples{
+dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+dfAnalyzed <- Analyze_Wilcoxon( dfTransformed ) 
+dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Statistic')
+
+}

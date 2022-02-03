@@ -17,6 +17,26 @@ Data frame with one record per person data frame with columns: SubjectID, SiteID
 \description{
 Convert from ADaM format to needed input format for Safety Assessment
 }
+\details{
+This function maps ADAM ADSL and ADAE data to the required input for  \code{\link{AE_Assess}}.
+}
+\section{Data Pipeline}{
+
+
+The input data in (\code{ADSL}) Must have these required columns
+\itemize{
+\item \code{USUBJID} - Unique subject ID
+\item \code{SITEID} - Site ID
+\item \code{TRTEDT}  - end date
+\item \code{TRTSDT}  - start date
+}
+
+The input data in (\code{ADAE}) Must have these required columns
+\itemize{
+\item \code{USUBJID} - Unique subject ID
+}
+}
+
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
  
