@@ -1,4 +1,4 @@
-#' Safety Assessment Mapping - Make Input Data
+ #' Safety Assessment Mapping - Make Input Data
 #' 
 #' Convert from ADaM format to needed input format for Safety Assessment
 #' @details

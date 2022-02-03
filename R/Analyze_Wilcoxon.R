@@ -1,10 +1,17 @@
-#' Analyze_Wilcoxon
+#' AE Wilcoxon Assessment - Analysis
 #'
 #' Creates Analyis results data for Adverse Event assessment using the Wilcoxon sign-ranked test
 #'
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}} 
 #'
 #' @importFrom stats wilcox.test
+#' 
+#' @return data.frame with one row per site, columns:   SiteID, N , Mean, SD, Median, Q1,  Q3,  Min, Max, Statistic, PValue
+#' 
+#' @examples 
+#' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+#' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+#' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed ) 
 #' 
 #' @export
 
