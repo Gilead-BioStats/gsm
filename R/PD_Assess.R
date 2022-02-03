@@ -4,7 +4,7 @@
 #' @param vThreshold list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon
 #' @param nCutoff optional parameter to control the auto-thresholding 
 #' @param cLabel Assessment label 
-#' @param cMethod valid methods are "poisson" (the default), or  "wilcoxon" 
+#' @param cMethod valid methods are "poisson" (the default), or  "wilcoxon"
 #' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned
 #'
 #' @return Finding data frame with columns for "SiteID", "N", "PValue", "Flag". 
@@ -21,7 +21,7 @@ PD_Assess <- function( dfInput, vThreshold=NULL, nCutoff=1, cLabel="",cMethod="p
     
     lAssess <- list()
     lAssess$dfInput <- dfInput
-    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, cCountCol = "Count", cExposureCol = 'Exposure' )
+    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, cCountCol = "Count", cExposureCol = "TimeOnStudy")
     
     if(cMethod == "poisson"){
         if(is.null(vThreshold)){

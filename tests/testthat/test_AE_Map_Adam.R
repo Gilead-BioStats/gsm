@@ -5,7 +5,7 @@ test_that("output created as expected and has correct structure",{
     ) 
 
     expect_true(is.data.frame(ae_input))
-    expect_equal(names(ae_input), c("SubjectID","SiteID","Count","Exposure","Rate","Unit"))
+    expect_equal(names(ae_input), c("SubjectID","SiteID","Count","Exposure","Rate"))
 })
 
 test_that("incorrect inputs throw errors",{
