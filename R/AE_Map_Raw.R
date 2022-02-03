@@ -15,13 +15,13 @@ AE_Map_Raw <- function( dfAE = NULL, dfExposure = NULL){
     stopifnot(
         "ae dataset not found"=is.data.frame(dfAE),
         "exposure dataset is not found"=is.data.frame(dfExposure),
-        "USUBJID column not found in dfAE"="USUBJID" %in% names(dfAE),
+        "SUBJID column not found in dfAE"="SUBJID" %in% names(dfAE),
         "SubjectID, SiteID and Exposure columns not found in dfExposure"=all(c("SubjectID","SiteID","Exposure") %in% names(dfExposure))
     )
 
     dfInput <-  dfExposure %>% 
         rowwise() %>%
-        mutate(Count =sum(dfAE$USUBJID==.data$SubjectID)) %>% 
+        mutate(Count =sum(dfAE$SUBJID==.data$SubjectID)) %>% 
         mutate(Rate = .data$Count/.data$Exposure) %>%
         select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate)
         

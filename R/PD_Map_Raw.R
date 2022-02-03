@@ -16,7 +16,7 @@ PD_Map_Raw <- function( dfPD = NULL, dfTOS = NULL ){
     stopifnot(
         "PD dataset not found"=is.data.frame(dfPD),
         "Time on Study dataset is not found"=is.data.frame(dfTOS),
-        "USUBJID column not found in dfPD"="SUBJID" %in% names(dfPD),
+        "SUBJID column not found in dfPD"="SUBJID" %in% names(dfPD),
         "SubjectID, SiteID and TimeOnStudy columns not found in dfTOS"=all(c("SubjectID","SiteID","TimeOnStudy") %in% names(dfTOS))
     )
 
