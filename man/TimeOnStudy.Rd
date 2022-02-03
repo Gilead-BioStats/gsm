@@ -15,7 +15,7 @@ requires data frame of study completion information with columns SUBJID COMPYN_S
 \item{dtSnapshot}{date of data snapshot, if NULL, will impute to be current date}
 }
 \value{
-dataframe of time on study with a column for site ID, subject ID, and a column for time on study in weeks
+dataframe of time on study with a column for SiteID, SubjectID, and an Exposure column giving time on study in days
 }
 \description{
 Calculates time-on-study for subjects in a study using raw visit dataset
