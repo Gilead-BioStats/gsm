@@ -24,11 +24,10 @@ AE_Map_Adam <- function( dfADSL, dfADAE ){
     rename(SubjectID = .data$USUBJID) %>%
     rename(SiteID = .data$SITEID) %>%
     mutate(Exposure = as.numeric(.data$TRTEDT - .data$TRTSDT)+1) %>% 
-    mutate(Unit = 'Days') %>%
     rowwise() %>%
     mutate(Count =sum(dfADAE$USUBJID==.data$SubjectID)) %>% 
     mutate(Rate = .data$Count/.data$Exposure) %>%
-    select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate, .data$Unit)
+    select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate)
 
   return(dfInput)
 }

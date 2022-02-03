@@ -4,20 +4,15 @@
 \alias{PD_Map_Raw}
 \title{Protocol Deviation Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-PD_Map_Raw(dfPd = NULL, dfVisit = NULL, dfStud = NULL, dtSnapshot = NULL)
+PD_Map_Raw(dfPD = NULL, dfTOS = NULL)
 }
 \arguments{
-\item{dfPd}{PD dataset with columns SUBJID and rows for each Protocol Deviation}
+\item{dfPD}{PD dataset with SUBJID column and rows for each Protocol Deviation}
 
-\item{dfVisit}{data frame of visit information with required columns SUBJID INVID FOLDERNAME RECORDDATE}
-
-\item{dfStud}{optional, if no data frame is supplied will assume no subject completed study, otherwise
-requires data frame of study completion information with columns SUBJID COMPYN_STD COMPREAS}
-
-\item{dtSnapshot}{date of data snapshot, if NULL, will impute to be current date}
+\item{dfTOS}{Time on Study data.set in format produced by \code{\link{TimeOnStudy}}}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Rate, Unit
+Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate
 }
 \description{
 Convert from raw data format to needed input format for Safety Assessment

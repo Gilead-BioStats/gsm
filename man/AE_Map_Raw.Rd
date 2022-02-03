@@ -4,27 +4,15 @@
 \alias{AE_Map_Raw}
 \title{Safety Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-AE_Map_Raw(
-  dfSubid = NULL,
-  dfEx = NULL,
-  dfDa = NULL,
-  dfAe = NULL,
-  optTEAE = FALSE
-)
+AE_Map_Raw(dfAE = NULL, dfExposure = NULL)
 }
 \arguments{
-\item{dfSubid}{subid dataset with columns SUBJID INVID}
+\item{dfAE}{AE dataset with columns SUBJID and rows for each AE record}
 
-\item{dfEx}{ex dataset with columns SUBJID EXSTDAT EXENDAT}
-
-\item{dfDa}{da dataset with columns SUBJID DADPDAT DARETDAT}
-
-\item{dfAe}{AE dataset with columns SUBJID and rows for each AE record}
-
-\item{optTEAE}{option to restrict AE dataset to TEAEs defined as AE occuring on or after first dose date}
+\item{dfExposure}{exposure dataset calculated via \code{\link{TreatmentExposure}}}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate, Unit
+Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate
 }
 \description{
 Convert from raw data format to needed input format for Safety Assessment
