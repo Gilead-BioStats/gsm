@@ -3,7 +3,8 @@
 #' Adds columns for site-level statistical assessment of distribution of reported safety outcomes
 #' 
 #' @details
-#'  
+#'
+#' Fits a Poisson Model to site-level data. 
 #' 
 #' @section Data Pipeline:
 #' 

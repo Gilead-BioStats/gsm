@@ -30,7 +30,7 @@ Adds columns flagging sites that represent possible statistical outliers. Rows w
 
 
 The input data (\code{ dfAnalyzed}) for Flag() is typically created using any of these analysis functions:
-\code{\link{Analyze_Wilcoxon}}, \code{\link{Analyze_Poisson}}, \code{\link{IE_Analyze_}}, \code{\link{Consent_Analyze}}
+\code{\link{Analyze_Wilcoxon}}, \code{\link{Analyze_Poisson}}, \code{\link{IE_Analyze}}, \code{\link{Consent_Analyze}}
 \itemize{
 \item \code{SiteID} - Site ID (required)
 \item \code{strColumn} - A column to use for Thresholding (required)

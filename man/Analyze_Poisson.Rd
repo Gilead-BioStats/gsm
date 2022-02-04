@@ -16,7 +16,7 @@ input data frame with the  columns added for "Residuals", "PredictedCount" and "
 Adds columns for site-level statistical assessment of distribution of reported safety outcomes
 }
 \details{
-
+Fits a Poisson Model to site-level data.
 }
 \section{Data Pipeline}{
 
@@ -33,6 +33,6 @@ The input data (\code{ dfTransformed}) for the Analyze_Poisson is typically crea
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
-dfAnalyzed <- Analyze_poisson( dfTransformed ) 
+dfAnalyzed <- Analyze_Poisson( dfTransformed ) 
 
 }

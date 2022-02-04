@@ -17,7 +17,7 @@ Transform_EventCount(dfInput, cCountCol, cExposureCol = NULL)
 data.frame with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if cExposureCol is used.
 }
 \description{
-#' Convert from ADaM format to needed input format for Safety Assessment
+Convert from ADaM format to needed input format for Safety Assessment
 }
 \details{
 This function transforms data to prepare it for the Analysis step
@@ -28,9 +28,9 @@ This function transforms data to prepare it for the Analysis step
 The input data (\code{dfInput}) for the AE Assessment is typically created using any of these functions:
 \code{\link{AE_Map_Raw}}
 \code{\link{AE_Map_Adam}}
-\code{\link{PD_Map_raw}}
-\code{\link{IE_Map_raw}}
-\code{\link{Consent_Map_raw}}
+\code{\link{PD_Map_Raw}}
+\code{\link{IE_Map_Raw}}
+\code{\link{Consent_Map_Raw}}
 
 (\code{dfInput}) has the following required and optional columns:
 Required:

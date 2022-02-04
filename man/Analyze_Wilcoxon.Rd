@@ -16,7 +16,7 @@ data.frame with one row per site, columns:   SiteID, N , Mean, SD, Median, Q1,  
 Creates Analysis results data for Adverse Event assessment using the Wilcoxon sign-ranked test
 }
 \details{
-
+Fits a Wilcox Model to site-level data.
 }
 \section{Data Pipeline}{
 

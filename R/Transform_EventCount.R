@@ -10,9 +10,9 @@
 #' The input data (`dfInput`) for the AE Assessment is typically created using any of these functions:
 #'  \code{\link{AE_Map_Raw}}
 #'  \code{\link{AE_Map_Adam}} 
-#'  \code{\link{PD_Map_raw}} 
-#'  \code{\link{IE_Map_raw}} 
-#'  \code{\link{Consent_Map_raw}} 
+#'  \code{\link{PD_Map_Raw}} 
+#'  \code{\link{IE_Map_Raw}} 
+#'  \code{\link{Consent_Map_Raw}} 
 #'  
 #' (`dfInput`) has the following required and optional columns:
 #' Required:
