@@ -5,7 +5,7 @@
 #' @section Data Pipeline:
 #' 
 #' The input data (` dfAnalyzed`) for Flag() is typically created using any of these analysis functions:
-#'  \code{\link{Analyze_Wilcoxon}}, \code{\link{Analyze_Poisson}}, \code{\link{IE_Analyze_}}, \code{\link{Consent_Analyze}}
+#'  \code{\link{Analyze_Wilcoxon}}, \code{\link{Analyze_Poisson}}, \code{\link{IE_Analyze}}, \code{\link{Consent_Analyze}}
 #'  
 #' - `SiteID` - Site ID (required)
 #' - `strColumn` - A column to use for Thresholding (required)
