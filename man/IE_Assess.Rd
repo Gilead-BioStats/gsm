@@ -7,7 +7,7 @@
 IE_Assess(dfInput, nThreshold = 0.5, cLabel = "", bDataList = FALSE)
 }
 \arguments{
-\item{dfInput}{input dataset with subject information containing : (required variables)}
+\item{dfInput}{input dataset with subject information containing :  SubjectID SiteID Count}
 
 \item{nThreshold}{threshold values Flagging, integer values greater than will be flagged.}
 
