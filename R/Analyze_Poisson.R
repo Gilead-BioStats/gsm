@@ -1,6 +1,17 @@
 #' AE Poisson Assessment - Analysis
 #' 
 #' Adds columns for site-level statistical assessment of distribution of reported safety outcomes
+#' 
+#' @details
+#'  
+#' 
+#' @section Data Pipeline:
+#' 
+#' The input data (` dfTransformed`) for the Analyze_Poisson is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for: 
+#' - `SubjectID` - Unique subject ID
+#' - `SiteID` - Site ID
+#' - `Count` - Number of Adverse Events 
+#' - `Exposure` - Number of days of exposure 
 #'
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}
 #'

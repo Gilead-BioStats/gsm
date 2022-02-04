@@ -15,6 +15,21 @@ input data frame with the  columns added for "Residuals", "PredictedCount" and "
 \description{
 Adds columns for site-level statistical assessment of distribution of reported safety outcomes
 }
+\details{
+
+}
+\section{Data Pipeline}{
+
+
+The input data (\code{ dfTransformed}) for the Analyze_Poisson is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for:
+\itemize{
+\item \code{SubjectID} - Unique subject ID
+\item \code{SiteID} - Site ID
+\item \code{Count} - Number of Adverse Events
+\item \code{Exposure} - Number of days of exposure
+}
+}
+
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )

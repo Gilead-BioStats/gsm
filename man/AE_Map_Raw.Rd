@@ -2,19 +2,40 @@
 % Please edit documentation in R/AE_Map_Raw.R
 \name{AE_Map_Raw}
 \alias{AE_Map_Raw}
-\title{Safety Assessment Mapping from Raw Data- Make Input Data}
+\title{Safety Assessment Mapping from Raw Data to Input Data}
 \usage{
 AE_Map_Raw(dfAE = NULL, dfExposure = NULL)
 }
 \arguments{
 \item{dfAE}{AE dataset with columns SUBJID and rows for each AE record}
 
-\item{dfExposure}{exposure dataset calculated via \code{\link{TreatmentExposure}}}
+\item{dfExposure}{exposure dataset calculated via \code{\link{TreatmentExposure}} required columns: SubjectID,SiteID,Exposure}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate
+Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate, Unit
 }
 \description{
-Convert from raw data format to needed input format for Safety Assessment
-Requires the following raw datasets: subid, ex, ae, da (optional)
+Safety Assessment Mapping from Raw Data to Input Data
 }
+\details{
+Convert from raw data format to needed input format for Safety Assessment
+Requires the following raw datasets: ae. Also requires Exposure data calculated by \code{\link{TreatmentExposure}}.
+
+This function maps the data to the required input for  \code{\link{AE_Assess}}.
+}
+\section{Data Pipeline}{
+
+
+The input data in (\code{ae}) Must have these required columns
+\itemize{
+\item \code{SUBJID} - Unique subject ID
+}
+
+The input data in (\code{dfExposure}) is calculated by:  \code{\link{TreatmentExposure}} and must have these required columns:
+\itemize{
+\item \code{SubjectID} - Unique subject ID
+\item \code{SiteID} - Site ID
+\item \code{Exposure}  - Exposure
+}
+}
+

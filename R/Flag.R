@@ -1,6 +1,16 @@
 #' Make data frame with flagged values
 #' 
 #' Adds columns flagging sites that represent possible statistical outliers. Rows with PValue less than 0.05 are flagged by default.  
+#' 
+#' @section Data Pipeline:
+#' 
+#' The input data (` dfAnalyzed`) for Flag() is typically created using any of these analysis functions:
+#'  \code{\link{Analyze_Wilcoxon}}, \code{\link{Analyze_Poisson}}, \code{\link{IE_Analyze_}}, \code{\link{Consent_Analyze}}
+#'  
+#' - `SiteID` - Site ID (required)
+#' - `strColumn` - A column to use for Thresholding (required)
+#' - 'strValueColumn' - A column to be used for the sign of the flag (optional)
+#' 
 #'
 #' @param dfAnalyzed data frame where flags should be added
 #' @param strColumn Name of the Column to use for thresholding

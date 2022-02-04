@@ -13,9 +13,38 @@ Transform_EventCount(dfInput, cCountCol, cExposureCol = NULL)
 
 \item{cExposureCol}{Optional, numerical Exposure Column}
 }
-\description{
-Transform Event Count
+\value{
+data.frame with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if cExposureCol is used.
 }
+\description{
+#' Convert from ADaM format to needed input format for Safety Assessment
+}
+\details{
+This function transforms data to prepare it for the Analysis step
+}
+\section{Data Pipeline}{
+
+
+The input data (\code{dfInput}) for the AE Assessment is typically created using any of these functions:
+\code{\link{AE_Map_Raw}}
+\code{\link{AE_Map_Adam}}
+\code{\link{PD_Map_raw}}
+\code{\link{IE_Map_raw}}
+\code{\link{Consent_Map_raw}}
+
+(\code{dfInput}) has the following required and optional columns:
+Required:
+\itemize{
+\item \code{SiteID} - Site ID
+\item \code{Count} - Number of Adverse Events the actual name of this column is specified by the parameter cCountCol.
+Optional
+\item \code{Exposure} - Number of days of exposure, name specified by cExposureCol.
+}
+
+The input data has one or more rows per site. Transform_EventCount sums cCountCol for a TotalCount for each site.
+For data with an optional cExposureCol, a summed exposure is caculated for each site.
+}
+
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )

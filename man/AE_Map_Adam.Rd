@@ -25,7 +25,7 @@ This function maps ADAM ADSL and ADAE data to the required input for  \code{\lin
 
 The input data in (\code{ADSL}) Must have these required columns
 \itemize{
-\item \code{USUBJID} - Unique subject ID
+\item \code{SUBJID} - Unique subject ID
 \item \code{SITEID} - Site ID
 \item \code{TRTEDT}  - end date
 \item \code{TRTSDT}  - start date

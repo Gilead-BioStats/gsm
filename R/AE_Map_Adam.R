@@ -8,7 +8,7 @@
 #' @section Data Pipeline:
 #' 
 #' The input data in (`ADSL`) Must have these required columns
-#' - `USUBJID` - Unique subject ID
+#' - `SUBJID` - Unique subject ID
 #' - `SITEID` - Site ID
 #' - `TRTEDT`  - end date
 #' - `TRTSDT`  - start date
