@@ -36,7 +36,8 @@ IE_Map_Raw <- function(
       Invalid=sum(.data$invalid), 
       Missing=sum(.data$missing)
     )%>%
-    mutate(InvalidMissing = .data$Invalid + .data$Missing)
-
+    mutate(Count = .data$Invalid + .data$Missing) %>%
+    rename(SubjectID =  .data$SUBJID) %>%
+    select(.data$SubjectID, .data$SiteID, .data$Count)
   return(dfInput)
 }

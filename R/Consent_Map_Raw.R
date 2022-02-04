@@ -33,7 +33,10 @@ Consent_Map_Raw <- function(
     mutate(flag_missing_consent = is.na(.data$CONSDAT))%>%
     mutate(flag_missing_rand = is.na(.data$RGMNDTN))%>%
     mutate(flag_date_compare = .data$CONSDAT >= .data$RGMNDTN ) %>%
-    mutate(any_flag=.data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare)
+    mutate(any_flag=.data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare) %>%
+    rename(SubjectID = .data$SUBJID) %>% 
+    rename(Count =  .data$any_flag) %>%
+    select(.data$SubjectID, .data$SiteID, .data$Count)
 
   return(dfInput)
 }
