@@ -22,7 +22,7 @@
 #' @examples 
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 #' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
-#' dfAnalyzed <- Analyze_poisson( dfTransformed ) 
+#' dfAnalyzed <- Analyze_Poisson( dfTransformed ) 
 #' 
 #' @export
 
