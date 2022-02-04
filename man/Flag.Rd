@@ -26,3 +26,29 @@ input data frame with the columns added for "ThresholdLow","ThresholdHigh","Thre
 \description{
 Adds columns flagging sites that represent possible statistical outliers. Rows with PValue less than 0.05 are flagged by default.
 }
+\details{
+This function provides a generalized framework for flagging sites as part of the GSM data pipeline (TODO add link to data vignette).
+}
+\section{Data Specification}{
+
+
+\code{Flag} is designed to support the input data (\code{ dfAnalyzed}) input data from many different \code{Analyze} functions. At a minimum, the input data must have a \code{SiteID} column and a column of numeric values (identified by the \code{strColumn} parameter) that will be compared to the specified threhsolds (\code{vThreshold}) to calculate a new \code{Flag} column. Optionally, a second column of numeric values (identified by \code{strValueColumn}) can be specified to set the directionality of the \code{Flag}.
+
+In short, the following columns are considered:
+\itemize{
+\item \code{SiteID} - Site ID (required)
+\item \code{strColumn} - A column to use for Thresholding (required)
+\item 'strValueColumn' - A column to be used for the sign of the flag (optional)
+}
+}
+
+\examples{
+dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+dfAnalyzed <- Analyze_Wilcoxon( dfTransformed ) 
+dfFlagged <- Flag( dfAnalyzed ) #PValue < 0.05 flagged
+dfFlagged10 <- Flag( dfAnalyzed, vThreshold=c(0.10,NA) ) #PValue <0.10 flagged
+#Flag direction set based on 'Statistic' column
+dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Statistic') 
+
+}

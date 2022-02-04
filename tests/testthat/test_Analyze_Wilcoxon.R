@@ -16,3 +16,8 @@ test_that("incorrect inputs throw errors",{
     expect_error(Analyze_Wilcoxon(list()))
     expect_error(Analyze_Wilcoxon("Hi"))
 })
+
+test_that("error given if required column not found",{
+  expect_error(Analyze_Poisson(ae_input %>% rename(total = TotalCount)))
+  expect_error(Analyze_Poisson(ae_input %>% select(-Rate)))
+})

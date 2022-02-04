@@ -1,12 +1,21 @@
 #' Make Summary Data Frame
 #' 
-#' Adds columns flagging sites that represent possible statistical outliers
+#' Create a concise summary of assessment results that is easy to aggregate across assessments
 #'
 #' @param dfFlagged data frame in format produced by \code{\link{Flag}}
 #' @param cAssessment brief description of current assessment
 #' @param cLabel brief description of line item in current assessment
-
+#' 
 #' @return Simplified finding data frame with columns for "SiteID", "N", "PValue", "Flag". 
+#' 
+#' @examples 
+#' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+#' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+#' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed ) 
+#' dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Statistic')
+#' dfSummary <- Summarize(dfFlagged, cAssessment="Safety", cLabel= "")
+#' 
+#' @import dplyr
 #' 
 #' @export
 

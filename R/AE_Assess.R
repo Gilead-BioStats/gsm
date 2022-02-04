@@ -4,9 +4,9 @@
 #' 
 #' @details
 #'  
-#' The Adverse Event Assessment uses the standard  GSM data pipeline (TODO add link to data vignette) to flag possible outliers. More details regarding the data pipeline and statistical methods are described below. 
+#' The Adverse Event Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag possible outliers. More details regarding the data pipeline and statistical methods are described below. 
 #' 
-#' @section Data Pipeline:
+#' @section Data Specification:
 #' 
 #' The input data (`dfInput`) for the AE Assessment is typically created using \code{\link{AE_Map_Raw}} or \code{\link{AE_Map_Adam}} and should be one record per person with columns for: 
 #' - `SubjectID` - Unique subject ID

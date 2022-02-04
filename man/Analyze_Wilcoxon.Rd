@@ -2,13 +2,45 @@
 % Please edit documentation in R/Analyze_Wilcoxon.R
 \name{Analyze_Wilcoxon}
 \alias{Analyze_Wilcoxon}
-\title{Analyze_Wilcoxon}
+\title{AE Wilcoxon Assessment - Analysis}
 \usage{
 Analyze_Wilcoxon(dfTransformed)
 }
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
 }
+\value{
+data.frame with one row per site, columns:   SiteID, N , Mean, SD, Median, Q1,  Q3,  Min, Max, Statistic, PValue
+}
 \description{
-Creates Analyis results data for Adverse Event assessment using the Wilcoxon sign-ranked test
+Creates Analysis results data for Adverse Event assessment using the Wilcoxon sign-ranked test
+}
+\details{
+@details
+
+Fits a Wilcox Model to site-level data.
+}
+\section{Statistical Methods}{
+
+
+TODO Coming soon ...
+}
+
+\section{Data Specification}{
+
+
+The input data (\code{ dfTransformed}) for the Analyze_Wilcoxon is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for:
+\itemize{
+\item \code{SubjectID} - Unique subject ID
+\item \code{SiteID} - Site ID
+\item \code{Count} - Number of Adverse Events
+\item \code{Exposure} - Number of days of exposure
+}
+}
+
+\examples{
+dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+dfAnalyzed <- Analyze_Wilcoxon( dfTransformed ) 
+
 }
