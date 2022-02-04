@@ -22,7 +22,7 @@ Convert from ADaM format to needed input format for Safety Assessment
 \details{
 This function transforms data to prepare it for the Analysis step
 }
-\section{Data Pipeline}{
+\section{Data Specification}{
 
 
 The input data (\code{dfInput}) for the AE Assessment is typically created using any of these functions:

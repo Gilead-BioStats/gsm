@@ -5,7 +5,7 @@
 #'  
 #' This function transforms data to prepare it for the Analysis step
 #' 
-#' @section Data Pipeline:
+#' @section Data Specification:
 #' 
 #' The input data (`dfInput`) for the AE Assessment is typically created using any of these functions:
 #'  \code{\link{AE_Map_Raw}}
@@ -23,7 +23,6 @@
 #' 
 #'  The input data has one or more rows per site. Transform_EventCount sums cCountCol for a TotalCount for each site. 
 #'  For data with an optional cExposureCol, a summed exposure is caculated for each site.
-#'
 #'
 #' @param dfInput A data frame with one Record per person
 #' @param cCountCol required. numerical or logical. Column to be counted.

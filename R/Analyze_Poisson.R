@@ -6,19 +6,23 @@
 #'
 #' Fits a Poisson Model to site-level data. 
 #' 
-#' @section Data Pipeline:
+#' @section Statistical Methods:
 #' 
-#' The input data (` dfTransformed`) for the Analyze_Poisson is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for: 
+#' TODO Coming soon ...
+#' 
+#' @section Data Specification: 
+#' 
+#' The input data (` dfTransformed`) for the Analyze_Poisson is typically created using \code{\link{Transform_EventCount}} and should be one record per Site with columns for: 
 #' - `SubjectID` - Unique subject ID
 #' - `SiteID` - Site ID
 #' - `Count` - Number of Adverse Events 
 #' - `Exposure` - Number of days of exposure 
 #'
-#' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}
+#' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include
 #'
 #' @importFrom stats glm offset poisson residuals pnorm
 #' 
-#' @return input data frame with the  columns added for "Residuals", "PredictedCount" and "PValue"
+#' @return input data frame with columns added for "Residuals", "PredictedCount" and "PValue"
 #' 
 #' @examples 
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )

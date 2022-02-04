@@ -16,9 +16,17 @@ data.frame with one row per site, columns:   SiteID, N , Mean, SD, Median, Q1,  
 Creates Analysis results data for Adverse Event assessment using the Wilcoxon sign-ranked test
 }
 \details{
+@details
+
 Fits a Wilcox Model to site-level data.
 }
-\section{Data Pipeline}{
+\section{Statistical Methods}{
+
+
+TODO Coming soon ...
+}
+
+\section{Data Specification}{
 
 
 The input data (\code{ dfTransformed}) for the Analyze_Wilcoxon is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for:

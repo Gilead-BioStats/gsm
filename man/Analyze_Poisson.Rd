@@ -7,10 +7,10 @@
 Analyze_Poisson(dfTransformed)
 }
 \arguments{
-\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
+\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}. Must include}
 }
 \value{
-input data frame with the  columns added for "Residuals", "PredictedCount" and "PValue"
+input data frame with columns added for "Residuals", "PredictedCount" and "PValue"
 }
 \description{
 Adds columns for site-level statistical assessment of distribution of reported safety outcomes
@@ -18,10 +18,16 @@ Adds columns for site-level statistical assessment of distribution of reported s
 \details{
 Fits a Poisson Model to site-level data.
 }
-\section{Data Pipeline}{
+\section{Statistical Methods}{
 
 
-The input data (\code{ dfTransformed}) for the Analyze_Poisson is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for:
+TODO Coming soon ...
+}
+
+\section{Data Specification}{
+
+
+The input data (\code{ dfTransformed}) for the Analyze_Poisson is typically created using \code{\link{Transform_EventCount}} and should be one record per Site with columns for:
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
