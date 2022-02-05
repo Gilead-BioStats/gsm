@@ -33,11 +33,17 @@ test_that("error given if required column not found",{
     )
   )
   
-  # Why does this not throw error?
+  expect_error(
+    AE_Map_Raw(
+      clindata::raw_ae ,
+      dfExposure  %>% select(-SiteID)
+    )
+  )
   
+  # the tibble: Adding missing grouping variables: `SubjectID`??
   # expect_error(
-  #   AE_Map_Raw( 
-  #     clindata::raw_ae , 
+  #   AE_Map_Raw(
+  #     clindata::raw_ae ,
   #     dfExposure  %>% select(-SubjectID)
   #   )
   # )
@@ -65,4 +71,4 @@ test_that("error given if required column not found",{
   )
 })
 
-head(clindata::raw_ae)
+
