@@ -1,6 +1,29 @@
 #' Utility Function to Calculate Treatment Exposure
 #'
 #' Calculates treatment exposure duration for subjects in a study using raw ex dataset
+#' 
+#' @details
+#' 
+#' This treatment exposure output of this function is typically used by \code{\link{AE_Map_Raw}} or \code{\link{AE_Map_Raw}} 
+#' to create the required input (dfInput) for \code{\link{AE_Assess}} or  \code{\link{PD_Assess}}. 
+#' 
+#' @section Data Specification:
+#' 
+#' 
+#' The following columns are required:
+#' - `dfEX`
+#'     - `SUBJID` - Unique subject ID
+#'     - `INVID` - Unique Investigator ID
+#'     - `EXSTDAT` - Start date, dose date
+#'     - `EXENDAT` - Stop date
+#' 
+#' The following columns are optional
+#' - `dfSdrg`
+#'     - `SUBID` - Unique subject ID
+#'     - `SDRGYN_STD` - Y/N Did subject complete study drug closing
+#' 
+#' Note that the function can generate data summaries for specific types of AEs, but passing filtered ADAE data to dfADAE. 
+#' 
 #'
 #' @param  dfEx data frame of treatment information with required columns SUBJID INVID EXSTDAT EXENDAT. If
 #' multiple treatments and only want to focus on one treatment then input data frame will need to be subset
@@ -15,6 +38,10 @@
 #'
 #' @import dplyr
 #' @importFrom lubridate is.Date
+#' 
+#' @examples
+#' 
+#' dfTos <- TreatmentExposure(dfEx = clindata::raw_ae, dfSdrg = clindata::raw_sdrgcom2)
 #'
 #' @export
 

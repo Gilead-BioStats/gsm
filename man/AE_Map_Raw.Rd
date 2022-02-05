@@ -42,3 +42,9 @@ The following columns are required:
 Note that the function can generate data summaries for specific types of AEs, but passing filtered ADAE data to dfADAE.
 }
 
+\examples{
+ dfExposure <- TreatmentExposure(  dfEx = clindata::raw_ex,  dfSdrg = NULL, dtSnapshot = NULL)
+ dfInput <- AE_Map_Raw(clindata::raw_ae, dfExposure)
+
+
+}

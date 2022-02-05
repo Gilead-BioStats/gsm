@@ -24,3 +24,38 @@ dataframe of time on study with a column for site ID, subject ID, and a column f
 \description{
 Calculates treatment exposure duration for subjects in a study using raw ex dataset
 }
+\details{
+This treatment exposure output of this function is typically used by \code{\link{AE_Map_Raw}} or \code{\link{AE_Map_Raw}}
+to create the required input (dfInput) for \code{\link{AE_Assess}} or  \code{\link{PD_Assess}}.
+}
+\section{Data Specification}{
+
+
+The following columns are required:
+\itemize{
+\item \code{dfEX}
+\itemize{
+\item \code{SUBJID} - Unique subject ID
+\item \code{INVID} - Unique Investigator ID
+\item \code{EXSTDAT} - Start date, dose date
+\item \code{EXENDAT} - Stop date
+}
+}
+
+The following columns are optional
+\itemize{
+\item \code{dfSdrg}
+\itemize{
+\item \code{SUBID} - Unique subject ID
+\item \code{SDRGYN_STD} - Y/N Did subject complete study drug closing
+}
+}
+
+Note that the function can generate data summaries for specific types of AEs, but passing filtered ADAE data to dfADAE.
+}
+
+\examples{
+
+dfTos <- TreatmentExposure(dfEx = clindata::raw_ae, dfSdrg = clindata::raw_sdrgcom2)
+
+}
