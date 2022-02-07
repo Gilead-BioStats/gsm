@@ -2,10 +2,7 @@
 name: "Release Issue Template"
 about: "Create a new package release"
 title: "Release: (fill in)"
-
 ---
-<!--- Provide a general summary of the release in the Title above -->
-
 ## Release Details
 <!--- What is being released.  Please include any new assessments or  -->
 <!--- fixes that have been added since the previous release  -->

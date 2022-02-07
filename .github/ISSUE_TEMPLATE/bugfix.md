@@ -2,10 +2,7 @@
 name: "Bugfix Issue Template"
 about: "Fix a bug in the code"
 title: "Bugfix: (fill in)"
-
 ---
-<!--- Provide a general summary of the issue in the Title above -->
-
 ## Expected Behavior
 <!--- What should happen -->
 

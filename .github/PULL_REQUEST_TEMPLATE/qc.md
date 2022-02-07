@@ -4,6 +4,8 @@ about: "Conduct a full QC of an Assessment"
 title: "QC: (fill in)"
 ---
 
+## QC Checklist
+<!--- Fill out the following QC checklist as you complete the QC items -->
 - [ ] Documentation
     - [ ] Function name captured in [Roxygen title](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block)(e.g. "Adverse Event Assessment")
     - [ ] Assessment Purpose captured in [Roxygen description](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) (e.g. "Evaluates site-level level Adverse Event Rates and flags rates that are abnormally high or low."
@@ -34,6 +36,6 @@ title: "QC: (fill in)"
     - Confirm that output specifications are met using standard test data. 
     - Confirm that tests confirm that missing data is handled appropriately.
 - [ ] Qualification tests
-    - Confirm that specifications have been created for new or updated assessments. 
-    - Confirm that test cases and test code have been created for new or updated assessments. 
+    - Confirm that specifications and test cases have been created for new or updated assessments. 
+    - Confirm that test code has been created for new or updated assessments. 
     - Confirm that qualification tests are all passing.

@@ -16,3 +16,9 @@ Notes:
 <!--- provide a quick description of what was done and why the -->
 <!--- risk level and mitigation strategies were chosen -->
 
+## Issue Details
+<!--- What was the issue that was being addressed -->
+
+## Code Updates
+<!--- What was updated to address this issue -->
+

@@ -15,3 +15,6 @@ Mitigation Strategy:
 Notes: 
 <!--- provide a quick description of what was done and why the -->
 <!--- risk level and mitigation strategies were chosen -->
+
+## Feature Details
+<!--- What was the feature(s) added -->

@@ -2,11 +2,7 @@
 name: "Assessment Qualification Issue Template"
 about: "Conduct qualification testing of an assessment"
 title: "Qualify: (fill in)"
-
 ---
-<!--- Provide a general summary of the assessment to be -->
-<!--- submitted for qualification in the Title above -->
-
 ## Qualification Details
 <!--- What assessment(s) is/are being submitted for qualification -->
 <!--- This should include if this is a new assessment or -->
