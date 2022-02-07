@@ -3,7 +3,6 @@ name: "Assessment QC Pull Request Template"
 about: "Conduct a full QC of an Assessment"
 title: "QC: (fill in)"
 ---
-
 ## QC Checklist
 <!--- Fill out the following QC checklist as you complete the QC items -->
 - [ ] Documentation
