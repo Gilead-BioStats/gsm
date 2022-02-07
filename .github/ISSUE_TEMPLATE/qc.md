@@ -1,9 +1,7 @@
 ---
-name: Assessment QC Issue Template
-about: Conduct a full QC of an Assessment
-title: ''
-labels: ''
-assignees: ''
+name: "Assessment QC Issue Template"
+about: "Conduct a full QC of an Assessment"
+title: "QC: (fill in)"
 
 ---
 <!--- Provide a general summary of the assessment to be -->

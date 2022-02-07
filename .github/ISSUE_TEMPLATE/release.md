@@ -1,9 +1,7 @@
 ---
-name: Release Issue Template
-about: Create a new package release
-title: ''
-labels: ''
-assignees: ''
+name: "Release Issue Template"
+about: "Create a new package release"
+title: "Release: (fill in)"
 
 ---
 <!--- Provide a general summary of the release in the Title above -->

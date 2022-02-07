@@ -1,9 +1,7 @@
 ---
-name: Feature Issue Template
-about: Develop a new feature
-title: ''
-labels: ''
-assignees: ''
+name: "Feature Issue Template"
+about: "Develop a new feature"
+title: "Feature: (fill in)"
 
 ---
 <!--- Provide a general summary of the new feature in the Title above -->
