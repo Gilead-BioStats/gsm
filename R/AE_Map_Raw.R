@@ -36,6 +36,8 @@ AE_Map_Raw <- function( dfAE = NULL, dfExposure = NULL){
         "SUBJID column not found in dfAE"="SUBJID" %in% names(dfAE),
         "SubjectID, SiteID and Exposure columns not found in dfExposure"=all(c("SubjectID","SiteID","Exposure") %in% names(dfExposure))
     )
+  
+  if(anyNA(dfAE %>% select(.data$SUBJID)))warning( "NA's found in SUBJID column in dfAE input, this will cause ALL SubjectID's in the output to be NA" )
 
     dfInput <-  dfExposure %>% 
         rowwise() %>%
