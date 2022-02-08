@@ -41,7 +41,7 @@
 #' 
 #' @examples
 #' 
-#' dfTos <- TreatmentExposure(dfEx = clindata::raw_ae, dfSdrg = clindata::raw_sdrgcom2)
+#' dfTos <- TreatmentExposure(dfEx = clindata::raw_ex, dfSdrg = clindata::raw_sdrgcom2)
 #'
 #' @export
 
