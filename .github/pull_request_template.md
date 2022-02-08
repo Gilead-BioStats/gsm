@@ -1,8 +1,26 @@
 ---
-name: "Assessment QC Pull Request Template"
-about: "Conduct a full QC of an Assessment"
-title: "QC: (fill in)"
+name: "Pull Request Template"
+about: "Create a Pull Request"
+title: ""
 ---
+## Details
+<!--- What was done in the source branch -->
+<!--- (i.e. bugfixes, feature additions, etc.) -->
+
+
+## Risk Assessment
+<!--- Complete the following Risk Assessment for this Pull Request-->
+Risk: Low/Medium/High
+Mitigation Strategy:
+- [ ] Qualification Testing
+- [ ] Unit Testing
+- [ ] Code Review
+- [ ] QC
+- [ ] Automated Testing
+Notes: 
+<!--- provide a quick description of what was done and why the -->
+<!--- risk level and mitigation strategies were chosen -->
+
 ## QC Checklist
 <!--- Fill out the following QC checklist as you complete the QC items -->
 - [ ] Documentation
@@ -35,6 +53,8 @@ title: "QC: (fill in)"
     - Confirm that output specifications are met using standard test data. 
     - Confirm that tests confirm that missing data is handled appropriately.
 - [ ] Qualification tests
-    - Confirm that specifications and test cases have been created for new or updated assessments. 
-    - Confirm that test code has been created for new or updated assessments. 
-    - Confirm that qualification tests are all passing.
+    - [ ] Specifications have been created and entered into valtools framework
+    - [ ] Test Cases have been created and entered into valtools framework
+    - [ ] Test Code has been created
+    - [ ] Qualification Report has been rerun and all test are passing
+
