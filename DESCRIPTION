@@ -9,8 +9,9 @@ License: file LICENSE
 Encoding: UTF-8
 Imports:
     dplyr,
-    lubridate, 
-    magrittr
+    lubridate,
+    magrittr,
+    valtools
 Suggests:
     testthat (>= 3.0.0),
     safetyData,
