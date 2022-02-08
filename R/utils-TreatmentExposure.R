@@ -72,7 +72,9 @@ TreatmentExposure <- function(
             )
         ) %>%
         mutate( Exposure = as.numeric(difftime(.data$lastDoseDate, .data$firstDoseDate, units="days" ) + 1)) %>%
-        rename( SubjectID=.data$SUBJID, SiteID=.data$INVID)
+        rename( SubjectID=.data$SUBJID, SiteID=.data$INVID) %>%
+        ungroup()
+    
 
     return ( dfExRange )
 

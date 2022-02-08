@@ -37,13 +37,14 @@ AE_Map_Raw <- function( dfAE = NULL, dfExposure = NULL){
         "SubjectID, SiteID and Exposure columns not found in dfExposure"=all(c("SubjectID","SiteID","Exposure") %in% names(dfExposure))
     )
   
-  if(anyNA(dfAE %>% select(.data$SUBJID)))warning( "NA's found in SUBJID column in dfAE input, this will cause ALL SubjectID's in the output to be NA" )
+
 
     dfInput <-  dfExposure %>% 
         rowwise() %>%
         mutate(Count =sum(dfAE$SUBJID==.data$SubjectID)) %>% 
         mutate(Rate = .data$Count/.data$Exposure) %>%
-        select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate)
+        select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
+        ungroup()
         
     return(dfInput)
 }
