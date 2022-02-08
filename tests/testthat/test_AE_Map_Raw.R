@@ -42,7 +42,7 @@ test_that("output is correct given example input",{
     Rate = c(0.4, NA, 0)
   )
   
-  expect_equal(dfInput,  AE_Map_Raw(dfAE = dfAE, dfExposure = dfExposure))
+  expect_equal(dfInput,  as.data.frame(ungroup(AE_Map_Raw(dfAE = dfAE, dfExposure = dfExposure))))
   
   dfAE2 <- data.frame(SUBJID = c(1,1,1,1,2,2,4,4))
   
