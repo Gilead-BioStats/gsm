@@ -1,17 +1,31 @@
 ---
-name: Assessment QC Template
-about: Conduct a full QC of an Assessment
-title: ''
-labels: ''
-assignees: ''
-
+name: "Pull Request Template"
+about: "Create a Pull Request"
+title: ""
 ---
+## Details
+<!--- What was done in the source branch -->
+<!--- (i.e. bugfixes, feature additions, etc.) -->
 
-# QC for `AE_Map_Raw()`
 
+## Risk Assessment
+<!--- Complete the following Risk Assessment for this Pull Request-->
+Risk: Low/Medium/High
+Mitigation Strategy:
+- [ ] Qualification Testing
+- [ ] Unit Testing
+- [ ] Code Review
+- [ ] QC
+- [ ] Automated Testing
+Notes: 
+<!--- provide a quick description of what was done and why the -->
+<!--- risk level and mitigation strategies were chosen -->
+
+## QC Checklist
+<!--- Fill out the following QC checklist as you complete the QC items -->
 - [ ] Documentation
     - [ ] Function name captured in [Roxygen title](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block)(e.g. "Adverse Event Assessment")
-    - [x] Assessment Purpose captured in [Roxygen description](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) (e.g. "Evaluates site-level level Adverse Event Rates and flags rates that are abnormally high or low."
+    - [ ] Assessment Purpose captured in [Roxygen description](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) (e.g. "Evaluates site-level level Adverse Event Rates and flags rates that are abnormally high or low."
     - [ ] Input Data Requirements are described in the the [Roxygen details](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) under a Data section (`#' @details # Data Requirements`).
     - [ ] Parameters have detailed documentation using `@param`. Each parameter should include: parameter name, brief description, usage details, the default value (if any), is it required, list of valid options (if applicable)
     - [ ] All external dependencies are captured. Use `@importFrom` when importing 3 or fewer functions, and use `@import` otherwise. 
@@ -37,9 +51,10 @@ assignees: ''
 - [ ] Unit tests
     - Confirm that informative errors are thrown when data standard is not met. 
     - Confirm that output specifications are met using standard test data. 
-    - Confirm that tests confirm that missing data is handled appropriately
+    - Confirm that tests confirm that missing data is handled appropriately.
+- [ ] Qualification tests
+    - [ ] Specifications have been created and entered into valtools framework
+    - [ ] Test Cases have been created and entered into valtools framework
+    - [ ] Test Code has been created
+    - [ ] Qualification Report has been rerun and all test are passing
 
-- [ ] Unit tests
-    - Confirm that informative errors are thrown when data standard is not met. 
-    - Confirm that output specifications are met using standard test data. 
-    - Confirm that tests confirm that missing data is handled appropriately
