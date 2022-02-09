@@ -54,34 +54,43 @@ test_that("error given if required column not found",{
 })
 
 test_that("direct specified input gives correct output",{
+ 
 
-Sdrg_in2 <- data.frame(SUBJID = c(1,2,3,4,5), SDRGYN_STD = c("", "N","N", "", "N"))
-ex_in2 <- data.frame(SUBJID =  c(1,1,1,1,2,2,3,3,4,5)  , 
-                     INVID = c(1,1,1,1,1,2,2,2,2,2),
-                     EXSTDAT =  as.Date.character(c("2014-09-27","2014-09-27","2014-09-27","2014-09-27","2014-09-27","2014-09-27","2014-09-27","2014-09-27","2014-09-27","2014-09-27")), 
-                     EXENDAT = as.Date.character( c("2016-09-27", "2016-09-27","2016-09-27","2016-09-27","2016-09-27","2016-09-27","2016-09-27","2016-09-27","2016-09-27","2016-09-27")))
+Sdrg_in2<-tribble(
+  ~SUBJID, ~SDRGYN_STD,
+  1,   "",
+  2,   "N",
+  3,   "N",
+  4,   "",
+  5,   "N"
+)
 
-dfTos2 <- structure(list(
-  SubjectID = c(1, 2, 2, 3, 4, 5),
-  SiteID = c(1,     1, 2, 2, 2, 2),
-  firstDoseDate = structure(c(16340, 16340, 16340,
-                              16340, 16340, 16340), class = "Date"),
-  lastDoseDate = structure(c(19030,              17071, 17071, 17071, 19030, 17071), class = "Date"),
-  Exposure = c(2691,
-               732, 732, 732, 2691, 732)
-), class = c("grouped_df", "tbl_df",
-             "tbl", "data.frame"), row.names = c(NA,-6L), groups = structure(
-               list(
-                 SubjectID = c(1, 2, 3, 4, 5),
-                 .rows = structure(
-                   list(1L,   2:3, 4L, 5L, 6L),
-                   ptype = integer(0),
-                   class = c("vctrs_list_of",
-                             "vctrs_vctr", "list")
-                 )
-               ),
-               class = c("tbl_df", "tbl", "data.frame"
-               ), row.names = c(NA, -5L), .drop = TRUE))
+
+ex_in2 <- tribble(~SUBJID, ~INVID,     ~EXSTDAT,    ~EXENDAT,
+                        1,      1,"2014-09-27","2016-09-27",
+                        1,      1,"2014-09-27","2016-09-27",
+                        1,      1,"2014-09-27","2016-09-27",
+                        1,      1,"2014-09-27","2016-09-27",
+                        2,      1,"2014-09-27","2016-09-27",
+                        2,      2,"2014-09-27","2016-09-27",
+                        3,      2,"2014-09-27","2016-09-27",
+                        3,      2,"2014-09-27","2016-09-27",
+                        4,      2,"2014-09-27","2016-09-27",
+                        5,      2,"2014-09-27","2016-09-27"      
+                  )
+ex_in2 <- ex_in2 %>% mutate(EXSTDAT = as.Date.character(EXSTDAT),EXENDAT = as.Date.character(EXENDAT) )
+
+
+
+dfTos2 <- structure(list(SubjectID = c(1, 2, 2, 3, 4, 5), SiteID = c(1, 1, 2, 2, 2, 2), firstDoseDate = structure(c(16340, 16340, 16340, 
+                    16340, 16340, 16340), class = "Date"), lastDoseDate = structure(c(19031,     17071, 17071, 17071, 19031, 17071), class = "Date"), 
+                    Exposure = c(2692,   732, 732, 732, 2692, 732)), class = c("tbl_df", "tbl", "data.frame"), row.names = c(NA, -6L))
+                                                                                                                                                  
+
 
 expect_equal(dfTos2,TreatmentExposure(dfEx = ex_in2, dfSdrg = Sdrg_in2) )
+
+
 })
+
+
