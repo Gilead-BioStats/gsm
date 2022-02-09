@@ -4,8 +4,7 @@
 #' 
 #' @details
 #' 
-#' This treatment exposure output of this function is typically used by \code{\link{AE_Map_Raw}} or \code{\link{AE_Map_Raw}} 
-#' to create the required input (dfInput) for \code{\link{AE_Assess}} or  \code{\link{PD_Assess}}. 
+#' This output of this function is used by assessments as a standardized measurement of time on treatment. 
 #' 
 #' @section Data Specification:
 #' 
