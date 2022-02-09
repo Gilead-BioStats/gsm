@@ -18,7 +18,7 @@
 #' 
 #' The following columns are optional
 #' - `dfSdrg`
-#'     - `SUBID` - Unique subject ID
+#'     - `SUBJID` - Unique subject ID
 #'     - `SDRGYN_STD` - Y/N Did subject complete study drug closing
 #' 
 #' 
