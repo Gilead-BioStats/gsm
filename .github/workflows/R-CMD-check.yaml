@@ -49,8 +49,9 @@ jobs:
           
       - name: Build
         run: |
-          install.packages('devtools')
+          install.packages("devtools")
           devtools::install('../clindata', vignettes=FALSE)
+        shell: Rscript {0}
 
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
