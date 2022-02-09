@@ -28,7 +28,8 @@ jobs:
 
     steps:
       - uses: webfactory/ssh-agent@v0.4.0
-        ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
+        with:
+          ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
 
       - uses: actions/checkout@v2
 
