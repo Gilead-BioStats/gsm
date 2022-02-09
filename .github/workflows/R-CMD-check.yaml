@@ -23,10 +23,14 @@ jobs:
           - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}   
       R_KEEP_PKG_SOURCE: yes
 
     steps:
+      - uses: webfactory/ssh-agent@v0.4.0
+        with:
+        ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
+
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-pandoc@v1
@@ -36,6 +40,17 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
+      
+      - name: Clone clindata
+        run: |
+          cd ..
+          git clone git@github.com:Gilead-BioStats/clindata.git
+          cd gsm
+          
+      - name: Build
+        run: |
+          install.packages('devtools')
+          devtools::install('../clindata', vignettes=FALSE)
 
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
