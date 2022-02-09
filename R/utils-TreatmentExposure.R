@@ -1,6 +1,27 @@
 #' Utility Function to Calculate Treatment Exposure
 #'
 #' Calculates treatment exposure duration for subjects in a study using raw ex dataset
+#' 
+#' @details
+#' 
+#' This output of this function is used by assessments as a standardized measurement of time on treatment. 
+#' 
+#' @section Data Specification:
+#' 
+#' 
+#' The following columns are required:
+#' - `dfEX`
+#'     - `SUBJID` - Unique subject ID
+#'     - `INVID` - Unique Investigator ID
+#'     - `EXSTDAT` - Start date, dose date
+#'     - `EXENDAT` - Stop date
+#' 
+#' The following columns are optional
+#' - `dfSdrg`
+#'     - `SUBID` - Unique subject ID
+#'     - `SDRGYN_STD` - Y/N Did subject complete study drug closing
+#' 
+#' 
 #'
 #' @param  dfEx data frame of treatment information with required columns SUBJID INVID EXSTDAT EXENDAT. If
 #' multiple treatments and only want to focus on one treatment then input data frame will need to be subset
@@ -15,6 +36,10 @@
 #'
 #' @import dplyr
 #' @importFrom lubridate is.Date
+#' 
+#' @examples
+#' 
+#' dfTos <- TreatmentExposure(dfEx = clindata::raw_ex, dfSdrg = clindata::raw_sdrgcom2)
 #'
 #' @export
 
@@ -74,7 +99,6 @@ TreatmentExposure <- function(
         mutate( Exposure = as.numeric(difftime(.data$lastDoseDate, .data$firstDoseDate, units="days" ) + 1)) %>%
         rename( SubjectID=.data$SUBJID, SiteID=.data$INVID) %>%
         ungroup()
-    
 
     return ( dfExRange )
 
