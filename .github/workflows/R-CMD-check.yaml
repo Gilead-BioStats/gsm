@@ -47,11 +47,11 @@ jobs:
           git clone git@github.com:Gilead-BioStats/clindata.git
           cd gsm
           
-      - name: Build
+      - name: Install clindata
+        shell: Rscript {0}
         run: |
           install.packages("devtools")
           devtools::install('../clindata', vignettes=FALSE)
-        shell: Rscript {0}
 
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
