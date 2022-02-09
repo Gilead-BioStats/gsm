@@ -14,7 +14,8 @@ Imports:
 Suggests:
     testthat (>= 3.0.0),
     safetyData,
-    covr
+    covr,
+    clindata
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2

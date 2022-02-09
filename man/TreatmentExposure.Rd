@@ -24,3 +24,35 @@ dataframe of time on study with a column for site ID, subject ID, and a column f
 \description{
 Calculates treatment exposure duration for subjects in a study using raw ex dataset
 }
+\details{
+This output of this function is used by assessments as a standardized measurement of time on treatment.
+}
+\section{Data Specification}{
+
+
+The following columns are required:
+\itemize{
+\item \code{dfEX}
+\itemize{
+\item \code{SUBJID} - Unique subject ID
+\item \code{INVID} - Unique Investigator ID
+\item \code{EXSTDAT} - Start date, dose date
+\item \code{EXENDAT} - Stop date
+}
+}
+
+The following columns are optional
+\itemize{
+\item \code{dfSdrg}
+\itemize{
+\item \code{SUBID} - Unique subject ID
+\item \code{SDRGYN_STD} - Y/N Did subject complete study drug closing
+}
+}
+}
+
+\examples{
+
+dfTos <- TreatmentExposure(dfEx = clindata::raw_ex, dfSdrg = clindata::raw_sdrgcom2)
+
+}
