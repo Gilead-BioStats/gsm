@@ -36,7 +36,7 @@ jobs:
         run: |
           install.packages("devtools")
           devtools::install('../clindata')
-          devtools::install()
+          devtools::install(dependencies=TRUE)
           install.packages('covr')
 
       - name: Test coverage
