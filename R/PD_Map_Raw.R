@@ -22,9 +22,10 @@ PD_Map_Raw <- function( dfPD = NULL, dfTOS = NULL ){
 
     dfInput <-  dfTOS %>% 
         rowwise() %>%
-        mutate(Count = sum(dfPD$SUBJID==.data$SubjectID)) %>% 
+        mutate(Count = sum(dfPD$SUBJID==.data$SubjectID, na.rm = TRUE)) %>% 
         mutate(Rate = .data$Count/.data$Exposure) %>%
-        select(.data$SubjectID, .data$SiteID, .data$Count, .data$Exposure, .data$Rate)
+        select(.data$SubjectID, .data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
+        ungroup()
 
     return(dfInput)
 }
