@@ -26,7 +26,7 @@
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #' 
 #' @examples
-#'  dfExposure <- TreatmentExposure(  dfEx = clindata::raw_ex,  dfSdrg = NULL, dtSnapshot = NULL)
+#'  dfExposure <- clindata::TreatmentExposure(  dfEx = clindata::raw_ex,  dfSdrg = NULL, dtSnapshot = NULL)
 #'  dfInput <- AE_Map_Raw(clindata::raw_ae, dfExposure)
 #' 
 #' 
