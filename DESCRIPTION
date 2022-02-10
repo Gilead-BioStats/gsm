@@ -10,7 +10,8 @@ Encoding: UTF-8
 Imports:
     dplyr,
     lubridate, 
-    magrittr
+    magrittr,
+    broom
 Suggests:
     testthat (>= 3.0.0),
     safetyData,
