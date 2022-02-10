@@ -138,13 +138,34 @@ test_that("NA values in input data are handled",{
   
   dfInput3 <-tribble(
     ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
-    NA,   1, NA, 10, NA,
+    NA,   1, 0, 10, 0,
     2,    1,  2, NA, NA,
     3,   NA,  0, 30, 0 ,
     4,    2,  2, 50, .04
   )
   
   expect_equal(dfInput3, AE_Map_Raw(dfAE = dfAE3, dfExposure = dfExposure3))
+  
+  dfAE4 <- tribble(~SUBJID, 1,NA,1,1,2,2,4,4)
+  
+  dfExposure4<-tribble(
+    ~SubjectID, ~SiteID, ~Exposure,
+    NA,   1, 10,
+    2,   1, NA,
+    3,   NA, 30,
+    4,   2, 50
+  )
+  
+  
+  dfInput4 <-tribble(
+    ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
+    NA,   1, 0, 10, 0,
+    2,    1,  2, NA, NA,
+    3,   NA,  0, 30, 0 ,
+    4,    2,  2, 50, .04
+  )
+  
+  expect_equal(dfInput4, AE_Map_Raw(dfAE = dfAE4, dfExposure = dfExposure4))
   
   
 })
