@@ -45,7 +45,7 @@ The following columns are optional
 \itemize{
 \item \code{dfSdrg}
 \itemize{
-\item \code{SUBID} - Unique subject ID
+\item \code{SUBJID} - Unique subject ID
 \item \code{SDRGYN_STD} - Y/N Did subject complete study drug closing
 }
 }

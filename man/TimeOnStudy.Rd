@@ -20,3 +20,38 @@ dataframe of time on study with a column for SiteID, SubjectID, and an Exposure 
 \description{
 Calculates time-on-study for subjects in a study using raw visit dataset
 }
+\details{
+This output of this function is used by assessments as a standardized measurement of time on treatment.
+}
+\section{Data Specification}{
+
+
+The following columns are required:
+\itemize{
+\item \code{dfvisit}
+\itemize{
+\item \code{SUBJID} - Unique subject ID
+\item \code{INVID} - Unique Investigator ID
+\item \code{FOLDERNAME} - description of event, 'Screening' will not be considered for determining date.
+\item \code{RECORDDATE} - Clinical Date of record (ex: visit date), Min and max per subject / site will be used to determine time on study (exposure)
+}
+}
+
+The following columns are optional
+\itemize{
+\item \code{dfStud}
+\itemize{
+\item \code{SUBJID} - Unique subject ID
+\item \code{COMPYN_STD} - Y/N Did subject complete duration of study
+\item \code{COMPREAS} - character, if COMPYN_STD = N, reason for study discontinue.
+}
+}
+
+-\code{dfSnapshot} - Date, Date of snapshot
+}
+
+\examples{
+ 
+TimeOnStudy(dfVisit = clindata::raw_visdt,dfStud = clindata::raw_studcomp) 
+
+}

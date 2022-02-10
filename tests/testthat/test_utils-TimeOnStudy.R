@@ -90,12 +90,12 @@ test_that("direct specified input gives correct output",{
   
   
   
-  dfTos2 <- structure(list(SubjectID = c(1, 3), SiteID = c(1, 2), firstDoseDate = structure(c(17071, 
-                       17071), class = "Date"), lastDoseDate = structure(c(17802, 17437   ), class = "Date"), Exposure = c(732, 367)), 
-                      class = c("grouped_df",   "tbl_df", "tbl", "data.frame"), row.names = c(NA, -2L),
-                      groups = structure(list( SubjectID = c(1, 3), .rows = structure(list(1L, 2L), ptype = integer(0),
-                          class = c("vctrs_list_of", "vctrs_vctr", "list"))), class = c("tbl_df", "tbl", "data.frame"      ), 
-                          row.names = c(NA, -2L), .drop = TRUE))
+  dfTos2 <- tribble(
+    ~SubjectID, ~SiteID, ~firstDoseDate, ~lastDoseDate, ~Exposure,
+       1    ,  1, '2016-09-27'  ,  '2018-09-28'     ,   732,
+       3    ,  2 ,'2016-09-27'   , '2017-09-28'     ,   367
+  )  %>% mutate(firstDoseDate = as.Date.character(.data$firstDoseDate),
+               lastDoseDate = as.Date.character(.data$lastDoseDate) )
   
  
   
