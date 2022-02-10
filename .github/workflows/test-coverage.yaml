@@ -36,8 +36,8 @@ jobs:
         run: |
           install.packages("devtools")
           devtools::install('../clindata')
-
-      - uses: r-lib/actions/setup-r-dependencies@v1
+          devtools::install()
+          install.packages('covr')
 
       - name: Test coverage
         run: covr::package_coverage()

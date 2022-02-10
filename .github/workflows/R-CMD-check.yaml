@@ -51,11 +51,9 @@ jobs:
         shell: Rscript {0}
         run: |
           install.packages("devtools")
-          devtools::load_all('../clindata')
-
-      - uses: r-lib/actions/setup-r-dependencies@v1
-        with:
-          extra-packages: rcmdcheck
+          devtools::install('../clindata')
+          devtools::install()
+          install.packages('rcmdcheck')
 
       - uses: r-lib/actions/check-r-package@v1
 
