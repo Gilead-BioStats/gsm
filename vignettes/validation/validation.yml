@@ -1,0 +1,13 @@
+package: gsm
+working_dir: vignettes
+output_dir: inst
+report_rmd_name: qualification.Rmd
+report_naming_format: Qualification_Report_{package}_v{version}_{date}
+usernames:
+  nathan.kosiba:
+    name: Nathan Kosiba
+    title: Developer
+    role: Qualification Lead
+validation_files:
+- Specifications_for_AE_Assessment.md
+- Test_Cases_for_AE_Assessment.md
