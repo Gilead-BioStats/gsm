@@ -43,7 +43,7 @@ Note that the function can generate data summaries for specific types of AEs, bu
 }
 
 \examples{
- dfExposure <- TreatmentExposure(  dfEx = clindata::raw_ex,  dfSdrg = NULL, dtSnapshot = NULL)
+ dfExposure <- clindata::TreatmentExposure(  dfEx = clindata::raw_ex,  dfSdrg = NULL, dtSnapshot = NULL)
  dfInput <- AE_Map_Raw(clindata::raw_ae, dfExposure)
 
 
