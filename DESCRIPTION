@@ -20,5 +20,7 @@ Suggests:
     clindata
 LazyData: true
 Roxygen: list(markdown = TRUE)
+Remotes:
+    Gilead-BioStats/clindata
 RoxygenNote: 7.1.2
 Config/testthat/edition: 3

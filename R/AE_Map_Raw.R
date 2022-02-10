@@ -41,12 +41,15 @@ AE_Map_Raw <- function( dfAE = NULL, dfExposure = NULL){
         "SUBJID column not found in dfAE"="SUBJID" %in% names(dfAE),
         "SubjectID, SiteID and Exposure columns not found in dfExposure"=all(c("SubjectID","SiteID","Exposure") %in% names(dfExposure))
     )
+  
+
 
     dfInput <-  dfExposure %>% 
         rowwise() %>%
-        mutate(Count =sum(dfAE$SUBJID==.data$SubjectID)) %>% 
+        mutate(Count =sum(dfAE$SUBJID==.data$SubjectID, na.rm = TRUE)) %>% 
         mutate(Rate = .data$Count/.data$Exposure) %>%
-        select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate)
+        select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
+        ungroup()
         
     return(dfInput)
 }
