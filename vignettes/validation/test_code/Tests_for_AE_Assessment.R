@@ -47,16 +47,6 @@ expectedOutput_Poisson <- tibble::tribble(
 
 attr(expectedOutput_Poisson$SiteID, "label") <- "Study Site Identifier"
 
-all_equal(
-  ae_assess,
-  expectedOutput_Poisson
-)
-
-
-# ae_assess %>%
-#   map_dfc(attr, "label")
-
-
 
 # wilcoxon data -----------------------------------------------------------
 expectedOutput_Wilcoxon <- tibble::tribble(
@@ -226,10 +216,12 @@ test_that("1.2",{
 # + 1.3 Test that sites are flagged with -1 when AE rate is lower than expected
 # covered in 1.1, 1.2
 
-blist <- AE_Assess(
-  dfInput,
-  bDataList = TRUE
-)
+
+# + 1.4 Test that sites are flagged with +1 when AE rate is higher than expected
+# matt note: need to look at clindata and see if AE_Assess() will yield results with -1, 0, and 1 flags,
+# or if we need to create a dummy dataset
+
+
 
 # + 1.5 Test that Assessment can return all data in the standard data pipeline
 # (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`)
@@ -252,11 +244,41 @@ test_that("1.5", {
   )
 
   # check that all objects returned by bDataList = TRUE are data.frames
-  # matt note: returning 'list' as type - not exactly sure why
-  expect_type(
-    t5_data$dfInput, "data.frame"
-  )
+  expect_true("data.frame" %in% class(t5_data$dfInput))
+  expect_true("data.frame" %in% class(t5_data$dfTransformed))
+  expect_true("data.frame" %in% class(t5_data$dfAnalyzed))
+  expect_true("data.frame" %in% class(t5_data$dfFlagged))
+  expect_true("data.frame" %in% class(t5_data$dfSummary))
+
 
 })
 
+# + 1.6 Test that (NA, NaN) in input exposure data throws a warning and
+# drops the person from the analysis.
+
+# several NA values
+dfInputWithNA1 <- dfInput %>%
+  mutate(Exposure = ifelse(substr(SubjectID,11,11) != 1, Exposure, NA_integer_))
+
+# one NA value
+dfInputWithNA2 <- dfInput %>%
+  mutate(Exposure = ifelse(SubjectID == "01-701-1015", NA_integer_, Exposure))
+
+# both throwing error:
+# AE_Assess(dfInputWithNA1)
+# AE_Assess(dfInputWithNA2)
+
+  #Error:
+  # ! Assigned data `stats::residuals(cModel)` must be compatible with existing data.
+  # x Existing data has 17 rows.
+  # x Assigned data has 5 rows.
+  # ℹ Only vectors of size 1 are recycled.
+
+# + 1.7 Test that (NA, NaN) in input count data throws a warning and
+# drops the person from the analysis.
+dfInputCountNA <- dfInput %>%
+  mutate(Count = ifelse(SubjectID == "01-701-1015", NA_integer_, Count))
+
+# same error as above
+# AE_Assess(dfInputCountNA)
 
