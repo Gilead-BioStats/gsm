@@ -47,7 +47,7 @@ jobs:
           git clone git@github.com:Gilead-BioStats/clindata.git
           cd gsm
           
-      - name: load clindata
+      - name: install packages
         shell: Rscript {0}
         run: |
           install.packages("devtools")
