@@ -9,9 +9,10 @@ License: file LICENSE
 Encoding: UTF-8
 Imports:
     dplyr,
-    lubridate, 
+    broom,
+    lubridate,
     magrittr,
-    broom
+    valtools
 Suggests:
     testthat (>= 3.0.0),
     safetyData,
