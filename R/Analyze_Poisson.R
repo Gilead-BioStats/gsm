@@ -15,12 +15,13 @@
 #' The input data (` dfTransformed`) for the Analyze_Poisson is typically created using \code{\link{Transform_EventCount}} and should be one record per Site with columns for: 
 #' - `SubjectID` - Unique subject ID
 #' - `SiteID` - Site ID
-#' - `Count` - Number of Adverse Events 
-#' - `Exposure` - Number of days of exposure 
+#' - `TotalCount` - Number of Events 
+#' - `TotalExposure` - Number of days of exposure 
 #'
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include
 #'
-#' @importFrom stats glm offset poisson residuals pnorm
+#' @importFrom stats glm offset poisson pnorm
+#' @importFrom broom augment
 #' 
 #' @return input data frame with columns added for "Residuals", "PredictedCount" and "PValue"
 #' 
@@ -38,18 +39,22 @@ Analyze_Poisson <- function( dfTransformed ){
         all(c("SiteID", "N", "TotalExposure", "TotalCount", "Rate") %in% names(dfTransformed))    
     )
 
-    dfTransformed$LogExposure <- log( dfTransformed$TotalExposure )
+    dfModel <- dfTransformed %>% mutate(LogExposure = log( .data$TotalExposure) )
 
     cModel <- stats::glm(
         TotalCount ~ stats::offset(LogExposure), family=stats::poisson(link="log"), 
-        data=dfTransformed
+        data=dfModel
     )
 
-    dfAnalyzed <- dfTransformed
-    dfAnalyzed$Residuals <- stats::residuals( cModel )
-    dfAnalyzed$PredictedCount <- exp(dfAnalyzed$LogExposure*cModel$coefficients[2]+cModel$coefficients[1])
-    dfAnalyzed$PValue = stats::pnorm( abs(dfAnalyzed$Residuals) , lower.tail=F ) * 2
-    dfAnalyzed <- dfAnalyzed[order(abs(dfAnalyzed$Residuals) , decreasing=T), ]
+    dfAnalyzed <- broom::augment(cModel, dfModel, type.predict = "response") %>% 
+    rename(
+        Residuals=.data$.resid, 
+        PredictedCount=.data$.fitted,
+    ) %>%
+    mutate(PValue = stats::pnorm( abs(.data$Residuals) , lower.tail=F ) * 2) %>%
+    arrange(.data$Residuals)
+
+    # Note that the PValue calculation is a non-standard approximation and might be more accurately labeled a "standardized estimate" rather than a formal p-value.
 
     return(dfAnalyzed)
 }

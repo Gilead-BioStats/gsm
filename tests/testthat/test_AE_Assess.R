@@ -25,3 +25,16 @@ test_that("incorrect inputs throw errors",{
 })
 
 
+test_that("incorrect inputs throw errors",{
+  expect_error(AE_Assess(ae_input %>% select(-SubjectID)))
+  expect_error(AE_Assess(ae_input %>% select(-SiteID)))
+  expect_error(AE_Assess(ae_input %>% select(-Count)))
+  expect_error(AE_Assess(ae_input %>% select(-Exposure)))
+  expect_error(AE_Assess(ae_input %>% select(-RATE)))
+})
+
+ae_list <- AE_Assess(ae_input, bDataList=TRUE)
+expect_true(is.list(ae_list))
+expect_equal(names(ae_list),c('dfInput','dfTransformed','dfAnalyzed','dfFlagged','dfSummary'))
+
+

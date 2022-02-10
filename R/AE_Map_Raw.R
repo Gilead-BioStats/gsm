@@ -24,9 +24,14 @@
 #' @param dfExposure exposure dataset calculated via \code{\link{TreatmentExposure}} required columns: SubjectID, SiteID, Exposure
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
-#'
-#' @import dplyr
-#'
+#' 
+#' @examples
+#'  dfExposure <- TreatmentExposure(  dfEx = clindata::raw_ex,  dfSdrg = NULL, dtSnapshot = NULL)
+#'  dfInput <- AE_Map_Raw(clindata::raw_ae, dfExposure)
+#' 
+#' 
+#' @import dplyr 
+#' 
 #' @export
 
 AE_Map_Raw <- function( dfAE = NULL, dfExposure = NULL){
@@ -39,7 +44,7 @@ AE_Map_Raw <- function( dfAE = NULL, dfExposure = NULL){
 
     dfInput <-  dfExposure %>%
         rowwise() %>%
-        mutate(Count =sum(dfAE$SUBJID==.data$SubjectID)) %>%
+        mutate(Count =sum(dfAE$SUBJID==.data$SubjectID, na.rm = TRUE)) %>% 
         mutate(Rate = .data$Count/.data$Exposure) %>%
         select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
         ungroup()
