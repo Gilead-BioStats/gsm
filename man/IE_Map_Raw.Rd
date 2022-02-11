@@ -4,14 +4,40 @@
 \alias{IE_Map_Raw}
 \title{Inclusion/Exclusion Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-IE_Map_Raw(dfIe = NULL)
+IE_Map_Raw(dfIe = NULL, vExpected = c(0, 1))
 }
 \arguments{
-\item{dfIe}{ie dataset with columns SUBJID IECAT IETEST IEORRES}
+\item{dfIe}{ie dataset with columns SUBJID INVID IECAT IETESTCD IEORRES}
+
+\item{vExpected}{default = c(0,1), expected values for IEORRES.}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Total, Valid, Invalid, Missing, Details
+Data frame with one record per person data frame with columns: SubjectID, SiteID, Count
 }
 \description{
 Convert from raw data format to needed input format for Inclusion/Exclusion Assessment
+}
+\details{
+This function creates the required input for \code{\link{IE_Assess}}.
+}
+\section{Data Specification}{
+
+
+The following columns are required:
+\itemize{
+\item \code{dfIE}
+\itemize{
+\item \code{SUBJID} - Unique subject ID
+\item \code{INVID} - Investigator identifier
+\item \code{IECAT} - IE Category
+\item \code{IETEST} - Criterion Description (truncated)
+\item \code{IEORRES} - Incl criteria not met Excl criteria met.
+}
+}
+}
+
+\examples{
+
+dfInput <- IE_Map_Raw(clindata::raw_ie_a2)
+
 }
