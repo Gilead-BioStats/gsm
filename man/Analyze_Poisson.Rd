@@ -31,8 +31,8 @@ The input data (\code{ dfTransformed}) for the Analyze_Poisson is typically crea
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
-\item \code{Count} - Number of Adverse Events
-\item \code{Exposure} - Number of days of exposure
+\item \code{TotalCount} - Number of Events
+\item \code{TotalExposure} - Number of days of exposure
 }
 }
 
