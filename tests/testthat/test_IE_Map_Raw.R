@@ -73,6 +73,22 @@ test_that("error given if required column not found",{
 })
 
 
+test_that("output is correct given clindata example input",{
+  
+dfIE <- clindata::raw_ie_a2
 
+dfIE$SUBJID <- as.character(dfIE$SUBJID)
+  
+dfInput <-  tibble::tribble(    ~SubjectID, ~SiteID, ~Count,
+                                   "0142", "X194X",     9,
+                                   "0308", "X159X",     9,
+                                   "0776", "X194X",     8,
+                                   "1032", "X033X",     9  )
+
+expect_equal(IE_Map_Raw(dfIe = dfIE), dfInput )
+
+  
+  
+})
 
 
