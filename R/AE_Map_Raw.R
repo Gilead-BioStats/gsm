@@ -4,7 +4,7 @@
 #' 
 #' @details
 #' 
-#' This function combines raw AE data with exposure data calculated by \code{\link{TreatmentExposure}} to create the required input for \code{\link{AE_Assess}}. 
+#' This function combines raw AE data with exposure data calculated by clindata::TreatmentExposure to create the required input for \code{\link{AE_Assess}}. 
 #' 
 #' @section Data Specification:
 #' 
