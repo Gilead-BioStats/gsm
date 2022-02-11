@@ -4,6 +4,9 @@ library(tidyverse)
 library(testthat)
 library(safetyData)
 
+
+# general data ------------------------------------------------------------
+
 dfADSL <- safetyData::adam_adsl
 dfADAE <- safetyData::adam_adae
 
@@ -19,6 +22,7 @@ ae_assess <- AE_Assess(
 
 
 # poisson data ------------------------------------------------------------
+
 expectedOutput_Poisson <- tibble::tribble(
   ~Assessment, ~Label, ~SiteID,  ~N,                     ~PValue, ~Flag,
   "Safety",     "",   "705", 16L, 0.0000000000826737854296997,    -1,
@@ -49,6 +53,7 @@ attr(expectedOutput_Poisson$SiteID, "label") <- "Study Site Identifier"
 
 
 # wilcoxon data -----------------------------------------------------------
+
 expectedOutput_Wilcoxon <- tibble::tribble(
   ~Assessment, ~Label, ~SiteID, ~N,           ~PValue, ~Flag,
   "Safety",     "",   "702",  1,  0.12578642463894,     0,
@@ -78,9 +83,15 @@ expectedOutput_Wilcoxon <- tibble::tribble(
 # + 1.1 Test that the AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable when given correct input data
 test_that("1.1", {
 
+# data --------------------------------------------------------------------
+
   t1_data <- AE_Assess(
     dfInput = dfInput
     )
+
+# -------------------------------------------------------------------------
+
+
 
   # all expected names exist in output
   expect_equal(
@@ -145,10 +156,16 @@ test_that("1.1", {
 
 test_that("1.2",{
 
+# data --------------------------------------------------------------------
+
   t2_data <- AE_Assess(
     dfInput = dfInput,
     cMethod = "wilcoxon"
   )
+
+# -------------------------------------------------------------------------
+
+
 
   # all expected names exist in output
   expect_equal(
@@ -227,10 +244,16 @@ test_that("1.2",{
 # (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`)
 test_that("1.5", {
 
+# data --------------------------------------------------------------------
+
   t5_data <- AE_Assess(
     dfInput = dfInput,
     bDataList = TRUE
   )
+
+# -------------------------------------------------------------------------
+
+
 
   # check names of data.frames
   expect_equal(
@@ -256,17 +279,30 @@ test_that("1.5", {
 # + 1.6 Test that (NA, NaN) in input exposure data throws a warning and
 # drops the person from the analysis.
 
-# several NA values
-dfInputWithNA1 <- dfInput %>%
-  mutate(Exposure = ifelse(substr(SubjectID,11,11) != 1, Exposure, NA_integer_))
+test_that("1.6", {
 
-# one NA value
-dfInputWithNA2 <- dfInput %>%
-  mutate(Exposure = ifelse(SubjectID == "01-701-1015", NA_integer_, Exposure))
 
-# both throwing error:
-# AE_Assess(dfInputWithNA1)
-# AE_Assess(dfInputWithNA2)
+# -------------------------------------------------------------------------
+
+  # data
+  # several NA values
+  dfInputWithNA1 <- dfInput %>%
+    mutate(Exposure = ifelse(substr(SubjectID,11,11) != 1, Exposure, NA_integer_))
+
+  # one NA value
+  dfInputWithNA2 <- dfInput %>%
+    mutate(Exposure = ifelse(SubjectID == "01-701-1015", NA_integer_, Exposure))
+
+# -------------------------------------------------------------------------
+
+
+
+  expect_warning(AE_Assess(dfInputWithNA1))
+  expect_warning(AE_Assess(dfInputWithNA2))
+
+  # both throwing error:
+  # AE_Assess(dfInputWithNA1)
+  # AE_Assess(dfInputWithNA2)
 
   #Error:
   # ! Assigned data `stats::residuals(cModel)` must be compatible with existing data.
@@ -274,10 +310,32 @@ dfInputWithNA2 <- dfInput %>%
   # x Assigned data has 5 rows.
   # ℹ Only vectors of size 1 are recycled.
 
+  # 1.6 will need more test cases once the expected output of AE_Assess() is resolved
+  # -- test that correct records are dropped and SUBJID counts are correct
+  # -- test dropping all subjects from a given site due to NA values and
+  #    ensure site does not exist in summary
+
+})
+
+
 # + 1.7 Test that (NA, NaN) in input count data throws a warning and
 # drops the person from the analysis.
-dfInputCountNA <- dfInput %>%
-  mutate(Count = ifelse(SubjectID == "01-701-1015", NA_integer_, Count))
 
-# same error as above
-# AE_Assess(dfInputCountNA)
+test_that("1.7", {
+
+# data --------------------------------------------------------------------
+
+    dfInputCountNA <- dfInput %>%
+    mutate(Count = ifelse(SubjectID == "01-701-1015", NA_integer_, Count))
+
+# -------------------------------------------------------------------------
+
+  expect_warning(AE_Assess(dfInputCountNA))
+
+  # 1.7 - same applies as noted above in 1.6. more tests needed after expected
+  # output of AE_Assess() is resolved.
+
+})
+
+
+
