@@ -12,7 +12,8 @@ Imports:
     broom,
     lubridate,
     magrittr,
-    valtools
+    valtools,
+    tibble
 Suggests:
     testthat (>= 3.0.0),
     safetyData,
