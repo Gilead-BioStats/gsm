@@ -43,8 +43,6 @@ test_that("error given if required column not found",{
     )
   )
   
-  
-  
   expect_error(
     IE_Map_Raw(
       clindata::raw_ie_a2 %>% select(-IETESTCD)
@@ -61,10 +59,6 @@ test_that("error given if required column not found",{
       clindata::raw_ie_a2 %>% select(-IEORRES)
     )
   )
-  
- 
-  
-  
   expect_silent(
     IE_Map_Raw( 
       clindata::raw_ie_a2 %>% select(-PROJECT)
