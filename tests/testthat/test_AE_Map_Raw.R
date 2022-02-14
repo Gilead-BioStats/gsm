@@ -1,5 +1,5 @@
 
-dfExposure <- TreatmentExposure(  dfEx = clindata::raw_ex,  dfSdrg = NULL, dtSnapshot = NULL)
+dfExposure <- clindata::TreatmentExposure(  dfEx = clindata::raw_ex,  dfSdrg = NULL, dtSnapshot = NULL)
 
 test_that("output created as expected and has correct structure",{
   ae_input <- AE_Map_Raw(dfAE = clindata::raw_ae,dfExposure = dfExposure )

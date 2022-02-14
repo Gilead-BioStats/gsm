@@ -9,7 +9,7 @@ AE_Map_Raw(dfAE = NULL, dfExposure = NULL)
 \arguments{
 \item{dfAE}{AE dataset with columns SUBJID and rows for each AE record}
 
-\item{dfExposure}{exposure dataset calculated via \code{\link{TreatmentExposure}} required columns: SubjectID, SiteID, Exposure}
+\item{dfExposure}{exposure dataset calculated via \code{clindata::TreatmentExposure} required columns: SubjectID, SiteID, Exposure}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
@@ -18,12 +18,12 @@ Data frame with one record per person data frame with columns: SubjectID, SiteID
 Convert Raw data, typically processed case report form data - to input format for Safety Assessment.
 }
 \details{
-This function combines raw AE data with exposure data calculated by \code{\link{TreatmentExposure}} to create the required input for \code{\link{AE_Assess}}.
+This function combines raw AE data with exposure data calculated by \code{clindata::TreatmentExposure} to create the required input for \code{\link{AE_Assess}}.
 }
 \section{Data Specification}{
 
 
-This function creates an input dataset for the Adverse Event Assessment (\code{\link{AE_Assess}}) by adding Adverse Event Counts to basic subject-level treatment exposure data from \code{\link{TreatmentExposure}}.
+This function creates an input dataset for the Adverse Event Assessment (\code{\link{AE_Assess}}) by adding Adverse Event Counts to basic subject-level treatment exposure data from \code{clindata::TreatmentExposure}.
 
 The following columns are required:
 \itemize{
@@ -43,7 +43,7 @@ Note that the function can generate data summaries for specific types of AEs, bu
 }
 
 \examples{
- dfExposure <- TreatmentExposure(  dfEx = clindata::raw_ex,  dfSdrg = NULL, dtSnapshot = NULL)
+ dfExposure <- clindata::TreatmentExposure( dfEx = clindata::raw_ex )
  dfInput <- AE_Map_Raw(clindata::raw_ae, dfExposure)
 
 
