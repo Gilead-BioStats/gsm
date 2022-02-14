@@ -8,6 +8,11 @@ usernames:
     name: Nathan Kosiba
     title: Developer
     role: Qualification Lead
+  matt.roumaya:
+    name: Matt Roumaya
+    title: Informatics Application Developer
+    role: Validation Developer
 validation_files:
 - Specifications_for_AE_Assessment.md
 - Test_Cases_for_AE_Assessment.md
+- Test_Cases_for_AE_Map_Raw.md
