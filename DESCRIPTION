@@ -23,9 +23,9 @@ Suggests:
     kableExtra,
     devtools
 LazyData: true
+Remotes: 
+    phuse-org/valtools
 Roxygen: list(markdown = TRUE)
-Remotes:
-    Gilead-BioStats/clindata
 RoxygenNote: 7.1.2
 Config/testthat/edition: 3
 VignetteBuilder: knitr
