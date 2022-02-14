@@ -22,29 +22,22 @@
 
 Disp_Map <- function( dfDisp = NULL, strCol = NULL, strReason = "any") {
 
-
   stopifnot(
     is.data.frame(dfDisp),
     all(c("SUBJID", "SITEID") %in% names(dfDisp)),
-    !is.null(strCol)
+    !is.null(strCol),
+    length(strReason) == 1,
+    nrow(dfDisp %>% group_by(SUBJID) %>% filter(n() > 1)) == 0
   )
-  # DCSREAS == "Completed"?
+
   dfInput <- dfDisp %>%
-    filter(SAFFL == "Y" | !is.na(!!strCol)) %>%
-    select(SubjectID = SUBJID,
-           SiteID = SITEID,!!strCol) %>%
-    mutate(SubjectID =  str_remove(SubjectID, ".*-"))
-
-
-  if ("any" %in% tolower(strReason)) {
-    dfInput <- dfInput %>%
-      mutate(Count = 1)
-
-  } else {
-    dfInput <- dfInput %>%
-      mutate(Count = ifelse(tolower(!!sym(strCol)) %in% tolower(strReason), 1, 0))
-
-  }
+    select(SubjectID = .data$SUBJID,
+           SiteID = .data$SITEID,
+           strCol) %>%
+    mutate(SubjectID = stringr::str_remove(.data$SubjectID, ".*-"),
+           Count = case_when(strReason == "any" ~ 1,
+                             tolower(.data[[strCol]]) == tolower(strReason) ~ 1,
+                             TRUE ~ 0))
 
   return(dfInput)
 
