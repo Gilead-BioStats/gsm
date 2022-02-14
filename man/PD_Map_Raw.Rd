@@ -9,12 +9,39 @@ PD_Map_Raw(dfPD = NULL, dfTOS = NULL)
 \arguments{
 \item{dfPD}{PD dataset with SUBJID column and rows for each Protocol Deviation}
 
-\item{dfTOS}{Time on Study data in format produced by \code{clindata::TimeOnStudy}}
+\item{dfTOS}{Time on Study data.set in format produced by clindata::TimeOnStudy}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate
 }
 \description{
 Convert from raw data format to needed input format for Safety Assessment
-Requires the following raw datasets: subid, ex, pd
+}
+\details{
+This function combines raw PD data with exposure data calculated by clindata::TimeOnStudy to create the required input for \code{\link{AE_Assess}}.
+}
+\section{Data Specification}{
+
+
+This function creates an input dataset for the Protocol Deviation (\code{\link{PD_Assess}}) by adding Protocol Deviation Counts to basic subject-level time on study data from \code{clindata::TimeOnStudy}.
+
+The following columns are required:
+\itemize{
+\item \code{dfPD}
+\itemize{
+\item \code{SUBJID} - Unique subject ID
+}
+\item \code{dfTOS}
+\itemize{
+\item \code{SubjectID} - Unique subject ID
+\item \code{SiteID} - Site ID
+\item \code{Exposure} - Treatment Exposure in days.
+}
+}
+}
+
+\examples{
+ dfTos <- clindata::TimeOnStudy(dfVisit = clindata::raw_visdt,dfStud = clindata::raw_studcomp) 
+ dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfTOS = dfTos)
+
 }
