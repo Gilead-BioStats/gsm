@@ -9,7 +9,7 @@ IE_Map_Raw(dfIe = NULL, vExpected = c(0, 1))
 \arguments{
 \item{dfIe}{ie dataset with columns SUBJID INVID IECAT IETESTCD IEORRES}
 
-\item{vExpected}{default = c(0,1), expected values for IEORRES.}
+\item{vExpected}{Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIECAT=="Inclusion".}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count
