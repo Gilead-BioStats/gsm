@@ -40,3 +40,6 @@ vignettes/*.pdf
 .Rproj.user
 
 .DS_Store
+inst/doc
+/doc/
+/Meta/
