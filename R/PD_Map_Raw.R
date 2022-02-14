@@ -4,7 +4,7 @@
 #' Requires the following raw datasets: subid, ex, pd
 #'
 #' @param dfPD  PD dataset with SUBJID column and rows for each Protocol Deviation
-#' @param dfTOS Time on Study data.set in format produced by \code{\link{TimeOnStudy}}
+#' @param dfTOS Time on Study data in format produced by `clindata::TimeOnStudy`
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate
 #'

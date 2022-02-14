@@ -8,7 +8,7 @@
 #' 
 #' @section Data Specification:
 #'
-#' This function creates an input dataset for the Adverse Event Assessment (\code{\link{AE_Assess}}) by adding Adverse Event Counts to basic subject-level treatment exposure data from \code{\link{TreatmentExposure}}.
+#' This function creates an input dataset for the Adverse Event Assessment (\code{\link{AE_Assess}}) by adding Adverse Event Counts to basic subject-level treatment exposure data from `clindata::TreatmentExposure`.
 #'
 #' The following columns are required:
 #' - `dfAE`
@@ -21,12 +21,12 @@
 #' Note that the function can generate data summaries for specific types of AEs, but passing filtered ADAE data to dfADAE.
 #'
 #' @param dfAE AE dataset with columns SUBJID and rows for each AE record
-#' @param dfExposure exposure dataset calculated via \code{\link{TreatmentExposure}} required columns: SubjectID, SiteID, Exposure
+#' @param dfExposure exposure dataset calculated via `clindata::TreatmentExposure` required columns: SubjectID, SiteID, Exposure
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #' 
 #' @examples
-#'  dfExposure <- clindata::TreatmentExposure(  dfEx = clindata::raw_ex,  dfSdrg = NULL, dtSnapshot = NULL)
+#'  dfExposure <- clindata::TreatmentExposure( dfEx = clindata::raw_ex )
 #'  dfInput <- AE_Map_Raw(clindata::raw_ae, dfExposure)
 #' 
 #' 
