@@ -81,6 +81,27 @@ dfInput <-  tibble::tribble(    ~SubjectID, ~SiteID, ~Count,
 
 expect_equal(IE_Map_Raw(dfIe = dfIE), dfInput )
 
+
+dfIE_test <- tibble::tribble( ~SUBJID, ~INVID,      ~IECAT,   ~IETEST,    ~ IETESTCD, ~IEORRES,
+                              1,       1, "Exclusion",     "XXX", "Exclusion 3",        0,
+                              1,       1, "Inclusion",     "XXX", "Exclusion 3",        0,
+                              1,       1, "Inclusion",     "XXX", "Exclusion 3",        0,
+                              2,       1, "Exclusion",     "XXX", "Exclusion 3",        0,
+                              2,       1, "Inclusion",     "XXX", "Exclusion 3",        0,
+                              2,       1, "Inclusion",     "XXX", "Exclusion 3",        0,
+                              4,       3, "Exclusion",     "XXX", "Exclusion 3",        0,
+                              4,       3, "Inclusion",     "XXX", "Exclusion 3",        0,
+                              4,       3, "Inclusion",     "XXX", "Exclusion 3",        1)
+
+
+
+dfInput <- tibble::tribble(     ~SubjectID, ~SiteID, ~Count,
+                                1,       1,     2L,
+                                2,       1,     2L,
+                                4,       3,     1L  )
+
+expect_equal(dfInput, IE_Map_Raw(dfIE_test))
+
   
   
 })
