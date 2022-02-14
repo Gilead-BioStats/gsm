@@ -1,5 +1,5 @@
 #' Protocol Deviation Assessment Mapping from Raw Data- Make Input Data
-#' 
+#'
 #' Convert from raw data format to needed input format for Safety Assessment
 #' Requires the following raw datasets: subid, ex, pd
 #'
@@ -32,7 +32,7 @@
 #'  dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfTOS = dfTos)
 #' 
 #' @import dplyr
-#' 
+#'
 #' @export
 
 PD_Map_Raw <- function( dfPD = NULL, dfTOS = NULL ){
@@ -43,7 +43,7 @@ PD_Map_Raw <- function( dfPD = NULL, dfTOS = NULL ){
         "SubjectID, SiteID and Exposure columns not found in dfTOS"=all(c("SubjectID","SiteID","Exposure") %in% names(dfTOS))
     )
 
-    dfInput <-  dfTOS %>% 
+    dfInput <-  dfTOS %>%
         rowwise() %>%
         mutate(Count = sum(dfPD$SUBJID==.data$SubjectID, na.rm = TRUE)) %>% 
         mutate(Rate = .data$Count/.data$Exposure) %>%
