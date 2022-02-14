@@ -12,7 +12,7 @@
 #'
 #' @param dfDisp demographics data with the following required columns: SUBJID and SITEID.
 #' @param strCol column name containing discontinuation reason.
-#' @param strReason character vector containing a single reason, or comma-delimited list of reasons to run Disposisition Assessment on.
+#' @param strReason character vector of length 1 containing a single reason to run Disposisition Assessment on.
 #'
 #' @return Data frame with one record per person with columns: SubjectID, SiteID, Count, and the value passed to strCol.
 #'
@@ -27,7 +27,7 @@ Disp_Map <- function( dfDisp = NULL, strCol = NULL, strReason = "any") {
     all(c("SUBJID", "SITEID") %in% names(dfDisp)),
     !is.null(strCol),
     length(strReason) == 1,
-    nrow(dfDisp %>% group_by(SUBJID) %>% filter(n() > 1)) == 0
+    nrow(dfDisp %>% group_by(.data$SUBJID) %>% filter(n() > 1)) == 0
   )
 
   dfInput <- dfDisp %>%
