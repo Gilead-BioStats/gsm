@@ -11,15 +11,16 @@ Imports:
     dplyr,
     broom,
     lubridate,
-    magrittr,
-    valtools
+    magrittr
 Suggests:
     testthat (>= 3.0.0),
     safetyData,
     covr,
     clindata,
     knitr,
-    rmarkdown
+    rmarkdown,
+    tibble,
+    valtools
 LazyData: true
 Remotes: 
     phuse-org/valtools
