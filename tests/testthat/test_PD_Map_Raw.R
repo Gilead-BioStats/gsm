@@ -11,13 +11,6 @@ test_that("output created as expected and has correct structure",{
 })
 
 test_that("incorrect inputs throw errors",{
-  expect_error(PD_Map_Raw(list(), list()))
-  expect_error(PD_Map_Raw("Hi","Mom"))
-})
-
-
-
-test_that("incorrect inputs throw errors",{
   
   expect_error(PD_Map_Raw(list(), list()))
   expect_error(PD_Map_Raw( clindata::raw_protdev, list()))
