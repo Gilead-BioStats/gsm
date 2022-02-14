@@ -16,15 +16,14 @@ Data frame with one record per person data frame with columns: SubjectID, SiteID
 }
 \description{
 Convert from raw data format to needed input format for Safety Assessment
-Requires the following raw datasets: subid, ex, pd
 }
 \details{
-This function combines raw AE data with exposure data calculated by clindata::TreatmentExposure to create the required input for \code{\link{AE_Assess}}.
+This function combines raw PD data with exposure data calculated by clindata::TimeOnStudy to create the required input for \code{\link{AE_Assess}}.
 }
 \section{Data Specification}{
 
 
-This function creates an input dataset for the Adverse Event Assessment (\code{\link{AE_Assess}}) by adding Adverse Event Counts to basic subject-level treatment exposure data from \code{\link{TreatmentExposure}}.
+This function creates an input dataset for the Protocol Deviation (\code{\link{PD_Assess}}) by adding Protocol Deviation Counts to basic subject-level time on study data from \code{clindata::TimeOnStudy}.
 
 The following columns are required:
 \itemize{
