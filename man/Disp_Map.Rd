@@ -15,6 +15,9 @@ Disp_Map(dfDisp = NULL, strCol = NULL, strReason = "any")
 }
 \value{
 Data frame with one record per person with columns: SubjectID, SiteID, Count, and the value passed to strCol.
+
+#' @examples
+df <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "adverse event")
 }
 \description{
 Convert from ADaM or raw format to input format for Disposition Assessment.
@@ -24,7 +27,7 @@ Convert from ADaM or raw format to input format for Disposition Assessment.
 
 This function creates an input dataset for the Disposition Assessment (link to code) by adding Discontinuation Reason Counts to basic subject-level data.
 
-#' The following columns are required:
+The following columns are required:
 \itemize{
 \item \code{SUBJID} - Unique subject ID
 \item \code{SITEID} - Site ID

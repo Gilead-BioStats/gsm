@@ -6,7 +6,7 @@
 #'
 #' This function creates an input dataset for the Disposition Assessment (link to code) by adding Discontinuation Reason Counts to basic subject-level data.
 #'
-#'#' The following columns are required:
+#' The following columns are required:
 #'   - `SUBJID` - Unique subject ID
 #'   - `SITEID` - Site ID
 #'
@@ -15,6 +15,9 @@
 #' @param strReason character vector of length 1 containing a single reason to run Disposisition Assessment on.
 #'
 #' @return Data frame with one record per person with columns: SubjectID, SiteID, Count, and the value passed to strCol.
+#'
+#' #' @examples
+#' df <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "adverse event")
 #'
 #' @import dplyr
 #'
@@ -34,7 +37,7 @@ Disp_Map <- function( dfDisp = NULL, strCol = NULL, strReason = "any") {
     select(SubjectID = .data$SUBJID,
            SiteID = .data$SITEID,
            strCol) %>%
-    mutate(SubjectID = stringr::str_remove(.data$SubjectID, ".*-"),
+    mutate(SubjectID = gsub(".*-", "", .data$SubjectID),
            Count = case_when(strReason == "any" ~ 1,
                              tolower(.data[[strCol]]) == tolower(strReason) ~ 1,
                              TRUE ~ 0))

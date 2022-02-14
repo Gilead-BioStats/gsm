@@ -1,7 +1,7 @@
 library(safetyData)
 
 
-df <- tibble::tribble(
+df <- dplyr::tribble(
   ~SUBJID, ~SITEID,          ~DCREASCD,
   "00000-1015",   "701",        "Completed",
   "00000-1023",   "701",    "Adverse Event",
