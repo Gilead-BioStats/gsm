@@ -11,7 +11,7 @@ usernames:
   matt.roumaya:
     name: Matt Roumaya
     title: Informatics Application Developer
-    role: Validation Developer
+    role: Qualification Developer
 validation_files:
 - Specifications_for_AE_Assessment.md
 - Test_Cases_for_AE_Assessment.md

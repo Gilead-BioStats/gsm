@@ -33,6 +33,7 @@ suppressPackageStartupMessages({
   library(magrittr)
   library(devtools)
   library(gsm)
+  library(tinytex)
 })
 
 opts_chunk$set(
@@ -65,7 +66,7 @@ all_sig <- vt_scrape_sig_table()
 **AUTHOR** My signature designates authorship of this document.
 
 ```{r validation-lead-sig-block}
-all_sig[grepl("validation lead",all_sig$role, ignore.case = TRUE),] %>%
+all_sig[grepl("qualification lead",all_sig$role, ignore.case = TRUE),] %>%
   set_rownames(seq_len(nrow(.))) %>%
   vt_kable_sig_table()
 ```
@@ -91,7 +92,7 @@ The effective date of this document is the last date of signature.
 ### Change Log
 
 ```{r change-log-table}
-# vt_scrape_change_log() %>% 
+# vt_scrape_change_log() %>%
 #   vt_kable_change_log()
 ```
 

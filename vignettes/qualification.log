@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.2.7)  14 FEB 2022 15:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.2.7)  15 FEB 2022 15:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**/tmp/RtmpxWjcVg/preview-532516f7a7d2.dir/qualification.tex
-(/tmp/RtmpxWjcVg/preview-532516f7a7d2.dir/qualification.tex
+**/tmp/Rtmp6QuAp3/preview-12417f299613.dir/qualification.tex
+(/tmp/Rtmp6QuAp3/preview-12417f299613.dir/qualification.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -1097,37 +1097,37 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./hex-gsm.png>]
-Overfull \hbox (16.10669pt too wide) in paragraph at lines 109--116
+Overfull \hbox (15.46773pt too wide) in paragraph at lines 109--116
 [][] 
  []
 
 
-Overfull \hbox (15.46773pt too wide) in paragraph at lines 119--126
+Overfull \hbox (123.13402pt too wide) in paragraph at lines 119--128
 [][] 
  []
 
 [2]
-Underfull \vbox (badness 10000) detected at line 264
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 240.
+
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [3]
+Underfull \vbox (badness 10000) detected at line 279
  []
 
-[3] [4]
-Underfull \vbox (badness 10000) detected at line 288
+[4]
+Underfull \vbox (badness 10000) detected at line 305
  []
 
 [5
 
 ]
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 297.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 314.
 
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 309.
-
-(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 343
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 371
 .
 (/usr/share/texmf/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1135,18 +1135,18 @@ File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 420.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 448.
 [6] [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 420.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 448.
 (./qualification.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 420.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 420.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 420.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 448.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 448.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 448.
  ) 
 Here is how much of TeX's memory you used:
  14535 strings out of 494923
  208360 string characters out of 6180743
- 324182 words of memory out of 5000000
+ 322181 words of memory out of 5000000
  17522 multiletter control sequences out of 15000+600000
  54787 words of font info for 70 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1157,7 +1157,7 @@ e/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/l
 m/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf
 /fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.p
 fb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb>
-Output written on qualification.pdf (7 pages, 282234 bytes).
+Output written on qualification.pdf (7 pages, 285142 bytes).
 PDF statistics:
  150 PDF objects out of 1000 (max. 8388607)
  130 compressed objects within 2 object streams

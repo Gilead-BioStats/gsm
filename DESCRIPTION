@@ -21,7 +21,8 @@ Suggests:
     rmarkdown,
     knitr,
     kableExtra,
-    devtools
+    devtools,
+    tibble
 LazyData: true
 Remotes: 
     phuse-org/valtools
