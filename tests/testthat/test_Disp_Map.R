@@ -25,6 +25,30 @@ df <- dplyr::tribble(
   "00000-1203",   "701",        "Completed"
 )
 
+expectedOutput <- tibble::tribble(
+  ~SubjectID, ~SiteID,          ~DCREASCD, ~Count,
+  "1015",   "701",        "Completed",      0,
+  "1023",   "701",    "Adverse Event",      1,
+  "1028",   "701",        "Completed",      0,
+  "1033",   "701", "Sponsor Decision",      0,
+  "1034",   "701",        "Completed",      0,
+  "1047",   "701",    "Adverse Event",      1,
+  "1097",   "701",        "Completed",      0,
+  "1111",   "701",    "Adverse Event",      1,
+  "1115",   "701",    "Adverse Event",      1,
+  "1118",   "701",        "Completed",      0,
+  "1130",   "701",        "Completed",      0,
+  "1133",   "701",        "Completed",      0,
+  "1146",   "701",    "Adverse Event",      1,
+  "1148",   "701",        "Completed",      0,
+  "1153",   "701",        "Completed",      0,
+  "1180",   "701",    "Adverse Event",      1,
+  "1181",   "701",    "Adverse Event",      1,
+  "1188",   "701",    "Adverse Event",      1,
+  "1192",   "701",        "Completed",      0,
+  "1203",   "701",        "Completed",      0
+)
+
 
 
 
@@ -70,6 +94,9 @@ test_that("output as expected", {
                      strCol = "DCREASCD",
                      strReason = "any")
 
+  testOutput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "adverse event")
+  testOutput <- head(testOutput, n = 20)
+
   expect_equal(
     names(output),
     c("SubjectID", "SiteID", "DCREASCD", "Count")
@@ -79,6 +106,14 @@ test_that("output as expected", {
     nrow(output %>%
              group_by(SubjectID) %>%
              filter(n()>1)) == 0
+  )
+
+  # ignore because tribble does not include label attrs found in
+  # expected output
+  expect_equal(
+    expectedOutput,
+    testOutput,
+    ignore_attr = TRUE
   )
 
 

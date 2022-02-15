@@ -23,7 +23,7 @@
 #'
 #' @export
 
-Disp_Map <- function( dfDisp = NULL, strCol = NULL, strReason = "any") {
+Disp_Map <- function( dfDisp = NULL, strCol = NULL, strReason = "any", vReasonIgnore = c("", " ", "completed", NA)) {
 
   stopifnot(
     is.data.frame(dfDisp),
@@ -33,12 +33,13 @@ Disp_Map <- function( dfDisp = NULL, strCol = NULL, strReason = "any") {
     nrow(dfDisp %>% group_by(.data$SUBJID) %>% filter(n() > 1)) == 0
   )
 
+
   dfInput <- dfDisp %>%
     select(SubjectID = .data$SUBJID,
            SiteID = .data$SITEID,
            strCol) %>%
     mutate(SubjectID = gsub(".*-", "", .data$SubjectID),
-           Count = case_when(strReason == "any" ~ 1,
+           Count = case_when(tolower(strReason) == "any" & !tolower(.data[[strCol]]) %in% vReasonIgnore ~ 1,
                              tolower(.data[[strCol]]) == tolower(strReason) ~ 1,
                              TRUE ~ 0))
 
