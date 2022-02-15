@@ -13,6 +13,7 @@
 #' @param dfDisp demographics data with the following required columns: SUBJID and SITEID.
 #' @param strCol column name containing discontinuation reason.
 #' @param strReason character vector of length 1 containing a single reason to run Disposisition Assessment on.
+#' @param vReasonIgnore character vector containing reasons to ignore when counting Discontinuation Reason (i.e., "Completed", "", etc.)
 #'
 #' @return Data frame with one record per person with columns: SubjectID, SiteID, Count, and the value passed to strCol.
 #'

@@ -25,7 +25,7 @@ df <- dplyr::tribble(
   "00000-1203",   "701",        "Completed"
 )
 
-expectedOutput <- tibble::tribble(
+expectedOutput <- dplyr::tribble(
   ~SubjectID, ~SiteID,          ~DCREASCD, ~Count,
   "1015",   "701",        "Completed",      0,
   "1023",   "701",    "Adverse Event",      1,
