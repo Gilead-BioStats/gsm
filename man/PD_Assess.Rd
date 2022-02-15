@@ -14,7 +14,7 @@ PD_Assess(
 )
 }
 \arguments{
-\item{dfInput}{input data}
+\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure}
 
 \item{vThreshold}{list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon}
 
@@ -27,8 +27,46 @@ PD_Assess(
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
 }
 \value{
-Finding data frame with columns for "SiteID", "N", "PValue", "Flag".
+If \code{bDataList} is false (the default), the summary data frame (\code{dfSummary}) is returned. If \code{bDataList} is true, a list containing all data in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged} and \code{dfSummary}) is returned.
 }
 \description{
 Protocol Deviation Assessment using Poisson Regression
+}
+\details{
+The Protocol Deviation Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag possible outliers. More details regarding the data pipeline and statistical methods are described below.
+}
+\section{Data Specification}{
+
+
+The input data (\code{dfInput}) for the PD Assessment is typically created using \code{\link{PD_Map_Raw}} and should be one record per person with columns for:
+\itemize{
+\item \code{SubjectID} - Unique subject ID
+\item \code{SiteID} - Site ID
+\item \code{Count} - Number of Adverse Events
+\item \code{Exposure} - Number of days of exposure
+}
+
+The Assessment
+\itemize{
+\item \code{\link{Transform_EventCount}} creates \code{dfTransformed}.
+\item \code{\link{Analyze_Poisson}} or \code{\link{Analyze_Wilcoxon}} creates \code{dfAnalyzed}.
+\item \code{\link{Flag}} creates \code{dfFlagged}.
+\item \code{\link{Summarize}} creates \code{dfSummary}.
+}
+}
+
+\section{Statistical Assumptions}{
+
+
+A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the \code{cMethod} parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in \code{vThreshold}. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
+
+See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions.
+}
+
+\examples{
+dfTos <- clindata::TimeOnStudy(dfVisit = clindata::raw_visdt,dfStud = clindata::raw_studcomp) 
+dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfTOS = dfTos)
+SafetyPD <- PD_Assess( dfInput )
+SafetyPD_Wilk <- PD_Assess( dfInput, cMethod="wilcoxon")
+
 }
