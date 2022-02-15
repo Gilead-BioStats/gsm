@@ -15,15 +15,10 @@ dfInput <- gsm::AE_Map_Adam(
   dfADAE = dfADAE
 )
 
-ae_assess <- AE_Assess(
-  dfInput = dfInput
-  )
-
-
 
 # poisson data ------------------------------------------------------------
 
-expectedOutput_Poisson <- tibble::tribble(
+expectedOutput_Poisson <- dplyr::tribble(
   ~Assessment, ~Label, ~SiteID,  ~N,                     ~PValue, ~Flag,
   "Safety",     "",   "705", 16L, 0.0000000000826737854296997,    -1,
   "Safety",     "",   "701", 41L,       0.0000283727759492465,     0,
@@ -54,7 +49,7 @@ attr(expectedOutput_Poisson$SiteID, "label") <- "Study Site Identifier"
 
 # wilcoxon data -----------------------------------------------------------
 
-expectedOutput_Wilcoxon <- tibble::tribble(
+expectedOutput_Wilcoxon <- dplyr::tribble(
   ~Assessment, ~Label, ~SiteID, ~N,           ~PValue, ~Flag,
   "Safety",     "",   "702",  1,  0.12578642463894,     0,
   "Safety",     "",   "705",  1,  0.12578642463894,     0,

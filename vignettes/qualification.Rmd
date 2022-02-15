@@ -33,7 +33,6 @@ suppressPackageStartupMessages({
   library(magrittr)
   library(devtools)
   library(gsm)
-  library(tinytex)
 })
 
 opts_chunk$set(
