@@ -11,9 +11,6 @@
 <!--- Provide a quick description of what was done and why the -->
 <!--- risk level and mitigation strategies were chosen -->
 <!--- Each mitigation strategy should be given a status before PR is merged --->
-
-
-
 Risk: Low/Medium/High
 Mitigation Strategy: 
 - Qualification Testing - [Included/Issue #X Filed]
