@@ -1,7 +1,7 @@
 dfConsent_test <- tibble::tribble(~SUBJID,  ~INVID,  ~CONSCAT_STD , ~CONSYN , ~CONSDAT,
                                   1,       1,  "MAINCONSENT",    "Yes", "2014-12-25",
-                                  1,       1,  "MAINCONSENT",    "Yes", "2014-12-25",
                                   1,       1,  "MAINCONSENT",     "No", "2014-12-25",
+                                  1,       1,  "MAINCONSENT",    "Yes", "2014-12-25",
                                   1,       1,  "MAINCONSENT",    "Yes", "2014-12-25",
                                   1,       1,   "NoNCONSENT",    "Yes", "2014-12-25",
                                   2,       2,  "MAINCONSENT",     "No", "2014-12-25",
@@ -28,8 +28,7 @@ dfInput_test <-  tibble::tribble(
   2,       2,  FALSE,
   2,       2,  FALSE,
   3,       2,   TRUE,
-  5,       3,   TRUE
-)
+  5,       3,   TRUE)
 test_that("output created as expected and has correct structure",{
   consent_input <-  Consent_Map_Raw(dfConsent = dfConsent_test, dfIxrsrand = dfIxrsrand_test)
    expect_true(is.data.frame(consent_input))
