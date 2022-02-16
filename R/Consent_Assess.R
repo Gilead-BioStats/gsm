@@ -2,7 +2,7 @@
 #' 
 #' @details
 #'  
-#' The Consent Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag possible outliers. More details regarding the data pipeline and statistical methods are described below. 
+#' The Consent Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag sites with participants who started study activities before consent was finalized. More details regarding the data pipeline and statistical methods are described below. 
 #' 
 #' @section Data Specification:
 #' 
