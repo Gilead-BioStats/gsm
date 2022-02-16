@@ -27,7 +27,7 @@
 #' 
 #' @examples
 #'
-#' dfInput <- IE_Map_Raw(clindata::raw_ie_a2)
+#' dfInput <- IE_Map_Raw(clindata::raw_ie_a2, clindata::rawplus_rdsl)
 #' 
 #' @import dplyr
 #' 
