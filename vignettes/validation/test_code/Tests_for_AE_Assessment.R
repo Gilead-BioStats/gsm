@@ -1,5 +1,6 @@
 
 # Test setup
+library(gsm)
 library(tidyverse)
 library(testthat)
 library(safetyData)
