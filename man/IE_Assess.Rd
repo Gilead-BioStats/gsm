@@ -37,7 +37,7 @@ The input data (\code{dfInput}) for IE Assessment is typically created using \co
 The Assessment
 \itemize{
 \item \code{\link{Transform_EventCount}} creates \code{dfTransformed}.
-\item \code{\link{Consent_Analyze}} creates \code{dfAnalyzed}.
+\item \code{\link{Analyze_MissingInvalid}} creates \code{dfAnalyzed}.
 \item \code{\link{Flag}} creates \code{dfFlagged}.
 \item \code{\link{Summarize}} creates \code{dfSummary}.
 }

@@ -13,7 +13,7 @@
 #' 
 #' The Assessment 
 #' - \code{\link{Transform_EventCount}} creates `dfTransformed`.
-#' - \code{\link{Consent_Analyze}} creates `dfAnalyzed`.
+#' - \code{\link{Analyze_MissingInvalid}} creates `dfAnalyzed`.
 #' - \code{\link{Flag}} creates `dfFlagged`.
 #' - \code{\link{Summarize}} creates `dfSummary`.
 #' 
