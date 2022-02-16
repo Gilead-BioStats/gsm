@@ -274,63 +274,63 @@ test_that("1.5", {
 # + 1.6 Test that (NA, NaN) in input exposure data throws a warning and
 # drops the person from the analysis.
 
-test_that("1.6", {
-
-
-# -------------------------------------------------------------------------
-
-  # data
-  # several NA values
-  dfInputWithNA1 <- dfInput %>%
-    mutate(Exposure = ifelse(substr(SubjectID,11,11) != 1, Exposure, NA_integer_))
-
-  # one NA value
-  dfInputWithNA2 <- dfInput %>%
-    mutate(Exposure = ifelse(SubjectID == "01-701-1015", NA_integer_, Exposure))
-
-# -------------------------------------------------------------------------
-
-
-
-  # expect_warning(AE_Assess(dfInputWithNA1))
-  # expect_warning(AE_Assess(dfInputWithNA2))
-
-  # both throwing error:
-  # AE_Assess(dfInputWithNA1)
-  # AE_Assess(dfInputWithNA2)
-
-  #Error:
-  # ! Assigned data `stats::residuals(cModel)` must be compatible with existing data.
-  # x Existing data has 17 rows.
-  # x Assigned data has 5 rows.
-  # ℹ Only vectors of size 1 are recycled.
-
-  # 1.6 will need more test cases once the expected output of AE_Assess() is resolved
-  # -- test that correct records are dropped and SUBJID counts are correct
-  # -- test dropping all subjects from a given site due to NA values and
-  #    ensure site does not exist in summary
-
-})
+# test_that("1.6", {
+#
+#
+# # -------------------------------------------------------------------------
+#
+#   # data
+#   # several NA values
+#   dfInputWithNA1 <- dfInput %>%
+#     mutate(Exposure = ifelse(substr(SubjectID,11,11) != 1, Exposure, NA_integer_))
+#
+#   # one NA value
+#   dfInputWithNA2 <- dfInput %>%
+#     mutate(Exposure = ifelse(SubjectID == "01-701-1015", NA_integer_, Exposure))
+#
+# # -------------------------------------------------------------------------
+#
+#
+#
+#   # expect_warning(AE_Assess(dfInputWithNA1))
+#   # expect_warning(AE_Assess(dfInputWithNA2))
+#
+#   # both throwing error:
+#   # AE_Assess(dfInputWithNA1)
+#   # AE_Assess(dfInputWithNA2)
+#
+#   #Error:
+#   # ! Assigned data `stats::residuals(cModel)` must be compatible with existing data.
+#   # x Existing data has 17 rows.
+#   # x Assigned data has 5 rows.
+#   # ℹ Only vectors of size 1 are recycled.
+#
+#   # 1.6 will need more test cases once the expected output of AE_Assess() is resolved
+#   # -- test that correct records are dropped and SUBJID counts are correct
+#   # -- test dropping all subjects from a given site due to NA values and
+#   #    ensure site does not exist in summary
+#
+# })
 
 
 # + 1.7 Test that (NA, NaN) in input count data throws a warning and
 # drops the person from the analysis.
 
-test_that("1.7", {
-
-# data --------------------------------------------------------------------
-
-    dfInputCountNA <- dfInput %>%
-    mutate(Count = ifelse(SubjectID == "01-701-1015", NA_integer_, Count))
-
-# -------------------------------------------------------------------------
-
-  # expect_warning(AE_Assess(dfInputCountNA))
-
-  # 1.7 - same applies as noted above in 1.6. more tests needed after expected
-  # output of AE_Assess() is resolved.
-
-})
+# test_that("1.7", {
+#
+# # data --------------------------------------------------------------------
+#
+#     dfInputCountNA <- dfInput %>%
+#     mutate(Count = ifelse(SubjectID == "01-701-1015", NA_integer_, Count))
+#
+# # -------------------------------------------------------------------------
+#
+#   # expect_warning(AE_Assess(dfInputCountNA))
+#
+#   # 1.7 - same applies as noted above in 1.6. more tests needed after expected
+#   # output of AE_Assess() is resolved.
+#
+# })
 
 
 

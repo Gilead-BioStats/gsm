@@ -14,7 +14,8 @@ usernames:
     role: Qualification Developer
 validation_files:
 - Specifications_for_AE_Assessment.md
+- Specifications_for_AE_Map_Raw.md
 - Test_Cases_for_AE_Assessment.md
 - Test_Cases_for_AE_Map_Raw.md
-- Test_Code_for_AE_Map_Raw.R
+- Tests_for_AE_Assessment.R
 - Tests_for_AE_Map_Raw.R

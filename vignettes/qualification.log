@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.2.7)  15 FEB 2022 17:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.2.7)  16 FEB 2022 15:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**/tmp/RtmpjzRMxa/preview-175462159ec9.dir/qualification.tex
-(/tmp/RtmpjzRMxa/preview-175462159ec9.dir/qualification.tex
+**/tmp/RtmpTa4TGA/preview-24eb1d4cd231.dir/qualification.tex
+(/tmp/RtmpTa4TGA/preview-24eb1d4cd231.dir/qualification.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -1107,27 +1107,31 @@ Overfull \hbox (123.13402pt too wide) in paragraph at lines 119--128
  []
 
 [2]
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 240.
 
-(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [3]
-Underfull \vbox (badness 10000) detected at line 279
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[3]
+Underfull \vbox (badness 10000) detected at line 298
  []
 
 [4]
-Underfull \vbox (badness 10000) detected at line 305
+Underfull \vbox (badness 10000) detected at line 332
  []
 
 [5
 
 ]
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 314.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 341.
 
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 371
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 353.
+
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 411
 .
 (/usr/share/texmf/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1135,29 +1139,36 @@ File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 448.
-[6] [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 448.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 524.
+[6]
+
+LaTeX Warning: Text page 7 contains only floats.
+
+[7]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 524.
 (./qualification.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 448.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 448.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 448.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 524.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 524.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 524.
  ) 
 Here is how much of TeX's memory you used:
  14535 strings out of 494923
  208360 string characters out of 6180743
- 322181 words of memory out of 5000000
+ 327182 words of memory out of 5000000
  17522 multiletter control sequences out of 15000+600000
  54787 words of font info for 70 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 34i,11n,38p,374b,460s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,11n,38p,374b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/d
 vips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/shar
 e/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/l
 m/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf
 /fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.p
 fb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb>
-Output written on qualification.pdf (7 pages, 285142 bytes).
+Output written on qualification.pdf (7 pages, 285095 bytes).
 PDF statistics:
  150 PDF objects out of 1000 (max. 8388607)
  130 compressed objects within 2 object streams
