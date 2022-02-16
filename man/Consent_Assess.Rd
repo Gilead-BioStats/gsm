@@ -31,7 +31,7 @@ The input data (\code{dfInput}) for Consent Assessment is typically created usin
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
-\item \code{Count} - Number of Adverse Events
+\item \code{Count} - Number of findings of errors/outliers.
 }
 
 The Assessment
@@ -41,10 +41,6 @@ The Assessment
 \item \code{\link{Flag}} creates \code{dfFlagged}.
 \item \code{\link{Summarize}} creates \code{dfSummary}.
 }
-}
-
-\section{Statistical Assumptions}{
-
 }
 
 \examples{

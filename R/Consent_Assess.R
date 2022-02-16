@@ -9,7 +9,7 @@
 #' The input data (`dfInput`) for Consent Assessment is typically created using \code{\link{Consent_Map_Raw}} and should be one record per person with columns for: 
 #' - `SubjectID` - Unique subject ID
 #' - `SiteID` - Site ID
-#' - `Count` - Number of Adverse Events 
+#' - `Count` - Number of findings of errors/outliers. 
 #' 
 #' The Assessment 
 #' - \code{\link{Transform_EventCount}} creates `dfTransformed`.
