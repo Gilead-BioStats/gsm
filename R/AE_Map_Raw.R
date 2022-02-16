@@ -38,8 +38,8 @@ AE_Map_Raw <- function( dfAE = NULL, dfRDSL = NULL, strExposureCol="TimeOnTreatm
         "ae dataset not found"=is.data.frame(dfAE),
         "RDSL dataset is not found"=is.data.frame(dfRDSL),
         "SUBJID column not found in dfAE"="SUBJID" %in% names(dfAE),
-        "strExposure column is not character"=is.character(strExposureCol),
-        "SubjectID, SiteID and strExposureCol columns not found in dfExposure"=all(c("SubjectID","SiteID",strExposureCol) %in% names(dfRDSL))
+        "strExposureCol is not character"=is.character(strExposureCol),
+        "SubjectID, SiteID and strExposureCol columns not found in dfRDSL"=all(c("SubjectID","SiteID",strExposureCol) %in% names(dfRDSL))
     )
 
     dfInput <-  dfRDSL %>%

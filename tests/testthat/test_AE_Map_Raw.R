@@ -1,5 +1,3 @@
-
-
 test_that("output created as expected and has correct structure",{
   ae_input <- AE_Map_Raw(dfAE = clindata::raw_ae, dfRDSL = clindata::rawplus_rdsl )
   expect_true(is.data.frame(ae_input))
