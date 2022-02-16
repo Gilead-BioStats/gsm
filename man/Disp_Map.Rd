@@ -5,18 +5,18 @@
 \title{Disposition Map}
 \usage{
 Disp_Map(
-  dfDisp = NULL,
-  strCol = NULL,
+  dfDisp,
+  strCol,
   strReason = "any",
   vReasonIgnore = c("", " ", "completed", NA)
 )
 }
 \arguments{
-\item{dfDisp}{demographics data with the following required columns: SUBJID and SITEID.}
+\item{dfDisp}{disposition data with the following required columns: SUBJID and SITEID. Must also include the value specified in the \code{strCol} parameter.}
 
 \item{strCol}{column name containing discontinuation reason.}
 
-\item{strReason}{character vector of length 1 containing a single reason to run Disposisition Assessment on.}
+\item{strReason}{character string containing reason for discontinuation. Can be a value found in \code{dfDisp$strCol} or "any" (the default), which selects all reasons not included in \code{vReasonIgnore}}
 
 \item{vReasonIgnore}{character vector containing reasons to ignore when counting Discontinuation Reason (i.e., "Completed", "", etc.)}
 }

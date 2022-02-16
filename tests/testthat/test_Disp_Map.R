@@ -1,6 +1,5 @@
 library(safetyData)
 
-
 df <- dplyr::tribble(
   ~SUBJID, ~SITEID,          ~DCREASCD,
   "00000-1015",   "701",        "Completed",
@@ -25,7 +24,31 @@ df <- dplyr::tribble(
   "00000-1203",   "701",        "Completed"
 )
 
-expectedOutput <- dplyr::tribble(
+expectedOutputAny <- dplyr::tribble(
+  ~SubjectID, ~SiteID,          ~DCREASCD, ~Count,
+  "1015",   "701",        "Completed",      0,
+  "1023",   "701",    "Adverse Event",      1,
+  "1028",   "701",        "Completed",      0,
+  "1033",   "701", "Sponsor Decision",      1,
+  "1034",   "701",        "Completed",      0,
+  "1047",   "701",    "Adverse Event",      1,
+  "1097",   "701",        "Completed",      0,
+  "1111",   "701",    "Adverse Event",      1,
+  "1115",   "701",    "Adverse Event",      1,
+  "1118",   "701",        "Completed",      0,
+  "1130",   "701",        "Completed",      0,
+  "1133",   "701",        "Completed",      0,
+  "1146",   "701",    "Adverse Event",      1,
+  "1148",   "701",        "Completed",      0,
+  "1153",   "701",        "Completed",      0,
+  "1180",   "701",    "Adverse Event",      1,
+  "1181",   "701",    "Adverse Event",      1,
+  "1188",   "701",    "Adverse Event",      1,
+  "1192",   "701",        "Completed",      0,
+  "1203",   "701",        "Completed",      0
+)
+
+expectedOutputAdverse <- dplyr::tribble(
   ~SubjectID, ~SiteID,          ~DCREASCD, ~Count,
   "1015",   "701",        "Completed",      0,
   "1023",   "701",    "Adverse Event",      1,
@@ -88,11 +111,42 @@ test_that("incorrect inputs throw errors",{
 })
 
 
-test_that("output as expected", {
+test_that("strReason = 'any' works as expected", {
 
   output <- Disp_Map(dfDisp = df,
                      strCol = "DCREASCD",
                      strReason = "any")
+
+  testOutput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "any")
+  testOutput <- head(testOutput, n = 20)
+
+  expect_equal(
+    names(output),
+    c("SubjectID", "SiteID", "DCREASCD", "Count")
+  )
+
+  expect_true(
+    nrow(output %>%
+           group_by(SubjectID) %>%
+           filter(n()>1)) == 0
+  )
+
+  # ignore because tribble does not include label attrs found in
+  # expected output
+  expect_equal(
+    expectedOutputAny,
+    testOutput,
+    ignore_attr = TRUE
+  )
+
+})
+
+
+test_that("strReason works when set to specific reason", {
+
+  output <- Disp_Map(dfDisp = df,
+                     strCol = "DCREASCD",
+                     strReason = "adverse event")
 
   testOutput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "adverse event")
   testOutput <- head(testOutput, n = 20)
@@ -104,16 +158,66 @@ test_that("output as expected", {
 
   expect_true(
     nrow(output %>%
-             group_by(SubjectID) %>%
-             filter(n()>1)) == 0
+           group_by(SubjectID) %>%
+           filter(n()>1)) == 0
   )
 
   # ignore because tribble does not include label attrs found in
   # expected output
   expect_equal(
-    expectedOutput,
+    expectedOutputAdverse,
     testOutput,
     ignore_attr = TRUE
+  )
+
+})
+
+
+test_that("strReason can't also be in vReasonIgnore", {
+
+  strReason <- "adverse event"
+  vReasonIgnore <- "adverse event"
+
+  expect_error(
+    Disp_Map(dfDisp = safetyData::adam_adsl,
+           strCol = "DCREASCD",
+           strReason = strReason,
+           vReasonIgnore = vReasonIgnore)
+  )
+
+})
+
+
+test_that("vReasonIgnore works as expected",{
+
+  ignoreAll <- c("Completed", "Adverse Event", "Sponsor Decision", "Death",
+    "Withdrew Consent", "Physician Decision", "Protocol Violation",
+    "Lost to Follow-up", "I/E Not Met", "Lack of Efficacy")
+
+  ignoreNone <- ""
+
+  ignoreAdverseEvent <- "adverse event"
+
+  expect_equal(
+    Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "any", vReasonIgnore = ignoreAll) %>%
+      summarize(Sum = sum(Count)) %>%
+      pull(Sum),
+    0
+  )
+
+  expect_equal(
+    Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "any", vReasonIgnore = ignoreNone) %>%
+      summarize(Sum = sum(Count)) %>%
+      pull(Sum),
+    254
+  )
+
+  expect_equal(
+    Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "any", vReasonIgnore = ignoreAdverseEvent) %>%
+      filter(DCREASCD == "Adverse Event") %>%
+      summarize(Sum = sum(Count)) %>%
+      pull(Sum),
+    0
   )
 
 
