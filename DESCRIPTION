@@ -11,8 +11,7 @@ Imports:
     dplyr,
     broom,
     lubridate,
-    magrittr,
-    valtools
+    magrittr
 Suggests:
     testthat (>= 3.0.0),
     safetyData,
@@ -22,7 +21,9 @@ Suggests:
     knitr,
     kableExtra,
     devtools,
-    tibble
+    rmarkdown,
+    tibble,
+    valtools
 LazyData: true
 Remotes: 
     phuse-org/valtools

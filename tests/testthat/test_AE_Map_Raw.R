@@ -1,5 +1,5 @@
 
-dfExposure <- TreatmentExposure(  dfEx = clindata::raw_ex,  dfSdrg = NULL, dtSnapshot = NULL)
+dfExposure <- clindata::TreatmentExposure(  dfEx = clindata::raw_ex,  dfSdrg = NULL, dtSnapshot = NULL)
 
 test_that("output created as expected and has correct structure",{
   ae_input <- AE_Map_Raw(dfAE = clindata::raw_ae,dfExposure = dfExposure )
@@ -76,9 +76,9 @@ test_that("error given if required column not found",{
 test_that("output is correct given example input",{
   
 
-  dfAE <- tribble(~SUBJID, 1,1,1,1,2,2)
+  dfAE <- tibble::tribble(~SUBJID, 1,1,1,1,2,2)
   
-  dfExposure<-tribble(
+  dfExposure<-tibble::tribble(
     ~SubjectID, ~SiteID, ~Exposure,
     1,   1, 10,
     2,   1, NA,
@@ -86,7 +86,7 @@ test_that("output is correct given example input",{
   )
 
   
-  dfInput <-tribble(
+  dfInput <-tibble::tribble(
       ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
       1,   1, 4, 10, 0.4,
       2,   1, 2, NA, NA,
@@ -96,9 +96,9 @@ test_that("output is correct given example input",{
 
   expect_equal(dfInput,  AE_Map_Raw(dfAE = dfAE, dfExposure = dfExposure))
   
-  dfAE2 <- tribble(~SUBJID, 1,1,1,1,2,2,4,4)
+  dfAE2 <- tibble::tribble(~SUBJID, 1,1,1,1,2,2,4,4)
   
-  dfExposure2<-tribble(
+  dfExposure2<-tibble::tribble(
     ~SubjectID, ~SiteID, ~Exposure,
     1,   1, 10,
     2,   1, NA,
@@ -107,7 +107,7 @@ test_that("output is correct given example input",{
   )
   
   
-  dfInput2 <-tribble(
+  dfInput2 <-tibble::tribble(
     ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
     1,   1, 4, 10, 0.4,
     2,   1, 2, NA, NA,
@@ -125,9 +125,9 @@ test_that("output is correct given example input",{
 
 test_that("NA values in input data are handled",{
   
-  dfAE3 <- tribble(~SUBJID, 1,1,1,1,2,2,4,4)
+  dfAE3 <- tibble::tribble(~SUBJID, 1,1,1,1,2,2,4,4)
   
-  dfExposure3<-tribble(
+  dfExposure3<-tibble::tribble(
     ~SubjectID, ~SiteID, ~Exposure,
     NA,   1, 10,
     2,   1, NA,
@@ -136,7 +136,7 @@ test_that("NA values in input data are handled",{
   )
   
   
-  dfInput3 <-tribble(
+  dfInput3 <-tibble::tribble(
     ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
     NA,   1, 0, 10, 0,
     2,    1,  2, NA, NA,
@@ -146,9 +146,9 @@ test_that("NA values in input data are handled",{
   
   expect_equal(dfInput3, AE_Map_Raw(dfAE = dfAE3, dfExposure = dfExposure3))
   
-  dfAE4 <- tribble(~SUBJID, 1,NA,1,1,2,2,4,4)
+  dfAE4 <- tibble::tribble(~SUBJID, 1,NA,1,1,2,2,4,4)
   
-  dfExposure4<-tribble(
+  dfExposure4<-tibble::tribble(
     ~SubjectID, ~SiteID, ~Exposure,
     NA,   1, 10,
     2,   1, NA,
@@ -157,7 +157,7 @@ test_that("NA values in input data are handled",{
   )
   
   
-  dfInput4 <-tribble(
+  dfInput4 <-tibble::tribble(
     ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
     NA,   1, 0, 10, 0,
     2,    1,  2, NA, NA,

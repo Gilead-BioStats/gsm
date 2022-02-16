@@ -1,16 +1,38 @@
 #' Inclusion/Exclusion Assessment Mapping from Raw Data- Make Input Data
 #' 
 #' Convert from raw data format to needed input format for Inclusion/Exclusion Assessment
-#'
-#' @param dfIe ie dataset with columns SUBJID IECAT IETEST IEORRES
 #' 
-#' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Total, Valid, Invalid, Missing, Details
+#' @details
+#' 
+#' This function creates the required input for \code{\link{IE_Assess}}. 
+#' 
+#' @section Data Specification:
+#' 
+#' 
+#' The following columns are required:
+#' - `dfIE`
+#'     - `SUBJID` - Unique subject ID
+#'     - `INVID` - Investigator identifier
+#'     - `IECAT` - IE Category
+#'     - `IETEST` - Criterion Description (truncated)
+#'     - `IEORRES` - Incl criteria not met Excl criteria met.
+#' 
+#'
+#' @param dfIe ie dataset with columns SUBJID INVID IECAT IETESTCD IEORRES
+#' @param vExpected Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIECAT=="Inclusion".
+#' 
+#' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count
+#' 
+#' @examples
+#'
+#' dfInput <- IE_Map_Raw(clindata::raw_ie_a2)
 #' 
 #' @import dplyr
 #' 
 #' @export 
 IE_Map_Raw <- function( 
-  dfIe = NULL
+  dfIe = NULL,
+  vExpected = c(0,1)
 ){
 
   ### Requires raw ie dataset
@@ -21,10 +43,10 @@ IE_Map_Raw <- function(
   dfInput_long <- dfIe %>% 
     filter(.data$SUBJID !="")%>%
     select(.data$SUBJID, .data$INVID, .data$IECAT, .data$IETESTCD, .data$IETEST, .data$IEORRES) %>%
-    mutate(expected=ifelse(.data$IECAT=="Exclusion","No","Yes")) %>%
+    mutate(expected=ifelse(.data$IECAT=="Exclusion",vExpected[1],vExpected[2])) %>%
     mutate(valid=.data$IEORRES==.data$expected)%>%
     mutate(invalid=.data$IEORRES!=.data$expected)%>%
-    mutate(missing=!(.data$IEORRES %in% c("Yes","No")))
+    mutate(missing=!(.data$IEORRES %in% vExpected))
   
   # collapse long data to one record per participant
   dfInput <- dfInput_long %>%
@@ -38,6 +60,8 @@ IE_Map_Raw <- function(
     )%>%
     mutate(Count = .data$Invalid + .data$Missing) %>%
     rename(SubjectID =  .data$SUBJID) %>%
-    select(.data$SubjectID, .data$SiteID, .data$Count)
+    select(.data$SubjectID, .data$SiteID, .data$Count) %>%
+    ungroup()
+  
   return(dfInput)
 }

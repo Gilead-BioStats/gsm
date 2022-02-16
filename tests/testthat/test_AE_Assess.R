@@ -1,4 +1,4 @@
-library(safetyData)
+
 ae_input <- AE_Map_Adam(
     safetyData::adam_adsl, 
     safetyData::adam_adae
@@ -21,7 +21,7 @@ test_that("incorrect inputs throw errors",{
     expect_error(AE_Assess("Hi"))
     expect_error(AE_Assess(ae_input, cLabel=123))
     expect_error(AE_Assess(ae_input, cMethod="abacus"))
-    expect_error(AE_Assess(ae_input, bdataList="Yes"))
+    expect_error(AE_Assess(ae_input, bDataList="Yes"))
 })
 
 
@@ -30,7 +30,7 @@ test_that("incorrect inputs throw errors",{
   expect_error(AE_Assess(ae_input %>% select(-SiteID)))
   expect_error(AE_Assess(ae_input %>% select(-Count)))
   expect_error(AE_Assess(ae_input %>% select(-Exposure)))
-  expect_error(AE_Assess(ae_input %>% select(-RATE)))
+  expect_error(AE_Assess(ae_input %>% select(-Rate)))
 })
 
 ae_list <- AE_Assess(ae_input, bDataList=TRUE)
