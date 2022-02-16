@@ -17,10 +17,6 @@ jobs:
       matrix:
         config:
           - {os: macOS-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}   
@@ -45,6 +41,7 @@ jobs:
         run: |
           cd ..
           git clone git@github.com:Gilead-BioStats/clindata.git
+          git checkout tags/v0.1.0
           cd gsm
           
       - name: install packages
