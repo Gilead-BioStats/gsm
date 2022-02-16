@@ -2,7 +2,7 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   pull_request:
-    branches: [main, dev]
+    branches: dev
 
 name: R-CMD-check
 
@@ -17,10 +17,6 @@ jobs:
       matrix:
         config:
           - {os: macOS-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}   
@@ -45,7 +41,9 @@ jobs:
         run: |
           cd ..
           git clone git@github.com:Gilead-BioStats/clindata.git
-          cd gsm
+          cd clindata
+          git checkout tags/v0.1.0
+          cd ../gsm
           
       - name: install packages
         shell: Rscript {0}
