@@ -7,7 +7,7 @@
 Consent_Assess(dfInput, nThreshold = 0.5, cLabel = "", bDataList = FALSE)
 }
 \arguments{
-\item{dfInput}{input dataset with subject information containing : (required variables)}
+\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure.}
 
 \item{nThreshold}{integer threshold values Flagging, integer values greater than will be flagged.}
 
@@ -16,8 +16,55 @@ Consent_Assess(dfInput, nThreshold = 0.5, cLabel = "", bDataList = FALSE)
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
 }
 \value{
-Finding data frame with columns for "SiteID", "N", "PValue", "Flag".
+If \code{bDataList} is false (the default), the summary data frame (\code{dfSummary}) is returned. If \code{bDataList} is true, a list containing all data in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged} and \code{dfSummary}) is returned.
 }
 \description{
 Consent Assessment
+}
+\details{
+The Consent Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag possible outliers. More details regarding the data pipeline and statistical methods are described below.
+}
+\section{Data Specification}{
+
+
+The input data (\code{dfInput}) for Consent Assessment is typically created using \code{\link{Consent_Map_Raw}} and should be one record per person with columns for:
+\itemize{
+\item \code{SubjectID} - Unique subject ID
+\item \code{SiteID} - Site ID
+\item \code{Count} - Number of Adverse Events
+}
+
+The Assessment
+\itemize{
+\item \code{\link{Transform_EventCount}} creates \code{dfTransformed}.
+\item \code{\link{Consent_Analyze}} creates \code{dfAnalyzed}.
+\item \code{\link{Flag}} creates \code{dfFlagged}.
+\item \code{\link{Summarize}} creates \code{dfSummary}.
+}
+}
+
+\section{Statistical Assumptions}{
+
+}
+
+\examples{
+
+dfConsent <- tibble::tribble(~SUBJID,  ~INVID,  ~CONSCAT_STD , ~CONSYN , ~CONSDAT,
+                            1,       1,  "MAINCONSENT",    "Yes", "2014-12-25",
+                            2,       2,  "MAINCONSENT",    "Yes", "2014-12-25",
+                            3,       2,  "MAINCONSENT",     "No", "2014-12-25",
+                            4,       2,   "NonCONSENT",    "Yes", "2014-12-25",
+                            5,       3,  "MAINCONSENT",    "Yes", "2014-12-25"  )
+
+dfIxrsrand <- tibble::tribble(~SUBJID, ~RGMNDTN,
+                             1,   "2013-12-25",
+                             2,   "2015-12-25",
+                             3,   "2013-12-25",
+                             4,   "2013-12-25",
+                             5,   "2013-12-25")
+
+
+dfInput <-  Consent_Map_Raw(dfConsent = dfConsent, dfIxrsrand = dfIxrsrand)
+lAssess <- Consent_Assess( dfInput , bDataList = TRUE)
+
 }
