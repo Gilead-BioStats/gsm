@@ -45,8 +45,9 @@ Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "") {
         pull(.data$SiteID) %>%
         map(function(SiteName){
             model <- wilcox.test(
-                .data[[strOutcome]] ~ SiteID == SiteName,
+                Rate ~ SiteID == SiteName,
                 exact = FALSE,
+                conf.int = TRUE,
                 data=dfTransformed
             ) %>%
             broom::glance() %>%
@@ -57,7 +58,7 @@ Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "") {
         map_df(bind_rows) %>%
         rename(
             PValue = .data[['p.value']],
-            Estimate = .data$statistic
+            Estimate = .data$estimate
         ) %>%
         select(.data$SiteID, .data$PValue, .data$Estimate) %>%
         left_join(dfTransformed, by="SiteID")%>%
