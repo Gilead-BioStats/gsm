@@ -37,7 +37,6 @@ The input data (\code{dfInput}) for Consent Assessment is typically created usin
 The Assessment
 \itemize{
 \item \code{\link{Transform_EventCount}} creates \code{dfTransformed}.
-\item \code{\link{Analyze_MissingInvalid}} creates \code{dfAnalyzed}.
 \item \code{\link{Flag}} creates \code{dfFlagged}.
 \item \code{\link{Summarize}} creates \code{dfSummary}.
 }
