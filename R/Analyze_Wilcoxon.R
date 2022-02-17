@@ -1,68 +1,68 @@
 #' AE Wilcoxon Assessment - Analysis
 #'
-#' Creates Analysis results data for Adverse Event assessment using the Wilcoxon sign-ranked test 
+#' Creates Analysis results data for Adverse Event assessment using the Wilcoxon sign-ranked test
 #'
 #'  @details
-#'  
-#' Fits a Wilcox Model to site-level data. 
-#' 
+#'
+#' Fits a Wilcox Model to site-level data.
+#'
 #' @section Statistical Methods:
-#' 
+#'
 #' TODO Coming soon ...
-#' 
+#'
 #' @section Data Specification:
-#' 
-#' The input data (` dfTransformed`) for the Analyze_Wilcoxon is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for: 
+#'
+#' The input data (` dfTransformed`) for the Analyze_Wilcoxon is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for:
 #' - `SubjectID` - Unique subject ID
 #' - `SiteID` - Site ID
-#' - `Count` - Number of Adverse Events 
-#' - `Exposure` - Number of days of exposure 
-#' 
+#' - `Count` - Number of Adverse Events
+#' - `Exposure` - Number of days of exposure
 #'
-#' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}} 
+#'
+#' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
 #'
 #' @importFrom stats wilcox.test
 #' @importFrom purrr map map_df
 #' @importFrom broom glance
-#' 
+#'
 #' @return data.frame with one row per site, columns:   SiteID, N , Mean, SD, Median, Q1,  Q3,  Min, Max, Statistic, PValue
-#' 
-#' @examples 
+#'
+#' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 #' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
-#' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed ) 
-#' 
+#' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed )
+#'
 #' @export
 
-Analyze_Wilcoxon <- function(dfTransformed) {
+Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "") {
+
     stopifnot(
-        is.data.frame(dfTransformed), 
-        all(c("SiteID", "N", "TotalExposure", "TotalCount", "Rate") %in% names(dfTransformed))    
+        is.data.frame(dfTransformed),
+        all(c("SiteID", "N", strOutcome) %in% names(dfTransformed))
     )
 
-    dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-    dfTransformed <- gsm::Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
     dfAnalyzed <- dfTransformed %>%
         pull(.data$SiteID) %>%
         map(function(SiteName){
             model <- wilcox.test(
-                Rate ~ SiteID == SiteName, 
+                .data[[strOutcome]] ~ SiteID == SiteName,
                 exact = FALSE,
                 data=dfTransformed
-            ) %>% 
+            ) %>%
             broom::glance() %>%
-            mutate(SiteID = SiteName) 
-            
+            mutate(SiteID = SiteName)
+
             return(model)
         })%>%
         map_df(bind_rows) %>%
-        rename( 
+        rename(
             PValue = .data[['p.value']],
             Estimate = .data$statistic
-        ) %>% 
+        ) %>%
         select(.data$SiteID, .data$PValue, .data$Estimate) %>%
         left_join(dfTransformed, by="SiteID")%>%
-        arrange(.data$PValue)
+        arrange(.data$PValue) %>%
+        select( SiteID, N, TotalCount, TotalExposure, Rate, Estimate, PValue)
 
     return(dfAnalyzed)
 }
