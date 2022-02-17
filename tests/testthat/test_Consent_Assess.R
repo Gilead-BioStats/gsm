@@ -6,15 +6,14 @@ dfConsent <- tibble::tribble(~SUBJID,  ~INVID,  ~CONSCAT_STD , ~CONSYN , ~CONSDA
                             4,       2,   "NonCONSENT",    "Yes", "2014-12-25",
                             5,       3,  "MAINCONSENT",    "Yes", "2014-12-25"  )
 
-dfIxrsrand <- tibble::tribble(~SUBJID, ~RGMNDTN,
-                             1,   "2013-12-25",
-                             2,   "2015-12-25",
-                             3,   "2013-12-25",
-                             4,   "2013-12-25",
-                             5,   "2013-12-25")
+dfRDSL_test <- tibble::tribble(~SubjectID, ~SiteID, ~RandDate,
+                                   1,  1, "2013-12-25",
+                                   2,  2, "2015-12-25",
+                                   3,  2, "2013-12-25",
+                                   4,  3, "2013-12-25",
+                                   5,  3, "2013-12-25")
 
-
-consent_input <-  Consent_Map_Raw(dfConsent = dfConsent, dfIxrsrand = dfIxrsrand)
+consent_input <-  Consent_Map_Raw(dfConsent = dfConsent, dfRDSL= dfRDSL_test)
 
 
 

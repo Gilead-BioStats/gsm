@@ -64,9 +64,12 @@ See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additio
 }
 
 \examples{
-dfTos <- clindata::TimeOnStudy(dfVisit = clindata::raw_visdt,dfStud = clindata::raw_studcomp) 
-dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfTOS = dfTos)
-SafetyPD <- PD_Assess( dfInput )
-SafetyPD_Wilk <- PD_Assess( dfInput, cMethod="wilcoxon")
+# dfRDSL<-clindata::rawplus_rdsl \%>\% filter(RandFlag=="Y")
+# dfInput <- PD_Map_Raw(
+#   dfPD = clindata::raw_protdev, 
+#   dfRDSL = dfRDSL
+#) 
+#SafetyPD <- PD_Assess( dfInput )
+#SafetyPD_Wilk <- PD_Assess( dfInput, cMethod="wilcoxon")
 
 }
