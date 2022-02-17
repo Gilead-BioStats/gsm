@@ -4,13 +4,40 @@
 \alias{Consent_Map_Raw}
 \title{Consent Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-Consent_Map_Raw(dfConsent = NULL, dfIxrsrand = NULL)
+Consent_Map_Raw(dfConsent, dfRDSL)
 }
 \arguments{
-\item{dfConsent}{consent data frame}
+\item{dfConsent}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}
 
-\item{dfIxrsrand}{Ixrsand data frame}
+\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID RandDate}
+}
+\value{
+Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
 }
 \description{
-Convert from raw data format to needed input format for Consent Assessment
+Convert from raw data format to needed input format for \code{\link{Consent_Assess}}
 }
+\details{
+This function uses raw Consent and Ixrsand data to create the required input for \code{\link{Consent_Assess}}.
+}
+\section{Data Specification}{
+
+
+The following columns are required:
+\itemize{
+\item \code{dfConsent}
+\itemize{
+\item \code{SUBJID} - Unique subject ID
+\item \code{CONSCAT_STD} - Type of Consent_Coded value
+\item \code{CONSYN} - Did the subject give consent? Yes / No.
+\item \code{CONSDAT} - If yes, provide date consent signed
+}
+\item \code{dfRDSL}
+\itemize{
+\item \code{SubjectID} - Unique subject ID
+\item \code{SiteID} - Site ID
+\item \code{RandData} - Randomization Date
+}
+}
+}
+

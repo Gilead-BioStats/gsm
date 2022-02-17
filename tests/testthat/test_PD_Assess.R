@@ -1,8 +1,5 @@
-
-
-dfTos <- clindata::TimeOnStudy(dfVisit = clindata::raw_visdt,dfStud = clindata::raw_studcomp) 
-pd_input <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfTOS = dfTos)
-
+rdsl<-clindata::rawplus_rdsl %>% filter(RandFlag=="Y")
+pd_input <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfRDSL = rdsl)
 
 test_that("summary df created as expected and has correct structure",{
   pd_assessment <- PD_Assess(pd_input) 

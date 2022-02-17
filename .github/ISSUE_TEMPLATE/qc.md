@@ -1,11 +1,11 @@
 ---
-name: "Assessment QC Issue Template"
-about: "Conduct a full QC of an Assessment"
+name: "QC Issue Template"
+about: "Update QC Framework: Documentation, Qualification, Automation etc.  "
 title: "QC: (fill in)"
 
 ---
 ## QC Details
-<!--- What assessment(s) is/are being submitted for QC -->
+<!--- What Updates are being made. Link to PR/Issues as appropriate. -->
 
 ## Additional Comments
-<!--- Not required, anything else import pertaining to this QC -->
+<!--- Not required, anything else import pertaining to this issue -->
