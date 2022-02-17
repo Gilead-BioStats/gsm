@@ -8,7 +8,7 @@ ae_prep <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "
 test_that("output created as expected and has correct structure",{
     aew_anly <-Analyze_Wilcoxon(ae_prep)
     expect_true(is.data.frame(aew_anly))
-    expect_equal(names(aew_anly), c("SiteID" ,"N",  "Mean", "SD", "Median",    "Q1",    "Q3",   "Min",   "Max", "Statistic",    "PValue"))
+    expect_equal(names(aew_anly), c("SiteID"  "Statistic",    "PValue"))
     expect_equal(sort(unique(ae_input$SiteID)), sort(aew_anly$SiteID))
 })
 
