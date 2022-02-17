@@ -53,8 +53,8 @@ test_that("incorrect inputs throw errors",{
 test_that("error given if required column not found",{
   expect_error(
     Consent_Map_Raw( 
-     dfConsent =  dfConsent_test %>% rename(ID = SUBJID),
-     dfRDSL = dfRDSL_test
+      dfConsent =  dfConsent_test %>% rename(ID = SUBJID),
+      dfRDSL = dfRDSL_test
     )
   )
   expect_error(

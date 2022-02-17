@@ -18,7 +18,7 @@
 #' - `dfRDSL`
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
-#'     - `RandData` - RGMNDTN or RGMNTDC is required. Randomization Date, site local time
+#'     - `RandData` - Randomization Date
 #'
 #' @param dfConsent consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.
 #' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID SiteID RandDate
@@ -45,7 +45,7 @@ Consent_Map_Raw <- function(
   )
   
   dfConsent<- dfConsent %>%
-    select(SUBJID, CONSCAT_STD , CONSYN , CONSDAT)%>%
+    select(.data$SUBJID, .data$CONSCAT_STD , .data$CONSYN , .data$CONSDAT)%>%
     rename(SubjectID = .data$SUBJID)
 
   dfInput <- dfRDSL %>%

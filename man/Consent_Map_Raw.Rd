@@ -36,7 +36,7 @@ The following columns are required:
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
-\item \code{RandData} - RGMNDTN or RGMNTDC is required. Randomization Date, site local time
+\item \code{RandData} - Randomization Date
 }
 }
 }

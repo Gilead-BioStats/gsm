@@ -11,7 +11,7 @@ PD_Map_Raw(dfPD = NULL, dfRDSL = NULL, strExposureCol = "TimeOnStudy")
 
 \item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol}
 
-\item{strExposureColumn}{Name of exposure column. 'TimeOnStudy' by default}
+\item{strExposureCol}{Name of exposure column. 'TimeOnStudy' by default}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate

@@ -69,7 +69,7 @@ IE_Map_Raw <- function(
   
   # merge IE and RDSL
   dfInput <- dfRDSL %>% 
-    select(SubjectID, SiteID)%>%
+    select(.data$SubjectID, .data$SiteID)%>%
     left_join(dfIE_Subj, by="SubjectID") %>%
     select(.data$SubjectID, .data$SiteID, .data$Count)
   

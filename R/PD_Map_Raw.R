@@ -22,7 +22,7 @@
 #'
 #' @param dfPD  PD dataset with SUBJID column and rows for each Protocol Deviation 
 #' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol
-#' @param strExposureColumn Name of exposure column. 'TimeOnStudy' by default
+#' @param strExposureCol Name of exposure column. 'TimeOnStudy' by default
 #' 
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate
 #' 

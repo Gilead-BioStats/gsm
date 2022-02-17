@@ -11,7 +11,7 @@ AE_Map_Raw(dfAE = NULL, dfRDSL = NULL, strExposureCol = "TimeOnTreatment")
 
 \item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol}
 
-\item{strExposureColumn}{Name of exposure column. 'TimeOnTreatment' by default}
+\item{strExposureCol}{Name of exposure column. 'TimeOnTreatment' by default}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)

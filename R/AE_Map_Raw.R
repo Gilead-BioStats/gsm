@@ -22,7 +22,7 @@
 #'
 #' @param dfAE AE dataset with columns SUBJID and rows for each AE record
 #' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol
-#' @param strExposureColumn Name of exposure column. 'TimeOnTreatment' by default
+#' @param strExposureCol Name of exposure column. 'TimeOnTreatment' by default
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #' 
