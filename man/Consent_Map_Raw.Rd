@@ -4,12 +4,14 @@
 \alias{Consent_Map_Raw}
 \title{Consent Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-Consent_Map_Raw(dfConsent = NULL, dfIxrsrand = NULL)
+Consent_Map_Raw(dfConsent, dfRDSL, strConsentReason = "MAINCONSENT")
 }
 \arguments{
-\item{dfConsent}{consent data frame with columns: SUBJID,  INVID,  CONSCAT_STD , CONSYN , CONSDAT.}
+\item{dfConsent}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}
 
-\item{dfIxrsrand}{Ixrsand data frame with required columns: SUBJID, RGMNDTN or RGMNDTC.}
+\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID RandDate.}
+
+\item{strConsentReason}{default = "MAINCONSENT", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
@@ -18,7 +20,7 @@ Data frame with one record per person data frame with columns: SubjectID, SiteID
 Convert from raw data format to needed input format for \code{\link{Consent_Assess}}
 }
 \details{
-This function uses raw Consent and Ixrsand data to create the required input for \code{\link{Consent_Assess}}.
+This function uses raw Consent and RDSL data to create the required input for \code{\link{Consent_Assess}}.
 }
 \section{Data Specification}{
 
@@ -28,38 +30,21 @@ The following columns are required:
 \item \code{dfConsent}
 \itemize{
 \item \code{SUBJID} - Unique subject ID
-\item \code{INVID} - Current Investigator identifier
 \item \code{CONSCAT_STD} - Type of Consent_Coded value
 \item \code{CONSYN} - Did the subject give consent? Yes / No.
 \item \code{CONSDAT} - If yes, provide date consent signed
 }
-\item \code{dfIxrsrand}
+\item \code{dfRDSL}
 \itemize{
-\item \code{SUBJID} - Unique subject ID
-\item \code{RGMNDTN} - RGMNDTN or RGMNTDC is required. Randomization Date, site local time
-\item \code{RGMNDTC} - RGMNDTC or RGMNTDN is required. Randomization Date, site local time
+\item \code{SubjectID} - Unique subject ID
+\item \code{SiteID} - Site ID
+\item \code{RandData} - Randomization Date
 }
 }
 }
 
 \examples{
 
-dfConsent <- tibble::tribble(~SUBJID,  ~INVID,  ~CONSCAT_STD , ~CONSYN , ~CONSDAT,
-                            1,       1,  "MAINCONSENT",    "Yes", "2014-12-25",
-                            2,       2,  "MAINCONSENT",    "Yes", "2014-12-25",
-                            3,       2,  "MAINCONSENT",     "No", "2014-12-25",
-                            4,       2,   "NonCONSENT",    "Yes", "2014-12-25",
-                            5,       3,  "MAINCONSENT",    "Yes", "2014-12-25"  )
-
-dfIxrsrand <- tibble::tribble(~SUBJID, ~RGMNDTN,
-                             1,   "2013-12-25",
-                             2,   "2015-12-25",
-                             3,   "2013-12-25",
-                             4,   "2013-12-25",
-                             5,   "2013-12-25")
-
-
-dfInput <-  Consent_Map_Raw(dfConsent = dfConsent, dfIxrsrand = dfIxrsrand)
- 
+input <- Consent_Map_Raw(dfConsent = clindata::raw_consent, dfRDSL = clindata::rawplus_rdsl, strConsentReason = NULL)
 
 }

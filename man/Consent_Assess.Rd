@@ -45,23 +45,9 @@ The Assessment
 
 \examples{
 
-dfConsent <- tibble::tribble(~SUBJID,  ~INVID,  ~CONSCAT_STD , ~CONSYN , ~CONSDAT,
-                            1,       1,  "MAINCONSENT",    "Yes", "2014-12-25",
-                            2,       2,  "MAINCONSENT",    "Yes", "2014-12-25",
-                            3,       2,  "MAINCONSENT",     "No", "2014-12-25",
-                            4,       2,   "NonCONSENT",    "Yes", "2014-12-25",
-                            5,       3,  "MAINCONSENT",    "Yes", "2014-12-25"  )
+dfInput <- Consent_Map_Raw(dfConsent = clindata::raw_consent, dfRDSL = clindata::rawplus_rdsl, strConsentReason = NULL)
 
-dfIxrsrand <- tibble::tribble(~SUBJID, ~RGMNDTN,
-                             1,   "2013-12-25",
-                             2,   "2015-12-25",
-                             3,   "2013-12-25",
-                             4,   "2013-12-25",
-                             5,   "2013-12-25")
-
-
-dfInput <-  Consent_Map_Raw(dfConsent = dfConsent, dfIxrsrand = dfIxrsrand)
-lAssess <- Consent_Assess( dfInput , bDataList = TRUE)
+Consent_Assess(dfInput)
 
  
 

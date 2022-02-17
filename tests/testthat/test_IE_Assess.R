@@ -1,8 +1,7 @@
 
 
 
-ie_input <- IE_Map_Raw(clindata::raw_ie_a2 )
-
+ie_input <- IE_Map_Raw(clindata::raw_ie_a2 , clindata::rawplus_rdsl )
 
 
 test_that("summary df created as expected and has correct structure",{

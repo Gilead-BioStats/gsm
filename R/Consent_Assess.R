@@ -13,7 +13,6 @@
 #' 
 #' The Assessment 
 #' - \code{\link{Transform_EventCount}} creates `dfTransformed`.
-#' - \code{\link{Analyze_MissingInvalid}} creates `dfAnalyzed`.
 #' - \code{\link{Flag}} creates `dfFlagged`.
 #' - \code{\link{Summarize}} creates `dfSummary`.
 #' 
@@ -27,23 +26,9 @@
 #'
 #' @examples 
 #' 
-#' dfConsent <- tibble::tribble(~SUBJID,  ~INVID,  ~CONSCAT_STD , ~CONSYN , ~CONSDAT,
-#'                             1,       1,  "MAINCONSENT",    "Yes", "2014-12-25",
-#'                             2,       2,  "MAINCONSENT",    "Yes", "2014-12-25",
-#'                             3,       2,  "MAINCONSENT",     "No", "2014-12-25",
-#'                             4,       2,   "NonCONSENT",    "Yes", "2014-12-25",
-#'                             5,       3,  "MAINCONSENT",    "Yes", "2014-12-25"  )
+#'dfInput <- Consent_Map_Raw(dfConsent = clindata::raw_consent, dfRDSL = clindata::rawplus_rdsl, strConsentReason = NULL)
 #'
-#' dfIxrsrand <- tibble::tribble(~SUBJID, ~RGMNDTN,
-#'                              1,   "2013-12-25",
-#'                              2,   "2015-12-25",
-#'                              3,   "2013-12-25",
-#'                              4,   "2013-12-25",
-#'                              5,   "2013-12-25")
-#'
-#'
-#' dfInput <-  Consent_Map_Raw(dfConsent = dfConsent, dfIxrsrand = dfIxrsrand)
-#' lAssess <- Consent_Assess( dfInput , bDataList = TRUE)
+#'Consent_Assess(dfInput)
 #' 
 #'  
 #'
@@ -63,7 +48,7 @@ Consent_Assess <- function( dfInput, nThreshold=0.5,  cLabel="", bDataList=FALSE
   lAssess <- list()
   lAssess$dfInput <- dfInput
   lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, cCountCol = 'Count'  )
-  lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(PValue = NA)
+  lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(PValue = NA) %>% mutate(Estimate = .data$TotalCount)
   lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "TotalCount" )
   lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Main Consent", cLabel= cLabel)
   

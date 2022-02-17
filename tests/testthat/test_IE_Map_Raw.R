@@ -1,7 +1,7 @@
 
 
 test_that("output created as expected and has correct structure",{
-  ie_input <- IE_Map_Raw(clindata::raw_ie_a2 )
+  ie_input <- IE_Map_Raw(clindata::raw_ie_a2 , clindata::rawplus_rdsl)
    expect_true(is.data.frame(ie_input))
   
    expect_equal(
@@ -27,41 +27,48 @@ test_that("incorrect inputs throw errors",{
 test_that("error given if required column not found",{
   expect_error(
     IE_Map_Raw( 
-      clindata::raw_ie_a2 %>% rename(ID = SUBJID)
+      clindata::raw_ie_a2 %>% rename(ID = SUBJID),
+      clindata::rawplus_rdsl
     )
   )
   #"INVID", "IECAT", "IETESTCD","IETEST", "IEORRES"
   expect_error(
     IE_Map_Raw(
-      clindata::raw_ie_a2 %>% select(-INVID)
+      clindata::raw_ie_a2 ,
+      clindata::rawplus_rdsl%>% select(-SiteID)
     )
   )
   
   expect_error(
     IE_Map_Raw(
-      clindata::raw_ie_a2 %>% select(-IECAT)
+      clindata::raw_ie_a2 %>% select(-IECAT),
+      clindata::rawplus_rdsl
     )
   )
   
   expect_error(
     IE_Map_Raw(
-      clindata::raw_ie_a2 %>% select(-IETESTCD)
+      clindata::raw_ie_a2 %>% select(-IETESTCD),
+      clindata::rawplus_rdsl
     )
   )
   expect_error(
     IE_Map_Raw(
-      clindata::raw_ie_a2 %>% select(-IETEST)
+      clindata::raw_ie_a2 %>% select(-IETEST),
+      clindata::rawplus_rdsl
     )
   )
   
   expect_error(
     IE_Map_Raw(
-      clindata::raw_ie_a2 %>% select(-IEORRES)
+      clindata::raw_ie_a2 %>% select(-IEORRES),
+      clindata::rawplus_rdsl
     )
   )
   expect_silent(
     IE_Map_Raw( 
-      clindata::raw_ie_a2 %>% select(-PROJECT)
+      clindata::raw_ie_a2 %>% select(-PROJECT),
+      clindata::rawplus_rdsl
     )
   )
 })
@@ -70,8 +77,13 @@ test_that("error given if required column not found",{
 test_that("output is correct given clindata example input",{
   
 dfIE <- clindata::raw_ie_a2
-
 dfIE$SUBJID <- as.character(dfIE$SUBJID)
+
+dfRDSL <-  tibble::tribble(    ~SubjectID, ~SiteID,
+                                   "0142", "X194X",
+                                   "0308", "X159X",
+                                   "0776", "X194X",
+                                   "1032", "X033X" )
   
 dfInput <-  tibble::tribble(    ~SubjectID, ~SiteID, ~Count,
                                    "0142", "X194X",     9,
@@ -79,7 +91,7 @@ dfInput <-  tibble::tribble(    ~SubjectID, ~SiteID, ~Count,
                                    "0776", "X194X",     8,
                                    "1032", "X033X",     9  )
 
-expect_equal(IE_Map_Raw(dfIe = dfIE), dfInput )
+expect_equal(IE_Map_Raw(dfIE = dfIE, dfRDSL=dfRDSL), dfInput )
 
 
 dfIE_test <- tibble::tribble( ~SUBJID, ~INVID,      ~IECAT,   ~IETEST,    ~ IETESTCD, ~IEORRES,
@@ -93,17 +105,15 @@ dfIE_test <- tibble::tribble( ~SUBJID, ~INVID,      ~IECAT,   ~IETEST,    ~ IETE
                               4,       3, "Inclusion",     "XXX", "Exclusion 3",        0,
                               4,       3, "Inclusion",     "XXX", "Exclusion 3",        1)
 
-
+dfRDSL2 <-  data.frame(SubjectID=c(1,2,4), SiteID=c(1,1,3))
 
 dfInput <- tibble::tribble(     ~SubjectID, ~SiteID, ~Count,
                                 1,       1,     2L,
                                 2,       1,     2L,
                                 4,       3,     1L  )
 
-expect_equal(dfInput, IE_Map_Raw(dfIE_test))
+expect_equal(dfInput, IE_Map_Raw(dfIE_test,dfRDSL2), ignore_attr = TRUE)
 
-  
-  
 })
 
 
