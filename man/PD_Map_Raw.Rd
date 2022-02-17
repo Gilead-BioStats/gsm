@@ -4,7 +4,7 @@
 \alias{PD_Map_Raw}
 \title{Protocol Deviation Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-PD_Map_Raw(dfPD = NULL, dfRDSL = NULL, strExposureCol = "TimeOnStudy")
+PD_Map_Raw(dfPD, dfRDSL, strExposureCol = "TimeOnStudy")
 }
 \arguments{
 \item{dfPD}{PD dataset with SUBJID column and rows for each Protocol Deviation}

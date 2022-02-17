@@ -4,7 +4,7 @@
 \alias{Consent_Map_Raw}
 \title{Consent Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-Consent_Map_Raw(dfConsent = NULL, dfRDSL = NULL)
+Consent_Map_Raw(dfConsent, dfRDSL)
 }
 \arguments{
 \item{dfConsent}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}

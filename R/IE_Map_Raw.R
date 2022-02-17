@@ -19,9 +19,9 @@
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
 #' 
-#' @param dfIe ie dataset with columns SUBJID IVID IECAT IETESTCD IEORRES
+#' @param dfIE ie dataset with columns SUBJID IVID IECAT IETESTCD IEORRES
 #' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID SiteID
-#' @param vExpected Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIECAT=="Inclusion".
+#' @param vExpected Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion".
 #' 
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count
 #' 
@@ -33,19 +33,19 @@
 #' 
 #' @export 
 IE_Map_Raw <- function( 
-  dfIe = NULL,
+  dfIE = NULL,
   dfRDSL = NULL,
   vExpected = c(0,1)
 ){
 
   ### Requires raw ie dataset
-  if(is.null(dfIe)) stop("IE dataset not found")
-  if( ! all(c("SUBJID", "IECAT", "IETESTCD","IETEST", "IEORRES") %in% names(dfIe)) ) stop("SUBJID, IECAT, IETEST, IETESTCD, IEORRES columns are required in ie dataset" )
+  if(is.null(dfIE)) stop("IE dataset not found")
+  if( ! all(c("SUBJID", "IECAT", "IETESTCD","IETEST", "IEORRES") %in% names(dfIE)) ) stop("SUBJID, IECAT, IETEST, IETESTCD, IEORRES columns are required in ie dataset" )
   if(is.null(dfRDSL)) stop("RDSL dataset not found")
   if( !(all(c("SubjectID","SiteID") %in% names(dfRDSL)))) stop("SubjectID and SiteID column are required in RDSL dataset" )
   
   # filter records where SUBJID is missing and create basic flags
-  dfIE_long <- dfIe %>% 
+  dfIE_long <- dfIE %>% 
     filter(.data$SUBJID !="")%>%
     select(.data$SUBJID, .data$IECAT, .data$IETESTCD, .data$IETEST, .data$IEORRES) %>%
     mutate(expected=ifelse(.data$IECAT=="Exclusion",vExpected[1],vExpected[2])) %>%

@@ -4,7 +4,7 @@
 \alias{AE_Map_Raw}
 \title{AE Assessment - Raw Mapping}
 \usage{
-AE_Map_Raw(dfAE = NULL, dfRDSL = NULL, strExposureCol = "TimeOnTreatment")
+AE_Map_Raw(dfAE, dfRDSL, strExposureCol = "TimeOnTreatment")
 }
 \arguments{
 \item{dfAE}{AE dataset with columns SUBJID and rows for each AE record}

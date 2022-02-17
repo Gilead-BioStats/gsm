@@ -34,7 +34,7 @@
 #'
 #' @export
 
-PD_Map_Raw <- function( dfPD = NULL, dfRDSL = NULL, strExposureCol="TimeOnStudy" ){
+PD_Map_Raw <- function( dfPD, dfRDSL, strExposureCol="TimeOnStudy" ){
     stopifnot(
         "PD dataset not found"=is.data.frame(dfPD),
         "Time on Study dataset is not found"=is.data.frame(dfRDSL),

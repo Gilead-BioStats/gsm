@@ -91,7 +91,7 @@ dfInput <-  tibble::tribble(    ~SubjectID, ~SiteID, ~Count,
                                    "0776", "X194X",     8,
                                    "1032", "X033X",     9  )
 
-expect_equal(IE_Map_Raw(dfIe = dfIE, dfRDSL=dfRDSL), dfInput )
+expect_equal(IE_Map_Raw(dfIE = dfIE, dfRDSL=dfRDSL), dfInput )
 
 
 dfIE_test <- tibble::tribble( ~SUBJID, ~INVID,      ~IECAT,   ~IETEST,    ~ IETESTCD, ~IEORRES,

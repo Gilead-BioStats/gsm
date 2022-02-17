@@ -7,13 +7,6 @@ test_that("output created as expected and has correct structure",{
 })
 
 test_that("incorrect inputs throw errors",{
-    expect_error(AE_Map_Raw(list(), list()))
-    expect_error(AE_Map_Raw("Hi","Mom"))
-})
-
-
-test_that("incorrect inputs throw errors",{
- 
   expect_error(AE_Map_Raw(list(), list()))
   expect_error(AE_Map_Raw( clindata::raw_ae, list()))
   expect_error(AE_Map_Raw(list(),  clindata::rawplus_rdsl))

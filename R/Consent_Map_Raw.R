@@ -29,15 +29,9 @@
 #' @import lubridate
 #' 
 #' @export 
-Consent_Map_Raw <- function( 
-  dfConsent = NULL,
-  dfRDSL = NULL
-){
-
-  if(is.null(dfConsent)) stop("Consent dataset not found")
-  if(is.null(dfRDSL)) stop("Ixrsrand dataset not found")
-
+Consent_Map_Raw <- function( dfConsent,dfRDSL ){
   stopifnot(
+
     "dfConsent dataset not found"=is.data.frame(dfConsent),
     "dfRDSL dataset is not found"=is.data.frame(dfRDSL),
     "SUBJID, CONSCAT_STD , CONSYN , CONSDAT column not found in dfConsent"=c("SUBJID", "CONSCAT_STD" , "CONSYN" , "CONSDAT" ) %in% names(dfConsent),

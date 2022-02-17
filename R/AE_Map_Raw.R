@@ -33,7 +33,7 @@
 #' 
 #' @export
 
-AE_Map_Raw <- function( dfAE = NULL, dfRDSL = NULL, strExposureCol="TimeOnTreatment"){
+AE_Map_Raw <- function( dfAE, dfRDSL, strExposureCol="TimeOnTreatment"){
     stopifnot(
         "ae dataset not found"=is.data.frame(dfAE),
         "RDSL dataset is not found"=is.data.frame(dfRDSL),
