@@ -45,6 +45,6 @@ Note that the function can generate data summaries for specific types of AEs, bu
 }
 
 \examples{
- dfInput <- AE_Map_Raw(clindata::raw_ae, clindata::rawplus_rdsl)
+ dfInput <- AE_Map_Raw(clindata::raw_ae, clindata::rawplus_RDSL)
 
 }
