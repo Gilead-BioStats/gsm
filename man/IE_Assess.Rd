@@ -51,6 +51,6 @@ The Assessment
                                           "1032", "X033X",     9
                                           )
                                           
- ie_summary <- IE_Assess(dfInput, bDataList=FALSE)
+ ie_summary <- IE_Assess(dfInput)
 
 }

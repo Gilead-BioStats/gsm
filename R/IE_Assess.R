@@ -33,7 +33,7 @@
 #'                                           "1032", "X033X",     9
 #'                                           )
 #'                                           
-#'  ie_summary <- IE_Assess(dfInput, bDataList=FALSE)
+#'  ie_summary <- IE_Assess(dfInput)
 #'
 #' @return If `bDataList` is false (the default), the summary data frame (`dfSummary`) is returned. If `bDataList` is true, a list containing all data in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged` and `dfSummary`) is returned. 
 #' 
