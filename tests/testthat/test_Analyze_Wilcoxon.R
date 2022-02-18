@@ -6,7 +6,7 @@ ae_input <- AE_Map_Adam(
 ae_prep <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "Exposure" )
 
 test_that("output created as expected and has correct structure",{
-    aew_anly <-Analyze_Wilcoxon(ae_prep)
+    aew_anly <-Analyze_Wilcoxon(ae_prep, strOutcome = "Rate")
     expect_true(is.data.frame(aew_anly))
     expect_true(all(c("SiteID" , "N", "Estimate", "PValue") %in% names(aew_anly)))
     expect_equal(sort(unique(ae_input$SiteID)), sort(aew_anly$SiteID))

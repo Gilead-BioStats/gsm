@@ -4,7 +4,7 @@
 \alias{Analyze_Wilcoxon}
 \title{AE Wilcoxon Assessment - Analysis}
 \usage{
-Analyze_Wilcoxon(dfTransformed)
+Analyze_Wilcoxon(dfTransformed, strOutcome = "")
 }
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
@@ -41,6 +41,6 @@ The input data (\code{ dfTransformed}) for the Analyze_Wilcoxon is typically cre
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
-dfAnalyzed <- Analyze_Wilcoxon( dfTransformed ) 
+dfAnalyzed <- Analyze_Wilcoxon( dfTransformed )
 
 }
