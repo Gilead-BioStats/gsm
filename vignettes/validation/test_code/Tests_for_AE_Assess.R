@@ -1,4 +1,3 @@
-
 # Test setup
 library(gsm)
 library(tidyverse)
@@ -72,11 +71,10 @@ expectedOutput_Wilcoxon <- dplyr::tribble(
 )
 
 
+# + 1.1 Test that the AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable when given correct input data
 
 #' @editor Matt Roumaya
-#' @editDate 2022-02-09
-
-# + 1.1 Test that the AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable when given correct input data
+#' @editDate 2022-02-18
 test_that("1.1", {
 
 # data --------------------------------------------------------------------
@@ -136,20 +134,13 @@ test_that("1.1", {
       )
   )
 
-  # flags match
-  expect_true(
-    all(AE_Assess(dfInput = dfInput) %>% select(Flag) == expectedOutput_Poisson %>% select(Flag))
-  )
-
-  # flag values
-  expect_gte(min(t1_data$Flag), -1)
-  expect_lte(max(t1_data$Flag), 1)
-
 })
 
 
 # + 1.2 Test that the AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable when given correct input data
 
+#' @editor Matt Roumaya
+#' @editDate 2022-02-18
 test_that("1.2",{
 
 # data --------------------------------------------------------------------
@@ -214,30 +205,50 @@ test_that("1.2",{
       )
   )
 
-  # flags match
-  expect_true(
-    all(AE_Assess(dfInput = dfInput, cMethod = "wilcoxon") %>% select(Flag) == expectedOutput_Wilcoxon %>% select(Flag))
-  )
-
-  # flag values
-  expect_gte(min(t2_data$Flag), -1)
-  expect_lte(max(t2_data$Flag), 1)
-
 })
 
 
 # + 1.3 Test that sites are flagged with -1 when AE rate is lower than expected
-# covered in 1.1, 1.2
-
 
 # + 1.4 Test that sites are flagged with +1 when AE rate is higher than expected
 # matt note: need to look at clindata and see if AE_Assess() will yield results with -1, 0, and 1 flags,
 # or if we need to create a dummy dataset
 
+#' @editor Matt Roumaya
+#' @editDate 2022-02-18
+test_that("1.3", {
+
+  # data --------------------------------------------------------------------
+
+  t3_data <- AE_Assess(
+    dfInput = dfInput
+  )
+
+  # -------------------------------------------------------------------------
+
+  # flags match
+  expect_true(
+    all(AE_Assess(dfInput = dfInput, cMethod = "wilcoxon") %>% select(Flag) == expectedOutput_Wilcoxon %>% select(Flag))
+  )
+
+  # flags match
+  expect_true(
+    all(AE_Assess(dfInput = dfInput) %>% select(Flag) == expectedOutput_Poisson %>% select(Flag))
+  )
+
+  # flag values
+  expect_gte(min(t3_data$Flag), -1)
+  expect_lte(max(t3_data$Flag), 1)
+  expect_true(all(t3_data$Flag %in% c(0, 1, -1)))
+
+})
 
 
 # + 1.5 Test that Assessment can return all data in the standard data pipeline
 # (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`)
+
+#' @editor Matt Roumaya
+#' @editDate 2022-02-18
 test_that("1.5", {
 
 # data --------------------------------------------------------------------
@@ -274,6 +285,9 @@ test_that("1.5", {
 
 # + 1.6 Test that (NA, NaN) in input exposure data throws a warning and
 # drops the person from the analysis.
+# matt note: relies on fix for #162
+
+
 
 # test_that("1.6", {
 #
@@ -316,6 +330,7 @@ test_that("1.5", {
 
 # + 1.7 Test that (NA, NaN) in input count data throws a warning and
 # drops the person from the analysis.
+# matt note: relies on fix for #162
 
 # test_that("1.7", {
 #

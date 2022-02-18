@@ -3,15 +3,15 @@
 #' @editDate 2022-02-08
 #' @coverage
 #' 1.1: 1.1, 1.3
-#' 1.2: 1.2, 1.3
-#' 1.3: 1.4
+#' 1.2: 1.2
+#' 1.3: 1.3, 1.4
 #' 1.4: 1.4
 #' 1.5: 1.5
 #' 1.6: 1.6
 #' 1.7: 1.6
 
 
-+ Setup: DOCUMENT ANY SETUP THAT NEEDS TO BE DONE FOR TESTING
++ Setup is documented in the test_code/*.R file.
 
 + 1.1 Test that the AE assessment can return a correctly assessed data frame
 for the poisson test grouped by the study variable when given correct input data

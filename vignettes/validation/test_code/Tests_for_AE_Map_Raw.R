@@ -56,7 +56,7 @@ expectedOutputMinimal <- tibble::tribble(
 
 
 #' @editor Matt Roumaya
-#' @editDate 2022-02-15
+#' @editDate 2022-02-18
 test_that("2.1", {
 
 
@@ -97,6 +97,8 @@ expect_equal(sum(colSums(is.na(t1_data))), 2178)
 })
 
 
+#' @editor Matt Roumaya
+#' @editDate 2022-02-18
 test_that("2.2", {
 
 
@@ -144,7 +146,8 @@ t2_data <- AE_Map_Raw(
 
 })
 
-
+#' @editor Matt Roumaya
+#' @editDate 2022-02-18
 test_that("2.3", {
 
   # rate is count / exposure
@@ -189,7 +192,8 @@ test_that("2.3", {
 
 })
 
-
+#' @editor Matt Roumaya
+#' @editDate 2022-02-18
 test_that("2.4", {
 
 # data --------------------------------------------------------------------
