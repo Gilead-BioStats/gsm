@@ -20,6 +20,7 @@
 #'
 #'
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
+#' @param  strOutcome required, name of column in dfTransformed dataset to perform Wilcoxon test on
 #'
 #' @importFrom stats wilcox.test
 #' @importFrom purrr map map_df

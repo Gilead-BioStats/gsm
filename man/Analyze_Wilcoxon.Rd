@@ -8,6 +8,8 @@ Analyze_Wilcoxon(dfTransformed, strOutcome = "")
 }
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
+
+\item{strOutcome}{required, name of column in dfTransformed dataset to perform Wilcoxon test on}
 }
 \value{
 data.frame with one row per site, columns:   SiteID, N , ..., Estimate, PValue

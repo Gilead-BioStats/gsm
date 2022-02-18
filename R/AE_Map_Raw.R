@@ -27,7 +27,7 @@
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #'
 #' @examples
-#'  dfInput <- AE_Map_Raw(clindata::raw_ae, clindata::rawplus_RDSL)
+#'  dfInput <- AE_Map_Raw(clindata::raw_ae, clindata::rawplus_rdsl)
 #'
 #' @import dplyr
 #'
