@@ -25,7 +25,7 @@
 #' @importFrom purrr map map_df
 #' @importFrom broom glance
 #'
-#' @return data.frame with one row per site, columns:   SiteID, N , Mean, SD, Median, Q1,  Q3,  Min, Max, Statistic, PValue
+#' @return data.frame with one row per site, columns:   SiteID, N , ..., Estimate, PValue
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
@@ -55,7 +55,8 @@ Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "") {
                 data=dfTransformed
             ) %>%
                 broom::glance() %>%
-                mutate(SiteID = SiteName)
+                mutate(SiteID = SiteName) %>%
+                mutate(estimate = estimate*-1)
 
             return(model)
         })%>%
