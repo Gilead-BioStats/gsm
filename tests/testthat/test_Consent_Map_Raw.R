@@ -29,10 +29,11 @@ dfInput_test <-  tibble::tribble(
   2,       2,  FALSE,
   3,       2,   TRUE,
   5,       3,   TRUE)
+
+
 test_that("output created as expected and has correct structure",{
   consent_input <-  Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test)
    expect_true(is.data.frame(consent_input))
-  
    expect_equal(
    names(consent_input),
    c("SubjectID","SiteID","Count"))

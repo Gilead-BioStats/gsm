@@ -46,11 +46,19 @@ Consent_Map_Raw <- function( dfConsent,dfRDSL, strConsentReason = "MAINCONSENT")
   dfConsent<- dfConsent %>%
     select(.data$SUBJID, .data$CONSCAT_STD , .data$CONSYN , .data$CONSDAT)%>%
     rename(SubjectID = .data$SUBJID)
-
+  
+ 
+  
+  
   dfInput <- dfRDSL %>%
     select(.data$SubjectID, .data$SiteID, .data$RandDate)%>%
-    left_join(dfConsent, by='SubjectID') %>%
-    { if(!is.null(strConsentReason)) filter(.,.data$CONSCAT_STD=="MAINCONSENT") else . } %>%
+    left_join(dfConsent, by='SubjectID')
+  
+    if(!is.null(strConsentReason)){
+      dfInput <- dfInput %>% filter(.data$CONSCAT_STD == strConsentReason)
+    }
+  
+  dfInput <-  dfInput %>%
     mutate(flag_noconsent=.data$CONSYN=="No") %>%
     mutate(flag_missing_consent = is.na(.data$CONSDAT))%>%
     mutate(flag_missing_rand = is.na(.data$RandDate))%>%
