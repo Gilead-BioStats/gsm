@@ -4,12 +4,14 @@
 \alias{IE_Map_Raw}
 \title{Inclusion/Exclusion Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-IE_Map_Raw(dfIe = NULL, vExpected = c(0, 1))
+IE_Map_Raw(dfIE = NULL, dfRDSL = NULL, vExpected = c(0, 1))
 }
 \arguments{
-\item{dfIe}{ie dataset with columns SUBJID INVID IECAT IETESTCD IEORRES}
+\item{dfIE}{ie dataset with columns SUBJID IVID IECAT IETESTCD IEORRES}
 
-\item{vExpected}{Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIECAT=="Inclusion".}
+\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID}
+
+\item{vExpected}{Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion".}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count
@@ -28,16 +30,20 @@ The following columns are required:
 \item \code{dfIE}
 \itemize{
 \item \code{SUBJID} - Unique subject ID
-\item \code{INVID} - Investigator identifier
 \item \code{IECAT} - IE Category
 \item \code{IETEST} - Criterion Description (truncated)
 \item \code{IEORRES} - Incl criteria not met Excl criteria met.
+}
+\item \code{dfRDSL}
+\itemize{
+\item \code{SubjectID} - Unique subject ID
+\item \code{SiteID} - Site ID
 }
 }
 }
 
 \examples{
 
-dfInput <- IE_Map_Raw(clindata::raw_ie_a2)
+dfInput <- IE_Map_Raw(clindata::raw_ie_a2, clindata::rawplus_rdsl)
 
 }

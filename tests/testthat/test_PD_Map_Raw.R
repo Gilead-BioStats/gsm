@@ -1,9 +1,5 @@
-
-dfTos <- clindata::TimeOnStudy(dfVisit = clindata::raw_visdt,dfStud = clindata::raw_studcomp) 
-
-
 test_that("output created as expected and has correct structure",{
-  pd_input <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfTOS = dfTos)
+  pd_input <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfRDSL = clindata::rawplus_rdsl )
   expect_true(is.data.frame(pd_input))
   expect_equal(
     names(pd_input),
@@ -14,7 +10,7 @@ test_that("incorrect inputs throw errors",{
   
   expect_error(PD_Map_Raw(list(), list()))
   expect_error(PD_Map_Raw( clindata::raw_protdev, list()))
-  expect_error(PD_Map_Raw(list(),  dfTos))
+  expect_error(PD_Map_Raw(list(), clindata::rawplus_rdsl ))
   expect_error(PD_Map_Raw("Hi","Mom"))
 })
 
@@ -23,21 +19,21 @@ test_that("error given if required column not found",{
   expect_error(
     PD_Map_Raw( 
       clindata::raw_protdev %>% rename(ID = SUBJID), 
-      dfTos
+      clindata::rawplus_rdsl 
     )
   )
   
   expect_error(
     PD_Map_Raw(
       clindata::raw_protdev ,
-      dfTos  %>% select(-SiteID)
+      clindata::rawplus_rdsl   %>% select(-SiteID)
     )
   )
   
   expect_error(
     PD_Map_Raw( 
       clindata::raw_protdev , 
-      dfTos  %>% select(-SubjectID)
+      clindata::rawplus_rdsl  %>% select(-SubjectID)
     )
   )
   
@@ -46,14 +42,15 @@ test_that("error given if required column not found",{
   expect_error(
     PD_Map_Raw( 
       clindata::raw_protdev , 
-      dfTos  %>% select(-Exposure)
+      clindata::rawplus_rdsl,
+      strExposureCol="Exposure"
     )
   )
   
   expect_error(
     PD_Map_Raw( 
       clindata::raw_protdev , 
-      dfTos  %>% select(-SiteID)
+      clindata::rawplus_rdsl  %>% select(-SiteID)
     )
   )
   
@@ -61,7 +58,7 @@ test_that("error given if required column not found",{
   expect_silent(
     PD_Map_Raw( 
       clindata::raw_protdev  %>% select(-COUNTRY), 
-      dfTos
+      clindata::rawplus_rdsl
     )
   )
 })
@@ -73,7 +70,7 @@ test_that("output is correct given example input",{
   dfPD <- tribble(~SUBJID, 1,1,1,1,2,2)
   
   dfTos<-tribble(
-    ~SubjectID, ~SiteID, ~Exposure,
+    ~SubjectID, ~SiteID, ~TimeOnStudy,
     1,   1, 10,
     2,   1, NA,
     3,   1, 30
@@ -88,12 +85,12 @@ test_that("output is correct given example input",{
   )
   
   
-  expect_equal(dfInput,  PD_Map_Raw(dfPD = dfPD, dfTOS = dfTos))
+  expect_equal(dfInput,  PD_Map_Raw(dfPD = dfPD, dfRDSL = dfTos))
   
   dfPD2 <- tribble(~SUBJID, 1,1,1,1,2,2,4,4)
   
   dfTos2<-tribble(
-    ~SubjectID, ~SiteID, ~Exposure,
+    ~SubjectID, ~SiteID, ~TimeOnStudy,
     1,   1, 10,
     2,   1, NA,
     3,   1, 30,
@@ -111,7 +108,7 @@ test_that("output is correct given example input",{
   
   
   
-  expect_equal(dfInput2,  PD_Map_Raw(dfPD = dfPD2, dfTOS = dfTos2))
+  expect_equal(dfInput2,  PD_Map_Raw(dfPD = dfPD2, dfRDSL = dfTos2))
   
   
   
@@ -122,7 +119,7 @@ test_that("NA values in input data are handled",{
   dfPD3 <- tribble(~SUBJID, 1,1,1,1,2,2,4,4)
   
   dfTos3<-tribble(
-    ~SubjectID, ~SiteID, ~Exposure,
+    ~SubjectID, ~SiteID, ~TimeOnStudy,
     NA,   1, 10,
     2,   1, NA,
     3,   NA, 30,
@@ -138,12 +135,12 @@ test_that("NA values in input data are handled",{
     4,    2,  2, 50, .04
   )
   
-  expect_equal(dfInput3, PD_Map_Raw(dfPD = dfPD3, dfTOS = dfTos3))
+  expect_equal(dfInput3, PD_Map_Raw(dfPD = dfPD3, dfRDSL = dfTos3))
   
   dfPD4 <- tribble(~SUBJID, 1,NA,1,1,2,2,4,4)
   
   dfTos4<-tribble(
-    ~SubjectID, ~SiteID, ~Exposure,
+    ~SubjectID, ~SiteID, ~TimeOnStudy,
     NA,   1, 10,
     2,   1, NA,
     3,   NA, 30,
@@ -159,7 +156,7 @@ test_that("NA values in input data are handled",{
     4,    2,  2, 50, .04
   )
   
-  expect_equal(dfInput4, PD_Map_Raw(dfPD = dfPD4, dfTOS = dfTos4))
+  expect_equal(dfInput4, PD_Map_Raw(dfPD = dfPD4, dfRDSL = dfTos4))
   
   
 })
