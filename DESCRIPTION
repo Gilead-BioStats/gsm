@@ -8,10 +8,11 @@ Description: The Gilead Statistical Monitoring or {gsm} R package provides a fra
 License: file LICENSE
 Encoding: UTF-8
 Imports:
-    dplyr,
     broom,
+    dplyr,
     lubridate,
-    magrittr
+    magrittr,
+    purrr
 Suggests:
     testthat (>= 3.0.0),
     safetyData,

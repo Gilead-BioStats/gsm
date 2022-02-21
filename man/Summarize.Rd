@@ -22,8 +22,8 @@ Create a concise summary of assessment results that is easy to aggregate across 
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
-dfAnalyzed <- Analyze_Wilcoxon( dfTransformed ) 
-dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Statistic')
+dfAnalyzed <- Analyze_Wilcoxon( dfTransformed, strOutcome ="Rate")
+dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Rate')
 dfSummary <- Summarize(dfFlagged, cAssessment="Safety", cLabel= "")
 
 }
