@@ -12,7 +12,8 @@ Imports:
     dplyr,
     lubridate,
     magrittr,
-    purrr
+    purrr,
+    tidyr
 Suggests:
     testthat (>= 3.0.0),
     safetyData,
