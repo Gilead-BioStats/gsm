@@ -34,7 +34,6 @@
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 #' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
 #' 
-#' @importFrom tidyr drop_na
 #'
 #' @export
 
@@ -50,7 +49,7 @@ Transform_EventCount <- function( dfInput , cCountCol, cExposureCol=NULL ){
 
     if(!is.null(cExposureCol)){
       if(anyNA( dfInput %>% pull({{cExposureCol}}) ))warning("One or more dfInput$Exposure are NA and have been removed")
-      dfInput <- dfInput %>% tidyr::drop_na({{cExposureCol}})
+      dfInput <- dfInput %>% filter(!is.na(.data[[cExposureCol]]))
     }
 
   if(is.null(cExposureCol)){
