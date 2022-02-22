@@ -48,10 +48,16 @@ test_that("NA in Exposure throws a warning",{
   expect_warning(Transform_EventCount(ae_input2, cCountCol = 'Count', cExposureCol = "Exposure"))
 })
 
+test_that("NA in Exposure is removed ",{
+  ae_input2 <-ae_input
+  ae_input2[ 1, "Exposure"] = NA
+  expect_false( anyNA(Transform_EventCount(ae_input2, cCountCol = 'Count', cExposureCol = "Exposure") %>% pull(.data$TotalExposure)))
+})
+
 test_that("NA in Count throws an Error",{
   ae_input2 <-ae_input
   ae_input2[ 1, "Count"] = NA
-  expect_error(Transform_EventCount(ae_input2, cCountCol = 'Count', cExposureCol = "Exposure"))
+  expect_error(suppressWarnings(Transform_EventCount(ae_input2, cCountCol = 'Count', cExposureCol = "Exposure")))
 })
 
 

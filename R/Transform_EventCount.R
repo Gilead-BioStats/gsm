@@ -48,7 +48,7 @@ Transform_EventCount <- function( dfInput , cCountCol, cExposureCol=NULL ){
 
     if(!is.null(cExposureCol)){
       if(anyNA( dfInput %>% pull({{cExposureCol}}) ))warning("One or more dfInput$Exposure are NA and have been removed")
-      dfInput <- dfInput %>% filter(!is.na({{cExposureCol}}))
+      dfInput <- dfInput %>% drop_na({{cExposureCol}})
     }
 
   if(is.null(cExposureCol)){
