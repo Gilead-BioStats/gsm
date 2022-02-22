@@ -97,7 +97,7 @@ vt_scrape_change_log() %>%
 
 ### Validation Environment
 
-```{r env-table, fig.pos= }
+```{r env-table}
 vt_scrape_val_env() %>% 
   vt_kable_val_env() 
 ```
