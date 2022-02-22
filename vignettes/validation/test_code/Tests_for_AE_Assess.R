@@ -238,7 +238,7 @@ test_that("1.3", {
 
 # data --------------------------------------------------------------------
 
-  t5_data <- AE_Assess(
+  t3_data <- AE_Assess(
     dfInput = dfInput,
     bDataList = TRUE
   )
@@ -249,21 +249,21 @@ test_that("1.3", {
 
   # check names of data.frames
   expect_equal(
-    names(t5_data),
+    names(t3_data),
     c("dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary")
   )
 
   # check that a list is returned
   expect_type(
-    t5_data, "list"
+    t3_data, "list"
   )
 
   # check that all objects returned by bDataList = TRUE are data.frames
-  expect_true("data.frame" %in% class(t5_data$dfInput))
-  expect_true("data.frame" %in% class(t5_data$dfTransformed))
-  expect_true("data.frame" %in% class(t5_data$dfAnalyzed))
-  expect_true("data.frame" %in% class(t5_data$dfFlagged))
-  expect_true("data.frame" %in% class(t5_data$dfSummary))
+  expect_true("data.frame" %in% class(t3_data$dfInput))
+  expect_true("data.frame" %in% class(t3_data$dfTransformed))
+  expect_true("data.frame" %in% class(t3_data$dfAnalyzed))
+  expect_true("data.frame" %in% class(t3_data$dfFlagged))
+  expect_true("data.frame" %in% class(t3_data$dfSummary))
 
 
 })
@@ -305,7 +305,7 @@ test_that("1.3", {
 #   # x Assigned data has 5 rows.
 #   # ℹ Only vectors of size 1 are recycled.
 #
-#   # 1.6 will need more test cases once the expected output of AE_Assess() is resolved
+#   # 1.4 will need more test cases once the expected output of AE_Assess() is resolved
 #   # -- test that correct records are dropped and SUBJID counts are correct
 #   # -- test dropping all subjects from a given site due to NA values and
 #   #    ensure site does not exist in summary
@@ -328,7 +328,7 @@ test_that("1.3", {
 #
 #   # expect_warning(AE_Assess(dfInputCountNA))
 #
-#   # 1.7 - same applies as noted above in 1.6. more tests needed after expected
+#   # 1.5 - same applies as noted above in 1.4. more tests needed after expected
 #   # output of AE_Assess() is resolved.
 #
 # })
