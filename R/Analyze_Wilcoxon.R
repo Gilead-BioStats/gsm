@@ -42,19 +42,11 @@ Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "") {
         all(c("SiteID", "N", strOutcome) %in% names(dfTransformed))
     )
 
-
-    colStrOutcome <- dfTransformed[[strOutcome]]
-
-
     dfAnalyzed <- dfTransformed %>%
         pull(.data$SiteID) %>%
         map_df(function(SiteName){
-            model <- wilcox.test(
-                colStrOutcome ~ SiteID == SiteName,
-                exact = FALSE,
-                conf.int = TRUE,
-                data=dfTransformed
-            ) %>%
+            form <- as.formula(paste0(strOutcome," ~ SiteID ==", SiteName)) 
+            model <- wilcox.test(form, exact = FALSE, conf.int = TRUE, data=dfTransformed) %>% 
                 broom::glance() %>%
                 mutate(SiteID = SiteName) %>%
                 mutate(estimate = estimate*-1)
