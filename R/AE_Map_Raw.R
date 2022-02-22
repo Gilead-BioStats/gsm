@@ -3,9 +3,9 @@
 #' Convert Raw data, typically processed case report form data - to input format for Safety Assessment.
 #'
 #' @details
-#' 
-#' This function combines AE data with treatment exposure from subject-level Raw Data (RDSL) to create the required input for \code{\link{AE_Assess}}. 
-#' 
+#'
+#' This function combines AE data with treatment exposure from subject-level Raw Data (RDSL) to create the required input for \code{\link{AE_Assess}}.
+#'
 #' @section Data Specification:
 #'
 #' This function creates an input dataset for the Adverse Event Assessment (\code{\link{AE_Assess}}) by adding Adverse Event Counts to basic subject-level treatment exposure data from `clindata::TreatmentExposure`.
@@ -25,12 +25,12 @@
 #' @param strExposureCol Name of exposure column. 'TimeOnTreatment' by default
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
-#' 
+#'
 #' @examples
 #'  dfInput <- AE_Map_Raw(clindata::raw_ae, clindata::rawplus_rdsl)
-#' 
-#' @import dplyr 
-#' 
+#'
+#' @import dplyr
+#'
 #' @export
 
 AE_Map_Raw <- function( dfAE, dfRDSL, strExposureCol="TimeOnTreatment"){
@@ -45,7 +45,7 @@ AE_Map_Raw <- function( dfAE, dfRDSL, strExposureCol="TimeOnTreatment"){
 
     dfInput <-  dfRDSL %>%
         rowwise() %>%
-        mutate(Count =sum(dfAE$SUBJID==.data$SubjectID, na.rm = TRUE)) %>% 
+        mutate(Count =sum(dfAE$SUBJID==.data$SubjectID, na.rm = TRUE)) %>%
         rename(Exposure = strExposureCol) %>%
         mutate(Rate = .data$Count/.data$Exposure) %>%
         select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
