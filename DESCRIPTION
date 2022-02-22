@@ -12,7 +12,9 @@ Imports:
     dplyr,
     lubridate,
     magrittr,
-    purrr
+    purrr,
+    ggplot2,
+    lamW
 Suggests:
     testthat (>= 3.0.0),
     safetyData,
