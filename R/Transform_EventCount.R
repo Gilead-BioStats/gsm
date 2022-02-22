@@ -45,10 +45,13 @@ Transform_EventCount <- function( dfInput , cCountCol, cExposureCol=NULL ){
         "NA's found in dfInput$Count" = !anyNA(dfInput$Count)
     )
     if(!is.null(cExposureCol)) stopifnot(is.numeric(dfInput[[cExposureCol]]))
-  
 
-  if(anyNA(dfInput$Exposure))warning("One or more dfInput$Exposure are NA and have been removed")
-  dfInput <- dfInput %>% filter(!is.na(.data$Exposure))
+    if(!is.null(cExposureCol)){
+      if(anyNA( dfInput %>% pull({{cExposureCol}}) ))warning("One or more dfInput$Exposure are NA and have been removed")
+      dfInput <- dfInput %>% filter(!is.na({{cExposureCol}}))
+    }
+
+   
     
   if(is.null(cExposureCol)){
     dfTransformed <- dfInput  %>%

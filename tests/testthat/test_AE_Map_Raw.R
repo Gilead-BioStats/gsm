@@ -136,6 +136,15 @@ test_that("NA values in input data are handled",{
   
   expect_equal(dfInput3, AE_Map_Raw(dfAE = dfAE3, dfRDSL = dfExposure3))
   
+ 
+  
+ 
+  
+  
+})
+
+
+test_that("dfAE Subject NA value throws error",{
   dfAE4 <- tibble::tribble(~SUBJID, 1,NA,1,1,2,2,4,4)
   
   dfExposure4<-tibble::tribble(
@@ -147,18 +156,5 @@ test_that("NA values in input data are handled",{
   )
   
   
-  dfInput4 <-tibble::tribble(
-    ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
-    NA,   1, 0, 10, 0,
-    2,    1,  2, NA, NA,
-    3,   NA,  0, 30, 0 ,
-    4,    2,  2, 50, .04
-  )
-  
-  expect_equal(dfInput4, AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4))
-  
-  
+  expect_error(AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4))
 })
-
-
-
