@@ -42,3 +42,16 @@ test_that("incorrect inputs throw errors",{
     expect_error(Transform_EventCount("Hi"))
 })
 
+test_that("NA in Exposure throws a warning",{
+  ae_input2 <-ae_input
+  ae_input2[ 1, "Exposure"] = NA
+  expect_warning(Transform_EventCount(ae_input2, cCountCol = 'Count', cExposureCol = "Exposure"))
+})
+
+test_that("NA in Count throws an Error",{
+  ae_input2 <-ae_input
+  ae_input2[ 1, "Count"] = NA
+  expect_error(Transform_EventCount(ae_input2, cCountCol = 'Count', cExposureCol = "Exposure"))
+})
+
+

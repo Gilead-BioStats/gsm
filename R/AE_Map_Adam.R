@@ -12,7 +12,7 @@
 #'
 #' The following columns are required:
 #' - `dfADSL`
-#'   - `SUBJID` - Unique subject ID
+#'   - `USUBJID` - Unique subject ID
 #'   - `SITEID` - Site ID
 #'   - `TRTEDT` - Treatment End date
 #'   - `TRTSDT` - Treatment Start date
@@ -38,7 +38,9 @@ AE_Map_Adam <- function( dfADSL, dfADAE ){
     is.data.frame(dfADSL),
     is.data.frame(dfADAE),
     all(c("USUBJID", "SITEID", "TRTEDT", "TRTSDT") %in% names(dfADSL)),
-    "USUBJID" %in% names(dfADAE)
+    "USUBJID" %in% names(dfADAE),
+    "NAs found in SUBJID column of dfADSL" = all(!is.na(dfADSL$USUBJID)),
+    "NAs found in USUBJID column of dfADAE" = all(!is.na(dfADAE$USUBJID))
   )
 
   dfInput <-  dfADSL %>%

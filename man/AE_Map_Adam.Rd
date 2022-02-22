@@ -29,7 +29,7 @@ The following columns are required:
 \itemize{
 \item \code{dfADSL}
 \itemize{
-\item \code{SUBJID} - Unique subject ID
+\item \code{USUBJID} - Unique subject ID
 \item \code{SITEID} - Site ID
 \item \code{TRTEDT} - Treatment End date
 \item \code{TRTSDT} - Treatment Start date

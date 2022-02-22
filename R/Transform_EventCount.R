@@ -51,8 +51,6 @@ Transform_EventCount <- function( dfInput , cCountCol, cExposureCol=NULL ){
       dfInput <- dfInput %>% filter(!is.na({{cExposureCol}}))
     }
 
-   
-    
   if(is.null(cExposureCol)){
     dfTransformed <- dfInput  %>%
       group_by(.data$SiteID) %>% 
