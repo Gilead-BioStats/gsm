@@ -42,15 +42,11 @@ Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "") {
         all(c("SiteID", "N", strOutcome) %in% names(dfTransformed))
     )
 
-
-    colStrOutcome <- dfTransformed[[strOutcome]]
-
-
     dfAnalyzed <- dfTransformed %>%
         pull(.data$SiteID) %>%
         map_df(function(SiteName){
             model <- wilcox.test(
-                colStrOutcome ~ SiteID == SiteName,
+                as.formula(paste0(strOutcome, " ~ SiteID == SiteName")),
                 exact = FALSE,
                 conf.int = TRUE,
                 data=dfTransformed
