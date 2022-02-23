@@ -37,15 +37,29 @@ test_that("cExposureCol works as expected",{
                                   TotalExposure = c(80,70,120), Rate = c(0.0625, 0.1, 0.2)))
   
 })
+
 test_that("incorrect inputs throw errors",{
     expect_error(Transform_EventCount(list()))
     expect_error(Transform_EventCount("Hi"))
 })
 
-test_that("NA in Exposure throws a warning",{
-  ae_input2 <-ae_input
-  ae_input2[ 1, "Exposure"] = NA
-  expect_warning(Transform_EventCount(ae_input2, cCountCol = 'Count', cExposureCol = "Exposure"))
+test_that("NA in Exposure throws a warning and returns correct data",{
+  sim4<-data.frame(
+    SiteID = c(rep("site1",11), rep("site2",7),rep("site3",12)),
+    event = c(rep(0,6),rep(1,12),rep(2,12)),
+    ndays = c(NA,rep(5,5),NA, rep(10,11),NA, rep(10,10),NA)
+  )
+
+  expect_warning(Transform_EventCount(sim4, cCountCol="event", cExposureCol = 'ndays'))
+  expect_false(anyNA(suppressWarnings(Transform_EventCount(sim4,  cCountCol="event", cExposureCol = 'ndays')) %>% pull(.data$TotalExposure)))
+  expect_equal(
+    suppressWarnings(Transform_EventCount(sim4, cCountCol="event", cExposureCol = 'ndays')),
+    tibble(
+      SiteID=c("site1", "site2", "site3"), 
+      N=c(9,7,10), 
+      TotalCount=c(4,7,20),
+      TotalExposure = c(65,70,100), 
+      Rate = c(4/65, 7/70, 20/100)))  
 })
 
 test_that("NA in Exposure is removed ",{
