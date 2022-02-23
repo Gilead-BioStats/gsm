@@ -13,16 +13,28 @@
 #' 
 #' The Assessment 
 #' - \code{\link{Transform_EventCount}} creates `dfTransformed`.
-#' - \code{\link{Consent_Analyze}} creates `dfAnalyzed`.
 #' - \code{\link{Flag}} creates `dfFlagged`.
 #' - \code{\link{Summarize}} creates `dfSummary`.
 #' 
 #' 
 #'  
-#' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure.
+#' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count.
 #' @param nThreshold integer threshold values Flagging, integer values greater than will be flagged.
 #' @param cLabel Assessment label 
-#' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned
+#' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the summary/finding data frame is returned
+#'
+#'
+#' @examples 
+#' 
+#'dfInput <- Consent_Map_Raw(
+#' dfConsent = clindata::raw_consent, 
+#' dfRDSL = clindata::rawplus_rdsl, 
+#' strConsentReason = NULL
+#')
+#'
+#'Consent_Assess(dfInput)
+#' 
+#'  
 #'
 #' @return If `bDataList` is false (the default), the summary data frame (`dfSummary`) is returned. If `bDataList` is true, a list containing all data in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged` and `dfSummary`) is returned. 
 #' 
@@ -40,8 +52,8 @@ Consent_Assess <- function( dfInput, nThreshold=0.5,  cLabel="", bDataList=FALSE
   lAssess <- list()
   lAssess$dfInput <- dfInput
   lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, cCountCol = 'Count'  )
-  lAssess$dfAnalyzed <- gsm::Consent_Analyze( lAssess$dfTransformed ) 
-  lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
+  lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(PValue = NA) %>% mutate(Estimate = .data$TotalCount)
+  lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "TotalCount" )
   lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Main Consent", cLabel= cLabel)
   
   if(bDataList){

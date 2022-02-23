@@ -1,4 +1,3 @@
-
 # Test setup
 library(gsm)
 library(tidyverse)
@@ -72,11 +71,12 @@ expectedOutput_Wilcoxon <- dplyr::tribble(
 )
 
 
+# + 1.1 Test that the AE assessment can return a correctly assessed data frame
+# for the poisson test grouped by the study variable when given correct input data
+# and the results should be flagged correctly.
 
-#' @editor Matt Roumaya
-#' @editDate 2022-02-09
-
-# + 1.1 Test that the AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable when given correct input data
+#' @editor Nathan Kosiba
+#' @editDate 2022-02-22
 test_that("1.1", {
 
 # data --------------------------------------------------------------------
@@ -145,11 +145,15 @@ test_that("1.1", {
   expect_gte(min(t1_data$Flag), -1)
   expect_lte(max(t1_data$Flag), 1)
 
+
 })
 
+# + 1.2 Test that the AE assessment can return a correctly assessed data frame
+# for the wilcoxon test grouped by the study variable when given correct input data
+# and the results should be flagged correctly.
 
-# + 1.2 Test that the AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable when given correct input data
-
+#' @editor Nathan Kosiba
+#' @editDate 2022-02-22
 test_that("1.2",{
 
 # data --------------------------------------------------------------------
@@ -225,24 +229,16 @@ test_that("1.2",{
 
 })
 
-
-# + 1.3 Test that sites are flagged with -1 when AE rate is lower than expected
-# covered in 1.1, 1.2
-
-
-# + 1.4 Test that sites are flagged with +1 when AE rate is higher than expected
-# matt note: need to look at clindata and see if AE_Assess() will yield results with -1, 0, and 1 flags,
-# or if we need to create a dummy dataset
-
-
-
-# + 1.5 Test that Assessment can return all data in the standard data pipeline
+# + 1.3 Test that Assessment can return all data in the standard data pipeline
 # (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`)
-test_that("1.5", {
+
+#' @editor Matt Roumaya
+#' @editDate 2022-02-18
+test_that("1.3", {
 
 # data --------------------------------------------------------------------
 
-  t5_data <- AE_Assess(
+  t3_data <- AE_Assess(
     dfInput = dfInput,
     bDataList = TRUE
   )
@@ -253,29 +249,32 @@ test_that("1.5", {
 
   # check names of data.frames
   expect_equal(
-    names(t5_data),
+    names(t3_data),
     c("dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary")
   )
 
   # check that a list is returned
   expect_type(
-    t5_data, "list"
+    t3_data, "list"
   )
 
   # check that all objects returned by bDataList = TRUE are data.frames
-  expect_true("data.frame" %in% class(t5_data$dfInput))
-  expect_true("data.frame" %in% class(t5_data$dfTransformed))
-  expect_true("data.frame" %in% class(t5_data$dfAnalyzed))
-  expect_true("data.frame" %in% class(t5_data$dfFlagged))
-  expect_true("data.frame" %in% class(t5_data$dfSummary))
+  expect_true("data.frame" %in% class(t3_data$dfInput))
+  expect_true("data.frame" %in% class(t3_data$dfTransformed))
+  expect_true("data.frame" %in% class(t3_data$dfAnalyzed))
+  expect_true("data.frame" %in% class(t3_data$dfFlagged))
+  expect_true("data.frame" %in% class(t3_data$dfSummary))
 
 
 })
 
-# + 1.6 Test that (NA, NaN) in input exposure data throws a warning and
+# + 1.4 Test that (NA, NaN) in input exposure data throws a warning and
 # drops the person from the analysis.
+# matt note: relies on fix for #162
 
-# test_that("1.6", {
+
+
+# test_that("1.4", {
 #
 #
 # # -------------------------------------------------------------------------
@@ -306,7 +305,7 @@ test_that("1.5", {
 #   # x Assigned data has 5 rows.
 #   # ℹ Only vectors of size 1 are recycled.
 #
-#   # 1.6 will need more test cases once the expected output of AE_Assess() is resolved
+#   # 1.4 will need more test cases once the expected output of AE_Assess() is resolved
 #   # -- test that correct records are dropped and SUBJID counts are correct
 #   # -- test dropping all subjects from a given site due to NA values and
 #   #    ensure site does not exist in summary
@@ -314,10 +313,11 @@ test_that("1.5", {
 # })
 
 
-# + 1.7 Test that (NA, NaN) in input count data throws a warning and
+# + 1.5 Test that (NA, NaN) in input count data throws a warning and
 # drops the person from the analysis.
+# matt note: relies on fix for #162
 
-# test_that("1.7", {
+# test_that("1.5", {
 #
 # # data --------------------------------------------------------------------
 #
@@ -328,7 +328,7 @@ test_that("1.5", {
 #
 #   # expect_warning(AE_Assess(dfInputCountNA))
 #
-#   # 1.7 - same applies as noted above in 1.6. more tests needed after expected
+#   # 1.5 - same applies as noted above in 1.4. more tests needed after expected
 #   # output of AE_Assess() is resolved.
 #
 # })

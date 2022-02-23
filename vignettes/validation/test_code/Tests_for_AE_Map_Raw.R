@@ -1,62 +1,69 @@
 
 # Test setup
-library(gsm)
 library(tidyverse)
 library(testthat)
-library(safetyData)
 library(clindata)
+library(gsm)
 
 # general data ------------------------------------------------------------
 
-dfExposure <- clindata::TreatmentExposure(
-  dfEx = clindata::raw_ex,
-  dfSdrg = NULL,
-  dtSnapshot = NULL
-  )
+
+
+# save for reproducibility - but better hardcoded below
+# dfAEMinimal <- clindata::raw_ae %>% select(SubjectID = SUBJID) %>% slice(1:3)
+#
+# dfRDSLMinimal <- clindata::rawplus_rdsl %>%
+#   select("SubjectID", "SiteID", "FirstDoseDate", "LastDoseDate", "TimeOnTreatment") %>%
+#   filter(SubjectID %in% c("0496", "1350")) %>%
+#   mutate(across(SubjectID:LastDoseDate, ~as.character(.))) %>%
+#   add_row(SubjectID = "0123",
+#           SiteID = "X111X",
+#           FirstDoseDate = "2017-11-13" ,
+#           LastDoseDate = "2022-02-15",
+#           TimeOnTreatment = 1556)
+
+
+# data --------------------------------------------------------------------
 
 dfAE <- clindata::raw_ae
+dfRDSL <- clindata::rawplus_rdsl
 
-
-
-dfExposure_minimal <- tibble::tribble(
-                      ~SubjectID, ~SiteID, ~firstDoseDate, ~lastDoseDate, ~Exposure,
-                      "0496", "X055X",   "2013-12-31",  "2022-02-15",      2969,
-                      "1350", "X108X",   "2017-11-13",  "2022-02-15",      1556,
-                      "0123", "X111X",   "2017-11-13",  "2022-02-15",      1556
+dfAEMinimal <- tibble::tribble(
+                                          ~SUBJID,
+                                              "0496",
+                                              "0496",
+                                              "1350"
                                           )
 
-dfAE_minimal <- tibble::tribble(~SUBJID,
-                "0496",
-                "0496",
-                "1350"
-                )
-
-
-expectedOutput_Count <- tibble::tribble(
-  ~SubjectID, ~SiteID, ~Count, ~Exposure,                ~Rate,
-  "0496", "X055X",     2L,      2969, 0.000673627484001347,
-  "1350", "X108X",     1L,      1556,   0.0006426735218509,
-  "0123", "X111X",     0L,      1556, 0
-)
+dfRDSLMinimal <- tibble::tribble(
+                                          ~SubjectID, ~SiteID, ~FirstDoseDate, ~LastDoseDate, ~TimeOnTreatment,
+                                              "1350", "X108X",   "2017-11-13",  "2022-02-16",             1557,
+                                              "0496", "X055X",   "2013-12-31",  "2022-02-16",             2970,
+                                              "0123", "X111X",   "2017-11-13",  "2022-02-15",             1556
+                                          )
 
 
 
+expectedOutputMinimal <- tibble::tribble(
+                                                                             ~SubjectID, ~SiteID, ~Count, ~Exposure,                ~Rate,
+                                                                                 "1350", "X108X",     1L,      1557, 0.000642260757867694,
+                                                                                 "0496", "X055X",     2L,      2970, 0.000673400673400673,
+                                                                                 "0123", "X111X",     0L,      1556,                    0
+                                                                             )
 # -------------------------------------------------------------------------
 
 
 
 
 #' @editor Matt Roumaya
-#' @editDate 2022-02-15
+#' @editDate 2022-02-18
 test_that("2.1", {
 
 
 # data --------------------------------------------------------------------
 
-t1_data <- AE_Map_Raw(
-  dfAE = dfAE,
-  dfExposure = dfExposure
-)
+t1_data <- AE_Map_Raw(clindata::raw_ae,
+                      clindata::rawplus_rdsl)
 
 # -------------------------------------------------------------------------
 
@@ -79,31 +86,31 @@ expect_type(t1_data$Exposure, "double")
 expect_type(t1_data$Rate, "double")
 
 # expected number of rows
-expect_true(nrow(t1_data) == 1298)
+expect_equal(nrow(t1_data), 2387)
 
 # expected number of columns
-expect_true(length(t1_data) == 5)
+expect_equal(length(t1_data), 5)
+
+# expected number of NA values
+expect_equal(sum(colSums(is.na(t1_data))), 2178)
 
 })
 
 
+#' @editor Matt Roumaya
+#' @editDate 2022-02-18
 test_that("2.2", {
 
 
-
-
 t2_data <- AE_Map_Raw(
-  dfAE = dfAE_minimal,
-  dfExposure = dfExposure_minimal
+  dfAE = dfAEMinimal,
+  dfRDSL = dfRDSLMinimal
   )
 
-
-
-
-  # # check table of expected counts
+ # check table of expected counts
   expect_equal(
     table(t2_data$Count),
-    table(expectedOutput_Count$Count)
+    table(expectedOutputMinimal$Count)
     )
 
   # standard count
@@ -125,55 +132,59 @@ t2_data <- AE_Map_Raw(
   )
 
   # no negative counts
-  # expect_gte(
-  #   AE_Map_Raw(
-  #     dfAE = dfAE,
-  #     dfExposure = dfExposure
-  #   ) %>%
-  #     arrange(Count) %>%
-  #     slice(1) %>%
-  #     pull(Count),
-  #   0
-  # )
+  expect_gte(
+    AE_Map_Raw(
+      dfAE = dfAE,
+      dfRDSL = dfRDSL
+    ) %>%
+      filter(Count == min(Count)) %>%
+      slice(1) %>%
+      pull(Count),
+    0
+  )
 
 
 })
 
-
+#' @editor Matt Roumaya
+#' @editDate 2022-02-18
 test_that("2.3", {
 
   # rate is count / exposure
 
 # data --------------------------------------------------------------------
-  dfExposure_rate_minimal <- tibble::tribble(
+
+  dfRDSLRateMinimal <- tibble::tribble(
     ~SubjectID, ~SiteID, ~firstDoseDate, ~lastDoseDate, ~Exposure,
     "0001", "X055X",   "2013-12-31",  "2022-02-15",      10
   )
 
-  dfAE_rate_minimal <- tibble::tribble(~SUBJID,
+  dfAERateMinimal <- tibble::tribble(~SUBJID,
                                   "0001",
 
   )
 
-  expectedOutput_rate <-tibble::tribble(
+  expectedOutputRate <-tibble::tribble(
     ~SubjectID, ~SiteID, ~Count, ~Exposure, ~Rate,
     "0001", "X055X",     1L,        10,   0.1
   )
 
   t3_data <- AE_Map_Raw(
     dfAE = dfAE,
-    dfExposure = dfExposure
+    dfRDSL = dfRDSL
   )
 
 # -------------------------------------------------------------------------
 
 
 
-  # expect_equal(
-  #   AE_Map_Raw(dfAE = dfAE_rate_minimal, dfExposure = dfExposure_rate_minimal),
-  #   expectedOutput_rate
-  # )
-  #
+  expect_equal(
+    AE_Map_Raw(dfAE = dfAERateMinimal,
+               dfRDSL = dfRDSLRateMinimal,
+               strExposureCol = "Exposure"),
+    expectedOutputRate
+  )
+
   expect_gte(
     min(t3_data$Count),
     0
@@ -181,26 +192,28 @@ test_that("2.3", {
 
 })
 
-
+#' @editor Matt Roumaya
+#' @editDate 2022-02-18
 test_that("2.4", {
 
 # data --------------------------------------------------------------------
-  dfExposure_minimal_na <- tibble::tribble(
+  dfRDSLMinimalNA <- tibble::tribble(
     ~SubjectID, ~SiteID, ~firstDoseDate, ~lastDoseDate, ~Exposure,
     NA, "X055X",   "2013-12-31",  "2022-02-15",      NA,
     "1350", "X108X",   "2017-11-13",  "2022-02-15",      NA,
     "0123", "X111X",   "2017-11-13",  "2022-02-15",      1556
   )
 
-  dfAE_minimal_na <- tibble::tribble(~SUBJID,
+  dfAEMinimalNA <- tibble::tribble(~SUBJID,
                                   "0496",
                                   "0496",
                                   "1350"
   )
 
   t4_data <- AE_Map_Raw(
-    dfAE = dfAE_minimal_na,
-    dfExposure = dfExposure_minimal_na
+    dfAE = dfAEMinimalNA,
+    dfRDSL = dfRDSLMinimalNA,
+    strExposureCol = "Exposure"
     )
 
 # -------------------------------------------------------------------------
@@ -213,7 +226,7 @@ test_that("2.4", {
                  pull(Rate),
                NA_integer_)
 
-})
+  })
 
 
 

@@ -7,13 +7,13 @@
 Consent_Assess(dfInput, nThreshold = 0.5, cLabel = "", bDataList = FALSE)
 }
 \arguments{
-\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure.}
+\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count.}
 
 \item{nThreshold}{integer threshold values Flagging, integer values greater than will be flagged.}
 
 \item{cLabel}{Assessment label}
 
-\item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
+\item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the summary/finding data frame is returned}
 }
 \value{
 If \code{bDataList} is false (the default), the summary data frame (\code{dfSummary}) is returned. If \code{bDataList} is true, a list containing all data in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged} and \code{dfSummary}) is returned.
@@ -37,9 +37,21 @@ The input data (\code{dfInput}) for Consent Assessment is typically created usin
 The Assessment
 \itemize{
 \item \code{\link{Transform_EventCount}} creates \code{dfTransformed}.
-\item \code{\link{Consent_Analyze}} creates \code{dfAnalyzed}.
 \item \code{\link{Flag}} creates \code{dfFlagged}.
 \item \code{\link{Summarize}} creates \code{dfSummary}.
 }
 }
 
+\examples{
+
+dfInput <- Consent_Map_Raw(
+dfConsent = clindata::raw_consent, 
+dfRDSL = clindata::rawplus_rdsl, 
+strConsentReason = NULL
+)
+
+Consent_Assess(dfInput)
+
+ 
+
+}

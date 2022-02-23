@@ -22,7 +22,7 @@
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
 #' @param  strOutcome required, name of column in dfTransformed dataset to perform Wilcoxon test on
 #'
-#' @importFrom stats wilcox.test
+#' @importFrom stats wilcox.test as.formula
 #' @importFrom purrr map map_df
 #' @importFrom broom glance
 #'
@@ -42,22 +42,14 @@ Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "") {
         all(c("SiteID", "N", strOutcome) %in% names(dfTransformed))
     )
 
-
-    colStrOutcome <- dfTransformed[[strOutcome]]
-
-
     dfAnalyzed <- dfTransformed %>%
         pull(.data$SiteID) %>%
         map_df(function(SiteName){
-            model <- wilcox.test(
-                colStrOutcome ~ SiteID == SiteName,
-                exact = FALSE,
-                conf.int = TRUE,
-                data=dfTransformed
-            ) %>%
+            form <- as.formula(paste0(strOutcome," ~ SiteID ==", SiteName)) 
+            model <- wilcox.test(form, exact = FALSE, conf.int = TRUE, data=dfTransformed) %>% 
                 broom::glance() %>%
                 mutate(SiteID = SiteName) %>%
-                mutate(estimate = estimate*-1)
+                mutate(estimate = .data$estimate*-1)
 
             return(model)
         })%>%

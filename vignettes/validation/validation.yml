@@ -10,12 +10,12 @@ usernames:
     role: Qualification Lead
   matt.roumaya:
     name: Matt Roumaya
-    title: Informatics Application Developer
+    title: Developer
     role: Qualification Developer
 validation_files:
-- Specifications_for_AE_Assessment.md
+- Specifications_for_AE_Assess.md
 - Specifications_for_AE_Map_Raw.md
-- Test_Cases_for_AE_Assessment.md
+- Test_Cases_for_AE_Assess.md
 - Test_Cases_for_AE_Map_Raw.md
-- Tests_for_AE_Assessment.R
+- Tests_for_AE_Assess.R
 - Tests_for_AE_Map_Raw.R

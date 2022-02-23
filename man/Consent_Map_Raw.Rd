@@ -4,12 +4,14 @@
 \alias{Consent_Map_Raw}
 \title{Consent Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-Consent_Map_Raw(dfConsent, dfRDSL)
+Consent_Map_Raw(dfConsent, dfRDSL, strConsentReason = "mainconsent")
 }
 \arguments{
 \item{dfConsent}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}
 
-\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID RandDate}
+\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID RandDate.}
+
+\item{strConsentReason}{default = "mainconsent", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
@@ -18,7 +20,7 @@ Data frame with one record per person data frame with columns: SubjectID, SiteID
 Convert from raw data format to needed input format for \code{\link{Consent_Assess}}
 }
 \details{
-This function uses raw Consent and Ixrsand data to create the required input for \code{\link{Consent_Assess}}.
+This function uses raw Consent and RDSL data to create the required input for \code{\link{Consent_Assess}}.
 }
 \section{Data Specification}{
 
@@ -41,3 +43,12 @@ The following columns are required:
 }
 }
 
+\examples{
+
+input <- Consent_Map_Raw(
+ dfConsent = clindata::raw_consent, 
+ dfRDSL = clindata::rawplus_rdsl, 
+ strConsentReason = NULL
+)
+
+}

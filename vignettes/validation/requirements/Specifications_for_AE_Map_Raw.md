@@ -2,11 +2,11 @@
 #' @editor Matt Roumaya
 #' @editDate 2022-02-14
 #' @riskAssessment
-#' 2.1: 1, High Risk, High Impact
-#' 2.2: 1, High Risk, High Impact
-#' 2.3: 1, High Risk, High Impact
-#' 2.4: 1, High Risk, High Impact
-#' 2.5: 1, High Risk, High Impact
+#' 2.1: 3, Low Risk, Medium Impact
+#' 2.2: 3, Medium Risk, High Impact
+#' 2.3: 3, Medium Risk, High Impact
+#' 2.4: 1, Medium Risk, Low Impact
+#' 2.5: 1, Medium Risk, Low Impact
 
 + 2.1 Given correct input data, a tibble/data.frame is produced with expected 
 dimensions
