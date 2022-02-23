@@ -20,7 +20,10 @@ Suggests:
     safetyData,
     covr,
     clindata,
+    rmarkdown,
     knitr,
+    kableExtra,
+    devtools,
     rmarkdown,
     tibble,
     valtools
