@@ -7,7 +7,7 @@
 AE_Poisson_PredictBounds(dfOutput)
 }
 \arguments{
-\item{dfOutput}{data frame in format produced by \code{\link{AE_Poisson_Analyze}}}
+\item{dfOutput}{data frame in format produced by \code{\link{AE_Map_Adam}} or \code{\link{AE_Map_Raw}}.}
 }
 \value{
 dataframe with prediction boundary curves

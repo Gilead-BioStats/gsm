@@ -1,6 +1,6 @@
 #' Safety Assessment - Calculate prediction bounds
 #'
-#' @param dfOutput data frame in format produced by \code{\link{AE_Poisson_Analyze}}
+#' @param dfOutput data frame in format produced by \code{\link{AE_Map_Adam}} or \code{\link{AE_Map_Raw}}.
 #'
 #' @return dataframe with prediction boundary curves
 #'
