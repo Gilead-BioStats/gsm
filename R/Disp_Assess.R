@@ -44,7 +44,8 @@ Disp_Assess <- function( dfDisp, vThreshold = NULL, cLabel = "", cMethod = "wilc
     "dfDisp is not a data.frame" = is.data.frame(dfDisp),
     "cLabel is not character" = is.character(cLabel),
     "cMethod is not 'poisson' or 'wilcoxon'" = cMethod %in% c("poisson","wilcoxon"),
-    "bDataList is not logical" = is.logical(bDataList)
+    "bDataList is not logical" = is.logical(bDataList),
+    "One or more of these columns: SubjectID, SiteID, or Count not found in dfDisp"=all(c("SubjectID","SiteID", "Count") %in% names(dfDisp))
   )
 
 lAssess <- list()
