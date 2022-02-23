@@ -51,14 +51,14 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
                 summarise(across(c(.data$N, .data$TotalCount), sum),
                           SiteID = min(.data$SiteID),
                           TotalCount = .data$TotalCount) %>%
-                mutate(Prop = .data$N / sum(.data$N))
+                mutate(Prop = .data$TotalCount / .data$N )
 
             tablein %>%
                 select(.data$N, .data$TotalCount) %>%
                 fisher.test() %>%
                 broom::glance() %>%
-                mutate(SiteProp = tablein$Prop[2],
-                       OtherProp = tablein$Prop[1],
+                mutate(SiteProp = tablein$Prop[tablein$SiteIndicator],
+                       OtherProp = tablein$Prop[!tablein$SiteIndicator],
                        SiteID = SiteName) %>%
                 left_join(tablein, by = "SiteID")
 
