@@ -22,7 +22,7 @@
 #'
 #' @param dfConsent consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.
 #' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID SiteID RandDate.
-#' @param strConsentReason default = "MAINCONSENT", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.
+#' @param strConsentReason default = "mainconsent", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.
 #' 
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
 #' 
@@ -34,7 +34,7 @@
 #' input <- Consent_Map_Raw(dfConsent = clindata::raw_consent, dfRDSL = clindata::rawplus_rdsl, strConsentReason = NULL)
 #' 
 #' @export 
-Consent_Map_Raw <- function( dfConsent,dfRDSL, strConsentReason = "MAINCONSENT"){
+Consent_Map_Raw <- function( dfConsent,dfRDSL, strConsentReason = "mainconsent"){
   stopifnot(
 
     "dfConsent dataset not found"=is.data.frame(dfConsent),
@@ -55,7 +55,7 @@ Consent_Map_Raw <- function( dfConsent,dfRDSL, strConsentReason = "MAINCONSENT")
     left_join(dfConsent, by='SubjectID')
   
     if(!is.null(strConsentReason)){
-      dfInput <- dfInput %>% filter(.data$CONSCAT_STD == strConsentReason)
+      dfInput <- dfInput %>% filter(to.lower(.data$CONSCAT_STD) == to.lower(strConsentReason))
     }
   
   dfInput <-  dfInput %>%
@@ -64,7 +64,7 @@ Consent_Map_Raw <- function( dfConsent,dfRDSL, strConsentReason = "MAINCONSENT")
     mutate(flag_missing_rand = is.na(.data$RandDate))%>%
     mutate(flag_date_compare = .data$CONSDAT >= .data$RandDate ) %>%
     mutate(any_flag=.data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare) %>%
-    mutate(Count = ifelse(.data$any_flag , 1,0)) %>%
+    mutate(Count = as.numeric(.data$any_flag)) %>%
     select(.data$SubjectID, .data$SiteID, .data$Count) 
 
   return(dfInput)

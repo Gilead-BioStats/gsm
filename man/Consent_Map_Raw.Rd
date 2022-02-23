@@ -4,14 +4,14 @@
 \alias{Consent_Map_Raw}
 \title{Consent Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-Consent_Map_Raw(dfConsent, dfRDSL, strConsentReason = "MAINCONSENT")
+Consent_Map_Raw(dfConsent, dfRDSL, strConsentReason = "mainconsent")
 }
 \arguments{
 \item{dfConsent}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}
 
 \item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID RandDate.}
 
-\item{strConsentReason}{default = "MAINCONSENT", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.}
+\item{strConsentReason}{default = "mainconsent", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
