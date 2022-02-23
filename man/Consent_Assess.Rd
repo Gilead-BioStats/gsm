@@ -44,7 +44,11 @@ The Assessment
 
 \examples{
 
-dfInput <- Consent_Map_Raw(dfConsent = clindata::raw_consent, dfRDSL = clindata::rawplus_rdsl, strConsentReason = NULL)
+dfInput <- Consent_Map_Raw(
+dfConsent = clindata::raw_consent, 
+dfRDSL = clindata::rawplus_rdsl, 
+strConsentReason = NULL
+)
 
 Consent_Assess(dfInput)
 

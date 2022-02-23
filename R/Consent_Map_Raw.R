@@ -31,7 +31,11 @@
 #' 
 #' @examples
 #'
-#' input <- Consent_Map_Raw(dfConsent = clindata::raw_consent, dfRDSL = clindata::rawplus_rdsl, strConsentReason = NULL)
+#' input <- Consent_Map_Raw(
+#'  dfConsent = clindata::raw_consent, 
+#'  dfRDSL = clindata::rawplus_rdsl, 
+#'  strConsentReason = NULL
+#' )
 #' 
 #' @export 
 Consent_Map_Raw <- function( dfConsent,dfRDSL, strConsentReason = "mainconsent"){
@@ -47,15 +51,12 @@ Consent_Map_Raw <- function( dfConsent,dfRDSL, strConsentReason = "mainconsent")
     select(.data$SUBJID, .data$CONSCAT_STD , .data$CONSYN , .data$CONSDAT)%>%
     rename(SubjectID = .data$SUBJID)
   
- 
-  
-  
   dfInput <- dfRDSL %>%
     select(.data$SubjectID, .data$SiteID, .data$RandDate)%>%
     left_join(dfConsent, by='SubjectID')
   
     if(!is.null(strConsentReason)){
-      dfInput <- dfInput %>% filter(to.lower(.data$CONSCAT_STD) == to.lower(strConsentReason))
+      dfInput <- dfInput %>% filter(tolower(.data$CONSCAT_STD) == tolower(strConsentReason))
     }
   
   dfInput <-  dfInput %>%
