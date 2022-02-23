@@ -46,7 +46,7 @@ Consent_Assess <- function( dfInput, nThreshold=0.5,  cLabel="", bDataList=FALSE
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "cLabel is not character" = is.character(cLabel),
     "bDataList is not logical" = is.logical(bDataList),
-    "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count") %in% names(dfInput))
+    "One or more of these columns: SubjectID, SiteID,and Count not found in dfInput"=all(c("SubjectID","SiteID", "Count") %in% names(dfInput))
   )
   
   lAssess <- list()

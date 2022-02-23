@@ -39,7 +39,8 @@ AE_Map_Raw <- function( dfAE, dfRDSL, strExposureCol="TimeOnTreatment"){
         "RDSL dataset is not found"=is.data.frame(dfRDSL),
         "SUBJID column not found in dfAE"="SUBJID" %in% names(dfAE),
         "strExposureCol is not character"=is.character(strExposureCol),
-        "SubjectID, SiteID and strExposureCol columns not found in dfRDSL"=all(c("SubjectID","SiteID",strExposureCol) %in% names(dfRDSL))
+        "SubjectID, SiteID and strExposureCol columns not found in dfRDSL"=all(c("SubjectID","SiteID",strExposureCol) %in% names(dfRDSL)),
+        "NAs found in Subject ID column of dfAE" = all(!is.na(dfAE$SUBJID))
     )
 
     dfInput <-  dfRDSL %>%
