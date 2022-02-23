@@ -14,12 +14,14 @@ Imports:
     magrittr,
     purrr
 Suggests:
-    testthat (>= 3.0.0),
-    safetyData,
-    covr,
     clindata,
+    covr,
+    devtools,
+    kableExtra,
     knitr,
     rmarkdown,
+    safetyData,
+    testthat (>= 3.0.0),
     tibble,
     valtools
 LazyData: true

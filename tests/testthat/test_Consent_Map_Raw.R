@@ -18,21 +18,24 @@ dfRDSL_test <- tibble::tribble(~SubjectID, ~SiteID, ~RandDate,
                                    4,  3, "2013-12-25",
                                    5,  3, "2013-12-25")
 
+
+
 dfInput_test <-  tibble::tribble(
   ~SubjectID, ~SiteID, ~Count,
-  1,       1,   TRUE,
-  1,       1,   TRUE,
-  1,       1,   TRUE,
-  1,       1,   TRUE,
-  2,       2,   TRUE,
-  2,       2,  FALSE,
-  2,       2,  FALSE,
-  3,       2,   TRUE,
-  5,       3,   TRUE)
+  1,       1,   1,
+  1,       1,   1,
+  1,       1,   1,
+  1,       1,   1,
+  2,       2,   1,
+  2,       2,   0,
+  2,       2,   0,
+  3,       2,   1,
+  5,       3,   1)
+
+
 test_that("output created as expected and has correct structure",{
   consent_input <-  Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test)
    expect_true(is.data.frame(consent_input))
-  
    expect_equal(
    names(consent_input),
    c("SubjectID","SiteID","Count"))

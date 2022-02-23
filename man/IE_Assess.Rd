@@ -7,17 +7,50 @@
 IE_Assess(dfInput, nThreshold = 0.5, cLabel = "", bDataList = FALSE)
 }
 \arguments{
-\item{dfInput}{input dataset with subject information containing :  SubjectID SiteID Count}
+\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count,}
 
-\item{nThreshold}{threshold values Flagging, integer values greater than will be flagged.}
+\item{nThreshold}{integer threshold values Flagging, integer values greater than will be flagged.}
 
 \item{cLabel}{Assessment label}
 
-\item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
+\item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the summary/finding data frame is returned}
 }
 \value{
-Finding data frame with columns for "SiteID", "N", "PValue", "Flag".
+If \code{bDataList} is false (the default), the summary data frame (\code{dfSummary}) is returned. If \code{bDataList} is true, a list containing all data in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged} and \code{dfSummary}) is returned.
 }
 \description{
 Inclusion/Exclusion Assessment
+}
+\details{
+The Inclusion/Exclusion Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag sites with Inclusion / Exclusion irregularities. More details regarding the data pipeline and statistical methods are described below.
+}
+\section{Data Specification}{
+
+
+The input data (\code{dfInput}) for IE Assessment is typically created using \code{\link{IE_Map_Raw}} and should be one record per person with columns for:
+\itemize{
+\item \code{SubjectID} - Unique subject ID
+\item \code{SiteID} - Site ID
+\item \code{Count} - Number of findings of errors/outliers.
+}
+
+The Assessment
+\itemize{
+\item \code{\link{Transform_EventCount}} creates \code{dfTransformed}.
+\item \code{\link{Flag}} creates \code{dfFlagged}.
+\item \code{\link{Summarize}} creates \code{dfSummary}.
+}
+}
+
+\examples{
+
+ dfInput <- tibble::tribble(        ~SubjectID, ~SiteID, ~Count,
+                                          "0142", "X194X",     9,
+                                          "0308", "X159X",     9,
+                                          "0776", "X194X",     8,
+                                          "1032", "X033X",     9
+                                          )
+                                          
+ ie_summary <- IE_Assess(dfInput)
+
 }

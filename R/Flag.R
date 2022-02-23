@@ -32,6 +32,7 @@
 #' dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Estimate')
 #'
 #' @import dplyr
+#' @importFrom stats median
 #'
 #' @export
 
@@ -63,7 +64,7 @@ Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strValu
 
   # if strValueColumn is supplied, it can only affect sign of Flag (1 or -1)
   if(!is.null(strValueColumn)){
-    nMedian <-  dfFlagged %>% pull(strValueColumn) %>% median(na.rm=TRUE)
+    nMedian <-  dfFlagged %>% pull(strValueColumn) %>% stats::median(na.rm=TRUE)
     dfFlagged <- dfFlagged  %>%
       mutate(Flag = case_when(
         Flag != 0 & .data[[strValueColumn]] >= nMedian ~ 1,

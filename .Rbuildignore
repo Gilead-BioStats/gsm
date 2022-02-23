@@ -4,3 +4,5 @@
 ^codecov\.yml$
 ^doc$
 ^Meta$
+^vignettes/qualification\.Rmd$
+^vignettes/qualification\.log$
