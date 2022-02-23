@@ -43,32 +43,37 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
 
     dfAnalyzed <- dfTransformed %>%
         pull(.data$SiteID) %>%
-        map_df(function(SiteName){
+        map_df(function(SiteName) {
 
-            ## Create Table for Fisher Test Input
-            tablein <- mutate(SiteIndicator=SiteID==SiteName) %>%
-                group_by(SiteIndicator) %>%
-                summarise(across(c(N, TotalCount),sum)) %>%
-                mutate(Prop = n / sum(n))
-                select(-1)
+            tablein <- dfTransformed %>%
+                mutate(SiteIndicator = .data$SiteID == SiteName) %>%
+                group_by(.data$SiteIndicator) %>%
+                summarise(across(c(.data$N, .data$TotalCount), sum),
+                          SiteID = min(.data$SiteID),
+                          TotalCount = .data$TotalCount) %>%
+                mutate(Prop = .data$N / sum(.data$N))
 
-            ## Generate statistics
-            model <- tablein %>% select(N, TotalCount) %>%
+            tablein %>%
+                select(.data$N, .data$TotalCount) %>%
                 fisher.test() %>%
                 broom::glance() %>%
-                mutate( SiteProp = tablein$Prop[2]) %>%
-                mutate( OtherProp = tablein$Prop[1])
+                mutate(SiteProp = tablein$Prop[2],
+                       OtherProp = tablein$Prop[1],
+                       SiteID = SiteName) %>%
+                left_join(tablein, by = "SiteID")
 
-            return(model)
-        })%>%
-        rename(
-            PValue = .data[['p.value']],
-            Estimate = .data$estimate
-        ) %>%
+        }) %>% rename(PValue = .data[['p.value']],
+                      Estimate = .data$estimate) %>%
         arrange(.data$PValue) %>%
-        select( .data$SiteID, .data$N, .data$TotalCount,
-                .data$SiteProp, .data$OtherProp,
-                .data$Estimate, .data$PValue)
+        select(
+            .data$SiteID,
+            .data$N,
+            .data$TotalCount,
+            .data$SiteProp,
+            .data$OtherProp,
+            .data$Estimate,
+            .data$PValue
+        )
 
     return(dfAnalyzed)
 }
