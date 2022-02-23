@@ -1,10 +1,10 @@
-#' Fisher's Exact Test Analysis
+#' Chi-squared Test Analysis
 #'
-#' Creates Analysis results data for count data using the Fisher's exact test
+#' Creates Analysis results data for count data using the chi-squared test
 #'
 #'  @details
 #'
-#' Analyzes count data using the Fisher's exact test
+#' Analyzes count data using the chi-squared test
 #'
 #' @section Statistical Methods:
 #'
@@ -12,29 +12,29 @@
 #'
 #' @section Data Specification:
 #'
-#' The input data (` dfTransformed`) for the Analyze_Fisher is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for:
+#' The input data (` dfTransformed`) for the Analyze_Chisq is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for:
 #' - `SiteID` - Site ID
 #' - `N` - Total number of participants at site
 #' - `Count` - Total number of participants at site with event of interest
 #'
 #'
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
-#' @param  strOutcome required, name of column in dfTransformed dataset to perform Fisher test on
+#' @param  strOutcome required, name of column in dfTransformed dataset to perform the chi-squared test on
 #'
-#' @importFrom stats fisher.test as.formula
+#' @importFrom stats chisq.test as.formula
 #' @importFrom purrr map map_df
 #' @importFrom broom glance
 #'
-#' @return data.frame with one row per site, columns:   SiteID, N , ..., SiteProp, OtherProp, Estimate, PValue
+#' @return data.frame with one row per site, columns:   SiteID, N , ..., SiteProp, OtherProp, Statistic, PValue
 #'
 #' @examples
 #' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD",strReason = "Adverse Event")
 #' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count' )
-#' dfAnalyzed <- Analyze_Fisher( dfTransformed )
+#' dfAnalyzed <- Analyze_Chisq( dfTransformed )
 #'
 #' @export
 
-Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
+Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount") {
 
     stopifnot(
         is.data.frame(dfTransformed),
@@ -55,7 +55,7 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
 
             tablein %>%
                 select(.data$N, .data$TotalCount) %>%
-                fisher.test() %>%
+                chisq.test() %>%
                 broom::glance() %>%
                 mutate(SiteProp = tablein$Prop[tablein$SiteIndicator],
                        OtherProp = tablein$Prop[!tablein$SiteIndicator],
@@ -63,7 +63,7 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
                 left_join(tablein, by = "SiteID")
 
         }) %>% rename(PValue = .data[['p.value']],
-                      Estimate = .data$estimate) %>%
+                      Statistic = .data[['statistic']]) %>%
         arrange(.data$PValue) %>%
         select(
             .data$SiteID,
@@ -71,7 +71,7 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
             .data$TotalCount,
             .data$SiteProp,
             .data$OtherProp,
-            .data$Estimate,
+            .data$Statistic,
             .data$PValue
         )
 
