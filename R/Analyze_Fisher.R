@@ -23,8 +23,9 @@
 #' @param  ... additional arguments to pass to \code{\link{fisher.test}}
 #'
 #' @importFrom stats fisher.test as.formula
-#' @importFrom purrr map map_df
+#' @importFrom purrr map 
 #' @importFrom broom glance
+#' @importFrom tidyr unnest
 #'
 #' @return data.frame with one row per site, columns:   SiteID, N , ..., SiteProp, OtherProp, Estimate, PValue
 #'
@@ -41,40 +42,36 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount", ...) {
         is.data.frame(dfTransformed),
         all(c("SiteID", "N", strOutcome) %in% names(dfTransformed))
     )
+    
+    fisher_model<- function(site){
+        SiteTable <- dfTransformed %>%
+            group_by(.data$SiteID == site) %>%
+            summarize(
+                N = sum(.data$N),
+                TotalCount = sum(.data$TotalCount)
+            ) 
+        fisher.test(SiteTable)
+    }
 
     dfAnalyzed <- dfTransformed %>%
-        pull(.data$SiteID) %>%
-        map_df(function(SiteName) {
-
-            tablein <- dfTransformed %>%
-                mutate(SiteIndicator = .data$SiteID == SiteName) %>%
-                group_by(.data$SiteIndicator) %>%
-                summarise(across(c(.data$N, .data$TotalCount), sum),
-                          SiteID = min(.data$SiteID),
-                          TotalCount = .data$TotalCount) %>%
-                mutate(Prop = .data$TotalCount / .data$N )
-
-            tablein %>%
-                select(.data$N, .data$TotalCount) %>%
-                fisher.test(...) %>%
-                broom::glance() %>%
-                mutate(SiteProp = tablein$Prop[tablein$SiteIndicator],
-                       OtherProp = tablein$Prop[!tablein$SiteIndicator],
-                       SiteID = SiteName) %>%
-                left_join(tablein, by = "SiteID")
-
-        }) %>% rename(PValue = .data[['p.value']],
-                      Estimate = .data$estimate) %>%
+        mutate(model = map(.data$SiteID, fisher_model)) %>%
+        mutate(summary = map(.data$model, broom::glance)) %>%
+        unnest(summary) %>%
+        rename(
+            PValue = .data[['p.value']],
+            TotalCount_Site = .data$TotalCount,
+            N_Site = .data$N
+        ) %>%
+        mutate(
+            TotalCount_All = sum(TotalCount_Site),
+            N_All = sum(N_Site),
+            TotalCount_Other = TotalCount_All - TotalCount_Site,
+            N_Other = N_All - N_Site,
+            Prop_Site = TotalCount_Site/N_Site,
+            Prop_Other = TotalCount_Other/N_Other
+        )%>%
         arrange(.data$PValue) %>%
-        select(
-            .data$SiteID,
-            .data$N,
-            .data$TotalCount,
-            .data$SiteProp,
-            .data$OtherProp,
-            .data$Estimate,
-            .data$PValue
-        )
+        select( .data$SiteID, .data$TotalCount_Site, .data$TotalCount_Other, .data$TotalCount_Other, .data$N_Site, .data$N_Other, .data$Prop_Site, .data$Prop_Other, .data$PValue)
 
     return(dfAnalyzed)
 }
