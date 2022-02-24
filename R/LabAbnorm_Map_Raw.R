@@ -13,7 +13,6 @@
 #' 
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate, Unit
 #' 
-#' @import haven
 #' 
 #' @export
 
