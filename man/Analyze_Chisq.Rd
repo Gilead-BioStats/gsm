@@ -4,7 +4,7 @@
 \alias{Analyze_Chisq}
 \title{Chi-squared Test Analysis}
 \usage{
-Analyze_Chisq(dfTransformed, strOutcome = "TotalCount", ...)
+Analyze_Chisq(dfTransformed, strOutcome = "TotalCount")
 }
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}

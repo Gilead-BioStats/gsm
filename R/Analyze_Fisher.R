@@ -36,7 +36,7 @@
 #'
 #' @export
 
-Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount", ...) {
+Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
 
     stopifnot(
         is.data.frame(dfTransformed),

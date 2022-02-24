@@ -4,7 +4,7 @@
 \alias{Analyze_Fisher}
 \title{Fisher's Exact Test Analysis}
 \usage{
-Analyze_Fisher(dfTransformed, strOutcome = "TotalCount", ...)
+Analyze_Fisher(dfTransformed, strOutcome = "TotalCount")
 }
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}

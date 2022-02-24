@@ -35,7 +35,7 @@
 #'
 #' @export
 
-Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount", ...) {
+Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount") {
 
     stopifnot(
         is.data.frame(dfTransformed),
