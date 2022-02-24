@@ -71,7 +71,7 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
             Prop_Other = .data$TotalCount_Other/.data$N_Other
         )%>%
         arrange(.data$PValue) %>%
-        select( .data$SiteID, .data$TotalCount_Site, .data$TotalCount_Other, .data$TotalCount_Other, .data$N_Site, .data$N_Other, .data$Prop_Site, .data$Prop_Other, .data$PValue)
+        select( .data$SiteID, .data$TotalCount_Site, .data$TotalCount_Other, .data$N_Site, .data$N_Other, .data$Prop_Site, .data$Prop_Other, .data$PValue)
 
     return(dfAnalyzed)
 }
