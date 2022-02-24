@@ -8,18 +8,18 @@ Disp_Assess(
   dfDisp,
   vThreshold = NULL,
   cLabel = "",
-  cMethod = "wilcoxon",
+  cMethod = "fishers",
   bDataList = FALSE
 )
 }
 \arguments{
 \item{dfDisp}{input data with one record per person and the following required columns: SubjectID, SiteID, Count}
 
-\item{vThreshold}{numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = "wilcoxon".}
+\item{vThreshold}{numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "fishers" and c(.0001,NA) for method = "chisquare".}
 
 \item{cLabel}{Assessment label}
 
-\item{cMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
+\item{cMethod}{valid methods are "fishers" (the default), or  "chisquare"}
 
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the Summary data frame is returned}
 }
@@ -45,7 +45,7 @@ The input data (\code{dfDisp}) for the Disposition Assessment is typically creat
 The Assessment
 \itemize{
 \item \code{\link{Transform_EventCount}} creates \code{dfTransformed}.
-\item \code{\link{Analyze_Poisson}} or \code{\link{Analyze_Wilcoxon}} creates \code{dfAnalyzed}.
+\item \code{\link{Analyze_Fisher}} or \code{\link{Analyze_Chisq}} creates \code{dfAnalyzed}.
 \item \code{\link{Flag}} creates \code{dfFlagged}.
 \item \code{\link{Summarize}} creates \code{dfSummary}.
 }
@@ -54,14 +54,14 @@ The Assessment
 \section{Statistical Assumptions}{
 
 
-A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the \code{cMethod} parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in \code{vThreshold}. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
+A Fisher's Exact or Chi-Square model is used to generate estimates and p-values for each site (as specified with the \code{cMethod} parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in \code{vThreshold}. In the Fisher's Exact model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Chi-Square, sites with p-values less than 0.0001 are flagged by default.
 
-See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions.
+See \code{\link{Analyze_Fisher}} and \code{\link{Analyze_Chisq}} for additional details about the statistical methods and thier assumptions.
 }
 
 \examples{
 dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl,strCol = "DCREASCD",strReason = "adverse event")
 SafetyAE <- Disp_Assess( dfInput )
-SafetyAE_Wilk <- Disp_Assess( dfInput, cMethod="wilcoxon")
+SafetyAE_Wilk <- Disp_Assess( dfInput, cMethod="chisquare")
 
 }
