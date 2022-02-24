@@ -22,7 +22,7 @@
 #' @param  strOutcome required, name of column in dfTransformed dataset to perform Fisher test on
 #'
 #' @importFrom stats fisher.test as.formula
-#' @importFrom purrr map 
+#' @importFrom purrr map
 #' @importFrom broom glance
 #' @importFrom tidyr unnest
 #'
@@ -41,7 +41,7 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
         is.data.frame(dfTransformed),
         all(c("SiteID", "N", strOutcome) %in% names(dfTransformed))
     )
-    
+
     fisher_model<- function(site){
         SiteTable <- dfTransformed %>%
             group_by(.data$SiteID == site) %>%
@@ -49,9 +49,9 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
                 Participants = sum(.data$N),
                 Flag = sum(.data$TotalCount),
                 NoFlag = sum(.data$Participants - .data$Flag)
-            ) %>% 
-            select(.data$Flag, .data$NoFlag)
-            
+            ) %>%
+            select(.data$NoFlag , .data$Flag)
+
         stats::fisher.test(SiteTable)
     }
 
