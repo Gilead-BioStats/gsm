@@ -20,7 +20,6 @@
 #'
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
 #' @param  strOutcome required, name of column in dfTransformed dataset to perform the chi-squared test on
-#' @param  ... additional arguments to pass to \code{\link{chisq.test}}
 #'
 #' @importFrom stats chisq.test as.formula
 #' @importFrom purrr map map_df
@@ -35,46 +34,46 @@
 #'
 #' @export
 
-Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount", ...) {
+Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount") {
 
     stopifnot(
         is.data.frame(dfTransformed),
         all(c("SiteID", "N", strOutcome) %in% names(dfTransformed))
     )
 
+    chisq_model<- function(site){
+        SiteTable <- dfTransformed %>%
+            group_by(.data$SiteID == site) %>%
+            summarize(
+                Participants = sum(.data$N),
+                Flag = sum(.data$TotalCount),
+                NoFlag = sum(.data$Participants - .data$Flag)
+            ) %>% 
+            select(.data$Flag, .data$NoFlag)
+
+        chisq.test(SiteTable)
+    }
+
     dfAnalyzed <- dfTransformed %>%
-        pull(.data$SiteID) %>%
-        map_df(function(SiteName) {
-
-            tablein <- dfTransformed %>%
-                mutate(SiteIndicator = .data$SiteID == SiteName) %>%
-                group_by(.data$SiteIndicator) %>%
-                summarise(across(c(.data$N, .data$TotalCount), sum),
-                          SiteID = min(.data$SiteID),
-                          TotalCount = .data$TotalCount) %>%
-                mutate(Prop = .data$TotalCount / .data$N )
-
-            tablein %>%
-                select(.data$N, .data$TotalCount) %>%
-                chisq.test(...) %>%
-                broom::glance() %>%
-                mutate(SiteProp = tablein$Prop[tablein$SiteIndicator],
-                       OtherProp = tablein$Prop[!tablein$SiteIndicator],
-                       SiteID = SiteName) %>%
-                left_join(tablein, by = "SiteID")
-
-        }) %>% rename(PValue = .data[['p.value']],
-                      Statistic = .data[['statistic']]) %>%
+        mutate(model = map(.data$SiteID, chisq_model)) %>%
+        mutate(summary = map(.data$model, broom::glance)) %>%
+        unnest(summary) %>%
+        rename(
+            Statistic = .data$statistic,
+            PValue = .data[['p.value']],
+            TotalCount_Site = .data$TotalCount,
+            N_Site = .data$N
+        ) %>%
+        mutate(
+            TotalCount_All = sum(.data$TotalCount_Site),
+            N_All = sum(.data$N_Site),
+            TotalCount_Other = .data$TotalCount_All - .data$TotalCount_Site,
+            N_Other = .data$N_All - .data$N_Site,
+            Prop_Site = .data$TotalCount_Site/.data$N_Site,
+            Prop_Other = .data$TotalCount_Other/.data$N_Other
+        )%>%
         arrange(.data$PValue) %>%
-        select(
-            .data$SiteID,
-            .data$N,
-            .data$TotalCount,
-            .data$SiteProp,
-            .data$OtherProp,
-            .data$Statistic,
-            .data$PValue
-        )
+        select( .data$SiteID, .data$TotalCount_Site, .data$TotalCount_Other, .data$N_Site, .data$N_Other, .data$Prop_Site, .data$Prop_Other, .data$Statistic, .data$PValue)
 
     return(dfAnalyzed)
 }
