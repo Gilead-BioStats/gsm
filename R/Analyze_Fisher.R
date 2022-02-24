@@ -63,12 +63,12 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount", ...) {
             N_Site = .data$N
         ) %>%
         mutate(
-            TotalCount_All = sum(TotalCount_Site),
-            N_All = sum(N_Site),
-            TotalCount_Other = TotalCount_All - TotalCount_Site,
-            N_Other = N_All - N_Site,
-            Prop_Site = TotalCount_Site/N_Site,
-            Prop_Other = TotalCount_Other/N_Other
+            TotalCount_All = sum(.data$TotalCount_Site),
+            N_All = sum(.data$N_Site),
+            TotalCount_Other = .data$TotalCount_All - .data$TotalCount_Site,
+            N_Other = .data$N_All - .data$N_Site,
+            Prop_Site = .data$TotalCount_Site/.data$N_Site,
+            Prop_Other = .data$TotalCount_Other/.data$N_Other
         )%>%
         arrange(.data$PValue) %>%
         select( .data$SiteID, .data$TotalCount_Site, .data$TotalCount_Other, .data$TotalCount_Other, .data$N_Site, .data$N_Other, .data$Prop_Site, .data$Prop_Other, .data$PValue)

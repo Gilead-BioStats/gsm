@@ -52,10 +52,8 @@ Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "") {
         mutate(model = map(.data$SiteID, wilcoxon_model)) %>%
         mutate(summary = map(.data$model, broom::glance)) %>%
         unnest(summary) %>%
-        rename(
-            PValue = .data[['p.value']],
-            Estimate = .data$estimate
-        ) %>%
+        mutate(Estimate = .data$estimate *-1) %>%
+        rename(PValue = .data[['p.value']]) %>%
         arrange(.data$PValue) %>%
         select( .data$SiteID, .data$N, .data$TotalCount, .data$TotalExposure, .data$Rate, .data$Estimate, .data$PValue)
 
