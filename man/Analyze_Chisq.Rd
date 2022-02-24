@@ -10,8 +10,6 @@ Analyze_Chisq(dfTransformed, strOutcome = "TotalCount")
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
 
 \item{strOutcome}{required, name of column in dfTransformed dataset to perform the chi-squared test on}
-
-\item{...}{additional arguments to pass to \code{\link{chisq.test}}}
 }
 \value{
 data.frame with one row per site, columns:   SiteID, N , ..., SiteProp, OtherProp, Statistic, PValue

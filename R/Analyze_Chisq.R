@@ -20,7 +20,6 @@
 #'
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
 #' @param  strOutcome required, name of column in dfTransformed dataset to perform the chi-squared test on
-#' @param  ... additional arguments to pass to \code{\link{chisq.test}}
 #'
 #' @importFrom stats chisq.test as.formula
 #' @importFrom purrr map map_df
@@ -46,9 +45,12 @@ Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount") {
         SiteTable <- dfTransformed %>%
             group_by(.data$SiteID == site) %>%
             summarize(
-                N = sum(.data$N),
-                TotalCount = sum(.data$TotalCount)
-            ) 
+                Participants = sum(.data$N),
+                Flag = sum(.data$TotalCount),
+                NoFlag = sum(.data$Participants - .data$Flag)
+            ) %>% 
+            select(.data$Flag, .data$NoFlag)
+
         chisq.test(SiteTable)
     }
 
