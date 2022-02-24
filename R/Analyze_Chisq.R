@@ -20,6 +20,7 @@
 #'
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
 #' @param  strOutcome required, name of column in dfTransformed dataset to perform the chi-squared test on
+#' @param  ... additional arguments to pass to \code{\link{chisq.test}}
 #'
 #' @importFrom stats chisq.test as.formula
 #' @importFrom purrr map map_df
@@ -34,7 +35,7 @@
 #'
 #' @export
 
-Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount") {
+Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount", ...) {
 
     stopifnot(
         is.data.frame(dfTransformed),
@@ -55,7 +56,7 @@ Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount") {
 
             tablein %>%
                 select(.data$N, .data$TotalCount) %>%
-                chisq.test() %>%
+                chisq.test(...) %>%
                 broom::glance() %>%
                 mutate(SiteProp = tablein$Prop[tablein$SiteIndicator],
                        OtherProp = tablein$Prop[!tablein$SiteIndicator],
