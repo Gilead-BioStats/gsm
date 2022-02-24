@@ -12,7 +12,8 @@ Imports:
     dplyr,
     lubridate,
     magrittr,
-    purrr
+    purrr,
+    tidyr
 Suggests:
     clindata,
     covr,

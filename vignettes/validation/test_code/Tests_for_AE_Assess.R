@@ -269,69 +269,50 @@ test_that("1.3", {
 })
 
 # + 1.4 Test that (NA, NaN) in input exposure data throws a warning and
-# drops the person from the analysis.
-# matt note: relies on fix for #162
+# drops the person(s) from the analysis.
+
+#' @editor Matt Roumaya
+#' @editDate 2022-02-23
+test_that("1.4", {
 
 
+# -------------------------------------------------------------------------
 
-# test_that("1.4", {
-#
-#
-# # -------------------------------------------------------------------------
-#
-#   # data
-#   # several NA values
-#   dfInputWithNA1 <- dfInput %>%
-#     mutate(Exposure = ifelse(substr(SubjectID,11,11) != 1, Exposure, NA_integer_))
-#
-#   # one NA value
-#   dfInputWithNA2 <- dfInput %>%
-#     mutate(Exposure = ifelse(SubjectID == "01-701-1015", NA_integer_, Exposure))
-#
-# # -------------------------------------------------------------------------
-#
-#
-#
-#   # expect_warning(AE_Assess(dfInputWithNA1))
-#   # expect_warning(AE_Assess(dfInputWithNA2))
-#
-#   # both throwing error:
-#   # AE_Assess(dfInputWithNA1)
-#   # AE_Assess(dfInputWithNA2)
-#
-#   #Error:
-#   # ! Assigned data `stats::residuals(cModel)` must be compatible with existing data.
-#   # x Existing data has 17 rows.
-#   # x Assigned data has 5 rows.
-#   # ℹ Only vectors of size 1 are recycled.
-#
-#   # 1.4 will need more test cases once the expected output of AE_Assess() is resolved
-#   # -- test that correct records are dropped and SUBJID counts are correct
-#   # -- test dropping all subjects from a given site due to NA values and
-#   #    ensure site does not exist in summary
-#
-# })
+  # data
+  # several NA values
+  dfInputWithNA1 <- dfInput %>%
+    mutate(Exposure = ifelse(substr(SubjectID,11,11) != 1, Exposure, NA_integer_))
+
+  # one NA value
+  dfInputWithNA2 <- dfInput %>%
+    mutate(Exposure = ifelse(SubjectID == "01-701-1015", NA_integer_, Exposure))
+
+# -------------------------------------------------------------------------
+
+expect_warning(AE_Assess(dfInputWithNA1))
+expect_warning(AE_Assess(dfInputWithNA2))
 
 
-# + 1.5 Test that (NA, NaN) in input count data throws a warning and
-# drops the person from the analysis.
-# matt note: relies on fix for #162
+})
 
-# test_that("1.5", {
-#
-# # data --------------------------------------------------------------------
-#
-#     dfInputCountNA <- dfInput %>%
-#     mutate(Count = ifelse(SubjectID == "01-701-1015", NA_integer_, Count))
-#
-# # -------------------------------------------------------------------------
-#
-#   # expect_warning(AE_Assess(dfInputCountNA))
-#
-#   # 1.5 - same applies as noted above in 1.4. more tests needed after expected
-#   # output of AE_Assess() is resolved.
-#
-# })
+
+# + 1.5 Test that (NA, NaN) in input count data throws an error.
+
+#' @editor Matt Roumaya
+#' @editDate 2022-02-23
+test_that("1.5", {
+
+# data --------------------------------------------------------------------
+
+    dfInputCountNA <- dfInput %>%
+    mutate(Count = ifelse(SubjectID == "01-701-1015", NA_integer_, Count))
+
+# -------------------------------------------------------------------------
+
+  expect_error(AE_Assess(dfInputCountNA))
+
+
+})
 
 
 
