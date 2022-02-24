@@ -1,0 +1,40 @@
+
+lababnorm_input <- LabAbnorm_Map_Adam(
+    safetyData::adam_adsl, 
+    safetyData::adam_adlbc
+) 
+
+test_that("summary df created as expected and has correct structure",{
+    lababnorm_assessment <- LabAbnorm_Assess(lababnorm_input) 
+    expect_true(is.data.frame( lababnorm_assessment))
+    expect_equal(names( lababnorm_assessment),c("Assessment","Label", "SiteID", "N", "PValue", "Flag"))
+})
+
+test_that("list of df created when bDataList=TRUE",{
+    lababnorm_list <- LabAbnorm_Assess(lababnorm_input, bDataList=TRUE)
+    expect_true(is.list( lababnorm_list))
+    expect_equal(names( lababnorm_list),c('dfInput','dfTransformed','dfAnalyzed','dfFlagged','dfSummary'))
+})
+
+test_that("incorrect inputs throw errors",{
+    expect_error(LabAbnorm_Assess(list()))
+    expect_error(LabAbnorm_Assess("Hi"))
+    expect_error(LabAbnorm_Assess(lababnorm_input, cLabel=123))
+    expect_error(LabAbnorm_Assess(lababnorm_input, cMethod="abacus"))
+    expect_error(LabAbnorm_Assess(lababnorm_input, bDataList="Yes"))
+})
+
+
+test_that("incorrect inputs throw errors",{
+  expect_error(LabAbnorm_Assess(lababnorm_input %>% select(-SubjectID)))
+  expect_error(LabAbnorm_Assess(lababnorm_input %>% select(-SiteID)))
+  expect_error(LabAbnorm_Assess(lababnorm_input %>% select(-Count)))
+  expect_error(LabAbnorm_Assess(lababnorm_input %>% select(-Exposure)))
+  expect_error(LabAbnorm_Assess(lababnorm_input %>% select(-Rate)))
+})
+
+lababnorm_list <- LabAbnorm_Assess(lababnorm_input, bDataList=TRUE)
+expect_true(is.list(lababnorm_list))
+expect_equal(names( lababnorm_list),c('dfInput','dfTransformed','dfAnalyzed','dfFlagged','dfSummary'))
+
+

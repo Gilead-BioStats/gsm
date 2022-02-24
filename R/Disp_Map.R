@@ -38,7 +38,7 @@ Disp_Map <- function( dfDisp, strCol, strReason = "any", vReasonIgnore = c("", "
   dfInput <- dfDisp %>%
     select(SubjectID = .data$SUBJID,
            SiteID = .data$SITEID,
-           strCol) %>%
+           all_of(strCol)) %>%
     mutate(Count = case_when(
              tolower(strReason) == "any" &  !(tolower(.data[[strCol]]) %in% tolower(vReasonIgnore)) ~ 1,
              tolower(.data[[strCol]]) == tolower(strReason) ~ 1,

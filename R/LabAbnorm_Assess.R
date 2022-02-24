@@ -1,5 +1,46 @@
 #' Lab Abnormality Assessment
 
+#' The Lab Abnormality Assessment flags sites that may be reporting abnormal lab results.
+#'
+#' @details
+#'
+#' The Lab Abnormality Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag possible outliers. More details regarding the data pipeline and statistical methods are described below.
+#'
+#' @section Data Specification:
+#'
+#' The input data (`dfInput`) for the Lab Abnormality Assessment is typically created using \code{\link{LabAbnorm_Map_Raw}} or \code{\link{LabAbnorm_Map_Adam}} and should be one record per person with columns for:
+#' - `SubjectID` - Unique subject ID
+#' - `SiteID` - Site ID
+#' - `Count` - Number of Lab Abnormality events
+#' - `Exposure` - Number of days of exposure
+#'
+#' The Assessment
+#' - \code{\link{Transform_EventCount}} creates `dfTransformed`.
+#' - \code{\link{Analyze_Poisson}} or \code{\link{Analyze_Wilcoxon}} creates `dfAnalyzed`.
+#' - \code{\link{Flag}} creates `dfFlagged`.
+#' - \code{\link{Summarize}} creates `dfSummary`.
+#'
+#' @section Statistical Assumptions:
+#'
+#' A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the `cMethod` parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in `vThreshold`. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
+#'
+#' See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and their assumptions.
+#'
+#' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure
+#' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.
+#' @param cLabel Assessment label
+#' @param cMethod valid methods are "poisson" (the default), or  "wilcoxon"
+#' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the Summary data frame is returned
+#'
+#' @examples
+#' dfInput <- LabAbnorm_Map_Adam( safetyData::adam_adsl, safetyData::adam_adlbc )
+#' LabAbnorm <- LabAbnorm_Assess( dfInput )
+#' 
+#'
+#' @return If `bDataList` is false (the default), the summary data frame (`dfSummary`) is returned. If `bDataList` is true, a list containing all data in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged` and `dfSummary`) is returned.
+#'
+#' @export
+
 LabAbnorm_Assess <-function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson",bDataList=FALSE){
   
   
@@ -49,22 +90,5 @@ LabAbnorm_Assess <-function( dfInput, vThreshold=NULL, cLabel="", cMethod="poiss
     return(lAssess$dfSummary)
   }
   
-  
-  
-    # lAssess <- list()
-    # lAssess$dfInput <- dfInput
-    # lAssess$dfTransformed <-  Transform_EventCount(dfInput, cCountCol = 'Count', cExposureCol = 'Exposure')
-    # lAssess$dfAnalyzed <- Analyze_Poisson( lAssess$dfTransformed ) 
-    # 
-    # if(is.null(lThreshold)){
-    #     lThreshold <- LabAbnorm_Autothreshold(lAssess$dfAnalyzed$Residuals , nCutoff)
-    # }
-    # lAssess$dfFlagged <- LabAbnorm_Flag( lAssess$dfAnalyzed , lThreshold$ThresholdHi, lThreshold$ThresholdLo)
-    # lAssess$dfSummary <- LabAbnorm_Summarize( lAssess$dfFlagged, cAssessment="LabAbnorm", cLabel= cLabel)
-    # 
-    # if(bDataList){
-    #     return(lAssess)
-    # } else {
-    #     return(lAssess$dfSummary)
-    # }
+
 }

@@ -46,7 +46,7 @@ AE_Map_Raw <- function( dfAE, dfRDSL, strExposureCol="TimeOnTreatment"){
     dfInput <-  dfRDSL %>%
         rowwise() %>%
         mutate(Count =sum(dfAE$SUBJID==.data$SubjectID, na.rm = TRUE)) %>%
-        rename(Exposure = strExposureCol) %>%
+        rename(Exposure = all_of(strExposureCol)) %>%
         mutate(Rate = .data$Count/.data$Exposure) %>%
         select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
         ungroup()
