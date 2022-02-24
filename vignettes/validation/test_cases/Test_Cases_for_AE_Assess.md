@@ -20,6 +20,5 @@ and the results should be flagged correctly.
 + 1.3 Test that Assessment can return all data in the standard data pipeline
 (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`)
 + 1.4 Test that (NA, NaN) in input exposure data throws a warning and 
-drops the person from the analysis.
-+ 1.5 Test that (NA, NaN) in input count data throws a warning and 
-drops the person from the analysis.
+drops the participant(s) from the analysis.
++ 1.5 Test that (NA, NaN) in input count data throws an error.
