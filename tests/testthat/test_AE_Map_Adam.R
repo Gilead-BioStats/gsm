@@ -16,6 +16,7 @@ test_that("incorrect inputs throw errors",{
 })
 
 
+
 test_that("error given if required column not found",{
     expect_error(
         AE_Map_Adam( 

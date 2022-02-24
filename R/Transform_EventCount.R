@@ -33,18 +33,29 @@
 #' @examples 
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 #' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+#' 
 #'
 #' @export
 
 Transform_EventCount <- function( dfInput , cCountCol, cExposureCol=NULL ){
     stopifnot(
-        is.data.frame(dfInput),
-        cCountCol %in% names(dfInput),
-        is.numeric(dfInput[[cCountCol]]) | is.logical(dfInput[[cCountCol]]),
-        is.null(cExposureCol) | cExposureCol %in% names(dfInput)
+        "dfInput is not a data frame" = is.data.frame(dfInput),
+        "cCountCol not found in input data" = cCountCol %in% names(dfInput),
+        "cCount column is not numeric or logical" = is.numeric(dfInput[[cCountCol]]) | is.logical(dfInput[[cCountCol]])
     )
-    if(!is.null(cExposureCol)) stopifnot(is.numeric(dfInput[[cExposureCol]]))
-    
+    if(anyNA(dfInput[[cCountCol]])) stop("NA's found in dfInput$Count")  
+    if(!is.null(cExposureCol)){
+      stopifnot(
+        "cExposureCol is not found in input data" = cExposureCol %in% names(dfInput),
+        "cExposureColumn is not numeric" = is.numeric(dfInput[[cExposureCol]])
+      )
+      ExposureNACount <- sum(is.na(dfInput[[cExposureCol]]))
+      if(ExposureNACount>0){
+        warning(paste0("Dropped ",ExposureNACount," record(s) from dfInput where cExposureColumn is NA."))
+        dfInput <- dfInput %>% filter(!is.na(.data[[cExposureCol]]))
+      }
+    }
+
   if(is.null(cExposureCol)){
     dfTransformed <- dfInput  %>%
       group_by(.data$SiteID) %>% 
