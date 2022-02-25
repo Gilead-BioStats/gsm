@@ -75,7 +75,7 @@ AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson",bD
                 "vThreshold is not length 2"=length(vThreshold)==2
             )
         }
-        lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed , strOutcome = "Rate" )
+        lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed)
         lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold, strValueColumn = 'Estimate')
     }
 

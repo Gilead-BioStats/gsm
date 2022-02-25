@@ -32,13 +32,9 @@
 #' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned
 #'
 #' @examples 
-#' # dfRDSL<-clindata::rawplus_rdsl %>% filter(RandFlag=="Y")
-#' # dfInput <- PD_Map_Raw(
-#' #   dfPD = clindata::raw_protdev, 
-#' #   dfRDSL = dfRDSL
-#' #) 
-#' #SafetyPD <- PD_Assess( dfInput )
-#' #SafetyPD_Wilk <- PD_Assess( dfInput, cMethod="wilcoxon")
+#' dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev, dfRDSL = clindata::rawplus_rdsl)
+#' SafetyPD <- PD_Assess( dfInput )
+#' SafetyPD_Wilk <- PD_Assess( dfInput, cMethod="wilcoxon")
 #'
 #' @return If `bDataList` is false (the default), the summary data frame (`dfSummary`) is returned. If `bDataList` is true, a list containing all data in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged` and `dfSummary`) is returned. 
 #'

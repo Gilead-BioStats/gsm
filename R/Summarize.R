@@ -11,7 +11,7 @@
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 #' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
-#' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed, strOutcome ="Rate")
+#' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed)
 #' dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Rate')
 #' dfSummary <- Summarize(dfFlagged, cAssessment="Safety", cLabel= "")
 #'

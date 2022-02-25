@@ -4,12 +4,12 @@
 \alias{Analyze_Wilcoxon}
 \title{AE Wilcoxon Assessment - Analysis}
 \usage{
-Analyze_Wilcoxon(dfTransformed, strOutcome = "")
+Analyze_Wilcoxon(dfTransformed, strOutcome = "Rate")
 }
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
 
-\item{strOutcome}{required, name of column in dfTransformed dataset to perform Wilcoxon test on}
+\item{strOutcome}{required, name of column in dfTransformed dataset to perform Wilcoxon test on. Default="Rate"}
 }
 \value{
 data.frame with one row per site, columns:   SiteID, N , ..., Estimate, PValue
