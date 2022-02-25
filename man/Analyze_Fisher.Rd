@@ -12,7 +12,7 @@ Analyze_Fisher(dfTransformed, strOutcome = "TotalCount")
 \item{strOutcome}{required, name of column in dfTransformed dataset to perform Fisher test on}
 }
 \value{
-data.frame with one row per site, columns:   SiteID, N , ..., SiteProp, OtherProp, Estimate, PValue
+data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue
 }
 \description{
 Creates Analysis results data for count data using the Fisher's exact test
