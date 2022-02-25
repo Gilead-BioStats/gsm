@@ -4,14 +4,27 @@
 \alias{IE_Map_Raw}
 \title{Inclusion/Exclusion Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-IE_Map_Raw(dfIE = NULL, dfRDSL = NULL, vExpected = c(0, 1))
+IE_Map_Raw(
+  dfIE = NULL,
+  dfRDSL = NULL,
+  strCategoryCol = "IECAT",
+  vCategoryValues = c("Inclusion", "Exclusion"),
+  strResultCol = "IEORRES_STD",
+  vExpectedResultValues = c(0, 1)
+)
 }
 \arguments{
-\item{dfIE}{ie dataset with columns SUBJID IVID IECAT IETESTCD IEORRES}
+\item{dfIE}{ie dataset with columns SUBJID and values specified in strCategoryCol and strResultCol.}
 
 \item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID}
 
-\item{vExpected}{Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion".}
+\item{strCategoryCol}{Name ofcCriteria category column. default = 'IECAT'}
+
+\item{strResultCol}{Name of criteria Result column. Default = "IEORRES_STD".}
+
+\item{vExpectedResultValues}{Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion".}
+
+\item{vCategoryValuess}{Category values (of column in dfIE specified by strCategoryCol) Default = c("Inclusion","Exclusion").}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count
@@ -30,9 +43,8 @@ The following columns are required:
 \item \code{dfIE}
 \itemize{
 \item \code{SUBJID} - Unique subject ID
-\item \code{IECAT} - IE Category
-\item \code{IETEST} - Criterion Description (truncated)
-\item \code{IEORRES} - Incl criteria not met Excl criteria met.
+\item Value specified in strCategoryCol  - IE Category; "IECAT" by default
+\item Value specified in strResultCol  - Incl criteria not met Excl criteria met; "IEORRES_STD" by default
 }
 \item \code{dfRDSL}
 \itemize{
@@ -44,6 +56,6 @@ The following columns are required:
 
 \examples{
 
-dfInput <- IE_Map_Raw(clindata::raw_ie_a2, clindata::rawplus_rdsl)
+dfInput <- IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl_s, strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES')
 
 }
