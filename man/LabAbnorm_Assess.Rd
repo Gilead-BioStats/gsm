@@ -37,7 +37,7 @@ The Lab Abnormality Assessment uses the standard GSM data pipeline (TODO add lin
 \section{Data Specification}{
 
 
-The input data (\code{dfInput}) for the Lab Abnormality Assessment is typically created using \code{\link{LabAbnorm_Map_Raw}} or \code{\link{LabAbnorm_Map_Adam}} and should be one record per person with columns for:
+The input data (\code{dfInput}) for the Lab Abnormality Assessment is typically created using {LabAbnorm_Map_Raw} or \code{\link{LabAbnorm_Map_Adam}} and should be one record per person with columns for:
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID

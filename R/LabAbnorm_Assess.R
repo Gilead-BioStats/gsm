@@ -8,7 +8,7 @@
 #'
 #' @section Data Specification:
 #'
-#' The input data (`dfInput`) for the Lab Abnormality Assessment is typically created using \code{\link{LabAbnorm_Map_Raw}} or \code{\link{LabAbnorm_Map_Adam}} and should be one record per person with columns for:
+#' The input data (`dfInput`) for the Lab Abnormality Assessment is typically created using {LabAbnorm_Map_Raw} or \code{\link{LabAbnorm_Map_Adam}} and should be one record per person with columns for:
 #' - `SubjectID` - Unique subject ID
 #' - `SiteID` - Site ID
 #' - `Count` - Number of Lab Abnormality events
