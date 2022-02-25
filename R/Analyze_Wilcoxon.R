@@ -20,7 +20,7 @@
 #'
 #'
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
-#' @param  strOutcome required, name of column in dfTransformed dataset to perform Wilcoxon test on
+#' @param  strOutcome required, name of column in dfTransformed dataset to perform Wilcoxon test on. Default="Rate"
 #'
 #' @importFrom stats wilcox.test as.formula
 #' @importFrom purrr map map_df
@@ -36,7 +36,7 @@
 #'
 #' @export
 
-Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "") {
+Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "Rate") {
 
     stopifnot(
         is.data.frame(dfTransformed),
@@ -44,7 +44,7 @@ Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "") {
     )
 
     wilcoxon_model <- function(site){
-        form <- as.formula(paste0(strOutcome," ~ SiteID ==", site)) 
+        form <- as.formula(paste0(strOutcome," ~ as.character(SiteID) =='", site,"'")) 
         wilcox.test(form, exact = FALSE, conf.int = TRUE, data=dfTransformed)
     }
 
