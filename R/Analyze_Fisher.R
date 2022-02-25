@@ -26,7 +26,7 @@
 #' @importFrom broom glance
 #' @importFrom tidyr unnest
 #'
-#' @return data.frame with one row per site, columns:   SiteID, N , ..., SiteProp, OtherProp, Estimate, PValue
+#' @return data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue
 #'
 #' @examples
 #' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD",strReason = "Adverse Event")
@@ -61,20 +61,18 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
         unnest(summary) %>%
         rename(
             Estimate = .data$estimate,
-            PValue = .data[['p.value']],
-            TotalCount_Site = .data$TotalCount,
-            N_Site = .data$N
+            PValue = .data[['p.value']]
         ) %>%
         mutate(
-            TotalCount_All = sum(.data$TotalCount_Site),
-            N_All = sum(.data$N_Site),
-            TotalCount_Other = .data$TotalCount_All - .data$TotalCount_Site,
-            N_Other = .data$N_All - .data$N_Site,
-            Prop_Site = .data$TotalCount_Site/.data$N_Site,
+            TotalCount_All = sum(.data$TotalCount),
+            N_All = sum(.data$N),
+            TotalCount_Other = .data$TotalCount_All - .data$TotalCount,
+            N_Other = .data$N_All - .data$N,
+            Prop = .data$TotalCount/.data$N,
             Prop_Other = .data$TotalCount_Other/.data$N_Other
         )%>%
         arrange(.data$PValue) %>%
-        select( .data$SiteID, .data$TotalCount_Site, .data$TotalCount_Other, .data$N_Site, .data$N_Other, .data$Prop_Site, .data$Prop_Other, .data$Estimate, .data$PValue)
+        select( .data$SiteID, .data$TotalCount, .data$TotalCount_Other, .data$N, .data$N_Other, .data$Prop, .data$Prop_Other, .data$Estimate, .data$PValue)
 
     return(dfAnalyzed)
 }
