@@ -54,7 +54,9 @@ The Assessment
  ie_summary <- IE_Assess(dfInput)
  
  ie_input <- IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl_s, strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES')
- ie_input <-  ie_input \%>\% filter(!is.na(.data$Count))
+ 
+ 
+ ie_input <-  na.omit(ie_input) 
  
  ie_summary2 <- IE_Assess(ie_input)
 
