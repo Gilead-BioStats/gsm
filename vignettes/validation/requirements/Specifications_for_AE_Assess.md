@@ -1,4 +1,4 @@
-#' @title Specifications for AE Assessment
+#' @title Specifications for AE_Assess()
 #' @editor Nathan Kosiba
 #' @editDate 2022-02-08
 #' @riskAssessment

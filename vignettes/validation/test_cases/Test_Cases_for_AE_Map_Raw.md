@@ -1,4 +1,4 @@
-#' @title Test_Cases_for_AE_Map_Raw
+#' @title Test Cases for AE_Map_Raw()
 #' @editor Matt Roumaya
 #' @editDate 2022-02-14
 #' @coverage

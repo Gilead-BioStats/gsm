@@ -1,4 +1,4 @@
-#' @title Specifications for AE Map Raw
+#' @title Specifications for AE_Map_Raw()
 #' @editor Matt Roumaya
 #' @editDate 2022-02-14
 #' @riskAssessment

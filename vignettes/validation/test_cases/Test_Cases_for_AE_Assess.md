@@ -1,4 +1,4 @@
-#' @title Test_Cases_for_AE_Assessment
+#' @title Test Cases for AE_Assess()
 #' @editor Nathan Kosiba
 #' @editDate 2022-02-22
 #' @coverage

@@ -15,7 +15,10 @@ usernames:
 validation_files:
 - Specifications_for_AE_Assess.md
 - Specifications_for_AE_Map_Raw.md
+- Specifications_for_AE_Map_Adam.md
 - Test_Cases_for_AE_Assess.md
 - Test_Cases_for_AE_Map_Raw.md
+- Test_Cases_for_AE_Map_Adam.md
 - Tests_for_AE_Assess.R
 - Tests_for_AE_Map_Raw.R
+- Tests_for_AE_Map_Adam.R
