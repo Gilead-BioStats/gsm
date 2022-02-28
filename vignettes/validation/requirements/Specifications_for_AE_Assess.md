@@ -1,13 +1,13 @@
 #' @title Specifications for AE_Assess()
 #' @editor Nathan Kosiba
-#' @editDate 2022-02-08
+#' @editDate 2022-02-28
 #' @riskAssessment
 #' 1.1: 1, High Risk, High Impact
 #' 1.2: 1, High Risk, High Impact
 #' 1.3: 3, Low Risk, High Impact
 #' 1.4: 2, Medium Risk, High Impact
 #' 1.5: 4, Low Risk, Medium Impact
-#' 1.6: 3, Medium Risk, Medium Impact
+#' 1.6: 4, Low Risk, Medium Impact
 
 + 1.1 Given correct input data an Adverse Event assessment can be done using 
 the poisson method
