@@ -11,10 +11,11 @@ Imports:
     broom,
     dplyr,
     lubridate,
+    ggplot2,
+    lamW,
     magrittr,
     purrr,
-    ggplot2,
-    lamW
+    tidyr
 Suggests:
     clindata,
     covr,

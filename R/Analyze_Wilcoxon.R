@@ -20,11 +20,12 @@
 #'
 #'
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
-#' @param  strOutcome required, name of column in dfTransformed dataset to perform Wilcoxon test on
+#' @param  strOutcome required, name of column in dfTransformed dataset to perform Wilcoxon test on. Default="Rate"
 #'
 #' @importFrom stats wilcox.test as.formula
 #' @importFrom purrr map map_df
 #' @importFrom broom glance
+#' @importFrom tidyr unnest
 #'
 #' @return data.frame with one row per site, columns:   SiteID, N , ..., Estimate, PValue
 #'
@@ -35,30 +36,24 @@
 #'
 #' @export
 
-Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "") {
+Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "Rate") {
 
     stopifnot(
         is.data.frame(dfTransformed),
         all(c("SiteID", "N", strOutcome) %in% names(dfTransformed))
     )
 
-    dfAnalyzed <- dfTransformed %>%
-        pull(.data$SiteID) %>%
-        map_df(function(SiteName){
-            form <- as.formula(paste0(strOutcome," ~ SiteID ==", SiteName)) 
-            model <- wilcox.test(form, exact = FALSE, conf.int = TRUE, data=dfTransformed) %>% 
-                broom::glance() %>%
-                mutate(SiteID = SiteName) %>%
-                mutate(estimate = .data$estimate*-1)
+    wilcoxon_model <- function(site){
+        form <- as.formula(paste0(strOutcome," ~ as.character(SiteID) =='", site,"'")) 
+        wilcox.test(form, exact = FALSE, conf.int = TRUE, data=dfTransformed)
+    }
 
-            return(model)
-        })%>%
-        rename(
-            PValue = .data[['p.value']],
-            Estimate = .data$estimate
-        ) %>%
-        select(.data$SiteID, .data$PValue, .data$Estimate) %>%
-        left_join(dfTransformed, by="SiteID")%>%
+    dfAnalyzed <- dfTransformed %>% 
+        mutate(model = map(.data$SiteID, wilcoxon_model)) %>%
+        mutate(summary = map(.data$model, broom::glance)) %>%
+        unnest(summary) %>%
+        mutate(Estimate = .data$estimate *-1) %>%
+        rename(PValue = .data[['p.value']]) %>%
         arrange(.data$PValue) %>%
         select( .data$SiteID, .data$N, .data$TotalCount, .data$TotalExposure, .data$Rate, .data$Estimate, .data$PValue)
 
