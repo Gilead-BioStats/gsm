@@ -1,6 +1,7 @@
 #' Site-level visualization of site-level Poisson Model results
 #'
 #' @param dfFlagged analyze_poisson results with flags added.
+#' @param dfBounds data.frame giving prediction bounds for range of dfFlagged
 #' @param unit exposure time unit. Defaults to "days".
 #'
 #' @return site level plot object
@@ -15,10 +16,7 @@
 #' @import ggplot2
 #'
 #' @export
-AE_Visualize <- function( dfFlagged, unit="days"){
-
-  ### Calculate upper and lower boundaries
-  dfBounds <- gsm::AE_Poisson_PredictBounds( dfFlagged )
+Visualize_Poisson <- function( dfFlagged, dfBounds=NULL, unit="days"){
 
   ### Plot of data
   p <- ggplot(
@@ -43,9 +41,6 @@ AE_Visualize <- function( dfFlagged, unit="days"){
     geom_point() +
     xlab(paste0("Site Total Exposure (",unit," - log scale)")) +
     ylab("Site Total Events") +
-    geom_line( data = dfBounds, aes( x = LogExposure, y = MeanCount), color="red") +
-    geom_line( data = dfBounds, aes( x = LogExposure, y = LowerCount), color="red", linetype="dashed") +
-    geom_line( data = dfBounds, aes( x = LogExposure, y = UpperCount), color="red", linetype="dashed") +
     geom_text(
         data = dfFlagged%>%filter(Flag !=0),
         aes( x = LogExposure, y = TotalCount, label = SiteID),
@@ -53,8 +48,14 @@ AE_Visualize <- function( dfFlagged, unit="days"){
         col="red",
         size=3.5
       )   
-    
   
+  if(!is.null(dfBounds)){
+    p<-p+
+    geom_line( data = dfBounds, aes( x = LogExposure, y = MeanCount), color="red") +
+    geom_line( data = dfBounds, aes( x = LogExposure, y = LowerCount), color="red", linetype="dashed") +
+    geom_line( data = dfBounds, aes( x = LogExposure, y = UpperCount), color="red", linetype="dashed") 
+  }
+
   return(p)
 }
 
