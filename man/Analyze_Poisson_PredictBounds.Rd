@@ -2,18 +2,45 @@
 % Please edit documentation in R/Analyze_Poisson_PredictBounds.R
 \name{Analyze_Poisson_PredictBounds}
 \alias{Analyze_Poisson_PredictBounds}
-\title{Safety Assessment - Calculate prediction bounds}
+\title{Poisson Analysis - Predicted Boundaries}
 \usage{
-Analyze_Poisson_PredictBounds(dfTransformed, vThreshold)
+Analyze_Poisson_PredictBounds(dfTransformed, vThreshold = c(-5, 5))
 }
 \arguments{
-\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}.}
+\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.}
 
-\item{vThreshold}{Residual thresholds used to calculating upper and lower bounds.}
+\item{vThreshold}{upper and lower boundaries in residual space. Should be identical to the threhsolds used AE_Assess().}
 }
 \value{
-dataframe with prediction boundary curves
+data frame containing predicted boundary values with upper and lower bounds across the range of observed values
 }
 \description{
-Safety Assessment - Calculate prediction bounds
+Poisson Analysis - Predicted Boundaries
+}
+\details{
+Fits a Poisson model to site level data and then calculates predicted count values and upper- and lower- bounds for across the full range of exposure values.
+}
+\section{Statistical Methods}{
+
+
+This function fits a poisson model to site-level data and then calculates residuals for each site. The poisson model is run using standard methods in the \code{stats} package by fitting a \code{glm} model with family set to \code{poisson} using a "log" link. Upper and lower boundary values are then calculated using the method described here TODO: Add link. In short,
+}
+
+\section{Data Specification}{
+
+
+The input data (\code{ dfTransformed}) for the Analyze_Poisson is typically created using \code{\link{Transform_EventCount}} and should be one record per Site with columns for:
+\itemize{
+\item \code{SubjectID} - Unique subject ID
+\item \code{SiteID} - Site ID
+\item \code{TotalCount} - Number of Events
+\item \code{TotalExposure} - Number of days of exposure
+}
+}
+
+\examples{
+dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5,5))
+
 }
