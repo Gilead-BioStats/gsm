@@ -1,7 +1,7 @@
 
 
 test_that("output created as expected and has correct structure",{
-  ie_input <- IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl_s, strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES')
+  ie_input <-suppressWarnings(IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl, strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES')) 
    expect_true(is.data.frame(ie_input))
   
    expect_equal(

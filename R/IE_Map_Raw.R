@@ -21,7 +21,7 @@
 #' @param dfIE ie dataset with columns SUBJID and values specified in strCategoryCol and strResultCol.
 #' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID SiteID
 #' @param strCategoryCol Name ofcCriteria category column. default = 'IECAT'
-#' @param vCategoryValuess Category values (of column in dfIE specified by strCategoryCol) Default = c("Inclusion","Exclusion").
+#' @param vCategoryValues Category values (of column in dfIE specified by strCategoryCol) Default = c("Inclusion","Exclusion").
 #' @param strResultCol Name of criteria Result column. Default = "IEORRES_STD".
 #' @param vExpectedResultValues Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion".
 #' 
@@ -29,7 +29,8 @@
 #' 
 #' @examples
 #'
-#' dfInput <- IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl_s, strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES')
+#' dfInput <- IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl, 
+#'                      strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES')
 #' 
 #' @import dplyr
 #' 
@@ -72,15 +73,16 @@ IE_Map_Raw <- function(
     select(.data$SubjectID, .data$Count) %>%
     ungroup()
   
+  missIE <- anti_join( dfIE_Subj, dfRDSL, by="SubjectID")
+  if( nrow(missIE) > 0 ) warning("Not all SubjectID in IE found in RDSL")
+  
   # merge IE and RDSL
   dfInput <- dfRDSL %>% 
     select(.data$SubjectID, .data$SiteID)%>%
-    left_join(dfIE_Subj, by="SubjectID") %>%
+    inner_join(dfIE_Subj, by="SubjectID") %>%
     select(.data$SubjectID, .data$SiteID, .data$Count)
   
   #Throw warning if a an ID in IE isn't found in RDSL
-  missIE <- anti_join( dfIE_Subj, dfRDSL, by="SubjectID")
-  if( nrow(missIE) > 0 ) warning("Not all SubjectID in IE found in RDSL")
 
   return(dfInput)
 }
