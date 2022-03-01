@@ -22,9 +22,9 @@ Visualize_Poisson <- function( dfFlagged, dfBounds=NULL, unit="days"){
   p <- ggplot(
       dfFlagged,
       aes(
-        x=LogExposure, 
-        y=TotalCount, 
-        color=as.factor(Flag))
+        x=.data$LogExposure, 
+        y=.data$TotalCount, 
+        color=as.factor(.data$Flag))
     ) +
     # Formatting
     theme_bw() +
@@ -42,8 +42,8 @@ Visualize_Poisson <- function( dfFlagged, dfBounds=NULL, unit="days"){
     xlab(paste0("Site Total Exposure (",unit," - log scale)")) +
     ylab("Site Total Events") +
     geom_text(
-        data = dfFlagged%>%filter(Flag !=0),
-        aes( x = LogExposure, y = TotalCount, label = SiteID),
+        data = dfFlagged%>%filter(.data$Flag !=0),
+        aes( x = .data$LogExposure, y = .data$TotalCount, label = .data$SiteID),
         vjust = 1.5,
         col="red",
         size=3.5
@@ -51,9 +51,9 @@ Visualize_Poisson <- function( dfFlagged, dfBounds=NULL, unit="days"){
   
   if(!is.null(dfBounds)){
     p<-p+
-    geom_line( data = dfBounds, aes( x = LogExposure, y = MeanCount), color="red") +
-    geom_line( data = dfBounds, aes( x = LogExposure, y = LowerCount), color="red", linetype="dashed") +
-    geom_line( data = dfBounds, aes( x = LogExposure, y = UpperCount), color="red", linetype="dashed") 
+    geom_line( data = dfBounds, aes( x = .data$LogExposure, y = .data$MeanCount), color="red") +
+    geom_line( data = dfBounds, aes( x = .data$LogExposure, y = .data$LowerCount), color="red", linetype="dashed") +
+    geom_line( data = dfBounds, aes( x = .data$LogExposure, y = .data$UpperCount), color="red", linetype="dashed") 
   }
 
   return(p)

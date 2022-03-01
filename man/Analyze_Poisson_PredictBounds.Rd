@@ -7,7 +7,9 @@
 Analyze_Poisson_PredictBounds(dfTransformed, vThreshold)
 }
 \arguments{
-\item{dfTransformed}{data frame in format produced by \code{\link{AE_Map_Adam}} or \code{\link{AE_Map_Raw}}.}
+\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}.}
+
+\item{vThreshold}{Residual thresholds used to calculating upper and lower bounds.}
 }
 \value{
 dataframe with prediction boundary curves
