@@ -77,7 +77,7 @@ test_that("error given if required column not found",{
       strResultCol = 'IEORRES'
     )
   )
- 
+
   expect_silent(
     suppressWarnings(
     IE_Map_Raw( 
@@ -90,6 +90,51 @@ test_that("error given if required column not found",{
   )
 })
 
+test_that("icorrect strCategoryCol or strResultCol throw errors",{
+  # test these as incorrect inputs
+  # strCategoryCol = 'IECAT',
+  # vCategoryValues =  c("Inclusion","Exclusion"),
+  # strResultCol = 'IEORRES_STD',
+  # vExpectedResultValues = c(0,1)
+  
+  expect_error(
+    suppressWarnings(IE_Map_Raw(
+      clindata::raw_ie_all,
+      clindata::rawplus_rdsl,
+      strCategoryCol = 'Not_A_Name',
+      strResultCol = 'IEORRES'
+    ))
+  )
+  
+  expect_error(
+    suppressWarnings(IE_Map_Raw(
+      clindata::raw_ie_all,
+      clindata::rawplus_rdsl,
+      strCategoryCol = 'IECAT_STD',
+      strResultCol = 'Not_A_Name'
+    ))
+  )
+  
+  expect_error(
+    suppressWarnings(IE_Map_Raw(
+      clindata::raw_ie_all,
+      clindata::rawplus_rdsl,
+      strCategoryCol = 'IECAT_STD',
+      strResultCol = 'IEORRES',
+      vExpectedResultValues = c("A",1,3)
+    ))
+  )
+  
+  expect_error(
+    suppressWarnings(IE_Map_Raw(
+      clindata::raw_ie_all,
+      clindata::rawplus_rdsl,
+      strCategoryCol = 'IECAT_STD',
+      strResultCol = 'IEORRES',
+      vCategoryValues =  c("Inclusion","Exclusion", "Illusion")
+    ))
+  )
+})
 
 test_that("output is correct given clindata example input",{
   

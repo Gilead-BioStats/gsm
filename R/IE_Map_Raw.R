@@ -50,6 +50,12 @@ IE_Map_Raw <- function(
   if(is.null(dfRDSL)) stop("RDSL dataset not found")
   if( !(all(c("SubjectID","SiteID") %in% names(dfRDSL)))) stop("SubjectID and SiteID column are required in RDSL dataset" )
   
+  stopifnot(
+    "length of vExpectedResultValues is not equal to 2"= (length( vExpectedResultValues) ==2),
+    "length of vCategoryValues is not equal to 2"= (length(  vCategoryValues) ==2)
+    
+  )
+  
   # filter records where SUBJID is missing and create basic flags
   dfIE_long <- dfIE %>% 
     filter(.data$SUBJID !="")%>%
