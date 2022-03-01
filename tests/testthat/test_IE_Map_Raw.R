@@ -28,7 +28,7 @@ test_that("error given if required column not found",{
   expect_error(
     IE_Map_Raw( 
       clindata::raw_ie_all %>% rename(ID = SUBJID),
-      clindata::rawplus_rdsl_s,
+      clindata::rawplus_rdsl,
       strCategoryCol = 'IECAT_STD', 
       strResultCol = 'IEORRES'
     )
@@ -37,7 +37,7 @@ test_that("error given if required column not found",{
   expect_error(
     IE_Map_Raw(
       clindata::raw_ie_all ,
-      clindata::rawplus_rdsl_s%>% select(-SiteID),
+      clindata::rawplus_rdsl%>% select(-SiteID),
       strCategoryCol = 'IECAT_STD', 
       strResultCol = 'IEORRES'
     )
@@ -46,7 +46,7 @@ test_that("error given if required column not found",{
   expect_error(
     IE_Map_Raw(
       clindata::raw_ie_all %>% select(-IECAT),
-      clindata::rawplus_rdsl_s,
+      clindata::rawplus_rdsl,
       strCategoryCol = 'IECAT_STD', 
       strResultCol = 'IEORRES'
     )
@@ -55,7 +55,7 @@ test_that("error given if required column not found",{
   expect_error(
     IE_Map_Raw(
       clindata::raw_ie_all %>% select(-IETESTCD),
-      clindata::rawplus_rdsl_s,
+      clindata::rawplus_rdsl,
       strCategoryCol = 'IECAT_STD', 
       strResultCol = 'IEORRES'
     )
@@ -63,7 +63,7 @@ test_that("error given if required column not found",{
   expect_error(
     IE_Map_Raw(
       clindata::raw_ie_all %>% select(-IETEST),
-      clindata::rawplus_rdsl_s,
+      clindata::rawplus_rdsl,
       strCategoryCol = 'IECAT_STD', 
       strResultCol = 'IEORRES'
     )
@@ -72,17 +72,20 @@ test_that("error given if required column not found",{
   expect_error(
     IE_Map_Raw(
       clindata::raw_ie_all %>% select(-IEORRES),
-      clindata::rawplus_rdsl_s,
+      clindata::rawplus_rdsl,
       strCategoryCol = 'IECAT_STD', 
       strResultCol = 'IEORRES'
     )
   )
+ 
   expect_silent(
+    suppressWarnings(
     IE_Map_Raw( 
       clindata::raw_ie_all %>% select(-PROJECT),
-      clindata::rawplus_rdsl_s,
+      clindata::rawplus_rdsl,
       strCategoryCol = 'IECAT_STD', 
       strResultCol = 'IEORRES'
+    )
     )
   )
 })
