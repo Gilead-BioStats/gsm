@@ -49,9 +49,9 @@ consent_summary <- Consent_Assess(consent_input, bDataList=FALSE)
 
 target_output <- tibble::tribble(
   ~Assessment, ~Label, ~SiteID, ~N, ~Score, ~Flag,
-  "Main Consent",     "",       1, 1L,      NA,     1,
-  "Main Consent",     "",       2, 2L,      NA,     1,
-  "Main Consent",     "",       3, 1L,      NA,     1
+  "Main Consent",     "",       1, 1L,      1L,     1,
+  "Main Consent",     "",       2, 2L,      1L,     1,
+  "Main Consent",     "",       3, 1L,      1L,     1
 )
 
 test_that("output is correct given example input",{

@@ -44,9 +44,9 @@ ie_summary <- IE_Assess(ie_input1, bDataList=FALSE)
 
 
 target_ie_summary <- tibble::tribble(    ~Assessment, ~Label, ~SiteID, ~N, ~Score, ~Flag,
-                               "Inclusion/Exclusion",     "", "X033X", 1L,      NA,     1,
-                               "Inclusion/Exclusion",     "", "X159X", 1L,      NA,     1,
-                               "Inclusion/Exclusion",     "", "X194X", 2L,      NA,     1
+                               "Inclusion/Exclusion",     "", "X033X", 1L,      9L,     1,
+                               "Inclusion/Exclusion",     "", "X159X", 1L,      9L,     1,
+                               "Inclusion/Exclusion",     "", "X194X", 2L,      17L,     1
                                    )
 
 
