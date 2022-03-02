@@ -7,7 +7,7 @@ ie_input <- IE_Map_Raw(clindata::raw_ie_a2 , clindata::rawplus_rdsl ) %>% filter
 test_that("summary df created as expected and has correct structure",{
     ie_list <- IE_Assess(ie_input) 
     expect_true(is.data.frame(ie_list))
-    expect_equal(names(ie_list),c("Assessment","Label", "SiteID", "N", "PValue", "Flag"))
+    expect_equal(names(ie_list),c("Assessment","Label", "SiteID", "N", "Score", "Flag"))
 })
 
 test_that("list of df created when bDataList=TRUE",{
@@ -43,7 +43,7 @@ ie_input1 <- tibble::tribble(        ~SubjectID, ~SiteID, ~Count,
 ie_summary <- IE_Assess(ie_input1, bDataList=FALSE)
 
 
-target_ie_summary <- tibble::tribble(    ~Assessment, ~Label, ~SiteID, ~N, ~PValue, ~Flag,
+target_ie_summary <- tibble::tribble(    ~Assessment, ~Label, ~SiteID, ~N, ~Score, ~Flag,
                                "Inclusion/Exclusion",     "", "X033X", 1L,      NA,     1,
                                "Inclusion/Exclusion",     "", "X159X", 1L,      NA,     1,
                                "Inclusion/Exclusion",     "", "X194X", 2L,      NA,     1

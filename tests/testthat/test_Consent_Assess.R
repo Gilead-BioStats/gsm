@@ -15,12 +15,10 @@ dfRDSL_test <- tibble::tribble(~SubjectID, ~SiteID, ~RandDate,
 
 consent_input <-  Consent_Map_Raw(dfConsent = dfConsent, dfRDSL= dfRDSL_test)
 
-
-
 test_that("summary df created as expected and has correct structure",{
     consent_list <- Consent_Assess(consent_input) 
     expect_true(is.data.frame(consent_list))
-    expect_equal(names(consent_list),c("Assessment","Label", "SiteID", "N", "PValue", "Flag"))
+    expect_equal(names(consent_list),c("Assessment","Label", "SiteID", "N", "Score", "Flag"))
 })
 
 test_that("list of df created when bDataList=TRUE",{
@@ -50,7 +48,7 @@ consent_summary <- Consent_Assess(consent_input, bDataList=FALSE)
 
 
 target_output <- tibble::tribble(
-  ~Assessment, ~Label, ~SiteID, ~N, ~PValue, ~Flag,
+  ~Assessment, ~Label, ~SiteID, ~N, ~Score, ~Flag,
   "Main Consent",     "",       1, 1L,      NA,     1,
   "Main Consent",     "",       2, 2L,      NA,     1,
   "Main Consent",     "",       3, 1L,      NA,     1

@@ -7,7 +7,7 @@ ae_input <- AE_Map_Adam(
 test_that("summary df created as expected and has correct structure",{
     ae_assessment <- AE_Assess(ae_input) 
     expect_true(is.data.frame(ae_assessment))
-    expect_equal(names(ae_assessment),c("Assessment","Label", "SiteID", "N", "PValue", "Flag"))
+    expect_equal(names(ae_assessment),c("Assessment","Label", "SiteID", "N", "Score", "Flag"))
 })
 
 test_that("list of df created when bDataList=TRUE",{
