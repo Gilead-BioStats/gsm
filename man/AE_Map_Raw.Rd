@@ -7,9 +7,9 @@
 AE_Map_Raw(dfAE, dfRDSL, strExposureCol = "TimeOnTreatment")
 }
 \arguments{
-\item{dfAE}{AE dataset with columns SUBJID and rows for each AE record}
+\item{dfAE}{AE dataset with required column SUBJID and rows for each AE record}
 
-\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol}
+\item{dfRDSL}{Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol}
 
 \item{strExposureCol}{Name of exposure column. 'TimeOnTreatment' by default}
 }

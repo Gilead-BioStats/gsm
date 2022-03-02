@@ -13,6 +13,7 @@
 #' - `SiteID` - Site ID
 #' - `Count` - Number of Adverse Events
 #' - `Exposure` - Number of days of exposure
+#' - `Rate` - Rate of Exposure (Count / Exposure)
 #'
 #' The Assessment
 #' - \code{\link{Transform_EventCount}} creates `dfTransformed`.
@@ -47,7 +48,8 @@ AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson",bD
         "cLabel is not character" = is.character(cLabel),
         "cMethod is not 'poisson' or 'wilcoxon'" = cMethod %in% c("poisson","wilcoxon"),
         "bDataList is not logical" = is.logical(bDataList),
-        "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count","Exposure", "Rate") %in% names(dfInput))
+        "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count","Exposure", "Rate") %in% names(dfInput)),
+        "cMethod must be length 1" = length(cMethod) == 1
     )
     lAssess <- list()
     lAssess$dfInput <- dfInput

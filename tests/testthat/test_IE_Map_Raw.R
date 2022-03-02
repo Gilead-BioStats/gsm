@@ -31,7 +31,6 @@ test_that("error given if required column not found",{
       clindata::rawplus_rdsl
     )
   )
-  #"INVID", "IECAT", "IETESTCD","IETEST", "IEORRES"
   expect_error(
     IE_Map_Raw(
       clindata::raw_ie_a2 ,
