@@ -11,6 +11,8 @@ Imports:
     broom,
     dplyr,
     lubridate,
+    ggplot2,
+    lamW,
     magrittr,
     purrr,
     tidyr
