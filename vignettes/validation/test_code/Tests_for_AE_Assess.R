@@ -88,20 +88,13 @@ test_that("1.1", {
     qualification_analyze_poisson() %>%
     mutate(
       Flag = case_when(
-        PValue < -5 ~ -1,
-        PValue > 5 ~ 1,
-        is.na(PValue) ~ NA_real_,
-        is.nan(PValue) ~ NA_real_,
+        Residuals < -5 ~ -1,
+        Residuals > 5 ~ 1,
+        is.na(Residuals) ~ NA_real_,
+        is.nan(Residuals) ~ NA_real_,
         TRUE ~ 0),
       Assessment = "Safety",
       Label = "") %>%
-    mutate(
-      median = median(Residuals),
-      Flag = case_when(
-        Flag != 0 & Residuals < median ~ -1,
-        Flag != 0 & Residuals >= median ~ 1,
-        TRUE ~ Flag
-      )) %>%
     select("Assessment", "Label", "SiteID", "N", "PValue", "Flag" )
 
   # set classes lost in analyze
@@ -136,20 +129,13 @@ test_that("1.2", {
     qualification_analyze_poisson() %>%
     mutate(
       Flag = case_when(
-        PValue < -3 ~ -1,
-        PValue > 3 ~ 1,
-        is.na(PValue) ~ NA_real_,
-        is.nan(PValue) ~ NA_real_,
+        Residuals < -3 ~ -1,
+        Residuals > 3 ~ 1,
+        is.na(Residuals) ~ NA_real_,
+        is.nan(Residuals) ~ NA_real_,
         TRUE ~ 0),
       Assessment = "Safety",
       Label = "") %>%
-    mutate(
-      median = median(Residuals),
-      Flag = case_when(
-        Flag != 0 & Residuals < median ~ -1,
-        Flag != 0 & Residuals >= median ~ 1,
-        TRUE ~ Flag
-      )) %>%
     select("Assessment", "Label", "SiteID", "N", "PValue", "Flag" )
 
   # set classes lost in analyze
