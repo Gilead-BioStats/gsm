@@ -1,0 +1,34 @@
+Package: gsm
+Title: Gilead Statistical Monitoring
+Version: 0.1.0
+Authors@R: c(
+    person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
+    person("Jeremy", "Wildfire", email="jeremy.wildfire@gilead.com", role = c("aut")))
+Description: The Gilead Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring.
+License: file LICENSE
+Encoding: UTF-8
+Imports:
+    broom,
+    dplyr,
+    lubridate,
+    magrittr,
+    purrr,
+    tidyr
+Suggests:
+    clindata,
+    covr,
+    devtools,
+    kableExtra,
+    knitr,
+    rmarkdown,
+    safetyData,
+    testthat (>= 3.0.0),
+    tibble,
+    valtools
+LazyData: true
+Remotes: 
+    phuse-org/valtools
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Config/testthat/edition: 3
+VignetteBuilder: knitr

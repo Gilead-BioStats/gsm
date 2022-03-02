@@ -1,0 +1,46 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+name: test-coverage
+
+jobs:
+  test-coverage:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
+
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@v1
+        with:
+          use-public-rspm: true
+
+      - name: Clone clindata
+        run: |
+          cd ..
+          git clone git@github.com:Gilead-BioStats/clindata.git
+          cd clindata
+          git checkout tags/v0.3.0
+          cd ../gsm
+          
+      - name: install packages
+        shell: Rscript {0}
+        run: |
+          install.packages("devtools")
+          devtools::install('../clindata')
+          devtools::install(dependencies=TRUE)
+          install.packages('covr')
+
+      - name: Test coverage
+        run: covr::package_coverage()
+        shell: Rscript {0}

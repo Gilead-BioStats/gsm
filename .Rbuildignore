@@ -1,0 +1,8 @@
+^gsm\.Rproj$
+^\.Rproj\.user$
+^\.github$
+^codecov\.yml$
+^doc$
+^Meta$
+^vignettes/qualification\.Rmd$
+^vignettes/qualification\.log$
