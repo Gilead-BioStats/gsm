@@ -20,6 +20,7 @@
 #'
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
 #' @param  strOutcome required, name of column in dfTransformed dataset to perform Fisher test on
+#' @param  ... optional, additional arguments to be passed to \code{\link{fisher.test}}. Includes options for: x, y, workspace, hybrid, hybridPars, control, or, alternative, conf.int, conf.level, simulate.p.value, B.
 #'
 #' @importFrom stats fisher.test as.formula
 #' @importFrom purrr map
@@ -35,11 +36,12 @@
 #'
 #' @export
 
-Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
+Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount", ...) {
 
     stopifnot(
         is.data.frame(dfTransformed),
-        all(c("SiteID", "N", strOutcome) %in% names(dfTransformed))
+        all(c("SiteID", "N", strOutcome) %in% names(dfTransformed)),
+        all(names(list(...)) %in% c("x", "y", "workspace", "hybrid", "hybridPars", "control", "or", "alternative", "conf.int", "conf.level", "simulate.p.value", "B"))
     )
 
     fisher_model<- function(site){
@@ -52,7 +54,7 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
             ) %>%
             select(.data$NoFlag , .data$Flag)
 
-        stats::fisher.test(SiteTable)
+        stats::fisher.test(SiteTable, ...)
     }
 
     dfAnalyzed <- dfTransformed %>%

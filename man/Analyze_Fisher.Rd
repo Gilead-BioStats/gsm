@@ -4,12 +4,14 @@
 \alias{Analyze_Fisher}
 \title{Fisher's Exact Test Analysis}
 \usage{
-Analyze_Fisher(dfTransformed, strOutcome = "TotalCount")
+Analyze_Fisher(dfTransformed, strOutcome = "TotalCount", ...)
 }
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
 
 \item{strOutcome}{required, name of column in dfTransformed dataset to perform Fisher test on}
+
+\item{...}{optional, additional arguments to be passed to \code{\link{fisher.test}}. Includes options for: x, y, workspace, hybrid, hybridPars, control, or, alternative, conf.int, conf.level, simulate.p.value, B.}
 }
 \value{
 data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue

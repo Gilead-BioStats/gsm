@@ -4,12 +4,14 @@
 \alias{Analyze_Chisq}
 \title{Chi-squared Test Analysis}
 \usage{
-Analyze_Chisq(dfTransformed, strOutcome = "TotalCount")
+Analyze_Chisq(dfTransformed, strOutcome = "TotalCount", ...)
 }
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
 
 \item{strOutcome}{required, name of column in dfTransformed dataset to perform the chi-squared test on}
+
+\item{...}{optional, additional arguments to be passed to \code{\link{chisq.test}}. Includes options for: x, y, correct, p, rescale.p, simulate.p.value, B}
 }
 \value{
 data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue
