@@ -4,10 +4,12 @@
 \alias{Summarize}
 \title{Make Summary Data Frame}
 \usage{
-Summarize(dfFlagged, cAssessment = "", cLabel = "")
+Summarize(dfFlagged, strScoreCol = "PValue", cAssessment = "", cLabel = "")
 }
 \arguments{
 \item{dfFlagged}{data frame in format produced by \code{\link{Flag}}}
+
+\item{strScoreCol}{column from analysis results to be copied to \code{dfSummary$Score}}
 
 \item{cAssessment}{brief description of current assessment}
 

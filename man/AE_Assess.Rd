@@ -41,6 +41,7 @@ The input data (\code{dfInput}) for the AE Assessment is typically created using
 \item \code{SiteID} - Site ID
 \item \code{Count} - Number of Adverse Events
 \item \code{Exposure} - Number of days of exposure
+\item \code{Rate} - Rate of Exposure (Count / Exposure)
 }
 
 The Assessment
