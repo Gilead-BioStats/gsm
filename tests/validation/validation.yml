@@ -1,5 +1,5 @@
 package: gsm
-working_dir: vignettes
+working_dir: tests
 output_dir: inst
 report_rmd_name: qualification.Rmd
 report_naming_format: Qualification_Report_{package}_v{version}_{date}

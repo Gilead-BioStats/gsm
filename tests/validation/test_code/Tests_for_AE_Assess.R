@@ -118,11 +118,11 @@ test_that("1.2", {
     dfRDSL = clindata::rawplus_rdsl
   )
 
-  test_2 <- AE_Assess(
+  test_2 <- suppressWarnings(AE_Assess(
     dfInput = dfInput,
     cMethod = "poisson",
     vThreshold = c(-3,3)
-  )
+  ))
 
   # Double Programming
   t2 <- dfInput %>%
@@ -207,11 +207,11 @@ test_that("1.4", {
     dfRDSL = clindata::rawplus_rdsl
   )
 
-  test_4 <- AE_Assess(
+  test_4 <- suppressWarnings(AE_Assess(
     dfInput = dfInput,
     cMethod = "wilcoxon",
     vThreshold = c(.1, NA)
-  )
+  ))
 
   # Double Programming
   t4 <- dfInput %>%
@@ -255,10 +255,10 @@ test_that("1.5", {
   )
 
   # gsm data
-  test_5 <- AE_Assess(
+  test_5 <- suppressWarnings(AE_Assess(
     dfInput = dfInput,
     bDataList = TRUE
-  )
+  ))
 
   # check names of data.frames
   expect_equal(

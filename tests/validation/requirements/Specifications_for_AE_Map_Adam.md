@@ -2,9 +2,9 @@
 #' @editor Nathan Kosiba
 #' @editDate 2022-02-28
 #' @riskAssessment
-#' 2.1: 4, Low Risk, Medium Impact
-#' 2.2: 2, Medium Risk, High Impact
-#' 2.3: 2, Medium Risk, High Impact
+#' 3.1: 4, Low Risk, Medium Impact
+#' 3.2: 2, Medium Risk, High Impact
+#' 3.3: 2, Medium Risk, High Impact
 
 + 3.1 Given correct input data, a tibble/data.frame is produced with expected 
 dimensions and variables
