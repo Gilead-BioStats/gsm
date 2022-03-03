@@ -60,7 +60,7 @@ IE_Map_Raw <- function(
   dfIE_long <- dfIE %>% 
     filter(.data$SUBJID !="")%>%
     select(.data$SUBJID, .data[[strCategoryCol]],  .data[[strResultCol]]) %>%
-    mutate(expected=ifelse(.data[[strCategoryCol]] ==vCategoryValues[2],vExpectedResultValues[1],vExpectedResultValues[2])) %>%
+    mutate(expected=ifelse(.data[[strCategoryCol]] ==vCategoryValues[1],vExpectedResultValues[1],vExpectedResultValues[2])) %>%
     mutate(valid=.data[[strResultCol]]==.data$expected)%>%
     mutate(invalid=.data[[strResultCol]]!=.data$expected)%>%
     mutate(missing=!(.data[[strResultCol]] %in% vExpectedResultValues))
