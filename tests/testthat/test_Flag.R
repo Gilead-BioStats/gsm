@@ -9,10 +9,10 @@ ae_anly_wilcoxon <- Analyze_Wilcoxon(ae_prep, strOutcome="Rate")
 
 
 test_that("output created as expected and has correct structure",{
-    flag <- Flag(ae_anly)
+    flag <- Flag(ae_anly_wilcoxon)
     expect_true(is.data.frame(flag))
     expect_equal(sort(unique(ae_input$SiteID)), sort(flag$SiteID))
-    expect_true(all(names(ae_anly) %in% names(flag)))
+    expect_true(all(names(ae_anly_wilcoxon) %in% names(flag)))
 })
 
 test_that("strFlagValueColumn paramter works as intended",{
@@ -35,7 +35,7 @@ test_that("incorrect inputs throw errors",{
 })
 
 test_that("Expected Columns are added to dfFlagged",{
-  flag <- Flag(ae_anly)
+  flag <- Flag(ae_anly_wilcoxon)
   expect_true(all(c("ThresholdLow" , "ThresholdHigh" ,"ThresholdCol" , "Flag") %in% names(flag)))
 })
 
