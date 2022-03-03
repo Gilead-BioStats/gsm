@@ -48,7 +48,7 @@ The following columns are required:
 input <- Consent_Map_Raw(
  dfConsent = clindata::raw_consent, 
  dfRDSL = clindata::rawplus_rdsl, 
- strConsentReason = "mainconsent"
+ strConsentReason = NULL
 )
 
 }

@@ -42,6 +42,13 @@ The Assessment
 }
 }
 
+\section{Assessment methodology}{
+
+
+This Assessment finds any sites where one or more subjects meets any of the following citeria: No Consent, Missing Consent, Missing Randomization Date, or
+Consent date later in time than the Randomization Date. 'N' in the summary represents the number of subjects in a study that meet one or more criteria.
+}
+
 \examples{
 
 dfInput <- Consent_Map_Raw(
