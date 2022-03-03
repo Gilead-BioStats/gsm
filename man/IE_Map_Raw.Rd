@@ -8,7 +8,7 @@ IE_Map_Raw(
   dfIE = NULL,
   dfRDSL = NULL,
   strCategoryCol = "IECAT",
-  vCategoryValues = c("Inclusion", "Exclusion"),
+  vCategoryValues = c("Exclusion", "Inclusion"),
   strResultCol = "IEORRES_STD",
   vExpectedResultValues = c(0, 1)
 )
@@ -20,7 +20,7 @@ IE_Map_Raw(
 
 \item{strCategoryCol}{Name ofcCriteria category column. default = 'IECAT'}
 
-\item{vCategoryValues}{Category values (of column in dfIE specified by strCategoryCol) Default = c("Inclusion","Exclusion").}
+\item{vCategoryValues}{Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion").}
 
 \item{strResultCol}{Name of criteria Result column. Default = "IEORRES_STD".}
 
