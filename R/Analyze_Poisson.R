@@ -1,14 +1,12 @@
-#' AE Poisson Assessment - Analysis
-#' 
-#' Adds columns for site-level statistical assessment of distribution of reported safety outcomes
+#' Poisson Analysis - Site Residuals
 #' 
 #' @details
 #'
-#' Fits a Poisson Model to site-level data. 
+#' Fits a Poisson model to site level data and adds columns capturing Residual and Predicted Count for each site. 
 #' 
 #' @section Statistical Methods:
 #' 
-#' TODO Coming soon ...
+#' This function fits a poisson model to site-level data and then calculates residuals for each site. The poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family set to `poisson` using a "log" link. Site-level residuals are calculated  `stats::predict.glm` via `broom::augment`. 
 #' 
 #' @section Data Specification: 
 #' 
@@ -18,12 +16,12 @@
 #' - `TotalCount` - Number of Events 
 #' - `TotalExposure` - Number of days of exposure 
 #'
-#' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include
-#'
+#' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure. 
+#' 
 #' @importFrom stats glm offset poisson pnorm
 #' @importFrom broom augment
 #' 
-#' @return input data frame with columns added for "Residuals", "PredictedCount" and "PValue"
+#' @return input data frame with columns added for "Residuals" and "PredictedCount"
 #' 
 #' @examples 
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
@@ -36,7 +34,7 @@
 Analyze_Poisson <- function( dfTransformed ){
     stopifnot(
         is.data.frame(dfTransformed), 
-        all(c("SiteID", "N", "TotalExposure", "TotalCount", "Rate") %in% names(dfTransformed))    
+        all(c("SiteID", "N", "TotalExposure", "TotalCount") %in% names(dfTransformed))    
     )
 
     dfModel <- dfTransformed %>% mutate(LogExposure = log( .data$TotalExposure) )
@@ -51,10 +49,8 @@ Analyze_Poisson <- function( dfTransformed ){
         Residuals=.data$.resid, 
         PredictedCount=.data$.fitted,
     ) %>%
-    mutate(PValue = stats::pnorm( abs(.data$Residuals) , lower.tail=F ) * 2) %>%
+    select(.data$SiteID, .data$N, .data$TotalExposure, .data$TotalCount, .data$Rate, .data$Residuals, .data$PredictedCount) %>%
     arrange(.data$Residuals)
-
-    # Note that the PValue calculation is a non-standard approximation and might be more accurately labeled a "standardized estimate" rather than a formal p-value.
 
     return(dfAnalyzed)
 }

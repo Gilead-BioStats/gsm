@@ -2,26 +2,26 @@
 % Please edit documentation in R/Analyze_Poisson.R
 \name{Analyze_Poisson}
 \alias{Analyze_Poisson}
-\title{AE Poisson Assessment - Analysis}
+\title{Poisson Analysis - Site Residuals}
 \usage{
 Analyze_Poisson(dfTransformed)
 }
 \arguments{
-\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}. Must include}
+\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.}
 }
 \value{
-input data frame with columns added for "Residuals", "PredictedCount" and "PValue"
+input data frame with columns added for "Residuals" and "PredictedCount"
 }
 \description{
-Adds columns for site-level statistical assessment of distribution of reported safety outcomes
+Poisson Analysis - Site Residuals
 }
 \details{
-Fits a Poisson Model to site-level data.
+Fits a Poisson model to site level data and adds columns capturing Residual and Predicted Count for each site.
 }
 \section{Statistical Methods}{
 
 
-TODO Coming soon ...
+This function fits a poisson model to site-level data and then calculates residuals for each site. The poisson model is run using standard methods in the \code{stats} package by fitting a \code{glm} model with family set to \code{poisson} using a "log" link. Site-level residuals are calculated  \code{stats::predict.glm} via \code{broom::augment}.
 }
 
 \section{Data Specification}{

@@ -64,6 +64,8 @@ AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson",bD
         }
         lAssess$dfAnalyzed <- gsm::Analyze_Poisson( lAssess$dfTransformed)
         lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , strColumn = 'Residuals', vThreshold =vThreshold)
+        lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol = 'Residuals', cAssessment="Safety", cLabel= cLabel)
+
     } else if(cMethod=="wilcoxon"){
         if(is.null(vThreshold)){
             vThreshold = c(0.0001,NA)
@@ -77,9 +79,8 @@ AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson",bD
         }
         lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed)
         lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold, strValueColumn = 'Estimate')
+        lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Safety", cLabel= cLabel)
     }
-
-    lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Safety", cLabel= cLabel)
 
     if(bDataList){
         return(lAssess)
