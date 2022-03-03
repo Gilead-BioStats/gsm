@@ -38,7 +38,7 @@ The following columns are required:
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
-\item \code{RandData} - Randomization Date
+\item \code{RandDate} - Randomization Date
 }
 }
 }
@@ -48,7 +48,7 @@ The following columns are required:
 input <- Consent_Map_Raw(
  dfConsent = clindata::raw_consent, 
  dfRDSL = clindata::rawplus_rdsl, 
- strConsentReason = NULL
+ strConsentReason = "mainconsent"
 )
 
 }
