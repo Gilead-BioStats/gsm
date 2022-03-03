@@ -4,7 +4,7 @@ pd_input <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfRDSL = rdsl)
 test_that("summary df created as expected and has correct structure",{
   pd_assessment <- PD_Assess(pd_input) 
   expect_true(is.data.frame(pd_assessment))
-  expect_equal(names(pd_assessment),c("Assessment","Label", "SiteID", "N", "PValue", "Flag"))
+  expect_equal(names(pd_assessment),c("Assessment","Label", "SiteID", "N", "Score", "Flag"))
 })
 
 test_that("list of df created when bDataList=TRUE",{

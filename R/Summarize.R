@@ -3,6 +3,7 @@
 #' Create a concise summary of assessment results that is easy to aggregate across assessments
 #'
 #' @param dfFlagged data frame in format produced by \code{\link{Flag}}
+#' @param strScoreCol column from analysis results to be copied to `dfSummary$Score`
 #' @param cAssessment brief description of current assessment
 #' @param cLabel brief description of line item in current assessment
 #'
@@ -19,18 +20,19 @@
 #'
 #' @export
 
-Summarize <- function( dfFlagged , cAssessment="", cLabel=""){
+Summarize <- function( dfFlagged , strScoreCol="PValue", cAssessment="", cLabel=""){
     stopifnot(
         is.data.frame(dfFlagged),
         is.character(cAssessment),
         is.character(cLabel),
-        all(c("SiteID", "N", "PValue", "Flag") %in% names(dfFlagged))
+        all(c("SiteID", "N", "Flag",strScoreCol) %in% names(dfFlagged))
     )
     dfSummary <- dfFlagged %>%
         mutate(Assessment = cAssessment) %>%
         mutate(Label = cLabel) %>%
-        select(.data$Assessment,.data$Label, .data$SiteID,.data$N, .data$PValue, .data$Flag) %>%
-        arrange(.data$PValue)
+        rename(Score = strScoreCol)%>%
+        select(.data$Assessment,.data$Label, .data$SiteID,.data$N, .data$Score, .data$Flag) %>%
+        arrange(.data$Score)
 
     return(dfSummary)
 }

@@ -33,7 +33,6 @@ test_that("error given if required column not found",{
       strResultCol = 'IEORRES'
     )
   )
-  #"INVID", "IECAT", "IETESTCD","IETEST", "IEORRES"
   expect_error(
     IE_Map_Raw(
       clindata::raw_ie_all ,

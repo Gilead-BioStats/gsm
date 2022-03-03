@@ -1,15 +1,38 @@
-#' Safety Assessment - Calculate prediction bounds
+#' Poisson Analysis - Predicted Boundaries
+#' 
+#' @details
 #'
-#' @param dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}.
-#' @param vThreshold Residual thresholds used to calculating upper and lower bounds.
-
-#' @return dataframe with prediction boundary curves
+#' Fits a Poisson model to site level data and then calculates predicted count values and upper- and lower- bounds for across the full range of exposure values. 
+#' 
+#' @section Statistical Methods:
+#' 
+#' This function fits a poisson model to site-level data and then calculates residuals for each site. The poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family set to `poisson` using a "log" link. Upper and lower boundary values are then calculated using the method described here TODO: Add link. In short,  
+#' 
+#' @section Data Specification: 
+#' 
+#' The input data (` dfTransformed`) for the Analyze_Poisson is typically created using \code{\link{Transform_EventCount}} and should be one record per Site with columns for: 
+#' - `SubjectID` - Unique subject ID
+#' - `SiteID` - Site ID
+#' - `TotalCount` - Number of Events 
+#' - `TotalExposure` - Number of days of exposure 
 #'
-#' @import lamW 
-#'
+#' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure. 
+#' @param vThreshold upper and lower boundaries in residual space. Should be identical to the threhsolds used AE_Assess(). 
+#' 
+#' @importFrom stats glm offset poisson pnorm
+#' @importFrom broom augment
+#' @importFrom lamW lambertW0 lambertWm1
+#' 
+#' @return data frame containing predicted boundary values with upper and lower bounds across the range of observed values
+#' 
+#' @examples 
+#' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+#' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+#' dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5,5))
+#' 
 #' @export
 
-Analyze_Poisson_PredictBounds <- function( dfTransformed, vThreshold ){
+Analyze_Poisson_PredictBounds <- function( dfTransformed, vThreshold=c(-5,5)){
   dfTransformed$LogExposure <- log(dfTransformed$TotalExposure)
   cModel <- glm(
     TotalCount ~ stats::offset(LogExposure),
