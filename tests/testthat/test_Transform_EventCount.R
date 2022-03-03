@@ -1,17 +1,23 @@
 ae_input <- AE_Map_Adam(
-    safetyData::adam_adsl, 
+    safetyData::adam_adsl,
     safetyData::adam_adae
-) 
+)
+
+test_that("input data for unit tests contains required columns", {
+  expect_true(all(c("SiteID", "Count") %in% names(ae_input)))
+})
 
 test_that("output created as expected and has correct structure",{
     ae_prep <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "Exposure" )
     expect_true(is.data.frame(ae_prep))
     expect_equal(sort(unique(ae_input$SiteID)), sort(ae_prep$SiteID))
+    expect_equal(names(Transform_EventCount(ae_input, cCountCol = "Count")), c("SiteID", "N", "TotalCount"))
+    expect_equal(names(Transform_EventCount(ae_input, cCountCol = "Count", cExposureCol = "Exposure")), c("SiteID", "N", "TotalCount", "TotalExposure", "Rate"))
 })
 
 test_that("cCount works as expected",{
     sim<-data.frame(
-        SiteID = rep("site1",30), 
+        SiteID = rep("site1",30),
         event = c(rep(0,5),rep(1,15),rep(2,10))
     )
     EventCount <- Transform_EventCount(sim, cCountCol="event")
@@ -22,7 +28,7 @@ test_that("cCount works as expected",{
     )
     EventCount2 <- Transform_EventCount(sim2, cCountCol="event")
     expect_equal(EventCount2,tibble(SiteID=c("site1", "site2", "site3"), N=c(10,8,12), TotalCount=c(5,8,22)))
-    
+
 })
 
 test_that("cExposureCol works as expected",{
@@ -35,7 +41,7 @@ test_that("cExposureCol works as expected",{
   EventCount3 <- Transform_EventCount(sim3, cCountCol="event", cExposureCol = 'ndays')
   expect_equal(EventCount3,tibble(SiteID=c("site1", "site2", "site3"), N=c(11,7,12), TotalCount=c(5,7,24),
                                   TotalExposure = c(80,70,120), Rate = c(0.0625, 0.1, 0.2)))
-  
+
 })
 
 test_that("incorrect inputs throw errors",{
@@ -55,11 +61,11 @@ test_that("NA in Exposure throws a warning and returns correct data",{
   expect_equal(
     suppressWarnings(Transform_EventCount(sim4, cCountCol="event", cExposureCol = 'ndays')),
     tibble(
-      SiteID=c("site1", "site2", "site3"), 
-      N=c(9,7,10), 
+      SiteID=c("site1", "site2", "site3"),
+      N=c(9,7,10),
       TotalCount=c(4,7,20),
-      TotalExposure = c(65,70,100), 
-      Rate = c(4/65, 7/70, 20/100)))  
+      TotalExposure = c(65,70,100),
+      Rate = c(4/65, 7/70, 20/100)))
 })
 
 test_that("NA in Exposure is removed ",{
