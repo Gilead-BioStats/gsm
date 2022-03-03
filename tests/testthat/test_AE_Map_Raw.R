@@ -13,6 +13,10 @@ test_that("incorrect inputs throw errors",{
   expect_error(AE_Map_Raw("Hi","Mom"))
 })
 
+test_that("invalid strExposureCol throws error",{
+  expect_error( AE_Map_Raw(dfAE = clindata::raw_ae, dfRDSL = clindata::rawplus_rdsl, strExposureCol= "Bad_Name" ))
+})
+
 
 test_that("error given if required column not found",{
   expect_error(
@@ -119,7 +123,7 @@ test_that("NA values in input data are handled",{
   
   dfExposure3<-tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
-    NA,   1, 10,
+    1,   1, 10,
     2,   1, NA,
     3,   NA, 30,
     4,   2, 50
@@ -128,7 +132,7 @@ test_that("NA values in input data are handled",{
   
   dfInput3 <-tibble::tribble(
     ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
-    NA,   1, 0, 10, 0,
+    1,   1, 4, 10, 0.4,
     2,    1,  2, NA, NA,
     3,   NA,  0, 30, 0 ,
     4,    2,  2, 50, .04
@@ -136,22 +140,33 @@ test_that("NA values in input data are handled",{
   
   expect_equal(dfInput3, AE_Map_Raw(dfAE = dfAE3, dfRDSL = dfExposure3))
   
- 
-  
- 
-  
   
 })
 
 
-test_that("dfAE Subject NA value throws error",{
+test_that("dfAE$SUBJID NA value throws error",{
   dfAE4 <- tibble::tribble(~SUBJID, 1,NA,1,1,2,2,4,4)
   
   dfExposure4<-tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
+    1,   1, 10,
+    2,   1, 20,
+    3,   3, 30,
+    4,   2, 50
+  )
+  
+  
+  expect_error(AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4))
+})
+
+test_that("dfRDSL$SubjectID NA value throws error",{
+  dfAE4 <- tibble::tribble(~SUBJID, 1,1,1,1,2,2,4,4)
+  
+  dfExposure4<-tibble::tribble(
+    ~SubjectID, ~SiteID, ~TimeOnTreatment,
     NA,   1, 10,
-    2,   1, NA,
-    3,   NA, 30,
+    2,   1, 20,
+    3,   2, 30,
     4,   2, 50
   )
   
