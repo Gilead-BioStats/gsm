@@ -3,10 +3,6 @@ ae_input <- AE_Map_Adam(
     safetyData::adam_adae
 )
 
-test_that("input data for unit tests contains required columns", {
-  expect_true(all(c("SiteID", "Count") %in% names(ae_input)))
-})
-
 test_that("output created as expected and has correct structure",{
     ae_prep <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "Exposure" )
     expect_true(is.data.frame(ae_prep))
@@ -47,6 +43,8 @@ test_that("cExposureCol works as expected",{
 test_that("incorrect inputs throw errors",{
     expect_error(Transform_EventCount(list()))
     expect_error(Transform_EventCount("Hi"))
+    expect_error(Transform_EventCount(ae_input, cCountCol="NotACol"))
+    expect_error(Transform_EventCount(ae_input, cExposureCol="NotACol"))
 })
 
 test_that("NA in Exposure throws a warning and returns correct data",{
