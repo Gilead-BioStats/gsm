@@ -1,11 +1,11 @@
 
 ae_input <- AE_Map_Adam(
-    safetyData::adam_adsl, 
+    safetyData::adam_adsl,
     safetyData::adam_adae
-) 
+)
 
 test_that("summary df created as expected and has correct structure",{
-    ae_assessment <- AE_Assess(ae_input) 
+    ae_assessment <- AE_Assess(ae_input)
     expect_true(is.data.frame(ae_assessment))
     expect_equal(names(ae_assessment),c("Assessment","Label", "SiteID", "N", "Score", "Flag"))
 })
@@ -34,11 +34,6 @@ test_that("incorrect inputs throw errors",{
 test_that("Summary created when bDataList = FALSE has correct structure",{
   ae_summary <- AE_Assess(ae_input, bDataList=FALSE)
   expect_equal(length(unique(ae_summary$SiteID)) , length(ae_summary$SiteID))
-  expect_equal(names(ae_summary),c( "Assessment", "Label"   ,  "SiteID"  ,   "N"      ,    "PValue"  ,   "Flag"))
+  expect_equal(names(ae_summary),c("Assessment", "Label", "SiteID", "N", "Score", "Flag"))
 })
-
-
-
-# Add tests for NA values in columns: SubjectID, SiteID, Count
-# Add tests for nThreshold
 
