@@ -28,11 +28,12 @@ qualification_analyze_poisson <- function(dfInput){
   model <- glm(TotalCount ~ stats::offset(LogExposure), family=poisson(link="log"),
                data=dfInput)
 
-  outputDF <- dfInput
-  outputDF$Residuals <- residuals(model)
-  outputDF$PredictedCount <- exp(outputDF$LogExposure*model$coefficients[2]+model$coefficients[1])
-  outputDF$PValue = unname(pnorm(abs(outputDF$Residuals),  lower.tail=F ) * 2)
-  outputDF <- outputDF[order(abs(outputDF$Residuals), decreasing=T),]
+  outputDF <- dfInput %>%
+    mutate(
+      Score = unname(residuals(model)),
+      PredictedCount = exp(LogExposure*model$coefficients[2]+model$coefficients[1])
+    ) %>%
+    arrange(Score)
 
   return(outputDF)
 }
@@ -56,10 +57,10 @@ qualification_analyze_wilcoxon <- function(dfInput){
 
     outputDF <- data.frame(
       dfInput,
-      PValue = pvals,
+      Score = pvals,
       Estimate = estimates
     ) %>%
-      arrange(PValue)
+      arrange(Score)
 
     return(outputDF)
 }
@@ -88,14 +89,14 @@ test_that("1.1", {
     qualification_analyze_poisson() %>%
     mutate(
       Flag = case_when(
-        Residuals < -5 ~ -1,
-        Residuals > 5 ~ 1,
-        is.na(Residuals) ~ NA_real_,
-        is.nan(Residuals) ~ NA_real_,
+        Score < -5 ~ -1,
+        Score > 5 ~ 1,
+        is.na(Score) ~ NA_real_,
+        is.nan(Score) ~ NA_real_,
         TRUE ~ 0),
       Assessment = "Safety",
       Label = "") %>%
-    select("Assessment", "Label", "SiteID", "N", "PValue", "Flag" )
+    select("Assessment", "Label", "SiteID", "N", "Score", "Flag" )
 
   # set classes lost in analyze
   class(t1) <- c("tbl_df", "tbl", "data.frame")
@@ -129,14 +130,14 @@ test_that("1.2", {
     qualification_analyze_poisson() %>%
     mutate(
       Flag = case_when(
-        Residuals < -3 ~ -1,
-        Residuals > 3 ~ 1,
-        is.na(Residuals) ~ NA_real_,
-        is.nan(Residuals) ~ NA_real_,
+        Score < -3 ~ -1,
+        Score > 3 ~ 1,
+        is.na(Score) ~ NA_real_,
+        is.nan(Score) ~ NA_real_,
         TRUE ~ 0),
       Assessment = "Safety",
       Label = "") %>%
-    select("Assessment", "Label", "SiteID", "N", "PValue", "Flag" )
+    select("Assessment", "Label", "SiteID", "N", "Score", "Flag" )
 
   # set classes lost in analyze
   class(t2) <- c("tbl_df", "tbl", "data.frame")
@@ -171,9 +172,9 @@ test_that("1.3",{
     qualification_analyze_wilcoxon() %>%
     mutate(
       Flag = case_when(
-        PValue < 0.0001 ~ -1,
-        is.na(PValue) ~ NA_real_,
-        is.nan(PValue) ~ NA_real_,
+        Score < 0.0001 ~ -1,
+        is.na(Score) ~ NA_real_,
+        is.nan(Score) ~ NA_real_,
         TRUE ~ 0),
       Assessment = "Safety",
       Label = "") %>%
@@ -184,7 +185,7 @@ test_that("1.3",{
         Flag != 0 & Estimate >= median ~ 1,
         TRUE ~ Flag
       )) %>%
-    select("Assessment", "Label", "SiteID", "N", "PValue", "Flag" )
+    select("Assessment", "Label", "SiteID", "N", "Score", "Flag" )
 
   # set classes lost in analyze
   class(t3) <- c("tbl_df", "tbl", "data.frame")
@@ -218,9 +219,9 @@ test_that("1.4", {
     qualification_analyze_wilcoxon() %>%
     mutate(Flag =
              case_when(
-               PValue < 0.1 ~ -1,
-               is.na(PValue) ~ NA_real_,
-               is.nan(PValue) ~ NA_real_,
+               Score < 0.1 ~ -1,
+               is.na(Score) ~ NA_real_,
+               is.nan(Score) ~ NA_real_,
                TRUE ~ 0
              ),
            Assessment = "Safety",
@@ -232,7 +233,7 @@ test_that("1.4", {
         Flag != 0 & Estimate >= median ~ 1,
         TRUE ~ Flag
       )) %>%
-    select("Assessment", "Label", "SiteID", "N", "PValue", "Flag" )
+    select("Assessment", "Label", "SiteID", "N", "Score", "Flag" )
 
   # set classes lost in analyze
   class(t4) <- c("tbl_df", "tbl", "data.frame")
