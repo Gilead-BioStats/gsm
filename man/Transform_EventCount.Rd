@@ -7,11 +7,11 @@
 Transform_EventCount(dfInput, cCountCol, cExposureCol = NULL)
 }
 \arguments{
-\item{dfInput}{A data frame with one Record per person}
+\item{dfInput}{A data.frame with one record per person.}
 
-\item{cCountCol}{required. numerical or logical. Column to be counted.}
+\item{cCountCol}{Required. Numerical or logical. Column to be counted.}
 
-\item{cExposureCol}{Optional, numerical Exposure Column}
+\item{cExposureCol}{Optional. Numerical \code{Exposure} column.}
 }
 \value{
 data.frame with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if cExposureCol is used.
@@ -48,6 +48,5 @@ For data with an optional cExposureCol, a summed exposure is caculated for each 
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
-
 
 }
