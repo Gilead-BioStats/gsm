@@ -1,35 +1,35 @@
 #' Poisson Analysis - Predicted Boundaries
-#' 
+#'
 #' @details
 #'
-#' Fits a Poisson model to site level data and then calculates predicted count values and upper- and lower- bounds for across the full range of exposure values. 
-#' 
+#' Fits a Poisson model to site level data and then calculates predicted count values and upper- and lower- bounds for across the full range of exposure values.
+#'
 #' @section Statistical Methods:
-#' 
-#' This function fits a poisson model to site-level data and then calculates residuals for each site. The poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family set to `poisson` using a "log" link. Upper and lower boundary values are then calculated using the method described here TODO: Add link. In short,  
-#' 
-#' @section Data Specification: 
-#' 
-#' The input data (` dfTransformed`) for the Analyze_Poisson is typically created using \code{\link{Transform_EventCount}} and should be one record per Site with columns for: 
+#'
+#' This function fits a poisson model to site-level data and then calculates residuals for each site. The poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family set to `poisson` using a "log" link. Upper and lower boundary values are then calculated using the method described here TODO: Add link. In short,
+#'
+#' @section Data Specification:
+#'
+#' The input data (` dfTransformed`) for the Analyze_Poisson is typically created using \code{\link{Transform_EventCount}} and should be one record per Site with columns for:
 #' - `SubjectID` - Unique subject ID
 #' - `SiteID` - Site ID
-#' - `TotalCount` - Number of Events 
-#' - `TotalExposure` - Number of days of exposure 
+#' - `TotalCount` - Number of Events
+#' - `TotalExposure` - Number of days of exposure
 #'
-#' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure. 
-#' @param vThreshold upper and lower boundaries in residual space. Should be identical to the threhsolds used AE_Assess(). 
-#' 
+#' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
+#' @param vThreshold upper and lower boundaries in residual space. Should be identical to the threhsolds used AE_Assess().
+#'
 #' @importFrom stats glm offset poisson pnorm
 #' @importFrom broom augment
 #' @importFrom lamW lambertW0 lambertWm1
-#' 
+#'
 #' @return data frame containing predicted boundary values with upper and lower bounds across the range of observed values
-#' 
-#' @examples 
+#'
+#' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-#' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+#' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 #' dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5,5))
-#' 
+#'
 #' @export
 
 Analyze_Poisson_PredictBounds <- function( dfTransformed, vThreshold=c(-5,5)){
@@ -45,7 +45,7 @@ Analyze_Poisson_PredictBounds <- function( dfTransformed, vThreshold=c(-5,5)){
     min(dfTransformed$LogExposure)-0.05,
     max(dfTransformed$LogExposure)+0.05,
     by=0.05
-  )) %>% 
+  )) %>%
   mutate( vMu = as.numeric( exp( .data$LogExposure * cModel$coefficients[2] + cModel$coefficients[1] ))) %>%
   mutate( vWHi = (vThreshold[2]^2 - 2 * .data$vMu)  / ( 2 * exp(1) * .data$vMu )) %>%
   mutate( vWLo = (vThreshold[1]^2 - 2 * .data$vMu)  / ( 2 * exp(1) * .data$vMu )) %>%

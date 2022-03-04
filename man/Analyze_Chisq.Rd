@@ -41,7 +41,7 @@ The input data (\code{ dfTransformed}) for the Analyze_Chisq is typically create
 
 \examples{
 dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD",strReason = "Adverse Event")
-dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count' )
+dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count' )
 dfAnalyzed <- Analyze_Chisq( dfTransformed )
 
 }

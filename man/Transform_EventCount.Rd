@@ -4,17 +4,17 @@
 \alias{Transform_EventCount}
 \title{Transform Event Count}
 \usage{
-Transform_EventCount(dfInput, cCountCol, cExposureCol = NULL)
+Transform_EventCount(dfInput, strCountCol, strExposureCol = NULL)
 }
 \arguments{
 \item{dfInput}{A data.frame with one record per person.}
 
-\item{cCountCol}{Required. Numerical or logical. Column to be counted.}
+\item{strCountCol}{Required. Numerical or logical. Column to be counted.}
 
-\item{cExposureCol}{Optional. Numerical \code{Exposure} column.}
+\item{strExposureCol}{Optional. Numerical \code{Exposure} column.}
 }
 \value{
-data.frame with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if cExposureCol is used.
+data.frame with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 }
 \description{
 Convert from ADaM format to needed input format for Safety Assessment
@@ -36,17 +36,17 @@ The input data (\code{dfInput}) for the AE Assessment is typically created using
 Required:
 \itemize{
 \item \code{SiteID} - Site ID
-\item \code{Count} - Number of Adverse Events the actual name of this column is specified by the parameter cCountCol.
+\item \code{Count} - Number of Adverse Events the actual name of this column is specified by the parameter strCountCol.
 Optional
-\item \code{Exposure} - Number of days of exposure, name specified by cExposureCol.
+\item \code{Exposure} - Number of days of exposure, name specified by strExposureCol.
 }
 
-The input data has one or more rows per site. Transform_EventCount sums cCountCol for a TotalCount for each site.
-For data with an optional cExposureCol, a summed exposure is caculated for each site.
+The input data has one or more rows per site. Transform_EventCount sums strCountCol for a TotalCount for each site.
+For data with an optional strExposureCol, a summed exposure is caculated for each site.
 }
 
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 
 }
