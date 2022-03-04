@@ -36,3 +36,4 @@ test_that("Summary created when bDataList = FALSE has correct structure",{
   expect_equal(length(unique(ae_summary$SiteID)) , length(ae_summary$SiteID))
   expect_equal(names(ae_summary),c("Assessment", "Label", "SiteID", "N", "Score", "Flag"))
 })
+

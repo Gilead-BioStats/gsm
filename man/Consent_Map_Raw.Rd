@@ -38,7 +38,7 @@ The following columns are required:
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
-\item \code{RandData} - Randomization Date
+\item \code{RandDate} - Randomization Date
 }
 }
 }
