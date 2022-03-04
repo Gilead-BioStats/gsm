@@ -9,8 +9,9 @@
 #' The input data (`dfInput`) for the PD Assessment is typically created using \code{\link{PD_Map_Raw}} and should be one record per person with columns for: 
 #' - `SubjectID` - Unique subject ID
 #' - `SiteID` - Site ID
-#' - `Count` - Number of Adverse Events 
+#' - `Count` - Number of protocal deviation events 
 #' - `Exposure` - Number of days of exposure 
+#' - `Rate` - Rate of Exposure (Count / Exposure)
 #' 
 #' The Assessment 
 #' - \code{\link{Transform_EventCount}} creates `dfTransformed`.
@@ -22,14 +23,13 @@
 #' 
 #' A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the `cMethod` parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in `vThreshold`. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
 #' 
-#' See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions. 
+#' See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and their assumptions. 
 #' 
-#' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure
-#' @param vThreshold list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon
-#' @param nCutoff optional parameter to control the auto-thresholding 
-#' @param cLabel Assessment label 
-#' @param cMethod valid methods are "poisson" (the default), or  "wilcoxon"
-#' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned
+#' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure, Rate.
+#' @param vThreshold list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = "wilcoxon".
+#' @param cLabel Assessment label.
+#' @param cMethod valid methods are "poisson" (the default), or  "wilcoxon".
+#' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the summary data frame is returned.
 #'
 #' @examples 
 #' dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev, dfRDSL = clindata::rawplus_rdsl)
@@ -40,12 +40,15 @@
 #'
 #' @export
 
-PD_Assess <- function( dfInput, vThreshold=NULL, nCutoff=1, cLabel="",cMethod="poisson", bDataList=FALSE){
+PD_Assess <- function( dfInput, vThreshold=NULL, cLabel="",cMethod="poisson", bDataList=FALSE){
     stopifnot(
         "dfInput is not a data.frame" = is.data.frame(dfInput),
         "cLabel is not character" = is.character(cLabel),
+        "Length of cLabel is not greater than 1" = length(cLabel) <=1 ,
         "cMethod is not 'poisson' or 'wilcoxon'" = cMethod %in% c("poisson","wilcoxon"),
-        "bDataList is not logical" = is.logical(bDataList)
+        "cMethod must be length 1" = length(cMethod) == 1,
+        "bDataList is not logical" = is.logical(bDataList),
+        "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count","Exposure", "Rate") %in% names(dfInput))
     )
     
     lAssess <- list()

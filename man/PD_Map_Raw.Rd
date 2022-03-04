@@ -7,14 +7,14 @@
 PD_Map_Raw(dfPD, dfRDSL, strExposureCol = "TimeOnStudy")
 }
 \arguments{
-\item{dfPD}{PD dataset with SUBJID column and rows for each Protocol Deviation}
+\item{dfPD}{PD dataset with required column SUBJID and rows for each Protocol Deviation.}
 
-\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol}
+\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol.}
 
-\item{strExposureCol}{Name of exposure column. 'TimeOnStudy' by default}
+\item{strExposureCol}{Name of exposure column. 'TimeOnStudy' by default.}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate
+Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
 }
 \description{
 Convert from raw data format to needed input format for Safety Assessment

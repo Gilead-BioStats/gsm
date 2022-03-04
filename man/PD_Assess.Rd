@@ -7,24 +7,21 @@
 PD_Assess(
   dfInput,
   vThreshold = NULL,
-  nCutoff = 1,
   cLabel = "",
   cMethod = "poisson",
   bDataList = FALSE
 )
 }
 \arguments{
-\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure}
+\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure, Rate.}
 
-\item{vThreshold}{list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon}
+\item{vThreshold}{list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = "wilcoxon".}
 
-\item{nCutoff}{optional parameter to control the auto-thresholding}
+\item{cLabel}{Assessment label.}
 
-\item{cLabel}{Assessment label}
+\item{cMethod}{valid methods are "poisson" (the default), or  "wilcoxon".}
 
-\item{cMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
-
-\item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
+\item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the summary data frame is returned.}
 }
 \value{
 If \code{bDataList} is false (the default), the summary data frame (\code{dfSummary}) is returned. If \code{bDataList} is true, a list containing all data in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged} and \code{dfSummary}) is returned.
@@ -42,8 +39,9 @@ The input data (\code{dfInput}) for the PD Assessment is typically created using
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
-\item \code{Count} - Number of Adverse Events
+\item \code{Count} - Number of protocal deviation events
 \item \code{Exposure} - Number of days of exposure
+\item \code{Rate} - Rate of Exposure (Count / Exposure)
 }
 
 The Assessment
@@ -60,7 +58,7 @@ The Assessment
 
 A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the \code{cMethod} parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in \code{vThreshold}. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
 
-See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions.
+See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and their assumptions.
 }
 
 \examples{
