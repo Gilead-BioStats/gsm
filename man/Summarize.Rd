@@ -16,11 +16,28 @@ Summarize(dfFlagged, strScoreCol = "PValue", cAssessment = "", cLabel = "")
 \item{cLabel}{brief description of line item in current assessment}
 }
 \value{
-Simplified finding data frame with columns for "SiteID", "N", "PValue", "Flag".
+Simplified finding data frame with columns: Assessment, Label, SiteID, N, Pvalue, Flag
 }
 \description{
 Create a concise summary of assessment results that is easy to aggregate across assessments
 }
+\details{
+
+}
+\section{Data Specification}{
+
+
+\code{Summarize} supports the input data (\code{dfFlagged}) from the \code{Flag} function.
+
+(\code{dfFlagged}) has the following required columns:
+\itemize{
+\item \code{SiteID} - Site ID
+\item \code{N} - Total number of participants at site
+\item \code{Flag} - Flagging value of -1, 0, or 1
+\item \code{strScoreCol} - Column from analysis results. Default is "PValue".
+}
+}
+
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
