@@ -1,7 +1,7 @@
 
 
 
-ie_input <- IE_Map_Raw(clindata::raw_ie_a2 , clindata::rawplus_rdsl ) %>% filter(!is.na(Count))
+ie_input <- suppressWarnings(IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl, strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
 
 
 test_that("summary df created as expected and has correct structure",{

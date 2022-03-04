@@ -34,6 +34,12 @@
 #'                                           )
 #'                                           
 #'  ie_summary <- IE_Assess(dfInput)
+#'  
+#'  ie_input <- IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl,
+#'                         strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES')
+#'  
+#'  ie_summary2 <- IE_Assess(ie_input)
+#'
 #'
 #' @return If `bDataList` is false (the default), the summary data frame (`dfSummary`) is returned. If `bDataList` is true, a list containing all data in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged` and `dfSummary`) is returned. 
 #' 
