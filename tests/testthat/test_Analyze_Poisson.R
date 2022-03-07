@@ -1,10 +1,10 @@
 ae_input <- AE_Map_Adam(
-    safetyData::adam_adsl, 
+    safetyData::adam_adsl,
     safetyData::adam_adae
-) 
+)
 
 test_that("output created as expected and has correct structure",{
-    ae_prep <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "Exposure" )
+    ae_prep <- Transform_EventCount( ae_input, strCountCol = 'Count', strExposureCol = "Exposure" )
     ae_anly <- Analyze_Poisson(ae_prep)
     expect_true(is.data.frame(ae_anly))
     expect_equal(sort(unique(ae_input$SiteID)), sort(ae_anly$SiteID))

@@ -7,8 +7,8 @@
 AE_Assess(
   dfInput,
   vThreshold = NULL,
-  cLabel = "",
-  cMethod = "poisson",
+  strLabel = "",
+  strMethod = "poisson",
   bDataList = FALSE
 )
 }
@@ -17,9 +17,9 @@ AE_Assess(
 
 \item{vThreshold}{numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.}
 
-\item{cLabel}{Assessment label}
+\item{strLabel}{Assessment label}
 
-\item{cMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
+\item{strMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
 
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the Summary data frame is returned}
 }
@@ -56,7 +56,7 @@ The Assessment
 \section{Statistical Assumptions}{
 
 
-A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the \code{cMethod} parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in \code{vThreshold}. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
+A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the \code{strMethod} parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in \code{vThreshold}. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
 
 See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions.
 }
@@ -64,6 +64,6 @@ See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additio
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 SafetyAE <- AE_Assess( dfInput )
-SafetyAE_Wilk <- AE_Assess( dfInput, cMethod="wilcoxon")
+SafetyAE_Wilk <- AE_Assess( dfInput, strMethod="wilcoxon")
 
 }

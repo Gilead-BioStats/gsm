@@ -4,14 +4,14 @@
 \alias{Visualize_Poisson}
 \title{Site-level visualization of site-level Poisson Model results}
 \usage{
-Visualize_Poisson(dfFlagged, dfBounds = NULL, unit = "days")
+Visualize_Poisson(dfFlagged, dfBounds = NULL, strUnit = "days")
 }
 \arguments{
 \item{dfFlagged}{analyze_poisson results with flags added.}
 
 \item{dfBounds}{data.frame giving prediction bounds for range of dfFlagged}
 
-\item{unit}{exposure time unit. Defaults to "days".}
+\item{strUnit}{exposure time unit. Defaults to "days".}
 }
 \value{
 site level plot object
@@ -21,7 +21,7 @@ Site-level visualization of site-level Poisson Model results
 }
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 dfAnalyzed <- Analyze_Poisson( dfTransformed)
 dfFlagged <- Flag( dfAnalyzed , strColumn = 'Residuals', vThreshold =c(-5,5))
 
