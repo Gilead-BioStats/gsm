@@ -21,8 +21,8 @@ test_that("incorrect inputs throw errors",{
 })
 
 test_that("error given if required column not found",{
-  expect_error(Analyze_Wilcoxon(ae_input %>% rename(total = TotalCount)))
-  expect_error(Analyze_Wilcoxon(ae_input %>% select(-Rate)))
-  expect_error(Analyze_Wilcoxon(ae_input %>% select(-SiteID)))
+  expect_error(Analyze_Wilcoxon(ae_prep %>% rename(total = TotalCount)))
+  expect_error(Analyze_Wilcoxon(ae_prep %>% select(-Rate)))
+  expect_error(Analyze_Wilcoxon(ae_prep %>% select(-SiteID)))
 })
 
