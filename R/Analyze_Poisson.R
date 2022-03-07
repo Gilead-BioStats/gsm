@@ -10,18 +10,20 @@
 #'
 #' @section Data Specification:
 #'
-#' The input data (` dfTransformed`) for the Analyze_Poisson is typically created using \code{\link{Transform_EventCount}} and should be one record per Site with columns for:
-#' - `SubjectID` - Unique subject ID
+#' The input data (`dfTransformed`) for Analyze_Poisson is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
 #' - `SiteID` - Site ID
-#' - `TotalCount` - Number of Events
+#' - `N` - Number of participants
+#' - `TotalCount` - Number of Adverse Events
 #' - `TotalExposure` - Number of days of exposure
+#' - `Rate` - Rate of exposure (TotalCount / TotalExposure)
 #'
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
 #'
+#' @import dplyr
 #' @importFrom stats glm offset poisson pnorm
 #' @importFrom broom augment
 #'
-#' @return input data frame with columns added for "Residuals" and "PredictedCount"
+#' @return input data.frame with columns added for "Residuals" and "PredictedCount"
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
@@ -30,11 +32,11 @@
 #'
 #' @export
 
-
 Analyze_Poisson <- function( dfTransformed ){
     stopifnot(
-        is.data.frame(dfTransformed),
-        all(c("SiteID", "N", "TotalExposure", "TotalCount") %in% names(dfTransformed))
+        "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
+        "One or more of these columns: SiteID, N, TotalExposure, TotalCount, Rate" = all(c("SiteID", "N", "TotalExposure", "TotalCount", "Rate") %in% names(dfTransformed)),
+        "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]]))
     )
 
     dfModel <- dfTransformed %>% mutate(LogExposure = log( .data$TotalExposure) )
