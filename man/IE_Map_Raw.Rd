@@ -5,8 +5,8 @@
 \title{Inclusion/Exclusion Assessment Mapping from Raw Data- Make Input Data}
 \usage{
 IE_Map_Raw(
-  dfIE = NULL,
-  dfRDSL = NULL,
+  dfIE,
+  dfRDSL,
   strCategoryCol = "IECAT",
   vCategoryValues = c("Exclusion", "Inclusion"),
   strResultCol = "IEORRES_STD",
@@ -56,7 +56,7 @@ The following columns are required:
 
 \examples{
 
-dfInput <- IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl, 
+dfInput <- IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl,
                      strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES')
 
 }
