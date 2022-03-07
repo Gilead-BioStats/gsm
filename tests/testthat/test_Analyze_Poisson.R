@@ -3,20 +3,8 @@ ae_input <- AE_Map_Adam(
     safetyData::adam_adae
 )
 
-createNA <- function(x) {
-
-  df <-  AE_Map_Adam(safetyData::adam_adsl, safetyData::adam_adae) %>%
-        Transform_EventCount(cCountCol = "Count", cExposureCol = "Exposure")
-
-  df[[x]][1] <- NA
-
-  Analyze_Poisson(df)
-}
-
-
-
 test_that("output created as expected and has correct structure",{
-    ae_prep <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "Exposure" )
+    ae_prep <- Transform_EventCount( ae_input, strCountCol = 'Count', strExposureCol = "Exposure" )
     ae_anly <- Analyze_Poisson(ae_prep)
     expect_true(is.data.frame(ae_anly))
     expect_equal(sort(unique(ae_input$SiteID)), sort(ae_anly$SiteID))
@@ -38,6 +26,17 @@ test_that("error given if required column not found",{
 })
 
 test_that("NA values are caught", {
+
+  createNA <- function(x) {
+
+    df <-  AE_Map_Adam(safetyData::adam_adsl, safetyData::adam_adae) %>%
+      Transform_EventCount(strCountCol = "Count", strExposureCol = "Exposure")
+
+    df[[x]][1] <- NA
+
+    Analyze_Poisson(df)
+  }
+
     expect_error(createNA("SiteID"))
 
     # currently accept NA values

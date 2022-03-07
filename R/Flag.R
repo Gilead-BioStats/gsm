@@ -15,16 +15,16 @@
 #' - `strColumn` - A column to use for Thresholding (required)
 #' - 'strValueColumn' - A column to be used for the sign of the flag (optional)
 #'
-#' @param dfAnalyzed data frame where flags should be added
-#' @param strColumn Name of the Column to use for thresholding
-#' @param vThreshold vector of 2 numeric values representing lower and upper threshold values. All values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.
+#' @param dfAnalyzed data.frame where flags should be added.
+#' @param strColumn Name of the column to use for thresholding.
+#' @param vThreshold Vector of 2 numeric values representing lower and upper threshold values. All values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.
 #' @param strValueColumn Optional, Name of the Column to use for sign of Flag. If value for that row is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.
 #'
 #' @return input data frame with the columns added for "ThresholdLow","ThresholdHigh","ThresholdCol" and "Flag"
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-#' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+#' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 #' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed)
 #' dfFlagged <- Flag( dfAnalyzed ) #PValue < 0.05 flagged
 #' dfFlagged10 <- Flag( dfAnalyzed, vThreshold=c(0.10,NA) ) #PValue <0.10 flagged
@@ -38,16 +38,18 @@
 
 Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strValueColumn = NULL){
   stopifnot(
-      is.data.frame(dfAnalyzed),
-      is.character(strColumn),
-      is.numeric(vThreshold),
-      length(vThreshold) == 2,
-      strColumn %in% names(dfAnalyzed),
-      strValueColumn %in% names(dfAnalyzed)
+    "dfAnalyzed is not a data frame" = is.data.frame(dfAnalyzed),
+    "strColumn is not character" = is.character(strColumn),
+    "vThreshold is not numeric" = is.numeric(vThreshold),
+    "vThreshold must be length of 2" = length(vThreshold) == 2,
+    "strColumn must be length of 1" = length(strColumn) == 1,
+    "strColumn not found in dfAnalyzed" = strColumn %in% names(dfAnalyzed),
+    "strValueColumn not found in dfAnalyzed" = strValueColumn %in% names(dfAnalyzed),
+    "SiteID not found in dfAnalyzed" = "SiteID" %in% names(dfAnalyzed)
   )
 
   if(all(!is.na(vThreshold))){
-    stopifnot(vThreshold[2]>vThreshold[1])
+    "vThreshold must contain a minimum and maximum value (i.e., vThreshold = c(1, 2))" = stopifnot(vThreshold[2]>vThreshold[1])
   }
 
   dfFlagged<-dfAnalyzed %>%

@@ -4,14 +4,14 @@
 \alias{IE_Assess}
 \title{Inclusion/Exclusion Assessment}
 \usage{
-IE_Assess(dfInput, nThreshold = 0.5, cLabel = "", bDataList = FALSE)
+IE_Assess(dfInput, nThreshold = 0.5, strLabel = "", bDataList = FALSE)
 }
 \arguments{
 \item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count,}
 
 \item{nThreshold}{integer threshold values Flagging, integer values greater than will be flagged.}
 
-\item{cLabel}{Assessment label}
+\item{strLabel}{Assessment label}
 
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the summary/finding data frame is returned}
 }
@@ -50,12 +50,12 @@ The Assessment
                                           "0776", "X194X",     8,
                                           "1032", "X033X",     9
                                           )
-                                          
+
  ie_summary <- IE_Assess(dfInput)
- 
+
  ie_input <- IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl,
                         strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES')
- 
+
  ie_summary2 <- IE_Assess(ie_input)
 
 

@@ -7,9 +7,8 @@
 PD_Assess(
   dfInput,
   vThreshold = NULL,
-  nCutoff = 1,
-  cLabel = "",
-  cMethod = "poisson",
+  strLabel = "",
+  strMethod = "poisson",
   bDataList = FALSE
 )
 }
@@ -18,11 +17,9 @@ PD_Assess(
 
 \item{vThreshold}{list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon}
 
-\item{nCutoff}{optional parameter to control the auto-thresholding}
+\item{strLabel}{Assessment label}
 
-\item{cLabel}{Assessment label}
-
-\item{cMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
+\item{strMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
 
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
 }
@@ -58,7 +55,7 @@ The Assessment
 \section{Statistical Assumptions}{
 
 
-A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the \code{cMethod} parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in \code{vThreshold}. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
+A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the \code{strMethod} parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in \code{vThreshold}. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
 
 See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions.
 }
@@ -66,6 +63,6 @@ See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additio
 \examples{
 dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev, dfRDSL = clindata::rawplus_rdsl)
 SafetyPD <- PD_Assess( dfInput )
-SafetyPD_Wilk <- PD_Assess( dfInput, cMethod="wilcoxon")
+SafetyPD_Wilk <- PD_Assess( dfInput, strMethod="wilcoxon")
 
 }
