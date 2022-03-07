@@ -10,7 +10,7 @@ Analyze_Poisson(dfTransformed)
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.}
 }
 \value{
-input data frame with columns added for "Residuals" and "PredictedCount"
+input data.frame with columns added for "Residuals" and "PredictedCount"
 }
 \description{
 Poisson Analysis - Site Residuals
@@ -27,12 +27,13 @@ This function fits a poisson model to site-level data and then calculates residu
 \section{Data Specification}{
 
 
-The input data (\code{ dfTransformed}) for the Analyze_Poisson is typically created using \code{\link{Transform_EventCount}} and should be one record per Site with columns for:
+The input data (\code{dfTransformed}) for Analyze_Poisson is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
 \itemize{
-\item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
-\item \code{TotalCount} - Number of Events
+\item \code{N} - Number of participants
+\item \code{TotalCount} - Number of Adverse Events
 \item \code{TotalExposure} - Number of days of exposure
+\item \code{Rate} - Rate of exposure (TotalCount / TotalExposure)
 }
 }
 
