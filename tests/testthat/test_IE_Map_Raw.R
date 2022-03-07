@@ -11,8 +11,6 @@ test_that("output created as expected and has correct structure",{
 
 test_that("incorrect inputs throw errors",{
   expect_error(IE_Map_Raw(list(), list()))
-  expect_error(IE_Map_Raw("Hi","Mom"))
-  expect_error(IE_Map_Raw(list(), list()))
   expect_error(IE_Map_Raw( clindata::raw_ie_all, list(), strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
   expect_error(IE_Map_Raw(list()))
   expect_error(IE_Map_Raw("Hi","Mom"))

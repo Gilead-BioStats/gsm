@@ -5,7 +5,7 @@ ie_input <- suppressWarnings(IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus
 
 
 test_that("summary df created as expected and has correct structure",{
-    ie_list <- IE_Assess(ie_input) 
+    ie_list <- IE_Assess(ie_input)
     expect_true(is.data.frame(ie_list))
     expect_equal(names(ie_list),c("Assessment","Label", "SiteID", "N", "Score", "Flag"))
 })
@@ -19,9 +19,9 @@ test_that("list of df created when bDataList=TRUE",{
 test_that("incorrect inputs throw errors",{
     expect_error(IE_Assess(list()))
     expect_error(IE_Assess("Hi"))
-    expect_error(IE_Assess(ie_input, cLabel=123))
-    expect_error(IE_Assess(ie_input, cMethod="abacus"))
+    expect_error(IE_Assess(ie_input, strLabel=123))
     expect_error(IE_Assess(ie_input, bDataList="Yes"))
+    expect_error(IE_Assess(ie_input, nThreshold=FALSE))
 })
 
 
