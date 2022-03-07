@@ -4,8 +4,5 @@
 #' @coverage
 #' 2.1: 2.1, 2.2, 2.3
 
-
-+ Setup is documented in the test_code/*.R file.
-
 + 2.1 Test that AE_Map_Raw can return a tibble/data.frame given correct input 
 data with Count and Rate calculated correctly.

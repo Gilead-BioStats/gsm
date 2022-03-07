@@ -9,9 +9,6 @@
 #' 1.5: 1.5
 #' 1.6: 1.6
 
-
-+ Setup is documented in the test_code/*.R file.
-
 + 1.1 Test that the AE assessment can return a correctly assessed data frame
 for the poisson test grouped by the study variable when given correct input data
 from safetyData and the results should be flagged correctly.
