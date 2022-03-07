@@ -1,45 +1,47 @@
-S1_1:
-  Description: Given correct input data an Adverse Event assessment can be done using the poisson method
-  Risk: High
-  Impact: High
-  Tests:
-    - T1_1
-    - T1_2
-S1_2:
-  Description: Given correct input data an Adverse Event assessment can be done using the wilcoxon method
-  Risk: High
-  Impact: High
-  Tests:
-    - T1_3
-    - T1_4
-S1_3:
-  Description: Assessments are correctly grouped by the site variable
-  Risk: Low
-  Impact: High
-  Tests:
-    - T1_1
-    - T1_2
-    - T1_3
-    - T1_4
-S1_4:
-  Description: Given correct input data an flags will correctly be applied to records thatmeet flagging criteria
-  Risk: Medium
-  Impact: High
-  Tests:
-    - T1_1
-    - T1_2
-    - T1_3
-    - T1_4
-S1_5:
-  Description: Assessment can return all data in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`)
-  Risk: Low
-  Impact: Medium
-  Tests:
-    - T1_5
-    - T1_6
-S1_6:
-  Description: Ensure that missing and invalid data are handled correctly
-  Risk: Low
-  Impact: Medium
-  Tests:
-    - T1_7
+AE_Assess:
+  Specifications:
+    - S1_1:
+      Description: Given correct input data an Adverse Event assessment can be done using the poisson method
+      Risk: High
+      Impact: High
+      Tests:
+        - T1_1
+        - T1_2
+    - S1_2:
+      Description: Given correct input data an Adverse Event assessment can be done using the wilcoxon method
+      Risk: High
+      Impact: High
+      Tests:
+        - T1_3
+        - T1_4
+    - S1_3:
+      Description: Assessments are correctly grouped by the site variable
+      Risk: Low
+      Impact: High
+      Tests:
+        - T1_1
+        - T1_2
+        - T1_3
+        - T1_4
+    - S1_4:
+      Description: Given correct input data an flags will correctly be applied to records thatmeet flagging criteria
+      Risk: Medium
+      Impact: High
+      Tests:
+        - T1_1
+        - T1_2
+        - T1_3
+        - T1_4
+    - S1_5:
+      Description: Assessment can return all data in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`)
+      Risk: Low
+      Impact: Medium
+      Tests:
+        - T1_5
+        - T1_6
+    - S1_6:
+      Description: Ensure that missing and invalid data are handled correctly
+      Risk: Low
+      Impact: Medium
+      Tests:
+        - T1_7
