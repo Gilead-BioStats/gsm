@@ -20,11 +20,11 @@
 #' 
 #' 
 #'
-#' @param dfPD  PD dataset with SUBJID column and rows for each Protocol Deviation 
-#' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol
-#' @param strExposureCol Name of exposure column. 'TimeOnStudy' by default
+#' @param dfPD  PD dataset with required column SUBJID and rows for each Protocol Deviation. 
+#' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol.
+#' @param strExposureCol Name of exposure column. 'TimeOnStudy' by default.
 #' 
-#' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate
+#' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
 #' 
 #' 
 #' @examples
@@ -37,9 +37,10 @@
 PD_Map_Raw <- function( dfPD, dfRDSL, strExposureCol="TimeOnStudy" ){
     stopifnot(
         "PD dataset not found"=is.data.frame(dfPD),
-        "Time on Study dataset is not found"=is.data.frame(dfRDSL),
+        "RDSL dataset is not found"=is.data.frame(dfRDSL),
         "SUBJID column not found in dfPD"="SUBJID" %in% names(dfPD),
         "strExposureCol is not character"=is.character(strExposureCol),
+        "Length of strExposureCol is not equal to 1"=length(strExposureCol) ==1 ,
         "SubjectID, SiteID and strExposureCol columns not found in dfRDSL"=all(c("SubjectID","SiteID",strExposureCol) %in% names(dfRDSL))
     )
 
