@@ -31,7 +31,7 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-#' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+#' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 #' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed , strOutcome ="Rate")
 #'
 #' @export
@@ -44,11 +44,11 @@ Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "Rate") {
     )
 
     wilcoxon_model <- function(site){
-        form <- as.formula(paste0(strOutcome," ~ as.character(SiteID) =='", site,"'")) 
+        form <- as.formula(paste0(strOutcome," ~ as.character(SiteID) =='", site,"'"))
         wilcox.test(form, exact = FALSE, conf.int = TRUE, data=dfTransformed)
     }
 
-    dfAnalyzed <- dfTransformed %>% 
+    dfAnalyzed <- dfTransformed %>%
         mutate(model = map(.data$SiteID, wilcoxon_model)) %>%
         mutate(summary = map(.data$model, broom::glance)) %>%
         unnest(summary) %>%

@@ -3,7 +3,7 @@ ae_input <- AE_Map_Adam(
     safetyData::adam_adae
 )
 
-ae_prep <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "Exposure" )
+ae_prep <- Transform_EventCount( ae_input, strCountCol = 'Count', strExposureCol = "Exposure" )
 ae_anly <- Analyze_Poisson(ae_prep)
 ae_anly_wilcoxon <- Analyze_Wilcoxon(ae_prep, strOutcome="Rate")
 

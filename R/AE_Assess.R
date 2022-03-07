@@ -23,38 +23,38 @@
 #'
 #' @section Statistical Assumptions:
 #'
-#' A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the `cMethod` parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in `vThreshold`. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
+#' A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the `strMethod` parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in `vThreshold`. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
 #'
 #' See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions.
 #'
 #' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure
 #' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.
-#' @param cLabel Assessment label
-#' @param cMethod valid methods are "poisson" (the default), or  "wilcoxon"
+#' @param strLabel Assessment label
+#' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon"
 #' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the Summary data frame is returned
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 #' SafetyAE <- AE_Assess( dfInput )
-#' SafetyAE_Wilk <- AE_Assess( dfInput, cMethod="wilcoxon")
+#' SafetyAE_Wilk <- AE_Assess( dfInput, strMethod="wilcoxon")
 #'
 #' @return If `bDataList` is false (the default), the summary data frame (`dfSummary`) is returned. If `bDataList` is true, a list containing all data in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged` and `dfSummary`) is returned.
 #'
 #' @export
 
-AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson",bDataList=FALSE){
+AE_Assess <- function( dfInput, vThreshold=NULL, strLabel="", strMethod="poisson",bDataList=FALSE){
     stopifnot(
         "dfInput is not a data.frame" = is.data.frame(dfInput),
-        "cLabel is not character" = is.character(cLabel),
-        "cMethod is not 'poisson' or 'wilcoxon'" = cMethod %in% c("poisson","wilcoxon"),
+        "strLabel is not character" = is.character(strLabel),
+        "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson","wilcoxon"),
         "bDataList is not logical" = is.logical(bDataList),
         "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count","Exposure", "Rate") %in% names(dfInput)),
-        "cMethod must be length 1" = length(cMethod) == 1
+        "strMethod must be length 1" = length(strMethod) == 1
     )
     lAssess <- list()
     lAssess$dfInput <- dfInput
-    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
-    if(cMethod == "poisson"){
+    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
+    if(strMethod == "poisson"){
         if(is.null(vThreshold)){
             vThreshold = c(-5,5)
         }else{
@@ -66,9 +66,9 @@ AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson",bD
         }
         lAssess$dfAnalyzed <- gsm::Analyze_Poisson( lAssess$dfTransformed)
         lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , strColumn = 'Residuals', vThreshold =vThreshold)
-        lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol = 'Residuals', cAssessment="Safety", cLabel= cLabel)
+        lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol = 'Residuals', strAssessment="Safety", strLabel= strLabel)
 
-    } else if(cMethod=="wilcoxon"){
+    } else if(strMethod=="wilcoxon"){
         if(is.null(vThreshold)){
             vThreshold = c(0.0001,NA)
         }else{
@@ -81,7 +81,7 @@ AE_Assess <- function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson",bD
         }
         lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed)
         lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold, strValueColumn = 'Estimate')
-        lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Safety", cLabel= cLabel)
+        lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strAssessment="Safety", strLabel= strLabel)
     }
 
     if(bDataList){
