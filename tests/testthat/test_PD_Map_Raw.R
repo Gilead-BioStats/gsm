@@ -161,5 +161,41 @@ test_that("NA values in input data are handled",{
 
 })
 
+test_that("strExposure user input error is handled correctly", {
+  expect_error(
+    PD_Map_Raw(clindata::raw_protdev,clindata::rawplus_rdsl, strExposureCol = 123)
+  )
+  
+  expect_error(
+    PD_Map_Raw(clindata::raw_protdev,clindata::rawplus_rdsl, strExposureCol = c("A", "B"))
+  )
+})
+
+test_that("Non-default value for strExposureCol is handled correctly",{
+  dfPD4 <- tribble(~SUBJID, 1,NA,1,1,2,2,4,4)
+  
+  dfTos4<-tribble(
+    ~SubjectID, ~SiteID, ~TimeInOurClinicalTrial,
+    NA,   1, 10,
+    2,   1, NA,
+    3,   NA, 30,
+    4,   2, 50
+  )
+  
+  
+  dfInput4 <-tribble(
+    ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
+    NA,   1, 0, 10, 0,
+    2,    1,  2, NA, NA,
+    3,   NA,  0, 30, 0 ,
+    4,    2,  2, 50, .04
+  )
+  
+  expect_equal(dfInput4, PD_Map_Raw(dfPD = dfPD4, dfRDSL = dfTos4, strExposureCol = 'TimeInOurClinicalTrial'))
+  expect_error( PD_Map_Raw(dfPD = dfPD4, dfRDSL = dfTos4, strExposureCol = 'IncorrectColumnName'))
+  expect_error( PD_Map_Raw(dfPD = dfPD4, dfRDSL = dfTos4))
+})
+
+
 
 

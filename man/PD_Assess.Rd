@@ -2,7 +2,7 @@
 % Please edit documentation in R/PD_Assess.R
 \name{PD_Assess}
 \alias{PD_Assess}
-\title{Protocol Deviation Assessment using Poisson Regression}
+\title{Protocol Deviation Assessment}
 \usage{
 PD_Assess(
   dfInput,
@@ -13,7 +13,7 @@ PD_Assess(
 )
 }
 \arguments{
-\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure}
+\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure, Rate.}
 
 \item{vThreshold}{list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon}
 
@@ -27,7 +27,7 @@ PD_Assess(
 If \code{bDataList} is false (the default), the summary data frame (\code{dfSummary}) is returned. If \code{bDataList} is true, a list containing all data in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged} and \code{dfSummary}) is returned.
 }
 \description{
-Protocol Deviation Assessment using Poisson Regression
+Protocol Deviation Assessment
 }
 \details{
 The Protocol Deviation Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag possible outliers. More details regarding the data pipeline and statistical methods are described below.
@@ -39,8 +39,9 @@ The input data (\code{dfInput}) for the PD Assessment is typically created using
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
-\item \code{Count} - Number of Adverse Events
+\item \code{Count} - Number of protocol deviation events
 \item \code{Exposure} - Number of days of exposure
+\item \code{Rate} - Rate of Exposure (Count / Exposure)
 }
 
 The Assessment
