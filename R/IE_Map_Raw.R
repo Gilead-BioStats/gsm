@@ -18,7 +18,7 @@
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
 #'
-#' @param dfIE ie dataset with columns SUBJID and values specified in strCategoryCol and strResultCol. By default, includes required columns SUBJID, IVID, IECAT, IETESTCD, IEORRES.
+#' @param dfIE ie dataset with columns SUBJID and values specified in strCategoryCol and strResultCol.
 #' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID SiteID
 #' @param strCategoryCol Name ofcCriteria category column. default = 'IECAT'
 #' @param vCategoryValues Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion").

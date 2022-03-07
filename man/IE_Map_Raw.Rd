@@ -14,7 +14,7 @@ IE_Map_Raw(
 )
 }
 \arguments{
-\item{dfIE}{ie dataset with columns SUBJID and values specified in strCategoryCol and strResultCol. By default, includes required columns SUBJID, IVID, IECAT, IETESTCD, IEORRES.}
+\item{dfIE}{ie dataset with columns SUBJID and values specified in strCategoryCol and strResultCol.}
 
 \item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID}
 
