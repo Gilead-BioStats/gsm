@@ -3,7 +3,7 @@ ae_input <- AE_Map_Adam(
     safetyData::adam_adae
 )
 
-ae_prep <- Transform_EventCount( ae_input, cCountCol = 'Count', cExposureCol = "Exposure" )
+ae_prep <- Transform_EventCount( ae_input, strCountCol = 'Count', strExposureCol = "Exposure" )
 
 test_that("output created as expected and has correct structure",{
     aew_anly <-Analyze_Wilcoxon(ae_prep, strOutcome = "Rate")
@@ -15,9 +15,14 @@ test_that("output created as expected and has correct structure",{
 test_that("incorrect inputs throw errors",{
     expect_error(Analyze_Wilcoxon(list()))
     expect_error(Analyze_Wilcoxon("Hi"))
+<<<<<<< HEAD
     expect_error(Analyze_Wilcoxon(ae_prep, strOutcome = "oops"))
     expect_error(Analyze_Wilcoxon(ae_prep, strOutcome = 1))
     expect_error(Analyze_Wilcoxon(ae_prep %>% mutate(SiteID = ifelse(SiteID == first(SiteID), NA, SiteID))))
+=======
+    expect_error(Analyze_Wilcoxon(ae_prep, strOutcome = "coffee"))
+    expect_error(Analyze_Wilcoxon(ae_prep, strOutcome = c("Rate", "something else")))
+>>>>>>> dev
 })
 
 test_that("error given if required column not found",{

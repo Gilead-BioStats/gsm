@@ -16,7 +16,7 @@ dfRDSL_test <- tibble::tribble(~SubjectID, ~SiteID, ~RandDate,
 consent_input <-  Consent_Map_Raw(dfConsent = dfConsent, dfRDSL= dfRDSL_test)
 
 test_that("summary df created as expected and has correct structure",{
-    consent_list <- Consent_Assess(consent_input) 
+    consent_list <- Consent_Assess(consent_input)
     expect_true(is.data.frame(consent_list))
     expect_equal(names(consent_list),c("Assessment","Label", "SiteID", "N", "Score", "Flag"))
 })
@@ -33,8 +33,7 @@ test_that("list of df created when bDataList=TRUE",{
 test_that("incorrect inputs throw errors",{
     expect_error(Consent_Assess(list()))
     expect_error(Consent_Assess("Hi"))
-    expect_error(Consent_Assess(consent_input, cLabel=123))
-    expect_error(Consent_Assess(consent_input, cMethod="abacus"))
+    expect_error(Consent_Assess(consent_input, strLabel=123))
     expect_error(Consent_Assess(consent_input, bDataList="Yes"))
     expect_error(Consent_Assess(consent_input, nThreshold = "A"))
     expect_error(Consent_Assess(consent_input, nThreshold = c(1,2)))

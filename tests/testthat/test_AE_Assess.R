@@ -19,15 +19,15 @@ test_that("list of df created when bDataList=TRUE",{
 test_that("incorrect inputs throw errors",{
     expect_error(AE_Assess(list()))
     expect_error(AE_Assess("Hi"))
-    expect_error(AE_Assess(ae_input, cLabel=123))
-    expect_error(AE_Assess(ae_input, cMethod="abacus"))
+    expect_error(AE_Assess(ae_input, strLabel=123))
+    expect_error(AE_Assess(ae_input, strMethod="abacus"))
     expect_error(AE_Assess(ae_input, bDataList="Yes"))
     expect_error(AE_Assess(ae_input %>% select(-SubjectID)))
     expect_error(AE_Assess(ae_input %>% select(-SiteID)))
     expect_error(AE_Assess(ae_input %>% select(-Count)))
     expect_error(AE_Assess(ae_input %>% select(-Exposure)))
     expect_error(AE_Assess(ae_input %>% select(-Rate)))
-    expect_error(AE_Assess(ae_input, cMethod=c("wilcoxon", "poisson")))
+    expect_error(AE_Assess(ae_input, strMethod=c("wilcoxon", "poisson")))
 })
 
 

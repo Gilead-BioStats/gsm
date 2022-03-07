@@ -4,14 +4,14 @@
 \alias{Consent_Assess}
 \title{Consent Assessment}
 \usage{
-Consent_Assess(dfInput, nThreshold = 0.5, cLabel = "", bDataList = FALSE)
+Consent_Assess(dfInput, nThreshold = 0.5, strLabel = "", bDataList = FALSE)
 }
 \arguments{
 \item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count.}
 
 \item{nThreshold}{Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.}
 
-\item{cLabel}{Assessment label.}
+\item{strLabel}{Assessment label.}
 
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the summary/finding data frame is returned.}
 }
@@ -53,13 +53,13 @@ With N greater than user specified \code{nThreshold} will be flagged.
 \examples{
 
 dfInput <- Consent_Map_Raw(
-dfConsent = clindata::raw_consent, 
-dfRDSL = clindata::rawplus_rdsl, 
+dfConsent = clindata::raw_consent,
+dfRDSL = clindata::rawplus_rdsl,
 strConsentReason = NULL
 )
 
 Consent_Assess(dfInput)
 
- 
+
 
 }
