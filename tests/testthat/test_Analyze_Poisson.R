@@ -18,11 +18,12 @@ test_that("incorrect inputs throw errors",{
 
 
 test_that("error given if required column not found",{
-    expect_error(Analyze_Poisson(ae_input %>% select(-SiteID)))
-    expect_error(Analyze_Poisson(ae_input %>% select(-N)))
-    expect_error(Analyze_Poisson(ae_input %>% select(-TotalCount)))
-    expect_error(Analyze_Poisson(ae_input %>% select(-TotalExposure)))
-    expect_error(Analyze_Poisson(ae_input %>% select(-Rate)))
+    ae_prep <- Transform_EventCount( ae_input, strCountCol = 'Count', strExposureCol = "Exposure" )
+    expect_error(Analyze_Poisson(ae_prep %>% select(-SiteID)))
+    expect_error(Analyze_Poisson(ae_prep %>% select(-N)))
+    expect_error(Analyze_Poisson(ae_prep %>% select(-TotalCount)))
+    expect_error(Analyze_Poisson(ae_prep %>% select(-TotalExposure)))
+    expect_error(Analyze_Poisson(ae_prep %>% select(-Rate)))
 })
 
 test_that("NA values are caught", {
