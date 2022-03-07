@@ -1,22 +1,17 @@
 
 
 test_that("output created as expected and has correct structure",{
-  ie_input <-suppressWarnings(IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl, strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES')) 
+  ie_input <-suppressWarnings(IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl, strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
    expect_true(is.data.frame(ie_input))
-  
+
    expect_equal(
    names(ie_input),
    c("SubjectID","SiteID","Count"))
  })
 
 test_that("incorrect inputs throw errors",{
-    expect_error(IE_Map_Raw(list(), list()))
-    expect_error(IE_Map_Raw("Hi","Mom"))
-})
-
-
-test_that("incorrect inputs throw errors",{
- 
+  expect_error(IE_Map_Raw(list(), list()))
+  expect_error(IE_Map_Raw("Hi","Mom"))
   expect_error(IE_Map_Raw(list(), list()))
   expect_error(IE_Map_Raw( clindata::raw_ie_all, list(), strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
   expect_error(IE_Map_Raw(list()))
@@ -26,10 +21,10 @@ test_that("incorrect inputs throw errors",{
 
 test_that("error given if required column not found",{
   expect_error(
-    IE_Map_Raw( 
+    IE_Map_Raw(
       clindata::raw_ie_all %>% rename(ID = SUBJID),
       clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD', 
+      strCategoryCol = 'IECAT_STD',
       strResultCol = 'IEORRES'
     )
   )
@@ -37,25 +32,25 @@ test_that("error given if required column not found",{
     IE_Map_Raw(
       clindata::raw_ie_all ,
       clindata::rawplus_rdsl%>% select(-SiteID),
-      strCategoryCol = 'IECAT_STD', 
+      strCategoryCol = 'IECAT_STD',
       strResultCol = 'IEORRES'
     )
   )
-  
+
   expect_error(
     IE_Map_Raw(
       clindata::raw_ie_all %>% select(-IECAT),
       clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD', 
+      strCategoryCol = 'IECAT_STD',
       strResultCol = 'IEORRES'
     )
   )
-  
+
   expect_error(
     IE_Map_Raw(
       clindata::raw_ie_all %>% select(-IETESTCD),
       clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD', 
+      strCategoryCol = 'IECAT_STD',
       strResultCol = 'IEORRES'
     )
   )
@@ -63,26 +58,26 @@ test_that("error given if required column not found",{
     IE_Map_Raw(
       clindata::raw_ie_all %>% select(-IETEST),
       clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD', 
+      strCategoryCol = 'IECAT_STD',
       strResultCol = 'IEORRES'
     )
   )
-  
+
   expect_error(
     IE_Map_Raw(
       clindata::raw_ie_all %>% select(-IEORRES),
       clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD', 
+      strCategoryCol = 'IECAT_STD',
       strResultCol = 'IEORRES'
     )
   )
 
   expect_silent(
     suppressWarnings(
-    IE_Map_Raw( 
+    IE_Map_Raw(
       clindata::raw_ie_all %>% select(-PROJECT),
       clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD', 
+      strCategoryCol = 'IECAT_STD',
       strResultCol = 'IEORRES'
     )
     )
@@ -95,7 +90,7 @@ test_that("icorrect strCategoryCol or strResultCol throw errors",{
   # vCategoryValues =  c("Inclusion","Exclusion"),
   # strResultCol = 'IEORRES_STD',
   # vExpectedResultValues = c(0,1)
-  
+
   expect_error(
     suppressWarnings(IE_Map_Raw(
       clindata::raw_ie_all,
@@ -104,7 +99,7 @@ test_that("icorrect strCategoryCol or strResultCol throw errors",{
       strResultCol = 'IEORRES'
     ))
   )
-  
+
   expect_error(
     suppressWarnings(IE_Map_Raw(
       clindata::raw_ie_all,
@@ -113,7 +108,7 @@ test_that("icorrect strCategoryCol or strResultCol throw errors",{
       strResultCol = 'Not_A_Name'
     ))
   )
-  
+
   expect_error(
     suppressWarnings(IE_Map_Raw(
       clindata::raw_ie_all,
@@ -123,7 +118,7 @@ test_that("icorrect strCategoryCol or strResultCol throw errors",{
       vExpectedResultValues = c("A",1,3)
     ))
   )
-  
+
   expect_error(
     suppressWarnings(IE_Map_Raw(
       clindata::raw_ie_all,
@@ -136,7 +131,7 @@ test_that("icorrect strCategoryCol or strResultCol throw errors",{
 })
 
 test_that("output is correct given clindata example input",{
-  
+
 dfIE <- clindata::raw_ie_all
 dfIE$SUBJID <- as.character(dfIE$SUBJID)
 
@@ -147,7 +142,7 @@ dfRDSL <-  tibble::tribble(    ~SubjectID, ~SiteID,
                                    "1218", "X126X" )
 
 
-  
+
 dfInput <- tibble::tribble(
   ~SubjectID, ~SiteID, ~Count,
   "0496", "X055X",    15L,
@@ -183,5 +178,22 @@ dfInput <- tibble::tribble(     ~SubjectID, ~SiteID, ~Count,
 expect_equal(dfInput, IE_Map_Raw(dfIE_test,dfRDSL2,  strCategoryCol = 'IECAT', strResultCol = 'IEORRES'), ignore_attr = TRUE)
 
 })
+
+test_that("NA values are handled correctly", {
+
+  ieNASUBJID <- clindata::raw_ie_all %>%
+    mutate(SUBJID = rep(c(NA, "1234"), nrow(clindata::raw_ie_all)/2))
+
+  ieNAstrCategoryCol <- clindata::raw_ie_all %>%
+    mutate(IECAT_STD = rep(c(NA, "INCLUSION"), nrow(clindata::raw_ie_all)/2))
+
+  ieNAstrResultCol <- clindata::raw_ie_all %>%
+    mutate(IEORRES = rep(c(0, NA), nrow(clindata::raw_ie_all)/2))
+
+  expect_error(IE_Map_Raw(ieNASUBJID , clindata::rawplus_rdsl,strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
+  expect_error(IE_Map_Raw(ieNAstrCategoryCol , clindata::rawplus_rdsl,strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
+  expect_error(IE_Map_Raw(ieNAstrResultCol , clindata::rawplus_rdsl,strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
+})
+
 
 
