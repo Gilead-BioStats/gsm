@@ -25,8 +25,7 @@ SafetyAE <- AE_Assess( dfInput , bDataList=TRUE)
 dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$dfTransformed, c(-5,5))
 Visualize_Scatter(SafetyAE$dfFlagged, dfBounds)
 
-dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-SafetyAE <- AE_Assess( dfInput, bDataList = TRUE, strMethod="wilcoxon")
-Visualize_Scatter(SafetyAE$dfFlagged)
+SafetyAE_wilk <- AE_Assess( dfInput, bDataList = TRUE, strMethod="wilcoxon")
+Visualize_Scatter(SafetyAE_wilk$dfFlagged)
 
 }
