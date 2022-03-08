@@ -15,6 +15,8 @@ test_that("output created as expected and has correct structure",{
 test_that("incorrect inputs throw errors",{
     expect_error(Analyze_Wilcoxon(list()))
     expect_error(Analyze_Wilcoxon("Hi"))
+    expect_error(Analyze_Wilcoxon(ae_prep, strOutcome = 1))
+    expect_error(Analyze_Wilcoxon(ae_prep %>% mutate(SiteID = ifelse(SiteID == first(SiteID), NA, SiteID))))
     expect_error(Analyze_Wilcoxon(ae_prep, strOutcome = "coffee"))
     expect_error(Analyze_Wilcoxon(ae_prep, strOutcome = c("Rate", "something else")))
 })
@@ -22,5 +24,6 @@ test_that("incorrect inputs throw errors",{
 test_that("error given if required column not found",{
   expect_error(Analyze_Wilcoxon(ae_prep %>% rename(total = TotalCount)))
   expect_error(Analyze_Wilcoxon(ae_prep %>% select(-Rate)))
+  expect_error(Analyze_Wilcoxon(ae_prep %>% select(-SiteID)))
 })
 
