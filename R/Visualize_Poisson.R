@@ -22,7 +22,7 @@ Visualize_Poisson <- function( dfFlagged, dfBounds=NULL, strUnit="days"){
   p <- ggplot(
       dfFlagged,
       aes(
-        x=.data$LogExposure,
+        x=log(.data$TotalExposure),
         y=.data$TotalCount,
         color=as.factor(.data$Flag))
     ) +
@@ -43,7 +43,7 @@ Visualize_Poisson <- function( dfFlagged, dfBounds=NULL, strUnit="days"){
     ylab("Site Total Events") +
     geom_text(
         data = dfFlagged%>%filter(.data$Flag !=0),
-        aes( x = .data$LogExposure, y = .data$TotalCount, label = .data$SiteID),
+        aes( x = log(.data$TotalExposure), y = .data$TotalCount, label = .data$SiteID),
         vjust = 1.5,
         col="red",
         size=3.5
