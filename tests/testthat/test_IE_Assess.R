@@ -22,6 +22,8 @@ test_that("incorrect inputs throw errors",{
     expect_error(IE_Assess(ie_input, strLabel=123))
     expect_error(IE_Assess(ie_input, bDataList="Yes"))
     expect_error(IE_Assess(ie_input, nThreshold=FALSE))
+    expect_error(IE_Assess(ie_input, nThreshold="A"))
+    expect_error(IE_Assess(ie_input, nThreshold=c(1,2)))
 })
 
 
@@ -49,10 +51,36 @@ target_ie_summary <- tibble::tribble(    ~Assessment, ~Label, ~SiteID, ~N, ~Scor
                                "Inclusion/Exclusion",     "", "X194X", 2L,      17L,     1
                                    )
 
+target_ie_summary_NA_SiteID <- tibble::tribble(    ~Assessment, ~Label, ~SiteID, ~N, ~Score, ~Flag,
+                                         "Inclusion/Exclusion",     "", "X194X", 1L,      8L,     1,
+                                         "Inclusion/Exclusion",     "", "X033X", 1L,      9L,     1,
+                                         "Inclusion/Exclusion",     "", "X159X", 1L,      9L,     1,
+                                         "Inclusion/Exclusion",     "",      NA, 1L,      9L,     1
+)
+
 
 test_that("output is correct given example input",{
   expect_equal(ie_summary,target_ie_summary)
 })
+
+
+test_that("NA in dfInput$SubjectID does not affect resulting dfSummary output for IE_Assess",{
+  ie_input_in <- ie_input1; ie_input_in[1:2,"SubjectID"] = NA
+  ie_summary <- IE_Assess(ie_input_in, bDataList=FALSE)
+  expect_equal(ie_summary,target_ie_summary)
+})
+
+test_that("NA in dfInput$SiteID results in NA for SiteID in dfSummary output for IE_Assess",{
+  ie_input_in <- ie_input1; ie_input_in[1,"SiteID"] = NA
+  ie_summary <- IE_Assess(ie_input_in, bDataList=FALSE)
+  expect_equal(ie_summary,target_ie_summary_NA_SiteID)
+})
+
+test_that("NA in dfInput$Count results in Error for IE_Assess",{
+  ie_input_in <- ie_input1; ie_input_in[1,"Count"] = NA
+  expect_error(IE_Assess(ie_input_in))
+})
+
 
 
 
