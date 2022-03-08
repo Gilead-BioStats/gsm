@@ -10,13 +10,6 @@ test_that("output created as expected and has correct structure",{
  })
 
 test_that("incorrect inputs throw errors",{
-    expect_error(IE_Map_Raw(list(), list()))
-    expect_error(IE_Map_Raw("Hi","Mom"))
-})
-
-
-test_that("incorrect inputs throw errors",{
-
   expect_error(IE_Map_Raw(list(), list()))
   expect_error(IE_Map_Raw( clindata::raw_ie_all, list(), strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
   expect_error(IE_Map_Raw(list()))
@@ -183,5 +176,22 @@ dfInput <- tibble::tribble(     ~SubjectID, ~SiteID, ~Count,
 expect_equal(dfInput, IE_Map_Raw(dfIE_test,dfRDSL2,  strCategoryCol = 'IECAT', strResultCol = 'IEORRES'), ignore_attr = TRUE)
 
 })
+
+test_that("NA values are handled correctly", {
+
+  ieNASUBJID <- clindata::raw_ie_all %>%
+    mutate(SUBJID = rep(c(NA, "1234"), nrow(clindata::raw_ie_all)/2))
+
+  ieNAstrCategoryCol <- clindata::raw_ie_all %>%
+    mutate(IECAT_STD = rep(c(NA, "INCLUSION"), nrow(clindata::raw_ie_all)/2))
+
+  ieNAstrResultCol <- clindata::raw_ie_all %>%
+    mutate(IEORRES = rep(c(0, NA), nrow(clindata::raw_ie_all)/2))
+
+  expect_error(IE_Map_Raw(ieNASUBJID , clindata::rawplus_rdsl,strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
+  expect_error(IE_Map_Raw(ieNAstrCategoryCol , clindata::rawplus_rdsl,strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
+  expect_error(IE_Map_Raw(ieNAstrResultCol , clindata::rawplus_rdsl,strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
+})
+
 
 
