@@ -1,5 +1,4 @@
 #' Inclusion/Exclusion Assessment
-
 #'
 #' @details
 #'

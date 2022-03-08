@@ -46,8 +46,8 @@ The following columns are required:
 \examples{
 
 input <- Consent_Map_Raw(
- dfConsent = clindata::raw_consent, 
- dfRDSL = clindata::rawplus_rdsl, 
+ dfConsent = clindata::raw_consent,
+ dfRDSL = clindata::rawplus_rdsl,
  strConsentReason = NULL
 )
 
