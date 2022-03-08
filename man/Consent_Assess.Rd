@@ -42,7 +42,7 @@ The Assessment
 }
 }
 
-\section{Assessment methodology}{
+\section{Statistical Assumptions}{
 
 
 This Assessment finds any sites where one or more subjects meets any of the following citeria: No Consent, Missing Consent, Missing Randomization Date, or

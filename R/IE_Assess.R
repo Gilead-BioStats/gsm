@@ -16,10 +16,16 @@
 #' - \code{\link{Transform_EventCount}} creates `dfTransformed`.
 #' - \code{\link{Flag}} creates `dfFlagged`.
 #' - \code{\link{Summarize}} creates `dfSummary`.
+#' 
+#' @section Statistical Assumptions:
+#' 
+#' This Assessment finds any sites where one or more subjects which have Inclusion / Exclusion data that is either missing or has inconsistent data recorded for
+#' inclusion / exclusion data. N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
+#' With N greater than user specified `nThreshold` will be flagged.
 #'
 #'
 #' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count,
-#' @param nThreshold integer threshold values Flagging, integer values greater than will be flagged.
+#' @param nThreshold Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.
 #' @param strLabel Assessment label
 #' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the summary/finding data frame is returned
 #'
@@ -51,7 +57,9 @@ IE_Assess <- function( dfInput, nThreshold=0.5,  strLabel="", bDataList=FALSE){
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "strLabel is not character" = is.character(strLabel),
     "bDataList is not logical" = is.logical(bDataList),
-    "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count") %in% names(dfInput))
+    "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count") %in% names(dfInput)),
+    "nThreshold must be numeric" = is.numeric(nThreshold),
+    "nThreshold must be length 1" = length(nThreshold) ==1
   )
 
 
