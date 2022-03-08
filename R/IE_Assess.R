@@ -17,8 +17,8 @@
 #' - \code{\link{Flag}} creates `dfFlagged`.
 #' - \code{\link{Summarize}} creates `dfSummary`.
 #' 
-#' @section Assessment methodology:
-#'  INCORRECT, CUT AND PASTE - NEED To UPDATE
+#' @section Statistical Assumptions:
+#' 
 #' This Assessment finds any sites where one or more subjects which have Inclusion / Exclusion data that is either missing or has inconsistent data recorded for
 #' inclusion / exclusion data. N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
 #' With N greater than user specified `nThreshold` will be flagged.

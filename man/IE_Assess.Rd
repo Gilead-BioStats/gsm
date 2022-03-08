@@ -42,9 +42,9 @@ The Assessment
 }
 }
 
-\section{Assessment methodology}{
+\section{Statistical Assumptions}{
 
-INCORRECT, CUT AND PASTE - NEED To UPDATE
+
 This Assessment finds any sites where one or more subjects which have Inclusion / Exclusion data that is either missing or has inconsistent data recorded for
 inclusion / exclusion data. N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
 With N greater than user specified \code{nThreshold} will be flagged.
