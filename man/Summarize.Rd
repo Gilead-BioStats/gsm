@@ -22,12 +22,10 @@ Simplified finding data frame with columns: Assessment, Label, SiteID, N, Pvalue
 Create a concise summary of assessment results that is easy to aggregate across assessments
 }
 \details{
-
+\code{Summarize} supports the input data (\code{dfFlagged}) from the \code{Flag} function.
 }
 \section{Data Specification}{
 
-
-\code{Summarize} supports the input data (\code{dfFlagged}) from the \code{Flag} function.
 
 (\code{dfFlagged}) has the following required columns:
 \itemize{

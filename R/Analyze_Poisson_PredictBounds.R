@@ -31,7 +31,6 @@
 #' dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5,5))
 #'
 #' @export
-
 Analyze_Poisson_PredictBounds <- function( dfTransformed, vThreshold=c(-5,5)){
   dfTransformed$LogExposure <- log(dfTransformed$TotalExposure)
   cModel <- glm(

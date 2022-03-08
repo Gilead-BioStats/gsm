@@ -1,22 +1,24 @@
-#' Site-level visualization of site-level Poisson Model results
+#' Site-level visualization of site-level results using a Poisson or Wilcoxon model.
 #'
 #' @param dfFlagged analyze_poisson results with flags added.
-#' @param dfBounds data.frame giving prediction bounds for range of dfFlagged
+#' @param dfBounds data.frame giving prediction bounds for range of dfFlagged.
 #' @param strUnit exposure time unit. Defaults to "days".
 #'
 #' @return site level plot object
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-#' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
-#' dfAnalyzed <- Analyze_Poisson( dfTransformed)
-#' dfFlagged <- Flag( dfAnalyzed , strColumn = 'Residuals', vThreshold =c(-5,5))
+#'dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+#'SafetyAE <- AE_Assess( dfInput , bDataList=TRUE)
+#'dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$dfTransformed, c(-5,5))
+#'Visualize_Scatter(SafetyAE$dfFlagged, dfBounds)
 #'
-
+#'SafetyAE_wilk <- AE_Assess( dfInput, bDataList = TRUE, strMethod="wilcoxon")
+#'Visualize_Scatter(SafetyAE_wilk$dfFlagged)
+#'
 #' @import ggplot2
 #'
 #' @export
-Visualize_Poisson <- function( dfFlagged, dfBounds=NULL, strUnit="days"){
+Visualize_Scatter <- function( dfFlagged, dfBounds=NULL, strUnit="days"){
 
   ### Plot of data
   p <- ggplot(
