@@ -27,10 +27,10 @@ IE_Map_Raw(
 \item{vExpectedResultValues}{Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion".}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count
+Data frame with one record per participant giving the number of inclusion/exclusion criteria the participant did not meet as expected. Expected columns: SubjectID, SiteID, Count
 }
 \description{
-Convert from raw data format to needed input format for Inclusion/Exclusion Assessment
+Convert from raw data format to needed input format for Inclusion/Exclusion Assessment.
 }
 \details{
 This function creates the required input for \code{\link{IE_Assess}}.

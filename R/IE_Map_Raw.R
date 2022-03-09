@@ -1,10 +1,10 @@
 #' Inclusion/Exclusion Assessment Mapping from Raw Data- Make Input Data
 #'
-#' Convert from raw data format to needed input format for Inclusion/Exclusion Assessment
+#' Convert from raw data format to needed input format for Inclusion/Exclusion Assessment. 
 #'
 #' @details
 #'
-#' This function creates the required input for \code{\link{IE_Assess}}.
+#' This function creates the required input for \code{\link{IE_Assess}}. 
 #'
 #' @section Data Specification:
 #'
@@ -25,7 +25,7 @@
 #' @param strResultCol Name of criteria Result column. Default = "IEORRES_STD".
 #' @param vExpectedResultValues Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion".
 #'
-#' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count
+#' @return Data frame with one record per participant giving the number of inclusion/exclusion criteria the participant did not meet as expected. Expected columns: SubjectID, SiteID, Count
 #'
 #' @examples
 #'

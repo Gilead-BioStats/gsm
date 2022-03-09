@@ -2,7 +2,7 @@
 % Please edit documentation in R/Consent_Map_Raw.R
 \name{Consent_Map_Raw}
 \alias{Consent_Map_Raw}
-\title{Consent Assessment Mapping from Raw Data- Make Input Data}
+\title{Consent Assessment Mapping from Raw Data}
 \usage{
 Consent_Map_Raw(dfConsent, dfRDSL, strConsentReason = "mainconsent")
 }
