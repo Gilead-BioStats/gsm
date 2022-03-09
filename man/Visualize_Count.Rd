@@ -8,13 +8,14 @@ Visualize_Count(
   dfAnalyzed,
   strTotalCol = "N",
   strCountCol = "TotalCount",
-  strFlagCol = "Flag"
+  strFlagCol = "Flag",
+  strTitle = ""
 )
 }
 \arguments{
-\item{dfInput}{Map results from IE or Consent assessments.}
-
 \item{strTitle}{Title of plot. NULL by default.}
+
+\item{dfInput}{Map results from IE or Consent assessments.}
 }
 \value{
 site level plot object
@@ -27,10 +28,12 @@ ie_input <- IE_Map_Raw(
    clindata::raw_ie_all , 
    clindata::rawplus_rdsl,
    strCategoryCol = 'IECAT_STD', 
+   vCategoryResults=c("EXCL","INCL"),
    strResultCol = 'IEORRES'
 )
+
 ie_assess <- IE_Assess(ie_input, bDataList=TRUE)
-VisualizeCount(ie_assess$dfAnalyzed)
+Visualize_Count(ie_assess$dfAnalyzed)
 
 consent_input <- Consent_Map_Raw(
   dfConsent = clindata::raw_consent,
@@ -39,6 +42,6 @@ consent_input <- Consent_Map_Raw(
 )
 
 consent_assess<-Consent_Assess(dfInput, bDataList=TRUE)
-VisualizeCount(consent_assess$dfAnalyzed)
+Visualize_Count(consent_assess$dfAnalyzed)
 
 }

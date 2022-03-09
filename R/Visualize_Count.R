@@ -10,8 +10,10 @@
 #'    clindata::raw_ie_all , 
 #'    clindata::rawplus_rdsl,
 #'    strCategoryCol = 'IECAT_STD', 
+#'    vCategoryResults=c("EXCL","INCL"),
 #'    strResultCol = 'IEORRES'
 #' )
+#' 
 #' ie_assess <- IE_Assess(ie_input, bDataList=TRUE)
 #' Visualize_Count(ie_assess$dfAnalyzed)
 #' 
