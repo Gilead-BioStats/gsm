@@ -85,7 +85,7 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, strConsentReason = "mainconsent"
     mutate(flag_date_compare = .data$CONSDAT >= .data$RandDate ) %>%
     mutate(any_flag=.data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare) %>%
     mutate(Count = as.numeric(.data$any_flag, na.rm = TRUE)) #%>%
-    #select(.data$SubjectID, .data$SiteID, .data$Count)
+    select(.data$SubjectID, .data$SiteID, .data$Count)
 
   return(dfInput)
 }
