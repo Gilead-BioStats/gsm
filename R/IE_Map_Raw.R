@@ -93,7 +93,7 @@ IE_Map_Raw <- function(
   dfInput <- dfRDSL %>%
     select(.data$SubjectID, .data$SiteID)%>%
     inner_join(dfIE_Subj, by="SubjectID") %>%
-    select(.data$SubjectID, .data$SiteID, .data$Total, .data$Valid, .data$Invalid, .data$Missing, .data$Count)
+    select(.data$SubjectID, .data$SiteID, .data$Count)
 
   #Throw warning if a an ID in IE isn't found in RDSL
 
