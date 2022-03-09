@@ -6,22 +6,22 @@ ae_input <- AE_Map_Adam(
 
 test_that("summary df created as expected and has correct structure",{
     ae_assessment <- AE_Assess(ae_input)
-    expect_true(is.data.frame(ae_assessment))
-    expect_equal(names(ae_assessment),c("Assessment","Label", "SiteID", "N", "Score", "Flag"))
+    expect_true(is.list(ae_assessment))
+    expect_equal(names(ae_assessment),c("functionName", "params", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+    expect_true("data.frame" %in% class(ae_assessment$dfInput))
+    expect_true("data.frame" %in% class(ae_assessment$dfTransformed))
+    expect_true("data.frame" %in% class(ae_assessment$dfAnalyzed))
+    expect_true("data.frame" %in% class(ae_assessment$dfFlagged))
+    expect_true("data.frame" %in% class(ae_assessment$dfSummary))
+    expect_type(ae_assessment$functionName, "character")
 })
 
-test_that("list of df created when bDataList=TRUE",{
-    ae_list <- AE_Assess(ae_input, bDataList=TRUE)
-    expect_true(is.list(ae_list))
-    expect_equal(names(ae_list),c('dfInput','dfTransformed','dfAnalyzed','dfFlagged','dfSummary'))
-})
 
 test_that("incorrect inputs throw errors",{
     expect_error(AE_Assess(list()))
     expect_error(AE_Assess("Hi"))
     expect_error(AE_Assess(ae_input, strLabel=123))
     expect_error(AE_Assess(ae_input, strMethod="abacus"))
-    expect_error(AE_Assess(ae_input, bDataList="Yes"))
     expect_error(AE_Assess(ae_input %>% select(-SubjectID)))
     expect_error(AE_Assess(ae_input %>% select(-SiteID)))
     expect_error(AE_Assess(ae_input %>% select(-Count)))
@@ -31,9 +31,9 @@ test_that("incorrect inputs throw errors",{
 })
 
 
-test_that("Summary created when bDataList = FALSE has correct structure",{
-  ae_summary <- AE_Assess(ae_input, bDataList=FALSE)
-  expect_equal(length(unique(ae_summary$SiteID)) , length(ae_summary$SiteID))
-  expect_equal(names(ae_summary),c("Assessment", "Label", "SiteID", "N", "Score", "Flag"))
+test_that("correct function and params are returned", {
+  ae_assessment <- AE_Assess(ae_input, strMethod = "wilcoxon")
+  expect_equal("AE_Assess()", ae_assessment$functionName)
+  expect_equal("AE_Assess(ae_input, strMethod = \"wilcoxon\")", ae_assessment$params)
 })
 
