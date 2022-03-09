@@ -4,7 +4,12 @@
 \alias{Visualize_Count}
 \title{Site-level visualization of site-level Inclusion/Exclusion results}
 \usage{
-Visualize_Count(dfInput, strTitle = NULL)
+Visualize_Count(
+  dfAnalyzed,
+  strTotalCol = "N",
+  strCountCol = "TotalCount",
+  strFlagCol = "Flag"
+)
 }
 \arguments{
 \item{dfInput}{Map results from IE or Consent assessments.}
@@ -18,9 +23,22 @@ site level plot object
 Site-level visualization of site-level Inclusion/Exclusion results
 }
 \examples{
-dfInput <- IE_Map_Raw(clindata::raw_ie_all,
-                      clindata::rawplus_rdsl,
-                      strCategoryCol = "IECAT_STD",
-                      strResultCol = "IEORRES")
+ie_input <- IE_Map_Raw(
+   clindata::raw_ie_all , 
+   clindata::rawplus_rdsl,
+   strCategoryCol = 'IECAT_STD', 
+   strResultCol = 'IEORRES'
+)
+ie_assess <- IE_Assess(ie_input, bDataList=TRUE)
+VisualizeCount(ie_assess$dfAnalyzed)
+
+consent_input <- Consent_Map_Raw(
+  dfConsent = clindata::raw_consent,
+  dfRDSL = clindata::rawplus_rdsl,
+  strConsentReason = NULL
+)
+
+consent_assess<-Consent_Assess(dfInput, bDataList=TRUE)
+VisualizeCount(consent_assess$dfAnalyzed)
 
 }
