@@ -9,7 +9,7 @@ IE_Assess(dfInput, nThreshold = 0.5, strLabel = "", bDataList = FALSE)
 \arguments{
 \item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count,}
 
-\item{nThreshold}{integer threshold values Flagging, integer values greater than will be flagged.}
+\item{nThreshold}{Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.}
 
 \item{strLabel}{Assessment label}
 
@@ -40,6 +40,14 @@ The Assessment
 \item \code{\link{Flag}} creates \code{dfFlagged}.
 \item \code{\link{Summarize}} creates \code{dfSummary}.
 }
+}
+
+\section{Statistical Assumptions}{
+
+
+This Assessment finds any sites where one or more subjects which have Inclusion / Exclusion data that is either missing or has inconsistent data recorded for
+inclusion / exclusion data. N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
+With N greater than user specified \code{nThreshold} will be flagged.
 }
 
 \examples{

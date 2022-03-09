@@ -3,10 +3,10 @@
 #' Create a concise summary of assessment results that is easy to aggregate across assessments
 #'
 #' @details
-#'
-#' @section Data Specification:
-#'
+#' 
 #' \code{Summarize} supports the input data (`dfFlagged`) from the \code{Flag} function.
+#' 
+#' @section Data Specification:
 #'
 #' (`dfFlagged`) has the following required columns:
 #' - `SiteID` - Site ID
