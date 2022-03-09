@@ -8,14 +8,17 @@ Visualize_Count(
   dfAnalyzed,
   strTotalCol = "N",
   strCountCol = "TotalCount",
-  strFlagCol = "Flag",
   strTitle = ""
 )
 }
 \arguments{
-\item{strTitle}{Title of plot. NULL by default.}
+\item{dfAnalyzed}{Map results from IE or Consent assessments.}
 
-\item{dfInput}{Map results from IE or Consent assessments.}
+\item{strTotalCol}{Column containing total of site-level participants. Default is "N" from \code{\link{Transform_EventCount}}.}
+
+\item{strCountCol}{Column containing total number of site-level occurances. Default is "TotalCount" from \code{\link{Transform_EventCount}}.}
+
+\item{strTitle}{Title of plot. NULL by default.}
 }
 \value{
 site level plot object
@@ -25,11 +28,12 @@ Site-level visualization of site-level Inclusion/Exclusion results
 }
 \examples{
 ie_input <- IE_Map_Raw(
-   clindata::raw_ie_all , 
+   clindata::raw_ie_all ,
    clindata::rawplus_rdsl,
-   strCategoryCol = 'IECAT_STD', 
-   vCategoryResults=c("EXCL","INCL"),
-   strResultCol = 'IEORRES'
+   strCategoryCol = 'IECAT_STD',
+   vCategoryValues= c("EXCL","INCL"),
+   strResultCol = 'IEORRES',
+   vExpectedResultValues=c(0,1)
 )
 
 ie_assess <- IE_Assess(ie_input, bDataList=TRUE)
@@ -41,7 +45,7 @@ consent_input <- Consent_Map_Raw(
   strConsentReason = NULL
 )
 
-consent_assess<-Consent_Assess(dfInput, bDataList=TRUE)
+consent_assess <- Consent_Assess(consent_input, bDataList=TRUE)
 Visualize_Count(consent_assess$dfAnalyzed)
 
 }

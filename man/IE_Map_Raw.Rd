@@ -20,11 +20,11 @@ IE_Map_Raw(
 
 \item{strCategoryCol}{Name ofcCriteria category column. default = 'IECAT'}
 
-\item{vCategoryValues}{Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion").}
+\item{vCategoryValues}{Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion"). Category values must be in the same order as \code{vExpectedResultValues}.}
 
 \item{strResultCol}{Name of criteria Result column. Default = "IEORRES_STD".}
 
-\item{vExpectedResultValues}{Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion".}
+\item{vExpectedResultValues}{Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion". Values must be in the same order as \code{vCategoryValues}.}
 }
 \value{
 Data frame with one record per participant giving the number of inclusion/exclusion criteria the participant did not meet as expected. Expected columns: SubjectID, SiteID, Count
@@ -57,9 +57,9 @@ The following columns are required:
 \examples{
 
 dfInput <- IE_Map_Raw(
-   clindata::raw_ie_all , 
+   clindata::raw_ie_all ,
    clindata::rawplus_rdsl,
-   strCategoryCol = 'IECAT_STD', 
+   strCategoryCol = 'IECAT_STD',
    vCategoryValues= c("EXCL","INCL"),
    strResultCol = 'IEORRES',
    vExpectedResultValues=c(0,1)

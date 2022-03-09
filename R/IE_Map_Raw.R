@@ -1,10 +1,10 @@
 #' Inclusion/Exclusion Assessment Mapping from Raw Data- Make Input Data
 #'
-#' Convert from raw data format to needed input format for Inclusion/Exclusion Assessment. 
+#' Convert from raw data format to needed input format for Inclusion/Exclusion Assessment.
 #'
 #' @details
 #'
-#' This function creates the required input for \code{\link{IE_Assess}}. 
+#' This function creates the required input for \code{\link{IE_Assess}}.
 #'
 #' @section Data Specification:
 #'
@@ -21,18 +21,18 @@
 #' @param dfIE ie dataset with columns SUBJID and values specified in strCategoryCol and strResultCol.
 #' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID SiteID
 #' @param strCategoryCol Name ofcCriteria category column. default = 'IECAT'
-#' @param vCategoryValues Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion").
+#' @param vCategoryValues Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion"). Category values must be in the same order as `vExpectedResultValues`.
 #' @param strResultCol Name of criteria Result column. Default = "IEORRES_STD".
-#' @param vExpectedResultValues Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion".
+#' @param vExpectedResultValues Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion". Values must be in the same order as `vCategoryValues`.
 #'
 #' @return Data frame with one record per participant giving the number of inclusion/exclusion criteria the participant did not meet as expected. Expected columns: SubjectID, SiteID, Count
 #'
 #' @examples
 #'
 #' dfInput <- IE_Map_Raw(
-#'    clindata::raw_ie_all , 
+#'    clindata::raw_ie_all ,
 #'    clindata::rawplus_rdsl,
-#'    strCategoryCol = 'IECAT_STD', 
+#'    strCategoryCol = 'IECAT_STD',
 #'    vCategoryValues= c("EXCL","INCL"),
 #'    strResultCol = 'IEORRES',
 #'    vExpectedResultValues=c(0,1)
@@ -66,9 +66,9 @@ IE_Map_Raw <- function(
 
   # filter records where SUBJID is missing and create basic flags
   dfIE_long <- dfIE %>%
-    filter(.data$SUBJID !="")%>%
+    filter(.data$SUBJID !="") %>%
     select(.data$SUBJID, .data[[strCategoryCol]],  .data[[strResultCol]]) %>%
-    mutate(expected=ifelse(.data[[strCategoryCol]] ==vCategoryValues[1],vExpectedResultValues[1],vExpectedResultValues[2])) %>%
+    mutate(expected=ifelse(.data[[strCategoryCol]] == vCategoryValues[1], vExpectedResultValues[1],vExpectedResultValues[2])) %>%
     mutate(valid=.data[[strResultCol]]==.data$expected)%>%
     mutate(invalid=.data[[strResultCol]]!=.data$expected)%>%
     mutate(missing=!(.data[[strResultCol]] %in% vExpectedResultValues))

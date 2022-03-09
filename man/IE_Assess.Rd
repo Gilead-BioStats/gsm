@@ -45,15 +45,15 @@ The Assessment
 \examples{
 
 dfInput <- IE_Map_Raw(
-   clindata::raw_ie_all , 
+   clindata::raw_ie_all ,
    clindata::rawplus_rdsl,
-   strCategoryCol = 'IECAT_STD', 
+   strCategoryCol = 'IECAT_STD',
    vCategoryValues= c("EXCL","INCL"),
    strResultCol = 'IEORRES',
    vExpectedResultValues=c(0,1)
 )
 
- ie_summary <- IE_Assess(ie_input)
+ie_summary <- IE_Assess(dfInput)
 
 
 }
