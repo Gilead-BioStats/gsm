@@ -21,6 +21,7 @@
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
 #' @param  strOutcome required, name of column in dfTransformed dataset to perform Fisher test on. Default is "TotalCount".
 #'
+#' @import dplyr
 #' @importFrom stats fisher.test
 #' @importFrom purrr map
 #' @importFrom broom glance
@@ -32,8 +33,6 @@
 #' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD",strReason = "Adverse Event")
 #' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count' )
 #' dfAnalyzed <- Analyze_Fisher( dfTransformed )
-#'
-#' @import dplyr
 #'
 #' @export
 
