@@ -21,16 +21,17 @@ dfRDSL_test <- tibble::tribble(~SubjectID, ~SiteID, ~RandDate,
 
 
 dfInput_test <-  tibble::tribble(
-  ~SubjectID, ~SiteID, ~Count,
-  1,       1,   1,
-  1,       1,   1,
-  1,       1,   1,
-  1,       1,   1,
-  2,       2,   1,
-  2,       2,   0,
-  2,       2,   0,
-  3,       2,   1,
-  5,       3,   1)
+  ~SubjectID, ~SiteID,    ~RandDate,  ~CONSCAT_STD, ~CONSYN,     ~CONSDAT, ~flag_noconsent, ~flag_missing_consent, ~flag_missing_rand, ~flag_date_compare, ~any_flag, ~Count,
+  1,       1, "2013-12-25", "MAINCONSENT",   "Yes", "2014-12-25",           FALSE,                 FALSE,              FALSE,               TRUE,      TRUE,      1,
+  1,       1, "2013-12-25", "MAINCONSENT",    "No", "2014-12-25",            TRUE,                 FALSE,              FALSE,               TRUE,      TRUE,      1,
+  1,       1, "2013-12-25", "MAINCONSENT",   "Yes", "2014-12-25",           FALSE,                 FALSE,              FALSE,               TRUE,      TRUE,      1,
+  1,       1, "2013-12-25", "MAINCONSENT",   "Yes", "2014-12-25",           FALSE,                 FALSE,              FALSE,               TRUE,      TRUE,      1,
+  2,       2, "2015-12-25", "MAINCONSENT",    "No", "2014-12-25",            TRUE,                 FALSE,              FALSE,              FALSE,      TRUE,      1,
+  2,       2, "2015-12-25", "MAINCONSENT",   "Yes", "2014-12-25",           FALSE,                 FALSE,              FALSE,              FALSE,     FALSE,      0,
+  2,       2, "2015-12-25", "MAINCONSENT",   "Yes", "2014-12-25",           FALSE,                 FALSE,              FALSE,              FALSE,     FALSE,      0,
+  3,       2, "2013-12-25", "MAINCONSENT",    "No", "2014-12-25",            TRUE,                 FALSE,              FALSE,               TRUE,      TRUE,      1,
+  5,       3, "2013-12-25", "MAINCONSENT",   "Yes", "2014-12-25",           FALSE,                 FALSE,              FALSE,               TRUE,      TRUE,      1
+)
 
 
 test_that("output created as expected and has correct structure",{
@@ -38,7 +39,9 @@ test_that("output created as expected and has correct structure",{
    expect_true(is.data.frame(consent_input))
    expect_equal(
    names(consent_input),
-   c("SubjectID","SiteID","Count"))
+   c("SubjectID", "SiteID", "RandDate", "CONSCAT_STD", "CONSYN",
+     "CONSDAT", "flag_noconsent", "flag_missing_consent", "flag_missing_rand",
+     "flag_date_compare", "any_flag", "Count"))
  })
 
 test_that("incorrect inputs throw errors",{
@@ -187,28 +190,40 @@ dfRDSL_test2 <- tibble::tribble(~SubjectID, ~SiteID, ~RandDate,
 
 
 dfInput_test2 <-  tibble::tribble(
-  ~SubjectID, ~SiteID, ~Count,
-  1,       1,   1,
-  1,       1,   1)
-
+  ~SubjectID, ~SiteID,    ~RandDate,  ~CONSCAT_STD, ~CONSYN,     ~CONSDAT, ~flag_noconsent, ~flag_missing_consent, ~flag_missing_rand, ~flag_date_compare, ~any_flag, ~Count,
+  1,       1, "2013-12-25", "MAINCONSENT",   "Yes", "2014-12-25",           FALSE,                 FALSE,              FALSE,               TRUE,      TRUE,      1,
+  1,       1, "2013-12-25", "MAINCONSENT",    "No", "2014-12-25",            TRUE,                 FALSE,              FALSE,               TRUE,      TRUE,      1
+)
 
 test_that("NA's in data are removed and handled correctly",{
  dfConsent_test_in <-  dfConsent_test2; dfConsent_test_in[1,2] = NA
-  expect_equal( tibble::tribble(
-    ~SubjectID, ~SiteID, ~Count,
-    1,       1,   1),  Consent_Map_Raw(dfConsent = dfConsent_test_in, dfRDSL = dfRDSL_test2))
+  expect_equal(
+    tibble::tribble(
+    ~SubjectID, ~SiteID,    ~RandDate,  ~CONSCAT_STD, ~CONSYN,     ~CONSDAT, ~flag_noconsent, ~flag_missing_consent, ~flag_missing_rand, ~flag_date_compare, ~any_flag, ~Count,
+    1,       1, "2013-12-25", "MAINCONSENT",    "No", "2014-12-25",            TRUE,                 FALSE,              FALSE,               TRUE,      TRUE,      1
+  ),
+  Consent_Map_Raw(dfConsent = dfConsent_test_in, dfRDSL = dfRDSL_test2)
+  )
 
   dfConsent_test_in <-  dfConsent_test2; dfConsent_test_in[1,3] = NA
-  expect_equal( tibble::tribble(
-    ~SubjectID, ~SiteID, ~Count,
-    1,       1,   1,
-    1,       1,   1),  Consent_Map_Raw(dfConsent = dfConsent_test_in, dfRDSL = dfRDSL_test2))
+  expect_equal(
+    tibble::tribble(
+    ~SubjectID, ~SiteID,    ~RandDate,  ~CONSCAT_STD, ~CONSYN,     ~CONSDAT, ~flag_noconsent, ~flag_missing_consent, ~flag_missing_rand, ~flag_date_compare, ~any_flag, ~Count,
+    1,       1, "2013-12-25", "MAINCONSENT",      NA, "2014-12-25",              NA,                 FALSE,              FALSE,               TRUE,      TRUE,      1,
+    1,       1, "2013-12-25", "MAINCONSENT",    "No", "2014-12-25",            TRUE,                 FALSE,              FALSE,               TRUE,      TRUE,      1
+  ),
+  Consent_Map_Raw(dfConsent = dfConsent_test_in, dfRDSL = dfRDSL_test2)
+  )
 
   dfRDSL_in <-  dfRDSL_test2; dfRDSL_in[2,2] = NA
-  expect_equal( tibble::tribble(
-    ~SubjectID, ~SiteID, ~Count,
-    1,       1,   1,
-    1,       1,   1),  suppressWarnings(Consent_Map_Raw(dfConsent = dfConsent_test2, dfRDSL = dfRDSL_in)))
+  expect_equal(
+    tibble::tribble(
+      ~SubjectID, ~SiteID,    ~RandDate,  ~CONSCAT_STD, ~CONSYN,     ~CONSDAT, ~flag_noconsent, ~flag_missing_consent, ~flag_missing_rand, ~flag_date_compare, ~any_flag, ~Count,
+      1,       1, "2013-12-25", "MAINCONSENT",   "Yes", "2014-12-25",           FALSE,                 FALSE,              FALSE,               TRUE,      TRUE,      1,
+      1,       1, "2013-12-25", "MAINCONSENT",    "No", "2014-12-25",            TRUE,                 FALSE,              FALSE,               TRUE,      TRUE,      1
+    ),
+    suppressWarnings(Consent_Map_Raw(dfConsent = dfConsent_test2, dfRDSL = dfRDSL_in))
+    )
 
 
 

@@ -6,7 +6,8 @@ test_that("output created as expected and has correct structure",{
 
    expect_equal(
    names(ie_input),
-   c("SubjectID","SiteID","Count"))
+   c("SubjectID", "SiteID", "Total", "Valid", "Invalid", "Missing", "Count")
+   )
  })
 
 test_that("incorrect inputs throw errors",{
@@ -142,11 +143,11 @@ dfRDSL <-  tibble::tribble(    ~SubjectID, ~SiteID,
 
 
 dfInput <- tibble::tribble(
-  ~SubjectID, ~SiteID, ~Count,
-  "0496", "X055X",    15L,
-  "0539", "X128X",    15L,
-  "1314", "X169X",    14L,
-  "1218", "X126X",    14L
+  ~SubjectID, ~SiteID, ~Total, ~Valid, ~Invalid, ~Missing, ~Count,
+  "0496", "X055X",    24L,     9L,      15L,       0L,    15L,
+  "0539", "X128X",    24L,     9L,      15L,       0L,    15L,
+  "1314", "X169X",    23L,     9L,      14L,       0L,    14L,
+  "1218", "X126X",    23L,     9L,      14L,       0L,    14L
 )
 
 expect_equal(suppressWarnings(IE_Map_Raw(dfIE = dfIE, dfRDSL=dfRDSL,  strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES')), dfInput )
@@ -168,10 +169,12 @@ dfIE_test <- tibble::tribble( ~SUBJID, ~INVID,      ~IECAT,   ~IETEST,    ~ IETE
 
 dfRDSL2 <-  data.frame(SubjectID=c(1,2,4), SiteID=c(1,1,3))
 
-dfInput <- tibble::tribble(     ~SubjectID, ~SiteID, ~Count,
-                                1,       1,     2L,
-                                2,       1,     2L,
-                                4,       3,     1L  )
+dfInput <- tibble::tribble(
+  ~SubjectID, ~SiteID, ~Total, ~Valid, ~Invalid, ~Missing, ~Count,
+  1,       1,     3L,     1L,       2L,       0L,     2L,
+  2,       1,     3L,     1L,       2L,       0L,     2L,
+  4,       3,     3L,     2L,       1L,       0L,     1L
+)
 
 expect_equal(dfInput, IE_Map_Raw(dfIE_test,dfRDSL2,  strCategoryCol = 'IECAT', strResultCol = 'IEORRES'), ignore_attr = TRUE)
 
