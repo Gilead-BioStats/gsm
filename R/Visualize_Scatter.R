@@ -8,11 +8,11 @@
 #'
 #' @examples
 #'dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-#'SafetyAE <- AE_Assess( dfInput , bDataList=TRUE)
+#'SafetyAE <- AE_Assess( dfInput)
 #'dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$dfTransformed, c(-5,5))
 #'Visualize_Scatter(SafetyAE$dfFlagged, dfBounds)
 #'
-#'SafetyAE_wilk <- AE_Assess( dfInput, bDataList = TRUE, strMethod="wilcoxon")
+#'SafetyAE_wilk <- AE_Assess( dfInput, strMethod="wilcoxon")
 #'Visualize_Scatter(SafetyAE_wilk$dfFlagged)
 #'
 #' @import ggplot2
