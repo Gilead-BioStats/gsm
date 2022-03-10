@@ -5,15 +5,17 @@ ae_input <- AE_Map_Adam(
 )
 
 test_that("summary df created as expected and has correct structure",{
-    ae_assessment <- AE_Assess(ae_input)
+    ae_assessment <- AE_Assess(ae_input, strLabel = "test label!", vThreshold = c(-5.1, 5.1))
     expect_true(is.list(ae_assessment))
-    expect_equal(names(ae_assessment),c("functionName", "params", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+    expect_equal(names(ae_assessment),c("strFunctionName", "lParams", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
     expect_true("data.frame" %in% class(ae_assessment$dfInput))
     expect_true("data.frame" %in% class(ae_assessment$dfTransformed))
     expect_true("data.frame" %in% class(ae_assessment$dfAnalyzed))
     expect_true("data.frame" %in% class(ae_assessment$dfFlagged))
     expect_true("data.frame" %in% class(ae_assessment$dfSummary))
-    expect_type(ae_assessment$functionName, "character")
+    expect_type(ae_assessment$strFunctionName, "character")
+    expect_type(ae_assessment$lParams, "list")
+
 })
 
 
@@ -32,8 +34,11 @@ test_that("incorrect inputs throw errors",{
 
 
 test_that("correct function and params are returned", {
-  ae_assessment <- AE_Assess(ae_input, strMethod = "wilcoxon")
-  expect_equal("AE_Assess()", ae_assessment$functionName)
-  expect_equal("AE_Assess(ae_input, strMethod = \"wilcoxon\")", ae_assessment$params)
+  ae_assessment <- AE_Assess(ae_input, strLabel = "test label!", vThreshold = c(-5.1, 5.1))
+  expect_equal("AE_Assess()", ae_assessment$strFunctionName)
+  expect_equal(ae_assessment$lParams$dfInput, "ae_input")
+  expect_equal(ae_assessment$lParams$vThreshold[2], "-5.1")
+  expect_equal(ae_assessment$lParams$vThreshold[3], "5.1")
+  expect_equal(ae_assessment$lParams$strLabel, "test label!")
 })
 
