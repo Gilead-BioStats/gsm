@@ -10,7 +10,6 @@ Encoding: UTF-8
 Imports:
     broom,
     dplyr,
-    lubridate,
     ggplot2,
     lamW,
     magrittr,
