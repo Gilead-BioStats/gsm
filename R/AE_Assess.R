@@ -37,7 +37,7 @@
 #' SafetyAE <- AE_Assess( dfInput )
 #' SafetyAE_Wilk <- AE_Assess( dfInput, strMethod="wilcoxon")
 #'
-#' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `functionName`, and `params`) is returned.
+#' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, and `lParams`) is returned.
 #'
 #' @export
 
@@ -51,8 +51,8 @@ AE_Assess <- function(dfInput, vThreshold=NULL, strLabel="", strMethod="poisson"
     )
 
     lAssess <- list()
-    lAssess$functionName <- deparse(sys.call()[1])
-    lAssess$params <- deparse(sys.call())
+    lAssess$strFunctionName <- deparse(sys.call()[1])
+    lAssess$lParams <- as.list(match.call()[-1])
     lAssess$dfInput <- dfInput
     lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
     if(strMethod == "poisson"){

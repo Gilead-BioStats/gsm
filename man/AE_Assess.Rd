@@ -16,7 +16,7 @@ AE_Assess(dfInput, vThreshold = NULL, strLabel = "", strMethod = "poisson")
 \item{strMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
 }
 \value{
-A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{functionName}, and \code{params}) is returned.
+A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, and \code{lParams}) is returned.
 }
 \description{
 The Adverse Event Assessment flags sites that may be over- or under-reporting adverse events.
