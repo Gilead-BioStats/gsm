@@ -22,7 +22,9 @@
 #'
 #' @param dfAE AE dataset with required column SUBJID and rows for each AE record
 #' @param dfRDSL Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol
-#' @param strExposureCol Name of exposure column. 'TimeOnTreatment' by default
+#' @param strIDCol Name of ID column. 'SubjectID' by default. 
+#' @param strSiteCol Name of Site Column. 'SiteID' by default.
+#' @param strExposureCol Name of exposure column. 'TimeOnTreatment' by default.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #'
@@ -33,7 +35,19 @@
 #'
 #' @export
 
-AE_Map_Raw <- function( dfAE, dfRDSL, strExposureCol="TimeOnTreatment"){
+AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL )){
+    if(is.null(mapping)){
+        mapping <- list(
+            dfAE= list(id_col="SubjectID"), 
+            dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
+        )
+    }
+    stopifnot(
+        is_mapping_valid(dfAE,mapping$dfAE),
+        is_mapping_valid(dfRDSL,mapping$RDSL) 
+    )
+
+
     stopifnot(
         "ae dataset not found"=is.data.frame(dfAE),
         "RDSL dataset is not found"=is.data.frame(dfRDSL),
