@@ -9,7 +9,7 @@ Analyze_Chisq(dfTransformed, strOutcome = "TotalCount")
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
 
-\item{strOutcome}{required, name of column in dfTransformed dataset to perform the chi-squared test on}
+\item{strOutcome}{required, name of column in dfTransformed dataset to perform the chi-squared test on. Default is "TotalCount".}
 }
 \value{
 data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue
@@ -18,8 +18,6 @@ data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other,
 Creates Analysis results data for count data using the chi-squared test
 }
 \details{
-@details
-
 Analyzes count data using the chi-squared test
 }
 \section{Statistical Methods}{
@@ -31,11 +29,11 @@ TODO Coming soon ...
 \section{Data Specification}{
 
 
-The input data (\code{ dfTransformed}) for the Analyze_Chisq is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for:
+The input data (\code{dfTransformed}) for Analyze_Chisq is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
 \itemize{
 \item \code{SiteID} - Site ID
 \item \code{N} - Total number of participants at site
-\item \code{Count} - Total number of participants at site with event of interest
+\item \code{TotalCount} - Total number of participants at site with event of interest
 }
 }
 
