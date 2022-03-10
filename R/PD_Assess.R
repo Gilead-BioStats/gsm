@@ -9,11 +9,11 @@
 #' The input data (`dfInput`) for the PD Assessment is typically created using \code{\link{PD_Map_Raw}} and should be one record per person with columns for:
 #' - `SubjectID` - Unique subject ID
 #' - `SiteID` - Site ID
-#' - `Count` - Number of protocol deviation events 
-#' - `Exposure` - Number of days of exposure 
+#' - `Count` - Number of protocol deviation events
+#' - `Exposure` - Number of days of exposure
 #' - `Rate` - Rate of Exposure (Count / Exposure)
-#' 
-#' The Assessment 
+#'
+#' The Assessment
 #' - \code{\link{Transform_EventCount}} creates `dfTransformed`.
 #' - \code{\link{Analyze_Poisson}} or \code{\link{Analyze_Wilcoxon}} creates `dfAnalyzed`.
 #' - \code{\link{Flag}} creates `dfFlagged`.
@@ -29,28 +29,29 @@
 #' @param vThreshold list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon
 #' @param strLabel Assessment label
 #' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon"
-#' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned
 #'
 #' @examples
 #' dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev, dfRDSL = clindata::rawplus_rdsl)
 #' SafetyPD <- PD_Assess( dfInput )
 #' SafetyPD_Wilk <- PD_Assess( dfInput, strMethod="wilcoxon")
 #'
-#' @return If `bDataList` is false (the default), the summary data frame (`dfSummary`) is returned. If `bDataList` is true, a list containing all data in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged` and `dfSummary`) is returned.
+#' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, and `lParams`) is returned.
 #'
 #' @export
-PD_Assess <- function( dfInput, vThreshold=NULL, strLabel="",strMethod="poisson", bDataList=FALSE){
+
+PD_Assess <- function(dfInput, vThreshold=NULL, strLabel="",strMethod="poisson"){
     stopifnot(
         "dfInput is not a data.frame" = is.data.frame(dfInput),
         "strLabel is not character" = is.character(strLabel),
         "Length of strLabel is not greater than 1" = length(strLabel) <=1 ,
         "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson","wilcoxon"),
         "strMethod must be length 1" = length(strMethod) == 1,
-        "bDataList is not logical" = is.logical(bDataList),
         "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count","Exposure", "Rate") %in% names(dfInput))
     )
 
     lAssess <- list()
+    lAssess$strFunctionName <- deparse(sys.call()[1])
+    lAssess$lParams <- lapply(as.list(match.call()[-1]), function(x) as.character(x))
     lAssess$dfInput <- dfInput
     lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure")
 
@@ -85,9 +86,6 @@ PD_Assess <- function( dfInput, vThreshold=NULL, strLabel="",strMethod="poisson"
         lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strAssessment="Safety", strLabel= strLabel)
     }
 
-    if(bDataList){
-        return(lAssess)
-    } else {
-        return(lAssess$dfSummary)
-    }
+    return(lAssess)
+
 }

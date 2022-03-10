@@ -15,17 +15,27 @@ dfRDSL_test <- tibble::tribble(~SubjectID, ~SiteID, ~RandDate,
 
 consent_input <-  Consent_Map_Raw(dfConsent = dfConsent, dfRDSL= dfRDSL_test)
 
-test_that("summary df created as expected and has correct structure",{
+test_that("output is created as expected",{
     consent_list <- Consent_Assess(consent_input)
-    expect_true(is.data.frame(consent_list))
-    expect_equal(names(consent_list),c("Assessment","Label", "SiteID", "N", "Score", "Flag"))
+    expect_true(is.list(consent_list))
+    expect_equal(names(consent_list),c("strFunctionName", "lParams", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+    expect_true("data.frame" %in% class(consent_list$dfInput))
+    expect_true("data.frame" %in% class(consent_list$dfTransformed))
+    expect_true("data.frame" %in% class(consent_list$dfAnalyzed))
+    expect_true("data.frame" %in% class(consent_list$dfFlagged))
+    expect_true("data.frame" %in% class(consent_list$dfSummary))
+    expect_type(consent_list$strFunctionName, "character")
+    expect_type(consent_list$lParams, "list")
 })
 
-test_that("list of df created when bDataList=TRUE",{
-    consent_list <- Consent_Assess(consent_input, bDataList=TRUE)
-    expect_true(is.list(consent_list))
-    expect_equal(names(consent_list),c('dfInput','dfTransformed','dfAnalyzed','dfFlagged','dfSummary'))
+
+test_that("correct function and params are returned", {
+  consent_assessment <- Consent_Assess(consent_input, nThreshold = 0.6, strLabel = "no thanks")
+  expect_equal("Consent_Assess()", consent_assessment$strFunctionName)
+  expect_equal("0.6", consent_assessment$lParams$nThreshold)
+  expect_equal("no thanks", consent_assessment$lParams$strLabel)
 })
+
 
 # Add tests for NA values in columns: SubjectID, SiteID, Count
 # Add tests for nThreshold
@@ -34,7 +44,6 @@ test_that("incorrect inputs throw errors",{
     expect_error(Consent_Assess(list()))
     expect_error(Consent_Assess("Hi"))
     expect_error(Consent_Assess(consent_input, strLabel=123))
-    expect_error(Consent_Assess(consent_input, bDataList="Yes"))
     expect_error(Consent_Assess(consent_input, nThreshold = "A"))
     expect_error(Consent_Assess(consent_input, nThreshold = c(1,2)))
 })
@@ -46,7 +55,7 @@ test_that("incorrect inputs throw errors",{
   expect_error(Consent_Assess(consent_input %>% select(-Count)))
 })
 
-consent_summary <- Consent_Assess(consent_input, bDataList=FALSE)
+consent_summary <- Consent_Assess(consent_input)
 
 
 
@@ -66,19 +75,19 @@ target_output_NA_SiteID <- tibble::tribble(
 )
 
 test_that("output is correct given example input",{
-  expect_equal(consent_summary,target_output)
+  expect_equal(consent_summary$dfSummary,target_output)
 })
 
 test_that("NA in dfInput$SubjectID does not affect resulting dfSummary output for Consent_Assess",{
   consent_input_in <- consent_input; consent_input_in[1:2,"SubjectID"] = NA
-  consent_summary <- Consent_Assess(consent_input_in, bDataList=FALSE)
-  expect_equal(consent_summary,target_output)
+  consent_summary <- Consent_Assess(consent_input_in)
+  expect_equal(consent_summary$dfSummary,target_output)
 })
 
 test_that("NA in dfInput$SiteID results in NA for SiteID in dfSummary output for Consent_Assess",{
   consent_input_in <- consent_input; consent_input_in[1,"SiteID"] = NA
-  consent_summary <- Consent_Assess(consent_input_in, bDataList=FALSE)
-  expect_equal(consent_summary,target_output_NA_SiteID)
+  consent_summary <- Consent_Assess(consent_input_in)
+  expect_equal(consent_summary$dfSummary,target_output_NA_SiteID)
 })
 
 test_that("NA in dfInput$Count results in Error for Consent_Assess",{
