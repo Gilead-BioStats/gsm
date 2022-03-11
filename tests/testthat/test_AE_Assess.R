@@ -1,40 +1,44 @@
 
 ae_input <- AE_Map_Adam(
-    safetyData::adam_adsl, 
+    safetyData::adam_adsl,
     safetyData::adam_adae
-) 
+)
 
 test_that("summary df created as expected and has correct structure",{
-    ae_assessment <- AE_Assess(ae_input) 
-    expect_true(is.data.frame(ae_assessment))
-    expect_equal(names(ae_assessment),c("Assessment","Label", "SiteID", "N", "PValue", "Flag"))
+    ae_assessment <- AE_Assess(ae_input, strLabel = "test label!", vThreshold = c(-5.1, 5.1))
+    expect_true(is.list(ae_assessment))
+    expect_equal(names(ae_assessment),c("strFunctionName", "lParams", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+    expect_true("data.frame" %in% class(ae_assessment$dfInput))
+    expect_true("data.frame" %in% class(ae_assessment$dfTransformed))
+    expect_true("data.frame" %in% class(ae_assessment$dfAnalyzed))
+    expect_true("data.frame" %in% class(ae_assessment$dfFlagged))
+    expect_true("data.frame" %in% class(ae_assessment$dfSummary))
+    expect_type(ae_assessment$strFunctionName, "character")
+    expect_type(ae_assessment$lParams, "list")
+
 })
 
-test_that("list of df created when bDataList=TRUE",{
-    ae_list <- AE_Assess(ae_input, bDataList=TRUE)
-    expect_true(is.list(ae_list))
-    expect_equal(names(ae_list),c('dfInput','dfTransformed','dfAnalyzed','dfFlagged','dfSummary'))
-})
 
 test_that("incorrect inputs throw errors",{
     expect_error(AE_Assess(list()))
     expect_error(AE_Assess("Hi"))
-    expect_error(AE_Assess(ae_input, cLabel=123))
-    expect_error(AE_Assess(ae_input, cMethod="abacus"))
-    expect_error(AE_Assess(ae_input, bDataList="Yes"))
+    expect_error(AE_Assess(ae_input, strLabel=123))
+    expect_error(AE_Assess(ae_input, strMethod="abacus"))
+    expect_error(AE_Assess(ae_input %>% select(-SubjectID)))
+    expect_error(AE_Assess(ae_input %>% select(-SiteID)))
+    expect_error(AE_Assess(ae_input %>% select(-Count)))
+    expect_error(AE_Assess(ae_input %>% select(-Exposure)))
+    expect_error(AE_Assess(ae_input %>% select(-Rate)))
+    expect_error(AE_Assess(ae_input, strMethod=c("wilcoxon", "poisson")))
 })
 
 
-test_that("incorrect inputs throw errors",{
-  expect_error(AE_Assess(ae_input %>% select(-SubjectID)))
-  expect_error(AE_Assess(ae_input %>% select(-SiteID)))
-  expect_error(AE_Assess(ae_input %>% select(-Count)))
-  expect_error(AE_Assess(ae_input %>% select(-Exposure)))
-  expect_error(AE_Assess(ae_input %>% select(-Rate)))
+test_that("correct function and params are returned", {
+  ae_assessment <- AE_Assess(ae_input, strLabel = "test label!", vThreshold = c(-5.1, 5.1))
+  expect_equal("AE_Assess()", ae_assessment$strFunctionName)
+  expect_equal(ae_assessment$lParams$dfInput, "ae_input")
+  expect_equal(ae_assessment$lParams$vThreshold[2], "-5.1")
+  expect_equal(ae_assessment$lParams$vThreshold[3], "5.1")
+  expect_equal(ae_assessment$lParams$strLabel, "test label!")
 })
-
-ae_list <- AE_Assess(ae_input, bDataList=TRUE)
-expect_true(is.list(ae_list))
-expect_equal(names(ae_list),c('dfInput','dfTransformed','dfAnalyzed','dfFlagged','dfSummary'))
-
 

@@ -20,8 +20,8 @@
 #'
 #' Note that the function can generate data summaries for specific types of AEs, but passing filtered ADAE data to dfADAE.
 #'
-#' @param dfAE AE dataset with columns SUBJID and rows for each AE record
-#' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol
+#' @param dfAE AE dataset with required column SUBJID and rows for each AE record
+#' @param dfRDSL Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol
 #' @param strExposureCol Name of exposure column. 'TimeOnTreatment' by default
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
@@ -40,7 +40,8 @@ AE_Map_Raw <- function( dfAE, dfRDSL, strExposureCol="TimeOnTreatment"){
         "SUBJID column not found in dfAE"="SUBJID" %in% names(dfAE),
         "strExposureCol is not character"=is.character(strExposureCol),
         "SubjectID, SiteID and strExposureCol columns not found in dfRDSL"=all(c("SubjectID","SiteID",strExposureCol) %in% names(dfRDSL)),
-        "NAs found in Subject ID column of dfAE" = all(!is.na(dfAE$SUBJID))
+        "NAs found in SUBJID column of dfAE" = all(!is.na(dfAE$SUBJID)),
+        "NAs found in Subject ID column of dfRDSL" = all(!is.na(dfRDSL$SubjectID))
     )
 
     dfInput <-  dfRDSL %>%

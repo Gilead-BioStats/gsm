@@ -4,26 +4,43 @@
 \alias{Summarize}
 \title{Make Summary Data Frame}
 \usage{
-Summarize(dfFlagged, cAssessment = "", cLabel = "")
+Summarize(dfFlagged, strScoreCol = "PValue", strAssessment = "", strLabel = "")
 }
 \arguments{
 \item{dfFlagged}{data frame in format produced by \code{\link{Flag}}}
 
-\item{cAssessment}{brief description of current assessment}
+\item{strScoreCol}{column from analysis results to be copied to \code{dfSummary$Score}}
 
-\item{cLabel}{brief description of line item in current assessment}
+\item{strAssessment}{brief description of current assessment}
+
+\item{strLabel}{brief description of line item in current assessment}
 }
 \value{
-Simplified finding data frame with columns for "SiteID", "N", "PValue", "Flag".
+Simplified finding data frame with columns: Assessment, Label, SiteID, N, Pvalue, Flag
 }
 \description{
 Create a concise summary of assessment results that is easy to aggregate across assessments
 }
+\details{
+\code{Summarize} supports the input data (\code{dfFlagged}) from the \code{Flag} function.
+}
+\section{Data Specification}{
+
+
+(\code{dfFlagged}) has the following required columns:
+\itemize{
+\item \code{SiteID} - Site ID
+\item \code{N} - Total number of participants at site
+\item \code{Flag} - Flagging value of -1, 0, or 1
+\item \code{strScoreCol} - Column from analysis results. Default is "PValue".
+}
+}
+
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
-dfAnalyzed <- Analyze_Wilcoxon( dfTransformed, strOutcome ="Rate")
+dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
+dfAnalyzed <- Analyze_Wilcoxon( dfTransformed)
 dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Rate')
-dfSummary <- Summarize(dfFlagged, cAssessment="Safety", cLabel= "")
+dfSummary <- Summarize(dfFlagged, strAssessment="Safety", strLabel= "")
 
 }

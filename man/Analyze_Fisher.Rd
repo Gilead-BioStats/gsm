@@ -9,17 +9,15 @@ Analyze_Fisher(dfTransformed, strOutcome = "TotalCount")
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
 
-\item{strOutcome}{required, name of column in dfTransformed dataset to perform Fisher test on}
+\item{strOutcome}{required, name of column in dfTransformed dataset to perform Fisher test on. Default is "TotalCount".}
 }
 \value{
-data.frame with one row per site, columns:   SiteID, N , ..., SiteProp, OtherProp, Estimate, PValue
+data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue
 }
 \description{
 Creates Analysis results data for count data using the Fisher's exact test
 }
 \details{
-@details
-
 Analyzes count data using the Fisher's exact test
 }
 \section{Statistical Methods}{
@@ -31,17 +29,17 @@ TODO Coming soon ...
 \section{Data Specification}{
 
 
-The input data (\code{ dfTransformed}) for the Analyze_Fisher is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for:
+The input data (\code{dfTransformed}) for Analyze_Fisher is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
 \itemize{
 \item \code{SiteID} - Site ID
 \item \code{N} - Total number of participants at site
-\item \code{Count} - Total number of participants at site with event of interest
+\item \code{TotalCount} - Total number of participants at site with event of interest
 }
 }
 
 \examples{
 dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD",strReason = "Adverse Event")
-dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count' )
+dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count' )
 dfAnalyzed <- Analyze_Fisher( dfTransformed )
 
 }

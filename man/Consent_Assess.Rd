@@ -4,19 +4,17 @@
 \alias{Consent_Assess}
 \title{Consent Assessment}
 \usage{
-Consent_Assess(dfInput, nThreshold = 0.5, cLabel = "", bDataList = FALSE)
+Consent_Assess(dfInput, nThreshold = 0.5, strLabel = "")
 }
 \arguments{
 \item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count.}
 
-\item{nThreshold}{integer threshold values Flagging, integer values greater than will be flagged.}
+\item{nThreshold}{Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.}
 
-\item{cLabel}{Assessment label}
-
-\item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the summary/finding data frame is returned}
+\item{strLabel}{Assessment label.}
 }
 \value{
-If \code{bDataList} is false (the default), the summary data frame (\code{dfSummary}) is returned. If \code{bDataList} is true, a list containing all data in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged} and \code{dfSummary}) is returned.
+A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, and \code{lParams}) is returned.
 }
 \description{
 Consent Assessment
@@ -42,16 +40,22 @@ The Assessment
 }
 }
 
+\section{Statistical Assumptions}{
+
+
+This Assessment finds any sites where one or more subjects meets any of the following citeria: No Consent, Missing Consent, Missing Randomization Date, or
+Consent date later in time than the Randomization Date. 'N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
+With N greater than user specified \code{nThreshold} will be flagged.
+}
+
 \examples{
 
 dfInput <- Consent_Map_Raw(
-dfConsent = clindata::raw_consent, 
-dfRDSL = clindata::rawplus_rdsl, 
+dfConsent = clindata::raw_consent,
+dfRDSL = clindata::rawplus_rdsl,
 strConsentReason = NULL
 )
 
 Consent_Assess(dfInput)
-
- 
 
 }

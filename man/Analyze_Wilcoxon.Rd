@@ -4,15 +4,15 @@
 \alias{Analyze_Wilcoxon}
 \title{AE Wilcoxon Assessment - Analysis}
 \usage{
-Analyze_Wilcoxon(dfTransformed, strOutcome = "")
+Analyze_Wilcoxon(dfTransformed, strOutcome = "Rate")
 }
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
 
-\item{strOutcome}{required, name of column in dfTransformed dataset to perform Wilcoxon test on}
+\item{strOutcome}{required, name of column in dfTransformed dataset to perform Wilcoxon test on. Default="Rate"}
 }
 \value{
-data.frame with one row per site, columns:   SiteID, N , ..., Estimate, PValue
+data.frame with one row per site, columns: SiteID, N, TotalCount, TotalExposure, Rate, Estimate, PValue
 }
 \description{
 Creates Analysis results data for Adverse Event assessment using the Wilcoxon sign-ranked test
@@ -25,24 +25,25 @@ Fits a Wilcox Model to site-level data.
 \section{Statistical Methods}{
 
 
-TODO Coming soon ...
+A Wilcoxon model is used to generate estimates and p-values for each site (as specified with the \code{strOutcome} parameter).
 }
 
 \section{Data Specification}{
 
 
-The input data (\code{ dfTransformed}) for the Analyze_Wilcoxon is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for:
+The input data (dfTransformed) for Analyze_Wilcoxon is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
 \itemize{
-\item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
-\item \code{Count} - Number of Adverse Events
-\item \code{Exposure} - Number of days of exposure
+\item \code{N} - Number of participants
+\item \code{TotalCount} - Number of Adverse Events
+\item \code{TotalExposure} - Number of days of exposure
+\item \code{Rate} - Rate of exposure (TotalCount / TotalExposure)
 }
 }
 
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 dfAnalyzed <- Analyze_Wilcoxon( dfTransformed , strOutcome ="Rate")
 
 }

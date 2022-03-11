@@ -2,7 +2,7 @@
 % Please edit documentation in R/Consent_Map_Raw.R
 \name{Consent_Map_Raw}
 \alias{Consent_Map_Raw}
-\title{Consent Assessment Mapping from Raw Data- Make Input Data}
+\title{Consent Assessment Mapping from Raw Data}
 \usage{
 Consent_Map_Raw(dfConsent, dfRDSL, strConsentReason = "mainconsent")
 }
@@ -38,7 +38,7 @@ The following columns are required:
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
-\item \code{RandData} - Randomization Date
+\item \code{RandDate} - Randomization Date
 }
 }
 }
@@ -46,8 +46,8 @@ The following columns are required:
 \examples{
 
 input <- Consent_Map_Raw(
- dfConsent = clindata::raw_consent, 
- dfRDSL = clindata::rawplus_rdsl, 
+ dfConsent = clindata::raw_consent,
+ dfRDSL = clindata::rawplus_rdsl,
  strConsentReason = NULL
 )
 
