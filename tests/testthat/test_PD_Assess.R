@@ -14,6 +14,10 @@ test_that("output is created as expected",{
   expect_type(pd_assessment$lParams, "list")
 })
 
+test_that("strMethod = 'wilcoxon' does not throw error",{
+  expect_silent(PD_Assess(pd_input, strMethod = "wilcoxon"))
+})
+
 
 
 test_that("correct function and params are returned", {
