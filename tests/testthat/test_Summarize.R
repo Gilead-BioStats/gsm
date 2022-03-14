@@ -4,7 +4,7 @@ ae_input <- AE_Map_Adam(
 )
 
 dfTransformed <- Transform_EventCount( ae_input, strCountCol = 'Count', strExposureCol = "Exposure" )
-dfAnalyzed <- gsm::Analyze_Scatter( dfTransformed)
+dfAnalyzed <- gsm::Analyze_Poisson( dfTransformed)
 dfFlagged <- gsm::Flag(dfAnalyzed , strColumn = 'Residuals', vThreshold =c(-5,5))
 
 test_that("output created as expected and has correct structure",{
@@ -24,8 +24,8 @@ test_that("incorrect inputs throw errors",{
 })
 
 test_that("error given if required column not found",{
-    expect_error(Analyze_Scatter(ae_input %>% rename(total_count = Count)))
-    expect_error(Analyze_Scatter(ae_input %>% select(-Rate)))
+    expect_error(Analyze_Poisson(ae_input %>% rename(total_count = Count)))
+    expect_error(Analyze_Poisson(ae_input %>% select(-Rate)))
 })
 
 

@@ -39,7 +39,7 @@ The input data (\code{dfInput}) for the PD Assessment is typically created using
 The Assessment
 \itemize{
 \item \code{\link{Transform_EventCount}} creates \code{dfTransformed}.
-\item \code{\link{Analyze_Scatter}} or \code{\link{Analyze_Wilcoxon}} creates \code{dfAnalyzed}.
+\item \code{\link{Analyze_Poisson}} or \code{\link{Analyze_Wilcoxon}} creates \code{dfAnalyzed}.
 \item \code{\link{Flag}} creates \code{dfFlagged}.
 \item \code{\link{Summarize}} creates \code{dfSummary}.
 }
@@ -50,7 +50,7 @@ The Assessment
 
 A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the \code{strMethod} parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in \code{vThreshold}. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
 
-See \code{\link{Analyze_Scatter}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions.
+See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions.
 }
 
 \examples{
