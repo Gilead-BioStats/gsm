@@ -127,6 +127,8 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL){
             tests_if$cols_are_unique$status <- TRUE
         }
 
+    } else {
+        tests_if$cols_are_unique$status <- TRUE
     }
 
 

@@ -20,9 +20,9 @@ Check that a data frame contains columns and fields specified in mapping
 }
 \examples{
 rdsl_mapping<- list(id_col="SubjectID", site_col="SiteID", exposure_col="TimeOnTreatment")
-is_mapping_valid(clindata::rawplus_rdsl, rdsl_mapping, unique_cols="id_col") #TRUE
-is_mapping_valid(clindata::rdsl, rdsl_mapping, unique_cols="site_col") #FALSE - site_col not unique
+is_mapping_valid(clindata::rawplus_rdsl, rdsl_mapping, unique_cols="SUBJID") #TRUE
+is_mapping_valid(clindata::rawplus_rdsl, rdsl_mapping, unique_cols="SiteID") #FALSE - site_col not unique
 rdsl_mapping$not_a_col<-"nope"
-is_mapping_valid(clindata::rdsl, rdsl_mapping, unique_cols="id_col") #FALSE - column not found
+is_mapping_valid(clindata::rawplus_rdsl, rdsl_mapping, unique_cols="SUBJID") #FALSE - column not found
 
 }

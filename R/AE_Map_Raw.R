@@ -45,34 +45,21 @@ AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
     }
 
     dfAEMapping <- is_mapping_valid(dfAE, mapping$dfAE)
-    dfRDSLMapping <- is_mapping_valid(dfRDSL, mapping$dfRDSL)
+    dfRDSLMapping <- is_mapping_valid(dfRDSL, mapping$dfRDSL, na_cols = "TimeOnTreatment")
 
-    if (any(map_lgl(dfAEMapping, ~.[["status"]])) | any(map_lgl(dfRDSLMapping, ~.[["status"]]))) {
+    if (dfAEMapping$status == FALSE | dfRDSLMapping$status == FALSE) {
         mapping_errors <- list(dfAEMapping, dfRDSLMapping)
         return(mapping_errors)
         stopifnot(
-            "dfAE contains bad data" = any(map_lgl(dfAEMapping, ~.[["status"]])),
-            "dfRDSL contains bad data" = any(map_lgl(dfRDSLMapping, ~.[["status"]]))
+            "dfAE contains bad data. Returning mapping data." = dfAEMapping$status == TRUE,
+            "dfRDSL contains bad data. Returning mapping data." = dfRDSLMapping$status == TRUE
         )
     }
-
-
-
-
-    # stopifnot(
-    #     "ae dataset not found"=is.data.frame(dfAE),
-    #     "RDSL dataset is not found"=is.data.frame(dfRDSL),
-    #     "SUBJID column not found in dfAE"="SUBJID" %in% names(dfAE),
-    #     "strExposureCol is not character"=is.character(strExposureCol),
-    #     "SubjectID, SiteID and strExposureCol columns not found in dfRDSL"=all(c("SubjectID","SiteID",strExposureCol) %in% names(dfRDSL)),
-    #     "NAs found in SUBJID column of dfAE" = all(!is.na(dfAE$SUBJID)),
-    #     "NAs found in Subject ID column of dfRDSL" = all(!is.na(dfRDSL$SubjectID))
-    # )
 
     dfInput <-  dfRDSL %>%
         rowwise() %>%
         mutate(Count =sum(dfAE$SUBJID==.data$SubjectID, na.rm = TRUE)) %>%
-        rename(Exposure = strExposureCol) %>%
+        rename(Exposure = mapping[["dfRDSL"]][["strExposureCol"]]) %>%
         mutate(Rate = .data$Count/.data$Exposure) %>%
         select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
         ungroup()
