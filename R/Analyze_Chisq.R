@@ -2,7 +2,7 @@
 #'
 #' Creates Analysis results data for count data using the chi-squared test
 #'
-#'  @details
+#' @details
 #'
 #' Analyzes count data using the chi-squared test
 #'
@@ -12,17 +12,19 @@
 #'
 #' @section Data Specification:
 #'
-#' The input data (` dfTransformed`) for the Analyze_Chisq is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for:
+#' The input data (`dfTransformed`) for Analyze_Chisq is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
 #' - `SiteID` - Site ID
 #' - `N` - Total number of participants at site
-#' - `Count` - Total number of participants at site with event of interest
+#' - `TotalCount` - Total number of participants at site with event of interest
 #'
 #'
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
-#' @param  strOutcome required, name of column in dfTransformed dataset to perform the chi-squared test on
+#' @param  strOutcome required, name of column in dfTransformed dataset to perform the chi-squared test on. Default is "TotalCount".
 #'
-#' @importFrom stats chisq.test as.formula
-#' @importFrom purrr map map_df
+#' @import dplyr
+#' @importFrom tidyr unnest
+#' @importFrom stats chisq.test
+#' @importFrom purrr map
 #' @importFrom broom glance
 #'
 #' @return data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue
@@ -37,8 +39,11 @@
 Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount") {
 
     stopifnot(
-        is.data.frame(dfTransformed),
-        all(c("SiteID", "N", strOutcome) %in% names(dfTransformed))
+        "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
+        "One or more of these columns: SiteID, N, or the value in strOutcome not found in dfTransformed" = all(c("SiteID", "N", strOutcome) %in% names(dfTransformed)),
+        "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]])),
+        "strOutcome must be length 1" = length(strOutcome) == 1,
+        "strOutcome is not character" = is.character(strOutcome)
     )
 
     chisq_model<- function(site){
@@ -51,13 +56,13 @@ Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount") {
             ) %>%
             select(.data$Flag, .data$NoFlag)
 
-        chisq.test(SiteTable)
+        stats::chisq.test(SiteTable)
     }
 
     dfAnalyzed <- dfTransformed %>%
-        mutate(model = map(.data$SiteID, chisq_model)) %>%
-        mutate(summary = map(.data$model, broom::glance)) %>%
-        unnest(summary) %>%
+        mutate(model = purrr::map(.data$SiteID, chisq_model)) %>%
+        mutate(summary = purrr::map(.data$model, broom::glance)) %>%
+        tidyr::unnest(summary) %>%
         rename(
             Statistic = .data$statistic,
             PValue = .data[['p.value']]

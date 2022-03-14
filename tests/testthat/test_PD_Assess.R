@@ -1,24 +1,37 @@
 rdsl<-clindata::rawplus_rdsl %>% filter(RandFlag=="Y")
 pd_input <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfRDSL = rdsl)
 
-test_that("summary df created as expected and has correct structure",{
+test_that("output is created as expected",{
   pd_assessment <- PD_Assess(pd_input)
-  expect_true(is.data.frame(pd_assessment))
-  expect_equal(names(pd_assessment),c("Assessment","Label", "SiteID", "N", "Score", "Flag"))
+  expect_true(is.list(pd_assessment))
+  expect_equal(names(pd_assessment),c("strFunctionName", "lParams", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+  expect_true("data.frame" %in% class(pd_assessment$dfInput))
+  expect_true("data.frame" %in% class(pd_assessment$dfTransformed))
+  expect_true("data.frame" %in% class(pd_assessment$dfAnalyzed))
+  expect_true("data.frame" %in% class(pd_assessment$dfFlagged))
+  expect_true("data.frame" %in% class(pd_assessment$dfSummary))
+  expect_type(pd_assessment$strFunctionName, "character")
+  expect_type(pd_assessment$lParams, "list")
 })
 
-test_that("list of df created when bDataList=TRUE",{
-  pd_list <- PD_Assess(pd_input, bDataList=TRUE)
-  expect_true(is.list(pd_list))
-  expect_equal(names(pd_list),c('dfInput','dfTransformed','dfAnalyzed','dfFlagged','dfSummary'))
+
+
+test_that("correct function and params are returned", {
+  pd_assessment <- PD_Assess(pd_input, vThreshold = c(-5,5), strLabel = "a simple label", strMethod = "poisson")
+  expect_equal("PD_Assess()", pd_assessment$strFunctionName)
+  expect_equal("-5", pd_assessment$lParams$vThreshold[2])
+  expect_equal("5", pd_assessment$lParams$vThreshold[3])
+  expect_equal("a simple label", pd_assessment$lParams$strLabel)
 })
+
+
+
 
 test_that("incorrect inputs throw errors",{
   expect_error(PD_Assess(list()))
   expect_error(PD_Assess("Hi"))
   expect_error(PD_Assess(pd_input, strLabel=123))
   expect_error(PD_Assess(pd_input, strMethod="abacus"))
-  expect_error(PD_Assess(pd_input, bDataList="Yes"))
   expect_error(PD_Assess(pd_input %>% select(-SubjectID)))
   expect_error(PD_Assess(pd_input %>% select(-SiteID)))
   expect_error(PD_Assess(pd_input %>% select(-Count)))
@@ -30,23 +43,7 @@ test_that("incorrect inputs throw errors",{
   expect_error(PD_Assess(pd_input, strLabel = iris))
 })
 
-test_that("Confirm expected functionality for PD_Assess input strlabel ",{
-  rdsl<-clindata::rawplus_rdsl %>% filter(RandFlag=="Y")
-  pd_input <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfRDSL = rdsl)
-  pd_summary_df <- PD_Assess(pd_input, strLabel = "test_label")
-  expect_equal(pd_summary_df[1,"Label", drop = TRUE], 'test_label')
-})
 
-test_that("Confirm expected functionality for PD_Assess input strMethod ",{
-  rdsl<-clindata::rawplus_rdsl %>% filter(RandFlag=="Y")
-  pd_input <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfRDSL = rdsl)
-  pd_list <- PD_Assess(pd_input, strMethod = 'wilcoxon', bDataList = TRUE)
-  expect_true('PValue' %in% names(pd_list$dfAnalyzed))
-  pd_list <- PD_Assess(pd_input, strMethod = 'poisson', bDataList = TRUE)
-  pd_list$dfAnalyzed
-  expect_true('PredictedCount' %in% names(pd_list$dfAnalyzed))
-  
-})
 
 
 

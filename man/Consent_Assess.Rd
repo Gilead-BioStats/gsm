@@ -4,7 +4,7 @@
 \alias{Consent_Assess}
 \title{Consent Assessment}
 \usage{
-Consent_Assess(dfInput, nThreshold = 0.5, strLabel = "", bDataList = FALSE)
+Consent_Assess(dfInput, nThreshold = 0.5, strLabel = "")
 }
 \arguments{
 \item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count.}
@@ -12,11 +12,9 @@ Consent_Assess(dfInput, nThreshold = 0.5, strLabel = "", bDataList = FALSE)
 \item{nThreshold}{Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.}
 
 \item{strLabel}{Assessment label.}
-
-\item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the summary/finding data frame is returned.}
 }
 \value{
-If \code{bDataList} is false (the default), the summary data frame (\code{dfSummary}) is returned. If \code{bDataList} is true, a list containing all data in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged} and \code{dfSummary}) is returned.
+A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, and \code{lParams}) is returned.
 }
 \description{
 Consent Assessment
@@ -59,7 +57,5 @@ strConsentReason = NULL
 )
 
 Consent_Assess(dfInput)
-
-
 
 }

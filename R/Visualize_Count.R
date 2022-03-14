@@ -17,7 +17,7 @@
 #'    vExpectedResultValues=c(0,1)
 #')
 #'
-#' ie_assess <- IE_Assess(ie_input, bDataList=TRUE)
+#' ie_assess <- IE_Assess(ie_input)
 #' Visualize_Count(ie_assess$dfAnalyzed)
 #'
 #' consent_input <- Consent_Map_Raw(
@@ -26,7 +26,7 @@
 #'   strConsentReason = NULL
 #' )
 #'
-#' consent_assess <- Consent_Assess(consent_input, bDataList=TRUE)
+#' consent_assess <- Consent_Assess(consent_input)
 #' Visualize_Count(consent_assess$dfAnalyzed)
 #'
 #' @import ggplot2

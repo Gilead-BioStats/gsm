@@ -33,15 +33,8 @@ AE_Assess:
         - T1_3
         - T1_4
     - S1_5:
-      Description: Assessment can return all data in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`)
-      Risk: Low
-      Impact: Medium
-      Tests:
-        - T1_5
-        - T1_6
-    - S1_6:
       Description: Ensure that missing and invalid data are handled correctly
       Risk: Low
       Impact: Medium
       Tests:
-        - T1_7
+        - T1_5

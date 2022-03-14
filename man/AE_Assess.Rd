@@ -4,13 +4,7 @@
 \alias{AE_Assess}
 \title{AE Assessment}
 \usage{
-AE_Assess(
-  dfInput,
-  vThreshold = NULL,
-  strLabel = "",
-  strMethod = "poisson",
-  bDataList = FALSE
-)
+AE_Assess(dfInput, vThreshold = NULL, strLabel = "", strMethod = "poisson")
 }
 \arguments{
 \item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure}
@@ -20,11 +14,9 @@ AE_Assess(
 \item{strLabel}{Assessment label}
 
 \item{strMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
-
-\item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the Summary data frame is returned}
 }
 \value{
-If \code{bDataList} is false (the default), the summary data frame (\code{dfSummary}) is returned. If \code{bDataList} is true, a list containing all data in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged} and \code{dfSummary}) is returned.
+A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, and \code{lParams}) is returned.
 }
 \description{
 The Adverse Event Assessment flags sites that may be over- or under-reporting adverse events.
