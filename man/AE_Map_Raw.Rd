@@ -4,14 +4,18 @@
 \alias{AE_Map_Raw}
 \title{AE Assessment - Raw Mapping}
 \usage{
-AE_Map_Raw(dfAE, dfRDSL, strExposureCol = "TimeOnTreatment")
+AE_Map_Raw(dfAE, dfRDSL, mapping = NULL)
 }
 \arguments{
 \item{dfAE}{AE dataset with required column SUBJID and rows for each AE record}
 
 \item{dfRDSL}{Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol}
 
-\item{strExposureCol}{Name of exposure column. 'TimeOnTreatment' by default}
+\item{strIDCol}{Name of ID column. 'SubjectID' by default.}
+
+\item{strSiteCol}{Name of Site Column. 'SiteID' by default.}
+
+\item{strExposureCol}{Name of exposure column. 'TimeOnTreatment' by default.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)

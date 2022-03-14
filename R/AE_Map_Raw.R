@@ -22,7 +22,7 @@
 #'
 #' @param dfAE AE dataset with required column SUBJID and rows for each AE record
 #' @param dfRDSL Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol
-#' @param strIDCol Name of ID column. 'SubjectID' by default. 
+#' @param strIDCol Name of ID column. 'SubjectID' by default.
 #' @param strSiteCol Name of Site Column. 'SiteID' by default.
 #' @param strExposureCol Name of exposure column. 'TimeOnTreatment' by default.
 #'
@@ -35,28 +35,39 @@
 #'
 #' @export
 
-AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL )){
+AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
     if(is.null(mapping)){
         mapping <- list(
-            dfAE= list(id_col="SubjectID"), 
+            dfAE= list(id_col="SUBJID"),
             dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
         )
+
     }
-    stopifnot(
-        is_mapping_valid(dfAE,mapping$dfAE),
-        is_mapping_valid(dfRDSL,mapping$RDSL) 
-    )
+
+    dfAEMapping <- is_mapping_valid(dfAE, mapping$dfAE)
+    dfRDSLMapping <- is_mapping_valid(dfRDSL, mapping$dfRDSL)
+
+    if (any(map_lgl(dfAEMapping, ~.[["status"]])) | any(map_lgl(dfRDSLMapping, ~.[["status"]]))) {
+        mapping_errors <- list(dfAEMapping, dfRDSLMapping)
+        return(mapping_errors)
+        stopifnot(
+            "dfAE contains bad data" = any(map_lgl(dfAEMapping, ~.[["status"]])),
+            "dfRDSL contains bad data" = any(map_lgl(dfRDSLMapping, ~.[["status"]]))
+        )
+    }
 
 
-    stopifnot(
-        "ae dataset not found"=is.data.frame(dfAE),
-        "RDSL dataset is not found"=is.data.frame(dfRDSL),
-        "SUBJID column not found in dfAE"="SUBJID" %in% names(dfAE),
-        "strExposureCol is not character"=is.character(strExposureCol),
-        "SubjectID, SiteID and strExposureCol columns not found in dfRDSL"=all(c("SubjectID","SiteID",strExposureCol) %in% names(dfRDSL)),
-        "NAs found in SUBJID column of dfAE" = all(!is.na(dfAE$SUBJID)),
-        "NAs found in Subject ID column of dfRDSL" = all(!is.na(dfRDSL$SubjectID))
-    )
+
+
+    # stopifnot(
+    #     "ae dataset not found"=is.data.frame(dfAE),
+    #     "RDSL dataset is not found"=is.data.frame(dfRDSL),
+    #     "SUBJID column not found in dfAE"="SUBJID" %in% names(dfAE),
+    #     "strExposureCol is not character"=is.character(strExposureCol),
+    #     "SubjectID, SiteID and strExposureCol columns not found in dfRDSL"=all(c("SubjectID","SiteID",strExposureCol) %in% names(dfRDSL)),
+    #     "NAs found in SUBJID column of dfAE" = all(!is.na(dfAE$SUBJID)),
+    #     "NAs found in Subject ID column of dfRDSL" = all(!is.na(dfRDSL$SubjectID))
+    # )
 
     dfInput <-  dfRDSL %>%
         rowwise() %>%
