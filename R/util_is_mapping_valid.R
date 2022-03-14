@@ -4,6 +4,7 @@
 #' @param mapping named list specifying expected columns and fields in df
 #' @param unique_cols list of columns expected to be unique. default = NULL (none)
 #' @param no_cols list of columns where na values are acceptable default = NULL (none)
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @import dplyr
 #' @import tidyr
@@ -18,10 +19,9 @@
 #'
 #' @export
 
-is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL){
+is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL, bQuiet = TRUE){
 
     tests_if <- list(
-        status = NULL,
         is_data_frame = NULL,
         has_rows = NULL,
         mapping_is_list = NULL,
@@ -31,11 +31,12 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL){
         cols_are_unique = NULL
     )
 
+
     if(!is.data.frame(df)){
         warning <- "df is not a data.frame()"
         tests_if$is_data_frame$status <- FALSE
         tests_if$is_data_frame$warning <- warning
-        warning(warning)
+        suppressWarnings(warning(warning))
     } else {
         tests_if$is_data_frame$status <- TRUE
     }
@@ -45,10 +46,17 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL){
         warning <- "df has 0 rows"
         tests_if$has_rows$status <- FALSE
         tests_if$has_rows$warning <- warning
-        warning(warning)
+        suppressWarnings(warning(warning))
         } else {
             tests_if$has_rows$status <- TRUE
         }
+    } else {
+
+            warning <- "df does not have rows"
+            tests_if$has_rows$status <- FALSE
+            tests_if$has_rows$warning <- warning
+            suppressWarnings(warning(warning))
+
     }
 
     # basic mapping checks
@@ -56,7 +64,7 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL){
         warning <- "mapping is not a list()"
         tests_if$mapping_is_list$status <- FALSE
         tests_if$mapping_is_list$warning <- warning
-        warning(warning)
+        suppressWarnings(warning(warning))
     } else {
         tests_if$mapping_is_list$status <- TRUE
     }
@@ -66,7 +74,7 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL){
         warning_cols <- df %>% select_if(~!is.character(.)) %>% names()
         tests_if$mappings_are_character$status <- FALSE
         tests_if$mappings_are_character$warning <- paste0(warning, ": ", warning_cols)
-        warning(warning)
+        suppressWarnings(warning(warning))
 
     } else {
         tests_if$mappings_are_character$status <- TRUE
@@ -78,7 +86,7 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL){
         warning <- paste0("the following columns not found in df: ", cols)
         tests_if$has_expected_columns$status <- FALSE
         tests_if$has_expected_columns$warning <- warning
-        warning(warning)
+        suppressWarnings(warning(warning))
     } else {
         tests_if$has_expected_columns$status <- TRUE
     }
@@ -105,10 +113,17 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL){
             tests_if$columns_have_na$status <- FALSE
             tests_if$columns_have_na$warning <- warning
 
-            warning(warning)
+            suppressWarnings(warning(warning))
+
         } else {
+
             tests_if$columns_have_na$status <- TRUE
+
         }
+
+    } else {
+
+        tests_if$columns_have_na$status <- TRUE
 
     }
 
@@ -116,33 +131,39 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL){
     # Check that specified columns are unique
     if(!is.null(unique_cols)){
         unique_cols <- unname(unlist(mapping))[unname(unlist(mapping)) %in% unique_cols]
-        # map_df(df[unique_cols], ~any(duplicated(.)))
+
         dupes <- map_lgl(df[unique_cols], ~any(duplicated(.)))
 
         if(any(dupes)) {
             warning <- paste0("Unexpected duplicates found in column(s): ", names(dupes))
             tests_if$cols_are_unique$status <- FALSE
-            warning(warning)
+            suppressWarnings(warning(warning))
         } else {
             tests_if$cols_are_unique$status <- TRUE
         }
 
     } else {
+
         tests_if$cols_are_unique$status <- TRUE
+
     }
 
 
-    if (all(map_lgl(tests_if[2:length(tests_if)], ~.$status))) {
+    if (bQuiet == FALSE) {
+        map(tests_if, ~.$warning) %>% discard(is.null)
+    }
 
-        tests_if$status <- TRUE
+
+    if (all(map_lgl(tests_if, ~.$status))) {
+
+        return(list(status = TRUE, tests_if = tests_if))
 
     } else {
 
-        tests_if$status <- FALSE
+        return(list(status = FALSE, tests_if = tests_if))
 
     }
 
 
-    return(tests_if)
 
 }

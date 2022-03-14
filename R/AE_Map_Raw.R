@@ -29,7 +29,7 @@
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #'
 #' @examples
-#'  dfInput <- AE_Map_Raw(clindata::raw_ae, clindata::rawplus_rdsl)
+#'  dfInput <- AE_Map_Raw(clindata::raw_ae, clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment)))
 #'
 #' @import dplyr
 #'
@@ -45,16 +45,13 @@ AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
     }
 
     dfAEMapping <- is_mapping_valid(dfAE, mapping$dfAE)
-    dfRDSLMapping <- is_mapping_valid(dfRDSL, mapping$dfRDSL, na_cols = "TimeOnTreatment")
+    dfRDSLMapping <- is_mapping_valid(dfRDSL, mapping$dfRDSL)
 
-    if (dfAEMapping$status == FALSE | dfRDSLMapping$status == FALSE) {
-        mapping_errors <- list(dfAEMapping, dfRDSLMapping)
-        return(mapping_errors)
-        stopifnot(
-            "dfAE contains bad data. Returning mapping data." = dfAEMapping$status == TRUE,
-            "dfRDSL contains bad data. Returning mapping data." = dfRDSLMapping$status == TRUE
-        )
-    }
+    stopifnot(
+        "Errors found in dfAE." = dfAEMapping$status,
+        "Errors found in dfRDSL." = dfRDSLMapping$status
+    )
+
 
     dfInput <-  dfRDSL %>%
         rowwise() %>%

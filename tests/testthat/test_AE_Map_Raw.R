@@ -1,5 +1,14 @@
+dfAE <- clindata::raw_ae
+dfRDSL <- clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
+
+mapping <- list(
+  dfAE= list(id_col="SUBJID"),
+  dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
+)
+
+
 test_that("output created as expected and has correct structure",{
-  ae_input <- AE_Map_Raw(dfAE = clindata::raw_ae, dfRDSL = clindata::rawplus_rdsl )
+  ae_input <- AE_Map_Raw(dfAE = dfAE, dfRDSL = dfRDSL)
   expect_true(is.data.frame(ae_input))
   expect_equal(
   names(ae_input),
@@ -15,73 +24,80 @@ test_that("all data is mapped and summarized correctly",{
     select(SUBJID, Count)
 
   AE_mapped <- clindata::rawplus_rdsl %>%
+    filter(!is.na(TimeOnTreatment)) %>%
     left_join(AE_counts, by = c("SubjectID" = "SUBJID")) %>%
     mutate(Count = as.integer(replace(Count, is.na(Count), 0))) %>%
     rename(Exposure = TimeOnTreatment) %>%
     mutate(Rate = Count / Exposure) %>%
     select(SubjectID, SiteID, Count, Exposure, Rate)
 
-  expect_identical(AE_Map_Raw(clindata::raw_ae,
-                              clindata::rawplus_rdsl),
+  expect_identical(AE_Map_Raw(dfAE, dfRDSL),
                    AE_mapped)
 })
 
 test_that("incorrect inputs throw errors",{
   expect_error(AE_Map_Raw(list(), list()))
-  expect_error(AE_Map_Raw( clindata::raw_ae, list()))
-  expect_error(AE_Map_Raw(list(),  clindata::rawplus_rdsl))
-  expect_error(AE_Map_Raw("Hi","Mom"))
-})
-
-test_that("invalid strExposureCol throws error",{
-  expect_error( AE_Map_Raw(dfAE = clindata::raw_ae, dfRDSL = clindata::rawplus_rdsl, strExposureCol= "Bad_Name" ))
+  expect_error(AE_Map_Raw(dfAE, list()))
+  expect_error(AE_Map_Raw(list(), dfRDSL))
+  expect_error(AE_Map_Raw("Hi", "Mom"))
+  expect_error(AE_Map_Raw(dfAE, dfRDSL, mapping = list()))
 })
 
 
 test_that("error given if required column not found",{
   expect_error(
     AE_Map_Raw(
-      clindata::raw_ae %>% rename(ID = SUBJID),
-      clindata::rawplus_rdsl
+      dfAE %>% rename(ID = SUBJID),
+      dfRDSL
     )
   )
 
   expect_error(
     AE_Map_Raw(
-      clindata::raw_ae ,
-      clindata::rawplus_rdsl  %>% select(-SiteID)
+      dfAE,
+      dfRDSL %>% select(-SiteID)
     )
   )
 
   expect_error(
     AE_Map_Raw(
-      clindata::raw_ae ,
-      clindata::rawplus_rdsl   %>% select(-SubjectID)
-    )
-  )
-
-
-
-  expect_error(
-    AE_Map_Raw(
-      clindata::raw_ae ,
-      clindata::rawplus_rdsl ,
-      strExposureCol="Exposure"
+      dfAE,
+      dfRDSL %>% select(-SubjectID)
     )
   )
 
   expect_error(
     AE_Map_Raw(
-      clindata::raw_ae ,
-      clindata::rawplus_rdsl   %>% select(-SiteID)
+      dfAE,
+      dfRDSL %>% select(-TimeOnTreatment)
+    )
+  )
+
+
+# update mapping
+  expect_error(
+    AE_Map_Raw(
+      dfAE,
+      dfRDSL,
+      mapping = list(
+        dfAE= list(id_col="not an id column"),
+        dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
+      )
+    )
+  )
+
+  expect_error(
+    AE_Map_Raw(
+      dfAE,
+      dfRDSL %>% select(-SiteID)
     )
   )
 
 
   expect_silent(
     AE_Map_Raw(
-      clindata::raw_ae  %>% select(-PROJECT),
-      clindata::rawplus_rdsl
+      dfAE %>% select(-PROJECT),
+      dfRDSL
     )
   )
 })
@@ -90,9 +106,9 @@ test_that("error given if required column not found",{
 test_that("output is correct given example input",{
 
 
-  dfAE <- tibble::tribble(~SUBJID, 1,1,1,1,2,2)
+  dfAE_test <- tibble::tribble(~SUBJID, 1,1,1,1,2,2)
 
-  dfRDSL<-tibble::tribble(
+  dfRDSL_test <-tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
     1,   1, 10,
     2,   1, NA,
@@ -100,7 +116,7 @@ test_that("output is correct given example input",{
   )
 
 
-  dfInput <-tibble::tribble(
+  dfInput_test <-tibble::tribble(
       ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
       1,   1, 4, 10, 0.4,
       2,   1, 2, NA, NA,
@@ -108,7 +124,7 @@ test_that("output is correct given example input",{
   )
 
 
-  expect_equal(dfInput,  AE_Map_Raw(dfAE, dfRDSL ))
+  expect_equal(dfInput,  AE_Map_Raw(dfAE_test, dfRDSL_test ))
 
   dfAE2 <- tibble::tribble(~SUBJID, 1,1,1,1,2,2,4,4)
 
@@ -158,7 +174,7 @@ test_that("NA values in input data are handled",{
     4,    2,  2, 50, .04
   )
 
-  expect_equal(dfInput3, AE_Map_Raw(dfAE = dfAE3, dfRDSL = dfExposure3))
+  expect_error(AE_Map_Raw(dfAE = dfAE3, dfRDSL = dfExposure3))
 
 
 })
@@ -193,3 +209,4 @@ test_that("dfRDSL$SubjectID NA value throws error",{
 
   expect_error(AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4))
 })
+
