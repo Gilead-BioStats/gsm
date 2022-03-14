@@ -22,16 +22,15 @@
 #'
 #' @section Statistical Assumptions:
 #'
-#' A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the `cMethod` parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in `vThreshold`. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
+#' A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the `strMethod` parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in `vThreshold`. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
 #'
 #' See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and their assumptions.
 #'
 #' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure
 #' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.
-#' @param cLabel Assessment label
-#' @param cMethod valid methods are "poisson" (the default), or  "wilcoxon"
-#' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the Summary data frame is returned
-#'
+#' @param strLabel Assessment label
+#' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon"
+#' 
 #' @examples
 #' dfInput <- LabAbnorm_Map_Adam( safetyData::adam_adsl, safetyData::adam_adlbc )
 #' LabAbnorm <- LabAbnorm_Assess( dfInput )
@@ -41,21 +40,20 @@
 #'
 #' @export
 
-LabAbnorm_Assess <-function( dfInput, vThreshold=NULL, cLabel="", cMethod="poisson",bDataList=FALSE){
+LabAbnorm_Assess <-function( dfInput, vThreshold=NULL, strLabel="", strMethod="poisson"){
   
   
   
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
-    "cLabel is not character" = is.character(cLabel),
-    "cMethod is not 'poisson' or 'wilcoxon'" = cMethod %in% c("poisson","wilcoxon"),
-    "bDataList is not logical" = is.logical(bDataList),
+    "strLabel is not character" = is.character(strLabel),
+    "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson","wilcoxon"),
     "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count","Exposure", "Rate") %in% names(dfInput))
   )
   lAssess <- list()
   lAssess$dfInput <- dfInput
-  lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
-  if(cMethod == "poisson"){
+  lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
+  if(strMethod == "poisson"){
     if(is.null(vThreshold)){
       vThreshold = c(-5,5)
     }else{
@@ -67,7 +65,9 @@ LabAbnorm_Assess <-function( dfInput, vThreshold=NULL, cLabel="", cMethod="poiss
     }
     lAssess$dfAnalyzed <- gsm::Analyze_Poisson( lAssess$dfTransformed)
     lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , strColumn = 'Residuals', vThreshold =vThreshold)
-  } else if(cMethod=="wilcoxon"){
+    lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol = 'Residuals', strAssessment="Safety", strLabel= strLabel)
+    
+  } else if(strMethod=="wilcoxon"){
     if(is.null(vThreshold)){
       vThreshold = c(0.0001,NA)
     }else{
@@ -80,15 +80,11 @@ LabAbnorm_Assess <-function( dfInput, vThreshold=NULL, cLabel="", cMethod="poiss
     }
     lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed , strOutcome = "Rate" )
     lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold, strValueColumn = 'Estimate')
+    lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strAssessment="Safety", strLabel= strLabel)
   }
   
-  lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, cAssessment="Safety", cLabel= cLabel)
   
-  if(bDataList){
-    return(lAssess)
-  } else {
-    return(lAssess$dfSummary)
-  }
-  
+
+  return(lAssess)
 
 }
