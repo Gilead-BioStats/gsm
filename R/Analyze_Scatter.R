@@ -28,11 +28,11 @@
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 #' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
-#' dfAnalyzed <- Analyze_Poisson( dfTransformed )
+#' dfAnalyzed <- Analyze_Scatter( dfTransformed )
 #'
 #' @export
 
-Analyze_Poisson <- function( dfTransformed ){
+Analyze_Scatter <- function( dfTransformed ){
     stopifnot(
         "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
         "One or more of these columns: SiteID, N, TotalExposure, TotalCount, Rate" = all(c("SiteID", "N", "TotalExposure", "TotalCount", "Rate") %in% names(dfTransformed)),
