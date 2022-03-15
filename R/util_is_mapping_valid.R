@@ -3,7 +3,7 @@
 #' @param df dataframe to compare to mapping object
 #' @param mapping named list specifying expected columns and fields in df
 #' @param unique_cols list of columns expected to be unique. default = NULL (none)
-#' @param no_cols list of columns where na values are acceptable default = NULL (none)
+#' @param na_cols list of columns where na values are acceptable default = NULL (none)
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @import dplyr
@@ -11,11 +11,19 @@
 #' @import purrr
 #'
 #' @examples
-#' rdsl_mapping<- list(id_col="SubjectID", site_col="SiteID", exposure_col="TimeOnTreatment")
-#' is_mapping_valid(clindata::rawplus_rdsl, rdsl_mapping, unique_cols="SUBJID") #TRUE
-#' is_mapping_valid(clindata::rawplus_rdsl, rdsl_mapping, unique_cols="SiteID") #FALSE - site_col not unique
-#' rdsl_mapping$not_a_col<-"nope"
-#' is_mapping_valid(clindata::rawplus_rdsl, rdsl_mapping, unique_cols="SUBJID") #FALSE - column not found
+#' rdsl_mapping <- list(id_col = "SubjectID",
+#'                     site_col = "SiteID",
+#'                     exposure_col = "TimeOnTreatment")
+#'
+#' is_mapping_valid(df = clindata::rawplus_rdsl,
+#'                  mapping = rdsl_mapping,
+#'                  unique_cols = "SUBJID")
+#'
+#' rdsl_mapping$not_a_col <- "nope"
+#'
+#' is_mapping_valid(df = clindata::rawplus_rdsl,
+#'                  mapping = rdsl_mapping,
+#'                  unique_cols = "SUBJID")
 #'
 #' @export
 
@@ -94,8 +102,8 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL, bQuiet
 
     # No NA found in columns
     no_na_cols <- as_tibble(unname(unlist(mapping))) %>%
-        filter(!value %in% na_cols) %>%
-        pull(value)
+        filter(!.data$value %in% na_cols) %>%
+        pull(.data$value)
 
     if(any(no_na_cols %in% names(df))) {
 
@@ -106,9 +114,10 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL, bQuiet
             warning <- df %>%
                 summarize(across(valid_no_na_cols, ~sum(is.na(.)))) %>%
                 tidyr::pivot_longer(everything()) %>%
-                filter(value > 0) %>%
-                summarize(message = paste(unique(map(., ~paste0("Variable ", name, " has ", value, " NA column(s)"))), collapse = ",")) %>%
-                pull(message)
+                filter(.data$value > 0) %>%
+                mutate(warning = paste0(.data$value, " NA values found in column: ", .data$name))
+
+            warning <- paste(warning$warning, collapse = "\n")
 
             tests_if$columns_have_na$status <- FALSE
             tests_if$columns_have_na$warning <- warning
@@ -135,8 +144,9 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL, bQuiet
         dupes <- map_lgl(df[unique_cols], ~any(duplicated(.)))
 
         if(any(dupes)) {
-            warning <- paste0("Unexpected duplicates found in column(s): ", names(dupes))
+            warning <- paste0("Unexpected duplicates found in column: ", names(dupes))
             tests_if$cols_are_unique$status <- FALSE
+            tests_if$cols_are_unique$warning <- warning
             suppressWarnings(warning(warning))
         } else {
             tests_if$cols_are_unique$status <- TRUE
@@ -150,7 +160,15 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL, bQuiet
 
 
     if (bQuiet == FALSE) {
-        map(tests_if, ~.$warning) %>% discard(is.null)
+        all_warnings <- map(tests_if, ~.$warning) %>% discard(is.null)
+
+        if (length(all_warnings) > 0) {
+
+            all_warnings <- paste(unlist(unname(all_warnings)), collapse = "\n")
+
+            warning(all_warnings)
+
+        }
     }
 
 

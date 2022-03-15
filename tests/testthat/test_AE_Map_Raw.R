@@ -103,55 +103,7 @@ test_that("error given if required column not found",{
 })
 
 
-test_that("output is correct given example input",{
 
-
-  dfAE_test <- tibble::tribble(~SUBJID, 1,1,1,1,2,2)
-
-  dfRDSL_test <-tibble::tribble(
-    ~SubjectID, ~SiteID, ~TimeOnTreatment,
-    1,   1, 10,
-    2,   1, NA,
-    3,   1, 30
-  )
-
-
-  dfInput_test <-tibble::tribble(
-      ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
-      1,   1, 4, 10, 0.4,
-      2,   1, 2, NA, NA,
-      3,   1, 0, 30, 0
-  )
-
-
-  expect_equal(dfInput,  AE_Map_Raw(dfAE_test, dfRDSL_test ))
-
-  dfAE2 <- tibble::tribble(~SUBJID, 1,1,1,1,2,2,4,4)
-
-  dfExposure2<-tibble::tribble(
-    ~SubjectID, ~SiteID, ~TimeOnTreatment,
-    1,   1, 10,
-    2,   1, NA,
-    3,   1, 30,
-    4,   2, 50
-  )
-
-
-  dfInput2 <-tibble::tribble(
-    ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
-    1,   1, 4, 10, 0.4,
-    2,   1, 2, NA, NA,
-    3,   1, 0, 30, 0 ,
-    4,   2, 2, 50, .04
-  )
-
-
-
-  expect_equal(dfInput2,  AE_Map_Raw(dfAE = dfAE2, dfRDSL = dfExposure2))
-
-
-
-})
 
 test_that("NA values in input data are handled",{
 
@@ -165,14 +117,6 @@ test_that("NA values in input data are handled",{
     4,   2, 50
   )
 
-
-  dfInput3 <-tibble::tribble(
-    ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
-    1,   1, 4, 10, 0.4,
-    2,    1,  2, NA, NA,
-    3,   NA,  0, 30, 0 ,
-    4,    2,  2, 50, .04
-  )
 
   expect_error(AE_Map_Raw(dfAE = dfAE3, dfRDSL = dfExposure3))
 

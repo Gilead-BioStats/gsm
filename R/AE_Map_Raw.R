@@ -22,14 +22,15 @@
 #'
 #' @param dfAE AE dataset with required column SUBJID and rows for each AE record
 #' @param dfRDSL Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol
-#' @param strIDCol Name of ID column. 'SubjectID' by default.
-#' @param strSiteCol Name of Site Column. 'SiteID' by default.
-#' @param strExposureCol Name of exposure column. 'TimeOnTreatment' by default.
+#' @param mapping List containing expected columns in each data set. By default, mapping for dfAE is: `strIDCol` = "SUBJID". By default, mapping for dfRDSL is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #'
 #' @examples
-#'  dfInput <- AE_Map_Raw(clindata::raw_ae, clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment)))
+#' dfAE <- clindata::raw_ae
+#' dfRDSL <- clindata::rawplus_rdsl %>% dplyr::filter(!is.na(TimeOnTreatment))
+#'
+#' dfInput <- AE_Map_Raw(dfAE, dfRDSL)
 #'
 #' @import dplyr
 #'
@@ -38,7 +39,7 @@
 AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
     if(is.null(mapping)){
         mapping <- list(
-            dfAE= list(id_col="SUBJID"),
+            dfAE= list(strIDCol="SUBJID"),
             dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
         )
 

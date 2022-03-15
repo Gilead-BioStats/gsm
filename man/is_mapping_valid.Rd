@@ -4,7 +4,13 @@
 \alias{is_mapping_valid}
 \title{Check that a data frame contains columns and fields specified in mapping}
 \usage{
-is_mapping_valid(df, mapping, unique_cols = NULL, na_cols = NULL)
+is_mapping_valid(
+  df,
+  mapping,
+  unique_cols = NULL,
+  na_cols = NULL,
+  bQuiet = TRUE
+)
 }
 \arguments{
 \item{df}{dataframe to compare to mapping object}
@@ -13,16 +19,26 @@ is_mapping_valid(df, mapping, unique_cols = NULL, na_cols = NULL)
 
 \item{unique_cols}{list of columns expected to be unique. default = NULL (none)}
 
-\item{no_cols}{list of columns where na values are acceptable default = NULL (none)}
+\item{na_cols}{list of columns where na values are acceptable default = NULL (none)}
+
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \description{
 Check that a data frame contains columns and fields specified in mapping
 }
 \examples{
-rdsl_mapping<- list(id_col="SubjectID", site_col="SiteID", exposure_col="TimeOnTreatment")
-is_mapping_valid(clindata::rawplus_rdsl, rdsl_mapping, unique_cols="SUBJID") #TRUE
-is_mapping_valid(clindata::rawplus_rdsl, rdsl_mapping, unique_cols="SiteID") #FALSE - site_col not unique
-rdsl_mapping$not_a_col<-"nope"
-is_mapping_valid(clindata::rawplus_rdsl, rdsl_mapping, unique_cols="SUBJID") #FALSE - column not found
+rdsl_mapping <- list(id_col = "SubjectID",
+                    site_col = "SiteID",
+                    exposure_col = "TimeOnTreatment")
+
+is_mapping_valid(df = clindata::rawplus_rdsl,
+                 mapping = rdsl_mapping,
+                 unique_cols = "SUBJID")
+
+rdsl_mapping$not_a_col <- "nope"
+
+is_mapping_valid(df = clindata::rawplus_rdsl,
+                 mapping = rdsl_mapping,
+                 unique_cols = "SUBJID")
 
 }
