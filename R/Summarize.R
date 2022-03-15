@@ -46,7 +46,10 @@ Summarize <- function( dfFlagged , strScoreCol="PValue", strAssessment="", strLa
         mutate(Label = strLabel) %>%
         rename(Score = strScoreCol)%>%
         select(.data$Assessment,.data$Label, .data$SiteID,.data$N, .data$Score, .data$Flag) %>%
-        arrange(.data$Score)
+        arrange(desc(abs(.data$Score)))  %>%
+        arrange(match(.data$Flag, c(1, -1, 0)))
+        
+  
 
     return(dfSummary)
 }
