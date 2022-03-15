@@ -63,7 +63,11 @@ IE_Assess <- function(dfInput, nThreshold=0.5, strLabel=""){
   lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = "Count")
   lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
   lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
+  lAssess$dfFlagged <- lAssess$dfFlagged %>% arrange(desc(.data$Flag))
   lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", strAssessment="Inclusion/Exclusion", strLabel= strLabel)
+  lAssess$dfSummary <- lAssess$dfSummary %>% arrange(desc(.data$Flag))
+  
+  
 
   return(lAssess)
 
