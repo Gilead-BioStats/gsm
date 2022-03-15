@@ -5,25 +5,25 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     dfRDSL = clindata::rawplus_rdsl
   )
 
-  test2_2 <- suppressWarnings(PD_Assess(
+  test2_4 <- suppressWarnings(PD_Assess(
     dfInput = dfInput,
     strMethod = "wilcoxon",
     vThreshold = c(0.1, NA)
   ))
 
   # double programming
-  t2_2_input <- dfInput
+  t2_4_input <- dfInput
 
-  t2_2_transformed <- dfInput %>%
+  t2_4_transformed <- dfInput %>%
     qualification_transform_counts()
 
-  t2_2_analyzed <- t2_2_transformed %>%
+  t2_4_analyzed <- t2_4_transformed %>%
     qualification_analyze_wilcoxon()
 
-  class(t2_2_analyzed) <- c("tbl_df", "tbl", "data.frame")
-  names(t2_2_analyzed$Estimate) <- rep("difference in location", nrow(t2_2_analyzed))
+  class(t2_4_analyzed) <- c("tbl_df", "tbl", "data.frame")
+  names(t2_4_analyzed$Estimate) <- rep("difference in location", nrow(t2_4_analyzed))
 
-  t2_2_flagged <- t2_2_analyzed %>%
+  t2_4_flagged <- t2_4_analyzed %>%
     mutate(
       ThresholdLow = 0.1,
       ThresholdHigh = NA_integer_,
@@ -41,7 +41,7 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     ) %>%
     select(-median)
 
-  t2_2_summary <- t2_2_flagged %>%
+  t2_4_summary <- t2_4_flagged %>%
     mutate(
       Assessment = "Safety",
       Label = "",
@@ -49,16 +49,16 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     ) %>%
     select(Assessment, Label, SiteID, N, Score, Flag)
 
-  t2_2 <- list("strFunctionName" = "PD_Assess()",
+  t2_4 <- list("strFunctionName" = "PD_Assess()",
                "lParams" = list("dfInput" = "dfInput",
                                 "vThreshold" = c("c", "0.1", "NA"),
                                 "strMethod" = "wilcoxon"),
-               "dfInput" = t2_2_input,
-               "dfTransformed" = t2_2_transformed,
-               "dfAnalyzed" = t2_2_analyzed,
-               "dfFlagged" = t2_2_flagged,
-               "dfSummary" = t2_2_summary)
+               "dfInput" = t2_4_input,
+               "dfTransformed" = t2_4_transformed,
+               "dfAnalyzed" = t2_4_analyzed,
+               "dfFlagged" = t2_4_flagged,
+               "dfSummary" = t2_4_summary)
 
   # compare results
-  expect_equal(test2_2, t2_2)
+  expect_equal(test2_4, t2_4)
 })
