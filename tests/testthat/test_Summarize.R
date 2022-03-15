@@ -29,3 +29,10 @@ test_that("error given if required column not found",{
 })
 
 
+test_that("output is correctly sorted by Flag and Score",{
+  sim1 <- data.frame(SiteID = seq(1:100), N=seq(1:100), PValue = rep(NA,100), ThresholdLow = rep(10, 100), ThresholdHigh = rep(NA, 100), Flag =  c(rep(-1,9), rep(0,91)))
+  expect_equal(Summarize(sim1)$Flag, c(rep(-1,9), rep(0,91)))
+  
+  sim1 <- data.frame(SiteID = seq(1,100), N=seq(1,100), PValue = c(seq(1,5), seq(6,1), rep(11,89)) , ThresholdLow = rep(10, 100), ThresholdHigh = rep(NA, 100), Flag =  c(rep(-1,9), rep(0,91)))
+  expect_equal(Summarize(sim1, strScoreCol = "PValue")$Score, c(6,5,5,4,4,3,3,2,1, rep(11,89), 2 ,1 ))
+})
