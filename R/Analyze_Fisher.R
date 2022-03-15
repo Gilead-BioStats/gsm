@@ -2,7 +2,7 @@
 #'
 #' Creates Analysis results data for count data using the Fisher's exact test
 #'
-#'  @details
+#' @details
 #'
 #' Analyzes count data using the Fisher's exact test
 #'
@@ -12,16 +12,17 @@
 #'
 #' @section Data Specification:
 #'
-#' The input data (` dfTransformed`) for the Analyze_Fisher is typically created using \code{\link{Transform_EventCount}}  and should be one record per Site with columns for:
+#' The input data (`dfTransformed`) for Analyze_Fisher is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
 #' - `SiteID` - Site ID
 #' - `N` - Total number of participants at site
-#' - `Count` - Total number of participants at site with event of interest
+#' - `TotalCount` - Total number of participants at site with event of interest
 #'
 #'
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
-#' @param  strOutcome required, name of column in dfTransformed dataset to perform Fisher test on
+#' @param  strOutcome required, name of column in dfTransformed dataset to perform Fisher test on. Default is "TotalCount".
 #'
-#' @importFrom stats fisher.test as.formula
+#' @import dplyr
+#' @importFrom stats fisher.test
 #' @importFrom purrr map
 #' @importFrom broom glance
 #' @importFrom tidyr unnest
@@ -30,7 +31,7 @@
 #'
 #' @examples
 #' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD",strReason = "Adverse Event")
-#' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count' )
+#' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count' )
 #' dfAnalyzed <- Analyze_Fisher( dfTransformed )
 #'
 #' @export
@@ -38,8 +39,11 @@
 Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
 
     stopifnot(
-        is.data.frame(dfTransformed),
-        all(c("SiteID", "N", strOutcome) %in% names(dfTransformed))
+        "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
+        "One or more of these columns: SiteID, N, or the value in strOutcome not found in dfTransformed" = all(c("SiteID", "N", strOutcome) %in% names(dfTransformed)),
+        "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]])),
+        "strOutcome must be length 1" = length(strOutcome) == 1,
+        "strOutcome is not character" = is.character(strOutcome)
     )
 
     fisher_model<- function(site){
@@ -58,7 +62,7 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
     dfAnalyzed <- dfTransformed %>%
         mutate(model = map(.data$SiteID, fisher_model)) %>%
         mutate(summary = map(.data$model, broom::glance)) %>%
-        unnest(summary) %>%
+        tidyr::unnest(summary) %>%
         rename(
             Estimate = .data$estimate,
             PValue = .data[['p.value']]

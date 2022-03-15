@@ -4,14 +4,14 @@
 \alias{IE_Assess}
 \title{Inclusion/Exclusion Assessment}
 \usage{
-IE_Assess(dfInput, nThreshold = 0.5, cLabel = "", bDataList = FALSE)
+IE_Assess(dfInput, nThreshold = 0.5, strLabel = "", bDataList = FALSE)
 }
 \arguments{
 \item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count,}
 
-\item{nThreshold}{integer threshold values Flagging, integer values greater than will be flagged.}
+\item{nThreshold}{Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.}
 
-\item{cLabel}{Assessment label}
+\item{strLabel}{Assessment label}
 
 \item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the summary/finding data frame is returned}
 }
@@ -42,15 +42,26 @@ The Assessment
 }
 }
 
+\section{Statistical Assumptions}{
+
+
+This Assessment finds any sites where one or more subjects which have Inclusion / Exclusion data that is either missing or has inconsistent data recorded for
+inclusion / exclusion data. N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
+With N greater than user specified \code{nThreshold} will be flagged.
+}
+
 \examples{
 
- dfInput <- tibble::tribble(        ~SubjectID, ~SiteID, ~Count,
-                                          "0142", "X194X",     9,
-                                          "0308", "X159X",     9,
-                                          "0776", "X194X",     8,
-                                          "1032", "X033X",     9
-                                          )
-                                          
- ie_summary <- IE_Assess(dfInput)
+dfInput <- IE_Map_Raw(
+   clindata::raw_ie_all ,
+   clindata::rawplus_rdsl,
+   strCategoryCol = 'IECAT_STD',
+   vCategoryValues= c("EXCL","INCL"),
+   strResultCol = 'IEORRES',
+   vExpectedResultValues=c(0,1)
+)
+
+ie_summary <- IE_Assess(dfInput)
+
 
 }

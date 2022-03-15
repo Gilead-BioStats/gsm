@@ -12,11 +12,11 @@ Flag(
 )
 }
 \arguments{
-\item{dfAnalyzed}{data frame where flags should be added}
+\item{dfAnalyzed}{data.frame where flags should be added.}
 
-\item{strColumn}{Name of the Column to use for thresholding}
+\item{strColumn}{Name of the column to use for thresholding.}
 
-\item{vThreshold}{vector of 2 numeric values representing lower and upper threshold values. All values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.}
+\item{vThreshold}{Vector of 2 numeric values representing lower and upper threshold values. All values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.}
 
 \item{strValueColumn}{Optional, Name of the Column to use for sign of Flag. If value for that row is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.}
 }
@@ -44,7 +44,7 @@ In short, the following columns are considered:
 
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
+dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 dfAnalyzed <- Analyze_Wilcoxon( dfTransformed)
 dfFlagged <- Flag( dfAnalyzed ) #PValue < 0.05 flagged
 dfFlagged10 <- Flag( dfAnalyzed, vThreshold=c(0.10,NA) ) #PValue <0.10 flagged
