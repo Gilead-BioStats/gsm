@@ -27,44 +27,42 @@
 #'
 #' @export
 
-is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL, bQuiet = TRUE){
+is_mapping_valid <- function(df, mapping, requiredParams, unique_cols=NULL, na_cols=NULL, bQuiet = TRUE){
 
     tests_if <- list(
-        is_data_frame = NULL,
-        has_rows = NULL,
-        mapping_is_list = NULL,
-        mappings_are_character = NULL,
-        has_expected_columns = NULL,
-        columns_have_na = NULL,
-        cols_are_unique = NULL
+        is_data_frame = list(status = NA,
+                             warning = NA),
+        has_required_params = list(status = NA,
+                                   warning = NA),
+        mapping_is_list = list(status = NA,
+                               warning = NA),
+        mappings_are_character = list(status = NA,
+                                      warning = NA),
+        has_expected_columns = list(status = NA,
+                                    warning = NA),
+        columns_have_na = list(status = NA,
+                               warning = NA),
+        columns_have_empty_values = list(status = NA,
+                                         warning = NA),
+        cols_are_unique = list(status = NA,
+                               warning = NA)
     )
 
-
+    # "df" is a data.frame
     if(!is.data.frame(df)){
         warning <- "df is not a data.frame()"
         tests_if$is_data_frame$status <- FALSE
         tests_if$is_data_frame$warning <- warning
-        suppressWarnings(warning(warning))
     } else {
         tests_if$is_data_frame$status <- TRUE
     }
 
-    if(is.data.frame(df)){
-        if(!nrow(df)>0) {
-        warning <- "df has 0 rows"
-        tests_if$has_rows$status <- FALSE
-        tests_if$has_rows$warning <- warning
-        suppressWarnings(warning(warning))
-        } else {
-            tests_if$has_rows$status <- TRUE
-        }
+    # has required parameters in "mapping"
+    if (!all(requiredParams %in% names(mapping))) {
+        tests_if$has_required_params$status <- FALSE
+        tests_if$has_required_params$warning <- '"mapping" does not contain required parameters'
     } else {
-
-            warning <- "df does not have rows"
-            tests_if$has_rows$status <- FALSE
-            tests_if$has_rows$warning <- warning
-            suppressWarnings(warning(warning))
-
+        tests_if$has_required_params$status <- TRUE
     }
 
     # basic mapping checks
@@ -72,47 +70,48 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL, bQuiet
         warning <- "mapping is not a list()"
         tests_if$mapping_is_list$status <- FALSE
         tests_if$mapping_is_list$warning <- warning
-        suppressWarnings(warning(warning))
+
     } else {
         tests_if$mapping_is_list$status <- TRUE
     }
 
+
+    # mapping contains character values for column names
     if(!all(purrr::map_lgl(mapping, ~is.character(.)))){
-        warning <- "Non-characacter columns found in mapping"
+        warning <- "Non-characacter column names found in mapping"
         warning_cols <- df %>% select_if(~!is.character(.)) %>% names()
         tests_if$mappings_are_character$status <- FALSE
         tests_if$mappings_are_character$warning <- paste0(warning, ": ", warning_cols)
-        suppressWarnings(warning(warning))
-
     } else {
         tests_if$mappings_are_character$status <- TRUE
     }
 
-    # expected columns not found in df
-    if(!all(unlist(unname(mapping)) %in% names(df))) {
-        cols <- paste(unlist(unname(mapping))[!unlist(unname(mapping)) %in% names(df)], collapse = ", ")
+
+    # expected columns are found in "df"
+    expected <- unlist(unname(mapping))
+
+    if(!all(expected %in% names(df))) {
+        cols <- paste(expected[!expected %in% names(df)], collapse = ", ")
         warning <- paste0("the following columns not found in df: ", cols)
         tests_if$has_expected_columns$status <- FALSE
         tests_if$has_expected_columns$warning <- warning
-        suppressWarnings(warning(warning))
+
     } else {
         tests_if$has_expected_columns$status <- TRUE
     }
 
 
-    # No NA found in columns
-    no_na_cols <- as_tibble(unname(unlist(mapping))) %>%
-        filter(!.data$value %in% na_cols) %>%
-        pull(.data$value)
+# No NA found in columns that are not specified in "na_cols"
+# -- this only runs if all checks above pass
+# -- if not, skip to the end and create warning "check not run"
+if (tests_if$has_expected_columns$status) {
 
-    if(any(no_na_cols %in% names(df))) {
+    check_na <- expected[!expected %in% na_cols]
 
-        valid_no_na_cols <- no_na_cols[no_na_cols %in% names(df)]
-
-        if(any(is.na(df[valid_no_na_cols]))) {
+    if (any(is.na(df[check_na]))) {
 
             warning <- df %>%
-                summarize(across(valid_no_na_cols, ~sum(is.na(.)))) %>%
+                summarize(across(check_na, ~sum(is.na(.)))) %>%
                 tidyr::pivot_longer(everything()) %>%
                 filter(.data$value > 0) %>%
                 mutate(warning = paste0(.data$value, " NA values found in column: ", .data$name))
@@ -122,24 +121,35 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL, bQuiet
             tests_if$columns_have_na$status <- FALSE
             tests_if$columns_have_na$warning <- warning
 
-            suppressWarnings(warning(warning))
-
         } else {
 
             tests_if$columns_have_na$status <- TRUE
 
         }
 
+    if ("" %in% df[check_na]) {
+
+        warning <- df %>%
+            summarize(across(check_na, ~sum(.==""))) %>%
+            tidyr::pivot_longer(everything()) %>%
+            filter(.data$value > 0) %>%
+            mutate(warning = paste0(.data$value, " empty string values found in column: ", .data$name))
+
+        warning <- paste(warning$warning, collapse = "\n")
+
+        tests_if$columns_have_empty_values$status <- FALSE
+        tests_if$columns_have_empty_values$warning <- warning
+
     } else {
 
-        tests_if$columns_have_na$status <- TRUE
+        tests_if$columns_have_empty_values$status <- TRUE
 
     }
 
 
-    # Check that specified columns are unique
+    # check for unique values in columns specified in "unique_cols"
     if(!is.null(unique_cols)){
-        unique_cols <- unname(unlist(mapping))[unname(unlist(mapping)) %in% unique_cols]
+        unique_cols <- expected[expected %in% unique_cols]
 
         dupes <- map_lgl(df[unique_cols], ~any(duplicated(.)))
 
@@ -153,14 +163,27 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL, bQuiet
         }
 
     } else {
-
         tests_if$cols_are_unique$status <- TRUE
-
     }
 
+} else {
+    tests_if$cols_are_unique$status <- FALSE
+    tests_if$columns_have_na$status <- FALSE
+    tests_if$columns_have_empty_values$status <- FALSE
 
+    tests_if$cols_are_unique$warning <- "check not run"
+    tests_if$columns_have_na$warning <- "check not run"
+    tests_if$columns_have_empty_values$warning <- "check not run"
+}
+
+
+
+    # remove NA values for tests_if$*$warning
+    tests_if <- map(tests_if, ~discard(., is.na))
+
+    # create warning message for multiple warnings (if applicable)
     if (bQuiet == FALSE) {
-        all_warnings <- map(tests_if, ~.$warning) %>% discard(is.null)
+        all_warnings <- map(tests_if, ~discard(.$warning, is.na))
 
         if (length(all_warnings) > 0) {
 
@@ -172,6 +195,8 @@ is_mapping_valid <- function(df, mapping, unique_cols=NULL, na_cols=NULL, bQuiet
     }
 
 
+    # if all tests_if$*$status is TRUE, return tests_if$status <- TRUE
+    # if not, FALSE
     if (all(map_lgl(tests_if, ~.$status))) {
 
         return(list(status = TRUE, tests_if = tests_if))

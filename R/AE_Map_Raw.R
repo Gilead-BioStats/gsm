@@ -39,25 +39,29 @@
 AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
     if(is.null(mapping)){
         mapping <- list(
-            dfAE= list(strIDCol="SUBJID"),
-            dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
+            dfAE = list(strIDCol="SUBJID"),
+            dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
         )
 
     }
 
-    dfAEMapping <- is_mapping_valid(dfAE, mapping$dfAE)
-    dfRDSLMapping <- is_mapping_valid(dfRDSL, mapping$dfRDSL)
+    dfAEMapping <- is_mapping_valid(dfAE, mapping$dfAE, requiredParams = c("strIDCol"))
+    dfRDSLMapping <- is_mapping_valid(dfRDSL, mapping$dfRDSL, requiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
 
     stopifnot(
         "Errors found in dfAE." = dfAEMapping$status,
         "Errors found in dfRDSL." = dfRDSLMapping$status
     )
 
+    dfAE <- dfAE %>%
+        rename(SUBJID = mapping[["dfAE"]][["strIDCol"]])
 
-    dfInput <-  dfRDSL %>%
+    dfInput <- dfRDSL %>%
+        rename(SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
+               SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
+               Exposure = mapping[["dfRDSL"]][["strExposureCol"]]) %>%
         rowwise() %>%
-        mutate(Count =sum(dfAE$SUBJID==.data$SubjectID, na.rm = TRUE)) %>%
-        rename(Exposure = mapping[["dfRDSL"]][["strExposureCol"]]) %>%
+        mutate(Count = sum(dfAE$SUBJID == .data$SubjectID, na.rm = TRUE)) %>%
         mutate(Rate = .data$Count/.data$Exposure) %>%
         select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
         ungroup()
