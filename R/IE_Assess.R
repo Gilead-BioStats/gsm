@@ -39,7 +39,7 @@
 #'    vExpectedResultValues=c(0,1)
 #')
 #'
-#' ie_summary <- IE_Assess(dfInput)
+#' IE_Summary <- IE_Assess(dfInput)$dfSummary
 #'
 #'
 #' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, and `lParams`) is returned.
