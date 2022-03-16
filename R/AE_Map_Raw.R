@@ -27,7 +27,7 @@
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #'
 #' @examples
-#' dfAE <- clindata::raw_ae
+#' dfAE <- clindata::raw_ae %>% dplyr::filter(SUBJID != "")
 #' dfRDSL <- clindata::rawplus_rdsl %>% dplyr::filter(!is.na(TimeOnTreatment))
 #'
 #' dfInput <- AE_Map_Raw(dfAE, dfRDSL)

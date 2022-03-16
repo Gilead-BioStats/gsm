@@ -1,8 +1,8 @@
-dfAE <- clindata::raw_ae
+dfAE <- clindata::raw_ae %>% filter(SUBJID != "")
 dfRDSL <- clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
 
 mapping <- list(
-  dfAE= list(id_col="SUBJID"),
+  dfAE= list(strIDCol="SUBJID"),
   dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
 )
 

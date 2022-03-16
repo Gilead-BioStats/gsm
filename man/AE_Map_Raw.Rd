@@ -45,7 +45,7 @@ Note that the function can generate data summaries for specific types of AEs, bu
 }
 
 \examples{
-dfAE <- clindata::raw_ae
+dfAE <- clindata::raw_ae \%>\% dplyr::filter(SUBJID != "")
 dfRDSL <- clindata::rawplus_rdsl \%>\% dplyr::filter(!is.na(TimeOnTreatment))
 
 dfInput <- AE_Map_Raw(dfAE, dfRDSL)

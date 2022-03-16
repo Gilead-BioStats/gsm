@@ -18,7 +18,7 @@ test_that("correct structure is returned", {
     names(df$tests_if),
     c("is_data_frame", "has_required_params", "mapping_is_list",
       "mappings_are_character", "has_expected_columns", "columns_have_na",
-      "cols_are_unique")
+      "columns_have_empty_values", "cols_are_unique")
   )
 
 
@@ -72,10 +72,34 @@ test_that("NA values are ignored when specified in na_cols", {
 
 })
 
+test_that("empty string values are caught", {
+  input <- dfRDSL
+  input$SubjectID[1] <- ""
+  df <- is_mapping_valid(df = input, mapping = mapping_rdsl, na_cols = "TimeOnTreatment", requiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
+
+  expect_equal(
+    df$tests_if$columns_have_empty_values$status,
+    FALSE
+  )
+
+  expect_equal(
+    df$tests_if$columns_have_empty_values$warning,
+    "1 empty string values found in column: SubjectID"
+  )
+
+  expect_equal(
+    df$status,
+    FALSE
+  )
+
+})
+
 
 test_that("bQuiet works as intended", {
 
   expect_warning(is_mapping_valid(df = dfRDSL, mapping = mapping_rdsl, bQuiet = FALSE, requiredParams = c("strIDCol", "strSiteCol", "strExposureCol")))
 
 })
+
+
 

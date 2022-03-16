@@ -7,19 +7,22 @@
 is_mapping_valid(
   df,
   mapping,
+  requiredParams,
   unique_cols = NULL,
   na_cols = NULL,
   bQuiet = TRUE
 )
 }
 \arguments{
-\item{df}{dataframe to compare to mapping object}
+\item{df}{data.frame to compare to mapping object.}
 
-\item{mapping}{named list specifying expected columns and fields in df}
+\item{mapping}{named list specifying expected columns and fields in df.}
 
-\item{unique_cols}{list of columns expected to be unique. default = NULL (none)}
+\item{requiredParams}{character vector of names that must be present in \code{mapping}.}
 
-\item{na_cols}{list of columns where na values are acceptable default = NULL (none)}
+\item{unique_cols}{list of columns expected to be unique. default = NULL (none).}
+
+\item{na_cols}{list of columns where na values are acceptable default = NULL (none).}
 
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
@@ -27,18 +30,20 @@ is_mapping_valid(
 Check that a data frame contains columns and fields specified in mapping
 }
 \examples{
-rdsl_mapping <- list(id_col = "SubjectID",
-                    site_col = "SiteID",
-                    exposure_col = "TimeOnTreatment")
+rdsl_mapping <- list(strIDCol = "SubjectID",
+                    strSiteCol = "SiteID",
+                    strExposureCol = "TimeOnTreatment")
 
 is_mapping_valid(df = clindata::rawplus_rdsl,
                  mapping = rdsl_mapping,
-                 unique_cols = "SUBJID")
+                 unique_cols = "SUBJID",
+                 requiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
 
 rdsl_mapping$not_a_col <- "nope"
 
 is_mapping_valid(df = clindata::rawplus_rdsl,
                  mapping = rdsl_mapping,
-                 unique_cols = "SUBJID")
+                 unique_cols = "SUBJID",
+                 requiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
 
 }
