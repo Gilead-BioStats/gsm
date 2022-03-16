@@ -130,11 +130,11 @@ if (tests_if$has_expected_columns$status) {
 
         }
 
-    empty_strings <- sum(map_dbl(df[check_na], ~sum(.x == "" & !is.na(.x))))
+    empty_strings <- sum(map_dbl(df[check_na], ~sum(as.character(.x) == "" & !is.na(.x))))
     if (empty_strings > 0) {
 
         warning <- df %>%
-            summarize(across(check_na, ~sum(.==""))) %>%
+            summarize(across(check_na, ~sum(as.character(.) == ""))) %>%
             tidyr::pivot_longer(everything()) %>%
             filter(.data$value > 0) %>%
             mutate(warning = paste0(.data$value, " empty string values found in column: ", .data$name))
