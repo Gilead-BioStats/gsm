@@ -33,7 +33,7 @@
 #' @examples
 #' dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev, dfRDSL = clindata::rawplus_rdsl)
 #' SafetyPD <- PD_Assess( dfInput )
-#' SafetyPD_Wilk <- PD_Assess( dfInput, strMethod="wilcoxon")
+#' SafetyPD_Wilk <- PD_Assess( dfInput, strMethod="wilcoxon")$dfSummary
 #'
 #' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, and `lParams`) is returned.
 #'
@@ -82,7 +82,7 @@ PD_Assess <- function(dfInput, vThreshold=NULL, strLabel="",strMethod="poisson")
             )
         }
         lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed)
-        lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold)
+        lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold, strValueColumn = 'Estimate')
         lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strAssessment="Safety", strLabel= strLabel)
     }
 

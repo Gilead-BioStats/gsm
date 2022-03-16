@@ -4,7 +4,7 @@
 #'
 #' @details
 #' 
-#' This function combines raw PD data with exposure data calculated by clindata::TimeOnStudy to create the required input for \code{\link{AE_Assess}}. 
+#' This function combines raw PD data with exposure data calculated by clindata::TimeOnStudy to create the required input for \code{\link{PD_Assess}}. 
 #' 
 #' @section Data Specification:
 #' 

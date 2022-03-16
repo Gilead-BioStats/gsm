@@ -74,5 +74,8 @@ Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strValu
         TRUE ~ Flag
       ))
   }
+  
+  dfFlagged <- dfFlagged  %>% arrange(match(.data$Flag, c(1, -1, 0)))
+  
   return( dfFlagged )
 }
