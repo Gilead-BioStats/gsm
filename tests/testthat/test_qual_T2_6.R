@@ -6,7 +6,6 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
   names(t2_6_assess) <- unique(clindata::raw_protdev$DEVTYPE)
 
   for(type in unique(clindata::raw_protdev$DEVTYPE)){
-    print(type)
     dfInput <- PD_Map_Raw(dfPD = filter(clindata::raw_protdev, DEVTYPE == type),
                           dfRDSL = clindata::rawplus_rdsl)
 
@@ -42,7 +41,8 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
         Flag != 0 & Estimate < median ~ -1,
         TRUE ~ Flag)
     ) %>%
-      select(-median)
+      select(-median) %>%
+      arrange(match(Flag, c(1, -1, 0)))
 
     t2_6_summary <- t2_6_flagged %>%
       mutate(
@@ -50,7 +50,9 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
         Label = "",
         Score = PValue
       ) %>%
-      select(Assessment, Label, SiteID, N, Score, Flag)
+      select(Assessment, Label, SiteID, N, Score, Flag) %>%
+      arrange(desc(abs(Score))) %>%
+      arrange(match(Flag, c(1, -1, 0)))
 
     t2_6_assess[type] <- list("strFunctionName" = "PD_Assess()",
                               "lParams" = list("dfInput" = "dfInput",

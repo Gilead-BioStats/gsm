@@ -38,7 +38,8 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
         Flag != 0 & Estimate < median ~ -1,
         TRUE ~ Flag)
     ) %>%
-    select(-median)
+    select(-median) %>%
+    arrange(match(Flag, c(1, -1, 0)))
 
   t2_5_summary <- t2_5_flagged %>%
     mutate(
@@ -46,7 +47,9 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
       Label = "",
       Score = PValue
     ) %>%
-    select(Assessment, Label, SiteID, N, Score, Flag)
+    select(Assessment, Label, SiteID, N, Score, Flag) %>%
+    arrange(desc(abs(Score))) %>%
+    arrange(match(Flag, c(1, -1, 0)))
 
   t2_5 <- list("strFunctionName" = "PD_Assess()",
                "lParams" = list("dfInput" = "dfInput",

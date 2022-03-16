@@ -45,7 +45,7 @@
     - T2_5
 - S2_6:
   Description: A Protocol Deviation assessment can be done iteratively by looping over a categorical variable
-  Risk: low
+  Risk: Low
   Impact: Medium
   Tests:
     - T2_3

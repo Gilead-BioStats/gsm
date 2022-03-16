@@ -1,29 +1,29 @@
 test_that("AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold.", {
   # gsm analysis
-  dfInput <- gsm::PD_Map_Raw(
-    dfPD = clindata::raw_protdev,
+  dfInput <- gsm::AE_Map_Raw(
+    dfAE = clindata::raw_ae,
     dfRDSL = clindata::rawplus_rdsl
   )
 
-  test2_4 <- suppressWarnings(PD_Assess(
+  test1_4 <- suppressWarnings(AE_Assess(
     dfInput = dfInput,
     strMethod = "wilcoxon",
     vThreshold = c(0.1, NA)
   ))
 
   # double programming
-  t2_4_input <- dfInput
+  t1_4_input <- dfInput
 
-  t2_4_transformed <- dfInput %>%
+  t1_4_transformed <- dfInput %>%
     qualification_transform_counts()
 
-  t2_4_analyzed <- t2_4_transformed %>%
+  t1_4_analyzed <- t1_4_transformed %>%
     qualification_analyze_wilcoxon()
 
-  class(t2_4_analyzed) <- c("tbl_df", "tbl", "data.frame")
-  names(t2_4_analyzed$Estimate) <- rep("difference in location", nrow(t2_4_analyzed))
+  class(t1_4_analyzed) <- c("tbl_df", "tbl", "data.frame")
+  names(t1_4_analyzed$Estimate) <- rep("difference in location", nrow(t1_4_analyzed))
 
-  t2_4_flagged <- t2_4_analyzed %>%
+  t1_4_flagged <- t1_4_analyzed %>%
     mutate(
       ThresholdLow = 0.1,
       ThresholdHigh = NA_integer_,
@@ -35,33 +35,33 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
         TRUE ~ 0),
       median = median(Estimate),
       Flag = case_when(
-        Flag != 0 & Estimate >= median ~ 1,
         Flag != 0 & Estimate < median ~ -1,
+        Flag != 0 & Estimate >= median ~ 1,
         TRUE ~ Flag)
     ) %>%
     select(-median) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t2_4_summary <- t2_4_flagged %>%
+  t1_4_summary <- t1_4_flagged %>%
     mutate(
       Assessment = "Safety",
       Label = "",
       Score = PValue
     ) %>%
     select(Assessment, Label, SiteID, N, Score, Flag) %>%
-    arrange(desc(abs(Score))) %>%
+    arrange(desc(abs(.data$Score))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t2_4 <- list("strFunctionName" = "PD_Assess()",
+  t1_4 <- list("strFunctionName" = "AE_Assess()",
                "lParams" = list("dfInput" = "dfInput",
                                 "vThreshold" = c("c", "0.1", "NA"),
                                 "strMethod" = "wilcoxon"),
-               "dfInput" = t2_4_input,
-               "dfTransformed" = t2_4_transformed,
-               "dfAnalyzed" = t2_4_analyzed,
-               "dfFlagged" = t2_4_flagged,
-               "dfSummary" = t2_4_summary)
+               "dfInput" = t1_4_input,
+               "dfTransformed" = t1_4_transformed,
+               "dfAnalyzed" = t1_4_analyzed,
+               "dfFlagged" = t1_4_flagged,
+               "dfSummary" = t1_4_summary)
 
   # compare results
-  expect_equal(test2_4, t2_4)
+  expect_equal(test1_4, t1_4)
 })

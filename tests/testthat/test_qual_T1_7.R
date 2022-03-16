@@ -1,28 +1,28 @@
-test_that("AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable when given correct input data from safetyData and the results should be flagged correctly.", {
+test_that("AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable when given subset input data from clindata and the results should be flagged correctly.", {
   # gsm analysis
-  dfInput <- gsm::AE_Map_Adam(
-    dfADSL = safetyData::adam_adsl,
-    dfADAE = safetyData::adam_adae
+  dfInput <- gsm::AE_Map_Raw(
+    dfAE = clindata::raw_ae %>% filter(AESER_STD == "Y" & SUBJID != ""),
+    dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
   )
 
-  test1_3 <- AE_Assess(
+  test1_7 <- AE_Assess(
     dfInput = dfInput,
     strMethod = "wilcoxon"
   )
 
   # double programming
-  t1_3_input <- dfInput
+  t1_7_input <- dfInput
 
-  t1_3_transformed <- dfInput %>%
+  t1_7_transformed <- dfInput %>%
     qualification_transform_counts()
 
-  t1_3_analyzed <- t1_3_transformed %>%
+  t1_7_analyzed <- t1_7_transformed %>%
     qualification_analyze_wilcoxon()
 
-  class(t1_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
-  names(t1_3_analyzed$Estimate) <- rep("difference in location", nrow(t1_3_analyzed))
+  class(t1_7_analyzed) <- c("tbl_df", "tbl", "data.frame")
+  names(t1_7_analyzed$Estimate) <- rep("difference in location", nrow(t1_7_analyzed))
 
-  t1_3_flagged <- t1_3_analyzed %>%
+  t1_7_flagged <- t1_7_analyzed %>%
     mutate(
       ThresholdLow = .0001,
       ThresholdHigh = NA_integer_,
@@ -41,7 +41,7 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     select(-median) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t1_3_summary <- t1_3_flagged %>%
+  t1_7_summary <- t1_7_flagged %>%
     mutate(
       Assessment = "Safety",
       Label = "",
@@ -52,16 +52,16 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     arrange(match(Flag, c(1, -1, 0)))
 
 
-  t1_3 <- list("strFunctionName" = "AE_Assess()",
+  t1_7 <- list("strFunctionName" = "AE_Assess()",
              "lParams" = list("dfInput" = "dfInput",
                               "strMethod" = "wilcoxon"),
-             "dfInput" = t1_3_input,
-             "dfTransformed" = t1_3_transformed,
-             "dfAnalyzed" = t1_3_analyzed,
-             "dfFlagged" = t1_3_flagged,
-             "dfSummary" = t1_3_summary)
+             "dfInput" = t1_7_input,
+             "dfTransformed" = t1_7_transformed,
+             "dfAnalyzed" = t1_7_analyzed,
+             "dfFlagged" = t1_7_flagged,
+             "dfSummary" = t1_7_summary)
 
   # compare results
-  expect_equal(test1_3, t1_3)
+  expect_equal(test1_7, t1_7)
 
 })

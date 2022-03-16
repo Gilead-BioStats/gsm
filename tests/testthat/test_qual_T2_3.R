@@ -35,7 +35,8 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
           is.na(Residuals) ~ NA_real_,
           is.nan(Residuals) ~ NA_real_,
           TRUE ~ 0),
-      )
+      ) %>%
+      arrange(match(Flag, c(1, -1, 0)))
 
     t2_3_summary <- t2_3_flagged %>%
       mutate(
@@ -43,7 +44,9 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
         Label = "",
         Score = Residuals
       ) %>%
-      select(Assessment, Label, SiteID, N, Score, Flag)
+      select(Assessment, Label, SiteID, N, Score, Flag) %>%
+      arrange(desc(abs(Score))) %>%
+      arrange(match(Flag, c(1, -1, 0)))
 
     t2_3_assess[type] <- list("strFunctionName" = "PD_Assess()",
                  "lParams" = list("dfInput" = "dfInput",
