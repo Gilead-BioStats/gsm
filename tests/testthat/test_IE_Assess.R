@@ -31,13 +31,9 @@ test_that("incorrect inputs throw errors",{
     expect_error(IE_Assess(ie_input, nThreshold=FALSE))
     expect_error(IE_Assess(ie_input, nThreshold="A"))
     expect_error(IE_Assess(ie_input, nThreshold=c(1,2)))
-})
-
-
-test_that("incorrect inputs throw errors",{
-  expect_error(IE_Assess(ie_input %>% select(-SubjectID)))
-  expect_error(IE_Assess(ie_input %>% select(-SiteID)))
-  expect_error(IE_Assess(ie_input %>% select(-Count)))
+    expect_error(IE_Assess(ie_input %>% select(-SubjectID)))
+    expect_error(IE_Assess(ie_input %>% select(-SiteID)))
+    expect_error(IE_Assess(ie_input %>% select(-Count)))
 })
 
 
@@ -53,17 +49,15 @@ ie_summary <- IE_Assess(ie_input1)
 
 
 target_ie_summary <- tibble::tribble(    ~Assessment, ~Label, ~SiteID, ~N, ~Score, ~Flag,
+                                "Inclusion/Exclusion",     "", "X194X", 2L,      17L,     1,
                                "Inclusion/Exclusion",     "", "X033X", 1L,      9L,     1,
-                               "Inclusion/Exclusion",     "", "X159X", 1L,      9L,     1,
-                               "Inclusion/Exclusion",     "", "X194X", 2L,      17L,     1
-                                   )
+                               "Inclusion/Exclusion",     "", "X159X", 1L,      9L,     1)
 
 target_ie_summary_NA_SiteID <- tibble::tribble(    ~Assessment, ~Label, ~SiteID, ~N, ~Score, ~Flag,
-                                         "Inclusion/Exclusion",     "", "X194X", 1L,      8L,     1,
                                          "Inclusion/Exclusion",     "", "X033X", 1L,      9L,     1,
                                          "Inclusion/Exclusion",     "", "X159X", 1L,      9L,     1,
-                                         "Inclusion/Exclusion",     "",      NA, 1L,      9L,     1
-)
+                                         "Inclusion/Exclusion",     "",      NA, 1L,      9L,     1,
+                                         "Inclusion/Exclusion",     "", "X194X", 1L,      8L,     1)
 
 
 test_that("output is correct given example input",{

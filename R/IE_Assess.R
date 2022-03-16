@@ -64,6 +64,8 @@ IE_Assess <- function(dfInput, nThreshold=0.5, strLabel=""){
   lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
   lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
   lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", strAssessment="Inclusion/Exclusion", strLabel= strLabel)
+  
+  
 
   return(lAssess)
 

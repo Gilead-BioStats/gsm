@@ -38,7 +38,8 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
         Flag != 0 & Estimate >= median ~ 1,
         TRUE ~ Flag)
     ) %>%
-    select(-median)
+    select(-median) %>%
+    arrange(match(Flag, c(1, -1, 0)))
 
   t1_3_summary <- t1_3_flagged %>%
     mutate(
@@ -46,7 +47,10 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
       Label = "",
       Score = PValue
     ) %>%
-    select(Assessment, Label, SiteID, N, Score, Flag)
+    select(Assessment, Label, SiteID, N, Score, Flag) %>%
+    arrange(desc(abs(.data$Score))) %>%
+    arrange(match(Flag, c(1, -1, 0)))
+
 
   t1_3 <- list("strFunctionName" = "AE_Assess()",
              "lParams" = list("dfInput" = "dfInput",

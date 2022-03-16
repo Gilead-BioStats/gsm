@@ -37,7 +37,7 @@ Summarize <- function( dfFlagged , strScoreCol="PValue", strAssessment="", strLa
         "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
         "strAssessment is not character" = is.character(strAssessment),
         "strLabel is not character" = is.character(strLabel),
-        "One or more of these columns: SiteID, N, Flag not found in dfFlagged" = all(c("SiteID", "N", "Flag",strScoreCol) %in% names(dfFlagged)),
+        "One or more of these columns: SiteID, N, Flag , strScoreCol, not found in dfFlagged" = all(c("SiteID", "N", "Flag",strScoreCol) %in% names(dfFlagged)),
         "strAssessment must be length of 1" = length(strAssessment) == 1,
         "strLabel must be length of 1" = length(strLabel) == 1
     )
@@ -46,7 +46,10 @@ Summarize <- function( dfFlagged , strScoreCol="PValue", strAssessment="", strLa
         mutate(Label = strLabel) %>%
         rename(Score = strScoreCol)%>%
         select(.data$Assessment,.data$Label, .data$SiteID,.data$N, .data$Score, .data$Flag) %>%
-        arrange(.data$Score)
+        arrange(desc(abs(.data$Score)))  %>%
+        arrange(match(.data$Flag, c(1, -1, 0)))
+        
+  
 
     return(dfSummary)
 }
