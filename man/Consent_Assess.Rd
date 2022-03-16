@@ -56,6 +56,6 @@ dfRDSL = clindata::rawplus_rdsl,
 strConsentReason = NULL
 )
 
-Consent_Assess(dfInput)
+Consent_Summary <- Consent_Assess(dfInput)$dfSummary
 
 }
