@@ -49,42 +49,48 @@ IE_Map_Raw <- function(
   strResultCol = 'IEORRES_STD',
   vExpectedResultValues = c(0,1)
 ){
-
-  ### Requires raw ie dataset
-  if( ! all(c("SUBJID", strCategoryCol, strResultCol) %in% names(dfIE)) ) stop(paste0("SUBJID, ",strCategoryCol,", and " , strResultCol, " columns are required in ie dataset") )
-  if( !(all(c("SubjectID","SiteID") %in% names(dfRDSL)))) stop("SubjectID and SiteID column are required in RDSL dataset" )
-
-  stopifnot(
-    "length of vExpectedResultValues is not equal to 2"= (length( vExpectedResultValues) ==2),
-    "length of vCategoryValues is not equal to 2"= (length(  vCategoryValues) ==2),
-    "IE dataset not found" = !is.null(dfIE),
-    "dfRDSL dataset not found" = !is.null(dfRDSL),
-    "dfIE$SUBJID contains NA value(s)" = all(!is.na(dfIE[["SUBJID"]])),
-    "strCategoryCol contains NA value(s)" = all(!is.na(dfIE[[strCategoryCol]])),
-    "strResultCol contains NA value(s)" = all(!is.na(dfIE[[strResultCol]]))
+  if(is.null(mapping)){
+    mapping <- list(
+      dfIE = list(strIDCol="SUBJID", strCategoryCol = "IECAT_STD", strResultCol = "IEORRES"),
+      dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID")
     )
 
-  # filter records where SUBJID is missing and create basic flags
-  dfIE_long <- dfIE %>%
-    filter(.data$SUBJID !="") %>%
-    select(.data$SUBJID, .data[[strCategoryCol]],  .data[[strResultCol]]) %>%
-    mutate(expected=ifelse(.data[[strCategoryCol]] == vCategoryValues[1], vExpectedResultValues[1],vExpectedResultValues[2])) %>%
-    mutate(valid=.data[[strResultCol]]==.data$expected)%>%
-    mutate(invalid=.data[[strResultCol]]!=.data$expected)%>%
-    mutate(missing=!(.data[[strResultCol]] %in% vExpectedResultValues))
+  }
 
-  # collapse long data to one record per participant
-  dfIE_Subj <- dfIE_long %>%
-    group_by(.data$SUBJID) %>%
+  dfIEMapping <- is_mapping_valid(df = dfIE,
+                                  mapping = mapping$dfIE,
+                                  requiredParams = c("strIDCol", "strCategoryCol", "strResultCol"))
+
+  dfRDSLMapping <- is_mapping_valid(df = dfRDSL,
+                                    mapping = mapping$dfRDSL,
+                                    requiredParams = c("strIDCol", "strSiteCol"))
+
+  stopifnot(
+    "length of vExpectedResultValues is not equal to 2"= (length(vExpectedResultValues) == 2),
+    "length of vCategoryValues is not equal to 2"= (length(vCategoryValues) == 2),
+    "Errors found in dfIE." = dfIEMapping$status,
+    "Errors found in dfRDSL." = dfRDSLMapping$status
+  )
+
+  dfIE_Subj <- dfIE %>%
+    rename(SubjectID = mapping[["dfIE"]][["strIDCol"]],
+           category = mapping[["dfIE"]][["strCategoryCol"]],
+           result = mapping[["dfIE"]][["strResultCol"]]) %>%
+    select(.data$SubjectID, .data$category, .data$result) %>%
+    mutate(expected = ifelse(.data$category == vCategoryValues[1], vExpectedResultValues[1], vExpectedResultValues[2]),
+           valid = .data$result == .data$expected,
+           invalid = .data$result != .data$expected,
+           missing = !(.data$result %in% vExpectedResultValues)) %>%
+    group_by(.data$SubjectID) %>%
     summarise(
-      Total=n(),
-      Valid=sum(.data$valid),
-      Invalid=sum(.data$invalid),
-      Missing=sum(.data$missing)
-    )%>%
+      Total = n(),
+      Valid = sum(.data$valid),
+      Invalid = sum(.data$invalid),
+      Missing = sum(.data$missing)
+    ) %>%
     mutate(Count = .data$Invalid + .data$Missing) %>%
-    rename(SubjectID =  .data$SUBJID) %>%
     ungroup()
+
 
   missIE <- anti_join( dfIE_Subj, dfRDSL, by="SubjectID")
   if( nrow(missIE) > 0 ) warning("Not all SubjectID in IE found in RDSL")
