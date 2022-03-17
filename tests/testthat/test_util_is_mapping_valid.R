@@ -66,8 +66,9 @@ test_that("NA values are ignored when specified in vNACols", {
     TRUE
   )
 
-  expect_null(
-    df$tests_if$columns_have_na$warning
+  expect_equal(
+    df$tests_if$columns_have_na$warning,
+    NA
   )
 
 })

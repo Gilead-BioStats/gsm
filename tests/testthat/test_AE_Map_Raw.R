@@ -48,28 +48,28 @@ test_that("error given if required column not found",{
     AE_Map_Raw(
       dfAE %>% rename(ID = SUBJID),
       dfRDSL
-    )%>%supressMessages
+    )%>% suppressMessages
   )
 
   expect_error(
     AE_Map_Raw(
       dfAE,
       dfRDSL %>% select(-SiteID)
-    )%>%supressMessages
+    )%>% suppressMessages
   )
 
   expect_error(
     AE_Map_Raw(
       dfAE,
       dfRDSL %>% select(-SubjectID)
-    )%>%supressMessages
+    )%>% suppressMessages
   )
 
   expect_error(
     AE_Map_Raw(
       dfAE,
       dfRDSL %>% select(-TimeOnTreatment)
-    )%>%supressMessages
+    )%>% suppressMessages
   )
 
 
@@ -82,18 +82,17 @@ test_that("error given if required column not found",{
         dfAE= list(id_col="not an id column"),
         dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
       )
-    )%>%supressMessages
+    )%>% suppressMessages
   )
 
   expect_error(
     AE_Map_Raw(
       dfAE,
       dfRDSL %>% select(-SiteID)
-    )%>%supressMessages
+    )%>% suppressMessages
   )
 
-
-  expect_silent(
+  expect_message(
     AE_Map_Raw(
       dfAE %>% select(-PROJECT),
       dfRDSL
@@ -151,5 +150,23 @@ test_that("dfRDSL$SubjectID NA value throws error",{
 
 
   expect_error(AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4)%>%supressMessages)
+})
+
+
+
+
+test_that("custom mapping runs without errors", {
+  custom_mapping <- mapping <- list(
+    dfAE= list(strIDCol="SUBJID"),
+    dfRDSL=list(strIDCol="custom_id", strSiteCol="custom_site_id", strExposureCol="trtmnt")
+  )
+
+
+  custom_rdsl <- dfRDSL %>%
+    mutate(trtmnt = TimeOnTreatment * 2.025) %>%
+    rename(custom_id = SubjectID,
+           custom_site_id = SiteID)
+
+  expect_message(AE_Map_Raw(dfAE, custom_rdsl, mapping = custom_mapping))
 })
 

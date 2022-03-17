@@ -91,10 +91,10 @@ is_mapping_valid <- function(df, mapping, vRequiredParams, vUniqueCols=NULL, vNA
 
 
 # Remaining checks only runs if all expected columns are found
-# If expected columns are missiong, check status is FALSE and with a "check not run" warning. 
+# If expected columns are missiong, check status is FALSE and with a "check not run" warning.
 if (tests_if$has_expected_columns$status) {
-    
-    # Check for NA values in columns that are not specified in "vNACols" 
+
+    # Check for NA values in columns that are not specified in "vNACols"
     check_na <- expected[!expected %in% vNACols]
     if (any(is.na(df[check_na]))) {
             warning <- df %>%
@@ -103,7 +103,7 @@ if (tests_if$has_expected_columns$status) {
                 filter(.data$value > 0) %>%
                 mutate(warning = paste0(.data$value, " NA values found in column: ", .data$name))
 
-            
+
             tests_if$columns_have_na$status <- FALSE
             warning <- paste(warning$warning, collapse = "\n")
             tests_if$columns_have_na$warning <- warning
@@ -151,9 +151,6 @@ if (tests_if$has_expected_columns$status) {
     tests_if$columns_have_na$warning <- "NA check not run"
     tests_if$columns_have_empty_values$warning <- "Empty Value check not run"
 }
-
-    # remove NA values for tests_if$*$warning
-    tests_if <- map(tests_if, ~discard(., is.na))
 
     # create warning message for multiple warnings (if applicable)
     if (bQuiet == FALSE) {
