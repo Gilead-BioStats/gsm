@@ -30,11 +30,9 @@
 #' @examples
 #'
 #' dfInput <- IE_Map_Raw(
-#'    clindata::raw_ie_all ,
+#'    clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
 #'    clindata::rawplus_rdsl,
-#'    strCategoryCol = 'IECAT_STD',
 #'    vCategoryValues= c("EXCL","INCL"),
-#'    strResultCol = 'IEORRES',
 #'    vExpectedResultValues=c(0,1)
 #')
 #'
@@ -44,9 +42,8 @@
 IE_Map_Raw <- function(
   dfIE,
   dfRDSL,
-  strCategoryCol = 'IECAT',
+  mapping = NULL,
   vCategoryValues =  c("Exclusion","Inclusion"),
-  strResultCol = 'IEORRES_STD',
   vExpectedResultValues = c(0,1)
 ){
   if(is.null(mapping)){

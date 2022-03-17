@@ -57,7 +57,7 @@ The following columns are required:
 \examples{
 
 dfInput <- IE_Map_Raw(
-   clindata::raw_ie_all ,
+   clindata::raw_ie_all \%>\% dplyr::filter(SUBJID != "" ),
    clindata::rawplus_rdsl,
    strCategoryCol = 'IECAT_STD',
    vCategoryValues= c("EXCL","INCL"),
