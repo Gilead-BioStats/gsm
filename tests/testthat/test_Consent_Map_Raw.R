@@ -34,7 +34,7 @@ dfInput_test <-  tibble::tribble(
 
 
 test_that("output created as expected and has correct structure",{
-  consent_input <-  Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentReason = "mainconsent")
+  consent_input <- Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentReason = "mainconsent", mapping = NULL)
   expect_true(is.data.frame(consent_input))
   expect_equal(
     names(consent_input),
@@ -50,6 +50,9 @@ test_that("incorrect inputs throw errors",{
 test_that("incorrect inputs throw errors",{
   expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = list()))
   expect_error( Consent_Map_Raw(dfConsent = list(), dfRDSL = dfRDSL_test))
+  expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentReason = "mainconsent", mapping = "hi there"))
+  expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentReason = "mainconsent", mapping = list()))
+  expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentReason = 1))
 })
 
 
@@ -192,29 +195,19 @@ dfInput_test2 <-  tibble::tribble(
   1,       1,   1)
 
 
-test_that("NA's in data are removed and handled correctly",{
+test_that("NA's in data are caught and error thrown",{
   dfConsent_test_in <-  dfConsent_test2; dfConsent_test_in[1,2] = NA
-  expect_equal( tibble::tribble(
-    ~SubjectID, ~SiteID, ~Count,
-    1,       1,   1),  Consent_Map_Raw(dfConsent = dfConsent_test_in, dfRDSL = dfRDSL_test2))
+  expect_error(Consent_Map_Raw(dfConsent = dfConsent_test_in, dfRDSL = dfRDSL_test2))
 
   dfConsent_test_in <-  dfConsent_test2; dfConsent_test_in[1,3] = NA
-  expect_equal( tibble::tribble(
-    ~SubjectID, ~SiteID, ~Count,
-    1,       1,   1,
-    1,       1,   1),  Consent_Map_Raw(dfConsent = dfConsent_test_in, dfRDSL = dfRDSL_test2))
+  expect_error(Consent_Map_Raw(dfConsent = dfConsent_test_in, dfRDSL = dfRDSL_test2))
 
   dfRDSL_in <-  dfRDSL_test2; dfRDSL_in[2,2] = NA
-  expect_equal( tibble::tribble(
-    ~SubjectID, ~SiteID, ~Count,
-    1,       1,   1,
-    1,       1,   1),  suppressWarnings(Consent_Map_Raw(dfConsent = dfConsent_test2, dfRDSL = dfRDSL_in)))
+  expect_error(suppressWarnings(Consent_Map_Raw(dfConsent = dfConsent_test2, dfRDSL = dfRDSL_in)))
 
-
+  dfRDSL_in <-  dfRDSL_test2; dfRDSL_in[2,2] = NA
+  expect_error(Consent_Map_Raw( dfConsent = dfConsent_test2, dfRDSL = dfRDSL_in ))
 
 })
 
-test_that("Warning provided for missing (NA) SiteID's in dfRDSL",{
-  dfRDSL_in <-  dfRDSL_test2; dfRDSL_in[2,2] = NA
-  expect_warning(Consent_Map_Raw( dfConsent = dfConsent_test2, dfRDSL = dfRDSL_in ))
-})
+

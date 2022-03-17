@@ -59,7 +59,7 @@ dfInput <- IE_Map_Raw(
    vExpectedResultValues=c(0,1)
 )
 
-ie_summary <- IE_Assess(dfInput)
+IE_Summary <- IE_Assess(dfInput)$dfSummary
 
 
 }

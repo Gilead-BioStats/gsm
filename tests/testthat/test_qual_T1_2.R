@@ -1,9 +1,11 @@
 test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
   # gsm analysis
   dfInput <- gsm::AE_Map_Raw(
-    dfAE = clindata::raw_ae,
-    dfRDSL = clindata::rawplus_rdsl
+    dfAE = clindata::raw_ae %>% filter(SUBJID != ""),
+    dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
   )
+
+
 
   test1_2 <- suppressWarnings(AE_Assess(
     dfInput = dfInput,
@@ -33,7 +35,8 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
         is.na(Residuals) ~ NA_real_,
         is.nan(Residuals) ~ NA_real_,
         TRUE ~ 0),
-    )
+    ) %>%
+    arrange(match(Flag, c(1, -1, 0)))
 
   t1_2_summary <- t1_2_flagged %>%
     mutate(
@@ -41,7 +44,9 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
       Label = "",
       Score = Residuals
     ) %>%
-    select(Assessment, Label, SiteID, N, Score, Flag)
+    select(Assessment, Label, SiteID, N, Score, Flag) %>%
+    arrange(desc(abs(Score))) %>%
+    arrange(match(Flag, c(1, -1, 0)))
 
   t1_2 <- list("strFunctionName" = "AE_Assess()",
                "lParams" = list("dfInput" = "dfInput",

@@ -34,7 +34,7 @@
 #' strConsentReason = NULL
 #')
 #'
-#'Consent_Assess(dfInput)
+#' Consent_Summary <- Consent_Assess(dfInput)$dfSummary
 #'
 #' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, and `lParams`) is returned.
 #'

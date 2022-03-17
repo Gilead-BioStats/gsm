@@ -45,11 +45,11 @@ test_that("vThreshold parameter works as intended",{
 sim1 <- Flag(data.frame(SiteID = seq(1:100), vals=seq(1:100)), strColumn="vals", vThreshold=c(10,NA))
 expect_equal(sim1$Flag, c(rep(-1,9), rep(0,91)))
 sim2 <- Flag(data.frame(SiteID = seq(1:100), vals=seq(1:100)), strColumn="vals", vThreshold=c(NA,91))
-expect_equal(sim2$Flag, c(rep(0,91), rep(1,9)))
+expect_equal(sim2$Flag, c(rep(1,9),rep(0,91) ))
 sim3 <- Flag(data.frame(SiteID = seq(1:100), vals=seq(1:100)), strColumn="vals", vThreshold=c(2,91))
-expect_equal(sim3$Flag, c(-1,rep(0,90), rep(1,9)))
+expect_equal(sim3$Flag, c( rep(1,9),-1,rep(0,90)))
 sim4 <- Flag(data.frame(SiteID = seq(1:201), vals=seq(from = -100, to = 100)), strColumn="vals", vThreshold=c(-91,91))
-expect_equal(sim4$Flag,c(rep(-1,9),rep(0,183), rep(1,9)))
+expect_equal(sim4$Flag,c(rep(1,9),rep(-1,9),rep(0,183) ))
 })
 
 test_that("NA values in strColumn result in NA in Flag column",{
