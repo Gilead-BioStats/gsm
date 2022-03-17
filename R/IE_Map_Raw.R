@@ -12,14 +12,15 @@
 #' The following columns are required:
 #' - `dfIE`
 #'     - `SUBJID` - Unique subject ID
-#'     - Value specified in strCategoryCol  - IE Category; "IECAT" by default
-#'     - Value specified in strResultCol  - Incl criteria not met Excl criteria met; "IEORRES_STD" by default
+#'     - Value specified in `mapping` - IE Category; "IECAT_STD" by default
+#'     - Value specified in `mapping` - Incl criteria not met Excl criteria met; "IEORRES" by default
 #' - `dfRDSL`
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
 #'
 #' @param dfIE ie dataset with columns SUBJID and values specified in strCategoryCol and strResultCol.
 #' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID SiteID
+#' @param mapping List containing expected columns in each data set.
 #' @param vCategoryValues Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion"). Category values must be in the same order as `vExpectedResultValues`.
 #' @param vExpectedResultValues Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion". Values must be in the same order as `vCategoryValues`.
 #'
@@ -37,35 +38,38 @@
 #' @import dplyr
 #'
 #' @export
-IE_Map_Raw <- function(
-  dfIE,
-  dfRDSL,
-  mapping = NULL,
-  vCategoryValues =  c("Exclusion","Inclusion"),
-  vExpectedResultValues = c(0,1)
-){
+IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclusion","Inclusion"), vExpectedResultValues = c(0,1)) {
   if(is.null(mapping)){
     mapping <- list(
       dfIE = list(strIDCol="SUBJID", strCategoryCol = "IECAT_STD", strResultCol = "IEORRES"),
       dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID")
     )
-
   }
 
-  dfIEMapping <- is_mapping_valid(df = dfIE,
-                                  mapping = mapping$dfIE,
-                                  requiredParams = c("strIDCol", "strCategoryCol", "strResultCol"))
+  is_ie_valid <- is_mapping_valid(
+      dfIE,
+      mapping$dfIE,
+      vRequiredParams = c("strIDCol", "strCategoryCol", "strResultCol"),
+      bQuiet = FALSE
+    )
 
-  dfRDSLMapping <- is_mapping_valid(df = dfRDSL,
-                                    mapping = mapping$dfRDSL,
-                                    requiredParams = c("strIDCol", "strSiteCol"))
+  is_rdsl_valid <- is_mapping_valid(
+      dfRDSL,
+      mapping$dfRDSL,
+      vRequiredParams = c("strIDCol", "strSiteCol"),
+      bQuiet = FALSE
+    )
 
   stopifnot(
     "length of vExpectedResultValues is not equal to 2"= (length(vExpectedResultValues) == 2),
     "length of vCategoryValues is not equal to 2"= (length(vCategoryValues) == 2),
-    "Errors found in dfIE." = dfIEMapping$status,
-    "Errors found in dfRDSL." = dfRDSLMapping$status
+    "Errors found in dfIE." = is_ie_valid$status,
+    "Errors found in dfRDSL." = is_rdsl_valid$status
   )
+
+  dfRDSL <- dfRDSL %>%
+    rename(SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
+           SiteID = mapping[["dfRDSL"]][["strSiteCol"]])
 
   dfIE_Subj <- dfIE %>%
     rename(SubjectID = mapping[["dfIE"]][["strIDCol"]],
@@ -86,17 +90,18 @@ IE_Map_Raw <- function(
     mutate(Count = .data$Invalid + .data$Missing) %>%
     ungroup()
 
-  # throw warning if an ID in IE isn't found in RDSL
-  missIE <- anti_join( dfIE_Subj, dfRDSL, by="SubjectID")
-  if( nrow(missIE) > 0 ) warning("Not all SubjectID in IE found in RDSL")
-
   # merge IE and RDSL
   dfInput <- dfRDSL %>%
     select(.data$SubjectID, .data$SiteID)%>%
     inner_join(dfIE_Subj, by="SubjectID") %>%
     select(.data$SubjectID, .data$SiteID, .data$Count)
 
-
+  # throw warning if an ID in IE isn't found in RDSL
+  missIE <- anti_join(dfIE_Subj, dfRDSL, by="SubjectID")
+  if(nrow(missIE) > 0) {
+    warning("Not all SubjectID in IE found in RDSL")
+  }
 
   return(dfInput)
+
 }

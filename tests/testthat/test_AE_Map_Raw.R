@@ -156,7 +156,7 @@ test_that("dfRDSL$SubjectID NA value throws error",{
 
 
 test_that("custom mapping runs without errors", {
-  custom_mapping <- mapping <- list(
+  custom_mapping <- list(
     dfAE= list(strIDCol="SUBJID"),
     dfRDSL=list(strIDCol="custom_id", strSiteCol="custom_site_id", strExposureCol="trtmnt")
   )

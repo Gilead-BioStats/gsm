@@ -7,9 +7,8 @@
 IE_Map_Raw(
   dfIE,
   dfRDSL,
-  strCategoryCol = "IECAT",
+  mapping = NULL,
   vCategoryValues = c("Exclusion", "Inclusion"),
-  strResultCol = "IEORRES_STD",
   vExpectedResultValues = c(0, 1)
 )
 }
@@ -18,11 +17,9 @@ IE_Map_Raw(
 
 \item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID}
 
-\item{strCategoryCol}{Name ofcCriteria category column. default = 'IECAT'}
+\item{mapping}{List containing expected columns in each data set.}
 
 \item{vCategoryValues}{Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion"). Category values must be in the same order as \code{vExpectedResultValues}.}
-
-\item{strResultCol}{Name of criteria Result column. Default = "IEORRES_STD".}
 
 \item{vExpectedResultValues}{Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion". Values must be in the same order as \code{vCategoryValues}.}
 }
@@ -43,8 +40,8 @@ The following columns are required:
 \item \code{dfIE}
 \itemize{
 \item \code{SUBJID} - Unique subject ID
-\item Value specified in strCategoryCol  - IE Category; "IECAT" by default
-\item Value specified in strResultCol  - Incl criteria not met Excl criteria met; "IEORRES_STD" by default
+\item Value specified in \code{mapping} - IE Category; "IECAT_STD" by default
+\item Value specified in \code{mapping} - Incl criteria not met Excl criteria met; "IEORRES" by default
 }
 \item \code{dfRDSL}
 \itemize{
@@ -59,9 +56,7 @@ The following columns are required:
 dfInput <- IE_Map_Raw(
    clindata::raw_ie_all \%>\% dplyr::filter(SUBJID != "" ),
    clindata::rawplus_rdsl,
-   strCategoryCol = 'IECAT_STD',
    vCategoryValues= c("EXCL","INCL"),
-   strResultCol = 'IEORRES',
    vExpectedResultValues=c(0,1)
 )
 

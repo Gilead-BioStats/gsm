@@ -11,11 +11,9 @@ consent_input <- Consent_Map_Raw(
 suppressWarnings(
 
 ie_input <- IE_Map_Raw(
-  clindata::raw_ie_all ,
+  clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
   clindata::rawplus_rdsl,
-  strCategoryCol = 'IECAT_STD',
   vCategoryValues= c("EXCL","INCL"),
-  strResultCol = 'IEORRES',
   vExpectedResultValues=c(0,1)
 )
 

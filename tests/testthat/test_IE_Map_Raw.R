@@ -1,183 +1,277 @@
+ie_input <- suppressWarnings(
+  IE_Map_Raw(
+    clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
+    clindata::rawplus_rdsl,
+    vCategoryValues= c("EXCL","INCL"),
+    vExpectedResultValues=c(0,1)
+  )
+)
+
+mapping <- list(
+  dfIE = list(strIDCol="SUBJID", strCategoryCol = "IECAT_STD", strResultCol = "IEORRES"),
+  dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID")
+)
+
+
 test_that("output created as expected and has correct structure",{
-  ie_input <-suppressWarnings(IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl, strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
+
   expect_true(is.data.frame(ie_input))
 
   expect_equal(
     names(ie_input),
-    c("SubjectID","SiteID","Count"))
+    c("SubjectID","SiteID","Count")
+    )
+
+  expect_type(ie_input$SubjectID, "character")
+  expect_type(ie_input$SiteID, "character")
+  expect_type(ie_input$Count, "integer")
+
 })
 
 test_that("incorrect inputs throw errors",{
-  expect_error(IE_Map_Raw(list(), list()))
-  expect_error(IE_Map_Raw("Hi","Mom"))
-})
 
+  expect_error(
+    IE_Map_Raw(
+      list(), list()
+      ) %>% suppressMessages
+    )
 
-test_that("incorrect inputs throw errors",{
+  expect_error(
+    IE_Map_Raw(
+      "Hi","Mom"
+      ) %>% suppressMessages
+    )
 
-  expect_error(IE_Map_Raw(list(), list()))
-  expect_error(IE_Map_Raw( clindata::raw_ie_all, list(), strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
-  expect_error(IE_Map_Raw(list()))
-  expect_error(IE_Map_Raw("Hi","Mom"))
+  expect_error(
+    IE_Map_Raw(
+      clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
+      clindata::rawplus_rdsl,
+      vCategoryValues= c("EXCL","INCL", "OTHERCL"),
+      vExpectedResultValues=c(0,1)
+    ) %>% suppressMessages
+  )
+
+  expect_error(
+    IE_Map_Raw(
+      clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
+      clindata::rawplus_rdsl,
+      vCategoryValues= c("EXCL","INCL"),
+      vExpectedResultValues=c(0,1,2)
+    ) %>% suppressMessages
+  )
+
+  expect_error(
+    IE_Map_Raw(
+      clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
+      clindata::rawplus_rdsl,
+      vCategoryValues= c("EXCL","INCL", "OTHERCL"),
+      vExpectedResultValues=c(0,1),
+      mapping = list()
+    ) %>% suppressMessages
+  )
+
+  expect_error(
+    IE_Map_Raw(
+      data.frame(a = 1),
+      clindata::rawplus_rdsl,
+      vCategoryValues= c("EXCL","INCL", "OTHERCL"),
+      vExpectedResultValues=c(0,1)
+    ) %>% suppressMessages
+  )
+
+  expect_error(
+    IE_Map_Raw(
+      clindata::rawplus_rdsl,
+      clindata::rawplus_rdsl,
+      vCategoryValues= c("EXCL","INCL", "OTHERCL"),
+      vExpectedResultValues=c(0,1)
+    ) %>% suppressMessages
+  )
+
+  expect_error(
+    IE_Map_Raw(
+      clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
+      clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
+      vCategoryValues= c("EXCL","INCL", "OTHERCL"),
+      vExpectedResultValues=c(0,1)
+    ) %>% suppressMessages
+  )
+
 })
 
 
 test_that("error given if required column not found",{
+
+  dfIE <- clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" )
+  dfRDSL <- clindata::rawplus_rdsl
+
   expect_error(
     IE_Map_Raw(
-      clindata::raw_ie_all %>% rename(ID = SUBJID),
-      clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD',
-      strResultCol = 'IEORRES'
-    )
-  )
-  expect_error(
-    IE_Map_Raw(
-      clindata::raw_ie_all ,
-      clindata::rawplus_rdsl%>% select(-SiteID),
-      strCategoryCol = 'IECAT_STD',
-      strResultCol = 'IEORRES'
-    )
+      dfIE %>% rename(ID = SUBJID),
+      dfRDSL,
+      vCategoryValues = c("EXCL","INCL"),
+      vExpectedResultValues = c(0,1)
+    ) %>% suppressMessages
   )
 
   expect_error(
     IE_Map_Raw(
-      clindata::raw_ie_all %>% select(-IECAT),
-      clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD',
-      strResultCol = 'IEORRES'
-    )
+      dfIE %>% select(-IECAT_STD),
+      dfRDSL,
+      vCategoryValues = c("EXCL","INCL"),
+      vExpectedResultValues = c(0,1)
+    ) %>% suppressMessages
   )
 
   expect_error(
     IE_Map_Raw(
-      clindata::raw_ie_all %>% select(-IETESTCD),
-      clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD',
-      strResultCol = 'IEORRES'
-    )
-  )
-  expect_error(
-    IE_Map_Raw(
-      clindata::raw_ie_all %>% select(-IETEST),
-      clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD',
-      strResultCol = 'IEORRES'
-    )
+      dfIE %>% select(-IEORRES),
+      dfRDSL,
+      vCategoryValues = c("EXCL","INCL"),
+      vExpectedResultValues = c(0,1)
+    ) %>% suppressMessages
   )
 
   expect_error(
     IE_Map_Raw(
-      clindata::raw_ie_all %>% select(-IEORRES),
-      clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD',
-      strResultCol = 'IEORRES'
-    )
+      dfIE,
+      dfRDSL %>% select(-SubjectID),
+      vCategoryValues = c("EXCL","INCL"),
+      vExpectedResultValues = c(0,1)
+    ) %>% suppressMessages
+  )
+
+  expect_error(
+    IE_Map_Raw(
+      dfIE,
+      dfRDSL %>% select(-SiteID),
+      vCategoryValues = c("EXCL","INCL"),
+      vExpectedResultValues = c(0,1)
+    ) %>% suppressMessages
   )
 
   expect_silent(
-    suppressWarnings(
       IE_Map_Raw(
-        clindata::raw_ie_all %>% select(-PROJECT),
-        clindata::rawplus_rdsl,
-        strCategoryCol = 'IECAT_STD',
-        strResultCol = 'IEORRES'
+        dfIE %>% select(-PROJECT),
+        dfRDSL,
+        vCategoryValues = c("EXCL","INCL"),
+        vExpectedResultValues = c(0,1)
+      ) %>%
+        suppressWarnings %>%
+        suppressMessages
+  )
+
+})
+
+test_that("icorrect arg inputs throw errors",{
+
+  # test these as incorrect inputs
+  # mapping = NULL
+  # vCategoryValues =  c("Inclusion","Exclusion"),
+  # vExpectedResultValues = c(0,1)
+
+  dfIE <- clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" )
+  dfRDSL <- clindata::rawplus_rdsl
+
+  # vCategoryValues length > 2
+  expect_error(
+    suppresMessages(
+      IE_Map_Raw(
+        dfIE,
+        dfRDSL,
+        vCategoryValues = c("EXCL","INCL", "x"),
+        vExpectedResultValues = c(0,1)
       )
     )
   )
-})
 
-test_that("icorrect strCategoryCol or strResultCol throw errors",{
-  # test these as incorrect inputs
-  # strCategoryCol = 'IECAT',
-  # vCategoryValues =  c("Inclusion","Exclusion"),
-  # strResultCol = 'IEORRES_STD',
-  # vExpectedResultValues = c(0,1)
-
+  # vExpectedResultValues length > 2
   expect_error(
-    suppressWarnings(IE_Map_Raw(
-      clindata::raw_ie_all,
-      clindata::rawplus_rdsl,
-      strCategoryCol = 'Not_A_Name',
-      strResultCol = 'IEORRES'
-    ))
+    suppressMessages(
+      IE_Map_Raw(
+        dfIE,
+        dfRDSL,
+        vCategoryValues = c("EXCL","INCL"),
+        vExpectedResultValues = c(0,1,2)
+      )
+    )
   )
 
+  # incorrect mapping
   expect_error(
-    suppressWarnings(IE_Map_Raw(
-      clindata::raw_ie_all,
-      clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD',
-      strResultCol = 'Not_A_Name'
-    ))
+    suppressMessages(
+      IE_Map_Raw(
+        dfIE,
+        dfRDSL,
+        vCategoryValues = c("EXCL","INCL"),
+        vExpectedResultValues = c(0,1),
+        mapping = data.frame(a = 1)
+      )
+    )
   )
 
-  expect_error(
-    suppressWarnings(IE_Map_Raw(
-      clindata::raw_ie_all,
-      clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD',
-      strResultCol = 'IEORRES',
-      vExpectedResultValues = c("A",1,3)
-    ))
-  )
 
-  expect_error(
-    suppressWarnings(IE_Map_Raw(
-      clindata::raw_ie_all,
-      clindata::rawplus_rdsl,
-      strCategoryCol = 'IECAT_STD',
-      strResultCol = 'IEORRES',
-      vCategoryValues =  c("Inclusion","Exclusion", "Illusion")
-    ))
-  )
 })
 
 test_that("output is correct given clindata example input",{
 
-  dfIE <- clindata::raw_ie_all
-  dfIE$SUBJID <- as.character(dfIE$SUBJID)
+  dfIE <- clindata::raw_ie_all %>%
+    filter(SUBJID != "") %>%
+    mutate(SUBJID = as.character(SUBJID))
 
-  dfRDSL <-  tibble::tribble(    ~SubjectID, ~SiteID,
+  dfRDSL <- tibble::tribble(    ~SubjectID, ~SiteID,
                                  "0496", "X055X",
                                  "0539", "X128X",
                                  "1314", "X169X",
                                  "1218", "X126X" )
 
-
-
   dfInput <- tibble::tribble(
     ~SubjectID, ~SiteID, ~Count,
-    "0496", "X055X",    15L,
-    "0539", "X128X",    15L,
-    "1314", "X169X",    14L,
-    "1218", "X126X",    14L
+    "0496", "X055X",    0,
+    "0539", "X128X",    0,
+    "1314", "X169X",    0,
+    "1218", "X126X",    0
   )
 
-  expect_equal(suppressWarnings(IE_Map_Raw(dfIE = dfIE, dfRDSL=dfRDSL,  strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES')), dfInput )
+  expect_equal(
+    suppressWarnings(
+      IE_Map_Raw(
+        dfIE = dfIE,
+        dfRDSL=dfRDSL,
+        vCategoryValues = c("EXCL","INCL"),
+        vExpectedResultValues = c(0,1))
+      ), dfInput
+    )
 
 
 
+})
 
 
-  dfIE_test <- tibble::tribble( ~SUBJID, ~INVID,      ~IECAT,   ~IETEST,    ~ IETESTCD, ~IEORRES,
-                                1,       1, "Exclusion",     "XXX", "Exclusion 3",        0,
-                                1,       1, "Inclusion",     "XXX", "Exclusion 3",        0,
-                                1,       1, "Inclusion",     "XXX", "Exclusion 3",        0,
-                                2,       1, "Exclusion",     "XXX", "Exclusion 3",        0,
-                                2,       1, "Inclusion",     "XXX", "Exclusion 3",        0,
-                                2,       1, "Inclusion",     "XXX", "Exclusion 3",        0,
-                                4,       3, "Exclusion",     "XXX", "Exclusion 3",        0,
-                                4,       3, "Inclusion",     "XXX", "Exclusion 3",        0,
-                                4,       3, "Inclusion",     "XXX", "Exclusion 3",        1)
 
-  dfRDSL2 <-  data.frame(SubjectID=c(1,2,4), SiteID=c(1,1,3))
+test_that("custom mapping runs without errors", {
+  custom_mapping <- list(
+    dfIE = list(strIDCol="tempid", strCategoryCol = "tabby_cats", strResultCol = "oreos"),
+    dfRDSL = list(strIDCol="some_id", strSiteCol="custom_site_id")
+  )
 
-  dfInput <- tibble::tribble(     ~SubjectID, ~SiteID, ~Count,
-                                  1,       1,     2L,
-                                  2,       1,     2L,
-                                  4,       3,     1L  )
+  custom_ie <- clindata::raw_ie_all %>%
+    dplyr::filter(SUBJID != "" ) %>%
+    rename(tempid = SUBJID,
+           tabby_cats = IECAT_STD,
+           oreos = IEORRES)
 
-  expect_equal(dfInput, IE_Map_Raw(dfIE_test,dfRDSL2,  strCategoryCol = 'IECAT', strResultCol = 'IEORRES'), ignore_attr = TRUE)
+
+  custom_rdsl <- clindata::rawplus_rdsl %>%
+        rename(some_id = SubjectID,
+               custom_site_id = SiteID)
+
+  expect_warning(
+    IE_Map_Raw(
+      custom_ie,
+      custom_rdsl,
+      mapping = custom_mapping
+      )
+    )
 
 })
