@@ -22,32 +22,59 @@
 #'
 #' @param dfAE AE dataset with required column SUBJID and rows for each AE record
 #' @param dfRDSL Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol
-#' @param strExposureCol Name of exposure column. 'TimeOnTreatment' by default
+#' @param mapping List containing expected columns in each data set. By default, mapping for dfAE is: `strIDCol` = "SUBJID". By default, mapping for dfRDSL is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #'
 #' @examples
-#'  dfInput <- AE_Map_Raw(clindata::raw_ae, clindata::rawplus_rdsl)
+#' dfAE <- clindata::raw_ae %>% dplyr::filter(SUBJID != "")
+#' dfRDSL <- clindata::rawplus_rdsl %>% dplyr::filter(!is.na(TimeOnTreatment))
+#'
+#' dfInput <- AE_Map_Raw(dfAE, dfRDSL)
 #'
 #' @import dplyr
 #'
 #' @export
 
-AE_Map_Raw <- function( dfAE, dfRDSL, strExposureCol="TimeOnTreatment"){
-    stopifnot(
-        "ae dataset not found"=is.data.frame(dfAE),
-        "RDSL dataset is not found"=is.data.frame(dfRDSL),
-        "SUBJID column not found in dfAE"="SUBJID" %in% names(dfAE),
-        "strExposureCol is not character"=is.character(strExposureCol),
-        "SubjectID, SiteID and strExposureCol columns not found in dfRDSL"=all(c("SubjectID","SiteID",strExposureCol) %in% names(dfRDSL)),
-        "NAs found in SUBJID column of dfAE" = all(!is.na(dfAE$SUBJID)),
-        "NAs found in Subject ID column of dfRDSL" = all(!is.na(dfRDSL$SubjectID))
+AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
+
+    # Set defaults for mapping if none is provided
+    if(is.null(mapping)){
+        mapping <- list(
+            dfAE = list(strIDCol="SUBJID"),
+            dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
+        )
+    }
+
+    # Check input data vs. mapping. 
+    is_ae_valid <- is_mapping_valid(
+        dfAE, 
+        mapping$dfAE, 
+        vRequiredParams = c("strIDCol"), 
+        bQuiet=FALSE
     )
 
-    dfInput <-  dfRDSL %>%
+    is_rdsl_valid <- is_mapping_valid(
+        dfRDSL, mapping$dfRDSL, 
+        vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"), 
+        vUniqueCols = c('strIDCol'),
+        bQuiet=FALSE
+    )
+
+    stopifnot(
+        "Errors found in dfAE." = is_ae_valid$status,
+        "Errors found in dfRDSL." = is_rdsl_valid$status
+    )
+
+    dfAE <- dfAE %>%
+        rename(SUBJID = mapping[["dfAE"]][["strIDCol"]])
+
+    dfInput <- dfRDSL %>%
+        rename(SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
+               SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
+               Exposure = mapping[["dfRDSL"]][["strExposureCol"]]) %>%
         rowwise() %>%
-        mutate(Count =sum(dfAE$SUBJID==.data$SubjectID, na.rm = TRUE)) %>%
-        rename(Exposure = strExposureCol) %>%
+        mutate(Count = sum(dfAE$SUBJID == .data$SubjectID, na.rm = TRUE)) %>%
         mutate(Rate = .data$Count/.data$Exposure) %>%
         select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
         ungroup()
