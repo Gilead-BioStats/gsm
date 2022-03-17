@@ -20,9 +20,7 @@
 #'
 #' @param dfIE ie dataset with columns SUBJID and values specified in strCategoryCol and strResultCol.
 #' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID SiteID
-#' @param strCategoryCol Name ofcCriteria category column. default = 'IECAT'
 #' @param vCategoryValues Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion"). Category values must be in the same order as `vExpectedResultValues`.
-#' @param strResultCol Name of criteria Result column. Default = "IEORRES_STD".
 #' @param vExpectedResultValues Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion". Values must be in the same order as `vCategoryValues`.
 #'
 #' @return Data frame with one record per participant giving the number of inclusion/exclusion criteria the participant did not meet as expected. Expected columns: SubjectID, SiteID, Count
