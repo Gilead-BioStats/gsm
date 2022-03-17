@@ -39,31 +39,21 @@
 #'
 #' @export
 Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentReason = "mainconsent"){
-  # stopifnot(
-  #
-  #   "dfConsent dataset not found"=is.data.frame(dfConsent),
-  #   "dfRDSL dataset is not found"=is.data.frame(dfRDSL),
-  #   "SUBJID, CONSCAT_STD , CONSYN , CONSDAT column not found in dfConsent"=c("SUBJID", "CONSCAT_STD" , "CONSYN" , "CONSDAT" ) %in% names(dfConsent),
-  #   "SubjectID, SiteID and RandDate column not found in dfRDSL"= c("SubjectID", "SiteID" , "RandDate") %in% names(dfRDSL),
-  #   "NAs found in SUBJID column of dfConsent" = all(!is.na(dfConsent$SUBJID)),
-  #   "NAs found in SubjectID column of dfRDSL" = all(!is.na(dfRDSL$SubjectID))
-  # )
-
   if(is.null(mapping)){
     mapping <- list(
-      dfConsent = list(strIDCol="SUBJID", strCONScatstd = "CONSCAT_STD", strCONSyn = "CONSYN", strCONSdat = "CONSDAT"),
-      dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strRandDate="RandDate")
+      dfConsent = list(strIDCol="SUBJID", strTypeCol = "CONSCAT_STD", strStatusCol = "CONSYN", strDateCol = "CONSDAT"),
+      dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strRandDateCol="RandDate")
     )
   }
 
   dfConsentMapping <- is_mapping_valid(df = dfConsent,
                                        mapping = mapping$dfConsent,
-                                       requiredParams = c("strIDCol", "strCONScatstd", "strCONSyn", "strCONSdat"),
-                                       na_cols = c("CONSDAT"))
+                                       vRequiredParams = c("strIDCol", "strTypeCol", "strStatusCol", "strDateCol"),
+                                       vNACols = c("CONSDAT"))
 
   dfRDSLMapping <- is_mapping_valid(df = dfRDSL,
                                     mapping = mapping$dfRDSL,
-                                    requiredParams = c("strIDCol", "strSiteCol", "strRandDate"))
+                                    vRequiredParams = c("strIDCol", "strSiteCol", "strRandDateCol"))
 
 
   if(!is.null(strConsentReason)){
@@ -113,12 +103,12 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentReason
   }
 
   dfInput <-  dfInput %>%
-    mutate(flag = case_when(.data$CONSYN == "No" ~ TRUE,
-                                is.na(.data$CONSDAT) ~ TRUE,
-                                is.na(.data$RandDate) ~ TRUE,
-                                .data$CONSDAT >= .data$RandDate ~ TRUE,
-                                TRUE ~ FALSE),
-           Count = as.numeric(.data$flag, na.rm = TRUE)) %>%
+    mutate(flag_noconsent = .data$CONSYN == "No") %>%
+    mutate(flag_missing_consent = is.na(.data$CONSDAT))%>%
+    mutate(flag_missing_rand = is.na(.data$RandDate))%>%
+    mutate(flag_date_compare = .data$CONSDAT >= .data$RandDate ) %>%
+    mutate(any_flag = .data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare) %>%
+    mutate(Count = as.numeric(.data$any_flag, na.rm = TRUE)) %>%
     select(.data$SubjectID, .data$SiteID, .data$Count)
 
   return(dfInput)

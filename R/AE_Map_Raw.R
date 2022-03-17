@@ -37,20 +37,33 @@
 #' @export
 
 AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
+
+    # Set defaults for mapping if none is provided
     if(is.null(mapping)){
         mapping <- list(
             dfAE = list(strIDCol="SUBJID"),
             dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
         )
-
     }
 
-    dfAEMapping <- is_mapping_valid(dfAE, mapping$dfAE, requiredParams = c("strIDCol"))
-    dfRDSLMapping <- is_mapping_valid(dfRDSL, mapping$dfRDSL, requiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
+    # Check input data vs. mapping. 
+    is_ae_valid <- is_mapping_valid(
+        dfAE, 
+        mapping$dfAE, 
+        vRequiredParams = c("strIDCol"), 
+        bQuiet=FALSE
+    )
+
+    is_rdsl_valid <- is_mapping_valid(
+        dfRDSL, mapping$dfRDSL, 
+        vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"), 
+        vUniqueCols = c('strIDCol'),
+        bQuiet=FALSE
+    )
 
     stopifnot(
-        "Errors found in dfAE." = dfAEMapping$status,
-        "Errors found in dfRDSL." = dfRDSLMapping$status
+        "Errors found in dfAE." = is_ae_valid$status,
+        "Errors found in dfRDSL." = is_rdsl_valid$status
     )
 
     dfAE <- dfAE %>%

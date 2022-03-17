@@ -5,7 +5,7 @@ mapping_rdsl <- list(strIDCol = "SubjectID",
                 strExposureCol = "TimeOnTreatment")
 
 test_that("correct structure is returned", {
-  df <- is_mapping_valid(df = dfRDSL, mapping = mapping_rdsl, requiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
+  df <- is_mapping_valid(df = dfRDSL, mapping = mapping_rdsl, vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
 
   expect_type(df, "list")
 
@@ -26,7 +26,7 @@ test_that("correct structure is returned", {
 
 
 test_that("NA values are caught", {
-  df <- is_mapping_valid(df = dfRDSL, mapping = mapping_rdsl, requiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
+  df <- is_mapping_valid(df = dfRDSL, mapping = mapping_rdsl, vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
 
   expect_equal(
     df$tests_if$columns_have_na$warning,
@@ -44,7 +44,7 @@ test_that("NaN values are caught", {
   dfRDSL_nan <- dfRDSL %>%
     mutate(test_nan = NaN)
 
-  df <- is_mapping_valid(df = dfRDSL_nan, mapping = mapping_rdsl, requiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
+  df <- is_mapping_valid(df = dfRDSL_nan, mapping = mapping_rdsl, vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
 
   expect_equal(
     df$tests_if$columns_have_na$warning,
@@ -58,16 +58,17 @@ test_that("NaN values are caught", {
 
 })
 
-test_that("NA values are ignored when specified in na_cols", {
-  df <- is_mapping_valid(df = dfRDSL, mapping = mapping_rdsl, na_cols = "TimeOnTreatment", requiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
+test_that("NA values are ignored when specified in vNACols", {
+  df <- is_mapping_valid(df = dfRDSL, mapping = mapping_rdsl, vNACols = "TimeOnTreatment", vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
 
   expect_equal(
     df$tests_if$columns_have_na$status,
     TRUE
   )
 
-  expect_null(
-    df$tests_if$columns_have_na$warning
+  expect_equal(
+    df$tests_if$columns_have_na$warning,
+    NA
   )
 
 })
@@ -75,7 +76,7 @@ test_that("NA values are ignored when specified in na_cols", {
 test_that("empty string values are caught", {
   input <- dfRDSL
   input$SubjectID[1] <- ""
-  df <- is_mapping_valid(df = input, mapping = mapping_rdsl, na_cols = "TimeOnTreatment", requiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
+  df <- is_mapping_valid(df = input, mapping = mapping_rdsl, vNACols = "TimeOnTreatment", vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
 
   expect_equal(
     df$tests_if$columns_have_empty_values$status,
@@ -97,7 +98,7 @@ test_that("empty string values are caught", {
 
 test_that("bQuiet works as intended", {
 
-  expect_warning(is_mapping_valid(df = dfRDSL, mapping = mapping_rdsl, bQuiet = FALSE, requiredParams = c("strIDCol", "strSiteCol", "strExposureCol")))
+  expect_message(is_mapping_valid(df = dfRDSL, mapping = mapping_rdsl, bQuiet = FALSE, vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol")))
 
 })
 
