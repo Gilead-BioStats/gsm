@@ -1,9 +1,9 @@
 #' Merge Domain data with subject-level data shell
 #'
-#' @param dfRDSL 
+#' @param dfSubjects 
 #' @param dfDomain 
 #' @param strIDCol 
-#' @param bFillZero Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject
+#' @param vFillZero Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject
 #'
 #' @return data set with one record per IDCol
 #'
@@ -16,19 +16,19 @@
 #' @export
 #' 
 
-mergeSubjects <- function(dfSubjects, dfDomain, strIDCol="SubjectID", vFillZero=NULL, bQuiet=FALSE){
+mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=NULL, bQuiet=FALSE){
     stopifnot(
         is.data.frame(dfSubjects),
         is.data.frame(dfDomain),
         is.character(strIDCol),
         is.logical(bQuiet),
-        strIDCol %in% dfSubjects,
-        strIDCol %in% dfDomain
+        strIDCol %in% names(dfSubjects),
+        strIDCol %in% names(dfDomain)
     )
 
-    if(!is.null(bFillZero)){
+    if(!is.null(vFillZero)){
         stopifnot(
-            "Columns specified in bFillZero not found in dfDomain" = all(vFillZero %in% names(dfDomain)),
+            "Columns specified in vFillZero not found in dfDomain" = all(vFillZero %in% names(dfDomain)),
             is.character(vFillZero)
         )
     }
@@ -39,45 +39,49 @@ mergeSubjects <- function(dfSubjects, dfDomain, strIDCol="SubjectID", vFillZero=
     if(any(duplicated(subject_ids))) stop("Duplicate ID Values in Subject Data")
     if(any(duplicated(domain_ids))) stop("Duplicate ID Values in Domain Data")
     
-    # Throw a warning if there are ID values in dfDomain that are not found in dfRDSL
-    domain_only_ids <- domain_ids %>% map(~is.element(.x, subject_ids)) 
+    # Throw a warning if there are ID values in dfDomain that are not found in dfSubject
+    domain_only_ids <- domain_ids[!domain_ids %in% subject_ids] 
     if(length(domain_only_ids > 0)){
         if(!bQuiet){
             warning(
                 paste0(
-                    "IDs in domain data not found in subject data:",
-                    paste(domain_only_ids, collapse=", ")
+                    length(domain_only_ids),
+                    " ID(s) in domain data not found in subject data: ",
+                    paste(domain_only_ids, collapse=" "),
+                    ". ",
+                    "Associated rows will not be included in merged data.\n"
                 )
             )
         } 
     }
 
     # Print a message if rows in dfSubject are not found in dfDomain
-    subject_only_ids <- subject_ids %>% map(~is.element(.x, domain_ids)) 
+    subject_only_ids <-  subject_ids[!subject_ids %in% domain_ids]
     if(length(subject_only_ids > 0)){
         if(!bQuiet){
             message(
                 paste0(
-                    "IDs in subject data not found in domain data:",
-                    paste(subject_only_ids, collapse=", ")
-                )
-            )
-
-            if(!is.null(vFillZero)){ 
-                message(
-                    paste0(
-                        "These participants will have 0s imputed for the following columns:",
-                        paste(vFillZero, sep=", ")
+                    length(subject_only_ids),
+                    " ID(s) in subject data not found in domain data: ",
+                    paste(subject_only_ids, collapse=" "),
+                    ". ",
+                    ifelse(is.null(vFillZero),
+                        "These participants will have NA values imputed for all domain data columns:",
+                        paste0(
+                            "These participants will have 0s imputed for the following domain data columns: ",
+                            paste(vFillZero, sep=", "), 
+                            ". ",
+                            "NA's will be imputed for all other columns."
+                        )
                     )
                 )
-            }
+            )
         } 
     }
 
-
-    dfOut <- left_join(dfRDSL, dfDomain, by=strIDCol)
+    dfOut <- left_join(dfSubjects, dfDomain, by=strIDCol)
     for(col in vFillZero){
-        dfOut <- na_replace(dfOut, col, 0)
+        dfOut[[col]]<- tidyr::replace_na(dfOut[[col]], 0)
     }
 
     return(dfOut)

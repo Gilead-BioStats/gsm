@@ -66,18 +66,26 @@ AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
         "Errors found in dfRDSL." = is_rdsl_valid$status
     )
 
-    dfAE <- dfAE %>%
-        rename(SUBJID = mapping[["dfAE"]][["strIDCol"]])
+    # Standarize Column Names
+    dfAE_mapped <- dfAE %>%
+        rename(SubjectID = mapping[["dfAE"]][["strIDCol"]]) %>%
+        select(.data$SubjectID)
 
-    dfInput <- dfRDSL %>%
-        rename(SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
-               SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
-               Exposure = mapping[["dfRDSL"]][["strExposureCol"]]) %>%
-        rowwise() %>%
-        mutate(Count = sum(dfAE$SUBJID == .data$SubjectID, na.rm = TRUE)) %>%
-        mutate(Rate = .data$Count/.data$Exposure) %>%
-        select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
-        ungroup()
+    dfRDSL_mapped <- dfRDSL %>%
+        rename(
+            SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
+            SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
+            Exposure = mapping[["dfRDSL"]][["strExposureCol"]]
+        ) %>%
+        select(.data$SubjectID, .data$SiteID, .data$Exposure)
+
+    # Create Subject Level AE Counts and merge RDSL
+    dfInput <- dfAE_mapped %>%
+        group_by(.data$SubjectID) %>%
+        summarize(Count=n()) %>%  
+        ungroup() %>% 
+        mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>% 
+        mutate(Rate = .data$Count/.data$Exposure)
 
     return(dfInput)
 }
