@@ -1,8 +1,8 @@
 test_that("AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold.", {
   # gsm analysis
   dfInput <- gsm::AE_Map_Raw(
-    dfAE = clindata::raw_ae,
-    dfRDSL = clindata::rawplus_rdsl
+    dfAE = clindata::raw_ae %>% filter(SUBJID != ""),
+    dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
   )
 
   test1_4 <- suppressWarnings(AE_Assess(

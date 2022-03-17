@@ -4,14 +4,14 @@
 \alias{AE_Map_Raw}
 \title{AE Assessment - Raw Mapping}
 \usage{
-AE_Map_Raw(dfAE, dfRDSL, strExposureCol = "TimeOnTreatment")
+AE_Map_Raw(dfAE, dfRDSL, mapping = NULL)
 }
 \arguments{
 \item{dfAE}{AE dataset with required column SUBJID and rows for each AE record}
 
 \item{dfRDSL}{Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol}
 
-\item{strExposureCol}{Name of exposure column. 'TimeOnTreatment' by default}
+\item{mapping}{List containing expected columns in each data set. By default, mapping for dfAE is: \code{strIDCol} = "SUBJID". By default, mapping for dfRDSL is: \code{strIDCol} = "SubjectID", \code{strSiteCol} = "SiteID", and \code{strExposureCol} = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
@@ -45,6 +45,9 @@ Note that the function can generate data summaries for specific types of AEs, bu
 }
 
 \examples{
- dfInput <- AE_Map_Raw(clindata::raw_ae, clindata::rawplus_rdsl)
+dfAE <- clindata::raw_ae \%>\% dplyr::filter(SUBJID != "")
+dfRDSL <- clindata::rawplus_rdsl \%>\% dplyr::filter(!is.na(TimeOnTreatment))
+
+dfInput <- AE_Map_Raw(dfAE, dfRDSL)
 
 }

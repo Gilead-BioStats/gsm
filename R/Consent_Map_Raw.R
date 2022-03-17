@@ -22,6 +22,7 @@
 #'
 #' @param dfConsent consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.
 #' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID SiteID RandDate.
+#' @param mapping List containing expected columns in each data set.
 #' @param strConsentReason default = "mainconsent", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
@@ -31,59 +32,82 @@
 #' @examples
 #'
 #' input <- Consent_Map_Raw(
-#'  dfConsent = clindata::raw_consent,
+#'  dfConsent = clindata::raw_consent %>% dplyr::filter(!is.na(SUBJID) & SUBJID != ""),
 #'  dfRDSL = clindata::rawplus_rdsl,
 #'  strConsentReason = NULL
 #' )
 #'
 #' @export
-Consent_Map_Raw <- function( dfConsent, dfRDSL, strConsentReason = "mainconsent"){
-  stopifnot(
-
-    "dfConsent dataset not found"=is.data.frame(dfConsent),
-    "dfRDSL dataset is not found"=is.data.frame(dfRDSL),
-    "SUBJID, CONSCAT_STD , CONSYN , CONSDAT column not found in dfConsent"=c("SUBJID", "CONSCAT_STD" , "CONSYN" , "CONSDAT" ) %in% names(dfConsent),
-    "SubjectID, SiteID and RandDate column not found in dfRDSL"= c("SubjectID", "SiteID" , "RandDate") %in% names(dfRDSL),
-    "NAs found in SUBJID column of dfConsent" = all(!is.na(dfConsent$SUBJID)),
-    "NAs found in SubjectID column of dfRDSL" = all(!is.na(dfRDSL$SubjectID))
-  )
-  if(!is.null(strConsentReason)){
-    stopifnot(
-      "strConsentReason is not character"=is.character(strConsentReason),
-      "strConsentReason has multiple values, specify only one"= length(strConsentReason)==1
+Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentReason = "mainconsent"){
+  if(is.null(mapping)){
+    mapping <- list(
+      dfConsent = list(strIDCol="SUBJID", strTypeCol = "CONSCAT_STD", strStatusCol = "CONSYN", strDateCol = "CONSDAT"),
+      dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strRandDateCol="RandDate")
     )
   }
 
+  dfConsentMapping <- is_mapping_valid(df = dfConsent,
+                                       mapping = mapping$dfConsent,
+                                       vRequiredParams = c("strIDCol", "strTypeCol", "strStatusCol", "strDateCol"),
+                                       vNACols = c("CONSDAT"))
 
-  dfRDSLSiteIDNACount <- sum(is.na(dfRDSL[['SiteID']]))
-  if(dfRDSLSiteIDNACount>0){
-    warning(paste0("Dropped ",dfRDSLSiteIDNACount," record(s) from dfRDSL where SiteID is NA."))
-    dfRDSL <- dfRDSL %>% filter(!is.na(.data[['SiteID']]))
+  dfRDSLMapping <- is_mapping_valid(df = dfRDSL,
+                                    mapping = mapping$dfRDSL,
+                                    vRequiredParams = c("strIDCol", "strSiteCol", "strRandDateCol"))
+
+
+  if(!is.null(strConsentReason)){
+    stopifnot(
+      "strConsentReason is not character"=is.character(strConsentReason),
+      "strConsentReason has multiple values, specify only one"= length(strConsentReason)==1,
+      "Errors found in dfConsent" = dfConsentMapping$status,
+      "Errors found in dfRDSL" = dfRDSLMapping$status
+    )
   }
 
+  dfRDSL <- dfRDSL %>%
+    rename(SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
+           SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
+           RandDate = mapping[["dfRDSL"]][["strRandDate"]]) %>%
+    select(.data$SubjectID, .data$SiteID, .data$RandDate)
 
-  dfConsent<- dfConsent %>%
-    select(.data$SUBJID, .data$CONSCAT_STD , .data$CONSYN , .data$CONSDAT)%>%
-    rename(SubjectID = .data$SUBJID)
+  dfConsent <- dfConsent %>%
+    rename(SubjectID = mapping[["dfConsent"]][["strIDCol"]],
+           CONSCAT_STD = mapping[["dfConsent"]][["strCONScatstd"]],
+           CONSYN = mapping[["dfConsent"]][["strCONSyn"]],
+           CONSDAT = mapping[["dfConsent"]][["strCONSdat"]]) %>%
+    select(.data$SubjectID, .data$CONSCAT_STD , .data$CONSYN , .data$CONSDAT)
 
+  dfInput <- inner_join(dfRDSL, dfConsent, by='SubjectID')
+
+
+  dfRDSLSiteIDNACount <- sum(is.na(dfRDSL$SiteID))
   missIE <- anti_join( dfConsent, dfRDSL, by="SubjectID")
-  if( nrow(missIE) > 0 ) warning("Not all SubjectID in dfConsent found in dfRDSL")
 
-  dfInput <- dfRDSL %>%
-    select(.data$SubjectID, .data$SiteID, .data$RandDate)%>%
-    inner_join(dfConsent, by='SubjectID')
+  if(dfRDSLSiteIDNACount > 0){
+    warning(paste0("Dropped ", dfRDSLSiteIDNACount, " record(s) from dfRDSL where SiteID is NA."))
 
-    if(!is.null(strConsentReason)){
-      dfInput <- dfInput %>% filter(tolower(.data$CONSCAT_STD) == tolower(strConsentReason))
-      stopifnot("supplied strConsentReason not found in data" = nrow(dfInput) != 0 )
-    }
+    dfRDSL <- dfRDSL %>%
+      filter(!is.na(.data$SiteID))
+  }
+
+  if(nrow(missIE) > 0){
+    warning("Not all SubjectID in dfConsent found in dfRDSL")
+  }
+
+  if(!is.null(strConsentReason)){
+    dfInput <- dfInput %>%
+      filter(tolower(.data$CONSCAT_STD) == tolower(strConsentReason))
+
+    stopifnot("supplied strConsentReason not found in data" = nrow(dfInput) != 0 )
+  }
 
   dfInput <-  dfInput %>%
-    mutate(flag_noconsent=.data$CONSYN=="No") %>%
+    mutate(flag_noconsent = .data$CONSYN == "No") %>%
     mutate(flag_missing_consent = is.na(.data$CONSDAT))%>%
     mutate(flag_missing_rand = is.na(.data$RandDate))%>%
     mutate(flag_date_compare = .data$CONSDAT >= .data$RandDate ) %>%
-    mutate(any_flag=.data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare) %>%
+    mutate(any_flag = .data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare) %>%
     mutate(Count = as.numeric(.data$any_flag, na.rm = TRUE)) %>%
     select(.data$SubjectID, .data$SiteID, .data$Count)
 
