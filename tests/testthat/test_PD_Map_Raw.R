@@ -24,11 +24,11 @@ test_that("output created as expected and has correct structure",{
 
 test_that("incorrect inputs throw errors",{
 
-  expect_error(PD_Map_Raw(list(), list()))
-  expect_error(PD_Map_Raw(dfPD, list()))
-  expect_error(PD_Map_Raw(list(), dfRDSL))
-  expect_error(PD_Map_Raw("Hi","Mom"))
-  expect_error(PD_Map_Raw(dfPD, dfRDSL, mapping = "napping"))
+  expect_error(PD_Map_Raw(list(), list()) %>% suppressMessages)
+  expect_error(PD_Map_Raw(dfPD, list()) %>% suppressMessages)
+  expect_error(PD_Map_Raw(list(), dfRDSL) %>% suppressMessages)
+  expect_error(PD_Map_Raw("Hi","Mom") %>% suppressMessages)
+  expect_error(PD_Map_Raw(dfPD, dfRDSL, mapping = "napping") %>% suppressMessages)
 
 })
 
@@ -100,7 +100,7 @@ test_that("NA values are caught",{
   )
 
   expect_error(
-    PD_Map_Raw(dfPD = dfPD, dfRDSL = dfTos)
+    PD_Map_Raw(dfPD = dfPD, dfRDSL = dfTos) %>% suppressMessages
     )
 
   dfPD2 <- tribble(~SUBJID, 1,1,1,1,2,2,4,4)
@@ -122,7 +122,7 @@ test_that("NA values are caught",{
   )
 
   expect_error(
-    PD_Map_Raw(dfPD = dfPD2, dfRDSL = dfTos2)
+    PD_Map_Raw(dfPD = dfPD2, dfRDSL = dfTos2) %>% suppressMessages
     )
 
 })
@@ -140,7 +140,7 @@ test_that("duplicate SubjectID values are caught in RDSL", {
     PD_Map_Raw(
       dfPD,
       dfRDSL
-    )
+    ) %>% suppressMessages
   )
 
 })
@@ -151,7 +151,7 @@ test_that("strExposure user input error is handled correctly", {
       dfPD,
       dfRDSL,
       strExposureCol = 123
-      )
+      ) %>% suppressMessages
   )
 
   expect_error(
@@ -159,7 +159,7 @@ test_that("strExposure user input error is handled correctly", {
       dfPD,
       dfRDSL,
       strExposureCol = c("A", "B")
-      )
+      ) %>% suppressMessages
   )
 
 })

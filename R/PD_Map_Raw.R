@@ -37,6 +37,8 @@
 #' @export
 
 PD_Map_Raw <- function(dfPD, dfRDSL, mapping = NULL, strExposureCol="TimeOnStudy"){
+
+    # Set defaults for mapping if none is provided
     if(is.null(mapping)){
         mapping <- list(
             dfPD = list(strIDCol="SUBJID"),
@@ -44,6 +46,7 @@ PD_Map_Raw <- function(dfPD, dfRDSL, mapping = NULL, strExposureCol="TimeOnStudy
         )
     }
 
+    # Check input data vs. mapping.
     is_pd_valid <- is_mapping_valid(
         dfPD,
         mapping$dfPD,

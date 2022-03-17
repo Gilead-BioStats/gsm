@@ -39,6 +39,8 @@
 #'
 #' @export
 IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclusion","Inclusion"), vExpectedResultValues = c(0,1)) {
+
+  # Set defaults for mapping if none is provided
   if(is.null(mapping)){
     mapping <- list(
       dfIE = list(strIDCol="SUBJID", strCategoryCol = "IECAT_STD", strResultCol = "IEORRES"),
@@ -46,6 +48,7 @@ IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclu
     )
   }
 
+  # Check input data vs. mapping.
   is_ie_valid <- is_mapping_valid(
       dfIE,
       mapping$dfIE,
