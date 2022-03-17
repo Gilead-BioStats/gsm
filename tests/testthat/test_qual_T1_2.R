@@ -5,8 +5,6 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
     dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
   )
 
-
-
   test1_2 <- suppressWarnings(AE_Assess(
     dfInput = dfInput,
     strMethod = "poisson",

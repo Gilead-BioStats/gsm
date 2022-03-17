@@ -6,8 +6,8 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
   names(t1_8_assess) <- unique(clindata::raw_ae$AESEV)
 
   for(severity in unique(clindata::raw_ae$AESEV)){
-    dfInput <- AE_Map_Raw(dfAE = filter(clindata::raw_ae, AESEV == severity),
-                          dfRDSL = clindata::rawplus_rdsl)
+    dfInput <- AE_Map_Raw(dfAE = clindata::raw_ae %>% filter(AESEV == severity & SUBJID != ""),
+                          clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment)))
 
     # gsm
     test1_8_assess[severity] <- AE_Assess(dfInput,

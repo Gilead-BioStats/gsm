@@ -2,7 +2,7 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw(
     dfPD = clindata::raw_protdev,
-    dfRDSL = clindata::rawplus_rdsl
+    dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
   )
 
   test2_1 <- suppressWarnings(PD_Assess(

@@ -7,7 +7,7 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
 
   for(type in unique(clindata::raw_protdev$DEVTYPE)){
     dfInput <- PD_Map_Raw(dfPD = filter(clindata::raw_protdev, DEVTYPE == type),
-                        dfRDSL = clindata::rawplus_rdsl)
+                          dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment)))
 
     # gsm
     test2_3_assess[type] <- PD_Assess(dfInput)

@@ -2,7 +2,7 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw(
     dfPD = clindata::raw_protdev,
-    dfRDSL = clindata::rawplus_rdsl
+    dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
   )
 
   test2_4 <- suppressWarnings(PD_Assess(
