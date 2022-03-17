@@ -32,7 +32,8 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
         is.na(Residuals) ~ NA_real_,
         is.nan(Residuals) ~ NA_real_,
         TRUE ~ 0),
-    )
+    ) %>%
+    arrange(match(Flag, c(1, -1, 0)))
 
   t1_summary <- t1_flagged %>%
     mutate(
@@ -40,7 +41,10 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
       Label = "",
       Score = Residuals
     ) %>%
-    select(Assessment, Label, SiteID, N, Score, Flag)
+    select(Assessment, Label, SiteID, N, Score, Flag)  %>%
+    arrange(desc(abs(.data$Score))) %>%
+    arrange(match(Flag, c(1, -1, 0)))
+
 
   t1_1 <- list("strFunctionName" = "AE_Assess()",
              "lParams" = list("dfInput" = "dfInput",

@@ -39,7 +39,7 @@
 #'    vExpectedResultValues=c(0,1)
 #')
 #'
-#' ie_summary <- IE_Assess(dfInput)
+#' IE_Summary <- IE_Assess(dfInput)$dfSummary
 #'
 #'
 #' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, and `lParams`) is returned.
@@ -64,6 +64,8 @@ IE_Assess <- function(dfInput, nThreshold=0.5, strLabel=""){
   lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
   lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
   lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", strAssessment="Inclusion/Exclusion", strLabel= strLabel)
+  
+  
 
   return(lAssess)
 

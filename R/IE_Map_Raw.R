@@ -86,7 +86,7 @@ IE_Map_Raw <- function(
     mutate(Count = .data$Invalid + .data$Missing) %>%
     ungroup()
 
-
+  # throw warning if an ID in IE isn't found in RDSL
   missIE <- anti_join( dfIE_Subj, dfRDSL, by="SubjectID")
   if( nrow(missIE) > 0 ) warning("Not all SubjectID in IE found in RDSL")
 
@@ -96,7 +96,7 @@ IE_Map_Raw <- function(
     inner_join(dfIE_Subj, by="SubjectID") %>%
     select(.data$SubjectID, .data$SiteID, .data$Count)
 
-  #Throw warning if a an ID in IE isn't found in RDSL
+
 
   return(dfInput)
 }

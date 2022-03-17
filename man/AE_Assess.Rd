@@ -56,6 +56,6 @@ See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additio
 \examples{
 dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 SafetyAE <- AE_Assess( dfInput )
-SafetyAE_Wilk <- AE_Assess( dfInput, strMethod="wilcoxon")
+SafetyAE_Wilk <- AE_Assess( dfInput, strMethod="wilcoxon")$dfSummary
 
 }
