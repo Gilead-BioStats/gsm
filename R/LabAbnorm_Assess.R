@@ -33,7 +33,7 @@
 #' 
 #' @examples
 #' dfInput <- LabAbnorm_Map_Adam( safetyData::adam_adsl, safetyData::adam_adlbc )
-#' LabAbnorm <- LabAbnorm_Assess( dfInput )
+#' LabAbnorm_Summary <- LabAbnorm_Assess( dfInput )$dfSummary
 #' 
 #'
 #' @return If `bDataList` is false (the default), the summary data frame (`dfSummary`) is returned. If `bDataList` is true, a list containing all data in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged` and `dfSummary`) is returned.
@@ -48,7 +48,8 @@ LabAbnorm_Assess <-function( dfInput, vThreshold=NULL, strLabel="", strMethod="p
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "strLabel is not character" = is.character(strLabel),
     "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson","wilcoxon"),
-    "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count","Exposure", "Rate") %in% names(dfInput))
+    "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count","Exposure", "Rate") %in% names(dfInput)),
+    "strMethod must be length 1" = length(strMethod) == 1
   )
   lAssess <- list()
   lAssess$dfInput <- dfInput

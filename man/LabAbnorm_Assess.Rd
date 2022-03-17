@@ -61,7 +61,7 @@ See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additio
 
 \examples{
 dfInput <- LabAbnorm_Map_Adam( safetyData::adam_adsl, safetyData::adam_adlbc )
-LabAbnorm <- LabAbnorm_Assess( dfInput )
+LabAbnorm_Summary <- LabAbnorm_Assess( dfInput )$dfSummary
 
 
 }
