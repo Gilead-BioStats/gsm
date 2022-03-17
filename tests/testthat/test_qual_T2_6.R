@@ -1,11 +1,16 @@
 test_that("PD assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable and the results should be flagged correctly when done in an iterative loop", {
-  test2_6_assess <- vector("list", length(unique(clindata::raw_protdev$DEVTYPE)))
-  t2_6_assess  <- vector("list", length(unique(clindata::raw_protdev$DEVTYPE)))
+  deviations_of_interest <- c("Informed Consent",
+                              "Nonadherence of study drug",
+                              "Assessments or procedures",
+                              "Incorrect dispensing of study drug")
 
-  names(test2_6_assess) <- unique(clindata::raw_protdev$DEVTYPE)
-  names(t2_6_assess) <- unique(clindata::raw_protdev$DEVTYPE)
+  test2_6_assess <- vector("list", length(deviations_of_interest))
+  t2_6_assess  <- vector("list", length(deviations_of_interest))
 
-  for(type in unique(clindata::raw_protdev$DEVTYPE)){
+  names(test2_6_assess) <- deviations_of_interest
+  names(t2_6_assess) <- deviations_of_interest
+
+  for(type in deviations_of_interest){
     dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev %>% filter(DEVTYPE == type & SUBJID != ""),
                           dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment)))
 
