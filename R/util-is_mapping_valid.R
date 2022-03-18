@@ -42,7 +42,7 @@ is_mapping_valid <- function(df, mapping, vRequiredParams, vUniqueCols=NULL, vNA
         columns_have_empty_values = list(status = NA, warning = NA),
         cols_are_unique = list(status = NA, warning = NA)
     )
-
+    
     # "df" is a data.frame
     if(!is.data.frame(df)){
         tests_if$is_data_frame$status <- FALSE
@@ -95,7 +95,8 @@ is_mapping_valid <- function(df, mapping, vRequiredParams, vUniqueCols=NULL, vNA
 if (tests_if$has_expected_columns$status) {
 
     # Check for NA values in columns that are not specified in "vNACols"
-    check_na <- expected[!expected %in% vNACols]
+    no_check_na <- mapping[vNACols] %>% unname %>% unlist
+    check_na <- expected[!expected %in% no_check_na]
     if (any(is.na(df[check_na]))) {
             warning <- df %>%
                 summarize(across(check_na, ~sum(is.na(.)))) %>%
@@ -129,7 +130,7 @@ if (tests_if$has_expected_columns$status) {
 
     # Check for non-unique values in columns that are specificed in "vUniqueCols"
     if(!is.null(vUniqueCols)){
-        unique_cols <- expected[expected %in% vUniqueCols]
+        unique_cols <- mapping[vUniqueCols] %>% unname %>% unlist
         dupes <- map_lgl(df[unique_cols], ~any(duplicated(.)))
         if(any(dupes)) {
             tests_if$cols_are_unique$status <- FALSE
