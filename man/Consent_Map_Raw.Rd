@@ -2,14 +2,21 @@
 % Please edit documentation in R/Consent_Map_Raw.R
 \name{Consent_Map_Raw}
 \alias{Consent_Map_Raw}
-\title{Consent Assessment Mapping from Raw Data- Make Input Data}
+\title{Consent Assessment Mapping from Raw Data}
 \usage{
-Consent_Map_Raw(dfConsent, dfRDSL, strConsentReason = "mainconsent")
+Consent_Map_Raw(
+  dfConsent,
+  dfRDSL,
+  mapping = NULL,
+  strConsentReason = "mainconsent"
+)
 }
 \arguments{
 \item{dfConsent}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}
 
 \item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID RandDate.}
+
+\item{mapping}{List containing expected columns in each data set.}
 
 \item{strConsentReason}{default = "mainconsent", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.}
 }
@@ -29,7 +36,7 @@ The following columns are required:
 \itemize{
 \item \code{dfConsent}
 \itemize{
-\item \code{SUBJID} - Unique subject ID
+\item \code{SUBJID} - Subject ID
 \item \code{CONSCAT_STD} - Type of Consent_Coded value
 \item \code{CONSYN} - Did the subject give consent? Yes / No.
 \item \code{CONSDAT} - If yes, provide date consent signed
@@ -38,7 +45,7 @@ The following columns are required:
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
-\item \code{RandData} - Randomization Date
+\item \code{RandDate} - Randomization Date
 }
 }
 }
@@ -46,8 +53,8 @@ The following columns are required:
 \examples{
 
 input <- Consent_Map_Raw(
- dfConsent = clindata::raw_consent, 
- dfRDSL = clindata::rawplus_rdsl, 
+ dfConsent = clindata::raw_consent \%>\% dplyr::filter(!is.na(SUBJID) & SUBJID != ""),
+ dfRDSL = clindata::rawplus_rdsl,
  strConsentReason = NULL
 )
 

@@ -1,160 +1,172 @@
+dfAE <- clindata::raw_ae %>% filter(SUBJID != "")
+dfRDSL <- clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
+
+mapping <- list(
+  dfAE= list(strIDCol="SUBJID"),
+  dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
+)
+
 test_that("output created as expected and has correct structure",{
-  ae_input <- AE_Map_Raw(dfAE = clindata::raw_ae, dfRDSL = clindata::rawplus_rdsl )
+  ae_input <- AE_Map_Raw(dfAE = dfAE, dfRDSL = dfRDSL)
   expect_true(is.data.frame(ae_input))
   expect_equal(
   names(ae_input),
   c("SubjectID","SiteID","Count","Exposure","Rate"))
 })
 
+test_that("all data is mapped and summarized correctly",{
+  AE_counts <- clindata::raw_ae %>%
+    filter(SUBJID != "") %>%
+    group_by(SUBJID) %>%
+    summarize("Count" = n()) %>%
+    ungroup() %>%
+    select(SUBJID, Count)
+
+  AE_mapped <- clindata::rawplus_rdsl %>%
+    filter(!is.na(TimeOnTreatment)) %>%
+    left_join(AE_counts, by = c("SubjectID" = "SUBJID")) %>%
+    mutate(Count = as.integer(replace(Count, is.na(Count), 0))) %>%
+    rename(Exposure = TimeOnTreatment) %>%
+    mutate(Rate = Count / Exposure) %>%
+    select(SubjectID, SiteID, Count, Exposure, Rate)
+
+  expect_identical(AE_Map_Raw(dfAE, dfRDSL),
+                   AE_mapped)
+})
+
 test_that("incorrect inputs throw errors",{
-  expect_error(AE_Map_Raw(list(), list()))
-  expect_error(AE_Map_Raw( clindata::raw_ae, list()))
-  expect_error(AE_Map_Raw(list(),  clindata::rawplus_rdsl))
-  expect_error(AE_Map_Raw("Hi","Mom"))
+  expect_error(AE_Map_Raw(list(), list())%>%supressMessages)
+  expect_error(AE_Map_Raw(dfAE, list())%>%supressMessages)
+  expect_error(AE_Map_Raw(list(), dfRDSL)%>%supressMessages)
+  expect_error(AE_Map_Raw("Hi", "Mom")%>%supressMessages)
+  expect_error(AE_Map_Raw(dfAE, dfRDSL, mapping = list())%>%supressMessages)
 })
 
 
 test_that("error given if required column not found",{
   expect_error(
-    AE_Map_Raw( 
-      clindata::raw_ae %>% rename(ID = SUBJID), 
-      clindata::rawplus_rdsl
-    )
+    AE_Map_Raw(
+      dfAE %>% rename(ID = SUBJID),
+      dfRDSL
+    )%>% suppressMessages
   )
-  
+
   expect_error(
     AE_Map_Raw(
-      clindata::raw_ae ,
-      clindata::rawplus_rdsl  %>% select(-SiteID)
-    )
+      dfAE,
+      dfRDSL %>% select(-SiteID)
+    )%>% suppressMessages
   )
-  
+
   expect_error(
-    AE_Map_Raw( 
-      clindata::raw_ae , 
-      clindata::rawplus_rdsl   %>% select(-SubjectID)
-    )
+    AE_Map_Raw(
+      dfAE,
+      dfRDSL %>% select(-SubjectID)
+    )%>% suppressMessages
   )
-  
-  
-  
+
   expect_error(
-    AE_Map_Raw( 
-      clindata::raw_ae , 
-      clindata::rawplus_rdsl ,
-      strExposureCol="Exposure"
-    )
+    AE_Map_Raw(
+      dfAE,
+      dfRDSL %>% select(-TimeOnTreatment)
+    )%>% suppressMessages
   )
-  
+
+
+# update mapping
   expect_error(
-    AE_Map_Raw( 
-      clindata::raw_ae , 
-      clindata::rawplus_rdsl   %>% select(-SiteID)
-    )
+    AE_Map_Raw(
+      dfAE,
+      dfRDSL,
+      mapping = list(
+        dfAE= list(id_col="not an id column"),
+        dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
+      )
+    )%>% suppressMessages
   )
-  
-  
-  expect_silent(
-    AE_Map_Raw( 
-      clindata::raw_ae  %>% select(-PROJECT), 
-      clindata::rawplus_rdsl 
+
+  expect_error(
+    AE_Map_Raw(
+      dfAE,
+      dfRDSL %>% select(-SiteID)
+    )%>% suppressMessages
+  )
+
+  expect_message(
+    AE_Map_Raw(
+      dfAE %>% select(-PROJECT),
+      dfRDSL
     )
   )
 })
 
 
-test_that("output is correct given example input",{
-  
 
-  dfAE <- tibble::tribble(~SUBJID, 1,1,1,1,2,2)
-  
-  dfRDSL<-tibble::tribble(
-    ~SubjectID, ~SiteID, ~TimeOnTreatment,
-    1,   1, 10,
-    2,   1, NA,
-    3,   1, 30
-  )
-
-  
-  dfInput <-tibble::tribble(
-      ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
-      1,   1, 4, 10, 0.4,
-      2,   1, 2, NA, NA,
-      3,   1, 0, 30, 0 
-  )
-  
-
-  expect_equal(dfInput,  AE_Map_Raw(dfAE, dfRDSL ))
-  
-  dfAE2 <- tibble::tribble(~SUBJID, 1,1,1,1,2,2,4,4)
-  
-  dfExposure2<-tibble::tribble(
-    ~SubjectID, ~SiteID, ~TimeOnTreatment,
-    1,   1, 10,
-    2,   1, NA,
-    3,   1, 30,
-    4,   2, 50
-  )
-  
-  
-  dfInput2 <-tibble::tribble(
-    ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
-    1,   1, 4, 10, 0.4,
-    2,   1, 2, NA, NA,
-    3,   1, 0, 30, 0 ,
-    4,   2, 2, 50, .04
-  )
-  
-  
-  
-  expect_equal(dfInput2,  AE_Map_Raw(dfAE = dfAE2, dfRDSL = dfExposure2))
-  
-  
-  
-})
 
 test_that("NA values in input data are handled",{
-  
+
   dfAE3 <- tibble::tribble(~SUBJID, 1,1,1,1,2,2,4,4)
-  
+
   dfExposure3<-tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
-    NA,   1, 10,
+    1,   1, 10,
     2,   1, NA,
     3,   NA, 30,
     4,   2, 50
   )
-  
-  
-  dfInput3 <-tibble::tribble(
-    ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
-    NA,   1, 0, 10, 0,
-    2,    1,  2, NA, NA,
-    3,   NA,  0, 30, 0 ,
-    4,    2,  2, 50, .04
-  )
-  
-  expect_equal(dfInput3, AE_Map_Raw(dfAE = dfAE3, dfRDSL = dfExposure3))
-  
- 
-  
- 
-  
-  
+
+
+  expect_error(AE_Map_Raw(dfAE = dfAE3, dfRDSL = dfExposure3)%>%supressMessages)
+
+
 })
 
 
-test_that("dfAE Subject NA value throws error",{
+test_that("dfAE$SUBJID NA value throws error",{
   dfAE4 <- tibble::tribble(~SUBJID, 1,NA,1,1,2,2,4,4)
-  
+
+  dfExposure4<-tibble::tribble(
+    ~SubjectID, ~SiteID, ~TimeOnTreatment,
+    1,   1, 10,
+    2,   1, 20,
+    3,   3, 30,
+    4,   2, 50
+  )
+
+
+  expect_error(AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4)%>%supressMessages)
+})
+
+test_that("dfRDSL$SubjectID NA value throws error",{
+  dfAE4 <- tibble::tribble(~SUBJID, 1,1,1,1,2,2,4,4)
+
   dfExposure4<-tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
     NA,   1, 10,
-    2,   1, NA,
-    3,   NA, 30,
+    2,   1, 20,
+    3,   2, 30,
     4,   2, 50
   )
-  
-  
-  expect_error(AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4))
+
+
+  expect_error(AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4)%>%supressMessages)
 })
+
+
+
+
+test_that("custom mapping runs without errors", {
+  custom_mapping <- list(
+    dfAE= list(strIDCol="SUBJID"),
+    dfRDSL=list(strIDCol="custom_id", strSiteCol="custom_site_id", strExposureCol="trtmnt")
+  )
+
+
+  custom_rdsl <- dfRDSL %>%
+    mutate(trtmnt = TimeOnTreatment * 2.025) %>%
+    rename(custom_id = SubjectID,
+           custom_site_id = SiteID)
+
+  expect_message(AE_Map_Raw(dfAE, custom_rdsl, mapping = custom_mapping))
+})
+

@@ -1,76 +1,78 @@
 #' Transform Event Count
-#' 
+#'
 #' Convert from ADaM format to needed input format for Safety Assessment
 #' @details
-#'  
+#'
 #' This function transforms data to prepare it for the Analysis step
-#' 
+#'
 #' @section Data Specification:
-#' 
+#'
 #' The input data (`dfInput`) for the AE Assessment is typically created using any of these functions:
 #'  \code{\link{AE_Map_Raw}}
-#'  \code{\link{AE_Map_Adam}} 
-#'  \code{\link{PD_Map_Raw}} 
-#'  \code{\link{IE_Map_Raw}} 
-#'  \code{\link{Consent_Map_Raw}} 
-#'  
+#'  \code{\link{AE_Map_Adam}}
+#'  \code{\link{PD_Map_Raw}}
+#'  \code{\link{IE_Map_Raw}}
+#'  \code{\link{Consent_Map_Raw}}
+#'
 #' (`dfInput`) has the following required and optional columns:
 #' Required:
 #' - `SiteID` - Site ID
-#' - `Count` - Number of Adverse Events the actual name of this column is specified by the parameter cCountCol.
+#' - `Count` - Number of Adverse Events the actual name of this column is specified by the parameter strCountCol.
 #' Optional
-#' - `Exposure` - Number of days of exposure, name specified by cExposureCol.
-#' 
-#'  The input data has one or more rows per site. Transform_EventCount sums cCountCol for a TotalCount for each site. 
-#'  For data with an optional cExposureCol, a summed exposure is caculated for each site.
+#' - `Exposure` - Number of days of exposure, name specified by strExposureCol.
 #'
-#' @param dfInput A data frame with one Record per person
-#' @param cCountCol required. numerical or logical. Column to be counted.
-#' @param cExposureCol Optional, numerical Exposure Column
-#' 
-#' @return data.frame with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if cExposureCol is used.
-#' 
-#' @examples 
+#'  The input data has one or more rows per site. Transform_EventCount sums strCountCol for a TotalCount for each site.
+#'  For data with an optional strExposureCol, a summed exposure is caculated for each site.
+#'
+#' @param dfInput A data.frame with one record per person.
+#' @param strCountCol Required. Numerical or logical. Column to be counted.
+#' @param strExposureCol Optional. Numerical `Exposure` column.
+#'
+#' @return data.frame with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
+#'
+#' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-#' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
-#' 
+#' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
+#'
+#' @import dplyr
 #'
 #' @export
 
-Transform_EventCount <- function( dfInput , cCountCol, cExposureCol=NULL ){
+Transform_EventCount <- function( dfInput , strCountCol, strExposureCol=NULL ){
     stopifnot(
         "dfInput is not a data frame" = is.data.frame(dfInput),
-        "cCountCol not found in input data" = cCountCol %in% names(dfInput),
-        "cCount column is not numeric or logical" = is.numeric(dfInput[[cCountCol]]) | is.logical(dfInput[[cCountCol]])
+        "strCountCol not found in input data" = strCountCol %in% names(dfInput),
+        "SiteID not found in input data" = "SiteID" %in% names(dfInput),
+        "strCountCol is not numeric or logical" = is.numeric(dfInput[[strCountCol]]) | is.logical(dfInput[[strCountCol]])
     )
-    if(anyNA(dfInput[[cCountCol]])) stop("NA's found in dfInput$Count")  
-    if(!is.null(cExposureCol)){
+    if(anyNA(dfInput[[strCountCol]])) stop("NA's found in dfInput$Count")
+    if(!is.null(strExposureCol)){
       stopifnot(
-        "cExposureCol is not found in input data" = cExposureCol %in% names(dfInput),
-        "cExposureColumn is not numeric" = is.numeric(dfInput[[cExposureCol]])
+        "strExposureCol is not found in input data" = strExposureCol %in% names(dfInput),
+        "strExposureColumn is not numeric" = is.numeric(dfInput[[strExposureCol]])
       )
-      ExposureNACount <- sum(is.na(dfInput[[cExposureCol]]))
+      ExposureNACount <- sum(is.na(dfInput[[strExposureCol]]))
       if(ExposureNACount>0){
-        warning(paste0("Dropped ",ExposureNACount," record(s) from dfInput where cExposureColumn is NA."))
-        dfInput <- dfInput %>% filter(!is.na(.data[[cExposureCol]]))
+        warning(paste0("Dropped ",ExposureNACount," record(s) from dfInput where strExposureColumn is NA."))
+        dfInput <- dfInput %>% filter(!is.na(.data[[strExposureCol]]))
       }
     }
 
-  if(is.null(cExposureCol)){
+  if(is.null(strExposureCol)){
     dfTransformed <- dfInput  %>%
-      group_by(.data$SiteID) %>% 
+      group_by(.data$SiteID) %>%
       summarise(
-        N=n(), 
-        TotalCount= sum(.data[[cCountCol]]),
+        N=n(),
+        TotalCount= sum(.data[[strCountCol]]),
       )
   }else{
     dfTransformed <- dfInput  %>%
-      group_by(.data$SiteID) %>% 
+      group_by(.data$SiteID) %>%
       summarise(
-        N=n(), 
-        TotalCount= sum(.data[[cCountCol]]),
-        TotalExposure=sum(.data[[cExposureCol]])
-      )%>% 
+        N=n(),
+        TotalCount= sum(.data[[strCountCol]]),
+        TotalExposure=sum(.data[[strExposureCol]])
+      )%>%
       mutate(Rate = .data$TotalCount/.data$TotalExposure)
   }
 

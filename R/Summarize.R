@@ -2,35 +2,54 @@
 #'
 #' Create a concise summary of assessment results that is easy to aggregate across assessments
 #'
-#' @param dfFlagged data frame in format produced by \code{\link{Flag}}
-#' @param cAssessment brief description of current assessment
-#' @param cLabel brief description of line item in current assessment
+#' @details
+#' 
+#' \code{Summarize} supports the input data (`dfFlagged`) from the \code{Flag} function.
+#' 
+#' @section Data Specification:
 #'
-#' @return Simplified finding data frame with columns for "SiteID", "N", "PValue", "Flag".
+#' (`dfFlagged`) has the following required columns:
+#' - `SiteID` - Site ID
+#' - `N` - Total number of participants at site
+#' - `Flag` - Flagging value of -1, 0, or 1
+#' - `strScoreCol` - Column from analysis results. Default is "PValue".
+#'
+#' @param dfFlagged data frame in format produced by \code{\link{Flag}}
+#' @param strScoreCol column from analysis results to be copied to `dfSummary$Score`
+#' @param strAssessment brief description of current assessment
+#' @param strLabel brief description of line item in current assessment
+#'
+#' @return Simplified finding data frame with columns: Assessment, Label, SiteID, N, Pvalue, Flag
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-#' dfTransformed <- Transform_EventCount( dfInput, cCountCol = 'Count', cExposureCol = "Exposure" )
-#' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed, strOutcome ="Rate")
+#' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
+#' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed)
 #' dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Rate')
-#' dfSummary <- Summarize(dfFlagged, cAssessment="Safety", cLabel= "")
+#' dfSummary <- Summarize(dfFlagged, strAssessment="Safety", strLabel= "")
 #'
 #' @import dplyr
 #'
 #' @export
 
-Summarize <- function( dfFlagged , cAssessment="", cLabel=""){
+Summarize <- function( dfFlagged , strScoreCol="PValue", strAssessment="", strLabel=""){
     stopifnot(
-        is.data.frame(dfFlagged),
-        is.character(cAssessment),
-        is.character(cLabel),
-        all(c("SiteID", "N", "PValue", "Flag") %in% names(dfFlagged))
+        "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
+        "strAssessment is not character" = is.character(strAssessment),
+        "strLabel is not character" = is.character(strLabel),
+        "One or more of these columns: SiteID, N, Flag , strScoreCol, not found in dfFlagged" = all(c("SiteID", "N", "Flag",strScoreCol) %in% names(dfFlagged)),
+        "strAssessment must be length of 1" = length(strAssessment) == 1,
+        "strLabel must be length of 1" = length(strLabel) == 1
     )
     dfSummary <- dfFlagged %>%
-        mutate(Assessment = cAssessment) %>%
-        mutate(Label = cLabel) %>%
-        select(.data$Assessment,.data$Label, .data$SiteID,.data$N, .data$PValue, .data$Flag) %>%
-        arrange(.data$PValue)
+        mutate(Assessment = strAssessment) %>%
+        mutate(Label = strLabel) %>%
+        rename(Score = strScoreCol)%>%
+        select(.data$Assessment,.data$Label, .data$SiteID,.data$N, .data$Score, .data$Flag) %>%
+        arrange(desc(abs(.data$Score)))  %>%
+        arrange(match(.data$Flag, c(1, -1, 0)))
+        
+  
 
     return(dfSummary)
 }

@@ -4,20 +4,30 @@
 \alias{IE_Map_Raw}
 \title{Inclusion/Exclusion Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-IE_Map_Raw(dfIE = NULL, dfRDSL = NULL, vExpected = c(0, 1))
+IE_Map_Raw(
+  dfIE,
+  dfRDSL,
+  mapping = NULL,
+  vCategoryValues = c("Exclusion", "Inclusion"),
+  vExpectedResultValues = c(0, 1)
+)
 }
 \arguments{
-\item{dfIE}{ie dataset with columns SUBJID IVID IECAT IETESTCD IEORRES}
+\item{dfIE}{ie dataset with columns SUBJID and values specified in strCategoryCol and strResultCol.}
 
 \item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID}
 
-\item{vExpected}{Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion".}
+\item{mapping}{List containing expected columns in each data set.}
+
+\item{vCategoryValues}{Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion"). Category values must be in the same order as \code{vExpectedResultValues}.}
+
+\item{vExpectedResultValues}{Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion". Values must be in the same order as \code{vCategoryValues}.}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count
+Data frame with one record per participant giving the number of inclusion/exclusion criteria the participant did not meet as expected. Expected columns: SubjectID, SiteID, Count
 }
 \description{
-Convert from raw data format to needed input format for Inclusion/Exclusion Assessment
+Convert from raw data format to needed input format for Inclusion/Exclusion Assessment.
 }
 \details{
 This function creates the required input for \code{\link{IE_Assess}}.
@@ -30,9 +40,8 @@ The following columns are required:
 \item \code{dfIE}
 \itemize{
 \item \code{SUBJID} - Unique subject ID
-\item \code{IECAT} - IE Category
-\item \code{IETEST} - Criterion Description (truncated)
-\item \code{IEORRES} - Incl criteria not met Excl criteria met.
+\item Value specified in \code{mapping} - IE Category; "IECAT_STD" by default
+\item Value specified in \code{mapping} - Incl criteria not met Excl criteria met; "IEORRES" by default
 }
 \item \code{dfRDSL}
 \itemize{
@@ -44,6 +53,11 @@ The following columns are required:
 
 \examples{
 
-dfInput <- IE_Map_Raw(clindata::raw_ie_a2, clindata::rawplus_rdsl)
+dfInput <- IE_Map_Raw(
+   clindata::raw_ie_all \%>\% dplyr::filter(SUBJID != "" ),
+   clindata::rawplus_rdsl,
+   vCategoryValues= c("EXCL","INCL"),
+   vExpectedResultValues=c(0,1)
+)
 
 }

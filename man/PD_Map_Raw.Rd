@@ -4,23 +4,25 @@
 \alias{PD_Map_Raw}
 \title{Protocol Deviation Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-PD_Map_Raw(dfPD, dfRDSL, strExposureCol = "TimeOnStudy")
+PD_Map_Raw(dfPD, dfRDSL, mapping = NULL, strExposureCol = "TimeOnStudy")
 }
 \arguments{
-\item{dfPD}{PD dataset with SUBJID column and rows for each Protocol Deviation}
+\item{dfPD}{PD dataset with required column SUBJID and rows for each Protocol Deviation.}
 
-\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol}
+\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol.}
 
-\item{strExposureCol}{Name of exposure column. 'TimeOnStudy' by default}
+\item{mapping}{List containing expected columns in each data set.}
+
+\item{strExposureCol}{Name of exposure column. 'TimeOnStudy' by default.}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate
+Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
 }
 \description{
 Convert from raw data format to needed input format for Safety Assessment
 }
 \details{
-This function combines raw PD data with exposure data calculated by clindata::TimeOnStudy to create the required input for \code{\link{AE_Assess}}.
+This function combines raw PD data with exposure data calculated by clindata::TimeOnStudy to create the required input for \code{\link{PD_Assess}}.
 }
 \section{Data Specification}{
 
@@ -43,6 +45,7 @@ The following columns are required:
 }
 
 \examples{
- dfInput <- PD_Map_Raw(clindata::raw_protdev,clindata::rawplus_rdsl)
+ dfInput <- PD_Map_Raw(clindata::raw_protdev \%>\% dplyr::filter(SUBJID != ""),
+                       clindata::rawplus_rdsl)
 
 }
