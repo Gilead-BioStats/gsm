@@ -11,7 +11,7 @@
 #'
 #' The following columns are required:
 #' - `dfConsent`
-#'     - `SUBJID` - Unique subject ID
+#'     - `SUBJID` - Subject ID
 #'     - `CONSCAT_STD` - Type of Consent_Coded value
 #'     - `CONSYN` - Did the subject give consent? Yes / No.
 #'     - `CONSDAT` - If yes, provide date consent signed
@@ -59,7 +59,8 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentReason
   is_rdsl_valid <- is_mapping_valid(
     dfRDSL,
     mapping$dfRDSL,
-    vRequiredParams = c("strIDCol", "strSiteCol", "strRandDateCol")
+    vRequiredParams = c("strIDCol", "strSiteCol", "strRandDateCol"),
+    vUniqueCols = mapping$dfRDSL$strIDCol
     )
 
 

@@ -60,7 +60,8 @@ IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclu
       dfRDSL,
       mapping$dfRDSL,
       vRequiredParams = c("strIDCol", "strSiteCol"),
-      bQuiet = FALSE
+      bQuiet = FALSE,
+      vUniqueCols = mapping$dfRDSL$strIDCol
     )
 
   stopifnot(
