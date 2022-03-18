@@ -5,8 +5,8 @@
 \title{Merge Domain data with subject-level data shell}
 \usage{
 mergeSubjects(
-  dfSubjects,
   dfDomain,
+  dfSubjects,
   strIDCol = "SubjectID",
   vFillZero = NULL,
   bQuiet = FALSE
@@ -15,11 +15,11 @@ mergeSubjects(
 \arguments{
 \item{dfDomain}{}
 
+\item{dfSubjects}{}
+
 \item{strIDCol}{}
 
-\item{dfRDSL}{}
-
-\item{bFillZero}{Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject}
+\item{vFillZero}{Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject}
 }
 \value{
 data set with one record per IDCol
