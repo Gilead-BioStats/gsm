@@ -6,7 +6,7 @@
 \usage{
 Disp_Map(
   dfDisp,
-  strCol,
+  mapping = NULL,
   strReason = "any",
   vReasonIgnore = c("", " ", "completed", NA)
 )
@@ -14,7 +14,7 @@ Disp_Map(
 \arguments{
 \item{dfDisp}{disposition data with the following required columns: SUBJID and SITEID. Must also include the value specified in the \code{strCol} parameter.}
 
-\item{strCol}{column name containing discontinuation reason.}
+\item{mapping}{List containing expected columns in each data set.}
 
 \item{strReason}{character string containing reason for discontinuation. Can be a value found in \code{dfDisp$strCol} or "any" (the default), which selects all reasons not included in \code{vReasonIgnore}}
 
@@ -22,9 +22,6 @@ Disp_Map(
 }
 \value{
 Data frame with one record per person with columns: SubjectID, SiteID, Count, and the value passed to strCol.
-
-#' @examples
-df <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "adverse event")
 }
 \description{
 Convert from ADaM or raw format to input format for Disposition Assessment.
@@ -41,3 +38,7 @@ The following columns are required:
 }
 }
 
+\examples{
+df <- Disp_Map(dfDisp = safetyData::adam_adsl, strReason = "adverse event")
+
+}

@@ -30,7 +30,7 @@
 #' @return data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue
 #'
 #' @examples
-#' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD",strReason = "Adverse Event")
+#' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strReason = "Adverse Event")
 #' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count' )
 #' dfAnalyzed <- Analyze_Chisq( dfTransformed )
 #'

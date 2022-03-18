@@ -4,27 +4,19 @@
 \alias{Disp_Assess}
 \title{Disposition Assessment}
 \usage{
-Disp_Assess(
-  dfDisp,
-  vThreshold = NULL,
-  cLabel = "",
-  cMethod = "fishers",
-  bDataList = FALSE
-)
+Disp_Assess(dfDisp, vThreshold = NULL, strLabel = "", strMethod = "fishers")
 }
 \arguments{
 \item{dfDisp}{input data with one record per person and the following required columns: SubjectID, SiteID, Count}
 
 \item{vThreshold}{numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "fishers" and c(.0001,NA) for method = "chisquare".}
 
-\item{cLabel}{Assessment label}
+\item{strLabel}{Assessment label}
 
-\item{cMethod}{valid methods are "fishers" (the default), or  "chisquare"}
-
-\item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the Summary data frame is returned}
+\item{strMethod}{valid methods are "fishers" (the default), or  "chisquare"}
 }
 \value{
-If \code{bDataList} is false (the default), the summary data frame (\code{dfSummary}) is returned. If \code{bDataList} is true, a list containing all data in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged} and \code{dfSummary}) is returned.
+A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, and \code{lParams}) is returned.
 }
 \description{
 The Disposition Assessment flags sites that may be misrepresenting discontinuation reasons.
@@ -54,14 +46,14 @@ The Assessment
 \section{Statistical Assumptions}{
 
 
-A Fisher's Exact or Chi-Square model is used to generate estimates and p-values for each site (as specified with the \code{cMethod} parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in \code{vThreshold}. In the Fisher's Exact model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Chi-Square, sites with p-values less than 0.0001 are flagged by default.
+A Fisher's Exact or Chi-Square model is used to generate estimates and p-values for each site (as specified with the \code{strMethod} parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in \code{vThreshold}. In the Fisher's Exact model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Chi-Square, sites with p-values less than 0.0001 are flagged by default.
 
 See \code{\link{Analyze_Fisher}} and \code{\link{Analyze_Chisq}} for additional details about the statistical methods and thier assumptions.
 }
 
 \examples{
-dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl,strCol = "DCREASCD",strReason = "adverse event")
+dfInput <- Disp_Map( dfDisp = safetyData::adam_adsl, strReason = "adverse event" )
 SafetyAE <- Disp_Assess( dfInput )
-SafetyAE_Wilk <- Disp_Assess( dfInput, cMethod="chisquare")
+SafetyAE_Wilk <- Disp_Assess( dfInput, strMethod="chisquare" )
 
 }

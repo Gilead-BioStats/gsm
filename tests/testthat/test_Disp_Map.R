@@ -73,42 +73,26 @@ expectedOutputAdverse <- dplyr::tribble(
   "1192",   "701",        "Completed",      0,
   "1203",   "701",        "Completed",      0
 )
-
-
-
-
+Disp_Map(dfDisp = safetyData::adam_adsl, strReason = "adverse event")
 test_that("incorrect inputs throw errors",{
-  expect_error(Disp_Map(dfDisp = list(),
-                        strCol = list(),
-                        strReason = list())
-               )
 
-  expect_error(Disp_Map(dfDisp = df,
-                        strCol = list(),
-                        strReason = list())
+  expect_error(
+    Disp_Map(
+      list(), list()
+    ) %>% suppressMessages
   )
 
-  expect_error(Disp_Map(dfDisp = df,
-                        strCol = "DCREASCD",
-                        strReason = list())
+  expect_error(
+    Disp_Map(
+      df, list()
+    ) %>% suppressMessages
   )
 
-  expect_error(Disp_Map(dfDisp = df,
-                        strCol = list())
+  expect_error(
+    Disp_Map(
+      df, strReason = c("adverse event", "something else")
+    ) %>% suppressMessages
   )
-
-  expect_error(Disp_Map(dfDisp = df,
-                        strReason = "any")
-  )
-
-  expect_error(Disp_Map(dfDisp = df %>% rename(SSUUBBJJIIDD = SUBJID),
-                        strCol = "DCREASCD")
-  )
-
-  expect_error(Disp_Map(dfDisp = df %>% rename(SITEID2 = SITEID),
-                        strCol = "DCREASCD")
-  )
-
 
 })
 
@@ -116,10 +100,9 @@ test_that("incorrect inputs throw errors",{
 test_that("strReason = 'any' works as expected", {
 
   output <- Disp_Map(dfDisp = df,
-                     strCol = "DCREASCD",
                      strReason = "any")
 
-  testOutput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "any")
+  testOutput <- Disp_Map(dfDisp = safetyData::adam_adsl, strReason = "any")
   testOutput <- head(testOutput, n = 20)
 
   expect_equal(
@@ -147,10 +130,11 @@ test_that("strReason = 'any' works as expected", {
 test_that("strReason works when set to specific reason", {
 
   output <- Disp_Map(dfDisp = df,
-                     strCol = "DCREASCD",
                      strReason = "adverse event")
 
-  testOutput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "adverse event")
+  testOutput <- Disp_Map(dfDisp = safetyData::adam_adsl,
+                         strReason = "adverse event")
+
   testOutput <- head(testOutput, n = 20)
 
   expect_equal(
@@ -182,7 +166,6 @@ test_that("strReason can't also be in vReasonIgnore", {
 
   expect_error(
     Disp_Map(dfDisp = safetyData::adam_adsl,
-           strCol = "DCREASCD",
            strReason = strReason,
            vReasonIgnore = vReasonIgnore)
   )
@@ -201,21 +184,21 @@ test_that("vReasonIgnore works as expected",{
   ignoreAdverseEvent <- "adverse event"
 
   expect_equal(
-    Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "any", vReasonIgnore = ignoreAll) %>%
+    Disp_Map(dfDisp = safetyData::adam_adsl, strReason = "any", vReasonIgnore = ignoreAll) %>%
       summarize(Sum = sum(Count)) %>%
       pull(Sum),
     0
   )
 
   expect_equal(
-    Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "any", vReasonIgnore = ignoreNone) %>%
+    Disp_Map(dfDisp = safetyData::adam_adsl, strReason = "any", vReasonIgnore = ignoreNone) %>%
       summarize(Sum = sum(Count)) %>%
       pull(Sum),
     254
   )
 
   expect_equal(
-    Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "any", vReasonIgnore = ignoreAdverseEvent) %>%
+    Disp_Map(dfDisp = safetyData::adam_adsl, strReason = "any", vReasonIgnore = ignoreAdverseEvent) %>%
       filter(DCREASCD == "Adverse Event") %>%
       summarize(Sum = sum(Count)) %>%
       pull(Sum),

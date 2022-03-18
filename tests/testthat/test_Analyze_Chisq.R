@@ -1,5 +1,12 @@
-dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD",strReason = "Adverse Event")
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = 'Count')
+dfInput <- Disp_Map(
+  dfDisp = safetyData::adam_adsl,
+  strReason = "Adverse Event"
+  )
+
+dfTransformed <- Transform_EventCount(
+  dfInput,
+  strCountCol = 'Count'
+  )
 
 test_that("output created as expected and has correct structure",{
   chisq <- suppressWarnings(Analyze_Chisq(dfTransformed))

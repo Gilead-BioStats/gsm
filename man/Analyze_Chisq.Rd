@@ -38,7 +38,7 @@ The input data (\code{dfTransformed}) for Analyze_Chisq is typically created usi
 }
 
 \examples{
-dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD",strReason = "Adverse Event")
+dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strReason = "Adverse Event")
 dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count' )
 dfAnalyzed <- Analyze_Chisq( dfTransformed )
 
