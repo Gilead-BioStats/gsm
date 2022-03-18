@@ -8,7 +8,8 @@ Consent_Map_Raw(
   dfConsent,
   dfRDSL,
   mapping = NULL,
-  strConsentReason = "mainconsent"
+  strConsentTypeValue = "mainconsent",
+  strConsentStatusValue = "Yes"
 )
 }
 \arguments{
@@ -18,7 +19,9 @@ Consent_Map_Raw(
 
 \item{mapping}{List containing expected columns in each data set.}
 
-\item{strConsentReason}{default = "mainconsent", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.}
+\item{strConsentTypeValue}{default = "mainconsent", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.}
+
+\item{strConsentStatusValue}{default = "Yes", expected Status value for valid consent.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
@@ -30,7 +33,6 @@ Convert from raw data format to needed input format for \code{\link{Consent_Asse
 This function uses raw Consent and RDSL data to create the required input for \code{\link{Consent_Assess}}.
 }
 \section{Data Specification}{
-
 
 The following columns are required:
 \itemize{
@@ -55,7 +57,7 @@ The following columns are required:
 input <- Consent_Map_Raw(
  dfConsent = clindata::raw_consent \%>\% dplyr::filter(!is.na(SUBJID) & SUBJID != ""),
  dfRDSL = clindata::rawplus_rdsl,
- strConsentReason = NULL
+ strTypeValue = "BIOM"
 )
 
 }
