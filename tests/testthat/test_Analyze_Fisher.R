@@ -133,15 +133,24 @@ test_that("NAs are handled correctly", {
   }
 
   expect_error(
-    createNA("SiteID")
+    createNA(
+      data = df,
+      variable = "SiteID"
+      )
   )
 
   expect_error(
-    createNA("N")
+    createNA(
+      data = df,
+      variable = "N"
+      )
   )
 
   expect_error(
-    createNA("TotalCount")
+    createNA(
+      data = df,
+      variable = "TotalCount"
+      )
   )
 
 })
