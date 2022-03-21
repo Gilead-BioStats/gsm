@@ -4,7 +4,7 @@
 \alias{PD_Map_Raw}
 \title{Protocol Deviation Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-PD_Map_Raw(dfPD, dfRDSL, mapping = NULL, strExposureCol = "TimeOnStudy")
+PD_Map_Raw(dfPD, dfRDSL, mapping = NULL)
 }
 \arguments{
 \item{dfPD}{PD dataset with required column SUBJID and rows for each Protocol Deviation.}
@@ -12,8 +12,6 @@ PD_Map_Raw(dfPD, dfRDSL, mapping = NULL, strExposureCol = "TimeOnStudy")
 \item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol.}
 
 \item{mapping}{List containing expected columns in each data set.}
-
-\item{strExposureCol}{Name of exposure column. 'TimeOnStudy' by default.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
@@ -39,13 +37,15 @@ The following columns are required:
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
-\item Value specified in strExposureCol - Time on Study in days; "TimeOnStudy" by default
+\item \code{TimeOnStudy} - Time on Study in days.
 }
 }
 }
 
 \examples{
- dfInput <- PD_Map_Raw(clindata::raw_protdev \%>\% dplyr::filter(SUBJID != ""),
-                       clindata::rawplus_rdsl)
+dfInput <- PD_Map_Raw(
+    clindata::raw_protdev \%>\% dplyr::filter(SUBJID != ""),
+    clindata::rawplus_rdsl
+)
 
 }
