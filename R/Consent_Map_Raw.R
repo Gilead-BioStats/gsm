@@ -9,7 +9,7 @@
 #' @section Data Specification:
 #' The following columns are required:
 #' - `dfConsent`
-#'     - `SUBJID` - Unique subject ID
+#'     - `SUBJID` - Subject ID
 #'     - `CONSCAT_STD` - Type of Consent_Coded value
 #'     - `CONSYN` - Did the subject give consent? Yes / No.
 #'     - `CONSDAT` - If yes, provide date consent signed
@@ -38,8 +38,13 @@
 #' )
 #'
 #' @export
+<<<<<<< HEAD
 Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentTypeValue = "mainconsent", strConsentStatusValue="Yes"){
   
+=======
+Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentReason = "mainconsent"){
+
+>>>>>>> dev
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
     mapping <- list(
@@ -47,6 +52,7 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentTypeVa
       dfRDSL = list(strIDCol = "SubjectID", strSiteCol = "SiteID", strRandDateCol = "RandDate")
     )
   }
+<<<<<<< HEAD
   
   # Check input data vs. mapping
   dfConsentMapping <- is_mapping_valid(
@@ -71,6 +77,31 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentTypeVa
       "strTypeValue has multiple values, specify only one"= length(strTypeValue)==1,
       "Errors found in dfConsent" = dfConsentMapping$status,
       "Errors found in dfRDSL" = dfRDSLMapping$status
+=======
+
+  # Check input data vs. mapping.
+  is_consent_valid <- is_mapping_valid(
+    dfConsent,
+    mapping$dfConsent,
+    vRequiredParams = c("strIDCol", "strTypeCol", "strStatusCol", "strDateCol"),
+    vNACols = mapping$dfRDSL$strDateCol
+    )
+
+  is_rdsl_valid <- is_mapping_valid(
+    dfRDSL,
+    mapping$dfRDSL,
+    vRequiredParams = c("strIDCol", "strSiteCol", "strRandDateCol"),
+    vUniqueCols = mapping$dfRDSL$strIDCol
+    )
+
+
+  if(!is.null(strConsentReason)){
+    stopifnot(
+      "strConsentReason is not character"=is.character(strConsentReason),
+      "strConsentReason has multiple values, specify only one"= length(strConsentReason)==1,
+      "Errors found in dfConsent" = is_consent_valid$status,
+      "Errors found in dfRDSL" = is_rdsl_valid$status
+>>>>>>> dev
     )
   }
 

@@ -46,19 +46,20 @@ AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
         )
     }
 
-    # Check input data vs. mapping. 
+    # Check input data vs. mapping.
     is_ae_valid <- is_mapping_valid(
-        dfAE, 
-        mapping$dfAE, 
-        vRequiredParams = c("strIDCol"), 
-        bQuiet=FALSE
+        dfAE,
+        mapping$dfAE,
+        vRequiredParams = c("strIDCol"),
+        bQuiet = FALSE
     )
 
     is_rdsl_valid <- is_mapping_valid(
-        dfRDSL, mapping$dfRDSL, 
-        vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"), 
-        vUniqueCols = c('strIDCol'),
-        bQuiet=FALSE
+        dfRDSL,
+        mapping$dfRDSL,
+        vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"),
+        vUniqueCols = mapping$dfRDSL$strIDCol,
+        bQuiet = FALSE
     )
 
     stopifnot(
