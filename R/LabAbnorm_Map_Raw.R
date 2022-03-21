@@ -49,9 +49,7 @@
 
 LabAbnorm_Map_Raw <- function( dfLab, dfRDSL, strExposureCol='TimeOnTreatment',strTypeCol = NULL,strTypeValue =  NULL, strFlagCol = NULL, strFlagValue = NULL   ){
   
-    
-      
-  
+
     stopifnot(
         "dfLab dataset not found"=is.data.frame(dfLab),
         "RDSL dataset is not found"=is.data.frame(dfRDSL),
@@ -59,7 +57,8 @@ LabAbnorm_Map_Raw <- function( dfLab, dfRDSL, strExposureCol='TimeOnTreatment',s
         "strExposureCol is not character"=is.character(strExposureCol),
         "SubjectID, SiteID and strExposureCol columns not found in dfRDSL"=all(c("SubjectID","SiteID",strExposureCol) %in% names(dfRDSL)),
         "NAs found in SUBJID column of dfLab" = all(!is.na(dfLab$SUBJID)),
-        "NAs found in Subject ID column of dfRDSL" = all(!is.na(dfRDSL$SubjectID))
+        "NAs found in Subject ID column of dfRDSL" = all(!is.na(dfRDSL$SubjectID)),
+        "NAs found in SiteID column of dfRDSL" = all(!is.na(dfRDSL$SiteID))
     )
     
   dfLab <- util_filter_df(dfLab,strTypeCol,strTypeValue )
