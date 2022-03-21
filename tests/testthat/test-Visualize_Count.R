@@ -1,9 +1,9 @@
 suppressWarnings(
 
 consent_input <- Consent_Map_Raw(
-  dfConsent = clindata::raw_consent,
+  dfConsent = clindata::raw_consent %>% select,
   dfRDSL = clindata::rawplus_rdsl,
-  strConsentReason = NULL
+  strConsentTypeValue = NULL
 )
 
 )

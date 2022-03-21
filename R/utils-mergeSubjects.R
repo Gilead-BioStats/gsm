@@ -4,7 +4,8 @@
 #' @param dfDomain 
 #' @param strIDCol 
 #' @param vFillZero Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject
-#'
+#' @param bQuiet print messages? 
+#' 
 #' @return data set with one record per IDCol
 #'
 #' @examples
@@ -14,9 +15,9 @@
 #' @importFrom tidyr replace_na
 #' 
 #' @export
-#' 
 
-mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=NULL, bQuiet=FALSE){
+
+mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=NULL, bQuiet=TRUE){
     stopifnot(
         is.data.frame(dfSubjects),
         is.data.frame(dfDomain),
@@ -42,17 +43,15 @@ mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
     # Throw a warning if there are ID values in dfDomain that are not found in dfSubject
     domain_only_ids <- domain_ids[!domain_ids %in% subject_ids] 
     if(length(domain_only_ids > 0)){
-        if(!bQuiet){
-            warning(
-                paste0(
-                    length(domain_only_ids),
-                    " ID(s) in domain data not found in subject data: ",
-                    paste(domain_only_ids, collapse=" "),
-                    ". ",
-                    "Associated rows will not be included in merged data.\n"
-                )
+        warning(
+            paste0(
+                length(domain_only_ids),
+                " ID(s) in domain data not found in subject data: ",
+                paste(domain_only_ids, collapse=" "),
+                ". ",
+                "Associated rows will not be included in merged data.\n"
             )
-        } 
+        )
     }
 
     # Print a message if rows in dfSubject are not found in dfDomain

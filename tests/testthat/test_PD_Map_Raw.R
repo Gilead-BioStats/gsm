@@ -4,7 +4,6 @@ dfPD <- clindata::raw_protdev %>%
 dfRDSL <- clindata::rawplus_rdsl
 
 
-
 test_that("output created as expected and has correct structure",{
 
   pd_input <- PD_Map_Raw(dfPD, dfRDSL)
