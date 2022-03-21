@@ -1,7 +1,11 @@
 
 
-
-ie_input <- suppressWarnings(IE_Map_Raw(clindata::raw_ie_all , clindata::rawplus_rdsl, strCategoryCol = 'IECAT_STD', strResultCol = 'IEORRES'))
+ie_input <- suppressWarnings(IE_Map_Raw(
+  clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
+  clindata::rawplus_rdsl,
+  vCategoryValues= c("EXCL","INCL"),
+  vExpectedResultValues=c(0,1)
+))
 
 
 test_that("output is created as expected",{

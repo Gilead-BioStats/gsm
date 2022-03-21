@@ -31,8 +31,11 @@
 #' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon"
 #'
 #' @examples
-#' dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev, dfRDSL = clindata::rawplus_rdsl)
+#'  dfInput <- PD_Map_Raw(clindata::raw_protdev %>% dplyr::filter(SUBJID != ""),
+#'                        clindata::rawplus_rdsl)
+#'
 #' SafetyPD <- PD_Assess( dfInput )
+#'
 #' SafetyPD_Wilk <- PD_Assess( dfInput, strMethod="wilcoxon")$dfSummary
 #'
 #' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, and `lParams`) is returned.
