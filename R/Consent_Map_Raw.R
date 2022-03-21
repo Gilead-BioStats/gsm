@@ -23,7 +23,6 @@
 #' @param mapping List containing expected columns in each data set.
 #' @param strConsentTypeValue default = "mainconsent", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.
 #' @param strConsentStatusValue default = "Yes", expected Status value for valid consent.
-
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
 #'
@@ -31,20 +30,23 @@
 #'
 #' @examples
 #'
+#' raw_consent <- clindata::raw_ic_elig %>% select( c("SUBJID","DSSTDAT_RAW") )%>%
+#'    mutate( CONSCAT_STD = "MAINCONSENT", CONSYN="Y") %>%
+#'    rename( CONSDAT = DSSTDAT_RAW ) %>%
+#'    mutate( CONSDAT = as.Date(CONSDAT, format="%d %B %Y") ) %>% ## We should probably have some parsing / warning for our Consent_Map_Raw for date format expected
+#'    filter(SUBJID != "")
+#'
 #' input <- Consent_Map_Raw(
-#'  dfConsent = clindata::raw_consent %>% dplyr::filter(!is.na(SUBJID) & SUBJID != ""),
-#'  dfRDSL = clindata::rawplus_rdsl,
-#'  strTypeValue = "BIOM"
-#' )
+#'    dfConsent = raw_consent,
+#'    dfRDSL = clindata::rawplus_rdsl,
+#'    strConsentTypeValue = "MAINCONSENT",
+#'    strConsentStatusValue="Y"
+#')
 #'
 #' @export
-<<<<<<< HEAD
+
 Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentTypeValue = "mainconsent", strConsentStatusValue="Yes"){
   
-=======
-Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentReason = "mainconsent"){
-
->>>>>>> dev
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
     mapping <- list(
@@ -52,7 +54,6 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentReason
       dfRDSL = list(strIDCol = "SubjectID", strSiteCol = "SiteID", strRandDateCol = "RandDate")
     )
   }
-<<<<<<< HEAD
   
   # Check input data vs. mapping
   dfConsentMapping <- is_mapping_valid(
@@ -71,37 +72,15 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentReason
     bQuiet=FALSE
   )
 
-  if(!is.null(strTypeValue)){
+  stopifnot(
+    "Errors found in dfConsent" = dfConsentMapping$status,
+    "Errors found in dfRDSL" = dfRDSLMapping$status
+  )
+
+  if(!is.null(strConsentTypeValue)){
     stopifnot(
-      "strTypeValue is not character"=is.character(strTypeValue),
-      "strTypeValue has multiple values, specify only one"= length(strTypeValue)==1,
-      "Errors found in dfConsent" = dfConsentMapping$status,
-      "Errors found in dfRDSL" = dfRDSLMapping$status
-=======
-
-  # Check input data vs. mapping.
-  is_consent_valid <- is_mapping_valid(
-    dfConsent,
-    mapping$dfConsent,
-    vRequiredParams = c("strIDCol", "strTypeCol", "strStatusCol", "strDateCol"),
-    vNACols = mapping$dfRDSL$strDateCol
-    )
-
-  is_rdsl_valid <- is_mapping_valid(
-    dfRDSL,
-    mapping$dfRDSL,
-    vRequiredParams = c("strIDCol", "strSiteCol", "strRandDateCol"),
-    vUniqueCols = mapping$dfRDSL$strIDCol
-    )
-
-
-  if(!is.null(strConsentReason)){
-    stopifnot(
-      "strConsentReason is not character"=is.character(strConsentReason),
-      "strConsentReason has multiple values, specify only one"= length(strConsentReason)==1,
-      "Errors found in dfConsent" = is_consent_valid$status,
-      "Errors found in dfRDSL" = is_rdsl_valid$status
->>>>>>> dev
+      "strConsentTypeValue is not character"=is.character(strConsentTypeValue),
+      "strConsentTypeValue has multiple values, specify only one"= length(strConsentTypeValue)==1
     )
   }
 
@@ -124,9 +103,9 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentReason
     select(.data$SubjectID, .data$ConsentType , .data$ConsentStatus , .data$ConsentDate)
 
 
-  if(!is.null(strTypeValue)){
+  if(!is.null(strConsentTypeValue)){
     dfConsent_mapped <- dfConsent_mapped %>% filter(tolower(.data$ConsentType) == tolower(strConsentTypeValue))
-    if(nrow(dfConsent_mapped)==0) stop("supplied strTypeValue not found in data")
+    if(nrow(dfConsent_mapped)==0) stop("supplied strConsentTypeValue not found in data")
   }
   
   dfInput <- mergeSubjects(dfConsent_mapped, dfRDSL_mapped)%>%
@@ -135,8 +114,8 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentReason
     mutate(flag_missing_rand = is.na(.data$RandDate))%>%
     mutate(flag_date_compare = .data$ConsentDate >= .data$RandDate ) %>%
     mutate(any_flag = .data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare) %>%
-    mutate(Count = as.numeric(.data$any_flag, na.rm = TRUE)) %>%
-    select(.data$SubjectID, .data$SiteID, .data$Count)
+    mutate(Count = as.numeric(.data$any_flag, na.rm = TRUE)) 
+    #select(.data$SubjectID, .data$SiteID, .data$Count)
 
   return(dfInput)
 }
