@@ -4,28 +4,44 @@
 \alias{LabAbnorm_Map_Raw}
 \title{LabAbnorm Assessment - Raw Mapping}
 \usage{
-LabAbnorm_Map_Raw(dfLab, dfRDSL, strExposureCol = "TimeOnTreatment")
+LabAbnorm_Map_Raw(
+  dfLab,
+  dfRDSL,
+  strExposureCol = "TimeOnTreatment",
+  strTypeCol = NULL,
+  strTypeValue = NULL,
+  strFlagCol = NULL,
+  strFlagValue = NULL
+)
 }
 \arguments{
+\item{dfLab}{dfLab dataset with required column SUBJID and rows for each AE record}
+
 \item{dfRDSL}{Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol}
 
 \item{strExposureCol}{Name of exposure column. 'TimeOnTreatment' by default}
 
-\item{dfAE}{AE dataset with required column SUBJID and rows for each AE record}
+\item{strTypeCol}{Name dfLab colum to key on. Default = NULL for no filtering.}
+
+\item{strTypeValue}{Name values in strTypeCol to keep.  Default = NULL for no filtering.}
+
+\item{strFlagCol}{Name of Flagging column. Default = NULL for no filtering.}
+
+\item{strFlagValue}{value of strFlagCol to keep. Default = NULL for no filtering.}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
+Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of Lab records), Exposure (Time on Treatment in Days), Rate (AE/Day)
 }
 \description{
-Convert Raw data, typically processed case report form data - to input format for Safety Assessment.
+Convert Raw data, typically processed case report form data - to input format for Lab Abnormality Assessment.
 }
 \details{
-This function combines AE data with treatment exposure from subject-level Raw Data (RDSL) to create the required input for \code{\link{AE_Assess}}.
+This function combines Lab data with treatment exposure from subject-level Raw Data (RDSL) to create the required input for \code{\link{LabAbnorm_Assess}}.
 }
 \section{Data Specification}{
 
 
-This function creates an input dataset for the Adverse Event Assessment (\code{\link{AE_Assess}}) by adding Adverse Event Counts to basic subject-level treatment exposure data from \code{clindata::TreatmentExposure}.
+This function creates an input dataset for the Adverse Event Assessment (\code{\link{LabAbnorm_Assess}}) by adding Adverse Event Counts to basic subject-level treatment exposure data from \code{clindata::TreatmentExposure}.
 
 The following columns are required:
 \itemize{
@@ -41,10 +57,23 @@ The following columns are required:
 }
 }
 
-Note that the function can generate data summaries for specific types of AEs, but passing filtered ADAE data to dfADAE.
+The following columns are Optional:
+\itemize{
+\item \code{dfLab}
+\itemize{
+\item value specified in strTypeCol.
+\item value specified in strFlagCol.
+}
+}
+
+Note that the function can generate data summaries for specific types of Lab Abnormalities, but passing filtered Lab data to dfLab.
 }
 
 \examples{
- dfInput <- LabAbnorm_Map_Raw(clindata::raw_ae, clindata::rawplus_rdsl)
+
+ dfRDSL <- clindata::rawplus_rdsl \%>\% dplyr::filter(!is.na(TimeOnTreatment))
+ dfInput <- LabAbnorm_Map_Raw( clindata::rawplus_covlab, dfRDSL)
+ 
+ dfInput <- LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab, dfRDSL = dfRDSL, strTypeCol = 'LBTEST',strTypeValue =  "ALT (SGPT)", strFlagCol = 'TOXFLG', strFlagValue = 1 )
 
 }
