@@ -9,7 +9,7 @@ mergeSubjects(
   dfSubjects,
   strIDCol = "SubjectID",
   vFillZero = NULL,
-  bQuiet = FALSE
+  bQuiet = TRUE
 )
 }
 \arguments{
@@ -20,6 +20,8 @@ mergeSubjects(
 \item{strIDCol}{}
 
 \item{vFillZero}{Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject}
+
+\item{bQuiet}{print messages?}
 }
 \value{
 data set with one record per IDCol
