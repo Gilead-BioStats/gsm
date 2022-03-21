@@ -50,10 +50,14 @@ With N greater than user specified \code{nThreshold} will be flagged.
 
 \examples{
 
-raw_consent <- clindata::raw_ic_elig \%>\% select( c("SUBJID","DSSTDAT_RAW") )\%>\%
-   mutate( CONSCAT_STD = "MAINCONSENT", CONSYN="Y") \%>\%
+raw_consent <- clindata::raw_ic_elig \%>\% 
+   select(SUBJID,DSSTDAT_RAW)\%>\%
+   mutate( 
+     CONSCAT_STD = "MAINCONSENT", 
+     CONSYN="Y"
+   ) \%>\%
    rename( CONSDAT = DSSTDAT_RAW ) \%>\%
-   mutate( CONSDAT = as.Date(CONSDAT, format="\%d \%B \%Y") ) \%>\% ## We should probably have some parsing / warning for our Consent_Map_Raw for date format expected
+   mutate( CONSDAT = as.Date(CONSDAT, format="\%d \%B \%Y") ) \%>\% 
    filter(SUBJID != "")
 
 dfInput <- Consent_Map_Raw(

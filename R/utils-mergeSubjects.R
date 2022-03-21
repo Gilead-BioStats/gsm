@@ -1,15 +1,12 @@
 #' Merge Domain data with subject-level data shell
 #'
-#' @param dfSubjects 
-#' @param dfDomain 
-#' @param strIDCol 
+#' @param dfSubjects Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)
+#' @param dfDomain Subject-level domain data containing one record per participant. 
+#' @param strIDCol name of ID Column - default='SubjectID'
 #' @param vFillZero Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject
 #' @param bQuiet print messages? 
 #' 
 #' @return data set with one record per IDCol
-#'
-#' @examples
-#' NULL
 #' 
 #' @importFrom dplyr left_join
 #' @importFrom tidyr replace_na

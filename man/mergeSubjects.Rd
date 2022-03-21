@@ -13,11 +13,11 @@ mergeSubjects(
 )
 }
 \arguments{
-\item{dfDomain}{}
+\item{dfDomain}{Subject-level domain data containing one record per participant.}
 
-\item{dfSubjects}{}
+\item{dfSubjects}{Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)}
 
-\item{strIDCol}{}
+\item{strIDCol}{name of ID Column - default='SubjectID'}
 
 \item{vFillZero}{Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject}
 
@@ -28,8 +28,4 @@ data set with one record per IDCol
 }
 \description{
 Merge Domain data with subject-level data shell
-}
-\examples{
-NULL
-
 }
