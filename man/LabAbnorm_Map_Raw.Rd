@@ -72,8 +72,9 @@ Note that the function can generate data summaries for specific types of Lab Abn
 \examples{
 
  dfRDSL <- clindata::rawplus_rdsl \%>\% dplyr::filter(!is.na(TimeOnTreatment))
- dfInput <- LabAbnorm_Map_Raw( clindata::rawplus_covlab, dfRDSL)
+ dfInput <- LabAbnorm_Map_Raw( clindata::rawplus_covlab[1:10000, ], dfRDSL) # 1:10000 added to minimize cpu time.
  
- dfInput <- LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab, dfRDSL = dfRDSL, strTypeCol = 'LBTEST',strTypeValue =  "ALT (SGPT)", strFlagCol = 'TOXFLG', strFlagValue = 1 )
+ dfInput <- LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab, dfRDSL = dfRDSL, strTypeCol = 'LBTEST',
+            strTypeValue =  "ALT (SGPT)", strFlagCol = 'TOXFLG', strFlagValue = 1 )
 
 }
