@@ -50,6 +50,7 @@ With N greater than user specified \code{nThreshold} will be flagged.
 
 \examples{
 
+library(dplyr)
 raw_consent <- clindata::raw_ic_elig \%>\% 
    select(SUBJID,DSSTDAT_RAW)\%>\%
    mutate( 
@@ -65,6 +66,7 @@ dfInput <- Consent_Map_Raw(
    dfRDSL = clindata::rawplus_rdsl,
    strConsentTypeValue = "MAINCONSENT",
    strConsentStatusValue="Y"
+)
 
 Consent_Summary <- Consent_Assess(dfInput)$dfSummary
 

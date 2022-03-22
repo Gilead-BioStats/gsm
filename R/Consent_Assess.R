@@ -28,6 +28,7 @@
 #'
 #' @examples
 #'
+#' library(dplyr)
 #' raw_consent <- clindata::raw_ic_elig %>% 
 #'    select(SUBJID,DSSTDAT_RAW)%>%
 #'    mutate( 
@@ -43,9 +44,12 @@
 #'    dfRDSL = clindata::rawplus_rdsl,
 #'    strConsentTypeValue = "MAINCONSENT",
 #'    strConsentStatusValue="Y"
+#' )
 #' 
 #' Consent_Summary <- Consent_Assess(dfInput)$dfSummary
 #'
+#' @import dplyr
+#' 
 #' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, and `lParams`) is returned.
 #'
 #' @export
