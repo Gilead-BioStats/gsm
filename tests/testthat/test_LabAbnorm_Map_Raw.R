@@ -42,11 +42,21 @@ test_that("incorrect inputs throw errors",{
   expect_error(LabAbnorm_Map_Raw("Hi", "Mom"))
   expect_error(LabAbnorm_Map_Raw(dfLab, dfRDSL,strTypeCol = c("A", "B") ))
   expect_error(LabAbnorm_Map_Raw(dfLab, dfRDSL,strTypeCol = 123.4 ))
-  expect_error(LabAbnorm_Map_Raw(dfLab, dfRDSL,strTypeCol = "" ))
-  LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab_hema[1:10000], dfRDSL = dfRDSL, strTypeCol = 'LBTEST',strTypeValue =  NULL, strFlagCol = 'TOXFLG', strFlagValue = 1 )
   expect_error(LabAbnorm_Map_Raw(dfLab, dfRDSL,strTypeCol = 123.4 ))
   expect_error(LabAbnorm_Map_Raw(dfLab, dfRDSL,strTypeCol = 123.4 ))
   expect_error(LabAbnorm_Map_Raw(dfLab, dfRDSL,strTypeCol = 123.4 ))
+  
+})
+
+test_that("incomplete or invalid filter parameters throw warnings",{
+  expect_warning( LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab_hema[1:10000,], dfRDSL = dfRDSL, strTypeCol = 'LBTEST',strTypeValue =  NULL, strFlagCol = 'TOXFLG', strFlagValue = 1 ))
+  expect_warning( LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab[1:10000,], dfRDSL = dfRDSL, strTypeCol = NULL,strTypeValue =   "ALT (SGPT)", strFlagCol = 'TOXFLG', strFlagValue = 1 ))
+  expect_warning( LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab[1:10000,], dfRDSL = dfRDSL, strTypeCol = 'Col not found',strTypeValue =   "ALT (SGPT)", strFlagCol = 'TOXFLG', strFlagValue = 1 ))
+  expect_warning( LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab[1:10000,], dfRDSL = dfRDSL, strTypeCol = 'LBTEST',strTypeValue =   "Value not found", strFlagCol = 'TOXFLG', strFlagValue = 1 ))
+  expect_warning( LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab[1:10000,], dfRDSL = dfRDSL, strTypeCol = 'LBTEST',strTypeValue =   "ALT (SGPT)", strFlagCol = NULL, strFlagValue = 1 ))
+  expect_warning( LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab[1:10000,], dfRDSL = dfRDSL, strTypeCol = 'LBTEST',strTypeValue =   "ALT (SGPT)", strFlagCol = 'Flag not found', strFlagValue = 1 ))
+  expect_warning( LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab[1:10000,], dfRDSL = dfRDSL, strTypeCol = 'LBTEST',strTypeValue =   "ALT (SGPT)", strFlagCol = 'TOXFLG', strFlagValue = "Flagvalue not found" ))
+  expect_warning(LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab_hema[1:10000,], dfRDSL = dfRDSL, strTypeCol = 'LBTEST',strTypeValue =  NULL, strFlagCol = NULL, strFlagValue = NULL ) )
   
 })
 
