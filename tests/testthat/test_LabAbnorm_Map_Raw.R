@@ -40,9 +40,20 @@ test_that("incorrect inputs throw errors",{
   expect_error(LabAbnorm_Map_Raw(dfLab, list()))
   expect_error(LabAbnorm_Map_Raw(list(), dfRDSL))
   expect_error(LabAbnorm_Map_Raw("Hi", "Mom"))
-  expect_error(LabAbnorm_Map_Raw(dfLab, dfRDSL, mapping = list()))
+  expect_error(LabAbnorm_Map_Raw(dfLab, dfRDSL,strTypeCol = c("A", "B") ))
+  expect_error(LabAbnorm_Map_Raw(dfLab, dfRDSL,strTypeCol = 123.4 ))
+  expect_error(LabAbnorm_Map_Raw(dfLab, dfRDSL,strTypeCol = "" ))
+  LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab_hema[1:10000], dfRDSL = dfRDSL, strTypeCol = 'LBTEST',strTypeValue =  NULL, strFlagCol = 'TOXFLG', strFlagValue = 1 )
+  expect_error(LabAbnorm_Map_Raw(dfLab, dfRDSL,strTypeCol = 123.4 ))
+  expect_error(LabAbnorm_Map_Raw(dfLab, dfRDSL,strTypeCol = 123.4 ))
+  expect_error(LabAbnorm_Map_Raw(dfLab, dfRDSL,strTypeCol = 123.4 ))
+  
 })
 
+#' @param strTypeCol Name dfLab colum to key on. Default = NULL for no filtering.
+#' @param strTypeValue Name values in strTypeCol to keep.  Default = NULL for no filtering.
+#' @param strFlagCol Name of Flagging column. Default = NULL for no filtering.
+#' @param strFlagValue value of strFlagCol to keep. Default = NULL for no filtering.
 
 test_that("error given if required column not found",{
   expect_error(
@@ -70,19 +81,6 @@ test_that("error given if required column not found",{
     LabAbnorm_Map_Raw(
       dfLab,
       dfRDSL %>% select(-TimeOnTreatment)
-    )
-  )
-
-
-# update mapping
-  expect_error(
-    LabAbnorm_Map_Raw(
-      dfLab,
-      dfRDSL,
-      mapping = list(
-        dfLab= list(id_col="not an id column"),
-        dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
-      )
     )
   )
 

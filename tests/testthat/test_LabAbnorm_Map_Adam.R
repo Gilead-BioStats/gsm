@@ -1,11 +1,11 @@
 test_that("output created as expected and has correct structure",{
-    ae_input <- LabAbnorm_Map_Adam(
+    lab_input <- LabAbnorm_Map_Adam(
         safetyData::adam_adsl, 
         safetyData::adam_adlbc
     ) 
 
-    expect_true(is.data.frame(ae_input))
-    expect_equal(names(ae_input), c("SubjectID","SiteID","Count","Exposure","Rate"))
+    expect_true(is.data.frame(lab_input))
+    expect_equal(names(lab_input), c("SubjectID","SiteID","Count","Exposure","Rate"))
 })
 
 test_that("incorrect inputs throw errors",{
@@ -21,7 +21,7 @@ test_that("error given if required column not found",{
     expect_error(
         LabAbnorm_Map_Adam( 
             safetyData::adam_adsl %>% rename(ID = USUBJID), 
-            safetyData::adam_adae
+            safetyData::adam_adlbc
         )
     )
 
@@ -29,21 +29,21 @@ test_that("error given if required column not found",{
     expect_error(
         LabAbnorm_Map_Adam( 
             safetyData::adam_adsl %>% rename(EndDay = TRTEDT), 
-            safetyData::adam_adae
+            safetyData::adam_adlbc
         )
     )
     
     expect_error(
         LabAbnorm_Map_Adam( 
             safetyData::adam_adsl %>% select(-TRTSDT), 
-            safetyData::adam_adae
+            safetyData::adam_adlbc
         )
     )
     
     expect_error(
       LabAbnorm_Map_Adam( 
         safetyData::adam_adsl , 
-        safetyData::adam_adae  %>% select(-USUBJID)
+        safetyData::adam_adlbc  %>% select(-USUBJID)
       )
     )
 
@@ -51,7 +51,7 @@ test_that("error given if required column not found",{
     expect_silent(
         LabAbnorm_Map_Adam( 
             safetyData::adam_adsl %>% rename(Oldness=AGE), 
-            safetyData::adam_adae %>% select(-RACE)
+            safetyData::adam_adlbc %>% select(-RACE)
         )
     )
 })

@@ -1,26 +1,47 @@
 
+#' Utility Function for Filtering Dataframes
+#'
+#' @param df dataframe, input
+#' @param strCol character, column to be filtered on.
+#' @param strValue value to be filtered on ()
+#' 
+#' @import dplyr
+#'
+#' @return Filtered dataframe if strCol != NULL and strValue != NULL, otherwise input dataframe will be returned.
+#' @export
+#'
+#' @examples
+#' util_filter_df(clindata::rawplus_covlab, strCol = "TOXFLG", strValue = 1 )
+#' 
+#' 
 util_filter_df <- function(df, strCol = NULL,strValue =  NULL ){
   
   dfname <-deparse(substitute(df))
-  
   strColname <- deparse(substitute(strCol))
   strValuename <- deparse(substitute(strValue))
+  
   
   if(!is.data.frame(df)){
     stop(paste0(dfname, " is not a dataframe"))
   }
   
-  if(length(strCol) > 1){
-    stop(paste0("length of ", strColname, " is not a equal to one"))
+ 
+  if(!is.null(strValue)){
+    if(length(strValue) > 1){
+      stop(paste0("length of ", strValuename, " is not a equal to one"))
+    }
+  }
+ 
+  
+  if(!is.null(strCol)){
+    if(!is.character(strCol)){
+      stop(paste0( strColname, " must be a character type"))
+    }
+    if(length(strCol) > 1){
+      stop(paste0("length of ", strColname, " is not a equal to one"))
+    }
   }
   
-  if(length(strValue) > 1){
-    stop(paste0("length of ", strValuename, " is not a equal to one"))
-  }
-  
-  if(is.character(strCol)){
-    stop(paste0( strColname, " must be a character type"))
-  }
   
   
 
