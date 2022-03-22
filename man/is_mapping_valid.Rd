@@ -7,7 +7,7 @@
 is_mapping_valid(
   df,
   mapping,
-  vRequiredParams,
+  vRequiredParams = NULL,
   vUniqueCols = NULL,
   vNACols = NULL,
   bQuiet = TRUE

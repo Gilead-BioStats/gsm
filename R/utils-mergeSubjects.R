@@ -13,15 +13,24 @@
 #' 
 #' @export
 
-
 mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=NULL, bQuiet=TRUE){
+    is_domain_valid <- is_mapping_valid(
+        df = dfDomain,
+        mapping = list('strIDCol'=strIDCol),
+        vUniqueCols = "strIDCol",
+        bQuiet=FALSE
+    )
+
+    is_subjects_valid <- is_mapping_valid(
+        df = dfSubjects,
+        mapping = list('strIDCol'=strIDCol),
+        vUniqueCols = "strIDCol",
+        bQuiet=FALSE
+    )
+
     stopifnot(
-        is.data.frame(dfSubjects),
-        is.data.frame(dfDomain),
-        is.character(strIDCol),
-        is.logical(bQuiet),
-        strIDCol %in% names(dfSubjects),
-        strIDCol %in% names(dfDomain)
+        "Errors found in dfDomain" = is_domain_valid$status,
+        "Errors found in dfSubjects" = is_subjects_valid$status
     )
 
     if(!is.null(vFillZero)){
@@ -31,13 +40,9 @@ mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
         )
     }
 
-    # Check that ID is unique in both data sets
-    subject_ids <- dfSubjects[[strIDCol]]
-    domain_ids <- dfDomain[[strIDCol]]
-    if(any(duplicated(subject_ids))) stop("Duplicate ID Values in Subject Data")
-    if(any(duplicated(domain_ids))) stop("Duplicate ID Values in Domain Data")
-    
     # Throw a warning if there are ID values in dfDomain that are not found in dfSubject
+    subject_ids <- dfSubjects[[strIDCol]]
+    domain_ids <- dfDomain[[strIDCol]]    
     domain_only_ids <- domain_ids[!domain_ids %in% subject_ids] 
     if(length(domain_only_ids > 0)){
         warning(

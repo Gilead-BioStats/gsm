@@ -1,31 +1,31 @@
 dfConsent_test <- tibble::tribble(~SUBJID, ~CONSCAT_STD , ~CONSYN , ~CONSDAT,
-                                  1,       "MAINCONSENT",    "Yes", "2014-12-24",
-                                  2,       "MAINCONSENT",    "Yes", "2014-12-24",
-                                  3,       "MAINCONSENT",    "Yep", "2014-12-24", #Bad CONSYN
-                                  4,       "MAINCONSENT",    "No", "2014-12-24", #Bad CONSYN
-                                  5,       "MAINCONSENT",    "Yes", "2014-12-25", #consent same as rand
-                                  6,       "MAINCONSENT",    "Yes", "2014-12-26", #consent after rand
-                                  7,       "NoCONSENT",      "Yes", "2014-12-24" #Wrong consent type
+                                  '1',       "MAINCONSENT",    "Yes", "2014-12-24",
+                                  '2',       "MAINCONSENT",    "Yes", "2014-12-24",
+                                  '3',       "MAINCONSENT",    "Yep", "2014-12-24", #Bad CONSYN
+                                  '4',       "MAINCONSENT",    "No", "2014-12-24", #Bad CONSYN
+                                  '5',       "MAINCONSENT",    "Yes", "2014-12-25", #consent same as rand
+                                  '6',       "MAINCONSENT",    "Yes", "2014-12-26", #consent after rand
+                                  '7',       "NoCONSENT",      "Yes", "2014-12-24" #Wrong consent type
 )
 
 dfRDSL_test <- tibble::tribble(~SubjectID, ~SiteID, ~RandDate,
-                               1,  1, "2014-12-25",
-                               2,  1, "2014-12-25",
-                               3,  1, "2014-12-25",
-                               4,  1, "2014-12-25",
-                               5,  1, "2014-12-25",
-                               6,  1, "2014-12-25",
-                               7,  1, "2014-12-25")
+                               '1',  1, "2014-12-25",
+                               '2',  1, "2014-12-25",
+                               '3',  1, "2014-12-25",
+                               '4',  1, "2014-12-25",
+                               '5',  1, "2014-12-25",
+                               '6',  1, "2014-12-25",
+                               '7',  1, "2014-12-25")
 
 dfInput_test <-  tibble::tribble(
   ~SubjectID, ~SiteID, ~Count,
-  1,       1,   0,
-  2,       1,   0,
-  3,       1,   1,
-  4,       1,   1,
-  5,       1,   1,
-  6,       1,   1,
-  7,       1,   1
+  '1',       1,   0,
+  '2',       1,   0,
+  '3',       1,   1,
+  '4',       1,   1,
+  '5',       1,   1,
+  '6',       1,   1,
+  '7',       1,   1
 )
 
 test_that("output created as expected and has correct structure",{

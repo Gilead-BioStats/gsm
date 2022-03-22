@@ -30,7 +30,7 @@
 #'
 #' @export
 
-is_mapping_valid <- function(df, mapping, vRequiredParams, vUniqueCols=NULL, vNACols=NULL, bQuiet = TRUE){
+is_mapping_valid <- function(df, mapping, vRequiredParams=NULL, vUniqueCols=NULL, vNACols=NULL, bQuiet = TRUE){
 
     tests_if <- list(
         is_data_frame = list(status = NA, warning = NA),
@@ -70,7 +70,7 @@ is_mapping_valid <- function(df, mapping, vRequiredParams, vUniqueCols=NULL, vNA
     # mapping contains character values for column names
     if(!all(purrr::map_lgl(mapping, ~is.character(.)))){
         tests_if$mappings_are_character$status <- FALSE
-        warning <- "Non-characacter column names found in mapping"
+        warning <- "Non-character column names found in mapping"
         warning_cols <- df %>% select_if(~!is.character(.)) %>% names()
         tests_if$mappings_are_character$warning <- paste0(warning, ": ", warning_cols)
     } else {
