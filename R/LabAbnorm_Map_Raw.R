@@ -37,12 +37,17 @@
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of Lab records), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #'
 #' @examples
-#' 
-#'  dfRDSL <- clindata::rawplus_rdsl %>% dplyr::filter(!is.na(TimeOnTreatment))
-#'  dfInput <- LabAbnorm_Map_Raw( clindata::rawplus_covlab[1:10000, ], dfRDSL) # 1:10000 added to minimize cpu time.
 #'  
-#'  dfInput <- LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab, dfRDSL = dfRDSL, strTypeCol = 'LBTEST',
-#'             strTypeValue =  "ALT (SGPT)", strFlagCol = 'TOXFLG', strFlagValue = 1 )
+#'   
+#'  dfRDSL <- clindata::rawplus_rdsl %>% dplyr::filter(!is.na(TimeOnTreatment))
+#'  
+#'   # [1:10000,] added to minimize cpu time.
+#'  
+#'  dfInput <- LabAbnorm_Map_Raw( clindata::rawplus_covlab[1:10000, ], dfRDSL)
+#'  
+#'  dfInput <- LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab[1:10000, ],  
+#'             dfRDSL = dfRDSL,strTypeCol = 'LBTEST',strTypeValue ="ALT (SGPT)",
+#'             strFlagCol = 'TOXFLG', strFlagValue = 1 )
 #'
 #' @import dplyr
 #'
