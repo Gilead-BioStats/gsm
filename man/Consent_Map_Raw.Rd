@@ -54,7 +54,7 @@ The following columns are required:
 
 \examples{
 library(dplyr)
-raw_consent <- clindata::raw_ic_elig \%>\% 
+raw_consent <- clindata::raw_ic_elig \%>\%
    select( c("SUBJID","DSSTDAT_RAW") )\%>\%
    mutate( CONSCAT_STD = "MAINCONSENT", CONSYN="Y") \%>\%
    rename( CONSDAT = DSSTDAT_RAW ) \%>\%

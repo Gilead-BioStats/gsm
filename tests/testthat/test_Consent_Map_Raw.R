@@ -29,7 +29,7 @@ dfInput_test <-  tibble::tribble(
 )
 
 test_that("output created as expected and has correct structure",{
-  consent_input <- Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "mainconsent", mapping = NULL)
+  consent_input <- Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "MAINCONSENT", mapping = NULL)
   expect_true(is.data.frame(consent_input))
   expect_equal(
     names(consent_input),
@@ -42,7 +42,7 @@ test_that("incorrect inputs throw errors",{
 })
 
 
-test_that("incorrect inputs throw errors",{  
+test_that("incorrect inputs throw errors",{
   suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = list())))
   suppressMessages(expect_error( Consent_Map_Raw(dfConsent = list(), dfRDSL = dfRDSL_test)))
   suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "mainconsent", mapping = "hi there")))
@@ -144,7 +144,7 @@ test_that("error given if required column not found",{
 
 
 test_that("output is correct given clindata example input",{
-  expect_equal(dfInput_test, Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test))
+  expect_equal(dfInput_test, Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "MAINCONSENT"))
 })
 
 dfConsent_test_NA1 <- tibble::tribble(~SUBJID, ~CONSCAT_STD , ~CONSYN , ~CONSDAT,
@@ -194,7 +194,7 @@ dfInput_test2 <-  tibble::tribble(
 
 
 test_that("NA's in data are caught and error thrown",{
-  
+
   dfConsent_test_in <-  dfConsent_test2; dfConsent_test_in[1,2] = NA
   suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test_in, dfRDSL = dfRDSL_test2)))
 

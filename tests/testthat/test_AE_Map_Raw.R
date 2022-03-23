@@ -1,8 +1,8 @@
-dfAE <- clindata::raw_ae %>% 
-  filter(SUBJID != "") %>% 
-  filter(SUBJID !="1163") %>% 
+dfAE <- clindata::raw_ae %>%
+  filter(SUBJID != "") %>%
+  filter(SUBJID !="1163") %>%
   filter(SUBJID != "1194")
-  
+
 dfRDSL <- clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
 
 mapping <- list(
@@ -30,7 +30,7 @@ test_that("all data is mapped and summarized correctly",{
   AE_mapped <- clindata::rawplus_rdsl %>%
     filter(!is.na(TimeOnTreatment)) %>%
     left_join(AE_counts, by = c("SubjectID" = "SUBJID")) %>%
-    mutate(Count = as.integer(replace(Count, is.na(Count), 0))) %>%
+    mutate(Count = as.double(replace(Count, is.na(Count), 0))) %>%
     rename(Exposure = TimeOnTreatment) %>%
     mutate(Rate = Count / Exposure) %>%
     select(SubjectID, SiteID, Exposure, Count, Rate)
