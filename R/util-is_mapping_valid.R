@@ -42,7 +42,7 @@ is_mapping_valid <- function(df, mapping, vRequiredParams=NULL, vUniqueCols=NULL
         columns_have_empty_values = list(status = NA, warning = NA),
         cols_are_unique = list(status = NA, warning = NA)
     )
-    
+
     # "df" is a data.frame
     if(!is.data.frame(df)){
         tests_if$is_data_frame$status <- FALSE
