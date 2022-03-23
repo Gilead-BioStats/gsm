@@ -51,15 +51,16 @@ AE_Assess <- function(dfInput, vThreshold=NULL, strMethod="poisson", lTags=list(
     if(!is.null(lTags)){
         stopifnot(
             "lTags is not named"=(!is.null(names(lTags))),
-            "lTags has unnamed elements"=all(names(lTags)!="")
+            "lTags has unnamed elements"=all(names(lTags)!=""),
+            "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
         )
-    }   
+    }
 
     lAssess <- list()
     lAssess$strFunctionName <- deparse(sys.call()[1])
     lAssess$lParams <- lapply(as.list(match.call()[-1]), function(x) as.character(x))
-    lAssess$dfInput <- dfInput
     lAssess$lTags <- lTags
+    lAssess$dfInput <- dfInput
     lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
     if(strMethod == "poisson"){
         if(is.null(vThreshold)){
@@ -87,7 +88,7 @@ AE_Assess <- function(dfInput, vThreshold=NULL, strMethod="poisson", lTags=list(
         }
         lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed)
         lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold, strValueColumn = 'Estimate')
-        lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, lTags)
+        lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol = 'PValue', lTags = lTags)
     }
 
     return(lAssess)

@@ -17,6 +17,7 @@ test_that("output is created as expected",{
   expect_true("data.frame" %in% class(pd_assessment$dfSummary))
   expect_type(pd_assessment$strFunctionName, "character")
   expect_type(pd_assessment$lParams, "list")
+  expect_type(pd_assessment$lTags, "list")
 })
 
 test_that("strMethod = 'wilcoxon' does not throw error",{

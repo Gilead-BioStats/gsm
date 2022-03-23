@@ -7,7 +7,7 @@ ae_input <- AE_Map_Adam(
 test_that("summary df created as expected and has correct structure",{
     ae_assessment <- AE_Assess(ae_input, vThreshold = c(-5.1, 5.1))
     expect_true(is.list(ae_assessment))
-    expect_equal(names(ae_assessment),c("strFunctionName", "lParams", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "vTags"))
+    expect_equal(names(ae_assessment),c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
     expect_true("data.frame" %in% class(ae_assessment$dfInput))
     expect_true("data.frame" %in% class(ae_assessment$dfTransformed))
     expect_true("data.frame" %in% class(ae_assessment$dfAnalyzed))
@@ -15,7 +15,7 @@ test_that("summary df created as expected and has correct structure",{
     expect_true("data.frame" %in% class(ae_assessment$dfSummary))
     expect_type(ae_assessment$strFunctionName, "character")
     expect_type(ae_assessment$lParams, "list")
-
+    expect_type(ae_assessment$lTags, "list")
 })
 
 
@@ -47,3 +47,4 @@ test_that("invalid lTags throw errors",{
     expect_error(AE_Assess(ae_input, vThreshold = c(-5.1, 5.1), lTags=list(greeting="hi","mom")))
     expect_silent(AE_Assess(ae_input, vThreshold = c(-5.1, 5.1), lTags=list(greeting="hi",person="mom")))
 })
+

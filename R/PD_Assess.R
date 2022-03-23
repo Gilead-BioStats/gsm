@@ -54,7 +54,7 @@ PD_Assess <- function(dfInput, vThreshold=NULL,strMethod="poisson", lTags=list(A
             "lTags is not named"=(!is.null(names(lTags))),
             "lTags has unnamed elements"=all(names(lTags)!="")
         )
-    }   
+    }
 
     lAssess <- list()
     lAssess$strFunctionName <- deparse(sys.call()[1])
@@ -91,7 +91,7 @@ PD_Assess <- function(dfInput, vThreshold=NULL,strMethod="poisson", lTags=list(A
         }
         lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed)
         lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold, strValueColumn = 'Estimate')
-        lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strAssessment="Safety", lTags)
+        lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
     }
 
     return(lAssess)
