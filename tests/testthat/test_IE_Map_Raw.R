@@ -24,7 +24,7 @@ test_that("output created as expected and has correct structure",{
 
   expect_type(ie_input$SubjectID, "character")
   expect_type(ie_input$SiteID, "character")
-  expect_type(ie_input$Count, "integer")
+  expect_true(class(ie_input$Count) %in% c("double", "integer", "numeric"))
 
 })
 
