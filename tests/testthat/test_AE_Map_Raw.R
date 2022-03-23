@@ -1,4 +1,8 @@
-dfAE <- clindata::raw_ae %>% filter(SUBJID != "")
+dfAE <- clindata::raw_ae %>%
+  filter(SUBJID != "") %>%
+  filter(SUBJID !="1163") %>%
+  filter(SUBJID != "1194")
+
 dfRDSL <- clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
 
 mapping <- list(
@@ -10,8 +14,9 @@ test_that("output created as expected and has correct structure",{
   ae_input <- AE_Map_Raw(dfAE = dfAE, dfRDSL = dfRDSL)
   expect_true(is.data.frame(ae_input))
   expect_equal(
-  names(ae_input),
-  c("SubjectID","SiteID","Count","Exposure","Rate"))
+    names(ae_input),
+    c("SubjectID","SiteID","Exposure","Count","Rate")
+  )
 })
 
 test_that("all data is mapped and summarized correctly",{
@@ -25,13 +30,12 @@ test_that("all data is mapped and summarized correctly",{
   AE_mapped <- clindata::rawplus_rdsl %>%
     filter(!is.na(TimeOnTreatment)) %>%
     left_join(AE_counts, by = c("SubjectID" = "SUBJID")) %>%
-    mutate(Count = as.integer(replace(Count, is.na(Count), 0))) %>%
+    mutate(Count = replace(Count, is.na(Count), 0)) %>%
     rename(Exposure = TimeOnTreatment) %>%
     mutate(Rate = Count / Exposure) %>%
-    select(SubjectID, SiteID, Count, Exposure, Rate)
+    select(SubjectID, SiteID, Exposure, Count, Rate)
 
-  expect_identical(AE_Map_Raw(dfAE, dfRDSL),
-                   AE_mapped)
+  expect_equal(AE_Map_Raw(dfAE, dfRDSL), AE_mapped)
 })
 
 test_that("incorrect inputs throw errors",{

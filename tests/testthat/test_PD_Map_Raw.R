@@ -1,25 +1,10 @@
-dfPD <- clindata::raw_protdev %>%
-  filter(SUBJID != "")
-
+dfPD <- clindata::raw_protdev %>%filter(SUBJID != "")
 dfRDSL <- clindata::rawplus_rdsl
 
-
-
 test_that("output created as expected and has correct structure",{
-
-  pd_input <- PD_Map_Raw(dfPD, dfRDSL)
-
-  expect_true(
-    is.data.frame(
-      pd_input
-      )
-    )
-
-  expect_equal(
-    names(pd_input),
-    c("SubjectID","SiteID","Count","Exposure","Rate")
-    )
-
+  pd_input <- PD_Map_Raw(dfPD, dfRDSL)%>%suppressWarnings
+  expect_true(is.data.frame(pd_input))
+  expect_equal(names(pd_input), c("SubjectID","SiteID","Exposure","Count","Rate"))
 })
 
 test_that("incorrect inputs throw errors",{
@@ -39,21 +24,21 @@ test_that("error given if required column not found",{
     PD_Map_Raw(
       dfPD %>% rename(ID = SUBJID),
       dfRDSL
-    ) %>% suppressMessages
+    ) %>% suppressWarnings %>% suppressMessages
   )
 
   expect_error(
     PD_Map_Raw(
       dfPD,
       dfRDSL %>% select(-SiteID)
-    ) %>% suppressMessages
+    ) %>% suppressWarnings %>% suppressMessages
   )
 
   expect_error(
     PD_Map_Raw(
       dfPD,
       dfRDSL %>% select(-SubjectID)
-    ) %>% suppressMessages
+    ) %>% suppressWarnings %>% suppressMessages
   )
 
   expect_error(
@@ -61,23 +46,15 @@ test_that("error given if required column not found",{
       dfPD,
       dfRDSL,
       strExposureCol="Exposure"
-    ) %>% suppressMessages
+    ) %>% suppressWarnings %>% suppressMessages
   )
 
   expect_error(
     PD_Map_Raw(
       dfPD,
       dfRDSL %>% select(-SiteID)
-    ) %>% suppressMessages
+    ) %>% suppressWarnings %>% suppressMessages
   )
-
-  expect_silent(
-    PD_Map_Raw(
-      dfPD %>% select(-COUNTRY),
-      dfRDSL
-    ) %>% suppressMessages
-  )
-
 })
 
 
@@ -99,9 +76,7 @@ test_that("NA values are caught",{
     3,   1, 0, 30, 0
   )
 
-  expect_error(
-    PD_Map_Raw(dfPD = dfPD, dfRDSL = dfTos) %>% suppressMessages
-    )
+  expect_error(PD_Map_Raw(dfPD = dfPD, dfRDSL = dfTos)%>%suppressMessages)
 
   dfPD2 <- tribble(~SUBJID, 1,1,1,1,2,2,4,4)
 
@@ -121,9 +96,7 @@ test_that("NA values are caught",{
     4,   2, 2, 50, .04
   )
 
-  expect_error(
-    PD_Map_Raw(dfPD = dfPD2, dfRDSL = dfTos2) %>% suppressMessages
-    )
+  expect_error(PD_Map_Raw(dfPD = dfPD2, dfRDSL = dfTos2) %>% suppressMessages)
 
 })
 
@@ -164,26 +137,26 @@ test_that("strExposure user input error is handled correctly", {
 
 })
 
-test_that("custom mapping runs without errors", {
+test_that("custom mapping creates expected output", {
 
   custom_mapping <- list(
     dfPD = list(strIDCol="eye_dee"),
     dfRDSL = list(strIDCol="custom_id", strSiteCol="custom_site_id", strExposureCol = "TimeOnStudy")
   )
 
-  custom_pd <- dfPD %>%
-    rename(eye_dee = SUBJID)
+  custom_pd <- dfPD %>% rename(eye_dee = SUBJID)
+  custom_rdsl <- dfRDSL %>% rename(custom_id = SubjectID,custom_site_id = SiteID)
 
-  custom_rdsl <- dfRDSL %>%
-    rename(custom_id = SubjectID,
-           custom_site_id = SiteID)
-
-  expect_message(
-    PD_Map_Raw(
-      custom_pd,
-      custom_rdsl,
-      mapping = custom_mapping)
+  expect_true(
+    is.data.frame(
+      PD_Map_Raw(
+        custom_pd,
+        custom_rdsl,
+        mapping = custom_mapping
+      )%>%
+      suppressWarnings
     )
+  )
 })
 
 

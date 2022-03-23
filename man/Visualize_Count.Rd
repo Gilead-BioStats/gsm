@@ -27,6 +27,7 @@ site level plot object
 Site-level visualization of site-level Inclusion/Exclusion results
 }
 \examples{
+
 IE_Input <- IE_Map_Raw(
    clindata::raw_ie_all \%>\% dplyr::filter(SUBJID != "" ),
    clindata::rawplus_rdsl,
@@ -38,10 +39,19 @@ IE_Assess <- IE_Assess(IE_Input)
 
 Visualize_Count(IE_Assess$dfAnalyzed)
 
+library(dplyr)
+raw_consent <- clindata::raw_ic_elig \%>\% 
+   select( c("SUBJID","DSSTDAT_RAW") )\%>\%
+   mutate( CONSCAT_STD = "MAINCONSENT", CONSYN="Y") \%>\%
+   rename( CONSDAT = DSSTDAT_RAW ) \%>\%
+   mutate( CONSDAT = as.Date(CONSDAT, format="\%d \%B \%Y") ) \%>\%
+   filter(SUBJID != "")
+
 Consent_Input <- Consent_Map_Raw(
-  dfConsent = clindata::raw_consent,
-  dfRDSL = clindata::rawplus_rdsl,
-  strConsentReason = NULL
+   dfConsent = raw_consent,
+   dfRDSL = clindata::rawplus_rdsl,
+   strConsentTypeValue = "MAINCONSENT",
+   strConsentStatusValue="Y"
 )
 
 Consent_Assess <- Consent_Assess(Consent_Input)

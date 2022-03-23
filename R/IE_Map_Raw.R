@@ -71,19 +71,35 @@ IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclu
     "Errors found in dfRDSL." = is_rdsl_valid$status
   )
 
-  dfRDSL <- dfRDSL %>%
-    rename(SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
-           SiteID = mapping[["dfRDSL"]][["strSiteCol"]])
-
+  # Standarize Column Names
+  dfRDSL_mapped <- dfRDSL %>%
+    rename(
+      SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
+      SiteID = mapping[["dfRDSL"]][["strSiteCol"]]
+    ) %>%
+    select(.data$SubjectID, .data$SiteID)
+  
   dfIE_Subj <- dfIE %>%
-    rename(SubjectID = mapping[["dfIE"]][["strIDCol"]],
-           category = mapping[["dfIE"]][["strCategoryCol"]],
-           result = mapping[["dfIE"]][["strResultCol"]]) %>%
-    select(.data$SubjectID, .data$category, .data$result) %>%
-    mutate(expected = ifelse(.data$category == vCategoryValues[1], vExpectedResultValues[1], vExpectedResultValues[2]),
-           valid = .data$result == .data$expected,
-           invalid = .data$result != .data$expected,
-           missing = !(.data$result %in% vExpectedResultValues)) %>%
+    rename(
+      SubjectID = mapping[["dfIE"]][["strIDCol"]],
+      category = mapping[["dfIE"]][["strCategoryCol"]],
+        result = mapping[["dfIE"]][["strResultCol"]]) %>%
+    select(.data$SubjectID, .data$category, .data$result) 
+    
+
+  # Create Subject Level IE Counts and merge RDSL
+
+  dfInput <- dfIE_Subj %>%
+    mutate(
+      expected = ifelse(
+        .data$category == vCategoryValues[1], 
+        vExpectedResultValues[1], 
+        vExpectedResultValues[2]
+      ),
+      valid = .data$result == .data$expected,
+      invalid = .data$result != .data$expected,
+      missing = !(.data$result %in% vExpectedResultValues)
+    ) %>%
     group_by(.data$SubjectID) %>%
     summarise(
       Total = n(),
@@ -92,19 +108,11 @@ IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclu
       Missing = sum(.data$missing)
     ) %>%
     mutate(Count = .data$Invalid + .data$Missing) %>%
-    ungroup()
+    ungroup() %>%
+    select(.data$SubjectID, .data$Count) %>%
+    mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>%
+    select(.data$SubjectID, .data$SiteID, .data$Count)    
 
-  # merge IE and RDSL
-  dfInput <- dfRDSL %>%
-    select(.data$SubjectID, .data$SiteID)%>%
-    inner_join(dfIE_Subj, by="SubjectID") %>%
-    select(.data$SubjectID, .data$SiteID, .data$Count)
-
-  # throw warning if an ID in IE isn't found in RDSL
-  missIE <- anti_join(dfIE_Subj, dfRDSL, by="SubjectID")
-  if(nrow(missIE) > 0) {
-    warning("Not all SubjectID in IE found in RDSL")
-  }
 
   return(dfInput)
 
