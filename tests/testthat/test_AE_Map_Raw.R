@@ -30,12 +30,12 @@ test_that("all data is mapped and summarized correctly",{
   AE_mapped <- clindata::rawplus_rdsl %>%
     filter(!is.na(TimeOnTreatment)) %>%
     left_join(AE_counts, by = c("SubjectID" = "SUBJID")) %>%
-    mutate(Count = as.double(replace(Count, is.na(Count), 0))) %>%
+    mutate(Count = replace(Count, is.na(Count), 0)) %>%
     rename(Exposure = TimeOnTreatment) %>%
     mutate(Rate = Count / Exposure) %>%
     select(SubjectID, SiteID, Exposure, Count, Rate)
 
-  expect_identical(AE_Map_Raw(dfAE, dfRDSL), AE_mapped)
+  expect_equal(AE_Map_Raw(dfAE, dfRDSL), AE_mapped)
 })
 
 test_that("incorrect inputs throw errors",{
