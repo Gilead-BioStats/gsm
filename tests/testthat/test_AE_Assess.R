@@ -48,3 +48,26 @@ test_that("invalid lTags throw errors",{
     expect_silent(AE_Assess(ae_input, vThreshold = c(-5.1, 5.1), lTags=list(greeting="hi",person="mom")))
 })
 
+test_that("problematic lTags names are caught", {
+
+    expect_error(
+        AE_Assess(ae_input, lTags = list(SiteID = "")),
+        "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+    )
+
+    expect_error(
+        AE_Assess(ae_input, lTags = list(N = "")),
+        "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+    )
+
+    expect_error(
+        AE_Assess(ae_input, lTags = list(Score = "")),
+        "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+    )
+
+    expect_error(
+        AE_Assess(ae_input, lTags = list(Flag = "")),
+        "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+    )
+
+})

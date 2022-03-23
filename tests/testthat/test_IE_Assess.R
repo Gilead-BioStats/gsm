@@ -57,7 +57,7 @@ ie_summary <- IE_Assess(ie_input1)
 
 target_ie_summary <- tibble::tribble(  ~SiteID, ~N, ~Score, ~Flag, ~Assessment,
                                     "X194X", 2L,      17L,    1, "IE",
-                                    "X033X", 1L,      9L,     1, "IE", 
+                                    "X033X", 1L,      9L,     1, "IE",
                                     "X159X", 1L,      9L,     1, "IE")
 
 target_ie_summary_NA_SiteID <- tibble::tribble(     ~SiteID, ~N, ~Score, ~Flag,~Assessment,
@@ -90,7 +90,29 @@ test_that("NA in dfInput$Count results in Error for IE_Assess",{
 })
 
 
+test_that("problematic lTags names are caught", {
 
+  expect_error(
+    IE_Assess(ie_input, lTags = list(SiteID = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+  expect_error(
+    IE_Assess(ie_input, lTags = list(N = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+  expect_error(
+    IE_Assess(ie_input, lTags = list(Score = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+  expect_error(
+    IE_Assess(ie_input, lTags = list(Flag = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+})
 
 
 

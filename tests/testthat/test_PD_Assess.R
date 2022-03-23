@@ -58,3 +58,27 @@ test_that("NA in dfInput$Count results in Error for PD_Assess",{
   expect_error(PD_Assess(pd_input_in))
 })
 
+test_that("problematic lTags names are caught", {
+
+  expect_error(
+    PD_Assess(pd_input, lTags = list(SiteID = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+  expect_error(
+    PD_Assess(pd_input, lTags = list(N = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+  expect_error(
+    PD_Assess(pd_input, lTags = list(Score = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+  expect_error(
+    PD_Assess(pd_input, lTags = list(Flag = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+})
+

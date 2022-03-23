@@ -99,7 +99,29 @@ test_that("output is correct given example input",{
 # })
 
 
+test_that("problematic lTags names are caught", {
 
+  expect_error(
+    Consent_Assess(consent_input, lTags = list(SiteID = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+  expect_error(
+    Consent_Assess(consent_input, lTags = list(N = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+  expect_error(
+    Consent_Assess(consent_input, lTags = list(Score = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+  expect_error(
+    Consent_Assess(consent_input, lTags = list(Flag = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+})
 
 
 
