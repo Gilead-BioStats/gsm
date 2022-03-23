@@ -16,40 +16,44 @@
 #'
 #' @param dfFlagged data frame in format produced by \code{\link{Flag}}
 #' @param strScoreCol column from analysis results to be copied to `dfSummary$Score`
-#' @param strAssessment brief description of current assessment
-#' @param strLabel brief description of line item in current assessment
+#' @param lTags List of tags containing metadata to add to the data frame. 
 #'
-#' @return Simplified finding data frame with columns: Assessment, Label, SiteID, N, Pvalue, Flag
+#' @return Simplified finding data frame with columns for SiteID, N, Pvalue, Flag and any metadata specified in lTags.
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 #' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 #' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed)
 #' dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Rate')
-#' dfSummary <- Summarize(dfFlagged, strAssessment="Safety", strLabel= "")
+#' dfSummary <- Summarize(dfFlagged)
 #'
 #' @import dplyr
 #'
 #' @export
 
-Summarize <- function( dfFlagged , strScoreCol="PValue", strAssessment="", strLabel=""){
+Summarize <- function( dfFlagged , strScoreCol="PValue", lTags=NULL){
     stopifnot(
         "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
-        "strAssessment is not character" = is.character(strAssessment),
-        "strLabel is not character" = is.character(strLabel),
-        "One or more of these columns: SiteID, N, Flag , strScoreCol, not found in dfFlagged" = all(c("SiteID", "N", "Flag",strScoreCol) %in% names(dfFlagged)),
-        "strAssessment must be length of 1" = length(strAssessment) == 1,
-        "strLabel must be length of 1" = length(strLabel) == 1
+        "One or more of these columns: SiteID, N, Flag , strScoreCol, not found in dfFlagged" = all(c("SiteID", "N", "Flag",strScoreCol) %in% names(dfFlagged))
     )
+
+    if(!is.null(lTags)){
+        stopifnot(
+            "lTags is not named"=(!is.null(names(lTags))),
+            "lTags has unnamed elements"=all(names(lTags)!="")
+        )
+    }   
+
     dfSummary <- dfFlagged %>%
-        mutate(Assessment = strAssessment) %>%
-        mutate(Label = strLabel) %>%
         rename(Score = strScoreCol)%>%
-        select(.data$Assessment,.data$Label, .data$SiteID,.data$N, .data$Score, .data$Flag) %>%
+        select(.data$SiteID,.data$N, .data$Score, .data$Flag) %>%
         arrange(desc(abs(.data$Score)))  %>%
         arrange(match(.data$Flag, c(1, -1, 0)))
-        
-  
+
+    # Add tags to summary data    
+    for(tag in names(lTags)){
+        dfSummary[tag] <- lTags[tag]
+    }
 
     return(dfSummary)
 }
