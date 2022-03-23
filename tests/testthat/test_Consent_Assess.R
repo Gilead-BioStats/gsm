@@ -18,7 +18,7 @@ consent_input <-  Consent_Map_Raw(dfConsent = dfConsent, dfRDSL= dfRDSL_test, st
 test_that("output is created as expected",{
     consent_list <- Consent_Assess(consent_input)
     expect_true(is.list(consent_list))
-    expect_equal(names(consent_list),c("strFunctionName", "lParams", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+    expect_equal(names(consent_list),c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
     expect_true("data.frame" %in% class(consent_list$dfInput))
     expect_true("data.frame" %in% class(consent_list$dfTransformed))
     expect_true("data.frame" %in% class(consent_list$dfAnalyzed))
@@ -30,10 +30,9 @@ test_that("output is created as expected",{
 
 
 test_that("correct function and params are returned", {
-  consent_assessment <- Consent_Assess(consent_input, nThreshold = 0.6, strLabel = "no thanks")
+  consent_assessment <- Consent_Assess(consent_input, nThreshold = 0.6)
   expect_equal("Consent_Assess()", consent_assessment$strFunctionName)
   expect_equal("0.6", consent_assessment$lParams$nThreshold)
-  expect_equal("no thanks", consent_assessment$lParams$strLabel)
 })
 
 
@@ -43,11 +42,16 @@ test_that("correct function and params are returned", {
 test_that("incorrect inputs throw errors",{
     expect_error(Consent_Assess(list()))
     expect_error(Consent_Assess("Hi"))
-    expect_error(Consent_Assess(consent_input, strLabel=123))
     expect_error(Consent_Assess(consent_input, nThreshold = "A"))
     expect_error(Consent_Assess(consent_input, nThreshold = c(1,2)))
 })
 
+test_that("invalid lTags throw errors",{
+    expect_error(Consent_Assess(consent_input, lTags="hi mom"))
+    expect_error(Consent_Assess(consent_input, lTags=list("hi","mom")))
+    expect_error(Consent_Assess(consent_input, lTags=list(greeting="hi","mom")))
+    expect_silent(Consent_Assess(consent_input, lTags=list(greeting="hi",person="mom")))
+})
 
 test_that("incorrect inputs throw errors",{
   expect_error(Consent_Assess(consent_input %>% select(-SubjectID)))
@@ -58,10 +62,10 @@ test_that("incorrect inputs throw errors",{
 consent_summary <- Consent_Assess(consent_input)
 
 target_output <- tibble::tribble(
-  ~Assessment, ~Label, ~SiteID, ~N, ~Score, ~Flag,
-  "Main Consent",     "",       2, 2L,      2L,     1,
-  "Main Consent",     "",       3, 2L,      1L,     1,
-  "Main Consent",     "",       1, 1L,      0L,     0
+  ~SiteID, ~N, ~Score, ~Flag, ~Assessment,
+  2,       2L,      2L,     1, "Consent",
+  3,       2L,      1L,     1, "Consent",
+  1,       1L,      0L,     0, "Consent"
 )
 
 test_that("output is correct given example input",{

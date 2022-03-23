@@ -40,7 +40,7 @@
 #'
 #' @export
 
-AE_Assess <- function(dfInput, vThreshold=NULL, strMethod="poisson", lTags=list(assessment="AE")){
+AE_Assess <- function(dfInput, vThreshold=NULL, strMethod="poisson", lTags=list(Assessment="AE")){
     stopifnot(
         "dfInput is not a data.frame" = is.data.frame(dfInput),
         "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson","wilcoxon"),
