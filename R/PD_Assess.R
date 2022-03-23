@@ -27,7 +27,7 @@
 #'
 #' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure, Rate.
 #' @param vThreshold list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon
-#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessemnt (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE", Details="")`
+#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE", Details="")`
 #'
 #' @examples
 #'  dfInput <- PD_Map_Raw(clindata::raw_protdev %>% dplyr::filter(SUBJID != ""),
