@@ -90,7 +90,7 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentTypeVa
     rename(
       SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
       SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
-      RandDate = mapping[["dfRDSL"]][["strRandDate"]]
+      RandDate = mapping[["dfRDSL"]][["strRandDateCol"]]
     ) %>%
     select(.data$SubjectID, .data$SiteID, .data$RandDate)
 
