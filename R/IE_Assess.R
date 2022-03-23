@@ -25,7 +25,7 @@
 #'
 #' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count,
 #' @param nThreshold Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.
-#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessemnt (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE", Details="")`
+#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE", Details="")`
 #'
 #'
 #' @examples
