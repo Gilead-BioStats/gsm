@@ -29,7 +29,7 @@
 #'
 #' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure
 #' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.
-#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessemnt (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE", Details="")`
+#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE", Details="")`
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
