@@ -29,14 +29,13 @@
 #' @examples
 #'
 #' library(dplyr)
-#' raw_consent <- clindata::raw_ic_elig %>% 
-#'    select(SUBJID,DSSTDAT_RAW)%>%
-#'    mutate( 
-#'      CONSCAT_STD = "MAINCONSENT", 
-#'      CONSYN="Y"
+#' raw_consent <- clindata::raw_ic_elig %>%
+#' select(SUBJID, CONSDAT = DSSTDAT_RAW) %>%
+#'  mutate(
+#'      CONSCAT_STD = "MAINCONSENT",
+#'      CONSYN = "Y",
+#'      CONSDAT = as.Date(CONSDAT, format = "%d %B %Y")
 #'    ) %>%
-#'    rename( CONSDAT = DSSTDAT_RAW ) %>%
-#'    mutate( CONSDAT = as.Date(CONSDAT, format="%d %B %Y") ) %>% 
 #'    filter(SUBJID != "")
 #'
 #' dfInput <- Consent_Map_Raw(
@@ -45,11 +44,11 @@
 #'    strConsentTypeValue = "MAINCONSENT",
 #'    strConsentStatusValue="Y"
 #' )
-#' 
+#'
 #' Consent_Summary <- Consent_Assess(dfInput)$dfSummary
 #'
 #' @import dplyr
-#' 
+#'
 #' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, and `lParams`) is returned.
 #'
 #' @export

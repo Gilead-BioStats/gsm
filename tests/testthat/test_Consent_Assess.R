@@ -13,7 +13,7 @@ dfRDSL_test <- tibble::tribble(~SubjectID, ~SiteID, ~RandDate,
                                    4,  3, "2014-12-25",
                                    5,  3, "2014-12-25")
 
-consent_input <-  Consent_Map_Raw(dfConsent = dfConsent, dfRDSL= dfRDSL_test)
+consent_input <-  Consent_Map_Raw(dfConsent = dfConsent, dfRDSL= dfRDSL_test, strConsentTypeValue = "MAINCONSENT")
 
 test_that("output is created as expected",{
     consent_list <- Consent_Assess(consent_input)
@@ -68,7 +68,7 @@ test_that("output is correct given example input",{
   expect_equal(consent_summary$dfSummary,target_output)
 })
 
-# TODO: These should all throw errors after refactor is complete. 
+# TODO: These should all throw errors after refactor is complete.
 # target_output_NA_SiteID <- tibble::tribble(
 #   ~Assessment, ~Label, ~SiteID, ~N, ~Score, ~Flag,
 #   "Main Consent",     "",       2, 2L,      1L,     1,
