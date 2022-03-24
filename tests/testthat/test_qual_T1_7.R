@@ -43,11 +43,10 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
 
   t1_7_summary <- t1_7_flagged %>%
     mutate(
-      Assessment = "Safety",
-      Label = "",
+      Assessment = "AE",
       Score = PValue
     ) %>%
-    select(Assessment, Label, SiteID, N, Score, Flag) %>%
+    select(SiteID, N, Score, Flag, Assessment) %>%
     arrange(desc(abs(.data$Score))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -55,6 +54,7 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
   t1_7 <- list("strFunctionName" = "AE_Assess()",
              "lParams" = list("dfInput" = "dfInput",
                               "strMethod" = "wilcoxon"),
+             "lTags" = list(Assessment = "AE"),
              "dfInput" = t1_7_input,
              "dfTransformed" = t1_7_transformed,
              "dfAnalyzed" = t1_7_analyzed,

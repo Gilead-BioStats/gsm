@@ -6,7 +6,7 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
   names(t2_3_assess) <- unique(clindata::raw_protdev$DEVTYPE)
 
   for(type in unique(clindata::raw_protdev$DEVTYPE)){
-    dfInput <- PD_Map_Raw(dfPD = filter(clindata::raw_protdev, DEVTYPE == type),
+    dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev %>% filter(SUBJID != "" & DEVTYPE == type),
                           dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment)))
 
     # gsm
@@ -40,17 +40,17 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
 
     t2_3_summary <- t2_3_flagged %>%
       mutate(
-        Assessment = "Safety",
-        Label = "",
+        Assessment = "PD",
         Score = Residuals
       ) %>%
-      select(Assessment, Label, SiteID, N, Score, Flag) %>%
+      select(SiteID, N, Score, Flag, Assessment) %>%
       arrange(desc(abs(Score))) %>%
       arrange(match(Flag, c(1, -1, 0)))
 
     t2_3_assess[type] <- list("strFunctionName" = "PD_Assess()",
                  "lParams" = list("dfInput" = "dfInput",
                                   "strMethod" = "poisson"),
+                 "lTags" = list(Assessment = "PD"),
                  "dfInput" = t2_3_input,
                  "dfTransformed" = t2_3_transformed,
                  "dfAnalyzed" = t2_3_analyzed,

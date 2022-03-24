@@ -1,9 +1,9 @@
 test_that("PD assessment can return a correctly assessed data frame for the poisson test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
   # gsm analysis
-  dfInput <- gsm::PD_Map_Raw(
-    dfPD = clindata::raw_protdev,
+  dfInput <- suppressWarnings(gsm::PD_Map_Raw(
+    dfPD = clindata::raw_protdev %>% filter(SUBJID != ""),
     dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
-  )
+  ))
 
   test2_1 <- suppressWarnings(PD_Assess(
     dfInput = dfInput,
@@ -38,11 +38,10 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
 
   t2_1_summary <- t2_1_flagged %>%
     mutate(
-      Assessment = "Safety",
-      Label = "",
+      Assessment = "PD",
       Score = Residuals
     ) %>%
-    select(Assessment, Label, SiteID, N, Score, Flag) %>%
+    select(SiteID, N, Score, Flag, Assessment) %>%
     arrange(desc(abs(Score))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -50,6 +49,7 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
                "lParams" = list("dfInput" = "dfInput",
                                 "vThreshold" = c("c", "-3", "3"),
                                 "strMethod" = "poisson"),
+               "lTags" = list(Assessment = "PD"),
                "dfInput" = t2_1_input,
                "dfTransformed" = t2_1_transformed,
                "dfAnalyzed" = t2_1_analyzed,

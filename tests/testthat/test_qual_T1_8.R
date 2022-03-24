@@ -13,7 +13,6 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     test1_8_assess[severity] <- AE_Assess(dfInput,
                                           strMethod = "wilcoxon")
 
-
     # Double Programming
     t1_8_input <- dfInput
 
@@ -46,11 +45,10 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
 
     t1_8_summary <- t1_8_flagged %>%
       mutate(
-        Assessment = "Safety",
-        Label = "",
+        Assessment = "AE",
         Score = PValue
       ) %>%
-      select(Assessment, Label, SiteID, N, Score, Flag) %>%
+      select(SiteID, N, Score, Flag, Assessment) %>%
       arrange(desc(abs(Score))) %>%
       arrange(match(Flag, c(1, -1, 0)))
 
@@ -58,6 +56,7 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     t1_8_assess[severity] <- list("strFunctionName" = "AE_Assess()",
                                   "lParams" = list("dfInput" = "dfInput",
                                                    "strMethod" = "wilcoxon"),
+                                  "lTags" = list(Assessment = "AE"),
                                   "dfInput" = t1_8_input,
                                   "dfTransformed" = t1_8_transformed,
                                   "dfAnalyzed" = t1_8_analyzed,

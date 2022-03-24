@@ -51,17 +51,17 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
 
     t2_6_summary <- t2_6_flagged %>%
       mutate(
-        Assessment = "Safety",
-        Label = "",
+        Assessment = "PD",
         Score = PValue
       ) %>%
-      select(Assessment, Label, SiteID, N, Score, Flag) %>%
+      select(SiteID, N, Score, Flag, Assessment) %>%
       arrange(desc(abs(Score))) %>%
       arrange(match(Flag, c(1, -1, 0)))
 
     t2_6_assess[type] <- list("strFunctionName" = "PD_Assess()",
                               "lParams" = list("dfInput" = "dfInput",
                                                "strMethod" = "wilcoxon"),
+                              "lTags" = list(Assessment = "PD"),
                               "dfInput" = t2_6_input,
                               "dfTransformed" = t2_6_transformed,
                               "dfAnalyzed" = t2_6_analyzed,

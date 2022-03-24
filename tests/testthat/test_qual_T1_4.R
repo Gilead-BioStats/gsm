@@ -1,4 +1,4 @@
-test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable  when given subset input data from clindata and the results should be flagged correctly.", {
+test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable and the results should be flagged correctly when done in an iterative loop", {
   test1_4_assess <- vector("list", length(unique(clindata::raw_ae$AESEV)))
   t1_4_assess  <- vector("list", length(unique(clindata::raw_ae$AESEV)))
 
@@ -41,11 +41,10 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
 
     t1_4_summary <- t1_4_flagged %>%
       mutate(
-        Assessment = "Safety",
-        Label = "",
+        Assessment = "AE",
         Score = Residuals
       ) %>%
-      select(Assessment, Label, SiteID, N, Score, Flag) %>%
+      select(Assessment, SiteID, N, Score, Flag) %>%
       arrange(desc(abs(Score))) %>%
       arrange(match(Flag, c(1, -1, 0)))
 
@@ -53,6 +52,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
     t1_4_assess[severity] <- list("strFunctionName" = "AE_Assess()",
                                   "lParams" = list("dfInput" = "dfInput",
                                                    "strMethod" = "wilcoxon"),
+                                  "lTags" = list(Assessment = "AE"),
                                   "dfInput" = t1_4_input,
                                   "dfTransformed" = t1_4_transformed,
                                   "dfAnalyzed" = t1_4_analyzed,

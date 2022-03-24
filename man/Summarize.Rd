@@ -4,19 +4,17 @@
 \alias{Summarize}
 \title{Make Summary Data Frame}
 \usage{
-Summarize(dfFlagged, strScoreCol = "PValue", strAssessment = "", strLabel = "")
+Summarize(dfFlagged, strScoreCol = "PValue", lTags = NULL)
 }
 \arguments{
 \item{dfFlagged}{data frame in format produced by \code{\link{Flag}}}
 
 \item{strScoreCol}{column from analysis results to be copied to \code{dfSummary$Score}}
 
-\item{strAssessment}{brief description of current assessment}
-
-\item{strLabel}{brief description of line item in current assessment}
+\item{lTags}{List of tags containing metadata to add to the data frame.}
 }
 \value{
-Simplified finding data frame with columns: Assessment, Label, SiteID, N, Pvalue, Flag
+Simplified finding data frame with columns for SiteID, N, Pvalue, Flag and any metadata specified in lTags.
 }
 \description{
 Create a concise summary of assessment results that is easy to aggregate across assessments
@@ -41,6 +39,6 @@ dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 dfAnalyzed <- Analyze_Wilcoxon( dfTransformed)
 dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Rate')
-dfSummary <- Summarize(dfFlagged, strAssessment="Safety", strLabel= "")
+dfSummary <- Summarize(dfFlagged)
 
 }

@@ -1,9 +1,9 @@
 test_that("AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold.", {
   # gsm analysis
-  dfInput <- gsm::PD_Map_Raw(
-    dfPD = clindata::raw_protdev,
+  dfInput <- suppressWarnings(gsm::PD_Map_Raw(
+    dfPD = clindata::raw_protdev %>% filter(SUBJID != ""),
     dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
-  )
+  ))
 
   test2_4 <- suppressWarnings(PD_Assess(
     dfInput = dfInput,
@@ -44,11 +44,10 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
 
   t2_4_summary <- t2_4_flagged %>%
     mutate(
-      Assessment = "Safety",
-      Label = "",
+      Assessment = "PD",
       Score = PValue
     ) %>%
-    select(Assessment, Label, SiteID, N, Score, Flag) %>%
+    select(SiteID, N, Score, Flag, Assessment) %>%
     arrange(desc(abs(Score))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -56,6 +55,7 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
                "lParams" = list("dfInput" = "dfInput",
                                 "vThreshold" = c("c", "0.1", "NA"),
                                 "strMethod" = "wilcoxon"),
+               "lTags" = list(Assessment = "PD"),
                "dfInput" = t2_4_input,
                "dfTransformed" = t2_4_transformed,
                "dfAnalyzed" = t2_4_analyzed,

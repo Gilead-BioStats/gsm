@@ -1,9 +1,9 @@
 test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable  when given subset input data from clindata and the results should be flagged correctly.", {
   # gsm analysis
-  dfInput <- gsm::AE_Map_Raw(
+  dfInput <- suppressWarnings(gsm::AE_Map_Raw(
     dfAE = clindata::raw_ae %>% filter(AESER_STD == "Y" & SUBJID != ""),
     dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
-  )
+  ))
 
   test1_3 <- suppressWarnings(AE_Assess(
     dfInput = dfInput,
@@ -37,22 +37,22 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
 
   t1_3_summary <- t1_3_flagged %>%
     mutate(
-      Assessment = "Safety",
-      Label = "",
+      Assessment = "AE",
       Score = Residuals
     ) %>%
-    select(Assessment, Label, SiteID, N, Score, Flag) %>%
-    arrange(desc(abs(Score))) %>%
+    select(SiteID, N, Score, Flag, Assessment) %>%
+    arrange(desc(abs(.data$Score))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t1_3 <- list("strFunctionName" = "AE_Assess()",
-               "lParams" = list("dfInput" = "dfInput",
-                                "strMethod" = "poisson"),
-               "dfInput" = t1_3_input,
-               "dfTransformed" = t1_3_transformed,
-               "dfAnalyzed" = t1_3_analyzed,
-               "dfFlagged" = t1_3_flagged,
-               "dfSummary" = t1_3_summary)
+             "lParams" = list("dfInput" = "dfInput",
+                              "strMethod" = "poisson"),
+             "lTags" = list(Assessment = "AE"),
+             "dfInput" = t1_3_input,
+             "dfTransformed" = t1_3_transformed,
+             "dfAnalyzed" = t1_3_analyzed,
+             "dfFlagged" = t1_3_flagged,
+             "dfSummary" = t1_3_summary)
 
   # compare results
   expect_equal(test1_3, t1_3)
