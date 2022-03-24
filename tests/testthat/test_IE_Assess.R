@@ -26,20 +26,20 @@ test_that("correct function and params are returned", {
 })
 
 test_that("incorrect inputs throw errors",{
-    expect_error(IE_Assess(list()))
-    expect_error(IE_Assess("Hi"))
-    expect_error(IE_Assess(ie_input, nThreshold=FALSE))
-    expect_error(IE_Assess(ie_input, nThreshold="A"))
-    expect_error(IE_Assess(ie_input, nThreshold=c(1,2)))
-    expect_error(IE_Assess(ie_input %>% select(-SubjectID)))
-    expect_error(IE_Assess(ie_input %>% select(-SiteID)))
-    expect_error(IE_Assess(ie_input %>% select(-Count)))
+    expect_error(IE_Assess(list()), "dfInput is not a data.frame")
+    expect_error(IE_Assess("Hi"), "dfInput is not a data.frame")
+    expect_error(IE_Assess(ie_input, nThreshold=FALSE), "nThreshold must be numeric")
+    expect_error(IE_Assess(ie_input, nThreshold="A"), "nThreshold must be numeric")
+    expect_error(IE_Assess(ie_input, nThreshold=c(1,2)), "nThreshold must be length 1")
+    expect_error(IE_Assess(ie_input %>% select(-SubjectID)), "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
+    expect_error(IE_Assess(ie_input %>% select(-SiteID)), "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
+    expect_error(IE_Assess(ie_input %>% select(-Count)), "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
 })
 
 test_that("invalid lTags throw errors",{
-    expect_error(IE_Assess(ie_input, lTags="hi mom"))
-    expect_error(IE_Assess(ie_input, lTags=list("hi","mom")))
-    expect_error(IE_Assess(ie_input, lTags=list(greeting="hi","mom")))
+    expect_error(IE_Assess(ie_input, lTags="hi mom"), "lTags is not named")
+    expect_error(IE_Assess(ie_input, lTags=list("hi","mom")), "lTags is not named")
+    expect_error(IE_Assess(ie_input, lTags=list(greeting="hi","mom")), "lTags has unnamed elements")
     expect_silent(IE_Assess(ie_input, lTags=list(greeting="hi",person="mom")))
 })
 
@@ -86,7 +86,7 @@ test_that("NA in dfInput$SiteID results in NA for SiteID in dfSummary output for
 
 test_that("NA in dfInput$Count results in Error for IE_Assess",{
   ie_input_in <- ie_input1; ie_input_in[1,"Count"] = NA
-  expect_error(IE_Assess(ie_input_in))
+ expect_equal( expect_error(IE_Assess(ie_input_in))$message,  "NAs found in dfInput$Count")
 })
 
 

@@ -33,13 +33,13 @@ test_that("incorrect inputs throw errors",{
   expect_error(
     IE_Map_Raw(
       list(), list()
-      ) %>% suppressMessages
+      ) %>% suppressMessages,  "Errors found in dfIE."
     )
 
   expect_error(
     IE_Map_Raw(
       "Hi","Mom"
-      ) %>% suppressMessages
+      ) %>% suppressMessages,  "Errors found in dfIE."
     )
 
   expect_error(
@@ -48,7 +48,7 @@ test_that("incorrect inputs throw errors",{
       clindata::rawplus_rdsl,
       vCategoryValues= c("EXCL","INCL", "OTHERCL"),
       vExpectedResultValues=c(0,1)
-    ) %>% suppressMessages
+    ) %>% suppressMessages,  "length of vCategoryValues is not equal to 2"
   )
 
   expect_error(
@@ -57,7 +57,7 @@ test_that("incorrect inputs throw errors",{
       clindata::rawplus_rdsl,
       vCategoryValues= c("EXCL","INCL"),
       vExpectedResultValues=c(0,1,2)
-    ) %>% suppressMessages
+    ) %>% suppressMessages,  "length of vExpectedResultValues is not equal to 2"
   )
 
   expect_error(
@@ -67,7 +67,7 @@ test_that("incorrect inputs throw errors",{
       vCategoryValues= c("EXCL","INCL", "OTHERCL"),
       vExpectedResultValues=c(0,1),
       mapping = list()
-    ) %>% suppressMessages
+    ) %>% suppressMessages,  "length of vCategoryValues is not equal to 2"
   )
 
   expect_error(
@@ -76,7 +76,7 @@ test_that("incorrect inputs throw errors",{
       clindata::rawplus_rdsl,
       vCategoryValues= c("EXCL","INCL", "OTHERCL"),
       vExpectedResultValues=c(0,1)
-    ) %>% suppressMessages
+    ) %>% suppressMessages, "length of vCategoryValues is not equal to 2"
   )
 
   expect_error(
@@ -85,7 +85,7 @@ test_that("incorrect inputs throw errors",{
       clindata::rawplus_rdsl,
       vCategoryValues= c("EXCL","INCL", "OTHERCL"),
       vExpectedResultValues=c(0,1)
-    ) %>% suppressMessages
+    ) %>% suppressMessages, "length of vCategoryValues is not equal to 2"
   )
 
   expect_error(
@@ -94,7 +94,7 @@ test_that("incorrect inputs throw errors",{
       clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
       vCategoryValues= c("EXCL","INCL", "OTHERCL"),
       vExpectedResultValues=c(0,1)
-    ) %>% suppressMessages
+    ) %>% suppressMessages, "length of vCategoryValues is not equal to 2"
   )
 
 })
@@ -111,7 +111,7 @@ test_that("error given if required column not found",{
       dfRDSL,
       vCategoryValues = c("EXCL","INCL"),
       vExpectedResultValues = c(0,1)
-    ) %>% suppressMessages
+    ) %>% suppressMessages, "Errors found in dfIE"
   )
 
   expect_error(
@@ -120,7 +120,7 @@ test_that("error given if required column not found",{
       dfRDSL,
       vCategoryValues = c("EXCL","INCL"),
       vExpectedResultValues = c(0,1)
-    ) %>% suppressMessages
+    ) %>% suppressMessages, "Errors found in dfIE"
   )
 
   expect_error(
@@ -129,7 +129,7 @@ test_that("error given if required column not found",{
       dfRDSL,
       vCategoryValues = c("EXCL","INCL"),
       vExpectedResultValues = c(0,1)
-    ) %>% suppressMessages
+    ) %>% suppressMessages, "Errors found in dfIE"
   )
 
   expect_error(
@@ -138,7 +138,7 @@ test_that("error given if required column not found",{
       dfRDSL %>% select(-SubjectID),
       vCategoryValues = c("EXCL","INCL"),
       vExpectedResultValues = c(0,1)
-    ) %>% suppressMessages
+    ) %>% suppressMessages, "Errors found in dfRDSL"
   )
 
   expect_error(
@@ -147,7 +147,7 @@ test_that("error given if required column not found",{
       dfRDSL %>% select(-SiteID),
       vCategoryValues = c("EXCL","INCL"),
       vExpectedResultValues = c(0,1)
-    ) %>% suppressMessages
+    ) %>% suppressMessages, "Errors found in dfRDSL"
   )
 
   expect_silent(
@@ -175,14 +175,14 @@ test_that("icorrect arg inputs throw errors",{
 
   # vCategoryValues length > 2
   expect_error(
-    suppresMessages(
+    suppressMessages(
       IE_Map_Raw(
         dfIE,
         dfRDSL,
         vCategoryValues = c("EXCL","INCL", "x"),
         vExpectedResultValues = c(0,1)
       )
-    )
+    ), "length of vCategoryValues is not equal to 2"
   )
 
   # vExpectedResultValues length > 2
@@ -194,7 +194,7 @@ test_that("icorrect arg inputs throw errors",{
         vCategoryValues = c("EXCL","INCL"),
         vExpectedResultValues = c(0,1,2)
       )
-    )
+    ), "length of vExpectedResultValues is not equal to 2"
   )
 
   # incorrect mapping
@@ -207,7 +207,7 @@ test_that("icorrect arg inputs throw errors",{
         vExpectedResultValues = c(0,1),
         mapping = data.frame(a = 1)
       )
-    )
+    ), "Errors found in dfIE."
   )
 
 
@@ -266,12 +266,15 @@ test_that("custom mapping runs without errors", {
         rename(some_id = SubjectID,
                custom_site_id = SiteID)
 
-  expect_warning(
-    IE_Map_Raw(
-      custom_ie,
-      custom_rdsl,
-      mapping = custom_mapping
+  expect_equal(
+    expect_warning(
+      IE_Map_Raw(
+        custom_ie,
+        custom_rdsl,
+        mapping = custom_mapping
       )
-    )
+    )$message, "1 ID(s) in domain data not found in subject data: 1194. Associated rows will not be included in merged data.\n"
+  )
 
 })
+

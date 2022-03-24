@@ -22,7 +22,6 @@ test_that("summary df created as expected and has correct structure",{
 test_that("incorrect inputs throw errors",{
     expect_error(AE_Assess(list()),"dfInput is not a data.frame")
     expect_error(AE_Assess("Hi"),"dfInput is not a data.frame")
-    expect_error(AE_Assess(ae_input, strLabel=123),"strLabel is not character")
     expect_error(AE_Assess(ae_input, strMethod="abacus"),"strMethod is not 'poisson' or 'wilcoxon'")
     expect_error(AE_Assess(ae_input %>% select(-SubjectID)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
     expect_error(AE_Assess(ae_input %>% select(-SiteID)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")

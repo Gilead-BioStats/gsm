@@ -45,7 +45,7 @@ Transform_EventCount <- function( dfInput , strCountCol, strExposureCol=NULL ){
         "SiteID not found in input data" = "SiteID" %in% names(dfInput),
         "strCountCol is not numeric or logical" = is.numeric(dfInput[[strCountCol]]) | is.logical(dfInput[[strCountCol]])
     )
-    if(anyNA(dfInput[[strCountCol]])) stop("NA's found in dfInput$Count")
+    if(anyNA(dfInput[[strCountCol]])) stop("NAs found in dfInput$Count")
     if(!is.null(strExposureCol)){
       stopifnot(
         "strExposureCol is not found in input data" = strExposureCol %in% names(dfInput),

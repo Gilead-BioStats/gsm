@@ -37,17 +37,17 @@ test_that("output created as expected and has correct structure",{
 })
 
 test_that("incorrect inputs throw errors",{
-  suppressMessages(expect_error(Consent_Map_Raw(list(), list())))
-  suppressMessages(expect_error(Consent_Map_Raw("Hi","Mom")))
+  suppressMessages(expect_error(Consent_Map_Raw(list(), list()), "Errors found in dfConsent."))
+  suppressMessages(expect_error(Consent_Map_Raw("Hi","Mom"), "Errors found in dfConsent."))
 })
 
 
 test_that("incorrect inputs throw errors",{
-  suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = list())))
-  suppressMessages(expect_error( Consent_Map_Raw(dfConsent = list(), dfRDSL = dfRDSL_test)))
-  suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "mainconsent", mapping = "hi there")))
-  suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "mainconsent", mapping = list())))
-  suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = 1)))
+  suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = list()), "Errors found in dfRDSL."))
+  suppressMessages(expect_error( Consent_Map_Raw(dfConsent = list(), dfRDSL = dfRDSL_test),"Errors found in dfConsent."))
+  expect_equal(suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "mainconsent", mapping = "hi there")))$message, "$ operator is invalid for atomic vectors" )
+  expect_equal(suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "mainconsent", mapping = list())))$message, "Errors found in dfConsent." )
+  expect_equal(suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = 1)))$message, "strConsentTypeValue is not character" )
 })
 
 
@@ -57,7 +57,7 @@ test_that("error given if required column not found",{
       Consent_Map_Raw(
         dfConsent =  dfConsent_test %>% rename(ID = SUBJID),
         dfRDSL = dfRDSL_test
-      )
+      ), "Errors found in dfConsent."
     )
   )
   suppressMessages(
@@ -65,15 +65,7 @@ test_that("error given if required column not found",{
       Consent_Map_Raw(
         dfConsent_test %>% select(-SUBJID),
         dfRDSL = dfRDSL_test
-      )
-    )
-  )
-  suppressMessages(
-    expect_error(
-      Consent_Map_Raw(
-        dfConsent_test %>% select(-INVID) ,
-        dfRDSL = dfRDSL_test
-      )
+      ), "Errors found in dfConsent."
     )
   )
   suppressMessages(
@@ -81,7 +73,7 @@ test_that("error given if required column not found",{
       Consent_Map_Raw(
         dfConsent_test %>% select(-CONSCAT_STD),
         dfRDSL = dfRDSL_test
-      )
+      ), "Errors found in dfConsent."
     )
   )
   suppressMessages(
@@ -89,7 +81,7 @@ test_that("error given if required column not found",{
       Consent_Map_Raw(
         dfConsent_test %>% select(-CONSYN),
         dfRDSL = dfRDSL_test
-      )
+      ), "Errors found in dfConsent."
     )
   )
   suppressMessages(
@@ -97,7 +89,7 @@ test_that("error given if required column not found",{
       Consent_Map_Raw(
         dfConsent_test %>% select(-CONSDAT),
         dfRDSL = dfRDSL_test
-      )
+      ), "Errors found in dfConsent."
     )
   )
   suppressMessages(
@@ -105,7 +97,7 @@ test_that("error given if required column not found",{
       Consent_Map_Raw(
         dfConsent_test,
         dfRDSL = dfRDSL_test %>% select(-SUBJID)
-      )
+      ), "Column `SUBJID` doesn't exist."
     )
   )
   suppressMessages(
@@ -113,7 +105,7 @@ test_that("error given if required column not found",{
       Consent_Map_Raw(
         dfConsent_test,
         dfRDSL = dfRDSL_test %>% select(-RGMNDTN)
-      )
+      ), "Column `RGMNDTN` doesn't exist."
     )
   )
   suppressMessages(
@@ -121,7 +113,7 @@ test_that("error given if required column not found",{
       Consent_Map_Raw(
         dfConsent_test,
         dfRDSL = dfRDSL_test %>% select(- SubjectID)
-      )
+      ), "Errors found in dfRDSL."
     )
   )
   suppressMessages(
@@ -129,7 +121,7 @@ test_that("error given if required column not found",{
       Consent_Map_Raw(
         dfConsent_test,
         dfRDSL = dfRDSL_test %>% select(- SiteID)
-      )
+      ), "Errors found in dfRDSL."
     )
   )
   suppressMessages(
@@ -137,7 +129,7 @@ test_that("error given if required column not found",{
       Consent_Map_Raw(
         dfConsent_test,
         dfRDSL = dfRDSL_test %>% select(- RandDate)
-      )
+      ), "Errors found in dfRDSL."
     )
   )
 })
@@ -168,14 +160,14 @@ dfRDSL_test_NA2<- tibble::tribble(~SubjectID, ~SiteID, ~RandDate,
 
 
 test_that("NA's in SubjectID and SUBJID are handled correctly",{
-  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test_NA1, dfRDSL = dfRDSL_test_NA1)))
-  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test_NA2, dfRDSL = dfRDSL_test_NA2)))
+  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test_NA1, dfRDSL = dfRDSL_test_NA1), "Errors found in dfConsent."))
+  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test_NA2, dfRDSL = dfRDSL_test_NA2), "Errors found in dfRDSL."))
 })
 
 test_that("Incorrect strConsentTypeValue throws errors",{
-  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = c("A","B"))))
-  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = 1.23)))
-  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "Name_Not_in_data")))
+  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = c("A","B")), "strConsentTypeValue has multiple values, specify only one"))
+  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = 1.23),"strConsentTypeValue is not character"))
+  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "Name_Not_in_data"),"supplied strConsentTypeValue not found in data"))
 })
 
 dfConsent_test2 <- tibble::tribble(~SUBJID, ~CONSCAT_STD , ~CONSYN , ~CONSDAT,
@@ -196,14 +188,14 @@ dfInput_test2 <-  tibble::tribble(
 test_that("NA's in data are caught and error thrown",{
 
   dfConsent_test_in <-  dfConsent_test2; dfConsent_test_in[1,2] = NA
-  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test_in, dfRDSL = dfRDSL_test2)))
+  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test_in, dfRDSL = dfRDSL_test2),"Errors found in dfConsent."))
 
   dfConsent_test_in <-  dfConsent_test2; dfConsent_test_in[1,3] = NA
-  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test_in, dfRDSL = dfRDSL_test2)))
+  suppressMessages(expect_error(Consent_Map_Raw(dfConsent = dfConsent_test_in, dfRDSL = dfRDSL_test2),"Errors found in dfConsent."))
 
   dfRDSL_in <-  dfRDSL_test2; dfRDSL_in[2,2] = NA
-  suppressMessages(expect_error(suppressWarnings(Consent_Map_Raw(dfConsent = dfConsent_test2, dfRDSL = dfRDSL_in))))
+  suppressMessages(expect_error(suppressWarnings(Consent_Map_Raw(dfConsent = dfConsent_test2, dfRDSL = dfRDSL_in)),"Errors found in dfRDSL."))
 
   dfRDSL_in <-  dfRDSL_test2; dfRDSL_in[2,2] = NA
-  suppressMessages(expect_error(Consent_Map_Raw( dfConsent = dfConsent_test2, dfRDSL = dfRDSL_in )))
+  expect_equal(suppressMessages(expect_error(Consent_Map_Raw( dfConsent = dfConsent_test2, dfRDSL = dfRDSL_in )))$message, "Errors found in dfRDSL.")
 })
