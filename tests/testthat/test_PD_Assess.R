@@ -32,30 +32,29 @@ test_that("correct function and params are returned", {
 })
 
 test_that("incorrect inputs throw errors",{
-  expect_error(PD_Assess(list()))
-  expect_error(PD_Assess("Hi"))
-  expect_error(PD_Assess(pd_input, strLabel=123))
-  expect_error(PD_Assess(pd_input, strMethod="abacus"))
-  expect_error(PD_Assess(pd_input %>% select(-SubjectID)))
-  expect_error(PD_Assess(pd_input %>% select(-SiteID)))
-  expect_error(PD_Assess(pd_input %>% select(-Count)))
-  expect_error(PD_Assess(pd_input %>% select(-Exposure)))
-  expect_error(PD_Assess(pd_input %>% select(-Rate)))
-  expect_error(PD_Assess(pd_input, strMethod=c("wilcoxon", "poisson")))
-  expect_error(PD_Assess(pd_input, vThreshold = "A"))
-  expect_error(PD_Assess(pd_input, vThreshold = 1))
+  expect_error(PD_Assess(list()), "dfInput is not a data.frame")
+  expect_error(PD_Assess("Hi"), "dfInput is not a data.frame")
+  expect_error(PD_Assess(pd_input, strMethod="abacus"), "strMethod is not 'poisson' or 'wilcoxon'")
+  expect_error(PD_Assess(pd_input %>% select(-SubjectID)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
+  expect_error(PD_Assess(pd_input %>% select(-SiteID)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
+  expect_error(PD_Assess(pd_input %>% select(-Count)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
+  expect_error(PD_Assess(pd_input %>% select(-Exposure)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
+  expect_error(PD_Assess(pd_input %>% select(-Rate)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
+  expect_error(PD_Assess(pd_input, strMethod=c("wilcoxon", "poisson")),"strMethod must be length 1")
+  expect_error(PD_Assess(pd_input, vThreshold = "A"),"vThreshold is not numeric")
+  expect_error(PD_Assess(pd_input, vThreshold = 1),"vThreshold is not length 2")
 })
 
 test_that("invalid lTags throw errors",{
-    expect_error(PD_Assess(pd_input, vThreshold = c(-5.1, 5.1), lTags="hi mom"))
-    expect_error(PD_Assess(pd_input, vThreshold = c(-5.1, 5.1), lTags=list("hi","mom")))
-    expect_error(PD_Assess(pd_input, vThreshold = c(-5.1, 5.1), lTags=list(greeting="hi","mom")))
+    expect_error(PD_Assess(pd_input, vThreshold = c(-5.1, 5.1), lTags="hi mom"),"lTags is not named")
+    expect_error(PD_Assess(pd_input, vThreshold = c(-5.1, 5.1), lTags=list("hi","mom")),"lTags is not named")
+    expect_error(PD_Assess(pd_input, vThreshold = c(-5.1, 5.1), lTags=list(greeting="hi","mom")),"lTags has unnamed elements")
     expect_silent(PD_Assess(pd_input, vThreshold = c(-5.1, 5.1), lTags=list(greeting="hi",person="mom")))
 })
 
 test_that("NA in dfInput$Count results in Error for PD_Assess",{
   pd_input_in <- pd_input; pd_input_in[1,"Count"] = NA
-  expect_error(PD_Assess(pd_input_in))
+  expect_equal(expect_error(PD_Assess(pd_input_in))$message,"NAs found in dfInput$Count")
 })
 
 test_that("problematic lTags names are caught", {

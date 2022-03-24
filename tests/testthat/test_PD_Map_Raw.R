@@ -9,11 +9,11 @@ test_that("output created as expected and has correct structure",{
 
 test_that("incorrect inputs throw errors",{
 
-  expect_error(PD_Map_Raw(list(), list()) %>% suppressMessages)
-  expect_error(PD_Map_Raw(dfPD, list()) %>% suppressMessages)
-  expect_error(PD_Map_Raw(list(), dfRDSL) %>% suppressMessages)
-  expect_error(PD_Map_Raw("Hi","Mom") %>% suppressMessages)
-  expect_error(PD_Map_Raw(dfPD, dfRDSL, mapping = "napping") %>% suppressMessages)
+  expect_error(PD_Map_Raw(list(), list()) %>% suppressMessages, "Errors found in dfPD.")
+  expect_error(PD_Map_Raw(dfPD, list()) %>% suppressMessages, "Errors found in dfRDSL.")
+  expect_error(PD_Map_Raw(list(), dfRDSL) %>% suppressMessages, "Errors found in dfPD.")
+  expect_error(PD_Map_Raw("Hi","Mom") %>% suppressMessages, "Errors found in dfPD.")
+  expect_equal(expect_error(PD_Map_Raw(dfPD, dfRDSL, mapping = "napping") %>% suppressMessages)$message, "$ operator is invalid for atomic vectors")
 
 })
 
@@ -24,36 +24,29 @@ test_that("error given if required column not found",{
     PD_Map_Raw(
       dfPD %>% rename(ID = SUBJID),
       dfRDSL
-    ) %>% suppressWarnings %>% suppressMessages
+    ) %>% suppressWarnings %>% suppressMessages, "Errors found in dfPD."
   )
 
   expect_error(
     PD_Map_Raw(
       dfPD,
       dfRDSL %>% select(-SiteID)
-    ) %>% suppressWarnings %>% suppressMessages
+    ) %>% suppressWarnings %>% suppressMessages, "Errors found in dfRDSL."
   )
 
   expect_error(
     PD_Map_Raw(
       dfPD,
       dfRDSL %>% select(-SubjectID)
-    ) %>% suppressWarnings %>% suppressMessages
+    ) %>% suppressWarnings %>% suppressMessages, "Errors found in dfRDSL."
   )
 
-  expect_error(
-    PD_Map_Raw(
-      dfPD,
-      dfRDSL,
-      strExposureCol="Exposure"
-    ) %>% suppressWarnings %>% suppressMessages
-  )
 
   expect_error(
     PD_Map_Raw(
       dfPD,
       dfRDSL %>% select(-SiteID)
-    ) %>% suppressWarnings %>% suppressMessages
+    ) %>% suppressWarnings %>% suppressMessages, "Errors found in dfRDSL."
   )
 })
 
@@ -76,7 +69,7 @@ test_that("NA values are caught",{
     3,   1, 0, 30, 0
   )
 
-  expect_error(PD_Map_Raw(dfPD = dfPD, dfRDSL = dfTos)%>%suppressMessages)
+  expect_error(PD_Map_Raw(dfPD = dfPD, dfRDSL = dfTos)%>%suppressMessages, "Errors found in dfRDSL.")
 
   dfPD2 <- tribble(~SUBJID, 1,1,1,1,2,2,4,4)
 
@@ -96,7 +89,7 @@ test_that("NA values are caught",{
     4,   2, 2, 50, .04
   )
 
-  expect_error(PD_Map_Raw(dfPD = dfPD2, dfRDSL = dfTos2) %>% suppressMessages)
+  expect_error(PD_Map_Raw(dfPD = dfPD2, dfRDSL = dfTos2) %>% suppressMessages, "Errors found in dfRDSL.")
 
 })
 
@@ -113,29 +106,11 @@ test_that("duplicate SubjectID values are caught in RDSL", {
     PD_Map_Raw(
       dfPD,
       dfRDSL
-    ) %>% suppressMessages
+    ) %>% suppressMessages, "Errors found in dfRDSL."
   )
 
 })
 
-test_that("strExposure user input error is handled correctly", {
-  expect_error(
-    PD_Map_Raw(
-      dfPD,
-      dfRDSL,
-      strExposureCol = 123
-      ) %>% suppressMessages
-  )
-
-  expect_error(
-    PD_Map_Raw(
-      dfPD,
-      dfRDSL,
-      strExposureCol = c("A", "B")
-      ) %>% suppressMessages
-  )
-
-})
 
 test_that("custom mapping creates expected output", {
 
