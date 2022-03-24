@@ -26,8 +26,9 @@
 #' See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions.
 #'
 #' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure, Rate.
-#' @param vThreshold list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon
-#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="PD")`
+#' @param vThreshold list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon.
+#' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon".
+#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="PD")`.
 #'
 #' @examples
 #'  dfInput <- PD_Map_Raw(clindata::raw_protdev %>% dplyr::filter(SUBJID != ""),

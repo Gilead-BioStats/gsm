@@ -27,9 +27,10 @@
 #'
 #' See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions.
 #'
-#' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure
+#' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure.
 #' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.
-#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE")`
+#' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon".
+#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE")`.
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
