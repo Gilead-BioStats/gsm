@@ -20,16 +20,16 @@ test_that("summary df created as expected and has correct structure",{
 
 
 test_that("incorrect inputs throw errors",{
-    expect_error(AE_Assess(list()))
-    expect_error(AE_Assess("Hi"))
-    expect_error(AE_Assess(ae_input, strLabel=123))
-    expect_error(AE_Assess(ae_input, strMethod="abacus"))
-    expect_error(AE_Assess(ae_input %>% select(-SubjectID)))
-    expect_error(AE_Assess(ae_input %>% select(-SiteID)))
-    expect_error(AE_Assess(ae_input %>% select(-Count)))
-    expect_error(AE_Assess(ae_input %>% select(-Exposure)))
-    expect_error(AE_Assess(ae_input %>% select(-Rate)))
-    expect_error(AE_Assess(ae_input, strMethod=c("wilcoxon", "poisson")))
+    expect_error(AE_Assess(list()),"dfInput is not a data.frame")
+    expect_error(AE_Assess("Hi"),"dfInput is not a data.frame")
+    expect_error(AE_Assess(ae_input, strLabel=123),"strLabel is not character")
+    expect_error(AE_Assess(ae_input, strMethod="abacus"),"strMethod is not 'poisson' or 'wilcoxon'")
+    expect_error(AE_Assess(ae_input %>% select(-SubjectID)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
+    expect_error(AE_Assess(ae_input %>% select(-SiteID)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
+    expect_error(AE_Assess(ae_input %>% select(-Count)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
+    expect_error(AE_Assess(ae_input %>% select(-Exposure)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
+    expect_error(AE_Assess(ae_input %>% select(-Rate)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
+    expect_error(AE_Assess(ae_input, strMethod=c("wilcoxon", "poisson")),"strMethod must be length 1")
 })
 
 

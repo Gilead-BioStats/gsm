@@ -39,11 +39,11 @@ test_that("all data is mapped and summarized correctly",{
 })
 
 test_that("incorrect inputs throw errors",{
-  expect_error(AE_Map_Raw(list(), list())%>%supressMessages)
-  expect_error(AE_Map_Raw(dfAE, list())%>%supressMessages)
-  expect_error(AE_Map_Raw(list(), dfRDSL)%>%supressMessages)
-  expect_error(AE_Map_Raw("Hi", "Mom")%>%supressMessages)
-  expect_error(AE_Map_Raw(dfAE, dfRDSL, mapping = list())%>%supressMessages)
+  expect_error(AE_Map_Raw(list(), list())%>%suppressMessages, "Errors found in dfAE.")
+  expect_error(AE_Map_Raw(dfAE, list())%>%suppressMessages, "Errors found in dfRDSL.")
+  expect_error(AE_Map_Raw(list(), dfRDSL)%>%suppressMessages,"Errors found in dfAE.")
+  expect_error(AE_Map_Raw("Hi", "Mom")%>%suppressMessages,"Errors found in dfAE.")
+  expect_error(AE_Map_Raw(dfAE, dfRDSL, mapping = list())%>%suppressMessages,"Errors found in dfAE.")
 })
 
 
@@ -52,28 +52,28 @@ test_that("error given if required column not found",{
     AE_Map_Raw(
       dfAE %>% rename(ID = SUBJID),
       dfRDSL
-    )%>% suppressMessages
+    )%>% suppressMessages, "Errors found in dfAE."
   )
 
   expect_error(
     AE_Map_Raw(
       dfAE,
       dfRDSL %>% select(-SiteID)
-    )%>% suppressMessages
+    )%>% suppressMessages, "Errors found in dfRDSL."
   )
 
   expect_error(
     AE_Map_Raw(
       dfAE,
       dfRDSL %>% select(-SubjectID)
-    )%>% suppressMessages
+    )%>% suppressMessages,"Errors found in dfRDSL."
   )
 
   expect_error(
     AE_Map_Raw(
       dfAE,
       dfRDSL %>% select(-TimeOnTreatment)
-    )%>% suppressMessages
+    )%>% suppressMessages, "Errors found in dfRDSL."
   )
 
 
@@ -86,18 +86,18 @@ test_that("error given if required column not found",{
         dfAE= list(id_col="not an id column"),
         dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
       )
-    )%>% suppressMessages
+    )%>% suppressMessages, "Errors found in dfAE."
   )
 
   expect_error(
     AE_Map_Raw(
       dfAE,
       dfRDSL %>% select(-SiteID)
-    )%>% suppressMessages
+    )%>% suppressMessages , "Errors found in dfRDSL."
   )
 
   expect_message(
-    AE_Map_Raw(
+      AE_Map_Raw(
       dfAE %>% select(-PROJECT),
       dfRDSL
     )
@@ -120,7 +120,7 @@ test_that("NA values in input data are handled",{
   )
 
 
-  expect_error(AE_Map_Raw(dfAE = dfAE3, dfRDSL = dfExposure3)%>%supressMessages)
+  expect_error(AE_Map_Raw(dfAE = dfAE3, dfRDSL = dfExposure3)%>%suppressMessages,"Errors found in dfRDSL." )
 
 
 })
@@ -138,7 +138,7 @@ test_that("dfAE$SUBJID NA value throws error",{
   )
 
 
-  expect_error(AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4)%>%supressMessages)
+  expect_error(AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4)%>%suppressMessages,"Errors found in dfAE." )
 })
 
 test_that("dfRDSL$SubjectID NA value throws error",{
@@ -153,7 +153,7 @@ test_that("dfRDSL$SubjectID NA value throws error",{
   )
 
 
-  expect_error(AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4)%>%supressMessages)
+  expect_error(AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4)%>%suppressMessages,"Errors found in dfRDSL." )
 })
 
 
