@@ -31,41 +31,46 @@ test_that("all data is mapped and summarized correctly",{
 })
 
 test_that("incorrect inputs throw errors",{
-    expect_error(AE_Map_Adam(list(), list()))
-    expect_error(AE_Map_Adam( safetyData::adam_adsl, list()))
-    expect_error(AE_Map_Adam(list(),  safetyData::adam_adae))
-    expect_error(AE_Map_Adam("Hi","Mom"))
+    expect_equal(expect_error(AE_Map_Adam(list(), list()))$message, "is.data.frame(dfADSL) is not TRUE" )
+    expect_equal(expect_error(AE_Map_Adam( safetyData::adam_adsl, list()))$message, "is.data.frame(dfADAE) is not TRUE" )
+    expect_equal(expect_error(AE_Map_Adam(list(),  safetyData::adam_adae))$message, "is.data.frame(dfADSL) is not TRUE" )
+    expect_equal(expect_error(AE_Map_Adam("Hi","Mom"))$message, "is.data.frame(dfADSL) is not TRUE" )
 })
 
 test_that("error given if required column not found",{
+  expect_equal(
     expect_error(
         AE_Map_Adam(
             safetyData::adam_adsl %>% rename(ID = USUBJID),
             safetyData::adam_adae
         )
-    )
-
-
+    )$message,'all(c("USUBJID", "SITEID", "TRTEDT", "TRTSDT") %in% names(dfADSL)) is not TRUE'
+   )
+  
+   expect_equal(
     expect_error(
         AE_Map_Adam(
             safetyData::adam_adsl %>% rename(EndDay = TRTEDT),
             safetyData::adam_adae
         )
-    )
-
+    )$message,'all(c("USUBJID", "SITEID", "TRTEDT", "TRTSDT") %in% names(dfADSL)) is not TRUE'
+   )
+   expect_equal(
     expect_error(
         AE_Map_Adam(
             safetyData::adam_adsl %>% select(-TRTSDT),
             safetyData::adam_adae
         )
-    )
-
+    )$message,'all(c("USUBJID", "SITEID", "TRTEDT", "TRTSDT") %in% names(dfADSL)) is not TRUE'
+   )
+   expect_equal(
     expect_error(
       AE_Map_Adam(
         safetyData::adam_adsl ,
         safetyData::adam_adae  %>% select(-USUBJID)
       )
-    )
+    )$message,'"USUBJID" %in% names(dfADAE) is not TRUE'
+   )
 
     # renaming or dropping non-required cols is fine
     expect_silent(

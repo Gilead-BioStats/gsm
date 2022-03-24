@@ -31,11 +31,9 @@
 #' @examples
 #'
 #' dfInput <- IE_Map_Raw(
-#'    clindata::raw_ie_all ,
+#'    clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
 #'    clindata::rawplus_rdsl,
-#'    strCategoryCol = 'IECAT_STD',
 #'    vCategoryValues= c("EXCL","INCL"),
-#'    strResultCol = 'IEORRES',
 #'    vExpectedResultValues=c(0,1)
 #')
 #'
@@ -64,8 +62,8 @@ IE_Assess <- function(dfInput, nThreshold=0.5, strLabel=""){
   lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
   lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
   lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", strAssessment="Inclusion/Exclusion", strLabel= strLabel)
-  
-  
+
+
 
   return(lAssess)
 

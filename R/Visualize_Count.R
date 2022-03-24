@@ -8,26 +8,35 @@
 #' @return site level plot object
 #'
 #' @examples
-#' ie_input <- IE_Map_Raw(
-#'    clindata::raw_ie_all ,
+#'
+#' IE_Input <- IE_Map_Raw(
+#'    clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
 #'    clindata::rawplus_rdsl,
-#'    strCategoryCol = 'IECAT_STD',
 #'    vCategoryValues= c("EXCL","INCL"),
-#'    strResultCol = 'IEORRES',
 #'    vExpectedResultValues=c(0,1)
 #')
 #'
-#' ie_assess <- IE_Assess(ie_input)
-#' Visualize_Count(ie_assess$dfAnalyzed)
+#' IE_Assess <- IE_Assess(IE_Input)
 #'
-#' consent_input <- Consent_Map_Raw(
-#'   dfConsent = clindata::raw_consent,
-#'   dfRDSL = clindata::rawplus_rdsl,
-#'   strConsentReason = NULL
-#' )
+#' Visualize_Count(IE_Assess$dfAnalyzed)
 #'
-#' consent_assess <- Consent_Assess(consent_input)
-#' Visualize_Count(consent_assess$dfAnalyzed)
+#' library(dplyr)
+#' raw_consent <- clindata::raw_ic_elig %>% 
+#'    select( c("SUBJID","DSSTDAT_RAW") )%>%
+#'    mutate( CONSCAT_STD = "MAINCONSENT", CONSYN="Y") %>%
+#'    rename( CONSDAT = DSSTDAT_RAW ) %>%
+#'    mutate( CONSDAT = as.Date(CONSDAT, format="%d %B %Y") ) %>%
+#'    filter(SUBJID != "")
+#'
+#' Consent_Input <- Consent_Map_Raw(
+#'    dfConsent = raw_consent,
+#'    dfRDSL = clindata::rawplus_rdsl,
+#'    strConsentTypeValue = "MAINCONSENT",
+#'    strConsentStatusValue="Y"
+#')
+#'
+#' Consent_Assess <- Consent_Assess(Consent_Input)
+#' Visualize_Count(Consent_Assess$dfAnalyzed)
 #'
 #' @import ggplot2
 #' @importFrom stats reorder

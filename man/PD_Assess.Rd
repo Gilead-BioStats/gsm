@@ -54,8 +54,11 @@ See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additio
 }
 
 \examples{
-dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev, dfRDSL = clindata::rawplus_rdsl)
+ dfInput <- PD_Map_Raw(clindata::raw_protdev \%>\% dplyr::filter(SUBJID != ""),
+                       clindata::rawplus_rdsl)
+
 SafetyPD <- PD_Assess( dfInput )
+
 SafetyPD_Wilk <- PD_Assess( dfInput, strMethod="wilcoxon")$dfSummary
 
 }

@@ -1,5 +1,10 @@
-rdsl<-clindata::rawplus_rdsl %>% filter(RandFlag=="Y")
-pd_input <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfRDSL = rdsl)
+dfPD <- clindata::raw_protdev %>%
+  filter(SUBJID != "")
+
+dfRDSL <- clindata::rawplus_rdsl %>%
+  filter(RandFlag == "Y")
+
+pd_input <- PD_Map_Raw(dfPD, dfRDSL) %>% suppressWarnings
 
 test_that("output is created as expected",{
   pd_assessment <- PD_Assess(pd_input)

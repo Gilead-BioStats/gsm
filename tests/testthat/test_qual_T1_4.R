@@ -6,8 +6,8 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   names(t1_4_assess) <- unique(clindata::raw_ae$AESEV)
 
   for(severity in unique(clindata::raw_ae$AESEV)){
-    dfInput <- AE_Map_Raw(dfAE = filter(clindata::raw_ae, AESEV == severity & SUBJID != ""),
-                          dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment)))
+    dfInput <- suppressWarnings(AE_Map_Raw(dfAE = filter(clindata::raw_ae, AESEV == severity & SUBJID != ""),
+                                dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))))
 
     # gsm
     test1_4_assess[severity] <- AE_Assess(dfInput,

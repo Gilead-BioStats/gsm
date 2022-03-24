@@ -5,25 +5,25 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
   )
 
-  test1_4 <- suppressWarnings(AE_Assess(
+  test1_6 <- suppressWarnings(AE_Assess(
     dfInput = dfInput,
     strMethod = "wilcoxon",
     vThreshold = c(0.1, NA)
   ))
 
   # double programming
-  t1_4_input <- dfInput
+  t1_6_input <- dfInput
 
-  t1_4_transformed <- dfInput %>%
+  t1_6_transformed <- dfInput %>%
     qualification_transform_counts()
 
-  t1_4_analyzed <- t1_4_transformed %>%
+  t1_6_analyzed <- t1_6_transformed %>%
     qualification_analyze_wilcoxon()
 
-  class(t1_4_analyzed) <- c("tbl_df", "tbl", "data.frame")
-  names(t1_4_analyzed$Estimate) <- rep("difference in location", nrow(t1_4_analyzed))
+  class(t1_6_analyzed) <- c("tbl_df", "tbl", "data.frame")
+  names(t1_6_analyzed$Estimate) <- rep("difference in location", nrow(t1_6_analyzed))
 
-  t1_4_flagged <- t1_4_analyzed %>%
+  t1_6_flagged <- t1_6_analyzed %>%
     mutate(
       ThresholdLow = 0.1,
       ThresholdHigh = NA_integer_,
@@ -42,7 +42,7 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     select(-median) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t1_4_summary <- t1_4_flagged %>%
+  t1_6_summary <- t1_6_flagged %>%
     mutate(
       Assessment = "Safety",
       Label = "",
@@ -52,16 +52,16 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     arrange(desc(abs(.data$Score))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t1_4 <- list("strFunctionName" = "AE_Assess()",
+  t1_6 <- list("strFunctionName" = "AE_Assess()",
                "lParams" = list("dfInput" = "dfInput",
                                 "vThreshold" = c("c", "0.1", "NA"),
                                 "strMethod" = "wilcoxon"),
-               "dfInput" = t1_4_input,
-               "dfTransformed" = t1_4_transformed,
-               "dfAnalyzed" = t1_4_analyzed,
-               "dfFlagged" = t1_4_flagged,
-               "dfSummary" = t1_4_summary)
+               "dfInput" = t1_6_input,
+               "dfTransformed" = t1_6_transformed,
+               "dfAnalyzed" = t1_6_analyzed,
+               "dfFlagged" = t1_6_flagged,
+               "dfSummary" = t1_6_summary)
 
   # compare results
-  expect_equal(test1_4, t1_4)
+  expect_equal(test1_6, t1_6)
 })

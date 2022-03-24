@@ -59,7 +59,7 @@ test_that("NaN values are caught", {
 })
 
 test_that("NA values are ignored when specified in vNACols", {
-  df <- is_mapping_valid(df = dfRDSL, mapping = mapping_rdsl, vNACols = "TimeOnTreatment", vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
+  df <- is_mapping_valid(df = dfRDSL, mapping = mapping_rdsl, vNACols = "strExposureCol", vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
 
   expect_equal(
     df$tests_if$columns_have_na$status,
@@ -76,7 +76,7 @@ test_that("NA values are ignored when specified in vNACols", {
 test_that("empty string values are caught", {
   input <- dfRDSL
   input$SubjectID[1] <- ""
-  df <- is_mapping_valid(df = input, mapping = mapping_rdsl, vNACols = "TimeOnTreatment", vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
+  df <- is_mapping_valid(df = input, mapping = mapping_rdsl, vNACols = "strExposureCol", vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
 
   expect_equal(
     df$tests_if$columns_have_empty_values$status,

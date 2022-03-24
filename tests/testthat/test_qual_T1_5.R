@@ -5,24 +5,24 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     dfADAE = safetyData::adam_adae
   )
 
-  test1_3 <- AE_Assess(
+  test1_5 <- AE_Assess(
     dfInput = dfInput,
     strMethod = "wilcoxon"
   )
 
   # double programming
-  t1_3_input <- dfInput
+  t1_5_input <- dfInput
 
-  t1_3_transformed <- dfInput %>%
+  t1_5_transformed <- dfInput %>%
     qualification_transform_counts()
 
-  t1_3_analyzed <- t1_3_transformed %>%
+  t1_5_analyzed <- t1_5_transformed %>%
     qualification_analyze_wilcoxon()
 
-  class(t1_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
-  names(t1_3_analyzed$Estimate) <- rep("difference in location", nrow(t1_3_analyzed))
+  class(t1_5_analyzed) <- c("tbl_df", "tbl", "data.frame")
+  names(t1_5_analyzed$Estimate) <- rep("difference in location", nrow(t1_5_analyzed))
 
-  t1_3_flagged <- t1_3_analyzed %>%
+  t1_5_flagged <- t1_5_analyzed %>%
     mutate(
       ThresholdLow = .0001,
       ThresholdHigh = NA_integer_,
@@ -41,7 +41,7 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     select(-median) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t1_3_summary <- t1_3_flagged %>%
+  t1_5_summary <- t1_5_flagged %>%
     mutate(
       Assessment = "Safety",
       Label = "",
@@ -52,16 +52,16 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     arrange(match(Flag, c(1, -1, 0)))
 
 
-  t1_3 <- list("strFunctionName" = "AE_Assess()",
+  t1_5 <- list("strFunctionName" = "AE_Assess()",
              "lParams" = list("dfInput" = "dfInput",
                               "strMethod" = "wilcoxon"),
-             "dfInput" = t1_3_input,
-             "dfTransformed" = t1_3_transformed,
-             "dfAnalyzed" = t1_3_analyzed,
-             "dfFlagged" = t1_3_flagged,
-             "dfSummary" = t1_3_summary)
+             "dfInput" = t1_5_input,
+             "dfTransformed" = t1_5_transformed,
+             "dfAnalyzed" = t1_5_analyzed,
+             "dfFlagged" = t1_5_flagged,
+             "dfSummary" = t1_5_summary)
 
   # compare results
-  expect_equal(test1_3, t1_3)
+  expect_equal(test1_5, t1_5)
 
 })
