@@ -37,11 +37,10 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
 
   t1_summary <- t1_flagged %>%
     mutate(
-      Assessment = "Safety",
-      Label = "",
+      Assessment = "AE",
       Score = Residuals
     ) %>%
-    select(Assessment, Label, SiteID, N, Score, Flag)  %>%
+    select(SiteID, N, Score, Flag, Assessment) %>%
     arrange(desc(abs(.data$Score))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -49,6 +48,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   t1_1 <- list("strFunctionName" = "AE_Assess()",
              "lParams" = list("dfInput" = "dfInput",
                               "strMethod" = "poisson"),
+             "lTags" = list(Assessment = "AE"),
              "dfInput" = t1_input,
              "dfTransformed" = t1_transformed,
              "dfAnalyzed" = t1_analyzed,

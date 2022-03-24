@@ -4,19 +4,24 @@
 \alias{AE_Assess}
 \title{AE Assessment}
 \usage{
-AE_Assess(dfInput, vThreshold = NULL, strLabel = "", strMethod = "poisson")
+AE_Assess(
+  dfInput,
+  vThreshold = NULL,
+  strMethod = "poisson",
+  lTags = list(Assessment = "AE")
+)
 }
 \arguments{
-\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure}
+\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure.}
 
 \item{vThreshold}{numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.}
 
-\item{strLabel}{Assessment label}
+\item{strMethod}{valid methods are "poisson" (the default), or  "wilcoxon".}
 
-\item{strMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
+\item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="AE")}.}
 }
 \value{
-A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, and \code{lParams}) is returned.
+A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, \code{lParams} and \code{lTags}) is returned.
 }
 \description{
 The Adverse Event Assessment flags sites that may be over- or under-reporting adverse events.
