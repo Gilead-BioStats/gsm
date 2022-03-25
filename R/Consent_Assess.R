@@ -18,7 +18,7 @@
 #'
 #' @section Statistical Assumptions:
 #'
-#' This Assessment finds any sites where one or more subjects meets any of the following citeria: No Consent, Missing Consent, Missing Randomization Date, or
+#' This Assessment finds any sites where one or more subjects meets any of the following criteria: No Consent, Missing Consent, Missing Randomization Date, or
 #' Consent date later in time than the Randomization Date. 'N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
 #' With N greater than user specified `nThreshold` will be flagged.
 #'
