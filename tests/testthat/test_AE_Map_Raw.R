@@ -15,7 +15,7 @@ test_that("output created as expected and has correct structure",{
   expect_true(is.data.frame(ae_input))
   expect_equal(
     names(ae_input),
-    c("SubjectID","SiteID","Exposure","Count","Rate")
+    c("SubjectID","SiteID","Count","Exposure","Rate")
   )
 })
 
@@ -33,7 +33,7 @@ test_that("all data is mapped and summarized correctly",{
     mutate(Count = replace(Count, is.na(Count), 0)) %>%
     rename(Exposure = TimeOnTreatment) %>%
     mutate(Rate = Count / Exposure) %>%
-    select(SubjectID, SiteID, Exposure, Count, Rate)
+    select(SubjectID, SiteID, Count, Exposure, Rate)
 
   expect_equal(AE_Map_Raw(dfAE, dfRDSL), AE_mapped)
 })
