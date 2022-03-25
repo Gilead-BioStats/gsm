@@ -4,20 +4,18 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
                               "Assessments or procedures",
                               "Incorrect dispensing of study drug")
 
-  test2_6_assess <- vector("list", length(deviations_of_interest))
-  t2_6_assess  <- vector("list", length(deviations_of_interest))
-
-  names(test2_6_assess) <- deviations_of_interest
-  names(t2_6_assess) <- deviations_of_interest
+  test2_6 <- list()
+  t2_6  <- list()
 
   for(type in deviations_of_interest){
-    dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev %>% filter(DEVTYPE == type & SUBJID != ""),
-                          dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment)))
+    dfInput <- suppressWarnings(
+      PD_Map_Raw(dfPD = clindata::raw_protdev %>% filter(DEVTYPE == type & SUBJID != ""),
+                 dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))))
 
     # gsm
-    test2_6_assess[type] <- PD_Assess(dfInput,
-                                      strMethod = "wilcoxon")
-
+    test2_6 <- c(test2_6,
+                 type = PD_Assess(dfInput,
+                                  strMethod = "wilcoxon"))
 
     # Double Programming
     t2_6_input <- dfInput
@@ -29,6 +27,7 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
       qualification_analyze_wilcoxon()
 
     class(t2_6_analyzed) <- c("tbl_df", "tbl", "data.frame")
+    names(t2_6_analyzed$Estimate) <- rep("difference in location", nrow(t2_6_analyzed))
 
     t2_6_flagged <- t2_6_analyzed %>%
     mutate(
@@ -58,20 +57,18 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
       arrange(desc(abs(Score))) %>%
       arrange(match(Flag, c(1, -1, 0)))
 
-    t2_6_assess[type] <- list("strFunctionName" = "PD_Assess()",
-                              "lParams" = list("dfInput" = "dfInput",
-                                               "strMethod" = "wilcoxon"),
-                              "lTags" = list(Assessment = "PD"),
-                              "dfInput" = t2_6_input,
-                              "dfTransformed" = t2_6_transformed,
-                              "dfAnalyzed" = t2_6_analyzed,
-                              "dfFlagged" = t2_6_flagged,
-                              "dfSummary" = t2_6_summary)
+    t2_6 <- c(t2_6,
+              type = list("strFunctionName" = "PD_Assess()",
+                          "lParams" = list("dfInput" = "dfInput",
+                                           "strMethod" = "wilcoxon"),
+                          "lTags" = list(Assessment = "PD"),
+                          "dfInput" = t2_6_input,
+                          "dfTransformed" = t2_6_transformed,
+                          "dfAnalyzed" = t2_6_analyzed,
+                          "dfFlagged" = t2_6_flagged,
+                          "dfSummary" = t2_6_summary))
 
   }
-
-  test2_6 <- test2_6_assess$dfSummary %>% bind_rows()
-  t2_6 <- t2_6_assess$dfSummary %>% bind_rows()
 
   # compare results
   expect_equal(test2_6, t2_6)

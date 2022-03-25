@@ -30,7 +30,7 @@
     - T1_7
     - T1_8
 - S1_4:
-  Description: Given correct input data an flags will correctly be applied to records that meet flagging criteria, including custom thresholding
+  Description: Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding
   Risk: Medium
   Impact: High
   Tests:

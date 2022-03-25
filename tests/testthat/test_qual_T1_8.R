@@ -1,17 +1,15 @@
 test_that("AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable and the results should be flagged correctly when done in an iterative loop", {
-  test1_8_assess <- vector("list", length(unique(clindata::raw_ae$AESEV)))
-  t1_8_assess  <- vector("list", length(unique(clindata::raw_ae$AESEV)))
-
-  names(test1_8_assess) <- unique(clindata::raw_ae$AESEV)
-  names(t1_8_assess) <- unique(clindata::raw_ae$AESEV)
+  test1_8 <- list()
+  t1_8  <- list()
 
   for(severity in unique(clindata::raw_ae$AESEV)){
-    dfInput <- AE_Map_Raw(dfAE = clindata::raw_ae %>% filter(AESEV == severity & SUBJID != ""),
-                          clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment)))
+    dfInput <- suppressWarnings(AE_Map_Raw(dfAE = filter(clindata::raw_ae, AESEV == severity & SUBJID != ""),
+                                           dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))))
 
     # gsm
-    test1_8_assess[severity] <- AE_Assess(dfInput,
-                                          strMethod = "wilcoxon")
+    test1_8 <- c(test1_8,
+                 severity = AE_Assess(dfInput,
+                                      strMethod = "wilcoxon"))
 
     # Double Programming
     t1_8_input <- dfInput
@@ -23,6 +21,7 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
       qualification_analyze_wilcoxon()
 
     class(t1_8_analyzed) <- c("tbl_df", "tbl", "data.frame")
+    names(t1_8_analyzed$Estimate) <- rep("difference in location", nrow(t1_8_analyzed))
 
     t1_8_flagged <- t1_8_analyzed %>%
       mutate(
@@ -52,21 +51,19 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
       arrange(desc(abs(Score))) %>%
       arrange(match(Flag, c(1, -1, 0)))
 
+    t1_8 <- c(t1_8,
+              severity = list("strFunctionName" = "AE_Assess()",
+                              "lParams" = list("dfInput" = "dfInput",
+                                               "strMethod" = "wilcoxon"),
+                              "lTags" = list(Assessment = "AE"),
+                              "dfInput" = t1_8_input,
+                              "dfTransformed" = t1_8_transformed,
+                              "dfAnalyzed" = t1_8_analyzed,
+                              "dfFlagged" = t1_8_flagged,
+                              "dfSummary" = t1_8_summary))
 
-    t1_8_assess[severity] <- list("strFunctionName" = "AE_Assess()",
-                                  "lParams" = list("dfInput" = "dfInput",
-                                                   "strMethod" = "wilcoxon"),
-                                  "lTags" = list(Assessment = "AE"),
-                                  "dfInput" = t1_8_input,
-                                  "dfTransformed" = t1_8_transformed,
-                                  "dfAnalyzed" = t1_8_analyzed,
-                                  "dfFlagged" = t1_8_flagged,
-                                  "dfSummary" = t1_8_summary)
 
   }
-
-  test1_8 <- test1_8_assess$dfSummary %>% bind_rows()
-  t1_8 <- t1_8_assess$dfSummary %>% bind_rows()
 
   # compare results
   expect_equal(test1_8, t1_8)

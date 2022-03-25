@@ -1,16 +1,16 @@
 test_that("PD assessment can return a correctly assessed data frame for the poisson test grouped by the study variable and the results should be flagged correctly when done in an iterative loop", {
-  test2_3_assess <- vector("list", length(unique(clindata::raw_protdev$DEVTYPE)))
-  t2_3_assess  <- vector("list", length(unique(clindata::raw_protdev$DEVTYPE)))
-
-  names(test2_3_assess) <- unique(clindata::raw_protdev$DEVTYPE)
-  names(t2_3_assess) <- unique(clindata::raw_protdev$DEVTYPE)
+  test2_3 <- list()
+  t2_3  <- list()
 
   for(type in unique(clindata::raw_protdev$DEVTYPE)){
-    dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev %>% filter(SUBJID != "" & DEVTYPE == type),
-                          dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment)))
+    dfInput <- suppressWarnings(
+      PD_Map_Raw(dfPD = clindata::raw_protdev %>% filter(SUBJID != "" & DEVTYPE == type),
+       dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))))
 
     # gsm
-    test2_3_assess[type] <- PD_Assess(dfInput)
+    test2_3 <- c(test2_3,
+                 type = PD_Assess(dfInput,
+                                  strMethod = "poisson"))
 
 
     # Double Programming
@@ -47,20 +47,18 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
       arrange(desc(abs(Score))) %>%
       arrange(match(Flag, c(1, -1, 0)))
 
-    t2_3_assess[type] <- list("strFunctionName" = "PD_Assess()",
-                 "lParams" = list("dfInput" = "dfInput",
-                                  "strMethod" = "poisson"),
-                 "lTags" = list(Assessment = "PD"),
-                 "dfInput" = t2_3_input,
-                 "dfTransformed" = t2_3_transformed,
-                 "dfAnalyzed" = t2_3_analyzed,
-                 "dfFlagged" = t2_3_flagged,
-                 "dfSummary" = t2_3_summary)
+    t2_3 <- c(t2_3,
+              type = list("strFunctionName" = "PD_Assess()",
+                          "lParams" = list("dfInput" = "dfInput",
+                                           "strMethod" = "poisson"),
+                          "lTags" = list(Assessment = "PD"),
+                          "dfInput" = t2_3_input,
+                          "dfTransformed" = t2_3_transformed,
+                          "dfAnalyzed" = t2_3_analyzed,
+                          "dfFlagged" = t2_3_flagged,
+                          "dfSummary" = t2_3_summary))
 
   }
-
-  test2_3 <- test2_3_assess$dfSummary %>% bind_rows()
-  t2_3 <- t2_3_assess$dfSummary %>% bind_rows()
 
   # compare results
   expect_equal(test2_3, t2_3)

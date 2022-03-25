@@ -1,18 +1,15 @@
 test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable and the results should be flagged correctly when done in an iterative loop", {
-  test1_4_assess <- vector("list", length(unique(clindata::raw_ae$AESEV)))
-  t1_4_assess  <- vector("list", length(unique(clindata::raw_ae$AESEV)))
-
-  names(test1_4_assess) <- unique(clindata::raw_ae$AESEV)
-  names(t1_4_assess) <- unique(clindata::raw_ae$AESEV)
+  test1_4 <- list()
+  t1_4  <- list()
 
   for(severity in unique(clindata::raw_ae$AESEV)){
     dfInput <- suppressWarnings(AE_Map_Raw(dfAE = filter(clindata::raw_ae, AESEV == severity & SUBJID != ""),
                                 dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))))
 
     # gsm
-    test1_4_assess[severity] <- AE_Assess(dfInput,
-                                          strMethod = "poisson")
-
+    test1_4 <- c(test1_4,
+                 severity = AE_Assess(dfInput,
+                                      strMethod = "poisson"))
 
     # Double Programming
     t1_4_input <- dfInput
@@ -44,25 +41,21 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
         Assessment = "AE",
         Score = Residuals
       ) %>%
-      select(Assessment, SiteID, N, Score, Flag) %>%
+      select(SiteID, N, Score, Flag, Assessment) %>%
       arrange(desc(abs(Score))) %>%
       arrange(match(Flag, c(1, -1, 0)))
 
-
-    t1_4_assess[severity] <- list("strFunctionName" = "AE_Assess()",
-                                  "lParams" = list("dfInput" = "dfInput",
-                                                   "strMethod" = "wilcoxon"),
-                                  "lTags" = list(Assessment = "AE"),
-                                  "dfInput" = t1_4_input,
-                                  "dfTransformed" = t1_4_transformed,
-                                  "dfAnalyzed" = t1_4_analyzed,
-                                  "dfFlagged" = t1_4_flagged,
-                                  "dfSummary" = t1_4_summary)
-
+    t1_4 <- c(t1_4,
+              severity = list("strFunctionName" = "AE_Assess()",
+                              "lParams" = list("dfInput" = "dfInput",
+                                               "strMethod" = "poisson"),
+                              "lTags" = list(Assessment = "AE"),
+                              "dfInput" = t1_4_input,
+                              "dfTransformed" = t1_4_transformed,
+                              "dfAnalyzed" = t1_4_analyzed,
+                              "dfFlagged" = t1_4_flagged,
+                              "dfSummary" = t1_4_summary))
   }
-
-  test1_4 <- test1_4_assess$dfSummary %>% bind_rows()
-  t1_4 <- t1_4_assess$dfSummary %>% bind_rows()
 
   # compare results
   expect_equal(test1_4, t1_4)
