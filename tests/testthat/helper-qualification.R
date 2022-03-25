@@ -1,5 +1,5 @@
-qualification_transform_counts <- function(dfTransformed){
-  dfTransformed <- dfTransformed %>%
+qualification_transform_counts <- function(dfInput){
+  dfTransformed <- dfInput %>%
     filter(!is.na(.data$Exposure)) %>%
     group_by(.data$SiteID) %>%
     summarise(
