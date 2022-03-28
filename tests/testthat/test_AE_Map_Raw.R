@@ -43,7 +43,7 @@ test_that("incorrect inputs throw errors",{
   expect_error(AE_Map_Raw(dfAE, list())%>%suppressMessages, "Errors found in dfRDSL.")
   expect_error(AE_Map_Raw(list(), dfRDSL)%>%suppressMessages,"Errors found in dfAE.")
   expect_error(AE_Map_Raw("Hi", "Mom")%>%suppressMessages,"Errors found in dfAE.")
-  expect_error(AE_Map_Raw(dfAE, dfRDSL, mapping = list())%>%suppressMessages,"Errors found in dfAE.")
+  expect_error(AE_Map_Raw(dfAE, dfRDSL, mapping = list())%>%suppressMessages,'"mapping" must contain named lists: dfAE, dfRDSL')
 })
 
 

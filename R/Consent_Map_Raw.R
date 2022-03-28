@@ -27,6 +27,7 @@
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
 #'
 #' @import dplyr
+#' @importFrom stringr str_subset
 #'
 #' @examples
 #' library(dplyr)
@@ -54,6 +55,12 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentTypeVa
       dfConsent = list(strIDCol = "SUBJID", strConsentTypeCol = "CONSCAT_STD", strConsentStatusCol = "CONSYN", strConsentDateCol = "CONSDAT"),
       dfRDSL = list(strIDCol = "SubjectID", strSiteCol = "SiteID", strRandDateCol = "RandDate")
     )
+  }
+
+  vRequiredListNames <- names(as.list(match.call())) %>% stringr::str_subset("df")
+  if (!all(vRequiredListNames %in% names(mapping))) {
+    missingNames <- paste(vRequiredListNames, collapse = ", ")
+    stop(paste0('"mapping" must contain named lists: ', missingNames))
   }
 
   # Check input data vs. mapping

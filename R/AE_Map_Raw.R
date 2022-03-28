@@ -33,6 +33,7 @@
 #' dfInput <- AE_Map_Raw(dfAE, dfRDSL)
 #'
 #' @import dplyr
+#' @importFrom stringr str_subset
 #'
 #' @export
 
@@ -44,6 +45,12 @@ AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
             dfAE = list(strIDCol="SUBJID"),
             dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
         )
+    }
+
+    vRequiredListNames <- names(as.list(match.call())) %>% stringr::str_subset("df")
+    if (!all(vRequiredListNames %in% names(mapping))) {
+        missingNames <- paste(vRequiredListNames, collapse = ", ")
+        stop(paste0('"mapping" must contain named lists: ', missingNames))
     }
 
     # Check input data vs. mapping.
@@ -83,9 +90,9 @@ AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
     # Create Subject Level AE Counts and merge RDSL
     dfInput <- dfAE_mapped %>%
         group_by(.data$SubjectID) %>%
-        summarize(Count=n()) %>%  
-        ungroup() %>% 
-        mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>% 
+        summarize(Count=n()) %>%
+        ungroup() %>%
+        mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>%
         mutate(Rate = .data$Count/.data$Exposure)
 
     return(dfInput)

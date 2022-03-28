@@ -32,6 +32,7 @@
 #' )
 #'
 #' @import dplyr
+#' @importFrom stringr str_subset
 #'
 #' @export
 
@@ -43,6 +44,12 @@ PD_Map_Raw <- function(dfPD, dfRDSL, mapping = NULL){
             dfPD = list(strIDCol="SUBJID"),
             dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol = "TimeOnStudy")
         )
+    }
+
+    vRequiredListNames <- names(as.list(match.call())) %>% stringr::str_subset("df")
+    if (!all(vRequiredListNames %in% names(mapping))) {
+        missingNames <- paste(vRequiredListNames, collapse = ", ")
+        stop(paste0('"mapping" must contain named lists: ', missingNames))
     }
 
     # Check input data vs. mapping.
@@ -76,16 +83,16 @@ PD_Map_Raw <- function(dfPD, dfRDSL, mapping = NULL){
             SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
             SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
             Exposure = mapping[["dfRDSL"]][["strExposureCol"]]
-        ) %>% 
+        ) %>%
         select(.data$SubjectID, .data$SiteID, .data$Exposure)
 
 
     # Create Subject Level PD Counts and merge RDSL
     dfInput <- dfPD_mapped %>%
         group_by(.data$SubjectID) %>%
-        summarize(Count=n()) %>%  
-        ungroup() %>% 
-        mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>% 
+        summarize(Count=n()) %>%
+        ungroup() %>%
+        mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>%
         mutate(Rate = .data$Count/.data$Exposure)
 
     return(dfInput)

@@ -36,6 +36,7 @@
 #')
 #'
 #' @import dplyr
+#' @importFrom stringr str_subset
 #'
 #' @export
 IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclusion","Inclusion"), vExpectedResultValues = c(0,1)) {
@@ -46,6 +47,12 @@ IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclu
       dfIE = list(strIDCol="SUBJID", strCategoryCol = "IECAT_STD", strResultCol = "IEORRES"),
       dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID")
     )
+  }
+
+  vRequiredListNames <- names(as.list(match.call())) %>% stringr::str_subset("df")
+  if (!all(vRequiredListNames %in% names(mapping))) {
+    missingNames <- paste(vRequiredListNames, collapse = ", ")
+    stop(paste0('"mapping" must contain named lists: ', missingNames))
   }
 
   # Check input data vs. mapping.
@@ -78,22 +85,22 @@ IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclu
       SiteID = mapping[["dfRDSL"]][["strSiteCol"]]
     ) %>%
     select(.data$SubjectID, .data$SiteID)
-  
+
   dfIE_Subj <- dfIE %>%
     rename(
       SubjectID = mapping[["dfIE"]][["strIDCol"]],
       category = mapping[["dfIE"]][["strCategoryCol"]],
         result = mapping[["dfIE"]][["strResultCol"]]) %>%
-    select(.data$SubjectID, .data$category, .data$result) 
-    
+    select(.data$SubjectID, .data$category, .data$result)
+
 
   # Create Subject Level IE Counts and merge RDSL
 
   dfInput <- dfIE_Subj %>%
     mutate(
       expected = ifelse(
-        .data$category == vCategoryValues[1], 
-        vExpectedResultValues[1], 
+        .data$category == vCategoryValues[1],
+        vExpectedResultValues[1],
         vExpectedResultValues[2]
       ),
       valid = .data$result == .data$expected,
@@ -111,7 +118,7 @@ IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclu
     ungroup() %>%
     select(.data$SubjectID, .data$Count) %>%
     mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>%
-    select(.data$SubjectID, .data$SiteID, .data$Count)    
+    select(.data$SubjectID, .data$SiteID, .data$Count)
 
 
   return(dfInput)
