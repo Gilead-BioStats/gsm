@@ -4,19 +4,17 @@
 \alias{IE_Assess}
 \title{Inclusion/Exclusion Assessment}
 \usage{
-IE_Assess(dfInput, nThreshold = 0.5, strLabel = "", bDataList = FALSE)
+IE_Assess(dfInput, nThreshold = 0.5, lTags = list(Assessment = "IE"))
 }
 \arguments{
 \item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count,}
 
 \item{nThreshold}{Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.}
 
-\item{strLabel}{Assessment label}
-
-\item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the summary/finding data frame is returned}
+\item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="IE")}}
 }
 \value{
-If \code{bDataList} is false (the default), the summary data frame (\code{dfSummary}) is returned. If \code{bDataList} is true, a list containing all data in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged} and \code{dfSummary}) is returned.
+A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, \code{lParams} and \code{lTags}) is returned.
 }
 \description{
 Inclusion/Exclusion Assessment
@@ -53,15 +51,13 @@ With N greater than user specified \code{nThreshold} will be flagged.
 \examples{
 
 dfInput <- IE_Map_Raw(
-   clindata::raw_ie_all ,
+   clindata::raw_ie_all \%>\% dplyr::filter(SUBJID != "" ),
    clindata::rawplus_rdsl,
-   strCategoryCol = 'IECAT_STD',
    vCategoryValues= c("EXCL","INCL"),
-   strResultCol = 'IEORRES',
    vExpectedResultValues=c(0,1)
 )
 
-ie_summary <- IE_Assess(dfInput)
+IE_Summary <- IE_Assess(dfInput)$dfSummary
 
 
 }

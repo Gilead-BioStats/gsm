@@ -27,31 +27,40 @@
 #'
 #' See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions.
 #'
-#' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure
+#' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure.
 #' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.
-#' @param strLabel Assessment label
-#' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon"
-#' @param bDataList Should all assessment datasets be returned as a list? If False (the default), only the Summary data frame is returned
+#' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon".
+#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE")`.
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
 #' SafetyAE <- AE_Assess( dfInput )
-#' SafetyAE_Wilk <- AE_Assess( dfInput, strMethod="wilcoxon")
+#' SafetyAE_Wilk <- AE_Assess( dfInput, strMethod="wilcoxon")$dfSummary
 #'
-#' @return If `bDataList` is false (the default), the summary data frame (`dfSummary`) is returned. If `bDataList` is true, a list containing all data in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged` and `dfSummary`) is returned.
+#' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, `lParams` and `lTags`) is returned.
 #'
 #' @export
 
-AE_Assess <- function( dfInput, vThreshold=NULL, strLabel="", strMethod="poisson",bDataList=FALSE){
+AE_Assess <- function(dfInput, vThreshold=NULL, strMethod="poisson", lTags=list(Assessment="AE")){
     stopifnot(
         "dfInput is not a data.frame" = is.data.frame(dfInput),
-        "strLabel is not character" = is.character(strLabel),
         "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson","wilcoxon"),
-        "bDataList is not logical" = is.logical(bDataList),
         "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count","Exposure", "Rate") %in% names(dfInput)),
         "strMethod must be length 1" = length(strMethod) == 1
     )
+
+    if(!is.null(lTags)){
+        stopifnot(
+            "lTags is not named"=(!is.null(names(lTags))),
+            "lTags has unnamed elements"=all(names(lTags)!=""),
+            "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
+        )
+    }
+
     lAssess <- list()
+    lAssess$strFunctionName <- deparse(sys.call()[1])
+    lAssess$lParams <- lapply(as.list(match.call()[-1]), function(x) as.character(x))
+    lAssess$lTags <- lTags
     lAssess$dfInput <- dfInput
     lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
     if(strMethod == "poisson"){
@@ -66,8 +75,7 @@ AE_Assess <- function( dfInput, vThreshold=NULL, strLabel="", strMethod="poisson
         }
         lAssess$dfAnalyzed <- gsm::Analyze_Poisson( lAssess$dfTransformed)
         lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , strColumn = 'Residuals', vThreshold =vThreshold)
-        lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol = 'Residuals', strAssessment="Safety", strLabel= strLabel)
-
+        lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol = 'Residuals',lTags)
     } else if(strMethod=="wilcoxon"){
         if(is.null(vThreshold)){
             vThreshold = c(0.0001,NA)
@@ -81,12 +89,9 @@ AE_Assess <- function( dfInput, vThreshold=NULL, strLabel="", strMethod="poisson
         }
         lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed)
         lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold, strValueColumn = 'Estimate')
-        lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strAssessment="Safety", strLabel= strLabel)
+        lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol = 'PValue', lTags = lTags)
     }
 
-    if(bDataList){
-        return(lAssess)
-    } else {
-        return(lAssess$dfSummary)
-    }
+    return(lAssess)
+
 }

@@ -1,4 +1,6 @@
-library(safetyData)
+suppressWarnings(
+  library(safetyData)
+)
 
 df <- dplyr::tribble(
   ~SUBJID, ~SITEID,          ~DCREASCD,
@@ -222,3 +224,4 @@ test_that("vReasonIgnore works as expected",{
 
 
 })
+

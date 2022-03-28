@@ -1,0 +1,58 @@
+- S2_1:
+  Description: Given correct input data a Protocol Deviation assessment can be done using the poisson method
+  Risk: High
+  Impact: High
+  Tests:
+    - T2_1
+    - T2_2
+    - T2_3
+- S2_2:
+  Description: Given correct input data a Protocol Deviation assessment can be done using the wilcoxon method
+  Risk: High
+  Impact: High
+  Tests:
+    - T2_4
+    - T2_5
+    - T2_6
+- S2_3:
+  Description: Assessments are correctly grouped by the site variable
+  Risk: Low
+  Impact: High
+  Tests:
+    - T2_1
+    - T2_2
+    - T2_3
+    - T2_4
+    - T2_5
+    - T2_6
+- S2_4:
+  Description: Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding
+  Risk: Medium
+  Impact: High
+  Tests:
+    - T2_1
+    - T2_2
+    - T2_3
+    - T2_4
+    - T2_5
+    - T2_6
+- S2_5:
+  Description: Given subset input data a Protocol Deviation assessment can be done
+  Risk: Medium
+  Impact: Medium
+  Tests:
+    - T2_2
+    - T2_5
+- S2_6:
+  Description: A Protocol Deviation assessment can be done iteratively by looping over a categorical variable
+  Risk: Low
+  Impact: Medium
+  Tests:
+    - T2_3
+    - T2_6
+- S2_7:
+  Description: Ensure that missing and invalid data are handled correctly
+  Risk: Low
+  Impact: Medium
+  Tests:
+    - T2_7

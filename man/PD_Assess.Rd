@@ -7,24 +7,21 @@
 PD_Assess(
   dfInput,
   vThreshold = NULL,
-  strLabel = "",
   strMethod = "poisson",
-  bDataList = FALSE
+  lTags = list(Assessment = "PD")
 )
 }
 \arguments{
 \item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure, Rate.}
 
-\item{vThreshold}{list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon}
+\item{vThreshold}{list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon.}
 
-\item{strLabel}{Assessment label}
+\item{strMethod}{valid methods are "poisson" (the default), or  "wilcoxon".}
 
-\item{strMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
-
-\item{bDataList}{Should all assessment datasets be returned as a list? If False (the default), only the finding data frame is returned}
+\item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="PD")}.}
 }
 \value{
-If \code{bDataList} is false (the default), the summary data frame (\code{dfSummary}) is returned. If \code{bDataList} is true, a list containing all data in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged} and \code{dfSummary}) is returned.
+A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName},  \code{lParams} and \code{lTags}) is returned.
 }
 \description{
 Protocol Deviation Assessment
@@ -62,8 +59,11 @@ See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additio
 }
 
 \examples{
-dfInput <- PD_Map_Raw(dfPD = clindata::raw_protdev, dfRDSL = clindata::rawplus_rdsl)
+ dfInput <- PD_Map_Raw(clindata::raw_protdev \%>\% dplyr::filter(SUBJID != ""),
+                       clindata::rawplus_rdsl)
+
 SafetyPD <- PD_Assess( dfInput )
-SafetyPD_Wilk <- PD_Assess( dfInput, strMethod="wilcoxon")
+
+SafetyPD_Wilk <- PD_Assess( dfInput, strMethod="wilcoxon")$dfSummary
 
 }

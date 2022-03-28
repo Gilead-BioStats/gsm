@@ -1,71 +1,64 @@
+dfPD <- clindata::raw_protdev %>%filter(SUBJID != "")
+dfRDSL <- clindata::rawplus_rdsl
+
 test_that("output created as expected and has correct structure",{
-  pd_input <- PD_Map_Raw(dfPD = clindata::raw_protdev,dfRDSL = clindata::rawplus_rdsl )
+  pd_input <- PD_Map_Raw(dfPD, dfRDSL)%>%suppressWarnings
   expect_true(is.data.frame(pd_input))
-  expect_equal(
-    names(pd_input),
-    c("SubjectID","SiteID","Count","Exposure","Rate"))
+  expect_equal(names(pd_input), c("SubjectID","SiteID","Exposure","Count","Rate"))
 })
 
 test_that("incorrect inputs throw errors",{
 
-  expect_error(PD_Map_Raw(list(), list()))
-  expect_error(PD_Map_Raw( clindata::raw_protdev, list()))
-  expect_error(PD_Map_Raw(list(), clindata::rawplus_rdsl ))
-  expect_error(PD_Map_Raw("Hi","Mom"))
+  expect_error(PD_Map_Raw(list(), list()) %>% suppressMessages)
+  expect_error(PD_Map_Raw(dfPD, list()) %>% suppressMessages)
+  expect_error(PD_Map_Raw(list(), dfRDSL) %>% suppressMessages)
+  expect_error(PD_Map_Raw("Hi","Mom") %>% suppressMessages)
+  expect_error(PD_Map_Raw(dfPD, dfRDSL, mapping = "napping") %>% suppressMessages)
+
 })
 
 
 test_that("error given if required column not found",{
+
   expect_error(
     PD_Map_Raw(
-      clindata::raw_protdev %>% rename(ID = SUBJID),
-      clindata::rawplus_rdsl
-    )
+      dfPD %>% rename(ID = SUBJID),
+      dfRDSL
+    ) %>% suppressWarnings %>% suppressMessages
   )
 
   expect_error(
     PD_Map_Raw(
-      clindata::raw_protdev ,
-      clindata::rawplus_rdsl   %>% select(-SiteID)
-    )
+      dfPD,
+      dfRDSL %>% select(-SiteID)
+    ) %>% suppressWarnings %>% suppressMessages
   )
 
   expect_error(
     PD_Map_Raw(
-      clindata::raw_protdev ,
-      clindata::rawplus_rdsl  %>% select(-SubjectID)
-    )
+      dfPD,
+      dfRDSL %>% select(-SubjectID)
+    ) %>% suppressWarnings %>% suppressMessages
   )
-
-
 
   expect_error(
     PD_Map_Raw(
-      clindata::raw_protdev ,
-      clindata::rawplus_rdsl,
+      dfPD,
+      dfRDSL,
       strExposureCol="Exposure"
-    )
+    ) %>% suppressWarnings %>% suppressMessages
   )
 
   expect_error(
     PD_Map_Raw(
-      clindata::raw_protdev ,
-      clindata::rawplus_rdsl  %>% select(-SiteID)
-    )
-  )
-
-
-  expect_silent(
-    PD_Map_Raw(
-      clindata::raw_protdev  %>% select(-COUNTRY),
-      clindata::rawplus_rdsl
-    )
+      dfPD,
+      dfRDSL %>% select(-SiteID)
+    ) %>% suppressWarnings %>% suppressMessages
   )
 })
 
 
-test_that("output is correct given example input",{
-
+test_that("NA values are caught",{
 
   dfPD <- tribble(~SUBJID, 1,1,1,1,2,2)
 
@@ -76,7 +69,6 @@ test_that("output is correct given example input",{
     3,   1, 30
   )
 
-
   dfInput <-tribble(
     ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
     1,   1, 4, 10, 0.4,
@@ -84,8 +76,7 @@ test_that("output is correct given example input",{
     3,   1, 0, 30, 0
   )
 
-
-  expect_equal(dfInput,  PD_Map_Raw(dfPD = dfPD, dfRDSL = dfTos))
+  expect_error(PD_Map_Raw(dfPD = dfPD, dfRDSL = dfTos)%>%suppressMessages)
 
   dfPD2 <- tribble(~SUBJID, 1,1,1,1,2,2,4,4)
 
@@ -97,7 +88,6 @@ test_that("output is correct given example input",{
     4,   2, 50
   )
 
-
   dfInput2 <-tribble(
     ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
     1,   1, 4, 10, 0.4,
@@ -106,96 +96,68 @@ test_that("output is correct given example input",{
     4,   2, 2, 50, .04
   )
 
-
-
-  expect_equal(dfInput2,  PD_Map_Raw(dfPD = dfPD2, dfRDSL = dfTos2))
-
-
+  expect_error(PD_Map_Raw(dfPD = dfPD2, dfRDSL = dfTos2) %>% suppressMessages)
 
 })
 
-test_that("NA values in input data are handled",{
+test_that("duplicate SubjectID values are caught in RDSL", {
+  dfPD <- tribble(~SUBJID, 1,2)
 
-  dfPD3 <- tribble(~SUBJID, 1,1,1,1,2,2,4,4)
-
-  dfTos3<-tribble(
+  dfRDSL <- tribble(
     ~SubjectID, ~SiteID, ~TimeOnStudy,
-    NA,   1, 10,
-    2,   1, NA,
-    3,   NA, 30,
-    4,   2, 50
+    1,   1, 10,
+    1,   1, 30
   )
 
-
-  dfInput3 <-tribble(
-    ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
-    NA,   1, 0, 10, 0,
-    2,    1,  2, NA, NA,
-    3,   NA,  0, 30, 0 ,
-    4,    2,  2, 50, .04
+  expect_error(
+    PD_Map_Raw(
+      dfPD,
+      dfRDSL
+    ) %>% suppressMessages
   )
-
-  expect_equal(dfInput3, PD_Map_Raw(dfPD = dfPD3, dfRDSL = dfTos3))
-
-  dfPD4 <- tribble(~SUBJID, 1,NA,1,1,2,2,4,4)
-
-  dfTos4<-tribble(
-    ~SubjectID, ~SiteID, ~TimeOnStudy,
-    NA,   1, 10,
-    2,   1, NA,
-    3,   NA, 30,
-    4,   2, 50
-  )
-
-
-  dfInput4 <-tribble(
-    ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
-    NA,   1, 0, 10, 0,
-    2,    1,  2, NA, NA,
-    3,   NA,  0, 30, 0 ,
-    4,    2,  2, 50, .04
-  )
-
-  expect_equal(dfInput4, PD_Map_Raw(dfPD = dfPD4, dfRDSL = dfTos4))
-
 
 })
 
 test_that("strExposure user input error is handled correctly", {
   expect_error(
-    PD_Map_Raw(clindata::raw_protdev,clindata::rawplus_rdsl, strExposureCol = 123)
+    PD_Map_Raw(
+      dfPD,
+      dfRDSL,
+      strExposureCol = 123
+      ) %>% suppressMessages
   )
-  
+
   expect_error(
-    PD_Map_Raw(clindata::raw_protdev,clindata::rawplus_rdsl, strExposureCol = c("A", "B"))
+    PD_Map_Raw(
+      dfPD,
+      dfRDSL,
+      strExposureCol = c("A", "B")
+      ) %>% suppressMessages
   )
+
 })
 
-test_that("Non-default value for strExposureCol is handled correctly",{
-  dfPD4 <- tribble(~SUBJID, 1,NA,1,1,2,2,4,4)
-  
-  dfTos4<-tribble(
-    ~SubjectID, ~SiteID, ~TimeInOurClinicalTrial,
-    NA,   1, 10,
-    2,   1, NA,
-    3,   NA, 30,
-    4,   2, 50
-  )
-  
-  
-  dfInput4 <-tribble(
-    ~SubjectID, ~SiteID, ~Count, ~Exposure,~Rate,
-    NA,   1, 0, 10, 0,
-    2,    1,  2, NA, NA,
-    3,   NA,  0, 30, 0 ,
-    4,    2,  2, 50, .04
-  )
-  
-  expect_equal(dfInput4, PD_Map_Raw(dfPD = dfPD4, dfRDSL = dfTos4, strExposureCol = 'TimeInOurClinicalTrial'))
-  expect_error( PD_Map_Raw(dfPD = dfPD4, dfRDSL = dfTos4, strExposureCol = 'IncorrectColumnName'))
-  expect_error( PD_Map_Raw(dfPD = dfPD4, dfRDSL = dfTos4))
-})
+test_that("custom mapping creates expected output", {
 
+  custom_mapping <- list(
+    dfPD = list(strIDCol="eye_dee"),
+    dfRDSL = list(strIDCol="custom_id", strSiteCol="custom_site_id", strExposureCol = "TimeOnStudy")
+  )
+
+  custom_pd <- dfPD %>% rename(eye_dee = SUBJID)
+  custom_rdsl <- dfRDSL %>% rename(custom_id = SubjectID,custom_site_id = SiteID)
+
+  expect_true(
+    is.data.frame(
+      PD_Map_Raw(
+        custom_pd,
+        custom_rdsl,
+        mapping = custom_mapping
+      )%>%
+      suppressWarnings
+    )
+  )
+})
 
 
 
