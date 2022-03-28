@@ -1,9 +1,9 @@
 test_that("Consent assessment can return a correctly assessed data frame grouped by the study variable when given correct input data from clindata and the results should be flagged correctly", {
   # gsm analysis
   dfInput <- suppressWarnings(Consent_Map_Raw(
-    clindata::raw_consent %>% dplyr::filter(SUBJID != ""),
+    clindata::raw_consent %>% filter(SUBJID != ""),
     clindata::rawplus_rdsl,
-    strConsentTypeValue = NULL
+    strConsentTypeValue = "BIOM"
   ))
 
   test4_1 <- suppressWarnings(Consent_Assess(
