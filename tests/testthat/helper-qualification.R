@@ -1,14 +1,27 @@
-qualification_transform_counts <- function(dfInput){
-  dfTransformed <- dfInput %>%
-    filter(!is.na(.data$Exposure)) %>%
-    group_by(.data$SiteID) %>%
-    summarise(
-      N = n(),
-      TotalCount= sum(.data$Count),
-      TotalExposure=sum(.data$Exposure)
-    )%>%
-    mutate(Rate = .data$TotalCount / .data$TotalExposure) %>%
-    select(SiteID, N, TotalCount, TotalExposure, Rate)
+qualification_transform_counts <- function(dfInput, countCol = "Count", exposureCol = "Exposure"){
+  if(is.na(exposureCol)){
+    dfTransformed <- dfInput %>%
+      filter(!is.na(.data[[countCol]])) %>%
+      group_by(.data$SiteID) %>%
+      summarise(
+        N = n(),
+        TotalCount = sum(.data[[countCol]])
+      )%>%
+      select(SiteID, N, TotalCount)
+
+  } else {
+    dfTransformed <- dfInput %>%
+      filter(!is.na(.data[[countCol]])) %>%
+      group_by(.data$SiteID) %>%
+      summarise(
+        N = n(),
+        TotalCount = sum(.data[[countCol]]),
+        TotalExposure = sum(.data[[exposureCol]])
+      )%>%
+      mutate(Rate = .data$TotalCount / .data$TotalExposure) %>%
+      select(SiteID, N, TotalCount, TotalExposure, Rate)
+
+  }
 
   return(dfTransformed)
 }
