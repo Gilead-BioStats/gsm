@@ -18,13 +18,13 @@
 #'
 #' @section Statistical Assumptions:
 #'
-#' This Assessment finds any sites where one or more subjects meets any of the following citeria: No Consent, Missing Consent, Missing Randomization Date, or
+#' This Assessment finds any sites where one or more subjects meets any of the following criteria: No Consent, Missing Consent, Missing Randomization Date, or
 #' Consent date later in time than the Randomization Date. 'N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
 #' With N greater than user specified `nThreshold` will be flagged.
 #'
 #' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count.
 #' @param nThreshold Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.
-#' @param strLabel Assessment label.
+#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="Consent")`
 #'
 #' @examples
 #'
@@ -49,28 +49,38 @@
 #'
 #' @import dplyr
 #'
-#' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, and `lParams`) is returned.
+#' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, `lParams` and `lTags`) is returned.
 #'
 #' @export
 
-Consent_Assess <- function( dfInput, nThreshold=0.5,  strLabel=""){
+Consent_Assess <- function( dfInput, nThreshold=0.5,  lTags=list(Assessment="Consent")){
 
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
-    "strLabel is not character" = is.character(strLabel),
     "One or more of these columns: SubjectID, SiteID,and Count not found in dfInput"=all(c("SubjectID","SiteID", "Count") %in% names(dfInput)),
     "nThreshold must be numeric" = is.numeric(nThreshold),
     "nThreshold must be length 1" = length(nThreshold) ==1
   )
 
-  lAssess <- list()
-  lAssess$strFunctionName <- deparse(sys.call()[1])
-  lAssess$lParams <- lapply(as.list(match.call()[-1]), function(x) as.character(x))
-  lAssess$dfInput <- dfInput
+  if(!is.null(lTags)){
+      stopifnot(
+          "lTags is not named"=(!is.null(names(lTags))),
+          "lTags has unnamed elements"=all(names(lTags)!=""),
+          "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
+      )
+  }
+
+  lAssess <- list(
+    strFunctionName = deparse(sys.call()[1]),
+    lParams = lapply(as.list(match.call()[-1]), function(x) as.character(x)),
+    lTags = lTags,
+    dfInput = dfInput
+  )
+
   lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count'  )
   lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
-  lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "TotalCount" )
-  lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", strAssessment="Main Consent", strLabel= strLabel)
+  lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
+  lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", lTags)
 
   return(lAssess)
 

@@ -1,5 +1,3 @@
-
-
 ie_input <- suppressWarnings(IE_Map_Raw(
   clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
   clindata::rawplus_rdsl,
@@ -11,7 +9,7 @@ ie_input <- suppressWarnings(IE_Map_Raw(
 test_that("output is created as expected",{
     ie_list <- IE_Assess(ie_input)
     expect_true(is.list(ie_list))
-    expect_equal(names(ie_list),c("strFunctionName", "lParams", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+    expect_equal(names(ie_list),c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
     expect_true("data.frame" %in% class(ie_list$dfInput))
     expect_true("data.frame" %in% class(ie_list$dfTransformed))
     expect_true("data.frame" %in% class(ie_list$dfAnalyzed))
@@ -22,22 +20,27 @@ test_that("output is created as expected",{
 })
 
 test_that("correct function and params are returned", {
-  ie_list <- IE_Assess(ie_input, nThreshold = 0.755555, strLabel = "nice label!")
+  ie_list <- IE_Assess(ie_input, nThreshold = 0.755555)
   expect_equal("IE_Assess()", ie_list$strFunctionName)
   expect_equal("0.755555", ie_list$lParams$nThreshold)
-  expect_equal("nice label!", ie_list$lParams$strLabel)
 })
 
 test_that("incorrect inputs throw errors",{
     expect_error(IE_Assess(list()))
     expect_error(IE_Assess("Hi"))
-    expect_error(IE_Assess(ie_input, strLabel=123))
     expect_error(IE_Assess(ie_input, nThreshold=FALSE))
     expect_error(IE_Assess(ie_input, nThreshold="A"))
     expect_error(IE_Assess(ie_input, nThreshold=c(1,2)))
     expect_error(IE_Assess(ie_input %>% select(-SubjectID)))
     expect_error(IE_Assess(ie_input %>% select(-SiteID)))
     expect_error(IE_Assess(ie_input %>% select(-Count)))
+})
+
+test_that("invalid lTags throw errors",{
+    expect_error(IE_Assess(ie_input, lTags="hi mom"))
+    expect_error(IE_Assess(ie_input, lTags=list("hi","mom")))
+    expect_error(IE_Assess(ie_input, lTags=list(greeting="hi","mom")))
+    expect_silent(IE_Assess(ie_input, lTags=list(greeting="hi",person="mom")))
 })
 
 
@@ -52,16 +55,16 @@ ie_input1 <- tibble::tribble(        ~SubjectID, ~SiteID, ~Count,
 ie_summary <- IE_Assess(ie_input1)
 
 
-target_ie_summary <- tibble::tribble(    ~Assessment, ~Label, ~SiteID, ~N, ~Score, ~Flag,
-                                "Inclusion/Exclusion",     "", "X194X", 2L,      17L,     1,
-                               "Inclusion/Exclusion",     "", "X033X", 1L,      9L,     1,
-                               "Inclusion/Exclusion",     "", "X159X", 1L,      9L,     1)
+target_ie_summary <- tibble::tribble(  ~SiteID, ~N, ~Score, ~Flag, ~Assessment,
+                                    "X194X", 2L,      17L,    1, "IE",
+                                    "X033X", 1L,      9L,     1, "IE",
+                                    "X159X", 1L,      9L,     1, "IE")
 
-target_ie_summary_NA_SiteID <- tibble::tribble(    ~Assessment, ~Label, ~SiteID, ~N, ~Score, ~Flag,
-                                         "Inclusion/Exclusion",     "", "X033X", 1L,      9L,     1,
-                                         "Inclusion/Exclusion",     "", "X159X", 1L,      9L,     1,
-                                         "Inclusion/Exclusion",     "",      NA, 1L,      9L,     1,
-                                         "Inclusion/Exclusion",     "", "X194X", 1L,      8L,     1)
+target_ie_summary_NA_SiteID <- tibble::tribble(     ~SiteID, ~N, ~Score, ~Flag,~Assessment,
+                                                "X033X", 1L,      9L,     1,"IE",
+                                                "X159X", 1L,      9L,     1,"IE",
+                                                    NA, 1L,      9L,     1,"IE",
+                                                "X194X", 1L,      8L,     1,"IE")
 
 
 test_that("output is correct given example input",{
@@ -87,7 +90,29 @@ test_that("NA in dfInput$Count results in Error for IE_Assess",{
 })
 
 
+test_that("problematic lTags names are caught", {
 
+  expect_error(
+    IE_Assess(ie_input, lTags = list(SiteID = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+  expect_error(
+    IE_Assess(ie_input, lTags = list(N = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+  expect_error(
+    IE_Assess(ie_input, lTags = list(Score = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+  expect_error(
+    IE_Assess(ie_input, lTags = list(Flag = "")),
+    "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
+  )
+
+})
 
 
 

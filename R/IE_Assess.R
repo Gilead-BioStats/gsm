@@ -25,7 +25,7 @@
 #'
 #' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count,
 #' @param nThreshold Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.
-#' @param strLabel Assessment label
+#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="IE")`
 #'
 #'
 #' @examples
@@ -40,30 +40,38 @@
 #' IE_Summary <- IE_Assess(dfInput)$dfSummary
 #'
 #'
-#' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, and `lParams`) is returned.
+#' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, `lParams` and `lTags`) is returned.
 #'
 #' @export
 
-IE_Assess <- function(dfInput, nThreshold=0.5, strLabel=""){
+IE_Assess <- function(dfInput, nThreshold=0.5, lTags=list(Assessment="IE")){
 
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
-    "strLabel is not character" = is.character(strLabel),
     "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count") %in% names(dfInput)),
     "nThreshold must be numeric" = is.numeric(nThreshold),
     "nThreshold must be length 1" = length(nThreshold) ==1
   )
 
-  lAssess <- list()
-  lAssess$strFunctionName <- deparse(sys.call()[1])
-  lAssess$lParams <- lapply(as.list(match.call()[-1]), function(x) as.character(x))
-  lAssess$dfInput <- dfInput
+  if(!is.null(lTags)){
+      stopifnot(
+          "lTags is not named"=(!is.null(names(lTags))),
+          "lTags has unnamed elements"=all(names(lTags)!=""),
+          "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
+      )
+  }
+
+  lAssess <- list(
+    strFunctionName = deparse(sys.call()[1]),
+    lParams = lapply(as.list(match.call()[-1]), function(x) as.character(x)),
+    lTags = lTags,
+    dfInput = dfInput
+  )
+
   lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = "Count")
   lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
   lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
-  lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", strAssessment="Inclusion/Exclusion", strLabel= strLabel)
-
-
+  lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", lTags)
 
   return(lAssess)
 

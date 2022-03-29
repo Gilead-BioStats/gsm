@@ -8,7 +8,7 @@
 #'
 #' @section Data Specification:
 #'
-#' \code{Flag} is designed to support the input data (` dfAnalyzed`) input data from many different \code{Analyze} functions. At a minimum, the input data must have a `SiteID` column and a column of numeric values (identified by the `strColumn` parameter) that will be compared to the specified threhsolds (`vThreshold`) to calculate a new `Flag` column. Optionally, a second column of numeric values (identified by `strValueColumn`) can be specified to set the directionality of the `Flag`.
+#' \code{Flag} is designed to support the input data (` dfAnalyzed`) input data from many different \code{Analyze} functions. At a minimum, the input data must have a `SiteID` column and a column of numeric values (identified by the `strColumn` parameter) that will be compared to the specified thresholds (`vThreshold`) to calculate a new `Flag` column. Optionally, a second column of numeric values (identified by `strValueColumn`) can be specified to set the directionality of the `Flag`.
 #'
 #' In short, the following columns are considered:
 #' - `SiteID` - Site ID (required)
@@ -74,8 +74,8 @@ Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strValu
         TRUE ~ Flag
       ))
   }
-  
+
   dfFlagged <- dfFlagged  %>% arrange(match(.data$Flag, c(1, -1, 0)))
-  
+
   return( dfFlagged )
 }

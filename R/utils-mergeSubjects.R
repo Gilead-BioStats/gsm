@@ -1,16 +1,16 @@
 #' Merge Domain data with subject-level data shell
 #'
 #' @param dfSubjects Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)
-#' @param dfDomain Subject-level domain data containing one record per participant. 
+#' @param dfDomain Subject-level domain data containing one record per participant.
 #' @param strIDCol name of ID Column - default='SubjectID'
 #' @param vFillZero Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject
-#' @param bQuiet print messages? 
-#' 
+#' @param bQuiet print messages?
+#'
 #' @return data set with one record per IDCol
-#' 
+#'
 #' @importFrom dplyr left_join
 #' @importFrom tidyr replace_na
-#' 
+#'
 #' @export
 
 mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=NULL, bQuiet=TRUE){
@@ -18,6 +18,7 @@ mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
         df = dfDomain,
         mapping = list('strIDCol'=strIDCol),
         vUniqueCols = "strIDCol",
+        vRequiredParams = "strIDCol",
         bQuiet=FALSE
     )
 
@@ -25,12 +26,14 @@ mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
         df = dfSubjects,
         mapping = list('strIDCol'=strIDCol),
         vUniqueCols = "strIDCol",
+        vRequiredParams = "strIDCol",
         bQuiet=FALSE
     )
 
     stopifnot(
         "Errors found in dfDomain" = is_domain_valid$status,
-        "Errors found in dfSubjects" = is_subjects_valid$status
+        "Errors found in dfSubjects" = is_subjects_valid$status,
+        "bQuiet must be TRUE or FALSE" = is.logical(bQuiet)
     )
 
     if(!is.null(vFillZero)){
@@ -42,8 +45,8 @@ mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
 
     # Throw a warning if there are ID values in dfDomain that are not found in dfSubject
     subject_ids <- dfSubjects[[strIDCol]]
-    domain_ids <- dfDomain[[strIDCol]]    
-    domain_only_ids <- domain_ids[!domain_ids %in% subject_ids] 
+    domain_ids <- dfDomain[[strIDCol]]
+    domain_only_ids <- domain_ids[!domain_ids %in% subject_ids]
     if(length(domain_only_ids > 0)){
         warning(
             paste0(
@@ -70,14 +73,14 @@ mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
                         "These participants will have NA values imputed for all domain data columns:",
                         paste0(
                             "These participants will have 0s imputed for the following domain data columns: ",
-                            paste(vFillZero, sep=", "), 
+                            paste(vFillZero, sep=", "),
                             ". ",
                             "NA's will be imputed for all other columns."
                         )
                     )
                 )
             )
-        } 
+        }
     }
 
     dfOut <- left_join(dfSubjects, dfDomain, by=strIDCol)

@@ -31,48 +31,78 @@ test_that("all data is mapped and summarized correctly",{
 })
 
 test_that("incorrect inputs throw errors",{
-    expect_error(AE_Map_Adam(list(), list()))
-    expect_error(AE_Map_Adam( safetyData::adam_adsl, list()))
-    expect_error(AE_Map_Adam(list(),  safetyData::adam_adae))
-    expect_error(AE_Map_Adam("Hi","Mom"))
+
+    expect_equal(
+      expect_error(
+        AE_Map_Adam(list(), list()) %>% suppressMessages()
+        )$message,
+      "Errors found in dfADSL."
+      )
+
+    expect_equal(
+      expect_error(
+        AE_Map_Adam(safetyData::adam_adsl, list()) %>% suppressMessages()
+        )$message,
+      "Errors found in dfADAE."
+      )
+
+    expect_equal(
+      expect_error(
+        AE_Map_Adam(list(), safetyData::adam_adae) %>% suppressMessages()
+        )$message,
+      "Errors found in dfADSL."
+      )
+
+    expect_equal(
+      expect_error(
+        AE_Map_Adam("Hi","Mom") %>% suppressMessages()
+        )$message,
+      "Errors found in dfADSL."
+      )
 })
 
 test_that("error given if required column not found",{
+  expect_equal(
     expect_error(
         AE_Map_Adam(
             safetyData::adam_adsl %>% rename(ID = USUBJID),
             safetyData::adam_adae
         )
-    )
+    )$message,'Column `USUBJID` not found in `.data`.'
+   )
 
-
+   expect_equal(
     expect_error(
         AE_Map_Adam(
             safetyData::adam_adsl %>% rename(EndDay = TRTEDT),
             safetyData::adam_adae
         )
-    )
-
+    )$message,'Errors found in dfADSL.'
+   )
+   expect_equal(
     expect_error(
         AE_Map_Adam(
             safetyData::adam_adsl %>% select(-TRTSDT),
             safetyData::adam_adae
         )
-    )
-
+    )$message,'Errors found in dfADSL.'
+   )
+   expect_equal(
     expect_error(
       AE_Map_Adam(
         safetyData::adam_adsl ,
         safetyData::adam_adae  %>% select(-USUBJID)
       )
-    )
+    )$message,'Errors found in dfADAE.'
+   )
 
-    # renaming or dropping non-required cols is fine
-    expect_silent(
-        AE_Map_Adam(
-            safetyData::adam_adsl %>% rename(Oldness=AGE),
-            safetyData::adam_adae %>% select(-RACE)
-        )
-    )
+   # renaming or dropping non-required cols is fine
+     expect_message(
+       AE_Map_Adam(
+         safetyData::adam_adsl %>% rename(Oldness=AGE),
+         safetyData::adam_adae %>% select(-RACE)
+         )
+       )
+
 })
 

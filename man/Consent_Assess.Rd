@@ -4,17 +4,17 @@
 \alias{Consent_Assess}
 \title{Consent Assessment}
 \usage{
-Consent_Assess(dfInput, nThreshold = 0.5, strLabel = "")
+Consent_Assess(dfInput, nThreshold = 0.5, lTags = list(Assessment = "Consent"))
 }
 \arguments{
 \item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count.}
 
 \item{nThreshold}{Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.}
 
-\item{strLabel}{Assessment label.}
+\item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="Consent")}}
 }
 \value{
-A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, and \code{lParams}) is returned.
+A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, \code{lParams} and \code{lTags}) is returned.
 }
 \description{
 Consent Assessment
@@ -43,7 +43,7 @@ The Assessment
 \section{Statistical Assumptions}{
 
 
-This Assessment finds any sites where one or more subjects meets any of the following citeria: No Consent, Missing Consent, Missing Randomization Date, or
+This Assessment finds any sites where one or more subjects meets any of the following criteria: No Consent, Missing Consent, Missing Randomization Date, or
 Consent date later in time than the Randomization Date. 'N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
 With N greater than user specified \code{nThreshold} will be flagged.
 }

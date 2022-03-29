@@ -4,17 +4,17 @@
 \alias{IE_Assess}
 \title{Inclusion/Exclusion Assessment}
 \usage{
-IE_Assess(dfInput, nThreshold = 0.5, strLabel = "")
+IE_Assess(dfInput, nThreshold = 0.5, lTags = list(Assessment = "IE"))
 }
 \arguments{
 \item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count,}
 
 \item{nThreshold}{Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.}
 
-\item{strLabel}{Assessment label}
+\item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="IE")}}
 }
 \value{
-A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, and \code{lParams}) is returned.
+A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, \code{lParams} and \code{lTags}) is returned.
 }
 \description{
 Inclusion/Exclusion Assessment
