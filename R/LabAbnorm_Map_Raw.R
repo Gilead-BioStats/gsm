@@ -40,15 +40,17 @@
 #'  
 #'   
 #'  dfRDSL <- clindata::rawplus_rdsl %>% dplyr::filter(!is.na(TimeOnTreatment))
+#'  dfLab <- clindata::rawplus_covlab[1:10000, ]
 #'  
-#'   # [1:10000,] added to minimize cpu time.
-#'  
-#'  dfInput <- LabAbnorm_Map_Raw( clindata::rawplus_covlab[1:10000, ], dfRDSL)
-#'  
-#'  dfInput <- LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab[1:10000, ],  
-#'             dfRDSL = dfRDSL,strTypeCol = 'LBTEST',strTypeValue ="ALT (SGPT)",
-#'             strFlagCol = 'TOXFLG', strFlagValue = 1 )
 #'
+#'  dfInput <- LabAbnorm_Map_Raw(dfLab, dfRDSL)
+#'
+#'  dfInput <- LabAbnorm_Map_Raw(dfLab,
+#'                               dfRDSL,
+#'                               strTypeCol = 'LBTEST',
+#'                               strTypeValue ="ALT (SGPT)",
+#'                               strFlagCol = 'TOXFLG', 
+#'                               strFlagValue = 1)
 #' @import dplyr
 #'
 #' @export
