@@ -16,7 +16,7 @@ Visualize_Count(
 
 \item{strTotalCol}{Column containing total of site-level participants. Default is "N" from \code{\link{Transform_EventCount}}.}
 
-\item{strCountCol}{Column containing total number of site-level occurances. Default is "TotalCount" from \code{\link{Transform_EventCount}}.}
+\item{strCountCol}{Column containing total number of site-level occurrences. Default is "TotalCount" from \code{\link{Transform_EventCount}}.}
 
 \item{strTitle}{Title of plot. NULL by default.}
 }
@@ -40,7 +40,7 @@ IE_Assess <- IE_Assess(IE_Input)
 Visualize_Count(IE_Assess$dfAnalyzed)
 
 library(dplyr)
-raw_consent <- clindata::raw_ic_elig \%>\% 
+raw_consent <- clindata::raw_ic_elig \%>\%
    select( c("SUBJID","DSSTDAT_RAW") )\%>\%
    mutate( CONSCAT_STD = "MAINCONSENT", CONSYN="Y") \%>\%
    rename( CONSDAT = DSSTDAT_RAW ) \%>\%
