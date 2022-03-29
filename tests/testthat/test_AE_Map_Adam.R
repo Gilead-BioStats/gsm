@@ -68,7 +68,7 @@ test_that("error given if required column not found",{
             safetyData::adam_adsl %>% rename(ID = USUBJID),
             safetyData::adam_adae
         )
-    )$message,'Column `USUBJID` not found in `.data`'
+    )$message,'Column `USUBJID` not found in `.data`.'
    )
 
    expect_equal(
