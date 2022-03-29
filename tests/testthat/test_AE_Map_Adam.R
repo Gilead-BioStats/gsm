@@ -31,10 +31,34 @@ test_that("all data is mapped and summarized correctly",{
 })
 
 test_that("incorrect inputs throw errors",{
-    expect_equal(expect_error(AE_Map_Adam(list(), list()))$message, "is.data.frame(dfADSL) is not TRUE" )
-    expect_equal(expect_error(AE_Map_Adam( safetyData::adam_adsl, list()))$message, "is.data.frame(dfADAE) is not TRUE" )
-    expect_equal(expect_error(AE_Map_Adam(list(),  safetyData::adam_adae))$message, "is.data.frame(dfADSL) is not TRUE" )
-    expect_equal(expect_error(AE_Map_Adam("Hi","Mom"))$message, "is.data.frame(dfADSL) is not TRUE" )
+
+    expect_equal(
+      expect_error(
+        AE_Map_Adam(list(), list()) %>% suppressMessages()
+        )$message,
+      "Errors found in dfADSL."
+      )
+
+    expect_equal(
+      expect_error(
+        AE_Map_Adam(safetyData::adam_adsl, list()) %>% suppressMessages()
+        )$message,
+      "Errors found in dfADAE."
+      )
+
+    expect_equal(
+      expect_error(
+        AE_Map_Adam(list(), safetyData::adam_adae) %>% suppressMessages()
+        )$message,
+      "Errors found in dfADSL."
+      )
+
+    expect_equal(
+      expect_error(
+        AE_Map_Adam("Hi","Mom") %>% suppressMessages()
+        )$message,
+      "Errors found in dfADSL."
+      )
 })
 
 test_that("error given if required column not found",{
@@ -44,16 +68,16 @@ test_that("error given if required column not found",{
             safetyData::adam_adsl %>% rename(ID = USUBJID),
             safetyData::adam_adae
         )
-    )$message,'all(c("USUBJID", "SITEID", "TRTEDT", "TRTSDT") %in% names(dfADSL)) is not TRUE'
+    )$message,'Column `USUBJID` not found in `.data`'
    )
-  
+
    expect_equal(
     expect_error(
         AE_Map_Adam(
             safetyData::adam_adsl %>% rename(EndDay = TRTEDT),
             safetyData::adam_adae
         )
-    )$message,'all(c("USUBJID", "SITEID", "TRTEDT", "TRTSDT") %in% names(dfADSL)) is not TRUE'
+    )$message,'Errors found in dfADSL.'
    )
    expect_equal(
     expect_error(
@@ -61,7 +85,7 @@ test_that("error given if required column not found",{
             safetyData::adam_adsl %>% select(-TRTSDT),
             safetyData::adam_adae
         )
-    )$message,'all(c("USUBJID", "SITEID", "TRTEDT", "TRTSDT") %in% names(dfADSL)) is not TRUE'
+    )$message,'Errors found in dfADSL.'
    )
    expect_equal(
     expect_error(
@@ -69,15 +93,16 @@ test_that("error given if required column not found",{
         safetyData::adam_adsl ,
         safetyData::adam_adae  %>% select(-USUBJID)
       )
-    )$message,'"USUBJID" %in% names(dfADAE) is not TRUE'
+    )$message,'Errors found in dfADAE.'
    )
 
-    # renaming or dropping non-required cols is fine
-    expect_silent(
-        AE_Map_Adam(
-            safetyData::adam_adsl %>% rename(Oldness=AGE),
-            safetyData::adam_adae %>% select(-RACE)
-        )
-    )
+   # renaming or dropping non-required cols is fine
+     expect_message(
+       AE_Map_Adam(
+         safetyData::adam_adsl %>% rename(Oldness=AGE),
+         safetyData::adam_adae %>% select(-RACE)
+         )
+       )
+
 })
 

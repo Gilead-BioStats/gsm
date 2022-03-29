@@ -93,7 +93,8 @@ AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
         summarize(Count=n()) %>%
         ungroup() %>%
         mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>%
-        mutate(Rate = .data$Count/.data$Exposure)
+        mutate(Rate = .data$Count/.data$Exposure) %>%
+        select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate)
 
     return(dfInput)
 }

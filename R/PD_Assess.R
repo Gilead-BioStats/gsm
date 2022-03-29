@@ -21,9 +21,9 @@
 #'
 #' @section Statistical Assumptions:
 #'
-#' A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the `strMethod` parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in `vThreshold`. In the Poisson model, sites with an estimand less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
+#' A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the `strMethod` parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in `vThreshold`. In the Poisson model, sites with an estimate less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
 #'
-#' See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and thier assumptions.
+#' See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and their assumptions.
 #'
 #' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure, Rate.
 #' @param vThreshold list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon.
@@ -58,11 +58,13 @@ PD_Assess <- function(dfInput, vThreshold=NULL,strMethod="poisson", lTags=list(A
         )
     }
 
-    lAssess <- list()
-    lAssess$strFunctionName <- deparse(sys.call()[1])
-    lAssess$lParams <- lapply(as.list(match.call()[-1]), function(x) as.character(x))
-    lAssess$lTags <- lTags
-    lAssess$dfInput <- dfInput
+    lAssess <- list(
+        strFunctionName = deparse(sys.call()[1]),
+        lParams = lapply(as.list(match.call()[-1]), function(x) as.character(x)),
+        lTags = lTags,
+        dfInput = dfInput
+    )
+
     lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure")
 
     if(strMethod == "poisson"){
@@ -97,4 +99,5 @@ PD_Assess <- function(dfInput, vThreshold=NULL,strMethod="poisson", lTags=list(A
     }
 
     return(lAssess)
+
 }

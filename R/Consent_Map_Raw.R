@@ -82,15 +82,10 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentTypeVa
 
   stopifnot(
     "Errors found in dfConsent." = is_consent_valid$status,
-    "Errors found in dfRDSL." = is_rdsl_valid$status
+    "Errors found in dfRDSL." = is_rdsl_valid$status,
+    "strConsentTypeValue is not character"= is.character(strConsentTypeValue),
+    "strConsentTypeValue has multiple values, specify only one" = length(strConsentTypeValue)==1
   )
-
-  if(!is.null(strConsentTypeValue)){
-    stopifnot(
-      "strConsentTypeValue is not character"=is.character(strConsentTypeValue),
-      "strConsentTypeValue has multiple values, specify only one"= length(strConsentTypeValue)==1
-    )
-  }
 
   # Standarize Column Names
   dfRDSL_mapped <- dfRDSL %>%
