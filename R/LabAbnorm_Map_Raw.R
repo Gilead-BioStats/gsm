@@ -29,7 +29,7 @@
 #' @param dfLab dfLab dataset with required column SUBJID and rows for each AE record
 #' @param dfRDSL Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol
 #' @param strExposureCol Name of exposure column. 'TimeOnTreatment' by default
-#' @param strTypeCol Name dfLab colum to key on. Default = NULL for no filtering.
+#' @param strTypeCol Name of `dfLab` column to key on. Default = NULL for no filtering.
 #' @param strTypeValue Name values in strTypeCol to keep.  Default = NULL for no filtering.
 #' @param strFlagCol Name of Flagging column. Default = NULL for no filtering.
 #' @param strFlagValue value of strFlagCol to keep. Default = NULL for no filtering.
