@@ -8,7 +8,7 @@
 #'
 #' @section Data Specification:
 #'
-#' This function creates an input dataset for the Adverse Event Assessment (\code{\link{LabAbnorm_Assess}}) by adding Adverse Event Counts to basic subject-level treatment exposure data from `clindata::TreatmentExposure`.
+#' This function creates an input dataset for the LabAbnorm Assessment (\code{\link{LabAbnorm_Assess}}) by adding LabAbnorm Event Counts to basic subject-level treatment exposure data from `clindata::TreatmentExposure`.
 #'
 #' The following columns are required:
 #' - `dfLab`
