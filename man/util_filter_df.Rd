@@ -22,5 +22,4 @@ Utility Function for Filtering Dataframes
 \examples{
 util_filter_df(clindata::rawplus_covlab, strCol = "TOXFLG", strValue = 1 )
 
-
 }

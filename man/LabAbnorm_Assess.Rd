@@ -8,8 +8,8 @@ The Lab Abnormality Assessment flags sites that may be reporting abnormal lab re
 LabAbnorm_Assess(
   dfInput,
   vThreshold = NULL,
-  strLabel = "",
-  strMethod = "poisson"
+  strMethod = "poisson",
+  lTags = list(Assessment = "AE")
 )
 }
 \arguments{
@@ -17,9 +17,9 @@ LabAbnorm_Assess(
 
 \item{vThreshold}{numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.}
 
-\item{strLabel}{Assessment label}
-
 \item{strMethod}{valid methods are "poisson" (the default), or  "wilcoxon"}
+
+\item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="AE")}.}
 }
 \value{
 If \code{bDataList} is false (the default), the summary data frame (\code{dfSummary}) is returned. If \code{bDataList} is true, a list containing all data in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged} and \code{dfSummary}) is returned.

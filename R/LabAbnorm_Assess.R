@@ -28,8 +28,8 @@
 #'
 #' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure
 #' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.
-#' @param strLabel Assessment label
 #' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon"
+#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE")`.
 #' 
 #' @examples
 #' dfInput <- LabAbnorm_Map_Adam( safetyData::adam_adsl, safetyData::adam_adlbc )
@@ -40,13 +40,12 @@
 #'
 #' @export
 
-LabAbnorm_Assess <-function( dfInput, vThreshold=NULL, strLabel="", strMethod="poisson"){
+LabAbnorm_Assess <-function( dfInput, vThreshold=NULL, strMethod="poisson",lTags=list(Assessment="AE")){
   
   
   
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
-    "strLabel is not character" = is.character(strLabel),
     "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson","wilcoxon"),
     "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count","Exposure", "Rate") %in% names(dfInput)),
     "strMethod must be length 1" = length(strMethod) == 1
@@ -66,7 +65,7 @@ LabAbnorm_Assess <-function( dfInput, vThreshold=NULL, strLabel="", strMethod="p
     }
     lAssess$dfAnalyzed <- gsm::Analyze_Poisson( lAssess$dfTransformed)
     lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , strColumn = 'Residuals', vThreshold =vThreshold)
-    lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol = 'Residuals', strAssessment="Safety", strLabel= strLabel)
+    lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol = 'Residuals', lTags = lTags)
     
   } else if(strMethod=="wilcoxon"){
     if(is.null(vThreshold)){
@@ -81,7 +80,7 @@ LabAbnorm_Assess <-function( dfInput, vThreshold=NULL, strLabel="", strMethod="p
     }
     lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed , strOutcome = "Rate" )
     lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold, strValueColumn = 'Estimate')
-    lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strAssessment="Safety", strLabel= strLabel)
+    lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged,  lTags = lTags)
   }
   
   

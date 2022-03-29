@@ -26,7 +26,7 @@
 #' Note that the function can generate data summaries for specific types of Lab Abnormalities, but passing filtered Lab data to dfLab.
 #'
 #'
-#' @param dfLab dfLab dataset with required column SUBJID and rows for each AE record
+#' @param dfLab dfLab dataset with required column SUBJID and rows for each record
 #' @param dfRDSL Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol
 #' @param strExposureCol Name of exposure column. 'TimeOnTreatment' by default
 #' @param strTypeCol Name of `dfLab` column to key on. Default = NULL for no filtering.
@@ -34,7 +34,7 @@
 #' @param strFlagCol Name of Flagging column. Default = NULL for no filtering.
 #' @param strFlagValue value of strFlagCol to keep. Default = NULL for no filtering.
 #'
-#' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of Lab records), Exposure (Time on Treatment in Days), Rate (AE/Day)
+#' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of Lab records), Exposure (Time on Treatment in Days), Rate (Lab Record/Day)
 #'
 #' @examples
 #'  

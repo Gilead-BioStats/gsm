@@ -15,13 +15,13 @@ LabAbnorm_Map_Raw(
 )
 }
 \arguments{
-\item{dfLab}{dfLab dataset with required column SUBJID and rows for each AE record}
+\item{dfLab}{dfLab dataset with required column SUBJID and rows for each record}
 
 \item{dfRDSL}{Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol}
 
 \item{strExposureCol}{Name of exposure column. 'TimeOnTreatment' by default}
 
-\item{strTypeCol}{Name dfLab colum to key on. Default = NULL for no filtering.}
+\item{strTypeCol}{Name of \code{dfLab} column to key on. Default = NULL for no filtering.}
 
 \item{strTypeValue}{Name values in strTypeCol to keep.  Default = NULL for no filtering.}
 
@@ -30,7 +30,7 @@ LabAbnorm_Map_Raw(
 \item{strFlagValue}{value of strFlagCol to keep. Default = NULL for no filtering.}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of Lab records), Exposure (Time on Treatment in Days), Rate (AE/Day)
+Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of Lab records), Exposure (Time on Treatment in Days), Rate (Lab Record/Day)
 }
 \description{
 Convert Raw data, typically processed case report form data - to input format for Lab Abnormality Assessment.
@@ -73,13 +73,15 @@ Note that the function can generate data summaries for specific types of Lab Abn
  
   
  dfRDSL <- clindata::rawplus_rdsl \%>\% dplyr::filter(!is.na(TimeOnTreatment))
+ dfLab <- clindata::rawplus_covlab[1:10000, ]
  
-  # [1:10000,] added to minimize cpu time.
- 
- dfInput <- LabAbnorm_Map_Raw( clindata::rawplus_covlab[1:10000, ], dfRDSL)
- 
- dfInput <- LabAbnorm_Map_Raw(dfLab = clindata::rawplus_covlab[1:10000, ],  
-            dfRDSL = dfRDSL,strTypeCol = 'LBTEST',strTypeValue ="ALT (SGPT)",
-            strFlagCol = 'TOXFLG', strFlagValue = 1 )
 
+ dfInput <- LabAbnorm_Map_Raw(dfLab, dfRDSL)
+
+ dfInput <- LabAbnorm_Map_Raw(dfLab,
+                              dfRDSL,
+                              strTypeCol = 'LBTEST',
+                              strTypeValue ="ALT (SGPT)",
+                              strFlagCol = 'TOXFLG', 
+                              strFlagValue = 1)
 }

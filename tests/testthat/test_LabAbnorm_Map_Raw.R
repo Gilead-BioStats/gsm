@@ -63,10 +63,6 @@ test_that("incomplete or invalid filter parameters throw warnings",{
   
 })
 
-#' @param strTypeCol Name dfLab colum to key on. Default = NULL for no filtering.
-#' @param strTypeValue Name values in strTypeCol to keep.  Default = NULL for no filtering.
-#' @param strFlagCol Name of Flagging column. Default = NULL for no filtering.
-#' @param strFlagValue value of strFlagCol to keep. Default = NULL for no filtering.
 
 test_that("error given if required column not found",{
   expect_error(

@@ -19,7 +19,7 @@ test_that("entire dataframe returned if strCol or strValue not found or NULL", {
 
 test_that("filtered results are returned correctly", {
   
-  data <- util_filter_df(covlab, strCol = "LBTEST", strValue = "Monocytes") %>% 
+  data <- util_filter_df(clindata::rawplus_covlab, strCol = "LBTEST", strValue = "Monocytes") %>% 
     pull(LBTEST)
   
   expect_true(all(data == "Monocytes"))
