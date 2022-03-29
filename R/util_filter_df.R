@@ -8,12 +8,11 @@
 #' @import dplyr
 #'
 #' @return Filtered dataframe if strCol != NULL and strValue != NULL, otherwise input dataframe will be returned.
-#' @export
 #'
 #' @examples
 #' util_filter_df(clindata::rawplus_covlab, strCol = "TOXFLG", strValue = 1 )
 #' 
-#' 
+#' @export
 util_filter_df <- function(df, strCol = NULL,strValue =  NULL ){
   
   dfname <-deparse(substitute(df))
