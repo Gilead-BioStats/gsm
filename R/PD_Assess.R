@@ -58,11 +58,13 @@ PD_Assess <- function(dfInput, vThreshold=NULL,strMethod="poisson", lTags=list(A
         )
     }
 
-    lAssess <- list()
-    lAssess$strFunctionName <- deparse(sys.call()[1])
-    lAssess$lParams <- lapply(as.list(match.call()[-1]), function(x) as.character(x))
-    lAssess$lTags <- lTags
-    lAssess$dfInput <- dfInput
+    lAssess <- list(
+        strFunctionName = deparse(sys.call()[1]),
+        lParams = lapply(as.list(match.call()[-1]), function(x) as.character(x)),
+        lTags = lTags,
+        dfInput = dfInput
+    )
+
     lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure")
 
     if(strMethod == "poisson"){
@@ -97,4 +99,5 @@ PD_Assess <- function(dfInput, vThreshold=NULL,strMethod="poisson", lTags=list(A
     }
 
     return(lAssess)
+
 }
