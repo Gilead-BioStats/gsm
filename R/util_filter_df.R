@@ -64,7 +64,7 @@ util_filter_df <- function(df, strCol = NULL,strValue =  NULL ){
         warning(paste0("No ", strValue," rows found in column ", strCol," of ",dfname,". No filtering on ", strCol, " == ", strValue, " will be done"))
       }
     }else{
-      warning(paste0(strCol," is not a colname in ",dfname,", no filtering on ", strCol, " == ", strValue, " was be done"))
+      warning(paste0(strCol," is not a colname in ",dfname,", no filtering on ", strCol, " == ", strValue, " will be done"))
     }
   }
   
