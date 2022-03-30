@@ -9,10 +9,10 @@ requiredParameters:
   ae:
     - strIDCol
     - strTECol
-  demog: 
+  subj: 
     - strIDCol
     - strSiteCol
     - strExposureCol 
-filter:
+filters:
   ae:
-    - strTECol
+    strTreatementEmergentCol: TRUE

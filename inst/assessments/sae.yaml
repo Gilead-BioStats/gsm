@@ -15,7 +15,7 @@ requiredParameters:
     - strIDCol
     - strSiteCol
     - strExposureCol 
-filter:
+filters:
   ae:
-    - strTECol
-    - strSeriousCol
+    strTreatementEmergentCol : TRUE
+    strSeriousCol : "YES"
