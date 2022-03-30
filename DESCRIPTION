@@ -19,12 +19,15 @@ Suggests:
     clindata,
     covr,
     devtools,
+    here,
     kableExtra,
     knitr,
+    rlang,
     rmarkdown,
     safetyData,
     testthat (>= 3.0.0),
     tibble,
+    usethis,
     valtools
 LazyData: true
 Remotes: 
