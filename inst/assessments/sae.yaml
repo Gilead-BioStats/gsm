@@ -9,12 +9,12 @@ assessment:
 requiredParameters:
   ae:
     - strIDCol
-    - strTECol
+    - strTreatementEmergentCol
     - strSeriousCol
   subj: 
     - strIDCol
     - strSiteCol
-    - strExposureCol 
+    - strTimeOnTreatmentCol 
 filters:
   ae:
     strTreatementEmergentCol : TRUE

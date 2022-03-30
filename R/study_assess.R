@@ -102,13 +102,16 @@ Study_Assess <- function(
             df <- assessment$lRaw[[domain]]
             mapping <- lMapping[[domain]]
             requiredParams <- assessment$requiredParameters[[domain]]
+            print(requiredParams)
             message(paste0("--- Checking ",domain," domain."))
+            message("-----------------------------------------------")
             check <- is_mapping_valid(
                 df=df,
                 mapping=mapping,
                 vRequiredParams = requiredParams,
                 bQuiet=bQuiet
             ) 
+            message("-----------------------------------------------")
             # TODO add support for checking vUniqueCols and vNACols
             if(check$status){
                 message(paste0("--- ",domain, " meets requirements."))
