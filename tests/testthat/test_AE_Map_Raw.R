@@ -137,7 +137,7 @@ test_that("all data is mapped and summarized correctly",{
     left_join(AE_counts, by = c("SubjectID" = "SUBJID")) %>%
     mutate(Count = replace(Count, is.na(Count), 0),
            Rate = Count / TimeOnTreatment) %>%
-    select(SubjectID, SiteID, Exposure = TimeOnTreatment, Count, Rate)
+    select(SubjectID, SiteID, Count, Exposure = TimeOnTreatment, Rate)
 
   expect_equal(
     AE_Map_Raw(input1, input2),
