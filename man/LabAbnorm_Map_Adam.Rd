@@ -4,12 +4,14 @@
 \alias{LabAbnorm_Map_Adam}
 \title{LabAbnorm Assessment - ADaM Mapping}
 \usage{
-LabAbnorm_Map_Adam(dfADSL, dfADLB)
+LabAbnorm_Map_Adam(dfADSL, dfADLB, mapping = NULL)
 }
 \arguments{
 \item{dfADSL}{ADaM demographics data with the following required columns:  USUBJID, SITEID, TRTEDT (end date), TRTSDT (start date)}
 
 \item{dfADLB}{ADaM Lab data with the following required columns: USUBJID}
+
+\item{mapping}{List containing expected columns in each data set. By default, mapping for dfADLB is: \code{strIDCol} = "SUBJID". By default, mapping for dfRDSL is: \code{strIDCol} = "SubjectID", \code{strSiteCol} = "SiteID", and \code{strExposureCol} = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (Number of Adverse Events), Exposure (Time on Treatment in Days), Rate (AEs/Day)
@@ -34,7 +36,7 @@ The following columns are required:
 \item \code{TRTEDT} - Treatment End date
 \item \code{TRTSDT} - Treatment Start date
 }
-\item \code{dfADB}
+\item \code{dfADLB}
 \itemize{
 \item \code{USUBJID} - Unique subject ID
 }

@@ -16,13 +16,15 @@
 #'   - `SITEID` - Site ID
 #'   - `TRTEDT` - Treatment End date
 #'   - `TRTSDT` - Treatment Start date
-#' - `dfADB`
+#' - `dfADLB`
 #'    - `USUBJID` - Unique subject ID
 #'
 #' Note that the function can generate data summaries for specific types of Lab Measurements by passing filtered ADAE data to dfADAE.
 #'
 #' @param dfADSL ADaM demographics data with the following required columns:  USUBJID, SITEID, TRTEDT (end date), TRTSDT (start date)
 #' @param dfADLB ADaM Lab data with the following required columns: USUBJID
+#' @param mapping List containing expected columns in each data set. By default, mapping for dfADLB is: `strIDCol` = "SUBJID". By default, mapping for dfRDSL is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
+#'
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (Number of Adverse Events), Exposure (Time on Treatment in Days), Rate (AEs/Day)
 #'
@@ -33,16 +35,48 @@
 #'
 #' @export
 
-LabAbnorm_Map_Adam <- function( dfADSL, dfADLB ){
+LabAbnorm_Map_Adam <- function( dfADSL, dfADLB, mapping = NULL ){
   
-    stopifnot(
-      is.data.frame(dfADSL),
-      is.data.frame(dfADLB),
-      all(c("USUBJID", "SITEID", "TRTEDT", "TRTSDT") %in% names(dfADSL)),
-      "USUBJID" %in% names(dfADLB),
-      "NAs found in SUBJID column of dfADSL" = all(!is.na(dfADSL$USUBJID)),
-      "NAs found in USUBJID column of dfADLB" = all(!is.na(dfADLB$USUBJID))
+  # Set defaults for mapping if none is provided
+  if(is.null(mapping)){
+    mapping <- list(
+      dfADSL = list(strIDCol="SUBJID", strSiteCol = "SITEID", strStartCol = "TRTSDT", strEndCol = "TRTEDT"),
+      dfADLB = list(strIDCol="USUBJID")
     )
+  }
+  
+  # Check input data vs. mapping.
+  is_adsl_valid <- is_mapping_valid(
+    dfADSL,
+    mapping$dfADSL,
+    vRequiredParams = c("strIDCol", "strSiteCol", "strStartCol", "strEndCol"),
+    bQuiet = FALSE
+  )
+  
+  is_adlb_valid <- is_mapping_valid(
+    dfADLB,
+    mapping$dfADLB,
+    vRequiredParams = c("strIDCol"),
+    vUniqueCols = mapping$dfRDSL$strIDCol,
+    bQuiet = FALSE
+  )
+  
+  stopifnot(
+    "Errors found in dfADSL." = is_adsl_valid$status,
+    "Errors found in dfADLB." = is_adlb_valid$status
+  )
+  
+  
+  
+  
+    # stopifnot(
+    #   is.data.frame(dfADSL),
+    #   is.data.frame(dfADLB),
+    #   all(c("USUBJID", "SITEID", "TRTEDT", "TRTSDT") %in% names(dfADSL)),
+    #   "USUBJID" %in% names(dfADLB),
+    #   "NAs found in SUBJID column of dfADSL" = all(!is.na(dfADSL$USUBJID)),
+    #   "NAs found in USUBJID column of dfADLB" = all(!is.na(dfADLB$USUBJID))
+    # )
     
     dfInput <-  dfADSL %>%
       rename(SubjectID = .data$USUBJID) %>%
