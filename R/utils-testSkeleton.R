@@ -4,12 +4,17 @@
 #'
 #' @examples
 #' \dontrun{
+#' use_gsm_test() # default is "map"
 #' use_gsm_test("map")
 #' use_gsm_test("assess")
 #' }
-use_gsm_test <- function(type = NULL) {
+use_gsm_test <- function(type = "map") {
 
-  if (tolower(type) == "map" | is.null(type)) {
+  stopifnot(
+    '"type" must be "map" or "assess"' = tolower(type) %in% c("map", "assess")
+    )
+
+  if (tolower(type) == "map") {
     fileName <- "/testthat_map.R"
   }
 
@@ -17,6 +22,14 @@ use_gsm_test <- function(type = NULL) {
     fileName <- "/testthat_assess.R"
   }
 
-  path <- paste0(here::here("inst", "templates"), fileName)
-  usethis::edit_file(path, open = rlang::is_interactive())
+  path <- paste0(
+    here::here("inst", "templates"),
+    fileName
+    )
+
+  usethis::edit_file(
+    path = path,
+    open = rlang::is_interactive()
+  )
+
 }

@@ -4,7 +4,7 @@
 \alias{use_gsm_test}
 \title{Create testthat skeleton}
 \usage{
-use_gsm_test(type = NULL)
+use_gsm_test(type = "map")
 }
 \arguments{
 \item{type}{Choose "map" or "assess", depending on the type of test file you need.}
@@ -14,6 +14,7 @@ Create testthat skeleton
 }
 \examples{
 \dontrun{
+use_gsm_test() # default is "map"
 use_gsm_test("map")
 use_gsm_test("assess")
 }
