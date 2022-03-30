@@ -40,8 +40,7 @@
 #'  
 #'   
 #'  dfRDSL <- clindata::rawplus_rdsl %>% dplyr::filter(!is.na(TimeOnTreatment))
-#'  dfLab <-  clindata::rawplus_covlab_hema[1:10000,] %>%
-#'  filter(.data$SUBJID != "")
+#'  dfLab <-  clindata::rawplus_covlab_hema[1:10000,] %>% filter(.data$SUBJID != "")
 #'  
 #'
 #'  dfInput <- LabAbnorm_Map_Raw(dfLab, dfRDSL)
