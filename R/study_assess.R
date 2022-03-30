@@ -109,7 +109,8 @@ Study_Assess <- function(
                 df=df,
                 mapping=mapping,
                 vRequiredParams = requiredParams,
-                bQuiet=bQuiet
+                bQuiet=bQuiet,
+                bKeepAllParams=FALSE
             ) 
             message("-----------------------------------------------")
             # TODO add support for checking vUniqueCols and vNACols
