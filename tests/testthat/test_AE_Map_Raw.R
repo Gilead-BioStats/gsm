@@ -31,6 +31,7 @@ test_that("output created as expected and has correct structure",{
 })
 
 
+
 test_that("incorrect inputs throw errors",{
   expect_snapshot_error(
     AE_Map_Raw(

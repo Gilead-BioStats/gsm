@@ -17,7 +17,7 @@
 #' - `TotalExposure` - Number of days of exposure
 #'
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
-#' @param vThreshold upper and lower boundaries in residual space. Should be identical to the threhsolds used AE_Assess().
+#' @param vThreshold upper and lower boundaries in residual space. Should be identical to the thresholds used AE_Assess().
 #'
 #' @importFrom stats glm offset poisson pnorm
 #' @importFrom broom augment
