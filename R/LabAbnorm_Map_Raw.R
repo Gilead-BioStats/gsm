@@ -28,7 +28,7 @@
 #'
 #' @param dfLab dfLab dataset with required column SUBJID and rows for each record
 #' @param dfRDSL Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol
-#' @param strExposureCol Name of exposure column. 'TimeOnTreatment' by default
+#' @param mapping List containing expected columns in each data set. By default, mapping for dfLab is: `strIDCol` = "SUBJID". By default, mapping for dfRDSL is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
 #' @param strTypeCol Name of `dfLab` column to key on. Default = NULL for no filtering.
 #' @param strTypeValue Name values in strTypeCol to keep.  Default = NULL for no filtering.
 #' @param strFlagCol Name of Flagging column. Default = NULL for no filtering.
@@ -55,31 +55,64 @@
 #'
 #' @export
 
-LabAbnorm_Map_Raw <- function( dfLab, dfRDSL, strExposureCol='TimeOnTreatment',strTypeCol = NULL,strTypeValue =  NULL, strFlagCol = NULL, strFlagValue = NULL   ){
+LabAbnorm_Map_Raw <- function( dfLab, dfRDSL, mapping = NULL, strTypeCol = NULL,strTypeValue =  NULL, strFlagCol = NULL, strFlagValue = NULL   ){
   
 
-    stopifnot(
-        "dfLab dataset not found"=is.data.frame(dfLab),
-        "RDSL dataset is not found"=is.data.frame(dfRDSL),
-        "SUBJID column not found in dfLab"="SUBJID" %in% names(dfLab),
-        "strExposureCol is not character"=is.character(strExposureCol),
-        "SubjectID, SiteID and strExposureCol columns not found in dfRDSL"=all(c("SubjectID","SiteID",strExposureCol) %in% names(dfRDSL)),
-        "NAs found in SUBJID column of dfLab" = all(!is.na(dfLab$SUBJID)),
-        "NAs found in Subject ID column of dfRDSL" = all(!is.na(dfRDSL$SubjectID)),
-        "NAs found in SiteID column of dfRDSL" = all(!is.na(dfRDSL$SiteID))
-    )
-    
   dfLab <- util_filter_df(dfLab,strTypeCol,strTypeValue )
   
   dfLab <- util_filter_df(dfLab,strFlagCol,strFlagValue )
 
-    dfInput <-  dfRDSL %>%
-        rowwise() %>%
-        mutate(Count =sum(dfLab$SUBJID==.data$SubjectID, na.rm = TRUE)) %>%
-        rename(Exposure = all_of(strExposureCol)) %>%
-        mutate(Rate = .data$Count/.data$Exposure) %>%
-        select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
-        ungroup()
+    # Set defaults for mapping if none is provided
+    if(is.null(mapping)){
+      mapping <- list(
+        dfLab = list(strIDCol="SUBJID"),
+        dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
+      )
+    }
+    
+    # Check input data vs. mapping.
+    is_lab_valid <- is_mapping_valid(
+     dfLab,
+      mapping$dfLab,
+      vRequiredParams = c("strIDCol"),
+      bQuiet = FALSE
+    )
+    
+    is_rdsl_valid <- is_mapping_valid(
+      dfRDSL,
+      mapping$dfRDSL,
+      vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"),
+      vUniqueCols = mapping$dfRDSL$strIDCol,
+      bQuiet = FALSE
+    )
+    
+    stopifnot(
+      "Errors found in dfLab." = is_lab_valid$status,
+      "Errors found in dfRDSL." = is_rdsl_valid$status
+    )
+    
+    # Standarize Column Names
+    dfLab_mapped <- dfLab %>%
+      rename(SubjectID = mapping[["dfLab"]][["strIDCol"]]) %>%
+      select(.data$SubjectID)
+    
+    dfRDSL_mapped <- dfRDSL %>%
+      rename(
+        SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
+        SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
+        Exposure = mapping[["dfRDSL"]][["strExposureCol"]]
+      ) %>%
+      select(.data$SubjectID, .data$SiteID, .data$Exposure)
+    
+    # Create Subject Level Lab Counts and merge RDSL
+    dfInput <- dfLab_mapped %>%
+      group_by(.data$SubjectID) %>%
+      summarize(Count=n()) %>%
+      ungroup() %>%
+      mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>%
+      mutate(Rate = .data$Count/.data$Exposure) %>%
+      select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate)
+    
 
     return(dfInput)
 }

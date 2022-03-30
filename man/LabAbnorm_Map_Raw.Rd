@@ -7,7 +7,7 @@
 LabAbnorm_Map_Raw(
   dfLab,
   dfRDSL,
-  strExposureCol = "TimeOnTreatment",
+  mapping = NULL,
   strTypeCol = NULL,
   strTypeValue = NULL,
   strFlagCol = NULL,
@@ -19,7 +19,7 @@ LabAbnorm_Map_Raw(
 
 \item{dfRDSL}{Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol}
 
-\item{strExposureCol}{Name of exposure column. 'TimeOnTreatment' by default}
+\item{mapping}{List containing expected columns in each data set. By default, mapping for dfLab is: \code{strIDCol} = "SUBJID". By default, mapping for dfRDSL is: \code{strIDCol} = "SubjectID", \code{strSiteCol} = "SiteID", and \code{strExposureCol} = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.}
 
 \item{strTypeCol}{Name of \code{dfLab} column to key on. Default = NULL for no filtering.}
 

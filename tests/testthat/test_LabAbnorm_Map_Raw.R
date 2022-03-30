@@ -1,5 +1,8 @@
 dfRDSL <- clindata::rawplus_rdsl %>% dplyr::filter(!is.na(TimeOnTreatment))
-dfLab <- clindata::rawplus_covlab_hema[1:10000,]
+
+
+dfLab <-  clindata::rawplus_covlab_hema[1:10000,] %>%
+  filter(SUBJID != "")
 
 
 mapping <- list(
@@ -49,8 +52,8 @@ test_that("incorrect inputs throw errors",{
 })
 
 test_that("incomplete or invalid filter parameters throw warnings",{
-  dfLab <- clindata::rawplus_covlab_hema[1:10000,]
-  
+  dfLab <-  clindata::rawplus_covlab_hema[1:10000,] %>%
+    filter(SUBJID != "")
   
   expect_warning( LabAbnorm_Map_Raw(dfLab = dfLab, dfRDSL = dfRDSL, strTypeCol = 'LBTEST',strTypeValue =  NULL, strFlagCol = 'TOXFLG', strFlagValue = 1 ))
   expect_warning( LabAbnorm_Map_Raw(dfLab = dfLab, dfRDSL = dfRDSL, strTypeCol = NULL,strTypeValue =   "ALT (SGPT)", strFlagCol = 'TOXFLG', strFlagValue = 1 ))
@@ -155,6 +158,21 @@ test_that("dfRDSL$SubjectID NA value throws error",{
   expect_error(LabAbnorm_Map_Raw(dfLab = dfLab4, dfRDSL = dfExposure4))
 })
 
+
+test_that("custom mapping runs without errors", {
+  custom_mapping <- list(
+    dfLab= list(strIDCol="SUBJID"),
+    dfRDSL=list(strIDCol="custom_id", strSiteCol="custom_site_id", strExposureCol="trtmnt")
+  )
+  
+  
+  custom_rdsl <- dfRDSL %>%
+    mutate(trtmnt = TimeOnTreatment * 2.025) %>%
+    rename(custom_id = SubjectID,
+           custom_site_id = SiteID)
+  
+  expect_message(LabAbnorm_Map_Raw(dfLab, custom_rdsl, mapping = custom_mapping))
+})
 
 
 
