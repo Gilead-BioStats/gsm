@@ -25,7 +25,7 @@ test_that("output created as expected and has correct structure",{
 
   expect_equal(
     names(data),
-    c("SubjectID", "SiteID", "Exposure", "Count", "Rate")
+    c("SubjectID", "SiteID", "Count", "Exposure", "Rate")
   )
 
 })
