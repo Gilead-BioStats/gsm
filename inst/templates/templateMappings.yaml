@@ -1,0 +1,10 @@
+description: template mappings for unit tests - ae
+domain: gsm
+ae_map:
+  fun: AE_Map_Raw
+  input1: dfAE
+  input2: dfRDSL
+ie_map:
+  fun: IE_Map_Raw
+  input1: dfIE
+  input2: dfRDSL
