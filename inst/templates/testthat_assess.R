@@ -1,5 +1,4 @@
-# RENAME AND SAVE IN tests/testthat
-# https://github.com/r-lib/usethis/blob/main/inst/templates/testthat.R
+source(testthat::test_path("testdata/data.R"))
 
 # 1. output created as expected -------------------------------------------
 test_that("output created as expected", {

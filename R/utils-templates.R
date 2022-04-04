@@ -23,13 +23,15 @@ use_gsm_test <- function(mapping = NULL) {
   }
 
   create <- yaml::read_yaml(here::here("inst", "templates", "templateMappings.yaml"))
+
   create <- create[[mapping]]
+
+  outputDir <- paste0(here::here("tests", "testthat"), "/test_AUTO", create[["fun"]], ".R")
+
   skeleton <- readLines(here::here("inst", "templates", "testthat_map.R")) %>%
     stringr::str_replace("X_Map_Raw", create[["fun"]]) %>%
     stringr::str_replace("input1", create[["input1"]]) %>%
     stringr::str_replace("input2", create[["input2"]])
-
-  outputDir <- paste0(here::here("tests", "testthat"), "/test_AUTO", create[["fun"]], ".R")
 
   skeleton %>%
     writeLines(outputDir)

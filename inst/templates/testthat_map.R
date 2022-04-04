@@ -1,3 +1,4 @@
+source(testthat::test_path("testdata/data.R"))
 
 # 1. output created as expected -------------------------------------------
 test_that("output created as expected", {

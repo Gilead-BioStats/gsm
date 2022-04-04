@@ -8,3 +8,14 @@ ie_map:
   fun: IE_Map_Raw
   input1: dfIE
   input2: dfRDSL
+pd_map:
+  fun: PD_Map_Raw
+  input1: dfPD
+  input2: dfRDSL
+consent_map:
+  fun: Consent_Map_Raw
+  input1: dfConsent
+  input2: dfRDSL
+disp_map:
+  fun: Disp_Map
+  input1: dfDisp
