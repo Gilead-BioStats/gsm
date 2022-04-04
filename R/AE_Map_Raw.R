@@ -42,7 +42,7 @@ AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
     if(is.null(mapping)){
         mapping <- list(
             dfAE = list(strIDCol="SUBJID"),
-            dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
+            dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strTimeOnTreatmentCol="TimeOnTreatment")
         )
     }
 
@@ -57,7 +57,7 @@ AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
     is_rdsl_valid <- is_mapping_valid(
         dfRDSL,
         mapping$dfRDSL,
-        vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"),
+        vRequiredParams = c("strIDCol", "strSiteCol", "strTimeOnTreatmentCol"),
         vUniqueCols = mapping$dfRDSL$strIDCol,
         bQuiet = FALSE
     )
@@ -76,7 +76,7 @@ AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
         rename(
             SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
             SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
-            Exposure = mapping[["dfRDSL"]][["strExposureCol"]]
+            Exposure = mapping[["dfRDSL"]][["strTimeOnTreatmentCol"]]
         ) %>%
         select(.data$SubjectID, .data$SiteID, .data$Exposure)
 

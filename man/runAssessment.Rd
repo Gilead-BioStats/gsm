@@ -4,7 +4,7 @@
 \alias{runAssessment}
 \title{Run a single assessment}
 \usage{
-runAssessment(assessment, lData, lMapping, lTags, bQuiet = FALSE)
+runAssessment(assessment, lData, lMapping, lTags = NULL, bQuiet = FALSE)
 }
 \arguments{
 \item{assessment}{assessments}

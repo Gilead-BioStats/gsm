@@ -1,10 +1,10 @@
 description: Treatment-Emergent Serious Adverse Events by SOC
 domain: gsm
 mapping: 
-  function: ae_map_raw
+  functionName: AE_Map_Raw
   params: NULL
 assessment:
-  function: ae_assess
+  functionName: AE_Assess
   params: NULL
 requiredParameters:
   ae:

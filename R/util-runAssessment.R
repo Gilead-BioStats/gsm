@@ -18,12 +18,12 @@
 #' 
 #' @export
 
-runAssessment <- function(assessment, lData, lMapping, lTags, bQuiet=FALSE){
+runAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE){
     amessage <- function(x){
         if(!bQuiet) message(x)
     }    
-
-    amessage(paste0("- Running ",assessment$name," assessment"))
+    assessment$valid <- TRUE
+    amessage(paste0("- ##### ",assessment$name," assessment ##### -"))
         assessment$lRaw<-names(assessment$requiredParameters) %>% map(~lData[[.x]])
         names(assessment$lRaw) <- names(assessment$requiredParameters)
         # TODO check that required data domains are provided in lData
@@ -47,36 +47,58 @@ runAssessment <- function(assessment, lData, lMapping, lTags, bQuiet=FALSE){
             df <- assessment$lRaw[[domain]]
             mapping <- lMapping[[domain]]
             requiredParams <- assessment$requiredParameters[[domain]]
-            amessage(paste0("--- Checking ",domain," domain."))
-            amessage("-----------------------------------------------")
             check <- is_mapping_valid(
                 df=df,
                 mapping=mapping,
                 vRequiredParams = requiredParams,
-                bQuiet=bQuiet,
+                bQuiet=TRUE,
                 bKeepAllParams=FALSE
             ) 
-            amessage("-----------------------------------------------")
             
             # TODO add support for checking vUniqueCols and vNACols
             if(check$status){
                 amessage(paste0("--- ",domain, " meets requirements."))
             }else{
-                amessage(paste0("--- ",domain, " does NOT meet requirements. See `[lAssessments]$",assessment$name,"$checks$",domain,"$tests_if` for details."))
+                amessage(paste0("--- ",domain, " does NOT meet requirements:"))
+                all_warnings <- map(check$tests_if, ~discard(.$warning, is.na)) %>% keep(~!is.null(.x))
+                if (length(all_warnings) > 0) {
+                    all_warnings <- paste("----",unlist(unname(all_warnings)), collapse = "\n")
+                    amessage(all_warnings)
+        }
             }
             return(check)
         })
         names(assessment$checks) <- names(assessment$lRaw)
-        assessment$rawValid <- all(assessment$checks$status)
-        
-        # Return validation status and reasons for each assessment
+            
         # if valid, run the mapping
+        assessment$rawValid <- all(assessment$checks %>% map_lgl(~.x$status))       
         if(!assessment$rawValid){
             assessment$valid <- FALSE
             assessment$status <- "Invalid Raw Data"
             amessage("-- Raw data not valid for mapping. No Results will be generated.")
         }else{
             amessage("-- Mapping Raw Data to Assessment Input Standard.")
-        }
+            dfParams <- assessment$lRaw
+            names(dfParams) <- paste0("df", toupper(names(assessment$lRaw)))
+            names(dfParams)[names(dfParams)=="dfSUBJ"] <- "dfRDSL"
+
+            mappingParam <- lMapping
+            names(mappingParam) <- paste0("df", toupper(names(lMapping)))
+            names(mappingParam)[names(mappingParam)=="dfSUBJ"] <- "dfRDSL"
+
+            raw_params <- c(dfParams, assessment$mapping$params, list(mapping=mappingParam))            
+            assessment$dfInput <- do.call(
+                assessment$mapping$functionName, 
+                raw_params
+            )
+            amessage(paste("--- Created input data with ",nrow(assessment$dfInput)," rows."))
+
+            assessment_params <- c(list(dfInput=assessment$dfInput), assessment$assessment$params)
+            assessment$result <- do.call(
+                assessment$assessment$functionName, 
+                assessment_params
+            )
+            amessage(paste("--- Created summary data with rows for ",nrow(assessment$result$dfSummary)," sites."))
+        }   
         return(assessment)
 }
