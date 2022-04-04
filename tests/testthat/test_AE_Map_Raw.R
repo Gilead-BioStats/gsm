@@ -7,37 +7,28 @@ mapping <- list(
               strExposureCol="TimeOnTreatment")
 )
 
-test_that("output created as expected and has correct structure",{
+# output is created as expected -------------------------------------------
+test_that("output is created as expected", {
   data <- AE_Map_Raw(dfAE, dfRDSL)
   expect_true(is.data.frame(data))
   expect_equal(names(data), c("SubjectID", "SiteID", "Count", "Exposure", "Rate"))
 })
 
-
-
-test_that("incorrect inputs throw errors",{
-
+# incorrect inputs throw errors -------------------------------------------
+test_that("incorrect inputs throw errors", {
   expect_snapshot_error(AE_Map_Raw(list(), list()))
-
   expect_snapshot_error(AE_Map_Raw(dfAE, list()))
-
   expect_snapshot_error(AE_Map_Raw(list(), dfRDSL))
-
   expect_snapshot_error(AE_Map_Raw("Hi", "Mom"))
-
   expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL, mapping = list()))
+  expect_snapshot_error(AE_Map_Raw(dfAE %>% select(-SUBJID), dfRDSL))
+  expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL %>% select(-SiteID)))
+  expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL %>% select(-SubjectID)))
+  expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL %>% select(-TimeOnTreatment)))
 })
 
-
-test_that("error given if required column not found",{
-
-  expect_snapshot_error(AE_Map_Raw(dfAE %>% select(-SUBJID), dfRDSL))
-
-  expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL %>% select(-SiteID)))
-
-  expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL %>% select(-SubjectID)))
-
-  expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL %>% select(-TimeOnTreatment)))
+# incorrect mappings throw errors -----------------------------------------
+test_that("incorrect mappings throw errors",{
 
   expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL, mapping = list(
     dfAE= list(strIDCol="not an id"),
@@ -53,7 +44,7 @@ test_that("error given if required column not found",{
 
 })
 
-
+# custom tests ------------------------------------------------------------
 test_that("NA values in input data are handled",{
 
   dfAE1 <- tibble::tribble(~SUBJID, 1,1,1,1,2,2,4,4)

@@ -1,7 +1,6 @@
-ae_input <- AE_Map_Adam(
-    safetyData::adam_adsl,
-    safetyData::adam_adae
-)
+source(testthat::test_path("testdata/data.R"))
+
+ae_input <- AE_Map_Adam(dfADSL, dfADAE)
 
 ae_prep <- Transform_EventCount( ae_input, strCountCol = 'Count', strExposureCol = "Exposure" )
 

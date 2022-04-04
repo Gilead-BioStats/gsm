@@ -8,11 +8,11 @@ dfAE <- tibble::tribble(
 
 dfRDSL <- data.frame(
   stringsAsFactors = FALSE,
-  SubjectID = c("1234", "5678"),
-  SiteID = c("X010X", "X102X"),
-  TimeOnTreatment = c(3455, 1745),
-  TimeOnStudy = c(1234, 2345),
-  RandDate = as.Date(c("2012-09-02", "2017-05-08"))
+  SubjectID = c("1234", "5678", "9876"),
+  SiteID = c("X010X", "X102X", "X999X"),
+  TimeOnTreatment = c(3455, 1745, 1233),
+  TimeOnStudy = c(1234, 2345, 4567),
+  RandDate = as.Date(c("2012-09-02", "2017-05-08", "2018-05-20"))
 )
 
 
@@ -23,7 +23,9 @@ dfPD <- tibble::tribble(
   "5678",
   "5678",
   "5678",
-  "6789"
+  "6789",
+  "9876",
+  "9876"
 )
 
 
@@ -41,8 +43,10 @@ dfConsent <- data.frame(
 #   head(2)
 dfDisp <- tibble::tribble(
   ~SUBJID, ~SITEID,       ~DCREASCD,
-  "1234",   "701",     "Completed",
-  "5678",   "701", "Adverse Event"
+  "1234",   "701",        "Completed",
+  "5678",   "701",    "Adverse Event",
+  "2345",   "702", "Withdrew Consent",
+  "2348",   "702",    "Adverse Event"
 )
 
 
@@ -94,3 +98,25 @@ dfIE <- tibble::tribble(
   "5678",     "EXCL",        0,
   "5678",     "INCL",        1
 )
+
+
+dfADSL <- safetyData::adam_adsl %>%
+  select(USUBJID, SITEID, TRTSDT, TRTEDT) %>%
+  head(4)
+
+dfADSL <- data.frame(
+  stringsAsFactors = FALSE,
+  USUBJID = c("01-701-1015","01-701-1023",
+              "01-701-1028","01-701-1033"),
+  SITEID = c("701", "701", "702", "703"),
+  TRTSDT = as.Date(c("2014-01-02", "2012-08-05", "2013-07-19", "2014-03-18")),
+  TRTEDT = as.Date(c("2014-07-02", "2012-09-01", "2014-01-14", "2014-03-31"))
+)
+
+dfADAE <- data.frame(
+  USUBJID = c("01-701-1015", "01-701-1015", "01-701-1023", "01-701-1023",
+              "01-701-1023", "01-701-1028", "01-701-1033", "01-701-1033",
+              "01-701-1033")
+)
+
+

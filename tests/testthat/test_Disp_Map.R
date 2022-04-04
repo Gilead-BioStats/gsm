@@ -1,121 +1,29 @@
-suppressWarnings(
-  library(safetyData)
-)
+source(testthat::test_path("testdata/data.R"))
 
-df <- dplyr::tribble(
-  ~SUBJID, ~SITEID,          ~DCREASCD,
-  "00000-1015",   "701",        "Completed",
-  "00000-1023",   "701",    "Adverse Event",
-  "00000-1028",   "701",        "Completed",
-  "00000-1033",   "701", "Sponsor Decision",
-  "00000-1034",   "701",        "Completed",
-  "00000-1047",   "701",    "Adverse Event",
-  "00000-1097",   "701",        "Completed",
-  "00000-1111",   "701",    "Adverse Event",
-  "00000-1115",   "701",    "Adverse Event",
-  "00000-1118",   "701",        "Completed",
-  "00000-1130",   "701",        "Completed",
-  "00000-1133",   "701",        "Completed",
-  "00000-1146",   "701",    "Adverse Event",
-  "00000-1148",   "701",        "Completed",
-  "00000-1153",   "701",        "Completed",
-  "00000-1180",   "701",    "Adverse Event",
-  "00000-1181",   "701",    "Adverse Event",
-  "00000-1188",   "701",    "Adverse Event",
-  "00000-1192",   "701",        "Completed",
-  "00000-1203",   "701",        "Completed"
-)
-
-expectedOutputAny <- dplyr::tribble(
-  ~SubjectID, ~SiteID,          ~DCREASCD, ~Count,
-  "1015",   "701",        "Completed",      0,
-  "1023",   "701",    "Adverse Event",      1,
-  "1028",   "701",        "Completed",      0,
-  "1033",   "701", "Sponsor Decision",      1,
-  "1034",   "701",        "Completed",      0,
-  "1047",   "701",    "Adverse Event",      1,
-  "1097",   "701",        "Completed",      0,
-  "1111",   "701",    "Adverse Event",      1,
-  "1115",   "701",    "Adverse Event",      1,
-  "1118",   "701",        "Completed",      0,
-  "1130",   "701",        "Completed",      0,
-  "1133",   "701",        "Completed",      0,
-  "1146",   "701",    "Adverse Event",      1,
-  "1148",   "701",        "Completed",      0,
-  "1153",   "701",        "Completed",      0,
-  "1180",   "701",    "Adverse Event",      1,
-  "1181",   "701",    "Adverse Event",      1,
-  "1188",   "701",    "Adverse Event",      1,
-  "1192",   "701",        "Completed",      0,
-  "1203",   "701",        "Completed",      0
-)
-
-expectedOutputAdverse <- dplyr::tribble(
-  ~SubjectID, ~SiteID,          ~DCREASCD, ~Count,
-  "1015",   "701",        "Completed",      0,
-  "1023",   "701",    "Adverse Event",      1,
-  "1028",   "701",        "Completed",      0,
-  "1033",   "701", "Sponsor Decision",      0,
-  "1034",   "701",        "Completed",      0,
-  "1047",   "701",    "Adverse Event",      1,
-  "1097",   "701",        "Completed",      0,
-  "1111",   "701",    "Adverse Event",      1,
-  "1115",   "701",    "Adverse Event",      1,
-  "1118",   "701",        "Completed",      0,
-  "1130",   "701",        "Completed",      0,
-  "1133",   "701",        "Completed",      0,
-  "1146",   "701",    "Adverse Event",      1,
-  "1148",   "701",        "Completed",      0,
-  "1153",   "701",        "Completed",      0,
-  "1180",   "701",    "Adverse Event",      1,
-  "1181",   "701",    "Adverse Event",      1,
-  "1188",   "701",    "Adverse Event",      1,
-  "1192",   "701",        "Completed",      0,
-  "1203",   "701",        "Completed",      0
-)
-
-
-
-
-test_that("incorrect inputs throw errors",{
-  expect_error(Disp_Map(dfDisp = list(),
-                        strCol = list(),
-                        strReason = list())
-               )
-
-  expect_error(Disp_Map(dfDisp = df,
-                        strCol = list(),
-                        strReason = list())
-  )
-
-  expect_error(Disp_Map(dfDisp = df,
-                        strCol = "DCREASCD",
-                        strReason = list())
-  )
-
-  expect_error(Disp_Map(dfDisp = df,
-                        strCol = list())
-  )
-
-  expect_error(Disp_Map(dfDisp = df,
-                        strReason = "any")
-  )
-
-  expect_error(Disp_Map(dfDisp = df %>% rename(SSUUBBJJIIDD = SUBJID),
-                        strCol = "DCREASCD")
-  )
-
-  expect_error(Disp_Map(dfDisp = df %>% rename(SITEID2 = SITEID),
-                        strCol = "DCREASCD")
-  )
-
-
+# output is created as expected -------------------------------------------
+test_that("output is created as expected", {
+  data <- Disp_Map(dfDisp, strCol = "DCREASCD", strReason = "Adverse Event")
+  expect_true(is.data.frame(data))
+  expect_equal(names(data), c("SubjectID", "SiteID", "DCREASCD", "Count"))
 })
 
 
+# incorrect inputs throw errors -------------------------------------------
+test_that("incorrect inputs throw errors",{
+  expect_snapshot_error(Disp_Map(list()))
+  expect_snapshot_error(Disp_Map("Hi"))
+  expect_snapshot_error(Disp_Map(dfDisp %>% select(-DCREASCD)))
+  expect_snapshot_error(Disp_Map(dfDisp, strCol = "Hi"))
+  expect_snapshot_error(Disp_Map(dfDisp, strCol = "DCREASCD", strReason = list()))
+})
+
+# incorrect mappings throw errors -----------------------------------------
+
+
+# custom tests ------------------------------------------------------------
 test_that("strReason = 'any' works as expected", {
 
-  output <- Disp_Map(dfDisp = df,
+  output <- Disp_Map(dfDisp,
                      strCol = "DCREASCD",
                      strReason = "any")
 

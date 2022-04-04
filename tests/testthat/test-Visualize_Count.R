@@ -1,50 +1,21 @@
+source(testthat::test_path("testdata/data.R"))
 
-
-raw_consent <- clindata::raw_ic_elig %>% select( c("SUBJID","DSSTDAT_RAW") )%>%
-  mutate( CONSCAT_STD = "MAINCONSENT", CONSYN="Y") %>%
-  rename( CONSDAT = DSSTDAT_RAW ) %>%
-  mutate( CONSDAT = as.Date(CONSDAT, format="%d %B %Y") ) %>% 
-  filter(SUBJID != "")
-suppressWarnings(
-  consent_input <- Consent_Map_Raw(
-    dfConsent = raw_consent,
-    dfRDSL = clindata::rawplus_rdsl,
-    strConsentTypeValue = "MAINCONSENT",
-    strConsentStatusValue="Y"
-  ) 
-)
-suppressWarnings(
-
-ie_input <- IE_Map_Raw(
-  clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
-  clindata::rawplus_rdsl,
-  vCategoryValues= c("EXCL","INCL"),
-  vExpectedResultValues=c(0,1)
-)
-
-)
-
+consentInput <- Consent_Map_Raw(dfConsent, dfRDSL)
+ieInput <- IE_Map_Raw(dfIE, dfRDSL)
 
 test_that("output is produced with consent data", {
-consent_assess <- Consent_Assess(consent_input)
-
-expect_silent(
-  Visualize_Count(consent_assess$dfAnalyzed)
-)
+consent_assess <- Consent_Assess(consentInput)
+expect_silent(Visualize_Count(consent_assess$dfAnalyzed))
 })
 
 test_that("output is produced with IE data", {
-  ie_assess <- IE_Assess(ie_input)
-
-  expect_silent(
-    Visualize_Count(ie_assess$dfAnalyzed)
-  )
+  ie_assess <- IE_Assess(ieInput)
+  expect_silent(Visualize_Count(ie_assess$dfAnalyzed))
 })
 
 test_that("incorrect inputs throw errors",{
-  consent_assess <- Consent_Assess(consent_input)
-  ie_assess <- IE_Assess(ie_input)
-
+  consent_assess <- Consent_Assess(consentInput)
+  ie_assess <- IE_Assess(ieInput)
   expect_error(Visualize_Count(list()))
   expect_error(Visualize_Count("Hi"))
   expect_error(Visualize_Count(consent_assess$dfAnalyzed, strTotalCol = "not here"))

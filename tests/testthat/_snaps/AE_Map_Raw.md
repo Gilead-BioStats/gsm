@@ -18,7 +18,7 @@
 
     Errors found in dfAE.
 
-# error given if required column not found
+---
 
     Errors found in dfAE.
 
@@ -34,7 +34,7 @@
 
     Errors found in dfRDSL.
 
----
+# incorrect mappings throw errors
 
     Errors found in dfAE.
 
