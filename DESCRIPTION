@@ -25,10 +25,12 @@ Suggests:
     rlang,
     rmarkdown,
     safetyData,
+    stringr,
     testthat (>= 3.0.0),
     tibble,
     usethis,
-    valtools
+    valtools,
+    yaml
 LazyData: true
 Remotes: 
     phuse-org/valtools

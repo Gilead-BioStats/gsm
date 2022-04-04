@@ -2,6 +2,7 @@
 #'
 #' @param mapping coming soon...
 #'
+#'
 #' @examples
 #' \dontrun{
 #' use_gsm_test() # default is "map"
@@ -11,7 +12,7 @@
 use_gsm_test <- function(mapping = NULL) {
 
   stopifnot(
-    "mapping currently supports: 'ae_map' or 'ie_map'" = !is.null(mapping)
+    "mapping currently supports: 'ae_map', 'ie_map', 'pd_map', and 'consent_map'" = !mapping %in% c('ae_map', 'ie_map', 'pd_map', 'consent_map')
   )
 
   if (!requireNamespace("here", quietly = TRUE)) {
@@ -20,6 +21,14 @@ use_gsm_test <- function(mapping = NULL) {
 
   if (!requireNamespace("usethis", quietly = TRUE)) {
     stop("Package '{usethis}' is required for this function: \ninstall.packages('usethis')\nlibrary(usethis)")
+  }
+
+  if (!requireNamespace("stringr", quietly = TRUE)) {
+    stop("Package '{stringr}' is required for this function: \ninstall.packages('stringr')\nlibrary(stringr)")
+  }
+
+  if (!requireNamespace("yaml", quietly = TRUE)) {
+    stop("Package '{yaml}' is required for this function: \ninstall.packages('yaml')\nlibrary(yaml)")
   }
 
   create <- yaml::read_yaml(here::here("inst", "templates", "templateMappings.yaml"))
