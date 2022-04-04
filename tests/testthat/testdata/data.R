@@ -45,3 +45,52 @@ dfDisp <- tibble::tribble(
   "5678",   "701", "Adverse Event"
 )
 
+
+# dfIE <- clindata::raw_ie_all %>%
+#   dplyr::filter(SUBJID != "" ) %>%
+#   select(SUBJID, IECAT_STD, IEORRES) %>%
+#   head(40) %>%
+#   mutate(SUBJID = ifelse(SUBJID == "0496", "1234", "5678"))
+dfIE <- tibble::tribble(
+  ~SUBJID, ~IECAT_STD, ~IEORRES,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "EXCL",        0,
+  "1234",     "INCL",        1,
+  "1234",     "INCL",        1,
+  "1234",     "INCL",        1,
+  "1234",     "INCL",        1,
+  "1234",     "INCL",        1,
+  "1234",     "INCL",        1,
+  "1234",     "INCL",        1,
+  "1234",     "INCL",        1,
+  "1234",     "INCL",        1,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "EXCL",        0,
+  "5678",     "INCL",        1
+)
