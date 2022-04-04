@@ -13,11 +13,11 @@
 
 #lMapping <- yaml::read_yaml("../clindata/inst/mapping/rawplus.yaml")
 devtools::load_all()
-def <- Study_Assess(lMapping=lMapping)
+def <- Study_Assess(bQuiet=TRUE)
 
 test_that("lPopFlags filters subject ID as expected",{
-    oneSite <- Study_Assess(lPopFlags=list(strSiteCol="X010X"),bReturnInputs=TRUE)
-    expect_equal(oneSite$lData$Subj%>%nrow, 28)
+    oneSite <- Study_Assess(lPopFlags=list(strSiteCol="X010X"),bReturnInputs=TRUE, bQuiet=TRUE)
+    expect_equal(oneSite$lData$subj%>%nrow, 28)
 })
 
 test_that("Assessment data filtered as expected",{
