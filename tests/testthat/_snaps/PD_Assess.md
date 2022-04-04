@@ -46,3 +46,7 @@
 
     One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput
 
+# NA in dfInput$Count results in Error for PD_Assess
+
+    NA's found in dfInput$Count
+

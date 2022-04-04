@@ -100,9 +100,9 @@ dfIE <- tibble::tribble(
 )
 
 
-dfADSL <- safetyData::adam_adsl %>%
-  select(USUBJID, SITEID, TRTSDT, TRTEDT) %>%
-  head(4)
+# dfADSL <- safetyData::adam_adsl %>%
+#   select(USUBJID, SITEID, TRTSDT, TRTEDT) %>%
+#   head(4)
 
 dfADSL <- data.frame(
   stringsAsFactors = FALSE,

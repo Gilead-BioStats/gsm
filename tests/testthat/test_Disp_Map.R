@@ -27,13 +27,7 @@ test_that("strReason = 'any' works as expected", {
                      strCol = "DCREASCD",
                      strReason = "any")
 
-  testOutput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "any")
-  testOutput <- head(testOutput, n = 20)
-
-  expect_equal(
-    names(output),
-    c("SubjectID", "SiteID", "DCREASCD", "Count")
-  )
+  expect_equal(c("SubjectID", "SiteID", "DCREASCD", "Count"), names(output))
 
   expect_true(
     nrow(output %>%
@@ -41,25 +35,19 @@ test_that("strReason = 'any' works as expected", {
            filter(n()>1)) == 0
   )
 
-  # ignore because tribble does not include label attrs found in
-  # expected output
-  expect_equal(
-    expectedOutputAny,
-    testOutput,
-    ignore_attr = TRUE
-  )
+  expect_equal(0, output %>%
+                filter(DCREASCD == "Completed") %>%
+                summarize(total = sum(Count)) %>%
+                pull(total))
 
 })
 
 
 test_that("strReason works when set to specific reason", {
 
-  output <- Disp_Map(dfDisp = df,
+  output <- Disp_Map(dfDisp,
                      strCol = "DCREASCD",
                      strReason = "adverse event")
-
-  testOutput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "adverse event")
-  testOutput <- head(testOutput, n = 20)
 
   expect_equal(
     names(output),
@@ -70,14 +58,6 @@ test_that("strReason works when set to specific reason", {
     nrow(output %>%
            group_by(SubjectID) %>%
            filter(n()>1)) == 0
-  )
-
-  # ignore because tribble does not include label attrs found in
-  # expected output
-  expect_equal(
-    expectedOutputAdverse,
-    testOutput,
-    ignore_attr = TRUE
   )
 
 })
@@ -89,7 +69,7 @@ test_that("strReason can't also be in vReasonIgnore", {
   vReasonIgnore <- "adverse event"
 
   expect_error(
-    Disp_Map(dfDisp = safetyData::adam_adsl,
+    Disp_Map(dfDisp,
            strCol = "DCREASCD",
            strReason = strReason,
            vReasonIgnore = vReasonIgnore)
@@ -109,21 +89,21 @@ test_that("vReasonIgnore works as expected",{
   ignoreAdverseEvent <- "adverse event"
 
   expect_equal(
-    Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "any", vReasonIgnore = ignoreAll) %>%
+    Disp_Map(dfDisp, strCol = "DCREASCD", strReason = "any", vReasonIgnore = ignoreAll) %>%
       summarize(Sum = sum(Count)) %>%
       pull(Sum),
     0
   )
 
   expect_equal(
-    Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "any", vReasonIgnore = ignoreNone) %>%
+    Disp_Map(dfDisp, strCol = "DCREASCD", strReason = "any", vReasonIgnore = ignoreNone) %>%
       summarize(Sum = sum(Count)) %>%
       pull(Sum),
-    254
+    4
   )
 
   expect_equal(
-    Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "any", vReasonIgnore = ignoreAdverseEvent) %>%
+    Disp_Map(dfDisp, strCol = "DCREASCD", strReason = "any", vReasonIgnore = ignoreAdverseEvent) %>%
       filter(DCREASCD == "Adverse Event") %>%
       summarize(Sum = sum(Count)) %>%
       pull(Sum),

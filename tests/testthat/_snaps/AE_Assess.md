@@ -38,7 +38,19 @@
 
     One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput
 
-# invalid lTags throw errors
+# incorrect lTags throw errors
+
+    lTags is not named
+
+---
+
+    lTags is not named
+
+---
+
+    lTags has unnamed elements
+
+---
 
     lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'
 
