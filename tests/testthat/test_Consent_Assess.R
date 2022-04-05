@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 
-consentInput <-  Consent_Map_Raw(dfConsent, dfRDSL, strConsentTypeValue = "mainconsent")
+consentInput <-  Consent_Map_Raw(dfConsent, dfSubj, strConsentTypeValue = "MAINCONSENT")
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected",{

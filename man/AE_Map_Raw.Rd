@@ -4,14 +4,14 @@
 \alias{AE_Map_Raw}
 \title{AE Assessment - Raw Mapping}
 \usage{
-AE_Map_Raw(dfAE, dfRDSL, mapping = NULL)
+AE_Map_Raw(dfAE, dfSubj, mapping = NULL)
 }
 \arguments{
 \item{dfAE}{AE dataset with required column SUBJID and rows for each AE record}
 
-\item{dfRDSL}{Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol}
+\item{dfSubj}{Subject-level Raw Data with required columns: SubjectID, SiteID, value specified in strExposureCol}
 
-\item{mapping}{List containing expected columns in each data set. By default, mapping for dfAE is: \code{strIDCol} = "SUBJID". By default, mapping for dfRDSL is: \code{strIDCol} = "SubjectID", \code{strSiteCol} = "SiteID", and \code{strExposureCol} = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.}
+\item{mapping}{List containing expected columns in each data set. By default, mapping for dfAE is: \code{strIDCol} = "SUBJID". By default, mapping for dfSubj is: \code{strIDCol} = "SubjectID", \code{strSiteCol} = "SiteID", and \code{strExposureCol} = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
@@ -20,7 +20,7 @@ Data frame with one record per person data frame with columns: SubjectID, SiteID
 Convert Raw data, typically processed case report form data - to input format for Safety Assessment.
 }
 \details{
-This function combines AE data with treatment exposure from subject-level Raw Data (RDSL) to create the required input for \code{\link{AE_Assess}}.
+This function combines AE data with treatment exposure from subject-level Raw Data to create the required input for \code{\link{AE_Assess}}.
 }
 \section{Data Specification}{
 
@@ -33,7 +33,7 @@ The following columns are required:
 \itemize{
 \item \code{SUBJID} - Unique subject ID
 }
-\item \code{dfRDSL}
+\item \code{dfSubj}
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
@@ -45,9 +45,6 @@ Note that the function can generate data summaries for specific types of AEs, bu
 }
 
 \examples{
-dfAE <- clindata::raw_ae \%>\% dplyr::filter(SUBJID != "")
-dfRDSL <- clindata::rawplus_rdsl \%>\% dplyr::filter(!is.na(TimeOnTreatment))
-
-dfInput <- AE_Map_Raw(dfAE, dfRDSL)
+dfInput <- AE_Map_Raw(dfAE = clindata::rawplus_ae, dfSubj = clindata::rawplus_subj)
 
 }

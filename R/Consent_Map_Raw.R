@@ -4,7 +4,7 @@
 #'
 #' @details
 #'
-#' This function uses raw Consent and RDSL data to create the required input for \code{\link{Consent_Assess}}.
+#' This function uses raw Consent and Subject data to create the required input for \code{\link{Consent_Assess}}.
 #'
 #' @section Data Specification:
 #' The following columns are required:
@@ -13,13 +13,13 @@
 #'     - `CONSCAT_STD` - Type of Consent_Coded value
 #'     - `CONSYN` - Did the subject give consent? Yes / No.
 #'     - `CONSDAT` - If yes, provide date consent signed
-#' - `dfRDSL`
+#' - `dfSubj`
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
 #'     - `RandDate` - Randomization Date
 #'
 #' @param dfConsent consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.
-#' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID SiteID RandDate.
+#' @param dfSubj Subject-level Raw Data required columns: SubjectID SiteID RandDate.
 #' @param mapping List containing expected columns in each data set.
 #' @param strConsentTypeValue default = "mainconsent", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.
 #' @param strConsentStatusValue default = "Yes", expected Status value for valid consent.
@@ -32,20 +32,20 @@
 #'
 #' input <- Consent_Map_Raw(
 #'    dfConsent = clindata::rawplus_consent,
-#'    dfRDSL = clindata::rawplus_subj,
+#'    dfSubj = clindata::rawplus_subj,
 #'    strConsentTypeValue = "MAINCONSENT",
 #'    strConsentStatusValue="Y"
 #')
 #'
 #' @export
 
-Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentTypeValue = "mainconsent", strConsentStatusValue="Yes"){
+Consent_Map_Raw <- function( dfConsent, dfSubj, mapping = NULL, strConsentTypeValue = "mainconsent", strConsentStatusValue="Yes"){
 
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
     mapping <- list(
       dfConsent = list(strIDCol = "SubjectID", strConsentTypeCol = "CONSENT_TYPE", strConsentStatusCol = "CONSENT_VALUE", strConsentDateCol = "CONSENT_DATE"),
-      dfRDSL = list(strIDCol = "SubjectID", strSiteCol = "SiteID", strRandDateCol = "RandDate")
+      dfSubj = list(strIDCol = "SubjectID", strSiteCol = "SiteID", strRandDateCol = "RandDate")
     )
   }
 
@@ -58,9 +58,9 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentTypeVa
     bQuiet=FALSE
   )
 
-  is_rdsl_valid <- is_mapping_valid(
-    df = dfRDSL,
-    mapping = mapping$dfRDSL,
+  is_subj_valid <- is_mapping_valid(
+    df = dfSubj,
+    mapping = mapping$dfSubj,
     vRequiredParams = c("strIDCol", "strSiteCol", "strRandDateCol"),
     vUniqueCols = "strIDCol",
     bQuiet=FALSE
@@ -68,17 +68,17 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentTypeVa
 
   stopifnot(
     "Errors found in dfConsent." = is_consent_valid$status,
-    "Errors found in dfRDSL." = is_rdsl_valid$status,
+    "Errors found in dfSubj." = is_subj_valid$status,
     "strConsentTypeValue is not character"= is.character(strConsentTypeValue),
     "strConsentTypeValue has multiple values, specify only one" = length(strConsentTypeValue)==1
   )
 
   # Standarize Column Names
-  dfRDSL_mapped <- dfRDSL %>%
+  dfSubj_mapped <- dfSubj %>%
     rename(
-      SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
-      SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
-      RandDate = mapping[["dfRDSL"]][["strRandDateCol"]]
+      SubjectID = mapping[["dfSubj"]][["strIDCol"]],
+      SiteID = mapping[["dfSubj"]][["strSiteCol"]],
+      RandDate = mapping[["dfSubj"]][["strRandDateCol"]]
     ) %>%
     select(.data$SubjectID, .data$SiteID, .data$RandDate)
 
@@ -98,7 +98,7 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentTypeVa
     if(nrow(dfConsent_mapped)==0) stop("supplied strConsentTypeValue not found in data")
   }
 
-  dfInput <- mergeSubjects(dfConsent_mapped, dfRDSL_mapped)%>%
+  dfInput <- mergeSubjects(dfConsent_mapped, dfSubj_mapped)%>%
     mutate(flag_noconsent = .data$ConsentStatus != strConsentStatusValue) %>%
     mutate(flag_missing_consent = is.na(.data$ConsentDate))%>%
     mutate(flag_missing_rand = is.na(.data$RandDate))%>%

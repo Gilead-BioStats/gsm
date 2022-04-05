@@ -2,14 +2,14 @@ source(testthat::test_path("testdata/data.R"))
 
 mapping <- list(
   dfAE= list(strIDCol="SUBJID"),
-  dfRDSL=list(strIDCol="SubjectID",
+  dfSubj=list(strIDCol="SubjectID",
               strSiteCol="SiteID",
               strExposureCol="TimeOnTreatment")
 )
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-  data <- AE_Map_Raw(dfAE, dfRDSL)
+  data <- AE_Map_Raw(dfAE, dfSubj)
   expect_true(is.data.frame(data))
   expect_equal(names(data), c("SubjectID", "SiteID", "Count", "Exposure", "Rate"))
 })
@@ -18,27 +18,27 @@ test_that("output is created as expected", {
 test_that("incorrect inputs throw errors", {
   expect_snapshot_error(AE_Map_Raw(list(), list()))
   expect_snapshot_error(AE_Map_Raw(dfAE, list()))
-  expect_snapshot_error(AE_Map_Raw(list(), dfRDSL))
+  expect_snapshot_error(AE_Map_Raw(list(), dfSubj))
   expect_snapshot_error(AE_Map_Raw("Hi", "Mom"))
-  expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL, mapping = list()))
-  expect_snapshot_error(AE_Map_Raw(dfAE %>% select(-SUBJID), dfRDSL))
-  expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL %>% select(-SiteID)))
-  expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL %>% select(-SubjectID)))
-  expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL %>% select(-TimeOnTreatment)))
+  expect_snapshot_error(AE_Map_Raw(dfAE, dfSubj, mapping = list()))
+  expect_snapshot_error(AE_Map_Raw(dfAE %>% select(-SUBJID), dfSubj))
+  expect_snapshot_error(AE_Map_Raw(dfAE, dfSubj %>% select(-SiteID)))
+  expect_snapshot_error(AE_Map_Raw(dfAE, dfSubj %>% select(-SubjectID)))
+  expect_snapshot_error(AE_Map_Raw(dfAE, dfSubj %>% select(-TimeOnTreatment)))
 })
 
 # incorrect mappings throw errors -----------------------------------------
 test_that("incorrect mappings throw errors",{
 
-  expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL, mapping = list(
+  expect_snapshot_error(AE_Map_Raw(dfAE, dfSubj, mapping = list(
     dfAE= list(strIDCol="not an id"),
-    dfRDSL=list(strIDCol="SubjectID",
+    dfSubj=list(strIDCol="SubjectID",
                 strSiteCol="SiteID",
                 strExposureCol="TimeOnTreatment"))))
 
-  expect_snapshot_error(AE_Map_Raw(dfAE, dfRDSL, mapping = list(
+  expect_snapshot_error(AE_Map_Raw(dfAE, dfSubj, mapping = list(
     dfAE= list(strIDCol="SUBJID"),
-    dfRDSL=list(strIDCol="not an id",
+    dfSubj=list(strIDCol="not an id",
                 strSiteCol="SiteID",
                 strExposureCol="TimeOnTreatment"))))
 
@@ -78,11 +78,11 @@ test_that("NA values in input data are handled",{
   )
 
 
-  expect_snapshot_error(AE_Map_Raw(dfAE = dfAE1, dfRDSL = dfExposure1))
+  expect_snapshot_error(AE_Map_Raw(dfAE = dfAE1, dfSubj = dfExposure1))
 
-  expect_snapshot_error(AE_Map_Raw(dfAE = dfAE2, dfRDSL = dfExposure2))
+  expect_snapshot_error(AE_Map_Raw(dfAE = dfAE2, dfSubj = dfExposure2))
 
-  expect_snapshot_error(AE_Map_Raw(dfAE = dfAE3, dfRDSL = dfExposure3))
+  expect_snapshot_error(AE_Map_Raw(dfAE = dfAE3, dfSubj = dfExposure3))
 
 })
 
@@ -90,17 +90,17 @@ test_that("custom mapping runs without errors", {
 
   custom_mapping <- list(
     dfAE= list(strIDCol="SUBJID"),
-    dfRDSL=list(strIDCol="custom_id",
+    dfSubj=list(strIDCol="custom_id",
                 strSiteCol="custom_site_id",
                 strExposureCol="trtmnt")
   )
 
-  custom_rdsl <- dfRDSL %>%
+  custom_subj <- dfSubj %>%
     mutate(trtmnt = TimeOnTreatment * 2.025) %>%
     rename(custom_id = SubjectID,
            custom_site_id = SiteID)
 
-  expect_message(AE_Map_Raw(dfAE, custom_rdsl, mapping = custom_mapping))
+  expect_message(AE_Map_Raw(dfAE, custom_subj, mapping = custom_mapping))
 
 })
 

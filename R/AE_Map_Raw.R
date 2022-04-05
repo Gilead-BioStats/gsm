@@ -4,7 +4,7 @@
 #'
 #' @details
 #'
-#' This function combines AE data with treatment exposure from subject-level Raw Data (RDSL) to create the required input for \code{\link{AE_Assess}}.
+#' This function combines AE data with treatment exposure from subject-level Raw Data to create the required input for \code{\link{AE_Assess}}.
 #'
 #' @section Data Specification:
 #'
@@ -13,7 +13,7 @@
 #' The following columns are required:
 #' - `dfAE`
 #'     - `SUBJID` - Unique subject ID
-#' - `dfRDSL`
+#' - `dfSubj`
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
 #'     - Value specified in strExposureCol - Treatment Exposure in days; "TimeOnTreatment" by default
@@ -21,28 +21,25 @@
 #' Note that the function can generate data summaries for specific types of AEs, but passing filtered ADAE data to dfADAE.
 #'
 #' @param dfAE AE dataset with required column SUBJID and rows for each AE record
-#' @param dfRDSL Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol
-#' @param mapping List containing expected columns in each data set. By default, mapping for dfAE is: `strIDCol` = "SUBJID". By default, mapping for dfRDSL is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
+#' @param dfSubj Subject-level Raw Data with required columns: SubjectID, SiteID, value specified in strExposureCol
+#' @param mapping List containing expected columns in each data set. By default, mapping for dfAE is: `strIDCol` = "SUBJID". By default, mapping for dfSubj is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #'
 #' @examples
-#' dfInput <- AE_Map_Raw(
-#'               clindata::rawplus_ae,
-#'               clindata::rawplus_subj
-#')
+#' dfInput <- AE_Map_Raw(dfAE = clindata::rawplus_ae, dfSubj = clindata::rawplus_subj)
 #'
 #' @import dplyr
 #'
 #' @export
 
-AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
+AE_Map_Raw <- function( dfAE, dfSubj, mapping = NULL ){
 
     # Set defaults for mapping if none is provided
     if(is.null(mapping)){
         mapping <- list(
             dfAE = list(strIDCol="SubjectID"),
-            dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
+            dfSubj = list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
         )
     }
 
@@ -54,17 +51,17 @@ AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
         bQuiet = FALSE
     )
 
-    is_rdsl_valid <- is_mapping_valid(
-        dfRDSL,
-        mapping$dfRDSL,
+    is_subj_valid <- is_mapping_valid(
+        dfSubj,
+        mapping$dfSubj,
         vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"),
-        vUniqueCols = mapping$dfRDSL$strIDCol,
+        vUniqueCols = mapping$dfSubj$strIDCol,
         bQuiet = FALSE
     )
 
     stopifnot(
         "Errors found in dfAE." = is_ae_valid$status,
-        "Errors found in dfRDSL." = is_rdsl_valid$status
+        "Errors found in dfSubj." = is_subj_valid$status
     )
 
     # Standarize Column Names
@@ -72,11 +69,11 @@ AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
         rename(SubjectID = mapping[["dfAE"]][["strIDCol"]]) %>%
         select(.data$SubjectID)
 
-    dfRDSL_mapped <- dfRDSL %>%
+    dfSubj_mapped <- dfSubj %>%
         rename(
-            SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
-            SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
-            Exposure = mapping[["dfRDSL"]][["strExposureCol"]]
+            SubjectID = mapping[["dfSubj"]][["strIDCol"]],
+            SiteID = mapping[["dfSubj"]][["strSiteCol"]],
+            Exposure = mapping[["dfSubj"]][["strExposureCol"]]
         ) %>%
         select(.data$SubjectID, .data$SiteID, .data$Exposure)
 
@@ -85,7 +82,7 @@ AE_Map_Raw <- function( dfAE, dfRDSL, mapping = NULL ){
         group_by(.data$SubjectID) %>%
         summarize(Count=n()) %>%
         ungroup() %>%
-        mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>%
+        mergeSubjects(dfSubj_mapped, vFillZero="Count") %>%
         mutate(Rate = .data$Count/.data$Exposure) %>%
         select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate)
 

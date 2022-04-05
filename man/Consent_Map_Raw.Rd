@@ -6,7 +6,7 @@
 \usage{
 Consent_Map_Raw(
   dfConsent,
-  dfRDSL,
+  dfSubj,
   mapping = NULL,
   strConsentTypeValue = "mainconsent",
   strConsentStatusValue = "Yes"
@@ -15,7 +15,7 @@ Consent_Map_Raw(
 \arguments{
 \item{dfConsent}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}
 
-\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID RandDate.}
+\item{dfSubj}{Subject-level Raw Data required columns: SubjectID SiteID RandDate.}
 
 \item{mapping}{List containing expected columns in each data set.}
 
@@ -30,7 +30,7 @@ Data frame with one record per person data frame with columns: SubjectID, SiteID
 Convert from raw data format to needed input format for \code{\link{Consent_Assess}}
 }
 \details{
-This function uses raw Consent and RDSL data to create the required input for \code{\link{Consent_Assess}}.
+This function uses raw Consent and Subject data to create the required input for \code{\link{Consent_Assess}}.
 }
 \section{Data Specification}{
 
@@ -43,7 +43,7 @@ The following columns are required:
 \item \code{CONSYN} - Did the subject give consent? Yes / No.
 \item \code{CONSDAT} - If yes, provide date consent signed
 }
-\item \code{dfRDSL}
+\item \code{dfSubj}
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
@@ -53,17 +53,10 @@ The following columns are required:
 }
 
 \examples{
-library(dplyr)
-raw_consent <- clindata::raw_ic_elig \%>\%
-   select( c("SUBJID","DSSTDAT_RAW") )\%>\%
-   mutate( CONSCAT_STD = "MAINCONSENT", CONSYN="Y") \%>\%
-   rename( CONSDAT = DSSTDAT_RAW ) \%>\%
-   mutate( CONSDAT = as.Date(CONSDAT, format="\%d \%B \%Y") ) \%>\%
-   filter(SUBJID != "")
 
 input <- Consent_Map_Raw(
-   dfConsent = raw_consent,
-   dfRDSL = clindata::rawplus_rdsl,
+   dfConsent = clindata::rawplus_consent,
+   dfSubj = clindata::rawplus_subj,
    strConsentTypeValue = "MAINCONSENT",
    strConsentStatusValue="Y"
 )
