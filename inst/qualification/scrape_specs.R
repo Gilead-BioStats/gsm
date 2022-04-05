@@ -34,9 +34,13 @@ scrape_dir_specs <- function(dir = "."){
   return(dir_spec_df)
 }
 
-#' build traceability matrix from datafram of specs
+scrape_test_cases <- function(df){
+
+}
+
+#' build traceability matrix from dataframe of specs
 #'
-#' @param df dataframe for input, must have columns Assessment, ID, Tests
+#' @param df dataframe for input, must have columns ID, Tests
 #'
 #' @return
 #' @export
