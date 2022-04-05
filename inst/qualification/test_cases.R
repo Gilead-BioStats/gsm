@@ -28,17 +28,17 @@ run_test_case <- function(test_case, test_file_prefix = "test_qual_"){
 #' @export
 run_all_tests <- function(df){
   test_df <- df %>%
-    mutate(
+    dplyr::mutate(
       Tests = str_split(Tests, ", ")
     ) %>%
-    unnest_longer(col = Tests)
+    tidyr::unnest_longer(col = Tests)
 
   test_case_result <- test_df %>%
-    select(Tests) %>%
+    dplyr::select(Tests) %>%
     unique() %>%
-    mutate(result = map(Tests, run_test_case)) %>%
-    unnest(result) %>%
-    left_join(test_df)
+    dplyr::mutate(result = map(Tests, run_test_case)) %>%
+    tidyr::unnest(result) %>%
+    dplyr::left_join(test_df)
 
   return(test_case_result)
 }

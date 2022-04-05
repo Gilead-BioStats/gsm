@@ -6,12 +6,16 @@
 #' @export
 scrape_specs <- function(file){
   file_text <- yaml::read_yaml(file = file) %>%
-    map(~ modify_at(.x, "Tests", paste, collapse = ", "))
+    purrr::map(~ purrr::modify_at(.x, "Tests", paste, collapse = ", "))
 
   file_text_df <- as.data.frame(do.call(rbind, file_text)) %>%
-    mutate(
+    dplyr::mutate(
       Assessment = stringr::str_match(file, "spec_(.*).yaml")[[2]],
-      ID = unlist(ID)
+      ID = unlist(ID),
+      Description = unlist(Description),
+      Risk = unlist(Risk),
+      Impact = unlist(Impact),
+      Tests = unlist(Tests)
     )
 
   return(file_text_df)
@@ -42,13 +46,16 @@ scrape_dir_specs <- function(dir = "."){
 #' @export
 build_traceability_matrix <- function(df){
   traceability_matrix <- df %>%
-    mutate(
-      Tests = str_split(Tests, ", ")
+    dplyr::mutate(
+      Tests = stringr::str_split(Tests, ", ")
     ) %>%
-    unnest_longer(col = Tests) %>%
-    arrange(ID) %>%
-    mutate(holder = TRUE) %>%
-    pivot_wider(names_from = "Tests", id_cols = c("ID"), values_from = holder)
+    tidyr::unnest_longer(col = Tests) %>%
+    dplyr::arrange(ID) %>%
+    dplyr::mutate(holder = "X") %>%
+    tidyr::pivot_wider(names_from = "Tests",
+                       id_cols = c("ID"),
+                       values_from = holder,
+                       values_fill = "")
 
   return(traceability_matrix)
 }

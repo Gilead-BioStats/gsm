@@ -1,22 +1,58 @@
 ---
-title: "Qualification"
-output: rmarkdown::html_vignette
+title: "Qualification of GSM"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    toc: true
+    fig_crop: false
+    toc_depth: 2
+    number_sections: true
 vignette: >
   %\VignetteIndexEntry{Qualification}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
+```{r setup, echo=FALSE, warning=FALSE}
+suppressPackageStartupMessages({
+  library(gsm)
+  library(knitr)
+  library(pander)
+  library(dplyr)
+  library(purrr)
+})
+
+opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+source(here::here("inst", "qualification", "specs.R"))
+source(here::here("inst", "qualification", "test_cases.R"))
+spec_df <- scrape_dir_specs(here::here("inst", "qualification"))
 ```
 
-```{r setup}
-library(gsm)
 
-source("../inst/qualification/specs.R")
-source("../inst/qualification/test_cases.R")
+```{r create_assessment_section, echo = FALSE}
+create_assessment_section <- function(assessment, df){
+  pander::pandoc.header(paste0("Assessment ", assessment), level = 2)
+  pander::pandoc.header("Specifications", level = 3)
+  pander::pandoc.p('')
+  pander::pandoc.table(df, justify = "left", split.cells = 25)
+  pander::pandoc.p('')
+  pander::pandoc.header("Traceability Matrix", level = 3)
+  pander::pandoc.table(build_traceability_matrix(df), style = "grid")
+  pander::pandoc.p('\\pagebreak')
+}
+```
+
+# Assessments
+
+```{r assessments, results='asis', echo = FALSE}
+assessments <- unique(spec_df$Assessment)
+for (a in assessments){
+  a_df <- filter(spec_df, Assessment == a) %>% 
+    select(-Assessment)
+  create_assessment_section(a, a_df)
+}
 ```
