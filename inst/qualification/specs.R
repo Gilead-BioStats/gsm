@@ -34,18 +34,12 @@ scrape_dir_specs <- function(dir = "."){
   return(dir_spec_df)
 }
 
-scrape_test_cases <- function(df){
-
-}
-
 #' build traceability matrix from dataframe of specs
 #'
 #' @param df dataframe for input, must have columns ID, Tests
 #'
-#' @return
+#' @return traceability matrix of specifications and tests
 #' @export
-#'
-#' @examples
 build_traceability_matrix <- function(df){
   traceability_matrix <- df %>%
     mutate(
@@ -55,4 +49,6 @@ build_traceability_matrix <- function(df){
     arrange(ID) %>%
     mutate(holder = TRUE) %>%
     pivot_wider(names_from = "Tests", id_cols = c("ID"), values_from = holder)
+
+  return(traceability_matrix)
 }
