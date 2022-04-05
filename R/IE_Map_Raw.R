@@ -29,7 +29,7 @@
 #' @examples
 #'
 #' dfInput <- IE_Map_Raw(
-#'    clindata::rawplus_ie %>% filter(SubjectID != ""),
+#'    clindata::rawplus_ie,
 #'    clindata::rawplus_subj,
 #'    vCategoryValues= c("EXCL","INCL"),
 #'    vExpectedResultValues=c(0,1)

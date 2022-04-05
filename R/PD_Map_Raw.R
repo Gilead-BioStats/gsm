@@ -27,8 +27,8 @@
 #'
 #' @examples
 #' dfInput <- PD_Map_Raw(
-#'     clindata::rawplus_pd %>% filter(SubjectID != ""),
-#'     clindata::rawplus_subj
+#'     dfPD = clindata::rawplus_pd,
+#'     dfRDSL = clindata::rawplus_subj
 #' )
 #'
 #' @import dplyr
