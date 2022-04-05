@@ -12,7 +12,11 @@
 
 ---
 
-    Can't subset columns that don't exist.
+    strCol is not character
+
+---
+
+    Can't subset columns past the end.
     x Column `Hi` doesn't exist.
 
 ---

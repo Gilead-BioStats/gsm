@@ -13,6 +13,7 @@ test_that("incorrect inputs throw errors",{
   expect_snapshot_error(Disp_Map(list()))
   expect_snapshot_error(Disp_Map("Hi"))
   expect_snapshot_error(Disp_Map(dfDisp %>% select(-DCREASCD)))
+  expect_snapshot_error(Disp_Map(dfDisp, strCol = 1))
   expect_snapshot_error(Disp_Map(dfDisp, strCol = "Hi"))
   expect_snapshot_error(Disp_Map(dfDisp, strCol = "DCREASCD", strReason = list()))
 })
