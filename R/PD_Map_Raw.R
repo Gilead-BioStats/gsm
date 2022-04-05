@@ -27,8 +27,8 @@
 #'
 #' @examples
 #' dfInput <- PD_Map_Raw(
-#'     clindata::raw_protdev %>% dplyr::filter(SUBJID != ""),
-#'     clindata::rawplus_rdsl
+#'     clindata::rawplus_pd %>% filter(SubjectID != ""),
+#'     clindata::rawplus_subj
 #' )
 #'
 #' @import dplyr
@@ -40,7 +40,7 @@ PD_Map_Raw <- function(dfPD, dfRDSL, mapping = NULL){
     # Set defaults for mapping if none is provided
     if(is.null(mapping)){
         mapping <- list(
-            dfPD = list(strIDCol="SUBJID"),
+            dfPD = list(strIDCol="SubjectID"),
             dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol = "TimeOnStudy")
         )
     }
@@ -76,16 +76,16 @@ PD_Map_Raw <- function(dfPD, dfRDSL, mapping = NULL){
             SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
             SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
             Exposure = mapping[["dfRDSL"]][["strExposureCol"]]
-        ) %>% 
+        ) %>%
         select(.data$SubjectID, .data$SiteID, .data$Exposure)
 
 
     # Create Subject Level PD Counts and merge RDSL
     dfInput <- dfPD_mapped %>%
         group_by(.data$SubjectID) %>%
-        summarize(Count=n()) %>%  
-        ungroup() %>% 
-        mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>% 
+        summarize(Count=n()) %>%
+        ungroup() %>%
+        mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>%
         mutate(Rate = .data$Count/.data$Exposure)
 
     return(dfInput)

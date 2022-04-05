@@ -29,8 +29,8 @@
 #' @examples
 #'
 #' dfInput <- IE_Map_Raw(
-#'    clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
-#'    clindata::rawplus_rdsl,
+#'    clindata::rawplus_ie %>% filter(SubjectID != ""),
+#'    clindata::rawplus_subj,
 #'    vCategoryValues= c("EXCL","INCL"),
 #'    vExpectedResultValues=c(0,1)
 #')
@@ -43,7 +43,7 @@ IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclu
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
     mapping <- list(
-      dfIE = list(strIDCol="SUBJID", strCategoryCol = "IECAT_STD", strResultCol = "IEORRES"),
+      dfIE = list(strIDCol="SubjectID", strCategoryCol = "IE_CATEGORY", strResultCol = "IE_VALUE"),
       dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID")
     )
   }
@@ -78,22 +78,22 @@ IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclu
       SiteID = mapping[["dfRDSL"]][["strSiteCol"]]
     ) %>%
     select(.data$SubjectID, .data$SiteID)
-  
+
   dfIE_Subj <- dfIE %>%
     rename(
       SubjectID = mapping[["dfIE"]][["strIDCol"]],
       category = mapping[["dfIE"]][["strCategoryCol"]],
         result = mapping[["dfIE"]][["strResultCol"]]) %>%
-    select(.data$SubjectID, .data$category, .data$result) 
-    
+    select(.data$SubjectID, .data$category, .data$result)
+
 
   # Create Subject Level IE Counts and merge RDSL
 
   dfInput <- dfIE_Subj %>%
     mutate(
       expected = ifelse(
-        .data$category == vCategoryValues[1], 
-        vExpectedResultValues[1], 
+        .data$category == vCategoryValues[1],
+        vExpectedResultValues[1],
         vExpectedResultValues[2]
       ),
       valid = .data$result == .data$expected,
@@ -111,7 +111,7 @@ IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclu
     ungroup() %>%
     select(.data$SubjectID, .data$Count) %>%
     mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>%
-    select(.data$SubjectID, .data$SiteID, .data$Count)    
+    select(.data$SubjectID, .data$SiteID, .data$Count)
 
 
   return(dfInput)

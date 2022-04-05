@@ -29,17 +29,10 @@
 #' @import dplyr
 #'
 #' @examples
-#' library(dplyr)
-#' raw_consent <- clindata::raw_ic_elig %>%
-#'    select( c("SUBJID","DSSTDAT_RAW") )%>%
-#'    mutate( CONSCAT_STD = "MAINCONSENT", CONSYN="Y") %>%
-#'    rename( CONSDAT = DSSTDAT_RAW ) %>%
-#'    mutate( CONSDAT = as.Date(CONSDAT, format="%d %B %Y") ) %>%
-#'    filter(SUBJID != "")
 #'
 #' input <- Consent_Map_Raw(
-#'    dfConsent = raw_consent,
-#'    dfRDSL = clindata::rawplus_rdsl,
+#'    dfConsent = clindata::rawplus_consent,
+#'    dfRDSL = clindata::rawplus_subj,
 #'    strConsentTypeValue = "MAINCONSENT",
 #'    strConsentStatusValue="Y"
 #')
@@ -51,7 +44,7 @@ Consent_Map_Raw <- function( dfConsent, dfRDSL, mapping = NULL, strConsentTypeVa
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
     mapping <- list(
-      dfConsent = list(strIDCol = "SUBJID", strConsentTypeCol = "CONSCAT_STD", strConsentStatusCol = "CONSYN", strConsentDateCol = "CONSDAT"),
+      dfConsent = list(strIDCol = "SubjectID", strConsentTypeCol = "CONSENT_TYPE", strConsentStatusCol = "CONSENT_VALUE", strConsentDateCol = "CONSENT_DATE"),
       dfRDSL = list(strIDCol = "SubjectID", strSiteCol = "SiteID", strRandDateCol = "RandDate")
     )
   }
