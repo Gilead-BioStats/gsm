@@ -79,6 +79,7 @@ for (a in assessments){
 # Unit Tests
 
 ```{r covr}
-pandoc.p(covr::package_coverage(here::here()))
+pkg_cov <- covr::coverage_to_list(covr::package_coverage(here::here()))
+pandoc.p(paste(paste0(names(pkg_cov[[1]]), " = ", pkg_cov[[1]], "%"), collapse = "\n\n"))
 ```
 
