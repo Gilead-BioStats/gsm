@@ -14,7 +14,8 @@ Imports:
     lamW,
     magrittr,
     purrr,
-    tidyr
+    tidyr,
+    yaml
 Suggests:
     clindata,
     covr,

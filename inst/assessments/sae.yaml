@@ -1,0 +1,21 @@
+description: Treatment-Emergent Serious Adverse Events by SOC
+domain: gsm
+mapping: 
+  function: ae_map_raw
+  params: NULL
+assessment:
+  function: ae_assess
+  params: NULL
+requiredParameters:
+  ae:
+    - strIDCol
+    - strTreatementEmergentCol
+    - strSeriousCol
+  subj: 
+    - strIDCol
+    - strSiteCol
+    - strTimeOnTreatmentCol 
+filters:
+  ae:
+    strTreatementEmergentCol : TRUE
+    strSeriousCol : "YES"
