@@ -4,14 +4,14 @@
 \alias{AE_Map_Raw}
 \title{AE Assessment - Raw Mapping}
 \usage{
-AE_Map_Raw(dfAE, dfSubj, mapping = NULL)
+AE_Map_Raw(dfAE, dfSUBJ, mapping = NULL)
 }
 \arguments{
-\item{dfAE}{AE dataset with required column SUBJID and rows for each AE record}
+\item{dfAE}{AE dataset with required column SubjectID and rows for each AE record}
 
-\item{dfSubj}{Subject-level Raw Data with required columns: SubjectID, SiteID, value specified in strExposureCol}
+\item{dfSUBJ}{Subject-level data with required columns: SubjectID, SiteID, value specified in strExposureCol}
 
-\item{mapping}{List containing expected columns in each data set. By default, mapping for dfAE is: \code{strIDCol} = "SUBJID". By default, mapping for dfSubj is: \code{strIDCol} = "SubjectID", \code{strSiteCol} = "SiteID", and \code{strExposureCol} = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.}
+\item{mapping}{List containing expected columns in each data set. By default, mapping for dfAE is: \code{strIDCol} = "SUBJID". By default, mapping for dfRDSL is: \code{strIDCol} = "SubjectID", \code{strSiteCol} = "SiteID", and \code{strExposureCol} = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
@@ -31,9 +31,9 @@ The following columns are required:
 \itemize{
 \item \code{dfAE}
 \itemize{
-\item \code{SUBJID} - Unique subject ID
+\item \code{SubjectID} - Unique subject ID
 }
-\item \code{dfSubj}
+\item \code{dfSUBJ}
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
