@@ -18,4 +18,4 @@ requiredParameters:
 filters:
   dfAE:
     strTreatementEmergentCol : TRUE
-    strSeriousCol : "YES"
+    strSeriousCol : "Yes"

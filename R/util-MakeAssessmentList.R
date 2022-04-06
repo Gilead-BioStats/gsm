@@ -4,16 +4,13 @@
 #'
 #' Coming soon
 #' 
-#' @param lData list of data 
-#' @param lMapping mapping
-#' @param lAssessments assessments
-#' @param strPopFlags filter demog data? 
-#' @param lTags tags
+#' @param path location of assessment yaml files. If package is specified looks in /inst folder.
+#' @param package package with assessments
 #'
 #' @examples
-#'  NULL
+#'  makeAssessmentList(path="assessments", package="gsm")
 #'
-#' @return A list containing: dataChecks and results
+#' @return A list of assessments
 #' 
 #' @export
 

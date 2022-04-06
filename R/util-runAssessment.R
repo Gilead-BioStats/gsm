@@ -37,7 +37,22 @@ runAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
                 col <- lMapping[[domain]][[param]]
                 val <- assessment$filters[[domain]][[param]]
                 amessage(paste0("--- Filtering ",domain," on ",col,"=",val))
+                oldRows <- nrow(assessment$lRaw[[domain]])
                 assessment$lRaw[[domain]] <- assessment$lRaw[[domain]] %>% filter(.data[[col]]==val)
+                newRows<-nrow(assessment$lRaw[[domain]])                
+                amessage(paste0(
+                    "- Filtered subject data on `",
+                    col,
+                    "=",
+                    val,
+                    "`, to drop ",
+                    oldRows-newRows, 
+                    " rows from ",
+                    oldRows,
+                    " to ",
+                    newRows,
+                    " rows.")
+                )
             }
         }
 

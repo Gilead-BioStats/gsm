@@ -7,7 +7,7 @@
 #' @param lData list of data 
 #' @param lMapping mapping
 #' @param lAssessments assessments
-#' @param strPopFlags filter demog data? 
+#' @param lPopFlags filter demog data? 
 #' @param lTags tags
 #'
 #' @examples
@@ -45,7 +45,7 @@ Study_Assess <- function(
         lMapping <- yaml::read_yaml(system.file("mapping/rawplus.yaml", package = 'clindata'))
     }
 
-    # lAssessments from inst/library
+    # lAssessments from gsm inst/assessments
     if(is.null(lAssessments)){
         lAssessments <- makeAssessmentList()
     }
@@ -55,6 +55,9 @@ Study_Assess <- function(
         for(flag in names(lPopFlags)){
             # TODO run is_mapping_valid to make sure filter cols are present
             col <- lMapping$dfSUBJ[[flag]]
+            if(!(col %in% names(lData$dfSUBJ))){ 
+                stop(paste0("Column for Population filter ('",col,"') specified in lPopFlag not found in lData$dfSUBJ"))
+            }
             val <- lPopFlags[[flag]]
             oldRows <- nrow(lData$dfSUBJ)
             lData$subj <- lData$dfSUBJ %>% filter(.data[[col]]==val)
