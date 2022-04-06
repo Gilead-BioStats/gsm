@@ -11,7 +11,7 @@
 #'
 #' The following columns are required:
 #' - `dfIE`
-#'     - `SUBJID` - Unique subject ID
+#'     - `SubjectID` - Unique subject ID
 #'     - Value specified in `mapping` - IE Category; "IECAT_STD" by default
 #'     - Value specified in `mapping` - Incl criteria not met Excl criteria met; "IEORRES" by default
 #' - `dfSUBJ`
