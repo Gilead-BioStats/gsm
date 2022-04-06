@@ -1,6 +1,6 @@
 # incorrect inputs throw errors
 
-    Errors found in dfAE.
+    Errors found in dfPD.
 
 ---
 
@@ -8,20 +8,19 @@
 
 ---
 
-    Errors found in dfAE.
+    Errors found in dfPD.
 
 ---
 
-    Errors found in dfAE.
+    Errors found in dfPD.
 
 ---
 
-    Errors found in dfAE.
+    Errors found in dfPD.
 
 ---
 
-    Can't subset columns past the end.
-    x Column `SUBJID` doesn't exist.
+    Errors found in dfPD.
 
 ---
 
@@ -37,21 +36,21 @@
 
 # incorrect mappings throw errors
 
-    Errors found in dfAE.
+    Errors found in dfPD.
 
 ---
 
-    Errors found in dfAE.
+    Errors found in dfSUBJ.
 
-# NA values in input data are handled
+# NA values are caught
 
     Errors found in dfSUBJ.
 
 ---
 
-    Errors found in dfAE.
+    Errors found in dfSUBJ.
 
----
+# duplicate SubjectID values are caught in RDSL
 
     Errors found in dfSUBJ.
 

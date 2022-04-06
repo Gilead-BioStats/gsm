@@ -6,16 +6,16 @@
 \usage{
 IE_Map_Raw(
   dfIE,
-  dfRDSL,
+  dfSUBJ,
   mapping = NULL,
   vCategoryValues = c("Exclusion", "Inclusion"),
   vExpectedResultValues = c(0, 1)
 )
 }
 \arguments{
-\item{dfIE}{ie dataset with columns SUBJID and values specified in strCategoryCol and strResultCol.}
+\item{dfIE}{ie dataset with columns SUBJID and values specified in strCategoryCol and strValueCol.}
 
-\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID}
+\item{dfSUBJ}{Subject-level Raw Data required columns: SubjectID SiteID}
 
 \item{mapping}{List containing expected columns in each data set.}
 
@@ -39,11 +39,11 @@ The following columns are required:
 \itemize{
 \item \code{dfIE}
 \itemize{
-\item \code{SUBJID} - Unique subject ID
+\item \code{SubjectID} - Unique subject ID
 \item Value specified in \code{mapping} - IE Category; "IECAT_STD" by default
 \item Value specified in \code{mapping} - Incl criteria not met Excl criteria met; "IEORRES" by default
 }
-\item \code{dfRDSL}
+\item \code{dfSUBJ}
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
@@ -54,8 +54,8 @@ The following columns are required:
 \examples{
 
 dfInput <- IE_Map_Raw(
-   clindata::raw_ie_all \%>\% dplyr::filter(SUBJID != "" ),
-   clindata::rawplus_rdsl,
+   clindata::rawplus_ie,
+   clindata::rawplus_subj,
    vCategoryValues= c("EXCL","INCL"),
    vExpectedResultValues=c(0,1)
 )

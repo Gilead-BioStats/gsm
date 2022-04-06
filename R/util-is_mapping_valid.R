@@ -12,19 +12,19 @@
 #' @import purrr
 #'
 #' @examples
-#' rdsl_mapping <- list(strIDCol = "SubjectID",
+#' subj_mapping <- list(strIDCol = "SubjectID",
 #'                     strSiteCol = "SiteID",
 #'                     strExposureCol = "TimeOnTreatment")
 #'
-#' is_mapping_valid(df = clindata::rawplus_rdsl,
-#'                  mapping = rdsl_mapping,
+#' is_mapping_valid(df = clindata::rawplus_subj,
+#'                  mapping = subj_mapping,
 #'                  vUniqueCols = "SUBJID",
 #'                  vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
 #'
-#' rdsl_mapping$not_a_col <- "nope"
+#' subj_mapping$not_a_col <- "nope"
 #'
-#' is_mapping_valid(df = clindata::rawplus_rdsl,
-#'                  mapping = rdsl_mapping,
+#' is_mapping_valid(df = clindata::rawplus_subj,
+#'                  mapping = subj_mapping,
 #'                  vUniqueCols = "SUBJID",
 #'                  vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
 #'

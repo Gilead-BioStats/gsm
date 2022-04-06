@@ -1,15 +1,15 @@
 test_that("IE assessment can return a correctly assessed data frame grouped by the study variable when given subset input data from clindata and the results should be flagged correctly", {
   # gsm analysis
-  dfInput <- suppressWarnings(IE_Map_Raw(
-    clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" & PROTVER_STD == "A1"),
-    clindata::rawplus_rdsl,
+  dfInput <- IE_Map_Raw(
+    clindata::rawplus_ie %>% dplyr::filter(IE_PROTOCOLVERSION == "A1"),
+    clindata::rawplus_subj,
     vCategoryValues= c("EXCL","INCL"),
     vExpectedResultValues=c(0,1)
-  ))
+  )
 
-  test3_1 <- suppressWarnings(IE_Assess(
+  test3_1 <- IE_Assess(
     dfInput = dfInput,
-  ))
+  )
 
   # Double Programming
   t3_1_input <- dfInput

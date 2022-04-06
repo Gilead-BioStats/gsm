@@ -1,56 +1,60 @@
 # incorrect inputs throw errors
 
-    Errors found in dfConsent.
+    Errors found in dfCONSENT.
 
 ---
 
-    Errors found in dfRDSL.
+    Errors found in dfSUBJ.
 
 ---
 
-    Errors found in dfConsent.
+    Errors found in dfCONSENT.
 
 ---
 
-    Errors found in dfConsent.
+    Errors found in dfCONSENT.
 
 ---
 
-    Errors found in dfConsent.
+    Errors found in dfCONSENT.
 
 ---
 
-    Errors found in dfConsent.
+    Can't subset columns past the end.
+    x Column `SUBJID` doesn't exist.
 
 ---
 
-    Errors found in dfConsent.
+    Can't subset columns past the end.
+    x Column `CONSCAT_STD` doesn't exist.
 
 ---
 
-    Errors found in dfConsent.
+    Can't subset columns past the end.
+    x Column `CONSYN` doesn't exist.
 
 ---
 
-    Errors found in dfConsent.
+    Can't subset columns past the end.
+    x Column `CONSDAT` doesn't exist.
 
 ---
 
-    Errors found in dfRDSL.
+    Errors found in dfSUBJ.
 
 ---
 
-    Errors found in dfRDSL.
+    Errors found in dfSUBJ.
 
 ---
 
-    Errors found in dfRDSL.
+    Errors found in dfSUBJ.
 
 # incorrect mappings throw errors
 
-    Errors found in dfConsent.
+    Errors found in dfCONSENT.
 
 ---
 
-    Errors found in dfRDSL.
+    Errors found in dfSUBJ.
 

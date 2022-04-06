@@ -12,36 +12,33 @@
 #'
 #' The following columns are required:
 #' - `dfPD`
-#'     - `SUBJID` - Unique subject ID
-#' - `dfRDSL`
+#'     - `SubjectID` - Unique subject ID
+#' - `dfSUBJ`
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
 #'     - `TimeOnStudy` - Time on Study in days.
 #'
 #' @param dfPD  PD dataset with required column SUBJID and rows for each Protocol Deviation.
-#' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol.
+#' @param dfSUBJ Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.
 #' @param mapping List containing expected columns in each data set.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
 #'
 #'
 #' @examples
-#' dfInput <- PD_Map_Raw(
-#'     clindata::raw_protdev %>% dplyr::filter(SUBJID != ""),
-#'     clindata::rawplus_rdsl
-#' )
+#' dfInput <- PD_Map_Raw(dfPD = clindata::rawplus_pd, dfSUBJ = clindata::rawplus_subj)
 #'
 #' @import dplyr
 #'
 #' @export
 
-PD_Map_Raw <- function(dfPD, dfRDSL, mapping = NULL){
+PD_Map_Raw <- function(dfPD, dfSUBJ, mapping = NULL){
 
     # Set defaults for mapping if none is provided
     if(is.null(mapping)){
         mapping <- list(
-            dfPD = list(strIDCol="SUBJID"),
-            dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol = "TimeOnStudy")
+            dfPD = list(strIDCol="SubjectID"),
+            dfSUBJ = list(strIDCol="SubjectID", strSiteCol="SiteID", strTimeOnStudyCol = "TimeOnStudy")
         )
     }
 
@@ -53,17 +50,17 @@ PD_Map_Raw <- function(dfPD, dfRDSL, mapping = NULL){
         bQuiet = FALSE
         )
 
-    is_rdsl_valid <- is_mapping_valid(
-        dfRDSL,
-        mapping$dfRDSL,
-        vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"),
+    is_subj_valid <- is_mapping_valid(
+        dfSUBJ,
+        mapping$dfSUBJ,
+        vRequiredParams = c("strIDCol", "strSiteCol", "strTimeOnStudyCol"),
         vUniqueCols = 'strIDCol',
         bQuiet = FALSE
         )
 
     stopifnot(
         "Errors found in dfPD." = is_pd_valid$status,
-        "Errors found in dfRDSL." = is_rdsl_valid$status
+        "Errors found in dfSUBJ." = is_subj_valid$status
     )
 
     # Standarize Column Names
@@ -71,21 +68,21 @@ PD_Map_Raw <- function(dfPD, dfRDSL, mapping = NULL){
         rename(SubjectID = mapping[["dfPD"]][["strIDCol"]]) %>%
         select(.data$SubjectID)
 
-    dfRDSL_mapped <- dfRDSL %>%
+    dfSUBJ_mapped <- dfSUBJ %>%
         rename(
-            SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
-            SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
-            Exposure = mapping[["dfRDSL"]][["strExposureCol"]]
-        ) %>% 
+            SubjectID = mapping[["dfSUBJ"]][["strIDCol"]],
+            SiteID = mapping[["dfSUBJ"]][["strSiteCol"]],
+            Exposure = mapping[["dfSUBJ"]][["strTimeOnStudyCol"]]
+        ) %>%
         select(.data$SubjectID, .data$SiteID, .data$Exposure)
 
 
-    # Create Subject Level PD Counts and merge RDSL
+    # Create Subject Level PD Counts and merge Subj
     dfInput <- dfPD_mapped %>%
         group_by(.data$SubjectID) %>%
-        summarize(Count=n()) %>%  
-        ungroup() %>% 
-        mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>% 
+        summarize(Count=n()) %>%
+        ungroup() %>%
+        mergeSubjects(dfSUBJ_mapped, vFillZero="Count") %>%
         mutate(Rate = .data$Count/.data$Exposure)
 
     return(dfInput)
