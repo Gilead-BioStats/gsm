@@ -11,7 +11,7 @@
 run_test_case <- function(test_case, test_file_prefix = "test_qual_"){
   test_case_file <- testthat::test_path(paste0(test_file_prefix, test_case, ".R"))
 
-  test_case_report <- testthat::test_file(test_case_file, reporter = testthat::SilentReporter)[[1]]
+  test_case_report <- invisible(testthat::test_file(test_case_file, reporter = testthat::SilentReporter)[[1]])
 
   test_case_report_list <- data.frame("test" = test_case_report$test,
                                       "outcome" = gsub("^expectation_", "",
