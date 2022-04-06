@@ -1,4 +1,7 @@
 label: Consent
+tags:
+  Assessment: Consent
+  Label: Consent
 mapping: 
   functionName: Consent_Map_Raw
   params: NULL

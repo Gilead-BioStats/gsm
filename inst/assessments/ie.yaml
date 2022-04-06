@@ -1,4 +1,7 @@
 label: Inclusion/Exclusion
+tags:
+  Assessment: Inclusion/Exclusion
+  Label: Inclusion/Exclusion
 mapping: 
   functionName: IE_Map_Raw
   params: NULL

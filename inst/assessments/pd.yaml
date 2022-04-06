@@ -1,4 +1,7 @@
 label: Protocol Deviations
+tags:
+  Assessment: Protocol Deviations
+  Label: Any PD
 mapping: 
   functionName: PD_Map_Raw
   params: NULL

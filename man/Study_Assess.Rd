@@ -9,7 +9,7 @@ Study_Assess(
   lMapping = NULL,
   lAssessments = NULL,
   lPopFlags = list(strRandFlagCol = "Y"),
-  strStudyID = "myStudy",
+  lTags = list(study = "myStudy"),
   bReturnInputs = FALSE,
   bQuiet = FALSE
 )

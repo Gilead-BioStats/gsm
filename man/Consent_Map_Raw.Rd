@@ -8,8 +8,8 @@ Consent_Map_Raw(
   dfCONSENT,
   dfSUBJ,
   mapping = NULL,
-  strConsentTypeValue = "mainconsent",
-  strConsentStatusValue = "Yes"
+  strConsentTypeValue = "MAINCONSENT",
+  strConsentStatusValue = "Y"
 )
 }
 \arguments{

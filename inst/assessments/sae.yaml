@@ -1,5 +1,8 @@
 description: Treatment-Emergent Serious Adverse Events by SOC
 domain: gsm
+tags:
+  Assessment: Safety
+  Label: SAEs
 mapping: 
   functionName: AE_Map_Raw
   params: NULL

@@ -8,7 +8,7 @@ IE_Map_Raw(
   dfIE,
   dfSUBJ,
   mapping = NULL,
-  vCategoryValues = c("Exclusion", "Inclusion"),
+  vCategoryValues = c("EXCL", "INCL"),
   vExpectedResultValues = c(0, 1)
 )
 }
