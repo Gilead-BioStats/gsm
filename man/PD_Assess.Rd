@@ -59,8 +59,8 @@ See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additio
 }
 
 \examples{
- dfInput <- PD_Map_Raw(clindata::raw_protdev \%>\% dplyr::filter(SUBJID != ""),
-                       clindata::rawplus_rdsl)
+dfInput <- PD_Map_Raw(clindata::rawplus_pd,
+                       clindata::rawplus_subj)
 
 SafetyPD <- PD_Assess( dfInput )
 

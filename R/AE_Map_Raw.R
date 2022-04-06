@@ -20,14 +20,14 @@
 #'
 #' Note that the function can generate data summaries for specific types of AEs, but passing filtered ADAE data to dfADAE.
 #'
-#' @param dfAE AE dataset with required column SubjectID and rows for each AE record
-#' @param dfSUBJ Subject-level data with required columns: SubjectID, SiteID, value specified in strExposureCol
-#' @param mapping List containing expected columns in each data set. By default, mapping for dfAE is: `strIDCol` = "SUBJID". By default, mapping for dfRDSL is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
+#' @param dfAE AE dataset with required column SUBJID and rows for each AE record
+#' @param dfSUBJ Subject-level Raw Data with required columns: SubjectID, SiteID, value specified in strExposureCol
+#' @param mapping List containing expected columns in each data set. By default, mapping for dfAE is: `strIDCol` = "SUBJID". By default, mapping for dfSUBJ is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #'
 #' @examples
-#' dfInput <- AE_Map_Raw(dfAE = clindata::rawplus_ae, dfSubj = clindata::rawplus_subj)
+#' dfInput <- AE_Map_Raw(dfAE = clindata::rawplus_ae, dfSUBJ = clindata::rawplus_subj)
 #'
 #' @import dplyr
 #'

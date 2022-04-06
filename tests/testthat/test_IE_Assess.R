@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 
-ieInput <- IE_Map_Raw(dfIE, dfSubj)
+ieInput <- IE_Map_Raw(dfIE, dfSUBJ)
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {

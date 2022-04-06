@@ -31,8 +31,8 @@
 #' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="PD")`.
 #'
 #' @examples
-#'  dfInput <- PD_Map_Raw(clindata::raw_protdev %>% dplyr::filter(SUBJID != ""),
-#'                        clindata::rawplus_rdsl)
+#' dfInput <- PD_Map_Raw(clindata::rawplus_pd,
+#'                        clindata::rawplus_subj)
 #'
 #' SafetyPD <- PD_Assess( dfInput )
 #'

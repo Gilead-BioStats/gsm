@@ -8,20 +8,20 @@
 #'
 #' @section Data Specification:
 #' The following columns are required:
-#' - `dfConsent`
-#'     - `SUBJID` - Subject ID
+#' - `dfCONSENT`
+#'     - `SubjectID` - Subject ID
 #'     - `CONSCAT_STD` - Type of Consent_Coded value
 #'     - `CONSYN` - Did the subject give consent? Yes / No.
 #'     - `CONSDAT` - If yes, provide date consent signed
-#' - `dfSubj`
+#' - `dfSUBJ`
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
 #'     - `RandDate` - Randomization Date
 #'
-#' @param dfConsent consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.
-#' @param dfSubj Subject-level Raw Data required columns: SubjectID SiteID RandDate.
+#' @param dfCONSENT consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.
+#' @param dfSUBJ Subject-level Raw Data required columns: SubjectID SiteID RandDate.
 #' @param mapping List containing expected columns in each data set.
-#' @param strConsentTypeValue default = "mainconsent", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.
+#' @param strConsentTypeValue default = "mainconsent", filters on CONSCAT_STD of dfCONSENT, if NULL no filtering is done.
 #' @param strConsentStatusValue default = "Yes", expected Status value for valid consent.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
@@ -31,74 +31,74 @@
 #' @examples
 #'
 #' input <- Consent_Map_Raw(
-#'    dfConsent = clindata::rawplus_consent,
-#'    dfSubj = clindata::rawplus_subj,
+#'    dfCONSENT = clindata::rawplus_consent,
+#'    dfSUBJ = clindata::rawplus_subj,
 #'    strConsentTypeValue = "MAINCONSENT",
 #'    strConsentStatusValue="Y"
 #')
 #'
 #' @export
 
-Consent_Map_Raw <- function( dfConsent, dfSubj, mapping = NULL, strConsentTypeValue = "mainconsent", strConsentStatusValue="Yes"){
+Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeValue = "mainconsent", strConsentStatusValue="Yes"){
 
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
     mapping <- list(
-      dfConsent = list(strIDCol = "SubjectID", strConsentTypeCol = "CONSENT_TYPE", strConsentStatusCol = "CONSENT_VALUE", strConsentDateCol = "CONSENT_DATE"),
-      dfSubj = list(strIDCol = "SubjectID", strSiteCol = "SiteID", strRandDateCol = "RandDate")
+      dfCONSENT = list(strIDCol = "SubjectID", strTypeCol = "CONSENT_TYPE", strValueCol = "CONSENT_VALUE", strDateCol = "CONSENT_DATE"),
+      dfSUBJ = list(strIDCol = "SubjectID", strSiteCol = "SiteID", strRandDateCol = "RandDate")
     )
   }
 
   # Check input data vs. mapping
   is_consent_valid <- is_mapping_valid(
-    df = dfConsent,
-    mapping = mapping$dfConsent,
-    vRequiredParams = c("strIDCol", "strConsentTypeCol", "strConsentStatusCol", "strConsentDateCol"),
-    vNACols = c("strConsentDateCol"),
+    df = dfCONSENT,
+    mapping = mapping$dfCONSENT,
+    vRequiredParams = c("strIDCol", "strTypeCol", "strValueCol", "strDateCol"),
+    vNACols = c("strDateCol"),
     bQuiet=FALSE
   )
 
   is_subj_valid <- is_mapping_valid(
-    df = dfSubj,
-    mapping = mapping$dfSubj,
+    df = dfSUBJ,
+    mapping = mapping$dfSUBJ,
     vRequiredParams = c("strIDCol", "strSiteCol", "strRandDateCol"),
     vUniqueCols = "strIDCol",
     bQuiet=FALSE
   )
 
   stopifnot(
-    "Errors found in dfConsent." = is_consent_valid$status,
-    "Errors found in dfSubj." = is_subj_valid$status,
+    "Errors found in dfCONSENT." = is_consent_valid$status,
+    "Errors found in dfSUBJ." = is_subj_valid$status,
     "strConsentTypeValue is not character"= is.character(strConsentTypeValue),
     "strConsentTypeValue has multiple values, specify only one" = length(strConsentTypeValue)==1
   )
 
   # Standarize Column Names
-  dfSubj_mapped <- dfSubj %>%
+  dfSUBJ_mapped <- dfSUBJ %>%
     rename(
-      SubjectID = mapping[["dfSubj"]][["strIDCol"]],
-      SiteID = mapping[["dfSubj"]][["strSiteCol"]],
-      RandDate = mapping[["dfSubj"]][["strRandDateCol"]]
+      SubjectID = mapping[["dfSUBJ"]][["strIDCol"]],
+      SiteID = mapping[["dfSUBJ"]][["strSiteCol"]],
+      RandDate = mapping[["dfSUBJ"]][["strRandDateCol"]]
     ) %>%
     select(.data$SubjectID, .data$SiteID, .data$RandDate)
 
-  dfConsent_mapped <- dfConsent %>%
+  dfCONSENT_mapped <- dfCONSENT %>%
     rename(
-      SubjectID = mapping[["dfConsent"]][["strIDCol"]],
-      ConsentType = mapping[["dfConsent"]][["strConsentTypeCol"]],
-      ConsentStatus = mapping[["dfConsent"]][["strConsentStatusCol"]],
-      ConsentDate = mapping[["dfConsent"]][["strConsentDateCol"]]
+      SubjectID = mapping[["dfCONSENT"]][["strIDCol"]],
+      ConsentType = mapping[["dfCONSENT"]][["strTypeCol"]],
+      ConsentStatus = mapping[["dfCONSENT"]][["strValueCol"]],
+      ConsentDate = mapping[["dfCONSENT"]][["strDateCol"]]
     ) %>%
     select(.data$SubjectID, .data$ConsentType , .data$ConsentStatus , .data$ConsentDate)
 
 
   if(!is.null(strConsentTypeValue)){
-    dfConsent_mapped <- dfConsent_mapped %>%
+    dfCONSENT_mapped <- dfCONSENT_mapped %>%
       filter(.data$ConsentType == strConsentTypeValue)
-    if(nrow(dfConsent_mapped)==0) stop("supplied strConsentTypeValue not found in data")
+    if(nrow(dfCONSENT_mapped)==0) stop("supplied strConsentTypeValue not found in data")
   }
 
-  dfInput <- mergeSubjects(dfConsent_mapped, dfSubj_mapped)%>%
+  dfInput <- mergeSubjects(dfCONSENT_mapped, dfSUBJ_mapped)%>%
     mutate(flag_noconsent = .data$ConsentStatus != strConsentStatusValue) %>%
     mutate(flag_missing_consent = is.na(.data$ConsentDate))%>%
     mutate(flag_missing_rand = is.na(.data$RandDate))%>%
