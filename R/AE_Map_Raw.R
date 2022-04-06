@@ -13,7 +13,7 @@
 #' The following columns are required:
 #' - `dfAE`
 #'     - `SUBJID` - Unique subject ID
-#' - `dfSubj`
+#' - `dfSUBJ`
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
 #'     - Value specified in strExposureCol - Treatment Exposure in days; "TimeOnTreatment" by default
@@ -21,25 +21,25 @@
 #' Note that the function can generate data summaries for specific types of AEs, but passing filtered ADAE data to dfADAE.
 #'
 #' @param dfAE AE dataset with required column SUBJID and rows for each AE record
-#' @param dfSubj Subject-level Raw Data with required columns: SubjectID, SiteID, value specified in strExposureCol
-#' @param mapping List containing expected columns in each data set. By default, mapping for dfAE is: `strIDCol` = "SUBJID". By default, mapping for dfSubj is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
+#' @param dfSUBJ Subject-level Raw Data with required columns: SubjectID, SiteID, value specified in strExposureCol
+#' @param mapping List containing expected columns in each data set. By default, mapping for dfAE is: `strIDCol` = "SUBJID". By default, mapping for dfSUBJ is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #'
 #' @examples
-#' dfInput <- AE_Map_Raw(dfAE = clindata::rawplus_ae, dfSubj = clindata::rawplus_subj)
+#' dfInput <- AE_Map_Raw(dfAE = clindata::rawplus_ae, dfSUBJ = clindata::rawplus_subj)
 #'
 #' @import dplyr
 #'
 #' @export
 
-AE_Map_Raw <- function( dfAE, dfSubj, mapping = NULL ){
+AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL ){
 
     # Set defaults for mapping if none is provided
     if(is.null(mapping)){
         mapping <- list(
             dfAE = list(strIDCol="SubjectID"),
-            dfSubj = list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
+            dfSUBJ = list(strIDCol="SubjectID", strSiteCol="SiteID", strTimeOnTreatmentCol="TimeOnTreatment")
         )
     }
 
@@ -52,16 +52,16 @@ AE_Map_Raw <- function( dfAE, dfSubj, mapping = NULL ){
     )
 
     is_subj_valid <- is_mapping_valid(
-        dfSubj,
-        mapping$dfSubj,
-        vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"),
-        vUniqueCols = mapping$dfSubj$strIDCol,
+        dfSUBJ,
+        mapping$dfSUBJ,
+        vRequiredParams = c("strIDCol", "strSiteCol", "strTimeOnTreatmentCol"),
+        vUniqueCols = mapping$dfSUBJ$strIDCol,
         bQuiet = FALSE
     )
 
     stopifnot(
         "Errors found in dfAE." = is_ae_valid$status,
-        "Errors found in dfSubj." = is_subj_valid$status
+        "Errors found in dfSUBJ." = is_subj_valid$status
     )
 
     # Standarize Column Names
@@ -69,11 +69,11 @@ AE_Map_Raw <- function( dfAE, dfSubj, mapping = NULL ){
         rename(SubjectID = mapping[["dfAE"]][["strIDCol"]]) %>%
         select(.data$SubjectID)
 
-    dfSubj_mapped <- dfSubj %>%
+    dfSUBJ_mapped <- dfSUBJ %>%
         rename(
-            SubjectID = mapping[["dfSubj"]][["strIDCol"]],
-            SiteID = mapping[["dfSubj"]][["strSiteCol"]],
-            Exposure = mapping[["dfSubj"]][["strExposureCol"]]
+            SubjectID = mapping[["dfSUBJ"]][["strIDCol"]],
+            SiteID = mapping[["dfSUBJ"]][["strSiteCol"]],
+            Exposure = mapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
         ) %>%
         select(.data$SubjectID, .data$SiteID, .data$Exposure)
 
@@ -82,7 +82,7 @@ AE_Map_Raw <- function( dfAE, dfSubj, mapping = NULL ){
         group_by(.data$SubjectID) %>%
         summarize(Count=n()) %>%
         ungroup() %>%
-        mergeSubjects(dfSubj_mapped, vFillZero="Count") %>%
+        mergeSubjects(dfSUBJ_mapped, vFillZero="Count") %>%
         mutate(Rate = .data$Count/.data$Exposure) %>%
         select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate)
 

@@ -31,7 +31,7 @@
 #' @examples
 #'
 #' dfInput <- IE_Map_Raw(
-#'    clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
+#'    clindata::raw_ie_all,
 #'    clindata::rawplus_rdsl,
 #'    vCategoryValues= c("EXCL","INCL"),
 #'    vExpectedResultValues=c(0,1)
