@@ -5,11 +5,12 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     dfSUBJ = clindata::rawplus_subj
     )
 
-  test1_6 <- suppressWarnings(AE_Assess(
+  test1_6 <- AE_Assess(
     dfInput = dfInput,
     strMethod = "wilcoxon",
-    vThreshold = c(0.1, NA)
-  ))
+    vThreshold = c(0.1, NA),
+    bChart = FALSE
+  )
 
   # double programming
   t1_6_input <- dfInput
@@ -54,7 +55,8 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
   t1_6 <- list("strFunctionName" = "AE_Assess()",
                "lParams" = list("dfInput" = "dfInput",
                                 "vThreshold" = c("c", "0.1", "NA"),
-                                "strMethod" = "wilcoxon"),
+                                "strMethod" = "wilcoxon",
+                                "bChart" = "FALSE"),
                "lTags" = list(Assessment = "AE"),
                "dfInput" = t1_6_input,
                "dfTransformed" = t1_6_transformed,

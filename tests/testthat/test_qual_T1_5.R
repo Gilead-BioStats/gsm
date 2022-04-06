@@ -7,7 +7,8 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
 
   test1_5 <- AE_Assess(
     dfInput = dfInput,
-    strMethod = "wilcoxon"
+    strMethod = "wilcoxon",
+    bChart = FALSE
   )
 
   # double programming
@@ -53,7 +54,8 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
 
   t1_5 <- list("strFunctionName" = "AE_Assess()",
              "lParams" = list("dfInput" = "dfInput",
-                              "strMethod" = "wilcoxon"),
+                              "strMethod" = "wilcoxon",
+                              "bChart" = "FALSE"),
              "lTags" = list(Assessment = "AE"),
              "dfInput" = t1_5_input,
              "dfTransformed" = t1_5_transformed,

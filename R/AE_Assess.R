@@ -31,6 +31,7 @@
 #' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.
 #' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon".
 #' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE")`.
+#' @param bChart should vizualization be created? TRUE (default) or FALSE.
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
@@ -41,7 +42,7 @@
 #'
 #' @export
 
-AE_Assess <- function(dfInput, vThreshold=NULL, strMethod="poisson", lTags=list(Assessment="AE")){
+AE_Assess <- function(dfInput, vThreshold=NULL, strMethod="poisson", lTags=list(Assessment="AE"), bChart=TRUE){
     stopifnot(
         "dfInput is not a data.frame" = is.data.frame(dfInput),
         "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson","wilcoxon"),
@@ -93,6 +94,11 @@ AE_Assess <- function(dfInput, vThreshold=NULL, strMethod="poisson", lTags=list(
         lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon( lAssess$dfTransformed)
         lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,  strColumn = 'PValue', vThreshold =vThreshold, strValueColumn = 'Estimate')
         lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol = 'PValue', lTags = lTags)
+    }
+
+    if (bChart) {
+        dfBounds <- Analyze_Poisson_PredictBounds(lAssess$dfTransformed)
+        lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged, dfBounds)
     }
 
     return(lAssess)

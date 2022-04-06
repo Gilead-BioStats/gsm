@@ -9,7 +9,8 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     # gsm
     test1_8 <- c(test1_8,
                  severity = AE_Assess(dfInput,
-                                      strMethod = "wilcoxon"))
+                                      strMethod = "wilcoxon",
+                                      bChart = FALSE))
 
     # Double Programming
     t1_8_input <- dfInput
@@ -54,7 +55,8 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     t1_8 <- c(t1_8,
               severity = list("strFunctionName" = "AE_Assess()",
                               "lParams" = list("dfInput" = "dfInput",
-                                               "strMethod" = "wilcoxon"),
+                                               "strMethod" = "wilcoxon",
+                                               "bChart" = "FALSE"),
                               "lTags" = list(Assessment = "AE"),
                               "dfInput" = t1_8_input,
                               "dfTransformed" = t1_8_transformed,
