@@ -14,12 +14,12 @@
 #'     - `SUBJID` - Unique subject ID
 #'     - Value specified in `mapping` - IE Category; "IECAT_STD" by default
 #'     - Value specified in `mapping` - Incl criteria not met Excl criteria met; "IEORRES" by default
-#' - `dfRDSL`
+#' - `dfSubj`
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
 #'
 #' @param dfIE ie dataset with columns SUBJID and values specified in strCategoryCol and strResultCol.
-#' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID SiteID
+#' @param dfSubj Subject-level Raw Data required columns: SubjectID SiteID
 #' @param mapping List containing expected columns in each data set.
 #' @param vCategoryValues Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion"). Category values must be in the same order as `vExpectedResultValues`.
 #' @param vExpectedResultValues Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion". Values must be in the same order as `vCategoryValues`.
@@ -29,8 +29,8 @@
 #' @examples
 #'
 #' dfInput <- IE_Map_Raw(
-#'    clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
-#'    clindata::rawplus_rdsl,
+#'    clindata::rawplus_ie,
+#'    clindata::rawplus_subj,
 #'    vCategoryValues= c("EXCL","INCL"),
 #'    vExpectedResultValues=c(0,1)
 #')
@@ -38,13 +38,13 @@
 #' @import dplyr
 #'
 #' @export
-IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclusion","Inclusion"), vExpectedResultValues = c(0,1)) {
+IE_Map_Raw <- function(dfIE, dfSubj, mapping = NULL, vCategoryValues =  c("Exclusion","Inclusion"), vExpectedResultValues = c(0,1)) {
 
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
     mapping <- list(
-      dfIE = list(strIDCol="SUBJID", strCategoryCol = "IECAT_STD", strResultCol = "IEORRES"),
-      dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID")
+      dfIE = list(strIDCol="SubjectID", strCategoryCol = "IE_CATEGORY", strResultCol = "IE_VALUE"),
+      dfSubj = list(strIDCol="SubjectID", strSiteCol="SiteID")
     )
   }
 
@@ -56,44 +56,44 @@ IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclu
       bQuiet = FALSE
     )
 
-  is_rdsl_valid <- is_mapping_valid(
-      dfRDSL,
-      mapping$dfRDSL,
+  is_subj_valid <- is_mapping_valid(
+      dfSubj,
+      mapping$dfSubj,
       vRequiredParams = c("strIDCol", "strSiteCol"),
       bQuiet = FALSE,
-      vUniqueCols = mapping$dfRDSL$strIDCol
+      vUniqueCols = mapping$dfSubj$strIDCol
     )
 
   stopifnot(
     "length of vExpectedResultValues is not equal to 2"= (length(vExpectedResultValues) == 2),
     "length of vCategoryValues is not equal to 2"= (length(vCategoryValues) == 2),
     "Errors found in dfIE." = is_ie_valid$status,
-    "Errors found in dfRDSL." = is_rdsl_valid$status
+    "Errors found in dfSubj." = is_subj_valid$status
   )
 
   # Standarize Column Names
-  dfRDSL_mapped <- dfRDSL %>%
+  dfSubj_mapped <- dfSubj %>%
     rename(
-      SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
-      SiteID = mapping[["dfRDSL"]][["strSiteCol"]]
+      SubjectID = mapping[["dfSubj"]][["strIDCol"]],
+      SiteID = mapping[["dfSubj"]][["strSiteCol"]]
     ) %>%
     select(.data$SubjectID, .data$SiteID)
-  
+
   dfIE_Subj <- dfIE %>%
     rename(
       SubjectID = mapping[["dfIE"]][["strIDCol"]],
       category = mapping[["dfIE"]][["strCategoryCol"]],
         result = mapping[["dfIE"]][["strResultCol"]]) %>%
-    select(.data$SubjectID, .data$category, .data$result) 
-    
+    select(.data$SubjectID, .data$category, .data$result)
 
-  # Create Subject Level IE Counts and merge RDSL
+
+  # Create Subject Level IE Counts and merge Subj
 
   dfInput <- dfIE_Subj %>%
     mutate(
       expected = ifelse(
-        .data$category == vCategoryValues[1], 
-        vExpectedResultValues[1], 
+        .data$category == vCategoryValues[1],
+        vExpectedResultValues[1],
         vExpectedResultValues[2]
       ),
       valid = .data$result == .data$expected,
@@ -110,8 +110,8 @@ IE_Map_Raw <- function(dfIE, dfRDSL, mapping = NULL, vCategoryValues =  c("Exclu
     mutate(Count = .data$Invalid + .data$Missing) %>%
     ungroup() %>%
     select(.data$SubjectID, .data$Count) %>%
-    mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>%
-    select(.data$SubjectID, .data$SiteID, .data$Count)    
+    mergeSubjects(dfSubj_mapped, vFillZero="Count") %>%
+    select(.data$SubjectID, .data$SiteID, .data$Count)
 
 
   return(dfInput)

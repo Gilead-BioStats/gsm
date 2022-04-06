@@ -1,12 +1,12 @@
 dfAE <- tibble::tribble(
-  ~SUBJID,
+  ~SubjectID,
   "1234",
   "1234",
   "5678",
   "5678"
 )
 
-dfRDSL <- data.frame(
+dfSubj <- data.frame(
   stringsAsFactors = FALSE,
   SubjectID = c("1234", "5678", "9876"),
   SiteID = c("X010X", "X102X", "X999X"),
@@ -17,7 +17,7 @@ dfRDSL <- data.frame(
 
 
 dfPD <- tibble::tribble(
-  ~SUBJID,
+  ~SubjectID,
   "1234",
   "1234",
   "5678",
@@ -31,10 +31,10 @@ dfPD <- tibble::tribble(
 
 dfConsent <- data.frame(
   stringsAsFactors = FALSE,
-  SUBJID = c("1234", "5678"),
-  CONSDAT = c("2013-11-26", "2017-10-02"),
-  CONSCAT_STD = c("mainconsent", "mainconsent"),
-  CONSYN = c("Y", "Y")
+  SubjectID = c("1234", "5678"),
+  CONSENT_DATE = c("2013-11-26", "2017-10-02"),
+  CONSENT_TYPE = c("MAINCONSENT", "MAINCONSENT"),
+  CONSENT_VALUE = c("Y", "Y")
 )
 
 
@@ -56,7 +56,7 @@ dfDisp <- tibble::tribble(
 #   head(40) %>%
 #   mutate(SUBJID = ifelse(SUBJID == "0496", "1234", "5678"))
 dfIE <- tibble::tribble(
-  ~SUBJID, ~IECAT_STD, ~IEORRES,
+  ~SubjectID, ~IE_CATEGORY, ~IE_VALUE,
   "1234",     "EXCL",        0,
   "1234",     "EXCL",        0,
   "1234",     "EXCL",        0,

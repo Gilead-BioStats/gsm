@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 
-pdInput <- suppressWarnings(PD_Map_Raw(dfPD, dfRDSL))
+pdInput <- suppressWarnings(PD_Map_Raw(dfPD, dfSubj))
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {

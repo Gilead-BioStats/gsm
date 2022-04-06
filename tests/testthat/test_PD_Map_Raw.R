@@ -1,7 +1,7 @@
 source(testthat::test_path("testdata/data.R"))
 
 test_that("output created as expected and has correct structure",{
-  pd_input <- PD_Map_Raw(dfPD, dfRDSL)%>%suppressWarnings
+  pd_input <- PD_Map_Raw(dfPD, dfRDSL)
   expect_true(is.data.frame(pd_input))
   expect_equal(names(pd_input), c("SubjectID","SiteID","Exposure","Count","Rate"))
 })
