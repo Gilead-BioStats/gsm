@@ -38,7 +38,7 @@
 #' @import dplyr
 #'
 #' @export
-IE_Map_Raw <- function(dfIE, dfSUBJ, mapping = NULL, vCategoryValues =  c("Exclusion","Inclusion"), vExpectedResultValues = c(0,1)) {
+IE_Map_Raw <- function(dfIE, dfSUBJ, mapping = NULL, vCategoryValues =  c("EXCL","INCL"), vExpectedResultValues = c(0,1)) {
 
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){

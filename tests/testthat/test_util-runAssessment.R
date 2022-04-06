@@ -24,4 +24,3 @@ test_that("Assessment correctly labeled as valid",{
     expect_false(sae_inv$rawValid)
     expect_false(sae_inv$valid)
 })
-

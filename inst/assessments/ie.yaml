@@ -1,0 +1,15 @@
+label: Inclusion/Exclusion
+mapping: 
+  functionName: IE_Map_Raw
+  params: NULL
+assessment:
+  functionName: IE_Assess
+  params: NULL
+requiredParameters:
+  dfIE:
+    - strIDCol
+    - strCategoryCol
+    - strValueCol
+  dfSUBJ: 
+    - strIDCol
+    - strSiteCol
