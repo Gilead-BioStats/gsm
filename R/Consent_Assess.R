@@ -39,8 +39,8 @@
 #'    filter(SUBJID != "")
 #'
 #' dfInput <- Consent_Map_Raw(
-#'    dfConsent = raw_consent,
-#'    dfRDSL = clindata::rawplus_rdsl,
+#'    dfCONSENT = clindata::rawplus_consent,
+#'    dfSUBJ = clindata::rawplus_subj,
 #'    strConsentTypeValue = "MAINCONSENT",
 #'    strConsentStatusValue="Y"
 #' )

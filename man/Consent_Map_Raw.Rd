@@ -5,21 +5,21 @@
 \title{Consent Assessment Mapping from Raw Data}
 \usage{
 Consent_Map_Raw(
-  dfConsent,
-  dfSubj,
+  dfCONSENT,
+  dfSUBJ,
   mapping = NULL,
   strConsentTypeValue = "mainconsent",
   strConsentStatusValue = "Yes"
 )
 }
 \arguments{
-\item{dfConsent}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}
+\item{dfCONSENT}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}
 
-\item{dfSubj}{Subject-level Raw Data required columns: SubjectID SiteID RandDate.}
+\item{dfSUBJ}{Subject-level Raw Data required columns: SubjectID SiteID RandDate.}
 
 \item{mapping}{List containing expected columns in each data set.}
 
-\item{strConsentTypeValue}{default = "mainconsent", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.}
+\item{strConsentTypeValue}{default = "mainconsent", filters on CONSCAT_STD of dfCONSENT, if NULL no filtering is done.}
 
 \item{strConsentStatusValue}{default = "Yes", expected Status value for valid consent.}
 }
@@ -36,14 +36,14 @@ This function uses raw Consent and Subject data to create the required input for
 
 The following columns are required:
 \itemize{
-\item \code{dfConsent}
+\item \code{dfCONSENT}
 \itemize{
 \item \code{SUBJID} - Subject ID
 \item \code{CONSCAT_STD} - Type of Consent_Coded value
 \item \code{CONSYN} - Did the subject give consent? Yes / No.
 \item \code{CONSDAT} - If yes, provide date consent signed
 }
-\item \code{dfSubj}
+\item \code{dfSUBJ}
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
@@ -55,8 +55,8 @@ The following columns are required:
 \examples{
 
 input <- Consent_Map_Raw(
-   dfConsent = clindata::rawplus_consent,
-   dfSubj = clindata::rawplus_subj,
+   dfCONSENT = clindata::rawplus_consent,
+   dfSUBJ = clindata::rawplus_subj,
    strConsentTypeValue = "MAINCONSENT",
    strConsentStatusValue="Y"
 )

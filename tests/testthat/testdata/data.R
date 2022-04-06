@@ -6,7 +6,7 @@ dfAE <- tibble::tribble(
   "5678"
 )
 
-dfSubj <- data.frame(
+dfSUBJ <- data.frame(
   stringsAsFactors = FALSE,
   SubjectID = c("1234", "5678", "9876"),
   SiteID = c("X010X", "X102X", "X999X"),
@@ -23,13 +23,12 @@ dfPD <- tibble::tribble(
   "5678",
   "5678",
   "5678",
-  "6789",
   "9876",
   "9876"
 )
 
 
-dfConsent <- data.frame(
+dfCONSENT <- data.frame(
   stringsAsFactors = FALSE,
   SubjectID = c("1234", "5678"),
   CONSENT_DATE = c("2013-11-26", "2017-10-02"),

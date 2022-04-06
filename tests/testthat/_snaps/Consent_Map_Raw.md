@@ -1,22 +1,22 @@
 # incorrect inputs throw errors
 
-    Errors found in dfConsent.
+    Errors found in dfCONSENT.
 
 ---
 
-    Errors found in dfSubj.
+    Errors found in dfSUBJ.
 
 ---
 
-    Errors found in dfConsent.
+    Errors found in dfCONSENT.
 
 ---
 
-    Errors found in dfConsent.
+    Errors found in dfCONSENT.
 
 ---
 
-    Errors found in dfConsent.
+    Errors found in dfCONSENT.
 
 ---
 
@@ -40,21 +40,21 @@
 
 ---
 
-    Errors found in dfSubj.
+    Errors found in dfSUBJ.
 
 ---
 
-    Errors found in dfSubj.
+    Errors found in dfSUBJ.
 
 ---
 
-    Errors found in dfSubj.
+    Errors found in dfSUBJ.
 
 # incorrect mappings throw errors
 
-    Errors found in dfConsent.
+    Errors found in dfCONSENT.
 
 ---
 
-    Errors found in dfSubj.
+    Errors found in dfSUBJ.
 
