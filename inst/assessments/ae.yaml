@@ -6,13 +6,13 @@ assessment:
   functionName: AE_Assess
   params: NULL
 requiredParameters:
-  ae:
+  dfAE:
     - strIDCol
     - strTreatementEmergentCol
-  subj: 
+  dfSUBJ: 
     - strIDCol
     - strSiteCol
     - strTimeOnTreatmentCol 
 filters:
-  ae:
+  dfAE:
     strTreatementEmergentCol: TRUE

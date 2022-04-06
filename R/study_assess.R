@@ -32,11 +32,11 @@ Study_Assess <- function(
     # lData from clindata
     if(is.null(lData)){
         lData <- list(
-            subj= clindata::rawplus_rdsl,
-            ae=clindata::rawplus_ae,
-            pd=clindata::rawplus_pd,
-            consent=clindata::rawplus_consent,
-            ie=clindata::rawplus_ie
+            dfSUBJ= clindata::rawplus_rdsl,
+            dfAE=clindata::rawplus_ae,
+            dfPD=clindata::rawplus_pd,
+            dfCONSENT=clindata::rawplus_consent,
+            dfIE=clindata::rawplus_ie
         )
     }
 
