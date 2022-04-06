@@ -32,7 +32,7 @@ Study_Assess <- function(
     # lData from clindata
     if(is.null(lData)){
         lData <- list(
-            dfSUBJ= clindata::rawplus_rdsl,
+            dfSUBJ= clindata::rawplus_subj,
             dfAE=clindata::rawplus_ae,
             dfPD=clindata::rawplus_pd,
             dfCONSENT=clindata::rawplus_consent,
@@ -50,15 +50,15 @@ Study_Assess <- function(
         lAssessments <- makeAssessmentList()
     }
     
-    ### ---  Filter data$subj based on strPopFlags --- ### 
+    ### ---  Filter data$dfSUBJ based on strPopFlags --- ### 
     if(!is.null(lPopFlags)){
         for(flag in names(lPopFlags)){
             # TODO run is_mapping_valid to make sure filter cols are present
-            col <- lMapping$subj[[flag]]
+            col <- lMapping$dfSUBJ[[flag]]
             val <- lPopFlags[[flag]]
-            oldRows <- nrow(lData$subj)
-            lData$subj <- lData$subj %>% filter(.data[[col]]==val)
-            newRows<-nrow(lData$subj)
+            oldRows <- nrow(lData$dfSUBJ)
+            lData$subj <- lData$dfSUBJ %>% filter(.data[[col]]==val)
+            newRows<-nrow(lData$dfSUBJ)
             if(!bQuiet){
                 message(paste0(
                     "- Filtered subject data on `",

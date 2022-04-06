@@ -79,12 +79,7 @@ runAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
         }else{
             amessage("-- Mapping Raw Data to Assessment Input Standard.")
             dfParams <- assessment$lRaw
-            names(dfParams) <- paste0("df", toupper(names(assessment$lRaw)))
-            names(dfParams)[names(dfParams)=="dfSUBJ"] <- "dfRDSL"
-
             mappingParam <- lMapping
-            names(mappingParam) <- paste0("df", toupper(names(lMapping)))
-            names(mappingParam)[names(mappingParam)=="dfSUBJ"] <- "dfRDSL"
 
             raw_params <- c(dfParams, assessment$mapping$params, list(mapping=mappingParam))            
             assessment$dfInput <- do.call(

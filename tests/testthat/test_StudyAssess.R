@@ -1,5 +1,5 @@
 lData <- list(
-    subj= clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment)),
+    subj= clindata::rawplus_subj %>% filter(!is.na(TimeOnTreatment)),
     ae=clindata::rawplus_ae,
     pd=clindata::rawplus_pd,
     consent=clindata::rawplus_consent,

@@ -12,16 +12,16 @@
 #'
 #' The following columns are required:
 #' - `dfAE`
-#'     - `SUBJID` - Unique subject ID
-#' - `dfRDSL`
+#'     - `SubjectID` - Unique subject ID
+#' - `dfSUBJ`
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
 #'     - Value specified in strExposureCol - Treatment Exposure in days; "TimeOnTreatment" by default
 #'
 #' Note that the function can generate data summaries for specific types of AEs, but passing filtered ADAE data to dfADAE.
 #'
-#' @param dfAE AE dataset with required column SUBJID and rows for each AE record
-#' @param dfRDSL Subject-level Raw Data (RDSL) with required columns: SubjectID, SiteID, value specified in strExposureCol
+#' @param dfAE AE dataset with required column SubjectID and rows for each AE record
+#' @param dfSUBJ Subject-level data with required columns: SubjectID, SiteID, value specified in strExposureCol
 #' @param mapping List containing expected columns in each data set. By default, mapping for dfAE is: `strIDCol` = "SUBJID". By default, mapping for dfRDSL is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
