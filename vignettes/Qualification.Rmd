@@ -1,16 +1,14 @@
 ---
 title: "Qualification of GSM"
 date: "`r Sys.Date()`"
-output:
+output: 
   pdf_document:
     toc: true
-    fig_crop: false
-    toc_depth: 2
     number_sections: true
 vignette: >
   %\VignetteIndexEntry{Qualification}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE}
@@ -24,7 +22,12 @@ suppressPackageStartupMessages({
 
 opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = TRUE,
+  echo = FALSE,
+  results = "asis",
+  message = FALSE,
+  tidy = FALSE
 )
 
 source(here::here("inst", "qualification", "specs.R"))
@@ -32,8 +35,16 @@ source(here::here("inst", "qualification", "test_cases.R"))
 spec_df <- scrape_dir_specs(here::here("inst", "qualification"))
 ```
 
+# Testing Environment
 
-```{r create_assessment_section, echo = FALSE}
+```{r}
+pander::pander(sessionInfo())
+pander::pandoc.p('\\pagebreak')
+```
+
+# Assessments
+
+```{r create_assessment_section}
 create_assessment_section <- function(assessment, df){
   pander::pandoc.header(paste0("Assessment ", assessment), level = 2)
   pander::pandoc.header("Specifications", level = 3)
@@ -56,9 +67,7 @@ create_assessment_section <- function(assessment, df){
 }
 ```
 
-# Assessments
-
-```{r assessments, results='asis', echo = FALSE}
+```{r assessments}
 assessments <- unique(spec_df$Assessment)
 for (a in assessments){
   a_df <- filter(spec_df, Assessment == a) %>% 
@@ -66,3 +75,10 @@ for (a in assessments){
   create_assessment_section(a, a_df)
 }
 ```
+
+# Unit Tests
+
+```{r covr}
+pandoc.p(covr::package_coverage(here::here()))
+```
+
