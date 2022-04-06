@@ -32,7 +32,7 @@ This function provides a generalized framework for flagging sites as part of the
 \section{Data Specification}{
 
 
-\code{Flag} is designed to support the input data (\code{ dfAnalyzed}) input data from many different \code{Analyze} functions. At a minimum, the input data must have a \code{SiteID} column and a column of numeric values (identified by the \code{strColumn} parameter) that will be compared to the specified threhsolds (\code{vThreshold}) to calculate a new \code{Flag} column. Optionally, a second column of numeric values (identified by \code{strValueColumn}) can be specified to set the directionality of the \code{Flag}.
+\code{Flag} is designed to support the input data (\code{ dfAnalyzed}) input data from many different \code{Analyze} functions. At a minimum, the input data must have a \code{SiteID} column and a column of numeric values (identified by the \code{strColumn} parameter) that will be compared to the specified thresholds (\code{vThreshold}) to calculate a new \code{Flag} column. Optionally, a second column of numeric values (identified by \code{strValueColumn}) can be specified to set the directionality of the \code{Flag}.
 
 In short, the following columns are considered:
 \itemize{

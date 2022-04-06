@@ -1,4 +1,6 @@
-dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD",strReason = "Adverse Event")
+source(testthat::test_path("testdata/data.R"))
+
+dfInput <- Disp_Map(dfDisp, strCol = "DCREASCD",strReason = "Adverse Event")
 dfTransformed <- Transform_EventCount(dfInput, strCountCol = 'Count')
 
 test_that("output created as expected and has correct structure",{

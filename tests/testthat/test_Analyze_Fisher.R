@@ -1,10 +1,8 @@
-test_that("output created as expected and has correct structure", {
+source(testthat::test_path("testdata/data.R"))
 
-  dfInput <- Disp_Map(
-    dfDisp = safetyData::adam_adsl,
-    strCol = "DCREASCD",
-    strReason = "Adverse Event"
-  )
+dfInput <- Disp_Map(dfDisp, strCol = "DCREASCD", strReason = "Adverse Event")
+
+test_that("output created as expected and has correct structure", {
 
   df <- Transform_EventCount(
     dfInput,
@@ -39,9 +37,7 @@ test_that("output created as expected and has correct structure", {
 
   expect_equal(
     df$SiteID,
-    structure(c("701", "702", "703", "704", "705", "706", "707",
-                "708", "709", "710", "711", "713", "714", "715", "716", "717",
-                "718"), label = "Study Site Identifier")
+    c("701", "702")
   )
 
 })
@@ -49,7 +45,7 @@ test_that("output created as expected and has correct structure", {
 test_that("incorrect inputs throw errors", {
 
   dfInput <- Disp_Map(
-    dfDisp = safetyData::adam_adsl,
+    dfDisp,
     strCol = "DCREASCD",
     strReason = "Adverse Event"
   )
@@ -81,7 +77,7 @@ test_that("incorrect inputs throw errors", {
 test_that("error given if required column not found", {
 
   dfInput <- Disp_Map(
-    dfDisp = safetyData::adam_adsl,
+    dfDisp,
     strCol = "DCREASCD",
     strReason = "Adverse Event"
   )
@@ -114,7 +110,7 @@ test_that("error given if required column not found", {
 test_that("NAs are handled correctly", {
 
   dfInput <- Disp_Map(
-    dfDisp = safetyData::adam_adsl,
+    dfDisp,
     strCol = "DCREASCD",
     strReason = "Adverse Event"
   )

@@ -1,152 +1,60 @@
-dfConsent_test <- tibble::tribble(~SUBJID, ~CONSCAT_STD , ~CONSYN , ~CONSDAT,
-                                  '1',       "MAINCONSENT",    "Yes", "2014-12-24",
-                                  '2',       "MAINCONSENT",    "Yes", "2014-12-24",
-                                  '3',       "MAINCONSENT",    "Yep", "2014-12-24", #Bad CONSYN
-                                  '4',       "MAINCONSENT",    "No", "2014-12-24", #Bad CONSYN
-                                  '5',       "MAINCONSENT",    "Yes", "2014-12-25", #consent same as rand
-                                  '6',       "MAINCONSENT",    "Yes", "2014-12-26", #consent after rand
-                                  '7',       "NoCONSENT",      "Yes", "2014-12-24" #Wrong consent type
+source(testthat::test_path("testdata/data.R"))
+
+mapping <- list(
+  dfConsent = list(strIDCol = "SUBJID",
+                   strConsentTypeCol = "CONSCAT_STD",
+                   strConsentStatusCol = "CONSYN",
+                   strConsentDateCol = "CONSDAT"),
+  dfRDSL = list(strIDCol = "SubjectID",
+                strSiteCol = "SiteID",
+                strRandDateCol = "RandDate")
 )
 
-dfRDSL_test <- tibble::tribble(~SubjectID, ~SiteID, ~RandDate,
-                               '1',  1, "2014-12-25",
-                               '2',  1, "2014-12-25",
-                               '3',  1, "2014-12-25",
-                               '4',  1, "2014-12-25",
-                               '5',  1, "2014-12-25",
-                               '6',  1, "2014-12-25",
-                               '7',  1, "2014-12-25")
-
-dfInput_test <-  tibble::tribble(
-  ~SubjectID, ~SiteID, ~Count,
-  '1',       1,   0,
-  '2',       1,   0,
-  '3',       1,   1,
-  '4',       1,   1,
-  '5',       1,   1,
-  '6',       1,   1,
-  '7',       1,   1
-)
-
-test_that("output created as expected and has correct structure",{
-  consent_input <- Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "MAINCONSENT", mapping = NULL)
-  expect_true(is.data.frame(consent_input))
-  expect_equal(
-    names(consent_input),
-    c("SubjectID","SiteID","Count"))
+# output is created as expected -------------------------------------------
+test_that("output created as expected ",{
+  data <- Consent_Map_Raw(dfConsent, dfRDSL, strConsentTypeValue = "mainconsent", mapping = NULL)
+  expect_true(is.data.frame(data))
+  expect_equal(names(data),c("SubjectID","SiteID","Count"))
 })
 
+# incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors",{
-  suppressMessages(expect_error(Consent_Map_Raw(list(), list())))
-  suppressMessages(expect_error(Consent_Map_Raw("Hi","Mom")))
+  expect_snapshot_error(Consent_Map_Raw(list(), list()))
+  expect_snapshot_error(Consent_Map_Raw(dfConsent, list()))
+  expect_snapshot_error(Consent_Map_Raw(list(), dfRDSL))
+  expect_snapshot_error(Consent_Map_Raw("Hi", "Mom"))
+  expect_snapshot_error(Consent_Map_Raw(dfConsent, dfRDSL, mapping = list()))
+  expect_snapshot_error(Consent_Map_Raw(dfConsent %>% select(-SUBJID), dfRDSL))
+  expect_snapshot_error(Consent_Map_Raw(dfConsent %>% select(-CONSCAT_STD), dfRDSL))
+  expect_snapshot_error(Consent_Map_Raw(dfConsent %>% select(-CONSYN), dfRDSL))
+  expect_snapshot_error(Consent_Map_Raw(dfConsent %>% select(-CONSDAT), dfRDSL))
+  expect_snapshot_error(Consent_Map_Raw(dfConsent, dfRDSL %>% select(-SubjectID)))
+  expect_snapshot_error(Consent_Map_Raw(dfConsent, dfRDSL %>% select(-SiteID)))
+  expect_snapshot_error(Consent_Map_Raw(dfConsent, dfRDSL %>% select(-RandDate)))
 })
 
+# incorrect mappings throw errors -----------------------------------------
+test_that("incorrect mappings throw errors", {
+  expect_snapshot_error(Consent_Map_Raw(dfConsent, dfRDSL, mapping = list(
+    dfConsent = list(strIDCol = "not an id",
+                     strConsentTypeCol = "CONSCAT_STD",
+                     strConsentStatusCol = "CONSYN",
+                     strConsentDateCol = "CONSDAT"),
+    dfRDSL = list(strIDCol = "SubjectID",
+                  strSiteCol = "SiteID",
+                  strRandDateCol = "RandDate"))))
 
-test_that("incorrect inputs throw errors",{
-  suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = list())))
-  suppressMessages(expect_error( Consent_Map_Raw(dfConsent = list(), dfRDSL = dfRDSL_test)))
-  suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "mainconsent", mapping = "hi there")))
-  suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "mainconsent", mapping = list())))
-  suppressMessages(expect_error( Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = 1)))
+  expect_snapshot_error(Consent_Map_Raw(dfConsent, dfRDSL, mapping = list(
+    dfConsent = list(strIDCol = "SUBJID",
+                     strConsentTypeCol = "CONSCAT_STD",
+                     strConsentStatusCol = "CONSYN",
+                     strConsentDateCol = "CONSDAT"),
+    dfRDSL = list(strIDCol = "not an id",
+                  strSiteCol = "SiteID",
+                  strRandDateCol = "RandDate"))))
 })
 
-
-test_that("error given if required column not found",{
-  suppressMessages(
-    expect_error(
-      Consent_Map_Raw(
-        dfConsent =  dfConsent_test %>% rename(ID = SUBJID),
-        dfRDSL = dfRDSL_test
-      )
-    )
-  )
-  suppressMessages(
-    expect_error(
-      Consent_Map_Raw(
-        dfConsent_test %>% select(-SUBJID),
-        dfRDSL = dfRDSL_test
-      )
-    )
-  )
-  suppressMessages(
-    expect_error(
-      Consent_Map_Raw(
-        dfConsent_test %>% select(-INVID) ,
-        dfRDSL = dfRDSL_test
-      )
-    )
-  )
-  suppressMessages(
-    expect_error(
-      Consent_Map_Raw(
-        dfConsent_test %>% select(-CONSCAT_STD),
-        dfRDSL = dfRDSL_test
-      )
-    )
-  )
-  suppressMessages(
-    expect_error(
-      Consent_Map_Raw(
-        dfConsent_test %>% select(-CONSYN),
-        dfRDSL = dfRDSL_test
-      )
-    )
-  )
-  suppressMessages(
-    expect_error(
-      Consent_Map_Raw(
-        dfConsent_test %>% select(-CONSDAT),
-        dfRDSL = dfRDSL_test
-      )
-    )
-  )
-  suppressMessages(
-    expect_error(
-      Consent_Map_Raw(
-        dfConsent_test,
-        dfRDSL = dfRDSL_test %>% select(-SUBJID)
-      )
-    )
-  )
-  suppressMessages(
-    expect_error(
-      Consent_Map_Raw(
-        dfConsent_test,
-        dfRDSL = dfRDSL_test %>% select(-RGMNDTN)
-      )
-    )
-  )
-  suppressMessages(
-    expect_error(
-      Consent_Map_Raw(
-        dfConsent_test,
-        dfRDSL = dfRDSL_test %>% select(- SubjectID)
-      )
-    )
-  )
-  suppressMessages(
-    expect_error(
-      Consent_Map_Raw(
-        dfConsent_test,
-        dfRDSL = dfRDSL_test %>% select(- SiteID)
-      )
-    )
-  )
-  suppressMessages(
-    expect_error(
-      Consent_Map_Raw(
-        dfConsent_test,
-        dfRDSL = dfRDSL_test %>% select(- RandDate)
-      )
-    )
-  )
-})
-
-
-test_that("output is correct given clindata example input",{
-  expect_equal(dfInput_test, Consent_Map_Raw(dfConsent = dfConsent_test, dfRDSL = dfRDSL_test, strConsentTypeValue = "MAINCONSENT"))
-})
-
+# custom tests ------------------------------------------------------------
 dfConsent_test_NA1 <- tibble::tribble(~SUBJID, ~CONSCAT_STD , ~CONSYN , ~CONSDAT,
                                       NA,       "MAINCONSENT",    "Yes", "2014-12-25",
                                       1,       "MAINCONSENT",     "No", "2014-12-25"  )

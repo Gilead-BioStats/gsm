@@ -1,43 +1,47 @@
-ae_input <- AE_Map_Adam(
-    safetyData::adam_adsl,
-    safetyData::adam_adae
-)
+source(testthat::test_path("testdata/data.R"))
 
-ae_prep <- Transform_EventCount( ae_input, strCountCol = 'Count', strExposureCol = "Exposure" )
-ae_anly <- Analyze_Poisson(ae_prep)
-ae_anly_wilcoxon <- Analyze_Wilcoxon(ae_prep, strOutcome="Rate")
+data <- AE_Map_Adam(dfADSL, dfADAE) %>%
+  Transform_EventCount(strCountCol = 'Count', strExposureCol = "Exposure" )
 
+dfPoisson <- Analyze_Poisson(data)
 
-test_that("output created as expected and has correct structure",{
-    flag <- Flag(ae_anly_wilcoxon)
+dfWilcoxon <- Analyze_Wilcoxon(data, strOutcome = "Rate")
+
+# output is created as expected -------------------------------------------
+test_that("output is created as expected",{
+    flag <- Flag(dfWilcoxon)
     expect_true(is.data.frame(flag))
-    expect_equal(sort(unique(ae_input$SiteID)), sort(flag$SiteID))
-    expect_true(all(names(ae_anly_wilcoxon) %in% names(flag)))
+    expect_equal(sort(unique(dfWilcoxon$SiteID)), sort(flag$SiteID))
+    expect_true(all(names(dfWilcoxon) %in% names(flag)))
     expect_equal(names(flag), c("SiteID", "N", "TotalCount", "TotalExposure", "Rate", "Estimate",
                                 "PValue", "ThresholdLow", "ThresholdHigh", "ThresholdCol", "Flag"))
 })
 
-test_that("strFlagValueColumn paramter works as intended",{
-  dfFlagged <- Flag( ae_anly_wilcoxon , strColumn = 'PValue', vThreshold =c(0.2,NA), strValueColumn = 'Estimate')
-  expect_equal(dfFlagged$Flag[1], 1)
-  dfFlagged <- Flag( ae_anly_wilcoxon , strColumn = 'PValue', vThreshold =c(0.2,NA), strValueColumn = NULL)
-  expect_equal(dfFlagged$Flag[1], -1)
-})
-
+# incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors",{
-    expect_error(Flag(list(),-1,1))
-    expect_error(Flag("Hi", -1,1))
-    expect_error(Flag(ae_anly,"1","2"))
-    expect_error(Flag(ae_anly_wilcoxon,vThreshold = c(NA,1), strColumn=1.0,strFlagValueColumn = 'Estimate'))
-    expect_error(Flag(ae_anly_wilcoxon,vThreshold = "1", strColumn="PValue",strFlagValueColumn = 'Estimate'))
-    expect_error(Flag(ae_anly_wilcoxon,vThreshold = 0.5, strColumn="PValue",strFlagValueColumn = 'Estimate'))
-    expect_error(Flag(ae_anly_wilcoxon,vThreshold = c(NA,1), strColumn="PValue1",strFlagValueColumn = 'Estimate'))
-    expect_error(Flag(ae_anly_wilcoxon,vThreshold = c(NA,1), strColumn="PValue",strFlagValueColumn = 'Mean'))
-
+  expect_error(Flag(list(),-1,1))
+  expect_error(Flag("Hi", -1,1))
+  expect_error(Flag(dfPoisson,"1","2"))
+  expect_error(Flag(dfPoisson,vThreshold = c(NA,1), strColumn=1.0, strValueColumn = 'Estimate'))
+  expect_error(Flag(dfPoisson,vThreshold = "1", strColumn="PValue", strValueColumn = 'Estimate'))
+  expect_error(Flag(dfPoisson,vThreshold = 0.5, strColumn="PValue", strValueColumn = 'Estimate'))
+  expect_error(Flag(dfPoisson,vThreshold = c(NA,1), strColumn="PValue1", strValueColumn = 'Estimate'))
+  expect_error(Flag(dfPoisson,vThreshold = c(NA,1), strColumn="PValue", strValueColumn = 'Mean'))
 })
+
+
+# custom tests ------------------------------------------------------------
+test_that("strValueColumn paramter works as intended",{
+  dfFlagged <- Flag(dfWilcoxon, strColumn = 'PValue', vThreshold =c(0.6,NA), strValueColumn = 'Estimate')
+  expect_equal(dfFlagged$Flag[1], 1)
+  dfFlagged <- Flag(dfWilcoxon, strColumn = 'PValue', vThreshold =c(0.2,NA), strValueColumn = NULL)
+  expect_equal(dfFlagged$Flag[1], 0)
+})
+
+
 
 test_that("Expected Columns are added to dfFlagged",{
-  flag <- Flag(ae_anly_wilcoxon)
+  flag <- Flag(dfWilcoxon)
   expect_true(all(c("ThresholdLow" , "ThresholdHigh" ,"ThresholdCol" , "Flag") %in% names(flag)))
 })
 
