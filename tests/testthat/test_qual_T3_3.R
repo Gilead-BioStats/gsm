@@ -2,19 +2,19 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
   test3_3 <- list()
   t3_3  <- list()
 
-  for(protocol in unique(clindata::raw_ie_all$PROTVER_STD)){
-    dfInput <- suppressWarnings(IE_Map_Raw(
-      clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" & PROTVER_STD == protocol),
-      clindata::rawplus_rdsl,
+  for(protocol in unique(clindata::rawplus_ie$IE_PROTOCOLVERSION)){
+    dfInput <- IE_Map_Raw(
+      clindata::rawplus_ie %>% dplyr::filter(IE_PROTOCOLVERSION == protocol),
+      clindata::rawplus_subj,
       vCategoryValues= c("EXCL","INCL"),
       vExpectedResultValues=c(0,1)
-    ))
+    )
 
     # gsm
     test3_3 <- c(test3_3,
-                 protocol = suppressWarnings(IE_Assess(
+                 protocol = IE_Assess(
                    dfInput = dfInput,
-                 )))
+                 ))
 
     # Double Programming
     t3_3_input <- dfInput
