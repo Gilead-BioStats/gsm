@@ -30,9 +30,9 @@ jobs:
           cd ..
           git clone git@github.com:Gilead-BioStats/clindata.git
           cd clindata
-          git checkout tags/v0.3.0
+          git checkout d51ee8f9e511356ead4cb7d042633f5c87981cf4
           cd ../gsm
-          
+
       - name: install packages
         shell: Rscript {0}
         run: |
