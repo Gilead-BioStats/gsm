@@ -9,7 +9,7 @@
 #' @section Data Specification:
 #' The following columns are required:
 #' - `dfCONSENT`
-#'     - `SUBJID` - Subject ID
+#'     - `SubjectID` - Subject ID
 #'     - `CONSCAT_STD` - Type of Consent_Coded value
 #'     - `CONSYN` - Did the subject give consent? Yes / No.
 #'     - `CONSDAT` - If yes, provide date consent signed
