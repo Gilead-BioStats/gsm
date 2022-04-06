@@ -6,7 +6,6 @@ lData <- list(
     dfIE=clindata::rawplus_ie
 )
 
-devtools::load_all()
 def <- Study_Assess(lData=lData, bQuiet=TRUE)
 
 test_that("lPopFlags filters subject ID as expected",{

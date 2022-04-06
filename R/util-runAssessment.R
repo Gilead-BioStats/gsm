@@ -103,7 +103,7 @@ runAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
             )
             amessage(paste("--- Created input data with ",nrow(assessment$dfInput)," rows."))
 
-            assessment_params <- c(list(dfInput=assessment$dfInput), assessment$assessment$params)
+            assessment_params <- c(list(dfInput=assessment$dfInput, lTags=lTags), assessment$assessment$params)
             assessment$result <- do.call(
                 assessment$assessment$functionName, 
                 assessment_params
