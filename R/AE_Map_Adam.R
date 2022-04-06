@@ -39,7 +39,7 @@ AE_Map_Adam <- function( dfADSL, dfADAE, mapping = NULL ){
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
     mapping <- list(
-      dfADSL = list(strIDCol="SUBJID", strSiteCol = "SITEID", strStartCol = "TRTSDT", strEndCol = "TRTEDT"),
+      dfADSL = list(strIDCol="USUBJID", strSiteCol = "SITEID", strStartCol = "TRTSDT", strEndCol = "TRTEDT"),
       dfADAE = list(strIDCol="USUBJID")
     )
   }

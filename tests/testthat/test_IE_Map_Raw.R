@@ -1,7 +1,9 @@
+source(testthat::test_path("testdata/data.R"))
+
 ie_input <- suppressWarnings(
   IE_Map_Raw(
-    clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
-    clindata::rawplus_rdsl,
+    dfIE,
+    dfRDSL,
     vCategoryValues= c("EXCL","INCL"),
     vExpectedResultValues=c(0,1)
   )

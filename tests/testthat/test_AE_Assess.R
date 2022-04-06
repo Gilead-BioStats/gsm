@@ -1,72 +1,58 @@
+source(testthat::test_path("testdata/data.R"))
 
-ae_input <- AE_Map_Adam(
-    safetyData::adam_adsl,
-    safetyData::adam_adae
-)
+aeInput <- AE_Map_Raw(dfAE, dfRDSL)
 
-test_that("summary df created as expected and has correct structure",{
-    ae_assessment <- AE_Assess(ae_input, vThreshold = c(-5.1, 5.1))
-    expect_true(is.list(ae_assessment))
-    expect_equal(names(ae_assessment),c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
-    expect_true("data.frame" %in% class(ae_assessment$dfInput))
-    expect_true("data.frame" %in% class(ae_assessment$dfTransformed))
-    expect_true("data.frame" %in% class(ae_assessment$dfAnalyzed))
-    expect_true("data.frame" %in% class(ae_assessment$dfFlagged))
-    expect_true("data.frame" %in% class(ae_assessment$dfSummary))
-    expect_type(ae_assessment$strFunctionName, "character")
-    expect_type(ae_assessment$lParams, "list")
-    expect_type(ae_assessment$lTags, "list")
+# output is created as expected -------------------------------------------
+test_that("output is created as expected",{
+    aeAssessment <- AE_Assess(aeInput, vThreshold = c(-5.1, 5.1))
+    expect_true(is.list(aeAssessment))
+    expect_equal(names(aeAssessment),c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+    expect_true("data.frame" %in% class(aeAssessment$dfInput))
+    expect_true("data.frame" %in% class(aeAssessment$dfTransformed))
+    expect_true("data.frame" %in% class(aeAssessment$dfAnalyzed))
+    expect_true("data.frame" %in% class(aeAssessment$dfFlagged))
+    expect_true("data.frame" %in% class(aeAssessment$dfSummary))
+    expect_type(aeAssessment$strFunctionName, "character")
+    expect_type(aeAssessment$lParams, "list")
+    expect_type(aeAssessment$lTags, "list")
 })
 
+# metadata is returned as expected ----------------------------------------
+test_that("metadata is returned as expected", {
+    aeAssessment <- AE_Assess(aeInput, vThreshold = c(-5.1, 5.1))
+    expect_equal("AE_Assess()", aeAssessment$strFunctionName)
+    expect_equal("aeInput", aeAssessment$lParams$dfInput)
+    expect_equal("-5.1", aeAssessment$lParams$vThreshold[2])
+    expect_equal("5.1", aeAssessment$lParams$vThreshold[3])
+    expect_equal("AE", aeAssessment$lTags$Assessment)
+})
 
+# incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors",{
-    expect_error(AE_Assess(list()),"dfInput is not a data.frame")
-    expect_error(AE_Assess("Hi"),"dfInput is not a data.frame")
-    expect_error(AE_Assess(ae_input, strMethod="abacus"),"strMethod is not 'poisson' or 'wilcoxon'")
-    expect_error(AE_Assess(ae_input %>% select(-SubjectID)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
-    expect_error(AE_Assess(ae_input %>% select(-SiteID)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
-    expect_error(AE_Assess(ae_input %>% select(-Count)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
-    expect_error(AE_Assess(ae_input %>% select(-Exposure)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
-    expect_error(AE_Assess(ae_input %>% select(-Rate)),"One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput")
-    expect_error(AE_Assess(ae_input, strMethod=c("wilcoxon", "poisson")),"strMethod must be length 1")
+    expect_snapshot_error(AE_Assess(list()))
+    expect_snapshot_error(AE_Assess("Hi"))
+    expect_snapshot_error(AE_Assess(aeInput, strMethod=123))
+    expect_snapshot_error(AE_Assess(aeInput, strMethod="abacus"))
+    expect_snapshot_error(AE_Assess(aeInput, strMethod=c("wilcoxon", "poisson")))
+    expect_snapshot_error(AE_Assess(aeInput %>% select(-SubjectID)))
+    expect_snapshot_error(AE_Assess(aeInput %>% select(-SiteID)))
+    expect_snapshot_error(AE_Assess(aeInput %>% select(-Count)))
+    expect_snapshot_error(AE_Assess(aeInput %>% select(-Exposure)))
+    expect_snapshot_error(AE_Assess(aeInput %>% select(-Rate)))
 })
 
-
-test_that("correct function and params are returned", {
-    ae_assessment <- AE_Assess(ae_input, vThreshold = c(-5.1, 5.1))
-    expect_equal("AE_Assess()", ae_assessment$strFunctionName)
-    expect_equal(ae_assessment$lParams$dfInput, "ae_input")
-    expect_equal(ae_assessment$lParams$vThreshold[2], "-5.1")
-    expect_equal(ae_assessment$lParams$vThreshold[3], "5.1")
+# incorrect lTags throw errors --------------------------------------------
+test_that("incorrect lTags throw errors",{
+    expect_snapshot_error(AE_Assess(aeInput, vThreshold = c(-5.1, 5.1), lTags="hi mom"))
+    expect_snapshot_error(AE_Assess(aeInput, vThreshold = c(-5.1, 5.1), lTags=list("hi","mom")))
+    expect_snapshot_error(AE_Assess(aeInput, vThreshold = c(-5.1, 5.1), lTags=list(greeting = "hi", "mom")))
+    expect_silent(AE_Assess(aeInput, vThreshold = c(-5.1, 5.1), lTags=list(greeting = "hi", person = "mom")))
+    expect_snapshot_error(AE_Assess(aeInput, lTags = list(SiteID = "")))
+    expect_snapshot_error(AE_Assess(aeInput, lTags = list(N = "")))
+    expect_snapshot_error(AE_Assess(aeInput, lTags = list(Score = "")))
+    expect_snapshot_error(AE_Assess(aeInput, lTags = list(Flag = "")))
 })
 
-test_that("invalid lTags throw errors",{
-    expect_error(AE_Assess(ae_input, vThreshold = c(-5.1, 5.1), lTags="hi mom"))
-    expect_error(AE_Assess(ae_input, vThreshold = c(-5.1, 5.1), lTags=list("hi","mom")))
-    expect_error(AE_Assess(ae_input, vThreshold = c(-5.1, 5.1), lTags=list(greeting="hi","mom")))
-    expect_silent(AE_Assess(ae_input, vThreshold = c(-5.1, 5.1), lTags=list(greeting="hi",person="mom")))
-})
+# custom tests ------------------------------------------------------------
 
-test_that("problematic lTags names are caught", {
 
-    expect_error(
-        AE_Assess(ae_input, lTags = list(SiteID = "")),
-        "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
-    )
-
-    expect_error(
-        AE_Assess(ae_input, lTags = list(N = "")),
-        "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
-    )
-
-    expect_error(
-        AE_Assess(ae_input, lTags = list(Score = "")),
-        "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
-    )
-
-    expect_error(
-        AE_Assess(ae_input, lTags = list(Flag = "")),
-        "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'"
-    )
-
-})

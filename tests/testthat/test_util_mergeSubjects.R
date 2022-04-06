@@ -5,16 +5,33 @@
 # custom test data - Basic functionality check
 # custom test data - Check that 0s are filled as expected
 
-domain <- dplyr::as_tibble(clindata::raw_ae$SUBJID) %>%
-  dplyr::rename(SubjectID = value) %>%
-  dplyr::filter(SubjectID != "") %>%
-  dplyr::group_by_all() %>%
-  dplyr::summarize(Count = n()) %>%
-  ungroup()
+domain <- tibble::tribble(
+  ~SubjectID, ~Count,
+  "0001",     5L,
+  "0002",     2L,
+  "0003",     5L,
+  "0004",     6L,
+  "0005",     1L,
+  "0007",     1L,
+  "0009",     1L,
+  "0010",    11L,
+  "0011",     2L,
+  "0012",     1L
+)
 
-subjects <- clindata::rawplus_rdsl %>%
-  dplyr::filter(!is.na(TimeOnTreatment)) %>%
-  dplyr::select(SubjectID, SiteID, Exposure = TimeOnTreatment)
+subjects <- tibble::tribble(
+  ~SubjectID, ~SiteID, ~Exposure,
+  "0001", "X040X",      5599,
+  "0002", "X085X",        13,
+  "0003", "X021X",       675,
+  "0004", "X201X",      5744,
+  "0005", "X002X",       771,
+  "0007", "X203X",      4814,
+  "0008", "X183X",       203,
+  "0009", "X164X",      1009,
+  "0010", "X226X",      6049,
+  "0011", "X126X",      1966
+)
 
 test_that("mergeSubjects returns a data.frame with correct dimensions", {
 
@@ -22,24 +39,13 @@ test_that("mergeSubjects returns a data.frame with correct dimensions", {
     mergeSubjects(domain, subjects)
   )
 
-  expect_true(
-    "data.frame" %in% class(merged)
-  )
+  expect_true("data.frame" %in% class(merged))
 
-  expect_equal(
-    names(merged),
-    c("SubjectID", "SiteID", "Exposure", "Count")
-  )
+  expect_equal(c("SubjectID", "SiteID", "Exposure", "Count"), names(merged))
 
-  expect_equal(
-    nrow(merged),
-    1297
-  )
+  expect_equal(10, nrow(merged))
 
-  expect_equal(
-    ncol(merged),
-    4
-  )
+  expect_equal(4, ncol(merged))
 
 })
 
