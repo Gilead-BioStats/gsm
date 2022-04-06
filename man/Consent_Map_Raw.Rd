@@ -38,7 +38,7 @@ The following columns are required:
 \itemize{
 \item \code{dfCONSENT}
 \itemize{
-\item \code{SUBJID} - Subject ID
+\item \code{SubjectID} - Subject ID
 \item \code{CONSCAT_STD} - Type of Consent_Coded value
 \item \code{CONSYN} - Did the subject give consent? Yes / No.
 \item \code{CONSDAT} - If yes, provide date consent signed

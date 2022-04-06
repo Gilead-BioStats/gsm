@@ -39,7 +39,7 @@ The following columns are required:
 \itemize{
 \item \code{dfIE}
 \itemize{
-\item \code{SUBJID} - Unique subject ID
+\item \code{SubjectID} - Unique subject ID
 \item Value specified in \code{mapping} - IE Category; "IECAT_STD" by default
 \item Value specified in \code{mapping} - Incl criteria not met Excl criteria met; "IEORRES" by default
 }
