@@ -83,6 +83,14 @@ mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
         }
     }
 
+    if (class(dfDomain[[strIDCol]]) != "character") {
+        dfDomain[[strIDCol]] <- as.character(dfDomain[[strIDCol]])
+    }
+
+    if (class(dfSubjects[[strIDCol]]) != "character") {
+        dfSubjects[[strIDCol]] <- as.character(dfSubjects[[strIDCol]])
+    }
+
     dfOut <- left_join(dfSubjects, dfDomain, by=strIDCol)
     for(col in vFillZero){
         dfOut[[col]]<- tidyr::replace_na(dfOut[[col]], 0)

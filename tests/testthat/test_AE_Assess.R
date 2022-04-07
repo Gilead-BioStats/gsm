@@ -6,7 +6,7 @@ aeInput <- AE_Map_Raw(dfAE, dfSUBJ)
 test_that("output is created as expected",{
     aeAssessment <- AE_Assess(aeInput, vThreshold = c(-5.1, 5.1))
     expect_true(is.list(aeAssessment))
-    expect_equal(names(aeAssessment),c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+    expect_equal(names(aeAssessment),c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
     expect_true("data.frame" %in% class(aeAssessment$dfInput))
     expect_true("data.frame" %in% class(aeAssessment$dfTransformed))
     expect_true("data.frame" %in% class(aeAssessment$dfAnalyzed))
@@ -25,6 +25,7 @@ test_that("metadata is returned as expected", {
     expect_equal("-5.1", aeAssessment$lParams$vThreshold[2])
     expect_equal("5.1", aeAssessment$lParams$vThreshold[3])
     expect_equal("AE", aeAssessment$lTags$Assessment)
+    expect_true("ggplot" %in% class(aeAssessment$chart))
 })
 
 # incorrect inputs throw errors -------------------------------------------

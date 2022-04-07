@@ -9,6 +9,7 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
 
   test3_1 <- IE_Assess(
     dfInput = dfInput,
+    bChart = FALSE
   )
 
   # Double Programming
@@ -45,7 +46,8 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
     arrange(match(Flag, c(1, -1, 0)))
 
   t3_1 <- list("strFunctionName" = "IE_Assess()",
-               "lParams" = list("dfInput" = "dfInput"),
+               "lParams" = list("dfInput" = "dfInput",
+                                "bChart" = "FALSE"),
                "lTags" = list(Assessment = "IE"),
                "dfInput" = t3_1_input,
                "dfTransformed" = t3_1_transformed,

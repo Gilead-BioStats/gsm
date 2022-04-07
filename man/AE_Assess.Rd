@@ -8,7 +8,8 @@ AE_Assess(
   dfInput,
   vThreshold = NULL,
   strMethod = "poisson",
-  lTags = list(Assessment = "AE")
+  lTags = list(Assessment = "AE"),
+  bChart = TRUE
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ AE_Assess(
 \item{strMethod}{valid methods are "poisson" (the default), or  "wilcoxon".}
 
 \item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="AE")}.}
+
+\item{bChart}{should vizualization be created? TRUE (default) or FALSE.}
 }
 \value{
 A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, \code{lParams} and \code{lTags}) is returned.
