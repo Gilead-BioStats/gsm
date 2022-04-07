@@ -25,6 +25,3 @@ test_that("Study Table Report with a subset of domains issue",{
     lAssessments <- Study_Assess(lData=lData, bQuiet=FALSE)
     Study_Report(assessments=lAssessments, meta=list(Project="Consent + IE only"))
 })
-
-
-devtools::load_all()
