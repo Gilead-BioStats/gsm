@@ -97,8 +97,12 @@ AE_Assess <- function(dfInput, vThreshold=NULL, strMethod="poisson", lTags=list(
     }
 
     if (bChart) {
-        dfBounds <- Analyze_Poisson_PredictBounds(lAssess$dfTransformed)
-        lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged, dfBounds)
+        if(method="Poisson"){
+            dfBounds <- Analyze_Poisson_PredictBounds(lAssess$dfTransformed)
+            lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged, dfBounds)    
+        }else{
+            lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged)
+        }
     }
 
     return(lAssess)
