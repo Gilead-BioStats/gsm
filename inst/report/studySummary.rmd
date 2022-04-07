@@ -1,0 +1,125 @@
+---
+title: "Assessment Overview for `r params$meta$Project`"
+subtitle: "Generated with the Gilead Statistical Monitoring {gsm} package"
+author: 
+    - George Wu
+    - Jeremy Wildfire
+output: html_document
+params:
+    assessments: NA
+    meta: NA 
+---
+
+```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
+library(gsm)
+library(tidyverse)
+library(kableExtra)
+
+if(length(names(params$meta))>1){
+    params$meta %>%
+        kbl(escape=FALSE) %>% 
+        kable_styling()
+}
+
+```
+
+# Overview Table
+```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
+results <- params$assessments %>% map(~.x$result) %>% compact
+allFindings <- results %>% map(~.x$dfSummary) %>% bind_rows()
+gsm::Overview_Table(allFindings)%>%
+    kbl(escape=FALSE) %>% 
+    kable_styling()
+```
+
+```{js, class.source = "jsvis1", echo=FALSE}
+function showDetails(elem){
+    console.log(elem.textContent)
+    if(elem.textContent.trim()=="Show details"){
+        console.log("showing")
+        elem.parentNode.getElementsByClassName('detail-wrap')[0].style.display=null
+        elem.textContent="Hide details"
+    }else{
+        console.log("hiding")
+        elem.parentNode.getElementsByClassName('detail-wrap')[0].style.display="none"
+        elem.textContent="Show details"
+    }
+}
+```
+
+
+```{r, results='asis', echo=FALSE}
+
+for (assessment in results){
+    flagged<- assessment$dfSummary %>% 
+    filter(Flag !=0)
+    # %>%
+    # mutate(
+    #     PValue = case_when(
+    #         PValue < 0.001  ~ "<0.001",
+    #         PValue < 0.01  ~ "<0.01",
+    #         PValue < 0.05  ~ "<0.05",
+    #         TRUE ~ as.character(round(PValue,2))
+    #     )
+    # )
+    label <- ifelse(assessment$lTags$Assessment == assessment$lTags$Label, assessment$lTags$Assessment, paste(assessment$lTags$Assessment,"-",assessment$lTags$Label))
+    cat("<h2 style='border-top:2px solid black; border-bottom:2px solid black; text-align:center; padding:3px;'> <small>Assessment Details</small><br>", label, "</h2>")
+    cat("<h3>Summary Chart</h3>")
+    print(assessment$Chart) 
+
+    cat("<h3>Flagged Sites</h3>")
+    if(nrow(flagged)>0){
+        flagged %>%
+            kbl(escape=FALSE) %>% 
+            kable_styling() %>% 
+            cat
+    }
+    cat(
+        paste0(
+            "<p>",
+            nrow(flagged),
+            " of ",
+            nrow(assessment$dfSummary),
+            " sites flagged for this assessment.",
+            "</p>"
+        )
+    )
+    cat("<div><button onclick='showDetails(this)'>Show details</button>")
+    cat("<div class='detail-wrap' style='display:none'>")
+    cat("<h3>Model Details</h3>")
+    
+    details<- assessment$dfFlagged %>%filter(Flag !=0)
+    if(nrow(details)>0){
+        details%>%
+        kbl(escape=FALSE) %>% 
+        kable_styling() %>% 
+        cat
+    }
+    
+    if(!is.null(assessment$Explore)){
+        cat("<h3>Exploratory Charts</h3>")
+        print(assessment$Explore)
+        cat("<hr>")
+    }
+    cat("</div></div>")
+}
+```
+
+# Appendix - Data Check Summary
+
+## Assessment Checks
+```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
+AssessmentReport <- gsm::Study_AssessmentReport(params$assessments)
+AssessmentReport$dfSummary%>%
+    kbl(escape=FALSE) %>% 
+    kable_styling("striped", full_width = F)
+
+```
+
+## Issue List
+```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
+AssessmentReport$dfAllChecks%>%
+    filter(status==FALSE)%>%
+    kbl(escape=FALSE) %>% 
+    kable_styling()
+```

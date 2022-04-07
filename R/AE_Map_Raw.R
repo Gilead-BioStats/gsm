@@ -12,7 +12,7 @@
 #'
 #' The following columns are required:
 #' - `dfAE`
-#'     - `SUBJID` - Unique subject ID
+#'     - `SubjectID` - Unique subject ID
 #' - `dfSUBJ`
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
@@ -77,7 +77,7 @@ AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL ){
         ) %>%
         select(.data$SubjectID, .data$SiteID, .data$Exposure)
 
-    # Create Subject Level AE Counts and merge RDSL
+    # Create Subject Level AE Counts and merge dfSUBJ
     dfInput <- dfAE_mapped %>%
         group_by(.data$SubjectID) %>%
         summarize(Count=n()) %>%

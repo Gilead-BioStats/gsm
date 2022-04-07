@@ -1,21 +1,22 @@
-#' Run multiple assessments on a single study
-#'
-#' @details
-#'
-#' Coming soon
+#' Run Multiple Assessments on a Study
 #' 
-#' @param lData list of data 
-#' @param lMapping mapping
-#' @param lAssessments assessments
-#' @param strPopFlags filter demog data? 
-#' @param lTags tags
+#' `Study_Assess()` attempts to run multiple assessments using a shared set of data (`lData`) and an associated data mapping (`lMapping`). By default, the `rawplus` data and associated mapping from the {clindata} package is used, and all assessments defined in `inst/assessments` are evaluated. Individual assessments are run using `gsm::RunAssessment()`
+#' 
+#' @param lData named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`. 
+#' @param lMapping a list identifying the columns needed in each data domain. 
+#' @param lAssessments a list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/assessments`. 
+#' @param lSubjFilters Optionally specify Subject-level filters that will be applied to all assessments. For example `list(strRandFlagCol="Y")` could be used to subset to Randomized Participants. 
+#' @param lTags a named list of Tags to be passed to each assessment. Default is `list(Study="myStudy")` could be expanded to include other important metadata such as analysis population or study phase. 
+#' @param bQuiet specifies whether messages should be silenced. Default = `FALSE`
 #'
 #' @examples
-#'  NULL
+#' Study_Assess() # run using defaults
 #'
+#' @import dplyr
+#' @importFrom purrr map
 #' @importFrom yaml read_yaml
 #' 
-#' @return A list containing: dataChecks and results
+#' @return A list of assessments containing status information and results.
 #' 
 #' @export
 
@@ -23,20 +24,19 @@ Study_Assess <- function(
     lData=NULL, 
     lMapping=NULL, 
     lAssessments=NULL, 
-    lPopFlags=list(strRandFlagCol="Y"), 
-    strStudyID="myStudy",
-    bReturnInputs=FALSE,
+    lSubjFilters=NULL, 
+    lTags=list(Study="myStudy"),
     bQuiet=FALSE
 ){
     #### --- load defaults --- ###
     # lData from clindata
     if(is.null(lData)){
         lData <- list(
-            subj= clindata::rawplus_rdsl,
-            ae=clindata::rawplus_ae,
-            pd=clindata::rawplus_pd,
-            consent=clindata::rawplus_consent,
-            ie=clindata::rawplus_ie
+            dfSUBJ= clindata::rawplus_subj,
+            dfAE=clindata::rawplus_ae,
+            dfPD=clindata::rawplus_pd,
+            dfCONSENT=clindata::rawplus_consent,
+            dfIE=clindata::rawplus_ie
         )
     }
 
@@ -45,20 +45,23 @@ Study_Assess <- function(
         lMapping <- yaml::read_yaml(system.file("mapping/rawplus.yaml", package = 'clindata'))
     }
 
-    # lAssessments from inst/library
+    # lAssessments from gsm inst/assessments
     if(is.null(lAssessments)){
         lAssessments <- MakeAssessmentList()
     }
     
-    ### ---  Filter data$subj based on strPopFlags --- ### 
-    if(!is.null(lPopFlags)){
-        for(flag in names(lPopFlags)){
-            # TODO run is_mapping_valid to make sure filter cols are present
-            col <- lMapping$subj[[flag]]
-            val <- lPopFlags[[flag]]
-            oldRows <- nrow(lData$subj)
-            lData$subj <- lData$subj %>% filter(.data[[col]]==val)
-            newRows<-nrow(lData$subj)
+    ### ---  Filter data$dfSUBJ based on lSubjFilters --- ### 
+    if(!is.null(lSubjFilters)){
+         # TODO run is_mapping_valid to make sure filter cols are present
+        for(flag in names(lSubjFilters)){
+            col <- lMapping$dfSUBJ[[flag]]
+            if(!(col %in% names(lData$dfSUBJ))){ 
+                stop(paste0("Column for Population filter ('",col,"') specified in lPopFlag not found in lData$dfSUBJ"))
+            }
+            val <- lSubjFilters[[flag]]
+            oldRows <- nrow(lData$dfSUBJ)
+            lData$subj <- lData$dfSUBJ %>% filter(.data[[col]]==val)
+            newRows<-nrow(lData$dfSUBJ)
             if(!bQuiet){
                 message(paste0(
                     "- Filtered subject data on `",
@@ -78,74 +81,9 @@ Study_Assess <- function(
     }
 
     ### --- Attempt to run each assessment --- ### 
-    lAssessments <- lAssessments %>% map(function(assessment){
-        message(paste0("- Running ",assessment$name," assessment"))
-        assessment$lRaw<-names(assessment$requiredParameters) %>% map(~lData[[.x]])
-        names(assessment$lRaw) <- names(assessment$requiredParameters)
-        
-        # Apply filters from assessment$filter
-        # TODO replace loops with purrr::map
-        message("-- Checking for filters on domain data")
-        for(domain in names(assessment$filters)){
-            for(param in names(assessment$filters[[domain]])){        
-                # TODO run is_mapping_valid to make sure filter cols are present
-                col <- lMapping[[domain]][[param]]
-                val <- assessment$filters[[domain]][[param]]
-                message(paste0("--- Filtering ",domain," on ",col,"=",val))
-                assessment$lRaw[[domain]] <- assessment$lRaw[[domain]] %>% filter(.data[[col]]==val)
-            }
-        }
+    lAssessments <- lAssessments %>% map(
+        ~RunAssessment(.x, lData=lData, lMapping=lMapping, lTags=lTags, bQuiet=bQuiet)
+    )
 
-        # run is_mapping_valid
-        message("-- Checking whether raw data meets requirements")
-        assessment$checks <- names(assessment$lRaw) %>% map(function(domain){
-            df <- assessment$lRaw[[domain]]
-            mapping <- lMapping[[domain]]
-            requiredParams <- assessment$requiredParameters[[domain]]
-            print(requiredParams)
-            message(paste0("--- Checking ",domain," domain."))
-            message("-----------------------------------------------")
-            check <- is_mapping_valid(
-                df=df,
-                mapping=mapping,
-                vRequiredParams = requiredParams,
-                bQuiet=bQuiet,
-                bKeepAllParams=FALSE
-            ) 
-            message("-----------------------------------------------")
-            # TODO add support for checking vUniqueCols and vNACols
-            if(check$status){
-                message(paste0("--- ",domain, " meets requirements."))
-            }else{
-                message(paste0("--- ",domain, " does NOT meet requirements. See `[lAssessments]$",assessment$name,"$checks$",domain,"$tests_if` for details."))
-            }
-            return(check)
-        })
-        names(assessment$checks) <- names(assessment$lRaw)
-        assessment$rawValid <- all(assessment$checks$status)
-        
-        # Return validation status and reasons for each assessment
-        # if valid, run the mapping
-        if(!assessment$rawValid){
-            assessment$valid <- FALSE
-            assessment$status <- "Invalid Raw Data"
-            message("-- Raw data not valid for mapping. No Results will be generated.")
-        }else{
-            message("-- Mapping Raw Data to Assessment Input Standard.")
-        }
-        return(assessment)
-    })
-
-    if(bReturnInputs){
-        return(
-            list(
-                lAssessments = lAssessments,
-                lData = lData,
-                lMapping= lMapping
-            )
-        )
-    }else{
-        return(lAssessments)
-    }
-    
+    return(lAssessments)
 }

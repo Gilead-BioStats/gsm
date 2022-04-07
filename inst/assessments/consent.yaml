@@ -1,0 +1,20 @@
+label: Consent
+tags:
+  Assessment: Consent
+  Label: Consent
+mapping: 
+  functionName: Consent_Map_Raw
+  params: NULL
+assessment:
+  functionName: Consent_Assess
+  params: NULL
+requiredParameters:
+  dfCONSENT:
+    - strIDCol
+    - strTypeCol
+    - strValueCol
+    - strDateCol
+  dfSUBJ: 
+    - strIDCol
+    - strSiteCol
+    - strRandDateCol

@@ -1,0 +1,21 @@
+label: Important Protocol Deviations
+tags:
+  Assessment: Protocol Deviations
+  Label: Important PD
+mapping: 
+  functionName: PD_Map_Raw
+  params: NULL
+assessment:
+  functionName: PD_Assess
+  params: NULL
+requiredParameters:
+  dfPD:
+    - strIDCol
+    - strImportantCol
+  dfSUBJ: 
+    - strIDCol
+    - strSiteCol
+    - strTimeOnStudyCol 
+filters:
+  dfPD:
+    strImportantCol: "Y"

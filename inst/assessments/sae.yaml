@@ -1,21 +1,24 @@
 description: Treatment-Emergent Serious Adverse Events by SOC
 domain: gsm
+tags:
+  Assessment: Safety
+  Label: SAEs
 mapping: 
-  function: ae_map_raw
+  functionName: AE_Map_Raw
   params: NULL
 assessment:
-  function: ae_assess
+  functionName: AE_Assess
   params: NULL
 requiredParameters:
-  ae:
+  dfAE:
     - strIDCol
     - strTreatementEmergentCol
     - strSeriousCol
-  subj: 
+  dfSUBJ: 
     - strIDCol
     - strSiteCol
     - strTimeOnTreatmentCol 
 filters:
-  ae:
+  dfAE:
     strTreatementEmergentCol : TRUE
-    strSeriousCol : "YES"
+    strSeriousCol : "Yes"
