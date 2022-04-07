@@ -8,6 +8,7 @@
 #' @param lData list of data 
 #' @param lMapping mapping
 #' @param lTags tags
+#' @param bQuiet silence reporting? 
 #'
 #' @examples
 #'  NULL
@@ -103,7 +104,7 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
             )
             amessage(paste("--- Created input data with ",nrow(assessment$dfInput)," rows."))
 
-            assessment_params <- c(list(dfInput=assessment$dfInput, lTags=c(lTags,assessment$tags)), assessment$assessment$params)
+            assessment_params <- c(list(dfInput=assessment$dfInput, lTags=c(lTags,assessment$tags), bChart=TRUE), assessment$assessment$params)
             assessment$result <- do.call(
                 assessment$assessment$functionName, 
                 assessment_params

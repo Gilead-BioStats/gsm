@@ -8,8 +8,10 @@
 #' @param package package with assessments
 #'
 #' @examples
-#'  makeAssessmentList(path="assessments", package="gsm")
+#'  MakeAssessmentList(path="assessments", package="gsm")
 #'
+#' 
+#' @importFrom utils hasName
 #' @return A list of assessments
 #' 
 #' @export

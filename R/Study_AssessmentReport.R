@@ -4,7 +4,7 @@
 #'
 #' @param lAssessments List of 1+ assessments like those created by `runAssessment()` or `Assess_Study()`
 #' 
-#' @return
+#' @return returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks``)
 
 Study_AssessmentReport <- function(lAssessments){
     # Combine checks in to a long DF
@@ -35,13 +35,17 @@ Study_AssessmentReport <- function(lAssessments){
     
     # reshape into a wide DF
     dfSummary<- allChecks %>% 
-        select(-details) %>%
+        select(-.data$details) %>%
         mutate(status = case_when(
             status == TRUE ~ as.character(fa("check-circle", fill="green")),
             status == FALSE ~ as.character(fa("times-circle", fill="red")),
             TRUE ~ "?" 
         )) %>%
-        pivot_wider(id_cols=c(assessment,domain), names_from=check, values_from=status) 
+        pivot_wider(
+            id_cols=c(.data$assessment,.data$domain), 
+            names_from=.data$check, 
+            values_from=.data$status
+        ) 
     
     return(list(dfAllChecks=allChecks, dfSummary=dfSummary))
 }

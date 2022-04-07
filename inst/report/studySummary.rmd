@@ -27,7 +27,7 @@ if(length(names(params$meta))>1){
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 results <- params$assessments %>% map(~.x$result) %>% compact
 allFindings <- results %>% map(~.x$dfSummary) %>% bind_rows()
-gsm::Overview_Table(allFindings)%>%
+gsm::Study_Table(allFindings)%>%
     kbl(escape=FALSE) %>% 
     kable_styling()
 ```
@@ -65,7 +65,7 @@ for (assessment in results){
     label <- ifelse(assessment$lTags$Assessment == assessment$lTags$Label, assessment$lTags$Assessment, paste(assessment$lTags$Assessment,"-",assessment$lTags$Label))
     cat("<h2 style='border-top:2px solid black; border-bottom:2px solid black; text-align:center; padding:3px;'> <small>Assessment Details</small><br>", label, "</h2>")
     cat("<h3>Summary Chart</h3>")
-    print(assessment$Chart) 
+    print(assessment$chart) 
 
     cat("<h3>Flagged Sites</h3>")
     if(nrow(flagged)>0){

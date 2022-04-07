@@ -31,8 +31,7 @@ Suggests:
     testthat (>= 3.0.0),
     tibble,
     usethis,
-    valtools,
-    yaml
+    valtools
 LazyData: true
 Remotes: 
     phuse-org/valtools

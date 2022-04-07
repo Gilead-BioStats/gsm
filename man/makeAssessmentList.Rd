@@ -21,6 +21,7 @@ Load assessments from a package/directory
 Coming soon
 }
 \examples{
- makeAssessmentList(path="assessments", package="gsm")
+ MakeAssessmentList(path="assessments", package="gsm")
+
 
 }
