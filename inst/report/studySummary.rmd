@@ -11,6 +11,10 @@ params:
 ---
 
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
+library(gsm)
+library(tidyverse)
+library(kableExtra)
+
 if(length(names(params$meta))>1){
     params$meta %>%
         kbl(escape=FALSE) %>% 
@@ -21,10 +25,8 @@ if(length(names(params$meta))>1){
 
 # Overview Table
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
-library(gsm)
-library(tidyverse)
-library(kableExtra)
-allFindings <- params$assessments %>% map(~.x$dfSummary) %>% bind_rows()
+results <- params$assessments %>% map(~.x$result) %>% compact
+allFindings <- results %>% map(~.x$dfSummary) %>% bind_rows()
 gsm::Overview_Table(allFindings)%>%
     kbl(escape=FALSE) %>% 
     kable_styling()
@@ -48,7 +50,7 @@ function showDetails(elem){
 
 ```{r, results='asis', echo=FALSE}
 
-for (assessment in params$assessments){
+for (assessment in results){
     flagged<- assessment$dfSummary %>% 
     filter(Flag !=0)
     # %>%
@@ -60,8 +62,8 @@ for (assessment in params$assessments){
     #         TRUE ~ as.character(round(PValue,2))
     #     )
     # )
-
-    cat("<h2 style='border-top:2px solid black; border-bottom:2px solid black; text-align:center; padding:3px;'> ", assessment$Label, " Details</h2>")
+    label <- ifelse(assessment$lTags$Assessment == assessment$lTags$Label, assessment$lTags$Assessment, paste(assessment$lTags$Assessment,"-",assessment$lTags$Label))
+    cat("<h2 style='border-top:2px solid black; border-bottom:2px solid black; text-align:center; padding:3px;'> <small>Assessment Details</small><br>", label, "</h2>")
     cat("<h3>Summary Chart</h3>")
     print(assessment$Chart) 
 
@@ -101,4 +103,23 @@ for (assessment in params$assessments){
     }
     cat("</div></div>")
 }
+```
+
+# Appendix - Data Check Summary
+
+## Assessment Checks
+```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
+AssessmentReport <- gsm::Study_AssessmentReport(params$assessments)
+AssessmentReport$dfSummary%>%
+    kbl(escape=FALSE) %>% 
+    kable_styling("striped", full_width = F)
+
+```
+
+## Issue List
+```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
+AssessmentReport$dfAllChecks%>%
+    filter(status==FALSE)%>%
+    kbl(escape=FALSE) %>% 
+    kable_styling()
 ```
