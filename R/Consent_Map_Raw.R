@@ -54,7 +54,7 @@ Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeVa
     df = dfCONSENT,
     mapping = mapping$dfCONSENT,
     vRequiredParams = c("strIDCol", "strTypeCol", "strValueCol", "strDateCol"),
-    vNACols = c("strDateCol"),
+    vNACols = "strDateCol",
     bQuiet=FALSE
   )
 

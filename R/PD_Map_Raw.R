@@ -54,7 +54,7 @@ PD_Map_Raw <- function(dfPD, dfSUBJ, mapping = NULL){
         dfSUBJ,
         mapping$dfSUBJ,
         vRequiredParams = c("strIDCol", "strSiteCol", "strTimeOnStudyCol"),
-        vUniqueCols = 'strIDCol',
+        vUniqueCols = "strIDCol",
         bQuiet = FALSE
         )
 
