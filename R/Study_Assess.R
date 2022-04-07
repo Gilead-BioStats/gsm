@@ -52,7 +52,6 @@ Study_Assess <- function(
     
     ### ---  Filter data$dfSUBJ based on lSubjFilters --- ### 
     if(!is.null(lSubjFilters)){
-         # TODO run is_mapping_valid to make sure filter cols are present
         for(flag in names(lSubjFilters)){
             col <- lMapping$dfSUBJ[[flag]]
             if(!(col %in% names(lData$dfSUBJ))){ 
@@ -60,7 +59,7 @@ Study_Assess <- function(
             }
             val <- lSubjFilters[[flag]]
             oldRows <- nrow(lData$dfSUBJ)
-            lData$subj <- lData$dfSUBJ %>% filter(.data[[col]]==val)
+            lData$dfSUBJ <- lData$dfSUBJ %>% filter(.data[[col]]==val)
             newRows<-nrow(lData$dfSUBJ)
             if(!bQuiet){
                 message(paste0(

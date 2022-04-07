@@ -9,11 +9,11 @@ lData <- list(
 def <- Study_Assess(lData=lData, bQuiet=TRUE)
 
 test_that("lPopFlags filters subject ID as expected",{
-    oneSite <- Study_Assess(lPopFlags=list(strSiteCol="X010X"),bReturnInputs=TRUE, bQuiet=TRUE)
-    expect_equal(oneSite$lData$subj%>%nrow, 28)
+    oneSite <- Study_Assess(lSubjFilters=list(strSiteCol="X010X"),bQuiet=TRUE) %>% suppressWarnings
+    expect_equal(oneSite$ae$lRaw$dfSUBJ%>%nrow, 28)
 })
 
 
 test_that("invalid lPopFlag throws error",{
-    expect_error(Study_Assess(lPopFlags=list(notACol="X010X"),bReturnInputs=TRUE, bQuiet=TRUE))
+    expect_error(Study_Assess(lSubjFilters=list(notACol="X010X"), bQuiet=TRUE))
 })

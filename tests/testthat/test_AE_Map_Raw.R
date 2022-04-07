@@ -100,7 +100,7 @@ test_that("custom mapping runs without errors", {
     rename(custom_id = SubjectID,
            custom_site_id = SiteID)
 
-  expect_message(AE_Map_Raw(dfAE, custom_subj, mapping = custom_mapping))
+  expect_silent(AE_Map_Raw(dfAE, custom_subj, mapping = custom_mapping))
 
 })
 

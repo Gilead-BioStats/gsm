@@ -3,12 +3,12 @@ rawDataMap <- yaml::read_yaml(system.file("mapping/rawplus.yaml", package = 'cli
 
 #Valid Assessment Input
 aeData<-list(dfSUBJ= clindata::rawplus_subj, dfAE=clindata::rawplus_ae)
-sae <- runAssessment(sae_meta, lData=aeData, lMapping= rawDataMap, bQuiet=TRUE)
+sae <- RunAssessment(sae_meta, lData=aeData, lMapping= rawDataMap, bQuiet=TRUE)
 
 # Invalid Assessment Input
 aeData_inv<- list( dfSUBJ= clindata::rawplus_subj, dfAE=clindata::rawplus_ae)
 aeData_inv$dfAE[1:100,'SubjectID'] <- NA
-sae_inv <- runAssessment(sae_meta, lData=aeData_inv, lMapping= rawDataMap, bQuiet=TRUE)
+sae_inv <- RunAssessment(sae_meta, lData=aeData_inv, lMapping= rawDataMap, bQuiet=TRUE)
 
 
 test_that("Assessment data filtered as expected",{

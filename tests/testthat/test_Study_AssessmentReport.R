@@ -1,7 +1,8 @@
 test_that("Assessment Report with all Valid assessments",{
     lAssessments <- Study_Assess(bQuiet=TRUE)
     a<-Study_AssessmentReport(lAssessments=lAssessments)
-    
+    expect_true(is.data.frame(a$dfAllChecks))
+    expect_true(is.data.frame(a$dfSummary))
 })
 
 
@@ -17,5 +18,7 @@ test_that("Assessment Report with an issue in dfSUBJ",{
 
     lAssessments <- Study_Assess(lData=lData, bQuiet=TRUE)
     a<-Study_AssessmentReport(lAssessments=lAssessments)
+    expect_true(is.data.frame(a$dfAllChecks))
+    expect_true(is.data.frame(a$dfSummary))
 })
 

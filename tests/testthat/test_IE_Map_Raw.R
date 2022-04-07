@@ -65,7 +65,7 @@ test_that("custom mapping runs without errors", {
         rename(some_id = SubjectID,
                custom_site_id = SiteID)
 
-  expect_message(
+  expect_silent(
     IE_Map_Raw(
       custom_ie,
       custom_rdsl,
