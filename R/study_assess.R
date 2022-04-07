@@ -1,21 +1,22 @@
-#' Run multiple assessments on a single study
-#'
-#' @details
-#'
-#' Coming soon
+#' Run Multiple Assessments on a Study
 #' 
-#' @param lData list of data 
-#' @param lMapping mapping
-#' @param lAssessments assessments
-#' @param lPopFlags filter demog data? 
-#' @param lTags tags
+#' `Study_Assess()` attempts to run multiple assessments using a shared set of data (`lData`) and an associated data mapping (`lMapping`). By default, the `rawplus` data and associated mapping from the {clindata} package is used, and all assessments defined in `inst/assessments` are evaluated. Individual assessments are run using `gsm::RunAssessment()`
+#' 
+#' @param lData named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`. 
+#' @param lMapping a list identifying the columns needed in each data domain. 
+#' @param lAssessments a list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/assessments`. 
+#' @param lSubjFilters Optionally specify Subject-level filters that will be applied to all assessments. For example `list(strRandFlagCol="Y")` could be used to subset to Randomized Participants. 
+#' @param lTags a named list of Tags to be passed to each assessment. Default is `list(Study="myStudy")` could be expanded to include other important metadata such as analysis population or study phase. 
+#' @param bQuiet specifies whether messages should be silenced. Default = `FALSE`
 #'
 #' @examples
-#'  NULL
+#' Study_Assess() # run using defaults
 #'
+#' @import dplyr
+#' @importFrom purrr map
 #' @importFrom yaml read_yaml
 #' 
-#' @return A list containing: dataChecks and results
+#' @return A list of assessments containing status information and results.
 #' 
 #' @export
 
@@ -23,9 +24,8 @@ Study_Assess <- function(
     lData=NULL, 
     lMapping=NULL, 
     lAssessments=NULL, 
-    lPopFlags=list(strRandFlagCol="Y"), 
-    lTags=list(study="myStudy"),
-    bReturnInputs=FALSE,
+    lSubjFilters=NULL, 
+    lTags=list(Study="myStudy"),
     bQuiet=FALSE
 ){
     #### --- load defaults --- ###
@@ -47,18 +47,18 @@ Study_Assess <- function(
 
     # lAssessments from gsm inst/assessments
     if(is.null(lAssessments)){
-        lAssessments <- makeAssessmentList()
+        lAssessments <- MakeAssessmentList()
     }
     
-    ### ---  Filter data$dfSUBJ based on strPopFlags --- ### 
-    if(!is.null(lPopFlags)){
-        for(flag in names(lPopFlags)){
-            # TODO run is_mapping_valid to make sure filter cols are present
+    ### ---  Filter data$dfSUBJ based on lSubjFilters --- ### 
+    if(!is.null(lSubjFilters)){
+         # TODO run is_mapping_valid to make sure filter cols are present
+        for(flag in names(lSubjFilters)){
             col <- lMapping$dfSUBJ[[flag]]
             if(!(col %in% names(lData$dfSUBJ))){ 
                 stop(paste0("Column for Population filter ('",col,"') specified in lPopFlag not found in lData$dfSUBJ"))
             }
-            val <- lPopFlags[[flag]]
+            val <- lSubjFilters[[flag]]
             oldRows <- nrow(lData$dfSUBJ)
             lData$subj <- lData$dfSUBJ %>% filter(.data[[col]]==val)
             newRows<-nrow(lData$dfSUBJ)
@@ -82,19 +82,8 @@ Study_Assess <- function(
 
     ### --- Attempt to run each assessment --- ### 
     lAssessments <- lAssessments %>% map(
-        ~runAssessment(.x, lData=lData, lMapping=lMapping, lTags=lTags, bQuiet=bQuiet)
+        ~RunAssessment(.x, lData=lData, lMapping=lMapping, lTags=lTags, bQuiet=bQuiet)
     )
 
-    if(bReturnInputs){
-        return(
-            list(
-                lAssessments = lAssessments,
-                lData = lData,
-                lMapping= lMapping
-            )
-        )
-    }else{
-        return(lAssessments)
-    }
-    
+    return(lAssessments)
 }

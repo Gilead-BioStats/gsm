@@ -2,39 +2,37 @@
 % Please edit documentation in R/Study_Assess.R
 \name{Study_Assess}
 \alias{Study_Assess}
-\title{Run multiple assessments on a single study}
+\title{Run Multiple Assessments on a Study}
 \usage{
 Study_Assess(
   lData = NULL,
   lMapping = NULL,
   lAssessments = NULL,
-  lPopFlags = list(strRandFlagCol = "Y"),
-  lTags = list(study = "myStudy"),
-  bReturnInputs = FALSE,
+  lSubjFilters = NULL,
+  lTags = list(Study = "myStudy"),
   bQuiet = FALSE
 )
 }
 \arguments{
-\item{lData}{list of data}
+\item{lData}{named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
-\item{lMapping}{mapping}
+\item{lMapping}{a list identifying the columns needed in each data domain.}
 
-\item{lAssessments}{assessments}
+\item{lAssessments}{a list of metadata defining how each assessment should be run. By default, \code{MakeAssessmentList()} imports YAML specifications from \code{inst/assessments}.}
 
-\item{lPopFlags}{filter demog data?}
+\item{lSubjFilters}{Optionally specify Subject-level filters that will be applied to all assessments. For example \code{list(strRandFlagCol="Y")} could be used to subset to Randomized Participants.}
 
-\item{lTags}{tags}
+\item{lTags}{a named list of Tags to be passed to each assessment. Default is \code{list(Study="myStudy")} could be expanded to include other important metadata such as analysis population or study phase.}
+
+\item{bQuiet}{specifies whether messages should be silenced. Default = \code{FALSE}}
 }
 \value{
-A list containing: dataChecks and results
+A list of assessments containing status information and results.
 }
 \description{
-Run multiple assessments on a single study
-}
-\details{
-Coming soon
+\code{Study_Assess()} attempts to run multiple assessments using a shared set of data (\code{lData}) and an associated data mapping (\code{lMapping}). By default, the \code{rawplus} data and associated mapping from the {clindata} package is used, and all assessments defined in \code{inst/assessments} are evaluated. Individual assessments are run using \code{gsm::RunAssessment()}
 }
 \examples{
- NULL
+Study_Assess() # run using defaults
 
 }

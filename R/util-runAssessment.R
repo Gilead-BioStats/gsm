@@ -18,7 +18,7 @@
 #' 
 #' @export
 
-runAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE){
+RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE){
     amessage <- function(x){
         if(!bQuiet) message(x)
     }    

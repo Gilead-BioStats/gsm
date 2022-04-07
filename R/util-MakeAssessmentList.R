@@ -14,7 +14,7 @@
 #' 
 #' @export
 
-makeAssessmentList <- function(path="assessments", package="gsm"){
+MakeAssessmentList <- function(path="assessments", package="gsm"){
     if(!is.null(package)){
         path <- system.file(path, package = 'gsm')
     }

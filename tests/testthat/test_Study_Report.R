@@ -17,11 +17,11 @@ test_that("Study Table Report with AE issue",{
 })
 
 test_that("Study Table Report with a subset of domains issue",{
-    lData <- list(
-        dfSUBJ= clindata::rawplus_subj,
-        dfCONSENT=clindata::rawplus_consent,
-        dfIE=clindata::rawplus_ie
-    )
-    lAssessments <- Study_Assess(lData=lData, bQuiet=FALSE)
-    Study_Report(assessments=lAssessments, meta=list(Project="Consent + IE only"))
+    # lData <- list(
+    #     dfSUBJ= clindata::rawplus_subj,
+    #     dfCONSENT=clindata::rawplus_consent,
+    #     dfIE=clindata::rawplus_ie
+    # )
+    # lAssessments <- Study_Assess(lData=lData, bQuiet=FALSE)
+    # Study_Report(assessments=lAssessments, meta=list(Project="Consent + IE only"))
 })
