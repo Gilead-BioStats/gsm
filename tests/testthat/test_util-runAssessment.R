@@ -1,34 +1,5 @@
 sae_meta <- yaml::read_yaml(system.file("assessments/sae.yaml", package = 'gsm'))
-
-# dput no longer needed once issue #27 in clindata is fixed
-rawDataMap <- list(dfSUBJ = list(strIDCol = "SubjectID",
-                                 strSiteCol = "SiteID",
-                                 strTimeOnTreatmentCol = "TimeOnTreatment",
-                                 strTimeOnStudyCol = "TimeOnStudy",
-                                 strRandFlagCol = "RandFlag",
-                                 strRandDateCol = "RandDate",
-                                 strStudyCompletionFlagCol = "StudCompletion",
-                                 strStudyDiscontinuationReasonCol = "StudDCReason",
-                                 strTreatmentCompletionFlagCol = "TrtCompletion",
-                                 strTreatmentDiscontinuationReasonCol = "TrtDCReason"),
-                   dfAE = list(strIDCol = "SubjectID",
-                               strTreatmentEmergentCol = "AE_TE_FLAG",
-                               strGradeCol = "AE_GRADE",
-                               strSeriousCol = "AE_SERIOUS"),
-                   dfPD = list(strIDCol = "SubjectID",
-                               strCategoryCol = "PD_CATEGORY",
-                               strImportantCol = "PD_IMPORTANT_FLAG"),
-                   dfIE = list(strIDCol = "SubjectID",
-                               strCategoryCol = "IE_CATEGORY",
-                               strValueCol = "IE_VALUE",
-                               strVersionCol = "IE_PROTOCOLVERSION"),
-                   dfCONSENT = list(strIDCol = "SubjectID",
-                                    strTypeCol = "CONSENT_TYPE",
-                                    strValueCol = "CONSENT_VALUE",
-                                    strDateCol = "CONSENT_DATE"))
-
-
-
+rawDataMap <- yaml::read_yaml(system.file("mapping/rawplus.yaml", package = 'clindata'))
 
 #Valid Assessment Input
 aeData<-list(dfSUBJ= clindata::rawplus_subj, dfAE=clindata::rawplus_ae)

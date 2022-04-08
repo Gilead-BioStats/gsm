@@ -7,15 +7,15 @@
 RunAssessment(assessment, lData, lMapping, lTags = NULL, bQuiet = FALSE)
 }
 \arguments{
-\item{assessment}{a named list of assessments, which can be created using \code{MakeAssessmentList}}
+\item{assessment}{assessments}
 
-\item{lData}{a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
+\item{lData}{list of data}
 
-\item{lMapping}{a named list identifying the columns needed in each data domain.}
+\item{lMapping}{mapping}
 
-\item{lTags}{a named list of Tags to be passed to each assessment. Default is \code{list(Study="myStudy")} could be expanded to include other important metadata such as analysis population or study phase.}
+\item{lTags}{tags}
 
-\item{bQuiet}{specifies whether messages should be silenced. Default = \code{FALSE}}
+\item{bQuiet}{silence reporting?}
 }
 \value{
 A list containing: dataChecks and results

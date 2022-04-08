@@ -20,5 +20,5 @@ requiredParameters:
     - strTimeOnTreatmentCol
 filters:
   dfAE:
-    strTreatementEmergentCol : TRUE
+    strTreatmentEmergentCol : TRUE
     strSeriousCol : "Yes"
