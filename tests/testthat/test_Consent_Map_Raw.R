@@ -18,7 +18,7 @@ test_that("output created as expected ",{
 })
 
 # incorrect inputs throw errors -------------------------------------------
-test_that("incorrect inputs throw errors",{
+test_that("incorrect inputs throw errors", {
   expect_snapshot_error(Consent_Map_Raw(list(), list()))
   expect_snapshot_error(Consent_Map_Raw(dfCONSENT, list()))
   expect_snapshot_error(Consent_Map_Raw(list(), dfSUBJ))
