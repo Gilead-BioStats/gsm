@@ -33,7 +33,7 @@
 #'
 #' @export
 
-AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL ){
+AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL, bQuiet = TRUE ){
 
     # Set defaults for mapping if none is provided
     if(is.null(mapping)){
@@ -48,7 +48,7 @@ AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL ){
         dfAE,
         mapping$dfAE,
         vRequiredParams = c("strIDCol", "strTreatmentEmergentCol"),
-        bQuiet = FALSE
+        bQuiet = bQuiet
     )
 
     is_subj_valid <- is_mapping_valid(
@@ -56,7 +56,7 @@ AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL ){
         mapping$dfSUBJ,
         vRequiredParams = c("strIDCol", "strSiteCol", "strTimeOnTreatmentCol"),
         vUniqueCols = mapping$dfSUBJ$strIDCol,
-        bQuiet = FALSE
+        bQuiet = bQuiet
     )
 
     stopifnot(

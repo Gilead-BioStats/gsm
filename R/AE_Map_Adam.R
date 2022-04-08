@@ -34,7 +34,7 @@
 #'
 #' @export
 
-AE_Map_Adam <- function( dfADSL, dfADAE, mapping = NULL ){
+AE_Map_Adam <- function( dfADSL, dfADAE, mapping = NULL, bQuiet = TRUE ){
 
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
@@ -49,7 +49,7 @@ AE_Map_Adam <- function( dfADSL, dfADAE, mapping = NULL ){
     dfADSL,
     mapping$dfADSL,
     vRequiredParams = c("strIDCol", "strSiteCol", "strStartCol", "strEndCol"),
-    bQuiet = FALSE
+    bQuiet = bQuiet
   )
 
   is_adae_valid <- is_mapping_valid(
@@ -57,7 +57,7 @@ AE_Map_Adam <- function( dfADSL, dfADAE, mapping = NULL ){
     mapping$dfADAE,
     vRequiredParams = c("strIDCol"),
     vUniqueCols = mapping$dfRDSL$strIDCol,
-    bQuiet = FALSE
+    bQuiet = bQuiet
   )
 
   stopifnot(

@@ -32,7 +32,7 @@
 #'
 #' @export
 
-PD_Map_Raw <- function(dfPD, dfSUBJ, mapping = NULL){
+PD_Map_Raw <- function( dfPD, dfSUBJ, mapping = NULL, bQuiet = TRUE ){
 
     # Set defaults for mapping if none is provided
     if(is.null(mapping)){
@@ -47,7 +47,7 @@ PD_Map_Raw <- function(dfPD, dfSUBJ, mapping = NULL){
         dfPD,
         mapping$dfPD,
         vRequiredParams = c("strIDCol"),
-        bQuiet = FALSE
+        bQuiet = bQuiet
         )
 
     is_subj_valid <- is_mapping_valid(
@@ -55,7 +55,7 @@ PD_Map_Raw <- function(dfPD, dfSUBJ, mapping = NULL){
         mapping$dfSUBJ,
         vRequiredParams = c("strIDCol", "strSiteCol", "strTimeOnStudyCol"),
         vUniqueCols = 'strIDCol',
-        bQuiet = FALSE
+        bQuiet = bQuiet
         )
 
     stopifnot(

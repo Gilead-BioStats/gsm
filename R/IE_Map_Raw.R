@@ -36,7 +36,7 @@
 #' @import dplyr
 #'
 #' @export
-IE_Map_Raw <- function(dfIE, dfSUBJ, mapping = NULL, vCategoryValues =  c("EXCL","INCL"), vExpectedResultValues = c(0,1)) {
+IE_Map_Raw <- function( dfIE, dfSUBJ, mapping = NULL, vCategoryValues =  c("EXCL","INCL"), vExpectedResultValues = c(0,1), bQuiet = TRUE ) {
 
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
@@ -51,14 +51,14 @@ IE_Map_Raw <- function(dfIE, dfSUBJ, mapping = NULL, vCategoryValues =  c("EXCL"
       dfIE,
       mapping$dfIE,
       vRequiredParams = c("strIDCol", "strCategoryCol", "strValueCol"),
-      bQuiet = FALSE
+      bQuiet = bQuiet
     )
 
   is_subj_valid <- is_mapping_valid(
       dfSUBJ,
       mapping$dfSUBJ,
       vRequiredParams = c("strIDCol", "strSiteCol"),
-      bQuiet = FALSE,
+      bQuiet = bQuiet,
       vUniqueCols = mapping$dfSUBJ$strIDCol
     )
 

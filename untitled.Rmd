@@ -1,0 +1,203 @@
+---
+title: "{gsm} QC Checklist"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{css, echo = FALSE}
+h1 {
+  color: #c50f3c;
+}
+body {
+  background-color: #fbfbfb;
+}
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: #c50f3c;
+    border-color: #c50f3c;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+library(tidyverse)
+library(rvest)
+library(gt)
+library(DT)
+docParams <- function(x) {
+  rvest::read_html(x) %>% 
+    rvest::html_nodes("table") %>% 
+    rvest::html_table() %>% 
+    dplyr::bind_rows() %>% 
+    dplyr::mutate(Function = X1[1]) %>% 
+    dplyr::slice(-1) %>% 
+    dplyr::select(Function, Param = X1, Description = X2)
+}
+docFunc <- function(x) {
+    rvest::read_html(x) %>% 
+    rvest::html_elements("td") %>% 
+    rvest::html_text() %>% 
+    as_tibble() %>% 
+    slice(1) %>% 
+    rename(Function = value)
+}
+docDescription <- function(x) {
+bind_cols(
+  
+  docFunc(x),
+  
+  rvest::read_html(x) %>% 
+    rvest::html_elements("p") %>%
+    rvest::html_text() %>% 
+    as_tibble() %>% 
+    slice(1) %>% 
+    mutate(Description = gsub("\n", "", value)) %>% 
+    select(Description)
+  )
+  
+}
+docReturns <- function(x) {
+bind_cols(
+  
+  docFunc(x),
+  
+  rvest::read_html(x) %>% 
+    rvest::html_nodes(xpath = "//p[preceding::*[1][contains(.,'Value')]]") %>% 
+    rvest::html_text() %>% 
+    as_tibble() %>% 
+    mutate(Returns = gsub("\n", "", value)) %>% 
+    select(Returns)
+  )
+}
+docStats <- function(x) {
+bind_cols(
+  
+  docFunc(x),
+  
+  rvest::read_html(x) %>% 
+    rvest::html_nodes(xpath = "//p[preceding::*[1][contains(., 'Statistical Assumptions')]]") %>% 
+    rvest::html_text() %>% 
+    as_tibble() %>% 
+    mutate(Returns = gsub("\n", "", value)) %>% 
+    select(Returns)
+  )
+}
+spellcheckTable <- function(ignore) {
+devtools::spell_check() %>% 
+  unnest(cols = found) %>% 
+  filter(!word %in% ignore) %>% 
+  DT::datatable()
+}
+customDT <- function(table) {
+  DT::datatable(table,
+              extensions = 'Buttons', 
+              options = list(
+                dom = 'Bfrtip',
+                buttons = c('csv', 'excel')))
+}
+
+docsList <- map(list.files(here::here("man/")), 
+                 ~ tools::Rd2HTML(paste0(here::here("man/"), .), out = tempfile("tmp")))
+tables <- list(
+  headers = map_df(docsList, ~docDescription(.)),
+  params = map_df(docsList, ~docParams(.)),
+  returns = map_df(docsList, ~docReturns(.)),
+  stats = map_df(docsList, ~docStats(.))
+)
+```
+
+# Documentation QC
+
+This report is meant to support QC during any significant release. The
+tables in this report cover most of the items in the **Documentation**
+section of the [QC
+Checklist](https://github.com/Gilead-BioStats/gsm/wiki/QC-Checklist#qualification-checklist).
+
+## Check that function name and description exist:
+
+**Items \#1 and \#2 on QC Checklist - Documentation**
+
+-   Function name captured in Roxygen title (e.g. "Adverse Event
+    Assessment").
+
+-   Assessment purpose captured in Roxygen description (e.g. "Evaluates
+    site-level level Adverse Event Rates and flags rates that are
+    abnormally high or low.").
+
+```{r}
+customDT(tables$headers)
+```
+
+## Placeholder for *Input Data Requirements*
+
+-   Kind of messy because there tends to be bullet-points & sub-headers.
+
+## Statistical Assumptions
+
+**Item \#4 on QC Checklist - Documentation**
+
+-   Expected for `Assess()` and `Analyze()` type functions only.
+
+-   List the statistical methods used and refer to detailed description
+    in Analyze function in the Roxygen details under a `Statistics`
+    section.
+
+```{r}
+customDT(tables$stats)
+```
+
+## Check @params for consistency across similar parameters and functions
+
+**Item \#5 on QC Checklist - Documentation**
+
+-   Parameters have detailed documentation using `@param.`
+
+-   Each parameter should include: parameter name, brief description,
+    usage details, the default value (if any), is it required, list of
+    valid options (if applicable).
+
+```{r}
+customDT(tables$params)
+```
+
+## Check that Output Data Standards are described under `@returns`
+
+**Item \#7 on QC Checklist - Documentation**
+
+-   Output Data Standards are described under `@returns.`
+
+```{r}
+customDT(tables$returns)
+```
+
+## Spellcheck
+
+-   Review anything found in the table and either update `ignore` or
+    file an issue and correct typo(s).
+
+```{r}
+ignore <- 
+  c("ADAE", "adam", "ADaM", "adsl", "ADSL", "AE", "AEs", 
+     "Chisq",  "clindata", "CMD", "Codecov", 
+    "CONSCAT", "CONSDAT", "CONSYN", "DCREASCD", "df", "dfADAE", "dfAE", 
+    "dfConsent", "dfDisp", "dfDomain", "dfFlagged", "dfIE", "dfRDSL", 
+    "dfSubject", "dfTransformed", "directionality", "Disp",  
+    "EventCount", "IDCol", "ie", "IECAT", "IEORRES", "lTags", "mainconsent", 
+    "mergeSubjects", "na", "NaN", "nThreshold", "poisson", 
+    "PredictedCount", "Pvalue", "PValue", "RandDate", "RDSL", "safetyData", 
+    "SiteID", "SITEID", "strCategoryCol", "strCol", "strColumn", 
+    "strCountCol", "strExposureCol", "strReason", "strResultCol", 
+    "strValueColumn", "SubjectID", "SUBJID",   
+    "ThresholdCol", "ThresholdHigh", "ThresholdLow", "TimeOnStudy", 
+    "TimeOnTreatment", "TotalCount", "TotalExposure", "TRTEDT", "TRTSDT", 
+    "USUBJID", "vThreshold", "wilcoxon")
+spellcheckTable(ignore = ignore)
+```

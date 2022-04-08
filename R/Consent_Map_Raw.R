@@ -37,7 +37,7 @@
 #'
 #' @export
 
-Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeValue = "MAINCONSENT", strConsentStatusValue="Y"){
+Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeValue = "MAINCONSENT", strConsentStatusValue="Y", bQuiet = TRUE ){
 
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
@@ -53,7 +53,7 @@ Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeVa
     mapping = mapping$dfCONSENT,
     vRequiredParams = c("strIDCol", "strTypeCol", "strValueCol", "strDateCol"),
     vNACols = c("strDateCol"),
-    bQuiet=FALSE
+    bQuiet = bQuiet
   )
 
   is_subj_valid <- is_mapping_valid(
@@ -61,7 +61,7 @@ Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeVa
     mapping = mapping$dfSUBJ,
     vRequiredParams = c("strIDCol", "strSiteCol", "strRandDateCol"),
     vUniqueCols = "strIDCol",
-    bQuiet=FALSE
+    bQuiet = bQuiet
   )
 
   stopifnot(
