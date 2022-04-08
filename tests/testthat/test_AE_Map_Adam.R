@@ -8,7 +8,6 @@ mapping <- list(
   dfADAE = list(strIDCol="USUBJID")
 )
 
-
 # output is created as expected -------------------------------------------
 test_that("output is created as expected",{
   data <- AE_Map_Adam(dfADSL, dfADAE)
@@ -28,7 +27,6 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot_error(AE_Map_Adam(dfADSL %>% select(-TRTSDT), dfADAE))
   expect_snapshot_error(AE_Map_Adam(dfADSL %>% select(-TRTEDT), dfADAE))
   expect_snapshot_error(AE_Map_Adam(dfADSL, dfADAE %>% select(-USUBJID)))
-
 })
 
 # incorrect mappings throw errors -----------------------------------------
@@ -47,6 +45,7 @@ test_that("incorrect mappings throw errors",{
                   strStartCol = "TRTSDT",
                   strEndCol = "TRTEDT"),
     dfADAE = list(strIDCol="not an id"))))
+
 })
 
 # custom tests ------------------------------------------------------------
