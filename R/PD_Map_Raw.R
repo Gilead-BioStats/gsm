@@ -21,6 +21,7 @@
 #' @param dfPD  PD dataset with required column SUBJID and rows for each Protocol Deviation.
 #' @param dfSUBJ Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.
 #' @param mapping List containing expected columns in each data set.
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
 #'

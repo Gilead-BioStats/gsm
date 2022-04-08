@@ -24,7 +24,7 @@ Study_Assess(
 
 \item{lTags}{a named list of Tags to be passed to each assessment. Default is \code{list(Study="myStudy")} could be expanded to include other important metadata such as analysis population or study phase.}
 
-\item{bQuiet}{specifies whether messages should be silenced. Default = \code{FALSE}}
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
 A list of assessments containing status information and results.

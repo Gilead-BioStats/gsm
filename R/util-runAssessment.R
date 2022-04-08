@@ -8,7 +8,7 @@
 #' @param lData list of data
 #' @param lMapping mapping
 #' @param lTags tags
-#' @param bQuiet silence reporting?
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @examples
 #'  NULL

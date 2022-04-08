@@ -23,6 +23,7 @@
 #' @param mapping List containing expected columns in each data set.
 #' @param strConsentTypeValue default = "mainconsent", filters on CONSCAT_STD of dfCONSENT, if NULL no filtering is done.
 #' @param strConsentStatusValue default = "Yes", expected Status value for valid consent.
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
 #'

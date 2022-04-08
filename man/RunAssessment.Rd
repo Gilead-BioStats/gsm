@@ -15,7 +15,7 @@ RunAssessment(assessment, lData, lMapping, lTags = NULL, bQuiet = FALSE)
 
 \item{lTags}{tags}
 
-\item{bQuiet}{silence reporting?}
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
 A list containing: dataChecks and results
