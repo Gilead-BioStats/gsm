@@ -4,10 +4,7 @@
 \alias{quietDown}
 \title{Utility function to suppress all messages in unit tests}
 \usage{
-quietDown(action = "start")
-}
-\arguments{
-\item{action}{'start' (the default) or 'stop'. Used in \code{testthat/setup.R} to temporarily divert messages to a log file.}
+quietDown()
 }
 \description{
 Utility function to suppress all messages in unit tests
