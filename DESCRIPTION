@@ -10,10 +10,12 @@ Encoding: UTF-8
 Imports:
     broom,
     dplyr,
+    fontawesome,
     ggplot2,
     lamW,
     magrittr,
     purrr,
+    stringr,
     tidyr,
     yaml
 Suggests:
@@ -26,12 +28,10 @@ Suggests:
     rlang,
     rmarkdown,
     safetyData,
-    stringr,
     testthat (>= 3.0.0),
     tibble,
     usethis,
-    valtools,
-    yaml
+    valtools
 LazyData: true
 Remotes: 
     phuse-org/valtools

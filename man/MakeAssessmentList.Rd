@@ -7,18 +7,12 @@
 MakeAssessmentList(path = "assessments", package = "gsm")
 }
 \arguments{
-\item{lData}{list of data}
+\item{path}{location of assessment yaml files. If package is specified looks in /inst folder.}
 
-\item{lMapping}{mapping}
-
-\item{lAssessments}{assessments}
-
-\item{strPopFlags}{filter demog data?}
-
-\item{lTags}{tags}
+\item{package}{package with assessments}
 }
 \value{
-A list containing: dataChecks and results
+A list of assessments
 }
 \description{
 Load assessments from a package/directory
@@ -27,6 +21,7 @@ Load assessments from a package/directory
 Coming soon
 }
 \examples{
- NULL
+ MakeAssessmentList(path="assessments", package="gsm")
+
 
 }

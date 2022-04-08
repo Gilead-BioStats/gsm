@@ -18,7 +18,7 @@ IE_Assess(
 
 \item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="IE")}}
 
-\item{bChart}{should vizualization be created? TRUE (default) or FALSE.}
+\item{bChart}{should visualization be created? TRUE (default) or FALSE.}
 }
 \value{
 A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, \code{lParams} and \code{lTags}) is returned.
@@ -59,9 +59,7 @@ With N greater than user specified \code{nThreshold} will be flagged.
 
 dfInput <- IE_Map_Raw(
    clindata::rawplus_ie,
-   clindata::rawplus_subj,
-   vCategoryValues= c("EXCL","INCL"),
-   vExpectedResultValues=c(0,1)
+   clindata::rawplus_subj
 )
 
 IE_Summary <- IE_Assess(dfInput)$dfSummary

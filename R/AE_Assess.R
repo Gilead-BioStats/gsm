@@ -31,7 +31,7 @@
 #' @param vThreshold numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.
 #' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon".
 #' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE")`.
-#' @param bChart should vizualization be created? TRUE (default) or FALSE.
+#' @param bChart should visualization be created? TRUE (default) or FALSE.
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
@@ -97,8 +97,12 @@ AE_Assess <- function(dfInput, vThreshold=NULL, strMethod="poisson", lTags=list(
     }
 
     if (bChart) {
-        dfBounds <- Analyze_Poisson_PredictBounds(lAssess$dfTransformed)
-        lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged, dfBounds)
+        if(strMethod=="poisson"){
+            dfBounds <- Analyze_Poisson_PredictBounds(lAssess$dfTransformed)
+            lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged, dfBounds)
+        }else{
+            lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged)
+        }
     }
 
     return(lAssess)

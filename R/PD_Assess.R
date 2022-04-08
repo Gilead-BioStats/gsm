@@ -29,7 +29,7 @@
 #' @param vThreshold list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon.
 #' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon".
 #' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="PD")`.
-#' @param bChart should vizualization be created? TRUE (default) or FALSE.
+#' @param bChart should visualization be created? TRUE (default) or FALSE.
 #'
 #' @examples
 #' dfInput <- PD_Map_Raw(clindata::rawplus_pd,
@@ -100,9 +100,14 @@ PD_Assess <- function(dfInput, vThreshold=NULL,strMethod="poisson", lTags=list(A
     }
 
     if (bChart) {
-        dfBounds <- Analyze_Poisson_PredictBounds(lAssess$dfTransformed)
-        lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged, dfBounds)
+        if(strMethod=="poisson"){
+            dfBounds <- Analyze_Poisson_PredictBounds(lAssess$dfTransformed)
+            lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged, dfBounds)
+        }else{
+            lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged)
+        }
     }
+
 
     return(lAssess)
 

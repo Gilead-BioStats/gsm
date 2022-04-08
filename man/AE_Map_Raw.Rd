@@ -31,7 +31,7 @@ The following columns are required:
 \itemize{
 \item \code{dfAE}
 \itemize{
-\item \code{SUBJID} - Unique subject ID
+\item \code{SubjectID} - Unique subject ID
 }
 \item \code{dfSUBJ}
 \itemize{

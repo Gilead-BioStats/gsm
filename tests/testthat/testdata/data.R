@@ -1,9 +1,9 @@
 dfAE <- tibble::tribble(
-  ~SubjectID,
-  "1234",
-  "1234",
-  "5678",
-  "5678"
+  ~SubjectID, ~AE_SERIOUS, ~AE_TE_FLAG, ~AE_GRADE,
+  "1234", "No", TRUE, 1,
+  "1234", "No", TRUE, 3,
+  "5678", "Yes", FALSE, 1,
+  "5678", "No", FALSE, 4
 )
 
 dfSUBJ <- data.frame(
@@ -17,14 +17,14 @@ dfSUBJ <- data.frame(
 
 
 dfPD <- tibble::tribble(
-  ~SubjectID,
-  "1234",
-  "1234",
-  "5678",
-  "5678",
-  "5678",
-  "9876",
-  "9876"
+  ~SubjectID, ~PD_CATEGORY, ~PD_IMPORTANT_FLAG,
+  "1234", "Study Medication", "N",
+  "1234", "Study Medication", "N",
+  "5678", "Nonadherence of study drug", "Y",
+  "5678", "Nonadherence of study drug", "Y",
+  "5678", "Nonadherence of study drug", "Y",
+  "9876", "Subject Not Managed According to Protocol", "N",
+  "9876", "Subject Not Managed According to Protocol", "N"
 )
 
 

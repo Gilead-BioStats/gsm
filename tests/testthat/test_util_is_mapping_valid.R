@@ -37,7 +37,7 @@ test_that("NA values are ignored when specified in vNACols", {
 test_that("vUniqueCols are caught", {
   dfSUBJ <- bind_rows(dfSUBJ[1,], dfSUBJ)
   expect_message(
-    is_mapping_valid(dfSUBJ, mapping = mapping_rdsl, vUniqueCols = "strIDCol", bQuiet = F)
+    is_mapping_valid(dfSUBJ, mapping = mapping_rdsl, vUniqueCols = "strIDCol", vRequiredParams = c("strIDCol"), bQuiet = F)
   )
 })
 
@@ -53,7 +53,7 @@ test_that("empty string values are caught", {
 
 
 test_that("bQuiet works as intended", {
-  expect_message(is_mapping_valid(df = dfSUBJ, mapping = mapping_rdsl, bQuiet = FALSE, vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol")))
+  expect_message(is_mapping_valid(df = dfSUBJ, mapping = mapping_rdsl, bQuiet = FALSE, vRequiredParams = "notACol"))
 })
 
 
