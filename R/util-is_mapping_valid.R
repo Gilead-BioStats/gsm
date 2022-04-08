@@ -3,7 +3,7 @@
 #' @param df data.frame to compare to mapping object.
 #' @param mapping named list specifying expected columns and fields in df.
 #' @param vRequiredParams character vector of names that must be present in `mapping`.
-#' @param bKeepAllParams Should params not included in `vRequiredParams` be evaluated? Default is false. 
+#' @param bKeepAllParams Should params not included in `vRequiredParams` be evaluated? Default is false.
 #' @param vUniqueCols list of columns expected to be unique. default = NULL (none).
 #' @param vNACols list of columns where na values are acceptable default = NULL (none).
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
@@ -32,12 +32,12 @@
 #' @export
 
 is_mapping_valid <- function(
-    df, 
-    mapping, 
-    vRequiredParams=NULL, 
+    df,
+    mapping,
+    vRequiredParams=NULL,
     bKeepAllParams=FALSE,
-    vUniqueCols=NULL, 
-    vNACols=NULL, 
+    vUniqueCols=NULL,
+    vNACols=NULL,
     bQuiet = TRUE
 ){
 
@@ -75,7 +75,7 @@ is_mapping_valid <- function(
     } else {
         tests_if$mapping_is_list$status <- TRUE
     }
-    
+
     if(!bKeepAllParams) mapping[!(names(mapping) %in% vRequiredParams)]<-NULL
 
     # mapping contains character values for column names

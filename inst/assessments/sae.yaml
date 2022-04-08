@@ -3,7 +3,7 @@ domain: gsm
 tags:
   Assessment: Safety
   Label: SAEs
-mapping: 
+mapping:
   functionName: AE_Map_Raw
   params: NULL
 assessment:
@@ -12,12 +12,12 @@ assessment:
 requiredParameters:
   dfAE:
     - strIDCol
-    - strTreatementEmergentCol
+    - strTreatmentEmergentCol
     - strSeriousCol
-  dfSUBJ: 
+  dfSUBJ:
     - strIDCol
     - strSiteCol
-    - strTimeOnTreatmentCol 
+    - strTimeOnTreatmentCol
 filters:
   dfAE:
     strTreatementEmergentCol : TRUE
