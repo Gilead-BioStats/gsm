@@ -32,9 +32,7 @@
 #'
 #' input <- Consent_Map_Raw(
 #'    dfCONSENT = clindata::rawplus_consent,
-#'    dfSUBJ = clindata::rawplus_subj,
-#'    strConsentTypeValue = "MAINCONSENT",
-#'    strConsentStatusValue="Y"
+#'    dfSUBJ = clindata::rawplus_subj
 #')
 #'
 #' @export

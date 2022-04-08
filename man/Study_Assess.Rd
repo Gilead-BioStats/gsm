@@ -14,11 +14,11 @@ Study_Assess(
 )
 }
 \arguments{
-\item{lData}{named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
+\item{lData}{a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
-\item{lMapping}{a list identifying the columns needed in each data domain.}
+\item{lMapping}{a named list identifying the columns needed in each data domain.}
 
-\item{lAssessments}{a list of metadata defining how each assessment should be run. By default, \code{MakeAssessmentList()} imports YAML specifications from \code{inst/assessments}.}
+\item{lAssessments}{a named list of metadata defining how each assessment should be run. By default, \code{MakeAssessmentList()} imports YAML specifications from \code{inst/assessments}.}
 
 \item{lSubjFilters}{Optionally specify Subject-level filters that will be applied to all assessments. For example \code{list(strRandFlagCol="Y")} could be used to subset to Randomized Participants.}
 

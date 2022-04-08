@@ -30,9 +30,7 @@
 #'
 #' dfInput <- IE_Map_Raw(
 #'    clindata::rawplus_ie,
-#'    clindata::rawplus_subj,
-#'    vCategoryValues= c("EXCL","INCL"),
-#'    vExpectedResultValues=c(0,1)
+#'    clindata::rawplus_subj
 #')
 #'
 #' @import dplyr
