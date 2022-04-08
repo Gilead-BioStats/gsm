@@ -47,7 +47,6 @@ AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL ){
     is_ae_valid <- is_mapping_valid(
         dfAE,
         mapping$dfAE,
-        vRequiredParams = "strIDCol",
         vRequiredParams = c("strIDCol", "strTreatmentEmergentCol"),
         bQuiet = FALSE
     )
