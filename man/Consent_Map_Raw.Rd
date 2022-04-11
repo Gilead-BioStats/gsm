@@ -5,21 +5,21 @@
 \title{Consent Assessment Mapping from Raw Data}
 \usage{
 Consent_Map_Raw(
-  dfConsent,
-  dfRDSL,
+  dfCONSENT,
+  dfSUBJ,
   mapping = NULL,
   strConsentTypeValue = "mainconsent",
   strConsentStatusValue = "Yes"
 )
 }
 \arguments{
-\item{dfConsent}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}
+\item{dfCONSENT}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}
 
-\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID SiteID RandDate.}
+\item{dfSUBJ}{Subject-level Raw Data required columns: SubjectID SiteID RandDate.}
 
 \item{mapping}{List containing expected columns in each data set.}
 
-\item{strConsentTypeValue}{default = "mainconsent", filters on CONSCAT_STD of dfConsent, if NULL no filtering is done.}
+\item{strConsentTypeValue}{default = "mainconsent", filters on CONSCAT_STD of dfCONSENT, if NULL no filtering is done.}
 
 \item{strConsentStatusValue}{default = "Yes", expected Status value for valid consent.}
 }
@@ -30,20 +30,20 @@ Data frame with one record per person data frame with columns: SubjectID, SiteID
 Convert from raw data format to needed input format for \code{\link{Consent_Assess}}
 }
 \details{
-This function uses raw Consent and RDSL data to create the required input for \code{\link{Consent_Assess}}.
+This function uses raw Consent and Subject data to create the required input for \code{\link{Consent_Assess}}.
 }
 \section{Data Specification}{
 
 The following columns are required:
 \itemize{
-\item \code{dfConsent}
+\item \code{dfCONSENT}
 \itemize{
-\item \code{SUBJID} - Subject ID
+\item \code{SubjectID} - Subject ID
 \item \code{CONSCAT_STD} - Type of Consent_Coded value
 \item \code{CONSYN} - Did the subject give consent? Yes / No.
 \item \code{CONSDAT} - If yes, provide date consent signed
 }
-\item \code{dfRDSL}
+\item \code{dfSUBJ}
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
@@ -53,17 +53,10 @@ The following columns are required:
 }
 
 \examples{
-library(dplyr)
-raw_consent <- clindata::raw_ic_elig \%>\%
-   select( c("SUBJID","DSSTDAT_RAW") )\%>\%
-   mutate( CONSCAT_STD = "MAINCONSENT", CONSYN="Y") \%>\%
-   rename( CONSDAT = DSSTDAT_RAW ) \%>\%
-   mutate( CONSDAT = as.Date(CONSDAT, format="\%d \%B \%Y") ) \%>\%
-   filter(SUBJID != "")
 
 input <- Consent_Map_Raw(
-   dfConsent = raw_consent,
-   dfRDSL = clindata::rawplus_rdsl,
+   dfCONSENT = clindata::rawplus_consent,
+   dfSUBJ = clindata::rawplus_subj,
    strConsentTypeValue = "MAINCONSENT",
    strConsentStatusValue="Y"
 )

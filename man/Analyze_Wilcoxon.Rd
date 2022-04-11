@@ -42,7 +42,7 @@ The input data (dfTransformed) for Analyze_Wilcoxon is typically created using \
 }
 
 \examples{
-dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+dfInput <- AE_Map_Raw(clindata::rawplus_ae, clindata::rawplus_subj)
 dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 dfAnalyzed <- Analyze_Wilcoxon( dfTransformed , strOutcome ="Rate")
 
