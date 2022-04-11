@@ -1,0 +1,53 @@
+on:
+  release:
+    types: [published]
+
+name: qualification-report
+
+jobs:
+  qualification-report:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
+
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@v1
+        with:
+          use-public-rspm: true
+
+      - name: Clone clindata
+        run: |
+          cd ..
+          git clone git@github.com:Gilead-BioStats/clindata.git
+          cd clindata
+          git checkout tags/v0.3.0
+          cd ../gsm
+
+      - name: install packages
+        shell: Rscript {0}
+        run: |
+          install.packages("devtools")
+          devtools::install('../clindata')
+          devtools::install(dependencies=TRUE)
+
+      - name: build vignette
+        run: tools::buildVignette("./vignettes/Qualification.Rmd")
+        shell: Rscript {0}
+
+
+      # Upload the qulafication report to the release
+      - name: Upload report to release
+        if: success()
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ./qulaification_report.pdf
+          asset_name: qulaification-report.pdf
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref }}
+          overwrite: false
