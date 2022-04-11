@@ -1,4 +1,4 @@
-- S1_1:
+- ID: S1_1
   Description: Given correct input data an Adverse Event assessment can be done using the poisson method
   Risk: High
   Impact: High
@@ -7,7 +7,7 @@
     - T1_2
     - T1_3
     - T1_4
-- S1_2:
+- ID: S1_2
   Description: Given correct input data an Adverse Event assessment can be done using the wilcoxon method
   Risk: High
   Impact: High
@@ -16,7 +16,7 @@
     - T1_6
     - T1_7
     - T1_8
-- S1_3:
+- ID: S1_3
   Description: Assessments are correctly grouped by the site variable
   Risk: Low
   Impact: High
@@ -29,7 +29,7 @@
     - T1_6
     - T1_7
     - T1_8
-- S1_4:
+- ID: S1_4
   Description: Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding
   Risk: Medium
   Impact: High
@@ -42,7 +42,7 @@
     - T1_6
     - T1_7
     - T1_8
-- S1_5:
+- ID: S1_5
   Description: Given subset input data an Adverse Event assessment can be done
   Risk: Medium
   Impact: Medium
@@ -51,14 +51,14 @@
     - T1_4
     - T1_7
     - T1_8
-- S1_6:
+- ID: S1_6
   Description: An Adverse Event assessment can be done iteratively by looping over a categorical variable
   Risk: Low
   Impact: Medium
   Tests:
     - T1_4
     - T1_8
-- S1_5:
+- ID: S1_7
   Description: Ensure that missing and invalid data are handled correctly
   Risk: Low
   Impact: Medium
