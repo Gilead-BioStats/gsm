@@ -1,8 +1,8 @@
 test_that("Test that (NA, NaN) in input exposure data throws a warning and drops the participant(s) from the analysis.", {
-  dfInput <- suppressWarnings(gsm::PD_Map_Raw(
-    dfPD = clindata::raw_protdev %>% filter(SUBJID != ""),
-    dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
-  ))
+  dfInput <- gsm::PD_Map_Raw(
+    dfPD = clindata::rawplus_pd,
+    dfSUBJ = clindata::rawplus_subj
+  )
 
   # data
   # several NA values

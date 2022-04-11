@@ -1,15 +1,15 @@
 test_that("AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold.", {
   # gsm analysis
-  dfInput <- suppressWarnings(gsm::PD_Map_Raw(
-    dfPD = clindata::raw_protdev %>% filter(SUBJID != ""),
-    dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
-  ))
+  dfInput <- gsm::PD_Map_Raw(
+    dfPD = clindata::rawplus_pd,
+    dfSUBJ = clindata::rawplus_subj
+  )
 
-  test2_4 <- suppressWarnings(PD_Assess(
+  test2_4 <- PD_Assess(
     dfInput = dfInput,
     strMethod = "wilcoxon",
     vThreshold = c(0.1, NA)
-  ))
+  )
 
   # double programming
   t2_4_input <- dfInput

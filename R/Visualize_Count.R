@@ -10,8 +10,8 @@
 #' @examples
 #'
 #' IE_Input <- IE_Map_Raw(
-#'    clindata::raw_ie_all %>% dplyr::filter(SUBJID != "" ),
-#'    clindata::rawplus_rdsl,
+#'    clindata::rawplus_ie,
+#'    clindata::rawplus_subj,
 #'    vCategoryValues= c("EXCL","INCL"),
 #'    vExpectedResultValues=c(0,1)
 #')
@@ -20,17 +20,9 @@
 #'
 #' Visualize_Count(IE_Assess$dfAnalyzed)
 #'
-#' library(dplyr)
-#' raw_consent <- clindata::raw_ic_elig %>%
-#'    select( c("SUBJID","DSSTDAT_RAW") )%>%
-#'    mutate( CONSCAT_STD = "MAINCONSENT", CONSYN="Y") %>%
-#'    rename( CONSDAT = DSSTDAT_RAW ) %>%
-#'    mutate( CONSDAT = as.Date(CONSDAT, format="%d %B %Y") ) %>%
-#'    filter(SUBJID != "")
-#'
 #' Consent_Input <- Consent_Map_Raw(
-#'    dfConsent = raw_consent,
-#'    dfRDSL = clindata::rawplus_rdsl,
+#'    dfCONSENT = clindata::rawplus_consent,
+#'    dfSUBJ = clindata::rawplus_subj,
 #'    strConsentTypeValue = "MAINCONSENT",
 #'    strConsentStatusValue="Y"
 #')

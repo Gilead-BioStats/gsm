@@ -51,8 +51,8 @@ With N greater than user specified \code{nThreshold} will be flagged.
 \examples{
 
 dfInput <- IE_Map_Raw(
-   clindata::raw_ie_all \%>\% dplyr::filter(SUBJID != "" ),
-   clindata::rawplus_rdsl,
+   clindata::rawplus_ie,
+   clindata::rawplus_subj,
    vCategoryValues= c("EXCL","INCL"),
    vExpectedResultValues=c(0,1)
 )
