@@ -23,6 +23,8 @@ jobs:
         with:
           use-public-rspm: true
 
+      - uses: r-lib/actions/setup-pandoc@v1
+
       - name: Clone clindata
         run: |
           cd ..
