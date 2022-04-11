@@ -48,21 +48,20 @@ pander::pandoc.p('\\pagebreak')
 create_assessment_section <- function(assessment, df){
   pander::pandoc.header(paste0("Assessment ", assessment), level = 2)
   pander::pandoc.header("Specifications", level = 3)
-  pander::pandoc.p('')
   for (i in 1:nrow(df)){
-    pander::pandoc.indent(
+    pander::pandoc.p(
       c(
-        pander::pandoc.indent(paste0(df[i, "ID"], ": ", df[i, "Description"]), 0),
-        pander::pandoc.indent(paste0("Risk: ", df[i, "Risk"]), 1),
-        pander::pandoc.indent(paste0("Impact: ", df[i, "Impact"]), 1),
-        pander::pandoc.indent(paste0("Tests: ", df[i, "Tests"]), 1)
-        ), level = 2
-      ) %>% 
-      pander::pandoc.p()
+        pander::pandoc.p(paste0(df[i, "ID"], ": ", df[i, "Description"])),
+        pander::pandoc.indent(paste0("Risk: ", df[i, "Risk"]), 2),
+        pander::pandoc.indent(paste0("Impact: ", df[i, "Impact"]), 2),
+        pander::pandoc.indent(paste0("Tests: ", df[i, "Tests"]), 2)
+        )
+      ) 
   }
-  pander::pandoc.p('')
   pander::pandoc.header("Traceability Matrix", level = 3)
   pander::pandoc.table(build_traceability_matrix(df), style = "grid")
+  pander::pandoc.header("Test Cases", level = 3)
+  pander::pandoc.table(run_all_tests(df), style = "grid")
   pander::pandoc.p('\\pagebreak')
 }
 ```
