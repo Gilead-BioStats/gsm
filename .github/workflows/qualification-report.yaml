@@ -46,7 +46,7 @@ jobs:
         if: success()
         uses: svenstaro/upload-release-action@v2
         with:
-          file: ./qulaification_report.pdf
+          file: ./Qualification.pdf
           asset_name: qulaification-report.pdf
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.ref }}
