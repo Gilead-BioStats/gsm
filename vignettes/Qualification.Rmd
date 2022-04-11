@@ -15,9 +15,9 @@ vignette: >
 suppressPackageStartupMessages({
   library(gsm)
   library(knitr)
-  library(pander)
   library(dplyr)
   library(purrr)
+  library(pander)
 })
 
 opts_chunk$set(
