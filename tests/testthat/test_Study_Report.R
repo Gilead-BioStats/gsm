@@ -10,19 +10,13 @@ lData <- list(
 
 test_that("Study Report runs as expected",{
     lAssessments<- Study_Assess(lData = lData, bQuiet=TRUE)
-    expect_message(
-        withr::with_tempdir(Study_Report(assessments=lAssessments, meta=list(Project="My Study"))),
-        "Output created: gsm_report.html"
-    )
+    expect_message(Study_Report(assessments=lAssessments, meta=list(Project="My Study"), outpath = tempdir()))
 })
 
 test_that("Study Table Report with AE issue",{
     lData$dfAE[1:2,'SubjectID'] <- NA
     lAssessments <- Study_Assess(lData=lData, bQuiet=TRUE)
-    expect_message(
-        withr::with_tempdir(Study_Report(assessments=lAssessments, meta=list(Project="My Study"))),
-        "Output created: gsm_report.html"
-    )
+    expect_message(Study_Report(assessments=lAssessments, meta=list(Project="My Study"), outpath = tempdir()))
 })
 
 test_that("Study Table Report with a subset of domains issue",{
