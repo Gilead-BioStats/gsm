@@ -83,7 +83,7 @@ PD_Map_Raw <- function( dfPD, dfSUBJ, mapping = NULL, bQuiet = TRUE ){
         group_by(.data$SubjectID) %>%
         summarize(Count=n()) %>%
         ungroup() %>%
-        mergeSubjects(dfSUBJ_mapped, vFillZero="Count") %>%
+        mergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
         mutate(Rate = .data$Count/.data$Exposure)
 
     return(dfInput)

@@ -109,7 +109,7 @@ IE_Map_Raw <- function( dfIE, dfSUBJ, mapping = NULL, vCategoryValues =  c("EXCL
     mutate(Count = .data$Invalid + .data$Missing) %>%
     ungroup() %>%
     select(.data$SubjectID, .data$Count) %>%
-    mergeSubjects(dfSUBJ_mapped, vFillZero="Count") %>%
+    mergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
     select(.data$SubjectID, .data$SiteID, .data$Count)
 
 
