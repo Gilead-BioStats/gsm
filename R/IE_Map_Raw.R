@@ -59,8 +59,8 @@ IE_Map_Raw <- function( dfIE, dfSUBJ, mapping = NULL, vCategoryValues =  c("EXCL
       dfSUBJ,
       mapping$dfSUBJ,
       vRequiredParams = c("strIDCol", "strSiteCol"),
+      vUniqueCols = "strIDCol",
       bQuiet = bQuiet,
-      vUniqueCols = mapping$dfSUBJ$strIDCol
     )
 
   stopifnot(

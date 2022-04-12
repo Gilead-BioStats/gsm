@@ -57,7 +57,6 @@ AE_Map_Adam <- function( dfADSL, dfADAE, mapping = NULL, bQuiet = TRUE ){
     dfADAE,
     mapping$dfADAE,
     vRequiredParams = c("strIDCol"),
-    vUniqueCols = mapping$dfRDSL$strIDCol,
     bQuiet = bQuiet
   )
 

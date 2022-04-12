@@ -17,17 +17,18 @@ test_that("output created as expected", {
 
 # incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors",{
-  expect_error(IE_Map_Raw(list(), list()))
-  expect_error(IE_Map_Raw("Hi", "Mom"))
-  expect_error(IE_Map_Raw(dfIE, dfSUBJ, vCategoryValues= c("EXCL","INCL", "OTHERCL"),vExpectedResultValues=c(0,1)))
-  expect_error(IE_Map_Raw(dfIE, dfSUBJ, vCategoryValues= c("EXCL","INCL"), vExpectedResultValues=c(0,1,2)))
-  expect_error(IE_Map_Raw(dfIE, dfSUBJ, vCategoryValues= c("EXCL","INCL"), vExpectedResultValues=c(0,1), mapping = list()))
-  expect_error(IE_Map_Raw(data.frame(a = 1), dfSUBJ, vCategoryValues= c("EXCL","INCL"), vExpectedResultValues=c(0,1)))
-  expect_error(IE_Map_Raw(dfSUBJ, dfSUBJ, vCategoryValues= c("EXCL","INCL"), vExpectedResultValues=c(0,1)))
-  expect_error(IE_Map_Raw(dfIE, dfIE, vCategoryValues= c("EXCL","INCL"), vExpectedResultValues=c(0,1)))
-  expect_error(IE_Map_Raw(dfIE %>% select(-SubjectID), dfSUBJ, vCategoryValues = c("EXCL","INCL"), vExpectedResultValues = c(0,1)))
-  expect_error(IE_Map_Raw(dfIE %>% select(-IE_CATEGORY), dfSUBJ, vCategoryValues = c("EXCL","INCL"), vExpectedResultValues = c(0,1)))
-  expect_error(IE_Map_Raw(dfIE %>% select(-IE_VALUE), dfSUBJ, vCategoryValues = c("EXCL","INCL"), vExpectedResultValues = c(0,1)))
+  expect_snapshot_error(IE_Map_Raw(list(), list()))
+  expect_snapshot_error(IE_Map_Raw("Hi", "Mom"))
+  expect_snapshot_error(IE_Map_Raw(dfIE, dfSUBJ, vCategoryValues= c("EXCL","INCL", "OTHERCL"),vExpectedResultValues=c(0,1)))
+  expect_snapshot_error(IE_Map_Raw(dfIE, dfSUBJ, vCategoryValues= c("EXCL","INCL"), vExpectedResultValues=c(0,1,2)))
+  expect_snapshot_error(IE_Map_Raw(dfIE, dfSUBJ, vCategoryValues= c("EXCL","INCL"), vExpectedResultValues=c(0,1), mapping = list()))
+  expect_snapshot_error(IE_Map_Raw(data.frame(a = 1), dfSUBJ, vCategoryValues= c("EXCL","INCL"), vExpectedResultValues=c(0,1)))
+  expect_snapshot_error(IE_Map_Raw(dfSUBJ, dfSUBJ, vCategoryValues= c("EXCL","INCL"), vExpectedResultValues=c(0,1)))
+  expect_snapshot_error(IE_Map_Raw(dfIE, dfIE, vCategoryValues= c("EXCL","INCL"), vExpectedResultValues=c(0,1)))
+  expect_snapshot_error(IE_Map_Raw(dfIE %>% select(-SubjectID), dfSUBJ, vCategoryValues = c("EXCL","INCL"), vExpectedResultValues = c(0,1)))
+  expect_snapshot_error(IE_Map_Raw(dfIE %>% select(-IE_CATEGORY), dfSUBJ, vCategoryValues = c("EXCL","INCL"), vExpectedResultValues = c(0,1)))
+  expect_snapshot_error(IE_Map_Raw(dfIE %>% select(-IE_VALUE), dfSUBJ, vCategoryValues = c("EXCL","INCL"), vExpectedResultValues = c(0,1)))
+  expect_snapshot_error(IE_Map_Raw(dfIE, bind_rows(dfSUBJ, head(dfSUBJ, 1)), vCategoryValues = c("EXCL", "INCL"), vExpectedResultValues = c(0, 1)))
 })
 
 # incorrect mappings throw errors -----------------------------------------

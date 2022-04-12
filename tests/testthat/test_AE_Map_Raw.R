@@ -26,6 +26,7 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot_error(AE_Map_Raw(dfAE, dfSUBJ %>% select(-SiteID)))
   expect_snapshot_error(AE_Map_Raw(dfAE, dfSUBJ %>% select(-SubjectID)))
   expect_snapshot_error(AE_Map_Raw(dfAE, dfSUBJ %>% select(-TimeOnTreatment)))
+  expect_snapshot_error(AE_Map_Raw(dfAE, bind_rows(dfSUBJ, head(dfSUBJ, 1))))
 })
 
 # incorrect mappings throw errors -----------------------------------------

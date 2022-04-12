@@ -56,7 +56,7 @@ AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL, bQuiet = TRUE ){
         dfSUBJ,
         mapping$dfSUBJ,
         vRequiredParams = c("strIDCol", "strSiteCol", "strTimeOnTreatmentCol"),
-        vUniqueCols = mapping$dfSUBJ$strIDCol,
+        vUniqueCols = "strIDCol",
         bQuiet = bQuiet
     )
 
