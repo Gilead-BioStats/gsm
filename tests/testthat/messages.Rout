@@ -1,0 +1,18 @@
+Note: Using an external vector in selections is ambiguous.
+i Use `all_of(strScoreCol)` instead of `strScoreCol` to silence this message.
+i See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+This message is displayed once per session.
+Note: Using an external vector in selections is ambiguous.
+i Use `all_of(check_na)` instead of `check_na` to silence this message.
+i See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+This message is displayed once per session.
+Note: Using an external vector in selections is ambiguous.
+ℹ Use `all_of(strCol)` instead of `strCol` to silence this message.
+ℹ See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+This message is displayed once per session.
+Joining, by = "SiteID"
+Note: Using an external vector in selections is ambiguous.
+i Use `all_of(allCols)` instead of `allCols` to silence this message.
+i See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+This message is displayed once per session.
+5 ID(s) in subject data not found in domain data: 0008 0009 0010 0011 0012. These participants will have 0s imputed for the following domain data columns: Count. NA's will be imputed for all other columns.
