@@ -43,3 +43,6 @@ vignettes/*.pdf
 inst/doc
 /doc/
 /Meta/
+
+# Logs
+/*.Rout
