@@ -31,10 +31,10 @@ Suggests:
     testthat (>= 3.0.0),
     tibble,
     usethis,
-    valtools
+    tools,
+    yaml,
+    pander
 LazyData: true
-Remotes: 
-    phuse-org/valtools
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Config/testthat/edition: 3
