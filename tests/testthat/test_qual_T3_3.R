@@ -14,6 +14,7 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
     test3_3 <- c(test3_3,
                  protocol = IE_Assess(
                    dfInput = dfInput,
+                   bChart = FALSE
                  ))
 
     # Double Programming
@@ -51,7 +52,8 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
 
     t3_3 <- c(t3_3,
               protocol = list("strFunctionName" = "IE_Assess()",
-                              "lParams" = list("dfInput" = "dfInput"),
+                              "lParams" = list("dfInput" = "dfInput",
+                                               "bChart" = "FALSE"),
                               "lTags" = list(Assessment = "IE"),
                               "dfInput" = t3_3_input,
                               "dfTransformed" = t3_3_transformed,

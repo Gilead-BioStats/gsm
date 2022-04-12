@@ -8,7 +8,8 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
   test2_1 <- PD_Assess(
     dfInput = dfInput,
     strMethod = "poisson",
-    vThreshold = c(-3,3)
+    vThreshold = c(-3,3),
+    bChart = FALSE
   )
 
   # Double Programming
@@ -48,7 +49,8 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
   t2_1 <- list("strFunctionName" = "PD_Assess()",
                "lParams" = list("dfInput" = "dfInput",
                                 "vThreshold" = c("c", "-3", "3"),
-                                "strMethod" = "poisson"),
+                                "strMethod" = "poisson",
+                                "bChart" = "FALSE"),
                "lTags" = list(Assessment = "PD"),
                "dfInput" = t2_1_input,
                "dfTransformed" = t2_1_transformed,

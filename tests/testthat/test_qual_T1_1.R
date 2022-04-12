@@ -7,7 +7,8 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
 
   test1_1 <- AE_Assess(
     dfInput = dfInput,
-    strMethod = "poisson"
+    strMethod = "poisson",
+    bChart = FALSE
   )
 
   # Double Programming
@@ -47,7 +48,8 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
 
   t1_1 <- list("strFunctionName" = "AE_Assess()",
              "lParams" = list("dfInput" = "dfInput",
-                              "strMethod" = "poisson"),
+                              "strMethod" = "poisson",
+                              "bChart" = "FALSE"),
              "lTags" = list(Assessment = "AE"),
              "dfInput" = t1_input,
              "dfTransformed" = t1_transformed,

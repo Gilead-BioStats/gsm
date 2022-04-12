@@ -6,7 +6,7 @@ pdInput <- suppressWarnings(PD_Map_Raw(dfPD, dfSUBJ))
 test_that("output is created as expected", {
   pdAssessment <- PD_Assess(pdInput)
   expect_true(is.list(pdAssessment))
-  expect_equal(names(pdAssessment),c("strFunctionName", "lParams","lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+  expect_equal(names(pdAssessment),c("strFunctionName", "lParams","lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
   expect_true("data.frame" %in% class(pdAssessment$dfInput))
   expect_true("data.frame" %in% class(pdAssessment$dfTransformed))
   expect_true("data.frame" %in% class(pdAssessment$dfAnalyzed))
@@ -24,6 +24,7 @@ test_that("metadata is returned as expected", {
   expect_equal("-5", pdAssessment$lParams$vThreshold[2])
   expect_equal("5", pdAssessment$lParams$vThreshold[3])
   expect_equal("PD", pdAssessment$lTags$Assessment)
+  expect_true("ggplot" %in% class(pdAssessment$chart))
 })
 
 # incorrect inputs throw errors -------------------------------------------

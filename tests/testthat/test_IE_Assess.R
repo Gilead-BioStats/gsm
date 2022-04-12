@@ -6,7 +6,7 @@ ieInput <- IE_Map_Raw(dfIE, dfSUBJ)
 test_that("output is created as expected", {
     ieAssessment <- IE_Assess(ieInput)
     expect_true(is.list(ieAssessment))
-    expect_equal(names(ieAssessment),c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+    expect_equal(names(ieAssessment),c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
     expect_true("data.frame" %in% class(ieAssessment$dfInput))
     expect_true("data.frame" %in% class(ieAssessment$dfTransformed))
     expect_true("data.frame" %in% class(ieAssessment$dfAnalyzed))
@@ -23,6 +23,7 @@ test_that("metadata is returned as expected", {
   expect_equal("IE_Assess()", ieAssessment$strFunctionName)
   expect_equal("0.755555", ieAssessment$lParams$nThreshold)
   expect_equal("IE", ieAssessment$lTags$Assessment)
+  expect_true("ggplot" %in% class(ieAssessment$chart))
 })
 
 # incorrect inputs throw errors -------------------------------------------

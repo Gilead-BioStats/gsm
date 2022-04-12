@@ -8,7 +8,7 @@ IE_Map_Raw(
   dfIE,
   dfSUBJ,
   mapping = NULL,
-  vCategoryValues = c("Exclusion", "Inclusion"),
+  vCategoryValues = c("EXCL", "INCL"),
   vExpectedResultValues = c(0, 1)
 )
 }
@@ -55,9 +55,7 @@ The following columns are required:
 
 dfInput <- IE_Map_Raw(
    clindata::rawplus_ie,
-   clindata::rawplus_subj,
-   vCategoryValues= c("EXCL","INCL"),
-   vExpectedResultValues=c(0,1)
+   clindata::rawplus_subj
 )
 
 }

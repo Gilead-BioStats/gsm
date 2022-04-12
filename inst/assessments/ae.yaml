@@ -1,0 +1,21 @@
+label: Treatment-Emergent Adverse Events
+tags:
+  Assessment: Safety
+  Label: AEs
+mapping:
+  functionName: AE_Map_Raw
+  params: NULL
+assessment:
+  functionName: AE_Assess
+  params: NULL
+requiredParameters:
+  dfAE:
+    - strIDCol
+    - strTreatmentEmergentCol
+  dfSUBJ:
+    - strIDCol
+    - strSiteCol
+    - strTimeOnTreatmentCol
+filters:
+  dfAE:
+    strTreatmentEmergentCol: TRUE

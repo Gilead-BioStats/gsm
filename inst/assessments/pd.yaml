@@ -1,0 +1,17 @@
+label: Protocol Deviations
+tags:
+  Assessment: Protocol Deviations
+  Label: Any PD
+mapping: 
+  functionName: PD_Map_Raw
+  params: NULL
+assessment:
+  functionName: PD_Assess
+  params: NULL
+requiredParameters:
+  dfPD:
+    - strIDCol
+  dfSUBJ: 
+    - strIDCol
+    - strSiteCol
+    - strTimeOnStudyCol 

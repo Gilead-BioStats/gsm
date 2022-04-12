@@ -25,6 +25,7 @@
 #' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count.
 #' @param nThreshold Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.
 #' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="Consent")`
+#' @param bChart should visualization be created? TRUE (default) or FALSE.
 #'
 #' @examples
 #'
@@ -53,7 +54,7 @@
 #'
 #' @export
 
-Consent_Assess <- function( dfInput, nThreshold=0.5,  lTags=list(Assessment="Consent")){
+Consent_Assess <- function( dfInput, nThreshold=0.5,  lTags=list(Assessment="Consent"), bChart=TRUE){
 
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
@@ -81,6 +82,10 @@ Consent_Assess <- function( dfInput, nThreshold=0.5,  lTags=list(Assessment="Con
   lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
   lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
   lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", lTags)
+
+  if (bChart) {
+    lAssess$chart <- Visualize_Count(lAssess$dfAnalyzed)
+  }
 
   return(lAssess)
 

@@ -8,6 +8,7 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
 
   test4_2 <- Consent_Assess(
     dfInput = dfInput,
+    bChart = FALSE
   )
 
   # Double Programming
@@ -44,7 +45,8 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
     arrange(match(Flag, c(1, -1, 0)))
 
   t4_2 <- list("strFunctionName" = "Consent_Assess()",
-               "lParams" = list("dfInput" = "dfInput"),
+               "lParams" = list("dfInput" = "dfInput",
+                                "bChart" = "FALSE"),
                "lTags" = list(Assessment = "Consent"),
                "dfInput" = t4_2_input,
                "dfTransformed" = t4_2_transformed,

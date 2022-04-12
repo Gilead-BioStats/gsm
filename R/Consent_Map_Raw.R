@@ -32,14 +32,12 @@
 #'
 #' input <- Consent_Map_Raw(
 #'    dfCONSENT = clindata::rawplus_consent,
-#'    dfSUBJ = clindata::rawplus_subj,
-#'    strConsentTypeValue = "MAINCONSENT",
-#'    strConsentStatusValue="Y"
+#'    dfSUBJ = clindata::rawplus_subj
 #')
 #'
 #' @export
 
-Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeValue = "mainconsent", strConsentStatusValue="Yes"){
+Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeValue = "MAINCONSENT", strConsentStatusValue="Y"){
 
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){

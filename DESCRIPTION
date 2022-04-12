@@ -10,11 +10,14 @@ Encoding: UTF-8
 Imports:
     broom,
     dplyr,
+    fontawesome,
     ggplot2,
     lamW,
     magrittr,
     purrr,
-    tidyr
+    stringr,
+    tidyr,
+    yaml
 Suggests:
     clindata,
     covr,
@@ -25,7 +28,6 @@ Suggests:
     rlang,
     rmarkdown,
     safetyData,
-    stringr,
     testthat (>= 3.0.0),
     tibble,
     usethis,

@@ -5,11 +5,12 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
     dfSUBJ = clindata::rawplus_subj)
 
 
-  test1_2 <- suppressWarnings(AE_Assess(
+  test1_2 <- AE_Assess(
     dfInput = dfInput,
     strMethod = "poisson",
-    vThreshold = c(-3,3)
-  ))
+    vThreshold = c(-3,3),
+    bChart = FALSE
+  )
 
   # Double Programming
   t1_2_input <- dfInput
@@ -48,7 +49,8 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   t1_2 <- list("strFunctionName" = "AE_Assess()",
                "lParams" = list("dfInput" = "dfInput",
                                 "vThreshold" = c("c", "-3", "3"),
-                                "strMethod" = "poisson"),
+                                "strMethod" = "poisson",
+                                "bChart" = "FALSE"),
                "lTags" = list(Assessment = "AE"),
                "dfInput" = t1_2_input,
                "dfTransformed" = t1_2_transformed,
