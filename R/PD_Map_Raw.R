@@ -21,6 +21,7 @@
 #' @param dfPD  PD dataset with required column SUBJID and rows for each Protocol Deviation.
 #' @param dfSUBJ Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.
 #' @param mapping List containing expected columns in each data set.
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
 #'
@@ -32,7 +33,7 @@
 #'
 #' @export
 
-PD_Map_Raw <- function(dfPD, dfSUBJ, mapping = NULL){
+PD_Map_Raw <- function( dfPD, dfSUBJ, mapping = NULL, bQuiet = TRUE ){
 
     # Set defaults for mapping if none is provided
     if(is.null(mapping)){
@@ -47,7 +48,7 @@ PD_Map_Raw <- function(dfPD, dfSUBJ, mapping = NULL){
         dfPD,
         mapping$dfPD,
         vRequiredParams = c("strIDCol"),
-        bQuiet = FALSE
+        bQuiet = bQuiet
         )
 
     is_subj_valid <- is_mapping_valid(
@@ -55,7 +56,7 @@ PD_Map_Raw <- function(dfPD, dfSUBJ, mapping = NULL){
         mapping$dfSUBJ,
         vRequiredParams = c("strIDCol", "strSiteCol", "strTimeOnStudyCol"),
         vUniqueCols = 'strIDCol',
-        bQuiet = FALSE
+        bQuiet = bQuiet
         )
 
     stopifnot(
@@ -82,7 +83,7 @@ PD_Map_Raw <- function(dfPD, dfSUBJ, mapping = NULL){
         group_by(.data$SubjectID) %>%
         summarize(Count=n()) %>%
         ungroup() %>%
-        mergeSubjects(dfSUBJ_mapped, vFillZero="Count") %>%
+        mergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
         mutate(Rate = .data$Count/.data$Exposure)
 
     return(dfInput)

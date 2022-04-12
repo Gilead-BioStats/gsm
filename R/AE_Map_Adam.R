@@ -24,6 +24,7 @@
 #' @param dfADSL ADaM demographics data with the following required columns:  USUBJID, SITEID, TRTEDT (end date), TRTSDT (start date)
 #' @param dfADAE ADaM AE data with the following required columns: USUBJID
 #' @param mapping List containing expected columns in each data set. By default, mapping for dfAE is: `strIDCol` = "SUBJID". By default, mapping for dfRDSL is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (Number of Adverse Events), Exposure (Time on Treatment in Days), Rate (AEs/Day)
 #'
@@ -34,7 +35,7 @@
 #'
 #' @export
 
-AE_Map_Adam <- function( dfADSL, dfADAE, mapping = NULL ){
+AE_Map_Adam <- function( dfADSL, dfADAE, mapping = NULL, bQuiet = TRUE ){
 
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
@@ -49,7 +50,7 @@ AE_Map_Adam <- function( dfADSL, dfADAE, mapping = NULL ){
     dfADSL,
     mapping$dfADSL,
     vRequiredParams = c("strIDCol", "strSiteCol", "strStartCol", "strEndCol"),
-    bQuiet = FALSE
+    bQuiet = bQuiet
   )
 
   is_adae_valid <- is_mapping_valid(
@@ -57,7 +58,7 @@ AE_Map_Adam <- function( dfADSL, dfADAE, mapping = NULL ){
     mapping$dfADAE,
     vRequiredParams = c("strIDCol"),
     vUniqueCols = mapping$dfRDSL$strIDCol,
-    bQuiet = FALSE
+    bQuiet = bQuiet
   )
 
   stopifnot(

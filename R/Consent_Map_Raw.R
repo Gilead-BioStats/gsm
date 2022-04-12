@@ -23,6 +23,7 @@
 #' @param mapping List containing expected columns in each data set.
 #' @param strConsentTypeValue default = "mainconsent", filters on CONSCAT_STD of dfCONSENT, if NULL no filtering is done.
 #' @param strConsentStatusValue default = "Yes", expected Status value for valid consent.
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
 #'
@@ -37,7 +38,7 @@
 #'
 #' @export
 
-Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeValue = "MAINCONSENT", strConsentStatusValue="Y"){
+Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeValue = "MAINCONSENT", strConsentStatusValue="Y", bQuiet = TRUE ){
 
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
@@ -53,7 +54,7 @@ Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeVa
     mapping = mapping$dfCONSENT,
     vRequiredParams = c("strIDCol", "strTypeCol", "strValueCol", "strDateCol"),
     vNACols = c("strDateCol"),
-    bQuiet=FALSE
+    bQuiet = bQuiet
   )
 
   is_subj_valid <- is_mapping_valid(
@@ -61,7 +62,7 @@ Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeVa
     mapping = mapping$dfSUBJ,
     vRequiredParams = c("strIDCol", "strSiteCol", "strRandDateCol"),
     vUniqueCols = "strIDCol",
-    bQuiet=FALSE
+    bQuiet = bQuiet
   )
 
   stopifnot(
@@ -96,7 +97,7 @@ Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeVa
     if(nrow(dfCONSENT_mapped)==0) stop("supplied strConsentTypeValue not found in data")
   }
 
-  dfInput <- mergeSubjects(dfCONSENT_mapped, dfSUBJ_mapped)%>%
+  dfInput <- mergeSubjects(dfCONSENT_mapped, dfSUBJ_mapped, bQuiet=bQuiet)%>%
     mutate(flag_noconsent = .data$ConsentStatus != strConsentStatusValue) %>%
     mutate(flag_missing_consent = is.na(.data$ConsentDate))%>%
     mutate(flag_missing_rand = is.na(.data$RandDate))%>%
