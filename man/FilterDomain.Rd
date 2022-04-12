@@ -20,6 +20,6 @@ Utility function for basic filtering
 }
 \examples{
 te_ae<-FilterDomain(clindata::rawplus_ae, "AE_TE_FLAG", TRUE)
-grade34_ae<-FilterDomain(clindata::rawplus_ae, "AE_TE_GRADE", c(3,4))
+grade34_ae<-FilterDomain(clindata::rawplus_ae, "AE_GRADE", c(3,4))
 
 }

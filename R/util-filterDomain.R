@@ -7,8 +7,8 @@
 #'
 #' @examples
 #' te_ae<-FilterDomain(clindata::rawplus_ae, "AE_TE_FLAG", TRUE)
-#' grade34_ae<-FilterDomain(clindata::rawplus_ae, "AE_TE_GRADE", c(3,4))
-#' 
+#' grade34_ae<-FilterDomain(clindata::rawplus_ae, "AE_GRADE", c(3,4))
+#'
 #' @export
 
 FilterDomain<- function(df, col, vals, bQuiet=TRUE){
@@ -25,10 +25,10 @@ FilterDomain<- function(df, col, vals, bQuiet=TRUE){
         message(paste0("--- Filtering ",dfName," on ",col,"=",paste(vals,collapse=",")))
     }
 
-    if(!all(col %in% names(df))){
+    if(!col %in% names(df)){
         stop(paste0("Error in FilterFunction: `",col,"` column not found in ",params$df))
     }
-    
+
     oldRows <- nrow(df)
     df <- df[df[[col]] %in% vals,]
     newRows<-nrow(df)
