@@ -25,6 +25,7 @@ Suggests:
     here,
     kableExtra,
     knitr,
+    pander,
     rlang,
     rmarkdown,
     safetyData,
@@ -32,8 +33,6 @@ Suggests:
     tibble,
     usethis,
     tools,
-    yaml,
-    pander
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2

@@ -7,7 +7,7 @@
 #' @param lAssessments a named list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/assessments`.
 #' @param lSubjFilters Optionally specify Subject-level filters that will be applied to all assessments. For example `list(strRandFlagCol="Y")` could be used to subset to Randomized Participants.
 #' @param lTags a named list of Tags to be passed to each assessment. Default is `list(Study="myStudy")` could be expanded to include other important metadata such as analysis population or study phase.
-#' @param bQuiet specifies whether messages should be silenced. Default = `FALSE`
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @examples
 #' Study_Assess() # run using defaults

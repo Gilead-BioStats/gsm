@@ -21,7 +21,7 @@ mergeSubjects(
 
 \item{vFillZero}{Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject}
 
-\item{bQuiet}{print messages?}
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
 data set with one record per IDCol
