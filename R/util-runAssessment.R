@@ -23,13 +23,16 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
     amessage <- function(x){
         if(!bQuiet) message(x)
     }
+
     assessment$valid <- TRUE
     amessage(paste0("- ##### ",assessment$name," assessment ##### -"))
         assessment$lRaw<-names(assessment$requiredParameters) %>%
             map(~lData[[.x]]) %>%
             set_names(nm = names(assessment$requiredParameters))
 
-        # TODO check that required data domains are provided in lData
+        validFilter <- is_filter_valid(assessment)
+
+        if (validFilter) {
 
         # Apply filters from assessment$filter
         # TODO replace loops with purrr::map
@@ -56,6 +59,7 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
                     newRows,
                     " rows.")
                 )
+                }
             }
         }
 
@@ -114,4 +118,28 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
             amessage(paste("--- Created summary data with rows for ",nrow(assessment$result$dfSummary)," sites."))
         }
         return(assessment)
+}
+
+
+is_filter_valid <- function(assessment) {
+    validFilter <- TRUE
+    if (exists("filters", where = assessment)) {
+        checkDomains <- map_lgl(assessment$lRaw, ~ is.null(.))
+        checkDomains <- checkDomains[checkDomains == TRUE]
+
+        if (length(checkDomains) > 0) {
+            if (names(checkDomains) %in% names(assessment$filters)) {
+                warning(
+                    "Can't filter on ",
+                    names(checkDomains),
+                    ". ",
+                    names(checkDomains),
+                    " is NULL. Removing from filtering criteria to continue assessment."
+                )
+                assessment$filters <- assessment$filters[!names(assessment$filters) %in% names(checkDomains)]
+                validFilter <- FALSE
+            }
+        }
+    }
+    return(validFilter)
 }
