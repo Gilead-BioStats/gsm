@@ -19,11 +19,11 @@ test_that("output is created as expected", {
 
 
 test_that("lPopFlags filters subject ID as expected",{
-    oneSite <- Study_Assess(lSubjFilters=list(strSiteCol="X010X"),bQuiet=TRUE) %>% suppressWarnings
+    oneSite <- Study_Assess(lSubjFilters=list(strSiteCol="X010X")) %>% suppressWarnings
     expect_equal(oneSite$ae$lRaw$dfSUBJ%>%nrow, 28)
 })
 
 
 test_that("invalid lPopFlag throws error",{
-    expect_error(Study_Assess(lSubjFilters=list(notACol="X010X"), bQuiet=TRUE))
+    expect_error(Study_Assess(lSubjFilters=list(notACol="X010X")))
 })
