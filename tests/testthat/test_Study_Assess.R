@@ -43,8 +43,8 @@ test_that("incorrect inputs throw errors", {
     # expect_snapshot_error(Study_Assess(lData=lData, bQuiet=1))
     # expect_snapshot_error(Study_Assess(lData=lData, lSubjFilters = 1))
     # expect_snapshot_error(Study_Assess(lData=lData, lTags = list(custom = data.frame(a = "hi"))))
-    expect_snapshot_error(Study_Assess(lData=lData, lMapping = data.frame()))
-    expect_snapshot_error(Study_Assess(lData=lData, lAssessments = 'x'))
+    # expect_error(Study_Assess(lData=lData, lAssessments = 1))
+    expect_error(Study_Assess(lData=lData, lMapping = data.frame()))
     expect_error(Study_Assess(lSubjFilters=list(notACol="X010X"), bQuiet=TRUE))
 })
 
