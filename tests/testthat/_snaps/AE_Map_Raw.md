@@ -20,8 +20,11 @@
 
 ---
 
-    Can't subset columns past the end.
-    x Column `SUBJID` doesn't exist.
+    Errors found in dfAE.
+
+---
+
+    Errors found in dfAE.
 
 ---
 
