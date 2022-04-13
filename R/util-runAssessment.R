@@ -30,9 +30,7 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
             map(~lData[[.x]]) %>%
             set_names(nm = names(assessment$requiredParameters))
 
-        validFilter <- is_filter_valid(assessment)
-
-        if (validFilter) {
+        if (is_filter_valid(assessment)) {
 
         # Apply filters from assessment$filter
         # TODO replace loops with purrr::map
@@ -42,6 +40,7 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
                 # TODO run is_mapping_valid to make sure filter cols are present
                 col <- lMapping[[domain]][[param]]
                 val <- assessment$filters[[domain]][[param]]
+                if (!is.null(col)) {
                 amessage(paste0("--- Filtering ",domain," on ",col,"=",val))
                 oldRows <- nrow(assessment$lRaw[[domain]])
                 assessment$lRaw[[domain]] <- assessment$lRaw[[domain]] %>% filter(.data[[col]]==val)
@@ -59,8 +58,11 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
                     newRows,
                     " rows.")
                 )
+                } else {
+                    amessage(paste0(col, " not found in data."))
                 }
             }
+        }
         }
 
         # run is_mapping_valid
