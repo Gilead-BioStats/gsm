@@ -8,7 +8,8 @@ PD_Assess(
   dfInput,
   vThreshold = NULL,
   strMethod = "poisson",
-  lTags = list(Assessment = "PD")
+  lTags = list(Assessment = "PD"),
+  bChart = TRUE
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ PD_Assess(
 \item{strMethod}{valid methods are "poisson" (the default), or  "wilcoxon".}
 
 \item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="PD")}.}
+
+\item{bChart}{should visualization be created? TRUE (default) or FALSE.}
 }
 \value{
 A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName},  \code{lParams} and \code{lTags}) is returned.

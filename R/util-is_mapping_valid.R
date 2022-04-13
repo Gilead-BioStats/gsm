@@ -3,6 +3,7 @@
 #' @param df data.frame to compare to mapping object.
 #' @param mapping named list specifying expected columns and fields in df.
 #' @param vRequiredParams character vector of names that must be present in `mapping`.
+#' @param bKeepAllParams Should params not included in `vRequiredParams` be evaluated? Default is false.
 #' @param vUniqueCols list of columns expected to be unique. default = NULL (none).
 #' @param vNACols list of columns where na values are acceptable default = NULL (none).
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
@@ -30,7 +31,15 @@
 #'
 #' @export
 
-is_mapping_valid <- function(df, mapping, vRequiredParams=NULL, vUniqueCols=NULL, vNACols=NULL, bQuiet = TRUE){
+is_mapping_valid <- function(
+    df,
+    mapping,
+    vRequiredParams=NULL,
+    bKeepAllParams=FALSE,
+    vUniqueCols=NULL,
+    vNACols=NULL,
+    bQuiet = TRUE
+){
 
     tests_if <- list(
         is_data_frame = list(status = NA, warning = NA),
@@ -66,6 +75,8 @@ is_mapping_valid <- function(df, mapping, vRequiredParams=NULL, vUniqueCols=NULL
     } else {
         tests_if$mapping_is_list$status <- TRUE
     }
+
+    if(!bKeepAllParams) mapping[!(names(mapping) %in% vRequiredParams)]<-NULL
 
     # mapping contains character values for column names
     if(!all(purrr::map_lgl(mapping, ~is.character(.)))){
@@ -155,7 +166,7 @@ if (tests_if$has_expected_columns$status) {
 
     # create warning message for multiple warnings (if applicable)
     if (bQuiet == FALSE) {
-        all_warnings <- map(tests_if, ~discard(.$warning, is.na)) %>% keep(~!is.null(.x))
+        all_warnings <- tests_if %>% map(~.x$warning) %>% keep(~!is.na(.x))
         if (length(all_warnings) > 0) {
             all_warnings <- paste(unlist(unname(all_warnings)), collapse = "\n")
             message(all_warnings)

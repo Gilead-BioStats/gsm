@@ -8,6 +8,7 @@ is_mapping_valid(
   df,
   mapping,
   vRequiredParams = NULL,
+  bKeepAllParams = FALSE,
   vUniqueCols = NULL,
   vNACols = NULL,
   bQuiet = TRUE
@@ -19,6 +20,8 @@ is_mapping_valid(
 \item{mapping}{named list specifying expected columns and fields in df.}
 
 \item{vRequiredParams}{character vector of names that must be present in \code{mapping}.}
+
+\item{bKeepAllParams}{Should params not included in \code{vRequiredParams} be evaluated? Default is false.}
 
 \item{vUniqueCols}{list of columns expected to be unique. default = NULL (none).}
 

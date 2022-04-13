@@ -8,8 +8,9 @@ IE_Map_Raw(
   dfIE,
   dfSUBJ,
   mapping = NULL,
-  vCategoryValues = c("Exclusion", "Inclusion"),
-  vExpectedResultValues = c(0, 1)
+  vCategoryValues = c("EXCL", "INCL"),
+  vExpectedResultValues = c(0, 1),
+  bQuiet = TRUE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ IE_Map_Raw(
 \item{vCategoryValues}{Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion"). Category values must be in the same order as \code{vExpectedResultValues}.}
 
 \item{vExpectedResultValues}{Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion". Values must be in the same order as \code{vCategoryValues}.}
+
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
 Data frame with one record per participant giving the number of inclusion/exclusion criteria the participant did not meet as expected. Expected columns: SubjectID, SiteID, Count
@@ -55,9 +58,7 @@ The following columns are required:
 
 dfInput <- IE_Map_Raw(
    clindata::rawplus_ie,
-   clindata::rawplus_subj,
-   vCategoryValues= c("EXCL","INCL"),
-   vExpectedResultValues=c(0,1)
+   clindata::rawplus_subj
 )
 
 }

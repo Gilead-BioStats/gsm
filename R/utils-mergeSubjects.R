@@ -4,7 +4,7 @@
 #' @param dfDomain Subject-level domain data containing one record per participant.
 #' @param strIDCol name of ID Column - default='SubjectID'
 #' @param vFillZero Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject
-#' @param bQuiet print messages?
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return data set with one record per IDCol
 #'
@@ -81,6 +81,14 @@ mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
                 )
             )
         }
+    }
+
+    if (class(dfDomain[[strIDCol]]) != "character") {
+        dfDomain[[strIDCol]] <- as.character(dfDomain[[strIDCol]])
+    }
+
+    if (class(dfSubjects[[strIDCol]]) != "character") {
+        dfSubjects[[strIDCol]] <- as.character(dfSubjects[[strIDCol]])
     }
 
     dfOut <- left_join(dfSubjects, dfDomain, by=strIDCol)

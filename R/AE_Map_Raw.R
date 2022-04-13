@@ -12,7 +12,7 @@
 #'
 #' The following columns are required:
 #' - `dfAE`
-#'     - `SUBJID` - Unique subject ID
+#'     - `SubjectID` - Unique subject ID
 #' - `dfSUBJ`
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
@@ -23,6 +23,7 @@
 #' @param dfAE AE dataset with required column SUBJID and rows for each AE record
 #' @param dfSUBJ Subject-level Raw Data with required columns: SubjectID, SiteID, value specified in strExposureCol
 #' @param mapping List containing expected columns in each data set. By default, mapping for dfAE is: `strIDCol` = "SUBJID". By default, mapping for dfSUBJ is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
 #'
@@ -33,12 +34,12 @@
 #'
 #' @export
 
-AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL ){
+AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL, bQuiet = TRUE ){
 
     # Set defaults for mapping if none is provided
     if(is.null(mapping)){
         mapping <- list(
-            dfAE = list(strIDCol="SubjectID"),
+            dfAE = list(strIDCol="SubjectID", strTreatmentEmergentCol = "AE_TE_FLAG"),
             dfSUBJ = list(strIDCol="SubjectID", strSiteCol="SiteID", strTimeOnTreatmentCol="TimeOnTreatment")
         )
     }
@@ -47,16 +48,16 @@ AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL ){
     is_ae_valid <- is_mapping_valid(
         dfAE,
         mapping$dfAE,
-        vRequiredParams = c("strIDCol"),
-        bQuiet = FALSE
+        vRequiredParams = c("strIDCol", "strTreatmentEmergentCol"),
+        bQuiet = bQuiet
     )
 
     is_subj_valid <- is_mapping_valid(
         dfSUBJ,
         mapping$dfSUBJ,
         vRequiredParams = c("strIDCol", "strSiteCol", "strTimeOnTreatmentCol"),
-        vUniqueCols = mapping$dfSUBJ$strIDCol,
-        bQuiet = FALSE
+        vUniqueCols = "strIDCol",
+        bQuiet = bQuiet
     )
 
     stopifnot(
@@ -77,12 +78,12 @@ AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL ){
         ) %>%
         select(.data$SubjectID, .data$SiteID, .data$Exposure)
 
-    # Create Subject Level AE Counts and merge RDSL
+    # Create Subject Level AE Counts and merge dfSUBJ
     dfInput <- dfAE_mapped %>%
         group_by(.data$SubjectID) %>%
         summarize(Count=n()) %>%
         ungroup() %>%
-        mergeSubjects(dfSUBJ_mapped, vFillZero="Count") %>%
+        mergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
         mutate(Rate = .data$Count/.data$Exposure) %>%
         select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate)
 

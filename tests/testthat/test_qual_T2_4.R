@@ -8,7 +8,8 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
   test2_4 <- PD_Assess(
     dfInput = dfInput,
     strMethod = "wilcoxon",
-    vThreshold = c(0.1, NA)
+    vThreshold = c(0.1, NA),
+    bChart = FALSE
   )
 
   # double programming
@@ -54,7 +55,8 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
   t2_4 <- list("strFunctionName" = "PD_Assess()",
                "lParams" = list("dfInput" = "dfInput",
                                 "vThreshold" = c("c", "0.1", "NA"),
-                                "strMethod" = "wilcoxon"),
+                                "strMethod" = "wilcoxon",
+                                "bChart" = "FALSE"),
                "lTags" = list(Assessment = "PD"),
                "dfInput" = t2_4_input,
                "dfTransformed" = t2_4_transformed,

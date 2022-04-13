@@ -8,8 +8,9 @@ Consent_Map_Raw(
   dfCONSENT,
   dfSUBJ,
   mapping = NULL,
-  strConsentTypeValue = "mainconsent",
-  strConsentStatusValue = "Yes"
+  strConsentTypeValue = "MAINCONSENT",
+  strConsentStatusValue = "Y",
+  bQuiet = TRUE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ Consent_Map_Raw(
 \item{strConsentTypeValue}{default = "mainconsent", filters on CONSCAT_STD of dfCONSENT, if NULL no filtering is done.}
 
 \item{strConsentStatusValue}{default = "Yes", expected Status value for valid consent.}
+
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
@@ -56,9 +59,7 @@ The following columns are required:
 
 input <- Consent_Map_Raw(
    dfCONSENT = clindata::rawplus_consent,
-   dfSUBJ = clindata::rawplus_subj,
-   strConsentTypeValue = "MAINCONSENT",
-   strConsentStatusValue="Y"
+   dfSUBJ = clindata::rawplus_subj
 )
 
 }

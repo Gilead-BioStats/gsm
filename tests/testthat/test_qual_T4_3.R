@@ -21,6 +21,7 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
     test4_3 <- c(test4_3,
                  cons_type = suppressWarnings(Consent_Assess(
                    dfInput = dfInput,
+                   bChart=FALSE
                  )))
 
     # Double Programming
@@ -58,7 +59,7 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
 
     t4_3 <- c(t4_3,
               cons_type = list("strFunctionName" = "Consent_Assess()",
-                              "lParams" = list("dfInput" = "dfInput"),
+                              "lParams" = list("dfInput" = "dfInput", "bChart"="FALSE"),
                               "lTags" = list(Assessment = "Consent"),
                               "dfInput" = t4_3_input,
                               "dfTransformed" = t4_3_transformed,

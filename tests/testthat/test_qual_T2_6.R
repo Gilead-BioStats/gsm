@@ -16,7 +16,8 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
     # gsm
     test2_6 <- c(test2_6,
                  type = PD_Assess(dfInput,
-                                  strMethod = "wilcoxon"))
+                                  strMethod = "wilcoxon",
+                                  bChart = FALSE))
 
     # Double Programming
     t2_6_input <- dfInput
@@ -61,7 +62,8 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
     t2_6 <- c(t2_6,
               type = list("strFunctionName" = "PD_Assess()",
                           "lParams" = list("dfInput" = "dfInput",
-                                           "strMethod" = "wilcoxon"),
+                                           "strMethod" = "wilcoxon",
+                                           "bChart" = "FALSE"),
                           "lTags" = list(Assessment = "PD"),
                           "dfInput" = t2_6_input,
                           "dfTransformed" = t2_6_transformed,

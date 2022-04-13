@@ -6,7 +6,7 @@ consentInput <-  Consent_Map_Raw(dfCONSENT, dfSUBJ, strConsentTypeValue = "MAINC
 test_that("output is created as expected",{
     consentAssessment <- Consent_Assess(consentInput)
     expect_true(is.list(consentAssessment))
-    expect_equal(names(consentAssessment),c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+    expect_equal(names(consentAssessment),c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
     expect_true("data.frame" %in% class(consentAssessment$dfInput))
     expect_true("data.frame" %in% class(consentAssessment$dfTransformed))
     expect_true("data.frame" %in% class(consentAssessment$dfAnalyzed))
@@ -24,6 +24,7 @@ test_that("metadata is returned as expected", {
   expect_equal("consentInput", consentAssessment$lParams$dfInput)
   expect_equal("0.6", consentAssessment$lParams$nThreshold)
   expect_equal("Consent", consentAssessment$lTags$Assessment)
+  expect_true("ggplot" %in% class(consentAssessment$chart))
 })
 
 # incorrect inputs throw errors -------------------------------------------

@@ -1,7 +1,8 @@
 source(testthat::test_path("testdata/data.R"))
 
 mapping <- list(
-  dfAE= list(strIDCol="SUBJID"),
+  dfAE= list(strIDCol="SUBJID",
+             strTreatmentEmergentCol = "AE_TE_FLAG "),
   dfSUBJ=list(strIDCol="SubjectID",
               strSiteCol="SiteID",
               strTimeOnTreatmentCol="TimeOnTreatment")
@@ -25,6 +26,7 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot_error(AE_Map_Raw(dfAE, dfSUBJ %>% select(-SiteID)))
   expect_snapshot_error(AE_Map_Raw(dfAE, dfSUBJ %>% select(-SubjectID)))
   expect_snapshot_error(AE_Map_Raw(dfAE, dfSUBJ %>% select(-TimeOnTreatment)))
+  expect_snapshot_error(AE_Map_Raw(dfAE, bind_rows(dfSUBJ, head(dfSUBJ, 1))))
 })
 
 # incorrect mappings throw errors -----------------------------------------
@@ -89,7 +91,8 @@ test_that("NA values in input data are handled",{
 test_that("custom mapping runs without errors", {
 
   custom_mapping <- list(
-    dfAE= list(strIDCol="SubjectID"),
+    dfAE= list(strIDCol="SubjectID",
+               strTreatmentEmergentCol = "AE_TE_FLAG"),
     dfSUBJ=list(strIDCol="custom_id",
                 strSiteCol="custom_site_id",
                 strTimeOnTreatmentCol="trtmnt")
@@ -100,7 +103,7 @@ test_that("custom mapping runs without errors", {
     rename(custom_id = SubjectID,
            custom_site_id = SiteID)
 
-  expect_message(AE_Map_Raw(dfAE, custom_subj, mapping = custom_mapping))
+  expect_silent(AE_Map_Raw(dfAE, custom_subj, mapping = custom_mapping))
 
 })
 

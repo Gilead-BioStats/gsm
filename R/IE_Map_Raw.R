@@ -23,6 +23,7 @@
 #' @param mapping List containing expected columns in each data set.
 #' @param vCategoryValues Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion"). Category values must be in the same order as `vExpectedResultValues`.
 #' @param vExpectedResultValues Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion". Values must be in the same order as `vCategoryValues`.
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return Data frame with one record per participant giving the number of inclusion/exclusion criteria the participant did not meet as expected. Expected columns: SubjectID, SiteID, Count
 #'
@@ -30,15 +31,13 @@
 #'
 #' dfInput <- IE_Map_Raw(
 #'    clindata::rawplus_ie,
-#'    clindata::rawplus_subj,
-#'    vCategoryValues= c("EXCL","INCL"),
-#'    vExpectedResultValues=c(0,1)
+#'    clindata::rawplus_subj
 #')
 #'
 #' @import dplyr
 #'
 #' @export
-IE_Map_Raw <- function(dfIE, dfSUBJ, mapping = NULL, vCategoryValues =  c("Exclusion","Inclusion"), vExpectedResultValues = c(0,1)) {
+IE_Map_Raw <- function( dfIE, dfSUBJ, mapping = NULL, vCategoryValues =  c("EXCL","INCL"), vExpectedResultValues = c(0,1), bQuiet = TRUE ) {
 
   # Set defaults for mapping if none is provided
   if(is.null(mapping)){
@@ -53,15 +52,15 @@ IE_Map_Raw <- function(dfIE, dfSUBJ, mapping = NULL, vCategoryValues =  c("Exclu
       dfIE,
       mapping$dfIE,
       vRequiredParams = c("strIDCol", "strCategoryCol", "strValueCol"),
-      bQuiet = FALSE
+      bQuiet = bQuiet
     )
 
   is_subj_valid <- is_mapping_valid(
       dfSUBJ,
       mapping$dfSUBJ,
       vRequiredParams = c("strIDCol", "strSiteCol"),
-      bQuiet = FALSE,
-      vUniqueCols = mapping$dfSUBJ$strIDCol
+      vUniqueCols = "strIDCol",
+      bQuiet = bQuiet,
     )
 
   stopifnot(
@@ -110,7 +109,7 @@ IE_Map_Raw <- function(dfIE, dfSUBJ, mapping = NULL, vCategoryValues =  c("Exclu
     mutate(Count = .data$Invalid + .data$Missing) %>%
     ungroup() %>%
     select(.data$SubjectID, .data$Count) %>%
-    mergeSubjects(dfSUBJ_mapped, vFillZero="Count") %>%
+    mergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
     select(.data$SubjectID, .data$SiteID, .data$Count)
 
 
