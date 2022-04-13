@@ -10,14 +10,36 @@ lData <- list(
 
 test_that("Study Report runs as expected",{
     # lAssessments<- Study_Assess(lData = lData, bQuiet=TRUE)
-    # expect_message(Study_Report(assessments=lAssessments, meta=list(Project="My Study"), outpath = tempdir()))
+    # withr::with_tempdir({
+    #
+    #     expect_message(Study_Report(assessments=lAssessments, meta=list(Project="My Study")),
+    #                    "Output created: gsm_report.html")
+    #
+    #     # can investigate/test contents of HTML report if needed
+    #     # path <- paste0(getwd(),"/gsm_report.html")
+    #     # report <- xml2::read_html(path) %>%
+    #     #     rvest::html_nodes("table") %>%
+    #     #     rvest::html_table()
+    #
+    #
+    #
+    # })
+
+    # placeholder
     expect_true(TRUE)
 })
+
 
 test_that("Study Table Report with AE issue",{
     # lData$dfAE[1:2,'SubjectID'] <- NA
     # lAssessments <- Study_Assess(lData=lData, bQuiet=TRUE)
-    # expect_message(Study_Report(assessments=lAssessments, meta=list(Project="My Study"), outpath = tempdir()))
+    # withr::with_tempdir({
+    #
+    # expect_message(Study_Report(assessments=lAssessments, meta=list(Project="My Study")),
+    #                "Output created: gsm_report.html")
+    # })
+
+    # placeholder
     expect_true(TRUE)
 })
 
@@ -35,6 +57,6 @@ test_that("Study Table Report with a subset of domains issue",{
     # )
 
     # Above needs to be addressed in Study_Assess first, then can be implemented as a unit test here.
-
+    # placeholder
     expect_true(TRUE)
 })
