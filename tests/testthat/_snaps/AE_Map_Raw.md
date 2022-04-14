@@ -20,8 +20,7 @@
 
 ---
 
-    Can't subset columns past the end.
-    x Column `SUBJID` doesn't exist.
+    Errors found in dfAE.
 
 ---
 
@@ -49,7 +48,7 @@
 
 # NA values in input data are handled
 
-    Errors found in dfAE.
+    Errors found in dfSUBJ.
 
 ---
 
@@ -57,5 +56,5 @@
 
 ---
 
-    Errors found in dfAE.
+    Errors found in dfSUBJ.
 

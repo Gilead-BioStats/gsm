@@ -22,7 +22,7 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot_error(AE_Map_Raw(list(), dfSUBJ))
   expect_snapshot_error(AE_Map_Raw("Hi", "Mom"))
   expect_snapshot_error(AE_Map_Raw(dfAE, dfSUBJ, mapping = list()))
-  expect_snapshot_error(AE_Map_Raw(dfAE %>% select(-SUBJID), dfSUBJ))
+  expect_snapshot_error(AE_Map_Raw(dfAE %>% select(-SubjectID), dfSUBJ))
   expect_snapshot_error(AE_Map_Raw(dfAE, dfSUBJ %>% select(-SiteID)))
   expect_snapshot_error(AE_Map_Raw(dfAE, dfSUBJ %>% select(-SubjectID)))
   expect_snapshot_error(AE_Map_Raw(dfAE, dfSUBJ %>% select(-TimeOnTreatment)))

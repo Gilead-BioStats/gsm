@@ -39,7 +39,7 @@ AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL, bQuiet = TRUE ){
     # Set defaults for mapping if none is provided
     if(is.null(mapping)){
         mapping <- list(
-            dfAE = list(strIDCol="SubjectID", strTreatmentEmergentCol = "AE_TE_FLAG"),
+            dfAE = list(strIDCol="SubjectID"),
             dfSUBJ = list(strIDCol="SubjectID", strSiteCol="SiteID", strTimeOnTreatmentCol="TimeOnTreatment")
         )
     }
@@ -48,7 +48,7 @@ AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL, bQuiet = TRUE ){
     is_ae_valid <- is_mapping_valid(
         dfAE,
         mapping$dfAE,
-        vRequiredParams = c("strIDCol", "strTreatmentEmergentCol"),
+        vRequiredParams = c("strIDCol"),
         bQuiet = bQuiet
     )
 

@@ -34,3 +34,8 @@ test_that("Assessment Report with an issue in dfSUBJ",{
     expect_equal("Invalid Raw Data", lAssessments$ae$status)
 })
 
+test_that("Assessment Report fails with wrong input", {
+    expect_error(Study_AssessmentReport(lAssessments = TRUE))
+    expect_error(Study_AssessmentReport(lAssessments = list()))
+})
+
