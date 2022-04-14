@@ -36,26 +36,17 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
         amessage("-- Checking for filters on domain data")
         for(domain in names(assessment$filters)){
             for(param in names(assessment$filters[[domain]])){
-                # TODO run is_mapping_valid to make sure filter cols are present
+                if(!hasName(lMapping[[domain]], param)){
+                    stop(paste0("`",colMapping, "` parameter from assessments$filters$",domain," is not specified in lMapping$",domain))
+                }
                 col <- lMapping[[domain]][[param]]
                 val <- assessment$filters[[domain]][[param]]
-                amessage(paste0("--- Filtering ",domain," on ",col,"=",val))
-                oldRows <- nrow(assessment$lRaw[[domain]])
-                assessment$lRaw[[domain]] <- assessment$lRaw[[domain]] %>% filter(.data[[col]]==val)
-                newRows<-nrow(assessment$lRaw[[domain]])
-                amessage(paste0(
-                    "- Filtered subject data on `",
-                    col,
-                    "=",
-                    val,
-                    "`, to drop ",
-                    oldRows-newRows,
-                    " rows from ",
-                    oldRows,
-                    " to ",
-                    newRows,
-                    " rows.")
-                )
+                assessment$lRaw[[domain]] <- FilterDomain(
+                    df=assessment$lRaw[[domain]], 
+                    col=col,
+                    vals=val,
+                    bQuiet=bQuiet
+                ) 
             }
         }
 

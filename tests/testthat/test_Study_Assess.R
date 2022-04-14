@@ -50,6 +50,6 @@ test_that("incorrect inputs throw errors", {
 
 
 test_that("lPopFlags filters subject ID as expected",{
-    oneSite <- Study_Assess(lSubjFilters=list(strSiteCol="X010X"),bQuiet=TRUE) %>% suppressWarnings
+    oneSite <- Study_Assess(lSubjFilters=list(strSiteCol="X010X")) %>% suppressWarnings
     expect_equal(oneSite$ae$lRaw$dfSUBJ%>%nrow, 28)
 })
