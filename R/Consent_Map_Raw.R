@@ -97,7 +97,7 @@ Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeVa
     if(nrow(dfCONSENT_mapped)==0) stop("supplied strConsentTypeValue not found in data")
   }
 
-  dfInput <- mergeSubjects(dfCONSENT_mapped, dfSUBJ_mapped, bQuiet=bQuiet)%>%
+  dfInput <- MergeSubjects(dfCONSENT_mapped, dfSUBJ_mapped, bQuiet=bQuiet)%>%
     mutate(flag_noconsent = .data$ConsentStatus != strConsentStatusValue) %>%
     mutate(flag_missing_consent = is.na(.data$ConsentDate))%>%
     mutate(flag_missing_rand = is.na(.data$RandDate))%>%
