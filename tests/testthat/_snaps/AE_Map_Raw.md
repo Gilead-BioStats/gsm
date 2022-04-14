@@ -24,10 +24,6 @@
 
 ---
 
-    Errors found in dfAE.
-
----
-
     Errors found in dfSUBJ.
 
 ---
@@ -52,7 +48,7 @@
 
 # NA values in input data are handled
 
-    Errors found in dfAE.
+    Errors found in dfSUBJ.
 
 ---
 
@@ -60,5 +56,5 @@
 
 ---
 
-    Errors found in dfAE.
+    Errors found in dfSUBJ.
 
