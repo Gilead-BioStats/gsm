@@ -4,7 +4,7 @@ tags:
   Label: AEs
 workflow: 
   FilterDomain:
-    type: data
+    type: filter
     outputName: dfAE
     data: 
       dfAE:
@@ -14,7 +14,7 @@ workflow:
       col: strTreatmentEmergentCol
       val: strTreatmentEmergentVal
   AE_Map_Raw: 
-    type: data
+    type: mapping
     outputName: dfInput
     data: 
       dfAE:
@@ -24,7 +24,7 @@ workflow:
         - strSiteCol
         - strTimeOnTreatmentCol 
   AE_Assess:
-    type: results
+    type: assess
     data: 
       dfInput: 
         strIDCol : "SubjectID"

@@ -78,7 +78,7 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
             params <- list(df=df, col=col, val=val )
             assessment$data[[assessment$workflow[[stepname]]$outputName]] <- do.call(stepname, params)
         }else if(tolower(assessment$workflow[[stepname]]$type) =="mapping"){
-            params <- list(...)
+            #params <- list(...)
             assessment$data$dfInput <- do.call(stepname, params)
         }else if(tolower(assessment$workflow[[stepname]]$type) =="assess"){
             assessment$data$results <- do.call(stepname, params)
