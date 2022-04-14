@@ -32,7 +32,8 @@ Disp_Map <- function( dfDisp, strCol, strReason = "any", vReasonIgnore = c("", "
     "strCol is not character" = is.character(strCol),
     "strReason must be length 1" = length(strReason) == 1,
     "Duplicate SUBJID found in dfDisp" = nrow(dfDisp %>% group_by(.data$SUBJID) %>% filter(n() > 1)) == 0,
-    "strReason cannot also be in vReasonIgnore" = !tolower(strReason) %in% tolower(vReasonIgnore)
+    "strReason cannot also be in vReasonIgnore" = !tolower(strReason) %in% tolower(vReasonIgnore),
+    "strCol must exist in dfDisp" = strCol %in% names(dfDisp)
   )
 
   dfInput <- dfDisp %>%

@@ -17,6 +17,7 @@ Imports:
     purrr,
     stringr,
     tidyr,
+    withr,
     yaml
 Suggests:
     clindata,
@@ -32,7 +33,7 @@ Suggests:
     testthat (>= 3.0.0),
     tibble,
     usethis,
-    tools,
+    tools
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
