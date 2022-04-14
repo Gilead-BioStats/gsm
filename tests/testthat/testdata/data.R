@@ -27,7 +27,6 @@ dfPD <- tibble::tribble(
   "9876", "Subject Not Managed According to Protocol", "N"
 )
 
-
 dfCONSENT <- data.frame(
   stringsAsFactors = FALSE,
   SubjectID = c("1234", "5678"),

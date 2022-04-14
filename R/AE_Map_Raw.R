@@ -83,7 +83,7 @@ AE_Map_Raw <- function( dfAE, dfSUBJ, mapping = NULL, bQuiet = TRUE ){
         group_by(.data$SubjectID) %>%
         summarize(Count=n()) %>%
         ungroup() %>%
-        mergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
+        MergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
         mutate(Rate = .data$Count/.data$Exposure) %>%
         select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate)
 

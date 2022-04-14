@@ -13,7 +13,7 @@
 #'
 #' @export
 
-mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=NULL, bQuiet=TRUE){
+MergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=NULL, bQuiet=TRUE){
     is_domain_valid <- is_mapping_valid(
         df = dfDomain,
         mapping = list('strIDCol'=strIDCol),
