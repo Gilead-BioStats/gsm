@@ -25,84 +25,65 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
     }
     assessment$valid <- TRUE
     amessage(paste0("- ##### ",assessment$name," assessment ##### -"))
-        assessment$lRaw<-names(assessment$requiredParameters) %>%
-            map(~lData[[.x]]) %>%
-            set_names(nm = names(assessment$requiredParameters))
+    assessment$data <- lData
 
-        # TODO check that required data domains are provided in lData
-
-        # Apply filters from assessment$filter
-        # TODO replace loops with purrr::map
-        amessage("-- Checking for filters on domain data")
-        for(domain in names(assessment$filters)){
-            for(param in names(assessment$filters[[domain]])){
-                if(!hasName(lMapping[[domain]], param)){
-                    stop(paste0("`",colMapping, "` parameter from assessments$filters$",domain," is not specified in lMapping$",domain))
-                }
-                col <- lMapping[[domain]][[param]]
-                val <- assessment$filters[[domain]][[param]]
-                assessment$lRaw[[domain]] <- FilterDomain(
-                    df=assessment$lRaw[[domain]], 
-                    col=col,
-                    vals=val,
-                    bQuiet=bQuiet
-                ) 
-            }
-        }
-
-        # run is_mapping_valid
-        amessage("-- Checking whether raw data meets requirements")
-        assessment$checks <- names(assessment$lRaw) %>% map(function(domain){
-            df <- assessment$lRaw[[domain]]
-            mapping <- lMapping[[domain]]
-            requiredParams <- assessment$requiredParameters[[domain]]
-            check <- is_mapping_valid(
-                df=df,
-                mapping=mapping,
-                vRequiredParams = requiredParams,
-                bQuiet=TRUE,
-                bKeepAllParams=FALSE
-            )
-
-            # TODO add support for checking vUniqueCols and vNACols
-            if(check$status){
-                amessage(paste0("--- ",domain, " meets requirements."))
+    # Run through each step in assessment$workflow
+    for(stepname in names(assessment$workflow)){
+        # Create a mapping for each data domain used in the workflow
+        step <- assessment$workflow[[stepname]]
+        fullMapping <- names(step$data) %>% map(function(domain){
+            # assign column names each mapping specified in workflow$domain
+            if(is.character(step$data[[domain]])){
+                params<-step$data[[domain]] 
             }else{
-                amessage(paste0("--- ",domain, " does NOT meet requirements:"))
-                all_warnings <- map(check$tests_if, ~discard(.$warning, is.na)) %>% keep(~!is.null(.x))
-                if (length(all_warnings) > 0) {
-                    all_warnings <- paste("----",unlist(unname(all_warnings)), collapse = "\n")
-                    amessage(all_warnings)
+                params<-names(step$data[[domain]])
+            } 
+            #step$data$mapping <- params %>% map(function(param){
+            mapping <- params %>% map(function(param){
+                # if user provides a value, use it
+                if(hasName(step$data[[domain]], param)){
+                    return(step$data[[domain]][[param]])
+                }else{
+                    if(hasName(lMapping[[domain]], param)){
+                        return(lMapping[[domain]][[param]])
+                    }else{
+                        return(NA)
+                    }
+                }                
+            }) %>% 
+            set_names(params)
+            #print(mapping)
+            return(mapping)
+        }) %>% 
+        set_names(names(step$data))
+        assessment$workflow[[stepname]]$mapping <- fullMapping
+
+        
+        # check that required data/columns are available
+        for(domain in names(assessment$workflow[[stepname]]$data)){
+            df <- assessment$workflow[[stepname]]$data[[domain]]
+            mapping <- assessment$workflow[[stepname]]$mapping[[domain]]
+            assessment$workflow[[stepname]]$checks[[domain]] <- is_mapping_valid(df=df,mapping=mapping)
         }
-            }
-            return(check)
-        })
-        names(assessment$checks) <- names(assessment$lRaw)
-
-        # if valid, run the mapping
-        assessment$rawValid <- all(assessment$checks %>% map_lgl(~.x$status))
-        if(!assessment$rawValid){
-            assessment$valid <- FALSE
-            assessment$status <- "Invalid Raw Data"
-            amessage("-- Raw data not valid for mapping. No Results will be generated.")
-        }else{
-            amessage("-- Mapping Raw Data to Assessment Input Standard.")
-            dfParams <- assessment$lRaw
-            mappingParam <- lMapping
-
-            raw_params <- c(dfParams, assessment$mapping$params, list(mapping=mappingParam))
-            assessment$dfInput <- do.call(
-                assessment$mapping$functionName,
-                raw_params
-            )
-            amessage(paste("--- Created input data with ",nrow(assessment$dfInput)," rows."))
-
-            assessment_params <- c(list(dfInput=assessment$dfInput, lTags=c(lTags,assessment$tags), bChart=TRUE), assessment$assessment$params)
-            assessment$result <- do.call(
-                assessment$assessment$functionName,
-                assessment_params
-            )
-            amessage(paste("--- Created summary data with rows for ",nrow(assessment$result$dfSummary)," sites."))
+        assessment$workflow[[stepname]]$status <- all(assessment$workflow[[stepname]]$checks %>% map_lgl(~.x$status))
+        
+        # execute the workflow function with requested parameters
+        domains <- names(assessment$workflow[[stepname]]$data)
+        dataParams <- domains %>% map(~assessment$data[[.x]]) %>% set_names(domains)
+        params <- c(dataParams, assessment$workflow[[stepname]]$params)
+        if(tolower(assessment$workflow[[stepname]]$type) =="filter"){
+            df <- assessment$data[[domains[[1]]]]
+            col <- mapping[[params$col]]
+            val <- mapping[[params$val]]
+            params <- list(df=df, col=col, val=val )
+            assessment$data[[assessment$workflow[[stepname]]$outputName]] <- do.call(stepname, params)
+        }else if(tolower(assessment$workflow[[stepname]]$type) =="mapping"){
+            params <- list(...)
+            assessment$data$dfInput <- do.call(stepname, params)
+        }else if(tolower(assessment$workflow[[stepname]]$type) =="assess"){
+            assessment$data$results <- do.call(stepname, params)
         }
-        return(assessment)
-}
+    }
+
+    return(assessment)
+}        
