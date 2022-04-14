@@ -37,7 +37,7 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
         for(domain in names(assessment$filters)){
             for(param in names(assessment$filters[[domain]])){
                 if(!hasName(lMapping[[domain]], param)){
-                    stop(paste0("`",colMapping, "` parameter from assessments$filters$",domain," is not specified in lMapping$",domain))
+                    stop(paste0("`",param, "` parameter from assessments$filters$",domain," is not specified in lMapping$",domain))
                 }
                 col <- lMapping[[domain]][[param]]
                 val <- assessment$filters[[domain]][[param]]
