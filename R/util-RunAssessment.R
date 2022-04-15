@@ -80,23 +80,24 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
         }
         assessment$workflow[[stepname]]$status <- all(assessment$workflow[[stepname]]$checks %>% map_lgl(~.x$status))
 
-        #if (assessment$workflow[[stepname]]$status){}
+        if (assessment$workflow[[stepname]]$status){
 
         # execute the workflow function with requested parameters
-        domains <- names(assessment$workflow[[stepname]]$data)
-        dataParams <- domains %>% map(~assessment$data[[.x]]) %>% set_names(domains)
-        params <- c(dataParams, assessment$workflow[[stepname]]$params)
-        if(tolower(assessment$workflow[[stepname]]$type) =="filter"){
-            df <- assessment$data[[domains[[1]]]]
-            col <- mapping[[params$col]]
-            val <- mapping[[params$val]]
-            params <- list(df=df, col=col, val=val )
-            assessment$data[[assessment$workflow[[stepname]]$outputName]] <- do.call(stepname, params)
-        }else if(tolower(assessment$workflow[[stepname]]$type) =="mapping"){
-            #params <- list(...)
-            assessment$data$dfInput <- do.call(stepname, params)
-        }else if(tolower(assessment$workflow[[stepname]]$type) =="assess"){
-            assessment$data$results <- do.call(stepname, params)
+            domains <- names(assessment$workflow[[stepname]]$data)
+            dataParams <- domains %>% map(~assessment$data[[.x]]) %>% set_names(domains)
+            params <- c(dataParams, assessment$workflow[[stepname]]$params)
+            if(tolower(assessment$workflow[[stepname]]$type) =="filter"){
+                df <- assessment$data[[domains[[1]]]]
+                col <- mapping[[params$col]]
+                val <- mapping[[params$val]]
+                params <- list(df=df, col=col, val=val )
+                assessment$data[[assessment$workflow[[stepname]]$outputName]] <- do.call(stepname, params)
+            }else if(tolower(assessment$workflow[[stepname]]$type) =="mapping"){
+                #params <- list(...)
+                assessment$data$dfInput <- do.call(stepname, params)
+            }else if(tolower(assessment$workflow[[stepname]]$type) =="assess"){
+                assessment$data$results <- do.call(stepname, params)
+            }
         }
     }
 
