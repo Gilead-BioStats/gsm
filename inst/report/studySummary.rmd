@@ -14,8 +14,7 @@ params:
 library(gsm)
 library(tidyverse)
 library(kableExtra)
-params$assessments <- lAssessments
-params$meta <- list(project = 'my study')
+
 if(length(names(params$meta))>1){
     params$meta %>%
         kbl(escape=FALSE) %>% 
@@ -26,11 +25,7 @@ if(length(names(params$meta))>1){
 
 # Overview Table
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
-lAssessments %>% map(~.x$)
-
-
-
-results <- params$assessments %>% map(~.x$result) %>% compact
+results <- params$assessments %>% map(~.x$data$results) %>% compact
 allFindings <- results %>% map(~.x$dfSummary) %>% bind_rows()
 gsm::Study_Table(allFindings)%>%
     kbl(escape=FALSE) %>% 
