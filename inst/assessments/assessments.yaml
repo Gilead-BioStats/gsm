@@ -1,0 +1,13 @@
+dfAE:
+  mapping:
+    strIDCol: "SubjectID"
+    strSiteCol: "SiteID"
+    strCountCol: "Count"
+    strExposureCol: "Exposure"
+    strRateCol: "Rate"
+  required:
+  - "strIDCol"
+  - "strSiteCol"
+  unique:
+  - "strIDCol"
+

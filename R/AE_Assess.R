@@ -58,11 +58,21 @@ AE_Assess <- function(dfInput, vThreshold=NULL, strMethod="poisson", lTags=list(
         )
     }
 
+    lParamsCheck <- yaml::read_yaml(system.file("inst/assessments/assessments.yaml", package = 'gsm'))
+
+    lCheck <- is_mapping_valid(
+        df = dfInput,
+        mapping = lParamsCheck$dfAE$mapping,
+        vRequiredParams = lParamsCheck$dfAE$required,
+        vUniqueCols = lParamsCheck$dfAE$unique
+    )
+
     lAssess <- list(
         strFunctionName = deparse(sys.call()[1]),
         lParams = lapply(as.list(match.call()[-1]), function(x) as.character(x)),
         lTags = lTags,
-        dfInput = dfInput
+        dfInput = dfInput,
+        lCheck = lCheck
     )
 
     lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
