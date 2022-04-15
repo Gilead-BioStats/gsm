@@ -76,7 +76,12 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
         for(domain in names(assessment$workflow[[stepname]]$data)){
             df <- assessment$data[[domain]]
             mapping <- assessment$workflow[[stepname]]$mapping[[domain]]
-            assessment$workflow[[stepname]]$checks[[domain]] <- is_mapping_valid(df=df,mapping=mapping)
+            required <- assessment$workflow[[stepname]]$validParams[[domain]]$required
+            unique <- assessment$workflow[[stepname]]$validParams[[domain]]$unique
+            assessment$workflow[[stepname]]$checks[[domain]] <- is_mapping_valid(df=df,
+                                                                                 mapping=mapping,
+                                                                                 vRequiredParams = required,
+                                                                                 vUniqueCols = unique)
         }
         assessment$workflow[[stepname]]$status <- all(assessment$workflow[[stepname]]$checks %>% map_lgl(~.x$status))
 
@@ -98,8 +103,18 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
             }else if(tolower(assessment$workflow[[stepname]]$type) =="assess"){
                 assessment$data$results <- do.call(stepname, params)
             }
+        } else {
+            assessment$valid <- FALSE
         }
     }
+
+    m <- paste0("- ##### ",assessment$name," assessment ##### -", " status is ", assessment$valid)
+    if(assessment$valid) {
+        usethis::ui_done(m)
+    } else {
+        usethis::ui_oops(m)
+    }
+
 
     return(assessment)
 }

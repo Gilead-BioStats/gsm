@@ -1,0 +1,29 @@
+label: Consent Workflow
+tags:
+  Assessment: Consent
+  Label: Consent
+workflow:
+  Consent_Map_Raw:
+    type: mapping
+    outputName: dfInput
+    data:
+      dfCONSENT:
+        - strIDCol
+      dfSUBJ:
+        - strIDCol
+        - strSiteCol
+    validParams:
+      dfCONSENT:
+        unique:
+          - strIDCol
+        required:
+          - strIDCol
+  Consent_Assess:
+    type: assess
+    data:
+      dfInput:
+        strIDCol : "SubjectID"
+    params:
+checks: NULL
+results: NULL
+data: NULL
