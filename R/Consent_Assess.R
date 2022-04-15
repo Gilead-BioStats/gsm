@@ -71,9 +71,19 @@ Consent_Assess <- function( dfInput, nThreshold=0.5,  lTags=list(Assessment="Con
       )
   }
 
+  lParamsCheck <- yaml::read_yaml(system.file("inst/assessments/assessments.yaml", package = 'gsm'))
+
+  lCheck <- is_mapping_valid(
+    df = dfInput,
+    mapping = lParamsCheck$dfCONSENT$mapping,
+    vRequiredParams = lParamsCheck$dfCONSENT$required,
+    vUniqueCols = lParamsCheck$dfCONSENT$unique
+  )
+
   lAssess <- list(
     strFunctionName = deparse(sys.call()[1]),
     lParams = lapply(as.list(match.call()[-1]), function(x) as.character(x)),
+    lCheck = lCheck,
     lTags = lTags,
     dfInput = dfInput
   )

@@ -70,9 +70,9 @@ AE_Assess <- function(dfInput, vThreshold=NULL, strMethod="poisson", lTags=list(
     lAssess <- list(
         strFunctionName = deparse(sys.call()[1]),
         lParams = lapply(as.list(match.call()[-1]), function(x) as.character(x)),
+        lCheck = lCheck,
         lTags = lTags,
-        dfInput = dfInput,
-        lCheck = lCheck
+        dfInput = dfInput
     )
 
     lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )

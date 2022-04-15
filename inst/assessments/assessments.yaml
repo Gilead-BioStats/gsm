@@ -10,4 +10,43 @@ dfAE:
   - "strSiteCol"
   unique:
   - "strIDCol"
+dfCONSENT:
+  mapping:
+    strIDCol: "SubjectID"
+    strSiteCol: "SiteID"
+    strCountCol: "Count"
+  required:
+  - "strIDCol"
+  - "strSiteCol"
+  - "strCountCol"
+  unique:
+  - "strIDCol"
+dfIE:
+  mapping:
+    strIDCol: "SubjectID"
+    strSiteCol: "SiteID"
+    strCountCol: "Count"
+  required:
+  - "strIDCol"
+  - "strSiteCol"
+  - "strCountCol"
+  unique:
+  - "strIDCol"
+dfPD:
+  mapping:
+    strIDCol: "SubjectID"
+    strSiteCol: "SiteID"
+    strCountCol: "Count"
+    strExposureCol: "Exposure"
+    strRateCol: "Rate"
+  required:
+  - "strIDCol"
+  - "strSiteCol"
+  - "strExposureCol"
+  - "strCountCol"
+  - "strRateCol"
+  unique:
+  - "strIDCol"
+
+
 
