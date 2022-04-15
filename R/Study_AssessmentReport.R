@@ -19,39 +19,29 @@ Study_AssessmentReport <- function(lAssessments) {
         for (i in step) {
             status <- i[["status"]]
             tests <- bind_rows(i[["tests_if"]])
-            tests$description <- names(i[["tests_if"]])
+            tests$check <- names(i[["tests_if"]])
         }
-
         out[[names]] <- tests
     }
 
     checks <- bind_rows(out, .id = names) %>%
-        rename(workflow = 1)
+        mutate(assessment = "") %>%
+        rename(domain = 1) %>%
+        select(assessment, domain, check, status, details = warning)
 
-    browser()
-
-    checks %>%
-        select(-description) %>%
+    dfSummary<- checks %>%
+        select(-.data$details) %>%
         mutate(status = case_when(
             status == TRUE ~ as.character(fa("check-circle", fill="green")),
             status == FALSE ~ as.character(fa("times-circle", fill="red")),
             TRUE ~ "?"
-        ))
+        )) %>%
+        pivot_wider(
+            id_cols=c(.data$assessment,.data$domain),
+            names_from=.data$check,
+            values_from=.data$status
+        )
 
-    return(list(dfAllChecks = checks))
-
-
-    # dfSummary<- allChecks %>%
-    #   select(-.data$details) %>%
-    #   mutate(status = case_when(
-    #     status == TRUE ~ as.character(fa("check-circle", fill="green")),
-    #     status == FALSE ~ as.character(fa("times-circle", fill="red")),
-    #     TRUE ~ "?"
-    #   )) %>%
-    #   pivot_wider(
-    #     id_cols=c(.data$assessment,.data$domain),
-    #     names_from=.data$check,
-    #     values_from=.data$status
-    #   )
+    return(list(dfAllChecks = checks, dfSummary = dfSummary))
 
 }
