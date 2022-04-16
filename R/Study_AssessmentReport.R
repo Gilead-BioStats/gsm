@@ -29,13 +29,30 @@ Study_AssessmentReport <- function(lAssessments) {
         rename(domain = 1) %>%
         select(assessment, domain, check, status, details = warning)
 
+    # https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/
+    rank_chg <- function(status){
+        if (status == TRUE) {
+            logo_out <- fontawesome::fa("check-circle", fill = "green")
+        }
+
+        if (status == FALSE){
+            logo_out <- fontawesome::fa("times-circle", fill = "red")
+        }
+
+        if (!status %in% c(TRUE, FALSE)) {
+            logo_out <- "?"
+        }
+
+        logo_out %>%
+            as.character() %>%
+            gt::html()
+
+    }
+
+
     dfSummary<- checks %>%
         select(-.data$details) %>%
-        mutate(status = case_when(
-            status == TRUE ~ as.character(fa("check-circle", fill="green")),
-            status == FALSE ~ as.character(fa("times-circle", fill="red")),
-            TRUE ~ "?"
-        )) %>%
+        mutate(status = map(status, rank_chg)) %>%
         pivot_wider(
             id_cols=c(.data$assessment,.data$domain),
             names_from=.data$check,
