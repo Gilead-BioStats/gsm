@@ -26,7 +26,7 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
     }
 
     assessment$valid <- TRUE
-    amessage(paste0("- ##### ",assessment$name," assessment ##### -"))
+    amessage(cli::cli_h1(paste0("Running: ",assessment$name)))
     assessment$data <- lData
 
 
@@ -110,11 +110,11 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
         }
     }
 
-    m <- paste0("- ##### ",assessment$name," assessment ##### -", " status is ", assessment$valid)
+    m <- paste0(assessment$name," assessment status is ", assessment$valid)
     if(assessment$valid) {
-        usethis::ui_done(m)
+        cli::cli_alert_success(m)
     } else {
-        usethis::ui_oops(m)
+        cli::cli_alert_danger(m)
     }
 
 
