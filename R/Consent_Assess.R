@@ -54,7 +54,7 @@
 #'
 #' @export
 
-Consent_Assess <- function( dfInput, nThreshold=0.5,  lTags=list(Label="Consent"), bChart=TRUE){
+Consent_Assess <- function( dfInput, nThreshold=0.5,  lTags=list(Assessment="Consent"), bChart=TRUE){
 
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),

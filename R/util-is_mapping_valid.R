@@ -76,8 +76,8 @@ is_mapping_valid <- function(
         tests_if$mapping_is_list$status <- TRUE
     }
 
-    # get a list of columns 
-    colParamList <- names(mapping) %>% str_subset('col$')
+    # get a list of columns
+    colParamList <- names(mapping) %>% stringr::str_subset('Col$')
     if(!bKeepAllParams) colParamList <- colParamList[colParamList %in% vRequiredParams]
 
     # mapping contains character values for column names
