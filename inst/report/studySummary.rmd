@@ -117,7 +117,7 @@ with_tooltip <- function(value, tooltip) {
   htmltools::tags$abbr(style = "text-decoration: underline; text-decoration-style: solid; cursor: question; color: blue",
             title = tooltip, value)
 }
-AssessmentReport <- gsm::Study_AssessmentReport(lAssessments)
+AssessmentReport <- gsm::Study_AssessmentReport(params$assessments)
 AssessmentReport$dfSummary %>% 
   gt::gt() %>% 
   gt::cols_label(
