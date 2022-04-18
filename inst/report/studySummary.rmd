@@ -29,7 +29,7 @@ if(length(names(params$meta))>1){
 
 # Overview Table
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
-results <- params$assessments %>% map(~.x$data$results) %>% compact
+results <- params$assessments %>% map(~.x$lResults) %>% compact
 allFindings <- results %>% map(~.x$dfSummary) %>% bind_rows()
 gsm::Study_Table(allFindings)%>%
     kbl(escape=FALSE) %>% 

@@ -8,7 +8,7 @@
 
 Study_AssessmentReport <- function(lAssessments) {
 
-    workflows <- map(names(lAssessments), ~pluck(lAssessments[[.x]], "workflow")) %>%
+    workflows <- map(names(lAssessments), ~pluck(lAssessments[[.x]], "lSteps")) %>%
         flatten() %>%
         map(pluck("checks"))
 

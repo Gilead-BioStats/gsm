@@ -3,33 +3,37 @@ tags:
   Assessment: Safety
   Label: AEs
 workflow:
-  FilterDomain:
+  - name: FilterDomain
     type: filter
-    outputName: dfAE
-    data:
+    outputDomain: dfAE
+    spec:
       dfAE:
-        - strTreatmentEmergentCol
-        - strTreatmentEmergentVal
+        requiredParams:
+          - strTreatmentEmergentCol
+          - strTreatmentEmergentVal
     params:
       col: strTreatmentEmergentCol
       val: strTreatmentEmergentVal
-  AE_Map_Raw:
+  - name: AE_Map_Raw
     type: mapping
-    outputName: dfInput
-    data:
+    outputDomain: dfInput
+    spec:
       dfAE:
-        - strIDCol
+        requiredParams:
+          - strIDCol
       dfSUBJ:
-        - strIDCol
-        - strSiteCol
-        - strTimeOnTreatmentCol
-  AE_Assess:
+        requiredParams:
+          - strIDCol
+          - strSiteCol
+          - strTimeOnTreatmentCol
+  - name: AE_Assess
     type: assess
-    data:
+    mapping:
       dfInput:
         strIDCol : "SubjectID"
+    spec: 
+      dfInput:
+        requiredParams: 
+          - strIDCol
     params:
-      strMethod: "wilcoxon"
-checks: NULL
-results: NULL
-data: NULL
+      strMethod: "poisson"

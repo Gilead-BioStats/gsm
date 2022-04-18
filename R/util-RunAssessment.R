@@ -20,103 +20,41 @@
 #' @export
 
 RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE){
-
-    amessage <- function(x){
-        if(!bQuiet) message(x)
-    }
-
-    assessment$valid <- TRUE
-    amessage(cli::cli_h1(paste0("Running: ",assessment$name)))
-    assessment$data <- lData
-
+    if(!bQuiet) cli::cli_h1(paste0("Initializing `",assessment$name,"` assessment"))
+    
+    assessment$lData <- lData
+    assessment$lResults <- list()
+    assessment$lSteps <- list()
+    assessment$bStatus <- TRUE
 
     # Run through each step in assessment$workflow
-    for(stepname in names(assessment$workflow)){
+    
+    stepCount<-1
+    for(step in assessment$workflow){
+        if(!bQuiet) cli::cli_h2(paste0("Workflow step ", stepCount, " of " ,length(assessment$workflow), ": `", step$name,"`"))
+        step$lData <- assessment$lData
+        step <- RunStep(step=step, mapping=lMapping, lTags=c(lTags, assessment$tags), bQuiet=bQuiet)
 
-        # Create a mapping for each data domain used in the workflow
-        step <- assessment$workflow[[stepname]]
+        #Update Assessment Data and results based on current step
+        for(domain in names(step$outData)){
+            assessment$lData[[domain]] <- step$outData[[domain]]
+        } 
 
-        fullMapping <- names(step$data) %>% map(function(domain){
-
-            # assign column names each mapping specified in workflow$domain
-            if(is.character(step$data[[domain]])){
-                params<-step$data[[domain]]
-            }else{
-                params<-names(step$data[[domain]])
-            }
-
-            mapping <- params %>% map(function(param){
-
-                # if user provides a value, use it
-                if(hasName(step$data[[domain]], param)){
-                    return(step$data[[domain]][[param]])
-
-                }else{
-
-                    if(hasName(lMapping[[domain]], param)){
-
-                        return(lMapping[[domain]][[param]])
-
-                    }else{
-
-                        return(NA)
-                    }
-                }
-            }) %>%
-            set_names(params)
-
-            return(mapping)
-        }) %>%
-        set_names(names(step$data))
-
-        assessment$workflow[[stepname]]$mapping <- fullMapping
-
-
-        # check that required data/columns are available
-        for(domain in names(assessment$workflow[[stepname]]$data)){
-            df <- assessment$data[[domain]]
-            mapping <- assessment$workflow[[stepname]]$mapping[[domain]]
-            required <- assessment$workflow[[stepname]]$validParams[[domain]]$required
-            unique <- assessment$workflow[[stepname]]$validParams[[domain]]$unique
-            assessment$workflow[[stepname]]$checks[[domain]] <- is_mapping_valid(df=df,
-                                                                                 mapping=mapping,
-                                                                                 vRequiredParams = required,
-                                                                                 vUniqueCols = unique)
+        if(step$type=="assess"){
+            assessment$lResults <- step$lResults
         }
-        assessment$workflow[[stepname]]$status <- all(assessment$workflow[[stepname]]$checks %>% map_lgl(~.x$status))
-
-
-
-        if (assessment$workflow[[stepname]]$status){
-        # execute the workflow function with requested parameters
-            domains <- names(assessment$workflow[[stepname]]$data)
-            dataParams <- domains %>% map(~assessment$data[[.x]]) %>% set_names(domains)
-            params <- c(dataParams, assessment$workflow[[stepname]]$params)
-            if(tolower(assessment$workflow[[stepname]]$type) =="filter"){
-                df <- assessment$data[[domains[[1]]]]
-                col <- mapping[[params$col]]
-                val <- mapping[[params$val]]
-                params <- list(df=df, col=col, val=val)
-                assessment$data[[assessment$workflow[[stepname]]$outputName]] <- do.call(stepname, params)
-            }else if(tolower(assessment$workflow[[stepname]]$type) =="mapping"){
-                #params <- list(...)
-                assessment$data$dfInput <- do.call(stepname, params)
-            }else if(tolower(assessment$workflow[[stepname]]$type) =="assess"){
-                params$lTags <- assessment$tags
-                assessment$data$results <- do.call(stepname, params)
-            }
-        } else {
-            assessment$valid <- FALSE
-        }
+        
+        assessment$lSteps[[step$name]] <- step
+        stepCount <- stepCount+1
     }
-
+    
     m <- paste0(assessment$name," assessment status is ", assessment$valid)
-    if(assessment$valid) {
-        cli::cli_alert_success(m)
-    } else {
-        cli::cli_alert_danger(m)
-    }
 
+    # if(assessment$valid) {
+    #     cli::cli_alert_success(m)
+    # } else {
+    #     cli::cli_alert_danger(m)
+    # }
 
     return(assessment)
 }

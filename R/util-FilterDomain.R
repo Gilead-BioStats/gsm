@@ -18,15 +18,12 @@ FilterDomain<- function(df, col, vals, bQuiet=TRUE){
         "`bQuiet parameter in FilterDomain is not logical" = is.logical(bQuiet)
     )
 
-    params <- lapply(as.list(match.call()[-1]), function(x) as.character(x))
-    dfName <- paste0(params$df, collapse="-")
-
     if(!bQuiet){
-        message(paste0("--- Filtering ",dfName," on ",col,"=",paste(vals,collapse=",")))
+        message(paste0("--- Filtering on ",col,"=",paste(vals,collapse=",")))
     }
 
     if(!col %in% names(df)){
-        stop(paste0("Error in FilterFunction: `",col,"` column not found in ",params$df))
+        stop(paste0("Error in FilterFunction: `",col,"` column not found"))
     }
 
     oldRows <- nrow(df)
@@ -34,9 +31,7 @@ FilterDomain<- function(df, col, vals, bQuiet=TRUE){
     newRows<-nrow(df)
     if(!bQuiet){
         message(paste0(
-            "- Filtered ",
-            dfName,
-            " on `",
+            "- Filtered on `",
             col,
             "=",
             paste(vals,sep=", "),
