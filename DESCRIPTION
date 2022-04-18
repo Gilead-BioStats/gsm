@@ -9,6 +9,7 @@ License: file LICENSE
 Encoding: UTF-8
 Imports:
     broom,
+    cli,
     dplyr,
     fontawesome,
     ggplot2,

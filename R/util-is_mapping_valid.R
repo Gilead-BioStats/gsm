@@ -168,8 +168,8 @@ if (tests_if$has_expected_columns$status) {
     if (bQuiet == FALSE) {
         all_warnings <- tests_if %>% map(~.x$warning) %>% keep(~!is.na(.x))
         if (length(all_warnings) > 0) {
-            all_warnings <- paste(unlist(unname(all_warnings)), collapse = "\n")
-            message(all_warnings)
+           all_warnings <- unlist(unname(all_warnings))
+           x <- map(all_warnings, ~cli::cli_alert_danger(cli::col_br_yellow(.)))
         }
     }
 
