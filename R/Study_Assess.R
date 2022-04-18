@@ -52,30 +52,13 @@ Study_Assess <- function(
 
     ### ---  Filter data$dfSUBJ based on lSubjFilters --- ###
     if(!is.null(lSubjFilters)){
-        for(flag in names(lSubjFilters)){
-            col <- lMapping$dfSUBJ[[flag]]
-            if(!(col %in% names(lData$dfSUBJ))){
-                stop(paste0("Column for Population filter ('",col,"') specified in lPopFlag not found in lData$dfSUBJ"))
+        for(colMapping in names(lSubjFilters)){
+            if(!hasName(lMapping$dfSUBJ, colMapping)){
+                stop(paste0("`",colMapping, "` from lSubjFilters is not specified in lMapping$dfSUBJ"))
             }
-            val <- lSubjFilters[[flag]]
-            oldRows <- nrow(lData$dfSUBJ)
-            lData$dfSUBJ <- lData$dfSUBJ %>% filter(.data[[col]]==val)
-            newRows<-nrow(lData$dfSUBJ)
-            if(!bQuiet){
-                message(paste0(
-                    "- Filtered subject data on `",
-                    col,
-                    "=",
-                    val,
-                    "`, to drop ",
-                    oldRows-newRows,
-                    " rows from ",
-                    oldRows,
-                    " to ",
-                    newRows,
-                    " rows.")
-                )
-            }
+            col <- lMapping$dfSUBJ[[colMapping]] 
+            vals <- lSubjFilters[[colMapping]]
+            lData$dfSUBJ <- FilterDomain(df=lData$dfSUBJ, col=col, vals=vals, bQuiet=bQuiet)
         }
     }
 

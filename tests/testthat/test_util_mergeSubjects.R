@@ -33,10 +33,10 @@ subjects <- tibble::tribble(
   "0011", "X126X",      1966
 )
 
-test_that("mergeSubjects returns a data.frame with correct dimensions", {
+test_that("MergeSubjects returns a data.frame with correct dimensions", {
 
   merged <- suppressWarnings(
-    mergeSubjects(domain, subjects)
+    MergeSubjects(domain, subjects)
   )
 
   expect_true("data.frame" %in% class(merged))
@@ -53,32 +53,32 @@ test_that("mergeSubjects returns a data.frame with correct dimensions", {
 test_that("incorrect inputs throw errors", {
 
   expect_error(
-    mergeSubjects(list(), list()) %>%
+    MergeSubjects(list(), list()) %>%
       suppressMessages
   )
 
   expect_error(
-    mergeSubjects(domain, list()) %>%
+    MergeSubjects(domain, list()) %>%
       supressMessages
   )
 
   expect_error(
-    mergeSubjects(list(), subjects) %>%
+    MergeSubjects(list(), subjects) %>%
       suppressMessages
   )
 
   expect_error(
-    mergeSubjects(domain, subjects, strIDCol = "xyz") %>%
+    MergeSubjects(domain, subjects, strIDCol = "xyz") %>%
       suppressMessages
   )
 
   expect_error(
-    mergeSubjects(domain, subjects, vFillZero = "abc") %>%
+    MergeSubjects(domain, subjects, vFillZero = "abc") %>%
       suppressMessages
   )
 
   expect_error(
-    mergeSubjects(domain, subjects, bQuiet = 1) %>%
+    MergeSubjects(domain, subjects, bQuiet = 1) %>%
       suppressMessages
   )
 
@@ -108,7 +108,7 @@ test_that("missing ids are handled as intended", {
   )
 
   expect_snapshot_warning(
-    mergeSubjects(
+    MergeSubjects(
       domain,
       subjects,
       vFillZero = "Count",
@@ -141,14 +141,14 @@ test_that("vFillZero works as intended", {
   )
 
   expect_equal(
-    mergeSubjects(domain, subjects) %>%
+    MergeSubjects(domain, subjects) %>%
       suppressWarnings %>%
       pull(Count),
     c(1, NA, NA, NA, NA, NA)
   )
 
   expect_equal(
-    mergeSubjects(domain, subjects, vFillZero = "Count") %>%
+    MergeSubjects(domain, subjects, vFillZero = "Count") %>%
       suppressWarnings %>%
       pull(Count),
     c(1, 0, 0, 0, 0, 0)
@@ -169,7 +169,7 @@ test_that("basic functionality check - no matching ids", {
     "0002", "X010X",      3455
   )
 
-  merged <- mergeSubjects(domain, subjects) %>%
+  merged <- MergeSubjects(domain, subjects) %>%
     suppressWarnings
 
   expect_true(
@@ -197,7 +197,7 @@ test_that("basic functionality check - only matching ids", {
     "0002", "X010X",      3455
   )
 
-  merged <- mergeSubjects(domain, subjects) %>%
+  merged <- MergeSubjects(domain, subjects) %>%
     suppressWarnings
 
   expect_equal(
