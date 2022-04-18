@@ -1,35 +1,35 @@
-label: Treatment-Emergent Adverse Events 
+label: Treatment-Emergent Adverse Events
 tags:
   Assessment: Safety
   Label: AEs
-workflow: 
+workflow:
   FilterDomain:
     type: filter
     outputName: dfAE
-    data: 
+    data:
       dfAE:
         - strTreatmentEmergentCol
         - strTreatmentEmergentVal
-    params: 
+    params:
       col: strTreatmentEmergentCol
       val: strTreatmentEmergentVal
-  AE_Map_Raw: 
+  AE_Map_Raw:
     type: mapping
     outputName: dfInput
-    data: 
+    data:
       dfAE:
         - strIDCol
-      dfSUBJ: 
+      dfSUBJ:
         - strIDCol
         - strSiteCol
-        - strTimeOnTreatmentCol 
+        - strTimeOnTreatmentCol
   AE_Assess:
     type: assess
-    data: 
-      dfInput: 
+    data:
+      dfInput:
         strIDCol : "SubjectID"
-    params: 
-      method: Wilcoxon
+    params:
+      strMethod: "wilcoxon"
 checks: NULL
 results: NULL
 data: NULL

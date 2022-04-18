@@ -6,46 +6,59 @@
 #'
 #' @return returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks``)
 
-Study_AssessmentReport <- function(lAssessments){
-    # Combine checks in to a long DF
-    allChecks <- names(lAssessments) %>% map(function(assessment_name){
-        assessment<-lAssessments[[assessment_name]]
-        assessment_checks<-names(assessment$checks) %>% map(function(domain_name){
-            domain<-assessment$checks[[domain_name]]
-            domain_check <- data.frame(
-                assessment=assessment_name,
-                domain=domain_name,
-                check="All OK",
-                status=domain$status,
-                details=""
-            )
-            domain_details <- names(domain$tests_if) %>% map(function(test_name){
-                return(data.frame(
-                    assessment=assessment_name,
-                    domain=domain_name,
-                    check=test_name,
-                    status=domain$tests_if[[test_name]]$status,
-                    details=domain$tests_if[[test_name]]$warning
-                )) %>% bind_rows()
-            })
-            return(bind_rows(domain_check,domain_details))
-        })
-        return(bind_rows(assessment_checks))
-    }) %>% bind_rows
+Study_AssessmentReport <- function(lAssessments) {
 
-    # reshape into a wide DF
-    dfSummary<- allChecks %>%
+    workflows <- map(names(lAssessments), ~pluck(lAssessments[[.x]], "workflow")) %>%
+        flatten() %>%
+        map(pluck("checks"))
+
+    out <- list()
+    for (names in names(workflows)) {
+        step <- workflows[[names]]
+
+        for (i in step) {
+            status <- i[["status"]]
+            tests <- bind_rows(i[["tests_if"]])
+            tests$check <- names(i[["tests_if"]])
+        }
+        out[[names]] <- tests
+    }
+
+    checks <- bind_rows(out, .id = names) %>%
+        mutate(assessment = "") %>%
+        rename(domain = 1) %>%
+        select(assessment, domain, check, status, details = warning)
+
+    # https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/
+    rank_chg <- function(status){
+        if (status == TRUE) {
+            logo_out <- fontawesome::fa("check-circle", fill = "green")
+        }
+
+        if (status == FALSE){
+            logo_out <- fontawesome::fa("times-circle", fill = "red")
+        }
+
+        if (!status %in% c(TRUE, FALSE)) {
+            logo_out <- "?"
+        }
+
+        logo_out %>%
+            as.character() %>%
+            gt::html()
+
+    }
+
+
+    dfSummary<- checks %>%
         select(-.data$details) %>%
-        mutate(status = case_when(
-            status == TRUE ~ as.character(fa("check-circle", fill="green")),
-            status == FALSE ~ as.character(fa("times-circle", fill="red")),
-            TRUE ~ "?"
-        )) %>%
+        mutate(status = map(status, rank_chg)) %>%
         pivot_wider(
             id_cols=c(.data$assessment,.data$domain),
             names_from=.data$check,
             values_from=.data$status
         )
 
-    return(list(dfAllChecks=allChecks, dfSummary=dfSummary))
+    return(list(dfAllChecks = checks, dfSummary = dfSummary))
+
 }

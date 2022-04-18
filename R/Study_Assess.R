@@ -56,7 +56,7 @@ Study_Assess <- function(
             if(!hasName(lMapping$dfSUBJ, colMapping)){
                 stop(paste0("`",colMapping, "` from lSubjFilters is not specified in lMapping$dfSUBJ"))
             }
-            col <- lMapping$dfSUBJ[[colMapping]] 
+            col <- lMapping$dfSUBJ[[colMapping]]
             vals <- lSubjFilters[[colMapping]]
             lData$dfSUBJ <- FilterDomain(df=lData$dfSUBJ, col=col, vals=vals, bQuiet=bQuiet)
         }
