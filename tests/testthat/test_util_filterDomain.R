@@ -24,6 +24,6 @@ test_that("filter to 0 rows throws a warning", {
     expect_equal(
         nrow(FilterDomain(dfAE, "AE_GRADE", c(6,7))),
         0
-    ) 
-    expect_warning(FilterDomain(dfAE, "AE_GRADE", c(6,7),bQuiet=FALSE))
+    )
+    expect_message(FilterDomain(dfAE, "AE_GRADE", c(6,7),bQuiet=FALSE))
 })
