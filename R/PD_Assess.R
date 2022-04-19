@@ -57,6 +57,11 @@ PD_Assess <- function(dfInput, vThreshold=NULL,strMethod="poisson", lTags=list(A
             "lTags has unnamed elements"=all(names(lTags)!=""),
             "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
         )
+
+      if(any(unname(map_dbl(lTags, ~length(.)))>1)) {
+        lTags <- map(lTags, ~paste(.x, collapse = ", "))
+      }
+
     }
 
     lAssess <- list(

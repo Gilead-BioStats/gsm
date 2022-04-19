@@ -57,6 +57,11 @@ IE_Assess <- function(dfInput, nThreshold=0.5, lTags=list(Assessment="IE"), bCha
           "lTags has unnamed elements"=all(names(lTags)!=""),
           "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
       )
+
+    if(any(unname(map_dbl(lTags, ~length(.)))>1)) {
+      lTags <- map(lTags, ~paste(.x, collapse = ", "))
+    }
+
   }
 
   lAssess <- list(
