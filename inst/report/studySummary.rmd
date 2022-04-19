@@ -4,7 +4,10 @@ subtitle: "Generated with the Gilead Statistical Monitoring {gsm} package"
 author: 
     - George Wu
     - Jeremy Wildfire
-output: html_document
+output:
+  html_document:
+     toc: true
+     theme: united
 params:
     assessments: NA
     meta: NA 
@@ -14,6 +17,7 @@ params:
 library(gsm)
 library(tidyverse)
 library(kableExtra)
+library(gt)
 
 if(length(names(params$meta))>1){
     params$meta %>%
@@ -25,7 +29,7 @@ if(length(names(params$meta))>1){
 
 # Overview Table
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
-results <- params$assessments %>% map(~.x$result) %>% compact
+results <- params$assessments %>% map(~.x$lResults) %>% compact
 allFindings <- results %>% map(~.x$dfSummary) %>% bind_rows()
 gsm::Study_Table(allFindings)%>%
     kbl(escape=FALSE) %>% 
@@ -108,12 +112,20 @@ for (assessment in results){
 # Appendix - Data Check Summary
 
 ## Assessment Checks
-```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
+```{r, echo = FALSE, message=FALSE, warning = FALSE}
+with_tooltip <- function(value, tooltip) {
+  htmltools::tags$abbr(style = "text-decoration: underline; text-decoration-style: solid; cursor: question; color: blue",
+            title = tooltip, value)
+}
 AssessmentReport <- gsm::Study_AssessmentReport(params$assessments)
-AssessmentReport$dfSummary%>%
-    kbl(escape=FALSE) %>% 
-    kable_styling("striped", full_width = F)
-
+AssessmentReport$dfSummary %>% 
+  gt::gt() %>% 
+  gt::cols_label(
+    is_data_frame = gt::html(as.character(with_tooltip("is_data_frame", "Checks if data provided is of class == data.frame()"))),
+    has_required_params = gt::html(as.character(with_tooltip("has_required_params", "Checks if parameters provided in vRequiredParams are found in mapping"))),
+    mapping_is_list = gt::html(as.character(with_tooltip("mapping_is_list", "Checks if mapping object is of class == list()"))),
+    mappings_are_character = gt::html(as.character(with_tooltip("mappings_are_character", "Checks if values in mapping are of class == character()")))
+  )
 ```
 
 ## Issue List
@@ -123,3 +135,6 @@ AssessmentReport$dfAllChecks%>%
     kbl(escape=FALSE) %>% 
     kable_styling()
 ```
+
+
+

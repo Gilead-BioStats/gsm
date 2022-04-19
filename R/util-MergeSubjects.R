@@ -48,13 +48,14 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
     domain_ids <- dfDomain[[strIDCol]]
     domain_only_ids <- domain_ids[!domain_ids %in% subject_ids]
     if(length(domain_only_ids > 0)){
-        warning(
+        cli::cli_alert_warning(
             paste0(
+              cli::col_br_red(
                 length(domain_only_ids),
-                " ID(s) in domain data not found in subject data: ",
+                cli::col_br_red(" ID(s) in domain data not found in subject data: ")),
                 paste(domain_only_ids, collapse=" "),
                 ". ",
-                "Associated rows will not be included in merged data.\n"
+                cli::col_br_red("Associated rows will not be included in merged data.\n")
             )
         )
     }
@@ -63,19 +64,20 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
     subject_only_ids <-  subject_ids[!subject_ids %in% domain_ids]
     if(length(subject_only_ids > 0)){
         if(!bQuiet){
-            message(
+            cli::cli_alert_warning(
                 paste0(
+                  cli::col_br_red(
                     length(subject_only_ids),
-                    " ID(s) in subject data not found in domain data: ",
+                    " ID(s) in subject data not found in domain data: "),
                     paste(subject_only_ids, collapse=" "),
                     ". ",
                     ifelse(is.null(vFillZero),
-                        "These participants will have NA values imputed for all domain data columns:",
+                        cli::col_br_red("These participants will have NA values imputed for all domain data columns:"),
                         paste0(
-                            "These participants will have 0s imputed for the following domain data columns: ",
+                          cli::col_br_red("These participants will have 0s imputed for the following domain data columns: "),
                             paste(vFillZero, sep=", "),
                             ". ",
-                            "NA's will be imputed for all other columns."
+                            cli::col_br_red("NA's will be imputed for all other columns.")
                         )
                     )
                 )

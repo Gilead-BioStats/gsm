@@ -1,17 +1,30 @@
-label: Protocol Deviations
+label: Protocol Deviation (PD) Workflow
 tags:
-  Assessment: Protocol Deviations
-  Label: Any PD
-mapping: 
-  functionName: PD_Map_Raw
-  params: NULL
-assessment:
-  functionName: PD_Assess
-  params: NULL
-requiredParameters:
-  dfPD:
-    - strIDCol
-  dfSUBJ: 
-    - strIDCol
-    - strSiteCol
-    - strTimeOnStudyCol 
+  Assessment: PD
+  Label: PD Serious
+workflow:
+  - name: PD_Map_Raw
+    type: mapping
+    outputDomain: dfInput
+    spec:
+      dfPD:
+        requiredParams:
+          - strIDCol
+      dfSUBJ:
+        requiredParams:
+          - strIDCol
+          - strSiteCol
+          - strTimeOnStudyCol
+        uniqueParams:
+          - strIDCol
+  - name: PD_Assess
+    type: assess
+    mapping:
+      dfInput:
+        strIDCol : "SubjectID"
+    spec:
+      dfInput:
+        requiredParams:
+          - strIDCol
+        uniqueParams:
+          - strIDCol

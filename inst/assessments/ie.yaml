@@ -1,18 +1,31 @@
-label: Inclusion/Exclusion
+label: Inclusion/Exclusion (IE) Workflow
 tags:
-  Assessment: Inclusion/Exclusion
-  Label: Inclusion/Exclusion
-mapping: 
-  functionName: IE_Map_Raw
-  params: NULL
-assessment:
-  functionName: IE_Assess
-  params: NULL
-requiredParameters:
-  dfIE:
-    - strIDCol
-    - strCategoryCol
-    - strValueCol
-  dfSUBJ: 
-    - strIDCol
-    - strSiteCol
+  Assessment: IE
+  Label: IE
+workflow:
+  - name: IE_Map_Raw
+    type: mapping
+    outputDomain: dfInput
+    spec:
+      dfIE:
+        requiredParams:
+          - strIDCol
+          - strCategoryCol
+          - strValueCol
+      dfSUBJ:
+        requiredParams:
+          - strIDCol
+          - strSiteCol
+        uniqueParams:
+          - strIDCol
+  - name: IE_Assess
+    type: assess
+    mapping:
+      dfInput:
+        strIDCol : "SubjectID"
+    spec:
+      dfInput:
+        requiredParams:
+          - strIDCol
+        uniqueParams:
+          - strIDCol

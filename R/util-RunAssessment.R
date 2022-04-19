@@ -20,89 +20,43 @@
 #' @export
 
 RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE){
-    amessage <- function(x){
-        if(!bQuiet) message(x)
+    if(!bQuiet) cli::cli_h1(paste0("Initializing `",assessment$name,"` assessment"))
+    
+    assessment$lData <- lData
+    assessment$lResults <- list()
+    assessment$lSteps <- list()
+    assessment$bStatus <- TRUE
+
+    # Run through each step in assessment$workflow
+    
+    stepCount<-1
+    for(step in assessment$workflow){
+        if(!bQuiet) cli::cli_h2(paste0("Workflow step ", stepCount, " of " ,length(assessment$workflow), ": `", step$name,"`"))
+        step$lData <- assessment$lData
+        step <- RunStep(step=step, mapping=lMapping, lTags=c(lTags, assessment$tags), bQuiet=bQuiet)
+
+        #Update Assessment Data and results based on current step
+        for(domain in names(step$outData)){
+            assessment$lData[[domain]] <- step$outData[[domain]]
+        } 
+
+        if(step$type=="assess"){
+            assessment$lResults <- step$lResults
+        }
+        
+        assessment$lSteps[[step$name]] <- step
+        stepCount <- stepCount+1
     }
-    assessment$valid <- TRUE
-    amessage(paste0("- ##### ",assessment$name," assessment ##### -"))
-        assessment$lRaw<-names(assessment$requiredParameters) %>%
-            map(~lData[[.x]]) %>%
-            set_names(nm = names(assessment$requiredParameters))
+    
+    m <- paste0(assessment$name," assessment status is ", assessment$valid)
 
-        # TODO check that required data domains are provided in lData
+    # if(assessment$valid) {
+    #     cli::cli_alert_success(m)
+    # } else {
+    #     cli::cli_alert_danger(m)
+    # }
 
-        # Apply filters from assessment$filter
-        # TODO replace loops with purrr::map
-        amessage("-- Checking for filters on domain data")
-        for(domain in names(assessment$filters)){
-            for(param in names(assessment$filters[[domain]])){
-                if(!hasName(lMapping[[domain]], param)){
-                    stop(paste0("`",colMapping, "` parameter from assessments$filters$",domain," is not specified in lMapping$",domain))
-                }
-                col <- lMapping[[domain]][[param]]
-                val <- assessment$filters[[domain]][[param]]
-                assessment$lRaw[[domain]] <- FilterDomain(
-                    df=assessment$lRaw[[domain]], 
-                    col=col,
-                    vals=val,
-                    bQuiet=bQuiet
-                ) 
-            }
-        }
-
-        # run is_mapping_valid
-        amessage("-- Checking whether raw data meets requirements")
-        assessment$checks <- names(assessment$lRaw) %>% map(function(domain){
-            df <- assessment$lRaw[[domain]]
-            mapping <- lMapping[[domain]]
-            requiredParams <- assessment$requiredParameters[[domain]]
-            check <- is_mapping_valid(
-                df=df,
-                mapping=mapping,
-                vRequiredParams = requiredParams,
-                bQuiet=TRUE,
-                bKeepAllParams=FALSE
-            )
-
-            # TODO add support for checking vUniqueCols and vNACols
-            if(check$status){
-                amessage(paste0("--- ",domain, " meets requirements."))
-            }else{
-                amessage(paste0("--- ",domain, " does NOT meet requirements:"))
-                all_warnings <- map(check$tests_if, ~discard(.$warning, is.na)) %>% keep(~!is.null(.x))
-                if (length(all_warnings) > 0) {
-                    all_warnings <- paste("----",unlist(unname(all_warnings)), collapse = "\n")
-                    amessage(all_warnings)
-        }
-            }
-            return(check)
-        })
-        names(assessment$checks) <- names(assessment$lRaw)
-
-        # if valid, run the mapping
-        assessment$rawValid <- all(assessment$checks %>% map_lgl(~.x$status))
-        if(!assessment$rawValid){
-            assessment$valid <- FALSE
-            assessment$status <- "Invalid Raw Data"
-            amessage("-- Raw data not valid for mapping. No Results will be generated.")
-        }else{
-            amessage("-- Mapping Raw Data to Assessment Input Standard.")
-            dfParams <- assessment$lRaw
-            mappingParam <- lMapping
-
-            raw_params <- c(dfParams, assessment$mapping$params, list(mapping=mappingParam))
-            assessment$dfInput <- do.call(
-                assessment$mapping$functionName,
-                raw_params
-            )
-            amessage(paste("--- Created input data with ",nrow(assessment$dfInput)," rows."))
-
-            assessment_params <- c(list(dfInput=assessment$dfInput, lTags=c(lTags,assessment$tags), bChart=TRUE), assessment$assessment$params)
-            assessment$result <- do.call(
-                assessment$assessment$functionName,
-                assessment_params
-            )
-            amessage(paste("--- Created summary data with rows for ",nrow(assessment$result$dfSummary)," sites."))
-        }
-        return(assessment)
+    return(assessment)
 }
+
+

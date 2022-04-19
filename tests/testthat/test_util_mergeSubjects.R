@@ -107,7 +107,7 @@ test_that("missing ids are handled as intended", {
     "0012", "X128X",      4429
   )
 
-  expect_snapshot_warning(
+  expect_snapshot(
     MergeSubjects(
       domain,
       subjects,
