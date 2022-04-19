@@ -1,0 +1,50 @@
+label: Treatment-Emergent Serious Adverse Events by SOC
+tags:
+  Assessment: Safety
+  Label: AEs
+workflow:
+  - name: FilterDomain
+    type: filter
+    outputDomain: dfAE
+    spec:
+      dfAE:
+        requiredParams:
+          - strTreatmentEmergentCol
+          - strTreatmentEmergentVal
+    params:
+      col: strTreatmentEmergentCol
+      val: strTreatmentEmergentVal
+  - name: FilterDomain
+    type: filter
+    outputDomain: dfAE
+    spec:
+      dfAE:
+        requiredParams:
+          - strSeriousCol
+          - strSeriousVal
+    params:
+      col: strSeriousCol
+      val: strSeriousVal
+  - name: AE_Map_Raw
+    type: mapping
+    outputDomain: dfInput
+    spec:
+      dfAE:
+        requiredParams:
+          - strIDCol
+      dfSUBJ:
+        requiredParams:
+          - strIDCol
+          - strSiteCol
+          - strTimeOnTreatmentCol
+  - name: AE_Assess
+    type: assess
+    mapping:
+      dfInput:
+        strIDCol : "SubjectID"
+    spec:
+      dfInput:
+        requiredParams:
+          - strIDCol
+    params:
+      strMethod: "poisson"
