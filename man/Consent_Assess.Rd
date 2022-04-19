@@ -7,7 +7,7 @@
 Consent_Assess(
   dfInput,
   nThreshold = 0.5,
-  lTags = list(Label = "Consent"),
+  lTags = list(Assessment = "Consent"),
   bChart = TRUE
 )
 }

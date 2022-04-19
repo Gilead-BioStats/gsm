@@ -24,6 +24,7 @@ Study_Table <- function(dfFindings, bFormat=TRUE, showCounts=TRUE, showSiteScore
         is.logical(bFormat)
     )
 
+
     # TODO: Add check for unique Site + Label + SiteID
     # Get site counts
     df_counts <- dfFindings %>%

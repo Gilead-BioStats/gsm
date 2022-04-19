@@ -31,7 +31,6 @@ test_that("Assessment Report with an issue in dfSUBJ",{
     a<-Study_AssessmentReport(lAssessments=lAssessments)
     expect_true(is.data.frame(a$dfAllChecks))
     expect_true(is.data.frame(a$dfSummary))
-    expect_equal("Invalid Raw Data", lAssessments$ae$status)
 })
 
 test_that("Assessment Report fails with wrong input", {

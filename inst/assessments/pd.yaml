@@ -1,7 +1,7 @@
 label: Protocol Deviation (PD) Workflow
 tags:
   Assessment: PD
-  Label: PD
+  Label: PD Serious
 workflow:
   - name: PD_Map_Raw
     type: mapping

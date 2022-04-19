@@ -1,7 +1,7 @@
 label: Treatment-Emergent Serious Adverse Events by SOC
 tags:
   Assessment: Safety
-  Label: AEs
+  Label: AEs Serious
 workflow:
   - name: FilterDomain
     type: filter
@@ -10,10 +10,9 @@ workflow:
       dfAE:
         requiredParams:
           - strTreatmentEmergentCol
-          - strTreatmentEmergentVal
     params:
       col: strTreatmentEmergentCol
-      val: strTreatmentEmergentVal
+      val: TRUE
   - name: FilterDomain
     type: filter
     outputDomain: dfAE
@@ -21,10 +20,9 @@ workflow:
       dfAE:
         requiredParams:
           - strSeriousCol
-          - strSeriousVal
     params:
       col: strSeriousCol
-      val: strSeriousVal
+      val: "Yes"
   - name: AE_Map_Raw
     type: mapping
     outputDomain: dfInput

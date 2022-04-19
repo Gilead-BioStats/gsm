@@ -4,9 +4,8 @@
 #'
 #' Coming soon
 #'
-#' @param assessment assessments
-#' @param lData list of data
-#' @param lMapping mapping
+#' @param step list of data
+#' @param mapping mapping
 #' @param lTags tags
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
@@ -23,7 +22,7 @@ RunStep <- function(step, mapping, lTags, bQuiet){
 
     # Pull list of data domains from spec
     step$domains <- names(step$spec)
-    
+
     # check that required data/columns are available for each domain
     step$mapping <- step$domains %>% map(function(domain){
         if(!is.null(step$mapping[[domain]])){
@@ -43,8 +42,8 @@ RunStep <- function(step, mapping, lTags, bQuiet){
             vNACols= step$spec[[domain]]$NAParams,
             bQuiet=bQuiet
         )
-        
-        
+
+
         if(check$status) {
             if(!bQuiet) cli::cli_alert_success('{domain} is valid.')
         } else {
@@ -69,7 +68,7 @@ RunStep <- function(step, mapping, lTags, bQuiet){
         if(tolower(step$type) =="filter"){
             domain <- step$outputDomain
             col <- step$mapping[[domain]][[params$col]]
-            val <- step$mapping[[domain]][[params$val]]
+            val <- step$params$val
             params <- list(df=step$lData[[domain]], col=col, val=val, bQuiet = bQuiet)
             step$outData[[domain]] <- do.call(step$name, params)
         }else if(tolower(step$type) =="mapping"){

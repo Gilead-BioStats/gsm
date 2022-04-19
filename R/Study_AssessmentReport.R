@@ -4,6 +4,9 @@
 #'
 #' @param lAssessments List of 1+ assessments like those created by `runAssessment()` or `Assess_Study()`
 #'
+#' @importFrom gt gt
+#' @importFrom fontawesome fa
+#'
 #' @return returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks``)
 
 Study_AssessmentReport <- function(lAssessments) {

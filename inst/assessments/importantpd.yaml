@@ -10,10 +10,9 @@ workflow:
       dfPD:
         requiredParams:
           - strImportantCol
-          - strImportantVal
     params:
       col: strImportantCol
-      val: strImportantVal
+      val: "Y"
   - name: PD_Map_Raw
     type: mapping
     outputDomain: dfInput

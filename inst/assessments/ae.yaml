@@ -10,10 +10,9 @@ workflow:
       dfAE:
         requiredParams:
           - strTreatmentEmergentCol
-          - strTreatmentEmergentVal
     params:
       col: strTreatmentEmergentCol
-      val: strTreatmentEmergentVal
+      val: TRUE
   - name: AE_Map_Raw
     type: mapping
     outputDomain: dfInput
@@ -31,9 +30,9 @@ workflow:
     mapping:
       dfInput:
         strIDCol : "SubjectID"
-    spec: 
+    spec:
       dfInput:
-        requiredParams: 
+        requiredParams:
           - strIDCol
     params:
       strMethod: "poisson"

@@ -7,15 +7,13 @@
 RunStep(step, mapping, lTags, bQuiet)
 }
 \arguments{
+\item{step}{list of data}
+
+\item{mapping}{mapping}
+
 \item{lTags}{tags}
 
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
-
-\item{assessment}{assessments}
-
-\item{lData}{list of data}
-
-\item{lMapping}{mapping}
 }
 \value{
 A list containing: dataChecks and results
