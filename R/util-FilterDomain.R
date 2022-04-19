@@ -12,6 +12,7 @@
 #' @export
 
 FilterDomain<- function(df, col, vals, bQuiet=TRUE){
+
     stopifnot(
         "`df` parameter in FilterDomain is not a data.frame"=is.data.frame(df),
         "`col` parameter in FilterDomain is not character" = is.character(col),
@@ -19,19 +20,19 @@ FilterDomain<- function(df, col, vals, bQuiet=TRUE){
     )
 
     if(!bQuiet){
-        message(paste0("--- Filtering on ",col,"=",paste(vals,collapse=",")))
+        cli::cli_alert_success(paste0("Filtering on ",col," == ",paste(vals,collapse=",")))
     }
 
     if(!col %in% names(df)){
-        stop(paste0("Error in FilterFunction: `",col,"` column not found"))
+        stop(cli::cli_alert_danger(paste0("Error in FilterFunction: `",col,"` column not found")))
     }
 
     oldRows <- nrow(df)
     df <- df[df[[col]] %in% vals,]
     newRows<-nrow(df)
     if(!bQuiet){
-        message(paste0(
-            "- Filtered on `",
+        cli::cli_alert_success(paste0(
+            "Filtered on `",
             col,
             "=",
             paste(vals,sep=", "),
@@ -44,10 +45,10 @@ FilterDomain<- function(df, col, vals, bQuiet=TRUE){
             " rows.")
         )
         if(newRows==0){
-            warning("- WARNING: Filtered data has 0 rows.")
+          cli::cli_alert_warning("WARNING: Filtered data has 0 rows.")
         }
         if(newRows==oldRows){
-            message("- NOTE: No rows dropped.")
+          cli::cli_alert_info("NOTE: No rows dropped.")
         }
     }
 
