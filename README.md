@@ -39,10 +39,3 @@ In all, these steps utilize 6 data frames:
 5. `flagged` data - adds flags to the `analyzed` data to indicate possible statistical outliers
 6. `summary` data - subsets the flagged data to a few key columns. The `summary` data has the same structure for all assessments, so that we can easily look at trends for any given site across multiple assessments. 
 
-## Visualize
-
-Each assessment has several visualizations build on top of the data framework described above. These visualizations are custom-built for each assessment, but typically consist of one or more of the following: 
-
-1. *Study-Summary Plot* - A single chart showing all sites and indicating which are flagged
-2. *Site plot* - A site-level plot showing additional details for the assessment. May include a visualization showing all participants at the site. 
-3. *Subject plot* - A plot for a single participant showing detailed information for the assessment. 
