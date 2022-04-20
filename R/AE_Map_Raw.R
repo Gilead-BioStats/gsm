@@ -36,43 +36,40 @@
 #'
 #' @export
 
-AE_Map_Raw <- function( 
+AE_Map_Raw <- function(
     dfs=list(
-        dfAE=clindata::rawplus_ae, 
+        dfAE=clindata::rawplus_ae,
         dfSUBJ=clindata::rawplus_subj
-    ), 
+    ),
     #mapping = clindata::rawplus_mapping, #TODO export rawplus_mapping in clindata
     mapping = NULL,
     bCheckMapping = FALSE,
-    bQuiet = TRUE 
+    bQuiet = TRUE
 ){
 
     if(is.null(mapping)) mapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
-    
+
     if(bCheckMapping){
         domains <- names(dfs)
         spec <- yaml::read_yaml(system.file('specs','AE_Map_Raw.yaml', package = 'gsm'))
         checks <- domains %>% map(~is_mapping_valid(df=dfs[[.x]], mapping=mapping[[.x]], spec=spec[[.x]], bQuiet=bQuiet))
         checks$status <- all(checks %>% map_lgl(~.x$status))
-    } 
-
-    run_mapping <- ifelse(bCheckMapping, checks$status, TRUE)
+        run_mapping <- checks$status
+    } else {
+      run_mapping <- TRUE
+    }
 
     if(run_mapping){
         if(!bQuiet) cli::cli_text("Initializing {.fn AE_Map_Raw}")
 
         # Standarize Column Names
         dfAE_mapped <- dfs$dfAE %>%
-            rename(SubjectID = mapping[["dfAE"]][["strIDCol"]]) %>%
-            select(.data$SubjectID)
+          select(SubjectID = mapping[["dfAE"]][["strIDCol"]])
 
         dfSUBJ_mapped <- dfs$dfSUBJ %>%
-            rename(
-                SubjectID = mapping[["dfSUBJ"]][["strIDCol"]],
-                SiteID = mapping[["dfSUBJ"]][["strSiteCol"]],
-                Exposure = mapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
-            ) %>%
-            select(.data$SubjectID, .data$SiteID, .data$Exposure)
+          select(SubjectID = mapping[["dfSUBJ"]][["strIDCol"]],
+                 SiteID = mapping[["dfSUBJ"]][["strSiteCol"]],
+                 Exposure = mapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]])
 
         # Create Subject Level AE Counts and merge dfSUBJ
         dfInput <- dfAE_mapped %>%
@@ -82,17 +79,16 @@ AE_Map_Raw <- function(
             MergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
             mutate(Rate = .data$Count/.data$Exposure) %>%
             select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate)
-        
-        nrows <- nrow(dfInput)
-        if(!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrows} rows.")
+
+        if(!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
     }else{
         if(!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} not run because of failed check.")
         dfInput <- NULL
     }
 
     if(bCheckMapping){
-        return(list(dfInput=dfInput, checks=checks))
-    }else{ 
+        return(list(dfInput=dfInput, lChecks=checks))
+    }else{
         return(dfInput)
     }
 }
