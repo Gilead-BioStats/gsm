@@ -54,7 +54,10 @@ AE_Map_Raw <- function(
         spec <- yaml::read_yaml(system.file('specs','AE_Map_Raw.yaml', package = 'gsm'))
         checks <- domains %>% map(~is_mapping_valid(df=dfs[[.x]], mapping=mapping[[.x]], spec=spec[[.x]], bQuiet=bQuiet))
         checks$status <- all(checks %>% map_lgl(~.x$status))
-    } 
+        run_mapping <- checks$status
+    } else {
+      run_mapping <- TRUE
+    }
 
     run_mapping <- ifelse(bCheckMapping, checks$status, TRUE)
 
