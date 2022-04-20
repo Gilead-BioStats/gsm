@@ -48,7 +48,7 @@ AE_Map_Raw <- function(
 ){
 
     if(is.null(mapping)) mapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
-    
+
     if(bCheckMapping){
         domains <- names(dfs)
         spec <- yaml::read_yaml(system.file('specs','AE_Map_Raw.yaml', package = 'gsm'))
@@ -56,27 +56,23 @@ AE_Map_Raw <- function(
         checks$status <- all(checks %>% map_lgl(~.x$status))
         run_mapping <- checks$status
     } else {
-      run_mapping <- TRUE
+        run_mapping <- TRUE
     }
-
-    run_mapping <- ifelse(bCheckMapping, checks$status, TRUE)
 
     if(run_mapping){
         if(!bQuiet) cli::cli_text("Initializing {.fn AE_Map_Raw}")
 
         # Standarize Column Names
         dfAE_mapped <- dfs$dfAE %>%
-            rename(SubjectID = mapping[["dfAE"]][["strIDCol"]]) %>%
-            select(.data$SubjectID)
+            select(.data$SubjectID = mapping[["dfAE"]][["strIDCol"]])
 
         dfSUBJ_mapped <- dfs$dfSUBJ %>%
-            rename(
+            select(
                 SubjectID = mapping[["dfSUBJ"]][["strIDCol"]],
                 SiteID = mapping[["dfSUBJ"]][["strSiteCol"]],
                 Exposure = mapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
-            ) %>%
-            select(.data$SubjectID, .data$SiteID, .data$Exposure)
-
+            ) 
+            
         # Create Subject Level AE Counts and merge dfSUBJ
         dfInput <- dfAE_mapped %>%
             group_by(.data$SubjectID) %>%
