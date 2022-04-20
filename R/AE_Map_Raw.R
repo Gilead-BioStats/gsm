@@ -91,7 +91,7 @@ AE_Map_Raw <- function(
     }
 
     if(bCheckMapping){
-        return(list(dfInput=dfInput, checks=checks))
+        return(list(dfInput=dfInput, lChecks=checks))
     }else{ 
         return(dfInput)
     }
