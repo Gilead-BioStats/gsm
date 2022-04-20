@@ -4,28 +4,19 @@
 \alias{is_mapping_valid}
 \title{Check that a data frame contains columns and fields specified in mapping}
 \usage{
-is_mapping_valid(
-  df,
-  mapping,
-  vRequiredParams = NULL,
-  bKeepAllParams = FALSE,
-  vUniqueCols = NULL,
-  vNACols = NULL,
-  bQuiet = TRUE
-)
+is_mapping_valid(df, mapping, spec, bQuiet = TRUE)
 }
 \arguments{
 \item{df}{data.frame to compare to mapping object.}
 
-\item{mapping}{named list specifying expected columns and fields in df.}
+\item{mapping}{named list specifying expected columns and values in df. Parameters ending in \code{col} are assummed to be column names in \code{df}, while paramters ending in \code{val} are values expected in for a corresponding column. For example, \code{mapping=list(strSiteCol="SiteID", strSiteVal=c("001","002"))} would indicate that \code{df} has a \code{df$SiteID} includes values \code{"001"} and \code{"002"}.}
 
-\item{vRequiredParams}{character vector of names that must be present in \code{mapping}.}
-
-\item{bKeepAllParams}{Should params not included in \code{vRequiredParams} be evaluated? Default is false.}
-
-\item{vUniqueCols}{list of columns expected to be unique. default = NULL (none).}
-
-\item{vNACols}{list of columns where na values are acceptable default = NULL (none).}
+\item{spec}{named list specifying parameters that should be defined in \code{mapping}, and describes how the values specified by those parameters should be used in \code{df}. Should have the following properties:
+\itemize{
+\item \code{spec$vRequired} - list of parameters that should be defined in \code{mapping}.
+\item \code{spec$vUniqueCols} - list of column parameters that should not contain duplicate values
+\item \code{spec$vNACols} - list of column parameters where NA and empty string values are acceptable.
+}}
 
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
@@ -33,20 +24,27 @@ is_mapping_valid(
 Check that a data frame contains columns and fields specified in mapping
 }
 \examples{
-subj_mapping <- list(strIDCol = "SubjectID",
-                    strSiteCol = "SiteID",
-                    strExposureCol = "TimeOnTreatment")
+subj_mapping <- list(
+    strIDCol = "SubjectID",
+    strSiteCol = "SiteID",
+    strExposureCol = "TimeOnTreatment"
+)
 
-is_mapping_valid(df = clindata::rawplus_subj,
-                 mapping = subj_mapping,
-                 vUniqueCols = "SUBJID",
-                 vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
+is_mapping_valid(
+    df = clindata::rawplus_subj,
+    mapping = subj_mapping,
+    spec = list(
+        vRequired= c("strIDCol", "strSiteCol", "strExposureCol"),
+        vUniqueCols = "SUBJID"
+    )
+)
 
-subj_mapping$not_a_col <- "nope"
-
-is_mapping_valid(df = clindata::rawplus_subj,
-                 mapping = subj_mapping,
-                 vUniqueCols = "SUBJID",
-                 vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
+is_mapping_valid(
+    df = clindata::rawplus_subj,
+    mapping = subj_mapping,
+    spec=list(
+        vUniqueCols = "SUBJID",
+        vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol", "strOtherCol")
+     )
 
 }
