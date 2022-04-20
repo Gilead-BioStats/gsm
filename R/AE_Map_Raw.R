@@ -62,7 +62,8 @@ AE_Map_Raw <- function(
                 if(!bQuiet) cli::cli_alert_warning("Issues found for {domain} domain")
             }
             return(check)
-        })
+        }) %>%
+          set_names(nm = names(dfs))
         checks$status <- all(checks %>% map_lgl(~.x$status))
         run_mapping <- checks$status
     } else {

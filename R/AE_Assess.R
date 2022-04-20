@@ -45,12 +45,12 @@
 #' @export
 
 AE_Assess <- function(
-    dfInput, 
-    vThreshold=NULL, 
-    strMethod="poisson", 
-    lTags=list(Assessment="AE"), 
-    bChart=TRUE, 
-    bCheckInputs=FALSE, 
+    dfInput,
+    vThreshold=NULL,
+    strMethod="poisson",
+    lTags=list(Assessment="AE"),
+    bChart=TRUE,
+    bCheckInputs=FALSE,
     bQuiet=TRUE
 ){
     stopifnot(
@@ -75,7 +75,7 @@ AE_Assess <- function(
         dfInput = dfInput
     )
 
-    if(bCheckInputs){        
+    if(bCheckInputs){
         if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Assess}")
         domains <- c("dfInput")
         dfs <- list(dfInput = dfInput)
@@ -91,6 +91,7 @@ AE_Assess <- function(
 
             return(check)
         })
+        names(lAssess$lChecks) <- domains
         lAssess$lChecks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
         run_assessment <- lAssess$lChecks$status
     }else{
@@ -156,6 +157,6 @@ AE_Assess <- function(
     }else{
         if(!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} not run because of failed check.")
     }
-    
+
     return(lAssess)
 }
