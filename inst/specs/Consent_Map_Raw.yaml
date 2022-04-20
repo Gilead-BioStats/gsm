@@ -1,0 +1,19 @@
+dfCONSENT:
+  vRequired:
+    - strIDCol
+    - strTypeCol
+    - strValueCol
+    - strDateCol
+  vNACols:
+    - strDateCol
+dfSUBJ:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+    - strRandDateCol
+  vUniqueCols:
+    - strIDCol
+params:
+
+
+

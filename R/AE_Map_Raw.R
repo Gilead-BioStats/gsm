@@ -52,18 +52,7 @@ AE_Map_Raw <- function(
 
     if(bCheckInputs){
         if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Map_Raw}")
-        domains <- names(dfs)
-        spec <- yaml::read_yaml(system.file('specs','AE_Map_Raw.yaml', package = 'gsm'))
-        checks <- domains %>% map(function(domain){
-            check <- is_mapping_valid(df=dfs[[domain]], mapping=mapping[[domain]], spec=spec[[domain]], bQuiet=bQuiet)
-            if(check$status){
-                if(!bQuiet) cli::cli_alert_success("No issues found for {domain} domain")
-            } else {
-                if(!bQuiet) cli::cli_alert_warning("Issues found for {domain} domain")
-            }
-            return(check)
-        }) %>%
-          set_names(nm = names(dfs))
+        checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, step = "mapping", yaml = "AE_Map_Raw.yaml")
         checks$status <- all(checks %>% map_lgl(~.x$status))
         run_mapping <- checks$status
     } else {

@@ -38,67 +38,56 @@
 #'
 #' @export
 
-Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeValue = "MAINCONSENT", strConsentStatusValue="Y", bQuiet = TRUE ){
+Consent_Map_Raw <- function(
+    dfs=list(
+      dfCONSENT=clindata::rawplus_consent,
+      dfSUBJ=clindata::rawplus_subj
+    ),
+    #mapping = clindata::rawplus_mapping, #TODO export rawplus_mapping in clindata
+    mapping = NULL,
+    bCheckInputs = FALSE,
+    bQuiet = TRUE
+){
 
-  # Set defaults for mapping if none is provided
-  if(is.null(mapping)){
-    mapping <- list(
-      dfCONSENT = list(strIDCol = "SubjectID", strTypeCol = "CONSENT_TYPE", strValueCol = "CONSENT_VALUE", strDateCol = "CONSENT_DATE"),
-      dfSUBJ = list(strIDCol = "SubjectID", strSiteCol = "SiteID", strRandDateCol = "RandDate")
-    )
+  if(is.null(mapping)) mapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
+
+  # update in clindata
+  mapping$dfCONSENT$strConsentTypeValue <- "MAINCONSENT"
+  mapping$dfCONSENT$strConsentStatusValue <- "Y"
+
+  if(bCheckInputs){
+    if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn Consent_Map_Raw}")
+    checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, yaml = "Consent_Map_Raw.yaml")
+    checks$status <- all(checks %>% map_lgl(~.x$status))
+    run_mapping <- checks$status
+  } else {
+    run_mapping <- TRUE
   }
 
-  # Check input data vs. mapping
-  is_consent_valid <- is_mapping_valid(
-    df = dfCONSENT,
-    mapping = mapping$dfCONSENT,
-    vRequiredParams = c("strIDCol", "strTypeCol", "strValueCol", "strDateCol"),
-    vNACols = "strDateCol",
-    bQuiet = bQuiet
-  )
-
-  is_subj_valid <- is_mapping_valid(
-    df = dfSUBJ,
-    mapping = mapping$dfSUBJ,
-    vRequiredParams = c("strIDCol", "strSiteCol", "strRandDateCol"),
-    vUniqueCols = "strIDCol",
-    bQuiet = bQuiet
-  )
-
-  stopifnot(
-    "Errors found in dfCONSENT." = is_consent_valid$status,
-    "Errors found in dfSUBJ." = is_subj_valid$status,
-    "strConsentTypeValue is not character"= is.character(strConsentTypeValue),
-    "strConsentTypeValue has multiple values, specify only one" = length(strConsentTypeValue)==1
-  )
-
   # Standarize Column Names
-  dfSUBJ_mapped <- dfSUBJ %>%
-    rename(
+  dfSUBJ_mapped <- dfs$dfSUBJ %>%
+    select(
       SubjectID = mapping[["dfSUBJ"]][["strIDCol"]],
       SiteID = mapping[["dfSUBJ"]][["strSiteCol"]],
       RandDate = mapping[["dfSUBJ"]][["strRandDateCol"]]
-    ) %>%
-    select(.data$SubjectID, .data$SiteID, .data$RandDate)
+    )
 
-  dfCONSENT_mapped <- dfCONSENT %>%
-    rename(
+  dfCONSENT_mapped <- dfs$dfCONSENT %>%
+    select(
       SubjectID = mapping[["dfCONSENT"]][["strIDCol"]],
       ConsentType = mapping[["dfCONSENT"]][["strTypeCol"]],
       ConsentStatus = mapping[["dfCONSENT"]][["strValueCol"]],
       ConsentDate = mapping[["dfCONSENT"]][["strDateCol"]]
-    ) %>%
-    select(.data$SubjectID, .data$ConsentType , .data$ConsentStatus , .data$ConsentDate)
+    )
 
-
-  if(!is.null(strConsentTypeValue)){
+  if(!is.null(mapping$dfCONSENT$strConsentTypeValue)){
     dfCONSENT_mapped <- dfCONSENT_mapped %>%
-      filter(.data$ConsentType == strConsentTypeValue)
+      filter(.data$ConsentType == mapping$dfCONSENT$strConsentTypeValue)
     if(nrow(dfCONSENT_mapped)==0) stop("supplied strConsentTypeValue not found in data")
   }
 
   dfInput <- MergeSubjects(dfCONSENT_mapped, dfSUBJ_mapped, bQuiet=bQuiet)%>%
-    mutate(flag_noconsent = .data$ConsentStatus != strConsentStatusValue) %>%
+    mutate(flag_noconsent = .data$ConsentStatus != mapping$dfCONSENT$strConsentStatusValue) %>%
     mutate(flag_missing_consent = is.na(.data$ConsentDate))%>%
     mutate(flag_missing_rand = is.na(.data$RandDate))%>%
     mutate(flag_date_compare = .data$ConsentDate >= .data$RandDate ) %>%
@@ -106,5 +95,9 @@ Consent_Map_Raw <- function( dfCONSENT, dfSUBJ, mapping = NULL, strConsentTypeVa
     mutate(Count = as.numeric(.data$any_flag, na.rm = TRUE)) %>%
     select(.data$SubjectID, .data$SiteID, .data$Count)
 
-  return(dfInput)
+  if(bCheckInputs){
+    return(list(dfInput=dfInput, lChecks=checks))
+  }else{
+    return(dfInput)
+  }
 }

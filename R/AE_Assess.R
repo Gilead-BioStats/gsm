@@ -75,23 +75,11 @@ AE_Assess <- function(
         dfInput = dfInput
     )
 
+browser()
     if(bCheckInputs){
         if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Assess}")
-        domains <- c("dfInput")
-        dfs <- list(dfInput = dfInput)
-        mapping <-  yaml::read_yaml(system.file('mappings','AE_Assess.yaml', package = 'gsm'))
-        spec <- yaml::read_yaml(system.file('specs','AE_Assess.yaml', package = 'gsm'))
-        lAssess$lChecks <- domains %>% map(function(domain){
-            check <- is_mapping_valid(df=dfs[[domain]], mapping=mapping[[domain]], spec=spec[[domain]], bQuiet=bQuiet)
-            if(check$status){
-                if(!bQuiet) cli::cli_alert_success("No issues found for {domain} domain")
-            } else {
-                if(!bQuiet) cli::cli_alert_warning("Issues found for {domain} domain")
-            }
-
-            return(check)
-        })
-        names(lAssess$lChecks) <- domains
+        lAssess$lChecks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, step = "assess", yaml = "AE_Assess.yaml")
+        names(lAssess$lChecks) <- "dfInput" # may want to update this
         lAssess$lChecks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
         run_assessment <- lAssess$lChecks$status
     }else{
