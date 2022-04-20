@@ -17,17 +17,21 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
     is_domain_valid <- is_mapping_valid(
         df = dfDomain,
         mapping = list('strIDCol'=strIDCol),
-        vUniqueCols = "strIDCol",
-        vRequiredParams = "strIDCol",
-        bQuiet=FALSE
+        spec=list(
+            vUniqueCols = "strIDCol",
+            vRequired = "strIDCol"
+        ),
+        bQuiet=bQuiet
     )
 
     is_subjects_valid <- is_mapping_valid(
         df = dfSubjects,
         mapping = list('strIDCol'=strIDCol),
-        vUniqueCols = "strIDCol",
-        vRequiredParams = "strIDCol",
-        bQuiet=FALSE
+        spec=list(
+            vUniqueCols = "strIDCol",
+            vRequired = "strIDCol"
+        ),
+        bQuiet=bQuiet
     )
 
     stopifnot(

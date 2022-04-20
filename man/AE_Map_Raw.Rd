@@ -4,12 +4,19 @@
 \alias{AE_Map_Raw}
 \title{AE Assessment - Raw Mapping}
 \usage{
-AE_Map_Raw(dfAE, dfSUBJ, mapping = NULL, bQuiet = TRUE)
+AE_Map_Raw(
+  dfs = list(dfAE = clindata::rawplus_ae, dfSUBJ = clindata::rawplus_subj),
+  mapping = NULL,
+  bCheckMapping = FALSE,
+  bQuiet = TRUE
+)
 }
 \arguments{
-\item{dfAE}{AE dataset with required column SUBJID and rows for each AE record}
-
-\item{dfSUBJ}{Subject-level Raw Data with required columns: SubjectID, SiteID, value specified in strExposureCol}
+\item{dfs}{list of data frames including:
+\itemize{
+\item \code{dfAE}: dataset with required column SUBJID and rows for each AE record
+\item \code{dfSubj}: Subject-level Raw Data with required columns: SubjectID, SiteID, value specified in strExposureCol
+}}
 
 \item{mapping}{List containing expected columns in each data set. By default, mapping for dfAE is: \code{strIDCol} = "SUBJID". By default, mapping for dfSUBJ is: \code{strIDCol} = "SubjectID", \code{strSiteCol} = "SiteID", and \code{strExposureCol} = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.}
 
@@ -47,6 +54,7 @@ Note that the function can generate data summaries for specific types of AEs, bu
 }
 
 \examples{
-dfInput <- AE_Map_Raw(dfAE = clindata::rawplus_ae, dfSUBJ = clindata::rawplus_subj)
+dfInput <- AE_Map_Raw() # Run with defaults
+dfInput <- AE_Map_Raw(bCheckMapping=TRUE, bQuiet=FALSE) # Run with error checking and message log
 
 }

@@ -16,15 +16,6 @@ workflow:
   - name: AE_Map_Raw
     type: mapping
     outputDomain: dfInput
-    spec:
-      dfAE:
-        requiredParams:
-          - strIDCol
-      dfSUBJ:
-        requiredParams:
-          - strIDCol
-          - strSiteCol
-          - strTimeOnTreatmentCol
   - name: AE_Assess
     type: assess
     mapping:

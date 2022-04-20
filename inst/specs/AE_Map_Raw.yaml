@@ -1,0 +1,10 @@
+dfAE:
+  vRequired:
+    - strIDCol
+dfSUBJ:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+    - strTimeOnTreatmentCol
+  vUniqueCols:
+    - strIDCol
