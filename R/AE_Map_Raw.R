@@ -83,8 +83,7 @@ AE_Map_Raw <- function(
             mutate(Rate = .data$Count/.data$Exposure) %>%
             select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate)
         
-        nrows <- nrow(dfInput)
-        if(!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrows} rows.")
+        if(!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
     }else{
         if(!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} not run because of failed check.")
         dfInput <- NULL
