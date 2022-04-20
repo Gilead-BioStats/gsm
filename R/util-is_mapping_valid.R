@@ -76,20 +76,22 @@ is_mapping_valid <- function(
         tests_if$mapping_is_list$status <- TRUE
     }
 
-    if(!bKeepAllParams) mapping[!(names(mapping) %in% vRequiredParams)]<-NULL
+    # get a list of columns
+    colParamList <- names(mapping) %>% stringr::str_subset('Col$')
+    if(!bKeepAllParams) colParamList <- colParamList[colParamList %in% vRequiredParams]
 
     # mapping contains character values for column names
-    if(!all(purrr::map_lgl(mapping, ~is.character(.)))){
+    if(!all(colParamList %>% purrr::map_lgl(~is.character(mapping[[.x]])))){
         tests_if$mappings_are_character$status <- FALSE
         warning <- "Non-character column names found in mapping"
         warning_cols <- df %>% select_if(~!is.character(.)) %>% names()
-        tests_if$mappings_are_character$warning <- paste0(warning, ": ", warning_cols)
+        tests_if$mappings_are_character$warning <- paste0(warning, ": ", paste(warning_cols, collapse=", "))
     } else {
         tests_if$mappings_are_character$status <- TRUE
     }
 
     # expected columns are found in "df"
-    expected <- unlist(unname(mapping))
+    expected <- unlist(unname(mapping[colParamList]))
 
     if(!all(expected %in% names(df))) {
         tests_if$has_expected_columns$status <- FALSE
@@ -168,8 +170,8 @@ if (tests_if$has_expected_columns$status) {
     if (bQuiet == FALSE) {
         all_warnings <- tests_if %>% map(~.x$warning) %>% keep(~!is.na(.x))
         if (length(all_warnings) > 0) {
-           all_warnings <- unlist(unname(all_warnings))
-           x <- map(all_warnings, ~cli::cli_alert_danger(cli::col_br_yellow(.)))
+            all_warnings <- unlist(unname(all_warnings))
+            x <- map(all_warnings, ~cli::cli_alert_danger(cli::col_br_yellow(.)))
         }
     }
 

@@ -12,6 +12,7 @@ Imports:
     cli,
     dplyr,
     fontawesome,
+    gt,
     ggplot2,
     lamW,
     magrittr,

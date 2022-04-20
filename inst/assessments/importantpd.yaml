@@ -1,21 +1,40 @@
-label: Important Protocol Deviations
+label: Protocol Deviation (PD) Workflow - Important
 tags:
-  Assessment: Protocol Deviations
-  Label: Important PD
-mapping: 
-  functionName: PD_Map_Raw
-  params: NULL
-assessment:
-  functionName: PD_Assess
-  params: NULL
-requiredParameters:
-  dfPD:
-    - strIDCol
-    - strImportantCol
-  dfSUBJ: 
-    - strIDCol
-    - strSiteCol
-    - strTimeOnStudyCol 
-filters:
-  dfPD:
-    strImportantCol: "Y"
+  Assessment: PD
+  Label: PD
+workflow:
+  - name: FilterDomain
+    type: filter
+    outputDomain: dfPD
+    spec:
+      dfPD:
+        requiredParams:
+          - strImportantCol
+    params:
+      col: strImportantCol
+      val: "Y"
+  - name: PD_Map_Raw
+    type: mapping
+    outputDomain: dfInput
+    spec:
+      dfPD:
+        requiredParams:
+          - strIDCol
+      dfSUBJ:
+        requiredParams:
+          - strIDCol
+          - strSiteCol
+          - strTimeOnStudyCol
+        uniqueParams:
+          - strIDCol
+  - name: PD_Assess
+    type: assess
+    mapping:
+      dfInput:
+        strIDCol : "SubjectID"
+    spec:
+      dfInput:
+        requiredParams:
+          - strIDCol
+        uniqueParams:
+          - strIDCol

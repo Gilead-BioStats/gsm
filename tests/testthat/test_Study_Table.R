@@ -1,6 +1,8 @@
 test_that("Study Table Runs as expected",{
     results<- Study_Assess(bQuiet=TRUE)
-    dfSummaryAll <-results %>% map(~.x$result$dfSummary) %>% bind_rows
+    dfSummaryAll <- results %>%
+      map(~.x$lResults$dfSummary) %>%
+      bind_rows()
     tbl <- Study_Table(dfSummaryAll)
     expect_true(is.data.frame(tbl))
     expect_equal(names(tbl),
@@ -11,8 +13,10 @@ test_that("Study Table Runs as expected",{
                    "X100X", "X094X", "X097X", "X143X", "X166X", "X174X", "X183X",
                    "X185X", "X224X", "X110X", "X117X", "X179X", "X120X", "X132X",
                    "X145X"))
+
     expect_equal(tbl$Title,
-                 c("Number of Subjects", "Score", "Safety", "--AEs", "--SAEs",
-                   "Consent", "--Consent", "Inclusion/Exclusion", "--Inclusion/Exclusion",
-                   "Protocol Deviations", "--Important PD", "--Any PD"))
+                 c("Number of Subjects", "Score", "Safety", "--AEs", "--AEs Serious",
+                   "Consent", "--Consent", "IE", "--IE", "PD", "--PD", "--PD Serious")
+                 )
+
 })
