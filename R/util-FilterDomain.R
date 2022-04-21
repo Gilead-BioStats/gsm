@@ -16,7 +16,7 @@
 FilterDomain<- function(df, strDomain, lMapping, strColParam, strValParam, bReturnChecks=FALSE, bQuiet=TRUE){
 
     if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn FilterDomain}")
-    
+
     lSpec <- list(vRequired=c(strColParam, strValParam))
     check <- is_mapping_valid(df=df, mapping=lMapping[[strDomain]], spec=lSpec, bQuiet=bQuiet)
     checks <-list()
@@ -28,12 +28,12 @@ FilterDomain<- function(df, strDomain, lMapping, strColParam, strValParam, bRetu
     } else {
         if(!bQuiet) cli::cli_alert_warning("Issues found for {strDomain} domain")
     }
-    
+
     if(check$status){
         col <- lMapping[[strDomain]][[strColParam]]
         vals <- lMapping[[strDomain]][[strValParam]]
         if(!bQuiet) cli::cli_text(paste0("Filtering on ",col," == ",paste(vals,collapse=",")))
-        
+
         oldRows <- nrow(df)
         df <- df[df[[col]] %in% vals,]
         newRows<-nrow(df)

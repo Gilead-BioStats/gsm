@@ -7,8 +7,8 @@ mapping_rdsl <- list(strIDCol = "SubjectID",
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
   df <- is_mapping_valid(
-    df = dfSUBJ, 
-    mapping = mapping_rdsl, 
+    df = dfSUBJ,
+    mapping = mapping_rdsl,
     spec=list(vRequired = c("strIDCol", "strSiteCol", "strExposureCol"))
   )
 
@@ -27,8 +27,8 @@ test_that("NA values are caught", {
   dfSUBJ$TimeOnTreatment[1] <- NA
   devtools::load_all()
   df <- is_mapping_valid(
-    dfSUBJ, 
-    mapping = mapping_rdsl, 
+    dfSUBJ,
+    mapping = mapping_rdsl,
     spec=list(vRequired = c("strIDCol", "strSiteCol", "strExposureCol"))
   )
 
@@ -38,13 +38,13 @@ test_that("NA values are caught", {
 
 test_that("NA values are ignored when specified in vNACols", {
   df <- is_mapping_valid(
-    df = dfSUBJ, 
-    mapping = mapping_rdsl, 
+    df = dfSUBJ,
+    mapping = mapping_rdsl,
     spec=list(
-      vNACols = "strExposureCol", 
+      vNACols = "strExposureCol",
       vRequired = c("strIDCol", "strSiteCol", "strExposureCol")
     )
-  ) 
+  )
 
   expect_equal(TRUE, df$tests_if$columns_have_na$status)
   expect_equal(NA, df$tests_if$columns_have_na$warning)
@@ -54,10 +54,10 @@ test_that("vUniqueCols are caught", {
   dfSUBJ <- bind_rows(dfSUBJ[1,], dfSUBJ)
   expect_message(
     is_mapping_valid(
-      dfSUBJ, 
-      mapping = mapping_rdsl, 
+      dfSUBJ,
+      mapping = mapping_rdsl,
       spec=list(
-        vUniqueCols = "strIDCol", 
+        vUniqueCols = "strIDCol",
         vRequired = c("strIDCol")
       ),
       bQuiet = F
@@ -69,10 +69,10 @@ test_that("empty string values are caught", {
   input <- dfSUBJ
   input$SubjectID[1] <- ""
   df <- is_mapping_valid(
-    df = input, 
-    mapping = mapping_rdsl, 
+    df = input,
+    mapping = mapping_rdsl,
     spec=list(
-      vNACols = "strExposureCol", 
+      vNACols = "strExposureCol",
       vRequired = c("strIDCol", "strSiteCol", "strExposureCol")
     )
   )
