@@ -91,6 +91,7 @@ AE_Assess <- function(
 
             return(check)
         })
+        names(lAssess$lChecks) <- domains
         lAssess$lChecks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
         run_assessment <- lAssess$lChecks$status
     }else{
