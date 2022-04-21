@@ -54,7 +54,14 @@
 #'
 #' @export
 
-Consent_Assess <- function( dfInput, nThreshold=0.5,  lTags=list(Assessment="Consent"), bChart=TRUE){
+Consent_Assess <- function(
+    dfInput,
+    nThreshold=0.5,
+    lTags=list(Assessment="Consent"),
+    bChart=TRUE,
+    bReturnChecks=FALSE,
+    bQuiet=TRUE
+){
 
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
@@ -78,13 +85,35 @@ Consent_Assess <- function( dfInput, nThreshold=0.5,  lTags=list(Assessment="Con
     dfInput = dfInput
   )
 
-  lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count'  )
-  lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
-  lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
-  lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", lTags)
+  if(bReturnChecks){
+    if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn Consent_Assess}")
+    lAssess$lChecks <- CheckInputs(dfs = dfInput, bQuiet = bQuiet, mapping = mapping, step = "assess", yaml = "Consent_Assess.yaml")
+    lAssess$lChecks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
+    run_assessment <- lAssess$lChecks$status
+  }else{
+    run_assessment <- TRUE
+  }
 
-  if (bChart) {
-    lAssess$chart <- Visualize_Count(lAssess$dfAnalyzed)
+  if(run_assessment){
+    if(!bQuiet) cli::cli_h2("Initializing {.fn Consent_Assess}")
+    if(!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
+    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count'  )
+    if(!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
+
+    lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
+
+    lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
+    if(!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
+
+    lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", lTags)
+    if(!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
+
+    if (bChart) {
+      lAssess$chart <- Visualize_Count(lAssess$dfAnalyzed)
+      if(!bQuiet) cli::cli_alert_success("{.fn Visualize_Count} created a chart.")
+    }
+  } else {
+      if(!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} not run because of failed check.")
   }
 
   return(lAssess)

@@ -32,7 +32,7 @@
 #' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon".
 #' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE")`.
 #' @param bChart should visualization be created? TRUE (default) or FALSE.
-#' @param bCheckInputs Should Inputs be checked with `is_mapping_valid`? Default is FALSE.
+#' @param bReturnChecks Should Inputs be checked with `is_mapping_valid`? Default is FALSE.
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @examples
@@ -50,7 +50,7 @@ AE_Assess <- function(
     strMethod="poisson",
     lTags=list(Assessment="AE"),
     bChart=TRUE,
-    bCheckInputs=FALSE,
+    bReturnChecks=FALSE,
     bQuiet=TRUE
 ){
     stopifnot(
@@ -75,10 +75,9 @@ AE_Assess <- function(
         dfInput = dfInput
     )
 
-browser()
-    if(bCheckInputs){
+    if(bReturnChecks){
         if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Assess}")
-        lAssess$lChecks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, step = "assess", yaml = "AE_Assess.yaml")
+        lAssess$lChecks <- CheckInputs(dfs = dfInput, bQuiet = bQuiet, step = "assess", yaml = "AE_Assess.yaml")
         names(lAssess$lChecks) <- "dfInput" # may want to update this
         lAssess$lChecks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
         run_assessment <- lAssess$lChecks$status

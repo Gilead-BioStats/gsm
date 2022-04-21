@@ -52,7 +52,7 @@ AE_Map_Raw <- function(
 
     if(bCheckInputs){
         if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Map_Raw}")
-        checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, step = "mapping", yaml = "AE_Map_Raw.yaml")
+        checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, mapping = mapping, step = "mapping", yaml = "AE_Map_Raw.yaml")
         checks$status <- all(checks %>% map_lgl(~.x$status))
         run_mapping <- checks$status
     } else {
