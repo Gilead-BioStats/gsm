@@ -4,14 +4,26 @@
 \alias{FilterDomain}
 \title{Utility function for basic filtering}
 \usage{
-FilterDomain(df, col, vals, bQuiet = TRUE)
+FilterDomain(
+  df,
+  strDomain,
+  lMapping,
+  strColParam,
+  strValParam,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+)
 }
 \arguments{
 \item{df}{data.frame be filtered}
 
-\item{col}{column to filter}
+\item{lMapping}{mapping}
 
-\item{vals}{value or values to keep}
+\item{strColParam}{column to filter}
+
+\item{strValParam}{value or values to keep}
+
+\item{bReturnChecks}{checks}
 
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }

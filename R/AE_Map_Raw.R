@@ -23,8 +23,8 @@
 #' @param dfs list of data frames including:
 #'  - `dfAE`: dataset with required column SUBJID and rows for each AE record
 #'  - `dfSubj`: Subject-level Raw Data with required columns: SubjectID, SiteID, value specified in strExposureCol
-#' @param mapping List containing expected columns in each data set. By default, mapping for dfAE is: `strIDCol` = "SUBJID". By default, mapping for dfSUBJ is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
-#' @param bReturnChecks Should Inputs be checked with `is_mapping_valid`? Default is FALSE.
+#' @param lMapping List containing expected columns in each data set. By default, mapping for dfAE is: `strIDCol` = "SUBJID". By default, mapping for dfSUBJ is: `strIDCol` = "SubjectID", `strSiteCol` = "SiteID", and `strExposureCol` = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.
+#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return When bReturnChecks is FALSE (the default), a Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day) is returned. When bReturnChecks is TRUE, the data.frame is returned as part of a list under `dfInput` along with  the check results under `checks`.
@@ -43,34 +43,31 @@ AE_Map_Raw <- function(
         dfSUBJ=clindata::rawplus_subj
     ),
     #mapping = clindata::rawplus_mapping, #TODO export rawplus_mapping in clindata
-    mapping = NULL,
+    lMapping = NULL,
     bReturnChecks = FALSE,
     bQuiet = TRUE
 ){
 
-    if(is.null(mapping)) mapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
+    if(is.null(lMapping)) lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
 
-    if(bReturnChecks){
-        if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Map_Raw}")
-        checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, mapping = mapping, step = "mapping", yaml = "AE_Map_Raw.yaml")
-        checks$status <- all(checks %>% map_lgl(~.x$status))
-        run_mapping <- checks$status
-    } else {
-        run_mapping <- TRUE
-    }
+    if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Map_Raw}")
 
-    if(run_mapping){
+    checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, mapping = lMapping, step = "mapping", yaml = "AE_Map_Raw.yaml")
+    checks$status <- all(checks %>% map_lgl(~.x$status))
+
+    #Run mapping if checks passed
+    if(checks$status){
         if(!bQuiet) cli::cli_h2("Initializing {.fn AE_Map_Raw}")
 
         # Standarize Column Names
         dfAE_mapped <- dfs$dfAE %>%
-            select(SubjectID = mapping[["dfAE"]][["strIDCol"]])
+            select(SubjectID = lMapping[["dfAE"]][["strIDCol"]])
 
         dfSUBJ_mapped <- dfs$dfSUBJ %>%
             select(
-                SubjectID = mapping[["dfSUBJ"]][["strIDCol"]],
-                SiteID = mapping[["dfSUBJ"]][["strSiteCol"]],
-                Exposure = mapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
+                SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+                SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+                Exposure = lMapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
             )
 
         # Create Subject Level AE Counts and merge dfSUBJ
@@ -89,7 +86,7 @@ AE_Map_Raw <- function(
     }
 
     if(bReturnChecks){
-        return(list(dfInput=dfInput, lChecks=checks))
+        return(list(df=dfInput, lChecks=checks))
     }else{
         return(dfInput)
     }

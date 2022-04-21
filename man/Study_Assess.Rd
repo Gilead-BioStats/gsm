@@ -8,7 +8,6 @@ Study_Assess(
   lData = NULL,
   lMapping = NULL,
   lAssessments = NULL,
-  lSubjFilters = NULL,
   lTags = list(Study = "myStudy"),
   bQuiet = FALSE
 )
@@ -20,8 +19,6 @@ Study_Assess(
 
 \item{lAssessments}{a named list of metadata defining how each assessment should be run. By default, \code{MakeAssessmentList()} imports YAML specifications from \code{inst/assessments}.}
 
-\item{lSubjFilters}{Optionally specify Subject-level filters that will be applied to all assessments. For example \code{list(strRandFlagCol="Y")} could be used to subset to Randomized Participants.}
-
 \item{lTags}{a named list of Tags to be passed to each assessment. Default is \code{list(Study="myStudy")} could be expanded to include other important metadata such as analysis population or study phase.}
 
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
@@ -30,7 +27,7 @@ Study_Assess(
 A list of assessments containing status information and results.
 }
 \description{
-\code{Study_Assess()} attempts to run multiple assessments using a shared set of data (\code{lData}) and an associated data mapping (\code{lMapping}). By default, the \code{rawplus} data and associated mapping from the {clindata} package is used, and all assessments defined in \code{inst/assessments} are evaluated. Individual assessments are run using \code{gsm::RunAssessment()}
+Attempts to run one or more assessments (\code{lAssessments}) using shared data (\code{lData}) and metadata (\code{lMapping}). By default, the sample \code{rawplus} data from the {clindata} package is used, and all assessments defined in \code{inst/assessments} are evaluated. Individual assessments are run using \code{gsm::RunAssessment()}
 }
 \examples{
 Study_Assess() # run using defaults
