@@ -35,45 +35,45 @@
 #'
 #' @export
 
-AE_Map_Adam <- function( dfADSL, dfADAE, mapping = NULL, bQuiet = TRUE ){
+AE_Map_Adam <- function(
+    dfs=list(
+      dfADSL = safetyData::adam_adsl,
+      dfADAE = safetyData::adam_adae),
+    lMapping = NULL,
+    bReturnChecks = FALSE,
+    bQuiet = TRUE
+){
 
-  # Set defaults for mapping if none is provided
-  if(is.null(mapping)){
-    mapping <- list(
-      dfADSL = list(strIDCol="USUBJID", strSiteCol = "SITEID", strStartCol = "TRTSDT", strEndCol = "TRTEDT"),
-      dfADAE = list(strIDCol="USUBJID")
-    )
+  if(is.null(lMapping)) lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
+  lMapping$dfADSL <- list(strIDCol="USUBJID", strSiteCol = "SITEID", strStartCol = "TRTSDT", strEndCol = "TRTEDT")
+  lMapping$dfADAE <- list(strIDCol="USUBJID")
+
+  if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Map_Adam}")
+  checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, mapping = lMapping, step = "mapping", yaml = "AE_Map_Adam.yaml")
+  checks$status <- all(checks %>% map_lgl(~.x$status))
+
+  if(checks$status) {
+    if(!bQuiet) cli::cli_h2("Initializing {.fn AE_Map_Adam}")
+
+    dfInput <-  dfs$dfADSL %>%
+      rename(SubjectID = .data$USUBJID) %>%
+      rename(SiteID = .data$SITEID) %>%
+      mutate(Exposure = as.numeric(.data$TRTEDT - .data$TRTSDT)+1) %>%
+      rowwise() %>%
+      mutate(Count =sum(dfs$dfADAE$USUBJID==.data$SubjectID)) %>%
+      mutate(Rate = .data$Count/.data$Exposure) %>%
+      select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
+      ungroup()
+
+    if(!bQuiet) cli::cli_alert_success("{.fn AE_Map_Adam} returned output with {nrow(dfInput)} rows.")
+  } else {
+    if(!bQuiet) cli::cli_alert_warning("{.fn AE_Map_Adam} not run because of failed check.")
+    dfInput <- NULL
   }
 
-  # Check input data vs. mapping.
-  is_adsl_valid <- is_mapping_valid(
-    dfADSL,
-    mapping$dfADSL,
-    vRequiredParams = c("strIDCol", "strSiteCol", "strStartCol", "strEndCol"),
-    bQuiet = bQuiet
-  )
-
-  is_adae_valid <- is_mapping_valid(
-    dfADAE,
-    mapping$dfADAE,
-    vRequiredParams = c("strIDCol"),
-    bQuiet = bQuiet
-  )
-
-  stopifnot(
-    "Errors found in dfADSL." = is_adsl_valid$status,
-    "Errors found in dfADAE." = is_adae_valid$status
-  )
-
-  dfInput <-  dfADSL %>%
-    rename(SubjectID = .data$USUBJID) %>%
-    rename(SiteID = .data$SITEID) %>%
-    mutate(Exposure = as.numeric(.data$TRTEDT - .data$TRTSDT)+1) %>%
-    rowwise() %>%
-    mutate(Count =sum(dfADAE$USUBJID==.data$SubjectID)) %>%
-    mutate(Rate = .data$Count/.data$Exposure) %>%
-    select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
-    ungroup()
-
-  return(dfInput)
+  if(bReturnChecks){
+    return(list(df=dfInput, lChecks=checks))
+  }else{
+    return(dfInput)
+  }
 }
