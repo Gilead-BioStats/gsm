@@ -75,17 +75,12 @@ AE_Assess <- function(
     dfInput = dfInput
   )
 
-  if(bReturnChecks){
-    if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Assess}")
-    lAssess$lChecks <- CheckInputs(dfs = dfInput, bQuiet = bQuiet, step = "assess", yaml = "AE_Assess.yaml")
-    names(lAssess$lChecks) <- "dfInput" # may want to update this
-    lAssess$lChecks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
-    run_assessment <- lAssess$lChecks$status
-  }else{
-    run_assessment <- TRUE
-  }
+  if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Assess}")
+    checks <- CheckInputs(dfs = lAssess$dfInput, bQuiet = bQuiet, step = "assess", yaml = "AE_Assess.yaml")
+    checks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
 
-  if(run_assessment){
+
+  if(checks$status){
     if(!bQuiet) cli::cli_h2("Initializing {.fn AE_Assess}")
     if(!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
     lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
@@ -145,5 +140,6 @@ AE_Assess <- function(
     if(!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} not run because of failed check.")
   }
 
-  return(lAssess)
+    if(bReturnChecks) lAssess$lChecks <- checks
+    return(lAssess)
 }

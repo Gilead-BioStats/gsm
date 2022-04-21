@@ -25,7 +25,7 @@ CheckInputs <- function(dfs, bQuiet = TRUE, yaml, step, mapping) {
 
   if(step == "assess") {
     domains <- "dfInput"
-    dfs <- list(dfInput = dfInput)
+    dfs <- list(dfInput = dfs)
     mapping <-  yaml::read_yaml(system.file('mappings',yaml, package = 'gsm'))
     checks <- domains %>% map(function(domain){
       check <- is_mapping_valid(df=dfs[[domain]], mapping=mapping[[domain]], spec=spec[[domain]], bQuiet=bQuiet)
