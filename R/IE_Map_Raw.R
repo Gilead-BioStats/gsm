@@ -43,7 +43,7 @@ IE_Map_Raw <- function(
       dfSUBJ=clindata::rawplus_subj
     ),
     mapping = NULL,
-    bCheckInputs = FALSE,
+    bReturnChecks = FALSE,
     bQuiet = TRUE
 ){
 
@@ -53,7 +53,7 @@ IE_Map_Raw <- function(
   mapping$dfIE$vCategoryValues <- c("EXCL", "INCL")
   mapping$dfIE$vExpectedResultValues <- c(0, 1)
 
-  if(bCheckInputs){
+  if(bReturnChecks){
     if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn IE_Map_Raw}")
     checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, mapping = mapping, step = "mapping", yaml = "IE_Map_Raw.yaml")
     checks$status <- all(checks %>% map_lgl(~.x$status))
@@ -109,7 +109,7 @@ IE_Map_Raw <- function(
     dfInput <- NULL
   }
 
-  if(bCheckInputs){
+  if(bReturnChecks){
     return(list(dfInput=dfInput, lChecks=checks))
   }else{
     return(dfInput)

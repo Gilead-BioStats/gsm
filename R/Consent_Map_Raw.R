@@ -45,7 +45,7 @@ Consent_Map_Raw <- function(
     ),
     #mapping = clindata::rawplus_mapping, #TODO export rawplus_mapping in clindata
     mapping = NULL,
-    bCheckInputs = FALSE,
+    bReturnChecks = FALSE,
     bQuiet = TRUE
 ){
 
@@ -55,7 +55,7 @@ Consent_Map_Raw <- function(
   mapping$dfCONSENT$strConsentTypeValue <- "MAINCONSENT"
   mapping$dfCONSENT$strConsentStatusValue <- "Y"
 
-  if(bCheckInputs){
+  if(bReturnChecks){
     if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn Consent_Map_Raw}")
     checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, mapping = mapping, step = "mapping", yaml = "Consent_Map_Raw.yaml")
     checks$status <- all(checks %>% map_lgl(~.x$status))
@@ -105,7 +105,7 @@ Consent_Map_Raw <- function(
   }
 
 
-  if(bCheckInputs){
+  if(bReturnChecks){
     return(list(dfInput=dfInput, lChecks=checks))
   }else{
     return(dfInput)
