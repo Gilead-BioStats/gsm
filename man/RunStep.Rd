@@ -4,27 +4,20 @@
 \alias{RunStep}
 \title{Run a single step in an assessment}
 \usage{
-RunStep(step, mapping, lTags, bQuiet)
+RunStep(lStep, lMapping, lData, lTags, bQuiet)
 }
 \arguments{
-\item{step}{list of data}
+\item{lStep}{single workflow step (typically defined in \code{lAssessment$workflow}). Should include the name of the function to run (\code{lStep$name}), data inputs (\code{lStep$inputs}), name of output (\code{lStep$output}) and configurable parameters (\code{lStep$params}) (if any)}
 
-\item{mapping}{mapping}
+\item{lData}{a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
 \item{lTags}{tags}
 
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
-A list containing: dataChecks and results
+A list containing the results of the \code{lStep$name} function call should contain \code{.$checks} parameter with results from \code{is_mapping_vald} for each domain in \code{lStep$inputs}.
 }
 \description{
-Run a single step in an assessment
-}
-\details{
-Coming soon
-}
-\examples{
- NULL
-
+Calls a step in an assessment workflow. Currently supports \verb{*_Map_*``, }*_Assess`` and \verb{*_FilterDomain}
 }

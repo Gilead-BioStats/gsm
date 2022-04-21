@@ -1,27 +1,39 @@
 #' Run a single step in an assessment
 #'
-#' @details
+#' Calls a step in an assessment workflow. Currently supports `*_Map_*``, `*_Assess`` and `*_FilterDomain`
 #'
-#' Wrapper function to call a step in an assessment workflow. Currently support *_Map_*, *_Assess and *_FilterDomain
-#'
-#' @param step list of data
-#' @param mapping mapping
-#' @param lData
+#' @param lStep single workflow step (typically defined in `lAssessment$workflow`). Should include the name of the function to run (`lStep$name`), data inputs (`lStep$inputs`), name of output (`lStep$output`) and configurable parameters (`lStep$params`) (if any)
+#' @param lData a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lTags tags
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
-#' @examples
-#'  NULL
-#'
 #' @importFrom yaml read_yaml
+#' @importFrom stringr str_detect
 #'
-#' @return A list containing: dataChecks and results
+#' @return A list containing the results of the `lStep$name` function call should contain `.$checks` parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`. 
 #'
 #' @export
 
-RunStep <- function(step, mapping, lData, lTags, bQuiet){
-    dataParams <- step$inputs %>% map(~lData[[.x]]) %>% set_names(step$inputs)
-    params <- c(dataParams, step$paramslMapping=mapping, bQuiet=bQuiet, lTags=lTags, bCheckInputs=TRUE)
-    step$result <- do.call(step$name, params)
-    return(step)
+RunStep <- function(lStep, lMapping, lData, lTags, bQuiet){
+    # prepare parameter list inputs
+    cli::cli_text("Preparing parameters for  {.fn {lStep$name}} ...")
+    params <- c(lStep$params, list(bQuiet=bQuiet, bReturnChecks=TRUE))
+
+    # prepare data inputs by function type
+    if(str_detect(lStep$name, "_Map")){
+        params$lMapping <- lMapping
+        params$dfs <- lData[lStep$inputs]
+    }else if(str_detect(lStep$name, "_Assess")){
+        print(names(lData))
+        params$dfInput <- lData[[lStep$inputs]]
+        params$lTags <- lTags
+    }else if(lStep$name=="FilterDomain"){
+        params$lMapping <- lMapping
+        params$df<- lData[[lStep$inputs]]
+    }
+    print(names(params))
+
+    # Call the workflow function and return results
+    cli::cli_text("Calling {.fn {lStep$name}} ...")
+    return(do.call(lStep$name, params))
 }

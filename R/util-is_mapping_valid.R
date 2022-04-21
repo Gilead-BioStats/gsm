@@ -78,7 +78,7 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE){
 
     # has required parameters in `mapping`
     if (!all(spec$vRequired %in% names(mapping))) {
-        missing_params <- spec$vRequired[!(spec$vRequired %in% names(mapping))]
+        missing_params <- paste(spec$vRequired[!(spec$vRequired %in% names(mapping))],collapse=", ")
         tests_if$has_required_params$status <- FALSE
         tests_if$has_required_params$warning <- paste0('"mapping" does not contain required parameters: ',missing_params)
     } else {

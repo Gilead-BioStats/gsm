@@ -32,7 +32,7 @@
 #' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon".
 #' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="AE")`.
 #' @param bChart should visualization be created? TRUE (default) or FALSE.
-#' @param bCheckInputs Should Inputs be checked with `is_mapping_valid`? Default is FALSE.
+#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @examples
@@ -50,7 +50,7 @@ AE_Assess <- function(
     strMethod="poisson", 
     lTags=list(Assessment="AE"), 
     bChart=TRUE, 
-    bCheckInputs=FALSE, 
+    bReturnChecks=FALSE, 
     bQuiet=TRUE
 ){
     stopifnot(
@@ -75,30 +75,27 @@ AE_Assess <- function(
         dfInput = dfInput
     )
 
-    if(bCheckInputs){        
-        if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Assess}")
-        domains <- c("dfInput")
-        dfs <- list(dfInput = dfInput)
-        mapping <-  yaml::read_yaml(system.file('mappings','AE_Assess.yaml', package = 'gsm'))
-        spec <- yaml::read_yaml(system.file('specs','AE_Assess.yaml', package = 'gsm'))
-        lAssess$lChecks <- domains %>% map(function(domain){
-            check <- is_mapping_valid(df=dfs[[domain]], mapping=mapping[[domain]], spec=spec[[domain]], bQuiet=bQuiet)
-            if(check$status){
-                if(!bQuiet) cli::cli_alert_success("No issues found for {domain} domain")
-            } else {
-                if(!bQuiet) cli::cli_alert_warning("Issues found for {domain} domain")
-            }
 
-            return(check)
-        })
-        names(lAssess$lChecks) <- domains
-        lAssess$lChecks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
-        run_assessment <- lAssess$lChecks$status
-    }else{
-        run_assessment <- TRUE
-    }
+    if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Assess}")
+    domains <- c("dfInput")
+    dfs <- list(dfInput = dfInput)
+    mapping <-  yaml::read_yaml(system.file('mappings','AE_Assess.yaml', package = 'gsm'))
+    spec <- yaml::read_yaml(system.file('specs','AE_Assess.yaml', package = 'gsm'))
+    checks <- domains %>% map(function(domain){
+        check <- is_mapping_valid(df=dfs[[domain]], mapping=mapping[[domain]], spec=spec[[domain]], bQuiet=bQuiet)
+        if(check$status){
+            if(!bQuiet) cli::cli_alert_success("No issues found for {domain} domain")
+        } else {
+            if(!bQuiet) cli::cli_alert_warning("Issues found for {domain} domain")
+        }
 
-    if(run_assessment){
+        return(check)
+    }) %>% set_names(domains)
+
+    checks$status <- all(checks  %>% map_lgl(~.x$status))
+    
+    # Run assessment if checks passed
+    if(checks$status){
         if(!bQuiet) cli::cli_h2("Initializing {.fn AE_Assess}")
         if(!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
         lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
@@ -157,6 +154,7 @@ AE_Assess <- function(
     }else{
         if(!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} not run because of failed check.")
     }
-    
+
+    if(bReturnChecks) lAssess$lChecks <- checks    
     return(lAssess)
 }
