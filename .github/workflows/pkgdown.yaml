@@ -2,9 +2,6 @@ on:
   release:
     types: [published]
 
-  pull_request:
-    branches: dev
-
 name: pkgdown
 
 jobs:
