@@ -1,0 +1,11 @@
+dfIE:
+  vRequired:
+    - strIDCol
+    - strCategoryCol
+    - strValueCol
+dfSUBJ:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+  vUniqueCols:
+    - strIDCol

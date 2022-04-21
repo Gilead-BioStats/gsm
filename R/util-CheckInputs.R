@@ -40,5 +40,6 @@ CheckInputs <- function(dfs, bQuiet = TRUE, yaml, step, mapping) {
 
   }
 
+return(checks)
 
 }

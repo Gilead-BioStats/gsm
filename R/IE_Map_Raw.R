@@ -37,82 +37,82 @@
 #' @import dplyr
 #'
 #' @export
-IE_Map_Raw <- function( dfIE, dfSUBJ, mapping = NULL, vCategoryValues =  c("EXCL","INCL"), vExpectedResultValues = c(0,1), bQuiet = TRUE ) {
+IE_Map_Raw <- function(
+    dfs=list(
+      dfIE=clindata::rawplus_ie,
+      dfSUBJ=clindata::rawplus_subj
+    ),
+    mapping = NULL,
+    bCheckInputs = FALSE,
+    bQuiet = TRUE
+){
 
-  # Set defaults for mapping if none is provided
-  if(is.null(mapping)){
-    mapping <- list(
-      dfIE = list(strIDCol="SubjectID", strCategoryCol = "IE_CATEGORY", strValueCol = "IE_VALUE"),
-      dfSUBJ = list(strIDCol="SubjectID", strSiteCol="SiteID")
-    )
+  if(is.null(mapping)) mapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
+
+  # update in clindata
+  mapping$dfIE$vCategoryValues <- c("EXCL", "INCL")
+  mapping$dfIE$vExpectedResultValues <- c(0, 1)
+
+  if(bCheckInputs){
+    if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn IE_Map_Raw}")
+    checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, mapping = mapping, step = "mapping", yaml = "IE_Map_Raw.yaml")
+    checks$status <- all(checks %>% map_lgl(~.x$status))
+    run_mapping <- checks$status
+  } else {
+    run_mapping <- TRUE
   }
 
-  # Check input data vs. mapping.
-  is_ie_valid <- is_mapping_valid(
-      dfIE,
-      mapping$dfIE,
-      vRequiredParams = c("strIDCol", "strCategoryCol", "strValueCol"),
-      bQuiet = bQuiet
-    )
+  if(run_mapping){
+    if(!bQuiet) cli::cli_h2("Initializing {.fn IE_Map_Raw}")
 
-  is_subj_valid <- is_mapping_valid(
-      dfSUBJ,
-      mapping$dfSUBJ,
-      vRequiredParams = c("strIDCol", "strSiteCol"),
-      vUniqueCols = "strIDCol",
-      bQuiet = bQuiet,
-    )
+    # Standarize Column Names
+    dfSUBJ_mapped <- dfs$dfSUBJ %>%
+      select(
+        SubjectID = mapping[["dfSUBJ"]][["strIDCol"]],
+        SiteID = mapping[["dfSUBJ"]][["strSiteCol"]]
+      )
 
-  stopifnot(
-    "length of vExpectedResultValues is not equal to 2"= (length(vExpectedResultValues) == 2),
-    "length of vCategoryValues is not equal to 2"= (length(vCategoryValues) == 2),
-    "Errors found in dfIE." = is_ie_valid$status,
-    "Errors found in dfSUBJ." = is_subj_valid$status
-  )
+    dfIE_Subj <- dfs$dfIE %>%
+      select(
+        SubjectID = mapping[["dfIE"]][["strIDCol"]],
+        category = mapping[["dfIE"]][["strCategoryCol"]],
+        result = mapping[["dfIE"]][["strValueCol"]])
 
-  # Standarize Column Names
-  dfSUBJ_mapped <- dfSUBJ %>%
-    rename(
-      SubjectID = mapping[["dfSUBJ"]][["strIDCol"]],
-      SiteID = mapping[["dfSUBJ"]][["strSiteCol"]]
-    ) %>%
-    select(.data$SubjectID, .data$SiteID)
+    # Create Subject Level IE Counts and merge Subj
 
-  dfIE_Subj <- dfIE %>%
-    rename(
-      SubjectID = mapping[["dfIE"]][["strIDCol"]],
-      category = mapping[["dfIE"]][["strCategoryCol"]],
-        result = mapping[["dfIE"]][["strValueCol"]]) %>%
-    select(.data$SubjectID, .data$category, .data$result)
+    dfInput <- dfIE_Subj %>%
+      mutate(
+        expected = ifelse(
+          .data$category == mapping$dfIE$vCategoryValues[1],
+          mapping$dfIE$vExpectedResultValues[1],
+          mapping$dfIE$vExpectedResultValues[2]
+        ),
+        valid = .data$result == .data$expected,
+        invalid = .data$result != .data$expected,
+        missing = !(.data$result %in% mapping$dfIE$vExpectedResultValues)
+      ) %>%
+      group_by(.data$SubjectID) %>%
+      summarise(
+        Total = n(),
+        Valid = sum(.data$valid),
+        Invalid = sum(.data$invalid),
+        Missing = sum(.data$missing)
+      ) %>%
+      mutate(Count = .data$Invalid + .data$Missing) %>%
+      ungroup() %>%
+      select(.data$SubjectID, .data$Count) %>%
+      MergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
+      select(.data$SubjectID, .data$SiteID, .data$Count)
+    if(!bQuiet) cli::cli_alert_success("{.fn IE_Map_Raw} returned output with {nrow(dfInput)} rows.")
+  } else {
+    if(!bQuiet) cli::cli_alert_warning("{.fn IE_Map_Raw} not run because of failed check.")
+    dfInput <- NULL
+  }
 
-
-  # Create Subject Level IE Counts and merge Subj
-
-  dfInput <- dfIE_Subj %>%
-    mutate(
-      expected = ifelse(
-        .data$category == vCategoryValues[1],
-        vExpectedResultValues[1],
-        vExpectedResultValues[2]
-      ),
-      valid = .data$result == .data$expected,
-      invalid = .data$result != .data$expected,
-      missing = !(.data$result %in% vExpectedResultValues)
-    ) %>%
-    group_by(.data$SubjectID) %>%
-    summarise(
-      Total = n(),
-      Valid = sum(.data$valid),
-      Invalid = sum(.data$invalid),
-      Missing = sum(.data$missing)
-    ) %>%
-    mutate(Count = .data$Invalid + .data$Missing) %>%
-    ungroup() %>%
-    select(.data$SubjectID, .data$Count) %>%
-    MergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
-    select(.data$SubjectID, .data$SiteID, .data$Count)
-
-
-  return(dfInput)
+  if(bCheckInputs){
+    return(list(dfInput=dfInput, lChecks=checks))
+  }else{
+    return(dfInput)
+  }
 
 }
