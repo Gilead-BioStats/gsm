@@ -4,7 +4,7 @@
 #'
 #' Coming soon
 #'
-#' @param assessment assessments
+#' @param assessment assessment
 #' @param lData list of data
 #' @param lMapping mapping
 #' @param lTags tags
@@ -23,39 +23,48 @@ RunAssessment <- function(assessment, lData, lMapping, lTags=NULL, bQuiet=FALSE)
     if(!bQuiet) cli::cli_h1(paste0("Initializing `",assessment$name,"` assessment"))
     
     assessment$lData <- lData
-    assessment$lResults <- list()
+    assessment$checks <- list()
     assessment$lSteps <- list()
     assessment$bStatus <- TRUE
-
+    
     # Run through each step in assessment$workflow
     
     stepCount<-1
     for(step in assessment$workflow){
-        if(!bQuiet) cli::cli_h2(paste0("Workflow step ", stepCount, " of " ,length(assessment$workflow), ": `", step$name,"`"))
-        step$lData <- assessment$lData
-        step <- RunStep(step=step, mapping=lMapping, lTags=c(lTags, assessment$tags), bQuiet=bQuiet)
+        if(!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of " ,length(assessment$workflow), ": `", step$name,"`"))
+        if(bStatus){
+            cli::cli_text("Calling {.fn {step$name}} ...")
+            result <- RunStep(
+                step=step, 
+                mapping=lMapping, 
+                lData=lData, 
+                lTags=c(lTags, assessment$tags), 
+                bQuiet=bQuiet
+            )
 
-        #Update Assessment Data and results based on current step
-        for(domain in names(step$outData)){
-            assessment$lData[[domain]] <- step$outData[[domain]]
-        } 
+            assessment$checks[step$name]<- result$checks
+            assessment$bStatus <- results$checks$status
+            if(step$status){
+                cli::cli_alert_success("{.fn {step$name}} Successful")
+            } else{
+                cli::cli_alert_warning("{.fn {step$name}} Failed - Skipping remaining steps")
+            }
 
-        if(step$type=="assess"){
-            assessment$lResults <- step$lResults
+            if(str_detect(step$output,"^df")){
+                cli::cli_text("Saving {step$output} to `assessment$lData`")
+                assessment$lData[[output]]<-result$df
+            }else{
+                cli{"Saving {step$output} to `assessment`"}
+                assessment[[output]] <- result
+            }
+            
+        }else{
+            cli::cli_text("Skipping {.fn {step$name}} ...")
         }
-        
-        assessment$lSteps[[step$name]] <- step
+
         stepCount <- stepCount+1
     }
     
-    m <- paste0(assessment$name," assessment status is ", assessment$valid)
-
-    # if(assessment$valid) {
-    #     cli::cli_alert_success(m)
-    # } else {
-    #     cli::cli_alert_danger(m)
-    # }
-
     return(assessment)
 }
 

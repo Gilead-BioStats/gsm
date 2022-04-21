@@ -4,26 +4,19 @@ tags:
   Label: AEs
 workflow:
   - name: FilterDomain
-    type: filter
-    outputDomain: dfAE
-    spec:
-      dfAE:
-        requiredParams:
-          - strTreatmentEmergentCol
+    inputs: dfAE
+    output: dfAE
     params:
+      df: dfAE
       col: strTreatmentEmergentCol
-      val: TRUE
+      val: strTreatmentEmergentVal
   - name: AE_Map_Raw
-    type: mapping
-    outputDomain: dfInput
+    inputs: 
+      - dfAE
+      - dfSUBJ
+    output: dfInput
   - name: AE_Assess
-    type: assess
-    mapping:
-      dfInput:
-        strIDCol : "SubjectID"
-    spec:
-      dfInput:
-        requiredParams:
-          - strIDCol
+    input: dfInput
+    output: lResults
     params:
       strMethod: "poisson"
