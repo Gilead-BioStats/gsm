@@ -4,27 +4,10 @@ tags:
   Label: PD Serious
 workflow:
   - name: PD_Map_Raw
-    type: mapping
-    outputDomain: dfInput
-    spec:
-      dfPD:
-        requiredParams:
-          - strIDCol
-      dfSUBJ:
-        requiredParams:
-          - strIDCol
-          - strSiteCol
-          - strTimeOnStudyCol
-        uniqueParams:
-          - strIDCol
+    inputs:
+      - dfPD
+      - dfSUBJ
+    output: dfInput
   - name: PD_Assess
-    type: assess
-    mapping:
-      dfInput:
-        strIDCol : "SubjectID"
-    spec:
-      dfInput:
-        requiredParams:
-          - strIDCol
-        uniqueParams:
-          - strIDCol
+    inputs: dfInput
+    output: lResults

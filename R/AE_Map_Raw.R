@@ -51,7 +51,6 @@ AE_Map_Raw <- function(
     if(is.null(lMapping)) lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
 
     if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Map_Raw}")
-
     checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, mapping = lMapping, step = "mapping", yaml = "AE_Map_Raw.yaml")
     checks$status <- all(checks %>% map_lgl(~.x$status))
 

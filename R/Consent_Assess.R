@@ -85,16 +85,12 @@ Consent_Assess <- function(
     dfInput = dfInput
   )
 
-  if(bReturnChecks){
-    if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn Consent_Assess}")
-    lAssess$lChecks <- CheckInputs(dfs = dfInput, bQuiet = bQuiet, mapping = mapping, step = "assess", yaml = "Consent_Assess.yaml")
-    lAssess$lChecks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
-    run_assessment <- lAssess$lChecks$status
-  }else{
-    run_assessment <- TRUE
-  }
 
-  if(run_assessment){
+  if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn Consent_Assess}")
+  checks <- CheckInputs(dfs = dfInput, bQuiet = bQuiet, mapping = mapping, step = "assess", yaml = "Consent_Assess.yaml")
+  checks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
+
+  if(checks$status){
     if(!bQuiet) cli::cli_h2("Initializing {.fn Consent_Assess}")
     if(!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
     lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count'  )
@@ -116,6 +112,7 @@ Consent_Assess <- function(
       if(!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} not run because of failed check.")
   }
 
+  if(bReturnChecks) lAssess$lChecks <- checks
   return(lAssess)
 
 }

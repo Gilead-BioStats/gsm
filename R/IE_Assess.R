@@ -42,8 +42,14 @@
 #'
 #' @export
 
-IE_Assess <- function(dfInput, nThreshold=0.5, lTags=list(Assessment="IE"), bChart=TRUE){
-
+IE_Assess <- function(
+    dfInput,
+    nThreshold=0.5,
+    lTags=list(Assessment="IE"),
+    bChart=TRUE,
+    bReturnChecks=FALSE,
+    bQuiet=TRUE
+){
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count") %in% names(dfInput)),
@@ -66,16 +72,33 @@ IE_Assess <- function(dfInput, nThreshold=0.5, lTags=list(Assessment="IE"), bCha
     dfInput = dfInput
   )
 
-  lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = "Count")
+  if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn IE_Assess}")
+  checks <- CheckInputs(dfs = lAssess$dfInput, bQuiet = bQuiet, step = "assess", yaml = "IE_Assess.yaml")
+  checks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
+
+  if(checks$status){
+    if(!bQuiet) cli::cli_h2("Initializing {.fn IE_Assess}")
+    if(!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
+    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = "Count")
+    if(!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
+
   lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
+
   lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
+  if(!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
+
   lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", lTags)
+  if(!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
 
   if (bChart) {
     lAssess$chart <- Visualize_Count(lAssess$dfAnalyzed)
+    if(!bQuiet) cli::cli_alert_success("{.fn Visualize_Count} created a chart.")
   }
 
+  } else {
+    if(!bQuiet) cli::cli_alert_warning("{.fn IE_Assess} not run because of failed check.")
+  }
+
+  if(bReturnChecks) lAssess$lChecks <- checks
   return(lAssess)
-
 }
-
