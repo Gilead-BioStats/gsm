@@ -9,7 +9,9 @@ PD_Assess(
   vThreshold = NULL,
   strMethod = "poisson",
   lTags = list(Assessment = "PD"),
-  bChart = TRUE
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 )
 }
 \arguments{

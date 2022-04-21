@@ -4,16 +4,21 @@
 \alias{PD_Map_Raw}
 \title{Protocol Deviation Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-PD_Map_Raw(dfPD, dfSUBJ, mapping = NULL, bQuiet = TRUE)
+PD_Map_Raw(
+  dfs = list(dfPD = clindata::rawplus_pd, dfSUBJ = clindata::rawplus_subj),
+  lMapping = NULL,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+)
 }
 \arguments{
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+
 \item{dfPD}{PD dataset with required column SUBJID and rows for each Protocol Deviation.}
 
 \item{dfSUBJ}{Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.}
 
 \item{mapping}{List containing expected columns in each data set.}
-
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.

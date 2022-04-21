@@ -8,7 +8,9 @@ IE_Assess(
   dfInput,
   nThreshold = 0.5,
   lTags = list(Assessment = "IE"),
-  bChart = TRUE
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 )
 }
 \arguments{

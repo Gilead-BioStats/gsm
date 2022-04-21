@@ -5,15 +5,15 @@
 \title{Consent Assessment Mapping from Raw Data}
 \usage{
 Consent_Map_Raw(
-  dfCONSENT,
-  dfSUBJ,
-  mapping = NULL,
-  strConsentTypeValue = "MAINCONSENT",
-  strConsentStatusValue = "Y",
+  dfs = list(dfCONSENT = clindata::rawplus_consent, dfSUBJ = clindata::rawplus_subj),
+  lMapping = NULL,
+  bReturnChecks = FALSE,
   bQuiet = TRUE
 )
 }
 \arguments{
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+
 \item{dfCONSENT}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}
 
 \item{dfSUBJ}{Subject-level Raw Data required columns: SubjectID SiteID RandDate.}
@@ -23,8 +23,6 @@ Consent_Map_Raw(
 \item{strConsentTypeValue}{default = "mainconsent", filters on CONSCAT_STD of dfCONSENT, if NULL no filtering is done.}
 
 \item{strConsentStatusValue}{default = "Yes", expected Status value for valid consent.}
-
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
