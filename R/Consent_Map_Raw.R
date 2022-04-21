@@ -44,53 +44,49 @@ Consent_Map_Raw <- function(
       dfSUBJ=clindata::rawplus_subj
     ),
     #mapping = clindata::rawplus_mapping, #TODO export rawplus_mapping in clindata
-    mapping = NULL,
+    lMapping = NULL,
     bReturnChecks = FALSE,
     bQuiet = TRUE
 ){
 
-  if(is.null(mapping)) mapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
+  if(is.null(lMapping)) lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
 
   # update in clindata
-  mapping$dfCONSENT$strConsentTypeValue <- "MAINCONSENT"
-  mapping$dfCONSENT$strConsentStatusValue <- "Y"
+  lMapping$dfCONSENT$strConsentTypeValue <- "MAINCONSENT"
+  lMapping$dfCONSENT$strConsentStatusValue <- "Y"
 
-  if(bReturnChecks){
-    if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn Consent_Map_Raw}")
-    checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, mapping = mapping, step = "mapping", yaml = "Consent_Map_Raw.yaml")
-    checks$status <- all(checks %>% map_lgl(~.x$status))
-    run_mapping <- checks$status
-  } else {
-    run_mapping <- TRUE
-  }
+  if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn Consent_Map_Raw}")
 
-  if(run_mapping){
+  checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, mapping = lMapping, step = "mapping", yaml = "Consent_Map_Raw.yaml")
+  checks$status <- all(checks %>% map_lgl(~.x$status))
+
+  if(checks$status){
     if(!bQuiet) cli::cli_h2("Initializing {.fn Consent_Map_Raw}")
 
     # Standarize Column Names
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
-        SubjectID = mapping[["dfSUBJ"]][["strIDCol"]],
-        SiteID = mapping[["dfSUBJ"]][["strSiteCol"]],
-        RandDate = mapping[["dfSUBJ"]][["strRandDateCol"]]
+        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+        RandDate = lMapping[["dfSUBJ"]][["strRandDateCol"]]
       )
 
     dfCONSENT_mapped <- dfs$dfCONSENT %>%
       select(
-        SubjectID = mapping[["dfCONSENT"]][["strIDCol"]],
-        ConsentType = mapping[["dfCONSENT"]][["strTypeCol"]],
-        ConsentStatus = mapping[["dfCONSENT"]][["strValueCol"]],
-        ConsentDate = mapping[["dfCONSENT"]][["strDateCol"]]
+        SubjectID = lMapping[["dfCONSENT"]][["strIDCol"]],
+        ConsentType = lMapping[["dfCONSENT"]][["strTypeCol"]],
+        ConsentStatus = lMapping[["dfCONSENT"]][["strValueCol"]],
+        ConsentDate = lMapping[["dfCONSENT"]][["strDateCol"]]
       )
 
-    if(!is.null(mapping$dfCONSENT$strConsentTypeValue)){
+    if(!is.null(lMapping$dfCONSENT$strConsentTypeValue)){
       dfCONSENT_mapped <- dfCONSENT_mapped %>%
-        filter(.data$ConsentType == mapping$dfCONSENT$strConsentTypeValue)
+        filter(.data$ConsentType == lMapping$dfCONSENT$strConsentTypeValue)
       if(nrow(dfCONSENT_mapped)==0) stop("supplied strConsentTypeValue not found in data")
     }
 
     dfInput <- MergeSubjects(dfCONSENT_mapped, dfSUBJ_mapped, bQuiet=bQuiet)%>%
-      mutate(flag_noconsent = .data$ConsentStatus != mapping$dfCONSENT$strConsentStatusValue) %>%
+      mutate(flag_noconsent = .data$ConsentStatus != lMapping$dfCONSENT$strConsentStatusValue) %>%
       mutate(flag_missing_consent = is.na(.data$ConsentDate))%>%
       mutate(flag_missing_rand = is.na(.data$RandDate))%>%
       mutate(flag_date_compare = .data$ConsentDate >= .data$RandDate ) %>%

@@ -4,34 +4,11 @@ tags:
   Label: Consent
 workflow:
   - name: Consent_Map_Raw
-    type: mapping
-    outputDomain: dfInput
-    spec:
-      dfCONSENT:
-        requiredParams:
-          - strIDCol
-          - strTypeCol
-          - strValueCol
-          - strDateCol
-        uniqueParams:
-          - strIDCol
-      dfSUBJ:
-        requiredParams:
-          - strIDCol
-          - strSiteCol
-          - strRandDateCol
-        uniqueParams: 
-          - strIDCol
+    inputs:
+      - dfCONSENT
+      - dfSUBJ
+    output: dfInput
   - name: Consent_Assess
-    type: assess
-    mapping:
-      dfInput:
-        strIDCol : "SubjectID"
-    spec:
-      dfInput:
-        requiredParams:
-          - strIDCol
-        uniqueParams: 
-          - strIDCol
-        
+    inputs: dfInput
+    output: lResults
 
