@@ -29,10 +29,8 @@
 #'
 #' @examples
 #'
-#' dfInput <- IE_Map_Raw(
-#'    clindata::rawplus_ie,
-#'    clindata::rawplus_subj
-#')
+#' dfInput <- IE_Map_Raw() # Run with defaults
+#' dfInput <- IE_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
 #'
 #' @import dplyr
 #'

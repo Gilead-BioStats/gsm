@@ -58,24 +58,7 @@ With N greater than user specified \code{nThreshold} will be flagged.
 }
 
 \examples{
-
-library(dplyr)
-raw_consent <- clindata::raw_ic_elig \%>\%
-select(SUBJID, CONSDAT = DSSTDAT_RAW) \%>\%
- mutate(
-     CONSCAT_STD = "MAINCONSENT",
-     CONSYN = "Y",
-     CONSDAT = as.Date(CONSDAT, format = "\%d \%B \%Y")
-   ) \%>\%
-   filter(SUBJID != "")
-
-dfInput <- Consent_Map_Raw(
-   dfCONSENT = clindata::rawplus_consent,
-   dfSUBJ = clindata::rawplus_subj,
-   strConsentTypeValue = "MAINCONSENT",
-   strConsentStatusValue="Y"
-)
-
-Consent_Summary <- Consent_Assess(dfInput)$dfSummary
+dfInput <- Consent_Map_Raw()
+consent <- Consent_Assess(dfInput)
 
 }

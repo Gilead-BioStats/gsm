@@ -29,13 +29,8 @@
 #' @param bChart should visualization be created? TRUE (default) or FALSE.
 #'
 #' @examples
-#'
-#' dfInput <- IE_Map_Raw(
-#'    clindata::rawplus_ie,
-#'    clindata::rawplus_subj
-#')
-#'
-#' IE_Summary <- IE_Assess(dfInput)$dfSummary
+#' dfInput <- IE_Map_Raw()
+#' ie <- IE_Assess(dfInput)
 #'
 #'
 #' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, `lParams` and `lTags`) is returned.

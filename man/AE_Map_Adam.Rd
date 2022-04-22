@@ -53,6 +53,7 @@ Note that the function can generate data summaries for specific types of AEs by 
 }
 
 \examples{
-dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+dfInput <- AE_Map_Adam() # Run with defaults
+dfInput <- AE_Map_Adam(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
 
 }

@@ -9,24 +9,11 @@
 #'
 #' @examples
 #'
-#' IE_Input <- IE_Map_Raw(
-#'    clindata::rawplus_ie,
-#'    clindata::rawplus_subj,
-#'    vCategoryValues= c("EXCL","INCL"),
-#'    vExpectedResultValues=c(0,1)
-#')
-#'
+#' IE_Input <- IE_Map_Raw()
 #' IE_Assess <- IE_Assess(IE_Input)
-#'
 #' Visualize_Count(IE_Assess$dfAnalyzed)
 #'
-#' Consent_Input <- Consent_Map_Raw(
-#'    dfCONSENT = clindata::rawplus_consent,
-#'    dfSUBJ = clindata::rawplus_subj,
-#'    strConsentTypeValue = "MAINCONSENT",
-#'    strConsentStatusValue="Y"
-#')
-#'
+#' Consent_Input <- Consent_Map_Raw()
 #' Consent_Assess <- Consent_Assess(Consent_Input)
 #' Visualize_Count(Consent_Assess$dfAnalyzed)
 #'

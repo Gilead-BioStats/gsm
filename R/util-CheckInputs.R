@@ -4,6 +4,8 @@
 #' @param dfs
 #' @param yaml
 #'
+#' @importFrom yaml yaml
+#'
 #' @return list
 CheckInputs <- function(context, dfs, mapping=NULL, bQuiet = TRUE) {
 

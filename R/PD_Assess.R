@@ -32,12 +32,9 @@
 #' @param bChart should visualization be created? TRUE (default) or FALSE.
 #'
 #' @examples
-#' dfInput <- PD_Map_Raw(clindata::rawplus_pd,
-#'                        clindata::rawplus_subj)
-#'
-#' SafetyPD <- PD_Assess( dfInput )
-#'
-#' SafetyPD_Wilk <- PD_Assess( dfInput, strMethod="wilcoxon")$dfSummary
+#' dfInput <- PD_Map_Raw()
+#' SafetyPD <- PD_Assess(dfInput)
+#' SafetyPDWilcoxon <- PD_Assess(dfInput, strMethod="wilcoxon")
 #'
 #' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`,  `lParams` and `lTags`) is returned.
 #'

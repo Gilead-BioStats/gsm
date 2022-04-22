@@ -37,8 +37,8 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
-#' SafetyAE <- AE_Assess( dfInput )
-#' SafetyAE_Wilk <- AE_Assess( dfInput, strMethod="wilcoxon")$dfSummary
+#' ae <- AE_Assess(dfInput)
+#' aeWilcoxon <- AE_Assess(dfInput, strMethod="wilcoxon")$dfSummary
 #'
 #' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, `lParams` and `lTags`) is returned.
 #'

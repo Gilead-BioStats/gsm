@@ -31,10 +31,14 @@ FilterDomain(
 Utility function for basic filtering
 }
 \examples{
-te_ae <- FilterDomain(df = dfAE,
+lMapping <- list(dfAE = list(strIDCol = "SubjectID", strTreatmentEmergentCol = "AE_TE_FLAG",
+                             strTreatmentEmergentVal = TRUE, strGradeCol = "AE_GRADE",
+                             strSeriousCol = "AE_SERIOUS", strSeriousVal = "Yes"))
+
+te_ae <- FilterDomain(df = clindata::rawplus_ae,
                       lMapping = lMapping,
                       strDomain = "dfAE",
-                      strColParam = "strTreatmentEmergentCol",
-                      strValParam = "strTreatmentEmergentVal")
+                      strColParam = "strSeriousCol",
+                      strValParam = "strSeriousVal")
 
 }

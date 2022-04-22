@@ -32,7 +32,7 @@
 #' @return data.frame with one row per site, columns: SiteID, N, TotalCount, TotalExposure, Rate, Estimate, PValue
 #'
 #' @examples
-#' dfInput <- AE_Map_Raw(clindata::rawplus_ae, clindata::rawplus_subj)
+#' dfInput <- AE_Map_Raw()
 #' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 #' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed , strOutcome ="Rate")
 #'

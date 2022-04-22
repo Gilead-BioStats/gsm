@@ -31,7 +31,7 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw() # Run with defaults
-#' dfInput <- AE_Map_Raw(bCheckMapping=TRUE, bQuiet=FALSE) # Run with error checking and message log
+#' dfInput <- AE_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
 #'
 #' @import dplyr
 #'

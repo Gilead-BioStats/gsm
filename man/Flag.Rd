@@ -43,7 +43,7 @@ In short, the following columns are considered:
 }
 
 \examples{
-dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+dfInput <- AE_Map_Adam()
 dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 dfAnalyzed <- Analyze_Wilcoxon( dfTransformed)
 dfFlagged <- Flag( dfAnalyzed ) #PValue < 0.05 flagged

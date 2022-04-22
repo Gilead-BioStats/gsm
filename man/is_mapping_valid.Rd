@@ -36,7 +36,7 @@ is_mapping_valid(
     spec = list(
         vRequired= c("strIDCol", "strSiteCol", "strExposureCol"),
         vUniqueCols = "SUBJID"
-    )
+  )
 )
 
 is_mapping_valid(
@@ -45,6 +45,7 @@ is_mapping_valid(
     spec=list(
         vUniqueCols = "SUBJID",
         vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol", "strOtherCol")
-     )
+  )
+)
 
 }

@@ -23,7 +23,7 @@
 #' @return input data frame with the columns added for "ThresholdLow","ThresholdHigh","ThresholdCol" and "Flag"
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+#' dfInput <- AE_Map_Adam()
 #' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 #' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed)
 #' dfFlagged <- Flag( dfAnalyzed ) #PValue < 0.05 flagged

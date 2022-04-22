@@ -58,13 +58,8 @@ With N greater than user specified \code{nThreshold} will be flagged.
 }
 
 \examples{
-
-dfInput <- IE_Map_Raw(
-   clindata::rawplus_ie,
-   clindata::rawplus_subj
-)
-
-IE_Summary <- IE_Assess(dfInput)$dfSummary
+dfInput <- IE_Map_Raw()
+ie <- IE_Assess(dfInput)
 
 
 }

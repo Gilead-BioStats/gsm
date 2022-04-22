@@ -31,10 +31,10 @@
 #'
 #' @examples
 #'
-#' input <- Consent_Map_Raw(
-#'    dfCONSENT = clindata::rawplus_consent,
-#'    dfSUBJ = clindata::rawplus_subj
-#')
+#' dfInput <- Consent_Map_Raw() # Run with defaults
+#'
+#' # Run with error checking and message log
+#' dfInput <- Consent_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE)
 #'
 #' @export
 

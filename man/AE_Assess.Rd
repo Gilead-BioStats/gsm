@@ -69,7 +69,7 @@ See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additio
 
 \examples{
 dfInput <- AE_Map_Raw()
-SafetyAE <- AE_Assess( dfInput )
-SafetyAE_Wilk <- AE_Assess( dfInput, strMethod="wilcoxon")$dfSummary
+ae <- AE_Assess(dfInput)
+aeWilcoxon <- AE_Assess(dfInput, strMethod="wilcoxon")$dfSummary
 
 }

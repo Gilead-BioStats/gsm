@@ -57,6 +57,6 @@ Note that the function can generate data summaries for specific types of AEs, bu
 
 \examples{
 dfInput <- AE_Map_Raw() # Run with defaults
-dfInput <- AE_Map_Raw(bCheckMapping=TRUE, bQuiet=FALSE) # Run with error checking and message log
+dfInput <- AE_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
 
 }

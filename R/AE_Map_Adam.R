@@ -29,7 +29,8 @@
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (Number of Adverse Events), Exposure (Time on Treatment in Days), Rate (AEs/Day)
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+#' dfInput <- AE_Map_Adam() # Run with defaults
+#' dfInput <- AE_Map_Adam(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
 #'
 #' @import dplyr
 #'
