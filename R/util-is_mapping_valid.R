@@ -2,7 +2,7 @@
 #'
 #' @param df data.frame to compare to mapping object.
 #' @param mapping named list specifying expected columns and values in df. Parameters ending in `col` are assummed to be column names in `df`, while paramters ending in `val` are values expected in for a corresponding column. For example, `mapping=list(strSiteCol="SiteID", strSiteVal=c("001","002"))` would indicate that `df` has a `df$SiteID` includes values `"001"` and `"002"`.
-#' @param spec named list specifying parameters that should be defined in `mapping`, and describes how the values specified by those parameters should be used in `df`. Should have the following properties: 
+#' @param spec named list specifying parameters that should be defined in `mapping`, and describes how the values specified by those parameters should be used in `df`. Should have the following properties:
 #' - `spec$vRequired` - list of parameters that should be defined in `mapping`.
 #' - `spec$vUniqueCols` - list of column parameters that should not contain duplicate values
 #' - `spec$vNACols` - list of column parameters where NA and empty string values are acceptable.
@@ -84,14 +84,14 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE){
     } else {
         tests_if$has_required_params$status <- TRUE
     }
-    
+
     # mapping contains character values for column names
     colParams <- spec$vRequired %>% str_subset('[c|C]ol$')
-    colNames <- unlist(unname(mapping[colParams])) 
+    colNames <- unlist(unname(mapping[colParams]))
     if(!all(is.character(colNames))){
         tests_if$mappings_are_character$status <- FALSE
         warning <- "Non-character column names found in mapping"
-        warning_cols <- colNames[!is.character(colNames)] 
+        warning_cols <- colNames[!is.character(colNames)]
         tests_if$mappings_are_character$warning <- paste0(warning, ": ", paste(warning_cols, collapse=", "))
     } else {
         tests_if$mappings_are_character$status <- TRUE

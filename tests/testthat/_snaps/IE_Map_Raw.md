@@ -18,6 +18,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfSUBJ domain
+      ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -42,6 +43,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfSUBJ domain
+      ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -61,6 +63,7 @@
       x Unique Column Check not run
       ! Issues found for dfIE domain
       v No issues found for dfSUBJ domain
+      ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -80,6 +83,7 @@
       x Unique Column Check not run
       ! Issues found for dfIE domain
       v No issues found for dfSUBJ domain
+      ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -99,6 +103,7 @@
       x Unique Column Check not run
       ! Issues found for dfIE domain
       v No issues found for dfSUBJ domain
+      ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -115,6 +120,7 @@
       v No issues found for dfIE domain
       x Unexpected duplicates found in column: SubjectID
       ! Issues found for dfSUBJ domain
+      ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -135,6 +141,7 @@
       x Unique Column Check not run
       ! Issues found for dfIE domain
       v No issues found for dfSUBJ domain
+      ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -155,6 +162,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfSUBJ domain
+      ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
       NULL

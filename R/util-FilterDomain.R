@@ -8,15 +8,17 @@
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @examples
-#' te_ae<-FilterDomain(clindata::rawplus_ae, "AE_TE_FLAG", TRUE)
-#' grade34_ae<-FilterDomain(clindata::rawplus_ae, "AE_GRADE", c(3,4))
+#' te_ae <- FilterDomain(df = dfAE,
+#'                       lMapping = lMapping,
+#'                       strDomain = "dfAE",
+#'                       strColParam = "strTreatmentEmergentCol",
+#'                       strValParam = "strTreatmentEmergentVal")
 #'
 #' @export
 
 FilterDomain<- function(df, strDomain, lMapping, strColParam, strValParam, bReturnChecks=FALSE, bQuiet=TRUE){
 
     if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn FilterDomain}")
-
     lSpec <- list(vRequired=c(strColParam, strValParam))
     check <- is_mapping_valid(df=df, mapping=lMapping[[strDomain]], spec=lSpec, bQuiet=bQuiet)
     checks <-list()

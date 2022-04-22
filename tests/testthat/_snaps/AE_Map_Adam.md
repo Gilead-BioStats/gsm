@@ -18,6 +18,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfADAE domain
+      ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
       NULL
@@ -37,6 +38,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfADAE domain
+      ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
       NULL
@@ -56,6 +58,7 @@
       x Unique Column Check not run
       ! Issues found for dfADSL domain
       v No issues found for dfADAE domain
+      ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
       NULL
@@ -80,6 +83,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfADAE domain
+      ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
       NULL
@@ -103,6 +107,7 @@
       x mapping is not a list()
       x Non-character column names found in mapping: 
       ! Issues found for mapping domain
+      ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
       NULL
@@ -122,6 +127,7 @@
       x Unique Column Check not run
       ! Issues found for dfADSL domain
       v No issues found for dfADAE domain
+      ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
       NULL
@@ -141,6 +147,7 @@
       x Unique Column Check not run
       ! Issues found for dfADSL domain
       v No issues found for dfADAE domain
+      ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
       NULL
@@ -160,6 +167,7 @@
       x Unique Column Check not run
       ! Issues found for dfADSL domain
       v No issues found for dfADAE domain
+      ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
       NULL
@@ -179,6 +187,7 @@
       x Unique Column Check not run
       ! Issues found for dfADSL domain
       v No issues found for dfADAE domain
+      ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
       NULL
@@ -198,6 +207,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfADAE domain
+      ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
       NULL

@@ -31,7 +31,10 @@ FilterDomain(
 Utility function for basic filtering
 }
 \examples{
-te_ae<-FilterDomain(clindata::rawplus_ae, "AE_TE_FLAG", TRUE)
-grade34_ae<-FilterDomain(clindata::rawplus_ae, "AE_GRADE", c(3,4))
+te_ae <- FilterDomain(df = dfAE,
+                      lMapping = lMapping,
+                      strDomain = "dfAE",
+                      strColParam = "strTreatmentEmergentCol",
+                      strValParam = "strTreatmentEmergentVal")
 
 }

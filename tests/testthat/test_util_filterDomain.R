@@ -1,30 +1,47 @@
 source(testthat::test_path("testdata/data.R"))
 
+lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata'))
+
 test_that("basic filter works", {
-  lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
-  ae_test <- FilterDomain(dfAE, lMapping = lMapping, strDomain = "dfAE", strColParam = "AE_TE_FLAG", strValParam = TRUE)
+
+  ae_test <- FilterDomain(dfAE,
+                          lMapping = lMapping,
+                          strDomain = "dfAE",
+                          strColParam = "strTreatmentEmergentCol",
+                          strValParam = "strTreatmentEmergentVal")
     expect_equal(
         ae_test,
-        dfAE%>%filter(AE_TE_FLAG==TRUE)
-    )
+        dfAE%>%filter(AE_TE_FLAG==TRUE))
 })
 
-test_that("can filter on multiple values", {
-    ae_test2<-FilterDomain(dfAE, "AE_GRADE", c(1,3))
-    expect_equal(
-        ae_test2,
-        dfAE%>%filter(AE_GRADE %in% c(1,3))
-    )
-})
 
 test_that("invalid column throws an error", {
-    expect_error(FilterDomain(dfAE, "AE_NotACol", c(1,3)))
+
+    expect_snapshot(ae_test <- FilterDomain(dfAE,
+                                           lMapping = lMapping,
+                                           strDomain = "dfAE",
+                                           strColParam = "strWhateverEmergentCol",
+                                           strValParam = "strWhateverEmergentVal",
+                                           bQuiet = F))
 })
 
 test_that("filter to 0 rows throws a warning", {
-    expect_equal(
-        nrow(FilterDomain(dfAE, "AE_GRADE", c(6,7))),
+
+  dfAE <- dfAE %>%
+    filter(AE_TE_FLAG == FALSE)
+
+    expect_equal(FilterDomain(dfAE,
+                                         lMapping = lMapping,
+                                         strDomain = "dfAE",
+                                         strColParam = "strTreatmentEmergentCol",
+                                         strValParam = "strTreatmentEmergentVal") %>%
+                   nrow(),
         0
     )
-    expect_message(FilterDomain(dfAE, "AE_GRADE", c(6,7),bQuiet=FALSE))
+    expect_snapshot(FilterDomain(dfAE,
+                                lMapping = lMapping,
+                                strDomain = "dfAE",
+                                strColParam = "strTreatmentEmergentCol",
+                                strValParam = "strTreatmentEmergentVal",
+                                bQuiet = F))
 })

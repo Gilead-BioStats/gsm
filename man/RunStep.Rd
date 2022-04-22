@@ -19,5 +19,5 @@ RunStep(lStep, lMapping, lData, lTags, bQuiet)
 A list containing the results of the \code{lStep$name} function call should contain \code{.$checks} parameter with results from \code{is_mapping_vald} for each domain in \code{lStep$inputs}.
 }
 \description{
-Calls a step in an assessment workflow. Currently supports \verb{*_Map_*``, }*_Assess`` and \verb{*_FilterDomain}
+Calls a step in an assessment workflow. Currently supports \verb{*_Map_*}, \verb{*_Assess} and \verb{*_FilterDomain}
 }

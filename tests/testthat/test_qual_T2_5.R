@@ -1,9 +1,9 @@
 test_that("PD assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable when given subset input data from clindata and the results should be flagged correctly", {
   # gsm analysis
-  dfInput <- gsm::PD_Map_Raw(
+  dfInput <- gsm::PD_Map_Raw(dfs = list(
     dfPD = clindata::rawplus_pd %>% filter(PD_IMPORTANT_FLAG == "Y"),
     dfSUBJ = clindata::rawplus_subj
-  )
+  ))
 
   test2_5 <- PD_Assess(
     dfInput = dfInput,

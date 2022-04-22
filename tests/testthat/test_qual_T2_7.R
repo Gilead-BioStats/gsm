@@ -1,8 +1,5 @@
 test_that("Test that (NA, NaN) in input exposure data throws a warning and drops the participant(s) from the analysis.", {
-  dfInput <- gsm::PD_Map_Raw(
-    dfPD = clindata::rawplus_pd,
-    dfSUBJ = clindata::rawplus_subj
-  )
+  dfInput <- gsm::PD_Map_Raw()
 
   # data
   # several NA values

@@ -63,7 +63,7 @@ test_that("strMethod = 'wilcoxon' does not throw error",{
 test_that("NA in dfInput$Count results in Error for PD_Assess",{
   pdInputNA <- pdInput
   pdInputNA[1,"Count"] <- NA
-  expect_snapshot_error(PD_Assess(pdInputNA))
+  expect_snapshot(PD_Assess(pdInputNA))
 })
 
 

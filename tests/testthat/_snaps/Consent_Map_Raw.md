@@ -18,6 +18,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfSUBJ domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -37,6 +38,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfSUBJ domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -56,6 +58,7 @@
       x Unique Column Check not run
       ! Issues found for dfCONSENT domain
       v No issues found for dfSUBJ domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -80,6 +83,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfSUBJ domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -100,6 +104,7 @@
       x mapping is not a list()
       x Non-character column names found in mapping: 
       ! Issues found for mapping domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -119,6 +124,7 @@
       x Unique Column Check not run
       ! Issues found for dfCONSENT domain
       v No issues found for dfSUBJ domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -138,6 +144,7 @@
       x Unique Column Check not run
       ! Issues found for dfCONSENT domain
       v No issues found for dfSUBJ domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -157,6 +164,7 @@
       x Unique Column Check not run
       ! Issues found for dfCONSENT domain
       v No issues found for dfSUBJ domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -176,6 +184,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfSUBJ domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -195,6 +204,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfSUBJ domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -214,6 +224,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfSUBJ domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -230,6 +241,7 @@
       v No issues found for dfCONSENT domain
       x Unexpected duplicates found in column: SubjectID
       ! Issues found for dfSUBJ domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -252,6 +264,7 @@
       x Unique Column Check not run
       ! Issues found for dfCONSENT domain
       v No issues found for dfSUBJ domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
@@ -274,6 +287,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for dfSUBJ domain
+      ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output
       NULL
