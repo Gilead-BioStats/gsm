@@ -25,7 +25,7 @@ AE_Map_Raw(
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
-When bCheckInputs is FALSE (the default), a Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day) is returned. When bCheckInputs is TRUE, the data.frame is returned as part of a list under \code{dfInput} along with  the check results under \code{checks}.
+When bReturnChecks is FALSE (the default), a Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day) is returned. When bReturnChecks is TRUE, the data.frame is returned as part of a list under \code{dfInput} along with  the check results under \code{checks}.
 }
 \description{
 Convert Raw data, typically processed case report form data - to input format for Safety Assessment.

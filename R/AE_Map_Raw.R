@@ -27,7 +27,7 @@
 #' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
-#' @return When bCheckInputs is FALSE (the default), a Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day) is returned. When bCheckInputs is TRUE, the data.frame is returned as part of a list under `dfInput` along with  the check results under `checks`.
+#' @return When bReturnChecks is FALSE (the default), a Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day) is returned. When bReturnChecks is TRUE, the data.frame is returned as part of a list under `dfInput` along with  the check results under `checks`.
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw() # Run with defaults
@@ -37,32 +37,25 @@
 #'
 #' @export
 
-AE_Map_Raw <- function( 
+AE_Map_Raw <- function(
     dfs=list(
-        dfAE=clindata::rawplus_ae, 
+        dfAE=clindata::rawplus_ae,
         dfSUBJ=clindata::rawplus_subj
-    ), 
+    ),
     #mapping = clindata::rawplus_mapping, #TODO export rawplus_mapping in clindata
     lMapping = NULL,
     bReturnChecks = FALSE,
-    bQuiet = TRUE 
+    bQuiet = TRUE
 ){
 
     if(is.null(lMapping)) lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
 
-    if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Map_Raw}")
-    domains <- names(dfs)
-    spec <- yaml::read_yaml(system.file('specs','AE_Map_Raw.yaml', package = 'gsm'))
-    checks <- domains %>% map(function(domain){
-        check <- is_mapping_valid(df=dfs[[domain]], mapping=lMapping[[domain]], spec=spec[[domain]], bQuiet=bQuiet)
-        if(check$status){
-            if(!bQuiet) cli::cli_alert_success("No issues found for {domain} domain")
-        } else {
-            if(!bQuiet) cli::cli_alert_warning("Issues found for {domain} domain")
-        }
-        return(check)
-    })  %>% set_names(nm = names(dfs))     
-    checks$status <- all(checks %>% map_lgl(~.x$status))
+    checks <- CheckInputs(
+      context = "AE_Map_Raw",
+      dfs = dfs,
+      bQuiet = bQuiet,
+      mapping = lMapping
+    )
 
     #Run mapping if checks passed
     if(checks$status){
@@ -77,7 +70,7 @@ AE_Map_Raw <- function(
                 SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
                 SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
                 Exposure = lMapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
-            ) 
+            )
 
         # Create Subject Level AE Counts and merge dfSUBJ
         dfInput <- dfAE_mapped %>%
@@ -87,16 +80,16 @@ AE_Map_Raw <- function(
             MergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
             mutate(Rate = .data$Count/.data$Exposure) %>%
             select(.data$SubjectID,.data$SiteID, .data$Count, .data$Exposure, .data$Rate)
-        
-        if(!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
-    }else{
-        if(!bQuiet) cli::cli_alert_warning("{.fn AE_Map_Raw} not run because of failed check.")
-        dfInput <- NULL
+
+    if(!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
+      } else {
+    if(!bQuiet) cli::cli_alert_warning("{.fn AE_Map_Raw} not run because of failed check.")
+      dfInput <- NULL
     }
 
     if(bReturnChecks){
         return(list(df=dfInput, lChecks=checks))
-    }else{ 
+    }else{
         return(dfInput)
     }
 }

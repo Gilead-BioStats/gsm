@@ -8,7 +8,9 @@ Consent_Assess(
   dfInput,
   nThreshold = 0.5,
   lTags = list(Assessment = "Consent"),
-  bChart = TRUE
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 )
 }
 \arguments{

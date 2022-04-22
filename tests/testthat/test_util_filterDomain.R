@@ -1,7 +1,8 @@
 source(testthat::test_path("testdata/data.R"))
 
 test_that("basic filter works", {
-    ae_test<-FilterDomain(dfAE, "AE_TE_FLAG", TRUE)
+  lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
+  ae_test <- FilterDomain(dfAE, lMapping = lMapping, strDomain = "dfAE", strColParam = "AE_TE_FLAG", strValParam = TRUE)
     expect_equal(
         ae_test,
         dfAE%>%filter(AE_TE_FLAG==TRUE)

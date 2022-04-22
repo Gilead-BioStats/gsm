@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 
-ae_input <- AE_Map_Adam(dfADSL, dfADAE)
+ae_input <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
 
 dfTransformed <- Transform_EventCount( ae_input, strCountCol = 'Count', strExposureCol = "Exposure" )
 dfAnalyzed <- gsm::Analyze_Poisson( dfTransformed)

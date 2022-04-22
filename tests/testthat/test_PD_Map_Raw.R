@@ -2,39 +2,41 @@ source(testthat::test_path("testdata/data.R"))
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-  data <- PD_Map_Raw(dfPD, dfSUBJ)
+  data <- PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ))
   expect_true(is.data.frame(data))
   expect_equal(names(data), c("SubjectID","SiteID","Exposure","Count","Rate"))
 })
 
 # incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors", {
-  expect_snapshot_error(PD_Map_Raw(list(), list()))
-  expect_snapshot_error(PD_Map_Raw(dfPD, list()))
-  expect_snapshot_error(PD_Map_Raw(list(), dfSUBJ))
-  expect_snapshot_error(PD_Map_Raw("Hi","Mom"))
-  expect_snapshot_error(PD_Map_Raw(dfPD, dfSUBJ, mapping = list()))
-  expect_snapshot_error(PD_Map_Raw(dfPD %>% select(-SubjectID), dfSUBJ))
-  expect_snapshot_error(PD_Map_Raw(dfPD, dfSUBJ %>% select(-SubjectID)))
-  expect_snapshot_error(PD_Map_Raw(dfPD, dfSUBJ %>% select(-SiteID)))
-  expect_snapshot_error(PD_Map_Raw(dfPD, dfSUBJ %>% select(-TimeOnStudy)))
-  expect_snapshot_error(PD_Map_Raw(dfPD, bind_rows(dfSUBJ, head(dfSUBJ, 1))))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = list(), dfSUBJ = list()), bQuiet = F))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = list()), bQuiet = F))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = list(), dfSUBJ = dfSUBJ), bQuiet = F))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = "Hi",dfSUBJ = "Mom"), bQuiet = F))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ, mapping = list()), bQuiet = F))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD %>% select(-SubjectID), dfSUBJ = dfSUBJ), bQuiet = F))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-SubjectID)), bQuiet = F))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-SiteID)), bQuiet = F))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-TimeOnStudy)), bQuiet = F))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = bind_rows(dfSUBJ, head(dfSUBJ, 1))), bQuiet = F))
 })
 
 # incorrect mappings throw errors -----------------------------------------
 test_that("incorrect mappings throw errors",{
 
-  expect_snapshot_error(PD_Map_Raw(dfPD, dfSUBJ, mapping = list(
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ),
+                             lMapping = list(
     dfPD = list(strIDCol="not an id"),
     dfSUBJ = list(strIDCol="SubjectID",
                   strSiteCol="SiteID",
-                  strTimeOnStudyCol = "TimeOnStudy"))))
+                  strTimeOnStudyCol = "TimeOnStudy")), bQuiet = F))
 
-  expect_snapshot_error(PD_Map_Raw(dfPD, dfSUBJ, mapping = list(
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ),
+                             lMapping = list(
     dfPD = list(strIDCol="SubjectID"),
     dfSUBJ = list(strIDCol="not an id",
                   strSiteCol="SiteID",
-                  strTimeOnStudyCol = "TimeOnStudy"))))
+                  strTimeOnStudyCol = "TimeOnStudy")), bQuiet = F))
 
 })
 
@@ -76,8 +78,8 @@ test_that("NA values are caught",{
     4,   2, 2, 50, .04
   )
 
-  expect_snapshot_error(PD_Map_Raw(dfPD = dfPD, dfSUBJ = dfTos))
-  expect_snapshot_error(PD_Map_Raw(dfPD = dfPD2, dfSUBJ = dfTos2))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfTos), bQuiet = F))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD2, dfSUBJ = dfTos2), bQuiet = F))
 })
 
 test_that("duplicate SubjectID values are caught in RDSL", {
@@ -90,24 +92,10 @@ test_that("duplicate SubjectID values are caught in RDSL", {
     1,   1, 30
   )
 
-  expect_snapshot_error(PD_Map_Raw(dfPD, dfSUBJ))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ), bQuiet = F))
 })
 
-test_that("custom mapping creates expected output", {
 
-  custom_mapping <- list(
-    dfPD = list(strIDCol="eye_dee"),
-    dfSUBJ = list(strIDCol="custom_id", strSiteCol="custom_site_id", strTimeOnStudyCol = "TimeOnStudy")
-  )
-
-  custom_pd <- dfPD %>%
-    rename(eye_dee = SubjectID)
-
-  custom_rdsl <- dfSUBJ %>%
-    rename(custom_id = SubjectID, custom_site_id = SiteID)
-
-  expect_true(is.data.frame(PD_Map_Raw(custom_pd, custom_rdsl,mapping = custom_mapping)))
-})
 
 
 
