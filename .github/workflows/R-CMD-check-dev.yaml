@@ -42,7 +42,7 @@ jobs:
           cd ..
           git clone git@github.com:Gilead-BioStats/clindata.git
           cd clindata
-          git checkout tags/v0.4.1
+          git checkout tags/v0.5.1
           cd ../gsm
 
       - name: install packages
