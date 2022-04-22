@@ -5,11 +5,10 @@
 #' @param yaml
 #'
 #' @return list
-CheckInputs <- function(dfs, bQuiet = TRUE, yaml, step, mapping) {
-
-  spec <- yaml::read_yaml(system.file('specs',yaml, package = 'gsm'))
-
-  if(step == "mapping") {
+CheckInputs <- function(context, dfs, mapping=NULL, bQuiet = TRUE) {
+  if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn {context}}")
+  spec <- yaml::read_yaml(system.file('specs',context,'.yaml', package = 'gsm'))
+if(is.null(mapping)) mapping <- yaml::read_yaml(system.file('mapping',context,'.yaml', package = 'gsm'))
     domains <- names(dfs)
     checks <- domains %>% map(function(domain){
       check <- is_mapping_valid(df=dfs[[domain]], mapping=mapping[[domain]], spec=spec[[domain]], bQuiet=bQuiet)
@@ -22,24 +21,12 @@ CheckInputs <- function(dfs, bQuiet = TRUE, yaml, step, mapping) {
     }) %>%
       set_names(nm = names(dfs))
   }
-
-  if(step == "assess") {
-    domains <- "dfInput"
-    dfs <- list(dfInput = dfs)
-    mapping <-  yaml::read_yaml(system.file('mappings',yaml, package = 'gsm'))
-    checks <- domains %>% map(function(domain){
-      check <- is_mapping_valid(df=dfs[[domain]], mapping=mapping[[domain]], spec=spec[[domain]], bQuiet=bQuiet)
-      if(check$status){
-        if(!bQuiet) cli::cli_alert_success("No issues found for {domain} domain")
+checks$status <- all(lAssess$lChecks %>% map_lgl(~.x$status))
+  if(check$status){
+        if(!bQuiet) cli::cli_alert_success("No issues found for {.fn {context}}")
       } else {
-        if(!bQuiet) cli::cli_alert_warning("Issues found for {domain} domain")
+        if(!bQuiet) cli::cli_alert_warning("Issues found for {.fn {context}}")
       }
-      return(check)
-    }) %>%
-      set_names(nm = names(dfs))
-
-  }
-
 return(checks)
 
 }
