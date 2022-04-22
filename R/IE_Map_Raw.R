@@ -49,13 +49,12 @@ IE_Map_Raw <- function(
 
   if(is.null(lMapping)) lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
 
-  # update in clindata
-  lMapping$dfIE$vCategoryValues <- c("EXCL", "INCL")
-  lMapping$dfIE$vExpectedResultValues <- c(0, 1)
-
-    if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn IE_Map_Raw}")
-    checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, mapping = lMapping, step = "mapping", yaml = "IE_Map_Raw.yaml")
-    checks$status <- all(checks %>% map_lgl(~.x$status))
+    checks <- CheckInputs(
+      context = "IE_Map_Raw",
+      dfs = dfs,
+      bQuiet = bQuiet,
+      mapping = lMapping
+    )
 
     if(checks$status){
         if(!bQuiet) cli::cli_h2("Initializing {.fn IE_Map_Raw}")

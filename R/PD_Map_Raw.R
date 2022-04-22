@@ -45,9 +45,12 @@ PD_Map_Raw <- function(
 
   if(is.null(lMapping)) lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
 
-  if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn PD_Map_Raw}")
-  checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, mapping = lMapping, step = "mapping", yaml = "PD_Map_Raw.yaml")
-  checks$status <- all(checks %>% map_lgl(~.x$status))
+  checks <-     checks <- CheckInputs(
+    context = "PD_Map_Raw",
+    dfs = dfs,
+    bQuiet = bQuiet,
+    mapping = lMapping
+  )
 
   #Run mapping if checks passed
   if(checks$status){
@@ -55,8 +58,7 @@ PD_Map_Raw <- function(
 
     # Standarize Column Names
     dfPD_mapped <- dfs$dfPD %>%
-      rename(SubjectID = lMapping[["dfPD"]][["strIDCol"]]) %>%
-      select(.data$SubjectID)
+      select(SubjectID = lMapping[["dfPD"]][["strIDCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(

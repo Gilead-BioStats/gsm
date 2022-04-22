@@ -48,9 +48,12 @@ AE_Map_Adam <- function(
   lMapping$dfADSL <- list(strIDCol="USUBJID", strSiteCol = "SITEID", strStartCol = "TRTSDT", strEndCol = "TRTEDT")
   lMapping$dfADAE <- list(strIDCol="USUBJID")
 
-  if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Map_Adam}")
-  checks <- CheckInputs(dfs = dfs, bQuiet = bQuiet, mapping = lMapping, step = "mapping", yaml = "AE_Map_Adam.yaml")
-  checks$status <- all(checks %>% map_lgl(~.x$status))
+  checks <- CheckInputs(
+    context = "AE_Map_Adam",
+    dfs = dfs,
+    bQuiet = bQuiet,
+    mapping = lMapping
+  )
 
   if(checks$status) {
     if(!bQuiet) cli::cli_h2("Initializing {.fn AE_Map_Adam}")

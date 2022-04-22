@@ -75,10 +75,11 @@ AE_Assess <- function(
     dfInput = dfInput
   )
 
-  if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn AE_Assess}")
-    checks <- CheckInputs(dfs = lAssess$dfInput, bQuiet = bQuiet, step = "assess", yaml = "AE_Assess.yaml")
-    checks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
-
+  checks <- CheckInputs(
+    context = "AE_Assess",
+    dfs = list(dfInput = lAssess$dfInput),
+    bQuiet = bQuiet
+    )
 
   if(checks$status){
     if(!bQuiet) cli::cli_h2("Initializing {.fn AE_Assess}")

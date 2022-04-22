@@ -87,8 +87,11 @@ Consent_Assess <- function(
 
 
   if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn Consent_Assess}")
-  checks <- CheckInputs(dfs = dfInput, bQuiet = bQuiet, mapping = mapping, step = "assess", yaml = "Consent_Assess.yaml")
-  checks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
+  checks <- CheckInputs(
+    context = "Consent_Assess",
+    dfs = list(dfInput = lAssess$dfInput),
+    bQuiet = bQuiet
+  )
 
   if(checks$status){
     if(!bQuiet) cli::cli_h2("Initializing {.fn Consent_Assess}")

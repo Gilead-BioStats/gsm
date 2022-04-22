@@ -72,9 +72,11 @@ IE_Assess <- function(
     dfInput = dfInput
   )
 
-  if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn IE_Assess}")
-  checks <- CheckInputs(dfs = lAssess$dfInput, bQuiet = bQuiet, step = "assess", yaml = "IE_Assess.yaml")
-  checks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
+  checks <- CheckInputs(
+    context = "IE_Assess",
+    dfs = list(dfInput = lAssess$dfInput),
+    bQuiet = bQuiet
+  )
 
   if(checks$status){
     if(!bQuiet) cli::cli_h2("Initializing {.fn IE_Assess}")

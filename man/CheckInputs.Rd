@@ -4,7 +4,7 @@
 \alias{CheckInputs}
 \title{Check mapping inputs}
 \usage{
-CheckInputs(dfs, bQuiet = TRUE, yaml, step, mapping)
+CheckInputs(context, dfs, mapping = NULL, bQuiet = TRUE)
 }
 \arguments{
 \item{yaml}{}

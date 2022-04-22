@@ -74,9 +74,11 @@ PD_Assess <- function(
         dfInput = dfInput
     )
 
-    if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn PD_Assess}")
-      checks <- CheckInputs(dfs = lAssess$dfInput, bQuiet = bQuiet, step = "assess", yaml = "PD_Assess.yaml")
-      checks$status <- all(lAssess$lChecks  %>% map_lgl(~.x$status))
+    checks <- CheckInputs(
+      context = "PD_Assess",
+      dfs = list(dfInput = lAssess$dfInput),
+      bQuiet = bQuiet
+    )
 
   if(checks$status){
     if(!bQuiet) cli::cli_h2("Initializing {.fn PD_Assess}")
