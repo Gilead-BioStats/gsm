@@ -5,7 +5,6 @@
   Tests:
     - T4_1
     - T4_2
-    - T4_3
 - ID: S4_2
   Description: Assessments are correctly grouped by the site variable
   Risk: Low
@@ -13,7 +12,6 @@
   Tests:
     - T4_1
     - T4_2
-    - T4_3
 - ID: S4_3
   Description: Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding
   Risk: Medium
@@ -21,16 +19,9 @@
   Tests:
     - T4_1
     - T4_2
-    - T4_3
 - ID: S4_4
   Description: Given subset input data a Consent assessment can be done
   Risk: Medium
   Impact: Medium
   Tests:
     - T4_2
-- ID: S4_5
-  Description: A Consent assessment can be done iteratively by looping over a categorical variable
-  Risk: Low
-  Impact: Medium
-  Tests:
-    - T4_3
