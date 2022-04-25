@@ -34,7 +34,14 @@ reference:
      desc: Utility functions for use within the Data Pipeline
    - contents:
       - is_mapping_valid
-      - mergeSubjects
+      - MergeSubjects
+      - MakeAssessmentList
+      - RunAssessment
+      - Study_AssessmentReport
+      - Study_Report
+      - Study_Table
+      - FilterDomain
+      - RunStep
 
 
 

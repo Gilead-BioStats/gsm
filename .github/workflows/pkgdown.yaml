@@ -2,10 +2,10 @@ on:
   release:
     types: [published]
 
-name: qualification-report
+name: pkgdown
 
 jobs:
-  qualification-report:
+  pkgdown:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -40,18 +40,8 @@ jobs:
           devtools::install('../clindata')
           devtools::install(dependencies=TRUE)
 
-      - name: build vignette
-        run: tools::buildVignette("./vignettes/Qualification.Rmd")
-        shell: Rscript {0}
-
-
-      # Upload the qulafication report to the release
-      - name: Upload report to release
-        if: success()
-        uses: svenstaro/upload-release-action@v2
-        with:
-          file: ./Qualification.pdf
-          asset_name: qulaification-report.pdf
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref }}
-          overwrite: false
+      - name: Deploy package
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
