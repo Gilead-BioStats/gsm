@@ -25,7 +25,6 @@ test_that("output is created as expected", {
 test_that("NA values are caught", {
 
   dfSUBJ$TimeOnTreatment[1] <- NA
-  devtools::load_all()
   df <- is_mapping_valid(
     dfSUBJ,
     mapping = mapping_rdsl,
