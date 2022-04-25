@@ -50,9 +50,3 @@
   Tests:
     - T2_3
     - T2_6
-- ID: S2_7
-  Description: Ensure that missing and invalid data are handled correctly
-  Risk: Low
-  Impact: Medium
-  Tests:
-    - T2_7
