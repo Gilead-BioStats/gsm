@@ -156,7 +156,7 @@ AssessmentReport$dfSummary %>%
 ## Issue List
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 AssessmentReport$dfAllChecks%>%
-    filter(status==FALSE)%>%
+    filter(check==FALSE)%>%
     kbl(escape=FALSE) %>% 
     kable_styling()
 ```

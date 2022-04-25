@@ -11,30 +11,42 @@
 
 Study_AssessmentReport <- function(lAssessments) {
 
+
   allChecks <- names(lAssessments) %>% map(function(assessment_name){
     assessment<-lAssessments[[assessment_name]]
     assessment_checks<-names(assessment$checks) %>% map(function(domain_name){
       domain<-assessment$checks[[domain_name]]
-      domain_check <- data.frame(
+
+      domain_check <- tibble(
         assessment=assessment_name,
-        domain=domain_name,
-        check="All OK",
-        status=domain$status,
-        details=""
+        step=domain_name,
+        check=domain$status
       )
-      domain_details <- names(domain$tests_if) %>% map(function(test_name){
-        return(data.frame(
+
+      domain_details <- names(domain) %>% discard(.=="status") %>% map(function(test_name){
+        status=domain[[test_name]][["status"]]
+        details=domain[[test_name]][["tests_if"]] %>%
+          bind_rows(.id = "names") %>%
+          mutate(status = ifelse(is.na(warning), "--", warning)) %>%
+          select(-warning) %>%
+          t %>%
+          as_tibble %>%
+          janitor::row_to_names(1)
+
+        return(bind_cols(tibble(
           assessment=assessment_name,
-          domain=domain_name,
-          check=test_name,
-          status=domain$tests_if[[test_name]]$status,
-          details=domain$tests_if[[test_name]]$warning
-        )) %>% bind_rows()
-      })
-      return(bind_rows(domain_check,domain_details))
+          step=domain_name,
+          domain=test_name
+        ), details))
+      }) %>% bind_rows()
+
+      return(left_join(domain_check,domain_details))
     })
+
     return(bind_rows(assessment_checks))
   }) %>% bind_rows
+
+
 
     # https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/
     rank_chg <- function(status){
@@ -58,13 +70,7 @@ Study_AssessmentReport <- function(lAssessments) {
 
 
     dfSummary<- allChecks %>%
-        select(-.data$details) %>%
-        mutate(status = map(status, rank_chg)) %>%
-        pivot_wider(
-            id_cols=c(.data$assessment,.data$domain),
-            names_from=.data$check,
-            values_from=.data$status
-        )
+        mutate(check = map(check, rank_chg))
 
     return(list(dfAllChecks = allChecks, dfSummary = dfSummary))
 
