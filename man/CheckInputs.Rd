@@ -7,7 +7,13 @@
 CheckInputs(context, dfs, mapping = NULL, bQuiet = TRUE)
 }
 \arguments{
-\item{yaml}{}
+\item{context}{Description of the data pipeline "step" that is being checked, i.e., "AE_Map_Raw" or "PD_Assess".}
+
+\item{dfs}{list of data frames.}
+
+\item{mapping}{YAML mapping for a given context.}
+
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
 list

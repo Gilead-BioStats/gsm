@@ -26,6 +26,8 @@
 #' @param nThreshold Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.
 #' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="Consent")`
 #' @param bChart should visualization be created? TRUE (default) or FALSE.
+#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @examples
 #' dfInput <- Consent_Map_Raw()

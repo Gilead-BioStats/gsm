@@ -1,6 +1,7 @@
 #' Utility function for basic filtering
 #'
 #' @param df data.frame be filtered
+#' @param strDomain Domain "step" that is being filtered.
 #' @param lMapping mapping
 #' @param strColParam column to filter
 #' @param strValParam value or values to keep
@@ -20,7 +21,7 @@
 #'
 #' @export
 
-FilterDomain<- function(df, strDomain, lMapping, strColParam, strValParam, bReturnChecks=FALSE, bQuiet=TRUE){
+FilterDomain <- function(df, strDomain, lMapping, strColParam, strValParam, bReturnChecks=FALSE, bQuiet=TRUE){
 
     if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn FilterDomain}")
     lSpec <- list(vRequired=c(strColParam, strValParam))

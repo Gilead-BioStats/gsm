@@ -30,6 +30,8 @@
 #' @param strMethod valid methods are "poisson" (the default), or  "wilcoxon".
 #' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="PD")`.
 #' @param bChart should visualization be created? TRUE (default) or FALSE.
+#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @examples
 #' dfInput <- PD_Map_Raw()

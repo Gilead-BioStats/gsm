@@ -17,6 +17,8 @@ FilterDomain(
 \arguments{
 \item{df}{data.frame be filtered}
 
+\item{strDomain}{Domain "step" that is being filtered.}
+
 \item{lMapping}{mapping}
 
 \item{strColParam}{column to filter}

@@ -9,6 +9,8 @@ RunStep(lStep, lMapping, lData, lTags, bQuiet)
 \arguments{
 \item{lStep}{single workflow step (typically defined in \code{lAssessment$workflow}). Should include the name of the function to run (\code{lStep$name}), data inputs (\code{lStep$inputs}), name of output (\code{lStep$output}) and configurable parameters (\code{lStep$params}) (if any)}
 
+\item{lMapping}{List containing expected columns in each data set.}
+
 \item{lData}{a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
 \item{lTags}{tags}

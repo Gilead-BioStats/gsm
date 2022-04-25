@@ -12,17 +12,17 @@ Consent_Map_Raw(
 )
 }
 \arguments{
+\item{dfs}{list of data frames including:
+\itemize{
+\item \code{dfCONSENT} consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.
+\item \code{dfSUBJ} Subject-level Raw Data required columns: SubjectID SiteID RandDate.
+}}
+
+\item{lMapping}{List containing expected columns in each data set.}
+
+\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
-
-\item{dfCONSENT}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}
-
-\item{dfSUBJ}{Subject-level Raw Data required columns: SubjectID SiteID RandDate.}
-
-\item{mapping}{List containing expected columns in each data set.}
-
-\item{strConsentTypeValue}{default = "mainconsent", filters on CONSCAT_STD of dfCONSENT, if NULL no filtering is done.}
-
-\item{strConsentStatusValue}{default = "Yes", expected Status value for valid consent.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
@@ -56,6 +56,8 @@ The following columns are required:
 \examples{
 
 dfInput <- Consent_Map_Raw() # Run with defaults
-dfInput <- Consent_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
+
+# Run with error checking and message log
+dfInput <- Consent_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE)
 
 }

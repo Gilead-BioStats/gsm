@@ -3,6 +3,7 @@
 #' Calls a step in an assessment workflow. Currently supports `*_Map_*`, `*_Assess` and `*_FilterDomain`
 #'
 #' @param lStep single workflow step (typically defined in `lAssessment$workflow`). Should include the name of the function to run (`lStep$name`), data inputs (`lStep$inputs`), name of output (`lStep$output`) and configurable parameters (`lStep$params`) (if any)
+#' @param lMapping List containing expected columns in each data set.
 #' @param lData a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lTags tags
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.

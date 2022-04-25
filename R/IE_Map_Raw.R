@@ -18,11 +18,11 @@
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
 #'
-#' @param dfIE ie dataset with columns SUBJID and values specified in strCategoryCol and strValueCol.
-#' @param dfSUBJ Subject-level Raw Data required columns: SubjectID SiteID
-#' @param mapping List containing expected columns in each data set.
-#' @param vCategoryValues Category values (of column in dfIE specified by strCategoryCol) Default =  c("Exclusion","Inclusion"). Category values must be in the same order as `vExpectedResultValues`.
-#' @param vExpectedResultValues Vector containing expected values for the inclusion/exclusion criteria stored in dfIE$IEORRES. Defaults to c(0,1) where 0 is expected when dfIE$IECAT == "Exclusion" and 1 is expected when dfIE$IECAT=="Inclusion". Values must be in the same order as `vCategoryValues`.
+#' @param dfs list of data frames including:
+#'   - `dfIE` ie dataset with columns SUBJID and values specified in strCategoryCol and strValueCol.
+#'   - `dfSUBJ` Subject-level Raw Data required columns: SubjectID SiteID
+#' @param lMapping List containing expected columns in each data set.
+#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return Data frame with one record per participant giving the number of inclusion/exclusion criteria the participant did not meet as expected. Expected columns: SubjectID, SiteID, Count

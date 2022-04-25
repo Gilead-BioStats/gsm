@@ -18,9 +18,11 @@
 #'     - `SiteID` - Site ID
 #'     - `TimeOnStudy` - Time on Study in days.
 #'
-#' @param dfPD  PD dataset with required column SUBJID and rows for each Protocol Deviation.
-#' @param dfSUBJ Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.
-#' @param mapping List containing expected columns in each data set.
+#' @param dfs list of data frames including:
+#'   - `dfPD`  PD dataset with required column SUBJID and rows for each Protocol Deviation.
+#'   - `dfSUBJ` Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.
+#' @param lMapping List containing expected columns in each data set.
+#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.

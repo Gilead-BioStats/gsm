@@ -18,11 +18,11 @@
 #'     - `SiteID` - Site ID
 #'     - `RandDate` - Randomization Date
 #'
-#' @param dfCONSENT consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.
-#' @param dfSUBJ Subject-level Raw Data required columns: SubjectID SiteID RandDate.
-#' @param mapping List containing expected columns in each data set.
-#' @param strConsentTypeValue default = "mainconsent", filters on CONSCAT_STD of dfCONSENT, if NULL no filtering is done.
-#' @param strConsentStatusValue default = "Yes", expected Status value for valid consent.
+#' @param dfs list of data frames including:
+#'  - `dfCONSENT` consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.
+#'  - `dfSUBJ` Subject-level Raw Data required columns: SubjectID SiteID RandDate.
+#' @param lMapping List containing expected columns in each data set.
+#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.

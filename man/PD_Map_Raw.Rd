@@ -12,13 +12,17 @@ PD_Map_Raw(
 )
 }
 \arguments{
+\item{dfs}{list of data frames including:
+\itemize{
+\item \code{dfPD}  PD dataset with required column SUBJID and rows for each Protocol Deviation.
+\item \code{dfSUBJ} Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.
+}}
+
+\item{lMapping}{List containing expected columns in each data set.}
+
+\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
-
-\item{dfPD}{PD dataset with required column SUBJID and rows for each Protocol Deviation.}
-
-\item{dfSUBJ}{Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.}
-
-\item{mapping}{List containing expected columns in each data set.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.

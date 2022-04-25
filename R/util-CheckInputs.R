@@ -1,10 +1,11 @@
-
 #' Check mapping inputs
 #'
-#' @param dfs
-#' @param yaml
+#' @param context Description of the data pipeline "step" that is being checked, i.e., "AE_Map_Raw" or "PD_Assess".
+#' @param dfs list of data frames.
+#' @param mapping YAML mapping for a given context.
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
-#' @importFrom yaml yaml
+#' @importFrom yaml read_yaml
 #'
 #' @return list
 CheckInputs <- function(context, dfs, mapping=NULL, bQuiet = TRUE) {
