@@ -61,6 +61,11 @@ Consent_Assess <- function(
           "lTags has unnamed elements"=all(names(lTags)!=""),
           "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
       )
+
+    if(any(unname(map_dbl(lTags, ~length(.)))>1)) {
+      lTags <- map(lTags, ~paste(.x, collapse = ", "))
+    }
+
   }
 
   lAssess <- list(
@@ -85,6 +90,7 @@ Consent_Assess <- function(
     if(!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
+    if(!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed}")
 
     lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
     if(!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")

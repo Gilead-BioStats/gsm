@@ -32,7 +32,6 @@ RunStep <- function(lStep, lMapping, lData, lTags, bQuiet){
         params$lMapping <- lMapping
         params$df<- lData[[lStep$inputs]]
     }
-    print(names(params))
 
     # Call the workflow function and return results
     cli::cli_text("Calling {.fn {lStep$name}} ...")
