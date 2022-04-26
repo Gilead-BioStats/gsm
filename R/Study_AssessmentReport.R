@@ -2,7 +2,7 @@
 #'
 #' Make overview table with one row per assessment and one column per site showing flagged assessments.
 #'
-#' @param lAssessments List of 1+ assessments like those created by `runAssessment()` or `Assess_Study()`
+#' @param lAssessments List of 1+ assessments like those created by `runAssessment()` or `Study_Assess()`
 #'
 #' @importFrom gt gt
 #' @importFrom fontawesome fa
@@ -11,26 +11,30 @@
 
 Study_AssessmentReport <- function(lAssessments) {
 
-    workflows <- map(names(lAssessments), ~pluck(lAssessments[[.x]], "lSteps")) %>%
-        flatten() %>%
-        map(pluck("checks"))
-
-    out <- list()
-    for (names in names(workflows)) {
-        step <- workflows[[names]]
-
-        for (i in step) {
-            status <- i[["status"]]
-            tests <- bind_rows(i[["tests_if"]])
-            tests$check <- names(i[["tests_if"]])
-        }
-        out[[names]] <- tests
-    }
-
-    checks <- bind_rows(out, .id = names) %>%
-        mutate(assessment = "") %>%
-        rename(domain = 1) %>%
-        select(assessment, domain, check, status, details = warning)
+  allChecks <- names(lAssessments) %>% map(function(assessment_name){
+    assessment<-lAssessments[[assessment_name]]
+    assessment_checks<-names(assessment$checks) %>% map(function(domain_name){
+      domain<-assessment$checks[[domain_name]]
+      domain_check <- data.frame(
+        assessment=assessment_name,
+        domain=domain_name,
+        check="All OK",
+        status=domain$status,
+        details=""
+      )
+      domain_details <- names(domain$tests_if) %>% map(function(test_name){
+        return(data.frame(
+          assessment=assessment_name,
+          domain=domain_name,
+          check=test_name,
+          status=domain$tests_if[[test_name]]$status,
+          details=domain$tests_if[[test_name]]$warning
+        )) %>% bind_rows()
+      })
+      return(bind_rows(domain_check,domain_details))
+    })
+    return(bind_rows(assessment_checks))
+  }) %>% bind_rows
 
     # https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/
     rank_chg <- function(status){
@@ -53,7 +57,7 @@ Study_AssessmentReport <- function(lAssessments) {
     }
 
 
-    dfSummary<- checks %>%
+    dfSummary<- allChecks %>%
         select(-.data$details) %>%
         mutate(status = map(status, rank_chg)) %>%
         pivot_wider(
@@ -62,6 +66,6 @@ Study_AssessmentReport <- function(lAssessments) {
             values_from=.data$status
         )
 
-    return(list(dfAllChecks = checks, dfSummary = dfSummary))
+    return(list(dfAllChecks = allChecks, dfSummary = dfSummary))
 
 }

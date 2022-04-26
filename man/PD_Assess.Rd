@@ -9,7 +9,9 @@ PD_Assess(
   vThreshold = NULL,
   strMethod = "poisson",
   lTags = list(Assessment = "PD"),
-  bChart = TRUE
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 )
 }
 \arguments{
@@ -22,6 +24,10 @@ PD_Assess(
 \item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="PD")}.}
 
 \item{bChart}{should visualization be created? TRUE (default) or FALSE.}
+
+\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
 A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName},  \code{lParams} and \code{lTags}) is returned.
@@ -62,11 +68,8 @@ See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additio
 }
 
 \examples{
-dfInput <- PD_Map_Raw(clindata::rawplus_pd,
-                       clindata::rawplus_subj)
-
-SafetyPD <- PD_Assess( dfInput )
-
-SafetyPD_Wilk <- PD_Assess( dfInput, strMethod="wilcoxon")$dfSummary
+dfInput <- PD_Map_Raw()
+SafetyPD <- PD_Assess(dfInput)
+SafetyPDWilcoxon <- PD_Assess(dfInput, strMethod="wilcoxon")
 
 }

@@ -5,24 +5,22 @@
 \title{Consent Assessment Mapping from Raw Data}
 \usage{
 Consent_Map_Raw(
-  dfCONSENT,
-  dfSUBJ,
-  mapping = NULL,
-  strConsentTypeValue = "MAINCONSENT",
-  strConsentStatusValue = "Y",
+  dfs = list(dfCONSENT = clindata::rawplus_consent, dfSUBJ = clindata::rawplus_subj),
+  lMapping = NULL,
+  bReturnChecks = FALSE,
   bQuiet = TRUE
 )
 }
 \arguments{
-\item{dfCONSENT}{consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.}
+\item{dfs}{list of data frames including:
+\itemize{
+\item \code{dfCONSENT} consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.
+\item \code{dfSUBJ} Subject-level Raw Data required columns: SubjectID SiteID RandDate.
+}}
 
-\item{dfSUBJ}{Subject-level Raw Data required columns: SubjectID SiteID RandDate.}
+\item{lMapping}{List containing expected columns in each data set.}
 
-\item{mapping}{List containing expected columns in each data set.}
-
-\item{strConsentTypeValue}{default = "mainconsent", filters on CONSCAT_STD of dfCONSENT, if NULL no filtering is done.}
-
-\item{strConsentStatusValue}{default = "Yes", expected Status value for valid consent.}
+\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
 
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
@@ -57,9 +55,9 @@ The following columns are required:
 
 \examples{
 
-input <- Consent_Map_Raw(
-   dfCONSENT = clindata::rawplus_consent,
-   dfSUBJ = clindata::rawplus_subj
-)
+dfInput <- Consent_Map_Raw() # Run with defaults
+
+# Run with error checking and message log
+dfInput <- Consent_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE)
 
 }

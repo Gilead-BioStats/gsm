@@ -1,10 +1,6 @@
 test_that("Consent assessment can return a correctly assessed data frame grouped by the study variable when given correct input data from clindata and the results should be flagged correctly", {
   # gsm analysis
-  dfInput <- Consent_Map_Raw(
-    clindata::rawplus_consent,
-    clindata::rawplus_subj,
-    strConsentTypeValue = "MAINCONSENT"
-  )
+  dfInput <- Consent_Map_Raw()
 
   test4_2 <- Consent_Assess(
     dfInput = dfInput,

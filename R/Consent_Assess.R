@@ -26,27 +26,12 @@
 #' @param nThreshold Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.
 #' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="Consent")`
 #' @param bChart should visualization be created? TRUE (default) or FALSE.
+#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @examples
-#'
-#' library(dplyr)
-#' raw_consent <- clindata::raw_ic_elig %>%
-#' select(SUBJID, CONSDAT = DSSTDAT_RAW) %>%
-#'  mutate(
-#'      CONSCAT_STD = "MAINCONSENT",
-#'      CONSYN = "Y",
-#'      CONSDAT = as.Date(CONSDAT, format = "%d %B %Y")
-#'    ) %>%
-#'    filter(SUBJID != "")
-#'
-#' dfInput <- Consent_Map_Raw(
-#'    dfCONSENT = clindata::rawplus_consent,
-#'    dfSUBJ = clindata::rawplus_subj,
-#'    strConsentTypeValue = "MAINCONSENT",
-#'    strConsentStatusValue="Y"
-#' )
-#'
-#' Consent_Summary <- Consent_Assess(dfInput)$dfSummary
+#' dfInput <- Consent_Map_Raw()
+#' consent <- Consent_Assess(dfInput)
 #'
 #' @import dplyr
 #'
@@ -54,7 +39,14 @@
 #'
 #' @export
 
-Consent_Assess <- function( dfInput, nThreshold=0.5,  lTags=list(Assessment="Consent"), bChart=TRUE){
+Consent_Assess <- function(
+    dfInput,
+    nThreshold=0.5,
+    lTags=list(Assessment="Consent"),
+    bChart=TRUE,
+    bReturnChecks=FALSE,
+    bQuiet=TRUE
+){
 
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
@@ -78,15 +70,38 @@ Consent_Assess <- function( dfInput, nThreshold=0.5,  lTags=list(Assessment="Con
     dfInput = dfInput
   )
 
-  lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count'  )
-  lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
-  lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
-  lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", lTags)
 
-  if (bChart) {
-    lAssess$chart <- Visualize_Count(lAssess$dfAnalyzed)
+  if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn Consent_Assess}")
+  checks <- CheckInputs(
+    context = "Consent_Assess",
+    dfs = list(dfInput = lAssess$dfInput),
+    bQuiet = bQuiet
+  )
+
+  if(checks$status){
+    if(!bQuiet) cli::cli_h2("Initializing {.fn Consent_Assess}")
+    if(!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
+    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = 'Count'  )
+    if(!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
+
+    lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
+    if(!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed}")
+
+    lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed ,vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
+    if(!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
+
+    lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", lTags)
+    if(!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
+
+    if (bChart) {
+      lAssess$chart <- Visualize_Count(lAssess$dfAnalyzed)
+      if(!bQuiet) cli::cli_alert_success("{.fn Visualize_Count} created a chart.")
+    }
+  } else {
+      if(!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} not run because of failed check.")
   }
 
+  if(bReturnChecks) lAssess$lChecks <- checks
   return(lAssess)
 
 }

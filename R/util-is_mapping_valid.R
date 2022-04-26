@@ -1,49 +1,50 @@
 #' Check that a data frame contains columns and fields specified in mapping
 #'
 #' @param df data.frame to compare to mapping object.
-#' @param mapping named list specifying expected columns and fields in df.
-#' @param vRequiredParams character vector of names that must be present in `mapping`.
-#' @param bKeepAllParams Should params not included in `vRequiredParams` be evaluated? Default is false.
-#' @param vUniqueCols list of columns expected to be unique. default = NULL (none).
-#' @param vNACols list of columns where na values are acceptable default = NULL (none).
+#' @param mapping named list specifying expected columns and values in df. Parameters ending in `col` are assummed to be column names in `df`, while paramters ending in `val` are values expected in for a corresponding column. For example, `mapping=list(strSiteCol="SiteID", strSiteVal=c("001","002"))` would indicate that `df` has a `df$SiteID` includes values `"001"` and `"002"`.
+#' @param spec named list specifying parameters that should be defined in `mapping`, and describes how the values specified by those parameters should be used in `df`. Should have the following properties:
+#' - `spec$vRequired` - list of parameters that should be defined in `mapping`.
+#' - `spec$vUniqueCols` - list of column parameters that should not contain duplicate values
+#' - `spec$vNACols` - list of column parameters where NA and empty string values are acceptable.
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @import dplyr
 #' @import tidyr
 #' @import purrr
+#' @importFrom stringr str_subset
 #'
 #' @examples
-#' subj_mapping <- list(strIDCol = "SubjectID",
-#'                     strSiteCol = "SiteID",
-#'                     strExposureCol = "TimeOnTreatment")
+#' subj_mapping <- list(
+#'     strIDCol = "SubjectID",
+#'     strSiteCol = "SiteID",
+#'     strExposureCol = "TimeOnTreatment"
+#' )
 #'
-#' is_mapping_valid(df = clindata::rawplus_subj,
-#'                  mapping = subj_mapping,
-#'                  vUniqueCols = "SUBJID",
-#'                  vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
+#' is_mapping_valid(
+#'     df = clindata::rawplus_subj,
+#'     mapping = subj_mapping,
+#'     spec = list(
+#'         vRequired= c("strIDCol", "strSiteCol", "strExposureCol"),
+#'         vUniqueCols = "SUBJID"
+#'   )
+#' )
 #'
-#' subj_mapping$not_a_col <- "nope"
-#'
-#' is_mapping_valid(df = clindata::rawplus_subj,
-#'                  mapping = subj_mapping,
-#'                  vUniqueCols = "SUBJID",
-#'                  vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"))
+#' is_mapping_valid(
+#'     df = clindata::rawplus_subj,
+#'     mapping = subj_mapping,
+#'     spec=list(
+#'         vUniqueCols = "SUBJID",
+#'         vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol", "strOtherCol")
+#'   )
+#' )
 #'
 #' @export
 
-is_mapping_valid <- function(
-    df,
-    mapping,
-    vRequiredParams=NULL,
-    bKeepAllParams=FALSE,
-    vUniqueCols=NULL,
-    vNACols=NULL,
-    bQuiet = TRUE
-){
-
+is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE){
     tests_if <- list(
         is_data_frame = list(status = NA, warning = NA),
         has_required_params = list(status = NA, warning = NA),
+        spec_is_list = list(status = NA, warning = NA),
         mapping_is_list = list(status = NA, warning = NA),
         mappings_are_character = list(status = NA, warning = NA),
         has_expected_columns = list(status = NA, warning = NA),
@@ -52,7 +53,7 @@ is_mapping_valid <- function(
         cols_are_unique = list(status = NA, warning = NA)
     )
 
-    # "df" is a data.frame
+    # `df` is a data.frame
     if(!is.data.frame(df)){
         tests_if$is_data_frame$status <- FALSE
         tests_if$is_data_frame$warning <- "df is not a data.frame()"
@@ -60,15 +61,7 @@ is_mapping_valid <- function(
         tests_if$is_data_frame$status <- TRUE
     }
 
-    # has required parameters in "mapping"
-    if (!all(vRequiredParams %in% names(mapping))) {
-        tests_if$has_required_params$status <- FALSE
-        tests_if$has_required_params$warning <- '"mapping" does not contain required parameters'
-    } else {
-        tests_if$has_required_params$status <- TRUE
-    }
-
-    # basic mapping checks
+    # basic `mapping` checks
     if(!is.list(mapping)){
         tests_if$mapping_is_list$status <- FALSE
         tests_if$mapping_is_list$warning <- "mapping is not a list()"
@@ -76,26 +69,39 @@ is_mapping_valid <- function(
         tests_if$mapping_is_list$status <- TRUE
     }
 
-    # get a list of columns
-    colParamList <- names(mapping) %>% stringr::str_subset('Col$')
-    if(!bKeepAllParams) colParamList <- colParamList[colParamList %in% vRequiredParams]
+    # basic `spec` check
+    if(!is.list(spec)){
+        tests_if$spec_is_list$status <- FALSE
+        tests_if$spec_is_list$warning <- "spec is not a list()"
+    } else {
+        tests_if$spec_is_list$status <- TRUE
+    }
+
+    # has required parameters in `mapping`
+    if (!all(spec$vRequired %in% names(mapping))) {
+        missing_params <- paste(spec$vRequired[!(spec$vRequired %in% names(mapping))],collapse=", ")
+        tests_if$has_required_params$status <- FALSE
+        tests_if$has_required_params$warning <- paste0('"mapping" does not contain required parameters: ',missing_params)
+    } else {
+        tests_if$has_required_params$status <- TRUE
+    }
 
     # mapping contains character values for column names
-    if(!all(colParamList %>% purrr::map_lgl(~is.character(mapping[[.x]])))){
+    colParams <- spec$vRequired %>% str_subset('[c|C]ol$')
+    colNames <- unlist(unname(mapping[colParams]))
+    if(!all(is.character(colNames))){
         tests_if$mappings_are_character$status <- FALSE
         warning <- "Non-character column names found in mapping"
-        warning_cols <- df %>% select_if(~!is.character(.)) %>% names()
+        warning_cols <- colNames[!is.character(colNames)]
         tests_if$mappings_are_character$warning <- paste0(warning, ": ", paste(warning_cols, collapse=", "))
     } else {
         tests_if$mappings_are_character$status <- TRUE
     }
 
     # expected columns are found in "df"
-    expected <- unlist(unname(mapping[colParamList]))
-
-    if(!all(expected %in% names(df))) {
+    if(!all(colNames %in% names(df))) {
         tests_if$has_expected_columns$status <- FALSE
-        warning_cols <- paste(expected[!expected %in% names(df)], collapse = ", ")
+        warning_cols <- paste(colNames[!colNames %in% names(df)], collapse = ", ")
         warning <- paste0("the following columns not found in df: ", warning_cols)
         tests_if$has_expected_columns$warning <- warning
     } else {
@@ -108,15 +114,14 @@ is_mapping_valid <- function(
 if (tests_if$has_expected_columns$status) {
 
     # Check for NA values in columns that are not specified in "vNACols"
-    no_check_na <- mapping[vNACols] %>% unname %>% unlist
-    check_na <- expected[!expected %in% no_check_na]
+    no_check_na <- mapping[spec$vNACols] %>% unname %>% unlist
+    check_na <- colNames[!colNames %in% no_check_na]
     if (any(is.na(df[check_na]))) {
             warning <- df %>%
                 summarize(across(check_na, ~sum(is.na(.)))) %>%
                 tidyr::pivot_longer(everything()) %>%
                 filter(.data$value > 0) %>%
                 mutate(warning = paste0(.data$value, " NA values found in column: ", .data$name))
-
 
             tests_if$columns_have_na$status <- FALSE
             warning <- paste(warning$warning, collapse = "\n")
@@ -142,8 +147,8 @@ if (tests_if$has_expected_columns$status) {
     }
 
     # Check for non-unique values in columns that are specificed in "vUniqueCols"
-    if(!is.null(vUniqueCols)){
-        unique_cols <- mapping[vUniqueCols] %>% unname %>% unlist
+    if(!is.null(spec$vUniqueCols)){
+        unique_cols <- mapping[spec$vUniqueCols] %>% unname %>% unlist
         dupes <- map_lgl(df[unique_cols], ~any(duplicated(.)))
         if(any(dupes)) {
             tests_if$cols_are_unique$status <- FALSE

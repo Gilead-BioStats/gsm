@@ -32,13 +32,8 @@ test_that("Assessment data filtered as expected",{
 })
 
 test_that("Assessment correctly labeled as valid",{
-    expect_true(sae$lSteps$FilterDomain$status)
-    expect_true(sae$lSteps$AE_Map_Raw$status)
-    expect_true(sae$lSteps$AE_Assess$status)
-
-    # expect_false(sae_inv$lSteps$FilterDomain$status) - should this be FALSE? Should we add typical required cols to FilterDomain specs?
-    expect_false(sae_inv$lSteps$AE_Map_Raw$status)
-    expect_false(sae_inv$lSteps$AE_Assess$status)
+  expect_true(sae$bStatus)
+  expect_false(sae_inv$bStatus)
 })
 
 

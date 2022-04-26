@@ -4,10 +4,10 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
 
   for(protocol in unique(clindata::rawplus_ie$IE_PROTOCOLVERSION)){
     dfInput <- IE_Map_Raw(
-      clindata::rawplus_ie %>% dplyr::filter(IE_PROTOCOLVERSION == protocol),
-      clindata::rawplus_subj,
-      vCategoryValues= c("EXCL","INCL"),
-      vExpectedResultValues=c(0,1)
+      dfs = list(
+        dfIE = clindata::rawplus_ie %>% dplyr::filter(IE_PROTOCOLVERSION == protocol),
+        dfSUBJ = clindata::rawplus_subj
+      )
     )
 
     # gsm

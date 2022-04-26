@@ -3,10 +3,10 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
   t2_3  <- list()
 
   for(type in unique(clindata::rawplus_pd$PD_CATEGORY)){
-    dfInput <- PD_Map_Raw(
+    dfInput <- PD_Map_Raw(dfs = list(
       dfPD = clindata::rawplus_pd %>% filter(PD_CATEGORY == type),
       dfSUBJ = clindata::rawplus_subj
-      )
+      ))
 
     # gsm
     test2_3 <- c(test2_3,

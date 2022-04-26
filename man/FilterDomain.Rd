@@ -4,14 +4,28 @@
 \alias{FilterDomain}
 \title{Utility function for basic filtering}
 \usage{
-FilterDomain(df, col, vals, bQuiet = TRUE)
+FilterDomain(
+  df,
+  strDomain,
+  lMapping,
+  strColParam,
+  strValParam,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+)
 }
 \arguments{
 \item{df}{data.frame be filtered}
 
-\item{col}{column to filter}
+\item{strDomain}{Domain "step" that is being filtered.}
 
-\item{vals}{value or values to keep}
+\item{lMapping}{mapping}
+
+\item{strColParam}{column to filter}
+
+\item{strValParam}{value or values to keep}
+
+\item{bReturnChecks}{checks}
 
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
@@ -19,7 +33,14 @@ FilterDomain(df, col, vals, bQuiet = TRUE)
 Utility function for basic filtering
 }
 \examples{
-te_ae<-FilterDomain(clindata::rawplus_ae, "AE_TE_FLAG", TRUE)
-grade34_ae<-FilterDomain(clindata::rawplus_ae, "AE_GRADE", c(3,4))
+lMapping <- list(dfAE = list(strIDCol = "SubjectID", strTreatmentEmergentCol = "AE_TE_FLAG",
+                             strTreatmentEmergentVal = TRUE, strGradeCol = "AE_GRADE",
+                             strSeriousCol = "AE_SERIOUS", strSeriousVal = "Yes"))
+
+te_ae <- FilterDomain(df = clindata::rawplus_ae,
+                      lMapping = lMapping,
+                      strDomain = "dfAE",
+                      strColParam = "strSeriousCol",
+                      strValParam = "strSeriousVal")
 
 }

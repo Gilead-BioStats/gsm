@@ -4,19 +4,28 @@
 \alias{AE_Map_Raw}
 \title{AE Assessment - Raw Mapping}
 \usage{
-AE_Map_Raw(dfAE, dfSUBJ, mapping = NULL, bQuiet = TRUE)
+AE_Map_Raw(
+  dfs = list(dfAE = clindata::rawplus_ae, dfSUBJ = clindata::rawplus_subj),
+  lMapping = NULL,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+)
 }
 \arguments{
-\item{dfAE}{AE dataset with required column SUBJID and rows for each AE record}
+\item{dfs}{list of data frames including:
+\itemize{
+\item \code{dfAE}: dataset with required column SUBJID and rows for each AE record
+\item \code{dfSubj}: Subject-level Raw Data with required columns: SubjectID, SiteID, value specified in strExposureCol
+}}
 
-\item{dfSUBJ}{Subject-level Raw Data with required columns: SubjectID, SiteID, value specified in strExposureCol}
+\item{lMapping}{List containing expected columns in each data set. By default, mapping for dfAE is: \code{strIDCol} = "SUBJID". By default, mapping for dfSUBJ is: \code{strIDCol} = "SubjectID", \code{strSiteCol} = "SiteID", and \code{strExposureCol} = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.}
 
-\item{mapping}{List containing expected columns in each data set. By default, mapping for dfAE is: \code{strIDCol} = "SUBJID". By default, mapping for dfSUBJ is: \code{strIDCol} = "SubjectID", \code{strSiteCol} = "SiteID", and \code{strExposureCol} = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.}
+\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
 
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day)
+When bReturnChecks is FALSE (the default), a Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day) is returned. When bReturnChecks is TRUE, the data.frame is returned as part of a list under \code{dfInput} along with  the check results under \code{checks}.
 }
 \description{
 Convert Raw data, typically processed case report form data - to input format for Safety Assessment.
@@ -47,6 +56,7 @@ Note that the function can generate data summaries for specific types of AEs, bu
 }
 
 \examples{
-dfInput <- AE_Map_Raw(dfAE = clindata::rawplus_ae, dfSUBJ = clindata::rawplus_subj)
+dfInput <- AE_Map_Raw() # Run with defaults
+dfInput <- AE_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
 
 }

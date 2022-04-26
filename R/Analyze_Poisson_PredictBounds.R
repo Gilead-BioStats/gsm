@@ -26,7 +26,7 @@
 #' @return data frame containing predicted boundary values with upper and lower bounds across the range of observed values
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+#' dfInput <- AE_Map_Adam()
 #' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 #' dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5,5))
 #'

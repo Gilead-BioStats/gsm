@@ -8,7 +8,9 @@ IE_Assess(
   dfInput,
   nThreshold = 0.5,
   lTags = list(Assessment = "IE"),
-  bChart = TRUE
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 )
 }
 \arguments{
@@ -19,6 +21,10 @@ IE_Assess(
 \item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="IE")}}
 
 \item{bChart}{should visualization be created? TRUE (default) or FALSE.}
+
+\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
 A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, \code{lParams} and \code{lTags}) is returned.
@@ -56,13 +62,8 @@ With N greater than user specified \code{nThreshold} will be flagged.
 }
 
 \examples{
-
-dfInput <- IE_Map_Raw(
-   clindata::rawplus_ie,
-   clindata::rawplus_subj
-)
-
-IE_Summary <- IE_Assess(dfInput)$dfSummary
+dfInput <- IE_Map_Raw()
+ie <- IE_Assess(dfInput)
 
 
 }
