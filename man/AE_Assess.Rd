@@ -9,7 +9,9 @@ AE_Assess(
   vThreshold = NULL,
   strMethod = "poisson",
   lTags = list(Assessment = "AE"),
-  bChart = TRUE
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 )
 }
 \arguments{
@@ -22,6 +24,10 @@ AE_Assess(
 \item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="AE")}.}
 
 \item{bChart}{should visualization be created? TRUE (default) or FALSE.}
+
+\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
 A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, \code{lParams} and \code{lTags}) is returned.
@@ -62,8 +68,8 @@ See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additio
 }
 
 \examples{
-dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-SafetyAE <- AE_Assess( dfInput )
-SafetyAE_Wilk <- AE_Assess( dfInput, strMethod="wilcoxon")$dfSummary
+dfInput <- AE_Map_Raw()
+ae <- AE_Assess(dfInput)
+aeWilcoxon <- AE_Assess(dfInput, strMethod="wilcoxon")$dfSummary
 
 }

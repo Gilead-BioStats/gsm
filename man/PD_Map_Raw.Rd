@@ -4,14 +4,23 @@
 \alias{PD_Map_Raw}
 \title{Protocol Deviation Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-PD_Map_Raw(dfPD, dfSUBJ, mapping = NULL, bQuiet = TRUE)
+PD_Map_Raw(
+  dfs = list(dfPD = clindata::rawplus_pd, dfSUBJ = clindata::rawplus_subj),
+  lMapping = NULL,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+)
 }
 \arguments{
-\item{dfPD}{PD dataset with required column SUBJID and rows for each Protocol Deviation.}
+\item{dfs}{list of data frames including:
+\itemize{
+\item \code{dfPD}  PD dataset with required column SUBJID and rows for each Protocol Deviation.
+\item \code{dfSUBJ} Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.
+}}
 
-\item{dfSUBJ}{Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.}
+\item{lMapping}{List containing expected columns in each data set.}
 
-\item{mapping}{List containing expected columns in each data set.}
+\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
 
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
@@ -45,6 +54,7 @@ The following columns are required:
 }
 
 \examples{
-dfInput <- PD_Map_Raw(dfPD = clindata::rawplus_pd, dfSUBJ = clindata::rawplus_subj)
+dfInput <- PD_Map_Raw() # Run with defaults
+dfInput <- PD_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
 
 }

@@ -1,11 +1,6 @@
 test_that("IE assessment can return a correctly assessed data frame grouped by the study variable when given subset input data from clindata and the results should be flagged correctly", {
   # gsm analysis
-  dfInput <- IE_Map_Raw(
-    clindata::rawplus_ie %>% dplyr::filter(IE_PROTOCOLVERSION == "A1"),
-    clindata::rawplus_subj,
-    vCategoryValues= c("EXCL","INCL"),
-    vExpectedResultValues=c(0,1)
-  )
+  dfInput <- IE_Map_Raw()
 
   test3_1 <- IE_Assess(
     dfInput = dfInput,

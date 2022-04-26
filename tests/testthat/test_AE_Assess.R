@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 
-aeInput <- AE_Map_Raw(dfAE, dfSUBJ)
+aeInput <- AE_Map_Raw(dfs = list(dfAE=dfAE, dfSUBJ=dfSUBJ))
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected",{

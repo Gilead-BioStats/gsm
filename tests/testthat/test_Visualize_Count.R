@@ -1,7 +1,7 @@
 source(testthat::test_path("testdata/data.R"))
 
-consentInput <- Consent_Map_Raw(dfCONSENT, dfSUBJ, strConsentTypeValue = "MAINCONSENT")
-ieInput <- IE_Map_Raw(dfIE, dfSUBJ)
+consentInput <- Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ))
+ieInput <- IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ))
 
 test_that("output is produced with consent data", {
 consent_assess <- Consent_Assess(consentInput)

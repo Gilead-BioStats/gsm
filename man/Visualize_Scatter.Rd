@@ -20,12 +20,12 @@ site level plot object
 Site-level visualization of site-level results using a Poisson or Wilcoxon model.
 }
 \examples{
-dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
-SafetyAE <- AE_Assess( dfInput)
+dfInput <- AE_Map_Adam()
+SafetyAE <- AE_Assess(dfInput)
 dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$dfTransformed, c(-5,5))
 Visualize_Scatter(SafetyAE$dfFlagged, dfBounds)
 
-SafetyAE_wilk <- AE_Assess( dfInput, strMethod="wilcoxon")
+SafetyAE_wilk <- AE_Assess(dfInput, strMethod="wilcoxon")
 Visualize_Scatter(SafetyAE_wilk$dfFlagged)
 
 }

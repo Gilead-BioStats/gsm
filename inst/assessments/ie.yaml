@@ -4,28 +4,10 @@ tags:
   Label: IE
 workflow:
   - name: IE_Map_Raw
-    type: mapping
-    outputDomain: dfInput
-    spec:
-      dfIE:
-        requiredParams:
-          - strIDCol
-          - strCategoryCol
-          - strValueCol
-      dfSUBJ:
-        requiredParams:
-          - strIDCol
-          - strSiteCol
-        uniqueParams:
-          - strIDCol
+    inputs:
+      - dfIE
+      - dfSUBJ
+    output: dfInput
   - name: IE_Assess
-    type: assess
-    mapping:
-      dfInput:
-        strIDCol : "SubjectID"
-    spec:
-      dfInput:
-        requiredParams:
-          - strIDCol
-        uniqueParams:
-          - strIDCol
+    inputs: dfInput
+    output: lResults

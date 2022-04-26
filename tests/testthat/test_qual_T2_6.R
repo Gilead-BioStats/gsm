@@ -8,10 +8,10 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
   t2_6  <- list()
 
   for(type in deviations_of_interest){
-    dfInput <- PD_Map_Raw(
+    dfInput <- PD_Map_Raw(dfs = list(
       dfPD = clindata::rawplus_pd %>% filter(PD_CATEGORY == type),
       dfSUBJ = clindata::rawplus_subj
-      )
+      ))
 
     # gsm
     test2_6 <- c(test2_6,

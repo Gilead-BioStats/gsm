@@ -16,7 +16,7 @@ test_that("Study Table Runs as expected",{
 
     expect_equal(tbl$Title,
                  c("Number of Subjects", "Score", "Safety", "--AEs", "--AEs Serious",
-                   "Consent", "--Consent", "IE", "--IE", "PD", "--PD", "--PD Serious")
-                 )
+                   "Consent", "--Consent", "IE", "--IE", "PD", "--Important PD",
+                   "--PD"))
 
 })

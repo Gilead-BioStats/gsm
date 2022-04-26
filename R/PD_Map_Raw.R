@@ -18,73 +18,75 @@
 #'     - `SiteID` - Site ID
 #'     - `TimeOnStudy` - Time on Study in days.
 #'
-#' @param dfPD  PD dataset with required column SUBJID and rows for each Protocol Deviation.
-#' @param dfSUBJ Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.
-#' @param mapping List containing expected columns in each data set.
+#' @param dfs list of data frames including:
+#'   - `dfPD`  PD dataset with required column SUBJID and rows for each Protocol Deviation.
+#'   - `dfSUBJ` Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.
+#' @param lMapping List containing expected columns in each data set.
+#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
 #'
 #'
 #' @examples
-#' dfInput <- PD_Map_Raw(dfPD = clindata::rawplus_pd, dfSUBJ = clindata::rawplus_subj)
+#' dfInput <- PD_Map_Raw() # Run with defaults
+#' dfInput <- PD_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
 #'
 #' @import dplyr
 #'
 #' @export
 
-PD_Map_Raw <- function( dfPD, dfSUBJ, mapping = NULL, bQuiet = TRUE ){
+PD_Map_Raw <- function(
+    dfs=list(
+      dfPD=clindata::rawplus_pd,
+      dfSUBJ=clindata::rawplus_subj
+    ),
+    lMapping = NULL,
+    bReturnChecks = FALSE,
+    bQuiet = TRUE
+){
 
-    # Set defaults for mapping if none is provided
-    if(is.null(mapping)){
-        mapping <- list(
-            dfPD = list(strIDCol="SubjectID"),
-            dfSUBJ = list(strIDCol="SubjectID", strSiteCol="SiteID", strTimeOnStudyCol = "TimeOnStudy")
-        )
-    }
+  if(is.null(lMapping)) lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
 
-    # Check input data vs. mapping.
-    is_pd_valid <- is_mapping_valid(
-        dfPD,
-        mapping$dfPD,
-        vRequiredParams = c("strIDCol"),
-        bQuiet = bQuiet
-        )
+  checks <- CheckInputs(
+    context = "PD_Map_Raw",
+    dfs = dfs,
+    bQuiet = bQuiet,
+    mapping = lMapping
+  )
 
-    is_subj_valid <- is_mapping_valid(
-        dfSUBJ,
-        mapping$dfSUBJ,
-        vRequiredParams = c("strIDCol", "strSiteCol", "strTimeOnStudyCol"),
-        vUniqueCols = 'strIDCol',
-        bQuiet = bQuiet
-        )
-
-    stopifnot(
-        "Errors found in dfPD." = is_pd_valid$status,
-        "Errors found in dfSUBJ." = is_subj_valid$status
-    )
+  #Run mapping if checks passed
+  if(checks$status){
+    if(!bQuiet) cli::cli_h2("Initializing {.fn PD_Map_Raw}")
 
     # Standarize Column Names
-    dfPD_mapped <- dfPD %>%
-        rename(SubjectID = mapping[["dfPD"]][["strIDCol"]]) %>%
-        select(.data$SubjectID)
+    dfPD_mapped <- dfs$dfPD %>%
+      select(SubjectID = lMapping[["dfPD"]][["strIDCol"]])
 
-    dfSUBJ_mapped <- dfSUBJ %>%
-        rename(
-            SubjectID = mapping[["dfSUBJ"]][["strIDCol"]],
-            SiteID = mapping[["dfSUBJ"]][["strSiteCol"]],
-            Exposure = mapping[["dfSUBJ"]][["strTimeOnStudyCol"]]
-        ) %>%
-        select(.data$SubjectID, .data$SiteID, .data$Exposure)
-
+    dfSUBJ_mapped <- dfs$dfSUBJ %>%
+      select(
+        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+        Exposure = lMapping[["dfSUBJ"]][["strTimeOnStudyCol"]]
+        )
 
     # Create Subject Level PD Counts and merge Subj
     dfInput <- dfPD_mapped %>%
-        group_by(.data$SubjectID) %>%
-        summarize(Count=n()) %>%
-        ungroup() %>%
-        MergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
-        mutate(Rate = .data$Count/.data$Exposure)
+      group_by(.data$SubjectID) %>%
+      summarize(Count=n()) %>%
+      ungroup() %>%
+      MergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
+      mutate(Rate = .data$Count/.data$Exposure)
 
+    if(!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
+  } else {
+    if(!bQuiet) cli::cli_alert_warning("{.fn AE_Map_Raw} not run because of failed check.")
+    dfInput <- NULL
+  }
+
+  if(bReturnChecks){
+    return(list(df=dfInput, lChecks=checks))
+  }else{
     return(dfInput)
+  }
 }

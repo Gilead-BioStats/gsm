@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 
-ae_input <- AE_Map_Adam(dfADSL, dfADAE)
+ae_input <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
 
 test_that("output created as expected and has correct structure",{
     ae_prep <- Transform_EventCount( ae_input, strCountCol = 'Count', strExposureCol = "Exposure" )

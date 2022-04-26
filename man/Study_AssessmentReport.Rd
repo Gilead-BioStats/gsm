@@ -7,7 +7,7 @@
 Study_AssessmentReport(lAssessments)
 }
 \arguments{
-\item{lAssessments}{List of 1+ assessments like those created by \code{runAssessment()} or \code{Assess_Study()}}
+\item{lAssessments}{List of 1+ assessments like those created by \code{runAssessment()} or \code{Study_Assess()}}
 }
 \value{
 returns a list containing a data.frame summarizing the checks \code{dfSummary} and a dataframe listing all checks (`dfAllChecks``)

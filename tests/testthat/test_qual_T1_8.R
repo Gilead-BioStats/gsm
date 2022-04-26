@@ -3,8 +3,8 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
   t1_8  <- list()
 
   for(severity in unique(clindata::rawplus_ae$AE_GRADE)){
-    dfInput <- AE_Map_Raw(dfAE = filter(clindata::rawplus_ae, AE_GRADE == severity),
-                                           dfSUBJ = clindata::rawplus_subj)
+    dfInput <- AE_Map_Raw(dfs = list(dfAE = filter(clindata::rawplus_ae, AE_GRADE == severity),
+                                           dfSUBJ = clindata::rawplus_subj))
 
     # gsm
     test1_8 <- c(test1_8,

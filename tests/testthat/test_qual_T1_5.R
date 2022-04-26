@@ -1,9 +1,6 @@
 test_that("AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable when given correct input data from safetyData and the results should be flagged correctly.", {
   # gsm analysis
-  dfInput <- gsm::AE_Map_Adam(
-    dfADSL = safetyData::adam_adsl,
-    dfADAE = safetyData::adam_adae
-  )
+  dfInput <- gsm::AE_Map_Adam()
 
   test1_5 <- AE_Assess(
     dfInput = dfInput,

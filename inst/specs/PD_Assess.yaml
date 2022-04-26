@@ -1,0 +1,9 @@
+dfInput:
+  vRequired:
+    - "strIDCol"
+    - "strSiteCol"
+    - "strCountCol"
+    - "strExposureCol"
+    - "strRateCol"
+  vUniqueCols:
+    - "strIDCol"
