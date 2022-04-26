@@ -3,8 +3,11 @@
     Code
       MergeSubjects(domain, subjects, vFillZero = "Count", bQuiet = F)
     Message <cliMessage>
-      ! 5 ID(s) in domain data not found in subject data: 0001 0002 0003 0004 0005. Associated rows will not be included in merged data.
-      ! 5 ID(s) in subject data not found in domain data: 0008 0009 0010 0011 0012. These participants will have 0s imputed for the following domain data columns: Count. NA's will be imputed for all other columns.
+      ! 5 ID(s) in domain data not found in subject data.
+      Associated rows will not be included in merged data.
+      ! 5 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count. 
+      NA's will be imputed for all other columns.
     Output
       # A tibble: 6 x 4
         SubjectID SiteID Exposure Count
