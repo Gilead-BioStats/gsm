@@ -6,7 +6,7 @@
 \usage{
 AE_Map_Raw(
   dfs = list(dfAE = clindata::rawplus_ae, dfSUBJ = clindata::rawplus_subj),
-  lMapping = NULL,
+  lMapping = clindata::mapping_rawplus,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )

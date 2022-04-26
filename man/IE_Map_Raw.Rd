@@ -6,7 +6,7 @@
 \usage{
 IE_Map_Raw(
   dfs = list(dfIE = clindata::rawplus_ie, dfSUBJ = clindata::rawplus_subj),
-  lMapping = NULL,
+  lMapping = clindata::mapping_rawplus,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )

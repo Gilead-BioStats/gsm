@@ -6,7 +6,7 @@
 \usage{
 PD_Map_Raw(
   dfs = list(dfPD = clindata::rawplus_pd, dfSUBJ = clindata::rawplus_subj),
-  lMapping = NULL,
+  lMapping = clindata::mapping_rawplus,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
