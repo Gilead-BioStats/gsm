@@ -42,13 +42,10 @@ AE_Map_Raw <- function(
         dfAE=clindata::rawplus_ae,
         dfSUBJ=clindata::rawplus_subj
     ),
-    #mapping = clindata::rawplus_mapping, #TODO export rawplus_mapping in clindata
-    lMapping = NULL,
+    lMapping = clindata::mapping_rawplus,
     bReturnChecks = FALSE,
     bQuiet = TRUE
 ){
-
-    if(is.null(lMapping)) lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
 
     checks <- CheckInputs(
       context = "AE_Map_Raw",

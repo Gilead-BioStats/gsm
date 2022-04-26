@@ -96,17 +96,6 @@
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
-      v No issues found for dfADSL domain
-      x df is not a data.frame()
-      x spec is not a list()
-      x mapping is not a list()
-      x Non-character column names found in mapping: 
-      ! Issues found for  domain
-      x df is not a data.frame()
-      x spec is not a list()
-      x mapping is not a list()
-      x Non-character column names found in mapping: 
-      ! Issues found for mapping domain
       ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output

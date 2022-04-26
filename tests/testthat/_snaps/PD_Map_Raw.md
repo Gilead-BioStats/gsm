@@ -96,13 +96,6 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      v No issues found for dfPD domain
-      v No issues found for dfSUBJ domain
-      x df is not a data.frame()
-      x spec is not a list()
-      x mapping is not a list()
-      x Non-character column names found in mapping: 
-      ! Issues found for mapping domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output

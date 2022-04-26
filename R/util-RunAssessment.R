@@ -19,15 +19,18 @@
 RunAssessment <- function(lAssessment, lData, lMapping, lTags=NULL, bQuiet=FALSE){
     if(!bQuiet) cli::cli_h1(paste0("Initializing `",lAssessment$name,"` assessment"))
 
+
     lAssessment$lData <- lData
     lAssessment$lChecks <- list()
     lAssessment$bStatus <- TRUE
 
     # Run through each step in lAssessment$workflow
-
     stepCount<-1
     for(step in lAssessment$workflow){
         if(!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of " ,length(lAssessment$workflow), ": `", step$name,"`"))
+      if(!all(step$inputs %in% names(lAssessment$lData))){
+        lAssessment$bStatus <- FALSE
+      }
         if(lAssessment$bStatus){
             result <- RunStep(
                 lStep=step,
@@ -53,7 +56,7 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags=NULL, bQuiet=FALSE
                 lAssessment[[step$output]] <- result
             }
 
-        }else{
+        } else{
             cli::cli_text("Skipping {.fn {step$name}} ...")
         }
 
