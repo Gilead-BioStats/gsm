@@ -53,19 +53,15 @@ Study_AssessmentReport <- function(lAssessments) {
         if (status == TRUE) {
             logo_out <- fontawesome::fa("check-circle", fill = "green")
         }
-
         if (status == FALSE){
             logo_out <- fontawesome::fa("times-circle", fill = "red")
         }
-
         if (!status %in% c(TRUE, FALSE)) {
             logo_out <- "?"
         }
-
         logo_out %>%
             as.character() %>%
             gt::html()
-
     }
 
 
