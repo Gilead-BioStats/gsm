@@ -26,6 +26,7 @@ Suggests:
     covr,
     devtools,
     here,
+    janitor,
     kableExtra,
     knitr,
     pander,
