@@ -45,9 +45,10 @@ AE_Map_Adam <- function(
     bQuiet = TRUE
 ){
 
-  if(is.null(lMapping)) lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
-  lMapping$dfADSL <- list(strIDCol="USUBJID", strSiteCol = "SITEID", strStartCol = "TRTSDT", strEndCol = "TRTEDT")
-  lMapping$dfADAE <- list(strIDCol="USUBJID")
+  if(is.null(lMapping)) lMapping <- list(
+     dfADSL = list(strIDCol="USUBJID", strSiteCol = "SITEID", strStartCol = "TRTSDT", strEndCol = "TRTEDT"),
+     dfADAE = list(strIDCol="USUBJID")
+ )
 
   checks <- CheckInputs(
     context = "AE_Map_Adam",
