@@ -48,7 +48,7 @@ PD_Map_Raw <- function(
 
   if(is.null(lMapping)) lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
 
-  checks <-     checks <- CheckInputs(
+  checks <- CheckInputs(
     context = "PD_Map_Raw",
     dfs = dfs,
     bQuiet = bQuiet,

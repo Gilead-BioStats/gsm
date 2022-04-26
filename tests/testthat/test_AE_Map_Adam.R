@@ -27,25 +27,25 @@ test_that("incorrect inputs throw errors", {
 
 # can't test these until mappings are updated in clindata
 
-# test_that("incorrect mappings throw errors",{
-#
-#   expect_snapshot_error(AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
-#                                     lMapping = list(
-#     dfADSL = list(strIDCol="not an id",
-#                   strSiteCol = "SITEID",
-#                   strStartCol = "TRTSDT",
-#                   strEndCol = "TRTEDT"),
-#     dfADAE = list(strIDCol="USUBJID"))))
-#
-#   expect_snapshot_error(AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
-#                                    lMapping = list(
-#     dfADSL = list(strIDCol="USUBJID",
-#                   strSiteCol = "SITEID",
-#                   strStartCol = "TRTSDT",
-#                   strEndCol = "TRTEDT"),
-#     dfADAE = list(strIDCol="not an id"))))
-#
-# })
+test_that("incorrect mappings throw errors",{
+
+  expect_null(AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
+                                    lMapping = list(
+    dfADSL = list(strIDCol="not an id",
+                  strSiteCol = "SITEID",
+                  strStartCol = "TRTSDT",
+                  strEndCol = "TRTEDT"),
+    dfADAE = list(strIDCol="USUBJID"))))
+
+  expect_null(AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
+                                   lMapping = list(
+    dfADSL = list(strIDCol="USUBJID",
+                  strSiteCol = "SITEID",
+                  strStartCol = "TRTSDT",
+                  strEndCol = "TRTEDT"),
+    dfADAE = list(strIDCol="not an id"))))
+
+})
 
 # custom tests ------------------------------------------------------------
 
