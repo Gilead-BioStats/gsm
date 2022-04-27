@@ -30,7 +30,7 @@ Study_AssessmentReport <- function(lAssessments) {
           mutate(status = ifelse(is.na(warning), "--", warning)) %>%
           select(-warning) %>%
           t %>%
-          as_tibble(.name_repair = "unique") %>%
+          as_tibble(.name_repair = "minimal") %>%
           janitor::row_to_names(1)
 
         return(bind_cols(tibble(

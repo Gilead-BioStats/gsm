@@ -16,7 +16,7 @@ CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
 
     if(is.null(mapping)) mapping <- yaml::read_yaml(system.file('mappings', paste0(context,'.yaml'), package = 'gsm'))
 
-    domains <- names(dfs)
+    domains <- names(spec)
 
     if(all(hasName(dfs, domains) & hasName(mapping, domains))){
       checks <- domains %>%
@@ -31,7 +31,7 @@ CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
     } else {
       checks <- list()
       for(missing in names(dfs)){
-        if(is.na(missing)) missing <- names(spec)[!names(spec) %in% domains]
+        if(is.na(missing)) missing <- domains[!domains %in% names(dfs)]
         checks[[missing]] <- list(status = FALSE,
                     tests_if = list(is_data_frame = list(status = NA, warning = NA),
                                      has_required_params = list(status = NA, warning = NA),

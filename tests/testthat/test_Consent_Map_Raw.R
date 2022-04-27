@@ -13,7 +13,7 @@ test_that("incorrect inputs throw errors",{
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = list()), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = list(), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = "Hi", dfSUBJ = "Mom"), bQuiet = F))
-  expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ, mapping = list()), bQuiet = F))
+  expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ), lMapping = list(), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT %>% select(-CONSENT_DATE), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT %>% select(-CONSENT_TYPE), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT %>% select(-CONSENT_VALUE), dfSUBJ = dfSUBJ), bQuiet = F))

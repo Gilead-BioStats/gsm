@@ -83,13 +83,13 @@
 ---
 
     Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ, mapping = list()),
+      Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ), lMapping = list(),
       bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      ! Checks not run for `mapping` because data/metadata not provided, or `mapping` is named incorrectly.
+      ! Checks not run for `dfSUBJ` because data/metadata not provided, or `dfSUBJ` is named incorrectly.
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` not run because of failed check.
     Output

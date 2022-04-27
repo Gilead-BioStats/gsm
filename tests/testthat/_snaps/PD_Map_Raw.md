@@ -83,12 +83,12 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ, mapping = list()), bQuiet = F)
+      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ), lMapping = list(), bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      ! Checks not run for `mapping` because data/metadata not provided, or `mapping` is named incorrectly.
+      ! Checks not run for `dfSUBJ` because data/metadata not provided, or `dfSUBJ` is named incorrectly.
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
