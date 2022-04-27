@@ -21,8 +21,13 @@ CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
     if(!all(domains %in% names(spec))) {
       checks <- data.frame(status = FALSE)
     } else {
+   if(hasName(dfs, domain) & hasName(mapping, domain){
     checks <- domains %>% map(function(domain){
       check <- is_mapping_valid(df=dfs[[domain]], mapping=mapping[[domain]], spec=spec[[domain]], bQuiet=bQuiet)
+      } else {
+      check <- list(status=False, tests_if<-list(...)) # all expected values in tests_if = NULL? 
+      cli_alert_warning("checks not run for {domain} because data/metadata not provided")
+     }
       if(check$status){
         if(!bQuiet) cli::cli_alert_success("No issues found for {domain} domain")
       } else {
