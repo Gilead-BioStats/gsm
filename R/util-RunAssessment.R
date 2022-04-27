@@ -28,9 +28,6 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags=NULL, bQuiet=FALSE
     stepCount<-1
     for(step in lAssessment$workflow){
         if(!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of " ,length(lAssessment$workflow), ": `", step$name,"`"))
-      if(!all(step$inputs %in% names(lAssessment$lData))){
-        lAssessment$bStatus <- FALSE
-      }
         if(lAssessment$bStatus){
             result <- RunStep(
                 lStep=step,

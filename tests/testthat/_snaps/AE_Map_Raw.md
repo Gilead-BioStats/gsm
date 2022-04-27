@@ -11,13 +11,11 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfAE domain
       x df is not a data.frame()
       x the following columns not found in df: SubjectID, SiteID, TimeOnTreatment
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -31,13 +29,11 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      v No issues found for dfAE domain
       x df is not a data.frame()
       x the following columns not found in df: SubjectID, SiteID, TimeOnTreatment
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -56,8 +52,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfAE domain
-      v No issues found for dfSUBJ domain
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -76,13 +70,11 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfAE domain
       x df is not a data.frame()
       x the following columns not found in df: SubjectID, SiteID, TimeOnTreatment
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -101,8 +93,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfAE domain
-      v No issues found for dfSUBJ domain
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -117,12 +107,10 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      v No issues found for dfAE domain
       x the following columns not found in df: SiteID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -137,12 +125,10 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      v No issues found for dfAE domain
       x the following columns not found in df: SubjectID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -157,12 +143,10 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      v No issues found for dfAE domain
       x the following columns not found in df: TimeOnTreatment
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -177,9 +161,7 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      v No issues found for dfAE domain
       x Unexpected duplicates found in column: SubjectID
-      ! Issues found for dfSUBJ domain
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -199,8 +181,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfAE domain
-      v No issues found for dfSUBJ domain
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -216,12 +196,10 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      v No issues found for dfAE domain
       x the following columns not found in df: not an id
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output

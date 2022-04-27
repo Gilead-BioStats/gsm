@@ -30,7 +30,7 @@ Study_AssessmentReport <- function(lAssessments) {
           mutate(status = ifelse(is.na(warning), "--", warning)) %>%
           select(-warning) %>%
           t %>%
-          as_tibble %>%
+          as_tibble(.name_repair = "unique") %>%
           janitor::row_to_names(1)
 
         return(bind_cols(tibble(
@@ -38,9 +38,10 @@ Study_AssessmentReport <- function(lAssessments) {
           step=domain_name,
           domain=test_name
         ), details))
-      }) %>% bind_rows()
+      }) %>% bind_rows() %>%
+        suppressMessages()
 
-      return(left_join(domain_check,domain_details))
+      return(left_join(domain_check,domain_details, by = c("assessment", "step")))
     })
 
     return(bind_rows(assessment_checks))

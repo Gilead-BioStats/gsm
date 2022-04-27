@@ -11,13 +11,11 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfIE domain
       x df is not a data.frame()
       x the following columns not found in df: SubjectID, SiteID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
@@ -36,13 +34,11 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfIE domain
       x df is not a data.frame()
       x the following columns not found in df: SubjectID, SiteID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
@@ -61,8 +57,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfIE domain
-      v No issues found for dfSUBJ domain
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
@@ -81,8 +75,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfIE domain
-      v No issues found for dfSUBJ domain
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
@@ -101,8 +93,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfIE domain
-      v No issues found for dfSUBJ domain
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
@@ -117,9 +107,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      v No issues found for dfIE domain
       x Unexpected duplicates found in column: SubjectID
-      ! Issues found for dfSUBJ domain
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
@@ -139,8 +127,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfIE domain
-      v No issues found for dfSUBJ domain
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output
@@ -156,12 +142,10 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      v No issues found for dfIE domain
       x the following columns not found in df: not an id
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` not run because of failed check.
     Output

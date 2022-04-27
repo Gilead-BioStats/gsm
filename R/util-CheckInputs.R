@@ -17,29 +17,42 @@ CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
     if(is.null(mapping)) mapping <- yaml::read_yaml(system.file('mappings', paste0(context,'.yaml'), package = 'gsm'))
 
     domains <- names(dfs)
-   if(hasName(dfs, domain) & hasName(mapping, domain){
-    checks <- domains %>% map(function(domain){
-      check <- is_mapping_valid(df=dfs[[domain]], mapping=mapping[[domain]], spec=spec[[domain]], bQuiet=bQuiet)
-      } else {
-      check <- list(status=False, tests_if<-list(...)) # all expected values in tests_if = NULL? 
-      cli_alert_warning("checks not run for {domain} because data/metadata not provided")
-     }
-      if(check$status){
-        if(!bQuiet) cli::cli_alert_success("No issues found for {domain} domain")
-      } else {
-        if(!bQuiet) cli::cli_alert_warning("Issues found for {domain} domain")
+
+    if(all(hasName(dfs, domains) & hasName(mapping, domains))){
+      checks <- domains %>%
+        map(function(domain){
+          check <- is_mapping_valid(df = dfs[[domain]],
+                                    mapping = mapping[[domain]],
+                                    spec = spec[[domain]],
+                                    bQuiet = bQuiet)
+          return(check)
+        }) %>%
+        set_names(nm = names(dfs))
+    } else {
+      checks <- list()
+      for(missing in names(dfs)){
+        if(is.na(missing)) missing <- names(spec)[!names(spec) %in% domains]
+        checks[[missing]] <- list(status = FALSE,
+                    tests_if = list(is_data_frame = list(status = NA, warning = NA),
+                                     has_required_params = list(status = NA, warning = NA),
+                                     spec_is_list = list(status = NA, warning = NA),
+                                     mapping_is_list = list(status = NA, warning = NA),
+                                     mappings_are_character = list(status = NA, warning = NA),
+                                     has_expected_columns = list(status = NA, warning = NA),
+                                     columns_have_na = list(status = NA, warning = NA),
+                                     columns_have_empty_values = list(status = NA, warning = NA),
+                                     cols_are_unique = list(status = NA, warning = NA)))
       }
-      return(check)
-    }) %>%
-      set_names(nm = names(dfs))
+      if(!bQuiet) cli::cli_alert_warning("Checks not run for {.var {missing}} because data/metadata not provided, or {.var {missing}} is named incorrectly.")
+      }
 
     checks$status <- all(checks %>% map_lgl(~.x$status))
+
+    if(checks$status) {
+      if(!bQuiet) cli::cli_alert_success("No issues found for {.fn {context}}")
+    } else {
+      if(!bQuiet) cli::cli_alert_warning("Issues found for {.fn {context}}")
     }
 
-    if(checks$status){
-      if(!bQuiet) cli::cli_alert_success("No issues found for {.fn {context}}")
-      } else {
-        if(!bQuiet) cli::cli_alert_warning("Issues found for {.fn {context}}")
-      }
     return(checks)
-    }
+}

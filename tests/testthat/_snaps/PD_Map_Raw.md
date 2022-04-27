@@ -11,13 +11,11 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfPD domain
       x df is not a data.frame()
       x the following columns not found in df: SubjectID, SiteID, TimeOnStudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -31,13 +29,11 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      v No issues found for dfPD domain
       x df is not a data.frame()
       x the following columns not found in df: SubjectID, SiteID, TimeOnStudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -56,8 +52,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfPD domain
-      v No issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -76,13 +70,11 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfPD domain
       x df is not a data.frame()
       x the following columns not found in df: SubjectID, SiteID, TimeOnStudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -96,6 +88,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
+      ! Checks not run for `mapping` because data/metadata not provided, or `mapping` is named incorrectly.
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -114,8 +107,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfPD domain
-      v No issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -130,12 +121,10 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      v No issues found for dfPD domain
       x the following columns not found in df: SubjectID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -150,12 +139,10 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      v No issues found for dfPD domain
       x the following columns not found in df: SiteID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -170,12 +157,10 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      v No issues found for dfPD domain
       x the following columns not found in df: TimeOnStudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -190,9 +175,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      v No issues found for dfPD domain
       x Unexpected duplicates found in column: SubjectID
-      ! Issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -212,8 +195,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfPD domain
-      v No issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -229,12 +210,10 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      v No issues found for dfPD domain
       x the following columns not found in df: not an id
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -248,9 +227,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      v No issues found for dfPD domain
       x 1 NA values found in column: TimeOnStudy
-      ! Issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -264,9 +241,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      v No issues found for dfPD domain
       x 1 NA values found in column: TimeOnStudy
-      ! Issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
@@ -280,9 +255,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      v No issues found for dfPD domain
       x Unexpected duplicates found in column: SubjectID
-      ! Issues found for dfSUBJ domain
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
