@@ -56,11 +56,9 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
             paste0(
               cli::col_br_red(
                 length(domain_only_ids),
-                cli::col_br_red(" ID(s) in domain data not found in subject data: ")),
-                paste(domain_only_ids, collapse=" "),
-                ". ",
-                cli::col_br_red("Associated rows will not be included in merged data.\n")
+                cli::col_br_red(" ID(s) in domain data not found in subject data.\nAssociated rows will not be included in merged data.")
             )
+          )
         )
     }
 
@@ -72,16 +70,14 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
                 paste0(
                   cli::col_br_red(
                     length(subject_only_ids),
-                    " ID(s) in subject data not found in domain data: "),
-                    paste(subject_only_ids, collapse=" "),
-                    ". ",
+                    " ID(s) in subject data not found in domain data."),
                     ifelse(is.null(vFillZero),
-                        cli::col_br_red("These participants will have NA values imputed for all domain data columns:"),
+                          cli::col_br_red("These participants will have NA values imputed for all domain data columns:"),
                         paste0(
-                          cli::col_br_red("These participants will have 0s imputed for the following domain data columns: "),
+                          cli::col_br_red("\nThese participants will have 0s imputed for the following domain data columns: "),
                             paste(vFillZero, sep=", "),
                             ". ",
-                            cli::col_br_red("NA's will be imputed for all other columns.")
+                            cli::col_br_red("\nNA's will be imputed for all other columns.")
                         )
                     )
                 )
