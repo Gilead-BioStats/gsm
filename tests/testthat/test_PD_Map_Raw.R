@@ -13,7 +13,7 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = list()), bQuiet = F))
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = list(), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = "Hi",dfSUBJ = "Mom"), bQuiet = F))
-  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ, mapping = list()), bQuiet = F))
+  expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ), lMapping = list(), bQuiet = F))
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD %>% select(-SubjectID), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-SubjectID)), bQuiet = F))
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-SiteID)), bQuiet = F))

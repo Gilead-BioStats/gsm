@@ -41,12 +41,10 @@ PD_Map_Raw <- function(
       dfPD=clindata::rawplus_pd,
       dfSUBJ=clindata::rawplus_subj
     ),
-    lMapping = NULL,
+    lMapping = clindata::mapping_rawplus,
     bReturnChecks = FALSE,
     bQuiet = TRUE
 ){
-
-  if(is.null(lMapping)) lMapping <- yaml::read_yaml(system.file('mapping','rawplus.yaml', package = 'clindata')) # TODO remove
 
   checks <- CheckInputs(
     context = "PD_Map_Raw",

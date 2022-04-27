@@ -11,13 +11,11 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfADSL domain
       x df is not a data.frame()
       x the following columns not found in df: USUBJID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfADAE domain
       ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
@@ -31,13 +29,11 @@
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
-      v No issues found for dfADSL domain
       x df is not a data.frame()
       x the following columns not found in df: USUBJID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfADAE domain
       ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
@@ -56,8 +52,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfADSL domain
-      v No issues found for dfADAE domain
       ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
@@ -76,13 +70,11 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfADSL domain
       x df is not a data.frame()
       x the following columns not found in df: USUBJID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfADAE domain
       ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
@@ -96,17 +88,7 @@
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
-      v No issues found for dfADSL domain
-      x df is not a data.frame()
-      x spec is not a list()
-      x mapping is not a list()
-      x Non-character column names found in mapping: 
-      ! Issues found for  domain
-      x df is not a data.frame()
-      x spec is not a list()
-      x mapping is not a list()
-      x Non-character column names found in mapping: 
-      ! Issues found for mapping domain
+      ! Checks not run for `mapping` because data/metadata not provided, or `mapping` is named incorrectly.
       ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
@@ -125,8 +107,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfADSL domain
-      v No issues found for dfADAE domain
       ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
@@ -145,8 +125,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfADSL domain
-      v No issues found for dfADAE domain
       ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
@@ -165,8 +143,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfADSL domain
-      v No issues found for dfADAE domain
       ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
@@ -185,8 +161,6 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfADSL domain
-      v No issues found for dfADAE domain
       ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
@@ -201,12 +175,10 @@
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
-      v No issues found for dfADSL domain
       x the following columns not found in df: USUBJID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for dfADAE domain
       ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output
