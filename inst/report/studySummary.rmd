@@ -142,23 +142,29 @@ with_tooltip <- function(value, tooltip) {
 }
 AssessmentReport <- gsm::Study_AssessmentReport(params$assessments)
 AssessmentReport$dfSummary %>% 
-  gt::gt() 
+  gt::gt() %>% 
+  gt::tab_style(
+    style = list(
+      cell_text(color='white', align="center", weight="bold"),
+      cell_fill(color="#c73442")
+    ),
+    locations = cells_column_labels()
+  )
 
-# %>% 
-#   gt::cols_label(
-#     is_data_frame = gt::html(as.character(with_tooltip("is_data_frame", "Checks if data provided is of class == data.frame()"))),
-#     has_required_params = gt::html(as.character(with_tooltip("has_required_params", "Checks if parameters provided in vRequiredParams are found in mapping"))),
-#     mapping_is_list = gt::html(as.character(with_tooltip("mapping_is_list", "Checks if mapping object is of class == list()"))),
-#     mappings_are_character = gt::html(as.character(with_tooltip("mappings_are_character", "Checks if values in mapping are of class == character()")))
-#   )
 ```
 
 ## Issue List
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 AssessmentReport$dfAllChecks%>%
-    filter(status==FALSE)%>%
-    kbl(escape=FALSE) %>% 
-    kable_styling()
+    filter(check==FALSE)%>%
+    gt::gt() %>% 
+  gt::tab_style(
+    style = list(
+      cell_text(color='white', align="center", weight="bold"),
+      cell_fill(color="#c73442")
+    ),
+    locations = cells_column_labels()
+  )
 ```
 
 
