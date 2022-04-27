@@ -17,10 +17,6 @@ CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
     if(is.null(mapping)) mapping <- yaml::read_yaml(system.file('mappings', paste0(context,'.yaml'), package = 'gsm'))
 
     domains <- names(dfs)
-
-    if(!all(domains %in% names(spec))) {
-      checks <- data.frame(status = FALSE)
-    } else {
    if(hasName(dfs, domain) & hasName(mapping, domain){
     checks <- domains %>% map(function(domain){
       check <- is_mapping_valid(df=dfs[[domain]], mapping=mapping[[domain]], spec=spec[[domain]], bQuiet=bQuiet)
