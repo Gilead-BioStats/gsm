@@ -134,7 +134,7 @@ AE_Assess <- function(
 
     if (bChart) {
       if(strMethod=="poisson"){
-        dfBounds <- Analyze_Poisson_PredictBounds(lAssess$dfTransformed)
+        dfBounds <- Analyze_Poisson_PredictBounds(lAssess$dfTransformed, vThreshold =vThreshold)
         lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged, dfBounds)
         if(!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
       }else{
