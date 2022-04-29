@@ -133,7 +133,7 @@ PD_Assess <- function(
 
         if(bChart) {
           if(strMethod=="poisson"){
-            dfBounds <- Analyze_Poisson_PredictBounds(lAssess$dfTransformed)
+            dfBounds <- Analyze_Poisson_PredictBounds(lAssess$dfTransformed, vThreshold =vThreshold)
             lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged, dfBounds)
           }else{
             lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged)
