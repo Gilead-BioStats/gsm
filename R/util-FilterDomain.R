@@ -49,11 +49,11 @@ FilterDomain <- function(df, strDomain, lMapping, strColParam, strValParam, bRet
             if(newRows==0) cli::cli_alert_warning("WARNING: Filtered data has 0 rows.")
             if(newRows==oldRows) cli::cli_alert_info("NOTE: No rows dropped.")
         }
-    }
-
-    if(missing(df)){
+    } else {
+      if(!bQuiet) cli::cli_alert_warning("df is missing")
       df <- NULL
     }
+
 
     if(bReturnChecks){
         return(list(df=df, lChecks=checks))

@@ -11,6 +11,7 @@
       x "mapping" does not contain required parameters: strWhateverEmergentCol, strWhateverEmergentVal
       x Non-character column names found in mapping: 
       ! Issues found for dfAE domain
+      ! df is missing
 
 # filter to 0 rows throws a warning
 
