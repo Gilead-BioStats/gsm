@@ -1,7 +1,7 @@
 #' Check that a data frame contains columns and fields specified in mapping
 #'
 #' @param df data.frame to compare to mapping object.
-#' @param mapping named list specifying expected columns and values in df. Parameters ending in `col` are assummed to be column names in `df`, while paramters ending in `val` are values expected in for a corresponding column. For example, `mapping=list(strSiteCol="SiteID", strSiteVal=c("001","002"))` would indicate that `df` has a `df$SiteID` includes values `"001"` and `"002"`.
+#' @param mapping named list specifying expected columns and values in df. Parameters ending in `col` are assumed to be column names in `df`, while parameters ending in `val` are values expected in for a corresponding column. For example, `mapping=list(strSiteCol="SiteID", strSiteVal=c("001","002"))` would indicate that `df` has a `df$SiteID` includes values `"001"` and `"002"`.
 #' @param spec named list specifying parameters that should be defined in `mapping`, and describes how the values specified by those parameters should be used in `df`. Should have the following properties:
 #' - `spec$vRequired` - list of parameters that should be defined in `mapping`.
 #' - `spec$vUniqueCols` - list of column parameters that should not contain duplicate values
