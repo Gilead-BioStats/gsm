@@ -53,12 +53,17 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE){
         cols_are_unique = list(status = NA, warning = NA)
     )
 
-    # `df` is a data.frame
-    if(!is.data.frame(df)){
-        tests_if$is_data_frame$status <- FALSE
-        tests_if$is_data_frame$warning <- "df is not a data.frame()"
+    if(!missing("df")) {
+      # `df` is a data.frame
+      if(!is.data.frame(df)){
+          tests_if$is_data_frame$status <- FALSE
+          tests_if$is_data_frame$warning <- "df is not a data.frame()"
+      } else {
+          tests_if$is_data_frame$status <- TRUE
+      }
     } else {
-        tests_if$is_data_frame$status <- TRUE
+          tests_if$is_data_frame$status <- FALSE
+          tests_if$is_data_frame$warning <- "df is not a data.frame()"
     }
 
     # basic `mapping` checks
@@ -98,14 +103,19 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE){
         tests_if$mappings_are_character$status <- TRUE
     }
 
-    # expected columns are found in "df"
-    if(!all(colNames %in% names(df))) {
-        tests_if$has_expected_columns$status <- FALSE
-        warning_cols <- paste(colNames[!colNames %in% names(df)], collapse = ", ")
-        warning <- paste0("the following columns not found in df: ", warning_cols)
-        tests_if$has_expected_columns$warning <- warning
+    if(!missing(df)){
+      # expected columns are found in "df"
+      if(!all(colNames %in% names(df))) {
+          tests_if$has_expected_columns$status <- FALSE
+          warning_cols <- paste(colNames[!colNames %in% names(df)], collapse = ", ")
+          warning <- paste0("the following columns not found in df: ", warning_cols)
+          tests_if$has_expected_columns$warning <- warning
+      } else {
+          tests_if$has_expected_columns$status <- TRUE
+      }
     } else {
-        tests_if$has_expected_columns$status <- TRUE
+      tests_if$has_expected_columns$status <- FALSE
+      tests_if$has_expected_columns$warning <- "data is NULL - not able to check for columns"
     }
 
 

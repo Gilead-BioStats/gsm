@@ -51,6 +51,10 @@ FilterDomain <- function(df, strDomain, lMapping, strColParam, strValParam, bRet
         }
     }
 
+    if(missing(df)){
+      df <- NULL
+    }
+
     if(bReturnChecks){
         return(list(df=df, lChecks=checks))
     }else{
