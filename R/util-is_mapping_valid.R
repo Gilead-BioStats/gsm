@@ -63,7 +63,7 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE){
       }
     } else {
           tests_if$is_data_frame$status <- FALSE
-          tests_if$is_data_frame$warning <- "df is not a data.frame()"
+          tests_if$is_data_frame$warning <- "df is missing"
     }
 
     # basic `mapping` checks
