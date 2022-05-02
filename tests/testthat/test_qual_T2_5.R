@@ -1,14 +1,15 @@
 test_that("PD assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable when given subset input data from clindata and the results should be flagged correctly", {
   # gsm analysis
-  dfInput <- suppressWarnings(gsm::PD_Map_Raw(
-    dfPD = clindata::raw_protdev %>%  filter(SUBJID != "" & DEVUSED %in% c("Y", "y")),
-    dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
+  dfInput <- gsm::PD_Map_Raw(dfs = list(
+    dfPD = clindata::rawplus_pd %>% filter(PD_IMPORTANT_FLAG == "Y"),
+    dfSUBJ = clindata::rawplus_subj
   ))
 
-  test2_5 <- suppressWarnings(PD_Assess(
+  test2_5 <- PD_Assess(
     dfInput = dfInput,
-    strMethod = "wilcoxon"
-  ))
+    strMethod = "wilcoxon",
+    bChart = FALSE
+  )
 
   # double programming
   t2_5_input <- dfInput
@@ -52,7 +53,8 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
 
   t2_5 <- list("strFunctionName" = "PD_Assess()",
                "lParams" = list("dfInput" = "dfInput",
-                                "strMethod" = "wilcoxon"),
+                                "strMethod" = "wilcoxon",
+                                "bChart" = "FALSE"),
                "lTags" = list(Assessment = "PD"),
                "dfInput" = t2_5_input,
                "dfTransformed" = t2_5_transformed,

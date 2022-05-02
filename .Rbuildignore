@@ -6,3 +6,6 @@
 ^Meta$
 ^vignettes/qualification\.Rmd$
 ^vignettes/qualification\.log$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

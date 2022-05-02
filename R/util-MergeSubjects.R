@@ -4,7 +4,7 @@
 #' @param dfDomain Subject-level domain data containing one record per participant.
 #' @param strIDCol name of ID Column - default='SubjectID'
 #' @param vFillZero Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject
-#' @param bQuiet print messages?
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return data set with one record per IDCol
 #'
@@ -13,21 +13,25 @@
 #'
 #' @export
 
-mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=NULL, bQuiet=TRUE){
+MergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=NULL, bQuiet=TRUE){
     is_domain_valid <- is_mapping_valid(
         df = dfDomain,
         mapping = list('strIDCol'=strIDCol),
-        vUniqueCols = "strIDCol",
-        vRequiredParams = "strIDCol",
-        bQuiet=FALSE
+        spec=list(
+            vUniqueCols = "strIDCol",
+            vRequired = "strIDCol"
+        ),
+        bQuiet=bQuiet
     )
 
     is_subjects_valid <- is_mapping_valid(
         df = dfSubjects,
         mapping = list('strIDCol'=strIDCol),
-        vUniqueCols = "strIDCol",
-        vRequiredParams = "strIDCol",
-        bQuiet=FALSE
+        spec=list(
+            vUniqueCols = "strIDCol",
+            vRequired = "strIDCol"
+        ),
+        bQuiet=bQuiet
     )
 
     stopifnot(
@@ -48,14 +52,13 @@ mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
     domain_ids <- dfDomain[[strIDCol]]
     domain_only_ids <- domain_ids[!domain_ids %in% subject_ids]
     if(length(domain_only_ids > 0)){
-        warning(
+        cli::cli_alert_warning(
             paste0(
+              cli::col_br_red(
                 length(domain_only_ids),
-                " ID(s) in domain data not found in subject data: ",
-                paste(domain_only_ids, collapse=" "),
-                ". ",
-                "Associated rows will not be included in merged data.\n"
+                cli::col_br_red(" ID(s) in domain data not found in subject data.\nAssociated rows will not be included in merged data.")
             )
+          )
         )
     }
 
@@ -63,24 +66,31 @@ mergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
     subject_only_ids <-  subject_ids[!subject_ids %in% domain_ids]
     if(length(subject_only_ids > 0)){
         if(!bQuiet){
-            message(
+            cli::cli_alert_warning(
                 paste0(
+                  cli::col_br_red(
                     length(subject_only_ids),
-                    " ID(s) in subject data not found in domain data: ",
-                    paste(subject_only_ids, collapse=" "),
-                    ". ",
+                    " ID(s) in subject data not found in domain data."),
                     ifelse(is.null(vFillZero),
-                        "These participants will have NA values imputed for all domain data columns:",
+                          cli::col_br_red("These participants will have NA values imputed for all domain data columns:"),
                         paste0(
-                            "These participants will have 0s imputed for the following domain data columns: ",
+                          cli::col_br_red("\nThese participants will have 0s imputed for the following domain data columns: "),
                             paste(vFillZero, sep=", "),
                             ". ",
-                            "NA's will be imputed for all other columns."
+                            cli::col_br_red("\nNA's will be imputed for all other columns.")
                         )
                     )
                 )
             )
         }
+    }
+
+    if (class(dfDomain[[strIDCol]]) != "character") {
+        dfDomain[[strIDCol]] <- as.character(dfDomain[[strIDCol]])
+    }
+
+    if (class(dfSubjects[[strIDCol]]) != "character") {
+        dfSubjects[[strIDCol]] <- as.character(dfSubjects[[strIDCol]])
     }
 
     dfOut <- left_join(dfSubjects, dfDomain, by=strIDCol)

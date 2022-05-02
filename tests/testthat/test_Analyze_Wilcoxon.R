@@ -1,9 +1,9 @@
-ae_input <- AE_Map_Adam(
-    safetyData::adam_adsl,
-    safetyData::adam_adae
-)
+source(testthat::test_path("testdata/data.R"))
 
-ae_prep <- Transform_EventCount( ae_input, strCountCol = 'Count', strExposureCol = "Exposure" )
+ae_input <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
+
+
+ae_prep <- Transform_EventCount(ae_input, strCountCol = 'Count', strExposureCol = "Exposure" )
 
 test_that("output created as expected and has correct structure",{
     aew_anly <-Analyze_Wilcoxon(ae_prep, strOutcome = "Rate")

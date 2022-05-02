@@ -1,13 +1,14 @@
 test_that("AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable when given subset input data from clindata and the results should be flagged correctly.", {
   # gsm analysis
-  dfInput <- gsm::AE_Map_Raw(
-    dfAE = clindata::raw_ae %>% filter(AESER_STD == "Y" & SUBJID != ""),
-    dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
-  )
+  dfInput <- gsm::AE_Map_Raw(dfs = list(
+    dfAE = clindata::rawplus_ae %>% filter(AE_SERIOUS == "Yes"),
+    dfSUBJ = clindata::rawplus_subj
+  ))
 
   test1_7 <- AE_Assess(
     dfInput = dfInput,
-    strMethod = "wilcoxon"
+    strMethod = "wilcoxon",
+    bChart = FALSE
   )
 
   # double programming
@@ -53,7 +54,8 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
 
   t1_7 <- list("strFunctionName" = "AE_Assess()",
              "lParams" = list("dfInput" = "dfInput",
-                              "strMethod" = "wilcoxon"),
+                              "strMethod" = "wilcoxon",
+                              "bChart" = "FALSE"),
              "lTags" = list(Assessment = "AE"),
              "dfInput" = t1_7_input,
              "dfTransformed" = t1_7_transformed,

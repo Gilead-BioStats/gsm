@@ -4,14 +4,25 @@
 \alias{PD_Map_Raw}
 \title{Protocol Deviation Assessment Mapping from Raw Data- Make Input Data}
 \usage{
-PD_Map_Raw(dfPD, dfRDSL, mapping = NULL)
+PD_Map_Raw(
+  dfs = list(dfPD = clindata::rawplus_pd, dfSUBJ = clindata::rawplus_subj),
+  lMapping = clindata::mapping_rawplus,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+)
 }
 \arguments{
-\item{dfPD}{PD dataset with required column SUBJID and rows for each Protocol Deviation.}
+\item{dfs}{list of data frames including:
+\itemize{
+\item \code{dfPD}  PD dataset with required column SUBJID and rows for each Protocol Deviation.
+\item \code{dfSUBJ} Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.
+}}
 
-\item{dfRDSL}{Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol.}
+\item{lMapping}{List containing expected columns in each data set.}
 
-\item{mapping}{List containing expected columns in each data set.}
+\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
 Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
@@ -31,9 +42,9 @@ The following columns are required:
 \itemize{
 \item \code{dfPD}
 \itemize{
-\item \code{SUBJID} - Unique subject ID
+\item \code{SubjectID} - Unique subject ID
 }
-\item \code{dfRDSL}
+\item \code{dfSUBJ}
 \itemize{
 \item \code{SubjectID} - Unique subject ID
 \item \code{SiteID} - Site ID
@@ -43,9 +54,7 @@ The following columns are required:
 }
 
 \examples{
-dfInput <- PD_Map_Raw(
-    clindata::raw_protdev \%>\% dplyr::filter(SUBJID != ""),
-    clindata::rawplus_rdsl
-)
+dfInput <- PD_Map_Raw() # Run with defaults
+dfInput <- PD_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
 
 }

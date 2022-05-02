@@ -12,81 +12,79 @@
 #'
 #' The following columns are required:
 #' - `dfPD`
-#'     - `SUBJID` - Unique subject ID
-#' - `dfRDSL`
+#'     - `SubjectID` - Unique subject ID
+#' - `dfSUBJ`
 #'     - `SubjectID` - Unique subject ID
 #'     - `SiteID` - Site ID
 #'     - `TimeOnStudy` - Time on Study in days.
 #'
-#' @param dfPD  PD dataset with required column SUBJID and rows for each Protocol Deviation.
-#' @param dfRDSL Subject-level Raw Data (RDSL) required columns: SubjectID, SiteID, value specified in strExposureCol.
-#' @param mapping List containing expected columns in each data set.
+#' @param dfs list of data frames including:
+#'   - `dfPD`  PD dataset with required column SUBJID and rows for each Protocol Deviation.
+#'   - `dfSUBJ` Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.
+#' @param lMapping List containing expected columns in each data set.
+#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
+#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
 #'
 #'
 #' @examples
-#' dfInput <- PD_Map_Raw(
-#'     clindata::raw_protdev %>% dplyr::filter(SUBJID != ""),
-#'     clindata::rawplus_rdsl
-#' )
+#' dfInput <- PD_Map_Raw() # Run with defaults
+#' dfInput <- PD_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
 #'
 #' @import dplyr
 #'
 #' @export
 
-PD_Map_Raw <- function(dfPD, dfRDSL, mapping = NULL){
+PD_Map_Raw <- function(
+    dfs=list(
+      dfPD=clindata::rawplus_pd,
+      dfSUBJ=clindata::rawplus_subj
+    ),
+    lMapping = clindata::mapping_rawplus,
+    bReturnChecks = FALSE,
+    bQuiet = TRUE
+){
 
-    # Set defaults for mapping if none is provided
-    if(is.null(mapping)){
-        mapping <- list(
-            dfPD = list(strIDCol="SUBJID"),
-            dfRDSL = list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol = "TimeOnStudy")
-        )
-    }
+  checks <- CheckInputs(
+    context = "PD_Map_Raw",
+    dfs = dfs,
+    bQuiet = bQuiet,
+    mapping = lMapping
+  )
 
-    # Check input data vs. mapping.
-    is_pd_valid <- is_mapping_valid(
-        dfPD,
-        mapping$dfPD,
-        vRequiredParams = c("strIDCol"),
-        bQuiet = FALSE
-        )
-
-    is_rdsl_valid <- is_mapping_valid(
-        dfRDSL,
-        mapping$dfRDSL,
-        vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol"),
-        vUniqueCols = 'strIDCol',
-        bQuiet = FALSE
-        )
-
-    stopifnot(
-        "Errors found in dfPD." = is_pd_valid$status,
-        "Errors found in dfRDSL." = is_rdsl_valid$status
-    )
+  #Run mapping if checks passed
+  if(checks$status){
+    if(!bQuiet) cli::cli_h2("Initializing {.fn PD_Map_Raw}")
 
     # Standarize Column Names
-    dfPD_mapped <- dfPD %>%
-        rename(SubjectID = mapping[["dfPD"]][["strIDCol"]]) %>%
-        select(.data$SubjectID)
+    dfPD_mapped <- dfs$dfPD %>%
+      select(SubjectID = lMapping[["dfPD"]][["strIDCol"]])
 
-    dfRDSL_mapped <- dfRDSL %>%
-        rename(
-            SubjectID = mapping[["dfRDSL"]][["strIDCol"]],
-            SiteID = mapping[["dfRDSL"]][["strSiteCol"]],
-            Exposure = mapping[["dfRDSL"]][["strExposureCol"]]
-        ) %>% 
-        select(.data$SubjectID, .data$SiteID, .data$Exposure)
+    dfSUBJ_mapped <- dfs$dfSUBJ %>%
+      select(
+        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+        Exposure = lMapping[["dfSUBJ"]][["strTimeOnStudyCol"]]
+        )
 
-
-    # Create Subject Level PD Counts and merge RDSL
+    # Create Subject Level PD Counts and merge Subj
     dfInput <- dfPD_mapped %>%
-        group_by(.data$SubjectID) %>%
-        summarize(Count=n()) %>%  
-        ungroup() %>% 
-        mergeSubjects(dfRDSL_mapped, vFillZero="Count") %>% 
-        mutate(Rate = .data$Count/.data$Exposure)
+      group_by(.data$SubjectID) %>%
+      summarize(Count=n()) %>%
+      ungroup() %>%
+      MergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
+      mutate(Rate = .data$Count/.data$Exposure)
 
+    if(!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
+  } else {
+    if(!bQuiet) cli::cli_alert_warning("{.fn AE_Map_Raw} not run because of failed check.")
+    dfInput <- NULL
+  }
+
+  if(bReturnChecks){
+    return(list(df=dfInput, lChecks=checks))
+  }else{
     return(dfInput)
+  }
 }

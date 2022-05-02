@@ -1,0 +1,50 @@
+template:
+  params:
+    bootswatch: yeti
+
+reference:
+   - title: Assess
+     desc: Assessment Functions
+   - contents:
+      - ends_with("_Assess")
+
+   - title: Visualize
+     desc: Visulaization Functions
+   - contents:
+      - starts_with("Visualize_")
+
+   - title: Map
+     desc: Data Mapping Functions
+   - contents:
+      - matches("*_Map_*")
+
+   - title: Analyze
+     desc: Statistical Analysis Functions
+   - contents:
+      - starts_with("Analyze_")
+
+   - title: Data Pipeline
+     desc: Data Pipeline Functions
+   - contents:
+      - Transform_EventCount
+      - Flag
+      - Summarize
+
+   - title: Utility
+     desc: Utility functions for use within the Data Pipeline
+   - contents:
+      - is_mapping_valid
+      - MergeSubjects
+      - MakeAssessmentList
+      - RunAssessment
+      - Study_AssessmentReport
+      - Study_Report
+      - Study_Table
+      - FilterDomain
+      - RunStep
+
+
+
+
+
+

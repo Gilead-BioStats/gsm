@@ -1,15 +1,14 @@
 test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
   # gsm analysis
-  dfInput <- suppressWarnings(gsm::AE_Map_Raw(
-    dfAE = clindata::raw_ae %>% filter(SUBJID != ""),
-    dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
-  ))
+  dfInput <- gsm::AE_Map_Raw()
 
-  test1_2 <- suppressWarnings(AE_Assess(
+
+  test1_2 <- AE_Assess(
     dfInput = dfInput,
     strMethod = "poisson",
-    vThreshold = c(-3,3)
-  ))
+    vThreshold = c(-3,3),
+    bChart = FALSE
+  )
 
   # Double Programming
   t1_2_input <- dfInput
@@ -48,7 +47,8 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   t1_2 <- list("strFunctionName" = "AE_Assess()",
                "lParams" = list("dfInput" = "dfInput",
                                 "vThreshold" = c("c", "-3", "3"),
-                                "strMethod" = "poisson"),
+                                "strMethod" = "poisson",
+                                "bChart" = "FALSE"),
                "lTags" = list(Assessment = "AE"),
                "dfInput" = t1_2_input,
                "dfTransformed" = t1_2_transformed,

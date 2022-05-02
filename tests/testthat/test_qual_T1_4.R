@@ -2,14 +2,15 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   test1_4 <- list()
   t1_4  <- list()
 
-  for(severity in unique(clindata::raw_ae$AESEV)){
-    dfInput <- suppressWarnings(AE_Map_Raw(dfAE = filter(clindata::raw_ae, AESEV == severity & SUBJID != ""),
-                                dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))))
+  for(severity in unique(clindata::rawplus_ae$AE_GRADE)){
+    dfInput <- AE_Map_Raw(dfs = list(dfAE = filter(clindata::rawplus_ae, AE_GRADE == severity),
+                                dfSUBJ = clindata::rawplus_subj))
 
     # gsm
     test1_4 <- c(test1_4,
                  severity = AE_Assess(dfInput,
-                                      strMethod = "poisson"))
+                                      strMethod = "poisson",
+                                      bChart = FALSE))
 
     # Double Programming
     t1_4_input <- dfInput
@@ -48,7 +49,8 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
     t1_4 <- c(t1_4,
               severity = list("strFunctionName" = "AE_Assess()",
                               "lParams" = list("dfInput" = "dfInput",
-                                               "strMethod" = "poisson"),
+                                               "strMethod" = "poisson",
+                                               "bChart" = "FALSE"),
                               "lTags" = list(Assessment = "AE"),
                               "dfInput" = t1_4_input,
                               "dfTransformed" = t1_4_transformed,

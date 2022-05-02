@@ -42,11 +42,11 @@ Optional
 }
 
 The input data has one or more rows per site. Transform_EventCount sums strCountCol for a TotalCount for each site.
-For data with an optional strExposureCol, a summed exposure is caculated for each site.
+For data with an optional strExposureCol, a summed exposure is calculated for each site.
 }
 
 \examples{
-dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+dfInput <- AE_Map_Adam()
 dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 
 }

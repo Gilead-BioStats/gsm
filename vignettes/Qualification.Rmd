@@ -1,0 +1,180 @@
+---
+title: "Qualification of GSM"
+date: "`r Sys.Date()`"
+output: 
+  pdf_document:
+    toc: true
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{Qualification}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
+---
+
+```{r setup, echo=FALSE, warning=FALSE}
+suppressPackageStartupMessages({
+  library(gsm)
+  library(knitr)
+  library(dplyr)
+  library(purrr)
+  library(pander)
+  library(gh)
+  library(stringr)
+})
+
+opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = TRUE,
+  echo = FALSE,
+  results = "asis",
+  message = FALSE,
+  tidy = FALSE
+)
+
+source(here::here("inst", "qualification", "specs.R"))
+source(here::here("inst", "qualification", "test_cases.R"))
+spec_df <- scrape_dir_specs(here::here("inst", "qualification"))
+```
+
+# Testing Environment
+
+```{r}
+pander::pander(sessionInfo())
+pander::pandoc.p('\\pagebreak')
+```
+
+# Assessments
+
+```{r create_assessment_section}
+create_assessment_section <- function(assessment, df){
+  pander::pandoc.header(paste0("Assessment ", assessment), level = 2)
+  pander::pandoc.header("Specifications", level = 3)
+  for (i in 1:nrow(df)){
+    pander::pandoc.p(
+      c(
+        pander::pandoc.p(paste0(df[i, "ID"], ": ", df[i, "Description"])),
+        pander::pandoc.indent(paste0("Risk: ", df[i, "Risk"]), 2),
+        pander::pandoc.indent(paste0("Impact: ", df[i, "Impact"]), 2),
+        pander::pandoc.indent(paste0("Tests: ", df[i, "Tests"]), 2)
+        )
+      ) 
+  }
+  pander::pandoc.header("Traceability Matrix", level = 3)
+  pander::pandoc.table(build_traceability_matrix(df), style = "grid")
+  pander::pandoc.header("Test Cases", level = 3)
+  pander::pandoc.table(run_all_tests(df), style = "grid")
+  pander::pandoc.p('\\pagebreak')
+}
+```
+
+```{r assessments}
+assessments <- unique(spec_df$Assessment)
+for (a in assessments){
+  a_df <- filter(spec_df, Assessment == a) %>%
+    select(-Assessment)
+  create_assessment_section(a, a_df)
+}
+```
+
+# Unit Tests
+
+```{r covr}
+pkg_cov <- covr::coverage_to_list(covr::package_coverage(here::here()))
+pandoc.p(paste(paste0(names(pkg_cov[[1]]), " = ", pkg_cov[[1]], "%"), collapse = "\n\n"))
+```
+
+# Pull Request Overview
+
+```{r prs}
+release <- gh("/repos/Gilead-BioStats/gsm/releases", .token = remotes:::github_pat())[[1]]
+release_date <- release$published_at
+
+pr_at_date <- FALSE
+page_num <- 1
+prs <- list()
+while(pr_at_date != TRUE){
+  resp <- gh("/repos/Gilead-BioStats/gsm/pulls", per_page = 100, .token = remotes:::github_pat(),
+             .params = list(page = page_num, state = "all"))
+
+  map(resp, function(x){
+    if (!is.null(x$closed_at) &
+        min(as.character(x$closed_at), as.POSIXct(Sys.time())) < as.character(release_date)){
+      pr_at_date <<- TRUE
+      }
+    })
+
+  if (pr_at_date == TRUE){
+    resp_sub <- resp %>%
+      keep(~ !is.null(.$closed_at) &
+             min(as.character(.$closed_at), as.POSIXct(Sys.time())) < as.character(release_date))
+    prs <<- append(prs, resp_sub)
+
+  }else{
+    prs <<- append(prs, resp)
+  }
+  page_num <<- page_num + 1
+}
+
+getRepoDetails <- function(x) {
+
+  PullRequest <- x[["number"]]
+  Requester <- x[["user"]][["login"]]
+  DateRequested <- x[["created_at"]]
+  Branch <- x[["head"]][["ref"]]
+  Target <- x[["base"]][["ref"]]
+  Title <- x[["title"]]
+
+  if (length(x[["requested_reviewers"]]) > 0) {
+  Reviewer <- x[["requested_reviewers"]][[1]][["login"]]
+  } else {
+    Reviewer = ""
+  }
+
+  tempReviews <- gh(paste0("GET /repos/Gilead-BioStats/gsm/pulls/", PullRequest, "/reviews"))
+
+  if (length(tempReviews) > 0) {
+  ReviewStatus <- tempReviews[[1]][["state"]]
+  ReviewComments <- tempReviews[[1]][["body"]]
+  } else {
+    ReviewStatus <- ""
+    ReviewComments <- "None"
+  }
+
+  pr <- tibble(
+    `Pull Request` = PullRequest,
+    Requester = Requester,
+    `Date Requested` = gsub("T|Z", " ", DateRequested),
+    Branch = Branch,
+    Target = Target,
+    Title = Title,
+    Reviewer = Reviewer,
+    `Review Status` = ReviewStatus,
+    `Review Comments` = ReviewComments
+  ) %>%
+    map(~ gsub("[^\u0001-\u007F]+|<U\\+\\w+>","", .x)) %>%
+    map(~ gsub("`", " ` ", .x)) %>%
+    map(~ str_squish(.x)) %>%
+    map(~ trimws(.x))
+
+  return(pr)
+
+}
+
+tbl <- map_df(prs, ~getRepoDetails(.))
+
+for (i in 1:nrow(tbl)){
+  pander::pandoc.p(
+    c(
+      pander::pandoc.header(paste0("Pull Request ", tbl[i, "Pull Request"], ": ", tbl[i, "Title"]), level = 3),
+      pander::pandoc.p(paste0("Merging ", tbl[i, "Branch"], " into ", tbl[i, "Target"])),
+      pander::pandoc.table(tbl[i, c("Requester", "Date Requested", 
+                                    "Reviewer", "Review Status")],
+                           split.cells = 13),
+      pander::pandoc.verbatim(paste0("Review Comments: ", tbl[i, "Review Comments"]))
+      )
+    ) 
+}
+
+```
+

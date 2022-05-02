@@ -9,7 +9,7 @@ Analyze_Poisson_PredictBounds(dfTransformed, vThreshold = c(-5, 5))
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.}
 
-\item{vThreshold}{upper and lower boundaries in residual space. Should be identical to the threhsolds used AE_Assess().}
+\item{vThreshold}{upper and lower boundaries in residual space. Should be identical to the thresholds used AE_Assess().}
 }
 \value{
 data frame containing predicted boundary values with upper and lower bounds across the range of observed values
@@ -39,7 +39,7 @@ The input data (\code{ dfTransformed}) for the Analyze_Poisson is typically crea
 }
 
 \examples{
-dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+dfInput <- AE_Map_Adam()
 dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5,5))
 

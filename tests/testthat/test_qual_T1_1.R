@@ -1,13 +1,11 @@
 test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable when given correct input data from safetyData and the results should be flagged correctly.", {
   # gsm analysis
-  dfInput <- gsm::AE_Map_Adam(
-    dfADSL = safetyData::adam_adsl,
-    dfADAE = safetyData::adam_adae
-  )
+  dfInput <- gsm::AE_Map_Adam()
 
   test1_1 <- AE_Assess(
     dfInput = dfInput,
-    strMethod = "poisson"
+    strMethod = "poisson",
+    bChart = FALSE
   )
 
   # Double Programming
@@ -47,7 +45,8 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
 
   t1_1 <- list("strFunctionName" = "AE_Assess()",
              "lParams" = list("dfInput" = "dfInput",
-                              "strMethod" = "poisson"),
+                              "strMethod" = "poisson",
+                              "bChart" = "FALSE"),
              "lTags" = list(Assessment = "AE"),
              "dfInput" = t1_input,
              "dfTransformed" = t1_transformed,

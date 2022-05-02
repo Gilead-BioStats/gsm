@@ -4,7 +4,14 @@
 \alias{Consent_Assess}
 \title{Consent Assessment}
 \usage{
-Consent_Assess(dfInput, nThreshold = 0.5, lTags = list(Assessment = "Consent"))
+Consent_Assess(
+  dfInput,
+  nThreshold = 0.5,
+  lTags = list(Assessment = "Consent"),
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+)
 }
 \arguments{
 \item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count.}
@@ -12,6 +19,12 @@ Consent_Assess(dfInput, nThreshold = 0.5, lTags = list(Assessment = "Consent"))
 \item{nThreshold}{Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.}
 
 \item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="Consent")}}
+
+\item{bChart}{should visualization be created? TRUE (default) or FALSE.}
+
+\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+
+\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
 A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, \code{lParams} and \code{lTags}) is returned.
@@ -43,30 +56,13 @@ The Assessment
 \section{Statistical Assumptions}{
 
 
-This Assessment finds any sites where one or more subjects meets any of the following citeria: No Consent, Missing Consent, Missing Randomization Date, or
+This Assessment finds any sites where one or more subjects meets any of the following criteria: No Consent, Missing Consent, Missing Randomization Date, or
 Consent date later in time than the Randomization Date. 'N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
 With N greater than user specified \code{nThreshold} will be flagged.
 }
 
 \examples{
-
-library(dplyr)
-raw_consent <- clindata::raw_ic_elig \%>\%
-select(SUBJID, CONSDAT = DSSTDAT_RAW) \%>\%
- mutate(
-     CONSCAT_STD = "MAINCONSENT",
-     CONSYN = "Y",
-     CONSDAT = as.Date(CONSDAT, format = "\%d \%B \%Y")
-   ) \%>\%
-   filter(SUBJID != "")
-
-dfInput <- Consent_Map_Raw(
-   dfConsent = raw_consent,
-   dfRDSL = clindata::rawplus_rdsl,
-   strConsentTypeValue = "MAINCONSENT",
-   strConsentStatusValue="Y"
-)
-
-Consent_Summary <- Consent_Assess(dfInput)$dfSummary
+dfInput <- Consent_Map_Raw()
+consent <- Consent_Assess(dfInput)
 
 }

@@ -1,176 +1,110 @@
-dfAE <- clindata::raw_ae %>%
-  filter(SUBJID != "") %>%
-  filter(SUBJID !="1163") %>%
-  filter(SUBJID != "1194")
+source(testthat::test_path("testdata/data.R"))
 
-dfRDSL <- clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))
-
-mapping <- list(
-  dfAE= list(strIDCol="SUBJID"),
-  dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
-)
-
-test_that("output created as expected and has correct structure",{
-  ae_input <- AE_Map_Raw(dfAE = dfAE, dfRDSL = dfRDSL)
-  expect_true(is.data.frame(ae_input))
-  expect_equal(
-    names(ae_input),
-    c("SubjectID","SiteID","Exposure","Count","Rate")
-  )
+# output is created as expected -------------------------------------------
+test_that("output is created as expected", {
+  data <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
+  expect_true(is.data.frame(data))
+  expect_equal(names(data), c("SubjectID", "SiteID", "Count", "Exposure", "Rate"))
 })
 
-test_that("all data is mapped and summarized correctly",{
-  AE_counts <- clindata::raw_ae %>%
-    filter(SUBJID != "") %>%
-    group_by(SUBJID) %>%
-    summarize("Count" = n()) %>%
-    ungroup() %>%
-    select(SUBJID, Count)
-
-  AE_mapped <- clindata::rawplus_rdsl %>%
-    filter(!is.na(TimeOnTreatment)) %>%
-    left_join(AE_counts, by = c("SubjectID" = "SUBJID")) %>%
-    mutate(Count = replace(Count, is.na(Count), 0)) %>%
-    rename(Exposure = TimeOnTreatment) %>%
-    mutate(Rate = Count / Exposure) %>%
-    select(SubjectID, SiteID, Exposure, Count, Rate)
-
-  expect_equal(AE_Map_Raw(dfAE, dfRDSL), AE_mapped)
+# incorrect inputs throw errors -------------------------------------------
+test_that("incorrect inputs throw errors", {
+  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = list(), dfSUBJ = list()), bQuiet = F))
+  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = list()), bQuiet = F))
+  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = list(), dfSUBJ = dfSUBJ), bQuiet = F))
+  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = "Hi", dfSUBJ = "Mom"), bQuiet = F))
+  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE %>% select(-SubjectID), dfSUBJ = dfSUBJ), bQuiet = F))
+  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ %>% select(-SiteID)), bQuiet = F))
+  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ %>% select(-SubjectID)), bQuiet = F))
+  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ %>% select(-TimeOnTreatment)), bQuiet = F))
+  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = bind_rows(dfSUBJ, head(dfSUBJ, 1))), bQuiet = F))
 })
 
-test_that("incorrect inputs throw errors",{
-  expect_error(AE_Map_Raw(list(), list())%>%suppressMessages, "Errors found in dfAE.")
-  expect_error(AE_Map_Raw(dfAE, list())%>%suppressMessages, "Errors found in dfRDSL.")
-  expect_error(AE_Map_Raw(list(), dfRDSL)%>%suppressMessages,"Errors found in dfAE.")
-  expect_error(AE_Map_Raw("Hi", "Mom")%>%suppressMessages,"Errors found in dfAE.")
-  expect_error(AE_Map_Raw(dfAE, dfRDSL, mapping = list())%>%suppressMessages,"Errors found in dfAE.")
-})
+# incorrect mappings throw errors -----------------------------------------
+test_that("incorrect mappings throw errors",{
 
-
-test_that("error given if required column not found",{
-  expect_error(
+  expect_snapshot(
     AE_Map_Raw(
-      dfAE %>% rename(ID = SUBJID),
-      dfRDSL
-    )%>% suppressMessages, "Errors found in dfAE."
-  )
-
-  expect_error(
-    AE_Map_Raw(
-      dfAE,
-      dfRDSL %>% select(-SiteID)
-    )%>% suppressMessages, "Errors found in dfRDSL."
-  )
-
-  expect_error(
-    AE_Map_Raw(
-      dfAE,
-      dfRDSL %>% select(-SubjectID)
-    )%>% suppressMessages,"Errors found in dfRDSL."
-  )
-
-  expect_error(
-    AE_Map_Raw(
-      dfAE,
-      dfRDSL %>% select(-TimeOnTreatment)
-    )%>% suppressMessages, "Errors found in dfRDSL."
-  )
-
-
-# update mapping
-  expect_error(
-    AE_Map_Raw(
-      dfAE,
-      dfRDSL,
-      mapping = list(
-        dfAE= list(id_col="not an id column"),
-        dfRDSL=list(strIDCol="SubjectID", strSiteCol="SiteID", strExposureCol="TimeOnTreatment")
+      dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ),
+      lMapping = list(dfAE = list(strIDCol="not an id"),
+                      dfSUBJ=list(strIDCol="SubjectID",
+                      strSiteCol="SiteID",
+                      strTimeOnTreatmentCol="TimeOnTreatment")),
+      bQuiet = F
       )
-    )%>% suppressMessages, "Errors found in dfAE."
-  )
+    )
 
-  expect_error(
+  expect_snapshot(
     AE_Map_Raw(
-      dfAE,
-      dfRDSL %>% select(-SiteID)
-    )%>% suppressMessages , "Errors found in dfRDSL."
-  )
-
-  expect_message(
-      AE_Map_Raw(
-      dfAE %>% select(-PROJECT),
-      dfRDSL
+      dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ),
+      lMapping = list(dfAE = list(strIDCol="SubjectID"),
+                      dfSUBJ=list(strIDCol="not an id",
+                                  strSiteCol="SiteID",
+                                  strTimeOnTreatmentCol="TimeOnTreatment")),
+      bQuiet = F
     )
   )
-})
-
-
-
-
-test_that("NA values in input data are handled",{
-
-  dfAE3 <- tibble::tribble(~SUBJID, 1,1,1,1,2,2,4,4)
-
-  dfExposure3<-tibble::tribble(
-    ~SubjectID, ~SiteID, ~TimeOnTreatment,
-    1,   1, 10,
-    2,   1, NA,
-    3,   NA, 30,
-    4,   2, 50
-  )
-
-
-  expect_error(AE_Map_Raw(dfAE = dfAE3, dfRDSL = dfExposure3)%>%suppressMessages,"Errors found in dfRDSL." )
-
 
 })
 
-
-test_that("dfAE$SUBJID NA value throws error",{
-  dfAE4 <- tibble::tribble(~SUBJID, 1,NA,1,1,2,2,4,4)
-
-  dfExposure4<-tibble::tribble(
-    ~SubjectID, ~SiteID, ~TimeOnTreatment,
-    1,   1, 10,
-    2,   1, 20,
-    3,   3, 30,
-    4,   2, 50
-  )
-
-
-  expect_error(AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4)%>%suppressMessages,"Errors found in dfAE." )
-})
-
-test_that("dfRDSL$SubjectID NA value throws error",{
-  dfAE4 <- tibble::tribble(~SUBJID, 1,1,1,1,2,2,4,4)
-
-  dfExposure4<-tibble::tribble(
-    ~SubjectID, ~SiteID, ~TimeOnTreatment,
-    NA,   1, 10,
-    2,   1, 20,
-    3,   2, 30,
-    4,   2, 50
-  )
-
-
-  expect_error(AE_Map_Raw(dfAE = dfAE4, dfRDSL = dfExposure4)%>%suppressMessages,"Errors found in dfRDSL." )
-})
-
-
-
-
-test_that("custom mapping runs without errors", {
-  custom_mapping <- list(
-    dfAE= list(strIDCol="SUBJID"),
-    dfRDSL=list(strIDCol="custom_id", strSiteCol="custom_site_id", strExposureCol="trtmnt")
-  )
-
-
-  custom_rdsl <- dfRDSL %>%
-    mutate(trtmnt = TimeOnTreatment * 2.025) %>%
-    rename(custom_id = SubjectID,
-           custom_site_id = SiteID)
-
-  expect_message(AE_Map_Raw(dfAE, custom_rdsl, mapping = custom_mapping))
-})
+# # custom tests ------------------------------------------------------------
+# test_that("NA values in input data are handled",{
+#
+#   dfAE1 <- tibble::tribble(~SubjectID, 1,1,1,1,2,2,4,4)
+#
+#   dfExposure1 <- tibble::tribble(
+#     ~SubjectID, ~SiteID, ~TimeOnTreatment,
+#     1,   1, 10,
+#     2,   1, NA,
+#     3,   NA, 30,
+#     4,   2, 50
+#   )
+#
+#   dfAE2 <- tibble::tribble(~SubjectID, 1,NA,1,1,2,2,4,4)
+#
+#   dfExposure2 <- tibble::tribble(
+#     ~SubjectID, ~SiteID, ~TimeOnTreatment,
+#     1,   1, 10,
+#     2,   1, 20,
+#     3,   3, 30,
+#     4,   2, 50
+#   )
+#
+#   dfAE3 <- tibble::tribble(~SubjectID, 1,1,1,1,2,2,4,4)
+#
+#   dfExposure3 <- tibble::tribble(
+#     ~SubjectID, ~SiteID, ~TimeOnTreatment,
+#     NA,   1, 10,
+#     2,   1, 20,
+#     3,   2, 30,
+#     4,   2, 50
+#   )
+#
+#
+#   expect_snapshot_error(AE_Map_Raw(dfAE = dfAE1, dfSUBJ = dfExposure1))
+#
+#   expect_snapshot_error(AE_Map_Raw(dfAE = dfAE2, dfSUBJ = dfExposure2))
+#
+#   expect_snapshot_error(AE_Map_Raw(dfAE = dfAE3, dfSUBJ = dfExposure3))
+#
+# })
+#
+# test_that("custom mapping runs without errors", {
+#
+#   custom_mapping <- list(
+#     dfAE= list(strIDCol="SubjectID",
+#                strTreatmentEmergentCol = "AE_TE_FLAG"),
+#     dfSUBJ=list(strIDCol="custom_id",
+#                 strSiteCol="custom_site_id",
+#                 strTimeOnTreatmentCol="trtmnt")
+#   )
+#
+#   custom_subj <- dfSUBJ %>%
+#     mutate(trtmnt = TimeOnTreatment * 2.025) %>%
+#     rename(custom_id = SubjectID,
+#            custom_site_id = SiteID)
+#
+#   expect_silent(AE_Map_Raw(dfAE, custom_subj, mapping = custom_mapping))
+#
+# })
 

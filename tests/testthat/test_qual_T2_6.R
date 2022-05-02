@@ -8,14 +8,16 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
   t2_6  <- list()
 
   for(type in deviations_of_interest){
-    dfInput <- suppressWarnings(
-      PD_Map_Raw(dfPD = clindata::raw_protdev %>% filter(DEVTYPE == type & SUBJID != ""),
-                 dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))))
+    dfInput <- PD_Map_Raw(dfs = list(
+      dfPD = clindata::rawplus_pd %>% filter(PD_CATEGORY == type),
+      dfSUBJ = clindata::rawplus_subj
+      ))
 
     # gsm
     test2_6 <- c(test2_6,
                  type = PD_Assess(dfInput,
-                                  strMethod = "wilcoxon"))
+                                  strMethod = "wilcoxon",
+                                  bChart = FALSE))
 
     # Double Programming
     t2_6_input <- dfInput
@@ -60,7 +62,8 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
     t2_6 <- c(t2_6,
               type = list("strFunctionName" = "PD_Assess()",
                           "lParams" = list("dfInput" = "dfInput",
-                                           "strMethod" = "wilcoxon"),
+                                           "strMethod" = "wilcoxon",
+                                           "bChart" = "FALSE"),
                           "lTags" = list(Assessment = "PD"),
                           "dfInput" = t2_6_input,
                           "dfTransformed" = t2_6_transformed,

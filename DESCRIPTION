@@ -1,6 +1,6 @@
 Package: gsm
 Title: Gilead Statistical Monitoring
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: c(
     person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", email="jeremy.wildfire@gilead.com", role = c("aut")))
@@ -9,26 +9,36 @@ License: file LICENSE
 Encoding: UTF-8
 Imports:
     broom,
+    cli,
     dplyr,
+    fontawesome,
+    gt,
     ggplot2,
     lamW,
     magrittr,
     purrr,
-    tidyr
+    stringr,
+    tidyr,
+    withr,
+    yaml
 Suggests:
     clindata,
     covr,
     devtools,
+    here,
+    janitor,
     kableExtra,
     knitr,
+    pander,
+    rlang,
     rmarkdown,
     safetyData,
     testthat (>= 3.0.0),
     tibble,
-    valtools
+    usethis,
+    tools,
+    pkgdown
 LazyData: true
-Remotes: 
-    phuse-org/valtools
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Config/testthat/edition: 3

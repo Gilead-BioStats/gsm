@@ -1,83 +1,51 @@
-test_that("output created as expected and has correct structure",{
-    ae_input <- AE_Map_Adam(
-        safetyData::adam_adsl,
-        safetyData::adam_adae
-    )
+source(testthat::test_path("testdata/data.R"))
 
-    expect_true(is.data.frame(ae_input))
-    expect_equal(names(ae_input), c("SubjectID","SiteID","Count","Exposure","Rate"))
+
+
+# output is created as expected -------------------------------------------
+test_that("output is created as expected",{
+  data <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
+  expect_true(is.data.frame(data))
+  expect_equal(names(data), c("SubjectID","SiteID","Count","Exposure","Rate"))
 })
 
-test_that("all data is mapped and summarized correctly",{
-  AE_counts <- safetyData::adam_adae %>%
-    filter(USUBJID != "") %>%
-    group_by(USUBJID) %>%
-    summarize("Count" = n()) %>%
-    ungroup() %>%
-    select(USUBJID, Count)
-
-  AE_mapped <- safetyData::adam_adsl %>%
-    left_join(AE_counts, by = "USUBJID") %>%
-    mutate(Count = as.integer(replace(Count, is.na(Count), 0))) %>%
-    mutate(Exposure = as.numeric(TRTEDT - TRTSDT) + 1) %>%
-    mutate(Rate = Count / Exposure) %>%
-    rename(SubjectID = USUBJID) %>%
-    rename(SiteID = SITEID) %>%
-    select(SubjectID, SiteID, Count, Exposure, Rate)
-
-  expect_identical(AE_Map_Adam(dfADSL = safetyData::adam_adsl,
-                               dfADAE = safetyData::adam_adae),
-                   AE_mapped)
+# incorrect inputs throw errors -------------------------------------------
+test_that("incorrect inputs throw errors", {
+  expect_snapshot(AE_Map_Adam(dfs = list(dfADSL = list(), dfADAE = list()), bQuiet = F))
+  expect_snapshot(AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = list()), bQuiet = F))
+  expect_snapshot(AE_Map_Adam(dfs = list(dfADSL = list(), dfADAE = dfADAE), bQuiet = F))
+  expect_snapshot(AE_Map_Adam(dfs = list(dfADSL = "Hi", dfADAE = "Mom"), bQuiet = F))
+  expect_snapshot(AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE, mapping = list()), bQuiet = F))
+  expect_snapshot(AE_Map_Adam(dfs = list(dfADSL = dfADSL %>% select(-USUBJID), dfADAE = dfADAE), bQuiet = F))
+  expect_snapshot(AE_Map_Adam(dfs = list(dfADSL = dfADSL %>% select(-SITEID), dfADAE = dfADAE), bQuiet = F))
+  expect_snapshot(AE_Map_Adam(dfs = list(dfADSL = dfADSL %>% select(-TRTSDT), dfADAE = dfADAE), bQuiet = F))
+  expect_snapshot(AE_Map_Adam(dfs = list(dfADSL = dfADSL %>% select(-TRTEDT), dfADAE = dfADAE), bQuiet = F))
+  expect_snapshot(AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE %>% select(-USUBJID)), bQuiet = F))
 })
 
-test_that("incorrect inputs throw errors",{
-    expect_equal(expect_error(AE_Map_Adam(list(), list()))$message, "is.data.frame(dfADSL) is not TRUE" )
-    expect_equal(expect_error(AE_Map_Adam( safetyData::adam_adsl, list()))$message, "is.data.frame(dfADAE) is not TRUE" )
-    expect_equal(expect_error(AE_Map_Adam(list(),  safetyData::adam_adae))$message, "is.data.frame(dfADSL) is not TRUE" )
-    expect_equal(expect_error(AE_Map_Adam("Hi","Mom"))$message, "is.data.frame(dfADSL) is not TRUE" )
+# incorrect mappings throw errors -----------------------------------------
+
+# can't test these until mappings are updated in clindata
+
+test_that("incorrect mappings throw errors",{
+
+  expect_null(AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
+                                    lMapping = list(
+    dfADSL = list(strIDCol="not an id",
+                  strSiteCol = "SITEID",
+                  strStartCol = "TRTSDT",
+                  strEndCol = "TRTEDT"),
+    dfADAE = list(strIDCol="USUBJID"))))
+
+  expect_null(AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
+                                   lMapping = list(
+    dfADSL = list(strIDCol="USUBJID",
+                  strSiteCol = "SITEID",
+                  strStartCol = "TRTSDT",
+                  strEndCol = "TRTEDT"),
+    dfADAE = list(strIDCol="not an id"))))
+
 })
 
-test_that("error given if required column not found",{
-  expect_equal(
-    expect_error(
-        AE_Map_Adam(
-            safetyData::adam_adsl %>% rename(ID = USUBJID),
-            safetyData::adam_adae
-        )
-    )$message,'all(c("USUBJID", "SITEID", "TRTEDT", "TRTSDT") %in% names(dfADSL)) is not TRUE'
-   )
-  
-   expect_equal(
-    expect_error(
-        AE_Map_Adam(
-            safetyData::adam_adsl %>% rename(EndDay = TRTEDT),
-            safetyData::adam_adae
-        )
-    )$message,'all(c("USUBJID", "SITEID", "TRTEDT", "TRTSDT") %in% names(dfADSL)) is not TRUE'
-   )
-   expect_equal(
-    expect_error(
-        AE_Map_Adam(
-            safetyData::adam_adsl %>% select(-TRTSDT),
-            safetyData::adam_adae
-        )
-    )$message,'all(c("USUBJID", "SITEID", "TRTEDT", "TRTSDT") %in% names(dfADSL)) is not TRUE'
-   )
-   expect_equal(
-    expect_error(
-      AE_Map_Adam(
-        safetyData::adam_adsl ,
-        safetyData::adam_adae  %>% select(-USUBJID)
-      )
-    )$message,'"USUBJID" %in% names(dfADAE) is not TRUE'
-   )
-
-    # renaming or dropping non-required cols is fine
-    expect_silent(
-        AE_Map_Adam(
-            safetyData::adam_adsl %>% rename(Oldness=AGE),
-            safetyData::adam_adae %>% select(-RACE)
-        )
-    )
-})
+# custom tests ------------------------------------------------------------
 

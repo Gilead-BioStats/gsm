@@ -1,0 +1,13 @@
+label: Inclusion/Exclusion (IE) Workflow
+tags:
+  Assessment: IE
+  Label: IE
+workflow:
+  - name: IE_Map_Raw
+    inputs:
+      - dfIE
+      - dfSUBJ
+    output: dfInput
+  - name: IE_Assess
+    inputs: dfInput
+    output: lResults

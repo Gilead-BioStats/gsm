@@ -1,0 +1,13 @@
+label: Protocol Deviation (PD) Workflow
+tags:
+  Assessment: PD
+  Label: PD
+workflow:
+  - name: PD_Map_Raw
+    inputs:
+      - dfPD
+      - dfSUBJ
+    output: dfInput
+  - name: PD_Assess
+    inputs: dfInput
+    output: lResults

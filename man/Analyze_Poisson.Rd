@@ -38,7 +38,7 @@ The input data (\code{dfTransformed}) for Analyze_Poisson is typically created u
 }
 
 \examples{
-dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+dfInput <- AE_Map_Raw()
 dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 dfAnalyzed <- Analyze_Poisson( dfTransformed )
 

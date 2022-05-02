@@ -26,7 +26,7 @@
 #' @return input data.frame with columns added for "Residuals" and "PredictedCount"
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+#' dfInput <- AE_Map_Raw()
 #' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 #' dfAnalyzed <- Analyze_Poisson( dfTransformed )
 #'

@@ -2,15 +2,17 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
   test2_3 <- list()
   t2_3  <- list()
 
-  for(type in unique(clindata::raw_protdev$DEVTYPE)){
-    dfInput <- suppressWarnings(
-      PD_Map_Raw(dfPD = clindata::raw_protdev %>% filter(SUBJID != "" & DEVTYPE == type),
-       dfRDSL = clindata::rawplus_rdsl %>% filter(!is.na(TimeOnTreatment))))
+  for(type in unique(clindata::rawplus_pd$PD_CATEGORY)){
+    dfInput <- PD_Map_Raw(dfs = list(
+      dfPD = clindata::rawplus_pd %>% filter(PD_CATEGORY == type),
+      dfSUBJ = clindata::rawplus_subj
+      ))
 
     # gsm
     test2_3 <- c(test2_3,
                  type = PD_Assess(dfInput,
-                                  strMethod = "poisson"))
+                                  strMethod = "poisson",
+                                  bChart = FALSE))
 
 
     # Double Programming
@@ -50,7 +52,8 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
     t2_3 <- c(t2_3,
               type = list("strFunctionName" = "PD_Assess()",
                           "lParams" = list("dfInput" = "dfInput",
-                                           "strMethod" = "poisson"),
+                                           "strMethod" = "poisson",
+                                           "bChart" = "FALSE"),
                           "lTags" = list(Assessment = "PD"),
                           "dfInput" = t2_3_input,
                           "dfTransformed" = t2_3_transformed,

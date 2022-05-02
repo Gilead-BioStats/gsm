@@ -22,7 +22,7 @@
 #' - `Exposure` - Number of days of exposure, name specified by strExposureCol.
 #'
 #'  The input data has one or more rows per site. Transform_EventCount sums strCountCol for a TotalCount for each site.
-#'  For data with an optional strExposureCol, a summed exposure is caculated for each site.
+#'  For data with an optional strExposureCol, a summed exposure is calculated for each site.
 #'
 #' @param dfInput A data.frame with one record per person.
 #' @param strCountCol Required. Numerical or logical. Column to be counted.
@@ -31,7 +31,7 @@
 #' @return data.frame with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam( safetyData::adam_adsl, safetyData::adam_adae )
+#' dfInput <- AE_Map_Adam()
 #' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 #'
 #' @import dplyr

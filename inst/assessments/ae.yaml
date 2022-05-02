@@ -1,0 +1,22 @@
+label: Treatment-Emergent Adverse Events
+tags:
+  Assessment: Safety
+  Label: AEs
+workflow:
+  - name: FilterDomain
+    inputs: dfAE
+    output: dfAE
+    params:
+      strDomain: dfAE
+      strColParam: strTreatmentEmergentCol
+      strValParam: strTreatmentEmergentVal
+  - name: AE_Map_Raw
+    inputs: 
+      - dfAE
+      - dfSUBJ
+    output: dfInput
+  - name: AE_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strMethod: "poisson"
