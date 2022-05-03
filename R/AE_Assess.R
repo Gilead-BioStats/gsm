@@ -45,7 +45,7 @@
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject and these columns: SubjectID, SiteID, Count and Exposure.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to `c(-5, 5)` for `strMethod` = "poisson" and `c(.0001, NA)` for `strMethod` = "wilcoxon".
 #' @param strMethod `character` Statistical model. Valid values include "poisson" (default) and  "wilcoxon".
-#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment="AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lassess$dfSummary`.
+#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment="AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
