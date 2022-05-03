@@ -15,40 +15,64 @@ AE_Assess(
 )
 }
 \arguments{
-\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure.}
+\item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject and these columns: SubjectID, SiteID, Count and Exposure.}
 
-\item{vThreshold}{numeric vector with 2 threshold values.  Defaults to c(-5,5) for method = "poisson" and c(.0001,NA) for method = Wilcoxon.}
+\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to \code{c(-5, 5)} for \code{strMethod} = "poisson" and \code{c(.0001, NA)} for \code{strMethod} = "wilcoxon".}
 
-\item{strMethod}{valid methods are "poisson" (the default), or  "wilcoxon".}
+\item{strMethod}{\code{character} Statistical model. Valid values include "poisson" (default) and  "wilcoxon".}
 
-\item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="AE")}.}
+\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment="AE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lassess$dfSummary}.}
 
-\item{bChart}{should visualization be created? TRUE (default) or FALSE.}
+\item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
 
-\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, \code{lParams} and \code{lTags}) is returned.
+\code{list} Assessment, a named list with:
+\itemize{
+\item each data frame in the data pipeline
+\itemize{
+\item \code{dfInput}
+\item \code{dfTransformed}
+\item \code{dfAnalyzed}
+\item \code{dfFlagged}
+\item \code{dfSummary}
+}
+\item assessment metadata
+\itemize{
+\item \code{strFunctionName}
+\item \code{lParams}
+\item \code{lTags}
+}
+\item output(s)
+\itemize{
+\item \code{chart}
+}
+}
 }
 \description{
-The Adverse Event Assessment flags sites that may be over- or under-reporting adverse events.
+Flag sites that may be over- or under-reporting adverse events (AEs).
 }
 \details{
-The Adverse Event Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag possible outliers. More details regarding the data pipeline and statistical methods are described below.
+The Adverse Event Assessment uses the standard \href{https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
+methods are described below.
 }
 \section{Data Specification}{
 
 
-The input data (\code{dfInput}) for the AE Assessment is typically created using \code{\link{AE_Map_Raw}} or \code{\link{AE_Map_Adam}} and should be one record per person with columns for:
-\itemize{
-\item \code{SubjectID} - Unique subject ID
-\item \code{SiteID} - Site ID
-\item \code{Count} - Number of Adverse Events
-\item \code{Exposure} - Number of days of exposure
-\item \code{Rate} - Rate of Exposure (Count / Exposure)
+The input data (\code{dfInput}) for the AE Assessment is typically created using
+\code{\link{AE_Map_Raw}} or \code{\link{AE_Map_Adam}}. It must have one record per subject with
+these columns:\tabular{lll}{
+   Name \tab Description \tab Required? \cr
+   \code{SubjectID} \tab Unique Subject Identifier \tab Yes \cr
+   \code{SiteID} \tab Site Identifier \tab Yes \cr
+   \code{Count} \tab Number of Adverse Events \tab Yes \cr
+   \code{Exposure} \tab Number of Exposure Days \tab Yes \cr
+   \code{Rate} \tab Exposure Rate (\code{Count} / \code{Exposure}) \tab No \cr
 }
+
 
 The Assessment
 \itemize{
@@ -62,14 +86,23 @@ The Assessment
 \section{Statistical Assumptions}{
 
 
-A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the \code{strMethod} parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in \code{vThreshold}. In the Poisson model, sites with an estimate less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
+A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as
+specified with the \code{strMethod} parameter). Those model outputs are then used to flag possible
+outliers using the thresholds specified in \code{vThreshold}. In the Poisson model, sites with an
+estimate less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For
+Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
 
-See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and their assumptions.
+See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details
+about the statistical methods and their assumptions.
+}
+
+\section{Parameters}{
+NA
 }
 
 \examples{
 dfInput <- AE_Map_Raw()
-ae <- AE_Assess(dfInput)
-aeWilcoxon <- AE_Assess(dfInput, strMethod="wilcoxon")$dfSummary
+ae_assessment_poisson <- AE_Assess(dfInput)
+ae_assessment_wilcoxon <- AE_Assess(dfInput, strMethod = "wilcoxon")
 
 }
