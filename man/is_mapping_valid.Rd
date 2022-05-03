@@ -7,18 +7,22 @@
 is_mapping_valid(df, mapping, spec, bQuiet = TRUE)
 }
 \arguments{
-\item{df}{data.frame to compare to mapping object.}
+\item{df}{\code{data.frame} A data.frame to compare to mapping object.}
 
-\item{mapping}{named list specifying expected columns and values in df. Parameters ending in \code{col} are assummed to be column names in \code{df}, while paramters ending in \code{val} are values expected in for a corresponding column. For example, \code{mapping=list(strSiteCol="SiteID", strSiteVal=c("001","002"))} would indicate that \code{df} has a \code{df$SiteID} includes values \code{"001"} and \code{"002"}.}
+\item{mapping}{\code{list} A named list specifying expected columns and values in df. Parameters ending in \code{col} are assumed to be column names in \code{df}, while parameters ending in \code{val} are values expected in for a corresponding column. For example, \code{mapping=list(strSiteCol="SiteID", strSiteVal=c("001","002"))} would indicate that \code{df} has a \code{df$SiteID} includes values \code{"001"} and \code{"002"}.}
 
-\item{spec}{named list specifying parameters that should be defined in \code{mapping}, and describes how the values specified by those parameters should be used in \code{df}. Should have the following properties:
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+
+\item{`spec`}{A named list specifying parameters that should be defined in \code{mapping}, and describes how the values specified by those parameters should be used in \code{df}. Should have the following properties:
 \itemize{
 \item \code{spec$vRequired} - list of parameters that should be defined in \code{mapping}.
 \item \code{spec$vUniqueCols} - list of column parameters that should not contain duplicate values
 \item \code{spec$vNACols} - list of column parameters where NA and empty string values are acceptable.
 }}
-
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+}
+\value{
+\code{list} A list is returned with \code{status} (\code{TRUE} or \code{FALSE}), and \code{tests_if},
+a list containing checks and a \code{status} and \code{warning} (if check does not pass).
 }
 \description{
 Check that a data frame contains columns and fields specified in mapping

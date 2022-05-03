@@ -15,19 +15,23 @@ FilterDomain(
 )
 }
 \arguments{
-\item{df}{data.frame be filtered}
+\item{df}{\code{data.frame} A data.frame to be filtered, likely within a mapping function.}
 
-\item{strDomain}{Domain "step" that is being filtered.}
+\item{strDomain}{\code{character} Domain step that is being filtered.}
 
-\item{lMapping}{mapping}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
 
-\item{strColParam}{column to filter}
+\item{strColParam}{\code{character} Domain in \code{lMapping} that references the column to filter on.}
 
-\item{strValParam}{value or values to keep}
+\item{strValParam}{\code{character} Domain in \code{lMapping} that references the value to filter on.}
 
-\item{bReturnChecks}{checks}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+}
+\value{
+\code{data.frame} Data frame provided as \code{df} and filtered on \code{strColParam} == \code{strValParam}.
+If \code{bReturnChecks} is \code{TRUE}, a \code{list} is returned with a filtered \code{df}, and a list of checks run on input data (\code{lChecks}).
 }
 \description{
 Utility function for basic filtering
@@ -42,5 +46,6 @@ te_ae <- FilterDomain(df = clindata::rawplus_ae,
                       strDomain = "dfAE",
                       strColParam = "strSeriousCol",
                       strValParam = "strSeriousVal")
+
 
 }
