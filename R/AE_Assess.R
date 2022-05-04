@@ -9,6 +9,8 @@
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
 #'
+#' @includeRmd ./man/md/AE_Assess.md
+#'
 #' @section Data Specification:
 #'
 #' The input data (`dfInput`) for the AE Assessment is typically created using

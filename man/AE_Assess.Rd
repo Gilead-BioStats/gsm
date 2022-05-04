@@ -21,7 +21,7 @@ AE_Assess(
 
 \item{strMethod}{\code{character} Statistical model. Valid values include "poisson" (default) and  "wilcoxon".}
 
-\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment="AE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lassess$dfSummary}.}
+\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment="AE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
 
 \item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
 
@@ -58,6 +58,117 @@ Flag sites that may be over- or under-reporting adverse events (AEs).
 \details{
 The Adverse Event Assessment uses the standard \href{https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
+
+\if{html}{\out{
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+domain
+</th>
+<th style="text-align:left;">
+col_key
+</th>
+<th style="text-align:left;">
+col_value
+</th>
+<th style="text-align:left;">
+vRequired
+</th>
+<th style="text-align:left;">
+vUniqueCols
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+dfInput
+</td>
+<td style="text-align:left;">
+strIDCol
+</td>
+<td style="text-align:left;">
+SubjectID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfInput
+</td>
+<td style="text-align:left;">
+strSiteCol
+</td>
+<td style="text-align:left;">
+SiteID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfInput
+</td>
+<td style="text-align:left;">
+strCountCol
+</td>
+<td style="text-align:left;">
+Count
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfInput
+</td>
+<td style="text-align:left;">
+strExposureCol
+</td>
+<td style="text-align:left;">
+Exposure
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfInput
+</td>
+<td style="text-align:left;">
+strRateCol
+</td>
+<td style="text-align:left;">
+Rate
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+</tbody>
+</table>
+}}
 }
 \section{Data Specification}{
 
