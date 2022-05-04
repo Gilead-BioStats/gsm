@@ -12,51 +12,62 @@ AE_Map_Raw(
 )
 }
 \arguments{
-\item{dfs}{list of data frames including:
+\item{dfs}{\code{list} Input data frames:
 \itemize{
-\item \code{dfAE}: dataset with required column SUBJID and rows for each AE record
-\item \code{dfSubj}: Subject-level Raw Data with required columns: SubjectID, SiteID, value specified in strExposureCol
+\item \code{dfAE}: \code{data.frame} One record per AE
+\item \code{dfSUBJ}: \code{data.frame} One record per subject
 }}
 
-\item{lMapping}{List containing expected columns in each data set. By default, mapping for dfAE is: \code{strIDCol} = "SUBJID". By default, mapping for dfSUBJ is: \code{strIDCol} = "SubjectID", \code{strSiteCol} = "SiteID", and \code{strExposureCol} = "TimeOnTreatment". TODO: add more descriptive info or reference to mapping.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
 
-\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-When bReturnChecks is FALSE (the default), a Data frame with one record per person data frame with columns: SubjectID, SiteID, Count (number of AEs), Exposure (Time on Treatment in Days), Rate (AE/Day) is returned. When bReturnChecks is TRUE, the data.frame is returned as part of a list under \code{dfInput} along with  the check results under \code{checks}.
+\code{data.frame} Data frame with one record per subject and these columns:\tabular{ll}{
+   Name \tab Description \cr
+   \code{SubjectID} \tab Unique Subject Identifier \cr
+   \code{SiteID} \tab Site Identifier \cr
+   \code{Count} \tab Number of Adverse Events \cr
+   \code{Exposure} \tab Number of Exposure Days \cr
+   \code{Rate} \tab Exposure Rate (\code{Count} / \code{Exposure}) \cr
+}
+
+
+If \code{bReturnChecks} is \code{TRUE} \code{AE_Map_Raw} returns a named \code{list} with:
+\itemize{
+\item \code{df}: the data frame described above
+\item \code{lChecks}: a named \code{list} of check results
+}
 }
 \description{
-Convert Raw data, typically processed case report form data - to input format for Safety Assessment.
+Convert raw adverse event (AE) data, typically processed case report form data, to formatted
+input data to AE Assessment.
 }
 \details{
-This function combines AE data with treatment exposure from subject-level Raw Data to create the required input for \code{\link{AE_Assess}}.
+Combines AE data with subject-level treatment exposure data to create formatted input data to
+\code{\link{AE_Assess}}.
 }
 \section{Data Specification}{
 
 
-This function creates an input dataset for the Adverse Event Assessment (\code{\link{AE_Assess}}) by adding Adverse Event Counts to basic subject-level treatment exposure data from \code{clindata::TreatmentExposure}.
-
-The following columns are required:
-\itemize{
-\item \code{dfAE}
-\itemize{
-\item \code{SubjectID} - Unique subject ID
-}
-\item \code{dfSUBJ}
-\itemize{
-\item \code{SubjectID} - Unique subject ID
-\item \code{SiteID} - Site ID
-\item Value specified in strExposureCol - Treatment Exposure in days; "TimeOnTreatment" by default
-}
+This function creates an input dataset for the AE Assessment (\code{\link{AE_Assess}}) by binding
+subject-level adverse event counts (derived from \code{dfAE}) to subject-level data (from \code{dfSUBJ}).\tabular{lllll}{
+   Domain \tab Key \tab Value \tab Description \tab Required? \cr
+   \code{dfAE} \tab \code{strIDCol} \tab SubjectID \tab Unique Subject Identifier \tab Yes \cr
+   \code{dfSUBJ} \tab \code{strIDCol} \tab SubjectID \tab Unique Subject Identifier \tab Yes \cr
+   \code{dfSUBJ} \tab \code{strSiteCol} \tab SiteID \tab Site Identifier \tab Yes \cr
+   \code{dfSUBJ} \tab \code{strTimeOnTreatmentCol} \tab TimeOnTreatment \tab Number of Exposure Days \tab Yes \cr
 }
 
-Note that the function can generate data summaries for specific types of AEs, but passing filtered ADAE data to dfADAE.
+
+Note that the function can generate data summaries for specific types of AEs by passing filtered
+adverse event data to \code{dfAE}.
 }
 
 \examples{
 dfInput <- AE_Map_Raw() # Run with defaults
-dfInput <- AE_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
+dfInput <- AE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
 
 }
