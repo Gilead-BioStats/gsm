@@ -11,7 +11,6 @@
 
 Study_AssessmentReport <- function(lAssessments) {
 
-
   allChecks <- names(lAssessments) %>% map(function(assessment_name){
     assessment<-lAssessments[[assessment_name]]
     assessment_checks<-names(assessment$checks) %>% map(function(domain_name){
@@ -23,7 +22,8 @@ Study_AssessmentReport <- function(lAssessments) {
         check=domain$status
       )
 
-      domain_details <- names(domain) %>% discard(.=="status") %>% map(function(test_name){
+      domain_details <- names(domain)[names(domain) != "status"] %>%
+        map(function(test_name){
         status=domain[[test_name]][["status"]]
         details=domain[[test_name]][["tests_if"]] %>%
           bind_rows(.id = "names") %>%
@@ -45,7 +45,7 @@ Study_AssessmentReport <- function(lAssessments) {
     })
 
     return(bind_rows(assessment_checks))
-  }) %>% bind_rows
+  }) %>% bind_rows()
 
 
 
@@ -61,13 +61,13 @@ Study_AssessmentReport <- function(lAssessments) {
             logo_out <- "?"
         }
         logo_out %>%
-            as.character() %>%
-            gt::html()
+            as.character(.data) %>%
+            gt::html(.data)
     }
 
 
     dfSummary<- allChecks %>%
-        mutate(check = map(check, rank_chg))
+        mutate(check = map(.data$check, rank_chg))
 
     return(list(dfAllChecks = allChecks, dfSummary = dfSummary))
 

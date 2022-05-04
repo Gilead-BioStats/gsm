@@ -47,12 +47,12 @@ test_that("filter to 0 rows throws a warning", {
 })
 
 test_that("invalid mapping is caught", {
-  FilterDomain(dfAE,
+  expect_snapshot(FilterDomain(dfAE,
                lMapping = list(this_is = "my mapping"),
                strDomain = "dfAE",
                strColParam = "strTreatmentEmergentCol",
                strValParam = "strTreatmentEmergentVal",
-               bQuiet = FALSE)
+               bQuiet = FALSE))
 })
 
 test_that("invalid strDomain is caught", {
@@ -66,7 +66,7 @@ test_that("invalid strDomain is caught", {
 })
 
 test_that("bQuiet works as intended", {
-  expect_silent(FilterDomain(dfAE,
+  expect_snapshot(FilterDomain(dfAE,
                              lMapping = lMapping,
                              strDomain = "dfAE",
                              strColParam = "strTreatmentEmergentCol",

@@ -14,6 +14,23 @@
 #'
 #' @return `list` Returns `lAssessment` with `label`, `tags`, `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
+#' @examples
+#' lAssessments <- MakeAssessmentList()
+#' lData <- list(
+#'   dfSUBJ= clindata::rawplus_subj,
+#'   dfAE=clindata::rawplus_ae,
+#'   dfPD=clindata::rawplus_pd,
+#'   dfCONSENT=clindata::rawplus_consent,
+#'   dfIE=clindata::rawplus_ie
+#' )
+#' lTags <- list(
+#'   Study="myStudy"
+#' )
+#' lMapping <- clindata::mapping_rawplus
+#'
+#'
+#' ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
+#'
 #' @export
 
 RunAssessment <- function(lAssessment, lData, lMapping, lTags=NULL, bQuiet=FALSE){

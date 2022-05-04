@@ -23,3 +23,21 @@ RunAssessment(lAssessment, lData, lMapping, lTags = NULL, bQuiet = FALSE)
 \description{
 Attempts to run a single assessments (\code{lAssessment}) using shared data (\code{lData}) and metadata (\code{lMapping}). Calls \code{RunStep} for each item in \code{lAssessment$Workflow} and saves the results to \code{lAssessment}
 }
+\examples{
+lAssessments <- MakeAssessmentList()
+lData <- list(
+  dfSUBJ= clindata::rawplus_subj,
+  dfAE=clindata::rawplus_ae,
+  dfPD=clindata::rawplus_pd,
+  dfCONSENT=clindata::rawplus_consent,
+  dfIE=clindata::rawplus_ie
+)
+lTags <- list(
+  Study="myStudy"
+)
+lMapping <- clindata::mapping_rawplus
+
+
+ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
+
+}

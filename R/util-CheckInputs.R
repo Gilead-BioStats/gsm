@@ -20,6 +20,7 @@
 #'    - tests_if `list` - a named list containing status and warnings for all checks
 #'  - status `logical` - did all checked data pass the checks?
 #'
+#' @export
 CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
 
   if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn {context}}")
@@ -40,8 +41,8 @@ CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
           return(check)
         }) %>%
         set_names(nm = names(dfs))
-    } else if (is.null(names(df))){
-      if(!bQuiet) cli::cli_alert_warning("Checks not run for {.var {dfs}} because {.var {dfs}} are not named.")
+    } else if (is.null(names(dfs))){
+      if(!bQuiet) cli::cli_alert_warning("Checks not run because dfs are not named.")
       checks <- map(1:length(dfs), ~list(status = FALSE,
                                          tests_if = list(is_data_frame = list(status = NA, warning = NA),
                                                          has_required_params = list(status = NA, warning = NA),
