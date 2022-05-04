@@ -1,13 +1,26 @@
 #' Check mapping inputs
 #'
 #' @param context Description of the data pipeline "step" that is being checked, i.e., "AE_Map_Raw" or "PD_Assess".
-#' @param dfs list of data frames.
-#' @param mapping YAML mapping for a given context.
-#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
+#' @param dfs `list` A list of data frames.
+#' @param mapping `list` YAML mapping for a given context.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @importFrom yaml read_yaml
 #'
-#' @return list
+#' @examples
+#' checks <- CheckInputs(
+#'   context = "AE_Assess",
+#'   dfs = list(dfInput = AE_Map_Raw()),
+#'   bQuiet = TRUE
+#' )
+#'
+#' @return `list` Checks, a named list with:
+#'  - a `list` containing each data.frame that was checked
+#'    - status `logical` - did the data.frame pass the checks?
+#'    - tests_if `list` - a named list containing status and warnings for all checks
+#'  - status `logical` - did all checked data pass the checks?
+#'
+#' @export
 CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
 
   if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn {context}}")
