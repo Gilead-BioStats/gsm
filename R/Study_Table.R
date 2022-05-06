@@ -43,40 +43,43 @@ Study_Table <- function(dfFindings, bFormat=TRUE, bShowCounts=TRUE, bShowSiteSco
     # Get site counts
     df_counts <- dfFindings %>%
     group_by(.data$SiteID) %>%
-    summarize(
-        Flag = first(.data$N)
-    )%>%
-    mutate(
-        Assessment="Number of Subjects" ,
-        Label="Number of Subjects"
-    )%>%
+    summarize(Flag = first(.data$N)) %>%
+    mutate(Assessment="Number of Subjects",
+           Label="Number of Subjects") %>%
     select(.data$Assessment, .data$Label, .data$SiteID, .data$Flag)
 
     # create site score for a site across all assessments
     df_score <- dfFindings %>%
         group_by(.data$SiteID) %>%
         summarize(Flag=sum(abs(.data$Flag))) %>%
-        mutate(Assessment="Score") %>%
-        mutate(Label="Score")
+        mutate(Assessment="Score",
+               Label="Score")
 
     # create subheaders for each assessment
     df_assessment <- dfFindings %>%
         group_by(.data$Assessment, .data$SiteID) %>%
-        summarize(Flag=ifelse(any(.data$Flag!=0),"*","")) %>%
-        mutate(Label="Subtotal")
+        summarize(Flag = ifelse(any(.data$Flag!=0), "*", "")) %>%
+        mutate(Label = "Subtotal")
 
     # create rows for each KRI
     df_tests <- dfFindings %>%
     select(.data$Assessment, .data$Label, .data$SiteID, .data$Flag) %>%
     mutate(Flag = case_when(
-        Flag =="-1" ~ "-",
-        Flag =="1" ~ "+",
-        Flag =="0" ~ " ")
+        Flag == "-1" ~ "-",
+        Flag == "1" ~ "+",
+        Flag == "0" ~ " ")
     )
 
     # combine score, subheaders, tests and counts
-    df_combined <- rbind(df_tests, df_assessment, df_score)
-    if(bShowCounts) df_combined <- rbind(df_combined, df_counts)
+    df_combined <- rbind(df_tests, df_assessment)
+
+    if(bShowSiteScore) {
+      df_combined <- rbind(df_combined, df_score)
+    }
+
+    if(bShowCounts) {
+      df_combined <- rbind(df_combined, df_counts)
+    }
 
     # reformat standard flags to html icons if bFormat = TRUE
     if(bFormat){
@@ -136,11 +139,13 @@ Study_Table <- function(dfFindings, bFormat=TRUE, bShowCounts=TRUE, bShowSiteSco
     }
 
     # Hide sites below vSiteScoreThreshold & sort sites by score and then N
-    if(bShowSiteScore > 0 ){
+    if(vSiteScoreThreshold > 0 ){
         noOutlierSites <- df_score %>% filter(Flag < vSiteScoreThreshold) %>% pull(.data$SiteID)
         if(length(noOutlierSites)>0){
             footnote <- paste0("Note: Data not shown for ", length(noOutlierSites), " site(s) with site score less than ",vSiteScoreThreshold)
         }
+    } else {
+      footnote <- NULL
     }
 
     siteCols <- df_score %>%
@@ -160,5 +165,7 @@ Study_Table <- function(dfFindings, bFormat=TRUE, bShowCounts=TRUE, bShowSiteSco
 
     df_summary <- df_summary %>% select(allCols)
 
-    return(df_summary)
+
+  return(list(df_summary = df_summary, footnote = footnote))
+
 }
