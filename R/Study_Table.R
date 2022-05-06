@@ -4,24 +4,38 @@
 #'
 #' @param dfFindings dataframe containing one or more stacked findings. Findings are one record per assessment per site and have the following columns: Assessment, Label, SiteID, N, PValue, Flag. PValue is ignored in the summary table.
 #' @param bFormat Use html-friendly icons in table cells. -1 is converted to a down arrow. 1 is converted to an up arrow. 0 is not shown. Other values are left as is.
-#' @param showSiteScore Show a "Score" row with total number of flagged assessments for each site. TODO:  add method for custom scoring in future release)
-#' @param siteScoreThreshold Hide sites with a site score less than this value (1 by default).
-#' @param showCounts Show site counts? Uses first value of N for each site given in dfFindings.
-#' @param colCollapse Combine the Assessment and Label columns into a single "Title Column"
+#' @param bShowSiteScore Show a "Score" row with total number of flagged assessments for each site. TODO:  add method for custom scoring in future release)
+#' @param vSiteScoreThreshold Hide sites with a site score less than this value (1 by default).
+#' @param bShowCounts Show site counts? Uses first value of N for each site given in dfFindings.
+#' @param bColCollapse Combine the Assessment and Label columns into a single "Title Column"
 #'
 #' @import tidyr
 #' @import dplyr
 #' @importFrom fontawesome fa
 #' @importFrom stringr str_pad
 #'
-#' @export
+#' @examples
+#' library(dplyr)
+#' library(purrr)
+#' results <- Study_Assess() %>%
+#'   purrr::map(~.x$lResults) %>%
+#'     compact() %>%
+#'     purrr::map_df(~.x$dfSummary)
 #'
-#' @return returns a dataframe giving assessment status (rows) by Site (column)
+#' Study_Table(results)
+#'
+#' @return `data.frame` Returns a data.frame giving assessment status (rows) by Site (column)
+#'
+#' @export
 
-Study_Table <- function(dfFindings, bFormat=TRUE, showCounts=TRUE, showSiteScore=TRUE, siteScoreThreshold=1, colCollapse = TRUE){
+Study_Table <- function(dfFindings, bFormat=TRUE, bShowCounts=TRUE, bShowSiteScore=TRUE, vSiteScoreThreshold=1, bColCollapse = TRUE){
     stopifnot(
-        is.data.frame(dfFindings),
-        is.logical(bFormat)
+        "`dfFindings` must be a data.frame" = is.data.frame(dfFindings),
+        "`bFormat` must be logical" = is.logical(bFormat),
+        "`bShowCounts` must be logical" = is.logical(bShowCounts),
+        "`bShowSiteScore` must be logical" = is.logical(bShowSiteScore),
+        "`vSiteScoreThreshold` must be numeric" = is.numeric(vSiteScoreThreshold),
+        "`bColCollapse` must be logical" = is.logical(bColCollapse)
     )
 
 
@@ -62,7 +76,7 @@ Study_Table <- function(dfFindings, bFormat=TRUE, showCounts=TRUE, showSiteScore
 
     # combine score, subheaders, tests and counts
     df_combined <- rbind(df_tests, df_assessment, df_score)
-    if(showCounts) df_combined <- rbind(df_combined, df_counts)
+    if(bShowCounts) df_combined <- rbind(df_combined, df_counts)
 
     # reformat standard flags to html icons if bFormat = TRUE
     if(bFormat){
@@ -106,7 +120,7 @@ Study_Table <- function(dfFindings, bFormat=TRUE, showCounts=TRUE, showSiteScore
         select(-.data$index, -.data$assessment_index, -.data$label_index)
 
     # Basic logic to collapse Assessment and Label if requested
-    if(colCollapse){
+    if(bColCollapse){
         df_summary<- df_summary %>%
         mutate(Title = ifelse(
             .data$Label=="Subtotal",
@@ -121,24 +135,24 @@ Study_Table <- function(dfFindings, bFormat=TRUE, showCounts=TRUE, showSiteScore
         select(-.data$Assessment, -.data$Label)
     }
 
-    # Hide sites below siteScoreThreshold & sort sites by score and then N
-    if(showSiteScore > 0 ){
-        noOutlierSites <- df_score %>% filter(Flag < siteScoreThreshold) %>% pull(.data$SiteID)
+    # Hide sites below vSiteScoreThreshold & sort sites by score and then N
+    if(bShowSiteScore > 0 ){
+        noOutlierSites <- df_score %>% filter(Flag < vSiteScoreThreshold) %>% pull(.data$SiteID)
         if(length(noOutlierSites)>0){
-            footnote <- paste0("Note: Data not shown for ", length(noOutlierSites), " site(s) with site score less than ",siteScoreThreshold)
+            footnote <- paste0("Note: Data not shown for ", length(noOutlierSites), " site(s) with site score less than ",vSiteScoreThreshold)
         }
     }
 
     siteCols <- df_score %>%
         rename(score = Flag) %>%
-        filter(.data$score >= siteScoreThreshold) %>%
+        filter(.data$score >= vSiteScoreThreshold) %>%
         select(.data$SiteID, .data$score) %>%
         left_join(df_counts) %>%
         rename(count = Flag) %>%
         arrange(-as.numeric(.data$score), -as.numeric(.data$count)) %>%
         pull(.data$SiteID)
 
-    if(colCollapse){
+    if(bColCollapse){
         allCols <-  c("Title", siteCols)
     } else {
         allCols <- c('Assessment', "Label", siteCols)
