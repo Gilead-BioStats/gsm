@@ -1,7 +1,5 @@
 #' Inclusion/Exclusion Assessment
 #'
-#' @details
-#'
 #' The Inclusion/Exclusion Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag sites with Inclusion / Exclusion irregularities. More details regarding the data pipeline and statistical methods are described below.
 #'
 #' @section Data Specification:
@@ -21,7 +19,6 @@
 #' This Assessment finds any sites where one or more subjects which have Inclusion / Exclusion data that is either missing or has inconsistent data recorded for
 #' inclusion / exclusion data. N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
 #' With N greater than user specified `nThreshold` will be flagged.
-#'
 #'
 #' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count,
 #' @param nThreshold Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.

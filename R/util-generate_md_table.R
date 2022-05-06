@@ -8,6 +8,8 @@
 #' @param spec `data.frame` data specification
 #' @param spec_path `character` file path of data specification
 #' @param out_path `character` file path of .md file
+#'
+#' @export
 
 generate_md_table <- function(
     domain,
@@ -15,7 +17,8 @@ generate_md_table <- function(
     mapping_path = './inst/mappings/',
     spec = NULL,
     spec_path = './inst/specs/',
-    out_path = './man/md/'
+    out_path = './man/md/',
+    header = '# Data specification'
 ) {
   if (is.null(mapping))
     mapping = parse_data_mapping(
@@ -34,6 +37,10 @@ generate_md_table <- function(
     )
 
   md <- kableExtra::kbl(table)
+
+  if (!is.null(header)) {
+    md = paste0(header, '\n\n', md)
+  }
 
   writeLines(md, paste0(out_path, domain, '.md'))
 

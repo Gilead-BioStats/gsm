@@ -30,22 +30,19 @@
 #'
 #' @examples
 #' dfInput <- PD_Map_Raw() # Run with defaults
-#' dfInput <- PD_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
+#' dfInput <- PD_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
 #'
 #' @import dplyr
 #'
 #' @export
 
-PD_Map_Raw <- function(
-    dfs=list(
-      dfPD=clindata::rawplus_pd,
-      dfSUBJ=clindata::rawplus_subj
-    ),
-    lMapping = clindata::mapping_rawplus,
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
-){
-
+PD_Map_Raw <- function(dfs = list(
+                         dfPD = clindata::rawplus_pd,
+                         dfSUBJ = clindata::rawplus_subj
+                       ),
+                       lMapping = clindata::mapping_rawplus,
+                       bReturnChecks = FALSE,
+                       bQuiet = TRUE) {
   checks <- CheckInputs(
     context = "PD_Map_Raw",
     dfs = dfs,
@@ -53,9 +50,9 @@ PD_Map_Raw <- function(
     mapping = lMapping
   )
 
-  #Run mapping if checks passed
-  if(checks$status){
-    if(!bQuiet) cli::cli_h2("Initializing {.fn PD_Map_Raw}")
+  # Run mapping if checks passed
+  if (checks$status) {
+    if (!bQuiet) cli::cli_h2("Initializing {.fn PD_Map_Raw}")
 
     # Standarize Column Names
     dfPD_mapped <- dfs$dfPD %>%
@@ -66,25 +63,25 @@ PD_Map_Raw <- function(
         SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
         SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
         Exposure = lMapping[["dfSUBJ"]][["strTimeOnStudyCol"]]
-        )
+      )
 
     # Create Subject Level PD Counts and merge Subj
     dfInput <- dfPD_mapped %>%
       group_by(.data$SubjectID) %>%
-      summarize(Count=n()) %>%
+      summarize(Count = n()) %>%
       ungroup() %>%
-      MergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
-      mutate(Rate = .data$Count/.data$Exposure)
+      MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
+      mutate(Rate = .data$Count / .data$Exposure)
 
-    if(!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
+    if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
-    if(!bQuiet) cli::cli_alert_warning("{.fn AE_Map_Raw} not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn AE_Map_Raw} not run because of failed check.")
     dfInput <- NULL
   }
 
-  if(bReturnChecks){
-    return(list(df=dfInput, lChecks=checks))
-  }else{
+  if (bReturnChecks) {
+    return(list(df = dfInput, lChecks = checks))
+  } else {
     return(dfInput)
   }
 }

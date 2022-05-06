@@ -30,9 +30,6 @@ IE_Assess(
 A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, \code{lParams} and \code{lTags}) is returned.
 }
 \description{
-Inclusion/Exclusion Assessment
-}
-\details{
 The Inclusion/Exclusion Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag sites with Inclusion / Exclusion irregularities. More details regarding the data pipeline and statistical methods are described below.
 }
 \section{Data Specification}{

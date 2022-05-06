@@ -4,6 +4,8 @@
 #'
 #' @param content `list` data specification
 #' @param file `character` file path of .yaml file
+#'
+#' @export
 
 parse_data_spec <- function(
     content = NULL,

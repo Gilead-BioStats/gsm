@@ -55,6 +55,6 @@ The following columns are required:
 
 \examples{
 dfInput <- PD_Map_Raw() # Run with defaults
-dfInput <- PD_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
+dfInput <- PD_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
 
 }

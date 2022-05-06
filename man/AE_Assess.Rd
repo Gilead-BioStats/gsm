@@ -2,7 +2,7 @@
 % Please edit documentation in R/AE_Assess.R
 \name{AE_Assess}
 \alias{AE_Assess}
-\title{AE Assessment}
+\title{Adverse Event Assessment}
 \usage{
 AE_Assess(
   dfInput,
@@ -15,7 +15,7 @@ AE_Assess(
 )
 }
 \arguments{
-\item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject and these columns: SubjectID, SiteID, Count and Exposure.}
+\item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to \code{c(-5, 5)} for \code{strMethod} = "poisson" and \code{c(.0001, NA)} for \code{strMethod} = "wilcoxon".}
 
@@ -35,10 +35,10 @@ AE_Assess(
 \item each data frame in the data pipeline
 \itemize{
 \item \code{dfInput}
-\item \code{dfTransformed}
-\item \code{dfAnalyzed}
-\item \code{dfFlagged}
-\item \code{dfSummary}
+\item \code{dfTransformed}, returned by \code{\link{Transform_EventCount}}
+\item \code{dfAnalyzed}, returned by \code{\link{dfAnalyzed}}
+\item \code{dfFlagged}, returned by \code{\link{dfFlagged}}
+\item \code{dfSummary}, returned by \code{\link{dfSummary}}
 }
 \item assessment metadata
 \itemize{
@@ -58,7 +58,8 @@ Flag sites that may be over- or under-reporting adverse events (AEs).
 \details{
 The Adverse Event Assessment uses the standard \href{https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
-
+}
+\section{Data specification}{
 \if{html}{\out{
 <table>
 <thead>
@@ -170,45 +171,19 @@ FALSE
 </table>
 }}
 }
-\section{Data Specification}{
 
+\section{Statistical assumptions}{
+A Poisson or Wilcoxon model is used to generate estimates and p-values
+for each site (as specified with the \code{strMethod} parameter). Those model
+outputs are then used to flag possible outliers using the thresholds
+specified in \code{vThreshold}. In the Poisson model, sites with an estimate
+less than -5 are flagged as -1 and greater than 5 are flagged as 1 by
+default. For Wilcoxon, sites with p-values less than 0.0001 are flagged
+by default.
 
-The input data (\code{dfInput}) for the AE Assessment is typically created using
-\code{\link{AE_Map_Raw}} or \code{\link{AE_Map_Adam}}. It must have one record per subject with
-these columns:\tabular{lll}{
-   Name \tab Description \tab Required? \cr
-   \code{SubjectID} \tab Unique Subject Identifier \tab Yes \cr
-   \code{SiteID} \tab Site Identifier \tab Yes \cr
-   \code{Count} \tab Number of Adverse Events \tab Yes \cr
-   \code{Exposure} \tab Number of Exposure Days \tab Yes \cr
-   \code{Rate} \tab Exposure Rate (\code{Count} / \code{Exposure}) \tab No \cr
-}
-
-
-The Assessment
-\itemize{
-\item \code{\link{Transform_EventCount}} creates \code{dfTransformed}.
-\item \code{\link{Analyze_Poisson}} or \code{\link{Analyze_Wilcoxon}} creates \code{dfAnalyzed}.
-\item \code{\link{Flag}} creates \code{dfFlagged}.
-\item \code{\link{Summarize}} creates \code{dfSummary}.
-}
-}
-
-\section{Statistical Assumptions}{
-
-
-A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as
-specified with the \code{strMethod} parameter). Those model outputs are then used to flag possible
-outliers using the thresholds specified in \code{vThreshold}. In the Poisson model, sites with an
-estimate less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For
-Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
-
-See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details
-about the statistical methods and their assumptions.
-}
-
-\section{Parameters}{
-NA
+See \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} and
+\code{\link[=Analyze_Wilcoxon]{Analyze_Wilcoxon()}} for additional
+details about the statistical methods and their assumptions.
 }
 
 \examples{

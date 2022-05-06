@@ -3,8 +3,6 @@
 #' Convert raw adverse event (AE) data, typically processed case report form data, to formatted
 #' input data to AE Assessment.
 #'
-#' @details
-#'
 #' Combines AE data with subject-level treatment exposure data to create formatted input data to
 #' \code{\link{AE_Assess}}.
 #'
@@ -20,7 +18,6 @@
 #' | `dfSUBJ` | `strSiteCol`            | SiteID          | Site Identifier           | Yes       |
 #' | `dfSUBJ` | `strTimeOnTreatmentCol` | TimeOnTreatment | Number of Exposure Days   | Yes       |
 #' 
-#'
 #' Note that the function can generate data summaries for specific types of AEs by passing filtered
 #' adverse event data to `dfAE`.
 #'

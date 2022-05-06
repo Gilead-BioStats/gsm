@@ -4,6 +4,8 @@
 #'
 #' @param content `list` data mapping
 #' @param file `character` file path of .yaml file
+#'
+#' @export
 
 parse_data_mapping <- function(
     content = NULL,
