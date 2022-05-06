@@ -3,13 +3,14 @@
 #' Make overview table with one row per assessment and one column per site showing flagged assessments.
 #'
 #' @param lAssessments List of 1+ assessments like those created by `runAssessment()` or `Study_Assess()`
+#' @param bViewReport HTML table of dfSummary that can be viewed in most IDEs.
 #'
 #' @importFrom gt gt
 #' @importFrom fontawesome fa
 #'
 #' @return returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks``)
 
-Study_AssessmentReport <- function(lAssessments) {
+Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
 
   allChecks <- names(lAssessments) %>% map(function(assessment_name){
@@ -69,6 +70,10 @@ Study_AssessmentReport <- function(lAssessments) {
     dfSummary<- allChecks %>%
         mutate(check = map(check, rank_chg))
 
-    return(list(dfAllChecks = allChecks, dfSummary = dfSummary))
+    if(!bViewReport){
+      return(list(dfAllChecks = allChecks, dfSummary = dfSummary))
+    } else {
+      return(dfSummary %>% gt::gt())
+    }
 
 }
