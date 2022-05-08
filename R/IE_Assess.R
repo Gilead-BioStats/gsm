@@ -31,37 +31,33 @@
 #' dfInput <- IE_Map_Raw()
 #' ie <- IE_Assess(dfInput)
 #'
-#'
 #' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, `lParams` and `lTags`) is returned.
 #'
 #' @export
 
-IE_Assess <- function(
-    dfInput,
-    nThreshold=0.5,
-    lTags=list(Assessment="IE"),
-    bChart=TRUE,
-    bReturnChecks=FALSE,
-    bQuiet=TRUE
-){
+IE_Assess <- function(dfInput,
+                      nThreshold = 0.5,
+                      lTags = list(Assessment = "IE"),
+                      bChart = TRUE,
+                      bReturnChecks = FALSE,
+                      bQuiet = TRUE) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
-    "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput"=all(c("SubjectID","SiteID", "Count") %in% names(dfInput)),
+    "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput" = all(c("SubjectID", "SiteID", "Count") %in% names(dfInput)),
     "nThreshold must be numeric" = is.numeric(nThreshold),
-    "nThreshold must be length 1" = length(nThreshold) ==1
+    "nThreshold must be length 1" = length(nThreshold) == 1
   )
 
-  if(!is.null(lTags)){
-      stopifnot(
-          "lTags is not named"=(!is.null(names(lTags))),
-          "lTags has unnamed elements"=all(names(lTags)!=""),
-          "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
-      )
+  if (!is.null(lTags)) {
+    stopifnot(
+      "lTags is not named" = (!is.null(names(lTags))),
+      "lTags has unnamed elements" = all(names(lTags) != ""),
+      "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
+    )
 
-    if(any(unname(map_dbl(lTags, ~length(.)))>1)) {
-      lTags <- map(lTags, ~paste(.x, collapse = ", "))
+    if (any(unname(map_dbl(lTags, ~ length(.))) > 1)) {
+      lTags <- map(lTags, ~ paste(.x, collapse = ", "))
     }
-
   }
 
   lAssess <- list(
@@ -77,30 +73,29 @@ IE_Assess <- function(
     bQuiet = bQuiet
   )
 
-  if(checks$status){
-    if(!bQuiet) cli::cli_h2("Initializing {.fn IE_Assess}")
-    if(!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
-    lAssess$dfTransformed <- gsm::Transform_EventCount( lAssess$dfInput, strCountCol = "Count")
-    if(!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
+  if (checks$status) {
+    if (!bQuiet) cli::cli_h2("Initializing {.fn IE_Assess}")
+    if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
+    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count")
+    if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
-  lAssess$dfAnalyzed <-lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
-  if(!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed}")
+    lAssess$dfAnalyzed <- lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
+    if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed}")
 
-  lAssess$dfFlagged <- gsm::Flag( lAssess$dfAnalyzed , vThreshold = c(NA,nThreshold), strColumn = "Estimate" )
-  if(!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
+    lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = c(NA, nThreshold), strColumn = "Estimate")
+    if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
 
-  lAssess$dfSummary <- gsm::Summarize( lAssess$dfFlagged, strScoreCol="TotalCount", lTags)
-  if(!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
+    lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, strScoreCol = "TotalCount", lTags)
+    if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
 
-  if (bChart) {
-    lAssess$chart <- Visualize_Count(lAssess$dfAnalyzed)
-    if(!bQuiet) cli::cli_alert_success("{.fn Visualize_Count} created a chart.")
-  }
-
+    if (bChart) {
+      lAssess$chart <- Visualize_Count(lAssess$dfAnalyzed)
+      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Count} created a chart.")
+    }
   } else {
-    if(!bQuiet) cli::cli_alert_warning("{.fn IE_Assess} not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn IE_Assess} not run because of failed check.")
   }
 
-  if(bReturnChecks) lAssess$lChecks <- checks
+  if (bReturnChecks) lAssess$lChecks <- checks
   return(lAssess)
 }

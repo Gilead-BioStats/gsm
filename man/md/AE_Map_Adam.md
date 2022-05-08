@@ -7,37 +7,38 @@
    <th style="text-align:left;"> col_key </th>
    <th style="text-align:left;"> col_value </th>
    <th style="text-align:left;"> vRequired </th>
-   <th style="text-align:left;"> vUniqueCols </th>
   </tr>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> dfSUBJ </td>
+   <td style="text-align:left;"> dfADSL </td>
    <td style="text-align:left;"> strIDCol </td>
-   <td style="text-align:left;"> SubjectID </td>
-   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> USUBJID </td>
    <td style="text-align:left;"> TRUE </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> dfSUBJ </td>
+   <td style="text-align:left;"> dfADSL </td>
    <td style="text-align:left;"> strSiteCol </td>
-   <td style="text-align:left;"> SiteID </td>
+   <td style="text-align:left;"> SITEID </td>
    <td style="text-align:left;"> TRUE </td>
-   <td style="text-align:left;"> FALSE </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> dfSUBJ </td>
-   <td style="text-align:left;"> strTimeOnStudyCol </td>
-   <td style="text-align:left;"> TimeOnStudy </td>
+   <td style="text-align:left;"> dfADSL </td>
+   <td style="text-align:left;"> strStartCol </td>
+   <td style="text-align:left;"> TRTSDT </td>
    <td style="text-align:left;"> TRUE </td>
-   <td style="text-align:left;"> FALSE </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> dfPD </td>
+   <td style="text-align:left;"> dfADSL </td>
+   <td style="text-align:left;"> strEndCol </td>
+   <td style="text-align:left;"> TRTEDT </td>
+   <td style="text-align:left;"> TRUE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> dfADAE </td>
    <td style="text-align:left;"> strIDCol </td>
-   <td style="text-align:left;"> SubjectID </td>
+   <td style="text-align:left;"> USUBJID </td>
    <td style="text-align:left;"> TRUE </td>
-   <td style="text-align:left;"> NA </td>
   </tr>
 </tbody>
 </table>

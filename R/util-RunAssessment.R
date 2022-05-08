@@ -1,6 +1,7 @@
 #' Run a single assessment
 #'
-#' Attempts to run a single assessments (`lAssessment`) using shared data (`lData`) and metadata (`lMapping`). Calls `RunStep` for each item in `lAssessment$Workflow` and saves the results to `lAssessment`
+#' Attempts to run a single assessments (`lAssessment`) using shared data (`lData`) and metadata (`lMapping`).
+#' Calls `RunStep` for each item in `lAssessment$Workflow` and saves the results to `lAssessment`
 #'
 #' @param lData a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping a named list identifying the columns needed in each data domain.

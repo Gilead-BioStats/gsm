@@ -1,15 +1,13 @@
 #' Protocol Deviation Assessment
 #'
+#' @description
 #' Flag sites that may be over- or under-reporting protocol deviations (PDs).
 #'
+#' @details
 #' The Protocol Deviation Assessment uses the standard [GSM data pipeline](
 #'   https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
-#'
-#' @includeRmd ./man/md/PD_Assess.md
-#'
-#' @includeRmd ./man/md/analyze_rate.md
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to `c(-5, 5)` for `strMethod` = "poisson" and `c(.0001, NA)` for `strMethod` = "wilcoxon".
@@ -18,11 +16,6 @@
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
-#'
-#' @examples
-#' dfInput <- PD_Map_Raw()
-#' pd_assessment_poisson <- PD_Assess(dfInput)
-#' pd_assessment_wilcoxon <- PD_Assess(dfInput, strMethod = "wilcoxon")
 #'
 #' @return `list` Assessment, a named list with:
 #' - each data frame in the data pipeline
@@ -38,17 +31,23 @@
 #' - output(s)
 #'   - `chart`
 #'
+#' @includeRmd ./man/md/PD_Assess.md
+#' @includeRmd ./man/md/analyze_rate.md
+#'
+#' @examples
+#' dfInput <- PD_Map_Raw()
+#' pd_assessment_poisson <- PD_Assess(dfInput)
+#' pd_assessment_wilcoxon <- PD_Assess(dfInput, strMethod = "wilcoxon")
+#'
 #' @export
 
-PD_Assess <- function(
-  dfInput,
-  vThreshold = NULL,
-  strMethod = "poisson",
-  lTags = list(Assessment = "PD"),
-  bChart = TRUE,
-  bReturnChecks = FALSE,
-  bQuiet = TRUE
-) {
+PD_Assess <- function(dfInput,
+                      vThreshold = NULL,
+                      strMethod = "poisson",
+                      lTags = list(Assessment = "PD"),
+                      bChart = TRUE,
+                      bReturnChecks = FALSE,
+                      bQuiet = TRUE) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson", "wilcoxon"),

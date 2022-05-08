@@ -1,25 +1,15 @@
 #' AE Assessment - Raw Mapping
 #'
+#' @description
 #' Convert raw adverse event (AE) data, typically processed case report form data, to formatted
 #' input data to AE Assessment.
 #'
+#' @details
 #' Combines AE data with subject-level treatment exposure data to create formatted input data to
-#' \code{\link{AE_Assess}}.
-#'
-#' @section Data Specification:
-#'
-#' This function creates an input dataset for the AE Assessment (\code{\link{AE_Assess}}) by binding
-#' subject-level adverse event counts (derived from `dfAE`) to subject-level data (from `dfSUBJ`).
-#'
-#' | Domain   | Key                     | Value           | Description               | Required? |
-#' | -------- | ----------------------- | --------------- | ------------------------- | --------- |
-#' | `dfAE`   | `strIDCol`              | SubjectID       | Unique Subject Identifier | Yes       |
-#' | `dfSUBJ` | `strIDCol`              | SubjectID       | Unique Subject Identifier | Yes       |
-#' | `dfSUBJ` | `strSiteCol`            | SiteID          | Site Identifier           | Yes       |
-#' | `dfSUBJ` | `strTimeOnTreatmentCol` | TimeOnTreatment | Number of Exposure Days   | Yes       |
-#' 
-#' Note that the function can generate data summaries for specific types of AEs by passing filtered
-#' adverse event data to `dfAE`.
+#' \code{\link{AE_Assess}}. This function creates an input dataset for the AE Assessment
+#' (\code{\link{AE_Assess}}) by binding subject-level adverse event counts (derived from `dfAE`) to
+#' subject-level data (from `dfSUBJ`). Note that the function can generate data summaries for
+#' specific types of AEs by passing filtered adverse event data to `dfAE`.
 #'
 #' @param dfs `list` Input data frames:
 #'  - `dfAE`: `data.frame` One record per AE
@@ -28,19 +18,12 @@
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` Data frame with one record per subject and these columns:
-#'
-#' | Name        | Description                          |
-#' | ----------- | ------------------------------------ |
-#' | `SubjectID` | Unique Subject Identifier            |
-#' | `SiteID`    | Site Identifier                      |
-#' | `Count`     | Number of Adverse Events             |
-#' | `Exposure`  | Number of Exposure Days              |
-#' | `Rate`      | Exposure Rate (`Count` / `Exposure`) |
-#'
-#' If `bReturnChecks` is `TRUE` `AE_Map_Raw` returns a named `list` with:
+#' @return `data.frame` Data frame with one record per subject, the input to [gsm::AE_Assess()]. If
+#' `bReturnChecks` is `TRUE` `AE_Map_Raw` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
+#'
+#' @includeRmd ./man/md/AE_Map_Raw.md
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw() # Run with defaults
@@ -50,15 +33,13 @@
 #'
 #' @export
 
-AE_Map_Raw <- function(
-    dfs = list(
-      dfAE = clindata::rawplus_ae,
-      dfSUBJ = clindata::rawplus_subj
-    ),
-    lMapping = clindata::mapping_rawplus,
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
-) {
+AE_Map_Raw <- function(dfs = list(
+                         dfAE = clindata::rawplus_ae,
+                         dfSUBJ = clindata::rawplus_subj
+                       ),
+                       lMapping = clindata::mapping_rawplus,
+                       bReturnChecks = FALSE,
+                       bQuiet = TRUE) {
   checks <- CheckInputs(
     context = "AE_Map_Raw",
     dfs = dfs,

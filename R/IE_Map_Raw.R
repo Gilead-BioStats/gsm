@@ -30,79 +30,76 @@
 #' @examples
 #'
 #' dfInput <- IE_Map_Raw() # Run with defaults
-#' dfInput <- IE_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
+#' dfInput <- IE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
 #'
 #' @import dplyr
 #'
 #' @export
-IE_Map_Raw <- function(
-    dfs=list(
-      dfIE=clindata::rawplus_ie,
-      dfSUBJ=clindata::rawplus_subj
-    ),
-    lMapping = clindata::mapping_rawplus,
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
-){
+IE_Map_Raw <- function(dfs = list(
+                         dfIE = clindata::rawplus_ie,
+                         dfSUBJ = clindata::rawplus_subj
+                       ),
+                       lMapping = clindata::mapping_rawplus,
+                       bReturnChecks = FALSE,
+                       bQuiet = TRUE) {
+  checks <- CheckInputs(
+    context = "IE_Map_Raw",
+    dfs = dfs,
+    bQuiet = bQuiet,
+    mapping = lMapping
+  )
 
-    checks <- CheckInputs(
-      context = "IE_Map_Raw",
-      dfs = dfs,
-      bQuiet = bQuiet,
-      mapping = lMapping
-    )
+  if (checks$status) {
+    if (!bQuiet) cli::cli_h2("Initializing {.fn IE_Map_Raw}")
 
-    if(checks$status){
-        if(!bQuiet) cli::cli_h2("Initializing {.fn IE_Map_Raw}")
+    # Standarize Column Names
+    dfSUBJ_mapped <- dfs$dfSUBJ %>%
+      select(
+        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]]
+      )
 
-        # Standarize Column Names
-        dfSUBJ_mapped <- dfs$dfSUBJ %>%
-          select(
-            SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-            SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]]
-          )
+    dfIE_Subj <- dfs$dfIE %>%
+      select(
+        SubjectID = lMapping[["dfIE"]][["strIDCol"]],
+        category = lMapping[["dfIE"]][["strCategoryCol"]],
+        result = lMapping[["dfIE"]][["strValueCol"]]
+      )
 
-        dfIE_Subj <- dfs$dfIE %>%
-          select(
-            SubjectID = lMapping[["dfIE"]][["strIDCol"]],
-            category = lMapping[["dfIE"]][["strCategoryCol"]],
-            result = lMapping[["dfIE"]][["strValueCol"]])
+    # Create Subject Level IE Counts and merge Subj
+    dfInput <- dfIE_Subj %>%
+      mutate(
+        expected = ifelse(
+          .data$category == lMapping$dfIE$vCategoryValues[1],
+          lMapping$dfIE$vExpectedResultValues[1],
+          lMapping$dfIE$vExpectedResultValues[2]
+        ),
+        valid = .data$result == .data$expected,
+        invalid = .data$result != .data$expected,
+        missing = !(.data$result %in% lMapping$dfIE$vExpectedResultValues)
+      ) %>%
+      group_by(.data$SubjectID) %>%
+      summarise(
+        Total = n(),
+        Valid = sum(.data$valid),
+        Invalid = sum(.data$invalid),
+        Missing = sum(.data$missing)
+      ) %>%
+      mutate(Count = .data$Invalid + .data$Missing) %>%
+      ungroup() %>%
+      select(.data$SubjectID, .data$Count) %>%
+      MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
+      select(.data$SubjectID, .data$SiteID, .data$Count)
 
-        # Create Subject Level IE Counts and merge Subj
-        dfInput <- dfIE_Subj %>%
-          mutate(
-            expected = ifelse(
-              .data$category == lMapping$dfIE$vCategoryValues[1],
-              lMapping$dfIE$vExpectedResultValues[1],
-              lMapping$dfIE$vExpectedResultValues[2]
-            ),
-            valid = .data$result == .data$expected,
-            invalid = .data$result != .data$expected,
-            missing = !(.data$result %in% lMapping$dfIE$vExpectedResultValues)
-          ) %>%
-          group_by(.data$SubjectID) %>%
-          summarise(
-            Total = n(),
-            Valid = sum(.data$valid),
-            Invalid = sum(.data$invalid),
-            Missing = sum(.data$missing)
-          ) %>%
-          mutate(Count = .data$Invalid + .data$Missing) %>%
-          ungroup() %>%
-          select(.data$SubjectID, .data$Count) %>%
-          MergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
-          select(.data$SubjectID, .data$SiteID, .data$Count)
-
-    if(!bQuiet) cli::cli_alert_success("{.fn IE_Map_Raw} returned output with {nrow(dfInput)} rows.")
+    if (!bQuiet) cli::cli_alert_success("{.fn IE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
-    if(!bQuiet) cli::cli_alert_warning("{.fn IE_Map_Raw} not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn IE_Map_Raw} not run because of failed check.")
     dfInput <- NULL
   }
 
-  if(bReturnChecks){
-    return(list(dfInput=dfInput, lChecks=checks))
-  }else{
+  if (bReturnChecks) {
+    return(list(dfInput = dfInput, lChecks = checks))
+  } else {
     return(dfInput)
   }
-
 }

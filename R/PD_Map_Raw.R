@@ -1,22 +1,13 @@
 #' Protocol Deviation Assessment Mapping from Raw Data- Make Input Data
 #'
-#' Convert from raw data format to needed input format for Safety Assessment
+#' @description
+#' Convert raw protocol deviation (PD) data to formatted input data to {gsm::PD_Assess()}.
 #'
 #' @details
-#'
 #' This function combines raw PD data with exposure data calculated by clindata::TimeOnStudy to create the required input for \code{\link{PD_Assess}}.
 #'
 #' @section Data Specification:
-#'
 #' This function creates an input dataset for the Protocol Deviation (\code{\link{PD_Assess}}) by adding Protocol Deviation Counts to basic subject-level time on study data from `clindata::TimeOnStudy`.
-#'
-#' The following columns are required:
-#' - `dfPD`
-#'     - `SubjectID` - Unique subject ID
-#' - `dfSUBJ`
-#'     - `SubjectID` - Unique subject ID
-#'     - `SiteID` - Site ID
-#'     - `TimeOnStudy` - Time on Study in days.
 #'
 #' @param dfs list of data frames including:
 #'   - `dfPD`  PD dataset with required column SUBJID and rows for each Protocol Deviation.
@@ -27,6 +18,7 @@
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
 #'
+#' @includeRmd ./man/md/PD_Map_Raw.md
 #'
 #' @examples
 #' dfInput <- PD_Map_Raw() # Run with defaults
@@ -36,13 +28,15 @@
 #'
 #' @export
 
-PD_Map_Raw <- function(dfs = list(
-                         dfPD = clindata::rawplus_pd,
-                         dfSUBJ = clindata::rawplus_subj
-                       ),
-                       lMapping = clindata::mapping_rawplus,
-                       bReturnChecks = FALSE,
-                       bQuiet = TRUE) {
+PD_Map_Raw <- function(
+  dfs = list(
+    dfPD = clindata::rawplus_pd,
+    dfSUBJ = clindata::rawplus_subj
+  ),
+  lMapping = clindata::mapping_rawplus,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+) {
   checks <- CheckInputs(
     context = "PD_Map_Raw",
     dfs = dfs,

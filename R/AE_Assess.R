@@ -9,10 +9,6 @@
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
 #'
-#' @includeRmd ./man/md/AE_Assess.md
-#'
-#' @includeRmd ./man/md/analyze_rate.md
-#'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to `c(-5, 5)` for `strMethod` = "poisson" and `c(.0001, NA)` for `strMethod` = "wilcoxon".
 #' @param strMethod `character` Statistical model. Valid values include "poisson" (default) and  "wilcoxon".
@@ -20,11 +16,6 @@
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
-#'
-#' @examples
-#' dfInput <- AE_Map_Raw()
-#' ae_assessment_poisson <- AE_Assess(dfInput)
-#' ae_assessment_wilcoxon <- AE_Assess(dfInput, strMethod = "wilcoxon")
 #'
 #' @return `list` Assessment, a named list with:
 #' - each data frame in the data pipeline
@@ -39,6 +30,14 @@
 #'   - `lTags`
 #' - output(s)
 #'   - `chart`
+#'
+#' @includeRmd ./man/md/AE_Assess.md
+#' @includeRmd ./man/md/analyze_rate.md
+#'
+#' @examples
+#' dfInput <- AE_Map_Raw()
+#' ae_assessment_poisson <- AE_Assess(dfInput)
+#' ae_assessment_wilcoxon <- AE_Assess(dfInput, strMethod = "wilcoxon")
 #'
 #' @export
 

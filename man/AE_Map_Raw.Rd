@@ -25,17 +25,8 @@ AE_Map_Raw(
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} Data frame with one record per subject and these columns:\tabular{ll}{
-   Name \tab Description \cr
-   \code{SubjectID} \tab Unique Subject Identifier \cr
-   \code{SiteID} \tab Site Identifier \cr
-   \code{Count} \tab Number of Adverse Events \cr
-   \code{Exposure} \tab Number of Exposure Days \cr
-   \code{Rate} \tab Exposure Rate (\code{Count} / \code{Exposure}) \cr
-}
-
-
-If \code{bReturnChecks} is \code{TRUE} \code{AE_Map_Raw} returns a named \code{list} with:
+\code{data.frame} Data frame with one record per subject, the input to \code{\link[=AE_Assess]{AE_Assess()}}. If
+\code{bReturnChecks} is \code{TRUE} \code{AE_Map_Raw} returns a named \code{list} with:
 \itemize{
 \item \code{df}: the data frame described above
 \item \code{lChecks}: a named \code{list} of check results
@@ -47,23 +38,105 @@ input data to AE Assessment.
 }
 \details{
 Combines AE data with subject-level treatment exposure data to create formatted input data to
-\code{\link{AE_Assess}}.
+\code{\link{AE_Assess}}. This function creates an input dataset for the AE Assessment
+(\code{\link{AE_Assess}}) by binding subject-level adverse event counts (derived from \code{dfAE}) to
+subject-level data (from \code{dfSUBJ}). Note that the function can generate data summaries for
+specific types of AEs by passing filtered adverse event data to \code{dfAE}.
 }
-\section{Data Specification}{
-
-
-This function creates an input dataset for the AE Assessment (\code{\link{AE_Assess}}) by binding
-subject-level adverse event counts (derived from \code{dfAE}) to subject-level data (from \code{dfSUBJ}).\tabular{lllll}{
-   Domain \tab Key \tab Value \tab Description \tab Required? \cr
-   \code{dfAE} \tab \code{strIDCol} \tab SubjectID \tab Unique Subject Identifier \tab Yes \cr
-   \code{dfSUBJ} \tab \code{strIDCol} \tab SubjectID \tab Unique Subject Identifier \tab Yes \cr
-   \code{dfSUBJ} \tab \code{strSiteCol} \tab SiteID \tab Site Identifier \tab Yes \cr
-   \code{dfSUBJ} \tab \code{strTimeOnTreatmentCol} \tab TimeOnTreatment \tab Number of Exposure Days \tab Yes \cr
-}
-
-
-Note that the function can generate data summaries for specific types of AEs by passing filtered
-adverse event data to \code{dfAE}.
+\section{Data specification}{
+\if{html}{\out{
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+domain
+</th>
+<th style="text-align:left;">
+col_key
+</th>
+<th style="text-align:left;">
+col_value
+</th>
+<th style="text-align:left;">
+vRequired
+</th>
+<th style="text-align:left;">
+vUniqueCols
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+dfSUBJ
+</td>
+<td style="text-align:left;">
+strIDCol
+</td>
+<td style="text-align:left;">
+SubjectID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfSUBJ
+</td>
+<td style="text-align:left;">
+strSiteCol
+</td>
+<td style="text-align:left;">
+SiteID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfSUBJ
+</td>
+<td style="text-align:left;">
+strTimeOnTreatmentCol
+</td>
+<td style="text-align:left;">
+TimeOnTreatment
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfAE
+</td>
+<td style="text-align:left;">
+strIDCol
+</td>
+<td style="text-align:left;">
+SubjectID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+}}
 }
 
 \examples{

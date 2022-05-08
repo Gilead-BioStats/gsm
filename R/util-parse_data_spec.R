@@ -11,9 +11,15 @@ parse_data_spec <- function(
     content = NULL,
     file = NULL
 ) {
-  # Read .yaml file.
-  if (is.null(content))
-    content = yaml::read_yaml(file)
+    # Read .yaml file.
+    if (is.null(content)) {
+        if (file.exists(file)) {
+            content = yaml::read_yaml(file)
+        } else {
+            warning(paste0('[ ', file, ' ] does not exist.'))
+            return(NULL)
+        }
+    }
 
   # Domain should be the top-level list key.
   domains <- names(content)

@@ -10,7 +10,8 @@ generate_md_table(
   mapping_path = "./inst/mappings/",
   spec = NULL,
   spec_path = "./inst/specs/",
-  out_path = "./man/md/"
+  out_path = "./man/md/",
+  header = "# Data specification"
 )
 }
 \arguments{

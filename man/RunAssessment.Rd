@@ -21,5 +21,6 @@ RunAssessment(lAssessment, lData, lMapping, lTags = NULL, bQuiet = FALSE)
 Returns \code{lAssessment} with \code{lData}, \code{lResults}, \code{bStatus} and \code{lChecks} added based on the results of the execution of \code{assessment$workflow}.
 }
 \description{
-Attempts to run a single assessments (\code{lAssessment}) using shared data (\code{lData}) and metadata (\code{lMapping}). Calls \code{RunStep} for each item in \code{lAssessment$Workflow} and saves the results to \code{lAssessment}
+Attempts to run a single assessments (\code{lAssessment}) using shared data (\code{lData}) and metadata (\code{lMapping}).
+Calls \code{RunStep} for each item in \code{lAssessment$Workflow} and saves the results to \code{lAssessment}
 }

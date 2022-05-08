@@ -1,3 +1,5 @@
+# Data specification
+
 <table>
  <thead>
   <tr>
@@ -29,20 +31,6 @@
    <td style="text-align:left;"> Count </td>
    <td style="text-align:left;"> TRUE </td>
    <td style="text-align:left;"> FALSE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> dfInput </td>
-   <td style="text-align:left;"> strExposureCol </td>
-   <td style="text-align:left;"> Exposure </td>
-   <td style="text-align:left;"> NA </td>
-   <td style="text-align:left;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> dfInput </td>
-   <td style="text-align:left;"> strRateCol </td>
-   <td style="text-align:left;"> Rate </td>
-   <td style="text-align:left;"> NA </td>
-   <td style="text-align:left;"> NA </td>
   </tr>
 </tbody>
 </table>

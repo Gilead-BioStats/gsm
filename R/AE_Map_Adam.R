@@ -1,26 +1,14 @@
 #' AE Assessment - ADaM Mapping
 #'
+#' @description
 #' Convert analysis adverse event (AE) data, by default ADaM data, to formatted input data to AE
 #' Assessment.
 #'
 #' @details
-#'
 #' Combines AE data with subject-level treatment exposure data to create formatted input data to
 #' \code{\link{AE_Assess}}.
-#'
-#' @section Data Specification:
-#'
 #' This function creates an input dataset for the AE Assessment (\code{\link{AE_Assess}}) by binding
 #' subject-level adverse event counts (from `dfADAE`) to subject-level data (from `dfADSL`).
-#'
-#' | Domain   | Key           | Value   | Description               | Required? |
-#' | -------- | ------------- | ------- | ------------------------- | --------- |
-#' | `dfADAE` | `strIDCol`    | USUBJID | Unique Subject Identifier | Yes       |
-#' | `dfADSL` | `strIDCol`    | USUBJID | Unique Subject Identifier | Yes       |
-#' | `dfADSL` | `strSiteCol`  | SITEID  | Site Identifier           | Yes       |
-#' | `dfADSL` | `strStartCol` | TRTSDT  | Treatment Start Date      | Yes       |
-#' | `dfADSL` | `strEndCol`   | TRTEDT  | Treatment End Date        | Yes       |
-#'
 #' Note that the function can generate data summaries for specific types of AEs by passing filtered
 #' adverse event data to `dfADAE`.
 #'
@@ -44,6 +32,16 @@
 #' If `bReturnChecks` is `TRUE` `AE_Map_Adam` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
+#'
+#' @section Data Specification:
+#'
+#' | Domain   | Key           | Value   | Description               | Required? |
+#' | -------- | ------------- | ------- | ------------------------- | --------- |
+#' | `dfADAE` | `strIDCol`    | USUBJID | Unique Subject Identifier | Yes       |
+#' | `dfADSL` | `strIDCol`    | USUBJID | Unique Subject Identifier | Yes       |
+#' | `dfADSL` | `strSiteCol`  | SITEID  | Site Identifier           | Yes       |
+#' | `dfADSL` | `strStartCol` | TRTSDT  | Treatment Start Date      | Yes       |
+#' | `dfADSL` | `strEndCol`   | TRTEDT  | Treatment End Date        | Yes       |
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam() # Run with defaults
