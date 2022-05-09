@@ -15,7 +15,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
 
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
