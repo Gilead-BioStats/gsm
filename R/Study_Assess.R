@@ -20,38 +20,38 @@
 #' @export
 
 Study_Assess <- function(
-    lData=NULL,
-    lMapping=NULL,
-    lAssessments=NULL,
-    lTags=list(Study="myStudy"),
-    bQuiet=FALSE
-){
-    #### --- load defaults --- ###
-    # lData from clindata
-    if(is.null(lData)){
-        lData <- list(
-            dfSUBJ= clindata::rawplus_subj,
-            dfAE=clindata::rawplus_ae,
-            dfPD=clindata::rawplus_pd,
-            dfCONSENT=clindata::rawplus_consent,
-            dfIE=clindata::rawplus_ie
-        )
-    }
-
-    # lMapping from clindata
-    if(is.null(lMapping)){
-        lMapping <- yaml::read_yaml(system.file("mapping/rawplus.yaml", package = 'clindata'))
-    }
-
-    # lAssessments from gsm inst/assessments
-    if(is.null(lAssessments)){
-        lAssessments <- MakeAssessmentList()
-    }
-
-    ### --- Attempt to run each assessment --- ###
-    lAssessments <- lAssessments %>% map(
-        ~RunAssessment(.x, lData=lData, lMapping=lMapping, lTags=lTags, bQuiet=bQuiet)
+  lData = NULL,
+  lMapping = NULL,
+  lAssessments = NULL,
+  lTags = list(Study = "myStudy"),
+  bQuiet = FALSE
+) {
+  #### --- load defaults --- ###
+  # lData from clindata
+  if (is.null(lData)) {
+    lData <- list(
+      dfSUBJ = clindata::rawplus_subj,
+      dfAE = clindata::rawplus_ae,
+      dfPD = clindata::rawplus_pd,
+      dfCONSENT = clindata::rawplus_consent,
+      dfIE = clindata::rawplus_ie
     )
+  }
 
-    return(lAssessments)
+  # lMapping from clindata
+  if (is.null(lMapping)) {
+    lMapping <- yaml::read_yaml(system.file("mapping/rawplus.yaml", package = "clindata"))
+  }
+
+  # lAssessments from gsm inst/assessments
+  if (is.null(lAssessments)) {
+    lAssessments <- MakeAssessmentList()
+  }
+
+  ### --- Attempt to run each assessment --- ###
+  lAssessments <- lAssessments %>% map(
+    ~ RunAssessment(.x, lData = lData, lMapping = lMapping, lTags = lTags, bQuiet = bQuiet)
+  )
+
+  return(lAssessments)
 }

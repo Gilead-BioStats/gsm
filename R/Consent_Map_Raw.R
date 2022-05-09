@@ -34,20 +34,19 @@
 #' dfInput <- Consent_Map_Raw() # Run with defaults
 #'
 #' # Run with error checking and message log
-#' dfInput <- Consent_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE)
+#' dfInput <- Consent_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @export
 
 Consent_Map_Raw <- function(
-    dfs=list(
-      dfCONSENT=clindata::rawplus_consent,
-      dfSUBJ=clindata::rawplus_subj
-    ),
-    lMapping = clindata::mapping_rawplus,
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
-){
-
+  dfs = list(
+    dfCONSENT = clindata::rawplus_consent,
+    dfSUBJ = clindata::rawplus_subj
+  ),
+  lMapping = clindata::mapping_rawplus,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+) {
   checks <- CheckInputs(
     context = "Consent_Map_Raw",
     dfs = dfs,
@@ -56,8 +55,8 @@ Consent_Map_Raw <- function(
   )
 
 
-  if(checks$status){
-    if(!bQuiet) cli::cli_h2("Initializing {.fn Consent_Map_Raw}")
+  if (checks$status) {
+    if (!bQuiet) cli::cli_h2("Initializing {.fn Consent_Map_Raw}")
 
     # Standarize Column Names
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
@@ -75,31 +74,31 @@ Consent_Map_Raw <- function(
         ConsentDate = lMapping[["dfCONSENT"]][["strDateCol"]]
       )
 
-    if(!is.null(lMapping$dfCONSENT$strConsentTypeValue)){
+    if (!is.null(lMapping$dfCONSENT$strConsentTypeValue)) {
       dfCONSENT_mapped <- dfCONSENT_mapped %>%
         filter(.data$ConsentType == lMapping$dfCONSENT$strConsentTypeValue)
-      if(nrow(dfCONSENT_mapped)==0) stop("supplied strConsentTypeValue not found in data")
+      if (nrow(dfCONSENT_mapped) == 0) stop("supplied strConsentTypeValue not found in data")
     }
 
-    dfInput <- MergeSubjects(dfCONSENT_mapped, dfSUBJ_mapped, bQuiet=bQuiet)%>%
+    dfInput <- MergeSubjects(dfCONSENT_mapped, dfSUBJ_mapped, bQuiet = bQuiet) %>%
       mutate(flag_noconsent = .data$ConsentStatus != lMapping$dfCONSENT$strConsentStatusValue) %>%
-      mutate(flag_missing_consent = is.na(.data$ConsentDate))%>%
-      mutate(flag_missing_rand = is.na(.data$RandDate))%>%
-      mutate(flag_date_compare = .data$ConsentDate >= .data$RandDate ) %>%
+      mutate(flag_missing_consent = is.na(.data$ConsentDate)) %>%
+      mutate(flag_missing_rand = is.na(.data$RandDate)) %>%
+      mutate(flag_date_compare = .data$ConsentDate >= .data$RandDate) %>%
       mutate(any_flag = .data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare) %>%
       mutate(Count = as.numeric(.data$any_flag, na.rm = TRUE)) %>%
       select(.data$SubjectID, .data$SiteID, .data$Count)
 
-    if(!bQuiet) cli::cli_alert_success("{.fn Consent_Map_Raw} returned output with {nrow(dfInput)} rows.")
+    if (!bQuiet) cli::cli_alert_success("{.fn Consent_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
-    if(!bQuiet) cli::cli_alert_warning("{.fn Consent_Map_Raw} not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn Consent_Map_Raw} not run because of failed check.")
     dfInput <- NULL
   }
 
 
-  if(bReturnChecks){
-    return(list(dfInput=dfInput, lChecks=checks))
-  }else{
+  if (bReturnChecks) {
+    return(list(dfInput = dfInput, lChecks = checks))
+  } else {
     return(dfInput)
   }
 }

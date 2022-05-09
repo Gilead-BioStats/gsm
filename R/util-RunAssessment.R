@@ -16,51 +16,48 @@
 #'
 #' @export
 
-RunAssessment <- function(lAssessment, lData, lMapping, lTags=NULL, bQuiet=FALSE){
-    if(!bQuiet) cli::cli_h1(paste0("Initializing `",lAssessment$name,"` assessment"))
+RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = FALSE) {
+  if (!bQuiet) cli::cli_h1(paste0("Initializing `", lAssessment$name, "` assessment"))
 
 
-    lAssessment$lData <- lData
-    lAssessment$lChecks <- list()
-    lAssessment$bStatus <- TRUE
+  lAssessment$lData <- lData
+  lAssessment$lChecks <- list()
+  lAssessment$bStatus <- TRUE
 
-    # Run through each step in lAssessment$workflow
-    stepCount<-1
-    for(step in lAssessment$workflow){
-        if(!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of " ,length(lAssessment$workflow), ": `", step$name,"`"))
-        if(lAssessment$bStatus){
-            result <- RunStep(
-                lStep=step,
-                lMapping=lMapping,
-                lData=lAssessment$lData,
-                lTags=c(lTags, lAssessment$tags),
-                bQuiet=bQuiet
-            )
+  # Run through each step in lAssessment$workflow
+  stepCount <- 1
+  for (step in lAssessment$workflow) {
+    if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lAssessment$workflow), ": `", step$name, "`"))
+    if (lAssessment$bStatus) {
+      result <- RunStep(
+        lStep = step,
+        lMapping = lMapping,
+        lData = lAssessment$lData,
+        lTags = c(lTags, lAssessment$tags),
+        bQuiet = bQuiet
+      )
 
-            lAssessment$checks[[step$name]] <- result$lChecks
-            lAssessment$bStatus <- result$lChecks$status
-            if(result$lChecks$status){
-                cli::cli_alert_success("{.fn {step$name}} Successful")
-            } else {
-                cli::cli_alert_warning("{.fn {step$name}} Failed - Skipping remaining steps")
-            }
+      lAssessment$checks[[step$name]] <- result$lChecks
+      lAssessment$bStatus <- result$lChecks$status
+      if (result$lChecks$status) {
+        cli::cli_alert_success("{.fn {step$name}} Successful")
+      } else {
+        cli::cli_alert_warning("{.fn {step$name}} Failed - Skipping remaining steps")
+      }
 
-            if(str_detect(step$output,"^df")){
-                cli::cli_text("Saving {step$output} to `lAssessment$lData`")
-                lAssessment$lData[[step$output]]<-result$df
-            }else{
-                cli::cli_text("Saving {step$output} to `lAssessment`")
-                lAssessment[[step$output]] <- result
-            }
-
-        } else{
-            cli::cli_text("Skipping {.fn {step$name}} ...")
-        }
-
-        stepCount <- stepCount+1
+      if (str_detect(step$output, "^df")) {
+        cli::cli_text("Saving {step$output} to `lAssessment$lData`")
+        lAssessment$lData[[step$output]] <- result$df
+      } else {
+        cli::cli_text("Saving {step$output} to `lAssessment`")
+        lAssessment[[step$output]] <- result
+      }
+    } else {
+      cli::cli_text("Skipping {.fn {step$name}} ...")
     }
 
-    return(lAssessment)
+    stepCount <- stepCount + 1
+  }
+
+  return(lAssessment)
 }
-
-

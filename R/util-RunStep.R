@@ -15,25 +15,25 @@
 #'
 #' @export
 
-RunStep <- function(lStep, lMapping, lData, lTags, bQuiet){
-    # prepare parameter list inputs
-    cli::cli_text("Preparing parameters for  {.fn {lStep$name}} ...")
-    params <- c(lStep$params, list(bQuiet=bQuiet, bReturnChecks=TRUE))
+RunStep <- function(lStep, lMapping, lData, lTags, bQuiet) {
+  # prepare parameter list inputs
+  cli::cli_text("Preparing parameters for  {.fn {lStep$name}} ...")
+  params <- c(lStep$params, list(bQuiet = bQuiet, bReturnChecks = TRUE))
 
-    # prepare data inputs by function type
-    if(str_detect(lStep$name, "_Map")){
-        params$lMapping <- lMapping
-        params$dfs <- lData[lStep$inputs]
-    }else if(str_detect(lStep$name, "_Assess")){
-        print(names(lData))
-        params$dfInput <- lData[[lStep$inputs]]
-        params$lTags <- lTags
-    }else if(lStep$name=="FilterDomain"){
-        params$lMapping <- lMapping
-        params$df<- lData[[lStep$inputs]]
-    }
+  # prepare data inputs by function type
+  if (str_detect(lStep$name, "_Map")) {
+    params$lMapping <- lMapping
+    params$dfs <- lData[lStep$inputs]
+  } else if (str_detect(lStep$name, "_Assess")) {
+    print(names(lData))
+    params$dfInput <- lData[[lStep$inputs]]
+    params$lTags <- lTags
+  } else if (lStep$name == "FilterDomain") {
+    params$lMapping <- lMapping
+    params$df <- lData[[lStep$inputs]]
+  }
 
-    # Call the workflow function and return results
-    cli::cli_text("Calling {.fn {lStep$name}} ...")
-    return(do.call(lStep$name, params))
+  # Call the workflow function and return results
+  cli::cli_text("Calling {.fn {lStep$name}} ...")
+  return(do.call(lStep$name, params))
 }

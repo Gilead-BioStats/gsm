@@ -19,7 +19,7 @@
 #' | `dfSUBJ` | `strIDCol`              | SubjectID       | Unique Subject Identifier | Yes       |
 #' | `dfSUBJ` | `strSiteCol`            | SiteID          | Site Identifier           | Yes       |
 #' | `dfSUBJ` | `strTimeOnTreatmentCol` | TimeOnTreatment | Number of Exposure Days   | Yes       |
-#' 
+#'
 #'
 #' Note that the function can generate data summaries for specific types of AEs by passing filtered
 #' adverse event data to `dfAE`.
@@ -54,13 +54,13 @@
 #' @export
 
 AE_Map_Raw <- function(
-    dfs = list(
-      dfAE = clindata::rawplus_ae,
-      dfSUBJ = clindata::rawplus_subj
-    ),
-    lMapping = clindata::mapping_rawplus,
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
+  dfs = list(
+    dfAE = clindata::rawplus_ae,
+    dfSUBJ = clindata::rawplus_subj
+  ),
+  lMapping = clindata::mapping_rawplus,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 ) {
   checks <- CheckInputs(
     context = "AE_Map_Raw",

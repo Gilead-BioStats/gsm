@@ -24,19 +24,19 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
-#' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
-#' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed)
-#' dfFlagged <- Flag( dfAnalyzed ) #PValue < 0.05 flagged
-#' dfFlagged10 <- Flag( dfAnalyzed, vThreshold=c(0.10,NA) ) #PValue <0.10 flagged
-#' #Flag direction set based on 'Statistic' column
-#' dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Estimate')
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+#' dfFlagged <- Flag(dfAnalyzed) # PValue < 0.05 flagged
+#' dfFlagged10 <- Flag(dfAnalyzed, vThreshold = c(0.10, NA)) # PValue <0.10 flagged
+#' # Flag direction set based on 'Statistic' column
+#' dfFlagged <- Flag(dfAnalyzed, strColumn = "PValue", strValueColumn = "Estimate")
 #'
 #' @import dplyr
 #' @importFrom stats median
 #'
 #' @export
 
-Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strValueColumn = NULL){
+Flag <- function(dfAnalyzed, strColumn = "PValue", vThreshold = c(0.05, NA), strValueColumn = NULL) {
   stopifnot(
     "dfAnalyzed is not a data frame" = is.data.frame(dfAnalyzed),
     "strColumn is not character" = is.character(strColumn),
@@ -48,26 +48,28 @@ Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strValu
     "SiteID not found in dfAnalyzed" = "SiteID" %in% names(dfAnalyzed)
   )
 
-  if(all(!is.na(vThreshold))){
-    "vThreshold must contain a minimum and maximum value (i.e., vThreshold = c(1, 2))" = stopifnot(vThreshold[2]>vThreshold[1])
+  if (all(!is.na(vThreshold))) {
+    "vThreshold must contain a minimum and maximum value (i.e., vThreshold = c(1, 2))" <- stopifnot(vThreshold[2] > vThreshold[1])
   }
 
-  dfFlagged<-dfAnalyzed %>%
+  dfFlagged <- dfAnalyzed %>%
     mutate(ThresholdLow = vThreshold[1]) %>%
-    mutate(ThresholdHigh= vThreshold[2]) %>%
+    mutate(ThresholdHigh = vThreshold[2]) %>%
     mutate(ThresholdCol = strColumn) %>%
     mutate(Flag = case_when(
       !is.na(vThreshold[1]) & (.data[[strColumn]] < vThreshold[1]) ~ -1,
       !is.na(vThreshold[2]) & (.data[[strColumn]] > vThreshold[2]) ~ 1,
       is.na(.data[[strColumn]]) ~ NA_real_,
       is.nan(.data[[strColumn]]) ~ NA_real_,
-      TRUE~0 # All other values set to 0 (not flagged)
+      TRUE ~ 0 # All other values set to 0 (not flagged)
     ))
 
   # if strValueColumn is supplied, it can only affect sign of Flag (1 or -1)
-  if(!is.null(strValueColumn)){
-    nMedian <-  dfFlagged %>% pull(strValueColumn) %>% stats::median(na.rm=TRUE)
-    dfFlagged <- dfFlagged  %>%
+  if (!is.null(strValueColumn)) {
+    nMedian <- dfFlagged %>%
+      pull(strValueColumn) %>%
+      stats::median(na.rm = TRUE)
+    dfFlagged <- dfFlagged %>%
       mutate(Flag = case_when(
         Flag != 0 & .data[[strValueColumn]] >= nMedian ~ 1,
         Flag != 0 & .data[[strValueColumn]] < nMedian ~ -1,
@@ -75,7 +77,7 @@ Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strValu
       ))
   }
 
-  dfFlagged <- dfFlagged  %>% arrange(match(.data$Flag, c(1, -1, 0)))
+  dfFlagged <- dfFlagged %>% arrange(match(.data$Flag, c(1, -1, 0)))
 
-  return( dfFlagged )
+  return(dfFlagged)
 }
