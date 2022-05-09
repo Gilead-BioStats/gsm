@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: echo branch
-        run: git branch –show-current
+        run: git rev-parse --abbrev-ref HEAD
 
       - uses: r-lib/actions/setup-r@v1
         with:
@@ -35,7 +35,7 @@ jobs:
           cd ../gsm
 
       - name: echo branch after clindata
-        run: git branch –show-current
+        run: git rev-parse --abbrev-ref HEAD
 
       - name: install packages
         shell: Rscript {0}
