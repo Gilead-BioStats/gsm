@@ -1,0 +1,71 @@
+on:
+  pull_request:
+    branches: dev
+
+name: Style
+
+jobs:
+  style:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::styler
+          needs: styler
+
+      - name: Enable styler cache
+        run: styler::cache_activate()
+        shell: Rscript {0}
+
+      - name: Determine cache location
+        id: styler-location
+        run: |
+          cat(
+            "##[set-output name=location;]",
+            styler::cache_info(format = "tabular")$location,
+            "\n",
+            sep = ""
+          )
+        shell: Rscript {0}
+
+      - name: Cache styler
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.styler-location.outputs.location }}
+          key: ${{ runner.os }}-styler-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-styler-
+            ${{ runner.os }}-
+
+      - name: Style
+        run: |
+          double_indent_style <- styler::tidyverse_style()
+          double_indent_style$indention$unindent_fun_dec <- NULL
+          double_indent_style$indention$update_indention_ref_fun_dec <- NULL
+          double_indent_style$line_break$remove_line_breaks_in_fun_dec <- NULL
+          styler::style_dir('R', transformers = double_indent_style)
+          styler::style_dir('tests', recursive = TRUE, transformers = double_indent_style)
+
+        shell: Rscript {0}
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.name "$GITHUB_ACTOR"
+          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git add R/\*
+          git commit -m "Style code" || echo "No changes to commit"
+          git pull --ff-only
+          git push origin
