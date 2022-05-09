@@ -17,9 +17,6 @@
 #' Consent_Assess <- Consent_Assess(Consent_Input)
 #' Visualize_Count(Consent_Assess$dfAnalyzed)
 #'
-#' @import ggplot2
-#' @importFrom stats reorder
-#'
 #' @export
 
 Visualize_Count <- function(dfAnalyzed, strTotalCol="N", strCountCol="TotalCount", strTitle="") {
@@ -31,20 +28,20 @@ Visualize_Count <- function(dfAnalyzed, strTotalCol="N", strCountCol="TotalCount
         "strTitle must be character" = is.character(strTitle)
     )
 
-p <- ggplot(
+p <- ggplot2::ggplot(
         data = dfAnalyzed,
-        aes(x = reorder(.data$SiteID, -.data$N))
+        ggplot2::aes(x = stats::reorder(.data$SiteID, -.data$N))
     ) +
-    geom_bar(aes(y = .data[[strTotalCol]]), stat = "identity", color = "black", fill = "white") +
-    geom_bar(aes(y = .data[[strCountCol]]), stat = "identity", fill = "red") +
-    ggtitle(strTitle) +
-    labs(
+    ggplot2::geom_bar(ggplot2::aes(y = .data[[strTotalCol]]), stat = "identity", color = "black", fill = "white") +
+    ggplot2::geom_bar(ggplot2::aes(y = .data[[strCountCol]]), stat = "identity", fill = "red") +
+    ggplot2::ggtitle(strTitle) +
+    ggplot2::labs(
         x = "Site ID",
         y = "Event Count"
     ) +
-    theme(
-        panel.grid.major.x = element_blank(),
-        axis.text.x = element_text(angle=90, vjust = 0.5),
+  ggplot2::theme(
+        panel.grid.major.x = ggplot2::element_blank(),
+        axis.text.x = ggplot2::element_text(angle=90, vjust = 0.5),
         legend.position="none"
     )
 

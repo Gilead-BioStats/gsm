@@ -5,9 +5,10 @@
 #' @param mapping YAML mapping for a given context.
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
-#' @importFrom yaml read_yaml
-#'
 #' @return list
+#'
+#' @export
+
 CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
 
   if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn {context}}")
@@ -18,16 +19,16 @@ CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
 
     domains <- names(spec)
 
-    if(all(hasName(dfs, domains) & hasName(mapping, domains))){
+    if(all(utils::hasName(dfs, domains) & utils::hasName(mapping, domains))){
       checks <- domains %>%
-        map(function(domain){
-          check <- is_mapping_valid(df = dfs[[domain]],
+        purrr::map(function(domain){
+          check <- gsm::is_mapping_valid(df = dfs[[domain]],
                                     mapping = mapping[[domain]],
                                     spec = spec[[domain]],
                                     bQuiet = bQuiet)
           return(check)
         }) %>%
-        set_names(nm = names(dfs))
+        purrr::set_names(nm = names(dfs))
     } else {
       checks <- list()
       for(missing in names(dfs)){
@@ -46,7 +47,7 @@ CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
       if(!bQuiet) cli::cli_alert_warning("Checks not run for {.var {missing}} because data/metadata not provided, or {.var {missing}} is named incorrectly.")
       }
 
-    checks$status <- all(checks %>% map_lgl(~.x$status))
+    checks$status <- all(checks %>% purrr::map_lgl(~.x$status))
 
     if(checks$status) {
       if(!bQuiet) cli::cli_alert_success("No issues found for {.fn {context}}")

@@ -46,10 +46,11 @@
 #' - `lChecks`: a named `list` of check results
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam() # Run with defaults
-#' dfInput <- AE_Map_Adam(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
+#' # Run with defaults
+#' dfInput <- AE_Map_Adam()
 #'
-#' @import dplyr
+#' # Run with error checking and message log
+#' dfInput <- AE_Map_Adam(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @export
 
@@ -80,20 +81,20 @@ AE_Map_Adam <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Map_Adam}")
 
     dfInput <- dfs$dfADSL %>%
-      rename(
+      dplyr::rename(
         SubjectID = .data$USUBJID,
         SiteID = .data$SITEID
       ) %>%
-      mutate(
+      dplyr::mutate(
         Exposure = as.numeric(.data$TRTEDT - .data$TRTSDT) + 1
       ) %>%
-      rowwise() %>%
-      mutate(
+      dplyr::rowwise() %>%
+      dplyr::mutate(
         Count = sum(dfs$dfADAE$USUBJID == .data$SubjectID),
         Rate = .data$Count / .data$Exposure
       ) %>%
-      select(.data$SubjectID, .data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
-      ungroup()
+      dplyr::select(.data$SubjectID, .data$SiteID, .data$Count, .data$Exposure, .data$Rate) %>%
+      dplyr::ungroup()
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Adam} returned output with {nrow(dfInput)} rows.")
   } else {

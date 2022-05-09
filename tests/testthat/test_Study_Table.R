@@ -1,8 +1,8 @@
 test_that("Study Table Runs as expected",{
-    results<- Study_Assess(bQuiet=TRUE)
+    results <- Study_Assess(bQuiet=TRUE)
     dfSummaryAll <- results %>%
-      map(~.x$lResults$dfSummary) %>%
-      bind_rows()
+      purrr::map(~.x$lResults$dfSummary) %>%
+      dplyr::bind_rows()
     tbl <- Study_Table(dfSummaryAll)
     expect_true(is.data.frame(tbl))
     expect_equal(names(tbl),

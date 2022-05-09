@@ -33,8 +33,6 @@
 #' dfInput <- Consent_Map_Raw()
 #' consent <- Consent_Assess(dfInput)
 #'
-#' @import dplyr
-#'
 #' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, `lParams` and `lTags`) is returned.
 #'
 #' @export
@@ -62,8 +60,8 @@ Consent_Assess <- function(
           "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
       )
 
-    if(any(unname(map_dbl(lTags, ~length(.)))>1)) {
-      lTags <- map(lTags, ~paste(.x, collapse = ", "))
+    if(any(unname(purrr::map_dbl(lTags, ~length(.)))>1)) {
+      lTags <- purrr::map(lTags, ~paste(.x, collapse = ", "))
     }
 
   }
@@ -77,7 +75,7 @@ Consent_Assess <- function(
 
 
   if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn Consent_Assess}")
-  checks <- CheckInputs(
+  checks <- gsm::CheckInputs(
     context = "Consent_Assess",
     dfs = list(dfInput = lAssess$dfInput),
     bQuiet = bQuiet
@@ -99,7 +97,7 @@ Consent_Assess <- function(
     if(!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
 
     if (bChart) {
-      lAssess$chart <- Visualize_Count(lAssess$dfAnalyzed)
+      lAssess$chart <- gsm::Visualize_Count(lAssess$dfAnalyzed)
       if(!bQuiet) cli::cli_alert_success("{.fn Visualize_Count} created a chart.")
     }
   } else {

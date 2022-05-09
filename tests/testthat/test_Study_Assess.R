@@ -15,7 +15,7 @@ def <- Study_Assess(lData=lData, bQuiet=TRUE)
 test_that("output is created as expected", {
     expect_equal(6, length(def))
     expect_equal(c("ae", "consent", "ie", "importantpd", "pd", "sae"), names(def))
-    expect_true(all(map_chr(def, ~class(.)) == "list"))
+    expect_true(all(purrr::map_chr(def, ~class(.)) == "list"))
     expect_equal(names(def$ae$lResults), c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
                    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks"))
 })

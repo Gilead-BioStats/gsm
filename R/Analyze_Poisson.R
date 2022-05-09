@@ -19,10 +19,6 @@
 #'
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
 #'
-#' @import dplyr
-#' @importFrom stats glm offset poisson pnorm
-#' @importFrom broom augment
-#'
 #' @return input data.frame with columns added for "Residuals" and "PredictedCount"
 #'
 #' @examples
@@ -39,7 +35,8 @@ Analyze_Poisson <- function( dfTransformed ){
         "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]]))
     )
 
-    dfModel <- dfTransformed %>% mutate(LogExposure = log( .data$TotalExposure) )
+    dfModel <- dfTransformed %>%
+      dplyr::mutate(LogExposure = log( .data$TotalExposure) )
 
     cModel <- stats::glm(
         TotalCount ~ stats::offset(LogExposure), family=stats::poisson(link="log"),
@@ -47,12 +44,12 @@ Analyze_Poisson <- function( dfTransformed ){
     )
 
     dfAnalyzed <- broom::augment(cModel, dfModel, type.predict = "response") %>%
-    rename(
+    dplyr::rename(
         Residuals=.data$.resid,
         PredictedCount=.data$.fitted,
     ) %>%
-    select(.data$SiteID, .data$N, .data$TotalExposure, .data$TotalCount, .data$Rate, .data$Residuals, .data$PredictedCount) %>%
-    arrange(.data$Residuals)
+    dplyr::select(.data$SiteID, .data$N, .data$TotalExposure, .data$TotalCount, .data$Rate, .data$Residuals, .data$PredictedCount) %>%
+    dplyr::arrange(.data$Residuals)
 
     return(dfAnalyzed)
 }

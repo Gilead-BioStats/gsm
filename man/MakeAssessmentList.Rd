@@ -23,5 +23,4 @@ Coming soon
 \examples{
 MakeAssessmentList(path="assessments", package="gsm")
 
-
 }

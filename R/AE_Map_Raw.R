@@ -19,7 +19,7 @@
 #' | `dfSUBJ` | `strIDCol`              | SubjectID       | Unique Subject Identifier | Yes       |
 #' | `dfSUBJ` | `strSiteCol`            | SiteID          | Site Identifier           | Yes       |
 #' | `dfSUBJ` | `strTimeOnTreatmentCol` | TimeOnTreatment | Number of Exposure Days   | Yes       |
-#' 
+#'
 #'
 #' Note that the function can generate data summaries for specific types of AEs by passing filtered
 #' adverse event data to `dfAE`.
@@ -46,10 +46,11 @@
 #' - `lChecks`: a named `list` of check results
 #'
 #' @examples
-#' dfInput <- AE_Map_Raw() # Run with defaults
-#' dfInput <- AE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
+#' # Run with defaults
+#' dfInput <- AE_Map_Raw()
 #'
-#' @import dplyr
+#' # Run with error checking and message log
+#' dfInput <- AE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @export
 
@@ -75,10 +76,10 @@ AE_Map_Raw <- function(
 
     # Standarize Column Names
     dfAE_mapped <- dfs$dfAE %>%
-      select(SubjectID = lMapping[["dfAE"]][["strIDCol"]])
+      dplyr::select(SubjectID = lMapping[["dfAE"]][["strIDCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
-      select(
+      dplyr::select(
         SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
         SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
         Exposure = lMapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
@@ -86,12 +87,12 @@ AE_Map_Raw <- function(
 
     # Create Subject Level AE Counts and merge dfSUBJ
     dfInput <- dfAE_mapped %>%
-      group_by(.data$SubjectID) %>%
-      summarize(Count = n()) %>%
-      ungroup() %>%
-      MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      mutate(Rate = .data$Count / .data$Exposure) %>%
-      select(.data$SubjectID, .data$SiteID, .data$Count, .data$Exposure, .data$Rate)
+      dplyr::group_by(.data$SubjectID) %>%
+      dplyr::summarize(Count = n()) %>%
+      dplyr::ungroup() %>%
+      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
+      dplyr::mutate(Rate = .data$Count / .data$Exposure) %>%
+      dplyr::select(.data$SubjectID, .data$SiteID, .data$Count, .data$Exposure, .data$Rate)
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

@@ -8,10 +8,6 @@
 #' @param lTags tags
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
-#' @importFrom yaml read_yaml
-#' @import cli
-#' @import stringr
-#'
 #' @return Returns `lAssessment` with `lData`, `lResults`, `bStatus` and `lChecks` added based on the results of the execution of `assessment$workflow`.
 #'
 #' @export
@@ -29,12 +25,12 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags=NULL, bQuiet=FALSE
     for(step in lAssessment$workflow){
         if(!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of " ,length(lAssessment$workflow), ": `", step$name,"`"))
         if(lAssessment$bStatus){
-            result <- RunStep(
-                lStep=step,
-                lMapping=lMapping,
-                lData=lAssessment$lData,
-                lTags=c(lTags, lAssessment$tags),
-                bQuiet=bQuiet
+            result <- gsm::RunStep(
+                lStep = step,
+                lMapping = lMapping,
+                lData = lAssessment$lData,
+                lTags = c(lTags, lAssessment$tags),
+                bQuiet = bQuiet
             )
 
             lAssessment$checks[[step$name]] <- result$lChecks
@@ -45,9 +41,9 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags=NULL, bQuiet=FALSE
                 cli::cli_alert_warning("{.fn {step$name}} Failed - Skipping remaining steps")
             }
 
-            if(str_detect(step$output,"^df")){
+            if(stringr::str_detect(step$output,"^df")){
                 cli::cli_text("Saving {step$output} to `lAssessment$lData`")
-                lAssessment$lData[[step$output]]<-result$df
+                lAssessment$lData[[step$output]] <- result$df
             }else{
                 cli::cli_text("Saving {step$output} to `lAssessment`")
                 lAssessment[[step$output]] <- result

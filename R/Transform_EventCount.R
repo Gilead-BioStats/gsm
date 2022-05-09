@@ -34,8 +34,6 @@
 #' dfInput <- AE_Map_Adam()
 #' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
 #'
-#' @import dplyr
-#'
 #' @export
 
 Transform_EventCount <- function( dfInput , strCountCol, strExposureCol=NULL ){
@@ -54,26 +52,27 @@ Transform_EventCount <- function( dfInput , strCountCol, strExposureCol=NULL ){
       ExposureNACount <- sum(is.na(dfInput[[strExposureCol]]))
       if(ExposureNACount>0){
         warning(paste0("Dropped ",ExposureNACount," record(s) from dfInput where strExposureColumn is NA."))
-        dfInput <- dfInput %>% filter(!is.na(.data[[strExposureCol]]))
+        dfInput <- dfInput %>%
+          dplyr::filter(!is.na(.data[[strExposureCol]]))
       }
     }
 
   if(is.null(strExposureCol)){
     dfTransformed <- dfInput  %>%
-      group_by(.data$SiteID) %>%
-      summarise(
-        N=n(),
-        TotalCount= sum(.data[[strCountCol]]),
+      dplyr::group_by(.data$SiteID) %>%
+      dplyr::summarise(
+        N = dplyr::n(),
+        TotalCount = sum(.data[[strCountCol]]),
       )
   }else{
     dfTransformed <- dfInput  %>%
-      group_by(.data$SiteID) %>%
-      summarise(
-        N=n(),
-        TotalCount= sum(.data[[strCountCol]]),
-        TotalExposure=sum(.data[[strExposureCol]])
+      dplyr::group_by(.data$SiteID) %>%
+      dplyr::summarise(
+        N = dplyr::n(),
+        TotalCount = sum(.data[[strCountCol]]),
+        TotalExposure = sum(.data[[strExposureCol]])
       )%>%
-      mutate(Rate = .data$TotalCount/.data$TotalExposure)
+      dplyr::mutate(Rate = .data$TotalCount/.data$TotalExposure)
   }
 
   return(dfTransformed)

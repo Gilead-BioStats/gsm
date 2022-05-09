@@ -27,8 +27,6 @@
 #' dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Rate')
 #' dfSummary <- Summarize(dfFlagged)
 #'
-#' @import dplyr
-#'
 #' @export
 
 Summarize <- function( dfFlagged , strScoreCol="PValue", lTags=NULL){
@@ -46,11 +44,11 @@ Summarize <- function( dfFlagged , strScoreCol="PValue", lTags=NULL){
     }
 
     dfSummary <- dfFlagged %>%
-        rename(Score = strScoreCol)%>%
-        select(.data$SiteID,.data$N, .data$Score, .data$Flag) %>%
-        arrange(desc(abs(.data$Score)))  %>%
-        arrange(match(.data$Flag, c(1, -1, 0))) %>%
-        bind_cols(lTags)
+        dplyr::rename(Score = strScoreCol)%>%
+        dplyr::select(.data$SiteID,.data$N, .data$Score, .data$Flag) %>%
+        dplyr::arrange(desc(abs(.data$Score)))  %>%
+        dplyr::arrange(match(.data$Flag, c(1, -1, 0))) %>%
+        dplyr::bind_cols(lTags)
 
     return(dfSummary)
 }

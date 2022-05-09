@@ -8,9 +8,6 @@
 #' @param lTags tags
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
-#' @importFrom yaml read_yaml
-#' @importFrom stringr str_detect
-#'
 #' @return A list containing the results of the `lStep$name` function call should contain `.$checks` parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
 #'
 #' @export
@@ -21,10 +18,10 @@ RunStep <- function(lStep, lMapping, lData, lTags, bQuiet){
     params <- c(lStep$params, list(bQuiet=bQuiet, bReturnChecks=TRUE))
 
     # prepare data inputs by function type
-    if(str_detect(lStep$name, "_Map")){
+    if(stringr::str_detect(lStep$name, "_Map")){
         params$lMapping <- lMapping
         params$dfs <- lData[lStep$inputs]
-    }else if(str_detect(lStep$name, "_Assess")){
+    }else if(stringr::str_detect(lStep$name, "_Assess")){
         print(names(lData))
         params$dfInput <- lData[[lStep$inputs]]
         params$lTags <- lTags

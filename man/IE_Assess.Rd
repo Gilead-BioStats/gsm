@@ -65,5 +65,4 @@ With N greater than user specified \code{nThreshold} will be flagged.
 dfInput <- IE_Map_Raw()
 ie <- IE_Assess(dfInput)
 
-
 }

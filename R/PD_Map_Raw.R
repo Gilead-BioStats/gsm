@@ -27,7 +27,6 @@
 #'
 #' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
 #'
-#'
 #' @examples
 #' dfInput <- PD_Map_Raw() # Run with defaults
 #' dfInput <- PD_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
@@ -46,7 +45,7 @@ PD_Map_Raw <- function(
     bQuiet = TRUE
 ){
 
-  checks <- CheckInputs(
+  checks <- gsm::CheckInputs(
     context = "PD_Map_Raw",
     dfs = dfs,
     bQuiet = bQuiet,
@@ -59,10 +58,10 @@ PD_Map_Raw <- function(
 
     # Standarize Column Names
     dfPD_mapped <- dfs$dfPD %>%
-      select(SubjectID = lMapping[["dfPD"]][["strIDCol"]])
+      dplyr::select(SubjectID = lMapping[["dfPD"]][["strIDCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
-      select(
+      dplyr::select(
         SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
         SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
         Exposure = lMapping[["dfSUBJ"]][["strTimeOnStudyCol"]]
@@ -70,11 +69,11 @@ PD_Map_Raw <- function(
 
     # Create Subject Level PD Counts and merge Subj
     dfInput <- dfPD_mapped %>%
-      group_by(.data$SubjectID) %>%
-      summarize(Count=n()) %>%
-      ungroup() %>%
-      MergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
-      mutate(Rate = .data$Count/.data$Exposure)
+      dplyr::group_by(.data$SubjectID) %>%
+      dplyr::summarize(Count=n()) %>%
+      dplyr::ungroup() %>%
+      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
+      dplyr::mutate(Rate = .data$Count/.data$Exposure)
 
     if(!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

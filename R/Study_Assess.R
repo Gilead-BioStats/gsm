@@ -11,10 +11,6 @@
 #' @examples
 #' Study_Assess() # run using defaults
 #'
-#' @import dplyr
-#' @importFrom purrr map
-#' @importFrom yaml read_yaml
-#'
 #' @return A list of assessments containing status information and results.
 #'
 #' @export
@@ -45,11 +41,11 @@ Study_Assess <- function(
 
     # lAssessments from gsm inst/assessments
     if(is.null(lAssessments)){
-        lAssessments <- MakeAssessmentList()
+        lAssessments <- gsm::MakeAssessmentList()
     }
 
     ### --- Attempt to run each assessment --- ###
-    lAssessments <- lAssessments %>% map(
+    lAssessments <- lAssessments %>% purrr::map(
         ~RunAssessment(.x, lData=lData, lMapping=lMapping, lTags=lTags, bQuiet=bQuiet)
     )
 

@@ -65,8 +65,8 @@ PD_Assess <- function(
             "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
         )
 
-      if(any(unname(map_dbl(lTags, ~length(.)))>1)) {
-        lTags <- map(lTags, ~paste(.x, collapse = ", "))
+      if(any(unname(purrr::map_dbl(lTags, ~length(.)))>1)) {
+        lTags <- purrr::map(lTags, ~paste(.x, collapse = ", "))
       }
 
     }
@@ -78,7 +78,7 @@ PD_Assess <- function(
         dfInput = dfInput
     )
 
-    checks <- CheckInputs(
+    checks <- gsm::CheckInputs(
       context = "PD_Assess",
       dfs = list(dfInput = lAssess$dfInput),
       bQuiet = bQuiet
@@ -133,10 +133,10 @@ PD_Assess <- function(
 
         if(bChart) {
           if(strMethod=="poisson"){
-            dfBounds <- Analyze_Poisson_PredictBounds(lAssess$dfTransformed, vThreshold =vThreshold)
-            lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged, dfBounds)
+            dfBounds <- gsm::Analyze_Poisson_PredictBounds(lAssess$dfTransformed, vThreshold =vThreshold)
+            lAssess$chart <- gsm::Visualize_Scatter(lAssess$dfFlagged, dfBounds)
           }else{
-            lAssess$chart <- Visualize_Scatter(lAssess$dfFlagged)
+            lAssess$chart <- gsm::Visualize_Scatter(lAssess$dfFlagged)
           }
         }
       } else {

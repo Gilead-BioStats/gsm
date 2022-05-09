@@ -31,9 +31,6 @@
 #' #Flag direction set based on 'Statistic' column
 #' dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Estimate')
 #'
-#' @import dplyr
-#' @importFrom stats median
-#'
 #' @export
 
 Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strValueColumn = NULL){
@@ -53,10 +50,10 @@ Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strValu
   }
 
   dfFlagged<-dfAnalyzed %>%
-    mutate(ThresholdLow = vThreshold[1]) %>%
-    mutate(ThresholdHigh= vThreshold[2]) %>%
-    mutate(ThresholdCol = strColumn) %>%
-    mutate(Flag = case_when(
+    dplyr::mutate(ThresholdLow = vThreshold[1]) %>%
+    dplyr::mutate(ThresholdHigh= vThreshold[2]) %>%
+    dplyr::mutate(ThresholdCol = strColumn) %>%
+    dplyr::mutate(Flag = dplyr::case_when(
       !is.na(vThreshold[1]) & (.data[[strColumn]] < vThreshold[1]) ~ -1,
       !is.na(vThreshold[2]) & (.data[[strColumn]] > vThreshold[2]) ~ 1,
       is.na(.data[[strColumn]]) ~ NA_real_,
@@ -66,13 +63,18 @@ Flag <- function( dfAnalyzed , strColumn="PValue", vThreshold=c(0.05,NA),strValu
 
   # if strValueColumn is supplied, it can only affect sign of Flag (1 or -1)
   if(!is.null(strValueColumn)){
-    nMedian <-  dfFlagged %>% pull(strValueColumn) %>% stats::median(na.rm=TRUE)
+
+    nMedian <-  dfFlagged %>%
+      dplyr::pull(strValueColumn) %>%
+      stats::median(na.rm=TRUE)
+
     dfFlagged <- dfFlagged  %>%
-      mutate(Flag = case_when(
+      dplyr::mutate(Flag = case_when(
         Flag != 0 & .data[[strValueColumn]] >= nMedian ~ 1,
         Flag != 0 & .data[[strValueColumn]] < nMedian ~ -1,
         TRUE ~ Flag
       ))
+
   }
 
   dfFlagged <- dfFlagged  %>% arrange(match(.data$Flag, c(1, -1, 0)))

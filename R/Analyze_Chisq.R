@@ -21,12 +21,6 @@
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
 #' @param  strOutcome required, name of column in dfTransformed dataset to perform the chi-squared test on. Default is "TotalCount".
 #'
-#' @import dplyr
-#' @importFrom tidyr unnest
-#' @importFrom stats chisq.test
-#' @importFrom purrr map
-#' @importFrom broom glance
-#'
 #' @return data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue
 #'
 #' @examples
@@ -48,26 +42,26 @@ Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount") {
 
     chisq_model<- function(site){
         SiteTable <- dfTransformed %>%
-            group_by(.data$SiteID == site) %>%
-            summarize(
+            dplyr::group_by(.data$SiteID == site) %>%
+            dplyr::summarize(
                 Participants = sum(.data$N),
                 Flag = sum(.data$TotalCount),
                 NoFlag = sum(.data$Participants - .data$Flag)
             ) %>%
-            select(.data$Flag, .data$NoFlag)
+            dplyr::select(.data$Flag, .data$NoFlag)
 
         stats::chisq.test(SiteTable)
     }
 
     dfAnalyzed <- dfTransformed %>%
-        mutate(model = purrr::map(.data$SiteID, chisq_model)) %>%
-        mutate(summary = purrr::map(.data$model, broom::glance)) %>%
+        dplyr::mutate(model = purrr::map(.data$SiteID, chisq_model)) %>%
+        dplyr::mutate(summary = purrr::map(.data$model, broom::glance)) %>%
         tidyr::unnest(summary) %>%
-        rename(
+        dplyr::rename(
             Statistic = .data$statistic,
             PValue = .data[['p.value']]
         ) %>%
-        mutate(
+        dplyr::mutate(
             TotalCount_All = sum(.data$TotalCount),
             N_All = sum(.data$N),
             TotalCount_Other = .data$TotalCount_All - .data$TotalCount,
@@ -75,8 +69,8 @@ Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount") {
             Prop = .data$TotalCount/.data$N,
             Prop_Other = .data$TotalCount_Other/.data$N_Other
         )%>%
-        arrange(.data$PValue) %>%
-        select( .data$SiteID, .data$TotalCount, .data$TotalCount_Other, .data$N, .data$N_Other, .data$Prop, .data$Prop_Other, .data$Statistic, .data$PValue)
+        dplyr::arrange(.data$PValue) %>%
+        dplyr::select( .data$SiteID, .data$TotalCount, .data$TotalCount_Other, .data$N, .data$N_Other, .data$Prop, .data$Prop_Other, .data$Statistic, .data$PValue)
 
     return(dfAnalyzed)
 }

@@ -21,12 +21,6 @@
 #' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
 #' @param  strOutcome required, name of column in dfTransformed dataset to perform Fisher test on. Default is "TotalCount".
 #'
-#' @import dplyr
-#' @importFrom stats fisher.test
-#' @importFrom purrr map
-#' @importFrom broom glance
-#' @importFrom tidyr unnest
-#'
 #' @return data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue
 #'
 #' @examples
@@ -48,26 +42,26 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
 
     fisher_model<- function(site){
         SiteTable <- dfTransformed %>%
-            group_by(.data$SiteID == site) %>%
-            summarize(
+            dplyr::group_by(.data$SiteID == site) %>%
+            dplyr::summarize(
                 Participants = sum(.data$N),
                 Flag = sum(.data$TotalCount),
                 NoFlag = sum(.data$Participants - .data$Flag)
             ) %>%
-            select(.data$NoFlag , .data$Flag)
+            dplyr::select(.data$NoFlag , .data$Flag)
 
         stats::fisher.test(SiteTable)
     }
 
     dfAnalyzed <- dfTransformed %>%
-        mutate(model = map(.data$SiteID, fisher_model)) %>%
-        mutate(summary = map(.data$model, broom::glance)) %>%
+        dplyr::mutate(model = purrr::map(.data$SiteID, fisher_model)) %>%
+        dplyr::mutate(summary = purrr::map(.data$model, broom::glance)) %>%
         tidyr::unnest(summary) %>%
-        rename(
+        dplyr::rename(
             Estimate = .data$estimate,
             PValue = .data[['p.value']]
         ) %>%
-        mutate(
+        dplyr::mutate(
             TotalCount_All = sum(.data$TotalCount),
             N_All = sum(.data$N),
             TotalCount_Other = .data$TotalCount_All - .data$TotalCount,
@@ -75,8 +69,8 @@ Analyze_Fisher <- function( dfTransformed , strOutcome = "TotalCount") {
             Prop = .data$TotalCount/.data$N,
             Prop_Other = .data$TotalCount_Other/.data$N_Other
         )%>%
-        arrange(.data$PValue) %>%
-        select( .data$SiteID, .data$TotalCount, .data$TotalCount_Other, .data$N, .data$N_Other, .data$Prop, .data$Prop_Other, .data$Estimate, .data$PValue)
+        dplyr::arrange(.data$PValue) %>%
+        dplyr::select( .data$SiteID, .data$TotalCount, .data$TotalCount_Other, .data$N, .data$N_Other, .data$Prop, .data$Prop_Other, .data$Estimate, .data$PValue)
 
     return(dfAnalyzed)
 }

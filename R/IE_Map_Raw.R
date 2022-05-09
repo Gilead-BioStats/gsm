@@ -32,8 +32,6 @@
 #' dfInput <- IE_Map_Raw() # Run with defaults
 #' dfInput <- IE_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
 #'
-#' @import dplyr
-#'
 #' @export
 IE_Map_Raw <- function(
     dfs=list(
@@ -45,7 +43,7 @@ IE_Map_Raw <- function(
     bQuiet = TRUE
 ){
 
-    checks <- CheckInputs(
+    checks <- gsm::CheckInputs(
       context = "IE_Map_Raw",
       dfs = dfs,
       bQuiet = bQuiet,
@@ -57,20 +55,20 @@ IE_Map_Raw <- function(
 
         # Standarize Column Names
         dfSUBJ_mapped <- dfs$dfSUBJ %>%
-          select(
+          dplyr::select(
             SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
             SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]]
           )
 
         dfIE_Subj <- dfs$dfIE %>%
-          select(
+          dplyr::select(
             SubjectID = lMapping[["dfIE"]][["strIDCol"]],
             category = lMapping[["dfIE"]][["strCategoryCol"]],
             result = lMapping[["dfIE"]][["strValueCol"]])
 
         # Create Subject Level IE Counts and merge Subj
         dfInput <- dfIE_Subj %>%
-          mutate(
+          dplyr::mutate(
             expected = ifelse(
               .data$category == lMapping$dfIE$vCategoryValues[1],
               lMapping$dfIE$vExpectedResultValues[1],
@@ -80,18 +78,18 @@ IE_Map_Raw <- function(
             invalid = .data$result != .data$expected,
             missing = !(.data$result %in% lMapping$dfIE$vExpectedResultValues)
           ) %>%
-          group_by(.data$SubjectID) %>%
-          summarise(
-            Total = n(),
+          dplyr::group_by(.data$SubjectID) %>%
+          dplyr::summarise(
+            Total = dplyr::n(),
             Valid = sum(.data$valid),
             Invalid = sum(.data$invalid),
             Missing = sum(.data$missing)
           ) %>%
-          mutate(Count = .data$Invalid + .data$Missing) %>%
-          ungroup() %>%
-          select(.data$SubjectID, .data$Count) %>%
+          dplyr::mutate(Count = .data$Invalid + .data$Missing) %>%
+          dplyr::ungroup() %>%
+          dplyr::select(.data$SubjectID, .data$Count) %>%
           MergeSubjects(dfSUBJ_mapped, vFillZero="Count", bQuiet=bQuiet) %>%
-          select(.data$SubjectID, .data$SiteID, .data$Count)
+          dplyr::select(.data$SubjectID, .data$SiteID, .data$Count)
 
     if(!bQuiet) cli::cli_alert_success("{.fn IE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

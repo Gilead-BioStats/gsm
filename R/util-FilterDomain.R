@@ -25,7 +25,7 @@ FilterDomain <- function(df, strDomain, lMapping, strColParam, strValParam, bRet
 
     if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn FilterDomain}")
     lSpec <- list(vRequired=c(strColParam, strValParam))
-    check <- is_mapping_valid(df=df, mapping=lMapping[[strDomain]], spec=lSpec, bQuiet=bQuiet)
+    check <- gsm::is_mapping_valid(df=df, mapping=lMapping[[strDomain]], spec=lSpec, bQuiet=bQuiet)
     checks <-list()
     checks[[strDomain]] <- check
     checks$status <- check$status
@@ -43,16 +43,16 @@ FilterDomain <- function(df, strDomain, lMapping, strColParam, strValParam, bRet
 
         oldRows <- nrow(df)
         df <- df[df[[col]] %in% vals,]
-        newRows<-nrow(df)
+        newRows <- nrow(df)
         if(!bQuiet){
             cli::cli_alert_success("Filtered on `{col}={paste(vals,sep=',')}`, to drop {oldRows-newRows} rows from {oldRows} to {newRows} rows.")
-            if(newRows==0) cli::cli_alert_warning("WARNING: Filtered data has 0 rows.")
-            if(newRows==oldRows) cli::cli_alert_info("NOTE: No rows dropped.")
+            if(newRows == 0) cli::cli_alert_warning("WARNING: Filtered data has 0 rows.")
+            if(newRows == oldRows) cli::cli_alert_info("NOTE: No rows dropped.")
         }
     }
 
     if(bReturnChecks){
-        return(list(df=df, lChecks=checks))
+        return(list(df = df, lChecks = checks))
     }else{
         return(df)
     }

@@ -10,8 +10,6 @@
 #' @examples
 #' MakeAssessmentList(path="assessments", package="gsm")
 #'
-#'
-#' @importFrom utils hasName
 #' @return A list of assessments
 #'
 #' @export
@@ -29,14 +27,17 @@ MakeAssessmentList <- function(path="assessments", package="gsm"){
     }
 
     assessments <- yaml_files %>%
-    map(function(path){
-        assessment<-read_yaml(path)
+    purrr::map(function(path){
+        assessment <- yaml::read_yaml(path)
         assessment$path <- path
-        if(!hasName(assessment,"name")){
-            assessment$name <- path %>% file_path_sans_ext %>% basename
+        if(!utils::hasName(assessment,"name")){
+            assessment$name <- path %>%
+              file_path_sans_ext %>%
+              basename
         }
         return(assessment)
     })
-    names(assessments) <- assessments %>% map_chr(~.x$name)
+    names(assessments) <- assessments %>%
+      purrr::map_chr(~.x$name)
     return(assessments)
 }
