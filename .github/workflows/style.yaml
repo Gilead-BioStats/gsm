@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: echo branch
-        runs: git branch –show-current
+        run: git branch –show-current
 
       - uses: r-lib/actions/setup-r@v1
         with:
@@ -35,7 +35,7 @@ jobs:
           cd ../gsm
 
       - name: echo branch after clindata
-        runs: git branch –show-current
+        run: git branch –show-current
 
       - name: install packages
         shell: Rscript {0}
