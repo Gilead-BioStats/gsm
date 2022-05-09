@@ -16,6 +16,9 @@ jobs:
           ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
 
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+
 
       - uses: r-lib/actions/setup-r@v1
         with:
