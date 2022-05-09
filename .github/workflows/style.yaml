@@ -17,10 +17,7 @@ jobs:
 
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
-
-      - name: echo branch
-        run: git rev-parse --abbrev-ref HEAD
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - uses: r-lib/actions/setup-r@v1
         with:
@@ -33,9 +30,6 @@ jobs:
           cd clindata
           git checkout tags/v0.5.2
           cd ../gsm
-
-      - name: echo branch after clindata
-        run: git rev-parse --abbrev-ref HEAD
 
       - name: install packages
         shell: Rscript {0}
