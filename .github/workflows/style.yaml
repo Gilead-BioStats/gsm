@@ -19,6 +19,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: echo branch
+        runs: git branch –show-current
+
       - uses: r-lib/actions/setup-r@v1
         with:
           use-public-rspm: true
@@ -30,6 +33,9 @@ jobs:
           cd clindata
           git checkout tags/v0.5.2
           cd ../gsm
+
+      - name: echo branch after clindata
+        runs: git branch –show-current
 
       - name: install packages
         shell: Rscript {0}
