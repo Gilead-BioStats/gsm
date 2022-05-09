@@ -4,7 +4,7 @@
 #' Flag sites that may be over- or under-reporting adverse events (AEs).
 #'
 #' @details
-#' The Adverse Event Assessment uses the standard [GSM data pipeline](
+#' The AE Assessment uses the standard [GSM data pipeline](
 #'   https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
@@ -20,10 +20,10 @@
 #' @return `list` Assessment, a named list with:
 #' - each data frame in the data pipeline
 #'   - `dfInput`
-#'   - `dfTransformed`, returned by \code{\link{Transform_EventCount}}
-#'   - `dfAnalyzed`, returned by \code{\link{dfAnalyzed}}
-#'   - `dfFlagged`, returned by \code{\link{dfFlagged}}
-#'   - `dfSummary`, returned by \code{\link{dfSummary}}
+#'   - `dfTransformed`, returned by {gsm::Transform_EventCount()}
+#'   - `dfAnalyzed`, returned by {gsm::dfAnalyzed()}
+#'   - `dfFlagged`, returned by {gsm::dfFlagged()}
+#'   - `dfSummary`, returned by {gsm::dfSummary()}
 #' - assessment metadata
 #'   - `strFunctionName`
 #'   - `lParams`
@@ -141,7 +141,7 @@ AE_Assess <- function(
       }
     }
   } else {
-    if (!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} did not run because of failed check.")
   }
 
   if (bReturnChecks) lAssess$lChecks <- checks

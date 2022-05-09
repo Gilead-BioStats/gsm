@@ -35,10 +35,10 @@ AE_Assess(
 \item each data frame in the data pipeline
 \itemize{
 \item \code{dfInput}
-\item \code{dfTransformed}, returned by \code{\link{Transform_EventCount}}
-\item \code{dfAnalyzed}, returned by \code{\link{dfAnalyzed}}
-\item \code{dfFlagged}, returned by \code{\link{dfFlagged}}
-\item \code{dfSummary}, returned by \code{\link{dfSummary}}
+\item \code{dfTransformed}, returned by {gsm::Transform_EventCount()}
+\item \code{dfAnalyzed}, returned by {gsm::dfAnalyzed()}
+\item \code{dfFlagged}, returned by {gsm::dfFlagged()}
+\item \code{dfSummary}, returned by {gsm::dfSummary()}
 }
 \item assessment metadata
 \itemize{
@@ -56,7 +56,7 @@ AE_Assess(
 Flag sites that may be over- or under-reporting adverse events (AEs).
 }
 \details{
-The Adverse Event Assessment uses the standard \href{https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
+The AE Assessment uses the standard \href{https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }
 \section{Data specification}{

@@ -35,10 +35,10 @@ PD_Assess(
 \item each data frame in the data pipeline
 \itemize{
 \item \code{dfInput}
-\item \code{dfTransformed}, returned by \code{\link{Transform_EventCount}}
-\item \code{dfAnalyzed}, returned by \code{\link{dfAnalyzed}}
-\item \code{dfFlagged}, returned by \code{\link{dfFlagged}}
-\item \code{dfSummary}, returned by \code{\link{dfSummary}}
+\item \code{dfTransformed}, returned by {gsm::Transform_EventCount()}
+\item \code{dfAnalyzed}, returned by {gsm::dfAnalyzed()}
+\item \code{dfFlagged}, returned by {gsm::dfFlagged()}
+\item \code{dfSummary}, returned by {gsm::dfSummary()}
 }
 \item assessment metadata
 \itemize{

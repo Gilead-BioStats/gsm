@@ -2,7 +2,7 @@
 % Please edit documentation in R/AE_Map_Adam.R
 \name{AE_Map_Adam}
 \alias{AE_Map_Adam}
-\title{AE Assessment - ADaM Mapping}
+\title{Adverse Event Assessment - ADaM Mapping}
 \usage{
 AE_Map_Adam(
   dfs = list(dfADSL = safetyData::adam_adsl, dfADAE = safetyData::adam_adae),
@@ -14,57 +14,128 @@ AE_Map_Adam(
 \arguments{
 \item{dfs}{\code{list} Input data frames:
 \itemize{
-\item \code{dfADAE}: \code{data.frame} One record per AE
-\item \code{dfADSL}: \code{data.frame} One record per subject
+\item \code{dfADAE}: \code{data.frame} Event-level data with one record per AE.
+\item \code{dfADSL}: \code{data.frame} Subject-level data with one record per subject.
 }}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
 
-\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
+\item{bReturnChecks}{\code{logical} Return input checks from {gsm::is_mapping_valid()}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} Data frame with one record per subject and these columns:\tabular{ll}{
-   Name \tab Description \cr
-   \code{SubjectID} \tab Unique Subject Identifier \cr
-   \code{SiteID} \tab Site Identifier \cr
-   \code{Count} \tab Number of Adverse Events \cr
-   \code{Exposure} \tab Number of Exposure Days \cr
-   \code{Rate} \tab Exposure Rate (\code{Count} / \code{Exposure}) \cr
-}
-
-
-If \code{bReturnChecks} is \code{TRUE} \code{AE_Map_Adam} returns a named \code{list} with:
+\code{data.frame} Data frame with one record per subject, the input to {gsm::AE_Assess()}. If
+\code{bReturnChecks} is \code{TRUE} \code{AE_Map_Adam} returns a named \code{list} with:
 \itemize{
 \item \code{df}: the data frame described above
 \item \code{lChecks}: a named \code{list} of check results
 }
 }
 \description{
-Convert analysis adverse event (AE) data, by default ADaM data, to formatted input data to AE
-Assessment.
+Convert analysis adverse event (AE) data, by default ADaM data, to formatted input data to
+{gsm::AE_Assess()}.
 }
 \details{
-Combines AE data with subject-level treatment exposure data to create formatted input data to
-\code{\link{AE_Assess}}.
+\code{AE_Map_Adam} combines AE data with subject-level treatment exposure data to create formatted
+input data to {gsm::AE_Assess()}. This function creates an input dataset for the AE Assessment
+({gsm::AE_Assess()}) by binding subject-level AE counts (derived from \code{dfADAE}) to subject-level
+data (from \code{dfADSL}). Note that the function can generate data summaries for specific types of
+AEs by passing filtered AE data to \code{dfADAE}.
 }
-\section{Data Specification}{
-
-
-This function creates an input dataset for the AE Assessment (\code{\link{AE_Assess}}) by binding
-subject-level adverse event counts (from \code{dfADAE}) to subject-level data (from \code{dfADSL}).\tabular{lllll}{
-   Domain \tab Key \tab Value \tab Description \tab Required? \cr
-   \code{dfADAE} \tab \code{strIDCol} \tab USUBJID \tab Unique Subject Identifier \tab Yes \cr
-   \code{dfADSL} \tab \code{strIDCol} \tab USUBJID \tab Unique Subject Identifier \tab Yes \cr
-   \code{dfADSL} \tab \code{strSiteCol} \tab SITEID \tab Site Identifier \tab Yes \cr
-   \code{dfADSL} \tab \code{strStartCol} \tab TRTSDT \tab Treatment Start Date \tab Yes \cr
-   \code{dfADSL} \tab \code{strEndCol} \tab TRTEDT \tab Treatment End Date \tab Yes \cr
-}
-
-
-Note that the function can generate data summaries for specific types of AEs by passing filtered
-adverse event data to \code{dfADAE}.
+\section{Data specification}{
+\if{html}{\out{
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+domain
+</th>
+<th style="text-align:left;">
+col_key
+</th>
+<th style="text-align:left;">
+col_value
+</th>
+<th style="text-align:left;">
+vRequired
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+dfADSL
+</td>
+<td style="text-align:left;">
+strIDCol
+</td>
+<td style="text-align:left;">
+USUBJID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfADSL
+</td>
+<td style="text-align:left;">
+strSiteCol
+</td>
+<td style="text-align:left;">
+SITEID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfADSL
+</td>
+<td style="text-align:left;">
+strStartCol
+</td>
+<td style="text-align:left;">
+TRTSDT
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfADSL
+</td>
+<td style="text-align:left;">
+strEndCol
+</td>
+<td style="text-align:left;">
+TRTEDT
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfADAE
+</td>
+<td style="text-align:left;">
+strIDCol
+</td>
+<td style="text-align:left;">
+USUBJID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+</tbody>
+</table>
+}}
 }
 
 \examples{

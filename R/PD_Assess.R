@@ -20,10 +20,10 @@
 #' @return `list` Assessment, a named list with:
 #' - each data frame in the data pipeline
 #'   - `dfInput`
-#'   - `dfTransformed`, returned by \code{\link{Transform_EventCount}}
-#'   - `dfAnalyzed`, returned by \code{\link{dfAnalyzed}}
-#'   - `dfFlagged`, returned by \code{\link{dfFlagged}}
-#'   - `dfSummary`, returned by \code{\link{dfSummary}}
+#'   - `dfTransformed`, returned by {gsm::Transform_EventCount()}
+#'   - `dfAnalyzed`, returned by {gsm::dfAnalyzed()}
+#'   - `dfFlagged`, returned by {gsm::dfFlagged()}
+#'   - `dfSummary`, returned by {gsm::dfSummary()}
 #' - assessment metadata
 #'   - `strFunctionName`
 #'   - `lParams`
@@ -41,13 +41,15 @@
 #'
 #' @export
 
-PD_Assess <- function(dfInput,
-                      vThreshold = NULL,
-                      strMethod = "poisson",
-                      lTags = list(Assessment = "PD"),
-                      bChart = TRUE,
-                      bReturnChecks = FALSE,
-                      bQuiet = TRUE) {
+PD_Assess <- function(
+  dfInput,
+  vThreshold = NULL,
+  strMethod = "poisson",
+  lTags = list(Assessment = "PD"),
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson", "wilcoxon"),
@@ -139,7 +141,7 @@ PD_Assess <- function(dfInput,
       }
     }
   } else {
-    if (!bQuiet) cli::cli_alert_warning("{.fn PD_Assess} not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn PD_Assess} did not run because of failed check.")
   }
 
   if (bReturnChecks) lAssess$lChecks <- checks

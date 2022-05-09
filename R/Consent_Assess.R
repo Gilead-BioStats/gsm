@@ -1,48 +1,63 @@
 #' Consent Assessment
 #'
-#' The Consent Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag sites with participants who started study activities before consent was finalized. More details regarding the data pipeline and statistical methods are described below.
+#' @description
+#' Flag sites where subject consent was:
+#' - not given
+#' - never obtained
+#' - not followed by subject randomization
+#' - obtained after subject randomization
 #'
-#' @section Data Specification:
+#' @details
+#' The Consent Assessment uses the standard [GSM data pipeline](
+#'   https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette
+#' ) to flag sites with consent issues. This assessment detects sites with subjects who participated
+#' in study activities before consent was finalized. The count returned in the summary represents
+#' the number of subjects at a given site for whom:
 #'
-#' The input data (`dfInput`) for Consent Assessment is typically created using \code{\link{Consent_Map_Raw}} and should be one record per person with columns for:
-#' - `SubjectID` - Unique subject ID
-#' - `SiteID` - Site ID
-#' - `Count` - Number of findings of errors/outliers.
+#' - consent was not given
+#' - consent was not obtained
+#' - consent did not result in randomization
+#' - consent was obtained after randomization
+#' 
+#' Additional details regarding the data pipeline and statistical methods are described below.
 #'
-#' The Assessment
-#' - \code{\link{Transform_EventCount}} creates `dfTransformed`.
-#' - \code{\link{Flag}} creates `dfFlagged`.
-#' - \code{\link{Summarize}} creates `dfSummary`.
+#' @param dfInput `data.frame` Input data, a data frame with one record per subject.
+#' @param nThreshold `numeric` Threshold specification. Default: `0.5`
+#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment="IE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
+#' @param bChart `logical` Generate data visualization? Default: `TRUE`
+#' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @section Statistical Assumptions:
+#' @return `list` Assessment, a named list with:
+#' - each data frame in the data pipeline
+#'   - `dfInput`
+#'   - `dfTransformed`, returned by {gsm::Transform_EventCount()}
+#'   - `dfAnalyzed`, returned by {gsm::dfAnalyzed()}
+#'   - `dfFlagged`, returned by {gsm::dfFlagged()}
+#'   - `dfSummary`, returned by {gsm::dfSummary()}
+#' - assessment metadata
+#'   - `strFunctionName`
+#'   - `lParams`
+#'   - `lTags`
+#' - output(s)
+#'   - `chart`
 #'
-#' This Assessment finds any sites where one or more subjects meets any of the following criteria: No Consent, Missing Consent, Missing Randomization Date, or
-#' Consent date later in time than the Randomization Date. 'N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
-#' With N greater than user specified `nThreshold` will be flagged.
-#'
-#' @param dfInput input data with one record per person and the following required columns: SubjectID, SiteID, Count.
-#' @param nThreshold Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.
-#' @param lTags named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`. Default is `list(Assessment="Consent")`
-#' @param bChart should visualization be created? TRUE (default) or FALSE.
-#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
-#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
+#' @includeRmd ./man/md/Consent_Assess.md
 #'
 #' @examples
 #' dfInput <- Consent_Map_Raw()
-#' consent <- Consent_Assess(dfInput)
-#'
-#' @import dplyr
-#'
-#' @return A list containing all data and metadata in the standard data pipeline (`dfInput`, `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfSummary`, `strFunctionName`, `lParams` and `lTags`) is returned.
+#' consent_assessment <- Consent_Assess(dfInput)
 #'
 #' @export
 
-Consent_Assess <- function(dfInput,
-                           nThreshold = 0.5,
-                           lTags = list(Assessment = "Consent"),
-                           bChart = TRUE,
-                           bReturnChecks = FALSE,
-                           bQuiet = TRUE) {
+Consent_Assess <- function(
+  dfInput,
+  nThreshold = 0.5,
+  lTags = list(Assessment = "Consent"),
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "One or more of these columns: SubjectID, SiteID,and Count not found in dfInput" = all(c("SubjectID", "SiteID", "Count") %in% names(dfInput)),
@@ -69,8 +84,6 @@ Consent_Assess <- function(dfInput,
     dfInput = dfInput
   )
 
-
-  if (!bQuiet) cli::cli_h2("Checking Input Data for {.fn Consent_Assess}")
   checks <- CheckInputs(
     context = "Consent_Assess",
     dfs = list(dfInput = lAssess$dfInput),
@@ -83,7 +96,7 @@ Consent_Assess <- function(dfInput,
     lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count")
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
-    lAssess$dfAnalyzed <- lAssess$dfTransformed %>% mutate(Estimate = .data$TotalCount)
+    lAssess$dfAnalyzed <- lAssess$dfTransformed %>% dplyr::mutate(Estimate = .data$TotalCount)
     if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed}")
 
     lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = c(NA, nThreshold), strColumn = "Estimate")
@@ -97,7 +110,7 @@ Consent_Assess <- function(dfInput,
       if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Count} created a chart.")
     }
   } else {
-    if (!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn Consent_Assess} did not run because of failed check.")
   }
 
   if (bReturnChecks) lAssess$lChecks <- checks

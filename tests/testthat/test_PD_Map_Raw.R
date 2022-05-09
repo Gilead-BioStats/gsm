@@ -4,7 +4,7 @@ source(testthat::test_path("testdata/data.R"))
 test_that("output is created as expected", {
   data <- PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ))
   expect_true(is.data.frame(data))
-  expect_equal(names(data), c("SubjectID","SiteID","Exposure","Count","Rate"))
+  expect_equal(names(data), c("SubjectID","SiteID","Count","Exposure","Rate"))
 })
 
 # incorrect inputs throw errors -------------------------------------------

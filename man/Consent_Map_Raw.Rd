@@ -2,7 +2,7 @@
 % Please edit documentation in R/Consent_Map_Raw.R
 \name{Consent_Map_Raw}
 \alias{Consent_Map_Raw}
-\title{Consent Assessment Mapping from Raw Data}
+\title{Consent Assessment - Raw Mapping}
 \usage{
 Consent_Map_Raw(
   dfs = list(dfCONSENT = clindata::rawplus_consent, dfSUBJ = clindata::rawplus_subj),
@@ -12,52 +12,210 @@ Consent_Map_Raw(
 )
 }
 \arguments{
-\item{dfs}{list of data frames including:
+\item{dfs}{\code{list} Input data frames:
 \itemize{
-\item \code{dfCONSENT} consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.
-\item \code{dfSUBJ} Subject-level Raw Data required columns: SubjectID SiteID RandDate.
+\item \code{dfCONSENT}: \code{data.frame} Consent type-level data with one record per subject per consent type.
+\item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per subject.
 }}
 
-\item{lMapping}{List containing expected columns in each data set.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
 
-\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+\item{bReturnChecks}{\code{logical} Return input checks from {gsm::is_mapping_valid()}? Default: \code{FALSE}}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
+\code{data.frame} Data frame with one record per subject, the input to
+{gsm::Consent_Assess()}. If \code{bReturnChecks} is \code{TRUE} \code{Consent_Map_Raw} returns a named \code{list}
+with:
+\itemize{
+\item \code{df}: the data frame described above
+\item \code{lChecks}: a named \code{list} of check results
+}
 }
 \description{
 Convert from raw data format to needed input format for \code{\link{Consent_Assess}}
 }
 \details{
-This function uses raw Consent and Subject data to create the required input for \code{\link{Consent_Assess}}.
+\code{Consent_Map_Raw} combines consent data with subject-level data to create formatted input data
+to {gsm::Consent_Assess()}. This function creates an input dataset for the Consent Assessment
+(${Consent_Assess()} by binding subject-level counts of consent issues (derived from \code{dfCONSENT}) to
+subject-level data (from \code{dfSUBJ}). Note the function can generate data summaries for specific
+types of consent by customizing \code{lMapping$dfCONSENT}.
 }
-\section{Data Specification}{
-
-The following columns are required:
-\itemize{
-\item \code{dfCONSENT}
-\itemize{
-\item \code{SubjectID} - Subject ID
-\item \code{CONSCAT_STD} - Type of Consent_Coded value
-\item \code{CONSYN} - Did the subject give consent? Yes / No.
-\item \code{CONSDAT} - If yes, provide date consent signed
-}
-\item \code{dfSUBJ}
-\itemize{
-\item \code{SubjectID} - Unique subject ID
-\item \code{SiteID} - Site ID
-\item \code{RandDate} - Randomization Date
-}
-}
+\section{Data specification}{
+\if{html}{\out{
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+domain
+</th>
+<th style="text-align:left;">
+col_key
+</th>
+<th style="text-align:left;">
+col_value
+</th>
+<th style="text-align:left;">
+vRequired
+</th>
+<th style="text-align:left;">
+vNACols
+</th>
+<th style="text-align:left;">
+vUniqueCols
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+dfSUBJ
+</td>
+<td style="text-align:left;">
+strIDCol
+</td>
+<td style="text-align:left;">
+SubjectID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfSUBJ
+</td>
+<td style="text-align:left;">
+strSiteCol
+</td>
+<td style="text-align:left;">
+SiteID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfSUBJ
+</td>
+<td style="text-align:left;">
+strRandDateCol
+</td>
+<td style="text-align:left;">
+RandDate
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfCONSENT
+</td>
+<td style="text-align:left;">
+strIDCol
+</td>
+<td style="text-align:left;">
+SubjectID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfCONSENT
+</td>
+<td style="text-align:left;">
+strTypeCol
+</td>
+<td style="text-align:left;">
+CONSENT_TYPE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfCONSENT
+</td>
+<td style="text-align:left;">
+strValueCol
+</td>
+<td style="text-align:left;">
+CONSENT_VALUE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfCONSENT
+</td>
+<td style="text-align:left;">
+strDateCol
+</td>
+<td style="text-align:left;">
+CONSENT_DATE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+}}
 }
 
 \examples{
-
 dfInput <- Consent_Map_Raw() # Run with defaults
-
-# Run with error checking and message log
-dfInput <- Consent_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE)
+dfInput <- Consent_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
 
 }

@@ -17,7 +17,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -35,7 +35,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -53,7 +53,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -76,7 +76,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -91,7 +91,7 @@
       
       ! Checks not run for `dfSUBJ` because data/metadata not provided, or `dfSUBJ` is named incorrectly.
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -109,7 +109,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -127,7 +127,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -145,7 +145,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -163,7 +163,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -181,7 +181,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -199,7 +199,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -214,7 +214,7 @@
       
       x Unexpected duplicates found in column: SubjectID
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -235,7 +235,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -256,7 +256,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 

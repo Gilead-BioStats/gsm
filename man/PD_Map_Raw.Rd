@@ -2,7 +2,7 @@
 % Please edit documentation in R/PD_Map_Raw.R
 \name{PD_Map_Raw}
 \alias{PD_Map_Raw}
-\title{Protocol Deviation Assessment Mapping from Raw Data- Make Input Data}
+\title{Protocol Deviation Assessment - Raw Mapping}
 \usage{
 PD_Map_Raw(
   dfs = list(dfPD = clindata::rawplus_pd, dfSUBJ = clindata::rawplus_subj),
@@ -12,45 +12,131 @@ PD_Map_Raw(
 )
 }
 \arguments{
-\item{dfs}{list of data frames including:
+\item{dfs}{\code{list} Input data frames:
 \itemize{
-\item \code{dfPD}  PD dataset with required column SUBJID and rows for each Protocol Deviation.
-\item \code{dfSUBJ} Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.
+\item \code{dfPD}: \code{data.frame} Event-level data with one record per PD.
+\item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per subject.
 }}
 
-\item{lMapping}{List containing expected columns in each data set.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where `key contains the name of the column.}
 
-\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
+\code{data.frame} Data frame with one record per subject, the input to {gsm::PD_Assess()}. If
+\code{bReturnChecks} is \code{TRUE} \code{PD_Map_Raw} returns a named \code{list} with:
+\itemize{
+\item \code{df}: the data frame described above
+\item \code{lChecks}: a named \code{list} of check results
+}
 }
 \description{
-Convert from raw data format to needed input format for Safety Assessment
+Convert raw protocol deviation (PD) data, typically processed case report form data, to formatted
+input data to {gsm::PD_Assess()}.
 }
 \details{
-This function combines raw PD data with exposure data calculated by clindata::TimeOnStudy to create the required input for \code{\link{PD_Assess}}.
+\code{PD_Map_Raw} combines PD data with subject-level treatment exposure data to create formatted
+input data to {gsm::PD_Assess()}. This function creates an input dataset for the PD Assessment
+({gsm::PD_Assess()}) by binding subject-level PD counts (derived from \code{dfPD}) to subject-level
+data (from \code{dfSUBJ}). Note that the function can generate data summaries for specific types of
+PDs by passing filtered PD data to \code{dfPD}.
 }
-\section{Data Specification}{
-
-
-This function creates an input dataset for the Protocol Deviation (\code{\link{PD_Assess}}) by adding Protocol Deviation Counts to basic subject-level time on study data from \code{clindata::TimeOnStudy}.
-
-The following columns are required:
-\itemize{
-\item \code{dfPD}
-\itemize{
-\item \code{SubjectID} - Unique subject ID
-}
-\item \code{dfSUBJ}
-\itemize{
-\item \code{SubjectID} - Unique subject ID
-\item \code{SiteID} - Site ID
-\item \code{TimeOnStudy} - Time on Study in days.
-}
-}
+\section{Data specification}{
+\if{html}{\out{
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+domain
+</th>
+<th style="text-align:left;">
+col_key
+</th>
+<th style="text-align:left;">
+col_value
+</th>
+<th style="text-align:left;">
+vRequired
+</th>
+<th style="text-align:left;">
+vUniqueCols
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+dfSUBJ
+</td>
+<td style="text-align:left;">
+strIDCol
+</td>
+<td style="text-align:left;">
+SubjectID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfSUBJ
+</td>
+<td style="text-align:left;">
+strSiteCol
+</td>
+<td style="text-align:left;">
+SiteID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfSUBJ
+</td>
+<td style="text-align:left;">
+strTimeOnStudyCol
+</td>
+<td style="text-align:left;">
+TimeOnStudy
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfPD
+</td>
+<td style="text-align:left;">
+strIDCol
+</td>
+<td style="text-align:left;">
+SubjectID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+}}
 }
 
 \examples{

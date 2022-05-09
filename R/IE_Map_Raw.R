@@ -1,47 +1,47 @@
-#' Inclusion/Exclusion Assessment Mapping from Raw Data- Make Input Data
+#' Inclusion/Exclusion Assessment - Raw Mapping
 #'
-#' Convert from raw data format to needed input format for Inclusion/Exclusion Assessment.
+#' @description
+#' Convert raw inclusion/exclusion (IE) data, typically processed case report from data, to formatted
+#' input data to {gsm::IE_Assess()}.
 #'
 #' @details
+#' `IE_Map_Raw` combines IE data with subject-level data to create formatted input data to
+#' {gsm::IE_Assess()}. This function creates an input dataset for the IE Assessment
+#' (${gsm::IE_Assess()}) by binding subject-level unmet IE criteria counts (derived from `dfIE`) to
+#' subject-level data (from `dfSUBJ`). Note that the function can generate data summaries for
+#' specific types of IE criteria by passing filtered IE data to `dfIE`.
 #'
-#' This function creates the required input for \code{\link{IE_Assess}}.
+#' @param dfs `list` Input data frames:
+#'  - `dfIE`: `data.frame` Criterion-level data with one record subject per criterion.
+#'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column.
+#' @param bReturnChecks `logical` Return input checks from {gsm::is_mapping_valid()}? Default: `FALSE`
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @section Data Specification:
+#' @return `data.frame` Data frame with one record per subject, the input to {gsm::IE_Assess()}. If
+#' `bReturnChecks` is `TRUE` `IE_Map_Raw` returns a named `list` with:
+#' - `df`: the data frame described above
+#' - `lChecks`: a named `list` of check results
 #'
-#'
-#' The following columns are required:
-#' - `dfIE`
-#'     - `SubjectID` - Unique subject ID
-#'     - Value specified in `mapping` - IE Category; "IECAT_STD" by default
-#'     - Value specified in `mapping` - Incl criteria not met Excl criteria met; "IEORRES" by default
-#' - `dfSUBJ`
-#'     - `SubjectID` - Unique subject ID
-#'     - `SiteID` - Site ID
-#'
-#' @param dfs list of data frames including:
-#'   - `dfIE` ie dataset with columns SUBJID and values specified in strCategoryCol and strValueCol.
-#'   - `dfSUBJ` Subject-level Raw Data required columns: SubjectID SiteID
-#' @param lMapping List containing expected columns in each data set.
-#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
-#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
-#'
-#' @return Data frame with one record per participant giving the number of inclusion/exclusion criteria the participant did not meet as expected. Expected columns: SubjectID, SiteID, Count
+#' @includeRmd ./man/md/IE_Map_Raw.md
 #'
 #' @examples
-#'
 #' dfInput <- IE_Map_Raw() # Run with defaults
 #' dfInput <- IE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
 #'
 #' @import dplyr
 #'
 #' @export
-IE_Map_Raw <- function(dfs = list(
-                         dfIE = clindata::rawplus_ie,
-                         dfSUBJ = clindata::rawplus_subj
-                       ),
-                       lMapping = clindata::mapping_rawplus,
-                       bReturnChecks = FALSE,
-                       bQuiet = TRUE) {
+
+IE_Map_Raw <- function(
+  dfs = list(
+    dfIE = clindata::rawplus_ie,
+    dfSUBJ = clindata::rawplus_subj
+  ),
+  lMapping = clindata::mapping_rawplus,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+) {
   checks <- CheckInputs(
     context = "IE_Map_Raw",
     dfs = dfs,
@@ -52,7 +52,7 @@ IE_Map_Raw <- function(dfs = list(
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn IE_Map_Raw}")
 
-    # Standarize Column Names
+    # Standarize column names.
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
         SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
@@ -88,12 +88,12 @@ IE_Map_Raw <- function(dfs = list(
       mutate(Count = .data$Invalid + .data$Missing) %>%
       ungroup() %>%
       select(.data$SubjectID, .data$Count) %>%
-      MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
+      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
       select(.data$SubjectID, .data$SiteID, .data$Count)
 
     if (!bQuiet) cli::cli_alert_success("{.fn IE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
-    if (!bQuiet) cli::cli_alert_warning("{.fn IE_Map_Raw} not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn IE_Map_Raw} did not run because of failed check.")
     dfInput <- NULL
   }
 

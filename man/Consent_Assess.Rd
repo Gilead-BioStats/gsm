@@ -14,52 +14,144 @@ Consent_Assess(
 )
 }
 \arguments{
-\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count.}
+\item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
-\item{nThreshold}{Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.}
+\item{nThreshold}{\code{numeric} Threshold specification. Default: \code{0.5}}
 
-\item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="Consent")}}
+\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment="IE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
 
-\item{bChart}{should visualization be created? TRUE (default) or FALSE.}
+\item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
 
-\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, \code{lParams} and \code{lTags}) is returned.
+\code{list} Assessment, a named list with:
+\itemize{
+\item each data frame in the data pipeline
+\itemize{
+\item \code{dfInput}
+\item \code{dfTransformed}, returned by {gsm::Transform_EventCount()}
+\item \code{dfAnalyzed}, returned by {gsm::dfAnalyzed()}
+\item \code{dfFlagged}, returned by {gsm::dfFlagged()}
+\item \code{dfSummary}, returned by {gsm::dfSummary()}
+}
+\item assessment metadata
+\itemize{
+\item \code{strFunctionName}
+\item \code{lParams}
+\item \code{lTags}
+}
+\item output(s)
+\itemize{
+\item \code{chart}
+}
+}
 }
 \description{
-The Consent Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag sites with participants who started study activities before consent was finalized. More details regarding the data pipeline and statistical methods are described below.
-}
-\section{Data Specification}{
-
-
-The input data (\code{dfInput}) for Consent Assessment is typically created using \code{\link{Consent_Map_Raw}} and should be one record per person with columns for:
+Flag sites where subject consent was:
 \itemize{
-\item \code{SubjectID} - Unique subject ID
-\item \code{SiteID} - Site ID
-\item \code{Count} - Number of findings of errors/outliers.
+\item not given
+\item never obtained
+\item not followed by subject randomization
+\item obtained after subject randomization
 }
-
-The Assessment
+}
+\details{
+The Consent Assessment uses the standard \href{https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette}{GSM data pipeline} to flag sites with consent issues. This assessment detects sites with subjects who participated
+in study activities before consent was finalized. The count returned in the summary represents
+the number of subjects at a given site for whom:
 \itemize{
-\item \code{\link{Transform_EventCount}} creates \code{dfTransformed}.
-\item \code{\link{Flag}} creates \code{dfFlagged}.
-\item \code{\link{Summarize}} creates \code{dfSummary}.
+\item consent was not given
+\item consent was not obtained
+\item consent did not result in randomization
+\item consent was obtained after randomization
 }
+
+Additional details regarding the data pipeline and statistical methods are described below.
 }
-
-\section{Statistical Assumptions}{
-
-
-This Assessment finds any sites where one or more subjects meets any of the following criteria: No Consent, Missing Consent, Missing Randomization Date, or
-Consent date later in time than the Randomization Date. 'N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
-With N greater than user specified \code{nThreshold} will be flagged.
+\section{Data specification}{
+\if{html}{\out{
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+domain
+</th>
+<th style="text-align:left;">
+col_key
+</th>
+<th style="text-align:left;">
+col_value
+</th>
+<th style="text-align:left;">
+vRequired
+</th>
+<th style="text-align:left;">
+vUniqueCols
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+dfInput
+</td>
+<td style="text-align:left;">
+strIDCol
+</td>
+<td style="text-align:left;">
+SubjectID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfInput
+</td>
+<td style="text-align:left;">
+strSiteCol
+</td>
+<td style="text-align:left;">
+SiteID
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfInput
+</td>
+<td style="text-align:left;">
+strCountCol
+</td>
+<td style="text-align:left;">
+Count
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+</tbody>
+</table>
+}}
 }
 
 \examples{
 dfInput <- Consent_Map_Raw()
-consent <- Consent_Assess(dfInput)
+consent_assessment <- Consent_Assess(dfInput)
 
 }

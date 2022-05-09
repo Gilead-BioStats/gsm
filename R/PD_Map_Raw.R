@@ -1,22 +1,27 @@
-#' Protocol Deviation Assessment Mapping from Raw Data- Make Input Data
+#' Protocol Deviation Assessment - Raw Mapping
 #'
 #' @description
-#' Convert raw protocol deviation (PD) data to formatted input data to {gsm::PD_Assess()}.
+#' Convert raw protocol deviation (PD) data, typically processed case report form data, to formatted
+#' input data to {gsm::PD_Assess()}.
 #'
 #' @details
-#' This function combines raw PD data with exposure data calculated by clindata::TimeOnStudy to create the required input for \code{\link{PD_Assess}}.
+#' `PD_Map_Raw` combines PD data with subject-level treatment exposure data to create formatted
+#' input data to {gsm::PD_Assess()}. This function creates an input dataset for the PD Assessment
+#' ({gsm::PD_Assess()}) by binding subject-level PD counts (derived from `dfPD`) to subject-level
+#' data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
+#' PDs by passing filtered PD data to `dfPD`.
 #'
-#' @section Data Specification:
-#' This function creates an input dataset for the Protocol Deviation (\code{\link{PD_Assess}}) by adding Protocol Deviation Counts to basic subject-level time on study data from `clindata::TimeOnStudy`.
+#' @param dfs `list` Input data frames:
+#'   - `dfPD`: `data.frame` Event-level data with one record per PD.
+#'   - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key contains the name of the column.
+#' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @param dfs list of data frames including:
-#'   - `dfPD`  PD dataset with required column SUBJID and rows for each Protocol Deviation.
-#'   - `dfSUBJ` Subject-level Raw Data required columns: SubjectID, SiteID, value specified in strTimeOnStudyCol.
-#' @param lMapping List containing expected columns in each data set.
-#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
-#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
-#'
-#' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count, Exposure, Rate.
+#' @return `data.frame` Data frame with one record per subject, the input to {gsm::PD_Assess()}. If
+#' `bReturnChecks` is `TRUE` `PD_Map_Raw` returns a named `list` with:
+#' - `df`: the data frame described above
+#' - `lChecks`: a named `list` of check results
 #'
 #' @includeRmd ./man/md/PD_Map_Raw.md
 #'
@@ -64,12 +69,13 @@ PD_Map_Raw <- function(
       group_by(.data$SubjectID) %>%
       summarize(Count = n()) %>%
       ungroup() %>%
-      MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      mutate(Rate = .data$Count / .data$Exposure)
+      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
+      mutate(Rate = .data$Count / .data$Exposure) %>%
+      select(.data$SubjectID, .data$SiteID, .data$Count, .data$Exposure, .data$Rate)
 
-    if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
+    if (!bQuiet) cli::cli_alert_success("{.fn PD_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
-    if (!bQuiet) cli::cli_alert_warning("{.fn AE_Map_Raw} not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn PD_Map_Raw} did not run because of failed check.")
     dfInput <- NULL
   }
 
