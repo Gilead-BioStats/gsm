@@ -52,16 +52,16 @@ test_that("NA values in input data are handled",{
   # NA SiteID and TimeOnTreatment.
   dfExposure1 <- tibble::tribble(
     ~USUBJID, ~SITEID, ~TRTSDT, ~TRTEDT,
-    1, 1, ,
+    1, 1, '2021-01-20', NA,
     2, 1, ,
     3, NA, ,
     4, 2, 
   )
-  dfAE1 <- tibble::tribble(
+  dfADAE1 <- tibble::tribble(
     ~USUBJID, 1,1,1,1,2,2,4,4
   )
   mapped1 <- AE_Map_Adam(
-    list(dfADAE = dfAE1, dfADSL = dfExposure1)
+    list(dfADAE = dfADAE1, dfADSL = dfExposure1)
   )
   expect_null(mapped1)
 
@@ -73,16 +73,16 @@ test_that("NA values in input data are handled",{
     3,   3, 30,
     4,   2, 50
   )
-  dfAE2 <- tibble::tribble(
+  dfADAE2 <- tibble::tribble(
     ~SubjectID, 1,NA,1,1,2,2,4,4
   )
   mapped2 <- AE_Map_Adam(
-    list(dfADAE = dfAE2, dfADSL = dfExposure2)
+    list(dfADAE = dfADAE2, dfADSL = dfExposure2)
   )
   expect_null(mapped2)
 
   # NA SubjectID in SUBJ domain.
-  dfAE3 <- tibble::tribble(~SubjectID, 1,1,1,1,2,2,4,4)
+  dfADAE3 <- tibble::tribble(~SubjectID, 1,1,1,1,2,2,4,4)
   dfExposure3 <- tibble::tribble(
     ~USUBJID, ~SITEID, ~TRTSDT, ~TRTEDT,
     NA, 1, ,
@@ -91,11 +91,11 @@ test_that("NA values in input data are handled",{
     4, 2, 
   )
   mapped3 <- AE_Map_Raw(
-    list(dfADAE = dfAE3, dfADSL = dfExposure3)
+    list(dfADAE = dfADAE3, dfADSL = dfExposure3)
   )
-  expect_null(mapped2)
+  expect_null(mapped3)
 
-  #expect_snapshot_error(AE_Map_Raw(dfAE = dfAE1, dfSUBJ = dfExposure1))
-  #expect_snapshot_error(AE_Map_Raw(dfAE = dfAE2, dfSUBJ = dfExposure2))
-  #expect_snapshot_error(AE_Map_Raw(dfAE = dfAE3, dfSUBJ = dfExposure3))
+  #expect_snapshot_error(AE_Map_Raw(dfADAE = dfADAE1, dfADSL = dfExposure1))
+  #expect_snapshot_error(AE_Map_Raw(dfADAE = dfADAE2, dfADSL = dfExposure2))
+  #expect_snapshot_error(AE_Map_Raw(dfADAE = dfADAE3, dfADSL = dfExposure3))
 })
