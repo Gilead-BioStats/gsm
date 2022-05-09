@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main]
   workflow_run:
-    workflows: ["R-CMD-check-dev"]
+    workflows: ["Style"]
     types:
       - completed
 
