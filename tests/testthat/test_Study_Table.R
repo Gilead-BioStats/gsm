@@ -1,12 +1,14 @@
 results <- Study_Assess(bQuiet = TRUE) %>%
   purrr::map(~.x$lResults) %>%
   compact() %>%
-  purrr::map_df(~.x$dfSummary)
+  purrr::map_df(~.x$dfSummary) %>%
+  suppressMessages()
 
 test_that("Study Table Runs as expected",{
   tbl <- Study_Table(results)
-    expect_true(is.data.frame(tbl))
-    expect_equal(names(tbl),
+    expect_true(is.data.frame(tbl$df_summary))
+    expect_true(is.character(tbl$footnote))
+    expect_equal(names(tbl$df_summary),
                  c("Title", "X055X", "X086X", "X050X", "X140X", "X180X", "X054X",
                    "X154X", "X009X", "X164X", "X102X", "X090X", "X126X", "X192X",
                    "X013X", "X168X", "X236X", "X068X", "X033X", "X081X", "X129X",
@@ -15,7 +17,7 @@ test_that("Study Table Runs as expected",{
                    "X185X", "X224X", "X110X", "X117X", "X179X", "X120X", "X132X",
                    "X145X"))
 
-    expect_equal(tbl$Title,
+    expect_equal(tbl$df_summary$Title,
                  c("Number of Subjects", "Score", "Safety", "--AEs", "--AEs Serious",
                    "Consent", "--Consent", "IE", "--IE", "PD", "--Important PD",
                    "--PD"))
@@ -32,16 +34,16 @@ test_that("incorrect inputs throw errors", {
 
 test_that("bFormat works", {
   tbl <- Study_Table(dfFindings = results, bFormat = FALSE)
-  expect_equal(tbl$X055X, c("43", "2", "*", "+", " ", "*", "+", "", " ", "", " ", " "))
+  expect_equal(tbl$df_summary$X055X, c("43", "2", "*", "+", " ", "*", "+", "", " ", "", " ", " "))
 })
 
 test_that("bShowCounts works", {
   tbl <- Study_Table(dfFindings = results, bShowCounts = FALSE)
   tblCounts <- Study_Table(dfFindings = results, bShowCounts = TRUE)
 
-  expect_equal(tbl$Title, c("Score", "Safety", "--AEs", "--AEs Serious", "Consent", "--Consent",
+  expect_equal(tbl$df_summary$Title, c("Score", "Safety", "--AEs", "--AEs Serious", "Consent", "--Consent",
                             "IE", "--IE", "PD", "--Important PD", "--PD"))
-  expect_equal(tblCounts$Title, c("Number of Subjects", "Score", "Safety", "--AEs", "--AEs Serious",
+  expect_equal(tblCounts$df_summary$Title, c("Number of Subjects", "Score", "Safety", "--AEs", "--AEs Serious",
                                   "Consent", "--Consent", "IE", "--IE", "PD", "--Important PD",
                                   "--PD"))
 })
@@ -57,10 +59,10 @@ test_that("bShowCounts works", {
 
 test_that("vSiteScoreThreshold works", {
   tbl <- Study_Table(dfFindings = results, vSiteScoreThreshold = 2)
-  expect_equal(names(tbl), c("Title", "X055X", "X086X", "X050X", "X140X", "X180X", "X054X",
+  expect_equal(names(tbl$df_summary), c("Title", "X055X", "X086X", "X050X", "X140X", "X180X", "X054X",
                              "X154X", "X009X", "X164X"))
 
-  tbl_transpose <- as.data.frame(t(tbl))
+  tbl_transpose <- as.data.frame(t(tbl$df_summary))
   names(tbl_transpose) <- tbl_transpose[1,]
   tbl_transpose <- tbl_transpose[-1,]
   expect_lte(max(as.numeric(tbl_transpose$Score)), 2)
@@ -69,9 +71,13 @@ test_that("vSiteScoreThreshold works", {
 test_that("bColCollapse works", {
   tbl <- Study_Table(dfFindings = results, bColCollapse = FALSE)
   tblCollapse <- Study_Table(dfFindings = results, bColCollapse = TRUE)
-  expect_true("Assessment" %in% names(tbl))
-  expect_true("Label" %in% names(tbl))
-  expect_false("Assessment" %in% names(tblCollapse))
-  expect_false("Label" %in% names(tblCollapse))
+  expect_true("Assessment" %in% names(tbl$df_summary))
+  expect_true("Label" %in% names(tbl$df_summary))
+  expect_false("Assessment" %in% names(tblCollapse$df_summary))
+  expect_false("Label" %in% names(tblCollapse$df_summary))
 })
 
+test_that("footnote is NULL when no sites were excluded", {
+  tbl <- Study_Table(results, vSiteScoreThreshold = 0)
+  expect_null(tbl$footnote)
+})
