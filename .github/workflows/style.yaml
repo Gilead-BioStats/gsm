@@ -1,0 +1,81 @@
+name: Style
+
+jobs:
+  style:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
+
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - uses: r-lib/actions/setup-r@v1
+        with:
+          use-public-rspm: true
+
+      - name: Clone clindata
+        run: |
+          cd ..
+          git clone git@github.com:Gilead-BioStats/clindata.git
+          cd clindata
+          git checkout tags/v0.5.2
+          cd ../gsm
+
+      - name: install packages
+        shell: Rscript {0}
+        run: |
+          install.packages("devtools")
+          devtools::install('../clindata')
+          devtools::install(dependencies=TRUE)
+          install.packages('styler')
+
+      - name: Enable styler cache
+        run: styler::cache_activate()
+        shell: Rscript {0}
+
+      - name: Determine cache location
+        id: styler-location
+        run: |
+          cat(
+            "##[set-output name=location;]",
+            styler::cache_info(format = "tabular")$location,
+            "\n",
+            sep = ""
+          )
+        shell: Rscript {0}
+
+      - name: Cache styler
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.styler-location.outputs.location }}
+          key: ${{ runner.os }}-styler-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-styler-
+            ${{ runner.os }}-
+
+      - name: Style
+        run: |
+          double_indent_style <- styler::tidyverse_style()
+          double_indent_style$indention$unindent_fun_dec <- NULL
+          double_indent_style$indention$update_indention_ref_fun_dec <- NULL
+          double_indent_style$line_break$remove_line_breaks_in_fun_dec <- NULL
+          styler::style_dir('R', transformers = double_indent_style)
+          styler::style_dir('tests', recursive = TRUE, transformers = double_indent_style)
+
+        shell: Rscript {0}
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.name "$GITHUB_ACTOR"
+          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git add R/\*
+          git add tests/\*
+          git commit -m "Style code" || echo "No changes to commit"
+          git pull --ff-only
+          git push origin
