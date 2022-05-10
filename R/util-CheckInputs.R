@@ -31,6 +31,28 @@ CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
 
     domains <- names(spec)
 
+    checks <- map(domains, function(domain){
+
+      domain_check <- list(
+        df = dfs[[domain]],
+        spec = spec[[domain]],
+        mapping = mapping[[domain]]
+        ) %>%
+        map(~modify_if(.x, is.null, ~ NA))
+
+        check <- gsm::is_mapping_valid(df = domain_check$df,
+                                     mapping = domain_check$mapping,
+                                     spec = domain_check$spec,
+                                     bQuiet = bQuiet)
+      return(check)
+
+    })
+browser()
+
+    df<-ifelse(hasProperty(dfs, domain), dfs[[domain]],NA)
+    spec<-ifelse(hasProperty(spec, domain), spec[[domain]],NA)
+    mapping <- ifelse(hasProperty(mapping, domain), mapping[[domain]],NA)
+
     if(all(hasName(dfs, domains) & hasName(mapping, domains))){
       checks <- domains %>%
         map(function(domain){
