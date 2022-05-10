@@ -5,7 +5,7 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
   test2_1 <- PD_Assess(
     dfInput = dfInput,
     strMethod = "poisson",
-    vThreshold = c(-3,3),
+    vThreshold = c(-3, 3),
     bChart = FALSE
   )
 
@@ -30,7 +30,8 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
         Residuals > 3 ~ 1,
         is.na(Residuals) ~ NA_real_,
         is.nan(Residuals) ~ NA_real_,
-        TRUE ~ 0),
+        TRUE ~ 0
+      ),
     ) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -43,17 +44,21 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
     arrange(desc(abs(Score))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t2_1 <- list("strFunctionName" = "PD_Assess()",
-               "lParams" = list("dfInput" = "dfInput",
-                                "vThreshold" = c("c", "-3", "3"),
-                                "strMethod" = "poisson",
-                                "bChart" = "FALSE"),
-               "lTags" = list(Assessment = "PD"),
-               "dfInput" = t2_1_input,
-               "dfTransformed" = t2_1_transformed,
-               "dfAnalyzed" = t2_1_analyzed,
-               "dfFlagged" = t2_1_flagged,
-               "dfSummary" = t2_1_summary)
+  t2_1 <- list(
+    "strFunctionName" = "PD_Assess()",
+    "lParams" = list(
+      "dfInput" = "dfInput",
+      "vThreshold" = c("c", "-3", "3"),
+      "strMethod" = "poisson",
+      "bChart" = "FALSE"
+    ),
+    "lTags" = list(Assessment = "PD"),
+    "dfInput" = t2_1_input,
+    "dfTransformed" = t2_1_transformed,
+    "dfAnalyzed" = t2_1_analyzed,
+    "dfFlagged" = t2_1_flagged,
+    "dfSummary" = t2_1_summary
+  )
 
   # compare results
   expect_equal(test2_1, t2_1)

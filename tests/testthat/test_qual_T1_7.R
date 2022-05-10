@@ -32,12 +32,14 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
         PValue < 0.0001 ~ -1,
         is.na(PValue) ~ NA_real_,
         is.nan(PValue) ~ NA_real_,
-        TRUE ~ 0),
+        TRUE ~ 0
+      ),
       median = median(Estimate),
       Flag = case_when(
         Flag != 0 & Estimate < median ~ -1,
         Flag != 0 & Estimate >= median ~ 1,
-        TRUE ~ Flag)
+        TRUE ~ Flag
+      )
     ) %>%
     select(-median) %>%
     arrange(match(Flag, c(1, -1, 0)))
@@ -52,18 +54,21 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     arrange(match(Flag, c(1, -1, 0)))
 
 
-  t1_7 <- list("strFunctionName" = "AE_Assess()",
-             "lParams" = list("dfInput" = "dfInput",
-                              "strMethod" = "wilcoxon",
-                              "bChart" = "FALSE"),
-             "lTags" = list(Assessment = "AE"),
-             "dfInput" = t1_7_input,
-             "dfTransformed" = t1_7_transformed,
-             "dfAnalyzed" = t1_7_analyzed,
-             "dfFlagged" = t1_7_flagged,
-             "dfSummary" = t1_7_summary)
+  t1_7 <- list(
+    "strFunctionName" = "AE_Assess()",
+    "lParams" = list(
+      "dfInput" = "dfInput",
+      "strMethod" = "wilcoxon",
+      "bChart" = "FALSE"
+    ),
+    "lTags" = list(Assessment = "AE"),
+    "dfInput" = t1_7_input,
+    "dfTransformed" = t1_7_transformed,
+    "dfAnalyzed" = t1_7_analyzed,
+    "dfFlagged" = t1_7_flagged,
+    "dfSummary" = t1_7_summary
+  )
 
   # compare results
   expect_equal(test1_7, t1_7)
-
 })
