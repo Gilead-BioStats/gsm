@@ -7,21 +7,20 @@
 MakeAssessmentList(path = "assessments", package = "gsm")
 }
 \arguments{
-\item{path}{location of assessment yaml files. If package is specified looks in /inst folder.}
+\item{path}{\code{character} The location of assessment YAML files. If package is specified, function will look in \verb{/inst} folder.}
 
-\item{package}{package with assessments}
+\item{package}{\code{character} package with assessments}
 }
 \value{
-A list of assessments
+\code{list} A list of assessments with workflow and parameter metadata.
 }
 \description{
 Load assessments from a package/directory
 }
 \details{
-Coming soon
+\code{MakeAssessmentList()} is a utility function that creates a workflow mapping for assessments that is used in \code{Study_Assess()}.
 }
 \examples{
 MakeAssessmentList(path="assessments", package="gsm")
-
 
 }

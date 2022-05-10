@@ -11,27 +11,32 @@
 #' @importFrom dplyr left_join
 #' @importFrom tidyr replace_na
 #'
+#' @examples
+#' MergeSubjects(dfDomain = clindata::rawplus_consent,
+#'               dfSubjects = clindata::rawplus_subj,
+#'               strIDCol = "SubjectID")
+#'
 #' @export
 
-MergeSubjects <- function(dfDomain, dfSubjects, strIDCol = "SubjectID", vFillZero = NULL, bQuiet = TRUE) {
-  is_domain_valid <- is_mapping_valid(
+MergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=NULL, bQuiet=TRUE){
+  is_domain_valid <- gsm::is_mapping_valid(
     df = dfDomain,
-    mapping = list("strIDCol" = strIDCol),
-    spec = list(
+    mapping = list('strIDCol'=strIDCol),
+    spec=list(
       vUniqueCols = "strIDCol",
       vRequired = "strIDCol"
     ),
-    bQuiet = bQuiet
+    bQuiet=bQuiet
   )
 
-  is_subjects_valid <- is_mapping_valid(
+  is_subjects_valid <- gsm::is_mapping_valid(
     df = dfSubjects,
-    mapping = list("strIDCol" = strIDCol),
-    spec = list(
+    mapping = list('strIDCol'=strIDCol),
+    spec=list(
       vUniqueCols = "strIDCol",
       vRequired = "strIDCol"
     ),
-    bQuiet = bQuiet
+    bQuiet=bQuiet
   )
 
   stopifnot(
@@ -40,7 +45,7 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol = "SubjectID", vFillZer
     "bQuiet must be TRUE or FALSE" = is.logical(bQuiet)
   )
 
-  if (!is.null(vFillZero)) {
+  if(!is.null(vFillZero)){
     stopifnot(
       "Columns specified in vFillZero not found in dfDomain" = all(vFillZero %in% names(dfDomain)),
       is.character(vFillZero)
@@ -51,7 +56,7 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol = "SubjectID", vFillZer
   subject_ids <- dfSubjects[[strIDCol]]
   domain_ids <- dfDomain[[strIDCol]]
   domain_only_ids <- domain_ids[!domain_ids %in% subject_ids]
-  if (length(domain_only_ids > 0)) {
+  if(length(domain_only_ids > 0)){
     cli::cli_alert_warning(
       paste0(
         cli::col_br_red(
@@ -63,23 +68,22 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol = "SubjectID", vFillZer
   }
 
   # Print a message if rows in dfSubject are not found in dfDomain
-  subject_only_ids <- subject_ids[!subject_ids %in% domain_ids]
-  if (length(subject_only_ids > 0)) {
-    if (!bQuiet) {
+  subject_only_ids <-  subject_ids[!subject_ids %in% domain_ids]
+  if(length(subject_only_ids > 0)){
+    if(!bQuiet){
       cli::cli_alert_warning(
         paste0(
           cli::col_br_red(
             length(subject_only_ids),
-            " ID(s) in subject data not found in domain data."
-          ),
+            " ID(s) in subject data not found in domain data."),
           ifelse(is.null(vFillZero),
-            cli::col_br_red("These participants will have NA values imputed for all domain data columns:"),
-            paste0(
-              cli::col_br_red("\nThese participants will have 0s imputed for the following domain data columns: "),
-              paste(vFillZero, sep = ", "),
-              ". ",
-              cli::col_br_red("\nNA's will be imputed for all other columns.")
-            )
+                 cli::col_br_red("These participants will have NA values imputed for all domain data columns:"),
+                 paste0(
+                   cli::col_br_red("\nThese participants will have 0s imputed for the following domain data columns: "),
+                   paste(vFillZero, sep=", "),
+                   ". ",
+                   cli::col_br_red("\nNA's will be imputed for all other columns.")
+                 )
           )
         )
       )
@@ -94,9 +98,9 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol = "SubjectID", vFillZer
     dfSubjects[[strIDCol]] <- as.character(dfSubjects[[strIDCol]])
   }
 
-  dfOut <- left_join(dfSubjects, dfDomain, by = strIDCol)
-  for (col in vFillZero) {
-    dfOut[[col]] <- tidyr::replace_na(dfOut[[col]], 0)
+  dfOut <- left_join(dfSubjects, dfDomain, by=strIDCol)
+  for(col in vFillZero){
+    dfOut[[col]]<- tidyr::replace_na(dfOut[[col]], 0)
   }
 
   return(dfOut)
