@@ -4,14 +4,21 @@
 \alias{Study_AssessmentReport}
 \title{Make Summary of 1 or more assessment Data checks}
 \usage{
-Study_AssessmentReport(lAssessments)
+Study_AssessmentReport(lAssessments, bViewReport = FALSE)
 }
 \arguments{
 \item{lAssessments}{List of 1+ assessments like those created by \code{runAssessment()} or \code{Study_Assess()}}
+
+\item{bViewReport}{HTML table of dfSummary that can be viewed in most IDEs.}
 }
 \value{
-returns a list containing a data.frame summarizing the checks \code{dfSummary} and a dataframe listing all checks (`dfAllChecks``)
+\code{list} Returns a list containing a data.frame summarizing the checks \code{dfSummary} and a dataframe listing all checks (\code{dfAllChecks})
 }
 \description{
 Make overview table with one row per assessment and one column per site showing flagged assessments.
+}
+\examples{
+assessment <- Study_Assess()
+report <- Study_AssessmentReport(lAssessments = assessment)
+
 }

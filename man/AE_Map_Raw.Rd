@@ -54,7 +54,10 @@ AEs by passing filtered AE data to \code{dfAE}.
 }
 
 \examples{
-dfInput <- AE_Map_Raw() # Run with defaults
-dfInput <- AE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
+# Run with defaults
+dfInput <- AE_Map_Raw()
+
+# Run with error checking and message log
+dfInput <- AE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 
 }
