@@ -51,7 +51,19 @@ test_that("incorrect lTags throw errors",{
 })
 
 # custom tests ------------------------------------------------------------
+test_that('dfAnalyzed has appropriate model output regardless of statistical method', {
+    assessment <- IE_Assess(ieInput)
+    expect_true(all(c('Estimate') %in% names(assessment$dfAnalyzed)))
+})
 
+test_that("bQuiet works as intended", {
+  expect_message(
+    IE_Assess(ieInput, bQuiet = FALSE)
+  )
+})
 
-
-
+test_that("bReturnChecks works as intended", {
+  expect_true(
+    'lChecks' %in% names(IE_Assess(ieInput, bReturnChecks = TRUE))
+  )
+})

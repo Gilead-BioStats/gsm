@@ -96,10 +96,18 @@ test_that("NA values in input data are handled",{
     list(dfAE = dfAE3, dfSUBJ = dfExposure3)
   )
   expect_null(mapped3)
+})
 
-  #expect_snapshot_error(AE_Map_Raw(dfAE = dfAE1, dfSUBJ = dfExposure1))
-  #expect_snapshot_error(AE_Map_Raw(dfAE = dfAE2, dfSUBJ = dfExposure2))
-  #expect_snapshot_error(AE_Map_Raw(dfAE = dfAE3, dfSUBJ = dfExposure3))
+test_that("bQuiet works as intended", {
+  expect_message(
+    AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bQuiet = FALSE)
+  )
+})
+
+test_that("bReturnChecks works as intended", {
+  expect_true(
+    all(names(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c('df', 'lChecks'))
+  )
 })
 #
 # test_that("custom mapping runs without errors", {

@@ -96,7 +96,7 @@ IE_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
 
     if (bChart) {
-      lAssess$chart <- Visualize_Count(lAssess$dfAnalyzed)
+      lAssess$chart <- gsm::Visualize_Count(lAssess$dfAnalyzed)
       if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Count} created a chart.")
     }
   } else {

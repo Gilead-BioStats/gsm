@@ -98,7 +98,7 @@ IE_Map_Raw <- function(
   }
 
   if (bReturnChecks) {
-    return(list(dfInput = dfInput, lChecks = checks))
+    return(list(df = dfInput, lChecks = checks))
   } else {
     return(dfInput)
   }

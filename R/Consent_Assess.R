@@ -72,8 +72,8 @@ Consent_Assess <- function(
       "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
     )
 
-    if (any(unname(map_dbl(lTags, ~ length(.))) > 1)) {
-      lTags <- map(lTags, ~ paste(.x, collapse = ", "))
+    if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {
+      lTags <- purrr::map(lTags, ~ paste(.x, collapse = ", "))
     }
   }
 
@@ -106,7 +106,7 @@ Consent_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
 
     if (bChart) {
-      lAssess$chart <- Visualize_Count(lAssess$dfAnalyzed)
+      lAssess$chart <- gsm::Visualize_Count(lAssess$dfAnalyzed)
       if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Count} created a chart.")
     }
   } else {

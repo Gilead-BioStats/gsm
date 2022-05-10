@@ -62,3 +62,14 @@ test_that('dfAnalyzed has appropriate model output regardless of statistical met
     expect_true(all(c('Estimate', 'PValue') %in% names(assWilcoxon$dfAnalyzed)))
 })
 
+test_that("bQuiet works as intended", {
+  expect_message(
+    AE_Assess(aeInput, bQuiet = FALSE)
+  )
+})
+
+test_that("bReturnChecks works as intended", {
+  expect_true(
+    'lChecks' %in% names(AE_Assess(aeInput, bReturnChecks = TRUE))
+  )
+})

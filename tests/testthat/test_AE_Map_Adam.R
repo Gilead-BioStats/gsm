@@ -111,3 +111,15 @@ test_that("NA values in input data are handled", {
   #expect_snapshot_error(AE_Map_Raw(dfADAE = dfADAE2, dfADSL = dfExposure2))
   #expect_snapshot_error(AE_Map_Raw(dfADAE = dfADAE3, dfADSL = dfExposure3))
 })
+
+test_that("bQuiet works as intended", {
+  expect_message(
+    AE_Map_Adam(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bQuiet = FALSE)
+  )
+})
+
+test_that("bReturnChecks works as intended", {
+  expect_true(
+    all(names(AE_Map_Adam(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c('df', 'lChecks'))
+  )
+})
