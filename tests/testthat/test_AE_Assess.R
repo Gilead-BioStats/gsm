@@ -55,5 +55,10 @@ test_that("incorrect lTags throw errors",{
 })
 
 # custom tests ------------------------------------------------------------
-
+test_that('dfAnalyzed has appropriate model output regardless of statistical method', {
+    assPoisson <- AE_Assess(aeInput, strMethod = 'poisson')
+    expect_true(all(c('Residuals', 'PredictedCount') %in% names(assPoisson$dfAnalyzed)))
+    assWilcoxon <- AE_Assess(aeInput, strMethod = 'wilcoxon')
+    expect_true(all(c('Estimate', 'PValue') %in% names(assWilcoxon$dfAnalyzed)))
+})
 

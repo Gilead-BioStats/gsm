@@ -1,7 +1,5 @@
 source(testthat::test_path("testdata/data.R"))
 
-
-
 # output is created as expected -------------------------------------------
 test_that("output is created as expected",{
   data <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
@@ -48,14 +46,18 @@ test_that("incorrect mappings throw errors",{
 })
 
 # custom tests ------------------------------------------------------------
-test_that("NA values in input data are handled",{
-  # NA SiteID and TimeOnTreatment.
+test_that("NA values in input data are handled", {
+  # NA Site ID, treatment start date, and treatment end date.
   dfExposure1 <- tibble::tribble(
-    ~USUBJID, ~SITEID, ~TRTSDT, ~TRTEDT,
-    1, 1, '2021-01-20', NA,
-    2, 1, ,
-    3, NA, ,
-    4, 2, 
+    ~USUBJID, ~SITEID, ~TRTSDT     ,  ~TRTEDT    ,
+    1       , NA     , '2021-12-21', '2022-03-20',
+    2       , 1      , NA          , '2022-03-20',
+    3       , 3      , '2022-12-21', NA          ,
+    4       , 2      , '2022-12-21', '2022-03-20'
+  ) %>%
+  dplyr::mutate(
+    dplyr::across(TRTSDT, as.Date),
+    dplyr::across(TRTEDT, as.Date)
   )
   dfADAE1 <- tibble::tribble(
     ~USUBJID, 1,1,1,1,2,2,4,4
@@ -67,14 +69,18 @@ test_that("NA values in input data are handled",{
 
   # NA SubjectID in AE domain.
   dfExposure2 <- tibble::tribble(
-    ~SubjectID, ~SiteID, ~TimeOnTreatment,
-    1,   1, 10,
-    2,   1, 20,
-    3,   3, 30,
-    4,   2, 50
+    ~USUBJID, ~SITEID, ~TRTSDT     ,  ~TRTEDT    ,
+    1       , 1      , '2021-12-21', '2022-03-20',
+    2       , 1      , '2021-12-21', '2022-03-20',
+    3       , 3      , '2022-12-21', '2022-03-20',
+    4       , 2      , '2022-12-21', '2022-03-20'
+  ) %>%
+  dplyr::mutate(
+    dplyr::across(TRTSDT, as.Date),
+    dplyr::across(TRTEDT, as.Date)
   )
   dfADAE2 <- tibble::tribble(
-    ~SubjectID, 1,NA,1,1,2,2,4,4
+    ~USUBJID, NA,1,1,1,2,2,4,4
   )
   mapped2 <- AE_Map_Adam(
     list(dfADAE = dfADAE2, dfADSL = dfExposure2)
@@ -82,15 +88,21 @@ test_that("NA values in input data are handled",{
   expect_null(mapped2)
 
   # NA SubjectID in SUBJ domain.
-  dfADAE3 <- tibble::tribble(~SubjectID, 1,1,1,1,2,2,4,4)
   dfExposure3 <- tibble::tribble(
-    ~USUBJID, ~SITEID, ~TRTSDT, ~TRTEDT,
-    NA, 1, ,
-    2, 1, ,
-    3, 2, ,
-    4, 2, 
+    ~USUBJID, ~SITEID, ~TRTSDT     ,  ~TRTEDT    ,
+    NA      , 1      , '2021-12-21', '2022-03-20',
+    2       , 1      , '2021-12-21', '2022-03-20',
+    3       , 3      , '2022-12-21', '2022-03-20',
+    4       , 2      , '2022-12-21', '2022-03-20'
+  ) %>%
+  dplyr::mutate(
+    dplyr::across(TRTSDT, as.Date),
+    dplyr::across(TRTEDT, as.Date)
   )
-  mapped3 <- AE_Map_Raw(
+  dfADAE3 <- tibble::tribble(
+    ~USUBJID, 1,1,1,1,2,2,4,4
+  )
+  mapped3 <- AE_Map_Adam(
     list(dfADAE = dfADAE3, dfADSL = dfExposure3)
   )
   expect_null(mapped3)
