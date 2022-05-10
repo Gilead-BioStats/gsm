@@ -1,12 +1,12 @@
 #' Check that a data frame contains columns and fields specified in mapping
 #'
-#' @param df data.frame to compare to mapping object.
-#' @param mapping named list specifying expected columns and values in df. Parameters ending in `col` are assumed to be column names in `df`, while parameters ending in `val` are values expected in for a corresponding column. For example, `mapping=list(strSiteCol="SiteID", strSiteVal=c("001","002"))` would indicate that `df` has a `df$SiteID` includes values `"001"` and `"002"`.
-#' @param spec named list specifying parameters that should be defined in `mapping`, and describes how the values specified by those parameters should be used in `df`. Should have the following properties:
+#' @param df `data.frame` A data.frame to compare to mapping object.
+#' @param mapping `list` A named list specifying expected columns and values in df. Parameters ending in `col` are assumed to be column names in `df`, while parameters ending in `val` are values expected in for a corresponding column. For example, `mapping=list(strSiteCol="SiteID", strSiteVal=c("001","002"))` would indicate that `df` has a `df$SiteID` includes values `"001"` and `"002"`.
+#' @param spec `list` A named list specifying parameters that should be defined in `mapping`, and describes how the values specified by those parameters should be used in `df`. Should have the following properties:
 #' - `spec$vRequired` - list of parameters that should be defined in `mapping`.
 #' - `spec$vUniqueCols` - list of column parameters that should not contain duplicate values
 #' - `spec$vNACols` - list of column parameters where NA and empty string values are acceptable.
-#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @import dplyr
 #' @import tidyr
@@ -37,6 +37,9 @@
 #'         vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol", "strOtherCol")
 #'   )
 #' )
+#'
+#' @return `list` A list is returned with `status` (`TRUE` or `FALSE`), and `tests_if`,
+#' a list containing checks and a `status` and `warning` (if check does not pass).
 #'
 #' @export
 

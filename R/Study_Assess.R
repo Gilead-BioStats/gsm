@@ -40,7 +40,7 @@ Study_Assess <- function(
 
     # lMapping from clindata
     if(is.null(lMapping)){
-        lMapping <- yaml::read_yaml(system.file("mapping/rawplus.yaml", package = 'clindata'))
+        lMapping <- clindata::mapping_rawplus
     }
 
     # lAssessments from gsm inst/assessments

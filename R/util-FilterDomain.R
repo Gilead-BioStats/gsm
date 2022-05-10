@@ -1,12 +1,12 @@
 #' Utility function for basic filtering
 #'
-#' @param df data.frame be filtered
-#' @param strDomain Domain "step" that is being filtered.
-#' @param lMapping mapping
-#' @param strColParam column to filter
-#' @param strValParam value or values to keep
-#' @param bReturnChecks checks
-#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
+#' @param df `data.frame` A data.frame to be filtered, likely within a mapping function.
+#' @param strDomain `character` Domain step that is being filtered.
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column.
+#' @param strColParam `character` Domain in `lMapping` that references the column to filter on.
+#' @param strValParam `character` Domain in `lMapping` that references the value to filter on.
+#' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @examples
 #' lMapping <- list(dfAE = list(strIDCol = "SubjectID", strTreatmentEmergentCol = "AE_TE_FLAG",
@@ -19,13 +19,18 @@
 #'                       strColParam = "strSeriousCol",
 #'                       strValParam = "strSeriousVal")
 #'
+#'
+#' @return `data.frame` Data frame provided as `df` and filtered on `strColParam` == `strValParam`.
+#' If `bReturnChecks` is `TRUE`, a `list` is returned with a filtered `df`, and a list of checks run on input data (`lChecks`).
+#'
+#'
 #' @export
 
 FilterDomain <- function(df, strDomain, lMapping, strColParam, strValParam, bReturnChecks=FALSE, bQuiet=TRUE){
 
     if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn FilterDomain}")
     lSpec <- list(vRequired=c(strColParam, strValParam))
-    check <- is_mapping_valid(df=df, mapping=lMapping[[strDomain]], spec=lSpec, bQuiet=bQuiet)
+    check <- gsm::is_mapping_valid(df=df, mapping=lMapping[[strDomain]], spec=lSpec, bQuiet=bQuiet)
     checks <-list()
     checks[[strDomain]] <- check
     checks$status <- check$status
