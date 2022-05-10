@@ -1,14 +1,14 @@
 source(testthat::test_path("testdata/data.R"))
 
 # output is created as expected -------------------------------------------
-test_that("output created as expected ",{
+test_that("output created as expected ", {
   data <- Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ))
   expect_true(is.data.frame(data))
-  expect_equal(names(data),c("SubjectID","SiteID","Count"))
+  expect_equal(names(data), c("SubjectID", "SiteID", "Count"))
 })
 
 # incorrect inputs throw errors -------------------------------------------
-test_that("incorrect inputs throw errors",{
+test_that("incorrect inputs throw errors", {
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = list(), dfSUBJ = list()), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = list()), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = list(), dfSUBJ = dfSUBJ), bQuiet = F))
@@ -29,29 +29,39 @@ test_that("incorrect inputs throw errors",{
 test_that("incorrect mappings throw errors", {
   expect_snapshot(Consent_Map_Raw(
     dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ),
-    lMapping = list(dfCONSENT = list(strIDCol = "not an id",
-                                      strTypeCol = "CONSENT_TYPE",
-                                      strValueCol = "CONSENT_VALUE",
-                                      strDateCol = "CONSENT_DATE"),
-                     dfSUBJ= list(strIDCol = "SubjectID",
-                                  strSiteCol = "SiteID",
-                                  strRandDateCol = "RandDate")),
+    lMapping = list(
+      dfCONSENT = list(
+        strIDCol = "not an id",
+        strTypeCol = "CONSENT_TYPE",
+        strValueCol = "CONSENT_VALUE",
+        strDateCol = "CONSENT_DATE"
+      ),
+      dfSUBJ = list(
+        strIDCol = "SubjectID",
+        strSiteCol = "SiteID",
+        strRandDateCol = "RandDate"
+      )
+    ),
     bQuiet = F
-    )
-  )
+  ))
 
   expect_snapshot(Consent_Map_Raw(
     dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ),
-    lMapping = list(dfCONSENT = list(strIDCol = "SubjectID",
-                                     strTypeCol = "CONSENT_TYPE",
-                                     strValueCol = "CONSENT_VALUE",
-                                     strDateCol = "CONSENT_DATE"),
-                    dfSUBJ= list(strIDCol = "not an id",
-                                 strSiteCol = "SiteID",
-                                 strRandDateCol = "RandDate")),
+    lMapping = list(
+      dfCONSENT = list(
+        strIDCol = "SubjectID",
+        strTypeCol = "CONSENT_TYPE",
+        strValueCol = "CONSENT_VALUE",
+        strDateCol = "CONSENT_DATE"
+      ),
+      dfSUBJ = list(
+        strIDCol = "not an id",
+        strSiteCol = "SiteID",
+        strRandDateCol = "RandDate"
+      )
+    ),
     bQuiet = F
-    )
-  )
+  ))
 })
 
 # custom tests ------------------------------------------------------------

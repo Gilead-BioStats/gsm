@@ -3,10 +3,10 @@ source(testthat::test_path("testdata/data.R"))
 
 
 # output is created as expected -------------------------------------------
-test_that("output is created as expected",{
+test_that("output is created as expected", {
   data <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
   expect_true(is.data.frame(data))
-  expect_equal(names(data), c("SubjectID","SiteID","Count","Exposure","Rate"))
+  expect_equal(names(data), c("SubjectID", "SiteID", "Count", "Exposure", "Rate"))
 })
 
 # incorrect inputs throw errors -------------------------------------------
@@ -27,25 +27,32 @@ test_that("incorrect inputs throw errors", {
 
 # can't test these until mappings are updated in clindata
 
-test_that("incorrect mappings throw errors",{
+test_that("incorrect mappings throw errors", {
+  expect_null(AE_Map_Adam(
+    dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
+    lMapping = list(
+      dfADSL = list(
+        strIDCol = "not an id",
+        strSiteCol = "SITEID",
+        strStartCol = "TRTSDT",
+        strEndCol = "TRTEDT"
+      ),
+      dfADAE = list(strIDCol = "USUBJID")
+    )
+  ))
 
-  expect_null(AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
-                                    lMapping = list(
-    dfADSL = list(strIDCol="not an id",
-                  strSiteCol = "SITEID",
-                  strStartCol = "TRTSDT",
-                  strEndCol = "TRTEDT"),
-    dfADAE = list(strIDCol="USUBJID"))))
-
-  expect_null(AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
-                                   lMapping = list(
-    dfADSL = list(strIDCol="USUBJID",
-                  strSiteCol = "SITEID",
-                  strStartCol = "TRTSDT",
-                  strEndCol = "TRTEDT"),
-    dfADAE = list(strIDCol="not an id"))))
-
+  expect_null(AE_Map_Adam(
+    dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
+    lMapping = list(
+      dfADSL = list(
+        strIDCol = "USUBJID",
+        strSiteCol = "SITEID",
+        strStartCol = "TRTSDT",
+        strEndCol = "TRTEDT"
+      ),
+      dfADAE = list(strIDCol = "not an id")
+    )
+  ))
 })
 
 # custom tests ------------------------------------------------------------
-

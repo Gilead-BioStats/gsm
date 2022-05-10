@@ -21,30 +21,36 @@ test_that("incorrect inputs throw errors", {
 })
 
 # incorrect mappings throw errors -----------------------------------------
-test_that("incorrect mappings throw errors",{
-
+test_that("incorrect mappings throw errors", {
   expect_snapshot(
     AE_Map_Raw(
       dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ),
-      lMapping = list(dfAE = list(strIDCol="not an id"),
-                      dfSUBJ=list(strIDCol="SubjectID",
-                      strSiteCol="SiteID",
-                      strTimeOnTreatmentCol="TimeOnTreatment")),
-      bQuiet = F
-      )
-    )
-
-  expect_snapshot(
-    AE_Map_Raw(
-      dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ),
-      lMapping = list(dfAE = list(strIDCol="SubjectID"),
-                      dfSUBJ=list(strIDCol="not an id",
-                                  strSiteCol="SiteID",
-                                  strTimeOnTreatmentCol="TimeOnTreatment")),
+      lMapping = list(
+        dfAE = list(strIDCol = "not an id"),
+        dfSUBJ = list(
+          strIDCol = "SubjectID",
+          strSiteCol = "SiteID",
+          strTimeOnTreatmentCol = "TimeOnTreatment"
+        )
+      ),
       bQuiet = F
     )
   )
 
+  expect_snapshot(
+    AE_Map_Raw(
+      dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ),
+      lMapping = list(
+        dfAE = list(strIDCol = "SubjectID"),
+        dfSUBJ = list(
+          strIDCol = "not an id",
+          strSiteCol = "SiteID",
+          strTimeOnTreatmentCol = "TimeOnTreatment"
+        )
+      ),
+      bQuiet = F
+    )
+  )
 })
 
 # # custom tests ------------------------------------------------------------
@@ -107,4 +113,3 @@ test_that("incorrect mappings throw errors",{
 #   expect_silent(AE_Map_Raw(dfAE, custom_subj, mapping = custom_mapping))
 #
 # })
-

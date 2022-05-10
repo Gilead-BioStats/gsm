@@ -6,7 +6,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   test1_2 <- AE_Assess(
     dfInput = dfInput,
     strMethod = "poisson",
-    vThreshold = c(-3,3),
+    vThreshold = c(-3, 3),
     bChart = FALSE
   )
 
@@ -31,7 +31,8 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
         Residuals > 3 ~ 1,
         is.na(Residuals) ~ NA_real_,
         is.nan(Residuals) ~ NA_real_,
-        TRUE ~ 0),
+        TRUE ~ 0
+      ),
     ) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -44,17 +45,21 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
     arrange(desc(abs(Score))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t1_2 <- list("strFunctionName" = "AE_Assess()",
-               "lParams" = list("dfInput" = "dfInput",
-                                "vThreshold" = c("c", "-3", "3"),
-                                "strMethod" = "poisson",
-                                "bChart" = "FALSE"),
-               "lTags" = list(Assessment = "AE"),
-               "dfInput" = t1_2_input,
-               "dfTransformed" = t1_2_transformed,
-               "dfAnalyzed" = t1_2_analyzed,
-               "dfFlagged" = t1_2_flagged,
-               "dfSummary" = t1_2_summary)
+  t1_2 <- list(
+    "strFunctionName" = "AE_Assess()",
+    "lParams" = list(
+      "dfInput" = "dfInput",
+      "vThreshold" = c("c", "-3", "3"),
+      "strMethod" = "poisson",
+      "bChart" = "FALSE"
+    ),
+    "lTags" = list(Assessment = "AE"),
+    "dfInput" = t1_2_input,
+    "dfTransformed" = t1_2_transformed,
+    "dfAnalyzed" = t1_2_analyzed,
+    "dfFlagged" = t1_2_flagged,
+    "dfSummary" = t1_2_summary
+  )
 
   # compare results
   expect_equal(test1_2, t1_2)

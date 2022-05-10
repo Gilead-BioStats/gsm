@@ -29,7 +29,8 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
         Residuals > 5 ~ 1,
         is.na(Residuals) ~ NA_real_,
         is.nan(Residuals) ~ NA_real_,
-        TRUE ~ 0),
+        TRUE ~ 0
+      ),
     ) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -43,16 +44,20 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
     arrange(match(Flag, c(1, -1, 0)))
 
 
-  t1_1 <- list("strFunctionName" = "AE_Assess()",
-             "lParams" = list("dfInput" = "dfInput",
-                              "strMethod" = "poisson",
-                              "bChart" = "FALSE"),
-             "lTags" = list(Assessment = "AE"),
-             "dfInput" = t1_input,
-             "dfTransformed" = t1_transformed,
-             "dfAnalyzed" = t1_analyzed,
-             "dfFlagged" = t1_flagged,
-             "dfSummary" = t1_summary)
+  t1_1 <- list(
+    "strFunctionName" = "AE_Assess()",
+    "lParams" = list(
+      "dfInput" = "dfInput",
+      "strMethod" = "poisson",
+      "bChart" = "FALSE"
+    ),
+    "lTags" = list(Assessment = "AE"),
+    "dfInput" = t1_input,
+    "dfTransformed" = t1_transformed,
+    "dfAnalyzed" = t1_analyzed,
+    "dfFlagged" = t1_flagged,
+    "dfSummary" = t1_summary
+  )
 
   # compare results
   expect_equal(test1_1, t1_1)

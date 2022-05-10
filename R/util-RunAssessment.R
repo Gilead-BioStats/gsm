@@ -17,14 +17,14 @@
 #' @examples
 #' lAssessments <- MakeAssessmentList()
 #' lData <- list(
-#'   dfSUBJ= clindata::rawplus_subj,
-#'   dfAE=clindata::rawplus_ae,
-#'   dfPD=clindata::rawplus_pd,
-#'   dfCONSENT=clindata::rawplus_consent,
-#'   dfIE=clindata::rawplus_ie
+#'   dfSUBJ = clindata::rawplus_subj,
+#'   dfAE = clindata::rawplus_ae,
+#'   dfPD = clindata::rawplus_pd,
+#'   dfCONSENT = clindata::rawplus_consent,
+#'   dfIE = clindata::rawplus_ie
 #' )
 #' lTags <- list(
-#'   Study="myStudy"
+#'   Study = "myStudy"
 #' )
 #' lMapping <- clindata::mapping_rawplus
 #'
@@ -33,18 +33,18 @@
 #'
 #' @export
 
-RunAssessment <- function(lAssessment, lData, lMapping, lTags=NULL, bQuiet=FALSE){
-  if(!bQuiet) cli::cli_h1(paste0("Initializing `",lAssessment$name,"` assessment"))
+RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = FALSE) {
+  if (!bQuiet) cli::cli_h1(paste0("Initializing `", lAssessment$name, "` assessment"))
 
   lAssessment$lData <- lData
   lAssessment$lChecks <- list()
   lAssessment$bStatus <- TRUE
 
   # Run through each step in lAssessment$workflow
-  stepCount<-1
-  for(step in lAssessment$workflow){
-    if(!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of " ,length(lAssessment$workflow), ": `", step$name,"`"))
-    if(lAssessment$bStatus){
+  stepCount <- 1
+  for (step in lAssessment$workflow) {
+    if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lAssessment$workflow), ": `", step$name, "`"))
+    if (lAssessment$bStatus) {
       result <- gsm::RunStep(
         lStep = step,
         lMapping = lMapping,
@@ -55,21 +55,20 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags=NULL, bQuiet=FALSE
 
       lAssessment$checks[[step$name]] <- result$lChecks
       lAssessment$bStatus <- result$lChecks$status
-      if(result$lChecks$status){
+      if (result$lChecks$status) {
         cli::cli_alert_success("{.fn {step$name}} Successful")
       } else {
         cli::cli_alert_warning("{.fn {step$name}} Failed - Skipping remaining steps")
       }
 
-      if(stringr::str_detect(step$output,"^df")){
+      if (stringr::str_detect(step$output, "^df")) {
         cli::cli_text("Saving {step$output} to `lAssessment$lData`")
-        lAssessment$lData[[step$output]]<-result$df
-      }else{
+        lAssessment$lData[[step$output]] <- result$df
+      } else {
         cli::cli_text("Saving {step$output} to `lAssessment`")
         lAssessment[[step$output]] <- result
       }
-
-    } else{
+    } else {
       cli::cli_text("Skipping {.fn {step$name}} ...")
     }
 
@@ -78,5 +77,3 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags=NULL, bQuiet=FALSE
 
   return(lAssessment)
 }
-
-

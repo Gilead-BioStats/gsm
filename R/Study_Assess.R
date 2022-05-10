@@ -37,10 +37,10 @@ Study_Assess <- function(
       dfIE = clindata::rawplus_ie
     )
   }
-    # lMapping from clindata
-    if(is.null(lMapping)){
-        lMapping <- clindata::mapping_rawplus
-    }
+  # lMapping from clindata
+  if (is.null(lMapping)) {
+    lMapping <- clindata::mapping_rawplus
+  }
 
   # lAssessments from gsm inst/assessments
   if (is.null(lAssessments)) {
