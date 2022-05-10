@@ -10,8 +10,13 @@ Study_AssessmentReport(lAssessments)
 \item{lAssessments}{List of 1+ assessments like those created by \code{runAssessment()} or \code{Study_Assess()}}
 }
 \value{
-returns a list containing a data.frame summarizing the checks \code{dfSummary} and a dataframe listing all checks (`dfAllChecks``)
+\code{list} Returns a list containing a data.frame summarizing the checks \code{dfSummary} and a dataframe listing all checks (\code{dfAllChecks})
 }
 \description{
 Make overview table with one row per assessment and one column per site showing flagged assessments.
+}
+\examples{
+assessment <- Study_Assess()
+report <- Study_AssessmentReport(lAssessments = assessment)
+
 }

@@ -19,7 +19,7 @@
 #' | `dfSUBJ` | `strIDCol`              | SubjectID       | Unique Subject Identifier | Yes       |
 #' | `dfSUBJ` | `strSiteCol`            | SiteID          | Site Identifier           | Yes       |
 #' | `dfSUBJ` | `strTimeOnTreatmentCol` | TimeOnTreatment | Number of Exposure Days   | Yes       |
-#' 
+#'
 #'
 #' Note that the function can generate data summaries for specific types of AEs by passing filtered
 #' adverse event data to `dfAE`.
@@ -46,8 +46,11 @@
 #' - `lChecks`: a named `list` of check results
 #'
 #' @examples
-#' dfInput <- AE_Map_Raw() # Run with defaults
-#' dfInput <- AE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
+#' # Run with defaults
+#' dfInput <- AE_Map_Raw()
+#'
+#' # Run with error checking and message log
+#' dfInput <- AE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @import dplyr
 #'

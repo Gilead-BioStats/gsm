@@ -34,7 +34,9 @@ results <- params$assessments %>%
   compact()
 allFindings <- results %>% 
   map_df(~.x$dfSummary)
-gsm::Study_Table(allFindings) %>% 
+table <- gsm::Study_Table(allFindings) 
+
+overview_tbl <- table$df_summary %>% 
   mutate(across(everything(), ~map(., ~gt::html(.)))) %>% 
   gt::gt() %>% 
   gt::tab_style(
@@ -57,6 +59,18 @@ gsm::Study_Table(allFindings) %>%
     ),
     locations = cells_body(columns = -Title, rows = 1:2)
   )
+
+if(!is.null(table$footnote)){
+    overview_tbl %>% 
+    gt::tab_footnote(
+    footnote = table$footnote, 
+    locations = cells_column_labels(
+      columns = Title
+    )
+  )
+} else {
+  overview_tbl
+}
 ```
 
 ```{js, class.source = "jsvis1", echo=FALSE}

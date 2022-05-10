@@ -68,7 +68,10 @@ adverse event data to \code{dfADAE}.
 }
 
 \examples{
-dfInput <- AE_Map_Adam() # Run with defaults
-dfInput <- AE_Map_Adam(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
+# Run with defaults
+dfInput <- AE_Map_Adam()
+
+# Run with error checking and message log
+dfInput <- AE_Map_Adam(bReturnChecks = TRUE, bQuiet = FALSE)
 
 }

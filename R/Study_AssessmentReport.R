@@ -7,7 +7,13 @@
 #' @importFrom gt gt
 #' @importFrom fontawesome fa
 #'
-#' @return returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks``)
+#' @return `list` Returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks`)
+#'
+#' @examples
+#' assessment <- Study_Assess()
+#' report <- Study_AssessmentReport(lAssessments = assessment)
+#'
+#' @export
 
 Study_AssessmentReport <- function(lAssessments) {
 
