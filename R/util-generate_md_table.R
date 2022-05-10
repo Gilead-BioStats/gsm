@@ -8,6 +8,7 @@
 #' @param spec `data.frame` data specification
 #' @param spec_path `character` file path of data specification
 #' @param out_path `character` file path of .md file
+#' @param header `character` section header
 #'
 #' @export
 
@@ -85,7 +86,8 @@ generate_md_table <- function(
     )
 
   # Reformat data frame as HTML table.
-  md <- kableExtra::kbl(table)
+  md <- knitr::kable(table, format = 'markdown') %>%
+    paste(collapse = '\n')
 
   # Append markdown header to HTML table.
   if (!is.null(header)) {
