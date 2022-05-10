@@ -1,7 +1,3 @@
-on:
-  pull_request:
-    branches: dev
-
 name: Style
 
 jobs:
