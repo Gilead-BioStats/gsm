@@ -44,102 +44,21 @@ data (from \code{dfADSL}). Note that the function can generate data summaries fo
 AEs by passing filtered AE data to \code{dfADAE}.
 }
 \section{Data specification}{
-\if{html}{\out{
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-domain
-</th>
-<th style="text-align:left;">
-col_key
-</th>
-<th style="text-align:left;">
-col_value
-</th>
-<th style="text-align:left;">
-vRequired
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-dfADSL
-</td>
-<td style="text-align:left;">
-strIDCol
-</td>
-<td style="text-align:left;">
-USUBJID
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-dfADSL
-</td>
-<td style="text-align:left;">
-strSiteCol
-</td>
-<td style="text-align:left;">
-SITEID
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-dfADSL
-</td>
-<td style="text-align:left;">
-strStartCol
-</td>
-<td style="text-align:left;">
-TRTSDT
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-dfADSL
-</td>
-<td style="text-align:left;">
-strEndCol
-</td>
-<td style="text-align:left;">
-TRTEDT
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-dfADAE
-</td>
-<td style="text-align:left;">
-strIDCol
-</td>
-<td style="text-align:left;">
-USUBJID
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-</tr>
-</tbody>
-</table>
-}}
+\tabular{llll}{
+   domain \tab col_key \tab col_value \tab vRequired \cr
+   dfADSL \tab strIDCol \tab USUBJID \tab TRUE \cr
+   dfADSL \tab strSiteCol \tab SITEID \tab TRUE \cr
+   dfADSL \tab strStartCol \tab TRTSDT \tab TRUE \cr
+   dfADSL \tab strEndCol \tab TRTEDT \tab TRUE \cr
+   dfADAE \tab strIDCol \tab USUBJID \tab TRUE \cr
+}
 }
 
 \examples{
-dfInput <- AE_Map_Adam() # Run with defaults
-dfInput <- AE_Map_Adam(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
+# Run with defaults
+dfInput <- AE_Map_Adam()
+
+# Run with error checking and message log
+dfInput <- AE_Map_Adam(bReturnChecks = TRUE, bQuiet = FALSE)
 
 }

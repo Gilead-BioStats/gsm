@@ -1,43 +1,8 @@
 # Data specification
 
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> domain </th>
-   <th style="text-align:left;"> col_key </th>
-   <th style="text-align:left;"> col_value </th>
-   <th style="text-align:left;"> vRequired </th>
-   <th style="text-align:left;"> vUniqueCols </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> dfSUBJ </td>
-   <td style="text-align:left;"> strIDCol </td>
-   <td style="text-align:left;"> SubjectID </td>
-   <td style="text-align:left;"> TRUE </td>
-   <td style="text-align:left;"> TRUE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> dfSUBJ </td>
-   <td style="text-align:left;"> strSiteCol </td>
-   <td style="text-align:left;"> SiteID </td>
-   <td style="text-align:left;"> TRUE </td>
-   <td style="text-align:left;"> FALSE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> dfSUBJ </td>
-   <td style="text-align:left;"> strTimeOnStudyCol </td>
-   <td style="text-align:left;"> TimeOnStudy </td>
-   <td style="text-align:left;"> TRUE </td>
-   <td style="text-align:left;"> FALSE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> dfPD </td>
-   <td style="text-align:left;"> strIDCol </td>
-   <td style="text-align:left;"> SubjectID </td>
-   <td style="text-align:left;"> TRUE </td>
-   <td style="text-align:left;"> NA </td>
-  </tr>
-</tbody>
-</table>
+|domain |col_key           |col_value   |vRequired |vUniqueCols |
+|:------|:-----------------|:-----------|:---------|:-----------|
+|dfSUBJ |strIDCol          |SubjectID   |TRUE      |TRUE        |
+|dfSUBJ |strSiteCol        |SiteID      |TRUE      |FALSE       |
+|dfSUBJ |strTimeOnStudyCol |TimeOnStudy |TRUE      |FALSE       |
+|dfPD   |strIDCol          |SubjectID   |TRUE      |NA          |

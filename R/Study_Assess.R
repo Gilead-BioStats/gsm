@@ -50,7 +50,7 @@ Study_Assess <- function(
 
     ### --- Attempt to run each assessment --- ###
     lAssessments <- lAssessments %>% map(
-        ~RunAssessment(.x, lData=lData, lMapping=lMapping, lTags=lTags, bQuiet=bQuiet)
+        ~gsm::RunAssessment(.x, lData=lData, lMapping=lMapping, lTags=lTags, bQuiet=bQuiet)
     )
 
     return(lAssessments)

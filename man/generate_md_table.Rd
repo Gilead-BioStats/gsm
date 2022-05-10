@@ -26,6 +26,8 @@ generate_md_table(
 \item{spec_path}{\code{character} file path of data specification}
 
 \item{out_path}{\code{character} file path of .md file}
+
+\item{header}{\code{character} section header}
 }
 \description{
 Combine data mapping and specification then output as markdown table.
