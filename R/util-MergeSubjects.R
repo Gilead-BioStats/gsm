@@ -11,10 +11,15 @@
 #' @importFrom dplyr left_join
 #' @importFrom tidyr replace_na
 #'
+#' @examples
+#' MergeSubjects(dfDomain = clindata::rawplus_consent,
+#'               dfSubjects = clindata::rawplus_subj,
+#'               strIDCol = "SubjectID")
+#'
 #' @export
 
 MergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=NULL, bQuiet=TRUE){
-    is_domain_valid <- is_mapping_valid(
+    is_domain_valid <- gsm::is_mapping_valid(
         df = dfDomain,
         mapping = list('strIDCol'=strIDCol),
         spec=list(
@@ -24,7 +29,7 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
         bQuiet=bQuiet
     )
 
-    is_subjects_valid <- is_mapping_valid(
+    is_subjects_valid <- gsm::is_mapping_valid(
         df = dfSubjects,
         mapping = list('strIDCol'=strIDCol),
         spec=list(

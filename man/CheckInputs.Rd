@@ -9,15 +9,31 @@ CheckInputs(context, dfs, mapping = NULL, bQuiet = TRUE)
 \arguments{
 \item{context}{Description of the data pipeline "step" that is being checked, i.e., "AE_Map_Raw" or "PD_Assess".}
 
-\item{dfs}{list of data frames.}
+\item{dfs}{\code{list} A list of data frames.}
 
-\item{mapping}{YAML mapping for a given context.}
+\item{mapping}{\code{list} YAML mapping for a given context.}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-list
+\code{list} Checks, a named list with:
+\itemize{
+\item a \code{list} containing each data.frame that was checked
+\itemize{
+\item status \code{logical} - did the data.frame pass the checks?
+\item tests_if \code{list} - a named list containing status and warnings for all checks
+}
+\item status \code{logical} - did all checked data pass the checks?
+}
 }
 \description{
 Check mapping inputs
+}
+\examples{
+checks <- CheckInputs(
+  context = "AE_Assess",
+  dfs = list(dfInput = AE_Map_Raw()),
+  bQuiet = TRUE
+)
+
 }
