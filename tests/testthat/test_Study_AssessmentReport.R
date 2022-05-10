@@ -38,3 +38,8 @@ test_that("Assessment Report fails with wrong input", {
     expect_error(Study_AssessmentReport(lAssessments = list()))
 })
 
+test_that("bViewReport works", {
+  lAssessments <- Study_Assess(lData = lData, bQuiet=TRUE)
+  view_true <- Study_AssessmentReport(lAssessments=lAssessments, bViewReport = TRUE)
+  expect_true("gt_tbl" %in% class(view_true))
+})
