@@ -57,6 +57,10 @@ jobs:
 
       - uses: r-lib/actions/check-r-package@v1
 
+      - name: build pkgdown reference index
+        run: pkgdown::build_reference_index()
+        shell: Rscript {0}
+
       - name: Show testthat output
         if: always()
         run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true

@@ -44,5 +44,6 @@ Notes:
 - [ ] All QC Checklists in this PR are complete
 - [ ] GitHub actions on this PR are all passing
 - [ ] Run `spell_check()`
+- [ ] Build site `pkgdown::build_site()` and check that all affected examples are displayed correctly and that all new functions occur on the "[Reference](https://silver-potato-cfe8c2fb.pages.github.io/reference/index.html)" page. 
 - [ ] Draft GitHub release created using automatic template and updated with additional details. Remember to click "release" after PR is merged.  
 
