@@ -68,8 +68,8 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
             logo_out <- "?"
         }
         logo_out %>%
-            as.character(.data) %>%
-            gt::html(.data)
+            as.character(.) %>%
+            gt::html(.)
     }
 
 

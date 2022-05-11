@@ -103,7 +103,11 @@ for (assessment in results){
     #         TRUE ~ as.character(round(PValue,2))
     #     )
     # )
-    label <- ifelse(assessment$lTags$Assessment == assessment$lTags$Label, assessment$lTags$Assessment, paste(assessment$lTags$Assessment,"-",assessment$lTags$Label))
+    label <- ifelse(
+      assessment$lTags$Assessment == assessment$lTags$Label, 
+      assessment$lTags$Assessment, 
+      paste(assessment$lTags$Assessment,"-",assessment$lTags$Label))
+    
     cat("<h2 style='border-top:2px solid black; border-bottom:2px solid black; text-align:center; padding:3px;'> <small>Assessment Details</small><br>", label, "</h2>")
     cat("<h3>Summary Chart</h3>")
     print(assessment$chart) 
@@ -128,8 +132,14 @@ for (assessment in results){
     cat("<div><button onclick='showDetails(this)'>Show details</button>")
     cat("<div class='detail-wrap' style='display:none'>")
     cat("<h3>Model Details</h3>")
+
+details <- assessment$dfFlagged %>%
+  filter(Flag !=0) %>% 
+  {if("TotalCount" %in% names(.)) arrange(., match(TotalCount, flagged$Score)) else .} %>% 
+  {if("PValue" %in% names(.)) arrange(., match(PValue, flagged$Score)) else .} %>% 
+  {if("Residuals" %in% names(.)) arrange(., match(Residuals, flagged$Score)) else .} 
+
     
-    details<- assessment$dfFlagged %>%filter(Flag !=0)
     if(nrow(details)>0){
         details%>%
         kbl(escape=FALSE) %>% 
@@ -145,6 +155,7 @@ for (assessment in results){
     cat("</div></div>")
 }
 ```
+
 
 # Appendix - Data Check Summary
 
