@@ -1,7 +1,7 @@
 # incorrect inputs throw errors
 
     Code
-      IE_Map_Raw(dfs = list(dfIE = list(), dfSUBJ = list), bQuiet = F)
+      IE_Map_Raw(dfs = list(dfIE = list(), dfSUBJ = list()), bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Map_Raw()` --
