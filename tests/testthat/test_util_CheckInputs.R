@@ -64,4 +64,28 @@ test_that("common errors are caught", {
                "1 NA values found in column: SubjectID")
 })
 
+test_that("more than 2 data.frames are mapped accordingly", {
+  dfInputThree <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ, dfOTHER = dfIE))
+  dfInput <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
 
+  expect_equal(dfInput, dfInputThree)
+  expect_equal(class(dfInput), "data.frame")
+  expect_equal(class(dfInputThree), "data.frame")
+
+})
+
+test_that("unnamed list objects return FALSE", {
+  dfInput <- CheckInputs(context = "IE_Assess", dfs = list(dfAE, dfSUBJ))
+
+  expect_type(dfInput, "list")
+  expect_false(dfInput$status)
+  expect_false(dfInput$dfInput$status)
+})
+
+test_that("mismatched (context + dfs) returns FALSE", {
+  dfInput <- CheckInputs(context = "IE_Assess", dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
+
+  expect_type(dfInput, "list")
+  expect_false(dfInput$status)
+  expect_false(dfInput$dfInput$status)
+})
