@@ -16,16 +16,16 @@
 #'
 #' @export
 
-Study_Report <- function(strAssessments, lMeta, strOutpath=NULL){
-    if(is.null(strOutpath)) strOutpath <- paste0(getwd(),"/gsm_report.html")
-    projectTemplate <- system.file("report","studySummary.rmd", package = "gsm")
-    rmarkdown::render(
-        projectTemplate,
-        output_file = strOutpath,
-        params = list(
-            assessments=strAssessments,
-            meta=lMeta
-        ),
-        envir = new.env(parent = globalenv())  ## eval in child of global env
-    )
+Study_Report <- function(strAssessments, lMeta, strOutpath = NULL) {
+  if (is.null(strOutpath)) strOutpath <- paste0(getwd(), "/gsm_report.html")
+  projectTemplate <- system.file("report", "studySummary.rmd", package = "gsm")
+  rmarkdown::render(
+    projectTemplate,
+    output_file = strOutpath,
+    params = list(
+      assessments = strAssessments,
+      meta = lMeta
+    ),
+    envir = new.env(parent = globalenv()) ## eval in child of global env
+  )
 }

@@ -22,31 +22,31 @@
 #'
 #' @export
 
-Visualize_Count <- function(dfAnalyzed, strTotalCol="N", strCountCol="TotalCount", strTitle="") {
-    stopifnot(
-        "strTotalCol must be character" = is.character(strTotalCol),
-        "strTotalCol not found in dfAnalyzed" = strTotalCol %in% names(dfAnalyzed),
-        "strCountCol must be character" = is.character(strCountCol),
-        "strCountCol not found in dfAnalyzed" = strCountCol %in% names(dfAnalyzed),
-        "strTitle must be character" = is.character(strTitle)
-    )
+Visualize_Count <- function(dfAnalyzed, strTotalCol = "N", strCountCol = "TotalCount", strTitle = "") {
+  stopifnot(
+    "strTotalCol must be character" = is.character(strTotalCol),
+    "strTotalCol not found in dfAnalyzed" = strTotalCol %in% names(dfAnalyzed),
+    "strCountCol must be character" = is.character(strCountCol),
+    "strCountCol not found in dfAnalyzed" = strCountCol %in% names(dfAnalyzed),
+    "strTitle must be character" = is.character(strTitle)
+  )
 
-p <- ggplot(
-        data = dfAnalyzed,
-        aes(x = reorder(.data$SiteID, -.data$N))
-    ) +
+  p <- ggplot(
+    data = dfAnalyzed,
+    aes(x = reorder(.data$SiteID, -.data$N))
+  ) +
     geom_bar(aes(y = .data[[strTotalCol]]), stat = "identity", color = "black", fill = "white") +
     geom_bar(aes(y = .data[[strCountCol]]), stat = "identity", fill = "red") +
     ggtitle(strTitle) +
     labs(
-        x = "Site ID",
-        y = "Event Count"
+      x = "Site ID",
+      y = "Event Count"
     ) +
     theme(
-        panel.grid.major.x = element_blank(),
-        axis.text.x = element_text(angle=90, vjust = 0.5),
-        legend.position="none"
+      panel.grid.major.x = element_blank(),
+      axis.text.x = element_text(angle = 90, vjust = 0.5),
+      legend.position = "none"
     )
 
-    return(p)
+  return(p)
 }

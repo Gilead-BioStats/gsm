@@ -33,34 +33,33 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
-#' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
-#' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed , strOutcome ="Rate")
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, strOutcome = "Rate")
 #'
 #' @export
 
-Analyze_Wilcoxon <- function(dfTransformed , strOutcome = "Rate") {
+Analyze_Wilcoxon <- function(dfTransformed, strOutcome = "Rate") {
+  stopifnot(
+    "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
+    "One or more of these columns: SiteID, N, or the value in strOutcome not found in dfTransformed" = all(c("SiteID", "N", strOutcome) %in% names(dfTransformed)),
+    "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]])),
+    "strOutcome must be length 1" = length(strOutcome) == 1,
+    "strOutcome is not character" = is.character(strOutcome)
+  )
 
-    stopifnot(
-        "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-        "One or more of these columns: SiteID, N, or the value in strOutcome not found in dfTransformed" = all(c("SiteID", "N", strOutcome) %in% names(dfTransformed)),
-        "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]])),
-        "strOutcome must be length 1" = length(strOutcome) == 1,
-        "strOutcome is not character" = is.character(strOutcome)
-    )
+  wilcoxon_model <- function(site) {
+    form <- as.formula(paste0(strOutcome, " ~ as.character(SiteID) =='", site, "'"))
+    stats::wilcox.test(form, exact = FALSE, conf.int = TRUE, data = dfTransformed)
+  }
 
-    wilcoxon_model <- function(site){
-        form <- as.formula(paste0(strOutcome," ~ as.character(SiteID) =='", site,"'"))
-        stats::wilcox.test(form, exact = FALSE, conf.int = TRUE, data=dfTransformed)
-    }
+  dfAnalyzed <- dfTransformed %>%
+    mutate(model = map(.data$SiteID, wilcoxon_model)) %>%
+    mutate(summary = map(.data$model, broom::glance)) %>%
+    tidyr::unnest(summary) %>%
+    mutate(Estimate = .data$estimate * -1) %>%
+    rename(PValue = .data[["p.value"]]) %>%
+    arrange(.data$PValue) %>%
+    select(.data$SiteID, .data$N, .data$TotalCount, .data$TotalExposure, .data$Rate, .data$Estimate, .data$PValue)
 
-    dfAnalyzed <- dfTransformed %>%
-        mutate(model = map(.data$SiteID, wilcoxon_model)) %>%
-        mutate(summary = map(.data$model, broom::glance)) %>%
-        tidyr::unnest(summary) %>%
-        mutate(Estimate = .data$estimate *-1) %>%
-        rename(PValue = .data[['p.value']]) %>%
-        arrange(.data$PValue) %>%
-        select( .data$SiteID, .data$N, .data$TotalCount, .data$TotalExposure, .data$Rate, .data$Estimate, .data$PValue)
-
-    return(dfAnalyzed)
+  return(dfAnalyzed)
 }

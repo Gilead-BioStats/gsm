@@ -1,8 +1,8 @@
 test_that("IE assessment can return a correctly assessed data frame grouped by the study variableand the results should be flagged correctly when done in an iterative loop", {
   test3_3 <- list()
-  t3_3  <- list()
+  t3_3 <- list()
 
-  for(protocol in unique(clindata::rawplus_ie$IE_PROTOCOLVERSION)){
+  for (protocol in unique(clindata::rawplus_ie$IE_PROTOCOLVERSION)) {
     dfInput <- IE_Map_Raw(
       dfs = list(
         dfIE = clindata::rawplus_ie %>% dplyr::filter(IE_PROTOCOLVERSION == protocol),
@@ -12,10 +12,11 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
 
     # gsm
     test3_3 <- c(test3_3,
-                 protocol = IE_Assess(
-                   dfInput = dfInput,
-                   bChart = FALSE
-                 ))
+      protocol = IE_Assess(
+        dfInput = dfInput,
+        bChart = FALSE
+      )
+    )
 
     # Double Programming
     t3_3_input <- dfInput
@@ -37,7 +38,8 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
           Estimate > 0.5 ~ 1,
           is.na(Estimate) ~ NA_real_,
           is.nan(Estimate) ~ NA_real_,
-          TRUE ~ 0),
+          TRUE ~ 0
+        ),
       ) %>%
       arrange(match(Flag, c(1, -1, 0)))
 
@@ -51,15 +53,20 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
       arrange(match(Flag, c(1, -1, 0)))
 
     t3_3 <- c(t3_3,
-              protocol = list("strFunctionName" = "IE_Assess()",
-                              "lParams" = list("dfInput" = "dfInput",
-                                               "bChart" = "FALSE"),
-                              "lTags" = list(Assessment = "IE"),
-                              "dfInput" = t3_3_input,
-                              "dfTransformed" = t3_3_transformed,
-                              "dfAnalyzed" = t3_3_analyzed,
-                              "dfFlagged" = t3_3_flagged,
-                              "dfSummary" = t3_3_summary))
+      protocol = list(
+        "strFunctionName" = "IE_Assess()",
+        "lParams" = list(
+          "dfInput" = "dfInput",
+          "bChart" = "FALSE"
+        ),
+        "lTags" = list(Assessment = "IE"),
+        "dfInput" = t3_3_input,
+        "dfTransformed" = t3_3_transformed,
+        "dfAnalyzed" = t3_3_analyzed,
+        "dfFlagged" = t3_3_flagged,
+        "dfSummary" = t3_3_summary
+      )
+    )
   }
 
   # compare results

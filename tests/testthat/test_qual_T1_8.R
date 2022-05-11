@@ -1,16 +1,20 @@
 test_that("AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable and the results should be flagged correctly when done in an iterative loop", {
   test1_8 <- list()
-  t1_8  <- list()
+  t1_8 <- list()
 
-  for(severity in unique(clindata::rawplus_ae$AE_GRADE)){
-    dfInput <- AE_Map_Raw(dfs = list(dfAE = filter(clindata::rawplus_ae, AE_GRADE == severity),
-                                           dfSUBJ = clindata::rawplus_subj))
+  for (severity in unique(clindata::rawplus_ae$AE_GRADE)) {
+    dfInput <- AE_Map_Raw(dfs = list(
+      dfAE = filter(clindata::rawplus_ae, AE_GRADE == severity),
+      dfSUBJ = clindata::rawplus_subj
+    ))
 
     # gsm
     test1_8 <- c(test1_8,
-                 severity = AE_Assess(dfInput,
-                                      strMethod = "wilcoxon",
-                                      bChart = FALSE))
+      severity = AE_Assess(dfInput,
+        strMethod = "wilcoxon",
+        bChart = FALSE
+      )
+    )
 
     # Double Programming
     t1_8_input <- dfInput
@@ -33,12 +37,14 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
           PValue < 0.0001 ~ -1,
           is.na(PValue) ~ NA_real_,
           is.nan(PValue) ~ NA_real_,
-          TRUE ~ 0),
+          TRUE ~ 0
+        ),
         median = median(Estimate),
         Flag = case_when(
           Flag != 0 & Estimate >= median ~ 1,
           Flag != 0 & Estimate < median ~ -1,
-          TRUE ~ Flag)
+          TRUE ~ Flag
+        )
       ) %>%
       select(-median) %>%
       arrange(match(Flag, c(1, -1, 0)))
@@ -53,18 +59,21 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
       arrange(match(Flag, c(1, -1, 0)))
 
     t1_8 <- c(t1_8,
-              severity = list("strFunctionName" = "AE_Assess()",
-                              "lParams" = list("dfInput" = "dfInput",
-                                               "strMethod" = "wilcoxon",
-                                               "bChart" = "FALSE"),
-                              "lTags" = list(Assessment = "AE"),
-                              "dfInput" = t1_8_input,
-                              "dfTransformed" = t1_8_transformed,
-                              "dfAnalyzed" = t1_8_analyzed,
-                              "dfFlagged" = t1_8_flagged,
-                              "dfSummary" = t1_8_summary))
-
-
+      severity = list(
+        "strFunctionName" = "AE_Assess()",
+        "lParams" = list(
+          "dfInput" = "dfInput",
+          "strMethod" = "wilcoxon",
+          "bChart" = "FALSE"
+        ),
+        "lTags" = list(Assessment = "AE"),
+        "dfInput" = t1_8_input,
+        "dfTransformed" = t1_8_transformed,
+        "dfAnalyzed" = t1_8_analyzed,
+        "dfFlagged" = t1_8_flagged,
+        "dfSummary" = t1_8_summary
+      )
+    )
   }
 
   # compare results

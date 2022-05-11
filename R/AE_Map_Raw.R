@@ -57,13 +57,13 @@
 #' @export
 
 AE_Map_Raw <- function(
-    dfs = list(
-      dfAE = clindata::rawplus_ae,
-      dfSUBJ = clindata::rawplus_subj
-    ),
-    lMapping = clindata::mapping_rawplus,
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
+  dfs = list(
+    dfAE = clindata::rawplus_ae,
+    dfSUBJ = clindata::rawplus_subj
+  ),
+  lMapping = clindata::mapping_rawplus,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 ) {
   checks <- CheckInputs(
     context = "AE_Map_Raw",
