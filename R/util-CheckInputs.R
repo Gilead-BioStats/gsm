@@ -5,6 +5,7 @@
 #' @param mapping `list` YAML mapping for a given context.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
+#' @import purrr
 #' @importFrom yaml read_yaml
 #'
 #' @examples
