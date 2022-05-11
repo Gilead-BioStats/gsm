@@ -14,7 +14,7 @@ test_that("output created as expected", {
 
 # incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors",{
-  expect_snapshot(IE_Map_Raw(dfs = list(dfIE = list(), dfSUBJ = list), bQuiet = F))
+  expect_snapshot(IE_Map_Raw(dfs = list(dfIE = list(), dfSUBJ = list()), bQuiet = F))
   expect_snapshot(IE_Map_Raw(dfs = list(dfIE = "Hi", dfSUBJ = "Mom"), bQuiet = F))
   expect_snapshot(IE_Map_Raw(dfs = list(dfIE = dfIE %>% select(-SubjectID), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(IE_Map_Raw(dfs = list(dfIE = dfIE %>% select(-IE_CATEGORY), dfSUBJ = dfSUBJ), bQuiet = F))

@@ -88,7 +88,11 @@
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
-      ! Checks not run for `mapping` because data/metadata not provided, or `mapping` is named incorrectly.
+      x df is not a data.frame()
+      x the following columns not found in df: USUBJID
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
       ! Issues found for `AE_Map_Adam()`
       ! `AE_Map_Adam()` not run because of failed check.
     Output

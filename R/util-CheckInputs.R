@@ -42,9 +42,13 @@ CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
                                      mapping = domain_check$mapping,
                                      spec = domain_check$spec,
                                      bQuiet = bQuiet)
+
       return(check)
 
-    })
+    }) %>%
+      purrr::set_names(nm = names(spec))
+
+
 
     checks$status <- all(checks %>% purrr::map_lgl(~.x$status))
 

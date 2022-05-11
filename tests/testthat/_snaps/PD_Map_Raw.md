@@ -88,7 +88,12 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      ! Checks not run for `dfSUBJ` because data/metadata not provided, or `dfSUBJ` is named incorrectly.
+      x "mapping" does not contain required parameters: strIDCol
+      x mapping is not a list()
+      x Non-character column names found in mapping: 
+      x "mapping" does not contain required parameters: strIDCol, strSiteCol, strTimeOnStudyCol
+      x mapping is not a list()
+      x Non-character column names found in mapping: 
       ! Issues found for `PD_Map_Raw()`
       ! `AE_Map_Raw()` not run because of failed check.
     Output
