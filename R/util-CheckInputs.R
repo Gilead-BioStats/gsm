@@ -29,16 +29,14 @@ CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
 
     if(is.null(mapping)) mapping <- yaml::read_yaml(system.file('mappings', paste0(context,'.yaml'), package = 'gsm'))
 
-    domains <- names(spec)
-
-    checks <- map(domains, function(domain){
+    checks <- map(names(spec), function(domain){
 
       domain_check <- list(
         df = dfs[[domain]],
         spec = spec[[domain]],
         mapping = mapping[[domain]]
         ) %>%
-        map(~modify_if(.x, is.null, ~ NA))
+        purrr::map(~purrr::modify_if(.x, is.null, ~ NA))
 
         check <- gsm::is_mapping_valid(df = domain_check$df,
                                      mapping = domain_check$mapping,
@@ -47,54 +45,8 @@ CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
       return(check)
 
     })
-browser()
 
-    df<-ifelse(hasProperty(dfs, domain), dfs[[domain]],NA)
-    spec<-ifelse(hasProperty(spec, domain), spec[[domain]],NA)
-    mapping <- ifelse(hasProperty(mapping, domain), mapping[[domain]],NA)
-
-    if(all(hasName(dfs, domains) & hasName(mapping, domains))){
-      checks <- domains %>%
-        map(function(domain){
-          check <- gsm::is_mapping_valid(df = dfs[[domain]],
-                                         mapping = mapping[[domain]],
-                                         spec = spec[[domain]],
-                                         bQuiet = bQuiet)
-          return(check)
-        }) %>%
-        set_names(nm = domains)
-    } else if (is.null(names(dfs))){
-      if(!bQuiet) cli::cli_alert_warning("Checks not run because dfs are not named.")
-      checks <- map(1:length(dfs), ~list(status = FALSE,
-                                         tests_if = list(is_data_frame = list(status = NA, warning = NA),
-                                                         has_required_params = list(status = NA, warning = NA),
-                                                         spec_is_list = list(status = NA, warning = NA),
-                                                         mapping_is_list = list(status = NA, warning = NA),
-                                                         mappings_are_character = list(status = NA, warning = NA),
-                                                         has_expected_columns = list(status = NA, warning = NA),
-                                                         columns_have_na = list(status = NA, warning = NA),
-                                                         columns_have_empty_values = list(status = NA, warning = NA),
-                                                         cols_are_unique = list(status = NA, warning = NA))))
-
-    } else {
-      checks <- list()
-      for(missing in names(dfs)){
-        if(is.na(missing)) missing <- domains[!domains %in% names(dfs)]
-        checks[[missing]] <- list(status = FALSE,
-                                  tests_if = list(is_data_frame = list(status = NA, warning = NA),
-                                                  has_required_params = list(status = NA, warning = NA),
-                                                  spec_is_list = list(status = NA, warning = NA),
-                                                  mapping_is_list = list(status = NA, warning = NA),
-                                                  mappings_are_character = list(status = NA, warning = NA),
-                                                  has_expected_columns = list(status = NA, warning = NA),
-                                                  columns_have_na = list(status = NA, warning = NA),
-                                                  columns_have_empty_values = list(status = NA, warning = NA),
-                                                  cols_are_unique = list(status = NA, warning = NA)))
-      }
-      if(!bQuiet) cli::cli_alert_warning("Checks not run for {.var {missing}} because data/metadata not provided, or {.var {missing}} is named incorrectly.")
-    }
-
-    checks$status <- all(checks %>% map_lgl(~.x$status))
+    checks$status <- all(checks %>% purrr::map_lgl(~.x$status))
 
     if(checks$status) {
       if(!bQuiet) cli::cli_alert_success("No issues found for {.fn {context}}")
