@@ -1,9 +1,13 @@
+# gsm v0.4.1
+
+This release includes signification documentation updates as well as minor bug fixes and expanded unit testing.
+
 # gsm v0.4.0
 
 This release includes a refactor to the gsm data workflow in preparation for a v1 release. Updates include:
 
 - `*_Map_Raw()` functions have default input parameters from `{clindata}`
-- `*_Map_Raw()` and `*_Assess()` functions now have options for verbose workflow commmenting (when `bQuiet == FALSE`), and an option to return an error log (`bReturnChecks == TRUE`)
+- `*_Map_Raw()` and `*_Assess()` functions now have options for verbose workflow commenting (when `bQuiet == FALSE`), and an option to return an error log (`bReturnChecks == TRUE`)
 - `YAML` mappings now provide mappings for the overall data pipeline
 - Added `Study_Assess()`: returns a full list of default mappings and assessments.
 - Added `Study_*()` functions to assist in report analyses.
