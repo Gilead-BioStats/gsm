@@ -67,9 +67,7 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
         if (!status %in% c(TRUE, FALSE)) {
             logo_out <- "?"
         }
-        logo_out %>%
-            as.character(.data) %>%
-            gt::html(.data)
+        gt::html(as.character(logo_out))
     }
 
 
