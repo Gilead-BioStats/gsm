@@ -23,6 +23,7 @@ Study_Assess <- function(
     lData=NULL,
     lMapping=NULL,
     lAssessments=NULL,
+    lSubjFilters=NULL,
     lTags=list(Study="myStudy"),
     bQuiet=FALSE
 ){
@@ -47,6 +48,19 @@ Study_Assess <- function(
     if(is.null(lAssessments)){
         lAssessments <- MakeAssessmentList()
     }
+browser()
+    # Filter data$dfSUBJ based on lSubjFilters --------------------------------
+    if (!is.null(lSubjFilters)) {
+      for (colMapping in names(lSubjFilters)) {
+        if(!hasName(lMapping$dfSUBJ, colMapping)) {
+          stop(paste0("`",colMapping, "` from lSubjFilters is not specified in lMapping$dfSUBJ"))
+        }
+        col <- lMapping$dfSUBJ[[colMapping]]
+        vals <- lSubjFilters[[colMapping]]
+        lData$dfSUBJ <- FilterDomain(df = lData$dfSUBJ, strDomain = 'dfSUBJ', lMapping = lMapping, strColParam = col, strValParam = vals, bQuiet = bQuiet)
+      }
+    }
+
 
     ### --- Attempt to run each assessment --- ###
     lAssessments <- lAssessments %>% map(
