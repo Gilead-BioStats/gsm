@@ -36,9 +36,9 @@ PD_Assess(
 \itemize{
 \item \code{dfInput}
 \item \code{dfTransformed}, returned by {gsm::Transform_EventCount()}
-\item \code{dfAnalyzed}, returned by {gsm::dfAnalyzed()}
-\item \code{dfFlagged}, returned by {gsm::dfFlagged()}
-\item \code{dfSummary}, returned by {gsm::dfSummary()}
+\item \code{dfAnalyzed}, returned by {gsm::Analyze_Poisson} or {gsm::Analyze_Wilcoxon}
+\item \code{dfFlagged}, returned by {gsm::Flag()}
+\item \code{dfSummary}, returned by {gsm::Summarize()}
 }
 \item assessment metadata
 \itemize{

@@ -5,4 +5,4 @@
 |dfSUBJ |strIDCol              |SubjectID       |TRUE      |TRUE        |
 |dfSUBJ |strSiteCol            |SiteID          |TRUE      |FALSE       |
 |dfSUBJ |strTimeOnTreatmentCol |TimeOnTreatment |TRUE      |FALSE       |
-|dfAE   |strIDCol              |SubjectID       |TRUE      |NA          |
+|dfAE   |strIDCol              |SubjectID       |TRUE      |            |

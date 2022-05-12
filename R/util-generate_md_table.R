@@ -86,6 +86,8 @@ generate_md_table <- function(
     )
 
   # Reformat data frame as HTML table.
+  knitr.kable.NA <- options(knitr.kable.NA = '')
+  on.exit(knitr.kable.NA)
   md <- knitr::kable(table, format = 'markdown') %>%
     paste(collapse = '\n')
 

@@ -7,12 +7,12 @@
       -- Checking Input Data for `AE_Map_Adam()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: USUBJID, SITEID, TRTSDT, TRTEDT
+      x the following columns not found in df: USUBJID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: USUBJID
+      x the following columns not found in df: USUBJID, SITEID, TRTSDT, TRTEDT
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -66,12 +66,12 @@
       -- Checking Input Data for `AE_Map_Adam()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: USUBJID, SITEID, TRTSDT, TRTEDT
+      x the following columns not found in df: USUBJID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: USUBJID
+      x the following columns not found in df: USUBJID, SITEID, TRTSDT, TRTEDT
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run

@@ -21,9 +21,9 @@
 #' - each data frame in the data pipeline
 #'   - `dfInput`
 #'   - `dfTransformed`, returned by {gsm::Transform_EventCount()}
-#'   - `dfAnalyzed`, returned by {gsm::dfAnalyzed()}
-#'   - `dfFlagged`, returned by {gsm::dfFlagged()}
-#'   - `dfSummary`, returned by {gsm::dfSummary()}
+#'   - `dfAnalyzed`, returned by {gsm::Analyze_Poisson} or {gsm::Analyze_Wilcoxon}
+#'   - `dfFlagged`, returned by {gsm::Flag()}
+#'   - `dfSummary`, returned by {gsm::Summarize()}
 #' - assessment metadata
 #'   - `strFunctionName`
 #'   - `lParams`

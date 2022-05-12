@@ -1,7 +1,7 @@
 #' Inclusion/Exclusion Assessment - Raw Mapping
 #'
 #' @description
-#' Convert raw inclusion/exclusion (IE) data, typically processed case report from data, to formatted
+#' Convert raw inclusion/exclusion (IE) data, typically processed case report form data, to formatted
 #' input data to {gsm::IE_Assess()}.
 #'
 #' @details

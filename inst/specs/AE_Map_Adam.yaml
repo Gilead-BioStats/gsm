@@ -1,9 +1,11 @@
+dfADAE:
+  vRequired:
+    - strIDCol
 dfADSL:
   vRequired:
     - strIDCol
     - strSiteCol
     - strStartCol
     - strEndCol
-dfADAE:
-  vRequired:
+  vUniqueCols:
     - strIDCol

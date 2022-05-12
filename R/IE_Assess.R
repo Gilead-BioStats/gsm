@@ -22,9 +22,9 @@
 #' - each data frame in the data pipeline
 #'   - `dfInput`
 #'   - `dfTransformed`, returned by {gsm::Transform_EventCount()}
-#'   - `dfAnalyzed`, returned by {gsm::dfAnalyzed()}
-#'   - `dfFlagged`, returned by {gsm::dfFlagged()}
-#'   - `dfSummary`, returned by {gsm::dfSummary()}
+#'   - `dfAnalyzed`, a copy of `dfTransformed` and input to `gsm::Flag`
+#'   - `dfFlagged`, returned by {gsm::Flag()}
+#'   - `dfSummary`, returned by {gsm::Summarize()}
 #' - assessment metadata
 #'   - `strFunctionName`
 #'   - `lParams`
@@ -62,8 +62,8 @@ IE_Assess <- function(
       "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
     )
 
-    if (any(unname(map_dbl(lTags, ~ length(.))) > 1)) {
-      lTags <- map(lTags, ~ paste(.x, collapse = ", "))
+    if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {
+      lTags <- purrr::map(lTags, ~ paste(.x, collapse = ", "))
     }
   }
 

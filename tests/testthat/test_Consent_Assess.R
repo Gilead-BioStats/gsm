@@ -56,7 +56,7 @@ test_that("incorrect lTags throw errors",{
 # custom tests ------------------------------------------------------------
 test_that('dfAnalyzed has appropriate model output regardless of statistical method', {
     assessment <- Consent_Assess(consentInput)
-    expect_true(all(c('Estimate') %in% names(assessment$dfAnalyzed)))
+    expect_true(hasName(assessment$dfAnalyzed, 'Estimate'))
 })
 
 test_that("bQuiet works as intended", {
