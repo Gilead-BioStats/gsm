@@ -1,6 +1,6 @@
 # gsm v0.4.1
 
-This release includes signification documentation updates as well as minor bug fixes and expanded unit testing.
+This release includes significant documentation updates as well as minor bug fixes and expanded unit testing.
 
 # gsm v0.4.0
 
