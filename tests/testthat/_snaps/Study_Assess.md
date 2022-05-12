@@ -176,8 +176,6 @@
       
       -- Checking Input Data for `Consent_Assess()` --
       
-      -- Checking Input Data for `Consent_Assess()` --
-      
       v No issues found for `Consent_Assess()`
       
       -- Initializing `Consent_Assess()` --
@@ -263,7 +261,7 @@
       ! 2 ID(s) in subject data not found in domain data.
       These participants will have 0s imputed for the following domain data columns: Count. 
       NA's will be imputed for all other columns.
-      v `AE_Map_Raw()` returned output with 3 rows.
+      v `PD_Map_Raw()` returned output with 3 rows.
       v `PD_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       
@@ -286,6 +284,7 @@
       v `Analyze_Poisson()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
+      v `Visualize_Scatter()` created a chart.
       v `PD_Assess()` Successful
       Saving lResults to `lAssessment`
       
@@ -302,7 +301,7 @@
       
       -- Initializing `PD_Map_Raw()` --
       
-      v `AE_Map_Raw()` returned output with 3 rows.
+      v `PD_Map_Raw()` returned output with 3 rows.
       v `PD_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       
@@ -325,6 +324,7 @@
       v `Analyze_Poisson()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
+      v `Visualize_Scatter()` created a chart.
       v `PD_Assess()` Successful
       Saving lResults to `lAssessment`
       

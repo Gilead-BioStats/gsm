@@ -2,7 +2,7 @@
 % Please edit documentation in R/IE_Map_Raw.R
 \name{IE_Map_Raw}
 \alias{IE_Map_Raw}
-\title{Inclusion/Exclusion Assessment Mapping from Raw Data- Make Input Data}
+\title{Inclusion/Exclusion Assessment - Raw Mapping}
 \usage{
 IE_Map_Raw(
   dfs = list(dfIE = clindata::rawplus_ie, dfSUBJ = clindata::rawplus_subj),
@@ -12,49 +12,50 @@ IE_Map_Raw(
 )
 }
 \arguments{
-\item{dfs}{list of data frames including:
+\item{dfs}{\code{list} Input data frames:
 \itemize{
-\item \code{dfIE} ie dataset with columns SUBJID and values specified in strCategoryCol and strValueCol.
-\item \code{dfSUBJ} Subject-level Raw Data required columns: SubjectID SiteID
+\item \code{dfIE}: \code{data.frame} Criterion-level data with one record subject per criterion.
+\item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per subject.
 }}
 
-\item{lMapping}{List containing expected columns in each data set.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
 
-\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+\item{bReturnChecks}{\code{logical} Return input checks from {gsm::is_mapping_valid()}? Default: \code{FALSE}}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-Data frame with one record per participant giving the number of inclusion/exclusion criteria the participant did not meet as expected. Expected columns: SubjectID, SiteID, Count
+\code{data.frame} Data frame with one record per subject, the input to {gsm::IE_Assess()}. If
+\code{bReturnChecks} is \code{TRUE} \code{IE_Map_Raw} returns a named \code{list} with:
+\itemize{
+\item \code{df}: the data frame described above
+\item \code{lChecks}: a named \code{list} of check results
+}
 }
 \description{
-Convert from raw data format to needed input format for Inclusion/Exclusion Assessment.
+Convert raw inclusion/exclusion (IE) data, typically processed case report form data, to formatted
+input data to {gsm::IE_Assess()}.
 }
 \details{
-This function creates the required input for \code{\link{IE_Assess}}.
+\code{IE_Map_Raw} combines IE data with subject-level data to create formatted input data to
+{gsm::IE_Assess()}. This function creates an input dataset for the IE Assessment
+(${gsm::IE_Assess()}) by binding subject-level unmet IE criteria counts (derived from \code{dfIE}) to
+subject-level data (from \code{dfSUBJ}). Note that the function can generate data summaries for
+specific types of IE criteria by passing filtered IE data to \code{dfIE}.
 }
-\section{Data Specification}{
-
-
-The following columns are required:
-\itemize{
-\item \code{dfIE}
-\itemize{
-\item \code{SubjectID} - Unique subject ID
-\item Value specified in \code{mapping} - IE Category; "IECAT_STD" by default
-\item Value specified in \code{mapping} - Incl criteria not met Excl criteria met; "IEORRES" by default
-}
-\item \code{dfSUBJ}
-\itemize{
-\item \code{SubjectID} - Unique subject ID
-\item \code{SiteID} - Site ID
-}
+\section{Data specification}{
+\tabular{lllll}{
+   domain \tab col_key \tab col_value \tab vRequired \tab vUniqueCols \cr
+   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
+   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
+   dfIE \tab strIDCol \tab SubjectID \tab TRUE \tab NA \cr
+   dfIE \tab strCategoryCol \tab IE_CATEGORY \tab TRUE \tab NA \cr
+   dfIE \tab strValueCol \tab IE_VALUE \tab TRUE \tab NA \cr
 }
 }
 
 \examples{
-
 dfInput <- IE_Map_Raw() # Run with defaults
-dfInput <- IE_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE) # Run with error checking and message log
+dfInput <- IE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
 
 }

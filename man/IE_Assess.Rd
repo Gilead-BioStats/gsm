@@ -14,56 +14,61 @@ IE_Assess(
 )
 }
 \arguments{
-\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count,}
+\item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
-\item{nThreshold}{Any sites where 'N' is greater than nThreshold will be flagged. Default value is 0.5, which flags any site with one or more subjects meeting any of the criteria.}
+\item{nThreshold}{\code{numeric} Threshold specification. Default: \code{0.5}}
 
-\item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="IE")}}
+\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment="IE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
 
-\item{bChart}{should visualization be created? TRUE (default) or FALSE.}
+\item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
 
-\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName}, \code{lParams} and \code{lTags}) is returned.
+\code{list} Assessment, a named list with:
+\itemize{
+\item each data frame in the data pipeline
+\itemize{
+\item \code{dfInput}
+\item \code{dfTransformed}, returned by {gsm::Transform_EventCount()}
+\item \code{dfAnalyzed}, a copy of \code{dfTransformed} and input to \code{gsm::Flag}
+\item \code{dfFlagged}, returned by {gsm::Flag()}
+\item \code{dfSummary}, returned by {gsm::Summarize()}
+}
+\item assessment metadata
+\itemize{
+\item \code{strFunctionName}
+\item \code{lParams}
+\item \code{lTags}
+}
+\item output(s)
+\itemize{
+\item \code{chart}
+}
+}
 }
 \description{
-Inclusion/Exclusion Assessment
+Flag sites exhibiting aberrant or excessive rates of unmet or missing inclusion/exclusion (IE) criteria.
 }
 \details{
-The Inclusion/Exclusion Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag sites with Inclusion / Exclusion irregularities. More details regarding the data pipeline and statistical methods are described below.
+The IE Assessment uses the standard \href{https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette}{GSM data pipeline} to flag sites with IE issues. This assessment detects sites with excessive rates of unmet or
+missing IE criteria, as defined by \code{nThreshold}. The count returned in the summary represents the
+number of subjects at a given site with at least one unmet or missing IE criterion. Additional
+details regarding the data pipeline and statistical methods are described below.
 }
-\section{Data Specification}{
-
-
-The input data (\code{dfInput}) for IE Assessment is typically created using \code{\link{IE_Map_Raw}} and should be one record per person with columns for:
-\itemize{
-\item \code{SubjectID} - Unique subject ID
-\item \code{SiteID} - Site ID
-\item \code{Count} - Number of findings of errors/outliers.
+\section{Data specification}{
+\tabular{lllll}{
+   domain \tab col_key \tab col_value \tab vRequired \tab vUniqueCols \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
+   dfInput \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
 }
-
-The Assessment
-\itemize{
-\item \code{\link{Transform_EventCount}} creates \code{dfTransformed}.
-\item \code{\link{Flag}} creates \code{dfFlagged}.
-\item \code{\link{Summarize}} creates \code{dfSummary}.
-}
-}
-
-\section{Statistical Assumptions}{
-
-
-This Assessment finds any sites where one or more subjects which have Inclusion / Exclusion data that is either missing or has inconsistent data recorded for
-inclusion / exclusion data. N' in the summary represents the number of subjects in a study that meet one or more criteria. Sites
-With N greater than user specified \code{nThreshold} will be flagged.
 }
 
 \examples{
 dfInput <- IE_Map_Raw()
-ie <- IE_Assess(dfInput)
-
+ie_assessment <- IE_Assess(dfInput)
 
 }

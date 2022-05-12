@@ -1,48 +1,15 @@
-#' AE Assessment
+#' Adverse Event Assessment
 #'
+#' @description
 #' Flag sites that may be over- or under-reporting adverse events (AEs).
 #'
 #' @details
-#'
-#' The Adverse Event Assessment uses the standard [GSM data pipeline](
+#' The AE Assessment uses the standard [GSM data pipeline](
 #'   https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
 #'
-#' @section Data Specification:
-#'
-#' The input data (`dfInput`) for the AE Assessment is typically created using
-#' \code{\link{AE_Map_Raw}} or \code{\link{AE_Map_Adam}}. It must have one record per subject with
-#' these columns:
-#'
-#' | Name        | Description                          | Required? |
-#' | ----------- | ------------------------------------ | --------- |
-#' | `SubjectID` | Unique Subject Identifier            | Yes       |
-#' | `SiteID`    | Site Identifier                      | Yes       |
-#' | `Count`     | Number of Adverse Events             | Yes       |
-#' | `Exposure`  | Number of Exposure Days              | Yes       |
-#' | `Rate`      | Exposure Rate (`Count` / `Exposure`) | No        |
-#'
-#' The Assessment
-#' - \code{\link{Transform_EventCount}} creates `dfTransformed`.
-#' - \code{\link{Analyze_Poisson}} or \code{\link{Analyze_Wilcoxon}} creates `dfAnalyzed`.
-#' - \code{\link{Flag}} creates `dfFlagged`.
-#' - \code{\link{Summarize}} creates `dfSummary`.
-#'
-#' @section Statistical Assumptions:
-#'
-#' A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as
-#' specified with the `strMethod` parameter). Those model outputs are then used to flag possible
-#' outliers using the thresholds specified in `vThreshold`. In the Poisson model, sites with an
-#' estimate less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For
-#' Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
-#'
-#' See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details
-#' about the statistical methods and their assumptions.
-#'
-#' @section Parameters
-#'
-#' @param dfInput `data.frame` Input data, a data frame with one record per subject and these columns: SubjectID, SiteID, Count and Exposure.
+#' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to `c(-5, 5)` for `strMethod` = "poisson" and `c(.0001, NA)` for `strMethod` = "wilcoxon".
 #' @param strMethod `character` Statistical model. Valid values include "poisson" (default) and  "wilcoxon".
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment="AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
@@ -50,24 +17,27 @@
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @examples
-#' dfInput <- AE_Map_Raw()
-#' ae_assessment_poisson <- AE_Assess(dfInput)
-#' ae_assessment_wilcoxon <- AE_Assess(dfInput, strMethod = "wilcoxon")
-#'
 #' @return `list` Assessment, a named list with:
 #' - each data frame in the data pipeline
 #'   - `dfInput`
-#'   - `dfTransformed`
-#'   - `dfAnalyzed`
-#'   - `dfFlagged`
-#'   - `dfSummary`
+#'   - `dfTransformed`, returned by {gsm::Transform_EventCount()}
+#'   - `dfAnalyzed`, returned by {gsm::Analyze_Poisson} or {gsm::Analyze_Wilcoxon}
+#'   - `dfFlagged`, returned by {gsm::Flag()}
+#'   - `dfSummary`, returned by {gsm::Summarize()}
 #' - assessment metadata
 #'   - `strFunctionName`
 #'   - `lParams`
 #'   - `lTags`
 #' - output(s)
 #'   - `chart`
+#'
+#' @includeRmd ./man/md/AE_Assess.md
+#' @includeRmd ./man/md/analyze_rate.md
+#'
+#' @examples
+#' dfInput <- AE_Map_Raw()
+#' ae_assessment_poisson <- AE_Assess(dfInput)
+#' ae_assessment_wilcoxon <- AE_Assess(dfInput, strMethod = "wilcoxon")
 #'
 #' @export
 
@@ -115,6 +85,7 @@ AE_Assess <- function(
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
+
     lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure")
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
@@ -128,6 +99,7 @@ AE_Assess <- function(
           "vThreshold is not length 2" = length(vThreshold) == 2
         )
       }
+
       lAssess$dfAnalyzed <- gsm::Analyze_Poisson(lAssess$dfTransformed)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Poisson} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
@@ -147,6 +119,7 @@ AE_Assess <- function(
           "vThreshold is not length 2" = length(vThreshold) == 2
         )
       }
+
       lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Wilcoxon} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
@@ -168,7 +141,7 @@ AE_Assess <- function(
       }
     }
   } else {
-    if (!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} did not run because of failed check.")
   }
 
   if (bReturnChecks) lAssess$lChecks <- checks

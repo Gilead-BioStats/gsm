@@ -7,17 +7,17 @@
       -- Checking Input Data for `AE_Map_Adam()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: USUBJID, SITEID, TRTSDT, TRTEDT
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      x df is not a data.frame()
       x the following columns not found in df: USUBJID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: USUBJID, SITEID, TRTSDT, TRTEDT
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
       ! Issues found for `AE_Map_Adam()`
-      ! `AE_Map_Adam()` not run because of failed check.
+      ! `AE_Map_Adam()` did not run because of failed check.
     Output
       NULL
 
@@ -35,7 +35,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `AE_Map_Adam()`
-      ! `AE_Map_Adam()` not run because of failed check.
+      ! `AE_Map_Adam()` did not run because of failed check.
     Output
       NULL
 
@@ -53,7 +53,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `AE_Map_Adam()`
-      ! `AE_Map_Adam()` not run because of failed check.
+      ! `AE_Map_Adam()` did not run because of failed check.
     Output
       NULL
 
@@ -66,17 +66,17 @@
       -- Checking Input Data for `AE_Map_Adam()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: USUBJID, SITEID, TRTSDT, TRTEDT
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      x df is not a data.frame()
       x the following columns not found in df: USUBJID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: USUBJID, SITEID, TRTSDT, TRTEDT
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
       ! Issues found for `AE_Map_Adam()`
-      ! `AE_Map_Adam()` not run because of failed check.
+      ! `AE_Map_Adam()` did not run because of failed check.
     Output
       NULL
 
@@ -94,7 +94,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `AE_Map_Adam()`
-      ! `AE_Map_Adam()` not run because of failed check.
+      ! `AE_Map_Adam()` did not run because of failed check.
     Output
       NULL
 
@@ -112,7 +112,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `AE_Map_Adam()`
-      ! `AE_Map_Adam()` not run because of failed check.
+      ! `AE_Map_Adam()` did not run because of failed check.
     Output
       NULL
 
@@ -130,7 +130,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `AE_Map_Adam()`
-      ! `AE_Map_Adam()` not run because of failed check.
+      ! `AE_Map_Adam()` did not run because of failed check.
     Output
       NULL
 
@@ -148,7 +148,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `AE_Map_Adam()`
-      ! `AE_Map_Adam()` not run because of failed check.
+      ! `AE_Map_Adam()` did not run because of failed check.
     Output
       NULL
 
@@ -166,7 +166,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `AE_Map_Adam()`
-      ! `AE_Map_Adam()` not run because of failed check.
+      ! `AE_Map_Adam()` did not run because of failed check.
     Output
       NULL
 
@@ -184,7 +184,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `AE_Map_Adam()`
-      ! `AE_Map_Adam()` not run because of failed check.
+      ! `AE_Map_Adam()` did not run because of failed check.
     Output
       NULL
 
