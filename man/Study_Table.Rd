@@ -7,10 +7,10 @@
 Study_Table(
   dfFindings,
   bFormat = TRUE,
-  showCounts = TRUE,
-  showSiteScore = TRUE,
-  siteScoreThreshold = 1,
-  colCollapse = TRUE
+  bShowCounts = TRUE,
+  bShowSiteScore = TRUE,
+  vSiteScoreThreshold = 1,
+  bColCollapse = TRUE
 )
 }
 \arguments{
@@ -18,17 +18,28 @@ Study_Table(
 
 \item{bFormat}{Use html-friendly icons in table cells. -1 is converted to a down arrow. 1 is converted to an up arrow. 0 is not shown. Other values are left as is.}
 
-\item{showCounts}{Show site counts? Uses first value of N for each site given in dfFindings.}
+\item{bShowCounts}{Show site counts? Uses first value of N for each site given in dfFindings.}
 
-\item{showSiteScore}{Show a "Score" row with total number of flagged assessments for each site. TODO:  add method for custom scoring in future release)}
+\item{bShowSiteScore}{Show a "Score" row with total number of flagged assessments for each site. TODO:  add method for custom scoring in future release)}
 
-\item{siteScoreThreshold}{Hide sites with a site score less than this value (1 by default).}
+\item{vSiteScoreThreshold}{Hide sites with a site score less than this value (1 by default).}
 
-\item{colCollapse}{Combine the Assessment and Label columns into a single "Title Column"}
+\item{bColCollapse}{Combine the Assessment and Label columns into a single "Title Column"}
 }
 \value{
-returns a dataframe giving assessment status (rows) by Site (column)
+\code{data.frame} Returns a data.frame giving assessment status (rows) by Site (column)
 }
 \description{
 Make overview table with one row per assessment and one column per site showing flagged assessments.
+}
+\examples{
+library(dplyr)
+library(purrr)
+results <- Study_Assess() \%>\%
+  purrr::map(~.x$lResults) \%>\%
+    compact() \%>\%
+    purrr::map_df(~.x$dfSummary)
+
+Study_Table(results)
+
 }

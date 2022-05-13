@@ -3,14 +3,20 @@
 #' Make overview table with one row per assessment and one column per site showing flagged assessments.
 #'
 #' @param lAssessments List of 1+ assessments like those created by `runAssessment()` or `Study_Assess()`
+#' @param bViewReport HTML table of dfSummary that can be viewed in most IDEs.
 #'
 #' @importFrom gt gt
 #' @importFrom fontawesome fa
 #'
-#' @return returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks``)
+#' @return `list` Returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks`)
+#'
+#' @examples
+#' assessment <- Study_Assess()
+#' report <- Study_AssessmentReport(lAssessments = assessment)
+#'
+#' @export
 
-Study_AssessmentReport <- function(lAssessments) {
-
+Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
   allChecks <- names(lAssessments) %>% map(function(assessment_name){
     assessment<-lAssessments[[assessment_name]]
@@ -23,7 +29,8 @@ Study_AssessmentReport <- function(lAssessments) {
         check=domain$status
       )
 
-      domain_details <- names(domain) %>% discard(.=="status") %>% map(function(test_name){
+      domain_details <- names(domain)[names(domain) != "status"] %>%
+        map(function(test_name){
         status=domain[[test_name]][["status"]]
         details=domain[[test_name]][["tests_if"]] %>%
           bind_rows(.id = "names") %>%
@@ -45,7 +52,7 @@ Study_AssessmentReport <- function(lAssessments) {
     })
 
     return(bind_rows(assessment_checks))
-  }) %>% bind_rows
+  }) %>% bind_rows()
 
 
 
@@ -60,15 +67,17 @@ Study_AssessmentReport <- function(lAssessments) {
         if (!status %in% c(TRUE, FALSE)) {
             logo_out <- "?"
         }
-        logo_out %>%
-            as.character() %>%
-            gt::html()
+        gt::html(as.character(logo_out))
     }
 
 
     dfSummary<- allChecks %>%
-        mutate(check = map(check, rank_chg))
+        mutate(check = map(.data$check, rank_chg))
 
-    return(list(dfAllChecks = allChecks, dfSummary = dfSummary))
+    if(!bViewReport){
+      return(list(dfAllChecks = allChecks, dfSummary = dfSummary))
+    } else {
+      return(dfSummary %>% gt::gt())
+    }
 
 }

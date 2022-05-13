@@ -1,6 +1,8 @@
 on:
   release:
     types: [published]
+  pull_request:
+    branches: main
 
 name: qualification-report
 
@@ -51,7 +53,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           file: ./Qualification.pdf
-          asset_name: qulaification-report.pdf
+          asset_name: qualification-report.pdf
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.ref }}
           overwrite: false

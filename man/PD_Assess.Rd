@@ -15,61 +15,78 @@ PD_Assess(
 )
 }
 \arguments{
-\item{dfInput}{input data with one record per person and the following required columns: SubjectID, SiteID, Count, Exposure, Rate.}
+\item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
-\item{vThreshold}{list of threshold values default c(-5,5) for method = "poisson", c(.0001,NA) for method = Wilcoxon.}
+\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to \code{c(-5, 5)} for \code{strMethod} = "poisson" and \code{c(.0001, NA)} for \code{strMethod} = "wilcoxon".}
 
-\item{strMethod}{valid methods are "poisson" (the default), or  "wilcoxon".}
+\item{strMethod}{\code{character} Statistical model. Valid values include "poisson" (default) and  "wilcoxon".}
 
-\item{lTags}{named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}. Default is \code{list(Assessment="PD")}.}
+\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment="PD")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
 
-\item{bChart}{should visualization be created? TRUE (default) or FALSE.}
+\item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
 
-\item{bReturnChecks}{Should input checks using \code{is_mapping_valid} be returned? Default is FALSE.}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-A list containing all data and metadata in the standard data pipeline (\code{dfInput}, \code{dfTransformed}, \code{dfAnalyzed}, \code{dfFlagged}, \code{dfSummary}, \code{strFunctionName},  \code{lParams} and \code{lTags}) is returned.
+\code{list} Assessment, a named list with:
+\itemize{
+\item each data frame in the data pipeline
+\itemize{
+\item \code{dfInput}
+\item \code{dfTransformed}, returned by {gsm::Transform_EventCount()}
+\item \code{dfAnalyzed}, returned by {gsm::Analyze_Poisson} or {gsm::Analyze_Wilcoxon}
+\item \code{dfFlagged}, returned by {gsm::Flag()}
+\item \code{dfSummary}, returned by {gsm::Summarize()}
+}
+\item assessment metadata
+\itemize{
+\item \code{strFunctionName}
+\item \code{lParams}
+\item \code{lTags}
+}
+\item output(s)
+\itemize{
+\item \code{chart}
+}
+}
 }
 \description{
-Protocol Deviation Assessment
+Flag sites that may be over- or under-reporting protocol deviations (PDs).
 }
 \details{
-The Protocol Deviation Assessment uses the standard GSM data pipeline (TODO add link to data vignette) to flag possible outliers. More details regarding the data pipeline and statistical methods are described below.
+The Protocol Deviation Assessment uses the standard \href{https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
+methods are described below.
 }
-\section{Data Specification}{
-
-
-The input data (\code{dfInput}) for the PD Assessment is typically created using \code{\link{PD_Map_Raw}} and should be one record per person with columns for:
-\itemize{
-\item \code{SubjectID} - Unique subject ID
-\item \code{SiteID} - Site ID
-\item \code{Count} - Number of protocol deviation events
-\item \code{Exposure} - Number of days of exposure
-\item \code{Rate} - Rate of Exposure (Count / Exposure)
-}
-
-The Assessment
-\itemize{
-\item \code{\link{Transform_EventCount}} creates \code{dfTransformed}.
-\item \code{\link{Analyze_Poisson}} or \code{\link{Analyze_Wilcoxon}} creates \code{dfAnalyzed}.
-\item \code{\link{Flag}} creates \code{dfFlagged}.
-\item \code{\link{Summarize}} creates \code{dfSummary}.
+\section{Data specification}{
+\tabular{lllll}{
+   domain \tab col_key \tab col_value \tab vRequired \tab vUniqueCols \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
+   dfInput \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
+   dfInput \tab strExposureCol \tab Exposure \tab TRUE \tab FALSE \cr
+   dfInput \tab strRateCol \tab Rate \tab TRUE \tab FALSE \cr
 }
 }
 
-\section{Statistical Assumptions}{
+\section{Statistical assumptions}{
+A Poisson or Wilcoxon model is used to generate estimates and p-values
+for each site (as specified with the \code{strMethod} parameter). Those model
+outputs are then used to flag possible outliers using the thresholds
+specified in \code{vThreshold}. In the Poisson model, sites with an estimate
+less than -5 are flagged as -1 and greater than 5 are flagged as 1 by
+default. For Wilcoxon, sites with p-values less than 0.0001 are flagged
+by default.
 
-
-A Poisson or Wilcoxon model is used to generate estimates and p-values for each site (as specified with the \code{strMethod} parameter). Those model outputs are then used to flag possible outliers using the thresholds specified in \code{vThreshold}. In the Poisson model, sites with an estimate less than -5 are flagged as -1 and greater than 5 are flagged as 1 by default. For Wilcoxon, sites with p-values less than 0.0001 are flagged by default.
-
-See \code{\link{Analyze_Poisson}} and \code{\link{Analyze_Wilcoxon}} for additional details about the statistical methods and their assumptions.
+See \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} and
+\code{\link[=Analyze_Wilcoxon]{Analyze_Wilcoxon()}} for additional
+details about the statistical methods and their assumptions.
 }
 
 \examples{
 dfInput <- PD_Map_Raw()
-SafetyPD <- PD_Assess(dfInput)
-SafetyPDWilcoxon <- PD_Assess(dfInput, strMethod="wilcoxon")
+pd_assessment_poisson <- PD_Assess(dfInput)
+pd_assessment_wilcoxon <- PD_Assess(dfInput, strMethod = "wilcoxon")
 
 }

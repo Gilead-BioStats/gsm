@@ -1,7 +1,7 @@
 # incorrect inputs throw errors
 
     Code
-      IE_Map_Raw(dfs = list(dfIE = list(), dfSUBJ = list), bQuiet = F)
+      IE_Map_Raw(dfs = list(dfIE = list(), dfSUBJ = list()), bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Map_Raw()` --
@@ -17,7 +17,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` not run because of failed check.
+      ! `IE_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -40,7 +40,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` not run because of failed check.
+      ! `IE_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -58,7 +58,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` not run because of failed check.
+      ! `IE_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -76,7 +76,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` not run because of failed check.
+      ! `IE_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -94,7 +94,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` not run because of failed check.
+      ! `IE_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -109,7 +109,7 @@
       
       x Unexpected duplicates found in column: SubjectID
       ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` not run because of failed check.
+      ! `IE_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -128,7 +128,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` not run because of failed check.
+      ! `IE_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -147,7 +147,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` not run because of failed check.
+      ! `IE_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
