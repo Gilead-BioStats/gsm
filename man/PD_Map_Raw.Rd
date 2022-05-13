@@ -49,7 +49,7 @@ PDs by passing filtered PD data to \code{dfPD}.
    dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
    dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
    dfSUBJ \tab strTimeOnStudyCol \tab TimeOnStudy \tab TRUE \tab FALSE \cr
-   dfPD \tab strIDCol \tab SubjectID \tab TRUE \tab NA \cr
+   dfPD \tab strIDCol \tab SubjectID \tab TRUE \tab  \cr
 }
 }
 

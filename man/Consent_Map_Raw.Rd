@@ -46,13 +46,13 @@ types of consent by customizing \code{lMapping$dfCONSENT}.
 \section{Data specification}{
 \tabular{llllll}{
    domain \tab col_key \tab col_value \tab vRequired \tab vNACols \tab vUniqueCols \cr
-   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab NA \tab TRUE \cr
-   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab NA \tab FALSE \cr
-   dfSUBJ \tab strRandDateCol \tab RandDate \tab TRUE \tab NA \tab FALSE \cr
-   dfCONSENT \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab NA \cr
-   dfCONSENT \tab strTypeCol \tab CONSENT_TYPE \tab TRUE \tab FALSE \tab NA \cr
-   dfCONSENT \tab strValueCol \tab CONSENT_VALUE \tab TRUE \tab FALSE \tab NA \cr
-   dfCONSENT \tab strDateCol \tab CONSENT_DATE \tab TRUE \tab TRUE \tab NA \cr
+   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab  \tab TRUE \cr
+   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab  \tab FALSE \cr
+   dfSUBJ \tab strRandDateCol \tab RandDate \tab TRUE \tab  \tab FALSE \cr
+   dfCONSENT \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab  \cr
+   dfCONSENT \tab strTypeCol \tab CONSENT_TYPE \tab TRUE \tab FALSE \tab  \cr
+   dfCONSENT \tab strValueCol \tab CONSENT_VALUE \tab TRUE \tab FALSE \tab  \cr
+   dfCONSENT \tab strDateCol \tab CONSENT_DATE \tab TRUE \tab TRUE \tab  \cr
 }
 }
 
