@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -60,45 +60,45 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">is_mapping_valid</span><span class="op">(</span>
-  <span class="va">df</span>,
-  <span class="va">mapping</span>,
-  vRequiredParams <span class="op">=</span> <span class="cn">NULL</span>,
-  bKeepAllParams <span class="op">=</span> <span class="cn">FALSE</span>,
-  vUniqueCols <span class="op">=</span> <span class="cn">NULL</span>,
-  vNACols <span class="op">=</span> <span class="cn">NULL</span>,
-  bQuiet <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">is_mapping_valid</span><span class="op">(</span><span class="va">df</span>, <span class="va">mapping</span>, <span class="va">spec</span>, bQuiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>df</dt>
-<dd><p>data.frame to compare to mapping object.</p></dd>
+<dd><p><code>data.frame</code> A data.frame to compare to mapping object.</p></dd>
 <dt>mapping</dt>
-<dd><p>named list specifying expected columns and fields in df.</p></dd>
-<dt>vRequiredParams</dt>
-<dd><p>character vector of names that must be present in <code>mapping</code>.</p></dd>
-<dt>bKeepAllParams</dt>
-<dd><p>Should params not included in <code>vRequiredParams</code> be evaluated? Default is false.</p></dd>
-<dt>vUniqueCols</dt>
-<dd><p>list of columns expected to be unique. default = NULL (none).</p></dd>
-<dt>vNACols</dt>
-<dd><p>list of columns where na values are acceptable default = NULL (none).</p></dd>
+<dd><p><code>list</code> A named list specifying expected columns and values in df. Parameters ending in <code>col</code> are assumed to be column names in <code>df</code>, while parameters ending in <code>val</code> are values expected in for a corresponding column. For example, <code>mapping=list(strSiteCol="SiteID", strSiteVal=c("001","002"))</code> would indicate that <code>df</code> has a <code>df$SiteID</code> includes values <code>"001"</code> and <code>"002"</code>.</p></dd>
+<dt>spec</dt>
+<dd><p><code>list</code> A named list specifying parameters that should be defined in <code>mapping</code>, and describes how the values specified by those parameters should be used in <code>df</code>. Should have the following properties:</p><ul><li><p><code>spec$vRequired</code> - list of parameters that should be defined in <code>mapping</code>.</p></li>
+<li><p><code>spec$vUniqueCols</code> - list of column parameters that should not contain duplicate values</p></li>
+<li><p><code>spec$vNACols</code> - list of column parameters where NA and empty string values are acceptable.</p></li>
+</ul></dd>
 <dt>bQuiet</dt>
-<dd><p>Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.</p></dd>
+<dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code></p></dd>
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    <p><code>list</code> A list is returned with <code>status</code> (<code>TRUE</code> or <code>FALSE</code>), and <code>tests_if</code>,
+a list containing checks and a <code>status</code> and <code>warning</code> (if check does not pass).</p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">subj_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>strIDCol <span class="op">=</span> <span class="st">"SubjectID"</span>,</span>
-<span class="r-in">                    strSiteCol <span class="op">=</span> <span class="st">"SiteID"</span>,</span>
-<span class="r-in">                    strExposureCol <span class="op">=</span> <span class="st">"TimeOnTreatment"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">subj_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span class="r-in">    strIDCol <span class="op">=</span> <span class="st">"SubjectID"</span>,</span>
+<span class="r-in">    strSiteCol <span class="op">=</span> <span class="st">"SiteID"</span>,</span>
+<span class="r-in">    strExposureCol <span class="op">=</span> <span class="st">"TimeOnTreatment"</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="fu">is_mapping_valid</span><span class="op">(</span>df <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span>,</span>
-<span class="r-in">                 mapping <span class="op">=</span> <span class="va">subj_mapping</span>,</span>
-<span class="r-in">                 vUniqueCols <span class="op">=</span> <span class="st">"SUBJID"</span>,</span>
-<span class="r-in">                 vRequiredParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"strIDCol"</span>, <span class="st">"strSiteCol"</span>, <span class="st">"strExposureCol"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">is_mapping_valid</span><span class="op">(</span></span>
+<span class="r-in">    df <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span>,</span>
+<span class="r-in">    mapping <span class="op">=</span> <span class="va">subj_mapping</span>,</span>
+<span class="r-in">    spec <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span class="r-in">        vRequired<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"strIDCol"</span>, <span class="st">"strSiteCol"</span>, <span class="st">"strExposureCol"</span><span class="op">)</span>,</span>
+<span class="r-in">        vUniqueCols <span class="op">=</span> <span class="st">"SUBJID"</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $status</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -116,6 +116,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tests_if$has_required_params$warning</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $tests_if$spec_is_list</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $tests_if$spec_is_list$status</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $tests_if$spec_is_list$warning</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -169,14 +177,16 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">subj_mapping</span><span class="op">$</span><span class="va">not_a_col</span> <span class="op">&lt;-</span> <span class="st">"nope"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">is_mapping_valid</span><span class="op">(</span>df <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span>,</span>
-<span class="r-in">                 mapping <span class="op">=</span> <span class="va">subj_mapping</span>,</span>
-<span class="r-in">                 vUniqueCols <span class="op">=</span> <span class="st">"SUBJID"</span>,</span>
-<span class="r-in">                 vRequiredParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"strIDCol"</span>, <span class="st">"strSiteCol"</span>, <span class="st">"strExposureCol"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">is_mapping_valid</span><span class="op">(</span></span>
+<span class="r-in">    df <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span>,</span>
+<span class="r-in">    mapping <span class="op">=</span> <span class="va">subj_mapping</span>,</span>
+<span class="r-in">    spec<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span class="r-in">        vUniqueCols <span class="op">=</span> <span class="st">"SUBJID"</span>,</span>
+<span class="r-in">        vRequiredParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"strIDCol"</span>, <span class="st">"strSiteCol"</span>, <span class="st">"strExposureCol"</span>, <span class="st">"strOtherCol"</span><span class="op">)</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $status</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tests_if</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tests_if$is_data_frame</span>
@@ -189,9 +199,17 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tests_if$has_required_params</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tests_if$has_required_params$status</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tests_if$has_required_params$warning</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "\"mapping\" does not contain required parameters: strOtherCol"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $tests_if$spec_is_list</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $tests_if$spec_is_list$status</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $tests_if$spec_is_list$warning</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -259,7 +277,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>

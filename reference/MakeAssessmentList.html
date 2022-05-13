@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -66,22 +66,22 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>path</dt>
-<dd><p>location of assessment yaml files. If package is specified looks in /inst folder.</p></dd>
+<dd><p><code>character</code> The location of assessment YAML files. If package is specified, function will look in <code>/inst</code> folder.</p></dd>
 <dt>package</dt>
-<dd><p>package with assessments</p></dd>
+<dd><p><code>character</code> package with assessments</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list of assessments</p>
+    <p><code>list</code> A list of assessments with workflow and parameter metadata.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>Coming soon</p>
+    <p><code>MakeAssessmentList()</code> is a utility function that creates a workflow mapping for assessments used in <code><a href="Study_Assess.html">Study_Assess()</a></code>.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"> <span class="fu">MakeAssessmentList</span><span class="op">(</span>path<span class="op">=</span><span class="st">"assessments"</span>, package<span class="op">=</span><span class="st">"gsm"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">MakeAssessmentList</span><span class="op">(</span>path<span class="op">=</span><span class="st">"assessments"</span>, package<span class="op">=</span><span class="st">"gsm"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ae</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ae$label</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Treatment-Emergent Adverse Events"</span>
@@ -99,25 +99,21 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "FilterDomain"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "filter"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$outputDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$inputs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfAE"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$spec$dfAE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$spec$dfAE$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strTreatmentEmergentCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$output</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfAE"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$params</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$params$col</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$params$strDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfAE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$params$strColParam</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strTreatmentEmergentCol"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$params$val</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[1]]$params$strValParam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strTreatmentEmergentVal"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -125,45 +121,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[2]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AE_Map_Raw"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[2]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "mapping"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[2]]$inputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfAE"   "dfSUBJ"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[2]]$outputDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[2]]$output</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfInput"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[2]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[2]]$spec$dfAE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[2]]$spec$dfAE$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[2]]$spec$dfSUBJ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[2]]$spec$dfSUBJ$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"              "strSiteCol"            "strTimeOnTreatmentCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[3]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AE_Assess"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[3]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "assess"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[3]]$inputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfInput"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[3]]$mapping</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[3]]$mapping$dfInput</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[3]]$mapping$dfInput$strIDCol</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "SubjectID"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[3]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[3]]$spec$dfInput</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[3]]$spec$dfInput$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[3]]$output</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lResults"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[3]]$params</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ae$workflow[[3]]$params$strMethod</span>
@@ -196,54 +169,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[1]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Consent_Map_Raw"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[1]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "mapping"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[1]]$inputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfCONSENT" "dfSUBJ"   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[1]]$outputDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[1]]$output</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfInput"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[1]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[1]]$spec$dfCONSENT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[1]]$spec$dfCONSENT$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"    "strTypeCol"  "strValueCol" "strDateCol" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[1]]$spec$dfCONSENT$uniqueParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[1]]$spec$dfSUBJ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[1]]$spec$dfSUBJ$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"       "strSiteCol"     "strRandDateCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[1]]$spec$dfSUBJ$uniqueParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[2]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Consent_Assess"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[2]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "assess"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[2]]$inputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfInput"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[2]]$mapping</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[2]]$mapping$dfInput</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[2]]$mapping$dfInput$strIDCol</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "SubjectID"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[2]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[2]]$spec$dfInput</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[2]]$spec$dfInput$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[2]]$spec$dfInput$uniqueParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $consent$workflow[[2]]$output</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lResults"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -271,51 +212,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[1]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "IE_Map_Raw"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[1]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "mapping"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[1]]$inputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfIE"   "dfSUBJ"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[1]]$outputDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[1]]$output</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfInput"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[1]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[1]]$spec$dfIE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[1]]$spec$dfIE$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"       "strCategoryCol" "strValueCol"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[1]]$spec$dfSUBJ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[1]]$spec$dfSUBJ$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"   "strSiteCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[1]]$spec$dfSUBJ$uniqueParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[2]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "IE_Assess"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[2]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "assess"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[2]]$inputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfInput"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[2]]$mapping</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[2]]$mapping$dfInput</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[2]]$mapping$dfInput$strIDCol</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "SubjectID"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[2]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[2]]$spec$dfInput</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[2]]$spec$dfInput$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[2]]$spec$dfInput$uniqueParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ie$workflow[[2]]$output</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lResults"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -335,7 +247,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PD"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$tags$Label</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PD"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Important PD"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow</span>
@@ -343,25 +255,21 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "FilterDomain"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "filter"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$outputDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$inputs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfPD"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$spec$dfPD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$spec$dfPD$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strImportantCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$output</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfPD"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$params</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$params$col</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$params$strDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfPD"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$params$strColParam</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strImportantCol"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$params$val</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Y"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[1]]$params$strValParam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strImportantVal"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -369,51 +277,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[2]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PD_Map_Raw"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[2]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "mapping"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[2]]$inputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfPD"   "dfSUBJ"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[2]]$outputDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[2]]$output</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfInput"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[2]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[2]]$spec$dfPD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[2]]$spec$dfPD$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[2]]$spec$dfSUBJ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[2]]$spec$dfSUBJ$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"          "strSiteCol"        "strTimeOnStudyCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[2]]$spec$dfSUBJ$uniqueParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[3]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PD_Assess"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[3]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "assess"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[3]]$inputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfInput"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[3]]$mapping</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[3]]$mapping$dfInput</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[3]]$mapping$dfInput$strIDCol</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "SubjectID"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[3]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[3]]$spec$dfInput</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[3]]$spec$dfInput$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[3]]$spec$dfInput$uniqueParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $importantpd$workflow[[3]]$output</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lResults"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -433,7 +312,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PD"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $pd$tags$Label</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PD Serious"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PD"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow</span>
@@ -441,51 +320,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[1]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PD_Map_Raw"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[1]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "mapping"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[1]]$inputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfPD"   "dfSUBJ"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[1]]$outputDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[1]]$output</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfInput"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[1]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[1]]$spec$dfPD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[1]]$spec$dfPD$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[1]]$spec$dfSUBJ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[1]]$spec$dfSUBJ$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"          "strSiteCol"        "strTimeOnStudyCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[1]]$spec$dfSUBJ$uniqueParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[2]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PD_Assess"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[2]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "assess"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[2]]$inputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfInput"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[2]]$mapping</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[2]]$mapping$dfInput</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[2]]$mapping$dfInput$strIDCol</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "SubjectID"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[2]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[2]]$spec$dfInput</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[2]]$spec$dfInput$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[2]]$spec$dfInput$uniqueParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $pd$workflow[[2]]$output</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lResults"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -513,25 +363,21 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "FilterDomain"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "filter"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$outputDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$inputs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfAE"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$spec$dfAE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$spec$dfAE$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strTreatmentEmergentCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$output</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfAE"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$params</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$params$col</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$params$strDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfAE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$params$strColParam</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strTreatmentEmergentCol"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$params$val</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[1]]$params$strValParam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strTreatmentEmergentVal"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -539,25 +385,21 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "FilterDomain"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "filter"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$outputDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$inputs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfAE"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$spec$dfAE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$spec$dfAE$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strSeriousCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$output</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfAE"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$params</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$params$col</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$params$strDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfAE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$params$strColParam</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strSeriousCol"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$params$val</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Yes"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[2]]$params$strValParam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strSeriousVal"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -565,45 +407,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[3]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AE_Map_Raw"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[3]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "mapping"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[3]]$inputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfAE"   "dfSUBJ"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[3]]$outputDomain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[3]]$output</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfInput"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[3]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[3]]$spec$dfAE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[3]]$spec$dfAE$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[3]]$spec$dfSUBJ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[3]]$spec$dfSUBJ$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"              "strSiteCol"            "strTimeOnTreatmentCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[4]]$name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AE_Assess"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[4]]$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "assess"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[4]]$inputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfInput"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[4]]$mapping</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[4]]$mapping$dfInput</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[4]]$mapping$dfInput$strIDCol</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "SubjectID"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[4]]$spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[4]]$spec$dfInput</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[4]]$spec$dfInput$requiredParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "strIDCol"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[4]]$output</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lResults"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[4]]$params</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $sae$workflow[[4]]$params$strMethod</span>
@@ -620,7 +439,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
-<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>
@@ -635,7 +453,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>

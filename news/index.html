@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -55,8 +55,26 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="0.4.1" id="gsm-v041">gsm v0.4.1<a class="anchor" aria-label="anchor" href="#gsm-v041"></a></h2>
+<p>This release includes signification documentation updates as well as minor bug fixes and expanded unit testing.</p>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.4.0" id="gsm-v040">gsm v0.4.0<a class="anchor" aria-label="anchor" href="#gsm-v040"></a></h2>
+<p>This release includes a refactor to the gsm data workflow in preparation for a v1 release. Updates include:</p>
+<ul><li>
+<code>*_Map_Raw()</code> functions have default input parameters from <code>{clindata}</code>
+</li>
+<li>
+<code>*_Map_Raw()</code> and <code>*_Assess()</code> functions now have options for verbose workflow commenting (when <code>bQuiet == FALSE</code>), and an option to return an error log (<code>bReturnChecks == TRUE</code>)</li>
+<li>
+<code>YAML</code> mappings now provide mappings for the overall data pipeline</li>
+<li>Added <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>: returns a full list of default mappings and assessments.</li>
+<li>Added <code>Study_*()</code> functions to assist in report analyses.</li>
+<li>Added utility functions: <code><a href="../reference/CheckInputs.html">CheckInputs()</a></code>, <code><a href="../reference/RunAssessment.html">RunAssessment()</a></code>, and <code><a href="../reference/RunStep.html">RunStep()</a></code> to build out the data pipeline.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.0" id="gsm-v030">gsm v0.3.0<a class="anchor" aria-label="anchor" href="#gsm-v030"></a></h2>
-<p>This release continues to refine the gsm data workflow and QC process in prepararation for a v1 release. Updates include:</p>
+<p>This release continues to refine the gsm data workflow and QC process in preparation for a v1 release. Updates include:</p>
 <ul><li>*_Assess() functions now return a list only. Returns strFunctionName, lParams, and lTags, in addition to all data.frames in the pipeline.</li>
 <li>*_Map_Raw() functions now implement a new utility function: is_mapping_valid() for more robust and diagnostic error checking.</li>
 <li>*_Map_Raw() functions now use a single <code>mapping</code> parameter to facilitate all renames and data checks.</li>
@@ -77,7 +95,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>

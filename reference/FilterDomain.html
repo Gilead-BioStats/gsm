@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -60,25 +60,52 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">FilterDomain</span><span class="op">(</span><span class="va">df</span>, <span class="va">col</span>, <span class="va">vals</span>, bQuiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">FilterDomain</span><span class="op">(</span>
+  <span class="va">df</span>,
+  <span class="va">strDomain</span>,
+  <span class="va">lMapping</span>,
+  <span class="va">strColParam</span>,
+  <span class="va">strValParam</span>,
+  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,
+  bQuiet <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>df</dt>
-<dd><p>data.frame be filtered</p></dd>
-<dt>col</dt>
-<dd><p>column to filter</p></dd>
-<dt>vals</dt>
-<dd><p>value or values to keep</p></dd>
+<dd><p><code>data.frame</code> A data.frame to be filtered, likely within a mapping function.</p></dd>
+<dt>strDomain</dt>
+<dd><p><code>character</code> Domain step that is being filtered.</p></dd>
+<dt>lMapping</dt>
+<dd><p><code>list</code> Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name of the column.</p></dd>
+<dt>strColParam</dt>
+<dd><p><code>character</code> Domain in <code>lMapping</code> that references the column to filter on.</p></dd>
+<dt>strValParam</dt>
+<dd><p><code>character</code> Domain in <code>lMapping</code> that references the value to filter on.</p></dd>
+<dt>bReturnChecks</dt>
+<dd><p><code>logical</code> Return input checks from <code>is_mapping_valid</code>? Default: <code>FALSE</code></p></dd>
 <dt>bQuiet</dt>
-<dd><p>Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.</p></dd>
+<dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code></p></dd>
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    <p><code>data.frame</code> Data frame provided as <code>df</code> and filtered on <code>strColParam</code> == <code>strValParam</code>.
+If <code>bReturnChecks</code> is <code>TRUE</code>, a <code>list</code> is returned with a filtered <code>df</code>, and a list of checks run on input data (<code>lChecks</code>).</p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">te_ae</span><span class="op">&lt;-</span><span class="fu">FilterDomain</span><span class="op">(</span><span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ae</span>, <span class="st">"AE_TE_FLAG"</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">grade34_ae</span><span class="op">&lt;-</span><span class="fu">FilterDomain</span><span class="op">(</span><span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ae</span>, <span class="st">"AE_GRADE"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">lMapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfAE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>strIDCol <span class="op">=</span> <span class="st">"SubjectID"</span>, strTreatmentEmergentCol <span class="op">=</span> <span class="st">"AE_TE_FLAG"</span>,</span>
+<span class="r-in">                             strTreatmentEmergentVal <span class="op">=</span> <span class="cn">TRUE</span>, strGradeCol <span class="op">=</span> <span class="st">"AE_GRADE"</span>,</span>
+<span class="r-in">                             strSeriousCol <span class="op">=</span> <span class="st">"AE_SERIOUS"</span>, strSeriousVal <span class="op">=</span> <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">te_ae</span> <span class="op">&lt;-</span> <span class="fu">FilterDomain</span><span class="op">(</span>df <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ae</span>,</span>
+<span class="r-in">                      lMapping <span class="op">=</span> <span class="va">lMapping</span>,</span>
+<span class="r-in">                      strDomain <span class="op">=</span> <span class="st">"dfAE"</span>,</span>
+<span class="r-in">                      strColParam <span class="op">=</span> <span class="st">"strSeriousCol"</span>,</span>
+<span class="r-in">                      strValParam <span class="op">=</span> <span class="st">"strSeriousVal"</span><span class="op">)</span></span>
+<span class="r-in"></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -94,7 +121,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>

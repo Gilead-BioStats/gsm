@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -87,25 +87,12 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">IE_Input</span> <span class="op">&lt;-</span> <span class="fu"><a href="IE_Map_Raw.html">IE_Map_Raw</a></span><span class="op">(</span></span>
-<span class="r-in">   <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ie</span>,</span>
-<span class="r-in">   <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span>,</span>
-<span class="r-in">   vCategoryValues<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"EXCL"</span>,<span class="st">"INCL"</span><span class="op">)</span>,</span>
-<span class="r-in">   vExpectedResultValues<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span class="va">IE_Input</span> <span class="op">&lt;-</span> <span class="fu"><a href="IE_Map_Raw.html">IE_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">IE_Assess</span> <span class="op">&lt;-</span> <span class="fu"><a href="IE_Assess.html">IE_Assess</a></span><span class="op">(</span><span class="va">IE_Input</span><span class="op">)</span></span>
-<span class="r-in"></span>
 <span class="r-in"><span class="fu">Visualize_Count</span><span class="op">(</span><span class="va">IE_Assess</span><span class="op">$</span><span class="va">dfAnalyzed</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="Visualize_Count-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">Consent_Input</span> <span class="op">&lt;-</span> <span class="fu"><a href="Consent_Map_Raw.html">Consent_Map_Raw</a></span><span class="op">(</span></span>
-<span class="r-in">   dfCONSENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span>,</span>
-<span class="r-in">   dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span>,</span>
-<span class="r-in">   strConsentTypeValue <span class="op">=</span> <span class="st">"MAINCONSENT"</span>,</span>
-<span class="r-in">   strConsentStatusValue<span class="op">=</span><span class="st">"Y"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span class="va">Consent_Input</span> <span class="op">&lt;-</span> <span class="fu"><a href="Consent_Map_Raw.html">Consent_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">Consent_Assess</span> <span class="op">&lt;-</span> <span class="fu"><a href="Consent_Assess.html">Consent_Assess</a></span><span class="op">(</span><span class="va">Consent_Input</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">Visualize_Count</span><span class="op">(</span><span class="va">Consent_Assess</span><span class="op">$</span><span class="va">dfAnalyzed</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="Visualize_Count-2.png" alt="" width="700" height="433"></span>
@@ -124,7 +111,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>

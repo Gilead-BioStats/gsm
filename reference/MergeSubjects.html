@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -87,6 +87,32 @@
     <p>data set with one record per IDCol</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">MergeSubjects</span><span class="op">(</span>dfDomain <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span>,</span>
+<span class="r-in">              dfSubjects <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span>,</span>
+<span class="r-in">              strIDCol <span class="op">=</span> <span class="st">"SubjectID"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1,297 × 19</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    SubjectID ScreenID SiteID ScreenFlag RandDate   RandFlag FirstStudyDate     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 1397      153      X010X  Y          2012-09-02 Y        2012-09-02 <span style="color: #949494;">00:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 1396      108      X102X  Y          2017-05-08 Y        2017-05-09 <span style="color: #949494;">00:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 1395      087      X143X  Y          2004-09-23 Y        2004-09-24 <span style="color: #949494;">00:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 1394      142      X090X  Y          2010-08-21 Y        2010-08-22 <span style="color: #949494;">00:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 1393      153      X130X  Y          2011-10-09 Y        2011-10-10 <span style="color: #949494;">00:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 1392      044      X128X  Y          2010-01-01 Y        2010-01-02 <span style="color: #949494;">00:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 1391      058      X025X  Y          2005-04-27 Y        2005-04-28 <span style="color: #949494;">00:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 1390      002      X086X  Y          2006-08-21 Y        2006-08-22 <span style="color: #949494;">00:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 1389      093      X097X  Y          2012-07-10 Y        2012-07-11 <span style="color: #949494;">00:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 1388      092      X021X  Y          2015-07-15 Y        2015-07-16 <span style="color: #949494;">00:00:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1,287 more rows, and 12 more variables: LastStudyDate &lt;date&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   TimeOnStudy &lt;dbl&gt;, FirstDoseDate &lt;dttm&gt;, LastDoseDate &lt;date&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   TimeOnTreatment &lt;dbl&gt;, StudCompletion &lt;chr&gt;, StudDCReason &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   TrtCompletion &lt;chr&gt;, TrtDCReason &lt;chr&gt;, CONSENT_DATE &lt;date&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   CONSENT_TYPE &lt;chr&gt;, CONSENT_VALUE &lt;chr&gt;</span></span>
+<span class="r-in"></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
@@ -99,7 +125,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>

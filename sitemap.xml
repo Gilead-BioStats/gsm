@@ -52,6 +52,9 @@
     <loc>/reference/Analyze_Wilcoxon.html</loc>
   </url>
   <url>
+    <loc>/reference/CheckInputs.html</loc>
+  </url>
+  <url>
     <loc>/reference/Consent_Assess.html</loc>
   </url>
   <url>
@@ -115,10 +118,19 @@
     <loc>/reference/Visualize_Scatter.html</loc>
   </url>
   <url>
+    <loc>/reference/generate_md_table.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
     <loc>/reference/is_mapping_valid.html</loc>
+  </url>
+  <url>
+    <loc>/reference/parse_data_mapping.html</loc>
+  </url>
+  <url>
+    <loc>/reference/parse_data_spec.html</loc>
   </url>
   <url>
     <loc>/reference/pipe.html</loc>

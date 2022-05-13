@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -60,19 +60,32 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Study_Report</span><span class="op">(</span><span class="va">assessments</span>, <span class="va">meta</span>, outpath <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Study_Report</span><span class="op">(</span><span class="va">strAssessments</span>, <span class="va">lMeta</span>, strOutpath <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>assessments</dt>
+    <dl><dt>strAssessments</dt>
 <dd><p>character vector listing assessments</p></dd>
-<dt>meta</dt>
+<dt>lMeta</dt>
 <dd><p>list of metadata related to study</p></dd>
-<dt>outpath</dt>
+<dt>strOutpath</dt>
 <dd><p>path to safe the report</p></dd>
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    <p>HTML report of study data.</p>
+    </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="va">assessment</span> <span class="op">&lt;-</span> <span class="fu"><a href="Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">Study_Report</span><span class="op">(</span><span class="va">assessment</span>, lMeta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>study <span class="op">=</span> <span class="st">"my study name"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
@@ -85,7 +98,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>

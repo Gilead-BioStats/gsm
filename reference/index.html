@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -55,12 +55,12 @@
 
     <table class="ref-index"><colgroup><col class="alias"><col class="title"></colgroup><tbody><tr><th colspan="2">
           <h2 id="assess">Assess <a href="#assess" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Assessment Functions</p>
+          <p class="section-desc"></p><p>Assessment Functions - sequentially executes the Assessment Pipeline Functions (Transform, Analyze, Flag, and Summarize)</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="AE_Assess.html">AE_Assess()</a></code> </p>
         </td>
-        <td><p>AE Assessment</p></td>
+        <td><p>Adverse Event Assessment</p></td>
       </tr><tr><td>
           <p><code><a href="Consent_Assess.html">Consent_Assess()</a></code> </p>
         </td>
@@ -78,8 +78,8 @@
         </td>
         <td><p>Run Multiple Assessments on a Study</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
-          <h2 id="visualize">Visualize <a href="#visualize" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Visulaization Functions</p>
+          <h2 id="visualize-generates-a-visualization-from-the-assessment-results">Visualize - generates a visualization from the Assessment results <a href="#visualize-generates-a-visualization-from-the-assessment-results" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Visualization Functions</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="Visualize_Count.html">Visualize_Count()</a></code> </p>
@@ -89,22 +89,26 @@
           <p><code><a href="Visualize_Scatter.html">Visualize_Scatter()</a></code> </p>
         </td>
         <td><p>Site-level visualization of site-level results using a Poisson or Wilcoxon model.</p></td>
+      </tr><tr><td>
+          <p><code><a href="Analyze_Poisson_PredictBounds.html">Analyze_Poisson_PredictBounds()</a></code> </p>
+        </td>
+        <td><p>Poisson Analysis - Predicted Boundaries</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="map">Map <a href="#map" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Data Mapping Functions</p>
+          <p class="section-desc"></p><p>Data Mapping Functions - generates input data from multiple clinical data standards (generally Raw+ or SDTM-)</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="AE_Map_Adam.html">AE_Map_Adam()</a></code> </p>
         </td>
-        <td><p>AE Assessment - ADaM Mapping</p></td>
+        <td><p>Adverse Event Assessment - ADaM Mapping</p></td>
       </tr><tr><td>
           <p><code><a href="AE_Map_Raw.html">AE_Map_Raw()</a></code> </p>
         </td>
-        <td><p>AE Assessment - Raw Mapping</p></td>
+        <td><p>Adverse Event Assessment - Raw Mapping</p></td>
       </tr><tr><td>
           <p><code><a href="Consent_Map_Raw.html">Consent_Map_Raw()</a></code> </p>
         </td>
-        <td><p>Consent Assessment Mapping from Raw Data</p></td>
+        <td><p>Consent Assessment - Raw Mapping</p></td>
       </tr><tr><td>
           <p><code><a href="Disp_Map.html">Disp_Map()</a></code> </p>
         </td>
@@ -112,14 +116,14 @@
       </tr><tr><td>
           <p><code><a href="IE_Map_Raw.html">IE_Map_Raw()</a></code> </p>
         </td>
-        <td><p>Inclusion/Exclusion Assessment Mapping from Raw Data- Make Input Data</p></td>
+        <td><p>Inclusion/Exclusion Assessment - Raw Mapping</p></td>
       </tr><tr><td>
           <p><code><a href="PD_Map_Raw.html">PD_Map_Raw()</a></code> </p>
         </td>
-        <td><p>Protocol Deviation Assessment Mapping from Raw Data- Make Input Data</p></td>
+        <td><p>Protocol Deviation Assessment - Raw Mapping</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="analyze">Analyze <a href="#analyze" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Statistical Analysis Functions</p>
+          <p class="section-desc"></p><p>Statistical Analysis Functions - creates statistical analysis based on input data</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="Analyze_Chisq.html">Analyze_Chisq()</a></code> </p>
@@ -134,16 +138,12 @@
         </td>
         <td><p>Poisson Analysis - Site Residuals</p></td>
       </tr><tr><td>
-          <p><code><a href="Analyze_Poisson_PredictBounds.html">Analyze_Poisson_PredictBounds()</a></code> </p>
-        </td>
-        <td><p>Poisson Analysis - Predicted Boundaries</p></td>
-      </tr><tr><td>
           <p><code><a href="Analyze_Wilcoxon.html">Analyze_Wilcoxon()</a></code> </p>
         </td>
         <td><p>AE Wilcoxon Assessment - Analysis</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="data-pipeline">Data Pipeline <a href="#data-pipeline" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Data Pipeline Functions</p>
+          <p class="section-desc"></p><p>Data Pipeline Functions - creates site-level summary, analyzed, and flagged data for an assessment</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="Transform_EventCount.html">Transform_EventCount()</a></code> </p>
@@ -157,6 +157,22 @@
           <p><code><a href="Summarize.html">Summarize()</a></code> </p>
         </td>
         <td><p>Make Summary Data Frame</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="reporting">Reporting <a href="#reporting" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Reporting Functions - creates summary tables and HTML objects to create a report</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="Study_AssessmentReport.html">Study_AssessmentReport()</a></code> </p>
+        </td>
+        <td><p>Make Summary of 1 or more assessment Data checks</p></td>
+      </tr><tr><td>
+          <p><code><a href="Study_Report.html">Study_Report()</a></code> </p>
+        </td>
+        <td><p>Study Report</p></td>
+      </tr><tr><td>
+          <p><code><a href="Study_Table.html">Study_Table()</a></code> </p>
+        </td>
+        <td><p>Make Assessment overview table</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="utility">Utility <a href="#utility" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Utility functions for use within the Data Pipeline</p>
@@ -178,18 +194,6 @@
         </td>
         <td><p>Run a single assessment</p></td>
       </tr><tr><td>
-          <p><code><a href="Study_AssessmentReport.html">Study_AssessmentReport()</a></code> </p>
-        </td>
-        <td><p>Make Summary of 1 or more assessment Data checks</p></td>
-      </tr><tr><td>
-          <p><code><a href="Study_Report.html">Study_Report()</a></code> </p>
-        </td>
-        <td><p>Study Report</p></td>
-      </tr><tr><td>
-          <p><code><a href="Study_Table.html">Study_Table()</a></code> </p>
-        </td>
-        <td><p>Make Assessment overview table</p></td>
-      </tr><tr><td>
           <p><code><a href="FilterDomain.html">FilterDomain()</a></code> </p>
         </td>
         <td><p>Utility function for basic filtering</p></td>
@@ -197,6 +201,22 @@
           <p><code><a href="RunStep.html">RunStep()</a></code> </p>
         </td>
         <td><p>Run a single step in an assessment</p></td>
+      </tr><tr><td>
+          <p><code><a href="CheckInputs.html">CheckInputs()</a></code> </p>
+        </td>
+        <td><p>Check mapping inputs</p></td>
+      </tr><tr><td>
+          <p><code><a href="parse_data_mapping.html">parse_data_mapping()</a></code> </p>
+        </td>
+        <td><p>Parse Data Mapping</p></td>
+      </tr><tr><td>
+          <p><code><a href="parse_data_spec.html">parse_data_spec()</a></code> </p>
+        </td>
+        <td><p>Parse Data Specification</p></td>
+      </tr><tr><td>
+          <p><code><a href="generate_md_table.html">generate_md_table()</a></code> </p>
+        </td>
+        <td><p>Generate Markdown Table</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -210,7 +230,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>
