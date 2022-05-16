@@ -44,13 +44,13 @@ data (from \code{dfADSL}). Note that the function can generate data summaries fo
 AEs by passing filtered AE data to \code{dfADAE}.
 }
 \section{Data specification}{
-\tabular{llll}{
-   domain \tab col_key \tab col_value \tab vRequired \cr
-   dfADSL \tab strIDCol \tab USUBJID \tab TRUE \cr
-   dfADSL \tab strSiteCol \tab SITEID \tab TRUE \cr
-   dfADSL \tab strStartCol \tab TRTSDT \tab TRUE \cr
-   dfADSL \tab strEndCol \tab TRTEDT \tab TRUE \cr
-   dfADAE \tab strIDCol \tab USUBJID \tab TRUE \cr
+\tabular{lllll}{
+   domain \tab col_key \tab col_value \tab vRequired \tab vUniqueCols \cr
+   dfADSL \tab strIDCol \tab USUBJID \tab TRUE \tab TRUE \cr
+   dfADSL \tab strSiteCol \tab SITEID \tab TRUE \tab FALSE \cr
+   dfADSL \tab strStartCol \tab TRTSDT \tab TRUE \tab FALSE \cr
+   dfADSL \tab strEndCol \tab TRTEDT \tab TRUE \tab FALSE \cr
+   dfADAE \tab strIDCol \tab USUBJID \tab TRUE \tab  \cr
 }
 }
 

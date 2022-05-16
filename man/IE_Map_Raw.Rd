@@ -48,9 +48,9 @@ specific types of IE criteria by passing filtered IE data to \code{dfIE}.
    domain \tab col_key \tab col_value \tab vRequired \tab vUniqueCols \cr
    dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
    dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
-   dfIE \tab strIDCol \tab SubjectID \tab TRUE \tab NA \cr
-   dfIE \tab strCategoryCol \tab IE_CATEGORY \tab TRUE \tab NA \cr
-   dfIE \tab strValueCol \tab IE_VALUE \tab TRUE \tab NA \cr
+   dfIE \tab strIDCol \tab SubjectID \tab TRUE \tab  \cr
+   dfIE \tab strCategoryCol \tab IE_CATEGORY \tab TRUE \tab  \cr
+   dfIE \tab strValueCol \tab IE_VALUE \tab TRUE \tab  \cr
 }
 }
 

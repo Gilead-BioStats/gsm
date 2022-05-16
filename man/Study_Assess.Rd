@@ -8,6 +8,7 @@ Study_Assess(
   lData = NULL,
   lMapping = NULL,
   lAssessments = NULL,
+  lSubjFilters = NULL,
   lTags = list(Study = "myStudy"),
   bQuiet = FALSE
 )
@@ -18,6 +19,8 @@ Study_Assess(
 \item{lMapping}{a named list identifying the columns needed in each data domain.}
 
 \item{lAssessments}{a named list of metadata defining how each assessment should be run. By default, \code{MakeAssessmentList()} imports YAML specifications from \code{inst/assessments}.}
+
+\item{lSubjFilters}{a named list of parameters to filter subject-level data on.}
 
 \item{lTags}{a named list of Tags to be passed to each assessment. Default is \code{list(Study="myStudy")} could be expanded to include other important metadata such as analysis population or study phase.}
 

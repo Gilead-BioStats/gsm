@@ -178,4 +178,25 @@ test_that("Map + Assess yields same result as Study_Assess()", {
   expect_equal(study_assess$pd$lResults$dfSummary[1:4], pd_assess$dfSummary[1:4])
 })
 
+test_that("lSubjFilters with 0 rows returns NULL", {
+
+  lMappingCustom <- clindata::mapping_rawplus
+
+  lMappingCustom$dfSUBJ$strSiteVal <- "XYZ"
+  lMappingCustom$dfSUBJ$strRandFlagVal <- "N"
+
+
+  tmp <- Study_Assess(
+    lData = lData,
+    lMapping = lMappingCustom,
+    lSubjFilters = list(strSiteCol = "strSiteVal",
+                        strSiteCol = "strSiteVal2",
+                        strSiteCol = "strSiteVal3"
+                        )
+  )
+
+  expect_null(tmp)
+
+})
+
 
