@@ -139,13 +139,12 @@ Study_Table <- function(dfFindings, bFormat=TRUE, bShowCounts=TRUE, bShowSiteSco
     }
 
     # Hide sites below vSiteScoreThreshold & sort sites by score and then N
+    footnote <- NULL
     if(vSiteScoreThreshold > 0 ){
         noOutlierSites <- df_score %>% filter(Flag < vSiteScoreThreshold) %>% pull(.data$SiteID)
         if(length(noOutlierSites)>0){
-            footnote <- paste0("Note: Data not shown for ", length(noOutlierSites), " site(s) with site score less than ",vSiteScoreThreshold)
+            footnote = paste0("Note: Data not shown for ", length(noOutlierSites), " site(s) with site score less than ",vSiteScoreThreshold)
         }
-    } else {
-      footnote <- NULL
     }
 
     siteCols <- df_score %>%
