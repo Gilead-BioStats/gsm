@@ -110,7 +110,9 @@ for (assessment in results){
     
     cat("<h2 style='border-top:2px solid black; border-bottom:2px solid black; text-align:center; padding:3px;'> <small>Assessment Details</small><br>", label, "</h2>")
     cat("<h3>Summary Chart</h3>")
-    print(assessment$chart) 
+    cat("<center>")
+    print(assessment$chart)
+    cat("</center>")
 
     cat("<h3>Flagged Sites</h3>")
     if(nrow(flagged)>0){
@@ -149,7 +151,9 @@ details <- assessment$dfFlagged %>%
     
     if(!is.null(assessment$Explore)){
         cat("<h3>Exploratory Charts</h3>")
+        cat("<center>")
         print(assessment$Explore)
+        cat("</center>")
         cat("<hr>")
     }
     cat("</div></div>")

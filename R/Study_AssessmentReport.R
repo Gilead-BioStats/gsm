@@ -18,9 +18,12 @@
 
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
-  allChecks <- names(lAssessments) %>% map(function(assessment_name){
-    assessment<-lAssessments[[assessment_name]]
-    assessment_checks<-names(assessment$checks) %>% map(function(domain_name){
+  allChecks <- names(lAssessments) %>%
+    map(function(assessment_name){
+
+    assessment <- lAssessments[[assessment_name]]
+    assessment_checks <- names(assessment$checks) %>%
+      map(function(domain_name){
       domain<-assessment$checks[[domain_name]]
 
       domain_check <- tibble(
@@ -54,7 +57,27 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
     return(bind_rows(assessment_checks))
   }) %>% bind_rows()
 
+  found_data <- map(names(lAssessments), ~lAssessments[[.x]][['lData']]) %>%
+    flatten()
 
+  allChecks <- allChecks %>%
+    mutate(notes = ifelse(!domain %in% names(found_data), paste0('Data not found for ', assessment, ' assessment'), NA_character_)) %>%
+    select(assessment, step, check, domain, notes, everything()) %>%
+    group_by(assessment) %>%
+    fill(notes, .direction = "downup") %>%
+    ungroup()
+
+  browser()
+
+  check_cols <- allChecks %>%
+    select(-c(assessment, step, check, domain, notes)) %>%
+    names()
+
+    allChecks <- allChecks %>%
+      mutate(across(check_cols, ~ifelse(!is.na(notes), '--', .)),
+             across(check_cols, ~ifelse(. == '--', NA, .)))
+
+    allChecks <- tidyr::unite(allChecks, check_cols, sep = ',')
 
     # https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/
     rank_chg <- function(status){
