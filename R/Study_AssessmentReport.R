@@ -37,70 +37,69 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
         status=domain[[test_name]][["status"]]
         details=domain[[test_name]][["tests_if"]] %>%
           bind_rows(.id = "names") %>%
-          mutate(status = ifelse(is.na(warning), "--", warning)) %>%
+          mutate(status = ifelse(is.na(warning), NA_character_, warning)) %>%
           select(-warning) %>%
           t %>%
           as_tibble(.name_repair = "minimal") %>%
           janitor::row_to_names(1)
 
-        return(bind_cols(tibble(
-          assessment=assessment_name,
-          step=domain_name,
-          domain=test_name
-        ), details))
-      }) %>% bind_rows() %>%
+        return(
+          bind_cols(
+            tibble(
+              assessment = assessment_name,
+              step = domain_name,
+              domain = test_name),
+            details)
+          )
+      }) %>%
+        bind_rows() %>%
         suppressMessages()
 
-      return(left_join(domain_check,domain_details, by = c("assessment", "step")))
+      return(left_join(domain_check, domain_details, by = c("assessment", "step")))
     })
 
     return(bind_rows(assessment_checks))
-  }) %>% bind_rows()
+  }) %>%
+    bind_rows()
 
   found_data <- map(names(lAssessments), ~lAssessments[[.x]][['lData']]) %>%
-    flatten()
+    flatten() %>%
+    names() %>%
+    unique()
 
   allChecks <- allChecks %>%
-    mutate(notes = ifelse(!domain %in% names(found_data), paste0('Data not found for ', assessment, ' assessment'), NA_character_)) %>%
+    mutate(notes = ifelse(
+      !domain %in% found_data,
+      paste0('Data not found for ', assessment, ' assessment'),
+      NA_character_)
+      ) %>%
     select(assessment, step, check, domain, notes, everything()) %>%
     group_by(assessment) %>%
     fill(notes, .direction = "downup") %>%
     ungroup()
-
-  browser()
 
   check_cols <- allChecks %>%
     select(-c(assessment, step, check, domain, notes)) %>%
     names()
 
     allChecks <- allChecks %>%
-      mutate(across(check_cols, ~ifelse(!is.na(notes), '--', .)),
-             across(check_cols, ~ifelse(. == '--', NA, .)))
+        mutate(across(check_cols, ~ifelse(!is.na(notes), NA_character_, .)),
+               notes = ifelse(is.na(notes),
+                              apply(allChecks[6:length(allChecks)], 1, function(x) paste(x[!is.na(x)], collapse="<br>")),
+                              notes))
 
-    allChecks <- tidyr::unite(allChecks, check_cols, sep = ',')
-
-    # https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/
-    rank_chg <- function(status){
-        if (status == TRUE) {
-            logo_out <- fontawesome::fa("check-circle", fill = "green")
-        }
-        if (status == FALSE){
-            logo_out <- fontawesome::fa("times-circle", fill = "red")
-        }
-        if (!status %in% c(TRUE, FALSE)) {
-            logo_out <- "?"
-        }
-        gt::html(as.character(logo_out))
-    }
+    dfSummary <- allChecks %>%
+        mutate(check = map(.data$check, rank_chg)) %>%
+        select(assessment, step, check, domain, notes)
 
 
-    dfSummary<- allChecks %>%
-        mutate(check = map(.data$check, rank_chg))
 
     if(!bViewReport){
       return(list(dfAllChecks = allChecks, dfSummary = dfSummary))
     } else {
-      return(dfSummary %>% gt::gt())
+      return(dfSummary %>%
+               gt::gt() %>%
+               gt::fmt_markdown(columns = everything()))
     }
 
 }

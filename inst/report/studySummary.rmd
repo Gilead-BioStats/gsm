@@ -178,22 +178,32 @@ AssessmentReport$dfSummary %>%
       cell_fill(color="#c73442")
     ),
     locations = cells_column_labels()
-  )
+  ) %>% 
+  gt::fmt_markdown(columns = everything())
 
 ```
 
 ## Issue List
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
-AssessmentReport$dfAllChecks%>%
-    filter(check==FALSE)%>%
-    gt::gt() %>% 
+AssessmentReport$dfAllChecks %>%
+      filter(check==F) %>% 
+  mutate(check = map(check, rank_chg),
+         across(where(is.character), ~replace_na(., ""))) %>% 
+  gt::gt() %>% 
   gt::tab_style(
     style = list(
       cell_text(color='white', align="center", weight="bold"),
       cell_fill(color="#c73442")
     ),
     locations = cells_column_labels()
-  )
+  ) %>% 
+  gt::cols_width(assessment ~ px(85),
+                 step ~ px(140),
+                 check ~ px(60),
+                 domain ~ px(100),
+                 notes ~ px(300),
+                 everything() ~ px(200)) %>% 
+  gt::fmt_markdown(columns = everything())
 ```
 
 
