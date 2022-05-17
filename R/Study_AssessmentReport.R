@@ -69,28 +69,28 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
   allChecks <- allChecks %>%
     mutate(notes = ifelse(
-      !domain %in% found_data,
-      paste0('Data not found for ', assessment, ' assessment'),
+      !.data$domain %in% found_data,
+      paste0('Data not found for ', .data$assessment, ' assessment'),
       NA_character_)
       ) %>%
-    select(assessment, step, check, domain, notes, everything()) %>%
-    group_by(assessment) %>%
-    fill(notes, .direction = "downup") %>%
+    select(.data$assessment, .data$step, .data$check, .data$domain, .data$notes, everything()) %>%
+    group_by(.data$assessment) %>%
+    fill(.data$notes, .direction = "downup") %>%
     ungroup()
 
   check_cols <- allChecks %>%
-    select(-c(assessment, step, check, domain, notes)) %>%
+    select(-c(.data$assessment, .data$step, .data$check, .data$domain, .data$notes)) %>%
     names()
 
     allChecks <- allChecks %>%
         mutate(across(check_cols, ~ifelse(!is.na(notes), NA_character_, .)),
-               notes = ifelse(is.na(notes),
+               notes = ifelse(is.na(.data$notes),
                               apply(allChecks[6:length(allChecks)], 1, function(x) paste(x[!is.na(x)], collapse="<br>")),
-                              notes))
+                              .data$notes))
 
     dfSummary <- allChecks %>%
         mutate(check = map(.data$check, rank_chg)) %>%
-        select(assessment, step, check, domain, notes)
+        select(.data$assessment, .data$step, .data$check, .data$domain, .data$notes)
 
 
 
