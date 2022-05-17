@@ -168,8 +168,8 @@ for (i in 1:nrow(tbl)){
   pander::pandoc.p(
     c(
       pander::pandoc.header(paste0("Pull Request ", tbl[i, "Pull Request"], ": ", tbl[i, "Title"]), level = 3),
-      pander::pandoc.p(paste0("Merging ", tbl[i, "Branch"], " into ", tbl[i, "Target"])),
-      pander::pandoc.link(tbl[i, "Link"]),
+      pander::pandoc.p(paste0("Merging ", tbl[i, "Branch"], " into ", tbl[i, "Target"], "\n")),
+      pander::pandoc.p(pander::pandoc.link(tbl[i, "Link"])),
       pander::pandoc.table(tbl[i, c("Requester", "Date Requested", 
                                     "Reviewers", "Review Status")],
                            split.cells = 13)
