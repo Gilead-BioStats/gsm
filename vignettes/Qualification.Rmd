@@ -124,11 +124,12 @@ getRepoDetails <- function(x) {
   Branch <- x[["head"]][["ref"]]
   Target <- x[["base"]][["ref"]]
   Title <- x[["title"]]
+  Link <- x[["html_url"]]
 
   if (length(x[["requested_reviewers"]]) > 0) {
-  Reviewer <- x[["requested_reviewers"]][[1]][["login"]]
+    Reviewers <- paste(map(x[["requested_reviewers"]], ~ .x[["login"]]), collapse = "\n\n")
   } else {
-    Reviewer = ""
+    Reviewers = ""
   }
 
   tempReviews <- gh(paste0("GET /repos/Gilead-BioStats/gsm/pulls/", PullRequest, "/reviews"))
@@ -148,9 +149,9 @@ getRepoDetails <- function(x) {
     Branch = Branch,
     Target = Target,
     Title = Title,
-    Reviewer = Reviewer,
+    Reviewers = Reviewers,
     `Review Status` = ReviewStatus,
-    `Review Comments` = ReviewComments
+    Link = Link
   ) %>%
     map(~ gsub("[^\u0001-\u007F]+|<U\\+\\w+>","", .x)) %>%
     map(~ gsub("`", " ` ", .x)) %>%
@@ -167,11 +168,11 @@ for (i in 1:nrow(tbl)){
   pander::pandoc.p(
     c(
       pander::pandoc.header(paste0("Pull Request ", tbl[i, "Pull Request"], ": ", tbl[i, "Title"]), level = 3),
-      pander::pandoc.p(paste0("Merging ", tbl[i, "Branch"], " into ", tbl[i, "Target"])),
+      pander::pandoc.p(paste0("Merging ", tbl[i, "Branch"], " into ", tbl[i, "Target"], "\n")),
+      pander::pandoc.p(pander::pandoc.link(tbl[i, "Link"])),
       pander::pandoc.table(tbl[i, c("Requester", "Date Requested", 
-                                    "Reviewer", "Review Status")],
-                           split.cells = 13),
-      pander::pandoc.verbatim(paste0("Review Comments: ", tbl[i, "Review Comments"]))
+                                    "Reviewers", "Review Status")],
+                           split.cells = 13)
       )
     ) 
 }
