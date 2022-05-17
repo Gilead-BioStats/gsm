@@ -1,53 +1,47 @@
-#' Consent Assessment Mapping from Raw Data
+#' Consent Assessment - Raw Mapping
 #'
+#' @description
 #' Convert from raw data format to needed input format for \code{\link{Consent_Assess}}
 #'
 #' @details
+#' `Consent_Map_Raw` combines consent data with subject-level data to create formatted input data
+#' to {gsm::Consent_Assess()}. This function creates an input dataset for the Consent Assessment
+#' (${Consent_Assess()} by binding subject-level counts of consent issues (derived from `dfCONSENT`) to
+#' subject-level data (from `dfSUBJ`). Note the function can generate data summaries for specific
+#' types of consent by customizing `lMapping$dfCONSENT`.
 #'
-#' This function uses raw Consent and Subject data to create the required input for \code{\link{Consent_Assess}}.
+#' @param dfs `list` Input data frames:
+#'  - `dfCONSENT`: `data.frame` Consent type-level data with one record per subject per consent type.
+#'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column.
+#' @param bReturnChecks `logical` Return input checks from {gsm::is_mapping_valid()}? Default: `FALSE`
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @section Data Specification:
-#' The following columns are required:
-#' - `dfCONSENT`
-#'     - `SubjectID` - Subject ID
-#'     - `CONSCAT_STD` - Type of Consent_Coded value
-#'     - `CONSYN` - Did the subject give consent? Yes / No.
-#'     - `CONSDAT` - If yes, provide date consent signed
-#' - `dfSUBJ`
-#'     - `SubjectID` - Unique subject ID
-#'     - `SiteID` - Site ID
-#'     - `RandDate` - Randomization Date
+#' @return `data.frame` Data frame with one record per subject, the input to
+#' {gsm::Consent_Assess()}. If `bReturnChecks` is `TRUE` `Consent_Map_Raw` returns a named `list`
+#' with:
+#' - `df`: the data frame described above
+#' - `lChecks`: a named `list` of check results
 #'
-#' @param dfs list of data frames including:
-#'  - `dfCONSENT` consent data frame with columns: SUBJID, CONSCAT_STD , CONSYN , CONSDAT.
-#'  - `dfSUBJ` Subject-level Raw Data required columns: SubjectID SiteID RandDate.
-#' @param lMapping List containing expected columns in each data set.
-#' @param bReturnChecks Should input checks using `is_mapping_valid` be returned? Default is FALSE.
-#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
-#'
-#' @return Data frame with one record per person data frame with columns: SubjectID, SiteID, Count.
+#' @includeRmd ./man/md/Consent_Map_Raw.md
 #'
 #' @import dplyr
 #'
 #' @examples
-#'
 #' dfInput <- Consent_Map_Raw() # Run with defaults
-#'
-#' # Run with error checking and message log
-#' dfInput <- Consent_Map_Raw(bReturnChecks=TRUE, bQuiet=FALSE)
+#' dfInput <- Consent_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
 #'
 #' @export
 
 Consent_Map_Raw <- function(
-    dfs=list(
-      dfCONSENT=clindata::rawplus_consent,
-      dfSUBJ=clindata::rawplus_subj
-    ),
-    lMapping = clindata::mapping_rawplus,
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
-){
-
+  dfs = list(
+    dfCONSENT = clindata::rawplus_consent,
+    dfSUBJ = clindata::rawplus_subj
+  ),
+  lMapping = clindata::mapping_rawplus,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+) {
   checks <- CheckInputs(
     context = "Consent_Map_Raw",
     dfs = dfs,
@@ -55,11 +49,10 @@ Consent_Map_Raw <- function(
     mapping = lMapping
   )
 
+  if (checks$status) {
+    if (!bQuiet) cli::cli_h2("Initializing {.fn Consent_Map_Raw}")
 
-  if(checks$status){
-    if(!bQuiet) cli::cli_h2("Initializing {.fn Consent_Map_Raw}")
-
-    # Standarize Column Names
+    # Standarize column names.
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
         SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
@@ -75,31 +68,44 @@ Consent_Map_Raw <- function(
         ConsentDate = lMapping[["dfCONSENT"]][["strDateCol"]]
       )
 
-    if(!is.null(lMapping$dfCONSENT$strConsentTypeValue)){
+    if (!is.null(lMapping$dfCONSENT$strConsentTypeValue)) {
       dfCONSENT_mapped <- dfCONSENT_mapped %>%
-        filter(.data$ConsentType == lMapping$dfCONSENT$strConsentTypeValue)
-      if(nrow(dfCONSENT_mapped)==0) stop("supplied strConsentTypeValue not found in data")
+        filter(
+          .data$ConsentType == lMapping$dfCONSENT$strConsentTypeValue
+        )
+
+      if (nrow(dfCONSENT_mapped) == 0)
+        stop(paste0(
+          "No records in [ dfs$dfCONSENT$",
+            lMapping$dfCONSENT$strTypeCol,
+          " ] contain a consent type of [ ",
+            lMapping$dfCONSENT$strConsentTypeValue,
+          " ]."
+        ))
     }
 
-    dfInput <- MergeSubjects(dfCONSENT_mapped, dfSUBJ_mapped, bQuiet=bQuiet)%>%
-      mutate(flag_noconsent = .data$ConsentStatus != lMapping$dfCONSENT$strConsentStatusValue) %>%
-      mutate(flag_missing_consent = is.na(.data$ConsentDate))%>%
-      mutate(flag_missing_rand = is.na(.data$RandDate))%>%
-      mutate(flag_date_compare = .data$ConsentDate >= .data$RandDate ) %>%
-      mutate(any_flag = .data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare) %>%
-      mutate(Count = as.numeric(.data$any_flag, na.rm = TRUE)) %>%
+    dfInput <- dfCONSENT_mapped %>%
+      gsm::MergeSubjects(dfSUBJ_mapped, bQuiet = bQuiet) %>%
+      mutate(
+        flag_noconsent = .data$ConsentStatus != lMapping$dfCONSENT$strConsentStatusValue,
+        flag_missing_consent = is.na(.data$ConsentDate),
+        flag_missing_rand = is.na(.data$RandDate),
+        flag_date_compare = .data$ConsentDate >= .data$RandDate,
+        any_flag = .data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare,
+        Count = as.numeric(.data$any_flag, na.rm = TRUE)
+      ) %>%
       select(.data$SubjectID, .data$SiteID, .data$Count)
 
-    if(!bQuiet) cli::cli_alert_success("{.fn Consent_Map_Raw} returned output with {nrow(dfInput)} rows.")
+    if (!bQuiet) cli::cli_alert_success("{.fn Consent_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
-    if(!bQuiet) cli::cli_alert_warning("{.fn Consent_Map_Raw} not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn Consent_Map_Raw} did not run because of failed check.")
     dfInput <- NULL
   }
 
 
-  if(bReturnChecks){
-    return(list(dfInput=dfInput, lChecks=checks))
-  }else{
+  if (bReturnChecks) {
+    return(list(df = dfInput, lChecks = checks))
+  } else {
     return(dfInput)
   }
 }

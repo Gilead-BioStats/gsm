@@ -4,15 +4,25 @@
 \alias{Study_Report}
 \title{Study Report}
 \usage{
-Study_Report(assessments, meta, outpath = NULL)
+Study_Report(strAssessments, lMeta, strOutpath = NULL)
 }
 \arguments{
-\item{assessments}{character vector listing assessments}
+\item{strAssessments}{character vector listing assessments}
 
-\item{meta}{list of metadata related to study}
+\item{lMeta}{list of metadata related to study}
 
-\item{outpath}{path to safe the report}
+\item{strOutpath}{path to safe the report}
+}
+\value{
+HTML report of study data.
 }
 \description{
 Pulls needed study data and runs one or more assessments
+}
+\examples{
+\dontrun{
+assessment <- Study_Assess()
+Study_Report(assessment, lMeta = list(study = "my study name"))
+}
+
 }

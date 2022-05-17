@@ -50,11 +50,6 @@
 
     Code
       PD_Assess(pdInputNA)
-    Message <rlang_message>
-      Note: Using an external vector in selections is ambiguous.
-      i Use `all_of(check_na)` instead of `check_na` to silence this message.
-      i See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
-      This message is displayed once per session.
     Output
       $strFunctionName
       [1] "PD_Assess()"
@@ -70,9 +65,9 @@
       
       
       $dfInput
-        SubjectID SiteID Exposure Count         Rate
-      1      1234  X010X     1234    NA 0.0016207455
-      2      5678  X102X     2345     3 0.0012793177
-      3      9876  X999X     4567     2 0.0004379242
+        SubjectID SiteID Count Exposure         Rate
+      1      1234  X010X    NA     1234 0.0016207455
+      2      5678  X102X     3     2345 0.0012793177
+      3      9876  X999X     2     4567 0.0004379242
       
 

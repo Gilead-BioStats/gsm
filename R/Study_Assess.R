@@ -5,6 +5,7 @@
 #' @param lData a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping a named list identifying the columns needed in each data domain.
 #' @param lAssessments a named list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/assessments`.
+#' @param lSubjFilters a named list of parameters to filter subject-level data on.
 #' @param lTags a named list of Tags to be passed to each assessment. Default is `list(Study="myStudy")` could be expanded to include other important metadata such as analysis population or study phase.
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
@@ -23,6 +24,7 @@ Study_Assess <- function(
     lData=NULL,
     lMapping=NULL,
     lAssessments=NULL,
+    lSubjFilters=NULL,
     lTags=list(Study="myStudy"),
     bQuiet=FALSE
 ){
@@ -40,7 +42,7 @@ Study_Assess <- function(
 
     # lMapping from clindata
     if(is.null(lMapping)){
-        lMapping <- yaml::read_yaml(system.file("mapping/rawplus.yaml", package = 'clindata'))
+        lMapping <- clindata::mapping_rawplus
     }
 
     # lAssessments from gsm inst/assessments
@@ -48,10 +50,34 @@ Study_Assess <- function(
         lAssessments <- MakeAssessmentList()
     }
 
+    # Filter data$dfSUBJ based on lSubjFilters --------------------------------
+    if (!is.null(lSubjFilters)) {
+      for (colMapping in names(lSubjFilters)) {
+        if(!hasName(lMapping$dfSUBJ, colMapping)) {
+          stop(paste0("`",colMapping, "` from lSubjFilters is not specified in lMapping$dfSUBJ"))
+        }
+        col <- colMapping
+        vals <- lSubjFilters[[colMapping]]
+        lData$dfSUBJ <- FilterDomain(
+          df = lData$dfSUBJ,
+          strDomain = 'dfSUBJ',
+          lMapping = lMapping,
+          strColParam = col,
+          strValParam = vals,
+          bQuiet = bQuiet
+          )
+      }
+    }
+
+  if (nrow(lData$dfSUBJ > 0)) {
     ### --- Attempt to run each assessment --- ###
     lAssessments <- lAssessments %>% map(
-        ~RunAssessment(.x, lData=lData, lMapping=lMapping, lTags=lTags, bQuiet=bQuiet)
+        ~gsm::RunAssessment(.x, lData=lData, lMapping=lMapping, lTags=lTags, bQuiet=bQuiet)
     )
+  } else {
+    cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
+    lAssessments <- NULL
+  }
 
     return(lAssessments)
 }

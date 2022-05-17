@@ -51,6 +51,9 @@ reference:
       - FilterDomain
       - RunStep
       - CheckInputs
+      - parse_data_mapping
+      - parse_data_spec
+      - generate_md_table
 
 
 

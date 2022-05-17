@@ -13,18 +13,36 @@
 #'
 #' @return A list containing the results of the `lStep$name` function call should contain `.$checks` parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
 #'
+#' @examples
+#' lStep <- MakeAssessmentList()[['ae']][['workflow']][[1]]
+#'
+#' lMapping <- clindata::mapping_rawplus
+#'
+#' lData <- list(
+#'   dfSUBJ= clindata::rawplus_subj,
+#'   dfAE=clindata::rawplus_ae,
+#'   dfPD=clindata::rawplus_pd,
+#'   dfCONSENT=clindata::rawplus_consent,
+#'   dfIE=clindata::rawplus_ie
+#' )
+#'
+#' lTags <- list(Study="myStudy")
+#'
+#' ae_step <- RunStep(lStep = lStep, lMapping = lMapping, lData = lData, lTags = lTags, bQuiet = FALSE)
+#'
 #' @export
 
 RunStep <- function(lStep, lMapping, lData, lTags, bQuiet){
+
     # prepare parameter list inputs
     cli::cli_text("Preparing parameters for  {.fn {lStep$name}} ...")
     params <- c(lStep$params, list(bQuiet=bQuiet, bReturnChecks=TRUE))
 
     # prepare data inputs by function type
-    if(str_detect(lStep$name, "_Map")){
+    if(stringr::str_detect(lStep$name, "_Map")){
         params$lMapping <- lMapping
         params$dfs <- lData[lStep$inputs]
-    }else if(str_detect(lStep$name, "_Assess")){
+    }else if(stringr::str_detect(lStep$name, "_Assess")){
         print(names(lData))
         params$dfInput <- lData[[lStep$inputs]]
         params$lTags <- lTags

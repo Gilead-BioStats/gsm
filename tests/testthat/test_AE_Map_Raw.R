@@ -47,47 +47,68 @@ test_that("incorrect mappings throw errors",{
 
 })
 
-# # custom tests ------------------------------------------------------------
-# test_that("NA values in input data are handled",{
-#
-#   dfAE1 <- tibble::tribble(~SubjectID, 1,1,1,1,2,2,4,4)
-#
-#   dfExposure1 <- tibble::tribble(
-#     ~SubjectID, ~SiteID, ~TimeOnTreatment,
-#     1,   1, 10,
-#     2,   1, NA,
-#     3,   NA, 30,
-#     4,   2, 50
-#   )
-#
-#   dfAE2 <- tibble::tribble(~SubjectID, 1,NA,1,1,2,2,4,4)
-#
-#   dfExposure2 <- tibble::tribble(
-#     ~SubjectID, ~SiteID, ~TimeOnTreatment,
-#     1,   1, 10,
-#     2,   1, 20,
-#     3,   3, 30,
-#     4,   2, 50
-#   )
-#
-#   dfAE3 <- tibble::tribble(~SubjectID, 1,1,1,1,2,2,4,4)
-#
-#   dfExposure3 <- tibble::tribble(
-#     ~SubjectID, ~SiteID, ~TimeOnTreatment,
-#     NA,   1, 10,
-#     2,   1, 20,
-#     3,   2, 30,
-#     4,   2, 50
-#   )
-#
-#
-#   expect_snapshot_error(AE_Map_Raw(dfAE = dfAE1, dfSUBJ = dfExposure1))
-#
-#   expect_snapshot_error(AE_Map_Raw(dfAE = dfAE2, dfSUBJ = dfExposure2))
-#
-#   expect_snapshot_error(AE_Map_Raw(dfAE = dfAE3, dfSUBJ = dfExposure3))
-#
-# })
+# custom tests ------------------------------------------------------------
+test_that("NA values in input data are handled",{
+  # NA SiteID and TimeOnTreatment.
+  dfAE1 <- tibble::tribble(
+    ~SubjectID, 1,1,1,1,2,2,4,4
+  )
+  dfExposure1 <- tibble::tribble(
+    ~SubjectID, ~SiteID, ~TimeOnTreatment,
+    1, 1, 10,
+    2, 1, NA,
+    3, NA, 30,
+    4, 2, 50
+  )
+  mapped1 <- AE_Map_Raw(
+    list(dfAE = dfAE1, dfSUBJ = dfExposure1)
+  )
+  expect_null(mapped1)
+
+  # NA SubjectID in AE domain.
+  dfAE2 <- tibble::tribble(
+    ~SubjectID, 1,NA,1,1,2,2,4,4
+  )
+  dfExposure2 <- tibble::tribble(
+    ~SubjectID, ~SiteID, ~TimeOnTreatment,
+    1, 1, 10,
+    2, 1, 20,
+    3, 3, 30,
+    4, 2, 50
+  )
+  mapped2 <- AE_Map_Raw(
+    list(dfAE = dfAE2, dfSUBJ = dfExposure2)
+  )
+  expect_null(mapped2)
+
+  # NA SubjectID in SUBJ domain.
+  dfAE3 <- tibble::tribble(
+    ~SubjectID, 1,1,1,1,2,2,4,4
+  )
+  dfExposure3 <- tibble::tribble(
+    ~SubjectID, ~SiteID, ~TimeOnTreatment,
+    NA, 1, 10,
+    2, 1, 20,
+    3, 2, 30,
+    4, 2, 50
+  )
+  mapped3 <- AE_Map_Raw(
+    list(dfAE = dfAE3, dfSUBJ = dfExposure3)
+  )
+  expect_null(mapped3)
+})
+
+test_that("bQuiet works as intended", {
+  expect_message(
+    AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bQuiet = FALSE)
+  )
+})
+
+test_that("bReturnChecks works as intended", {
+  expect_true(
+    all(names(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c('df', 'lChecks'))
+  )
+})
 #
 # test_that("custom mapping runs without errors", {
 #

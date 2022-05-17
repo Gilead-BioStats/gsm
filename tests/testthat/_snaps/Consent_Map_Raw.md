@@ -17,7 +17,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -35,7 +35,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -53,7 +53,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -76,7 +76,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -89,9 +89,14 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      ! Checks not run for `dfSUBJ` because data/metadata not provided, or `dfSUBJ` is named incorrectly.
+      x "mapping" does not contain required parameters: strIDCol, strTypeCol, strValueCol, strDateCol
+      x mapping is not a list()
+      x Non-character column names found in mapping: 
+      x "mapping" does not contain required parameters: strIDCol, strSiteCol, strRandDateCol
+      x mapping is not a list()
+      x Non-character column names found in mapping: 
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -109,7 +114,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -127,7 +132,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -145,7 +150,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -163,7 +168,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -181,7 +186,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -199,7 +204,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -214,7 +219,7 @@
       
       x Unexpected duplicates found in column: SubjectID
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -235,7 +240,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -256,7 +261,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` not run because of failed check.
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 

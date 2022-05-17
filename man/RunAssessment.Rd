@@ -7,19 +7,38 @@
 RunAssessment(lAssessment, lData, lMapping, lTags = NULL, bQuiet = FALSE)
 }
 \arguments{
-\item{lAssessment}{a named list of metadata defining how each assessment should be run. Properties should include: \code{label}, \code{tags} and \code{workflow}}
+\item{lAssessment}{\code{list} A named list of metadata defining how each assessment should be run. Properties should include: \code{label}, \code{tags} and \code{workflow}}
 
-\item{lData}{a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
+\item{lData}{\code{list} A named list of domain-level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
-\item{lMapping}{a named list identifying the columns needed in each data domain.}
+\item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
 
-\item{lTags}{tags}
+\item{lTags}{\code{list} A named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}.}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-Returns \code{lAssessment} with \code{lData}, \code{lResults}, \code{bStatus} and \code{lChecks} added based on the results of the execution of \code{assessment$workflow}.
+\code{list} Returns \code{lAssessment} with \code{label}, \code{tags}, \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of \code{assessment$workflow}.
 }
 \description{
-Atempts to run a single assessments (\code{lAssessment}) using shared data (\code{lData}) and metadata (\code{lMapping}). Calls \code{RunStep} for each item in \code{lAssessment$Workflow} and saves the results to \code{lAssessment}
+Attempts to run a single assessments (\code{lAssessment}) using shared data (\code{lData}) and metadata (\code{lMapping}).
+Calls \code{RunStep} for each item in \code{lAssessment$Workflow} and saves the results to \code{lAssessment}
+}
+\examples{
+lAssessments <- MakeAssessmentList()
+lData <- list(
+  dfSUBJ= clindata::rawplus_subj,
+  dfAE=clindata::rawplus_ae,
+  dfPD=clindata::rawplus_pd,
+  dfCONSENT=clindata::rawplus_consent,
+  dfIE=clindata::rawplus_ie
+)
+lTags <- list(
+  Study="myStudy"
+)
+lMapping <- clindata::mapping_rawplus
+
+
+ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
+
 }

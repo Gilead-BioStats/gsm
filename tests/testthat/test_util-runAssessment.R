@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 sae_meta <- yaml::read_yaml(system.file("assessments/sae.yaml", package = 'gsm'))
-rawDataMap <- yaml::read_yaml(system.file("mapping/rawplus.yaml", package = 'clindata'))
+rawDataMap <- clindata::mapping_rawplus
 
 dfAE <- dfAE %>%
     expand(dfAE, ae_serious = dfAE$AE_SERIOUS)
