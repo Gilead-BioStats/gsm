@@ -88,8 +88,6 @@ Analyze_Wilcoxon <- function(
         names(dfTransformed), .data$Estimate, PValue = .data$p.value
     ) %>%
     arrange(.data$PValue)
-print(names(dfAnalyzed))
-stop()
 
   return(dfAnalyzed)
 }
