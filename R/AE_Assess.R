@@ -10,9 +10,13 @@
 #' methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
-#' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to `c(-5, 5)` for `strMethod` = "poisson" and `c(.0001, NA)` for `strMethod` = "wilcoxon".
-#' @param strMethod `character` Statistical model. Valid values include "poisson" (default) and  "wilcoxon".
-#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment="AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
+#' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
+#'   `c(-5, 5)` for `strMethod` = "poisson" and `c(.0001, NA)` for `strMethod` = "wilcoxon".
+#' @param strMethod `character` Statistical model. Valid values include "poisson" (default) and
+#'  "wilcoxon".
+#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
+#'   to `list(Assessment="AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and
+#'   each tag is added as a column in `lAssess$dfSummary`.
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
@@ -120,7 +124,7 @@ AE_Assess <- function(
         )
       }
 
-      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed)
+      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed, 'Rate')
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Wilcoxon} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
       lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strColumn = "PValue", vThreshold = vThreshold, strValueColumn = "Estimate")

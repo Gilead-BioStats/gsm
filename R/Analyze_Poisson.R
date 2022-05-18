@@ -27,32 +27,33 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
-#' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
-#' dfAnalyzed <- Analyze_Poisson( dfTransformed )
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+#' dfAnalyzed <- Analyze_Poisson(dfTransformed)
 #'
 #' @export
 
-Analyze_Poisson <- function( dfTransformed ){
-    stopifnot(
-        "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-        "One or more of these columns: SiteID, N, TotalExposure, TotalCount, Rate" = all(c("SiteID", "N", "TotalExposure", "TotalCount", "Rate") %in% names(dfTransformed)),
-        "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]]))
-    )
+Analyze_Poisson <- function(dfTransformed) {
+  stopifnot(
+    "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
+    "One or more of these columns: SiteID, N, TotalExposure, TotalCount, Rate" = all(c("SiteID", "N", "TotalExposure", "TotalCount", "Rate") %in% names(dfTransformed)),
+    "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]]))
+  )
 
-    dfModel <- dfTransformed %>% mutate(LogExposure = log( .data$TotalExposure) )
+  dfModel <- dfTransformed %>% mutate(LogExposure = log(.data$TotalExposure))
 
-    cModel <- stats::glm(
-        TotalCount ~ stats::offset(LogExposure), family=stats::poisson(link="log"),
-        data=dfModel
-    )
+  cModel <- stats::glm(
+    TotalCount ~ stats::offset(LogExposure),
+    family = stats::poisson(link = "log"),
+    data = dfModel
+  )
 
-    dfAnalyzed <- broom::augment(cModel, dfModel, type.predict = "response") %>%
+  dfAnalyzed <- broom::augment(cModel, dfModel, type.predict = "response") %>%
     rename(
-        Residuals=.data$.resid,
-        PredictedCount=.data$.fitted,
+      Residuals = .data$.resid,
+      PredictedCount = .data$.fitted,
     ) %>%
     select(.data$SiteID, .data$N, .data$TotalExposure, .data$TotalCount, .data$Rate, .data$Residuals, .data$PredictedCount) %>%
     arrange(.data$Residuals)
 
-    return(dfAnalyzed)
+  return(dfAnalyzed)
 }
