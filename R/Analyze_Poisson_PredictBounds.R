@@ -63,14 +63,16 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5)) 
     mutate(
       # expected event count
       vMu = as.numeric(exp(.data$LogExposure * cModel$coefficients[2] + cModel$coefficients[1])),
+      vLo = vThreshold[1]^2 - 2 * .data$vMu,
+      vHi = vThreshold[2]^2 - 2 * .data$vMu,
 
       # ?
-      vWLo = (vThreshold[1]^2 - 2 * .data$vMu) / (2 * exp(1) * .data$vMu),
-      vWHi = (vThreshold[2]^2 - 2 * .data$vMu) / (2 * exp(1) * .data$vMu),
+      vWLo = vLo / (2 * exp(1) * .data$vMu),
+      vWHi = vHi / (2 * exp(1) * .data$vMu),
 
       # predict bounds
-      PredictYLo = (vThreshold[1]^2 - 2 * .data$vMu) / (2 * lamW::lambertWm1(.data$vWLo)),
-      PredictYHigh = (vThreshold[2]^2 - 2 * .data$vMu) / (2 * lamW::lambertW0(.data$vWHi)),
+      PredictYLo = vLo / (2 * lamW::lambertWm1(.data$vWLo)),
+      PredictYHigh = vHi / (2 * lamW::lambertW0(.data$vWHi)),
 
       # Set lower limit of predicted bounds to 0.
       LowerCount = if_else(is.nan(.data$PredictYLo), 0, .data$PredictYLo),
