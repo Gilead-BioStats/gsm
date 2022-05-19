@@ -2,12 +2,12 @@
 #'
 #' @description
 #' Convert raw inclusion/exclusion (IE) data, typically processed case report form data, to formatted
-#' input data to {gsm::IE_Assess()}.
+#' input data to [gsm::IE_Assess()].
 #'
 #' @details
 #' `IE_Map_Raw` combines IE data with subject-level data to create formatted input data to
-#' {gsm::IE_Assess()}. This function creates an input dataset for the IE Assessment
-#' (${gsm::IE_Assess()}) by binding subject-level unmet IE criteria counts (derived from `dfIE`) to
+#' [gsm::IE_Assess()]. This function creates an input dataset for the IE Assessment
+#' ($[gsm::IE_Assess()]) by binding subject-level unmet IE criteria counts (derived from `dfIE`) to
 #' subject-level data (from `dfSUBJ`). Note that the function can generate data summaries for
 #' specific types of IE criteria by passing filtered IE data to `dfIE`.
 #'
@@ -15,10 +15,10 @@
 #'  - `dfIE`: `data.frame` Criterion-level data with one record subject per criterion.
 #'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column.
-#' @param bReturnChecks `logical` Return input checks from {gsm::is_mapping_valid()}? Default: `FALSE`
+#' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` Data frame with one record per subject, the input to {gsm::IE_Assess()}. If
+#' @return `data.frame` Data frame with one record per subject, the input to [gsm::IE_Assess()]. If
 #' `bReturnChecks` is `TRUE` `IE_Map_Raw` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results

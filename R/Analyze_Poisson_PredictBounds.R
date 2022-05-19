@@ -63,22 +63,35 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5)) 
     mutate(
       # expected event count
       vMu = as.numeric(exp(.data$LogExposure * cModel$coefficients[2] + cModel$coefficients[1])),
+      a = qchisq(0.95, 1), # used in Pearson calculation
+
+      # lower bound
       vLo = vThreshold[1]^2 - 2 * .data$vMu,
-      vHi = vThreshold[2]^2 - 2 * .data$vMu,
-
-      # ?
       vWLo = vLo / (2 * exp(1) * .data$vMu),
-      vWHi = vHi / (2 * exp(1) * .data$vMu),
+      PredictYLo = vLo / (2 * lamW::lambertWm1(.data$vWLo)), # Lambert W
 
-      # predict bounds
-      PredictYLo = vLo / (2 * lamW::lambertWm1(.data$vWLo)),
-      PredictYHigh = vHi / (2 * lamW::lambertW0(.data$vWHi)),
+      CINormalLo = vMu - 1.96*sqrt(vMu / nrow(dfTransformed)), # Normal approximation
+      CIExactLo = qchisq(0.025, 2*vMu)/2, # Exact
+      CIPearsonLo = ( vMu + a / 2 ) - sqrt(a) * sqrt( vMu + a/4 ), # Pearson
+
+      #  upper bound
+      vHi = vThreshold[2]^2 - 2 * .data$vMu,
+      vWHi = vHi / (2 * exp(1) * .data$vMu),
+      PredictYHi = vHi / (2 * lamW::lambertW0(.data$vWHi)), # Lambert W
+
+      CINormalHi = vMu + 1.96*sqrt(vMu / nrow(dfTransformed)), # Normal approximation
+      CIExactHi = qchisq(0.975, 2*(vMu + 1))/2, # Exact
+      CIPearsonHi = ( vMu + a / 2 ) + sqrt(a) * sqrt( vMu + a/4 ), # Pearson
 
       # Set lower limit of predicted bounds to 0.
       LowerCount = if_else(is.nan(.data$PredictYLo), 0, .data$PredictYLo),
-      UpperCount = if_else(is.nan(.data$PredictYHigh), 0, .data$PredictYHigh)
-    ) %>%
-    select(.data$LogExposure, MeanCount = .data$vMu, .data$LowerCount, .data$UpperCount)
-browser()
-  return(dfBounds)
+      UpperCount = if_else(is.nan(.data$PredictYHi), 0, .data$PredictYHi)
+    )
+
+  return(
+    dfBounds %>%
+      select(
+        .data$LogExposure, MeanCount = .data$vMu, .data$LowerCount, .data$UpperCount
+      )
+  )
 }

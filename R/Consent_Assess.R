@@ -31,10 +31,10 @@
 #' @return `list` Assessment, a named list with:
 #' - each data frame in the data pipeline
 #'   - `dfInput`
-#'   - `dfTransformed`, returned by {gsm::Transform_EventCount()}
-#'   - `dfAnalyzed`, a copy of `dfTransformed` and input to `gsm::Flag`
-#'   - `dfFlagged`, returned by {gsm::Flag()}
-#'   - `dfSummary`, returned by {gsm::Summarize()}
+#'   - `dfTransformed`, returned by [gsm::Transform_EventCount()]
+#'   - `dfAnalyzed`, a copy of `dfTransformed` and input to `[gsm::Flag()]`
+#'   - `dfFlagged`, returned by [gsm::Flag()]
+#'   - `dfSummary`, returned by [gsm::Summarize()]
 #' - assessment metadata
 #'   - `strFunctionName`
 #'   - `lParams`
