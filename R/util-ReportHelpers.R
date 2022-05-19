@@ -7,7 +7,7 @@ rank_chg <- function(status){
     logo_out <- fontawesome::fa("times-circle", fill = "red")
   }
   if (!status %in% c(TRUE, FALSE)) {
-    logo_out <- "?"
+    logo_out <- fontawesome::fa("minus-circle", fill = "#EED202")
   }
   gt::html(as.character(logo_out))
 }

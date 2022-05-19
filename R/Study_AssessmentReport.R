@@ -20,21 +20,21 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
   allChecks <- names(lAssessments) %>%
     map(function(assessment_name){
-
     assessment <- lAssessments[[assessment_name]]
     assessment_checks <- names(assessment$checks) %>%
       map(function(domain_name){
+
       domain<-assessment$checks[[domain_name]]
 
       domain_check <- tibble(
         assessment=assessment_name,
-        step=domain_name,
-        check=domain$status
+        step=domain_name
       )
 
       domain_details <- names(domain)[names(domain) != "status"] %>%
         map(function(test_name){
-        status=domain[[test_name]][["status"]]
+
+        check=domain[[test_name]][["status"]]
         details=domain[[test_name]][["tests_if"]] %>%
           bind_rows(.id = "names") %>%
           mutate(status = ifelse(is.na(warning), NA_character_, warning)) %>%
@@ -43,11 +43,13 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
           as_tibble(.name_repair = "minimal") %>%
           janitor::row_to_names(1)
 
+
         return(
           bind_cols(
             tibble(
               assessment = assessment_name,
               step = domain_name,
+              check = check,
               domain = test_name),
             details)
           )
@@ -61,6 +63,27 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
     return(bind_rows(assessment_checks))
   }) %>%
     bind_rows()
+
+  workflow <- map(lAssessments, ~.x %>% pluck('workflow')) %>%
+    map(function(workflow){
+
+      step <- map(workflow, ~.x %>% pluck('name')) %>%
+        enframe() %>%
+        unnest(cols = value) %>%
+        rename('step' = value)
+
+      domain <- map(workflow, ~.x %>% pluck('inputs')) %>%
+        enframe() %>%
+        unnest(cols = value) %>%
+        rename('domain' = value)
+
+      left_join(domain, step, by = "name") %>%
+        select(-name)
+
+    }) %>%
+    bind_rows(.id = 'assessment')
+
+  allChecks <- left_join(workflow, allChecks, by = c("assessment", "domain", "step"))
 
   found_data <- map(names(lAssessments), ~lAssessments[[.x]][['lData']]) %>%
     flatten() %>%
@@ -86,13 +109,13 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
         mutate(across(check_cols, ~ifelse(!is.na(notes), NA_character_, .)),
                notes = ifelse(is.na(.data$notes),
                               apply(allChecks[6:length(allChecks)], 1, function(x) paste(x[!is.na(x)], collapse="<br>")),
-                              .data$notes))
+                              .data$notes),
+               check = ifelse(is.na(check), 3, check),
+               notes = ifelse(check == 3, "Check not run.", notes))
 
     dfSummary <- allChecks %>%
         mutate(check = map(.data$check, rank_chg)) %>%
         select(.data$assessment, .data$step, .data$check, .data$domain, .data$notes)
-
-
 
     if(!bViewReport){
       return(list(dfAllChecks = allChecks, dfSummary = dfSummary))
