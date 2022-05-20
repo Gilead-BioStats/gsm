@@ -8,7 +8,7 @@
 #' @importFrom gt gt fmt_markdown
 #' @importFrom fontawesome fa
 #' @importFrom tibble enframe
-#' @importFrom tidyr unnest fill
+#' @importFrom tidyr unnest
 #' @importFrom purrr map flatten pluck
 #'
 #' @return `list` Returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks`)
@@ -99,10 +99,7 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
       paste0('Data not found for ', .data$assessment, ' assessment'),
       NA_character_)
       ) %>%
-    select(.data$assessment, .data$step, .data$check, .data$domain, .data$notes, everything()) %>%
-    group_by(.data$assessment) %>%
-    fill(.data$notes, .direction = "downup") %>%
-    ungroup()
+    select(.data$assessment, .data$step, .data$check, .data$domain, .data$notes, everything())
 
   check_cols <- allChecks %>%
     select(-c(.data$assessment, .data$step, .data$check, .data$domain, .data$notes)) %>%
@@ -113,8 +110,8 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
                notes = ifelse(is.na(.data$notes),
                               apply(allChecks[6:length(allChecks)], 1, function(x) paste(x[!is.na(x)], collapse="<br>")),
                               .data$notes),
-               check = ifelse(is.na(check), 3, check),
-               notes = ifelse(check == 3, "Check not run.", notes))
+               check = ifelse(is.na(.data$check), 3, .data$check),
+               notes = ifelse(check == 3, "Check not run.", .data$notes))
 
     dfSummary <- allChecks %>%
         mutate(check = map(.data$check, rank_chg)) %>%
