@@ -5,8 +5,11 @@
 #' @param lAssessments List of 1+ assessments like those created by `runAssessment()` or `Study_Assess()`
 #' @param bViewReport HTML table of dfSummary that can be viewed in most IDEs.
 #'
-#' @importFrom gt gt
+#' @importFrom gt gt fmt_markdown
 #' @importFrom fontawesome fa
+#' @importFrom tibble enframe
+#' @importFrom tidyr unnest fill
+#' @importFrom purrr map flatten pluck
 #'
 #' @return `list` Returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks`)
 #'
@@ -69,16 +72,16 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
       step <- map(workflow, ~.x %>% pluck('name')) %>%
         enframe() %>%
-        unnest(cols = value) %>%
-        rename('step' = value)
+        unnest(cols = .data$value) %>%
+        rename('step' = .data$value)
 
       domain <- map(workflow, ~.x %>% pluck('inputs')) %>%
         enframe() %>%
-        unnest(cols = value) %>%
-        rename('domain' = value)
+        unnest(cols = .data$value) %>%
+        rename('domain' = .data$value)
 
       left_join(domain, step, by = "name") %>%
-        select(-name)
+        select(-.data$name)
 
     }) %>%
     bind_rows(.id = 'assessment')
