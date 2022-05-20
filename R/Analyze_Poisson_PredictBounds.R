@@ -24,8 +24,7 @@
 #' @param vThreshold `numeric` upper and lower boundaries in residual space. Should be identical to
 #' the thresholds used AE_Assess().
 #'
-#' @importFrom stats glm offset poisson pnorm
-#' @importFrom broom augment
+#' @importFrom stats glm offset poisson
 #' @importFrom lamW lambertW0 lambertWm1
 #'
 #' @return data frame containing predicted boundary values with upper and lower bounds across the
@@ -61,32 +60,41 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5)) 
     )
   ) %>%
     mutate(
-      # expected event count
+      # Calculate expected event count at given exposure.
       vMu = as.numeric(exp(.data$LogExposure * cModel$coefficients[2] + cModel$coefficients[1])),
       a = qchisq(0.95, 1), # used in Pearson calculation
 
-      # lower bound
+      # Calcualte lower bound of expected event given specified threshold.
       vLo = vThreshold[1]^2 - 2 * .data$vMu,
       vWLo = vLo / (2 * exp(1) * .data$vMu),
-      PredictYLo = vLo / (2 * lamW::lambertWm1(.data$vWLo)), # Lambert W
 
-      CINormalLo = vMu - 1.96*sqrt(vMu / nrow(dfTransformed)), # Normal approximation
-      CIExactLo = qchisq(0.025, 2*vMu)/2, # Exact
-      CIPearsonLo = ( vMu + a / 2 ) - sqrt(a) * sqrt( vMu + a/4 ), # Pearson
+      #CINormalLo = vMu - 1.96*sqrt(vMu / nrow(dfTransformed)), # Normal approximation
+      #CIExactLo = qchisq(0.025, 2*vMu)/2, # Exact
+      #CIPearsonLo = ( vMu + a / 2 ) - sqrt(a) * sqrt( vMu + a/4 ), # Pearson
 
-      #  upper bound
+      # Calcualte upper bound of expected event given specified threshold.
       vHi = vThreshold[2]^2 - 2 * .data$vMu,
-      vWHi = vHi / (2 * exp(1) * .data$vMu),
-      PredictYHi = vHi / (2 * lamW::lambertW0(.data$vWHi)), # Lambert W
+      vWHi = vHi / (2 * exp(1) * .data$vMu)
 
-      CINormalHi = vMu + 1.96*sqrt(vMu / nrow(dfTransformed)), # Normal approximation
-      CIExactHi = qchisq(0.975, 2*(vMu + 1))/2, # Exact
-      CIPearsonHi = ( vMu + a / 2 ) + sqrt(a) * sqrt( vMu + a/4 ), # Pearson
-
-      # Set lower limit of predicted bounds to 0.
-      LowerCount = if_else(is.nan(.data$PredictYLo), 0, .data$PredictYLo),
-      UpperCount = if_else(is.nan(.data$PredictYHi), 0, .data$PredictYHi)
+      #CINormalHi = vMu + 1.96*sqrt(vMu / nrow(dfTransformed)), # Normal approximation
+      #CIExactHi = qchisq(0.975, 2*(vMu + 1))/2, # Exact
+      #CIPearsonHi = ( vMu + a / 2 ) + sqrt(a) * sqrt( vMu + a/4 ), # Pearson
     )
+
+  # {lamW} is required to run this code block.
+  if (requireNamespace('lamW', quietly = TRUE)) {
+    # Calculate boundaries around predicted event counts with Lambert-W function.
+    dfBounds$PredictYLo <- dfBounds$vLo / (2 * lamW::lambertWm1(dfBounds$vWLo))
+    dfBounds$PredictYHi <- dfBounds$vHi / (2 * lamW::lambertW0(dfBounds$vWHi))
+
+    # Set lower limit of predicted bounds to 0.
+    dfBounds$LowerCount <- if_else(is.nan(dfBounds$PredictYLo), 0, dfBounds$PredictYLo)
+    dfBounds$UpperCount <- if_else(is.nan(dfBounds$PredictYHi), 0, dfBounds$PredictYHi)
+  } else {
+    # TODO: figure out dependency-free alternative to Lambert-W function.
+    dfBounds$LowerCount <- NA
+    dfBounds$UpperCount <- NA
+  }
 
   return(
     dfBounds %>%

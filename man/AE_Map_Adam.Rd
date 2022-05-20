@@ -20,12 +20,12 @@ AE_Map_Adam(
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
 
-\item{bReturnChecks}{\code{logical} Return input checks from {gsm::is_mapping_valid()}? Default: \code{FALSE}}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} Data frame with one record per subject, the input to {gsm::AE_Assess()}. If
+\code{data.frame} Data frame with one record per subject, the input to \code{\link[=AE_Assess]{AE_Assess()}}. If
 \code{bReturnChecks} is \code{TRUE} \code{AE_Map_Adam} returns a named \code{list} with:
 \itemize{
 \item \code{df}: the data frame described above
@@ -34,12 +34,12 @@ AE_Map_Adam(
 }
 \description{
 Convert analysis adverse event (AE) data, by default ADaM data, to formatted input data to
-{gsm::AE_Assess()}.
+\code{\link[=AE_Assess]{AE_Assess()}}.
 }
 \details{
 \code{AE_Map_Adam} combines AE data with subject-level treatment exposure data to create formatted
-input data to {gsm::AE_Assess()}. This function creates an input dataset for the AE Assessment
-({gsm::AE_Assess()}) by binding subject-level AE counts (derived from \code{dfADAE}) to subject-level
+input data to \code{\link[=AE_Assess]{AE_Assess()}}. This function creates an input dataset for the AE Assessment
+(\code{\link[=AE_Assess]{AE_Assess()}}) by binding subject-level AE counts (derived from \code{dfADAE}) to subject-level
 data (from \code{dfADSL}). Note that the function can generate data summaries for specific types of
 AEs by passing filtered AE data to \code{dfADAE}.
 }

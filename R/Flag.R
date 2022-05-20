@@ -62,9 +62,12 @@ Flag <- function(
   )
 
   if (all(!is.na(vThreshold))) {
-    "vThreshold must contain a minimum and maximum value (i.e., vThreshold = c(1, 2))" <- stopifnot(vThreshold[2] > vThreshold[1])
+    stopifnot(
+        "vThreshold must contain a minimum and maximum value (i.e., vThreshold = c(1, 2))" = vThreshold[2] > vThreshold[1]
+    )
   }
 
+  # Flag values outside the specified threshold.
   dfFlagged <- dfAnalyzed %>%
     mutate(
       ThresholdLow = vThreshold[1],
@@ -79,7 +82,7 @@ Flag <- function(
       )
     )
 
-  # if strValueColumn is supplied, it can only affect sign of Flag (1 or -1)
+  # If strValueColumn is supplied, it can only affect sign of Flag (1 or -1).
   if (!is.null(strValueColumn)) {
     nMedian <- dfFlagged %>%
       pull(strValueColumn) %>%

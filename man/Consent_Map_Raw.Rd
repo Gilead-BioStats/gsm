@@ -20,13 +20,13 @@ Consent_Map_Raw(
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
 
-\item{bReturnChecks}{\code{logical} Return input checks from {gsm::is_mapping_valid()}? Default: \code{FALSE}}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 \code{data.frame} Data frame with one record per subject, the input to
-{gsm::Consent_Assess()}. If \code{bReturnChecks} is \code{TRUE} \code{Consent_Map_Raw} returns a named \code{list}
+\code{\link[=Consent_Assess]{Consent_Assess()}}. If \code{bReturnChecks} is \code{TRUE} \code{Consent_Map_Raw} returns a named \code{list}
 with:
 \itemize{
 \item \code{df}: the data frame described above
@@ -38,7 +38,7 @@ Convert from raw data format to needed input format for \code{\link{Consent_Asse
 }
 \details{
 \code{Consent_Map_Raw} combines consent data with subject-level data to create formatted input data
-to {gsm::Consent_Assess()}. This function creates an input dataset for the Consent Assessment
+to \code{\link[=Consent_Assess]{Consent_Assess()}}. This function creates an input dataset for the Consent Assessment
 (${Consent_Assess()} by binding subject-level counts of consent issues (derived from \code{dfCONSENT}) to
 subject-level data (from \code{dfSUBJ}). Note the function can generate data summaries for specific
 types of consent by customizing \code{lMapping$dfCONSENT}.

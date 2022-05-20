@@ -95,7 +95,7 @@ AE_Assess <- function(
 
     if (strMethod == "poisson") {
       if (is.null(vThreshold)) {
-        vThreshold <- c(-5, 5)
+          vThreshold = c(-5, 5)
       } else {
         stopifnot(
           "vThreshold is not numeric" = is.numeric(vThreshold),
@@ -114,7 +114,7 @@ AE_Assess <- function(
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
     } else if (strMethod == "wilcoxon") {
       if (is.null(vThreshold)) {
-        vThreshold <- c(0.0001, NA)
+        vThreshold = c(0.0001, NA)
       } else {
         stopifnot(
           "vThreshold is not numeric" = is.numeric(vThreshold),
