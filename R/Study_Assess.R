@@ -69,7 +69,7 @@ Study_Assess <- function(
       }
     }
 
-  if(exists("lData$dfSUBJ")) {
+  if(exists("dfSUBJ", where = lData)) {
 
     if (nrow(lData$dfSUBJ > 0)) {
       ### --- Attempt to run each assessment --- ###
