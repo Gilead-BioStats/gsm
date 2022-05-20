@@ -12,9 +12,6 @@
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `AE_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `AE_Assess()` ...
       v `AE_Assess()` Successful
       Saving lResults to `lAssessment`
@@ -23,9 +20,6 @@
       v `Consent_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `Consent_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `Consent_Assess()` ...
       v `Consent_Assess()` Successful
       Saving lResults to `lAssessment`
@@ -34,9 +28,6 @@
       v `IE_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `IE_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `IE_Assess()` ...
       v `IE_Assess()` Successful
       Saving lResults to `lAssessment`
@@ -49,9 +40,6 @@
       v `PD_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `PD_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `PD_Assess()` ...
       v `PD_Assess()` Successful
       Saving lResults to `lAssessment`
@@ -60,9 +48,6 @@
       v `PD_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `PD_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `PD_Assess()` ...
       v `PD_Assess()` Successful
       Saving lResults to `lAssessment`
@@ -79,9 +64,6 @@
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `AE_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `AE_Assess()` ...
       v `AE_Assess()` Successful
       Saving lResults to `lAssessment`
@@ -128,9 +110,6 @@
       -- Workflow Step 3 of 3: `AE_Assess` --
       
       Preparing parameters for `AE_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `AE_Assess()` ...
       
       -- Checking Input Data for `AE_Assess()` --
@@ -169,9 +148,6 @@
       -- Workflow Step 2 of 2: `Consent_Assess` --
       
       Preparing parameters for `Consent_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `Consent_Assess()` ...
       
       -- Checking Input Data for `Consent_Assess()` --
@@ -212,9 +188,6 @@
       -- Workflow Step 2 of 2: `IE_Assess` --
       
       Preparing parameters for `IE_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `IE_Assess()` ...
       
       -- Checking Input Data for `IE_Assess()` --
@@ -268,9 +241,6 @@
       -- Workflow Step 3 of 3: `PD_Assess` --
       
       Preparing parameters for `PD_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `PD_Assess()` ...
       
       -- Checking Input Data for `PD_Assess()` --
@@ -308,9 +278,6 @@
       -- Workflow Step 2 of 2: `PD_Assess` --
       
       Preparing parameters for `PD_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `PD_Assess()` ...
       
       -- Checking Input Data for `PD_Assess()` --
@@ -378,9 +345,6 @@
       -- Workflow Step 4 of 4: `AE_Assess` --
       
       Preparing parameters for `AE_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `AE_Assess()` ...
       
       -- Checking Input Data for `AE_Assess()` --
