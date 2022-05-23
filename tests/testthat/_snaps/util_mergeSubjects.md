@@ -3,10 +3,11 @@
     Code
       MergeSubjects(domain, subjects, vFillZero = "Count", bQuiet = F)
     Message <cliMessage>
+      i Intializing merge of domain and subject data
       ! 5 ID(s) in domain data not found in subject data.
       Associated rows will not be included in merged data.
-      ! 5 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count. 
+      i 5 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
     Output
       # A tibble: 6 x 4

@@ -19,6 +19,7 @@
 #' @export
 
 MergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=NULL, bQuiet=TRUE){
+    cli_alert_info("Intializing merge of domain and subject data")
     is_domain_valid <- gsm::is_mapping_valid(
         df = dfDomain,
         mapping = list('strIDCol'=strIDCol),
@@ -59,11 +60,9 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
     if(length(domain_only_ids > 0)){
         cli::cli_alert_warning(
             paste0(
-              cli::col_br_red(
                 length(domain_only_ids),
-                cli::col_br_red(" ID(s) in domain data not found in subject data.\nAssociated rows will not be included in merged data.")
+                " ID(s) in domain data not found in subject data.\nAssociated rows will not be included in merged data."
             )
-          )
         )
     }
 
@@ -71,18 +70,17 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol="SubjectID", vFillZero=
     subject_only_ids <-  subject_ids[!subject_ids %in% domain_ids]
     if(length(subject_only_ids > 0)){
         if(!bQuiet){
-            cli::cli_alert_warning(
+            cli::cli_alert_info(
                 paste0(
-                  cli::col_br_red(
                     length(subject_only_ids),
-                    " ID(s) in subject data not found in domain data."),
-                    ifelse(is.null(vFillZero),
-                          cli::col_br_red("These participants will have NA values imputed for all domain data columns:"),
+                    " ID(s) in subject data not found in domain data.",
+                    ifelse(
+                        is.null(vFillZero),
+                        "These participants will have NA values imputed for all domain data columns:",
                         paste0(
-                          cli::col_br_red("\nThese participants will have 0s imputed for the following domain data columns: "),
-                            paste(vFillZero, sep=", "),
-                            ". ",
-                            cli::col_br_red("\nNA's will be imputed for all other columns.")
+                            "\nThese participants will have 0s imputed for the following domain data columns: ",
+                            paste(vFillZero, sep=", "), 
+                            ".\nNA's will be imputed for all other columns."
                         )
                     )
                 )
