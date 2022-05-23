@@ -89,6 +89,7 @@ Analyze_Wilcoxon <- function(
         Estimate = .data$estimate * -1,
         PValue = .data$p.value
       ) %>%
+      select(names(dfTransformed), Estimate, PValue) %>%
       arrange(.data$PValue)
   } else {
     dfAnalyzed$Estimate <- NA
