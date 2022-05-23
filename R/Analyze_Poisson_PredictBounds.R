@@ -25,7 +25,6 @@
 #' the thresholds used AE_Assess().
 #'
 #' @importFrom stats glm offset poisson
-#' @importFrom lamW lambertW0 lambertWm1
 #'
 #' @return data frame containing predicted boundary values with upper and lower bounds across the
 #' range of observed values
@@ -64,21 +63,13 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5)) 
       vMu = as.numeric(exp(.data$LogExposure * cModel$coefficients[2] + cModel$coefficients[1])),
       a = qchisq(0.95, 1), # used in Pearson calculation
 
-      # Calcualte lower bound of expected event given specified threshold.
+      # Calculate lower bound of expected event count given specified threshold.
       vLo = vThreshold[1]^2 - 2 * .data$vMu,
       vWLo = vLo / (2 * exp(1) * .data$vMu),
 
-      #CINormalLo = vMu - 1.96*sqrt(vMu / nrow(dfTransformed)), # Normal approximation
-      #CIExactLo = qchisq(0.025, 2*vMu)/2, # Exact
-      #CIPearsonLo = ( vMu + a / 2 ) - sqrt(a) * sqrt( vMu + a/4 ), # Pearson
-
-      # Calcualte upper bound of expected event given specified threshold.
+      # Calculate upper bound of expected event count given specified threshold.
       vHi = vThreshold[2]^2 - 2 * .data$vMu,
       vWHi = vHi / (2 * exp(1) * .data$vMu)
-
-      #CINormalHi = vMu + 1.96*sqrt(vMu / nrow(dfTransformed)), # Normal approximation
-      #CIExactHi = qchisq(0.975, 2*(vMu + 1))/2, # Exact
-      #CIPearsonHi = ( vMu + a / 2 ) + sqrt(a) * sqrt( vMu + a/4 ), # Pearson
     )
 
   # {lamW} is required to run this code block.
@@ -91,9 +82,8 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5)) 
     dfBounds$LowerCount <- if_else(is.nan(dfBounds$PredictYLo), 0, dfBounds$PredictYLo)
     dfBounds$UpperCount <- if_else(is.nan(dfBounds$PredictYHi), 0, dfBounds$PredictYHi)
   } else {
-    # TODO: figure out dependency-free alternative to Lambert-W function.
-    dfBounds$LowerCount <- NA
-    dfBounds$UpperCount <- NA
+    dfBounds$LowerCount <- NA_real_
+    dfBounds$UpperCount <- NA_real_
   }
 
   return(

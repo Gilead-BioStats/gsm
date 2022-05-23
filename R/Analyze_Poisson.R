@@ -41,6 +41,12 @@ Analyze_Poisson <- function(dfTransformed) {
 
   dfModel <- dfTransformed %>% mutate(LogExposure = log(.data$TotalExposure))
 
+  cli::cli_alert_info(
+    glue::glue(
+      'Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].'
+    )
+  )
+
   cModel <- stats::glm(
     TotalCount ~ stats::offset(LogExposure),
     family = stats::poisson(link = "log"),

@@ -78,7 +78,15 @@ Analyze_Wilcoxon <- function(
   dfAnalyzed <- dfTransformed
 
   # Paucity check - the rank sum test requires at least three records and at least two outcome values.
-  if (nrow(dfTransformed) > 2 && length(unique(dfTransformed[[ strOutcomeCol ]])) > 1) {
+  hasEnoughRecords <- nrow(dfTransformed) > 2
+  hasMultipleUniqueOutcomeValues <- length(unique(dfTransformed[[ strOutcomeCol ]])) > 1
+  if (hasEnoughRecords && hasMultipleUniqueOutcomeValues) {
+    cli::cli_alert_info(
+      glue::glue(
+        'Fitting Wilcoxon rank sum test of [ {strOutcomeCol} ] ~ [ {strPredictorCol} ].'
+      )
+    )
+
     dfAnalyzed = dfAnalyzed %>%
       mutate(
         model = map(.data[[ strPredictorCol ]], wilcoxon_model),
@@ -89,12 +97,26 @@ Analyze_Wilcoxon <- function(
         Estimate = .data$estimate * -1,
         PValue = .data$p.value
       ) %>%
-      select(names(dfTransformed), Estimate, PValue) %>%
       arrange(.data$PValue)
   } else {
-    dfAnalyzed$Estimate <- NA
-    dfAnalyzed$PValue <- NA
+    cli::cli_alert_warning(
+      glue::glue(
+        'Cannot fit Wilcoxon rank sum test: ',
+        if_else(
+          !hasEnoughRecords,
+          '[ dfTransformed ] contains two or fewer records.',
+          '[ {strOutcomeCol} ] contains only one unique value.'
+        ),
+        ' Returning NA for estimate and p-value.'
+      )
+    )
+
+    dfAnalyzed$Estimate <- NA_real_
+    dfAnalyzed$PValue <- NA_real_
   }
 
-  return(dfAnalyzed)
+  return(
+    dfAnalyzed %>%
+      select(names(dfTransformed), Estimate, PValue)
+  )
 }
