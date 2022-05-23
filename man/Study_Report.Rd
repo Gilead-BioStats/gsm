@@ -4,7 +4,11 @@
 \alias{Study_Report}
 \title{Study Report}
 \usage{
-Study_Report(strAssessments, lMeta, strOutpath = NULL)
+Study_Report(
+  strAssessments,
+  lMeta = list(Project = "My Project"),
+  strOutpath = NULL
+)
 }
 \arguments{
 \item{strAssessments}{character vector listing assessments}
