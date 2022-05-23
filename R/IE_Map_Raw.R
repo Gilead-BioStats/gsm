@@ -26,8 +26,11 @@
 #' @includeRmd ./man/md/IE_Map_Raw.md
 #'
 #' @examples
-#' dfInput <- IE_Map_Raw() # Run with defaults
-#' dfInput <- IE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
+#' # Run with defaults
+#' dfInput <- IE_Map_Raw()
+#'
+#' # Run with error checking and message log
+#' dfInput <- IE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @import dplyr
 #'

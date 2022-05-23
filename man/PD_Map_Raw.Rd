@@ -54,7 +54,10 @@ PDs by passing filtered PD data to \code{dfPD}.
 }
 
 \examples{
-dfInput <- PD_Map_Raw() # Run with defaults
-dfInput <- PD_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
+# Run with defaults
+dfInput <- PD_Map_Raw()
+
+# Run with error checking and message log
+dfInput <- PD_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 
 }

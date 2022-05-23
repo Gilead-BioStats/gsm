@@ -9,6 +9,7 @@
       Saving dfAE to `lAssessment$lData`
       Preparing parameters for `AE_Map_Raw()` ...
       Calling `AE_Map_Raw()` ...
+      i Intializing merge of domain and subject data
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `AE_Assess()` ...
@@ -20,6 +21,7 @@
       Saving lResults to `lAssessment`
       Preparing parameters for `Consent_Map_Raw()` ...
       Calling `Consent_Map_Raw()` ...
+      i Intializing merge of domain and subject data
       v `Consent_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `Consent_Assess()` ...
@@ -31,6 +33,7 @@
       Saving lResults to `lAssessment`
       Preparing parameters for `IE_Map_Raw()` ...
       Calling `IE_Map_Raw()` ...
+      i Intializing merge of domain and subject data
       v `IE_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `IE_Assess()` ...
@@ -46,6 +49,7 @@
       Saving dfPD to `lAssessment$lData`
       Preparing parameters for `PD_Map_Raw()` ...
       Calling `PD_Map_Raw()` ...
+      i Intializing merge of domain and subject data
       v `PD_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `PD_Assess()` ...
@@ -57,6 +61,7 @@
       Saving lResults to `lAssessment`
       Preparing parameters for `PD_Map_Raw()` ...
       Calling `PD_Map_Raw()` ...
+      i Intializing merge of domain and subject data
       v `PD_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `PD_Assess()` ...
@@ -76,6 +81,7 @@
       Saving dfAE to `lAssessment$lData`
       Preparing parameters for `AE_Map_Raw()` ...
       Calling `AE_Map_Raw()` ...
+      i Intializing merge of domain and subject data
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `AE_Assess()` ...
@@ -118,8 +124,9 @@
       
       -- Initializing `AE_Map_Raw()` --
       
-      ! 2 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count. 
+      i Intializing merge of domain and subject data
+      i 2 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `AE_Map_Raw()` returned output with 3 rows.
       v `AE_Map_Raw()` Successful
@@ -161,7 +168,8 @@
       
       -- Initializing `Consent_Map_Raw()` --
       
-      ! 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
       v `Consent_Map_Raw()` returned output with 3 rows.
       v `Consent_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
@@ -202,8 +210,9 @@
       
       -- Initializing `IE_Map_Raw()` --
       
-      ! 1 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count. 
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `IE_Map_Raw()` returned output with 3 rows.
       v `IE_Map_Raw()` Successful
@@ -258,8 +267,9 @@
       
       -- Initializing `PD_Map_Raw()` --
       
-      ! 2 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count. 
+      i Intializing merge of domain and subject data
+      i 2 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `PD_Map_Raw()` returned output with 3 rows.
       v `PD_Map_Raw()` Successful
@@ -301,6 +311,7 @@
       
       -- Initializing `PD_Map_Raw()` --
       
+      i Intializing merge of domain and subject data
       v `PD_Map_Raw()` returned output with 3 rows.
       v `PD_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
@@ -368,8 +379,9 @@
       
       -- Initializing `AE_Map_Raw()` --
       
-      ! 3 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count. 
+      i Intializing merge of domain and subject data
+      i 3 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `AE_Map_Raw()` returned output with 3 rows.
       v `AE_Map_Raw()` Successful

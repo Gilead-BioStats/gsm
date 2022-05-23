@@ -18,6 +18,7 @@ Imports:
     magrittr,
     purrr,
     stringr,
+    tibble,
     tidyr,
     withr,
     yaml
@@ -34,7 +35,6 @@ Suggests:
     rmarkdown,
     safetyData,
     testthat (>= 3.0.0),
-    tibble,
     usethis,
     tools,
     pkgdown

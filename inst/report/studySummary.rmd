@@ -110,7 +110,9 @@ for (assessment in results){
     
     cat("<h2 style='border-top:2px solid black; border-bottom:2px solid black; text-align:center; padding:3px;'> <small>Assessment Details</small><br>", label, "</h2>")
     cat("<h3>Summary Chart</h3>")
-    print(assessment$chart) 
+    cat("<div style = 'text-align: center'>")
+    print(assessment$chart)
+    cat("</div>")
 
     cat("<h3>Flagged Sites</h3>")
     if(nrow(flagged)>0){
@@ -146,12 +148,7 @@ details <- assessment$dfFlagged %>%
         kable_styling() %>% 
         cat
     }
-    
-    if(!is.null(assessment$Explore)){
-        cat("<h3>Exploratory Charts</h3>")
-        print(assessment$Explore)
-        cat("<hr>")
-    }
+
     cat("</div></div>")
 }
 ```
@@ -174,22 +171,32 @@ AssessmentReport$dfSummary %>%
       cell_fill(color="#c73442")
     ),
     locations = cells_column_labels()
-  )
+  ) %>% 
+  gt::fmt_markdown(columns = everything())
 
 ```
 
 ## Issue List
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
-AssessmentReport$dfAllChecks%>%
-    filter(check==FALSE)%>%
-    gt::gt() %>% 
+AssessmentReport$dfAllChecks %>%
+      filter(check==F) %>% 
+  mutate(check = map(check, rank_chg),
+         across(where(is.character), ~replace_na(., ""))) %>% 
+  gt::gt() %>% 
   gt::tab_style(
     style = list(
       cell_text(color='white', align="center", weight="bold"),
       cell_fill(color="#c73442")
     ),
     locations = cells_column_labels()
-  )
+  ) %>% 
+  gt::cols_width(assessment ~ px(85),
+                 step ~ px(140),
+                 check ~ px(60),
+                 domain ~ px(100),
+                 notes ~ px(300),
+                 everything() ~ px(200)) %>% 
+  gt::fmt_markdown(columns = everything())
 ```
 
 
