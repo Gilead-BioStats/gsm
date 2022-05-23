@@ -55,7 +55,10 @@ specific types of IE criteria by passing filtered IE data to \code{dfIE}.
 }
 
 \examples{
-dfInput <- IE_Map_Raw() # Run with defaults
-dfInput <- IE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
+# Run with defaults
+dfInput <- IE_Map_Raw()
+
+# Run with error checking and message log
+dfInput <- IE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 
 }

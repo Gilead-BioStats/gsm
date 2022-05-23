@@ -69,13 +69,20 @@ Study_Assess <- function(
       }
     }
 
-  if (nrow(lData$dfSUBJ > 0)) {
-    ### --- Attempt to run each assessment --- ###
-    lAssessments <- lAssessments %>% map(
-        ~gsm::RunAssessment(.x, lData=lData, lMapping=lMapping, lTags=lTags, bQuiet=bQuiet)
-    )
+  if(exists("dfSUBJ", where = lData)) {
+
+    if (nrow(lData$dfSUBJ > 0)) {
+      ### --- Attempt to run each assessment --- ###
+      lAssessments <- lAssessments %>% map(
+          ~gsm::RunAssessment(.x, lData=lData, lMapping=lMapping, lTags=lTags, bQuiet=bQuiet)
+      )
+    } else {
+      cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
+      lAssessments <- NULL
+    }
+
   } else {
-    cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
+    cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
     lAssessments <- NULL
   }
 

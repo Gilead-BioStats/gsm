@@ -151,7 +151,7 @@ Study_Table <- function(dfFindings, bFormat=TRUE, bShowCounts=TRUE, bShowSiteSco
         rename(score = Flag) %>%
         filter(.data$score >= vSiteScoreThreshold) %>%
         select(.data$SiteID, .data$score) %>%
-        left_join(df_counts) %>%
+        left_join(df_counts, by = "SiteID") %>%
         rename(count = Flag) %>%
         arrange(-as.numeric(.data$score), -as.numeric(.data$count)) %>%
         pull(.data$SiteID)

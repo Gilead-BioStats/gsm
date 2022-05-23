@@ -5,8 +5,11 @@
 #' @param lAssessments List of 1+ assessments like those created by `runAssessment()` or `Study_Assess()`
 #' @param bViewReport HTML table of dfSummary that can be viewed in most IDEs.
 #'
-#' @importFrom gt gt
+#' @importFrom gt gt fmt_markdown
 #' @importFrom fontawesome fa
+#' @importFrom tibble enframe
+#' @importFrom tidyr unnest
+#' @importFrom purrr map flatten pluck
 #'
 #' @return `list` Returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks`)
 #'
@@ -18,66 +21,108 @@
 
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
-  allChecks <- names(lAssessments) %>% map(function(assessment_name){
-    assessment<-lAssessments[[assessment_name]]
-    assessment_checks<-names(assessment$checks) %>% map(function(domain_name){
+  allChecks <- names(lAssessments) %>%
+    map(function(assessment_name){
+    assessment <- lAssessments[[assessment_name]]
+    assessment_checks <- names(assessment$checks) %>%
+      map(function(domain_name){
+
       domain<-assessment$checks[[domain_name]]
 
       domain_check <- tibble(
         assessment=assessment_name,
-        step=domain_name,
-        check=domain$status
+        step=domain_name
       )
 
       domain_details <- names(domain)[names(domain) != "status"] %>%
         map(function(test_name){
-        status=domain[[test_name]][["status"]]
+
+        check=domain[[test_name]][["status"]]
         details=domain[[test_name]][["tests_if"]] %>%
           bind_rows(.id = "names") %>%
-          mutate(status = ifelse(is.na(warning), "--", warning)) %>%
+          mutate(status = ifelse(is.na(warning), NA_character_, warning)) %>%
           select(-warning) %>%
           t %>%
           as_tibble(.name_repair = "minimal") %>%
           janitor::row_to_names(1)
 
-        return(bind_cols(tibble(
-          assessment=assessment_name,
-          step=domain_name,
-          domain=test_name
-        ), details))
-      }) %>% bind_rows() %>%
+
+        return(
+          bind_cols(
+            tibble(
+              assessment = assessment_name,
+              step = domain_name,
+              check = check,
+              domain = test_name),
+            details)
+          )
+      }) %>%
+        bind_rows() %>%
         suppressMessages()
 
-      return(left_join(domain_check,domain_details, by = c("assessment", "step")))
+      return(left_join(domain_check, domain_details, by = c("assessment", "step")))
     })
 
     return(bind_rows(assessment_checks))
-  }) %>% bind_rows()
+  }) %>%
+    bind_rows()
 
+  workflow <- map(lAssessments, ~.x %>% pluck('workflow')) %>%
+    map(function(workflow){
 
+      step <- map(workflow, ~.x %>% pluck('name')) %>%
+        enframe() %>%
+        unnest(cols = .data$value) %>%
+        rename('step' = .data$value)
 
-    # https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/
-    rank_chg <- function(status){
-        if (status == TRUE) {
-            logo_out <- fontawesome::fa("check-circle", fill = "green")
-        }
-        if (status == FALSE){
-            logo_out <- fontawesome::fa("times-circle", fill = "red")
-        }
-        if (!status %in% c(TRUE, FALSE)) {
-            logo_out <- "?"
-        }
-        gt::html(as.character(logo_out))
-    }
+      domain <- map(workflow, ~.x %>% pluck('inputs')) %>%
+        enframe() %>%
+        unnest(cols = .data$value) %>%
+        rename('domain' = .data$value)
 
+      left_join(domain, step, by = "name") %>%
+        select(-.data$name)
 
-    dfSummary<- allChecks %>%
-        mutate(check = map(.data$check, rank_chg))
+    }) %>%
+    bind_rows(.id = 'assessment')
+
+  allChecks <- left_join(workflow, allChecks, by = c("assessment", "domain", "step"))
+
+  found_data <- map(names(lAssessments), ~lAssessments[[.x]][['lData']]) %>%
+    flatten() %>%
+    names() %>%
+    unique()
+
+  allChecks <- allChecks %>%
+    mutate(notes = ifelse(
+      !.data$domain %in% found_data,
+      paste0('Data not found for ', .data$assessment, ' assessment'),
+      NA_character_)
+      ) %>%
+    select(.data$assessment, .data$step, .data$check, .data$domain, .data$notes, everything())
+
+  check_cols <- allChecks %>%
+    select(-c(.data$assessment, .data$step, .data$check, .data$domain, .data$notes)) %>%
+    names()
+
+    allChecks <- allChecks %>%
+        mutate(across(check_cols, ~ifelse(!is.na(notes), NA_character_, .)),
+               notes = ifelse(is.na(.data$notes),
+                              apply(allChecks[6:length(allChecks)], 1, function(x) paste(x[!is.na(x)], collapse="<br>")),
+                              .data$notes),
+               check = ifelse(is.na(.data$check), 3, .data$check),
+               notes = ifelse(check == 3, "Check not run.", .data$notes))
+
+    dfSummary <- allChecks %>%
+        mutate(check = map(.data$check, rank_chg)) %>%
+        select(.data$assessment, .data$step, .data$check, .data$domain, .data$notes)
 
     if(!bViewReport){
       return(list(dfAllChecks = allChecks, dfSummary = dfSummary))
     } else {
-      return(dfSummary %>% gt::gt())
+      return(dfSummary %>%
+               gt::gt() %>%
+               gt::fmt_markdown(columns = everything()))
     }
 
 }
