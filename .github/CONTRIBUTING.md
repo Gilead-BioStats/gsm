@@ -81,3 +81,18 @@ A release is initiated when all feature development, QC, and qualification is do
    - Once issues are resolved and merged to `dev`, Release Owner can merge `dev` in to the `release` branch and re-request review. 
    - If needed, PR can be closed, and a new release PR can be created with a release candidate added to the branch name (e.g. `release-v1.2.0-RC2`) 
 6. Once PR is approved, Release Owner merges the PR and creates the GitHub release. 
+
+# GitHub Action Workflow
+
+GitHub actions are used in `{gsm}` to automate processes and ensure all code and documentation is created consistently and documented thoroughly.
+
+## Merges to `dev` branch
+1. R CMD check - Basic R CMD check run using `rcmdcheck::rcmdcheck()`.  Additional check for the ability to build the pkgdown reference index to make sure all functions are documented correctly.  This check will run on `ubuntu-latest` and will be run on R versions 4.0.5 and 4.1.3
+2. Build Markdown - Builds Assessment specification tables from function documentation.  Outputs are added to man/md and any changes are committed to the compare branch or the triggering Pull Request.
+3. Test Coverage - Uses `{covr}` to check the package coverage of `{gsm}` 
+
+## Merges to `main` branch
+1. R CMD check - Basic R CMD check run using `rcmdcheck::rcmdcheck()`.  Additional check for the ability to build the pkgdown reference index to make sure all functions are documented correctly.  This check will run on `ubuntu-latest` and will be run on R versions 4.0.5 and 4.1.3.  Additionally, it will be run on the latest R release version on `windows-latest`, `macOS-latest`, and `ubuntu-latest`.
+2. pkgdown - Builds the [pkgdown site](https://silver-potato-cfe8c2fb.pages.github.io/) for `{gsm}`.  
+3. Qualification report - Builds the qualification vignette as an attached artifact to the Pull Request.  This should be reviewed by the Pull Request owner for completeness and correctness to ensure the artifact that is added to the release is correct.
+
