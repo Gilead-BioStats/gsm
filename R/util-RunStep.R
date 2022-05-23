@@ -43,15 +43,20 @@ RunStep <- function(lStep, lMapping, lData, lTags, bQuiet){
         params$lMapping <- lMapping
         params$dfs <- lData[lStep$inputs]
     }else if(stringr::str_detect(lStep$name, "_Assess")){
-        print(names(lData))
         params$dfInput <- lData[[lStep$inputs]]
         params$lTags <- lTags
     }else if(lStep$name=="FilterDomain"){
         params$lMapping <- lMapping
-        params$df<- lData[[lStep$inputs]]
+        params$df <- lData[[lStep$inputs]]
+
+        if(is.null(params$df)){
+          params$df <- NA
+        }
+
     }
 
-    # Call the workflow function and return results
     cli::cli_text("Calling {.fn {lStep$name}} ...")
     return(do.call(lStep$name, params))
+
+
 }
