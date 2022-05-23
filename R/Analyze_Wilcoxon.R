@@ -75,19 +75,25 @@ Analyze_Wilcoxon <- function(
     stats::wilcox.test(form, exact = FALSE, conf.int = TRUE, data = dfTransformed)
   }
 
-  dfAnalyzed <- dfTransformed %>%
-    mutate(
+  dfAnalyzed <- dfTransformed
+
+  # Paucity check - the rank sum test requires at least three records and at least two outcome values.
+  if (nrow(dfTransformed) > 2 && length(unique(dfTransformed[[ strOutcomeCol ]])) > 1) {
+    dfAnalyzed = dfAnalyzed %>%
+      mutate(
         model = map(.data[[ strPredictorCol ]], wilcoxon_model),
         summary = map(.data$model, broom::glance)
-    ) %>%
-    tidyr::unnest(summary) %>%
-    mutate(
-        Estimate = .data$estimate * -1
-    ) %>%
-    select(
-        names(dfTransformed), .data$Estimate, PValue = .data$p.value
-    ) %>%
-    arrange(.data$PValue)
+      ) %>%
+      tidyr::unnest(summary) %>%
+      mutate(
+        Estimate = .data$estimate * -1,
+        PValue = .data$p.value
+      ) %>%
+      arrange(.data$PValue)
+  } else {
+    dfAnalyzed$Estimate <- NA
+    dfAnalyzed$PValue <- NA
+  }
 
   return(dfAnalyzed)
 }
