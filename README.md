@@ -6,7 +6,7 @@
 
 # Gilead Statistical Monitoring {gsm} R package
 
-{gsm} is a centralized statistical monitoring tool used to proactively measure KRIs in a clinical study to help protect patients, ensure quality data and process, and achieve study objectives.
+The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials.
 
 The {gsm} package will perform statistical assessments primarily focused on detecting differences in quality at the site-level. "High quality" is defined as absence of errors that matter. We interpret this as focusing on detecting potential issues related to critical data or process across the major risk categories of safety, efficacy, disposition, treatment, and general quality, where each category consists of one or more risk assessment(s). Each risk assessment will analyze the data to flag potential issues and provide a visualization to help the user understand the issue. Further expansion of the package will include exploratory plots and data outputs to allow the user to deep dive into the subject-level data for a flagged site of interest.
 
