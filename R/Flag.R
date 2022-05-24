@@ -33,7 +33,7 @@
 #' @examples
 #' dfInput <- AE_Map_Adam()
 #' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
-#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, 'Rate')
 #' dfFlagged <- Flag(dfAnalyzed) # PValue < 0.05 flagged
 #' dfFlagged10 <- Flag(dfAnalyzed, vThreshold = c(0.10, NA)) # PValue <0.10 flagged
 #' # Flag direction set based on 'Statistic' column

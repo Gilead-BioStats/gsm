@@ -23,7 +23,7 @@
 #' @examples
 #' dfInput <- AE_Map_Adam()
 #' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
-#' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed)
+#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, 'Rate')
 #' dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Rate')
 #' dfSummary <- Summarize(dfFlagged)
 #'
