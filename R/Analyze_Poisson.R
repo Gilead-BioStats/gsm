@@ -33,7 +33,7 @@
 #'
 #' @export
 
-Analyze_Poisson <- function(dfTransformed) {
+Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
     "One or more of these columns: SiteID, N, TotalExposure, TotalCount, Rate" = all(c("SiteID", "N", "TotalExposure", "TotalCount", "Rate") %in% names(dfTransformed)),

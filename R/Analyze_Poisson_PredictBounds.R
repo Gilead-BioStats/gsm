@@ -36,7 +36,7 @@
 #'
 #' @export
 
-Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5)) {
+Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), bQuiet = TRUE) {
   # Calculate log of total exposure at each site.
   dfTransformed$LogExposure <- log(
     dfTransformed$TotalExposure

@@ -43,7 +43,8 @@
 Analyze_Wilcoxon <- function(
   dfTransformed,
   strOutcomeCol = NULL,
-  strPredictorCol = 'SiteID'
+  strPredictorCol = 'SiteID',
+  bQuiet = TRUE
 ) {
   stopifnot(
     "@param:dfTransformed is not a data frame" =
