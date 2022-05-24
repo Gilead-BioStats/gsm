@@ -13,8 +13,10 @@ Analyze_Wilcoxon(
 \arguments{
 \item{dfTransformed}{\code{data.frame} A data frame returned by \code{\link{Transform_EventCount}}}
 
-\item{strOutcomeCol}{\code{character} column name of outcome in \code{dfTransformed} to analyze.
-Default: \code{"Rate"}}
+\item{strOutcomeCol}{\code{character} Column name of outcome in \code{dfTransformed} to analyze.}
+
+\item{strPredictorCol}{\code{character} Column name of predictor in \code{dfTransformed} to analyze.
+Default: \code{"SiteID"}}
 }
 \value{
 \code{data.frame} with one row per site, columns: SiteID, N, TotalCount, TotalExposure, Rate,

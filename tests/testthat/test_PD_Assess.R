@@ -48,7 +48,17 @@ test_that("incorrect lTags throw errors", {
   expect_error(PD_Assess(pdInput, vThreshold = c(-5.1, 5.1), lTags = "hi mom"))
   expect_error(PD_Assess(pdInput, vThreshold = c(-5.1, 5.1), lTags = list("hi", "mom")))
   expect_error(PD_Assess(pdInput, vThreshold = c(-5.1, 5.1), lTags = list(greeting = "hi", "mom")))
-  expect_silent(PD_Assess(pdInput, vThreshold = c(-5.1, 5.1), lTags = list(greeting = "hi", person = "mom")))
+  expect_error(
+    PD_Assess(
+      pdInput,
+      vThreshold = c(-5.1, 5.1),
+      lTags = list(
+        greeting = "hi",
+        person = "mom"
+      )
+    ),
+    NA
+  )
   expect_error(PD_Assess(pdInput, lTags = list(SiteID = "")))
   expect_error(PD_Assess(pdInput, lTags = list(N = "")))
   expect_error(PD_Assess(pdInput, lTags = list(Score = "")))
@@ -57,7 +67,7 @@ test_that("incorrect lTags throw errors", {
 
 # custom tests ------------------------------------------------------------
 test_that("strMethod = 'wilcoxon' does not throw error", {
-  expect_silent(PD_Assess(pdInput, strMethod = "wilcoxon"))
+  expect_error(PD_Assess(pdInput, strMethod = "wilcoxon"), NA)
 })
 
 test_that("NA in dfInput$Count results in Error for PD_Assess", {

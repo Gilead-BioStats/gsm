@@ -19,11 +19,13 @@
 #' - `Rate` - Rate of exposure (TotalCount / TotalExposure)
 #'
 #' @param dfTransformed `data.frame` A data frame returned by \code{\link{Transform_EventCount}}
-#' @param strOutcomeCol `character` column name of outcome in `dfTransformed` to analyze.
-#'   Default: `"Rate"`
+#' @param strOutcomeCol `character` Column name of outcome in `dfTransformed` to analyze.
+#' @param strPredictorCol `character` Column name of predictor in `dfTransformed` to analyze.
+#'   Default: `"SiteID"`
 #'
 #' @import dplyr
 #' @importFrom stats wilcox.test as.formula
+#' @importFrom glue glue
 #' @importFrom purrr map
 #' @importFrom broom glance
 #' @importFrom tidyr unnest

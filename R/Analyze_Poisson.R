@@ -20,6 +20,7 @@
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
 #'
 #' @import dplyr
+#' @importFrom glue glue
 #' @importFrom stats glm offset poisson pnorm
 #' @importFrom broom augment
 #'
