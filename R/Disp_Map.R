@@ -2,6 +2,9 @@
 #'
 #' Convert from ADaM or raw format to input format for Disposition Assessment.
 #'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
 #' @section Data Specification:
 #'
 #' This function creates an input dataset for the Disposition Assessment (link to code) by adding Discontinuation Reason Counts to basic subject-level data.
@@ -17,7 +20,7 @@
 #'
 #' @return Data frame with one record per person with columns: SubjectID, SiteID, Count, and the value passed to strCol.
 #'
-#' #' @examples
+#' @examples
 #' df <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "adverse event")
 #'
 #' @import dplyr
