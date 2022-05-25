@@ -127,6 +127,7 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
+      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
       v `Analyze_Poisson()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
@@ -261,6 +262,7 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
+      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
       v `Analyze_Poisson()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
@@ -299,6 +301,7 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
+      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
       v `Analyze_Poisson()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
@@ -367,6 +370,7 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
+      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
       v `Analyze_Poisson()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.

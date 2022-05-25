@@ -18,8 +18,9 @@
 #' - `TotalCount` - Total number of participants at site with event of interest
 #'
 #'
-#' @param  dfTransformed  data.frame in format produced by \code{\link{Transform_EventCount}}
-#' @param  strOutcome required, name of column in dfTransformed dataset to perform the chi-squared test on. Default is "TotalCount".
+#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_EventCount}}
+#' @param strOutcome `character` required, name of column in dfTransformed dataset to perform the chi-squared test on. Default is "TotalCount".
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @import dplyr
 #' @importFrom tidyr unnest
@@ -36,7 +37,11 @@
 #'
 #' @export
 
-Analyze_Chisq <- function( dfTransformed , strOutcome = "TotalCount") {
+Analyze_Chisq <- function(
+  dfTransformed,
+  strOutcome = "TotalCount",
+  bQuiet = TRUE
+) {
 
     stopifnot(
         "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),

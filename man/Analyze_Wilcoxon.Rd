@@ -4,34 +4,44 @@
 \alias{Analyze_Wilcoxon}
 \title{AE Wilcoxon Assessment - Analysis}
 \usage{
-Analyze_Wilcoxon(dfTransformed, strOutcome = "Rate")
+Analyze_Wilcoxon(
+  dfTransformed,
+  strOutcomeCol = NULL,
+  strPredictorCol = "SiteID",
+  bQuiet = TRUE
+)
 }
 \arguments{
-\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
+\item{dfTransformed}{\code{data.frame} A data frame returned by \code{\link{Transform_EventCount}}}
 
-\item{strOutcome}{required, name of column in dfTransformed dataset to perform Wilcoxon test on. Default="Rate"}
+\item{strOutcomeCol}{\code{character} Column name of outcome in \code{dfTransformed} to analyze.}
+
+\item{strPredictorCol}{\code{character} Column name of predictor in \code{dfTransformed} to analyze.
+Default: \code{"SiteID"}}
+
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-data.frame with one row per site, columns: SiteID, N, TotalCount, TotalExposure, Rate, Estimate, PValue
+\code{data.frame} with one row per site, columns: SiteID, N, TotalCount, TotalExposure, Rate,
+Estimate, PValue
 }
 \description{
-Creates Analysis results data for Adverse Event assessment using the Wilcoxon sign-ranked test
+Create analysis results data for event assessment using the Wilcoxon sign-ranked test.
 }
 \details{
 @details
-
-Fits a Wilcox Model to site-level data.
+Fits a Wilcoxon model to site-level data.
 }
 \section{Statistical Methods}{
 
-
-A Wilcoxon model is used to generate estimates and p-values for each site (as specified with the \code{strOutcome} parameter).
+A Wilcoxon model is used to generate estimates and p-values for each site (as specified with the
+\code{strOutcomeCol} parameter).
 }
 
 \section{Data Specification}{
 
-
-The input data (dfTransformed) for Analyze_Wilcoxon is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
+The input data (dfTransformed) for Analyze_Wilcoxon is typically created using
+\code{\link{Transform_EventCount}} and should be one record per site with required columns for:
 \itemize{
 \item \code{SiteID} - Site ID
 \item \code{N} - Number of participants
@@ -43,7 +53,7 @@ The input data (dfTransformed) for Analyze_Wilcoxon is typically created using \
 
 \examples{
 dfInput <- AE_Map_Raw()
-dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
-dfAnalyzed <- Analyze_Wilcoxon( dfTransformed , strOutcome ="Rate")
+dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, strOutcomeCol = "Rate")
 
 }

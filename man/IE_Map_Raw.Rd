@@ -20,12 +20,12 @@ IE_Map_Raw(
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
 
-\item{bReturnChecks}{\code{logical} Return input checks from {gsm::is_mapping_valid()}? Default: \code{FALSE}}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} Data frame with one record per subject, the input to {gsm::IE_Assess()}. If
+\code{data.frame} Data frame with one record per subject, the input to \code{\link[=IE_Assess]{IE_Assess()}}. If
 \code{bReturnChecks} is \code{TRUE} \code{IE_Map_Raw} returns a named \code{list} with:
 \itemize{
 \item \code{df}: the data frame described above
@@ -34,12 +34,12 @@ IE_Map_Raw(
 }
 \description{
 Convert raw inclusion/exclusion (IE) data, typically processed case report form data, to formatted
-input data to {gsm::IE_Assess()}.
+input data to \code{\link[=IE_Assess]{IE_Assess()}}.
 }
 \details{
 \code{IE_Map_Raw} combines IE data with subject-level data to create formatted input data to
-{gsm::IE_Assess()}. This function creates an input dataset for the IE Assessment
-(${gsm::IE_Assess()}) by binding subject-level unmet IE criteria counts (derived from \code{dfIE}) to
+\code{\link[=IE_Assess]{IE_Assess()}}. This function creates an input dataset for the IE Assessment
+($\code{\link[=IE_Assess]{IE_Assess()}}) by binding subject-level unmet IE criteria counts (derived from \code{dfIE}) to
 subject-level data (from \code{dfSUBJ}). Note that the function can generate data summaries for
 specific types of IE criteria by passing filtered IE data to \code{dfIE}.
 }

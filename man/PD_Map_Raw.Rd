@@ -25,7 +25,7 @@ PD_Map_Raw(
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} Data frame with one record per subject, the input to {gsm::PD_Assess()}. If
+\code{data.frame} Data frame with one record per subject, the input to \code{\link[=PD_Assess]{PD_Assess()}}. If
 \code{bReturnChecks} is \code{TRUE} \code{PD_Map_Raw} returns a named \code{list} with:
 \itemize{
 \item \code{df}: the data frame described above
@@ -34,12 +34,12 @@ PD_Map_Raw(
 }
 \description{
 Convert raw protocol deviation (PD) data, typically processed case report form data, to formatted
-input data to {gsm::PD_Assess()}.
+input data to \code{\link[=PD_Assess]{PD_Assess()}}.
 }
 \details{
 \code{PD_Map_Raw} combines PD data with subject-level treatment exposure data to create formatted
-input data to {gsm::PD_Assess()}. This function creates an input dataset for the PD Assessment
-({gsm::PD_Assess()}) by binding subject-level PD counts (derived from \code{dfPD}) to subject-level
+input data to \code{\link[=PD_Assess]{PD_Assess()}}. This function creates an input dataset for the PD Assessment
+(\code{\link[=PD_Assess]{PD_Assess()}}) by binding subject-level PD counts (derived from \code{dfPD}) to subject-level
 data (from \code{dfSUBJ}). Note that the function can generate data summaries for specific types of
 PDs by passing filtered PD data to \code{dfPD}.
 }

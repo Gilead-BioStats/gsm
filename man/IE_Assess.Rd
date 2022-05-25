@@ -32,10 +32,10 @@ IE_Assess(
 \item each data frame in the data pipeline
 \itemize{
 \item \code{dfInput}
-\item \code{dfTransformed}, returned by {gsm::Transform_EventCount()}
-\item \code{dfAnalyzed}, a copy of \code{dfTransformed} and input to \code{gsm::Flag}
-\item \code{dfFlagged}, returned by {gsm::Flag()}
-\item \code{dfSummary}, returned by {gsm::Summarize()}
+\item \code{dfTransformed}, returned by \code{\link[=Transform_EventCount]{Transform_EventCount()}}
+\item \code{dfAnalyzed}, a copy of \code{dfTransformed} and input to \verb{[gsm::Flag()]}
+\item \code{dfFlagged}, returned by \code{\link[=Flag]{Flag()}}
+\item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
 }
 \item assessment metadata
 \itemize{

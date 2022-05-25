@@ -10,9 +10,13 @@
 #' methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
-#' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to `c(-5, 5)` for `strMethod` = "poisson" and `c(.0001, NA)` for `strMethod` = "wilcoxon".
-#' @param strMethod `character` Statistical model. Valid values include "poisson" (default) and  "wilcoxon".
-#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment="AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
+#' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
+#'   `c(-5, 5)` for `strMethod` = "poisson" and `c(.0001, NA)` for `strMethod` = "wilcoxon".
+#' @param strMethod `character` Statistical model. Valid values include "poisson" (default) and
+#'  "wilcoxon".
+#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
+#'   to `list(Assessment="AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and
+#'   each tag is added as a column in `lAssess$dfSummary`.
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
@@ -20,10 +24,10 @@
 #' @return `list` Assessment, a named list with:
 #' - each data frame in the data pipeline
 #'   - `dfInput`
-#'   - `dfTransformed`, returned by {gsm::Transform_EventCount()}
-#'   - `dfAnalyzed`, returned by {gsm::Analyze_Poisson} or {gsm::Analyze_Wilcoxon}
-#'   - `dfFlagged`, returned by {gsm::Flag()}
-#'   - `dfSummary`, returned by {gsm::Summarize()}
+#'   - `dfTransformed`, returned by [gsm::Transform_EventCount()]
+#'   - `dfAnalyzed`, returned by [gsm::Analyze_Poisson()] or [gsm::Analyze_Wilcoxon()]
+#'   - `dfFlagged`, returned by [gsm::Flag()]
+#'   - `dfSummary`, returned by [gsm::Summarize()]
 #' - assessment metadata
 #'   - `strFunctionName`
 #'   - `lParams`
@@ -91,7 +95,7 @@ AE_Assess <- function(
 
     if (strMethod == "poisson") {
       if (is.null(vThreshold)) {
-        vThreshold <- c(-5, 5)
+          vThreshold = c(-5, 5)
       } else {
         stopifnot(
           "vThreshold is not numeric" = is.numeric(vThreshold),
@@ -100,7 +104,7 @@ AE_Assess <- function(
         )
       }
 
-      lAssess$dfAnalyzed <- gsm::Analyze_Poisson(lAssess$dfTransformed)
+      lAssess$dfAnalyzed <- gsm::Analyze_Poisson(lAssess$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Poisson} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
       lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strColumn = "Residuals", vThreshold = vThreshold)
@@ -110,7 +114,7 @@ AE_Assess <- function(
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
     } else if (strMethod == "wilcoxon") {
       if (is.null(vThreshold)) {
-        vThreshold <- c(0.0001, NA)
+        vThreshold = c(0.0001, NA)
       } else {
         stopifnot(
           "vThreshold is not numeric" = is.numeric(vThreshold),
@@ -120,7 +124,7 @@ AE_Assess <- function(
         )
       }
 
-      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed)
+      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed, 'Rate', bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Wilcoxon} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
       lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strColumn = "PValue", vThreshold = vThreshold, strValueColumn = "Estimate")
@@ -132,7 +136,7 @@ AE_Assess <- function(
 
     if (bChart) {
       if (strMethod == "poisson") {
-        dfBounds <- gsm::Analyze_Poisson_PredictBounds(lAssess$dfTransformed, vThreshold = vThreshold)
+        dfBounds <- gsm::Analyze_Poisson_PredictBounds(lAssess$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
         lAssess$chart <- gsm::Visualize_Scatter(lAssess$dfFlagged, dfBounds)
         if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
       } else {

@@ -2,12 +2,12 @@
 #'
 #' @description
 #' Convert raw protocol deviation (PD) data, typically processed case report form data, to formatted
-#' input data to {gsm::PD_Assess()}.
+#' input data to [gsm::PD_Assess()].
 #'
 #' @details
 #' `PD_Map_Raw` combines PD data with subject-level treatment exposure data to create formatted
-#' input data to {gsm::PD_Assess()}. This function creates an input dataset for the PD Assessment
-#' ({gsm::PD_Assess()}) by binding subject-level PD counts (derived from `dfPD`) to subject-level
+#' input data to [gsm::PD_Assess()]. This function creates an input dataset for the PD Assessment
+#' ([gsm::PD_Assess()]) by binding subject-level PD counts (derived from `dfPD`) to subject-level
 #' data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
 #' PDs by passing filtered PD data to `dfPD`.
 #'
@@ -18,7 +18,7 @@
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` Data frame with one record per subject, the input to {gsm::PD_Assess()}. If
+#' @return `data.frame` Data frame with one record per subject, the input to [gsm::PD_Assess()]. If
 #' `bReturnChecks` is `TRUE` `PD_Map_Raw` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
