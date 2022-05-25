@@ -21,7 +21,8 @@ Imports:
     tibble,
     tidyr,
     withr,
-    yaml
+    yaml,
+    lifecycle
 Suggests:
     clindata,
     covr,
