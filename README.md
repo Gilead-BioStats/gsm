@@ -50,7 +50,7 @@ Since {gsm} is designed for use in a GCP framework, we have conducted extensive 
 - **Code Review** - Code review is conducted using GitHub Pull requests, and a log of all PRs is included in the Qualification Report Vignette.
 - **Function Documentation** - Detailed documentation for each function is maintained with Roxygen.
 - **Package Checks** - Standard package checks are run using GitHub Actions and must be passing before PRs are merged.
-- **Data Specifications** - Machine-readable data specifications are maintained for all KRIs. Specifications automatically added to relevant function documentation.
+- **Data Specifications** - Machine-readable data specifications are maintained for all KRIs. Specifications are automatically added to relevant function documentation.
 - **Continuous Integration** - Continuous integration is provided via GitHub Actions. 
 - **Regression Testing** - Extensive QC and testing is done before each release. 
 - **Code Formatting** - Code is formatted with {styler} before each release. 
