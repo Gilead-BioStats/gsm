@@ -15,6 +15,7 @@ Imports:
     glue,
     gt,
     ggplot2,
+    lifecycle (>= 1.0.1),
     magrittr,
     purrr,
     stringr,

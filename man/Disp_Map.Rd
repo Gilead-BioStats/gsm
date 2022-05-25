@@ -22,11 +22,11 @@ Disp_Map(
 }
 \value{
 Data frame with one record per person with columns: SubjectID, SiteID, Count, and the value passed to strCol.
-
-#' @examples
-df <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "adverse event")
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+}
+\details{
 Convert from ADaM or raw format to input format for Disposition Assessment.
 }
 \section{Data Specification}{
@@ -41,3 +41,7 @@ The following columns are required:
 }
 }
 
+\examples{
+df <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "adverse event")
+
+}
