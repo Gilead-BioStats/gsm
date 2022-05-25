@@ -1,48 +1,32 @@
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/Gilead-BioStats/gsm/workflows/R-CMD-check-main/badge.svg)](https://github.com/Gilead-BioStats/gsm/actions) [![Codecov test coverage](https://codecov.io/gh/Gilead-BioStats/gsm/branch/dev/graph/badge.svg)](https://codecov.io/gh/Gilead-BioStats/gsm?branch=dev)
+[![R-CMD-check](https://github.com/Gilead-BioStats/gsm/workflows/R-CMD-check-main/badge.svg)](https://github.com/Gilead-BioStats/gsm/actions) 
 
 <!-- badges: end -->
 
 # Gilead Statistical Monitoring {gsm} R package
 
-The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials.
+The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This readme provides a high-level overview of {gsm}, see the [package website](silver-potato-cfe8c2fb.pages.github.io/) for additional details.
 
-The {gsm} package will perform statistical assessments primarily focused on detecting differences in quality at the site-level. "High quality" is defined as absence of errors that matter. We interpret this as focusing on detecting potential issues related to critical data or process across the major risk categories of safety, efficacy, disposition, treatment, and general quality, where each category consists of one or more risk assessment(s). Each risk assessment will analyze the data to flag potential issues and provide a visualization to help the user understand the issue. Further expansion of the package will include exploratory plots and data outputs to allow the user to deep dive into the subject-level data for a flagged site of interest.
+# Background 
 
-Below are some reading references to help better understand the purpose of the GSM package:
+The {gsm} package performs risk assessments primarily focused on detecting differences in quality at the site-level. "High quality" is defined as absence of errors that matter. We interpret this as focusing on detecting potential issues related to critical data or process across the major risk categories of safety, efficacy, disposition, treatment, and general quality, where each category consists of one or more risk assessment(s). Each risk assessment will analyze the data to flag sites with potential issues and provide a visualization to help the user understand the issue. Some relevant references are provided below. 
 
-**Papers on Centralized Statistical Monitoring:** [1](https://documents.pub/reader/full/centralized-statistical-monitoring-to-detect-data-integrity-issues-statisticalcentralized), [2](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7308734/), [3](https://www.magiworld.org/Journal/2014/1411_Centralized.pdf)
+- Centralized Statistical Monitoring: [1](https://documents.pub/reader/full/centralized-statistical-monitoring-to-detect-data-integrity-issues-statisticalcentralized), [2](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7308734/), [3](https://www.magiworld.org/Journal/2014/1411_Centralized.pdf)
+- EMA/FDA Guidance on Risk Based Management: [1](https://www.fda.gov/media/121479/download), [2](https://www.fda.gov/media/116754/download), [3](https://www.fda.gov/media/129527/download), [4](https://www.ema.europa.eu/en/documents/scientific-guideline/reflection-paper-risk-based-quality-management-clinical-trials_en.pdf)
+- Risk Based Quality Management: [1](https://www.acrohealth.org/wp-content/uploads/2019/10/CRO-Forum-RBQM-Oversight-Paper-FINAL-Oct-2019.pdf), [2](http://www.transceleratebiopharmainc.com/wp-content/uploads/2017/09/Risk-Based-Quality-Managment.pdf), [3](https://www.magiworld.org/Journal/2014/1411_Centralized.pdf)
+- Related tools: [1](https://cluepoints.com/), [2](https://www.saama.com/case-study/rbm-success-story/)
 
-**EMA/FDA Guidance on Risk Based Management:** [1](https://www.fda.gov/media/121479/download), [2](https://www.fda.gov/media/116754/download), [3](https://www.fda.gov/media/129527/download), [4](https://www.ema.europa.eu/en/documents/scientific-guideline/reflection-paper-risk-based-quality-management-clinical-trials_en.pdf)
+# Process Overview
 
-**Risk Based Quality Management:** [1](https://www.acrohealth.org/wp-content/uploads/2019/10/CRO-Forum-RBQM-Oversight-Paper-FINAL-Oct-2019.pdf), [2](http://www.transceleratebiopharmainc.com/wp-content/uploads/2017/09/Risk-Based-Quality-Managment.pdf), [3](https://www.magiworld.org/Journal/2014/1411_Centralized.pdf)
-
-**Industry Examples:** [1](https://cluepoints.com/), [2](https://www.saama.com/case-study/rbm-success-story/)
-
-### Overview
-
-The Gilead Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring using R. The package provides a framework that allows users to **assess** and **visualize** clinical trial data, allowing users to detect issues at sites, identify the root cause, and decide on the appropriate action.
-
-The package currently provides assessments for the following domains:
+The {gsm} package establishes a data pipeline for RBM using R. The package provides a framework that allows users to **assess** and **visualize** site-level risk in clinical trial data. The package currently provides assessments for the following domains:
 
 1.  Adverse Event Frequency
 2.  Serious Adverse Event Frequency
 3.  Protocol Deviation Frequency
 4.  Important Protocol Deviation Frequency
 
-### Data Pipeline
-
-{gsm}'s data pipeline has 2 main components:
-
-1.  **Assess** data to detect potential issues at sites.
-2.  **Visualize** the findings for understanding.
-
-To learn more about {gsm}'s data pipeline, visit the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette)
-
-### Assess
-
-{gsm} uses a standardized 6 step process for **assessing** data issues. The steps are listed below along with their inputs and outputs.
+All {gsm} assessments use a standardized 6 step data pipeline: 
 
 1.  **Map** (*Optional*) - Converts `raw` data to `input` data.
 2.  **Transform** - Converts `input` data to `transformed` data.
@@ -51,6 +35,24 @@ To learn more about {gsm}'s data pipeline, visit the [Data Pipeline Vignette](ht
 5.  **Flag** - Uses `analyzed` data and numeric `thresholds` to create `flagged` data.
 6.  **Summarize** - Selects key columns from `flagged` data to create `summary` data.
 
-### Visualize
+To learn more about {gsm}'s data pipeline, visit the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette). 
 
-By default, {gsm} produces a visualization for each assessment.
+
+# Quality Control
+
+Since {gsm} is designed for use in a GCP framework, we have conducted extensive quality control as part of our development process. In particular, we do the following:  
+
+- **Qualification Workflow** - All assessments have been Qualified as described in the Qualification Workflow Vignette. A Qualification Report Vignette is generated and attached to each release. 
+- **Unit Tests** - Unit tests are written for all core functions.
+- **Contributor Guidelines** - Detailed contributor guidelines including step-by-step processes for code development and releases are provided as a vignette.
+- **Data Model** - Vingettes providing detailed descriptions of the data mode
+- **Code Examples** - The Cookbook Vignette provides a series of simple examples, and all functions include examples as part of Roxygen documentation. 
+- **Code Review** - Code review is conducted using Github Pull requests, and a log of all PRs is included in the Qualification Report Vignette.
+- **Function Documentation** - Detailed documentation for each function are maintained with Roxygen.
+- **Package Checks** - Standard package checks are run using Github actions and must be passing before PRs are merged.
+- **Data Specifications** - Machine-readable data specifications are maintained for all KRIs. Specifications automatically added to relevant function documentation.
+- **Continuous Integration** - Continuous integration is provided via GitHub Actions. 
+- **Regression Testing** - Extensive QC and testing is done before each release. 
+- **Code Formatting** - Code is formatted with {styler} before each release. 
+ 
+Additional detail, including links to functional documentation and vignettes, is available in the [package website](silver-potato-cfe8c2fb.pages.github.io/).

@@ -89,6 +89,8 @@ styler::style_dir('tests', recursive = TRUE, transformers = double_indent_style)
     - Ensure all qualification tests are passing and report has been rerun
     - Run `spell_check()` and resolve issues
     - Build site `pkgdown::build_site()` and check that all affected examples are displayed correctly and that all new functions occur on the "Reference" page.
+    - Open a clean R session call `devtools::instrall` run `devtools::check()` locally and confirm that there are no issues. 
+    
 3. Release Owner creates PR from `release` to `main` 
     - Use the [release PR template](https://github.com/Gilead-BioStats/gsm/blob/dev/.github/PULL_REQUEST_TEMPLATE/release.md) by adding `?template=release.md` to the URL when creating the PR (Or, click the link, click `raw`, and copy/paste the markdown into the PR.)
    - Assign PR to self
