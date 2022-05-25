@@ -16,8 +16,9 @@
 #'
 #' @export
 
-Study_Report <- function(strAssessments, lMeta, strOutpath=NULL){
+Study_Report <- function(strAssessments, lMeta=list(Project="My Project"), strOutpath=NULL){
     if(is.null(strOutpath)) strOutpath <- paste0(getwd(),"/gsm_report.html")
+    if(!hasName(lMeta,"Project")) lMeta$Project = "My Project"
     projectTemplate <- system.file("report","studySummary.rmd", package = "gsm")
     rmarkdown::render(
         projectTemplate,

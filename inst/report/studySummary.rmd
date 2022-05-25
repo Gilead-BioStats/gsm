@@ -20,9 +20,21 @@ library(kableExtra)
 library(gt)
 
 if(length(names(params$meta))>1){
-    params$meta %>%
-        kbl(escape=FALSE) %>% 
-        kable_styling()
+  cat("# Metadata Table")
+  params$meta %>%
+    tibble::enframe() %>%
+    tidyr::unnest(cols = value) %>%
+    dplyr::rename(Name = name, Value = value) %>%
+    gt::gt() %>%
+    gt::tab_style(style = list(
+      cell_text(
+        color = 'white',
+        align = "center",
+        weight = "bold"
+      ),
+      cell_fill(color = "#c73442")
+    ),
+    locations = cells_column_labels())
 }
 
 ```

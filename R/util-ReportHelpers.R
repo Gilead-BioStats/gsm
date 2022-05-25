@@ -1,4 +1,11 @@
-# https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/
+
+#' insert icon for status in gt table
+#' 
+#' from https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/
+#' 
+#' @param status boolean status
+
+
 rank_chg <- function(status){
   if (status == TRUE) {
     logo_out <- fontawesome::fa("check-circle", fill = "green")
