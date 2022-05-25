@@ -36,14 +36,15 @@ Notes:
 # Release Checklist
 <!--- Fill out the following Release checklist -->
 
-- [ ] Version number has been updated
+- [ ] Version number has been updated in `DESCRIPTION`
 - [ ] NEWS.md has been updated
-- [ ] README.md has been updated (if applicable)
 - [ ] Ensure all unit tests are passing
 - [ ] Ensure all qualification tests are passing and report has been rerun
 - [ ] All QC Checklists in this PR are complete
 - [ ] GitHub actions on this PR are all passing
+- [ ] Formatted code with `styler`
 - [ ] Run `spell_check()`
+- [ ] Completed QC of documentation including `README.md` and relevant Vignettes
 - [ ] Build site `pkgdown::build_site()` and check that all affected examples are displayed correctly and that all new functions occur on the "[Reference](https://silver-potato-cfe8c2fb.pages.github.io/reference/index.html)" page. 
 - [ ] Draft GitHub release created using automatic template and updated with additional details. Remember to click "release" after PR is merged.  
 
