@@ -21,8 +21,7 @@ Imports:
     tibble,
     tidyr,
     withr,
-    yaml,
-    lifecycle
+    yaml
 Suggests:
     clindata,
     covr,
@@ -31,6 +30,7 @@ Suggests:
     janitor,
     kableExtra,
     knitr,
+    lifecycle,
     lamW,
     pander,
     rlang,
