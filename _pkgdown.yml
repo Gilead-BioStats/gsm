@@ -40,6 +40,7 @@ reference:
       - Study_AssessmentReport
       - Study_Report
       - Study_Table
+      - rank_chg
 
    - title: Utility
      desc: Utility functions for use within the Data Pipeline
