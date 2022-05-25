@@ -7,7 +7,8 @@
 Analyze_Wilcoxon(
   dfTransformed,
   strOutcomeCol = NULL,
-  strPredictorCol = "SiteID"
+  strPredictorCol = "SiteID",
+  bQuiet = TRUE
 )
 }
 \arguments{
@@ -17,6 +18,8 @@ Analyze_Wilcoxon(
 
 \item{strPredictorCol}{\code{character} Column name of predictor in \code{dfTransformed} to analyze.
 Default: \code{"SiteID"}}
+
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 \code{data.frame} with one row per site, columns: SiteID, N, TotalCount, TotalExposure, Rate,

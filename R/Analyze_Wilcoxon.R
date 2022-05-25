@@ -22,6 +22,7 @@
 #' @param strOutcomeCol `character` Column name of outcome in `dfTransformed` to analyze.
 #' @param strPredictorCol `character` Column name of predictor in `dfTransformed` to analyze.
 #'   Default: `"SiteID"`
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @import dplyr
 #' @importFrom stats wilcox.test as.formula
@@ -84,11 +85,12 @@ Analyze_Wilcoxon <- function(
   hasEnoughRecords <- nrow(dfTransformed) > 2
   hasMultipleUniqueOutcomeValues <- length(unique(dfTransformed[[ strOutcomeCol ]])) > 1
   if (hasEnoughRecords && hasMultipleUniqueOutcomeValues) {
-    cli::cli_alert_info(
-      glue::glue(
-        'Fitting Wilcoxon rank sum test of [ {strOutcomeCol} ] ~ [ {strPredictorCol} ].'
+    if (!bQuiet)
+      cli::cli_alert_info(
+        glue::glue(
+          'Fitting Wilcoxon rank sum test of [ {strOutcomeCol} ] ~ [ {strPredictorCol} ].'
+        )
       )
-    )
 
     dfAnalyzed = dfAnalyzed %>%
       mutate(
@@ -102,17 +104,18 @@ Analyze_Wilcoxon <- function(
       ) %>%
       arrange(.data$PValue)
   } else {
-    cli::cli_alert_warning(
-      glue::glue(
-        'Cannot fit Wilcoxon rank sum test: ',
-        if_else(
-          !hasEnoughRecords,
-          '[ dfTransformed ] contains two or fewer records.',
-          '[ {strOutcomeCol} ] contains only one unique value.'
-        ),
-        ' Returning NA for estimate and p-value.'
+    if (!bQuiet)
+      cli::cli_alert_warning(
+        glue::glue(
+          'Cannot fit Wilcoxon rank sum test: ',
+          if_else(
+            !hasEnoughRecords,
+            '[ dfTransformed ] contains two or fewer records.',
+            '[ {strOutcomeCol} ] contains only one unique value.'
+          ),
+          ' Returning NA for estimate and p-value.'
+        )
       )
-    )
 
     dfAnalyzed$Estimate <- NA_real_
     dfAnalyzed$PValue <- NA_real_

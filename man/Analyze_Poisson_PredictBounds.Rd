@@ -4,7 +4,11 @@
 \alias{Analyze_Poisson_PredictBounds}
 \title{Poisson Analysis - Predicted Boundaries}
 \usage{
-Analyze_Poisson_PredictBounds(dfTransformed, vThreshold = c(-5, 5))
+Analyze_Poisson_PredictBounds(
+  dfTransformed,
+  vThreshold = c(-5, 5),
+  bQuiet = TRUE
+)
 }
 \arguments{
 \item{dfTransformed}{\code{data.frame} data.frame in format produced by
@@ -12,6 +16,8 @@ Analyze_Poisson_PredictBounds(dfTransformed, vThreshold = c(-5, 5))
 
 \item{vThreshold}{\code{numeric} upper and lower boundaries in residual space. Should be identical to
 the thresholds used AE_Assess().}
+
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 data frame containing predicted boundary values with upper and lower bounds across the

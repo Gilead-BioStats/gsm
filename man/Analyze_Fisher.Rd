@@ -4,12 +4,14 @@
 \alias{Analyze_Fisher}
 \title{Fisher's Exact Test Analysis}
 \usage{
-Analyze_Fisher(dfTransformed, strOutcome = "TotalCount")
+Analyze_Fisher(dfTransformed, strOutcome = "TotalCount", bQuiet = TRUE)
 }
 \arguments{
-\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}}
+\item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_EventCount}}}
 
-\item{strOutcome}{required, name of column in dfTransformed dataset to perform Fisher test on. Default is "TotalCount".}
+\item{strOutcome}{\code{character} required, name of column in dfTransformed dataset to perform Fisher test on. Default is "TotalCount".}
+
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue

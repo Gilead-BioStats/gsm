@@ -18,6 +18,7 @@
 #' - `Rate` - Rate of exposure (TotalCount / TotalExposure)
 #'
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @import dplyr
 #' @importFrom glue glue
@@ -40,13 +41,15 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
     "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]]))
   )
 
-  dfModel <- dfTransformed %>% mutate(LogExposure = log(.data$TotalExposure))
+  dfModel <- dfTransformed %>%
+    mutate(LogExposure = log(.data$TotalExposure))
 
-  cli::cli_alert_info(
-    glue::glue(
-      'Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].'
+  if (!bQuiet)
+    cli::cli_alert_info(
+      glue::glue(
+        'Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].'
+      )
     )
-  )
 
   cModel <- stats::glm(
     TotalCount ~ stats::offset(LogExposure),

@@ -23,6 +23,7 @@
 #' \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
 #' @param vThreshold `numeric` upper and lower boundaries in residual space. Should be identical to
 #' the thresholds used AE_Assess().
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @importFrom stats glm offset poisson
 #'

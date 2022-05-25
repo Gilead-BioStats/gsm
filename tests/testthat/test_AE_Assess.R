@@ -47,7 +47,7 @@ test_that("incorrect lTags throw errors", {
   expect_snapshot_error(AE_Assess(aeInput, vThreshold = c(-5.1, 5.1), lTags = "hi mom"))
   expect_snapshot_error(AE_Assess(aeInput, vThreshold = c(-5.1, 5.1), lTags = list("hi", "mom")))
   expect_snapshot_error(AE_Assess(aeInput, vThreshold = c(-5.1, 5.1), lTags = list(greeting = "hi", "mom")))
-  expect_error(
+  expect_silent(
     AE_Assess(
       aeInput,
       vThreshold = c(-5.1, 5.1),
@@ -55,8 +55,7 @@ test_that("incorrect lTags throw errors", {
         greeting = "hi",
         person = "mom"
       )
-    ),
-    NA
+    )
   )
   expect_snapshot_error(AE_Assess(aeInput, lTags = list(SiteID = "")))
   expect_snapshot_error(AE_Assess(aeInput, lTags = list(N = "")))

@@ -100,7 +100,7 @@ PD_Assess <- function(
         )
       }
 
-      lAssess$dfAnalyzed <- gsm::Analyze_Poisson(lAssess$dfTransformed)
+      lAssess$dfAnalyzed <- gsm::Analyze_Poisson(lAssess$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Poisson} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
       lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strColumn = "Residuals", vThreshold = vThreshold)
@@ -120,7 +120,7 @@ PD_Assess <- function(
         )
       }
 
-      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed, 'Rate')
+      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed, 'Rate', bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Wilcoxon} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
       lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strColumn = "PValue", vThreshold = vThreshold, strValueColumn = "Estimate")
@@ -132,7 +132,7 @@ PD_Assess <- function(
 
     if (bChart) {
       if (strMethod == "poisson") {
-        dfBounds <- gsm::Analyze_Poisson_PredictBounds(lAssess$dfTransformed, vThreshold = vThreshold)
+        dfBounds <- gsm::Analyze_Poisson_PredictBounds(lAssess$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
         lAssess$chart <- gsm::Visualize_Scatter(lAssess$dfFlagged, dfBounds)
         if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
       } else {
