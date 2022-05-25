@@ -45,7 +45,7 @@ Since {gsm} is designed for use in a GCP framework, we have conducted extensive 
 - **Qualification Workflow** - All assessments have been Qualified as described in the Qualification Workflow Vignette. A Qualification Report Vignette is generated and attached to each release. 
 - **Unit Tests** - Unit tests are written for all core functions.
 - **Contributor Guidelines** - Detailed contributor guidelines including step-by-step processes for code development and releases are provided as a vignette.
-- **Data Model** - Vingettes providing detailed descriptions of the data mode
+- **Data Model** - Vingettes providing detailed descriptions of the data mode.
 - **Code Examples** - The Cookbook Vignette provides a series of simple examples, and all functions include examples as part of Roxygen documentation. 
 - **Code Review** - Code review is conducted using Github Pull requests, and a log of all PRs is included in the Qualification Report Vignette.
 - **Function Documentation** - Detailed documentation for each function are maintained with Roxygen.
