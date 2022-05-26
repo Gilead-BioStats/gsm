@@ -1,4 +1,21 @@
-# Contributing to `{gsm}`
+---
+title: "Contributor Guidelines"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Contributor Guidelines}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+library(gsm)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Intro
 
 This page outlines the development process for `{gsm}`, and how to contribute by filing issues, bug reports, and submitting code via a Pull Request.  
 
@@ -148,7 +165,7 @@ This QC checklist is used as part of the development and release workflows descr
     - [ ] All GitHub Actions run with no errors
 
 
-# Appendix 3 - Continusous Integration with GitHub Actions
+# Appendix 3 - Continuous Integration with GitHub Actions
 
 GitHub Actions are used in `{gsm}` to automate processes and ensure all code and documentation is created consistently and documented thoroughly.
 

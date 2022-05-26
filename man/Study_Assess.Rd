@@ -33,6 +33,6 @@ A list of assessments containing status information and results.
 Attempts to run one or more assessments (\code{lAssessments}) using shared data (\code{lData}) and metadata (\code{lMapping}). By default, the sample \code{rawplus} data from the {clindata} package is used, and all assessments defined in \code{inst/assessments} are evaluated. Individual assessments are run using \code{gsm::RunAssessment()}
 }
 \examples{
-Study_Assess() # run using defaults
+results<-Study_Assess() # run using defaults
 
 }
