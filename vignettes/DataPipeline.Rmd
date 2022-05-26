@@ -44,12 +44,6 @@ Creating input data is outside the scope of the assessment pipeline. The specifi
 
 These `map` functions are provided for convenience, but may not work for all clinical studies. When no `map` function is available for a given assessment, it is expected that the user will manually create `input` data following the specifications for that assessment. 
 
-## Assessment Specification
-<TODO>
-
-# Study-Level Data Pipeline
-<TODO>
-
 # Appendix
 
 ## Metadata Technical Specifications
