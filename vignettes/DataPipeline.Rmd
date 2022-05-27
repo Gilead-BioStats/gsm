@@ -26,6 +26,11 @@ workflows and reports that allow users to run multiple KRIs concurrently on a st
 
 ![image](https://user-images.githubusercontent.com/3680095/169086356-e31ab9a5-c709-46cf-9bd9-68b7bdbba72b.png)
 
+The KRI data pipeline begins with one or more clinical datasets related to the KRI. An optional
+participant-level subset is then applied to each dataset before aggregating by participant to
+quantify the KRI at the participant level. This aggregated dataset is then further summarized by
+site to jkjk
+
 < add overview describing KRI calculation work flow `Filter -> Map -> Assess` > 
 
 ## Assessment Data Pipeline
