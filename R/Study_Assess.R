@@ -10,7 +10,7 @@
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
 #' @examples
-#' Study_Assess() # run using defaults
+#' results<-Study_Assess() # run using defaults
 #'
 #' @import dplyr
 #' @importFrom purrr map

@@ -8,12 +8,24 @@
 \description{
 The Gilead Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/Gilead-BioStats/gsm}
+  \item Report bugs at \url{https://github.com/Gilead-BioStats/gsm/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: George Wu \email{george.wu@gilead.com}
 
 Authors:
 \itemize{
-  \item Jeremy Wildfire \email{jeremy.wildfire@gilead.com}
+  \item Jeremy Wildfire \email{jwildfire@gmail.com}
+  \item Matt Roumaya \email{Matt.Roumaya@atorusresearch.com}
+  \item Nathan Kosiba \email{Nathan.Kosiba@atorusresearch.com}
+  \item Douglas Sanders
+  \item Spencer Childress \email{spencer.childress@gilead.com}
 }
 
 }

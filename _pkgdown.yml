@@ -4,23 +4,23 @@ template:
 
 reference:
    - title: Assess
-     desc: Assessment Functions - sequentially executes the Assessment Pipeline Functions (Transform, Analyze, Flag, and Summarize)
+     desc: Sequentially execute the Assessment Pipeline Functions (Transform, Analyze, Flag, and Summarize)
    - contents:
       - ends_with("_Assess")
 
-   - title: Visualize - generates a visualization from the Assessment results
-     desc: Visualization Functions
+   - title: Visualize
+     desc: Generate a visualization from the Assessment results
    - contents:
       - starts_with("Visualize_")
       - Analyze_Poisson_PredictBounds
 
    - title: Map
-     desc: Data Mapping Functions - generates input data from multiple clinical data standards (generally Raw+ or SDTM-)
+     desc: Generate input data from multiple clinical data standards (generally Raw+ or SDTM-)
    - contents:
       - matches("*_Map_*")
 
    - title: Analyze
-     desc: Statistical Analysis Functions - creates statistical analysis based on input data
+     desc: Conduct statistical analysis based on input data
    - contents:
       - Analyze_Chisq
       - Analyze_Fisher
@@ -28,14 +28,14 @@ reference:
       - Analyze_Wilcoxon
 
    - title: Data Pipeline
-     desc: Data Pipeline Functions - creates site-level summary, analyzed, and flagged data for an assessment
+     desc: Create site-level summary, analyzed, and flagged data for an assessment
    - contents:
       - Transform_EventCount
       - Flag
       - Summarize
 
    - title: Reporting
-     desc: Reporting Functions - creates summary tables and HTML objects to create a report
+     desc: Creates summary tables and HTML objects to create a report
    - contents:
       - Study_AssessmentReport
       - Study_Report
