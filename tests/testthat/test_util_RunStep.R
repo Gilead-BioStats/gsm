@@ -12,7 +12,7 @@ lData <- list(
   dfIE = dfIE
 )
 
-lTags <- list(Study="myStudy")
+lTags <- list(Study = "myStudy")
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {

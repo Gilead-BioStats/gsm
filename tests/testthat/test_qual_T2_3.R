@@ -1,18 +1,20 @@
 test_that("PD assessment can return a correctly assessed data frame for the poisson test grouped by the study variable and the results should be flagged correctly when done in an iterative loop", {
   test2_3 <- list()
-  t2_3  <- list()
+  t2_3 <- list()
 
-  for(type in unique(clindata::rawplus_pd$PD_CATEGORY)){
+  for (type in unique(clindata::rawplus_pd$PD_CATEGORY)) {
     dfInput <- PD_Map_Raw(dfs = list(
       dfPD = clindata::rawplus_pd %>% filter(PD_CATEGORY == type),
       dfSUBJ = clindata::rawplus_subj
-      ))
+    ))
 
     # gsm
     test2_3 <- c(test2_3,
-                 type = PD_Assess(dfInput,
-                                  strMethod = "poisson",
-                                  bChart = FALSE))
+      type = PD_Assess(dfInput,
+        strMethod = "poisson",
+        bChart = FALSE
+      )
+    )
 
 
     # Double Programming
@@ -36,7 +38,8 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
           Residuals > 5 ~ 1,
           is.na(Residuals) ~ NA_real_,
           is.nan(Residuals) ~ NA_real_,
-          TRUE ~ 0),
+          TRUE ~ 0
+        ),
       ) %>%
       arrange(match(Flag, c(1, -1, 0)))
 
@@ -50,17 +53,21 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
       arrange(match(Flag, c(1, -1, 0)))
 
     t2_3 <- c(t2_3,
-              type = list("strFunctionName" = "PD_Assess()",
-                          "lParams" = list("dfInput" = "dfInput",
-                                           "strMethod" = "poisson",
-                                           "bChart" = "FALSE"),
-                          "lTags" = list(Assessment = "PD"),
-                          "dfInput" = t2_3_input,
-                          "dfTransformed" = t2_3_transformed,
-                          "dfAnalyzed" = t2_3_analyzed,
-                          "dfFlagged" = t2_3_flagged,
-                          "dfSummary" = t2_3_summary))
-
+      type = list(
+        "strFunctionName" = "PD_Assess()",
+        "lParams" = list(
+          "dfInput" = "dfInput",
+          "strMethod" = "poisson",
+          "bChart" = "FALSE"
+        ),
+        "lTags" = list(Assessment = "PD"),
+        "dfInput" = t2_3_input,
+        "dfTransformed" = t2_3_transformed,
+        "dfAnalyzed" = t2_3_analyzed,
+        "dfFlagged" = t2_3_flagged,
+        "dfSummary" = t2_3_summary
+      )
+    )
   }
 
   # compare results

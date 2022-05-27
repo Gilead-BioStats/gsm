@@ -30,8 +30,10 @@ data set with one record per IDCol
 Merge Domain data with subject-level data shell
 }
 \examples{
-MergeSubjects(dfDomain = clindata::rawplus_consent,
-              dfSubjects = clindata::rawplus_subj,
-              strIDCol = "SubjectID")
+MergeSubjects(
+  dfDomain = clindata::rawplus_consent,
+  dfSubjects = clindata::rawplus_subj,
+  strIDCol = "SubjectID"
+)
 
 }

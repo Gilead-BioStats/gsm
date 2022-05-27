@@ -21,6 +21,6 @@ Load assessments from a package/directory
 \code{MakeAssessmentList()} is a utility function that creates a workflow mapping for assessments used in \code{Study_Assess()}.
 }
 \examples{
-MakeAssessmentList(path="assessments", package="gsm")
+MakeAssessmentList(path = "assessments", package = "gsm")
 
 }

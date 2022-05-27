@@ -50,4 +50,3 @@ test_that("model isn't run with a single outcome value", {
   expect_true(all(is.na(aew_anly$Estimate)))
   expect_true(all(is.na(aew_anly$PValue)))
 })
-

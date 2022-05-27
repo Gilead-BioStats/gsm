@@ -32,48 +32,48 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
-#' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
 #'
 #' @import dplyr
 #'
 #' @export
 
-Transform_EventCount <- function( dfInput , strCountCol, strExposureCol=NULL ){
+Transform_EventCount <- function(dfInput, strCountCol, strExposureCol = NULL) {
+  stopifnot(
+    "dfInput is not a data frame" = is.data.frame(dfInput),
+    "strCountCol not found in input data" = strCountCol %in% names(dfInput),
+    "SiteID not found in input data" = "SiteID" %in% names(dfInput),
+    "strCountCol is not numeric or logical" = is.numeric(dfInput[[strCountCol]]) | is.logical(dfInput[[strCountCol]])
+  )
+  if (anyNA(dfInput[[strCountCol]])) stop("NA's found in dfInput$Count")
+  if (!is.null(strExposureCol)) {
     stopifnot(
-        "dfInput is not a data frame" = is.data.frame(dfInput),
-        "strCountCol not found in input data" = strCountCol %in% names(dfInput),
-        "SiteID not found in input data" = "SiteID" %in% names(dfInput),
-        "strCountCol is not numeric or logical" = is.numeric(dfInput[[strCountCol]]) | is.logical(dfInput[[strCountCol]])
+      "strExposureCol is not found in input data" = strExposureCol %in% names(dfInput),
+      "strExposureColumn is not numeric" = is.numeric(dfInput[[strExposureCol]])
     )
-    if(anyNA(dfInput[[strCountCol]])) stop("NA's found in dfInput$Count")
-    if(!is.null(strExposureCol)){
-      stopifnot(
-        "strExposureCol is not found in input data" = strExposureCol %in% names(dfInput),
-        "strExposureColumn is not numeric" = is.numeric(dfInput[[strExposureCol]])
-      )
-      ExposureNACount <- sum(is.na(dfInput[[strExposureCol]]))
-      if(ExposureNACount>0){
-        warning(paste0("Dropped ",ExposureNACount," record(s) from dfInput where strExposureColumn is NA."))
-        dfInput <- dfInput %>% filter(!is.na(.data[[strExposureCol]]))
-      }
+    ExposureNACount <- sum(is.na(dfInput[[strExposureCol]]))
+    if (ExposureNACount > 0) {
+      warning(paste0("Dropped ", ExposureNACount, " record(s) from dfInput where strExposureColumn is NA."))
+      dfInput <- dfInput %>% filter(!is.na(.data[[strExposureCol]]))
     }
+  }
 
-  if(is.null(strExposureCol)){
-    dfTransformed <- dfInput  %>%
+  if (is.null(strExposureCol)) {
+    dfTransformed <- dfInput %>%
       group_by(.data$SiteID) %>%
       summarise(
-        N=n(),
-        TotalCount= sum(.data[[strCountCol]]),
+        N = n(),
+        TotalCount = sum(.data[[strCountCol]]),
       )
-  }else{
-    dfTransformed <- dfInput  %>%
+  } else {
+    dfTransformed <- dfInput %>%
       group_by(.data$SiteID) %>%
       summarise(
-        N=n(),
-        TotalCount= sum(.data[[strCountCol]]),
-        TotalExposure=sum(.data[[strExposureCol]])
-      )%>%
-      mutate(Rate = .data$TotalCount/.data$TotalExposure)
+        N = n(),
+        TotalCount = sum(.data[[strCountCol]]),
+        TotalExposure = sum(.data[[strExposureCol]])
+      ) %>%
+      mutate(Rate = .data$TotalCount / .data$TotalExposure)
   }
 
   return(dfTransformed)

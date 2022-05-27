@@ -44,36 +44,36 @@
 Analyze_Wilcoxon <- function(
   dfTransformed,
   strOutcomeCol = NULL,
-  strPredictorCol = 'SiteID',
+  strPredictorCol = "SiteID",
   bQuiet = TRUE
 ) {
   stopifnot(
     "@param:dfTransformed is not a data frame" =
-        is.data.frame(dfTransformed),
+      is.data.frame(dfTransformed),
     "strOutcomeCol must be length 1" =
-        length(strOutcomeCol) == 1,
+      length(strOutcomeCol) == 1,
     "strOutcomeCol is not character" =
-        is.character(strOutcomeCol),
+      is.character(strOutcomeCol),
     "strPredictorCol must be length 1" =
-        length(strPredictorCol) == 1,
+      length(strPredictorCol) == 1,
     "strPredictorCol is not character" =
-        is.character(strPredictorCol),
+      is.character(strPredictorCol),
     "@param:strOutcomeCol or @param:strPredictorCol not found in @param:dfTransformed" =
-        all(c(strPredictorCol, strOutcomeCol) %in% names(dfTransformed)),
+      all(c(strPredictorCol, strOutcomeCol) %in% names(dfTransformed)),
     "NA value(s) found in @param:strPredictorCol" =
-        all(!is.na(dfTransformed[[ strPredictorCol ]]))
+      all(!is.na(dfTransformed[[strPredictorCol]]))
   )
 
   wilcoxon_model <- function(predictorValue) {
     form <- as.formula(
-        paste0(
-            strOutcomeCol,
-            " ~ as.character(",
-            strPredictorCol,
-            ") =='",
-            predictorValue,
-            "'"
-        )
+      paste0(
+        strOutcomeCol,
+        " ~ as.character(",
+        strPredictorCol,
+        ") =='",
+        predictorValue,
+        "'"
+      )
     )
 
     stats::wilcox.test(form, exact = FALSE, conf.int = TRUE, data = dfTransformed)
@@ -83,18 +83,19 @@ Analyze_Wilcoxon <- function(
 
   # Paucity check - the rank sum test requires at least three records and at least two outcome values.
   hasEnoughRecords <- nrow(dfTransformed) > 2
-  hasMultipleUniqueOutcomeValues <- length(unique(dfTransformed[[ strOutcomeCol ]])) > 1
+  hasMultipleUniqueOutcomeValues <- length(unique(dfTransformed[[strOutcomeCol]])) > 1
   if (hasEnoughRecords && hasMultipleUniqueOutcomeValues) {
-    if (!bQuiet)
+    if (!bQuiet) {
       cli::cli_alert_info(
         glue::glue(
-          'Fitting Wilcoxon rank sum test of [ {strOutcomeCol} ] ~ [ {strPredictorCol} ].'
+          "Fitting Wilcoxon rank sum test of [ {strOutcomeCol} ] ~ [ {strPredictorCol} ]."
         )
       )
+    }
 
-    dfAnalyzed = dfAnalyzed %>%
+    dfAnalyzed <- dfAnalyzed %>%
       mutate(
-        model = map(.data[[ strPredictorCol ]], wilcoxon_model),
+        model = map(.data[[strPredictorCol]], wilcoxon_model),
         summary = map(.data$model, broom::glance)
       ) %>%
       tidyr::unnest(summary) %>%
@@ -104,18 +105,19 @@ Analyze_Wilcoxon <- function(
       ) %>%
       arrange(.data$PValue)
   } else {
-    if (!bQuiet)
+    if (!bQuiet) {
       cli::cli_alert_warning(
         glue::glue(
-          'Cannot fit Wilcoxon rank sum test: ',
+          "Cannot fit Wilcoxon rank sum test: ",
           if_else(
             !hasEnoughRecords,
-            '[ dfTransformed ] contains two or fewer records.',
-            '[ {strOutcomeCol} ] contains only one unique value.'
+            "[ dfTransformed ] contains two or fewer records.",
+            "[ {strOutcomeCol} ] contains only one unique value."
           ),
-          ' Returning NA for estimate and p-value.'
+          " Returning NA for estimate and p-value."
         )
       )
+    }
 
     dfAnalyzed$Estimate <- NA_real_
     dfAnalyzed$PValue <- NA_real_

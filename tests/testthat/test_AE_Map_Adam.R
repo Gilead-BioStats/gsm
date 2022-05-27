@@ -1,10 +1,10 @@
 source(testthat::test_path("testdata/data.R"))
 
 # output is created as expected -------------------------------------------
-test_that("output is created as expected",{
+test_that("output is created as expected", {
   data <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
   expect_true(is.data.frame(data))
-  expect_equal(names(data), c("SubjectID","SiteID","Count","Exposure","Rate"))
+  expect_equal(names(data), c("SubjectID", "SiteID", "Count", "Exposure", "Rate"))
 })
 
 # incorrect inputs throw errors -------------------------------------------
@@ -25,42 +25,50 @@ test_that("incorrect inputs throw errors", {
 
 # can't test these until mappings are updated in clindata
 
-test_that("incorrect mappings throw errors",{
+test_that("incorrect mappings throw errors", {
+  expect_null(AE_Map_Adam(
+    dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
+    lMapping = list(
+      dfADSL = list(
+        strIDCol = "not an id",
+        strSiteCol = "SITEID",
+        strStartCol = "TRTSDT",
+        strEndCol = "TRTEDT"
+      ),
+      dfADAE = list(strIDCol = "USUBJID")
+    )
+  ))
 
-  expect_null(AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
-                                    lMapping = list(
-    dfADSL = list(strIDCol="not an id",
-                  strSiteCol = "SITEID",
-                  strStartCol = "TRTSDT",
-                  strEndCol = "TRTEDT"),
-    dfADAE = list(strIDCol="USUBJID"))))
-
-  expect_null(AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
-                                   lMapping = list(
-    dfADSL = list(strIDCol="USUBJID",
-                  strSiteCol = "SITEID",
-                  strStartCol = "TRTSDT",
-                  strEndCol = "TRTEDT"),
-    dfADAE = list(strIDCol="not an id"))))
-
+  expect_null(AE_Map_Adam(
+    dfs = list(dfADSL = dfADSL, dfADAE = dfADAE),
+    lMapping = list(
+      dfADSL = list(
+        strIDCol = "USUBJID",
+        strSiteCol = "SITEID",
+        strStartCol = "TRTSDT",
+        strEndCol = "TRTEDT"
+      ),
+      dfADAE = list(strIDCol = "not an id")
+    )
+  ))
 })
 
 # custom tests ------------------------------------------------------------
 test_that("NA values in input data are handled", {
   # NA Site ID, treatment start date, and treatment end date.
   dfExposure1 <- tibble::tribble(
-    ~USUBJID, ~SITEID, ~TRTSDT     ,  ~TRTEDT    ,
-    1       , NA     , '2021-12-21', '2022-03-20',
-    2       , 1      , NA          , '2022-03-20',
-    3       , 3      , '2022-12-21', NA          ,
-    4       , 2      , '2022-12-21', '2022-03-20'
+    ~USUBJID, ~SITEID, ~TRTSDT, ~TRTEDT,
+    1, NA, "2021-12-21", "2022-03-20",
+    2, 1, NA, "2022-03-20",
+    3, 3, "2022-12-21", NA,
+    4, 2, "2022-12-21", "2022-03-20"
   ) %>%
-  dplyr::mutate(
-    dplyr::across(TRTSDT, as.Date),
-    dplyr::across(TRTEDT, as.Date)
-  )
+    dplyr::mutate(
+      dplyr::across(TRTSDT, as.Date),
+      dplyr::across(TRTEDT, as.Date)
+    )
   dfADAE1 <- tibble::tribble(
-    ~USUBJID, 1,1,1,1,2,2,4,4
+    ~USUBJID, 1, 1, 1, 1, 2, 2, 4, 4
   )
   mapped1 <- AE_Map_Adam(
     list(dfADAE = dfADAE1, dfADSL = dfExposure1)
@@ -69,18 +77,18 @@ test_that("NA values in input data are handled", {
 
   # NA SubjectID in AE domain.
   dfExposure2 <- tibble::tribble(
-    ~USUBJID, ~SITEID, ~TRTSDT     ,  ~TRTEDT    ,
-    1       , 1      , '2021-12-21', '2022-03-20',
-    2       , 1      , '2021-12-21', '2022-03-20',
-    3       , 3      , '2022-12-21', '2022-03-20',
-    4       , 2      , '2022-12-21', '2022-03-20'
+    ~USUBJID, ~SITEID, ~TRTSDT, ~TRTEDT,
+    1, 1, "2021-12-21", "2022-03-20",
+    2, 1, "2021-12-21", "2022-03-20",
+    3, 3, "2022-12-21", "2022-03-20",
+    4, 2, "2022-12-21", "2022-03-20"
   ) %>%
-  dplyr::mutate(
-    dplyr::across(TRTSDT, as.Date),
-    dplyr::across(TRTEDT, as.Date)
-  )
+    dplyr::mutate(
+      dplyr::across(TRTSDT, as.Date),
+      dplyr::across(TRTEDT, as.Date)
+    )
   dfADAE2 <- tibble::tribble(
-    ~USUBJID, NA,1,1,1,2,2,4,4
+    ~USUBJID, NA, 1, 1, 1, 2, 2, 4, 4
   )
   mapped2 <- AE_Map_Adam(
     list(dfADAE = dfADAE2, dfADSL = dfExposure2)
@@ -89,27 +97,27 @@ test_that("NA values in input data are handled", {
 
   # NA SubjectID in SUBJ domain.
   dfExposure3 <- tibble::tribble(
-    ~USUBJID, ~SITEID, ~TRTSDT     ,  ~TRTEDT    ,
-    NA      , 1      , '2021-12-21', '2022-03-20',
-    2       , 1      , '2021-12-21', '2022-03-20',
-    3       , 3      , '2022-12-21', '2022-03-20',
-    4       , 2      , '2022-12-21', '2022-03-20'
+    ~USUBJID, ~SITEID, ~TRTSDT, ~TRTEDT,
+    NA, 1, "2021-12-21", "2022-03-20",
+    2, 1, "2021-12-21", "2022-03-20",
+    3, 3, "2022-12-21", "2022-03-20",
+    4, 2, "2022-12-21", "2022-03-20"
   ) %>%
-  dplyr::mutate(
-    dplyr::across(TRTSDT, as.Date),
-    dplyr::across(TRTEDT, as.Date)
-  )
+    dplyr::mutate(
+      dplyr::across(TRTSDT, as.Date),
+      dplyr::across(TRTEDT, as.Date)
+    )
   dfADAE3 <- tibble::tribble(
-    ~USUBJID, 1,1,1,1,2,2,4,4
+    ~USUBJID, 1, 1, 1, 1, 2, 2, 4, 4
   )
   mapped3 <- AE_Map_Adam(
     list(dfADAE = dfADAE3, dfADSL = dfExposure3)
   )
   expect_null(mapped3)
 
-  #expect_snapshot_error(AE_Map_Raw(dfADAE = dfADAE1, dfADSL = dfExposure1))
-  #expect_snapshot_error(AE_Map_Raw(dfADAE = dfADAE2, dfADSL = dfExposure2))
-  #expect_snapshot_error(AE_Map_Raw(dfADAE = dfADAE3, dfADSL = dfExposure3))
+  # expect_snapshot_error(AE_Map_Raw(dfADAE = dfADAE1, dfADSL = dfExposure1))
+  # expect_snapshot_error(AE_Map_Raw(dfADAE = dfADAE2, dfADSL = dfExposure2))
+  # expect_snapshot_error(AE_Map_Raw(dfADAE = dfADAE3, dfADSL = dfExposure3))
 })
 
 test_that("bQuiet works as intended", {
@@ -120,6 +128,6 @@ test_that("bQuiet works as intended", {
 
 test_that("bReturnChecks works as intended", {
   expect_true(
-    all(names(AE_Map_Adam(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c('df', 'lChecks'))
+    all(names(AE_Map_Adam(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c("df", "lChecks"))
   )
 })

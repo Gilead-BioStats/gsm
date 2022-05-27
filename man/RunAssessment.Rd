@@ -27,14 +27,14 @@ Calls \code{RunStep} for each item in \code{lAssessment$Workflow} and saves the 
 \examples{
 lAssessments <- MakeAssessmentList()
 lData <- list(
-  dfSUBJ= clindata::rawplus_subj,
-  dfAE=clindata::rawplus_ae,
-  dfPD=clindata::rawplus_pd,
-  dfCONSENT=clindata::rawplus_consent,
-  dfIE=clindata::rawplus_ie
+  dfSUBJ = clindata::rawplus_subj,
+  dfAE = clindata::rawplus_ae,
+  dfPD = clindata::rawplus_pd,
+  dfCONSENT = clindata::rawplus_consent,
+  dfIE = clindata::rawplus_ie
 )
 lTags <- list(
-  Study="myStudy"
+  Study = "myStudy"
 )
 lMapping <- clindata::mapping_rawplus
 

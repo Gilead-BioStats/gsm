@@ -21,37 +21,43 @@ test_that("incorrect inputs throw errors", {
 })
 
 # incorrect mappings throw errors -----------------------------------------
-test_that("incorrect mappings throw errors",{
-
+test_that("incorrect mappings throw errors", {
   expect_snapshot(
     AE_Map_Raw(
       dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ),
-      lMapping = list(dfAE = list(strIDCol="not an id"),
-                      dfSUBJ=list(strIDCol="SubjectID",
-                      strSiteCol="SiteID",
-                      strTimeOnTreatmentCol="TimeOnTreatment")),
-      bQuiet = F
-      )
-    )
-
-  expect_snapshot(
-    AE_Map_Raw(
-      dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ),
-      lMapping = list(dfAE = list(strIDCol="SubjectID"),
-                      dfSUBJ=list(strIDCol="not an id",
-                                  strSiteCol="SiteID",
-                                  strTimeOnTreatmentCol="TimeOnTreatment")),
+      lMapping = list(
+        dfAE = list(strIDCol = "not an id"),
+        dfSUBJ = list(
+          strIDCol = "SubjectID",
+          strSiteCol = "SiteID",
+          strTimeOnTreatmentCol = "TimeOnTreatment"
+        )
+      ),
       bQuiet = F
     )
   )
 
+  expect_snapshot(
+    AE_Map_Raw(
+      dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ),
+      lMapping = list(
+        dfAE = list(strIDCol = "SubjectID"),
+        dfSUBJ = list(
+          strIDCol = "not an id",
+          strSiteCol = "SiteID",
+          strTimeOnTreatmentCol = "TimeOnTreatment"
+        )
+      ),
+      bQuiet = F
+    )
+  )
 })
 
 # custom tests ------------------------------------------------------------
-test_that("NA values in input data are handled",{
+test_that("NA values in input data are handled", {
   # NA SiteID and TimeOnTreatment.
   dfAE1 <- tibble::tribble(
-    ~SubjectID, 1,1,1,1,2,2,4,4
+    ~SubjectID, 1, 1, 1, 1, 2, 2, 4, 4
   )
   dfExposure1 <- tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
@@ -67,7 +73,7 @@ test_that("NA values in input data are handled",{
 
   # NA SubjectID in AE domain.
   dfAE2 <- tibble::tribble(
-    ~SubjectID, 1,NA,1,1,2,2,4,4
+    ~SubjectID, 1, NA, 1, 1, 2, 2, 4, 4
   )
   dfExposure2 <- tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
@@ -83,7 +89,7 @@ test_that("NA values in input data are handled",{
 
   # NA SubjectID in SUBJ domain.
   dfAE3 <- tibble::tribble(
-    ~SubjectID, 1,1,1,1,2,2,4,4
+    ~SubjectID, 1, 1, 1, 1, 2, 2, 4, 4
   )
   dfExposure3 <- tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
@@ -106,7 +112,7 @@ test_that("bQuiet works as intended", {
 
 test_that("bReturnChecks works as intended", {
   expect_true(
-    all(names(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c('df', 'lChecks'))
+    all(names(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c("df", "lChecks"))
   )
 })
 #
@@ -128,4 +134,3 @@ test_that("bReturnChecks works as intended", {
 #   expect_silent(AE_Map_Raw(dfAE, custom_subj, mapping = custom_mapping))
 #
 # })
-

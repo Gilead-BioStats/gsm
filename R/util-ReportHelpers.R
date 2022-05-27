@@ -7,11 +7,11 @@
 #'
 #' @export
 
-rank_chg <- function(status){
+rank_chg <- function(status) {
   if (status == TRUE) {
     logo_out <- fontawesome::fa("check-circle", fill = "green")
   }
-  if (status == FALSE){
+  if (status == FALSE) {
     logo_out <- fontawesome::fa("times-circle", fill = "red")
   }
   if (!status %in% c(TRUE, FALSE)) {

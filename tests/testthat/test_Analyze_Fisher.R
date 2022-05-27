@@ -3,8 +3,7 @@ source(testthat::test_path("testdata/data.R"))
 dfInput <- Disp_Map(dfDisp, strCol = "DCREASCD", strReason = "Adverse Event")
 
 test_that("output created as expected and has correct structure", {
-
-  df <- Transform_EventCount(dfInput, strCountCol = 'Count')
+  df <- Transform_EventCount(dfInput, strCountCol = "Count")
 
   output <- Analyze_Fisher(df)
 
@@ -17,7 +16,6 @@ test_that("output created as expected and has correct structure", {
 })
 
 test_that("incorrect inputs throw errors", {
-
   dfInput <- Disp_Map(
     dfDisp,
     strCol = "DCREASCD",
@@ -26,7 +24,7 @@ test_that("incorrect inputs throw errors", {
 
   df <- Transform_EventCount(
     dfInput,
-    strCountCol = 'Count'
+    strCountCol = "Count"
   )
 
   expect_error(Analyze_Fisher(list()))
@@ -37,7 +35,6 @@ test_that("incorrect inputs throw errors", {
 
 
 test_that("error given if required column not found", {
-
   dfInput <- Disp_Map(
     dfDisp,
     strCol = "DCREASCD",
@@ -46,16 +43,15 @@ test_that("error given if required column not found", {
 
   df <- Transform_EventCount(
     dfInput,
-    strCountCol = 'Count'
+    strCountCol = "Count"
   )
 
-  expect_error(Analyze_Fisher( df %>% select(-SiteID)))
+  expect_error(Analyze_Fisher(df %>% select(-SiteID)))
   expect_error(Analyze_Fisher(df %>% select(-N)))
   expect_error(Analyze_Fisher(df %>% select(-TotalCount)))
 })
 
 test_that("NAs are handled correctly", {
-
   dfInput <- Disp_Map(
     dfDisp,
     strCol = "DCREASCD",
@@ -64,19 +60,16 @@ test_that("NAs are handled correctly", {
 
   df <- Transform_EventCount(
     dfInput,
-    strCountCol = 'Count'
+    strCountCol = "Count"
   )
 
   createNA <- function(data, variable) {
-
     data[[variable]][[1]] <- NA
 
     return(Analyze_Fisher(data))
-
   }
 
   expect_error(createNA(data = df, variable = "SiteID"))
   expect_error(createNA(data = df, variable = "N"))
   expect_error(createNA(data = df, variable = "TotalCount"))
-
 })

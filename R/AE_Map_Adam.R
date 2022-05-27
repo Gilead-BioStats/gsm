@@ -47,7 +47,7 @@ AE_Map_Adam <- function(
 ) {
   # TODO: Use predefined mapping, which does not currently exist in {clindata}.
   if (is.null(lMapping)) {
-    lMapping = list(
+    lMapping <- list(
       dfADSL = list(strIDCol = "USUBJID", strSiteCol = "SITEID", strStartCol = "TRTSDT", strEndCol = "TRTEDT"),
       dfADAE = list(strIDCol = "USUBJID")
     )
@@ -66,15 +66,15 @@ AE_Map_Adam <- function(
 
     dfInput <- dfs$dfADSL %>%
       rename(
-        SubjectID = .data[[ lMapping$dfADSL$strIDCol ]],
-        SiteID = .data[[ lMapping$dfADSL$strSiteCol ]]
+        SubjectID = .data[[lMapping$dfADSL$strIDCol]],
+        SiteID = .data[[lMapping$dfADSL$strSiteCol]]
       ) %>%
       mutate(
-        Exposure = as.numeric(.data[[ lMapping$dfADSL$strEndCol ]] - .data[[ lMapping$dfADSL$strStartCol ]]) + 1
+        Exposure = as.numeric(.data[[lMapping$dfADSL$strEndCol]] - .data[[lMapping$dfADSL$strStartCol]]) + 1
       ) %>%
       rowwise() %>%
       mutate(
-        Count = sum(dfs$dfADAE[[ lMapping$dfADAE$strIDCol ]] == .data$SubjectID),
+        Count = sum(dfs$dfADAE[[lMapping$dfADAE$strIDCol]] == .data$SubjectID),
         Rate = .data$Count / .data$Exposure
       ) %>%
       ungroup() %>%

@@ -1,9 +1,9 @@
 test_that("PD assessment can return a correctly assessed data frame for the poisson test grouped by the study variable when given subset input data from clindata and the results should be flagged correctly", {
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw(dfs = list(
-    dfPD = clindata::rawplus_pd %>%  filter(PD_IMPORTANT_FLAG == "Y"),
+    dfPD = clindata::rawplus_pd %>% filter(PD_IMPORTANT_FLAG == "Y"),
     dfSUBJ = clindata::rawplus_subj
-    ))
+  ))
 
   test2_2 <- PD_Assess(
     dfInput = dfInput,
@@ -32,7 +32,8 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
         Residuals > 5 ~ 1,
         is.na(Residuals) ~ NA_real_,
         is.nan(Residuals) ~ NA_real_,
-        TRUE ~ 0),
+        TRUE ~ 0
+      ),
     ) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -45,16 +46,20 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
     arrange(desc(abs(Score))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t2_2 <- list("strFunctionName" = "PD_Assess()",
-               "lParams" = list("dfInput" = "dfInput",
-                                "strMethod" = "poisson",
-                                "bChart" = "FALSE"),
-               "lTags" = list(Assessment = "PD"),
-               "dfInput" = t2_2_input,
-               "dfTransformed" = t2_2_transformed,
-               "dfAnalyzed" = t2_2_analyzed,
-               "dfFlagged" = t2_2_flagged,
-               "dfSummary" = t2_2_summary)
+  t2_2 <- list(
+    "strFunctionName" = "PD_Assess()",
+    "lParams" = list(
+      "dfInput" = "dfInput",
+      "strMethod" = "poisson",
+      "bChart" = "FALSE"
+    ),
+    "lTags" = list(Assessment = "PD"),
+    "dfInput" = t2_2_input,
+    "dfTransformed" = t2_2_transformed,
+    "dfAnalyzed" = t2_2_analyzed,
+    "dfFlagged" = t2_2_flagged,
+    "dfSummary" = t2_2_summary
+  )
 
   # compare results
   expect_equal(test2_2, t2_2)
