@@ -16,54 +16,86 @@ knitr::opts_chunk$set(
 ```
 # Intro
 
-The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This vignette provides an overview of the {gsm} data model.  First, we provide an overview of standardized data pipeline used to calculate KRIs and evaluate thresholds to set site-level flags. We also discuss workflows and reports that allow users to run multiple KRIs concurrently on a study.
+The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and
+thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This vignette
+provides an overview of the {gsm} data model. First, we provide an overview of standardized data
+pipeline used to calculate KRIs and evaluate thresholds to set site-level flags. We also discuss
+workflows and reports that allow users to run multiple KRIs concurrently on a study.
 
 # KRI Data Pipeline
 
-![image](https://user-images.githubusercontent.com/3680095/169086356-e31ab9a5-c709-46cf-9bd9-68b7bdbba72b.png)
+<img width="862" alt="image" src="https://user-images.githubusercontent.com/3680095/169086356-e31ab9a5-c709-46cf-9bd9-68b7bdbba72b.png">
 
-< add overview describing KRI calculation work flow `Filter -> Map -> Assess` > 
+In the context of clinical research a KRI is a measure of risk associated with the conduct of a
+clinical trial. Examples of KRIs include the rate of adverse events or amount of missing data at a
+site or across sites. Defining and deploying KRIs during study start-up allows sponsors to
+continually monitor risks to the integrity of the trial and take corrective actions accordingly.
+
+The KRI data pipeline begins with one or more clinical datasets related to the KRI. An optional
+participant-level subset is then applied to each dataset before aggregating by participant to
+quantify the KRI at the participant level. This aggregated dataset is then further summarized by
+site to obtain site-level metrics.
 
 ## Assessment Data Pipeline
 
 <img width="862" alt="image" src="https://user-images.githubusercontent.com/3680095/157536920-81fa77b1-2ded-4e5b-8915-07537c1fb8d5.png">
 
-The image above provides an overview of the KRI assessment pipeline. The pipeline is a standardized 4 step process for **assessing** data issues by going from participant-level `input` data to a standardized site-level `summary` of model results. The functions used in each step of the data pipeline along with the inputs and outputs data sets are described in more detail below.
+The image above provides an overview of the KRI assessment pipeline. The pipeline is a standardized
+four-step process for **assessing** data issues by going from participant-level `input` data to a
+standardized site-level `summary` of model results. The functions used in each step of the data
+pipeline along with the input and output datasets are described in more detail below.
 
 1. `input` data - Cross-domain participant-level input data with all needed data for KRI derivation.
-2. `transformed` data - Site-level transformed data including KRI calculation. Created by `Transform` functions. 
+2. `transformed` data - Site-level transformed data including KRI calculation. Created by
+   `Transform` functions.
 3. `analyzed` data - Site-level analysis result data. Created by `Analyze` functions. 
-4. `flagged` data - Site-level analysis results with flags added. Created by passing numeric `thresholds` to a `Flag` function.
-5. `summary` data - Standardized subset the flagged data. This summary data has the same structure for all assessments and always includes both `KRI` and `Flag` values so that we can easily look at trends for any given site across multiple assessments. Created using a `Summarize` Function. 
+4. `flagged` data - Site-level analysis results with flags added. Created by passing numeric
+   `thresholds` to a `Flag` function.
+5. `summary` data - Standardized subset the flagged data. This summary data has the same structure
+   for all assessments and always includes both `KRI` and `Flag` values so that we can easily look
+   at trends for any given site across multiple assessments. Created using a `Summarize` Function. 
 
-Finally, each assessment has an `Assess` function that sequentially executes all 4 of the functions and returns a list containing all 5 data sets listed above. 
+Finally, each assessment has an `Assess` function that sequentially executes all 4 of the functions
+and returns a list containing all 5 data sets listed above. 
 
 ## Generating `input` data
 
-Creating input data is outside the scope of the assessment pipeline. The specifications for `input` data are designed so that the data can easily be generated from multiple clinical data standards (e.g. Raw, ADaM or SDTM). Most assessments have `Map` functions that can be used to generate `input` data. For example, the Adverse Event assessment has 2 map functions, `AE_Map_Raw()` and `AE_Map_Adam()` which create `input` data from Raw and ADaM data respectively. 
+Creating input data is outside the scope of the assessment pipeline. The specifications for `input`
+data are designed so that the data can easily be generated from multiple clinical data standards
+(e.g. Raw, ADaM or SDTM). Most assessments have `Map` functions that can be used to generate `input`
+data. For example, the Adverse Event assessment has 2 map functions, `AE_Map_Raw()` and
+`AE_Map_Adam()` which create `input` data from Raw and ADaM data respectively. 
 
-These `map` functions are provided for convenience, but may not work for all clinical studies. When no `map` function is available for a given assessment, it is expected that the user will manually create `input` data following the specifications for that assessment. 
+These `map` functions are provided for convenience but may not work for all clinical studies. When
+no `map` function is available for a given assessment, the user is expected to manually create
+`input` data following the specifications for that assessment. 
 
 # Appendix
 
 ## Metadata Technical Specifications
 
-Running multiple assessments in {gsm} involves a number of YAML files that provide metadata to orchestrate the workflow that is triggered by `Study_Assess()`. The YAML file for any given assessment feeds expected values for the names of input data, required columns, column properties (e.g. unique values or non-missing values), and filtering steps. 
+Running multiple assessments in {gsm} involves a number of YAML files that provide metadata to
+orchestrate the workflow that is triggered by `Study_Assess()`. The YAML file for any given
+assessment provides expected values for the names of input data, required columns, column properties
+(e.g. unique values or non-missing values), and optionally one or more subsets.
 
 Below is an overview of each YAML specification for the Adverse Events assessment.
 
-### Assessments Specification
+### Assessment Specification
 
-Below is a sample Assessments YAML file for the Adverse Events assessment, as well as a nested table describing the required metadata that can be customized accordingly.
+Below is an example assessment specification in YAML format for the Adverse Events assessment, as
+well as a nested list describing the required metadata that can be customized as needed.
 
 * `label`: Label used to describe the assessment, in this case "Treatment-Emergent Adverse Events"
-* `tags`: Labels to be appended as a column to summary data. The first value will be the column name, and the second value will be the row value for all rows in the summary data.
+* `tags`: Labels to be appended as a column to summary data. The first value will be the column
+  name, and the second value will be the row value for all rows in the summary data.
   *  `Assessment`: Creates a column "Assessment" with the value "Safety" in the summary data.
   *  `Label`: Creates a column "Label" with the value "AEs" in the summary data.
 *  `workflow`: The workflow specification begins the steps in a given assessment.
      * `-name`: Initiates the {gsm} function FilterDomain().
      * `inputs`: Specifies the required input data for FilterDomain().
-     * `output`: Specifies the required output data for FilterDomain() to be used as input data in the next step in the workflow.
+     * `output`: Specifies the required output data for FilterDomain() to be used as input data in
+       the next step in the workflow.
      * `params`: Specifies parameters to be passed to FilterDomain().
        * `strDomain`: Specifies the domain that will be filtered.
        * `strColParam`: Specifies that the strTreatmentEmergentCol will be used to filter dfAE.
@@ -72,14 +104,15 @@ Below is a sample Assessments YAML file for the Adverse Events assessment, as we
      * `inputs`: Because AE_Map_Raw() requires two inputs, a colon is used to list multiple inputs.
        * `-dfAE`: Specifies event-level data to be used in AE_Map_Raw().
        * `-dfSUBJ`: Specifies subject-level data to be used in AE_Map_Raw().
-     * `output`: Specifies the required output data for AE_Map_Raw() to be used as input data in the next step in the workflow.
+     * `output`: Specifies the required output data for AE_Map_Raw() to be used as input data in the
+       next step in the workflow.
      * `-name`: Initiates the {gsm} function AE_Assess().
      * `inputs`: Specifies the required input data for AE_Assess().
      * `output`: Specifies the required output data for AE_Assess().
      * `params`: Specifies parameters to be passed to AE_Assess().
-       * `strMethod`: Specifies that a poisson model will be used in AE_Assess().
+       * `strMethod`: Specifies that a Poisson model will be used in AE_Assess().
 
-**The nested list (above) describes the Assessments YAML mapping (below).**
+**The nested list (above) describes the Assessment YAML mapping (below).**
 
 ```
 label: Treatment-Emergent Adverse Events
@@ -106,9 +139,10 @@ workflow:
       strMethod: "poisson"
 ```
 
-### Mappings Specification
+### Mapping Specification
 
-Below is a sample Mappings YAML file for the Adverse Events assessment, as well as a table describing the required metadata that can be customized accordingly.
+Below is an example mapping specification in YAML format for the Adverse Events assessment, as well
+as a nested list describing the required metadata.
 
 * `dfInput`: Top-level description that specifies the name of the required input for `AE_Assess()`
   * `strIDCol`: Specifies that the ID column is named `SubjectID`
@@ -117,7 +151,7 @@ Below is a sample Mappings YAML file for the Adverse Events assessment, as well 
   * `strExposureCol`: Specifies that the Exposure column is named `Exposure`
   * `strRateCol`: Specifies that the Rate column is named `Rate`
 
-**The nested list (above) describes the Mappings YAML mapping (below).**
+**The nested list (above) describes the Mapping YAML mapping (below).**
 
 ```
 dfInput:
@@ -128,21 +162,29 @@ dfInput:
   strRateCol: "Rate"
 ```
 
-### Specs Specification
+### Input Data Specification
 
-Below is a sample Specs YAML file for the Adverse Events assessment, as well as a table describing the required metadata that can be customized accordingly.
+Below is an example input data specification in YAML format for the Adverse Events assessment, as
+well as a nested list describing the required metadata that can be customized as needed.
 
 * `dfInput`: Top-level description that specifies the name of the required input for `AE_Assess()`.
   * `vRequired`: Specifies required columns for `dfInput` in the `AE_Assess()` function.
-    * `- "strIDCol"`: Notes that strIDCol is required. The column name for strIDCol is specified in the Mappings YAML file.
-    * `- "strSiteCol"`: Notes that strSiteCol is required. The column name for strSiteCol is specified in the Mappings YAML file.
-    * `- "strCountCol"`: Notes that strCountCol is required. The column name for strCountCol is specified in the Mappings YAML file.
-    * `- "strExposureCol"`: Notes that strExposureCol is required. The column name for strExposureCol is specified in the Mappings YAML file.
-    * `- "strRateCol"`: Notes that strRateCol is required. The column name for strRateCol is specified in the Mappings YAML file.
-  * `vUniqueCols`: Specifies columns that must contain unique values for dfInput in the `AE_Assess()` function.
-    * `- "strIDCol"`: Notes that strIDCol must contain unique values. The column name for strIDCol is specified in the Mappings YAML file.
+    * `- "strIDCol"`: Notes that strIDCol is required. The column name for strIDCol is specified in
+      the Mapping YAML file.
+    * `- "strSiteCol"`: Notes that strSiteCol is required. The column name for strSiteCol is
+      specified in the Mapping YAML file.
+    * `- "strCountCol"`: Notes that strCountCol is required. The column name for strCountCol is
+      specified in the Mapping YAML file.
+    * `- "strExposureCol"`: Notes that strExposureCol is required. The column name for
+      strExposureCol is specified in the Mapping YAML file.
+    * `- "strRateCol"`: Notes that strRateCol is required. The column name for strRateCol is
+      specified in the Mapping YAML file.
+  * `vUniqueCols`: Specifies columns that must contain unique values for dfInput in the
+    `AE_Assess()` function.
+    * `- "strIDCol"`: Notes that strIDCol must contain unique values. The column name for strIDCol
+      is specified in the Mapping YAML file.
 
-**The nested list (above) describes the Specs YAML mapping (below).**
+**The nested list (above) describes the Input Data YAML mapping (below).**
 
 ```
 dfInput:
@@ -158,9 +200,12 @@ dfInput:
 
 ### Supported Assessment Mapping
 
-In addition to the specific mappings for Adverse Events above, the {clindata} package contains a YAML mapping that is converted to a list for all supported assessments in {gsm}, as well as providing key-value pairs for required columns. 
+In addition to the specific mapping for Adverse Events above, the {clindata} package contains a YAML
+mapping that is converted to a list for all supported assessments in {gsm}, with key-value pairs for
+required columns. 
 
-`clindata::mapping_rawplus` provides the default mapping passed to `lMapping` in the `gsm::Study_Assess` function:
+`clindata::mapping_rawplus` provides the default mapping passed to `lMapping` in the
+`gsm::Study_Assess` function:
 
 ```r
 lMapping <- list(
