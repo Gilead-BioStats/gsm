@@ -1,4 +1,4 @@
-# gsm v0.4.1
+# gsm v1.0.0
 
 This release includes qualified functionality for Adverse Event and Protocol Deviation Assessments. 
 
