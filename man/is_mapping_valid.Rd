@@ -29,26 +29,26 @@ Check that a data frame contains columns and fields specified in mapping
 }
 \examples{
 subj_mapping <- list(
-    strIDCol = "SubjectID",
-    strSiteCol = "SiteID",
-    strExposureCol = "TimeOnTreatment"
+  strIDCol = "SubjectID",
+  strSiteCol = "SiteID",
+  strExposureCol = "TimeOnTreatment"
 )
 
 is_mapping_valid(
-    df = clindata::rawplus_subj,
-    mapping = subj_mapping,
-    spec = list(
-        vRequired= c("strIDCol", "strSiteCol", "strExposureCol"),
-        vUniqueCols = "SUBJID"
+  df = clindata::rawplus_subj,
+  mapping = subj_mapping,
+  spec = list(
+    vRequired = c("strIDCol", "strSiteCol", "strExposureCol"),
+    vUniqueCols = "SUBJID"
   )
 )
 
 is_mapping_valid(
-    df = clindata::rawplus_subj,
-    mapping = subj_mapping,
-    spec=list(
-        vUniqueCols = "SUBJID",
-        vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol", "strOtherCol")
+  df = clindata::rawplus_subj,
+  mapping = subj_mapping,
+  spec = list(
+    vUniqueCols = "SUBJID",
+    vRequiredParams = c("strIDCol", "strSiteCol", "strExposureCol", "strOtherCol")
   )
 )
 

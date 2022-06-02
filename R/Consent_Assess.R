@@ -18,7 +18,7 @@
 #' - consent was not obtained
 #' - consent did not result in randomization
 #' - consent was obtained after randomization
-#' 
+#'
 #' Additional details regarding the data pipeline and statistical methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
@@ -31,10 +31,10 @@
 #' @return `list` Assessment, a named list with:
 #' - each data frame in the data pipeline
 #'   - `dfInput`
-#'   - `dfTransformed`, returned by {gsm::Transform_EventCount()}
-#'   - `dfAnalyzed`, a copy of `dfTransformed` and input to `gsm::Flag`
-#'   - `dfFlagged`, returned by {gsm::Flag()}
-#'   - `dfSummary`, returned by {gsm::Summarize()}
+#'   - `dfTransformed`, returned by [gsm::Transform_EventCount()]
+#'   - `dfAnalyzed`, a copy of `dfTransformed` and input to `[gsm::Flag()]`
+#'   - `dfFlagged`, returned by [gsm::Flag()]
+#'   - `dfSummary`, returned by [gsm::Summarize()]
 #' - assessment metadata
 #'   - `strFunctionName`
 #'   - `lParams`

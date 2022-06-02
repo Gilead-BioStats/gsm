@@ -5,7 +5,7 @@
 #'
 #' @details
 #' `Consent_Map_Raw` combines consent data with subject-level data to create formatted input data
-#' to {gsm::Consent_Assess()}. This function creates an input dataset for the Consent Assessment
+#' to [gsm::Consent_Assess()]. This function creates an input dataset for the Consent Assessment
 #' (${Consent_Assess()} by binding subject-level counts of consent issues (derived from `dfCONSENT`) to
 #' subject-level data (from `dfSUBJ`). Note the function can generate data summaries for specific
 #' types of consent by customizing `lMapping$dfCONSENT`.
@@ -14,11 +14,11 @@
 #'  - `dfCONSENT`: `data.frame` Consent type-level data with one record per subject per consent type.
 #'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column.
-#' @param bReturnChecks `logical` Return input checks from {gsm::is_mapping_valid()}? Default: `FALSE`
+#' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` Data frame with one record per subject, the input to
-#' {gsm::Consent_Assess()}. If `bReturnChecks` is `TRUE` `Consent_Map_Raw` returns a named `list`
+#' [gsm::Consent_Assess()]. If `bReturnChecks` is `TRUE` `Consent_Map_Raw` returns a named `list`
 #' with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
@@ -28,8 +28,11 @@
 #' @import dplyr
 #'
 #' @examples
-#' dfInput <- Consent_Map_Raw() # Run with defaults
-#' dfInput <- Consent_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
+#' # Run with defaults
+#' dfInput <- Consent_Map_Raw()
+#'
+#' # Run with error checking and message log
+#' dfInput <- Consent_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @export
 
@@ -74,14 +77,15 @@ Consent_Map_Raw <- function(
           .data$ConsentType == lMapping$dfCONSENT$strConsentTypeValue
         )
 
-      if (nrow(dfCONSENT_mapped) == 0)
+      if (nrow(dfCONSENT_mapped) == 0) {
         stop(paste0(
           "No records in [ dfs$dfCONSENT$",
-            lMapping$dfCONSENT$strTypeCol,
+          lMapping$dfCONSENT$strTypeCol,
           " ] contain a consent type of [ ",
-            lMapping$dfCONSENT$strConsentTypeValue,
+          lMapping$dfCONSENT$strConsentTypeValue,
           " ]."
         ))
+      }
     }
 
     dfInput <- dfCONSENT_mapped %>%

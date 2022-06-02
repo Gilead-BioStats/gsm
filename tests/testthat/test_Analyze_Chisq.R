@@ -1,9 +1,9 @@
 source(testthat::test_path("testdata/data.R"))
 
-dfInput <- Disp_Map(dfDisp, strCol = "DCREASCD",strReason = "Adverse Event")
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = 'Count')
+dfInput <- Disp_Map(dfDisp, strCol = "DCREASCD", strReason = "Adverse Event")
+dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count")
 
-test_that("output created as expected and has correct structure",{
+test_that("output created as expected and has correct structure", {
   chisq <- suppressWarnings(Analyze_Chisq(dfTransformed))
 
   expect_true(is.data.frame(chisq))
@@ -11,12 +11,11 @@ test_that("output created as expected and has correct structure",{
   expect_equal(
     names(chisq),
     c("SiteID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "Statistic", "PValue")
-    )
-
+  )
 })
 
 
-test_that("incorrect inputs throw errors",{
+test_that("incorrect inputs throw errors", {
   expect_error(Analyze_Chisq(list()))
   expect_error(Analyze_Chisq("Hi"))
   expect_error(Analyze_Chisq(dfTransformed, strOutcome = "x"))
@@ -31,9 +30,8 @@ test_that("error given if required column not found", {
 
 test_that("NAs are handled correctly", {
   createNA <- function(x) {
-
-    df<- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD",strReason = "Adverse Event") %>%
-      Transform_EventCount(strCountCol = 'Count')
+    df <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "Adverse Event") %>%
+      Transform_EventCount(strCountCol = "Count")
 
     df[[x]][1] <- NA
 

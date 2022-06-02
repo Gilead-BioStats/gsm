@@ -27,7 +27,8 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
         Estimate > 0.5 ~ 1,
         is.na(Estimate) ~ NA_real_,
         is.nan(Estimate) ~ NA_real_,
-        TRUE ~ 0),
+        TRUE ~ 0
+      ),
     ) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -40,15 +41,19 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
     arrange(desc(abs(Score))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t4_1 <- list("strFunctionName" = "Consent_Assess()",
-               "lParams" = list("dfInput" = "dfInput",
-                                "bChart" = "FALSE"),
-               "lTags" = list(Assessment = "Consent"),
-               "dfInput" = t4_1_input,
-               "dfTransformed" = t4_1_transformed,
-               "dfAnalyzed" = t4_1_analyzed,
-               "dfFlagged" = t4_1_flagged,
-               "dfSummary" = t4_1_summary)
+  t4_1 <- list(
+    "strFunctionName" = "Consent_Assess()",
+    "lParams" = list(
+      "dfInput" = "dfInput",
+      "bChart" = "FALSE"
+    ),
+    "lTags" = list(Assessment = "Consent"),
+    "dfInput" = t4_1_input,
+    "dfTransformed" = t4_1_transformed,
+    "dfAnalyzed" = t4_1_analyzed,
+    "dfFlagged" = t4_1_flagged,
+    "dfSummary" = t4_1_summary
+  )
 
   # compare results
   expect_equal(test4_1, t4_1)

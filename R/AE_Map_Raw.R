@@ -2,12 +2,12 @@
 #'
 #' @description
 #' Convert raw adverse event (AE) data, typically processed case report form data, to formatted
-#' input data to {gsm::AE_Assess()}.
+#' input data to [gsm::AE_Assess()].
 #'
 #' @details
 #' `AE_Map_Raw` combines AE data with subject-level treatment exposure data to create formatted
-#' input data to {gsm::AE_Assess()}. This function creates an input dataset for the AE Assessment
-#' ({gsm::AE_Assess()}) by binding subject-level AE counts (derived from `dfAE`) to subject-level
+#' input data to [gsm::AE_Assess()]. This function creates an input dataset for the AE Assessment
+#' ([gsm::AE_Assess()]) by binding subject-level AE counts (derived from `dfAE`) to subject-level
 #' data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
 #' AEs by passing filtered AE data to `dfAE`.
 #'
@@ -15,10 +15,10 @@
 #'  - `dfAE`: `data.frame` Event-level data with one record per AE.
 #'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column.
-#' @param bReturnChecks `logical` Return input checks from {gsm::is_mapping_valid()}? Default: `FALSE`
+#' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` Data frame with one record per subject, the input to {gsm::AE_Assess()}. If
+#' @return `data.frame` Data frame with one record per subject, the input to [gsm::AE_Assess()]. If
 #' `bReturnChecks` is `TRUE` `AE_Map_Raw` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
@@ -37,13 +37,13 @@
 #' @export
 
 AE_Map_Raw <- function(
-    dfs = list(
-      dfAE = clindata::rawplus_ae,
-      dfSUBJ = clindata::rawplus_subj
-    ),
-    lMapping = clindata::mapping_rawplus,
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
+  dfs = list(
+    dfAE = clindata::rawplus_ae,
+    dfSUBJ = clindata::rawplus_subj
+  ),
+  lMapping = clindata::mapping_rawplus,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 ) {
   checks <- gsm::CheckInputs(
     context = "AE_Map_Raw",

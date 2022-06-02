@@ -22,35 +22,34 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
-#' dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
-#' dfAnalyzed <- Analyze_Wilcoxon( dfTransformed)
-#' dfFlagged <- Flag( dfAnalyzed ,  strColumn = 'PValue', strValueColumn = 'Rate')
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, "Rate")
+#' dfFlagged <- Flag(dfAnalyzed, strColumn = "PValue", strValueColumn = "Rate")
 #' dfSummary <- Summarize(dfFlagged)
 #'
 #' @import dplyr
 #'
 #' @export
 
-Summarize <- function( dfFlagged , strScoreCol="PValue", lTags=NULL){
+Summarize <- function(dfFlagged, strScoreCol = "PValue", lTags = NULL) {
+  stopifnot(
+    "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
+    "One or more of these columns: SiteID, N, Flag , strScoreCol, not found in dfFlagged" = all(c("SiteID", "N", "Flag", strScoreCol) %in% names(dfFlagged))
+  )
 
+  if (!is.null(lTags)) {
     stopifnot(
-        "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
-        "One or more of these columns: SiteID, N, Flag , strScoreCol, not found in dfFlagged" = all(c("SiteID", "N", "Flag",strScoreCol) %in% names(dfFlagged))
+      "lTags is not named" = (!is.null(names(lTags))),
+      "lTags has unnamed elements" = all(names(lTags) != "")
     )
+  }
 
-    if(!is.null(lTags)){
-        stopifnot(
-            "lTags is not named"=(!is.null(names(lTags))),
-            "lTags has unnamed elements"=all(names(lTags)!="")
-        )
-    }
+  dfSummary <- dfFlagged %>%
+    rename(Score = strScoreCol) %>%
+    select(.data$SiteID, .data$N, .data$Score, .data$Flag) %>%
+    arrange(desc(abs(.data$Score))) %>%
+    arrange(match(.data$Flag, c(1, -1, 0))) %>%
+    bind_cols(lTags)
 
-    dfSummary <- dfFlagged %>%
-        rename(Score = strScoreCol)%>%
-        select(.data$SiteID,.data$N, .data$Score, .data$Flag) %>%
-        arrange(desc(abs(.data$Score)))  %>%
-        arrange(match(.data$Flag, c(1, -1, 0))) %>%
-        bind_cols(lTags)
-
-    return(dfSummary)
+  return(dfSummary)
 }

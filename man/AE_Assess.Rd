@@ -17,11 +17,15 @@ AE_Assess(
 \arguments{
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
-\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to \code{c(-5, 5)} for \code{strMethod} = "poisson" and \code{c(.0001, NA)} for \code{strMethod} = "wilcoxon".}
+\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to
+\code{c(-5, 5)} for \code{strMethod} = "poisson" and \code{c(.0001, NA)} for \code{strMethod} = "wilcoxon".}
 
-\item{strMethod}{\code{character} Statistical model. Valid values include "poisson" (default) and  "wilcoxon".}
+\item{strMethod}{\code{character} Statistical model. Valid values include "poisson" (default) and
+"wilcoxon".}
 
-\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment="AE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
+\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults
+to \code{list(Assessment="AE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and
+each tag is added as a column in \code{lAssess$dfSummary}.}
 
 \item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
 
@@ -35,10 +39,10 @@ AE_Assess(
 \item each data frame in the data pipeline
 \itemize{
 \item \code{dfInput}
-\item \code{dfTransformed}, returned by {gsm::Transform_EventCount()}
-\item \code{dfAnalyzed}, returned by {gsm::Analyze_Poisson} or {gsm::Analyze_Wilcoxon}
-\item \code{dfFlagged}, returned by {gsm::Flag()}
-\item \code{dfSummary}, returned by {gsm::Summarize()}
+\item \code{dfTransformed}, returned by \code{\link[=Transform_EventCount]{Transform_EventCount()}}
+\item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} or \code{\link[=Analyze_Wilcoxon]{Analyze_Wilcoxon()}}
+\item \code{dfFlagged}, returned by \code{\link[=Flag]{Flag()}}
+\item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
 }
 \item assessment metadata
 \itemize{

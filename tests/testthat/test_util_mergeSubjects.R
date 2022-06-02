@@ -7,34 +7,33 @@
 
 domain <- tibble::tribble(
   ~SubjectID, ~Count,
-  "0001",     5L,
-  "0002",     2L,
-  "0003",     5L,
-  "0004",     6L,
-  "0005",     1L,
-  "0007",     1L,
-  "0009",     1L,
-  "0010",    11L,
-  "0011",     2L,
-  "0012",     1L
+  "0001", 5L,
+  "0002", 2L,
+  "0003", 5L,
+  "0004", 6L,
+  "0005", 1L,
+  "0007", 1L,
+  "0009", 1L,
+  "0010", 11L,
+  "0011", 2L,
+  "0012", 1L
 )
 
 subjects <- tibble::tribble(
   ~SubjectID, ~SiteID, ~Exposure,
-  "0001", "X040X",      5599,
-  "0002", "X085X",        13,
-  "0003", "X021X",       675,
-  "0004", "X201X",      5744,
-  "0005", "X002X",       771,
-  "0007", "X203X",      4814,
-  "0008", "X183X",       203,
-  "0009", "X164X",      1009,
-  "0010", "X226X",      6049,
-  "0011", "X126X",      1966
+  "0001", "X040X", 5599,
+  "0002", "X085X", 13,
+  "0003", "X021X", 675,
+  "0004", "X201X", 5744,
+  "0005", "X002X", 771,
+  "0007", "X203X", 4814,
+  "0008", "X183X", 203,
+  "0009", "X164X", 1009,
+  "0010", "X226X", 6049,
+  "0011", "X126X", 1966
 )
 
 test_that("MergeSubjects returns a data.frame with correct dimensions", {
-
   merged <- suppressWarnings(
     MergeSubjects(domain, subjects)
   )
@@ -46,47 +45,43 @@ test_that("MergeSubjects returns a data.frame with correct dimensions", {
   expect_equal(10, nrow(merged))
 
   expect_equal(4, ncol(merged))
-
 })
 
 
 test_that("incorrect inputs throw errors", {
-
   expect_error(
     MergeSubjects(list(), list()) %>%
-      suppressMessages
+      suppressMessages()
   )
 
   expect_error(
     MergeSubjects(domain, list()) %>%
-      supressMessages
+      supressMessages()
   )
 
   expect_error(
     MergeSubjects(list(), subjects) %>%
-      suppressMessages
+      suppressMessages()
   )
 
   expect_error(
     MergeSubjects(domain, subjects, strIDCol = "xyz") %>%
-      suppressMessages
+      suppressMessages()
   )
 
   expect_error(
     MergeSubjects(domain, subjects, vFillZero = "abc") %>%
-      suppressMessages
+      suppressMessages()
   )
 
   expect_error(
     MergeSubjects(domain, subjects, bQuiet = 1) %>%
-      suppressMessages
+      suppressMessages()
   )
-
 })
 
 
 test_that("missing ids are handled as intended", {
-
   domain <- tibble::tribble(
     ~SubjectID, ~Count,
     "0001",     5L,
@@ -99,12 +94,12 @@ test_that("missing ids are handled as intended", {
 
   subjects <- tibble::tribble(
     ~SubjectID, ~SiteID, ~Exposure,
-    "0007", "X010X",      3455,
-    "0008", "X102X",       672,
-    "0009", "X143X",      6355,
-    "0010", "X090X",      4197,
-    "0011", "X130X",      3783,
-    "0012", "X128X",      4429
+    "0007", "X010X", 3455,
+    "0008", "X102X", 672,
+    "0009", "X143X", 6355,
+    "0010", "X090X", 4197,
+    "0011", "X130X", 3783,
+    "0012", "X128X", 4429
   )
 
   expect_snapshot(
@@ -115,11 +110,9 @@ test_that("missing ids are handled as intended", {
       bQuiet = F
     )
   )
-
 })
 
 test_that("vFillZero works as intended", {
-
   domain <- tibble::tribble(
     ~SubjectID, ~Count,
     "0001",     5L,
@@ -132,32 +125,30 @@ test_that("vFillZero works as intended", {
 
   subjects <- tibble::tribble(
     ~SubjectID, ~SiteID, ~Exposure,
-    "0007", "X010X",      3455,
-    "0008", "X102X",       672,
-    "0009", "X143X",      6355,
-    "0010", "X090X",      4197,
-    "0011", "X130X",      3783,
-    "0012", "X128X",      4429
+    "0007", "X010X", 3455,
+    "0008", "X102X", 672,
+    "0009", "X143X", 6355,
+    "0010", "X090X", 4197,
+    "0011", "X130X", 3783,
+    "0012", "X128X", 4429
   )
 
   expect_equal(
     MergeSubjects(domain, subjects) %>%
-      suppressWarnings %>%
+      suppressWarnings() %>%
       pull(Count),
     c(1, NA, NA, NA, NA, NA)
   )
 
   expect_equal(
     MergeSubjects(domain, subjects, vFillZero = "Count") %>%
-      suppressWarnings %>%
+      suppressWarnings() %>%
       pull(Count),
     c(1, 0, 0, 0, 0, 0)
   )
-
 })
 
 test_that("basic functionality check - no matching ids", {
-
   domain <- tibble::tribble(
     ~SubjectID, ~Count,
     "0000",     5L
@@ -165,12 +156,12 @@ test_that("basic functionality check - no matching ids", {
 
   subjects <- tibble::tribble(
     ~SubjectID, ~SiteID, ~Exposure,
-    "0001", "X020X",      1234,
-    "0002", "X010X",      3455
+    "0001", "X020X", 1234,
+    "0002", "X010X", 3455
   )
 
   merged <- MergeSubjects(domain, subjects) %>%
-    suppressWarnings
+    suppressWarnings()
 
   expect_true(
     all(is.na(merged$Count))
@@ -180,11 +171,9 @@ test_that("basic functionality check - no matching ids", {
     merged$SubjectID,
     c("0001", "0002")
   )
-
 })
 
 test_that("basic functionality check - only matching ids", {
-
   domain <- tibble::tribble(
     ~SubjectID, ~Count,
     "0001",     5L,
@@ -193,12 +182,12 @@ test_that("basic functionality check - only matching ids", {
 
   subjects <- tibble::tribble(
     ~SubjectID, ~SiteID, ~Exposure,
-    "0001", "X020X",      1234,
-    "0002", "X010X",      3455
+    "0001", "X020X", 1234,
+    "0002", "X010X", 3455
   )
 
   merged <- MergeSubjects(domain, subjects) %>%
-    suppressWarnings
+    suppressWarnings()
 
   expect_equal(
     merged$SubjectID,
@@ -209,6 +198,4 @@ test_that("basic functionality check - only matching ids", {
     merged$Count,
     c(5, 1)
   )
-
 })
-

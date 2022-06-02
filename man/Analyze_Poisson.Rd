@@ -4,10 +4,12 @@
 \alias{Analyze_Poisson}
 \title{Poisson Analysis - Site Residuals}
 \usage{
-Analyze_Poisson(dfTransformed)
+Analyze_Poisson(dfTransformed, bQuiet = TRUE)
 }
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.}
+
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 input data.frame with columns added for "Residuals" and "PredictedCount"
@@ -39,7 +41,7 @@ The input data (\code{dfTransformed}) for Analyze_Poisson is typically created u
 
 \examples{
 dfInput <- AE_Map_Raw()
-dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
-dfAnalyzed <- Analyze_Poisson( dfTransformed )
+dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+dfAnalyzed <- Analyze_Poisson(dfTransformed)
 
 }

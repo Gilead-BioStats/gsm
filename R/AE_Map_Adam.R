@@ -2,12 +2,12 @@
 #'
 #' @description
 #' Convert analysis adverse event (AE) data, by default ADaM data, to formatted input data to
-#' {gsm::AE_Assess()}.
+#' [gsm::AE_Assess()].
 #'
 #' @details
 #' `AE_Map_Adam` combines AE data with subject-level treatment exposure data to create formatted
-#' input data to {gsm::AE_Assess()}. This function creates an input dataset for the AE Assessment
-#' ({gsm::AE_Assess()}) by binding subject-level AE counts (derived from `dfADAE`) to subject-level
+#' input data to [gsm::AE_Assess()]. This function creates an input dataset for the AE Assessment
+#' ([gsm::AE_Assess()]) by binding subject-level AE counts (derived from `dfADAE`) to subject-level
 #' data (from `dfADSL`). Note that the function can generate data summaries for specific types of
 #' AEs by passing filtered AE data to `dfADAE`.
 #'
@@ -15,10 +15,10 @@
 #'  - `dfADAE`: `data.frame` Event-level data with one record per AE.
 #'  - `dfADSL`: `data.frame` Subject-level data with one record per subject.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column.
-#' @param bReturnChecks `logical` Return input checks from {gsm::is_mapping_valid()}? Default: `FALSE`
+#' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` Data frame with one record per subject, the input to {gsm::AE_Assess()}. If
+#' @return `data.frame` Data frame with one record per subject, the input to [gsm::AE_Assess()]. If
 #' `bReturnChecks` is `TRUE` `AE_Map_Adam` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
@@ -47,7 +47,7 @@ AE_Map_Adam <- function(
 ) {
   # TODO: Use predefined mapping, which does not currently exist in {clindata}.
   if (is.null(lMapping)) {
-    lMapping = list(
+    lMapping <- list(
       dfADSL = list(strIDCol = "USUBJID", strSiteCol = "SITEID", strStartCol = "TRTSDT", strEndCol = "TRTEDT"),
       dfADAE = list(strIDCol = "USUBJID")
     )
@@ -66,15 +66,15 @@ AE_Map_Adam <- function(
 
     dfInput <- dfs$dfADSL %>%
       rename(
-        SubjectID = .data[[ lMapping$dfADSL$strIDCol ]],
-        SiteID = .data[[ lMapping$dfADSL$strSiteCol ]]
+        SubjectID = .data[[lMapping$dfADSL$strIDCol]],
+        SiteID = .data[[lMapping$dfADSL$strSiteCol]]
       ) %>%
       mutate(
-        Exposure = as.numeric(.data[[ lMapping$dfADSL$strEndCol ]] - .data[[ lMapping$dfADSL$strStartCol ]]) + 1
+        Exposure = as.numeric(.data[[lMapping$dfADSL$strEndCol]] - .data[[lMapping$dfADSL$strStartCol]]) + 1
       ) %>%
       rowwise() %>%
       mutate(
-        Count = sum(dfs$dfADAE[[ lMapping$dfADAE$strIDCol ]] == .data$SubjectID),
+        Count = sum(dfs$dfADAE[[lMapping$dfADAE$strIDCol]] == .data$SubjectID),
         Rate = .data$Count / .data$Exposure
       ) %>%
       ungroup() %>%

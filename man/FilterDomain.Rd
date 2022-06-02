@@ -37,15 +37,18 @@ If \code{bReturnChecks} is \code{TRUE}, a \code{list} is returned with a filtere
 Utility function for basic filtering
 }
 \examples{
-lMapping <- list(dfAE = list(strIDCol = "SubjectID", strTreatmentEmergentCol = "AE_TE_FLAG",
-                             strTreatmentEmergentVal = TRUE, strGradeCol = "AE_GRADE",
-                             strSeriousCol = "AE_SERIOUS", strSeriousVal = "Yes"))
+lMapping <- list(dfAE = list(
+  strIDCol = "SubjectID", strTreatmentEmergentCol = "AE_TE_FLAG",
+  strTreatmentEmergentVal = TRUE, strGradeCol = "AE_GRADE",
+  strSeriousCol = "AE_SERIOUS", strSeriousVal = "Yes"
+))
 
-te_ae <- FilterDomain(df = clindata::rawplus_ae,
-                      lMapping = lMapping,
-                      strDomain = "dfAE",
-                      strColParam = "strSeriousCol",
-                      strValParam = "strSeriousVal")
-
+te_ae <- FilterDomain(
+  df = clindata::rawplus_ae,
+  lMapping = lMapping,
+  strDomain = "dfAE",
+  strColParam = "strSeriousCol",
+  strValParam = "strSeriousVal"
+)
 
 }

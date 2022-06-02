@@ -4,7 +4,7 @@ source(testthat::test_path("testdata/data.R"))
 test_that("output created as expected", {
   data <- IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ))
   expect_true(is.data.frame(data))
-  expect_equal(names(data), c("SubjectID","SiteID","Count"))
+  expect_equal(names(data), c("SubjectID", "SiteID", "Count"))
   expect_type(data$SubjectID, "character")
   expect_type(data$SiteID, "character")
   expect_true(class(data$Count) %in% c("double", "integer", "numeric"))
@@ -13,7 +13,7 @@ test_that("output created as expected", {
 
 
 # incorrect inputs throw errors -------------------------------------------
-test_that("incorrect inputs throw errors",{
+test_that("incorrect inputs throw errors", {
   expect_snapshot(IE_Map_Raw(dfs = list(dfIE = list(), dfSUBJ = list()), bQuiet = F))
   expect_snapshot(IE_Map_Raw(dfs = list(dfIE = "Hi", dfSUBJ = "Mom"), bQuiet = F))
   expect_snapshot(IE_Map_Raw(dfs = list(dfIE = dfIE %>% select(-SubjectID), dfSUBJ = dfSUBJ), bQuiet = F))
@@ -23,37 +23,45 @@ test_that("incorrect inputs throw errors",{
 })
 
 # incorrect mappings throw errors -----------------------------------------
-test_that("incorrect mappings throw errors",{
-    expect_snapshot(IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ),
-                               lMapping = list(
-                                 dfIE = list(strIDCol="not an id",
-                                             strCategoryCol = "IE_CATEGORY",
-                                             strValueCol = "IE_VALUE"),
-                                 dfSUBJ = list(strIDCol="SubjectID",
-                                               strSiteCol="SiteID")
-                                 ),
-                               bQuiet = F
-                      )
-                    )
+test_that("incorrect mappings throw errors", {
+  expect_snapshot(IE_Map_Raw(
+    dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ),
+    lMapping = list(
+      dfIE = list(
+        strIDCol = "not an id",
+        strCategoryCol = "IE_CATEGORY",
+        strValueCol = "IE_VALUE"
+      ),
+      dfSUBJ = list(
+        strIDCol = "SubjectID",
+        strSiteCol = "SiteID"
+      )
+    ),
+    bQuiet = F
+  ))
 
-  expect_snapshot(IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ),
-                             lMapping = list(
-                               dfIE = list(strIDCol="SubjectID",
-                                           strCategoryCol = "IE_CATEGORY",
-                                           strValueCol = "IE_VALUE"),
-                               dfSUBJ = list(strIDCol="not an id",
-                                             strSiteCol="SiteID")
-                             ),
-                             bQuiet = F
-  )
-  )
+  expect_snapshot(IE_Map_Raw(
+    dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ),
+    lMapping = list(
+      dfIE = list(
+        strIDCol = "SubjectID",
+        strCategoryCol = "IE_CATEGORY",
+        strValueCol = "IE_VALUE"
+      ),
+      dfSUBJ = list(
+        strIDCol = "not an id",
+        strSiteCol = "SiteID"
+      )
+    ),
+    bQuiet = F
+  ))
 })
 
 # custom tests ------------------------------------------------------------
-test_that("NA values in input data are handled",{
+test_that("NA values in input data are handled", {
   # NA SiteID and TimeOnTreatment.
   dfIE1 <- tibble::tribble(
-    ~SubjectID, 1,1,1,1,2,2,4,4
+    ~SubjectID, 1, 1, 1, 1, 2, 2, 4, 4
   )
   dfExposure1 <- tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
@@ -69,7 +77,7 @@ test_that("NA values in input data are handled",{
 
   # NA SubjectID in IE domain.
   dfIE2 <- tibble::tribble(
-    ~SubjectID, 1,NA,1,1,2,2,4,4
+    ~SubjectID, 1, NA, 1, 1, 2, 2, 4, 4
   )
   dfExposure2 <- tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
@@ -85,7 +93,7 @@ test_that("NA values in input data are handled",{
 
   # NA SubjectID in SUBJ domain.
   dfIE3 <- tibble::tribble(
-    ~SubjectID, 1,1,1,1,2,2,4,4
+    ~SubjectID, 1, 1, 1, 1, 2, 2, 4, 4
   )
   dfExposure3 <- tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
@@ -108,6 +116,6 @@ test_that("bQuiet works as intended", {
 
 test_that("bReturnChecks works as intended", {
   expect_true(
-    all(names(IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c('df', 'lChecks'))
+    all(names(IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c("df", "lChecks"))
   )
 })

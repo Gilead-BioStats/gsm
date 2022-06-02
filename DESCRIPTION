@@ -1,9 +1,15 @@
 Package: gsm
 Title: Gilead Statistical Monitoring
-Version: 0.4.1
+Version: 1.0.0
 Authors@R: c(
     person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
-    person("Jeremy", "Wildfire", email="jeremy.wildfire@gilead.com", role = c("aut")))
+    person("Jeremy", "Wildfire", email="jwildfire@gmail.com", role = c("aut")),
+    person("Matt", "Roumaya", email="Matt.Roumaya@atorusresearch.com", role = c("aut")),
+    person("Nathan", "Kosiba", email="Nathan.Kosiba@atorusresearch.com", role = c("aut")),
+    person("Douglas", "Sanders", role = c("aut")),
+    person("Spencer", "Childress", email="spencer.childress@gilead.com", role = c("aut")))
+URL: https://github.com/Gilead-BioStats/gsm
+BugReports: https://github.com/Gilead-BioStats/gsm/issues
 Description: The Gilead Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring.
 License: file LICENSE
 Encoding: UTF-8
@@ -12,12 +18,14 @@ Imports:
     cli,
     dplyr,
     fontawesome,
+    glue,
     gt,
     ggplot2,
-    lamW,
+    lifecycle (>= 1.0.1),
     magrittr,
     purrr,
     stringr,
+    tibble,
     tidyr,
     withr,
     yaml
@@ -29,12 +37,12 @@ Suggests:
     janitor,
     kableExtra,
     knitr,
+    lamW,
     pander,
     rlang,
     rmarkdown,
     safetyData,
     testthat (>= 3.0.0),
-    tibble,
     usethis,
     tools,
     pkgdown

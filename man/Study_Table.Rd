@@ -36,9 +36,9 @@ Make overview table with one row per assessment and one column per site showing 
 library(dplyr)
 library(purrr)
 results <- Study_Assess() \%>\%
-  purrr::map(~.x$lResults) \%>\%
-    compact() \%>\%
-    purrr::map_df(~.x$dfSummary)
+  purrr::map(~ .x$lResults) \%>\%
+  compact() \%>\%
+  purrr::map_df(~ .x$dfSummary)
 
 Study_Table(results)
 

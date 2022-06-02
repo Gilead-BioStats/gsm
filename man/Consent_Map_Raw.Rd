@@ -20,13 +20,13 @@ Consent_Map_Raw(
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
 
-\item{bReturnChecks}{\code{logical} Return input checks from {gsm::is_mapping_valid()}? Default: \code{FALSE}}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 \code{data.frame} Data frame with one record per subject, the input to
-{gsm::Consent_Assess()}. If \code{bReturnChecks} is \code{TRUE} \code{Consent_Map_Raw} returns a named \code{list}
+\code{\link[=Consent_Assess]{Consent_Assess()}}. If \code{bReturnChecks} is \code{TRUE} \code{Consent_Map_Raw} returns a named \code{list}
 with:
 \itemize{
 \item \code{df}: the data frame described above
@@ -38,7 +38,7 @@ Convert from raw data format to needed input format for \code{\link{Consent_Asse
 }
 \details{
 \code{Consent_Map_Raw} combines consent data with subject-level data to create formatted input data
-to {gsm::Consent_Assess()}. This function creates an input dataset for the Consent Assessment
+to \code{\link[=Consent_Assess]{Consent_Assess()}}. This function creates an input dataset for the Consent Assessment
 (${Consent_Assess()} by binding subject-level counts of consent issues (derived from \code{dfCONSENT}) to
 subject-level data (from \code{dfSUBJ}). Note the function can generate data summaries for specific
 types of consent by customizing \code{lMapping$dfCONSENT}.
@@ -46,18 +46,21 @@ types of consent by customizing \code{lMapping$dfCONSENT}.
 \section{Data specification}{
 \tabular{llllll}{
    domain \tab col_key \tab col_value \tab vRequired \tab vNACols \tab vUniqueCols \cr
-   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab NA \tab TRUE \cr
-   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab NA \tab FALSE \cr
-   dfSUBJ \tab strRandDateCol \tab RandDate \tab TRUE \tab NA \tab FALSE \cr
-   dfCONSENT \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab NA \cr
-   dfCONSENT \tab strTypeCol \tab CONSENT_TYPE \tab TRUE \tab FALSE \tab NA \cr
-   dfCONSENT \tab strValueCol \tab CONSENT_VALUE \tab TRUE \tab FALSE \tab NA \cr
-   dfCONSENT \tab strDateCol \tab CONSENT_DATE \tab TRUE \tab TRUE \tab NA \cr
+   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab  \tab TRUE \cr
+   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab  \tab FALSE \cr
+   dfSUBJ \tab strRandDateCol \tab RandDate \tab TRUE \tab  \tab FALSE \cr
+   dfCONSENT \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab  \cr
+   dfCONSENT \tab strTypeCol \tab CONSENT_TYPE \tab TRUE \tab FALSE \tab  \cr
+   dfCONSENT \tab strValueCol \tab CONSENT_VALUE \tab TRUE \tab FALSE \tab  \cr
+   dfCONSENT \tab strDateCol \tab CONSENT_DATE \tab TRUE \tab TRUE \tab  \cr
 }
 }
 
 \examples{
-dfInput <- Consent_Map_Raw() # Run with defaults
-dfInput <- Consent_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE) # Run with error checking and message log
+# Run with defaults
+dfInput <- Consent_Map_Raw()
+
+# Run with error checking and message log
+dfInput <- Consent_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 
 }

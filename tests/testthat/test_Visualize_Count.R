@@ -4,8 +4,8 @@ consentInput <- Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUB
 ieInput <- IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ))
 
 test_that("output is produced with consent data", {
-consent_assess <- Consent_Assess(consentInput)
-expect_silent(Visualize_Count(consent_assess$dfAnalyzed))
+  consent_assess <- Consent_Assess(consentInput)
+  expect_silent(Visualize_Count(consent_assess$dfAnalyzed))
 })
 
 test_that("output is produced with IE data", {
@@ -13,7 +13,7 @@ test_that("output is produced with IE data", {
   expect_silent(Visualize_Count(ie_assess$dfAnalyzed))
 })
 
-test_that("incorrect inputs throw errors",{
+test_that("incorrect inputs throw errors", {
   consent_assess <- Consent_Assess(consentInput)
   ie_assess <- IE_Assess(ieInput)
   expect_error(Visualize_Count(list()))
@@ -26,5 +26,3 @@ test_that("incorrect inputs throw errors",{
   expect_error(Visualize_Count(consent_assess$dfAnalyzed, strFlagCol = 1))
   expect_error(Visualize_Count(consent_assess$dfAnalyzed, strTitle = list()))
 })
-
-

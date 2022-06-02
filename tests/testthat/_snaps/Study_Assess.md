@@ -9,34 +9,28 @@
       Saving dfAE to `lAssessment$lData`
       Preparing parameters for `AE_Map_Raw()` ...
       Calling `AE_Map_Raw()` ...
+      i Intializing merge of domain and subject data
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `AE_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `AE_Assess()` ...
       v `AE_Assess()` Successful
       Saving lResults to `lAssessment`
       Preparing parameters for `Consent_Map_Raw()` ...
       Calling `Consent_Map_Raw()` ...
+      i Intializing merge of domain and subject data
       v `Consent_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `Consent_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `Consent_Assess()` ...
       v `Consent_Assess()` Successful
       Saving lResults to `lAssessment`
       Preparing parameters for `IE_Map_Raw()` ...
       Calling `IE_Map_Raw()` ...
+      i Intializing merge of domain and subject data
       v `IE_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `IE_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `IE_Assess()` ...
       v `IE_Assess()` Successful
       Saving lResults to `lAssessment`
@@ -46,23 +40,19 @@
       Saving dfPD to `lAssessment$lData`
       Preparing parameters for `PD_Map_Raw()` ...
       Calling `PD_Map_Raw()` ...
+      i Intializing merge of domain and subject data
       v `PD_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `PD_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `PD_Assess()` ...
       v `PD_Assess()` Successful
       Saving lResults to `lAssessment`
       Preparing parameters for `PD_Map_Raw()` ...
       Calling `PD_Map_Raw()` ...
+      i Intializing merge of domain and subject data
       v `PD_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `PD_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `PD_Assess()` ...
       v `PD_Assess()` Successful
       Saving lResults to `lAssessment`
@@ -76,12 +66,10 @@
       Saving dfAE to `lAssessment$lData`
       Preparing parameters for `AE_Map_Raw()` ...
       Calling `AE_Map_Raw()` ...
+      i Intializing merge of domain and subject data
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `AE_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `AE_Assess()` ...
       v `AE_Assess()` Successful
       Saving lResults to `lAssessment`
@@ -118,8 +106,9 @@
       
       -- Initializing `AE_Map_Raw()` --
       
-      ! 2 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count. 
+      i Intializing merge of domain and subject data
+      i 2 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `AE_Map_Raw()` returned output with 3 rows.
       v `AE_Map_Raw()` Successful
@@ -128,9 +117,6 @@
       -- Workflow Step 3 of 3: `AE_Assess` --
       
       Preparing parameters for `AE_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `AE_Assess()` ...
       
       -- Checking Input Data for `AE_Assess()` --
@@ -141,6 +127,7 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
+      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
       v `Analyze_Poisson()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
@@ -161,7 +148,8 @@
       
       -- Initializing `Consent_Map_Raw()` --
       
-      ! 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
       v `Consent_Map_Raw()` returned output with 3 rows.
       v `Consent_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
@@ -169,9 +157,6 @@
       -- Workflow Step 2 of 2: `Consent_Assess` --
       
       Preparing parameters for `Consent_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `Consent_Assess()` ...
       
       -- Checking Input Data for `Consent_Assess()` --
@@ -202,8 +187,9 @@
       
       -- Initializing `IE_Map_Raw()` --
       
-      ! 1 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count. 
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `IE_Map_Raw()` returned output with 3 rows.
       v `IE_Map_Raw()` Successful
@@ -212,9 +198,6 @@
       -- Workflow Step 2 of 2: `IE_Assess` --
       
       Preparing parameters for `IE_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `IE_Assess()` ...
       
       -- Checking Input Data for `IE_Assess()` --
@@ -258,8 +241,9 @@
       
       -- Initializing `PD_Map_Raw()` --
       
-      ! 2 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count. 
+      i Intializing merge of domain and subject data
+      i 2 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `PD_Map_Raw()` returned output with 3 rows.
       v `PD_Map_Raw()` Successful
@@ -268,9 +252,6 @@
       -- Workflow Step 3 of 3: `PD_Assess` --
       
       Preparing parameters for `PD_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `PD_Assess()` ...
       
       -- Checking Input Data for `PD_Assess()` --
@@ -281,6 +262,7 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
+      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
       v `Analyze_Poisson()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
@@ -301,6 +283,7 @@
       
       -- Initializing `PD_Map_Raw()` --
       
+      i Intializing merge of domain and subject data
       v `PD_Map_Raw()` returned output with 3 rows.
       v `PD_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
@@ -308,9 +291,6 @@
       -- Workflow Step 2 of 2: `PD_Assess` --
       
       Preparing parameters for `PD_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `PD_Assess()` ...
       
       -- Checking Input Data for `PD_Assess()` --
@@ -321,6 +301,7 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
+      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
       v `Analyze_Poisson()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
@@ -368,8 +349,9 @@
       
       -- Initializing `AE_Map_Raw()` --
       
-      ! 3 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count. 
+      i Intializing merge of domain and subject data
+      i 3 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `AE_Map_Raw()` returned output with 3 rows.
       v `AE_Map_Raw()` Successful
@@ -378,9 +360,6 @@
       -- Workflow Step 4 of 4: `AE_Assess` --
       
       Preparing parameters for `AE_Assess()` ...
-    Output
-      [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  
-    Message <cliMessage>
       Calling `AE_Assess()` ...
       
       -- Checking Input Data for `AE_Assess()` --
@@ -391,6 +370,7 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
+      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
       v `Analyze_Poisson()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.

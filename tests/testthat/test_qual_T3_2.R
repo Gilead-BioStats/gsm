@@ -27,7 +27,8 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
         Estimate > 0.5 ~ 1,
         is.na(Estimate) ~ NA_real_,
         is.nan(Estimate) ~ NA_real_,
-        TRUE ~ 0),
+        TRUE ~ 0
+      ),
     ) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -40,15 +41,19 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
     arrange(desc(abs(Score))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t3_1 <- list("strFunctionName" = "IE_Assess()",
-               "lParams" = list("dfInput" = "dfInput",
-                                "bChart" = "FALSE"),
-               "lTags" = list(Assessment = "IE"),
-               "dfInput" = t3_1_input,
-               "dfTransformed" = t3_1_transformed,
-               "dfAnalyzed" = t3_1_analyzed,
-               "dfFlagged" = t3_1_flagged,
-               "dfSummary" = t3_1_summary)
+  t3_1 <- list(
+    "strFunctionName" = "IE_Assess()",
+    "lParams" = list(
+      "dfInput" = "dfInput",
+      "bChart" = "FALSE"
+    ),
+    "lTags" = list(Assessment = "IE"),
+    "dfInput" = t3_1_input,
+    "dfTransformed" = t3_1_transformed,
+    "dfAnalyzed" = t3_1_analyzed,
+    "dfFlagged" = t3_1_flagged,
+    "dfSummary" = t3_1_summary
+  )
 
   # compare results
   expect_equal(test3_1, t3_1)

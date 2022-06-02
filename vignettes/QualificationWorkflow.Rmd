@@ -1,0 +1,89 @@
+---
+title: "Qualification Workflow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Qualification Workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+library(gsm)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Intro
+
+Qualification for this repository is done to ensure that the package is functioning as intended.  While unit tests should also be written to test the code, qualification testing is used to test that the expected behaviors are happening correctly.  Qualification is done using a set of machine-readable documents and associated functions to create a strong documentation structure as well as a cohesive qualification report.  This qualification process will be modified to add new assessments and should be updated whenever there are updates that affect the workflows tested by qualification tests.  Qualification tests are designed to provide developers with a repeatable process that is easy to update and document.
+
+# Process Overview
+
+Each GSM assessment is independently qualified using **Specifications** and **Test Cases**, which are then compiled in to a **Qualification Report**. 
+
+- **Specifications** - the expected behaviors that are being tested. 
+- **Test cases** - testable pieces of code associated with Specifications.
+- **Qualification Report** - Summary snapshot of all qualification activity.
+
+# Specifications 
+
+Specifications should capture the most important the use cases for an assessment. One set of specifications will be created per assessment. Each assessment is likely to have several specifications, and each specification should have one or more associated test cases. 
+
+Each Specification should include the following components: 
+- **Description** - describe the use case for the specification   
+- **Risk Assessment** - evaluation of risk for the the use case. Includes 2 components:
+  - **Risk Severity** - risk severity can be 'low', 'medium', or 'high' and corresponds to the risk level that this specification would fail.
+  - **Risk Impact** - The impact severity can be can be low, medium, or high and corresponds to the impact that the specification failing would have.
+- **Test Cases** - A list of test cases associated with the specification
+
+ This should be saved using the YAML format and named for the assessment that is being qualified and saved in `inst/qualification`. 
+
+For example, the first specification from `spec_AE_Assess.yaml` is written as: 
+
+```
+- ID: S1_1
+  Description: Given correct input data an Adverse Event assessment can be done using the Poisson method
+  Risk: High
+  Impact: High
+  Tests:
+    - T1_1
+    - T1_2
+``` 
+
+# Test Cases
+
+Test cases take specifications and turn them into the actual testable pieces that make up the larger specification.  The test cases are built to confirm that the package meets the requirements laid out for it.  Test cases should be representative of how a user may utilize the program since that will be the most helpful to uncovering defects and supporting test automation.  Test cases are linked to the assessment as shown above.
+
+Test cases are written using the standard `testthat` workflow and saved in `tests/testthat`.
+Each test case should be saved as it's own file and named using with the convention `test_qual_{TestID}.R` where test number corresponds to the `Tests` section in the relevant specification. Note that tests can be associated with multiple specifications. Test code should be written in a clear and concise manner making it quick to execute and easy to review and interpret.  Test cases should also have an informative description to outline what is being tested.
+
+An simple example test case is shown below.  For this test case the file would be called `test_qual_T1_1.R` and would correspond to T1_1 in the specifications:
+
+```r
+test_that("the object mtcars is a dataframe", {
+   test_data <- mtcars
+   expect_true(is.data.frame(test_data))
+}
+```
+
+# Qualification Report
+
+The Qualification Report is generated to document and display the code and the qualification that code has been through.  The report lives as a Qualification vignette in `{gsm}` and rendered during other workflows.  The Qualification Report is also attached to each release and included in the `{pkgdown}` site to display the qualification status of `{gsm}`.  The sections of the Qualification Report are outlined below.
+
+### Session Info
+
+The `sessionInfo()` of the qualification environment is included to show what environment the tests were run in.  This is called after all necessary packages have been loaded and all setup is done. The environment should not change after this part of the report is created.
+
+### Assessment Qualification
+
+Using the specifications, test cases, and test code outlined above the qualification status of all assessments currently qualified within `{gsm}` is shown.  This will be made up of smaller sections for each assessment.  These smaller sections will include the Assessment that is being qualified, this should correspond to the function that is used for that assessment.  An overview of the Specifications is also included that has the ID, description, risk, impact, and associated test cases corresponding to each Specification.  This information is pulled from each Specification YAML file outlined above.  A Traceability Matrix is also included to show what Specifications are covered by what Test Cases.  The last part is an overview of the test cases that correspond to the Assessment.  A table is displayed to show the test case ID, description, and the pass/fail status of the test case.  
+
+### Unit Tests
+
+A summary of the unit test coverage is included in the Qualification Report to show how well the package functions are unit tested.  This is created by using `covr::package_coverage()` and then listing it out by function.
+
+### Pull Requests
+
+The final section of the Qualification Report is an overview of all Pull Requests since last release.  This includes the title, compare and base branches, a link to the GitHub page, requester, reviewers, date requested, and the status of the Pull Request.  While this is meant to be a comprehensive overview of the Pull Requests the release documentation should also include links to all Pull Requests included in the release.

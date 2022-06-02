@@ -6,7 +6,7 @@ pdInput <- PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ))
 test_that("output is created as expected", {
   pdAssessment <- PD_Assess(pdInput)
   expect_true(is.list(pdAssessment))
-  expect_equal(names(pdAssessment),c("strFunctionName", "lParams","lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
+  expect_equal(names(pdAssessment), c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
   expect_true("data.frame" %in% class(pdAssessment$dfInput))
   expect_true("data.frame" %in% class(pdAssessment$dfTransformed))
   expect_true("data.frame" %in% class(pdAssessment$dfAnalyzed))
@@ -19,7 +19,7 @@ test_that("output is created as expected", {
 
 # metadata is returned as expected ----------------------------------------
 test_that("metadata is returned as expected", {
-  pdAssessment <- PD_Assess(pdInput, vThreshold = c(-5,5), strMethod = "poisson")
+  pdAssessment <- PD_Assess(pdInput, vThreshold = c(-5, 5), strMethod = "poisson")
   expect_equal("PD_Assess()", pdAssessment$strFunctionName)
   expect_equal("-5", pdAssessment$lParams$vThreshold[2])
   expect_equal("5", pdAssessment$lParams$vThreshold[3])
@@ -28,12 +28,12 @@ test_that("metadata is returned as expected", {
 })
 
 # incorrect inputs throw errors -------------------------------------------
-test_that("incorrect inputs throw errors",{
+test_that("incorrect inputs throw errors", {
   expect_snapshot_error(PD_Assess(list()))
   expect_snapshot_error(PD_Assess("Hi"))
-  expect_snapshot_error(PD_Assess(pdInput, strLabel=123))
-  expect_snapshot_error(PD_Assess(pdInput, strMethod="abacus"))
-  expect_snapshot_error(PD_Assess(pdInput, strMethod=c("wilcoxon", "poisson")))
+  expect_snapshot_error(PD_Assess(pdInput, strLabel = 123))
+  expect_snapshot_error(PD_Assess(pdInput, strMethod = "abacus"))
+  expect_snapshot_error(PD_Assess(pdInput, strMethod = c("wilcoxon", "poisson")))
   expect_snapshot_error(PD_Assess(pdInput, vThreshold = "A"))
   expect_snapshot_error(PD_Assess(pdInput, vThreshold = 1))
   expect_snapshot_error(PD_Assess(pdInput %>% select(-SubjectID)))
@@ -44,11 +44,20 @@ test_that("incorrect inputs throw errors",{
 })
 
 # incorrect lTags throw errors --------------------------------------------
-test_that("incorrect lTags throw errors",{
-  expect_error(PD_Assess(pdInput, vThreshold = c(-5.1, 5.1), lTags="hi mom"))
-  expect_error(PD_Assess(pdInput, vThreshold = c(-5.1, 5.1), lTags=list("hi","mom")))
-  expect_error(PD_Assess(pdInput, vThreshold = c(-5.1, 5.1), lTags=list(greeting = "hi", "mom")))
-  expect_silent(PD_Assess(pdInput, vThreshold = c(-5.1, 5.1), lTags=list(greeting = "hi", person = "mom")))
+test_that("incorrect lTags throw errors", {
+  expect_error(PD_Assess(pdInput, vThreshold = c(-5.1, 5.1), lTags = "hi mom"))
+  expect_error(PD_Assess(pdInput, vThreshold = c(-5.1, 5.1), lTags = list("hi", "mom")))
+  expect_error(PD_Assess(pdInput, vThreshold = c(-5.1, 5.1), lTags = list(greeting = "hi", "mom")))
+  expect_silent(
+    PD_Assess(
+      pdInput,
+      vThreshold = c(-5.1, 5.1),
+      lTags = list(
+        greeting = "hi",
+        person = "mom"
+      )
+    )
+  )
   expect_error(PD_Assess(pdInput, lTags = list(SiteID = "")))
   expect_error(PD_Assess(pdInput, lTags = list(N = "")))
   expect_error(PD_Assess(pdInput, lTags = list(Score = "")))
@@ -56,21 +65,21 @@ test_that("incorrect lTags throw errors",{
 })
 
 # custom tests ------------------------------------------------------------
-test_that("strMethod = 'wilcoxon' does not throw error",{
-  expect_silent(PD_Assess(pdInput, strMethod = "wilcoxon"))
+test_that("strMethod = 'wilcoxon' does not throw error", {
+  expect_error(PD_Assess(pdInput, strMethod = "wilcoxon"), NA)
 })
 
-test_that("NA in dfInput$Count results in Error for PD_Assess",{
+test_that("NA in dfInput$Count results in Error for PD_Assess", {
   pdInputNA <- pdInput
-  pdInputNA[1,"Count"] <- NA
+  pdInputNA[1, "Count"] <- NA
   expect_snapshot(PD_Assess(pdInputNA))
 })
 
-test_that('dfAnalyzed has appropriate model output regardless of statistical method', {
-    assPoisson <- PD_Assess(pdInput, strMethod = 'poisson')
-    expect_true(all(c('Residuals', 'PredictedCount') %in% names(assPoisson$dfAnalyzed)))
-    assWilcoxon <- PD_Assess(pdInput, strMethod = 'wilcoxon')
-    expect_true(all(c('Estimate', 'PValue') %in% names(assWilcoxon$dfAnalyzed)))
+test_that("dfAnalyzed has appropriate model output regardless of statistical method", {
+  assPoisson <- PD_Assess(pdInput, strMethod = "poisson")
+  expect_true(all(c("Residuals", "PredictedCount") %in% names(assPoisson$dfAnalyzed)))
+  assWilcoxon <- PD_Assess(pdInput, strMethod = "wilcoxon")
+  expect_true(all(c("Estimate", "PValue") %in% names(assWilcoxon$dfAnalyzed)))
 })
 
 test_that("bQuiet works as intended", {
@@ -81,6 +90,6 @@ test_that("bQuiet works as intended", {
 
 test_that("bReturnChecks works as intended", {
   expect_true(
-    'lChecks' %in% names(PD_Assess(pdInput, bReturnChecks = TRUE))
+    "lChecks" %in% names(PD_Assess(pdInput, bReturnChecks = TRUE))
   )
 })
