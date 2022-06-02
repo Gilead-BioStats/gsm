@@ -7,10 +7,19 @@
     <loc>/LICENSE-text.html</loc>
   </url>
   <url>
+    <loc>/articles/ContributorGuidelines.html</loc>
+  </url>
+  <url>
+    <loc>/articles/Cookbook.html</loc>
+  </url>
+  <url>
     <loc>/articles/DataPipeline.html</loc>
   </url>
   <url>
     <loc>/articles/Qualification.html</loc>
+  </url>
+  <url>
+    <loc>/articles/QualificationWorkflow.html</loc>
   </url>
   <url>
     <loc>/articles/index.html</loc>
@@ -121,6 +130,9 @@
     <loc>/reference/generate_md_table.html</loc>
   </url>
   <url>
+    <loc>/reference/gsm-package.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -134,5 +146,8 @@
   </url>
   <url>
     <loc>/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>/reference/rank_chg.html</loc>
   </url>
 </urlset>

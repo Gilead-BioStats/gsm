@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -32,16 +32,31 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
+    </li>
+    <li>
+      <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
     </li>
+    <li>
+      <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
+    </li>
   </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/Gilead-BioStats/gsm/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -51,7 +66,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Chi-squared Test Analysis</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/R/Analyze_Chisq.R" class="external-link"><code>R/Analyze_Chisq.R</code></a></small>
     <div class="hidden name"><code>Analyze_Chisq.Rd</code></div>
     </div>
 
@@ -60,15 +75,17 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Analyze_Chisq</span><span class="op">(</span><span class="va">dfTransformed</span>, strOutcome <span class="op">=</span> <span class="st">"TotalCount"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Analyze_Chisq</span><span class="op">(</span><span class="va">dfTransformed</span>, strOutcome <span class="op">=</span> <span class="st">"TotalCount"</span>, bQuiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dfTransformed</dt>
-<dd><p>data.frame in format produced by <code><a href="Transform_EventCount.html">Transform_EventCount</a></code></p></dd>
+<dd><p><code>data.frame</code> in format produced by <code><a href="Transform_EventCount.html">Transform_EventCount</a></code></p></dd>
 <dt>strOutcome</dt>
-<dd><p>required, name of column in dfTransformed dataset to perform the chi-squared test on. Default is "TotalCount".</p></dd>
+<dd><p><code>character</code> required, name of column in dfTransformed dataset to perform the chi-squared test on. Default is "TotalCount".</p></dd>
+<dt>bQuiet</dt>
+<dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code></p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -97,9 +114,9 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="Disp_Map.html">Disp_Map</a></span><span class="op">(</span>dfDisp <span class="op">=</span> <span class="fu">safetyData</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/safetyData/man/adam_adsl.html" class="external-link">adam_adsl</a></span>, strCol <span class="op">=</span> <span class="st">"DCREASCD"</span>,strReason <span class="op">=</span> <span class="st">"Adverse Event"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Transform_EventCount.html">Transform_EventCount</a></span><span class="op">(</span> <span class="va">dfInput</span>, strCountCol <span class="op">=</span> <span class="st">'Count'</span> <span class="op">)</span></span>
-<span class="r-in"><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu">Analyze_Chisq</span><span class="op">(</span> <span class="va">dfTransformed</span> <span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="Disp_Map.html">Disp_Map</a></span><span class="op">(</span>dfDisp <span class="op">=</span> <span class="fu">safetyData</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/safetyData/man/adam_adsl.html" class="external-link">adam_adsl</a></span>, strCol <span class="op">=</span> <span class="st">"DCREASCD"</span>, strReason <span class="op">=</span> <span class="st">"Adverse Event"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Transform_EventCount.html">Transform_EventCount</a></span><span class="op">(</span><span class="va">dfInput</span>, strCountCol <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu">Analyze_Chisq</span><span class="op">(</span><span class="va">dfTransformed</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Chi-squared approximation may be incorrect</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Chi-squared approximation may be incorrect</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Chi-squared approximation may be incorrect</span>
@@ -120,7 +137,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
 </div>
 
 <div class="pkgdown">

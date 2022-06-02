@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -32,16 +32,31 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
+    </li>
+    <li>
+      <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
     </li>
+    <li>
+      <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
+    </li>
   </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/Gilead-BioStats/gsm/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -51,7 +66,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Make Assessment overview table</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/R/Study_Table.R" class="external-link"><code>R/Study_Table.R</code></a></small>
     <div class="hidden name"><code>Study_Table.Rd</code></div>
     </div>
 
@@ -103,9 +118,9 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org" class="external-link">purrr</a></span><span class="op">)</span></span>
 <span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="op">~</span><span class="va">.x</span><span class="op">$</span><span class="va">lResults</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">    <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html" class="external-link">compact</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_df</a></span><span class="op">(</span><span class="op">~</span><span class="va">.x</span><span class="op">$</span><span class="va">dfSummary</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.x</span><span class="op">$</span><span class="va">lResults</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html" class="external-link">compact</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_df</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.x</span><span class="op">$</span><span class="va">dfSummary</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Initializing `ae` assessment</span> <span style="color: #00BBBB;">────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -133,9 +148,10 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `AE_Map_Raw()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> <span style="color: #FF5555;">472 ID(s) in subject data not found in domain data.</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #FF5555;">These participants will have 0s imputed for the following domain data columns: </span>Count. </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #FF5555;">NA's will be imputed for all other columns.</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 472 ID(s) in subject data not found in domain data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Map_Raw()` returned output with 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Map_Raw()` Successful</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfInput to `lAssessment$lData`</span>
@@ -143,7 +159,6 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 3 of 3: `AE_Assess`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `AE_Assess()` ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `AE_Assess()` ...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `AE_Assess()`</span> ──</span>
@@ -154,6 +169,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Analyze_Poisson()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
@@ -174,6 +190,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `Consent_Map_Raw()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Consent_Map_Raw()` returned output with 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Consent_Map_Raw()` Successful</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfInput to `lAssessment$lData`</span>
@@ -181,7 +198,6 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 2 of 2: `Consent_Assess`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `Consent_Assess()` ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `Consent_Assess()` ...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `Consent_Assess()`</span> ──</span>
@@ -212,9 +228,10 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `IE_Map_Raw()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> <span style="color: #FF5555;">13 ID(s) in subject data not found in domain data.</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #FF5555;">These participants will have 0s imputed for the following domain data columns: </span>Count. </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #FF5555;">NA's will be imputed for all other columns.</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 13 ID(s) in subject data not found in domain data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `IE_Map_Raw()` returned output with 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `IE_Map_Raw()` Successful</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfInput to `lAssessment$lData`</span>
@@ -222,7 +239,6 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 2 of 2: `IE_Assess`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `IE_Assess()` ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `IE_Assess()` ...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `IE_Assess()`</span> ──</span>
@@ -266,9 +282,10 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `PD_Map_Raw()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> <span style="color: #FF5555;">953 ID(s) in subject data not found in domain data.</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #FF5555;">These participants will have 0s imputed for the following domain data columns: </span>Count. </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #FF5555;">NA's will be imputed for all other columns.</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 953 ID(s) in subject data not found in domain data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `PD_Map_Raw()` returned output with 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `PD_Map_Raw()` Successful</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfInput to `lAssessment$lData`</span>
@@ -276,7 +293,6 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 3 of 3: `PD_Assess`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `PD_Assess()` ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `PD_Assess()` ...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `PD_Assess()`</span> ──</span>
@@ -287,6 +303,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Analyze_Poisson()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
@@ -307,9 +324,10 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `PD_Map_Raw()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> <span style="color: #FF5555;">216 ID(s) in subject data not found in domain data.</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #FF5555;">These participants will have 0s imputed for the following domain data columns: </span>Count. </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #FF5555;">NA's will be imputed for all other columns.</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 216 ID(s) in subject data not found in domain data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `PD_Map_Raw()` returned output with 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `PD_Map_Raw()` Successful</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfInput to `lAssessment$lData`</span>
@@ -317,7 +335,6 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 2 of 2: `PD_Assess`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `PD_Assess()` ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `PD_Assess()` ...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `PD_Assess()`</span> ──</span>
@@ -328,6 +345,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Analyze_Poisson()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
@@ -374,9 +392,10 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `AE_Map_Raw()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> <span style="color: #FF5555;">1238 ID(s) in subject data not found in domain data.</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #FF5555;">These participants will have 0s imputed for the following domain data columns: </span>Count. </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #FF5555;">NA's will be imputed for all other columns.</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 1238 ID(s) in subject data not found in domain data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Map_Raw()` returned output with 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Map_Raw()` Successful</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfInput to `lAssessment$lData`</span>
@@ -384,7 +403,6 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 4 of 4: `AE_Assess`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `AE_Assess()` ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dfSUBJ"    "dfAE"      "dfPD"      "dfCONSENT" "dfIE"      "dfInput"  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `AE_Assess()` ...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `AE_Assess()`</span> ──</span>
@@ -395,6 +413,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Analyze_Poisson()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
@@ -403,7 +422,6 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving lResults to `lAssessment`</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">Study_Table</span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining, by = "SiteID"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $df_summary</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 43</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Title X055X X086X X050X X140X X180X X054X X154X X009X X164X X102X X090X X126X</span>
@@ -442,7 +460,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
 </div>
 
 <div class="pkgdown">

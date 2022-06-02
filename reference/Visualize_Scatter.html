@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -32,16 +32,31 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
+    </li>
+    <li>
+      <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
     </li>
+    <li>
+      <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
+    </li>
   </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/Gilead-BioStats/gsm/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -51,7 +66,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Site-level visualization of site-level results using a Poisson or Wilcoxon model.</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/R/Visualize_Scatter.R" class="external-link"><code>R/Visualize_Scatter.R</code></a></small>
     <div class="hidden name"><code>Visualize_Scatter.Rd</code></div>
     </div>
 
@@ -81,11 +96,11 @@
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="AE_Map_Adam.html">AE_Map_Adam</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">SafetyAE</span> <span class="op">&lt;-</span> <span class="fu"><a href="AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="Analyze_Poisson_PredictBounds.html">Analyze_Poisson_PredictBounds</a></span><span class="op">(</span><span class="va">SafetyAE</span><span class="op">$</span><span class="va">dfTransformed</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="Analyze_Poisson_PredictBounds.html">Analyze_Poisson_PredictBounds</a></span><span class="op">(</span><span class="va">SafetyAE</span><span class="op">$</span><span class="va">dfTransformed</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">Visualize_Scatter</span><span class="op">(</span><span class="va">SafetyAE</span><span class="op">$</span><span class="va">dfFlagged</span>, <span class="va">dfBounds</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="Visualize_Scatter-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">SafetyAE_wilk</span> <span class="op">&lt;-</span> <span class="fu"><a href="AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span>, strMethod<span class="op">=</span><span class="st">"wilcoxon"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">SafetyAE_wilk</span> <span class="op">&lt;-</span> <span class="fu"><a href="AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"wilcoxon"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">Visualize_Scatter</span><span class="op">(</span><span class="va">SafetyAE_wilk</span><span class="op">$</span><span class="va">dfFlagged</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="Visualize_Scatter-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
@@ -99,7 +114,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
 </div>
 
 <div class="pkgdown">

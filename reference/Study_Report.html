@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -32,16 +32,31 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
+    </li>
+    <li>
+      <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
     </li>
+    <li>
+      <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
+    </li>
   </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/Gilead-BioStats/gsm/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -51,7 +66,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Study Report</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/R/Study_Report.R" class="external-link"><code>R/Study_Report.R</code></a></small>
     <div class="hidden name"><code>Study_Report.Rd</code></div>
     </div>
 
@@ -60,7 +75,11 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Study_Report</span><span class="op">(</span><span class="va">strAssessments</span>, <span class="va">lMeta</span>, strOutpath <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Study_Report</span><span class="op">(</span>
+  <span class="va">strAssessments</span>,
+  lMeta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Project <span class="op">=</span> <span class="st">"My Project"</span><span class="op">)</span>,
+  strOutpath <span class="op">=</span> <span class="cn">NULL</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -94,7 +113,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
 </div>
 
 <div class="pkgdown">

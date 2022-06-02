@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -32,16 +32,31 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
+    </li>
+    <li>
+      <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
     </li>
+    <li>
+      <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
+    </li>
   </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/Gilead-BioStats/gsm/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -51,7 +66,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Adverse Event Assessment</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/R/AE_Assess.R" class="external-link"><code>R/AE_Assess.R</code></a></small>
     <div class="hidden name"><code>AE_Assess.Rd</code></div>
     </div>
 
@@ -76,11 +91,15 @@
     <dl><dt>dfInput</dt>
 <dd><p><code>data.frame</code> Input data, a data frame with one record per subject.</p></dd>
 <dt>vThreshold</dt>
-<dd><p><code>numeric</code> Threshold specification, a vector of length 2 that defaults to <code>c(-5, 5)</code> for <code>strMethod</code> = "poisson" and <code>c(.0001, NA)</code> for <code>strMethod</code> = "wilcoxon".</p></dd>
+<dd><p><code>numeric</code> Threshold specification, a vector of length 2 that defaults to
+<code>c(-5, 5)</code> for <code>strMethod</code> = "poisson" and <code>c(.0001, NA)</code> for <code>strMethod</code> = "wilcoxon".</p></dd>
 <dt>strMethod</dt>
-<dd><p><code>character</code> Statistical model. Valid values include "poisson" (default) and  "wilcoxon".</p></dd>
+<dd><p><code>character</code> Statistical model. Valid values include "poisson" (default) and
+"wilcoxon".</p></dd>
 <dt>lTags</dt>
-<dd><p><code>list</code> Assessment tags, a named list of tags describing the assessment that defaults to <code>list(Assessment="AE")</code>. <code>lTags</code> is returned as part of the assessment (<code>lAssess$lTags</code>) and each tag is added as a column in <code>lAssess$dfSummary</code>.</p></dd>
+<dd><p><code>list</code> Assessment tags, a named list of tags describing the assessment that defaults
+to <code>list(Assessment="AE")</code>. <code>lTags</code> is returned as part of the assessment (<code>lAssess$lTags</code>) and
+each tag is added as a column in <code>lAssess$dfSummary</code>.</p></dd>
 <dt>bChart</dt>
 <dd><p><code>logical</code> Generate data visualization? Default: <code>TRUE</code></p></dd>
 <dt>bReturnChecks</dt>
@@ -91,10 +110,10 @@
     <div id="value">
     <h2>Value</h2>
     <p><code>list</code> Assessment, a named list with:</p><ul><li><p>each data frame in the data pipeline</p><ul><li><p><code>dfInput</code></p></li>
-<li><p><code>dfTransformed</code>, returned by gsm::Transform_EventCount()</p></li>
-<li><p><code>dfAnalyzed</code>, returned by gsm::Analyze_Poisson or gsm::Analyze_Wilcoxon</p></li>
-<li><p><code>dfFlagged</code>, returned by gsm::Flag()</p></li>
-<li><p><code>dfSummary</code>, returned by gsm::Summarize()</p></li>
+<li><p><code>dfTransformed</code>, returned by <code><a href="Transform_EventCount.html">Transform_EventCount()</a></code></p></li>
+<li><p><code>dfAnalyzed</code>, returned by <code><a href="Analyze_Poisson.html">Analyze_Poisson()</a></code> or <code><a href="Analyze_Wilcoxon.html">Analyze_Wilcoxon()</a></code></p></li>
+<li><p><code>dfFlagged</code>, returned by <code><a href="Flag.html">Flag()</a></code></p></li>
+<li><p><code>dfSummary</code>, returned by <code><a href="Summarize.html">Summarize()</a></code></p></li>
 </ul></li>
 <li><p>assessment metadata</p><ul><li><p><code>strFunctionName</code></p></li>
 <li><p><code>lParams</code></p></li>
@@ -129,6 +148,7 @@ details about the statistical methods and their assumptions.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="AE_Map_Raw.html">AE_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
 <span class="r-in"><span class="va">ae_assessment_poisson</span> <span class="op">&lt;-</span> <span class="fu">AE_Assess</span><span class="op">(</span><span class="va">dfInput</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">ae_assessment_wilcoxon</span> <span class="op">&lt;-</span> <span class="fu">AE_Assess</span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"wilcoxon"</span><span class="op">)</span></span>
 <span class="r-in"></span>
@@ -142,7 +162,7 @@ details about the statistical methods and their assumptions.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
 </div>
 
 <div class="pkgdown">

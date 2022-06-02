@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -50,10 +50,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/ContributorGuidelines.html">Contributor Guidelines</a>
+    </li>
+    <li>
+      <a href="articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
       <a href="articles/DataPipeline.html">Data Pipeline</a>
     </li>
     <li>
       <a href="articles/Qualification.html">Qualification of GSM</a>
+    </li>
+    <li>
+      <a href="articles/QualificationWorkflow.html">Qualification Workflow</a>
     </li>
   </ul>
 </li>
@@ -61,7 +70,14 @@
   <a href="news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/Gilead-BioStats/gsm/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -75,31 +91,37 @@
   <div class="contents col-md-9">
 
 
-<div class="section level1">
+<!-- badges: end --><div class="section level1">
 <div class="page-header"><h1 id="gilead-statistical-monitoring-gsm-r-package">Gilead Statistical Monitoring {gsm} R package<a class="anchor" aria-label="anchor" href="#gilead-statistical-monitoring-gsm-r-package"></a>
 </h1></div>
-<p>The Gilead Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring using R. The package provides a framework that allows users to <strong>assess</strong> and <strong>visualize</strong> clinical trial data, allowing users to detect issues at sites, identify the root cause and decide on the appropriate action. The package currently provides assessments for the following domains:</p>
-<ol style="list-style-type: decimal">
-<li>Adverse Event Frequency</li>
-<li>Protocol Deviation Frequency</li>
-<li>Study Consent Timing</li>
-<li>Inclusion / Exclusion Irregularities</li>
-</ol>
+<p>The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This readme provides a high-level overview of {gsm}, see the <a href="silver-potato-cfe8c2fb.pages.github.io/">package website</a> for additional details.</p>
 </div>
 <div class="section level1">
-<h1 id="gsm-data-pipeline-overview">{gsm} Data Pipeline Overview<a class="anchor" aria-label="anchor" href="#gsm-data-pipeline-overview"></a>
+<h1 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
 </h1>
-<p>{gsm}’s data pipeline has 2 main components:</p>
+<p>The {gsm} package performs risk assessments primarily focused on detecting differences in quality at the site-level. “High quality” is defined as absence of errors that matter. We interpret this as focusing on detecting potential issues related to critical data or process across the major risk categories of safety, efficacy, disposition, treatment, and general quality, where each category consists of one or more risk assessment(s). Each risk assessment will analyze the data to flag sites with potential issues and provide a visualization to help the user understand the issue. Some relevant references are provided below.</p>
+<ul>
+<li>Centralized Statistical Monitoring: <a href="https://documents.pub/reader/full/centralized-statistical-monitoring-to-detect-data-integrity-issues-statisticalcentralized" class="external-link">1</a>, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7308734/" class="external-link">2</a>, <a href="https://www.magiworld.org/Journal/2014/1411_Centralized.pdf" class="external-link">3</a>
+</li>
+<li>EMA/FDA Guidance on Risk Based Management: <a href="https://www.fda.gov/media/121479/download" class="external-link">1</a>, <a href="https://www.fda.gov/media/116754/download" class="external-link">2</a>, <a href="https://www.fda.gov/media/129527/download" class="external-link">3</a>, <a href="https://www.ema.europa.eu/en/documents/scientific-guideline/reflection-paper-risk-based-quality-management-clinical-trials_en.pdf" class="external-link">4</a>
+</li>
+<li>Risk Based Quality Management: <a href="https://www.acrohealth.org/wp-content/uploads/2019/10/CRO-Forum-RBQM-Oversight-Paper-FINAL-Oct-2019.pdf" class="external-link">1</a>, <a href="http://www.transceleratebiopharmainc.com/wp-content/uploads/2017/09/Risk-Based-Quality-Managment.pdf" class="external-link">2</a>, <a href="https://www.magiworld.org/Journal/2014/1411_Centralized.pdf" class="external-link">3</a>
+</li>
+<li>Related tools: <a href="https://cluepoints.com/" class="external-link">1</a>, <a href="https://www.saama.com/case-study/rbm-success-story/" class="external-link">2</a>
+</li>
+</ul>
+</div>
+<div class="section level1">
+<h1 id="process-overview">Process Overview<a class="anchor" aria-label="anchor" href="#process-overview"></a>
+</h1>
+<p>The {gsm} package establishes a data pipeline for RBM using R. The package provides a framework that allows users to <strong>assess</strong> and <strong>visualize</strong> site-level risk in clinical trial data. The package currently provides assessments for the following domains:</p>
 <ol style="list-style-type: decimal">
-<li>
-<strong>Assess</strong> data to detect potential issues at sites</li>
-<li>
-<strong>Visualize</strong> the findings for understanding</li>
+<li>Adverse Event Frequency</li>
+<li>Serious Adverse Event Frequency</li>
+<li>Protocol Deviation Frequency</li>
+<li>Important Protocol Deviation Frequency</li>
 </ol>
-<div class="section level2">
-<h2 id="assess">Assess<a class="anchor" aria-label="anchor" href="#assess"></a>
-</h2>
-<p>{gsm} uses a standardized 6 step process for <strong>assessing</strong> data issues. The steps are listed below along with their inputs and outputs.</p>
+<p>All {gsm} assessments use a standardized 6 step data pipeline:</p>
 <ol style="list-style-type: decimal">
 <li>
 <strong>Map</strong> (<em>Optional</em>) - Converts <code>raw</code> data to <code>input</code> data.</li>
@@ -108,34 +130,59 @@
 <li>
 <strong>Analyze</strong> - Converts <code>transformed</code> data to <code>analyzed</code> data.</li>
 <li>
-<strong>Threshold</strong> - Uses <code>analyzed</code> data to create numeric 1 or more numeric <code>threhsolds</code>.</li>
+<strong>Threshold</strong> - Uses <code>analyzed</code> data to create one or more numeric <code>thresholds</code>.</li>
 <li>
-<strong>Flag</strong> - Uses <code>analyzed</code> data and numeric <code>threhsolds</code> to create <code>flagged</code> data.</li>
+<strong>Flag</strong> - Uses <code>analyzed</code> data and numeric <code>thresholds</code> to create <code>flagged</code> data.</li>
 <li>
 <strong>Summarize</strong> - Selects key columns from <code>flagged</code> data to create <code>summary</code> data.</li>
 </ol>
-<p>In all, these steps utilize 6 data frames:</p>
-<ol style="list-style-type: decimal">
-<li>
-<code>raw</code> data - Unprocessed study data, typically SDTM or ADAM data, but can also include other data formats (e.g. visit completion data).</li>
-<li>
-<code>input</code> data - Mapped study data ready for a gsm assessment. Each assessment provides a detailed data specification defining the expected structure and columns names for the <code>input</code> data.</li>
-<li>
-<code>transformed</code> data - The first step in a gsm assessment is to create a subject-level <code>transformed</code> data frame.</li>
-<li>
-<code>analyzed</code> data - The second step in a gsm assessment is perform statistical analysis to create a site-level <code>analyzed</code> data frame.</li>
-<li>
-<code>flagged</code> data - adds flags to the <code>analyzed</code> data to indicate possible statistical outliers</li>
-<li>
-<code>summary</code> data - subsets the flagged data to a few key columns. The <code>summary</code> data has the same structure for all assessments, so that we can easily look at trends for any given site across multiple assessments.</li>
-</ol>
+<p>To learn more about {gsm}’s data pipeline, visit the <a href="https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette" class="external-link">Data Pipeline Vignette</a>.</p>
 </div>
+<div class="section level1">
+<h1 id="quality-control">Quality Control<a class="anchor" aria-label="anchor" href="#quality-control"></a>
+</h1>
+<p>Since {gsm} is designed for use in a GCP framework, we have conducted extensive quality control as part of our development process. In particular, we do the following:</p>
+<ul>
+<li>
+<strong>Qualification Workflow</strong> - All assessments have been Qualified as described in the Qualification Workflow Vignette. A Qualification Report Vignette is generated and attached to each release.</li>
+<li>
+<strong>Unit Tests</strong> - Unit tests are written for all core functions.</li>
+<li>
+<strong>Contributor Guidelines</strong> - Detailed contributor guidelines including step-by-step processes for code development and releases are provided as a vignette.</li>
+<li>
+<strong>Data Model</strong> - Vignettes providing detailed descriptions of the data mode.</li>
+<li>
+<strong>Code Examples</strong> - The Cookbook Vignette provides a series of simple examples, and all functions include examples as part of Roxygen documentation.</li>
+<li>
+<strong>Code Review</strong> - Code review is conducted using GitHub Pull requests, and a log of all PRs is included in the Qualification Report Vignette.</li>
+<li>
+<strong>Function Documentation</strong> - Detailed documentation for each function is maintained with Roxygen.</li>
+<li>
+<strong>Package Checks</strong> - Standard package checks are run using GitHub Actions and must be passing before PRs are merged.</li>
+<li>
+<strong>Data Specifications</strong> - Machine-readable data specifications are maintained for all KRIs. Specifications are automatically added to relevant function documentation.</li>
+<li>
+<strong>Continuous Integration</strong> - Continuous integration is provided via GitHub Actions.</li>
+<li>
+<strong>Regression Testing</strong> - Extensive QC and testing is done before each release.</li>
+<li>
+<strong>Code Formatting</strong> - Code is formatted with {styler} before each release.</li>
+</ul>
+<p>Additional detail, including links to functional documentation and vignettes, is available in the <a href="silver-potato-cfe8c2fb.pages.github.io/">package website</a>.</p>
 </div>
 
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="license">
+    <div class="links">
+<h2 data-toc-skip>Links</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/Gilead-BioStats/gsm/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/Gilead-BioStats/gsm/issues" class="external-link">Report a bug</a></li>
+</ul>
+</div>
+
+<div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>file <a href="LICENSE-text.html">LICENSE</a>
@@ -156,6 +203,10 @@
 <ul class="list-unstyled">
 <li>George Wu <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Jeremy Wildfire <br><small class="roles"> Author </small>  </li>
+<li>Matt Roumaya <br><small class="roles"> Author </small>  </li>
+<li>Nathan Kosiba <br><small class="roles"> Author </small>  </li>
+<li>Douglas Sanders <br><small class="roles"> Author </small>  </li>
+<li>Spencer Childress <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
 
@@ -163,7 +214,6 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/Gilead-BioStats/gsm/actions" class="external-link"><img src="https://github.com/Gilead-BioStats/gsm/workflows/R-CMD-check-main/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/Gilead-BioStats/gsm?branch=dev" class="external-link"><img src="https://codecov.io/gh/Gilead-BioStats/gsm/branch/dev/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 
@@ -173,7 +223,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by George Wu, Jeremy Wildfire.</p>
+<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
 </div>
 
 <div class="pkgdown">

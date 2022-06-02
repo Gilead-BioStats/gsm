@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -32,16 +32,31 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
+    </li>
+    <li>
+      <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
     </li>
+    <li>
+      <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
+    </li>
   </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/Gilead-BioStats/gsm/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -51,7 +66,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Consent Assessment - Raw Mapping</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/R/Consent_Map_Raw.R" class="external-link"><code>R/Consent_Map_Raw.R</code></a></small>
     <div class="hidden name"><code>Consent_Map_Raw.Rd</code></div>
     </div>
 
@@ -77,20 +92,20 @@
 <dt>lMapping</dt>
 <dd><p><code>list</code> Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name of the column.</p></dd>
 <dt>bReturnChecks</dt>
-<dd><p><code>logical</code> Return input checks from gsm::is_mapping_valid()? Default: <code>FALSE</code></p></dd>
+<dd><p><code>logical</code> Return input checks from <code><a href="is_mapping_valid.html">is_mapping_valid()</a></code>? Default: <code>FALSE</code></p></dd>
 <dt>bQuiet</dt>
 <dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code></p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p><code>data.frame</code> Data frame with one record per subject, the input to
-gsm::Consent_Assess(). If <code>bReturnChecks</code> is <code>TRUE</code><code>Consent_Map_Raw</code> returns a named <code>list</code>with:</p><ul><li><p><code>df</code>: the data frame described above</p></li>
+<code><a href="Consent_Assess.html">Consent_Assess()</a></code>. If <code>bReturnChecks</code> is <code>TRUE</code><code>Consent_Map_Raw</code> returns a named <code>list</code>with:</p><ul><li><p><code>df</code>: the data frame described above</p></li>
 <li><p><code>lChecks</code>: a named <code>list</code> of check results</p></li>
 </ul></div>
     <div id="details">
     <h2>Details</h2>
     <p><code>Consent_Map_Raw</code> combines consent data with subject-level data to create formatted input data
-to gsm::Consent_Assess(). This function creates an input dataset for the Consent Assessment
+to <code><a href="Consent_Assess.html">Consent_Assess()</a></code>. This function creates an input dataset for the Consent Assessment
 ($Consent_Assess() by binding subject-level counts of consent issues (derived from <code>dfCONSENT</code>) to
 subject-level data (from <code>dfSUBJ</code>). Note the function can generate data summaries for specific
 types of consent by customizing <code>lMapping$dfCONSENT</code>.</p>
@@ -98,12 +113,16 @@ types of consent by customizing <code>lMapping$dfCONSENT</code>.</p>
     <div id="data-specification">
     <h2>Data specification</h2>
     
-<table class="table table"><tr><td>domain</td><td>col_key</td><td>col_value</td><td>vRequired</td><td>vNACols</td><td>vUniqueCols</td></tr><tr><td>dfSUBJ</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>NA</td><td>TRUE</td></tr><tr><td>dfSUBJ</td><td>strSiteCol</td><td>SiteID</td><td>TRUE</td><td>NA</td><td>FALSE</td></tr><tr><td>dfSUBJ</td><td>strRandDateCol</td><td>RandDate</td><td>TRUE</td><td>NA</td><td>FALSE</td></tr><tr><td>dfCONSENT</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>FALSE</td><td>NA</td></tr><tr><td>dfCONSENT</td><td>strTypeCol</td><td>CONSENT_TYPE</td><td>TRUE</td><td>FALSE</td><td>NA</td></tr><tr><td>dfCONSENT</td><td>strValueCol</td><td>CONSENT_VALUE</td><td>TRUE</td><td>FALSE</td><td>NA</td></tr><tr><td>dfCONSENT</td><td>strDateCol</td><td>CONSENT_DATE</td><td>TRUE</td><td>TRUE</td><td>NA</td></tr></table></div>
+<table class="table table"><tr><td>domain</td><td>col_key</td><td>col_value</td><td>vRequired</td><td>vNACols</td><td>vUniqueCols</td></tr><tr><td>dfSUBJ</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td></td><td>TRUE</td></tr><tr><td>dfSUBJ</td><td>strSiteCol</td><td>SiteID</td><td>TRUE</td><td></td><td>FALSE</td></tr><tr><td>dfSUBJ</td><td>strRandDateCol</td><td>RandDate</td><td>TRUE</td><td></td><td>FALSE</td></tr><tr><td>dfCONSENT</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>FALSE</td><td></td></tr><tr><td>dfCONSENT</td><td>strTypeCol</td><td>CONSENT_TYPE</td><td>TRUE</td><td>FALSE</td><td></td></tr><tr><td>dfCONSENT</td><td>strValueCol</td><td>CONSENT_VALUE</td><td>TRUE</td><td>FALSE</td><td></td></tr><tr><td>dfCONSENT</td><td>strDateCol</td><td>CONSENT_DATE</td><td>TRUE</td><td>TRUE</td><td></td></tr></table></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu">Consent_Map_Raw</span><span class="op">(</span><span class="op">)</span> <span class="co"># Run with defaults</span></span>
-<span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu">Consent_Map_Raw</span><span class="op">(</span>bReturnChecks <span class="op">=</span> <span class="cn">TRUE</span>, bQuiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># Run with error checking and message log</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Run with defaults</span></span>
+<span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu">Consent_Map_Raw</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Run with error checking and message log</span></span>
+<span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu">Consent_Map_Raw</span><span class="op">(</span>bReturnChecks <span class="op">=</span> <span class="cn">TRUE</span>, bQuiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `Consent_Map_Raw()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -111,6 +130,7 @@ types of consent by customizing <code>lMapping$dfCONSENT</code>.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `Consent_Map_Raw()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Consent_Map_Raw()` returned output with 1297 rows.</span>
 <span class="r-in"></span>
 </code></pre></div>
@@ -123,7 +143,7 @@ types of consent by customizing <code>lMapping$dfCONSENT</code>.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
 </div>
 
 <div class="pkgdown">

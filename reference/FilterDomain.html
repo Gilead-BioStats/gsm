@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -32,16 +32,31 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
+    </li>
+    <li>
+      <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
     </li>
+    <li>
+      <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
+    </li>
   </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/Gilead-BioStats/gsm/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -51,7 +66,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Utility function for basic filtering</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/R/util-FilterDomain.R" class="external-link"><code>R/util-FilterDomain.R</code></a></small>
     <div class="hidden name"><code>FilterDomain.Rd</code></div>
     </div>
 
@@ -96,16 +111,19 @@ If <code>bReturnChecks</code> is <code>TRUE</code>, a <code>list</code> is retur
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">lMapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfAE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>strIDCol <span class="op">=</span> <span class="st">"SubjectID"</span>, strTreatmentEmergentCol <span class="op">=</span> <span class="st">"AE_TE_FLAG"</span>,</span>
-<span class="r-in">                             strTreatmentEmergentVal <span class="op">=</span> <span class="cn">TRUE</span>, strGradeCol <span class="op">=</span> <span class="st">"AE_GRADE"</span>,</span>
-<span class="r-in">                             strSeriousCol <span class="op">=</span> <span class="st">"AE_SERIOUS"</span>, strSeriousVal <span class="op">=</span> <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">lMapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfAE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span class="r-in">  strIDCol <span class="op">=</span> <span class="st">"SubjectID"</span>, strTreatmentEmergentCol <span class="op">=</span> <span class="st">"AE_TE_FLAG"</span>,</span>
+<span class="r-in">  strTreatmentEmergentVal <span class="op">=</span> <span class="cn">TRUE</span>, strGradeCol <span class="op">=</span> <span class="st">"AE_GRADE"</span>,</span>
+<span class="r-in">  strSeriousCol <span class="op">=</span> <span class="st">"AE_SERIOUS"</span>, strSeriousVal <span class="op">=</span> <span class="st">"Yes"</span></span>
+<span class="r-in"><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">te_ae</span> <span class="op">&lt;-</span> <span class="fu">FilterDomain</span><span class="op">(</span>df <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ae</span>,</span>
-<span class="r-in">                      lMapping <span class="op">=</span> <span class="va">lMapping</span>,</span>
-<span class="r-in">                      strDomain <span class="op">=</span> <span class="st">"dfAE"</span>,</span>
-<span class="r-in">                      strColParam <span class="op">=</span> <span class="st">"strSeriousCol"</span>,</span>
-<span class="r-in">                      strValParam <span class="op">=</span> <span class="st">"strSeriousVal"</span><span class="op">)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span class="va">te_ae</span> <span class="op">&lt;-</span> <span class="fu">FilterDomain</span><span class="op">(</span></span>
+<span class="r-in">  df <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ae</span>,</span>
+<span class="r-in">  lMapping <span class="op">=</span> <span class="va">lMapping</span>,</span>
+<span class="r-in">  strDomain <span class="op">=</span> <span class="st">"dfAE"</span>,</span>
+<span class="r-in">  strColParam <span class="op">=</span> <span class="st">"strSeriousCol"</span>,</span>
+<span class="r-in">  strValParam <span class="op">=</span> <span class="st">"strSeriousVal"</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -117,7 +135,7 @@ If <code>bReturnChecks</code> is <code>TRUE</code>, a <code>list</code> is retur
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
 </div>
 
 <div class="pkgdown">
