@@ -1,3 +1,13 @@
+# gsm v1.0.0
+
+This release includes qualified functionality for Adverse Event and Protocol Deviation Assessments. 
+
+Additionally, updates include:
+- `Study_Assess()` now has an argument `lSubjFilters` that filters subject-level data when running multiple assessments.
+- `Study_AssessmentReport()` is more concise, and now displays a yellow icon for checks that were not run.
+- Statistical models now include informative messages when `bQuiet` is FALSE. 
+- Documentation and vignettes have been thoroughly reviewed and improved. 
+
 # gsm v0.4.1
 
 This release includes significant documentation updates as well as minor bug fixes and expanded unit testing.

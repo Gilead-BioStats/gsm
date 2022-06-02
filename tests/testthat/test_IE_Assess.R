@@ -4,17 +4,17 @@ ieInput <- IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ))
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-    ieAssessment <- IE_Assess(ieInput)
-    expect_true(is.list(ieAssessment))
-    expect_equal(names(ieAssessment),c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
-    expect_true("data.frame" %in% class(ieAssessment$dfInput))
-    expect_true("data.frame" %in% class(ieAssessment$dfTransformed))
-    expect_true("data.frame" %in% class(ieAssessment$dfAnalyzed))
-    expect_true("data.frame" %in% class(ieAssessment$dfFlagged))
-    expect_true("data.frame" %in% class(ieAssessment$dfSummary))
-    expect_type(ieAssessment$strFunctionName, "character")
-    expect_type(ieAssessment$lParams, "list")
-    expect_type(ieAssessment$lTags, "list")
+  ieAssessment <- IE_Assess(ieInput)
+  expect_true(is.list(ieAssessment))
+  expect_equal(names(ieAssessment), c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
+  expect_true("data.frame" %in% class(ieAssessment$dfInput))
+  expect_true("data.frame" %in% class(ieAssessment$dfTransformed))
+  expect_true("data.frame" %in% class(ieAssessment$dfAnalyzed))
+  expect_true("data.frame" %in% class(ieAssessment$dfFlagged))
+  expect_true("data.frame" %in% class(ieAssessment$dfSummary))
+  expect_type(ieAssessment$strFunctionName, "character")
+  expect_type(ieAssessment$lParams, "list")
+  expect_type(ieAssessment$lTags, "list")
 })
 
 # metadata is returned as expected ----------------------------------------
@@ -27,33 +27,33 @@ test_that("metadata is returned as expected", {
 })
 
 # incorrect inputs throw errors -------------------------------------------
-test_that("incorrect inputs throw errors",{
+test_that("incorrect inputs throw errors", {
   expect_error(IE_Assess(list()))
   expect_error(IE_Assess("Hi"))
-  expect_error(IE_Assess(ieInput, nThreshold=FALSE))
-  expect_error(IE_Assess(ieInput, nThreshold="A"))
-  expect_error(IE_Assess(ieInput, nThreshold=c(1,2)))
+  expect_error(IE_Assess(ieInput, nThreshold = FALSE))
+  expect_error(IE_Assess(ieInput, nThreshold = "A"))
+  expect_error(IE_Assess(ieInput, nThreshold = c(1, 2)))
   expect_error(IE_Assess(ieInput %>% select(-SubjectID)))
   expect_error(IE_Assess(ieInput %>% select(-SiteID)))
   expect_error(IE_Assess(ieInput %>% select(-Count)))
 })
 
 # incorrect lTags throw errors --------------------------------------------
-test_that("incorrect lTags throw errors",{
-    expect_error(IE_Assess(ieInput, lTags="hi mom"))
-    expect_error(IE_Assess(ieInput, lTags=list("hi","mom")))
-    expect_error(IE_Assess(ieInput, lTags=list(greeting="hi","mom")))
-    expect_silent(IE_Assess(ieInput, lTags=list(greeting="hi",person="mom")))
-    expect_snapshot_error(IE_Assess(ieInput, lTags = list(SiteID = "")))
-    expect_snapshot_error(IE_Assess(ieInput, lTags = list(N = "")))
-    expect_snapshot_error(IE_Assess(ieInput, lTags = list(Score = "")))
-    expect_snapshot_error(IE_Assess(ieInput, lTags = list(Flag = "")))
+test_that("incorrect lTags throw errors", {
+  expect_error(IE_Assess(ieInput, lTags = "hi mom"))
+  expect_error(IE_Assess(ieInput, lTags = list("hi", "mom")))
+  expect_error(IE_Assess(ieInput, lTags = list(greeting = "hi", "mom")))
+  expect_silent(IE_Assess(ieInput, lTags = list(greeting = "hi", person = "mom")))
+  expect_snapshot_error(IE_Assess(ieInput, lTags = list(SiteID = "")))
+  expect_snapshot_error(IE_Assess(ieInput, lTags = list(N = "")))
+  expect_snapshot_error(IE_Assess(ieInput, lTags = list(Score = "")))
+  expect_snapshot_error(IE_Assess(ieInput, lTags = list(Flag = "")))
 })
 
 # custom tests ------------------------------------------------------------
-test_that('dfAnalyzed has appropriate model output regardless of statistical method', {
-    assessment <- IE_Assess(ieInput)
-    expect_true(hasName(assessment$dfAnalyzed, 'Estimate'))
+test_that("dfAnalyzed has appropriate model output regardless of statistical method", {
+  assessment <- IE_Assess(ieInput)
+  expect_true(hasName(assessment$dfAnalyzed, "Estimate"))
 })
 
 test_that("bQuiet works as intended", {
@@ -64,6 +64,6 @@ test_that("bQuiet works as intended", {
 
 test_that("bReturnChecks works as intended", {
   expect_true(
-    'lChecks' %in% names(IE_Assess(ieInput, bReturnChecks = TRUE))
+    "lChecks" %in% names(IE_Assess(ieInput, bReturnChecks = TRUE))
   )
 })

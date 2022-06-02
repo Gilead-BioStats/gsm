@@ -47,6 +47,6 @@ For data with an optional strExposureCol, a summed exposure is calculated for ea
 
 \examples{
 dfInput <- AE_Map_Adam()
-dfTransformed <- Transform_EventCount( dfInput, strCountCol = 'Count', strExposureCol = "Exposure" )
+dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
 
 }

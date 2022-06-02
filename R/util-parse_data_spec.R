@@ -8,34 +8,34 @@
 #' @export
 
 parse_data_spec <- function(
-    content = NULL,
-    file = NULL
+  content = NULL,
+  file = NULL
 ) {
-    # Read .yaml file.
-    if (is.null(content)) {
-        if (file.exists(file)) {
-            content = yaml::read_yaml(file)
-        } else {
-            warning(paste0('[ ', file, ' ] does not exist.'))
-            return(NULL)
-        }
+  # Read .yaml file.
+  if (is.null(content)) {
+    if (file.exists(file)) {
+      content <- yaml::read_yaml(file)
+    } else {
+      warning(paste0("[ ", file, " ] does not exist."))
+      return(NULL)
     }
+  }
 
   # Domain should be the top-level list key.
   domains <- names(content)
 
   # Create list to append metadata from each domain to.
-  domain_list <- vector('list', length(domains))
+  domain_list <- vector("list", length(domains))
 
   # Iterate over domains.
   for (domain in domains) {
     # Get data specification.
-    spec <- content[[ domain ]]
+    spec <- content[[domain]]
 
     # Get unique columns.
     col_keys <- spec %>%
-      unlist %>%
-      unique
+      unlist() %>%
+      unique()
 
     # Create table with one row per column key.
     spec_tbl <- tibble::tibble(
@@ -45,11 +45,11 @@ parse_data_spec <- function(
 
     # Iterate over column metadata, flagging each column against column metadata.
     for (metadatum in names(spec)) {
-      spec_tbl[[ metadatum ]] <- spec_tbl$col_key %in% spec[[ metadatum ]]
+      spec_tbl[[metadatum]] <- spec_tbl$col_key %in% spec[[metadatum]]
     }
 
     # Append domain metadata to domain list.
-    domain_list[[ domain ]] <- spec_tbl
+    domain_list[[domain]] <- spec_tbl
   }
 
   # De-structure domain list as data frame.

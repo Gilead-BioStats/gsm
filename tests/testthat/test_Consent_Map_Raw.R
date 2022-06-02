@@ -1,14 +1,14 @@
 source(testthat::test_path("testdata/data.R"))
 
 # output is created as expected -------------------------------------------
-test_that("output created as expected ",{
+test_that("output created as expected ", {
   data <- Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ))
   expect_true(is.data.frame(data))
-  expect_equal(names(data),c("SubjectID","SiteID","Count"))
+  expect_equal(names(data), c("SubjectID", "SiteID", "Count"))
 })
 
 # incorrect inputs throw errors -------------------------------------------
-test_that("incorrect inputs throw errors",{
+test_that("incorrect inputs throw errors", {
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = list(), dfSUBJ = list()), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = list()), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = list(), dfSUBJ = dfSUBJ), bQuiet = F))
@@ -29,36 +29,46 @@ test_that("incorrect inputs throw errors",{
 test_that("incorrect mappings throw errors", {
   expect_snapshot(Consent_Map_Raw(
     dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ),
-    lMapping = list(dfCONSENT = list(strIDCol = "not an id",
-                                      strTypeCol = "CONSENT_TYPE",
-                                      strValueCol = "CONSENT_VALUE",
-                                      strDateCol = "CONSENT_DATE"),
-                     dfSUBJ= list(strIDCol = "SubjectID",
-                                  strSiteCol = "SiteID",
-                                  strRandDateCol = "RandDate")),
+    lMapping = list(
+      dfCONSENT = list(
+        strIDCol = "not an id",
+        strTypeCol = "CONSENT_TYPE",
+        strValueCol = "CONSENT_VALUE",
+        strDateCol = "CONSENT_DATE"
+      ),
+      dfSUBJ = list(
+        strIDCol = "SubjectID",
+        strSiteCol = "SiteID",
+        strRandDateCol = "RandDate"
+      )
+    ),
     bQuiet = F
-    )
-  )
+  ))
 
   expect_snapshot(Consent_Map_Raw(
     dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ),
-    lMapping = list(dfCONSENT = list(strIDCol = "SubjectID",
-                                     strTypeCol = "CONSENT_TYPE",
-                                     strValueCol = "CONSENT_VALUE",
-                                     strDateCol = "CONSENT_DATE"),
-                    dfSUBJ= list(strIDCol = "not an id",
-                                 strSiteCol = "SiteID",
-                                 strRandDateCol = "RandDate")),
+    lMapping = list(
+      dfCONSENT = list(
+        strIDCol = "SubjectID",
+        strTypeCol = "CONSENT_TYPE",
+        strValueCol = "CONSENT_VALUE",
+        strDateCol = "CONSENT_DATE"
+      ),
+      dfSUBJ = list(
+        strIDCol = "not an id",
+        strSiteCol = "SiteID",
+        strRandDateCol = "RandDate"
+      )
+    ),
     bQuiet = F
-    )
-  )
+  ))
 })
 
 # custom tests ------------------------------------------------------------
-test_that("NA values in input data are handled",{
+test_that("NA values in input data are handled", {
   # NA SiteID and TimeOnTreatment.
   dfCONSENT1 <- tibble::tribble(
-    ~SubjectID, 1,1,1,1,2,2,4,4
+    ~SubjectID, 1, 1, 1, 1, 2, 2, 4, 4
   )
   dfExposure1 <- tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
@@ -74,7 +84,7 @@ test_that("NA values in input data are handled",{
 
   # NA SubjectID in Consent domain.
   dfCONSENT2 <- tibble::tribble(
-    ~SubjectID, 1,NA,1,1,2,2,4,4
+    ~SubjectID, 1, NA, 1, 1, 2, 2, 4, 4
   )
   dfExposure2 <- tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
@@ -90,7 +100,7 @@ test_that("NA values in input data are handled",{
 
   # NA SubjectID in SUBJ domain.
   dfCONSENT3 <- tibble::tribble(
-    ~SubjectID, 1,1,1,1,2,2,4,4
+    ~SubjectID, 1, 1, 1, 1, 2, 2, 4, 4
   )
   dfExposure3 <- tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
@@ -113,7 +123,7 @@ test_that("bQuiet works as intended", {
 
 test_that("bReturnChecks works as intended", {
   expect_true(
-    all(names(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c('df', 'lChecks'))
+    all(names(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c("df", "lChecks"))
   )
 })
 # dfCONSENT_test_NA1 <- tibble::tribble(~SubjectID, ~CONSENT_TYPE , ~CONSENT_VALUE, ~CONSENT_DATE,

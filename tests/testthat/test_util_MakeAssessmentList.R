@@ -5,5 +5,5 @@ test_that("output is created as expected", {
 
   expect_equal(names(assessment_list), c("ae", "consent", "ie", "importantpd", "pd", "sae"))
   expect_type(assessment_list, "list")
-  expect_true(all(map_lgl(assessment_list, ~all(names(.) %in% c("label", "tags", "workflow", "path", "name")))))
+  expect_true(all(map_lgl(assessment_list, ~ all(names(.) %in% c("label", "tags", "workflow", "path", "name")))))
 })

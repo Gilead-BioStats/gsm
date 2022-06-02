@@ -60,11 +60,11 @@ Please also use the following general guidance when creating a Pull Request:
 
 # Release Process
 
-Code release follows a process using `release` brances. A release is initiated when all feature development, QC, and qualification is done for a set of functionality. The primary objective of the Release Workflow is to conduct regression testing and finalize all QC documentation for a release. More details are provided in the detailed [step-by-step workflow](#release-branch-workflow) below.
+Code release follows a process using `release` branches. A release is initiated when all feature development, QC, and qualification is done for a set of functionality. The primary objective of the Release Workflow is to conduct regression testing and finalize all QC documentation for a release. More details are provided in the detailed [step-by-step workflow](#release-branch-workflow) below.
 
 # Style Guide
 
-We use the [tidyverse style guide](https://style.tidyverse.org/) with minor modifactions. The code below is run to standardize styling before before each release.
+We use the [tidyverse style guide](https://style.tidyverse.org/) with minor modifications. The code below is run to standardize styling before before each release.
 
 ```
 double_indent_style <- styler::tidyverse_style()

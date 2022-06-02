@@ -18,7 +18,7 @@
 #' - consent was not obtained
 #' - consent did not result in randomization
 #' - consent was obtained after randomization
-#' 
+#'
 #' Additional details regarding the data pipeline and statistical methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.

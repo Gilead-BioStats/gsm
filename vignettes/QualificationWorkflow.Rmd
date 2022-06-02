@@ -31,7 +31,7 @@ Each GSM assessment is independently qualified using **Specifications** and **Te
 
 Specifications should capture the most important the use cases for an assessment. One set of specifications will be created per assessment. Each assessment is likely to have several specifications, and each specification should have one or more associated test cases. 
 
-Each Specification should incude the following components: 
+Each Specification should include the following components: 
 - **Description** - describe the use case for the specification   
 - **Risk Assessment** - evaluation of risk for the the use case. Includes 2 components:
   - **Risk Severity** - risk severity can be 'low', 'medium', or 'high' and corresponds to the risk level that this specification would fail.

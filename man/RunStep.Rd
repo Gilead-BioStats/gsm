@@ -24,19 +24,19 @@ A list containing the results of the \code{lStep$name} function call should cont
 Calls a step in an assessment workflow. Currently supports \verb{*_Map_*}, \verb{*_Assess} and \verb{*_FilterDomain}
 }
 \examples{
-lStep <- MakeAssessmentList()[['ae']][['workflow']][[1]]
+lStep <- MakeAssessmentList()[["ae"]][["workflow"]][[1]]
 
 lMapping <- clindata::mapping_rawplus
 
 lData <- list(
-  dfSUBJ= clindata::rawplus_subj,
-  dfAE=clindata::rawplus_ae,
-  dfPD=clindata::rawplus_pd,
-  dfCONSENT=clindata::rawplus_consent,
-  dfIE=clindata::rawplus_ie
+  dfSUBJ = clindata::rawplus_subj,
+  dfAE = clindata::rawplus_ae,
+  dfPD = clindata::rawplus_pd,
+  dfCONSENT = clindata::rawplus_consent,
+  dfIE = clindata::rawplus_ie
 )
 
-lTags <- list(Study="myStudy")
+lTags <- list(Study = "myStudy")
 
 ae_step <- RunStep(lStep = lStep, lMapping = lMapping, lData = lData, lTags = lTags, bQuiet = FALSE)
 

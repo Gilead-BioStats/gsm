@@ -9,7 +9,7 @@ test_that("output is created as expected", {
 
 
 # incorrect inputs throw errors -------------------------------------------
-test_that("incorrect inputs throw errors",{
+test_that("incorrect inputs throw errors", {
   expect_snapshot_error(Disp_Map(list()))
   expect_snapshot_error(Disp_Map("Hi"))
   expect_snapshot_error(Disp_Map(dfDisp %>% select(-DCREASCD)))
@@ -23,32 +23,31 @@ test_that("incorrect inputs throw errors",{
 
 # custom tests ------------------------------------------------------------
 test_that("strReason = 'any' works as expected", {
-
   output <- Disp_Map(dfDisp,
-                     strCol = "DCREASCD",
-                     strReason = "any")
+    strCol = "DCREASCD",
+    strReason = "any"
+  )
 
   expect_equal(c("SubjectID", "SiteID", "DCREASCD", "Count"), names(output))
 
   expect_true(
     nrow(output %>%
-           group_by(SubjectID) %>%
-           filter(n()>1)) == 0
+      group_by(SubjectID) %>%
+      filter(n() > 1)) == 0
   )
 
   expect_equal(0, output %>%
-                filter(DCREASCD == "Completed") %>%
-                summarize(total = sum(Count)) %>%
-                pull(total))
-
+    filter(DCREASCD == "Completed") %>%
+    summarize(total = sum(Count)) %>%
+    pull(total))
 })
 
 
 test_that("strReason works when set to specific reason", {
-
   output <- Disp_Map(dfDisp,
-                     strCol = "DCREASCD",
-                     strReason = "adverse event")
+    strCol = "DCREASCD",
+    strReason = "adverse event"
+  )
 
   expect_equal(
     names(output),
@@ -57,33 +56,32 @@ test_that("strReason works when set to specific reason", {
 
   expect_true(
     nrow(output %>%
-           group_by(SubjectID) %>%
-           filter(n()>1)) == 0
+      group_by(SubjectID) %>%
+      filter(n() > 1)) == 0
   )
-
 })
 
 
 test_that("strReason can't also be in vReasonIgnore", {
-
   strReason <- "adverse event"
   vReasonIgnore <- "adverse event"
 
   expect_error(
     Disp_Map(dfDisp,
-           strCol = "DCREASCD",
-           strReason = strReason,
-           vReasonIgnore = vReasonIgnore)
+      strCol = "DCREASCD",
+      strReason = strReason,
+      vReasonIgnore = vReasonIgnore
+    )
   )
-
 })
 
 
-test_that("vReasonIgnore works as expected",{
-
-  ignoreAll <- c("Completed", "Adverse Event", "Sponsor Decision", "Death",
+test_that("vReasonIgnore works as expected", {
+  ignoreAll <- c(
+    "Completed", "Adverse Event", "Sponsor Decision", "Death",
     "Withdrew Consent", "Physician Decision", "Protocol Violation",
-    "Lost to Follow-up", "I/E Not Met", "Lack of Efficacy")
+    "Lost to Follow-up", "I/E Not Met", "Lack of Efficacy"
+  )
 
   ignoreNone <- ""
 
@@ -110,7 +108,4 @@ test_that("vReasonIgnore works as expected",{
       pull(Sum),
     0
   )
-
-
 })
-

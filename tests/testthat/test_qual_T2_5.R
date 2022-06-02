@@ -32,12 +32,14 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
         PValue < 0.0001 ~ -1,
         is.na(PValue) ~ NA_real_,
         is.nan(PValue) ~ NA_real_,
-        TRUE ~ 0),
+        TRUE ~ 0
+      ),
       median = median(Estimate),
       Flag = case_when(
         Flag != 0 & Estimate >= median ~ 1,
         Flag != 0 & Estimate < median ~ -1,
-        TRUE ~ Flag)
+        TRUE ~ Flag
+      )
     ) %>%
     select(-median) %>%
     arrange(match(Flag, c(1, -1, 0)))
@@ -51,16 +53,20 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
     arrange(desc(abs(Score))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t2_5 <- list("strFunctionName" = "PD_Assess()",
-               "lParams" = list("dfInput" = "dfInput",
-                                "strMethod" = "wilcoxon",
-                                "bChart" = "FALSE"),
-               "lTags" = list(Assessment = "PD"),
-               "dfInput" = t2_5_input,
-               "dfTransformed" = t2_5_transformed,
-               "dfAnalyzed" = t2_5_analyzed,
-               "dfFlagged" = t2_5_flagged,
-               "dfSummary" = t2_5_summary)
+  t2_5 <- list(
+    "strFunctionName" = "PD_Assess()",
+    "lParams" = list(
+      "dfInput" = "dfInput",
+      "strMethod" = "wilcoxon",
+      "bChart" = "FALSE"
+    ),
+    "lTags" = list(Assessment = "PD"),
+    "dfInput" = t2_5_input,
+    "dfTransformed" = t2_5_transformed,
+    "dfAnalyzed" = t2_5_analyzed,
+    "dfFlagged" = t2_5_flagged,
+    "dfSummary" = t2_5_summary
+  )
 
   # compare results
   expect_equal(test2_5, t2_5)

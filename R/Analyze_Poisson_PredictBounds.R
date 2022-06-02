@@ -76,7 +76,7 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
     )
 
   # {lamW} is required to run this code block.
-  if (requireNamespace('lamW', quietly = TRUE)) {
+  if (requireNamespace("lamW", quietly = TRUE)) {
     # Calculate boundaries around predicted event counts with Lambert-W function.
     dfBounds$PredictYLo <- dfBounds$vLo / (2 * lamW::lambertWm1(dfBounds$vWLo))
     dfBounds$PredictYHi <- dfBounds$vHi / (2 * lamW::lambertW0(dfBounds$vWHi))
@@ -92,7 +92,8 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
   return(
     dfBounds %>%
       select(
-        .data$LogExposure, MeanCount = .data$vMu, .data$LowerCount, .data$UpperCount
+        .data$LogExposure,
+        MeanCount = .data$vMu, .data$LowerCount, .data$UpperCount
       )
   )
 }

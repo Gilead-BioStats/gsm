@@ -23,41 +23,40 @@
 #'
 #' @export
 CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
+  if (!bQuiet) cli::cli_h2("Checking Input Data for {.fn {context}}")
 
-  if(!bQuiet) cli::cli_h2("Checking Input Data for {.fn {context}}")
+  spec <- yaml::read_yaml(system.file("specs", paste0(context, ".yaml"), package = "gsm"))
 
-    spec <- yaml::read_yaml(system.file('specs', paste0(context,'.yaml'), package = 'gsm'))
+  if (is.null(mapping)) mapping <- yaml::read_yaml(system.file("mappings", paste0(context, ".yaml"), package = "gsm"))
 
-    if(is.null(mapping)) mapping <- yaml::read_yaml(system.file('mappings', paste0(context,'.yaml'), package = 'gsm'))
+  checks <- map(names(spec), function(domain) {
+    domain_check <- list(
+      df = dfs[[domain]],
+      spec = spec[[domain]],
+      mapping = mapping[[domain]]
+    ) %>%
+      purrr::map(~ purrr::modify_if(.x, is.null, ~NA))
 
-    checks <- map(names(spec), function(domain){
+    check <- gsm::is_mapping_valid(
+      df = domain_check$df,
+      mapping = domain_check$mapping,
+      spec = domain_check$spec,
+      bQuiet = bQuiet
+    )
 
-      domain_check <- list(
-        df = dfs[[domain]],
-        spec = spec[[domain]],
-        mapping = mapping[[domain]]
-        ) %>%
-        purrr::map(~purrr::modify_if(.x, is.null, ~ NA))
-
-        check <- gsm::is_mapping_valid(df = domain_check$df,
-                                     mapping = domain_check$mapping,
-                                     spec = domain_check$spec,
-                                     bQuiet = bQuiet)
-
-      return(check)
-
-    }) %>%
-      purrr::set_names(nm = names(spec))
-
+    return(check)
+  }) %>%
+    purrr::set_names(nm = names(spec))
 
 
-    checks$status <- all(checks %>% purrr::map_lgl(~.x$status))
 
-    if(checks$status) {
-      if(!bQuiet) cli::cli_alert_success("No issues found for {.fn {context}}")
-    } else {
-      if(!bQuiet) cli::cli_alert_warning("Issues found for {.fn {context}}")
-    }
+  checks$status <- all(checks %>% purrr::map_lgl(~ .x$status))
 
-    return(checks)
+  if (checks$status) {
+    if (!bQuiet) cli::cli_alert_success("No issues found for {.fn {context}}")
+  } else {
+    if (!bQuiet) cli::cli_alert_warning("Issues found for {.fn {context}}")
+  }
+
+  return(checks)
 }
