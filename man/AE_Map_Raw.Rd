@@ -45,7 +45,7 @@ AEs by passing filtered AE data to \code{dfAE}.
 }
 \section{Data specification}{
 \tabular{lllll}{
-   domain \tab col_key \tab col_value \tab vRequired \tab vUniqueCols \cr
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
    dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
    dfSUBJ \tab strTimeOnTreatmentCol \tab TimeOnTreatment \tab TRUE \tab FALSE \cr
