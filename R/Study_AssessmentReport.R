@@ -85,7 +85,7 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
       check = case_when(.data$check == TRUE ~ 1,
                         .data$check == FALSE ~ 2,
                         is.na(.data$check) ~ 3),
-      notes = ifelse(check == 3, "Check not run.", .data$notes)
+      notes = ifelse(.data$check == 3, "Check not run.", .data$notes)
     )
 
   dfSummary <- allChecks %>%

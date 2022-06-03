@@ -36,3 +36,40 @@ test_that("Assessment correctly labeled as valid", {
   expect_true(sae$bStatus)
   expect_false(sae_inv$bStatus)
 })
+
+test_that("workflow with multiple FilterDomain steps is reported correctly", {
+
+
+  dfAE <- data.frame(
+    stringsAsFactors = FALSE,
+    SubjectID = c("1234", "1234", "5678", "5678"),
+    AE_SERIOUS = c("Yes", "Yes", "Yes", "Yes"),
+    AE_TE_FLAG = c(TRUE, TRUE, FALSE, TRUE),
+    AE_GRADE = c(1, 3, 1, 4)
+  )
+
+  dfSUBJ <- data.frame(
+    stringsAsFactors = FALSE,
+    SubjectID = c("1234", "5678", "9876"),
+    SiteID = c("X010X", "X102X", "X999X"),
+    TimeOnTreatment = c(3455, 1745, 1233),
+    TimeOnStudy = c(1234, 2345, 4567),
+    RandDate = c("2012-09-02", "2017-05-08", "2018-05-20")
+  )
+
+  lAssessments <- MakeAssessmentList()
+
+  lData <- list(
+    dfAE = dfAE,
+    dfSUBJ = dfSUBJ
+  )
+  lTags <- list(
+    Study = "myStudy"
+  )
+  lMapping <- clindata::mapping_rawplus
+
+
+  sae_assessment <- RunAssessment(lAssessments$sae, lData = lData, lMapping = lMapping, lTags = lTags)
+
+  expect_equal(names(sae_assessment$checks), c("FilterDomain", "FilterDomain", "AE_Map_Raw", "AE_Assess"))
+})
