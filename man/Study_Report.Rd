@@ -5,17 +5,17 @@
 \title{Study Report}
 \usage{
 Study_Report(
-  strAssessments,
+  lAssessments,
   lMeta = list(Project = "My Project"),
   strOutpath = NULL
 )
 }
 \arguments{
-\item{strAssessments}{character vector listing assessments}
+\item{lAssessments}{character vector listing assessments}
 
 \item{lMeta}{list of metadata related to study}
 
-\item{strOutpath}{path to safe the report}
+\item{strOutpath}{path to save the report}
 }
 \value{
 HTML report of study data.
