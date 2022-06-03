@@ -191,7 +191,7 @@ AssessmentReport$dfSummary %>%
 ## Issue List
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 AssessmentReport$dfAllChecks %>%
-      filter(check==F) %>% 
+      filter(check > 1) %>% 
   mutate(check = map(check, rank_chg),
          across(where(is.character), ~replace_na(., ""))) %>% 
   gt::gt() %>% 
