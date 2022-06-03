@@ -2,9 +2,9 @@
 #'
 #' Pulls needed study data and runs one or more assessments
 #'
-#' @param strAssessments character vector listing assessments
+#' @param lAssessments character vector listing assessments
 #' @param lMeta list of metadata related to study
-#' @param strOutpath path to safe the report
+#' @param strOutpath path to save the report
 #'
 #' @return HTML report of study data.
 #'
@@ -16,7 +16,7 @@
 #'
 #' @export
 
-Study_Report <- function(strAssessments, lMeta = list(Project = "My Project"), strOutpath = NULL) {
+Study_Report <- function(lAssessments, lMeta = list(Project = "My Project"), strOutpath = NULL) {
   if (is.null(strOutpath)) strOutpath <- paste0(getwd(), "/gsm_report.html")
   if (!hasName(lMeta, "Project")) lMeta$Project <- "My Project"
   projectTemplate <- system.file("report", "studySummary.rmd", package = "gsm")
@@ -24,7 +24,7 @@ Study_Report <- function(strAssessments, lMeta = list(Project = "My Project"), s
     projectTemplate,
     output_file = strOutpath,
     params = list(
-      assessments = strAssessments,
+      assessments = lAssessments,
       meta = lMeta
     ),
     envir = new.env(parent = globalenv()) ## eval in child of global env
