@@ -4,7 +4,7 @@
 #'
 #' @param lAssessments character vector listing assessments
 #' @param lMeta list of metadata related to study
-#' @param strOutpath path to safe the report
+#' @param strOutpath path to save the report
 #'
 #' @return HTML report of study data.
 #'
