@@ -20,73 +20,47 @@
 #' @export
 
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
-  allChecks <- names(lAssessments) %>%
-    map(function(assessment_name) {
-      assessment <- lAssessments[[assessment_name]]
-      assessment_checks <- names(assessment$checks) %>%
-        map(function(domain_name) {
-          domain <- assessment$checks[[domain_name]]
 
-          domain_check <- tibble(
-            assessment = assessment_name,
-            step = domain_name
-          )
+  allChecks <- map(names(lAssessments), function(assessment) {
 
-          domain_details <- names(domain)[names(domain) != "status"] %>%
-            map(function(test_name) {
-              check <- domain[[test_name]][["status"]]
-              details <- domain[[test_name]][["tests_if"]] %>%
-                bind_rows(.id = "names") %>%
-                mutate(status = ifelse(is.na(warning), NA_character_, warning)) %>%
-                select(-warning) %>%
-                t() %>%
-                as_tibble(.name_repair = "minimal") %>%
-                janitor::row_to_names(1)
+    workflow <- map_df(lAssessments[[assessment]][['workflow']], ~ bind_cols(step = .x[['name']], domain = .x[['inputs']])) %>%
+      mutate(
+        assessment = assessment,
+        index = as.character(row_number())
+        )
 
+    allChecks <- map(lAssessments[[assessment]][['checks']], function(step) {
+        domains <- names(step[names(step) != 'status'])
 
-              return(
-                bind_cols(
-                  tibble(
-                    assessment = assessment_name,
-                    step = domain_name,
-                    check = check,
-                    domain = test_name
-                  ),
-                  details
-                )
-              )
-            }) %>%
-            bind_rows() %>%
-            suppressMessages()
-
-          return(left_join(domain_check, domain_details, by = c("assessment", "step")))
+        map(domains, function(test) {
+          domain <- test
+          status <- step[[domain]][['status']]
+          step[[domain]][['tests_if']] %>%
+            bind_rows(.id = "names") %>%
+            mutate(status = ifelse(is.na(.data$warning), NA_character_, .data$warning)) %>%
+            select(-.data$warning) %>%
+            t() %>%
+            as_tibble(.name_repair = "minimal") %>%
+            janitor::row_to_names(1) %>%
+            mutate(domain = domain,
+                   status = status) %>%
+            select(.data$domain, everything())
         })
 
-      return(bind_rows(assessment_checks))
-    }) %>%
-    bind_rows()
+      }) %>%
+      bind_rows(.id = 'index')
 
-  workflow <- map(lAssessments, ~ .x %>% pluck("workflow")) %>%
-    map(function(workflow) {
-      step <- map(workflow, ~ .x %>% pluck("name")) %>%
-        enframe() %>%
-        unnest(cols = .data$value) %>%
-        rename("step" = .data$value)
+    left_join(workflow, allChecks, by = c("index", "domain"))
 
-      domain <- map(workflow, ~ .x %>% pluck("inputs")) %>%
-        enframe() %>%
-        unnest(cols = .data$value) %>%
-        rename("domain" = .data$value)
 
-      left_join(domain, step, by = "name") %>%
-        select(-.data$name)
-    }) %>%
-    bind_rows(.id = "assessment")
-
-  allChecks <- left_join(workflow, allChecks, by = c("assessment", "domain", "step"))
+  }) %>%
+    bind_rows() %>%
+    select(.data$assessment, .data$step, check = .data$status, .data$domain, everything(),-.data$index) %>%
+    suppressWarnings()
 
   found_data <- map(names(lAssessments), ~ lAssessments[[.x]][["lData"]]) %>%
     flatten() %>%
+    discard(~'logical' %in% class(.)) %>%
     names() %>%
     unique()
 
@@ -108,8 +82,10 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
         apply(allChecks[6:length(allChecks)], 1, function(x) paste(x[!is.na(x)], collapse = "<br>")),
         .data$notes
       ),
-      check = ifelse(is.na(.data$check), 3, .data$check),
-      notes = ifelse(check == 3, "Check not run.", .data$notes)
+      check = case_when(.data$check == TRUE ~ 1,
+                        .data$check == FALSE ~ 2,
+                        is.na(.data$check) ~ 3),
+      notes = ifelse(.data$check == 3, "Check not run.", .data$notes)
     )
 
   dfSummary <- allChecks %>%

@@ -43,3 +43,34 @@ test_that("bViewReport works", {
   view_true <- Study_AssessmentReport(lAssessments = lAssessments, bViewReport = TRUE)
   expect_true("gt_tbl" %in% class(view_true))
 })
+
+test_that("correct messages show when data is not found", {
+  ldata <- list(
+    dfAE = dfAE,
+    dfSUBJ = dfSUBJ
+  )
+
+  lAssessments <- Study_Assess(lData = ldata)
+
+  report <- Study_AssessmentReport(lAssessments)
+
+  expect_equal(
+    report$dfAllChecks %>% filter(domain == 'dfCONSENT') %>% pull(notes),
+    "Data not found for consent assessment"
+    )
+
+  expect_equal(
+    report$dfAllChecks %>% filter(domain == 'dfIE') %>% pull(notes),
+    "Data not found for ie assessment"
+  )
+
+  expect_equal(
+    report$dfAllChecks %>% filter(domain == 'dfPD' & step == 'FilterDomain') %>% pull(notes),
+    "Data not found for importantpd assessment"
+  )
+
+  expect_equal(
+    report$dfAllChecks %>% filter(assessment == 'pd' & domain == 'dfPD' & step == 'PD_Map_Raw') %>% pull(notes),
+    "Data not found for pd assessment"
+  )
+})

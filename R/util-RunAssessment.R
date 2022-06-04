@@ -54,7 +54,8 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
         bQuiet = bQuiet
       )
 
-      lAssessment$checks[[step$name]] <- result$lChecks
+      lAssessment$checks[[stepCount]] <- result$lChecks
+      names(lAssessment$checks)[[stepCount]] <- step$name
       lAssessment$bStatus <- result$lChecks$status
       if (result$lChecks$status) {
         cli::cli_alert_success("{.fn {step$name}} Successful")
@@ -75,6 +76,7 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
 
     stepCount <- stepCount + 1
   }
+
 
   return(lAssessment)
 }

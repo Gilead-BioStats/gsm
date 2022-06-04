@@ -68,11 +68,11 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
 
       # Calculate lower bound of expected event count given specified threshold.
       vLo = vThreshold[1]^2 - 2 * .data$vMu,
-      vWLo = vLo / (2 * exp(1) * .data$vMu),
+      vWLo = .data$vLo / (2 * exp(1) * .data$vMu),
 
       # Calculate upper bound of expected event count given specified threshold.
       vHi = vThreshold[2]^2 - 2 * .data$vMu,
-      vWHi = vHi / (2 * exp(1) * .data$vMu)
+      vWHi = .data$vHi / (2 * exp(1) * .data$vMu)
     )
 
   # {lamW} is required to run this code block.
