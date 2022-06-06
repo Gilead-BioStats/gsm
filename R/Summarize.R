@@ -45,9 +45,9 @@ Summarize <- function(dfFlagged, strScoreCol = "PValue", lTags = NULL) {
   }
 
   dfSummary <- dfFlagged %>%
-    rename(Score = strScoreCol) %>%
-    select(.data$SiteID, .data$N, .data$Score, .data$Flag) %>%
-    arrange(desc(abs(.data$Score))) %>%
+    select(.data$SiteID, .data$N, strScoreCol, .data$Flag) %>%
+    rename(KRI = strScoreCol) %>%
+    arrange(desc(abs(.data$KRI))) %>%
     arrange(match(.data$Flag, c(1, -1, 0))) %>%
     bind_cols(lTags)
 

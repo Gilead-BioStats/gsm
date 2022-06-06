@@ -73,7 +73,7 @@ Transform_EventCount <- function(dfInput, strCountCol, strExposureCol = NULL) {
         TotalCount = sum(.data[[strCountCol]]),
         TotalExposure = sum(.data[[strExposureCol]])
       ) %>%
-      mutate(Rate = .data$TotalCount / .data$TotalExposure)
+      mutate(KRI = .data$TotalCount / .data$TotalExposure)
   }
 
   return(dfTransformed)

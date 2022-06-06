@@ -124,7 +124,7 @@ AE_Assess <- function(
         )
       }
 
-      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed, "Rate", bQuiet = bQuiet)
+      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed, "KRI", bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Wilcoxon} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
       lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strColumn = "PValue", vThreshold = vThreshold, strValueColumn = "Estimate")

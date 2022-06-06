@@ -37,7 +37,7 @@
 #' @examples
 #' dfInput <- AE_Map_Raw()
 #' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
-#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, strOutcomeCol = "Rate")
+#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, strOutcomeCol = "KRI")
 #'
 #' @export
 

@@ -37,7 +37,7 @@
 Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns: SiteID, N, TotalExposure, TotalCount, Rate" = all(c("SiteID", "N", "TotalExposure", "TotalCount", "Rate") %in% names(dfTransformed)),
+    "One or more of these columns: SiteID, N, TotalExposure, TotalCount, KRI" = all(c("SiteID", "N", "TotalExposure", "TotalCount", "KRI") %in% names(dfTransformed)),
     "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]]))
   )
 
@@ -63,7 +63,7 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
       Residuals = .data$.resid,
       PredictedCount = .data$.fitted,
     ) %>%
-    select(.data$SiteID, .data$N, .data$TotalExposure, .data$TotalCount, .data$Rate, .data$Residuals, .data$PredictedCount) %>%
+    select(.data$SiteID, .data$N, .data$TotalExposure, .data$TotalCount, .data$KRI, .data$Residuals, .data$PredictedCount) %>%
     arrange(.data$Residuals)
 
   return(dfAnalyzed)
