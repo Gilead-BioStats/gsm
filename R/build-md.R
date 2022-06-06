@@ -2,9 +2,9 @@
 #'
 #' @param yaml_path path to adam mapping yaml
 #'
-#' @importFrom yaml read_yaml
-#' @importFrom stringr word
 #' @importFrom purrr map
+#' @importFrom stringr word
+#' @importFrom yaml read_yaml
 #'
 #' @noRd
 build_markdown <- function(yaml_path) {

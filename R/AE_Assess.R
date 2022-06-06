@@ -43,8 +43,8 @@
 #' ae_assessment_poisson <- AE_Assess(dfInput)
 #' ae_assessment_wilcoxon <- AE_Assess(dfInput, strMethod = "wilcoxon")
 #'
+#' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom purrr map map_dbl
-#' @importFrom cli cli_h2 cli_text cli_alert_success cli_alert_warning
 #'
 #' @export
 

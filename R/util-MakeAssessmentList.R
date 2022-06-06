@@ -10,11 +10,11 @@
 #' @examples
 #' MakeAssessmentList(path = "assessments", package = "gsm")
 #'
+#' @return `list` A list of assessments with workflow and parameter metadata.
+#'
 #' @importFrom purrr map_chr
 #' @importFrom utils hasName
 #' @importFrom yaml read_yaml
-#'
-#' @return `list` A list of assessments with workflow and parameter metadata.
 #'
 #' @export
 

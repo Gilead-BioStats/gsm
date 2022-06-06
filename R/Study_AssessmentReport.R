@@ -5,18 +5,18 @@
 #' @param lAssessments List of 1+ assessments like those created by `runAssessment()` or `Study_Assess()`
 #' @param bViewReport HTML table of dfSummary that can be viewed in most IDEs.
 #'
-#' @importFrom fontawesome fa
-#' @importFrom gt gt fmt_markdown
-#' @importFrom janitor row_to_names
-#' @importFrom purrr map map_df flatten pluck discard
-#' @importFrom tibble enframe
-#' @importFrom tidyr unnest
-#'
 #' @return `list` Returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks`)
 #'
 #' @examples
 #' assessment <- Study_Assess()
 #' report <- Study_AssessmentReport(lAssessments = assessment)
+#'
+#' @importFrom fontawesome fa
+#' @importFrom gt fmt_markdown gt
+#' @importFrom janitor row_to_names
+#' @importFrom purrr discard flatten map map_df pluck
+#' @importFrom tibble enframe
+#' @importFrom tidyr unnest
 #'
 #' @export
 

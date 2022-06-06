@@ -24,14 +24,6 @@
 #'   Default: `"SiteID"`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @import dplyr
-#' @importFrom stats wilcox.test as.formula
-#' @importFrom glue glue
-#' @importFrom purrr map
-#' @importFrom broom glance
-#' @importFrom tidyr unnest
-#' @importFrom cli cli_alert_info
-#'
 #' @return `data.frame` with one row per site, columns: SiteID, N, TotalCount, TotalExposure, Rate,
 #'   Estimate, PValue
 #'
@@ -39,6 +31,14 @@
 #' dfInput <- AE_Map_Raw()
 #' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
 #' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, strOutcomeCol = "Rate")
+#'
+#' @import dplyr
+#' @importFrom broom glance
+#' @importFrom cli cli_alert_info
+#' @importFrom glue glue
+#' @importFrom purrr map
+#' @importFrom stats as.formula wilcox.test
+#' @importFrom tidyr unnest
 #'
 #' @export
 

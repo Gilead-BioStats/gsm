@@ -18,7 +18,7 @@
 #'    - tests_if `list` - a named list containing status and warnings for all checks
 #'  - status `logical` - did all checked data pass the checks?
 #'
-#' @importFrom cli cli_h2 cli_alert_success cli_alert_warning
+#' @importFrom cli cli_alert_success cli_alert_warning cli_h2
 #' @importFrom purrr map map_lgl modify_if set_names
 #' @importFrom yaml read_yaml
 #'

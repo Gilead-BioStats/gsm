@@ -8,12 +8,6 @@
 #' - `spec$vNACols` - list of column parameters where NA and empty string values are acceptable.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @import dplyr
-#' @importFrom cli cli_alert_danger col_br_yellow
-#' @importFrom purrr map map_dbl map_lgl keep
-#' @importFrom stringr str_subset
-#' @importFrom tidyr pivot_longer
-#'
 #' @examples
 #' subj_mapping <- list(
 #'   strIDCol = "SubjectID",
@@ -41,6 +35,12 @@
 #'
 #' @return `list` A list is returned with `status` (`TRUE` or `FALSE`), and `tests_if`,
 #' a list containing checks and a `status` and `warning` (if check does not pass).
+#'
+#' @import dplyr
+#' @importFrom cli cli_alert_danger col_br_yellow
+#' @importFrom purrr keep map map_dbl map_lgl
+#' @importFrom stringr str_subset
+#' @importFrom tidyr pivot_longer
 #'
 #' @export
 

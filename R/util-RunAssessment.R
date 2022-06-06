@@ -28,7 +28,7 @@
 #'
 #' ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
 #'
-#' @importFrom cli cli_h1 cli_h2 cli_alert_success cli_alert_warning cli_text
+#' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom stringr str_detect
 #' @importFrom yaml read_yaml
 #'

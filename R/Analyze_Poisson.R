@@ -28,10 +28,10 @@
 #' dfAnalyzed <- Analyze_Poisson(dfTransformed)
 #'
 #' @import dplyr
-#' @importFrom glue glue
-#' @importFrom stats glm offset poisson pnorm
 #' @importFrom broom augment
 #' @importFrom cli cli_alert_info
+#' @importFrom glue glue
+#' @importFrom stats glm offset poisson pnorm
 #'
 #' @export
 

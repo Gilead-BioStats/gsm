@@ -15,9 +15,9 @@
 #' @return A list of assessments containing status information and results.
 #'
 #' @import dplyr
+#' @importFrom cli cli_alert_danger
 #' @importFrom purrr map
 #' @importFrom yaml read_yaml
-#' @importFrom cli cli_alert_danger
 #'
 #' @export
 
