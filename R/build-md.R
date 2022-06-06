@@ -2,6 +2,10 @@
 #'
 #' @param yaml_path path to adam mapping yaml
 #'
+#' @importFrom yaml read_yaml
+#' @importFrom stringr word
+#' @importFrom purrr map
+#'
 #' @noRd
 build_markdown <- function(yaml_path) {
   specs <- list.files(

@@ -5,6 +5,11 @@
 #' @param content `list` data mapping
 #' @param file `character` file path of .yaml file
 #'
+#' @importFrom purrr reduce
+#' @importFrom tibble enframe
+#' @importFrom tidyr unnest
+#' @importFrom yaml read_yaml
+#'
 #' @export
 
 parse_data_mapping <- function(

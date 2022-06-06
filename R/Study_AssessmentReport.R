@@ -5,11 +5,12 @@
 #' @param lAssessments List of 1+ assessments like those created by `runAssessment()` or `Study_Assess()`
 #' @param bViewReport HTML table of dfSummary that can be viewed in most IDEs.
 #'
-#' @importFrom gt gt fmt_markdown
 #' @importFrom fontawesome fa
+#' @importFrom gt gt fmt_markdown
+#' @importFrom janitor row_to_names
+#' @importFrom purrr map map_df flatten pluck discard
 #' @importFrom tibble enframe
 #' @importFrom tidyr unnest
-#' @importFrom purrr map flatten pluck
 #'
 #' @return `list` Returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks`)
 #'

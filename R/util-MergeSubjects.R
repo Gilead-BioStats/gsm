@@ -8,8 +8,6 @@
 #'
 #' @return data set with one record per IDCol
 #'
-#' @importFrom dplyr left_join
-#' @importFrom tidyr replace_na
 #'
 #' @examples
 #' MergeSubjects(
@@ -17,6 +15,10 @@
 #'   dfSubjects = clindata::rawplus_subj,
 #'   strIDCol = "SubjectID"
 #' )
+#'
+#' @importFrom cli cli_alert_warning cli_alert_info
+#' @importFrom dplyr left_join
+#' @importFrom tidyr replace_na
 #'
 #' @export
 

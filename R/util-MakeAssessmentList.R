@@ -10,6 +10,7 @@
 #' @examples
 #' MakeAssessmentList(path = "assessments", package = "gsm")
 #'
+#' @importFrom purrr map_chr
 #' @importFrom utils hasName
 #' @importFrom yaml read_yaml
 #'

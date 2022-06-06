@@ -12,11 +12,12 @@
 #' @examples
 #' results <- Study_Assess() # run using defaults
 #'
+#' @return A list of assessments containing status information and results.
+#'
 #' @import dplyr
 #' @importFrom purrr map
 #' @importFrom yaml read_yaml
-#'
-#' @return A list of assessments containing status information and results.
+#' @importFrom cli cli_alert_danger
 #'
 #' @export
 

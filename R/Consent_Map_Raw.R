@@ -25,14 +25,15 @@
 #'
 #' @includeRmd ./man/md/Consent_Map_Raw.md
 #'
-#' @import dplyr
-#'
 #' @examples
 #' # Run with defaults
 #' dfInput <- Consent_Map_Raw()
 #'
 #' # Run with error checking and message log
 #' dfInput <- Consent_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
+#'
+#' @import dplyr
+#' @importFrom cli cli_h2 cli_alert_success cli_alert_warning
 #'
 #' @export
 

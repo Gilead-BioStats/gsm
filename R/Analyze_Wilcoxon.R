@@ -30,6 +30,7 @@
 #' @importFrom purrr map
 #' @importFrom broom glance
 #' @importFrom tidyr unnest
+#' @importFrom cli cli_alert_info
 #'
 #' @return `data.frame` with one row per site, columns: SiteID, N, TotalCount, TotalExposure, Rate,
 #'   Estimate, PValue
@@ -65,7 +66,7 @@ Analyze_Wilcoxon <- function(
   )
 
   wilcoxon_model <- function(predictorValue) {
-    form <- as.formula(
+    form <- stats::as.formula(
       paste0(
         strOutcomeCol,
         " ~ as.character(",
