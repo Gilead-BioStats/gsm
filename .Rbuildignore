@@ -4,6 +4,7 @@
 ^codecov\.yml$
 ^doc$
 ^Meta$
+^vignettes/articles$
 ^vignettes/qualification\.Rmd$
 ^vignettes/qualification\.log$
 ^_pkgdown\.yml$
