@@ -2,6 +2,7 @@ label: Treatment-Emergent Adverse Events
 tags:
   Assessment: Safety
   Label: AEs
+  KRILabel: AEs/Site per Week
 workflow:
   - name: FilterDomain
     inputs: dfAE
@@ -11,7 +12,7 @@ workflow:
       strColParam: strTreatmentEmergentCol
       strValParam: strTreatmentEmergentVal
   - name: AE_Map_Raw
-    inputs: 
+    inputs:
       - dfAE
       - dfSUBJ
     output: dfInput

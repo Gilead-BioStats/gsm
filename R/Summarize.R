@@ -43,6 +43,8 @@ Summarize <- function(dfFlagged, strScoreCol = "Score", lTags = NULL) {
       "lTags is not named" = (!is.null(names(lTags))),
       "lTags has unnamed elements" = all(names(lTags) != "")
     )
+
+    lTags$KRILabel <- NULL
   }
 
   dfSummary <- dfFlagged %>%
