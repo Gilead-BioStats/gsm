@@ -5,6 +5,9 @@
 #'
 #' @param status boolean status
 #'
+#' @importFrom fontawesome fa
+#' @importFrom gt gt
+#'
 #' @export
 
 rank_chg <- function(status) {

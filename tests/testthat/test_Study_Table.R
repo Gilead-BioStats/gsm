@@ -1,6 +1,6 @@
 results <- Study_Assess(bQuiet = TRUE) %>%
   purrr::map(~ .x$lResults) %>%
-  compact() %>%
+  purrr::compact() %>%
   purrr::map_df(~ .x$dfSummary) %>%
   suppressMessages()
 

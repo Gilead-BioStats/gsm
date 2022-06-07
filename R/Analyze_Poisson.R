@@ -20,17 +20,18 @@
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @import dplyr
-#' @importFrom glue glue
-#' @importFrom stats glm offset poisson pnorm
-#' @importFrom broom augment
-#'
 #' @return input data.frame with columns added for "Residuals" and "PredictedCount"
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
 #' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
 #' dfAnalyzed <- Analyze_Poisson(dfTransformed)
+#'
+#' @import dplyr
+#' @importFrom broom augment
+#' @importFrom cli cli_alert_info
+#' @importFrom glue glue
+#' @importFrom stats glm offset poisson pnorm
 #'
 #' @export
 

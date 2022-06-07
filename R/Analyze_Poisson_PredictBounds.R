@@ -25,8 +25,6 @@
 #' the thresholds used AE_Assess().
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @importFrom stats glm offset poisson
-#'
 #' @return data frame containing predicted boundary values with upper and lower bounds across the
 #' range of observed values
 #'
@@ -35,7 +33,7 @@
 #' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
 #' dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5, 5))
 #'
-#' @importFrom stats qchisq
+#' @importFrom stats glm offset poisson qchisq
 #'
 #' @export
 

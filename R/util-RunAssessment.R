@@ -9,10 +9,6 @@
 #' @param lTags `list` A named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @importFrom yaml read_yaml
-#' @import cli
-#' @import stringr
-#'
 #' @return `list` Returns `lAssessment` with `label`, `tags`, `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
 #' @examples
@@ -31,6 +27,10 @@
 #'
 #'
 #' ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
+#'
+#' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
+#' @importFrom stringr str_detect
+#' @importFrom yaml read_yaml
 #'
 #' @export
 

@@ -10,6 +10,8 @@
 #' @param out_path `character` file path of .md file
 #' @param header `character` section header
 #'
+#' @importFrom knitr kable
+#'
 #' @export
 
 generate_md_table <- function(
