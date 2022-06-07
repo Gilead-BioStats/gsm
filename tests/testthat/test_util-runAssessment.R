@@ -3,10 +3,10 @@ sae_meta <- yaml::read_yaml(system.file("assessments/sae.yaml", package = "gsm")
 rawDataMap <- clindata::mapping_rawplus
 
 dfAE <- dfAE %>%
-  expand(dfAE, ae_serious = dfAE$AE_SERIOUS)
+  tidyr::expand(dfAE, ae_serious = dfAE$AE_SERIOUS)
 
 dfAE <- dfAE %>%
-  expand(dfAE, ae_te_flag = dfAE$AE_TE_FLAG) %>%
+  tidyr::expand(dfAE, ae_te_flag = dfAE$AE_TE_FLAG) %>%
   select(-c(AE_SERIOUS, AE_TE_FLAG)) %>%
   rename(
     AE_SERIOUS = ae_serious,

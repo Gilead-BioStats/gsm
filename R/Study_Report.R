@@ -14,6 +14,8 @@
 #' Study_Report(assessment, lMeta = list(study = "my study name"))
 #' }
 #'
+#' @importFrom rmarkdown render
+#'
 #' @export
 
 Study_Report <- function(lAssessments, lMeta = list(Project = "My Project"), strOutpath = NULL) {

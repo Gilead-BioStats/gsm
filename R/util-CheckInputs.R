@@ -5,9 +5,6 @@
 #' @param mapping `list` YAML mapping for a given context.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @import purrr
-#' @importFrom yaml read_yaml
-#'
 #' @examples
 #' checks <- CheckInputs(
 #'   context = "AE_Assess",
@@ -20,6 +17,10 @@
 #'    - status `logical` - did the data.frame pass the checks?
 #'    - tests_if `list` - a named list containing status and warnings for all checks
 #'  - status `logical` - did all checked data pass the checks?
+#'
+#' @importFrom cli cli_alert_success cli_alert_warning cli_h2
+#' @importFrom purrr map map_lgl modify_if set_names
+#' @importFrom yaml read_yaml
 #'
 #' @export
 CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {

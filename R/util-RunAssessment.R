@@ -9,10 +9,6 @@
 #' @param lTags `list` A named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @importFrom yaml read_yaml
-#' @import cli
-#' @import stringr
-#'
 #' @return `list` Returns `lAssessment` with `label`, `tags`, `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
 #' @examples
@@ -32,6 +28,10 @@
 #'
 #' ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
 #'
+#' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
+#' @importFrom stringr str_detect
+#' @importFrom yaml read_yaml
+#'
 #' @export
 
 RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = FALSE) {
@@ -41,42 +41,46 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
   lAssessment$lChecks <- list()
   lAssessment$bStatus <- TRUE
 
-  # Run through each step in lAssessment$workflow
-  stepCount <- 1
-  for (step in lAssessment$workflow) {
-    if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lAssessment$workflow), ": `", step$name, "`"))
-    if (lAssessment$bStatus) {
-      result <- gsm::RunStep(
-        lStep = step,
-        lMapping = lMapping,
-        lData = lAssessment$lData,
-        lTags = c(lTags, lAssessment$tags),
-        bQuiet = bQuiet
-      )
+  if(exists("workflow", where = lAssessment)) {
+    # Run through each step in lAssessment$workflow
+    stepCount <- 1
+    for (step in lAssessment$workflow) {
+      if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lAssessment$workflow), ": `", step$name, "`"))
+      if (lAssessment$bStatus) {
+        result <- gsm::RunStep(
+          lStep = step,
+          lMapping = lMapping,
+          lData = lAssessment$lData,
+          lTags = c(lTags, lAssessment$tags),
+          bQuiet = bQuiet
+        )
 
-      lAssessment$checks[[stepCount]] <- result$lChecks
-      names(lAssessment$checks)[[stepCount]] <- step$name
-      lAssessment$bStatus <- result$lChecks$status
-      if (result$lChecks$status) {
-        cli::cli_alert_success("{.fn {step$name}} Successful")
+        lAssessment$checks[[stepCount]] <- result$lChecks
+        names(lAssessment$checks)[[stepCount]] <- step$name
+        lAssessment$bStatus <- result$lChecks$status
+        if (result$lChecks$status) {
+          cli::cli_alert_success("{.fn {step$name}} Successful")
+        } else {
+          cli::cli_alert_warning("{.fn {step$name}} Failed - Skipping remaining steps")
+        }
+
+        if (stringr::str_detect(step$output, "^df")) {
+          cli::cli_text("Saving {step$output} to `lAssessment$lData`")
+          lAssessment$lData[[step$output]] <- result$df
+        } else {
+          cli::cli_text("Saving {step$output} to `lAssessment`")
+          lAssessment[[step$output]] <- result
+        }
       } else {
-        cli::cli_alert_warning("{.fn {step$name}} Failed - Skipping remaining steps")
+        cli::cli_text("Skipping {.fn {step$name}} ...")
       }
 
-      if (stringr::str_detect(step$output, "^df")) {
-        cli::cli_text("Saving {step$output} to `lAssessment$lData`")
-        lAssessment$lData[[step$output]] <- result$df
-      } else {
-        cli::cli_text("Saving {step$output} to `lAssessment`")
-        lAssessment[[step$output]] <- result
-      }
-    } else {
-      cli::cli_text("Skipping {.fn {step$name}} ...")
+      stepCount <- stepCount + 1
     }
-
-    stepCount <- stepCount + 1
+  } else {
+    cli::cli_alert_warning("Workflow not found for {lAssessment$name} assessment - Skipping remaining steps")
+    lAssessment$bStatus <- FALSE
   }
-
 
   return(lAssessment)
 }

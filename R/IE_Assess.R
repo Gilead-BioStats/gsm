@@ -38,6 +38,10 @@
 #' dfInput <- IE_Map_Raw()
 #' ie_assessment <- IE_Assess(dfInput)
 #'
+#' @import dplyr
+#' @importFrom cli cli_alert_info cli_alert_success cli_alert_warning cli_h2 cli_text
+#' @importFrom purrr map map_dbl
+#'
 #' @export
 
 IE_Assess <- function(

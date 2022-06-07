@@ -73,7 +73,7 @@ Additional details regarding the data pipeline and statistical methods are descr
 }
 \section{Data specification}{
 \tabular{lllll}{
-   domain \tab col_key \tab col_value \tab vRequired \tab vUniqueCols \cr
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
    dfInput \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
    dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr

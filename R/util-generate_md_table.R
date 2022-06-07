@@ -10,6 +10,8 @@
 #' @param out_path `character` file path of .md file
 #' @param header `character` section header
 #'
+#' @importFrom knitr kable
+#'
 #' @export
 
 generate_md_table <- function(
@@ -89,7 +91,19 @@ generate_md_table <- function(
   # Reformat data frame as HTML table.
   knitr.kable.NA <- options(knitr.kable.NA = "")
   on.exit(knitr.kable.NA)
-  md <- knitr::kable(table, format = "markdown") %>%
+  col_name_dict = c(
+    domain = "Domain",
+    col_key = "Column Key",
+    col_value = "Default Value",
+    vRequired = "Required?",
+    vUniqueCols = "Require Unique Values?",
+    vNACols = "Accept NA/Empty Values?"
+  )
+  col_name_dict_bold <- paste0("**", col_name_dict, "**")
+  names(col_name_dict_bold) <- names(col_name_dict) # paste won't keep names
+  md <- knitr::kable(table,
+                     format = "markdown",
+                     col.names = col_name_dict_bold[names(table)]) %>%
     paste(collapse = "\n")
 
   # Append markdown header to HTML table.
