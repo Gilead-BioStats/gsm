@@ -378,3 +378,23 @@
       v `AE_Assess()` Successful
       Saving lResults to `lAssessment`
 
+# incorrect lTags throw errors
+
+    lTags is not named
+
+---
+
+    lTags is not named
+
+---
+
+    lTags has unnamed elements
+
+---
+
+    lTags cannot contain elements named: 'Assessment', 'Label'
+
+---
+
+    lTags cannot contain elements named: 'Assessment', 'Label'
+
