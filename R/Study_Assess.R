@@ -28,6 +28,18 @@ Study_Assess <- function(
   lTags = list(Study = "myStudy"),
   bQuiet = FALSE
 ) {
+  if (!is.null(lTags)) {
+    stopifnot(
+      "lTags is not named" = (!is.null(names(lTags))),
+      "lTags has unnamed elements" = all(names(lTags) != ""),
+      "lTags cannot contain elements named: 'Assessment', 'Label'" = !names(lTags) %in% c("Assessment", "Label")
+    )
+
+    if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {
+      lTags <- purrr::map(lTags, ~ paste(.x, collapse = ", "))
+    }
+  }
+
   #### --- load defaults --- ###
   # lData from clindata
   if (is.null(lData)) {
