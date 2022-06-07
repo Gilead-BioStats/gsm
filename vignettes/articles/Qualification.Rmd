@@ -75,7 +75,6 @@ for (a in assessments){
     select(-Assessment)
   create_assessment_section(a, a_df)
 }
-print(here::here())
 ```
 
 # Unit Tests
