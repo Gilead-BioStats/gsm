@@ -10,7 +10,6 @@
 #' @param out_path `character` file path of .md file
 #' @param header `character` section header
 #'
-#' @importFrom dplyr right_join
 #' @importFrom knitr kable
 #'
 #' @export

@@ -5,7 +5,6 @@
 #' @param content `list` data specification
 #' @param file `character` file path of .yaml file
 #'
-#' @importFrom dplyr bind_rows
 #' @importFrom purrr reduce
 #' @importFrom tibble tibble
 #' @importFrom yaml read_yaml
