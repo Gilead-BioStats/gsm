@@ -22,6 +22,7 @@
 #' @param strOutcomeCol `character` Column name of outcome in `dfTransformed` to analyze.
 #' @param strPredictorCol `character` Column name of predictor in `dfTransformed` to analyze.
 #'   Default: `"SiteID"`
+#' @param strScoreLabel Optional. `character` vector to describe the `Score` column. Default: `Residual`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` with one row per site, columns: SiteID, N, TotalCount, TotalExposure, Rate,
@@ -46,6 +47,7 @@ Analyze_Wilcoxon <- function(
   dfTransformed,
   strOutcomeCol = NULL,
   strPredictorCol = "SiteID",
+  strScoreLabel = "PValue",
   bQuiet = TRUE
 ) {
   stopifnot(
@@ -126,6 +128,9 @@ Analyze_Wilcoxon <- function(
 
   return(
     dfAnalyzed %>%
-      select(names(dfTransformed), .data$Estimate, .data$PValue)
+      select(names(dfTransformed), .data$Estimate, Score = .data$PValue) %>%
+      mutate(
+        ScoreLabel = ifelse(is.null(strScoreLabel), NA_character_, strScoreLabel)
+          )
   )
 }

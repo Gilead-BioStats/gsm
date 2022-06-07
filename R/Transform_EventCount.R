@@ -27,6 +27,7 @@
 #' @param dfInput A data.frame with one record per person.
 #' @param strCountCol Required. Numerical or logical. Column to be counted.
 #' @param strExposureCol Optional. Numerical `Exposure` column.
+#' @param strKRILabel Optional. Character vector to describe the `KRI` column.
 #'
 #' @return data.frame with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 #'
@@ -38,7 +39,7 @@
 #'
 #' @export
 
-Transform_EventCount <- function(dfInput, strCountCol, strExposureCol = NULL) {
+Transform_EventCount <- function(dfInput, strCountCol, strExposureCol = NULL, strKRILabel = NULL) {
   stopifnot(
     "dfInput is not a data frame" = is.data.frame(dfInput),
     "strCountCol not found in input data" = strCountCol %in% names(dfInput),
@@ -58,13 +59,24 @@ Transform_EventCount <- function(dfInput, strCountCol, strExposureCol = NULL) {
     }
   }
 
+  if(!is.null(strKRILabel)) {
+
+    stopifnot(
+      "strKRILabel must be length 1" = length(strKRILabel) <= 1
+    )
+
+    if(strKRILabel %in% names(dfInput))
+      stop(paste0("strKRILabel cannot be named with the following names: ", paste(names(dfInput), collapse = ", ")))
+  }
+
   if (is.null(strExposureCol)) {
     dfTransformed <- dfInput %>%
       group_by(.data$SiteID) %>%
       summarise(
         N = n(),
         TotalCount = sum(.data[[strCountCol]]),
-      )
+      ) %>%
+      mutate(KRI = TotalCount)
   } else {
     dfTransformed <- dfInput %>%
       group_by(.data$SiteID) %>%
@@ -73,7 +85,12 @@ Transform_EventCount <- function(dfInput, strCountCol, strExposureCol = NULL) {
         TotalCount = sum(.data[[strCountCol]]),
         TotalExposure = sum(.data[[strExposureCol]])
       ) %>%
-      mutate(KRI = .data$TotalCount / .data$TotalExposure)
+      mutate(KRI = .data$TotalCount / .data$TotalExposure,
+             KRILabel = strKRILabel)
+  }
+
+  if(!'KRILabel' %in% names(dfTransformed)) {
+    dfTransformed$KRILabel <- NA_character_
   }
 
   return(dfTransformed)

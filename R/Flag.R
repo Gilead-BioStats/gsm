@@ -32,12 +32,12 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
-#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, "Rate")
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Site Per Week")
+#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, "KRI")
 #' dfFlagged <- Flag(dfAnalyzed) # PValue < 0.05 flagged
 #' dfFlagged10 <- Flag(dfAnalyzed, vThreshold = c(0.10, NA)) # PValue <0.10 flagged
 #' # Flag direction set based on 'Statistic' column
-#' dfFlagged <- Flag(dfAnalyzed, strColumn = "PValue", strValueColumn = "Estimate")
+#' dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
 #'
 #' @import dplyr
 #' @importFrom stats median
@@ -46,7 +46,7 @@
 
 Flag <- function(
   dfAnalyzed,
-  strColumn = "PValue",
+  strColumn = "Score",
   vThreshold = c(0.05, NA),
   strValueColumn = NULL
 ) {

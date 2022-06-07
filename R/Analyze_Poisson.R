@@ -18,6 +18,7 @@
 #' - `Rate` - Rate of exposure (TotalCount / TotalExposure)
 #'
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
+#' @param strScoreLabel Optional. `character` vector to describe the `Score` column. Default: `Residuals`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return input data.frame with columns added for "Residuals" and "PredictedCount"
@@ -35,7 +36,7 @@
 #'
 #' @export
 
-Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
+Analyze_Poisson <- function(dfTransformed, strScoreLabel = "Residuals", bQuiet = TRUE) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
     "One or more of these columns: SiteID, N, TotalExposure, TotalCount, KRI" = all(c("SiteID", "N", "TotalExposure", "TotalCount", "KRI") %in% names(dfTransformed)),
@@ -61,11 +62,24 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
 
   dfAnalyzed <- broom::augment(cModel, dfModel, type.predict = "response") %>%
     rename(
-      Residuals = .data$.resid,
+      Score = .data$.resid,
       PredictedCount = .data$.fitted,
     ) %>%
-    select(.data$SiteID, .data$N, .data$TotalExposure, .data$TotalCount, .data$KRI, .data$Residuals, .data$PredictedCount) %>%
-    arrange(.data$Residuals)
+    mutate(
+      ScoreLabel = ifelse(is.null(strScoreLabel), NA_character_, strScoreLabel)
+    ) %>%
+    select(
+      .data$SiteID,
+      .data$N,
+      .data$TotalExposure,
+      .data$TotalCount,
+      .data$KRI,
+      .data$KRILabel,
+      .data$Score,
+      .data$ScoreLabel,
+      .data$PredictedCount
+      ) %>%
+    arrange(.data$Score)
 
   return(dfAnalyzed)
 }
