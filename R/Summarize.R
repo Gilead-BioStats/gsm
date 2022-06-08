@@ -50,7 +50,7 @@ Summarize <- function(dfFlagged, strScoreCol = "Score", lTags = NULL) {
       .data$SiteID,
       .data$N, .data$KRI,
       .data$KRILabel,
-      strScoreCol,
+      .data$Score,
       .data$ScoreLabel,
       .data$Flag
       ) %>%
