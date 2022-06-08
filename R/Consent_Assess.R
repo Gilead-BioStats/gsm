@@ -103,7 +103,7 @@ Consent_Assess <- function(
 
     lAssess$dfAnalyzed <- lAssess$dfTransformed %>%
       dplyr::mutate(Score = .data$TotalCount,
-                    ScoreLabel = ifelse(is.null(strScoreLabel), NA_character_, strScoreLabel))
+                    ScoreLabel = "Total Number of Consent Issues")
     if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed} with added {.var ScoreLabel} column.")
 
     lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = c(NA, nThreshold))
