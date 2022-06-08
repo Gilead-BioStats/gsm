@@ -50,7 +50,7 @@ AEs by passing filtered AE data to \code{dfADAE}.
    dfADSL \tab strSiteCol \tab SITEID \tab TRUE \tab FALSE \cr
    dfADSL \tab strStartCol \tab TRTSDT \tab TRUE \tab FALSE \cr
    dfADSL \tab strEndCol \tab TRTEDT \tab TRUE \tab FALSE \cr
-   dfADAE \tab strIDCol \tab USUBJID \tab TRUE \tab  \cr
+   dfADAE \tab strIDCol \tab USUBJID \tab TRUE \tab FALSE \cr
 }
 }
 
