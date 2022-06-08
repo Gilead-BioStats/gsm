@@ -66,8 +66,8 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
     select(
       .data$SiteID,
       .data$N,
-      .data$TotalExposure,
       .data$TotalCount,
+      .data$TotalExposure,
       .data$KRI,
       .data$KRILabel,
       Score = .data$.resid,

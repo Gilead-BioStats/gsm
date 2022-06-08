@@ -26,7 +26,7 @@
 #'
 #' @examples
 #' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "Adverse Event")
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count")
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strKRILabel = "Discontinuation Reasons/Week")
 #' dfAnalyzed <- Analyze_Fisher(dfTransformed)
 #'
 #' @import dplyr

@@ -52,7 +52,7 @@ The input data (\code{ dfTransformed}) for the Analyze_Poisson is typically crea
 
 \examples{
 dfInput <- AE_Map_Adam()
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
 dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5, 5))
 
 }

@@ -76,7 +76,7 @@ Transform_EventCount <- function(dfInput, strCountCol, strExposureCol = NULL, st
         N = n(),
         TotalCount = sum(.data[[strCountCol]]),
       ) %>%
-      mutate(KRI = TotalCount)
+      mutate(KRI = .data$TotalCount)
   } else {
     dfTransformed <- dfInput %>%
       group_by(.data$SiteID) %>%

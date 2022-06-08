@@ -14,7 +14,7 @@
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment="IE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
-#' @param strScoreLabel Optional. `character` vector to describe the `Score` column. Default: `Total Event Count`
+#' @param strKRILabel `character` Describe the `KRI` column, a vector of length 1 that defaults to `Total Event Count`
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
@@ -58,7 +58,8 @@ IE_Assess <- function(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput" = all(c("SubjectID", "SiteID", "Count") %in% names(dfInput)),
     "nThreshold must be numeric" = is.numeric(nThreshold),
-    "nThreshold must be length 1" = length(nThreshold) == 1
+    "nThreshold must be length 1" = length(nThreshold) == 1,
+    "strKRILabel must be length 1" = length(strKRILabel) == 1
   )
 
   if (!is.null(lTags)) {

@@ -22,8 +22,8 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
-#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, "KRI")
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
 #' dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
 #' dfSummary <- Summarize(dfFlagged)
 #'
@@ -48,7 +48,8 @@ Summarize <- function(dfFlagged, strScoreCol = "Score", lTags = NULL) {
   dfSummary <- dfFlagged %>%
     select(
       .data$SiteID,
-      .data$N, .data$KRI,
+      .data$N,
+      .data$KRI,
       .data$KRILabel,
       .data$Score,
       .data$ScoreLabel,
@@ -56,7 +57,7 @@ Summarize <- function(dfFlagged, strScoreCol = "Score", lTags = NULL) {
       ) %>%
     arrange(desc(abs(.data$KRI))) %>%
     arrange(match(.data$Flag, c(1, -1, 0))) %>%
-    bind_cols(lTags[!names(lTags) %in% names(.)])
+    bind_cols(lTags[!names(lTags) %in% names(.data)])
 
   return(dfSummary)
 }

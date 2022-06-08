@@ -41,6 +41,7 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot_error(PD_Assess(pdInput %>% select(-Count)))
   expect_snapshot_error(PD_Assess(pdInput %>% select(-Exposure)))
   expect_snapshot_error(PD_Assess(pdInput %>% select(-Rate)))
+  expect_error(PD_Assess(pdInput, strKRILabel = c("label 1", "label 2")))
 })
 
 # incorrect lTags throw errors --------------------------------------------
@@ -76,10 +77,10 @@ test_that("NA in dfInput$Count results in Error for PD_Assess", {
 })
 
 test_that("dfAnalyzed has appropriate model output regardless of statistical method", {
-  assPoisson <- PD_Assess(pdInput, strMethod = "poisson")
-  expect_true(all(c("Residuals", "PredictedCount") %in% names(assPoisson$dfAnalyzed)))
-  assWilcoxon <- PD_Assess(pdInput, strMethod = "wilcoxon")
-  expect_true(all(c("Estimate", "PValue") %in% names(assWilcoxon$dfAnalyzed)))
+  assessmentPoisson <- PD_Assess(pdInput, strMethod = "poisson")
+  expect_true(all(c("KRI", "KRILabel", "Score", "ScoreLabel") %in% names(assessmentPoisson$dfAnalyzed)))
+  assessmentWilcoxon <- PD_Assess(pdInput, strMethod = "wilcoxon")
+  expect_true(all(c("KRI", "KRILabel", "Score", "ScoreLabel") %in% names(assessmentWilcoxon$dfAnalyzed)))
 })
 
 test_that("bQuiet works as intended", {
@@ -92,4 +93,9 @@ test_that("bReturnChecks works as intended", {
   expect_true(
     "lChecks" %in% names(PD_Assess(pdInput, bReturnChecks = TRUE))
   )
+})
+
+test_that("strKRILabel works as intended", {
+  pd <- PD_Assess(pdInput, strKRILabel = "my test label")
+  expect_equal(unique(pd$dfSummary$KRILabel), "my test label")
 })

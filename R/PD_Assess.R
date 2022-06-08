@@ -13,6 +13,7 @@
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to `c(-5, 5)` for `strMethod` = "poisson" and `c(.0001, NA)` for `strMethod` = "wilcoxon".
 #' @param strMethod `character` Statistical model. Valid values include "poisson" (default) and  "wilcoxon".
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment="PD")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
+#' @param strKRILabel `character` Describe the `KRI` column, a vector of length 1 that defaults to `PDs/Week`
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
@@ -58,7 +59,8 @@ PD_Assess <- function(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson", "wilcoxon"),
     "strMethod must be length 1" = length(strMethod) == 1,
-    "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput" = all(c("SubjectID", "SiteID", "Count", "Exposure", "Rate") %in% names(dfInput))
+    "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput" = all(c("SubjectID", "SiteID", "Count", "Exposure", "Rate") %in% names(dfInput)),
+    "strKRILabel must be length 1" = length(strKRILabel) == 1
   )
 
   if (!is.null(lTags)) {

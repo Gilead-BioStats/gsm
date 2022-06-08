@@ -36,6 +36,7 @@ test_that("incorrect inputs throw errors", {
   expect_error(IE_Assess(ieInput %>% select(-SubjectID)))
   expect_error(IE_Assess(ieInput %>% select(-SiteID)))
   expect_error(IE_Assess(ieInput %>% select(-Count)))
+  expect_error(IE_Assess(ieInput, strKRILabel = c("label 1", "label 2")))
 })
 
 # incorrect lTags throw errors --------------------------------------------
@@ -53,7 +54,7 @@ test_that("incorrect lTags throw errors", {
 # custom tests ------------------------------------------------------------
 test_that("dfAnalyzed has appropriate model output regardless of statistical method", {
   assessment <- IE_Assess(ieInput)
-  expect_true(hasName(assessment$dfAnalyzed, "Estimate"))
+  expect_equal(unique(assessment$dfAnalyzed$ScoreLabel), "Total Number of Inclusion/Exclusion Issues")
 })
 
 test_that("bQuiet works as intended", {
@@ -66,4 +67,9 @@ test_that("bReturnChecks works as intended", {
   expect_true(
     "lChecks" %in% names(IE_Assess(ieInput, bReturnChecks = TRUE))
   )
+})
+
+test_that("strKRILabel works as intended", {
+  ie <- IE_Assess(ieInput, strKRILabel = "my test label")
+  expect_equal(unique(ie$dfSummary$KRILabel), "my test label")
 })

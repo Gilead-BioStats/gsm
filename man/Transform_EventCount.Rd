@@ -4,7 +4,7 @@
 \alias{Transform_EventCount}
 \title{Transform Event Count}
 \usage{
-Transform_EventCount(dfInput, strCountCol, strExposureCol = NULL)
+Transform_EventCount(dfInput, strCountCol, strExposureCol = NULL, strKRILabel)
 }
 \arguments{
 \item{dfInput}{A data.frame with one record per person.}
@@ -12,6 +12,8 @@ Transform_EventCount(dfInput, strCountCol, strExposureCol = NULL)
 \item{strCountCol}{Required. Numerical or logical. Column to be counted.}
 
 \item{strExposureCol}{Optional. Numerical \code{Exposure} column.}
+
+\item{strKRILabel}{Optional. Character vector to describe the \code{KRI} column.}
 }
 \value{
 data.frame with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
@@ -47,6 +49,6 @@ For data with an optional strExposureCol, a summed exposure is calculated for ea
 
 \examples{
 dfInput <- AE_Map_Adam()
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
 
 }

@@ -8,6 +8,7 @@ PD_Assess(
   dfInput,
   vThreshold = NULL,
   strMethod = "poisson",
+  strKRILabel = "PDs/Week",
   lTags = list(Assessment = "PD"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -20,6 +21,8 @@ PD_Assess(
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to \code{c(-5, 5)} for \code{strMethod} = "poisson" and \code{c(.0001, NA)} for \code{strMethod} = "wilcoxon".}
 
 \item{strMethod}{\code{character} Statistical model. Valid values include "poisson" (default) and  "wilcoxon".}
+
+\item{strKRILabel}{\code{character} Describe the \code{KRI} column, a vector of length 1 that defaults to \code{PDs/Week}}
 
 \item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment="PD")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
 

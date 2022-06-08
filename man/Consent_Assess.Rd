@@ -8,6 +8,7 @@ Consent_Assess(
   dfInput,
   nThreshold = 0.5,
   lTags = list(Assessment = "Consent"),
+  strKRILabel = "Total Number of Consent Issues",
   bChart = TRUE,
   bReturnChecks = FALSE,
   bQuiet = TRUE
@@ -19,6 +20,8 @@ Consent_Assess(
 \item{nThreshold}{\code{numeric} Threshold specification. Default: \code{0.5}}
 
 \item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment="IE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
+
+\item{strKRILabel}{\code{character} Describe the \code{KRI} column, a vector of length 1 that defaults to \verb{Total Number of Consent Issues}}
 
 \item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
 

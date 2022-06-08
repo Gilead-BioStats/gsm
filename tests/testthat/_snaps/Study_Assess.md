@@ -167,7 +167,7 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
-      i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed`
+      i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
       v `Visualize_Count()` created a chart.
@@ -208,7 +208,7 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
-      i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed`
+      i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
       v `Visualize_Count()` created a chart.
