@@ -48,6 +48,7 @@ PD_Assess <- function(
   dfInput,
   vThreshold = NULL,
   strMethod = "poisson",
+  strKRILabel = "PDs/Week",
   lTags = list(Assessment = "PD"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -89,7 +90,7 @@ PD_Assess <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn PD_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
 
-    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = strKRILabel)
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     if (strMethod == "poisson") {

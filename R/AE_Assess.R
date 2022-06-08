@@ -52,6 +52,7 @@ AE_Assess <- function(
   dfInput,
   vThreshold = NULL,
   strMethod = "poisson",
+  strKRILabel = "AEs/Week",
   lTags = list(Assessment = "AE"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -74,12 +75,6 @@ AE_Assess <- function(
     if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {
       lTags <- purrr::map(lTags, ~ paste(.x, collapse = ", "))
     }
-
-    if("KRILabel" %in% names(lTags)) {
-      kri_label <- lTags$KRILabel
-    } else {
-      kri_label <- NA_character_
-    }
   }
 
   lAssess <- list(
@@ -99,7 +94,7 @@ AE_Assess <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
 
-    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = kri_label)
+    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = strKRILabel)
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     if (strMethod == "poisson") {

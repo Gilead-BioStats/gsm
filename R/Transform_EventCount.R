@@ -33,13 +33,13 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
 #'
 #' @import dplyr
 #'
 #' @export
 
-Transform_EventCount <- function(dfInput, strCountCol, strExposureCol = NULL, strKRILabel = NULL) {
+Transform_EventCount <- function(dfInput, strCountCol, strExposureCol = NULL, strKRILabel) {
   stopifnot(
     "dfInput is not a data frame" = is.data.frame(dfInput),
     "strCountCol not found in input data" = strCountCol %in% names(dfInput),
@@ -85,13 +85,10 @@ Transform_EventCount <- function(dfInput, strCountCol, strExposureCol = NULL, st
         TotalCount = sum(.data[[strCountCol]]),
         TotalExposure = sum(.data[[strExposureCol]])
       ) %>%
-      mutate(KRI = .data$TotalCount / .data$TotalExposure,
-             KRILabel = strKRILabel)
+      mutate(KRI = .data$TotalCount / .data$TotalExposure)
   }
 
-  if(!'KRILabel' %in% names(dfTransformed)) {
-    dfTransformed$KRILabel <- NA_character_
-  }
+  dfTransformed$KRILabel <- strKRILabel
 
   return(dfTransformed)
 }

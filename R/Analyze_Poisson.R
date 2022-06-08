@@ -18,14 +18,13 @@
 #' - `Rate` - Rate of exposure (TotalCount / TotalExposure)
 #'
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
-#' @param strScoreLabel Optional. `character` value describing the `Score` column. Default: `Residuals`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return input data.frame with columns added for "Residuals" and "PredictedCount"
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
 #' dfAnalyzed <- Analyze_Poisson(dfTransformed)
 #'
 #' @import dplyr
@@ -36,7 +35,7 @@
 #'
 #' @export
 
-Analyze_Poisson <- function(dfTransformed, strScoreLabel = "Residuals", bQuiet = TRUE) {
+Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
     "One or more of these columns not found: SiteID, N, TotalExposure, TotalCount, KRI" = all(c("SiteID", "N", "TotalExposure", "TotalCount", "KRI") %in% names(dfTransformed)),
@@ -61,12 +60,8 @@ Analyze_Poisson <- function(dfTransformed, strScoreLabel = "Residuals", bQuiet =
   )
 
   dfAnalyzed <- broom::augment(cModel, dfModel, type.predict = "response") %>%
-    rename(
-      Score = .data$.resid,
-      PredictedCount = .data$.fitted,
-    ) %>%
     mutate(
-      ScoreLabel = ifelse(is.null(strScoreLabel), NA_character_, strScoreLabel)
+      ScoreLabel = "Residuals"
     ) %>%
     select(
       .data$SiteID,
@@ -75,9 +70,9 @@ Analyze_Poisson <- function(dfTransformed, strScoreLabel = "Residuals", bQuiet =
       .data$TotalCount,
       .data$KRI,
       .data$KRILabel,
-      .data$Score,
+      Score = .data$.resid,
       .data$ScoreLabel,
-      .data$PredictedCount
+      PredictedCount = .data$.fitted
       ) %>%
     arrange(.data$Score)
 

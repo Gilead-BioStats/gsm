@@ -30,8 +30,8 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
-#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, strOutcomeCol = "KRI")
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
 #'
 #' @import dplyr
 #' @importFrom broom glance
@@ -45,9 +45,8 @@
 
 Analyze_Wilcoxon <- function(
   dfTransformed,
-  strOutcomeCol = NULL,
+  strOutcomeCol = "KRI",
   strPredictorCol = "SiteID",
-  strScoreLabel = "PValue",
   bQuiet = TRUE
 ) {
   stopifnot(
@@ -130,7 +129,7 @@ Analyze_Wilcoxon <- function(
     dfAnalyzed %>%
       select(names(dfTransformed), .data$Estimate, Score = .data$PValue) %>%
       mutate(
-        ScoreLabel = ifelse(is.null(strScoreLabel), NA_character_, strScoreLabel)
+        ScoreLabel = "Residuals"
           )
   )
 }

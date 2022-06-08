@@ -49,7 +49,7 @@ IE_Assess <- function(
   dfInput,
   nThreshold = 0.5,
   lTags = list(Assessment = "IE"),
-  strScoreLabel = "Total Event Count",
+  strKRILabel = "Total Event Count",
   bChart = TRUE,
   bReturnChecks = FALSE,
   bQuiet = TRUE
@@ -89,12 +89,14 @@ IE_Assess <- function(
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn IE_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
-    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count")
+    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strKRILabel = strKRILabel)
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     lAssess$dfAnalyzed <- lAssess$dfTransformed %>%
-      dplyr::mutate(Score = .data$TotalCount,
-                    ScoreLabel = ifelse(is.null(strScoreLabel), NA_character_, strScoreLabel))
+      Analyze_Identity(
+        strValueCol = "Total Count",
+        strLabelCol = "Total Number of Inclusion/Exclusion Issues"
+      )
     if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed} with added {.var ScoreLabel} column.")
 
     lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = c(NA, nThreshold))

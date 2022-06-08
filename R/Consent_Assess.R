@@ -24,7 +24,6 @@
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment="IE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
-#' @param strScoreLabel Optional. `character` value describing the `Score` column. Default: `Total Event Count`
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
@@ -58,7 +57,7 @@ Consent_Assess <- function(
   dfInput,
   nThreshold = 0.5,
   lTags = list(Assessment = "Consent"),
-  strScoreLabel = "Total Event Count",
+  strKRILabel = "Total Number of Consent Issues",
   bChart = TRUE,
   bReturnChecks = FALSE,
   bQuiet = TRUE
@@ -98,12 +97,15 @@ Consent_Assess <- function(
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn Consent_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
-    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", KRILabel = "Total Number of Consent Issues")
+    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strKRILabel = strKRILabel)
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     lAssess$dfAnalyzed <- lAssess$dfTransformed %>%
-      dplyr::mutate(Score = .data$TotalCount,
-                    ScoreLabel = "Total Number of Consent Issues")
+      Analyze_Identity(
+        strValueCol = "Total Count",
+        strLabelCol = "Total Number of Consent Issues"
+        )
+
     if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed} with added {.var ScoreLabel} column.")
 
     lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = c(NA, nThreshold))
