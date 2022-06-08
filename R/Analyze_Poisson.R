@@ -18,7 +18,7 @@
 #' - `Rate` - Rate of exposure (TotalCount / TotalExposure)
 #'
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
-#' @param strScoreLabel Optional. `character` vector to describe the `Score` column. Default: `Residuals`
+#' @param strScoreLabel Optional. `character` value describing the `Score` column. Default: `Residuals`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return input data.frame with columns added for "Residuals" and "PredictedCount"
