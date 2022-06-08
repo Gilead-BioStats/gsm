@@ -1,4 +1,3 @@
-label: Treatment-Emergent Serious Adverse Events by SOC
 tags:
   Assessment: Safety
   Label: AEs Serious
@@ -27,3 +26,4 @@ workflow:
     output: lResults
     params:
       strMethod: "poisson"
+      strKRILabel: "Serious Treatment-Emergent AEs/Week"

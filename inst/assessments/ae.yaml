@@ -1,8 +1,6 @@
-label: Treatment-Emergent Adverse Events
 tags:
   Assessment: Safety
   Label: AEs
-  KRILabel: AEs/Site per Week
 workflow:
   - name: FilterDomain
     inputs: dfAE
@@ -21,3 +19,4 @@ workflow:
     output: lResults
     params:
       strMethod: "poisson"
+      strKRILabel: "Treatment-Emergent AEs/Week"

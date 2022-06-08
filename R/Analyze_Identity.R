@@ -10,8 +10,8 @@
 #'
 #' @export
 
-Analyze_Identity <- function(dfTransformed, strValueCol = 'KRI', strLabelCol="KRIColumn"){
+Analyze_Identity <- function(dfTransformed, strValueCol = 'KRI', strLabelCol = "KRIColumn"){
   dfTransformed %>%
-    mutate(Score = strValueCol,
+    mutate(Score = .data$KRI,
            ScoreLabel = strLabelCol)
 }
