@@ -96,7 +96,8 @@ IE_Assess <- function(
     lAssess$dfAnalyzed <- lAssess$dfTransformed %>%
       Analyze_Identity(
         strValueCol = "Total Count",
-        strLabelCol = "Total Number of Inclusion/Exclusion Issues"
+        strLabelCol = "Total Number of Inclusion/Exclusion Issues",
+        bQuiet = bQuiet
       )
     if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed} with added {.var ScoreLabel} column.")
 

@@ -5,13 +5,14 @@
 #' @param dfTransformed `data.frame` created by `Transform_EventCount()`
 #' @param strValueCol `character` Name of column that will be copied as `Score`
 #' @param strLabelCol `character` Name of column that will be copied as `ScoreLabel`
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` that adds two columns to `dfTransformed`: `Score` and `ScoreLabel`
 #'
 #' @export
 
-Analyze_Identity <- function(dfTransformed, strValueCol = 'KRI', strLabelCol = "KRIColumn"){
+Analyze_Identity <- function(dfTransformed, strValueCol = 'KRI', strLabelCol = "KRIColumn", bQuiet = TRUE){
   dfTransformed %>%
-    mutate(Score = .data[strValueCol],
-           ScoreLabel = .data[strLabelCol])
+    mutate(Score = .data[[strValueCol]],
+           ScoreLabel = .data[[strLabelCol]])
 }
