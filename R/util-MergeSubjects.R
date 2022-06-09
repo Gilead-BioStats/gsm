@@ -22,7 +22,7 @@
 #' @export
 
 MergeSubjects <- function(dfDomain, dfSubjects, strIDCol = "SubjectID", vFillZero = NULL, bQuiet = TRUE) {
-  cli_alert_info("Intializing merge of domain and subject data")
+  if (!bQuiet) cli_alert_info("Intializing merge of domain and subject data")
   is_domain_valid <- gsm::is_mapping_valid(
     df = dfDomain,
     mapping = list("strIDCol" = strIDCol),
