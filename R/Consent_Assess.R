@@ -103,11 +103,7 @@ Consent_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     lAssess$dfAnalyzed <- lAssess$dfTransformed %>%
-      Analyze_Identity(
-        strValueCol = "Total Count",
-        strLabelCol = "Total Number of Consent Issues",
-        bQuiet = bQuiet
-        )
+      Analyze_Identity(bQuiet = bQuiet)
 
     if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed} with added {.var ScoreLabel} column.")
 

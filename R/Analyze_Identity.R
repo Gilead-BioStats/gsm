@@ -11,8 +11,21 @@
 #'
 #' @export
 
-Analyze_Identity <- function(dfTransformed, strValueCol = 'KRI', strLabelCol = "KRIColumn", bQuiet = TRUE){
-  dfTransformed %>%
+Analyze_Identity <- function(dfTransformed, strValueCol = 'KRI', strLabelCol = "KRILabel", bQuiet = TRUE){
+
+  stopifnot(
+    "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
+    "strValueCol and/or strLabelCol not found in dfTransformed" = all(c(strValueCol, strLabelCol) %in% names(dfTransformed)),
+    "strValueCol must be length 1" = length(strValueCol) == 1,
+    "strLabelCol must be length 1" = length(strLabelCol) == 1
+  )
+
+  dfAnalyzed <- dfTransformed %>%
     mutate(Score = .data[[strValueCol]],
            ScoreLabel = .data[[strLabelCol]])
+
+  if(!bQuiet) cli::cli_text(paste0("{.var Score} column created from `", strValueCol, "`."))
+  if(!bQuiet) cli::cli_text(paste0("{.var ScoreLabel} column created from `", strLabelCol, "`."))
+
+  return(dfAnalyzed)
 }
