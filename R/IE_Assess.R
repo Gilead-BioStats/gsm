@@ -49,7 +49,7 @@ IE_Assess <- function(
   dfInput,
   nThreshold = 0.5,
   lTags = list(Assessment = "IE"),
-  strKRILabel = "Total Event Count",
+  strKRILabel = "# of Inclusion/Exclusion Issues",
   bChart = TRUE,
   bReturnChecks = FALSE,
   bQuiet = TRUE
