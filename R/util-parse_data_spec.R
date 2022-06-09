@@ -58,8 +58,11 @@ parse_data_spec <- function(
 
   # De-structure domain list as data frame.
   spec <- domain_list %>%
-    dplyr::bind_rows() %>%
-    dplyr::mutate_if(is.logical, ~ dplyr::coalesce(., FALSE))
+    dplyr::bind_rows()
+  # Handle row binding produced NAs:
+  # will only affect v* logical columns
+  # (domain, col_key) are always complete
+  spec[is.na(spec)] <- FALSE
 
   spec
 }
