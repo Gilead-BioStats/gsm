@@ -1,0 +1,22 @@
+dfSUBJ:
+  strIDCol: "SubjectID"
+  strSiteCol: "SiteID"
+  strTimeOnTreatmentCol: "TimeOnTreatment"
+  strTimeOnStudyCol: "TimeOnStudy"
+  strRandFlagCol: "RandFlag"
+  strRandDateCol: "RandDate"
+  strStudyCompletionFlagCol: "StudCompletion"
+  strStudyDiscontinuationReasonCol: "StudDCReason"
+  strTreatmentCompletionFlagCol: "TrtCompletion"
+  strTreatmentDiscontinuationReasonCol: "TrtDCReason"
+dfIE:
+  strIDCol: "SubjectID"
+  strCategoryCol: "IE_CATEGORY"
+  strValueCol: "IE_VALUE"
+  strVersionCol: "IE_PROTOCOLVERSION"
+  vCategoryValues:
+    - "EXCL"
+    - "INCL"
+  vExpectedResultValues:
+    - 0
+    - 1

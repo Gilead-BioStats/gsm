@@ -39,7 +39,10 @@ RunStep <- function(lStep, lMapping, lData, lTags, bQuiet) {
 
   # prepare parameter list inputs
   cli::cli_text("Preparing parameters for  {.fn {lStep$name}} ...")
-  params <- c(lStep$params, list(bQuiet = bQuiet, bReturnChecks = TRUE))
+
+  params <- lStep$params
+  params$bQuiet <- bQuiet
+  params$bReturnChecks <- TRUE
 
   # prepare data inputs by function type
   if (stringr::str_detect(lStep$name, "_Map")) {

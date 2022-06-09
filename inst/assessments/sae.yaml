@@ -10,6 +10,8 @@ workflow:
       strDomain: dfAE
       strColParam: strTreatmentEmergentCol
       strValParam: strTreatmentEmergentVal
+      bReturnChecks: false
+      bQuiet: true
   - name: FilterDomain
     inputs: dfAE
     output: dfAE
@@ -17,13 +19,25 @@ workflow:
       strDomain: dfAE
       strColParam: strSeriousCol
       strValParam: strSeriousVal
+      bReturnChecks: false
+      bQuiet: true
   - name: AE_Map_Raw
     inputs:
       - dfAE
       - dfSUBJ
     output: dfInput
+    params:
+      lMapping: null
+      bReturnChecks: false
+      bQuiet: true
   - name: AE_Assess
     inputs: dfInput
     output: lResults
     params:
+      vThreshold: null
       strMethod: "poisson"
+      lTags:
+        Assessment: "AE"
+      bChart: true
+      bReturnChecks: false
+      bQuiet: true

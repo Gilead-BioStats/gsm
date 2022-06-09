@@ -1,0 +1,16 @@
+dfSUBJ:
+  strIDCol: "SubjectID"
+  strSiteCol: "SiteID"
+  strTimeOnTreatmentCol: "TimeOnTreatment"
+  strTimeOnStudyCol: "TimeOnStudy"
+  strRandFlagCol: "RandFlag"
+  strRandDateCol: "RandDate"
+  strStudyCompletionFlagCol: "StudCompletion"
+  strStudyDiscontinuationReasonCol: "StudDCReason"
+  strTreatmentCompletionFlagCol: "TrtCompletion"
+  strTreatmentDiscontinuationReasonCol: "TrtDCReason"
+dfPD:
+  strIDCol: "SubjectID"
+  strCategoryCol: "PD_CATEGORY"
+  strImportantCol: "PD_IMPORTANT_FLAG"
+  strImportantVal: "Y"
