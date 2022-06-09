@@ -14,7 +14,7 @@
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment="IE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
-#' @param strKRILabel `character` Describe the `KRI` column, a vector of length 1 that defaults to `Total Event Count`
+#' @param strKRILabel `character` Describe the `KRI` column, a vector of length 1 that defaults to `# of Inclusion/Exclusion Issues`
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
