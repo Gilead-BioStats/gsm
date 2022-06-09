@@ -12,6 +12,6 @@
 
 Analyze_Identity <- function(dfTransformed, strValueCol = 'KRI', strLabelCol = "KRIColumn"){
   dfTransformed %>%
-    mutate(Score = .data$KRI,
-           ScoreLabel = strLabelCol)
+    mutate(Score = .data[strValueCol],
+           ScoreLabel = .data[strLabelCol])
 }
