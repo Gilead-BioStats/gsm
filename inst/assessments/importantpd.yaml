@@ -10,25 +10,14 @@ workflow:
       strDomain: dfPD
       strColParam: strImportantCol
       strValParam: strImportantVal
-      bReturnChecks: false
-      bQuiet: true
   - name: PD_Map_Raw
     inputs:
       - dfPD
       - dfSUBJ
     output: dfInput
-    params:
-      lMapping: null
-      bReturnChecks: false
-      bQuiet: true
   - name: PD_Assess
     inputs: dfInput
     output: lResults
     params:
       vThreshold: null
       strMethod: "poisson"
-      lTags:
-        Assessment: "PD"
-      bChart: true
-      bReturnChecks: false
-      bQuiet: true

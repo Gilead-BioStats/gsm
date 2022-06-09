@@ -8,17 +8,8 @@ workflow:
       - dfIE
       - dfSUBJ
     output: dfInput
-    params:
-      lMapping: null
-      bReturnChecks: false
-      bQuiet: true
   - name: IE_Assess
     inputs: dfInput
     output: lResults
     params:
       nThreshold: 0.5
-      lTags:
-        Assessment: "IE"
-      bChart: true
-      bReturnChecks: false
-      bQuiet: true

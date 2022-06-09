@@ -32,7 +32,7 @@ test_that("metadata is returned as expected", {
     name = "FilterDomain", inputs = "dfAE", output = "dfAE",
     params = list(
       strDomain = "dfAE", strColParam = "strTreatmentEmergentCol",
-      strValParam = "strTreatmentEmergentVal", bReturnChecks = FALSE, bQuiet = TRUE
+      strValParam = "strTreatmentEmergentVal"
     )
   ))
   expect_equal(ae$name, "ae")

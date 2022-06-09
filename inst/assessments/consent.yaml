@@ -8,17 +8,8 @@ workflow:
       - dfCONSENT
       - dfSUBJ
     output: dfInput
-    params:
-      lMapping: null
-      bReturnChecks: false
-      bQuiet: true
   - name: Consent_Assess
     inputs: dfInput
     output: lResults
     params:
       nThreshold: 0.5
-      lTags:
-        Assessment: "Consent"
-      bChart: true
-      bReturnChecks: false
-      bQuiet: true
