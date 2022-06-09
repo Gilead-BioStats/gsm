@@ -63,6 +63,57 @@ Study_Assess <- function(
     lAssessments <- MakeAssessmentList()
   }
 
+  # Convert grouped assessments into separate assessments for each group level
+  # TODO - move this to a new utility function
+    lAssessments <- lAssessments %>% map(function(lAssessment){
+      # check for a group property
+      if(exists('group',where = 'lAssessment')){
+        # Throw a warning and return null if domain/column doesn't exist in lData
+        stopifnot(
+          !exists('domian', where=lAssessment$group),
+          !exists('columnParam', where=lAssessment$group),
+        )
+        groupDomain <- lAssessment$group$domain
+        groupColumnParam <- lAssessment$group$columnParam
+
+        stopifnot(!exists(groupColumnParam, where=lMapping))
+        groupColumn <- lMapping[[GroupDomain]][[GroupColumnParam]]
+
+        stopifnot(
+          !exists(groupDomain, where=lData)
+          !exists(groupColumn, where=lData[[groupDomain]])
+        )
+
+        # get unique levels of the group column
+        groupValues <- unique(lData[[groupDomain]][[groupColumn]])
+        stopifnot(length(groupValues >= 1))
+
+        # add filter to create separate (ungrouped) assessment for each group
+        lGroupAssessments <- groupValues %>% map(function(groupValue){ 
+          thisAssessment <- lAssessment
+          thisAssessment$Tags$Group <- paste0(GroupDomain,"$",GroupColumn, "=",GroupValues)
+          # TODO: Consider updating Filter Domain to support this use case. Current version requires strValueParam, which isn't included for group columns right now. 
+          lGroupFilter <- list(
+            name="makeStrata", # add a simple little makeStrata function? 
+            inputs= groupDomain,
+            output= groupDomain,
+            params=list(
+              col=groupCol,
+              val=groupVal
+            )
+          )
+          thisAssessment$workflow <- c(lGroupFilter, lAssessment$workflow)
+          return(thisAssessment)
+        })
+        return(lGroupAssessments)  
+      }else{
+        return(lAssessment)
+      }
+      
+      
+
+    })
+
   # Filter data$dfSUBJ based on lSubjFilters --------------------------------
   if (!is.null(lSubjFilters)) {
     for (colMapping in names(lSubjFilters)) {
@@ -86,7 +137,13 @@ Study_Assess <- function(
     if (nrow(lData$dfSUBJ > 0)) {
       ### --- Attempt to run each assessment --- ###
       lAssessments <- lAssessments %>% map(
-        ~ gsm::RunAssessment(.x, lData = lData, lMapping = lMapping, lTags = lTags, bQuiet = bQuiet)
+        ~ gsm::RunAssessment(
+          .x, 
+          lData = lData, 
+          lMapping = lMapping, 
+          lTags = lTags, 
+          bQuiet = bQuiet
+        )
       )
     } else {
       cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
