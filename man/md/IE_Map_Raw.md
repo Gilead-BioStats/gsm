@@ -4,6 +4,6 @@
 |:----------|:--------------|:-----------------|:-------------|:--------------------------|
 |dfSUBJ     |strIDCol       |SubjectID         |TRUE          |TRUE                       |
 |dfSUBJ     |strSiteCol     |SiteID            |TRUE          |FALSE                      |
-|dfIE       |strIDCol       |SubjectID         |TRUE          |                           |
-|dfIE       |strCategoryCol |IE_CATEGORY       |TRUE          |                           |
-|dfIE       |strValueCol    |IE_VALUE          |TRUE          |                           |
+|dfIE       |strIDCol       |SubjectID         |TRUE          |FALSE                      |
+|dfIE       |strCategoryCol |IE_CATEGORY       |TRUE          |FALSE                      |
+|dfIE       |strValueCol    |IE_VALUE          |TRUE          |FALSE                      |
