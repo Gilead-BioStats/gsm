@@ -16,13 +16,13 @@ knitr::opts_chunk$set(
 ```
 # Intro
 
-The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This vignette provides an overview of the {gsm} data model. First, we provide an overview of standardized data pipeline used to calculate KRIs and evaluate thresholds to set site-level flags. We also discuss workflows and reports that allow users to run multiple KRIs concurrently on a study.
+The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This vignette provides an overview of the {gsm} data model. First, we provide an overview of the standardized data pipeline used to calculate KRIs and evaluate thresholds to set site-level flags. We also discuss workflows and reports that allow users to run multiple KRIs concurrently on a study.
 
 # KRI Data Pipeline
 
 <img width="862" alt="image" src="https://user-images.githubusercontent.com/3680095/169086356-e31ab9a5-c709-46cf-9bd9-68b7bdbba72b.png">
 
-In the context of clinical research a KRI, is a measure of risk associated with the conduct of a clinical trial. Examples of KRIs include the rate of adverse events or amount of missing data at a site or across sites. Defining and deploying KRIs during study start-up allows sponsors to continually monitor risks to the integrity of the trial and take corrective actions accordingly.
+In the context of clinical research, a KRI is a measure of risk associated with the conduct of a clinical trial. Examples of KRIs include the rate of adverse events or amount of missing data at a site or across sites. Defining and deploying KRIs during study start-up allows sponsors to continually monitor risks to the integrity of the trial and take corrective actions accordingly.
 
 The KRI data pipeline begins with one or more clinical datasets related to the KRI. An optional participant-level subset is then applied to each dataset before aggregating by participant to quantify the KRI at the participant level. This aggregated dataset is then further summarized by site to obtain site-level metrics.
 
@@ -36,13 +36,13 @@ The image above provides an overview of the KRI assessment pipeline. The pipelin
 2. `transformed` data - Site-level transformed data including KRI calculation. Created by `Transform` functions.
 3. `analyzed` data - Site-level analysis result data. Created by `Analyze` functions. 
 4. `flagged` data - Site-level analysis results with flags added. Created by passing numeric `thresholds` to a `Flag` function.
-5. `summary` data - Standardized subset the flagged data. This summary data has the same structure for all assessments and always includes both `KRI` and `Flag` values so that we can easily look at trends for any given site across multiple assessments. Created using a `Summarize` Function. 
+5. `summary` data - Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both `KRI` and `Flag` values so that we can easily look at trends for any given site across multiple assessments. Created using a `Summarize` Function. 
 
 Finally, each assessment has an `Assess` function that sequentially executes all 4 of the functions and returns a list containing all 5 data sets listed above. 
 
 ## Generating `input` data
 
-Creating input data is outside the scope of the assessment pipeline. The specifications for `input` data are designed so that the data can easily be generated from multiple clinical data standards (e.g. Raw, ADaM or SDTM). Most assessments have `Map` functions that can be used to generate `input` data. For example, the Adverse Event assessment has 2 map functions, `AE_Map_Raw()` and `AE_Map_Adam()` which create `input` data from Raw and ADaM data respectively. 
+Creating input data is outside the scope of the assessment pipeline. The specifications for `input` data are designed so that the data can easily be generated from multiple clinical data standards (e.g. Raw, ADaM or SDTM). Most assessments have `Map` functions that can be used to generate `input` data. For example, the Adverse Event assessment has 2 map functions, `AE_Map_Raw()` and `AE_Map_Adam()`, which create `input` data from Raw and ADaM data respectively. 
 
 These `map` functions are provided for convenience but may not work for all clinical studies. When no `map` function is available for a given assessment, the user is expected to manually create `input` data following the specifications for that assessment. 
 
@@ -50,27 +50,30 @@ These `map` functions are provided for convenience but may not work for all clin
 
 Running multiple assessments for a single study is a common use case and {gsm} provides workflow and reporting functions to streamline this process.
 
-`Study_Assess()` attempts to run one or more assessment workflows using shared data and metadata. The metadata used for this study-level assessment is described in detail in this appendix for this vignette. The function returns a a list of assessments containing status information and results that is used as input for the reporting functions described below.
-`Study_Assess`. 
+`Study_Assess()` attempts to run one or more assessment workflows using shared data and metadata. The metadata used for this study-level assessment is described in detail in [Appendix 1](#Appendix-1-Metadata-Technical-Specifications). The `Study_Assess()` function returns a list of assessments containing status information and results that is used as input for the reporting functions described below.
 
-`Study_Report()` creates a detailed report showing both charts and listings summarizing each KRI that was run for the study along with a study-level table (via `Study_Table()`) and a summary of the workflow run to generate each KRI (via `Study_AssessmentTable()`) 
+`Study_Report()` creates a detailed report showing both charts and listings summarizing each KRI that was run for the study, along with a study-level table (via `Study_Table()`), and a summary of the workflow run to generate each KRI (via `Study_AssessmentTable()`) .
 
 To see a sample report, simply run: 
 
 ```
-results<-Study_Assess()
-StudyReport(results)
+results <- Study_Assess()
+Study_Report(results)
 ```
 
-Many additional examples are provided in the `Cookbook` Vignette.
+Many additional examples are provided in the [`Cookbook` Vignette](Cookbook.html).
 
 # Appendix 1 - Metadata Technical Specifications
 
-{gsm} has several standardized metadata models that are use to facilitate a standardized, reusable workflow for RBM. The default metadata used by the package are stored as YAML files in the `inst` folder, and can be customized for any given study. Detailed specification for each type of metadata is provided below, and example data for the AE domain is provided. 
+{gsm} has several standardized metadata models that are used to facilitate a standardized, reusable workflow for RBM. The default metadata used by {gsm} are stored as YAML files in the `inst` folder, and can be customized for any given study. 
+
+Detailed specifications for each type of metadata is provided below, and example data for the AE domain is provided. 
 
 ## Data Specification Metadata
 
-Input data specifications define the data requirements for a given {gsm} function and are saved in `inst/specs`. Each spec lists the data domains required for the function defines the following parameters for each domain: 
+Input data specifications define the data requirements for a given {gsm} function and are saved in `inst/specs`.
+
+Each input data specification lists the data domains required for the function and specifies the following parameters for each domain: 
 
 - `vRequired` - list of parameters that should be defined in `mapping` (see more details in the following section).
 - `vUniqueCols` - list of column parameters that should not contain duplicate values
@@ -93,30 +96,31 @@ dfSUBJ:
 
 ## Data Mappings Metadata
 
-Mapping Specifications in {gsm} define a "mapping" of column and field-level inputs needed for function. This mapping can be used in combination with a specification to confirm that input data meets the requirements for a function.
+Mapping Specifications in {gsm} define a "mapping" of column and field-level inputs needed for a function. This mapping can be used in combination with a specification to confirm that input data meets the requirements for a function.
 
-Each mapping object lists the required parameters for all required data domains and specifies the column and field values for specific data sets. For example, the following could be passed to the `mapping` parameter for `AE_Map_Raw` for use with `clindata::rawplus_AE` and `clindata::rawplus_SUBJ`: 
+Each mapping object lists the required parameters for all required data domains and specifies the column and field values for specific data sets. 
+
+For example, the following could be passed to the `mapping` parameter for the `AE_Map_Raw()` function to be used with the default data from `clindata::rawplus_AE` and `clindata::rawplus_SUBJ`: 
 
 ```
 list(
-  dfAE=list(strIDCol= 'SubjectID'),
-  dfSUBJ= list(
-    strIDCol= 'SubjectID',
-    strSiteCol= 'SiteID',
-    strTimeOnTreatmentCol= 'TimeOnTreatment'
+  dfAE = list(strIDCol = 'SubjectID'),
+  dfSUBJ = list(
+    strIDCol = 'SubjectID',
+    strSiteCol = 'SiteID',
+    strTimeOnTreatmentCol = 'TimeOnTreatment'
   )
 )
 ```
 
-Note that `Study_Assess` is designed to share a `mapping` object across multiple assessments. The default mapping is saved as `clindata::mapping_rawplus`, but users can also create a custom mapping object for thier use cases. 
+Note that `Study_Assess()` is designed to share a `mapping` object across multiple assessments. The default mapping is saved as a `list` in {clindata} (`clindata::mapping_rawplus`), but users can also create a custom mapping object for thier use cases by making a custom YAML file, or by creating or modifying a list such as `clindata::mapping_rawplus`.
 
 ## Assessment Workflow Metadata
 
-Assessment Workflow Metadata objects are passed to the `lAssessments` parameter in `Study_Assess` to define functions and parameters (including `mappings` and `specs`) across multiple studies. 
+Assessment Workflow Metadata objects are passed to the `lAssessments` parameter in `Study_Assess()` to define functions and parameters (including `mappings` and `specs`) across multiple studies. 
 
 The `lAssessment` object is a named list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/assessments`. Each item in `lAssessments` expects the following parameters. 
 
-- `label`: Label used to describe the assessmens.
 - `tags`: Labels to be appended as a column to summary data.
 - `workflow`: Array defining one or more functions to be executed as part of the workflow for a given assessment.
   - `workflow[]$name`: name of the {gsm} function.
@@ -127,7 +131,6 @@ The `lAssessment` object is a named list of metadata defining how each assessmen
 For example, the assessment for the AE (`inst/assessments/ae.yaml`) is shown below:
 
 ```
-label: Treatment-Emergent Adverse Events
 tags:
   Assessment: Safety
   Label: AEs
