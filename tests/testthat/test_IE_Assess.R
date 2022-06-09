@@ -54,7 +54,8 @@ test_that("incorrect lTags throw errors", {
 # custom tests ------------------------------------------------------------
 test_that("dfAnalyzed has appropriate model output regardless of statistical method", {
   assessment <- IE_Assess(ieInput)
-  expect_equal(unique(assessment$dfAnalyzed$ScoreLabel), "Total Number of Inclusion/Exclusion Issues")
+  expect_equal(unique(assessment$dfAnalyzed$ScoreLabel), "# of Inclusion/Exclusion Issues")
+  expect_equal(sort(assessment$dfAnalyzed$Score), sort(assessment$dfSummary$Score))
 })
 
 test_that("bQuiet works as intended", {

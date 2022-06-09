@@ -38,7 +38,8 @@
 Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns not found: SiteID, N, TotalExposure, TotalCount, KRI" = all(c("SiteID", "N", "TotalExposure", "TotalCount", "KRI") %in% names(dfTransformed)),
+    "One or more of these columns not found: SiteID, N, TotalExposure, TotalCount, KRI, KRILabel" =
+      all(c("SiteID", "N", "TotalExposure", "TotalCount", "KRI", "KRILabel") %in% names(dfTransformed)),
     "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]]))
   )
 

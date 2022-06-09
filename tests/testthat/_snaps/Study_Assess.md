@@ -161,6 +161,8 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
+      `Score` column created from `KRI`.
+      `ScoreLabel` column created from `KRILabel`.
       i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
@@ -202,6 +204,8 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
+      `Score` column created from `KRI`.
+      `ScoreLabel` column created from `KRILabel`.
       i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.

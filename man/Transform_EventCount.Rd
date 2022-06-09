@@ -4,7 +4,12 @@
 \alias{Transform_EventCount}
 \title{Transform Event Count}
 \usage{
-Transform_EventCount(dfInput, strCountCol, strExposureCol = NULL, strKRILabel)
+Transform_EventCount(
+  dfInput,
+  strCountCol,
+  strExposureCol = NULL,
+  strKRILabel = "[Not Specified]"
+)
 }
 \arguments{
 \item{dfInput}{A data.frame with one record per person.}
@@ -49,6 +54,6 @@ For data with an optional strExposureCol, a summed exposure is calculated for ea
 
 \examples{
 dfInput <- AE_Map_Adam()
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
 
 }

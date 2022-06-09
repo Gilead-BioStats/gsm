@@ -8,7 +8,7 @@ IE_Assess(
   dfInput,
   nThreshold = 0.5,
   lTags = list(Assessment = "IE"),
-  strKRILabel = "Total Event Count",
+  strKRILabel = "# of Inclusion/Exclusion Issues",
   bChart = TRUE,
   bReturnChecks = FALSE,
   bQuiet = TRUE
@@ -21,7 +21,7 @@ IE_Assess(
 
 \item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment="IE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
 
-\item{strKRILabel}{\code{character} Describe the \code{KRI} column, a vector of length 1 that defaults to \verb{Total Event Count}}
+\item{strKRILabel}{\code{character} Describe the \code{KRI} column, a vector of length 1 that defaults to \verb{# of Inclusion/Exclusion Issues}}
 
 \item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
 

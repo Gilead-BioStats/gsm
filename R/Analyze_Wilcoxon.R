@@ -62,7 +62,9 @@ Analyze_Wilcoxon <- function(
     "@param:strOutcomeCol or @param:strPredictorCol not found in @param:dfTransformed" =
       all(c(strPredictorCol, strOutcomeCol) %in% names(dfTransformed)),
     "NA value(s) found in @param:strPredictorCol" =
-      all(!is.na(dfTransformed[[strPredictorCol]]))
+      all(!is.na(dfTransformed[[strPredictorCol]])),
+    "One or more of these columns not found: SiteID, N, TotalExposure, TotalCount, KRI, KRILabel" =
+      all(c("SiteID", "N", "TotalExposure", "TotalCount", "KRI", "KRILabel") %in% names(dfTransformed))
   )
 
   wilcoxon_model <- function(predictorValue) {

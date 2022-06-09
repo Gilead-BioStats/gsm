@@ -58,6 +58,7 @@ test_that("incorrect lTags throw errors", {
 test_that("dfAnalyzed has appropriate model output regardless of statistical method", {
   assessment <- Consent_Assess(consentInput)
   expect_equal(unique(assessment$dfAnalyzed$ScoreLabel), "Total Number of Consent Issues")
+  expect_equal(sort(assessment$dfAnalyzed$Score), sort(assessment$dfSummary$Score))
 })
 
 test_that("bQuiet works as intended", {

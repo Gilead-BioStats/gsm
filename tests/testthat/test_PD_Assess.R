@@ -81,6 +81,12 @@ test_that("dfAnalyzed has appropriate model output regardless of statistical met
   expect_true(all(c("KRI", "KRILabel", "Score", "ScoreLabel") %in% names(assessmentPoisson$dfAnalyzed)))
   assessmentWilcoxon <- PD_Assess(pdInput, strMethod = "wilcoxon")
   expect_true(all(c("KRI", "KRILabel", "Score", "ScoreLabel") %in% names(assessmentWilcoxon$dfAnalyzed)))
+
+  expect_equal(unique(assessmentPoisson$dfAnalyzed$ScoreLabel), "Residuals")
+  expect_equal(unique(assessmentWilcoxon$dfAnalyzed$ScoreLabel), "P value")
+
+  expect_equal(sort(assessmentPoisson$dfAnalyzed$Score), sort(assessmentPoisson$dfSummary$Score))
+  expect_equal(sort(assessmentWilcoxon$dfAnalyzed$Score), sort(assessmentWilcoxon$dfSummary$Score))
 })
 
 test_that("bQuiet works as intended", {
