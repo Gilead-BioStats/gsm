@@ -49,7 +49,7 @@ AEs by passing filtered AE data to \code{dfAE}.
    dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
    dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
    dfSUBJ \tab strTimeOnTreatmentCol \tab TimeOnTreatment \tab TRUE \tab FALSE \cr
-   dfAE \tab strIDCol \tab SubjectID \tab TRUE \tab  \cr
+   dfAE \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \cr
 }
 }
 
