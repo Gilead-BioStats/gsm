@@ -1,3 +1,4 @@
+# TODO: finish modularizing map_raw unit tests
 test_incorrect_inputs <- function(
     map_function,
     df_domain,
