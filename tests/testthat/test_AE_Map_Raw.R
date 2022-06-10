@@ -13,6 +13,7 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = list()), bQuiet = F))
   expect_snapshot(AE_Map_Raw(dfs = list(dfAE = list(), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(AE_Map_Raw(dfs = list(dfAE = "Hi", dfSUBJ = "Mom"), bQuiet = F))
+  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), lMapping = list(), bQuiet = F))
   expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE %>% select(-SubjectID), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ %>% select(-SiteID)), bQuiet = F))
   expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ %>% select(-SubjectID)), bQuiet = F))
@@ -59,7 +60,7 @@ test_that("NA values in input data are handled", {
   dfAE1 <- tibble::tribble(
     ~SubjectID, 1, 1, 1, 1, 2, 2, 4, 4
   )
-  dfExposure1 <- tibble::tribble(
+  dfSUBJ1 <- tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
     1, 1, 10,
     2, 1, NA,
@@ -67,7 +68,7 @@ test_that("NA values in input data are handled", {
     4, 2, 50
   )
   mapped1 <- AE_Map_Raw(
-    list(dfAE = dfAE1, dfSUBJ = dfExposure1)
+    list(dfAE = dfAE1, dfSUBJ = dfSUBJ1)
   )
   expect_null(mapped1)
 
@@ -75,7 +76,7 @@ test_that("NA values in input data are handled", {
   dfAE2 <- tibble::tribble(
     ~SubjectID, 1, NA, 1, 1, 2, 2, 4, 4
   )
-  dfExposure2 <- tibble::tribble(
+  dfSUBJ2 <- tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
     1, 1, 10,
     2, 1, 20,
@@ -83,7 +84,7 @@ test_that("NA values in input data are handled", {
     4, 2, 50
   )
   mapped2 <- AE_Map_Raw(
-    list(dfAE = dfAE2, dfSUBJ = dfExposure2)
+    list(dfAE = dfAE2, dfSUBJ = dfSUBJ2)
   )
   expect_null(mapped2)
 
@@ -91,7 +92,7 @@ test_that("NA values in input data are handled", {
   dfAE3 <- tibble::tribble(
     ~SubjectID, 1, 1, 1, 1, 2, 2, 4, 4
   )
-  dfExposure3 <- tibble::tribble(
+  dfSUBJ3 <- tibble::tribble(
     ~SubjectID, ~SiteID, ~TimeOnTreatment,
     NA, 1, 10,
     2, 1, 20,
@@ -99,9 +100,21 @@ test_that("NA values in input data are handled", {
     4, 2, 50
   )
   mapped3 <- AE_Map_Raw(
-    list(dfAE = dfAE3, dfSUBJ = dfExposure3)
+    list(dfAE = dfAE3, dfSUBJ = dfSUBJ3)
   )
   expect_null(mapped3)
+})
+
+test_that("duplicate SubjectID values are caught in dfSUBJ", {
+  dfAE <- tribble(~SubjectID, 1, 2)
+
+  dfSUBJ <- tribble(
+    ~SubjectID, ~SiteID, ~TimeOnTreatment,
+    1, 1, 10,
+    1, 1, 30
+  )
+
+  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bQuiet = F))
 })
 
 test_that("bQuiet works as intended", {
@@ -115,22 +128,3 @@ test_that("bReturnChecks works as intended", {
     all(names(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c("df", "lChecks"))
   )
 })
-#
-# test_that("custom mapping runs without errors", {
-#
-#   custom_mapping <- list(
-#     dfAE= list(strIDCol="SubjectID",
-#                strTreatmentEmergentCol = "AE_TE_FLAG"),
-#     dfSUBJ=list(strIDCol="custom_id",
-#                 strSiteCol="custom_site_id",
-#                 strTimeOnTreatmentCol="trtmnt")
-#   )
-#
-#   custom_subj <- dfSUBJ %>%
-#     mutate(trtmnt = TimeOnTreatment * 2.025) %>%
-#     rename(custom_id = SubjectID,
-#            custom_site_id = SiteID)
-#
-#   expect_silent(AE_Map_Raw(dfAE, custom_subj, mapping = custom_mapping))
-#
-# })
