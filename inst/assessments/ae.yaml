@@ -19,4 +19,5 @@ workflow:
     inputs: dfInput
     output: lResults
     params:
+      vThreshold: null
       strMethod: "poisson"

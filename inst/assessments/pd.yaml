@@ -11,3 +11,6 @@ workflow:
   - name: PD_Assess
     inputs: dfInput
     output: lResults
+    params:
+      vThreshold: null
+      strMethod: "poisson"
