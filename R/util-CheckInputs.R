@@ -49,9 +49,8 @@ CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
   }) %>%
     purrr::set_names(nm = names(spec))
 
-
-
   checks$status <- all(checks %>% purrr::map_lgl(~ .x$status))
+  checks$mapping <- mapping
 
   if (checks$status) {
     if (!bQuiet) cli::cli_alert_success("No issues found for {.fn {context}}")

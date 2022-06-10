@@ -14,7 +14,7 @@ test_that("output is created as expected", {
 
   expect_true(checks$status)
   expect_true(checks$dfInput$status)
-  expect_equal(names(checks), c("dfInput", "status"))
+  expect_equal(names(checks), c("dfInput", "status", "mapping"))
   expect_type(checks$dfInput, "list")
   expect_type(checks$status, "logical")
   expect_true(all(map_lgl(checks$dfInput$tests_if, pluck("status"))))
@@ -38,7 +38,7 @@ test_that("output is created as expected", {
   expect_true(checks$status)
   expect_true(checks$dfIE$status)
   expect_true(checks$dfSUBJ$status)
-  expect_equal(names(checks), c("dfIE", "dfSUBJ", "status"))
+  expect_equal(names(checks), c("dfIE", "dfSUBJ", "status", "mapping"))
   expect_type(checks$dfIE, "list")
   expect_type(checks$dfSUBJ, "list")
   expect_type(checks$status, "logical")
