@@ -5,19 +5,27 @@ test_that("output is created as expected", {
   data <- PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ))
   expect_true(is.data.frame(data))
   expect_equal(names(data), c("SubjectID", "SiteID", "Count", "Exposure", "Rate"))
+  expect_type(data$SubjectID, "character")
+  expect_type(data$SiteID, "character")
+  expect_true(class(data$Count) %in% c("double", "integer", "numeric"))
 })
 
 # incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors", {
+  # empty data frames
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = list(), dfSUBJ = list()), bQuiet = F))
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = list()), bQuiet = F))
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = list(), dfSUBJ = dfSUBJ), bQuiet = F))
+  # mistyped data frames
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = "Hi", dfSUBJ = "Mom"), bQuiet = F))
+  # empty mapping
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ), lMapping = list(), bQuiet = F))
+  # missing variables
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD %>% select(-SubjectID), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-SubjectID)), bQuiet = F))
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-SiteID)), bQuiet = F))
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-TimeOnStudy)), bQuiet = F))
+  # duplicate subject IDs
   expect_snapshot(PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = bind_rows(dfSUBJ, head(dfSUBJ, 1))), bQuiet = F))
 })
 

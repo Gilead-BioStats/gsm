@@ -24,6 +24,42 @@
 ---
 
     Code
+      IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = list()), bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `IE_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `IE_Map_Raw()`
+      ! `IE_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      IE_Map_Raw(dfs = list(dfIE = list(), dfSUBJ = dfSUBJ), bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `IE_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, IE_CATEGORY, IE_VALUE
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `IE_Map_Raw()`
+      ! `IE_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
       IE_Map_Raw(dfs = list(dfIE = "Hi", dfSUBJ = "Mom"), bQuiet = F)
     Message <cliMessage>
       
@@ -39,6 +75,25 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
+      ! Issues found for `IE_Map_Raw()`
+      ! `IE_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ), lMapping = list(), bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `IE_Map_Raw()` --
+      
+      x "mapping" does not contain required parameters: strIDCol, strCategoryCol, strValueCol
+      x mapping is not a list()
+      x Non-character column names found in mapping: 
+      x "mapping" does not contain required parameters: strIDCol, strSiteCol
+      x mapping is not a list()
+      x Non-character column names found in mapping: 
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` did not run because of failed check.
     Output
@@ -90,6 +145,42 @@
       -- Checking Input Data for `IE_Map_Raw()` --
       
       x the following columns not found in df: IE_VALUE
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `IE_Map_Raw()`
+      ! `IE_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ %>% select(-SubjectID)),
+      bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `IE_Map_Raw()` --
+      
+      x the following columns not found in df: SubjectID
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `IE_Map_Raw()`
+      ! `IE_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ %>% select(-SiteID)),
+      bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `IE_Map_Raw()` --
+      
+      x the following columns not found in df: SiteID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run

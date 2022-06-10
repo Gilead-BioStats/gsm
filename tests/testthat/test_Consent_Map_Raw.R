@@ -5,21 +5,29 @@ test_that("output created as expected ", {
   data <- Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ))
   expect_true(is.data.frame(data))
   expect_equal(names(data), c("SubjectID", "SiteID", "Count"))
+  expect_type(data$SubjectID, "character")
+  expect_type(data$SiteID, "character")
+  expect_true(class(data$Count) %in% c("double", "integer", "numeric"))
 })
 
 # incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors", {
+  # empty data frames
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = list(), dfSUBJ = list()), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = list()), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = list(), dfSUBJ = dfSUBJ), bQuiet = F))
+  # mistyped data frames
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = "Hi", dfSUBJ = "Mom"), bQuiet = F))
+  # empty mapping
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ), lMapping = list(), bQuiet = F))
+  # missing variables
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT %>% select(-CONSENT_DATE), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT %>% select(-CONSENT_TYPE), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT %>% select(-CONSENT_VALUE), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ %>% select(-SubjectID)), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ %>% select(-SiteID)), bQuiet = F))
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ %>% select(-RandDate)), bQuiet = F))
+  # duplicate subject IDs
   expect_snapshot(Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = bind_rows(dfSUBJ, head(dfSUBJ, 1))), bQuiet = F))
 })
 

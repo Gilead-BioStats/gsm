@@ -1,4 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
+spec <- yaml::read_yaml(paste0(here::here(), '/inst/specs/IE_Map_Raw.yaml'))
+print(spec)
 
 # output is created as expected -------------------------------------------
 test_that("output created as expected", {
@@ -10,15 +12,23 @@ test_that("output created as expected", {
   expect_true(class(data$Count) %in% c("double", "integer", "numeric"))
 })
 
-
-
 # incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors", {
+  # empty data frames
   expect_snapshot(IE_Map_Raw(dfs = list(dfIE = list(), dfSUBJ = list()), bQuiet = F))
+  expect_snapshot(IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = list()), bQuiet = F))
+  expect_snapshot(IE_Map_Raw(dfs = list(dfIE = list(), dfSUBJ = dfSUBJ), bQuiet = F))
+  # mistyped data frames
   expect_snapshot(IE_Map_Raw(dfs = list(dfIE = "Hi", dfSUBJ = "Mom"), bQuiet = F))
+  # empty mapping
+  expect_snapshot(IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ), lMapping = list(), bQuiet = F))
+  # missing variables
   expect_snapshot(IE_Map_Raw(dfs = list(dfIE = dfIE %>% select(-SubjectID), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(IE_Map_Raw(dfs = list(dfIE = dfIE %>% select(-IE_CATEGORY), dfSUBJ = dfSUBJ), bQuiet = F))
   expect_snapshot(IE_Map_Raw(dfs = list(dfIE = dfIE %>% select(-IE_VALUE), dfSUBJ = dfSUBJ), bQuiet = F))
+  expect_snapshot(IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ %>% select(-SubjectID)), bQuiet = F))
+  expect_snapshot(IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ %>% select(-SiteID)), bQuiet = F))
+  # duplicate subject IDs
   expect_snapshot(IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = bind_rows(dfSUBJ, head(dfSUBJ, 1))), bQuiet = F))
 })
 
