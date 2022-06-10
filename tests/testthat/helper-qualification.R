@@ -1,13 +1,18 @@
-qualification_transform_counts <- function(dfInput, countCol = "Count", exposureCol = "Exposure") {
+qualification_transform_counts <- function(dfInput,
+                                           countCol = "Count",
+                                           exposureCol = "Exposure",
+                                           KRILabel = "") {
   if (is.na(exposureCol)) {
     dfTransformed <- dfInput %>%
       filter(!is.na(.data[[countCol]])) %>%
       group_by(.data$SiteID) %>%
       summarise(
         N = n(),
-        TotalCount = sum(.data[[countCol]])
+        TotalCount = sum(.data[[countCol]]),
+        KRI = TotalCount,
+        KRILabel = KRILabel
       ) %>%
-      select(SiteID, N, TotalCount)
+      select(SiteID, N, TotalCount, KRI, KRILabel)
   } else {
     dfTransformed <- dfInput %>%
       filter(!is.na(.data[[countCol]])) %>%
@@ -15,10 +20,11 @@ qualification_transform_counts <- function(dfInput, countCol = "Count", exposure
       summarise(
         N = n(),
         TotalCount = sum(.data[[countCol]]),
-        TotalExposure = sum(.data[[exposureCol]])
+        TotalExposure = sum(.data[[exposureCol]]),
+        KRILabel = KRILabel
       ) %>%
-      mutate(Rate = .data$TotalCount / .data$TotalExposure) %>%
-      select(SiteID, N, TotalCount, TotalExposure, Rate)
+      mutate(KRI = .data$TotalCount / .data$TotalExposure) %>%
+      select(SiteID, N, TotalCount, TotalExposure, KRI, KRILabel)
   }
 
   return(dfTransformed)
@@ -34,11 +40,12 @@ qualification_analyze_poisson <- function(dfTransformed) {
 
   outputDF <- dfTransformed %>%
     mutate(
-      Residuals = unname(residuals(model)),
-      PredictedCount = exp(LogExposure * model$coefficients[2] + model$coefficients[1])
+      Score = unname(residuals(model)),
+      PredictedCount = exp(LogExposure * model$coefficients[2] + model$coefficients[1]),
+      ScoreLabel = "Residuals"
     ) %>%
-    arrange(Residuals) %>%
-    select(SiteID, N, TotalExposure, TotalCount, Rate, Residuals, PredictedCount)
+    arrange(Score) %>%
+    select(SiteID, N, TotalCount, TotalExposure, KRI, KRILabel, Score, ScoreLabel, PredictedCount)
 
   return(outputDF)
 }
@@ -52,7 +59,7 @@ qualification_analyze_wilcoxon <- function(dfTransformed) {
   colnames(dfSummary) <- c("N", "Mean", "SD", "Median", "Q1", "Q3", "Min", "Max")
 
   for (i in 1:length(sites)) {
-    testres <- wilcox.test(dfTransformed$Rate ~ dfTransformed$SiteID == sites[i], exact = FALSE, conf.int = TRUE)
+    testres <- wilcox.test(dfTransformed$KRI ~ dfTransformed$SiteID == sites[i], exact = FALSE, conf.int = TRUE)
 
     pvals[i] <- testres$p.value
     estimates[i] <- testres$estimate * -1
@@ -60,11 +67,12 @@ qualification_analyze_wilcoxon <- function(dfTransformed) {
 
   outputDF <- data.frame(
     dfTransformed,
-    PValue = pvals,
-    Estimate = estimates
+    Score = pvals,
+    Estimate = estimates,
+    ScoreLabel = "P value"
   ) %>%
-    arrange(PValue) %>%
-    select(SiteID, N, TotalCount, TotalExposure, Rate, Estimate, PValue)
+    arrange(Score) %>%
+    select(SiteID, N, TotalCount, TotalExposure, KRI, KRILabel, Estimate, Score, ScoreLabel)
 
   return(outputDF)
 }
