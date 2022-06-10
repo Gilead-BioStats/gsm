@@ -24,17 +24,19 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
   allChecks <- map(names(lAssessments), function(assessment) {
 
-    workflow <- map_df(lAssessments[[assessment]][['workflow']], ~ bind_cols(step = .x[['name']], domain = .x[['inputs']])) %>%
-      mutate(
-        assessment = assessment,
-        index = as.character(row_number())
+    workflow <- lAssessments[[assessment]][['workflow']] %>%
+        map_df(
+          ~bind_cols(step = .x[['name']], domain = .x[['inputs']])
+        ) %>%
+        mutate(
+          assessment = assessment,
+          index = as.character(row_number())
         )
 
     allChecks <- map(lAssessments[[assessment]][['checks']], function(step) {
-        domains <- names(step[names(step) != 'status'])
+        domains <- names(step[!names(step) %in% c('status', 'mapping')])
 
-        map(domains, function(test) {
-          domain <- test
+        map(domains, function(domain) {
           status <- step[[domain]][['status']]
           step[[domain]][['tests_if']] %>%
             bind_rows(.id = "names") %>%

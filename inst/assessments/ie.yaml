@@ -10,3 +10,5 @@ workflow:
   - name: IE_Assess
     inputs: dfInput
     output: lResults
+    params:
+      nThreshold: 0.5
