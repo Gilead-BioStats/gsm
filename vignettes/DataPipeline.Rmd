@@ -79,7 +79,7 @@ Each input data specification lists the data domains required for the function a
 - `vUniqueCols` - list of column parameters that should not contain duplicate values
 - `vNACols` - list of column parameters where NA and empty string values are acceptable.
 
-The specification for the AE mapping function (`inst/mapping/AE_Map_Raw.yaml`) is shown below:
+The specification for the AE mapping function (`inst/specs/AE_Map_Raw.yaml`) is shown below:
 
 ```
 dfAE:
@@ -113,7 +113,7 @@ list(
 )
 ```
 
-Note that `Study_Assess()` is designed to share a `mapping` object across multiple assessments. The default mapping is saved as a `list` in {clindata} (`clindata::mapping_rawplus`), but users can also create a custom mapping object for thier use cases by making a custom YAML file, or by creating or modifying a list such as `clindata::mapping_rawplus`.
+Note that `Study_Assess()` is designed to share a `mapping` object across multiple assessments. The default mapping is saved as a YAML file (`inst/mappings/mapping_rawplus.yaml`), but users can also create a custom mapping object for their use cases by making a custom YAML file, or by creating or modifying a `list` like that returned by `yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))`.
 
 ## Assessment Workflow Metadata
 
@@ -128,7 +128,7 @@ The `lAssessment` object is a named list of metadata defining how each assessmen
   - `workflow[]$output`: Specifies the output data from the workflow step; can be used as an input in the next step in the workflow.
   - `workflow[]$params`: Specifies parameters to be passed to the function.
 
-For example, the assessment for the AE (`inst/assessments/ae.yaml`) is shown below:
+For example, the workflow for the AE assessment (`inst/assessments/ae.yaml`) is shown below:
 
 ```
 tags:
