@@ -149,11 +149,8 @@ for (assessment in results){
 
 details <- assessment$dfFlagged %>%
   filter(Flag !=0) %>% 
-  {if("TotalCount" %in% names(.)) arrange(., match(TotalCount, flagged$Score)) else .} %>% 
-  {if("PValue" %in% names(.)) arrange(., match(PValue, flagged$Score)) else .} %>% 
-  {if("Residuals" %in% names(.)) arrange(., match(Residuals, flagged$Score)) else .} 
+  arrange(., match(SiteID, flagged$SiteID))
 
-    
     if(nrow(details)>0){
         details%>%
         kbl(escape=FALSE) %>% 
