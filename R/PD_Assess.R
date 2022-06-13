@@ -13,6 +13,7 @@
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to `c(-5, 5)` for `strMethod` = "poisson" and `c(.0001, NA)` for `strMethod` = "wilcoxon".
 #' @param strMethod `character` Statistical model. Valid values include "poisson" (default) and  "wilcoxon".
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment="PD")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
+#' @param strKRILabel `character` Describe the `KRI` column, a vector of length 1 that defaults to `PDs/Week`
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
@@ -48,6 +49,7 @@ PD_Assess <- function(
   dfInput,
   vThreshold = NULL,
   strMethod = "poisson",
+  strKRILabel = "PDs/Week",
   lTags = list(Assessment = "PD"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -57,7 +59,8 @@ PD_Assess <- function(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson", "wilcoxon"),
     "strMethod must be length 1" = length(strMethod) == 1,
-    "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput" = all(c("SubjectID", "SiteID", "Count", "Exposure", "Rate") %in% names(dfInput))
+    "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput" = all(c("SubjectID", "SiteID", "Count", "Exposure", "Rate") %in% names(dfInput)),
+    "strKRILabel must be length 1" = length(strKRILabel) == 1
   )
 
   if (!is.null(lTags)) {
@@ -89,7 +92,7 @@ PD_Assess <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn PD_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
 
-    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = strKRILabel)
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     if (strMethod == "poisson") {
@@ -106,10 +109,10 @@ PD_Assess <- function(
       lAssess$dfAnalyzed <- gsm::Analyze_Poisson(lAssess$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Poisson} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
-      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strColumn = "Residuals", vThreshold = vThreshold)
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold)
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
 
-      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, strScoreCol = "Residuals", lTags)
+      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
     } else if (strMethod == "wilcoxon") {
       if (is.null(vThreshold)) {
@@ -123,10 +126,10 @@ PD_Assess <- function(
         )
       }
 
-      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed, "Rate", bQuiet = bQuiet)
+      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed, "KRI", bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Wilcoxon} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
-      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strColumn = "PValue", vThreshold = vThreshold, strValueColumn = "Estimate")
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Estimate")
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
 
       lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)

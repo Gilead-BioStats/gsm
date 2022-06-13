@@ -4,7 +4,7 @@
 \alias{Summarize}
 \title{Make Summary Data Frame}
 \usage{
-Summarize(dfFlagged, strScoreCol = "PValue", lTags = NULL)
+Summarize(dfFlagged, strScoreCol = "Score", lTags = NULL)
 }
 \arguments{
 \item{dfFlagged}{data frame in format produced by \code{\link{Flag}}}
@@ -36,9 +36,9 @@ Create a concise summary of assessment results that is easy to aggregate across 
 
 \examples{
 dfInput <- AE_Map_Adam()
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
-dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, "Rate")
-dfFlagged <- Flag(dfAnalyzed, strColumn = "PValue", strValueColumn = "Rate")
+dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
 dfSummary <- Summarize(dfFlagged)
 
 }

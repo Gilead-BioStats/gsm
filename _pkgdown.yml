@@ -23,6 +23,7 @@ reference:
      desc: Conduct statistical analysis based on input data
    - contents:
       - Analyze_Chisq
+      - Analyze_Identity
       - Analyze_Fisher
       - Analyze_Poisson
       - Analyze_Wilcoxon

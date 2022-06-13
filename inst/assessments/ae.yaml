@@ -1,4 +1,3 @@
-label: Treatment-Emergent Adverse Events
 tags:
   Assessment: Safety
   Label: AEs
@@ -11,7 +10,7 @@ workflow:
       strColParam: strTreatmentEmergentCol
       strValParam: strTreatmentEmergentVal
   - name: AE_Map_Raw
-    inputs: 
+    inputs:
       - dfAE
       - dfSUBJ
     output: dfInput
@@ -21,3 +20,4 @@ workflow:
     params:
       vThreshold: null
       strMethod: "poisson"
+      strKRILabel: "Treatment-Emergent AEs/Week"

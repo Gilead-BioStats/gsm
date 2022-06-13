@@ -40,6 +40,7 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot_error(AE_Assess(aeInput %>% select(-Count)))
   expect_snapshot_error(AE_Assess(aeInput %>% select(-Exposure)))
   expect_snapshot_error(AE_Assess(aeInput %>% select(-Rate)))
+  expect_error(AE_Assess(aeInput, strKRILabel = c("label 1", "label 2")))
 })
 
 # incorrect lTags throw errors --------------------------------------------
@@ -65,10 +66,16 @@ test_that("incorrect lTags throw errors", {
 
 # custom tests ------------------------------------------------------------
 test_that("dfAnalyzed has appropriate model output regardless of statistical method", {
-  assPoisson <- AE_Assess(aeInput, strMethod = "poisson")
-  expect_true(all(c("Residuals", "PredictedCount") %in% names(assPoisson$dfAnalyzed)))
-  assWilcoxon <- AE_Assess(aeInput, strMethod = "wilcoxon")
-  expect_true(all(c("Estimate", "PValue") %in% names(assWilcoxon$dfAnalyzed)))
+  assessmentPoisson <- AE_Assess(aeInput, strMethod = "poisson")
+  expect_true(all(c("KRI", "KRILabel", "Score", "ScoreLabel") %in% names(assessmentPoisson$dfAnalyzed)))
+  assessmentWilcoxon <- AE_Assess(aeInput, strMethod = "wilcoxon")
+  expect_true(all(c("KRI", "KRILabel", "Score", "ScoreLabel") %in% names(assessmentWilcoxon$dfAnalyzed)))
+
+  expect_equal(unique(assessmentPoisson$dfAnalyzed$ScoreLabel), "Residuals")
+  expect_equal(unique(assessmentWilcoxon$dfAnalyzed$ScoreLabel), "P value")
+
+  expect_equal(sort(assessmentPoisson$dfAnalyzed$Score), sort(assessmentPoisson$dfSummary$Score))
+  expect_equal(sort(assessmentWilcoxon$dfAnalyzed$Score), sort(assessmentWilcoxon$dfSummary$Score))
 })
 
 test_that("bQuiet works as intended", {
@@ -82,3 +89,10 @@ test_that("bReturnChecks works as intended", {
     "lChecks" %in% names(AE_Assess(aeInput, bReturnChecks = TRUE))
   )
 })
+
+test_that("strKRILabel works as intended", {
+  ae <- AE_Assess(aeInput, strKRILabel = "my test label")
+  expect_equal(unique(ae$dfSummary$KRILabel), "my test label")
+})
+
+

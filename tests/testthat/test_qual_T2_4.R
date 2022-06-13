@@ -13,7 +13,7 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
   t2_4_input <- dfInput
 
   t2_4_transformed <- dfInput %>%
-    qualification_transform_counts()
+    qualification_transform_counts(KRILabel = "PDs/Week")
 
   t2_4_analyzed <- t2_4_transformed %>%
     qualification_analyze_wilcoxon()
@@ -25,11 +25,11 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     mutate(
       ThresholdLow = 0.1,
       ThresholdHigh = NA_integer_,
-      ThresholdCol = "PValue",
+      ThresholdCol = "Score",
       Flag = case_when(
-        PValue < 0.1 ~ -1,
-        is.na(PValue) ~ NA_real_,
-        is.nan(PValue) ~ NA_real_,
+        Score < 0.1 ~ -1,
+        is.na(Score) ~ NA_real_,
+        is.nan(Score) ~ NA_real_,
         TRUE ~ 0
       ),
       median = median(Estimate),
@@ -44,11 +44,10 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
 
   t2_4_summary <- t2_4_flagged %>%
     mutate(
-      Assessment = "PD",
-      Score = PValue
+      Assessment = "PD"
     ) %>%
-    select(SiteID, N, Score, Flag, Assessment) %>%
-    arrange(desc(abs(Score))) %>%
+    select(SiteID, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
+    arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t2_4 <- list(
