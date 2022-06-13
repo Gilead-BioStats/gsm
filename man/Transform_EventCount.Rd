@@ -21,10 +21,10 @@ Transform_EventCount(
 \item{strKRILabel}{Optional. Character vector to describe the \code{KRI} column.}
 }
 \value{
-data.frame with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
+\code{data.frame} with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 }
 \description{
-Convert from ADaM format to needed input format for Safety Assessment
+Convert from input data format to needed input format to derive KRI for an Assessment.
 }
 \details{
 This function transforms data to prepare it for the Analysis step

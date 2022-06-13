@@ -22,7 +22,7 @@
 #' @param strOutcome `character` required, name of column in dfTransformed dataset to perform Fisher test on. Default is "TotalCount".
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue
+#' @return `data.frame` with one row per site with columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
 #'
 #' @examples
 #' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "Adverse Event")

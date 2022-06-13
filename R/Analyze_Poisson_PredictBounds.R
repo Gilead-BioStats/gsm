@@ -25,8 +25,8 @@
 #' the thresholds used AE_Assess().
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return data frame containing predicted boundary values with upper and lower bounds across the
-#' range of observed values
+#' @return `data.frame` containing predicted boundary values with upper and lower bounds across the
+#' range of observed values.
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()

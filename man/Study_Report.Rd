@@ -11,22 +11,22 @@ Study_Report(
 )
 }
 \arguments{
-\item{lAssessments}{character vector listing assessments}
+\item{lAssessments}{\code{list} The results of multiple assessments run using \code{Study_Assess}.}
 
-\item{lMeta}{list of metadata related to study}
+\item{lMeta}{\code{list} Metadata related to study.}
 
-\item{strOutpath}{path to save the report}
+\item{strOutpath}{\code{character} File path; location where the report will be saved.}
 }
 \value{
 HTML report of study data.
 }
 \description{
-Pulls needed study data and runs one or more assessments
+Create HTML summary report using the results of \code{Study_Assess}, including tables, charts, and error checking.
 }
 \examples{
 \dontrun{
-assessment <- Study_Assess()
-Study_Report(assessment, lMeta = list(study = "my study name"))
+lAssessment <- Study_Assess()
+Study_Report(lAssessment, lMeta = list(study = "my study name"))
 }
 
 }

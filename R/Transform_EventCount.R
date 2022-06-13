@@ -1,6 +1,7 @@
 #' Transform Event Count
 #'
-#' Convert from ADaM format to needed input format for Safety Assessment
+#' Convert from input data format to needed input format to derive KRI for an Assessment.
+#'
 #' @details
 #'
 #' This function transforms data to prepare it for the Analysis step
@@ -29,7 +30,7 @@
 #' @param strExposureCol Optional. Numerical `Exposure` column.
 #' @param strKRILabel Optional. Character vector to describe the `KRI` column.
 #'
-#' @return data.frame with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
+#' @return `data.frame` with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()

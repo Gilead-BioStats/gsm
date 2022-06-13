@@ -14,7 +14,7 @@ Analyze_Fisher(dfTransformed, strOutcome = "TotalCount", bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue
+\code{data.frame} with one row per site with columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
 }
 \description{
 Creates Analysis results data for count data using the Fisher's exact test
@@ -41,7 +41,7 @@ The input data (\code{dfTransformed}) for Analyze_Fisher is typically created us
 
 \examples{
 dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "Adverse Event")
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strKRILabel = "Discontinuations due to AE/Month")
+dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strKRILabel = "Discontinuations due to AE")
 dfAnalyzed <- Analyze_Fisher(dfTransformed)
 
 }

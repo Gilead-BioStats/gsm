@@ -14,7 +14,7 @@ Visualize_Scatter(dfFlagged, dfBounds = NULL, strUnit = "days")
 \item{strUnit}{exposure time unit. Defaults to "days".}
 }
 \value{
-site level plot object
+site-level plot object.
 }
 \description{
 Site-level visualization of site-level results using a Poisson or Wilcoxon model.
