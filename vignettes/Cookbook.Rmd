@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 # Intro
 
-This vignette contains a series of examples showing how to run analysis workflows for the {gsm} package using sample data from {clindata}. 
+This vignette contains a series of examples showing how to run analysis workflows for the {gsm} package using sample data from {clindata}.
 
 For more information on of the {gsm} package see the [package homepage](https://silver-potato-cfe8c2fb.pages.github.io/). The [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette) provides additional technical details including data specifications, and other technical details.
 
@@ -27,234 +27,220 @@ For more information on of the {gsm} package see the [package homepage](https://
 
 Run the following:
 
-```
-## Install devtools
-install.packages('devtools')
+    ## Install devtools
+    install.packages('devtools')
 
-## Install and load sample raw data
-devtools::install_github("Gilead-BioStats/clindata", ref = "main")
-library(clindata)
+    ## Install and load sample raw data
+    devtools::install_github("Gilead-BioStats/clindata", ref = "main")
+    library(clindata)
 
-## Install and load sample SDTM and AdAM data
-install.packages('safetyData')
-library(safetyData)
+    ## Install and load sample SDTM and AdAM data
+    install.packages('safetyData')
+    library(safetyData)
 
-## Install and load gsm
-devtools::install_github("Gilead-BioStats/gsm", ref = "main")
-library(gsm)
-```
-To use the most recent development version from GitHub, run: 
-```
-devtools::install_github("Gilead-BioStats/gsm", ref = "dev")
-```
+    ## Install and load gsm
+    devtools::install_github("Gilead-BioStats/gsm", ref = "main")
+    library(gsm)
+
+To use the most recent development version from GitHub, run:
+
+    devtools::install_github("Gilead-BioStats/gsm", ref = "dev")
 
 ## Example 1 - Running a Single Assessment
 
-All assessments can be run as standalone processes that create several useful data summaries and a visualization. 
+All assessments can be run as standalone processes that create several useful data summaries and a visualization.
 
-Running a single assessment is a 2-step process: 
+Running a single assessment is a 2-step process:
 
-1. Map Domain-level data to the input data standard for the selected assessment (e.g. `dfInput <- AE_Map_Raw()`)
-2. Run the assessment (e.g. `ae_assess <- AE_Assess(dfInput)`)
+1.  Map Domain-level data to the input data standard for the selected assessment (e.g. `dfInput <- AE_Map_Raw()`)
+2.  Run the assessment (e.g. `ae_assess <- AE_Assess(dfInput)`)
 
 Putting this all together for the AE Assessment looks like this:
-```
-library(clindata)
-library(safetyData)
-library(gsm)
 
-# Map Domain-level data to the input data standard for the selected assessment
-dfInput <- AE_Map_Raw()
+    library(clindata)
+    library(safetyData)
+    library(gsm)
 
-# Run the assessment
-ae_assess <- AE_Assess(dfInput)
+    # Map Domain-level data to the input data standard for the selected assessment
+    dfInput <- AE_Map_Raw()
 
-# Run the assessment using the Wilcoxon statistical model
-ae_assess_wilcoxon <- AE_Assess(dfInput, strMethod = "wilcoxon")
-```
+    # Run the assessment
+    ae_assess <- AE_Assess(dfInput)
+
+    # Run the assessment using the Wilcoxon statistical model
+    ae_assess_wilcoxon <- AE_Assess(dfInput, strMethod = "wilcoxon")
 
 Each assessment has representative examples in the help files - the example above was adapted from the example in `?AE_Assess`.
 
 ## Example 2 - Running a Single Assessment on non-standard data
-Next, let's run the same assessment above, but this time using non-standard data. {gsm} is configured to accept Raw+ data by default, so for non-standard data, the user must perform some data transformations to pass to a mapping function. 
 
-```
-library(gsm)
-library(clindata)
-library(dplyr)
+Next, let's run the same assessment above, but this time using non-standard data. {gsm} is configured to accept Raw+ data by default, so for non-standard data, the user must perform some data transformations to pass to a mapping function.
 
-# Configure raw AE data for correct input for dfAE
-dfAE <- clindata::raw_ae %>% 
-  select(
-    SubjectID = SUBJID, 
-    AE_SERIOUS = AESER
-  ) %>% 
-  mutate(
-    AE_TE_FLAG = sample(c(TRUE, FALSE), n(),  replace = TRUE),
-    AE_GRADE = sample(1:4, n(), replace = TRUE)
-  ) %>% 
-  filter(
-    !is.na(SubjectID) & SubjectID != ""
-  )
+    library(gsm)
+    library(clindata)
+    library(dplyr)
 
-# Configure raw subject-level data for correct input for dfSUBJ
-dfSUBJ <- clindata::CreateSUBJ(
-  dfDm = clindata::raw_dm,
-  dfIXRSrand = clindata::raw_iwrsrand,
-  dfEx = clindata::raw_ex,
-  dfVisit = clindata::raw_visdt,
-  dfStud = clindata::raw_studcomp,
-  dfSdrg = clindata::raw_sdrgcomp
-) %>%
-  filter(
-    !is.na(TimeOnTreatment),
-    !is.na(SubjectID) & SubjectID != ""
-  )
+    # Configure raw AE data for correct input for dfAE
+    dfAE <- clindata::raw_ae %>% 
+      select(
+        SubjectID = SUBJID, 
+        AE_SERIOUS = AESER
+      ) %>% 
+      mutate(
+        AE_TE_FLAG = sample(c(TRUE, FALSE), n(),  replace = TRUE),
+        AE_GRADE = sample(1:4, n(), replace = TRUE)
+      ) %>% 
+      filter(
+        !is.na(SubjectID) & SubjectID != ""
+      )
 
-# Map Domain-level data to the input data standard for the selected assessment
-dfInput <- AE_Map_Raw(
-  dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), 
-  bQuiet = FALSE
-)
+    # Configure raw subject-level data for correct input for dfSUBJ
+    dfSUBJ <- clindata::CreateSUBJ(
+      dfDm = clindata::raw_dm,
+      dfIXRSrand = clindata::raw_iwrsrand,
+      dfEx = clindata::raw_ex,
+      dfVisit = clindata::raw_visdt,
+      dfStud = clindata::raw_studcomp,
+      dfSdrg = clindata::raw_sdrgcomp
+    ) %>%
+      filter(
+        !is.na(TimeOnTreatment),
+        !is.na(SubjectID) & SubjectID != ""
+      )
 
-# Run the assessment
-ae_assess <- AE_Assess(dfInput)
-```
+    # Map Domain-level data to the input data standard for the selected assessment
+    dfInput <- AE_Map_Raw(
+      dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), 
+      bQuiet = FALSE
+    )
+
+    # Run the assessment
+    ae_assess <- AE_Assess(dfInput)
+
 ### Troubleshooting Tips
-- When using non-standard data, it will be helpful to reference the data specification for required column names for a given assessment. Run `?AE_Map_Raw` to view the documentation, and consult the **Data specification** section.
-- If a mapping function returns `NULL`, it may be helpful to set `bQuiet == FALSE` to view diagnostic error messages that will point to the column or columns that are causing issues.
-- Additionally, it may be helpful to set `bReturnChecks == TRUE`, which will return a list of checks that are run on all input data to ensure that all requirements (e.g., required columns, data types, unique, or non-missing data) are met.
+
+-   When using non-standard data, it will be helpful to reference the data specification for required column names for a given assessment. Run `?AE_Map_Raw` to view the documentation, and consult the **Data specification** section.
+-   If a mapping function returns `NULL`, it may be helpful to set `bQuiet == FALSE` to view diagnostic error messages that will point to the column or columns that are causing issues.
+-   Additionally, it may be helpful to set `bReturnChecks == TRUE`, which will return a list of checks that are run on all input data to ensure that all requirements (e.g., required columns, data types, unique, or non-missing data) are met.
 
 ## Example 3 - Running Multiple Assessments using Raw+ data
 
-Now, let's take a look at running multiple assessments instead of focusing solely on Adverse Events. 
+Now, let's take a look at running multiple assessments instead of focusing solely on Adverse Events.
 
 Running multiple assessments in {gsm} is made possible by the `Study_Assess()` function. By default, `Study_Assess()` uses sample data from {clindata} that is hard-coded to the `lData` parameter. Users can also provide their own Raw+ input data to the `lData` parameter.
 
 ### Using sample data from {clindata}
 
 To run multiple assessments using sample data from {clindata}, simply run the following:
-```
-library(gsm)
-library(clindata)
-library(safetyData)
 
-# Run multiple assessments
-multiple_assessments <- Study_Assess()
-```
+    library(gsm)
+    library(clindata)
+    library(safetyData)
+
+    # Run multiple assessments
+    multiple_assessments <- Study_Assess()
 
 ### Using user-provided Raw+ data
 
-For the scope of this example, the data found in {clindata} will pose as user-provided Raw+ data, but this will likely come from Raw+ case report data. 
+For the scope of this example, the data found in {clindata} will pose as user-provided Raw+ data, but this will likely come from Raw+ case report data.
 
-The example below illustrates that a user can pass a _named*_ list of Raw+ data to the `lData` parameter. 
+The example below illustrates that a user can pass a \_named\*\_ list of Raw+ data to the `lData` parameter.
 
-_*`lData` expects a named list. To see a list of default data frame names, run `names(clindata::mapping_rawplus)`_
+*\*`lData` expects a named list. To see a list of default data frame names, run* `names(clindata::mapping_rawplus)`
 
-```
-library(gsm)
-library(clindata)
-library(dplyr)
+    library(gsm)
+    library(clindata)
+    library(dplyr)
 
-# Include AE data where AE_GRADE is greater than 1
-dfAE <- clindata::rawplus_ae %>% 
-  filter(
-    AE_GRADE > 1
-  )
+    # Include AE data where AE_GRADE is greater than 1
+    dfAE <- clindata::rawplus_ae %>% 
+      filter(
+        AE_GRADE > 1
+      )
 
-# Specify Raw+ data domains
-dfSUBJ <- clindata::rawplus_subj
-dfIE <- clindata::rawplus_ie
-dfPD <- clindata::rawplus_pd
-dfCONSENT <- clindata::rawplus_consent
+    # Specify Raw+ data domains
+    dfSUBJ <- clindata::rawplus_subj
+    dfIE <- clindata::rawplus_ie
+    dfPD <- clindata::rawplus_pd
+    dfCONSENT <- clindata::rawplus_consent
 
-# Create named list of assessment data
-assessment_data <- list(
-  dfAE = dfAE,
-  dfIE = dfIE,
-  dfPD = dfPD,
-  dfCONSENT = dfCONSENT,
-  dfSUBJ = dfSUBJ
-)
+    # Create named list of assessment data
+    assessment_data <- list(
+      dfAE = dfAE,
+      dfIE = dfIE,
+      dfPD = dfPD,
+      dfCONSENT = dfCONSENT,
+      dfSUBJ = dfSUBJ
+    )
 
-# Run multiple assessments
-multiple_assessments <- Study_Assess(lData = assessment_data)
-```
-
+    # Run multiple assessments
+    multiple_assessments <- Study_Assess(lData = assessment_data)
 
 Note that `Study_Assess()` provides verbose console output alerting the user to success, warnings, or errors with the workflow.
 
- 
 ## Example 4 - Filtering Subject-Level Data For Multiple Assessments
 
-Let's take a closer look at functionality that is built into `Study_Assess()`. As a practical example, a user may want to keep subjects from an assessment based on a some criteria (e.g., a specific site, region, etc.). 
+Let's take a closer look at functionality that is built into `Study_Assess()`. As a practical example, a user may want to keep subjects from an assessment based on a some criteria (e.g., a specific site, region, etc.).
 
 This can be done by performing some preliminary data wrangling before passing the subject-level data to `lData`, but for the example below, we will use a custom `lMapping` and a named list passed to `lSubjFilters`. (For a more detailed overview of mapping specifications, refer to the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette).)
 
 For this example, we will only keep subjects who have `SiteID == "X010X"`:
 
-```
-library(gsm)
-library(clindata)
-library(dplyr)
+    library(gsm)
+    library(clindata)
+    library(dplyr)
 
-# Start with the default lMapping
-custom_mapping <- clindata::mapping_rawplus
+    # Start with the default lMapping
+    custom_mapping <-  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
-# Add the value to filter on to the custom mapping for dfSUBJ
-custom_mapping$dfSUBJ$strSiteVal <- "X010X"
+    # Add the value to filter on to the custom mapping for dfSUBJ
+    custom_mapping$dfSUBJ$strSiteVal <- "X010X"
 
-# Create a list to pass to lSubjFilters
-custom_filter <- list(
-  strSiteCol = "strSiteVal"
-)
+    # Create a list to pass to lSubjFilters
+    custom_filter <- list(
+      strSiteCol = "strSiteVal"
+    )
 
-# Run the assessments
-multiple_assessments <- Study_Assess(lMapping = custom_mapping, lSubjFilters = custom_filter)
-```
+    # Run the assessments
+    multiple_assessments <- Study_Assess(lMapping = custom_mapping, lSubjFilters = custom_filter)
+
 Note that `Study_Assess()` provides detailed information about `FilterDomain()`, which shows the number of rows dropped when filtering subject-level data:
-```
-── Checking Input Data for `FilterDomain()` ──
 
-✔ No issues found for dfSUBJ domain
-Filtering on SiteID == X010X
-✔ Filtered on `SiteID=X010X`, to drop 1269 rows from 1297 to 28 rows.
-```
+    ── Checking Input Data for `FilterDomain()` ──
+
+    ✔ No issues found for dfSUBJ domain
+    Filtering on SiteID == X010X
+    ✔ Filtered on `SiteID=X010X`, to drop 1269 rows from 1297 to 28 rows.
 
 # Reporting
 
 ## Example 5 - Creating an Assessment Overview Report for Multiple Assessments
 
-The `Study_Report()` function creates the **Assessment Overview Report**, which is an HTML document that contains tables, visualizations, and error logging for all assessments run in the `Study_Assess()` workflow. 
+The `Study_Report()` function creates the **Assessment Overview Report**, which is an HTML document that contains tables, visualizations, and error logging for all assessments run in the `Study_Assess()` workflow.
 
 Let's create a report using sample data from {clindata}:
 
-```
-library(gsm)
-library(clindata)
+    library(gsm)
+    library(clindata)
 
-multiple_assessments <- Study_Assess()
+    multiple_assessments <- Study_Assess()
 
-Study_Report(lAssessments = multiple_assessments, lMeta = list(label = "My Study"))
-```
-The report will render and be saved to  your current working directory. You can optionally set an output directory using the `strOutpath` parameter.
+    Study_Report(lAssessments = multiple_assessments, lMeta = list(label = "My Study"))
+
+The report will render and be saved to your current working directory. You can optionally set an output directory using the `strOutpath` parameter.
 
 ## Example 6 - Viewing Error Checking Report
 
-The **Assessment Overview Report** contains a Data Check Summary table in the appendix, which can be helpful for troubleshooting issues with input data provided to `lData` in `Study_Assess()`. 
+The **Assessment Overview Report** contains a Data Check Summary table in the appendix, which can be helpful for troubleshooting issues with input data provided to `lData` in `Study_Assess()`.
 
-To view the report directly as an object in your IDE, run: 
-```
-library(gsm)
-library(clindata)
+To view the report directly as an object in your IDE, run:
 
-multiple_assessments <- Study_Assess()
+    library(gsm)
+    library(clindata)
 
-Study_AssessmentReport(lAssessments = multiple_assessments, bViewReport = TRUE)
-```
-Here's an example of a report that shows no errors: 
+    multiple_assessments <- Study_Assess()
 
-![image](https://user-images.githubusercontent.com/40671730/169323890-b084efdb-2eea-43e9-b86b-4cf5770689bd.png)
+    Study_AssessmentReport(lAssessments = multiple_assessments, bViewReport = TRUE)
 
 # Visualizations
 
@@ -262,66 +248,62 @@ By default, all `*_Assess()` functions return a visualization whether run indivi
 
 ## Example 7 - Creating a Scatter Plot
 
-Currently, {gsm} creates scatter plots for Adverse Event and Protocol Deviation assessments. 
+Currently, {gsm} creates scatter plots for Adverse Event and Protocol Deviation assessments.
 
-In some cases, a user may want to produce a visualization separately to make additional customizations. 
+In some cases, a user may want to produce a visualization separately to make additional customizations.
 
 Below is an example using the default Poisson statistical model for `AE_Assess()`:
 
-```
-library(gsm)
-library(clindata)
+    library(gsm)
+    library(clindata)
 
-# Map Domain-level data to the input data standard for the selected assessment
-dfInput <- AE_Map_Raw()
+    # Map Domain-level data to the input data standard for the selected assessment
+    dfInput <- AE_Map_Raw()
 
-# Run the assessment
-ae_assessment <- AE_Assess(dfInput)
+    # Run the assessment
+    ae_assessment <- AE_Assess(dfInput)
 
-# Create threshold boundaries 
-dfBounds <- Analyze_Poisson_PredictBounds(
-  dfTransformed = ae_assessment$dfTransformed,
-  vThreshold = c(-5, 5)
-  )
+    # Create threshold boundaries 
+    dfBounds <- Analyze_Poisson_PredictBounds(
+      dfTransformed = ae_assessment$dfTransformed,
+      vThreshold = c(-5, 5)
+      )
 
-# Create the visualization
-Visualize_Scatter(
-  dfFlagged = ae_assessment$dfFlagged, 
-  dfBounds = dfBounds
-  )
-```
+    # Create the visualization
+    Visualize_Scatter(
+      dfFlagged = ae_assessment$dfFlagged, 
+      dfBounds = dfBounds
+      )
 
-Creating a scatter plot for a Wilcoxon model is similar to the example above, but there are no threshold boundaries. 
+Creating a scatter plot for a Wilcoxon model is similar to the example above, but there are no threshold boundaries.
 
-```
-library(gsm)
-library(clindata)
+    library(gsm)
+    library(clindata)
 
-# Map Domain-level data to the input data standard for the selected assessment
-dfInput <- AE_Map_Raw()
+    # Map Domain-level data to the input data standard for the selected assessment
+    dfInput <- AE_Map_Raw()
 
-# Run the assessment
-ae_assessment <- AE_Assess(dfInput, strMethod = "wilcoxon")
+    # Run the assessment
+    ae_assessment <- AE_Assess(dfInput, strMethod = "wilcoxon")
 
-# Create the visualization
-Visualize_Scatter(dfFlagged = ae_assessment$dfFlagged)
+    # Create the visualization
+    Visualize_Scatter(dfFlagged = ae_assessment$dfFlagged)
 
-```
 # Custom Mapping/YAML Specs
 
-As mentioned in the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette#metadata-technical-specifications), `Study_Assess()` triggers a workflow that uses pre-defined YAML specs that organizes all of the required metadata for a given assessment or set of assessments. 
+As mentioned in the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette#metadata-technical-specifications), `Study_Assess()` triggers a workflow that uses pre-defined YAML specs that organizes all of the required metadata for a given assessment or set of assessments.
 
-In some cases, the user might want to configure their own mappings, which can be done by providing custom YAML mappings for one or more assessments. 
+In some cases, the user might want to configure their own mappings, which can be done by providing custom YAML mappings for one or more assessments.
 
-Let's take a look at a few examples of editing YAML files for a custom workflow below. 
+Let's take a look at a few examples of editing YAML files for a custom workflow below.
 
 ## Example 8 - Adding a Filtering Step to the Consent Assessment
 
 In the default Assessment Specification for Consent, there is no filter step. Let's add a step that filters the `dfCONSENT` dataframe so all values of `CONSENT_TYPE == "MAINCONSENT"`:
 
-The default Assessments mapping for the Consent Assessment looks like this: 
+The default Assessments mapping for the Consent Assessment looks like this:
 
-```yaml
+``` yaml
 label: Consent Workflow
 tags:
   Assessment: Consent
@@ -337,11 +319,11 @@ workflow:
     output: lResults
 ```
 
-First, add the `FilterDomain` steps to the mapping above. Because `dfCONSENT` needs to be filtered before it is used in `Consent_Map_Raw`, it needs to be placed first in the workflow. 
+First, add the `FilterDomain` steps to the mapping above. Because `dfCONSENT` needs to be filtered before it is used in `Consent_Map_Raw`, it needs to be placed first in the workflow.
 
 The updated YAML file should look like this, and then saved to a folder. Let's name it `consent_assessment_yaml.yaml`.
 
-```yaml
+``` yaml
 label: Consent Workflow
 tags:
   Assessment: Consent
@@ -364,16 +346,17 @@ workflow:
     output: lResults
 ```
 
-After setting up a custom YAML mapping, there are a few more steps in setting up input values for `Study_Assess()`: 
-1. Read in the default assessment mapping from `gsm::MakeAssessmentList()`.
-2. Overwrite `lAssessmentsCustom$consent` with the custom YAML file (`consent_assessment_yaml.yaml`).
-3. Add a name value to the custom assessment list.
-4. Add a relative path to the custom assessment list, to show where the custom YAML file is stored.
-5. Read in the default Raw+ mappings from {clindata}.
-6. Add the value to sort `strTypeCol` on. 
-7. Run the `Study_Assess()` workflow.
+After setting up a custom YAML mapping, there are a few more steps in setting up input values for `Study_Assess()`:
 
-```r
+1.  Read in the default assessment mapping from `gsm::MakeAssessmentList()`.
+2.  Overwrite `lAssessmentsCustom$consent` with the custom YAML file (`consent_assessment_yaml.yaml`).
+3.  Add a name value to the custom assessment list.
+4.  Add a relative path to the custom assessment list, to show where the custom YAML file is stored.
+5.  Read in the default Raw+ mappings from {clindata}.
+6.  Add the value to sort `strTypeCol` on.
+7.  Run the `Study_Assess()` workflow.
+
+``` r
  library(gsm)
 library(clindata)
 library(yaml)
