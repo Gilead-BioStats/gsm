@@ -291,7 +291,7 @@ Creating a scatter plot for a Wilcoxon model is similar to the example above, bu
 
 # Custom Mapping/YAML Specs
 
-As mentioned in the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette#metadata-technical-specifications), `Study_Assess()` triggers a workflow that uses pre-defined YAML specs that organizes all of the required metadata for a given assessment or set of assessments.
+As mentioned in the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette#metadata-technical-specifications), `Study_Assess()` triggers a workflow that uses pre-defined YAML specs that organize all of the required metadata for a given assessment or set of assessments.
 
 In some cases, the user might want to configure their own mappings, which can be done by providing custom YAML mappings for one or more assessments.
 
