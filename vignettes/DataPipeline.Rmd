@@ -102,7 +102,7 @@ Each mapping object lists the required parameters for all required data domains 
 
 For example, the following could be passed to the `mapping` parameter for the `AE_Map_Raw()` function to be used with the default data from `clindata::rawplus_AE` and `clindata::rawplus_SUBJ`: 
 
-```
+```{r eval = FALSE, include = TRUE}
 list(
   dfAE = list(strIDCol = 'SubjectID'),
   dfSUBJ = list(
