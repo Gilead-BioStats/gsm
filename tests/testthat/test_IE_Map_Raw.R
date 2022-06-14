@@ -14,7 +14,7 @@ test_that("incorrect inputs throw errors", {
 })
 
 # output is created as expected -------------------------------------------
-test_that("output created as expected ", {
+test_that("output created as expected", {
     test_correct_output(
         IE_Map_Raw,
         dfIE,
