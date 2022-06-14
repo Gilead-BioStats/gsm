@@ -1,0 +1,14 @@
+tags:
+  Assessment: Consent
+  Label: Consent
+workflow:
+  - name: Consent_Map_Raw
+    inputs:
+      - dfCONSENT
+      - dfSUBJ
+    output: dfInput
+  - name: Consent_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      nThreshold: 0.5
