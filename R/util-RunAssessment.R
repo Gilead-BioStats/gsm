@@ -83,7 +83,7 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
   }
 
   if(lAssessment$bStatus) {
-    lAssessment$flowchart <- Visualize_Workflow(lAssessment)
+    lAssessment$lResults$flowchart <- Visualize_Workflow(lAssessment)
   }
 
   return(lAssessment)
