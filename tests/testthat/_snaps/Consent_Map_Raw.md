@@ -1,7 +1,7 @@
 # incorrect inputs throw errors
 
     Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = list(), dfSUBJ = list()), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `Consent_Map_Raw()` --
@@ -24,67 +24,114 @@
 ---
 
     Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = list()), bQuiet = F)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `Consent_Map_Raw()` --
-      
-      x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, RandDate
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = list(), dfSUBJ = dfSUBJ), bQuiet = F)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `Consent_Map_Raw()` --
-      
-      x df is not a data.frame()
-      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = "Hi", dfSUBJ = "Mom"), bQuiet = F)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `Consent_Map_Raw()` --
-      
-      x df is not a data.frame()
-      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, RandDate
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ), lMapping = list(),
+      map_function(dfs = purrr::imap(dfs, ~ if (.y == "dfSUBJ") list() else .x),
       bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID, RandDate
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~ if (.y == df_name) list() else .x),
+      bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~"Hi Mom"), bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID, RandDate
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~9999), bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID, RandDate
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~TRUE), bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID, RandDate
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~.x), lMapping = list(), bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `Consent_Map_Raw()` --
@@ -103,163 +150,159 @@
 ---
 
     Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT %>% select(-CONSENT_DATE),
-      dfSUBJ = dfSUBJ), bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: CONSENT_DATE
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` did not run because of failed check.
+      v No issues found for `Consent_Map_Raw()`
+      
+      -- Initializing `Consent_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      v `Consent_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count
+      1      1234  X010X     1
+      2      5678  X102X     1
+      3      9876  X999X     1
 
 ---
 
     Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT %>% select(-CONSENT_TYPE),
-      dfSUBJ = dfSUBJ), bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: CONSENT_TYPE
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` did not run because of failed check.
+      v No issues found for `Consent_Map_Raw()`
+      
+      -- Initializing `Consent_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      v `Consent_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count
+      1      1234  X010X     1
+      2      5678  X102X     1
+      3      9876  X999X     1
 
 ---
 
     Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT %>% select(-CONSENT_VALUE),
-      dfSUBJ = dfSUBJ), bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: CONSENT_VALUE
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` did not run because of failed check.
+      v No issues found for `Consent_Map_Raw()`
+      
+      -- Initializing `Consent_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      v `Consent_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count
+      1      1234  X010X     1
+      2      5678  X102X     1
+      3      9876  X999X     1
 
 ---
 
     Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ %>% select(
-        -SubjectID)), bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` did not run because of failed check.
+      v No issues found for `Consent_Map_Raw()`
+      
+      -- Initializing `Consent_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      v `Consent_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count
+      1      1234  X010X     1
+      2      5678  X102X     1
+      3      9876  X999X     1
 
 ---
 
     Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ %>% select(
-        -SiteID)), bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: SiteID
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` did not run because of failed check.
+      v No issues found for `Consent_Map_Raw()`
+      
+      -- Initializing `Consent_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      v `Consent_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count
+      1      1234  X010X     1
+      2      5678  X102X     1
+      3      9876  X999X     1
 
 ---
 
     Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ %>% select(
-        -RandDate)), bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: RandDate
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` did not run because of failed check.
+      v No issues found for `Consent_Map_Raw()`
+      
+      -- Initializing `Consent_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      v `Consent_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count
+      1      1234  X010X     1
+      2      5678  X102X     1
+      3      9876  X999X     1
 
 ---
 
     Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = bind_rows(dfSUBJ,
-        head(dfSUBJ, 1))), bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      v No issues found for `Consent_Map_Raw()`
+      
+      -- Initializing `Consent_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      v `Consent_Map_Raw()` returned output with 3 rows.
+    Output
+        SubjectID SiteID Count
+      1      1234  X010X     1
+      2      5678  X102X     1
+      3      9876  X999X     1
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x Unexpected duplicates found in column: SubjectID
-      ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
-# incorrect mappings throw errors
-
-    Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ), lMapping = list(
-        dfCONSENT = list(strIDCol = "not an id", strTypeCol = "CONSENT_TYPE",
-          strValueCol = "CONSENT_VALUE", strDateCol = "CONSENT_DATE"), dfSUBJ = list(
-          strIDCol = "SubjectID", strSiteCol = "SiteID", strRandDateCol = "RandDate")),
-      bQuiet = F)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `Consent_Map_Raw()` --
-      
-      x the following columns not found in df: not an id
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Consent_Map_Raw()`
-      ! `Consent_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ), lMapping = list(
-        dfCONSENT = list(strIDCol = "SubjectID", strTypeCol = "CONSENT_TYPE",
-          strValueCol = "CONSENT_VALUE", strDateCol = "CONSENT_DATE"), dfSUBJ = list(
-          strIDCol = "not an id", strSiteCol = "SiteID", strRandDateCol = "RandDate")),
-      bQuiet = F)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `Consent_Map_Raw()` --
-      
-      x the following columns not found in df: not an id
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output

@@ -1,32 +1,27 @@
 source(testthat::test_path("testdata/data.R"))
-
-# output is created as expected -------------------------------------------
-test_that("output is created as expected", {
-  data <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
-  expect_true(is.data.frame(data))
-  expect_equal(names(data), c("SubjectID", "SiteID", "Count", "Exposure", "Rate"))
-  expect_type(data$SubjectID, "character")
-  expect_type(data$SiteID, "character")
-  expect_true(class(data$Count) %in% c("double", "integer", "numeric"))
-})
+input_spec <- yaml::read_yaml(paste0(here::here(), '/inst/specs/AE_Map_Raw.yaml'))
+output_mapping <- yaml::read_yaml(paste0(here::here(), '/inst/mappings/AE_Assess.yaml'))
 
 # incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors", {
-  # empty data frames
-  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = list(), dfSUBJ = list()), bQuiet = F))
-  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = list()), bQuiet = F))
-  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = list(), dfSUBJ = dfSUBJ), bQuiet = F))
-  # mistyped data frames
-  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = "Hi", dfSUBJ = "Mom"), bQuiet = F))
-  # empty mapping
-  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), lMapping = list(), bQuiet = F))
-  # missing variables
-  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE %>% select(-SubjectID), dfSUBJ = dfSUBJ), bQuiet = F))
-  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ %>% select(-SiteID)), bQuiet = F))
-  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ %>% select(-SubjectID)), bQuiet = F))
-  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ %>% select(-TimeOnTreatment)), bQuiet = F))
-  # duplicate subject IDs
-  expect_snapshot(AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = bind_rows(dfSUBJ, head(dfSUBJ, 1))), bQuiet = F))
+    test_incorrect_inputs(
+        AE_Map_Raw,
+        dfAE,
+        'dfAE',
+        dfSUBJ,
+        input_spec
+    )
+})
+
+# output is created as expected -------------------------------------------
+test_that("output is created as expected", {
+    test_correct_output(
+        AE_Map_Raw,
+        dfAE,
+        'dfAE',
+        dfSUBJ,
+        output_mapping
+    )
 })
 
 # incorrect mappings throw errors -----------------------------------------

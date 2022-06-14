@@ -1,7 +1,7 @@
 # incorrect inputs throw errors
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = list(), dfSUBJ = list()), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -24,7 +24,8 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = list()), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~ if (.y == "dfSUBJ") list() else .x),
+      bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -42,7 +43,8 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = list(), dfSUBJ = dfSUBJ), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~ if (.y == df_name) list() else .x),
+      bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -60,7 +62,7 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = "Hi", dfSUBJ = "Mom"), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~"Hi Mom"), bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -83,7 +85,53 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ), lMapping = list(), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~9999), bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID, TimeOnStudy
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `PD_Map_Raw()`
+      ! `PD_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~TRUE), bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID, TimeOnStudy
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `PD_Map_Raw()`
+      ! `PD_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~.x), lMapping = list(), bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -102,160 +150,87 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD %>% select(-SubjectID), dfSUBJ = dfSUBJ),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      v No issues found for `PD_Map_Raw()`
+      
+      -- Initializing `PD_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      v `PD_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count Exposure         Rate
+      1      1234  X010X     2     1234 0.0016207455
+      2      5678  X102X     3     2345 0.0012793177
+      3      9876  X999X     2     4567 0.0004379242
 
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-SubjectID)),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      v No issues found for `PD_Map_Raw()`
+      
+      -- Initializing `PD_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      v `PD_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count Exposure         Rate
+      1      1234  X010X     2     1234 0.0016207455
+      2      5678  X102X     3     2345 0.0012793177
+      3      9876  X999X     2     4567 0.0004379242
 
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-SiteID)),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x the following columns not found in df: SiteID
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      v No issues found for `PD_Map_Raw()`
+      
+      -- Initializing `PD_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      v `PD_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count Exposure         Rate
+      1      1234  X010X     2     1234 0.0016207455
+      2      5678  X102X     3     2345 0.0012793177
+      3      9876  X999X     2     4567 0.0004379242
 
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-TimeOnStudy)),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x the following columns not found in df: TimeOnStudy
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      v No issues found for `PD_Map_Raw()`
+      
+      -- Initializing `PD_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      v `PD_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count Exposure         Rate
+      1      1234  X010X     2     1234 0.0016207455
+      2      5678  X102X     3     2345 0.0012793177
+      3      9876  X999X     2     4567 0.0004379242
 
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = bind_rows(dfSUBJ, head(dfSUBJ, 1))),
-      bQuiet = F)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      x Unexpected duplicates found in column: SubjectID
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
-# incorrect mappings throw errors
-
-    Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ), lMapping = list(dfPD = list(
-        strIDCol = "not an id"), dfSUBJ = list(strIDCol = "SubjectID", strSiteCol = "SiteID",
-        strTimeOnStudyCol = "TimeOnStudy")), bQuiet = F)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      x the following columns not found in df: not an id
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ), lMapping = list(dfPD = list(
-        strIDCol = "SubjectID"), dfSUBJ = list(strIDCol = "not an id", strSiteCol = "SiteID",
-        strTimeOnStudyCol = "TimeOnStudy")), bQuiet = F)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      x the following columns not found in df: not an id
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
-# NA values are caught
-
-    Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfTos), bQuiet = F)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      x 1 NA values found in column: TimeOnStudy
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD2, dfSUBJ = dfTos2), bQuiet = F)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      x 1 NA values found in column: TimeOnStudy
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
-# duplicate SubjectID values are caught in RDSL
-
-    Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ), bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --

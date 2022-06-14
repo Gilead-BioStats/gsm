@@ -1,7 +1,7 @@
 # incorrect inputs throw errors
 
     Code
-      IE_Map_Raw(dfs = list(dfIE = list(), dfSUBJ = list()), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Map_Raw()` --
@@ -24,7 +24,8 @@
 ---
 
     Code
-      IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = list()), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~ if (.y == "dfSUBJ") list() else .x),
+      bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Map_Raw()` --
@@ -42,7 +43,8 @@
 ---
 
     Code
-      IE_Map_Raw(dfs = list(dfIE = list(), dfSUBJ = dfSUBJ), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~ if (.y == df_name) list() else .x),
+      bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Map_Raw()` --
@@ -60,7 +62,7 @@
 ---
 
     Code
-      IE_Map_Raw(dfs = list(dfIE = "Hi", dfSUBJ = "Mom"), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~"Hi Mom"), bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Map_Raw()` --
@@ -83,7 +85,53 @@
 ---
 
     Code
-      IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ), lMapping = list(), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~9999), bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `IE_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, IE_CATEGORY, IE_VALUE
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `IE_Map_Raw()`
+      ! `IE_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~TRUE), bQuiet = F)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `IE_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, IE_CATEGORY, IE_VALUE
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `IE_Map_Raw()`
+      ! `IE_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~.x), lMapping = list(), bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Map_Raw()` --
@@ -102,141 +150,127 @@
 ---
 
     Code
-      IE_Map_Raw(dfs = list(dfIE = dfIE %>% select(-SubjectID), dfSUBJ = dfSUBJ),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      v No issues found for `IE_Map_Raw()`
+      
+      -- Initializing `IE_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `IE_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count
+      1      1234  X010X     0
+      2      5678  X102X     0
+      3      9876  X999X     0
 
 ---
 
     Code
-      IE_Map_Raw(dfs = list(dfIE = dfIE %>% select(-IE_CATEGORY), dfSUBJ = dfSUBJ),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x the following columns not found in df: IE_CATEGORY
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      v No issues found for `IE_Map_Raw()`
+      
+      -- Initializing `IE_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `IE_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count
+      1      1234  X010X     0
+      2      5678  X102X     0
+      3      9876  X999X     0
 
 ---
 
     Code
-      IE_Map_Raw(dfs = list(dfIE = dfIE %>% select(-IE_VALUE), dfSUBJ = dfSUBJ),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x the following columns not found in df: IE_VALUE
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      v No issues found for `IE_Map_Raw()`
+      
+      -- Initializing `IE_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `IE_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count
+      1      1234  X010X     0
+      2      5678  X102X     0
+      3      9876  X999X     0
 
 ---
 
     Code
-      IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ %>% select(-SubjectID)),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      v No issues found for `IE_Map_Raw()`
+      
+      -- Initializing `IE_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `IE_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count
+      1      1234  X010X     0
+      2      5678  X102X     0
+      3      9876  X999X     0
 
 ---
 
     Code
-      IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ %>% select(-SiteID)),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x the following columns not found in df: SiteID
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      v No issues found for `IE_Map_Raw()`
+      
+      -- Initializing `IE_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `IE_Map_Raw()` returned output with 3 rows.
     Output
-      NULL
+        SubjectID SiteID Count
+      1      1234  X010X     0
+      2      5678  X102X     0
+      3      9876  X999X     0
 
 ---
 
     Code
-      IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = bind_rows(dfSUBJ, head(dfSUBJ, 1))),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = F)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
       x Unexpected duplicates found in column: SubjectID
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
-# incorrect mappings throw errors
-
-    Code
-      IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ), lMapping = list(dfIE = list(
-        strIDCol = "not an id", strCategoryCol = "IE_CATEGORY", strValueCol = "IE_VALUE"),
-      dfSUBJ = list(strIDCol = "SubjectID", strSiteCol = "SiteID")), bQuiet = F)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `IE_Map_Raw()` --
-      
-      x the following columns not found in df: not an id
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ), lMapping = list(dfIE = list(
-        strIDCol = "SubjectID", strCategoryCol = "IE_CATEGORY", strValueCol = "IE_VALUE"),
-      dfSUBJ = list(strIDCol = "not an id", strSiteCol = "SiteID")), bQuiet = F)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `IE_Map_Raw()` --
-      
-      x the following columns not found in df: not an id
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` did not run because of failed check.
     Output
