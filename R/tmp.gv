@@ -1,0 +1,31 @@
+graph workflow {
+
+graph [rankdir = LR]
+
+node [shape = rectangle,
+      style = filled,
+      color = grey,
+      label = ""]
+
+node [fillcolor = "blue",
+      label = "dfAE\n150x5"]
+1
+
+node [fillcolor = "blue",
+      label = "dfAE\n100x5"]
+2
+
+node [fillcolor = "blue"
+      label = "dfSUBJ"]
+3
+
+node [fillcolor = "blue",
+      label = "dfInput\n500x20"]
+4
+
+edge [color = grey]
+1 -- {2}
+2 -- {4}
+3 -- {4}
+
+}
