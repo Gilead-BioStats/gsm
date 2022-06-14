@@ -180,7 +180,7 @@ Note that `Study_Assess()` provides verbose console output alerting the user to 
 
 ## Example 4 - Filtering Subject-Level Data For Multiple Assessments
 
-Let's take a closer look at functionality that is built into `Study_Assess()`. As a practical example, a user may want to keep subjects from an assessment based on a some criteria (e.g., a specific site, region, etc.).
+Let's take a closer look at functionality that is built into `Study_Assess()`. As a practical example, a user may want to keep subjects from an assessment based on some criteria (e.g., a specific site, region, etc.).
 
 This can be done by performing some preliminary data wrangling before passing the subject-level data to `lData`, but for the example below, we will use a custom `lMapping` and a named list passed to `lSubjFilters`. (For a more detailed overview of mapping specifications, refer to the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette).)
 
