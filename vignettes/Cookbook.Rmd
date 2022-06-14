@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 This vignette contains a series of examples showing how to run analysis workflows for the {gsm} package using sample data from {clindata}.
 
-For more information on of the {gsm} package see the [package homepage](https://silver-potato-cfe8c2fb.pages.github.io/). The [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette) provides additional technical details including data specifications, and other technical details.
+For more information on the {gsm} package see the [package homepage](https://silver-potato-cfe8c2fb.pages.github.io/). The [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette) provides additional technical details including data specifications, and other technical details.
 
 ## Setup and Installation
 
