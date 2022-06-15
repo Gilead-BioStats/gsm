@@ -12,7 +12,7 @@ Study_AssessmentReport(lAssessments, bViewReport = FALSE)
 \item{bViewReport}{HTML table of dfSummary that can be viewed in most IDEs.}
 }
 \value{
-\code{list} Returns a list containing a data.frame summarizing the checks \code{dfSummary} and a dataframe listing all checks (\code{dfAllChecks})
+\code{list} containing a \code{data.frame} summarizing the checks \code{dfSummary} and a \code{data.frame} listing all checks (\code{dfAllChecks}).
 }
 \description{
 Make overview table with one row per assessment and one column per site showing flagged assessments.

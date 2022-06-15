@@ -9,7 +9,7 @@ MakeAssessmentList(path = "workflow", package = "gsm")
 \arguments{
 \item{path}{\code{character} The location of assessment YAML files. If package is specified, function will look in \verb{/inst} folder.}
 
-\item{package}{\code{character} package with assessments}
+\item{package}{\code{character} The name of the package with assessments.}
 }
 \value{
 \code{list} A list of assessments with workflow and parameter metadata.

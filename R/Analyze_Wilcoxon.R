@@ -2,7 +2,7 @@
 #'
 #' Create analysis results data for event assessment using the Wilcoxon sign-ranked test.
 #'
-#'  @details
+#' @details
 #' Fits a Wilcoxon model to site-level data.
 #'
 #' @section Statistical Methods:
@@ -25,7 +25,7 @@
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` with one row per site, columns: SiteID, N, TotalCount, TotalExposure, Rate,
-#'   Estimate, PValue
+#'   Estimate, PValue.
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()

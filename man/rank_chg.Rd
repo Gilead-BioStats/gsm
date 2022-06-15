@@ -2,13 +2,15 @@
 % Please edit documentation in R/util-ReportHelpers.R
 \name{rank_chg}
 \alias{rank_chg}
-\title{insert icon for status in gt table}
+\title{Report Helper Functions}
 \usage{
 rank_chg(status)
 }
 \arguments{
-\item{status}{boolean status}
+\item{status}{\code{boolean} fontawesome emoji indicator that describes the status of error checking for all assessments run in \code{Study_Assess()}}
 }
 \description{
-from https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/
+\code{rank_chg} - inserts icons for status in {gt} table.
+
+Adopted from https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/.
 }

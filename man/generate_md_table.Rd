@@ -30,5 +30,5 @@ generate_md_table(
 \item{header}{\code{character} section header}
 }
 \description{
-Combine data mapping and specification then output as markdown table.
+Combine data mapping and specification, and then output as markdown table.
 }

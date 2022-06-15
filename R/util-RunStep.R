@@ -8,9 +8,7 @@
 #' @param lTags tags
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
-#' @return A list containing the results of the `lStep$name` function call should contain `.$checks` parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
-#'
-#'
+#' @return `list` containing the results of the `lStep$name` function call should contain `.$checks` parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
 #'
 #' @examples
 #' lStep <- MakeAssessmentList()[["ae"]][["workflow"]][[1]]

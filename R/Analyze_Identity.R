@@ -7,7 +7,12 @@
 #' @param strLabelCol `character` Name of column that will be copied as `ScoreLabel`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` that adds two columns to `dfTransformed`: `Score` and `ScoreLabel`
+#' @return `data.frame` with one row per site with columns: SiteID, N, TotalCount, KRI, KRILabel, Score, ScoreLabel.
+#'
+#' @examples
+#' dfInput <- Consent_Map_Raw()
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count")
+#' dfAnalyzed <- Analyze_Identity(dfTransformed)
 #'
 #' @export
 

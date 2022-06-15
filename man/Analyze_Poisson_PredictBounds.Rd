@@ -20,8 +20,8 @@ the thresholds used AE_Assess().}
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-data frame containing predicted boundary values with upper and lower bounds across the
-range of observed values
+\code{data.frame} containing predicted boundary values with upper and lower bounds across the
+range of observed values.
 }
 \description{
 Poisson Analysis - Predicted Boundaries
