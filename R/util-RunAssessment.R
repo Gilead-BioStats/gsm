@@ -43,6 +43,7 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
 
   if(exists("workflow", where = lAssessment)) {
     # Run through each step in lAssessment$workflow
+    node_df <- tibble()
     stepCount <- 1
     for (step in lAssessment$workflow) {
       if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lAssessment$workflow), ": `", step$name, "`"))
@@ -53,6 +54,20 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
           lData = lAssessment$lData,
           lTags = c(lTags, lAssessment$tags),
           bQuiet = bQuiet
+        )
+
+        node_df <- bind_rows(node_df,
+                             map_df(step$inputs, ~tibble(
+                               assessment = lAssessment$name,
+                               n_step = stepCount,
+                               name = step$name,
+                               inputs = .x,
+                               n_row = nrow(lData[[.x]]),
+                               n_col = ncol(lData[[.x]]))) %>%
+                               mutate(checks = result$lChecks$status,
+                                      from = stepCount,
+                                      to = length(lAssessment$workflow[[stepCount]]$inputs) + stepCount,
+                                      n_row_end = ifelse(!is.null(result$newRows), result$newRows, NA))
         )
 
         lAssessment$checks[[stepCount]] <- result$lChecks
@@ -74,7 +89,6 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
       } else {
         cli::cli_text("Skipping {.fn {step$name}} ...")
       }
-
       stepCount <- stepCount + 1
     }
   } else {
@@ -82,9 +96,25 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
     lAssessment$bStatus <- FALSE
   }
 
-  if(lAssessment$bStatus) {
-    lAssessment$lResults$flowchart <- Visualize_Workflow(lAssessment)
-  }
+  lAssessment$dfFlowchart <-
+    bind_rows(
+    node_df %>%
+    mutate(from = row_number()),
+
+  result[grep('df', names(result))] %>%
+    imap_dfr(~tibble(assessment = lAssessment$name,
+                     n_step = max(node_df$n_step),
+                     name = .y,
+                     inputs = .y,
+                     n_row = nrow(.x),
+                     n_col = ncol(.x),
+                     checks = TRUE)) %>%
+    mutate(n_step = n_step + row_number(),
+           from = n_step,
+           to = n_step + 1)
+    ) %>%
+    filter(!is.na(n_row)) %>%
+    mutate(n_row = ifelse(!is.na(lag(n_row_end)), lag(n_row_end), n_row))
 
   return(lAssessment)
 }

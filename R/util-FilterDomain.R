@@ -68,7 +68,7 @@ FilterDomain <- function(
   }
 
   if (bReturnChecks) {
-    return(list(df = df, lChecks = checks))
+    return(list(df = df, lChecks = checks, newRows = newRows))
   } else {
     return(df)
   }
