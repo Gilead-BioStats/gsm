@@ -2,8 +2,8 @@ source(testthat::test_path("testdata/data.R"))
 
 assess_function <- gsm::PD_Assess
 dfInput <- PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ))
-output_spec <- yaml::read_yaml(paste0(here::here(), '/inst/specs/PD_Assess.yaml'))
-output_mapping <- yaml::read_yaml(paste0(here::here(), '/inst/mappings/PD_Assess.yaml'))
+output_spec <- yaml::read_yaml(system.file('specs', 'PD_Assess.yaml', package = 'gsm'))
+output_mapping <- yaml::read_yaml(system.file('mappings', 'PD_Assess.yaml', package = 'gsm'))
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {

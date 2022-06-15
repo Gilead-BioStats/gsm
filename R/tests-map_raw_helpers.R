@@ -71,7 +71,10 @@ test_missing_value <- function(map_function, dfs, spec, mapping) {
     # for each domain in spec
     for (domain in names(spec)) {
         df <- dfs[[ domain ]]
-        column_keys <- spec[[ domain ]]$vRequired
+        column_keys <- setdiff(
+            spec[[ domain ]]$vRequired,
+            spec[[ domain ]]$vNACols
+        )
 
         # for each required column in domain
         for (column_key in column_keys) {
@@ -103,7 +106,7 @@ test_duplicate_subject_id <- function(map_function, dfs) {
 test_invalid_mapping <- function(map_function, dfs, spec, mapping) {
     # Subset mapping on columns required in spec.
     mapping_required <- mapping %>%
-        imap(function(columns, domain_key) { # loop over domains
+        purrr::imap(function(columns, domain_key) { # loop over domains
             domain_spec <- spec[[ domain_key ]]$vRequired
 
             columns[
@@ -113,8 +116,8 @@ test_invalid_mapping <- function(map_function, dfs, spec, mapping) {
 
     # Run assertion for each domain-column combination in mapping.
     mapping_required %>%
-        iwalk(function(columns, domain_key) { # loop over domains
-            iwalk(columns, function(column_value, column_key) { # loop over columns in domain
+        purrr::iwalk(function(columns, domain_key) { # loop over domains
+            purrr::iwalk(columns, function(column_value, column_key) { # loop over columns in domain
                 mapping_edited <- mapping_required
                 mapping_edited[[ domain_key ]][[ column_key ]] <- 'asdf'
 

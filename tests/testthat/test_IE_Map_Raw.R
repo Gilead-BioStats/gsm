@@ -7,13 +7,11 @@ dfs <- list(
     dfSUBJ = dfSUBJ
 )
 
-inst_path <- './' # paste0(inst_path, '')
+input_spec <- yaml::read_yaml(system.file('specs', 'IE_Map_Raw.yaml', package = 'gsm'))
+input_mapping <- yaml::read_yaml(system.file('mappings', 'IE_Map_Raw.yaml', package = 'gsm'))
 
-input_spec <- yaml::read_yaml(paste0(inst_path, 'specs/IE_Map_Raw.yaml'))
-input_mapping <- yaml::read_yaml(paste0(inst_path, 'mappings/IE_Map_Raw.yaml'))
-
-output_spec <- yaml::read_yaml(paste0(inst_path, 'specs/IE_Assess.yaml'))
-output_mapping <- yaml::read_yaml(paste0(inst_path, 'mappings/IE_Assess.yaml'))
+output_spec <- yaml::read_yaml(system.file('specs', 'IE_Assess.yaml', package = 'gsm'))
+output_mapping <- yaml::read_yaml(system.file('mappings', 'IE_Assess.yaml', package = 'gsm'))
 
 test_that("valid output is returned", {
     test_valid_output(

@@ -4,20 +4,20 @@
       map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, IE_CATEGORY, IE_VALUE
+      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: SubjectID, SiteID, RandDate
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -28,15 +28,15 @@
       bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: SubjectID, SiteID, RandDate
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -47,15 +47,15 @@
       bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, IE_CATEGORY, IE_VALUE
+      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -65,20 +65,20 @@
       map_function(dfs = purrr::imap(dfs, ~"Hi Mom"), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, IE_CATEGORY, IE_VALUE
+      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: SubjectID, SiteID, RandDate
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -88,20 +88,20 @@
       map_function(dfs = purrr::imap(dfs, ~9999), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, IE_CATEGORY, IE_VALUE
+      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: SubjectID, SiteID, RandDate
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -111,20 +111,20 @@
       map_function(dfs = purrr::imap(dfs, ~TRUE), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, IE_CATEGORY, IE_VALUE
+      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: SubjectID, SiteID, RandDate
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -134,16 +134,16 @@
       map_function(dfs = purrr::imap(dfs, ~.x), lMapping = list(), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x "mapping" does not contain required parameters: strIDCol, strCategoryCol, strValueCol
+      x "mapping" does not contain required parameters: strIDCol, strTypeCol, strValueCol, strDateCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      x "mapping" does not contain required parameters: strIDCol, strSiteCol
+      x "mapping" does not contain required parameters: strIDCol, strSiteCol, strRandDateCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -153,11 +153,11 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x Unexpected duplicates found in column: SubjectID
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -167,14 +167,14 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x the following columns not found in df: SubjectID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -184,14 +184,14 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: IE_CATEGORY
+      x the following columns not found in df: CONSENT_TYPE
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -201,14 +201,14 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: IE_VALUE
+      x the following columns not found in df: CONSENT_VALUE
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -218,14 +218,31 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x the following columns not found in df: CONSENT_DATE
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x the following columns not found in df: SubjectID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -235,14 +252,31 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x the following columns not found in df: SiteID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x the following columns not found in df: RandDate
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -252,11 +286,11 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x Unexpected duplicates found in column: SubjectID
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -266,14 +300,14 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -283,14 +317,14 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -300,14 +334,14 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -317,14 +351,14 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -334,14 +368,48 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `IE_Map_Raw()` --
+      -- Checking Input Data for `Consent_Map_Raw()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `IE_Map_Raw()`
-      ! `IE_Map_Raw()` did not run because of failed check.
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x the following columns not found in df: asdf
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x the following columns not found in df: asdf
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
 

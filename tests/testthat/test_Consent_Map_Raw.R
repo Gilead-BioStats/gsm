@@ -1,19 +1,17 @@
 source(testthat::test_path("testdata/data.R"))
 
-map_function <- gsm::IE_Map_Raw
+map_function <- gsm::Consent_Map_Raw
 
 dfs <- list(
-    dfIE = dfIE,
+    dfCONSENT = dfCONSENT,
     dfSUBJ = dfSUBJ
 )
 
-inst_path <- './' # paste0(inst_path, '')
+input_spec <- yaml::read_yaml(system.file('specs', 'Consent_Map_Raw.yaml', package = 'gsm'))
+input_mapping <- yaml::read_yaml(system.file('mappings', 'Consent_Map_Raw.yaml', package = 'gsm'))
 
-input_spec <- yaml::read_yaml(paste0(inst_path, 'specs/IE_Map_Raw.yaml'))
-input_mapping <- yaml::read_yaml(paste0(inst_path, 'mappings/IE_Map_Raw.yaml'))
-
-output_spec <- yaml::read_yaml(paste0(inst_path, 'specs/IE_Assess.yaml'))
-output_mapping <- yaml::read_yaml(paste0(inst_path, 'mappings/IE_Assess.yaml'))
+output_spec <- yaml::read_yaml(system.file('specs', 'Consent_Assess.yaml', package = 'gsm'))
+output_mapping <- yaml::read_yaml(system.file('mappings', 'Consent_Assess.yaml', package = 'gsm'))
 
 test_that("valid output is returned", {
     test_valid_output(

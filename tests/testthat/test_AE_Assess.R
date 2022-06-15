@@ -2,8 +2,8 @@ source(testthat::test_path("testdata/data.R"))
 
 assess_function <- gsm::AE_Assess
 dfInput <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
-output_spec <- yaml::read_yaml(paste0(here::here(), '/inst/specs/AE_Assess.yaml'))
-output_mapping <- yaml::read_yaml(paste0(here::here(), '/inst/mappings/AE_Assess.yaml'))
+output_spec <- yaml::read_yaml(system.file('specs', 'AE_Assess.yaml', package = 'gsm'))
+output_mapping <- yaml::read_yaml(system.file('mappings', 'AE_Assess.yaml', package = 'gsm'))
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
