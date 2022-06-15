@@ -96,25 +96,12 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
     lAssessment$bStatus <- FALSE
   }
 
-  lAssessment$dfFlowchart <-
-    bind_rows(
-    node_df %>%
-    mutate(from = row_number()),
-
-  result[grep('df', names(result))] %>%
-    imap_dfr(~tibble(assessment = lAssessment$name,
-                     n_step = max(node_df$n_step),
-                     name = .y,
-                     inputs = .y,
-                     n_row = nrow(.x),
-                     n_col = ncol(.x),
-                     checks = TRUE)) %>%
-    mutate(n_step = n_step + row_number(),
-           from = n_step,
-           to = n_step + 1)
-    ) %>%
-    filter(!is.na(n_row)) %>%
-    mutate(n_row = ifelse(!is.na(lag(n_row_end)), lag(n_row_end), n_row))
+  lAssessment$lResults$flowchart <- Visualize_Workflow(
+    dfFlowchart,
+    lAssessment = lAssessment,
+    dfResult = result,
+    dfNode = node_df
+    )
 
   return(lAssessment)
 }
