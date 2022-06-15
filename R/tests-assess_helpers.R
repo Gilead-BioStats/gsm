@@ -4,6 +4,6 @@ test_logical_assess_parameters <- function(assess_function, dfInput) {
   )
 
   expect_true(
-    "lChecks" %in% names(assess_funciton(dfInput, bReturnChecks = TRUE))
+    "lChecks" %in% names(assess_function(dfInput, bReturnChecks = TRUE))
   )
 }

@@ -14,12 +14,15 @@ test_that("output created as expected and has correct structure", {
 test_that("incorrect inputs throw errors", {
   expect_error(Analyze_Wilcoxon(list()))
   expect_error(Analyze_Wilcoxon("Hi"))
-  expect_error(Analyze_Wilcoxon(ae_prep, strOutcomeCol = 1))
   expect_error(
     Analyze_Wilcoxon(ae_prep %>% mutate(SiteID = ifelse(SiteID == first(SiteID), NA, SiteID)))
   )
+  expect_error(Analyze_Wilcoxon(ae_prep, strOutcomeCol = 1))
   expect_error(Analyze_Wilcoxon(ae_prep, strOutcomeCol = "coffee"))
   expect_error(Analyze_Wilcoxon(ae_prep, strOutcomeCol = c("Rate", "something else")))
+  expect_error(Analyze_Wilcoxon(ae_prep, strPredictorCol = 1))
+  expect_error(Analyze_Wilcoxon(ae_prep, strPredictorCol = "coffee"))
+  expect_error(Analyze_Wilcoxon(ae_prep, strPredictorCol = c("Rate", "something else")))
 })
 
 test_that("error given if required column not found", {
@@ -48,4 +51,11 @@ test_that("model isn't run with a single outcome value", {
   expect_true(all(c("SiteID", "N", "TotalCount", "TotalExposure", "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel") %in% names(aew_anly)))
   expect_true(all(is.na(aew_anly$Score)))
   expect_true(all(is.na(aew_anly$Estimate)))
+})
+
+test_that("bQuiet works as intended", {
+  ae_prep <- Transform_EventCount(ae_input, strCountCol = "Count", strExposureCol = "Exposure")
+  expect_message(
+    Analyze_Poisson(ae_prep, bQuiet = FALSE)
+  )
 })
