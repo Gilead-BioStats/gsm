@@ -18,11 +18,11 @@ RunAssessment(lAssessment, lData, lMapping, lTags = NULL, bQuiet = FALSE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{list} Returns \code{lAssessment} with \code{label}, \code{tags}, \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of \code{assessment$workflow}.
+\code{list} containing \code{lAssessment} with \code{tags}, \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of \code{assessment$workflow}.
 }
 \description{
-Attempts to run a single assessments (\code{lAssessment}) using shared data (\code{lData}) and metadata (\code{lMapping}).
-Calls \code{RunStep} for each item in \code{lAssessment$Workflow} and saves the results to \code{lAssessment}
+Attempts to run a single assessment (\code{lAssessment}) using shared data (\code{lData}) and metadata (\code{lMapping}).
+Calls \code{RunStep} for each item in \code{lAssessment$workflow} and saves the results to \code{lAssessment}
 }
 \examples{
 lAssessments <- MakeAssessmentList()
@@ -37,7 +37,6 @@ lTags <- list(
   Study = "myStudy"
 )
 lMapping <- clindata::mapping_rawplus
-
 
 ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
 

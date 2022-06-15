@@ -1,17 +1,17 @@
 #' Study Report
 #'
-#' Pulls needed study data and runs one or more assessments
+#' Create HTML summary report using the results of `Study_Assess`, including tables, charts, and error checking.
 #'
-#' @param lAssessments character vector listing assessments
-#' @param lMeta list of metadata related to study
-#' @param strOutpath path to save the report
+#' @param lAssessments `list` The results of multiple assessments run using `Study_Assess`.
+#' @param lMeta `list` Metadata related to study.
+#' @param strOutpath `character` File path; location where the report will be saved.
 #'
 #' @return HTML report of study data.
 #'
 #' @examples
 #' \dontrun{
-#' assessment <- Study_Assess()
-#' Study_Report(assessment, lMeta = list(study = "my study name"))
+#' lAssessment <- Study_Assess()
+#' Study_Report(lAssessment, lMeta = list(study = "my study name"))
 #' }
 #'
 #' @importFrom rmarkdown render
@@ -29,6 +29,6 @@ Study_Report <- function(lAssessments, lMeta = list(Project = "My Project"), str
       assessments = lAssessments,
       meta = lMeta
     ),
-    envir = new.env(parent = globalenv()) ## eval in child of global env
+    envir = new.env(parent = globalenv())
   )
 }

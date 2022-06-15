@@ -21,8 +21,14 @@ Analyze_Identity(
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} that adds two columns to \code{dfTransformed}: \code{Score} and \code{ScoreLabel}
+\code{data.frame} with one row per site with columns: SiteID, N, TotalCount, KRI, KRILabel, Score, ScoreLabel.
 }
 \description{
 Used in the data pipeline between \code{Transform} and \code{Flag} to rename KRI and Score columns.
+}
+\examples{
+dfInput <- Consent_Map_Raw()
+dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count")
+dfAnalyzed <- Analyze_Identity(dfTransformed)
+
 }

@@ -5,7 +5,7 @@
 #' `MakeAssessmentList()` is a utility function that creates a workflow mapping for assessments used in `Study_Assess()`.
 #'
 #' @param path `character` The location of assessment YAML files. If package is specified, function will look in `/inst` folder.
-#' @param package `character` package with assessments
+#' @param package `character` The name of the package with assessments.
 #'
 #' @examples
 #' MakeAssessmentList(path = "workflow", package = "gsm")

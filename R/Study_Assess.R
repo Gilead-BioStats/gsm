@@ -7,12 +7,12 @@
 #' @param lAssessments a named list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/workflow`.
 #' @param lSubjFilters a named list of parameters to filter subject-level data on.
 #' @param lTags a named list of Tags to be passed to each assessment. Default is `list(Study="myStudy")` could be expanded to include other important metadata such as analysis population or study phase.
-#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @examples
 #' results <- Study_Assess() # run using defaults
 #'
-#' @return A list of assessments containing status information and results.
+#' @return `list` of assessments containing status information and results.
 #'
 #' @import dplyr
 #' @importFrom cli cli_alert_danger

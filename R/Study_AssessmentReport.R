@@ -5,7 +5,7 @@
 #' @param lAssessments List of 1+ assessments like those created by `runAssessment()` or `Study_Assess()`
 #' @param bViewReport HTML table of dfSummary that can be viewed in most IDEs.
 #'
-#' @return `list` Returns a list containing a data.frame summarizing the checks `dfSummary` and a dataframe listing all checks (`dfAllChecks`)
+#' @return `list` containing a `data.frame` summarizing the checks `dfSummary` and a `data.frame` listing all checks (`dfAllChecks`).
 #'
 #' @examples
 #' assessment <- Study_Assess()

@@ -12,7 +12,7 @@ Analyze_Poisson(dfTransformed, bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-input data.frame with columns added for "Residuals" and "PredictedCount"
+\code{data.frame} with columns added for "Residuals" and "PredictedCount".
 }
 \description{
 Poisson Analysis - Site Residuals
