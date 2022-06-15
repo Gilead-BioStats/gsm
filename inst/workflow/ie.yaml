@@ -1,14 +1,13 @@
-label: Consent Workflow
 tags:
-  Assessment: Consent
-  Label: Consent
+  Assessment: IE
+  Label: IE
 workflow:
-  - name: Consent_Map_Raw
+  - name: IE_Map_Raw
     inputs:
-      - dfCONSENT
+      - dfIE
       - dfSUBJ
     output: dfInput
-  - name: Consent_Assess
+  - name: IE_Assess
     inputs: dfInput
     output: lResults
     params:

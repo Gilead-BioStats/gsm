@@ -1,15 +1,7 @@
-label: Protocol Deviation (PD) Workflow - Important
 tags:
   Assessment: PD
-  Label: Important PD
+  Label: PD
 workflow:
-  - name: FilterDomain
-    inputs: dfPD
-    output: dfPD
-    params:
-      strDomain: dfPD
-      strColParam: strImportantCol
-      strValParam: strImportantVal
   - name: PD_Map_Raw
     inputs:
       - dfPD

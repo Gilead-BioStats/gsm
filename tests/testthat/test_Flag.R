@@ -5,7 +5,7 @@ data <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE)) %>%
 
 dfPoisson <- Analyze_Poisson(data)
 
-dfWilcoxon <- Analyze_Wilcoxon(data, strOutcome = "Rate")
+dfWilcoxon <- Analyze_Wilcoxon(data)
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
@@ -13,10 +13,13 @@ test_that("output is created as expected", {
   expect_true(is.data.frame(flag))
   expect_equal(sort(unique(dfWilcoxon$SiteID)), sort(flag$SiteID))
   expect_true(all(names(dfWilcoxon) %in% names(flag)))
-  expect_equal(names(flag), c(
-    "SiteID", "N", "TotalCount", "TotalExposure", "Rate", "Estimate",
-    "PValue", "ThresholdLow", "ThresholdHigh", "ThresholdCol", "Flag"
-  ))
+  expect_equal(
+    names(flag),
+    c(
+      "SiteID", "N", "TotalCount", "TotalExposure", "KRI", "KRILabel", "Estimate",
+      "Score", "ScoreLabel", "ThresholdLow", "ThresholdHigh", "ThresholdCol", "Flag"
+    )
+  )
 })
 
 # incorrect inputs throw errors -------------------------------------------
@@ -25,18 +28,18 @@ test_that("incorrect inputs throw errors", {
   expect_error(Flag("Hi", -1, 1))
   expect_error(Flag(dfPoisson, "1", "2"))
   expect_error(Flag(dfPoisson, vThreshold = c(NA, 1), strColumn = 1.0, strValueColumn = "Estimate"))
-  expect_error(Flag(dfPoisson, vThreshold = "1", strColumn = "PValue", strValueColumn = "Estimate"))
-  expect_error(Flag(dfPoisson, vThreshold = 0.5, strColumn = "PValue", strValueColumn = "Estimate"))
+  expect_error(Flag(dfPoisson, vThreshold = "1", strValueColumn = "Estimate"))
+  expect_error(Flag(dfPoisson, vThreshold = 0.5, strValueColumn = "Estimate"))
   expect_error(Flag(dfPoisson, vThreshold = c(NA, 1), strColumn = "PValue1", strValueColumn = "Estimate"))
-  expect_error(Flag(dfPoisson, vThreshold = c(NA, 1), strColumn = "PValue", strValueColumn = "Mean"))
+  expect_error(Flag(dfPoisson, vThreshold = c(NA, 1), strValueColumn = "Mean"))
 })
 
 
 # custom tests ------------------------------------------------------------
 test_that("strValueColumn paramter works as intended", {
-  dfFlagged <- Flag(dfWilcoxon, strColumn = "PValue", vThreshold = c(0.6, NA), strValueColumn = "Estimate")
+  dfFlagged <- Flag(dfWilcoxon, vThreshold = c(0.6, NA), strValueColumn = "Estimate")
   expect_equal(dfFlagged$Flag[1], 1)
-  dfFlagged <- Flag(dfWilcoxon, strColumn = "PValue", vThreshold = c(0.2, NA), strValueColumn = NULL)
+  dfFlagged <- Flag(dfWilcoxon, vThreshold = c(0.2, NA), strValueColumn = NULL)
   expect_equal(dfFlagged$Flag[1], 0)
 })
 

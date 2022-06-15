@@ -11,10 +11,13 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
   t3_1_input <- dfInput
 
   t3_1_transformed <- dfInput %>%
-    qualification_transform_counts(exposureCol = NA)
+    qualification_transform_counts(exposureCol = NA, KRILabel = "# of Inclusion/Exclusion Issues")
 
   t3_1_analyzed <- t3_1_transformed %>%
-    mutate(Estimate = TotalCount)
+    mutate(
+      Score = TotalCount,
+      ScoreLabel = "# of Inclusion/Exclusion Issues"
+    )
 
   class(t3_1_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
@@ -22,11 +25,11 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
     mutate(
       ThresholdLow = NA_real_,
       ThresholdHigh = 0.5,
-      ThresholdCol = "Estimate",
+      ThresholdCol = "Score",
       Flag = case_when(
-        Estimate > 0.5 ~ 1,
-        is.na(Estimate) ~ NA_real_,
-        is.nan(Estimate) ~ NA_real_,
+        Score > 0.5 ~ 1,
+        is.na(Score) ~ NA_real_,
+        is.nan(Score) ~ NA_real_,
         TRUE ~ 0
       ),
     ) %>%
@@ -34,11 +37,10 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
 
   t3_1_summary <- t3_1_flagged %>%
     mutate(
-      Assessment = "IE",
-      Score = Estimate
+      Assessment = "IE"
     ) %>%
-    select(SiteID, N, Score, Flag, Assessment) %>%
-    arrange(desc(abs(Score))) %>%
+    select(SiteID, N, KRI, KRILabel,  Score, ScoreLabel,Flag, Assessment) %>%
+    arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t3_1 <- list(

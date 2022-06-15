@@ -11,10 +11,13 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
   t4_1_input <- dfInput
 
   t4_1_transformed <- dfInput %>%
-    qualification_transform_counts(exposureCol = NA)
+    qualification_transform_counts(exposureCol = NA, KRILabel = "Total Number of Consent Issues")
 
   t4_1_analyzed <- t4_1_transformed %>%
-    mutate(Estimate = TotalCount)
+    mutate(
+      Score = TotalCount,
+      ScoreLabel = "Total Number of Consent Issues"
+    )
 
   class(t4_1_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
@@ -22,11 +25,11 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
     mutate(
       ThresholdLow = NA_real_,
       ThresholdHigh = 0.5,
-      ThresholdCol = "Estimate",
+      ThresholdCol = "Score",
       Flag = case_when(
-        Estimate > 0.5 ~ 1,
-        is.na(Estimate) ~ NA_real_,
-        is.nan(Estimate) ~ NA_real_,
+        Score > 0.5 ~ 1,
+        is.na(Score) ~ NA_real_,
+        is.nan(Score) ~ NA_real_,
         TRUE ~ 0
       ),
     ) %>%
@@ -34,11 +37,10 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
 
   t4_1_summary <- t4_1_flagged %>%
     mutate(
-      Assessment = "Consent",
-      Score = Estimate
+      Assessment = "Consent"
     ) %>%
-    select(SiteID, N, Score, Flag, Assessment) %>%
-    arrange(desc(abs(Score))) %>%
+    select(SiteID, N, KRI, KRILabel,  Score, ScoreLabel,Flag, Assessment) %>%
+    arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t4_1 <- list(

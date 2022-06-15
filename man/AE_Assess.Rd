@@ -8,6 +8,7 @@ AE_Assess(
   dfInput,
   vThreshold = NULL,
   strMethod = "poisson",
+  strKRILabel = "AEs/Week",
   lTags = list(Assessment = "AE"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -22,6 +23,8 @@ AE_Assess(
 
 \item{strMethod}{\code{character} Statistical model. Valid values include "poisson" (default) and
 "wilcoxon".}
+
+\item{strKRILabel}{\code{character} Describe the \code{KRI} column, a vector of length 1 that defaults to \code{AEs/Week}}
 
 \item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults
 to \code{list(Assessment="AE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and

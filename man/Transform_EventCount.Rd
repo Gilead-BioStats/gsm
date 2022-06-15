@@ -4,7 +4,12 @@
 \alias{Transform_EventCount}
 \title{Transform Event Count}
 \usage{
-Transform_EventCount(dfInput, strCountCol, strExposureCol = NULL)
+Transform_EventCount(
+  dfInput,
+  strCountCol,
+  strExposureCol = NULL,
+  strKRILabel = "[Not Specified]"
+)
 }
 \arguments{
 \item{dfInput}{A data.frame with one record per person.}
@@ -12,6 +17,8 @@ Transform_EventCount(dfInput, strCountCol, strExposureCol = NULL)
 \item{strCountCol}{Required. Numerical or logical. Column to be counted.}
 
 \item{strExposureCol}{Optional. Numerical \code{Exposure} column.}
+
+\item{strKRILabel}{Optional. Character vector to describe the \code{KRI} column.}
 }
 \value{
 data.frame with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.

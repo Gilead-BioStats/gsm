@@ -4,7 +4,7 @@
 \alias{MakeAssessmentList}
 \title{Load assessments from a package/directory}
 \usage{
-MakeAssessmentList(path = "assessments", package = "gsm")
+MakeAssessmentList(path = "workflow", package = "gsm")
 }
 \arguments{
 \item{path}{\code{character} The location of assessment YAML files. If package is specified, function will look in \verb{/inst} folder.}
@@ -21,6 +21,6 @@ Load assessments from a package/directory
 \code{MakeAssessmentList()} is a utility function that creates a workflow mapping for assessments used in \code{Study_Assess()}.
 }
 \examples{
-MakeAssessmentList(path = "assessments", package = "gsm")
+MakeAssessmentList(path = "workflow", package = "gsm")
 
 }

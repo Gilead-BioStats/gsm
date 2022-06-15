@@ -36,6 +36,7 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot_error(Consent_Assess(consentInput %>% select(-SubjectID)))
   expect_snapshot_error(Consent_Assess(consentInput %>% select(-SiteID)))
   expect_snapshot_error(Consent_Assess(consentInput %>% select(-Count)))
+  expect_error(Consent_Assess(consentInput, strKRILabel = c("label 1", "label 2")))
 })
 
 
@@ -56,7 +57,8 @@ test_that("incorrect lTags throw errors", {
 # custom tests ------------------------------------------------------------
 test_that("dfAnalyzed has appropriate model output regardless of statistical method", {
   assessment <- Consent_Assess(consentInput)
-  expect_true(hasName(assessment$dfAnalyzed, "Estimate"))
+  expect_equal(unique(assessment$dfAnalyzed$ScoreLabel), "Total Number of Consent Issues")
+  expect_equal(sort(assessment$dfAnalyzed$Score), sort(assessment$dfSummary$Score))
 })
 
 test_that("bQuiet works as intended", {
@@ -69,4 +71,9 @@ test_that("bReturnChecks works as intended", {
   expect_true(
     "lChecks" %in% names(Consent_Assess(consentInput, bReturnChecks = TRUE))
   )
+})
+
+test_that("strKRILabel works as intended", {
+  consent <- Consent_Assess(consentInput, strKRILabel = "my test label")
+  expect_equal(unique(consent$dfSummary$KRILabel), "my test label")
 })

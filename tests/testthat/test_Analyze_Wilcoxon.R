@@ -4,9 +4,10 @@ ae_input <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
 ae_prep <- Transform_EventCount(ae_input, strCountCol = "Count", strExposureCol = "Exposure")
 
 test_that("output created as expected and has correct structure", {
-  aew_anly <- Analyze_Wilcoxon(ae_prep, strOutcome = "Rate")
+  aew_anly <- Analyze_Wilcoxon(ae_prep)
   expect_true(is.data.frame(aew_anly))
-  expect_true(all(c("SiteID", "N", "Estimate", "PValue") %in% names(aew_anly)))
+  expect_true(all(c("SiteID", "N", "TotalCount", "TotalExposure", "KRI", "KRILabel",
+                    "Estimate", "Score", "ScoreLabel") %in% names(aew_anly)))
   expect_equal(sort(unique(ae_input$SiteID)), sort(aew_anly$SiteID))
 })
 
@@ -29,24 +30,22 @@ test_that("error given if required column not found", {
 
 test_that("model isn't run with fewer than three records", {
   aew_anly <- Analyze_Wilcoxon(
-    ae_prep %>% filter(row_number() < 3),
-    strOutcome = "Rate"
+    ae_prep %>% filter(row_number() < 3)
   )
 
   expect_true(is.data.frame(aew_anly))
-  expect_true(all(c("SiteID", "N", "Estimate", "PValue") %in% names(aew_anly)))
+  expect_true(all(c("SiteID", "N", "TotalCount", "TotalExposure", "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel") %in% names(aew_anly)))
   expect_true(all(is.na(aew_anly$Estimate)))
-  expect_true(all(is.na(aew_anly$PValue)))
+  expect_true(all(is.na(aew_anly$Score)))
 })
 
 test_that("model isn't run with a single outcome value", {
   aew_anly <- Analyze_Wilcoxon(
-    ae_prep %>% mutate(Rate = .5),
-    strOutcome = "Rate"
+    ae_prep %>% mutate(KRI = .5)
   )
 
   expect_true(is.data.frame(aew_anly))
-  expect_true(all(c("SiteID", "N", "Estimate", "PValue") %in% names(aew_anly)))
+  expect_true(all(c("SiteID", "N", "TotalCount", "TotalExposure", "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel") %in% names(aew_anly)))
+  expect_true(all(is.na(aew_anly$Score)))
   expect_true(all(is.na(aew_anly$Estimate)))
-  expect_true(all(is.na(aew_anly$PValue)))
 })

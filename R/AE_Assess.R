@@ -14,6 +14,7 @@
 #'   `c(-5, 5)` for `strMethod` = "poisson" and `c(.0001, NA)` for `strMethod` = "wilcoxon".
 #' @param strMethod `character` Statistical model. Valid values include "poisson" (default) and
 #'  "wilcoxon".
+#' @param strKRILabel `character` Describe the `KRI` column, a vector of length 1 that defaults to `AEs/Week`
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
 #'   to `list(Assessment="AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and
 #'   each tag is added as a column in `lAssess$dfSummary`.
@@ -52,6 +53,7 @@ AE_Assess <- function(
   dfInput,
   vThreshold = NULL,
   strMethod = "poisson",
+  strKRILabel = "AEs/Week",
   lTags = list(Assessment = "AE"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -61,7 +63,8 @@ AE_Assess <- function(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson", "wilcoxon"),
     "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput" = all(c("SubjectID", "SiteID", "Count", "Exposure", "Rate") %in% names(dfInput)),
-    "strMethod must be length 1" = length(strMethod) == 1
+    "strMethod must be length 1" = length(strMethod) == 1,
+    "strKRILabel must be length 1" = length(strKRILabel) == 1
   )
 
   if (!is.null(lTags)) {
@@ -93,7 +96,7 @@ AE_Assess <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
 
-    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = strKRILabel)
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     if (strMethod == "poisson") {
@@ -110,10 +113,10 @@ AE_Assess <- function(
       lAssess$dfAnalyzed <- gsm::Analyze_Poisson(lAssess$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Poisson} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
-      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strColumn = "Residuals", vThreshold = vThreshold)
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold)
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
 
-      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, strScoreCol = "Residuals", lTags)
+      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
     } else if (strMethod == "wilcoxon") {
       if (is.null(vThreshold)) {
@@ -127,13 +130,13 @@ AE_Assess <- function(
         )
       }
 
-      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed, "Rate", bQuiet = bQuiet)
+      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Wilcoxon} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
-      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strColumn = "PValue", vThreshold = vThreshold, strValueColumn = "Estimate")
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Estimate")
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
 
-      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, strScoreCol = "PValue", lTags = lTags)
+      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
     }
 

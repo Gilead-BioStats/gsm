@@ -1,14 +1,13 @@
-label: Inclusion/Exclusion (IE) Workflow
 tags:
-  Assessment: IE
-  Label: IE
+  Assessment: Consent
+  Label: Consent
 workflow:
-  - name: IE_Map_Raw
+  - name: Consent_Map_Raw
     inputs:
-      - dfIE
+      - dfCONSENT
       - dfSUBJ
     output: dfInput
-  - name: IE_Assess
+  - name: Consent_Assess
     inputs: dfInput
     output: lResults
     params:

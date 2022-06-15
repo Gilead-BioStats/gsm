@@ -8,7 +8,7 @@
 #' @param package `character` package with assessments
 #'
 #' @examples
-#' MakeAssessmentList(path = "assessments", package = "gsm")
+#' MakeAssessmentList(path = "workflow", package = "gsm")
 #'
 #' @return `list` A list of assessments with workflow and parameter metadata.
 #'
@@ -18,7 +18,7 @@
 #'
 #' @export
 
-MakeAssessmentList <- function(path = "assessments", package = "gsm") {
+MakeAssessmentList <- function(path = "workflow", package = "gsm") {
   if (!is.null(package)) {
     path <- system.file(path, package = "gsm")
   }

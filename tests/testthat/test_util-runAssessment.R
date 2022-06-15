@@ -1,5 +1,5 @@
 source(testthat::test_path("testdata/data.R"))
-sae_meta <- yaml::read_yaml(system.file("assessments/sae.yaml", package = "gsm"))
+sae_meta <- yaml::read_yaml(system.file("workflow/sae.yaml", package = "gsm"))
 rawDataMap <- clindata::mapping_rawplus
 
 dfAE <- dfAE %>%
