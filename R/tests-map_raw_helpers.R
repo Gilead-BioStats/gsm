@@ -43,13 +43,18 @@ test_invalid_data <- function(
 }
 
 test_missing_column <- function(map_function, dfs, spec, mapping) {
-    # missing variables
+    # for each domain in spec
     for (domain in names(spec)) {
         column_keys <- spec[[ domain ]]$vRequired
 
+        # for each required column in domain
         for (column_key in column_keys) {
-            column <- mapping[[ domain ]][[ column_key ]]
             dfs_edited <- dfs
+
+            # retrieve column name from mapping
+            column <- mapping[[ domain ]][[ column_key ]]
+
+            # set column to NULL
             dfs_edited[[ domain ]][[ column ]] <- NULL
 
             expect_snapshot(
@@ -63,16 +68,21 @@ test_missing_column <- function(map_function, dfs, spec, mapping) {
 }
 
 test_missing_value <- function(map_function, dfs, spec, mapping) {
+    # for each domain in spec
     for (domain in names(spec)) {
-        message(domain)
         df <- dfs[[ domain ]]
         column_keys <- spec[[ domain ]]$vRequired
+
+        # for each required column in domain
         for (column_key in column_keys) {
-            message(column_key)
-            column <- mapping[[ domain ]][[ column_key ]]
-            message(column)
             dfs_edited <- dfs
+
+            # retrieve column name from mapping
+            column <- mapping[[ domain ]][[ column_key ]]
+
+            # set a random value to NA
             dfs_edited[[ domain ]][ sample(1:nrow(df), 1), column ] <- NA
+
             expect_null(
                 map_function(
                     dfs = dfs_edited,
@@ -93,7 +103,7 @@ test_duplicate_subject_id <- function(map_function, dfs) {
 test_invalid_mapping <- function(map_function, dfs, spec, mapping) {
     # Subset mapping on columns required in spec.
     mapping_required <- mapping %>%
-        imap(function(columns, domain_key) {
+        imap(function(columns, domain_key) { # loop over domains
             domain_spec <- spec[[ domain_key ]]$vRequired
 
             columns[
@@ -103,8 +113,8 @@ test_invalid_mapping <- function(map_function, dfs, spec, mapping) {
 
     # Run assertion for each domain-column combination in mapping.
     mapping_required %>%
-        iwalk(function(columns, domain_key) {
-            iwalk(columns, function(column_value, column_key) {
+        iwalk(function(columns, domain_key) { # loop over domains
+            iwalk(columns, function(column_value, column_key) { # loop over columns in domain
                 mapping_edited <- mapping_required
                 mapping_edited[[ domain_key ]][[ column_key ]] <- 'asdf'
 
