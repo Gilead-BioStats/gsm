@@ -7,11 +7,13 @@ dfs <- list(
     dfSUBJ = dfSUBJ
 )
 
-input_spec <- yaml::read_yaml(paste0(here::here(), '/inst/specs/PD_Map_Raw.yaml'))
-input_mapping <- yaml::read_yaml(paste0(here::here(), '/inst/mappings/PD_Map_Raw.yaml'))
+inst_path <- './' # paste0(inst_path, '')
 
-output_spec <- yaml::read_yaml(paste0(here::here(), '/inst/specs/PD_Assess.yaml'))
-output_mapping <- yaml::read_yaml(paste0(here::here(), '/inst/mappings/PD_Assess.yaml'))
+input_spec <- yaml::read_yaml(paste0(inst_path, 'specs/PD_Map_Raw.yaml'))
+input_mapping <- yaml::read_yaml(paste0(inst_path, 'mappings/PD_Map_Raw.yaml'))
+
+output_spec <- yaml::read_yaml(paste0(inst_path, 'specs/PD_Assess.yaml'))
+output_mapping <- yaml::read_yaml(paste0(inst_path, 'mappings/PD_Assess.yaml'))
 
 test_that("valid output is returned", {
     test_valid_output(
