@@ -1,66 +1,130 @@
-test_correct_output <- function(
+test_valid_output <- function(
     map_function,
-    df_domain,
-    df_name,
-    dfSUBJ,
-    output_mapping
+    dfs,
+    spec,
+    mapping
 ) {
-    dfs <- list(
-        dfSUBJ = dfSUBJ
-    )
-    dfs[[ df_name ]] <- df_domain
-
     output <- map_function(dfs = dfs)
 
     expect_true(is.data.frame(output))
-    expect_equal(names(output), as.character(output_mapping$dfInput))
+    expect_equal(names(output), as.character(mapping$dfInput))
     expect_type(output$SubjectID, "character")
     expect_type(output$SiteID, "character")
     expect_true(class(output$Count) %in% c("double", "integer", "numeric"))
 }
 
-test_incorrect_inputs <- function(
+test_invalid_data <- function(
     map_function,
-    df_domain,
-    df_name,
-    dfSUBJ,
-    spec
+    dfs,
+    spec,
+    mapping
 ) {
-    dfs <- list(
-        dfSUBJ = dfSUBJ
-    )
-    dfs[[ df_name ]] <- df_domain
+    map_domain <- names(dfs)[
+        names(dfs) != 'dfSUBJ'
+    ]
 
     # empty data frames
-    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = F))
-    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ if (.y == 'dfSUBJ') list() else .x), bQuiet = F))
-    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ if (.y == df_name) list() else .x), bQuiet = F))
+    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = FALSE))
+    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ if (.y == 'dfSUBJ') list() else .x), bQuiet = FALSE))
+    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ if (.y == map_domain) list() else .x), bQuiet = FALSE))
 
     # mistyped data frames
-    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ 'Hi Mom'), bQuiet = F))
-    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ 9999), bQuiet = F))
-    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ TRUE), bQuiet = F))
+    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ 'Hi Mom'), bQuiet = FALSE))
+    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ 9999), bQuiet = FALSE))
+    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ TRUE), bQuiet = FALSE))
 
     # empty mapping
-    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ .x), lMapping = list(), bQuiet = F))
-
-    # missing variables
-    for (domain in names(spec)) {
-        required_columns <- spec[[ domain ]]$vRequired
-        for (column in required_columns) {
-            dfs_edited <- dfs
-            dfs_edited[[ domain ]][[ column ]] <- NULL
-            expect_snapshot(
-                map_function(
-                    dfs = dfs_edited,
-                    bQuiet = F
-                )
-            )
-        }
-    }
+    expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ .x), lMapping = list(), bQuiet = FALSE))
 
     # duplicate subject IDs in subject-level data frame
     dfs_edited <- dfs
     dfs_edited$dfSUBJ <- dfs_edited$dfSUBJ %>% bind_rows(head(., 1))
-    expect_snapshot(map_function(dfs = dfs_edited, bQuiet = F))
+    expect_snapshot(map_function(dfs = dfs_edited, bQuiet = FALSE))
+}
+
+test_missing_column <- function(map_function, dfs, spec, mapping) {
+    # missing variables
+    for (domain in names(spec)) {
+        column_keys <- spec[[ domain ]]$vRequired
+
+        for (column_key in column_keys) {
+            column <- mapping[[ domain ]][[ column_key ]]
+            dfs_edited <- dfs
+            dfs_edited[[ domain ]][[ column ]] <- NULL
+
+            expect_snapshot(
+                map_function(
+                    dfs = dfs_edited,
+                    bQuiet = FALSE
+                )
+            )
+        }
+    }
+}
+
+test_missing_value <- function(map_function, dfs, spec, mapping) {
+    for (domain in names(spec)) {
+        message(domain)
+        df <- dfs[[ domain ]]
+        column_keys <- spec[[ domain ]]$vRequired
+        for (column_key in column_keys) {
+            message(column_key)
+            column <- mapping[[ domain ]][[ column_key ]]
+            message(column)
+            dfs_edited <- dfs
+            dfs_edited[[ domain ]][ sample(1:nrow(df), 1), column ] <- NA
+            expect_null(
+                map_function(
+                    dfs = dfs_edited,
+                    bQuiet = FALSE
+                )
+            )
+        }
+    }
+}
+
+test_duplicate_subject_id <- function(map_function, dfs) {
+    dfs_edited <- dfs
+    dfs_edited$dfSUBJ$SubjectID <- 1
+
+    expect_snapshot(map_function(dfs = dfs_edited, bQuiet = FALSE))
+}
+
+test_invalid_mapping <- function(map_function, dfs, spec, mapping) {
+    # Subset mapping on columns required in spec.
+    mapping_required <- mapping %>%
+        imap(function(columns, domain_key) {
+            domain_spec <- spec[[ domain_key ]]$vRequired
+
+            columns[
+                names(columns) %in% domain_spec
+            ]
+        })
+
+    # Run assertion for each domain-column combination in mapping.
+    mapping_required %>%
+        iwalk(function(columns, domain_key) {
+            iwalk(columns, function(column_value, column_key) {
+                mapping_edited <- mapping_required
+                mapping_edited[[ domain_key ]][[ column_key ]] <- 'asdf'
+
+                expect_snapshot(
+                    map_function(
+                        dfs = dfs,
+                        lMapping = mapping_edited,
+                        bQuiet = FALSE
+                    )
+                )
+            })
+        })
+}
+
+test_logical_parameters <- function(map_function, dfs) {
+  expect_message(
+    map_function(dfs = dfs, bQuiet = FALSE)
+  )
+
+  expect_true(
+    all(names(map_function(dfs = dfs, bReturnChecks = TRUE)) == c("df", "lChecks"))
+  )
 }

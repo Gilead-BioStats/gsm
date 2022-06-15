@@ -1,123 +1,67 @@
 source(testthat::test_path("testdata/data.R"))
+
+map_function <- gsm::IE_Map_Raw
+
+dfs <- list(
+    dfIE = dfIE,
+    dfSUBJ = dfSUBJ
+)
+
 input_spec <- yaml::read_yaml(paste0(here::here(), '/inst/specs/IE_Map_Raw.yaml'))
+input_mapping <- yaml::read_yaml(paste0(here::here(), '/inst/mappings/IE_Map_Raw.yaml'))
+
+output_spec <- yaml::read_yaml(paste0(here::here(), '/inst/specs/IE_Assess.yaml'))
 output_mapping <- yaml::read_yaml(paste0(here::here(), '/inst/mappings/IE_Assess.yaml'))
 
-# incorrect inputs throw errors -------------------------------------------
-test_that("incorrect inputs throw errors", {
-    test_incorrect_inputs(
-        IE_Map_Raw,
-        dfIE,
-        'dfIE',
-        dfSUBJ,
-        input_spec
-    )
-})
-
-# output is created as expected -------------------------------------------
-test_that("output created as expected", {
-    test_correct_output(
-        IE_Map_Raw,
-        dfIE,
-        'dfIE',
-        dfSUBJ,
+test_that("valid output is returned", {
+    test_valid_output(
+        map_function,
+        dfs,
+        output_spec,
         output_mapping
     )
 })
 
-# incorrect mappings throw errors -----------------------------------------
-test_that("incorrect mappings throw errors", {
-  expect_snapshot(IE_Map_Raw(
-    dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ),
-    lMapping = list(
-      dfIE = list(
-        strIDCol = "not an id",
-        strCategoryCol = "IE_CATEGORY",
-        strValueCol = "IE_VALUE"
-      ),
-      dfSUBJ = list(
-        strIDCol = "SubjectID",
-        strSiteCol = "SiteID"
-      )
-    ),
-    bQuiet = F
-  ))
-
-  expect_snapshot(IE_Map_Raw(
-    dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ),
-    lMapping = list(
-      dfIE = list(
-        strIDCol = "SubjectID",
-        strCategoryCol = "IE_CATEGORY",
-        strValueCol = "IE_VALUE"
-      ),
-      dfSUBJ = list(
-        strIDCol = "not an id",
-        strSiteCol = "SiteID"
-      )
-    ),
-    bQuiet = F
-  ))
+test_that("invalid data throw errors", {
+    test_invalid_data(
+        map_function,
+        dfs,
+        input_spec,
+        input_mapping
+    )
 })
 
-# custom tests ------------------------------------------------------------
-test_that("NA values in input data are handled", {
-  # NA SiteID and TimeOnTreatment.
-  dfIE1 <- tibble::tribble(
-    ~SubjectID, 1, 1, 1, 1, 2, 2, 4, 4
-  )
-  dfExposure1 <- tibble::tribble(
-    ~SubjectID, ~SiteID, ~TimeOnTreatment,
-    1, 1, 10,
-    2, 1, NA,
-    3, NA, 30,
-    4, 2, 50
-  )
-  mapped1 <- IE_Map_Raw(
-    list(dfIE = dfIE1, dfSUBJ = dfExposure1)
-  )
-  expect_null(mapped1)
-
-  # NA SubjectID in IE domain.
-  dfIE2 <- tibble::tribble(
-    ~SubjectID, 1, NA, 1, 1, 2, 2, 4, 4
-  )
-  dfExposure2 <- tibble::tribble(
-    ~SubjectID, ~SiteID, ~TimeOnTreatment,
-    1, 1, 10,
-    2, 1, 20,
-    3, 3, 30,
-    4, 2, 50
-  )
-  mapped2 <- IE_Map_Raw(
-    list(dfIE = dfIE2, dfSUBJ = dfExposure2)
-  )
-  expect_null(mapped2)
-
-  # NA SubjectID in SUBJ domain.
-  dfIE3 <- tibble::tribble(
-    ~SubjectID, 1, 1, 1, 1, 2, 2, 4, 4
-  )
-  dfExposure3 <- tibble::tribble(
-    ~SubjectID, ~SiteID, ~TimeOnTreatment,
-    NA, 1, 10,
-    2, 1, 20,
-    3, 2, 30,
-    4, 2, 50
-  )
-  mapped3 <- IE_Map_Raw(
-    list(dfIE = dfIE3, dfSUBJ = dfExposure3)
-  )
-  expect_null(mapped3)
+test_that("missing column throws errors", {
+    test_missing_column(
+        map_function,
+        dfs,
+        input_spec,
+        input_mapping
+    )
 })
 
-test_that("bQuiet works as intended", {
-  expect_message(
-    IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ), bQuiet = FALSE)
-  )
+test_that("missing value throws errors", {
+    test_missing_value(
+        map_function,
+        dfs,
+        input_spec,
+        input_mapping
+    )
 })
 
-test_that("bReturnChecks works as intended", {
-  expect_true(
-    all(names(IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c("df", "lChecks"))
-  )
+test_that('duplicate subject ID is detected', {
+    test_duplicate_subject_id(map_function, dfs)
+})
+
+test_that("invalid mapping throws errors", {
+    test_invalid_mapping(
+        map_function,
+        dfs,
+        input_spec,
+        input_mapping
+    )
+})
+
+test_that("bQuiet and bReturnChecks work as intended", {
+    test_logical_parameters(map_function, dfs)
 })
