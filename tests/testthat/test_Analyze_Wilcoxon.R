@@ -14,12 +14,12 @@ test_that("output created as expected and has correct structure", {
 test_that("incorrect inputs throw errors", {
   expect_error(Analyze_Wilcoxon(list()))
   expect_error(Analyze_Wilcoxon("Hi"))
-  expect_error(Analyze_Wilcoxon(ae_prep, strOutcome = 1))
+  expect_error(Analyze_Wilcoxon(ae_prep, strOutcomeCol = 1))
   expect_error(
     Analyze_Wilcoxon(ae_prep %>% mutate(SiteID = ifelse(SiteID == first(SiteID), NA, SiteID)))
   )
-  expect_error(Analyze_Wilcoxon(ae_prep, strOutcome = "coffee"))
-  expect_error(Analyze_Wilcoxon(ae_prep, strOutcome = c("Rate", "something else")))
+  expect_error(Analyze_Wilcoxon(ae_prep, strOutcomeCol = "coffee"))
+  expect_error(Analyze_Wilcoxon(ae_prep, strOutcomeCol = c("Rate", "something else")))
 })
 
 test_that("error given if required column not found", {
