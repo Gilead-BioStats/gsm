@@ -1,3 +1,265 @@
+# metadata have not changed
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfAE", "dfSUBJ"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired", "vUniqueCols"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strTimeOnTreatmentCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfSUBJ", "dfAE"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TimeOnTreatment"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TimeOnStudy"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RandFlag"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RandDate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudCompletion"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudDCReason"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TrtCompletion"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TrtDCReason"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strTreatmentEmergentCol", "strTreatmentEmergentVal", "strGradeCol", "strSeriousCol", "strSeriousVal"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["AE_TE_FLAG"]
+            },
+            {
+              "type": "logical",
+              "attributes": {},
+              "value": [true]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["AE_GRADE"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["AE_SERIOUS"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Yes"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfInput"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired", "vUniqueCols"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strCountCol", "strExposureCol", "strRateCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfInput"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strCountCol", "strExposureCol", "strRateCol"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Count"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Exposure"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Rate"]
+            }
+          ]
+        }
+      ]
+    }
+
 # invalid data throw errors
 
     Code
@@ -229,6 +491,62 @@
     Output
       NULL
 
+# missing value throws errors
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `AE_Map_Raw()` --
+      
+      x 1 NA values found in column: SubjectID
+      ! Issues found for `AE_Map_Raw()`
+      ! `AE_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `AE_Map_Raw()` --
+      
+      x 1 NA values found in column: SubjectID
+      ! Issues found for `AE_Map_Raw()`
+      ! `AE_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `AE_Map_Raw()` --
+      
+      x 1 NA values found in column: SiteID
+      ! Issues found for `AE_Map_Raw()`
+      ! `AE_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `AE_Map_Raw()` --
+      
+      x 1 NA values found in column: TimeOnTreatment
+      ! Issues found for `AE_Map_Raw()`
+      ! `AE_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
 # duplicate subject ID is detected
 
     Code
@@ -310,4 +628,22 @@
       ! `AE_Map_Raw()` did not run because of failed check.
     Output
       NULL
+
+# bQuiet and bReturnChecks work as intended
+
+    Code
+      dfInput <- map_function(dfs = dfs, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `AE_Map_Raw()` --
+      
+      v No issues found for `AE_Map_Raw()`
+      
+      -- Initializing `AE_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `AE_Map_Raw()` returned output with 3 rows.
 

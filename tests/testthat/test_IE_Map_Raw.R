@@ -13,6 +13,14 @@ input_mapping <- yaml::read_yaml(system.file('mappings', 'IE_Map_Raw.yaml', pack
 output_spec <- yaml::read_yaml(system.file('specs', 'IE_Assess.yaml', package = 'gsm'))
 output_mapping <- yaml::read_yaml(system.file('mappings', 'IE_Assess.yaml', package = 'gsm'))
 
+test_that('metadata have not changed', {
+    expect_snapshot_value(input_spec, 'json2')
+    expect_snapshot_value(input_mapping, 'json2')
+
+    expect_snapshot_value(output_spec, 'json2')
+    expect_snapshot_value(output_mapping, 'json2')
+})
+
 test_that("valid output is returned", {
     test_valid_output(
         map_function,

@@ -188,3 +188,17 @@
     Output
       NULL
 
+# bQuiet works as intended
+
+    Code
+      dfInput <- AE_Map_Adam(dfs = list(dfADAE = dfADAE, dfADSL = dfADSL), bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `AE_Map_Adam()` --
+      
+      v No issues found for `AE_Map_Adam()`
+      
+      -- Initializing `AE_Map_Adam()` --
+      
+      v `AE_Map_Adam()` returned output with 4 rows.
+

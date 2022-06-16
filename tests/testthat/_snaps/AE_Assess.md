@@ -74,17 +74,17 @@
 
     lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'
 
-# NA in dfInput$Count results in Error for AE_Assess
+# NA in dfInput$Count results in Error for assess_function
 
     Code
-      AE_Assess(aeInputNA)
+      assess_function(dfInputNA)
     Output
       $strFunctionName
-      [1] "AE_Assess()"
+      [1] "assess_function()"
       
       $lParams
       $lParams$dfInput
-      [1] "aeInputNA"
+      [1] "dfInputNA"
       
       
       $lTags
@@ -98,4 +98,24 @@
       2      5678  X102X     2     1745 0.0011461318
       3      9876  X999X     0     1233 0.0000000000
       
+
+# bQuiet and bReturnChecks work as intended
+
+    Code
+      assessment <- assess_function(dfInput, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `AE_Assess()` --
+      
+      v No issues found for `AE_Assess()`
+      
+      -- Initializing `AE_Assess()` --
+      
+      Input data has 3 rows.
+      v `Transform_EventCount()` returned output with 3 rows.
+      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
+      v `Analyze_Poisson()` returned output with 3 rows.
+      v `Flag()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+      v `Visualize_Scatter()` created a chart.
 

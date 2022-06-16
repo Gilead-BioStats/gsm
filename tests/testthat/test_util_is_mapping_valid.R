@@ -53,7 +53,7 @@ test_that("NA values are ignored when specified in vNACols", {
 
 test_that("vUniqueCols are caught", {
   dfSUBJ <- bind_rows(dfSUBJ[1, ], dfSUBJ)
-  expect_message(
+  expect_snapshot(
     is_mapping_valid(
       dfSUBJ,
       mapping = mapping_rdsl,
@@ -61,7 +61,7 @@ test_that("vUniqueCols are caught", {
         vUniqueCols = "strIDCol",
         vRequired = c("strIDCol")
       ),
-      bQuiet = F
+      bQuiet = FALSE
     )
   )
 })
@@ -89,5 +89,12 @@ test_that("status is FALSE when spec is incorrect", {
 
 
 test_that("bQuiet works as intended", {
-  expect_message(is_mapping_valid(df = dfSUBJ, mapping = mapping_rdsl, bQuiet = FALSE, spec = list(vRequired = "notACol")))
+  expect_snapshot(
+    result <- is_mapping_valid(
+      df = dfSUBJ,
+      mapping = mapping_rdsl,
+      bQuiet = FALSE,
+      spec = list(vRequired = "notACol")
+    )
+  )
 })

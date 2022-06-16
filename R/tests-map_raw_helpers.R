@@ -86,7 +86,7 @@ test_missing_value <- function(map_function, dfs, spec, mapping) {
             # set a random value to NA
             dfs_edited[[ domain ]][ sample(1:nrow(df), 1), column ] <- NA
 
-            expect_null(
+            expect_snapshot(
                 map_function(
                     dfs = dfs_edited,
                     bQuiet = FALSE
@@ -133,8 +133,8 @@ test_invalid_mapping <- function(map_function, dfs, spec, mapping) {
 }
 
 test_logical_parameters <- function(map_function, dfs) {
-  expect_snapshot_message(
-    map_function(dfs = dfs, bQuiet = FALSE)
+  expect_snapshot(
+    dfInput <- map_function(dfs = dfs, bQuiet = FALSE)
   )
 
   expect_true(

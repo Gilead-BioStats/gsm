@@ -1,3 +1,255 @@
+# metadata have not changed
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfPD", "dfSUBJ"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired", "vUniqueCols"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strTimeOnStudyCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfSUBJ", "dfPD"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TimeOnTreatment"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TimeOnStudy"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RandFlag"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RandDate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudCompletion"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudDCReason"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TrtCompletion"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TrtDCReason"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strCategoryCol", "strImportantCol", "strImportantVal"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["PD_CATEGORY"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["PD_IMPORTANT_FLAG"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfInput"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired", "vUniqueCols"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strCountCol", "strExposureCol", "strRateCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfInput"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strCountCol", "strExposureCol", "strRateCol"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Count"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Exposure"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Rate"]
+            }
+          ]
+        }
+      ]
+    }
+
 # invalid data throw errors
 
     Code
@@ -229,6 +481,62 @@
     Output
       NULL
 
+# missing value throws errors
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      x 1 NA values found in column: SubjectID
+      ! Issues found for `PD_Map_Raw()`
+      ! `PD_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      x 1 NA values found in column: SubjectID
+      ! Issues found for `PD_Map_Raw()`
+      ! `PD_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      x 1 NA values found in column: SiteID
+      ! Issues found for `PD_Map_Raw()`
+      ! `PD_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      x 1 NA values found in column: TimeOnStudy
+      ! Issues found for `PD_Map_Raw()`
+      ! `PD_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
 # duplicate subject ID is detected
 
     Code
@@ -310,4 +618,19 @@
       ! `PD_Map_Raw()` did not run because of failed check.
     Output
       NULL
+
+# bQuiet and bReturnChecks work as intended
+
+    Code
+      dfInput <- map_function(dfs = dfs, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      v No issues found for `PD_Map_Raw()`
+      
+      -- Initializing `PD_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      v `PD_Map_Raw()` returned output with 3 rows.
 

@@ -46,8 +46,8 @@ test_that("NA values are caught", {
 })
 
 test_that("bQuiet works as intended", {
-  ae_prep <- Transform_EventCount(ae_input, strCountCol = "Count", strExposureCol = "Exposure")
-  expect_message(
-    Analyze_Poisson(ae_prep, bQuiet = FALSE)
+  dfTransformed <- Transform_EventCount(ae_input, strCountCol = "Count", strExposureCol = "Exposure")
+  expect_snapshot(
+    dfAnalyzed <- Analyze_Poisson(dfTransformed, bQuiet = FALSE)
   )
 })

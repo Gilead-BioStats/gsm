@@ -1,3 +1,260 @@
+# metadata have not changed
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfCONSENT", "dfSUBJ"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired", "vNACols"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strTypeCol", "strValueCol", "strDateCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strDateCol"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired", "vUniqueCols"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strRandDateCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfSUBJ", "dfCONSENT"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TimeOnTreatment"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TimeOnStudy"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RandFlag"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RandDate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudCompletion"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudDCReason"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TrtCompletion"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TrtDCReason"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strTypeCol", "strValueCol", "strDateCol", "strConsentTypeValue", "strConsentStatusValue"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["CONSENT_TYPE"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["CONSENT_VALUE"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["CONSENT_DATE"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["MAINCONSENT"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfInput"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired", "vUniqueCols"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strCountCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfInput"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strCountCol"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Count"]
+            }
+          ]
+        }
+      ]
+    }
+
 # invalid data throw errors
 
     Code
@@ -280,6 +537,90 @@
     Output
       NULL
 
+# missing value throws errors
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x 1 NA values found in column: SubjectID
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x 1 NA values found in column: CONSENT_TYPE
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x 1 NA values found in column: CONSENT_VALUE
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x 1 NA values found in column: SubjectID
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x 1 NA values found in column: SiteID
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      x 1 NA values found in column: RandDate
+      ! Issues found for `Consent_Map_Raw()`
+      ! `Consent_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
 # duplicate subject ID is detected
 
     Code
@@ -412,4 +753,20 @@
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output
       NULL
+
+# bQuiet and bReturnChecks work as intended
+
+    Code
+      dfInput <- map_function(dfs = dfs, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Consent_Map_Raw()` --
+      
+      v No issues found for `Consent_Map_Raw()`
+      
+      -- Initializing `Consent_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      v `Consent_Map_Raw()` returned output with 3 rows.
 
