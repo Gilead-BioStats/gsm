@@ -133,7 +133,7 @@ test_invalid_mapping <- function(map_function, dfs, spec, mapping) {
 }
 
 test_logical_parameters <- function(map_function, dfs) {
-  expect_message(
+  expect_snapshot_message(
     map_function(dfs = dfs, bQuiet = FALSE)
   )
 
