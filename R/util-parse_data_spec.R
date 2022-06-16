@@ -1,6 +1,6 @@
 #' Parse Data Specification
 #'
-#' Transform nested data specification to tabular structure
+#' Transform nested data specification to tabular structure for use in documentation.
 #'
 #' @param content `list` data specification
 #' @param file `character` file path of .yaml file

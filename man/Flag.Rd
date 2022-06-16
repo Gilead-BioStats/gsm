@@ -2,7 +2,7 @@
 % Please edit documentation in R/Flag.R
 \name{Flag}
 \alias{Flag}
-\title{Make data frame with flagged values}
+\title{Flag}
 \usage{
 Flag(
   dfAnalyzed,
@@ -23,16 +23,14 @@ values in strColumn are compared to vThreshold using strict comparisons. Values 
 is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.}
 }
 \value{
-input data frame with the columns added for "ThresholdLow","ThresholdHigh","ThresholdCol"
+\code{data.frame} with columns added for "ThresholdLow","ThresholdHigh","ThresholdCol"
 and "Flag"
 }
 \description{
-Adds columns flagging sites that represent possible statistical outliers. Rows with PValue less
-than 0.05 are flagged by default.
+Add columns flagging sites that represent possible statistical outliers.
 }
 \details{
-This function provides a generalized framework for flagging sites as part of the GSM data
-pipeline (TODO add link to data vignette).
+This function provides a generalized framework for flagging sites as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
 }
 \section{Data Specification}{
 

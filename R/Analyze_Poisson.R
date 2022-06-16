@@ -20,7 +20,7 @@
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return input data.frame with columns added for "Residuals" and "PredictedCount"
+#' @return `data.frame` with columns added for "Residuals" and "PredictedCount".
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()

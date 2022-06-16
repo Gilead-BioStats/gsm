@@ -1,12 +1,12 @@
-#' Merge Domain data with subject-level data shell
+#' Merge Domain data with subject-level data
 #'
-#' @param dfSubjects Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)
 #' @param dfDomain Subject-level domain data containing one record per participant.
+#' @param dfSubjects Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)
 #' @param strIDCol name of ID Column - default='SubjectID'
 #' @param vFillZero Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject
-#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return data set with one record per IDCol
+#' @return `data.frame` with one record per strIDCol.
 #'
 #'
 #' @examples
