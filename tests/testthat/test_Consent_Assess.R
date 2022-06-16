@@ -2,8 +2,8 @@ source(testthat::test_path("testdata/data.R"))
 
 assess_function <- gsm::Consent_Assess
 dfInput <- Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ))
-output_spec <- yaml::read_yaml(system.file('specs', 'Consent_Assess.yaml', package = 'gsm'))
-output_mapping <- yaml::read_yaml(system.file('mappings', 'Consent_Assess.yaml', package = 'gsm'))
+output_spec <- yaml::read_yaml(system.file("specs", "Consent_Assess.yaml", package = "gsm"))
+output_mapping <- yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm"))
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
@@ -65,7 +65,7 @@ test_that("dfAnalyzed has appropriate model output regardless of statistical met
 })
 
 test_that("bQuiet and bReturnChecks work as intended", {
-    test_logical_assess_parameters(assess_function, dfInput)
+  test_logical_assess_parameters(assess_function, dfInput)
 })
 
 test_that("strKRILabel works as intended", {

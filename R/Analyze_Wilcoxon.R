@@ -131,6 +131,6 @@ Analyze_Wilcoxon <- function(
       select(names(dfTransformed), .data$Estimate, Score = .data$PValue) %>%
       mutate(
         ScoreLabel = "P value"
-          )
+      )
   )
 }

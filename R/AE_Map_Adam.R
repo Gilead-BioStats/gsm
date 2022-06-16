@@ -53,8 +53,9 @@ AE_Map_Adam <- function(
     mapping = lMapping
   )
 
-  if (is.null(lMapping))
-      lMapping <- checks$mapping
+  if (is.null(lMapping)) {
+    lMapping <- checks$mapping
+  }
 
   # Run mapping if checks passed.
   if (checks$status) {

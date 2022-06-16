@@ -2,8 +2,8 @@ source(testthat::test_path("testdata/data.R"))
 
 assess_function <- gsm::AE_Assess
 dfInput <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
-output_spec <- yaml::read_yaml(system.file('specs', 'AE_Assess.yaml', package = 'gsm'))
-output_mapping <- yaml::read_yaml(system.file('mappings', 'AE_Assess.yaml', package = 'gsm'))
+output_spec <- yaml::read_yaml(system.file("specs", "AE_Assess.yaml", package = "gsm"))
+output_mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
@@ -94,7 +94,7 @@ test_that("dfAnalyzed has appropriate model output regardless of statistical met
 })
 
 test_that("bQuiet and bReturnChecks work as intended", {
-    test_logical_assess_parameters(assess_function, dfInput)
+  test_logical_assess_parameters(assess_function, dfInput)
 })
 
 test_that("strKRILabel works as intended", {

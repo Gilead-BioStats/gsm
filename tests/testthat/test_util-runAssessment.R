@@ -38,8 +38,6 @@ test_that("Assessment correctly labeled as valid", {
 })
 
 test_that("workflow with multiple FilterDomain steps is reported correctly", {
-
-
   dfAE <- data.frame(
     stringsAsFactors = FALSE,
     SubjectID = c("1234", "1234", "5678", "5678"),

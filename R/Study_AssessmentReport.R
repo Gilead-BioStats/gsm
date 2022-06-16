@@ -21,49 +21,46 @@
 #' @export
 
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
-
   allChecks <- map(names(lAssessments), function(assessment) {
+    workflow <- lAssessments[[assessment]][["workflow"]] %>%
+      map_df(
+        ~ bind_cols(step = .x[["name"]], domain = .x[["inputs"]])
+      ) %>%
+      mutate(
+        assessment = assessment,
+        index = as.character(row_number())
+      )
 
-    workflow <- lAssessments[[assessment]][['workflow']] %>%
-        map_df(
-          ~bind_cols(step = .x[['name']], domain = .x[['inputs']])
-        ) %>%
-        mutate(
-          assessment = assessment,
-          index = as.character(row_number())
-        )
+    allChecks <- map(lAssessments[[assessment]][["checks"]], function(step) {
+      domains <- names(step[!names(step) %in% c("status", "mapping")])
 
-    allChecks <- map(lAssessments[[assessment]][['checks']], function(step) {
-        domains <- names(step[!names(step) %in% c('status', 'mapping')])
-
-        map(domains, function(domain) {
-          status <- step[[domain]][['status']]
-          step[[domain]][['tests_if']] %>%
-            bind_rows(.id = "names") %>%
-            mutate(status = ifelse(is.na(.data$warning), NA_character_, .data$warning)) %>%
-            select(-.data$warning) %>%
-            t() %>%
-            as_tibble(.name_repair = "minimal") %>%
-            janitor::row_to_names(1) %>%
-            mutate(domain = domain,
-                   status = status) %>%
-            select(.data$domain, everything())
-        })
-
-      }) %>%
-      bind_rows(.id = 'index')
+      map(domains, function(domain) {
+        status <- step[[domain]][["status"]]
+        step[[domain]][["tests_if"]] %>%
+          bind_rows(.id = "names") %>%
+          mutate(status = ifelse(is.na(.data$warning), NA_character_, .data$warning)) %>%
+          select(-.data$warning) %>%
+          t() %>%
+          as_tibble(.name_repair = "minimal") %>%
+          janitor::row_to_names(1) %>%
+          mutate(
+            domain = domain,
+            status = status
+          ) %>%
+          select(.data$domain, everything())
+      })
+    }) %>%
+      bind_rows(.id = "index")
 
     left_join(workflow, allChecks, by = c("index", "domain"))
-
-
   }) %>%
     bind_rows() %>%
-    select(.data$assessment, .data$step, check = .data$status, .data$domain, everything(),-.data$index) %>%
+    select(.data$assessment, .data$step, check = .data$status, .data$domain, everything(), -.data$index) %>%
     suppressWarnings()
 
   found_data <- map(names(lAssessments), ~ lAssessments[[.x]][["lData"]]) %>%
     flatten() %>%
-    discard(~'logical' %in% class(.)) %>%
+    discard(~ "logical" %in% class(.)) %>%
     names() %>%
     unique()
 
@@ -85,9 +82,11 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
         apply(allChecks[6:length(allChecks)], 1, function(x) paste(x[!is.na(x)], collapse = "<br>")),
         .data$notes
       ),
-      check = case_when(.data$check == TRUE ~ 1,
-                        .data$check == FALSE ~ 2,
-                        is.na(.data$check) ~ 3),
+      check = case_when(
+        .data$check == TRUE ~ 1,
+        .data$check == FALSE ~ 2,
+        is.na(.data$check) ~ 3
+      ),
       notes = ifelse(.data$check == 3, "Check not run.", .data$notes)
     )
 

@@ -17,7 +17,7 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
     mutate(
       Score = TotalCount,
       ScoreLabel = "# of Inclusion/Exclusion Issues"
-      )
+    )
 
   class(t3_1_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
@@ -39,7 +39,7 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
     mutate(
       Assessment = "IE"
     ) %>%
-    select(SiteID, N, KRI, KRILabel,  Score, ScoreLabel,Flag, Assessment) %>%
+    select(SiteID, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
     arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
