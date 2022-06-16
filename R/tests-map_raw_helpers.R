@@ -98,7 +98,7 @@ test_missing_value <- function(map_function, dfs, spec, mapping) {
 
 test_duplicate_subject_id <- function(map_function, dfs) {
     dfs_edited <- dfs
-    dfs_edited$dfSUBJ$SubjectID <- 1
+    dfs_edited$dfSUBJ$SubjectID <- "1"
 
     expect_snapshot(map_function(dfs = dfs_edited, bQuiet = FALSE))
 }
