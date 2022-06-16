@@ -60,14 +60,14 @@ test_that("bShowCounts works", {
   ))
 })
 
-# Issue #437
-# test_that("bShowSiteScore works", {
-#
-#   tbl <- Study_Table(dfFindings = results, bShowSiteScore = FALSE)
-#   tblScore <- Study_Table(dfFindings = results, bShowSiteScore = TRUE)
-#
-#
-# })
+test_that("bShowSiteScore works", {
+  expect_true(
+    'Score' %in% Study_Table(dfFindings = results, bShowSiteScore = TRUE)$df_summary$Title
+  )
+  expect_false(
+    'Score' %in% Study_Table(dfFindings = results, bShowSiteScore = FALSE)$df_summary$Title
+  )
+})
 
 test_that("vSiteScoreThreshold works", {
   tbl <- Study_Table(dfFindings = results, vSiteScoreThreshold = 2)

@@ -40,7 +40,12 @@
 #'
 #' @export
 
-Transform_EventCount <- function(dfInput, strCountCol, strExposureCol = NULL, strKRILabel = "[Not Specified]") {
+Transform_EventCount <- function(
+    dfInput,
+    strCountCol,
+    strExposureCol = NULL,
+    strKRILabel = "[Not Specified]"
+) {
   stopifnot(
     "dfInput is not a data frame" = is.data.frame(dfInput),
     "strCountCol not found in input data" = strCountCol %in% names(dfInput),

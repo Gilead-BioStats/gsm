@@ -1,79 +1,74 @@
 source(testthat::test_path("testdata/data.R"))
 
-consentInput <- Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ))
+assess_function <- gsm::Consent_Assess
+dfInput <- Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ))
+output_spec <- yaml::read_yaml(system.file('specs', 'Consent_Assess.yaml', package = 'gsm'))
+output_mapping <- yaml::read_yaml(system.file('mappings', 'Consent_Assess.yaml', package = 'gsm'))
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-  consentAssessment <- Consent_Assess(consentInput)
-  expect_true(is.list(consentAssessment))
-  expect_equal(names(consentAssessment), c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
-  expect_true("data.frame" %in% class(consentAssessment$dfInput))
-  expect_true("data.frame" %in% class(consentAssessment$dfTransformed))
-  expect_true("data.frame" %in% class(consentAssessment$dfAnalyzed))
-  expect_true("data.frame" %in% class(consentAssessment$dfFlagged))
-  expect_true("data.frame" %in% class(consentAssessment$dfSummary))
-  expect_type(consentAssessment$strFunctionName, "character")
-  expect_type(consentAssessment$lParams, "list")
-  expect_type(consentAssessment$lTags, "list")
+  assessment <- assess_function(dfInput)
+  expect_true(is.list(assessment))
+  expect_equal(names(assessment), c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
+  expect_true("data.frame" %in% class(assessment$dfInput))
+  expect_true("data.frame" %in% class(assessment$dfTransformed))
+  expect_true("data.frame" %in% class(assessment$dfAnalyzed))
+  expect_true("data.frame" %in% class(assessment$dfFlagged))
+  expect_true("data.frame" %in% class(assessment$dfSummary))
+  expect_type(assessment$strFunctionName, "character")
+  expect_type(assessment$lParams, "list")
+  expect_type(assessment$lTags, "list")
 })
 
 # metadata is returned as expected ----------------------------------------
 test_that("metadata is returned as expected", {
-  consentAssessment <- Consent_Assess(consentInput, nThreshold = 0.6)
-  expect_equal("Consent_Assess()", consentAssessment$strFunctionName)
-  expect_equal("consentInput", consentAssessment$lParams$dfInput)
-  expect_equal("0.6", consentAssessment$lParams$nThreshold)
-  expect_equal("Consent", consentAssessment$lTags$Assessment)
-  expect_true("ggplot" %in% class(consentAssessment$chart))
+  assessment <- assess_function(dfInput, nThreshold = 0.6)
+  expect_equal("assess_function()", assessment$strFunctionName)
+  expect_equal("dfInput", assessment$lParams$dfInput)
+  expect_equal("0.6", assessment$lParams$nThreshold)
+  expect_equal("Consent", assessment$lTags$Assessment)
+  expect_true("ggplot" %in% class(assessment$chart))
 })
 
 # incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors", {
-  expect_snapshot_error(Consent_Assess(list()))
-  expect_snapshot_error(Consent_Assess("Hi"))
-  expect_snapshot_error(Consent_Assess(consentInput, nThreshold = "A"))
-  expect_snapshot_error(Consent_Assess(consentInput, nThreshold = c(1, 2)))
-  expect_snapshot_error(Consent_Assess(consentInput %>% select(-SubjectID)))
-  expect_snapshot_error(Consent_Assess(consentInput %>% select(-SiteID)))
-  expect_snapshot_error(Consent_Assess(consentInput %>% select(-Count)))
-  expect_error(Consent_Assess(consentInput, strKRILabel = c("label 1", "label 2")))
+  expect_snapshot_error(assess_function(list()))
+  expect_snapshot_error(assess_function("Hi"))
+  expect_snapshot_error(assess_function(dfInput, nThreshold = "A"))
+  expect_snapshot_error(assess_function(dfInput, nThreshold = c(1, 2)))
+  expect_snapshot_error(assess_function(dfInput %>% select(-SubjectID)))
+  expect_snapshot_error(assess_function(dfInput %>% select(-SiteID)))
+  expect_snapshot_error(assess_function(dfInput %>% select(-Count)))
+  expect_error(assess_function(dfInput, strKRILabel = c("label 1", "label 2")))
 })
 
 
 
 # incorrect lTags throw errors --------------------------------------------
 test_that("incorrect lTags throw errors", {
-  expect_snapshot_error(Consent_Assess(consentInput, lTags = "hi mom"))
-  expect_snapshot_error(Consent_Assess(consentInput, lTags = list("hi", "mom")))
-  expect_snapshot_error(Consent_Assess(consentInput, lTags = list(greeting = "hi", "mom")))
-  expect_silent(Consent_Assess(consentInput, lTags = list(greeting = "hi", person = "mom")))
-  expect_error(Consent_Assess(consentInput, lTags = list(SiteID = "")))
-  expect_error(Consent_Assess(consentInput, lTags = list(N = "")))
-  expect_error(Consent_Assess(consentInput, lTags = list(Score = "")))
-  expect_error(Consent_Assess(consentInput, lTags = list(Flag = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = "hi mom"))
+  expect_snapshot_error(assess_function(dfInput, lTags = list("hi", "mom")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(greeting = "hi", "mom")))
+  expect_silent(assess_function(dfInput, lTags = list(greeting = "hi", person = "mom")))
+  expect_error(assess_function(dfInput, lTags = list(SiteID = "")))
+  expect_error(assess_function(dfInput, lTags = list(N = "")))
+  expect_error(assess_function(dfInput, lTags = list(Score = "")))
+  expect_error(assess_function(dfInput, lTags = list(Flag = "")))
 })
 
 
 # custom tests ------------------------------------------------------------
 test_that("dfAnalyzed has appropriate model output regardless of statistical method", {
-  assessment <- Consent_Assess(consentInput)
+  assessment <- assess_function(dfInput)
   expect_equal(unique(assessment$dfAnalyzed$ScoreLabel), "Total Number of Consent Issues")
   expect_equal(sort(assessment$dfAnalyzed$Score), sort(assessment$dfSummary$Score))
 })
 
-test_that("bQuiet works as intended", {
-  expect_message(
-    Consent_Assess(consentInput, bQuiet = FALSE)
-  )
-})
-
-test_that("bReturnChecks works as intended", {
-  expect_true(
-    "lChecks" %in% names(Consent_Assess(consentInput, bReturnChecks = TRUE))
-  )
+test_that("bQuiet and bReturnChecks work as intended", {
+    test_logical_assess_parameters(assess_function, dfInput)
 })
 
 test_that("strKRILabel works as intended", {
-  consent <- Consent_Assess(consentInput, strKRILabel = "my test label")
-  expect_equal(unique(consent$dfSummary$KRILabel), "my test label")
+  assessment <- assess_function(dfInput, strKRILabel = "my test label")
+  expect_equal(unique(assessment$dfSummary$KRILabel), "my test label")
 })

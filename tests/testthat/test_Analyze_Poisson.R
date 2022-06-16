@@ -44,3 +44,10 @@ test_that("NA values are caught", {
   # expect_error(createNA("TotalExposure"))
   # expect_error(createNA("Rate"))
 })
+
+test_that("bQuiet works as intended", {
+  dfTransformed <- Transform_EventCount(ae_input, strCountCol = "Count", strExposureCol = "Exposure")
+  expect_snapshot(
+    dfAnalyzed <- Analyze_Poisson(dfTransformed, bQuiet = FALSE)
+  )
+})

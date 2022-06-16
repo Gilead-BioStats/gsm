@@ -92,6 +92,24 @@ test_that("NA in Exposure is removed ", {
                )
 })
 
+test_that("NA in Count throws an error", {
+  sim4 <- data.frame(
+    SiteID = c(rep("site1", 11), rep("site2", 7), rep("site3", 12)),
+    event = c(NA, rep(0, 4), NA, rep(1, 11), NA, rep(2, 11), NA),
+    ndays = c(rep(5, 7), rep(10, 12), rep(10, 11))
+  )
+
+  expect_error(
+    eventCount <- Transform_EventCount(
+        sim4,
+        strCountCol = "event",
+        strExposureCol = "ndays",
+        strKRILabel = "Test Label"
+    )
+  )
+})
+
+
 test_that("NA in Count throws an Error", {
   ae_input2 <- ae_input
   ae_input2[1, "Count"] <- NA

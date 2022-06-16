@@ -124,7 +124,7 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
     check_na <- colNames[!colNames %in% no_check_na]
     if (any(is.na(df[check_na]))) {
       warning <- df %>%
-        summarize(across(check_na, ~ sum(is.na(.)))) %>%
+        summarize(across(all_of(check_na), ~ sum(is.na(.)))) %>%
         tidyr::pivot_longer(everything()) %>%
         filter(.data$value > 0) %>%
         mutate(warning = paste0(.data$value, " NA values found in column: ", .data$name))
