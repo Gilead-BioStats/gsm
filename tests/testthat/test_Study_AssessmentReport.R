@@ -13,8 +13,15 @@ test_that("Assessment Report with all Valid assessments", {
   a <- Study_AssessmentReport(lAssessments = lAssessments)
   expect_true(is.data.frame(a$dfAllChecks))
   expect_true(is.data.frame(a$dfSummary))
+  expect_equal(
+    names(a$dfAllChecks) %>% sort,
+    c('assessment', 'check', 'cols_are_unique', 'columns_have_empty_values', 'columns_have_na', 'domain', 'has_expected_columns', 'has_required_params', 'is_data_frame', 'mapping_is_list', 'mappings_are_character', 'notes', 'spec_is_list', 'step')
+  )
+  expect_equal(
+    names(a$dfSummary) %>% sort,
+    c('assessment', 'check', 'domain', 'notes', 'step')
+  )
 })
-
 
 test_that("Assessment Report with an issue in dfSUBJ", {
   lData <- list(

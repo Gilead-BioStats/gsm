@@ -1,7 +1,259 @@
-# incorrect inputs throw errors
+# metadata have not changed
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfPD", "dfSUBJ"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired", "vUniqueCols"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strTimeOnStudyCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfSUBJ", "dfPD"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TimeOnTreatment"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TimeOnStudy"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RandFlag"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RandDate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudCompletion"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudDCReason"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TrtCompletion"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TrtDCReason"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strCategoryCol", "strImportantCol", "strImportantVal"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["PD_CATEGORY"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["PD_IMPORTANT_FLAG"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfInput"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired", "vUniqueCols"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strCountCol", "strExposureCol", "strRateCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfInput"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strCountCol", "strExposureCol", "strRateCol"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Count"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Exposure"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Rate"]
+            }
+          ]
+        }
+      ]
+    }
+
+# invalid data throw errors
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = list(), dfSUBJ = list()), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -24,7 +276,8 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = list()), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~ if (.y == "dfSUBJ") list() else .x),
+      bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -42,7 +295,8 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = list(), dfSUBJ = dfSUBJ), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~ if (.y == map_domain) list() else .x),
+      bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -60,7 +314,7 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = "Hi", dfSUBJ = "Mom"), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~"Hi Mom"), bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -83,7 +337,53 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ), lMapping = list(), bQuiet = F)
+      map_function(dfs = purrr::imap(dfs, ~9999), bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID, TimeOnStudy
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `PD_Map_Raw()`
+      ! `PD_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~TRUE), bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID, TimeOnStudy
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `PD_Map_Raw()`
+      ! `PD_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~.x), lMapping = list(), bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -102,8 +402,21 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD %>% select(-SubjectID), dfSUBJ = dfSUBJ),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      x Unexpected duplicates found in column: SubjectID
+      ! Issues found for `PD_Map_Raw()`
+      ! `PD_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+# missing column throws errors
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -120,8 +433,7 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-SubjectID)),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -138,8 +450,7 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-SiteID)),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -156,8 +467,7 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ %>% select(-TimeOnStudy)),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -171,11 +481,66 @@
     Output
       NULL
 
+# missing value throws errors
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      x 1 NA values found in column: SubjectID
+      ! Issues found for `PD_Map_Raw()`
+      ! `PD_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = bind_rows(dfSUBJ, head(dfSUBJ, 1))),
-      bQuiet = F)
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      x 1 NA values found in column: SubjectID
+      ! Issues found for `PD_Map_Raw()`
+      ! `PD_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      x 1 NA values found in column: SiteID
+      ! Issues found for `PD_Map_Raw()`
+      ! `PD_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      x 1 NA values found in column: TimeOnStudy
+      ! Issues found for `PD_Map_Raw()`
+      ! `PD_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+# duplicate subject ID is detected
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
@@ -186,17 +551,15 @@
     Output
       NULL
 
-# incorrect mappings throw errors
+# invalid mapping throws errors
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ), lMapping = list(dfPD = list(
-        strIDCol = "not an id"), dfSUBJ = list(strIDCol = "SubjectID", strSiteCol = "SiteID",
-        strTimeOnStudyCol = "TimeOnStudy")), bQuiet = F)
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x the following columns not found in df: not an id
+      x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -208,14 +571,12 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ), lMapping = list(dfPD = list(
-        strIDCol = "SubjectID"), dfSUBJ = list(strIDCol = "not an id", strSiteCol = "SiteID",
-        strTimeOnStudyCol = "TimeOnStudy")), bQuiet = F)
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x the following columns not found in df: not an id
+      x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -224,15 +585,18 @@
     Output
       NULL
 
-# NA values are caught
+---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfTos), bQuiet = F)
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x 1 NA values found in column: TimeOnStudy
+      x the following columns not found in df: asdf
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
       ! Issues found for `PD_Map_Raw()`
       ! `PD_Map_Raw()` did not run because of failed check.
     Output
@@ -241,28 +605,32 @@
 ---
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD2, dfSUBJ = dfTos2), bQuiet = F)
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x 1 NA values found in column: TimeOnStudy
+      x the following columns not found in df: asdf
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
       ! Issues found for `PD_Map_Raw()`
       ! `PD_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
-# duplicate SubjectID values are caught in RDSL
+# bQuiet and bReturnChecks work as intended
 
     Code
-      PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ), bQuiet = F)
+      dfInput <- map_function(dfs = dfs, bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x Unexpected duplicates found in column: SubjectID
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
+      v No issues found for `PD_Map_Raw()`
+      
+      -- Initializing `PD_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      v `PD_Map_Raw()` returned output with 3 rows.
 
