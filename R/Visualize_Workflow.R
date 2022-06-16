@@ -10,25 +10,30 @@
 #'
 #' @export
 
-Visualize_Workflow <- function(dfFlowchart, lAssessment, dfResult, dfNode) {
+Visualize_Workflow <- function(lAssessment, dfResult, dfNode) {
 
-  dfFlowchart <-
-    bind_rows(
-      dfNode %>%
-        mutate(from = row_number()),
+  dfFlowchart <- bind_rows(
+    dfNode %>%
+      mutate(from = row_number()),
 
-      dfResult[grep('df', names(dfResult))] %>%
-        imap_dfr(~tibble(assessment = lAssessment$name,
-                         n_step = max(dfNode$n_step),
-                         name = .y,
-                         inputs = .y,
-                         n_row = nrow(.x),
-                         n_col = ncol(.x),
-                         checks = TRUE)) %>%
-        mutate(n_step = n_step + row_number(),
-               from = n_step,
-               to = n_step + 1)
-    ) %>%
+    dfResult[grep('df', names(dfResult))] %>%
+      imap_dfr(
+        ~ tibble(
+          assessment = lAssessment$name,
+          n_step = max(dfNode$n_step),
+          name = .y,
+          inputs = .y,
+          n_row = nrow(.x),
+          n_col = ncol(.x),
+          checks = TRUE
+        )
+      ) %>%
+      mutate(
+        n_step = n_step + row_number(),
+        from = n_step,
+        to = n_step + 1
+      )
+  ) %>%
     filter(!is.na(n_row)) %>%
     mutate(n_row = ifelse(!is.na(lag(n_row_end)), lag(n_row_end), n_row))
 
@@ -46,9 +51,15 @@ Visualize_Workflow <- function(dfFlowchart, lAssessment, dfResult, dfNode) {
     fixedsize = "false"
   ) %>%
     replace(is.na(.), "") %>%
-    mutate(label = paste0(label, "\n", n_col, " x ", n_row),
-           tooltip = paste0("Data dimensions: \n", label),
-           label = ifelse(substr(value, 1, 2) != "df", paste0("[", value, "]\n\n", label), label))
+    mutate(
+      label = paste0(label, "\n", n_col, " x ", n_row),
+      tooltip = paste0("Data dimensions: \n", label),
+      label = ifelse(
+        substr(value, 1, 2) != "df",
+        paste0("[", value, "]\n\n", label),
+        label
+      )
+    )
 
   edge_df <- data.frame(
     from = head(dfFlowchart$from, n = nrow(dfFlowchart) - 1),

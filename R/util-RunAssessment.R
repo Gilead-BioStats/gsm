@@ -96,7 +96,6 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
   }
 
   lAssessment$lResults$flowchart <- Visualize_Workflow(
-    dfFlowchart,
     lAssessment = lAssessment,
     dfResult = result,
     dfNode = node_df
