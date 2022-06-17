@@ -5,10 +5,9 @@
 #' @param strCountCol Column containing total number of site-level occurrences. Default is "TotalCount" from \code{\link{Transform_EventCount}}.
 #' @param strTitle Title of plot. NULL by default.
 #'
-#' @return site level plot object
+#' @return site-level plot object.
 #'
 #' @examples
-#'
 #' IE_Input <- IE_Map_Raw()
 #' IE_Assess <- IE_Assess(IE_Input)
 #' Visualize_Count(IE_Assess$dfAnalyzed)

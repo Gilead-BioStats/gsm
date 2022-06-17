@@ -25,7 +25,6 @@ test_that("output is created as expected", {
 # metadata is returned as expected ----------------------------------------
 test_that("metadata is returned as expected", {
   ae <- result$ae
-  expect_equal(ae$label, "Treatment-Emergent Adverse Events")
   expect_equal(ae$tags, list(Assessment = "Safety", Label = "AEs"))
   expect_equal(ae$lResults$strFunctionName, "AE_Assess()")
   expect_equal(ae$workflow[[1]], list(
@@ -111,7 +110,7 @@ test_that("custom lAssessments runs as intended", {
   custom_assessments <- MakeAssessmentList()
   custom_assessments$ie$workflow <- NULL
   result <- Study_Assess(lAssessments = custom_assessments)
-  expect_equal(length(result$ie), 7)
+  expect_equal(length(result$ie), 6)
 })
 
 test_that("bQuiet works as intended", {
@@ -125,8 +124,7 @@ test_that("lTags are carried through", {
     lTags = list(
       Study = "test study",
       Q = "Q2 2022",
-      Region = "Northwest",
-      Assessment = "none"
+      Region = "Northwest"
     )
   )
 
@@ -134,7 +132,7 @@ test_that("lTags are carried through", {
     result$ae$lResults$lTags,
     list(
       Study = "test study", Q = "Q2 2022", Region = "Northwest",
-      Assessment = "none", Assessment = "Safety", Label = "AEs"
+      Assessment = "Safety", Label = "AEs"
     )
   )
 
@@ -142,7 +140,7 @@ test_that("lTags are carried through", {
     result$consent$lResults$lTags,
     list(
       Study = "test study", Q = "Q2 2022", Region = "Northwest",
-      Assessment = "none", Assessment = "Consent", Label = "Consent"
+      Assessment = "Consent", Label = "Consent"
     )
   )
 
@@ -150,7 +148,7 @@ test_that("lTags are carried through", {
     result$ie$lResults$lTags,
     list(
       Study = "test study", Q = "Q2 2022", Region = "Northwest",
-      Assessment = "none", Assessment = "IE", Label = "IE"
+      Assessment = "IE", Label = "IE"
     )
   )
 
@@ -158,7 +156,7 @@ test_that("lTags are carried through", {
     result$importantpd$lResults$lTags,
     list(
       Study = "test study", Q = "Q2 2022", Region = "Northwest",
-      Assessment = "none", Assessment = "PD", Label = "Important PD"
+      Assessment = "PD", Label = "Important PD"
     )
   )
 
@@ -166,7 +164,7 @@ test_that("lTags are carried through", {
     result$pd$lResults$lTags,
     list(
       Study = "test study", Q = "Q2 2022", Region = "Northwest",
-      Assessment = "none", Assessment = "PD", Label = "PD"
+      Assessment = "PD", Label = "PD"
     )
   )
 
@@ -174,19 +172,17 @@ test_that("lTags are carried through", {
     result$sae$lResults$lTags,
     list(
       Study = "test study", Q = "Q2 2022", Region = "Northwest",
-      Assessment = "none", Assessment = "Safety", Label = "AEs Serious"
+      Assessment = "Safety", Label = "AEs Serious"
     )
   )
+})
 
-
-
-  # Issue #435: duplicate lTags
-  # result <- Study_Assess(lData = lData,
-  #                        lTags = list(Study = "test study",
-  #                                     Q = "Q2 2022",
-  #                                     Region = "Northwest",
-  #                                     Assessment = "none",
-  #                                     Label = "my label"))
+test_that("incorrect lTags throw errors", {
+  expect_snapshot_error(Study_Assess(lTags = "hi mom"))
+  expect_snapshot_error(Study_Assess(lTags = list("hi", "mom")))
+  expect_snapshot_error(Study_Assess(lTags = list(greeting = "hi", "mom")))
+  expect_snapshot_error(Study_Assess(lTags = list(Assessment = "this is not an assessment")))
+  expect_snapshot_error(Study_Assess(lTags = list(Label = "this is not a label")))
 })
 
 test_that("Map + Assess yields same result as Study_Assess()", {
@@ -221,4 +217,15 @@ test_that("lSubjFilters with 0 rows returns NULL", {
   )
 
   expect_null(tmp)
+})
+
+test_that("correct bStatus is returned when workflow is missing", {
+  custom_assessments <- MakeAssessmentList()
+  custom_assessments$ie$workflow <- NULL
+  result <- Study_Assess(
+    lData = lData,
+    lAssessments = custom_assessments
+  )
+
+  expect_false(result$ie$bStatus)
 })

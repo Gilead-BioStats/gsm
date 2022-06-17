@@ -8,6 +8,7 @@ PD_Assess(
   dfInput,
   vThreshold = NULL,
   strMethod = "poisson",
+  strKRILabel = "PDs/Week",
   lTags = list(Assessment = "PD"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -17,15 +18,25 @@ PD_Assess(
 \arguments{
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
-\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to \code{c(-5, 5)} for \code{strMethod} = "poisson" and \code{c(.0001, NA)} for \code{strMethod} = "wilcoxon".}
+\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to
+\code{c(-5, 5)} for a Poisson model (\code{strMethod = "poisson"}) and \code{c(.0001, NA)} for a Wilcoxon
+signed-rank test (\code{strMethod} = "wilcoxon").}
 
-\item{strMethod}{\code{character} Statistical model. Valid values include "poisson" (default) and  "wilcoxon".}
+\item{strMethod}{\code{character} Statistical method. Valid values:
+\itemize{
+\item \code{"poisson"} (default)
+\item \code{"wilcoxon"}
+}}
 
-\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment="PD")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
+\item{strKRILabel}{\code{character} KRI description. Default: \code{"PDs/Week"}}
+
+\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults
+to \code{list(Assessment = "PD")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags})
+and each tag is added as a column in \code{lAssess$dfSummary}.}
 
 \item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
 
-\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -53,15 +64,15 @@ PD_Assess(
 }
 }
 \description{
-Flag sites that may be over- or under-reporting protocol deviations (PDs).
+Evaluates protocol deviation (PD) rates to identify sites that may be over- or under-reporting PDs.
 }
 \details{
-The Protocol Deviation Assessment uses the standard \href{https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
+The PD Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }
 \section{Data specification}{
 \tabular{lllll}{
-   domain \tab col_key \tab col_value \tab vRequired \tab vUniqueCols \cr
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
    dfInput \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
    dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr

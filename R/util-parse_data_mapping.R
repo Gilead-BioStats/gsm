@@ -1,9 +1,14 @@
 #' Parse Data Mapping
 #'
-#' Transform nested data mapping to tabular structure
+#' Transform nested data mapping to tabular structure for use in documentation.
 #'
 #' @param content `list` data mapping
 #' @param file `character` file path of .yaml file
+#'
+#' @importFrom purrr reduce
+#' @importFrom tibble enframe
+#' @importFrom tidyr unnest
+#' @importFrom yaml read_yaml
 #'
 #' @export
 
@@ -38,7 +43,7 @@ parse_data_mapping <- function(
         value = "col_value"
       ) %>%
       dplyr::mutate(
-        col_value = as.character(col_value)
+        col_value = as.character(.data$col_value)
       ) %>%
       tidyr::unnest(
         cols = "col_value"
@@ -47,7 +52,7 @@ parse_data_mapping <- function(
         domain = domain
       ) %>%
       dplyr::select(
-        domain, col_key, col_value
+        .data$domain, .data$col_key, .data$col_value
       )
 
     # Append domain metadata to domain list.

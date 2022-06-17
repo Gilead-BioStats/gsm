@@ -1,9 +1,13 @@
 #' Parse Data Specification
 #'
-#' Transform nested data specification to tabular structure
+#' Transform nested data specification to tabular structure for use in documentation.
 #'
 #' @param content `list` data specification
 #' @param file `character` file path of .yaml file
+#'
+#' @import dplyr
+#' @importFrom tibble tibble
+#' @importFrom yaml read_yaml
 #'
 #' @export
 
@@ -25,7 +29,7 @@ parse_data_spec <- function(
   domains <- names(content)
 
   # Create list to append metadata from each domain to.
-  domain_list <- vector("list", length(domains))
+  domain_list <- list()
 
   # Iterate over domains.
   for (domain in domains) {
@@ -54,9 +58,11 @@ parse_data_spec <- function(
 
   # De-structure domain list as data frame.
   spec <- domain_list %>%
-    purrr::reduce(
-      dplyr::bind_rows
-    )
+    dplyr::bind_rows()
+  # Handle row binding produced NAs:
+  # will only affect v* logical columns
+  # (domain, col_key) are always complete
+  spec[is.na(spec)] <- FALSE
 
   spec
 }

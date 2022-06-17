@@ -18,23 +18,24 @@ Consent_Map_Raw(
 \item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per subject.
 }}
 
-\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
+of the column.}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} Data frame with one record per subject, the input to
-\code{\link[=Consent_Assess]{Consent_Assess()}}. If \code{bReturnChecks} is \code{TRUE} \code{Consent_Map_Raw} returns a named \code{list}
-with:
+\code{data.frame} Data frame with one record per subject, the input to \code{\link[=Consent_Assess]{Consent_Assess()}}.
+If \code{bReturnChecks} is \code{TRUE} \code{Consent_Map_Raw} returns a named \code{list} with:
 \itemize{
 \item \code{df}: the data frame described above
 \item \code{lChecks}: a named \code{list} of check results
 }
 }
 \description{
-Convert from raw data format to needed input format for \code{\link{Consent_Assess}}
+Convert raw informed consent data, typically processed case report from data, to formatted
+input data to \code{\link[=Consent_Assess]{Consent_Assess()}}.
 }
 \details{
 \code{Consent_Map_Raw} combines consent data with subject-level data to create formatted input data
@@ -45,22 +46,22 @@ types of consent by customizing \code{lMapping$dfCONSENT}.
 }
 \section{Data specification}{
 \tabular{llllll}{
-   domain \tab col_key \tab col_value \tab vRequired \tab vNACols \tab vUniqueCols \cr
-   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab  \tab TRUE \cr
-   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab  \tab FALSE \cr
-   dfSUBJ \tab strRandDateCol \tab RandDate \tab TRUE \tab  \tab FALSE \cr
-   dfCONSENT \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab  \cr
-   dfCONSENT \tab strTypeCol \tab CONSENT_TYPE \tab TRUE \tab FALSE \tab  \cr
-   dfCONSENT \tab strValueCol \tab CONSENT_VALUE \tab TRUE \tab FALSE \tab  \cr
-   dfCONSENT \tab strDateCol \tab CONSENT_DATE \tab TRUE \tab TRUE \tab  \cr
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \tab \strong{Require Unique Values?} \cr
+   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab TRUE \cr
+   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
+   dfSUBJ \tab strRandDateCol \tab RandDate \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strTypeCol \tab CONSENT_TYPE \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strValueCol \tab CONSENT_VALUE \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strDateCol \tab CONSENT_DATE \tab TRUE \tab TRUE \tab FALSE \cr
 }
 }
 
 \examples{
-# Run with defaults
+# Run with defaults.
 dfInput <- Consent_Map_Raw()
 
-# Run with error checking and message log
+# Run with error checking and message log.
 dfInput <- Consent_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 
 }

@@ -1,22 +1,23 @@
 #' Run Multiple Assessments on a Study
 #'
-#' Attempts to run one or more assessments (`lAssessments`) using shared data (`lData`) and metadata (`lMapping`). By default, the sample `rawplus` data from the {clindata} package is used, and all assessments defined in `inst/assessments` are evaluated. Individual assessments are run using `gsm::RunAssessment()`
+#' Attempts to run one or more assessments (`lAssessments`) using shared data (`lData`) and metadata (`lMapping`). By default, the sample `rawplus` data from the {clindata} package is used, and all assessments defined in `inst/workflow` are evaluated. Individual assessments are run using `gsm::RunAssessment()`
 #'
 #' @param lData a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping a named list identifying the columns needed in each data domain.
-#' @param lAssessments a named list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/assessments`.
+#' @param lAssessments a named list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/workflow`.
 #' @param lSubjFilters a named list of parameters to filter subject-level data on.
 #' @param lTags a named list of Tags to be passed to each assessment. Default is `list(Study="myStudy")` could be expanded to include other important metadata such as analysis population or study phase.
-#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @examples
 #' results <- Study_Assess() # run using defaults
 #'
+#' @return `list` of assessments containing status information and results.
+#'
 #' @import dplyr
+#' @importFrom cli cli_alert_danger
 #' @importFrom purrr map
 #' @importFrom yaml read_yaml
-#'
-#' @return A list of assessments containing status information and results.
 #'
 #' @export
 
@@ -28,6 +29,18 @@ Study_Assess <- function(
   lTags = list(Study = "myStudy"),
   bQuiet = FALSE
 ) {
+  if (!is.null(lTags)) {
+    stopifnot(
+      "lTags is not named" = (!is.null(names(lTags))),
+      "lTags has unnamed elements" = all(names(lTags) != ""),
+      "lTags cannot contain elements named: 'Assessment', 'Label'" = !names(lTags) %in% c("Assessment", "Label")
+    )
+
+    if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {
+      lTags <- purrr::map(lTags, ~ paste(.x, collapse = ", "))
+    }
+  }
+
   #### --- load defaults --- ###
   # lData from clindata
   if (is.null(lData)) {
@@ -45,7 +58,7 @@ Study_Assess <- function(
     lMapping <- clindata::mapping_rawplus
   }
 
-  # lAssessments from gsm inst/assessments
+  # lAssessments from gsm inst/workflow
   if (is.null(lAssessments)) {
     lAssessments <- MakeAssessmentList()
   }

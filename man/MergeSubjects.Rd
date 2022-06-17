@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-MergeSubjects.R
 \name{MergeSubjects}
 \alias{MergeSubjects}
-\title{Merge Domain data with subject-level data shell}
+\title{Merge Domain data with subject-level data}
 \usage{
 MergeSubjects(
   dfDomain,
@@ -21,13 +21,13 @@ MergeSubjects(
 
 \item{vFillZero}{Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-data set with one record per IDCol
+\code{data.frame} with one record per strIDCol.
 }
 \description{
-Merge Domain data with subject-level data shell
+Merge Domain data with subject-level data
 }
 \examples{
 MergeSubjects(

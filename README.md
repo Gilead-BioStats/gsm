@@ -6,11 +6,11 @@
 
 # Gilead Statistical Monitoring {gsm} R package
 
-The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This readme provides a high-level overview of {gsm}, see the [package website](silver-potato-cfe8c2fb.pages.github.io/) for additional details.
+The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This README provides a high-level overview of {gsm}; see the [package website](silver-potato-cfe8c2fb.pages.github.io/) for additional details.
 
 # Background 
 
-The {gsm} package performs risk assessments primarily focused on detecting differences in quality at the site-level. "High quality" is defined as absence of errors that matter. We interpret this as focusing on detecting potential issues related to critical data or process across the major risk categories of safety, efficacy, disposition, treatment, and general quality, where each category consists of one or more risk assessment(s). Each risk assessment will analyze the data to flag sites with potential issues and provide a visualization to help the user understand the issue. Some relevant references are provided below. 
+The {gsm} package performs risk assessments primarily focused on detecting differences in quality at the site-level. "High quality" is defined as the absence of errors that matter. We interpret this as focusing on detecting potential issues related to critical data or process across the major risk categories of safety, efficacy, disposition, treatment, and general quality, where each category consists of one or more risk assessment(s). Each risk assessment will analyze the data to flag sites with potential issues and provide a visualization to help the user understand the issue. Some relevant references are provided below. 
 
 - Centralized Statistical Monitoring: [1](https://documents.pub/reader/full/centralized-statistical-monitoring-to-detect-data-integrity-issues-statisticalcentralized), [2](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7308734/), [3](https://www.magiworld.org/Journal/2014/1411_Centralized.pdf)
 - EMA/FDA Guidance on Risk Based Management: [1](https://www.fda.gov/media/121479/download), [2](https://www.fda.gov/media/116754/download), [3](https://www.fda.gov/media/129527/download), [4](https://www.ema.europa.eu/en/documents/scientific-guideline/reflection-paper-risk-based-quality-management-clinical-trials_en.pdf)
@@ -35,19 +35,18 @@ All {gsm} assessments use a standardized 6 step data pipeline:
 5.  **Flag** - Uses `analyzed` data and numeric `thresholds` to create `flagged` data.
 6.  **Summarize** - Selects key columns from `flagged` data to create `summary` data.
 
-To learn more about {gsm}'s data pipeline, visit the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette). 
-
+To learn more about {gsm}'s data pipeline, visit the [Data Pipeline Vignette](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
 
 # Quality Control
 
-Since {gsm} is designed for use in a GCP framework, we have conducted extensive quality control as part of our development process. In particular, we do the following:  
+Since {gsm} is designed for use in a [GCP](https://en.wikipedia.org/wiki/Good_clinical_practice) framework, we have conducted extensive quality control as part of our development process. In particular, we do the following:  
 
 - **Qualification Workflow** - All assessments have been Qualified as described in the Qualification Workflow Vignette. A Qualification Report Vignette is generated and attached to each release. 
 - **Unit Tests** - Unit tests are written for all core functions.
 - **Contributor Guidelines** - Detailed contributor guidelines including step-by-step processes for code development and releases are provided as a vignette.
-- **Data Model** - Vignettes providing detailed descriptions of the data mode.
+- **Data Model** - Vignettes providing detailed descriptions of the data model.
 - **Code Examples** - The Cookbook Vignette provides a series of simple examples, and all functions include examples as part of Roxygen documentation. 
-- **Code Review** - Code review is conducted using GitHub Pull requests, and a log of all PRs is included in the Qualification Report Vignette.
+- **Code Review** - Code review is conducted using GitHub Pull Requests (PRs), and a log of all PRs is included in the Qualification Report Vignette.
 - **Function Documentation** - Detailed documentation for each function is maintained with Roxygen.
 - **Package Checks** - Standard package checks are run using GitHub Actions and must be passing before PRs are merged.
 - **Data Specifications** - Machine-readable data specifications are maintained for all KRIs. Specifications are automatically added to relevant function documentation.

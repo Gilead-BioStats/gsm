@@ -1,7 +1,8 @@
 #' Consent Assessment - Raw Mapping
 #'
 #' @description
-#' Convert from raw data format to needed input format for \code{\link{Consent_Assess}}
+#' Convert raw informed consent data, typically processed case report from data, to formatted
+#' input data to [gsm::Consent_Assess()].
 #'
 #' @details
 #' `Consent_Map_Raw` combines consent data with subject-level data to create formatted input data
@@ -13,26 +14,27 @@
 #' @param dfs `list` Input data frames:
 #'  - `dfCONSENT`: `data.frame` Consent type-level data with one record per subject per consent type.
 #'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
-#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column.
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
+#'   of the column.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` Data frame with one record per subject, the input to
-#' [gsm::Consent_Assess()]. If `bReturnChecks` is `TRUE` `Consent_Map_Raw` returns a named `list`
-#' with:
+#' @return `data.frame` Data frame with one record per subject, the input to [gsm::Consent_Assess()].
+#' If `bReturnChecks` is `TRUE` `Consent_Map_Raw` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
 #'
 #' @includeRmd ./man/md/Consent_Map_Raw.md
 #'
-#' @import dplyr
-#'
 #' @examples
-#' # Run with defaults
+#' # Run with defaults.
 #' dfInput <- Consent_Map_Raw()
 #'
-#' # Run with error checking and message log
+#' # Run with error checking and message log.
 #' dfInput <- Consent_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
+#'
+#' @importFrom cli cli_alert_success cli_alert_warning cli_h2
+#' @import dplyr
 #'
 #' @export
 
@@ -45,6 +47,11 @@ Consent_Map_Raw <- function(
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
+  stopifnot(
+    "bReturnChecks must be logical" = is.logical(bReturnChecks),
+    "bQuiet must be logical" = is.logical(bQuiet)
+  )
+
   checks <- CheckInputs(
     context = "Consent_Map_Raw",
     dfs = dfs,
@@ -56,19 +63,19 @@ Consent_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn Consent_Map_Raw}")
 
     # Standarize column names.
-    dfSUBJ_mapped <- dfs$dfSUBJ %>%
-      select(
-        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
-        RandDate = lMapping[["dfSUBJ"]][["strRandDateCol"]]
-      )
-
     dfCONSENT_mapped <- dfs$dfCONSENT %>%
       select(
         SubjectID = lMapping[["dfCONSENT"]][["strIDCol"]],
         ConsentType = lMapping[["dfCONSENT"]][["strTypeCol"]],
         ConsentStatus = lMapping[["dfCONSENT"]][["strValueCol"]],
         ConsentDate = lMapping[["dfCONSENT"]][["strDateCol"]]
+      )
+
+    dfSUBJ_mapped <- dfs$dfSUBJ %>%
+      select(
+        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+        RandDate = lMapping[["dfSUBJ"]][["strRandDateCol"]]
       )
 
     if (!is.null(lMapping$dfCONSENT$strConsentTypeValue)) {

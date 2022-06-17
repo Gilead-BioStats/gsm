@@ -18,7 +18,8 @@ AE_Map_Raw(
 \item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per subject.
 }}
 
-\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
+of the column.}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
@@ -45,19 +46,19 @@ AEs by passing filtered AE data to \code{dfAE}.
 }
 \section{Data specification}{
 \tabular{lllll}{
-   domain \tab col_key \tab col_value \tab vRequired \tab vUniqueCols \cr
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
    dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
    dfSUBJ \tab strTimeOnTreatmentCol \tab TimeOnTreatment \tab TRUE \tab FALSE \cr
-   dfAE \tab strIDCol \tab SubjectID \tab TRUE \tab  \cr
+   dfAE \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \cr
 }
 }
 
 \examples{
-# Run with defaults
+# Run with defaults.
 dfInput <- AE_Map_Raw()
 
-# Run with error checking and message log
+# Run with error checking and message log.
 dfInput <- AE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 
 }

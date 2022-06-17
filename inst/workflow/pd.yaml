@@ -1,4 +1,3 @@
-label: Protocol Deviation (PD) Workflow
 tags:
   Assessment: PD
   Label: PD
@@ -11,3 +10,6 @@ workflow:
   - name: PD_Assess
     inputs: dfInput
     output: lResults
+    params:
+      vThreshold: null
+      strMethod: "poisson"

@@ -18,19 +18,19 @@ Study_Assess(
 
 \item{lMapping}{a named list identifying the columns needed in each data domain.}
 
-\item{lAssessments}{a named list of metadata defining how each assessment should be run. By default, \code{MakeAssessmentList()} imports YAML specifications from \code{inst/assessments}.}
+\item{lAssessments}{a named list of metadata defining how each assessment should be run. By default, \code{MakeAssessmentList()} imports YAML specifications from \code{inst/workflow}.}
 
 \item{lSubjFilters}{a named list of parameters to filter subject-level data on.}
 
 \item{lTags}{a named list of Tags to be passed to each assessment. Default is \code{list(Study="myStudy")} could be expanded to include other important metadata such as analysis population or study phase.}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-A list of assessments containing status information and results.
+\code{list} of assessments containing status information and results.
 }
 \description{
-Attempts to run one or more assessments (\code{lAssessments}) using shared data (\code{lData}) and metadata (\code{lMapping}). By default, the sample \code{rawplus} data from the {clindata} package is used, and all assessments defined in \code{inst/assessments} are evaluated. Individual assessments are run using \code{gsm::RunAssessment()}
+Attempts to run one or more assessments (\code{lAssessments}) using shared data (\code{lData}) and metadata (\code{lMapping}). By default, the sample \code{rawplus} data from the {clindata} package is used, and all assessments defined in \code{inst/workflow} are evaluated. Individual assessments are run using \code{gsm::RunAssessment()}
 }
 \examples{
 results <- Study_Assess() # run using defaults

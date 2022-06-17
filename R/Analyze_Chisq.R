@@ -22,18 +22,19 @@
 #' @param strOutcome `character` required, name of column in dfTransformed dataset to perform the chi-squared test on. Default is "TotalCount".
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @import dplyr
-#' @importFrom tidyr unnest
-#' @importFrom stats chisq.test
-#' @importFrom purrr map
-#' @importFrom broom glance
 #'
-#' @return data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue
+#' @return `data.frame` with one row per site with columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue.
 #'
 #' @examples
 #' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "Adverse Event")
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count")
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strKRILabel = "Discontinuations due to AE/Month")
 #' dfAnalyzed <- Analyze_Chisq(dfTransformed)
+#'
+#' @import dplyr
+#' @importFrom broom glance
+#' @importFrom purrr map
+#' @importFrom stats chisq.test
+#' @importFrom tidyr unnest
 #'
 #' @export
 

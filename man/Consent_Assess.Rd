@@ -8,6 +8,7 @@ Consent_Assess(
   dfInput,
   nThreshold = 0.5,
   lTags = list(Assessment = "Consent"),
+  strKRILabel = "Total Number of Consent Issues",
   bChart = TRUE,
   bReturnChecks = FALSE,
   bQuiet = TRUE
@@ -18,11 +19,13 @@ Consent_Assess(
 
 \item{nThreshold}{\code{numeric} Threshold specification. Default: \code{0.5}}
 
-\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment="IE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
+\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment = "Consent")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
+
+\item{strKRILabel}{\code{character} KRI description. Default: \code{"Total Number of Consent Issues"}}
 
 \item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
 
-\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -50,7 +53,7 @@ Consent_Assess(
 }
 }
 \description{
-Flag sites where subject consent was:
+Evaluates sites where subject consent was:
 \itemize{
 \item not given
 \item never obtained
@@ -59,7 +62,7 @@ Flag sites where subject consent was:
 }
 }
 \details{
-The Consent Assessment uses the standard \href{https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette}{GSM data pipeline} to flag sites with consent issues. This assessment detects sites with subjects who participated
+The Consent Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag sites with consent issues. This assessment detects sites with subjects who participated
 in study activities before consent was finalized. The count returned in the summary represents
 the number of subjects at a given site for whom:
 \itemize{
@@ -73,7 +76,7 @@ Additional details regarding the data pipeline and statistical methods are descr
 }
 \section{Data specification}{
 \tabular{lllll}{
-   domain \tab col_key \tab col_value \tab vRequired \tab vUniqueCols \cr
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
    dfInput \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
    dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr

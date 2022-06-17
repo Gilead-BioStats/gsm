@@ -1,8 +1,8 @@
 #' AE Wilcoxon Assessment - Analysis
 #'
-#' Create analysis results data for event assessment using the Wilcoxon sign-ranked test.
+#' Create analysis results data for event assessment using the Wilcoxon signed-rank test.
 #'
-#'  @details
+#' @details
 #' Fits a Wilcoxon model to site-level data.
 #'
 #' @section Statistical Methods:
@@ -24,26 +24,27 @@
 #'   Default: `"SiteID"`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @import dplyr
-#' @importFrom stats wilcox.test as.formula
-#' @importFrom glue glue
-#' @importFrom purrr map
-#' @importFrom broom glance
-#' @importFrom tidyr unnest
-#'
 #' @return `data.frame` with one row per site, columns: SiteID, N, TotalCount, TotalExposure, Rate,
-#'   Estimate, PValue
+#'   Estimate, PValue.
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
-#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, strOutcomeCol = "Rate")
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+#'
+#' @import dplyr
+#' @importFrom broom glance
+#' @importFrom cli cli_alert_info
+#' @importFrom glue glue
+#' @importFrom purrr map
+#' @importFrom stats as.formula wilcox.test
+#' @importFrom tidyr unnest
 #'
 #' @export
 
 Analyze_Wilcoxon <- function(
   dfTransformed,
-  strOutcomeCol = NULL,
+  strOutcomeCol = "KRI",
   strPredictorCol = "SiteID",
   bQuiet = TRUE
 ) {
@@ -61,11 +62,13 @@ Analyze_Wilcoxon <- function(
     "@param:strOutcomeCol or @param:strPredictorCol not found in @param:dfTransformed" =
       all(c(strPredictorCol, strOutcomeCol) %in% names(dfTransformed)),
     "NA value(s) found in @param:strPredictorCol" =
-      all(!is.na(dfTransformed[[strPredictorCol]]))
+      all(!is.na(dfTransformed[[strPredictorCol]])),
+    "One or more of these columns not found: SiteID, N, TotalExposure, TotalCount, KRI, KRILabel" =
+      all(c("SiteID", "N", "TotalExposure", "TotalCount", "KRI", "KRILabel") %in% names(dfTransformed))
   )
 
   wilcoxon_model <- function(predictorValue) {
-    form <- as.formula(
+    form <- stats::as.formula(
       paste0(
         strOutcomeCol,
         " ~ as.character(",
@@ -125,6 +128,9 @@ Analyze_Wilcoxon <- function(
 
   return(
     dfAnalyzed %>%
-      select(names(dfTransformed), Estimate, PValue)
+      select(names(dfTransformed), .data$Estimate, Score = .data$PValue) %>%
+      mutate(
+        ScoreLabel = "P value"
+      )
   )
 }

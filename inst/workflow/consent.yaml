@@ -1,4 +1,3 @@
-label: Consent Workflow
 tags:
   Assessment: Consent
   Label: Consent
@@ -11,4 +10,5 @@ workflow:
   - name: Consent_Assess
     inputs: dfInput
     output: lResults
-
+    params:
+      nThreshold: 0.5

@@ -121,13 +121,13 @@ test_that("NA values in input data are handled", {
 })
 
 test_that("bQuiet works as intended", {
-  expect_message(
-    AE_Map_Adam(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bQuiet = FALSE)
+  expect_snapshot(
+    dfInput <- AE_Map_Adam(dfs = list(dfADAE = dfADAE, dfADSL = dfADSL), bQuiet = FALSE)
   )
 })
 
 test_that("bReturnChecks works as intended", {
   expect_true(
-    all(names(AE_Map_Adam(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ), bReturnChecks = TRUE)) == c("df", "lChecks"))
+    all(names(AE_Map_Adam(dfs = list(dfADAE = dfADAE, dfADSL = dfADSL), bReturnChecks = TRUE)) == c("df", "lChecks"))
   )
 })

@@ -22,18 +22,18 @@
 #' @param strOutcome `character` required, name of column in dfTransformed dataset to perform Fisher test on. Default is "TotalCount".
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @import dplyr
-#' @importFrom stats fisher.test
-#' @importFrom purrr map
-#' @importFrom broom glance
-#' @importFrom tidyr unnest
-#'
-#' @return data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue
+#' @return `data.frame` with one row per site with columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
 #'
 #' @examples
 #' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "Adverse Event")
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count")
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strKRILabel = "Discontinuations due to AE")
 #' dfAnalyzed <- Analyze_Fisher(dfTransformed)
+#'
+#' @import dplyr
+#' @importFrom broom glance
+#' @importFrom purrr map
+#' @importFrom stats fisher.test
+#' @importFrom tidyr unnest
 #'
 #' @export
 

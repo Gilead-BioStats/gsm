@@ -1,0 +1,18 @@
+dfSUBJ:
+  strIDCol: "SubjectID"
+  strSiteCol: "SiteID"
+  strTimeOnTreatmentCol: "TimeOnTreatment"
+  strTimeOnStudyCol: "TimeOnStudy"
+  strRandFlagCol: "RandFlag"
+  strRandDateCol: "RandDate"
+  strStudyCompletionFlagCol: "StudCompletion"
+  strStudyDiscontinuationReasonCol: "StudDCReason"
+  strTreatmentCompletionFlagCol: "TrtCompletion"
+  strTreatmentDiscontinuationReasonCol: "TrtDCReason"
+dfAE:
+  strIDCol: "SubjectID"
+  strTreatmentEmergentCol: "AE_TE_FLAG"
+  strTreatmentEmergentVal: TRUE
+  strGradeCol: "AE_GRADE"
+  strSeriousCol: "AE_SERIOUS"
+  strSeriousVal: "Yes"

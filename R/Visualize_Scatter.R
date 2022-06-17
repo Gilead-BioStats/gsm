@@ -4,7 +4,7 @@
 #' @param dfBounds data.frame giving prediction bounds for range of dfFlagged.
 #' @param strUnit exposure time unit. Defaults to "days".
 #'
-#' @return site level plot object
+#' @return site-level plot object.
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
@@ -18,6 +18,7 @@
 #' @import ggplot2
 #'
 #' @export
+
 Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strUnit = "days") {
 
   ### Plot of data

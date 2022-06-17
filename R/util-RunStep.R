@@ -8,10 +8,7 @@
 #' @param lTags tags
 #' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
 #'
-#' @importFrom yaml read_yaml
-#' @importFrom stringr str_detect
-#'
-#' @return A list containing the results of the `lStep$name` function call should contain `.$checks` parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
+#' @return `list` containing the results of the `lStep$name` function call should contain `.$checks` parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
 #'
 #' @examples
 #' lStep <- MakeAssessmentList()[["ae"]][["workflow"]][[1]]
@@ -30,13 +27,20 @@
 #'
 #' ae_step <- RunStep(lStep = lStep, lMapping = lMapping, lData = lData, lTags = lTags, bQuiet = FALSE)
 #'
+#' @importFrom cli cli_text
+#' @importFrom stringr str_detect
+#' @importFrom yaml read_yaml
+#'
 #' @export
 
 RunStep <- function(lStep, lMapping, lData, lTags, bQuiet) {
 
   # prepare parameter list inputs
   cli::cli_text("Preparing parameters for  {.fn {lStep$name}} ...")
-  params <- c(lStep$params, list(bQuiet = bQuiet, bReturnChecks = TRUE))
+
+  params <- lStep$params
+  params$bQuiet <- bQuiet
+  params$bReturnChecks <- TRUE
 
   # prepare data inputs by function type
   if (stringr::str_detect(lStep$name, "_Map")) {

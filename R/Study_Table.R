@@ -9,11 +9,6 @@
 #' @param bShowCounts Show site counts? Uses first value of N for each site given in dfFindings.
 #' @param bColCollapse Combine the Assessment and Label columns into a single "Title Column"
 #'
-#' @import tidyr
-#' @import dplyr
-#' @importFrom fontawesome fa
-#' @importFrom stringr str_pad
-#'
 #' @examples
 #' library(dplyr)
 #' library(purrr)
@@ -25,6 +20,11 @@
 #' Study_Table(results)
 #'
 #' @return `data.frame` Returns a data.frame giving assessment status (rows) by Site (column)
+#'
+#' @import dplyr
+#' @importFrom fontawesome fa
+#' @importFrom stringr str_pad
+#' @importFrom tidyr spread
 #'
 #' @export
 

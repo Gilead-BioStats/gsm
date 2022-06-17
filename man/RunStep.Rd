@@ -18,7 +18,7 @@ RunStep(lStep, lMapping, lData, lTags, bQuiet)
 \item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
 }
 \value{
-A list containing the results of the \code{lStep$name} function call should contain \code{.$checks} parameter with results from \code{is_mapping_vald} for each domain in \code{lStep$inputs}.
+\code{list} containing the results of the \code{lStep$name} function call should contain \code{.$checks} parameter with results from \code{is_mapping_vald} for each domain in \code{lStep$inputs}.
 }
 \description{
 Calls a step in an assessment workflow. Currently supports \verb{*_Map_*}, \verb{*_Assess} and \verb{*_FilterDomain}

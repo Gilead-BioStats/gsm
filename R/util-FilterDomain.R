@@ -26,10 +26,19 @@
 #' @return `data.frame` Data frame provided as `df` and filtered on `strColParam` == `strValParam`.
 #' If `bReturnChecks` is `TRUE`, a `list` is returned with a filtered `df`, and a list of checks run on input data (`lChecks`).
 #'
+#' @importFrom cli cli_alert_info cli_alert_success cli_alert_warning cli_text
 #'
 #' @export
 
-FilterDomain <- function(df, strDomain, lMapping, strColParam, strValParam, bReturnChecks = FALSE, bQuiet = TRUE) {
+FilterDomain <- function(
+  df,
+  strDomain,
+  lMapping,
+  strColParam,
+  strValParam,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+) {
   if (!bQuiet) cli::cli_h2("Checking Input Data for {.fn FilterDomain}")
   lSpec <- list(vRequired = c(strColParam, strValParam))
   check <- gsm::is_mapping_valid(df = df, mapping = lMapping[[strDomain]], spec = lSpec, bQuiet = bQuiet)

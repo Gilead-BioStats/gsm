@@ -9,7 +9,6 @@
       Saving dfAE to `lAssessment$lData`
       Preparing parameters for `AE_Map_Raw()` ...
       Calling `AE_Map_Raw()` ...
-      i Intializing merge of domain and subject data
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `AE_Assess()` ...
@@ -18,7 +17,6 @@
       Saving lResults to `lAssessment`
       Preparing parameters for `Consent_Map_Raw()` ...
       Calling `Consent_Map_Raw()` ...
-      i Intializing merge of domain and subject data
       v `Consent_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `Consent_Assess()` ...
@@ -27,7 +25,6 @@
       Saving lResults to `lAssessment`
       Preparing parameters for `IE_Map_Raw()` ...
       Calling `IE_Map_Raw()` ...
-      i Intializing merge of domain and subject data
       v `IE_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `IE_Assess()` ...
@@ -40,7 +37,6 @@
       Saving dfPD to `lAssessment$lData`
       Preparing parameters for `PD_Map_Raw()` ...
       Calling `PD_Map_Raw()` ...
-      i Intializing merge of domain and subject data
       v `PD_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `PD_Assess()` ...
@@ -49,7 +45,6 @@
       Saving lResults to `lAssessment`
       Preparing parameters for `PD_Map_Raw()` ...
       Calling `PD_Map_Raw()` ...
-      i Intializing merge of domain and subject data
       v `PD_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `PD_Assess()` ...
@@ -66,7 +61,6 @@
       Saving dfAE to `lAssessment$lData`
       Preparing parameters for `AE_Map_Raw()` ...
       Calling `AE_Map_Raw()` ...
-      i Intializing merge of domain and subject data
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       Preparing parameters for `AE_Assess()` ...
@@ -167,7 +161,9 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
-      i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed`
+      `Score` column created from `KRI`.
+      `ScoreLabel` column created from `KRILabel`.
+      i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
       v `Visualize_Count()` created a chart.
@@ -208,7 +204,9 @@
       
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
-      i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed`
+      `Score` column created from `KRI`.
+      `ScoreLabel` column created from `KRILabel`.
+      i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
       v `Visualize_Count()` created a chart.
@@ -377,4 +375,24 @@
       v `Visualize_Scatter()` created a chart.
       v `AE_Assess()` Successful
       Saving lResults to `lAssessment`
+
+# incorrect lTags throw errors
+
+    lTags is not named
+
+---
+
+    lTags is not named
+
+---
+
+    lTags has unnamed elements
+
+---
+
+    lTags cannot contain elements named: 'Assessment', 'Label'
+
+---
+
+    lTags cannot contain elements named: 'Assessment', 'Label'
 

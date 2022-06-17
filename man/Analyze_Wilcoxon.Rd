@@ -6,7 +6,7 @@
 \usage{
 Analyze_Wilcoxon(
   dfTransformed,
-  strOutcomeCol = NULL,
+  strOutcomeCol = "KRI",
   strPredictorCol = "SiteID",
   bQuiet = TRUE
 )
@@ -23,13 +23,12 @@ Default: \code{"SiteID"}}
 }
 \value{
 \code{data.frame} with one row per site, columns: SiteID, N, TotalCount, TotalExposure, Rate,
-Estimate, PValue
+Estimate, PValue.
 }
 \description{
-Create analysis results data for event assessment using the Wilcoxon sign-ranked test.
+Create analysis results data for event assessment using the Wilcoxon signed-rank test.
 }
 \details{
-@details
 Fits a Wilcoxon model to site-level data.
 }
 \section{Statistical Methods}{
@@ -53,7 +52,7 @@ The input data (dfTransformed) for Analyze_Wilcoxon is typically created using
 
 \examples{
 dfInput <- AE_Map_Raw()
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
-dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, strOutcomeCol = "Rate")
+dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
 
 }

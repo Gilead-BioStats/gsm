@@ -1,20 +1,25 @@
-
-#' insert icon for status in gt table
+#' Report Helper Functions
 #'
-#' from https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/
+#' @description
+#' `rank_chg` - inserts icons for status in {gt} table.
 #'
-#' @param status boolean status
+#' Adopted from https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/.
+#'
+#' @param status `boolean` fontawesome emoji indicator that describes the status of error checking for all assessments run in `Study_Assess()`
+#'
+#' @importFrom fontawesome fa
+#' @importFrom gt gt
 #'
 #' @export
 
 rank_chg <- function(status) {
-  if (status == TRUE) {
+  if (status == 1) {
     logo_out <- fontawesome::fa("check-circle", fill = "green")
   }
-  if (status == FALSE) {
+  if (status == 2) {
     logo_out <- fontawesome::fa("times-circle", fill = "red")
   }
-  if (!status %in% c(TRUE, FALSE)) {
+  if (status == 3) {
     logo_out <- fontawesome::fa("minus-circle", fill = "#EED202")
   }
   gt::html(as.character(logo_out))
