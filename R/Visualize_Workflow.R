@@ -12,8 +12,6 @@
 
 Visualize_Workflow <- function(lAssessment, dfResult, dfNode) {
 
-  browser()
-
   # data pipeline up to "mapping"
   subject_level <- dfNode %>%
     mutate(from = row_number())
@@ -44,7 +42,7 @@ Visualize_Workflow <- function(lAssessment, dfResult, dfNode) {
   dfFlowchart <- bind_rows(
     subject_level,
 
-    domain_level %>%
+    domain_check %>%
       imap_dfr(
         ~ tibble(
           assessment = lAssessment$name,
@@ -62,7 +60,7 @@ Visualize_Workflow <- function(lAssessment, dfResult, dfNode) {
         to = n_step + 1
       )
   ) %>%
-    filter(inputs != "dfInput") %>%
+    filter(!is.na(n_row)) %>%
     mutate(n_row = ifelse(!is.na(lag(n_row_end)), lag(n_row_end), n_row))
   }
 
@@ -90,9 +88,6 @@ Visualize_Workflow <- function(lAssessment, dfResult, dfNode) {
       ),
       color = ifelse(checks == TRUE, "aqua", "red")
     )
-
-
-
 
   edge_df <- data.frame(
     from = head(dfFlowchart$from, n = nrow(dfFlowchart) - 1),
