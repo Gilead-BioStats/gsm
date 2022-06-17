@@ -76,7 +76,7 @@ PD_Assess <- function(
     stopifnot(
       "lTags is not named" = (!is.null(names(lTags))),
       "lTags has unnamed elements" = all(names(lTags) != ""),
-      "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
+      "lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "KRI", "KRILabel", "Score", "ScoreLabel", "Flag")
     )
 
     if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {

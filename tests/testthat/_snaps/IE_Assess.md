@@ -1,18 +1,26 @@
 # incorrect lTags throw errors
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
+---
+
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
+---
+
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 # bQuiet and bReturnChecks work as intended
 

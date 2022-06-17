@@ -44,9 +44,9 @@ Since {gsm} is designed for use in a [GCP](https://en.wikipedia.org/wiki/Good_cl
 - **Qualification Workflow** - All assessments have been Qualified as described in the Qualification Workflow Vignette. A Qualification Report Vignette is generated and attached to each release. 
 - **Unit Tests** - Unit tests are written for all core functions.
 - **Contributor Guidelines** - Detailed contributor guidelines including step-by-step processes for code development and releases are provided as a vignette.
-- **Data Model** - Vignettes providing detailed descriptions of the data mode.
+- **Data Model** - Vignettes providing detailed descriptions of the data model.
 - **Code Examples** - The Cookbook Vignette provides a series of simple examples, and all functions include examples as part of Roxygen documentation. 
-- **Code Review** - Code review is conducted using GitHub Pull requests, and a log of all PRs is included in the Qualification Report Vignette.
+- **Code Review** - Code review is conducted using GitHub Pull Requests (PRs), and a log of all PRs is included in the Qualification Report Vignette.
 - **Function Documentation** - Detailed documentation for each function is maintained with Roxygen.
 - **Package Checks** - Standard package checks are run using GitHub Actions and must be passing before PRs are merged.
 - **Data Specifications** - Machine-readable data specifications are maintained for all KRIs. Specifications are automatically added to relevant function documentation.

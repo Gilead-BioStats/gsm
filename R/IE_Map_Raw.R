@@ -7,7 +7,7 @@
 #' @details
 #' `IE_Map_Raw` combines IE data with subject-level data to create formatted input data to
 #' [gsm::IE_Assess()]. This function creates an input dataset for the IE Assessment
-#' ($[gsm::IE_Assess()]) by binding subject-level unmet IE criteria counts (derived from `dfIE`) to
+#' ([gsm::IE_Assess()]) by binding subject-level unmet IE criteria counts (derived from `dfIE`) to
 #' subject-level data (from `dfSUBJ`). Note that the function can generate data summaries for
 #' specific types of IE criteria by passing filtered IE data to `dfIE`.
 #'
