@@ -30,6 +30,7 @@
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom stringr str_detect
 #' @importFrom yaml read_yaml
+#' @importFrom purrr map_df
 #'
 #' @export
 
@@ -95,11 +96,13 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
     lAssessment$bStatus <- FALSE
   }
 
+  if(lAssessment$bStatus) {
   lAssessment$lResults$flowchart <- Visualize_Workflow(
     lAssessment = lAssessment,
-    dfResult = result,
+    lResult = result,
     dfNode = node_df
     )
+  }
 
   return(lAssessment)
 }

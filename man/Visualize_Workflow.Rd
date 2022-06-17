@@ -4,14 +4,18 @@
 \alias{Visualize_Workflow}
 \title{Visualize Workflow}
 \usage{
-Visualize_Workflow(lAssessment)
+Visualize_Workflow(lAssessment, lResult, dfNode)
 }
 \arguments{
-\item{lAssessment}{}
+\item{lAssessment}{\code{list} A list of assessment-specific metadata.}
+
+\item{lResult}{\code{list} A list of data and metadata from running an \verb{*_Assess()} function.}
+
+\item{dfNode}{\code{data.frame} A data frame containing metadata from an assessment workflow.}
 }
 \value{
 A flowchart.
 }
 \description{
-Show the data structure of subject and site-level data in an assessment.
+Show the data pipeline steps from running an assessment.
 }

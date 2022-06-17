@@ -1,43 +1,26 @@
 #' Visualize Workflow
 #'
-#' Show the data structure of subject and site-level data in an assessment.
+#' Show the data pipeline steps from running an assessment.
 #'
-#' @param lAssessment
+#' @param lAssessment `list` A list of assessment-specific metadata.
+#' @param lResult `list` A list of data and metadata from running an `*_Assess()` function.
+#' @param dfNode `data.frame` A data frame containing metadata from an assessment workflow.
 #'
 #' @return A flowchart.
 #'
 #' @importFrom DiagrammeR create_node_df create_graph render_graph
+#' @importFrom purrr imap_dfr
 #'
 #' @export
 
-Visualize_Workflow <- function(lAssessment, dfResult, dfNode) {
+Visualize_Workflow <- function(lAssessment, lResult, dfNode) {
 
   # data pipeline up to "mapping"
   subject_level <- dfNode %>%
     mutate(from = row_number())
 
   # data pipeline from dfInput to dfSummary
-  domain_check <- dfResult[grep('df', names(dfResult))]
-
-  if(is.null(unlist(domain_check))){
-    dfFlowchart <- bind_rows(
-      subject_level,
-      tibble::tribble(
-      ~assessment, ~n_step,           ~name,         ~inputs, ~n_row, ~n_col, ~checks, ~from, ~to, ~n_row_end,
-      NA,       4,       "dfInput",       "dfInput",     NA,     NA,   FALSE,     4,   5,         NA,
-      NA,       5, "dfTransformed", "dfTransformed",     NA,     NA,   FALSE,     5,   6,         NA,
-      NA,       6,    "dfAnalyzed",    "dfAnalyzed",     NA,     NA,   FALSE,     6,   7,         NA,
-      NA,       7,     "dfFlagged",     "dfFlagged",     NA,     NA,   FALSE,     7,   8,         NA,
-      NA,       8,     "dfSummary",     "dfSummary",     NA,     NA,   FALSE,     8,   9,         NA
-    ) %>%
-      mutate(assessment = lAssessment$name)
-    )
-
-  }
-
-
-  # combine all steps in pipeline to create node_df
-  if(!is.null(unlist(domain_check))) {
+  domain_check <- lResult[grep('df', names(lResult))]
 
   dfFlowchart <- bind_rows(
     subject_level,
@@ -62,7 +45,7 @@ Visualize_Workflow <- function(lAssessment, dfResult, dfNode) {
   ) %>%
     filter(!is.na(n_row)) %>%
     mutate(n_row = ifelse(!is.na(lag(n_row_end)), lag(n_row_end), n_row))
-  }
+
 
   node_df <- create_node_df(
     n = nrow(dfFlowchart),
@@ -70,7 +53,8 @@ Visualize_Workflow <- function(lAssessment, dfResult, dfNode) {
     label = dfFlowchart$inputs,
     value = dfFlowchart$name,
     style = "filled",
-    color = "aqua",
+    color = "Black",
+    fillcolor = "Honeydew",
     shape = "rectangle",
     n_row = dfFlowchart$n_row,
     n_col = dfFlowchart$n_col,
@@ -85,8 +69,7 @@ Visualize_Workflow <- function(lAssessment, dfResult, dfNode) {
         substr(value, 1, 2) != "df",
         paste0("[", value, "]\n\n", label),
         label
-      ),
-      color = ifelse(checks == TRUE, "aqua", "red")
+      )
     )
 
   edge_df <- data.frame(

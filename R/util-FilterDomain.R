@@ -67,7 +67,9 @@ FilterDomain <- function(
     }
   }
 
+
   if (bReturnChecks) {
+    if(!exists("newRows")) newRows <- NA
     return(list(df = df, lChecks = checks, newRows = newRows))
   } else {
     return(df)
