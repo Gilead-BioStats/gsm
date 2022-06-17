@@ -33,23 +33,27 @@ test_that("invalid lTags throw error", {
 })
 
 test_that("output is correctly sorted by Flag and Score", {
-  sim1 <- data.frame(SiteID = seq(1:100),
-                     N = seq(1:100),
-                     KRI = rep(NA, 100),
-                     KRILabel = "cats",
-                     Score = c(rep(0, 20), rep(1, 80)),
-                     ScoreLabel = "dogs",
-                     Flag = c(rep(-1, 9), rep(0, 91)))
+  sim1 <- data.frame(
+    SiteID = seq(1:100),
+    N = seq(1:100),
+    KRI = rep(NA, 100),
+    KRILabel = "cats",
+    Score = c(rep(0, 20), rep(1, 80)),
+    ScoreLabel = "dogs",
+    Flag = c(rep(-1, 9), rep(0, 91))
+  )
 
   expect_equal(Summarize(sim1)$Flag, c(rep(-1, 9), rep(0, 91)))
 
-  sim1 <- data.frame(SiteID = seq(1, 100),
-                     N = seq(1, 100),
-                     KRI = c(seq(1, 5), seq(6, 1), rep(11, 89)),
-                     KRILabel = "fictitious things by general relativity",
-                     Score = c(seq(1, 5), seq(6, 1), rep(11, 89)),
-                     ScoreLabel = "homerun",
-                     Flag = c(rep(-1, 9), rep(0, 91)))
+  sim1 <- data.frame(
+    SiteID = seq(1, 100),
+    N = seq(1, 100),
+    KRI = c(seq(1, 5), seq(6, 1), rep(11, 89)),
+    KRILabel = "fictitious things by general relativity",
+    Score = c(seq(1, 5), seq(6, 1), rep(11, 89)),
+    ScoreLabel = "homerun",
+    Flag = c(rep(-1, 9), rep(0, 91))
+  )
 
   expect_equal(Summarize(sim1)$Score, c(6, 5, 5, 4, 4, 3, 3, 2, 1, rep(11, 89), 2, 1))
 })

@@ -62,10 +62,10 @@ test_that("bShowCounts works", {
 
 test_that("bShowSiteScore works", {
   expect_true(
-    'Score' %in% Study_Table(dfFindings = results, bShowSiteScore = TRUE)$df_summary$Title
+    "Score" %in% Study_Table(dfFindings = results, bShowSiteScore = TRUE)$df_summary$Title
   )
   expect_false(
-    'Score' %in% Study_Table(dfFindings = results, bShowSiteScore = FALSE)$df_summary$Title
+    "Score" %in% Study_Table(dfFindings = results, bShowSiteScore = FALSE)$df_summary$Title
   )
 })
 

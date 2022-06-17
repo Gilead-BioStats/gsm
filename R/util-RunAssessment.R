@@ -40,7 +40,7 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
   lAssessment$lChecks <- list()
   lAssessment$bStatus <- TRUE
 
-  if(exists("workflow", where = lAssessment)) {
+  if (exists("workflow", where = lAssessment)) {
     # Run through each step in lAssessment$workflow
     stepCount <- 1
     for (step in lAssessment$workflow) {

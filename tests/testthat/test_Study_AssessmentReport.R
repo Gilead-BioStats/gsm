@@ -14,12 +14,12 @@ test_that("Assessment Report with all Valid assessments", {
   expect_true(is.data.frame(a$dfAllChecks))
   expect_true(is.data.frame(a$dfSummary))
   expect_equal(
-    names(a$dfAllChecks) %>% sort,
-    c('assessment', 'check', 'cols_are_unique', 'columns_have_empty_values', 'columns_have_na', 'domain', 'has_expected_columns', 'has_required_params', 'is_data_frame', 'mapping_is_list', 'mappings_are_character', 'notes', 'spec_is_list', 'step')
+    names(a$dfAllChecks) %>% sort(),
+    c("assessment", "check", "cols_are_unique", "columns_have_empty_values", "columns_have_na", "domain", "has_expected_columns", "has_required_params", "is_data_frame", "mapping_is_list", "mappings_are_character", "notes", "spec_is_list", "step")
   )
   expect_equal(
-    names(a$dfSummary) %>% sort,
-    c('assessment', 'check', 'domain', 'notes', 'step')
+    names(a$dfSummary) %>% sort(),
+    c("assessment", "check", "domain", "notes", "step")
   )
 })
 
@@ -62,22 +62,22 @@ test_that("correct messages show when data is not found", {
   report <- Study_AssessmentReport(lAssessments)
 
   expect_equal(
-    report$dfAllChecks %>% filter(domain == 'dfCONSENT') %>% pull(notes),
+    report$dfAllChecks %>% filter(domain == "dfCONSENT") %>% pull(notes),
     "Data not found for consent assessment"
-    )
+  )
 
   expect_equal(
-    report$dfAllChecks %>% filter(domain == 'dfIE') %>% pull(notes),
+    report$dfAllChecks %>% filter(domain == "dfIE") %>% pull(notes),
     "Data not found for ie assessment"
   )
 
   expect_equal(
-    report$dfAllChecks %>% filter(domain == 'dfPD' & step == 'FilterDomain') %>% pull(notes),
+    report$dfAllChecks %>% filter(domain == "dfPD" & step == "FilterDomain") %>% pull(notes),
     "Data not found for importantpd assessment"
   )
 
   expect_equal(
-    report$dfAllChecks %>% filter(assessment == 'pd' & domain == 'dfPD' & step == 'PD_Map_Raw') %>% pull(notes),
+    report$dfAllChecks %>% filter(assessment == "pd" & domain == "dfPD" & step == "PD_Map_Raw") %>% pull(notes),
     "Data not found for pd assessment"
   )
 })

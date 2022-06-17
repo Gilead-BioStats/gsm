@@ -2,8 +2,8 @@ source(testthat::test_path("testdata/data.R"))
 
 assess_function <- gsm::Consent_Assess
 dfInput <- Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ))
-output_spec <- yaml::read_yaml(system.file('specs', 'Consent_Assess.yaml', package = 'gsm'))
-output_mapping <- yaml::read_yaml(system.file('mappings', 'Consent_Assess.yaml', package = 'gsm'))
+output_spec <- yaml::read_yaml(system.file("specs", "Consent_Assess.yaml", package = "gsm"))
+output_mapping <- yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm"))
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
@@ -50,10 +50,12 @@ test_that("incorrect lTags throw errors", {
   expect_snapshot_error(assess_function(dfInput, lTags = list("hi", "mom")))
   expect_snapshot_error(assess_function(dfInput, lTags = list(greeting = "hi", "mom")))
   expect_silent(assess_function(dfInput, lTags = list(greeting = "hi", person = "mom")))
-  expect_error(assess_function(dfInput, lTags = list(SiteID = "")))
-  expect_error(assess_function(dfInput, lTags = list(N = "")))
-  expect_error(assess_function(dfInput, lTags = list(Score = "")))
-  expect_error(assess_function(dfInput, lTags = list(Flag = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(SiteID = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(N = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(Score = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(Flag = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(KRI = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(KRILabel = "")))
 })
 
 
@@ -65,7 +67,7 @@ test_that("dfAnalyzed has appropriate model output regardless of statistical met
 })
 
 test_that("bQuiet and bReturnChecks work as intended", {
-    test_logical_assess_parameters(assess_function, dfInput)
+  test_logical_assess_parameters(assess_function, dfInput)
 })
 
 test_that("strKRILabel works as intended", {

@@ -138,21 +138,21 @@ styler::style_dir('tests', recursive = TRUE, transformers = double_indent_style)
 This QC checklist is used as part of the development and release workflows described above. When applied to an Assessment, confirm that each function meets the requirements described. 
 
 - [ ] Documentation
-    - [ ] Function name captured in [Roxygen title](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block)(e.g. "Adverse Event Assessment")
-    - [ ] Assessment Purpose captured in [Roxygen description](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) (e.g. "Evaluates site-level level Adverse Event Rates and flags rates that are abnormally high or low."
-    - [ ] Input Data Requirements are described in the the [Roxygen details](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) under a Data section (`#' @details # Data Requirements`).
-    - [ ] Statistical Assumptions - (Assess() and Analyze() only) List the statistical methods used and refer to detailed description in Analyze function in a the [Roxygen details](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) under a Statistics section (`#' @details # Statistical Assumptions`).
-    - [ ] Parameters have detailed documentation using `@param`. Each parameter should include: parameter name, brief description, usage details, the default value (if any), is it required, list of valid options (if applicable)
-    - [ ] All external dependencies are captured. Use `@importFrom` when importing 3 or fewer functions, and use `@import` otherwise. 
-    - [ ] Output Data Standards are described under `@returns`
-    - [ ] At least 1 example is provided under `@examples`
+    - [ ] Function name captured in [Roxygen title](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) (e.g. "Adverse Event Assessment")
+    - [ ] Assessment purpose captured in [Roxygen description](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) (e.g. "Evaluates adverse event (AE) rates to identify sites that may be over- or under-reporting AEs")
+    - [ ] Input data requirements are captured in a dedicated [Roxygen details section](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#sections) under _Data specification_ (`#' @section Data specification` or _# Data specification_ if storing data specification in a .md file).
+    - [ ] Statistical methods and assumptions are captured in a dedicated [Roxygen details section](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#sections) under _Statistical assumptions_ (`#' @section Statistical assumptions` or _# Statistical assumptions_ if storing statistical assumptions in a .md file). This section should link to the relevant `Analyze_` function(s) for further details.
+    - [ ] All function parameters are described with a [`@param` tag](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#functions). Each parameter description should include its name, type, purpose, usage details, default value (if any), requirement, and valid options (if applicable).
+    - [ ] All external dependencies are captured. Use `@importFrom _package_ _function_` when importing five or fewer functions and `@import _package_` otherwise. 
+    - [ ] Function output is captured with a [`@return` tag](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#functions), including output type, structure, and data specification, if applicable.
+    - [ ] At least one example is provided under [`@examples` tag](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#functions).
 - [ ] Error Checking
-    - [ ]  Basic checks for all all parameters should be included using `stopifnot()` or similar logic. (e.g. `stopifnot("dfInput is not a dataframe"=is.data.frame(dfInput))`)
+    - [ ] Basic checks for all parameters should be included using `stopifnot()` or similar logic (e.g. `stopifnot("dfInput is not a data frame" = is.data.frame(dfInput))`)
     - [ ] Tests confirm that `stopifnot()` parameter checks are working as expected. 
-    - [ ] Tests confirm that the input data has required columns (if any)
-    - [ ] Tests confirm that the output data has the expected columns
-    - [ ] Tests confirm intended functionality for each parameter
-    - [ ] Tests confirm that missing data in required columns is handled appropriately and errors/warnings are produced if needed. 
+    - [ ] Tests confirm that the input data has required columns (if any).
+    - [ ] Tests confirm that the output data has expected columns.
+    - [ ] Tests confirm intended functionality for each parameter.
+    - [ ] Tests confirm that missing data in required columns is handled appropriately and errors/warnings are produced if needed.
 - [ ] Basic QC
     - [ ] Assessment has User Requirements + Qualification tests captured using {valtools} framework. Report is generating as expected and all checks are passing. 
     - [ ] Code is well commented and easy to read

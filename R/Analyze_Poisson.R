@@ -74,7 +74,7 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
       Score = .data$.resid,
       .data$ScoreLabel,
       PredictedCount = .data$.fitted
-      ) %>%
+    ) %>%
     arrange(.data$Score)
 
   return(dfAnalyzed)

@@ -39,7 +39,7 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
     mutate(
       Assessment = "Consent"
     ) %>%
-    select(SiteID, N, KRI, KRILabel,  Score, ScoreLabel,Flag, Assessment) %>%
+    select(SiteID, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
     arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 

@@ -1,7 +1,7 @@
 qualification_transform_counts <- function(dfInput,
-                                           countCol = "Count",
-                                           exposureCol = "Exposure",
-                                           KRILabel = "") {
+  countCol = "Count",
+  exposureCol = "Exposure",
+  KRILabel = "") {
   if (is.na(exposureCol)) {
     dfTransformed <- dfInput %>%
       filter(!is.na(.data[[countCol]])) %>%

@@ -16,15 +16,15 @@
 
 ---
 
-    One or more of these columns: SubjectID, SiteID,and Count not found in dfInput
+    dfInput is missing one or more of these columns: SubjectID, SiteID, and Count
 
 ---
 
-    One or more of these columns: SubjectID, SiteID,and Count not found in dfInput
+    dfInput is missing one or more of these columns: SubjectID, SiteID, and Count
 
 ---
 
-    One or more of these columns: SubjectID, SiteID,and Count not found in dfInput
+    dfInput is missing one or more of these columns: SubjectID, SiteID, and Count
 
 # incorrect lTags throw errors
 
@@ -37,6 +37,30 @@
 ---
 
     lTags has unnamed elements
+
+---
+
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
+---
+
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
+---
+
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
+---
+
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
+---
+
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
+---
+
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 # bQuiet and bReturnChecks work as intended
 

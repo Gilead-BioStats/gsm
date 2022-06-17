@@ -26,7 +26,7 @@ Default: \code{"SiteID"}}
 Estimate, PValue.
 }
 \description{
-Create analysis results data for event assessment using the Wilcoxon sign-ranked test.
+Create analysis results data for event assessment using the Wilcoxon signed-rank test.
 }
 \details{
 Fits a Wilcoxon model to site-level data.

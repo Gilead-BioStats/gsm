@@ -1,6 +1,6 @@
 #' AE Wilcoxon Assessment - Analysis
 #'
-#' Create analysis results data for event assessment using the Wilcoxon sign-ranked test.
+#' Create analysis results data for event assessment using the Wilcoxon signed-rank test.
 #'
 #' @details
 #' Fits a Wilcoxon model to site-level data.
@@ -131,6 +131,6 @@ Analyze_Wilcoxon <- function(
       select(names(dfTransformed), .data$Estimate, Score = .data$PValue) %>%
       mutate(
         ScoreLabel = "P value"
-          )
+      )
   )
 }
