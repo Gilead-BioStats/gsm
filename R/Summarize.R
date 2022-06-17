@@ -32,7 +32,6 @@
 #' @export
 
 Summarize <- function(dfFlagged, strScoreCol = "Score", lTags = NULL) {
-
   stopifnot(
     "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
     "One or more of these columns: SiteID, N, Flag , strScoreCol, not found in dfFlagged" = all(c("SiteID", "N", "Flag", strScoreCol) %in% names(dfFlagged))
@@ -54,7 +53,7 @@ Summarize <- function(dfFlagged, strScoreCol = "Score", lTags = NULL) {
       .data$Score,
       .data$ScoreLabel,
       .data$Flag
-      ) %>%
+    ) %>%
     arrange(desc(abs(.data$KRI))) %>%
     arrange(match(.data$Flag, c(1, -1, 0))) %>%
     bind_cols(lTags[!names(lTags) %in% names(.data)])

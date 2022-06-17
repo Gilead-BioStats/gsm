@@ -18,9 +18,10 @@ PD_Map_Raw(
 \item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per subject.
 }}
 
-\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where `key contains the name of the column.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
+of the column.}
 
-\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -37,7 +38,7 @@ Convert raw protocol deviation (PD) data, typically processed case report form d
 input data to \code{\link[=PD_Assess]{PD_Assess()}}.
 }
 \details{
-\code{PD_Map_Raw} combines PD data with subject-level treatment exposure data to create formatted
+\code{PD_Map_Raw} combines PD data with subject-level study duration data to create formatted
 input data to \code{\link[=PD_Assess]{PD_Assess()}}. This function creates an input dataset for the PD Assessment
 (\code{\link[=PD_Assess]{PD_Assess()}}) by binding subject-level PD counts (derived from \code{dfPD}) to subject-level
 data (from \code{dfSUBJ}). Note that the function can generate data summaries for specific types of
@@ -54,10 +55,10 @@ PDs by passing filtered PD data to \code{dfPD}.
 }
 
 \examples{
-# Run with defaults
+# Run with defaults.
 dfInput <- PD_Map_Raw()
 
-# Run with error checking and message log
+# Run with error checking and message log.
 dfInput <- PD_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 
 }

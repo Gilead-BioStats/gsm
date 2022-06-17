@@ -18,23 +18,24 @@ Consent_Map_Raw(
 \item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per subject.
 }}
 
-\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
+of the column.}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} Data frame with one record per subject, the input to
-\code{\link[=Consent_Assess]{Consent_Assess()}}. If \code{bReturnChecks} is \code{TRUE} \code{Consent_Map_Raw} returns a named \code{list}
-with:
+\code{data.frame} Data frame with one record per subject, the input to \code{\link[=Consent_Assess]{Consent_Assess()}}.
+If \code{bReturnChecks} is \code{TRUE} \code{Consent_Map_Raw} returns a named \code{list} with:
 \itemize{
 \item \code{df}: the data frame described above
 \item \code{lChecks}: a named \code{list} of check results
 }
 }
 \description{
-Convert from raw data format to needed input format for \code{\link{Consent_Assess}}
+Convert raw informed consent data, typically processed case report from data, to formatted
+input data to \code{\link[=Consent_Assess]{Consent_Assess()}}.
 }
 \details{
 \code{Consent_Map_Raw} combines consent data with subject-level data to create formatted input data
@@ -57,10 +58,10 @@ types of consent by customizing \code{lMapping$dfCONSENT}.
 }
 
 \examples{
-# Run with defaults
+# Run with defaults.
 dfInput <- Consent_Map_Raw()
 
-# Run with error checking and message log
+# Run with error checking and message log.
 dfInput <- Consent_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 
 }

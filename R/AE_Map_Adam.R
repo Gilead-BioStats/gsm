@@ -46,15 +46,21 @@ AE_Map_Adam <- function(
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
-  checks <- gsm::CheckInputs(
+  stopifnot(
+    "bReturnChecks must be logical" = is.logical(bReturnChecks),
+    "bQuiet must be logical" = is.logical(bQuiet)
+  )
+
+  checks <- CheckInputs(
     context = "AE_Map_Adam",
     dfs = dfs,
     bQuiet = bQuiet,
     mapping = lMapping
   )
 
-  if (is.null(lMapping))
-      lMapping <- checks$mapping
+  if (is.null(lMapping)) {
+    lMapping <- checks$mapping
+  }
 
   # Run mapping if checks passed.
   if (checks$status) {

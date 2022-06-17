@@ -1,3 +1,9 @@
+# gsm v1.0.1
+
+This release explicitly captures the KRI of interest as part of the data model, standardizing the
+input to and output from the analysis functions. View a full list of resolved issues
+[here](https://github.com/Gilead-BioStats/gsm/issues?q=is%3Aissue+milestone%3Av1.0.1+is%3Aclosed).
+
 # gsm v1.0.0
 
 This release includes qualified functionality for Adverse Event and Protocol Deviation Assessments. 

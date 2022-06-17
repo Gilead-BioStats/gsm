@@ -41,10 +41,10 @@
 #' @export
 
 Transform_EventCount <- function(
-    dfInput,
-    strCountCol,
-    strExposureCol = NULL,
-    strKRILabel = "[Not Specified]"
+  dfInput,
+  strCountCol,
+  strExposureCol = NULL,
+  strKRILabel = "[Not Specified]"
 ) {
   stopifnot(
     "dfInput is not a data frame" = is.data.frame(dfInput),
@@ -65,14 +65,14 @@ Transform_EventCount <- function(
     }
   }
 
-  if(!is.null(strKRILabel)) {
-
+  if (!is.null(strKRILabel)) {
     stopifnot(
       "strKRILabel must be length 1" = length(strKRILabel) <= 1
     )
 
-    if(strKRILabel %in% names(dfInput))
+    if (strKRILabel %in% names(dfInput)) {
       stop(paste0("strKRILabel cannot be named with the following names: ", paste(names(dfInput), collapse = ", ")))
+    }
   }
 
   if (is.null(strExposureCol)) {

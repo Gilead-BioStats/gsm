@@ -220,13 +220,12 @@ test_that("lSubjFilters with 0 rows returns NULL", {
 })
 
 test_that("correct bStatus is returned when workflow is missing", {
-
   custom_assessments <- MakeAssessmentList()
   custom_assessments$ie$workflow <- NULL
   result <- Study_Assess(
     lData = lData,
     lAssessments = custom_assessments
-    )
+  )
 
   expect_false(result$ie$bStatus)
 })
