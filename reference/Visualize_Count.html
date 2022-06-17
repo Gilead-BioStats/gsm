@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -32,13 +32,13 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
-    </li>
-    <li>
       <a href="../articles/Cookbook.html">Cookbook</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
+    </li>
+    <li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
@@ -87,29 +87,35 @@
     <h2>Arguments</h2>
     <dl><dt>dfAnalyzed</dt>
 <dd><p>Map results from IE or Consent assessments.</p></dd>
+
+
 <dt>strTotalCol</dt>
 <dd><p>Column containing total of site-level participants. Default is "N" from <code><a href="Transform_EventCount.html">Transform_EventCount</a></code>.</p></dd>
+
+
 <dt>strCountCol</dt>
 <dd><p>Column containing total number of site-level occurrences. Default is "TotalCount" from <code><a href="Transform_EventCount.html">Transform_EventCount</a></code>.</p></dd>
+
+
 <dt>strTitle</dt>
 <dd><p>Title of plot. NULL by default.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>site level plot object</p>
+    
+
+<p>site-level plot object.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">IE_Input</span> <span class="op">&lt;-</span> <span class="fu"><a href="IE_Map_Raw.html">IE_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">IE_Input</span> <span class="op">&lt;-</span> <span class="fu"><a href="IE_Map_Raw.html">IE_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">IE_Assess</span> <span class="op">&lt;-</span> <span class="fu"><a href="IE_Assess.html">IE_Assess</a></span><span class="op">(</span><span class="va">IE_Input</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">Visualize_Count</span><span class="op">(</span><span class="va">IE_Assess</span><span class="op">$</span><span class="va">dfAnalyzed</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="Visualize_Count-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">Consent_Input</span> <span class="op">&lt;-</span> <span class="fu"><a href="Consent_Map_Raw.html">Consent_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
 <span class="r-in"><span class="va">Consent_Assess</span> <span class="op">&lt;-</span> <span class="fu"><a href="Consent_Assess.html">Consent_Assess</a></span><span class="op">(</span><span class="va">Consent_Input</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">Visualize_Count</span><span class="op">(</span><span class="va">Consent_Assess</span><span class="op">$</span><span class="va">dfAnalyzed</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="Visualize_Count-2.png" alt="" width="700" height="433"></span>
@@ -128,7 +134,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

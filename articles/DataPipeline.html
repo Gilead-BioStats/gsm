@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -50,13 +50,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
-    </li>
-    <li>
       <a href="../articles/Cookbook.html">Cookbook</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
+    </li>
+    <li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
@@ -103,13 +103,13 @@
 <div class="section level2">
 <h2 id="intro">Intro<a class="anchor" aria-label="anchor" href="#intro"></a>
 </h2>
-<p>The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This vignette provides an overview of the {gsm} data model. First, we provide an overview of standardized data pipeline used to calculate KRIs and evaluate thresholds to set site-level flags. We also discuss workflows and reports that allow users to run multiple KRIs concurrently on a study.</p>
+<p>The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This vignette provides an overview of the {gsm} data model. First, we provide an overview of the standardized data pipeline used to calculate KRIs and evaluate thresholds to set site-level flags. We also discuss workflows and reports that allow users to run multiple KRIs concurrently on a study.</p>
 </div>
 <div class="section level2">
 <h2 id="kri-data-pipeline">KRI Data Pipeline<a class="anchor" aria-label="anchor" href="#kri-data-pipeline"></a>
 </h2>
 <p><img width="862" alt="image" src="https://user-images.githubusercontent.com/3680095/169086356-e31ab9a5-c709-46cf-9bd9-68b7bdbba72b.png"></p>
-<p>In the context of clinical research a KRI is a measure of risk associated with the conduct of a clinical trial. Examples of KRIs include the rate of adverse events or amount of missing data at a site or across sites. Defining and deploying KRIs during study start-up allows sponsors to continually monitor risks to the integrity of the trial and take corrective actions accordingly.</p>
+<p>In the context of clinical research, a KRI is a measure of risk associated with the conduct of a clinical trial. Examples of KRIs include the rate of adverse events or amount of missing data at a site or across sites. Defining and deploying KRIs during study start-up allows sponsors to continually monitor risks to the integrity of the trial and take corrective actions accordingly.</p>
 <p>The KRI data pipeline begins with one or more clinical datasets related to the KRI. An optional participant-level subset is then applied to each dataset before aggregating by participant to quantify the KRI at the participant level. This aggregated dataset is then further summarized by site to obtain site-level metrics.</p>
 <div class="section level3">
 <h3 id="assessment-data-pipeline">Assessment Data Pipeline<a class="anchor" aria-label="anchor" href="#assessment-data-pipeline"></a>
@@ -126,243 +126,119 @@
 <li>
 <code>flagged</code> data - Site-level analysis results with flags added. Created by passing numeric <code>thresholds</code> to a <code>Flag</code> function.</li>
 <li>
-<code>summary</code> data - Standardized subset the flagged data. This summary data has the same structure for all assessments and always includes both <code>KRI</code> and <code>Flag</code> values so that we can easily look at trends for any given site across multiple assessments. Created using a <code>Summarize</code> Function.</li>
+<code>summary</code> data - Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both <code>KRI</code> and <code>Flag</code> values so that we can easily look at trends for any given site across multiple assessments. Created using a <code>Summarize</code> Function.</li>
 </ol>
 <p>Finally, each assessment has an <code>Assess</code> function that sequentially executes all 4 of the functions and returns a list containing all 5 data sets listed above.</p>
 </div>
 <div class="section level3">
 <h3 id="generating-input-data">Generating <code>input</code> data<a class="anchor" aria-label="anchor" href="#generating-input-data"></a>
 </h3>
-<p>Creating input data is outside the scope of the assessment pipeline. The specifications for <code>input</code> data are designed so that the data can easily be generated from multiple clinical data standards (e.g. Raw, ADaM or SDTM). Most assessments have <code>Map</code> functions that can be used to generate <code>input</code> data. For example, the Adverse Event assessment has 2 map functions, <code><a href="../reference/AE_Map_Raw.html">AE_Map_Raw()</a></code> and <code><a href="../reference/AE_Map_Adam.html">AE_Map_Adam()</a></code> which create <code>input</code> data from Raw and ADaM data respectively.</p>
+<p>Creating input data is outside the scope of the assessment pipeline. The specifications for <code>input</code> data are designed so that the data can easily be generated from multiple clinical data standards (e.g. Raw, ADaM or SDTM). Most assessments have <code>Map</code> functions that can be used to generate <code>input</code> data. For example, the Adverse Event assessment has 2 map functions, <code><a href="../reference/AE_Map_Raw.html">AE_Map_Raw()</a></code> and <code><a href="../reference/AE_Map_Adam.html">AE_Map_Adam()</a></code>, which create <code>input</code> data from Raw and ADaM data respectively.</p>
 <p>These <code>map</code> functions are provided for convenience but may not work for all clinical studies. When no <code>map</code> function is available for a given assessment, the user is expected to manually create <code>input</code> data following the specifications for that assessment.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="appendix">Appendix<a class="anchor" aria-label="anchor" href="#appendix"></a>
+<h2 id="running-multiple-assessments">Running Multiple Assessments<a class="anchor" aria-label="anchor" href="#running-multiple-assessments"></a>
 </h2>
+<p>Running multiple assessments for a single study is a common use case and {gsm} provides workflow and reporting functions to streamline this process.</p>
+<p><code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> attempts to run one or more assessment workflows using shared data and metadata. The metadata used for this study-level assessment is described in detail in <a href="#Appendix-1-Metadata-Technical-Specifications">Appendix 1</a>. The <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> function returns a list of assessments containing status information and results that is used as input for the reporting functions described below.</p>
+<p><code><a href="../reference/Study_Report.html">Study_Report()</a></code> creates a detailed report showing both charts and listings summarizing each KRI that was run for the study, along with a study-level table (via <code><a href="../reference/Study_Table.html">Study_Table()</a></code>), and a summary of the workflow run to generate each KRI (via <code>Study_AssessmentTable()</code>) .</p>
+<p>To see a sample report, simply run:</p>
+<pre><code><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="../reference/Study_Report.html">Study_Report</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></code></pre>
+<p>Many additional examples are provided in the <a href="Cookbook.html"><code>Cookbook</code> Vignette</a>.</p>
+</div>
+<div class="section level2">
+<h2 id="appendix-1---metadata-technical-specifications">Appendix 1 - Metadata Technical Specifications<a class="anchor" aria-label="anchor" href="#appendix-1---metadata-technical-specifications"></a>
+</h2>
+<p>{gsm} has several standardized metadata models that are used to facilitate a standardized, reusable workflow for RBM. The default metadata used by {gsm} are stored as YAML files in the <code>inst</code> folder, and can be customized for any given study.</p>
+<p>Detailed specifications for each type of metadata is provided below, and example data for the AE domain is provided.</p>
 <div class="section level3">
-<h3 id="metadata-technical-specifications">Metadata Technical Specifications<a class="anchor" aria-label="anchor" href="#metadata-technical-specifications"></a>
+<h3 id="data-specification-metadata">Data Specification Metadata<a class="anchor" aria-label="anchor" href="#data-specification-metadata"></a>
 </h3>
-<p>Running multiple assessments in {gsm} involves a number of YAML files that provide metadata to orchestrate the workflow that is triggered by <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>. The YAML file for any given assessment provides expected values for the names of input data, required columns, column properties (e.g. unique values or non-missing values), and optionally one or more subsets.</p>
-<p>Below is an overview of each YAML specification for the Adverse Events assessment.</p>
-<div class="section level4">
-<h4 id="assessment-specification">Assessment Specification<a class="anchor" aria-label="anchor" href="#assessment-specification"></a>
-</h4>
-<p>Below is an example assessment specification in YAML format for the Adverse Events assessment, as well as a nested list describing the required metadata that can be customized as needed.</p>
+<p>Input data specifications define the data requirements for a given {gsm} function and are saved in <code>inst/specs</code>.</p>
+<p>Each input data specification lists the data domains required for the function and specifies the following parameters for each domain:</p>
 <ul>
 <li>
-<code>label</code>: Label used to describe the assessment, in this case “Treatment-Emergent Adverse Events”</li>
+<code>vRequired</code> - list of parameters that should be defined in <code>mapping</code> (see more details in the following section).</li>
 <li>
-<code>tags</code>: Labels to be appended as a column to summary data. The first value will be the column name, and the second value will be the row value for all rows in the summary data.
-<ul>
+<code>vUniqueCols</code> - list of column parameters that should not contain duplicate values</li>
 <li>
-<code>Assessment</code>: Creates a column “Assessment” with the value “Safety” in the summary data.</li>
-<li>
-<code>Label</code>: Creates a column “Label” with the value “AEs” in the summary data.</li>
+<code>vNACols</code> - list of column parameters where NA and empty string values are acceptable.</li>
 </ul>
-</li>
-<li>
-<code>workflow</code>: The workflow specification begins the steps in a given assessment.
-<ul>
-<li>
-<code>-name</code>: Initiates the {gsm} function FilterDomain().</li>
-<li>
-<code>inputs</code>: Specifies the required input data for FilterDomain().</li>
-<li>
-<code>output</code>: Specifies the required output data for FilterDomain() to be used as input data in the next step in the workflow.</li>
-<li>
-<code>params</code>: Specifies parameters to be passed to FilterDomain().
-<ul>
-<li>
-<code>strDomain</code>: Specifies the domain that will be filtered.</li>
-<li>
-<code>strColParam</code>: Specifies that the strTreatmentEmergentCol will be used to filter dfAE.</li>
-<li>
-<code>strValParam</code>: Specifies the value that strTreatmentEmergentCol will be filtered on.</li>
-</ul>
-</li>
-<li>
-<code>-name</code>: Initiates the {gsm} function AE_Map_Raw().</li>
-<li>
-<code>inputs</code>: Because AE_Map_Raw() requires two inputs, a colon is used to list multiple inputs.
-<ul>
-<li>
-<code>-dfAE</code>: Specifies event-level data to be used in AE_Map_Raw().</li>
-<li>
-<code>-dfSUBJ</code>: Specifies subject-level data to be used in AE_Map_Raw().</li>
-</ul>
-</li>
-<li>
-<code>output</code>: Specifies the required output data for AE_Map_Raw() to be used as input data in the next step in the workflow.</li>
-<li>
-<code>-name</code>: Initiates the {gsm} function AE_Assess().</li>
-<li>
-<code>inputs</code>: Specifies the required input data for AE_Assess().</li>
-<li>
-<code>output</code>: Specifies the required output data for AE_Assess().</li>
-<li>
-<code>params</code>: Specifies parameters to be passed to AE_Assess().
-<ul>
-<li>
-<code>strMethod</code>: Specifies that a Poisson model will be used in AE_Assess().</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>The nested list (above) describes the Assessment YAML mapping (below).</strong></p>
-<pre><code>label: Treatment-Emergent Adverse Events
-tags:
-  Assessment: Safety
-  Label: AEs
-workflow:
-  - name: FilterDomain
-    inputs: dfAE
-    output: dfAE
-    params:
-      strDomain: dfAE
-      strColParam: strTreatmentEmergentCol
-      strValParam: strTreatmentEmergentVal
-  - name: AE_Map_Raw
-    inputs: 
-      - dfAE
-      - dfSUBJ
-    output: dfInput
-  - name: AE_Assess
-    inputs: dfInput
-    output: lResults
-    params:
-      strMethod: "poisson"</code></pre>
-</div>
-<div class="section level4">
-<h4 id="mapping-specification">Mapping Specification<a class="anchor" aria-label="anchor" href="#mapping-specification"></a>
-</h4>
-<p>Below is an example mapping specification in YAML format for the Adverse Events assessment, as well as a nested list describing the required metadata.</p>
-<ul>
-<li>
-<code>dfInput</code>: Top-level description that specifies the name of the required input for <code><a href="../reference/AE_Assess.html">AE_Assess()</a></code>
-<ul>
-<li>
-<code>strIDCol</code>: Specifies that the ID column is named <code>SubjectID</code>
-</li>
-<li>
-<code>strSiteCol</code>: Specifies that the Site ID column is named <code>SiteID</code>
-</li>
-<li>
-<code>strCountCol</code>: Specifies that the Count column is named <code>Count</code>
-</li>
-<li>
-<code>strExposureCol</code>: Specifies that the Exposure column is named <code>Exposure</code>
-</li>
-<li>
-<code>strRateCol</code>: Specifies that the Rate column is named <code>Rate</code>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>The nested list (above) describes the Mapping YAML mapping (below).</strong></p>
-<pre><code><span class="va">dfInput</span><span class="op">:</span>
-  <span class="va">strIDCol</span><span class="op">:</span> <span class="st">"SubjectID"</span>
-  <span class="va">strSiteCol</span><span class="op">:</span> <span class="st">"SiteID"</span>
-  <span class="va">strCountCol</span><span class="op">:</span> <span class="st">"Count"</span>
-  <span class="va">strExposureCol</span><span class="op">:</span> <span class="st">"Exposure"</span>
-  <span class="va">strRateCol</span><span class="op">:</span> <span class="st">"Rate"</span></code></pre>
-</div>
-<div class="section level4">
-<h4 id="input-data-specification">Input Data Specification<a class="anchor" aria-label="anchor" href="#input-data-specification"></a>
-</h4>
-<p>Below is an example input data specification in YAML format for the Adverse Events assessment, as well as a nested list describing the required metadata that can be customized as needed.</p>
-<ul>
-<li>
-<code>dfInput</code>: Top-level description that specifies the name of the required input for <code><a href="../reference/AE_Assess.html">AE_Assess()</a></code>.
-<ul>
-<li>
-<code>vRequired</code>: Specifies required columns for <code>dfInput</code> in the <code><a href="../reference/AE_Assess.html">AE_Assess()</a></code> function.
-<ul>
-<li>
-<code>- "strIDCol"</code>: Notes that strIDCol is required. The column name for strIDCol is specified in the Mapping YAML file.</li>
-<li>
-<code>- "strSiteCol"</code>: Notes that strSiteCol is required. The column name for strSiteCol is specified in the Mapping YAML file.</li>
-<li>
-<code>- "strCountCol"</code>: Notes that strCountCol is required. The column name for strCountCol is specified in the Mapping YAML file.</li>
-<li>
-<code>- "strExposureCol"</code>: Notes that strExposureCol is required. The column name for strExposureCol is specified in the Mapping YAML file.</li>
-<li>
-<code>- "strRateCol"</code>: Notes that strRateCol is required. The column name for strRateCol is specified in the Mapping YAML file.</li>
-</ul>
-</li>
-<li>
-<code>vUniqueCols</code>: Specifies columns that must contain unique values for dfInput in the <code><a href="../reference/AE_Assess.html">AE_Assess()</a></code> function.
-<ul>
-<li>
-<code>- "strIDCol"</code>: Notes that strIDCol must contain unique values. The column name for strIDCol is specified in the Mapping YAML file.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>The nested list (above) describes the Input Data YAML mapping (below).</strong></p>
-<pre><code><span class="va">dfInput</span><span class="op">:</span>
+<p>The specification for the AE mapping function (<code>inst/specs/AE_Map_Raw.yaml</code>) is shown below:</p>
+<pre><code><span class="va">dfAE</span><span class="op">:</span>
   <span class="va">vRequired</span><span class="op">:</span>
-    <span class="op">-</span> <span class="st">"strIDCol"</span>
-    <span class="op">-</span> <span class="st">"strSiteCol"</span>
-    <span class="op">-</span> <span class="st">"strCountCol"</span>
-    <span class="op">-</span> <span class="st">"strExposureCol"</span>
-    <span class="op">-</span> <span class="st">"strRateCol"</span>
+    <span class="op">-</span> <span class="va">strIDCol</span>
+<span class="va">dfSUBJ</span><span class="op">:</span>
+  <span class="va">vRequired</span><span class="op">:</span>
+    <span class="op">-</span> <span class="va">strIDCol</span>
+    <span class="op">-</span> <span class="va">strSiteCol</span>
+    <span class="op">-</span> <span class="va">strTimeOnTreatmentCol</span>
   <span class="va">vUniqueCols</span><span class="op">:</span>
-    <span class="op">-</span> <span class="st">"strIDCol"</span></code></pre>
+    <span class="op">-</span> <span class="va">strIDCol</span></code></pre>
 </div>
-<div class="section level4">
-<h4 id="supported-assessment-mapping">Supported Assessment Mapping<a class="anchor" aria-label="anchor" href="#supported-assessment-mapping"></a>
-</h4>
-<p>In addition to the specific mapping for Adverse Events above, the {clindata} package contains a YAML mapping that is converted to a list for all supported assessments in {gsm}, with key-value pairs for required columns.</p>
-<p><code>clindata::mapping_rawplus</code> provides the default mapping passed to <code>lMapping</code> in the <code><a href="../reference/Study_Assess.html">gsm::Study_Assess</a></code> function:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lMapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+<div class="section level3">
+<h3 id="data-mappings-metadata">Data Mappings Metadata<a class="anchor" aria-label="anchor" href="#data-mappings-metadata"></a>
+</h3>
+<p>Mapping Specifications in {gsm} define a “mapping” of column and field-level inputs needed for a function. This mapping can be used in combination with a specification to confirm that input data meets the requirements for a function.</p>
+<p>Each mapping object lists the required parameters for all required data domains and specifies the column and field values for specific data sets.</p>
+<p>For example, the following could be passed to the <code>mapping</code> parameter for the <code><a href="../reference/AE_Map_Raw.html">AE_Map_Raw()</a></code> function to be used with the default data from <code>clindata::rawplus_AE</code> and <code>clindata::rawplus_SUBJ</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  dfAE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>strIDCol <span class="op">=</span> <span class="st">'SubjectID'</span><span class="op">)</span>,
   dfSUBJ <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-    strIDCol <span class="op">=</span> <span class="st">"SubjectID"</span>,
-    strSiteCol <span class="op">=</span> <span class="st">"SiteID"</span>,
-    strTimeOnTreatmentCol <span class="op">=</span> <span class="st">"TimeOnTreatment"</span>,
-    strTimeOnStudyCol <span class="op">=</span> <span class="st">"TimeOnStudy"</span>,
-    strRandFlagCol <span class="op">=</span> <span class="st">"RandFlag"</span>,
-    strRandDateCol <span class="op">=</span> <span class="st">"RandDate"</span>,
-    strStudyCompletionFlagCol <span class="op">=</span> <span class="st">"StudCompletion"</span>,
-    strStudyDiscontinuationReasonCol <span class="op">=</span> <span class="st">"StudDCReason"</span>,
-    strTreatmentCompletionFlagCol <span class="op">=</span> <span class="st">"TrtCompletion"</span>,
-    strTreatmentDiscontinuationReasonCol <span class="op">=</span> <span class="st">"TrtDCReason"</span>
-  <span class="op">)</span>,
-  dfAE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-    strIDCol <span class="op">=</span> <span class="st">"SubjectID"</span>,
-    strTreatmentEmergentCol <span class="op">=</span> <span class="st">"AE_TE_FLAG"</span>,
-    strTreatmentEmergentVal <span class="op">=</span> <span class="cn">TRUE</span>,
-    strGradeCol <span class="op">=</span> <span class="st">"AE_GRADE"</span>,
-    strSeriousCol <span class="op">=</span> <span class="st">"AE_SERIOUS"</span>,
-    strSeriousVal <span class="op">=</span> <span class="st">"Yes"</span>
-  <span class="op">)</span>,
-  dfPD <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-    strIDCol <span class="op">=</span> <span class="st">"SubjectID"</span>,
-    strCategoryCol <span class="op">=</span> <span class="st">"PD_CATEGORY"</span>,
-    strImportantCol <span class="op">=</span> <span class="st">"PD_IMPORTANT_FLAG"</span>,
-    strImportantVal <span class="op">=</span> <span class="st">"Y"</span>
-  <span class="op">)</span>,
-  dfIE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-    strIDCol <span class="op">=</span> <span class="st">"SubjectID"</span>,
-    strCategoryCol <span class="op">=</span> <span class="st">"IE_CATEGORY"</span>,
-    strValueCol <span class="op">=</span> <span class="st">"IE_VALUE"</span>,
-    strVersionCol <span class="op">=</span> <span class="st">"IE_PROTOCOLVERSION"</span>,
-    vCategoryValues <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"EXCL"</span>, <span class="st">"INCL"</span><span class="op">)</span>,
-    vExpectedResultValues <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span>
-  <span class="op">)</span>,
-  dfCONSENT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-    strIDCol <span class="op">=</span> <span class="st">"SubjectID"</span>,
-    strTypeCol <span class="op">=</span> <span class="st">"CONSENT_TYPE"</span>,
-    strValueCol <span class="op">=</span> <span class="st">"CONSENT_VALUE"</span>,
-    strDateCol <span class="op">=</span> <span class="st">"CONSENT_DATE"</span>,
-    strConsentTypeValue <span class="op">=</span> <span class="st">"MAINCONSENT"</span>,
-    strConsentStatusValue <span class="op">=</span> <span class="st">"Y"</span>
+    strIDCol <span class="op">=</span> <span class="st">'SubjectID'</span>,
+    strSiteCol <span class="op">=</span> <span class="st">'SiteID'</span>,
+    strTimeOnTreatmentCol <span class="op">=</span> <span class="st">'TimeOnTreatment'</span>
   <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
+<p>Note that <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> is designed to share a <code>mapping</code> object across multiple assessments. The default mapping is saved as a YAML file (<code>inst/mappings/mapping_rawplus.yaml</code>), but users can also create a custom mapping object for their use cases by making a custom YAML file, or by creating or modifying a <code>list</code> like that returned by <code>yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))</code>.</p>
 </div>
+<div class="section level3">
+<h3 id="assessment-workflow-metadata">Assessment Workflow Metadata<a class="anchor" aria-label="anchor" href="#assessment-workflow-metadata"></a>
+</h3>
+<p>Assessment Workflow Metadata objects are passed to the <code>lAssessments</code> parameter in <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> to define functions and parameters (including <code>mappings</code> and <code>specs</code>) across multiple studies.</p>
+<p>The <code>lAssessment</code> object is a named list of metadata defining how each assessment should be run. By default, <code><a href="../reference/MakeAssessmentList.html">MakeAssessmentList()</a></code> imports YAML specifications from <code>inst/assessments</code>. Each item in <code>lAssessments</code> expects the following parameters.</p>
+<ul>
+<li>
+<code>tags</code>: Labels to be appended as a column to summary data.</li>
+<li>
+<code>workflow</code>: Array defining one or more functions to be executed as part of the workflow for a given assessment.
+<ul>
+<li>
+<code>workflow[]$name</code>: name of the {gsm} function.</li>
+<li>
+<code>workflow[]$inputs</code>: Specifies the required input data.</li>
+<li>
+<code>workflow[]$output</code>: Specifies the output data from the workflow step; can be used as an input in the next step in the workflow.</li>
+<li>
+<code>workflow[]$params</code>: Specifies parameters to be passed to the function.</li>
+</ul>
+</li>
+</ul>
+<p>For example, the workflow for the AE assessment (<code>inst/assessments/ae.yaml</code>) is shown below:</p>
+<pre><code><span class="va">tags</span><span class="op">:</span>
+  <span class="va">Assessment</span><span class="op">:</span> <span class="va">Safety</span>
+  <span class="va">Label</span><span class="op">:</span> <span class="va">AEs</span>
+<span class="va">workflow</span><span class="op">:</span>
+  <span class="op">-</span> <span class="va">name</span><span class="op">:</span> <span class="va">FilterDomain</span>
+    <span class="va">inputs</span><span class="op">:</span> <span class="va">dfAE</span>
+    <span class="va">output</span><span class="op">:</span> <span class="va">dfAE</span>
+    <span class="va">params</span><span class="op">:</span>
+      <span class="va">strDomain</span><span class="op">:</span> <span class="va">dfAE</span>
+      <span class="va">strColParam</span><span class="op">:</span> <span class="va">strTreatmentEmergentCol</span>
+      <span class="va">strValParam</span><span class="op">:</span> <span class="va">strTreatmentEmergentVal</span>
+  <span class="op">-</span> <span class="va">name</span><span class="op">:</span> <span class="va">AE_Map_Raw</span>
+    <span class="va">inputs</span><span class="op">:</span> 
+      <span class="op">-</span> <span class="va">dfAE</span>
+      <span class="op">-</span> <span class="va">dfSUBJ</span>
+    <span class="va">output</span><span class="op">:</span> <span class="va">dfInput</span>
+  <span class="op">-</span> <span class="va">name</span><span class="op">:</span> <span class="va">AE_Assess</span>
+    <span class="va">inputs</span><span class="op">:</span> <span class="va">dfInput</span>
+    <span class="va">output</span><span class="op">:</span> <span class="va">lResults</span>
+    <span class="va">params</span><span class="op">:</span>
+      <span class="va">strMethod</span><span class="op">:</span> <span class="st">"poisson"</span></code></pre>
 </div>
 </div>
   </div>
@@ -384,7 +260,7 @@ workflow:
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer>

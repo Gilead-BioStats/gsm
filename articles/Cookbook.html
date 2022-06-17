@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -50,13 +50,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
-    </li>
-    <li>
       <a href="../articles/Cookbook.html">Cookbook</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
+    </li>
+    <li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
@@ -104,7 +104,7 @@
 <h2 id="intro">Intro<a class="anchor" aria-label="anchor" href="#intro"></a>
 </h2>
 <p>This vignette contains a series of examples showing how to run analysis workflows for the {gsm} package using sample data from {clindata}.</p>
-<p>For more information on of the {gsm} package see the <a href="https://silver-potato-cfe8c2fb.pages.github.io/" class="external-link">package homepage</a>. The <a href="https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette" class="external-link">Data Pipeline Vignette</a> provides additional technical details including data specifications, and other technical details.</p>
+<p>For more information on the {gsm} package see the <a href="https://silver-potato-cfe8c2fb.pages.github.io/" class="external-link">package homepage</a>. The <a href="https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette" class="external-link">Data Pipeline Vignette</a> provides additional technical details including data specifications, and other technical details.</p>
 <div class="section level3">
 <h3 id="setup-and-installation">Setup and Installation<a class="anchor" aria-label="anchor" href="#setup-and-installation"></a>
 </h3>
@@ -112,22 +112,24 @@
 <h4 id="install-gsm-clindata-and-safetydata">Install {gsm}, {clindata}, and {safetyData}<a class="anchor" aria-label="anchor" href="#install-gsm-clindata-and-safetydata"></a>
 </h4>
 <p>Run the following:</p>
-<pre><code><span class="co">## Install devtools</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'devtools'</span><span class="op">)</span>
-
-<span class="co">## Install and load sample raw data</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Gilead-BioStats/clindata"</span>, ref <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span>
-
-<span class="co">## Install and load sample SDTM and AdAM data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'safetyData'</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">safetyData</span><span class="op">)</span>
-
-<span class="co">## Install and load gsm</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Gilead-BioStats/gsm"</span>, ref <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></code></pre>
-<p>To use the most recent development version from GitHub, run:</p>
-<pre><code><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Gilead-BioStats/gsm"</span>, ref <span class="op">=</span> <span class="st">"dev"</span><span class="op">)</span></code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">## Install devtools</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">install.packages</span>(<span class="st">'devtools'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">## Install and load sample raw data</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"Gilead-BioStats/clindata"</span>, <span class="dt">ref =</span> <span class="st">"main"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">library</span>(clindata)</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">## Install and load sample SDTM and AdAM data</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="kw">install.packages</span>(<span class="st">'safetyData'</span>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="kw">library</span>(safetyData)</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">## Install and load gsm</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"Gilead-BioStats/gsm"</span>, <span class="dt">ref =</span> <span class="st">"main"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="kw">library</span>(gsm)</span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a>To use the most recent development version from GitHub, run<span class="op">:</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Gilead-BioStats/gsm"</span>, ref <span class="op">=</span> <span class="st">"dev"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -140,7 +142,8 @@
 <li>Run the assessment (e.g. <code>ae_assess &lt;- AE_Assess(dfInput)</code>)</li>
 </ol>
 <p>Putting this all together for the AE Assessment looks like this:</p>
-<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">safetyData</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
 
@@ -151,14 +154,15 @@
 <span class="va">ae_assess</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span><span class="op">)</span>
 
 <span class="co"># Run the assessment using the Wilcoxon statistical model</span>
-<span class="va">ae_assess_wilcoxon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"wilcoxon"</span><span class="op">)</span></code></pre>
+<span class="va">ae_assess_wilcoxon</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"wilcoxon"</span><span class="op">)</span></code></pre></div>
 <p>Each assessment has representative examples in the help files - the example above was adapted from the example in <code><a href="../reference/AE_Assess.html">?AE_Assess</a></code>.</p>
 </div>
 <div class="section level3">
 <h3 id="example-2---running-a-single-assessment-on-non-standard-data">Example 2 - Running a Single Assessment on non-standard data<a class="anchor" aria-label="anchor" href="#example-2---running-a-single-assessment-on-non-standard-data"></a>
 </h3>
 <p>Next, let’s run the same assessment above, but this time using non-standard data. {gsm} is configured to accept Raw+ data by default, so for non-standard data, the user must perform some data transformations to pass to a mapping function.</p>
-<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 
@@ -197,7 +201,7 @@
 <span class="op">)</span>
 
 <span class="co"># Run the assessment</span>
-<span class="va">ae_assess</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span><span class="op">)</span></code></pre>
+<span class="va">ae_assess</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span><span class="op">)</span></code></pre></div>
 <div class="section level4">
 <h4 id="troubleshooting-tips">Troubleshooting Tips<a class="anchor" aria-label="anchor" href="#troubleshooting-tips"></a>
 </h4>
@@ -217,20 +221,22 @@
 <h4 id="using-sample-data-from-clindata">Using sample data from {clindata}<a class="anchor" aria-label="anchor" href="#using-sample-data-from-clindata"></a>
 </h4>
 <p>To run multiple assessments using sample data from {clindata}, simply run the following:</p>
-<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">safetyData</span><span class="op">)</span>
 
 <span class="co"># Run multiple assessments</span>
-<span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="using-user-provided-raw-data">Using user-provided Raw+ data<a class="anchor" aria-label="anchor" href="#using-user-provided-raw-data"></a>
 </h4>
 <p>For the scope of this example, the data found in {clindata} will pose as user-provided Raw+ data, but this will likely come from Raw+ case report data.</p>
-<p>The example below illustrates that a user can pass a _named*_ list of Raw+ data to the <code>lData</code> parameter.</p>
-<p>_*<code>lData</code> expects a named list. To see a list of default data frame names, run <code>names(clindata::mapping_rawplus)</code>_</p>
-<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
+<p>The example below illustrates that a user can pass a named list of Raw+ data to the <code>lData</code> parameter.</p>
+<p>As mentioned above, note that <code>lData</code> expects a <em>named</em> list. To see a list of default data frame names, run <code>names(clindata::mapping_rawplus)</code></p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 
@@ -256,22 +262,23 @@
 <span class="op">)</span>
 
 <span class="co"># Run multiple assessments</span>
-<span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span>lData <span class="op">=</span> <span class="va">assessment_data</span><span class="op">)</span></code></pre>
+<span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span>lData <span class="op">=</span> <span class="va">assessment_data</span><span class="op">)</span></code></pre></div>
 <p>Note that <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> provides verbose console output alerting the user to success, warnings, or errors with the workflow.</p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="example-4---filtering-subject-level-data-for-multiple-assessments">Example 4 - Filtering Subject-Level Data For Multiple Assessments<a class="anchor" aria-label="anchor" href="#example-4---filtering-subject-level-data-for-multiple-assessments"></a>
 </h3>
-<p>Let’s take a closer look at functionality that is built into <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>. As a practical example, a user may want to keep subjects from an assessment based on a some criteria (e.g., a specific site, region, etc.).</p>
+<p>Let’s take a closer look at functionality that is built into <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>. As a practical example, a user may want to keep subjects from an assessment based on some criteria (e.g., a specific site, region, etc.).</p>
 <p>This can be done by performing some preliminary data wrangling before passing the subject-level data to <code>lData</code>, but for the example below, we will use a custom <code>lMapping</code> and a named list passed to <code>lSubjFilters</code>. (For a more detailed overview of mapping specifications, refer to the <a href="https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette" class="external-link">Data Pipeline Vignette</a>.)</p>
 <p>For this example, we will only keep subjects who have <code>SiteID == "X010X"</code>:</p>
-<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 
 <span class="co"># Start with the default lMapping</span>
-<span class="va">custom_mapping</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">mapping_rawplus</span>
+<span class="va">custom_mapping</span> <span class="op">&lt;-</span>  <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_rawplus.yaml"</span>, package <span class="op">=</span> <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Add the value to filter on to the custom mapping for dfSUBJ</span>
 <span class="va">custom_mapping</span><span class="op">$</span><span class="va">dfSUBJ</span><span class="op">$</span><span class="va">strSiteVal</span> <span class="op">&lt;-</span> <span class="st">"X010X"</span>
@@ -282,7 +289,7 @@
 <span class="op">)</span>
 
 <span class="co"># Run the assessments</span>
-<span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span>lMapping <span class="op">=</span> <span class="va">custom_mapping</span>, lSubjFilters <span class="op">=</span> <span class="va">custom_filter</span><span class="op">)</span></code></pre>
+<span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span>lMapping <span class="op">=</span> <span class="va">custom_mapping</span>, lSubjFilters <span class="op">=</span> <span class="va">custom_filter</span><span class="op">)</span></code></pre></div>
 <p>Note that <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> provides detailed information about <code><a href="../reference/FilterDomain.html">FilterDomain()</a></code>, which shows the number of rows dropped when filtering subject-level data:</p>
 <pre><code>── Checking Input Data for `FilterDomain()` ──
 
@@ -299,12 +306,13 @@ Filtering on SiteID == X010X
 </h3>
 <p>The <code><a href="../reference/Study_Report.html">Study_Report()</a></code> function creates the <strong>Assessment Overview Report</strong>, which is an HTML document that contains tables, visualizations, and error logging for all assessments run in the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> workflow.</p>
 <p>Let’s create a report using sample data from {clindata}:</p>
-<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span>
 
 <span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/Study_Report.html">Study_Report</a></span><span class="op">(</span>strAssessments <span class="op">=</span> <span class="va">multiple_assessments</span>, lMeta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"My Study"</span><span class="op">)</span><span class="op">)</span></code></pre>
+<span class="fu"><a href="../reference/Study_Report.html">Study_Report</a></span><span class="op">(</span>lAssessments <span class="op">=</span> <span class="va">multiple_assessments</span>, lMeta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"My Study"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>The report will render and be saved to your current working directory. You can optionally set an output directory using the <code>strOutpath</code> parameter.</p>
 </div>
 <div class="section level3">
@@ -312,29 +320,27 @@ Filtering on SiteID == X010X
 </h3>
 <p>The <strong>Assessment Overview Report</strong> contains a Data Check Summary table in the appendix, which can be helpful for troubleshooting issues with input data provided to <code>lData</code> in <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>.</p>
 <p>To view the report directly as an object in your IDE, run:</p>
-<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span>
 
 <span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/Study_AssessmentReport.html">Study_AssessmentReport</a></span><span class="op">(</span>lAssessments <span class="op">=</span> <span class="va">multiple_assessments</span>, bViewReport <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre>
-<p>Here’s an example of a report that shows no errors:</p>
-<div class="figure">
-<img src="https://user-images.githubusercontent.com/40671730/169323890-b084efdb-2eea-43e9-b86b-4cf5770689bd.png" alt=""><p class="caption">image</p>
-</div>
+<span class="fu"><a href="../reference/Study_AssessmentReport.html">Study_AssessmentReport</a></span><span class="op">(</span>lAssessments <span class="op">=</span> <span class="va">multiple_assessments</span>, bViewReport <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="visualizations">Visualizations<a class="anchor" aria-label="anchor" href="#visualizations"></a>
 </h2>
-<p>By default, all <code>*_Assess()</code> functions return a visualization whether run individually or in the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> workflow.</p>
+<p>By default, all <code>*_Assess()</code> functions return a visualization whether run individually or in the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> workflow. For example, the scatter plot for the AE assessment can be viewed by calling <code>AE_Assess(dfInput)$chart</code>.</p>
 <div class="section level3">
 <h3 id="example-7---creating-a-scatter-plot">Example 7 - Creating a Scatter Plot<a class="anchor" aria-label="anchor" href="#example-7---creating-a-scatter-plot"></a>
 </h3>
 <p>Currently, {gsm} creates scatter plots for Adverse Event and Protocol Deviation assessments.</p>
 <p>In some cases, a user may want to produce a visualization separately to make additional customizations.</p>
 <p>Below is an example using the default Poisson statistical model for <code><a href="../reference/AE_Assess.html">AE_Assess()</a></code>:</p>
-<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span>
 
 <span class="co"># Map Domain-level data to the input data standard for the selected assessment</span>
@@ -353,9 +359,10 @@ Filtering on SiteID == X010X
 <span class="fu"><a href="../reference/Visualize_Scatter.html">Visualize_Scatter</a></span><span class="op">(</span>
   dfFlagged <span class="op">=</span> <span class="va">ae_assessment</span><span class="op">$</span><span class="va">dfFlagged</span>, 
   dfBounds <span class="op">=</span> <span class="va">dfBounds</span>
-  <span class="op">)</span></code></pre>
+  <span class="op">)</span></code></pre></div>
 <p>Creating a scatter plot for a Wilcoxon model is similar to the example above, but there are no threshold boundaries.</p>
-<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span>
 
 <span class="co"># Map Domain-level data to the input data standard for the selected assessment</span>
@@ -365,13 +372,13 @@ Filtering on SiteID == X010X
 <span class="va">ae_assessment</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"wilcoxon"</span><span class="op">)</span>
 
 <span class="co"># Create the visualization</span>
-<span class="fu"><a href="../reference/Visualize_Scatter.html">Visualize_Scatter</a></span><span class="op">(</span>dfFlagged <span class="op">=</span> <span class="va">ae_assessment</span><span class="op">$</span><span class="va">dfFlagged</span><span class="op">)</span></code></pre>
+<span class="fu"><a href="../reference/Visualize_Scatter.html">Visualize_Scatter</a></span><span class="op">(</span>dfFlagged <span class="op">=</span> <span class="va">ae_assessment</span><span class="op">$</span><span class="va">dfFlagged</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="custom-mappingyaml-specs">Custom Mapping/YAML Specs<a class="anchor" aria-label="anchor" href="#custom-mappingyaml-specs"></a>
 </h2>
-<p>As mentioned in the <a href="https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette#metadata-technical-specifications" class="external-link">Data Pipeline Vignette</a>, <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> triggers a workflow that uses pre-defined YAML specs that organizes all of the required metadata for a given assessment or set of assessments.</p>
+<p>As mentioned in the <a href="https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette#metadata-technical-specifications" class="external-link">Data Pipeline Vignette</a>, <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> triggers a workflow that uses pre-defined YAML specs that organize all of the required metadata for a given assessment or set of assessments.</p>
 <p>In some cases, the user might want to configure their own mappings, which can be done by providing custom YAML mappings for one or more assessments.</p>
 <p>Let’s take a look at a few examples of editing YAML files for a custom workflow below.</p>
 <div class="section level3">
@@ -414,9 +421,18 @@ Filtering on SiteID == X010X
 <span id="cb14-18"><a href="#cb14-18"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Consent_Assess</span></span>
 <span id="cb14-19"><a href="#cb14-19"></a><span class="at">    </span><span class="fu">inputs</span><span class="kw">:</span><span class="at"> dfInput</span></span>
 <span id="cb14-20"><a href="#cb14-20"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> lResults</span></span></code></pre></div>
-<p>After setting up a custom YAML mapping, there are a few more steps in setting up input values for <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>: 1. Read in the default assessment mapping from <code><a href="../reference/MakeAssessmentList.html">gsm::MakeAssessmentList()</a></code>. 2. Overwrite <code>lAssessmentsCustom$consent</code> with the custom YAML file (<code>consent_assessment_yaml.yaml</code>). 3. Add a name value to the custom assessment list. 4. Add a relative path to the custom assessment list, to show where the custom YAML file is stored. 5. Read in the default Raw+ mappings from {clindata}. 6. Add the value to sort <code>strTypeCol</code> on. 7. Run the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> workflow.</p>
+<p>After setting up a custom YAML mapping, there are a few more steps in setting up input values for <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>:</p>
+<ol style="list-style-type: decimal">
+<li>Read in the default assessment mapping from <code><a href="../reference/MakeAssessmentList.html">gsm::MakeAssessmentList()</a></code>.</li>
+<li>Overwrite <code>lAssessmentsCustom$consent</code> with the custom YAML file (<code>consent_assessment_yaml.yaml</code>).</li>
+<li>Add a name value to the custom assessment list.</li>
+<li>Add a relative path to the custom assessment list, to show where the custom YAML file is stored.</li>
+<li>Read in the default Raw+ mappings from {clindata}.</li>
+<li>Add the value to sort <code>strTypeCol</code> on.</li>
+<li>Run the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> workflow.</li>
+</ol>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vubiostat/r-yaml/" class="external-link">yaml</a></span><span class="op">)</span>
 
@@ -461,7 +477,7 @@ Filtering on SiteID == X010X
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer>

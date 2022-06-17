@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -32,13 +32,13 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
-    </li>
-    <li>
       <a href="../articles/Cookbook.html">Cookbook</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
+    </li>
+    <li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
@@ -89,20 +89,33 @@
     <h2>Arguments</h2>
     <dl><dt>dfFindings</dt>
 <dd><p>dataframe containing one or more stacked findings. Findings are one record per assessment per site and have the following columns: Assessment, Label, SiteID, N, PValue, Flag. PValue is ignored in the summary table.</p></dd>
+
+
 <dt>bFormat</dt>
 <dd><p>Use html-friendly icons in table cells. -1 is converted to a down arrow. 1 is converted to an up arrow. 0 is not shown. Other values are left as is.</p></dd>
+
+
 <dt>bShowCounts</dt>
 <dd><p>Show site counts? Uses first value of N for each site given in dfFindings.</p></dd>
+
+
 <dt>bShowSiteScore</dt>
 <dd><p>Show a "Score" row with total number of flagged assessments for each site. TODO:  add method for custom scoring in future release)</p></dd>
+
+
 <dt>vSiteScoreThreshold</dt>
 <dd><p>Hide sites with a site score less than this value (1 by default).</p></dd>
+
+
 <dt>bColCollapse</dt>
 <dd><p>Combine the Assessment and Label columns into a single "Title Column"</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>data.frame</code> Returns a data.frame giving assessment status (rows) by Site (column)</p>
+    
+
+<p><code>data.frame</code> Returns a data.frame giving assessment status (rows) by Site (column)</p>
     </div>
 
     <div id="ref-examples">
@@ -208,7 +221,9 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No analysis function used. `dfTransformed` copied directly to `dfAnalyzed`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `Score` column created from `KRI`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `ScoreLabel` column created from `KRILabel`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Visualize_Count()` created a chart.</span>
@@ -249,7 +264,9 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No analysis function used. `dfTransformed` copied directly to `dfAnalyzed`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `Score` column created from `KRI`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `ScoreLabel` column created from `KRILabel`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Visualize_Count()` created a chart.</span>
@@ -464,7 +481,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

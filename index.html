@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -50,13 +50,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/ContributorGuidelines.html">Contributor Guidelines</a>
-    </li>
-    <li>
       <a href="articles/Cookbook.html">Cookbook</a>
     </li>
     <li>
       <a href="articles/DataPipeline.html">Data Pipeline</a>
+    </li>
+    <li>
+      <a href="articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
       <a href="articles/Qualification.html">Qualification of GSM</a>
@@ -94,12 +94,12 @@
 <!-- badges: end --><div class="section level1">
 <div class="page-header"><h1 id="gilead-statistical-monitoring-gsm-r-package">Gilead Statistical Monitoring {gsm} R package<a class="anchor" aria-label="anchor" href="#gilead-statistical-monitoring-gsm-r-package"></a>
 </h1></div>
-<p>The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This readme provides a high-level overview of {gsm}, see the <a href="silver-potato-cfe8c2fb.pages.github.io/">package website</a> for additional details.</p>
+<p>The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This README provides a high-level overview of {gsm}; see the <a href="silver-potato-cfe8c2fb.pages.github.io/">package website</a> for additional details.</p>
 </div>
 <div class="section level1">
 <h1 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
 </h1>
-<p>The {gsm} package performs risk assessments primarily focused on detecting differences in quality at the site-level. “High quality” is defined as absence of errors that matter. We interpret this as focusing on detecting potential issues related to critical data or process across the major risk categories of safety, efficacy, disposition, treatment, and general quality, where each category consists of one or more risk assessment(s). Each risk assessment will analyze the data to flag sites with potential issues and provide a visualization to help the user understand the issue. Some relevant references are provided below.</p>
+<p>The {gsm} package performs risk assessments primarily focused on detecting differences in quality at the site-level. “High quality” is defined as the absence of errors that matter. We interpret this as focusing on detecting potential issues related to critical data or process across the major risk categories of safety, efficacy, disposition, treatment, and general quality, where each category consists of one or more risk assessment(s). Each risk assessment will analyze the data to flag sites with potential issues and provide a visualization to help the user understand the issue. Some relevant references are provided below.</p>
 <ul>
 <li>Centralized Statistical Monitoring: <a href="https://documents.pub/reader/full/centralized-statistical-monitoring-to-detect-data-integrity-issues-statisticalcentralized" class="external-link">1</a>, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7308734/" class="external-link">2</a>, <a href="https://www.magiworld.org/Journal/2014/1411_Centralized.pdf" class="external-link">3</a>
 </li>
@@ -136,12 +136,12 @@
 <li>
 <strong>Summarize</strong> - Selects key columns from <code>flagged</code> data to create <code>summary</code> data.</li>
 </ol>
-<p>To learn more about {gsm}’s data pipeline, visit the <a href="https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette" class="external-link">Data Pipeline Vignette</a>.</p>
+<p>To learn more about {gsm}’s data pipeline, visit the <a href="https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html" class="external-link">Data Pipeline Vignette</a>.</p>
 </div>
 <div class="section level1">
 <h1 id="quality-control">Quality Control<a class="anchor" aria-label="anchor" href="#quality-control"></a>
 </h1>
-<p>Since {gsm} is designed for use in a GCP framework, we have conducted extensive quality control as part of our development process. In particular, we do the following:</p>
+<p>Since {gsm} is designed for use in a <a href="https://en.wikipedia.org/wiki/Good_clinical_practice" class="external-link">GCP</a> framework, we have conducted extensive quality control as part of our development process. In particular, we do the following:</p>
 <ul>
 <li>
 <strong>Qualification Workflow</strong> - All assessments have been Qualified as described in the Qualification Workflow Vignette. A Qualification Report Vignette is generated and attached to each release.</li>
@@ -150,11 +150,11 @@
 <li>
 <strong>Contributor Guidelines</strong> - Detailed contributor guidelines including step-by-step processes for code development and releases are provided as a vignette.</li>
 <li>
-<strong>Data Model</strong> - Vignettes providing detailed descriptions of the data mode.</li>
+<strong>Data Model</strong> - Vignettes providing detailed descriptions of the data model.</li>
 <li>
 <strong>Code Examples</strong> - The Cookbook Vignette provides a series of simple examples, and all functions include examples as part of Roxygen documentation.</li>
 <li>
-<strong>Code Review</strong> - Code review is conducted using GitHub Pull requests, and a log of all PRs is included in the Qualification Report Vignette.</li>
+<strong>Code Review</strong> - Code review is conducted using GitHub Pull Requests (PRs), and a log of all PRs is included in the Qualification Report Vignette.</li>
 <li>
 <strong>Function Documentation</strong> - Detailed documentation for each function is maintained with Roxygen.</li>
 <li>
@@ -228,7 +228,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer>

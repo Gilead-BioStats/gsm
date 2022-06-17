@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -32,13 +32,13 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
-    </li>
-    <li>
       <a href="../articles/Cookbook.html">Cookbook</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
+    </li>
+    <li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
@@ -82,12 +82,17 @@
     <h2>Arguments</h2>
     <dl><dt>lAssessments</dt>
 <dd><p>List of 1+ assessments like those created by <code>runAssessment()</code> or <code><a href="Study_Assess.html">Study_Assess()</a></code></p></dd>
+
+
 <dt>bViewReport</dt>
 <dd><p>HTML table of dfSummary that can be viewed in most IDEs.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>list</code> Returns a list containing a data.frame summarizing the checks <code>dfSummary</code> and a dataframe listing all checks (<code>dfAllChecks</code>)</p>
+    
+
+<p><code>list</code> containing a <code>data.frame</code> summarizing the checks <code>dfSummary</code> and a <code>data.frame</code> listing all checks (<code>dfAllChecks</code>).</p>
     </div>
 
     <div id="ref-examples">
@@ -180,7 +185,9 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No analysis function used. `dfTransformed` copied directly to `dfAnalyzed`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `Score` column created from `KRI`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `ScoreLabel` column created from `KRILabel`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Visualize_Count()` created a chart.</span>
@@ -221,7 +228,9 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No analysis function used. `dfTransformed` copied directly to `dfAnalyzed`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `Score` column created from `KRI`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `ScoreLabel` column created from `KRILabel`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Visualize_Count()` created a chart.</span>
@@ -408,7 +417,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

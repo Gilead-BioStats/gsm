@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -32,13 +32,13 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
-    </li>
-    <li>
       <a href="../articles/Cookbook.html">Cookbook</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
+    </li>
+    <li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
@@ -82,18 +82,29 @@
     <h2>Arguments</h2>
     <dl><dt>lStep</dt>
 <dd><p>single workflow step (typically defined in <code>lAssessment$workflow</code>). Should include the name of the function to run (<code>lStep$name</code>), data inputs (<code>lStep$inputs</code>), name of output (<code>lStep$output</code>) and configurable parameters (<code>lStep$params</code>) (if any)</p></dd>
+
+
 <dt>lMapping</dt>
 <dd><p>List containing expected columns in each data set.</p></dd>
+
+
 <dt>lData</dt>
 <dd><p>a named list of domain level data frames. Names should match the values specified in <code>lMapping</code> and <code>lAssessments</code>, which are generally based on the expected inputs from <code>X_Map_Raw</code>.</p></dd>
+
+
 <dt>lTags</dt>
 <dd><p>tags</p></dd>
+
+
 <dt>bQuiet</dt>
 <dd><p>Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list containing the results of the <code>lStep$name</code> function call should contain <code>.$checks</code> parameter with results from <code>is_mapping_vald</code> for each domain in <code>lStep$inputs</code>.</p>
+    
+
+<p><code>list</code> containing the results of the <code>lStep$name</code> function call should contain <code>.$checks</code> parameter with results from <code>is_mapping_vald</code> for each domain in <code>lStep$inputs</code>.</p>
     </div>
 
     <div id="ref-examples">
@@ -136,7 +147,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

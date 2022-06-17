@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -32,13 +32,13 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
-    </li>
-    <li>
       <a href="../articles/Cookbook.html">Cookbook</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
+    </li>
+    <li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
@@ -90,22 +90,37 @@
     <h2>Arguments</h2>
     <dl><dt>df</dt>
 <dd><p><code>data.frame</code> A data.frame to be filtered, likely within a mapping function.</p></dd>
+
+
 <dt>strDomain</dt>
 <dd><p><code>character</code> Domain step that is being filtered.</p></dd>
+
+
 <dt>lMapping</dt>
 <dd><p><code>list</code> Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name of the column.</p></dd>
+
+
 <dt>strColParam</dt>
 <dd><p><code>character</code> Domain in <code>lMapping</code> that references the column to filter on.</p></dd>
+
+
 <dt>strValParam</dt>
 <dd><p><code>character</code> Domain in <code>lMapping</code> that references the value to filter on.</p></dd>
+
+
 <dt>bReturnChecks</dt>
 <dd><p><code>logical</code> Return input checks from <code>is_mapping_valid</code>? Default: <code>FALSE</code></p></dd>
+
+
 <dt>bQuiet</dt>
 <dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>data.frame</code> Data frame provided as <code>df</code> and filtered on <code>strColParam</code> == <code>strValParam</code>.
+    
+
+<p><code>data.frame</code> Data frame provided as <code>df</code> and filtered on <code>strColParam</code> == <code>strValParam</code>.
 If <code>bReturnChecks</code> is <code>TRUE</code>, a <code>list</code> is returned with a filtered <code>df</code>, and a list of checks run on input data (<code>lChecks</code>).</p>
     </div>
 
@@ -139,7 +154,7 @@ If <code>bReturnChecks</code> is <code>TRUE</code>, a <code>list</code> is retur
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

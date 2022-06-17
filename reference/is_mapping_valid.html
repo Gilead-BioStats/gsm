@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -32,13 +32,13 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
-    </li>
-    <li>
       <a href="../articles/Cookbook.html">Cookbook</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
+    </li>
+    <li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
@@ -82,19 +82,28 @@
     <h2>Arguments</h2>
     <dl><dt>df</dt>
 <dd><p><code>data.frame</code> A data.frame to compare to mapping object.</p></dd>
+
+
 <dt>mapping</dt>
 <dd><p><code>list</code> A named list specifying expected columns and values in df. Parameters ending in <code>col</code> are assumed to be column names in <code>df</code>, while parameters ending in <code>val</code> are values expected in for a corresponding column. For example, <code>mapping=list(strSiteCol="SiteID", strSiteVal=c("001","002"))</code> would indicate that <code>df</code> has a <code>df$SiteID</code> includes values <code>"001"</code> and <code>"002"</code>.</p></dd>
+
+
 <dt>spec</dt>
 <dd><p><code>list</code> A named list specifying parameters that should be defined in <code>mapping</code>, and describes how the values specified by those parameters should be used in <code>df</code>. Should have the following properties:</p><ul><li><p><code>spec$vRequired</code> - list of parameters that should be defined in <code>mapping</code>.</p></li>
 <li><p><code>spec$vUniqueCols</code> - list of column parameters that should not contain duplicate values</p></li>
 <li><p><code>spec$vNACols</code> - list of column parameters where NA and empty string values are acceptable.</p></li>
 </ul></dd>
+
+
 <dt>bQuiet</dt>
 <dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>list</code> A list is returned with <code>status</code> (<code>TRUE</code> or <code>FALSE</code>), and <code>tests_if</code>,
+    
+
+<p><code>list</code> A list is returned with <code>status</code> (<code>TRUE</code> or <code>FALSE</code>), and <code>tests_if</code>,
 a list containing checks and a <code>status</code> and <code>warning</code> (if check does not pass).</p>
     </div>
 
@@ -292,7 +301,7 @@ a list containing checks and a <code>status</code> and <code>warning</code> (if 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

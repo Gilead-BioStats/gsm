@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -50,13 +50,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
-    </li>
-    <li>
       <a href="../articles/Cookbook.html">Cookbook</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
+    </li>
+    <li>
+      <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
       <a href="../articles/Qualification.html">Qualification of GSM</a>
@@ -93,7 +93,7 @@
       <h1 data-toc-skip>Contributor Guidelines</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/vignettes/ContributorGuidelines.Rmd" class="external-link"><code>vignettes/ContributorGuidelines.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/vignettes/articles/ContributorGuidelines.Rmd" class="external-link"><code>vignettes/articles/ContributorGuidelines.Rmd</code></a></small>
       <div class="hidden name"><code>ContributorGuidelines.Rmd</code></div>
 
     </div>
@@ -273,30 +273,28 @@
 Documentation<ul>
 <li>
 <input type="checkbox" disabled>
-Function name captured in <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block" class="external-link">Roxygen title</a>(e.g. “Adverse Event Assessment”)</li>
+Function name captured in <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block" class="external-link">Roxygen title</a> (e.g. “Adverse Event Assessment”)</li>
 <li>
 <input type="checkbox" disabled>
-Assessment Purpose captured in <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block" class="external-link">Roxygen description</a> (e.g. “Evaluates site-level level Adverse Event Rates and flags rates that are abnormally high or low.”</li>
+Assessment purpose captured in <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block" class="external-link">Roxygen description</a> (e.g. “Evaluates adverse event (AE) rates to identify sites that may be over- or under-reporting AEs”)</li>
 <li>
 <input type="checkbox" disabled>
-Input Data Requirements are described in the the <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block" class="external-link">Roxygen details</a> under a Data section (<code>#' @details # Data Requirements</code>).</li>
+Input data requirements are captured in a dedicated <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#sections" class="external-link">Roxygen details section</a> under <em>Data specification</em> (<code>#' @section Data specification</code> or <em># Data specification</em> if storing data specification in a .md file).</li>
 <li>
 <input type="checkbox" disabled>
-Statistical Assumptions - (Assess() and Analyze() only) List the statistical methods used and refer to detailed description in Analyze function in a the <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block" class="external-link">Roxygen details</a> under a Statistics section (<code>#' @details # Statistical Assumptions</code>).</li>
+Statistical methods and assumptions are captured in a dedicated <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#sections" class="external-link">Roxygen details section</a> under <em>Statistical assumptions</em> (<code>#' @section Statistical assumptions</code> or <em># Statistical assumptions</em> if storing statistical assumptions in a .md file). This section should link to the relevant <code>Analyze_</code> function(s) for further details.</li>
 <li>
 <input type="checkbox" disabled>
-Parameters have detailed documentation using <code>@param</code>. Each parameter should include: parameter name, brief description, usage details, the default value (if any), is it required, list of valid options (if applicable)</li>
+All function parameters are described with a <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#functions" class="external-link"><code>@param</code> tag</a>. Each parameter description should include its name, type, purpose, usage details, default value (if any), requirement, and valid options (if applicable).</li>
 <li>
 <input type="checkbox" disabled>
-All external dependencies are captured. Use <code>@importFrom</code> when importing 3 or fewer functions, and use <code>@import</code> otherwise.</li>
+All external dependencies are captured. Use <code>@importFrom _package_ _function_</code> when importing five or fewer functions and <code>@import _package_</code> otherwise.</li>
 <li>
 <input type="checkbox" disabled>
-Output Data Standards are described under <code>@returns</code>
-</li>
+Function output is captured with a <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#functions" class="external-link"><code>@return</code> tag</a>, including output type, structure, and data specification, if applicable.</li>
 <li>
 <input type="checkbox" disabled>
-At least 1 example is provided under <code>@examples</code>
-</li>
+At least one example is provided under <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#functions" class="external-link"><code>@examples</code> tag</a>.</li>
 </ul>
 </li>
 <li>
@@ -304,19 +302,19 @@ At least 1 example is provided under <code>@examples</code>
 Error Checking<ul>
 <li>
 <input type="checkbox" disabled>
-Basic checks for all all parameters should be included using <code><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot()</a></code> or similar logic. (e.g. <code>stopifnot("dfInput is not a dataframe"=is.data.frame(dfInput))</code>)</li>
+Basic checks for all parameters should be included using <code><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot()</a></code> or similar logic (e.g. <code>stopifnot("dfInput is not a data frame" = is.data.frame(dfInput))</code>)</li>
 <li>
 <input type="checkbox" disabled>
 Tests confirm that <code><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot()</a></code> parameter checks are working as expected.</li>
 <li>
 <input type="checkbox" disabled>
-Tests confirm that the input data has required columns (if any)</li>
+Tests confirm that the input data has required columns (if any).</li>
 <li>
 <input type="checkbox" disabled>
-Tests confirm that the output data has the expected columns</li>
+Tests confirm that the output data has expected columns.</li>
 <li>
 <input type="checkbox" disabled>
-Tests confirm intended functionality for each parameter</li>
+Tests confirm intended functionality for each parameter.</li>
 <li>
 <input type="checkbox" disabled>
 Tests confirm that missing data in required columns is handled appropriately and errors/warnings are produced if needed.</li>
@@ -401,7 +399,7 @@ All GitHub Actions run with no errors</li>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer>
