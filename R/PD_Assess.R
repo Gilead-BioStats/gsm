@@ -1,21 +1,27 @@
 #' Protocol Deviation Assessment
 #'
 #' @description
-#' Flag sites that may be over- or under-reporting protocol deviations (PDs).
+#' Evaluates protocol deviation (PD) rates to identify sites that may be over- or under-reporting PDs.
 #'
 #' @details
-#' The Protocol Deviation Assessment uses the standard [GSM data pipeline](
-#'   https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette
+#' The PD Assessment uses the standard [GSM data pipeline](
+#'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
-#' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to `c(-5, 5)` for `strMethod` = "poisson" and `c(.0001, NA)` for `strMethod` = "wilcoxon".
-#' @param strMethod `character` Statistical model. Valid values include "poisson" (default) and  "wilcoxon".
-#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment="PD")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
-#' @param strKRILabel `character` Describe the `KRI` column, a vector of length 1 that defaults to `PDs/Week`
+#' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
+#'   `c(-5, 5)` for a Poisson model (`strMethod = "poisson"`) and `c(.0001, NA)` for a Wilcoxon
+#'   signed-rank test (`strMethod` = "wilcoxon").
+#' @param strMethod `character` Statistical method. Valid values:
+#'   - `"poisson"` (default)
+#'   - `"wilcoxon"`
+#' @param strKRILabel `character` KRI description. Default: `"PDs/Week"`
+#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
+#'   to `list(Assessment = "PD")`. `lTags` is returned as part of the assessment (`lAssess$lTags`)
+#'   and each tag is added as a column in `lAssess$dfSummary`.
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
-#' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
+#' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` Assessment, a named list with:
@@ -57,10 +63,13 @@ PD_Assess <- function(
 ) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
+    "dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate" = all(c("SubjectID", "SiteID", "Count", "Exposure", "Rate") %in% names(dfInput)),
     "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson", "wilcoxon"),
     "strMethod must be length 1" = length(strMethod) == 1,
-    "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput" = all(c("SubjectID", "SiteID", "Count", "Exposure", "Rate") %in% names(dfInput)),
-    "strKRILabel must be length 1" = length(strKRILabel) == 1
+    "strKRILabel must be length 1" = length(strKRILabel) == 1,
+    "bChart must be logical" = is.logical(bChart),
+    "bReturnChecks must be logical" = is.logical(bReturnChecks),
+    "bQuiet must be logical" = is.logical(bQuiet)
   )
 
   if (!is.null(lTags)) {

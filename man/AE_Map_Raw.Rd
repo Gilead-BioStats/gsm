@@ -18,7 +18,8 @@ AE_Map_Raw(
 \item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per subject.
 }}
 
-\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
+of the column.}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
@@ -54,10 +55,10 @@ AEs by passing filtered AE data to \code{dfAE}.
 }
 
 \examples{
-# Run with defaults
+# Run with defaults.
 dfInput <- AE_Map_Raw()
 
-# Run with error checking and message log
+# Run with error checking and message log.
 dfInput <- AE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 
 }

@@ -28,23 +28,23 @@
 
 ---
 
-    One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput
+    dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate
 
 ---
 
-    One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput
+    dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate
 
 ---
 
-    One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput
+    dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate
 
 ---
 
-    One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput
+    dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate
 
 ---
 
-    One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput
+    dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate
 
 # NA in dfInput$Count results in Error for assess_function
 
