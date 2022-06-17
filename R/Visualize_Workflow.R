@@ -12,11 +12,39 @@
 
 Visualize_Workflow <- function(lAssessment, dfResult, dfNode) {
 
-  dfFlowchart <- bind_rows(
-    dfNode %>%
-      mutate(from = row_number()),
+  browser()
 
-    dfResult[grep('df', names(dfResult))] %>%
+  # data pipeline up to "mapping"
+  subject_level <- dfNode %>%
+    mutate(from = row_number())
+
+  # data pipeline from dfInput to dfSummary
+  domain_check <- dfResult[grep('df', names(dfResult))]
+
+  if(is.null(unlist(domain_check))){
+    dfFlowchart <- bind_rows(
+      subject_level,
+      tibble::tribble(
+      ~assessment, ~n_step,           ~name,         ~inputs, ~n_row, ~n_col, ~checks, ~from, ~to, ~n_row_end,
+      NA,       4,       "dfInput",       "dfInput",     NA,     NA,   FALSE,     4,   5,         NA,
+      NA,       5, "dfTransformed", "dfTransformed",     NA,     NA,   FALSE,     5,   6,         NA,
+      NA,       6,    "dfAnalyzed",    "dfAnalyzed",     NA,     NA,   FALSE,     6,   7,         NA,
+      NA,       7,     "dfFlagged",     "dfFlagged",     NA,     NA,   FALSE,     7,   8,         NA,
+      NA,       8,     "dfSummary",     "dfSummary",     NA,     NA,   FALSE,     8,   9,         NA
+    ) %>%
+      mutate(assessment = lAssessment$name)
+    )
+
+  }
+
+
+  # combine all steps in pipeline to create node_df
+  if(!is.null(unlist(domain_check))) {
+
+  dfFlowchart <- bind_rows(
+    subject_level,
+
+    domain_level %>%
       imap_dfr(
         ~ tibble(
           assessment = lAssessment$name,
@@ -34,8 +62,9 @@ Visualize_Workflow <- function(lAssessment, dfResult, dfNode) {
         to = n_step + 1
       )
   ) %>%
-    filter(!is.na(n_row)) %>%
+    filter(inputs != "dfInput") %>%
     mutate(n_row = ifelse(!is.na(lag(n_row_end)), lag(n_row_end), n_row))
+  }
 
   node_df <- create_node_df(
     n = nrow(dfFlowchart),
@@ -58,8 +87,12 @@ Visualize_Workflow <- function(lAssessment, dfResult, dfNode) {
         substr(value, 1, 2) != "df",
         paste0("[", value, "]\n\n", label),
         label
-      )
+      ),
+      color = ifelse(checks == TRUE, "aqua", "red")
     )
+
+
+
 
   edge_df <- data.frame(
     from = head(dfFlowchart$from, n = nrow(dfFlowchart) - 1),
