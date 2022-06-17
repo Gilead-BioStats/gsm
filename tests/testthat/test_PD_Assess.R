@@ -63,10 +63,12 @@ test_that("incorrect lTags throw errors", {
       )
     )
   )
-  expect_error(assess_function(dfInput, lTags = list(SiteID = "")))
-  expect_error(assess_function(dfInput, lTags = list(N = "")))
-  expect_error(assess_function(dfInput, lTags = list(Score = "")))
-  expect_error(assess_function(dfInput, lTags = list(Flag = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(SiteID = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(N = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(Score = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(Flag = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(KRI = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(KRILabel = "")))
 })
 
 # custom tests ------------------------------------------------------------

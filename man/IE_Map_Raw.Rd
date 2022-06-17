@@ -40,7 +40,7 @@ input data to \code{\link[=IE_Assess]{IE_Assess()}}.
 \details{
 \code{IE_Map_Raw} combines IE data with subject-level data to create formatted input data to
 \code{\link[=IE_Assess]{IE_Assess()}}. This function creates an input dataset for the IE Assessment
-($\code{\link[=IE_Assess]{IE_Assess()}}) by binding subject-level unmet IE criteria counts (derived from \code{dfIE}) to
+(\code{\link[=IE_Assess]{IE_Assess()}}) by binding subject-level unmet IE criteria counts (derived from \code{dfIE}) to
 subject-level data (from \code{dfSUBJ}). Note that the function can generate data summaries for
 specific types of IE criteria by passing filtered IE data to \code{dfIE}.
 }
