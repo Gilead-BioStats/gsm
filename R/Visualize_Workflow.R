@@ -16,9 +16,6 @@
 
 Visualize_Workflow <- function(lAssessment, lResult, dfNode) {
 
-  # test: declare "." as global variable to use replace
-  utils::globalVariables(".")
-
   # data pipeline up to "mapping"
   subject_level <- dfNode %>%
     mutate(from = row_number())
@@ -66,8 +63,11 @@ Visualize_Workflow <- function(lAssessment, lResult, dfNode) {
     n_col = dfFlowchart$n_col,
     checks = dfFlowchart$checks,
     fixedsize = "false"
-  ) %>%
-    replace(is.na(.), "") %>%
+  )
+
+  node_df <- replace(node_df, is.na(node_df), "")
+
+  node_df <- node_df %>%
     mutate(
       label = paste0(.data$label, "\n", .data$n_col, " x ", .data$n_row),
       tooltip = paste0("Data dimensions: \n", .data$label),
