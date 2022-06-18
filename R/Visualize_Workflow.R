@@ -1,12 +1,10 @@
-#' Visualize Workflow
-#'
-#' Show the data pipeline steps from running an assessment.
+#' Flowchart visualization of data pipeline steps from filtering to summary data for an assessment workflow.
 #'
 #' @param lAssessment `list` A list of assessment-specific metadata.
-#' @param lResult `list` A list of data and metadata from running an `*_Assess()` function.
+#' @param lResult `list` A list of data and metadata from running any `*_Assess()` function.
 #' @param dfNode `data.frame` A data frame containing metadata from an assessment workflow.
 #'
-#' @return A flowchart.
+#' @return A flowchart of type `grViz`/`htmlwidget`.
 #'
 #' @importFrom DiagrammeR create_node_df create_graph render_graph
 #' @importFrom purrr imap_dfr
