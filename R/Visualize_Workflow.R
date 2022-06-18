@@ -10,10 +10,14 @@
 #'
 #' @importFrom DiagrammeR create_node_df create_graph render_graph
 #' @importFrom purrr imap_dfr
+#' @importFrom utils head
 #'
 #' @export
 
 Visualize_Workflow <- function(lAssessment, lResult, dfNode) {
+
+  # test: declare "." as global variable to use replace
+  utils::globalVariables(".")
 
   # data pipeline up to "mapping"
   subject_level <- dfNode %>%
@@ -22,11 +26,12 @@ Visualize_Workflow <- function(lAssessment, lResult, dfNode) {
   # data pipeline from dfInput to dfSummary
   domain_check <- lResult[grep('df', names(lResult))]
 
+  # combine subject and domain - add "from" and "to" for the edge_df
   dfFlowchart <- bind_rows(
     subject_level,
 
     domain_check %>%
-      imap_dfr(
+      purrr::imap_dfr(
         ~ tibble(
           assessment = lAssessment$name,
           n_step = max(dfNode$n_step),
@@ -38,16 +43,17 @@ Visualize_Workflow <- function(lAssessment, lResult, dfNode) {
         )
       ) %>%
       mutate(
-        n_step = n_step + row_number(),
-        from = n_step,
-        to = n_step + 1
+        n_step = .data$n_step + row_number(),
+        from = .data$n_step,
+        to = .data$n_step + 1
       )
   ) %>%
-    filter(!is.na(n_row)) %>%
-    mutate(n_row = ifelse(!is.na(lag(n_row_end)), lag(n_row_end), n_row))
+    filter(!is.na(.data$n_row)) %>%
+    mutate(n_row = ifelse(!is.na(lag(.data$n_row_end)), lag(.data$n_row_end), .data$n_row))
 
-
-  node_df <- create_node_df(
+  # create_node_df for flowchart
+  # add custom labels/tooltips
+  node_df <- DiagrammeR::create_node_df(
     n = nrow(dfFlowchart),
     type = "a",
     label = dfFlowchart$inputs,
@@ -63,24 +69,25 @@ Visualize_Workflow <- function(lAssessment, lResult, dfNode) {
   ) %>%
     replace(is.na(.), "") %>%
     mutate(
-      label = paste0(label, "\n", n_col, " x ", n_row),
-      tooltip = paste0("Data dimensions: \n", label),
+      label = paste0(.data$label, "\n", .data$n_col, " x ", .data$n_row),
+      tooltip = paste0("Data dimensions: \n", .data$label),
       label = ifelse(
-        substr(value, 1, 2) != "df",
-        paste0("[", value, "]\n\n", label),
-        label
+        substr(.data$value, 1, 2) != "df",
+        paste0("[", .data$value, "]\n\n", .data$label),
+        .data$label
       )
     )
 
+  # edge_df
   edge_df <- data.frame(
-    from = head(dfFlowchart$from, n = nrow(dfFlowchart) - 1),
-    to = head(dfFlowchart$to, n = nrow(dfFlowchart) - 1),
-    rel = "next"
+    from = utils::head(dfFlowchart$from, n = nrow(dfFlowchart) - 1),
+    to = utils::head(dfFlowchart$to, n = nrow(dfFlowchart) - 1)
   )
 
-  create_graph(
+  # render graph
+  DiagrammeR::create_graph(
     nodes_df = node_df,
     edges_df = edge_df,
     attr_theme = "lr") %>%
-    render_graph()
+    DiagrammeR::render_graph()
 }
