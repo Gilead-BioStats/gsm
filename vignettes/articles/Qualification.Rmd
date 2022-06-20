@@ -1,5 +1,5 @@
 ---
-title: "Qualification of GSM"
+title: "Qualification of ```gsm```"
 date: "`r Sys.Date()`"
 output: 
   pdf_document:
@@ -20,6 +20,7 @@ suppressPackageStartupMessages({
   library(pander)
   library(gh)
   library(stringr)
+  library(riskmetric)
 })
 
 opts_chunk$set(
@@ -39,10 +40,23 @@ spec_df <- scrape_dir_specs(here::here("inst", "qualification"))
 
 # Testing Environment
 
-```{r}
+```{r sessioninfo}
 pander::pander(sessionInfo())
 pander::pandoc.p('\\pagebreak')
 ```
+
+# ```gsm``` Imports
+
+```{r riskmetric, warning = FALSE}
+import_risk <- strsplit(devtools::as.package(".")$imports, ",\n")[[1]] %>% 
+  map_chr(~gsub( " .*$", "", .x )) %>% 
+  pkg_ref() %>%
+  pkg_assess() %>%
+  pkg_score() %>% 
+  select("package", "version", "pkg_ref", "pkg_score")
+pander::pandoc.table(import_risk, style = "grid")
+```
+
 
 # Assessments
 
@@ -58,7 +72,7 @@ create_assessment_section <- function(assessment, df){
         pander::pandoc.indent(paste0("Impact: ", df[i, "Impact"]), 2),
         pander::pandoc.indent(paste0("Tests: ", df[i, "Tests"]), 2)
         )
-      ) 
+      )
   }
   pander::pandoc.header("Traceability Matrix", level = 3)
   pander::pandoc.table(build_traceability_matrix(df), style = "grid")
@@ -170,12 +184,11 @@ for (i in 1:nrow(tbl)){
       pander::pandoc.header(paste0("Pull Request ", tbl[i, "Pull Request"], ": ", tbl[i, "Title"]), level = 3),
       pander::pandoc.p(paste0("Merging ", tbl[i, "Branch"], " into ", tbl[i, "Target"], "\n")),
       pander::pandoc.p(pander::pandoc.link(tbl[i, "Link"])),
-      pander::pandoc.table(tbl[i, c("Requester", "Date Requested", 
+      pander::pandoc.table(tbl[i, c("Requester", "Date Requested",
                                     "Reviewers", "Review Status")],
                            split.cells = 13)
       )
-    ) 
+    )
 }
-
 ```
 
