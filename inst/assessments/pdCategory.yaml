@@ -1,7 +1,7 @@
-label: Protocol Deviation (PD) Workflow
+label: Protocol Deviation (PD) by Category
 tags:
   Assessment: PD
-  Label: PD
+  Label: PD - Category
 group:
   domain: dfPD
   columnParam: strCategoryCol

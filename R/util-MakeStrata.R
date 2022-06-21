@@ -37,21 +37,22 @@ MakeStrata <- function(df, strCol, strVals, bReturnChecks = FALSE, bQuiet = TRUE
   # }
   
   # if (check$status) {
-    if (!bQuiet) cli::cli_text(paste0("Creating Strata for ", strCol, " == ", paste(strVals, collapse = ",")))
+    if (!bQuiet) cli::cli_text(paste0("Creating Strata for `", strCol, " == '", paste(strVals, collapse = ","),"'`"))
 
     oldRows <- nrow(df)
     df <- df[df[[strCol]] %in% strVals, ]
     newRows <- nrow(df)
     if (!bQuiet) {
-      cli::cli_alert_success("Creating Strata for `{col}={paste(vals,sep=',')}`, to drop {oldRows-newRows} rows from {oldRows} to {newRows} rows.")
+      cli::cli_alert_success("Creating strata for `{strCol}={paste(strVals,sep=',')}`, to drop {oldRows-newRows} rows from {oldRows} to {newRows} rows.")
       if (newRows == 0) cli::cli_alert_warning("WARNING: Filtered data has 0 rows.")
       if (newRows == oldRows) cli::cli_alert_info("NOTE: No rows dropped.")
     }
   # }
 
-  # if (bReturnChecks) {
-  #   return(list(df = df, lChecks = checks))
-  # } else {
+  if (bReturnChecks) {
+    #TODO Figure out checks
+    return(list(df = df, lChecks = list(status=TRUE, checks=list())))
+  } else {
     return(df)
-  # }
+  }
 }

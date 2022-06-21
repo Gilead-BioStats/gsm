@@ -63,19 +63,24 @@ Study_Assess <- function(
     lAssessments <- MakeAssessmentList()
   }
 
+  print(names(lAssessments))
+
   # Convert grouped assessments into separate assessments for each group level
-  lAssessments <- lAssessments %>% map(function(lAssessment){
-    # check for a group property
-    if(exists('group',where = 'lAssessment')){
-      return(MakeStratifiedAssessment(
+  for(lAssessment in lAssessments){
+    if(hasName(lAssessment,"group")){
+      StratifiedAssessment <- MakeStratifiedAssessment(
         lData = lData,
         lAssessment = lAssessment, 
         lMapping = lMapping
-      ))
-    }else{
-      return(lAssessment)
+      ) 
+      
+      # replace original assessment with stratified assessment list
+      lAssessments[[lAssessment$name]]<-NULL 
+      lAssessments <- c(lAssessments, StratifiedAssessment)
     }
-  })
+  } 
+
+  print(names(lAssessments))
 
   # Filter data$dfSUBJ based on lSubjFilters --------------------------------
   if (!is.null(lSubjFilters)) {
