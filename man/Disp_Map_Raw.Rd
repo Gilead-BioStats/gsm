@@ -2,7 +2,7 @@
 % Please edit documentation in R/Disp_Map_Raw.R
 \name{Disp_Map_Raw}
 \alias{Disp_Map_Raw}
-\title{Disposition Map}
+\title{Disposition Assessment - Raw Mapping}
 \usage{
 Disp_Map_Raw(
   dfs = list(dfDISP = safetyData::adam_adsl),
@@ -14,36 +14,48 @@ Disp_Map_Raw(
 )
 }
 \arguments{
-\item{strReason}{character string containing reason for discontinuation. Can be a value found in \code{dfDisp$strCol} or "any" (the default), which selects all reasons not included in \code{vReasonIgnore}}
+\item{dfs}{\code{list} Input data frame:
+\itemize{
+\item \code{dfDISP}: \code{data.frame} Subject-level data with one record per discontinuation reason.
+}}
 
-\item{dfDisp}{disposition data with the following required columns: SUBJID and SITEID. Must also include the value specified in the \code{strCol} parameter.}
+\item{strReason}{\code{character} Case-insensitive string value to describe the discontinuation reason, e.g., "adverse event".}
 
-\item{strCol}{column name containing discontinuation reason.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
+of the column.}
 
-\item{vReasonIgnore}{character vector containing reasons to ignore when counting Discontinuation Reason (i.e., "Completed", "", etc.)}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
+
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one record per person with columns: SubjectID, SiteID, Count, and the value passed to strCol.
+\code{data.frame} with one record per subject, the input to gsm::Disp_Assess(). If
+\code{bReturnChecks} is \code{TRUE} \code{AE_Map_Raw} returns a named \code{list} with:
+\itemize{
+\item \code{df}: the data frame described above
+\item \code{lChecks}: a named \code{list} of check results
+}
 }
 \description{
+Convert raw disposition data to formatted input data to #TODO: Disp_Assess()
+
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \details{
 Convert from ADaM or raw format to input format for Disposition Assessment.
+
+\code{Disp_Map_Raw} creates an input dataset for the Disposition Assessment (link to code) by adding Discontinuation Reason Counts to basic subject-level data.
 }
-\section{Data Specification}{
-
-
-This function creates an input dataset for the Disposition Assessment (link to code) by adding Discontinuation Reason Counts to basic subject-level data.
-
-The following columns are required:
-\itemize{
-\item \code{SUBJID} - Unique subject ID
-\item \code{SITEID} - Site ID
+\section{Data specification}{
+\tabular{lllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \cr
+   dfDISP \tab strIDCol \tab SUBJID \tab TRUE \tab FALSE \cr
+   dfDISP \tab strSiteCol \tab SITEID \tab TRUE \tab FALSE \cr
+   dfDISP \tab strDCCol \tab DCREASCD \tab TRUE \tab TRUE \cr
 }
 }
 
 \examples{
-df <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "adverse event")
+df <- Disp_Map_Raw(strReason = "adverse event")
 
 }

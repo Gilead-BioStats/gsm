@@ -40,11 +40,12 @@ dfCONSENT:
   strConsentTypeValue: "MAINCONSENT"
   strConsentStatusValue: "Y"
 dfDISP:
-  strIDCol: "USUBJID"
+  strIDCol: "SUBJID"
   strSiteCol: "SITEID"
   strDCCol: "DCREASCD"
   strIgnoreVal:
     - ""
     - " "
     - "completed"
+  bIgnoreVal:
     - NA

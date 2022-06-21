@@ -1,24 +1,29 @@
-#' Disposition Map
+#' Disposition Assessment - Raw Mapping
 #'
 #' Convert from ADaM or raw format to input format for Disposition Assessment.
 #'
 #' @description
+#' Convert raw disposition data to formatted input data to #TODO: Disp_Assess()
+#'
 #' `r lifecycle::badge("experimental")`
 #'
-#' @section Data Specification:
+#' @details
+#' `Disp_Map_Raw` creates an input dataset for the Disposition Assessment (link to code) by adding Discontinuation Reason Counts to basic subject-level data.
 #'
-#' This function creates an input dataset for the Disposition Assessment (link to code) by adding Discontinuation Reason Counts to basic subject-level data.
+#' @param dfs `list` Input data frame:
+#'   - `dfDISP`: `data.frame` Subject-level data with one record per discontinuation reason.
+#' @param strReason `character` Case-insensitive string value to describe the discontinuation reason, e.g., "adverse event".
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
+#'   of the column.
+#' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' The following columns are required:
-#'   - `SUBJID` - Unique subject ID
-#'   - `SITEID` - Site ID
+#' @return `data.frame` with one record per subject, the input to gsm::Disp_Assess(). If
+#' `bReturnChecks` is `TRUE` `AE_Map_Raw` returns a named `list` with:
+#' - `df`: the data frame described above
+#' - `lChecks`: a named `list` of check results
 #'
-#' @param dfDisp disposition data with the following required columns: SUBJID and SITEID. Must also include the value specified in the `strCol` parameter.
-#' @param strCol column name containing discontinuation reason.
-#' @param strReason character string containing reason for discontinuation. Can be a value found in `dfDisp$strCol` or "any" (the default), which selects all reasons not included in `vReasonIgnore`
-#' @param vReasonIgnore character vector containing reasons to ignore when counting Discontinuation Reason (i.e., "Completed", "", etc.)
-#'
-#' @return `data.frame` with one record per person with columns: SubjectID, SiteID, Count, and the value passed to strCol.
+#' @includeRmd ./man/md/Disp_Map_Raw.md
 #'
 #' @examples
 #' df <- Disp_Map_Raw(strReason = "adverse event")
@@ -56,13 +61,13 @@ Disp_Map_Raw <- function(
   # Standarize Column Names
   dfDISP_mapped <- dfs$dfDISP %>%
     select(SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
-           SiteID = lMapping[["dfDISP"]][["strIDCol"]],
+           SiteID = lMapping[["dfDISP"]][["strSiteCol"]],
            Reason = lMapping[["dfDISP"]][["strDCCol"]]) %>%
     mutate(Reason = tolower(.data$Reason))
 
   strIgnore <- lMapping[["dfDISP"]][["strIgnoreVal"]]
-  bIgnore <- lMapping[["dfDISP"]][["bIgnoreVal"]]
-browser()
+  bIgnore <- as.logical(lMapping[["dfDISP"]][["bIgnoreVal"]])
+
   dfInput <- dfDISP_mapped %>%
     mutate(Count = case_when(
       strReason == "any" & !(Reason %in% strIgnore | Reason %in% bIgnore) ~ 1,
