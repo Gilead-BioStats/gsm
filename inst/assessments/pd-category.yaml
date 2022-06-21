@@ -4,7 +4,7 @@ tags:
   Label: PD
 group:
   domain: dfPD
-  column: strCategoryCol
+  columnParam: strCategoryCol
 workflow:
   - name: PD_Map_Raw
     inputs:
