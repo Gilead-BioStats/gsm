@@ -1,24 +1,27 @@
 #' Adverse Event Assessment
 #'
 #' @description
-#' Flag sites that may be over- or under-reporting adverse events (AEs).
+#' Evaluates adverse event (AE) rates to identify sites that may be over- or under-reporting AEs.
 #'
 #' @details
 #' The AE Assessment uses the standard [GSM data pipeline](
-#'   https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette
+#'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
-#'   `c(-5, 5)` for `strMethod` = "poisson" and `c(.0001, NA)` for `strMethod` = "wilcoxon".
-#' @param strMethod `character` Statistical model. Valid values include "poisson" (default) and
-#'  "wilcoxon".
+#'   `c(-5, 5)` for a Poisson model (`strMethod = "poisson"`) and `c(.0001, NA)` for a Wilcoxon
+#'   signed-rank test (`strMethod` = "wilcoxon").
+#' @param strMethod `character` Statistical method. Valid values:
+#'   - `"poisson"` (default)
+#'   - `"wilcoxon"`
+#' @param strKRILabel `character` KRI description. Default: `"AEs/Week"`
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
-#'   to `list(Assessment="AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and
-#'   each tag is added as a column in `lAssess$dfSummary`.
+#'   to `list(Assessment = "AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`)
+#'   and each tag is added as a column in `lAssess$dfSummary`.
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
-#' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
+#' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` Assessment, a named list with:
@@ -52,6 +55,7 @@ AE_Assess <- function(
   dfInput,
   vThreshold = NULL,
   strMethod = "poisson",
+  strKRILabel = "AEs/Week",
   lTags = list(Assessment = "AE"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -59,16 +63,21 @@ AE_Assess <- function(
 ) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
+    "dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate" = all(c("SubjectID", "SiteID", "Count", "Exposure", "Rate") %in% names(dfInput)),
     "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson", "wilcoxon"),
-    "One or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate not found in dfInput" = all(c("SubjectID", "SiteID", "Count", "Exposure", "Rate") %in% names(dfInput)),
-    "strMethod must be length 1" = length(strMethod) == 1
+    "strMethod must be length 1" = length(strMethod) == 1,
+    "strKRILabel must be length 1" = length(strKRILabel) == 1,
+    "bChart must be logical" = is.logical(bChart),
+    "bReturnChecks must be logical" = is.logical(bReturnChecks),
+    "bQuiet must be logical" = is.logical(bQuiet)
   )
 
   if (!is.null(lTags)) {
     stopifnot(
       "lTags is not named" = (!is.null(names(lTags))),
       "lTags has unnamed elements" = all(names(lTags) != ""),
-      "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
+      "lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "KRI", "KRILabel", "Score", "ScoreLabel", "Flag")
+
     )
 
     if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {
@@ -93,7 +102,7 @@ AE_Assess <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
 
-    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = strKRILabel)
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     if (strMethod == "poisson") {
@@ -110,10 +119,10 @@ AE_Assess <- function(
       lAssess$dfAnalyzed <- gsm::Analyze_Poisson(lAssess$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Poisson} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
-      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strColumn = "Residuals", vThreshold = vThreshold)
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold)
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
 
-      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, strScoreCol = "Residuals", lTags)
+      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
     } else if (strMethod == "wilcoxon") {
       if (is.null(vThreshold)) {
@@ -127,13 +136,13 @@ AE_Assess <- function(
         )
       }
 
-      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed, "Rate", bQuiet = bQuiet)
+      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Wilcoxon} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
-      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strColumn = "PValue", vThreshold = vThreshold, strValueColumn = "Estimate")
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Estimate")
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
 
-      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, strScoreCol = "PValue", lTags = lTags)
+      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
     }
 

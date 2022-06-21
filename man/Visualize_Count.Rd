@@ -21,13 +21,12 @@ Visualize_Count(
 \item{strTitle}{Title of plot. NULL by default.}
 }
 \value{
-site level plot object
+site-level plot object.
 }
 \description{
 Site-level visualization of site-level Inclusion/Exclusion results
 }
 \examples{
-
 IE_Input <- IE_Map_Raw()
 IE_Assess <- IE_Assess(IE_Input)
 Visualize_Count(IE_Assess$dfAnalyzed)

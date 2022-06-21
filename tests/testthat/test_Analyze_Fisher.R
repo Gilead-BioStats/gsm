@@ -3,7 +3,7 @@ source(testthat::test_path("testdata/data.R"))
 dfInput <- Disp_Map(dfDisp, strCol = "DCREASCD", strReason = "Adverse Event")
 
 test_that("output created as expected and has correct structure", {
-  df <- Transform_EventCount(dfInput, strCountCol = "Count")
+  df <- Transform_EventCount(dfInput, strCountCol = "Count", strKRILabel = "test label")
 
   output <- Analyze_Fisher(df)
 
@@ -24,7 +24,8 @@ test_that("incorrect inputs throw errors", {
 
   df <- Transform_EventCount(
     dfInput,
-    strCountCol = "Count"
+    strCountCol = "Count",
+    strKRILabel = "testing label"
   )
 
   expect_error(Analyze_Fisher(list()))
@@ -43,7 +44,8 @@ test_that("error given if required column not found", {
 
   df <- Transform_EventCount(
     dfInput,
-    strCountCol = "Count"
+    strCountCol = "Count",
+    strKRILabel = "testing label"
   )
 
   expect_error(Analyze_Fisher(df %>% select(-SiteID)))
@@ -60,7 +62,8 @@ test_that("NAs are handled correctly", {
 
   df <- Transform_EventCount(
     dfInput,
-    strCountCol = "Count"
+    strCountCol = "Count",
+    strKRILabel = "testing label"
   )
 
   createNA <- function(data, variable) {

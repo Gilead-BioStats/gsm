@@ -1,55 +1,61 @@
 source(testthat::test_path("testdata/data.R"))
 
-aeInput <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
+assess_function <- gsm::AE_Assess
+dfInput <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
+output_spec <- yaml::read_yaml(system.file("specs", "AE_Assess.yaml", package = "gsm"))
+output_mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-  aeAssessment <- AE_Assess(aeInput, vThreshold = c(-5.1, 5.1))
-  expect_true(is.list(aeAssessment))
-  expect_equal(names(aeAssessment), c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
-  expect_true("data.frame" %in% class(aeAssessment$dfInput))
-  expect_true("data.frame" %in% class(aeAssessment$dfTransformed))
-  expect_true("data.frame" %in% class(aeAssessment$dfAnalyzed))
-  expect_true("data.frame" %in% class(aeAssessment$dfFlagged))
-  expect_true("data.frame" %in% class(aeAssessment$dfSummary))
-  expect_type(aeAssessment$strFunctionName, "character")
-  expect_type(aeAssessment$lParams, "list")
-  expect_type(aeAssessment$lTags, "list")
+  assessment <- assess_function(dfInput, vThreshold = c(-5.1, 5.1))
+  expect_true(is.list(assessment))
+  expect_equal(names(assessment), c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
+  expect_true("data.frame" %in% class(assessment$dfInput))
+  expect_true("data.frame" %in% class(assessment$dfTransformed))
+  expect_true("data.frame" %in% class(assessment$dfAnalyzed))
+  expect_true("data.frame" %in% class(assessment$dfFlagged))
+  expect_true("data.frame" %in% class(assessment$dfSummary))
+  expect_type(assessment$strFunctionName, "character")
+  expect_type(assessment$lParams, "list")
+  expect_type(assessment$lTags, "list")
 })
 
 # metadata is returned as expected ----------------------------------------
 test_that("metadata is returned as expected", {
-  aeAssessment <- AE_Assess(aeInput, vThreshold = c(-5.1, 5.1))
-  expect_equal("AE_Assess()", aeAssessment$strFunctionName)
-  expect_equal("aeInput", aeAssessment$lParams$dfInput)
-  expect_equal("-5.1", aeAssessment$lParams$vThreshold[2])
-  expect_equal("5.1", aeAssessment$lParams$vThreshold[3])
-  expect_equal("AE", aeAssessment$lTags$Assessment)
-  expect_true("ggplot" %in% class(aeAssessment$chart))
+  assessment <- assess_function(dfInput, vThreshold = c(-5.1, 5.1))
+  expect_equal("assess_function()", assessment$strFunctionName)
+  expect_equal("dfInput", assessment$lParams$dfInput)
+  expect_equal("-5.1", assessment$lParams$vThreshold[2])
+  expect_equal("5.1", assessment$lParams$vThreshold[3])
+  expect_equal("AE", assessment$lTags$Assessment)
+  expect_true("ggplot" %in% class(assessment$chart))
 })
 
 # incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors", {
-  expect_snapshot_error(AE_Assess(list()))
-  expect_snapshot_error(AE_Assess("Hi"))
-  expect_snapshot_error(AE_Assess(aeInput, strMethod = 123))
-  expect_snapshot_error(AE_Assess(aeInput, strMethod = "abacus"))
-  expect_snapshot_error(AE_Assess(aeInput, strMethod = c("wilcoxon", "poisson")))
-  expect_snapshot_error(AE_Assess(aeInput %>% select(-SubjectID)))
-  expect_snapshot_error(AE_Assess(aeInput %>% select(-SiteID)))
-  expect_snapshot_error(AE_Assess(aeInput %>% select(-Count)))
-  expect_snapshot_error(AE_Assess(aeInput %>% select(-Exposure)))
-  expect_snapshot_error(AE_Assess(aeInput %>% select(-Rate)))
+  expect_snapshot_error(assess_function(list()))
+  expect_snapshot_error(assess_function("Hi"))
+  expect_snapshot_error(assess_function(dfInput, strMethod = 123))
+  expect_snapshot_error(assess_function(dfInput, strMethod = "abacus"))
+  expect_snapshot_error(assess_function(dfInput, strMethod = c("wilcoxon", "poisson")))
+  expect_snapshot_error(assess_function(dfInput, vThreshold = "A"))
+  expect_snapshot_error(assess_function(dfInput, vThreshold = 1))
+  expect_snapshot_error(assess_function(dfInput %>% select(-SubjectID)))
+  expect_snapshot_error(assess_function(dfInput %>% select(-SiteID)))
+  expect_snapshot_error(assess_function(dfInput %>% select(-Count)))
+  expect_snapshot_error(assess_function(dfInput %>% select(-Exposure)))
+  expect_snapshot_error(assess_function(dfInput %>% select(-Rate)))
+  expect_error(assess_function(dfInput, strKRILabel = c("label 1", "label 2")))
 })
 
 # incorrect lTags throw errors --------------------------------------------
 test_that("incorrect lTags throw errors", {
-  expect_snapshot_error(AE_Assess(aeInput, vThreshold = c(-5.1, 5.1), lTags = "hi mom"))
-  expect_snapshot_error(AE_Assess(aeInput, vThreshold = c(-5.1, 5.1), lTags = list("hi", "mom")))
-  expect_snapshot_error(AE_Assess(aeInput, vThreshold = c(-5.1, 5.1), lTags = list(greeting = "hi", "mom")))
+  expect_snapshot_error(assess_function(dfInput, vThreshold = c(-5.1, 5.1), lTags = "hi mom"))
+  expect_snapshot_error(assess_function(dfInput, vThreshold = c(-5.1, 5.1), lTags = list("hi", "mom")))
+  expect_snapshot_error(assess_function(dfInput, vThreshold = c(-5.1, 5.1), lTags = list(greeting = "hi", "mom")))
   expect_silent(
-    AE_Assess(
-      aeInput,
+    assess_function(
+      dfInput,
       vThreshold = c(-5.1, 5.1),
       lTags = list(
         greeting = "hi",
@@ -57,28 +63,43 @@ test_that("incorrect lTags throw errors", {
       )
     )
   )
-  expect_snapshot_error(AE_Assess(aeInput, lTags = list(SiteID = "")))
-  expect_snapshot_error(AE_Assess(aeInput, lTags = list(N = "")))
-  expect_snapshot_error(AE_Assess(aeInput, lTags = list(Score = "")))
-  expect_snapshot_error(AE_Assess(aeInput, lTags = list(Flag = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(SiteID = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(N = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(Score = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(Flag = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(KRI = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(KRILabel = "")))
 })
 
 # custom tests ------------------------------------------------------------
+test_that("strMethod = 'wilcoxon' does not throw error", {
+  expect_error(assess_function(dfInput, strMethod = "wilcoxon"), NA)
+})
+
+test_that("NA in dfInput$Count results in Error for assess_function", {
+  dfInputNA <- dfInput
+  dfInputNA[1, "Count"] <- NA
+  expect_snapshot(assess_function(dfInputNA))
+})
+
 test_that("dfAnalyzed has appropriate model output regardless of statistical method", {
-  assPoisson <- AE_Assess(aeInput, strMethod = "poisson")
-  expect_true(all(c("Residuals", "PredictedCount") %in% names(assPoisson$dfAnalyzed)))
-  assWilcoxon <- AE_Assess(aeInput, strMethod = "wilcoxon")
-  expect_true(all(c("Estimate", "PValue") %in% names(assWilcoxon$dfAnalyzed)))
+  assessmentPoisson <- assess_function(dfInput, strMethod = "poisson")
+  expect_true(all(c("KRI", "KRILabel", "Score", "ScoreLabel") %in% names(assessmentPoisson$dfAnalyzed)))
+  assessmentWilcoxon <- assess_function(dfInput, strMethod = "wilcoxon")
+  expect_true(all(c("KRI", "KRILabel", "Score", "ScoreLabel") %in% names(assessmentWilcoxon$dfAnalyzed)))
+
+  expect_equal(unique(assessmentPoisson$dfAnalyzed$ScoreLabel), "Residuals")
+  expect_equal(unique(assessmentWilcoxon$dfAnalyzed$ScoreLabel), "P value")
+
+  expect_equal(sort(assessmentPoisson$dfAnalyzed$Score), sort(assessmentPoisson$dfSummary$Score))
+  expect_equal(sort(assessmentWilcoxon$dfAnalyzed$Score), sort(assessmentWilcoxon$dfSummary$Score))
 })
 
-test_that("bQuiet works as intended", {
-  expect_message(
-    AE_Assess(aeInput, bQuiet = FALSE)
-  )
+test_that("bQuiet and bReturnChecks work as intended", {
+  test_logical_assess_parameters(assess_function, dfInput)
 })
 
-test_that("bReturnChecks works as intended", {
-  expect_true(
-    "lChecks" %in% names(AE_Assess(aeInput, bReturnChecks = TRUE))
-  )
+test_that("strKRILabel works as intended", {
+  assessment <- assess_function(dfInput, strKRILabel = "my test label")
+  expect_equal(unique(assessment$dfSummary$KRILabel), "my test label")
 })

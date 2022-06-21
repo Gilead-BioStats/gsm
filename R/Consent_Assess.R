@@ -1,7 +1,7 @@
 #' Consent Assessment
 #'
 #' @description
-#' Flag sites where subject consent was:
+#' Evaluates sites where subject consent was:
 #' - not given
 #' - never obtained
 #' - not followed by subject randomization
@@ -9,7 +9,7 @@
 #'
 #' @details
 #' The Consent Assessment uses the standard [GSM data pipeline](
-#'   https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette
+#'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
 #' ) to flag sites with consent issues. This assessment detects sites with subjects who participated
 #' in study activities before consent was finalized. The count returned in the summary represents
 #' the number of subjects at a given site for whom:
@@ -23,9 +23,10 @@
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
-#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment="IE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
+#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment = "Consent")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
+#' @param strKRILabel `character` KRI description. Default: `"Total Number of Consent Issues"`
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
-#' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
+#' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` Assessment, a named list with:
@@ -57,22 +58,27 @@ Consent_Assess <- function(
   dfInput,
   nThreshold = 0.5,
   lTags = list(Assessment = "Consent"),
+  strKRILabel = "Total Number of Consent Issues",
   bChart = TRUE,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
-    "One or more of these columns: SubjectID, SiteID,and Count not found in dfInput" = all(c("SubjectID", "SiteID", "Count") %in% names(dfInput)),
+    "dfInput is missing one or more of these columns: SubjectID, SiteID, and Count" = all(c("SubjectID", "SiteID", "Count") %in% names(dfInput)),
     "nThreshold must be numeric" = is.numeric(nThreshold),
-    "nThreshold must be length 1" = length(nThreshold) == 1
+    "nThreshold must be length 1" = length(nThreshold) == 1,
+    "strKRILabel must be length 1" = length(strKRILabel) == 1,
+    "bChart must be logical" = is.logical(bChart),
+    "bReturnChecks must be logical" = is.logical(bReturnChecks),
+    "bQuiet must be logical" = is.logical(bQuiet)
   )
 
   if (!is.null(lTags)) {
     stopifnot(
       "lTags is not named" = (!is.null(names(lTags))),
       "lTags has unnamed elements" = all(names(lTags) != ""),
-      "lTags cannot contain elements named: 'SiteID', 'N', 'Score', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "Score", "Flag")
+      "lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "KRI", "KRILabel", "Score", "ScoreLabel", "Flag")
     )
 
     if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {
@@ -96,16 +102,18 @@ Consent_Assess <- function(
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn Consent_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
-    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count")
+    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strKRILabel = strKRILabel)
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
-    lAssess$dfAnalyzed <- lAssess$dfTransformed %>% dplyr::mutate(Estimate = .data$TotalCount)
-    if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed}")
+    lAssess$dfAnalyzed <- lAssess$dfTransformed %>%
+      Analyze_Identity(bQuiet = bQuiet)
 
-    lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = c(NA, nThreshold), strColumn = "Estimate")
+    if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed} with added {.var ScoreLabel} column.")
+
+    lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = c(NA, nThreshold))
     if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
 
-    lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, strScoreCol = "TotalCount", lTags)
+    lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
 
     if (bChart) {

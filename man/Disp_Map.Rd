@@ -21,7 +21,7 @@ Disp_Map(
 \item{vReasonIgnore}{character vector containing reasons to ignore when counting Discontinuation Reason (i.e., "Completed", "", etc.)}
 }
 \value{
-Data frame with one record per person with columns: SubjectID, SiteID, Count, and the value passed to strCol.
+\code{data.frame} with one record per person with columns: SubjectID, SiteID, Count, and the value passed to strCol.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

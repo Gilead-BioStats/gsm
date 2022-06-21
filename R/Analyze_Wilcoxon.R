@@ -1,8 +1,8 @@
 #' AE Wilcoxon Assessment - Analysis
 #'
-#' Create analysis results data for event assessment using the Wilcoxon sign-ranked test.
+#' Create analysis results data for event assessment using the Wilcoxon signed-rank test.
 #'
-#'  @details
+#' @details
 #' Fits a Wilcoxon model to site-level data.
 #'
 #' @section Statistical Methods:
@@ -25,12 +25,12 @@
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` with one row per site, columns: SiteID, N, TotalCount, TotalExposure, Rate,
-#'   Estimate, PValue
+#'   Estimate, PValue.
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
-#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, strOutcomeCol = "Rate")
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
 #'
 #' @import dplyr
 #' @importFrom broom glance
@@ -44,7 +44,7 @@
 
 Analyze_Wilcoxon <- function(
   dfTransformed,
-  strOutcomeCol = NULL,
+  strOutcomeCol = "KRI",
   strPredictorCol = "SiteID",
   bQuiet = TRUE
 ) {
@@ -62,7 +62,9 @@ Analyze_Wilcoxon <- function(
     "@param:strOutcomeCol or @param:strPredictorCol not found in @param:dfTransformed" =
       all(c(strPredictorCol, strOutcomeCol) %in% names(dfTransformed)),
     "NA value(s) found in @param:strPredictorCol" =
-      all(!is.na(dfTransformed[[strPredictorCol]]))
+      all(!is.na(dfTransformed[[strPredictorCol]])),
+    "One or more of these columns not found: SiteID, N, TotalExposure, TotalCount, KRI, KRILabel" =
+      all(c("SiteID", "N", "TotalExposure", "TotalCount", "KRI", "KRILabel") %in% names(dfTransformed))
   )
 
   wilcoxon_model <- function(predictorValue) {
@@ -126,6 +128,9 @@ Analyze_Wilcoxon <- function(
 
   return(
     dfAnalyzed %>%
-      select(names(dfTransformed), .data$Estimate, .data$PValue)
+      select(names(dfTransformed), .data$Estimate, Score = .data$PValue) %>%
+      mutate(
+        ScoreLabel = "P value"
+      )
   )
 }

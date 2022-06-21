@@ -8,6 +8,7 @@ IE_Assess(
   dfInput,
   nThreshold = 0.5,
   lTags = list(Assessment = "IE"),
+  strKRILabel = "# of Inclusion/Exclusion Issues",
   bChart = TRUE,
   bReturnChecks = FALSE,
   bQuiet = TRUE
@@ -18,11 +19,13 @@ IE_Assess(
 
 \item{nThreshold}{\code{numeric} Threshold specification. Default: \code{0.5}}
 
-\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment="IE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
+\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment = "IE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
+
+\item{strKRILabel}{\code{character} KRI description. Default: \code{"# of Inclusion/Exclusion Issues"}}
 
 \item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
 
-\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -50,13 +53,12 @@ IE_Assess(
 }
 }
 \description{
-Flag sites exhibiting aberrant or excessive rates of unmet or missing inclusion/exclusion (IE) criteria.
+Evaluates sites exhibiting aberrant or excessive rates of unmet or missing inclusion/exclusion (IE) criteria.
 }
 \details{
-The IE Assessment uses the standard \href{https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette}{GSM data pipeline} to flag sites with IE issues. This assessment detects sites with excessive rates of unmet or
+The IE Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag sites with IE issues. This assessment detects sites with excessive rates of unmet or
 missing IE criteria, as defined by \code{nThreshold}. The count returned in the summary represents the
-number of subjects at a given site with at least one unmet or missing IE criterion. Additional
-details regarding the data pipeline and statistical methods are described below.
+number of subjects at a given site with at least one unmet or missing IE criterion.
 }
 \section{Data specification}{
 \tabular{lllll}{

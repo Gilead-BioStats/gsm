@@ -7,7 +7,10 @@ test_that("output created as expected and has correct structure", {
   ae_anly <- Analyze_Poisson(ae_prep)
   expect_true(is.data.frame(ae_anly))
   expect_equal(sort(unique(ae_input$SiteID)), sort(ae_anly$SiteID))
-  expect_equal(names(ae_anly), c("SiteID", "N", "TotalExposure", "TotalCount", "Rate", "Residuals", "PredictedCount"))
+  expect_equal(names(ae_anly), c(
+    "SiteID", "N", "TotalCount", "TotalExposure", "KRI", "KRILabel",
+    "Score", "ScoreLabel", "PredictedCount"
+  ))
 })
 
 test_that("incorrect inputs throw errors", {
@@ -42,4 +45,11 @@ test_that("NA values are caught", {
   # expect_error(createNA("TotalCount"))
   # expect_error(createNA("TotalExposure"))
   # expect_error(createNA("Rate"))
+})
+
+test_that("bQuiet works as intended", {
+  dfTransformed <- Transform_EventCount(ae_input, strCountCol = "Count", strExposureCol = "Exposure")
+  expect_snapshot(
+    dfAnalyzed <- Analyze_Poisson(dfTransformed, bQuiet = FALSE)
+  )
 })

@@ -46,20 +46,21 @@ AE_Map_Adam <- function(
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
-  # TODO: Use predefined mapping, which does not currently exist in {clindata}.
-  if (is.null(lMapping)) {
-    lMapping <- list(
-      dfADSL = list(strIDCol = "USUBJID", strSiteCol = "SITEID", strStartCol = "TRTSDT", strEndCol = "TRTEDT"),
-      dfADAE = list(strIDCol = "USUBJID")
-    )
-  }
+  stopifnot(
+    "bReturnChecks must be logical" = is.logical(bReturnChecks),
+    "bQuiet must be logical" = is.logical(bQuiet)
+  )
 
-  checks <- gsm::CheckInputs(
+  checks <- CheckInputs(
     context = "AE_Map_Adam",
     dfs = dfs,
     bQuiet = bQuiet,
     mapping = lMapping
   )
+
+  if (is.null(lMapping)) {
+    lMapping <- checks$mapping
+  }
 
   # Run mapping if checks passed.
   if (checks$status) {

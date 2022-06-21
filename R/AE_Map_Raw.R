@@ -12,9 +12,10 @@
 #' AEs by passing filtered AE data to `dfAE`.
 #'
 #' @param dfs `list` Input data frames:
-#'  - `dfAE`: `data.frame` Event-level data with one record per AE.
-#'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
-#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column.
+#'   - `dfAE`: `data.frame` Event-level data with one record per AE.
+#'   - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
+#'   of the column.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -26,14 +27,14 @@
 #' @includeRmd ./man/md/AE_Map_Raw.md
 #'
 #' @examples
-#' # Run with defaults
+#' # Run with defaults.
 #' dfInput <- AE_Map_Raw()
 #'
-#' # Run with error checking and message log
+#' # Run with error checking and message log.
 #' dfInput <- AE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
-#' @import dplyr
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
+#' @import dplyr
 #'
 #' @export
 
@@ -46,7 +47,12 @@ AE_Map_Raw <- function(
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
-  checks <- gsm::CheckInputs(
+  stopifnot(
+    "bReturnChecks must be logical" = is.logical(bReturnChecks),
+    "bQuiet must be logical" = is.logical(bQuiet)
+  )
+
+  checks <- CheckInputs(
     context = "AE_Map_Raw",
     dfs = dfs,
     bQuiet = bQuiet,

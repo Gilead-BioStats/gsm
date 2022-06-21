@@ -14,7 +14,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   t1_2_input <- dfInput
 
   t1_2_transformed <- dfInput %>%
-    qualification_transform_counts()
+    qualification_transform_counts(KRILabel = "AEs/Week")
 
   t1_2_analyzed <- t1_2_transformed %>%
     qualification_analyze_poisson()
@@ -25,12 +25,12 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
     mutate(
       ThresholdLow = -3,
       ThresholdHigh = 3,
-      ThresholdCol = "Residuals",
+      ThresholdCol = "Score",
       Flag = case_when(
-        Residuals < -3 ~ -1,
-        Residuals > 3 ~ 1,
-        is.na(Residuals) ~ NA_real_,
-        is.nan(Residuals) ~ NA_real_,
+        Score < -3 ~ -1,
+        Score > 3 ~ 1,
+        is.na(Score) ~ NA_real_,
+        is.nan(Score) ~ NA_real_,
         TRUE ~ 0
       ),
     ) %>%
@@ -38,11 +38,10 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
 
   t1_2_summary <- t1_2_flagged %>%
     mutate(
-      Assessment = "AE",
-      Score = Residuals
+      Assessment = "AE"
     ) %>%
-    select(SiteID, N, Score, Flag, Assessment) %>%
-    arrange(desc(abs(Score))) %>%
+    select(SiteID, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
+    arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t1_2 <- list(

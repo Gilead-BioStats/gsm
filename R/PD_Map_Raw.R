@@ -5,7 +5,7 @@
 #' input data to [gsm::PD_Assess()].
 #'
 #' @details
-#' `PD_Map_Raw` combines PD data with subject-level treatment exposure data to create formatted
+#' `PD_Map_Raw` combines PD data with subject-level study duration data to create formatted
 #' input data to [gsm::PD_Assess()]. This function creates an input dataset for the PD Assessment
 #' ([gsm::PD_Assess()]) by binding subject-level PD counts (derived from `dfPD`) to subject-level
 #' data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
@@ -14,8 +14,9 @@
 #' @param dfs `list` Input data frames:
 #'   - `dfPD`: `data.frame` Event-level data with one record per PD.
 #'   - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
-#' @param lMapping `list` Column metadata with structure `domain$key`, where `key contains the name of the column.
-#' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
+#'   of the column.
+#' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` Data frame with one record per subject, the input to [gsm::PD_Assess()]. If
@@ -26,14 +27,14 @@
 #' @includeRmd ./man/md/PD_Map_Raw.md
 #'
 #' @examples
-#' # Run with defaults
+#' # Run with defaults.
 #' dfInput <- PD_Map_Raw()
 #'
-#' # Run with error checking and message log
+#' # Run with error checking and message log.
 #' dfInput <- PD_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
-#' @import dplyr
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
+#' @import dplyr
 #'
 #' @export
 
@@ -46,6 +47,11 @@ PD_Map_Raw <- function(
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
+  stopifnot(
+    "bReturnChecks must be logical" = is.logical(bReturnChecks),
+    "bQuiet must be logical" = is.logical(bQuiet)
+  )
+
   checks <- CheckInputs(
     context = "PD_Map_Raw",
     dfs = dfs,

@@ -1,7 +1,6 @@
-label: Treatment-Emergent Adverse Events
 tags:
   Assessment: Safety
-  Label: AEs
+  Label: AEs Serious
 workflow:
   - name: FilterDomain
     inputs: dfAE
@@ -10,8 +9,15 @@ workflow:
       strDomain: dfAE
       strColParam: strTreatmentEmergentCol
       strValParam: strTreatmentEmergentVal
+  - name: FilterDomain
+    inputs: dfAE
+    output: dfAE
+    params:
+      strDomain: dfAE
+      strColParam: strSeriousCol
+      strValParam: strSeriousVal
   - name: AE_Map_Raw
-    inputs: 
+    inputs:
       - dfAE
       - dfSUBJ
     output: dfInput
@@ -19,4 +25,6 @@ workflow:
     inputs: dfInput
     output: lResults
     params:
+      vThreshold: null
       strMethod: "poisson"
+      strKRILabel: "Serious Treatment-Emergent AEs/Week"

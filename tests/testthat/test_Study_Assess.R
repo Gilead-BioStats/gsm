@@ -25,7 +25,6 @@ test_that("output is created as expected", {
 # metadata is returned as expected ----------------------------------------
 test_that("metadata is returned as expected", {
   ae <- result$ae
-  expect_equal(ae$label, "Treatment-Emergent Adverse Events")
   expect_equal(ae$tags, list(Assessment = "Safety", Label = "AEs"))
   expect_equal(ae$lResults$strFunctionName, "AE_Assess()")
   expect_equal(ae$workflow[[1]], list(
@@ -111,7 +110,7 @@ test_that("custom lAssessments runs as intended", {
   custom_assessments <- MakeAssessmentList()
   custom_assessments$ie$workflow <- NULL
   result <- Study_Assess(lAssessments = custom_assessments)
-  expect_equal(length(result$ie), 7)
+  expect_equal(length(result$ie), 6)
 })
 
 test_that("bQuiet works as intended", {
@@ -221,13 +220,12 @@ test_that("lSubjFilters with 0 rows returns NULL", {
 })
 
 test_that("correct bStatus is returned when workflow is missing", {
-
   custom_assessments <- MakeAssessmentList()
   custom_assessments$ie$workflow <- NULL
   result <- Study_Assess(
     lData = lData,
     lAssessments = custom_assessments
-    )
+  )
 
   expect_false(result$ie$bStatus)
 })

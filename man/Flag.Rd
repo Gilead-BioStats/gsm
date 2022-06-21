@@ -2,11 +2,11 @@
 % Please edit documentation in R/Flag.R
 \name{Flag}
 \alias{Flag}
-\title{Make data frame with flagged values}
+\title{Flag}
 \usage{
 Flag(
   dfAnalyzed,
-  strColumn = "PValue",
+  strColumn = "Score",
   vThreshold = c(0.05, NA),
   strValueColumn = NULL
 )
@@ -23,16 +23,14 @@ values in strColumn are compared to vThreshold using strict comparisons. Values 
 is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.}
 }
 \value{
-input data frame with the columns added for "ThresholdLow","ThresholdHigh","ThresholdCol"
+\code{data.frame} with columns added for "ThresholdLow","ThresholdHigh","ThresholdCol"
 and "Flag"
 }
 \description{
-Adds columns flagging sites that represent possible statistical outliers. Rows with PValue less
-than 0.05 are flagged by default.
+Add columns flagging sites that represent possible statistical outliers.
 }
 \details{
-This function provides a generalized framework for flagging sites as part of the GSM data
-pipeline (TODO add link to data vignette).
+This function provides a generalized framework for flagging sites as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
 }
 \section{Data Specification}{
 
@@ -53,11 +51,11 @@ In short, the following columns are considered:
 
 \examples{
 dfInput <- AE_Map_Adam()
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
-dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, "Rate")
-dfFlagged <- Flag(dfAnalyzed) # PValue < 0.05 flagged
+dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+dfFlagged <- Flag(dfAnalyzed) # P value (dfAnalyzed$Score) < 0.05 flagged
 dfFlagged10 <- Flag(dfAnalyzed, vThreshold = c(0.10, NA)) # PValue <0.10 flagged
 # Flag direction set based on 'Statistic' column
-dfFlagged <- Flag(dfAnalyzed, strColumn = "PValue", strValueColumn = "Estimate")
+dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
 
 }

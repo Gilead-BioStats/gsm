@@ -1,5 +1,5 @@
 source(testthat::test_path("testdata/data.R"))
-sae_meta <- yaml::read_yaml(system.file("assessments/sae.yaml", package = "gsm"))
+sae_meta <- yaml::read_yaml(system.file("workflow/sae.yaml", package = "gsm"))
 rawDataMap <- clindata::mapping_rawplus
 
 dfAE <- dfAE %>%
@@ -38,8 +38,6 @@ test_that("Assessment correctly labeled as valid", {
 })
 
 test_that("workflow with multiple FilterDomain steps is reported correctly", {
-
-
   dfAE <- data.frame(
     stringsAsFactors = FALSE,
     SubjectID = c("1234", "1234", "5678", "5678"),

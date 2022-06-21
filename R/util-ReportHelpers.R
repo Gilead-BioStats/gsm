@@ -1,9 +1,11 @@
-
-#' insert icon for status in gt table
+#' Report Helper Functions
 #'
-#' from https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/
+#' @description
+#' `rank_chg` - inserts icons for status in {gt} table.
 #'
-#' @param status boolean status
+#' Adopted from https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/.
+#'
+#' @param status `boolean` fontawesome emoji indicator that describes the status of error checking for all assessments run in `Study_Assess()`
 #'
 #' @importFrom fontawesome fa
 #' @importFrom gt gt

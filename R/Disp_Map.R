@@ -18,7 +18,7 @@
 #' @param strReason character string containing reason for discontinuation. Can be a value found in `dfDisp$strCol` or "any" (the default), which selects all reasons not included in `vReasonIgnore`
 #' @param vReasonIgnore character vector containing reasons to ignore when counting Discontinuation Reason (i.e., "Completed", "", etc.)
 #'
-#' @return Data frame with one record per person with columns: SubjectID, SiteID, Count, and the value passed to strCol.
+#' @return `data.frame` with one record per person with columns: SubjectID, SiteID, Count, and the value passed to strCol.
 #'
 #' @examples
 #' df <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "adverse event")
@@ -42,7 +42,7 @@ Disp_Map <- function(dfDisp, strCol, strReason = "any", vReasonIgnore = c("", " 
     select(
       SubjectID = .data$SUBJID,
       SiteID = .data$SITEID,
-      strCol
+      all_of(strCol)
     ) %>%
     mutate(Count = case_when(
       tolower(strReason) == "any" & !(tolower(.data[[strCol]]) %in% tolower(vReasonIgnore)) ~ 1,

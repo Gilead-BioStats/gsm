@@ -1,6 +1,6 @@
 #' Parse Data Mapping
 #'
-#' Transform nested data mapping to tabular structure
+#' Transform nested data mapping to tabular structure for use in documentation.
 #'
 #' @param content `list` data mapping
 #' @param file `character` file path of .yaml file

@@ -1,11 +1,9 @@
-#' Make data frame with flagged values
+#' Flag
 #'
-#' Adds columns flagging sites that represent possible statistical outliers. Rows with PValue less
-#' than 0.05 are flagged by default.
+#' Add columns flagging sites that represent possible statistical outliers.
 #'
 #' @details
-#' This function provides a generalized framework for flagging sites as part of the GSM data
-#' pipeline (TODO add link to data vignette).
+#' This function provides a generalized framework for flagging sites as part of the [GSM data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
 #'
 #' @section Data Specification:
 #' \code{Flag} is designed to support the input data (` dfAnalyzed`) input data from many different
@@ -27,17 +25,17 @@
 #' @param strValueColumn Optional, Name of the Column to use for sign of Flag. If value for that row
 #' is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.
 #'
-#' @return input data frame with the columns added for "ThresholdLow","ThresholdHigh","ThresholdCol"
+#' @return `data.frame` with columns added for "ThresholdLow","ThresholdHigh","ThresholdCol"
 #' and "Flag"
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
-#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, "Rate")
-#' dfFlagged <- Flag(dfAnalyzed) # PValue < 0.05 flagged
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+#' dfFlagged <- Flag(dfAnalyzed) # P value (dfAnalyzed$Score) < 0.05 flagged
 #' dfFlagged10 <- Flag(dfAnalyzed, vThreshold = c(0.10, NA)) # PValue <0.10 flagged
 #' # Flag direction set based on 'Statistic' column
-#' dfFlagged <- Flag(dfAnalyzed, strColumn = "PValue", strValueColumn = "Estimate")
+#' dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
 #'
 #' @import dplyr
 #' @importFrom stats median
@@ -46,7 +44,7 @@
 
 Flag <- function(
   dfAnalyzed,
-  strColumn = "PValue",
+  strColumn = "Score",
   vThreshold = c(0.05, NA),
   strValueColumn = NULL
 ) {
@@ -98,7 +96,8 @@ Flag <- function(
       )
   }
 
-  dfFlagged <- dfFlagged %>% arrange(match(.data$Flag, c(1, -1, 0)))
+  dfFlagged <- dfFlagged %>%
+    arrange(match(.data$Flag, c(1, -1, 0)))
 
   return(dfFlagged)
 }

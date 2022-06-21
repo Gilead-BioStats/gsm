@@ -20,11 +20,11 @@
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return input data.frame with columns added for "Residuals" and "PredictedCount"
+#' @return `data.frame` with columns added for "Residuals" and "PredictedCount".
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
 #' dfAnalyzed <- Analyze_Poisson(dfTransformed)
 #'
 #' @import dplyr
@@ -38,7 +38,8 @@
 Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns: SiteID, N, TotalExposure, TotalCount, Rate" = all(c("SiteID", "N", "TotalExposure", "TotalCount", "Rate") %in% names(dfTransformed)),
+    "One or more of these columns not found: SiteID, N, TotalExposure, TotalCount, KRI, KRILabel" =
+      all(c("SiteID", "N", "TotalExposure", "TotalCount", "KRI", "KRILabel") %in% names(dfTransformed)),
     "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]]))
   )
 
@@ -60,12 +61,21 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
   )
 
   dfAnalyzed <- broom::augment(cModel, dfModel, type.predict = "response") %>%
-    rename(
-      Residuals = .data$.resid,
-      PredictedCount = .data$.fitted,
+    mutate(
+      ScoreLabel = "Residuals"
     ) %>%
-    select(.data$SiteID, .data$N, .data$TotalExposure, .data$TotalCount, .data$Rate, .data$Residuals, .data$PredictedCount) %>%
-    arrange(.data$Residuals)
+    select(
+      .data$SiteID,
+      .data$N,
+      .data$TotalCount,
+      .data$TotalExposure,
+      .data$KRI,
+      .data$KRILabel,
+      Score = .data$.resid,
+      .data$ScoreLabel,
+      PredictedCount = .data$.fitted
+    ) %>%
+    arrange(.data$Score)
 
   return(dfAnalyzed)
 }

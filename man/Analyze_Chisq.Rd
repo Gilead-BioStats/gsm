@@ -14,7 +14,7 @@ Analyze_Chisq(dfTransformed, strOutcome = "TotalCount", bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-data.frame with one row per site, columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue
+\code{data.frame} with one row per site with columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue.
 }
 \description{
 Creates Analysis results data for count data using the chi-squared test
@@ -41,7 +41,7 @@ The input data (\code{dfTransformed}) for Analyze_Chisq is typically created usi
 
 \examples{
 dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "Adverse Event")
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count")
+dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strKRILabel = "Discontinuations due to AE/Month")
 dfAnalyzed <- Analyze_Chisq(dfTransformed)
 
 }

@@ -22,16 +22,16 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
-#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed, "Rate")
-#' dfFlagged <- Flag(dfAnalyzed, strColumn = "PValue", strValueColumn = "Rate")
+#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+#' dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
 #' dfSummary <- Summarize(dfFlagged)
 #'
 #' @import dplyr
 #'
 #' @export
 
-Summarize <- function(dfFlagged, strScoreCol = "PValue", lTags = NULL) {
+Summarize <- function(dfFlagged, strScoreCol = "Score", lTags = NULL) {
   stopifnot(
     "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
     "One or more of these columns: SiteID, N, Flag , strScoreCol, not found in dfFlagged" = all(c("SiteID", "N", "Flag", strScoreCol) %in% names(dfFlagged))
@@ -45,11 +45,18 @@ Summarize <- function(dfFlagged, strScoreCol = "PValue", lTags = NULL) {
   }
 
   dfSummary <- dfFlagged %>%
-    rename(Score = strScoreCol) %>%
-    select(.data$SiteID, .data$N, .data$Score, .data$Flag) %>%
-    arrange(desc(abs(.data$Score))) %>%
+    select(
+      .data$SiteID,
+      .data$N,
+      .data$KRI,
+      .data$KRILabel,
+      .data$Score,
+      .data$ScoreLabel,
+      .data$Flag
+    ) %>%
+    arrange(desc(abs(.data$KRI))) %>%
     arrange(match(.data$Flag, c(1, -1, 0))) %>%
-    bind_cols(lTags)
+    bind_cols(lTags[!names(lTags) %in% names(.data)])
 
   return(dfSummary)
 }

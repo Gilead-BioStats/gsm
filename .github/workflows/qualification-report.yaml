@@ -43,7 +43,7 @@ jobs:
           devtools::install(dependencies=TRUE)
 
       - name: build vignette
-        run: tools::buildVignette("./vignettes/Qualification.Rmd")
+        run: tools::buildVignette("./vignettes/articles/Qualification.Rmd")
         shell: Rscript {0}
 
 
