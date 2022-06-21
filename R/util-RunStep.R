@@ -55,6 +55,8 @@ RunStep <- function(lStep, lMapping, lData, lTags, bQuiet) {
     if (is.null(params$df)) {
       params$df <- NA
     }
+  } else if (lStep$name == "MakeStrata"){
+    params$df <- lData[[lStep$inputs]]
   }
 
   cli::cli_text("Calling {.fn {lStep$name}} ...")
