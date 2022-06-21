@@ -1,0 +1,11 @@
+dfDISP:
+  strIDCol: "USUBJID"
+  strSiteCol: "SITEID"
+  strDCCol: "DCREASCD"
+  strIgnoreVal:
+    - ""
+    - " "
+    - "completed"
+  bIgnoreVal:
+    - NA
+

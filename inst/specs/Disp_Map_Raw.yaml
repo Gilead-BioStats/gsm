@@ -1,0 +1,7 @@
+dfDISP:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+    - strDCCol
+  vNACols:
+    - strDCCol
