@@ -57,26 +57,26 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
         names(lAssessment$checks)[[stepCount]] <- step$name
         lAssessment$bStatus <- result$lChecks$status
         if (result$lChecks$status) {
-          cli::cli_alert_success("{.fn {step$name}} Successful")
+          if(!bQuiet) cli::cli_alert_success("{.fn {step$name}} Successful")
         } else {
-          cli::cli_alert_warning("{.fn {step$name}} Failed - Skipping remaining steps")
+          if(!bQuiet) cli::cli_alert_warning("{.fn {step$name}} Failed - Skipping remaining steps")
         }
 
         if (stringr::str_detect(step$output, "^df")) {
-          cli::cli_text("Saving {step$output} to `lAssessment$lData`")
+          if(!bQuiet) cli::cli_text("Saving {step$output} to `lAssessment$lData`")
           lAssessment$lData[[step$output]] <- result$df
         } else {
-          cli::cli_text("Saving {step$output} to `lAssessment`")
+          if(!bQuiet) cli::cli_text("Saving {step$output} to `lAssessment`")
           lAssessment[[step$output]] <- result
         }
       } else {
-        cli::cli_text("Skipping {.fn {step$name}} ...")
+        if(!bQuiet) cli::cli_text("Skipping {.fn {step$name}} ...")
       }
 
       stepCount <- stepCount + 1
     }
   } else {
-    cli::cli_alert_warning("Workflow not found for {lAssessment$name} assessment - Skipping remaining steps")
+    if(!bQuiet) cli::cli_alert_warning("Workflow not found for {lAssessment$name} assessment - Skipping remaining steps")
     lAssessment$bStatus <- FALSE
   }
 

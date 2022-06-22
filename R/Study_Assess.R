@@ -63,8 +63,6 @@ Study_Assess <- function(
     lAssessments <- MakeAssessmentList()
   }
 
-  print(names(lAssessments))
-
   # Convert grouped assessments into separate assessments for each group level
   for(lAssessment in lAssessments){
     if(hasName(lAssessment,"group")){
@@ -79,8 +77,6 @@ Study_Assess <- function(
       lAssessments <- c(lAssessments, StratifiedAssessment)
     }
   } 
-
-  print(names(lAssessments))
 
   # Filter data$dfSUBJ based on lSubjFilters --------------------------------
   if (!is.null(lSubjFilters)) {
@@ -114,11 +110,11 @@ Study_Assess <- function(
         )
       )
     } else {
-      cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
+      if(!bQuiet) cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
       lAssessments <- NULL
     }
   } else {
-    cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
+    if(!bQuiet) cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
     lAssessments <- NULL
   }
 

@@ -67,7 +67,7 @@ test_that("workflow with multiple FilterDomain steps is reported correctly", {
   lMapping <- clindata::mapping_rawplus
 
 
-  sae_assessment <- RunAssessment(lAssessments$sae, lData = lData, lMapping = lMapping, lTags = lTags)
+  sae_assessment <- RunAssessment(lAssessments$sae, lData = lData, lMapping = lMapping, lTags = lTags, bQuiet=TRUE)
 
   expect_equal(names(sae_assessment$checks), c("FilterDomain", "FilterDomain", "AE_Map_Raw", "AE_Assess"))
 })

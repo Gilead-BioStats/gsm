@@ -24,7 +24,6 @@ MakeStratifiedAssessment <- function(lAssessment, lMapping, lData){
 
   groupDomain <- lAssessment$group$domain
   groupColumnParam <- lAssessment$group$columnParam
-  cli::cli_text("`{groupDomain} - {groupColumnParam}`")
 
   stopifnot(hasName(lMapping[[groupDomain]], groupColumnParam))
   groupColumn <- lMapping[[groupDomain]][[groupColumnParam]]
