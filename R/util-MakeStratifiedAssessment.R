@@ -16,26 +16,28 @@
 #' @export
 
 MakeStratifiedAssessment <- function(lAssessment, lMapping, lData){
-  # Throw a warning and return null if domain/column doesn't exist in lData
-  # stopifnot(
-  #   !exists('domain', where=lAssessment$group),
-  #   !exists('columnParam', where=lAssessment$group),
-  # )
+  #Throw a warning and return null if domain/column doesn't exist in lData
+  stopifnot(
+    hasName(lAssessment$group, 'domain'),
+    hasName(lAssessment$group, 'columnParam')
+  )
 
   groupDomain <- lAssessment$group$domain
   groupColumnParam <- lAssessment$group$columnParam
+  cli::cli_text("`{groupDomain} - {groupColumnParam}`")
 
-  # stopifnot(!exists(groupColumnParam, where=lMapping))
+  stopifnot(hasName(lMapping[[groupDomain]], groupColumnParam))
   groupColumn <- lMapping[[groupDomain]][[groupColumnParam]]
 
-  # stopifnot(
-  #     !exists(groupDomain, where=lData),
-  #     !exists(groupColumn, where=lData[[groupDomain]])
-  # )
+  stopifnot(
+      hasName(lData, groupDomain),
+      hasName(lData[[groupDomain]], groupColumn)
+  )
 
   # get unique levels of the group column
   groupValues <- unique(lData[[groupDomain]][[groupColumn]])
-  # stopifnot(length(groupValues >= 1))
+  print(groupValues)
+  stopifnot(length(groupValues) >= 1)
 
   # add filter to create separate (ungrouped) assessment for each group
   lGroupAssessments <- groupValues %>% imap(function(groupValue, index){ 
@@ -49,8 +51,9 @@ MakeStratifiedAssessment <- function(lAssessment, lMapping, lData){
       inputs= groupDomain,
       output= groupDomain,
       params=list(
-          strCol=groupColumn,
-          strVals=groupValue
+        strDomain=groupDomain,
+        strCol=groupColumn,
+        strVal=groupValue
       ))
     )
     thisAssessment$workflow <- c(lStrata, lAssessment$workflow)

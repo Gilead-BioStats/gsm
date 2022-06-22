@@ -1,0 +1,26 @@
+tags:
+  Assessment: Safety
+  Label: AEs - Grade
+group:
+  domain: dfAE
+  columnParam: strGradeCol
+workflow:
+  - name: FilterDomain
+    inputs: dfAE
+    output: dfAE
+    params:
+      strDomain: dfAE
+      strColParam: strTreatmentEmergentCol
+      strValParam: strTreatmentEmergentVal
+  - name: AE_Map_Raw
+    inputs:
+      - dfAE
+      - dfSUBJ
+    output: dfInput
+  - name: AE_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      vThreshold: null
+      strMethod: "poisson"
+      strKRILabel: "Treatment-Emergent AEs/Week"
