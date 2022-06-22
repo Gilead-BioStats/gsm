@@ -30,7 +30,7 @@ Utility function for creating analysis strata
 
 strata1 <- MakeStrata(
   df = clindata::rawplus_ae,
-  strDomain = 'dfAE'
+  strDomain = 'dfAE',
   strCol = "AE_SERIOUS",
   strVal = "No"
 )

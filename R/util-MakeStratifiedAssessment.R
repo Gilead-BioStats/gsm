@@ -6,7 +6,14 @@
 #'
 #' @examples
 #' 
-#' assessment_strata <- MakeStratifiedAssessment()
+#' StratifiedAE <- MakeStratifiedAssessment(
+#'    lData=list(
+#'      dfSUBJ = clindata::rawplus_subj,
+#'      dfAE = clindata::rawplus_ae
+#'    ), 
+#'    lMapping=clindata::mapping_rawplus,
+#'    lAssessment= MakeAssessmentList()$aeGrade
+#'  )
 #'
 #' @return `list` A list of assessments for each specified strata 
 #'
