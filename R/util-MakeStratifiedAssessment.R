@@ -36,7 +36,6 @@ MakeStratifiedAssessment <- function(lAssessment, lMapping, lData){
 
   # get unique levels of the group column
   groupValues <- unique(lData[[groupDomain]][[groupColumn]])
-  print(groupValues)
   stopifnot(length(groupValues) >= 1)
 
   # add filter to create separate (ungrouped) assessment for each group

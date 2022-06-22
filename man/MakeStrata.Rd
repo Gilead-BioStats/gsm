@@ -4,18 +4,20 @@
 \alias{MakeStrata}
 \title{Utility function for creating analysis strata}
 \usage{
-MakeStrata(df, strCol, strVals, bReturnChecks = FALSE, bQuiet = TRUE)
+MakeStrata(df, strDomain, strCol, strVal, bReturnChecks = FALSE, bQuiet = TRUE)
 }
 \arguments{
 \item{df}{\code{data.frame} A data.frame to be filtered, likely within a mapping function.}
 
+\item{strDomain}{\code{character} Domain step that is being stratified.}
+
 \item{strCol}{\code{character} Domain in \code{lMapping} that references the column to filter on.}
+
+\item{strVal}{\code{character} Domain in \code{lMapping} that references the value to filter on.}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
-
-\item{strVal}{\code{character} Domain in \code{lMapping} that references the value to filter on.}
 }
 \value{
 \code{data.frame} Data frame provided as \code{df} and filtered on \code{strCol} == \code{strVal}.
@@ -26,8 +28,9 @@ Utility function for creating analysis strata
 }
 \examples{
 
-strata1 <- FilterStrata(
+strata1 <- MakeStrata(
   df = clindata::rawplus_ae,
+  strDomain = 'dfAE'
   strCol = "AE_SERIOUS",
   strVal = "No"
 )
