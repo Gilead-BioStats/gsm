@@ -40,7 +40,7 @@ The input data (\code{dfTransformed}) for Analyze_Fisher is typically created us
 }
 
 \examples{
-dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "Adverse Event")
+dfInput <- Disp_Map_Raw(strReason = "Adverse Event")
 dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strKRILabel = "Discontinuations due to AE")
 dfAnalyzed <- Analyze_Fisher(dfTransformed)
 

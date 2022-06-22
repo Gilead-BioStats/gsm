@@ -1,8 +1,7 @@
 source(testthat::test_path("testdata/data.R"))
 
-dfInput <- Disp_Map(
-  dfDisp,
-  strCol = "DCREASCD",
+dfInput <- Disp_Map_Raw(
+  dfs = list(dfDISP = dfDISP),
   strReason = "Adverse Event"
 )
 

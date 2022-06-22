@@ -39,7 +39,7 @@ dfCONSENT <- data.frame(
 # dfDisp = safetyData::adam_adsl %>%
 #   select("SUBJID", "SITEID", "DCREASCD") %>%
 #   head(2)
-dfDisp <- tibble::tribble(
+dfDISP <- tibble::tribble(
   ~SUBJID, ~SITEID, ~DCREASCD,
   "1234", "701", "Completed",
   "5678", "701", "Adverse Event",

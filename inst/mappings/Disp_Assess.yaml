@@ -1,0 +1,5 @@
+dfInput:
+  strIDCol: "SubjectID"
+  strSiteCol: "SiteID"
+  strDCCol: "Reason"
+  strCountCol: "Count"
