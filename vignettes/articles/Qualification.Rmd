@@ -47,13 +47,15 @@ pander::pandoc.p('\\pagebreak')
 
 # ```gsm``` Imports
 
+This section outlines the ```riskmetric``` scores for all of the R packages which ```gsm``` imports for use within the package.  When interpreting the pkg_score, the scale goes from 1 into the negatives. The farther a number is from 1 the better the score is for the package.
+
 ```{r riskmetric, warning = FALSE}
-import_risk <- strsplit(devtools::as.package(".")$imports, ",\n")[[1]] %>% 
+import_risk <- strsplit(devtools::as.package(here::here())$imports, ",\n")[[1]] %>% 
   map_chr(~gsub( " .*$", "", .x )) %>% 
   pkg_ref() %>%
   pkg_assess() %>%
   pkg_score() %>% 
-  select("package", "version", "pkg_ref", "pkg_score")
+  select("package", "version", "pkg_score")
 pander::pandoc.table(import_risk, style = "grid")
 ```
 
