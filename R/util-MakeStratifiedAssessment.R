@@ -1,24 +1,24 @@
 #' Create multiple Assessment workflows for a stratified assessment
 #'
-#' @param lData a named list of domain level data frames. 
-#' @param lMapping a named list identifying the columns needed in each data domain.
-#' @param lAssessment a named list of metadata defining how an assessment should be run. 
+#' @param lData `list` A named list of domain-level data frames. 
+#' @param lMapping `list` A named list identifying the columns needed in each data domain.
+#' @param lAssessment `list` A named list of metadata defining how an assessment should be run. 
 #'
 #' @examples
 #' 
 #' StratifiedAE <- MakeStratifiedAssessment(
-#'    lData=list(
+#'    lData = list(
 #'      dfSUBJ = clindata::rawplus_subj,
 #'      dfAE = clindata::rawplus_ae
 #'    ), 
-#'    lMapping=clindata::mapping_rawplus,
-#'    lAssessment= MakeAssessmentList()$aeGrade
+#'    lMapping = clindata::mapping_rawplus,
+#'    lAssessment = MakeAssessmentList()$aeGrade
 #'  )
 #'
 #' @return `list` A list of assessments for each specified strata 
 #'
 #' @importFrom cli cli_alert_info cli_alert_success cli_alert_warning cli_text
-#' @importFrom purrr imap
+#' @importFrom purrr imap map_chr
 #'
 #' @export
 
@@ -65,6 +65,6 @@ MakeStratifiedAssessment <- function(lAssessment, lMapping, lData){
     return(thisAssessment)
   })
   names(lGroupAssessments) <- lGroupAssessments %>% map_chr(~ .x$name)
-
+if(!bQuiet) cli::cli_alert_info("Stratified assessment workflow created for {lAssessment$name}. Created {length(groupValues)} groups.")
   return(lGroupAssessments)
 }
