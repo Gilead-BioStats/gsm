@@ -3,7 +3,8 @@
 #' @param lData `list` A named list of domain-level data frames. 
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param lAssessment `list` A named list of metadata defining how an assessment should be run. 
-#'
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#' 
 #' @examples
 #' 
 #' StratifiedAE <- MakeStratifiedAssessment(

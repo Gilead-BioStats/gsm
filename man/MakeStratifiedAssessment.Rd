@@ -4,7 +4,7 @@
 \alias{MakeStratifiedAssessment}
 \title{Create multiple Assessment workflows for a stratified assessment}
 \usage{
-MakeStratifiedAssessment(lAssessment, lMapping, lData)
+MakeStratifiedAssessment(lAssessment, lMapping, lData, bQuiet = TRUE)
 }
 \arguments{
 \item{lAssessment}{\code{list} A named list of metadata defining how an assessment should be run.}
@@ -12,6 +12,8 @@ MakeStratifiedAssessment(lAssessment, lMapping, lData)
 \item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
 
 \item{lData}{\code{list} A named list of domain-level data frames.}
+
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 \code{list} A list of assessments for each specified strata
