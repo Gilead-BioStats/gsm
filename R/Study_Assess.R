@@ -68,16 +68,16 @@ Study_Assess <- function(
     if(hasName(lAssessment,"group")){
       StratifiedAssessment <- MakeStratifiedAssessment(
         lData = lData,
-        lAssessment = lAssessment, 
+        lAssessment = lAssessment,
         lMapping = lMapping,
         bQuiet=bQuiet
-      ) 
-      
+      )
+
       # replace original assessment with stratified assessment list
-      lAssessments[[lAssessment$name]]<-NULL 
+      lAssessments[[lAssessment$name]]<-NULL
       lAssessments <- c(lAssessments, StratifiedAssessment)
     }
-  } 
+  }
 
   # Filter data$dfSUBJ based on lSubjFilters --------------------------------
   if (!is.null(lSubjFilters)) {
@@ -103,10 +103,10 @@ Study_Assess <- function(
       ### --- Attempt to run each assessment --- ###
       lAssessments <- lAssessments %>% map(
         ~ gsm::RunAssessment(
-          .x, 
-          lData = lData, 
-          lMapping = lMapping, 
-          lTags = lTags, 
+          .x,
+          lData = lData,
+          lMapping = lMapping,
+          lTags = lTags,
           bQuiet = bQuiet
         )
       )
@@ -117,6 +117,14 @@ Study_Assess <- function(
   } else {
     if(!bQuiet) cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
     lAssessments <- NULL
+  }
+
+  flowcharts <- Visualize_Workflow(lAssessments)
+
+  for(f in names(flowcharts)) {
+    if (f %in% names(lAssessments)){
+      lAssessments[[f]][["lResults"]][["flowchart"]] <- flowcharts[[f]]
+    }
   }
 
   return(lAssessments)

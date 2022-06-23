@@ -55,20 +55,6 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
           bQuiet = bQuiet
         )
 
-        node_df <- bind_rows(node_df,
-                             map_df(step$inputs, ~tibble(
-                               assessment = lAssessment$name,
-                               n_step = stepCount,
-                               name = step$name,
-                               inputs = .x,
-                               n_row = nrow(lData[[.x]]),
-                               n_col = ncol(lData[[.x]]))) %>%
-                               mutate(checks = result$lChecks$status,
-                                      from = stepCount,
-                                      to = length(lAssessment$workflow[[stepCount]]$inputs) + stepCount,
-                                      n_row_end = ifelse(!is.null(result$newRows), result$newRows, NA))
-        )
-
         lAssessment$checks[[stepCount]] <- result$lChecks
         names(lAssessment$checks)[[stepCount]] <- step$name
         lAssessment$bStatus <- result$lChecks$status
@@ -93,14 +79,6 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
   } else {
     if(!bQuiet) cli::cli_alert_warning("Workflow not found for {lAssessment$name} assessment - Skipping remaining steps")
     lAssessment$bStatus <- FALSE
-  }
-
-  if(lAssessment$bStatus) {
-  lAssessment$lResults$flowchart <- Visualize_Workflow(
-    lAssessment = lAssessment,
-    lResult = result,
-    dfNode = node_df
-    )
   }
 
   return(lAssessment)

@@ -195,7 +195,7 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
   # if not, FALSE
   is_valid <- list(
     status = all(map_lgl(tests_if, ~ .$status)),
-    tests_if = tests_if, 
+    tests_if = tests_if,
     dim = dim
   )
 
