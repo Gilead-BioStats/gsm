@@ -7,11 +7,11 @@
 MakeStratifiedAssessment(lAssessment, lMapping, lData)
 }
 \arguments{
-\item{lAssessment}{a named list of metadata defining how an assessment should be run.}
+\item{lAssessment}{\code{list} A named list of metadata defining how an assessment should be run.}
 
-\item{lMapping}{a named list identifying the columns needed in each data domain.}
+\item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
 
-\item{lData}{a named list of domain level data frames.}
+\item{lData}{\code{list} A named list of domain-level data frames.}
 }
 \value{
 \code{list} A list of assessments for each specified strata
@@ -22,12 +22,12 @@ Create multiple Assessment workflows for a stratified assessment
 \examples{
 
 StratifiedAE <- MakeStratifiedAssessment(
-   lData=list(
+   lData = list(
      dfSUBJ = clindata::rawplus_subj,
      dfAE = clindata::rawplus_ae
    ), 
-   lMapping=clindata::mapping_rawplus,
-   lAssessment= MakeAssessmentList()$aeGrade
+   lMapping = clindata::mapping_rawplus,
+   lAssessment = MakeAssessmentList()$aeGrade
  )
 
 }

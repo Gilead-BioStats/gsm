@@ -8,6 +8,7 @@
     Code
       result <- Study_Assess(lData = lData, bQuiet = FALSE)
     Message <cliMessage>
+      i Stratified assessment workflow created for each level of dfAE$AE_GRADE (n=3).
       
       -- Initializing `ae` assessment ------------------------------------------------
       

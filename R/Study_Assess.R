@@ -69,7 +69,8 @@ Study_Assess <- function(
       StratifiedAssessment <- MakeStratifiedAssessment(
         lData = lData,
         lAssessment = lAssessment, 
-        lMapping = lMapping
+        lMapping = lMapping,
+        bQuiet=bQuiet
       ) 
       
       # replace original assessment with stratified assessment list

@@ -22,7 +22,7 @@
 #'
 #' @export
 
-MakeStratifiedAssessment <- function(lAssessment, lMapping, lData){
+MakeStratifiedAssessment <- function(lAssessment, lMapping, lData, bQuiet=TRUE){
   #Throw a warning and return null if domain/column doesn't exist in lData
   stopifnot(
     hasName(lAssessment$group, 'domain'),
@@ -65,6 +65,7 @@ MakeStratifiedAssessment <- function(lAssessment, lMapping, lData){
     return(thisAssessment)
   })
   names(lGroupAssessments) <- lGroupAssessments %>% map_chr(~ .x$name)
-if(!bQuiet) cli::cli_alert_info("Stratified assessment workflow created for {lAssessment$name}. Created {length(groupValues)} groups.")
+  if(!bQuiet) cli::cli_alert_info("Stratified assessment workflow created for each level of {groupDomain}${groupColumn} (n={length(groupValues)}).")
+  
   return(lGroupAssessments)
 }
