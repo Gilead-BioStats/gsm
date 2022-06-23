@@ -49,6 +49,8 @@ reference:
       - is_mapping_valid
       - MergeSubjects
       - MakeAssessmentList
+      - MakeStrata
+      - MakeStratifiedAssessment
       - RunAssessment
       - FilterDomain
       - RunStep
