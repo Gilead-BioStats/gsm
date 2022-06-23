@@ -54,4 +54,4 @@ Since {gsm} is designed for use in a [GCP](https://en.wikipedia.org/wiki/Good_cl
 - **Regression Testing** - Extensive QC and testing is done before each release. 
 - **Code Formatting** - Code is formatted with {styler} before each release. 
  
-Additional detail, including links to functional documentation and vignettes, is available in the [package website](silver-potato-cfe8c2fb.pages.github.io/).
+Additional detail, including links to functional documentation and vignettes, is available in the [package website](https://silver-potato-cfe8c2fb.pages.github.io/).

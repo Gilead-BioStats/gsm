@@ -63,6 +63,22 @@ Study_Assess <- function(
     lAssessments <- MakeAssessmentList()
   }
 
+  # Convert grouped assessments into separate assessments for each group level
+  for(lAssessment in lAssessments){
+    if(hasName(lAssessment,"group")){
+      StratifiedAssessment <- MakeStratifiedAssessment(
+        lData = lData,
+        lAssessment = lAssessment, 
+        lMapping = lMapping,
+        bQuiet=bQuiet
+      ) 
+      
+      # replace original assessment with stratified assessment list
+      lAssessments[[lAssessment$name]]<-NULL 
+      lAssessments <- c(lAssessments, StratifiedAssessment)
+    }
+  } 
+
   # Filter data$dfSUBJ based on lSubjFilters --------------------------------
   if (!is.null(lSubjFilters)) {
     for (colMapping in names(lSubjFilters)) {
@@ -86,14 +102,20 @@ Study_Assess <- function(
     if (nrow(lData$dfSUBJ > 0)) {
       ### --- Attempt to run each assessment --- ###
       lAssessments <- lAssessments %>% map(
-        ~ gsm::RunAssessment(.x, lData = lData, lMapping = lMapping, lTags = lTags, bQuiet = bQuiet)
+        ~ gsm::RunAssessment(
+          .x, 
+          lData = lData, 
+          lMapping = lMapping, 
+          lTags = lTags, 
+          bQuiet = bQuiet
+        )
       )
     } else {
-      cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
+      if(!bQuiet) cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
       lAssessments <- NULL
     }
   } else {
-    cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
+    if(!bQuiet) cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
     lAssessments <- NULL
   }
 

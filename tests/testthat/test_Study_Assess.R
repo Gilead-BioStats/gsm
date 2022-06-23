@@ -8,7 +8,10 @@ lData <- list(
   dfIE = dfIE
 )
 
-result <- Study_Assess(lData = lData, bQuiet = TRUE)
+lAssessments <- MakeAssessmentList() 
+lAssessments$aeGrade <- NULL # Drop stratified assessment
+
+result <- Study_Assess(lData = lData, lAssessments= lAssessments, bQuiet = TRUE)
 
 
 # output is created as expected -------------------------------------------
@@ -53,7 +56,7 @@ test_that("Study_Assess() runs with missing datasets", {
     dfPD = dfPD
   )
 
-  result <- Study_Assess(lData = lData, bQuiet = TRUE)
+  result <- Study_Assess(lData = lData, lAssessments= lAssessments, bQuiet = TRUE)
 
   expect_true(result$ae$bStatus)
   expect_true(result$sae$bStatus)
@@ -80,7 +83,7 @@ test_that("custom lMapping runs as intended", {
   lMapping <- clindata::mapping_rawplus
   lMapping$dfAE$strIDCol <- "SUBJID"
 
-  result <- Study_Assess(lData = lData, lMapping = lMapping)
+  result <- Study_Assess(lData = lData, lMapping = lMapping, bQuiet=TRUE)
   expect_false(result$ae$bStatus)
   expect_false(result$sae$bStatus)
   expect_false("lResults" %in% names(result$ae))
@@ -91,7 +94,7 @@ test_that("custom lMapping runs as intended", {
   lData$dfAE <- lData$dfAE %>%
     rename(SUBJID = SubjectID)
 
-  result <- Study_Assess(lData = lData, lMapping = lMapping)
+  result <- Study_Assess(lData = lData, lMapping = lMapping, bQuiet=TRUE)
   expect_true(result$ae$bStatus)
   expect_true(result$sae$bStatus)
   expect_true("lResults" %in% names(result$ae))
@@ -103,13 +106,13 @@ test_that("custom lAssessments runs as intended", {
   # remove FilterDomain from workflow
   custom_assessments$ae$workflow[[1]] <- NULL
 
-  result <- Study_Assess(lAssessments = custom_assessments)
+  result <- Study_Assess(lAssessments = custom_assessments, bQuiet=TRUE)
   expect_equal(length(result$ae$workflow), 2)
   expect_true(result$ae$bStatus)
 
   custom_assessments <- MakeAssessmentList()
   custom_assessments$ie$workflow <- NULL
-  result <- Study_Assess(lAssessments = custom_assessments)
+  result <- Study_Assess(lAssessments = custom_assessments, bQuiet=TRUE)
   expect_equal(length(result$ie), 6)
 })
 
@@ -125,7 +128,8 @@ test_that("lTags are carried through", {
       Study = "test study",
       Q = "Q2 2022",
       Region = "Northwest"
-    )
+    ), 
+    bQuiet=TRUE
   )
 
   expect_equal(
@@ -178,15 +182,15 @@ test_that("lTags are carried through", {
 })
 
 test_that("incorrect lTags throw errors", {
-  expect_snapshot_error(Study_Assess(lTags = "hi mom"))
-  expect_snapshot_error(Study_Assess(lTags = list("hi", "mom")))
-  expect_snapshot_error(Study_Assess(lTags = list(greeting = "hi", "mom")))
-  expect_snapshot_error(Study_Assess(lTags = list(Assessment = "this is not an assessment")))
-  expect_snapshot_error(Study_Assess(lTags = list(Label = "this is not a label")))
+  expect_snapshot_error(Study_Assess(lTags = "hi mom", bQuiet=TRUE))
+  expect_snapshot_error(Study_Assess(lTags = list("hi", "mom"), bQuiet=TRUE))
+  expect_snapshot_error(Study_Assess(lTags = list(greeting = "hi", "mom"), bQuiet=TRUE))
+  expect_snapshot_error(Study_Assess(lTags = list(Assessment = "this is not an assessment"), bQuiet=TRUE))
+  expect_snapshot_error(Study_Assess(lTags = list(Label = "this is not a label"), bQuiet=TRUE))
 })
 
 test_that("Map + Assess yields same result as Study_Assess()", {
-  study_assess <- Study_Assess(lData = lData)
+  study_assess <- Study_Assess(lData = lData, bQuiet=TRUE)
   ae_assess <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ)) %>% AE_Assess()
   consent_assess <- Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ)) %>% Consent_Assess()
   ie_assess <- IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ)) %>% IE_Assess()
@@ -213,7 +217,8 @@ test_that("lSubjFilters with 0 rows returns NULL", {
       strSiteCol = "strSiteVal",
       strSiteCol = "strSiteVal2",
       strSiteCol = "strSiteVal3"
-    )
+    ), 
+    bQuiet=TRUE
   )
 
   expect_null(tmp)
@@ -224,7 +229,8 @@ test_that("correct bStatus is returned when workflow is missing", {
   custom_assessments$ie$workflow <- NULL
   result <- Study_Assess(
     lData = lData,
-    lAssessments = custom_assessments
+    lAssessments = custom_assessments, 
+    bQuiet=TRUE
   )
 
   expect_false(result$ie$bStatus)
