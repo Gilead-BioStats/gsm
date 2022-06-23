@@ -30,6 +30,7 @@
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom stringr str_detect
 #' @importFrom yaml read_yaml
+#' @importFrom purrr map_df
 #'
 #' @export
 
@@ -41,6 +42,7 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
   lAssessment$bStatus <- TRUE
   if(exists("workflow", where = lAssessment)) {
     # Run through each step in lAssessment$workflow
+    node_df <- tibble()
     stepCount <- 1
     for (step in lAssessment$workflow) {
       if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lAssessment$workflow), ": `", step$name, "`"))
@@ -51,6 +53,20 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
           lData = lAssessment$lData,
           lTags = c(lTags, lAssessment$tags),
           bQuiet = bQuiet
+        )
+
+        node_df <- bind_rows(node_df,
+                             map_df(step$inputs, ~tibble(
+                               assessment = lAssessment$name,
+                               n_step = stepCount,
+                               name = step$name,
+                               inputs = .x,
+                               n_row = nrow(lData[[.x]]),
+                               n_col = ncol(lData[[.x]]))) %>%
+                               mutate(checks = result$lChecks$status,
+                                      from = stepCount,
+                                      to = length(lAssessment$workflow[[stepCount]]$inputs) + stepCount,
+                                      n_row_end = ifelse(!is.null(result$newRows), result$newRows, NA))
         )
 
         lAssessment$checks[[stepCount]] <- result$lChecks
@@ -72,12 +88,19 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
       } else {
         if(!bQuiet) cli::cli_text("Skipping {.fn {step$name}} ...")
       }
-
       stepCount <- stepCount + 1
     }
   } else {
     if(!bQuiet) cli::cli_alert_warning("Workflow not found for {lAssessment$name} assessment - Skipping remaining steps")
     lAssessment$bStatus <- FALSE
+  }
+
+  if(lAssessment$bStatus) {
+  lAssessment$lResults$flowchart <- Visualize_Workflow(
+    lAssessment = lAssessment,
+    lResult = result,
+    dfNode = node_df
+    )
   }
 
   return(lAssessment)

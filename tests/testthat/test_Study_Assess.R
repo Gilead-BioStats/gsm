@@ -21,7 +21,7 @@ test_that("output is created as expected", {
   expect_true(all(map_chr(result, ~ class(.)) == "list"))
   expect_equal(names(result$ae$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
-    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks"
+    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks", "flowchart"
   ))
 })
 
@@ -70,11 +70,11 @@ test_that("Study_Assess() runs with missing datasets", {
   expect_equal(c("ae", "consent", "ie", "importantpd", "pd", "sae"), names(result))
   expect_equal(names(result$ae$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
-    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks"
+    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks", "flowchart"
   ))
   expect_equal(names(result$pd$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
-    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks"
+    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks", "flowchart"
   ))
 })
 
