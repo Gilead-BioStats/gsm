@@ -123,7 +123,7 @@ Study_Assess <- function(
 
   for(f in names(flowcharts)) {
     if (f %in% names(lAssessments)){
-      lAssessments[[f]][["lResults"]][["flowchart"]] <- flowcharts[[f]]
+      lAssessments[[f]][["lChecks"]][["flowchart"]] <- flowcharts[[f]]
     }
   }
 
