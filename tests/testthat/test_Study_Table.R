@@ -1,4 +1,7 @@
-results <- Study_Assess(bQuiet = TRUE) %>%
+lAssessments <- MakeAssessmentList() 
+lAssessments$aeGrade <- NULL # Drop stratified assessment
+
+results <- Study_Assess(lAssessments= lAssessments, bQuiet = TRUE) %>%
   purrr::map(~ .x$lResults) %>%
   purrr::compact() %>%
   purrr::map_df(~ .x$dfSummary) %>%

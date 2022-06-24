@@ -7,7 +7,8 @@ test_that("basic filter works", {
     lMapping = lMapping,
     strDomain = "dfAE",
     strColParam = "strTreatmentEmergentCol",
-    strValParam = "strTreatmentEmergentVal"
+    strValParam = "strTreatmentEmergentVal",
+    bQuiet=TRUE
   )
   expect_equal(
     ae_test,
@@ -35,7 +36,8 @@ test_that("filter to 0 rows throws a warning", {
       lMapping = lMapping,
       strDomain = "dfAE",
       strColParam = "strTreatmentEmergentCol",
-      strValParam = "strTreatmentEmergentVal"
+      strValParam = "strTreatmentEmergentVal", 
+      bQuiet=TRUE
     ) %>%
       nrow(),
     0

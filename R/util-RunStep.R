@@ -36,7 +36,7 @@
 RunStep <- function(lStep, lMapping, lData, lTags, bQuiet) {
 
   # prepare parameter list inputs
-  cli::cli_text("Preparing parameters for  {.fn {lStep$name}} ...")
+  if(!bQuiet) cli::cli_text("Preparing parameters for  {.fn {lStep$name}} ...")
 
   params <- lStep$params
   params$bQuiet <- bQuiet
@@ -56,8 +56,10 @@ RunStep <- function(lStep, lMapping, lData, lTags, bQuiet) {
     if (is.null(params$df)) {
       params$df <- NA
     }
+  } else if (lStep$name == "MakeStrata"){
+    params$df <- lData[[lStep$inputs]]
   }
 
-  cli::cli_text("Calling {.fn {lStep$name}} ...")
+  if(!bQuiet) cli::cli_text("Calling {.fn {lStep$name}} ...")
   return(do.call(lStep$name, params))
 }
