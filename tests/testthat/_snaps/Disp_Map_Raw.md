@@ -53,7 +53,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strDCCol", "strIgnoreVal", "bIgnoreVal"]
+              "value": ["strIDCol", "strSiteCol", "strDCCol", "strIgnoreVal"]
             }
           },
           "value": [
@@ -75,12 +75,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["", " ", "completed"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["NA"]
+              "value": ["", " ", "completed", "NA"]
             }
           ]
         }

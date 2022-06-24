@@ -44,7 +44,6 @@ Disp_Map_Raw <- function(
 ) {
 
   strIgnore <- lMapping[["dfDISP"]][["strIgnoreVal"]]
-  bIgnore <- as.logical(lMapping[["dfDISP"]][["bIgnoreVal"]])
 
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
@@ -70,13 +69,14 @@ Disp_Map_Raw <- function(
     select(SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
            SiteID = lMapping[["dfDISP"]][["strSiteCol"]],
            Reason = lMapping[["dfDISP"]][["strDCCol"]]) %>%
-    mutate(Reason = tolower(.data$Reason))
+    mutate(Reason = as.character(tolower(.data$Reason)))
 
   dfInput <- dfDISP_mapped %>%
     mutate(Count = case_when(
-      strReason == "any" & !(as.character(Reason) %in% strIgnore) ~ 1,
+      Reason %in% tolower(strIgnore) ~ 0,
+      is.na(Reason) & "NA" %in% strIgnore ~ 0,
+      strReason == "any" ~ 1,
       Reason == tolower(strReason) ~ 1,
-      Reason %in% tolower(strIgnore) | Reason %in% bIgnore ~ 0,
       TRUE ~ 0
     ))
 

@@ -6,6 +6,4 @@ dfDISP:
     - ""
     - " "
     - "completed"
-  bIgnoreVal:
-    - NA
-
+    - "NA"
