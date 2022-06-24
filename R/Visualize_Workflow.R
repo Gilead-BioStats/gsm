@@ -1,14 +1,30 @@
 #' Flowchart visualization of data pipeline steps from filtering to summary data for an assessment workflow.
 #'
-#' @param lAssessment `list` A list of assessment-specific metadata.
-#' @param lResult `list` A list of data and metadata from running any `*_Assess()` function.
-#' @param dfNode `data.frame` A data frame containing metadata from an assessment workflow.
+#' @param lAssessments `list` A list of assessment-specific metadata.
 #'
 #' @return A flowchart of type `grViz`/`htmlwidget`.
 #'
+#' @examples
+#' lAssessments <- MakeAssessmentList()
+#' lData <- list(
+#'   dfSUBJ = clindata::rawplus_subj,
+#'   dfAE = clindata::rawplus_ae,
+#'   dfPD = clindata::rawplus_pd,
+#'   dfCONSENT = clindata::rawplus_consent,
+#'   dfIE = clindata::rawplus_ie
+#' )
+#' lTags <- list(
+#'   Study = "myStudy"
+#' )
+#' lMapping <- clindata::mapping_rawplus
+#'
+#' ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
+#'
+#' Visualize_Workflow(list(ae = ae_assessment))
+#'
 #' @importFrom DiagrammeR create_node_df create_graph render_graph
-#' @importFrom purrr imap_dfr
 #' @importFrom utils head
+#' @import purrr
 #'
 #' @export
 
@@ -19,9 +35,13 @@ Visualize_Workflow <- function(lAssessments) {
   dfFlowchart <- map(lAssessments, function(studyObject) {
     name <- studyObject[["name"]]
     checks <- studyObject[["checks"]]
-    workflow <- studyObject[["workflow"]] %>% set_names(nm = names(checks))
+    workflow <- studyObject[["workflow"]] %>%
+      imap(~append(., list(n_step = .y))) %>%
+      set_names(nm = names(checks))
+
 
     preAssessment <- map2_dfr(checks, workflow, function(checks, workflow){
+
       domains <- workflow$inputs
       map_df(domains, function(x){
         tibble(
@@ -30,16 +50,16 @@ Visualize_Workflow <- function(lAssessments) {
           inputs = x,
           n_row = checks[[x]][["dim"]][1],
           n_col = checks[[x]][["dim"]][2],
-          checks = checks[[x]][["status"]]
+          checks = checks[[x]][["status"]],
+          n_step = workflow[["n_step"]]
         )
       })
     }) %>%
       slice(1:(n()-1)) %>%
       mutate(
-        from = row_number(),
-        n_step = with(rle(name), rep(seq_along(lengths), lengths))
+        from = row_number()
       ) %>%
-      group_by(name) %>%
+      group_by(n_step) %>%
       mutate(
         step = n(),
         to = n_step + step
@@ -73,7 +93,6 @@ Visualize_Workflow <- function(lAssessments) {
   flowcharts <- map(dfFlowchart, function(assessment){
     df <- DiagrammeR::create_node_df(
       n = nrow(assessment),
-      type = "a",
       label = assessment$inputs,
       value = assessment$name,
       style = "filled",

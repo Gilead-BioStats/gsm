@@ -2,20 +2,35 @@
 % Please edit documentation in R/Visualize_Workflow.R
 \name{Visualize_Workflow}
 \alias{Visualize_Workflow}
-\title{Visualize Workflow}
+\title{Flowchart visualization of data pipeline steps from filtering to summary data for an assessment workflow.}
 \usage{
-Visualize_Workflow(lAssessment, lResult, dfNode)
+Visualize_Workflow(lAssessments)
 }
 \arguments{
-\item{lAssessment}{\code{list} A list of assessment-specific metadata.}
-
-\item{lResult}{\code{list} A list of data and metadata from running an \verb{*_Assess()} function.}
-
-\item{dfNode}{\code{data.frame} A data frame containing metadata from an assessment workflow.}
+\item{lAssessments}{\code{list} A list of assessment-specific metadata.}
 }
 \value{
-A flowchart.
+A flowchart of type \code{grViz}/\code{htmlwidget}.
 }
 \description{
-Show the data pipeline steps from running an assessment.
+Flowchart visualization of data pipeline steps from filtering to summary data for an assessment workflow.
+}
+\examples{
+lAssessments <- MakeAssessmentList()
+lData <- list(
+  dfSUBJ = clindata::rawplus_subj,
+  dfAE = clindata::rawplus_ae,
+  dfPD = clindata::rawplus_pd,
+  dfCONSENT = clindata::rawplus_consent,
+  dfIE = clindata::rawplus_ie
+)
+lTags <- list(
+  Study = "myStudy"
+)
+lMapping <- clindata::mapping_rawplus
+
+ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
+
+Visualize_Workflow(list(ae = ae_assessment))
+
 }
