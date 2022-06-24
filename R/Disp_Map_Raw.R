@@ -74,7 +74,7 @@ Disp_Map_Raw <- function(
 
   dfInput <- dfDISP_mapped %>%
     mutate(Count = case_when(
-      strReason == "any" & !(Reason %in% strIgnore | Reason %in% bIgnore) ~ 1,
+      strReason == "any" & !(as.character(Reason) %in% strIgnore) ~ 1,
       Reason == tolower(strReason) ~ 1,
       Reason %in% tolower(strIgnore) | Reason %in% bIgnore ~ 0,
       TRUE ~ 0
