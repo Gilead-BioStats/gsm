@@ -2,6 +2,7 @@
 #'
 #' @param dfFlagged analyze_poisson results with flags added.
 #' @param dfBounds data.frame giving prediction bounds for range of dfFlagged.
+#' @param strGroupCol name of stratification column for facet wrap (default=NULL)
 #' @param strUnit exposure time unit. Defaults to "days".
 #'
 #' @return site-level plot object.
@@ -19,7 +20,7 @@
 #'
 #' @export
 
-Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strUnit = "days") {
+Visualize_Scatter <- function(dfFlagged, strGroupCol = NULL, dfBounds = NULL, strUnit = "days") {
 
   ### Plot of data
   p <- ggplot(
@@ -58,6 +59,10 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strUnit = "days") {
       geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$MeanCount), color = "red") +
       geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$LowerCount), color = "red", linetype = "dashed") +
       geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$UpperCount), color = "red", linetype = "dashed")
+  }
+
+  if(!is.null(strGroupCol)){
+    p<- p + facet_wrap(vars(.data[[strGroupCol]]))
   }
 
   return(p)

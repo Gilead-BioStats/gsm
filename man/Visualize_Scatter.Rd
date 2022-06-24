@@ -4,10 +4,17 @@
 \alias{Visualize_Scatter}
 \title{Site-level visualization of site-level results using a Poisson or Wilcoxon model.}
 \usage{
-Visualize_Scatter(dfFlagged, dfBounds = NULL, strUnit = "days")
+Visualize_Scatter(
+  dfFlagged,
+  strGroupCol = NULL,
+  dfBounds = NULL,
+  strUnit = "days"
+)
 }
 \arguments{
 \item{dfFlagged}{analyze_poisson results with flags added.}
+
+\item{strGroupCol}{name of stratification column for facet wrap (default=NULL)}
 
 \item{dfBounds}{data.frame giving prediction bounds for range of dfFlagged.}
 
