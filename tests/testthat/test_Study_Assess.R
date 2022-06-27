@@ -8,7 +8,7 @@ lData <- list(
   dfIE = dfIE
 )
 
-lAssessments <- MakeAssessmentList() 
+lAssessments <- MakeAssessmentList()
 lAssessments$aeGrade <- NULL # Drop stratified assessment
 
 result <- Study_Assess(lData = lData, lAssessments= lAssessments, bQuiet = TRUE)
@@ -21,7 +21,7 @@ test_that("output is created as expected", {
   expect_true(all(map_chr(result, ~ class(.)) == "list"))
   expect_equal(names(result$ae$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
-    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks", "flowchart"
+    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks"
   ))
 })
 
@@ -70,11 +70,11 @@ test_that("Study_Assess() runs with missing datasets", {
   expect_equal(c("ae", "consent", "ie", "importantpd", "pd", "sae"), names(result))
   expect_equal(names(result$ae$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
-    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks", "flowchart"
+    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks"
   ))
   expect_equal(names(result$pd$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
-    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks", "flowchart"
+    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks"
   ))
 })
 
@@ -128,7 +128,7 @@ test_that("lTags are carried through", {
       Study = "test study",
       Q = "Q2 2022",
       Region = "Northwest"
-    ), 
+    ),
     bQuiet=TRUE
   )
 
@@ -217,7 +217,7 @@ test_that("lSubjFilters with 0 rows returns NULL", {
       strSiteCol = "strSiteVal",
       strSiteCol = "strSiteVal2",
       strSiteCol = "strSiteVal3"
-    ), 
+    ),
     bQuiet=TRUE
   )
 
@@ -229,7 +229,7 @@ test_that("correct bStatus is returned when workflow is missing", {
   custom_assessments$ie$workflow <- NULL
   result <- Study_Assess(
     lData = lData,
-    lAssessments = custom_assessments, 
+    lAssessments = custom_assessments,
     bQuiet=TRUE
   )
 

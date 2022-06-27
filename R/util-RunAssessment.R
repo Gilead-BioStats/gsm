@@ -81,8 +81,10 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
     lAssessment$bStatus <- FALSE
   }
 
+
   lAssessment$lChecks$flowchart <- Visualize_Workflow(list(temp_name = lAssessment)) %>%
     set_names(nm = lAssessment$name)
+  if(!bQuiet) cli::cli_alert_success("{.fn Visualize_Workflow} created a flowchart.")
 
 
   return(lAssessment)
