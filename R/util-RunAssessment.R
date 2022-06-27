@@ -42,7 +42,7 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
   lAssessment$bStatus <- TRUE
   if(exists("workflow", where = lAssessment)) {
     # Run through each step in lAssessment$workflow
-    node_df <- tibble()
+
     stepCount <- 1
     for (step in lAssessment$workflow) {
       if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lAssessment$workflow), ": `", step$name, "`"))
@@ -80,6 +80,10 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
     if(!bQuiet) cli::cli_alert_warning("Workflow not found for {lAssessment$name} assessment - Skipping remaining steps")
     lAssessment$bStatus <- FALSE
   }
+
+  lAssessment$lChecks$flowchart <- Visualize_Workflow(list(temp_name = lAssessment)) %>%
+    set_names(nm = lAssessment$name)
+
 
   return(lAssessment)
 }

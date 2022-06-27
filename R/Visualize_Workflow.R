@@ -30,7 +30,7 @@
 
 Visualize_Workflow <- function(lAssessments) {
 
-  lAssessments <- discard(lAssessments, ~ .x$bStatus == FALSE)
+  #lAssessments <- discard(lAssessments, ~ .x$bStatus == FALSE)
 
   dfFlowchart <- map(lAssessments, function(studyObject) {
     name <- studyObject[["name"]]
@@ -38,7 +38,6 @@ Visualize_Workflow <- function(lAssessments) {
     workflow <- studyObject[["workflow"]] %>%
       imap(~append(., list(n_step = .y))) %>%
       set_names(nm = names(checks))
-
 
     preAssessment <- map2_dfr(checks, workflow, function(checks, workflow){
 
@@ -59,12 +58,12 @@ Visualize_Workflow <- function(lAssessments) {
       mutate(
         from = row_number()
       ) %>%
-      group_by(n_step) %>%
+      group_by(.data$n_step) %>%
       mutate(
         step = n(),
-        to = n_step + step
+        to = .data$n_step + .data$step
       ) %>%
-      select(-step) %>%
+      select(-.data$step) %>%
       ungroup()
 
     pipeline <- studyObject$lResults[grep("df", names(studyObject$lResults))] %>%
@@ -82,8 +81,8 @@ Visualize_Workflow <- function(lAssessments) {
 
     bind_rows(preAssessment, pipeline) %>%
       mutate(
-        from = ifelse(is.na(from), row_number(), from),
-        to = ifelse(is.na(to), row_number() + 1, to)
+        from = ifelse(is.na(.data$from), row_number(), from),
+        to = ifelse(is.na(.data$to), row_number() + 1, to)
       )
 
   })
@@ -93,10 +92,12 @@ Visualize_Workflow <- function(lAssessments) {
   flowcharts <- map(dfFlowchart, function(assessment){
     df <- DiagrammeR::create_node_df(
       n = nrow(assessment),
+      type = "a",
       label = assessment$inputs,
       value = assessment$name,
       style = "filled",
       color = "Black",
+      fontcolor = "Black",
       fillcolor = "Honeydew",
       shape = "rectangle",
       n_row = assessment$n_row,
@@ -108,15 +109,31 @@ Visualize_Workflow <- function(lAssessments) {
     df <- replace(df, is.na(df), "")
 
     node_df <- df %>%
-      mutate(
-        label = paste0(.data$label, "\n", .data$n_col, " x ", .data$n_row),
-        tooltip = paste0("Data dimensions: \n", .data$label),
-        label = ifelse(
-          substr(.data$value, 1, 2) != "df",
-          paste0("[", .data$value, "]\n\n", .data$label),
-          .data$label
+      mutate(label = ifelse(.data$n_row != "", paste0(.data$label, "\n", .data$n_col, " x ", .data$n_row), .data$label),
+             tooltip = paste0("Data dimensions: \n", .data$label),
+             label = ifelse(
+               substr(.data$value, 1, 2) != "df",
+               paste0("[", .data$value, "]\n\n", .data$label),
+               .data$label
+             ),
+             fillcolor = ifelse((.data$checks == FALSE | .data$checks == ""), "Tomato", .data$fillcolor))
+
+    if(FALSE %in% node_df$checks){
+      node_df <- node_df %>%
+        add_row(
+          id = max(node_df$id) + 1,
+          type = "a",
+          label = "Error!",
+          value = "Error!",
+          style = "filled",
+          color = "Black",
+          fontcolor = "Black",
+          fillcolor = "Tomato",
+          shape = "rectangle",
+          fixedsize = "false",
+          tooltip = "Error in preceeding step(s). Check all workflow steps highlighted in red."
         )
-      )
+    }
 
     edge_df <- data.frame(
       from = utils::head(assessment$from, n = nrow(assessment) - 1),

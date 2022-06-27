@@ -119,13 +119,5 @@ Study_Assess <- function(
     lAssessments <- NULL
   }
 
-  flowcharts <- Visualize_Workflow(lAssessments)
-
-  for(f in names(flowcharts)) {
-    if (f %in% names(lAssessments)){
-      lAssessments[[f]][["lChecks"]][["flowchart"]] <- flowcharts[[f]]
-    }
-  }
-
   return(lAssessments)
 }
