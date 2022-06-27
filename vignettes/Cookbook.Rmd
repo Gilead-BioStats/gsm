@@ -50,7 +50,6 @@ To use the most recent development version from GitHub, run:
 devtools::install_github("Gilead-BioStats/gsm", ref = "dev")
 ```
 
-
 ## Example 1 - Running a Single Assessment
 
 All assessments can be run as standalone processes that create several useful data summaries and a visualization.
@@ -132,7 +131,68 @@ ae_assess <- AE_Assess(dfInput)
 -   If a mapping function returns `NULL`, it may be helpful to set `bQuiet == FALSE` to view diagnostic error messages that will point to the column or columns that are causing issues.
 -   Additionally, it may be helpful to set `bReturnChecks == TRUE`, which will return a list of checks that are run on all input data to ensure that all requirements (e.g., required columns, data types, unique, or non-missing data) are met.
 
-## Example 3 - Running Multiple Assessments using Raw+ data
+
+## Example 3 - Running a Single Assessment Step-by-Step
+
+Let's look at an illustrative example of everything that happens behind the scenes when running an `Assess` function. It may be helpful to reference this example alongside the **Assessment Data Pipeline** graphic found in the [Data Pipeline Vignette](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html#assessment-data-pipeline).
+
+Like before, we will run the Adverse Events assessment for this example. 
+
+```{r eval = FALSE, include = TRUE}
+# Start by creating dfInput, using sample data from {clindata}.
+
+# - Note that the sample data from {clindata} includes a subject-level dataset (dfSUBJ), 
+# and a domain-level dataset (dfAE), both required for AE_Map_Raw().
+dfInput <- AE_Map_Raw(
+  dfs = list(
+    dfAE = clindata::rawplus_ae,
+    dfSUBJ = clindata::rawplus_subj
+  )
+)
+
+# The next step is to transform dfInput into site-level data, 
+# which is needed to derive the KRI for an Adverse Events Assessment.
+# Note that strCountCol is a required numeric column, and strExposureCol is an optional numeric column. 
+dfTransformed <- Transform_EventCount(
+  dfInput = dfInput,
+  strCountCol = "Count",
+  strExposureCol = "Exposure",
+  strKRILabel = "AEs/Week"
+)
+
+# The next step is to analyze the data. Depending on the assessment, 
+# there are parameters used to specify which statistical model to run.
+
+# For AE, Poisson and Wilcoxon models are currently supported, the default being Poisson. 
+# We will use the default Analyze function Analyze_Poisson().
+dfAnalyzed <- Analyze_Poisson(dfTransformed)
+
+# After analyzing the transformed data, we will flag sites based on a statistical threshold.
+# For the AE Poisson model, the default threshold is a lower value of -5 and upper value of 5.
+dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
+
+# Next, we will summarize the flagged data, keeping only a subset of 
+# the most relevant columns for a given assessment.
+dfSummary <- Summarize(dfFlagged)
+
+# Finally, we will create a chart that helps to identify flagged sites.
+# When using a Poisson model, we can create upper and lower bounds using Analyze_Poisson_PredictBounds.
+# Any sites that are plotted outside of the bounds will be red.
+dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, vThreshold = c(-5, 5))
+
+# Using the bounds we created above, we can use the Flagged data to create a scatter plot.
+chart <- Visualize_Scatter(dfFlagged, dfBounds)
+```
+
+Reviewing the step-by-step example above will allow the user to better understand each step that happens when deriving the KRI for an assessment.  {gsm} allows the user to generate the same results as above, with additional error-checking and metadata, by simply running:
+
+```{r eval = FALSE, include = TRUE}
+dfInput <- AE_Map_Raw()
+ae_assessment <- AE_Assess(dfInput)
+```
+
+
+## Example 4 - Running Multiple Assessments using Raw+ data
 
 Now, let's take a look at running multiple assessments instead of focusing solely on Adverse Events.
 
@@ -157,7 +217,7 @@ For the scope of this example, the data found in {clindata} will pose as user-pr
 
 The example below illustrates that a user can pass a named list of Raw+ data to the `lData` parameter.
 
-As mentioned above, note that `lData` expects a _named_ list. To see a list of default data frame names, run `names(clindata::mapping_rawplus)`
+As mentioned above, note that `lData` expects a *named* list. To see a list of default data frame names, run `names(clindata::mapping_rawplus)`
 
 ```{r eval = FALSE, include = TRUE}
 library(gsm)
@@ -191,7 +251,7 @@ multiple_assessments <- Study_Assess(lData = assessment_data)
 
 Note that `Study_Assess()` provides verbose console output alerting the user to success, warnings, or errors with the workflow.
 
-## Example 4 - Filtering Subject-Level Data For Multiple Assessments
+## Example 5 - Filtering Subject-Level Data For Multiple Assessments
 
 Let's take a closer look at functionality that is built into `Study_Assess()`. As a practical example, a user may want to keep subjects from an assessment based on some criteria (e.g., a specific site, region, etc.).
 
@@ -219,8 +279,6 @@ custom_filter <- list(
 multiple_assessments <- Study_Assess(lMapping = custom_mapping, lSubjFilters = custom_filter)
 ```
 
-
-
 Note that `Study_Assess()` provides detailed information about `FilterDomain()`, which shows the number of rows dropped when filtering subject-level data:
 
     ── Checking Input Data for `FilterDomain()` ──
@@ -231,7 +289,7 @@ Note that `Study_Assess()` provides detailed information about `FilterDomain()`,
 
 # Reporting
 
-## Example 5 - Creating an Assessment Overview Report for Multiple Assessments
+## Example 6 - Creating an Assessment Overview Report for Multiple Assessments
 
 The `Study_Report()` function creates the **Assessment Overview Report**, which is an HTML document that contains tables, visualizations, and error logging for all assessments run in the `Study_Assess()` workflow.
 
@@ -248,7 +306,7 @@ Study_Report(lAssessments = multiple_assessments, lMeta = list(label = "My Study
 
 The report will render and be saved to your current working directory. You can optionally set an output directory using the `strOutpath` parameter.
 
-## Example 6 - Viewing Error Checking Report
+## Example 7 - Viewing Error Checking Report
 
 The **Assessment Overview Report** contains a Data Check Summary table in the appendix, which can be helpful for troubleshooting issues with input data provided to `lData` in `Study_Assess()`.
 
@@ -267,7 +325,7 @@ Study_AssessmentReport(lAssessments = multiple_assessments, bViewReport = TRUE)
 
 By default, all `*_Assess()` functions return a visualization whether run individually or in the `Study_Assess()` workflow. For example, the scatter plot for the AE assessment can be viewed by calling `AE_Assess(dfInput)$chart`.
 
-## Example 7 - Creating a Scatter Plot
+## Example 8 - Creating a Scatter Plot
 
 Currently, {gsm} creates scatter plots for Adverse Event and Protocol Deviation assessments.
 
@@ -298,8 +356,6 @@ Visualize_Scatter(
   )
 ```
 
-
-
 Creating a scatter plot for a Wilcoxon model is similar to the example above, but there are no threshold boundaries.
 
 ```{r eval = FALSE, include = TRUE}
@@ -324,7 +380,7 @@ In some cases, the user might want to configure their own mappings, which can be
 
 Let's take a look at a few examples of editing YAML files for a custom workflow below.
 
-## Example 8 - Adding a Filtering Step to the Consent Assessment
+## Example 9 - Adding a Filtering Step to the Consent Assessment
 
 In the default Assessment Specification for Consent, there is no filter step. Let's add a step that filters the `dfCONSENT` dataframe so all values of `CONSENT_TYPE == "MAINCONSENT"`:
 

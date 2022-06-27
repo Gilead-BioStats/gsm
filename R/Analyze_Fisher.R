@@ -25,8 +25,14 @@
 #' @return `data.frame` with one row per site with columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
 #'
 #' @examples
-#' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "Adverse Event")
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strKRILabel = "Discontinuations due to AE")
+#' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl,
+#'                     strCol = "DCREASCD",
+#'                     strReason = "Adverse Event")
+#'
+#' dfTransformed <- Transform_EventCount(dfInput,
+#'                                       strCountCol = "Count",
+#'                                       strKRILabel = "Discontinuations due to AE")
+#'
 #' dfAnalyzed <- Analyze_Fisher(dfTransformed)
 #'
 #' @import dplyr
