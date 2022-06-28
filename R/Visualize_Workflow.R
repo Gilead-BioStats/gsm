@@ -29,6 +29,9 @@
 #' @export
 
 Visualize_Workflow <- function(lAssessments) {
+
+  if(!is.null(lAssessments[[1]][["workflow"]])) {
+
   dfFlowchart <- map(lAssessments, function(studyObject) {
 
     name <- studyObject[["name"]]
@@ -43,7 +46,14 @@ Visualize_Workflow <- function(lAssessments) {
       imap(~ append(., list(n_step = .y))) %>%
       set_names(nm = vec)
 
+     # make checks and workflow the same length so map2_dfr below doesn't fail.
+     # empty lists will result in NA and will be accounted for to show domains that were not checked.
+     if(diff > 0) {
+       checks <- append(checks, vector(mode = "list", length = diff))
+     }
+
     preAssessment <- map2_dfr(checks, workflow, function(checks, workflow) {
+
       domains <- workflow$inputs
       map_df(domains, function(x) {
         tibble(
@@ -56,8 +66,14 @@ Visualize_Workflow <- function(lAssessments) {
           n_step = workflow[["n_step"]]
         )
       })
-    }) %>%
-      slice(1:(n() - 1)) %>%
+    })
+
+    if(nrow(preAssessment) > 1){
+    preAssessment <- preAssessment %>%
+      slice(1:(n()-1))
+    }
+
+    preAssessment <- preAssessment %>%
       mutate(
         from = row_number()
       ) %>%
@@ -68,6 +84,7 @@ Visualize_Workflow <- function(lAssessments) {
       ) %>%
       select(-.data$step) %>%
       ungroup()
+
 
     pipeline <- studyObject$lResults[grep("df", names(studyObject$lResults))] %>%
       purrr::imap_dfr(
@@ -119,7 +136,10 @@ Visualize_Workflow <- function(lAssessments) {
           paste0("[", .data$value, "]\n\n", .data$label),
           .data$label
         ),
-        fillcolor = ifelse((.data$checks == FALSE | .data$checks == ""), "Tomato", .data$fillcolor)
+        fillcolor = case_when(.data$checks == FALSE ~ "Tomato",
+                              .data$checks == "" ~ "LightSlateGray",
+                              TRUE ~ fillcolor),
+        tooltip = ifelse(checks == "", paste0(tooltip, "\nCheck Not Run"), tooltip)
       )
 
     if (FALSE %in% node_df$checks) {
@@ -139,10 +159,10 @@ Visualize_Workflow <- function(lAssessments) {
         )
     }
 
-    edge_df <- data.frame(
-      from = utils::head(assessment$from, n = nrow(assessment) - 1),
-      to = utils::head(assessment$to, n = nrow(assessment) - 1)
-    )
+    edge_df <- assessment %>%
+      filter(.data$to <= nrow(node_df)) %>%
+      select(.data$from, .data$to) %>%
+      as.data.frame()
 
     DiagrammeR::create_graph(
       nodes_df = node_df,
@@ -152,5 +172,10 @@ Visualize_Workflow <- function(lAssessments) {
       DiagrammeR::render_graph()
   })
 
+
   return(flowchart)
+  } else {
+    return(list(lAssessments$name))
+  }
+
 }

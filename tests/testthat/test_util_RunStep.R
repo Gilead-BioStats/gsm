@@ -21,7 +21,7 @@ test_that("output is created as expected", {
   expect_type(ae_step, "list")
   expect_true(ae_step$lChecks$status)
   expect_true("data.frame" %in% class(ae_step$df))
-  expect_equal(names(ae_step), c("df", "lChecks", "newRows"))
+  expect_equal(names(ae_step), c("df", "lChecks"))
   expect_equal(names(ae_step$df), c("SubjectID", "AE_SERIOUS", "AE_TE_FLAG", "AE_GRADE"))
   expect_equal(names(ae_step$lChecks), c("dfAE", "status"))
 })
