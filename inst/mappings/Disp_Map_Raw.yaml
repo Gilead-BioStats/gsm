@@ -1,9 +1,6 @@
 dfDISP:
-  strIDCol: "SUBJID"
-  strSiteCol: "SITEID"
-  strDCCol: "DCREASCD"
-  strIgnoreVal:
-    - ""
-    - " "
-    - "completed"
-    - "NA"
+  strIDCol: "SubjectID"
+  strSiteCol: "SiteID"
+  strStudyDCCol: "StudDCReason"
+  strTrtDCCol: "TrtDCReason"
+  strDCCompleteVal: ""

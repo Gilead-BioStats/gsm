@@ -35,7 +35,8 @@
 
 Disp_Map_Raw <- function(
     dfs = list(
-      dfDISP = safetyData::adam_adsl
+      dfDISP = clindata::rawplus_subj,
+      dfSUBJ = clindata::rawplus_subj,
       ),
     strReason = "any",
     lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
