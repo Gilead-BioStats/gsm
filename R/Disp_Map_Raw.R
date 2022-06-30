@@ -36,7 +36,7 @@
 Disp_Map_Raw <- function(
     dfs = list(
       dfDISP = clindata::rawplus_subj,
-      dfSUBJ = clindata::rawplus_subj,
+      dfSUBJ = clindata::rawplus_subj
       ),
     strReason = "any",
     lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
@@ -44,14 +44,9 @@ Disp_Map_Raw <- function(
     bQuiet = TRUE
 ) {
 
-  strIgnore <- lMapping[["dfDISP"]][["strIgnoreVal"]]
-
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
-    "bQuiet must be logical" = is.logical(bQuiet),
-    "strReason cannot also be a value in strIgnoreVal" = !tolower(strReason) %in% strIgnore,
-    "strReason must be length 1" = length(strReason) == 1,
-    "strReason must be character" = is.character(strReason)
+    "bQuiet must be logical" = is.logical(bQuiet)
   )
 
   checks <- CheckInputs(
@@ -60,6 +55,8 @@ Disp_Map_Raw <- function(
     bQuiet = bQuiet,
     mapping = lMapping
   )
+
+browser()
 
   # Run mapping if checks passed.
   if (checks$status) {

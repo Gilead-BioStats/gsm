@@ -40,11 +40,10 @@ dfCONSENT:
   strConsentTypeValue: "MAINCONSENT"
   strConsentStatusValue: "Y"
 dfDISP:
-  strIDCol: "SUBJID"
-  strSiteCol: "SITEID"
-  strDCCol: "DCREASCD"
-  strIgnoreVal:
-    - ""
-    - " "
-    - "completed"
-    - "NA"
+  strIDCol: "SubjectID"
+  strStudyDiscontinuationReasonCol: "StudDCReason"
+  strStudyCompletionFlagCol: "StudCompletion"
+  strStudyCompletionFlagVal: "N"
+  strTreatmentDiscontinuationReasonCol: "TrtDCReason"
+  strTreatmentCompletionFlagCol: "TrtCompletion"
+  strTreatmentCompletionFlagVal: "N"

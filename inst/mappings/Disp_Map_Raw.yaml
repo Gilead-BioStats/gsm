@@ -1,6 +1,11 @@
-dfDISP:
+dfSUBJ:
   strIDCol: "SubjectID"
   strSiteCol: "SiteID"
-  strStudyDCCol: "StudDCReason"
-  strTrtDCCol: "TrtDCReason"
-  strDCCompleteVal: ""
+dfDISP:
+  strIDCol: "SubjectID"
+  strStudyDiscontinuationReasonCol: "StudDCReason"
+  strStudyCompletionFlagCol: "StudCompletion"
+  strStudyCompletionFlagVal: "N"
+  strTreatmentDiscontinuationReasonCol: "TrtDCReason"
+  strTreatmentCompletionFlagCol: "TrtCompletion"
+  strTreatmentCompletionFlagVal: "N"
