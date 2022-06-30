@@ -5,7 +5,7 @@
 \title{Disposition Assessment - Raw Mapping}
 \usage{
 Disp_Map_Raw(
-  dfs = list(dfDISP = clindata::rawplus_subj, dfSUBJ = clindata::rawplus_subj, ),
+  dfs = list(dfDISP = clindata::rawplus_subj, dfSUBJ = clindata::rawplus_subj),
   strReason = "any",
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
@@ -47,11 +47,17 @@ Convert from ADaM or raw format to input format for Disposition Assessment.
 \code{Disp_Map_Raw} creates an input dataset for the Disposition Assessment (link to code) by adding Discontinuation Reason Counts to basic subject-level data.
 }
 \section{Data specification}{
-\tabular{lllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \cr
-   dfDISP \tab strIDCol \tab SUBJID \tab TRUE \tab FALSE \cr
-   dfDISP \tab strSiteCol \tab SITEID \tab TRUE \tab FALSE \cr
-   dfDISP \tab strDCCol \tab DCREASCD \tab TRUE \tab TRUE \cr
+\tabular{llllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \tab \strong{Require Unique Values?} \cr
+   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab TRUE \cr
+   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
+   dfDISP \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab FALSE \cr
+   dfDISP \tab strStudyDiscontinuationReasonCol \tab StudDCReason \tab TRUE \tab TRUE \tab FALSE \cr
+   dfDISP \tab strStudyCompletionFlagCol \tab StudCompletion \tab TRUE \tab TRUE \tab FALSE \cr
+   dfDISP \tab strStudyCompletionFlagVal \tab N \tab TRUE \tab FALSE \tab FALSE \cr
+   dfDISP \tab strTreatmentDiscontinuationReasonCol \tab TrtDCReason \tab TRUE \tab TRUE \tab FALSE \cr
+   dfDISP \tab strTreatmentCompletionFlagCol \tab TrtCompletion \tab TRUE \tab TRUE \tab FALSE \cr
+   dfDISP \tab strTreatmentCompletionFlagVal \tab N \tab TRUE \tab FALSE \tab FALSE \cr
 }
 }
 
