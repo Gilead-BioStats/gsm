@@ -29,7 +29,11 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+#' dfTransformed <- Transform_EventCount(dfInput,
+#'                                       strCountCol = "Count",
+#'                                       strExposureCol = "Exposure",
+#'                                       strKRILabel = "AEs/Week")
+#'
 #' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
 #'
 #' @import dplyr

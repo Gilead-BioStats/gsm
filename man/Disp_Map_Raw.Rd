@@ -5,7 +5,7 @@
 \title{Disposition Assessment - Raw Mapping}
 \usage{
 Disp_Map_Raw(
-  dfs = list(dfDISP = safetyData::adam_adsl),
+  dfs = list(dfDISP = clindata::rawplus_subj, dfSUBJ = clindata::rawplus_subj, ),
   strReason = "any",
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
