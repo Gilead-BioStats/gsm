@@ -56,27 +56,54 @@ Disp_Map_Raw <- function(
     mapping = lMapping
   )
 
-browser()
-
   # Run mapping if checks passed.
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn Disp_Map_Raw}")
 
   # Standarize Column Names
-  dfDISP_mapped <- dfs$dfDISP %>%
-    select(SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
-           SiteID = lMapping[["dfDISP"]][["strSiteCol"]],
-           Reason = lMapping[["dfDISP"]][["strDCCol"]]) %>%
-    mutate(Reason = as.character(tolower(.data$Reason)))
+  if(lMapping$dfDISP$strDiscontinuationScope == "Treatment") {
 
-  dfInput <- dfDISP_mapped %>%
-    mutate(Count = case_when(
-      Reason %in% tolower(strIgnore) ~ 0,
-      is.na(Reason) & "NA" %in% strIgnore ~ 0,
-      strReason == "any" ~ 1,
-      Reason == tolower(strReason) ~ 1,
-      TRUE ~ 0
-    ))
+    dfDISP_mapped <- dfs$dfDISP %>%
+      select(
+        SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
+        TrtDCReason = lMapping[["dfDISP"]][["strTreatmentDiscontinuationReasonCol"]],
+        TrtCompletion = lMapping[["dfDISP"]][["strTreatmentCompletionFlagCol"]]
+      ) %>%
+      filter(TrtCompletion != lMapping[["dfDISP"]][["strTreatmentCompletionFlagVal"]])
+
+    if(!is.null(lMapping$dfDISP$strTreatmentDiscontinuationReasonVal)) {
+      dfDISP_mapped <- dfDISP_mapped %>%
+        filter(TrtDCReason == lMapping$dfDISP$strTreatmentDiscontinuationReasonVal)
+    }
+
+  } else if (lMapping$dfDISP$strDiscontinuationScope == "Study") {
+
+    dfDISP_mapped <- dfs$dfDISP %>%
+      select(
+        SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
+        StudyDCReason = lMapping[["dfDISP"]][["strStudyDiscontinuationReasonCol"]],
+        StudyCompletion = lMapping[["dfDISP"]][["strStudyCompletionFlagCol"]]
+      ) %>%
+      filter(StudyCompletion != lMapping[["dfDISP"]][["strStudyCompletionFlagVal"]])
+
+    if(!is.null(lMapping$dfDISP$strStudyDiscontinuationReasonVal)) {
+      dfDISP_mapped <- dfDISP_mapped %>%
+        filter(TrtDCReason == lMapping$dfDISP$strStudyDiscontinuationReasonVal)
+    }
+
+  }
+
+  dfSUBJ_mapped <- dfs$dfSUBJ %>%
+    select(
+      SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+      SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]]
+    )
+
+  dfInput <- gsm::MergeSubjects(
+    dfDomain = dfDISP_mapped,
+    dfSubjects = dfSUBJ_mapped,
+    bQuiet = bQuiet
+    )
 
     if (!bQuiet) cli::cli_alert_success("{.fn Disp_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

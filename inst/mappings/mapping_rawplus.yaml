@@ -43,7 +43,11 @@ dfDISP:
   strIDCol: "SubjectID"
   strStudyDiscontinuationReasonCol: "StudDCReason"
   strStudyCompletionFlagCol: "StudCompletion"
-  strStudyCompletionFlagVal: "N"
+  strStudyCompletionFlagVal: "Y"
+  strStudyDiscontinuationReasonVal:
   strTreatmentDiscontinuationReasonCol: "TrtDCReason"
   strTreatmentCompletionFlagCol: "TrtCompletion"
-  strTreatmentCompletionFlagVal: "N"
+  strTreatmentCompletionFlagVal: "Y"
+  strTreatmentDiscontinuationReasonVal:
+  strDiscontinuationScope: "Treatment"
+
