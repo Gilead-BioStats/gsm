@@ -93,17 +93,13 @@ Disp_Map_Raw <- function(
 
   }
 
-  dfSUBJ_mapped <- dfs$dfSUBJ %>%
-    select(
-      SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-      SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]]
-    )
+    dfSUBJ_mapped <- dfs$dfSUBJ %>%
+      select(SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+             SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]])
 
-  dfInput <- gsm::MergeSubjects(
-    dfDomain = dfDISP_mapped,
-    dfSubjects = dfSUBJ_mapped,
-    bQuiet = bQuiet
-    )
+    dfInput <- gsm::MergeSubjects(dfDomain = dfDISP_mapped,
+                                  dfSubjects = dfSUBJ_mapped,
+                                  bQuiet = bQuiet)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Disp_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
