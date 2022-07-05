@@ -7,7 +7,5 @@
 |dfDISP     |strIDCol                             |SubjectID         |TRUE          |FALSE                       |FALSE                      |
 |dfDISP     |strStudyDiscontinuationReasonCol     |StudDCReason      |TRUE          |TRUE                        |FALSE                      |
 |dfDISP     |strStudyCompletionFlagCol            |StudCompletion    |TRUE          |TRUE                        |FALSE                      |
-|dfDISP     |strStudyCompletionFlagVal            |Y                 |TRUE          |FALSE                       |FALSE                      |
 |dfDISP     |strTreatmentDiscontinuationReasonCol |TrtDCReason       |TRUE          |TRUE                        |FALSE                      |
 |dfDISP     |strTreatmentCompletionFlagCol        |TrtCompletion     |TRUE          |TRUE                        |FALSE                      |
-|dfDISP     |strTreatmentCompletionFlagVal        |Y                 |TRUE          |FALSE                       |FALSE                      |
