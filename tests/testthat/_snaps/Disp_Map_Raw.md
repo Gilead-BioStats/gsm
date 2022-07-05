@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfDISP"]
+          "value": ["dfDISP", "dfSUBJ"]
         }
       },
       "value": [
@@ -23,12 +23,34 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strDCCol"]
+              "value": ["strIDCol", "strStudyDiscontinuationReasonCol", "strStudyCompletionFlagCol", "strTreatmentDiscontinuationReasonCol", "strTreatmentCompletionFlagCol"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["strDCCol"]
+              "value": ["strStudyDiscontinuationReasonCol", "strStudyCompletionFlagCol", "strTreatmentDiscontinuationReasonCol", "strTreatmentCompletionFlagCol"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired", "vUniqueCols"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol"]
             }
           ]
         }
@@ -43,7 +65,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfDISP"]
+          "value": ["dfSUBJ", "dfDISP"]
         }
       },
       "value": [
@@ -53,29 +75,71 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strDCCol", "strIgnoreVal"]
+              "value": ["strIDCol", "strSiteCol"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["SUBJID"]
+              "value": ["SubjectID"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["SITEID"]
+              "value": ["SiteID"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strStudyDiscontinuationReasonCol", "strStudyCompletionFlagCol", "strStudyCompletionFlagVal", "strTreatmentDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentCompletionFlagVal", "strDiscontinuationScope"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["DCREASCD"]
+              "value": ["StudDCReason"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["", " ", "completed", "NA"]
+              "value": ["StudCompletion"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TrtDCReason"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["TrtCompletion"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Treatment"]
             }
           ]
         }
@@ -137,7 +201,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strDCCol", "strCountCol"]
+              "value": ["strIDCol", "strSiteCol", "strCountCol"]
             }
           },
           "value": [
@@ -150,11 +214,6 @@
               "type": "character",
               "attributes": {},
               "value": ["SiteID"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["Reason"]
             },
             {
               "type": "character",
@@ -175,7 +234,12 @@
       -- Checking Input Data for `Disp_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SUBJID, SITEID, DCREASCD
+      x the following columns not found in df: SubjectID, StudDCReason, StudCompletion, TrtDCReason, TrtCompletion
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -193,19 +257,15 @@
       
       -- Checking Input Data for `Disp_Map_Raw()` --
       
-      v No issues found for `Disp_Map_Raw()`
-      
-      -- Initializing `Disp_Map_Raw()` --
-      
-      v `Disp_Map_Raw()` returned output with 4 rows.
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Disp_Map_Raw()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
     Output
-      # A tibble: 4 x 4
-        SubjectID SiteID Reason           Count
-        <chr>     <chr>  <chr>            <dbl>
-      1 1234      701    completed            0
-      2 5678      701    adverse event        1
-      3 2345      702    withdrew consent     1
-      4 2348      702    adverse event        1
+      NULL
 
 ---
 
@@ -217,7 +277,7 @@
       -- Checking Input Data for `Disp_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SUBJID, SITEID, DCREASCD
+      x the following columns not found in df: SubjectID, StudDCReason, StudCompletion, TrtDCReason, TrtCompletion
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -235,7 +295,12 @@
       -- Checking Input Data for `Disp_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SUBJID, SITEID, DCREASCD
+      x the following columns not found in df: SubjectID, StudDCReason, StudCompletion, TrtDCReason, TrtCompletion
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -253,7 +318,12 @@
       -- Checking Input Data for `Disp_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SUBJID, SITEID, DCREASCD
+      x the following columns not found in df: SubjectID, StudDCReason, StudCompletion, TrtDCReason, TrtCompletion
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -271,7 +341,12 @@
       -- Checking Input Data for `Disp_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SUBJID, SITEID, DCREASCD
+      x the following columns not found in df: SubjectID, StudDCReason, StudCompletion, TrtDCReason, TrtCompletion
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, SiteID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -288,7 +363,10 @@
       
       -- Checking Input Data for `Disp_Map_Raw()` --
       
-      x "mapping" does not contain required parameters: strIDCol, strSiteCol, strDCCol
+      x "mapping" does not contain required parameters: strIDCol, strStudyDiscontinuationReasonCol, strStudyCompletionFlagCol, strTreatmentDiscontinuationReasonCol, strTreatmentCompletionFlagCol
+      x mapping is not a list()
+      x Non-character column names found in mapping: 
+      x "mapping" does not contain required parameters: strIDCol, strSiteCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       ! Issues found for `Disp_Map_Raw()`
@@ -304,19 +382,11 @@
       
       -- Checking Input Data for `Disp_Map_Raw()` --
       
-      v No issues found for `Disp_Map_Raw()`
-      
-      -- Initializing `Disp_Map_Raw()` --
-      
-      v `Disp_Map_Raw()` returned output with 4 rows.
+      x Unexpected duplicates found in column: SubjectID
+      ! Issues found for `Disp_Map_Raw()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
     Output
-      # A tibble: 4 x 4
-        SubjectID SiteID Reason           Count
-        <chr>     <chr>  <chr>            <dbl>
-      1 1234      701    completed            0
-      2 5678      701    adverse event        1
-      3 2345      702    withdrew consent     1
-      4 2348      702    adverse event        1
+      NULL
 
 # missing column throws errors
 
@@ -326,7 +396,7 @@
       
       -- Checking Input Data for `Disp_Map_Raw()` --
       
-      x the following columns not found in df: SUBJID
+      x the following columns not found in df: SubjectID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -343,7 +413,7 @@
       
       -- Checking Input Data for `Disp_Map_Raw()` --
       
-      x the following columns not found in df: SITEID
+      x the following columns not found in df: StudDCReason
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -360,7 +430,75 @@
       
       -- Checking Input Data for `Disp_Map_Raw()` --
       
-      x the following columns not found in df: DCREASCD
+      x the following columns not found in df: StudCompletion
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Disp_Map_Raw()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Disp_Map_Raw()` --
+      
+      x the following columns not found in df: TrtDCReason
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Disp_Map_Raw()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Disp_Map_Raw()` --
+      
+      x the following columns not found in df: TrtCompletion
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Disp_Map_Raw()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Disp_Map_Raw()` --
+      
+      x the following columns not found in df: SubjectID
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Disp_Map_Raw()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Disp_Map_Raw()` --
+      
+      x the following columns not found in df: SiteID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -377,7 +515,7 @@
       
       -- Checking Input Data for `Disp_Map_Raw()` --
       
-      x 1 NA values found in column: SUBJID
+      x 1 NA values found in column: SubjectID
       ! Issues found for `Disp_Map_Raw()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
@@ -391,7 +529,21 @@
       
       -- Checking Input Data for `Disp_Map_Raw()` --
       
-      x 1 NA values found in column: SITEID
+      x 1 NA values found in column: SubjectID
+      ! Issues found for `Disp_Map_Raw()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Disp_Map_Raw()` --
+      
+      x 1 NA values found in column: SiteID
       ! Issues found for `Disp_Map_Raw()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
@@ -405,21 +557,81 @@
       
       -- Checking Input Data for `Disp_Map_Raw()` --
       
-      v No issues found for `Disp_Map_Raw()`
-      
-      -- Initializing `Disp_Map_Raw()` --
-      
-      v `Disp_Map_Raw()` returned output with 4 rows.
+      x Unexpected duplicates found in column: SubjectID
+      ! Issues found for `Disp_Map_Raw()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
     Output
-      # A tibble: 4 x 4
-        SubjectID SiteID Reason           Count
-        <chr>     <chr>  <chr>            <dbl>
-      1 1234      701    completed            0
-      2 5678      701    adverse event        1
-      3 2345      702    withdrew consent     1
-      4 2348      702    adverse event        1
+      NULL
 
 # invalid mapping throws errors
+
+    Code
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Disp_Map_Raw()` --
+      
+      x the following columns not found in df: asdf
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Disp_Map_Raw()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Disp_Map_Raw()` --
+      
+      x the following columns not found in df: asdf
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Disp_Map_Raw()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Disp_Map_Raw()` --
+      
+      x the following columns not found in df: asdf
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Disp_Map_Raw()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Disp_Map_Raw()` --
+      
+      x the following columns not found in df: asdf
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Disp_Map_Raw()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
 
     Code
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
@@ -482,5 +694,7 @@
       
       -- Initializing `Disp_Map_Raw()` --
       
-      v `Disp_Map_Raw()` returned output with 4 rows.
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      v `Disp_Map_Raw()` returned output with 3 rows.
 

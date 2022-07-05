@@ -3,10 +3,8 @@ dfDISP:
     - strIDCol
     - strStudyDiscontinuationReasonCol
     - strStudyCompletionFlagCol
-    - strStudyCompletionFlagVal
     - strTreatmentDiscontinuationReasonCol
     - strTreatmentCompletionFlagCol
-    - strTreatmentCompletionFlagVal
   vNACols:
     - strStudyDiscontinuationReasonCol
     - strStudyCompletionFlagCol

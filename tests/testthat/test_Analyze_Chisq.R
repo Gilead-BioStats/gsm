@@ -1,8 +1,8 @@
 source(testthat::test_path("testdata/data.R"))
 
 dfInput <- Disp_Map_Raw(
-  dfs = list(dfDISP = dfDISP),
-  strReason = "Adverse Event"
+  dfs = list(dfDISP = dfDISP,
+             dfSUBJ = dfSUBJ)
 )
 
 dfTransformed <- Transform_EventCount(

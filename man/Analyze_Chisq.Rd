@@ -40,8 +40,12 @@ The input data (\code{dfTransformed}) for Analyze_Chisq is typically created usi
 }
 
 \examples{
-dfInput <- Disp_Map_Raw(strReason = "Adverse Event")
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strKRILabel = "Discontinuations due to AE/Month")
+dfInput <- Disp_Map_Raw()
+dfTransformed <- Transform_EventCount(
+                   dfInput,
+                   strCountCol = "Count",
+                   strKRILabel = "Discontinuations due to AE/Month"
+                 )
 dfAnalyzed <- Analyze_Chisq(dfTransformed)
 
 }

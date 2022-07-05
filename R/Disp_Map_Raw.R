@@ -12,7 +12,6 @@
 #'
 #' @param dfs `list` Input data frame:
 #'   - `dfDISP`: `data.frame` Subject-level data with one record per discontinuation reason.
-#' @param strReason `character` Case-insensitive string value to describe the discontinuation reason, e.g., "adverse event".
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
@@ -26,7 +25,7 @@
 #' @includeRmd ./man/md/Disp_Map_Raw.md
 #'
 #' @examples
-#' df <- Disp_Map_Raw(strReason = "adverse event")
+#' df <- Disp_Map_Raw()
 #'
 #' @import dplyr
 #' @importFrom yaml read_yaml
@@ -38,7 +37,6 @@ Disp_Map_Raw <- function(
       dfDISP = clindata::rawplus_subj,
       dfSUBJ = clindata::rawplus_subj
       ),
-    strReason = "any",
     lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     bReturnChecks = FALSE,
     bQuiet = TRUE
@@ -69,11 +67,12 @@ Disp_Map_Raw <- function(
         TrtDCReason = lMapping[["dfDISP"]][["strTreatmentDiscontinuationReasonCol"]],
         TrtCompletion = lMapping[["dfDISP"]][["strTreatmentCompletionFlagCol"]]
       ) %>%
-      filter(TrtCompletion != lMapping[["dfDISP"]][["strTreatmentCompletionFlagVal"]])
+      filter(.data$TrtCompletion != lMapping[["dfDISP"]][["strTreatmentCompletionFlagVal"]]) %>%
+      mutate(Count = 1)
 
     if(!is.null(lMapping$dfDISP$strTreatmentDiscontinuationReasonVal)) {
       dfDISP_mapped <- dfDISP_mapped %>%
-        filter(TrtDCReason == lMapping$dfDISP$strTreatmentDiscontinuationReasonVal)
+        filter(.data$TrtDCReason == lMapping$dfDISP$strTreatmentDiscontinuationReasonVal)
     }
 
   } else if (lMapping$dfDISP$strDiscontinuationScope == "Study") {
@@ -84,11 +83,12 @@ Disp_Map_Raw <- function(
         StudyDCReason = lMapping[["dfDISP"]][["strStudyDiscontinuationReasonCol"]],
         StudyCompletion = lMapping[["dfDISP"]][["strStudyCompletionFlagCol"]]
       ) %>%
-      filter(StudyCompletion != lMapping[["dfDISP"]][["strStudyCompletionFlagVal"]])
+      filter(.data$StudyCompletion != lMapping[["dfDISP"]][["strStudyCompletionFlagVal"]]) %>%
+      mutate(Count = 1)
 
     if(!is.null(lMapping$dfDISP$strStudyDiscontinuationReasonVal)) {
       dfDISP_mapped <- dfDISP_mapped %>%
-        filter(TrtDCReason == lMapping$dfDISP$strStudyDiscontinuationReasonVal)
+        filter(.data$TrtDCReason == lMapping$dfDISP$strStudyDiscontinuationReasonVal)
     }
 
   }
@@ -99,7 +99,9 @@ Disp_Map_Raw <- function(
 
     dfInput <- gsm::MergeSubjects(dfDomain = dfDISP_mapped,
                                   dfSubjects = dfSUBJ_mapped,
-                                  bQuiet = bQuiet)
+                                  bQuiet = bQuiet) %>%
+      mutate(Count = ifelse(is.na(.data$Count), 0, .data$Count)) %>%
+      select(.data$SubjectID, .data$SiteID, .data$Count)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Disp_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

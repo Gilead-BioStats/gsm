@@ -9,3 +9,4 @@ dfDISP:
   strTreatmentDiscontinuationReasonCol: "TrtDCReason"
   strTreatmentCompletionFlagCol: "TrtCompletion"
   strTreatmentCompletionFlagVal: "Y"
+  strDiscontinuationScope: "Treatment"
