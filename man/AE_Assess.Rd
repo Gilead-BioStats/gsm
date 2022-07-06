@@ -19,14 +19,13 @@ AE_Assess(
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to
-\code{c(-5, 5)} for a Poisson model (\code{strMethod = "poisson"}), \code{c(.0001, NA)} for a Wilcoxon
-signed-rank test (\code{strMethod} = "wilcoxon"), and \code{c(.0025, NA)} for a nominal assessment (\code{strMethod = "identity"}).}
+\code{c(-5, 5)} for a Poisson model (\code{strMethod = "poisson"}) and \code{c(.0001, NA)} for a Wilcoxon
+signed-rank test (\code{strMethod} = "wilcoxon").}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
 \item \code{"poisson"} (default)
 \item \code{"wilcoxon"}
-\item \code{"identity"}
 }}
 
 \item{strKRILabel}{\code{character} KRI description. Default: \code{"AEs/Week"}}

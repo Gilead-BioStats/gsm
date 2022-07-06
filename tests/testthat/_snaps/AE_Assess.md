@@ -8,11 +8,11 @@
 
 ---
 
-    strMethod is not 'poisson', 'wilcoxon', or 'identity'
+    strMethod is not 'poisson' or 'wilcoxon'
 
 ---
 
-    strMethod is not 'poisson', 'wilcoxon', or 'identity'
+    strMethod is not 'poisson' or 'wilcoxon'
 
 ---
 
