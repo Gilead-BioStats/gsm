@@ -11,7 +11,7 @@ test_that("output created as expected and has correct structure", {
   output <- Analyze_Fisher(df)
 
   expect_true(is.data.frame(df))
-  expect_equal(names(output), c("SiteID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "Estimate", "PValue"))
+  expect_equal(names(output), c("SiteID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel"))
   expect_type(df$SiteID, "character")
   expect_type(df$N, "integer")
   expect_type(df$TotalCount, "double")

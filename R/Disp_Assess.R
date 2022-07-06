@@ -1,3 +1,42 @@
+#' Disposition Assessment
+#'
+#' @param dfInput `data.frame` Input data, a data frame with one record per subject.
+#' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
+#' `c(.05, NA)` for both Chi-square test (`strMethod` = "chisq") and Fisher's exact test (`strMethod` = "fisher").
+#' @param strMethod `character` Statistical method. Valid values:
+#'   - `"chisq"` (default)
+#'   - `"fisher"`
+#' @param strKRILabel `character` KRI description. Default: `"DCs/Week"`
+#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
+#'   to `list(Assessment = "AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`)
+#'   and each tag is added as a column in `lAssess$dfSummary`.
+#' @param bChart `logical` Generate data visualization? Default: `TRUE`
+#' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#'
+#' @return `list` Assessment, a named list with:
+#' - each data frame in the data pipeline
+#'   - `dfInput`
+#'   - `dfTransformed`, returned by [gsm::Transform_EventCount()]
+#'   - `dfAnalyzed`, returned by [gsm::Analyze_Chisq()] or [gsm::Analyze_Fisher()]
+#'   - `dfFlagged`, returned by [gsm::Flag()]
+#'   - `dfSummary`, returned by [gsm::Summarize()]
+#' - assessment metadata
+#'   - `strFunctionName`
+#'   - `lParams`
+#'   - `lTags`
+#' - output(s)
+#'   - `chart`
+#'
+#' @examples
+#' dfInput <- Disp_Map_Raw()
+#' disp_assessment_chisq <- Disp_Assess(dfInput)
+#' disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "fisher")
+#'
+#' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
+#' @importFrom purrr map map_dbl
+#'
+#' @export
 Disp_Assess <- function(
     dfInput,
     vThreshold = NULL,
@@ -54,7 +93,7 @@ Disp_Assess <- function(
 
     if (strMethod == "chisq") {
       if (is.null(vThreshold)) {
-        vThreshold <- c(-5, 5)
+        vThreshold <- c(.05, NA)
       } else {
         stopifnot(
           "vThreshold is not numeric" = is.numeric(vThreshold),
@@ -74,7 +113,7 @@ Disp_Assess <- function(
 
     } else if (strMethod == "fisher") {
       if (is.null(vThreshold)) {
-        vThreshold <- c(0.0001, NA)
+        vThreshold <- c(0.05, NA)
       } else {
         stopifnot(
           "vThreshold is not numeric" = is.numeric(vThreshold),
@@ -95,7 +134,7 @@ Disp_Assess <- function(
     }
 
     if (bChart) {
-        lAssess$chart <- gsm::Visualize_Scatter(lAssess$dfFlagged)
+        lAssess$chart <- gsm::Visualize_Count(lAssess$dfFlagged)
         if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
     }
 

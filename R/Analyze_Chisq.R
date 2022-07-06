@@ -74,7 +74,7 @@ Analyze_Chisq <- function(
     tidyr::unnest(summary) %>%
     rename(
       Statistic = .data$statistic,
-      PValue = .data[["p.value"]]
+      Score = .data[["p.value"]]
     ) %>%
     mutate(
       TotalCount_All = sum(.data$TotalCount),
@@ -82,10 +82,24 @@ Analyze_Chisq <- function(
       TotalCount_Other = .data$TotalCount_All - .data$TotalCount,
       N_Other = .data$N_All - .data$N,
       Prop = .data$TotalCount / .data$N,
-      Prop_Other = .data$TotalCount_Other / .data$N_Other
+      Prop_Other = .data$TotalCount_Other / .data$N_Other,
+      ScoreLabel = "P value"
     ) %>%
-    arrange(.data$PValue) %>%
-    select(.data$SiteID, .data$TotalCount, .data$TotalCount_Other, .data$N, .data$N_Other, .data$Prop, .data$Prop_Other, .data$Statistic, .data$PValue)
+    arrange(.data$Score) %>%
+    select(
+      .data$SiteID,
+      .data$TotalCount,
+      .data$TotalCount_Other,
+      .data$N,
+      .data$N_Other,
+      .data$Prop,
+      .data$Prop_Other,
+      .data$KRI,
+      .data$KRILabel,
+      .data$Statistic,
+      .data$Score,
+      .data$ScoreLabel
+    )
 
   return(dfAnalyzed)
 }
