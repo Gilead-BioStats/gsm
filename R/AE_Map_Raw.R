@@ -82,7 +82,7 @@ AE_Map_Raw <- function(
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
       mutate(Rate = .data$Count / .data$Exposure,
              GroupLabel = lMapping[["dfSUBJ"]][["strGroupCol"]]) %>%
-      select(.data$SubjectID, .data$GroupID, .data$GroupLabel, .data$Count, .data$Exposure, .data$Rate)
+      select(.data$SubjectID, .data$GroupID, .data$GroupLabel, .data$Count, .data$Exposure, .data$Rate, everything())
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

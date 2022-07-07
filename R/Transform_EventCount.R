@@ -44,7 +44,7 @@ Transform_EventCount <- function(
   dfInput,
   strCountCol,
   strExposureCol = NULL,
-  strGroupCol = "SiteID",
+  strGroupCol = "GroupID",
   strKRILabel = "[Not Specified]"
 ) {
   stopifnot(
@@ -82,7 +82,7 @@ Transform_EventCount <- function(
       group_by(GroupID = .data[[strGroupCol]]) %>%
       summarise(
         N = n(),
-        TotalCount = sum(.data[[strGroupCol]]),
+        TotalCount = sum(.data[[strCountCol]]),
         GroupLabel = unique(.data$GroupLabel)
       ) %>%
       mutate(KRI = .data$TotalCount)

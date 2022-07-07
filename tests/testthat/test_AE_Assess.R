@@ -41,7 +41,7 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot_error(assess_function(dfInput, vThreshold = "A"))
   expect_snapshot_error(assess_function(dfInput, vThreshold = 1))
   expect_snapshot_error(assess_function(dfInput %>% select(-SubjectID)))
-  expect_snapshot_error(assess_function(dfInput %>% select(-SiteID)))
+  expect_snapshot_error(assess_function(dfInput %>% select(-GroupID)))
   expect_snapshot_error(assess_function(dfInput %>% select(-Count)))
   expect_snapshot_error(assess_function(dfInput %>% select(-Exposure)))
   expect_snapshot_error(assess_function(dfInput %>% select(-Rate)))

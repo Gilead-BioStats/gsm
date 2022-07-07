@@ -59,13 +59,14 @@ Consent_Assess <- function(
   nThreshold = 0.5,
   lTags = list(Assessment = "Consent"),
   strKRILabel = "Total Number of Consent Issues",
+  strGroupCol = "GroupID",
   bChart = TRUE,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
-    "dfInput is missing one or more of these columns: SubjectID, SiteID, and Count" = all(c("SubjectID", "SiteID", "Count") %in% names(dfInput)),
+    "dfInput is missing one or more of these columns: SubjectID, GroupID, and Count" = all(c("SubjectID", "GroupID", "Count") %in% names(dfInput)),
     "nThreshold must be numeric" = is.numeric(nThreshold),
     "nThreshold must be length 1" = length(nThreshold) == 1,
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
@@ -102,7 +103,12 @@ Consent_Assess <- function(
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn Consent_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
-    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strKRILabel = strKRILabel)
+    lAssess$dfTransformed <- gsm::Transform_EventCount(
+      lAssess$dfInput,
+      strGroupCol = strGroupCol,
+      strCountCol = "Count",
+      strKRILabel = strKRILabel
+      )
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     lAssess$dfAnalyzed <- lAssess$dfTransformed %>%

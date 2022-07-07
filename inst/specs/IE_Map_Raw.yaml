@@ -6,6 +6,6 @@ dfIE:
 dfSUBJ:
   vRequired:
     - strIDCol
-    - strSiteCol
+    - strGroupCol
   vUniqueCols:
     - strIDCol

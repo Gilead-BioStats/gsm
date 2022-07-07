@@ -32,7 +32,7 @@ Visualize_Count <- function(dfAnalyzed, strTotalCol = "N", strCountCol = "TotalC
 
   p <- ggplot(
     data = dfAnalyzed,
-    aes(x = reorder(.data$SiteID, -.data$N))
+    aes(x = reorder(.data$GroupID, -.data$N))
   ) +
     geom_bar(aes(y = .data[[strTotalCol]]), stat = "identity", color = "black", fill = "white") +
     geom_bar(aes(y = .data[[strCountCol]]), stat = "identity", fill = "red") +

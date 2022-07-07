@@ -43,7 +43,7 @@ Consent_Map_Raw <- function(
     dfCONSENT = clindata::rawplus_consent,
     dfSUBJ = clindata::rawplus_subj
   ),
-  lMapping = clindata::mapping_rawplus,
+  lMapping = yaml::read_yaml(system.file("mappings", "Consent_Map_Raw.yaml", package = "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
@@ -74,7 +74,7 @@ Consent_Map_Raw <- function(
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
         SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+        GroupID = lMapping[["dfSUBJ"]][["strGroupCol"]],
         RandDate = lMapping[["dfSUBJ"]][["strRandDateCol"]]
       )
 
@@ -103,9 +103,10 @@ Consent_Map_Raw <- function(
         flag_missing_rand = is.na(.data$RandDate),
         flag_date_compare = .data$ConsentDate >= .data$RandDate,
         any_flag = .data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare,
-        Count = as.numeric(.data$any_flag, na.rm = TRUE)
+        Count = as.numeric(.data$any_flag, na.rm = TRUE),
+        GroupLabel = lMapping[["dfSUBJ"]][["strGroupCol"]]
       ) %>%
-      select(.data$SubjectID, .data$SiteID, .data$Count)
+      select(.data$SubjectID, .data$GroupID, .data$GroupLabel, .data$Count)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Consent_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
