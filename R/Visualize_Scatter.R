@@ -47,7 +47,7 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strUnit = "days") {
     ylab("Site Total Events") +
     geom_text(
       data = dfFlagged %>% filter(.data$Flag != 0),
-      aes(x = log(.data$TotalExposure), y = .data$TotalCount, label = .data$SiteID),
+      aes(x = log(.data$TotalExposure), y = .data$TotalCount, label = .data$GroupID),
       vjust = 1.5,
       col = "red",
       size = 3.5
