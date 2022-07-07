@@ -1,6 +1,6 @@
 dfInput:
   strIDCol: "SubjectID"
-  strSiteCol: "SiteID"
+  strGroupCol: "GroupID"
   strCountCol: "Count"
   strExposureCol: "Exposure"
   strRateCol: "Rate"

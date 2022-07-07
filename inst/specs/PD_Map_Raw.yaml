@@ -4,7 +4,7 @@ dfPD:
 dfSUBJ:
   vRequired:
     - strIDCol
-    - strSiteCol
+    - strGroupCol
     - strTimeOnStudyCol
   vUniqueCols:
     - strIDCol

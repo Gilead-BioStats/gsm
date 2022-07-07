@@ -56,6 +56,7 @@ PD_Assess <- function(
   vThreshold = NULL,
   strMethod = "poisson",
   strKRILabel = "PDs/Week",
+  strGroupCol = "GroupID",
   lTags = list(Assessment = "PD"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -63,7 +64,7 @@ PD_Assess <- function(
 ) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
-    "dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate" = all(c("SubjectID", "SiteID", "Count", "Exposure", "Rate") %in% names(dfInput)),
+    "dfInput is missing one or more of these columns: SubjectID, GroupID, Count, Exposure, and Rate" = all(c("SubjectID", "GroupID", "Count", "Exposure", "Rate") %in% names(dfInput)),
     "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson", "wilcoxon"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
@@ -101,7 +102,13 @@ PD_Assess <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn PD_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
 
-    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = strKRILabel)
+    lAssess$dfTransformed <- gsm::Transform_EventCount(
+      lAssess$dfInput,
+      strGroupCol = strGroupCol,
+      strCountCol = "Count",
+      strExposureCol = "Exposure",
+      strKRILabel = strKRILabel
+      )
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     if (strMethod == "poisson") {
