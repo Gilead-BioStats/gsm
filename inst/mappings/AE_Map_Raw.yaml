@@ -1,6 +1,6 @@
 dfSUBJ:
   strIDCol: "SubjectID"
-  strSiteCol: "SiteID"
+  strGroupCol: "SiteID"
   strTimeOnTreatmentCol: "TimeOnTreatment"
   strTimeOnStudyCol: "TimeOnStudy"
   strRandFlagCol: "RandFlag"

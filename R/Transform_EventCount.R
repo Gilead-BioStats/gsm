@@ -83,6 +83,7 @@ Transform_EventCount <- function(
       summarise(
         N = n(),
         TotalCount = sum(.data[[strGroupCol]]),
+        GroupLabel = unique(.data$GroupLabel)
       ) %>%
       mutate(KRI = .data$TotalCount)
   } else {
@@ -91,15 +92,15 @@ Transform_EventCount <- function(
       summarise(
         N = n(),
         TotalCount = sum(.data[[strCountCol]]),
-        TotalExposure = sum(.data[[strExposureCol]])
+        TotalExposure = sum(.data[[strExposureCol]]),
+        GroupLabel = unique(.data$GroupLabel)
       ) %>%
       mutate(KRI = .data$TotalCount / .data$TotalExposure)
   }
 
   dfTransformed <- dfTransformed %>%
     mutate(
-      KRILabel = strKRILabel,
-      GroupLabel = strGroupCol
+      KRILabel = strKRILabel
     )
 
   return(dfTransformed)

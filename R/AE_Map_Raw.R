@@ -43,7 +43,7 @@ AE_Map_Raw <- function(
     dfAE = clindata::rawplus_ae,
     dfSUBJ = clindata::rawplus_subj
   ),
-  lMapping = clindata::mapping_rawplus,
+  lMapping = yaml::read_yaml(system.file("mappings", "AE_Map_Raw.yaml", package = "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
@@ -70,7 +70,7 @@ AE_Map_Raw <- function(
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
         SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+        GroupID = lMapping[["dfSUBJ"]][["strGroupCol"]],
         Exposure = lMapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
       )
 
@@ -80,8 +80,9 @@ AE_Map_Raw <- function(
       summarize(Count = n()) %>%
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      mutate(Rate = .data$Count / .data$Exposure) %>%
-      select(.data$SubjectID, .data$SiteID, .data$Count, .data$Exposure, .data$Rate)
+      mutate(Rate = .data$Count / .data$Exposure,
+             GroupLabel = lMapping[["dfSUBJ"]][["strGroupCol"]]) %>%
+      select(.data$SubjectID, .data$GroupID, .data$GroupLabel, .data$Count, .data$Exposure, .data$Rate)
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

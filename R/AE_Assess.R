@@ -56,7 +56,7 @@ AE_Assess <- function(
   vThreshold = NULL,
   strMethod = "poisson",
   strKRILabel = "AEs/Week",
-  strGroupCol = "SiteID",
+  strGroupCol = "GroupID",
   lTags = list(Assessment = "AE"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -64,7 +64,7 @@ AE_Assess <- function(
 ) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
-    "dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate" = all(c("SubjectID", "SiteID", "Count", "Exposure", "Rate") %in% names(dfInput)),
+    "dfInput is missing one or more of these columns: SubjectID, GroupID, Count, Exposure, and Rate" = all(c("SubjectID", "GroupID", "Count", "Exposure", "Rate") %in% names(dfInput)),
     "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson", "wilcoxon"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strKRILabel must be length 1" = length(strKRILabel) == 1,

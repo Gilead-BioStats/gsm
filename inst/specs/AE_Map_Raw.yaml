@@ -4,7 +4,7 @@ dfAE:
 dfSUBJ:
   vRequired:
     - strIDCol
-    - strSiteCol
+    - strGroupCol
     - strTimeOnTreatmentCol
   vUniqueCols:
     - strIDCol
