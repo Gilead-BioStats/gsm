@@ -149,7 +149,7 @@ for (assessment in results){
 
 details <- assessment$dfFlagged %>%
   filter(Flag !=0) %>% 
-  arrange(., match(SiteID, flagged$SiteID))
+  arrange(., match(GroupID, flagged$GroupID))
 
     if(nrow(details)>0){
         details%>%
