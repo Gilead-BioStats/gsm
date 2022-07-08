@@ -79,7 +79,7 @@ Consent_Assess <- function(
     stopifnot(
       "lTags is not named" = (!is.null(names(lTags))),
       "lTags has unnamed elements" = all(names(lTags) != ""),
-      "lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "KRI", "KRILabel", "Score", "ScoreLabel", "Flag")
+      "lTags cannot contain elements named: 'GroupID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', 'GroupLabel' or 'Flag'" = !names(lTags) %in% c("GroupID", "N", "KRI", "KRILabel", "Score", "ScoreLabel", "Flag", "GroupLabel")
     )
 
     if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {

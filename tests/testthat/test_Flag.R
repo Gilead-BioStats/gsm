@@ -11,12 +11,12 @@ dfWilcoxon <- Analyze_Wilcoxon(data)
 test_that("output is created as expected", {
   flag <- Flag(dfWilcoxon)
   expect_true(is.data.frame(flag))
-  expect_equal(sort(unique(dfWilcoxon$SiteID)), sort(flag$SiteID))
+  expect_equal(sort(unique(dfWilcoxon$GroupID)), sort(flag$GroupID))
   expect_true(all(names(dfWilcoxon) %in% names(flag)))
   expect_equal(
     names(flag),
     c(
-      "SiteID", "N", "TotalCount", "TotalExposure", "KRI", "KRILabel", "Estimate",
+      "GroupID", "N", "TotalCount", "TotalExposure", "GroupLabel", "KRI", "KRILabel", "Estimate",
       "Score", "ScoreLabel", "ThresholdLow", "ThresholdHigh", "ThresholdCol", "Flag"
     )
   )
@@ -51,17 +51,17 @@ test_that("Expected Columns are added to dfFlagged", {
 })
 
 test_that("vThreshold parameter works as intended", {
-  sim1 <- Flag(data.frame(SiteID = seq(1:100), vals = seq(1:100)), strColumn = "vals", vThreshold = c(10, NA))
+  sim1 <- Flag(data.frame(GroupID = seq(1:100), vals = seq(1:100)), strColumn = "vals", vThreshold = c(10, NA))
   expect_equal(sim1$Flag, c(rep(-1, 9), rep(0, 91)))
-  sim2 <- Flag(data.frame(SiteID = seq(1:100), vals = seq(1:100)), strColumn = "vals", vThreshold = c(NA, 91))
+  sim2 <- Flag(data.frame(GroupID = seq(1:100), vals = seq(1:100)), strColumn = "vals", vThreshold = c(NA, 91))
   expect_equal(sim2$Flag, c(rep(1, 9), rep(0, 91)))
-  sim3 <- Flag(data.frame(SiteID = seq(1:100), vals = seq(1:100)), strColumn = "vals", vThreshold = c(2, 91))
+  sim3 <- Flag(data.frame(GroupID = seq(1:100), vals = seq(1:100)), strColumn = "vals", vThreshold = c(2, 91))
   expect_equal(sim3$Flag, c(rep(1, 9), -1, rep(0, 90)))
-  sim4 <- Flag(data.frame(SiteID = seq(1:201), vals = seq(from = -100, to = 100)), strColumn = "vals", vThreshold = c(-91, 91))
+  sim4 <- Flag(data.frame(GroupID = seq(1:201), vals = seq(from = -100, to = 100)), strColumn = "vals", vThreshold = c(-91, 91))
   expect_equal(sim4$Flag, c(rep(1, 9), rep(-1, 9), rep(0, 183)))
 })
 
 test_that("NA values in strColumn result in NA in Flag column", {
-  NAsim <- Flag(data.frame(SiteID = seq(1:100), vals = c(seq(1:90), rep(NA, 10))), strColumn = "vals", vThreshold = c(10, NA))
+  NAsim <- Flag(data.frame(GroupID = seq(1:100), vals = c(seq(1:90), rep(NA, 10))), strColumn = "vals", vThreshold = c(10, NA))
   expect_equal(NAsim$Flag, c(rep(-1, 9), rep(0, 81), rep(NA, 10)))
 })

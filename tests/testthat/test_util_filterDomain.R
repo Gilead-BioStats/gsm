@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 
-lMapping <- clindata::mapping_rawplus
+lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 test_that("basic filter works", {
   ae_test <- FilterDomain(dfAE,
@@ -36,7 +36,7 @@ test_that("filter to 0 rows throws a warning", {
       lMapping = lMapping,
       strDomain = "dfAE",
       strColParam = "strTreatmentEmergentCol",
-      strValParam = "strTreatmentEmergentVal", 
+      strValParam = "strTreatmentEmergentVal",
       bQuiet=TRUE
     ) %>%
       nrow(),

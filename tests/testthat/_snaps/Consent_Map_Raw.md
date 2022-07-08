@@ -45,7 +45,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strRandDateCol"]
+              "value": ["strIDCol", "strGroupCol", "strRandDateCol"]
             },
             {
               "type": "character",
@@ -75,7 +75,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
+              "value": ["strIDCol", "strGroupCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
             }
           },
           "value": [
@@ -201,7 +201,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strCountCol"]
+              "value": ["strIDCol", "strGroupCol", "strCountCol"]
             },
             {
               "type": "character",
@@ -231,7 +231,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strCountCol"]
+              "value": ["strIDCol", "strGroupCol", "strGroupLabel", "strCountCol"]
             }
           },
           "value": [
@@ -243,7 +243,12 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["SiteID"]
+              "value": ["GroupID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["GroupLabel"]
             },
             {
               "type": "character",
@@ -396,7 +401,7 @@
       x "mapping" does not contain required parameters: strIDCol, strTypeCol, strValueCol, strDateCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      x "mapping" does not contain required parameters: strIDCol, strSiteCol, strRandDateCol
+      x "mapping" does not contain required parameters: strIDCol, strGroupCol, strRandDateCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       ! Issues found for `Consent_Map_Raw()`

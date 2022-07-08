@@ -7,11 +7,11 @@ StrataWorkflow<- MakeAssessmentList()$aeGrade
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
   strat <- MakeStratifiedAssessment(
-    lData=lData, 
+    lData=lData,
     lMapping=clindata::mapping_rawplus,
     lAssessment=StrataWorkflow
   )
-  
+
   # New workflow created for each stratification level
   expect_equal(length(strat),length(unique(clindata::rawplus_ae$AE_GRADE)))
 
@@ -22,19 +22,19 @@ test_that("output is created as expected", {
 # output is created as expected -------------------------------------------
 test_that("errors thrown for invalid groupings", {
   expect_error( MakeStratifiedAssessment(
-    lData=list(), 
+    lData=list(),
     lMapping=clindata::mapping_rawplus,
     lAssessment=StrataWorkflow
   ))
 
   expect_error( MakeStratifiedAssessment(
-    lData=lData, 
+    lData=lData,
     lMapping=list(),
     lAssessment=StrataWorkflow
   ))
 
   expect_error( MakeStratifiedAssessment(
-    lData=lData, 
+    lData=lData,
     lMapping=clindata::mapping_rawplus,
     lAssessment=list()
   ))
@@ -42,15 +42,15 @@ test_that("errors thrown for invalid groupings", {
   badWorkflow1 <- StrataWorkflow
   badWorkflow1$group$domain <- 'dfOther'
   expect_error(MakeStratifiedAssessment(
-    lData=lData, 
+    lData=lData,
     lMapping=clindata::mapping_rawplus,
     lAssessment=BadWorkflow1
   ))
-  
+
   badWorkflow2 <- StrataWorkflow
   badWorkflow2$group$columnParam <- 'NotACol'
   expect_error(MakeStratifiedAssessment(
-    lData=lData, 
+    lData=lData,
     lMapping=clindata::mapping_rawplus,
     lAssessment=BadWorkflow2
   ))

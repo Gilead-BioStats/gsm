@@ -40,7 +40,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol"]
+              "value": ["strIDCol", "strGroupCol"]
             },
             {
               "type": "character",
@@ -70,7 +70,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
+              "value": ["strIDCol", "strGroupCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
             }
           },
           "value": [
@@ -196,7 +196,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strCountCol"]
+              "value": ["strIDCol", "strGroupCol", "strCountCol"]
             },
             {
               "type": "character",
@@ -226,7 +226,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strCountCol"]
+              "value": ["strIDCol", "strGroupCol", "strGroupLabel", "strCountCol"]
             }
           },
           "value": [
@@ -238,7 +238,12 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["SiteID"]
+              "value": ["GroupID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["GroupLabel"]
             },
             {
               "type": "character",
@@ -391,7 +396,7 @@
       x "mapping" does not contain required parameters: strIDCol, strCategoryCol, strValueCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      x "mapping" does not contain required parameters: strIDCol, strSiteCol
+      x "mapping" does not contain required parameters: strIDCol, strGroupCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       ! Issues found for `IE_Map_Raw()`

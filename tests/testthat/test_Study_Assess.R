@@ -8,7 +8,7 @@ lData <- list(
   dfIE = dfIE
 )
 
-lAssessments <- MakeAssessmentList() 
+lAssessments <- MakeAssessmentList()
 lAssessments$aeGrade <- NULL # Drop stratified assessment
 
 result <- Study_Assess(lData = lData, lAssessments= lAssessments, bQuiet = TRUE)
@@ -80,7 +80,7 @@ test_that("Study_Assess() runs with missing datasets", {
 
 
 test_that("custom lMapping runs as intended", {
-  lMapping <- clindata::mapping_rawplus
+  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
   lMapping$dfAE$strIDCol <- "SUBJID"
 
   result <- Study_Assess(lData = lData, lMapping = lMapping, bQuiet=TRUE)
@@ -89,7 +89,7 @@ test_that("custom lMapping runs as intended", {
   expect_false("lResults" %in% names(result$ae))
   expect_false("lResults" %in% names(result$sae))
 
-  lMapping <- clindata::mapping_rawplus
+  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
   lMapping$dfAE$strIDCol <- "SUBJID"
   lData$dfAE <- lData$dfAE %>%
     rename(SUBJID = SubjectID)
@@ -128,7 +128,7 @@ test_that("lTags are carried through", {
       Study = "test study",
       Q = "Q2 2022",
       Region = "Northwest"
-    ), 
+    ),
     bQuiet=TRUE
   )
 
@@ -217,7 +217,7 @@ test_that("lSubjFilters with 0 rows returns NULL", {
       strSiteCol = "strSiteVal",
       strSiteCol = "strSiteVal2",
       strSiteCol = "strSiteVal3"
-    ), 
+    ),
     bQuiet=TRUE
   )
 
@@ -229,7 +229,7 @@ test_that("correct bStatus is returned when workflow is missing", {
   custom_assessments$ie$workflow <- NULL
   result <- Study_Assess(
     lData = lData,
-    lAssessments = custom_assessments, 
+    lAssessments = custom_assessments,
     bQuiet=TRUE
   )
 

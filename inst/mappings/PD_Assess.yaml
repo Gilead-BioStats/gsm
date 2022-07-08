@@ -1,6 +1,7 @@
 dfInput:
   strIDCol: "SubjectID"
   strGroupCol: "GroupID"
+  strGroupLabel: "GroupLabel"
   strCountCol: "Count"
   strExposureCol: "Exposure"
   strRateCol: "Rate"

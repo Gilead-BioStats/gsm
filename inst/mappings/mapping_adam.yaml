@@ -1,6 +1,6 @@
 dfADSL:
   strIDCol: "USUBJID"
-  strSiteCol: "SITEID"
+  strGroupCol: "SITEID"
   strStartCol: "TRTSDT"
   strEndCol: "TRTEDT"
   strTimeOnTreatmentCol: "TDUR"

@@ -9,7 +9,7 @@ test_valid_output <- function(
   testthat::expect_true(is.data.frame(output))
   testthat::expect_equal(names(output), as.character(mapping$dfInput))
   testthat::expect_type(output$SubjectID, "character")
-  testthat::expect_type(output$SiteID, "character")
+  testthat::expect_type(output$GroupID, "character")
   testthat::expect_true(class(output$Count) %in% c("double", "integer", "numeric"))
 }
 

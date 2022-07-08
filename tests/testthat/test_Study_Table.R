@@ -1,4 +1,4 @@
-lAssessments <- MakeAssessmentList() 
+lAssessments <- MakeAssessmentList()
 lAssessments$aeGrade <- NULL # Drop stratified assessment
 
 results <- Study_Assess(lAssessments= lAssessments, bQuiet = TRUE) %>%

@@ -31,7 +31,7 @@ test_that("output is created as expected", {
   checks <- CheckInputs(
     context = "IE_Map_Raw",
     dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ),
-    mapping = clindata::mapping_rawplus,
+    mapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     bQuiet = TRUE
   )
 

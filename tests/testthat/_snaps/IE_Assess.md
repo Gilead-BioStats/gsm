@@ -1,26 +1,26 @@
 # incorrect lTags throw errors
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', 'GroupLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', 'GroupLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', 'GroupLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', 'GroupLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', 'GroupLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', 'GroupLabel', or 'Flag'
 
 # bQuiet and bReturnChecks work as intended
 

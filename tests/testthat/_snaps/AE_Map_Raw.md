@@ -40,7 +40,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strTimeOnTreatmentCol"]
+              "value": ["strIDCol", "strGroupCol", "strTimeOnTreatmentCol"]
             },
             {
               "type": "character",
@@ -70,7 +70,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
+              "value": ["strIDCol", "strGroupCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
             }
           },
           "value": [
@@ -196,7 +196,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strCountCol", "strExposureCol", "strRateCol"]
+              "value": ["strIDCol", "strGroupCol", "strCountCol", "strExposureCol", "strRateCol"]
             },
             {
               "type": "character",
@@ -226,7 +226,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strCountCol", "strExposureCol", "strRateCol"]
+              "value": ["strIDCol", "strGroupCol", "strGroupLabel", "strCountCol", "strExposureCol", "strRateCol"]
             }
           },
           "value": [
@@ -238,7 +238,12 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["SiteID"]
+              "value": ["GroupID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["GroupLabel"]
             },
             {
               "type": "character",
@@ -401,7 +406,7 @@
       x "mapping" does not contain required parameters: strIDCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      x "mapping" does not contain required parameters: strIDCol, strSiteCol, strTimeOnTreatmentCol
+      x "mapping" does not contain required parameters: strIDCol, strGroupCol, strTimeOnTreatmentCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       ! Issues found for `AE_Map_Raw()`

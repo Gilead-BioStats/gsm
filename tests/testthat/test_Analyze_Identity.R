@@ -6,7 +6,7 @@ dfAnalyzed <- Analyze_Identity(dfTransformed)
 
 test_that("output created as expected and has correct structure", {
   expect_true(is.data.frame(dfAnalyzed))
-  expect_equal(names(dfAnalyzed), c("SiteID", "N", "TotalCount", "KRI", "KRILabel", "Score", "ScoreLabel"))
+  expect_equal(names(dfAnalyzed), c("GroupID", "N", "TotalCount", "GroupLabel", "KRI", "KRILabel", "Score", "ScoreLabel"))
   expect_equal(dfAnalyzed$KRI, dfAnalyzed$Score)
   expect_equal(dfAnalyzed$KRILabel, dfAnalyzed$ScoreLabel)
 })
@@ -28,7 +28,7 @@ test_that("strValueCol works as intended", {
   dfAnalyzed <- Analyze_Identity(dfTransformed, strValueCol = "customKRI")
 
   expect_silent(Analyze_Identity(dfTransformed, strValueCol = "customKRI"))
-  expect_equal(names(dfAnalyzed), c("SiteID", "N", "TotalCount", "customKRI", "KRILabel", "Score", "ScoreLabel"))
+  expect_equal(names(dfAnalyzed), c("GroupID", "N", "TotalCount", "GroupLabel", "customKRI", "KRILabel", "Score", "ScoreLabel"))
 })
 
 test_that("strLabelCol works as intended", {
@@ -38,7 +38,7 @@ test_that("strLabelCol works as intended", {
   dfAnalyzed <- Analyze_Identity(dfTransformed, strLabelCol = "customKRILabel")
 
   expect_silent(Analyze_Identity(dfTransformed, strLabelCol = "customKRILabel"))
-  expect_equal(names(dfAnalyzed), c("SiteID", "N", "TotalCount", "KRI", "customKRILabel", "Score", "ScoreLabel"))
+  expect_equal(names(dfAnalyzed), c("GroupID", "N", "TotalCount", "GroupLabel", "KRI", "customKRILabel", "Score", "ScoreLabel"))
 })
 
 test_that("bQuiet works as intended", {

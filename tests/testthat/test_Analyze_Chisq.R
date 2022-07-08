@@ -4,12 +4,14 @@ dfInput <- Disp_Map(
   dfDisp,
   strCol = "DCREASCD",
   strReason = "Adverse Event"
-)
+) %>%
+  mutate(GroupLabel = "SiteID") # this is a temp fix and will be updated in branch fix-387
 
 dfTransformed <- Transform_EventCount(
   dfInput,
   strCountCol = "Count",
-  strKRILabel = "Discontinuation Reasons/Site"
+  strKRILabel = "Discontinuation Reasons/Site",
+  strGroupCol = "SiteID"
 )
 
 test_that("output created as expected and has correct structure", {
@@ -19,7 +21,7 @@ test_that("output created as expected and has correct structure", {
 
   expect_equal(
     names(chisq),
-    c("SiteID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "Statistic", "PValue")
+    c("GroupID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "Statistic", "PValue")
   )
 })
 

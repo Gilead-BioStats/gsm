@@ -69,7 +69,7 @@ AE_Map_Adam <- function(
     dfInput <- dfs$dfADSL %>%
       rename(
         SubjectID = .data[[lMapping$dfADSL$strIDCol]],
-        SiteID = .data[[lMapping$dfADSL$strSiteCol]]
+        GroupID = .data[[lMapping$dfADSL$strGroupCol]]
       ) %>%
       mutate(
         Exposure = as.numeric(.data[[lMapping$dfADSL$strEndCol]] - .data[[lMapping$dfADSL$strStartCol]]) + 1
@@ -77,10 +77,11 @@ AE_Map_Adam <- function(
       rowwise() %>%
       mutate(
         Count = sum(dfs$dfADAE[[lMapping$dfADAE$strIDCol]] == .data$SubjectID),
-        Rate = .data$Count / .data$Exposure
+        Rate = .data$Count / .data$Exposure,
+        GroupLabel = lMapping[["dfADSL"]][["strGroupCol"]]
       ) %>%
       ungroup() %>%
-      select(.data$SubjectID, .data$SiteID, .data$Count, .data$Exposure, .data$Rate)
+      select(.data$SubjectID, .data$GroupID, .data$GroupLabel, .data$Count, .data$Exposure, .data$Rate)
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Adam} returned output with {nrow(dfInput)} rows.")
   } else {

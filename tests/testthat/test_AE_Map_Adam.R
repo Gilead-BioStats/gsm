@@ -4,7 +4,7 @@ source(testthat::test_path("testdata/data.R"))
 test_that("output is created as expected", {
   data <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
   expect_true(is.data.frame(data))
-  expect_equal(names(data), c("SubjectID", "SiteID", "Count", "Exposure", "Rate"))
+  expect_equal(names(data), c("SubjectID", "GroupID", "GroupLabel", "Count", "Exposure", "Rate"))
 })
 
 # incorrect inputs throw errors -------------------------------------------
