@@ -1,0 +1,16 @@
+dfDISP:
+  vRequired:
+    - strIDCol
+    - strTreatmentDiscontinuationReasonCol
+    - strTreatmentCompletionFlagCol
+  vNACols:
+    - strTreatmentDiscontinuationReasonCol
+    - strTreatmentCompletionFlagCol
+dfSUBJ:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+  vUniqueCols:
+    - strIDCol
+
+
