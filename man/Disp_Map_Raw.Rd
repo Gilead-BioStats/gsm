@@ -6,6 +6,7 @@
 \usage{
 Disp_Map_Raw(
   dfs = list(dfDISP = clindata::rawplus_subj, dfSUBJ = clindata::rawplus_subj),
+  strContext = "Treatment",
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
   bReturnChecks = FALSE,
@@ -16,7 +17,10 @@ Disp_Map_Raw(
 \item{dfs}{\code{list} Input data frame:
 \itemize{
 \item \code{dfDISP}: \code{data.frame} Subject-level data with one record per discontinuation reason.
+\item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per participant.
 }}
+
+\item{strContext}{Disposition Context - "Treatment" or "Study"}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column.}
@@ -51,10 +55,8 @@ Convert from ADaM or raw format to input format for Disposition Assessment.
    dfDISP \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab FALSE \cr
    dfDISP \tab strStudyDiscontinuationReasonCol \tab StudDCReason \tab TRUE \tab TRUE \tab FALSE \cr
    dfDISP \tab strStudyCompletionFlagCol \tab StudCompletion \tab TRUE \tab TRUE \tab FALSE \cr
-   dfDISP \tab strStudyCompletionFlagVal \tab Y \tab TRUE \tab FALSE \tab FALSE \cr
    dfDISP \tab strTreatmentDiscontinuationReasonCol \tab TrtDCReason \tab TRUE \tab TRUE \tab FALSE \cr
    dfDISP \tab strTreatmentCompletionFlagCol \tab TrtCompletion \tab TRUE \tab TRUE \tab FALSE \cr
-   dfDISP \tab strTreatmentCompletionFlagVal \tab Y \tab TRUE \tab FALSE \tab FALSE \cr
 }
 }
 

@@ -3,13 +3,9 @@ dfDISP:
     - strIDCol
     - strStudyDiscontinuationReasonCol
     - strStudyCompletionFlagCol
-    - strTreatmentDiscontinuationReasonCol
-    - strTreatmentCompletionFlagCol
   vNACols:
     - strStudyDiscontinuationReasonCol
     - strStudyCompletionFlagCol
-    - strTreatmentDiscontinuationReasonCol
-    - strTreatmentCompletionFlagCol
 dfSUBJ:
   vRequired:
     - strIDCol
