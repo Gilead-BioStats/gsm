@@ -18,7 +18,7 @@ test_that("output created as expected and has correct structure", {
 
   expect_equal(
     names(chisq),
-    c("SiteID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "Statistic", "PValue")
+    c("SiteID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "KRI", "KRILabel", "Statistic", "Score", "ScoreLabel")
   )
 })
 
