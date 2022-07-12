@@ -12,6 +12,8 @@
 #'
 #' @param dfs `list` Input data frame:
 #'   - `dfDISP`: `data.frame` Subject-level data with one record per discontinuation reason.
+#'   - `dfSUBJ`: `data.frame` Subject-level data with one record per participant.
+#' @param strContext Disposition Context - "Treatment" or "Study"
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
@@ -29,6 +31,7 @@
 #'
 #' @import dplyr
 #' @importFrom yaml read_yaml
+#' @importFrom glue glue
 #'
 #' @export
 
@@ -37,6 +40,7 @@ Disp_Map_Raw <- function(
       dfDISP = clindata::rawplus_subj,
       dfSUBJ = clindata::rawplus_subj
       ),
+    strContext="Treatment",
     lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     bReturnChecks = FALSE,
     bQuiet = TRUE
@@ -48,7 +52,7 @@ Disp_Map_Raw <- function(
   )
 
   checks <- CheckInputs(
-    context = "Disp_Map_Raw",
+    context =  paste0("Disp_Map_Raw","_",strContext),
     dfs = dfs,
     bQuiet = bQuiet,
     mapping = lMapping
@@ -59,39 +63,22 @@ Disp_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn Disp_Map_Raw}")
 
   # Standarize Column Names
-  if(lMapping$dfDISP$strDiscontinuationScope == "Treatment") {
 
-    dfDISP_mapped <- dfs$dfDISP %>%
-      select(
-        SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
-        TrtDCReason = lMapping[["dfDISP"]][["strTreatmentDiscontinuationReasonCol"]],
-        TrtCompletion = lMapping[["dfDISP"]][["strTreatmentCompletionFlagCol"]]
-      ) %>%
-      filter(.data$TrtCompletion != lMapping[["dfDISP"]][["strTreatmentCompletionFlagVal"]]) %>%
-      mutate(Count = 1)
 
-    if(!is.null(lMapping$dfDISP$strTreatmentDiscontinuationReasonVal)) {
-      dfDISP_mapped <- dfDISP_mapped %>%
-        filter(.data$TrtDCReason == lMapping$dfDISP$strTreatmentDiscontinuationReasonVal)
-    }
+  dfDISP_mapped <- dfs$dfDISP %>%
+    select(
+      SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
+      DCReason = lMapping[["dfDISP"]][[glue('str{strContext}DiscontinuationReasonCol')]],
+      Completion = lMapping[["dfDISP"]][[glue('str{strContext}CompletionFlagCol')]]
+    ) %>%
+    filter(.data$Completion != lMapping[["dfDISP"]][[glue('str{strContext}CompletionFlagVal')]]) %>%
+    mutate(Count = 1)
 
-  } else if (lMapping$dfDISP$strDiscontinuationScope == "Study") {
-
-    dfDISP_mapped <- dfs$dfDISP %>%
-      select(
-        SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
-        StudyDCReason = lMapping[["dfDISP"]][["strStudyDiscontinuationReasonCol"]],
-        StudyCompletion = lMapping[["dfDISP"]][["strStudyCompletionFlagCol"]]
-      ) %>%
-      filter(.data$StudyCompletion != lMapping[["dfDISP"]][["strStudyCompletionFlagVal"]]) %>%
-      mutate(Count = 1)
-
-    if(!is.null(lMapping$dfDISP$strStudyDiscontinuationReasonVal)) {
-      dfDISP_mapped <- dfDISP_mapped %>%
-        filter(.data$TrtDCReason == lMapping$dfDISP$strStudyDiscontinuationReasonVal)
-    }
-
+  if(!is.null(lMapping$dfDISP[[glue('str{strContext}DiscontinuationReasonVal')]])) {
+    dfDISP_mapped <- dfDISP_mapped %>%
+      filter(.data$DCReason == lMapping$dfDISP[[glue('str{strContext}DiscontinuationReasonVal')]])
   }
+
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
