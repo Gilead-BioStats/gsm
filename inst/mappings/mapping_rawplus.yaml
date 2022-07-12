@@ -49,5 +49,4 @@ dfDISP:
   strTreatmentCompletionFlagCol: "TrtCompletion"
   strTreatmentCompletionFlagVal: "Y"
   strTreatmentDiscontinuationReasonVal:
-  strDiscontinuationScope: "Treatment"
 
