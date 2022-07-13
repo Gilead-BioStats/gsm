@@ -124,7 +124,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Y"]
+              "value": [""]
             },
             {
               "type": "character",

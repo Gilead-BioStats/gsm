@@ -44,7 +44,7 @@ dfDISP:
   strStudyDiscontinuationReasonCol: "StudDCReason"
   strStudyDiscontinuationReasonVal: "Withdrew Consent"
   strStudyCompletionFlagCol: "StudCompletion"
-  strStudyCompletionFlagVal: "Y"
+  strStudyCompletionFlagVal: ""
   strTreatmentDiscontinuationReasonCol: "TrtDCReason"
   strTreatmentDiscontinuationReasonVal: "Investigator's Discretion*"
   strTreatmentCompletionFlagCol: "TrtCompletion"
