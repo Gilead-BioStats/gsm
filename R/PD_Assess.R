@@ -146,12 +146,12 @@ PD_Assess <- function(
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
     } else if (strMethod == "identity") {
       if (is.null(vThreshold)) {
-        vThreshold <- c(0.00025, NA)
+        vThreshold <- c(0.000895, 0.003059)
       } else {
         stopifnot(
           "vThreshold is not numeric" = is.numeric(vThreshold),
-          "Lower limit (first element) for Wilcoxon vThreshold is not between 0 and 1" = vThreshold[1] < 1 & vThreshold[1] > 0,
-          "Upper limit (second element) for Wilcoxon vThreshold is not NA" = is.na(vThreshold[2]),
+          "Lower limit (first element) for Identity vThreshold is not between 0 and 1" = vThreshold[1] < 1 & vThreshold[1] > 0,
+          "Upper limit (second element) for Identity vThreshold is not NA" = is.na(vThreshold[2]),
           "vThreshold is not length 2" = length(vThreshold) == 2
         )
       }
