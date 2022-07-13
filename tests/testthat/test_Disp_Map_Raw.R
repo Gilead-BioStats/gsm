@@ -7,7 +7,7 @@ dfs <- list(
   dfSUBJ = dfSUBJ
 )
 
-input_spec <- yaml::read_yaml(system.file("specs", "Disp_Map_Raw.yaml", package = "gsm"))
+input_spec <- yaml::read_yaml(system.file("specs", "Disp_Map_Raw_Treatment.yaml", package = "gsm"))
 input_mapping <- yaml::read_yaml(system.file("mappings", "Disp_Map_Raw.yaml", package = "gsm"))
 
 

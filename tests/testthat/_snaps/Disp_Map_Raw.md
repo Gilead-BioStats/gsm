@@ -23,12 +23,12 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strStudyDiscontinuationReasonCol", "strStudyCompletionFlagCol", "strTreatmentDiscontinuationReasonCol", "strTreatmentCompletionFlagCol"]
+              "value": ["strIDCol", "strTreatmentDiscontinuationReasonCol", "strTreatmentCompletionFlagCol"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyDiscontinuationReasonCol", "strStudyCompletionFlagCol", "strTreatmentDiscontinuationReasonCol", "strTreatmentCompletionFlagCol"]
+              "value": ["strTreatmentDiscontinuationReasonCol", "strTreatmentCompletionFlagCol"]
             }
           ]
         },
@@ -97,7 +97,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strStudyDiscontinuationReasonCol", "strStudyCompletionFlagCol", "strStudyCompletionFlagVal", "strTreatmentDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentCompletionFlagVal", "strDiscontinuationScope"]
+              "value": ["strIDCol", "strStudyDiscontinuationReasonCol", "strStudyDiscontinuationReasonVal", "strStudyCompletionFlagCol", "strStudyCompletionFlagVal", "strTreatmentDiscontinuationReasonCol", "strTreatmentDiscontinuationReasonVal", "strTreatmentCompletionFlagCol", "strTreatmentCompletionFlagVal"]
             }
           },
           "value": [
@@ -110,6 +110,11 @@
               "type": "character",
               "attributes": {},
               "value": ["StudDCReason"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Withdrew Consent"]
             },
             {
               "type": "character",
@@ -129,17 +134,17 @@
             {
               "type": "character",
               "attributes": {},
+              "value": ["Investigator's Discretion*"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
               "value": ["TrtCompletion"]
             },
             {
               "type": "character",
               "attributes": {},
               "value": ["Y"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["Treatment"]
             }
           ]
         }
@@ -231,10 +236,10 @@
       map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, StudDCReason, StudCompletion, TrtDCReason, TrtCompletion
+      x the following columns not found in df: SubjectID, TrtDCReason, TrtCompletion
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -243,7 +248,7 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -255,14 +260,14 @@
       bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x df is not a data.frame()
       x the following columns not found in df: SubjectID, SiteID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -274,14 +279,14 @@
       bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, StudDCReason, StudCompletion, TrtDCReason, TrtCompletion
+      x the following columns not found in df: SubjectID, TrtDCReason, TrtCompletion
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -292,10 +297,10 @@
       map_function(dfs = purrr::imap(dfs, ~"Hi Mom"), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, StudDCReason, StudCompletion, TrtDCReason, TrtCompletion
+      x the following columns not found in df: SubjectID, TrtDCReason, TrtCompletion
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -304,7 +309,7 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -315,10 +320,10 @@
       map_function(dfs = purrr::imap(dfs, ~9999), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, StudDCReason, StudCompletion, TrtDCReason, TrtCompletion
+      x the following columns not found in df: SubjectID, TrtDCReason, TrtCompletion
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -327,7 +332,7 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -338,10 +343,10 @@
       map_function(dfs = purrr::imap(dfs, ~TRUE), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, StudDCReason, StudCompletion, TrtDCReason, TrtCompletion
+      x the following columns not found in df: SubjectID, TrtDCReason, TrtCompletion
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -350,7 +355,7 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -361,15 +366,15 @@
       map_function(dfs = purrr::imap(dfs, ~.x), lMapping = list(), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
-      x "mapping" does not contain required parameters: strIDCol, strStudyDiscontinuationReasonCol, strStudyCompletionFlagCol, strTreatmentDiscontinuationReasonCol, strTreatmentCompletionFlagCol
+      x "mapping" does not contain required parameters: strIDCol, strTreatmentDiscontinuationReasonCol, strTreatmentCompletionFlagCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       x "mapping" does not contain required parameters: strIDCol, strSiteCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -380,10 +385,10 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x Unexpected duplicates found in column: SubjectID
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -394,13 +399,13 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x the following columns not found in df: SubjectID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -411,47 +416,13 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
-      
-      x the following columns not found in df: StudDCReason
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs_edited, bQuiet = FALSE)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `Disp_Map_Raw()` --
-      
-      x the following columns not found in df: StudCompletion
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs_edited, bQuiet = FALSE)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x the following columns not found in df: TrtDCReason
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -462,13 +433,13 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x the following columns not found in df: TrtCompletion
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -479,13 +450,13 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x the following columns not found in df: SubjectID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -496,13 +467,13 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x the following columns not found in df: SiteID
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -513,10 +484,10 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x 1 NA values found in column: SubjectID
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -527,10 +498,10 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x 1 NA values found in column: SubjectID
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -541,10 +512,10 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x 1 NA values found in column: SiteID
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -555,10 +526,10 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x Unexpected duplicates found in column: SubjectID
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -569,13 +540,13 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -586,13 +557,13 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -603,13 +574,13 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -620,13 +591,13 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -637,47 +608,13 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `Disp_Map_Raw()` --
-      
-      x the following columns not found in df: asdf
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `Disp_Map_Raw()` --
-      
-      x the following columns not found in df: asdf
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw()`
+      ! Issues found for `Disp_Map_Raw_Treatment()`
       ! `Disp_Map_Raw()` did not run because of failed check.
     Output
       NULL
@@ -688,9 +625,9 @@
       dfInput <- map_function(dfs = dfs, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw()` --
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
-      v No issues found for `Disp_Map_Raw()`
+      v No issues found for `Disp_Map_Raw_Treatment()`
       
       -- Initializing `Disp_Map_Raw()` --
       

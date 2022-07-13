@@ -37,6 +37,8 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
     "`vSiteScoreThreshold` must be numeric" = is.numeric(vSiteScoreThreshold),
     "`bColCollapse` must be logical" = is.logical(bColCollapse)
   )
+browser()
+
 
 
   # TODO: Add check for unique Site + Label + SiteID

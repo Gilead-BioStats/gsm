@@ -3,9 +3,8 @@
 #' Convert from ADaM or raw format to input format for Disposition Assessment.
 #'
 #' @description
-#' Convert raw disposition data to formatted input data to #TODO: Disp_Assess()
-#'
-#' `r lifecycle::badge("experimental")`
+#' Convert raw disposition data to formatted input data to to formatted
+#' input data to [gsm::Disp_Assess()].
 #'
 #' @details
 #' `Disp_Map_Raw` creates an input dataset for the Disposition Assessment (link to code) by adding Discontinuation Reason Counts to basic subject-level data.
@@ -63,8 +62,6 @@ Disp_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn Disp_Map_Raw}")
 
   # Standarize Column Names
-
-
   dfDISP_mapped <- dfs$dfDISP %>%
     select(
       SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
@@ -73,11 +70,6 @@ Disp_Map_Raw <- function(
     ) %>%
     filter(.data$Completion != lMapping[["dfDISP"]][[glue('str{strContext}CompletionFlagVal')]]) %>%
     mutate(Count = 1)
-
-  # if(!is.null(lMapping$dfDISP[[glue('str{strContext}DiscontinuationReasonVal')]])) {
-  #   dfDISP_mapped <- dfDISP_mapped %>%
-  #     filter(.data$DCReason == lMapping$dfDISP[[glue('str{strContext}DiscontinuationReasonVal')]])
-  # }
 
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%

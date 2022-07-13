@@ -55,6 +55,7 @@ Analyze_Chisq <- function(
     "strOutcome is not character" = is.character(strOutcome)
   )
 
+
   chisq_model <- function(site) {
     SiteTable <- dfTransformed %>%
       group_by(.data$SiteID == site) %>%
@@ -65,7 +66,7 @@ Analyze_Chisq <- function(
       ) %>%
       select(.data$Flag, .data$NoFlag)
 
-    stats::chisq.test(SiteTable)
+    stats::chisq.test(SiteTable) %>% suppressWarnings()
   }
 
   dfAnalyzed <- dfTransformed %>%

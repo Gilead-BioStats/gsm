@@ -38,9 +38,8 @@ of the column.}
 }
 }
 \description{
-Convert raw disposition data to formatted input data to #TODO: Disp_Assess()
-
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+Convert raw disposition data to formatted input data to to formatted
+input data to \code{\link[=Disp_Assess]{Disp_Assess()}}.
 }
 \details{
 Convert from ADaM or raw format to input format for Disposition Assessment.

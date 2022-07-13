@@ -1,6 +1,6 @@
 tags:
   Assessment: Disposition
-  Label: Treatment
+  Label: Study
 workflow:
   - name: Disp_Map_Raw
     inputs:
