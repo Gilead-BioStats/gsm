@@ -27,7 +27,7 @@ test_that("Study Table Runs as expected", {
   expect_equal(
     tbl$df_summary$Title,
     c("Number of Subjects", "Score", "Safety", "--AEs", "--AEs Serious",
-      "Consent", "--Consent", "Disposition", "--Study", "--Treatment - Study Withdrawls",
+      "Consent", "--Consent", "Disposition", "--Study", "--Treatment - Study Withdrawals",
       "--Treatment", "IE", "--IE", "PD", "--Important PD", "--PD")
   )
 })
