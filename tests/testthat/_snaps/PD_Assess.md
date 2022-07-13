@@ -70,6 +70,10 @@
 
     lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
+---
+
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
 # NA in dfInput$Count results in Error for assess_function
 
     Code

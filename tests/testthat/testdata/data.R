@@ -44,8 +44,8 @@ dfCONSENT <- data.frame(
 dfDISP <- tibble::tribble(
   ~SubjectID, ~TrtCompletion, ~TrtDCReason, ~StudCompletion, ~StudDCReason,
   "1234",            "N",           "Adverse Event",             "N",            "Withdrew Consent",
-  "5678",            "Y",           NA,             "O",            NA,
-  "9876",            "O",           NA,             "O",            NA
+  "5678",            "Y",           NA,                          "Y",            NA,
+  "9876",            "O",           NA,                          "O",            NA
 )
 
 
