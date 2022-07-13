@@ -1,10 +1,14 @@
 dfSUBJ:
   strIDCol: "SubjectID"
-  strGroupCol: "SiteID"
+  strSiteCol: "SiteID"
+  strCustomGroupCol: "CountryID"
+  strStudyCol: "StudyID"
   strTimeOnTreatmentCol: "TimeOnTreatment"
   strTimeOnStudyCol: "TimeOnStudy"
   strRandFlagCol: "RandFlag"
   strRandDateCol: "RandDate"
+dfDISP: 
+  strIDCol: "SubjectID"
   strStudyCompletionFlagCol: "StudCompletion"
   strStudyDiscontinuationReasonCol: "StudDCReason"
   strTreatmentCompletionFlagCol: "TrtCompletion"
