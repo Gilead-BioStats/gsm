@@ -74,10 +74,10 @@ Disp_Map_Raw <- function(
     filter(.data$Completion != lMapping[["dfDISP"]][[glue('str{strContext}CompletionFlagVal')]]) %>%
     mutate(Count = 1)
 
-  if(!is.null(lMapping$dfDISP[[glue('str{strContext}DiscontinuationReasonVal')]])) {
-    dfDISP_mapped <- dfDISP_mapped %>%
-      filter(.data$DCReason == lMapping$dfDISP[[glue('str{strContext}DiscontinuationReasonVal')]])
-  }
+  # if(!is.null(lMapping$dfDISP[[glue('str{strContext}DiscontinuationReasonVal')]])) {
+  #   dfDISP_mapped <- dfDISP_mapped %>%
+  #     filter(.data$DCReason == lMapping$dfDISP[[glue('str{strContext}DiscontinuationReasonVal')]])
+  # }
 
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%

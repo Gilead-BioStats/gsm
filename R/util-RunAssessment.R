@@ -45,6 +45,7 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
     for (step in lAssessment$workflow) {
       if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lAssessment$workflow), ": `", step$name, "`"))
       if (lAssessment$bStatus) {
+        browser()
         result <- gsm::RunStep(
           lStep = step,
           lMapping = lMapping,
