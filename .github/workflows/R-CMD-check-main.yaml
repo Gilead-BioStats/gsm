@@ -63,6 +63,10 @@ jobs:
         run: pkgdown::build_reference_index()
         shell: Rscript {0}
 
+      - name: run qualification tests
+        run: testthat::test_dir(here::here("tests", "qualification"))
+        shell: Rscript {0}
+
       - name: Show testthat output
         if: always()
         run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
