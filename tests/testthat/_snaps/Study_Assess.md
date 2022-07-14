@@ -145,6 +145,7 @@
       v `Visualize_Scatter()` created a chart.
       v `Disp_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `dispStudyWithdrew` assessment ---------------------------------
       
@@ -197,6 +198,7 @@
       v `Visualize_Scatter()` created a chart.
       v `Disp_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `dispTreatment` assessment -------------------------------------
       
@@ -236,6 +238,7 @@
       v `Visualize_Scatter()` created a chart.
       v `Disp_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `ie` assessment ------------------------------------------------
       
