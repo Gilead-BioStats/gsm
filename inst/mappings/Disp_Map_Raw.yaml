@@ -1,0 +1,14 @@
+dfSUBJ:
+  strIDCol: "SubjectID"
+  strSiteCol: "SiteID"
+dfDISP:
+  strIDCol: "SubjectID"
+  strStudyDiscontinuationReasonCol: "StudDCReason"
+  strStudyDiscontinuationReasonVal: "Withdrew Consent"
+  strStudyCompletionFlagCol: "StudCompletion"
+  strStudyCompletionFlagVal: ""
+  strTreatmentDiscontinuationReasonCol: "TrtDCReason"
+  strTreatmentDiscontinuationReasonVal: "Investigator's Discretion*"
+  strTreatmentCompletionFlagCol: "TrtCompletion"
+  strTreatmentCompletionFlagVal: "Y"
+
