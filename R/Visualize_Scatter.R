@@ -20,16 +20,27 @@
 #' @export
 
 Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strUnit = "days") {
+  # Define tooltip for use in plotly.
+  dfFlaggedWithTooltip <- dfFlagged %>%
+    mutate(
+      tooltip = paste(
+        paste0('Site: ', .data$SiteID),
+        paste0('Exposure (days): ', format(.data$TotalExposure, big.mark = ',', trim = TRUE)),
+        paste0('# of Events: ', format(.data$TotalCount, big.mark = ',', trim = TRUE)),
+        sep = '\n'
+      )
+    )
 
   ### Plot of data
-  p <- ggplot(
-    dfFlagged,
-    aes(
-      x = log(.data$TotalExposure),
-      y = .data$TotalCount,
-      color = as.factor(.data$Flag)
-    )
-  ) +
+  p <- dfFlaggedWithTooltip %>%
+    ggplot(
+      aes(
+        x = log(.data$TotalExposure),
+        y = .data$TotalCount,
+        color = as.factor(.data$Flag),
+        text = .data$tooltip
+      )
+    ) +
     # Formatting
     theme_bw() +
     scale_x_continuous(
@@ -46,7 +57,7 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strUnit = "days") {
     xlab(paste0("Site Total Exposure (", strUnit, " - log scale)")) +
     ylab("Site Total Events") +
     geom_text(
-      data = dfFlagged %>% filter(.data$Flag != 0),
+      data = dfFlaggedWithTooltip %>% filter(.data$Flag != 0),
       aes(x = log(.data$TotalExposure), y = .data$TotalCount, label = .data$SiteID),
       vjust = 1.5,
       col = "red",
@@ -55,9 +66,9 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strUnit = "days") {
 
   if (!is.null(dfBounds)) {
     p <- p +
-      geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$MeanCount), color = "red") +
-      geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$LowerCount), color = "red", linetype = "dashed") +
-      geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$UpperCount), color = "red", linetype = "dashed")
+      geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$MeanCount), color = "red", inherit.aes = FALSE) +
+      geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$LowerCount), color = "red", linetype = "dashed", inherit.aes = FALSE) +
+      geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$UpperCount), color = "red", linetype = "dashed", inherit.aes = FALSE)
   }
 
   return(p)

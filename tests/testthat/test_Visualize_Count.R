@@ -26,3 +26,8 @@ test_that("incorrect inputs throw errors", {
   expect_error(Visualize_Count(consent_assess$dfAnalyzed, strFlagCol = 1))
   expect_error(Visualize_Count(consent_assess$dfAnalyzed, strTitle = list()))
 })
+
+test_that("Chart has [ text ] aesthetic", {
+  ie_assess <- IE_Assess(ieInput)
+  expect_true('text' %in% names(ie_assess$chart$mapping))
+})
