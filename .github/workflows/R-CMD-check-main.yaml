@@ -64,7 +64,7 @@ jobs:
         shell: Rscript {0}
 
       - name: run qualification tests
-        run: testthat::test_dir(here::here("tests", "qualification"))
+        run: source(here::here("tests", "test_qualification.R"))
         shell: Rscript {0}
 
       - name: Show testthat output
