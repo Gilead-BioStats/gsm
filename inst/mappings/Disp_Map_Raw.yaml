@@ -1,6 +1,8 @@
 dfSUBJ:
   strIDCol: "SubjectID"
   strSiteCol: "SiteID"
+  strStudyCol: "StudyID"
+  strCustomGroupCol: "RegionID"
 dfDISP:
   strIDCol: "SubjectID"
   strStudyDiscontinuationReasonCol: "StudDCReason"

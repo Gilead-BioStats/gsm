@@ -2,7 +2,7 @@ dfSUBJ:
   strIDCol: "SubjectID"
   strSiteCol: "SiteID"
   strStudyCol: "StudyID"
-  strCustomGroupCol: "Country"
+  strCustomGroupCol: "RegionID"
   strTimeOnTreatmentCol: "TimeOnTreatment"
   strTimeOnStudyCol: "TimeOnStudy"
   strRandFlagCol: "RandFlag"

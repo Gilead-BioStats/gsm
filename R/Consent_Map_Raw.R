@@ -74,7 +74,9 @@ Consent_Map_Raw <- function(
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
         SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-        GroupID = lMapping[["dfSUBJ"]][["strGroupCol"]],
+        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+        StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+        CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]],
         RandDate = lMapping[["dfSUBJ"]][["strRandDateCol"]]
       )
 
@@ -106,7 +108,7 @@ Consent_Map_Raw <- function(
         Count = as.numeric(.data$any_flag, na.rm = TRUE),
         GroupLabel = lMapping[["dfSUBJ"]][["strGroupCol"]]
       ) %>%
-      select(.data$SubjectID, .data$GroupID, .data$GroupLabel, .data$Count)
+      select(all_of(c(names(dfSUBJ_mapped))), )
 
     if (!bQuiet) cli::cli_alert_success("{.fn Consent_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

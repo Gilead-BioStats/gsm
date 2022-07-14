@@ -56,7 +56,7 @@ AE_Assess <- function(
   vThreshold = NULL,
   strMethod = "poisson",
   strKRILabel = "AEs/Week",
-  strGroup = "Site", #"Study", "CustomGroup"
+  strGroupCol = "SiteID", #"StudyID", "CustomGroupID"
   lTags = list(Assessment = "AE"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -94,11 +94,16 @@ AE_Assess <- function(
     dfInput = dfInput
   )
 
+  mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
+  mapping$dfInput$strGroupCol <- strGroupCol
+
   checks <- CheckInputs(
     context = "AE_Assess",
     dfs = list(dfInput = lAssess$dfInput),
+    mapping = mapping,
     bQuiet = bQuiet
   )
+
 
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Assess}")
@@ -106,11 +111,12 @@ AE_Assess <- function(
 
     lAssess$dfTransformed <- gsm::Transform_EventCount(
       lAssess$dfInput,
-      strGroupCol = paste0(strGroupCol,"ID"),
+      strGroupCol = strGroupCol,
       strCountCol = "Count",
       strExposureCol = "Exposure",
       strKRILabel = strKRILabel
       )
+
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     if (strMethod == "poisson") {

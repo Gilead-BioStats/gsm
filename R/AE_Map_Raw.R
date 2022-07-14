@@ -76,13 +76,6 @@ AE_Map_Raw <- function(
         Exposure = lMapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
       )))
 
-    inputColumns <- c("SubjectID",
-                      "SiteID",
-                      "StudyID",
-                      "CustomGroupID",
-                      "Exposure",
-                      "Count",
-                      "Rate")
 
     # Create Subject Level AE Counts and merge dfSUBJ
     dfInput <- dfAE_mapped %>%
@@ -91,7 +84,7 @@ AE_Map_Raw <- function(
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
       mutate(Rate = .data$Count / .data$Exposure) %>%
-      select(any_of(c(inputColumns, everything())))
+      select(any_of(c(names(dfSUBJ_mapped))), .data$Count, .data$Rate)
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

@@ -54,6 +54,7 @@ Transform_EventCount <- function(
     "strGroupCol must be length 1" = length(strGroupCol) == 1,
     "strCountCol is not numeric or logical" = is.numeric(dfInput[[strCountCol]]) | is.logical(dfInput[[strCountCol]])
   )
+
   if (anyNA(dfInput[[strCountCol]])) stop("NA's found in dfInput$Count")
   if (!is.null(strExposureCol)) {
     stopifnot(
@@ -82,8 +83,7 @@ Transform_EventCount <- function(
       group_by(GroupID = .data[[strGroupCol]]) %>%
       summarise(
         N = n(),
-        TotalCount = sum(.data[[strCountCol]]),
-        GroupLabel = unique(.data$GroupLabel)
+        TotalCount = sum(.data[[strCountCol]])
       ) %>%
       mutate(KRI = .data$TotalCount)
   } else {
@@ -92,16 +92,17 @@ Transform_EventCount <- function(
       summarise(
         N = n(),
         TotalCount = sum(.data[[strCountCol]]),
-        TotalExposure = sum(.data[[strExposureCol]]),
-        GroupLabel = unique(.data$GroupLabel)
+        TotalExposure = sum(.data[[strExposureCol]])
       ) %>%
       mutate(KRI = .data$TotalCount / .data$TotalExposure)
   }
 
   dfTransformed <- dfTransformed %>%
     mutate(
-      KRILabel = strKRILabel
-    )
+      KRILabel = strKRILabel,
+      GroupLabel = strGroupCol
+    ) %>%
+    select(.data$GroupID, .data$GroupLabel, everything())
 
   return(dfTransformed)
 }

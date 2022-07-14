@@ -24,7 +24,7 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strUnit = "days") {
   dfFlaggedWithTooltip <- dfFlagged %>%
     mutate(
       tooltip = paste(
-        paste0('Site: ', .data$SiteID),
+        paste0('Group: ', .data$GroupID),
         paste0('Exposure (days): ', format(.data$TotalExposure, big.mark = ',', trim = TRUE)),
         paste0('# of Events: ', format(.data$TotalCount, big.mark = ',', trim = TRUE)),
         sep = '\n'
@@ -58,7 +58,7 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strUnit = "days") {
     ylab("Site Total Events") +
     geom_text(
       data = dfFlaggedWithTooltip %>% filter(.data$Flag != 0),
-      aes(x = log(.data$TotalExposure), y = .data$TotalCount, label = .data$SiteID),
+      aes(x = log(.data$TotalExposure), y = .data$TotalCount, label = .data$GroupID),
       vjust = 1.5,
       col = "red",
       size = 3.5
