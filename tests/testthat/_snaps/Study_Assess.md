@@ -64,6 +64,7 @@
       v `Visualize_Scatter()` created a chart.
       v `AE_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `consent` assessment -------------------------------------------
       
@@ -105,6 +106,7 @@
       v `Visualize_Count()` created a chart.
       v `Consent_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `dispStudy` assessment -----------------------------------------
       
@@ -277,6 +279,7 @@
       v `Visualize_Count()` created a chart.
       v `IE_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `importantpd` assessment ---------------------------------------
       
@@ -332,6 +335,7 @@
       v `Visualize_Scatter()` created a chart.
       v `PD_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `pd` assessment ------------------------------------------------
       
@@ -371,6 +375,7 @@
       v `Visualize_Scatter()` created a chart.
       v `PD_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `sae` assessment -----------------------------------------------
       
@@ -440,6 +445,7 @@
       v `Visualize_Scatter()` created a chart.
       v `AE_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `aeGrade_1` assessment -----------------------------------------
       
@@ -505,6 +511,7 @@
       v `Visualize_Scatter()` created a chart.
       v `AE_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `aeGrade_2` assessment -----------------------------------------
       
@@ -571,6 +578,7 @@
       v `Visualize_Scatter()` created a chart.
       v `AE_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `aeGrade_3` assessment -----------------------------------------
       
@@ -637,6 +645,7 @@
       v `Visualize_Scatter()` created a chart.
       v `AE_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
 
 # incorrect lTags throw errors
 
