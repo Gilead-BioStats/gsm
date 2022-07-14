@@ -7,12 +7,6 @@ dfSUBJ:
   strTimeOnStudyCol: "TimeOnStudy"
   strRandFlagCol: "RandFlag"
   strRandDateCol: "RandDate"
-dfDISP: 
-  strIDCol: "SubjectID"
-  strStudyCompletionFlagCol: "StudCompletion"
-  strStudyDiscontinuationReasonCol: "StudDCReason"
-  strTreatmentCompletionFlagCol: "TrtCompletion"
-  strTreatmentDiscontinuationReasonCol: "TrtDCReason"
 dfAE:
   strIDCol: "SubjectID"
   strTreatmentEmergentCol: "AE_TE_FLAG"

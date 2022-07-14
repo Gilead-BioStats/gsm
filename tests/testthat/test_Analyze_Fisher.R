@@ -1,47 +1,16 @@
 source(testthat::test_path("testdata/data.R"))
 
-<<<<<<< HEAD
-dfInput <- Disp_Map(
-  dfDisp,
-  strCol = "DCREASCD",
-  strReason = "Adverse Event"
-  ) %>%
-  mutate(GroupLabel = "SiteID") # this is a temp fix and will be updated in branch fix-387
-
-df <- Transform_EventCount(
-  dfInput,
-  strCountCol = "Count",
-  strKRILabel = "test label",
-  strGroupCol = "SiteID"
-=======
 dfInput <- Disp_Map_Raw(
   dfs = list(dfDISP = dfDISP,
              dfSUBJ = dfSUBJ)
->>>>>>> 3b76260bd495418ba77329dd67d0b754857503c4
-  )
+)
 
 test_that("output created as expected and has correct structure", {
-
+  df <- Transform_EventCount(dfInput, strCountCol = "Count", strKRILabel = "test label")
 
   output <- Analyze_Fisher(df)
 
   expect_true(is.data.frame(df))
-<<<<<<< HEAD
-  expect_equal(names(output), c("GroupID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "Estimate", "PValue"))
-  expect_type(df$GroupID, "character")
-  expect_type(df$N, "integer")
-  expect_type(df$TotalCount, "double")
-  expect_equal(df$GroupID, c("701", "702"))
-})
-
-test_that("incorrect inputs throw errors", {
-  dfInput <- Disp_Map(
-    dfDisp,
-    strCol = "DCREASCD",
-    strReason = "Adverse Event"
-  ) %>%
-    mutate(GroupLabel = "SiteID")
-=======
   expect_equal(names(output), c("SiteID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel"))
   expect_type(df$SiteID, "character")
   expect_type(df$N, "integer")
@@ -54,13 +23,11 @@ test_that("incorrect inputs throw errors", {
     dfs = list(dfDISP = dfDISP,
                dfSUBJ = dfSUBJ)
   )
->>>>>>> 3b76260bd495418ba77329dd67d0b754857503c4
 
   df <- Transform_EventCount(
     dfInput,
     strCountCol = "Count",
-    strKRILabel = "test label",
-    strGroupCol = "SiteID"
+    strKRILabel = "testing label"
   )
 
   expect_error(Analyze_Fisher(list()))
@@ -71,21 +38,18 @@ test_that("incorrect inputs throw errors", {
 
 
 test_that("error given if required column not found", {
-
   dfInput <- Disp_Map_Raw(
     dfs = list(dfDISP = dfDISP,
                dfSUBJ = dfSUBJ)
   )
 
-
   df <- Transform_EventCount(
     dfInput,
     strCountCol = "Count",
-    strKRILabel = "test label",
-    strGroupCol = "SiteID"
+    strKRILabel = "testing label"
   )
 
-  expect_error(Analyze_Fisher(df %>% select(-GroupID)))
+  expect_error(Analyze_Fisher(df %>% select(-SiteID)))
   expect_error(Analyze_Fisher(df %>% select(-N)))
   expect_error(Analyze_Fisher(df %>% select(-TotalCount)))
 })
@@ -96,12 +60,10 @@ test_that("NAs are handled correctly", {
                dfSUBJ = dfSUBJ)
   )
 
-
   df <- Transform_EventCount(
     dfInput,
     strCountCol = "Count",
-    strKRILabel = "test label",
-    strGroupCol = "SiteID"
+    strKRILabel = "testing label"
   )
 
   createNA <- function(data, variable) {
@@ -110,7 +72,7 @@ test_that("NAs are handled correctly", {
     return(Analyze_Fisher(data))
   }
 
-  expect_error(createNA(data = df, variable = "GroupID"))
+  expect_error(createNA(data = df, variable = "SiteID"))
   expect_error(createNA(data = df, variable = "N"))
   expect_error(createNA(data = df, variable = "TotalCount"))
 })
