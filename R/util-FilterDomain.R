@@ -67,6 +67,7 @@ FilterDomain <- function(
     }
   }
 
+
   if (bReturnChecks) {
     return(list(df = df, lChecks = checks))
   } else {
