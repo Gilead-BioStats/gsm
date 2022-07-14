@@ -40,7 +40,7 @@ jobs:
           devtools::install(dependencies=TRUE)
 
       - name: run qualification tests
-        run: source(here::here("tests", "test_qualification.R"))
+        run: source(here::here("tests", "testqualification", "test_qualification.R"))
         shell: Rscript {0}
 
       - name: Show testthat output
