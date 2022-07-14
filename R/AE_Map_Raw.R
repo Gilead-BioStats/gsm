@@ -68,13 +68,15 @@ AE_Map_Raw <- function(
       select(SubjectID = lMapping[["dfAE"]][["strIDCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
-      select(any_of(c(
-        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
-        StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
-        CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]],
-        Exposure = lMapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
-      )))
+      select(any_of(
+        c(
+          SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+          SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+          StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+          CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]],
+          Exposure = lMapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
+        )
+      ))
 
 
     # Create Subject Level AE Counts and merge dfSUBJ

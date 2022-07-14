@@ -3,30 +3,35 @@ source(testthat::test_path("testdata/data.R"))
 ae_input <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
 
 test_that("output created as expected and has correct structure", {
-  ae_prep <- Transform_EventCount(ae_input, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "Test Label")
+  ae_prep <- Transform_EventCount(
+    ae_input,
+    strCountCol = "Count",
+    strExposureCol = "Exposure",
+    strKRILabel = "Test Label")
   expect_true(is.data.frame(ae_prep))
-  expect_equal(sort(unique(ae_input$GroupID)), sort(ae_prep$GroupID))
+  expect_equal(sort(unique(ae_input$SiteID)), sort(ae_prep$GroupID))
   expect_equal(
     names(Transform_EventCount(ae_input, strCountCol = "Count", strKRILabel = "Test Label")),
-    c("GroupID", "N", "TotalCount", "GroupLabel", "KRI", "KRILabel")
+    c("GroupID", "GroupLabel", "N", "TotalCount", "KRI", "KRILabel"
+    )
   )
   expect_equal(
     names(Transform_EventCount(ae_input, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "Test Label")),
-    c("GroupID", "N", "TotalCount", "TotalExposure", "GroupLabel", "KRI", "KRILabel")
+    c("GroupID", "GroupLabel", "N", "TotalCount", "TotalExposure",
+      "KRI", "KRILabel")
   )
 })
 
 test_that("strCountCol works as expected", {
   sim <- data.frame(
-    GroupID = rep("site1", 30),
+    SiteID = rep("site1", 30),
     GroupLabel = "Test Label",
     event = c(rep(0, 5), rep(1, 15), rep(2, 10))
   )
   EventCount <- Transform_EventCount(sim, strCountCol = "event", strKRILabel = "Test Label")
-  expect_equal(EventCount, tibble(GroupID = "site1", N = 30, TotalCount = 35, GroupLabel = "Test Label", KRI = 35, KRILabel = "Test Label"))
+  expect_equal(EventCount, tibble(GroupID = "site1",  GroupLabel = "SiteID", N = 30, TotalCount = 35, KRI = 35, KRILabel = "Test Label"))
   sim2 <- data.frame(
-    GroupID = c(rep("site1", 10), rep("site2", 8), rep("site3", 12)),
-    GroupLabel = "Test Label",
+    SiteID = c(rep("site1", 10), rep("site2", 8), rep("site3", 12)),
     event = c(rep(0, 5), rep(1, 15), rep(2, 10))
   )
   EventCount2 <- Transform_EventCount(sim2, strCountCol = "event", strKRILabel = "Test Label")
@@ -34,9 +39,9 @@ test_that("strCountCol works as expected", {
     EventCount2,
     tibble(
       GroupID = c("site1", "site2", "site3"),
+      GroupLabel = "SiteID",
       N = c(10, 8, 12),
       TotalCount = c(5, 8, 22),
-      GroupLabel = "Test Label",
       KRI = c(5, 8, 22),
       KRILabel = "Test Label"
     )
@@ -45,8 +50,7 @@ test_that("strCountCol works as expected", {
 
 test_that("strExposureCol works as expected", {
   sim3 <- data.frame(
-    GroupID = c(rep("site1", 11), rep("site2", 7), rep("site3", 12)),
-    GroupLabel = "Test Label",
+    SiteID = c(rep("site1", 11), rep("site2", 7), rep("site3", 12)),
     event = c(rep(0, 6), rep(1, 12), rep(2, 12)),
     ndays = c(rep(5, 6), rep(10, 12), rep(10, 12))
   )
@@ -55,10 +59,10 @@ test_that("strExposureCol works as expected", {
   expect_equal(
     EventCount3,
     tibble::tribble(
-      ~GroupID,  ~N, ~TotalCount, ~TotalExposure,   ~GroupLabel,   ~KRI,    ~KRILabel,
-      "site1", 11L,           5,             80, "Test Label", 0.0625, "Test Label",
-      "site2",  7L,           7,             70, "Test Label",    0.1, "Test Label",
-      "site3", 12L,          24,            120, "Test Label",    0.2, "Test Label"
+      ~GroupID, ~GroupLabel,  ~N, ~TotalCount, ~TotalExposure,   ~KRI,    ~KRILabel,
+      "site1",    "SiteID", 11L,           5,             80, 0.0625, "Test Label",
+      "site2",    "SiteID",  7L,           7,             70,    0.1, "Test Label",
+      "site3",    "SiteID", 12L,          24,            120,    0.2, "Test Label"
     )
   )
 })
@@ -72,8 +76,7 @@ test_that("incorrect inputs throw errors", {
 
 test_that("NA in Exposure throws a warning and returns correct data", {
   sim4 <- data.frame(
-    GroupID = c(rep("site1", 11), rep("site2", 7), rep("site3", 12)),
-    GroupLabel = "Test Label",
+    SiteID = c(rep("site1", 11), rep("site2", 7), rep("site3", 12)),
     event = c(rep(0, 6), rep(1, 12), rep(2, 12)),
     ndays = c(NA, rep(5, 5), NA, rep(10, 11), NA, rep(10, 10), NA)
   )
@@ -82,14 +85,11 @@ test_that("NA in Exposure throws a warning and returns correct data", {
   expect_false(anyNA(suppressWarnings(Transform_EventCount(sim4, strCountCol = "event", strExposureCol = "ndays", strKRILabel = "Test Label")) %>% pull(.data$TotalExposure)))
   expect_equal(
     suppressWarnings(Transform_EventCount(sim4, strCountCol = "event", strExposureCol = "ndays", strKRILabel = "Test Label")),
-    tibble(
-      GroupID = c("site1", "site2", "site3"),
-      N = c(9, 7, 10),
-      TotalCount = c(4, 7, 20),
-      TotalExposure = c(65, 70, 100),
-      GroupLabel = "Test Label",
-      KRI = c(4 / 65, 7 / 70, 20 / 100),
-      KRILabel = "Test Label"
+    tibble::tribble(
+      ~GroupID, ~GroupLabel,  ~N, ~TotalCount, ~TotalExposure,               ~KRI,    ~KRILabel,
+      "site1",    "SiteID",  9L,           4,             65, 0.0615384615384615, "Test Label",
+      "site2",    "SiteID",  7L,           7,             70,                0.1, "Test Label",
+      "site3",    "SiteID", 10L,          20,            100,                0.2, "Test Label"
     )
   )
 })

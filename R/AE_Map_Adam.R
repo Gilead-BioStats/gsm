@@ -67,21 +67,23 @@ AE_Map_Adam <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Map_Adam}")
 
     dfInput <- dfs$dfADSL %>%
-      rename(
-        SubjectID = .data[[lMapping$dfADSL$strIDCol]],
-        GroupID = .data[[lMapping$dfADSL$strGroupCol]]
-      ) %>%
-      mutate(
-        Exposure = as.numeric(.data[[lMapping$dfADSL$strEndCol]] - .data[[lMapping$dfADSL$strStartCol]]) + 1
-      ) %>%
+      rename(SubjectID = .data[[lMapping$dfADSL$strIDCol]]) %>%
+      mutate(Exposure = as.numeric(.data[[lMapping$dfADSL$strEndCol]] - .data[[lMapping$dfADSL$strStartCol]]) + 1) %>%
       rowwise() %>%
       mutate(
         Count = sum(dfs$dfADAE[[lMapping$dfADAE$strIDCol]] == .data$SubjectID),
-        Rate = .data$Count / .data$Exposure,
-        GroupLabel = lMapping[["dfADSL"]][["strGroupCol"]]
+        Rate = .data$Count / .data$Exposure
       ) %>%
       ungroup() %>%
-      select(.data$SubjectID, .data$GroupID, .data$GroupLabel, .data$Count, .data$Exposure, .data$Rate)
+      select(.data$SubjectID,
+             any_of(c(
+               SiteID = lMapping[["dfADSL"]][["strSiteCol"]],
+               StudyID = lMapping[["dfADSL"]][["strStudyCol"]],
+               CustomGroupID = lMapping[["dfADSL"]][["strCustomGroupCol"]]
+             )),
+             .data$Count,
+             .data$Exposure,
+             .data$Rate)
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Adam} returned output with {nrow(dfInput)} rows.")
   } else {

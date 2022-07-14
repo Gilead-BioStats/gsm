@@ -86,7 +86,8 @@ Analyze_Fisher <- function(
     ) %>%
     arrange(.data$Score) %>%
     select(
-      .data$SiteID,
+      .data$GroupID,
+      .data$GroupLabel,
       .data$TotalCount,
       .data$TotalCount_Other,
       .data$N,

@@ -47,7 +47,7 @@ AEs by passing filtered AE data to \code{dfADAE}.
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfADSL \tab strIDCol \tab USUBJID \tab TRUE \tab TRUE \cr
-   dfADSL \tab strSiteCol \tab SITEID \tab TRUE \tab FALSE \cr
+   dfADSL \tab strGroupCol \tab SITEID \tab TRUE \tab FALSE \cr
    dfADSL \tab strStartCol \tab TRTSDT \tab TRUE \tab FALSE \cr
    dfADSL \tab strEndCol \tab TRTEDT \tab TRUE \tab FALSE \cr
    dfADAE \tab strIDCol \tab USUBJID \tab TRUE \tab FALSE \cr

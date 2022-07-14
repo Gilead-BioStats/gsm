@@ -20,15 +20,17 @@ test_that("Study Table Runs as expected", {
       "X059X", "X129X", "X159X", "X173X", "X172X", "X204X", "X038X",
       "X095X", "X100X", "X094X", "X097X", "X105X", "X143X", "X166X",
       "X174X", "X185X", "X224X", "X070X", "X110X", "X117X", "X179X",
-      "X088X", "X112X", "X120X", "X123X", "X132X", "X145X", "X127X",
-      "X216X")
+      "X088X", "X112X", "X120X", "X123X", "X132X", "X145X", "0148",
+      "0258", "0270", "0305", "0356", "0471", "0590", "0673", "0711",
+      "X127X", "X216X")
   )
 
   expect_equal(
     tbl$df_summary$Title,
-    c("Number of Subjects", "Score", "Safety", "--AEs", "--AEs Serious",
-      "Consent", "--Consent", "Disposition", "--Study", "--Treatment - Study Withdrawals",
-      "--Treatment", "IE", "--IE", "PD", "--Important PD", "--PD")
+    c("Number of Subjects", "Score", "Safety", "--AEs", "--AEs QTL",
+      "--AEs Serious", "Consent", "--Consent", "Disposition", "--Study",
+      "--Treatment - Study Withdrawals", "--Treatment", "IE", "--IE",
+      "PD", "--Important PD", "--PD")
   )
 })
 
@@ -43,7 +45,8 @@ test_that("incorrect inputs throw errors", {
 
 test_that("bFormat works", {
   tbl <- Study_Table(dfFindings = results, bFormat = FALSE)
-  expect_equal(tbl$df_summary$X055X, c("43", "3", "*", "+", " ", "*", "+", "*", " ", " ", "-", "", " ", "", " ", " "))
+  expect_equal(tbl$df_summary$X055X, c("43", "3", "*", "+", "", " ", "*", "+", "*", " ", " ", "-",
+                                       "", " ", "", " ", " "))
 })
 
 test_that("bShowCounts works", {

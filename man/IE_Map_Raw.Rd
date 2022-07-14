@@ -6,7 +6,8 @@
 \usage{
 IE_Map_Raw(
   dfs = list(dfIE = clindata::rawplus_ie, dfSUBJ = clindata::rawplus_subj),
-  lMapping = clindata::mapping_rawplus,
+  lMapping = yaml::read_yaml(system.file("mappings", "IE_Map_Raw.yaml", package =
+    "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -48,7 +49,7 @@ specific types of IE criteria by passing filtered IE data to \code{dfIE}.
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \cr
    dfIE \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \cr
    dfIE \tab strCategoryCol \tab IE_CATEGORY \tab TRUE \tab FALSE \cr
    dfIE \tab strValueCol \tab IE_VALUE \tab TRUE \tab FALSE \cr

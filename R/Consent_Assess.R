@@ -25,6 +25,7 @@
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment = "Consent")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
 #' @param strKRILabel `character` KRI description. Default: `"Total Number of Consent Issues"`
+#' @param strGroupCol `character` Name of column for grouping variable. Default: `"SiteID"`
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
@@ -54,19 +55,18 @@
 #'
 #' @export
 
-Consent_Assess <- function(
-  dfInput,
-  nThreshold = 0.5,
-  lTags = list(Assessment = "Consent"),
-  strKRILabel = "Total Number of Consent Issues",
-  strGroupCol = "GroupID",
-  bChart = TRUE,
-  bReturnChecks = FALSE,
-  bQuiet = TRUE
-) {
+Consent_Assess <- function(dfInput,
+                           nThreshold = 0.5,
+                           lTags = list(Assessment = "Consent"),
+                           strKRILabel = "Total Number of Consent Issues",
+                           strGroupCol = "SiteID",
+                           bChart = TRUE,
+                           bReturnChecks = FALSE,
+                           bQuiet = TRUE) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
-    "dfInput is missing one or more of these columns: SubjectID, GroupID, and Count" = all(c("SubjectID", "GroupID", "Count") %in% names(dfInput)),
+    "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),
+    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput),
     "nThreshold must be numeric" = is.numeric(nThreshold),
     "nThreshold must be length 1" = length(nThreshold) == 1,
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
@@ -79,7 +79,17 @@ Consent_Assess <- function(
     stopifnot(
       "lTags is not named" = (!is.null(names(lTags))),
       "lTags has unnamed elements" = all(names(lTags) != ""),
-      "lTags cannot contain elements named: 'GroupID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', 'GroupLabel' or 'Flag'" = !names(lTags) %in% c("GroupID", "N", "KRI", "KRILabel", "Score", "ScoreLabel", "Flag", "GroupLabel")
+      "lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'" = !names(lTags) %in%
+        c(
+          "GroupID",
+          "GroupLabel",
+          "N",
+          "KRI",
+          "KRILabel",
+          "Score",
+          "ScoreLabel",
+          "Flag"
+        )
     )
 
     if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {
@@ -94,9 +104,13 @@ Consent_Assess <- function(
     dfInput = dfInput
   )
 
+  mapping <- yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm"))
+  mapping$dfInput$strGroupCol <- strGroupCol
+
   checks <- CheckInputs(
     context = "Consent_Assess",
     dfs = list(dfInput = lAssess$dfInput),
+    mapping = mapping,
     bQuiet = bQuiet
   )
 
@@ -108,7 +122,7 @@ Consent_Assess <- function(
       strGroupCol = strGroupCol,
       strCountCol = "Count",
       strKRILabel = strKRILabel
-      )
+    )
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     lAssess$dfAnalyzed <- lAssess$dfTransformed %>%

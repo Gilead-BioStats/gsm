@@ -1,7 +1,7 @@
 source(testthat::test_path("testdata/data.R"))
 
 data <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE)) %>%
-  Transform_EventCount(strCountCol = "Count", strExposureCol = "Exposure")
+  Transform_EventCount(strCountCol = "Count", strExposureCol = "Exposure", strGroupCol = "SiteID")
 
 dfPoisson <- Analyze_Poisson(data)
 
@@ -15,10 +15,9 @@ test_that("output is created as expected", {
   expect_true(all(names(dfWilcoxon) %in% names(flag)))
   expect_equal(
     names(flag),
-    c(
-      "GroupID", "N", "TotalCount", "TotalExposure", "GroupLabel", "KRI", "KRILabel", "Estimate",
-      "Score", "ScoreLabel", "ThresholdLow", "ThresholdHigh", "ThresholdCol", "Flag"
-    )
+    c("GroupID", "GroupLabel", "N", "TotalCount", "TotalExposure",
+      "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel", "ThresholdLow",
+      "ThresholdHigh", "ThresholdCol", "Flag")
   )
 })
 

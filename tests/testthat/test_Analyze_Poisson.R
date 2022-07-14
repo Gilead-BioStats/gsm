@@ -3,14 +3,17 @@ source(testthat::test_path("testdata/data.R"))
 ae_input <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
 
 test_that("output created as expected and has correct structure", {
-  ae_prep <- Transform_EventCount(ae_input, strCountCol = "Count", strExposureCol = "Exposure")
+  ae_prep <- Transform_EventCount(
+    ae_input,
+    strCountCol = "Count",
+    strGroupCol = "SiteID",
+    strExposureCol = "Exposure"
+    )
   ae_anly <- Analyze_Poisson(ae_prep)
   expect_true(is.data.frame(ae_anly))
-  expect_equal(sort(unique(ae_input$GroupID)), sort(ae_anly$GroupID))
-  expect_equal(names(ae_anly), c(
-    "GroupID", "N", "TotalCount", "TotalExposure", "KRI", "KRILabel", "GroupLabel",
-    "Score", "ScoreLabel", "PredictedCount"
-  ))
+  expect_equal(sort(unique(ae_input$SiteID)), sort(ae_anly$GroupID))
+  expect_equal(names(ae_anly), c("GroupID", "GroupLabel", "N", "TotalCount", "TotalExposure",
+                                 "KRI", "KRILabel", "Score", "ScoreLabel", "PredictedCount"))
 })
 
 test_that("incorrect inputs throw errors", {
@@ -20,7 +23,12 @@ test_that("incorrect inputs throw errors", {
 
 
 test_that("error given if required column not found", {
-  ae_prep <- Transform_EventCount(ae_input, strCountCol = "Count", strExposureCol = "Exposure")
+  ae_prep <- Transform_EventCount(
+    ae_input,
+    strCountCol = "Count",
+    strGroupCol = "SiteID",
+    strExposureCol = "Exposure"
+    )
   expect_error(Analyze_Poisson(ae_prep %>% select(-GroupID)))
   expect_error(Analyze_Poisson(ae_prep %>% select(-N)))
   expect_error(Analyze_Poisson(ae_prep %>% select(-TotalCount)))
@@ -40,15 +48,15 @@ test_that("NA values are caught", {
 
   expect_error(createNA("GroupID"))
 
-  # currently accept NA values
-  # expect_error(createNA("N"))
-  # expect_error(createNA("TotalCount"))
-  # expect_error(createNA("TotalExposure"))
-  # expect_error(createNA("Rate"))
 })
 
 test_that("bQuiet works as intended", {
-  dfTransformed <- Transform_EventCount(ae_input, strCountCol = "Count", strExposureCol = "Exposure")
+  dfTransformed <- Transform_EventCount(
+    ae_input,
+    strCountCol = "Count",
+    strGroupCol = "SiteID",
+    strExposureCol = "Exposure"
+    )
   expect_snapshot(
     dfAnalyzed <- Analyze_Poisson(dfTransformed, bQuiet = FALSE)
   )

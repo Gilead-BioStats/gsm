@@ -72,13 +72,15 @@ Consent_Map_Raw <- function(
       )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
-      select(
-        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
-        StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
-        CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]],
-        RandDate = lMapping[["dfSUBJ"]][["strRandDateCol"]]
-      )
+      select(any_of(
+        c(
+          SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+          SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+          StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+          CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]],
+          RandDate = lMapping[["dfSUBJ"]][["strRandDateCol"]]
+        )
+      ))
 
     if (!is.null(lMapping$dfCONSENT$strConsentTypeValue)) {
       dfCONSENT_mapped <- dfCONSENT_mapped %>%
@@ -105,10 +107,9 @@ Consent_Map_Raw <- function(
         flag_missing_rand = is.na(.data$RandDate),
         flag_date_compare = .data$ConsentDate >= .data$RandDate,
         any_flag = .data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare,
-        Count = as.numeric(.data$any_flag, na.rm = TRUE),
-        GroupLabel = lMapping[["dfSUBJ"]][["strGroupCol"]]
+        Count = as.numeric(.data$any_flag, na.rm = TRUE)
       ) %>%
-      select(all_of(c(names(dfSUBJ_mapped))), )
+      select(any_of(c(names(dfSUBJ_mapped))), .data$Count)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Consent_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

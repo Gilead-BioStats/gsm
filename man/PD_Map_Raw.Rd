@@ -6,7 +6,8 @@
 \usage{
 PD_Map_Raw(
   dfs = list(dfPD = clindata::rawplus_pd, dfSUBJ = clindata::rawplus_subj),
-  lMapping = clindata::mapping_rawplus,
+  lMapping = yaml::read_yaml(system.file("mappings", "PD_Map_Raw.yaml", package =
+    "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -48,7 +49,7 @@ PDs by passing filtered PD data to \code{dfPD}.
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \cr
    dfSUBJ \tab strTimeOnStudyCol \tab TimeOnStudy \tab TRUE \tab FALSE \cr
    dfPD \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \cr
 }

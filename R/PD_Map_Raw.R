@@ -68,11 +68,15 @@ PD_Map_Raw <- function(
       select(SubjectID = lMapping[["dfPD"]][["strIDCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
-      select(
-        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-        GroupID = lMapping[["dfSUBJ"]][["strGroupCol"]],
-        Exposure = lMapping[["dfSUBJ"]][["strTimeOnStudyCol"]]
-      )
+      select(any_of(
+        c(
+          SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+          SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+          StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+          CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]],
+          Exposure = lMapping[["dfSUBJ"]][["strTimeOnStudyCol"]]
+        )
+      ))
 
     # Create Subject Level PD Counts and merge Subj
     dfInput <- dfPD_mapped %>%
@@ -80,9 +84,8 @@ PD_Map_Raw <- function(
       summarize(Count = n()) %>%
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      mutate(Rate = .data$Count / .data$Exposure,
-             GroupLabel = lMapping[["dfSUBJ"]][["strGroupCol"]]) %>%
-      select(.data$SubjectID, .data$GroupID, .data$GroupLabel, .data$Count, .data$Exposure, .data$Rate)
+      mutate(Rate = .data$Count / .data$Exposure) %>%
+      select(any_of(names(dfSUBJ_mapped)), .data$Count, .data$Exposure, .data$Rate)
 
     if (!bQuiet) cli::cli_alert_success("{.fn PD_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

@@ -9,7 +9,7 @@ dfCONSENT:
 dfSUBJ:
   vRequired:
     - strIDCol
-    - strGroupCol
+    - strSiteCol
     - strRandDateCol
   vUniqueCols:
     - strIDCol

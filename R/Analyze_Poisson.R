@@ -71,6 +71,7 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
     ) %>%
     select(
       .data$GroupID,
+      .data$GroupLabel,
       .data$N,
       .data$TotalCount,
       .data$TotalExposure,

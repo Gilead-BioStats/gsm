@@ -1,7 +1,8 @@
 dfInput:
   strIDCol: "SubjectID"
-  strGroupCol: "GroupID"
-  strGroupLabel: "GroupLabel"
+  strSiteCol: "SiteID"
+  strStudyCol: "StudyID"
+  strCustomGroupCol: "RegionID"
   strCountCol: "Count"
   strExposureCol: "Exposure"
   strRateCol: "Rate"

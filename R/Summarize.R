@@ -54,6 +54,7 @@ Summarize <- function(dfFlagged, strScoreCol = "Score", lTags = NULL) {
   dfSummary <- dfFlagged %>%
     select(
       .data$GroupID,
+      .data$GroupLabel,
       .data$N,
       .data$KRI,
       .data$KRILabel,

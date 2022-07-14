@@ -66,6 +66,62 @@
       Saving lResults to `lAssessment`
       v `Visualize_Workflow()` created a flowchart.
       
+      -- Initializing `aeQTL` assessment ---------------------------------------------
+      
+      -- Workflow Step 1 of 3: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      v No issues found for dfAE domain
+      Filtering on AE_TE_FLAG == TRUE
+      v Filtered on `AE_TE_FLAG=TRUE`, to drop 2 rows from 4 to 2 rows.
+      v `FilterDomain()` Successful
+      Saving dfAE to `lAssessment$lData`
+      
+      -- Workflow Step 2 of 3: `AE_Map_Raw` --
+      
+      Preparing parameters for `AE_Map_Raw()` ...
+      Calling `AE_Map_Raw()` ...
+      
+      -- Checking Input Data for `AE_Map_Raw()` --
+      
+      v No issues found for `AE_Map_Raw()`
+      
+      -- Initializing `AE_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 2 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `AE_Map_Raw()` returned output with 3 rows.
+      v `AE_Map_Raw()` Successful
+      Saving dfInput to `lAssessment$lData`
+      
+      -- Workflow Step 3 of 3: `AE_Assess` --
+      
+      Preparing parameters for `AE_Assess()` ...
+      Calling `AE_Assess()` ...
+      
+      -- Checking Input Data for `AE_Assess()` --
+      
+      v No issues found for `AE_Assess()`
+      
+      -- Initializing `AE_Assess()` --
+      
+      Input data has 3 rows.
+      v `Transform_EventCount()` returned output with 3 rows.
+      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
+      v `Analyze_Poisson()` returned output with 3 rows.
+      v `Flag()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+      v `Visualize_Scatter()` created a chart.
+      v `AE_Assess()` Successful
+      Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
+      
       -- Initializing `consent` assessment -------------------------------------------
       
       -- Workflow Step 1 of 2: `Consent_Map_Raw` --
@@ -145,6 +201,7 @@
       v `Visualize_Scatter()` created a chart.
       v `Disp_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `dispStudyWithdrew` assessment ---------------------------------
       
@@ -197,6 +254,7 @@
       v `Visualize_Scatter()` created a chart.
       v `Disp_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `dispTreatment` assessment -------------------------------------
       
@@ -236,6 +294,7 @@
       v `Visualize_Scatter()` created a chart.
       v `Disp_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `ie` assessment ------------------------------------------------
       

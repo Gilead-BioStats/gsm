@@ -9,6 +9,7 @@ IE_Assess(
   nThreshold = 0.5,
   lTags = list(Assessment = "IE"),
   strKRILabel = "# of Inclusion/Exclusion Issues",
+  strGroupCol = "SiteID",
   bChart = TRUE,
   bReturnChecks = FALSE,
   bQuiet = TRUE
@@ -22,6 +23,8 @@ IE_Assess(
 \item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment = "IE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
 
 \item{strKRILabel}{\code{character} KRI description. Default: \code{"# of Inclusion/Exclusion Issues"}}
+
+\item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
 
 \item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
 
@@ -64,7 +67,7 @@ number of subjects at a given site with at least one unmet or missing IE criteri
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfInput \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
+   dfInput \tab strGroupCol \tab GroupID \tab TRUE \tab FALSE \cr
    dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
 }
 }

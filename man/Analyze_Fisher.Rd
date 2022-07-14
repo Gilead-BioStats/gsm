@@ -14,7 +14,7 @@ Analyze_Fisher(dfTransformed, strOutcome = "TotalCount", bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one row per site with columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
+\code{data.frame} with one row per site with columns: GroupID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
 }
 \description{
 Creates Analysis results data for count data using the Fisher's exact test
@@ -33,7 +33,7 @@ TODO Coming soon ...
 
 The input data (\code{dfTransformed}) for Analyze_Fisher is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
 \itemize{
-\item \code{SiteID} - Site ID
+\item \code{GroupID} - Site ID
 \item \code{N} - Total number of participants at site
 \item \code{TotalCount} - Total number of participants at site with event of interest
 }

@@ -40,7 +40,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strGroupCol"]
+              "value": ["strIDCol", "strSiteCol"]
             },
             {
               "type": "character",
@@ -70,7 +70,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strGroupCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
             }
           },
           "value": [
@@ -83,6 +83,16 @@
               "type": "character",
               "attributes": {},
               "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudyID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RegionID"]
             },
             {
               "type": "character",
@@ -226,7 +236,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strGroupCol", "strGroupLabel", "strCountCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strGroupCol", "strCountCol"]
             }
           },
           "value": [
@@ -238,12 +248,22 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["GroupID"]
+              "value": ["SiteID"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["GroupLabel"]
+              "value": ["StudyID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RegionID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["GroupID"]
             },
             {
               "type": "character",
@@ -396,7 +416,7 @@
       x "mapping" does not contain required parameters: strIDCol, strCategoryCol, strValueCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      x "mapping" does not contain required parameters: strIDCol, strGroupCol
+      x "mapping" does not contain required parameters: strIDCol, strSiteCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       ! Issues found for `IE_Map_Raw()`

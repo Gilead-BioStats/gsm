@@ -6,7 +6,8 @@
 \usage{
 Consent_Map_Raw(
   dfs = list(dfCONSENT = clindata::rawplus_consent, dfSUBJ = clindata::rawplus_subj),
-  lMapping = clindata::mapping_rawplus,
+  lMapping = yaml::read_yaml(system.file("mappings", "Consent_Map_Raw.yaml", package =
+    "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -48,7 +49,7 @@ types of consent by customizing \code{lMapping$dfCONSENT}.
 \tabular{llllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab TRUE \cr
-   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
+   dfSUBJ \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
    dfSUBJ \tab strRandDateCol \tab RandDate \tab TRUE \tab FALSE \tab FALSE \cr
    dfCONSENT \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab FALSE \cr
    dfCONSENT \tab strTypeCol \tab CONSENT_TYPE \tab TRUE \tab FALSE \tab FALSE \cr

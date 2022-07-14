@@ -28,23 +28,23 @@
 
 ---
 
-    dfInput is missing one or more of these columns: SubjectID, GroupID, Count, Exposure, and Rate
+    dfInput is missing one or more of these columns: SubjectID, Count, Exposure, and Rate
 
 ---
 
-    dfInput is missing one or more of these columns: SubjectID, GroupID, Count, Exposure, and Rate
+    `strGroupCol` not found in dfInput
 
 ---
 
-    dfInput is missing one or more of these columns: SubjectID, GroupID, Count, Exposure, and Rate
+    dfInput is missing one or more of these columns: SubjectID, Count, Exposure, and Rate
 
 ---
 
-    dfInput is missing one or more of these columns: SubjectID, GroupID, Count, Exposure, and Rate
+    dfInput is missing one or more of these columns: SubjectID, Count, Exposure, and Rate
 
 ---
 
-    dfInput is missing one or more of these columns: SubjectID, GroupID, Count, Exposure, and Rate
+    dfInput is missing one or more of these columns: SubjectID, Count, Exposure, and Rate
 
 # incorrect lTags throw errors
 
@@ -60,31 +60,35 @@
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
+---
+
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 # NA in dfInput$Count results in Error for assess_function
 
@@ -105,10 +109,10 @@
       
       
       $dfInput
-        SubjectID GroupID GroupLabel Count Exposure         Rate
-      1      1234   X010X     SiteID    NA     3455 0.0005788712
-      2      5678   X102X     SiteID     2     1745 0.0011461318
-      3      9876   X999X     SiteID     0     1233 0.0000000000
+        SubjectID SiteID Exposure Count         Rate
+      1      1234  X010X     3455    NA 0.0005788712
+      2      5678  X102X     1745     2 0.0011461318
+      3      9876  X999X     1233     0 0.0000000000
       
 
 # bQuiet and bReturnChecks work as intended

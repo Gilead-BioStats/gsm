@@ -9,6 +9,7 @@ Disp_Assess(
   vThreshold = NULL,
   strMethod = "chisq",
   strKRILabel = "DCs/Week",
+  strGroupCol = "SiteID",
   lTags = list(Assessment = "Disposition"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -28,6 +29,8 @@ Disp_Assess(
 }}
 
 \item{strKRILabel}{\code{character} KRI description. Default: \code{"DCs/Week"}}
+
+\item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
 
 \item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults
 to \code{list(Assessment = "AE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags})
