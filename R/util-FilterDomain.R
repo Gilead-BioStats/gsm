@@ -40,7 +40,7 @@ FilterDomain <- function(
   bQuiet = TRUE
 ) {
   if (!bQuiet) cli::cli_h2("Checking Input Data for {.fn FilterDomain}")
-  lSpec <- list(vRequired = c(strColParam, strValParam))
+  lSpec <- list(vRequired = c(strColParam, strValParam), vNACols = strColParam)
   check <- gsm::is_mapping_valid(df = df, mapping = lMapping[[strDomain]], spec = lSpec, bQuiet = bQuiet)
   checks <- list()
   checks[[strDomain]] <- check

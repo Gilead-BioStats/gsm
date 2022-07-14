@@ -106,6 +106,135 @@
       v `Consent_Assess()` Successful
       Saving lResults to `lAssessment`
       
+      -- Initializing `dispStudy` assessment -----------------------------------------
+      
+      -- Workflow Step 1 of 2: `Disp_Map_Raw` --
+      
+      Preparing parameters for `Disp_Map_Raw()` ...
+      Calling `Disp_Map_Raw()` ...
+      
+      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      
+      v No issues found for `Disp_Map_Raw_Study()`
+      
+      -- Initializing `Disp_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      v `Disp_Map_Raw()` returned output with 3 rows.
+      v `Disp_Map_Raw()` Successful
+      Saving dfInput to `lAssessment$lData`
+      
+      -- Workflow Step 2 of 2: `Disp_Assess` --
+      
+      Preparing parameters for `Disp_Assess()` ...
+      Calling `Disp_Assess()` ...
+      
+      -- Checking Input Data for `Disp_Assess()` --
+      
+      v No issues found for `Disp_Assess()`
+      
+      -- Initializing `Disp_Assess()` --
+      
+      Input data has 3 rows.
+      v `Transform_EventCount()` returned output with 3 rows.
+      v `Analyze_Chisq()` returned output with 3 rows.
+      v `Flag()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+      v `Visualize_Scatter()` created a chart.
+      v `Disp_Assess()` Successful
+      Saving lResults to `lAssessment`
+      
+      -- Initializing `dispStudyWithdrew` assessment ---------------------------------
+      
+      -- Workflow Step 1 of 3: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      v No issues found for dfDISP domain
+      Filtering on StudDCReason == Withdrew Consent
+      v Filtered on `StudDCReason=Withdrew Consent`, to drop 2 rows from 3 to 1 rows.
+      v `FilterDomain()` Successful
+      Saving dfDISP to `lAssessment$lData`
+      
+      -- Workflow Step 2 of 3: `Disp_Map_Raw` --
+      
+      Preparing parameters for `Disp_Map_Raw()` ...
+      Calling `Disp_Map_Raw()` ...
+      
+      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      
+      v No issues found for `Disp_Map_Raw_Study()`
+      
+      -- Initializing `Disp_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 2 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      v `Disp_Map_Raw()` returned output with 3 rows.
+      v `Disp_Map_Raw()` Successful
+      Saving dfInput to `lAssessment$lData`
+      
+      -- Workflow Step 3 of 3: `Disp_Assess` --
+      
+      Preparing parameters for `Disp_Assess()` ...
+      Calling `Disp_Assess()` ...
+      
+      -- Checking Input Data for `Disp_Assess()` --
+      
+      v No issues found for `Disp_Assess()`
+      
+      -- Initializing `Disp_Assess()` --
+      
+      Input data has 3 rows.
+      v `Transform_EventCount()` returned output with 3 rows.
+      v `Analyze_Chisq()` returned output with 3 rows.
+      v `Flag()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+      v `Visualize_Scatter()` created a chart.
+      v `Disp_Assess()` Successful
+      Saving lResults to `lAssessment`
+      
+      -- Initializing `dispTreatment` assessment -------------------------------------
+      
+      -- Workflow Step 1 of 2: `Disp_Map_Raw` --
+      
+      Preparing parameters for `Disp_Map_Raw()` ...
+      Calling `Disp_Map_Raw()` ...
+      
+      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
+      
+      v No issues found for `Disp_Map_Raw_Treatment()`
+      
+      -- Initializing `Disp_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      v `Disp_Map_Raw()` returned output with 3 rows.
+      v `Disp_Map_Raw()` Successful
+      Saving dfInput to `lAssessment$lData`
+      
+      -- Workflow Step 2 of 2: `Disp_Assess` --
+      
+      Preparing parameters for `Disp_Assess()` ...
+      Calling `Disp_Assess()` ...
+      
+      -- Checking Input Data for `Disp_Assess()` --
+      
+      v No issues found for `Disp_Assess()`
+      
+      -- Initializing `Disp_Assess()` --
+      
+      Input data has 3 rows.
+      v `Transform_EventCount()` returned output with 3 rows.
+      v `Analyze_Chisq()` returned output with 3 rows.
+      v `Flag()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+      v `Visualize_Scatter()` created a chart.
+      v `Disp_Assess()` Successful
+      Saving lResults to `lAssessment`
+      
       -- Initializing `ie` assessment ------------------------------------------------
       
       -- Workflow Step 1 of 2: `IE_Map_Raw` --

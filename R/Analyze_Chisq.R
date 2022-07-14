@@ -26,14 +26,12 @@
 #' @return `data.frame` with one row per site with columns: GroupID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue.
 #'
 #' @examples
-#' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl,
-#'                     strCol = "DCREASCD",
-#'                     strReason = "Adverse Event")
-#'
-#' dfTransformed <- Transform_EventCount(dfInput,
-#'                                       strCountCol = "Count",
-#'                                       strKRILabel = "Discontinuations due to AE/Month")
-#'
+#' dfInput <- Disp_Map_Raw()
+#' dfTransformed <- Transform_EventCount(
+#'                    dfInput,
+#'                    strCountCol = "Count",
+#'                    strKRILabel = "Discontinuations due to AE/Month"
+#'                  )
 #' dfAnalyzed <- Analyze_Chisq(dfTransformed)
 #'
 #' @import dplyr
@@ -57,6 +55,7 @@ Analyze_Chisq <- function(
     "strOutcome is not character" = is.character(strOutcome)
   )
 
+
   chisq_model <- function(site) {
     SiteTable <- dfTransformed %>%
       group_by(.data$GroupID == site) %>%
@@ -67,7 +66,7 @@ Analyze_Chisq <- function(
       ) %>%
       select(.data$Flag, .data$NoFlag)
 
-    stats::chisq.test(SiteTable)
+    stats::chisq.test(SiteTable) %>% suppressWarnings()
   }
 
   dfAnalyzed <- dfTransformed %>%
@@ -76,7 +75,7 @@ Analyze_Chisq <- function(
     tidyr::unnest(summary) %>%
     rename(
       Statistic = .data$statistic,
-      PValue = .data[["p.value"]]
+      Score = .data[["p.value"]]
     ) %>%
     mutate(
       TotalCount_All = sum(.data$TotalCount),
@@ -84,10 +83,24 @@ Analyze_Chisq <- function(
       TotalCount_Other = .data$TotalCount_All - .data$TotalCount,
       N_Other = .data$N_All - .data$N,
       Prop = .data$TotalCount / .data$N,
-      Prop_Other = .data$TotalCount_Other / .data$N_Other
+      Prop_Other = .data$TotalCount_Other / .data$N_Other,
+      ScoreLabel = "P value"
     ) %>%
-    arrange(.data$PValue) %>%
-    select(.data$GroupID, .data$TotalCount, .data$TotalCount_Other, .data$N, .data$N_Other, .data$Prop, .data$Prop_Other, .data$Statistic, .data$PValue)
+    arrange(.data$Score) %>%
+    select(
+      .data$SiteID,
+      .data$TotalCount,
+      .data$TotalCount_Other,
+      .data$N,
+      .data$N_Other,
+      .data$Prop,
+      .data$Prop_Other,
+      .data$KRI,
+      .data$KRILabel,
+      .data$Statistic,
+      .data$Score,
+      .data$ScoreLabel
+    )
 
   return(dfAnalyzed)
 }

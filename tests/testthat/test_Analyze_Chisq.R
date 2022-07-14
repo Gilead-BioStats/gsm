@@ -1,11 +1,11 @@
 source(testthat::test_path("testdata/data.R"))
 
-dfInput <- Disp_Map(
-  dfDisp,
-  strCol = "DCREASCD",
-  strReason = "Adverse Event"
-) %>%
-  mutate(GroupLabel = "SiteID") # this is a temp fix and will be updated in branch fix-387
+
+dfInput <- Disp_Map_Raw(
+  dfs = list(dfDISP = dfDISP,
+             dfSUBJ = dfSUBJ)
+)
+
 
 dfTransformed <- Transform_EventCount(
   dfInput,
@@ -21,7 +21,7 @@ test_that("output created as expected and has correct structure", {
 
   expect_equal(
     names(chisq),
-    c("GroupID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "Statistic", "PValue")
+    c("SiteID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "KRI", "KRILabel", "Statistic", "Score", "ScoreLabel")
   )
 })
 

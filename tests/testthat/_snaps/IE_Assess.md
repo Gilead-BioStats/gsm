@@ -22,6 +22,10 @@
 
     lTags cannot contain elements named: 'GroupID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', 'GroupLabel', or 'Flag'
 
+---
+
+    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
 # bQuiet and bReturnChecks work as intended
 
     Code

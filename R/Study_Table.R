@@ -38,8 +38,8 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
     "`bColCollapse` must be logical" = is.logical(bColCollapse)
   )
 
+  # TODO: Add check for unique Site + Label + SiteID
 
-  # TODO: Add check for unique Site + Label + GroupID
   # Get site counts
   df_counts <- dfFindings %>%
     group_by(.data$GroupID) %>%

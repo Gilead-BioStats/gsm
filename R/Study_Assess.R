@@ -49,7 +49,8 @@ Study_Assess <- function(
       dfAE = clindata::rawplus_ae,
       dfPD = clindata::rawplus_pd,
       dfCONSENT = clindata::rawplus_consent,
-      dfIE = clindata::rawplus_ie
+      dfIE = clindata::rawplus_ie,
+      dfDISP = clindata::rawplus_subj
     )
   }
 

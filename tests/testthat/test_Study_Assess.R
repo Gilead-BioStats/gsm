@@ -5,7 +5,8 @@ lData <- list(
   dfAE = dfAE,
   dfPD = dfPD,
   dfCONSENT = dfCONSENT,
-  dfIE = dfIE
+  dfIE = dfIE,
+  dfDISP = dfDISP
 )
 
 lAssessments <- MakeAssessmentList()
@@ -16,8 +17,16 @@ result <- Study_Assess(lData = lData, lAssessments= lAssessments, bQuiet = TRUE)
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-  expect_equal(6, length(result))
-  expect_equal(c("ae", "consent", "ie", "importantpd", "pd", "sae"), names(result))
+  expect_equal(9, length(result))
+  expect_equal(c("ae",
+                 "consent",
+                 "dispStudy",
+                 "dispStudyWithdrew",
+                 "dispTreatment",
+                 "ie",
+                 "importantpd",
+                 "pd",
+                 "sae"), names(result))
   expect_true(all(map_chr(result, ~ class(.)) == "list"))
   expect_equal(names(result$ae$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
@@ -66,8 +75,16 @@ test_that("Study_Assess() runs with missing datasets", {
   expect_false(result$ie$bStatus)
   expect_false("lResults" %in% names(result$consent))
   expect_false("lResults" %in% names(result$ie))
-  expect_equal(6, length(result))
-  expect_equal(c("ae", "consent", "ie", "importantpd", "pd", "sae"), names(result))
+  expect_equal(9, length(result))
+  expect_equal(c("ae",
+                 "consent",
+                 "dispStudy",
+                 "dispStudyWithdrew",
+                 "dispTreatment",
+                 "ie",
+                 "importantpd",
+                 "pd",
+                 "sae"), names(result))
   expect_equal(names(result$ae$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
     "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks"

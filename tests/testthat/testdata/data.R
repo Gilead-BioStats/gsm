@@ -36,15 +36,16 @@ dfCONSENT <- data.frame(
 )
 
 
-# dfDisp = safetyData::adam_adsl %>%
-#   select("SUBJID", "SITEID", "DCREASCD") %>%
-#   head(2)
-dfDisp <- tibble::tribble(
-  ~SUBJID, ~SITEID, ~DCREASCD,
-  "1234", "701", "Completed",
-  "5678", "701", "Adverse Event",
-  "2345", "702", "Withdrew Consent",
-  "2348", "702", "Adverse Event"
+# created from clindata::rawplus_subj
+# used code below + manually edited tribble (datapasta::tribble_paste())
+# clindata::rawplus_subj %>%
+# select(SubjectID, starts_with("Trt"), starts_with("Stud")) %>%
+#   slice(1:3)
+dfDISP <- tibble::tribble(
+  ~SubjectID, ~TrtCompletion, ~TrtDCReason, ~StudCompletion, ~StudDCReason,
+  "1234",            "N",           "Adverse Event",             "N",            "Withdrew Consent",
+  "5678",            "Y",           NA,                          "Y",            NA,
+  "9876",            "O",           NA,                          "O",            NA
 )
 
 

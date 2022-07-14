@@ -25,14 +25,12 @@
 #' @return `data.frame` with one row per site with columns: GroupID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
 #'
 #' @examples
-#' dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl,
-#'                     strCol = "DCREASCD",
-#'                     strReason = "Adverse Event")
-#'
-#' dfTransformed <- Transform_EventCount(dfInput,
-#'                                       strCountCol = "Count",
-#'                                       strKRILabel = "Discontinuations due to AE")
-#'
+#' dfInput <- Disp_Map_Raw()
+#' dfTransformed <- Transform_EventCount(
+#'                    dfInput,
+#'                    strCountCol = "Count",
+#'                    strKRILabel = "Discontinuations due to AE"
+#'                  )
 #' dfAnalyzed <- Analyze_Fisher(dfTransformed)
 #'
 #' @import dplyr
@@ -75,7 +73,7 @@ Analyze_Fisher <- function(
     tidyr::unnest(summary) %>%
     rename(
       Estimate = .data$estimate,
-      PValue = .data[["p.value"]]
+      Score = .data[["p.value"]]
     ) %>%
     mutate(
       TotalCount_All = sum(.data$TotalCount),
@@ -83,10 +81,24 @@ Analyze_Fisher <- function(
       TotalCount_Other = .data$TotalCount_All - .data$TotalCount,
       N_Other = .data$N_All - .data$N,
       Prop = .data$TotalCount / .data$N,
-      Prop_Other = .data$TotalCount_Other / .data$N_Other
+      Prop_Other = .data$TotalCount_Other / .data$N_Other,
+      ScoreLabel = "P value"
     ) %>%
-    arrange(.data$PValue) %>%
-    select(.data$GroupID, .data$TotalCount, .data$TotalCount_Other, .data$N, .data$N_Other, .data$Prop, .data$Prop_Other, .data$Estimate, .data$PValue)
+    arrange(.data$Score) %>%
+    select(
+      .data$SiteID,
+      .data$TotalCount,
+      .data$TotalCount_Other,
+      .data$N,
+      .data$N_Other,
+      .data$Prop,
+      .data$Prop_Other,
+      .data$KRI,
+      .data$KRILabel,
+      .data$Estimate,
+      .data$Score,
+      .data$ScoreLabel
+      )
 
   return(dfAnalyzed)
 }

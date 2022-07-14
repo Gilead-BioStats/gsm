@@ -1,5 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 
+<<<<<<< HEAD
 dfInput <- Disp_Map(
   dfDisp,
   strCol = "DCREASCD",
@@ -12,6 +13,11 @@ df <- Transform_EventCount(
   strCountCol = "Count",
   strKRILabel = "test label",
   strGroupCol = "SiteID"
+=======
+dfInput <- Disp_Map_Raw(
+  dfs = list(dfDISP = dfDISP,
+             dfSUBJ = dfSUBJ)
+>>>>>>> 3b76260bd495418ba77329dd67d0b754857503c4
   )
 
 test_that("output created as expected and has correct structure", {
@@ -20,6 +26,7 @@ test_that("output created as expected and has correct structure", {
   output <- Analyze_Fisher(df)
 
   expect_true(is.data.frame(df))
+<<<<<<< HEAD
   expect_equal(names(output), c("GroupID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "Estimate", "PValue"))
   expect_type(df$GroupID, "character")
   expect_type(df$N, "integer")
@@ -34,6 +41,20 @@ test_that("incorrect inputs throw errors", {
     strReason = "Adverse Event"
   ) %>%
     mutate(GroupLabel = "SiteID")
+=======
+  expect_equal(names(output), c("SiteID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel"))
+  expect_type(df$SiteID, "character")
+  expect_type(df$N, "integer")
+  expect_type(df$TotalCount, "double")
+  expect_equal(df$SiteID, c("X010X", "X102X", "X999X"))
+})
+
+test_that("incorrect inputs throw errors", {
+  dfInput <- Disp_Map_Raw(
+    dfs = list(dfDISP = dfDISP,
+               dfSUBJ = dfSUBJ)
+  )
+>>>>>>> 3b76260bd495418ba77329dd67d0b754857503c4
 
   df <- Transform_EventCount(
     dfInput,
@@ -50,12 +71,12 @@ test_that("incorrect inputs throw errors", {
 
 
 test_that("error given if required column not found", {
-  dfInput <- Disp_Map(
-    dfDisp,
-    strCol = "DCREASCD",
-    strReason = "Adverse Event"
-  ) %>%
-    mutate(GroupLabel = "SiteID")
+
+  dfInput <- Disp_Map_Raw(
+    dfs = list(dfDISP = dfDISP,
+               dfSUBJ = dfSUBJ)
+  )
+
 
   df <- Transform_EventCount(
     dfInput,
@@ -70,12 +91,11 @@ test_that("error given if required column not found", {
 })
 
 test_that("NAs are handled correctly", {
-  dfInput <- Disp_Map(
-    dfDisp,
-    strCol = "DCREASCD",
-    strReason = "Adverse Event"
-  ) %>%
-    mutate(GroupLabel = "SiteID")
+  dfInput <- Disp_Map_Raw(
+    dfs = list(dfDISP = dfDISP,
+               dfSUBJ = dfSUBJ)
+  )
+
 
   df <- Transform_EventCount(
     dfInput,
