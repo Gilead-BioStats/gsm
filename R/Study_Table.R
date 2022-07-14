@@ -38,7 +38,6 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
     "`bColCollapse` must be logical" = is.logical(bColCollapse)
   )
 
-
   # TODO: Add check for unique Site + Label + SiteID
   # Get site counts
   df_counts <- dfFindings %>%

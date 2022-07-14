@@ -120,7 +120,6 @@ test_invalid_mapping <- function(map_function, dfs, spec, mapping) {
       purrr::iwalk(columns, function(column_value, column_key) { # loop over columns in domain
         mapping_edited <- mapping_required
         mapping_edited[[domain_key]][[column_key]] <- "asdf"
-
         testthat::expect_snapshot(
           map_function(
             dfs = dfs,

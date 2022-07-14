@@ -61,8 +61,10 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
   if (!is.data.frame(df)) {
     tests_if$is_data_frame$status <- FALSE
     tests_if$is_data_frame$warning <- "df is not a data.frame()"
+    dim <- NA
   } else {
     tests_if$is_data_frame$status <- TRUE
+    dim <- dim(df)
   }
 
   # basic `mapping` checks
@@ -193,7 +195,8 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
   # if not, FALSE
   is_valid <- list(
     status = all(map_lgl(tests_if, ~ .$status)),
-    tests_if = tests_if
+    tests_if = tests_if,
+    dim = dim
   )
 
   return(is_valid)
