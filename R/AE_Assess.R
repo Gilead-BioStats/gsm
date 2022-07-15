@@ -12,7 +12,7 @@
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
 #'   `c(-5, 5)` for a Poisson model (`strMethod = "poisson"`), `c(.0001, NA)` for a Wilcoxon
-#'   signed-rank test (`strMethod` = "wilcoxon"), and `c(.0025, NA)` for a nominal assessment (`strMethod = "identity"`).
+#'   signed-rank test (`strMethod` = "wilcoxon"), and `c(0.00006, 0.01)` for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"poisson"` (default)
 #'   - `"wilcoxon"`
@@ -151,8 +151,7 @@ AE_Assess <- function(
       } else {
         stopifnot(
           "vThreshold is not numeric" = is.numeric(vThreshold),
-          "Lower limit (first element) for Identity vThreshold is not between 0 and 1" = vThreshold[1] < 1 & vThreshold[1] > 0,
-          "Upper limit (second element) for Identity vThreshold is not NA" = is.na(vThreshold[2]),
+          "vThreshold for Identity contains NA values" = all(!is.na(vThreshold)),
           "vThreshold is not length 2" = length(vThreshold) == 2
         )
       }

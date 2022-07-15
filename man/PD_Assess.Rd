@@ -20,7 +20,7 @@ PD_Assess(
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to
 \code{c(-5, 5)} for a Poisson model (\code{strMethod = "poisson"}), \code{c(.0001, NA)} for a Wilcoxon
-signed-rank test (\code{strMethod} = "wilcoxon"), and \code{c(.0025, NA)} for a nominal assessment (\code{strMethod = "identity"}).}
+signed-rank test (\code{strMethod} = "wilcoxon"), and \code{c(0.000895, 0.003059)} for a nominal assessment (\code{strMethod = "identity"}).}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
