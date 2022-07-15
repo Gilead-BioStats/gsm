@@ -56,7 +56,7 @@ AE_Assess <- function(dfInput,
                       vThreshold = NULL,
                       strMethod = "poisson",
                       strKRILabel = "AEs/Week",
-                      strGroupCol = "SiteID", # "StudyID", "CustomGroupID"
+                      strGroupCol = "SiteID",
                       lTags = list(Assessment = "AE"),
                       bChart = TRUE,
                       bReturnChecks = FALSE,
