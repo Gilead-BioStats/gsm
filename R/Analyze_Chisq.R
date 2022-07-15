@@ -49,7 +49,7 @@ Analyze_Chisq <- function(
 ) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns: GroupID, N, or the value in strOutcome not found in dfTransformed" = all(c("GroupID", "N", strOutcome) %in% names(dfTransformed)),
+    "One or more of these columns: GroupID, GroupLabel, N, or the value in strOutcome not found in dfTransformed" = all(c("GroupID", "GroupLabel", "N", strOutcome) %in% names(dfTransformed)),
     "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]])),
     "strOutcome must be length 1" = length(strOutcome) == 1,
     "strOutcome is not character" = is.character(strOutcome)
