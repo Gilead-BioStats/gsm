@@ -68,12 +68,14 @@ AE_Map_Raw <- function(
       select(SubjectID = lMapping[["dfAE"]][["strIDCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
-      select(any_of(
-        c(
-          SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-          SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
-          StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
-          CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]],
+      select(
+       SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+         any_of(
+            c(
+               SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+               StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+               CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]],
+           )
           Exposure = lMapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
         )
       ))
