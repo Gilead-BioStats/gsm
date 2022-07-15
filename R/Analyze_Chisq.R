@@ -23,7 +23,7 @@
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #'
-#' @return `data.frame` with one row per site with columns: GroupID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue.
+#' @return `data.frame` with one row per site with columns: GroupID, GroupLabel, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue.
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
