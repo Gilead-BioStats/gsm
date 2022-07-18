@@ -77,6 +77,10 @@ test_that("strMethod = 'wilcoxon' does not throw error", {
   expect_error(assess_function(dfInput, strMethod = "wilcoxon"), NA)
 })
 
+test_that("strMethod = 'identity' does not throw error", {
+  expect_error(assess_function(dfInput, strMethod = "identity"), NA)
+})
+
 test_that("NA in dfInput$Count results in Error for assess_function", {
   dfInputNA <- dfInput
   dfInputNA[1, "Count"] <- NA

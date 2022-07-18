@@ -11,11 +11,12 @@
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
-#'   `c(-5, 5)` for a Poisson model (`strMethod = "poisson"`) and `c(.0001, NA)` for a Wilcoxon
-#'   signed-rank test (`strMethod` = "wilcoxon").
+#'   `c(-5, 5)` for a Poisson model (`strMethod = "poisson"`), `c(.0001, NA)` for a Wilcoxon
+#'   signed-rank test (`strMethod` = "wilcoxon"), and `c(0.000895, 0.003059)` for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"poisson"` (default)
 #'   - `"wilcoxon"`
+#'   - `"identity"`
 #' @param strKRILabel `character` KRI description. Default: `"PDs/Week"`
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
 #'   to `list(Assessment = "PD")`. `lTags` is returned as part of the assessment (`lAssess$lTags`)
@@ -64,7 +65,7 @@ PD_Assess <- function(
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate" = all(c("SubjectID", "SiteID", "Count", "Exposure", "Rate") %in% names(dfInput)),
-    "strMethod is not 'poisson' or 'wilcoxon'" = strMethod %in% c("poisson", "wilcoxon"),
+    "strMethod is not 'poisson', 'wilcoxon', or 'identity'" = strMethod %in% c("poisson", "wilcoxon", "identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
     "bChart must be logical" = is.logical(bChart),
@@ -143,6 +144,28 @@ PD_Assess <- function(
 
       lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
+    } else if (strMethod == "identity") {
+      if (is.null(vThreshold)) {
+        vThreshold <- c(0.000895, 0.003059)
+      } else {
+        stopifnot(
+          "vThreshold is not numeric" = is.numeric(vThreshold),
+          "vThreshold for Identity contains NA values" = all(!is.na(vThreshold)),
+          "vThreshold is not length 2" = length(vThreshold) == 2
+        )
+      }
+
+      lAssess$dfAnalyzed <- gsm::Analyze_Identity(lAssess$dfTransformed, bQuiet = bQuiet)
+      if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Identity} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
+
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold)
+      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
+
+      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
+      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
+
+
+
     }
 
     if (bChart) {
