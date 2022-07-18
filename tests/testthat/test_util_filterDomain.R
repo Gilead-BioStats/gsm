@@ -31,17 +31,18 @@ test_that("filter to 0 rows throws a warning", {
   dfAE <- dfAE %>%
     filter(AE_TE_FLAG == FALSE)
 
-  expect_equal(
-    FilterDomain(dfAE,
+  expect_equal(suppressWarnings(
+    FilterDomain(
+      dfAE,
       lMapping = lMapping,
       strDomain = "dfAE",
       strColParam = "strTreatmentEmergentCol",
       strValParam = "strTreatmentEmergentVal",
-      bQuiet=TRUE
-    ) %>%
-      nrow(),
-    0
-  )
+      bQuiet = TRUE
+    )
+  ) %>%
+    nrow(),
+  0)
   expect_snapshot(FilterDomain(dfAE,
     lMapping = lMapping,
     strDomain = "dfAE",
@@ -98,3 +99,4 @@ test_that("error when 'val' and 'col' are switched", {
     bQuiet = FALSE
   ))
 })
+
