@@ -3,7 +3,6 @@ dfInput:
   strSiteCol: "SiteID"
   strStudyCol: "StudyID"
   strCustomGroupCol: "RegionID"
-  strGroupLabel: "GroupLabel"
   strRandDateCol: "RandDate"
   strCountCol: "Count"
 

@@ -78,10 +78,10 @@ methods are described below.
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfInput \tab strGroupCol \tab GroupID \tab TRUE \tab FALSE \cr
    dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
    dfInput \tab strExposureCol \tab Exposure \tab TRUE \tab FALSE \cr
    dfInput \tab strRateCol \tab Rate \tab TRUE \tab FALSE \cr
+   dfInput \tab strGroupCol \tab  \tab TRUE \tab FALSE \cr
 }
 }
 

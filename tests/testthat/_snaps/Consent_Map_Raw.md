@@ -241,7 +241,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strGroupLabel", "strRandDateCol", "strCountCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strRandDateCol", "strCountCol"]
             }
           },
           "value": [
@@ -264,11 +264,6 @@
               "type": "character",
               "attributes": {},
               "value": ["RegionID"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["GroupLabel"]
             },
             {
               "type": "character",
