@@ -217,7 +217,7 @@ For the scope of this example, the data found in {clindata} will pose as user-pr
 
 The example below illustrates that a user can pass a named list of Raw+ data to the `lData` parameter.
 
-As mentioned above, note that `lData` expects a *named* list. To see a list of default data frame names, run `names(clindata::mapping_rawplus)`
+As mentioned above, note that `lData` expects a *named* list. To see a list of default data frame names, run `yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))`
 
 ```{r eval = FALSE, include = TRUE}
 library(gsm)
@@ -457,7 +457,7 @@ lAssessmentsCustom$consent$name <- "consent"
 lAssessmentsCustom$consent$path <- getwd()
 
 # 5. read in default data set mappings from clindata
-lMappingCustom <- clindata::mapping_rawplus
+lMappingCustom <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 # 6. add strTypeVal, value for strTypeCol to filter on
 lMappingCustom$dfCONSENT$strTypeVal <- "MAINCONSENT"
