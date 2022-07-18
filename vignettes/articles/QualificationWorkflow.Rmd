@@ -56,7 +56,7 @@ For example, the first specification from `spec_AE_Assess.yaml` is written as:
 
 Test cases take specifications and turn them into the actual testable pieces that make up the larger specification.  The test cases are built to confirm that the package meets the requirements laid out for it.  Test cases should be representative of how a user may utilize the program since that will be the most helpful to uncovering defects and supporting test automation.  Test cases are linked to the assessment as shown above.
 
-Test cases are written using the standard `testthat` workflow and saved in `tests/testthat`.
+Test cases are written using the standard `testthat` workflow and saved in `tests/qualification`.
 Each test case should be saved as it's own file and named using with the convention `test_qual_{TestID}.R` where test number corresponds to the `Tests` section in the relevant specification. Note that tests can be associated with multiple specifications. Test code should be written in a clear and concise manner making it quick to execute and easy to review and interpret.  Test cases should also have an informative description to outline what is being tested.
 
 An simple example test case is shown below.  For this test case the file would be called `test_qual_T1_1.R` and would correspond to T1_1 in the specifications:
