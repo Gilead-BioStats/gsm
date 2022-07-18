@@ -14,7 +14,7 @@ Analyze_Chisq(dfTransformed, strOutcome = "TotalCount", bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one row per site with columns: GroupID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue.
+\code{data.frame} with one row per site with columns: GroupID, GroupLabel, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue.
 }
 \description{
 Creates Analysis results data for count data using the chi-squared test
