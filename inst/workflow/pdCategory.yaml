@@ -1,0 +1,15 @@
+tags:
+  Assessment: PD
+  Label: PD Category
+workflow:
+  - name: PD_Map_Raw
+    inputs:
+      - dfPD
+      - dfSUBJ
+    output: dfInput
+  - name: PD_Category_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      vThreshold: null
+      strMethod: "poisson"
