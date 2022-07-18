@@ -4,6 +4,6 @@
 |:----------|:------------------------------------|:-----------------|:-------------|:---------------------------|:--------------------------|
 |dfSUBJ     |strIDCol                             |SubjectID         |TRUE          |FALSE                       |TRUE                       |
 |dfSUBJ     |strSiteCol                           |SiteID            |TRUE          |FALSE                       |FALSE                      |
-|dfDISP     |strIDCol                             |                  |TRUE          |FALSE                       |FALSE                      |
-|dfDISP     |strTreatmentDiscontinuationReasonCol |                  |TRUE          |TRUE                        |FALSE                      |
-|dfDISP     |strTreatmentCompletionFlagCol        |                  |TRUE          |TRUE                        |FALSE                      |
+|dfDISP     |strIDCol                             |SubjectID         |TRUE          |FALSE                       |FALSE                      |
+|dfDISP     |strTreatmentDiscontinuationReasonCol |TrtDCReason       |TRUE          |TRUE                        |FALSE                      |
+|dfDISP     |strTreatmentCompletionFlagCol        |TrtCompletion     |TRUE          |TRUE                        |FALSE                      |
