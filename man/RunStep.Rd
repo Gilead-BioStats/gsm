@@ -26,7 +26,7 @@ Calls a step in an assessment workflow. Currently supports \verb{*_Map_*}, \verb
 \examples{
 lStep <- MakeAssessmentList()[["ae"]][["workflow"]][[1]]
 
-lMapping <- clindata::mapping_rawplus
+lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 lData <- list(
   dfSUBJ = clindata::rawplus_subj,

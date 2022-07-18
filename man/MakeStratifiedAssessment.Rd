@@ -27,8 +27,8 @@ StratifiedAE <- MakeStratifiedAssessment(
    lData = list(
      dfSUBJ = clindata::rawplus_subj,
      dfAE = clindata::rawplus_ae
-   ), 
-   lMapping = clindata::mapping_rawplus,
+   ),
+   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
    lAssessment = MakeAssessmentList()$aeGrade
  )
 
