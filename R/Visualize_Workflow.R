@@ -101,8 +101,8 @@ Visualize_Workflow <- function(lAssessments) {
 
     bind_rows(preAssessment, pipeline) %>%
       mutate(
-        from = ifelse(is.na(.data$from), row_number(), from),
-        to = ifelse(is.na(.data$to), row_number() + 1, to)
+        from = ifelse(is.na(.data$from), row_number(), .data$from),
+        to = ifelse(is.na(.data$to), row_number() + 1, .data$to)
       )
   })
 
@@ -139,7 +139,7 @@ Visualize_Workflow <- function(lAssessments) {
         fillcolor = case_when(.data$checks == FALSE ~ "Tomato",
                               .data$checks == "" ~ "LightSlateGray",
                               TRUE ~ fillcolor),
-        tooltip = ifelse(checks == "", paste0(tooltip, "\nCheck Not Run"), tooltip)
+        tooltip = ifelse(checks == "", paste0(.data$tooltip, "\nCheck Not Run"), .data$tooltip)
       )
 
     if (FALSE %in% node_df$checks) {
