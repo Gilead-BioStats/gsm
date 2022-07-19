@@ -6,7 +6,8 @@
 \usage{
 Consent_Map_Raw(
   dfs = list(dfCONSENT = clindata::rawplus_consent, dfSUBJ = clindata::rawplus_subj),
-  lMapping = clindata::mapping_rawplus,
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
+    "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )

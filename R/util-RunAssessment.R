@@ -23,7 +23,7 @@
 #' lTags <- list(
 #'   Study = "myStudy"
 #' )
-#' lMapping <- clindata::mapping_rawplus
+#' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 #'
 #' ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
 #'
