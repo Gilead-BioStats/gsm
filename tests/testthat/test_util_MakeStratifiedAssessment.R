@@ -8,7 +8,7 @@ StrataWorkflow<- MakeAssessmentList()$aeGrade
 test_that("output is created as expected", {
   strat <- MakeStratifiedAssessment(
     lData=lData,
-    lMapping=clindata::mapping_rawplus,
+    lMapping=lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     lAssessment=StrataWorkflow
   )
 
@@ -23,7 +23,7 @@ test_that("output is created as expected", {
 test_that("errors thrown for invalid groupings", {
   expect_error( MakeStratifiedAssessment(
     lData=list(),
-    lMapping=clindata::mapping_rawplus,
+    lMapping=lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     lAssessment=StrataWorkflow
   ))
 
@@ -35,7 +35,7 @@ test_that("errors thrown for invalid groupings", {
 
   expect_error( MakeStratifiedAssessment(
     lData=lData,
-    lMapping=clindata::mapping_rawplus,
+    lMapping=lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     lAssessment=list()
   ))
 
@@ -43,7 +43,7 @@ test_that("errors thrown for invalid groupings", {
   badWorkflow1$group$domain <- 'dfOther'
   expect_error(MakeStratifiedAssessment(
     lData=lData,
-    lMapping=clindata::mapping_rawplus,
+    lMapping=lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     lAssessment=BadWorkflow1
   ))
 
@@ -51,7 +51,7 @@ test_that("errors thrown for invalid groupings", {
   badWorkflow2$group$columnParam <- 'NotACol'
   expect_error(MakeStratifiedAssessment(
     lData=lData,
-    lMapping=clindata::mapping_rawplus,
+    lMapping=lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     lAssessment=BadWorkflow2
   ))
 })

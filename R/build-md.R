@@ -34,7 +34,7 @@ build_markdown <- function(yaml_path) {
       if (file.exists(sub("specs", "mappings", spec))) {
         gsm::generate_md_table(name)
       } else if (grepl("map_raw", name, ignore.case = TRUE)) {
-        gsm::generate_md_table(name, clindata::mapping_rawplus)
+        gsm::generate_md_table(name, yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")))
       } else if (grepl("map_adam", name, ignore.case = TRUE)) {
         gsm::generate_md_table(name, mapping_adam)
       } else {

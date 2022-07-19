@@ -43,7 +43,7 @@ AE_Map_Raw <- function(
     dfAE = clindata::rawplus_ae,
     dfSUBJ = clindata::rawplus_subj
   ),
-  lMapping = yaml::read_yaml(system.file("mappings", "AE_Map_Raw.yaml", package = "gsm")),
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {

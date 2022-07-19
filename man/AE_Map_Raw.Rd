@@ -6,7 +6,7 @@
 \usage{
 AE_Map_Raw(
   dfs = list(dfAE = clindata::rawplus_ae, dfSUBJ = clindata::rawplus_subj),
-  lMapping = yaml::read_yaml(system.file("mappings", "AE_Map_Raw.yaml", package =
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE

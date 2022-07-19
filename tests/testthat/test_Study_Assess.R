@@ -10,9 +10,12 @@ lData <- list(
 )
 
 lAssessments <- MakeAssessmentList()
+
 lAssessments$aeGrade <- NULL # Drop stratified assessment
 
 result <- Study_Assess(lData = lData, lAssessments= lAssessments, bQuiet = TRUE)
+
+lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 
 # output is created as expected -------------------------------------------
@@ -91,7 +94,7 @@ test_that("Study_Assess() runs with missing datasets", {
 
 
 test_that("custom lMapping runs as intended", {
-  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+
   lMapping$dfAE$strIDCol <- "SUBJID"
 
   result <- Study_Assess(lData = lData, lMapping = lMapping, bQuiet=TRUE)
@@ -100,7 +103,6 @@ test_that("custom lMapping runs as intended", {
   expect_false("lResults" %in% names(result$ae))
   expect_false("lResults" %in% names(result$sae))
 
-  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
   lMapping$dfAE$strIDCol <- "SUBJID"
   lData$dfAE <- lData$dfAE %>%
     rename(SUBJID = SubjectID)
@@ -215,7 +217,7 @@ test_that("Map + Assess yields same result as Study_Assess()", {
 })
 
 test_that("lSubjFilters with 0 rows returns NULL", {
-  lMappingCustom <- clindata::mapping_rawplus
+  lMappingCustom <- lMapping
 
   lMappingCustom$dfSUBJ$strSiteVal <- "XYZ"
   lMappingCustom$dfSUBJ$strRandFlagVal <- "N"

@@ -6,7 +6,7 @@
 \usage{
 IE_Map_Raw(
   dfs = list(dfIE = clindata::rawplus_ie, dfSUBJ = clindata::rawplus_subj),
-  lMapping = yaml::read_yaml(system.file("mappings", "IE_Map_Raw.yaml", package =
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
