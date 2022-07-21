@@ -1,15 +1,19 @@
 tags:
   Assessment: PD
-  Label: PD Category
+  Label: PD - Category
+group:
+  domain: dfPD
+  columnParam: strCategoryCol
 workflow:
   - name: PD_Map_Raw
     inputs:
       - dfPD
       - dfSUBJ
     output: dfInput
-  - name: PD_Category_Assess
+  - name: PD_Assess
     inputs: dfInput
     output: lResults
     params:
       vThreshold: null
       strMethod: "poisson"
+      strKRILabel: "PDs/Week"
