@@ -23,65 +23,70 @@
 #'
 #' @export
 
-MakeStratifiedAssessment <- function(lAssessment, lMapping, lData, bQuiet=TRUE){
-
+MakeStratifiedAssessment <- function(lAssessment, lMapping, lData, bQuiet = TRUE){
 
   if(all(c("domain", "columnParam") %in% names(lAssessment$group))) {
 
     groupDomain <- lAssessment$group$domain
     groupColumnParam <- lAssessment$group$columnParam
 
-    stopifnot(hasName(lMapping[[groupDomain]], groupColumnParam))
-    groupColumn <- lMapping[[groupDomain]][[groupColumnParam]]
+    if(hasName(lMapping[[groupDomain]], groupColumnParam)){
+      groupColumn <- lMapping[[groupDomain]][[groupColumnParam]]
+    } else {
+      groupColumn <- NA
+    }
 
-    stopifnot(
-      hasName(lData, groupDomain),
-      hasName(lData[[groupDomain]], groupColumn)
-    )
+    if(hasName(lData, groupDomain) & hasName(lData[[groupDomain]], groupColumn)) {
 
-    # get unique levels of the group column
-    groupValues <- unique(lData[[groupDomain]][[groupColumn]])
-    stopifnot(length(groupValues) >= 1)
+      # get unique levels of the group column
+      groupValues <- unique(lData[[groupDomain]][[groupColumn]])
 
-    # add filter to create separate (ungrouped) assessment for each group
-    lGroupAssessments <- groupValues %>% imap(function(groupValue, index){
-      thisAssessment <- lAssessment
-      thisAssessment$name <- paste0(thisAssessment$name,"_",index)
-      thisAssessment$tags$Group <- paste0(groupDomain,"$",groupColumn, "=",groupValue)
-      thisAssessment$tags$Label <- paste0(thisAssessment$tags$Label, ' - ', groupValue)
-      thisAssessment$label <- paste0(thisAssessment$label, ' - ', thisAssessment$tags$Group)
-      lStrata <- list(list(
-        name="MakeStrata",
-        inputs= groupDomain,
-        output= groupDomain,
-        params=list(
-          strDomain=groupDomain,
-          strCol=groupColumn,
-          strVal=groupValue
-        ))
-      )
-      thisAssessment$workflow <- c(lStrata, lAssessment$workflow)
-      return(thisAssessment)
-    })
-    names(lGroupAssessments) <- lGroupAssessments %>% map_chr(~ .x$name)
-    if(!bQuiet) cli::cli_alert_info("Stratified assessment workflow created for each level of {groupDomain}${groupColumn} (n={length(groupValues)}).")
+      if(length(groupValues) >= 1){
+        # add filter to create separate (ungrouped) assessment for each group
+        lGroupAssessments <- groupValues %>% imap(function(groupValue, index){
 
-    return(lGroupAssessments)
+          thisAssessment <- lAssessment
+          thisAssessment$name <- paste0(thisAssessment$name,"_",index)
+          thisAssessment$tags$Group <- paste0(groupDomain,"$",groupColumn, "=",groupValue)
+          thisAssessment$tags$Label <- paste0(thisAssessment$tags$Label, ' - ', groupValue)
+          thisAssessment$label <- paste0(thisAssessment$label, ' - ', thisAssessment$tags$Group)
+          lStrata <- list(list(
+            name = "MakeStrata",
+            inputs = groupDomain,
+            output = groupDomain,
+            params = list(
+              strDomain = groupDomain,
+              strCol = groupColumn,
+              strVal = groupValue
+            ))
+          )
+          thisAssessment$workflow <- c(lStrata, lAssessment$workflow)
+          return(thisAssessment)
+        })
+        names(lGroupAssessments) <- lGroupAssessments %>% map_chr(~ .x$name)
+        if(!bQuiet) cli::cli_alert_info("Stratified assessment workflow created for each level of {groupDomain}${groupColumn} (n={length(groupValues)}).")
+
+        return(lGroupAssessments)
+      } else {
+
+      if(!bQuiet) cli::cli_alert_warning("Stratified assessment workflow not created.")
+
+        return(NULL)
+    }
 
   } else {
+
+    if(!bQuiet) cli::cli_alert_warning("Stratified assessment workflow not created.")
+
     return(NULL)
   }
-  browser()
 
-  # #Throw a warning and return null if domain/column doesn't exist in lData
-  # stopifnot(
-  #   hasName(lAssessment$group, 'domain'),
-  #   hasName(lAssessment$group, 'columnParam')
-  # )
+  } else {
 
+    if(!bQuiet) cli::cli_alert_warning("Stratified assessment workflow not created.")
 
-
-
-
+    return(NULL)
+  }
 
 }
+
