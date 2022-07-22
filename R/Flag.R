@@ -64,7 +64,7 @@ Flag <- function(
     "strColumn must be length of 1" = length(strColumn) == 1,
     "strColumn not found in dfAnalyzed" = strColumn %in% names(dfAnalyzed),
     "strValueColumn not found in dfAnalyzed" = strValueColumn %in% names(dfAnalyzed),
-    "SiteID not found in dfAnalyzed" = "SiteID" %in% names(dfAnalyzed)
+    "GroupID not found in dfAnalyzed" = "GroupID" %in% names(dfAnalyzed)
   )
 
   if (all(!is.na(vThreshold))) {
