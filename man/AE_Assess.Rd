@@ -9,6 +9,7 @@ AE_Assess(
   vThreshold = NULL,
   strMethod = "poisson",
   strKRILabel = "AEs/Week",
+  strGroupCol = "SiteID",
   lTags = list(Assessment = "AE"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -30,6 +31,8 @@ signed-rank test (\code{strMethod} = "wilcoxon"), and \code{c(0.00006, 0.01)} fo
 }}
 
 \item{strKRILabel}{\code{character} KRI description. Default: \code{"AEs/Week"}}
+
+\item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
 
 \item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults
 to \code{list(Assessment = "AE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags})
@@ -75,10 +78,10 @@ methods are described below.
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfInput \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
    dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
    dfInput \tab strExposureCol \tab Exposure \tab TRUE \tab FALSE \cr
    dfInput \tab strRateCol \tab Rate \tab TRUE \tab FALSE \cr
+   dfInput \tab strGroupCol \tab  \tab TRUE \tab FALSE \cr
 }
 }
 

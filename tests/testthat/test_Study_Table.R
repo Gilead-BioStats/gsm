@@ -22,18 +22,13 @@ results <- Study_Assess(lAssessments = lAssessments, lData = lData, bQuiet = TRU
 test_that("Study Table Runs as expected", {
   tbl <- Study_Table(results)
   expect_true(is.data.frame(tbl$df_summary))
-  expect_true(is.null(tbl$footnote))
+  expect_false(is.null(tbl$footnote))
   expect_equal(
     names(tbl$df_summary),
     c("Title", "X010X", "X102X", "X999X")
   )
 
-  expect_equal(
-    tbl$df_summary$Title,
-    c("Number of Subjects", "Score", "Safety", "--AEs", "--AEs Serious",
-      "Consent", "--Consent", "Disposition", "--Treatment - Study Withdrawals",
-      "--Treatment", "IE", "--IE", "PD", "--Important PD", "--PD")
-  )
+  expect_snapshot(tbl$df_summary$Title)
 })
 
 test_that("incorrect inputs throw errors", {
@@ -47,8 +42,7 @@ test_that("incorrect inputs throw errors", {
 
 test_that("bFormat works", {
   tbl <- Study_Table(dfFindings = results, bFormat = FALSE)
-  expect_equal(tbl$df_summary$X010X, c("1", "1", "", " ", " ", "*", "+", "", " ", " ", "", " ", "",
-                                       " ", " "))
+  expect_snapshot(tbl$df_summary$X010X)
 })
 
 test_that("bShowCounts works", {

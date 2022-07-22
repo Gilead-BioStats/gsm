@@ -6,9 +6,13 @@ test_that("output is created as expected", {
   # single df for AE_Assess
   dfInput <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
 
+  mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
+  mapping$dfInput$strGroupCol <- "SiteID"
+
   checks <- CheckInputs(
     context = "AE_Assess",
     dfs = list(dfInput = dfInput),
+    mapping = mapping,
     bQuiet = TRUE
   )
 
@@ -92,3 +96,4 @@ test_that("mismatched (context + dfs) returns FALSE", {
   expect_false(dfInput$status)
   expect_false(dfInput$dfInput$status)
 })
+

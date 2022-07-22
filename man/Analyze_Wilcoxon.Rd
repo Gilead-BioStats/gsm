@@ -7,7 +7,7 @@
 Analyze_Wilcoxon(
   dfTransformed,
   strOutcomeCol = "KRI",
-  strPredictorCol = "SiteID",
+  strPredictorCol = "GroupID",
   bQuiet = TRUE
 )
 }

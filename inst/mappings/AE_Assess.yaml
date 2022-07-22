@@ -1,6 +1,8 @@
 dfInput:
   strIDCol: "SubjectID"
   strSiteCol: "SiteID"
+  strStudyCol: "StudyID"
+  strCustomGroupCol: "RegionID"
   strCountCol: "Count"
   strExposureCol: "Exposure"
   strRateCol: "Rate"

@@ -13,7 +13,7 @@
 #' @section Data Specification:
 #'
 #' The input data (`dfTransformed`) for Analyze_Chisq is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
-#' - `SiteID` - Site ID
+#' - `GroupID` - Site ID
 #' - `N` - Total number of participants at site
 #' - `TotalCount` - Total number of participants at site with event of interest
 #'
@@ -23,7 +23,7 @@
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #'
-#' @return `data.frame` with one row per site with columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue.
+#' @return `data.frame` with one row per site with columns: GroupID, GroupLabel, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue.
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
@@ -49,8 +49,8 @@ Analyze_Chisq <- function(
 ) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns: SiteID, N, or the value in strOutcome not found in dfTransformed" = all(c("SiteID", "N", strOutcome) %in% names(dfTransformed)),
-    "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]])),
+    "One or more of these columns: GroupID, GroupLabel, N, or the value in strOutcome not found in dfTransformed" = all(c("GroupID", "GroupLabel", "N", strOutcome) %in% names(dfTransformed)),
+    "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]])),
     "strOutcome must be length 1" = length(strOutcome) == 1,
     "strOutcome is not character" = is.character(strOutcome)
   )
@@ -58,7 +58,7 @@ Analyze_Chisq <- function(
 
   chisq_model <- function(site) {
     SiteTable <- dfTransformed %>%
-      group_by(.data$SiteID == site) %>%
+      group_by(.data$GroupID == site) %>%
       summarize(
         Participants = sum(.data$N),
         Flag = sum(.data$TotalCount),
@@ -70,7 +70,7 @@ Analyze_Chisq <- function(
   }
 
   dfAnalyzed <- dfTransformed %>%
-    mutate(model = purrr::map(.data$SiteID, chisq_model)) %>%
+    mutate(model = purrr::map(.data$GroupID, chisq_model)) %>%
     mutate(summary = purrr::map(.data$model, broom::glance)) %>%
     tidyr::unnest(summary) %>%
     rename(
@@ -88,7 +88,8 @@ Analyze_Chisq <- function(
     ) %>%
     arrange(.data$Score) %>%
     select(
-      .data$SiteID,
+      .data$GroupID,
+      .data$GroupLabel,
       .data$TotalCount,
       .data$TotalCount_Other,
       .data$N,
