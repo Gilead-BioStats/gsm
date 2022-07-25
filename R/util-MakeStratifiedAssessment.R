@@ -6,28 +6,40 @@
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @examples
+#' lMapping <- yaml::read_yaml(
+#'   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
+#' )
+#' lAssessmentList <- MakeAssessmentList()
 #'
-#' # Adverse Events by Grade
+#' # Adverse events by grade
 #' StratifiedAE <- MakeStratifiedAssessment(
 #'   lData = list(
 #'     dfSUBJ = clindata::rawplus_subj,
 #'     dfAE = clindata::rawplus_ae
 #'   ),
-#'   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-#'   lAssessment = MakeAssessmentList()$aeGrade
+#'   lMapping = lMapping,
+#'   lAssessment = lAssessmentList$aeGrade
 #' )
 #'
-#' # Protocol Deviations by Category
-#' lMapping <- yaml::read_yaml(
-#'   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
-#' )
+#' StratifiedAE %>%
+#'   map(~.x %>%
+#'     RunAssessment(
+#'       lData = list(
+#'         dfSUBJ = clindata::rawplus_subj,
+#'         dfAE = clindata::rawplus_ae
+#'       ),
+#'       lMapping = lMapping
+#'     )
+#'   )
+#'
+#' # Protocol deviations by PD category
 #' StratifiedPD <- MakeStratifiedAssessment(
 #'    lData = list(
 #'      dfSUBJ = clindata::rawplus_subj,
 #'      dfPD = clindata::rawplus_pd
 #'    ),
 #'    lMapping = lMapping,
-#'    lAssessment = MakeAssessmentList()$pdCategory
+#'    lAssessment = lAssessmentList$pdCategory
 #'  )
 #'
 #' StratifiedPD %>%
@@ -36,6 +48,27 @@
 #'       lData = list(
 #'         dfSUBJ = clindata::rawplus_subj,
 #'         dfPD = clindata::rawplus_pd
+#'       ),
+#'       lMapping = lMapping
+#'     )
+#'   )
+#'
+#' # Labs by lab category
+#' StratifiedLB <- MakeStratifiedAssessment(
+#'    lData = list(
+#'      dfSUBJ = clindata::rawplus_subj,
+#'      dfLB = clindata::rawplus_lb
+#'    ),
+#'    lMapping = lMapping,
+#'    lAssessment = lAssessmentList$lbCategory
+#'  )
+#'
+#' StratifiedLB %>%
+#'   map(~.x %>%
+#'     RunAssessment(
+#'       lData = list(
+#'         dfSUBJ = clindata::rawplus_subj,
+#'         dfLB = clindata::rawplus_lb
 #'       ),
 #'       lMapping = lMapping
 #'     )

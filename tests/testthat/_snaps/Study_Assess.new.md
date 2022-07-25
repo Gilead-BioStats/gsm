@@ -9,8 +9,66 @@
       result <- Study_Assess(lData = lData, bQuiet = FALSE)
     Message <cliMessage>
       i Stratified assessment workflow created for each level of dfAE$AE_GRADE (n=3).
+      ! Stratified assessment workflow not created.
+      ! Stratified assessment workflow not created.
       
       -- Initializing `ae` assessment ------------------------------------------------
+      
+      -- Workflow Step 1 of 3: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      v No issues found for dfAE domain
+      Filtering on AE_TE_FLAG == TRUE
+      v Filtered on `AE_TE_FLAG=TRUE`, to drop 2 rows from 4 to 2 rows.
+      v `FilterDomain()` Successful
+      Saving dfAE to `lAssessment$lData`
+      
+      -- Workflow Step 2 of 3: `AE_Map_Raw` --
+      
+      Preparing parameters for `AE_Map_Raw()` ...
+      Calling `AE_Map_Raw()` ...
+      
+      -- Checking Input Data for `AE_Map_Raw()` --
+      
+      v No issues found for `AE_Map_Raw()`
+      
+      -- Initializing `AE_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 2 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `AE_Map_Raw()` returned output with 3 rows.
+      v `AE_Map_Raw()` Successful
+      Saving dfInput to `lAssessment$lData`
+      
+      -- Workflow Step 3 of 3: `AE_Assess` --
+      
+      Preparing parameters for `AE_Assess()` ...
+      Calling `AE_Assess()` ...
+      
+      -- Checking Input Data for `AE_Assess()` --
+      
+      v No issues found for `AE_Assess()`
+      
+      -- Initializing `AE_Assess()` --
+      
+      Input data has 3 rows.
+      v `Transform_EventCount()` returned output with 3 rows.
+      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
+      v `Analyze_Poisson()` returned output with 3 rows.
+      v `Flag()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+      v `Visualize_Scatter()` created a chart.
+      v `AE_Assess()` Successful
+      Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `aeQTL` assessment ---------------------------------------------
       
       -- Workflow Step 1 of 3: `FilterDomain` --
       
@@ -342,24 +400,27 @@
       
       -- Initializing `lb` assessment ------------------------------------------------
       
-      -- Workflow Step 1 of 2: `LB_Map_Raw` --
+      -- Workflow Step 1 of 3: `FilterDomain` --
       
-      Preparing parameters for `LB_Map_Raw()` ...
-      Calling `LB_Map_Raw()` ...
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
       
-      -- Checking Input Data for `LB_Map_Raw()` --
+      -- Checking Input Data for `FilterDomain()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, LB_ABN_FLAG
+      x the following columns not found in df: LB_TE_FLAG
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `LB_Map_Raw()`
-      ! `LB_Map_Raw()` did not run because of failed check.
-      ! `LB_Map_Raw()` Failed - Skipping remaining steps
-      Saving dfInput to `lAssessment$lData`
+      ! Issues found for dfLB domain
+      ! `FilterDomain()` Failed - Skipping remaining steps
+      Saving dfLB to `lAssessment$lData`
       
-      -- Workflow Step 2 of 2: `LB_Assess` --
+      -- Workflow Step 2 of 3: `LB_Map_Raw` --
+      
+      Skipping `LB_Map_Raw()` ...
+      
+      -- Workflow Step 3 of 3: `LB_Assess` --
       
       Skipping `LB_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.

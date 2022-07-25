@@ -1,7 +1,17 @@
 tags:
   Assessment: LB
-  Label: LB
+  Label: LB Category
+group:
+  domain: dfLB
+  columnParam: strCategoryCol
 workflow:
+  - name: FilterDomain
+    inputs: dfLB
+    output: dfLB
+    params:
+      strDomain: dfLB
+      strColParam: strTreatmentEmergentCol
+      strValParam: strTreatmentEmergentVal
   - name: LB_Map_Raw
     inputs:
       - dfLB
@@ -11,4 +21,5 @@ workflow:
     inputs: dfInput
     output: lResults
     params:
-      nThreshold: 5
+      vThreshold: null
+      strMethod: "chisq"

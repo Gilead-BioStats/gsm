@@ -92,7 +92,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strVisitCol", "strVisitOrderCol", "strCategoryCol", "strTestCol", "strValueCol", "strTreatmentEmergentCol", "strTreatmentEmergentVal", "strGradeCol", "strAbnormalCol", "strAbnormalValue"]
+              "value": ["strIDCol", "strVisitCol", "strVisitOrderCol", "strCategoryCol", "strTestCol", "strValueCol", "strTreatmentEmergentCol", "strTreatmentEmergentVal", "strGradeCol", "strAbnormalCol", "strAbnormalVal"]
             }
           },
           "value": [

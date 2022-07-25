@@ -50,6 +50,7 @@ Study_Assess <- function(
       dfPD = clindata::rawplus_pd,
       dfCONSENT = clindata::rawplus_consent,
       dfIE = clindata::rawplus_ie,
+      dfLB = clindata::rawplus_lb,
       dfDISP = clindata::rawplus_subj
     )
   }

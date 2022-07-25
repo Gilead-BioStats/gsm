@@ -35,8 +35,8 @@ dfCONSENT:
   strTypeCol: "CONSENT_TYPE"
   strValueCol: "CONSENT_VALUE"
   strDateCol: "CONSENT_DATE"
-  strConsentTypeValue: "MAINCONSENT"
-  strConsentStatusValue: "Y"
+  strConsentTypeVal: "MAINCONSENT"
+  strConsentStatusVal: "Y"
 dfDISP:
   strIDCol: "SubjectID"
   strStudyDiscontinuationReasonCol: "StudDCReason"
@@ -58,4 +58,4 @@ dfLB:
   strTreatmentEmergentVal: TRUE
   strGradeCol: "LB_GRADE"
   strAbnormalCol: "LB_ABN_FLAG"
-  strAbnormalValue: TRUE
+  strAbnormalVal: TRUE

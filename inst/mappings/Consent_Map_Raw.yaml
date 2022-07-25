@@ -16,5 +16,5 @@ dfCONSENT:
   strTypeCol: "CONSENT_TYPE"
   strValueCol: "CONSENT_VALUE"
   strDateCol: "CONSENT_DATE"
-  strConsentTypeValue: "MAINCONSENT"
-  strConsentStatusValue: "Y"
+  strConsentTypeVal: "MAINCONSENT"
+  strConsentStatusVal: "Y"
