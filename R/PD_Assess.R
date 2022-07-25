@@ -191,8 +191,8 @@ PD_Assess <- function(dfInput,
 
     if (bChart) {
       if (strMethod == "poisson") {
-        dfBounds <- gsm::Analyze_Poisson_PredictBounds(lAssess$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
-        lAssess$chart <- gsm::Visualize_Scatter(lAssess$dfFlagged, dfBounds)
+        lAssess$dfBounds <- gsm::Analyze_Poisson_PredictBounds(lAssess$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
+        lAssess$chart <- gsm::Visualize_Scatter(lAssess$dfFlagged, lAssess$dfBounds)
         if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
       } else {
         lAssess$chart <- gsm::Visualize_Scatter(lAssess$dfFlagged)
