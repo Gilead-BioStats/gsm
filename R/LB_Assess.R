@@ -30,8 +30,8 @@
 #'
 #' @examples
 #' dfInput <- LB_Map_Raw()
-#' disp_assessment_chisq <- LB_Assess(dfInput)
-#' disp_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
+#' lb_assessment_chisq <- LB_Assess(dfInput)
+#' lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom purrr map map_dbl

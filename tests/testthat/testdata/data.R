@@ -15,6 +15,27 @@ dfSUBJ <- data.frame(
   RandDate = as.Date(c("2012-09-02", "2017-05-08", "2018-05-20"))
 )
 
+dfLB <- tibble::tribble(
+  ~SubjectID, ~VISIT   , ~LBCAT      , ~LBTEST    , ~LB_ABN_FLAG,
+  '1234'    , 'Visit 1', 'Chemistry' , 'Calcium'  , FALSE       ,
+  '1234'    , 'Visit 2', 'Chemistry' , 'Calcium'  , TRUE        ,
+  '1234'    , 'Visit 3', 'Chemistry' , 'Calcium'  , FALSE       ,
+  '1234'    , 'Visit 1', 'Chemistry' , 'Sodium'   , FALSE       ,
+  '1234'    , 'Visit 2', 'Chemistry' , 'Sodium'   , FALSE       ,
+  '1234'    , 'Visit 3', 'Chemistry' , 'Sodium'   , TRUE        ,
+  '1234'    , 'Visit 1', 'Hematology', 'Platelets', TRUE        ,
+  '1234'    , 'Visit 2', 'Hematology', 'Platelets', FALSE       ,
+  '1234'    , 'Visit 3', 'Hematology', 'Platelets', FALSE       ,
+  '5678'    , 'Visit 1', 'Chemistry' , 'Calcium'  , TRUE        ,
+  '5678'    , 'Visit 1', 'Chemistry' , 'Sodium'   , TRUE        ,
+  '5678'    , 'Visit 1', 'Hematology', 'Platelets', FALSE       ,
+  '9876'    , 'Visit 1', 'Chemistry' , 'Calcium'  , FALSE       ,
+  '9876'    , 'Visit 2', 'Chemistry' , 'Calcium'  , FALSE       ,
+  '9876'    , 'Visit 1', 'Chemistry' , 'Sodium'   , FALSE       ,
+  '9876'    , 'Visit 2', 'Chemistry' , 'Sodium'   , FALSE       ,
+  '9876'    , 'Visit 1', 'Hematology', 'Platelets', FALSE       ,
+  '9876'    , 'Visit 2', 'Hematology', 'Platelets', FALSE       
+)
 
 dfPD <- tibble::tribble(
   ~SubjectID, ~PD_CATEGORY, ~PD_IMPORTANT_FLAG,

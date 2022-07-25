@@ -1,9 +1,9 @@
 source(testthat::test_path("testdata/data.R"))
 
-assess_function <- gsm::Disp_Assess
-dfInput <- Disp_Map_Raw(dfs = list(dfDISP = dfDISP, dfSUBJ = dfSUBJ))
-output_spec <- yaml::read_yaml(system.file("specs", "Disp_Assess.yaml", package = "gsm"))
-output_mapping <- yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm"))
+assess_function <- gsm::LB_Assess
+dfInput <- LB_Map_Raw(dfs = list(dfLB = dfLB, dfSUBJ = dfSUBJ))
+output_spec <- yaml::read_yaml(system.file("specs", "LB_Assess.yaml", package = "gsm"))
+output_mapping <- yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm"))
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
@@ -25,7 +25,7 @@ test_that("metadata is returned as expected", {
   assessment <- assess_function(dfInput)
   expect_equal("assess_function()", assessment$strFunctionName)
   expect_equal("dfInput", assessment$lParams$dfInput)
-  expect_equal("Disposition", assessment$lTags$Assessment)
+  expect_equal("Labs", assessment$lTags$Assessment)
   expect_true("ggplot" %in% class(assessment$chart))
 })
 
