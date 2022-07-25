@@ -20,20 +20,13 @@ lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", pack
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-  expect_equal(9, length(result))
-  expect_equal(c("ae",
-                 "consent",
-                 "dispStudy",
-                 "dispStudyWithdrew",
-                 "dispTreatment",
-                 "ie",
-                 "importantpd",
-                 "pd",
-                 "sae"), names(result))
+  expect_equal(10, length(result))
+  expect_equal(c("ae", "aeQTL", "consent", "dispStudy", "dispStudyWithdrew",
+                 "dispTreatment", "ie", "importantpd", "pd", "sae"), names(result))
   expect_true(all(map_chr(result, ~ class(.)) == "list"))
   expect_equal(names(result$ae$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
-    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks"
+    "dfAnalyzed", "dfFlagged", "dfSummary", "dfBounds", "chart", "lChecks"
   ))
 })
 
@@ -78,8 +71,9 @@ test_that("Study_Assess() runs with missing datasets", {
   expect_false(result$ie$bStatus)
   expect_false("lResults" %in% names(result$consent))
   expect_false("lResults" %in% names(result$ie))
-  expect_equal(9, length(result))
+  expect_equal(10, length(result))
   expect_equal(c("ae",
+                 "aeQTL",
                  "consent",
                  "dispStudy",
                  "dispStudyWithdrew",
@@ -90,11 +84,11 @@ test_that("Study_Assess() runs with missing datasets", {
                  "sae"), names(result))
   expect_equal(names(result$ae$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
-    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks"
+    "dfAnalyzed", "dfFlagged", "dfSummary", "dfBounds", "chart", "lChecks"
   ))
   expect_equal(names(result$pd$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
-    "dfAnalyzed", "dfFlagged", "dfSummary", "chart", "lChecks"
+    "dfAnalyzed", "dfFlagged", "dfSummary", "dfBounds", "chart", "lChecks"
   ))
 })
 
@@ -125,13 +119,13 @@ test_that("custom lAssessments runs as intended", {
   # remove FilterDomain from workflow
   custom_assessments$ae$workflow[[1]] <- NULL
 
-  result <- Study_Assess(lAssessments = custom_assessments, bQuiet=TRUE)
+  result <- Study_Assess(lAssessments = custom_assessments, lData = lData, bQuiet=TRUE)
   expect_equal(length(result$ae$workflow), 2)
   expect_true(result$ae$bStatus)
 
   custom_assessments <- MakeAssessmentList()
   custom_assessments$ie$workflow <- NULL
-  result <- Study_Assess(lAssessments = custom_assessments, bQuiet=TRUE)
+  result <- Study_Assess(lAssessments = custom_assessments, lData = lData, bQuiet=TRUE)
   expect_equal(length(result$ie), 6)
 })
 
@@ -215,7 +209,6 @@ test_that("Map + Assess yields same result as Study_Assess()", {
   ie_assess <- IE_Map_Raw(dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ)) %>% IE_Assess()
   pd_assess <- PD_Map_Raw(dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ)) %>% PD_Assess()
 
-  # issue #436: Study_Assess() and AE_Map_Raw() %>% AE_Assess() return different results
   # expect_equal(study_assess$ae$lResults$dfSummary[1:4], ae_assess$dfSummary[1:4])
   expect_equal(study_assess$consent$lResults$dfSummary[1:4], consent_assess$dfSummary[1:4])
   expect_equal(study_assess$ie$lResults$dfSummary[1:4], ie_assess$dfSummary[1:4])

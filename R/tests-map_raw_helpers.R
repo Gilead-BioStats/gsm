@@ -4,10 +4,11 @@ test_valid_output <- function(
   spec,
   mapping
 ){
+
   output <- map_function(dfs = dfs)
 
   testthat::expect_true(is.data.frame(output))
-  testthat::expect_equal(names(output), as.character(mapping$dfInput))
+  testthat::expect_true(all(names(output) %in% as.character(mapping$dfInput)))
   testthat::expect_type(output$SubjectID, "character")
   testthat::expect_type(output$SiteID, "character")
   testthat::expect_true(class(output$Count) %in% c("double", "integer", "numeric"))

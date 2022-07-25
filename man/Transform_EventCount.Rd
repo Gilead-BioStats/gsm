@@ -8,6 +8,7 @@ Transform_EventCount(
   dfInput,
   strCountCol,
   strExposureCol = NULL,
+  strGroupCol = "SiteID",
   strKRILabel = "[Not Specified]"
 )
 }
@@ -17,6 +18,8 @@ Transform_EventCount(
 \item{strCountCol}{Required. Numerical or logical. Column to be counted.}
 
 \item{strExposureCol}{Optional. Numerical \code{Exposure} column.}
+
+\item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
 
 \item{strKRILabel}{Optional. Character vector to describe the \code{KRI} column.}
 }

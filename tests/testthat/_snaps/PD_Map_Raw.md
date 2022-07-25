@@ -70,7 +70,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
             }
           },
           "value": [
@@ -83,6 +83,16 @@
               "type": "character",
               "attributes": {},
               "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudyID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RegionID"]
             },
             {
               "type": "character",
@@ -186,7 +196,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strCountCol", "strExposureCol", "strRateCol"]
+              "value": ["strIDCol", "strGroupCol", "strCountCol", "strExposureCol", "strRateCol"]
             },
             {
               "type": "character",
@@ -216,7 +226,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strCountCol", "strExposureCol", "strRateCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strCountCol", "strExposureCol", "strRateCol"]
             }
           },
           "value": [
@@ -229,6 +239,16 @@
               "type": "character",
               "attributes": {},
               "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudyID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RegionID"]
             },
             {
               "type": "character",

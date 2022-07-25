@@ -44,11 +44,11 @@ test_that("filter to 0 rows throws a warning", {
     nrow(),
   0)
   expect_message(FilterDomain(dfAE,
-                              lMapping = lMapping,
-                              strDomain = "dfAE",
-                              strColParam = "strTreatmentEmergentCol",
-                              strValParam = "strTreatmentEmergentVal",
-                              bQuiet = FALSE
+    lMapping = lMapping,
+    strDomain = "dfAE",
+    strColParam = "strTreatmentEmergentCol",
+    strValParam = "strTreatmentEmergentVal",
+    bQuiet = FALSE
   ))
 })
 

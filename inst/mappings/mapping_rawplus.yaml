@@ -1,14 +1,12 @@
 dfSUBJ:
   strIDCol: "SubjectID"
   strSiteCol: "SiteID"
+  strStudyCol: "StudyID"
+  strCustomGroupCol: "RegionID"
   strTimeOnTreatmentCol: "TimeOnTreatment"
   strTimeOnStudyCol: "TimeOnStudy"
   strRandFlagCol: "RandFlag"
   strRandDateCol: "RandDate"
-  strStudyCompletionFlagCol: "StudCompletion"
-  strStudyDiscontinuationReasonCol: "StudDCReason"
-  strTreatmentCompletionFlagCol: "TrtCompletion"
-  strTreatmentDiscontinuationReasonCol: "TrtDCReason"
 dfAE:
   strIDCol: "SubjectID"
   strTreatmentEmergentCol: "AE_TE_FLAG"
@@ -18,7 +16,7 @@ dfAE:
   strSeriousVal: "Yes"
 dfPD:
   strIDCol: "SubjectID"
-  strCategoryCol: "PD_CATEGORY"
+  strCategoryCol: "DVDECOD"
   strImportantCol: "PD_IMPORTANT_FLAG"
   strImportantVal: "Y"
 dfIE:
