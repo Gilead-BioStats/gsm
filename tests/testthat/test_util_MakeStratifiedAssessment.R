@@ -4,11 +4,13 @@ lData <- list(
 )
 StrataWorkflow<- MakeAssessmentList()$aeGrade
 
+lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
   strat <- MakeStratifiedAssessment(
     lData=lData,
-    lMapping=lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+    lMapping=lMapping,
     lAssessment=StrataWorkflow
   )
 
@@ -21,37 +23,37 @@ test_that("output is created as expected", {
 
 # output is created as expected -------------------------------------------
 test_that("errors thrown for invalid groupings", {
-  expect_error( MakeStratifiedAssessment(
+  expect_null( MakeStratifiedAssessment(
     lData=list(),
-    lMapping=lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+    lMapping= lMapping,
     lAssessment=StrataWorkflow
   ))
 
-  expect_error( MakeStratifiedAssessment(
+  expect_null( MakeStratifiedAssessment(
     lData=lData,
     lMapping=list(),
     lAssessment=StrataWorkflow
   ))
 
-  expect_error( MakeStratifiedAssessment(
+  expect_null( MakeStratifiedAssessment(
     lData=lData,
-    lMapping=lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+    lMapping=lMapping,
     lAssessment=list()
   ))
 
   badWorkflow1 <- StrataWorkflow
   badWorkflow1$group$domain <- 'dfOther'
-  expect_error(MakeStratifiedAssessment(
+  expect_null(MakeStratifiedAssessment(
     lData=lData,
-    lMapping=lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-    lAssessment=BadWorkflow1
+    lMapping= lMapping,
+    lAssessment=badWorkflow1
   ))
 
   badWorkflow2 <- StrataWorkflow
   badWorkflow2$group$columnParam <- 'NotACol'
-  expect_error(MakeStratifiedAssessment(
+  expect_null(MakeStratifiedAssessment(
     lData=lData,
-    lMapping=lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-    lAssessment=BadWorkflow2
+    lMapping=lMapping ,
+    lAssessment=badWorkflow2
   ))
 })
