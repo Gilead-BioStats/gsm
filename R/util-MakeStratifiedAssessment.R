@@ -7,14 +7,39 @@
 #'
 #' @examples
 #'
+#' # Adverse Events by Grade
 #' StratifiedAE <- MakeStratifiedAssessment(
+#'   lData = list(
+#'     dfSUBJ = clindata::rawplus_subj,
+#'     dfAE = clindata::rawplus_ae
+#'   ),
+#'   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+#'   lAssessment = MakeAssessmentList()$aeGrade
+#' )
+#'
+#' # Protocol Deviations by Category
+#' lMapping <- yaml::read_yaml(
+#'   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
+#' )
+#' StratifiedPD <- MakeStratifiedAssessment(
 #'    lData = list(
 #'      dfSUBJ = clindata::rawplus_subj,
-#'      dfAE = clindata::rawplus_ae
+#'      dfPD = clindata::rawplus_pd
 #'    ),
-#'    lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-#'    lAssessment = MakeAssessmentList()$aeGrade
+#'    lMapping = lMapping,
+#'    lAssessment = MakeAssessmentList()$pdCategory
 #'  )
+#'
+#' StratifiedPD %>%
+#'   map(~.x %>%
+#'     RunAssessment(
+#'       lData = list(
+#'         dfSUBJ = clindata::rawplus_subj,
+#'         dfPD = clindata::rawplus_pd
+#'       ),
+#'       lMapping = lMapping
+#'     )
+#'   )
 #'
 #' @return `list` A list of assessments for each specified strata
 #'
