@@ -1,0 +1,15 @@
+dfSUBJ:
+  strIDCol: "SubjectID"
+  strSiteCol: "SiteID"
+dfLB:
+  strIDCol: "SubjectID"
+  strVisitCol: "VISIT"
+  strVisitOrderCol: "VISITNUM"
+  strCategoryCol: "LBCAT"
+  strTestCol: "LBTEST"
+  strValueCol: "LBSTRESN"
+  strTreatmentEmergentCol: "LB_TE_FLAG"
+  strTreatmentEmergentVal: TRUE
+  strGradeCol: "LB_GRADE"
+  strAbnormalCol: "LB_ABN_FLAG"
+  strAbnormalValue: TRUE

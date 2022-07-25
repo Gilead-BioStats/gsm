@@ -1,4 +1,4 @@
-#' Disposition Assessment
+#' Labs Assessment
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
@@ -29,20 +29,22 @@
 #'   - `chart`
 #'
 #' @examples
-#' dfInput <- Disp_Map_Raw()
-#' disp_assessment_chisq <- Disp_Assess(dfInput)
-#' disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "fisher")
+#' dfInput <- LB_Map_Raw()
+#' disp_assessment_chisq <- LB_Assess(dfInput)
+#' disp_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom purrr map map_dbl
 #'
 #' @export
-Disp_Assess <- function(
+LB_Assess <- function(
     dfInput,
-    vThreshold = NULL,
+    vThreshold = c(0.05,NA),
     strMethod = "chisq",
-    strKRILabel = "DCs/Week",
-    lTags = list(Assessment = "Disposition"),
+    strKRILabel = "% Abnormal Labs",
+    lTags = list(
+      Assessment = "Labs"
+    ),
     bChart = TRUE,
     bReturnChecks = FALSE,
     bQuiet = TRUE
@@ -79,13 +81,13 @@ Disp_Assess <- function(
   )
 
   checks <- CheckInputs(
-    context = "Disp_Assess",
+    context = "LB_Assess",
     dfs = list(dfInput = lAssess$dfInput),
     bQuiet = bQuiet
   )
 
   if (checks$status) {
-    if (!bQuiet) cli::cli_h2("Initializing {.fn Disp_Assess}")
+    if (!bQuiet) cli::cli_h2("Initializing {.fn LB_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
 
     lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strKRILabel = strKRILabel)
@@ -93,7 +95,7 @@ Disp_Assess <- function(
 
     if (strMethod == "chisq") {
       if (is.null(vThreshold)) {
-        vThreshold <- c(.05, NA)
+        vThreshold <- c(0.05,NA)
       } else {
         stopifnot(
           "vThreshold is not numeric" = is.numeric(vThreshold),
@@ -114,7 +116,7 @@ Disp_Assess <- function(
 
     } else if (strMethod == "fisher") {
       if (is.null(vThreshold)) {
-        vThreshold <- c(0.05, NA)
+        vThreshold <- c(0.05,NA)
       } else {
         stopifnot(
           "vThreshold is not numeric" = is.numeric(vThreshold),

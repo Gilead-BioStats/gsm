@@ -1,0 +1,102 @@
+#' Lab Assessment - Raw Mapping
+#'
+#' @description
+#' Convert raw lab data (LB), typically processed case report form data, to formatted
+#' input data to [gsm::LB_Assess()].
+#'
+#' @details
+#' `LB_Map_Raw` combines LB data with subject-level data to create formatted input data to
+#' [gsm::LB_Assess()]. This function creates an input dataset for the LB Assessment
+#' ([gsm::LB_Assess()]) by binding subject-level abnormal LB counts (derived from `dfLB`) to
+#' subject-level data (from `dfSUBJ`). Note that the function can generate data summaries for
+#' specific types of LB criteria by passing filtered LB data to `dfLB`.
+#'
+#' @param dfs `list` Input data frames:
+#'  - `dfLB`: `data.frame` Lab data with one record subject per visit per lab result.
+#'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
+#'   of the column.
+#' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#'
+#' @return `data.frame` Data frame with one record per subject, the input to [gsm::LB_Assess()]. If
+#' `bReturnChecks` is `TRUE` `LB_Map_Raw` returns a named `list` with:
+#' - `df`: the data frame described above
+#' - `lChecks`: a named `list` of check results
+#'
+#' @includeRmd ./man/md/LB_Map_Raw.md
+#'
+#' @examples
+#' # Run with defaults.
+#' dfInput <- LB_Map_Raw()
+#'
+#' # Run with error checking and message log.
+#' dfInput <- LB_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
+#'
+#' @importFrom cli cli_alert_success cli_alert_warning cli_h2
+#' @import dplyr
+#'
+#' @export
+
+LB_Map_Raw <- function(
+  dfs = list(
+    dfSUBJ = clindata::rawplus_subj,
+    dfLB = clindata::rawplus_lb
+  ),
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+) {
+  stopifnot(
+    "bReturnChecks must be logical" = is.logical(bReturnChecks),
+    "bQuiet must be logical" = is.logical(bQuiet)
+  )
+
+  checks <- CheckInputs(
+    context = "LB_Map_Raw",
+    dfs = dfs,
+    bQuiet = bQuiet,
+    mapping = lMapping
+  )
+
+  if (checks$status) {
+    if (!bQuiet) cli::cli_h2("Initializing {.fn LB_Map_Raw}")
+
+    # Standarize column names.
+    dfSUBJ_mapped <- dfs$dfSUBJ %>%
+      select(
+        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]]
+      )
+
+    dfLB_mapped <- dfs$dfLB %>%
+      select(
+        SubjectID = lMapping[["dfLB"]][["strIDCol"]],
+        Abnormal = lMapping[["dfLB"]][["strAbnormalCol"]]
+      )
+
+    # Create Subject Level LB Counts and merge Subj
+    dfInput <- dfSUBJ_mapped %>%
+      left_join(
+        dfLB_mapped,
+        'SubjectID'
+      ) %>%
+      mutate(
+        Count = if_else(
+          Abnormal == lMapping[["dfLB"]][["strAbnormalValue"]], 1, 0
+        )
+      ) %>%
+      select(.data$SubjectID, .data$SiteID, .data$Count)
+
+    if (!bQuiet) cli::cli_alert_success("{.fn LB_Map_Raw} returned output with {nrow(dfInput)} rows.")
+  } else {
+    if (!bQuiet) cli::cli_alert_warning("{.fn LB_Map_Raw} did not run because of failed check.")
+    dfInput <- NULL
+  }
+
+  if (bReturnChecks) {
+    return(list(df = dfInput, lChecks = checks))
+  } else {
+    return(dfInput)
+  }
+}

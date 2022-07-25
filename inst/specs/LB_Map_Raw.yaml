@@ -1,0 +1,10 @@
+dfLB:
+  vRequired:
+    - strIDCol
+    - strAbnormalCol
+dfSUBJ:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+  vUniqueCols:
+    - strIDCol
