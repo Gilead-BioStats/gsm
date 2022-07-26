@@ -8,7 +8,7 @@
 #'   - `"fisher"`
 #' @param strKRILabel `character` KRI description. Default: `"% Abnormal Labs"`
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
-#'   to `list(Assessment = "AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`)
+#'   to `list(Assessment = "Labs")`. `lTags` is returned as part of the assessment (`lAssess$lTags`)
 #'   and each tag is added as a column in `lAssess$dfSummary`.
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
