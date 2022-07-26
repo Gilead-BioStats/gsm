@@ -14,13 +14,15 @@
 
 rank_chg <- function(status) {
   if (status == 1) {
-    logo_out <- fontawesome::fa("check-circle", fill = "green")
+    logo_out <- fontawesome::fa("circle-check", fill = "green")
   }
   if (status == 2) {
-    logo_out <- fontawesome::fa("times-circle", fill = "red")
+    logo_out <- fontawesome::fa("circle-xmark", fill = "red")
   }
   if (status == 3) {
-    logo_out <- fontawesome::fa("minus-circle", fill = "#EED202")
+    logo_out <- fontawesome::fa("circle-minus", fill = "#EED202")
   }
   gt::html(as.character(logo_out))
 }
+
+

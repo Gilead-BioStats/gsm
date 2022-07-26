@@ -9,7 +9,16 @@ output_mapping <- yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", pack
 test_that("output is created as expected", {
   assessment <- assess_function(dfInput)
   expect_true(is.list(assessment))
-  expect_equal(names(assessment), c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
+  expect_equal(names(assessment), c("strFunctionName",
+                                    "lParams",
+                                    "lTags",
+                                    "dfInput",
+                                    "dfTransformed",
+                                    "dfAnalyzed",
+                                    "dfFlagged",
+                                    "dfSummary",
+                                    "dfBounds",
+                                    "chart"))
   expect_true("data.frame" %in% class(assessment$dfInput))
   expect_true("data.frame" %in% class(assessment$dfTransformed))
   expect_true("data.frame" %in% class(assessment$dfAnalyzed))

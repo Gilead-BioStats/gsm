@@ -13,6 +13,6 @@ dfSUBJ:
   strTreatmentDiscontinuationReasonCol: "TrtDCReason"
 dfPD:
   strIDCol: "SubjectID"
-  strCategoryCol: "PD_CATEGORY"
+  strCategoryCol: "DVDECOD"
   strImportantCol: "PD_IMPORTANT_FLAG"
   strImportantVal: "Y"
