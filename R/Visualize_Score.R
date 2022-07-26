@@ -14,6 +14,7 @@ Visualize_Score <- function(dfFlagged, strType = "rate") {
   p <- ggplot(data = dfFlagged, aes(x = reorder(GroupID, -KRI), y = KRI)) +
     geom_bar(stat = "identity") +
     xlab("GroupID") +
+    theme(axis.text.x = element_text(angle=90)) +
     theme_bw()
 
   if(strType == "rate") {
