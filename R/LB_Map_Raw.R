@@ -64,10 +64,14 @@ LB_Map_Raw <- function(
 
     # Standarize column names.
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
-      select(
-        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]]
-      )
+      select(SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+             any_of(
+               c(
+                 SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+                 StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+                 CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
+               )
+             ))
 
     dfLB_mapped <- dfs$dfLB %>%
       select(
