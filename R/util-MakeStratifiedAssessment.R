@@ -73,8 +73,8 @@ MakeStratifiedAssessment <- function(lAssessment, lMapping, lData, bQuiet = TRUE
           thisAssessment <- lAssessment
           thisAssessment$name <- paste0(thisAssessment$name,"_",index)
           thisAssessment$tags$Group <- paste0(groupDomain,"$",groupColumn, "=",groupValue)
-          thisAssessment$tags$Label <- paste0(thisAssessment$tags$Label, ' - ', groupValue)
-          thisAssessment$label <- paste0(thisAssessment$label, ' - ', thisAssessment$tags$Group)
+          thisAssessment$tags$Label <- paste0(thisAssessment$tags$Label, ': ', groupValue)
+          thisAssessment$label <- paste0(thisAssessment$tags$Label, ' (', thisAssessment$tags$Group, ')')
           lStrata <- list(list(
             name = "MakeStrata",
             inputs = groupDomain,
