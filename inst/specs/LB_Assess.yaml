@@ -1,5 +1,5 @@
 dfInput:
   vRequired:
     - "strIDCol"
-    - "strSiteCol"
+    - "strGroupCol"
     - "strCountCol"
