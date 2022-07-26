@@ -52,7 +52,8 @@ LB_Assess <- function(
 
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
-    "dfInput is missing one or more of these columns: SubjectID, SiteID, Count" = all(c("SubjectID", "SiteID", "Count") %in% names(dfInput)),
+"dfInput is missing one or more of these columns: SubjectID, Count, Exposure, and Rate" = all(c("SubjectID", "Count", "Exposure", "Rate") %in% names(dfInput)),
+    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput),
     "strMethod is not 'chisq' or 'fisher'" = strMethod %in% c("chisq", "fisher"),
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
     "bChart must be logical" = is.logical(bChart),
