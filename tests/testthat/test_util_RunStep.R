@@ -2,7 +2,7 @@ source(testthat::test_path("testdata/data.R"))
 
 lStep <- MakeAssessmentList()
 
-lMapping <- clindata::mapping_rawplus
+lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 lData <- list(
   dfSUBJ = dfSUBJ,
@@ -33,3 +33,4 @@ test_that("incorrect inputs throw errors", {
   expect_error(RunStep(lStep = lStep$ae$workflow[[1]], lMapping = lMapping, lData = "data", lTags = lTags, bQuiet = T))
   expect_error(RunStep(lStep = lStep$ae$workflow[[1]], lMapping = lMapping, lData = lData, lTags = lTags, bQuiet = "false"))
 })
+

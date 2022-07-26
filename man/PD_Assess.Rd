@@ -9,6 +9,7 @@ PD_Assess(
   vThreshold = NULL,
   strMethod = "poisson",
   strKRILabel = "PDs/Week",
+  strGroupCol = "SiteID",
   lTags = list(Assessment = "PD"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -19,16 +20,19 @@ PD_Assess(
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to
-\code{c(-5, 5)} for a Poisson model (\code{strMethod = "poisson"}) and \code{c(.0001, NA)} for a Wilcoxon
-signed-rank test (\code{strMethod} = "wilcoxon").}
+\code{c(-5, 5)} for a Poisson model (\code{strMethod = "poisson"}), \code{c(.0001, NA)} for a Wilcoxon
+signed-rank test (\code{strMethod} = "wilcoxon"), and \code{c(0.000895, 0.003059)} for a nominal assessment (\code{strMethod = "identity"}).}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
 \item \code{"poisson"} (default)
 \item \code{"wilcoxon"}
+\item \code{"identity"}
 }}
 
 \item{strKRILabel}{\code{character} KRI description. Default: \code{"PDs/Week"}}
+
+\item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
 
 \item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults
 to \code{list(Assessment = "PD")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags})
@@ -74,10 +78,10 @@ methods are described below.
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfInput \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
    dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
    dfInput \tab strExposureCol \tab Exposure \tab TRUE \tab FALSE \cr
    dfInput \tab strRateCol \tab Rate \tab TRUE \tab FALSE \cr
+   dfInput \tab strGroupCol \tab  \tab TRUE \tab FALSE \cr
 }
 }
 

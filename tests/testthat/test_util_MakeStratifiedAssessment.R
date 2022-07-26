@@ -4,14 +4,16 @@ lData <- list(
 )
 StrataWorkflow<- MakeAssessmentList()$aeGrade
 
+lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
   strat <- MakeStratifiedAssessment(
-    lData=lData, 
-    lMapping=clindata::mapping_rawplus,
+    lData=lData,
+    lMapping=lMapping,
     lAssessment=StrataWorkflow
   )
-  
+
   # New workflow created for each stratification level
   expect_equal(length(strat),length(unique(clindata::rawplus_ae$AE_GRADE)))
 
@@ -21,37 +23,37 @@ test_that("output is created as expected", {
 
 # output is created as expected -------------------------------------------
 test_that("errors thrown for invalid groupings", {
-  expect_error( MakeStratifiedAssessment(
-    lData=list(), 
-    lMapping=clindata::mapping_rawplus,
+  expect_null( MakeStratifiedAssessment(
+    lData=list(),
+    lMapping= lMapping,
     lAssessment=StrataWorkflow
   ))
 
-  expect_error( MakeStratifiedAssessment(
-    lData=lData, 
+  expect_null( MakeStratifiedAssessment(
+    lData=lData,
     lMapping=list(),
     lAssessment=StrataWorkflow
   ))
 
-  expect_error( MakeStratifiedAssessment(
-    lData=lData, 
-    lMapping=clindata::mapping_rawplus,
+  expect_null( MakeStratifiedAssessment(
+    lData=lData,
+    lMapping=lMapping,
     lAssessment=list()
   ))
 
   badWorkflow1 <- StrataWorkflow
   badWorkflow1$group$domain <- 'dfOther'
-  expect_error(MakeStratifiedAssessment(
-    lData=lData, 
-    lMapping=clindata::mapping_rawplus,
-    lAssessment=BadWorkflow1
+  expect_null(MakeStratifiedAssessment(
+    lData=lData,
+    lMapping= lMapping,
+    lAssessment=badWorkflow1
   ))
-  
+
   badWorkflow2 <- StrataWorkflow
   badWorkflow2$group$columnParam <- 'NotACol'
-  expect_error(MakeStratifiedAssessment(
-    lData=lData, 
-    lMapping=clindata::mapping_rawplus,
-    lAssessment=BadWorkflow2
+  expect_null(MakeStratifiedAssessment(
+    lData=lData,
+    lMapping=lMapping ,
+    lAssessment=badWorkflow2
   ))
 })

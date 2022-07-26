@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 sae_meta <- yaml::read_yaml(system.file("workflow/sae.yaml", package = "gsm"))
-rawDataMap <- clindata::mapping_rawplus
+rawDataMap <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 dfAE <- dfAE %>%
   tidyr::expand(dfAE, ae_serious = dfAE$AE_SERIOUS)
@@ -64,7 +64,7 @@ test_that("workflow with multiple FilterDomain steps is reported correctly", {
   lTags <- list(
     Study = "myStudy"
   )
-  lMapping <- clindata::mapping_rawplus
+  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 
   sae_assessment <- RunAssessment(lAssessments$sae, lData = lData, lMapping = lMapping, lTags = lTags, bQuiet=TRUE)

@@ -1,23 +1,21 @@
 source(testthat::test_path("testdata/data.R"))
 
 ae_input <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
-ae_prep <- Transform_EventCount(ae_input, strCountCol = "Count", strExposureCol = "Exposure")
+ae_prep <- Transform_EventCount(ae_input, strCountCol = "Count", strGroupCol = "SiteID", strExposureCol = "Exposure")
 
 test_that("output created as expected and has correct structure", {
   aew_anly <- Analyze_Wilcoxon(ae_prep)
   expect_true(is.data.frame(aew_anly))
-  expect_true(all(c(
-    "SiteID", "N", "TotalCount", "TotalExposure", "KRI", "KRILabel",
-    "Estimate", "Score", "ScoreLabel"
-  ) %in% names(aew_anly)))
-  expect_equal(sort(unique(ae_input$SiteID)), sort(aew_anly$SiteID))
+  expect_true(all(c("GroupID", "GroupLabel", "N", "TotalCount", "TotalExposure",
+                    "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel") %in% names(aew_anly)))
+  expect_equal(sort(unique(ae_input$SiteID)), sort(aew_anly$GroupID))
 })
 
 test_that("incorrect inputs throw errors", {
   expect_error(Analyze_Wilcoxon(list()))
   expect_error(Analyze_Wilcoxon("Hi"))
   expect_error(
-    Analyze_Wilcoxon(ae_prep %>% mutate(SiteID = ifelse(SiteID == first(SiteID), NA, SiteID)))
+    Analyze_Wilcoxon(ae_prep %>% mutate(GroupID = ifelse(GroupID == first(GroupID), NA, GroupID)))
   )
   expect_error(Analyze_Wilcoxon(ae_prep, strOutcomeCol = 1))
   expect_error(Analyze_Wilcoxon(ae_prep, strOutcomeCol = "coffee"))
@@ -30,7 +28,7 @@ test_that("incorrect inputs throw errors", {
 test_that("error given if required column not found", {
   expect_error(Analyze_Wilcoxon(ae_prep %>% rename(total = TotalCount)))
   expect_error(Analyze_Wilcoxon(ae_prep %>% select(-Rate)))
-  expect_error(Analyze_Wilcoxon(ae_prep %>% select(-SiteID)))
+  expect_error(Analyze_Wilcoxon(ae_prep %>% select(-GroupID)))
 })
 
 test_that("model isn't run with fewer than three records", {
@@ -39,7 +37,7 @@ test_that("model isn't run with fewer than three records", {
   )
 
   expect_true(is.data.frame(aew_anly))
-  expect_true(all(c("SiteID", "N", "TotalCount", "TotalExposure", "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel") %in% names(aew_anly)))
+  expect_true(all(c("GroupID", "N", "TotalCount", "TotalExposure", "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel") %in% names(aew_anly)))
   expect_true(all(is.na(aew_anly$Estimate)))
   expect_true(all(is.na(aew_anly$Score)))
 })
@@ -50,13 +48,18 @@ test_that("model isn't run with a single outcome value", {
   )
 
   expect_true(is.data.frame(aew_anly))
-  expect_true(all(c("SiteID", "N", "TotalCount", "TotalExposure", "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel") %in% names(aew_anly)))
+  expect_true(all(c("GroupID", "N", "TotalCount", "TotalExposure", "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel") %in% names(aew_anly)))
   expect_true(all(is.na(aew_anly$Score)))
   expect_true(all(is.na(aew_anly$Estimate)))
 })
 
 test_that("bQuiet works as intended", {
-  dfTransformed <- Transform_EventCount(ae_input, strCountCol = "Count", strExposureCol = "Exposure")
+  dfTransformed <- Transform_EventCount(
+    ae_input,
+    strCountCol = "Count",
+    strGroupCol = "SiteID",
+    strExposureCol = "Exposure"
+    )
   expect_snapshot(
     dfAnalyzed <- Analyze_Poisson(dfTransformed, bQuiet = FALSE)
   )

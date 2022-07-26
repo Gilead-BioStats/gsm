@@ -24,7 +24,12 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+#' dfTransformed <- Transform_EventCount(dfInput,
+#'                                       strGroupCol = "SiteID",
+#'                                       strCountCol = "Count",
+#'                                       strExposureCol = "Exposure",
+#'                                       strKRILabel = "AEs/Week")
+#'
 #' dfAnalyzed <- Analyze_Poisson(dfTransformed)
 #'
 #' @import dplyr
@@ -38,9 +43,9 @@
 Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns not found: SiteID, N, TotalExposure, TotalCount, KRI, KRILabel" =
-      all(c("SiteID", "N", "TotalExposure", "TotalCount", "KRI", "KRILabel") %in% names(dfTransformed)),
-    "NA value(s) found in SiteID" = all(!is.na(dfTransformed[["SiteID"]]))
+    "One or more of these columns not found: GroupID, N, TotalExposure, TotalCount, KRI, KRILabel" =
+      all(c("GroupID", "N", "TotalExposure", "TotalCount", "KRI", "KRILabel") %in% names(dfTransformed)),
+    "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]]))
   )
 
   dfModel <- dfTransformed %>%
@@ -65,12 +70,14 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
       ScoreLabel = "Residuals"
     ) %>%
     select(
-      .data$SiteID,
+      .data$GroupID,
+      .data$GroupLabel,
       .data$N,
       .data$TotalCount,
       .data$TotalExposure,
       .data$KRI,
       .data$KRILabel,
+      .data$GroupLabel,
       Score = .data$.resid,
       .data$ScoreLabel,
       PredictedCount = .data$.fitted

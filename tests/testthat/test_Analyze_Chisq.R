@@ -1,15 +1,17 @@
 source(testthat::test_path("testdata/data.R"))
 
-dfInput <- Disp_Map(
-  dfDisp,
-  strCol = "DCREASCD",
-  strReason = "Adverse Event"
+
+dfInput <- Disp_Map_Raw(
+  dfs = list(dfDISP = dfDISP,
+             dfSUBJ = dfSUBJ)
 )
+
 
 dfTransformed <- Transform_EventCount(
   dfInput,
   strCountCol = "Count",
-  strKRILabel = "Discontinuation Reasons/Site"
+  strKRILabel = "Discontinuation Reasons/Site",
+  strGroupCol = "SiteID"
 )
 
 test_that("output created as expected and has correct structure", {
@@ -19,7 +21,7 @@ test_that("output created as expected and has correct structure", {
 
   expect_equal(
     names(chisq),
-    c("SiteID", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "Statistic", "PValue")
+    c("GroupID", "GroupLabel", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "KRI", "KRILabel", "Statistic", "Score", "ScoreLabel")
   )
 })
 

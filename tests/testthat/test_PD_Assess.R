@@ -9,7 +9,16 @@ output_mapping <- yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", pack
 test_that("output is created as expected", {
   assessment <- assess_function(dfInput)
   expect_true(is.list(assessment))
-  expect_equal(names(assessment), c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
+  expect_equal(names(assessment), c("strFunctionName",
+                                    "lParams",
+                                    "lTags",
+                                    "dfInput",
+                                    "dfTransformed",
+                                    "dfAnalyzed",
+                                    "dfFlagged",
+                                    "dfSummary",
+                                    "dfBounds",
+                                    "chart"))
   expect_true("data.frame" %in% class(assessment$dfInput))
   expect_true("data.frame" %in% class(assessment$dfTransformed))
   expect_true("data.frame" %in% class(assessment$dfAnalyzed))
@@ -63,17 +72,23 @@ test_that("incorrect lTags throw errors", {
       )
     )
   )
-  expect_snapshot_error(assess_function(dfInput, lTags = list(SiteID = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(GroupID = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(GroupLabel = "")))
   expect_snapshot_error(assess_function(dfInput, lTags = list(N = "")))
-  expect_snapshot_error(assess_function(dfInput, lTags = list(Score = "")))
-  expect_snapshot_error(assess_function(dfInput, lTags = list(Flag = "")))
   expect_snapshot_error(assess_function(dfInput, lTags = list(KRI = "")))
   expect_snapshot_error(assess_function(dfInput, lTags = list(KRILabel = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(Score = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(ScoreLabel = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(Flag = "")))
 })
 
 # custom tests ------------------------------------------------------------
 test_that("strMethod = 'wilcoxon' does not throw error", {
   expect_error(assess_function(dfInput, strMethod = "wilcoxon"), NA)
+})
+
+test_that("strMethod = 'identity' does not throw error", {
+  expect_error(assess_function(dfInput, strMethod = "identity"), NA)
 })
 
 test_that("NA in dfInput$Count results in Error for assess_function", {

@@ -22,9 +22,16 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+#'
+#' dfTransformed <- Transform_EventCount(dfInput,
+#'                                       strCountCol = "Count",
+#'                                       strExposureCol = "Exposure",
+#'                                       strKRILabel = "AEs/Week")
+#'
 #' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+#'
 #' dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
+#'
 #' dfSummary <- Summarize(dfFlagged)
 #'
 #' @import dplyr
@@ -34,7 +41,7 @@
 Summarize <- function(dfFlagged, strScoreCol = "Score", lTags = NULL) {
   stopifnot(
     "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
-    "One or more of these columns: SiteID, N, Flag , strScoreCol, not found in dfFlagged" = all(c("SiteID", "N", "Flag", strScoreCol) %in% names(dfFlagged))
+    "One or more of these columns: GroupID, N, Flag , strScoreCol, not found in dfFlagged" = all(c("GroupID", "N", "Flag", strScoreCol) %in% names(dfFlagged))
   )
 
   if (!is.null(lTags)) {
@@ -46,7 +53,8 @@ Summarize <- function(dfFlagged, strScoreCol = "Score", lTags = NULL) {
 
   dfSummary <- dfFlagged %>%
     select(
-      .data$SiteID,
+      .data$GroupID,
+      .data$GroupLabel,
       .data$N,
       .data$KRI,
       .data$KRILabel,

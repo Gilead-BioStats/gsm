@@ -23,13 +23,14 @@
 #' lTags <- list(
 #'   Study = "myStudy"
 #' )
-#' lMapping <- clindata::mapping_rawplus
+#' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 #'
 #' ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom stringr str_detect
 #' @importFrom yaml read_yaml
+#' @importFrom purrr map_df
 #'
 #' @export
 
@@ -41,6 +42,7 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
   lAssessment$bStatus <- TRUE
   if(exists("workflow", where = lAssessment)) {
     # Run through each step in lAssessment$workflow
+
     stepCount <- 1
     for (step in lAssessment$workflow) {
       if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lAssessment$workflow), ": `", step$name, "`"))
@@ -72,13 +74,18 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
       } else {
         if(!bQuiet) cli::cli_text("Skipping {.fn {step$name}} ...")
       }
-
       stepCount <- stepCount + 1
     }
   } else {
     if(!bQuiet) cli::cli_alert_warning("Workflow not found for {lAssessment$name} assessment - Skipping remaining steps")
     lAssessment$bStatus <- FALSE
   }
+
+
+  lAssessment$lChecks$flowchart <- Visualize_Workflow(list(temp_name = lAssessment)) %>%
+    set_names(nm = lAssessment$name)
+  if(!bQuiet) cli::cli_alert_success("{.fn Visualize_Workflow} created a flowchart.")
+
 
   return(lAssessment)
 }

@@ -49,13 +49,14 @@ Study_Assess <- function(
       dfAE = clindata::rawplus_ae,
       dfPD = clindata::rawplus_pd,
       dfCONSENT = clindata::rawplus_consent,
-      dfIE = clindata::rawplus_ie
+      dfIE = clindata::rawplus_ie,
+      dfDISP = clindata::rawplus_subj
     )
   }
 
   # lMapping from clindata
   if (is.null(lMapping)) {
-    lMapping <- clindata::mapping_rawplus
+    lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
   }
 
   # lAssessments from gsm inst/workflow
@@ -68,16 +69,16 @@ Study_Assess <- function(
     if(hasName(lAssessment,"group")){
       StratifiedAssessment <- MakeStratifiedAssessment(
         lData = lData,
-        lAssessment = lAssessment, 
+        lAssessment = lAssessment,
         lMapping = lMapping,
         bQuiet=bQuiet
-      ) 
-      
+      )
+
       # replace original assessment with stratified assessment list
-      lAssessments[[lAssessment$name]]<-NULL 
+      lAssessments[[lAssessment$name]]<-NULL
       lAssessments <- c(lAssessments, StratifiedAssessment)
     }
-  } 
+  }
 
   # Filter data$dfSUBJ based on lSubjFilters --------------------------------
   if (!is.null(lSubjFilters)) {
@@ -103,10 +104,10 @@ Study_Assess <- function(
       ### --- Attempt to run each assessment --- ###
       lAssessments <- lAssessments %>% map(
         ~ gsm::RunAssessment(
-          .x, 
-          lData = lData, 
-          lMapping = lMapping, 
-          lTags = lTags, 
+          .x,
+          lData = lData,
+          lMapping = lMapping,
+          lTags = lTags,
           bQuiet = bQuiet
         )
       )

@@ -14,7 +14,7 @@ Analyze_Chisq(dfTransformed, strOutcome = "TotalCount", bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one row per site with columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue.
+\code{data.frame} with one row per site with columns: GroupID, GroupLabel, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Statistic, PValue.
 }
 \description{
 Creates Analysis results data for count data using the chi-squared test
@@ -33,15 +33,19 @@ TODO Coming soon ...
 
 The input data (\code{dfTransformed}) for Analyze_Chisq is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
 \itemize{
-\item \code{SiteID} - Site ID
+\item \code{GroupID} - Site ID
 \item \code{N} - Total number of participants at site
 \item \code{TotalCount} - Total number of participants at site with event of interest
 }
 }
 
 \examples{
-dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "Adverse Event")
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strKRILabel = "Discontinuations due to AE/Month")
+dfInput <- Disp_Map_Raw()
+dfTransformed <- Transform_EventCount(
+                   dfInput,
+                   strCountCol = "Count",
+                   strKRILabel = "Discontinuations due to AE/Month"
+                 )
 dfAnalyzed <- Analyze_Chisq(dfTransformed)
 
 }

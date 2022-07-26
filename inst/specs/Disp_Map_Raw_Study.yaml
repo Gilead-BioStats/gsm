@@ -1,0 +1,16 @@
+dfDISP:
+  vRequired:
+    - strIDCol
+    - strStudyDiscontinuationReasonCol
+    - strStudyCompletionFlagCol
+  vNACols:
+    - strStudyDiscontinuationReasonCol
+    - strStudyCompletionFlagCol
+dfSUBJ:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+  vUniqueCols:
+    - strIDCol
+
+

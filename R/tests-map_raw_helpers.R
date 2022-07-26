@@ -3,14 +3,15 @@ test_valid_output <- function(
   dfs,
   spec,
   mapping
-) {
+){
+
   output <- map_function(dfs = dfs)
 
-  expect_true(is.data.frame(output))
-  expect_equal(names(output), as.character(mapping$dfInput))
-  expect_type(output$SubjectID, "character")
-  expect_type(output$SiteID, "character")
-  expect_true(class(output$Count) %in% c("double", "integer", "numeric"))
+  testthat::expect_true(is.data.frame(output))
+  testthat::expect_true(all(names(output) %in% as.character(mapping$dfInput)))
+  testthat::expect_type(output$SubjectID, "character")
+  testthat::expect_type(output$SiteID, "character")
+  testthat::expect_true(class(output$Count) %in% c("double", "integer", "numeric"))
 }
 
 test_invalid_data <- function(
@@ -18,28 +19,28 @@ test_invalid_data <- function(
   dfs,
   spec,
   mapping
-) {
+){
   map_domain <- names(dfs)[
     names(dfs) != "dfSUBJ"
   ]
 
   # empty data frames
-  expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = FALSE))
-  expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ if (.y == "dfSUBJ") list() else .x), bQuiet = FALSE))
-  expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ if (.y == map_domain) list() else .x), bQuiet = FALSE))
+  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = FALSE))
+  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ if (.y == "dfSUBJ") list() else .x), bQuiet = FALSE))
+  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ if (.y == map_domain) list() else .x), bQuiet = FALSE))
 
   # mistyped data frames
-  expect_snapshot(map_function(dfs = purrr::imap(dfs, ~"Hi Mom"), bQuiet = FALSE))
-  expect_snapshot(map_function(dfs = purrr::imap(dfs, ~9999), bQuiet = FALSE))
-  expect_snapshot(map_function(dfs = purrr::imap(dfs, ~TRUE), bQuiet = FALSE))
+  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~"Hi Mom"), bQuiet = FALSE))
+  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~9999), bQuiet = FALSE))
+  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~TRUE), bQuiet = FALSE))
 
   # empty mapping
-  expect_snapshot(map_function(dfs = purrr::imap(dfs, ~.x), lMapping = list(), bQuiet = FALSE))
+  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~.x), lMapping = list(), bQuiet = FALSE))
 
   # duplicate subject IDs in subject-level data frame
   dfs_edited <- dfs
-  dfs_edited$dfSUBJ <- dfs_edited$dfSUBJ %>% bind_rows(head(., 1))
-  expect_snapshot(map_function(dfs = dfs_edited, bQuiet = FALSE))
+  dfs_edited$dfSUBJ <- dfs_edited$dfSUBJ %>% bind_rows(utils::head(dfs_edited$dfSUBJ, 1))
+  testthat::expect_snapshot(map_function(dfs = dfs_edited, bQuiet = FALSE))
 }
 
 test_missing_column <- function(map_function, dfs, spec, mapping) {
@@ -57,7 +58,7 @@ test_missing_column <- function(map_function, dfs, spec, mapping) {
       # set column to NULL
       dfs_edited[[domain]][[column]] <- NULL
 
-      expect_snapshot(
+      testthat::expect_snapshot(
         map_function(
           dfs = dfs_edited,
           bQuiet = FALSE
@@ -86,7 +87,7 @@ test_missing_value <- function(map_function, dfs, spec, mapping) {
       # set a random value to NA
       dfs_edited[[domain]][sample(1:nrow(df), 1), column] <- NA
 
-      expect_snapshot(
+      testthat::expect_snapshot(
         map_function(
           dfs = dfs_edited,
           bQuiet = FALSE
@@ -100,7 +101,7 @@ test_duplicate_subject_id <- function(map_function, dfs) {
   dfs_edited <- dfs
   dfs_edited$dfSUBJ$SubjectID <- "1"
 
-  expect_snapshot(map_function(dfs = dfs_edited, bQuiet = FALSE))
+  testthat::expect_snapshot(map_function(dfs = dfs_edited, bQuiet = FALSE))
 }
 
 test_invalid_mapping <- function(map_function, dfs, spec, mapping) {
@@ -120,8 +121,7 @@ test_invalid_mapping <- function(map_function, dfs, spec, mapping) {
       purrr::iwalk(columns, function(column_value, column_key) { # loop over columns in domain
         mapping_edited <- mapping_required
         mapping_edited[[domain_key]][[column_key]] <- "asdf"
-
-        expect_snapshot(
+        testthat::expect_snapshot(
           map_function(
             dfs = dfs,
             lMapping = mapping_edited,
@@ -133,11 +133,11 @@ test_invalid_mapping <- function(map_function, dfs, spec, mapping) {
 }
 
 test_logical_parameters <- function(map_function, dfs) {
-  expect_snapshot(
+  testthat::expect_snapshot(
     dfInput <- map_function(dfs = dfs, bQuiet = FALSE)
   )
 
-  expect_true(
+  testthat::expect_true(
     all(names(map_function(dfs = dfs, bReturnChecks = TRUE)) == c("df", "lChecks"))
   )
 }

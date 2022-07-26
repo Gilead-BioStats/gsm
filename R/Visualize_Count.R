@@ -31,15 +31,26 @@ Visualize_Count <- function(dfAnalyzed, strGroupCol=NULL, strTotalCol = "N", str
     "strTitle must be character" = is.character(strTitle)
   )
 
-  p <- ggplot(
-    data = dfAnalyzed,
-    aes(x = reorder(.data$SiteID, -.data$N))
-  ) +
+  # Define tooltip for use in plotly.
+  dfAnalyzedWithTooltip <- dfAnalyzed %>%
+    mutate(
+      tooltip = paste(
+        paste0('Group: ', .data$GroupID),
+        paste0('# of Events: ', format(.data$N, big.mark = ',', trim = TRUE)),
+        sep = '\n'
+      )
+    )
+
+  p <- dfAnalyzedWithTooltip %>%
+    ggplot(
+      aes(x = reorder(.data$GroupID, -.data$N), text = .data$tooltip)
+    ) +
     geom_bar(aes(y = .data[[strTotalCol]]), stat = "identity", color = "black", fill = "white") +
     geom_bar(aes(y = .data[[strCountCol]]), stat = "identity", fill = "red") +
+    scale_x_discrete(guide = guide_axis(check.overlap = TRUE)) +
     ggtitle(strTitle) +
     labs(
-      x = "Site ID",
+      x = "Group ID",
       y = "Event Count"
     ) +
     theme(

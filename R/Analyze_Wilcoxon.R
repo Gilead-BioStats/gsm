@@ -29,7 +29,11 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+#' dfTransformed <- Transform_EventCount(dfInput,
+#'                                       strCountCol = "Count",
+#'                                       strExposureCol = "Exposure",
+#'                                       strKRILabel = "AEs/Week")
+#'
 #' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
 #'
 #' @import dplyr
@@ -45,7 +49,7 @@
 Analyze_Wilcoxon <- function(
   dfTransformed,
   strOutcomeCol = "KRI",
-  strPredictorCol = "SiteID",
+  strPredictorCol = "GroupID",
   bQuiet = TRUE
 ) {
   stopifnot(
@@ -63,8 +67,8 @@ Analyze_Wilcoxon <- function(
       all(c(strPredictorCol, strOutcomeCol) %in% names(dfTransformed)),
     "NA value(s) found in @param:strPredictorCol" =
       all(!is.na(dfTransformed[[strPredictorCol]])),
-    "One or more of these columns not found: SiteID, N, TotalExposure, TotalCount, KRI, KRILabel" =
-      all(c("SiteID", "N", "TotalExposure", "TotalCount", "KRI", "KRILabel") %in% names(dfTransformed))
+    "One or more of these columns not found: GroupID, N, TotalExposure, TotalCount, KRI, KRILabel, GroupLabel" =
+      all(c("GroupID", "N", "TotalExposure", "TotalCount", "KRI", "KRILabel", "GroupLabel") %in% names(dfTransformed))
   )
 
   wilcoxon_model <- function(predictorValue) {

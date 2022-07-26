@@ -30,10 +30,18 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+#'
+#' dfTransformed <- Transform_EventCount(dfInput,
+#'                                       strCountCol = "Count",
+#'                                       strExposureCol = "Exposure",
+#'                                       strKRILabel = "AEs/Week")
+#'
 #' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+#'
 #' dfFlagged <- Flag(dfAnalyzed) # P value (dfAnalyzed$Score) < 0.05 flagged
+#'
 #' dfFlagged10 <- Flag(dfAnalyzed, vThreshold = c(0.10, NA)) # PValue <0.10 flagged
+#'
 #' # Flag direction set based on 'Statistic' column
 #' dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
 #'
@@ -56,7 +64,7 @@ Flag <- function(
     "strColumn must be length of 1" = length(strColumn) == 1,
     "strColumn not found in dfAnalyzed" = strColumn %in% names(dfAnalyzed),
     "strValueColumn not found in dfAnalyzed" = strValueColumn %in% names(dfAnalyzed),
-    "SiteID not found in dfAnalyzed" = "SiteID" %in% names(dfAnalyzed)
+    "GroupID not found in dfAnalyzed" = "GroupID" %in% names(dfAnalyzed)
   )
 
   if (all(!is.na(vThreshold))) {

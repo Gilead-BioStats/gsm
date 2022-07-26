@@ -43,7 +43,7 @@ IE_Map_Raw <- function(
     dfIE = clindata::rawplus_ie,
     dfSUBJ = clindata::rawplus_subj
   ),
-  lMapping = clindata::mapping_rawplus,
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
@@ -71,10 +71,14 @@ IE_Map_Raw <- function(
       )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
-      select(
-        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]]
-      )
+      select(SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+             any_of(
+               c(
+                 SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+                 StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+                 CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
+               )
+             ))
 
     # Create Subject Level IE Counts and merge Subj
     dfInput <- dfIE_mapped %>%
@@ -99,7 +103,7 @@ IE_Map_Raw <- function(
       ungroup() %>%
       select(.data$SubjectID, .data$Count) %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      select(.data$SubjectID, .data$SiteID, .data$Count)
+      select(any_of(names(dfSUBJ_mapped)), .data$Count)
 
     if (!bQuiet) cli::cli_alert_success("{.fn IE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

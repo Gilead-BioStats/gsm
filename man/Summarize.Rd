@@ -36,9 +36,16 @@ Create a concise summary of assessment results that is easy to aggregate across 
 
 \examples{
 dfInput <- AE_Map_Adam()
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure", strKRILabel = "AEs/Week")
+
+dfTransformed <- Transform_EventCount(dfInput,
+                                      strCountCol = "Count",
+                                      strExposureCol = "Exposure",
+                                      strKRILabel = "AEs/Week")
+
 dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+
 dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
+
 dfSummary <- Summarize(dfFlagged)
 
 }
