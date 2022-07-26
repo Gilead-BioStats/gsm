@@ -65,7 +65,17 @@ LB_Assess <- function(
     stopifnot(
       "lTags is not named" = (!is.null(names(lTags))),
       "lTags has unnamed elements" = all(names(lTags) != ""),
-      "lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'" = !names(lTags) %in% c("SiteID", "N", "KRI", "KRILabel", "Score", "ScoreLabel", "Flag")
+      "lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'" = !names(lTags) %in%
+        c(
+          "GroupID",
+          "GroupLabel",
+          "N",
+          "KRI",
+          "KRILabel",
+          "Score",
+          "ScoreLabel",
+          "Flag"
+        )
 
     )
 
