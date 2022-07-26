@@ -53,3 +53,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)
