@@ -154,7 +154,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["PD_CATEGORY"]
+              "value": ["DVDECOD"]
             },
             {
               "type": "character",
