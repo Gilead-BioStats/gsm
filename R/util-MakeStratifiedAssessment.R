@@ -48,7 +48,7 @@
 #'
 #' @export
 
-MakeStratifiedAssessment <- function(lAssessment, lMapping, lData, bQuiet = TRUE){
+MakeStratifiedAssessment <- function(lAssessment, lData, lMapping, bQuiet = TRUE){
 
   if(all(c("domain", "columnParam") %in% names(lAssessment$group))) {
 

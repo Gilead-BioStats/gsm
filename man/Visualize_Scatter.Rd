@@ -35,4 +35,26 @@ Visualize_Scatter(SafetyAE$dfFlagged, dfBounds)
 SafetyAE_wilk <- AE_Assess(dfInput, strMethod = "wilcoxon")
 Visualize_Scatter(SafetyAE_wilk$dfFlagged)
 
+
+
+pdCategory <- Study_Assess(
+    lAssessments = list(
+        pdCategory = MakeAssessmentList()$pdCategory
+    )
+)
+
+allFlagged <- pdCategory \%>\% 
+    imap(function(assessment, name) {
+        assessment$lResults$dfFlagged \%>\% mutate(strata = assessment$tags$Label)
+    }) \%>\%
+    bind_rows
+
+dfBounds <- pdCategory \%>\%
+    imap(function(assessment, name) {
+        assessment$lResults$dfBounds \%>\% mutate(strata = assessment$tags$Label)
+    }) \%>\%
+    bind_rows
+
+Visualize_Scatter(allFlagged, strGroupCol = 'strata', dfBounds = dfBounds)
+
 }
