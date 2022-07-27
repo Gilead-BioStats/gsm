@@ -35,8 +35,6 @@ Visualize_Score <- function(
     "strType must be length 1" = length(strType) == 1
   )
 
-  dfFlagged <- dfFlagged
-
   if(bFlagFilter) {
     dfFlagged <- dfFlagged %>%
       filter(
