@@ -42,6 +42,7 @@ LB_Assess <- function(
     vThreshold = c(0.05,NA),
     strMethod = "chisq",
     strKRILabel = "% Abnormal Labs",
+    strGroupCol = "SiteID",
     lTags = list(
       Assessment = "Labs"
     ),
@@ -90,6 +91,9 @@ LB_Assess <- function(
     lTags = lTags,
     dfInput = dfInput
   )
+
+  mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
+  mapping$dfInput$strGroupCol <- strGroupCol
 
   checks <- CheckInputs(
     context = "LB_Assess",
