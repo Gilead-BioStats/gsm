@@ -46,86 +46,16 @@ subject-level data (from \code{dfSUBJ}). Note the function can generate data sum
 types of consent by customizing \code{lMapping$dfCONSENT}.
 }
 \section{Data specification}{
-\if{html}{\out{
-<table>
-<colgroup>
-<col width="10%" />
-<col width="13%" />
-<col width="15%" />
-<col width="12%" />
-<col width="24%" />
-<col width="23%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left"><strong>Domain</strong></th>
-<th align="left"><strong>Column Key</strong></th>
-<th align="left"><strong>Default Value</strong></th>
-<th align="left"><strong>Required?</strong></th>
-<th align="left"><strong>Accept NA/Empty Values?</strong></th>
-<th align="left"><strong>Require Unique Values?</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">dfSUBJ</td>
-<td align="left">strIDCol</td>
-<td align="left">SubjectID</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">dfSUBJ</td>
-<td align="left">strSiteCol</td>
-<td align="left">SiteID</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-</tr>
-<tr class="odd">
-<td align="left">dfSUBJ</td>
-<td align="left">strRandDateCol</td>
-<td align="left">RandDate</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-</tr>
-<tr class="even">
-<td align="left">dfCONSENT</td>
-<td align="left">strIDCol</td>
-<td align="left">SubjectID</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-</tr>
-<tr class="odd">
-<td align="left">dfCONSENT</td>
-<td align="left">strTypeCol</td>
-<td align="left">CONSENT_TYPE</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-</tr>
-<tr class="even">
-<td align="left">dfCONSENT</td>
-<td align="left">strValueCol</td>
-<td align="left">CONSENT_VALUE</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-</tr>
-<tr class="odd">
-<td align="left">dfCONSENT</td>
-<td align="left">strDateCol</td>
-<td align="left">CONSENT_DATE</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-</tr>
-</tbody>
-</table>
-}}
+\tabular{llllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \tab \strong{Require Unique Values?} \cr
+   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab TRUE \cr
+   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
+   dfSUBJ \tab strRandDateCol \tab RandDate \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strTypeCol \tab CONSENT_TYPE \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strValueCol \tab CONSENT_VALUE \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strDateCol \tab CONSENT_DATE \tab TRUE \tab TRUE \tab FALSE \cr
+}
 }
 
 \examples{
