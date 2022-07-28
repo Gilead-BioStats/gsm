@@ -154,7 +154,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["PD_CATEGORY"]
+              "value": ["DVDECOD"]
             },
             {
               "type": "character",
@@ -248,7 +248,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["RegionID"]
+              "value": ["CustomGroupID"]
             },
             {
               "type": "character",

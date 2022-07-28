@@ -47,16 +47,86 @@ Convert from ADaM or raw format to input format for Disposition Assessment.
 \code{Disp_Map_Raw} creates an input dataset for the Disposition Assessment (link to code) by adding Discontinuation Reason Counts to basic subject-level data.
 }
 \section{Data specification}{
-\tabular{llllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \tab \strong{Require Unique Values?} \cr
-   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab TRUE \cr
-   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
-   dfDISP \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab FALSE \cr
-   dfDISP \tab strStudyDiscontinuationReasonCol \tab StudDCReason \tab TRUE \tab TRUE \tab FALSE \cr
-   dfDISP \tab strStudyCompletionFlagCol \tab StudCompletion \tab TRUE \tab TRUE \tab FALSE \cr
-   dfDISP \tab strTreatmentDiscontinuationReasonCol \tab TrtDCReason \tab TRUE \tab TRUE \tab FALSE \cr
-   dfDISP \tab strTreatmentCompletionFlagCol \tab TrtCompletion \tab TRUE \tab TRUE \tab FALSE \cr
-}
+\if{html}{\out{
+<table style="width:100%;">
+<colgroup>
+<col width="8%" />
+<col width="26%" />
+<col width="13%" />
+<col width="10%" />
+<col width="20%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"><strong>Domain</strong></th>
+<th align="left"><strong>Column Key</strong></th>
+<th align="left"><strong>Default Value</strong></th>
+<th align="left"><strong>Required?</strong></th>
+<th align="left"><strong>Accept NA/Empty Values?</strong></th>
+<th align="left"><strong>Require Unique Values?</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">dfSUBJ</td>
+<td align="left">strIDCol</td>
+<td align="left">SubjectID</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">dfSUBJ</td>
+<td align="left">strSiteCol</td>
+<td align="left">SiteID</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">dfDISP</td>
+<td align="left">strIDCol</td>
+<td align="left">SubjectID</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">dfDISP</td>
+<td align="left">strStudyDiscontinuationReasonCol</td>
+<td align="left">StudDCReason</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">dfDISP</td>
+<td align="left">strStudyCompletionFlagCol</td>
+<td align="left">StudCompletion</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">dfDISP</td>
+<td align="left">strTreatmentDiscontinuationReasonCol</td>
+<td align="left">TrtDCReason</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">dfDISP</td>
+<td align="left">strTreatmentCompletionFlagCol</td>
+<td align="left">TrtCompletion</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+</tr>
+</tbody>
+</table>
+}}
 }
 
 \examples{
