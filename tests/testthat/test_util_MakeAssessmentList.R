@@ -15,6 +15,7 @@ test_that("output is created as expected", {
                  "ie",
                  "importantpd",
                  "pd",
+                 "pdCategory",
                  "sae"
                )
                )
