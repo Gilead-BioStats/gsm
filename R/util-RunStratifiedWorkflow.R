@@ -54,7 +54,7 @@ RunStratifiedWorkflow <- function(
         lMapping,
         bQuiet
     )
-
+browser()
     # Run a workflow for each unique value of the stratification variable.
     lStratifiedOutput <- lStratifiedWorkflow %>%
         map(~RunAssessment(
@@ -64,7 +64,7 @@ RunStratifiedWorkflow <- function(
             lTags,
             bQuiet = bQuiet
         ))
-
+browser()
     # Consolidate the stratified output from each workflow into a singular output with stacked data
     # frames and a paneled data visualization.
     lConsolidatedOutput <- ConsolidateStrata(

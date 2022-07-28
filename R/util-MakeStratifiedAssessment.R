@@ -54,18 +54,18 @@ MakeStratifiedAssessment <- function(lAssessment, lData, lMapping, bQuiet = TRUE
 
     groupDomain <- lAssessment$group$domain
     groupColumnParam <- lAssessment$group$columnParam
-
+browser()
     if(hasName(lMapping[[groupDomain]], groupColumnParam)){
       groupColumn <- lMapping[[groupDomain]][[groupColumnParam]]
     } else {
       groupColumn <- NA
     }
-
+browser()
     if(hasName(lData, groupDomain) & hasName(lData[[groupDomain]], groupColumn)) {
 
       # get unique levels of the group column
       groupValues <- unique(lData[[groupDomain]][[groupColumn]])
-
+browser()
       if(length(groupValues) >= 1){
         # add filter to create separate (ungrouped) assessment for each group
         lGroupAssessments <- groupValues %>% imap(function(groupValue, index){
