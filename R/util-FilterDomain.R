@@ -1,4 +1,4 @@
-#' Utility function for basic filtering
+#' Subset a data frame given a mapping
 #'
 #' @param df `data.frame` A data.frame to be filtered, likely within a mapping function.
 #' @param strDomain `character` Domain step that is being filtered.
