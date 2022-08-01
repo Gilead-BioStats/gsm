@@ -84,8 +84,7 @@ Visualize_Score <- function(
       mutate(
         tooltip = paste(
           paste0('Group: ', .data$GroupID),
-          paste0('ScoreLabel: ', .data$ScoreLabel),
-          paste0('Score: ', .data$Score),
+          paste(.data$ScoreLabel, '=', .data$Score),
           sep = '\n'
         )
       )
