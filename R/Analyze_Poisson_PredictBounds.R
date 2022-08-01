@@ -39,6 +39,7 @@
 #' dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5, 5))
 #'
 #' @importFrom stats glm offset poisson qchisq
+#' @importFrom lamW lambertWm1 lambertW0
 #'
 #' @export
 
@@ -75,22 +76,14 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
 
       # Calculate upper bound of expected event count given specified threshold.
       vHi = vThreshold[2]^2 - 2 * .data$vMu,
-      vWHi = .data$vHi / (2 * exp(1) * .data$vMu)
+      vWHi = .data$vHi / (2 * exp(1) * .data$vMu),
+
+      PredictYLo = .data$vLo / (2 * lamW::lambertWm1(.data$vWLo)),
+      PredictYHi = .data$vHi / (2 * lamW::lambertW0(.data$vWHi)),
+
+      LowerCount = if_else(is.nan(.data$PredictYLo), 0, .data$PredictYLo),
+      UpperCount = if_else(is.nan(.data$PredictYHi), 0, .data$PredictYHi)
     )
-
-  # {lamW} is required to run this code block.
-  if (requireNamespace("lamW", quietly = TRUE)) {
-    # Calculate boundaries around predicted event counts with Lambert-W function.
-    dfBounds$PredictYLo <- dfBounds$vLo / (2 * lamW::lambertWm1(dfBounds$vWLo))
-    dfBounds$PredictYHi <- dfBounds$vHi / (2 * lamW::lambertW0(dfBounds$vWHi))
-
-    # Set lower limit of predicted bounds to 0.
-    dfBounds$LowerCount <- if_else(is.nan(dfBounds$PredictYLo), 0, dfBounds$PredictYLo)
-    dfBounds$UpperCount <- if_else(is.nan(dfBounds$PredictYHi), 0, dfBounds$PredictYHi)
-  } else {
-    dfBounds$LowerCount <- NA_real_
-    dfBounds$UpperCount <- NA_real_
-  }
 
   return(
     dfBounds %>%

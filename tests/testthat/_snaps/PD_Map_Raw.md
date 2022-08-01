@@ -248,7 +248,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["RegionID"]
+              "value": ["CustomGroupID"]
             },
             {
               "type": "character",
