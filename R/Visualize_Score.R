@@ -47,7 +47,8 @@ Visualize_Score <- function(
     dfFlaggedWithTooltip <- dfFlagged %>%
       mutate(
         tooltip = paste(
-          paste0('Group: ', .data$GroupID),
+          paste0('Group: ', .data$GroupLabel),
+          paste0('GroupID: ', .data$GroupID),
           paste(.data$KRI, .data$KRILabel),
           sep = '\n'
         )
@@ -56,8 +57,9 @@ Visualize_Score <- function(
     p <- dfFlaggedWithTooltip %>%
       ggplot(
         aes(
-        x = reorder(.data$GroupID, -.data$KRI), y = .data$KRI),
+        x = reorder(.data$GroupID, -.data$KRI), y = .data$KRI,
         text = .data$tooltip
+        )
       ) +
       geom_bar(
         stat = "identity"
@@ -82,7 +84,8 @@ Visualize_Score <- function(
     dfFlaggedWithTooltip <- dfFlagged %>%
       mutate(
         tooltip = paste(
-          paste0('Group: ', .data$GroupID),
+          paste0('Group: ', .data$GroupLabel),
+          paste0('GroupID: ', .data$GroupID),
           paste(.data$ScoreLabel, '=', .data$Score),
           sep = '\n'
         )
@@ -125,7 +128,7 @@ Visualize_Score <- function(
 
   p <- p +
     xlab(
-      paste0("Group [", unique(dfFlagged$GroupLabel), "]")
+      unique(dfFlagged$GroupLabel)
       ) +
     theme_bw() +
     theme(
