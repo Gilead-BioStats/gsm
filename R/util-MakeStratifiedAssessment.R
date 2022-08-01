@@ -73,12 +73,9 @@ MakeStratifiedAssessment <- function(
     )
 
     domainName <- lWorkflow$group$domain
-    message(domainName)
     data <- lData[[ domainName ]]
     columnName <- lMapping[[ domainName ]][[ lWorkflow$group$columnParam ]]
-    message(columnName)
     strata <- data[[ columnName ]] %>% unique %>% sort
-    message(strata)
 
     stratifiedWorkflows <- strata %>%
         imap(function(stratum, i) {

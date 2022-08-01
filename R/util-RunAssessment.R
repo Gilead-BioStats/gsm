@@ -54,7 +54,6 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
           lTags = c(lTags, lAssessment$tags),
           bQuiet = bQuiet
         )
-        browser()
         lAssessment$checks[[stepCount]] <- result$lChecks
         names(lAssessment$checks)[[stepCount]] <- step$name
         lAssessment$bStatus <- result$lChecks$status

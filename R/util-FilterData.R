@@ -19,7 +19,6 @@
 #'
 #' @export
 
-# TODO: figure out way around bReturnChecks and all that stuff
 FilterData <- function(
     dfInput,
     strCol,
@@ -45,13 +44,23 @@ FilterData <- function(
     newRows <- nrow(dfOutput)
 
     if (!bQuiet) {
-      cli::cli_alert_success("Subset removed {oldRows - newRows} rows from {oldRows} to {newRows} rows.")
+        cli::cli_alert_success("Subset removed {oldRows - newRows} rows from {oldRows} to {newRows} rows.")
 
-      if (newRows == 0)
-          cli::cli_alert_warning("WARNING: Subset removed all rows.")
-      if (newRows == oldRows)
-          cli::cli_alert_info("NOTE: Subset removed 0 rows.")
+        if (newRows == 0)
+            cli::cli_alert_warning("WARNING: Subset removed all rows.")
+        if (newRows == oldRows)
+            cli::cli_alert_info("NOTE: Subset removed 0 rows.")
     }
 
-  dfOutput
+    if (bReturnChecks)
+        return(
+            list(
+                df = dfOutput,
+                lChecks = list(
+                    status = TRUE
+                )
+            )
+        )
+
+    dfOutput
 }
