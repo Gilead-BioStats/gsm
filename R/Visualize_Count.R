@@ -34,7 +34,8 @@ Visualize_Count <- function(dfAnalyzed, strTotalCol = "N", strCountCol = "TotalC
   dfAnalyzedWithTooltip <- dfAnalyzed %>%
     mutate(
       tooltip = paste(
-        paste0('Group: ', .data$GroupID),
+        paste0('Group: ', .data$GroupLabel),
+        paste0('GroupID: ', .data$GroupID),
         paste0('# of Events: ', format(.data$N, big.mark = ',', trim = TRUE)),
         sep = '\n'
       )
@@ -49,7 +50,7 @@ Visualize_Count <- function(dfAnalyzed, strTotalCol = "N", strCountCol = "TotalC
     scale_x_discrete(guide = guide_axis(check.overlap = TRUE)) +
     ggtitle(strTitle) +
     labs(
-      x = "Group ID",
+      x = unique(dfAnalyzedWithTooltip$GroupLabel),
       y = "Event Count"
     ) +
     theme(
