@@ -109,10 +109,10 @@
       
       
       $dfInput
-        SubjectID SiteID Exposure Count         Rate
-      1      1234  X010X     3455    NA 0.0005788712
-      2      5678  X102X     1745     2 0.0011461318
-      3      9876  X999X     1233     0 0.0000000000
+        SubjectID SiteID        StudyID CustomGroupID Exposure Count         Rate
+      1      1234  X010X AA-AA-000-0000 United States     3455    NA 0.0005788712
+      2      5678  X102X BB-BB-111-1111         China     1745     2 0.0011461318
+      3      9876  X999X CC-CC-333-3333         India     1233     0 0.0000000000
       
 
 # bQuiet and bReturnChecks work as intended

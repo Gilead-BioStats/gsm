@@ -2,5 +2,5 @@ dfInput:
   strIDCol: "SubjectID"
   strSiteCol: "SiteID"
   strStudyCol: "StudyID"
-  strCustomGroupCol: "RegionID"
+  strCustomGroupCol: "CustomGroupID"
   strCountCol: "Count"

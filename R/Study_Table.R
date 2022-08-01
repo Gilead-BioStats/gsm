@@ -12,7 +12,16 @@
 #' @examples
 #' library(dplyr)
 #' library(purrr)
-#' results <- Study_Assess() %>%
+#'
+# lData <- list(
+#   dfAE = clindata::rawplus_ae,
+#   dfPD = clindata::rawplus_pd,
+#   dfSUBJ = clindata::rawplus_subj
+# )
+#'
+#' results <- Study_Assess(lData = list(dfAE = clindata::rawplus_ae,
+#'                                         dfPD = clindata::rawplus_pd,
+#'                                         dfSUBJ = clindata::rawplus_subj)) %>%
 #'   purrr::map(~ .x$lResults) %>%
 #'   compact() %>%
 #'   purrr::map_df(~ .x$dfSummary)
