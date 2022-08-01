@@ -18,7 +18,11 @@ Study_AssessmentReport(lAssessments, bViewReport = FALSE)
 Make overview table with one row per assessment and one column per site showing flagged assessments.
 }
 \examples{
-assessment <- Study_Assess()
+
+assessment <- Study_Assess(lData = list(dfAE = clindata::rawplus_ae,
+                                        dfPD = clindata::rawplus_pd,
+                                        dfSUBJ = clindata::rawplus_subj))
+
 report <- Study_AssessmentReport(lAssessments = assessment)
 
 }
