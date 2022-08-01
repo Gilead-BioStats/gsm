@@ -44,8 +44,21 @@ Visualize_Score <- function(
 
   if(strType == "KRI") {
 
-    p <- ggplot(
-      data = dfFlagged, aes(x = reorder(.data$GroupID, -.data$KRI), y = .data$KRI)
+    dfFlaggedWithTooltip <- dfFlagged %>%
+      mutate(
+        tooltip = paste(
+          paste0('Group: ', .data$GroupID),
+          paste0('Exposure (days): ', format(.data$TotalExposure, big.mark = ',', trim = TRUE)),
+          paste0('# of Events: ', format(.data$TotalCount, big.mark = ',', trim = TRUE)),
+          sep = '\n'
+        )
+      )
+
+    p <- dfFlaggedWithTooltip %>%
+      ggplot(
+        aes(
+        x = reorder(.data$GroupID, -.data$KRI), y = .data$KRI),
+        text = .data$tooltip
       ) +
       geom_bar(
         stat = "identity"
@@ -67,9 +80,23 @@ Visualize_Score <- function(
     ThresholdLow <- unique(dfFlagged$ThresholdLow)
     ThresholdHigh <- unique(dfFlagged$ThresholdHigh)
 
-    p <- ggplot(
-      data = dfFlagged, aes(x = reorder(.data$GroupID, -.data$Score), y = .data$Score)
-      ) +
+    dfFlaggedWithTooltip <- dfFlagged %>%
+      mutate(
+        tooltip = paste(
+          paste0('Group: ', .data$GroupID),
+          paste0('ScoreLabel: ', .data$ScoreLabel),
+          paste0('Score: ', .data$Score),
+          sep = '\n'
+        )
+      )
+
+    p <- dfFlaggedWithTooltip %>%
+      ggplot(
+        aes(
+          x = reorder(.data$GroupID, -.data$Score), y = .data$Score,
+          tooltip = .data$tooltip
+          )
+        ) +
       geom_bar(
         stat = "identity"
         ) +
@@ -109,6 +136,13 @@ Visualize_Score <- function(
       legend.position = "none"
     ) +
     ggtitle(strTitle)
+
+  if(nrow(dfFlaggedWithTooltip) > 25) {
+    p <- p +
+      theme(
+        axis.ticks.x = element_blank()
+      )
+  }
 
   return(p)
 
