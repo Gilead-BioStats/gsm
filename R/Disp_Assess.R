@@ -105,9 +105,11 @@ Disp_Assess <- function(dfInput,
     lAssess$dfTransformed <- gsm::Transform_EventCount(
       lAssess$dfInput,
       strCountCol = "Count",
+      strExposureCol = "Total",
       strGroupCol = strGroupCol,
       strKRILabel = strKRILabel
     )
+
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     if (strMethod == "chisq") {

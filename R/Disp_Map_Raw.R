@@ -68,7 +68,7 @@ Disp_Map_Raw <- function(
       DCReason = lMapping[["dfDISP"]][[glue::glue('str{strContext}DiscontinuationReasonCol')]],
       Completion = lMapping[["dfDISP"]][[glue::glue('str{strContext}CompletionFlagCol')]]
     ) %>%
-    filter(.data$Completion != lMapping[["dfDISP"]][[glue::glue('str{strContext}CompletionFlagVal')]]) %>%
+    filter(!data$Completion %in% lMapping[["dfDISP"]][[glue::glue('str{strContext}CompletionFlagVal')]]) %>%
     mutate(Count = 1)
 
 
@@ -85,8 +85,9 @@ Disp_Map_Raw <- function(
     dfInput <- gsm::MergeSubjects(dfDomain = dfDISP_mapped,
                                   dfSubjects = dfSUBJ_mapped,
                                   bQuiet = bQuiet) %>%
-      mutate(Count = ifelse(is.na(.data$Count), 0, .data$Count)) %>%
-      select(any_of(names(dfSUBJ_mapped)), .data$Count)
+      mutate(Count = ifelse(is.na(.data$Count), 0, .data$Count),
+             Total = 1) %>%
+      select(any_of(names(dfSUBJ_mapped)), .data$Count, .data$Total)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Disp_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
