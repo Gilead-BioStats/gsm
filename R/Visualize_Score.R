@@ -65,11 +65,17 @@ Visualize_Score <- function(
         stat = "identity"
         ) +
       geom_hline(
-        yintercept = sum(dfFlagged$TotalCount)/sum(dfFlagged$TotalExposure),
+        yintercept = (
+            if ('TotalExposure' %in% names(dfFlagged))
+                sum(dfFlagged$TotalCount)/sum(dfFlagged$TotalExposure)
+            else
+                sum(dfFlagged$TotalCount)/nrow(dfFlagged)
+        ),
         linetype="dashed",
         color="red",
         size=1
       ) +
+
       ylab(
         paste0("KRI [", unique(dfFlagged$KRILabel), "]")
         )
