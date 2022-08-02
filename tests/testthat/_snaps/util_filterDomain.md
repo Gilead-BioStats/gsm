@@ -67,8 +67,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on AE_TE_FLAG == TRUE
-      v Filtered on `AE_TE_FLAG=TRUE`, to drop 2 rows from 4 to 2 rows.
+      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
+      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
     Output
       # A tibble: 2 x 4
         SubjectID AE_SERIOUS AE_TE_FLAG AE_GRADE
@@ -86,8 +86,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on AE_TE_FLAG == TRUE
-      v Filtered on `AE_TE_FLAG=TRUE`, to drop 2 rows from 4 to 2 rows.
+      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
+      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
     Output
       # A tibble: 2 x 4
         SubjectID AE_SERIOUS AE_TE_FLAG AE_GRADE

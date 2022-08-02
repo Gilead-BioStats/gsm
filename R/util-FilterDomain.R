@@ -55,13 +55,13 @@ FilterDomain <- function(
   if (check$status) {
     col <- lMapping[[strDomain]][[strColParam]]
     vals <- lMapping[[strDomain]][[strValParam]]
-    if (!bQuiet) cli::cli_text(paste0("Filtering on ", col, " == ", paste(vals, collapse = ",")))
+    if (!bQuiet) cli::cli_text("Filtering on `{col} %in% c(\"{paste(vals, collapse = '\", \"')}\")`.")
 
     oldRows <- nrow(df)
     df <- df[df[[col]] %in% vals, ]
     newRows <- nrow(df)
     if (!bQuiet) {
-      cli::cli_alert_success("Filtered on `{col}={paste(vals,sep=',')}`, to drop {oldRows-newRows} rows from {oldRows} to {newRows} rows.")
+      cli::cli_alert_success("Filtered on `{col} %in% c(\"{paste(vals, sep = '\", \"')}\")` to drop {oldRows-newRows} rows from {oldRows} to {newRows} rows.")
       if (newRows == 0) cli::cli_alert_warning("WARNING: Filtered data has 0 rows.")
       if (newRows == oldRows) cli::cli_alert_info("NOTE: No rows dropped.")
     }
