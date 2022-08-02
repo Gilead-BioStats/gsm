@@ -73,4 +73,6 @@ test_that("strMethod = 'fisher' does not throw error", {
   expect_error(assess_function(dfInput, strMethod = "fisher"), NA)
 })
 
-dfDISP
+test_that("strMethod = 'identity' does not throw error", {
+  expect_error(assess_function(dfInput, strMethod = "identity"), NA)
+})

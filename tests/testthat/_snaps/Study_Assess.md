@@ -24,8 +24,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG=TRUE`
-      v Filtered on `AE_TE_FLAG %in% TRUE`, to drop 2 rows from 4 to 2 rows.
+      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
+      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
       v `FilterDomain()` Successful
       Saving dfAE to `lAssessment$lData`
       
@@ -92,8 +92,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG=TRUE`
-      v Filtered on `AE_TE_FLAG %in% TRUE`, to drop 1 rows from 2 to 1 rows.
+      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
+      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 1 rows from 2 to 1 rows.
       v `FilterDomain()` Successful
       Saving dfAE to `lAssessment$lData`
       
@@ -157,8 +157,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG=TRUE`
-      v Filtered on `AE_TE_FLAG %in% TRUE`, to drop 0 rows from 1 to 1 rows.
+      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
+      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 0 rows from 1 to 1 rows.
       i NOTE: No rows dropped.
       v `FilterDomain()` Successful
       Saving dfAE to `lAssessment$lData`
@@ -223,8 +223,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG=TRUE`
-      v Filtered on `AE_TE_FLAG %in% TRUE`, to drop 1 rows from 1 to 0 rows.
+      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
+      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 1 rows from 1 to 0 rows.
       ! WARNING: Filtered data has 0 rows.
       v `FilterDomain()` Successful
       Saving dfAE to `lAssessment$lData`
@@ -280,8 +280,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG=TRUE`
-      v Filtered on `AE_TE_FLAG %in% TRUE`, to drop 2 rows from 4 to 2 rows.
+      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
+      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
       v `FilterDomain()` Successful
       Saving dfAE to `lAssessment$lData`
       
@@ -336,8 +336,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG=TRUE`
-      v Filtered on `AE_TE_FLAG %in% TRUE`, to drop 2 rows from 4 to 2 rows.
+      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
+      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
       v `FilterDomain()` Successful
       Saving dfAE to `lAssessment$lData`
       
@@ -473,8 +473,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfDISP domain
-      Filtering on `StudDCReason=Withdrew Consent`
-      v Filtered on `StudDCReason %in% Withdrew Consent`, to drop 2 rows from 3 to 1 rows.
+      Filtering on `StudDCReason %in% c("Withdrew Consent")`.
+      v Filtered on `StudDCReason %in% c("Withdrew Consent")` to drop 2 rows from 3 to 1 rows.
       v `FilterDomain()` Successful
       Saving dfDISP to `lAssessment$lData`
       
@@ -610,8 +610,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfPD domain
-      Filtering on `PD_IMPORTANT_FLAG=Y`
-      v Filtered on `PD_IMPORTANT_FLAG %in% Y`, to drop 4 rows from 7 to 3 rows.
+      Filtering on `PD_IMPORTANT_FLAG %in% c("Y")`.
+      v Filtered on `PD_IMPORTANT_FLAG %in% c("Y")` to drop 4 rows from 7 to 3 rows.
       v `FilterDomain()` Successful
       Saving dfPD to `lAssessment$lData`
       
@@ -917,8 +917,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG=TRUE`
-      v Filtered on `AE_TE_FLAG %in% TRUE`, to drop 2 rows from 4 to 2 rows.
+      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
+      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
       v `FilterDomain()` Successful
       Saving dfAE to `lAssessment$lData`
       
@@ -930,8 +930,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `AE_SERIOUS=Yes`
-      v Filtered on `AE_SERIOUS %in% Yes`, to drop 2 rows from 2 to 0 rows.
+      Filtering on `AE_SERIOUS %in% c("Yes")`.
+      v Filtered on `AE_SERIOUS %in% c("Yes")` to drop 2 rows from 2 to 0 rows.
       ! WARNING: Filtered data has 0 rows.
       v `FilterDomain()` Successful
       Saving dfAE to `lAssessment$lData`
