@@ -68,7 +68,7 @@ Disp_Map_Raw <- function(
       DCReason = lMapping[["dfDISP"]][[glue::glue('str{strContext}DiscontinuationReasonCol')]],
       Completion = lMapping[["dfDISP"]][[glue::glue('str{strContext}CompletionFlagCol')]]
     ) %>%
-    filter(!data$Completion %in% lMapping[["dfDISP"]][[glue::glue('str{strContext}CompletionFlagVal')]]) %>%
+    filter(! .data$Completion %in% lMapping[["dfDISP"]][[glue::glue('str{strContext}CompletionFlagVal')]]) %>%
     mutate(Count = 1)
 
 

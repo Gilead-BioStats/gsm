@@ -8,7 +8,7 @@ Disp_Assess(
   dfInput,
   vThreshold = NULL,
   strMethod = "chisq",
-  strKRILabel = "DCs/Week",
+  strKRILabel = "\% Discontinuation/Treatment",
   strGroupCol = "SiteID",
   lTags = list(Assessment = "Disposition"),
   bChart = TRUE,

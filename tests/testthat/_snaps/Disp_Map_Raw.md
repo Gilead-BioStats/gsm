@@ -134,7 +134,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": [""]
+              "value": ["", "O"]
             },
             {
               "type": "character",
@@ -154,7 +154,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Y"]
+              "value": ["Y", "O"]
             }
           ]
         }
@@ -216,7 +216,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strCountCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strCountCol", "strTotalCol"]
             }
           },
           "value": [
@@ -244,6 +244,11 @@
               "type": "character",
               "attributes": {},
               "value": ["Count"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Total"]
             }
           ]
         }
@@ -652,6 +657,6 @@
       -- Initializing `Disp_Map_Raw()` --
       
       i Intializing merge of domain and subject data
-      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      i 2 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
       v `Disp_Map_Raw()` returned output with 3 rows.
 
