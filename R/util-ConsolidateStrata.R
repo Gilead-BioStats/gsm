@@ -1,20 +1,55 @@
+#' Consolidate stratified assessment outputs
+#'
+#' Consolidates multiple stratified assessment outputs by stacking the data frames returned by an
+#' `*_Assess` function and generating a paneled data visualization.
+#'
+#' @param lOutput `list` The output from [gsm::RunAssessment()]
+#' @param lStratifiedOutput `list` Multiple outputs from  [gsm::RunAssessment()]
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#'
+#' @return `list` containing `lAssessment` with `tags`, `workflow`, `path`, `name`, `lData`,
+#' `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of
+#' `assessment$workflow`.
+#'
+#' @examples
+#' lData <- list(
+#'   dfSUBJ = clindata::rawplus_subj,
+#'   dfAE = clindata::rawplus_ae
+#' )
+#' lTags <- list(
+#'   Study = "myStudy"
+#' )
+#' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+#'
+#' lWorkflow <- MakeAssessmentList()$aeGrade
+#' lOutput <- RunAssessment(lWorkflow, lData = lData, lMapping = lMapping, lTags = lTags)
+#'
+#' lStratifiedWorkflow <- MakeStratifiedAssessment(
+#'     lWorkflow,
+#'     lData,
+#'     lMapping
+#' )
+#' lStratifiedOutput <- lStratifiedWorkflow %>%
+#'     map(~RunAssessment(
+#'         .x,
+#'         lData,
+#'         lMapping,
+#'         lTags
+#'     ))
+#'
+#' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
+#' @importFrom stringr str_detect
+#' @importFrom yaml read_yaml
+#' @importFrom purrr map_df
+#'
+#' @export
+
 ConsolidateStrata <- function(
-    lWorkflow,
-    lData,
-    lMapping,
+    lOutput,
     lStratifiedOutput,
     bQuiet
 ) {
-    # Run assessment to generate expected output data structure.
-    lConsolidatedOutput <- RunAssessment(
-        lWorkflow,
-        lData,
-        lMapping,
-        lTags = list(assessment = 'consolidated'),
-        bQuiet = bQuiet
-    )
-
-    if (lConsolidatedOutput$bStatus == TRUE && all(map_lgl(lStratifiedOutput, ~.x$bStatus))) {
+    if (lOutput$bStatus == TRUE && all(map_lgl(lStratifiedOutput, ~.x$bStatus))) {
         # Stack data pipeline from stratified output.
         consoliDataPipeline <- lStratifiedOutput %>%
             map(function(stratum) {
@@ -39,15 +74,15 @@ ConsolidateStrata <- function(
 
         # Attach results to overall output.
         for (key in c(names(consoliDataPipeline))) {
-            lConsolidatedOutput$lResults[[ key ]] <- consoliDataPipeline[[ key ]]
+            lOutput$lResults[[ key ]] <- consoliDataPipeline[[ key ]]
         }
     } else {
         if (!bQuiet)
             cli::cli_alert_warning(
-                "Workflow not found for {lConsolidatedOutput$name} assessment; skipping remaining steps."
+                "Workflow not found for {lOutput$name} assessment; skipping remaining steps."
             )
-        lConsolidatedOutput$bStatus <- FALSE
+        lOutput$bStatus <- FALSE
     }
 
-    lConsolidatedOutput
+    lOutput
 }

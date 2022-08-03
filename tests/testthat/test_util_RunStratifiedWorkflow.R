@@ -32,5 +32,17 @@ test_that("Structure of stratified output matches structure of standard output",
 })
 
 test_that("Stratified output is returned", {
-    
+    expect_true(is.list(stratifiedOutput))
+    expect_equal(
+        c('chart', 'dfAnalyzed', 'dfBounds', 'dfFlagged', 'dfInput', 'dfSummary', 'dfTransformed', 'lChecks', 'lParams', 'lTags', 'strFunctionName'),
+        names(stratifiedOutput$lResults) %>% sort
+    )
+    expect_equal(
+        'stratum',
+        names(stratifiedOutput$lResults$chart$facet$params$facets)
+    )
+    expect_equal(
+        nrow(output$lResults$dfSummary)*length(unique(output$lData$dfPD$DVDECOD)),
+        nrow(stratifiedOutput$lResults$dfSummary)
+    )
 })

@@ -21,11 +21,12 @@ dfSUBJ <- data.frame(
 dfPD <- tibble::tribble(
   ~SubjectID, ~PD_CATEGORY, ~PD_IMPORTANT_FLAG,
   "1234", "Study Medication", "N",
-  "1234", "Study Medication", "N",
+  "1234", "Subject Not Managed According to Protocol", "N",
   "5678", "Nonadherence of study drug", "Y",
+  "5678", "Subject Not Managed According to Protocol", "Y",
   "5678", "Nonadherence of study drug", "Y",
-  "5678", "Nonadherence of study drug", "Y",
-  "9876", "Subject Not Managed According to Protocol", "N",
+  "9876", "Study Medication", "N",
+  "9876", "Nonadherence of study drug", "N",
   "9876", "Subject Not Managed According to Protocol", "N"
 ) %>% mutate(DVDECOD = toupper(PD_CATEGORY))
 

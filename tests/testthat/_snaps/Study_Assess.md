@@ -2,11 +2,6 @@
 
     Code
       result <- Study_Assess(lData = lData, bQuiet = TRUE)
-    Warning <simpleWarning>
-      glm.fit: fitted rates numerically 0 occurred
-      glm.fit: fitted rates numerically 0 occurred
-      glm.fit: fitted rates numerically 0 occurred
-      glm.fit: fitted rates numerically 0 occurred
 
 ---
 
@@ -71,6 +66,62 @@
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `aeGrade` workflow ---------------------------------------------
+      
+      -- Initializing `aeGrade` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 3: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      v No issues found for dfAE domain
+      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
+      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
+      v `FilterDomain()` Successful
+      Saving dfAE to `lAssessment$lData`
+      
+      -- Workflow Step 2 of 3: `AE_Map_Raw` --
+      
+      Preparing parameters for `AE_Map_Raw()` ...
+      Calling `AE_Map_Raw()` ...
+      
+      -- Checking Input Data for `AE_Map_Raw()` --
+      
+      v No issues found for `AE_Map_Raw()`
+      
+      -- Initializing `AE_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 2 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `AE_Map_Raw()` returned output with 3 rows.
+      v `AE_Map_Raw()` Successful
+      Saving dfInput to `lAssessment$lData`
+      
+      -- Workflow Step 3 of 3: `AE_Assess` --
+      
+      Preparing parameters for `AE_Assess()` ...
+      Calling `AE_Assess()` ...
+      
+      -- Checking Input Data for `AE_Assess()` --
+      
+      v No issues found for `AE_Assess()`
+      
+      -- Initializing `AE_Assess()` --
+      
+      Input data has 3 rows.
+      v `Transform_EventCount()` returned output with 3 rows.
+      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
+      v `Analyze_Poisson()` returned output with 3 rows.
+      v `Flag()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+      v `Visualize_Scatter()` created a chart.
+      v `AE_Assess()` Successful
+      Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       i Stratified workflow created for each level of dfAE$AE_GRADE (n=3).
       
       -- Initializing `aeGrade_1` assessment -----------------------------------------
@@ -249,62 +300,6 @@
       Saving dfInput to `lAssessment$lData`
       
       -- Workflow Step 4 of 4: `AE_Assess` --
-      
-      Preparing parameters for `AE_Assess()` ...
-      Calling `AE_Assess()` ...
-      
-      -- Checking Input Data for `AE_Assess()` --
-      
-      v No issues found for `AE_Assess()`
-      
-      -- Initializing `AE_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `AE_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `aeGrade` assessment -------------------------------------------
-      
-      -- Workflow Step 1 of 3: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
-      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
-      v `FilterDomain()` Successful
-      Saving dfAE to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 3: `AE_Map_Raw` --
-      
-      Preparing parameters for `AE_Map_Raw()` ...
-      Calling `AE_Map_Raw()` ...
-      
-      -- Checking Input Data for `AE_Map_Raw()` --
-      
-      v No issues found for `AE_Map_Raw()`
-      
-      -- Initializing `AE_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `AE_Map_Raw()` returned output with 3 rows.
-      v `AE_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 3: `AE_Assess` --
       
       Preparing parameters for `AE_Assess()` ...
       Calling `AE_Assess()` ...
@@ -611,7 +606,7 @@
       
       v No issues found for dfPD domain
       Filtering on `PD_IMPORTANT_FLAG %in% c("Y")`.
-      v Filtered on `PD_IMPORTANT_FLAG %in% c("Y")` to drop 4 rows from 7 to 3 rows.
+      v Filtered on `PD_IMPORTANT_FLAG %in% c("Y")` to drop 5 rows from 8 to 3 rows.
       v `FilterDomain()` Successful
       Saving dfPD to `lAssessment$lData`
       
@@ -697,6 +692,46 @@
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `pdCategory` workflow ------------------------------------------
+      
+      -- Initializing `pdCategory` assessment ----------------------------------------
+      
+      -- Workflow Step 1 of 2: `PD_Map_Raw` --
+      
+      Preparing parameters for `PD_Map_Raw()` ...
+      Calling `PD_Map_Raw()` ...
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      v No issues found for `PD_Map_Raw()`
+      
+      -- Initializing `PD_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      v `PD_Map_Raw()` returned output with 3 rows.
+      v `PD_Map_Raw()` Successful
+      Saving dfInput to `lAssessment$lData`
+      
+      -- Workflow Step 2 of 2: `PD_Assess` --
+      
+      Preparing parameters for `PD_Assess()` ...
+      Calling `PD_Assess()` ...
+      
+      -- Checking Input Data for `PD_Assess()` --
+      
+      v No issues found for `PD_Assess()`
+      
+      -- Initializing `PD_Assess()` --
+      
+      Input data has 3 rows.
+      v `Transform_EventCount()` returned output with 3 rows.
+      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
+      v `Analyze_Poisson()` returned output with 3 rows.
+      v `Flag()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+      v `Visualize_Scatter()` created a chart.
+      v `PD_Assess()` Successful
+      Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
       i Stratified workflow created for each level of dfPD$DVDECOD (n=3).
       
       -- Initializing `pdCategory_1` assessment --------------------------------------
@@ -706,7 +741,7 @@
       Preparing parameters for `FilterData()` ...
       Calling `FilterData()` ...
       Applying subset: `DVDECOD %in% ("NONADHERENCE OF STUDY DRUG")`
-      v Subset removed 4 rows from 7 to 3 rows.
+      v Subset removed 5 rows from 8 to 3 rows.
       v `FilterData()` Successful
       Saving dfPD to `lAssessment$lData`
       
@@ -722,7 +757,7 @@
       -- Initializing `PD_Map_Raw()` --
       
       i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.
+      i 1 ID(s) in subject data not found in domain data.
       These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `PD_Map_Raw()` returned output with 3 rows.
@@ -758,7 +793,7 @@
       Preparing parameters for `FilterData()` ...
       Calling `FilterData()` ...
       Applying subset: `DVDECOD %in% ("STUDY MEDICATION")`
-      v Subset removed 5 rows from 7 to 2 rows.
+      v Subset removed 6 rows from 8 to 2 rows.
       v `FilterData()` Successful
       Saving dfPD to `lAssessment$lData`
       
@@ -774,7 +809,7 @@
       -- Initializing `PD_Map_Raw()` --
       
       i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.
+      i 1 ID(s) in subject data not found in domain data.
       These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `PD_Map_Raw()` returned output with 3 rows.
@@ -795,15 +830,9 @@
       Input data has 3 rows.
       v `Transform_EventCount()` returned output with 3 rows.
       i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-    Warning <simpleWarning>
-      glm.fit: fitted rates numerically 0 occurred
-    Message <cliMessage>
       v `Analyze_Poisson()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-    Warning <simpleWarning>
-      glm.fit: fitted rates numerically 0 occurred
-    Message <cliMessage>
       v `Visualize_Scatter()` created a chart.
       v `PD_Assess()` Successful
       Saving lResults to `lAssessment`
@@ -816,7 +845,7 @@
       Preparing parameters for `FilterData()` ...
       Calling `FilterData()` ...
       Applying subset: `DVDECOD %in% ("SUBJECT NOT MANAGED ACCORDING TO PROTOCOL")`
-      v Subset removed 5 rows from 7 to 2 rows.
+      v Subset removed 5 rows from 8 to 3 rows.
       v `FilterData()` Successful
       Saving dfPD to `lAssessment$lData`
       
@@ -832,60 +861,11 @@
       -- Initializing `PD_Map_Raw()` --
       
       i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
       v `PD_Map_Raw()` returned output with 3 rows.
       v `PD_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
       
       -- Workflow Step 3 of 3: `PD_Assess` --
-      
-      Preparing parameters for `PD_Assess()` ...
-      Calling `PD_Assess()` ...
-      
-      -- Checking Input Data for `PD_Assess()` --
-      
-      v No issues found for `PD_Assess()`
-      
-      -- Initializing `PD_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-    Warning <simpleWarning>
-      glm.fit: fitted rates numerically 0 occurred
-    Message <cliMessage>
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-    Warning <simpleWarning>
-      glm.fit: fitted rates numerically 0 occurred
-    Message <cliMessage>
-      v `Visualize_Scatter()` created a chart.
-      v `PD_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `pdCategory` assessment ----------------------------------------
-      
-      -- Workflow Step 1 of 2: `PD_Map_Raw` --
-      
-      Preparing parameters for `PD_Map_Raw()` ...
-      Calling `PD_Map_Raw()` ...
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      v No issues found for `PD_Map_Raw()`
-      
-      -- Initializing `PD_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      v `PD_Map_Raw()` returned output with 3 rows.
-      v `PD_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 2: `PD_Assess` --
       
       Preparing parameters for `PD_Assess()` ...
       Calling `PD_Assess()` ...

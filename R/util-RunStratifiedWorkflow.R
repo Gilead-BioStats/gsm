@@ -47,33 +47,52 @@ RunStratifiedWorkflow <- function(
 ) {
     if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` workflow"))
 
-    # Generate a workflow for each unique value of the stratification variable.
-    lStratifiedWorkflow <- MakeStratifiedAssessment(
+    lOutput <- RunAssessment(
         lWorkflow,
         lData,
         lMapping,
-        bQuiet
+        lTags = list(
+            type = 'stratified'
+        ),
+        bQuiet = bQuiet
     )
 
-    # Run a workflow for each unique value of the stratification variable.
-    lStratifiedOutput <- lStratifiedWorkflow %>%
-        map(~RunAssessment(
-            .x,
+    if (
+        is.list(lWorkflow$group) &&
+        lWorkflow$group$domain %in% names(lData) &&
+        lWorkflow$group$domain %in% names(lMapping) &&
+        lMapping[[ lWorkflow$group$domain ]][[ lWorkflow$group$columnParam ]] %in% names(lData[[ lWorkflow$group$domain ]])
+    ) {
+        # Generate a workflow for each unique value of the stratification variable.
+        lStratifiedWorkflow <- MakeStratifiedAssessment(
+            lWorkflow,
             lData,
             lMapping,
-            lTags,
+            bQuiet
+        )
+
+        # Run a workflow for each unique value of the stratification variable.
+        lStratifiedOutput <- lStratifiedWorkflow %>%
+            map(~RunAssessment(
+                .x,
+                lData,
+                lMapping,
+                lTags,
+                bQuiet = bQuiet
+            ))
+
+        # Consolidate the stratified output from each workflow into a singular output with stacked data
+        # frames and a paneled data visualization.
+        lConsolidatedOutput <- ConsolidateStrata(
+            lOutput,
+            lStratifiedOutput,
             bQuiet = bQuiet
-        ))
+        )
 
-    # Consolidate the stratified output from each workflow into a singular output with stacked data
-    # frames and a paneled data visualization.
-    lConsolidatedOutput <- ConsolidateStrata(
-        lWorkflow,
-        lData,
-        lMapping,
-        lStratifiedOutput,
-        bQuiet
-    )
+        return(lConsolidatedOutput)
+    } else {
+        lOutput$bStatus <- FALSE
 
-    lConsolidatedOutput
+        return(lOutput)
+    }
 }

@@ -23,12 +23,15 @@
 #' @importFrom yaml read_yaml
 #'
 #' @export
-CheckInputs <- function(context, dfs, mapping = NULL, bQuiet = TRUE) {
-  if (!bQuiet) cli::cli_h2("Checking Input Data for {.fn {context}}")
+CheckInputs <- function(context, dfs, spec = NULL, mapping = NULL, bQuiet = TRUE) {
+  if (!bQuiet)
+      cli::cli_h2("Checking Input Data for {.fn {context}}")
 
-  spec <- yaml::read_yaml(system.file("specs", paste0(context, ".yaml"), package = "gsm"))
+  if (is.null(spec))
+      spec <- yaml::read_yaml(system.file("specs", paste0(context, ".yaml"), package = "gsm"))
 
-  if (is.null(mapping)) mapping <- yaml::read_yaml(system.file("mappings", paste0(context, ".yaml"), package = "gsm"))
+  if (is.null(mapping))
+      mapping <- yaml::read_yaml(system.file("mappings", paste0(context, ".yaml"), package = "gsm"))
 
   checks <- map(names(spec), function(domain) {
     domain_check <- list(
