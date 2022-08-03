@@ -102,13 +102,16 @@ AE_Assess <- function(dfInput,
     dfInput = dfInput
   )
 
+
+
   mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
-  stopifnot(
-    "`strGroup` not found in mapping" = glue('str{strGroup}col') %in% names(mapping$input),
-    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput),
-  )
-  strGroupCol <- mapping$dfInput[glue('str{strGroup}col')]
+  strGroupCol <- mapping$dfInput[[glue('str{strGroup}Col')]]
   mapping$dfInput$strGroupCol <- strGroupCol
+
+  stopifnot(
+    "`strGroup` not found in mapping" = glue('str{strGroup}Col') %in% names(mapping$dfInput),
+    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput)
+  )
 
   checks <- CheckInputs(
     context = "AE_Assess",
