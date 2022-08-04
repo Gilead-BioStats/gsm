@@ -100,7 +100,7 @@
         SubjectID SiteID        StudyID CustomGroupID Exposure Count         Rate
       1      1234  X010X AA-AA-000-0000 United States     1234    NA 0.0016207455
       2      5678  X102X BB-BB-111-1111         China     2345     3 0.0012793177
-      3      9876  X999X CC-CC-333-3333         India     4567     2 0.0004379242
+      3      9876  X999X CC-CC-333-3333         India     4567     3 0.0006568864
       
 
 # bQuiet and bReturnChecks work as intended

@@ -1,6 +1,6 @@
 tags:
   Assessment: Safety
-  Label: AEs - Grade
+  Label: AEs by Grade
 group:
   domain: dfAE
   columnParam: strGradeCol

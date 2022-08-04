@@ -84,7 +84,14 @@ test_that("empty string values are caught", {
 })
 
 test_that("status is FALSE when spec is incorrect", {
-  expect_snapshot(is_mapping_valid(df = dfSUBJ, mapping = mapping_rdsl, bQuiet = FALSE, spec = list(vRequired = "notACol")))
+  expect_snapshot(
+    is_mapping_valid(
+      df = dfSUBJ,
+      mapping = mapping_rdsl,
+      bQuiet = FALSE,
+      spec = list(vRequired = "notACol")
+    )
+  )
 })
 
 

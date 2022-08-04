@@ -2,26 +2,33 @@
 % Please edit documentation in R/util-RunStep.R
 \name{RunStep}
 \alias{RunStep}
-\title{Run a single step in an assessment}
+\title{Run a single step in a workflow}
 \usage{
 RunStep(lStep, lMapping, lData, lTags, bQuiet)
 }
 \arguments{
-\item{lStep}{single workflow step (typically defined in \code{lAssessment$workflow}). Should include the name of the function to run (\code{lStep$name}), data inputs (\code{lStep$inputs}), name of output (\code{lStep$output}) and configurable parameters (\code{lStep$params}) (if any)}
+\item{lStep}{\code{list} single workflow step (typically defined in \code{lAssessment$workflow}). Should
+include the name of the function to run (\code{lStep$name}), data inputs (\code{lStep$inputs}), name of
+output (\code{lStep$output}) and configurable parameters (\code{lStep$params}) (if any)}
 
-\item{lMapping}{List containing expected columns in each data set.}
+\item{lMapping}{\code{list} List containing expected columns in each data set.}
 
-\item{lData}{a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
+\item{lData}{\code{list} a named list of domain level data frames. Names should match the values
+specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs
+from \code{X_Map_Raw}.}
 
-\item{lTags}{tags}
+\item{lTags}{\code{list} tags}
 
-\item{bQuiet}{Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Default is TRUE, which means warning messages are suppressed. Set to
+FALSE to see warning messages.}
 }
 \value{
-\code{list} containing the results of the \code{lStep$name} function call should contain \code{.$checks} parameter with results from \code{is_mapping_vald} for each domain in \code{lStep$inputs}.
+\code{list} containing the results of the \code{lStep$name} function call should contain \code{.$checks}
+parameter with results from \code{is_mapping_vald} for each domain in \code{lStep$inputs}.
 }
 \description{
-Calls a step in an assessment workflow. Currently supports \verb{*_Map_*}, \verb{*_Assess} and \verb{*_FilterDomain}
+Runs a single step of an assessment workflow. Currently supports \code{Filter}, \code{Map}, and \code{Assess}
+functions.
 }
 \examples{
 lStep <- MakeAssessmentList()[["ae"]][["workflow"]][[1]]
