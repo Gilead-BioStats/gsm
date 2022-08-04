@@ -320,6 +320,7 @@
       v `AE_Assess()` Successful
       Saving lResults to `lAssessment`
       v `Visualize_Workflow()` created a flowchart.
+      v All stratified outputs were successfully consolidated.
       
       -- Initializing `aeQTL` assessment ---------------------------------------------
       
@@ -886,6 +887,7 @@
       v `PD_Assess()` Successful
       Saving lResults to `lAssessment`
       v `Visualize_Workflow()` created a flowchart.
+      v All stratified outputs were successfully consolidated.
       
       -- Initializing `sae` assessment -----------------------------------------------
       

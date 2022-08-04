@@ -77,7 +77,7 @@ RunStratifiedWorkflow <- function(
                 .x,
                 lData,
                 lMapping,
-                lTags,
+                list(lTags, .x$tags),
                 bQuiet = bQuiet
             ))
 

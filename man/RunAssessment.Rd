@@ -4,7 +4,7 @@
 \alias{RunAssessment}
 \title{Run a single assessment}
 \usage{
-RunAssessment(lAssessment, lData, lMapping, lTags = NULL, bQuiet = FALSE)
+RunAssessment(lAssessment, lData, lMapping, lTags = NULL, bQuiet = TRUE)
 }
 \arguments{
 \item{lAssessment}{\code{list} A named list of metadata defining how each assessment should be run. Properties should include: \code{label}, \code{tags} and \code{workflow}}

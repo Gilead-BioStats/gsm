@@ -37,17 +37,21 @@
 #'         lTags
 #'     ))
 #'
-#' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
-#' @importFrom stringr str_detect
-#' @importFrom yaml read_yaml
-#' @importFrom purrr map_df
+#' lConsolidatedOutput <- ConsolidateStrata(
+#'     lOutput,
+#'     lStratifiedOutput
+#' )
+#'
+#' @importFrom cli cli_alert_success cli_alert_warning
+#' @importFrom dplyr bind_rows mutate
+#' @importFrom purrr imap map map_lgl reduce
 #'
 #' @export
 
 ConsolidateStrata <- function(
     lOutput,
     lStratifiedOutput,
-    bQuiet
+    bQuiet = TRUE
 ) {
     if (lOutput$bStatus == TRUE && all(map_lgl(lStratifiedOutput, ~.x$bStatus))) {
         # Stack data pipeline from stratified output.
@@ -65,6 +69,7 @@ ConsolidateStrata <- function(
 
         # Generate paneled data visualization.
         # TODO: retrieve appropriate visualization function from... the workflow?
+        # TODO: consider handling faceting here or there?
         consoliDataPipeline$chart <- Visualize_Scatter(
             consoliDataPipeline$dfFlagged,
             strGroupCol = 'stratum',
@@ -76,11 +81,17 @@ ConsolidateStrata <- function(
         for (key in c(names(consoliDataPipeline))) {
             lOutput$lResults[[ key ]] <- consoliDataPipeline[[ key ]]
         }
+
+        if (!bQuiet)
+            cli::cli_alert_success(
+                "All stratified outputs were successfully consolidated."
+            )
     } else {
         if (!bQuiet)
             cli::cli_alert_warning(
-                "Workflow not found for {lOutput$name} assessment; skipping remaining steps."
+                "One or more stratified workflows did not run successfully."
             )
+
         lOutput$bStatus <- FALSE
     }
 

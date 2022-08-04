@@ -21,8 +21,7 @@ lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", pack
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
   expect_equal(length(lAssessments), length(result))
-  expect_equal(c("ae", "aeQTL", "consent", "dispStudy", "dispStudyWithdrew",
-                 "dispTreatment", "ie", "importantpd", "pd", "sae"), names(result))
+  expect_equal(names(lAssessments), names(result))
   expect_true(all(map_chr(result, ~ class(.)) == "list"))
   expect_equal(names(result$ae$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",

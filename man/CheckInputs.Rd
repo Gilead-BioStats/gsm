@@ -4,7 +4,7 @@
 \alias{CheckInputs}
 \title{Check mapping inputs}
 \usage{
-CheckInputs(context, dfs, mapping = NULL, bQuiet = TRUE)
+CheckInputs(context, dfs, spec = NULL, mapping = NULL, bQuiet = TRUE)
 }
 \arguments{
 \item{context}{Description of the data pipeline "step" that is being checked, i.e., "AE_Map_Raw" or "PD_Assess".}
