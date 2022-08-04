@@ -10,6 +10,8 @@ dfSUBJ <- data.frame(
   stringsAsFactors = FALSE,
   SubjectID = c("1234", "5678", "9876"),
   SiteID = c("X010X", "X102X", "X999X"),
+  StudyID = c("AA-AA-000-0000", "BB-BB-111-1111", "CC-CC-333-3333"),
+  RegionID = c("United States", "China", "India"),
   TimeOnTreatment = c(3455, 1745, 1233),
   TimeOnStudy = c(1234, 2345, 4567),
   RandDate = as.Date(c("2012-09-02", "2017-05-08", "2018-05-20"))

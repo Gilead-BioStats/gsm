@@ -43,7 +43,7 @@
 #'  )
 #'
 #' StratifiedPD %>%
-#'   map(~.x %>%
+#'   purrr::map(~.x %>%
 #'     RunAssessment(
 #'       lData = list(
 #'         dfSUBJ = clindata::rawplus_subj,

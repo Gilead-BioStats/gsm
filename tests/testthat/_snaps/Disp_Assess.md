@@ -8,15 +8,15 @@
 
 ---
 
-    strMethod is not 'chisq' or 'fisher'
+    strMethod is not 'chisq', 'fisher', or 'identity'
 
 ---
 
-    strMethod is not 'chisq' or 'fisher'
+    strMethod is not 'chisq', 'fisher', or 'identity'
 
 ---
 
-    strMethod is not 'chisq' or 'fisher'
+    strMethod is not 'chisq', 'fisher', or 'identity'
 
 ---
 

@@ -51,7 +51,7 @@ Disp_Assess <- function(dfInput,
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),
     "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput),
-    "strMethod is not 'chisq' or 'fisher'" = strMethod %in% c("chisq", "fisher"),
+    "strMethod is not 'chisq', 'fisher', or 'identity'" = strMethod %in% c("chisq", "fisher", "identity"),
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
     "bChart must be logical" = is.logical(bChart),
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
@@ -146,6 +146,25 @@ Disp_Assess <- function(dfInput,
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Fisher} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
       lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strValueColumn = "KRI", vThreshold = vThreshold)
+      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
+
+      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
+      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
+    } else if (strMethod == "identity") {
+      if (is.null(vThreshold)) {
+        vThreshold <- c(3.491, 5.172)
+      } else {
+        stopifnot(
+          "vThreshold is not numeric" = is.numeric(vThreshold),
+          "vThreshold for Identity contains NA values" = all(!is.na(vThreshold)),
+          "vThreshold is not length 2" = length(vThreshold) == 2
+        )
+      }
+
+      lAssess$dfAnalyzed <- gsm::Analyze_Identity(lAssess$dfTransformed)
+      if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Identity} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
+
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Score")
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
 
       lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
