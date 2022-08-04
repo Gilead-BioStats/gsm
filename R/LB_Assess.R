@@ -49,11 +49,11 @@ LB_Assess <- function(
     bChart = TRUE,
     bReturnChecks = FALSE,
     bQuiet = TRUE
-){
+) {
 
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
-"dfInput is missing one or more of these columns: SubjectID, Count, Exposure, and Rate" = all(c("SubjectID", "Count", "Exposure", "Rate") %in% names(dfInput)),
+    "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),
     "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput),
     "strMethod is not 'chisq' or 'fisher'" = strMethod %in% c("chisq", "fisher"),
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
@@ -92,12 +92,13 @@ LB_Assess <- function(
     dfInput = dfInput
   )
 
-  mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
+  mapping <- yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm"))
   mapping$dfInput$strGroupCol <- strGroupCol
 
   checks <- CheckInputs(
     context = "LB_Assess",
     dfs = list(dfInput = lAssess$dfInput),
+    mapping = mapping,
     bQuiet = bQuiet
   )
 
@@ -157,7 +158,7 @@ LB_Assess <- function(
     }
 
   } else {
-    if (!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} did not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn LB_Assess} did not run because of failed check.")
   }
 
   if (bReturnChecks) lAssess$lChecks <- checks

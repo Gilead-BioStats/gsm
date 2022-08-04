@@ -1,5 +1,7 @@
 #' Lab Assessment - Raw Mapping
 #'
+#' Convert from ADaM or raw format to input format for Labs Assessment.
+#'
 #' @description
 #' Convert raw lab data (LB), typically processed case report form data, to formatted
 #' input data to [gsm::LB_Assess()].
@@ -35,6 +37,8 @@
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
 #' @import dplyr
+#' @importFrom glue glue
+#' @importFrom yaml read_yaml
 #'
 #' @export
 
@@ -43,6 +47,7 @@ LB_Map_Raw <- function(
     dfSUBJ = clindata::rawplus_subj,
     dfLB = clindata::rawplus_lb
   ),
+
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
@@ -59,6 +64,7 @@ LB_Map_Raw <- function(
     mapping = lMapping
   )
 
+  # Run mapping if checks passed.
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn LB_Map_Raw}")
 

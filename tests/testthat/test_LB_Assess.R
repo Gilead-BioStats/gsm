@@ -58,7 +58,7 @@ test_that("incorrect lTags throw errors", {
       )
     )
   )
-  expect_snapshot_error(assess_function(dfInput, lTags = list(SiteID = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(GroupID = "")))
   expect_snapshot_error(assess_function(dfInput, lTags = list(N = "")))
   expect_snapshot_error(assess_function(dfInput, lTags = list(Score = "")))
   expect_snapshot_error(assess_function(dfInput, lTags = list(ScoreLabel = "")))

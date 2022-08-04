@@ -70,7 +70,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol"]
             }
           },
           "value": [
@@ -83,6 +83,16 @@
               "type": "character",
               "attributes": {},
               "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudyID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RegionID"]
             }
           ]
         },
@@ -181,7 +191,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strCountCol"]
+              "value": ["strIDCol", "strGroupCol", "strCountCol"]
             }
           ]
         }
@@ -206,7 +216,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strCountCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strCountCol"]
             }
           },
           "value": [
@@ -219,6 +229,16 @@
               "type": "character",
               "attributes": {},
               "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudyID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["CustomGroupID"]
             },
             {
               "type": "character",

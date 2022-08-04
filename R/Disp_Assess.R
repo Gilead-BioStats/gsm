@@ -87,7 +87,7 @@ Disp_Assess <- function(dfInput,
     dfInput = dfInput
   )
 
-  mapping <- yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm"))
+  mapping <- yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm"))
   mapping$dfInput$strGroupCol <- strGroupCol
 
   checks <- CheckInputs(
