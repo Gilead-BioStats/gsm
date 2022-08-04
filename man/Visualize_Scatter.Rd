@@ -4,12 +4,19 @@
 \alias{Visualize_Scatter}
 \title{Site-level visualization of site-level results using a Poisson or Wilcoxon model.}
 \usage{
-Visualize_Scatter(dfFlagged, dfBounds = NULL, strUnit = "days")
+Visualize_Scatter(
+  dfFlagged,
+  dfBounds = NULL,
+  strGroupCol = NULL,
+  strUnit = "days"
+)
 }
 \arguments{
 \item{dfFlagged}{analyze_poisson results with flags added.}
 
 \item{dfBounds}{data.frame giving prediction bounds for range of dfFlagged.}
+
+\item{strGroupCol}{name of stratification column for facet wrap (default=NULL)}
 
 \item{strUnit}{exposure time unit. Defaults to "days".}
 }
@@ -27,5 +34,7 @@ Visualize_Scatter(SafetyAE$dfFlagged, dfBounds)
 
 SafetyAE_wilk <- AE_Assess(dfInput, strMethod = "wilcoxon")
 Visualize_Scatter(SafetyAE_wilk$dfFlagged)
+
+# TODO: add stratified example
 
 }

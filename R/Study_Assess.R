@@ -27,7 +27,7 @@ Study_Assess <- function(
   lAssessments = NULL,
   lSubjFilters = NULL,
   lTags = list(Study = "myStudy"),
-  bQuiet = FALSE
+  bQuiet = TRUE
 ) {
   if (!is.null(lTags)) {
     stopifnot(
@@ -64,22 +64,6 @@ Study_Assess <- function(
     lAssessments <- MakeAssessmentList()
   }
 
-  # Convert grouped assessments into separate assessments for each group level
-  for(lAssessment in lAssessments){
-    if(hasName(lAssessment,"group")){
-      StratifiedAssessment <- MakeStratifiedAssessment(
-        lData = lData,
-        lAssessment = lAssessment,
-        lMapping = lMapping,
-        bQuiet=bQuiet
-      )
-
-      # replace original assessment with stratified assessment list
-      lAssessments[[lAssessment$name]]<-NULL
-      lAssessments <- c(lAssessments, StratifiedAssessment)
-    }
-  }
-
   # Filter data$dfSUBJ based on lSubjFilters --------------------------------
   if (!is.null(lSubjFilters)) {
     for (colMapping in names(lSubjFilters)) {
@@ -102,15 +86,22 @@ Study_Assess <- function(
   if (exists("dfSUBJ", where = lData)) {
     if (nrow(lData$dfSUBJ > 0)) {
       ### --- Attempt to run each assessment --- ###
-      lAssessments <- lAssessments %>% map(
-        ~ gsm::RunAssessment(
-          .x,
-          lData = lData,
-          lMapping = lMapping,
-          lTags = lTags,
-          bQuiet = bQuiet
-        )
-      )
+      lAssessments <- lAssessments %>%
+        map(function(lAssessment) {
+            Runction <- ifelse(
+                hasName(lAssessment, "group"),
+                RunStratifiedWorkflow,
+                RunAssessment
+            )
+
+            Runction(
+                lAssessment,
+                lData = lData,
+                lMapping = lMapping,
+                lTags = lTags,
+                bQuiet = bQuiet
+            )
+      })
     } else {
       if(!bQuiet) cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
       lAssessments <- NULL
