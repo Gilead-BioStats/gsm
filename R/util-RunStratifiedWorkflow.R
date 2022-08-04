@@ -70,7 +70,7 @@ RunStratifiedWorkflow <- function(
 
         # Run a workflow for each unique value of the stratification variable.
         lStratifiedOutput <- lStratifiedWorkflow %>%
-            map(~RunAssessment(
+            purrr::map(~RunAssessment(
                 .x,
                 lData,
                 lMapping,
