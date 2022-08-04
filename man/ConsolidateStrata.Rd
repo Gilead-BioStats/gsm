@@ -27,13 +27,10 @@ lData <- list(
   dfSUBJ = clindata::rawplus_subj,
   dfAE = clindata::rawplus_ae
 )
-lTags <- list(
-  Study = "myStudy"
-)
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 lWorkflow <- MakeAssessmentList()$aeGrade
-lOutput <- RunAssessment(lWorkflow, lData = lData, lMapping = lMapping, lTags = lTags)
+lOutput <- RunAssessment(lWorkflow, lData = lData, lMapping = lMapping)
 
 lStratifiedWorkflow <- MakeStratifiedAssessment(
     lWorkflow,
@@ -41,11 +38,10 @@ lStratifiedWorkflow <- MakeStratifiedAssessment(
     lMapping
 )
 lStratifiedOutput <- lStratifiedWorkflow \%>\%
-    map(~RunAssessment(
+    purrr::map(~RunAssessment(
         .x,
         lData,
-        lMapping,
-        lTags
+        lMapping
     ))
 
 lConsolidatedOutput <- ConsolidateStrata(

@@ -39,11 +39,8 @@ lData <- list(
   dfCONSENT = clindata::rawplus_consent,
   dfIE = clindata::rawplus_ie
 )
-lTags <- list(
-  Study = "myStudy"
-)
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
-aeOutput <- RunStratifiedWorkflow(lWorkflows$aeGrade, lData = lData, lMapping = lMapping, lTags = lTags)
+aeOutput <- RunStratifiedWorkflow(lWorkflows$aeGrade, lData = lData, lMapping = lMapping)
 
 }

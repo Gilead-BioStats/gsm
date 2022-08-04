@@ -6,17 +6,17 @@
 \usage{
 Visualize_Scatter(
   dfFlagged,
-  strGroupCol = NULL,
   dfBounds = NULL,
+  strGroupCol = NULL,
   strUnit = "days"
 )
 }
 \arguments{
 \item{dfFlagged}{analyze_poisson results with flags added.}
 
-\item{strGroupCol}{name of stratification column for facet wrap (default=NULL)}
-
 \item{dfBounds}{data.frame giving prediction bounds for range of dfFlagged.}
+
+\item{strGroupCol}{name of stratification column for facet wrap (default=NULL)}
 
 \item{strUnit}{exposure time unit. Defaults to "days".}
 }
@@ -35,26 +35,6 @@ Visualize_Scatter(SafetyAE$dfFlagged, dfBounds)
 SafetyAE_wilk <- AE_Assess(dfInput, strMethod = "wilcoxon")
 Visualize_Scatter(SafetyAE_wilk$dfFlagged)
 
-
-
-pdCategory <- Study_Assess(
-    lAssessments = list(
-        pdCategory = MakeAssessmentList()$pdCategory
-    )
-)
-
-allFlagged <- pdCategory \%>\% 
-    imap(function(assessment, name) {
-        assessment$lResults$dfFlagged \%>\% mutate(strata = assessment$tags$Label)
-    }) \%>\%
-    bind_rows
-
-dfBounds <- pdCategory \%>\%
-    imap(function(assessment, name) {
-        assessment$lResults$dfBounds \%>\% mutate(strata = assessment$tags$Label)
-    }) \%>\%
-    bind_rows
-
-Visualize_Scatter(allFlagged, strGroupCol = 'strata', dfBounds = dfBounds)
+TODO: add stratified example
 
 }

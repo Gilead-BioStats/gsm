@@ -11,6 +11,8 @@ CheckInputs(context, dfs, spec = NULL, mapping = NULL, bQuiet = TRUE)
 
 \item{dfs}{\code{list} A list of data frames.}
 
+\item{spec}{\code{list} YAML spec for a given context.}
+
 \item{mapping}{\code{list} YAML mapping for a given context.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}

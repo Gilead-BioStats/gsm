@@ -2,6 +2,7 @@
 #'
 #' @param context Description of the data pipeline "step" that is being checked, i.e., "AE_Map_Raw" or "PD_Assess".
 #' @param dfs `list` A list of data frames.
+#' @param spec `list` YAML spec for a given context.
 #' @param mapping `list` YAML mapping for a given context.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'

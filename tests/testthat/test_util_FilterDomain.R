@@ -12,7 +12,7 @@ test_that("basic filter works", {
   )
   expect_equal(
     ae_test,
-    dfAE %>% filter(AE_TE_FLAG == TRUE)
+    dfAE %>% dplyr::filter(AE_TE_FLAG == TRUE)
   )
 })
 
@@ -29,7 +29,7 @@ test_that("invalid column throws an error", {
 
 test_that("filter to 0 rows throws a warning", {
   dfAE <- dfAE %>%
-    filter(AE_TE_FLAG == FALSE)
+    dplyr::filter(AE_TE_FLAG == FALSE)
 
   expect_equal(suppressWarnings(
     FilterDomain(

@@ -28,7 +28,7 @@ dfPD <- tibble::tribble(
   "9876", "Study Medication", "N",
   "9876", "Nonadherence of study drug", "N",
   "9876", "Subject Not Managed According to Protocol", "N"
-) %>% mutate(DVDECOD = toupper(PD_CATEGORY))
+) %>% dplyr::mutate(DVDECOD = toupper(PD_CATEGORY))
 
 dfCONSENT <- data.frame(
   stringsAsFactors = FALSE,

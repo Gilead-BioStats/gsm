@@ -13,7 +13,7 @@ lStratifiedWorkflow <- MakeStratifiedAssessment(
     lMapping
 )
 lStratifiedOutput <- lStratifiedWorkflow %>%
-    map(~RunAssessment(
+    purrr::map(~RunAssessment(
         .x,
         lData,
         lMapping

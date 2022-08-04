@@ -26,12 +26,9 @@
 #'   dfCONSENT = clindata::rawplus_consent,
 #'   dfIE = clindata::rawplus_ie
 #' )
-#' lTags <- list(
-#'   Study = "myStudy"
-#' )
 #' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
-#'
-#' aeOutput <- RunStratifiedWorkflow(lWorkflows$aeGrade, lData = lData, lMapping = lMapping, lTags = lTags)
+#' 
+#' aeOutput <- RunStratifiedWorkflow(lWorkflows$aeGrade, lData = lData, lMapping = lMapping)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom purrr map
@@ -77,7 +74,6 @@ RunStratifiedWorkflow <- function(
                 .x,
                 lData,
                 lMapping,
-                list(lTags, .x$tags),
                 bQuiet = bQuiet
             ))
 

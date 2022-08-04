@@ -12,37 +12,17 @@
 #' SafetyAE <- AE_Assess(dfInput)
 #' dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$dfTransformed, c(-5, 5))
 #' Visualize_Scatter(SafetyAE$dfFlagged, dfBounds)
-#'
+#' 
 #' SafetyAE_wilk <- AE_Assess(dfInput, strMethod = "wilcoxon")
 #' Visualize_Scatter(SafetyAE_wilk$dfFlagged)
 #'
-#'
-#' 
-#' pdCategory <- Study_Assess(
-#'     lAssessments = list(
-#'         pdCategory = MakeAssessmentList()$pdCategory
-#'     )
-#' )
-#' 
-#' allFlagged <- pdCategory %>% 
-#'     imap(function(assessment, name) {
-#'         assessment$lResults$dfFlagged %>% mutate(strata = assessment$tags$Label)
-#'     }) %>%
-#'     bind_rows
-#' 
-#' dfBounds <- pdCategory %>%
-#'     imap(function(assessment, name) {
-#'         assessment$lResults$dfBounds %>% mutate(strata = assessment$tags$Label)
-#'     }) %>%
-#'     bind_rows
-#' 
-#' Visualize_Scatter(allFlagged, strGroupCol = 'strata', dfBounds = dfBounds)
+#' TODO: add stratified example
 #'
 #' @import ggplot2
 #'
 #' @export
 
-Visualize_Scatter <- function(dfFlagged, strGroupCol = NULL, dfBounds = NULL, strUnit = "days") {
+Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strGroupCol = NULL, strUnit = "days") {
   # Define tooltip for use in plotly.
   dfFlaggedWithTooltip <- dfFlagged %>%
     mutate(
