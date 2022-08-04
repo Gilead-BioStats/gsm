@@ -49,14 +49,13 @@ IE_Assess <- function(dfInput,
                       nThreshold = 0.5,
                       lTags = list(Assessment = "IE"),
                       strKRILabel = "# of Inclusion/Exclusion Issues",
-                      strGroupCol = "SiteID",
+                      strGroup = "Site",
                       bChart = TRUE,
                       bReturnChecks = FALSE,
                       bQuiet = TRUE) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),
-    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput),
     "nThreshold must be numeric" = is.numeric(nThreshold),
     "nThreshold must be length 1" = length(nThreshold) == 1,
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
@@ -94,8 +93,14 @@ IE_Assess <- function(dfInput,
     dfInput = dfInput
   )
 
-  mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
+  mapping <- yaml::read_yaml(system.file("mappings", "IE_Assess.yaml", package = "gsm"))
+  strGroupCol <- mapping$dfInput[[glue::glue('str{strGroup}Col')]]
   mapping$dfInput$strGroupCol <- strGroupCol
+
+  stopifnot(
+    "`strGroup` not found in mapping" = glue('str{strGroup}Col') %in% names(mapping$dfInput),
+    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput)
+  )
 
   checks <- CheckInputs(
     context = "IE_Assess",

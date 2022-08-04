@@ -57,7 +57,7 @@ PD_Assess <- function(dfInput,
                       vThreshold = NULL,
                       strMethod = "poisson",
                       strKRILabel = "PDs/Week",
-                      strGroupCol = "SiteID",
+                      strGroup = "Site",
                       lTags = list(Assessment = "PD"),
                       bChart = TRUE,
                       bReturnChecks = FALSE,
@@ -65,7 +65,6 @@ PD_Assess <- function(dfInput,
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "dfInput is missing one or more of these columns: SubjectID, Count, Exposure, and Rate" = all(c("SubjectID", "Count", "Exposure", "Rate") %in% names(dfInput)),
-    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput),
     "strMethod is not 'poisson', 'wilcoxon', or 'identity'" = strMethod %in% c("poisson", "wilcoxon", "identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
@@ -104,7 +103,13 @@ PD_Assess <- function(dfInput,
   )
 
   mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
+  strGroupCol <- mapping$dfInput[[glue::glue('str{strGroup}Col')]]
   mapping$dfInput$strGroupCol <- strGroupCol
+
+  stopifnot(
+    "`strGroup` not found in mapping" = glue('str{strGroup}Col') %in% names(mapping$dfInput),
+    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput)
+  )
 
   checks <- CheckInputs(
     context = "PD_Assess",
