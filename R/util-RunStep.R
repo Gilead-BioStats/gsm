@@ -1,14 +1,21 @@
-#' Run a single step in an assessment
+#' Run a single step in a workflow
 #'
-#' Calls a step in an assessment workflow. Currently supports `*_Map_*`, `*_Assess` and `*_FilterDomain`
+#' Runs a single step of an assessment workflow. Currently supports `Filter`, `Map`, and `Assess`
+#' functions.
 #'
-#' @param lStep single workflow step (typically defined in `lAssessment$workflow`). Should include the name of the function to run (`lStep$name`), data inputs (`lStep$inputs`), name of output (`lStep$output`) and configurable parameters (`lStep$params`) (if any)
-#' @param lMapping List containing expected columns in each data set.
-#' @param lData a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
-#' @param lTags tags
-#' @param bQuiet Default is TRUE, which means warning messages are suppressed. Set to FALSE to see warning messages.
+#' @param lStep `list` single workflow step (typically defined in `lAssessment$workflow`). Should
+#'   include the name of the function to run (`lStep$name`), data inputs (`lStep$inputs`), name of
+#'   output (`lStep$output`) and configurable parameters (`lStep$params`) (if any)
+#' @param lMapping `list` List containing expected columns in each data set.
+#' @param lData `list` a named list of domain level data frames. Names should match the values
+#'   specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs
+#'   from `X_Map_Raw`.
+#' @param lTags `list` tags
+#' @param bQuiet `logical` Default is TRUE, which means warning messages are suppressed. Set to
+#'   FALSE to see warning messages.
 #'
-#' @return `list` containing the results of the `lStep$name` function call should contain `.$checks` parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
+#' @return `list` containing the results of the `lStep$name` function call should contain `.$checks`
+#'   parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
 #'
 #' @examples
 #' lStep <- MakeAssessmentList()[["ae"]][["workflow"]][[1]]
@@ -56,8 +63,8 @@ RunStep <- function(lStep, lMapping, lData, lTags, bQuiet) {
     if (is.null(params$df)) {
       params$df <- NA
     }
-  } else if (lStep$name == "MakeStrata"){
-    params$df <- lData[[lStep$inputs]]
+  } else if (lStep$name == "FilterData"){
+    params$dfInput <- lData[[lStep$inputs]]
   }
 
   if(!bQuiet) cli::cli_text("Calling {.fn {lStep$name}} ...")

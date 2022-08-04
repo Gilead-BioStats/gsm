@@ -1,8 +1,8 @@
-#' Create multiple Assessment workflows for a stratified assessment
+#' Create multiple workflows from a single stratified workflow
 #'
 #' @param lData `list` A named list of domain-level data frames.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
-#' @param lAssessment `list` A named list of metadata defining how an assessment should be run.
+#' @param lWorkflow `list` A named list of metadata defining how an workflow should be run.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @examples
@@ -39,7 +39,7 @@
 #'      dfPD = clindata::rawplus_pd
 #'    ),
 #'    lMapping = lMapping,
-#'    lAssessment = lAssessmentList$pdCategory
+#'    lWorkflow = MakeAssessmentList()$pdCategory
 #'  )
 #'
 #' StratifiedPD %>%
@@ -74,77 +74,75 @@
 #'     )
 #'   )
 #'
-#' @return `list` A list of assessments for each specified strata
+#' @return `list` A list of workflows for each specified strata
 #'
 #' @importFrom cli cli_alert_info cli_alert_success cli_alert_warning cli_text
 #' @importFrom purrr imap map_chr
-#'
+#' @importFrom glue glue
 #' @export
 
-MakeStratifiedAssessment <- function(lAssessment, lMapping, lData, bQuiet = TRUE){
+MakeStratifiedAssessment <- function(
+    lWorkflow,
+    lData,
+    lMapping,
+    bQuiet = TRUE
+) {
+    stopifnot(
+        '[ lWorkflow ] must be a list.' = is.list(lWorkflow),
+        '[ lWorkflow ] requires a [ group ] property.' = 'group' %in% names(lWorkflow),
+        '[ lWorkflow$group ] must be a list.' = is.list(lWorkflow$group),
+        '[ lWorkflow$group ] requires properties of [ domain ] and [ columnParam ].' = all(c('domain', 'columnParam') %in% names(lWorkflow$group)),
 
-  if(all(c("domain", "columnParam") %in% names(lAssessment$group))) {
+        '[ lMapping ] must be a list.' = is.list(lMapping),
+        '[ lMapping ] requires a [ lWorkflow$group$domain ] property.' = lWorkflow$group$domain %in% names(lMapping),
+        '[ lMapping[[ lWorkflow$group$domain ]] ] requires a [ lWorkflow$group$columnParam ] property.' = lWorkflow$group$columnParam %in% names(lMapping[[ lWorkflow$group$domain ]]),
 
-    groupDomain <- lAssessment$group$domain
-    groupColumnParam <- lAssessment$group$columnParam
+        '[ lData ] must be a list.' = is.list(lData),
+        '[ lData ] requires a [ lWorkflow$group$domain ] property.' = lWorkflow$group$domain %in% names(lData),
+        '[ lData[[ lWorkflow$group$domain ]] ] must be a data frame.' = is.data.frame(lData[[ lWorkflow$group$domain ]]),
+        '[ lData[[ lWorkflow$group$domain ]] ] requires a [ lMapping[[ lWorkflow$group$columnParam ]] ] column.' = lMapping[[ lWorkflow$group$columnParam ]] %in% names(lData[[ lWorkflow$group$domain ]]),
 
-    if(hasName(lMapping[[groupDomain]], groupColumnParam)){
-      groupColumn <- lMapping[[groupDomain]][[groupColumnParam]]
-    } else {
-      groupColumn <- NA
-    }
+        '[ bQuiet ] must be a logical.' = is.logical(bQuiet)
+    )
 
-    if(hasName(lData, groupDomain) & hasName(lData[[groupDomain]], groupColumn)) {
+    domainName <- lWorkflow$group$domain
+    data <- lData[[ domainName ]]
+    columnName <- lMapping[[ domainName ]][[ lWorkflow$group$columnParam ]]
+    strata <- data[[ columnName ]] %>% unique %>% sort
 
-      # get unique levels of the group column
-      groupValues <- unique(lData[[groupDomain]][[groupColumn]])
+    stratifiedWorkflows <- strata %>%
+        purrr::imap(function(stratum, i) {
+            workflow <- lWorkflow
 
-      if(length(groupValues) >= 1){
-        # add filter to create separate (ungrouped) assessment for each group
-        lGroupAssessments <- groupValues %>% imap(function(groupValue, index){
+            # Tailor workflow to stratum.
+            workflow$name <- glue::glue('{workflow$name}_{i}')
+            workflow$tags$Group <- glue::glue('{domainName}${columnName}={stratum}')
+            workflow$tags$Label <- glue::glue('{workflow$tags$Label}: {stratum}')
+            workflow$label <- glue::glue('{workflow$tags$Label} ({workflow$tags$Group})')
 
-          thisAssessment <- lAssessment
-          thisAssessment$name <- paste0(thisAssessment$name,"_",index)
-          thisAssessment$tags$Group <- paste0(groupDomain,"$",groupColumn, "=",groupValue)
-          thisAssessment$tags$Label <- paste0(thisAssessment$tags$Label, ' - ', groupValue)
-          thisAssessment$label <- paste0(thisAssessment$tags$Label, ' (', thisAssessment$tags$Group, ')')
-          lStrata <- list(list(
-            name = "MakeStrata",
-            inputs = groupDomain,
-            output = groupDomain,
-            params = list(
-              strDomain = groupDomain,
-              strCol = groupColumn,
-              strVal = groupValue
+            # Add an additional workflow step that subsets on the current stratum.
+            lStrata <- list(list(
+                name = "FilterData",
+                inputs = domainName,
+                output = domainName,
+                params = list(
+                    strCol = columnName,
+                    anyVal = stratum
+                )
             ))
-          )
-          thisAssessment$workflow <- c(lStrata, lAssessment$workflow)
-          return(thisAssessment)
+
+            workflow$workflow <- c(lStrata, lWorkflow$workflow)
+
+            workflow
         })
-        names(lGroupAssessments) <- lGroupAssessments %>% map_chr(~ .x$name)
-        if(!bQuiet) cli::cli_alert_info("Stratified assessment workflow created for each level of {groupDomain}${groupColumn} (n={length(groupValues)}).")
 
-        return(lGroupAssessments)
-      } else {
+    names(stratifiedWorkflows) <- map_chr(stratifiedWorkflows, ~.x$name)
 
-      if(!bQuiet) cli::cli_alert_warning("Stratified assessment workflow not created.")
+    if(!bQuiet)
+        cli::cli_alert_info(
+            "Stratified workflow created for each level of {domainName}${columnName} (n={length(strata)})."
+        )
 
-        return(NULL)
-    }
-
-  } else {
-
-    if(!bQuiet) cli::cli_alert_warning("Stratified assessment workflow not created.")
-
-    return(NULL)
-  }
-
-  } else {
-
-    if(!bQuiet) cli::cli_alert_warning("Stratified assessment workflow not created.")
-
-    return(NULL)
-  }
-
+    stratifiedWorkflows
 }
 

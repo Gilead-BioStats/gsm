@@ -6,6 +6,7 @@
 \usage{
 Visualize_Count(
   dfAnalyzed,
+  strGroupCol = NULL,
   strTotalCol = "N",
   strCountCol = "TotalCount",
   strTitle = ""
@@ -13,6 +14,8 @@ Visualize_Count(
 }
 \arguments{
 \item{dfAnalyzed}{Map results from IE or Consent assessments.}
+
+\item{strGroupCol}{name of stratification column for facet wrap (default=NULL)}
 
 \item{strTotalCol}{Column containing total of site-level participants. Default is "N" from \code{\link{Transform_EventCount}}.}
 

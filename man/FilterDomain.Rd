@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-FilterDomain.R
 \name{FilterDomain}
 \alias{FilterDomain}
-\title{Utility function for basic filtering}
+\title{Subset a data frame given a mapping}
 \usage{
 FilterDomain(
   df,
@@ -34,7 +34,7 @@ FilterDomain(
 If \code{bReturnChecks} is \code{TRUE}, a \code{list} is returned with a filtered \code{df}, and a list of checks run on input data (\code{lChecks}).
 }
 \description{
-Utility function for basic filtering
+Subset a data frame given a mapping
 }
 \examples{
 lMapping <- list(dfAE = list(
