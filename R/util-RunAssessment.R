@@ -34,7 +34,7 @@
 #'
 #' @export
 
-RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = FALSE) {
+RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = TRUE) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lAssessment$name, "` assessment"))
 
   lAssessment$lData <- lData
@@ -54,7 +54,6 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
           lTags = c(lTags, lAssessment$tags),
           bQuiet = bQuiet
         )
-
         lAssessment$checks[[stepCount]] <- result$lChecks
         names(lAssessment$checks)[[stepCount]] <- step$name
         lAssessment$bStatus <- result$lChecks$status
@@ -80,7 +79,6 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
     if(!bQuiet) cli::cli_alert_warning("Workflow not found for {lAssessment$name} assessment - Skipping remaining steps")
     lAssessment$bStatus <- FALSE
   }
-
 
   lAssessment$lChecks$flowchart <- Visualize_Workflow(list(temp_name = lAssessment)) %>%
     set_names(nm = lAssessment$name)

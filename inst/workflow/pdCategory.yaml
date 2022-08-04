@@ -1,6 +1,6 @@
 tags:
   Assessment: PD
-  Label: PD - Category
+  Label: PDs by Category
 group:
   domain: dfPD
   columnParam: strCategoryCol

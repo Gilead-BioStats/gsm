@@ -49,9 +49,11 @@ reference:
       - is_mapping_valid
       - MergeSubjects
       - MakeAssessmentList
-      - MakeStrata
+      - ConsolidateStrata
       - MakeStratifiedAssessment
+      - RunStratifiedWorkflow
       - RunAssessment
+      - FilterData
       - FilterDomain
       - RunStep
       - CheckInputs
