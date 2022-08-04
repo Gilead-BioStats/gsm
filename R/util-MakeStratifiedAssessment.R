@@ -78,7 +78,7 @@ MakeStratifiedAssessment <- function(
     strata <- data[[ columnName ]] %>% unique %>% sort
 
     stratifiedWorkflows <- strata %>%
-        imap(function(stratum, i) {
+        purrr::imap(function(stratum, i) {
             workflow <- lWorkflow
 
             # Tailor workflow to stratum.
