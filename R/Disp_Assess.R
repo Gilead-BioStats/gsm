@@ -40,19 +40,18 @@
 #' @importFrom purrr map map_dbl
 #'
 #' @export
-Disp_Assess <- function(
-    dfInput,
-    vThreshold = NULL,
-    strMethod = "chisq",
-    strKRILabel = "DCs/Week",
-    strGroupCol = "SiteID",
-    lTags = list(
-      Assessment = "Disposition"
-    ),
-    bChart = TRUE,
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
-) {
+
+Disp_Assess <- function(dfInput,
+                        vThreshold = NULL,
+                        strMethod = "chisq",
+                        strKRILabel = "% Discontinuation",
+                        strGroupCol = "SiteID",
+                        lTags = list(
+                          Assessment = "Disposition"
+                          ),
+                        bChart = TRUE,
+                        bReturnChecks = FALSE,
+                        bQuiet = TRUE) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),
@@ -110,9 +109,11 @@ Disp_Assess <- function(
     lAssess$dfTransformed <- gsm::Transform_EventCount(
       lAssess$dfInput,
       strCountCol = "Count",
+      strExposureCol = "Total",
       strGroupCol = strGroupCol,
       strKRILabel = strKRILabel
     )
+
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     if (strMethod == "chisq") {

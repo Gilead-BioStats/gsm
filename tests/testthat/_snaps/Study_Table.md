@@ -12,23 +12,25 @@
        [7] "Consent"                                                     
        [8] "--Consent"                                                   
        [9] "Disposition"                                                 
-      [10] "--Treatment - Study Withdrawals"                             
-      [11] "--Treatment"                                                 
-      [12] "IE"                                                          
-      [13] "--IE"                                                        
-      [14] "PD"                                                          
-      [15] "--Important PD"                                              
-      [16] "--PD"                                                        
-      [17] "--PDs by Category: NONADHERENCE OF STUDY DRUG"               
-      [18] "--PDs by Category: STUDY MEDICATION"                         
-      [19] "--PDs by Category: SUBJECT NOT MANAGED ACCORDING TO PROTOCOL"
+      [10] "--Study"                                                     
+      [11] "--Treatment - Study Withdrawals"                             
+      [12] "--Treatment"                                                 
+      [13] "IE"                                                          
+      [14] "--IE"                                                        
+      [15] "PD"                                                          
+      [16] "--Important PD"                                              
+      [17] "--PD"                                                        
+      [18] "--PDs by Category: NONADHERENCE OF STUDY DRUG"               
+      [19] "--PDs by Category: STUDY MEDICATION"                         
+      [20] "--PDs by Category: SUBJECT NOT MANAGED ACCORDING TO PROTOCOL"
 
 # bFormat works
 
     Code
       tbl$df_summary$X010X
     Output
-       [1] "1" "1" ""  " " ""  " " "*" "+" ""  " " " " ""  " " ""  " " " " " " " " " "
+       [1] "1" "1" ""  " " ""  " " "*" "+" ""  " " " " " " ""  " " ""  " " " " " " " "
+      [20] " "
 
 # bShowCounts works
 
@@ -43,16 +45,17 @@
        [6] "Consent"                                                     
        [7] "--Consent"                                                   
        [8] "Disposition"                                                 
-       [9] "--Treatment - Study Withdrawals"                             
-      [10] "--Treatment"                                                 
-      [11] "IE"                                                          
-      [12] "--IE"                                                        
-      [13] "PD"                                                          
-      [14] "--Important PD"                                              
-      [15] "--PD"                                                        
-      [16] "--PDs by Category: NONADHERENCE OF STUDY DRUG"               
-      [17] "--PDs by Category: STUDY MEDICATION"                         
-      [18] "--PDs by Category: SUBJECT NOT MANAGED ACCORDING TO PROTOCOL"
+       [9] "--Study"                                                     
+      [10] "--Treatment - Study Withdrawals"                             
+      [11] "--Treatment"                                                 
+      [12] "IE"                                                          
+      [13] "--IE"                                                        
+      [14] "PD"                                                          
+      [15] "--Important PD"                                              
+      [16] "--PD"                                                        
+      [17] "--PDs by Category: NONADHERENCE OF STUDY DRUG"               
+      [18] "--PDs by Category: STUDY MEDICATION"                         
+      [19] "--PDs by Category: SUBJECT NOT MANAGED ACCORDING TO PROTOCOL"
 
 ---
 
@@ -68,16 +71,17 @@
        [7] "Consent"                                                     
        [8] "--Consent"                                                   
        [9] "Disposition"                                                 
-      [10] "--Treatment - Study Withdrawals"                             
-      [11] "--Treatment"                                                 
-      [12] "IE"                                                          
-      [13] "--IE"                                                        
-      [14] "PD"                                                          
-      [15] "--Important PD"                                              
-      [16] "--PD"                                                        
-      [17] "--PDs by Category: NONADHERENCE OF STUDY DRUG"               
-      [18] "--PDs by Category: STUDY MEDICATION"                         
-      [19] "--PDs by Category: SUBJECT NOT MANAGED ACCORDING TO PROTOCOL"
+      [10] "--Study"                                                     
+      [11] "--Treatment - Study Withdrawals"                             
+      [12] "--Treatment"                                                 
+      [13] "IE"                                                          
+      [14] "--IE"                                                        
+      [15] "PD"                                                          
+      [16] "--Important PD"                                              
+      [17] "--PD"                                                        
+      [18] "--PDs by Category: NONADHERENCE OF STUDY DRUG"               
+      [19] "--PDs by Category: STUDY MEDICATION"                         
+      [20] "--PDs by Category: SUBJECT NOT MANAGED ACCORDING TO PROTOCOL"
 
 # vSiteScoreThreshold works
 
