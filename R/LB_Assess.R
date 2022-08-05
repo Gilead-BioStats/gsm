@@ -155,7 +155,7 @@ LB_Assess <- function(
 
       lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
-    } else if (strMethod == "identity") {
+    } else if (strMethod == "identity") { # TODO: vThreshold for Identity contains NA values
       if (is.null(vThreshold)) {
         vThreshold <- c(3.491, 5.172)
       } else {
