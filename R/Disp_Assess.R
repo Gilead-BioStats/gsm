@@ -41,7 +41,7 @@
 Disp_Assess <- function(dfInput,
                         vThreshold = NULL,
                         strMethod = "chisq",
-                        strKRILabel = "% Discontinuation/Treatment",
+                        strKRILabel = "% Discontinuation",
                         strGroupCol = "SiteID",
                         lTags = list(Assessment = "Disposition"),
                         bChart = TRUE,
