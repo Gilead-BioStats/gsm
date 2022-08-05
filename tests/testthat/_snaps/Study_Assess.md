@@ -652,6 +652,62 @@
       Saving lResults to `lAssessment`
       v `Visualize_Workflow()` created a flowchart.
       
+      -- Initializing `lb` assessment ------------------------------------------------
+      
+      -- Workflow Step 1 of 3: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: LB_TE_FLAG
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for dfLB domain
+      ! `FilterDomain()` Failed - Skipping remaining steps
+      Saving dfLB to `lAssessment$lData`
+      
+      -- Workflow Step 2 of 3: `LB_Map_Raw` --
+      
+      Skipping `LB_Map_Raw()` ...
+      
+      -- Workflow Step 3 of 3: `LB_Assess` --
+      
+      Skipping `LB_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `lbCategory` workflow ------------------------------------------
+      
+      -- Initializing `lbCategory` assessment ----------------------------------------
+      
+      -- Workflow Step 1 of 3: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: LB_TE_FLAG
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for dfLB domain
+      ! `FilterDomain()` Failed - Skipping remaining steps
+      Saving dfLB to `lAssessment$lData`
+      
+      -- Workflow Step 2 of 3: `LB_Map_Raw` --
+      
+      Skipping `LB_Map_Raw()` ...
+      
+      -- Workflow Step 3 of 3: `LB_Assess` --
+      
+      Skipping `LB_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
       -- Initializing `pd` assessment ------------------------------------------------
       
       -- Workflow Step 1 of 2: `PD_Map_Raw` --

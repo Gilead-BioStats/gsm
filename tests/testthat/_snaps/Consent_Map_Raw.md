@@ -147,7 +147,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strTypeCol", "strValueCol", "strDateCol", "strConsentTypeValue", "strConsentStatusValue"]
+              "value": ["strIDCol", "strTypeCol", "strValueCol", "strDateCol", "strConsentTypeVal", "strConsentStatusVal"]
             }
           },
           "value": [
