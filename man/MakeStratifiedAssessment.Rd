@@ -2,24 +2,24 @@
 % Please edit documentation in R/util-MakeStratifiedAssessment.R
 \name{MakeStratifiedAssessment}
 \alias{MakeStratifiedAssessment}
-\title{Create multiple Assessment workflows for a stratified assessment}
+\title{Create multiple workflows from a single stratified workflow}
 \usage{
-MakeStratifiedAssessment(lAssessment, lMapping, lData, bQuiet = TRUE)
+MakeStratifiedAssessment(lWorkflow, lData, lMapping, bQuiet = TRUE)
 }
 \arguments{
-\item{lAssessment}{\code{list} A named list of metadata defining how an assessment should be run.}
-
-\item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
+\item{lWorkflow}{\code{list} A named list of metadata defining how an workflow should be run.}
 
 \item{lData}{\code{list} A named list of domain-level data frames.}
+
+\item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{list} A list of assessments for each specified strata
+\code{list} A list of workflows for each specified strata
 }
 \description{
-Create multiple Assessment workflows for a stratified assessment
+Create multiple workflows from a single stratified workflow
 }
 \examples{
 
@@ -30,7 +30,7 @@ StratifiedAE <- MakeStratifiedAssessment(
     dfAE = clindata::rawplus_ae
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-  lAssessment = MakeAssessmentList()$aeGrade
+  lWorkflow = MakeAssessmentList()$aeGrade
 )
 
 # Protocol Deviations by Category
@@ -43,7 +43,7 @@ StratifiedPD <- MakeStratifiedAssessment(
      dfPD = clindata::rawplus_pd
    ),
    lMapping = lMapping,
-   lAssessment = MakeAssessmentList()$pdCategory
+   lWorkflow = MakeAssessmentList()$pdCategory
  )
 
 StratifiedPD \%>\%

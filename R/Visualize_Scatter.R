@@ -2,6 +2,7 @@
 #'
 #' @param dfFlagged analyze_poisson results with flags added.
 #' @param dfBounds data.frame giving prediction bounds for range of dfFlagged.
+#' @param strGroupCol name of stratification column for facet wrap (default=NULL)
 #' @param strUnit exposure time unit. Defaults to "days".
 #'
 #' @return site-level plot object.
@@ -11,15 +12,17 @@
 #' SafetyAE <- AE_Assess(dfInput)
 #' dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$dfTransformed, c(-5, 5))
 #' Visualize_Scatter(SafetyAE$dfFlagged, dfBounds)
-#'
+#' 
 #' SafetyAE_wilk <- AE_Assess(dfInput, strMethod = "wilcoxon")
 #' Visualize_Scatter(SafetyAE_wilk$dfFlagged)
+#'
+#' # TODO: add stratified example
 #'
 #' @import ggplot2
 #'
 #' @export
 
-Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strUnit = "days") {
+Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strGroupCol = NULL, strUnit = "days") {
   # Define tooltip for use in plotly.
   dfFlaggedWithTooltip <- dfFlagged %>%
     mutate(
@@ -70,6 +73,10 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strUnit = "days") {
       geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$MeanCount), color = "red", inherit.aes = FALSE) +
       geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$LowerCount), color = "red", linetype = "dashed", inherit.aes = FALSE) +
       geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$UpperCount), color = "red", linetype = "dashed", inherit.aes = FALSE)
+  }
+
+  if(!is.null(strGroupCol)){
+    p<- p + facet_wrap(vars(.data[[strGroupCol]]))
   }
 
   return(p)

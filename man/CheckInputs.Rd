@@ -4,12 +4,14 @@
 \alias{CheckInputs}
 \title{Check mapping inputs}
 \usage{
-CheckInputs(context, dfs, mapping = NULL, bQuiet = TRUE)
+CheckInputs(context, dfs, spec = NULL, mapping = NULL, bQuiet = TRUE)
 }
 \arguments{
 \item{context}{Description of the data pipeline "step" that is being checked, i.e., "AE_Map_Raw" or "PD_Assess".}
 
 \item{dfs}{\code{list} A list of data frames.}
+
+\item{spec}{\code{list} YAML spec for a given context.}
 
 \item{mapping}{\code{list} YAML mapping for a given context.}
 
