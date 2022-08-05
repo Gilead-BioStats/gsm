@@ -177,7 +177,7 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
     allCols <- c("Assessment", "Label", siteCols)
   }
 
-  df_summary <- df_summary %>% select(allCols)
+  df_summary <- df_summary %>% select(all_of(allCols))
 
 
   return(list(df_summary = df_summary, footnote = footnote))

@@ -11,7 +11,7 @@ lData <- list(
 
 lAssessments <- MakeAssessmentList()
 
-lAssessments$aeGrade <- NULL # Drop stratified assessment
+#lAssessments$aeGrade <- NULL # Drop stratified assessment
 
 result <- Study_Assess(lData = lData, lAssessments= lAssessments, bQuiet = TRUE)
 
@@ -20,9 +20,8 @@ lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", pack
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-  expect_equal(10, length(result))
-  expect_equal(c("ae", "aeQTL", "consent", "dispStudy", "dispStudyWithdrew",
-                 "dispTreatment", "ie", "importantpd", "pd", "sae"), names(result))
+  expect_equal(length(lAssessments), length(result))
+  expect_equal(names(lAssessments), names(result))
   expect_true(all(map_chr(result, ~ class(.)) == "list"))
   expect_equal(names(result$ae$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
@@ -71,17 +70,8 @@ test_that("Study_Assess() runs with missing datasets", {
   expect_false(result$ie$bStatus)
   expect_false("lResults" %in% names(result$consent))
   expect_false("lResults" %in% names(result$ie))
-  expect_equal(10, length(result))
-  expect_equal(c("ae",
-                 "aeQTL",
-                 "consent",
-                 "dispStudy",
-                 "dispStudyWithdrew",
-                 "dispTreatment",
-                 "ie",
-                 "importantpd",
-                 "pd",
-                 "sae"), names(result))
+  expect_equal(length(lAssessments), length(result))
+  expect_equal(names(lAssessments), names(result))
   expect_equal(names(result$ae$lResults), c(
     "strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed",
     "dfAnalyzed", "dfFlagged", "dfSummary", "dfBounds", "chart", "lChecks"

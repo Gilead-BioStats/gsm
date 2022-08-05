@@ -81,7 +81,7 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
     names()
 
   allChecks <- allChecks %>%
-    mutate(across(check_cols, ~ ifelse(!is.na(notes), NA_character_, .)),
+    mutate(across(all_of(check_cols), ~ ifelse(!is.na(notes), NA_character_, .)),
       notes = ifelse(is.na(.data$notes),
         apply(allChecks[6:length(allChecks)], 1, function(x) paste(x[!is.na(x)], collapse = "<br>")),
         .data$notes
