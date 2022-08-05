@@ -23,7 +23,7 @@
 #'   purrr::compact() %>%
 #'   purrr::map_df(~ .x$dfSummary)
 #' 
-#' lStudyTable <- Study_Table(results)
+#' lStudyTable <- Study_Table(dfSummary)
 #'
 #' @return `data.frame` Returns a data.frame giving assessment status (rows) by Site (column)
 #'
