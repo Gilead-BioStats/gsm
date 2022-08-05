@@ -434,6 +434,7 @@
       -- Initializing `Disp_Map_Raw()` --
       
       i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
       v `Disp_Map_Raw()` returned output with 3 rows.
       v `Disp_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
@@ -526,7 +527,7 @@
       -- Initializing `Disp_Map_Raw()` --
       
       i Intializing merge of domain and subject data
-      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      i 2 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
       v `Disp_Map_Raw()` returned output with 3 rows.
       v `Disp_Map_Raw()` Successful
       Saving dfInput to `lAssessment$lData`
@@ -650,6 +651,62 @@
       v `Visualize_Scatter()` created a chart.
       v `PD_Assess()` Successful
       Saving lResults to `lAssessment`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `lb` assessment ------------------------------------------------
+      
+      -- Workflow Step 1 of 3: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: LB_TE_FLAG
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for dfLB domain
+      ! `FilterDomain()` Failed - Skipping remaining steps
+      Saving dfLB to `lAssessment$lData`
+      
+      -- Workflow Step 2 of 3: `LB_Map_Raw` --
+      
+      Skipping `LB_Map_Raw()` ...
+      
+      -- Workflow Step 3 of 3: `LB_Assess` --
+      
+      Skipping `LB_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `lbCategory` workflow ------------------------------------------
+      
+      -- Initializing `lbCategory` assessment ----------------------------------------
+      
+      -- Workflow Step 1 of 3: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: LB_TE_FLAG
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for dfLB domain
+      ! `FilterDomain()` Failed - Skipping remaining steps
+      Saving dfLB to `lAssessment$lData`
+      
+      -- Workflow Step 2 of 3: `LB_Map_Raw` --
+      
+      Skipping `LB_Map_Raw()` ...
+      
+      -- Workflow Step 3 of 3: `LB_Assess` --
+      
+      Skipping `LB_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `pd` assessment ------------------------------------------------

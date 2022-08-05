@@ -4,4 +4,3 @@ dfInput:
   strStudyCol: "StudyID"
   strCustomGroupCol: "CustomGroupID"
   strCountCol: "Count"
-  strTotalCol: "Total"

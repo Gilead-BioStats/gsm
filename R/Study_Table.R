@@ -10,23 +10,20 @@
 #' @param bColCollapse Combine the Assessment and Label columns into a single "Title Column"
 #'
 #' @examples
-#' library(dplyr)
-#' library(purrr)
-#'
-# lData <- list(
-#   dfAE = clindata::rawplus_ae,
-#   dfPD = clindata::rawplus_pd,
-#   dfSUBJ = clindata::rawplus_subj
-# )
-#'
-#' results <- Study_Assess(lData = list(dfAE = clindata::rawplus_ae,
-#'                                         dfPD = clindata::rawplus_pd,
-#'                                         dfSUBJ = clindata::rawplus_subj)) %>%
+#' lData <- list(
+#'   dfAE = clindata::rawplus_ae,
+#'   dfPD = clindata::rawplus_pd,
+#'   dfSUBJ = clindata::rawplus_subj
+#' )
+#' 
+#' lAssessment <- Study_Assess(lData)
+#' 
+#' dfSummary <- lAssessment %>%
 #'   purrr::map(~ .x$lResults) %>%
-#'   compact() %>%
+#'   purrr::compact() %>%
 #'   purrr::map_df(~ .x$dfSummary)
-#'
-#' Study_Table(results)
+#' 
+#' lStudyTable <- Study_Table(dfSummary)
 #'
 #' @return `data.frame` Returns a data.frame giving assessment status (rows) by Site (column)
 #'

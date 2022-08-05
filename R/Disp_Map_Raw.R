@@ -7,7 +7,10 @@
 #' input data to [gsm::Disp_Assess()].
 #'
 #' @details
-#' `Disp_Map_Raw` creates an input dataset for the Disposition Assessment (link to code) by adding Discontinuation Reason Counts to basic subject-level data.
+#' `Disp_Map_Raw` creates an input dataset for the Disposition Assessment (link to code) by adding
+#' Discontinuation Reason Counts to basic subject-level data.
+#'
+#'
 #'
 #' @param dfs `list` Input data frame:
 #'   - `dfDISP`: `data.frame` Subject-level data with one record per discontinuation reason.
@@ -26,11 +29,16 @@
 #' @includeRmd ./man/md/Disp_Map_Raw.md
 #'
 #' @examples
-#' df <- Disp_Map_Raw()
+#' # Run with defaults.
+#' dfInput <- Disp_Map_Raw()
 #'
+#' # Run with error checking and message log.
+#' dfInput <- Disp_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
+#'
+#' @importFrom cli cli_alert_success cli_alert_warning cli_h2
 #' @import dplyr
-#' @importFrom yaml read_yaml
 #' @importFrom glue glue
+#' @importFrom yaml read_yaml
 #'
 #' @export
 
@@ -39,12 +47,11 @@ Disp_Map_Raw <- function(
       dfDISP = clindata::rawplus_subj,
       dfSUBJ = clindata::rawplus_subj
       ),
-    strContext="Treatment",
+    strContext = "Treatment",
     lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     bReturnChecks = FALSE,
     bQuiet = TRUE
 ) {
-
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -68,7 +75,7 @@ Disp_Map_Raw <- function(
       DCReason = lMapping[["dfDISP"]][[glue::glue('str{strContext}DiscontinuationReasonCol')]],
       Completion = lMapping[["dfDISP"]][[glue::glue('str{strContext}CompletionFlagCol')]]
     ) %>%
-    filter(.data$Completion != lMapping[["dfDISP"]][[glue::glue('str{strContext}CompletionFlagVal')]]) %>%
+    filter(! .data$Completion %in% lMapping[["dfDISP"]][[glue::glue('str{strContext}CompletionFlagVal')]]) %>%
     mutate(Count = 1)
 
 
@@ -85,8 +92,9 @@ Disp_Map_Raw <- function(
     dfInput <- gsm::MergeSubjects(dfDomain = dfDISP_mapped,
                                   dfSubjects = dfSUBJ_mapped,
                                   bQuiet = bQuiet) %>%
-      mutate(Count = ifelse(is.na(.data$Count), 0, .data$Count)) %>%
-      select(any_of(names(dfSUBJ_mapped)), .data$Count)
+      mutate(Count = ifelse(is.na(.data$Count), 0, .data$Count),
+             Total = 1) %>%
+      select(any_of(names(dfSUBJ_mapped)), .data$Count, .data$Total)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Disp_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

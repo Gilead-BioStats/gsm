@@ -34,6 +34,7 @@ test_that("filter to 0 rows throws a warning", {
   ) %>%
     nrow(),
   0)
+
   expect_snapshot(FilterData(dfAE,
     "AE_TE_FLAG",
     TRUE,

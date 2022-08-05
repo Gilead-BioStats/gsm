@@ -6,21 +6,34 @@
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @examples
+#' \dontrun{
+#' lMapping <- yaml::read_yaml(
+#'   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
+#' )
+#' lAssessmentList <- MakeAssessmentList()
 #'
-#' # Adverse Events by Grade
+#' # Adverse events by grade
 #' StratifiedAE <- MakeStratifiedAssessment(
 #'   lData = list(
 #'     dfSUBJ = clindata::rawplus_subj,
 #'     dfAE = clindata::rawplus_ae
 #'   ),
-#'   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-#'   lWorkflow = MakeAssessmentList()$aeGrade
+#'   lMapping = lMapping,
+#'   lWorkflow = lAssessmentList$aeGrade
 #' )
 #'
-#' # Protocol Deviations by Category
-#' lMapping <- yaml::read_yaml(
-#'   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
-#' )
+#' StratifiedAEResult <- StratifiedAE %>%
+#'   purrr::map(~.x %>%
+#'     RunAssessment(
+#'       lData = list(
+#'         dfSUBJ = clindata::rawplus_subj,
+#'         dfAE = clindata::rawplus_ae
+#'       ),
+#'       lMapping = lMapping
+#'     )
+#'   )
+#'
+#' # Protocol deviations by PD category
 #' StratifiedPD <- MakeStratifiedAssessment(
 #'    lData = list(
 #'      dfSUBJ = clindata::rawplus_subj,
@@ -30,7 +43,7 @@
 #'    lWorkflow = MakeAssessmentList()$pdCategory
 #'  )
 #'
-#' StratifiedPD %>%
+#' StratifiedPDResult <- StratifiedPD %>%
 #'   purrr::map(~.x %>%
 #'     RunAssessment(
 #'       lData = list(
@@ -40,6 +53,28 @@
 #'       lMapping = lMapping
 #'     )
 #'   )
+#'
+#' # Labs by lab category
+#' StratifiedLB <- MakeStratifiedAssessment(
+#'    lData = list(
+#'      dfSUBJ = clindata::rawplus_subj,
+#'      dfLB = clindata::rawplus_lb
+#'    ),
+#'    lMapping = lMapping,
+#'    lWorkflow = lAssessmentList$lbCategory
+#'  )
+#'
+#' StratifiedLBResult <- StratifiedLB %>%
+#'   purrr::map(~.x %>%
+#'     RunAssessment(
+#'       lData = list(
+#'         dfSUBJ = clindata::rawplus_subj,
+#'         dfLB = clindata::rawplus_lb
+#'       ),
+#'       lMapping = lMapping
+#'     )
+#'   )
+#'}
 #'
 #' @return `list` A list of workflows for each specified strata
 #'
