@@ -27,7 +27,8 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strGroupCol = NULL, st
   dfFlaggedWithTooltip <- dfFlagged %>%
     mutate(
       tooltip = paste(
-        paste0('Group: ', .data$GroupID),
+        paste0('Group: ', .data$GroupLabel),
+        paste0('GroupID: ', .data$GroupID),
         paste0('Exposure (days): ', format(.data$TotalExposure, big.mark = ',', trim = TRUE)),
         paste0('# of Events: ', format(.data$TotalCount, big.mark = ',', trim = TRUE)),
         sep = '\n'
