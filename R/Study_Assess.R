@@ -10,8 +10,9 @@
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @examples
+#' \dontrun{
 #' results <- Study_Assess() # run using defaults
-#'
+#'}
 #' @return `list` of assessments containing status information and results.
 #'
 #' @import dplyr

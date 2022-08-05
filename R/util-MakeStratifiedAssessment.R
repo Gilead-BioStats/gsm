@@ -22,7 +22,7 @@
 #'   lWorkflow = lAssessmentList$aeGrade
 #' )
 #'
-#' StratifiedAE %>%
+#' StratifiedAEResult <- StratifiedAE %>%
 #'   purrr::map(~.x %>%
 #'     RunAssessment(
 #'       lData = list(
@@ -43,7 +43,7 @@
 #'    lWorkflow = MakeAssessmentList()$pdCategory
 #'  )
 #'
-#' StratifiedPD %>%
+#' StratifiedPDResult <- StratifiedPD %>%
 #'   purrr::map(~.x %>%
 #'     RunAssessment(
 #'       lData = list(
@@ -64,7 +64,7 @@
 #'    lWorkflow = lAssessmentList$lbCategory
 #'  )
 #'
-#' StratifiedLB %>%
+#' StratifiedLBResult <- StratifiedLB %>%
 #'   purrr::map(~.x %>%
 #'     RunAssessment(
 #'       lData = list(
