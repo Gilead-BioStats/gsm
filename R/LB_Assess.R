@@ -33,10 +33,9 @@
 #' @examples
 #' dfInput <- LB_Map_Raw()
 #' lb_assessment_chisq <- LB_Assess(dfInput)
-#' \dontrun{
 #' lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
 #' lb_assessment_identity <- LB_Assess(dfInput, strMethod = "identity")
-#'}
+#'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom purrr map map_dbl
 #'
