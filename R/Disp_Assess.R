@@ -45,7 +45,7 @@ Disp_Assess <- function(dfInput,
                         vThreshold = NULL,
                         strMethod = "chisq",
                         strKRILabel = "% Discontinuation",
-                        strGroupCol = "SiteID",
+                        strGroup = "Site",
                         lTags = list(
                           Assessment = "Disposition"
                           ),
@@ -91,9 +91,8 @@ Disp_Assess <- function(dfInput,
     dfInput = dfInput
   )
 
-
-  strGroupCol <- mapping$dfInput[[glue::glue('str{strGroup}Col')]]
   mapping <- yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm"))
+  strGroupCol <- mapping$dfInput[[glue::glue('str{strGroup}Col')]]
   mapping$dfInput$strGroupCol <- strGroupCol
 
   stopifnot(
