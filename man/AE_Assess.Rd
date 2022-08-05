@@ -9,7 +9,7 @@ AE_Assess(
   vThreshold = NULL,
   strMethod = "poisson",
   strKRILabel = "AEs/Week",
-  strGroupCol = "SiteID",
+  strGroup = "Site",
   lTags = list(Assessment = "AE"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -32,7 +32,7 @@ signed-rank test (\code{strMethod} = "wilcoxon"), and \code{c(0.00006, 0.01)} fo
 
 \item{strKRILabel}{\code{character} KRI description. Default: \code{"AEs/Week"}}
 
-\item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
+\item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
 
 \item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults
 to \code{list(Assessment = "AE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags})

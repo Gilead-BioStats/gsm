@@ -7,7 +7,7 @@
 #'   - `"chisq"` (default)
 #'   - `"fisher"`
 #' @param strKRILabel `character` KRI description. Default: `"DCs/Week"`
-#' @param strGroupCol `character` Name of column for grouping variable. Default: `"SiteID"`
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
 #'   to `list(Assessment = "AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`)
 #'   and each tag is added as a column in `lAssess$dfSummary`.

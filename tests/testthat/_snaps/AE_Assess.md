@@ -1,3 +1,39 @@
+# grouping works as expected
+
+    Code
+      subsetGroupCols(site)
+    Output
+      # A tibble: 3 x 2
+        GroupID GroupLabel
+        <chr>   <chr>     
+      1 X102X   SiteID    
+      2 X010X   SiteID    
+      3 X999X   SiteID    
+
+---
+
+    Code
+      subsetGroupCols(study)
+    Output
+      # A tibble: 3 x 2
+        GroupID        GroupLabel
+        <chr>          <chr>     
+      1 BB-BB-111-1111 StudyID   
+      2 AA-AA-000-0000 StudyID   
+      3 CC-CC-333-3333 StudyID   
+
+---
+
+    Code
+      subsetGroupCols(customGroup)
+    Output
+      # A tibble: 3 x 2
+        GroupID       GroupLabel   
+        <chr>         <chr>        
+      1 China         CustomGroupID
+      2 United States CustomGroupID
+      3 India         CustomGroupID
+
 # incorrect inputs throw errors
 
     dfInput is not a data.frame

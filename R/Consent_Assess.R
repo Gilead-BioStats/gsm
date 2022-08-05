@@ -25,7 +25,7 @@
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment = "Consent")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
 #' @param strKRILabel `character` KRI description. Default: `"Total Number of Consent Issues"`
-#' @param strGroupCol `character` Name of column for grouping variable. Default: `"SiteID"`
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
