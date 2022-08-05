@@ -46,6 +46,6 @@ dfSummary <- lAssessment \%>\%
   purrr::compact() \%>\%
   purrr::map_df(~ .x$dfSummary)
 
-lStudyTable <- Study_Table(results)
+lStudyTable <- Study_Table(dfSummary)
 
 }
