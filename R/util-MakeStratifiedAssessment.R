@@ -18,7 +18,7 @@
 #'     dfAE = clindata::rawplus_ae
 #'   ),
 #'   lMapping = lMapping,
-#'   lAssessment = lAssessmentList$aeGrade
+#'   lWorkflow = lAssessmentList$aeGrade
 #' )
 #'
 #' StratifiedAE %>%
@@ -60,7 +60,7 @@
 #'      dfLB = clindata::rawplus_lb
 #'    ),
 #'    lMapping = lMapping,
-#'    lAssessment = lAssessmentList$lbCategory
+#'    lWorkflow = lAssessmentList$lbCategory
 #'  )
 #'
 #' StratifiedLB %>%

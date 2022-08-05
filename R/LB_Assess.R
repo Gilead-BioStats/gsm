@@ -42,7 +42,7 @@
 #' @export
 LB_Assess <- function(
     dfInput,
-    vThreshold = c(0.05,NA),
+    vThreshold = NULL,
     strMethod = "chisq",
     strKRILabel = "% Abnormal Labs",
     strGroupCol = "SiteID",
