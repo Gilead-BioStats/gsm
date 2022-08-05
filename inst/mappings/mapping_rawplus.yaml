@@ -48,14 +48,9 @@ dfDISP:
   strTreatmentDiscontinuationReasonCol: "TrtDCReason"
   strTreatmentDiscontinuationReasonVal: "Investigator's Discretion*"
   strTreatmentCompletionFlagCol: "TrtCompletion"
-<<<<<<< HEAD
   strTreatmentCompletionFlagVal:
     - "Y"
     - "O"
-
-
-=======
-  strTreatmentCompletionFlagVal: "Y"
 dfLB:
   strIDCol: "SubjectID"
   strVisitCol: "VISIT"
@@ -68,4 +63,3 @@ dfLB:
   strGradeCol: "LB_GRADE"
   strAbnormalCol: "LB_ABN_FLAG"
   strAbnormalVal: TRUE
->>>>>>> ee633a1fda290a4d0e5e72003c052e8ae2e5f5df
