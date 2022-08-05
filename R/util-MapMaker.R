@@ -4,6 +4,8 @@
 #'
 #' @return YAML mapping
 #'
+#' @importFrom yaml read_yaml
+#'
 #' @export
 
 MapMaker <- function(strFunctionName = NULL){

@@ -72,8 +72,7 @@ Labs Assessment
 \examples{
 dfInput <- LB_Map_Raw()
 lb_assessment_chisq <- LB_Assess(dfInput)
-\dontrun{
 lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
 lb_assessment_identity <- LB_Assess(dfInput, strMethod = "identity")
-}
+
 }
