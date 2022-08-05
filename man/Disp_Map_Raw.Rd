@@ -44,7 +44,8 @@ input data to \code{\link[=Disp_Assess]{Disp_Assess()}}.
 \details{
 Convert from ADaM or raw format to input format for Disposition Assessment.
 
-\code{Disp_Map_Raw} creates an input dataset for the Disposition Assessment (link to code) by adding Discontinuation Reason Counts to basic subject-level data.
+\code{Disp_Map_Raw} creates an input dataset for the Disposition Assessment (link to code) by adding
+Discontinuation Reason Counts to basic subject-level data.
 }
 \section{Data specification}{
 \tabular{llllll}{
@@ -60,6 +61,10 @@ Convert from ADaM or raw format to input format for Disposition Assessment.
 }
 
 \examples{
-df <- Disp_Map_Raw()
+# Run with defaults.
+dfInput <- Disp_Map_Raw()
+
+# Run with error checking and message log.
+dfInput <- Disp_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 
 }

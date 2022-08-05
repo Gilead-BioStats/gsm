@@ -9,6 +9,7 @@ LB_Assess(
   vThreshold = c(0.05, NA),
   strMethod = "chisq",
   strKRILabel = "\% Abnormal Labs",
+  strGroupCol = "SiteID",
   lTags = list(Assessment = "Labs"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -25,12 +26,15 @@ LB_Assess(
 \itemize{
 \item \code{"chisq"} (default)
 \item \code{"fisher"}
+\item \code{"identity"}
 }}
 
-\item{strKRILabel}{\code{character} KRI description. Default: \code{"DCs/Week"}}
+\item{strKRILabel}{\code{character} KRI description. Default: \code{"\% Abnormal Labs"}}
+
+\item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
 
 \item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults
-to \code{list(Assessment = "AE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags})
+to \code{list(Assessment = "Labs")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags})
 and each tag is added as a column in \code{lAssess$dfSummary}.}
 
 \item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
@@ -69,5 +73,6 @@ Labs Assessment
 dfInput <- LB_Map_Raw()
 lb_assessment_chisq <- LB_Assess(dfInput)
 lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
+lb_assessment_identity <- LB_Assess(dfInput, strMethod = "identity")
 
 }

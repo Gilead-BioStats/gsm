@@ -10,7 +10,6 @@
       # A tibble: 0 x 4
       # ... with 4 variables: SubjectID <chr>, AE_SERIOUS <chr>, AE_TE_FLAG <lgl>,
       #   AE_GRADE <dbl>
-      # i Use `colnames()` to see all variable names
 
 # bQuiet works as intended
 

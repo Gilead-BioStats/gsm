@@ -26,6 +26,7 @@ Disp_Assess(
 \itemize{
 \item \code{"chisq"} (default)
 \item \code{"fisher"}
+\item \code{"identity"}
 }}
 
 \item{strKRILabel}{\code{character} KRI description. Default: \code{"DCs/Week"}}
@@ -72,5 +73,6 @@ Disposition Assessment
 dfInput <- Disp_Map_Raw()
 disp_assessment_chisq <- Disp_Assess(dfInput)
 disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "fisher")
+disp_assessment_identity <- Disp_Assess(dfInput, strMethod = "identity")
 
 }

@@ -6,7 +6,9 @@
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"chisq"` (default)
 #'   - `"fisher"`
+#'   - `"identity"`
 #' @param strKRILabel `character` KRI description. Default: `"% Abnormal Labs"`
+#' @param strGroupCol `character` Name of column for grouping variable. Default: `"SiteID"`
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
 #'   to `list(Assessment = "Labs")`. `lTags` is returned as part of the assessment (`lAssess$lTags`)
 #'   and each tag is added as a column in `lAssess$dfSummary`.
@@ -32,6 +34,7 @@
 #' dfInput <- LB_Map_Raw()
 #' lb_assessment_chisq <- LB_Assess(dfInput)
 #' lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
+#' lb_assessment_identity <- LB_Assess(dfInput, strMethod = "identity")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom purrr map map_dbl
@@ -50,12 +53,11 @@ LB_Assess <- function(
     bReturnChecks = FALSE,
     bQuiet = TRUE
 ) {
-
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),
     "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput),
-    "strMethod is not 'chisq' or 'fisher'" = strMethod %in% c("chisq", "fisher"),
+    "strMethod is not 'chisq', 'fisher', or 'identity'" = strMethod %in% c("chisq", "fisher", "identity"),
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
     "bChart must be logical" = is.logical(bChart),
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
@@ -77,7 +79,6 @@ LB_Assess <- function(
           "ScoreLabel",
           "Flag"
         )
-
     )
 
     if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {
@@ -106,7 +107,12 @@ LB_Assess <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn LB_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
 
-    lAssess$dfTransformed <- gsm::Transform_EventCount(lAssess$dfInput, strCountCol = "Count", strKRILabel = strKRILabel)
+    lAssess$dfTransformed <- gsm::Transform_EventCount(
+      lAssess$dfInput,
+      strCountCol = "Count",
+      strGroupCol = strGroupCol,
+      strKRILabel = strKRILabel
+    )
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
 
     if (strMethod == "chisq") {
@@ -129,7 +135,6 @@ LB_Assess <- function(
 
       lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
-
     } else if (strMethod == "fisher") {
       if (is.null(vThreshold)) {
         vThreshold <- c(0.05,NA)
@@ -150,19 +155,35 @@ LB_Assess <- function(
 
       lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
+    } else if (strMethod == "identity") {
+      if (is.null(vThreshold)) {
+        vThreshold <- c(3.491, 5.172)
+      } else {
+        stopifnot(
+          "vThreshold is not numeric" = is.numeric(vThreshold),
+          "vThreshold for Identity contains NA values" = all(!is.na(vThreshold)),
+          "vThreshold is not length 2" = length(vThreshold) == 2
+        )
+      }
+
+      lAssess$dfAnalyzed <- gsm::Analyze_Identity(lAssess$dfTransformed)
+      if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Identity} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
+
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Score")
+      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
+
+      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
+      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
     }
 
     if (bChart) {
         lAssess$chart <- gsm::Visualize_Count(lAssess$dfFlagged)
         if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
     }
-
   } else {
     if (!bQuiet) cli::cli_alert_warning("{.fn LB_Assess} did not run because of failed check.")
   }
 
   if (bReturnChecks) lAssess$lChecks <- checks
   return(lAssess)
-
-
 }

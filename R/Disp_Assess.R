@@ -6,6 +6,7 @@
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"chisq"` (default)
 #'   - `"fisher"`
+#'   - `"identity"`
 #' @param strKRILabel `character` KRI description. Default: `"DCs/Week"`
 #' @param strGroupCol `character` Name of column for grouping variable. Default: `"SiteID"`
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
@@ -33,20 +34,25 @@
 #' dfInput <- Disp_Map_Raw()
 #' disp_assessment_chisq <- Disp_Assess(dfInput)
 #' disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "fisher")
+#' disp_assessment_identity <- Disp_Assess(dfInput, strMethod = "identity")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom purrr map map_dbl
 #'
 #' @export
-Disp_Assess <- function(dfInput,
-                        vThreshold = NULL,
-                        strMethod = "chisq",
-                        strKRILabel = "DCs/Week",
-                        strGroupCol = "SiteID",
-                        lTags = list(Assessment = "Disposition"),
-                        bChart = TRUE,
-                        bReturnChecks = FALSE,
-                        bQuiet = TRUE) {
+Disp_Assess <- function(
+    dfInput,
+    vThreshold = NULL,
+    strMethod = "chisq",
+    strKRILabel = "DCs/Week",
+    strGroupCol = "SiteID",
+    lTags = list(
+      Assessment = "Disposition"
+    ),
+    bChart = TRUE,
+    bReturnChecks = FALSE,
+    bQuiet = TRUE
+) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),
@@ -96,7 +102,6 @@ Disp_Assess <- function(dfInput,
     mapping = mapping,
     bQuiet = bQuiet
   )
-
 
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn Disp_Assess}")
