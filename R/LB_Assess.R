@@ -33,9 +33,10 @@
 #' @examples
 #' dfInput <- LB_Map_Raw()
 #' lb_assessment_chisq <- LB_Assess(dfInput)
+#' \dontrun{
 #' lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
 #' lb_assessment_identity <- LB_Assess(dfInput, strMethod = "identity")
-#'
+#'}
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom purrr map map_dbl
 #'
@@ -93,7 +94,7 @@ LB_Assess <- function(
     dfInput = dfInput
   )
 
-  mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
+  mapping <- yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm"))
   mapping$dfInput$strGroupCol <- strGroupCol
 
   checks <- CheckInputs(
