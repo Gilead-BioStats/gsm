@@ -3,8 +3,7 @@ test_valid_output <- function(
   dfs,
   spec,
   mapping
-){
-
+) {
   output <- map_function(dfs = dfs)
 
   testthat::expect_true(is.data.frame(output))
@@ -19,7 +18,7 @@ test_invalid_data <- function(
   dfs,
   spec,
   mapping
-){
+) {
   map_domain <- names(dfs)[
     names(dfs) != "dfSUBJ"
   ]

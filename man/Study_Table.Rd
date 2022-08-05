@@ -33,17 +33,19 @@ Study_Table(
 Make overview table with one row per assessment and one column per site showing flagged assessments.
 }
 \examples{
-library(dplyr)
-library(purrr)
+lData <- list(
+  dfAE = clindata::rawplus_ae,
+  dfPD = clindata::rawplus_pd,
+  dfSUBJ = clindata::rawplus_subj
+)
 
+lAssessment <- Study_Assess(lData)
 
-results <- Study_Assess(lData = list(dfAE = clindata::rawplus_ae,
-                                        dfPD = clindata::rawplus_pd,
-                                        dfSUBJ = clindata::rawplus_subj)) \%>\%
+dfSummary <- lAssessment \%>\%
   purrr::map(~ .x$lResults) \%>\%
-  compact() \%>\%
+  purrr::compact() \%>\%
   purrr::map_df(~ .x$dfSummary)
 
-Study_Table(results)
+lStudyTable <- Study_Table(dfSummary)
 
 }

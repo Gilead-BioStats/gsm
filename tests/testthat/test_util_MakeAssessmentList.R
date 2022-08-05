@@ -14,6 +14,8 @@ test_that("output is created as expected", {
                  "dispTreatment",
                  "ie",
                  "importantpd",
+                 "lb",
+                 "lbCategory",
                  "pd",
                  "pdCategory",
                  "sae"

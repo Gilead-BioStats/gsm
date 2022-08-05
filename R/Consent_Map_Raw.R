@@ -82,10 +82,10 @@ Consent_Map_Raw <- function(
              ),
              RandDate = lMapping[["dfSUBJ"]][["strRandDateCol"]])
 
-    if (!is.null(lMapping$dfCONSENT$strConsentTypeValue)) {
+    if (!is.null(lMapping$dfCONSENT$strConsentTypeVal)) {
       dfCONSENT_mapped <- dfCONSENT_mapped %>%
         filter(
-          .data$ConsentType == lMapping$dfCONSENT$strConsentTypeValue
+          .data$ConsentType == lMapping$dfCONSENT$strConsentTypeVal
         )
 
       if (nrow(dfCONSENT_mapped) == 0) {
@@ -93,7 +93,7 @@ Consent_Map_Raw <- function(
           "No records in [ dfs$dfCONSENT$",
           lMapping$dfCONSENT$strTypeCol,
           " ] contain a consent type of [ ",
-          lMapping$dfCONSENT$strConsentTypeValue,
+          lMapping$dfCONSENT$strConsentTypeVal,
           " ]."
         ))
       }
@@ -102,7 +102,7 @@ Consent_Map_Raw <- function(
     dfInput <- dfCONSENT_mapped %>%
       gsm::MergeSubjects(dfSUBJ_mapped, bQuiet = bQuiet) %>%
       mutate(
-        flag_noconsent = .data$ConsentStatus != lMapping$dfCONSENT$strConsentStatusValue,
+        flag_noconsent = .data$ConsentStatus != lMapping$dfCONSENT$strConsentStatusVal,
         flag_missing_consent = is.na(.data$ConsentDate),
         flag_missing_rand = is.na(.data$RandDate),
         flag_date_compare = .data$ConsentDate >= .data$RandDate,
