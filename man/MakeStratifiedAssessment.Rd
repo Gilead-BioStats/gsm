@@ -22,6 +22,7 @@ MakeStratifiedAssessment(lWorkflow, lData, lMapping, bQuiet = TRUE)
 Create multiple workflows from a single stratified workflow
 }
 \examples{
+\dontrun{
 lMapping <- yaml::read_yaml(
   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
 )
@@ -34,11 +35,11 @@ StratifiedAE <- MakeStratifiedAssessment(
     dfAE = clindata::rawplus_ae
   ),
   lMapping = lMapping,
-  lAssessment = lAssessmentList$aeGrade
+  lWorkflow = lAssessmentList$aeGrade
 )
 
-StratifiedAE \%>\%
-  map(~.x \%>\%
+StratifiedAEResult <- StratifiedAE \%>\%
+  purrr::map(~.x \%>\%
     RunAssessment(
       lData = list(
         dfSUBJ = clindata::rawplus_subj,
@@ -58,7 +59,7 @@ StratifiedPD <- MakeStratifiedAssessment(
    lWorkflow = MakeAssessmentList()$pdCategory
  )
 
-StratifiedPD \%>\%
+StratifiedPDResult <- StratifiedPD \%>\%
   purrr::map(~.x \%>\%
     RunAssessment(
       lData = list(
@@ -76,11 +77,11 @@ StratifiedLB <- MakeStratifiedAssessment(
      dfLB = clindata::rawplus_lb
    ),
    lMapping = lMapping,
-   lAssessment = lAssessmentList$lbCategory
+   lWorkflow = lAssessmentList$lbCategory
  )
 
-StratifiedLB \%>\%
-  map(~.x \%>\%
+StratifiedLBResult <- StratifiedLB \%>\%
+  purrr::map(~.x \%>\%
     RunAssessment(
       lData = list(
         dfSUBJ = clindata::rawplus_subj,
@@ -89,5 +90,6 @@ StratifiedLB \%>\%
       lMapping = lMapping
     )
   )
+}
 
 }

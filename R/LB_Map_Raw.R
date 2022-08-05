@@ -93,7 +93,7 @@ LB_Map_Raw <- function(
       ) %>%
       mutate(
         Count = if_else(
-          Abnormal == lMapping[["dfLB"]][["strAbnormalVal"]], 1, 0
+          .data$Abnormal == lMapping[["dfLB"]][["strAbnormalVal"]], 1, 0
         )
       ) %>%
       select(any_of(c(names(dfSUBJ_mapped))), .data$Count)
