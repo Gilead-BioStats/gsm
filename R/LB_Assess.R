@@ -93,7 +93,7 @@ LB_Assess <- function(
     dfInput = dfInput
   )
 
-  mapping <- yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm"))
+  mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
   mapping$dfInput$strGroupCol <- strGroupCol
 
   checks <- CheckInputs(

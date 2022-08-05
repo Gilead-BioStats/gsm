@@ -6,6 +6,7 @@
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @examples
+#' \dontrun{
 #' lMapping <- yaml::read_yaml(
 #'   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
 #' )
@@ -22,7 +23,7 @@
 #' )
 #'
 #' StratifiedAE %>%
-#'   map(~.x %>%
+#'   purrr::map(~.x %>%
 #'     RunAssessment(
 #'       lData = list(
 #'         dfSUBJ = clindata::rawplus_subj,
@@ -64,7 +65,7 @@
 #'  )
 #'
 #' StratifiedLB %>%
-#'   map(~.x %>%
+#'   purrr::map(~.x %>%
 #'     RunAssessment(
 #'       lData = list(
 #'         dfSUBJ = clindata::rawplus_subj,
@@ -73,6 +74,7 @@
 #'       lMapping = lMapping
 #'     )
 #'   )
+#'}
 #'
 #' @return `list` A list of workflows for each specified strata
 #'
