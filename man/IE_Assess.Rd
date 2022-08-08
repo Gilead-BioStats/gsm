@@ -9,7 +9,7 @@ IE_Assess(
   nThreshold = 0.5,
   lTags = list(Assessment = "IE"),
   strKRILabel = "# of Inclusion/Exclusion Issues",
-  strGroupCol = "SiteID",
+  strGroup = "Site",
   bChart = TRUE,
   bReturnChecks = FALSE,
   bQuiet = TRUE
@@ -24,7 +24,7 @@ IE_Assess(
 
 \item{strKRILabel}{\code{character} KRI description. Default: \code{"# of Inclusion/Exclusion Issues"}}
 
-\item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
+\item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
 
 \item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
 

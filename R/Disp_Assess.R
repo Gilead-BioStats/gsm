@@ -8,7 +8,7 @@
 #'   - `"fisher"`
 #'   - `"identity"`
 #' @param strKRILabel `character` KRI description. Default: `"DCs/Week"`
-#' @param strGroupCol `character` Name of column for grouping variable. Default: `"SiteID"`
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
 #'   to `list(Assessment = "AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`)
 #'   and each tag is added as a column in `lAssess$dfSummary`.
@@ -41,21 +41,22 @@
 #'
 #' @export
 
-Disp_Assess <- function(dfInput,
-                        vThreshold = NULL,
-                        strMethod = "chisq",
-                        strKRILabel = "% Discontinuation",
-                        strGroupCol = "SiteID",
-                        lTags = list(
-                          Assessment = "Disposition"
-                          ),
-                        bChart = TRUE,
-                        bReturnChecks = FALSE,
-                        bQuiet = TRUE) {
+Disp_Assess <- function(
+    dfInput,
+    vThreshold = NULL,
+    strMethod = "chisq",
+    strKRILabel = "% Discontinuation",
+    strGroup = "Site",
+    lTags = list(
+      Assessment = "Disposition"
+      ),
+    bChart = TRUE,
+    bReturnChecks = FALSE,
+    bQuiet = TRUE
+) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),
-    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput),
     "strMethod is not 'chisq', 'fisher', or 'identity'" = strMethod %in% c("chisq", "fisher", "identity"),
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
     "bChart must be logical" = is.logical(bChart),
@@ -93,7 +94,13 @@ Disp_Assess <- function(dfInput,
   )
 
   mapping <- yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm"))
+  strGroupCol <- mapping$dfInput[[glue::glue('str{strGroup}Col')]]
   mapping$dfInput$strGroupCol <- strGroupCol
+
+  stopifnot(
+    "`strGroup` not found in mapping" = glue('str{strGroup}Col') %in% names(mapping$dfInput),
+    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput)
+  )
 
   checks <- CheckInputs(
     context = "Disp_Assess",

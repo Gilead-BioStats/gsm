@@ -27,17 +27,24 @@ Calls \code{RunStep} for each item in \code{lAssessment$workflow} and saves the 
 \examples{
 lAssessments <- MakeAssessmentList()
 lData <- list(
-  dfSUBJ = clindata::rawplus_subj,
   dfAE = clindata::rawplus_ae,
-  dfPD = clindata::rawplus_pd,
   dfCONSENT = clindata::rawplus_consent,
-  dfIE = clindata::rawplus_ie
+  dfDISP = clindata::rawplus_subj,
+  dfIE = clindata::rawplus_ie,
+  dfLB = clindata::rawplus_lb,
+  dfPD = clindata::rawplus_pd,
+  dfSUBJ = clindata::rawplus_subj
 )
 lTags <- list(
   Study = "myStudy"
 )
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
-ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
+output <- RunAssessment(
+    lAssessments$ae, # adverse event workflow
+    lData,
+    lMapping,
+    lTags
+)
 
 }

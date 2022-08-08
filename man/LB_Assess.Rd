@@ -9,7 +9,7 @@ LB_Assess(
   vThreshold = NULL,
   strMethod = "chisq",
   strKRILabel = "\% Abnormal Labs",
-  strGroupCol = "SiteID",
+  strGroup = "Site",
   lTags = list(Assessment = "Labs"),
   bChart = TRUE,
   bReturnChecks = FALSE,
@@ -31,7 +31,7 @@ LB_Assess(
 
 \item{strKRILabel}{\code{character} KRI description. Default: \code{"\% Abnormal Labs"}}
 
-\item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
+\item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
 
 \item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults
 to \code{list(Assessment = "Labs")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags})

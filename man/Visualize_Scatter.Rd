@@ -2,7 +2,7 @@
 % Please edit documentation in R/Visualize_Scatter.R
 \name{Visualize_Scatter}
 \alias{Visualize_Scatter}
-\title{Site-level visualization of site-level results using a Poisson or Wilcoxon model.}
+\title{Group-level visualization of group-level results using a Poisson or Wilcoxon model.}
 \usage{
 Visualize_Scatter(
   dfFlagged,
@@ -21,10 +21,10 @@ Visualize_Scatter(
 \item{strUnit}{exposure time unit. Defaults to "days".}
 }
 \value{
-site-level plot object.
+group-level plot object.
 }
 \description{
-Site-level visualization of site-level results using a Poisson or Wilcoxon model.
+Group-level visualization of group-level results using a Poisson or Wilcoxon model.
 }
 \examples{
 dfInput <- AE_Map_Adam()

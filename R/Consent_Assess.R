@@ -25,7 +25,7 @@
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment = "Consent")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
 #' @param strKRILabel `character` KRI description. Default: `"Total Number of Consent Issues"`
-#' @param strGroupCol `character` Name of column for grouping variable. Default: `"SiteID"`
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param bChart `logical` Generate data visualization? Default: `TRUE`
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
@@ -59,14 +59,13 @@ Consent_Assess <- function(dfInput,
                            nThreshold = 0.5,
                            lTags = list(Assessment = "Consent"),
                            strKRILabel = "Total Number of Consent Issues",
-                           strGroupCol = "SiteID",
+                           strGroup = "Site",
                            bChart = TRUE,
                            bReturnChecks = FALSE,
                            bQuiet = TRUE) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),
-    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput),
     "nThreshold must be numeric" = is.numeric(nThreshold),
     "nThreshold must be length 1" = length(nThreshold) == 1,
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
@@ -105,7 +104,13 @@ Consent_Assess <- function(dfInput,
   )
 
   mapping <- yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm"))
+  strGroupCol <- mapping$dfInput[[glue::glue('str{strGroup}Col')]]
   mapping$dfInput$strGroupCol <- strGroupCol
+
+  stopifnot(
+    "`strGroup` not found in mapping" = glue('str{strGroup}Col') %in% names(mapping$dfInput),
+    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput)
+  )
 
   checks <- CheckInputs(
     context = "Consent_Assess",

@@ -18,7 +18,7 @@
 #'   - `"wilcoxon"`
 #'   - `"identity"`
 #' @param strKRILabel `character` KRI description. Default: `"AEs/Week"`
-#' @param strGroupCol `character` Name of column for grouping variable. Default: `"SiteID"`
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
 #'   to `list(Assessment = "AE")`. `lTags` is returned as part of the assessment (`lAssess$lTags`)
 #'   and each tag is added as a column in `lAssess$dfSummary`.
@@ -57,7 +57,7 @@ AE_Assess <- function(dfInput,
                       vThreshold = NULL,
                       strMethod = "poisson",
                       strKRILabel = "AEs/Week",
-                      strGroupCol = "SiteID",
+                      strGroup = "Site",
                       lTags = list(Assessment = "AE"),
                       bChart = TRUE,
                       bReturnChecks = FALSE,
@@ -65,7 +65,6 @@ AE_Assess <- function(dfInput,
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "dfInput is missing one or more of these columns: SubjectID, Count, Exposure, and Rate" = all(c("SubjectID", "Count", "Exposure", "Rate") %in% names(dfInput)),
-    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput),
     "strMethod is not 'poisson', 'wilcoxon', or 'identity'" = strMethod %in% c("poisson", "wilcoxon", "identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
@@ -103,8 +102,16 @@ AE_Assess <- function(dfInput,
     dfInput = dfInput
   )
 
+
+
   mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
+  strGroupCol <- mapping$dfInput[[glue('str{strGroup}Col')]]
   mapping$dfInput$strGroupCol <- strGroupCol
+
+  stopifnot(
+    "`strGroup` not found in mapping" = glue('str{strGroup}Col') %in% names(mapping$dfInput),
+    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput)
+  )
 
   checks <- CheckInputs(
     context = "AE_Assess",

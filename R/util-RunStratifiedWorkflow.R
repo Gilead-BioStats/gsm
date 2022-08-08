@@ -20,15 +20,23 @@
 #' @examples
 #' lWorkflows <- MakeAssessmentList()
 #' lData <- list(
-#'   dfSUBJ = clindata::rawplus_subj,
 #'   dfAE = clindata::rawplus_ae,
-#'   dfPD = clindata::rawplus_pd,
 #'   dfCONSENT = clindata::rawplus_consent,
-#'   dfIE = clindata::rawplus_ie
+#'   dfDISP = clindata::rawplus_subj,
+#'   dfIE = clindata::rawplus_ie,
+#'   dfLB = clindata::rawplus_lb,
+#'   dfPD = clindata::rawplus_pd,
+#'   dfSUBJ = clindata::rawplus_subj
 #' )
-#' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+#' lMapping <- yaml::read_yaml(
+#'   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
+#' )
 #' 
-#' aeOutput <- RunStratifiedWorkflow(lWorkflows$aeGrade, lData = lData, lMapping = lMapping)
+#' output <- RunStratifiedWorkflow(
+#'   lWorkflows$aeGrade, # adverse event workflow, stratified by AE grade
+#'   lData = lData,
+#'   lMapping = lMapping
+#' )
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom purrr map

@@ -139,7 +139,7 @@ Visualize_Workflow <- function(lAssessments) {
         fillcolor = case_when(.data$checks == FALSE ~ "Tomato",
                               .data$checks == "" ~ "LightSlateGray",
                               TRUE ~ fillcolor),
-        tooltip = ifelse(checks == "", paste0(.data$tooltip, "\nCheck Not Run"), .data$tooltip)
+        tooltip = ifelse(.data$checks == "", paste0(.data$tooltip, "\nCheck Not Run"), .data$tooltip)
       )
 
     if (FALSE %in% node_df$checks) {
