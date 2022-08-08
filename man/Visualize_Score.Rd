@@ -2,7 +2,7 @@
 % Please edit documentation in R/Visualize_Score.R
 \name{Visualize_Score}
 \alias{Visualize_Score}
-\title{Site-level visualization of scores.}
+\title{Group-level visualization of scores.}
 \usage{
 Visualize_Score(dfFlagged, strType = "KRI", bFlagFilter = FALSE, strTitle = "")
 }
@@ -11,21 +11,21 @@ Visualize_Score(dfFlagged, strType = "KRI", bFlagFilter = FALSE, strTitle = "")
 
 \item{strType}{\code{character} One of \code{"KRI"} or \code{"score"}.}
 
-\item{bFlagFilter}{\code{logical} Filter out non-flagged sites? Default: \code{FALSE}}
+\item{bFlagFilter}{\code{logical} Filter out non-flagged groups? Default: \code{FALSE}}
 
 \item{strTitle}{Title of plot. NULL by default.}
 }
 \value{
-site-level plot object.
+group-level plot object.
 }
 \description{
-Site-level visualization of scores.
+Group-level visualization of scores.
 }
 \examples{
 ae <- AE_Map_Raw() \%>\% AE_Assess(vThreshold = c(-8, 8))
 
 Visualize_Score(ae$dfFlagged) # visualize KRI (default)
-Visualize_Score(ae$dfFlagged, bFlagFilter = TRUE) # drop non-flagged sites
+Visualize_Score(ae$dfFlagged, bFlagFilter = TRUE) # drop non-flagged groups
 
 consent <- Consent_Map_Raw() \%>\% Consent_Assess()
 Visualize_Score(consent$dfFlagged, strType = "score") # visualize score

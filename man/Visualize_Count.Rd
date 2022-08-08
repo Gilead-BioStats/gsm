@@ -2,7 +2,7 @@
 % Please edit documentation in R/Visualize_Count.R
 \name{Visualize_Count}
 \alias{Visualize_Count}
-\title{Site-level visualization of site-level Inclusion/Exclusion results}
+\title{Group-level visualization of group-level Inclusion/Exclusion results}
 \usage{
 Visualize_Count(
   dfAnalyzed,
@@ -17,17 +17,17 @@ Visualize_Count(
 
 \item{strGroupCol}{name of stratification column for facet wrap (default=NULL)}
 
-\item{strTotalCol}{Column containing total of site-level participants. Default is "N" from \code{\link{Transform_EventCount}}.}
+\item{strTotalCol}{Column containing total of group-level participants. Default is "N" from \code{\link{Transform_EventCount}}.}
 
-\item{strCountCol}{Column containing total number of site-level occurrences. Default is "TotalCount" from \code{\link{Transform_EventCount}}.}
+\item{strCountCol}{Column containing total number of group-level occurrences. Default is "TotalCount" from \code{\link{Transform_EventCount}}.}
 
 \item{strTitle}{Title of plot. NULL by default.}
 }
 \value{
-site-level plot object.
+group-level plot object.
 }
 \description{
-Site-level visualization of site-level Inclusion/Exclusion results
+Group-level visualization of group-level Inclusion/Exclusion results
 }
 \examples{
 IE_Input <- IE_Map_Raw()
