@@ -1,17 +1,17 @@
-#' Site-level visualization of scores.
+#' Group-level visualization of scores.
 #'
 #' @param dfFlagged `data.frame` returned by [gsm::Flag()]
 #' @param strType `character` One of `"KRI"` or `"score"`.
-#' @param bFlagFilter `logical` Filter out non-flagged sites? Default: `FALSE`
+#' @param bFlagFilter `logical` Filter out non-flagged groups? Default: `FALSE`
 #' @param strTitle Title of plot. NULL by default.
 #'
-#' @return site-level plot object.
+#' @return group-level plot object.
 #'
 #' @examples
 #' ae <- AE_Map_Raw() %>% AE_Assess(vThreshold = c(-8, 8))
 #'
 #' Visualize_Score(ae$dfFlagged) # visualize KRI (default)
-#' Visualize_Score(ae$dfFlagged, bFlagFilter = TRUE) # drop non-flagged sites
+#' Visualize_Score(ae$dfFlagged, bFlagFilter = TRUE) # drop non-flagged groups
 #'
 #' consent <- Consent_Map_Raw() %>% Consent_Assess()
 #' Visualize_Score(consent$dfFlagged, strType = "score") # visualize score
@@ -26,7 +26,7 @@ Visualize_Score <- function(
     strType = "KRI",
     bFlagFilter = FALSE,
     strTitle = ""
-    ) {
+) {
   stopifnot(
     "strTitle must be character" = is.character(strTitle),
     "bFlagFilter must be logical" = is.logical(bFlagFilter),

@@ -1,11 +1,11 @@
-#' Site-level visualization of site-level results using a Poisson or Wilcoxon model.
+#' Group-level visualization of group-level results using a Poisson or Wilcoxon model.
 #'
 #' @param dfFlagged analyze_poisson results with flags added.
 #' @param dfBounds data.frame giving prediction bounds for range of dfFlagged.
 #' @param strGroupCol name of stratification column for facet wrap (default=NULL)
 #' @param strUnit exposure time unit. Defaults to "days".
 #'
-#' @return site-level plot object.
+#' @return group-level plot object.
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
@@ -23,11 +23,13 @@
 #' @export
 
 Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strGroupCol = NULL, strUnit = "days") {
+  groupLabel <- unique(dfFlagged$GroupLabel)
+
   # Define tooltip for use in plotly.
   dfFlaggedWithTooltip <- dfFlagged %>%
     mutate(
       tooltip = paste(
-        paste0('Group: ', .data$GroupLabel),
+        paste0('Group: ', groupLabel),
         paste0('GroupID: ', .data$GroupID),
         paste0('Exposure (days): ', format(.data$TotalExposure, big.mark = ',', trim = TRUE)),
         paste0('# of Events: ', format(.data$TotalCount, big.mark = ',', trim = TRUE)),
@@ -58,8 +60,8 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strGroupCol = NULL, st
     ) +
     # Add chart elements
     geom_point() +
-    xlab(paste0("Site Total Exposure (", strUnit, " - log scale)")) +
-    ylab("Site Total Events") +
+    xlab(glue::glue("{groupLabel} Total Exposure ({strUnit} - log scale)")) +
+    ylab(glue::glue("{groupLabel} Total Events")) +
     geom_text(
       data = dfFlaggedWithTooltip %>% filter(.data$Flag != 0),
       aes(x = log(.data$TotalExposure), y = .data$TotalCount, label = .data$GroupID),

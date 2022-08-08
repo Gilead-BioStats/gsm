@@ -1,12 +1,12 @@
-#' Site-level visualization of site-level Inclusion/Exclusion results
+#' Group-level visualization of group-level Inclusion/Exclusion results
 #'
 #' @param dfAnalyzed Map results from IE or Consent assessments.
 #' @param strGroupCol name of stratification column for facet wrap (default=NULL)
-#' @param strTotalCol Column containing total of site-level participants. Default is "N" from \code{\link{Transform_EventCount}}.
-#' @param strCountCol Column containing total number of site-level occurrences. Default is "TotalCount" from \code{\link{Transform_EventCount}}.
+#' @param strTotalCol Column containing total of group-level participants. Default is "N" from \code{\link{Transform_EventCount}}.
+#' @param strCountCol Column containing total number of group-level occurrences. Default is "TotalCount" from \code{\link{Transform_EventCount}}.
 #' @param strTitle Title of plot. NULL by default.
 #'
-#' @return site-level plot object.
+#' @return group-level plot object.
 #'
 #' @examples
 #' IE_Input <- IE_Map_Raw()

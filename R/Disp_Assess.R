@@ -41,17 +41,19 @@
 #'
 #' @export
 
-Disp_Assess <- function(dfInput,
-                        vThreshold = NULL,
-                        strMethod = "chisq",
-                        strKRILabel = "% Discontinuation",
-                        strGroup = "Site",
-                        lTags = list(
-                          Assessment = "Disposition"
-                          ),
-                        bChart = TRUE,
-                        bReturnChecks = FALSE,
-                        bQuiet = TRUE) {
+Disp_Assess <- function(
+    dfInput,
+    vThreshold = NULL,
+    strMethod = "chisq",
+    strKRILabel = "% Discontinuation",
+    strGroup = "Site",
+    lTags = list(
+      Assessment = "Disposition"
+      ),
+    bChart = TRUE,
+    bReturnChecks = FALSE,
+    bQuiet = TRUE
+) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),

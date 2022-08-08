@@ -14,18 +14,25 @@
 #' @examples
 #' lAssessments <- MakeAssessmentList()
 #' lData <- list(
-#'   dfSUBJ = clindata::rawplus_subj,
 #'   dfAE = clindata::rawplus_ae,
-#'   dfPD = clindata::rawplus_pd,
 #'   dfCONSENT = clindata::rawplus_consent,
-#'   dfIE = clindata::rawplus_ie
+#'   dfDISP = clindata::rawplus_subj,
+#'   dfIE = clindata::rawplus_ie,
+#'   dfLB = clindata::rawplus_lb,
+#'   dfPD = clindata::rawplus_pd,
+#'   dfSUBJ = clindata::rawplus_subj
 #' )
 #' lTags <- list(
 #'   Study = "myStudy"
 #' )
 #' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
-#'
-#' ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
+#' 
+#' output <- RunAssessment(
+#'     lAssessments$ae, # adverse event workflow
+#'     lData,
+#'     lMapping,
+#'     lTags
+#' )
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom stringr str_detect
@@ -47,6 +54,7 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = T
     for (step in lAssessment$workflow) {
       if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lAssessment$workflow), ": `", step$name, "`"))
       if (lAssessment$bStatus) {
+
         result <- gsm::RunStep(
           lStep = step,
           lMapping = lMapping,
@@ -54,9 +62,11 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = T
           lTags = c(lTags, lAssessment$tags),
           bQuiet = bQuiet
         )
+
         lAssessment$checks[[stepCount]] <- result$lChecks
         names(lAssessment$checks)[[stepCount]] <- step$name
         lAssessment$bStatus <- result$lChecks$status
+
         if (result$lChecks$status) {
           if(!bQuiet) cli::cli_alert_success("{.fn {step$name}} Successful")
         } else {
