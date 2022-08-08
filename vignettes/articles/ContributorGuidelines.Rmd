@@ -57,6 +57,7 @@ Please also use the following general guidance when creating a Pull Request:
 - When submitting a Pull Request, make sure to include any relevant details that will help the reviewer to understand the proposed updates or new functionality. Additionally, link the PR to the relevant issue by using [closing keywords](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword), or manually link to the issue by using the `Development` section on the sidebar.
 - In general, all Pull Requests should target the `dev` branch (with the exception of a release PR).
 - All checks and tests must be passing before merging a PR to dev. These checks are automatically run via [GitHub Actions](#github-action-workflow), but you can also run them locally by calling `devtools::check()` on your branch before finalizing a PR. 
+- Developers should check the qualification-dev-check output during development.  If there are any issues present or new functionality is added that needs to be qualified the developer should add it to the version qualification issue.
 
 # Release Process
 

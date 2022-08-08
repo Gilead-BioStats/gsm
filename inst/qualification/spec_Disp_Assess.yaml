@@ -1,17 +1,22 @@
 - ID: S2_1
-  Description: Given correct input data a Protocol Deviation assessment can be done using the poisson method
+  Description: Given correct input data a Disposition assessment can be done using the chisq method
   Risk: High
   Impact: High
   Tests:
     - T2_1
     - T2_2
-    - T2_3
 - ID: S2_2
-  Description: Given correct input data a Protocol Deviation assessment can be done using the wilcoxon method
+  Description: Given correct input data a Protocol Deviation assessment can be done using the fisher method
   Risk: High
   Impact: High
   Tests:
+    - T2_3
     - T2_4
+- ID: S2_2
+  Description: Given correct input data a Protocol Deviation assessment can be done using the identity method
+  Risk: High
+  Impact: High
+  Tests:
     - T2_5
     - T2_6
 - ID: S2_3
@@ -42,11 +47,5 @@
   Impact: Medium
   Tests:
     - T2_2
-    - T2_5
-- ID: S2_6
-  Description: A Protocol Deviation assessment can be done iteratively by looping over a categorical variable
-  Risk: Low
-  Impact: Medium
-  Tests:
-    - T2_3
+    - T2_4
     - T2_6

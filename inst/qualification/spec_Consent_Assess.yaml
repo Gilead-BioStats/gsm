@@ -6,7 +6,7 @@
     - T4_1
     - T4_2
 - ID: S4_2
-  Description: Assessments are correctly grouped by the site variable
+  Description: Assessments are correctly grouped by a grouping variable (site, country)
   Risk: Low
   Impact: High
   Tests:

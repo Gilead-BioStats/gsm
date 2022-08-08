@@ -17,7 +17,7 @@
     - T1_7
     - T1_8
 - ID: S1_3
-  Description: Assessments are correctly grouped by the site variable
+  Description: Assessments are correctly grouped by a grouping variable (site, country)
   Risk: Low
   Impact: High
   Tests:

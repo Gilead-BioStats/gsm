@@ -7,7 +7,7 @@
     - T3_2
     - T3_3
 - ID: S3_2
-  Description: Assessments are correctly grouped by the site variable
+  Description: Assessments are correctly grouped by a grouping variable (site, country)
   Risk: Low
   Impact: High
   Tests:
