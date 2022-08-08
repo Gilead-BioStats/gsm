@@ -105,7 +105,7 @@ styler::style_dir('tests', recursive = TRUE, transformers = double_indent_style)
     - update `NEWS.md` with a summary of the updates in the release.
     - If applicable, review `README.md` and relevant vignettes to make sure updates are accurately described.
     - Ensure all unit tests are passing.
-    - Ensure all qualification tests are passing and report has been rerun.
+    - Check if qualification tests are all passing or if new features were added that need to be qualified.  If updates are needed they should be outlined in a release QC issue.
     - Run `devtools::spell_check()` and resolve issues.
     - Build site `pkgdown::build_site()` and check that all affected examples are displayed correctly and that all new functions occur on the "Reference" page.
     - Open a clean R session and run `devtools::install()` and then `devtools::check()` locally and confirm that there are no issues. 
@@ -175,9 +175,10 @@ GitHub Actions are used in `{gsm}` to automate processes and ensure all code and
 -  R CMD check - Basic R CMD check run using `rcmdcheck::rcmdcheck()`.  Additional check for the ability to build the pkgdown reference index to make sure all functions are documented correctly.  This check will run on `ubuntu-latest` and will be run on R versions 4.0.5 and 4.1.3
 - Build Markdown - Builds Assessment specification tables from function documentation.  Outputs are added to man/md and any changes are committed to the compare branch or the triggering Pull Request.
 - Test Coverage - Uses `{covr}` to check the package coverage of `{gsm}` 
+- Qualification Check - Runs the qualification tests but will not fail if any of the tests do not pass.  Developers should review this check when changes that might need updates to qualification are done.
 
 ## Merges to `main` branch
 
-- R CMD check - Basic R CMD check run using `rcmdcheck::rcmdcheck()`.  Additional check for the ability to build the pkgdown reference index to make sure all functions are documented correctly.  This check will run on `ubuntu-latest` and will be run on R versions 4.0.5 and 4.1.3.  Additionally, it will be run on the latest R release version on `windows-latest`, `macOS-latest`, and `ubuntu-latest`.
+- R CMD check - Basic R CMD check run using `rcmdcheck::rcmdcheck()`.  Additional check for the ability to build the pkgdown reference index to make sure all functions are documented correctly.  The check will also run all qualification tests to ensure that the release is fully qualified.  This check will run on `ubuntu-latest` and will be run on R versions 4.0.5 and 4.1.3.  Additionally, it will be run on the latest R release version on `windows-latest`, `macOS-latest`, and `ubuntu-latest`.  
 - pkgdown - Builds the [pkgdown site](https://silver-potato-cfe8c2fb.pages.github.io/) for `{gsm}`.  
 - Qualification report - Builds the qualification vignette as an attached artifact to the Pull Request.  This should be reviewed by the Pull Request owner for completeness and correctness to ensure the artifact that is added to the release is correct.
