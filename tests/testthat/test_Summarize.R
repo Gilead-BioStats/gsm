@@ -8,7 +8,7 @@ dfTransformed <- Transform_EventCount(
   strExposureCol = "Exposure",
   strGroupCol = "SiteID",
   strKRILabel = "AEs/Week"
-  )
+)
 dfAnalyzed <- gsm::Analyze_Poisson(dfTransformed)
 dfFlagged <- gsm::Flag(dfAnalyzed, vThreshold = c(-5, 5))
 
@@ -20,8 +20,10 @@ test_that("output created as expected and has correct structure", {
 
   ae_finding <- Summarize(dfFlagged, strScoreCol = "Score", lTags = list(Assessment = "Safety", Label = "Test Assessment"))
   expect_true(is.data.frame(ae_finding))
-  expect_equal(names(ae_finding), c("GroupID", "GroupLabel", "N", "KRI", "KRILabel", "Score", "ScoreLabel",
-                                    "Flag", "Assessment", "Label"))
+  expect_equal(names(ae_finding), c(
+    "GroupID", "GroupLabel", "N", "KRI", "KRILabel", "Score", "ScoreLabel",
+    "Flag", "Assessment", "Label"
+  ))
   expect_equal(sort(unique(ae_input$SiteID)), sort(ae_finding$GroupID))
 })
 

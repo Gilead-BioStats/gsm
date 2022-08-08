@@ -6,7 +6,7 @@ dfTransformed <- Transform_EventCount(
   strCountCol = "Count",
   strGroupCol = "SiteID",
   strKRILabel = "Test Label"
-  )
+)
 dfAnalyzed <- Analyze_Identity(dfTransformed)
 
 test_that("output created as expected and has correct structure", {
@@ -33,8 +33,10 @@ test_that("strValueCol works as intended", {
   dfAnalyzed <- Analyze_Identity(dfTransformed, strValueCol = "customKRI")
 
   expect_silent(Analyze_Identity(dfTransformed, strValueCol = "customKRI"))
-  expect_equal(names(dfAnalyzed), c("GroupID", "GroupLabel", "N", "TotalCount", "customKRI", "KRILabel",
-                                    "Score", "ScoreLabel"))
+  expect_equal(names(dfAnalyzed), c(
+    "GroupID", "GroupLabel", "N", "TotalCount", "customKRI", "KRILabel",
+    "Score", "ScoreLabel"
+  ))
 })
 
 test_that("strLabelCol works as intended", {
@@ -44,8 +46,10 @@ test_that("strLabelCol works as intended", {
   dfAnalyzed <- Analyze_Identity(dfTransformed, strLabelCol = "customKRILabel")
 
   expect_silent(Analyze_Identity(dfTransformed, strLabelCol = "customKRILabel"))
-  expect_equal(names(dfAnalyzed), c("GroupID", "GroupLabel", "N", "TotalCount", "KRI", "customKRILabel",
-                                    "Score", "ScoreLabel"))
+  expect_equal(names(dfAnalyzed), c(
+    "GroupID", "GroupLabel", "N", "TotalCount", "KRI", "customKRILabel",
+    "Score", "ScoreLabel"
+  ))
 })
 
 test_that("bQuiet works as intended", {

@@ -54,14 +54,14 @@
 #' @export
 
 AE_Assess <- function(dfInput,
-                      vThreshold = NULL,
-                      strMethod = "poisson",
-                      strKRILabel = "AEs/Week",
-                      strGroup = "Site",
-                      lTags = list(Assessment = "AE"),
-                      bChart = TRUE,
-                      bReturnChecks = FALSE,
-                      bQuiet = TRUE) {
+  vThreshold = NULL,
+  strMethod = "poisson",
+  strKRILabel = "AEs/Week",
+  strGroup = "Site",
+  lTags = list(Assessment = "AE"),
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "dfInput is missing one or more of these columns: SubjectID, Count, Exposure, and Rate" = all(c("SubjectID", "Count", "Exposure", "Rate") %in% names(dfInput)),
@@ -105,11 +105,11 @@ AE_Assess <- function(dfInput,
 
 
   mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
-  strGroupCol <- mapping$dfInput[[glue('str{strGroup}Col')]]
+  strGroupCol <- mapping$dfInput[[glue("str{strGroup}Col")]]
   mapping$dfInput$strGroupCol <- strGroupCol
 
   stopifnot(
-    "`strGroup` not found in mapping" = glue('str{strGroup}Col') %in% names(mapping$dfInput),
+    "`strGroup` not found in mapping" = glue("str{strGroup}Col") %in% names(mapping$dfInput),
     "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput)
   )
 

@@ -32,9 +32,10 @@
 #' dfInput <- AE_Map_Adam()
 #'
 #' dfTransformed <- Transform_EventCount(dfInput,
-#'                                       strCountCol = "Count",
-#'                                       strExposureCol = "Exposure",
-#'                                       strKRILabel = "AEs/Week")
+#'   strCountCol = "Count",
+#'   strExposureCol = "Exposure",
+#'   strKRILabel = "AEs/Week"
+#' )
 #'
 #' dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5, 5))
 #'
@@ -77,10 +78,8 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
       # Calculate upper bound of expected event count given specified threshold.
       vHi = vThreshold[2]^2 - 2 * .data$vMu,
       vWHi = .data$vHi / (2 * exp(1) * .data$vMu),
-
       PredictYLo = .data$vLo / (2 * lamW::lambertWm1(.data$vWLo)),
       PredictYHi = .data$vHi / (2 * lamW::lambertW0(.data$vWHi)),
-
       LowerCount = if_else(is.nan(.data$PredictYLo), 0, .data$PredictYLo),
       UpperCount = if_else(is.nan(.data$PredictYHi), 0, .data$PredictYHi)
     )

@@ -32,9 +32,10 @@
 #' dfInput <- AE_Map_Adam()
 #'
 #' dfTransformed <- Transform_EventCount(dfInput,
-#'                                       strCountCol = "Count",
-#'                                       strExposureCol = "Exposure",
-#'                                       strKRILabel = "AEs/Week")
+#'   strCountCol = "Count",
+#'   strExposureCol = "Exposure",
+#'   strKRILabel = "AEs/Week"
+#' )
 #'
 #' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
 #'

@@ -28,10 +28,10 @@
 #' @examples
 #' dfInput <- Disp_Map_Raw()
 #' dfTransformed <- Transform_EventCount(
-#'                    dfInput,
-#'                    strCountCol = "Count",
-#'                    strKRILabel = "Discontinuations due to AE/Month"
-#'                  )
+#'   dfInput,
+#'   strCountCol = "Count",
+#'   strKRILabel = "Discontinuations due to AE/Month"
+#' )
 #' dfAnalyzed <- Analyze_Chisq(dfTransformed)
 #'
 #' @import dplyr

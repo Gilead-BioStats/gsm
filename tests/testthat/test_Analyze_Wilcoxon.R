@@ -6,8 +6,10 @@ ae_prep <- Transform_EventCount(ae_input, strCountCol = "Count", strGroupCol = "
 test_that("output created as expected and has correct structure", {
   aew_anly <- Analyze_Wilcoxon(ae_prep)
   expect_true(is.data.frame(aew_anly))
-  expect_true(all(c("GroupID", "GroupLabel", "N", "TotalCount", "TotalExposure",
-                    "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel") %in% names(aew_anly)))
+  expect_true(all(c(
+    "GroupID", "GroupLabel", "N", "TotalCount", "TotalExposure",
+    "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel"
+  ) %in% names(aew_anly)))
   expect_equal(sort(unique(ae_input$SiteID)), sort(aew_anly$GroupID))
 })
 
@@ -59,7 +61,7 @@ test_that("bQuiet works as intended", {
     strCountCol = "Count",
     strGroupCol = "SiteID",
     strExposureCol = "Exposure"
-    )
+  )
   expect_snapshot(
     dfAnalyzed <- Analyze_Poisson(dfTransformed, bQuiet = FALSE)
   )

@@ -18,25 +18,25 @@ dfSUBJ <- data.frame(
 )
 
 dfLB <- tibble::tribble(
-  ~SubjectID, ~VISIT   , ~LBCAT      , ~LBTEST    , ~LB_ABN_FLAG,
-  '1234'    , 'Visit 1', 'Chemistry' , 'Calcium'  , FALSE       ,
-  '1234'    , 'Visit 2', 'Chemistry' , 'Calcium'  , TRUE        ,
-  '1234'    , 'Visit 3', 'Chemistry' , 'Calcium'  , FALSE       ,
-  '1234'    , 'Visit 1', 'Chemistry' , 'Sodium'   , FALSE       ,
-  '1234'    , 'Visit 2', 'Chemistry' , 'Sodium'   , FALSE       ,
-  '1234'    , 'Visit 3', 'Chemistry' , 'Sodium'   , TRUE        ,
-  '1234'    , 'Visit 1', 'Hematology', 'Platelets', TRUE        ,
-  '1234'    , 'Visit 2', 'Hematology', 'Platelets', FALSE       ,
-  '1234'    , 'Visit 3', 'Hematology', 'Platelets', FALSE       ,
-  '5678'    , 'Visit 1', 'Chemistry' , 'Calcium'  , TRUE        ,
-  '5678'    , 'Visit 1', 'Chemistry' , 'Sodium'   , TRUE        ,
-  '5678'    , 'Visit 1', 'Hematology', 'Platelets', FALSE       ,
-  '9876'    , 'Visit 1', 'Chemistry' , 'Calcium'  , FALSE       ,
-  '9876'    , 'Visit 2', 'Chemistry' , 'Calcium'  , FALSE       ,
-  '9876'    , 'Visit 1', 'Chemistry' , 'Sodium'   , FALSE       ,
-  '9876'    , 'Visit 2', 'Chemistry' , 'Sodium'   , FALSE       ,
-  '9876'    , 'Visit 1', 'Hematology', 'Platelets', FALSE       ,
-  '9876'    , 'Visit 2', 'Hematology', 'Platelets', FALSE       
+  ~SubjectID, ~VISIT, ~LBCAT, ~LBTEST, ~LB_ABN_FLAG,
+  "1234", "Visit 1", "Chemistry", "Calcium", FALSE,
+  "1234", "Visit 2", "Chemistry", "Calcium", TRUE,
+  "1234", "Visit 3", "Chemistry", "Calcium", FALSE,
+  "1234", "Visit 1", "Chemistry", "Sodium", FALSE,
+  "1234", "Visit 2", "Chemistry", "Sodium", FALSE,
+  "1234", "Visit 3", "Chemistry", "Sodium", TRUE,
+  "1234", "Visit 1", "Hematology", "Platelets", TRUE,
+  "1234", "Visit 2", "Hematology", "Platelets", FALSE,
+  "1234", "Visit 3", "Hematology", "Platelets", FALSE,
+  "5678", "Visit 1", "Chemistry", "Calcium", TRUE,
+  "5678", "Visit 1", "Chemistry", "Sodium", TRUE,
+  "5678", "Visit 1", "Hematology", "Platelets", FALSE,
+  "9876", "Visit 1", "Chemistry", "Calcium", FALSE,
+  "9876", "Visit 2", "Chemistry", "Calcium", FALSE,
+  "9876", "Visit 1", "Chemistry", "Sodium", FALSE,
+  "9876", "Visit 2", "Chemistry", "Sodium", FALSE,
+  "9876", "Visit 1", "Hematology", "Platelets", FALSE,
+  "9876", "Visit 2", "Hematology", "Platelets", FALSE
 )
 
 dfPD <- tibble::tribble(
@@ -67,9 +67,9 @@ dfCONSENT <- data.frame(
 #   slice(1:3)
 dfDISP <- tibble::tribble(
   ~SubjectID, ~TrtCompletion, ~TrtDCReason, ~StudCompletion, ~StudDCReason,
-  "1234",            "N",           "Adverse Event",             "N",            "Withdrew Consent",
-  "5678",            "Y",           NA,                          "Y",            NA,
-  "9876",            "O",           NA,                          "O",            NA
+  "1234", "N", "Adverse Event", "N", "Withdrew Consent",
+  "5678", "Y", NA, "Y", NA,
+  "9876", "O", NA, "O", NA
 )
 
 

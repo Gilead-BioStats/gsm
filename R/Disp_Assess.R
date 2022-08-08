@@ -42,17 +42,17 @@
 #' @export
 
 Disp_Assess <- function(
-    dfInput,
-    vThreshold = NULL,
-    strMethod = "chisq",
-    strKRILabel = "% Discontinuation",
-    strGroup = "Site",
-    lTags = list(
-      Assessment = "Disposition"
-      ),
-    bChart = TRUE,
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
+  dfInput,
+  vThreshold = NULL,
+  strMethod = "chisq",
+  strKRILabel = "% Discontinuation",
+  strGroup = "Site",
+  lTags = list(
+    Assessment = "Disposition"
+  ),
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 ) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
@@ -94,11 +94,11 @@ Disp_Assess <- function(
   )
 
   mapping <- yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm"))
-  strGroupCol <- mapping$dfInput[[glue::glue('str{strGroup}Col')]]
+  strGroupCol <- mapping$dfInput[[glue::glue("str{strGroup}Col")]]
   mapping$dfInput$strGroupCol <- strGroupCol
 
   stopifnot(
-    "`strGroup` not found in mapping" = glue('str{strGroup}Col') %in% names(mapping$dfInput),
+    "`strGroup` not found in mapping" = glue("str{strGroup}Col") %in% names(mapping$dfInput),
     "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput)
   )
 

@@ -15,9 +15,11 @@ test_that("output is created as expected", {
   expect_true(all(names(dfWilcoxon) %in% names(flag)))
   expect_equal(
     names(flag),
-    c("GroupID", "GroupLabel", "N", "TotalCount", "TotalExposure",
+    c(
+      "GroupID", "GroupLabel", "N", "TotalCount", "TotalExposure",
       "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel", "ThresholdLow",
-      "ThresholdHigh", "ThresholdCol", "Flag")
+      "ThresholdHigh", "ThresholdCol", "Flag"
+    )
   )
 })
 

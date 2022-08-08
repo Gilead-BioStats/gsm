@@ -2,7 +2,7 @@ lData <- list(
   dfSUBJ = clindata::rawplus_subj,
   dfAE = clindata::rawplus_ae
 )
-StrataWorkflow<- MakeAssessmentList()$aeGrade
+StrataWorkflow <- MakeAssessmentList()$aeGrade
 
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
@@ -22,7 +22,7 @@ test_that("output is created as expected", {
 
   # FilterData added as first step in each workflow
   expect_true(
-    all(strat %>% purrr::map_lgl(~.x$workflow[[1]]$name == "FilterData"))
+    all(strat %>% purrr::map_lgl(~ .x$workflow[[1]]$name == "FilterData"))
   )
 })
 
@@ -53,7 +53,7 @@ test_that("errors thrown for invalid groupings", {
   )
 
   badWorkflow1 <- StrataWorkflow
-  badWorkflow1$group$domain <- 'dfOther'
+  badWorkflow1$group$domain <- "dfOther"
   expect_error(
     MakeStratifiedAssessment(
       badWorkflow1,
@@ -63,7 +63,7 @@ test_that("errors thrown for invalid groupings", {
   )
 
   badWorkflow2 <- StrataWorkflow
-  badWorkflow2$group$columnParam <- 'NotACol'
+  badWorkflow2$group$columnParam <- "NotACol"
   expect_error(
     MakeStratifiedAssessment(
       badWorkflow2,

@@ -12,7 +12,7 @@
 #' @examples
 #' \dontrun{
 #' results <- Study_Assess() # run using defaults
-#'}
+#' }
 #' @return `list` of assessments containing status information and results.
 #'
 #' @import dplyr
@@ -90,26 +90,26 @@ Study_Assess <- function(
       ### --- Attempt to run each assessment --- ###
       lAssessments <- lAssessments %>%
         map(function(lAssessment) {
-            Runction <- ifelse(
-                hasName(lAssessment, "group"),
-                RunStratifiedWorkflow,
-                RunAssessment
-            )
+          Runction <- ifelse(
+            hasName(lAssessment, "group"),
+            RunStratifiedWorkflow,
+            RunAssessment
+          )
 
-            Runction(
-                lAssessment,
-                lData = lData,
-                lMapping = lMapping,
-                lTags = lTags,
-                bQuiet = bQuiet
-            )
-      })
+          Runction(
+            lAssessment,
+            lData = lData,
+            lMapping = lMapping,
+            lTags = lTags,
+            bQuiet = bQuiet
+          )
+        })
     } else {
-      if(!bQuiet) cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
+      if (!bQuiet) cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
       lAssessments <- NULL
     }
   } else {
-    if(!bQuiet) cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
+    if (!bQuiet) cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
     lAssessments <- NULL
   }
 

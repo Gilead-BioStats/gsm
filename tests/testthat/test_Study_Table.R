@@ -16,7 +16,7 @@ results <- Study_Assess(lAssessments = lAssessments, lData = lData, bQuiet = TRU
   purrr::map(~ .x$lResults) %>%
   purrr::compact() %>%
   purrr::map_df(~ .x$dfSummary) %>%
-  filter(!is.nan(Score)) %>% #Disp_Assess() for study is returning NaN for Score and failing Study_Table
+  filter(!is.nan(Score)) %>% # Disp_Assess() for study is returning NaN for Score and failing Study_Table
   suppressMessages()
 
 test_that("Study Table Runs as expected", {

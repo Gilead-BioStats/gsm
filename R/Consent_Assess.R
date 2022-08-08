@@ -56,13 +56,13 @@
 #' @export
 
 Consent_Assess <- function(dfInput,
-                           nThreshold = 0.5,
-                           lTags = list(Assessment = "Consent"),
-                           strKRILabel = "Total Number of Consent Issues",
-                           strGroup = "Site",
-                           bChart = TRUE,
-                           bReturnChecks = FALSE,
-                           bQuiet = TRUE) {
+  nThreshold = 0.5,
+  lTags = list(Assessment = "Consent"),
+  strKRILabel = "Total Number of Consent Issues",
+  strGroup = "Site",
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
     "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),
@@ -104,11 +104,11 @@ Consent_Assess <- function(dfInput,
   )
 
   mapping <- yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm"))
-  strGroupCol <- mapping$dfInput[[glue::glue('str{strGroup}Col')]]
+  strGroupCol <- mapping$dfInput[[glue::glue("str{strGroup}Col")]]
   mapping$dfInput$strGroupCol <- strGroupCol
 
   stopifnot(
-    "`strGroup` not found in mapping" = glue('str{strGroup}Col') %in% names(mapping$dfInput),
+    "`strGroup` not found in mapping" = glue("str{strGroup}Col") %in% names(mapping$dfInput),
     "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput)
   )
 

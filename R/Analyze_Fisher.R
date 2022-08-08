@@ -27,10 +27,10 @@
 #' @examples
 #' dfInput <- Disp_Map_Raw()
 #' dfTransformed <- Transform_EventCount(
-#'                    dfInput,
-#'                    strCountCol = "Count",
-#'                    strKRILabel = "Discontinuations due to AE"
-#'                  )
+#'   dfInput,
+#'   strCountCol = "Count",
+#'   strKRILabel = "Discontinuations due to AE"
+#' )
 #' dfAnalyzed <- Analyze_Fisher(dfTransformed)
 #'
 #' @import dplyr
@@ -99,7 +99,7 @@ Analyze_Fisher <- function(
       .data$Estimate,
       .data$Score,
       .data$ScoreLabel
-      )
+    )
 
   return(dfAnalyzed)
 }

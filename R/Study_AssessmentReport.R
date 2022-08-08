@@ -9,9 +9,11 @@
 #'
 #' @examples
 #'
-#' assessment <- Study_Assess(lData = list(dfAE = clindata::rawplus_ae,
-#'                                         dfPD = clindata::rawplus_pd,
-#'                                         dfSUBJ = clindata::rawplus_subj))
+#' assessment <- Study_Assess(lData = list(
+#'   dfAE = clindata::rawplus_ae,
+#'   dfPD = clindata::rawplus_pd,
+#'   dfSUBJ = clindata::rawplus_subj
+#' ))
 #'
 #' report <- Study_AssessmentReport(lAssessments = assessment)
 #'

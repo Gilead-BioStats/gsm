@@ -32,9 +32,8 @@ test_that("metadata is returned as expected", {
 
 # grouping works as expected ----------------------------------------------
 test_that("grouping works as expected", {
-
   subsetGroupCols <- function(assessOutput) {
-    assessOutput[['dfSummary']] %>% select(starts_with("Group"))
+    assessOutput[["dfSummary"]] %>% select(starts_with("Group"))
   }
 
   site <- assess_function(dfInput)
@@ -44,8 +43,7 @@ test_that("grouping works as expected", {
   expect_snapshot(subsetGroupCols(site))
   expect_snapshot(subsetGroupCols(study))
   expect_snapshot(subsetGroupCols(customGroup))
-  expect_false(all(map_lgl(list(site, study, customGroup), ~all(map_lgl(., ~is_grouped_df(.))))))
-
+  expect_false(all(map_lgl(list(site, study, customGroup), ~ all(map_lgl(., ~ is_grouped_df(.))))))
 })
 
 # incorrect inputs throw errors -------------------------------------------

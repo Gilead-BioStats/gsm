@@ -2,8 +2,10 @@ source(testthat::test_path("testdata/data.R"))
 
 
 dfInput <- Disp_Map_Raw(
-  dfs = list(dfDISP = dfDISP,
-             dfSUBJ = dfSUBJ)
+  dfs = list(
+    dfDISP = dfDISP,
+    dfSUBJ = dfSUBJ
+  )
 )
 
 

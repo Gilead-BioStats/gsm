@@ -12,7 +12,7 @@
 #' SafetyAE <- AE_Assess(dfInput)
 #' dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$dfTransformed, c(-5, 5))
 #' Visualize_Scatter(SafetyAE$dfFlagged, dfBounds)
-#' 
+#'
 #' SafetyAE_wilk <- AE_Assess(dfInput, strMethod = "wilcoxon")
 #' Visualize_Scatter(SafetyAE_wilk$dfFlagged)
 #'
@@ -29,11 +29,11 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strGroupCol = NULL, st
   dfFlaggedWithTooltip <- dfFlagged %>%
     mutate(
       tooltip = paste(
-        paste0('Group: ', groupLabel),
-        paste0('GroupID: ', .data$GroupID),
-        paste0('Exposure (days): ', format(.data$TotalExposure, big.mark = ',', trim = TRUE)),
-        paste0('# of Events: ', format(.data$TotalCount, big.mark = ',', trim = TRUE)),
-        sep = '\n'
+        paste0("Group: ", groupLabel),
+        paste0("GroupID: ", .data$GroupID),
+        paste0("Exposure (days): ", format(.data$TotalExposure, big.mark = ",", trim = TRUE)),
+        paste0("# of Events: ", format(.data$TotalCount, big.mark = ",", trim = TRUE)),
+        sep = "\n"
       )
     )
 
@@ -77,8 +77,8 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strGroupCol = NULL, st
       geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$UpperCount), color = "red", linetype = "dashed", inherit.aes = FALSE)
   }
 
-  if(!is.null(strGroupCol)){
-    p<- p + facet_wrap(vars(.data[[strGroupCol]]))
+  if (!is.null(strGroupCol)) {
+    p <- p + facet_wrap(vars(.data[[strGroupCol]]))
   }
 
   return(p)

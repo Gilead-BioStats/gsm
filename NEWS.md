@@ -1,3 +1,14 @@
+# gsm v1.1.0
+
+This release includes qualified functionality for Lab Abnormality and Disposition Assessments.
+
+Additionally, updates include:
+- Mapping functions include custom grouping functionality by columns for `SiteID`, `StudyID`, or `Region`/`CustomGroupID`. This allows for Study (QTL) and Site (KRI) assessments to be run.
+- `Analyze_Identity()` allows for nominal and statistical assessments for all Assess functions.
+- New utility functions `MakeStratifiedAssessment()` and `ConsolidateStrata()` allow for stratified assessments to be run.
+- `Visualize_Score()` provides a standard visualization for Score or KRI.
+- `Visualize_Workflow()` provides a flowchart with a high-level overview of the data pipeline for a given assessment.
+
 # gsm v1.0.1
 
 This release explicitly captures the KRI of interest as part of the data model, standardizing the

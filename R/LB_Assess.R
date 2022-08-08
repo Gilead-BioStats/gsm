@@ -42,17 +42,17 @@
 #' @export
 
 LB_Assess <- function(
-    dfInput,
-    vThreshold = NULL,
-    strMethod = "chisq",
-    strKRILabel = "% Abnormal Labs",
-    strGroup = "Site",
-    lTags = list(
-      Assessment = "Labs"
-    ),
-    bChart = TRUE,
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
+  dfInput,
+  vThreshold = NULL,
+  strMethod = "chisq",
+  strKRILabel = "% Abnormal Labs",
+  strGroup = "Site",
+  lTags = list(
+    Assessment = "Labs"
+  ),
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 ) {
   stopifnot(
     "dfInput is not a data.frame" = is.data.frame(dfInput),
@@ -94,11 +94,11 @@ LB_Assess <- function(
   )
 
   mapping <- yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm"))
-  strGroupCol <- mapping$dfInput[[glue::glue('str{strGroup}Col')]]
+  strGroupCol <- mapping$dfInput[[glue::glue("str{strGroup}Col")]]
   mapping$dfInput$strGroupCol <- strGroupCol
 
   stopifnot(
-    "`strGroup` not found in mapping" = glue('str{strGroup}Col') %in% names(mapping$dfInput),
+    "`strGroup` not found in mapping" = glue("str{strGroup}Col") %in% names(mapping$dfInput),
     "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput)
   )
 
@@ -123,7 +123,7 @@ LB_Assess <- function(
 
     if (strMethod == "chisq") {
       if (is.null(vThreshold)) {
-        vThreshold <- c(0.05,NA)
+        vThreshold <- c(0.05, NA)
       } else {
         stopifnot(
           "vThreshold is not numeric" = is.numeric(vThreshold),
@@ -143,7 +143,7 @@ LB_Assess <- function(
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
     } else if (strMethod == "fisher") {
       if (is.null(vThreshold)) {
-        vThreshold <- c(0.05,NA)
+        vThreshold <- c(0.05, NA)
       } else {
         stopifnot(
           "vThreshold is not numeric" = is.numeric(vThreshold),
@@ -183,8 +183,8 @@ LB_Assess <- function(
     }
 
     if (bChart) {
-        lAssess$chart <- gsm::Visualize_Count(lAssess$dfFlagged)
-        if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
+      lAssess$chart <- gsm::Visualize_Count(lAssess$dfFlagged)
+      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
     }
   } else {
     if (!bQuiet) cli::cli_alert_warning("{.fn LB_Assess} did not run because of failed check.")

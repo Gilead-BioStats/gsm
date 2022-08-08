@@ -8,12 +8,14 @@ test_that("output created as expected and has correct structure", {
     strCountCol = "Count",
     strGroupCol = "SiteID",
     strExposureCol = "Exposure"
-    )
+  )
   ae_anly <- Analyze_Poisson(ae_prep)
   expect_true(is.data.frame(ae_anly))
   expect_equal(sort(unique(ae_input$SiteID)), sort(ae_anly$GroupID))
-  expect_equal(names(ae_anly), c("GroupID", "GroupLabel", "N", "TotalCount", "TotalExposure",
-                                 "KRI", "KRILabel", "Score", "ScoreLabel", "PredictedCount"))
+  expect_equal(names(ae_anly), c(
+    "GroupID", "GroupLabel", "N", "TotalCount", "TotalExposure",
+    "KRI", "KRILabel", "Score", "ScoreLabel", "PredictedCount"
+  ))
 })
 
 test_that("incorrect inputs throw errors", {
@@ -28,7 +30,7 @@ test_that("error given if required column not found", {
     strCountCol = "Count",
     strGroupCol = "SiteID",
     strExposureCol = "Exposure"
-    )
+  )
   expect_error(Analyze_Poisson(ae_prep %>% select(-GroupID)))
   expect_error(Analyze_Poisson(ae_prep %>% select(-N)))
   expect_error(Analyze_Poisson(ae_prep %>% select(-TotalCount)))
@@ -47,7 +49,6 @@ test_that("NA values are caught", {
   }
 
   expect_error(createNA("GroupID"))
-
 })
 
 test_that("bQuiet works as intended", {
@@ -56,7 +57,7 @@ test_that("bQuiet works as intended", {
     strCountCol = "Count",
     strGroupCol = "SiteID",
     strExposureCol = "Exposure"
-    )
+  )
   expect_snapshot(
     dfAnalyzed <- Analyze_Poisson(dfTransformed, bQuiet = FALSE)
   )
