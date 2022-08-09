@@ -40,6 +40,14 @@ test_that("Disposition assessment can return a correctly assessed data frame for
     select(-median) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
+  t5_1_summary <- t5_1_flagged %>%
+    mutate(
+      Assessment = "Disposition"
+    ) %>%
+    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
+    arrange(desc(abs(KRI))) %>%
+    arrange(match(Flag, c(1, -1, 0)))
+
   t5_1 <- list(
     "strFunctionName" = "Disp_Assess()",
     "lParams" = list(
