@@ -42,10 +42,10 @@ The input data (\code{dfTransformed}) for Analyze_Fisher is typically created us
 \examples{
 dfInput <- Disp_Map_Raw()
 dfTransformed <- Transform_EventCount(
-                   dfInput,
-                   strCountCol = "Count",
-                   strKRILabel = "Discontinuations due to AE"
-                 )
+  dfInput,
+  strCountCol = "Count",
+  strKRILabel = "Discontinuations due to AE"
+)
 dfAnalyzed <- Analyze_Fisher(dfTransformed)
 
 }

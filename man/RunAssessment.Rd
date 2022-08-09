@@ -41,10 +41,10 @@ lTags <- list(
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 output <- RunAssessment(
-    lAssessments$ae, # adverse event workflow
-    lData,
-    lMapping,
-    lTags
+  lAssessments$ae, # adverse event workflow
+  lData,
+  lMapping,
+  lTags
 )
 
 }
