@@ -1,4 +1,4 @@
-test_that("IE assessment can return a correctly assessed data frame grouped by the study variableand the results should be flagged correctly when done in an iterative loop", {
+test_that("IE assessment can return a correctly assessed data frame grouped by the study variable and the results should be flagged correctly when done in an iterative loop", {
   test3_3 <- list()
   t3_3 <- list()
 
@@ -14,6 +14,7 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
     test3_3 <- c(test3_3,
       protocol = IE_Assess(
         dfInput = dfInput,
+        strGroup = "Study",
         bChart = FALSE
       )
     )
@@ -22,7 +23,9 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
     t3_3_input <- dfInput
 
     t3_3_transformed <- dfInput %>%
-      qualification_transform_counts(exposureCol = NA, KRILabel = "# of Inclusion/Exclusion Issues")
+      qualification_transform_counts(exposureCol = NA,
+                                     KRILabel = "# of Inclusion/Exclusion Issues",
+                                     GroupLabel = "StudyID")
 
     t3_3_analyzed <- t3_3_transformed %>%
       mutate(
@@ -50,7 +53,7 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
       mutate(
         Assessment = "IE"
       ) %>%
-      select(SiteID, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
+      select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
       arrange(desc(abs(KRI))) %>%
       arrange(match(Flag, c(1, -1, 0)))
 
@@ -59,6 +62,7 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
         "strFunctionName" = "IE_Assess()",
         "lParams" = list(
           "dfInput" = "dfInput",
+          "strGroup" = "Study",
           "bChart" = "FALSE"
         ),
         "lTags" = list(Assessment = "IE"),

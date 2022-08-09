@@ -1,4 +1,4 @@
-test_that("Consent assessment can return a correctly assessed data frame grouped by the study variable when given correct input data from clindata and the results should be flagged correctly", {
+test_that("Consent assessment can return a correctly assessed data frame grouped by the site variable when given correct input data from clindata and the results should be flagged correctly", {
   # gsm analysis
   dfInput <- Consent_Map_Raw()
 
@@ -11,7 +11,8 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
   t4_1_input <- dfInput
 
   t4_1_transformed <- dfInput %>%
-    qualification_transform_counts(exposureCol = NA, KRILabel = "Total Number of Consent Issues")
+    qualification_transform_counts(exposureCol = NA,
+                                   KRILabel = "Total Number of Consent Issues")
 
   t4_1_analyzed <- t4_1_transformed %>%
     mutate(
@@ -39,7 +40,7 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
     mutate(
       Assessment = "Consent"
     ) %>%
-    select(SiteID, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
+    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
     arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 

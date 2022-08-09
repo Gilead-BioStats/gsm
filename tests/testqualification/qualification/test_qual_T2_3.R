@@ -12,6 +12,7 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
     test2_3 <- c(test2_3,
       type = PD_Assess(dfInput,
         strMethod = "poisson",
+        strGroup = "Study",
         bChart = FALSE
       )
     )
@@ -21,7 +22,8 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
     t2_3_input <- dfInput
 
     t2_3_transformed <- dfInput %>%
-      qualification_transform_counts(KRILabel = "PDs/Week")
+      qualification_transform_counts(KRILabel = "PDs/Week",
+                                     GroupLabel = "StudyID")
 
     t2_3_analyzed <- t2_3_transformed %>%
       qualification_analyze_poisson()
@@ -47,7 +49,7 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
       mutate(
         Assessment = "PD"
       ) %>%
-      select(SiteID, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
+      select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
       arrange(desc(abs(KRI))) %>%
       arrange(match(Flag, c(1, -1, 0)))
 
@@ -57,6 +59,7 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
         "lParams" = list(
           "dfInput" = "dfInput",
           "strMethod" = "poisson",
+          "strGroup" = "Study",
           "bChart" = "FALSE"
         ),
         "lTags" = list(Assessment = "PD"),

@@ -1,4 +1,4 @@
-test_that("PD assessment can return a correctly assessed data frame for the poisson test grouped by the study variable when given subset input data from clindata and the results should be flagged correctly", {
+test_that("PD assessment can return a correctly assessed data frame for the poisson test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly", {
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw(dfs = list(
     dfPD = clindata::rawplus_pd %>% filter(PD_IMPORTANT_FLAG == "Y"),
@@ -8,6 +8,7 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
   test2_2 <- PD_Assess(
     dfInput = dfInput,
     strMethod = "poisson",
+    strGroup = "CustomGroup",
     bChart = FALSE
   )
 
@@ -15,7 +16,8 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
   t2_2_input <- dfInput
 
   t2_2_transformed <- dfInput %>%
-    qualification_transform_counts(KRILabel = "PDs/Week")
+    qualification_transform_counts(KRILabel = "PDs/Week",
+                                   GroupLabel = "CustomGroupID")
 
   t2_2_analyzed <- t2_2_transformed %>%
     qualification_analyze_poisson()
@@ -41,7 +43,7 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
     mutate(
       Assessment = "PD"
     ) %>%
-    select(SiteID, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
+    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
     arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -50,6 +52,7 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
     "lParams" = list(
       "dfInput" = "dfInput",
       "strMethod" = "poisson",
+      "strGroup" = "CustomGroup",
       "bChart" = "FALSE"
     ),
     "lTags" = list(Assessment = "PD"),
