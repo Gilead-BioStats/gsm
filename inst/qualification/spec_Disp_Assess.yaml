@@ -1,51 +1,51 @@
-- ID: S2_1
+- ID: S5_1
   Description: Given correct input data a Disposition assessment can be done using the chisq method
   Risk: High
   Impact: High
   Tests:
-    - T2_1
-    - T2_2
-- ID: S2_2
+    - T5_1
+    - T5_2
+- ID: S5_2
   Description: Given correct input data a Disposition assessment can be done using the fisher method
   Risk: High
   Impact: High
   Tests:
-    - T2_3
-    - T2_4
-- ID: S2_2
+    - T5_3
+    - T5_4
+- ID: S5_2
   Description: Given correct input data a Disposition assessment can be done using the identity method
   Risk: High
   Impact: High
   Tests:
-    - T2_5
-    - T2_6
-- ID: S2_3
+    - T5_5
+    - T5_6
+- ID: S5_3
   Description: Assessments are correctly grouped by a grouping variable (site, country)
   Risk: Low
   Impact: High
   Tests:
-    - T2_1
-    - T2_2
-    - T2_3
-    - T2_4
-    - T2_5
-    - T2_6
-- ID: S2_4
+    - T5_1
+    - T5_2
+    - T5_3
+    - T5_4
+    - T5_5
+    - T5_6
+- ID: S5_4
   Description: Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding
   Risk: Medium
   Impact: High
   Tests:
-    - T2_1
-    - T2_2
-    - T2_3
-    - T2_4
-    - T2_5
-    - T2_6
-- ID: S2_5
+    - T5_1
+    - T5_2
+    - T5_3
+    - T5_4
+    - T5_5
+    - T5_6
+- ID: S5_5
   Description: Given subset input data a Disposition assessment can be done
   Risk: Medium
   Impact: Medium
   Tests:
-    - T2_2
-    - T2_4
-    - T2_6
+    - T5_2
+    - T5_4
+    - T5_6
