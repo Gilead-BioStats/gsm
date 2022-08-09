@@ -86,19 +86,19 @@ qualification_analyze_chisq <- function(dfTransformed) {
   statistics <- rep(NA, length(groups))
   pvals <- rep(NA, length(groups))
 
-  tot_y <- sum(dfTransformed$KRI)
+  tot_y <- sum(dfTransformed$TotalCount)
   tot_n <- sum(dfTransformed$N) - tot_y
 
   for (i in 1:length(groups)) {
     sitetab <- dplyr::filter(dfTransformed, GroupID == groups[i]) %>%
-      mutate(NOKRI = N - KRI) %>%
-      select(NOKRI, KRI)
+      mutate(NoCount = N - TotalCount) %>%
+      select(TotalCount, NoCount)
 
-    tot_y_site <- tot_y - sitetab$KRI
-    tot_n_site <- tot_n - sitetab$NOKRI
+    tot_y_site <- tot_y - sitetab$TotalCount
+    tot_n_site <- tot_n - sitetab$NoCount
 
     testtable <- rbind(
-      c(tot_n_site, tot_y_site),
+      c(tot_y_site, tot_n_site),
       sitetab
     )
 
@@ -136,16 +136,16 @@ qualification_analyze_fisher <- function(dfTransformed) {
   estimates <- rep(NA, length(groups))
   pvals <- rep(NA, length(groups))
 
-  tot_y <- sum(dfTransformed$KRI)
+  tot_y <- sum(dfTransformed$TotalCount)
   tot_n <- sum(dfTransformed$N) - tot_y
 
   for (i in 1:length(groups)) {
     sitetab <- dplyr::filter(dfTransformed, GroupID == groups[i]) %>%
-      mutate(NOKRI = N - KRI) %>%
-      select(NOKRI, KRI)
+      mutate(NoCount = N - TotalCount) %>%
+      select(NoCount, TotalCount)
 
-    tot_y_site <- tot_y - sitetab$KRI
-    tot_n_site <- tot_n - sitetab$NOKRI
+    tot_y_site <- tot_y - sitetab$TotalCount
+    tot_n_site <- tot_n - sitetab$NoCount
 
     testtable <- rbind(
       c(tot_n_site, tot_y_site),

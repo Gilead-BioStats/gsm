@@ -15,7 +15,7 @@
     - T2_5
     - T2_6
 - ID: S2_3
-  Description: Assessments are correctly grouped by a grouping variable such as site or country for KRIs and study for QTLs
+  Description: Assessments are correctly grouped by a grouping variable such as site or country for KRIs and study for QTLs when applicable
   Risk: Low
   Impact: High
   Tests:
