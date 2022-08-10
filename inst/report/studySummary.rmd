@@ -136,9 +136,9 @@ for (result in results) {
   cat(
     paste0(
       "<p>",
-      nrow(flagged),
+      length(unique(flagged$GroupID)),
       " of ",
-      nrow(result$dfSummary),
+      length(unique(result$dfSummary$GroupID)),
       " sites flagged for this assessment.",
       "</p>"
     )
