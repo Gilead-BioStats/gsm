@@ -112,11 +112,12 @@ MakeStratifiedAssessment <- function(
     purrr::imap(function(stratum, i) {
       workflow <- lWorkflow
 
-      # Tailor workflow to stratum.
-      workflow$name <- glue::glue("{workflow$name}_{i}")
-      workflow$tags$Group <- glue::glue("{domainName}${columnName}={stratum}")
-      workflow$tags$Label <- glue::glue("{workflow$tags$Label}: {stratum}")
-      workflow$label <- glue::glue("{workflow$tags$Label} ({workflow$tags$Group})")
+            # Tailor workflow to stratum.
+            workflow$name <- glue::glue('{workflow$name}_{i}')
+            workflow$tags$Group <- glue::glue('{domainName}[["{columnName}"]]=={stratum}')
+            workflow$tags$Label <- glue::glue('{workflow$tags$Label}: {stratum}')
+            workflow$label <- glue::glue('{workflow$tags$Label} ({workflow$tags$Group})')
+
 
       # Add an additional workflow step that subsets on the current stratum.
       lStrata <- list(list(
