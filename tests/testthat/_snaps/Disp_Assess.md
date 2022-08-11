@@ -60,7 +60,7 @@
 
 ---
 
-    Lower limit (first element) for Chi-squared vThreshold is not between 0 and 1
+    vThreshold is not length 2
 
 ---
 
@@ -117,4 +117,23 @@
 ---
 
     lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
+# bQuiet and bReturnChecks work as intended
+
+    Code
+      assessment <- assess_function(dfInput, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `Disp_Assess()` --
+      
+      v No issues found for `Disp_Assess()`
+      
+      -- Initializing `Disp_Assess()` --
+      
+      Input data has 3 rows.
+      v `Transform_EventCount()` returned output with 3 rows.
+      v `Analyze_Chisq()` returned output with 3 rows.
+      v `Flag()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+      v `Visualize_Scatter()` created a chart.
 

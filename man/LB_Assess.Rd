@@ -67,8 +67,21 @@ and each tag is added as a column in \code{lAssess$dfSummary}.}
 }
 }
 \description{
-Labs Assessment
+Evaluates rate of reported Lab Abnormalities (LB).
 }
+\details{
+The Lab Abnormality Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
+methods are described below.
+}
+\section{Data specification}{
+\tabular{llll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \cr
+   dfInput \tab strGroupCol \tab  \tab TRUE \cr
+}
+}
+
 \examples{
 dfInput <- LB_Map_Raw()
 lb_assessment_chisq <- LB_Assess(dfInput)

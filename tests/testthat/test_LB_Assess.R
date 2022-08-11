@@ -42,6 +42,7 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot_error(assess_function(dfInput %>% select(-SiteID)))
   expect_snapshot_error(assess_function(dfInput %>% select(-Count)))
   expect_error(assess_function(dfInput, strKRILabel = c("label 1", "label 2")))
+  expect_error(assess_function(dfInput, strGroup = "something"))
 })
 
 # incorrect lTags throw errors --------------------------------------------

@@ -58,6 +58,7 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot_error(assess_function(dfInput %>% select(-SiteID)))
   expect_snapshot_error(assess_function(dfInput %>% select(-Count)))
   expect_error(assess_function(dfInput, strKRILabel = c("label 1", "label 2")))
+  expect_error(assess_function(dfInput, strGroup = "something"))
 })
 
 # incorrect lTags throw errors --------------------------------------------
@@ -91,4 +92,8 @@ test_that("strMethod = 'fisher' does not throw error", {
 
 test_that("strMethod = 'identity' does not throw error", {
   expect_error(assess_function(dfInput, strMethod = "identity"), NA)
+})
+
+test_that("bQuiet and bReturnChecks work as intended", {
+  test_logical_assess_parameters(assess_function, dfInput)
 })

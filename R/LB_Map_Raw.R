@@ -1,12 +1,12 @@
 #' Lab Assessment - Raw Mapping
 #'
+#' @description
 #' Convert from ADaM or raw format to input format for Labs Assessment.
 #'
-#' @description
+#' @details
 #' Convert raw lab data (LB), typically processed case report form data, to formatted
 #' input data to [gsm::LB_Assess()].
 #'
-#' @details
 #' `LB_Map_Raw` combines LB data with subject-level data to create formatted input data to
 #' [gsm::LB_Assess()]. This function creates an input dataset for the LB Assessment
 #' ([gsm::LB_Assess()]) by binding subject-level abnormal LB counts (derived from `dfLB`) to
