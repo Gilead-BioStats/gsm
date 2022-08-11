@@ -13,8 +13,10 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   t1_3_input <- dfInput
 
   t1_3_transformed <- dfInput %>%
-    qualification_transform_counts(KRILabel = "AEs/Week",
-                                   GroupLabel = "CustomGroupID")
+    qualification_transform_counts(
+      KRILabel = "AEs/Week",
+      GroupLabel = "CustomGroupID"
+    )
 
   t1_3_analyzed <- t1_3_transformed %>%
     qualification_analyze_poisson()

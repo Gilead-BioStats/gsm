@@ -40,6 +40,7 @@
 #'   - `chart`
 #'
 #' @includeRmd ./man/md/LB_Assess.md
+#' @includeRmd ./man/md/analyze_percent.md
 #'
 #' @examples
 #' dfInput <- LB_Map_Raw()

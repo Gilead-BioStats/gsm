@@ -9,16 +9,17 @@
 #' @section Data Specification:
 #'
 #' (`dfFlagged`) has the following required columns:
-#' - `SiteID` - Site ID
+#' - `GroupID` - Group ID
 #' - `N` - Total number of participants at site
 #' - `Flag` - Flagging value of -1, 0, or 1
-#' - `strScoreCol` - Column from analysis results. Default is "PValue".
+#' - `strScoreCol` - Column from analysis results.
 #'
-#' @param dfFlagged data frame in format produced by \code{\link{Flag}}
+#' @param dfFlagged data.frame in format produced by \code{\link{Flag}}
 #' @param strScoreCol column from analysis results to be copied to `dfSummary$Score`
 #' @param lTags List of tags containing metadata to add to the data frame.
 #'
-#' @return Simplified finding data frame with columns for SiteID, N, Pvalue, Flag and any metadata specified in lTags.
+#' @return Simplified finding data.frame with columns for GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, and any associated metadata
+#' when associated with a workflow.
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()

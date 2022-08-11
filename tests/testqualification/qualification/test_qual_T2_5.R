@@ -16,8 +16,10 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
   t2_5_input <- dfInput
 
   t2_5_transformed <- dfInput %>%
-    qualification_transform_counts(KRILabel = "PDs/Week",
-                                   GroupLabel = "CustomGroupID")
+    qualification_transform_counts(
+      KRILabel = "PDs/Week",
+      GroupLabel = "CustomGroupID"
+    )
 
   t2_5_analyzed <- t2_5_transformed %>%
     qualification_analyze_wilcoxon()

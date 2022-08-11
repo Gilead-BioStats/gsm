@@ -22,8 +22,10 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
     t2_3_input <- dfInput
 
     t2_3_transformed <- dfInput %>%
-      qualification_transform_counts(KRILabel = "PDs/Week",
-                                     GroupLabel = "StudyID")
+      qualification_transform_counts(
+        KRILabel = "PDs/Week",
+        GroupLabel = "StudyID"
+      )
 
     t2_3_analyzed <- t2_3_transformed %>%
       qualification_analyze_poisson()

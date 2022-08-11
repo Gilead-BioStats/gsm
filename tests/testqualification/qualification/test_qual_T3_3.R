@@ -23,9 +23,11 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
     t3_3_input <- dfInput
 
     t3_3_transformed <- dfInput %>%
-      qualification_transform_counts(exposureCol = NA,
-                                     KRILabel = "# of Inclusion/Exclusion Issues",
-                                     GroupLabel = "StudyID")
+      qualification_transform_counts(
+        exposureCol = NA,
+        KRILabel = "# of Inclusion/Exclusion Issues",
+        GroupLabel = "StudyID"
+      )
 
     t3_3_analyzed <- t3_3_transformed %>%
       mutate(

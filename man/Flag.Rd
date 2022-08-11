@@ -19,7 +19,7 @@ Flag(
 \item{vThreshold}{Vector of 2 numeric values representing lower and upper threshold values. All
 values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.}
 
-\item{strValueColumn}{Optional, Name of the Column to use for sign of Flag. If value for that row
+\item{strValueColumn}{Optional, name of the column to use for sign of Flag. If value for that row
 is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.}
 }
 \value{
@@ -34,7 +34,7 @@ This function provides a generalized framework for flagging sites as part of the
 }
 \section{Data Specification}{
 
-\code{Flag} is designed to support the input data (\code{ dfAnalyzed}) input data from many different
+\code{Flag} is designed to support the input data (\code{dfAnalyzed}) from many different
 \code{Analyze} functions. At a minimum, the input data must have a \code{SiteID} column and a column
 of numeric values (identified by the \code{strColumn} parameter) that will be compared to the
 specified thresholds (\code{vThreshold}) to calculate a new \code{Flag} column. Optionally, a second column
@@ -43,7 +43,7 @@ the \code{Flag}.
 
 In short, the following columns are considered:
 \itemize{
-\item \code{SiteID} - Site ID (required)
+\item \code{GroupID} - Group ID (required)
 \item \code{strColumn} - A column to use for Thresholding (required)
 \item 'strValueColumn' - A column to be used for the sign of the flag (optional)
 }

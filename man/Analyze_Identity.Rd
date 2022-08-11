@@ -24,6 +24,9 @@ Analyze_Identity(
 \code{data.frame} with one row per site with columns: SiteID, N, TotalCount, KRI, KRILabel, Score, ScoreLabel.
 }
 \description{
+Analyze Identity
+}
+\details{
 Used in the data pipeline between \code{Transform} and \code{Flag} to rename KRI and Score columns.
 }
 \examples{

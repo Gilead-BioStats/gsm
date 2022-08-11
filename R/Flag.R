@@ -6,7 +6,7 @@
 #' This function provides a generalized framework for flagging sites as part of the [GSM data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
 #'
 #' @section Data Specification:
-#' \code{Flag} is designed to support the input data (` dfAnalyzed`) input data from many different
+#' \code{Flag} is designed to support the input data (`dfAnalyzed`) from many different
 #' \code{Analyze} functions. At a minimum, the input data must have a `SiteID` column and a column
 #' of numeric values (identified by the `strColumn` parameter) that will be compared to the
 #' specified thresholds (`vThreshold`) to calculate a new `Flag` column. Optionally, a second column
@@ -14,7 +14,7 @@
 #' the `Flag`.
 #'
 #' In short, the following columns are considered:
-#' - `SiteID` - Site ID (required)
+#' - `GroupID` - Group ID (required)
 #' - `strColumn` - A column to use for Thresholding (required)
 #' - 'strValueColumn' - A column to be used for the sign of the flag (optional)
 #'
@@ -22,7 +22,7 @@
 #' @param strColumn Name of the column to use for thresholding.
 #' @param vThreshold Vector of 2 numeric values representing lower and upper threshold values. All
 #' values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.
-#' @param strValueColumn Optional, Name of the Column to use for sign of Flag. If value for that row
+#' @param strValueColumn Optional, name of the column to use for sign of Flag. If value for that row
 #' is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.
 #'
 #' @return `data.frame` with columns added for "ThresholdLow","ThresholdHigh","ThresholdCol"

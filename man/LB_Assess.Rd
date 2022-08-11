@@ -82,6 +82,20 @@ methods are described below.
 }
 }
 
+\section{Statistical assumptions}{
+Chi-squared test, Fisher’s exact test, or percentage value (identity) is
+used to generate estimates and p-values for each site (as specified with
+the \code{strMethod} parameter). Those outputs are then used to flag possible
+outliers using the thresholds specified in \code{vThreshold}. In both
+Chi-squared test and Fisher’s exact test, sites with \emph{p} < 0.05 are
+flagged as 1 by default.
+
+See \code{\link[=Analyze_Chisq]{Analyze_Chisq()}},
+\code{\link[=Analyze_Fisher]{Analyze_Fisher()}}, or
+\code{\link[=Analyze_Identity]{Analyze_Identity()}} for additional
+details about the statistical methods and their assumptions.
+}
+
 \examples{
 dfInput <- LB_Map_Raw()
 lb_assessment_chisq <- LB_Assess(dfInput)
