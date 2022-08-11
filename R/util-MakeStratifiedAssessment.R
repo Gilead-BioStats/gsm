@@ -118,7 +118,7 @@ MakeStratifiedAssessment <- function(
 
             # Tailor workflow to stratum.
             workflow$name <- glue::glue('{workflow$name}_{i}')
-            workflow$tags$Group <- glue::glue('{domainName}${columnName}={stratum}')
+            workflow$tags$Group <- glue::glue('{domainName}[["{columnName}"]]=={stratum}')
             workflow$tags$Label <- glue::glue('{workflow$tags$Label}: {stratum}')
             workflow$label <- glue::glue('{workflow$tags$Label} ({workflow$tags$Group})')
 

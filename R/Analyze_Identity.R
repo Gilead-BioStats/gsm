@@ -28,7 +28,8 @@ Analyze_Identity <- function(dfTransformed, strValueCol = "KRI", strLabelCol = "
     mutate(
       Score = .data[[strValueCol]],
       ScoreLabel = .data[[strLabelCol]]
-    )
+    ) %>%
+    arrange(.data$Score)
 
   if (!bQuiet) cli::cli_text(paste0("{.var Score} column created from `", strValueCol, "`."))
   if (!bQuiet) cli::cli_text(paste0("{.var ScoreLabel} column created from `", strLabelCol, "`."))
