@@ -40,6 +40,7 @@
 #'   - `chart`
 #'
 #' @includeRmd ./man/md/Disp_Assess.md
+#' @includeRmd ./man/md/analyze_percent.md
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
