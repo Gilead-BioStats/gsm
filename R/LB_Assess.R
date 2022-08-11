@@ -1,5 +1,14 @@
 #' Labs Assessment
 #'
+#' @description
+#' Evaluates rate of reported Lab Abnormalities (LB).
+#'
+#' @details
+#' The Lab Abnormality Assessment uses the standard [GSM data pipeline](
+#'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
+#' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
+#' methods are described below.
+#'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
 #' `c(.05, NA)` for both Chi-square test (`strMethod` = "chisq") and Fisher's exact test (`strMethod` = "fisher").
@@ -30,6 +39,8 @@
 #' - output(s)
 #'   - `chart`
 #'
+#' @includeRmd ./man/md/LB_Assess.md
+#'
 #' @examples
 #' dfInput <- LB_Map_Raw()
 #' lb_assessment_chisq <- LB_Assess(dfInput)
@@ -38,6 +49,8 @@
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom purrr map map_dbl
+#' @importFrom yaml read_yaml
+#' @importFrom glue glue
 #'
 #' @export
 
@@ -59,6 +72,7 @@ LB_Assess <- function(
     "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),
     "strMethod is not 'chisq', 'fisher', or 'identity'" = strMethod %in% c("chisq", "fisher", "identity"),
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
+    "strGroup must be one of: Site, Study, or CustomGroup" = strGroup %in% c("Site", "Study", "CustomGroup"),
     "bChart must be logical" = is.logical(bChart),
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -94,12 +108,11 @@ LB_Assess <- function(
   )
 
   mapping <- yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm"))
-  strGroupCol <- mapping$dfInput[[glue::glue("str{strGroup}Col")]]
-  mapping$dfInput$strGroupCol <- strGroupCol
+  mapping$dfInput$strGroupCol <- mapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
   stopifnot(
-    "`strGroup` not found in mapping" = glue("str{strGroup}Col") %in% names(mapping$dfInput),
-    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput)
+    "`strGroup` not found in mapping" = glue::glue("str{strGroup}Col") %in% names(mapping$dfInput),
+    "`strGroupCol` not found in dfInput" = mapping$dfInput$strGroupCol %in% names(dfInput)
   )
 
   checks <- CheckInputs(
@@ -116,7 +129,7 @@ LB_Assess <- function(
     lAssess$dfTransformed <- gsm::Transform_EventCount(
       lAssess$dfInput,
       strCountCol = "Count",
-      strGroupCol = strGroupCol,
+      strGroupCol = mapping$dfInput$strGroupCol,
       strKRILabel = strKRILabel
     )
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")

@@ -50,6 +50,8 @@
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom purrr map map_dbl
+#' @importFrom yaml read_yaml
+#' @importFrom glue glue
 #'
 #' @export
 
@@ -68,6 +70,7 @@ AE_Assess <- function(dfInput,
     "strMethod is not 'poisson', 'wilcoxon', or 'identity'" = strMethod %in% c("poisson", "wilcoxon", "identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strKRILabel must be length 1" = length(strKRILabel) == 1,
+    "strGroup must be one of: Site, Study, or CustomGroup" = strGroup %in% c("Site", "Study", "CustomGroup"),
     "bChart must be logical" = is.logical(bChart),
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -105,12 +108,11 @@ AE_Assess <- function(dfInput,
 
 
   mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
-  strGroupCol <- mapping$dfInput[[glue("str{strGroup}Col")]]
-  mapping$dfInput$strGroupCol <- strGroupCol
+  mapping$dfInput$strGroupCol <- mapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
   stopifnot(
-    "`strGroup` not found in mapping" = glue("str{strGroup}Col") %in% names(mapping$dfInput),
-    "`strGroupCol` not found in dfInput" = strGroupCol %in% names(dfInput)
+    "`strGroup` not found in mapping" = glue::glue("str{strGroup}Col") %in% names(mapping$dfInput),
+    "`strGroupCol` not found in dfInput" = mapping$dfInput$strGroupCol %in% names(dfInput)
   )
 
   checks <- CheckInputs(
@@ -127,7 +129,7 @@ AE_Assess <- function(dfInput,
 
     lAssess$dfTransformed <- gsm::Transform_EventCount(
       lAssess$dfInput,
-      strGroupCol = strGroupCol,
+      strGroupCol = mapping$dfInput$strGroupCol,
       strCountCol = "Count",
       strExposureCol = "Exposure",
       strKRILabel = strKRILabel
