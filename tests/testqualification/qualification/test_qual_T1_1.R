@@ -1,4 +1,4 @@
-test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable when given correct input data from safetyData and the results should be flagged correctly.", {
+test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the site variable when given correct input data from safetyData and the results should be flagged correctly.", {
   # gsm analysis
   dfInput <- gsm::AE_Map_Adam()
 
@@ -38,7 +38,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
     mutate(
       Assessment = "AE"
     ) %>%
-    select(SiteID, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
+    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
     arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 

@@ -1,9 +1,10 @@
-test_that("IE assessment can return a correctly assessed data frame grouped by the study variable when given subset input data from clindata and the results should be flagged correctly", {
+test_that("IE assessment can return a correctly assessed data frame grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly", {
   # gsm analysis
   dfInput <- IE_Map_Raw()
 
   test3_1 <- IE_Assess(
     dfInput = dfInput,
+    strGroup = "Study",
     bChart = FALSE
   )
 
@@ -11,7 +12,9 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
   t3_1_input <- dfInput
 
   t3_1_transformed <- dfInput %>%
-    qualification_transform_counts(exposureCol = NA, KRILabel = "# of Inclusion/Exclusion Issues")
+    qualification_transform_counts(exposureCol = NA,
+                                   KRILabel = "# of Inclusion/Exclusion Issues",
+                                   GroupLabel = "StudyID")
 
   t3_1_analyzed <- t3_1_transformed %>%
     mutate(
@@ -39,7 +42,7 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
     mutate(
       Assessment = "IE"
     ) %>%
-    select(SiteID, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
+    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
     arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -47,6 +50,7 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
     "strFunctionName" = "IE_Assess()",
     "lParams" = list(
       "dfInput" = "dfInput",
+      "strGroup" = "Study",
       "bChart" = "FALSE"
     ),
     "lTags" = list(Assessment = "IE"),

@@ -1,4 +1,4 @@
-test_that("AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable when given subset input data from clindata and the results should be flagged correctly.", {
+test_that("AE assessment can return a correctly assessed data frame for the wilcoxon test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly.", {
   # gsm analysis
   dfInput <- gsm::AE_Map_Raw(dfs = list(
     dfAE = clindata::rawplus_ae %>% filter(AE_SERIOUS == "Yes"),
@@ -8,6 +8,7 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
   test1_7 <- AE_Assess(
     dfInput = dfInput,
     strMethod = "wilcoxon",
+    strGroup = "CustomGroup",
     bChart = FALSE
   )
 
@@ -15,7 +16,8 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
   t1_7_input <- dfInput
 
   t1_7_transformed <- dfInput %>%
-    qualification_transform_counts(KRILabel = "AEs/Week")
+    qualification_transform_counts(KRILabel = "AEs/Week",
+                                   GroupLabel = "CustomGroupID")
 
   t1_7_analyzed <- t1_7_transformed %>%
     qualification_analyze_wilcoxon()
@@ -48,7 +50,7 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     mutate(
       Assessment = "AE"
     ) %>%
-    select(SiteID, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
+    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
     arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -58,6 +60,7 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
     "lParams" = list(
       "dfInput" = "dfInput",
       "strMethod" = "wilcoxon",
+      "strGroup" = "CustomGroup",
       "bChart" = "FALSE"
     ),
     "lTags" = list(Assessment = "AE"),
