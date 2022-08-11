@@ -20,7 +20,8 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
     mutate(
       Score = TotalCount,
       ScoreLabel = "Total Number of Consent Issues"
-    )
+    ) %>%
+    arrange(Score)
 
   class(t4_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
