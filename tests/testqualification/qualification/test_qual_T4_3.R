@@ -1,29 +1,31 @@
-test_that("Consent assessment can return a correctly assessed data frame grouped by the site variable when given correct input data from clindata and the results should be flagged correctly", {
+test_that("Consent assessment can return a correctly assessed data frame grouped by a custom variable when given correct input data from clindata and the results should be flagged correctly", {
   # gsm analysis
   dfInput <- Consent_Map_Raw()
 
-  test4_1 <- Consent_Assess(
+  test4_3 <- Consent_Assess(
     dfInput = dfInput,
-    bChart = FALSE
+    bChart = FALSE,
+    strGroup = "CustomGroup"
   )
 
   # Double Programming
-  t4_1_input <- dfInput
+  t4_3_input <- dfInput
 
-  t4_1_transformed <- dfInput %>%
+  t4_3_transformed <- dfInput %>%
     qualification_transform_counts(exposureCol = NA,
-                                   KRILabel = "Total Number of Consent Issues")
+                                   KRILabel = "Total Number of Consent Issues",
+                                   GroupLabel = "CustomGroupID")
 
-  t4_1_analyzed <- t4_1_transformed %>%
+  t4_3_analyzed <- t4_3_transformed %>%
     mutate(
       Score = TotalCount,
       ScoreLabel = "Total Number of Consent Issues"
     ) %>%
     arrange(Score)
 
-  class(t4_1_analyzed) <- c("tbl_df", "tbl", "data.frame")
+  class(t4_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
-  t4_1_flagged <- t4_1_analyzed %>%
+  t4_3_flagged <- t4_3_analyzed %>%
     mutate(
       ThresholdLow = NA_real_,
       ThresholdHigh = 0.5,
@@ -37,7 +39,7 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
     ) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t4_1_summary <- t4_1_flagged %>%
+  t4_3_summary <- t4_3_flagged %>%
     mutate(
       Assessment = "Consent"
     ) %>%
@@ -45,20 +47,21 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
     arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t4_1 <- list(
+  t4_3 <- list(
     "strFunctionName" = "Consent_Assess()",
     "lParams" = list(
       "dfInput" = "dfInput",
+      "strGroup" = "CustomGroup",
       "bChart" = "FALSE"
     ),
     "lTags" = list(Assessment = "Consent"),
-    "dfInput" = t4_1_input,
-    "dfTransformed" = t4_1_transformed,
-    "dfAnalyzed" = t4_1_analyzed,
-    "dfFlagged" = t4_1_flagged,
-    "dfSummary" = t4_1_summary
+    "dfInput" = t4_3_input,
+    "dfTransformed" = t4_3_transformed,
+    "dfAnalyzed" = t4_3_analyzed,
+    "dfFlagged" = t4_3_flagged,
+    "dfSummary" = t4_3_summary
   )
 
   # compare results
-  expect_equal(test4_1, t4_1)
+  expect_equal(test4_3, t4_3)
 })

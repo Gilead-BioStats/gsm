@@ -1,4 +1,4 @@
-test_that("PD assessment can return a correctly assessed data frame for the wilcoxon test grouped by the study variable and the results should be flagged correctly when done in an iterative loop", {
+test_that("PD assessment can return a correctly assessed data frame for the wilcoxon test grouped by the site variable and the results should be flagged correctly when done in an iterative loop", {
   deviations_of_interest <- c(
     "Informed Consent",
     "Nonadherence of study drug",
@@ -60,7 +60,7 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
       mutate(
         Assessment = "PD"
       ) %>%
-      select(SiteID, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
+      select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
       arrange(desc(abs(KRI))) %>%
       arrange(match(Flag, c(1, -1, 0)))
 

@@ -2,11 +2,11 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   # gsm analysis
   dfInput <- gsm::AE_Map_Raw()
 
-
   test1_2 <- AE_Assess(
     dfInput = dfInput,
     strMethod = "poisson",
     vThreshold = c(-3, 3),
+    strGroup = "Study",
     bChart = FALSE
   )
 
@@ -14,7 +14,8 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   t1_2_input <- dfInput
 
   t1_2_transformed <- dfInput %>%
-    qualification_transform_counts(KRILabel = "AEs/Week")
+    qualification_transform_counts(KRILabel = "AEs/Week",
+                                   GroupLabel = "StudyID")
 
   t1_2_analyzed <- t1_2_transformed %>%
     qualification_analyze_poisson()
@@ -40,7 +41,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
     mutate(
       Assessment = "AE"
     ) %>%
-    select(SiteID, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
+    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
     arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
@@ -50,6 +51,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
       "dfInput" = "dfInput",
       "vThreshold" = c("c", "-3", "3"),
       "strMethod" = "poisson",
+      "strGroup" = "Study",
       "bChart" = "FALSE"
     ),
     "lTags" = list(Assessment = "AE"),
