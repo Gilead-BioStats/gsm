@@ -19,7 +19,8 @@ test_that("Disposition assessment can return a correctly assessed data frame gro
     mutate(
       Score = KRI,
       ScoreLabel = "% Discontinuation"
-    )
+    ) %>%
+    arrange(Score)
 
   class(t5_5_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
@@ -29,13 +30,20 @@ test_that("Disposition assessment can return a correctly assessed data frame gro
       ThresholdHigh = 5.172,
       ThresholdCol = "Score",
       Flag = case_when(
-        Score < 3.491 ~ 1,
+        Score < 3.491 ~ -1,
         Score > 5.172 ~ 1,
         is.na(Score) ~ NA_real_,
         is.nan(Score) ~ NA_real_,
         TRUE ~ 0
       ),
+      median = median(KRI),
+      Flag = case_when(
+        Flag != 0 & KRI < median ~ -1,
+        Flag != 0 & KRI >= median ~ 1,
+        TRUE ~ Flag
+      )
     ) %>%
+    select(-median) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t5_5_summary <- t5_5_flagged %>%

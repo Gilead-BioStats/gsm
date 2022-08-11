@@ -33,13 +33,20 @@ test_that("Disposition assessment can return a correctly assessed data frame gro
       ThresholdHigh = 6.58,
       ThresholdCol = "Score",
       Flag = case_when(
-        Score < 2.31 ~ 1,
+        Score < 2.31 ~ -1,
         Score > 6.58 ~ 1,
         is.na(Score) ~ NA_real_,
         is.nan(Score) ~ NA_real_,
         TRUE ~ 0
       ),
+      median = median(KRI),
+      Flag = case_when(
+        Flag != 0 & KRI < median ~ -1,
+        Flag != 0 & KRI >= median ~ 1,
+        TRUE ~ Flag
+      )
     ) %>%
+    select(-median) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t5_7_summary <- t5_7_flagged %>%
