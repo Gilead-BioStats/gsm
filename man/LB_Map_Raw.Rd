@@ -38,6 +38,8 @@ of the column.}
 Convert from ADaM or raw format to input format for Labs Assessment.
 }
 \details{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Convert raw lab data (LB), typically processed case report form data, to formatted
 input data to \code{\link[=LB_Assess]{LB_Assess()}}.
 

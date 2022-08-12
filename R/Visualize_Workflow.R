@@ -5,13 +5,10 @@
 #' @return A flowchart of type `grViz`/`htmlwidget`.
 #'
 #' @examples
-#' lAssessments <- MakeAssessmentList()
+#' lAssessments <- list(ae = MakeAssessmentList()$ae)
 #' lData <- list(
 #'   dfSUBJ = clindata::rawplus_subj,
-#'   dfAE = clindata::rawplus_ae,
-#'   dfPD = clindata::rawplus_pd,
-#'   dfCONSENT = clindata::rawplus_consent,
-#'   dfIE = clindata::rawplus_ie
+#'   dfAE = clindata::rawplus_ae
 #' )
 #' lTags <- list(
 #'   Study = "myStudy"
@@ -82,7 +79,10 @@ Visualize_Workflow <- function(lAssessments) {
         ungroup()
 
 
-      pipeline <- studyObject$lResults[grep("df", names(studyObject$lResults))] %>%
+      pipelineSubset <- studyObject$lResults[grep("df", names(studyObject$lResults))]
+      pipelineSubset[["dfBounds"]] <- NULL
+
+      pipeline <- pipelineSubset %>%
         purrr::imap_dfr(
           ~ tibble(
             assessment = name,

@@ -1,5 +1,7 @@
 #' Consent Assessment
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' @description
 #' Evaluates sites where subject consent was:
 #' - not given
