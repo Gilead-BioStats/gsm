@@ -35,11 +35,11 @@ of the column.}
 }
 }
 \description{
-Convert raw lab data (LB), typically processed case report form data, to formatted
-input data to \code{\link[=LB_Assess]{LB_Assess()}}.
+Convert from ADaM or raw format to input format for Labs Assessment.
 }
 \details{
-Convert from ADaM or raw format to input format for Labs Assessment.
+Convert raw lab data (LB), typically processed case report form data, to formatted
+input data to \code{\link[=LB_Assess]{LB_Assess()}}.
 
 \code{LB_Map_Raw} combines LB data with subject-level data to create formatted input data to
 \code{\link[=LB_Assess]{LB_Assess()}}. This function creates an input dataset for the LB Assessment

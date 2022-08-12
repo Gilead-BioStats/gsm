@@ -14,9 +14,11 @@ test_that("Disposition assessment can return a correctly assessed data frame gro
   t5_7_input <- dfInput
 
   t5_7_transformed <- dfInput %>%
-    qualification_transform_counts(exposureCol = "Total",
-                                   KRILabel = "% Discontinuation",
-                                   GroupLabel = "CustomGroupID")
+    qualification_transform_counts(
+      exposureCol = "Total",
+      KRILabel = "% Discontinuation",
+      GroupLabel = "CustomGroupID"
+    )
 
   t5_7_analyzed <- t5_7_transformed %>%
     mutate(

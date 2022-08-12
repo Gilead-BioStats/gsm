@@ -12,9 +12,11 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
   t4_3_input <- dfInput
 
   t4_3_transformed <- dfInput %>%
-    qualification_transform_counts(exposureCol = NA,
-                                   KRILabel = "Total Number of Consent Issues",
-                                   GroupLabel = "CustomGroupID")
+    qualification_transform_counts(
+      exposureCol = NA,
+      KRILabel = "Total Number of Consent Issues",
+      GroupLabel = "CustomGroupID"
+    )
 
   t4_3_analyzed <- t4_3_transformed %>%
     mutate(

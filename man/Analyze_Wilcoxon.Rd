@@ -53,9 +53,10 @@ The input data (dfTransformed) for Analyze_Wilcoxon is typically created using
 \examples{
 dfInput <- AE_Map_Raw()
 dfTransformed <- Transform_EventCount(dfInput,
-                                      strCountCol = "Count",
-                                      strExposureCol = "Exposure",
-                                      strKRILabel = "AEs/Week")
+  strCountCol = "Count",
+  strExposureCol = "Exposure",
+  strKRILabel = "AEs/Week"
+)
 
 dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
 

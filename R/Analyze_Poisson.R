@@ -1,7 +1,6 @@
 #' Poisson Analysis - Site Residuals
 #'
 #' @details
-#'
 #' Fits a Poisson model to site level data and adds columns capturing Residual and Predicted Count for each site.
 #'
 #' @section Statistical Methods:
@@ -25,10 +24,11 @@
 #' @examples
 #' dfInput <- AE_Map_Raw()
 #' dfTransformed <- Transform_EventCount(dfInput,
-#'                                       strGroupCol = "SiteID",
-#'                                       strCountCol = "Count",
-#'                                       strExposureCol = "Exposure",
-#'                                       strKRILabel = "AEs/Week")
+#'   strGroupCol = "SiteID",
+#'   strCountCol = "Count",
+#'   strExposureCol = "Exposure",
+#'   strKRILabel = "AEs/Week"
+#' )
 #'
 #' dfAnalyzed <- Analyze_Poisson(dfTransformed)
 #'

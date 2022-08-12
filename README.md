@@ -25,6 +25,8 @@ The {gsm} package establishes a data pipeline for RBM using R. The package provi
 2.  Serious Adverse Event Frequency
 3.  Protocol Deviation Frequency
 4.  Important Protocol Deviation Frequency
+5.  Lab Abnormality Frequency
+6.  Subject Discontinuation Frequency
 
 All {gsm} assessments use a standardized 6 step data pipeline: 
 

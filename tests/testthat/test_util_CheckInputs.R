@@ -96,4 +96,3 @@ test_that("mismatched (context + dfs) returns FALSE", {
   expect_false(dfInput$status)
   expect_false(dfInput$dfInput$status)
 })
-

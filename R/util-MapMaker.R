@@ -8,10 +8,11 @@
 #'
 #' @export
 
-MapMaker <- function(strFunctionName = NULL){
+MapMaker <- function(strFunctionName = NULL) {
   yaml::read_yaml(
     system.file("mappings",
-                paste0(substring(strFunctionName, 1, nchar(strFunctionName) - 2), ".yaml"),
-                package = "gsm")
+      paste0(substring(strFunctionName, 1, nchar(strFunctionName) - 2), ".yaml"),
+      package = "gsm"
     )
+  )
 }

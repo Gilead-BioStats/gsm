@@ -26,8 +26,4 @@ test_that("flowchart is created for all assessments", {
   expect_type(study$importantpd$lChecks$flowchart, "list")
   expect_type(study$pd$lChecks$flowchart, "list")
   expect_type(study$sae$lChecks$flowchart, "list")
-
-
 })
-
-

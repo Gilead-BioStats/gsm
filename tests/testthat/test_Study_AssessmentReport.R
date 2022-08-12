@@ -56,7 +56,7 @@ test_that("correct messages show when data is not found", {
     dfSUBJ = dfSUBJ
   )
 
-  lAssessments <- Study_Assess(lData = ldata, bQuiet=TRUE)
+  lAssessments <- Study_Assess(lData = ldata, bQuiet = TRUE)
 
   report <- Study_AssessmentReport(lAssessments)
 

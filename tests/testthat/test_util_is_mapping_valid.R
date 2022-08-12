@@ -105,4 +105,3 @@ test_that("bQuiet works as intended", {
     )
   )
 })
-

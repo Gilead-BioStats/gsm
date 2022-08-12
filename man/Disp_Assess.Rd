@@ -34,7 +34,7 @@ Disp_Assess(
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
 
 \item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults
-to \code{list(Assessment = "AE")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags})
+to \code{list(Assessment = "Disposition")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags})
 and each tag is added as a column in \code{lAssess$dfSummary}.}
 
 \item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
@@ -67,8 +67,35 @@ and each tag is added as a column in \code{lAssess$dfSummary}.}
 }
 }
 \description{
-Disposition Assessment
+Evaluates disposition rate (DISP) on mapped subject-level dataset to identify sites that may be over- or under-reporting patient discontinuations.
 }
+\details{
+The Disposition Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
+methods are described below.
+}
+\section{Data specification}{
+\tabular{lllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
+   dfInput \tab strGroupCol \tab  \tab TRUE \tab FALSE \cr
+}
+}
+
+\section{Statistical assumptions}{
+Chi-squared test, Fisher’s exact test, or percentage value (identity) is
+used to generate estimates and p-values for each site (as specified with
+the \code{strMethod} parameter). Those outputs are then used to flag possible
+outliers using the thresholds specified in \code{vThreshold}. In both
+Chi-squared test and Fisher’s exact test, sites with \emph{p} < 0.05 are
+flagged as 1 by default.
+
+See \code{\link[=Analyze_Chisq]{Analyze_Chisq()}},
+\code{\link[=Analyze_Fisher]{Analyze_Fisher()}}, or
+\code{\link[=Analyze_Identity]{Analyze_Identity()}} for additional
+details about the statistical methods and their assumptions.
+}
+
 \examples{
 dfInput <- Disp_Map_Raw()
 disp_assessment_chisq <- Disp_Assess(dfInput)

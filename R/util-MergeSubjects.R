@@ -61,12 +61,14 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol = "SubjectID", vFillZer
   domain_ids <- dfDomain[[strIDCol]]
   domain_only_ids <- domain_ids[!domain_ids %in% subject_ids]
   if (length(domain_only_ids > 0)) {
-    if(!bQuiet) cli::cli_alert_warning(
-      paste0(
-        length(domain_only_ids),
-        " ID(s) in domain data not found in subject data.\nAssociated rows will not be included in merged data."
+    if (!bQuiet) {
+      cli::cli_alert_warning(
+        paste0(
+          length(domain_only_ids),
+          " ID(s) in domain data not found in subject data.\nAssociated rows will not be included in merged data."
+        )
       )
-    )
+    }
   }
 
   # Print a message if rows in dfSubject are not found in dfDomain

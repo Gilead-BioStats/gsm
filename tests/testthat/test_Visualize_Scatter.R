@@ -20,5 +20,5 @@ test_that("Chart has [ text ] aesthetic", {
   assessment <- AE_Assess(dfInput)
   dfBounds <- Analyze_Poisson_PredictBounds(assessment$dfTransformed, c(-5, 5))
   chart <- Visualize_Scatter(assessment$dfFlagged, dfBounds)
-  expect_true('text' %in% names(chart$mapping))
+  expect_true("text" %in% names(chart$mapping))
 })

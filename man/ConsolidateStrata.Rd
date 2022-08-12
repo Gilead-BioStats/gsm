@@ -33,20 +33,20 @@ lWorkflow <- MakeAssessmentList()$aeGrade
 lOutput <- RunAssessment(lWorkflow, lData = lData, lMapping = lMapping)
 
 lStratifiedWorkflow <- MakeStratifiedAssessment(
-    lWorkflow,
-    lData,
-    lMapping
+  lWorkflow,
+  lData,
+  lMapping
 )
 lStratifiedOutput <- lStratifiedWorkflow \%>\%
-    purrr::map(~RunAssessment(
-        .x,
-        lData,
-        lMapping
-    ))
+  purrr::map(~ RunAssessment(
+    .x,
+    lData,
+    lMapping
+  ))
 
 lConsolidatedOutput <- ConsolidateStrata(
-    lOutput,
-    lStratifiedOutput
+  lOutput,
+  lStratifiedOutput
 )
 
 }

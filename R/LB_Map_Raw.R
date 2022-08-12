@@ -1,12 +1,12 @@
 #' Lab Assessment - Raw Mapping
 #'
+#' @description
 #' Convert from ADaM or raw format to input format for Labs Assessment.
 #'
-#' @description
+#' @details
 #' Convert raw lab data (LB), typically processed case report form data, to formatted
 #' input data to [gsm::LB_Assess()].
 #'
-#' @details
 #' `LB_Map_Raw` combines LB data with subject-level data to create formatted input data to
 #' [gsm::LB_Assess()]. This function creates an input dataset for the LB Assessment
 #' ([gsm::LB_Assess()]) by binding subject-level abnormal LB counts (derived from `dfLB`) to
@@ -70,14 +70,16 @@ LB_Map_Raw <- function(
 
     # Standarize column names.
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
-      select(SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-             any_of(
-               c(
-                 SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
-                 StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
-                 CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
-               )
-             ))
+      select(
+        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        any_of(
+          c(
+            SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+            StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+            CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
+          )
+        )
+      )
 
     dfLB_mapped <- dfs$dfLB %>%
       select(
@@ -89,7 +91,7 @@ LB_Map_Raw <- function(
     dfInput <- dfSUBJ_mapped %>%
       left_join(
         dfLB_mapped,
-        'SubjectID'
+        "SubjectID"
       ) %>%
       mutate(
         Count = if_else(

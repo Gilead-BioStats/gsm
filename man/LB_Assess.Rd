@@ -67,8 +67,35 @@ and each tag is added as a column in \code{lAssess$dfSummary}.}
 }
 }
 \description{
-Labs Assessment
+Evaluates rate of reported Lab Abnormalities (LB).
 }
+\details{
+The Lab Abnormality Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
+methods are described below.
+}
+\section{Data specification}{
+\tabular{llll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \cr
+   dfInput \tab strGroupCol \tab  \tab TRUE \cr
+}
+}
+
+\section{Statistical assumptions}{
+Chi-squared test, Fisher’s exact test, or percentage value (identity) is
+used to generate estimates and p-values for each site (as specified with
+the \code{strMethod} parameter). Those outputs are then used to flag possible
+outliers using the thresholds specified in \code{vThreshold}. In both
+Chi-squared test and Fisher’s exact test, sites with \emph{p} < 0.05 are
+flagged as 1 by default.
+
+See \code{\link[=Analyze_Chisq]{Analyze_Chisq()}},
+\code{\link[=Analyze_Fisher]{Analyze_Fisher()}}, or
+\code{\link[=Analyze_Identity]{Analyze_Identity()}} for additional
+details about the statistical methods and their assumptions.
+}
+
 \examples{
 dfInput <- LB_Map_Raw()
 lb_assessment_chisq <- LB_Assess(dfInput)

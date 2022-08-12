@@ -11,13 +11,18 @@
 #' The input data (`dfInput`) for the AE Assessment is typically created using any of these functions:
 #'  \code{\link{AE_Map_Raw}}
 #'  \code{\link{AE_Map_Adam}}
-#'  \code{\link{PD_Map_Raw}}
-#'  \code{\link{IE_Map_Raw}}
 #'  \code{\link{Consent_Map_Raw}}
+#'  \code{\link{Disp_Map_Raw}}
+#'  \code{\link{IE_Map_Raw}}
+#'  \code{\link{LB_Map_Raw}}
+#'  \code{\link{PD_Map_Raw}}
+#'
 #'
 #' (`dfInput`) has the following required and optional columns:
 #' Required:
 #' - `SiteID` - Site ID
+#' - `StudyID` - Study ID
+#' - `CustomGroupID` - Custom Group ID, currently implemented as a placeholder for Country ID.
 #' - `Count` - Number of Adverse Events the actual name of this column is specified by the parameter strCountCol.
 #' Optional
 #' - `Exposure` - Number of days of exposure, name specified by strExposureCol.

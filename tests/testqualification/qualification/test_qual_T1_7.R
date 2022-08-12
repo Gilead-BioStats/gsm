@@ -16,8 +16,10 @@ test_that("AE assessment can return a correctly assessed data frame for the wilc
   t1_7_input <- dfInput
 
   t1_7_transformed <- dfInput %>%
-    qualification_transform_counts(KRILabel = "AEs/Week",
-                                   GroupLabel = "CustomGroupID")
+    qualification_transform_counts(
+      KRILabel = "AEs/Week",
+      GroupLabel = "CustomGroupID"
+    )
 
   t1_7_analyzed <- t1_7_transformed %>%
     qualification_analyze_wilcoxon()

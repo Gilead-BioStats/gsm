@@ -24,5 +24,3 @@ rank_chg <- function(status) {
   }
   gt::html(as.character(logo_out))
 }
-
-

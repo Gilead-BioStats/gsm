@@ -43,14 +43,14 @@
 #' @export
 
 Disp_Map_Raw <- function(
-    dfs = list(
-      dfDISP = clindata::rawplus_subj,
-      dfSUBJ = clindata::rawplus_subj
-      ),
-    strContext = "Treatment",
-    lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
+  dfs = list(
+    dfDISP = clindata::rawplus_subj,
+    dfSUBJ = clindata::rawplus_subj
+  ),
+  strContext = "Treatment",
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 ) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
@@ -58,7 +58,7 @@ Disp_Map_Raw <- function(
   )
 
   checks <- CheckInputs(
-    context =  paste0("Disp_Map_Raw","_",strContext),
+    context = paste0("Disp_Map_Raw", "_", strContext),
     dfs = dfs,
     bQuiet = bQuiet,
     mapping = lMapping
@@ -68,32 +68,38 @@ Disp_Map_Raw <- function(
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn Disp_Map_Raw}")
 
-  # Standarize Column Names
-  dfDISP_mapped <- dfs$dfDISP %>%
-    select(
-      SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
-      DCReason = lMapping[["dfDISP"]][[glue::glue('str{strContext}DiscontinuationReasonCol')]],
-      Completion = lMapping[["dfDISP"]][[glue::glue('str{strContext}CompletionFlagCol')]]
+    # Standarize Column Names
+    dfDISP_mapped <- dfs$dfDISP %>%
+      select(
+        SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
+        DCReason = lMapping[["dfDISP"]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
+        Completion = lMapping[["dfDISP"]][[glue::glue("str{strContext}CompletionFlagCol")]]
+      ) %>%
+      filter(!.data$Completion %in% lMapping[["dfDISP"]][[glue::glue("str{strContext}CompletionFlagVal")]]) %>%
+      mutate(Count = 1)
+
+
+    dfSUBJ_mapped <- dfs$dfSUBJ %>%
+      select(
+        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        any_of(
+          c(
+            SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+            StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+            CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
+          )
+        )
+      )
+
+    dfInput <- gsm::MergeSubjects(
+      dfDomain = dfDISP_mapped,
+      dfSubjects = dfSUBJ_mapped,
+      bQuiet = bQuiet
     ) %>%
-    filter(! .data$Completion %in% lMapping[["dfDISP"]][[glue::glue('str{strContext}CompletionFlagVal')]]) %>%
-    mutate(Count = 1)
-
-
-  dfSUBJ_mapped <- dfs$dfSUBJ %>%
-    select(SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-           any_of(
-             c(
-               SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
-               StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
-               CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
-             )
-           ))
-
-    dfInput <- gsm::MergeSubjects(dfDomain = dfDISP_mapped,
-                                  dfSubjects = dfSUBJ_mapped,
-                                  bQuiet = bQuiet) %>%
-      mutate(Count = ifelse(is.na(.data$Count), 0, .data$Count),
-             Total = 1) %>%
+      mutate(
+        Count = ifelse(is.na(.data$Count), 0, .data$Count),
+        Total = 1
+      ) %>%
       select(any_of(names(dfSUBJ_mapped)), .data$Count, .data$Total)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Disp_Map_Raw} returned output with {nrow(dfInput)} rows.")

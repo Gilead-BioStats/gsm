@@ -9,21 +9,24 @@ output_mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", pack
 test_that("output is created as expected", {
   assessment <- assess_function(dfInput, vThreshold = c(-5.1, 5.1))
   expect_true(is.list(assessment))
-  expect_equal(names(assessment), c("strFunctionName",
-                                    "lParams",
-                                    "lTags",
-                                    "dfInput",
-                                    "dfTransformed",
-                                    "dfAnalyzed",
-                                    "dfFlagged",
-                                    "dfSummary",
-                                    "dfBounds",
-                                    "chart"))
+  expect_equal(names(assessment), c(
+    "strFunctionName",
+    "lParams",
+    "lTags",
+    "dfInput",
+    "dfTransformed",
+    "dfAnalyzed",
+    "dfFlagged",
+    "dfSummary",
+    "dfBounds",
+    "chart"
+  ))
   expect_true("data.frame" %in% class(assessment$dfInput))
   expect_true("data.frame" %in% class(assessment$dfTransformed))
   expect_true("data.frame" %in% class(assessment$dfAnalyzed))
   expect_true("data.frame" %in% class(assessment$dfFlagged))
   expect_true("data.frame" %in% class(assessment$dfSummary))
+  expect_true("data.frame" %in% class(assessment$dfBounds))
   expect_type(assessment$strFunctionName, "character")
   expect_type(assessment$lParams, "list")
   expect_type(assessment$lTags, "list")
@@ -43,9 +46,8 @@ test_that("metadata is returned as expected", {
 
 # grouping works as expected ----------------------------------------------
 test_that("grouping works as expected", {
-
   subsetGroupCols <- function(assessOutput) {
-    assessOutput[['dfSummary']] %>% select(starts_with("Group"))
+    assessOutput[["dfSummary"]] %>% select(starts_with("Group"))
   }
 
   site <- assess_function(dfInput)
@@ -55,8 +57,7 @@ test_that("grouping works as expected", {
   expect_snapshot(subsetGroupCols(site))
   expect_snapshot(subsetGroupCols(study))
   expect_snapshot(subsetGroupCols(customGroup))
-  expect_false(all(map_lgl(list(site, study, customGroup), ~all(map_lgl(., ~is_grouped_df(.))))))
-
+  expect_false(all(map_lgl(list(site, study, customGroup), ~ all(map_lgl(., ~ is_grouped_df(.))))))
 })
 
 # incorrect inputs throw errors -------------------------------------------
@@ -74,6 +75,7 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot_error(assess_function(dfInput %>% select(-Exposure)))
   expect_snapshot_error(assess_function(dfInput %>% select(-Rate)))
   expect_error(assess_function(dfInput, strKRILabel = c("label 1", "label 2")))
+  expect_error(assess_function(dfInput, strGroup = "something"))
 })
 
 # incorrect lTags throw errors --------------------------------------------

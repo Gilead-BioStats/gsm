@@ -22,7 +22,7 @@
 #'
 #' @export
 
-Visualize_Count <- function(dfAnalyzed, strGroupCol=NULL, strTotalCol = "N", strCountCol = "TotalCount", strTitle = "") {
+Visualize_Count <- function(dfAnalyzed, strGroupCol = NULL, strTotalCol = "N", strCountCol = "TotalCount", strTitle = "") {
   stopifnot(
     "strTotalCol must be character" = is.character(strTotalCol),
     "strTotalCol not found in dfAnalyzed" = strTotalCol %in% names(dfAnalyzed),
@@ -35,10 +35,10 @@ Visualize_Count <- function(dfAnalyzed, strGroupCol=NULL, strTotalCol = "N", str
   dfAnalyzedWithTooltip <- dfAnalyzed %>%
     mutate(
       tooltip = paste(
-        paste0('Group: ', .data$GroupLabel),
-        paste0('GroupID: ', .data$GroupID),
-        paste0('# of Events: ', format(.data$N, big.mark = ',', trim = TRUE)),
-        sep = '\n'
+        paste0("Group: ", .data$GroupLabel),
+        paste0("GroupID: ", .data$GroupID),
+        paste0("# of Events: ", format(.data$N, big.mark = ",", trim = TRUE)),
+        sep = "\n"
       )
     )
 
@@ -60,8 +60,8 @@ Visualize_Count <- function(dfAnalyzed, strGroupCol=NULL, strTotalCol = "N", str
       legend.position = "none"
     )
 
-  if(!is.null(strGroupCol)){
-    p<- p + facet_wrap(vars(.data$strGroupCol))
+  if (!is.null(strGroupCol)) {
+    p <- p + facet_wrap(vars(.data$strGroupCol))
   }
 
   return(p)

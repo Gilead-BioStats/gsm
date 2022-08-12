@@ -24,7 +24,7 @@ test_that("output is created as expected", {
 test_that("metadata is returned as expected", {
   assessment <- assess_function(dfInput)
   expect_equal("assess_function()", assessment$strFunctionName)
-  #expect_equal("dfInput", assessment$lParams$dfInput)
+  # expect_equal("dfInput", assessment$lParams$dfInput)
   expect_equal("Labs", assessment$lTags$Assessment)
   expect_true("ggplot" %in% class(assessment$chart))
 })
@@ -42,6 +42,7 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot_error(assess_function(dfInput %>% select(-SiteID)))
   expect_snapshot_error(assess_function(dfInput %>% select(-Count)))
   expect_error(assess_function(dfInput, strKRILabel = c("label 1", "label 2")))
+  expect_error(assess_function(dfInput, strGroup = "something"))
 })
 
 # incorrect lTags throw errors --------------------------------------------

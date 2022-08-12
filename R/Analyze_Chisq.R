@@ -1,10 +1,11 @@
 #' Chi-squared Test Analysis
 #'
+#' @details
 #' Creates Analysis results data for count data using the chi-squared test
 #'
 #' @details
 #'
-#' Analyzes count data using the chi-squared test
+#' Analyzes count data using the chi-squared test.
 #'
 #' @section Statistical Methods:
 #'
@@ -13,7 +14,7 @@
 #' @section Data Specification:
 #'
 #' The input data (`dfTransformed`) for Analyze_Chisq is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
-#' - `GroupID` - Site ID
+#' - `GroupID` - GroupID from `dfTransformed`
 #' - `N` - Total number of participants at site
 #' - `TotalCount` - Total number of participants at site with event of interest
 #'
@@ -28,10 +29,10 @@
 #' @examples
 #' dfInput <- Disp_Map_Raw()
 #' dfTransformed <- Transform_EventCount(
-#'                    dfInput,
-#'                    strCountCol = "Count",
-#'                    strKRILabel = "Discontinuations due to AE/Month"
-#'                  )
+#'   dfInput,
+#'   strCountCol = "Count",
+#'   strKRILabel = "Discontinuations due to AE/Month"
+#' )
 #' dfAnalyzed <- Analyze_Chisq(dfTransformed)
 #'
 #' @import dplyr

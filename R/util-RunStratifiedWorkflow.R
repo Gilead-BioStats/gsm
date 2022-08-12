@@ -31,7 +31,7 @@
 #' lMapping <- yaml::read_yaml(
 #'   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
 #' )
-#' 
+#'
 #' output <- RunStratifiedWorkflow(
 #'   lWorkflows$aeGrade, # adverse event workflow, stratified by AE grade
 #'   lData = lData,
@@ -44,59 +44,59 @@
 #' @export
 
 RunStratifiedWorkflow <- function(
+  lWorkflow,
+  lData,
+  lMapping,
+  lTags = NULL,
+  bQuiet = TRUE
+) {
+  if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` workflow"))
+
+  lOutput <- RunAssessment(
     lWorkflow,
     lData,
     lMapping,
-    lTags = NULL,
-    bQuiet = TRUE
-) {
-    if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` workflow"))
+    lTags = list(
+      type = "stratified"
+    ),
+    bQuiet = bQuiet
+  )
 
-    lOutput <- RunAssessment(
-        lWorkflow,
-        lData,
-        lMapping,
-        lTags = list(
-            type = 'stratified'
-        ),
-        bQuiet = bQuiet
+  if (
+    is.list(lWorkflow$group) &&
+      lWorkflow$group$domain %in% names(lData) &&
+      lWorkflow$group$domain %in% names(lMapping) &&
+      lMapping[[lWorkflow$group$domain]][[lWorkflow$group$columnParam]] %in% names(lData[[lWorkflow$group$domain]])
+  ) {
+    # Generate a workflow for each unique value of the stratification variable.
+    lStratifiedWorkflow <- MakeStratifiedAssessment(
+      lWorkflow,
+      lData,
+      lMapping,
+      bQuiet
     )
 
-    if (
-        is.list(lWorkflow$group) &&
-        lWorkflow$group$domain %in% names(lData) &&
-        lWorkflow$group$domain %in% names(lMapping) &&
-        lMapping[[ lWorkflow$group$domain ]][[ lWorkflow$group$columnParam ]] %in% names(lData[[ lWorkflow$group$domain ]])
-    ) {
-        # Generate a workflow for each unique value of the stratification variable.
-        lStratifiedWorkflow <- MakeStratifiedAssessment(
-            lWorkflow,
-            lData,
-            lMapping,
-            bQuiet
-        )
+    # Run a workflow for each unique value of the stratification variable.
+    lStratifiedOutput <- lStratifiedWorkflow %>%
+      purrr::map(~ RunAssessment(
+        .x,
+        lData,
+        lMapping,
+        bQuiet = bQuiet
+      ))
 
-        # Run a workflow for each unique value of the stratification variable.
-        lStratifiedOutput <- lStratifiedWorkflow %>%
-            purrr::map(~RunAssessment(
-                .x,
-                lData,
-                lMapping,
-                bQuiet = bQuiet
-            ))
+    # Consolidate the stratified output from each workflow into a singular output with stacked data
+    # frames and a paneled data visualization.
+    lConsolidatedOutput <- ConsolidateStrata(
+      lOutput,
+      lStratifiedOutput,
+      bQuiet = bQuiet
+    )
 
-        # Consolidate the stratified output from each workflow into a singular output with stacked data
-        # frames and a paneled data visualization.
-        lConsolidatedOutput <- ConsolidateStrata(
-            lOutput,
-            lStratifiedOutput,
-            bQuiet = bQuiet
-        )
+    return(lConsolidatedOutput)
+  } else {
+    lOutput$bStatus <- FALSE
 
-        return(lConsolidatedOutput)
-    } else {
-        lOutput$bStatus <- FALSE
-
-        return(lOutput)
-    }
+    return(lOutput)
+  }
 }

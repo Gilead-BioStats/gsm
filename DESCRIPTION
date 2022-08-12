@@ -1,13 +1,14 @@
 Package: gsm
 Title: Gilead Statistical Monitoring
-Version: 1.0.1
+Version: 1.1.0
 Authors@R: c(
     person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", email="jwildfire@gmail.com", role = c("aut")),
     person("Matt", "Roumaya", email="Matt.Roumaya@atorusresearch.com", role = c("aut")),
     person("Nathan", "Kosiba", email="Nathan.Kosiba@atorusresearch.com", role = c("aut")),
     person("Douglas", "Sanders", role = c("aut")),
-    person("Spencer", "Childress", email="spencer.childress@gilead.com", role = c("aut")))
+    person("Spencer", "Childress", email="spencer.childress@gilead.com", role = c("aut")),
+    person("Li", "Ge", role = c("aut")))
 URL: https://github.com/Gilead-BioStats/gsm
 BugReports: https://github.com/Gilead-BioStats/gsm/issues
 Description: The Gilead Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring.
@@ -50,7 +51,7 @@ Suggests:
     riskmetric
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Depends: 

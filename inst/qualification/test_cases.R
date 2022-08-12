@@ -9,7 +9,7 @@
 #' @return list of the test and the outcome of the test run
 #' @export
 run_test_case <- function(test_case, test_file_prefix = "test_qual_"){
-  test_case_file <- here::here("tests", "qualification", paste0(test_file_prefix, test_case, ".R"))
+  test_case_file <- here::here("tests", "testqualification", "qualification", paste0(test_file_prefix, test_case, ".R"))
 
   test_case_report <- invisible(testthat::test_file(test_case_file, reporter = testthat::SilentReporter)[[1]])
 

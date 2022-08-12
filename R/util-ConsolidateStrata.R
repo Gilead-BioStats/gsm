@@ -17,25 +17,25 @@
 #'   dfAE = clindata::rawplus_ae
 #' )
 #' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
-#' 
+#'
 #' lWorkflow <- MakeAssessmentList()$aeGrade
 #' lOutput <- RunAssessment(lWorkflow, lData = lData, lMapping = lMapping)
-#' 
+#'
 #' lStratifiedWorkflow <- MakeStratifiedAssessment(
-#'     lWorkflow,
-#'     lData,
-#'     lMapping
+#'   lWorkflow,
+#'   lData,
+#'   lMapping
 #' )
 #' lStratifiedOutput <- lStratifiedWorkflow %>%
-#'     purrr::map(~RunAssessment(
-#'         .x,
-#'         lData,
-#'         lMapping
-#'     ))
-#' 
+#'   purrr::map(~ RunAssessment(
+#'     .x,
+#'     lData,
+#'     lMapping
+#'   ))
+#'
 #' lConsolidatedOutput <- ConsolidateStrata(
-#'     lOutput,
-#'     lStratifiedOutput
+#'   lOutput,
+#'   lStratifiedOutput
 #' )
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning
@@ -45,51 +45,53 @@
 #' @export
 
 ConsolidateStrata <- function(
-    lOutput,
-    lStratifiedOutput,
-    bQuiet = TRUE
+  lOutput,
+  lStratifiedOutput,
+  bQuiet = TRUE
 ) {
-    if (lOutput$bStatus == TRUE && all(purrr::map_lgl(lStratifiedOutput, ~.x$bStatus))) {
-        # Stack data pipeline from stratified output.
-        consoliDataPipeline <- lStratifiedOutput %>%
-            purrr::map(function(stratum) {
-                lResults <- stratum$lResults
-                lResults[ grepl('^df', names(lResults)) ] %>% # get data frames from results
-                    purrr::map(~.x %>% mutate(stratum = stratum$tags$Label))
-            }) %>%
-            purrr::reduce(function(acc, curr) {
-                df <- purrr::imap(acc, function(value, key) {
-                    bind_rows(value, curr[[ key ]]) # stack data frames
-                })
-            })
+  if (lOutput$bStatus == TRUE && all(purrr::map_lgl(lStratifiedOutput, ~ .x$bStatus))) {
+    # Stack data pipeline from stratified output.
+    consoliDataPipeline <- lStratifiedOutput %>%
+      purrr::map(function(stratum) {
+        lResults <- stratum$lResults
+        lResults[grepl("^df", names(lResults))] %>% # get data frames from results
+          purrr::map(~ .x %>% mutate(stratum = stratum$tags$Label))
+      }) %>%
+      purrr::reduce(function(acc, curr) {
+        df <- purrr::imap(acc, function(value, key) {
+          bind_rows(value, curr[[key]]) # stack data frames
+        })
+      })
 
-        # Generate paneled data visualization.
-        # TODO: retrieve appropriate visualization function from... the workflow?
-        # TODO: consider handling faceting here or there?
-        consoliDataPipeline$chart <- Visualize_Scatter(
-            consoliDataPipeline$dfFlagged,
-            strGroupCol = 'stratum',
-            dfBounds = consoliDataPipeline$dfBounds,
-            strUnit = "days"
-        )
+    # Generate paneled data visualization.
+    # TODO: retrieve appropriate visualization function from... the workflow?
+    # TODO: consider handling faceting here or there?
+    consoliDataPipeline$chart <- Visualize_Scatter(
+      consoliDataPipeline$dfFlagged,
+      strGroupCol = "stratum",
+      dfBounds = consoliDataPipeline$dfBounds,
+      strUnit = "days"
+    )
 
-        # Attach results to overall output.
-        for (key in c(names(consoliDataPipeline))) {
-            lOutput$lResults[[ key ]] <- consoliDataPipeline[[ key ]]
-        }
-
-        if (!bQuiet)
-            cli::cli_alert_success(
-                "All stratified outputs were successfully consolidated."
-            )
-    } else {
-        if (!bQuiet)
-            cli::cli_alert_warning(
-                "One or more stratified workflows did not run successfully."
-            )
-
-        lOutput$bStatus <- FALSE
+    # Attach results to overall output.
+    for (key in c(names(consoliDataPipeline))) {
+      lOutput$lResults[[key]] <- consoliDataPipeline[[key]]
     }
 
-    lOutput
+    if (!bQuiet) {
+      cli::cli_alert_success(
+        "All stratified outputs were successfully consolidated."
+      )
+    }
+  } else {
+    if (!bQuiet) {
+      cli::cli_alert_warning(
+        "One or more stratified workflows did not run successfully."
+      )
+    }
+
+    lOutput$bStatus <- FALSE
+  }
+
+  lOutput
 }

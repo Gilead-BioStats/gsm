@@ -15,14 +15,14 @@
 #'   dfPD = clindata::rawplus_pd,
 #'   dfSUBJ = clindata::rawplus_subj
 #' )
-#' 
+#'
 #' lAssessment <- Study_Assess(lData)
-#' 
+#'
 #' dfSummary <- lAssessment %>%
 #'   purrr::map(~ .x$lResults) %>%
 #'   purrr::compact() %>%
 #'   purrr::map_df(~ .x$dfSummary)
-#' 
+#'
 #' lStudyTable <- Study_Table(dfSummary)
 #'
 #' @return `data.frame` Returns a data.frame giving assessment status (rows) by Site (column)

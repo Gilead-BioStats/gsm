@@ -22,10 +22,10 @@
 #' @export
 
 Visualize_Score <- function(
-    dfFlagged,
-    strType = "KRI",
-    bFlagFilter = FALSE,
-    strTitle = ""
+  dfFlagged,
+  strType = "KRI",
+  bFlagFilter = FALSE,
+  strTitle = ""
 ) {
   stopifnot(
     "strTitle must be character" = is.character(strTitle),
@@ -35,65 +35,62 @@ Visualize_Score <- function(
     "strType must be length 1" = length(strType) == 1
   )
 
-  if(bFlagFilter) {
+  if (bFlagFilter) {
     dfFlagged <- dfFlagged %>%
       filter(
         .data$Flag != 0
-        )
+      )
   }
 
-  if(strType == "KRI") {
-
+  if (strType == "KRI") {
     dfFlaggedWithTooltip <- dfFlagged %>%
       mutate(
         tooltip = paste(
-          paste0('Group: ', .data$GroupLabel),
-          paste0('GroupID: ', .data$GroupID),
+          paste0("Group: ", .data$GroupLabel),
+          paste0("GroupID: ", .data$GroupID),
           paste(.data$KRI, .data$KRILabel),
-          sep = '\n'
+          sep = "\n"
         )
       )
 
     p <- dfFlaggedWithTooltip %>%
       ggplot(
         aes(
-        x = reorder(.data$GroupID, -.data$KRI), y = .data$KRI,
-        text = .data$tooltip
+          x = reorder(.data$GroupID, -.data$KRI), y = .data$KRI,
+          text = .data$tooltip
         )
       ) +
       geom_bar(
         stat = "identity"
-        ) +
+      ) +
       geom_hline(
         yintercept = (
-            if ('TotalExposure' %in% names(dfFlagged))
-                sum(dfFlagged$TotalCount)/sum(dfFlagged$TotalExposure)
-            else
-                sum(dfFlagged$TotalCount)/nrow(dfFlagged)
+          if ("TotalExposure" %in% names(dfFlagged)) {
+            sum(dfFlagged$TotalCount) / sum(dfFlagged$TotalExposure)
+          } else {
+            sum(dfFlagged$TotalCount) / nrow(dfFlagged)
+          }
         ),
-        linetype="dashed",
-        color="red",
-        size=1
+        linetype = "dashed",
+        color = "red",
+        size = 1
       ) +
-
       ylab(
         paste0("KRI [", unique(dfFlagged$KRILabel), "]")
-        )
-
+      )
   }
 
-  if(strType == "score") {
-
+  if (strType == "score") {
     ThresholdLow <- unique(dfFlagged$ThresholdLow)
     ThresholdHigh <- unique(dfFlagged$ThresholdHigh)
 
     dfFlaggedWithTooltip <- dfFlagged %>%
       mutate(
         tooltip = paste(
-          paste0('Group: ', .data$GroupLabel),
-          paste0('GroupID: ', .data$GroupID),
-          paste(.data$ScoreLabel, '=', .data$Score),
-          sep = '\n'
+          paste0("Group: ", .data$GroupLabel),
+          paste0("GroupID: ", .data$GroupID),
+          paste(.data$ScoreLabel, "=", .data$Score),
+          sep = "\n"
         )
       )
 
@@ -102,16 +99,16 @@ Visualize_Score <- function(
         aes(
           x = reorder(.data$GroupID, -.data$Score), y = .data$Score,
           tooltip = .data$tooltip
-          )
-        ) +
+        )
+      ) +
       geom_bar(
         stat = "identity"
-        ) +
+      ) +
       ylab(
         paste0("Score [", unique(dfFlagged$ScoreLabel), "]")
-        )
+      )
 
-    if(!is.na(ThresholdLow)) {
+    if (!is.na(ThresholdLow)) {
       p <- p +
         geom_hline(
           yintercept = unique(dfFlagged$ThresholdLow),
@@ -121,7 +118,7 @@ Visualize_Score <- function(
         )
     }
 
-    if(!is.na(ThresholdHigh)) {
+    if (!is.na(ThresholdHigh)) {
       p <- p +
         geom_hline(
           yintercept = unique(dfFlagged$ThresholdHigh),
@@ -135,16 +132,16 @@ Visualize_Score <- function(
   p <- p +
     xlab(
       unique(dfFlagged$GroupLabel)
-      ) +
+    ) +
     theme_bw() +
     theme(
-      axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+      axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
       panel.grid.major.x = element_blank(),
       legend.position = "none"
     ) +
     ggtitle(strTitle)
 
-  if(nrow(dfFlaggedWithTooltip) > 25) {
+  if (nrow(dfFlaggedWithTooltip) > 25) {
     p <- p +
       theme(
         axis.ticks.x = element_blank()
@@ -152,5 +149,4 @@ Visualize_Score <- function(
   }
 
   return(p)
-
 }

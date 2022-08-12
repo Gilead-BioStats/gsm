@@ -1,8 +1,8 @@
 qualification_transform_counts <- function(dfInput,
-                                           countCol = "Count",
-                                           exposureCol = "Exposure",
-                                           KRILabel = "",
-                                           GroupLabel = "SiteID") {
+  countCol = "Count",
+  exposureCol = "Exposure",
+  KRILabel = "",
+  GroupLabel = "SiteID") {
   if (is.na(exposureCol)) {
     dfTransformed <- dfInput %>%
       filter(!is.na(.data[[countCol]])) %>%
@@ -41,8 +41,8 @@ qualification_analyze_poisson <- function(dfTransformed) {
   dfTransformed$LogExposure <- log(dfTransformed$TotalExposure)
 
   model <- glm(TotalCount ~ stats::offset(LogExposure),
-               family = poisson(link = "log"),
-               data = dfTransformed
+    family = poisson(link = "log"),
+    data = dfTransformed
   )
 
   outputDF <- dfTransformed %>%
@@ -113,7 +113,8 @@ qualification_analyze_chisq <- function(dfTransformed) {
   outputDF <- cbind(
     dfTransformed,
     Score = pvals,
-    statistic_ = statistics) %>%
+    statistic_ = statistics
+  ) %>%
     mutate(
       Statistic = setNames(statistic_, rep("X-squared", length(groups))),
       TotalCount_All = sum(TotalCount),
@@ -125,8 +126,10 @@ qualification_analyze_chisq <- function(dfTransformed) {
       ScoreLabel = "P value"
     ) %>%
     arrange(Score) %>%
-    select(GroupID, GroupLabel, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other,
-           KRI, KRILabel, Statistic, Score, ScoreLabel)
+    select(
+      GroupID, GroupLabel, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other,
+      KRI, KRILabel, Statistic, Score, ScoreLabel
+    )
 
   return(outputDF)
 }
@@ -162,7 +165,8 @@ qualification_analyze_fisher <- function(dfTransformed) {
   outputDF <- cbind(
     dfTransformed,
     Score = pvals,
-    estimate_ = estimates) %>%
+    estimate_ = estimates
+  ) %>%
     mutate(
       Estimate = setNames(estimate_, rep("odds ratio", length(groups))),
       TotalCount_All = sum(TotalCount),
@@ -174,8 +178,10 @@ qualification_analyze_fisher <- function(dfTransformed) {
       ScoreLabel = "P value"
     ) %>%
     arrange(Score) %>%
-    select(GroupID, GroupLabel, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other,
-           KRI, KRILabel, Estimate, Score, ScoreLabel)
+    select(
+      GroupID, GroupLabel, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other,
+      KRI, KRILabel, Estimate, Score, ScoreLabel
+    )
 
 
   return(outputDF)

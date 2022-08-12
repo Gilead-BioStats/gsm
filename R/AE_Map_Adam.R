@@ -75,15 +75,17 @@ AE_Map_Adam <- function(
         Rate = .data$Count / .data$Exposure
       ) %>%
       ungroup() %>%
-      select(.data$SubjectID,
-             any_of(c(
-               SiteID = lMapping[["dfADSL"]][["strSiteCol"]],
-               StudyID = lMapping[["dfADSL"]][["strStudyCol"]],
-               CustomGroupID = lMapping[["dfADSL"]][["strCustomGroupCol"]]
-             )),
-             .data$Count,
-             .data$Exposure,
-             .data$Rate)
+      select(
+        .data$SubjectID,
+        any_of(c(
+          SiteID = lMapping[["dfADSL"]][["strSiteCol"]],
+          StudyID = lMapping[["dfADSL"]][["strStudyCol"]],
+          CustomGroupID = lMapping[["dfADSL"]][["strCustomGroupCol"]]
+        )),
+        .data$Count,
+        .data$Exposure,
+        .data$Rate
+      )
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Adam} returned output with {nrow(dfInput)} rows.")
   } else {

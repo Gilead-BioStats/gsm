@@ -72,15 +72,17 @@ Consent_Map_Raw <- function(
       )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
-      select(SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-             any_of(
-               c(
-                 SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
-                 StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
-                 CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
-               )
-             ),
-             RandDate = lMapping[["dfSUBJ"]][["strRandDateCol"]])
+      select(
+        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        any_of(
+          c(
+            SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+            StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+            CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
+          )
+        ),
+        RandDate = lMapping[["dfSUBJ"]][["strRandDateCol"]]
+      )
 
     if (!is.null(lMapping$dfCONSENT$strConsentTypeVal)) {
       dfCONSENT_mapped <- dfCONSENT_mapped %>%
