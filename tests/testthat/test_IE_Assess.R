@@ -29,6 +29,22 @@ test_that("metadata is returned as expected", {
   expect_true("ggplot" %in% class(assessment$chart))
 })
 
+# grouping works as expected ----------------------------------------------
+test_that("grouping works as expected", {
+  subsetGroupCols <- function(assessOutput) {
+    assessOutput[["dfSummary"]] %>% select(starts_with("Group"))
+  }
+
+  site <- assess_function(dfInput)
+  study <- assess_function(dfInput, strGroup = "Study")
+  customGroup <- assess_function(dfInput, strGroup = "CustomGroup")
+
+  expect_snapshot(subsetGroupCols(site))
+  expect_snapshot(subsetGroupCols(study))
+  expect_snapshot(subsetGroupCols(customGroup))
+  expect_false(all(map_lgl(list(site, study, customGroup), ~ all(map_lgl(., ~ is_grouped_df(.))))))
+})
+
 # incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors", {
   expect_error(assess_function(list()))
@@ -40,6 +56,7 @@ test_that("incorrect inputs throw errors", {
   expect_error(assess_function(dfInput %>% select(-SiteID)))
   expect_error(assess_function(dfInput %>% select(-Count)))
   expect_error(assess_function(dfInput, strKRILabel = c("label 1", "label 2")))
+  expect_error(assess_function(dfInput, strGroup = "something"))
 })
 
 # incorrect lTags throw errors --------------------------------------------
@@ -48,12 +65,14 @@ test_that("incorrect lTags throw errors", {
   expect_error(assess_function(dfInput, lTags = list("hi", "mom")))
   expect_error(assess_function(dfInput, lTags = list(greeting = "hi", "mom")))
   expect_silent(assess_function(dfInput, lTags = list(greeting = "hi", person = "mom")))
-  expect_snapshot_error(assess_function(dfInput, lTags = list(SiteID = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(GroupID = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(GroupLabel = "")))
   expect_snapshot_error(assess_function(dfInput, lTags = list(N = "")))
-  expect_snapshot_error(assess_function(dfInput, lTags = list(Score = "")))
-  expect_snapshot_error(assess_function(dfInput, lTags = list(Flag = "")))
   expect_snapshot_error(assess_function(dfInput, lTags = list(KRI = "")))
   expect_snapshot_error(assess_function(dfInput, lTags = list(KRILabel = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(Score = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(ScoreLabel = "")))
+  expect_snapshot_error(assess_function(dfInput, lTags = list(Flag = "")))
 })
 
 # custom tests ------------------------------------------------------------

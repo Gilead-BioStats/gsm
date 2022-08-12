@@ -43,7 +43,7 @@ PD_Map_Raw <- function(
     dfPD = clindata::rawplus_pd,
     dfSUBJ = clindata::rawplus_subj
   ),
-  lMapping = clindata::mapping_rawplus,
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
@@ -70,7 +70,13 @@ PD_Map_Raw <- function(
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
         SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+        any_of(
+          c(
+            SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+            StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+            CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
+          )
+        ),
         Exposure = lMapping[["dfSUBJ"]][["strTimeOnStudyCol"]]
       )
 
@@ -81,7 +87,7 @@ PD_Map_Raw <- function(
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
       mutate(Rate = .data$Count / .data$Exposure) %>%
-      select(.data$SubjectID, .data$SiteID, .data$Count, .data$Exposure, .data$Rate)
+      select(any_of(names(dfSUBJ_mapped)), .data$Count, .data$Exposure, .data$Rate)
 
     if (!bQuiet) cli::cli_alert_success("{.fn PD_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

@@ -1,3 +1,39 @@
+# grouping works as expected
+
+    Code
+      subsetGroupCols(site)
+    Output
+      # A tibble: 3 x 2
+        GroupID GroupLabel
+        <chr>   <chr>     
+      1 X010X   SiteID    
+      2 X102X   SiteID    
+      3 X999X   SiteID    
+
+---
+
+    Code
+      subsetGroupCols(study)
+    Output
+      # A tibble: 3 x 2
+        GroupID        GroupLabel
+        <chr>          <chr>     
+      1 AA-AA-000-0000 StudyID   
+      2 BB-BB-111-1111 StudyID   
+      3 CC-CC-333-3333 StudyID   
+
+---
+
+    Code
+      subsetGroupCols(customGroup)
+    Output
+      # A tibble: 3 x 2
+        GroupID       GroupLabel   
+        <chr>         <chr>        
+      1 China         CustomGroupID
+      2 India         CustomGroupID
+      3 United States CustomGroupID
+
 # incorrect inputs throw errors
 
     dfInput is not a data.frame
@@ -16,15 +52,15 @@
 
 ---
 
-    dfInput is missing one or more of these columns: SubjectID, SiteID, and Count
+    dfInput is missing one or more of these columns: SubjectID, Count
 
 ---
 
-    dfInput is missing one or more of these columns: SubjectID, SiteID, and Count
+    `strGroupCol` not found in dfInput
 
 ---
 
-    dfInput is missing one or more of these columns: SubjectID, SiteID, and Count
+    dfInput is missing one or more of these columns: SubjectID, Count
 
 # incorrect lTags throw errors
 
@@ -40,27 +76,35 @@
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
+---
+
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
+---
+
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 # bQuiet and bReturnChecks work as intended
 

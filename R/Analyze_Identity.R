@@ -1,5 +1,6 @@
 #' Analyze Identity
 #'
+#' @details
 #' Used in the data pipeline between `Transform` and `Flag` to rename KRI and Score columns.
 #'
 #' @param dfTransformed `data.frame` created by `Transform_EventCount()`
@@ -14,6 +15,8 @@
 #' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count")
 #' dfAnalyzed <- Analyze_Identity(dfTransformed)
 #'
+#' @importFrom cli cli_text
+#'
 #' @export
 
 Analyze_Identity <- function(dfTransformed, strValueCol = "KRI", strLabelCol = "KRILabel", bQuiet = TRUE) {
@@ -21,14 +24,16 @@ Analyze_Identity <- function(dfTransformed, strValueCol = "KRI", strLabelCol = "
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
     "strValueCol and/or strLabelCol not found in dfTransformed" = all(c(strValueCol, strLabelCol) %in% names(dfTransformed)),
     "strValueCol must be length 1" = length(strValueCol) == 1,
-    "strLabelCol must be length 1" = length(strLabelCol) == 1
+    "strLabelCol must be length 1" = length(strLabelCol) == 1,
+    "bQuiet must be locial" = is.logical(bQuiet)
   )
 
   dfAnalyzed <- dfTransformed %>%
     mutate(
       Score = .data[[strValueCol]],
       ScoreLabel = .data[[strLabelCol]]
-    )
+    ) %>%
+    arrange(.data$Score)
 
   if (!bQuiet) cli::cli_text(paste0("{.var Score} column created from `", strValueCol, "`."))
   if (!bQuiet) cli::cli_text(paste0("{.var ScoreLabel} column created from `", strLabelCol, "`."))

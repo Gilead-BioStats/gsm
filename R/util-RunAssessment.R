@@ -14,34 +14,42 @@
 #' @examples
 #' lAssessments <- MakeAssessmentList()
 #' lData <- list(
-#'   dfSUBJ = clindata::rawplus_subj,
 #'   dfAE = clindata::rawplus_ae,
-#'   dfPD = clindata::rawplus_pd,
 #'   dfCONSENT = clindata::rawplus_consent,
-#'   dfIE = clindata::rawplus_ie
+#'   dfDISP = clindata::rawplus_subj,
+#'   dfIE = clindata::rawplus_ie,
+#'   dfLB = clindata::rawplus_lb,
+#'   dfPD = clindata::rawplus_pd,
+#'   dfSUBJ = clindata::rawplus_subj
 #' )
 #' lTags <- list(
 #'   Study = "myStudy"
 #' )
-#' lMapping <- clindata::mapping_rawplus
+#' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 #'
-#' ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
+#' output <- RunAssessment(
+#'   lAssessments$ae, # adverse event workflow
+#'   lData,
+#'   lMapping,
+#'   lTags
+#' )
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom stringr str_detect
 #' @importFrom yaml read_yaml
+#' @importFrom purrr map_df
 #'
 #' @export
 
-RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = FALSE) {
+RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = TRUE) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lAssessment$name, "` assessment"))
 
   lAssessment$lData <- lData
   lAssessment$lChecks <- list()
   lAssessment$bStatus <- TRUE
-
   if (exists("workflow", where = lAssessment)) {
     # Run through each step in lAssessment$workflow
+
     stepCount <- 1
     for (step in lAssessment$workflow) {
       if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lAssessment$workflow), ": `", step$name, "`"))
@@ -57,29 +65,34 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = F
         lAssessment$checks[[stepCount]] <- result$lChecks
         names(lAssessment$checks)[[stepCount]] <- step$name
         lAssessment$bStatus <- result$lChecks$status
+
         if (result$lChecks$status) {
-          cli::cli_alert_success("{.fn {step$name}} Successful")
+          if (!bQuiet) cli::cli_alert_success("{.fn {step$name}} Successful")
         } else {
-          cli::cli_alert_warning("{.fn {step$name}} Failed - Skipping remaining steps")
+          if (!bQuiet) cli::cli_alert_warning("{.fn {step$name}} Failed - Skipping remaining steps")
         }
 
         if (stringr::str_detect(step$output, "^df")) {
-          cli::cli_text("Saving {step$output} to `lAssessment$lData`")
+          if (!bQuiet) cli::cli_text("Saving {step$output} to `lAssessment$lData`")
           lAssessment$lData[[step$output]] <- result$df
         } else {
-          cli::cli_text("Saving {step$output} to `lAssessment`")
+          if (!bQuiet) cli::cli_text("Saving {step$output} to `lAssessment`")
           lAssessment[[step$output]] <- result
         }
       } else {
-        cli::cli_text("Skipping {.fn {step$name}} ...")
+        if (!bQuiet) cli::cli_text("Skipping {.fn {step$name}} ...")
       }
-
       stepCount <- stepCount + 1
     }
   } else {
-    cli::cli_alert_warning("Workflow not found for {lAssessment$name} assessment - Skipping remaining steps")
+    if (!bQuiet) cli::cli_alert_warning("Workflow not found for {lAssessment$name} assessment - Skipping remaining steps")
     lAssessment$bStatus <- FALSE
   }
+
+  lAssessment$lChecks$flowchart <- Visualize_Workflow(list(temp_name = lAssessment)) %>%
+    set_names(nm = lAssessment$name)
+  if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Workflow} created a flowchart.")
+
 
   return(lAssessment)
 }

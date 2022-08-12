@@ -14,12 +14,14 @@ Analyze_Fisher(dfTransformed, strOutcome = "TotalCount", bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one row per site with columns: SiteID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
+\code{data.frame} with one row per site with columns: GroupID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
 }
 \description{
-Creates Analysis results data for count data using the Fisher's exact test
+Fisher's Exact Test Analysis
 }
 \details{
+Creates Analysis results data for count data using the Fisher's exact test
+
 Analyzes count data using the Fisher's exact test
 }
 \section{Statistical Methods}{
@@ -33,15 +35,19 @@ TODO Coming soon ...
 
 The input data (\code{dfTransformed}) for Analyze_Fisher is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
 \itemize{
-\item \code{SiteID} - Site ID
+\item \code{GroupID} - GroupID from \code{dfTransformed}
 \item \code{N} - Total number of participants at site
 \item \code{TotalCount} - Total number of participants at site with event of interest
 }
 }
 
 \examples{
-dfInput <- Disp_Map(dfDisp = safetyData::adam_adsl, strCol = "DCREASCD", strReason = "Adverse Event")
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strKRILabel = "Discontinuations due to AE")
+dfInput <- Disp_Map_Raw()
+dfTransformed <- Transform_EventCount(
+  dfInput,
+  strCountCol = "Count",
+  strKRILabel = "Discontinuations due to AE"
+)
 dfAnalyzed <- Analyze_Fisher(dfTransformed)
 
 }

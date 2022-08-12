@@ -19,67 +19,68 @@ library(tidyverse)
 library(kableExtra)
 library(gt)
 
-if(length(names(params$meta))>1){
+if (length(names(params$meta)) > 1) {
   cat("# Metadata Table")
   params$meta %>%
     tibble::enframe() %>%
     tidyr::unnest(cols = value) %>%
     dplyr::rename(Name = name, Value = value) %>%
     gt::gt() %>%
-    gt::tab_style(style = list(
-      cell_text(
-        color = 'white',
-        align = "center",
-        weight = "bold"
+    gt::tab_style(
+      style = list(
+        cell_text(
+          color = "white",
+          align = "center",
+          weight = "bold"
+        ),
+        cell_fill(color = "#c73442")
       ),
-      cell_fill(color = "#c73442")
-    ),
-    locations = cells_column_labels())
+      locations = cells_column_labels()
+    )
 }
-
 ```
 
 # Overview Table
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
-results <- params$assessments %>% 
-  map(~.x$lResults) %>% 
+results <- params$assessments %>%
+  map(~ .x$lResults) %>%
   compact()
-allFindings <- results %>% 
-  map_df(~.x$dfSummary)
-table <- gsm::Study_Table(allFindings) 
+allFindings <- results %>%
+  map_df(~ .x$dfSummary)
+table <- gsm::Study_Table(allFindings)
 
-overview_tbl <- table$df_summary %>% 
-  mutate(across(everything(), ~map(., ~gt::html(.)))) %>% 
-  gt::gt() %>% 
+overview_tbl <- table$df_summary %>%
+  mutate(across(everything(), ~ map(., ~ gt::html(.)))) %>%
+  gt::gt() %>%
   gt::tab_style(
     style = list(
-      cell_text(color='white', align="left", weight="bold"),
-      cell_fill(color='#50504f')
+      cell_text(color = "white", align = "left", weight = "bold"),
+      cell_fill(color = "#50504f")
     ),
     locations = cells_body(columns = 1)
-  ) %>% 
+  ) %>%
   gt::tab_style(
     style = list(
-      cell_text(color='white', align="center", weight="bold"),
-      cell_fill(color="#c73442")
+      cell_text(color = "white", align = "center", weight = "bold"),
+      cell_fill(color = "#c73442")
     ),
     locations = cells_column_labels()
-  ) %>% 
+  ) %>%
   gt::tab_style(
     style = list(
-      cell_fill(color='#f8f9fa')
+      cell_fill(color = "#f8f9fa")
     ),
     locations = cells_body(columns = -Title, rows = 1:2)
   )
 
-if(!is.null(table$footnote)){
-    overview_tbl %>% 
+if (!is.null(table$footnote)) {
+  overview_tbl %>%
     gt::tab_footnote(
-    footnote = table$footnote, 
-    locations = cells_column_labels(
-      columns = Title
+      footnote = table$footnote,
+      locations = cells_column_labels(
+        columns = Title
+      )
     )
-  )
 } else {
   overview_tbl
 }
@@ -100,111 +101,116 @@ function showDetails(elem){
 }
 ```
 
+# Results
+```{r, echo=FALSE, results='asis'}
 
-```{r, results='asis', echo=FALSE}
+for (result in results) {
+  label <- ifelse(
+    result$lTags$Assessment == result$lTags$Label,
+    result$lTags$Assessment,
+    paste(result$lTags$Assessment, "-", result$lTags$Label)
+  )
 
-for (assessment in results){
-    flagged<- assessment$dfSummary %>% 
-    filter(Flag !=0)
-    # %>%
-    # mutate(
-    #     PValue = case_when(
-    #         PValue < 0.001  ~ "<0.001",
-    #         PValue < 0.01  ~ "<0.01",
-    #         PValue < 0.05  ~ "<0.05",
-    #         TRUE ~ as.character(round(PValue,2))
-    #     )
-    # )
-    label <- ifelse(
-      assessment$lTags$Assessment == assessment$lTags$Label, 
-      assessment$lTags$Assessment, 
-      paste(assessment$lTags$Assessment,"-",assessment$lTags$Label))
-    
-    cat("<h2 style='border-top:2px solid black; border-bottom:2px solid black; text-align:center; padding:3px;'> <small>Assessment Details</small><br>", label, "</h2>")
-    cat("<h3>Summary Chart</h3>")
-    cat("<div style = 'text-align: center'>")
-    print(assessment$chart)
-    cat("</div>")
+  # title
+  cat(paste0('\n\n## ', label, '\n\n'))
 
-    cat("<h3>Flagged Sites</h3>")
-    if(nrow(flagged)>0){
-        flagged %>%
-            kbl(escape=FALSE) %>% 
-            kable_styling() %>% 
-            cat
-    }
-    cat(
-        paste0(
-            "<p>",
-            nrow(flagged),
-            " of ",
-            nrow(assessment$dfSummary),
-            " sites flagged for this assessment.",
-            "</p>"
-        )
+  # chart
+  cat("<h3>Summary Chart</h3>")
+  cat("<div style = 'text-align: center'>")
+  print(result$chart)
+  cat("</div>")
+
+  # table
+  cat("<h3>Flagged Sites</h3>")
+
+  flagged <- result$dfSummary %>%
+    filter(Flag != 0)
+
+  if (nrow(flagged) > 0) {
+    flagged %>%
+      kbl(escape = FALSE) %>%
+      kable_styling() %>%
+      cat()
+  }
+
+  cat(
+    paste0(
+      "<p>",
+      length(unique(flagged$GroupID)),
+      " of ",
+      length(unique(result$dfSummary$GroupID)),
+      " sites flagged for this assessment.",
+      "</p>"
     )
-    cat("<div><button onclick='showDetails(this)'>Show details</button>")
-    cat("<div class='detail-wrap' style='display:none'>")
-    cat("<h3>Model Details</h3>")
+  )
 
-details <- assessment$dfFlagged %>%
-  filter(Flag !=0) %>% 
-  arrange(., match(SiteID, flagged$SiteID))
+  details <- result$dfFlagged %>%
+    filter(Flag != 0) %>%
+    arrange(., match(GroupID, flagged$GroupID))
 
-    if(nrow(details)>0){
-        details%>%
-        kbl(escape=FALSE) %>% 
-        kable_styling() %>% 
-        cat
-    }
+  cat("<div><button onclick='showDetails(this)'>Show details</button>")
+  cat("<div class='detail-wrap' style='display:none'>")
 
-    cat("</div></div>")
+  cat("<h3>Model Details</h3>")
+  if (nrow(details) > 0) {
+    details %>%
+      kbl(escape = FALSE) %>%
+      kable_styling() %>%
+      cat()
+  }
+
+  cat("</div>")
+  cat("</div>")
 }
 ```
-
 
 # Appendix - Data Check Summary
 
 ## Assessment Checks
 ```{r, echo = FALSE, message=FALSE, warning = FALSE}
 with_tooltip <- function(value, tooltip) {
-  htmltools::tags$abbr(style = "text-decoration: underline; text-decoration-style: solid; cursor: question; color: blue",
-            title = tooltip, value)
+  htmltools::tags$abbr(
+    style = "text-decoration: underline; text-decoration-style: solid; cursor: question; color: blue",
+    title = tooltip, value
+  )
 }
 AssessmentReport <- gsm::Study_AssessmentReport(params$assessments)
-AssessmentReport$dfSummary %>% 
-  gt::gt() %>% 
+AssessmentReport$dfSummary %>%
+  gt::gt() %>%
   gt::tab_style(
     style = list(
-      cell_text(color='white', align="center", weight="bold"),
-      cell_fill(color="#c73442")
+      cell_text(color = "white", align = "center", weight = "bold"),
+      cell_fill(color = "#c73442")
     ),
     locations = cells_column_labels()
-  ) %>% 
+  ) %>%
   gt::fmt_markdown(columns = everything())
-
 ```
 
 ## Issue List
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 AssessmentReport$dfAllChecks %>%
-      filter(check > 1) %>% 
-  mutate(check = map(check, rank_chg),
-         across(where(is.character), ~replace_na(., ""))) %>% 
-  gt::gt() %>% 
+  filter(check > 1) %>%
+  mutate(
+    check = map(check, rank_chg),
+    across(where(is.character), ~ replace_na(., ""))
+  ) %>%
+  gt::gt() %>%
   gt::tab_style(
     style = list(
-      cell_text(color='white', align="center", weight="bold"),
-      cell_fill(color="#c73442")
+      cell_text(color = "white", align = "center", weight = "bold"),
+      cell_fill(color = "#c73442")
     ),
     locations = cells_column_labels()
-  ) %>% 
-  gt::cols_width(assessment ~ px(85),
-                 step ~ px(140),
-                 check ~ px(60),
-                 domain ~ px(100),
-                 notes ~ px(300),
-                 everything() ~ px(200)) %>% 
+  ) %>%
+  gt::cols_width(
+    assessment ~ px(85),
+    step ~ px(140),
+    check ~ px(60),
+    domain ~ px(100),
+    notes ~ px(300),
+    everything() ~ px(200)
+  ) %>%
   gt::fmt_markdown(columns = everything())
 ```
 

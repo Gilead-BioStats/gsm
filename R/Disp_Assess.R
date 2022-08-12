@@ -1,0 +1,211 @@
+#' Disposition Assessment
+#'
+#' @description
+#' Evaluates disposition rate (DISP) on mapped subject-level dataset to identify sites that may be over- or under-reporting patient discontinuations.
+#'
+#' @details
+#' The Disposition Assessment uses the standard [GSM data pipeline](
+#'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
+#' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
+#' methods are described below.
+#'
+#' @param dfInput `data.frame` Input data, a data frame with one record per subject.
+#' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
+#' `c(.05, NA)` for both Chi-square test (`strMethod` = "chisq") and Fisher's exact test (`strMethod` = "fisher").
+#' @param strMethod `character` Statistical method. Valid values:
+#'   - `"chisq"` (default)
+#'   - `"fisher"`
+#'   - `"identity"`
+#' @param strKRILabel `character` KRI description. Default: `"DCs/Week"`
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults
+#'   to `list(Assessment = "Disposition")`. `lTags` is returned as part of the assessment (`lAssess$lTags`)
+#'   and each tag is added as a column in `lAssess$dfSummary`.
+#' @param bChart `logical` Generate data visualization? Default: `TRUE`
+#' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#'
+#' @return `list` Assessment, a named list with:
+#' - each data frame in the data pipeline
+#'   - `dfInput`
+#'   - `dfTransformed`, returned by [gsm::Transform_EventCount()]
+#'   - `dfAnalyzed`, returned by [gsm::Analyze_Chisq()] or [gsm::Analyze_Fisher()]
+#'   - `dfFlagged`, returned by [gsm::Flag()]
+#'   - `dfSummary`, returned by [gsm::Summarize()]
+#' - assessment metadata
+#'   - `strFunctionName`
+#'   - `lParams`
+#'   - `lTags`
+#' - output(s)
+#'   - `chart`
+#'
+#' @includeRmd ./man/md/Disp_Assess.md
+#' @includeRmd ./man/md/analyze_percent.md
+#'
+#' @examples
+#' dfInput <- Disp_Map_Raw()
+#' disp_assessment_chisq <- Disp_Assess(dfInput)
+#' disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "fisher")
+#' disp_assessment_identity <- Disp_Assess(dfInput, strMethod = "identity")
+#'
+#' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
+#' @importFrom purrr map map_dbl
+#' @importFrom yaml read_yaml
+#' @importFrom glue glue
+#'
+#' @export
+
+Disp_Assess <- function(
+  dfInput,
+  vThreshold = NULL,
+  strMethod = "chisq",
+  strKRILabel = "% Discontinuation",
+  strGroup = "Site",
+  lTags = list(
+    Assessment = "Disposition"
+  ),
+  bChart = TRUE,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
+) {
+  stopifnot(
+    "dfInput is not a data.frame" = is.data.frame(dfInput),
+    "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),
+    "strMethod is not 'chisq', 'fisher', or 'identity'" = strMethod %in% c("chisq", "fisher", "identity"),
+    "strKRILabel must be length 1" = length(strKRILabel) == 1,
+    "strGroup must be one of: Site, Study, or CustomGroup" = strGroup %in% c("Site", "Study", "CustomGroup"),
+    "bChart must be logical" = is.logical(bChart),
+    "bReturnChecks must be logical" = is.logical(bReturnChecks),
+    "bQuiet must be logical" = is.logical(bQuiet)
+  )
+
+  if (!is.null(lTags)) {
+    stopifnot(
+      "lTags is not named" = (!is.null(names(lTags))),
+      "lTags has unnamed elements" = all(names(lTags) != ""),
+      "lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'" = !names(lTags) %in%
+        c(
+          "GroupID",
+          "GroupLabel",
+          "N",
+          "KRI",
+          "KRILabel",
+          "Score",
+          "ScoreLabel",
+          "Flag"
+        )
+    )
+
+    if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {
+      lTags <- purrr::map(lTags, ~ paste(.x, collapse = ", "))
+    }
+  }
+
+  lAssess <- list(
+    strFunctionName = deparse(sys.call()[1]),
+    lParams = lapply(as.list(match.call()[-1]), function(x) as.character(x)),
+    lTags = lTags,
+    dfInput = dfInput
+  )
+
+  mapping <- yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm"))
+  mapping$dfInput$strGroupCol <- mapping$dfInput[[glue::glue("str{strGroup}Col")]]
+
+  stopifnot(
+    "`strGroup` not found in mapping" = glue::glue("str{strGroup}Col") %in% names(mapping$dfInput),
+    "`strGroupCol` not found in dfInput" = mapping$dfInput$strGroupCol %in% names(dfInput)
+  )
+
+  checks <- CheckInputs(
+    context = "Disp_Assess",
+    dfs = list(dfInput = lAssess$dfInput),
+    mapping = mapping,
+    bQuiet = bQuiet
+  )
+
+  if (checks$status) {
+    if (!bQuiet) cli::cli_h2("Initializing {.fn Disp_Assess}")
+    if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
+
+    lAssess$dfTransformed <- gsm::Transform_EventCount(
+      lAssess$dfInput,
+      strCountCol = "Count",
+      strExposureCol = "Total",
+      strGroupCol = mapping$dfInput$strGroupCol,
+      strKRILabel = strKRILabel
+    )
+
+    if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
+
+    if (strMethod == "chisq") {
+      if (is.null(vThreshold)) {
+        vThreshold <- c(.05, NA)
+      } else {
+        stopifnot(
+          "vThreshold is not numeric" = is.numeric(vThreshold),
+          "vThreshold is not length 2" = length(vThreshold) == 2,
+          "Lower limit (first element) for Chi-squared vThreshold is not between 0 and 1" = vThreshold[1] < 1 & vThreshold[1] > 0,
+          "Upper limit (second element) for Chi-squared vThreshold is not NA" = is.na(vThreshold[2])
+        )
+      }
+
+      lAssess$dfAnalyzed <- gsm::Analyze_Chisq(lAssess$dfTransformed, bQuiet = bQuiet)
+      if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Chisq} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
+
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strValueColumn = "KRI", vThreshold = vThreshold)
+      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
+
+      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
+      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
+    } else if (strMethod == "fisher") {
+      if (is.null(vThreshold)) {
+        vThreshold <- c(0.05, NA)
+      } else {
+        stopifnot(
+          "vThreshold is not numeric" = is.numeric(vThreshold),
+          "vThreshold is not length 2" = length(vThreshold) == 2,
+          "Lower limit (first element) for Fisher's Exact vThreshold is not between 0 and 1" = vThreshold[1] < 1 & vThreshold[1] > 0,
+          "Upper limit (second element) for Fisher's Exact vThreshold is not NA" = is.na(vThreshold[2])
+        )
+      }
+
+      lAssess$dfAnalyzed <- gsm::Analyze_Fisher(lAssess$dfTransformed, bQuiet = bQuiet)
+      if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Fisher} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
+
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, strValueColumn = "KRI", vThreshold = vThreshold)
+      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
+
+      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
+      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
+    } else if (strMethod == "identity") {
+      if (is.null(vThreshold)) {
+        vThreshold <- c(3.491, 5.172)
+      } else {
+        stopifnot(
+          "vThreshold is not numeric" = is.numeric(vThreshold),
+          "vThreshold for Identity contains NA values" = all(!is.na(vThreshold)),
+          "vThreshold is not length 2" = length(vThreshold) == 2
+        )
+      }
+
+      lAssess$dfAnalyzed <- gsm::Analyze_Identity(lAssess$dfTransformed)
+      if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Identity} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
+
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Score")
+      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
+
+      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
+      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
+    }
+
+    if (bChart) {
+      lAssess$chart <- gsm::Visualize_Count(lAssess$dfFlagged)
+      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
+    }
+  } else {
+    if (!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} did not run because of failed check.")
+  }
+
+  if (bReturnChecks) lAssess$lChecks <- checks
+  return(lAssess)
+}

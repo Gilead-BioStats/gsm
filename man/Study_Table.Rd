@@ -14,7 +14,7 @@ Study_Table(
 )
 }
 \arguments{
-\item{dfFindings}{dataframe containing one or more stacked findings. Findings are one record per assessment per site and have the following columns: Assessment, Label, SiteID, N, PValue, Flag. PValue is ignored in the summary table.}
+\item{dfFindings}{dataframe containing one or more stacked findings. Findings are one record per assessment per site and have the following columns: Assessment, Label, GroupID, N, PValue, Flag. PValue is ignored in the summary table.}
 
 \item{bFormat}{Use html-friendly icons in table cells. -1 is converted to a down arrow. 1 is converted to an up arrow. 0 is not shown. Other values are left as is.}
 
@@ -33,13 +33,19 @@ Study_Table(
 Make overview table with one row per assessment and one column per site showing flagged assessments.
 }
 \examples{
-library(dplyr)
-library(purrr)
-results <- Study_Assess() \%>\%
+lData <- list(
+  dfAE = clindata::rawplus_ae,
+  dfPD = clindata::rawplus_pd,
+  dfSUBJ = clindata::rawplus_subj
+)
+
+lAssessment <- Study_Assess(lData)
+
+dfSummary <- lAssessment \%>\%
   purrr::map(~ .x$lResults) \%>\%
-  compact() \%>\%
+  purrr::compact() \%>\%
   purrr::map_df(~ .x$dfSummary)
 
-Study_Table(results)
+lStudyTable <- Study_Table(dfSummary)
 
 }

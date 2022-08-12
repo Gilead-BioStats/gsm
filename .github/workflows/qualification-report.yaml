@@ -21,6 +21,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r@v1
         with:
+          r-version: '4.0.5'
           use-public-rspm: true
 
       - uses: r-lib/actions/setup-pandoc@v1
@@ -32,7 +33,7 @@ jobs:
           cd ..
           git clone git@github.com:Gilead-BioStats/clindata.git
           cd clindata
-          git checkout tags/v0.5.2
+          git checkout tags/v0.6.2
           cd ../gsm
 
       - name: install packages

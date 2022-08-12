@@ -1,14 +1,12 @@
 dfSUBJ:
   strIDCol: "SubjectID"
   strSiteCol: "SiteID"
+  strStudyCol: "StudyID"
+  strCustomGroupCol: "RegionID"
   strTimeOnTreatmentCol: "TimeOnTreatment"
   strTimeOnStudyCol: "TimeOnStudy"
   strRandFlagCol: "RandFlag"
   strRandDateCol: "RandDate"
-  strStudyCompletionFlagCol: "StudCompletion"
-  strStudyDiscontinuationReasonCol: "StudDCReason"
-  strTreatmentCompletionFlagCol: "TrtCompletion"
-  strTreatmentDiscontinuationReasonCol: "TrtDCReason"
 dfAE:
   strIDCol: "SubjectID"
   strTreatmentEmergentCol: "AE_TE_FLAG"
@@ -18,7 +16,7 @@ dfAE:
   strSeriousVal: "Yes"
 dfPD:
   strIDCol: "SubjectID"
-  strCategoryCol: "PD_CATEGORY"
+  strCategoryCol: "DVDECOD"
   strImportantCol: "PD_IMPORTANT_FLAG"
   strImportantVal: "Y"
 dfIE:
@@ -37,5 +35,31 @@ dfCONSENT:
   strTypeCol: "CONSENT_TYPE"
   strValueCol: "CONSENT_VALUE"
   strDateCol: "CONSENT_DATE"
-  strConsentTypeValue: "MAINCONSENT"
-  strConsentStatusValue: "Y"
+  strConsentTypeVal: "MAINCONSENT"
+  strConsentStatusVal: "Y"
+dfDISP:
+  strIDCol: "SubjectID"
+  strStudyDiscontinuationReasonCol: "StudDCReason"
+  strStudyDiscontinuationReasonVal: "Withdrew Consent"
+  strStudyCompletionFlagCol: "StudCompletion"
+  strStudyCompletionFlagVal:
+    - ""
+    - "O"
+  strTreatmentDiscontinuationReasonCol: "TrtDCReason"
+  strTreatmentDiscontinuationReasonVal: "Investigator's Discretion*"
+  strTreatmentCompletionFlagCol: "TrtCompletion"
+  strTreatmentCompletionFlagVal:
+    - "Y"
+    - "O"
+dfLB:
+  strIDCol: "SubjectID"
+  strVisitCol: "VISIT"
+  strVisitOrderCol: "VISITNUM"
+  strCategoryCol: "LBCAT"
+  strTestCol: "LBTEST"
+  strValueCol: "LBSTRESN"
+  strTreatmentEmergentCol: "LB_TE_FLAG"
+  strTreatmentEmergentVal: TRUE
+  strGradeCol: "LB_GRADE"
+  strAbnormalCol: "LB_ABN_FLAG"
+  strAbnormalVal: TRUE

@@ -18,6 +18,7 @@ workflow:
     inputs: dfInput
     output: lResults
     params:
+      strGroup: "Site"
       vThreshold: null
       strMethod: "poisson"
       strKRILabel: "Treatment-Emergent AEs/Week"

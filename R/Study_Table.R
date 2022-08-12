@@ -2,7 +2,7 @@
 #'
 #' Make overview table with one row per assessment and one column per site showing flagged assessments.
 #'
-#' @param dfFindings dataframe containing one or more stacked findings. Findings are one record per assessment per site and have the following columns: Assessment, Label, SiteID, N, PValue, Flag. PValue is ignored in the summary table.
+#' @param dfFindings dataframe containing one or more stacked findings. Findings are one record per assessment per site and have the following columns: Assessment, Label, GroupID, N, PValue, Flag. PValue is ignored in the summary table.
 #' @param bFormat Use html-friendly icons in table cells. -1 is converted to a down arrow. 1 is converted to an up arrow. 0 is not shown. Other values are left as is.
 #' @param bShowSiteScore Show a "Score" row with total number of flagged assessments for each site. TODO:  add method for custom scoring in future release)
 #' @param vSiteScoreThreshold Hide sites with a site score less than this value (1 by default).
@@ -10,14 +10,20 @@
 #' @param bColCollapse Combine the Assessment and Label columns into a single "Title Column"
 #'
 #' @examples
-#' library(dplyr)
-#' library(purrr)
-#' results <- Study_Assess() %>%
+#' lData <- list(
+#'   dfAE = clindata::rawplus_ae,
+#'   dfPD = clindata::rawplus_pd,
+#'   dfSUBJ = clindata::rawplus_subj
+#' )
+#'
+#' lAssessment <- Study_Assess(lData)
+#'
+#' dfSummary <- lAssessment %>%
 #'   purrr::map(~ .x$lResults) %>%
-#'   compact() %>%
+#'   purrr::compact() %>%
 #'   purrr::map_df(~ .x$dfSummary)
 #'
-#' Study_Table(results)
+#' lStudyTable <- Study_Table(dfSummary)
 #'
 #' @return `data.frame` Returns a data.frame giving assessment status (rows) by Site (column)
 #'
@@ -38,21 +44,21 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
     "`bColCollapse` must be logical" = is.logical(bColCollapse)
   )
 
-
   # TODO: Add check for unique Site + Label + SiteID
+
   # Get site counts
   df_counts <- dfFindings %>%
-    group_by(.data$SiteID) %>%
+    group_by(.data$GroupID) %>%
     summarize(Flag = first(.data$N)) %>%
     mutate(
       Assessment = "Number of Subjects",
       Label = "Number of Subjects"
     ) %>%
-    select(.data$Assessment, .data$Label, .data$SiteID, .data$Flag)
+    select(.data$Assessment, .data$Label, .data$GroupID, .data$Flag)
 
   # create site score for a site across all assessments
   df_score <- dfFindings %>%
-    group_by(.data$SiteID) %>%
+    group_by(.data$GroupID) %>%
     summarize(Flag = sum(abs(.data$Flag))) %>%
     mutate(
       Assessment = "Score",
@@ -61,13 +67,13 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
 
   # create subheaders for each assessment
   df_assessment <- dfFindings %>%
-    group_by(.data$Assessment, .data$SiteID) %>%
+    group_by(.data$Assessment, .data$GroupID) %>%
     summarize(Flag = ifelse(any(.data$Flag != 0), "*", "")) %>%
     mutate(Label = "Subtotal")
 
   # create rows for each KRI
   df_tests <- dfFindings %>%
-    select(.data$Assessment, .data$Label, .data$SiteID, .data$Flag) %>%
+    select(.data$Assessment, .data$Label, .data$GroupID, .data$Flag) %>%
     mutate(Flag = case_when(
       Flag == "-1" ~ "-",
       Flag == "1" ~ "+",
@@ -99,8 +105,8 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
 
   # Create table view with one column per site
   df_summary <- df_combined %>%
-    select(.data$Assessment, .data$Label, .data$SiteID, .data$Flag) %>%
-    spread(.data$SiteID, .data$Flag, fill = "")
+    select(.data$Assessment, .data$Label, .data$GroupID, .data$Flag) %>%
+    spread(.data$GroupID, .data$Flag, fill = "")
 
   # Sort the table - maintain order of assessments/labels from dfFindings
   assessment_order <- unique(dfFindings$Assessment)
@@ -147,7 +153,7 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
   if (vSiteScoreThreshold > 0) {
     noOutlierSites <- df_score %>%
       filter(Flag < vSiteScoreThreshold) %>%
-      pull(.data$SiteID)
+      pull(.data$GroupID)
     if (length(noOutlierSites) > 0) {
       footnote <- paste0("Note: Data not shown for ", length(noOutlierSites), " site(s) with site score less than ", vSiteScoreThreshold)
     }
@@ -156,11 +162,11 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
   siteCols <- df_score %>%
     rename(score = Flag) %>%
     filter(.data$score >= vSiteScoreThreshold) %>%
-    select(.data$SiteID, .data$score) %>%
-    left_join(df_counts, by = "SiteID") %>%
+    select(.data$GroupID, .data$score) %>%
+    left_join(df_counts, by = "GroupID") %>%
     rename(count = Flag) %>%
     arrange(-as.numeric(.data$score), -as.numeric(.data$count)) %>%
-    pull(.data$SiteID)
+    pull(.data$GroupID)
 
   if (bColCollapse) {
     allCols <- c("Title", siteCols)
@@ -168,7 +174,7 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
     allCols <- c("Assessment", "Label", siteCols)
   }
 
-  df_summary <- df_summary %>% select(allCols)
+  df_summary <- df_summary %>% select(all_of(allCols))
 
 
   return(list(df_summary = df_summary, footnote = footnote))

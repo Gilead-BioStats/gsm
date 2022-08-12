@@ -10,22 +10,46 @@ dfSUBJ <- data.frame(
   stringsAsFactors = FALSE,
   SubjectID = c("1234", "5678", "9876"),
   SiteID = c("X010X", "X102X", "X999X"),
+  StudyID = c("AA-AA-000-0000", "BB-BB-111-1111", "CC-CC-333-3333"),
+  RegionID = c("United States", "China", "India"),
   TimeOnTreatment = c(3455, 1745, 1233),
   TimeOnStudy = c(1234, 2345, 4567),
   RandDate = as.Date(c("2012-09-02", "2017-05-08", "2018-05-20"))
 )
 
+dfLB <- tibble::tribble(
+  ~SubjectID, ~VISIT, ~LBCAT, ~LBTEST, ~LB_ABN_FLAG,
+  "1234", "Visit 1", "Chemistry", "Calcium", FALSE,
+  "1234", "Visit 2", "Chemistry", "Calcium", TRUE,
+  "1234", "Visit 3", "Chemistry", "Calcium", FALSE,
+  "1234", "Visit 1", "Chemistry", "Sodium", FALSE,
+  "1234", "Visit 2", "Chemistry", "Sodium", FALSE,
+  "1234", "Visit 3", "Chemistry", "Sodium", TRUE,
+  "1234", "Visit 1", "Hematology", "Platelets", TRUE,
+  "1234", "Visit 2", "Hematology", "Platelets", FALSE,
+  "1234", "Visit 3", "Hematology", "Platelets", FALSE,
+  "5678", "Visit 1", "Chemistry", "Calcium", TRUE,
+  "5678", "Visit 1", "Chemistry", "Sodium", TRUE,
+  "5678", "Visit 1", "Hematology", "Platelets", FALSE,
+  "9876", "Visit 1", "Chemistry", "Calcium", FALSE,
+  "9876", "Visit 2", "Chemistry", "Calcium", FALSE,
+  "9876", "Visit 1", "Chemistry", "Sodium", FALSE,
+  "9876", "Visit 2", "Chemistry", "Sodium", FALSE,
+  "9876", "Visit 1", "Hematology", "Platelets", FALSE,
+  "9876", "Visit 2", "Hematology", "Platelets", FALSE
+)
 
 dfPD <- tibble::tribble(
   ~SubjectID, ~PD_CATEGORY, ~PD_IMPORTANT_FLAG,
   "1234", "Study Medication", "N",
-  "1234", "Study Medication", "N",
+  "1234", "Subject Not Managed According to Protocol", "N",
   "5678", "Nonadherence of study drug", "Y",
+  "5678", "Subject Not Managed According to Protocol", "Y",
   "5678", "Nonadherence of study drug", "Y",
-  "5678", "Nonadherence of study drug", "Y",
-  "9876", "Subject Not Managed According to Protocol", "N",
+  "9876", "Study Medication", "N",
+  "9876", "Nonadherence of study drug", "N",
   "9876", "Subject Not Managed According to Protocol", "N"
-)
+) %>% dplyr::mutate(DVDECOD = toupper(PD_CATEGORY))
 
 dfCONSENT <- data.frame(
   stringsAsFactors = FALSE,
@@ -36,15 +60,16 @@ dfCONSENT <- data.frame(
 )
 
 
-# dfDisp = safetyData::adam_adsl %>%
-#   select("SUBJID", "SITEID", "DCREASCD") %>%
-#   head(2)
-dfDisp <- tibble::tribble(
-  ~SUBJID, ~SITEID, ~DCREASCD,
-  "1234", "701", "Completed",
-  "5678", "701", "Adverse Event",
-  "2345", "702", "Withdrew Consent",
-  "2348", "702", "Adverse Event"
+# created from clindata::rawplus_subj
+# used code below + manually edited tribble (datapasta::tribble_paste())
+# clindata::rawplus_subj %>%
+# select(SubjectID, starts_with("Trt"), starts_with("Stud")) %>%
+#   slice(1:3)
+dfDISP <- tibble::tribble(
+  ~SubjectID, ~TrtCompletion, ~TrtDCReason, ~StudCompletion, ~StudDCReason,
+  "1234", "N", "Adverse Event", "N", "Withdrew Consent",
+  "5678", "Y", NA, "Y", NA,
+  "9876", "O", NA, "O", NA
 )
 
 

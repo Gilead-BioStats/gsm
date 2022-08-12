@@ -8,6 +8,7 @@ Transform_EventCount(
   dfInput,
   strCountCol,
   strExposureCol = NULL,
+  strGroupCol = "SiteID",
   strKRILabel = "[Not Specified]"
 )
 }
@@ -17,6 +18,8 @@ Transform_EventCount(
 \item{strCountCol}{Required. Numerical or logical. Column to be counted.}
 
 \item{strExposureCol}{Optional. Numerical \code{Exposure} column.}
+
+\item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
 
 \item{strKRILabel}{Optional. Character vector to describe the \code{KRI} column.}
 }
@@ -35,14 +38,18 @@ This function transforms data to prepare it for the Analysis step
 The input data (\code{dfInput}) for the AE Assessment is typically created using any of these functions:
 \code{\link{AE_Map_Raw}}
 \code{\link{AE_Map_Adam}}
-\code{\link{PD_Map_Raw}}
-\code{\link{IE_Map_Raw}}
 \code{\link{Consent_Map_Raw}}
+\code{\link{Disp_Map_Raw}}
+\code{\link{IE_Map_Raw}}
+\code{\link{LB_Map_Raw}}
+\code{\link{PD_Map_Raw}}
 
 (\code{dfInput}) has the following required and optional columns:
 Required:
 \itemize{
 \item \code{SiteID} - Site ID
+\item \code{StudyID} - Study ID
+\item \code{CustomGroupID} - Custom Group ID, currently implemented as a placeholder for Country ID.
 \item \code{Count} - Number of Adverse Events the actual name of this column is specified by the parameter strCountCol.
 Optional
 \item \code{Exposure} - Number of days of exposure, name specified by strExposureCol.

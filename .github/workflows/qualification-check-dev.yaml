@@ -1,0 +1,49 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+on:
+  pull_request:
+    branches: dev
+
+name: qualification-check-dev
+
+jobs:
+  qualification-check:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
+
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@v1
+        with:
+          r-version: '4.0.5'
+          use-public-rspm: true
+
+      - name: Clone clindata
+        run: |
+          cd ..
+          git clone git@github.com:Gilead-BioStats/clindata.git
+          cd clindata
+          git checkout tags/v0.6.2
+          cd ../gsm
+
+      - name: install packages
+        shell: Rscript {0}
+        run: |
+          install.packages("devtools")
+          devtools::install('../clindata')
+          devtools::install(dependencies=TRUE)
+
+      - name: run qualification tests
+        run: try(source(here::here("tests", "testqualification", "test_qualification.R")), silent = TRUE)
+        shell: Rscript {0}
+
+      - name: Show testthat output
+        if: always()
+        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
+        shell: bash

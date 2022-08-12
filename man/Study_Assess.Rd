@@ -10,7 +10,7 @@ Study_Assess(
   lAssessments = NULL,
   lSubjFilters = NULL,
   lTags = list(Study = "myStudy"),
-  bQuiet = FALSE
+  bQuiet = TRUE
 )
 }
 \arguments{
@@ -33,6 +33,7 @@ Study_Assess(
 Attempts to run one or more assessments (\code{lAssessments}) using shared data (\code{lData}) and metadata (\code{lMapping}). By default, the sample \code{rawplus} data from the {clindata} package is used, and all assessments defined in \code{inst/workflow} are evaluated. Individual assessments are run using \code{gsm::RunAssessment()}
 }
 \examples{
+\dontrun{
 results <- Study_Assess() # run using defaults
-
+}
 }

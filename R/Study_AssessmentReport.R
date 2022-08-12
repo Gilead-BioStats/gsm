@@ -8,7 +8,13 @@
 #' @return `list` containing a `data.frame` summarizing the checks `dfSummary` and a `data.frame` listing all checks (`dfAllChecks`).
 #'
 #' @examples
-#' assessment <- Study_Assess()
+#'
+#' assessment <- Study_Assess(lData = list(
+#'   dfAE = clindata::rawplus_ae,
+#'   dfPD = clindata::rawplus_pd,
+#'   dfSUBJ = clindata::rawplus_subj
+#' ))
+#'
 #' report <- Study_AssessmentReport(lAssessments = assessment)
 #'
 #' @importFrom fontawesome fa
@@ -77,7 +83,7 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
     names()
 
   allChecks <- allChecks %>%
-    mutate(across(check_cols, ~ ifelse(!is.na(notes), NA_character_, .)),
+    mutate(across(all_of(check_cols), ~ ifelse(!is.na(notes), NA_character_, .)),
       notes = ifelse(is.na(.data$notes),
         apply(allChecks[6:length(allChecks)], 1, function(x) paste(x[!is.na(x)], collapse = "<br>")),
         .data$notes

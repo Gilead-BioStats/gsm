@@ -43,7 +43,7 @@ Consent_Map_Raw <- function(
     dfCONSENT = clindata::rawplus_consent,
     dfSUBJ = clindata::rawplus_subj
   ),
-  lMapping = clindata::mapping_rawplus,
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
@@ -74,14 +74,20 @@ Consent_Map_Raw <- function(
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
         SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
-        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+        any_of(
+          c(
+            SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+            StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+            CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
+          )
+        ),
         RandDate = lMapping[["dfSUBJ"]][["strRandDateCol"]]
       )
 
-    if (!is.null(lMapping$dfCONSENT$strConsentTypeValue)) {
+    if (!is.null(lMapping$dfCONSENT$strConsentTypeVal)) {
       dfCONSENT_mapped <- dfCONSENT_mapped %>%
         filter(
-          .data$ConsentType == lMapping$dfCONSENT$strConsentTypeValue
+          .data$ConsentType == lMapping$dfCONSENT$strConsentTypeVal
         )
 
       if (nrow(dfCONSENT_mapped) == 0) {
@@ -89,7 +95,7 @@ Consent_Map_Raw <- function(
           "No records in [ dfs$dfCONSENT$",
           lMapping$dfCONSENT$strTypeCol,
           " ] contain a consent type of [ ",
-          lMapping$dfCONSENT$strConsentTypeValue,
+          lMapping$dfCONSENT$strConsentTypeVal,
           " ]."
         ))
       }
@@ -98,14 +104,14 @@ Consent_Map_Raw <- function(
     dfInput <- dfCONSENT_mapped %>%
       gsm::MergeSubjects(dfSUBJ_mapped, bQuiet = bQuiet) %>%
       mutate(
-        flag_noconsent = .data$ConsentStatus != lMapping$dfCONSENT$strConsentStatusValue,
+        flag_noconsent = .data$ConsentStatus != lMapping$dfCONSENT$strConsentStatusVal,
         flag_missing_consent = is.na(.data$ConsentDate),
         flag_missing_rand = is.na(.data$RandDate),
         flag_date_compare = .data$ConsentDate >= .data$RandDate,
         any_flag = .data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare,
         Count = as.numeric(.data$any_flag, na.rm = TRUE)
       ) %>%
-      select(.data$SubjectID, .data$SiteID, .data$Count)
+      select(any_of(c(names(dfSUBJ_mapped))), .data$Count)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Consent_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

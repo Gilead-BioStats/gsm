@@ -2,7 +2,7 @@ source(testthat::test_path("testdata/data.R"))
 
 lStep <- MakeAssessmentList()
 
-lMapping <- clindata::mapping_rawplus
+lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 lData <- list(
   dfSUBJ = dfSUBJ,

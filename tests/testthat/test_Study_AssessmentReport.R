@@ -5,11 +5,13 @@ lData <- list(
   dfAE = dfAE,
   dfPD = dfPD,
   dfCONSENT = dfCONSENT,
-  dfIE = dfIE
+  dfIE = dfIE,
+  dfDISP = dfDISP
 )
 
+lAssessments <- Study_Assess(lData = lData, bQuiet = TRUE)
+
 test_that("Assessment Report with all Valid assessments", {
-  lAssessments <- Study_Assess(lData = lData, bQuiet = TRUE)
   a <- Study_AssessmentReport(lAssessments = lAssessments)
   expect_true(is.data.frame(a$dfAllChecks))
   expect_true(is.data.frame(a$dfSummary))
@@ -27,8 +29,6 @@ test_that("Assessment Report with an issue in dfSUBJ", {
   lData <- list(
     dfSUBJ = dfSUBJ,
     dfAE = dfAE,
-    dfPD = dfPD,
-    dfCONSENT = dfCONSENT,
     dfIE = dfIE
   )
 
@@ -46,7 +46,6 @@ test_that("Assessment Report fails with wrong input", {
 })
 
 test_that("bViewReport works", {
-  lAssessments <- Study_Assess(lData = lData, bQuiet = TRUE)
   view_true <- Study_AssessmentReport(lAssessments = lAssessments, bViewReport = TRUE)
   expect_true("gt_tbl" %in% class(view_true))
 })
@@ -57,7 +56,7 @@ test_that("correct messages show when data is not found", {
     dfSUBJ = dfSUBJ
   )
 
-  lAssessments <- Study_Assess(lData = ldata)
+  lAssessments <- Study_Assess(lData = ldata, bQuiet = TRUE)
 
   report <- Study_AssessmentReport(lAssessments)
 

@@ -61,8 +61,10 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
   if (!is.data.frame(df)) {
     tests_if$is_data_frame$status <- FALSE
     tests_if$is_data_frame$warning <- "df is not a data.frame()"
+    dim <- NA
   } else {
     tests_if$is_data_frame$status <- TRUE
+    dim <- dim(df)
   }
 
   # basic `mapping` checks
@@ -140,7 +142,7 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
     empty_strings <- sum(map_dbl(df[check_na], ~ sum(as.character(.x) == "" & !is.na(.x))))
     if (empty_strings > 0) {
       warning <- df %>%
-        summarize(across(check_na, ~ sum(as.character(.) == ""))) %>%
+        summarize(across(all_of(check_na), ~ sum(as.character(.) == ""))) %>%
         tidyr::pivot_longer(everything()) %>%
         filter(.data$value > 0) %>%
         mutate(warning = paste0(.data$value, " empty string values found in column: ", .data$name))
@@ -193,7 +195,8 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
   # if not, FALSE
   is_valid <- list(
     status = all(map_lgl(tests_if, ~ .$status)),
-    tests_if = tests_if
+    tests_if = tests_if,
+    dim = dim
   )
 
   return(is_valid)

@@ -75,7 +75,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
             }
           },
           "value": [
@@ -88,6 +88,16 @@
               "type": "character",
               "attributes": {},
               "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudyID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RegionID"]
             },
             {
               "type": "character",
@@ -137,7 +147,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strTypeCol", "strValueCol", "strDateCol", "strConsentTypeValue", "strConsentStatusValue"]
+              "value": ["strIDCol", "strTypeCol", "strValueCol", "strDateCol", "strConsentTypeVal", "strConsentStatusVal"]
             }
           },
           "value": [
@@ -201,7 +211,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strCountCol"]
+              "value": ["strIDCol", "strGroupCol", "strCountCol"]
             },
             {
               "type": "character",
@@ -231,7 +241,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strCountCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strRandDateCol", "strCountCol"]
             }
           },
           "value": [
@@ -244,6 +254,21 @@
               "type": "character",
               "attributes": {},
               "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudyID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["CustomGroupID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["RandDate"]
             },
             {
               "type": "character",

@@ -2,22 +2,29 @@
 % Please edit documentation in R/Visualize_Scatter.R
 \name{Visualize_Scatter}
 \alias{Visualize_Scatter}
-\title{Site-level visualization of site-level results using a Poisson or Wilcoxon model.}
+\title{Group-level visualization of group-level results using a Poisson or Wilcoxon model.}
 \usage{
-Visualize_Scatter(dfFlagged, dfBounds = NULL, strUnit = "days")
+Visualize_Scatter(
+  dfFlagged,
+  dfBounds = NULL,
+  strGroupCol = NULL,
+  strUnit = "days"
+)
 }
 \arguments{
 \item{dfFlagged}{analyze_poisson results with flags added.}
 
 \item{dfBounds}{data.frame giving prediction bounds for range of dfFlagged.}
 
+\item{strGroupCol}{name of stratification column for facet wrap (default=NULL)}
+
 \item{strUnit}{exposure time unit. Defaults to "days".}
 }
 \value{
-site-level plot object.
+group-level plot object.
 }
 \description{
-Site-level visualization of site-level results using a Poisson or Wilcoxon model.
+Group-level visualization of group-level results using a Poisson or Wilcoxon model.
 }
 \examples{
 dfInput <- AE_Map_Adam()
@@ -27,5 +34,7 @@ Visualize_Scatter(SafetyAE$dfFlagged, dfBounds)
 
 SafetyAE_wilk <- AE_Assess(dfInput, strMethod = "wilcoxon")
 Visualize_Scatter(SafetyAE_wilk$dfFlagged)
+
+# TODO: add stratified example
 
 }

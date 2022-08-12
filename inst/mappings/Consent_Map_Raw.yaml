@@ -1,6 +1,8 @@
 dfSUBJ:
   strIDCol: "SubjectID"
   strSiteCol: "SiteID"
+  strStudyCol: "StudyID"
+  strCustomGroupCol: "RegionID"
   strTimeOnTreatmentCol: "TimeOnTreatment"
   strTimeOnStudyCol: "TimeOnStudy"
   strRandFlagCol: "RandFlag"
@@ -14,5 +16,5 @@ dfCONSENT:
   strTypeCol: "CONSENT_TYPE"
   strValueCol: "CONSENT_VALUE"
   strDateCol: "CONSENT_DATE"
-  strConsentTypeValue: "MAINCONSENT"
-  strConsentStatusValue: "Y"
+  strConsentTypeVal: "MAINCONSENT"
+  strConsentStatusVal: "Y"

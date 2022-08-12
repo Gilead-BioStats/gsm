@@ -11,4 +11,5 @@ workflow:
     inputs: dfInput
     output: lResults
     params:
+      strGroup: "Site"
       nThreshold: 0.5

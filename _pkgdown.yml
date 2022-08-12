@@ -49,13 +49,18 @@ reference:
       - is_mapping_valid
       - MergeSubjects
       - MakeAssessmentList
+      - ConsolidateStrata
+      - MakeStratifiedAssessment
+      - RunStratifiedWorkflow
       - RunAssessment
+      - FilterData
       - FilterDomain
       - RunStep
       - CheckInputs
       - parse_data_mapping
       - parse_data_spec
       - generate_md_table
+      - MapMaker
 
 
 

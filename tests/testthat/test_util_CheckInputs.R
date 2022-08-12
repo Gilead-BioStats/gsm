@@ -6,9 +6,13 @@ test_that("output is created as expected", {
   # single df for AE_Assess
   dfInput <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
 
+  mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
+  mapping$dfInput$strGroupCol <- "SiteID"
+
   checks <- CheckInputs(
     context = "AE_Assess",
     dfs = list(dfInput = dfInput),
+    mapping = mapping,
     bQuiet = TRUE
   )
 
@@ -31,7 +35,7 @@ test_that("output is created as expected", {
   checks <- CheckInputs(
     context = "IE_Map_Raw",
     dfs = list(dfIE = dfIE, dfSUBJ = dfSUBJ),
-    mapping = clindata::mapping_rawplus,
+    mapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     bQuiet = TRUE
   )
 

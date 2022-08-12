@@ -1,3 +1,39 @@
+# grouping works as expected
+
+    Code
+      subsetGroupCols(site)
+    Output
+      # A tibble: 3 x 2
+        GroupID GroupLabel
+        <chr>   <chr>     
+      1 X102X   SiteID    
+      2 X010X   SiteID    
+      3 X999X   SiteID    
+
+---
+
+    Code
+      subsetGroupCols(study)
+    Output
+      # A tibble: 3 x 2
+        GroupID        GroupLabel
+        <chr>          <chr>     
+      1 BB-BB-111-1111 StudyID   
+      2 AA-AA-000-0000 StudyID   
+      3 CC-CC-333-3333 StudyID   
+
+---
+
+    Code
+      subsetGroupCols(customGroup)
+    Output
+      # A tibble: 3 x 2
+        GroupID       GroupLabel   
+        <chr>         <chr>        
+      1 China         CustomGroupID
+      2 United States CustomGroupID
+      3 India         CustomGroupID
+
 # incorrect inputs throw errors
 
     dfInput is not a data.frame
@@ -8,11 +44,11 @@
 
 ---
 
-    strMethod is not 'poisson' or 'wilcoxon'
+    strMethod is not 'poisson', 'wilcoxon', or 'identity'
 
 ---
 
-    strMethod is not 'poisson' or 'wilcoxon'
+    strMethod is not 'poisson', 'wilcoxon', or 'identity'
 
 ---
 
@@ -28,23 +64,23 @@
 
 ---
 
-    dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate
+    dfInput is missing one or more of these columns: SubjectID, Count, Exposure, and Rate
 
 ---
 
-    dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate
+    `strGroupCol` not found in dfInput
 
 ---
 
-    dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate
+    dfInput is missing one or more of these columns: SubjectID, Count, Exposure, and Rate
 
 ---
 
-    dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate
+    dfInput is missing one or more of these columns: SubjectID, Count, Exposure, and Rate
 
 ---
 
-    dfInput is missing one or more of these columns: SubjectID, SiteID, Count, Exposure, and Rate
+    dfInput is missing one or more of these columns: SubjectID, Count, Exposure, and Rate
 
 # incorrect lTags throw errors
 
@@ -60,27 +96,35 @@
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 ---
 
-    lTags cannot contain elements named: 'SiteID', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
+---
+
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
+
+---
+
+    lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
 # NA in dfInput$Count results in Error for assess_function
 
@@ -101,10 +145,10 @@
       
       
       $dfInput
-        SubjectID SiteID Count Exposure         Rate
-      1      1234  X010X    NA     3455 0.0005788712
-      2      5678  X102X     2     1745 0.0011461318
-      3      9876  X999X     0     1233 0.0000000000
+        SubjectID SiteID        StudyID CustomGroupID Exposure Count         Rate
+      1      1234  X010X AA-AA-000-0000 United States     3455    NA 0.0005788712
+      2      5678  X102X BB-BB-111-1111         China     1745     2 0.0011461318
+      3      9876  X999X CC-CC-333-3333         India     1233     0 0.0000000000
       
 
 # bQuiet and bReturnChecks work as intended

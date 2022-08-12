@@ -15,7 +15,7 @@ test_that("output is created as expected", {
   )
 
   expect_type(df, "list")
-  expect_equal(names(df), c("status", "tests_if"))
+  expect_equal(names(df), c("status", "tests_if", "dim"))
 
   expect_equal(names(df$tests_if), c(
     "is_data_frame", "has_required_params", "spec_is_list", "mapping_is_list",
@@ -84,7 +84,14 @@ test_that("empty string values are caught", {
 })
 
 test_that("status is FALSE when spec is incorrect", {
-  expect_snapshot(is_mapping_valid(df = dfSUBJ, mapping = mapping_rdsl, bQuiet = FALSE, spec = list(vRequired = "notACol")))
+  expect_snapshot(
+    is_mapping_valid(
+      df = dfSUBJ,
+      mapping = mapping_rdsl,
+      bQuiet = FALSE,
+      spec = list(vRequired = "notACol")
+    )
+  )
 })
 
 
