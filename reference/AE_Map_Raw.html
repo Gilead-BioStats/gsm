@@ -18,7 +18,7 @@ input data to AE_Assess()."><!-- mathjax --><script src="https://cdnjs.cloudflar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -42,7 +42,7 @@ input data to AE_Assess()."><!-- mathjax --><script src="https://cdnjs.cloudflar
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of GSM</a>
+      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
@@ -77,12 +77,13 @@ input data to <code><a href="AE_Assess.html">AE_Assess()</a></code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">AE_Map_Raw</span><span class="op">(</span>
-  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ae</span>, dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span><span class="op">)</span>,
-  lMapping <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">mapping_rawplus</span>,
-  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,
-  bQuiet <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AE_Map_Raw</span><span class="op">(</span></span>
+<span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">rawplus_ae</a></span>, dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span><span class="op">)</span>,</span>
+<span>  lMapping <span class="op">=</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_rawplus.yaml"</span>, package <span class="op">=</span></span>
+<span>    <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -131,11 +132,11 @@ AEs by passing filtered AE data to <code>dfAE</code>.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Run with defaults.</span></span>
-<span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu">AE_Map_Raw</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Run with error checking and message log.</span></span>
-<span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu">AE_Map_Raw</span><span class="op">(</span>bReturnChecks <span class="op">=</span> <span class="cn">TRUE</span>, bQuiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Run with defaults.</span></span></span>
+<span class="r-in"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu">AE_Map_Raw</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Run with error checking and message log.</span></span></span>
+<span class="r-in"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu">AE_Map_Raw</span><span class="op">(</span>bReturnChecks <span class="op">=</span> <span class="cn">TRUE</span>, bQuiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `AE_Map_Raw()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -148,7 +149,7 @@ AEs by passing filtered AE data to <code>dfAE</code>.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Map_Raw()` returned output with 1297 rows.</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -159,11 +160,11 @@ AEs by passing filtered AE data to <code>dfAE</code>.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

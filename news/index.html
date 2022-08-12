@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of GSM</a>
+      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
@@ -69,6 +69,11 @@
       <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.1.0" id="gsm-v110">gsm v1.1.0<a class="anchor" aria-label="anchor" href="#gsm-v110"></a></h2>
+<p>This release includes qualified functionality for Lab Abnormality and Disposition Assessments.</p>
+<p>Additionally, updates include: - Mapping functions include custom grouping functionality by columns for <code>SiteID</code>, <code>StudyID</code>, or <code>Region</code>/<code>CustomGroupID</code>. This allows for Study (QTL) and Site (KRI) assessments to be run. - <code><a href="../reference/Analyze_Identity.html">Analyze_Identity()</a></code> allows for nominal and statistical assessments for all Assess functions. - New utility functions <code><a href="../reference/MakeStratifiedAssessment.html">MakeStratifiedAssessment()</a></code> and <code><a href="../reference/ConsolidateStrata.html">ConsolidateStrata()</a></code> allow for stratified assessments to be run. - <code><a href="../reference/Visualize_Score.html">Visualize_Score()</a></code> provides a standard visualization for Score or KRI. - <code><a href="../reference/Visualize_Workflow.html">Visualize_Workflow()</a></code> provides a flowchart with a high-level overview of the data pipeline for a given assessment.</p>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.1" id="gsm-v101">gsm v1.0.1<a class="anchor" aria-label="anchor" href="#gsm-v101"></a></h2>
 <p>This release explicitly captures the KRI of interest as part of the data model, standardizing the input to and output from the analysis functions. View a full list of resolved issues <a href="https://github.com/Gilead-BioStats/gsm/issues?q=is%3Aissue+milestone%3Av1.0.1+is%3Aclosed" class="external-link">here</a>.</p>
@@ -115,11 +120,11 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

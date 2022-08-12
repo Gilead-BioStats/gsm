@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of GSM</a>
+      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
@@ -75,12 +75,12 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Flag</span><span class="op">(</span>
-  <span class="va">dfAnalyzed</span>,
-  strColumn <span class="op">=</span> <span class="st">"Score"</span>,
-  vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="cn">NA</span><span class="op">)</span>,
-  strValueColumn <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Flag</span><span class="op">(</span></span>
+<span>  <span class="va">dfAnalyzed</span>,</span>
+<span>  strColumn <span class="op">=</span> <span class="st">"Score"</span>,</span>
+<span>  vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>  strValueColumn <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -99,7 +99,7 @@ values in strColumn are compared to vThreshold using strict comparisons. Values 
 
 
 <dt>strValueColumn</dt>
-<dd><p>Optional, Name of the Column to use for sign of Flag. If value for that row
+<dd><p>Optional, name of the column to use for sign of Flag. If value for that row
 is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.</p></dd>
 
 </dl></div>
@@ -118,27 +118,36 @@ and "Flag"</p>
     <h2>Data Specification</h2>
     
 
-<p><code>Flag</code> is designed to support the input data (<code> dfAnalyzed</code>) input data from many different
+<p><code>Flag</code> is designed to support the input data (<code>dfAnalyzed</code>) from many different
 <code>Analyze</code> functions. At a minimum, the input data must have a <code>SiteID</code> column and a column
 of numeric values (identified by the <code>strColumn</code> parameter) that will be compared to the
 specified thresholds (<code>vThreshold</code>) to calculate a new <code>Flag</code> column. Optionally, a second column
 of numeric values (identified by <code>strValueColumn</code>) can be specified to set the directionality of
 the <code>Flag</code>.</p>
-<p>In short, the following columns are considered:</p><ul><li><p><code>SiteID</code> - Site ID (required)</p></li>
+<p>In short, the following columns are considered:</p><ul><li><p><code>GroupID</code> - Group ID (required)</p></li>
 <li><p><code>strColumn</code> - A column to use for Thresholding (required)</p></li>
 <li><p>'strValueColumn' - A column to be used for the sign of the flag (optional)</p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="AE_Map_Adam.html">AE_Map_Adam</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Transform_EventCount.html">Transform_EventCount</a></span><span class="op">(</span><span class="va">dfInput</span>, strCountCol <span class="op">=</span> <span class="st">"Count"</span>, strExposureCol <span class="op">=</span> <span class="st">"Exposure"</span>, strKRILabel <span class="op">=</span> <span class="st">"AEs/Week"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Analyze_Wilcoxon.html">Analyze_Wilcoxon</a></span><span class="op">(</span><span class="va">dfTransformed</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu">Flag</span><span class="op">(</span><span class="va">dfAnalyzed</span><span class="op">)</span> <span class="co"># P value (dfAnalyzed$Score) &lt; 0.05 flagged</span></span>
-<span class="r-in"><span class="va">dfFlagged10</span> <span class="op">&lt;-</span> <span class="fu">Flag</span><span class="op">(</span><span class="va">dfAnalyzed</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.10</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span> <span class="co"># PValue &lt;0.10 flagged</span></span>
-<span class="r-in"><span class="co"># Flag direction set based on 'Statistic' column</span></span>
-<span class="r-in"><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu">Flag</span><span class="op">(</span><span class="va">dfAnalyzed</span>, strColumn <span class="op">=</span> <span class="st">"Score"</span>, strValueColumn <span class="op">=</span> <span class="st">"Estimate"</span><span class="op">)</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="AE_Map_Adam.html">AE_Map_Adam</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Transform_EventCount.html">Transform_EventCount</a></span><span class="op">(</span><span class="va">dfInput</span>,</span></span>
+<span class="r-in"><span>  strCountCol <span class="op">=</span> <span class="st">"Count"</span>,</span></span>
+<span class="r-in"><span>  strExposureCol <span class="op">=</span> <span class="st">"Exposure"</span>,</span></span>
+<span class="r-in"><span>  strKRILabel <span class="op">=</span> <span class="st">"AEs/Week"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Analyze_Wilcoxon.html">Analyze_Wilcoxon</a></span><span class="op">(</span><span class="va">dfTransformed</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu">Flag</span><span class="op">(</span><span class="va">dfAnalyzed</span><span class="op">)</span> <span class="co"># P value (dfAnalyzed$Score) &lt; 0.05 flagged</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dfFlagged10</span> <span class="op">&lt;-</span> <span class="fu">Flag</span><span class="op">(</span><span class="va">dfAnalyzed</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.10</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span> <span class="co"># PValue &lt;0.10 flagged</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Flag direction set based on 'Statistic' column</span></span></span>
+<span class="r-in"><span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu">Flag</span><span class="op">(</span><span class="va">dfAnalyzed</span>, strColumn <span class="op">=</span> <span class="st">"Score"</span>, strValueColumn <span class="op">=</span> <span class="st">"Estimate"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -149,11 +158,11 @@ the <code>Flag</code>.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

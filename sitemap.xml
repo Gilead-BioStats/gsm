@@ -73,7 +73,16 @@
     <loc>/reference/Consent_Map_Raw.html</loc>
   </url>
   <url>
-    <loc>/reference/Disp_Map.html</loc>
+    <loc>/reference/ConsolidateStrata.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Disp_Assess.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Disp_Map_Raw.html</loc>
+  </url>
+  <url>
+    <loc>/reference/FilterData.html</loc>
   </url>
   <url>
     <loc>/reference/FilterDomain.html</loc>
@@ -88,7 +97,19 @@
     <loc>/reference/IE_Map_Raw.html</loc>
   </url>
   <url>
+    <loc>/reference/LB_Assess.html</loc>
+  </url>
+  <url>
+    <loc>/reference/LB_Map_Raw.html</loc>
+  </url>
+  <url>
     <loc>/reference/MakeAssessmentList.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeStratifiedAssessment.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MapMaker.html</loc>
   </url>
   <url>
     <loc>/reference/MergeSubjects.html</loc>
@@ -104,6 +125,9 @@
   </url>
   <url>
     <loc>/reference/RunStep.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RunStratifiedWorkflow.html</loc>
   </url>
   <url>
     <loc>/reference/Study_Assess.html</loc>
@@ -128,6 +152,12 @@
   </url>
   <url>
     <loc>/reference/Visualize_Scatter.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Visualize_Score.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Visualize_Workflow.html</loc>
   </url>
   <url>
     <loc>/reference/generate_md_table.html</loc>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of GSM</a>
+      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
@@ -75,15 +75,16 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">IE_Assess</span><span class="op">(</span>
-  <span class="va">dfInput</span>,
-  nThreshold <span class="op">=</span> <span class="fl">0.5</span>,
-  lTags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Assessment <span class="op">=</span> <span class="st">"IE"</span><span class="op">)</span>,
-  strKRILabel <span class="op">=</span> <span class="st">"# of Inclusion/Exclusion Issues"</span>,
-  bChart <span class="op">=</span> <span class="cn">TRUE</span>,
-  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,
-  bQuiet <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">IE_Assess</span><span class="op">(</span></span>
+<span>  <span class="va">dfInput</span>,</span>
+<span>  nThreshold <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  lTags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Assessment <span class="op">=</span> <span class="st">"IE"</span><span class="op">)</span>,</span>
+<span>  strKRILabel <span class="op">=</span> <span class="st">"# of Inclusion/Exclusion Issues"</span>,</span>
+<span>  strGroup <span class="op">=</span> <span class="st">"Site"</span>,</span>
+<span>  bChart <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -102,6 +103,10 @@
 
 <dt>strKRILabel</dt>
 <dd><p><code>character</code> KRI description. Default: <code>"# of Inclusion/Exclusion Issues"</code></p></dd>
+
+
+<dt>strGroup</dt>
+<dd><p><code>character</code> Grouping variable. <code>"Site"</code> (the default) uses the column named in <code>mapping$strSiteCol</code>. Other valid options using the default mapping are <code>"Study"</code> and <code>"CustomGroup"</code>.</p></dd>
 
 
 <dt>bChart</dt>
@@ -142,13 +147,13 @@ number of subjects at a given site with at least one unmet or missing IE criteri
     <div id="data-specification">
     <h2>Data specification</h2>
     
-<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfInput</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>TRUE</td></tr><tr><td>dfInput</td><td>strSiteCol</td><td>SiteID</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfInput</td><td>strCountCol</td><td>Count</td><td>TRUE</td><td>FALSE</td></tr></table></div>
+<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfInput</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>TRUE</td></tr><tr><td>dfInput</td><td>strCountCol</td><td>Count</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfInput</td><td>strGroupCol</td><td></td><td>TRUE</td><td>FALSE</td></tr></table></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="IE_Map_Raw.html">IE_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ie_assessment</span> <span class="op">&lt;-</span> <span class="fu">IE_Assess</span><span class="op">(</span><span class="va">dfInput</span><span class="op">)</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="IE_Map_Raw.html">IE_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ie_assessment</span> <span class="op">&lt;-</span> <span class="fu">IE_Assess</span><span class="op">(</span><span class="va">dfInput</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -159,11 +164,11 @@ number of subjects at a given site with at least one unmet or missing IE criteri
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

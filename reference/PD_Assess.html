@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of GSM</a>
+      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
@@ -75,16 +75,17 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PD_Assess</span><span class="op">(</span>
-  <span class="va">dfInput</span>,
-  vThreshold <span class="op">=</span> <span class="cn">NULL</span>,
-  strMethod <span class="op">=</span> <span class="st">"poisson"</span>,
-  strKRILabel <span class="op">=</span> <span class="st">"PDs/Week"</span>,
-  lTags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Assessment <span class="op">=</span> <span class="st">"PD"</span><span class="op">)</span>,
-  bChart <span class="op">=</span> <span class="cn">TRUE</span>,
-  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,
-  bQuiet <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PD_Assess</span><span class="op">(</span></span>
+<span>  <span class="va">dfInput</span>,</span>
+<span>  vThreshold <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  strMethod <span class="op">=</span> <span class="st">"poisson"</span>,</span>
+<span>  strKRILabel <span class="op">=</span> <span class="st">"PDs/Week"</span>,</span>
+<span>  strGroup <span class="op">=</span> <span class="st">"Site"</span>,</span>
+<span>  lTags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Assessment <span class="op">=</span> <span class="st">"PD"</span><span class="op">)</span>,</span>
+<span>  bChart <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,18 +96,23 @@
 
 <dt>vThreshold</dt>
 <dd><p><code>numeric</code> Threshold specification, a vector of length 2 that defaults to
-<code>c(-5, 5)</code> for a Poisson model (<code>strMethod = "poisson"</code>) and <code>c(.0001, NA)</code> for a Wilcoxon
-signed-rank test (<code>strMethod</code> = "wilcoxon").</p></dd>
+<code>c(-5, 5)</code> for a Poisson model (<code>strMethod = "poisson"</code>), <code>c(.0001, NA)</code> for a Wilcoxon
+signed-rank test (<code>strMethod</code> = "wilcoxon"), and <code>c(0.000895, 0.003059)</code> for a nominal assessment (<code>strMethod = "identity"</code>).</p></dd>
 
 
 <dt>strMethod</dt>
 <dd><p><code>character</code> Statistical method. Valid values:</p><ul><li><p><code>"poisson"</code> (default)</p></li>
 <li><p><code>"wilcoxon"</code></p></li>
+<li><p><code>"identity"</code></p></li>
 </ul></dd>
 
 
 <dt>strKRILabel</dt>
 <dd><p><code>character</code> KRI description. Default: <code>"PDs/Week"</code></p></dd>
+
+
+<dt>strGroup</dt>
+<dd><p><code>character</code> Grouping variable. <code>"Site"</code> (the default) uses the column named in <code>mapping$strSiteCol</code>. Other valid options using the default mapping are <code>"Study"</code> and <code>"CustomGroup"</code>.</p></dd>
 
 
 <dt>lTags</dt>
@@ -152,7 +158,7 @@ methods are described below.</p>
     <div id="data-specification">
     <h2>Data specification</h2>
     
-<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfInput</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>TRUE</td></tr><tr><td>dfInput</td><td>strSiteCol</td><td>SiteID</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfInput</td><td>strCountCol</td><td>Count</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfInput</td><td>strExposureCol</td><td>Exposure</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfInput</td><td>strRateCol</td><td>Rate</td><td>TRUE</td><td>FALSE</td></tr></table></div>
+<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfInput</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>TRUE</td></tr><tr><td>dfInput</td><td>strCountCol</td><td>Count</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfInput</td><td>strExposureCol</td><td>Exposure</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfInput</td><td>strRateCol</td><td>Rate</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfInput</td><td>strGroupCol</td><td></td><td>TRUE</td><td>FALSE</td></tr></table></div>
     <div id="statistical-assumptions">
     <h2>Statistical assumptions</h2>
     <p>A Poisson or Wilcoxon model is used to generate estimates and p-values
@@ -169,10 +175,10 @@ details about the statistical methods and their assumptions.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="PD_Map_Raw.html">PD_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pd_assessment_poisson</span> <span class="op">&lt;-</span> <span class="fu">PD_Assess</span><span class="op">(</span><span class="va">dfInput</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pd_assessment_wilcoxon</span> <span class="op">&lt;-</span> <span class="fu">PD_Assess</span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"wilcoxon"</span><span class="op">)</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="PD_Map_Raw.html">PD_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pd_assessment_poisson</span> <span class="op">&lt;-</span> <span class="fu">PD_Assess</span><span class="op">(</span><span class="va">dfInput</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pd_assessment_wilcoxon</span> <span class="op">&lt;-</span> <span class="fu">PD_Assess</span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"wilcoxon"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -183,11 +189,11 @@ details about the statistical methods and their assumptions.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

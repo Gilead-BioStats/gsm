@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of GSM</a>
+      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
@@ -75,20 +75,20 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Study_Table</span><span class="op">(</span>
-  <span class="va">dfFindings</span>,
-  bFormat <span class="op">=</span> <span class="cn">TRUE</span>,
-  bShowCounts <span class="op">=</span> <span class="cn">TRUE</span>,
-  bShowSiteScore <span class="op">=</span> <span class="cn">TRUE</span>,
-  vSiteScoreThreshold <span class="op">=</span> <span class="fl">1</span>,
-  bColCollapse <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Study_Table</span><span class="op">(</span></span>
+<span>  <span class="va">dfFindings</span>,</span>
+<span>  bFormat <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bShowCounts <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bShowSiteScore <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  vSiteScoreThreshold <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  bColCollapse <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dfFindings</dt>
-<dd><p>dataframe containing one or more stacked findings. Findings are one record per assessment per site and have the following columns: Assessment, Label, SiteID, N, PValue, Flag. PValue is ignored in the summary table.</p></dd>
+<dd><p>dataframe containing one or more stacked findings. Findings are one record per assessment per site and have the following columns: Assessment, Label, GroupID, N, PValue, Flag. PValue is ignored in the summary table.</p></dd>
 
 
 <dt>bFormat</dt>
@@ -120,353 +120,21 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘dplyr’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:stats’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     filter, lag</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org" class="external-link">purrr</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.x</span><span class="op">$</span><span class="va">lResults</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html" class="external-link">compact</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_df</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.x</span><span class="op">$</span><span class="va">dfSummary</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Initializing `ae` assessment</span> <span style="color: #00BBBB;">────────────────────────────────────────────────</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 1 of 3: `FilterDomain`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `FilterDomain()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `FilterDomain()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `FilterDomain()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for dfAE domain</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Filtering on AE_TE_FLAG == TRUE</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Filtered on `AE_TE_FLAG=TRUE`, to drop 2395 rows from 4851 to 2456 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `FilterDomain()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfAE to `lAssessment$lData`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 2 of 3: `AE_Map_Raw`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `AE_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `AE_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `AE_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `AE_Map_Raw()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `AE_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 472 ID(s) in subject data not found in domain data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Map_Raw()` returned output with 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Map_Raw()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfInput to `lAssessment$lData`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 3 of 3: `AE_Assess`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `AE_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `AE_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `AE_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `AE_Assess()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `AE_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Analyze_Poisson()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Visualize_Scatter()` created a chart.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Assess()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving lResults to `lAssessment`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Initializing `consent` assessment</span> <span style="color: #00BBBB;">───────────────────────────────────────────</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 1 of 2: `Consent_Map_Raw`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `Consent_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `Consent_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `Consent_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `Consent_Map_Raw()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `Consent_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Consent_Map_Raw()` returned output with 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Consent_Map_Raw()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfInput to `lAssessment$lData`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 2 of 2: `Consent_Assess`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `Consent_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `Consent_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `Consent_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `Consent_Assess()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `Consent_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `Score` column created from `KRI`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `ScoreLabel` column created from `KRILabel`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Visualize_Count()` created a chart.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Consent_Assess()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving lResults to `lAssessment`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Initializing `ie` assessment</span> <span style="color: #00BBBB;">────────────────────────────────────────────────</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 1 of 2: `IE_Map_Raw`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `IE_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `IE_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `IE_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `IE_Map_Raw()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `IE_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 13 ID(s) in subject data not found in domain data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `IE_Map_Raw()` returned output with 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `IE_Map_Raw()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfInput to `lAssessment$lData`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 2 of 2: `IE_Assess`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `IE_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `IE_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `IE_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `IE_Assess()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `IE_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `Score` column created from `KRI`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `ScoreLabel` column created from `KRILabel`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Visualize_Count()` created a chart.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `IE_Assess()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving lResults to `lAssessment`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Initializing `importantpd` assessment</span> <span style="color: #00BBBB;">───────────────────────────────────────</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 1 of 3: `FilterDomain`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `FilterDomain()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `FilterDomain()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `FilterDomain()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for dfPD domain</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Filtering on PD_IMPORTANT_FLAG == Y</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Filtered on `PD_IMPORTANT_FLAG=Y`, to drop 3976 rows from 4459 to 483 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `FilterDomain()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfPD to `lAssessment$lData`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 2 of 3: `PD_Map_Raw`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `PD_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `PD_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `PD_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `PD_Map_Raw()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `PD_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 953 ID(s) in subject data not found in domain data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `PD_Map_Raw()` returned output with 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `PD_Map_Raw()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfInput to `lAssessment$lData`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 3 of 3: `PD_Assess`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `PD_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `PD_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `PD_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `PD_Assess()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `PD_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Analyze_Poisson()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Visualize_Scatter()` created a chart.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `PD_Assess()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving lResults to `lAssessment`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Initializing `pd` assessment</span> <span style="color: #00BBBB;">────────────────────────────────────────────────</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 1 of 2: `PD_Map_Raw`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `PD_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `PD_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `PD_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `PD_Map_Raw()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `PD_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 216 ID(s) in subject data not found in domain data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `PD_Map_Raw()` returned output with 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `PD_Map_Raw()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfInput to `lAssessment$lData`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 2 of 2: `PD_Assess`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `PD_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `PD_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `PD_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `PD_Assess()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `PD_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Analyze_Poisson()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Visualize_Scatter()` created a chart.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `PD_Assess()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving lResults to `lAssessment`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Initializing `sae` assessment</span> <span style="color: #00BBBB;">───────────────────────────────────────────────</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 1 of 4: `FilterDomain`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `FilterDomain()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `FilterDomain()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `FilterDomain()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for dfAE domain</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Filtering on AE_TE_FLAG == TRUE</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Filtered on `AE_TE_FLAG=TRUE`, to drop 2395 rows from 4851 to 2456 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `FilterDomain()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfAE to `lAssessment$lData`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 2 of 4: `FilterDomain`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `FilterDomain()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `FilterDomain()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `FilterDomain()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for dfAE domain</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Filtering on AE_SERIOUS == Yes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Filtered on `AE_SERIOUS=Yes`, to drop 2385 rows from 2456 to 71 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `FilterDomain()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfAE to `lAssessment$lData`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 3 of 4: `AE_Map_Raw`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `AE_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `AE_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `AE_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `AE_Map_Raw()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `AE_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 1238 ID(s) in subject data not found in domain data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Map_Raw()` returned output with 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Map_Raw()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfInput to `lAssessment$lData`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 4 of 4: `AE_Assess`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `AE_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `AE_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `AE_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `AE_Assess()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `AE_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Analyze_Poisson()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Visualize_Scatter()` created a chart.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Assess()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving lResults to `lAssessment`</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">Study_Table</span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $df_summary</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 43</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Title X055X X086X X050X X140X X180X X054X X154X X009X X164X X102X X090X X126X</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Numb… <span style="color: #949494;">"</span>43<span style="color: #949494;">"</span>  <span style="color: #949494;">"</span>33<span style="color: #949494;">"</span>  <span style="color: #949494;">"</span>27<span style="color: #949494;">"</span>  <span style="color: #949494;">"</span>25<span style="color: #949494;">"</span>  <span style="color: #949494;">"</span>10<span style="color: #949494;">"</span>  <span style="color: #949494;">"</span>9<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>7<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>6<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>5<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>69<span style="color: #949494;">"</span>  <span style="color: #949494;">"</span>36<span style="color: #949494;">"</span>  <span style="color: #949494;">"</span>28<span style="color: #949494;">"</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Score <span style="color: #949494;">"</span>2<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>2<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>2<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>2<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>2<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>2<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>2<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>2<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>2<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>1<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>1<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>1<span style="color: #949494;">"</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Safe… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">""</span>    <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">""</span>    <span style="color: #949494;">"</span>&lt;sv…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> --AEs <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>&lt;sv…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> --AE… <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Cons… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> --Co… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> IE    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> --IE  <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> PD    <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">""</span>    <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>    <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> --Im… <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> --PD  <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>&lt;sv… <span style="color: #949494;">"</span> <span style="color: #949494;">"</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 30 more variables: X192X &lt;chr&gt;, X013X &lt;chr&gt;, X168X &lt;chr&gt;, X236X &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   X068X &lt;chr&gt;, X033X &lt;chr&gt;, X081X &lt;chr&gt;, X129X &lt;chr&gt;, X018X &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   X235X &lt;chr&gt;, X037X &lt;chr&gt;, X159X &lt;chr&gt;, X173X &lt;chr&gt;, X204X &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   X038X &lt;chr&gt;, X100X &lt;chr&gt;, X094X &lt;chr&gt;, X097X &lt;chr&gt;, X143X &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   X166X &lt;chr&gt;, X174X &lt;chr&gt;, X183X &lt;chr&gt;, X185X &lt;chr&gt;, X224X &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   X110X &lt;chr&gt;, X117X &lt;chr&gt;, X179X &lt;chr&gt;, X120X &lt;chr&gt;, X132X &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   X145X &lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $footnote</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Note: Data not shown for 133 site(s) with site score less than 1"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span></span>
+<span class="r-in"><span>  dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_pd.html" class="external-link">rawplus_pd</a></span>,</span></span>
+<span class="r-in"><span>  dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">lAssessment</span> <span class="op">&lt;-</span> <span class="fu"><a href="Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="va">lData</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dfSummary</span> <span class="op">&lt;-</span> <span class="va">lAssessment</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.x</span><span class="op">$</span><span class="va">lResults</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html" class="external-link">compact</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_df</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.x</span><span class="op">$</span><span class="va">dfSummary</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">lStudyTable</span> <span class="op">&lt;-</span> <span class="fu">Study_Table</span><span class="op">(</span><span class="va">dfSummary</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -477,11 +145,11 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

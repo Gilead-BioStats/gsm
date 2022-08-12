@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of GSM</a>
+      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
@@ -81,9 +81,17 @@
         </td>
         <td><p>Consent Assessment</p></td>
       </tr><tr><td>
+          <p><code><a href="Disp_Assess.html">Disp_Assess()</a></code> </p>
+        </td>
+        <td><p>Disposition Assessment</p></td>
+      </tr><tr><td>
           <p><code><a href="IE_Assess.html">IE_Assess()</a></code> </p>
         </td>
         <td><p>Inclusion/Exclusion Assessment</p></td>
+      </tr><tr><td>
+          <p><code><a href="LB_Assess.html">LB_Assess()</a></code> </p>
+        </td>
+        <td><p>Labs Assessment</p></td>
       </tr><tr><td>
           <p><code><a href="PD_Assess.html">PD_Assess()</a></code> </p>
         </td>
@@ -99,11 +107,19 @@
       </tr></tbody><tbody><tr><td>
           <p><code><a href="Visualize_Count.html">Visualize_Count()</a></code> </p>
         </td>
-        <td><p>Site-level visualization of site-level Inclusion/Exclusion results</p></td>
+        <td><p>Group-level visualization of group-level Inclusion/Exclusion results</p></td>
       </tr><tr><td>
           <p><code><a href="Visualize_Scatter.html">Visualize_Scatter()</a></code> </p>
         </td>
-        <td><p>Site-level visualization of site-level results using a Poisson or Wilcoxon model.</p></td>
+        <td><p>Group-level visualization of group-level results using a Poisson or Wilcoxon model.</p></td>
+      </tr><tr><td>
+          <p><code><a href="Visualize_Score.html">Visualize_Score()</a></code> </p>
+        </td>
+        <td><p>Group-level visualization of scores.</p></td>
+      </tr><tr><td>
+          <p><code><a href="Visualize_Workflow.html">Visualize_Workflow()</a></code> </p>
+        </td>
+        <td><p>Flowchart visualization of data pipeline steps from filtering to summary data for an assessment workflow.</p></td>
       </tr><tr><td>
           <p><code><a href="Analyze_Poisson_PredictBounds.html">Analyze_Poisson_PredictBounds()</a></code> </p>
         </td>
@@ -125,13 +141,17 @@
         </td>
         <td><p>Consent Assessment - Raw Mapping</p></td>
       </tr><tr><td>
-          <p><code><a href="Disp_Map.html">Disp_Map()</a></code> </p>
+          <p><code><a href="Disp_Map_Raw.html">Disp_Map_Raw()</a></code> </p>
         </td>
-        <td><p>Disposition Map</p></td>
+        <td><p>Disposition Assessment - Raw Mapping</p></td>
       </tr><tr><td>
           <p><code><a href="IE_Map_Raw.html">IE_Map_Raw()</a></code> </p>
         </td>
         <td><p>Inclusion/Exclusion Assessment - Raw Mapping</p></td>
+      </tr><tr><td>
+          <p><code><a href="LB_Map_Raw.html">LB_Map_Raw()</a></code> </p>
+        </td>
+        <td><p>Lab Assessment - Raw Mapping</p></td>
       </tr><tr><td>
           <p><code><a href="PD_Map_Raw.html">PD_Map_Raw()</a></code> </p>
         </td>
@@ -213,17 +233,33 @@
         </td>
         <td><p>Load assessments from a package/directory</p></td>
       </tr><tr><td>
+          <p><code><a href="ConsolidateStrata.html">ConsolidateStrata()</a></code> </p>
+        </td>
+        <td><p>Consolidate stratified assessment outputs</p></td>
+      </tr><tr><td>
+          <p><code><a href="MakeStratifiedAssessment.html">MakeStratifiedAssessment()</a></code> </p>
+        </td>
+        <td><p>Create multiple workflows from a single stratified workflow</p></td>
+      </tr><tr><td>
+          <p><code><a href="RunStratifiedWorkflow.html">RunStratifiedWorkflow()</a></code> </p>
+        </td>
+        <td><p>Run a stratified workflow</p></td>
+      </tr><tr><td>
           <p><code><a href="RunAssessment.html">RunAssessment()</a></code> </p>
         </td>
         <td><p>Run a single assessment</p></td>
       </tr><tr><td>
+          <p><code><a href="FilterData.html">FilterData()</a></code> </p>
+        </td>
+        <td><p>Subset a data frame</p></td>
+      </tr><tr><td>
           <p><code><a href="FilterDomain.html">FilterDomain()</a></code> </p>
         </td>
-        <td><p>Utility function for basic filtering</p></td>
+        <td><p>Subset a data frame given a mapping</p></td>
       </tr><tr><td>
           <p><code><a href="RunStep.html">RunStep()</a></code> </p>
         </td>
-        <td><p>Run a single step in an assessment</p></td>
+        <td><p>Run a single step in a workflow</p></td>
       </tr><tr><td>
           <p><code><a href="CheckInputs.html">CheckInputs()</a></code> </p>
         </td>
@@ -240,6 +276,10 @@
           <p><code><a href="generate_md_table.html">generate_md_table()</a></code> </p>
         </td>
         <td><p>Generate Markdown Table</p></td>
+      </tr><tr><td>
+          <p><code><a href="MapMaker.html">MapMaker()</a></code> </p>
+        </td>
+        <td><p>Read YAML mapping in Assess functions without params</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -249,11 +289,11 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

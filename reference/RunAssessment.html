@@ -18,7 +18,7 @@ Calls RunStep for each item in lAssessment$workflow and saves the results to lAs
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -42,7 +42,7 @@ Calls RunStep for each item in lAssessment$workflow and saves the results to lAs
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of GSM</a>
+      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
@@ -77,7 +77,7 @@ Calls <code>RunStep</code> for each item in <code>lAssessment$workflow</code> an
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">RunAssessment</span><span class="op">(</span><span class="va">lAssessment</span>, <span class="va">lData</span>, <span class="va">lMapping</span>, lTags <span class="op">=</span> <span class="cn">NULL</span>, bQuiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunAssessment</span><span class="op">(</span><span class="va">lAssessment</span>, <span class="va">lData</span>, <span class="va">lMapping</span>, lTags <span class="op">=</span> <span class="cn">NULL</span>, bQuiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -111,76 +111,28 @@ Calls <code>RunStep</code> for each item in <code>lAssessment$workflow</code> an
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">lAssessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeAssessmentList.html">MakeAssessmentList</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">lData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">  dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span>,</span>
-<span class="r-in">  dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ae</span>,</span>
-<span class="r-in">  dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_pd</span>,</span>
-<span class="r-in">  dfCONSENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span>,</span>
-<span class="r-in">  dfIE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ie</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">lTags</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">  Study <span class="op">=</span> <span class="st">"myStudy"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">lMapping</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">mapping_rawplus</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ae_assessment</span> <span class="op">&lt;-</span> <span class="fu">RunAssessment</span><span class="op">(</span><span class="va">lAssessments</span><span class="op">$</span><span class="va">ae</span>, lData <span class="op">=</span> <span class="va">lData</span>, lMapping <span class="op">=</span> <span class="va">lMapping</span>, lTags <span class="op">=</span> <span class="va">lTags</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Initializing `ae` assessment</span> <span style="color: #00BBBB;">────────────────────────────────────────────────</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 1 of 3: `FilterDomain`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `FilterDomain()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `FilterDomain()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `FilterDomain()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for dfAE domain</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Filtering on AE_TE_FLAG == TRUE</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Filtered on `AE_TE_FLAG=TRUE`, to drop 2395 rows from 4851 to 2456 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `FilterDomain()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfAE to `lAssessment$lData`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 2 of 3: `AE_Map_Raw`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `AE_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `AE_Map_Raw()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `AE_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `AE_Map_Raw()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `AE_Map_Raw()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 472 ID(s) in subject data not found in domain data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Map_Raw()` returned output with 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Map_Raw()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving dfInput to `lAssessment$lData`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Workflow Step 3 of 3: `AE_Assess`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `AE_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `AE_Assess()` ...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `AE_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `AE_Assess()`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `AE_Assess()`</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Input data has 1297 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Transform_EventCount()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Analyze_Poisson()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Flag()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Summarize()` returned output with 175 rows.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Visualize_Scatter()` created a chart.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `AE_Assess()` Successful</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Saving lResults to `lAssessment`</span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lAssessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeAssessmentList.html">MakeAssessmentList</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span></span>
+<span class="r-in"><span>  dfCONSENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_consent.html" class="external-link">rawplus_consent</a></span>,</span></span>
+<span class="r-in"><span>  dfDISP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span>,</span></span>
+<span class="r-in"><span>  dfIE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ie.html" class="external-link">rawplus_ie</a></span>,</span></span>
+<span class="r-in"><span>  dfLB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_lb.html" class="external-link">rawplus_lb</a></span>,</span></span>
+<span class="r-in"><span>  dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_pd.html" class="external-link">rawplus_pd</a></span>,</span></span>
+<span class="r-in"><span>  dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lTags</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  Study <span class="op">=</span> <span class="st">"myStudy"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lMapping</span> <span class="op">&lt;-</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_rawplus.yaml"</span>, package <span class="op">=</span> <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">RunAssessment</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">lAssessments</span><span class="op">$</span><span class="va">ae</span>, <span class="co"># adverse event workflow</span></span></span>
+<span class="r-in"><span>  <span class="va">lData</span>,</span></span>
+<span class="r-in"><span>  <span class="va">lMapping</span>,</span></span>
+<span class="r-in"><span>  <span class="va">lTags</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -191,11 +143,11 @@ Calls <code>RunStep</code> for each item in <code>lAssessment$workflow</code> an
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

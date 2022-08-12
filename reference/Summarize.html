@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of GSM</a>
+      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
@@ -75,13 +75,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Summarize</span><span class="op">(</span><span class="va">dfFlagged</span>, strScoreCol <span class="op">=</span> <span class="st">"Score"</span>, lTags <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Summarize</span><span class="op">(</span><span class="va">dfFlagged</span>, strScoreCol <span class="op">=</span> <span class="st">"Score"</span>, lTags <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dfFlagged</dt>
-<dd><p>data frame in format produced by <code><a href="Flag.html">Flag</a></code></p></dd>
+<dd><p>data.frame in format produced by <code><a href="Flag.html">Flag</a></code></p></dd>
 
 
 <dt>strScoreCol</dt>
@@ -96,7 +96,8 @@
     <h2>Value</h2>
     
 
-<p>Simplified finding data frame with columns for SiteID, N, Pvalue, Flag and any metadata specified in lTags.</p>
+<p>Simplified finding data.frame with columns for GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, and any associated metadata
+when associated with a workflow.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -107,20 +108,28 @@
     
 
 
-<p>(<code>dfFlagged</code>) has the following required columns:</p><ul><li><p><code>SiteID</code> - Site ID</p></li>
+<p>(<code>dfFlagged</code>) has the following required columns:</p><ul><li><p><code>GroupID</code> - Group ID</p></li>
 <li><p><code>N</code> - Total number of participants at site</p></li>
 <li><p><code>Flag</code> - Flagging value of -1, 0, or 1</p></li>
-<li><p><code>strScoreCol</code> - Column from analysis results. Default is "PValue".</p></li>
+<li><p><code>strScoreCol</code> - Column from analysis results.</p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="AE_Map_Adam.html">AE_Map_Adam</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Transform_EventCount.html">Transform_EventCount</a></span><span class="op">(</span><span class="va">dfInput</span>, strCountCol <span class="op">=</span> <span class="st">"Count"</span>, strExposureCol <span class="op">=</span> <span class="st">"Exposure"</span>, strKRILabel <span class="op">=</span> <span class="st">"AEs/Week"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Analyze_Wilcoxon.html">Analyze_Wilcoxon</a></span><span class="op">(</span><span class="va">dfTransformed</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="Flag.html">Flag</a></span><span class="op">(</span><span class="va">dfAnalyzed</span>, strColumn <span class="op">=</span> <span class="st">"Score"</span>, strValueColumn <span class="op">=</span> <span class="st">"Estimate"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dfSummary</span> <span class="op">&lt;-</span> <span class="fu">Summarize</span><span class="op">(</span><span class="va">dfFlagged</span><span class="op">)</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="AE_Map_Adam.html">AE_Map_Adam</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Transform_EventCount.html">Transform_EventCount</a></span><span class="op">(</span><span class="va">dfInput</span>,</span></span>
+<span class="r-in"><span>  strCountCol <span class="op">=</span> <span class="st">"Count"</span>,</span></span>
+<span class="r-in"><span>  strExposureCol <span class="op">=</span> <span class="st">"Exposure"</span>,</span></span>
+<span class="r-in"><span>  strKRILabel <span class="op">=</span> <span class="st">"AEs/Week"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Analyze_Wilcoxon.html">Analyze_Wilcoxon</a></span><span class="op">(</span><span class="va">dfTransformed</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="Flag.html">Flag</a></span><span class="op">(</span><span class="va">dfAnalyzed</span>, strColumn <span class="op">=</span> <span class="st">"Score"</span>, strValueColumn <span class="op">=</span> <span class="st">"Estimate"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dfSummary</span> <span class="op">&lt;-</span> <span class="fu">Summarize</span><span class="op">(</span><span class="va">dfFlagged</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -131,11 +140,11 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
