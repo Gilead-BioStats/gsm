@@ -14,11 +14,13 @@ dfAE:
   strGradeCol: "AE_GRADE"
   strSeriousCol: "AE_SERIOUS"
   strSeriousVal: "Yes"
+  strNonSeriousVal: "No"
 dfPD:
   strIDCol: "SubjectID"
   strCategoryCol: "DVDECOD"
   strImportantCol: "PD_IMPORTANT_FLAG"
   strImportantVal: "Y"
+  strNotImportantVal: "N"
 dfIE:
   strIDCol: "SubjectID"
   strCategoryCol: "IE_CATEGORY"
@@ -61,5 +63,8 @@ dfLB:
   strTreatmentEmergentCol: "LB_TE_FLAG"
   strTreatmentEmergentVal: TRUE
   strGradeCol: "LB_GRADE"
+  strGradeVal:
+    - 3
+    - 4
   strAbnormalCol: "LB_ABN_FLAG"
   strAbnormalVal: TRUE

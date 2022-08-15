@@ -1,0 +1,24 @@
+tags:
+  Assessment: SAE Reporting Rate
+  Label: AEs
+workflow:
+  - name: FilterDomain
+    inputs: dfAE
+    output: dfAE
+    params:
+      strDomain: dfAE
+      strColParam: strSeriousCol
+      strValParam: strSeriousVal
+  - name: AE_Map_Raw
+    inputs:
+      - dfAE
+      - dfSUBJ
+    output: dfInput
+  - name: AE_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      vThreshold: null
+      strMethod: "poisson"
+      strKRILabel: "Treatment-Emergent AEs/Week"

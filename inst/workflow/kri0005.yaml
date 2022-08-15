@@ -1,0 +1,23 @@
+tags:
+  Assessment: Lab Abnormality Rate
+  Label: LB
+workflow:
+  - name: FilterDomain
+    inputs: dfLB
+    output: dfLB
+    params:
+      strDomain: dfLB
+      strColParam: strAbnormalCol
+      strValParam: strAbnormalVal
+  - name: LB_Map_Raw
+    inputs:
+      - dfLB
+      - dfSUBJ
+    output: dfInput
+  - name: LB_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      vThreshold: null
+      strMethod: "fisher"
