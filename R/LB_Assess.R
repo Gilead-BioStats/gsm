@@ -130,6 +130,7 @@ LB_Assess <- function(
     lAssess$dfTransformed <- gsm::Transform_EventCount(
       lAssess$dfInput,
       strCountCol = "Count",
+      strExposureCol = "Total",
       strGroupCol = mapping$dfInput$strGroupCol,
       strKRILabel = strKRILabel
     )

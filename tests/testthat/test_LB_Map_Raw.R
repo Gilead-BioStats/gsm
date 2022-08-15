@@ -73,3 +73,14 @@ test_that("invalid mapping throws errors", {
 test_that("bQuiet and bReturnChecks work as intended", {
   test_logical_parameters(map_function, dfs)
 })
+
+test_that("correct counts are returned after join", {
+  # filter so join is missing some participants
+  lb <- dfLB %>% filter(LBTEST == "Calcium")
+
+  result <- LB_Map_Raw(dfs = list(dfSUBJ = dfSUBJ, dfLB = lb))
+
+  expect_true(all(result$Count %in% c(0, 1)))
+  expect_false(all(is.na(result$Count)))
+
+})

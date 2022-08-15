@@ -1,14 +1,15 @@
 tags:
-  Assessment: Lab Abnormality Rate
-  Label: LB
-  KRIID: kri0005
+  Assessment: Subject Discontinuation
+  Label: Study
 workflow:
-  - name: LB_Map_Raw
+  - name: Disp_Map_Raw
     inputs:
-      - dfLB
+      - dfDISP
       - dfSUBJ
     output: dfInput
-  - name: LB_Assess
+    params:
+      strContext: Study
+  - name: Disp_Assess
     inputs: dfInput
     output: lResults
     params:

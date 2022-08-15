@@ -1,6 +1,7 @@
 tags:
   Assessment: Lab Abnormality Rate
   Label: LB
+  KRIID: kri0006
 workflow:
   - name: FilterDomain
     inputs: dfLB

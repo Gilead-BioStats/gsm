@@ -1,6 +1,7 @@
 tags:
   Assessment: Non-serious AE Reporting Rate
   Label: AEs
+  KRIID: kri0001
 workflow:
   - name: FilterDomain
     inputs: dfAE
