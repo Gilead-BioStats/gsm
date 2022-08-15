@@ -94,8 +94,10 @@ LB_Map_Raw <- function(
         "SubjectID"
       ) %>%
       mutate(
-        Count = if_else(
-          .data$Abnormal == lMapping[["dfLB"]][["strAbnormalVal"]], 1, 0
+        Count = case_when(
+          .data$Abnormal == lMapping[["dfLB"]][["strAbnormalVal"]] ~ 1,
+          .data$Abnormal != lMapping[["dfLB"]][["strAbnormalVal"]] ~ 0,
+          is.na(.data$Abnormal) ~ 0
         )
       ) %>%
       select(any_of(c(names(dfSUBJ_mapped))), .data$Count)
