@@ -44,8 +44,9 @@
 
 Disp_Map_Raw <- function(
   dfs = list(
-    dfDISP = clindata::rawplus_subj,
-    dfSUBJ = clindata::rawplus_subj
+    dfSUBJ = clindata::dm,
+    dfDISP_Study = clindata::studcomp,
+    dfDISP_Treatment = clindata::sdrgcomp
   ),
   strContext = "Treatment",
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
@@ -57,6 +58,7 @@ Disp_Map_Raw <- function(
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
+  dfs$dfDISP <- dfs[[ paste0('dfDISP_', strContext) ]]
   checks <- CheckInputs(
     context = paste0("Disp_Map_Raw", "_", strContext),
     dfs = dfs,

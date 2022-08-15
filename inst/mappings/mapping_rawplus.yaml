@@ -1,65 +1,58 @@
 dfSUBJ:
-  strIDCol: "SubjectID"
-  strSiteCol: "SiteID"
-  strStudyCol: "StudyID"
-  strCustomGroupCol: "RegionID"
-  strTimeOnTreatmentCol: "TimeOnTreatment"
-  strTimeOnStudyCol: "TimeOnStudy"
-  strRandFlagCol: "RandFlag"
-  strRandDateCol: "RandDate"
+  strStudyCol: studyid
+  strSiteCol: siteid
+  strIDCol: subjectid
+  strTimeOnStudyCol: timeonstudy
+  strTimeOnTreatmentCol: timeontreatment
 dfAE:
-  strIDCol: "SubjectID"
-  strTreatmentEmergentCol: "AE_TE_FLAG"
-  strTreatmentEmergentVal: TRUE
-  strGradeCol: "AE_GRADE"
-  strSeriousCol: "AE_SERIOUS"
-  strSeriousVal: "Yes"
+  strIDCol: subjectid
+  strTreatmentEmergentCol: ae_te
+  strTreatmentEmergentVal: Y
+  strGradeCol: aetoxgr
+  strSeriousCol: aeser
+  strSeriousVal: Y
 dfPD:
-  strIDCol: "SubjectID"
-  strCategoryCol: "DVDECOD"
-  strImportantCol: "PD_IMPORTANT_FLAG"
-  strImportantVal: "Y"
+  strIDCol: subjectid
+  strCategoryCol: dvdecod
+  strImportantCol: importnt
+  strImportantVal: Y
 dfIE:
-  strIDCol: "SubjectID"
-  strCategoryCol: "IE_CATEGORY"
-  strValueCol: "IE_VALUE"
-  strVersionCol: "IE_PROTOCOLVERSION"
+  strIDCol: subjectid
+  strCategoryCol: IE_CATEGORY
+  strValueCol: IE_VALUE
+  strVersionCol: IE_PROTOCOLVERSION
   vCategoryValues:
-    - "EXCL"
-    - "INCL"
+    - EXCL
+    - INCL
   vExpectedResultValues:
     - 0
     - 1
 dfCONSENT:
-  strIDCol: "SubjectID"
-  strTypeCol: "CONSENT_TYPE"
-  strValueCol: "CONSENT_VALUE"
-  strDateCol: "CONSENT_DATE"
-  strConsentTypeVal: "MAINCONSENT"
-  strConsentStatusVal: "Y"
+  strIDCol: subjectid
+  strTypeCol: CONSENT_TYPE
+  strValueCol: CONSENT_VALUE
+  strDateCol: CONSENT_DATE
+  strConsentTypeVal: MAINCONSENT
+  strConsentStatusVal: Y
 dfDISP:
-  strIDCol: "SubjectID"
-  strStudyDiscontinuationReasonCol: "StudDCReason"
-  strStudyDiscontinuationReasonVal: "Withdrew Consent"
-  strStudyCompletionFlagCol: "StudCompletion"
-  strStudyCompletionFlagVal:
-    - ""
-    - "O"
-  strTreatmentDiscontinuationReasonCol: "TrtDCReason"
-  strTreatmentDiscontinuationReasonVal: "Investigator's Discretion*"
-  strTreatmentCompletionFlagCol: "TrtCompletion"
-  strTreatmentCompletionFlagVal:
-    - "Y"
-    - "O"
+  strIDCol: subjectid
+  strStudyDiscontinuationReasonCol: compreas
+  strStudyDiscontinuationReasonVal: consent
+  strStudyCompletionFlagCol: compyn
+  strStudyCompletionFlagVal: Y
+  strTreatmentDiscontinuationReasonCol: sdrgreas
+  strTreatmentDiscontinuationReasonVal: withdrawal
+  strTreatmentCompletionFlagCol: sdrgyn
+  strTreatmentCompletionFlagVal: Y
 dfLB:
-  strIDCol: "SubjectID"
-  strVisitCol: "VISIT"
-  strVisitOrderCol: "VISITNUM"
-  strCategoryCol: "LBCAT"
-  strTestCol: "LBTEST"
-  strValueCol: "LBSTRESN"
-  strTreatmentEmergentCol: "LB_TE_FLAG"
+  strIDCol: subjectid
+  strVisitCol: VISIT
+  strVisitOrderCol: VISITNUM
+  strCategoryCol: LBCAT
+  strTestCol: LBTEST
+  strValueCol: LBSTRESN
+  strTreatmentEmergentCol: LB_TE_FLAG
   strTreatmentEmergentVal: TRUE
-  strGradeCol: "LB_GRADE"
-  strAbnormalCol: "LB_ABN_FLAG"
+  strGradeCol: LB_GRADE
+  strAbnormalCol: LB_ABN_FLAG
   strAbnormalVal: TRUE

@@ -8,3 +8,5 @@ dfSUBJ:
     - strTimeOnTreatmentCol
   vUniqueCols:
     - strIDCol
+  vNACols:
+    - strTimeOnTreatmentCol

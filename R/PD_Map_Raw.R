@@ -40,8 +40,8 @@
 
 PD_Map_Raw <- function(
   dfs = list(
-    dfPD = clindata::rawplus_pd,
-    dfSUBJ = clindata::rawplus_subj
+    dfPD = clindata::protdev,
+    dfSUBJ = clindata::dm
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   bReturnChecks = FALSE,

@@ -4,8 +4,8 @@ tags:
 workflow:
   - name: Disp_Map_Raw
     inputs:
-      - dfDISP
       - dfSUBJ
+      - dfDISP_Treatment
     output: dfInput
     params:
       strContext: Treatment
