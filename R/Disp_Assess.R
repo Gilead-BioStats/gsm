@@ -108,6 +108,9 @@ Disp_Assess <- function(
     dfInput = dfInput
   )
 
+  lAssess2 <- MakeLAssess(dfInput = dfInput, lTags = lTags)
+
+
   mapping <- yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm"))
   mapping$dfInput$strGroupCol <- mapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
