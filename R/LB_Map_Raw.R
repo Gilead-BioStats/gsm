@@ -1,5 +1,7 @@
 #' Lab Assessment - Raw Mapping
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' @description
 #' Convert from ADaM or raw format to input format for Labs Assessment.
 #'

@@ -16,13 +16,10 @@ A flowchart of type \code{grViz}/\code{htmlwidget}.
 Flowchart visualization of data pipeline steps from filtering to summary data for an assessment workflow.
 }
 \examples{
-lAssessments <- MakeAssessmentList()
+lAssessments <- list(ae = MakeAssessmentList()$ae)
 lData <- list(
   dfSUBJ = clindata::rawplus_subj,
-  dfAE = clindata::rawplus_ae,
-  dfPD = clindata::rawplus_pd,
-  dfCONSENT = clindata::rawplus_consent,
-  dfIE = clindata::rawplus_ie
+  dfAE = clindata::rawplus_ae
 )
 lTags <- list(
   Study = "myStudy"

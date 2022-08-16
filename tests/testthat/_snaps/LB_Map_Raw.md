@@ -216,7 +216,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strCountCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strCountCol", "strTotalCol"]
             }
           },
           "value": [
@@ -244,6 +244,11 @@
               "type": "character",
               "attributes": {},
               "value": ["Count"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Total"]
             }
           ]
         }

@@ -1,5 +1,7 @@
 #' Labs Assessment
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' @description
 #' Evaluates rate of reported Lab Abnormalities (LB).
 #'

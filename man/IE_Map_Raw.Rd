@@ -39,6 +39,8 @@ Convert raw inclusion/exclusion (IE) data, typically processed case report form 
 input data to \code{\link[=IE_Assess]{IE_Assess()}}.
 }
 \details{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 \code{IE_Map_Raw} combines IE data with subject-level data to create formatted input data to
 \code{\link[=IE_Assess]{IE_Assess()}}. This function creates an input dataset for the IE Assessment
 (\code{\link[=IE_Assess]{IE_Assess()}}) by binding subject-level unmet IE criteria counts (derived from \code{dfIE}) to

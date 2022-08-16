@@ -59,6 +59,8 @@ IE_Assess(
 Evaluates sites exhibiting aberrant or excessive rates of unmet or missing inclusion/exclusion (IE) criteria.
 }
 \details{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 The IE Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag sites with IE issues. This assessment detects sites with excessive rates of unmet or
 missing IE criteria, as defined by \code{nThreshold}. The count returned in the summary represents the
 number of subjects at a given site with at least one unmet or missing IE criterion.
