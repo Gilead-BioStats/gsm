@@ -1,9 +1,0 @@
-﻿studyid,workflowid,gsm_version,group,metric,numerator,denominator,outcome,model,score,data_inputs,data_filters
-AA-AA-000-0000,kri0001,1.1,Site,Non-serious AE Reporting Rate,Treatment Emergent AEs,Days on Treatment,Rate,Poisson,Residual from Poisson Model,"rawplus.ae, rawplus.subj","Non-Serious, TreatmentEmergent"
-AA-AA-000-0000,kri0002,1.1,Site,SAE Reporting Rate,Treatment Emergent SAEs,Days on Treatment,Rate,Poisson,Residual from Poisson Model,"rawplus.ae, rawplus.subj","Serious, TreatmentEmergent"
-AA-AA-000-0000,kri0003,1.1,Site,Non-important Protocol Deviation Rate,Non-Important PDs,Days in Study,Rate,Poisson,Residual from Poisson Model,"rawplus.pd, rawplus.subj",Non-Important
-AA-AA-000-0000,kri0004,1.1,Site,Important Protocol Deviation Rate,Important PDs,Days in Study,Rate,Poisson,Residual from Poisson Model,"rawplus.pd, rawplus.subj",Important
-AA-AA-000-0000,kri0005,1.1,Site,Lab Abnormality Rate,Abnormal Lab Samples,Total Lab Samples,Percent,Fisher,P-value from Fisher's Exact Test,"rawplus.lb, rawplus.subj",
-AA-AA-000-0000,kri0006,1.1,Site,G3 or higher Lab Abnormality Rate,G3+ Abnormal Labs Samples,Total Lab Samples,Percent,Fisher,P-value from Fisher's Exact Test,"rawplus.lb, rawplus.subj",Grade >= 3
-AA-AA-000-0000,kri0007,1.1,Site,Subject Discontinuation,Subjects Discontinued,Total Subjects,Percent,Fisher,P-value from Fisher's Exact Test,rawplus.subj,
-AA-AA-000-0000,kri0008,1.1,Site,Subject Treatment Discontinuation,Subjects with Treatment Discontinued,Total Subjects,Percent,Fisher,P-value from Fisher's Exact Test, rawplus.subj,

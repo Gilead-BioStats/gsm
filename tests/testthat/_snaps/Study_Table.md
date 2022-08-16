@@ -23,6 +23,18 @@
       [18] "--PDs by Category: NONADHERENCE OF STUDY DRUG"               
       [19] "--PDs by Category: STUDY MEDICATION"                         
       [20] "--PDs by Category: SUBJECT NOT MANAGED ACCORDING TO PROTOCOL"
+      [21] "Non-serious AE Reporting Rate"                               
+      [22] "--AEs"                                                       
+      [23] "SAE Reporting Rate"                                          
+      [24] "--AEs"                                                       
+      [25] "Non-important Protocol Deviation Rate"                       
+      [26] "--PD"                                                        
+      [27] "Important Protocol Deviation Rate"                           
+      [28] "--Important PD"                                              
+      [29] "Subject Discontinuation"                                     
+      [30] "--Study"                                                     
+      [31] "Subject Treatment Discontinuation"                           
+      [32] "--Treatment"                                                 
 
 # bFormat works
 
@@ -30,7 +42,7 @@
       tbl$df_summary$X010X
     Output
        [1] "1" "1" ""  " " ""  " " "*" "+" ""  " " " " " " ""  " " ""  " " " " " " " "
-      [20] " "
+      [20] " " ""  " " ""  " " ""  " " ""  " " ""  " " ""  " "
 
 # bShowCounts works
 
@@ -56,6 +68,18 @@
       [17] "--PDs by Category: NONADHERENCE OF STUDY DRUG"               
       [18] "--PDs by Category: STUDY MEDICATION"                         
       [19] "--PDs by Category: SUBJECT NOT MANAGED ACCORDING TO PROTOCOL"
+      [20] "Non-serious AE Reporting Rate"                               
+      [21] "--AEs"                                                       
+      [22] "SAE Reporting Rate"                                          
+      [23] "--AEs"                                                       
+      [24] "Non-important Protocol Deviation Rate"                       
+      [25] "--PD"                                                        
+      [26] "Important Protocol Deviation Rate"                           
+      [27] "--Important PD"                                              
+      [28] "Subject Discontinuation"                                     
+      [29] "--Study"                                                     
+      [30] "Subject Treatment Discontinuation"                           
+      [31] "--Treatment"                                                 
 
 ---
 
@@ -82,6 +106,18 @@
       [18] "--PDs by Category: NONADHERENCE OF STUDY DRUG"               
       [19] "--PDs by Category: STUDY MEDICATION"                         
       [20] "--PDs by Category: SUBJECT NOT MANAGED ACCORDING TO PROTOCOL"
+      [21] "Non-serious AE Reporting Rate"                               
+      [22] "--AEs"                                                       
+      [23] "SAE Reporting Rate"                                          
+      [24] "--AEs"                                                       
+      [25] "Non-important Protocol Deviation Rate"                       
+      [26] "--PD"                                                        
+      [27] "Important Protocol Deviation Rate"                           
+      [28] "--Important PD"                                              
+      [29] "Subject Discontinuation"                                     
+      [30] "--Study"                                                     
+      [31] "Subject Treatment Discontinuation"                           
+      [32] "--Treatment"                                                 
 
 # vSiteScoreThreshold works
 

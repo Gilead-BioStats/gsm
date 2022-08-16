@@ -6,7 +6,8 @@ lData <- list(
   dfPD = dfPD,
   dfCONSENT = dfCONSENT,
   dfIE = dfIE,
-  dfDISP = dfDISP
+  dfDISP = dfDISP,
+  dfLB = dfLB
 )
 
 lAssessments <- MakeAssessmentList()
