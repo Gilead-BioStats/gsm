@@ -98,9 +98,10 @@ LB_Map_Raw <- function(
           .data$Abnormal == lMapping[["dfLB"]][["strAbnormalVal"]] ~ 1,
           .data$Abnormal != lMapping[["dfLB"]][["strAbnormalVal"]] ~ 0,
           is.na(.data$Abnormal) ~ 0
-        )
+        ),
+        Total = 1
       ) %>%
-      select(any_of(c(names(dfSUBJ_mapped))), .data$Count)
+      select(any_of(c(names(dfSUBJ_mapped))), .data$Count, .data$Total)
 
     if (!bQuiet) cli::cli_alert_success("{.fn LB_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
