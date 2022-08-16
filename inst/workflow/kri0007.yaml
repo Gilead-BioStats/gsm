@@ -1,6 +1,7 @@
 tags:
   Assessment: Subject Discontinuation
   Label: Study
+  KRIID: kri0007
 workflow:
   - name: Disp_Map_Raw
     inputs:
