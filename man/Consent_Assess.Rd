@@ -65,6 +65,8 @@ Evaluates sites where subject consent was:
 }
 }
 \details{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 The Consent Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag sites with consent issues. This assessment detects sites with subjects who participated
 in study activities before consent was finalized. The count returned in the summary represents
 the number of subjects at a given site for whom:

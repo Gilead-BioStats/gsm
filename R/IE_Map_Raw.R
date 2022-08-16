@@ -1,5 +1,7 @@
 #' Inclusion/Exclusion Assessment - Raw Mapping
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' @description
 #' Convert raw inclusion/exclusion (IE) data, typically processed case report form data, to formatted
 #' input data to [gsm::IE_Assess()].
