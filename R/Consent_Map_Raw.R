@@ -40,8 +40,8 @@
 
 Consent_Map_Raw <- function(
   dfs = list(
-    dfCONSENT = clindata::rawplus_consent,
-    dfSUBJ = clindata::rawplus_subj
+    dfSUBJ = clindata::rawplus_subj,
+    dfCONSENT = clindata::rawplus_consent
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   bReturnChecks = FALSE,

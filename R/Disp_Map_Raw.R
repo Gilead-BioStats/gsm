@@ -48,7 +48,7 @@ Disp_Map_Raw <- function(
     dfDISP_Study = clindata::studcomp,
     dfDISP_Treatment = clindata::sdrgcomp
   ),
-  strContext = "Treatment",
+  strContext = "Study",
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
@@ -79,7 +79,6 @@ Disp_Map_Raw <- function(
       ) %>%
       filter(!.data$Completion %in% lMapping[["dfDISP"]][[glue::glue("str{strContext}CompletionFlagVal")]]) %>%
       mutate(Count = 1)
-
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(

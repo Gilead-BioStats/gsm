@@ -44,6 +44,18 @@ dfDISP:
   strTreatmentDiscontinuationReasonVal: withdrawal
   strTreatmentCompletionFlagCol: sdrgyn
   strTreatmentCompletionFlagVal: Y
+dfDISP_Study:
+  strIDCol: subjectid
+  strStudyDiscontinuationReasonCol: compreas
+  strStudyDiscontinuationReasonVal: consent
+  strStudyCompletionFlagCol: compyn
+  strStudyCompletionFlagVal: Y
+dfDISP_Treatment:
+  strIDCol: subjectid
+  strTreatmentDiscontinuationReasonCol: sdrgreas
+  strTreatmentDiscontinuationReasonVal: withdrawal
+  strTreatmentCompletionFlagCol: sdrgyn
+  strTreatmentCompletionFlagVal: Y
 dfLB:
   strIDCol: subjectid
   strVisitCol: VISIT

@@ -4,9 +4,11 @@ tags:
 workflow:
   - name: Disp_Map_Raw
     inputs:
-      - dfDISP_STUDY
       - dfSUBJ
+      - dfDISP_Study
     output: dfInput
+    params:
+      strContext: Study
   - name: Disp_Assess
     inputs: dfInput
     output: lResults
