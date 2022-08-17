@@ -61,16 +61,9 @@ reference:
       - parse_data_spec
       - generate_md_table
       - MapMaker
-      - MakeWorkflowYaml
 
-  - title: Data
-    desc: Metadata used to create workflows
-  - contents:
+   - title: Data
+     desc: Metadata used to create workflows
+   - contents:
       - meta_workflow
       - meta_workflow_params
-
-
-
-
-
-
