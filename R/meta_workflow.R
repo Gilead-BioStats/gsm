@@ -1,6 +1,6 @@
 #' Meta Workflow
 #'
-#' A dataset containing the metadata needed to support kri0001 - kri0008.
+#' A dataset containing the metadata needed supported KRI/QTLs.
 #'
 #' @format A data frame with 8 rows and 12 variables:
 #' \describe{

@@ -28,6 +28,6 @@ A data frame with 8 rows and 12 variables:
 meta_workflow
 }
 \description{
-A dataset containing the metadata needed to support kri0001 - kri0008.
+A dataset containing the metadata needed supported KRI/QTLs.
 }
 \keyword{datasets}
