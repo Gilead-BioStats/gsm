@@ -61,6 +61,7 @@ reference:
       - parse_data_spec
       - generate_md_table
       - MapMaker
+      - MakeWorkflowYaml
 
 
 
