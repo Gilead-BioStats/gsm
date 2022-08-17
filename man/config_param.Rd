@@ -14,6 +14,7 @@ A data frame with 8 rows and 12 variables:
 \item{index}{Index that describes the position of the parameter values.}
 \item{value}{Parameter value}
 }
+}
 \source{
 \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
 }

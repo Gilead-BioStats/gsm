@@ -10,5 +10,6 @@
 #'   \item{param}{Name of function parameter.}
 #'   \item{index}{Index that describes the position of the parameter values.}
 #'   \item{value}{Parameter value}
+#'   }
 #' @source \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
 "config_param"

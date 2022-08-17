@@ -10,5 +10,6 @@
 #'   \item{index}{Index that describes the position of the parameter values.}
 #'   \item{default}{Default parameter.}
 #'   \item{configurable}{Boolean denoting whether the parameter can be configured to use a different argument.}
+#'   }
 #' @source \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
 "meta_param"

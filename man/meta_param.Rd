@@ -14,6 +14,7 @@ A data frame with 8 rows and 12 variables:
 \item{default}{Default parameter.}
 \item{configurable}{Boolean denoting whether the parameter can be configured to use a different argument.}
 }
+}
 \source{
 \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
 }
