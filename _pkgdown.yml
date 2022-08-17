@@ -63,6 +63,12 @@ reference:
       - MapMaker
       - MakeWorkflowYaml
 
+  - title: Data
+    desc: Metadata used to create workflows
+  - contents:
+      - meta_workflow
+      - meta_workflow_params
+
 
 
 
