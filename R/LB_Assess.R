@@ -200,8 +200,8 @@ LB_Assess <- function(
     }
 
     if (bChart) {
-      lAssess$chart <- gsm::Visualize_Score(lAssess$dfFlagged, strType = "score")
-      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created a chart.")
+      lAssess$chart <- gsm::Visualize_Count(lAssess$dfFlagged)
+      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
     }
   } else {
     if (!bQuiet) cli::cli_alert_warning("{.fn LB_Assess} did not run because of failed check.")

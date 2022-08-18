@@ -415,7 +415,7 @@
       i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Score()` created a chart.
+      v `Visualize_Count()` created a chart.
       v `Consent_Assess()` Successful
       Saving lResults to `lAssessment`
       v `Visualize_Workflow()` created a flowchart.
@@ -455,7 +455,7 @@
       v `Analyze_Chisq()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Score()` created a chart.
+      v `Visualize_Scatter()` created a chart.
       v `Disp_Assess()` Successful
       Saving lResults to `lAssessment`
       v `Visualize_Workflow()` created a flowchart.
@@ -508,7 +508,7 @@
       v `Analyze_Chisq()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Score()` created a chart.
+      v `Visualize_Scatter()` created a chart.
       v `Disp_Assess()` Successful
       Saving lResults to `lAssessment`
       v `Visualize_Workflow()` created a flowchart.
@@ -548,7 +548,7 @@
       v `Analyze_Chisq()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Score()` created a chart.
+      v `Visualize_Scatter()` created a chart.
       v `Disp_Assess()` Successful
       Saving lResults to `lAssessment`
       v `Visualize_Workflow()` created a flowchart.
@@ -592,7 +592,7 @@
       i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Score()` created a chart.
+      v `Visualize_Count()` created a chart.
       v `IE_Assess()` Successful
       Saving lResults to `lAssessment`
       v `Visualize_Workflow()` created a flowchart.

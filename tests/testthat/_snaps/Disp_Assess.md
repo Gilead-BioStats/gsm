@@ -135,5 +135,5 @@
       v `Analyze_Chisq()` returned output with 3 rows.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Score()` created a chart.
+      v `Visualize_Scatter()` created a chart.
 

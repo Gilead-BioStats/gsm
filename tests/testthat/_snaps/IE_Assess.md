@@ -85,5 +85,5 @@
       i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.
       v `Flag()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Score()` created a chart.
+      v `Visualize_Count()` created a chart.
 
