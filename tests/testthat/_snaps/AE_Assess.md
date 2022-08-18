@@ -126,17 +126,35 @@
 
     lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'
 
-# NA in dfInput$Count results in Error for assess_function
+# NA in dfInput$Count results in Error for AE_Assess
 
     Code
-      assess_function(dfInputNA)
+      AE_Assess(dfInputNA)
     Output
       $strFunctionName
-      [1] "assess_function()"
+      [1] "AE_Assess()"
       
       $lParams
-      $lParams$dfInput
-      [1] "dfInputNA"
+      $lParams$vThreshold
+      NULL
+      
+      $lParams$strMethod
+      [1] "poisson"
+      
+      $lParams$strKRILabel
+      [1] "AEs/Week"
+      
+      $lParams$strGroup
+      [1] "Site"
+      
+      $lParams$bChart
+      [1] TRUE
+      
+      $lParams$bReturnChecks
+      [1] FALSE
+      
+      $lParams$bQuiet
+      [1] TRUE
       
       
       $lTags

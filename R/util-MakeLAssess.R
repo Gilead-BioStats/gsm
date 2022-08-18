@@ -11,8 +11,9 @@
 #' @importFrom purrr map
 MakeLAssess <- function() {
 
+  browser()
   # get parent environment's function name
-  strFunctionName = deparse(sys.call(which = sys.nframe() - 1)[1])
+  strFunctionName <- deparse(sys.call(which = sys.nframe() - 1)[1])
 
   # create function object for use in rlang::fn_fmls
   subsetStrFunctionName <- match.fun(gsub('.{2}$', '', strFunctionName))
@@ -21,11 +22,9 @@ MakeLAssess <- function() {
   paramNames <- names(rlang::fn_fmls(fn = subsetStrFunctionName))
 
   # get all parameter arguments
-  allArguments <-purrr::map(paramNames, ~dynGet(.)) %>%
-    purrr::set_names(names(formals(subsetStrFunctionName)))
-
   # rename list containing parameter names
-  # names(allArguments) <- names(formals(subsetStrFunctionName))
+  allArguments <- purrr::map(paramNames, ~dynGet(.)) %>%
+    purrr::set_names(names(formals(subsetStrFunctionName)))
 
   # remove dfInput and lTags since they're added as separate values in lAssess and are
   # easily accessible in the parent environment
