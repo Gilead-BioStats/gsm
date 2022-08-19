@@ -1,14 +1,5 @@
 source(testthat::test_path("testdata/data.R"))
 
-lData <- list(
-  dfSUBJ = dfSUBJ,
-  dfAE = dfAE,
-  dfPD = dfPD,
-  dfCONSENT = dfCONSENT,
-  dfIE = dfIE,
-  dfDISP = dfDISP
-)
-
 lAssessments <- Study_Assess(lData = lData, bQuiet = TRUE)
 
 test_that("Assessment Report with all Valid assessments", {

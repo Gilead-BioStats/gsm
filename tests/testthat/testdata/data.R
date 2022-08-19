@@ -18,25 +18,25 @@ dfSUBJ <- data.frame(
 )
 
 dfLB <- tibble::tribble(
-  ~SubjectID, ~VISIT, ~LBCAT, ~LBTEST, ~LB_ABN_FLAG,
-  "1234", "Visit 1", "Chemistry", "Calcium", FALSE,
-  "1234", "Visit 2", "Chemistry", "Calcium", TRUE,
-  "1234", "Visit 3", "Chemistry", "Calcium", FALSE,
-  "1234", "Visit 1", "Chemistry", "Sodium", FALSE,
-  "1234", "Visit 2", "Chemistry", "Sodium", FALSE,
-  "1234", "Visit 3", "Chemistry", "Sodium", TRUE,
-  "1234", "Visit 1", "Hematology", "Platelets", TRUE,
-  "1234", "Visit 2", "Hematology", "Platelets", FALSE,
-  "1234", "Visit 3", "Hematology", "Platelets", FALSE,
-  "5678", "Visit 1", "Chemistry", "Calcium", TRUE,
-  "5678", "Visit 1", "Chemistry", "Sodium", TRUE,
-  "5678", "Visit 1", "Hematology", "Platelets", FALSE,
-  "9876", "Visit 1", "Chemistry", "Calcium", FALSE,
-  "9876", "Visit 2", "Chemistry", "Calcium", FALSE,
-  "9876", "Visit 1", "Chemistry", "Sodium", FALSE,
-  "9876", "Visit 2", "Chemistry", "Sodium", FALSE,
-  "9876", "Visit 1", "Hematology", "Platelets", FALSE,
-  "9876", "Visit 2", "Hematology", "Platelets", FALSE
+  ~SubjectID, ~VISIT, ~LBCAT, ~LBTEST, ~LB_ABN_FLAG, ~LB_GRADE,
+  "1234", "Visit 1", "Chemistry", "Calcium", FALSE, 1,
+  "1234", "Visit 2", "Chemistry", "Calcium", TRUE, 2,
+  "1234", "Visit 3", "Chemistry", "Calcium", FALSE, 3,
+  "1234", "Visit 1", "Chemistry", "Sodium", FALSE, 4,
+  "1234", "Visit 2", "Chemistry", "Sodium", FALSE, 4,
+  "1234", "Visit 3", "Chemistry", "Sodium", TRUE, 3,
+  "1234", "Visit 1", "Hematology", "Platelets", TRUE, 2,
+  "1234", "Visit 2", "Hematology", "Platelets", FALSE, 1,
+  "1234", "Visit 3", "Hematology", "Platelets", FALSE, 1,
+  "5678", "Visit 1", "Chemistry", "Calcium", TRUE, 2,
+  "5678", "Visit 1", "Chemistry", "Sodium", TRUE, 3,
+  "5678", "Visit 1", "Hematology", "Platelets", FALSE, 3,
+  "9876", "Visit 1", "Chemistry", "Calcium", FALSE, 4,
+  "9876", "Visit 2", "Chemistry", "Calcium", FALSE, 4,
+  "9876", "Visit 1", "Chemistry", "Sodium", FALSE, 3,
+  "9876", "Visit 2", "Chemistry", "Sodium", FALSE, 2,
+  "9876", "Visit 1", "Hematology", "Platelets", FALSE, 1,
+  "9876", "Visit 2", "Hematology", "Platelets", FALSE, 2
 )
 
 dfPD <- tibble::tribble(
@@ -144,4 +144,14 @@ dfADAE <- data.frame(
     "01-701-1023", "01-701-1028", "01-701-1033", "01-701-1033",
     "01-701-1033"
   )
+)
+
+lData <- list(
+  dfSUBJ = dfSUBJ,
+  dfAE = dfAE,
+  dfPD = dfPD,
+  dfCONSENT = dfCONSENT,
+  dfIE = dfIE,
+  dfDISP = dfDISP,
+  dfLB = dfLB
 )

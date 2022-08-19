@@ -1,657 +1,616 @@
-# bQuiet works as intended
+# output is created as expected
 
     Code
-      result <- Study_Assess(lData = lData, bQuiet = TRUE)
+      names(result$kri0001)
+    Output
+      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
+      [8] "checks"   "lResults"
 
 ---
 
     Code
+      names(result$kri0002)
+    Output
+      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
+      [8] "checks"   "lResults"
+
+---
+
+    Code
+      names(result$kri0003)
+    Output
+      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
+      [8] "checks"   "lResults"
+
+---
+
+    Code
+      names(result$kri0004)
+    Output
+      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
+      [8] "checks"   "lResults"
+
+---
+
+    Code
+      names(result$kri0005)
+    Output
+      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
+      [8] "checks"   "lResults"
+
+---
+
+    Code
+      names(result$kri0006)
+    Output
+      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
+      [8] "checks"   "lResults"
+
+---
+
+    Code
+      names(result$kri0007)
+    Output
+      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
+      [8] "checks"   "lResults"
+
+---
+
+    Code
+      names(result$kri0008)
+    Output
+      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
+      [8] "checks"   "lResults"
+
+# metadata is returned as expected
+
+    Code
+      kri0001$workflow
+    Output
+      [[1]]
+      [[1]]$name
+      [1] "FilterDomain"
+      
+      [[1]]$inputs
+      [1] "dfAE"
+      
+      [[1]]$output
+      [1] "dfAE"
+      
+      [[1]]$params
+      [[1]]$params$strDomain
+      [1] "dfAE"
+      
+      [[1]]$params$strColParam
+      [1] "strSeriousCol"
+      
+      [[1]]$params$strValParam
+      [1] "strNonSeriousVal"
+      
+      
+      
+      [[2]]
+      [[2]]$name
+      [1] "AE_Map_Raw"
+      
+      [[2]]$inputs
+      [1] "dfAE"   "dfSUBJ"
+      
+      [[2]]$output
+      [1] "dfInput"
+      
+      
+      [[3]]
+      [[3]]$name
+      [1] "AE_Assess"
+      
+      [[3]]$inputs
+      [1] "dfInput"
+      
+      [[3]]$output
+      [1] "lResults"
+      
+      [[3]]$params
+      [[3]]$params$strGroup
+      [1] "Site"
+      
+      [[3]]$params$vThreshold
+      NULL
+      
+      [[3]]$params$strMethod
+      [1] "poisson"
+      
+      [[3]]$params$strKRILabel
+      [1] "Treatment-Emergent AEs/Week"
+      
+      
+      
+
+---
+
+    Code
+      kri0001$lData
+    Output
+      $dfSUBJ
+        SubjectID SiteID        StudyID      RegionID TimeOnTreatment TimeOnStudy
+      1      1234  X010X AA-AA-000-0000 United States            3455        1234
+      2      5678  X102X BB-BB-111-1111         China            1745        2345
+      3      9876  X999X CC-CC-333-3333         India            1233        4567
+          RandDate
+      1 2012-09-02
+      2 2017-05-08
+      3 2018-05-20
+      
+      $dfAE
+      # A tibble: 3 x 4
+        SubjectID AE_SERIOUS AE_TE_FLAG AE_GRADE
+        <chr>     <chr>      <lgl>         <dbl>
+      1 1234      No         TRUE              1
+      2 1234      No         TRUE              3
+      3 5678      No         FALSE             4
+      
+      $dfPD
+      # A tibble: 8 x 4
+        SubjectID PD_CATEGORY                               PD_IMPORTANT_FLAG DVDECOD 
+        <chr>     <chr>                                     <chr>             <chr>   
+      1 1234      Study Medication                          N                 STUDY M~
+      2 1234      Subject Not Managed According to Protocol N                 SUBJECT~
+      3 5678      Nonadherence of study drug                Y                 NONADHE~
+      4 5678      Subject Not Managed According to Protocol Y                 SUBJECT~
+      5 5678      Nonadherence of study drug                Y                 NONADHE~
+      6 9876      Study Medication                          N                 STUDY M~
+      7 9876      Nonadherence of study drug                N                 NONADHE~
+      8 9876      Subject Not Managed According to Protocol N                 SUBJECT~
+      
+      $dfCONSENT
+        SubjectID CONSENT_DATE CONSENT_TYPE CONSENT_VALUE
+      1      1234   2013-11-26  MAINCONSENT             Y
+      2      5678   2017-10-02  MAINCONSENT             Y
+      
+      $dfIE
+      # A tibble: 40 x 3
+         SubjectID IE_CATEGORY IE_VALUE
+         <chr>     <chr>          <dbl>
+       1 1234      EXCL               0
+       2 1234      EXCL               0
+       3 1234      EXCL               0
+       4 1234      EXCL               0
+       5 1234      EXCL               0
+       6 1234      EXCL               0
+       7 1234      EXCL               0
+       8 1234      EXCL               0
+       9 1234      EXCL               0
+      10 1234      EXCL               0
+      # ... with 30 more rows
+      # i Use `print(n = ...)` to see more rows
+      
+      $dfDISP
+      # A tibble: 3 x 5
+        SubjectID TrtCompletion TrtDCReason   StudCompletion StudDCReason    
+        <chr>     <chr>         <chr>         <chr>          <chr>           
+      1 1234      N             Adverse Event N              Withdrew Consent
+      2 5678      Y             <NA>          Y              <NA>            
+      3 9876      O             <NA>          O              <NA>            
+      
+      $dfLB
+      # A tibble: 18 x 6
+         SubjectID VISIT   LBCAT      LBTEST    LB_ABN_FLAG LB_GRADE
+         <chr>     <chr>   <chr>      <chr>     <lgl>          <dbl>
+       1 1234      Visit 1 Chemistry  Calcium   FALSE              1
+       2 1234      Visit 2 Chemistry  Calcium   TRUE               2
+       3 1234      Visit 3 Chemistry  Calcium   FALSE              3
+       4 1234      Visit 1 Chemistry  Sodium    FALSE              4
+       5 1234      Visit 2 Chemistry  Sodium    FALSE              4
+       6 1234      Visit 3 Chemistry  Sodium    TRUE               3
+       7 1234      Visit 1 Hematology Platelets TRUE               2
+       8 1234      Visit 2 Hematology Platelets FALSE              1
+       9 1234      Visit 3 Hematology Platelets FALSE              1
+      10 5678      Visit 1 Chemistry  Calcium   TRUE               2
+      11 5678      Visit 1 Chemistry  Sodium    TRUE               3
+      12 5678      Visit 1 Hematology Platelets FALSE              3
+      13 9876      Visit 1 Chemistry  Calcium   FALSE              4
+      14 9876      Visit 2 Chemistry  Calcium   FALSE              4
+      15 9876      Visit 1 Chemistry  Sodium    FALSE              3
+      16 9876      Visit 2 Chemistry  Sodium    FALSE              2
+      17 9876      Visit 1 Hematology Platelets FALSE              1
+      18 9876      Visit 2 Hematology Platelets FALSE              2
+      
+      $dfInput
+        SubjectID SiteID        StudyID CustomGroupID Exposure Count         Rate
+      1      1234  X010X AA-AA-000-0000 United States     3455     2 0.0005788712
+      2      5678  X102X BB-BB-111-1111         China     1745     1 0.0005730659
+      3      9876  X999X CC-CC-333-3333         India     1233     0 0.0000000000
+      
+
+---
+
+    Code
+      kri0001$lChecks
+    Output
+      $flowchart
+      $flowchart$kri0001
+      
+      
+
+---
+
+    Code
+      kri0001$checks$FilterDomain$dfAE
+    Output
+      $status
+      [1] TRUE
+      
+      $tests_if
+      $tests_if$is_data_frame
+      $tests_if$is_data_frame$status
+      [1] TRUE
+      
+      $tests_if$is_data_frame$warning
+      [1] NA
+      
+      
+      $tests_if$has_required_params
+      $tests_if$has_required_params$status
+      [1] TRUE
+      
+      $tests_if$has_required_params$warning
+      [1] NA
+      
+      
+      $tests_if$spec_is_list
+      $tests_if$spec_is_list$status
+      [1] TRUE
+      
+      $tests_if$spec_is_list$warning
+      [1] NA
+      
+      
+      $tests_if$mapping_is_list
+      $tests_if$mapping_is_list$status
+      [1] TRUE
+      
+      $tests_if$mapping_is_list$warning
+      [1] NA
+      
+      
+      $tests_if$mappings_are_character
+      $tests_if$mappings_are_character$status
+      [1] TRUE
+      
+      $tests_if$mappings_are_character$warning
+      [1] NA
+      
+      
+      $tests_if$has_expected_columns
+      $tests_if$has_expected_columns$status
+      [1] TRUE
+      
+      $tests_if$has_expected_columns$warning
+      [1] NA
+      
+      
+      $tests_if$columns_have_na
+      $tests_if$columns_have_na$status
+      [1] TRUE
+      
+      $tests_if$columns_have_na$warning
+      [1] NA
+      
+      
+      $tests_if$columns_have_empty_values
+      $tests_if$columns_have_empty_values$status
+      [1] TRUE
+      
+      $tests_if$columns_have_empty_values$warning
+      [1] NA
+      
+      
+      $tests_if$cols_are_unique
+      $tests_if$cols_are_unique$status
+      [1] TRUE
+      
+      $tests_if$cols_are_unique$warning
+      [1] NA
+      
+      
+      
+      $dim
+      [1] 4 4
+      
+
+---
+
+    Code
+      kri0001$checks$AE_Map_Raw$dfAE
+    Output
+      $status
+      [1] TRUE
+      
+      $tests_if
+      $tests_if$is_data_frame
+      $tests_if$is_data_frame$status
+      [1] TRUE
+      
+      $tests_if$is_data_frame$warning
+      [1] NA
+      
+      
+      $tests_if$has_required_params
+      $tests_if$has_required_params$status
+      [1] TRUE
+      
+      $tests_if$has_required_params$warning
+      [1] NA
+      
+      
+      $tests_if$spec_is_list
+      $tests_if$spec_is_list$status
+      [1] TRUE
+      
+      $tests_if$spec_is_list$warning
+      [1] NA
+      
+      
+      $tests_if$mapping_is_list
+      $tests_if$mapping_is_list$status
+      [1] TRUE
+      
+      $tests_if$mapping_is_list$warning
+      [1] NA
+      
+      
+      $tests_if$mappings_are_character
+      $tests_if$mappings_are_character$status
+      [1] TRUE
+      
+      $tests_if$mappings_are_character$warning
+      [1] NA
+      
+      
+      $tests_if$has_expected_columns
+      $tests_if$has_expected_columns$status
+      [1] TRUE
+      
+      $tests_if$has_expected_columns$warning
+      [1] NA
+      
+      
+      $tests_if$columns_have_na
+      $tests_if$columns_have_na$status
+      [1] TRUE
+      
+      $tests_if$columns_have_na$warning
+      [1] NA
+      
+      
+      $tests_if$columns_have_empty_values
+      $tests_if$columns_have_empty_values$status
+      [1] TRUE
+      
+      $tests_if$columns_have_empty_values$warning
+      [1] NA
+      
+      
+      $tests_if$cols_are_unique
+      $tests_if$cols_are_unique$status
+      [1] TRUE
+      
+      $tests_if$cols_are_unique$warning
+      [1] NA
+      
+      
+      
+      $dim
+      [1] 3 4
+      
+
+---
+
+    Code
+      kri0001$checks$AE_Map_Raw$dfSUBJ
+    Output
+      $status
+      [1] TRUE
+      
+      $tests_if
+      $tests_if$is_data_frame
+      $tests_if$is_data_frame$status
+      [1] TRUE
+      
+      $tests_if$is_data_frame$warning
+      [1] NA
+      
+      
+      $tests_if$has_required_params
+      $tests_if$has_required_params$status
+      [1] TRUE
+      
+      $tests_if$has_required_params$warning
+      [1] NA
+      
+      
+      $tests_if$spec_is_list
+      $tests_if$spec_is_list$status
+      [1] TRUE
+      
+      $tests_if$spec_is_list$warning
+      [1] NA
+      
+      
+      $tests_if$mapping_is_list
+      $tests_if$mapping_is_list$status
+      [1] TRUE
+      
+      $tests_if$mapping_is_list$warning
+      [1] NA
+      
+      
+      $tests_if$mappings_are_character
+      $tests_if$mappings_are_character$status
+      [1] TRUE
+      
+      $tests_if$mappings_are_character$warning
+      [1] NA
+      
+      
+      $tests_if$has_expected_columns
+      $tests_if$has_expected_columns$status
+      [1] TRUE
+      
+      $tests_if$has_expected_columns$warning
+      [1] NA
+      
+      
+      $tests_if$columns_have_na
+      $tests_if$columns_have_na$status
+      [1] TRUE
+      
+      $tests_if$columns_have_na$warning
+      [1] NA
+      
+      
+      $tests_if$columns_have_empty_values
+      $tests_if$columns_have_empty_values$status
+      [1] TRUE
+      
+      $tests_if$columns_have_empty_values$warning
+      [1] NA
+      
+      
+      $tests_if$cols_are_unique
+      $tests_if$cols_are_unique$status
+      [1] TRUE
+      
+      $tests_if$cols_are_unique$warning
+      [1] NA
+      
+      
+      
+      $dim
+      [1] 3 7
+      
+
+---
+
+    Code
+      kri0001$checks$AE_Assess$dfInput
+    Output
+      $status
+      [1] TRUE
+      
+      $tests_if
+      $tests_if$is_data_frame
+      $tests_if$is_data_frame$status
+      [1] TRUE
+      
+      $tests_if$is_data_frame$warning
+      [1] NA
+      
+      
+      $tests_if$has_required_params
+      $tests_if$has_required_params$status
+      [1] TRUE
+      
+      $tests_if$has_required_params$warning
+      [1] NA
+      
+      
+      $tests_if$spec_is_list
+      $tests_if$spec_is_list$status
+      [1] TRUE
+      
+      $tests_if$spec_is_list$warning
+      [1] NA
+      
+      
+      $tests_if$mapping_is_list
+      $tests_if$mapping_is_list$status
+      [1] TRUE
+      
+      $tests_if$mapping_is_list$warning
+      [1] NA
+      
+      
+      $tests_if$mappings_are_character
+      $tests_if$mappings_are_character$status
+      [1] TRUE
+      
+      $tests_if$mappings_are_character$warning
+      [1] NA
+      
+      
+      $tests_if$has_expected_columns
+      $tests_if$has_expected_columns$status
+      [1] TRUE
+      
+      $tests_if$has_expected_columns$warning
+      [1] NA
+      
+      
+      $tests_if$columns_have_na
+      $tests_if$columns_have_na$status
+      [1] TRUE
+      
+      $tests_if$columns_have_na$warning
+      [1] NA
+      
+      
+      $tests_if$columns_have_empty_values
+      $tests_if$columns_have_empty_values$status
+      [1] TRUE
+      
+      $tests_if$columns_have_empty_values$warning
+      [1] NA
+      
+      
+      $tests_if$cols_are_unique
+      $tests_if$cols_are_unique$status
+      [1] TRUE
+      
+      $tests_if$cols_are_unique$warning
+      [1] NA
+      
+      
+      
+      $dim
+      [1] 3 7
+      
+
+---
+
+    Code
+      kri0001$checks$AE_Assess$mapping$dfInput
+    Output
+      $strIDCol
+      [1] "SubjectID"
+      
+      $strSiteCol
+      [1] "SiteID"
+      
+      $strStudyCol
+      [1] "StudyID"
+      
+      $strCustomGroupCol
+      [1] "CustomGroupID"
+      
+      $strCountCol
+      [1] "Count"
+      
+      $strExposureCol
+      [1] "Exposure"
+      
+      $strRateCol
+      [1] "Rate"
+      
+      $strGroupCol
+      [1] "SiteID"
+      
+
+# bQuiet works as intended
+
+    Code
       result <- Study_Assess(lData = lData, bQuiet = FALSE)
     Message <cliMessage>
-      
-      -- Initializing `ae` assessment ------------------------------------------------
-      
-      -- Workflow Step 1 of 3: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
-      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
-      v `FilterDomain()` Successful
-      Saving dfAE to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 3: `AE_Map_Raw` --
-      
-      Preparing parameters for `AE_Map_Raw()` ...
-      Calling `AE_Map_Raw()` ...
-      
-      -- Checking Input Data for `AE_Map_Raw()` --
-      
-      v No issues found for `AE_Map_Raw()`
-      
-      -- Initializing `AE_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `AE_Map_Raw()` returned output with 3 rows.
-      v `AE_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 3: `AE_Assess` --
-      
-      Preparing parameters for `AE_Assess()` ...
-      Calling `AE_Assess()` ...
-      
-      -- Checking Input Data for `AE_Assess()` --
-      
-      v No issues found for `AE_Assess()`
-      
-      -- Initializing `AE_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `AE_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `aeGrade` workflow ---------------------------------------------
-      
-      -- Initializing `aeGrade` assessment -------------------------------------------
-      
-      -- Workflow Step 1 of 3: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
-      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
-      v `FilterDomain()` Successful
-      Saving dfAE to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 3: `AE_Map_Raw` --
-      
-      Preparing parameters for `AE_Map_Raw()` ...
-      Calling `AE_Map_Raw()` ...
-      
-      -- Checking Input Data for `AE_Map_Raw()` --
-      
-      v No issues found for `AE_Map_Raw()`
-      
-      -- Initializing `AE_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `AE_Map_Raw()` returned output with 3 rows.
-      v `AE_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 3: `AE_Assess` --
-      
-      Preparing parameters for `AE_Assess()` ...
-      Calling `AE_Assess()` ...
-      
-      -- Checking Input Data for `AE_Assess()` --
-      
-      v No issues found for `AE_Assess()`
-      
-      -- Initializing `AE_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `AE_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      i Stratified workflow created for each level of dfAE$AE_GRADE (n=3).
-      
-      -- Initializing `aeGrade_1` assessment -----------------------------------------
-      
-      -- Workflow Step 1 of 4: `FilterData` --
-      
-      Preparing parameters for `FilterData()` ...
-      Calling `FilterData()` ...
-      Applying subset: `AE_GRADE %in% ("1")`
-      v Subset removed 2 rows from 4 to 2 rows.
-      v `FilterData()` Successful
-      Saving dfAE to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
-      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 1 rows from 2 to 1 rows.
-      v `FilterDomain()` Successful
-      Saving dfAE to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 4: `AE_Map_Raw` --
-      
-      Preparing parameters for `AE_Map_Raw()` ...
-      Calling `AE_Map_Raw()` ...
-      
-      -- Checking Input Data for `AE_Map_Raw()` --
-      
-      v No issues found for `AE_Map_Raw()`
-      
-      -- Initializing `AE_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `AE_Map_Raw()` returned output with 3 rows.
-      v `AE_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 4 of 4: `AE_Assess` --
-      
-      Preparing parameters for `AE_Assess()` ...
-      Calling `AE_Assess()` ...
-      
-      -- Checking Input Data for `AE_Assess()` --
-      
-      v No issues found for `AE_Assess()`
-      
-      -- Initializing `AE_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `AE_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `aeGrade_2` assessment -----------------------------------------
-      
-      -- Workflow Step 1 of 4: `FilterData` --
-      
-      Preparing parameters for `FilterData()` ...
-      Calling `FilterData()` ...
-      Applying subset: `AE_GRADE %in% ("3")`
-      v Subset removed 3 rows from 4 to 1 rows.
-      v `FilterData()` Successful
-      Saving dfAE to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
-      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 0 rows from 1 to 1 rows.
-      i NOTE: No rows dropped.
-      v `FilterDomain()` Successful
-      Saving dfAE to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 4: `AE_Map_Raw` --
-      
-      Preparing parameters for `AE_Map_Raw()` ...
-      Calling `AE_Map_Raw()` ...
-      
-      -- Checking Input Data for `AE_Map_Raw()` --
-      
-      v No issues found for `AE_Map_Raw()`
-      
-      -- Initializing `AE_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `AE_Map_Raw()` returned output with 3 rows.
-      v `AE_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 4 of 4: `AE_Assess` --
-      
-      Preparing parameters for `AE_Assess()` ...
-      Calling `AE_Assess()` ...
-      
-      -- Checking Input Data for `AE_Assess()` --
-      
-      v No issues found for `AE_Assess()`
-      
-      -- Initializing `AE_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `AE_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `aeGrade_3` assessment -----------------------------------------
-      
-      -- Workflow Step 1 of 4: `FilterData` --
-      
-      Preparing parameters for `FilterData()` ...
-      Calling `FilterData()` ...
-      Applying subset: `AE_GRADE %in% ("4")`
-      v Subset removed 3 rows from 4 to 1 rows.
-      v `FilterData()` Successful
-      Saving dfAE to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
-      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 1 rows from 1 to 0 rows.
-      ! WARNING: Filtered data has 0 rows.
-      v `FilterDomain()` Successful
-      Saving dfAE to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 4: `AE_Map_Raw` --
-      
-      Preparing parameters for `AE_Map_Raw()` ...
-      Calling `AE_Map_Raw()` ...
-      
-      -- Checking Input Data for `AE_Map_Raw()` --
-      
-      v No issues found for `AE_Map_Raw()`
-      
-      -- Initializing `AE_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 3 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `AE_Map_Raw()` returned output with 3 rows.
-      v `AE_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 4 of 4: `AE_Assess` --
-      
-      Preparing parameters for `AE_Assess()` ...
-      Calling `AE_Assess()` ...
-      
-      -- Checking Input Data for `AE_Assess()` --
-      
-      v No issues found for `AE_Assess()`
-      
-      -- Initializing `AE_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `AE_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      v All stratified outputs were successfully consolidated.
-      
-      -- Initializing `aeQTL` assessment ---------------------------------------------
-      
-      -- Workflow Step 1 of 3: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
-      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
-      v `FilterDomain()` Successful
-      Saving dfAE to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 3: `AE_Map_Raw` --
-      
-      Preparing parameters for `AE_Map_Raw()` ...
-      Calling `AE_Map_Raw()` ...
-      
-      -- Checking Input Data for `AE_Map_Raw()` --
-      
-      v No issues found for `AE_Map_Raw()`
-      
-      -- Initializing `AE_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `AE_Map_Raw()` returned output with 3 rows.
-      v `AE_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 3: `AE_Assess` --
-      
-      Preparing parameters for `AE_Assess()` ...
-      Calling `AE_Assess()` ...
-      
-      -- Checking Input Data for `AE_Assess()` --
-      
-      v No issues found for `AE_Assess()`
-      
-      -- Initializing `AE_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `AE_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `consent` assessment -------------------------------------------
-      
-      -- Workflow Step 1 of 2: `Consent_Map_Raw` --
-      
-      Preparing parameters for `Consent_Map_Raw()` ...
-      Calling `Consent_Map_Raw()` ...
-      
-      -- Checking Input Data for `Consent_Map_Raw()` --
-      
-      v No issues found for `Consent_Map_Raw()`
-      
-      -- Initializing `Consent_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
-      v `Consent_Map_Raw()` returned output with 3 rows.
-      v `Consent_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 2: `Consent_Assess` --
-      
-      Preparing parameters for `Consent_Assess()` ...
-      Calling `Consent_Assess()` ...
-      
-      -- Checking Input Data for `Consent_Assess()` --
-      
-      v No issues found for `Consent_Assess()`
-      
-      -- Initializing `Consent_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      `Score` column created from `KRI`.
-      `ScoreLabel` column created from `KRILabel`.
-      i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Count()` created a chart.
-      v `Consent_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `dispStudy` assessment -----------------------------------------
-      
-      -- Workflow Step 1 of 2: `Disp_Map_Raw` --
-      
-      Preparing parameters for `Disp_Map_Raw()` ...
-      Calling `Disp_Map_Raw()` ...
-      
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
-      
-      v No issues found for `Disp_Map_Raw_Study()`
-      
-      -- Initializing `Disp_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
-      v `Disp_Map_Raw()` returned output with 3 rows.
-      v `Disp_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 2: `Disp_Assess` --
-      
-      Preparing parameters for `Disp_Assess()` ...
-      Calling `Disp_Assess()` ...
-      
-      -- Checking Input Data for `Disp_Assess()` --
-      
-      v No issues found for `Disp_Assess()`
-      
-      -- Initializing `Disp_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      v `Analyze_Chisq()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `Disp_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `dispStudyWithdrew` assessment ---------------------------------
-      
-      -- Workflow Step 1 of 3: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfDISP domain
-      Filtering on `StudDCReason %in% c("Withdrew Consent")`.
-      v Filtered on `StudDCReason %in% c("Withdrew Consent")` to drop 2 rows from 3 to 1 rows.
-      v `FilterDomain()` Successful
-      Saving dfDISP to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 3: `Disp_Map_Raw` --
-      
-      Preparing parameters for `Disp_Map_Raw()` ...
-      Calling `Disp_Map_Raw()` ...
-      
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
-      
-      v No issues found for `Disp_Map_Raw_Study()`
-      
-      -- Initializing `Disp_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
-      v `Disp_Map_Raw()` returned output with 3 rows.
-      v `Disp_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 3: `Disp_Assess` --
-      
-      Preparing parameters for `Disp_Assess()` ...
-      Calling `Disp_Assess()` ...
-      
-      -- Checking Input Data for `Disp_Assess()` --
-      
-      v No issues found for `Disp_Assess()`
-      
-      -- Initializing `Disp_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      v `Analyze_Chisq()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `Disp_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `dispTreatment` assessment -------------------------------------
-      
-      -- Workflow Step 1 of 2: `Disp_Map_Raw` --
-      
-      Preparing parameters for `Disp_Map_Raw()` ...
-      Calling `Disp_Map_Raw()` ...
-      
-      -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
-      
-      v No issues found for `Disp_Map_Raw_Treatment()`
-      
-      -- Initializing `Disp_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
-      v `Disp_Map_Raw()` returned output with 3 rows.
-      v `Disp_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 2: `Disp_Assess` --
-      
-      Preparing parameters for `Disp_Assess()` ...
-      Calling `Disp_Assess()` ...
-      
-      -- Checking Input Data for `Disp_Assess()` --
-      
-      v No issues found for `Disp_Assess()`
-      
-      -- Initializing `Disp_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      v `Analyze_Chisq()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `Disp_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `ie` assessment ------------------------------------------------
-      
-      -- Workflow Step 1 of 2: `IE_Map_Raw` --
-      
-      Preparing parameters for `IE_Map_Raw()` ...
-      Calling `IE_Map_Raw()` ...
-      
-      -- Checking Input Data for `IE_Map_Raw()` --
-      
-      v No issues found for `IE_Map_Raw()`
-      
-      -- Initializing `IE_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 1 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `IE_Map_Raw()` returned output with 3 rows.
-      v `IE_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 2: `IE_Assess` --
-      
-      Preparing parameters for `IE_Assess()` ...
-      Calling `IE_Assess()` ...
-      
-      -- Checking Input Data for `IE_Assess()` --
-      
-      v No issues found for `IE_Assess()`
-      
-      -- Initializing `IE_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      `Score` column created from `KRI`.
-      `ScoreLabel` column created from `KRILabel`.
-      i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed` with added `ScoreLabel` column.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Count()` created a chart.
-      v `IE_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `importantpd` assessment ---------------------------------------
-      
-      -- Workflow Step 1 of 3: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfPD domain
-      Filtering on `PD_IMPORTANT_FLAG %in% c("Y")`.
-      v Filtered on `PD_IMPORTANT_FLAG %in% c("Y")` to drop 5 rows from 8 to 3 rows.
-      v `FilterDomain()` Successful
-      Saving dfPD to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 3: `PD_Map_Raw` --
-      
-      Preparing parameters for `PD_Map_Raw()` ...
-      Calling `PD_Map_Raw()` ...
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      v No issues found for `PD_Map_Raw()`
-      
-      -- Initializing `PD_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `PD_Map_Raw()` returned output with 3 rows.
-      v `PD_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 3: `PD_Assess` --
-      
-      Preparing parameters for `PD_Assess()` ...
-      Calling `PD_Assess()` ...
-      
-      -- Checking Input Data for `PD_Assess()` --
-      
-      v No issues found for `PD_Assess()`
-      
-      -- Initializing `PD_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `PD_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `kri0001` assessment -------------------------------------------
       
@@ -774,51 +733,22 @@
       
       -- Checking Input Data for `FilterDomain()` --
       
-      v No issues found for dfPD domain
-      Filtering on `PD_IMPORTANT_FLAG %in% c("N")`.
-      v Filtered on `PD_IMPORTANT_FLAG %in% c("N")` to drop 3 rows from 8 to 5 rows.
-      v `FilterDomain()` Successful
+      x df is not a data.frame()
+      x the following columns not found in df: PD_IMPORTANT_FLAG
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for dfPD domain
+      ! `FilterDomain()` Failed - Skipping remaining steps
       Saving dfPD to `lAssessment$lData`
       
       -- Workflow Step 2 of 3: `PD_Map_Raw` --
       
-      Preparing parameters for `PD_Map_Raw()` ...
-      Calling `PD_Map_Raw()` ...
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      v No issues found for `PD_Map_Raw()`
-      
-      -- Initializing `PD_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 1 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `PD_Map_Raw()` returned output with 3 rows.
-      v `PD_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
+      Skipping `PD_Map_Raw()` ...
       
       -- Workflow Step 3 of 3: `PD_Assess` --
       
-      Preparing parameters for `PD_Assess()` ...
-      Calling `PD_Assess()` ...
-      
-      -- Checking Input Data for `PD_Assess()` --
-      
-      v No issues found for `PD_Assess()`
-      
-      -- Initializing `PD_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `PD_Assess()` Successful
-      Saving lResults to `lAssessment`
+      Skipping `PD_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `kri0004` assessment -------------------------------------------
@@ -830,51 +760,22 @@
       
       -- Checking Input Data for `FilterDomain()` --
       
-      v No issues found for dfPD domain
-      Filtering on `PD_IMPORTANT_FLAG %in% c("Y")`.
-      v Filtered on `PD_IMPORTANT_FLAG %in% c("Y")` to drop 5 rows from 8 to 3 rows.
-      v `FilterDomain()` Successful
+      x df is not a data.frame()
+      x the following columns not found in df: PD_IMPORTANT_FLAG
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for dfPD domain
+      ! `FilterDomain()` Failed - Skipping remaining steps
       Saving dfPD to `lAssessment$lData`
       
       -- Workflow Step 2 of 3: `PD_Map_Raw` --
       
-      Preparing parameters for `PD_Map_Raw()` ...
-      Calling `PD_Map_Raw()` ...
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      v No issues found for `PD_Map_Raw()`
-      
-      -- Initializing `PD_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `PD_Map_Raw()` returned output with 3 rows.
-      v `PD_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
+      Skipping `PD_Map_Raw()` ...
       
       -- Workflow Step 3 of 3: `PD_Assess` --
       
-      Preparing parameters for `PD_Assess()` ...
-      Calling `PD_Assess()` ...
-      
-      -- Checking Input Data for `PD_Assess()` --
-      
-      v No issues found for `PD_Assess()`
-      
-      -- Initializing `PD_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `PD_Assess()` Successful
-      Saving lResults to `lAssessment`
+      Skipping `PD_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `kri0005` assessment -------------------------------------------
@@ -886,33 +787,19 @@
       
       -- Checking Input Data for `LB_Map_Raw()` --
       
-      v No issues found for `LB_Map_Raw()`
-      
-      -- Initializing `LB_Map_Raw()` --
-      
-      v `LB_Map_Raw()` returned output with 18 rows.
-      v `LB_Map_Raw()` Successful
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, LB_ABN_FLAG
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `LB_Map_Raw()`
+      ! `LB_Map_Raw()` did not run because of failed check.
+      ! `LB_Map_Raw()` Failed - Skipping remaining steps
       Saving dfInput to `lAssessment$lData`
       
       -- Workflow Step 2 of 2: `LB_Assess` --
       
-      Preparing parameters for `LB_Assess()` ...
-      Calling `LB_Assess()` ...
-      
-      -- Checking Input Data for `LB_Assess()` --
-      
-      v No issues found for `LB_Assess()`
-      
-      -- Initializing `LB_Assess()` --
-      
-      Input data has 18 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      v `Analyze_Fisher()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `LB_Assess()` Successful
-      Saving lResults to `lAssessment`
+      Skipping `LB_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `kri0006` assessment -------------------------------------------
@@ -924,6 +811,7 @@
       
       -- Checking Input Data for `FilterDomain()` --
       
+      x df is not a data.frame()
       x the following columns not found in df: LB_GRADE
       x NA check not run
       x Empty Value check not run
@@ -950,35 +838,19 @@
       
       -- Checking Input Data for `Disp_Map_Raw_Study()` --
       
-      v No issues found for `Disp_Map_Raw_Study()`
-      
-      -- Initializing `Disp_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
-      v `Disp_Map_Raw()` returned output with 3 rows.
-      v `Disp_Map_Raw()` Successful
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, StudDCReason, StudCompletion
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Disp_Map_Raw_Study()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! `Disp_Map_Raw()` Failed - Skipping remaining steps
       Saving dfInput to `lAssessment$lData`
       
       -- Workflow Step 2 of 2: `Disp_Assess` --
       
-      Preparing parameters for `Disp_Assess()` ...
-      Calling `Disp_Assess()` ...
-      
-      -- Checking Input Data for `Disp_Assess()` --
-      
-      v No issues found for `Disp_Assess()`
-      
-      -- Initializing `Disp_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      v `Analyze_Fisher()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `Disp_Assess()` Successful
-      Saving lResults to `lAssessment`
+      Skipping `Disp_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `kri0008` assessment -------------------------------------------
@@ -990,487 +862,18 @@
       
       -- Checking Input Data for `Disp_Map_Raw_Treatment()` --
       
-      v No issues found for `Disp_Map_Raw_Treatment()`
-      
-      -- Initializing `Disp_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
-      v `Disp_Map_Raw()` returned output with 3 rows.
-      v `Disp_Map_Raw()` Successful
+      x df is not a data.frame()
+      x the following columns not found in df: SubjectID, TrtDCReason, TrtCompletion
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Disp_Map_Raw_Treatment()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! `Disp_Map_Raw()` Failed - Skipping remaining steps
       Saving dfInput to `lAssessment$lData`
       
       -- Workflow Step 2 of 2: `Disp_Assess` --
       
-      Preparing parameters for `Disp_Assess()` ...
-      Calling `Disp_Assess()` ...
-      
-      -- Checking Input Data for `Disp_Assess()` --
-      
-      v No issues found for `Disp_Assess()`
-      
-      -- Initializing `Disp_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      v `Analyze_Fisher()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `Disp_Assess()` Successful
-      Saving lResults to `lAssessment`
+      Skipping `Disp_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `lb` assessment ------------------------------------------------
-      
-      -- Workflow Step 1 of 3: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      x the following columns not found in df: LB_TE_FLAG
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for dfLB domain
-      ! `FilterDomain()` Failed - Skipping remaining steps
-      Saving dfLB to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 3: `LB_Map_Raw` --
-      
-      Skipping `LB_Map_Raw()` ...
-      
-      -- Workflow Step 3 of 3: `LB_Assess` --
-      
-      Skipping `LB_Assess()` ...
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `lbCategory` workflow ------------------------------------------
-      
-      -- Initializing `lbCategory` assessment ----------------------------------------
-      
-      -- Workflow Step 1 of 3: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      x the following columns not found in df: LB_TE_FLAG
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for dfLB domain
-      ! `FilterDomain()` Failed - Skipping remaining steps
-      Saving dfLB to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 3: `LB_Map_Raw` --
-      
-      Skipping `LB_Map_Raw()` ...
-      
-      -- Workflow Step 3 of 3: `LB_Assess` --
-      
-      Skipping `LB_Assess()` ...
-      v `Visualize_Workflow()` created a flowchart.
-      i Stratified workflow created for each level of dfLB$LBCAT (n=2).
-      
-      -- Initializing `lbCategory_1` assessment --------------------------------------
-      
-      -- Workflow Step 1 of 4: `FilterData` --
-      
-      Preparing parameters for `FilterData()` ...
-      Calling `FilterData()` ...
-      Applying subset: `LBCAT %in% ("Chemistry")`
-      v Subset removed 6 rows from 18 to 12 rows.
-      v `FilterData()` Successful
-      Saving dfLB to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      x the following columns not found in df: LB_TE_FLAG
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for dfLB domain
-      ! `FilterDomain()` Failed - Skipping remaining steps
-      Saving dfLB to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 4: `LB_Map_Raw` --
-      
-      Skipping `LB_Map_Raw()` ...
-      
-      -- Workflow Step 4 of 4: `LB_Assess` --
-      
-      Skipping `LB_Assess()` ...
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `lbCategory_2` assessment --------------------------------------
-      
-      -- Workflow Step 1 of 4: `FilterData` --
-      
-      Preparing parameters for `FilterData()` ...
-      Calling `FilterData()` ...
-      Applying subset: `LBCAT %in% ("Hematology")`
-      v Subset removed 12 rows from 18 to 6 rows.
-      v `FilterData()` Successful
-      Saving dfLB to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      x the following columns not found in df: LB_TE_FLAG
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for dfLB domain
-      ! `FilterDomain()` Failed - Skipping remaining steps
-      Saving dfLB to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 4: `LB_Map_Raw` --
-      
-      Skipping `LB_Map_Raw()` ...
-      
-      -- Workflow Step 4 of 4: `LB_Assess` --
-      
-      Skipping `LB_Assess()` ...
-      v `Visualize_Workflow()` created a flowchart.
-      ! One or more stratified workflows did not run successfully.
-      
-      -- Initializing `pd` assessment ------------------------------------------------
-      
-      -- Workflow Step 1 of 2: `PD_Map_Raw` --
-      
-      Preparing parameters for `PD_Map_Raw()` ...
-      Calling `PD_Map_Raw()` ...
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      v No issues found for `PD_Map_Raw()`
-      
-      -- Initializing `PD_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      v `PD_Map_Raw()` returned output with 3 rows.
-      v `PD_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 2: `PD_Assess` --
-      
-      Preparing parameters for `PD_Assess()` ...
-      Calling `PD_Assess()` ...
-      
-      -- Checking Input Data for `PD_Assess()` --
-      
-      v No issues found for `PD_Assess()`
-      
-      -- Initializing `PD_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `PD_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `pdCategory` workflow ------------------------------------------
-      
-      -- Initializing `pdCategory` assessment ----------------------------------------
-      
-      -- Workflow Step 1 of 2: `PD_Map_Raw` --
-      
-      Preparing parameters for `PD_Map_Raw()` ...
-      Calling `PD_Map_Raw()` ...
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      v No issues found for `PD_Map_Raw()`
-      
-      -- Initializing `PD_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      v `PD_Map_Raw()` returned output with 3 rows.
-      v `PD_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 2: `PD_Assess` --
-      
-      Preparing parameters for `PD_Assess()` ...
-      Calling `PD_Assess()` ...
-      
-      -- Checking Input Data for `PD_Assess()` --
-      
-      v No issues found for `PD_Assess()`
-      
-      -- Initializing `PD_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `PD_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      i Stratified workflow created for each level of dfPD$DVDECOD (n=3).
-      
-      -- Initializing `pdCategory_1` assessment --------------------------------------
-      
-      -- Workflow Step 1 of 3: `FilterData` --
-      
-      Preparing parameters for `FilterData()` ...
-      Calling `FilterData()` ...
-      Applying subset: `DVDECOD %in% ("NONADHERENCE OF STUDY DRUG")`
-      v Subset removed 5 rows from 8 to 3 rows.
-      v `FilterData()` Successful
-      Saving dfPD to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 3: `PD_Map_Raw` --
-      
-      Preparing parameters for `PD_Map_Raw()` ...
-      Calling `PD_Map_Raw()` ...
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      v No issues found for `PD_Map_Raw()`
-      
-      -- Initializing `PD_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 1 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `PD_Map_Raw()` returned output with 3 rows.
-      v `PD_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 3: `PD_Assess` --
-      
-      Preparing parameters for `PD_Assess()` ...
-      Calling `PD_Assess()` ...
-      
-      -- Checking Input Data for `PD_Assess()` --
-      
-      v No issues found for `PD_Assess()`
-      
-      -- Initializing `PD_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `PD_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `pdCategory_2` assessment --------------------------------------
-      
-      -- Workflow Step 1 of 3: `FilterData` --
-      
-      Preparing parameters for `FilterData()` ...
-      Calling `FilterData()` ...
-      Applying subset: `DVDECOD %in% ("STUDY MEDICATION")`
-      v Subset removed 6 rows from 8 to 2 rows.
-      v `FilterData()` Successful
-      Saving dfPD to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 3: `PD_Map_Raw` --
-      
-      Preparing parameters for `PD_Map_Raw()` ...
-      Calling `PD_Map_Raw()` ...
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      v No issues found for `PD_Map_Raw()`
-      
-      -- Initializing `PD_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 1 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `PD_Map_Raw()` returned output with 3 rows.
-      v `PD_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 3: `PD_Assess` --
-      
-      Preparing parameters for `PD_Assess()` ...
-      Calling `PD_Assess()` ...
-      
-      -- Checking Input Data for `PD_Assess()` --
-      
-      v No issues found for `PD_Assess()`
-      
-      -- Initializing `PD_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `PD_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `pdCategory_3` assessment --------------------------------------
-      
-      -- Workflow Step 1 of 3: `FilterData` --
-      
-      Preparing parameters for `FilterData()` ...
-      Calling `FilterData()` ...
-      Applying subset: `DVDECOD %in% ("SUBJECT NOT MANAGED ACCORDING TO PROTOCOL")`
-      v Subset removed 5 rows from 8 to 3 rows.
-      v `FilterData()` Successful
-      Saving dfPD to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 3: `PD_Map_Raw` --
-      
-      Preparing parameters for `PD_Map_Raw()` ...
-      Calling `PD_Map_Raw()` ...
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      v No issues found for `PD_Map_Raw()`
-      
-      -- Initializing `PD_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      v `PD_Map_Raw()` returned output with 3 rows.
-      v `PD_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 3: `PD_Assess` --
-      
-      Preparing parameters for `PD_Assess()` ...
-      Calling `PD_Assess()` ...
-      
-      -- Checking Input Data for `PD_Assess()` --
-      
-      v No issues found for `PD_Assess()`
-      
-      -- Initializing `PD_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `PD_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-      v All stratified outputs were successfully consolidated.
-      
-      -- Initializing `sae` assessment -----------------------------------------------
-      
-      -- Workflow Step 1 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
-      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
-      v `FilterDomain()` Successful
-      Saving dfAE to `lAssessment$lData`
-      
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `AE_SERIOUS %in% c("Yes")`.
-      v Filtered on `AE_SERIOUS %in% c("Yes")` to drop 2 rows from 2 to 0 rows.
-      ! WARNING: Filtered data has 0 rows.
-      v `FilterDomain()` Successful
-      Saving dfAE to `lAssessment$lData`
-      
-      -- Workflow Step 3 of 4: `AE_Map_Raw` --
-      
-      Preparing parameters for `AE_Map_Raw()` ...
-      Calling `AE_Map_Raw()` ...
-      
-      -- Checking Input Data for `AE_Map_Raw()` --
-      
-      v No issues found for `AE_Map_Raw()`
-      
-      -- Initializing `AE_Map_Raw()` --
-      
-      i Intializing merge of domain and subject data
-      i 3 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
-      v `AE_Map_Raw()` returned output with 3 rows.
-      v `AE_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
-      
-      -- Workflow Step 4 of 4: `AE_Assess` --
-      
-      Preparing parameters for `AE_Assess()` ...
-      Calling `AE_Assess()` ...
-      
-      -- Checking Input Data for `AE_Assess()` --
-      
-      v No issues found for `AE_Assess()`
-      
-      -- Initializing `AE_Assess()` --
-      
-      Input data has 3 rows.
-      v `Transform_EventCount()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created a chart.
-      v `AE_Assess()` Successful
-      Saving lResults to `lAssessment`
-      v `Visualize_Workflow()` created a flowchart.
-
-# incorrect lTags throw errors
-
-    lTags is not named
-
----
-
-    lTags is not named
-
----
-
-    lTags has unnamed elements
-
----
-
-    lTags cannot contain elements named: 'Assessment', 'Label'
-
----
-
-    lTags cannot contain elements named: 'Assessment', 'Label'
 
