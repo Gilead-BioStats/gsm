@@ -1,10 +1,15 @@
 dfPD:
   vRequired:
     - strIDCol
+  vNACols:
+    - strIDCol
 dfSUBJ:
   vRequired:
     - strIDCol
+    - strAlternateIDCol
     - strSiteCol
     - strTimeOnStudyCol
   vUniqueCols:
     - strIDCol
+  vNACols:
+    - strAlternateIDCol

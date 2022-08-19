@@ -65,11 +65,15 @@ PD_Map_Raw <- function(
 
     # Standarize Column Names
     dfPD_mapped <- dfs$dfPD %>%
-      select(SubjectID = lMapping[["dfPD"]][["strIDCol"]])
+      select(SubjectID = lMapping[["dfPD"]][["strIDCol"]]) %>%
+      RemoveInvalidSubjectIDs(
+        'dfPD',
+        bQuiet = bQuiet
+      )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
-        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        SubjectID = lMapping[["dfSUBJ"]][["strAlternateIDCol"]],
         any_of(
           c(
             SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
@@ -78,6 +82,10 @@ PD_Map_Raw <- function(
           )
         ),
         Exposure = lMapping[["dfSUBJ"]][["strTimeOnStudyCol"]]
+      ) %>%
+      RemoveInvalidSubjectIDs(
+        'dfSUBJ',
+        bQuiet = bQuiet
       )
 
     # Create Subject Level PD Counts and merge Subj

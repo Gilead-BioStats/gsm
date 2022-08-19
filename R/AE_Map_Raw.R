@@ -80,7 +80,6 @@ AE_Map_Raw <- function(
         Exposure = lMapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
       )
 
-
     # Create Subject Level AE Counts and merge dfSUBJ
     dfInput <- dfAE_mapped %>%
       group_by(.data$SubjectID) %>%

@@ -2,6 +2,7 @@ dfSUBJ:
   strStudyCol: studyid
   strSiteCol: siteid
   strIDCol: subjectid
+  strAlternateIDCol: subjid
   strTimeOnStudyCol: timeonstudy
   strTimeOnTreatmentCol: timeontreatment
 dfAE:
@@ -12,7 +13,7 @@ dfAE:
   strSeriousCol: aeser
   strSeriousVal: Y
 dfPD:
-  strIDCol: subjectid
+  strIDCol: subjid
   strCategoryCol: dvdecod
   strImportantCol: importnt
   strImportantVal: Y
@@ -40,6 +41,7 @@ dfDISP:
   strStudyDiscontinuationReasonVal: consent
   strStudyCompletionFlagCol: compyn
   strStudyCompletionFlagVal: Y
+  strTreatmentPhaseCol: datapagename # or foldername - temporary - should be phase
   strTreatmentDiscontinuationReasonCol: sdrgreas
   strTreatmentDiscontinuationReasonVal: withdrawal
   strTreatmentCompletionFlagCol: sdrgyn
@@ -52,6 +54,7 @@ dfDISP_Study:
   strStudyCompletionFlagVal: Y
 dfDISP_Treatment:
   strIDCol: subjectid
+  strTreatmentPhaseCol: datapagename # or foldername - temporary - should be phase
   strTreatmentDiscontinuationReasonCol: sdrgreas
   strTreatmentDiscontinuationReasonVal: withdrawal
   strTreatmentCompletionFlagCol: sdrgyn

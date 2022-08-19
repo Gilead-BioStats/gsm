@@ -48,8 +48,9 @@ Disp_Map_Raw <- function(
     dfDISP_Study = clindata::studcomp,
     dfDISP_Treatment = clindata::sdrgcomp
   ),
-  strContext = "Study",
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  strContext = "Study",
+  strTreatmentPhase = NULL,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
@@ -94,7 +95,7 @@ Disp_Map_Raw <- function(
 
     dfInput <- gsm::MergeSubjects(
       dfDomain = dfDISP_mapped,
-      dfSubjects = dfSUBJ_mapped,
+      dfSUBJ = dfSUBJ_mapped,
       bQuiet = bQuiet
     ) %>%
       mutate(
