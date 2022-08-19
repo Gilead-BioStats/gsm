@@ -11,8 +11,8 @@ workflow:
       strValParam: strTreatmentEmergentVal
   - name: LB_Map_Raw
     inputs:
-      - dfLB
       - dfSUBJ
+      - dfLB
     output: dfInput
   - name: LB_Assess
     inputs: dfInput

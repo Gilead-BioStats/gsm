@@ -4,8 +4,8 @@ tags:
 workflow:
   - name: IE_Map_Raw
     inputs:
-      - dfIE
       - dfSUBJ
+      - dfIE
     output: dfInput
   - name: IE_Assess
     inputs: dfInput

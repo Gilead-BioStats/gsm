@@ -40,7 +40,7 @@
 
 IE_Map_Raw <- function(
   dfs = list(
-    dfSUBJ = clindata::rawplus_subj,
+    dfSUBJ = clindata::rawplus_dm,
     dfIE = clindata::rawplus_ie
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),

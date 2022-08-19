@@ -11,8 +11,8 @@ workflow:
       strValParam: strImportantVal
   - name: PD_Map_Raw
     inputs:
-      - dfPD
       - dfSUBJ
+      - dfPD
     output: dfInput
   - name: PD_Assess
     inputs: dfInput

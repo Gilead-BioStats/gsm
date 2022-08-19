@@ -16,7 +16,7 @@
 #' )
 #'
 #' is_mapping_valid(
-#'   df = clindata::rawplus_subj,
+#'   df = clindata::rawplus_dm,
 #'   mapping = subj_mapping,
 #'   spec = list(
 #'     vRequired = c("strIDCol", "strSiteCol", "strExposureCol"),
@@ -25,7 +25,7 @@
 #' )
 #'
 #' is_mapping_valid(
-#'   df = clindata::rawplus_subj,
+#'   df = clindata::rawplus_dm,
 #'   mapping = subj_mapping,
 #'   spec = list(
 #'     vUniqueCols = "SUBJID",

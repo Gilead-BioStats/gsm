@@ -12,7 +12,7 @@
 #' @examples
 #' MergeSubjects(
 #'   dfDomain = clindata::rawplus_consent,
-#'   dfSUBJ = clindata::rawplus_subj,
+#'   dfSUBJ = clindata::rawplus_dm,
 #'   strIDCol = "SubjectID"
 #' )
 #'

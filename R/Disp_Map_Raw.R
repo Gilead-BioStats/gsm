@@ -44,9 +44,9 @@
 
 Disp_Map_Raw <- function(
   dfs = list(
-    dfSUBJ = clindata::dm,
-    dfDISP_Study = clindata::studcomp,
-    dfDISP_Treatment = clindata::sdrgcomp
+    dfSUBJ = clindata::rawplus_dm,
+    dfDISP_Study = clindata::rawplus_studcomp,
+    dfDISP_Treatment = clindata::rawplus_sdrgcomp
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   strContext = "Study",
@@ -72,14 +72,31 @@ Disp_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn Disp_Map_Raw}")
 
     # Standarize Column Names
-    dfDISP_mapped <- dfs$dfDISP %>%
-      select(
-        SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
-        DCReason = lMapping[["dfDISP"]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
-        Completion = lMapping[["dfDISP"]][[glue::glue("str{strContext}CompletionFlagCol")]]
-      ) %>%
-      filter(!.data$Completion %in% lMapping[["dfDISP"]][[glue::glue("str{strContext}CompletionFlagVal")]]) %>%
-      mutate(Count = 1)
+    dfDISP <- dfs$dfDISP
+    if (strContext == 'Treatment') {
+        if (is.null(strTreatmentPhase)) {
+            strTreatmentPhase <- dfs$dfDISP[[ lMapping$dfDISP$strTreatmentPhaseCol ]] %>%
+                table %>%
+                sort(decreasing = TRUE) %>%
+                names %>%
+                head(1)
+            print(strTreatmentPhase)
+        }
+
+        dfDISP <- dfDISP %>%
+            filter(
+                .data[[ lMapping$dfDISP$strTreatmentPhaseCol ]] == strTreatmentPhase
+            )
+    }
+
+    dfDISP_mapped <- dfDISP %>%
+        select(
+            SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
+            DCReason = lMapping[["dfDISP"]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
+            Completion = lMapping[["dfDISP"]][[glue::glue("str{strContext}CompletionFlagCol")]]
+        ) %>%
+        filter(!.data$Completion %in% lMapping[["dfDISP"]][[glue::glue("str{strContext}CompletionFlagVal")]]) %>%
+        mutate(Count = 1)
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
