@@ -103,12 +103,10 @@ Disp_Assess <- function(
 
   lAssess <- list(
     strFunctionName = deparse(sys.call()[1]),
-    lParams = lapply(as.list(match.call()[-1]), function(x) as.character(x)),
+    lParams = lapply(imap(formals()[! names(formals()) %in% c("dfInput", "lTags")], function(x, y){eval(sym(y))}), as.character),
     lTags = lTags,
     dfInput = dfInput
   )
-
-  lAssess2 <- MakeLAssess(dfInput = dfInput, lTags = lTags)
 
 
   mapping <- yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm"))

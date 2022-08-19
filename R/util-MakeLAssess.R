@@ -11,7 +11,7 @@
 #' @importFrom purrr map
 MakeLAssess <- function() {
 
-  browser()
+
   # get parent environment's function name
   strFunctionName <- deparse(sys.call(which = sys.nframe() - 1)[1])
 

@@ -24,7 +24,6 @@ test_that("output is created as expected", {
 test_that("metadata is returned as expected", {
   assessment <- assess_function(dfInput, nThreshold = 0.6)
   expect_equal("assess_function()", assessment$strFunctionName)
-  expect_equal("dfInput", assessment$lParams$dfInput)
   expect_equal("0.6", assessment$lParams$nThreshold)
   expect_equal("Consent", assessment$lTags$Assessment)
   expect_true("ggplot" %in% class(assessment$chart))

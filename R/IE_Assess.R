@@ -93,7 +93,7 @@ IE_Assess <- function(dfInput,
 
   lAssess <- list(
     strFunctionName = deparse(sys.call()[1]),
-    lParams = lapply(as.list(match.call()[-1]), function(x) as.character(x)),
+    lParams = lapply(imap(formals()[! names(formals()) %in% c("dfInput", "lTags")], function(x, y){eval(sym(y))}), as.character),
     lTags = lTags,
     dfInput = dfInput
   )
