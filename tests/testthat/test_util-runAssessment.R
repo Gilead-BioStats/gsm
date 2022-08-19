@@ -71,3 +71,21 @@ test_that("workflow with multiple FilterDomain steps is reported correctly", {
 
   expect_equal(names(sae_assessment$checks), c("FilterDomain", "FilterDomain", "AE_Map_Raw", "AE_Assess"))
 })
+
+test_that("lParams is equivalent to Map + Assess", {
+
+  dfInputAE <- AE_Map_Raw(
+    dfs = list(
+      dfAE = dfAE,
+      dfSUBJ = dfSUBJ
+      )
+    )
+
+  aeAssessment <- AE_Assess(
+    dfInputAE,
+    strKRILabel = "Serious Treatment-Emergent AEs/Week",
+    bReturnChecks = T
+    )
+
+  expect_equal(aeAssessment$lParams, sae$lResults$lParams)
+})

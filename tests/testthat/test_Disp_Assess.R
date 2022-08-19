@@ -23,9 +23,14 @@ test_that("output is created as expected", {
 # metadata is returned as expected ----------------------------------------
 test_that("metadata is returned as expected", {
   assessment <- assess_function(dfInput)
+
+  allArgs <- names(formals("Disp_Assess"))
+  expectedArgs <- allArgs[!allArgs %in% c("dfInput", "lTags")]
+
   expect_equal("assess_function()", assessment$strFunctionName)
   expect_equal("Disposition", assessment$lTags$Assessment)
   expect_true("ggplot" %in% class(assessment$chart))
+  expect_true(all(expectedArgs %in% names(assessment$lParams)))
 })
 
 # grouping works as expected ----------------------------------------------
