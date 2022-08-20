@@ -182,7 +182,6 @@
        9 1234      EXCL               0
       10 1234      EXCL               0
       # ... with 30 more rows
-      # i Use `print(n = ...)` to see more rows
       
       $dfDISP
       # A tibble: 3 x 5
