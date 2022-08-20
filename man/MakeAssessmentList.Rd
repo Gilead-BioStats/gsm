@@ -5,20 +5,20 @@
 \title{Load assessments from a package/directory}
 \usage{
 MakeAssessmentList(
-  names = NULL,
-  path = "workflow",
-  package = "gsm",
-  recursive = FALSE
+  strNames = NULL,
+  strPath = "workflow",
+  strPackage = "gsm",
+  bRecursive = FALSE
 )
 }
 \arguments{
-\item{names}{\verb{array of character} List of workflows to include. NULL (the default) includes all workflows in the specified locations.}
+\item{strNames}{\verb{array of character} List of workflows to include. NULL (the default) includes all workflows in the specified locations.}
 
-\item{path}{\code{character} The location of assessment YAML files. If package is specified, function will look in \verb{/inst} folder.}
+\item{strPath}{\code{character} The location of assessment YAML files. If package is specified, function will look in \verb{/inst} folder.}
 
-\item{package}{\code{character} The name of the package with assessments.}
+\item{strPackage}{\code{character} The name of the package with assessments.}
 
-\item{recursive}{\code{boolean} Find files in nested folders? Default FALSE.}
+\item{bRecursive}{\code{boolean} Find files in nested folders? Default FALSE.}
 }
 \value{
 \code{list} A list of assessments with workflow and parameter metadata.
@@ -30,6 +30,6 @@ Load assessments from a package/directory
 \code{MakeAssessmentList()} is a utility function that creates a workflow mapping for assessments used in \code{Study_Assess()}.
 }
 \examples{
-MakeAssessmentList(path = "workflow", package = "gsm")
+MakeAssessmentList(strPath = "workflow", strPackage = "gsm")
 
 }

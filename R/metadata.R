@@ -1,6 +1,6 @@
 #' Workflow Configuration Data
 #'
-#' A dataset containing a sample workflow configuration file for running GSM with data from the {clindata} package. 
+#' A dataset containing a sample workflow configuration file for running GSM with data from the {clindata} package.
 #'
 #' @format A data frame with 8 rows and 12 variables:
 #' \describe{
@@ -34,6 +34,7 @@
 #'
 #' @format A data frame with 8 rows and 12 variables:
 #' \describe{
+#'   \item{studyid}{Study ID}
 #'   \item{workflowid}{Workflow ID}
 #'   \item{gsm_version}{Version of `gsm` that the workflow will be run on.}
 #'   \item{group}{Description of grouping variable: `Site`, `Study`, or `CustomGroup`.}

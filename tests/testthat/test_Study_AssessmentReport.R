@@ -19,8 +19,7 @@ test_that("Assessment Report with all Valid assessments", {
 test_that("Assessment Report with an issue in dfSUBJ", {
   lData <- list(
     dfSUBJ = dfSUBJ,
-    dfAE = dfAE,
-    dfIE = dfIE
+    dfAE = dfAE
   )
 
   lData$dfSUBJ[1, "SubjectID"] <- NA
@@ -52,24 +51,14 @@ test_that("correct messages show when data is not found", {
   report <- Study_AssessmentReport(lAssessments)
 
   expect_equal(
-    report$dfAllChecks %>% filter(domain == "dfCONSENT") %>% pull(notes),
-    "Data not found for consent assessment"
-  )
-
-  expect_equal(
-    report$dfAllChecks %>% filter(domain == "dfIE") %>% pull(notes),
-    "Data not found for ie assessment"
-  )
-
-  expect_equal(
     report$dfAllChecks %>% filter(domain == "dfPD" & step == "FilterDomain") %>% pull(notes),
-    c("Data not found for importantpd assessment", "Data not found for kri0003 assessment",
+    c("Data not found for kri0003 assessment",
       "Data not found for kri0004 assessment")
   )
 
   expect_equal(
     report$dfAllChecks %>%
-      filter(assessment == "pd" & domain == "dfPD" & step == "PD_Map_Raw") %>% pull(notes),
-    "Data not found for pd assessment"
+      filter(domain == "dfPD" & step == "PD_Map_Raw") %>% pull(notes),
+    c("Check not run.", "Check not run.")
   )
 })

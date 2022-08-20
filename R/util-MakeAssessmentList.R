@@ -10,7 +10,7 @@
 #' @param bRecursive `boolean` Find files in nested folders? Default FALSE.
 #'
 #' @examples
-#' MakeAssessmentList(path = "workflow", package = "gsm")
+#' MakeAssessmentList(strPath = "workflow", strPackage = "gsm")
 #'
 #' @return `list` A list of assessments with workflow and parameter metadata.
 #'
