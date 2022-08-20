@@ -1,0 +1,54 @@
+- ID: S6_1
+  Description: Given correct input data a Labs assessment can be done using the chisq method
+  Risk: High
+  Impact: High
+  Tests:
+    - T6_1
+    - T6_2
+- ID: S6_2
+  Description: Given correct input data a Labs assessment can be done using the fisher method
+  Risk: High
+  Impact: High
+  Tests:
+    - T6_3
+    - T6_4
+- ID: S6_2
+  Description: Given correct input data a Labs assessment can be done using the identity method
+  Risk: High
+  Impact: High
+  Tests:
+    - T6_5
+    - T6_6
+    - T6_7
+- ID: S6_3
+  Description: Assessments are correctly grouped by a grouping variable such as site or country for KRIs and study for QTLs when applicable
+  Risk: Low
+  Impact: High
+  Tests:
+    - T6_1
+    - T6_2
+    - T6_3
+    - T6_4
+    - T6_5
+    - T6_6
+    - T6_7
+- ID: S6_4
+  Description: Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding
+  Risk: Medium
+  Impact: High
+  Tests:
+    - T6_1
+    - T6_2
+    - T6_3
+    - T6_4
+    - T6_5
+    - T6_6
+    - T6_7
+- ID: S6_5
+  Description: Given subset input data a Labs assessment can be done
+  Risk: Medium
+  Impact: Medium
+  Tests:
+    - T6_2
+    - T6_4
+    - T6_6
