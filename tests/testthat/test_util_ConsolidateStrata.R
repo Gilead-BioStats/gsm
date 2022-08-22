@@ -5,7 +5,7 @@ lData <- list(
   dfAE = clindata::rawplus_ae
 )
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
-lWorkflow <- MakeAssessmentList()$aeGrade
+lWorkflow <- MakeAssessmentList(bRecursive = TRUE, strNames = "aeGrade")$aeGrade
 lOutput <- RunAssessment(lWorkflow, lData = lData, lMapping = lMapping, bQuiet = TRUE)
 lStratifiedWorkflow <- MakeStratifiedAssessment(
   lWorkflow,

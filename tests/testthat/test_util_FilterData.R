@@ -45,6 +45,7 @@ test_that("filter to 0 rows throws a warning", {
   # because they are throwing informative output like:
   # ℹ Use `colnames()` to see all variable names
   # and the CI and local developer versions aren't currently linked
+
   expect_message(FilterData(dfAE,
     "AE_TE_FLAG",
     TRUE,
