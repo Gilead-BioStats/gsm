@@ -36,7 +36,6 @@
 #'   - `dfSummary`, returned by [gsm::Summarize()]
 #' - assessment metadata
 #'   - `strFunctionName`
-#'   - `lParams`
 #'   - `lTags`
 #' - output(s)
 #'   - `chart`
@@ -105,7 +104,6 @@ LB_Assess <- function(
 
   lAssess <- list(
     strFunctionName = deparse(sys.call()[1]),
-    lParams = lapply(imap(formals()[! names(formals()) %in% c("dfInput", "lTags")], function(x, y){eval(sym(y))}), as.character),
     lTags = lTags,
     dfInput = dfInput
   )

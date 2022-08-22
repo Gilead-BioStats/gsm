@@ -9,29 +9,22 @@ output_mapping <- yaml::read_yaml(system.file("mappings", "IE_Assess.yaml", pack
 test_that("output is created as expected", {
   assessment <- assess_function(dfInput)
   expect_true(is.list(assessment))
-  expect_equal(names(assessment), c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
+  expect_equal(names(assessment), c("strFunctionName", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
   expect_true("data.frame" %in% class(assessment$dfInput))
   expect_true("data.frame" %in% class(assessment$dfTransformed))
   expect_true("data.frame" %in% class(assessment$dfAnalyzed))
   expect_true("data.frame" %in% class(assessment$dfFlagged))
   expect_true("data.frame" %in% class(assessment$dfSummary))
   expect_type(assessment$strFunctionName, "character")
-  expect_type(assessment$lParams, "list")
   expect_type(assessment$lTags, "list")
 })
 
 # metadata is returned as expected ----------------------------------------
 test_that("metadata is returned as expected", {
   assessment <- assess_function(dfInput, nThreshold = 0.755555)
-
-  allArgs <- names(formals("IE_Assess"))
-  expectedArgs <- allArgs[!allArgs %in% c("dfInput", "lTags")]
-
   expect_equal("assess_function()", assessment$strFunctionName)
-  expect_equal("0.755555", assessment$lParams$nThreshold)
   expect_equal("IE", assessment$lTags$Assessment)
   expect_true("ggplot" %in% class(assessment$chart))
-  expect_true(all(expectedArgs %in% names(assessment$lParams)))
 })
 
 # grouping works as expected ----------------------------------------------

@@ -134,29 +134,6 @@
       $strFunctionName
       [1] "assess_function()"
       
-      $lParams
-      $lParams$vThreshold
-      character(0)
-      
-      $lParams$strMethod
-      [1] "poisson"
-      
-      $lParams$strKRILabel
-      [1] "AEs/Week"
-      
-      $lParams$strGroup
-      [1] "Site"
-      
-      $lParams$bChart
-      [1] "TRUE"
-      
-      $lParams$bReturnChecks
-      [1] "FALSE"
-      
-      $lParams$bQuiet
-      [1] "TRUE"
-      
-      
       $lTags
       $lTags$Assessment
       [1] "AE"

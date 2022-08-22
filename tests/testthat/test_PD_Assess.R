@@ -11,7 +11,6 @@ test_that("output is created as expected", {
   expect_true(is.list(assessment))
   expect_equal(names(assessment), c(
     "strFunctionName",
-    "lParams",
     "lTags",
     "dfInput",
     "dfTransformed",
@@ -28,23 +27,16 @@ test_that("output is created as expected", {
   expect_true("data.frame" %in% class(assessment$dfSummary))
   expect_true("data.frame" %in% class(assessment$dfBounds))
   expect_type(assessment$strFunctionName, "character")
-  expect_type(assessment$lParams, "list")
   expect_type(assessment$lTags, "list")
 })
 
 # metadata is returned as expected ----------------------------------------
 test_that("metadata is returned as expected", {
   assessment <- assess_function(dfInput, vThreshold = c(-5.1, 5.1), strMethod = "poisson")
-
-  allArgs <- names(formals("PD_Assess"))
-  expectedArgs <- allArgs[!allArgs %in% c("dfInput", "lTags")]
-
   expect_equal("assess_function()", assessment$strFunctionName)
-  expect_equal("-5.1", assessment$lParams$vThreshold[1])
-  expect_equal("5.1", assessment$lParams$vThreshold[2])
   expect_equal("PD", assessment$lTags$Assessment)
   expect_true("ggplot" %in% class(assessment$chart))
-  expect_true(all(expectedArgs %in% names(assessment$lParams)))
+  
 })
 
 # grouping works as expected ----------------------------------------------
