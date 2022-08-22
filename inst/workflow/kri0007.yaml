@@ -1,6 +1,7 @@
 tags:
-  Assessment: Disposition
-  Label: Treatment
+  Assessment: Subject Discontinuation
+  Label: Study
+  KRIID: kri0007
 workflow:
   - name: Disp_Map_Raw
     inputs:
@@ -8,12 +9,11 @@ workflow:
       - dfSUBJ
     output: dfInput
     params:
-      strContext: Treatment
+      strContext: Study
   - name: Disp_Assess
     inputs: dfInput
     output: lResults
     params:
       strGroup: "Site"
       vThreshold: null
-      strMethod: "chisq"
-
+      strMethod: "fisher"

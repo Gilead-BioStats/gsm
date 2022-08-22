@@ -1,14 +1,15 @@
 tags:
-  Assessment: Safety
+  Assessment: SAE Reporting Rate
   Label: AEs
+  KRIID: kri0002
 workflow:
   - name: FilterDomain
     inputs: dfAE
     output: dfAE
     params:
       strDomain: dfAE
-      strColParam: strTreatmentEmergentCol
-      strValParam: strTreatmentEmergentVal
+      strColParam: strSeriousCol
+      strValParam: strSeriousVal
   - name: AE_Map_Raw
     inputs:
       - dfAE

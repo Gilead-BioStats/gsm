@@ -16,7 +16,7 @@ A flowchart of type \code{grViz}/\code{htmlwidget}.
 Flowchart visualization of data pipeline steps from filtering to summary data for an assessment workflow.
 }
 \examples{
-lAssessments <- list(ae = MakeAssessmentList()$ae)
+lAssessments <- list(kri0001 = MakeAssessmentList()$kri0001)
 lData <- list(
   dfSUBJ = clindata::rawplus_subj,
   dfAE = clindata::rawplus_ae
@@ -26,8 +26,8 @@ lTags <- list(
 )
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
-ae_assessment <- RunAssessment(lAssessments$ae, lData = lData, lMapping = lMapping, lTags = lTags)
+kri0001 <- RunAssessment(lAssessments$kri0001, lData = lData, lMapping = lMapping, lTags = lTags)
 
-Visualize_Workflow(list(ae = ae_assessment))
+Visualize_Workflow(list(kri0001 = kri0001))
 
 }

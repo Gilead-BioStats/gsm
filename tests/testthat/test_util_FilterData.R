@@ -39,7 +39,7 @@ test_that("filter to 0 rows throws a warning", {
     0
   )
 
-  expect_snapshot(FilterData(dfAE,
+  expect_message(FilterData(dfAE,
     "AE_TE_FLAG",
     TRUE,
     bQuiet = FALSE

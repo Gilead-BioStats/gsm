@@ -1,7 +1,8 @@
 source(testthat::test_path("testdata/data.R"))
 
-workflows <- MakeAssessmentList()
-workflow <- workflows$pd
+workflows <- MakeAssessmentList(bRecursive = TRUE, strNames = c("pdCategory", "kri0004"))
+workflow <- workflows$kri0004
+workflow$workflow[[1]] <- NULL # remove filtering to mimic standard PD_Map_Raw() %>% PD_Assess()
 stratifiedWorkflow <- workflows$pdCategory
 
 data <- list(
