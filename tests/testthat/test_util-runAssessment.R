@@ -1,5 +1,5 @@
 source(testthat::test_path("testdata/data.R"))
-sae_meta <- yaml::read_yaml(system.file("workflow/sae.yaml", package = "gsm"))
+sae_meta <- yaml::read_yaml(system.file("workflow/experimental/sae.yaml", package = "gsm"))
 rawDataMap <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 dfAE <- dfAE %>%
@@ -55,7 +55,7 @@ test_that("workflow with multiple FilterDomain steps is reported correctly", {
     RandDate = c("2012-09-02", "2017-05-08", "2018-05-20")
   )
 
-  lAssessments <- MakeAssessmentList()
+  lAssessments <- MakeAssessmentList(bRecursive = TRUE, strNames = "sae")
 
   lData <- list(
     dfAE = dfAE,
