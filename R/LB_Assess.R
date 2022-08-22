@@ -132,6 +132,7 @@ LB_Assess <- function(
     lAssess$dfTransformed <- gsm::Transform_EventCount(
       lAssess$dfInput,
       strCountCol = "Count",
+      strExposureCol = "Total",
       strGroupCol = mapping$dfInput$strGroupCol,
       strKRILabel = strKRILabel
     )
@@ -152,7 +153,7 @@ LB_Assess <- function(
       lAssess$dfAnalyzed <- gsm::Analyze_Chisq(lAssess$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Chisq} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
-      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold)
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "KRI")
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
 
       lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
@@ -172,7 +173,7 @@ LB_Assess <- function(
       lAssess$dfAnalyzed <- gsm::Analyze_Fisher(lAssess$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Fisher} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
-      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold)
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "KRI")
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
 
       lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
@@ -199,8 +200,8 @@ LB_Assess <- function(
     }
 
     if (bChart) {
-      lAssess$chart <- gsm::Visualize_Count(lAssess$dfFlagged)
-      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
+      lAssess$chart <- gsm::Visualize_Score(lAssess$dfFlagged, strType = "score")
+      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created a chart.")
     }
   } else {
     if (!bQuiet) cli::cli_alert_warning("{.fn LB_Assess} did not run because of failed check.")

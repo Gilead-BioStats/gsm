@@ -1,7 +1,15 @@
 tags:
-  Assessment: PD
+  Assessment: Non-important Protocol Deviation Rate
   Label: PD
+  KRIID: kri0003
 workflow:
+  - name: FilterDomain
+    inputs: dfPD
+    output: dfPD
+    params:
+      strDomain: dfPD
+      strColParam: strImportantCol
+      strValParam: strNotImportantVal
   - name: PD_Map_Raw
     inputs:
       - dfPD
