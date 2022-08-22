@@ -21,8 +21,8 @@ Make overview table with one row per assessment and one column per site showing 
 
 assessment <- Study_Assess(lData = list(
   dfAE = clindata::rawplus_ae,
-  dfPD = clindata::rawplus_pd,
-  dfSUBJ = clindata::rawplus_subj
+  dfPD = clindata::rawplus_protdev,
+  dfSUBJ = clindata::rawplus_dm
 ))
 
 report <- Study_AssessmentReport(lAssessments = assessment)

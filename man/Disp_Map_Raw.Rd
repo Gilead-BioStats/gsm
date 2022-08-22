@@ -5,10 +5,12 @@
 \title{Disposition Assessment - Raw Mapping}
 \usage{
 Disp_Map_Raw(
-  dfs = list(dfDISP = clindata::rawplus_subj, dfSUBJ = clindata::rawplus_subj),
-  strContext = "Treatment",
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDISP_Study = clindata::rawplus_studcomp,
+    dfDISP_Treatment = clindata::rawplus_sdrgcomp),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
+  strContext = "Study",
+  strTreatmentPhase = NULL,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -20,10 +22,10 @@ Disp_Map_Raw(
 \item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per participant.
 }}
 
-\item{strContext}{Disposition Context - "Treatment" or "Study"}
-
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column.}
+
+\item{strContext}{Disposition Context - "Treatment" or "Study"}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
