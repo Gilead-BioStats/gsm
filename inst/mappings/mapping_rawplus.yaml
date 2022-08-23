@@ -6,7 +6,6 @@ dfSUBJ:
   strTimeOnStudyCol: timeonstudy
   strTimeOnTreatmentCol: timeontreatment
 dfAE:
-<<<<<<< HEAD
   strIDCol: subjectid
   strTreatmentEmergentCol: ae_te
   strTreatmentEmergentVal: Y
