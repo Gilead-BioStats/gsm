@@ -2,8 +2,8 @@
 
 |**Domain** |**Column Key**                   |**Default Value** |**Required?** |**Accept NA/Empty Values?** |**Require Unique Values?** |
 |:----------|:--------------------------------|:-----------------|:-------------|:---------------------------|:--------------------------|
-|dfSUBJ     |strIDCol                         |SubjectID         |TRUE          |FALSE                       |TRUE                       |
-|dfSUBJ     |strSiteCol                       |SiteID            |TRUE          |FALSE                       |FALSE                      |
-|dfDISP     |strIDCol                         |SubjectID         |TRUE          |FALSE                       |FALSE                      |
-|dfDISP     |strStudyDiscontinuationReasonCol |StudDCReason      |TRUE          |TRUE                        |FALSE                      |
-|dfDISP     |strStudyCompletionFlagCol        |StudCompletion    |TRUE          |TRUE                        |FALSE                      |
+|dfSUBJ     |strSiteCol                       |siteid            |TRUE          |FALSE                       |FALSE                      |
+|dfSUBJ     |strIDCol                         |subjectid         |TRUE          |FALSE                       |TRUE                       |
+|dfDISP     |strIDCol                         |subjectid         |TRUE          |FALSE                       |FALSE                      |
+|dfDISP     |strStudyDiscontinuationReasonCol |compreas          |TRUE          |TRUE                        |FALSE                      |
+|dfDISP     |strStudyCompletionFlagCol        |compyn            |TRUE          |TRUE                        |FALSE                      |
