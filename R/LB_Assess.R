@@ -153,7 +153,7 @@ LB_Assess <- function(
       lAssess$dfAnalyzed <- gsm::Analyze_Chisq(lAssess$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Chisq} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
-      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold)
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "KRI")
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
 
       lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
@@ -173,7 +173,7 @@ LB_Assess <- function(
       lAssess$dfAnalyzed <- gsm::Analyze_Fisher(lAssess$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Fisher} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
 
-      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold)
+      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "KRI")
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
 
       lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
