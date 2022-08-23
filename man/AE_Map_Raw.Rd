@@ -5,7 +5,7 @@
 \title{Adverse Event Assessment - Raw Mapping}
 \usage{
 AE_Map_Raw(
-  dfs = list(dfAE = clindata::rawplus_ae, dfSUBJ = clindata::rawplus_subj),
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfAE = clindata::rawplus_ae),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
   bReturnChecks = FALSE,
