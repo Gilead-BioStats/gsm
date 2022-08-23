@@ -2,7 +2,7 @@ lData <- list(
   dfSUBJ = clindata::rawplus_subj,
   dfAE = clindata::rawplus_ae
 )
-StrataWorkflow <- MakeAssessmentList()$aeGrade
+StrataWorkflow <- MakeAssessmentList(bRecursive = TRUE, strNames = "aeGrade")$aeGrade
 
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 

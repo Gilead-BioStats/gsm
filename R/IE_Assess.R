@@ -1,5 +1,7 @@
 #' Inclusion/Exclusion Assessment
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' @description
 #' Evaluates sites exhibiting aberrant or excessive rates of unmet or missing inclusion/exclusion (IE) criteria.
 #'
@@ -134,8 +136,8 @@ IE_Assess <- function(dfInput,
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
 
     if (bChart) {
-      lAssess$chart <- gsm::Visualize_Count(lAssess$dfAnalyzed)
-      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Count} created a chart.")
+      lAssess$chart <- gsm::Visualize_Score(lAssess$dfFlagged)
+      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created a chart.")
     }
   } else {
     if (!bQuiet) cli::cli_alert_warning("{.fn IE_Assess} did not run because of failed check.")

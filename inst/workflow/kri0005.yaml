@@ -1,0 +1,21 @@
+tags:
+  Assessment: Lab Abnormality Rate
+  Label: LB
+  KRIID: kri0005
+workflow:
+  - name: LB_Map_Raw
+    inputs:
+<<<<<<< HEAD:inst/workflow/pd.yaml
+=======
+      - dfLB
+>>>>>>> dev:inst/workflow/kri0005.yaml
+      - dfSUBJ
+      - dfPD
+    output: dfInput
+  - name: LB_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      vThreshold: null
+      strMethod: "fisher"

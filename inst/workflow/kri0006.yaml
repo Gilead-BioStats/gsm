@@ -1,14 +1,15 @@
 tags:
-  Assessment: LB
+  Assessment: Lab Abnormality Rate
   Label: LB
+  KRIID: kri0006
 workflow:
   - name: FilterDomain
     inputs: dfLB
     output: dfLB
     params:
       strDomain: dfLB
-      strColParam: strTreatmentEmergentCol
-      strValParam: strTreatmentEmergentVal
+      strColParam: strGradeCol
+      strValParam: strGradeVal
   - name: LB_Map_Raw
     inputs:
       - dfSUBJ
@@ -20,4 +21,4 @@ workflow:
     params:
       strGroup: "Site"
       vThreshold: null
-      strMethod: "chisq"
+      strMethod: "fisher"

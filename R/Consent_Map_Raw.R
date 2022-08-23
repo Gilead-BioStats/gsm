@@ -1,5 +1,7 @@
 #' Consent Assessment - Raw Mapping
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' @description
 #' Convert raw informed consent data, typically processed case report from data, to formatted
 #' input data to [gsm::Consent_Assess()].

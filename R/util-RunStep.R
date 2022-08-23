@@ -18,7 +18,7 @@
 #'   parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
 #'
 #' @examples
-#' lStep <- MakeAssessmentList()[["ae"]][["workflow"]][[1]]
+#' lStep <- MakeAssessmentList()[["kri0001"]][["workflow"]][[1]]
 #'
 #' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 #'

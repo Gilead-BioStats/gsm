@@ -39,7 +39,14 @@ test_that("filter to 0 rows throws a warning", {
     0
   )
 
-  expect_snapshot(FilterData(dfAE,
+  # this isn't exactly right, but should be able to switch back to
+  # expect_snapshot() when/if we implement renv.
+  # recent updates to dplyr/tidyr/others are causing this to error out
+  # because they are throwing informative output like:
+  # ℹ Use `colnames()` to see all variable names
+  # and the CI and local developer versions aren't currently linked
+
+  expect_message(FilterData(dfAE,
     "AE_TE_FLAG",
     TRUE,
     bQuiet = FALSE
