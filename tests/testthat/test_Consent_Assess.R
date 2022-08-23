@@ -9,23 +9,21 @@ output_mapping <- yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml",
 test_that("output is created as expected", {
   assessment <- assess_function(dfInput)
   expect_true(is.list(assessment))
-  expect_equal(names(assessment), c("strFunctionName", "lParams", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
+  expect_equal(names(assessment), c("strFunctionName", "lTags", "dfInput", "dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary", "chart"))
   expect_true("data.frame" %in% class(assessment$dfInput))
   expect_true("data.frame" %in% class(assessment$dfTransformed))
   expect_true("data.frame" %in% class(assessment$dfAnalyzed))
   expect_true("data.frame" %in% class(assessment$dfFlagged))
   expect_true("data.frame" %in% class(assessment$dfSummary))
   expect_type(assessment$strFunctionName, "character")
-  expect_type(assessment$lParams, "list")
   expect_type(assessment$lTags, "list")
 })
 
 # metadata is returned as expected ----------------------------------------
 test_that("metadata is returned as expected", {
   assessment <- assess_function(dfInput, nThreshold = 0.6)
+
   expect_equal("assess_function()", assessment$strFunctionName)
-  expect_equal("dfInput", assessment$lParams$dfInput)
-  expect_equal("0.6", assessment$lParams$nThreshold)
   expect_equal("Consent", assessment$lTags$Assessment)
   expect_true("ggplot" %in% class(assessment$chart))
 })

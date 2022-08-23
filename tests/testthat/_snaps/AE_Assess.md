@@ -134,11 +134,6 @@
       $strFunctionName
       [1] "assess_function()"
       
-      $lParams
-      $lParams$dfInput
-      [1] "dfInputNA"
-      
-      
       $lTags
       $lTags$Assessment
       [1] "AE"
