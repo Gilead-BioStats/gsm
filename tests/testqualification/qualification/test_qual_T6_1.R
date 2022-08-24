@@ -52,10 +52,6 @@ test_that("Labs assessment can return a correctly assessed data frame for the ch
 
   t6_1 <- list(
     "strFunctionName" = "LB_Assess()",
-    "lParams" = list(
-      "dfInput" = "dfInput",
-      "bChart" = "FALSE"
-    ),
     "lTags" = list(Assessment = "Labs"),
     "dfInput" = t6_1_input,
     "dfTransformed" = t6_1_transformed,

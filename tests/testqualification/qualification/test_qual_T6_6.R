@@ -60,12 +60,6 @@ test_that("Labs assessment can return a correctly assessed data frame grouped by
 
   t6_6 <- list(
     "strFunctionName" = "LB_Assess()",
-    "lParams" = list(
-      "dfInput" = "dfInput",
-      "strMethod" = "identity",
-      "strGroup" = "Study",
-      "bChart" = "FALSE"
-    ),
     "lTags" = list(Assessment = "Labs"),
     "dfInput" = t6_6_input,
     "dfTransformed" = t6_6_transformed,

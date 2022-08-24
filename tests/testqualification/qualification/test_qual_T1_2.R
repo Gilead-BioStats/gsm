@@ -49,13 +49,6 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
 
   t1_2 <- list(
     "strFunctionName" = "AE_Assess()",
-    "lParams" = list(
-      "dfInput" = "dfInput",
-      "vThreshold" = c("c", "-3", "3"),
-      "strMethod" = "poisson",
-      "strGroup" = "Study",
-      "bChart" = "FALSE"
-    ),
     "lTags" = list(Assessment = "AE"),
     "dfInput" = t1_2_input,
     "dfTransformed" = t1_2_transformed,

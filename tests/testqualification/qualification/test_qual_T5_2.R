@@ -55,12 +55,6 @@ test_that("Disposition assessment can return a correctly assessed data frame for
 
   t5_2 <- list(
     "strFunctionName" = "Disp_Assess()",
-    "lParams" = list(
-      "dfInput" = "dfInput",
-      "vThreshold" = c("c", "0.01", "NA"),
-      "strGroup" = "CustomGroup",
-      "bChart" = "FALSE"
-    ),
     "lTags" = list(Assessment = "Disposition"),
     "dfInput" = t5_2_input,
     "dfTransformed" = t5_2_transformed,

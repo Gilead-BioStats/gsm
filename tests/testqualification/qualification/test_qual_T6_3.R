@@ -53,11 +53,6 @@ test_that("Labs assessment can return a correctly assessed data frame for the ch
 
   t6_3 <- list(
     "strFunctionName" = "LB_Assess()",
-    "lParams" = list(
-      "dfInput" = "dfInput",
-      "strMethod" = "fisher",
-      "bChart" = "FALSE"
-    ),
     "lTags" = list(Assessment = "Labs"),
     "dfInput" = t6_3_input,
     "dfTransformed" = t6_3_transformed,

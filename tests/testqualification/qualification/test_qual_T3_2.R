@@ -50,11 +50,6 @@ test_that("IE assessment can return a correctly assessed data frame grouped by a
 
   t3_1 <- list(
     "strFunctionName" = "IE_Assess()",
-    "lParams" = list(
-      "dfInput" = "dfInput",
-      "strGroup" = "Study",
-      "bChart" = "FALSE"
-    ),
     "lTags" = list(Assessment = "IE"),
     "dfInput" = t3_1_input,
     "dfTransformed" = t3_1_transformed,
