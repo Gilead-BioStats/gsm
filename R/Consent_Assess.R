@@ -41,7 +41,6 @@
 #'   - `dfSummary`, returned by [gsm::Summarize()]
 #' - assessment metadata
 #'   - `strFunctionName`
-#'   - `lParams`
 #'   - `lTags`
 #' - output(s)
 #'   - `chart`
@@ -103,7 +102,6 @@ Consent_Assess <- function(dfInput,
 
   lAssess <- list(
     strFunctionName = deparse(sys.call()[1]),
-    lParams = lapply(as.list(match.call()[-1]), function(x) as.character(x)),
     lTags = lTags,
     dfInput = dfInput
   )
