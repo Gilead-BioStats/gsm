@@ -35,7 +35,7 @@ test_that("Structure of stratified output matches structure of standard output",
 test_that("Stratified output is returned", {
   expect_true(is.list(stratifiedOutput))
   expect_equal(
-    c("chart", "dfAnalyzed", "dfBounds", "dfFlagged", "dfInput", "dfSummary", "dfTransformed", "lChecks", "lParams", "lTags", "strFunctionName"),
+    c("chart", "dfAnalyzed", "dfBounds", "dfFlagged", "dfInput", "dfSummary", "dfTransformed", "lChecks", "lTags", "strFunctionName"),
     names(stratifiedOutput$lResults) %>% sort()
   )
   expect_equal(

@@ -47,6 +47,7 @@ test_that("filter to 0 rows throws a warning", {
   )
 
 
+
   # this isn't exactly right, but should be able to switch back to
   # expect_snapshot() when/if we implement renv.
   # recent updates to dplyr/tidyr/others are causing this to error out

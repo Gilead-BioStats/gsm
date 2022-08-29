@@ -1,8 +1,8 @@
-test_that("Disposition assessment can return a correctly assessed data frame for the chisq test grouped by a custom variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
+test_that("Labs assessment can return a correctly assessed data frame for the chisq test grouped by a custom variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
   # gsm analysis
-  dfInput <- gsm::Disp_Map_Raw()
+  dfInput <- gsm::LB_Map_Raw()
 
-  test5_4 <- Disp_Assess(
+  test6_4 <- LB_Assess(
     dfInput = dfInput,
     strMethod = "fisher",
     vThreshold = c(.01, NA),
@@ -11,21 +11,21 @@ test_that("Disposition assessment can return a correctly assessed data frame for
   )
 
   # Double Programming
-  t5_4_input <- dfInput
+  t6_4_input <- dfInput
 
-  t5_4_transformed <- dfInput %>%
+  t6_4_transformed <- dfInput %>%
     qualification_transform_counts(
       exposureCol = "Total",
-      KRILabel = "% Discontinuation",
+      KRILabel = "% Abnormal Labs",
       GroupLabel = "CustomGroupID"
     )
 
-  t5_4_analyzed <- t5_4_transformed %>%
+  t6_4_analyzed <- t6_4_transformed %>%
     qualification_analyze_fisher()
 
-  class(t5_4_analyzed) <- c("tbl_df", "tbl", "data.frame")
+  class(t6_4_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
-  t5_4_flagged <- t5_4_analyzed %>%
+  t6_4_flagged <- t6_4_analyzed %>%
     mutate(
       ThresholdLow = .01,
       ThresholdHigh = NA_integer_,
@@ -46,24 +46,24 @@ test_that("Disposition assessment can return a correctly assessed data frame for
     select(-median) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t5_4_summary <- t5_4_flagged %>%
+  t6_4_summary <- t6_4_flagged %>%
     mutate(
-      Assessment = "Disposition"
+      Assessment = "Labs"
     ) %>%
     select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
     arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t5_4 <- list(
-    "strFunctionName" = "Disp_Assess()",
-    "lTags" = list(Assessment = "Disposition"),
-    "dfInput" = t5_4_input,
-    "dfTransformed" = t5_4_transformed,
-    "dfAnalyzed" = t5_4_analyzed,
-    "dfFlagged" = t5_4_flagged,
-    "dfSummary" = t5_4_summary
+  t6_4 <- list(
+    "strFunctionName" = "LB_Assess()",
+    "lTags" = list(Assessment = "Labs"),
+    "dfInput" = t6_4_input,
+    "dfTransformed" = t6_4_transformed,
+    "dfAnalyzed" = t6_4_analyzed,
+    "dfFlagged" = t6_4_flagged,
+    "dfSummary" = t6_4_summary
   )
 
   # compare results
-  expect_equal(test5_4, t5_4)
+  expect_equal(test6_4, t6_4)
 })

@@ -49,10 +49,6 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
 
   t4_1 <- list(
     "strFunctionName" = "Consent_Assess()",
-    "lParams" = list(
-      "dfInput" = "dfInput",
-      "bChart" = "FALSE"
-    ),
     "lTags" = list(Assessment = "Consent"),
     "dfInput" = t4_1_input,
     "dfTransformed" = t4_1_transformed,

@@ -58,12 +58,6 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
     t2_3 <- c(t2_3,
       type = list(
         "strFunctionName" = "PD_Assess()",
-        "lParams" = list(
-          "dfInput" = "dfInput",
-          "strMethod" = "poisson",
-          "strGroup" = "Study",
-          "bChart" = "FALSE"
-        ),
         "lTags" = list(Assessment = "PD"),
         "dfInput" = t2_3_input,
         "dfTransformed" = t2_3_transformed,

@@ -35,7 +35,6 @@
 #'   - `dfSummary`, returned by [gsm::Summarize()]
 #' - assessment metadata
 #'   - `strFunctionName`
-#'   - `lParams`
 #'   - `lTags`
 #' - output(s)
 #'   - `chart`
@@ -100,12 +99,9 @@ AE_Assess <- function(dfInput,
 
   lAssess <- list(
     strFunctionName = deparse(sys.call()[1]),
-    lParams = lapply(as.list(match.call()[-1]), function(x) as.character(x)),
     lTags = lTags,
     dfInput = dfInput
   )
-
-
 
   mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
   mapping$dfInput$strGroupCol <- mapping$dfInput[[glue::glue("str{strGroup}Col")]]
