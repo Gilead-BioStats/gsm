@@ -1,28 +1,28 @@
-test_that("Disposition assessment can return a correctly assessed data frame for the chisq test grouped by the site variable when given correct input data from clindata and the results should be flagged correctly", {
+test_that("Labs assessment can return a correctly assessed data frame for the chisq test grouped by the site variable when given correct input data from clindata and the results should be flagged correctly", {
   # gsm analysis
-  dfInput <- gsm::Disp_Map_Raw()
+  dfInput <- gsm::LB_Map_Raw()
 
-  test5_3 <- Disp_Assess(
+  test6_3 <- LB_Assess(
     dfInput = dfInput,
     strMethod = "fisher",
     bChart = FALSE
   )
 
   # Double Programming
-  t5_3_input <- dfInput
+  t6_3_input <- dfInput
 
-  t5_3_transformed <- dfInput %>%
+  t6_3_transformed <- dfInput %>%
     qualification_transform_counts(
       exposureCol = "Total",
-      KRILabel = "% Discontinuation"
+      KRILabel = "% Abnormal Labs"
     )
 
-  t5_3_analyzed <- t5_3_transformed %>%
+  t6_3_analyzed <- t6_3_transformed %>%
     qualification_analyze_fisher()
 
-  class(t5_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
+  class(t6_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
-  t5_3_flagged <- t5_3_analyzed %>%
+  t6_3_flagged <- t6_3_analyzed %>%
     mutate(
       ThresholdLow = .05,
       ThresholdHigh = NA_integer_,
@@ -43,24 +43,24 @@ test_that("Disposition assessment can return a correctly assessed data frame for
     select(-median) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t5_3_summary <- t5_3_flagged %>%
+  t6_3_summary <- t6_3_flagged %>%
     mutate(
-      Assessment = "Disposition"
+      Assessment = "Labs"
     ) %>%
     select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
     arrange(desc(abs(KRI))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
-  t5_3 <- list(
-    "strFunctionName" = "Disp_Assess()",
-    "lTags" = list(Assessment = "Disposition"),
-    "dfInput" = t5_3_input,
-    "dfTransformed" = t5_3_transformed,
-    "dfAnalyzed" = t5_3_analyzed,
-    "dfFlagged" = t5_3_flagged,
-    "dfSummary" = t5_3_summary
+  t6_3 <- list(
+    "strFunctionName" = "LB_Assess()",
+    "lTags" = list(Assessment = "Labs"),
+    "dfInput" = t6_3_input,
+    "dfTransformed" = t6_3_transformed,
+    "dfAnalyzed" = t6_3_analyzed,
+    "dfFlagged" = t6_3_flagged,
+    "dfSummary" = t6_3_summary
   )
 
   # compare results
-  expect_equal(test5_3, t5_3)
+  expect_equal(test6_3, t6_3)
 })
