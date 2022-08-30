@@ -8,16 +8,17 @@ dfSUBJ:
 dfAE:
   strIDCol: subjectid
   strTreatmentEmergentCol: ae_te
-  strTreatmentEmergentVal: Y
+  strTreatmentEmergentVal: "Y"
   strGradeCol: aetoxgr
   strSeriousCol: aeser
-  strSeriousVal: Y
+  strSeriousVal: "Y"
+  strNonSeriousVal: "N"
 dfPD:
   strIDCol: subjid
   strCategoryCol: dvdecod
   strImportantCol: importnt
-  strImportantVal: Y
-  strNotImportantVal: N
+  strImportantVal: "Y"
+  strNotImportantVal: "N"
 dfIE:
   strIDCol: subjectid
   strCategoryCol: IE_CATEGORY
@@ -35,20 +36,21 @@ dfCONSENT:
   strValueCol: CONSENT_VALUE
   strDateCol: CONSENT_DATE
   strConsentTypeVal: MAINCONSENT
-  strConsentStatusVal: Y
+  strConsentStatusVal: "Y"
 dfSTUDCOMP:
   strIDCol: subjectid
   strStudyDiscontinuationReasonCol: compreas
   strStudyDiscontinuationReasonVal: consent
   strStudyCompletionFlagCol: compyn
-  strStudyCompletionFlagVal: Y
+  strStudyCompletionFlagVal: "Y"
 dfSDRGCOMP:
   strIDCol: subjectid
   strTreatmentPhaseCol: datapagename # or foldername - temporary - should be phase
+  strTreatmentPhaseVal: Blinded Study Drug Completion
   strTreatmentDiscontinuationReasonCol: sdrgreas
   strTreatmentDiscontinuationReasonVal: withdrawal
   strTreatmentCompletionFlagCol: sdrgyn
-  strTreatmentCompletionFlagVal: Y
+  strTreatmentCompletionFlagVal: "Y"
 dfLB:
   strIDCol: subjid
   strVisitCol: visnam
@@ -57,7 +59,7 @@ dfLB:
   strTestCol: lbtstnam
   strValueCol: siresn
   strTreatmentEmergentCol: lb_te
-  strTreatmentEmergentVal: Y
+  strTreatmentEmergentVal: "Y"
   strGradeCol: toxgr
   strGradeAnyVal:
     - "1"
