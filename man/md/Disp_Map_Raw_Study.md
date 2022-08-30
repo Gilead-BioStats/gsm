@@ -4,6 +4,6 @@
 |:----------|:--------------------------------|:-----------------|:-------------|:---------------------------|:--------------------------|
 |dfSUBJ     |strSiteCol                       |siteid            |TRUE          |FALSE                       |FALSE                      |
 |dfSUBJ     |strIDCol                         |subjectid         |TRUE          |FALSE                       |TRUE                       |
-|dfDISP     |strIDCol                         |subjectid         |TRUE          |FALSE                       |FALSE                      |
-|dfDISP     |strStudyDiscontinuationReasonCol |compreas          |TRUE          |TRUE                        |FALSE                      |
-|dfDISP     |strStudyCompletionFlagCol        |compyn            |TRUE          |TRUE                        |FALSE                      |
+|dfSTUDCOMP |strIDCol                         |subjectid         |TRUE          |FALSE                       |FALSE                      |
+|dfSTUDCOMP |strStudyDiscontinuationReasonCol |compreas          |TRUE          |TRUE                        |FALSE                      |
+|dfSTUDCOMP |strStudyCompletionFlagCol        |compyn            |TRUE          |TRUE                        |FALSE                      |

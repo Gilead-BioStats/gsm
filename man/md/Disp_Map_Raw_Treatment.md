@@ -4,6 +4,6 @@
 |:----------|:------------------------------------|:-----------------|:-------------|:---------------------------|:--------------------------|
 |dfSUBJ     |strSiteCol                           |siteid            |TRUE          |FALSE                       |FALSE                      |
 |dfSUBJ     |strIDCol                             |subjectid         |TRUE          |FALSE                       |TRUE                       |
-|dfDISP     |strIDCol                             |subjectid         |TRUE          |FALSE                       |FALSE                      |
-|dfDISP     |strTreatmentDiscontinuationReasonCol |sdrgreas          |TRUE          |TRUE                        |FALSE                      |
-|dfDISP     |strTreatmentCompletionFlagCol        |sdrgyn            |TRUE          |TRUE                        |FALSE                      |
+|dfSDRGCOMP |strIDCol                             |subjectid         |TRUE          |FALSE                       |FALSE                      |
+|dfSDRGCOMP |strTreatmentDiscontinuationReasonCol |sdrgreas          |TRUE          |TRUE                        |FALSE                      |
+|dfSDRGCOMP |strTreatmentCompletionFlagCol        |sdrgyn            |TRUE          |TRUE                        |FALSE                      |
