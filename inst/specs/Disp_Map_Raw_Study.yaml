@@ -1,4 +1,4 @@
-dfDISP:
+dfSTUDCOMP:
   vRequired:
     - strIDCol
     - strStudyDiscontinuationReasonCol

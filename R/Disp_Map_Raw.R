@@ -45,8 +45,8 @@
 Disp_Map_Raw <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
-    dfDISP_Study = clindata::rawplus_studcomp,
-    dfDISP_Treatment = clindata::rawplus_sdrgcomp
+    dfSTUDCOMP = clindata::rawplus_studcomp,
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename=="Blinded Study Drug Completion")
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   strContext = "Study",
@@ -59,7 +59,9 @@ Disp_Map_Raw <- function(
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
-  dfs$dfDISP <- dfs[[ paste0('dfDISP_', strContext) ]]
+  strDomain <- ifelse(strContext=="Study",'dfSTUDCOMP','dfSDRGCOMP')
+  dfs$dfDISP <- dfs[[strDomain]]
+
   checks <- CheckInputs(
     context = paste0("Disp_Map_Raw", "_", strContext),
     dfs = dfs,
@@ -73,29 +75,14 @@ Disp_Map_Raw <- function(
 
     # Standarize Column Names
     dfDISP <- dfs$dfDISP
-    if (strContext == 'Treatment') {
-        if (is.null(strTreatmentPhase)) {
-            strTreatmentPhase <- dfs$dfDISP[[ lMapping$dfDISP$strTreatmentPhaseCol ]] %>%
-                table %>%
-                sort(decreasing = TRUE) %>%
-                names %>%
-                head(1)
-            print(strTreatmentPhase)
-        }
-
-        dfDISP <- dfDISP %>%
-            filter(
-                .data[[ lMapping$dfDISP$strTreatmentPhaseCol ]] == strTreatmentPhase
-            )
-    }
 
     dfDISP_mapped <- dfDISP %>%
         select(
-            SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
-            DCReason = lMapping[["dfDISP"]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
-            Completion = lMapping[["dfDISP"]][[glue::glue("str{strContext}CompletionFlagCol")]]
+            SubjectID = lMapping[[strDomain]][["strIDCol"]],
+            DCReason = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
+            Completion = lMapping[[strDomain]][[glue::glue("str{strContext}CompletionFlagCol")]]
         ) %>%
-        filter(!.data$Completion %in% lMapping[["dfDISP"]][[glue::glue("str{strContext}CompletionFlagVal")]]) %>%
+        filter(!.data$Completion %in% lMapping[[strDomain]][[glue::glue("str{strContext}CompletionFlagVal")]]) %>%
         mutate(Count = 1)
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%

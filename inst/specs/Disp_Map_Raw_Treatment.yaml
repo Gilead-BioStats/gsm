@@ -1,4 +1,4 @@
-dfDISP:
+dfSDRGCOMP:
   vRequired:
     - strIDCol
     - strTreatmentDiscontinuationReasonCol
