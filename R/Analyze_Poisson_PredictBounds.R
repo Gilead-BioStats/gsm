@@ -39,8 +39,9 @@
 #'
 #' dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5, 5))
 #'
-#' @importFrom stats glm offset poisson qchisq
 #' @importFrom lamW lambertWm1 lambertW0
+#' @importFrom stats glm offset poisson qchisq
+#' @importFrom tibble tibble
 #'
 #' @export
 
@@ -58,7 +59,7 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
   )
 
   # Calculate expected event count and predicted bounds across range of total exposure.
-  dfBounds <- data.frame(
+  dfBounds <- tibble::tibble(
     # Generate sequence along range of total exposure.
     LogExposure = seq(
       min(dfTransformed$LogExposure) - 0.05,
@@ -82,13 +83,11 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
       PredictYHi = .data$vHi / (2 * lamW::lambertW0(.data$vWHi)),
       LowerCount = if_else(is.nan(.data$PredictYLo), 0, .data$PredictYLo),
       UpperCount = if_else(is.nan(.data$PredictYHi), 0, .data$PredictYHi)
+    ) %>%
+    select(
+      .data$LogExposure,
+      MeanCount = .data$vMu, .data$LowerCount, .data$UpperCount
     )
 
-  return(
-    dfBounds %>%
-      select(
-        .data$LogExposure,
-        MeanCount = .data$vMu, .data$LowerCount, .data$UpperCount
-      )
-  )
+  return(dfBounds)
 }

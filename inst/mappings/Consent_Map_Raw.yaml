@@ -12,9 +12,9 @@ dfSUBJ:
   strTreatmentCompletionFlagCol: "TrtCompletion"
   strTreatmentDiscontinuationReasonCol: "TrtDCReason"
 dfCONSENT:
-  strIDCol: "SubjectID"
-  strTypeCol: "CONSENT_TYPE"
-  strValueCol: "CONSENT_VALUE"
-  strDateCol: "CONSENT_DATE"
+  strIDCol: "subjid"
+  strTypeCol: "conscat"
+  strValueCol: "consyn"
+  strDateCol: "consdt"
   strConsentTypeVal: "MAINCONSENT"
   strConsentStatusVal: "Y"
