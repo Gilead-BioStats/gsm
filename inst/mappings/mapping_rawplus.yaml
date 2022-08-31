@@ -1,12 +1,12 @@
 dfSUBJ:
   strStudyCol: studyid
   strSiteCol: siteid
-  strIDCol: subjectid
-  strAlternateIDCol: subjid
+  strIDCol: subjid
   strTimeOnStudyCol: timeonstudy
   strTimeOnTreatmentCol: timeontreatment
+  strRandDateCol: rfpen_dt
 dfAE:
-  strIDCol: subjectid
+  strIDCol: subjid
   strTreatmentEmergentCol: ae_te
   strTreatmentEmergentVal: "Y"
   strGradeCol: aetoxgr
@@ -20,10 +20,10 @@ dfPD:
   strImportantVal: "Y"
   strNotImportantVal: "N"
 dfIE:
-  strIDCol: subjectid
-  strCategoryCol: IE_CATEGORY
-  strValueCol: IE_VALUE
-  strVersionCol: IE_PROTOCOLVERSION
+  strIDCol: subjid
+  strCategoryCol: iecat
+  strValueCol: ieorres
+  strVersionCol: tiver
   vCategoryValues:
     - EXCL
     - INCL
@@ -31,20 +31,20 @@ dfIE:
     - 0
     - 1
 dfCONSENT:
-  strIDCol: subjectid
-  strTypeCol: CONSENT_TYPE
-  strValueCol: CONSENT_VALUE
-  strDateCol: CONSENT_DATE
+  strIDCol: subjid
+  strTypeCol: conscat
+  strValueCol: consyn
+  strDateCol: consdt
   strConsentTypeVal: MAINCONSENT
   strConsentStatusVal: "Y"
 dfSTUDCOMP:
-  strIDCol: subjectid
+  strIDCol: subjid
   strStudyDiscontinuationReasonCol: compreas
   strStudyDiscontinuationReasonVal: consent
   strStudyCompletionFlagCol: compyn
   strStudyCompletionFlagVal: "Y"
 dfSDRGCOMP:
-  strIDCol: subjectid
+  strIDCol: subjid
   strTreatmentPhaseCol: datapagename # or foldername - temporary - should be phase
   strTreatmentPhaseVal: Blinded Study Drug Completion
   strTreatmentDiscontinuationReasonCol: sdrgreas

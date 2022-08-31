@@ -73,7 +73,7 @@ LB_Map_Raw <- function(
     # Standarize column names.
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
-        SubjectID = lMapping[["dfSUBJ"]][["strAlternateIDCol"]],
+        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
         any_of(
           c(
             SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
@@ -81,20 +81,12 @@ LB_Map_Raw <- function(
             CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
           )
         )
-      ) %>%
-      RemoveInvalidSubjectIDs(
-        'dfSUBJ',
-        bQuiet = bQuiet
       )
 
     dfLB_mapped <- dfs$dfLB %>%
       select(
         SubjectID = lMapping[["dfLB"]][["strIDCol"]],
         Grade = lMapping[["dfLB"]][["strGradeCol"]]
-      ) %>%
-      RemoveInvalidSubjectIDs(
-        'dfLB',
-        bQuiet = bQuiet
       )
 
     # Create Subject Level LB Counts and merge Subj

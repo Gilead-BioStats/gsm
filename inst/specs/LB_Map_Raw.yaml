@@ -3,7 +3,6 @@ dfLB:
     - strIDCol
     - strGradeCol
   vNACols:
-    - strIDCol
     - strGradeCol
 dfSUBJ:
   vRequired:
@@ -11,5 +10,3 @@ dfSUBJ:
     - strSiteCol
   vUniqueCols:
     - strIDCol
-  vNACols:
-    - strAlternateIDCol
