@@ -65,103 +65,87 @@ AE_Assess <- function(dfInput,
 
   mapping$dfInput$strGroupCol <- mapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
-  checks <- CheckInputs(
+  lChecks <- CheckInputs(
     context = "AE_Assess",
-    dfs = list(dfInput = lAssess$dfInput),
+    dfs = list(dfInput = dfInput),
     mapping = mapping,
     bQuiet = bQuiet
   )
 
-  lAssess <- list()
 
-  if (!checks$status) {
+  if (!lChecks$status) {
     if (!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} did not run because of failed check.")
+    return(list( lData=NULL,lCharts=NULL, lChecks = lChecks))
   }else{
     if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Assess}")
-    if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
 
-    lAssess$dfTransformed <- gsm::Transform_EventCount(
-      lAssess$dfInput,
+    ########################################
+    ## Save Data pipeline results to lData
+    ########################################
+
+    if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
+
+    lData$dfTransformed <- gsm::Transform_Rate(
+      dfInput,
       strGroupCol = mapping$dfInput$strGroupCol,
-      strCountCol = "Count",
-      strExposureCol = "Exposure",
-      strKRILabel = strKRILabel
+      strNumeratorCol = "Count",
+      strDenominatorCol = "Exposure"
     )
 
-    if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
+    if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
     if (strMethod == "poisson") {
-      if (is.null(vThreshold)) {
-        vThreshold <- c(-5, 5)
-      } else {
-        stopifnot(
-          "vThreshold is not numeric" = is.numeric(vThreshold),
-          "vThreshold for Poisson contains NA values" = all(!is.na(vThreshold)),
-          "vThreshold is not length 2" = length(vThreshold) == 2
-        )
-      }
 
-      lAssess$dfAnalyzed <- gsm::Analyze_Poisson(lAssess$dfTransformed, bQuiet = bQuiet)
-      if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Poisson} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
+      lData$dfAnalyzed <- gsm::Analyze_Poisson(lData$dfTransformed, bQuiet = bQuiet)
+      if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Poisson} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
-      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold)
-      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
+      lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(
+        lData$dfTransformed, 
+        vThreshold = vThreshold, 
+        bQuiet = bQuiet
+      )
 
-      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
-      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
+      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold)
+      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
+
+      lData$dfSummary <- gsm::Summarize(lData$dfFlagged, lTags = lTags)
+      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
+
+
     } else if (strMethod == "wilcoxon") {
-      if (is.null(vThreshold)) {
-        vThreshold <- c(0.0001, NA)
-      } else {
-        stopifnot(
-          "vThreshold is not numeric" = is.numeric(vThreshold),
-          "Lower limit (first element) for Wilcoxon vThreshold is not between 0 and 1" = vThreshold[1] < 1 & vThreshold[1] > 0,
-          "Upper limit (second element) for Wilcoxon vThreshold is not NA" = is.na(vThreshold[2]),
-          "vThreshold is not length 2" = length(vThreshold) == 2
-        )
-      }
 
-      lAssess$dfAnalyzed <- gsm::Analyze_Wilcoxon(lAssess$dfTransformed, bQuiet = bQuiet)
-      if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Wilcoxon} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
+      lData$dfAnalyzed <- gsm::Analyze_Wilcoxon(lData$dfTransformed, bQuiet = bQuiet)
+      if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Wilcoxon} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
-      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Estimate")
-      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
+      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Estimate")
+      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
 
-      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
-      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
+      lData$dfSummary <- gsm::Summarize(lData$dfFlagged, lTags = lTags)
+      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
     } else if (strMethod == "identity") {
-      if (is.null(vThreshold)) {
-        vThreshold <- c(0.00006, 0.01)
-      } else {
-        stopifnot(
-          "vThreshold is not numeric" = is.numeric(vThreshold),
-          "vThreshold for Identity contains NA values" = all(!is.na(vThreshold)),
-          "vThreshold is not length 2" = length(vThreshold) == 2
-        )
-      }
+    
+      lAslDatasess$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
+      if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Identity} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
-      lAssess$dfAnalyzed <- gsm::Analyze_Identity(lAssess$dfTransformed)
-      if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Identity} returned output with {nrow(lAssess$dfAnalyzed)} rows.")
+      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Score")
+      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
 
-      lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Score")
-      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
-
-      lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
-      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
+      lData$dfSummary <- gsm::Summarize(lData$dfFlagged, lTags = lTags)
+      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
     }
 
-    if (bChart) {
-      if (strMethod == "poisson") {
-        lAssess$dfBounds <- gsm::Analyze_Poisson_PredictBounds(lAssess$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
-        lAssess$chart <- gsm::Visualize_Scatter(lAssess$dfFlagged, lAssess$dfBounds)
-        if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
-      } else {
-        lAssess$chart <- gsm::Visualize_Scatter(lAssess$dfFlagged)
-        if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
-      }
-    }
-  } 
-
-  if (bReturnChecks) lAssess$lChecks <- checks
-  return(lAssess)
+    
+    ########################################
+    ## Save Charts to lCharts
+    ########################################
+    lCharts<-list()
+    
+    if(!hasProperty(lData,dfBounds)) lData$dfBounds <- NA
+    lCharts$scatter <- gsm::Visualize_Scatter(lData$dfFlagged, lData$dfBounds)
+    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
+    #lCharts$barMetric <- VisualizeScore()
+    #lCharts$barScore <- VisualizeScore()
+    
+    return(list(lData=lData,lCharts=lCharts,lChecks=lChecks))
+  }
 }
