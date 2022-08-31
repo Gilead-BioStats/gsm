@@ -4,8 +4,8 @@ tags:
 workflow:
   - name: Consent_Map_Raw
     inputs:
-      - dfCONSENT
       - dfSUBJ
+      - dfCONSENT
     output: dfInput
   - name: Consent_Assess
     inputs: dfInput

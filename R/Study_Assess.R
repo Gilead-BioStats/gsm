@@ -46,13 +46,14 @@ Study_Assess <- function(
   # lData from clindata
   if (is.null(lData)) {
     lData <- list(
-      dfSUBJ = clindata::rawplus_subj,
+      dfSUBJ = clindata::rawplus_dm,
       dfAE = clindata::rawplus_ae,
-      dfPD = clindata::rawplus_pd,
+      dfPD = clindata::rawplus_protdev,
       dfCONSENT = clindata::rawplus_consent,
       dfIE = clindata::rawplus_ie,
       dfLB = clindata::rawplus_lb,
-      dfDISP = clindata::rawplus_subj
+      dfSTUDCOMP = clindata::rawplus_studcomp,
+      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename=="Blinded Study Drug Completion")
     )
   }
 

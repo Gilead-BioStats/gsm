@@ -44,11 +44,13 @@
 
 Disp_Map_Raw <- function(
   dfs = list(
-    dfDISP = clindata::rawplus_subj,
-    dfSUBJ = clindata::rawplus_subj
+    dfSUBJ = clindata::rawplus_dm,
+    dfSTUDCOMP = clindata::rawplus_studcomp,
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename=="Blinded Study Drug Completion")
   ),
-  strContext = "Treatment",
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  strContext = "Study",
+  strTreatmentPhase = NULL,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
@@ -56,6 +58,9 @@ Disp_Map_Raw <- function(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)
   )
+
+  strDomain <- ifelse(strContext=="Study",'dfSTUDCOMP','dfSDRGCOMP')
+  dfs$dfDISP <- dfs[[strDomain]]
 
   checks <- CheckInputs(
     context = paste0("Disp_Map_Raw", "_", strContext),
@@ -69,15 +74,16 @@ Disp_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn Disp_Map_Raw}")
 
     # Standarize Column Names
-    dfDISP_mapped <- dfs$dfDISP %>%
-      select(
-        SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
-        DCReason = lMapping[["dfDISP"]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
-        Completion = lMapping[["dfDISP"]][[glue::glue("str{strContext}CompletionFlagCol")]]
-      ) %>%
-      filter(!.data$Completion %in% lMapping[["dfDISP"]][[glue::glue("str{strContext}CompletionFlagVal")]]) %>%
-      mutate(Count = 1)
+    dfDISP <- dfs$dfDISP
 
+    dfDISP_mapped <- dfDISP %>%
+        select(
+            SubjectID = lMapping[[strDomain]][["strIDCol"]],
+            DCReason = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
+            Completion = lMapping[[strDomain]][[glue::glue("str{strContext}CompletionFlagCol")]]
+        ) %>%
+        filter(!.data$Completion %in% lMapping[[strDomain]][[glue::glue("str{strContext}CompletionFlagVal")]]) %>%
+        mutate(Count = 1)
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -93,7 +99,7 @@ Disp_Map_Raw <- function(
 
     dfInput <- gsm::MergeSubjects(
       dfDomain = dfDISP_mapped,
-      dfSubjects = dfSUBJ_mapped,
+      dfSUBJ = dfSUBJ_mapped,
       bQuiet = bQuiet
     ) %>%
       mutate(

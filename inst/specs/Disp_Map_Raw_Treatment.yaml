@@ -1,4 +1,4 @@
-dfDISP:
+dfSDRGCOMP:
   vRequired:
     - strIDCol
     - strTreatmentDiscontinuationReasonCol
@@ -12,5 +12,3 @@ dfSUBJ:
     - strSiteCol
   vUniqueCols:
     - strIDCol
-
-

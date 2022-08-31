@@ -15,7 +15,7 @@
 #' # Adverse events by grade
 #' StratifiedAE <- MakeStratifiedAssessment(
 #'   lData = list(
-#'     dfSUBJ = clindata::rawplus_subj,
+#'     dfSUBJ = clindata::rawplus_dm,
 #'     dfAE = clindata::rawplus_ae
 #'   ),
 #'   lMapping = lMapping,
@@ -26,7 +26,7 @@
 #'   purrr::map(~ .x %>%
 #'     RunAssessment(
 #'       lData = list(
-#'         dfSUBJ = clindata::rawplus_subj,
+#'         dfSUBJ = clindata::rawplus_dm,
 #'         dfAE = clindata::rawplus_ae
 #'       ),
 #'       lMapping = lMapping
@@ -35,8 +35,8 @@
 #' # Protocol deviations by PD category
 #' StratifiedPD <- MakeStratifiedAssessment(
 #'   lData = list(
-#'     dfSUBJ = clindata::rawplus_subj,
-#'     dfPD = clindata::rawplus_pd
+#'     dfSUBJ = clindata::rawplus_dm,
+#'     dfPD = clindata::rawplus_protdev
 #'   ),
 #'   lMapping = lMapping,
 #'   lWorkflow = MakeAssessmentList()$pdCategory
@@ -46,8 +46,8 @@
 #'   purrr::map(~ .x %>%
 #'     RunAssessment(
 #'       lData = list(
-#'         dfSUBJ = clindata::rawplus_subj,
-#'         dfPD = clindata::rawplus_pd
+#'         dfSUBJ = clindata::rawplus_dm,
+#'         dfPD = clindata::rawplus_protdev
 #'       ),
 #'       lMapping = lMapping
 #'     ))
@@ -55,7 +55,7 @@
 #' # Labs by lab category
 #' StratifiedLB <- MakeStratifiedAssessment(
 #'   lData = list(
-#'     dfSUBJ = clindata::rawplus_subj,
+#'     dfSUBJ = clindata::rawplus_dm,
 #'     dfLB = clindata::rawplus_lb
 #'   ),
 #'   lMapping = lMapping,
@@ -66,7 +66,7 @@
 #'   purrr::map(~ .x %>%
 #'     RunAssessment(
 #'       lData = list(
-#'         dfSUBJ = clindata::rawplus_subj,
+#'         dfSUBJ = clindata::rawplus_dm,
 #'         dfLB = clindata::rawplus_lb
 #'       ),
 #'       lMapping = lMapping

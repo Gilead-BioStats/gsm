@@ -1,19 +1,22 @@
 tags:
-  Assessment: Subject Discontinuation
-  Label: Study
-  KRIID: kri0007
+  Assessment: Disposition
+  Label: Treatment by Phase
+group:
+  domain: dfDISP_Treatment
+  columnParam: strTreatmentPhaseCol
 workflow:
   - name: Disp_Map_Raw
     inputs:
       - dfSUBJ
-      - dfSTUDCOMP
+      - dfDISP_Treatment
     output: dfInput
     params:
-      strContext: Study
+      strContext: Treatment
   - name: Disp_Assess
     inputs: dfInput
     output: lResults
     params:
       strGroup: "Site"
       vThreshold: null
-      strMethod: "fisher"
+      strMethod: "chisq"
+

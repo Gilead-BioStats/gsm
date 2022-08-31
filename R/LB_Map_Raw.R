@@ -46,7 +46,7 @@
 
 LB_Map_Raw <- function(
   dfs = list(
-    dfSUBJ = clindata::rawplus_subj,
+    dfSUBJ = clindata::rawplus_dm,
     dfLB = clindata::rawplus_lb
   ),
 
@@ -86,7 +86,7 @@ LB_Map_Raw <- function(
     dfLB_mapped <- dfs$dfLB %>%
       select(
         SubjectID = lMapping[["dfLB"]][["strIDCol"]],
-        Abnormal = lMapping[["dfLB"]][["strAbnormalCol"]]
+        Grade = lMapping[["dfLB"]][["strGradeCol"]]
       )
 
     # Create Subject Level LB Counts and merge Subj
@@ -96,10 +96,10 @@ LB_Map_Raw <- function(
         "SubjectID"
       ) %>%
       mutate(
-        Count = case_when(
-          .data$Abnormal == lMapping[["dfLB"]][["strAbnormalVal"]] ~ 1,
-          .data$Abnormal != lMapping[["dfLB"]][["strAbnormalVal"]] ~ 0,
-          is.na(.data$Abnormal) ~ 0
+        Count = if_else(
+          .data$Grade %in% lMapping[["dfLB"]][["strGradeAnyVal"]],
+          1,
+          0
         ),
         Total = 1
       ) %>%

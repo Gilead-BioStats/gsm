@@ -18,8 +18,11 @@ Flowchart visualization of data pipeline steps from filtering to summary data fo
 \examples{
 lAssessments <- list(kri0001 = MakeAssessmentList()$kri0001)
 lData <- list(
-  dfSUBJ = clindata::rawplus_subj,
-  dfAE = clindata::rawplus_ae
+  dfSUBJ = clindata::rawplus_dm,
+  dfAE = clindata::rawplus_ae,
+  dfPD = clindata::rawplus_protdev,
+  dfCONSENT = clindata::rawplus_consent,
+  dfIE = clindata::rawplus_ie
 )
 lTags <- list(
   Study = "myStudy"

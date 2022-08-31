@@ -1,7 +1,9 @@
 dfLB:
   vRequired:
     - strIDCol
-    - strAbnormalCol
+    - strGradeCol
+  vNACols:
+    - strGradeCol
 dfSUBJ:
   vRequired:
     - strIDCol

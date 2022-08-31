@@ -16,11 +16,11 @@
 #' lData <- list(
 #'   dfAE = clindata::rawplus_ae,
 #'   dfCONSENT = clindata::rawplus_consent,
-#'   dfDISP = clindata::rawplus_subj,
+#'   dfDISP = clindata::rawplus_dm,
 #'   dfIE = clindata::rawplus_ie,
 #'   dfLB = clindata::rawplus_lb,
-#'   dfPD = clindata::rawplus_pd,
-#'   dfSUBJ = clindata::rawplus_subj
+#'   dfPD = clindata::rawplus_protdev,
+#'   dfSUBJ = clindata::rawplus_dm
 #' )
 #' lTags <- list(
 #'   Study = "myStudy"

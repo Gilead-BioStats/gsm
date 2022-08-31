@@ -22,16 +22,17 @@
 #' lData <- list(
 #'   dfAE = clindata::rawplus_ae,
 #'   dfCONSENT = clindata::rawplus_consent,
-#'   dfDISP = clindata::rawplus_subj,
+#'   dfDISP_Study = clindata::rawplus_studcomp,
+#'   dfDISP_Treatment = clindata::rawplus_sdrgcomp,
 #'   dfIE = clindata::rawplus_ie,
 #'   dfLB = clindata::rawplus_lb,
-#'   dfPD = clindata::rawplus_pd,
-#'   dfSUBJ = clindata::rawplus_subj
+#'   dfPD = clindata::rawplus_protdev,
+#'   dfSUBJ = clindata::rawplus_dm
 #' )
 #' lMapping <- yaml::read_yaml(
 #'   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
 #' )
-#'
+#' 
 #' output <- RunStratifiedWorkflow(
 #'   lWorkflows$aeGrade, # adverse event workflow, stratified by AE grade
 #'   lData = lData,

@@ -11,8 +11,8 @@ workflow:
       strValParam: strTreatmentEmergentVal
   - name: AE_Map_Raw
     inputs:
-      - dfAE
       - dfSUBJ
+      - dfAE
     output: dfInput
   - name: AE_Assess
     inputs: dfInput

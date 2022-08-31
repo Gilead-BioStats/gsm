@@ -5,7 +5,7 @@
 \title{Lab Assessment - Raw Mapping}
 \usage{
 LB_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_subj, dfLB = clindata::rawplus_lb),
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfLB = clindata::rawplus_lb),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
   bReturnChecks = FALSE,

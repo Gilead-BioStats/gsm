@@ -9,11 +9,11 @@ workflow:
     params:
       strDomain: dfLB
       strColParam: strGradeCol
-      strValParam: strGradeVal
+      strValParam: strGradeHighVal
   - name: LB_Map_Raw
     inputs:
-      - dfLB
       - dfSUBJ
+      - dfLB
     output: dfInput
   - name: LB_Assess
     inputs: dfInput
