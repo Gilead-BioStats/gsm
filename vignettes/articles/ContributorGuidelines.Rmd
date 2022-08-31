@@ -126,7 +126,7 @@ styler::style_dir('tests', recursive = TRUE, transformers = double_indent_style)
    - If needed, PR can be closed, and a new release PR can be created with a release candidate added to the branch name (e.g. `release-v1.2.0-RC2`) 
 6. Once PR is approved, Release Owner should complete the release by: 
    - Merge the release PR to `main`.
-   - Create the GitHub release using the wording from `NEWS.md` in addition to the automatically generated content in GitHub. 
+   - Create the GitHub release **targeting the `main` branch** using the wording from `NEWS.md` in addition to the automatically generated content in GitHub. 
    - Confirm that QC Report is attached to release.
 7. Finally, Release Owner or their delegate should complete the following housekeeping tasks:
    - Create PR to merge `main` into `dev` to sync any updates made during Release process.
