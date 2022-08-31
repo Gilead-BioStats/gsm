@@ -111,7 +111,6 @@ AE_Assess <- function(dfInput,
       lData$dfSummary <- gsm::Summarize(lData$dfFlagged, lTags = lTags)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
-
     } else if (strMethod == "wilcoxon") {
 
       lData$dfAnalyzed <- gsm::Analyze_Wilcoxon(lData$dfTransformed, bQuiet = bQuiet)
@@ -122,6 +121,7 @@ AE_Assess <- function(dfInput,
 
       lData$dfSummary <- gsm::Summarize(lData$dfFlagged, lTags = lTags)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
+    
     } else if (strMethod == "identity") {
     
       lAslDatasess$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
