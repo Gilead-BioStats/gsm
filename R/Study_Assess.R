@@ -52,7 +52,8 @@ Study_Assess <- function(
       dfCONSENT = clindata::rawplus_consent,
       dfIE = clindata::rawplus_ie,
       dfLB = clindata::rawplus_lb,
-      dfDISP = clindata::rawplus_dm
+      dfSTUDCOMP = clindata::rawplus_studcomp,
+      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename=="Blinded Study Drug Completion")
     )
   }
 

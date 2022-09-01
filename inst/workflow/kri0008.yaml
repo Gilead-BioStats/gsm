@@ -13,7 +13,7 @@ workflow:
   - name: Disp_Map_Raw
     inputs:
       - dfSUBJ
-      - dfDISP_Treatment
+      - dfSDRGCOMP
     output: dfInput
     params:
       strContext: Treatment

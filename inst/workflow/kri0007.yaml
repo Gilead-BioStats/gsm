@@ -6,7 +6,7 @@ workflow:
   - name: Disp_Map_Raw
     inputs:
       - dfSUBJ
-      - dfDISP_Study
+      - dfSTUDCOMP
     output: dfInput
     params:
       strContext: Study
