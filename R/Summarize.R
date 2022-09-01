@@ -45,7 +45,6 @@ Summarize <- function(dfFlagged, strScoreCol = "Score") {
     "One or more of these columns: GroupID, N, Flag , strScoreCol, not found in dfFlagged" = all(c("GroupID", "N", "Flag", strScoreCol) %in% names(dfFlagged))
   )
 
-
   dfSummary <- dfFlagged %>%
     select(
       .data$GroupID,

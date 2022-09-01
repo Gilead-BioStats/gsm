@@ -40,8 +40,8 @@ Transform_Rate <- function(
 ) {
   stopifnot(
     "dfInput is not a data frame" = is.data.frame(dfInput),
-    "strNumeratorColumn is not numeric" = is.numeric(dfInput[[strExposureCol]]),
-    "strDenominatorColumn is not numeric" = is.numeric(dfInput[[strExposureCol]]),
+    "strNumeratorColumn is not numeric" = is.numeric(dfInput[[strNumeratorCol]]),
+    "strDenominatorColumn is not numeric" = is.numeric(dfInput[[strDenominatorCol]]),
     "NA's found in numerator"=!anyNA(dfInput[[strNumeratorCol]]),
     "NA's found in denominator"=!anyNA(dfInput[[strDenominatorCol]]),
     "Specified columns found in input data" = c(strNumeratorCol, strDenominatorCol, strGroupCol) %in% names(dfInput)
@@ -54,8 +54,8 @@ Transform_Rate <- function(
       Numerator = sum(.data[[strNumeratorCol]]),
       Denominator = sum(.data[[strDenominatorCol]])
     ) %>%
-    mutate(Metric = .data$TotalCount / .data$TotalExposure) %>%
-    select(.data$GroupID, .data$GroupLabel, everything())
+    mutate(Metric = .data$Numerator / .data$Denominator) %>%
+    select(.data$GroupID, everything())
 
   return(dfTransformed)
 }

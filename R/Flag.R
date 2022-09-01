@@ -77,9 +77,6 @@ Flag <- function(
   # Flag values outside the specified threshold.
   dfFlagged <- dfAnalyzed %>%
     mutate(
-      ThresholdLow = vThreshold[1],
-      ThresholdHigh = vThreshold[2],
-      ThresholdCol = strColumn,
       Flag = case_when(
         !is.na(vThreshold[1]) & (.data[[strColumn]] < vThreshold[1]) ~ -1,
         !is.na(vThreshold[2]) & (.data[[strColumn]] > vThreshold[2]) ~ 1,

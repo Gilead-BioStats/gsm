@@ -63,12 +63,12 @@ AE_Assess <- function(dfInput,
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
-  mapping$dfInput$strGroupCol <- mapping$dfInput[[glue::glue("str{strGroup}Col")]]
+  lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
   lChecks <- CheckInputs(
     context = "AE_Assess",
     dfs = list(dfInput = dfInput),
-    mapping = mapping,
+    mapping = lMapping,
     bQuiet = bQuiet
   )
 
@@ -84,10 +84,10 @@ AE_Assess <- function(dfInput,
     ########################################
 
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
-
+    lData<-list()
     lData$dfTransformed <- gsm::Transform_Rate(
       dfInput,
-      strGroupCol = mapping$dfInput$strGroupCol,
+      strGroupCol = lMapping$dfInput$strGroupCol,
       strNumeratorCol = "Count",
       strDenominatorCol = "Exposure"
     )
