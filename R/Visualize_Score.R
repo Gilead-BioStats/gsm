@@ -68,7 +68,7 @@ Visualize_Score <- function(
           if ("TotalExposure" %in% names(dfFlagged)) {
             sum(dfFlagged$TotalCount) / sum(dfFlagged$TotalExposure)
           } else {
-            sum(dfFlagged$TotalCount) / nrow(dfFlagged)
+            sum(dfFlagged$TotalCount) / sum(dfFlagged$N)
           }
         ),
         linetype = "dashed",
