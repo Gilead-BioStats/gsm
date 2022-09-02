@@ -33,7 +33,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["vRequired", "vUniqueCols"]
+              "value": ["vRequired", "vUniqueCols", "vNACols"]
             }
           },
           "value": [
@@ -46,6 +46,11 @@
               "type": "character",
               "attributes": {},
               "value": ["strIDCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strTimeOnTreatmentCol"]
             }
           ]
         }
@@ -60,7 +65,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfSUBJ", "dfAE"]
+          "value": ["dfAE", "dfSUBJ"]
         }
       },
       "value": [
@@ -70,69 +75,44 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
+              "value": ["strIDCol", "strTreatmentEmergentCol", "strTreatmentEmergentVal", "strGradeCol", "strSeriousCol", "strSeriousVal", "strNonSeriousVal"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["SubjectID"]
+              "value": ["subjid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["SiteID"]
+              "value": ["ae_te"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["StudyID"]
+              "value": ["Y"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["RegionID"]
+              "value": ["aetoxgr"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["TimeOnTreatment"]
+              "value": ["aeser"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["TimeOnStudy"]
+              "value": ["Y"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["RandFlag"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["RandDate"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["StudCompletion"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["StudDCReason"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["TrtCompletion"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["TrtDCReason"]
+              "value": ["N"]
             }
           ]
         },
@@ -142,39 +122,39 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strTreatmentEmergentCol", "strTreatmentEmergentVal", "strGradeCol", "strSeriousCol", "strSeriousVal"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["SubjectID"]
+              "value": ["studyid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["AE_TE_FLAG"]
-            },
-            {
-              "type": "logical",
-              "attributes": {},
-              "value": [true]
+              "value": ["siteid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["AE_GRADE"]
+              "value": ["subjid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["AE_SERIOUS"]
+              "value": ["timeonstudy"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["Yes"]
+              "value": ["timeontreatment"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["rfpen_dt"]
             }
           ]
         }
@@ -199,7 +179,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["vRequired", "vUniqueCols"]
+              "value": ["vRequired", "vUniqueCols", "vNACols"]
             }
           },
           "value": [
@@ -212,6 +192,11 @@
               "type": "character",
               "attributes": {},
               "value": ["strIDCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strExposureCol", "strRateCol"]
             }
           ]
         }
@@ -289,12 +274,12 @@
       -- Checking Input Data for `AE_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, TimeOnTreatment
+      x the following columns not found in df: subjid, siteid, timeontreatment
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -313,7 +298,7 @@
       -- Checking Input Data for `AE_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, TimeOnTreatment
+      x the following columns not found in df: subjid, siteid, timeontreatment
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -332,7 +317,7 @@
       -- Checking Input Data for `AE_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -350,12 +335,12 @@
       -- Checking Input Data for `AE_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, TimeOnTreatment
+      x the following columns not found in df: subjid, siteid, timeontreatment
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -373,12 +358,12 @@
       -- Checking Input Data for `AE_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, TimeOnTreatment
+      x the following columns not found in df: subjid, siteid, timeontreatment
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -396,12 +381,12 @@
       -- Checking Input Data for `AE_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, TimeOnTreatment
+      x the following columns not found in df: subjid, siteid, timeontreatment
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -437,7 +422,7 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      x Unexpected duplicates found in column: SubjectID
+      x Unexpected duplicates found in column: subjid
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` did not run because of failed check.
     Output
@@ -451,7 +436,7 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -468,7 +453,7 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -485,7 +470,7 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      x the following columns not found in df: SiteID
+      x the following columns not found in df: siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -502,7 +487,7 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      x the following columns not found in df: TimeOnTreatment
+      x the following columns not found in df: timeontreatment
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -519,7 +504,7 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      x 1 NA values found in column: SubjectID
+      x 1 NA values found in column: subjid
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` did not run because of failed check.
     Output
@@ -533,7 +518,7 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      x 1 NA values found in column: SubjectID
+      x 1 NA values found in column: subjid
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` did not run because of failed check.
     Output
@@ -547,21 +532,7 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      x 1 NA values found in column: SiteID
-      ! Issues found for `AE_Map_Raw()`
-      ! `AE_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs_edited, bQuiet = FALSE)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `AE_Map_Raw()` --
-      
-      x 1 NA values found in column: TimeOnTreatment
+      x 1 NA values found in column: siteid
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` did not run because of failed check.
     Output
@@ -575,7 +546,7 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      x Unexpected duplicates found in column: SubjectID
+      x Unexpected duplicates found in column: subjid
       ! Issues found for `AE_Map_Raw()`
       ! `AE_Map_Raw()` did not run because of failed check.
     Output
@@ -662,8 +633,5 @@
       -- Initializing `AE_Map_Raw()` --
       
       i Intializing merge of domain and subject data
-      i 1 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
       v `AE_Map_Raw()` returned output with 3 rows.
 

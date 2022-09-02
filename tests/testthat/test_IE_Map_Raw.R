@@ -8,7 +8,7 @@ dfs <- list(
 )
 
 input_spec <- yaml::read_yaml(system.file("specs", "IE_Map_Raw.yaml", package = "gsm"))
-input_mapping <- yaml::read_yaml(system.file("mappings", "IE_Map_Raw.yaml", package = "gsm"))
+input_mapping <- subset_input_mapping(input_spec = input_spec)
 
 output_spec <- yaml::read_yaml(system.file("specs", "IE_Assess.yaml", package = "gsm"))
 output_mapping <- yaml::read_yaml(system.file("mappings", "IE_Assess.yaml", package = "gsm"))
