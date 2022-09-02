@@ -46,7 +46,6 @@ Consent_Assess(
 \item assessment metadata
 \itemize{
 \item \code{strFunctionName}
-\item \code{lParams}
 \item \code{lTags}
 }
 \item output(s)

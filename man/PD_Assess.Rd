@@ -58,7 +58,6 @@ and each tag is added as a column in \code{lAssess$dfSummary}.}
 \item assessment metadata
 \itemize{
 \item \code{strFunctionName}
-\item \code{lParams}
 \item \code{lTags}
 }
 \item output(s)

@@ -63,6 +63,7 @@ AE_Assess <- function(dfInput,
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
+
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
   lChecks <- CheckInputs(
@@ -100,8 +101,8 @@ AE_Assess <- function(dfInput,
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Poisson} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
       lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(
-        lData$dfTransformed, 
-        vThreshold = vThreshold, 
+        lData$dfTransformed,
+        vThreshold = vThreshold,
         bQuiet = bQuiet
       )
 
@@ -121,9 +122,9 @@ AE_Assess <- function(dfInput,
 
       lData$dfSummary <- gsm::Summarize(lData$dfFlagged, lTags = lTags)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
-    
+
     } else if (strMethod == "identity") {
-    
+
       lAslDatasess$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Identity} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
@@ -134,18 +135,18 @@ AE_Assess <- function(dfInput,
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
     }
 
-    
+
     ########################################
     ## Save Charts to lCharts
     ########################################
     lCharts<-list()
-    
+
     if(!hasProperty(lData,dfBounds)) lData$dfBounds <- NA
     lCharts$scatter <- gsm::Visualize_Scatter(lData$dfFlagged, lData$dfBounds)
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
     #lCharts$barMetric <- VisualizeScore()
     #lCharts$barScore <- VisualizeScore()
-    
+
     return(list(lData=lData,lCharts=lCharts,lChecks=lChecks))
   }
 }

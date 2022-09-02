@@ -46,12 +46,12 @@ data (from \code{dfSUBJ}). Note that the function can generate data summaries fo
 AEs by passing filtered AE data to \code{dfAE}.
 }
 \section{Data specification}{
-\tabular{lllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
-   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
-   dfSUBJ \tab strTimeOnTreatmentCol \tab TimeOnTreatment \tab TRUE \tab FALSE \cr
-   dfAE \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \cr
+\tabular{llllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \tab \strong{Accept NA/Empty Values?} \cr
+   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
+   dfSUBJ \tab strTimeOnTreatmentCol \tab TimeOnTreatment \tab TRUE \tab FALSE \tab TRUE \cr
+   dfAE \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab FALSE \cr
 }
 }
 

@@ -53,10 +53,10 @@ types of consent by customizing \code{lMapping$dfCONSENT}.
    dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab TRUE \cr
    dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
    dfSUBJ \tab strRandDateCol \tab RandDate \tab TRUE \tab FALSE \tab FALSE \cr
-   dfCONSENT \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab FALSE \cr
-   dfCONSENT \tab strTypeCol \tab CONSENT_TYPE \tab TRUE \tab FALSE \tab FALSE \cr
-   dfCONSENT \tab strValueCol \tab CONSENT_VALUE \tab TRUE \tab FALSE \tab FALSE \cr
-   dfCONSENT \tab strDateCol \tab CONSENT_DATE \tab TRUE \tab TRUE \tab FALSE \cr
+   dfCONSENT \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strTypeCol \tab conscat \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strValueCol \tab consyn \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strDateCol \tab consdt \tab TRUE \tab TRUE \tab FALSE \cr
 }
 }
 

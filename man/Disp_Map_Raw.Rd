@@ -5,8 +5,9 @@
 \title{Disposition Assessment - Raw Mapping}
 \usage{
 Disp_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDISP_Study = clindata::rawplus_studcomp,
-    dfDISP_Treatment = clindata::rawplus_sdrgcomp),
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfSTUDCOMP = clindata::rawplus_studcomp,
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\% filter(datapagename ==
+    "Blinded Study Drug Completion")),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
   strContext = "Study",

@@ -50,12 +50,12 @@ subject-level data (from \code{dfSUBJ}). Note that the function can generate dat
 specific types of LB criteria by passing filtered LB data to \code{dfLB}.
 }
 \section{Data specification}{
-\tabular{lllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
-   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
-   dfLB \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \cr
-   dfLB \tab strAbnormalCol \tab LB_ABN_FLAG \tab TRUE \tab FALSE \cr
+\tabular{llllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \tab \strong{Require Unique Values?} \cr
+   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab TRUE \cr
+   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
+   dfLB \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab FALSE \cr
+   dfLB \tab strGradeCol \tab LB_GRADE \tab TRUE \tab TRUE \tab FALSE \cr
 }
 }
 
