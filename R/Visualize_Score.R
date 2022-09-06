@@ -23,7 +23,7 @@
 
 Visualize_Score <- function(
   dfFlagged,
-  strType = "KRI",
+  strType = "metric",
   bFlagFilter = FALSE,
   strTitle = ""
 ) {
@@ -31,7 +31,7 @@ Visualize_Score <- function(
     "strTitle must be character" = is.character(strTitle),
     "bFlagFilter must be logical" = is.logical(bFlagFilter),
     "dfFlagged must be a data.frame" = is.data.frame(dfFlagged),
-    "strType must be 'KRI' or 'score'" = strType %in% c("KRI", "score"),
+    "strType must be 'metric' or 'score'" = strType %in% c("metric", "score"),
     "strType must be length 1" = length(strType) == 1
   )
 
@@ -42,13 +42,12 @@ Visualize_Score <- function(
       )
   }
 
-  if (strType == "KRI") {
+  if (strType == "metric") {
     dfFlaggedWithTooltip <- dfFlagged %>%
       mutate(
         tooltip = paste(
-          paste0("Group: ", .data$GroupLabel),
           paste0("GroupID: ", .data$GroupID),
-          paste(.data$KRI, .data$KRILabel),
+          paste(.data$Metric),
           sep = "\n"
         )
       )
@@ -56,7 +55,7 @@ Visualize_Score <- function(
     p <- dfFlaggedWithTooltip %>%
       ggplot(
         aes(
-          x = reorder(.data$GroupID, -.data$KRI), y = .data$KRI,
+          x = reorder(.data$GroupID, -.data$Metric), y = .data$Metric,
           text = .data$tooltip
         )
       ) +

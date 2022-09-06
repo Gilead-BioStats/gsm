@@ -19,7 +19,6 @@
 #' @export
 
 Analyze_Identity <- function(dfTransformed, strValueCol = "Metric", bQuiet = TRUE) {
-  browser()
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
     "strValueCol not found in dfTransformed" = strValueCol %in% names(dfTransformed),

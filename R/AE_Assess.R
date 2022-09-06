@@ -117,7 +117,6 @@ AE_Assess <- function(dfInput,
       lData$dfAnalyzed <- gsm::Analyze_Wilcoxon(lData$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Wilcoxon} returned output with {nrow(lData$dfAnalyzed)} rows.")
     } else if (strMethod == "identity") {
-      browser()
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Identity} returned output with {nrow(lData$dfAnalyzed)} rows.")
     }
@@ -145,11 +144,15 @@ AE_Assess <- function(dfInput,
     ########################################
     lCharts <- list()
 
+    browser()
+
     if(!hasName(lData, 'dfBounds')) lData$dfBounds <- NULL
     lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
-    #lCharts$barMetric <- VisualizeScore()
-    #lCharts$barScore <- VisualizeScore()
+    lCharts$barMetric <- Visualize_Score(strType = "metric")
+    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created a chart.")
+    lCharts$barScore <- Visualize_Score(strType = "score")
+    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created a chart.")
 
     return(list(
       lData = lData,

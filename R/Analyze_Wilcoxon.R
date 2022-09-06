@@ -133,9 +133,6 @@ Analyze_Wilcoxon <- function(
 
   return(
     dfAnalyzed %>%
-      select(names(dfTransformed), .data$Estimate, Score = .data$PValue) %>%
-      mutate(
-        ScoreLabel = "P value"
-      )
+      select(names(dfTransformed), .data$Estimate, Score = .data$PValue)
   )
 }
