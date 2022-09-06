@@ -133,6 +133,6 @@ Analyze_Wilcoxon <- function(
 
   return(
     dfAnalyzed %>%
-      select(names(dfTransformed), .data$Estimate, Score = .data$PValue)
+      select(names(dfTransformed), Score = .data$PValue, .data$Estimate)
   )
 }
