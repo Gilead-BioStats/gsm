@@ -50,7 +50,7 @@
 #' @export
 
 AE_Assess <- function(dfInput,
-  vThreshold = c(-5, 5),
+  vThreshold = NULL,
   strMethod = "poisson",
   lMapping =  yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
@@ -73,9 +73,23 @@ AE_Assess <- function(dfInput,
   )
 
 
+# set vThreshold if NULL ------------------------------------------------
+  if (is.null(vThreshold)) {
+    vThreshold <- switch(
+      strMethod,
+      poisson = c(-5, 5),
+      wilcoxon = c(0.0001, NA),
+      identity = c(0.00006, 0.01)
+    )
+  }
+
   if (!lChecks$status) {
     if (!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} did not run because of failed check.")
-    return(list( lData=NULL,lCharts=NULL, lChecks = lChecks))
+    return(list(
+      lData = NULL,
+      lCharts = NULL,
+      lChecks = lChecks
+    ))
   }else{
     if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Assess}")
 
@@ -84,67 +98,63 @@ AE_Assess <- function(dfInput,
     ########################################
 
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
-    lData<-list()
+    lData <- list()
     lData$dfTransformed <- gsm::Transform_Rate(
-      dfInput,
+      dfInput = dfInput,
       strGroupCol = lMapping$dfInput$strGroupCol,
       strNumeratorCol = "Count",
       strDenominatorCol = "Exposure"
     )
-
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
-    if (strMethod == "poisson") {
 
+# refactor to only analyze in elseif --------------------------------------
+    if (strMethod == "poisson") {
       lData$dfAnalyzed <- gsm::Analyze_Poisson(lData$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Poisson} returned output with {nrow(lData$dfAnalyzed)} rows.")
-
-      lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(
-        lData$dfTransformed,
-        vThreshold = vThreshold,
-        bQuiet = bQuiet
-      )
-
-      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold)
-      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
-
-      lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
-      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
-
+      lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
     } else if (strMethod == "wilcoxon") {
-
       lData$dfAnalyzed <- gsm::Analyze_Wilcoxon(lData$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Wilcoxon} returned output with {nrow(lData$dfAnalyzed)} rows.")
-
-      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Estimate")
-      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
-
-      lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
-      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
-
     } else if (strMethod == "identity") {
-
-      lAslDatasess$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
+      browser()
+      lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Identity} returned output with {nrow(lData$dfAnalyzed)} rows.")
-
-      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Score")
-      if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
-
-      lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
-      if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
     }
+
+
+# only parameter changed for Flag is strValueCol --------------------------
+    strValueColumnVal <- switch(
+      strMethod,
+      poisson = NULL,
+      wilcoxon = "Estimate",
+      identity = "Score"
+    )
+
+    lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
+    if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
+
+    lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
+    if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     ########################################
     ## Save Charts to lCharts
+    ##
+    ## - strGroupLabel defaults to strGroup for now
+    ## - may want to move this out to be more flexible
     ########################################
-    lCharts<-list()
+    lCharts <- list()
 
-    if(!hasName(lData, 'dfBounds')) lData$dfBounds <- NA
-    lCharts$scatter <- gsm::Visualize_Scatter(lData$dfFlagged, lData$dfBounds)
+    if(!hasName(lData, 'dfBounds')) lData$dfBounds <- NULL
+    lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
     #lCharts$barMetric <- VisualizeScore()
     #lCharts$barScore <- VisualizeScore()
 
-    return(list(lData=lData,lCharts=lCharts,lChecks=lChecks))
+    return(list(
+      lData = lData,
+      lCharts = lCharts,
+      lChecks = lChecks
+    ))
   }
 }

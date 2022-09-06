@@ -19,9 +19,10 @@
 #' @export
 
 Analyze_Identity <- function(dfTransformed, strValueCol = "Metric", bQuiet = TRUE) {
+  browser()
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "strValueCol and/or strLabelCol not found in dfTransformed" = all(c(strValueCol, strLabelCol) %in% names(dfTransformed)),
+    "strValueCol not found in dfTransformed" = strValueCol %in% names(dfTransformed),
     "bQuiet must be locial" = is.logical(bQuiet)
   )
 

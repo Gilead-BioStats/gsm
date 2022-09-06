@@ -22,8 +22,14 @@
 #'
 #' @export
 
-Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strGroupCol = NULL, strUnit = "days") {
-  groupLabel <- unique(dfFlagged$GroupLabel)
+Visualize_Scatter <- function(
+    dfFlagged,
+    dfBounds = NULL,
+    strGroupCol = NULL,
+    strGroupLabel = NULL,
+    strUnit = "days") {
+
+  groupLabel <- ifelse(is.null(strGroupLabel), "GroupID: ", strGroupLabel)
 
   # Define tooltip for use in plotly.
   dfFlaggedWithTooltip <- dfFlagged %>%

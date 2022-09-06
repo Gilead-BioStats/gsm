@@ -54,7 +54,7 @@
 Flag <- function(
   dfAnalyzed,
   strColumn = "Score",
-  vThreshold = c(0.05, NA),
+  vThreshold = NULL,
   strValueColumn = NULL
 ) {
   stopifnot(
@@ -62,6 +62,7 @@ Flag <- function(
     "strColumn is not character" = is.character(strColumn),
     "vThreshold is not numeric" = is.numeric(vThreshold),
     "vThreshold must be length of 2" = length(vThreshold) == 2,
+    "vThreshold cannot be NULL" = !is.null(vThreshold),
     "strColumn must be length of 1" = length(strColumn) == 1,
     "strColumn not found in dfAnalyzed" = strColumn %in% names(dfAnalyzed),
     "strValueColumn not found in dfAnalyzed" = strValueColumn %in% names(dfAnalyzed),
