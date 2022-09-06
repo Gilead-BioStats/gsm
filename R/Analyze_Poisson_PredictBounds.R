@@ -46,14 +46,20 @@
 #' @export
 
 Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), bQuiet = TRUE) {
+
+  if (is.null(vThreshold)) {
+    vThreshold <- c(-5, 5)
+    cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-5, 5)")
+  }
+
   # Calculate log of total exposure at each site.
   dfTransformed$LogExposure <- log(
-    dfTransformed$TotalExposure
+    dfTransformed$Denominator
   )
 
   # Fit GLM of number of events at each site predicted by total exposure.
   cModel <- glm(
-    TotalCount ~ stats::offset(LogExposure),
+    Numerator ~ stats::offset(LogExposure),
     family = poisson(link = "log"),
     data = dfTransformed
   )

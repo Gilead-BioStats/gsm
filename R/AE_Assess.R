@@ -31,7 +31,6 @@
 #'   - `dfSummary`, returned by [gsm::Summarize()]
 #' - assessment metadata
 #'   - `strFunctionName`
-#'   - `lTags`
 #' - output(s)
 #'   - `chart`
 #'
@@ -51,7 +50,7 @@
 #' @export
 
 AE_Assess <- function(dfInput,
-  vThreshold = NULL,
+  vThreshold = c(-5, 5),
   strMethod = "poisson",
   lMapping =  yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
@@ -109,7 +108,7 @@ AE_Assess <- function(dfInput,
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold)
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
 
-      lData$dfSummary <- gsm::Summarize(lData$dfFlagged, lTags = lTags)
+      lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     } else if (strMethod == "wilcoxon") {
@@ -120,7 +119,7 @@ AE_Assess <- function(dfInput,
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Estimate")
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
 
-      lData$dfSummary <- gsm::Summarize(lData$dfFlagged, lTags = lTags)
+      lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     } else if (strMethod == "identity") {
@@ -131,17 +130,16 @@ AE_Assess <- function(dfInput,
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = "Score")
       if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
 
-      lData$dfSummary <- gsm::Summarize(lData$dfFlagged, lTags = lTags)
+      lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
       if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
     }
-
 
     ########################################
     ## Save Charts to lCharts
     ########################################
     lCharts<-list()
 
-    if(!hasProperty(lData,dfBounds)) lData$dfBounds <- NA
+    if(!hasName(lData, 'dfBounds')) lData$dfBounds <- NA
     lCharts$scatter <- gsm::Visualize_Scatter(lData$dfFlagged, lData$dfBounds)
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
     #lCharts$barMetric <- VisualizeScore()
