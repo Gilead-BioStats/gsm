@@ -31,7 +31,10 @@ CheckInputs <- function(context, dfs, mapping = NULL, spec = NULL, bQuiet = TRUE
   }
 
   if (is.null(mapping)) {
-    mapping <- yaml::read_yaml(system.file("mappings", paste0(context, ".yaml"), package = "gsm"))
+    mapping <- c(
+      yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+      yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
+    )
   }
 
   if (is.null(spec)) {

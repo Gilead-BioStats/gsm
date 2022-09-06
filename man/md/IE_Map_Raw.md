@@ -2,8 +2,8 @@
 
 |**Domain** |**Column Key** |**Default Value** |**Required?** |**Require Unique Values?** |
 |:----------|:--------------|:-----------------|:-------------|:--------------------------|
-|dfSUBJ     |strIDCol       |SubjectID         |TRUE          |TRUE                       |
-|dfSUBJ     |strSiteCol     |SiteID            |TRUE          |FALSE                      |
-|dfIE       |strIDCol       |SubjectID         |TRUE          |FALSE                      |
-|dfIE       |strCategoryCol |IE_CATEGORY       |TRUE          |FALSE                      |
-|dfIE       |strValueCol    |IE_VALUE          |TRUE          |FALSE                      |
+|dfSUBJ     |strSiteCol     |siteid            |TRUE          |FALSE                      |
+|dfSUBJ     |strIDCol       |subjid            |TRUE          |TRUE                       |
+|dfIE       |strIDCol       |subjid            |TRUE          |FALSE                      |
+|dfIE       |strCategoryCol |iecat             |TRUE          |FALSE                      |
+|dfIE       |strValueCol    |ieorres           |TRUE          |FALSE                      |

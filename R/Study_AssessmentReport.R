@@ -38,7 +38,7 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
       )
 
     allChecks <- map(lAssessments[[assessment]][["checks"]], function(step) {
-      domains <- names(step[!names(step) %in% c("status", "mapping")])
+      domains <- names(step[!names(step) %in% c('mapping', 'spec', "status")])
 
       map(domains, function(domain) {
         status <- step[[domain]][["status"]]
