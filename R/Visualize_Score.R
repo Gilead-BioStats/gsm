@@ -77,7 +77,7 @@ Visualize_Score <- function(
         size = 1
       ) +
       ylab(
-        paste0("Test")
+        "Metric"
       )
   }
 
@@ -105,7 +105,7 @@ Visualize_Score <- function(
         stat = "identity"
       ) +
       ylab(
-        paste0("test")
+        "Score"
       )
 
     if (!is.na(ThresholdLow)) {
@@ -131,8 +131,7 @@ Visualize_Score <- function(
 
   p <- p +
     xlab(
-      # unique(dfFlagged$GroupLabel)
-      'test'
+      "Group"
     ) +
     theme_bw() +
     theme(
