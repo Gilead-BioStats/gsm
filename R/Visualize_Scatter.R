@@ -79,9 +79,9 @@ Visualize_Scatter <- function(
 
   if (!is.null(dfBounds)) {
     p <- p +
-      geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$MeanCount), color = "red", inherit.aes = FALSE) +
-      geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$LowerCount), color = "red", linetype = "dashed", inherit.aes = FALSE) +
-      geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$UpperCount), color = "red", linetype = "dashed", inherit.aes = FALSE)
+      geom_line(data = dfBounds, aes(x = .data$LogDenominator, y = .data$MeanCount), color = "red", inherit.aes = FALSE) +
+      geom_line(data = dfBounds, aes(x = .data$LogDenominator, y = .data$LowerCount), color = "red", linetype = "dashed", inherit.aes = FALSE) +
+      geom_line(data = dfBounds, aes(x = .data$LogDenominator, y = .data$UpperCount), color = "red", linetype = "dashed", inherit.aes = FALSE)
   }
 
   if (!is.null(strGroupCol)) {
