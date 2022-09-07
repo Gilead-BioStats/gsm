@@ -6,7 +6,7 @@
 \usage{
 Analyze_Wilcoxon(
   dfTransformed,
-  strOutcomeCol = "KRI",
+  strOutcomeCol = "Metric",
   strPredictorCol = "GroupID",
   bQuiet = TRUE
 )

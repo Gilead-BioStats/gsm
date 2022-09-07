@@ -8,6 +8,7 @@ Visualize_Scatter(
   dfFlagged,
   dfBounds = NULL,
   strGroupCol = NULL,
+  strGroupLabel = NULL,
   strUnit = "days"
 )
 }
@@ -17,6 +18,8 @@ Visualize_Scatter(
 \item{dfBounds}{data.frame giving prediction bounds for range of dfFlagged.}
 
 \item{strGroupCol}{name of stratification column for facet wrap (default=NULL)}
+
+\item{strGroupLabel}{name of group, used for labelling axes.}
 
 \item{strUnit}{exposure time unit. Defaults to "days".}
 }

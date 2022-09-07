@@ -43,7 +43,9 @@ The input data (\code{dfInput}) for the AE Assessment is typically created using
 }
 
 \examples{
-dfInput <- AE_Map_Adam()
-dfTransformed <- Transform_EventCount(dfInput, strNumeratorCol = "Count", strDenominatorCol = "Exposure")
+dfInput <- AE_Map_Raw()
+dfTransformed <- Transform_Rate(dfInput,
+                                strNumeratorCol = "Count",
+                                strDenominatorCol = "Exposure")
 
 }

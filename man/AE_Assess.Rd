@@ -35,24 +35,28 @@ of the column.}
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{list} Assessment, a named list with:
+\code{list} \code{lData}, a named list with:
 \itemize{
 \item each data frame in the data pipeline
 \itemize{
-\item \code{dfInput}
 \item \code{dfTransformed}, returned by \code{\link[=Transform_EventCount]{Transform_EventCount()}}
 \item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} or \code{\link[=Analyze_Wilcoxon]{Analyze_Wilcoxon()}}
 \item \code{dfFlagged}, returned by \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
+\item \code{dfBounds}, returned by \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}} when strMethod == 'poisson'
 }
-\item assessment metadata
+\item \code{list} \code{lCharts}, a named list with:
 \itemize{
-\item \code{strFunctionName}
-\item \code{lTags}
+\item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}}
+\item \code{barMetric}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}} using strType == "metric"
+\item \code{barScore}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}} using strType == "score"
 }
-\item output(s)
+\item \code{list} \code{lChecks}, a named list with:
 \itemize{
-\item \code{chart}
+\item \code{dfInput}, a named list returned by \code{\link[=is_mapping_valid]{is_mapping_valid()}}
+\item \code{status}, a boolean returned by \code{\link[=is_mapping_valid]{is_mapping_valid()}}
+\item \code{mapping}, a named list that is provided as an argument to the \code{lMapping} parameter in \code{\link[=AE_Assess]{AE_Assess()}}
+\item \code{spec}, a named list used to define variable specifications
 }
 }
 }

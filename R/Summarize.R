@@ -16,7 +16,6 @@
 #'
 #' @param dfFlagged data.frame in format produced by \code{\link{Flag}}
 #' @param strScoreCol column from analysis results to be copied to `dfSummary$Score`
-#' @param lTags List of tags containing metadata to add to the data frame.
 #'
 #' @return Simplified finding data.frame with columns for GroupID, N, Metric, Score, Flag
 #' when associated with a workflow.

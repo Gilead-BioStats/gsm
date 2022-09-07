@@ -53,7 +53,7 @@ Study_Assess <- function(
       dfIE = clindata::rawplus_ie,
       dfLB = clindata::rawplus_lb,
       dfSTUDCOMP = clindata::rawplus_studcomp,
-      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename=="Blinded Study Drug Completion")
+      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion")
     )
   }
 

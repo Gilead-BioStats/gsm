@@ -12,10 +12,6 @@ Transform_EventCount(dfInput, strCountCol, strGroupCol = "SiteID")
 \item{strCountCol}{Required. Numerical or logical. Column to be counted.}
 
 \item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
-
-\item{strExposureCol}{Optional. Numerical \code{Exposure} column.}
-
-\item{strKRILabel}{Optional. Character vector to describe the \code{KRI} column.}
 }
 \value{
 \code{data.frame} with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.

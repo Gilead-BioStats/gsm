@@ -32,9 +32,7 @@
 #'
 #' @param dfInput A data.frame with one record per person.
 #' @param strCountCol Required. Numerical or logical. Column to be counted.
-#' @param strExposureCol Optional. Numerical `Exposure` column.
 #' @param strGroupCol `character` Name of column for grouping variable. Default: `"SiteID"`
-#' @param strKRILabel Optional. Character vector to describe the `KRI` column.
 #'
 #' @return `data.frame` with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 #'

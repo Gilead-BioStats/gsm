@@ -10,8 +10,6 @@ Summarize(dfFlagged, strScoreCol = "Score")
 \item{dfFlagged}{data.frame in format produced by \code{\link{Flag}}}
 
 \item{strScoreCol}{column from analysis results to be copied to \code{dfSummary$Score}}
-
-\item{lTags}{List of tags containing metadata to add to the data frame.}
 }
 \value{
 Simplified finding data.frame with columns for GroupID, N, Metric, Score, Flag

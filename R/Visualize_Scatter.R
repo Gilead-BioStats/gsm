@@ -3,6 +3,7 @@
 #' @param dfFlagged analyze_poisson results with flags added.
 #' @param dfBounds data.frame giving prediction bounds for range of dfFlagged.
 #' @param strGroupCol name of stratification column for facet wrap (default=NULL)
+#' @param strGroupLabel name of group, used for labelling axes.
 #' @param strUnit exposure time unit. Defaults to "days".
 #'
 #' @return group-level plot object.

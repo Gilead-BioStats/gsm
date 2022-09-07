@@ -1,6 +1,6 @@
 #' Transform - Rate
 #'
-#' Calculate a site-level Rate 
+#' Calculate a site-level Rate
 #'
 #' @details
 #'
@@ -25,8 +25,10 @@
 #' @return `data.frame` with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam()
-#' dfTransformed <- Transform_EventCount(dfInput, strNumeratorCol = "Count", strDenominatorCol = "Exposure")
+#' dfInput <- AE_Map_Raw()
+#' dfTransformed <- Transform_Rate(dfInput,
+#'                                 strNumeratorCol = "Count",
+#'                                 strDenominatorCol = "Exposure")
 #'
 #' @import dplyr
 #'

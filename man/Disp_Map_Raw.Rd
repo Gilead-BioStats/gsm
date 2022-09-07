@@ -6,7 +6,7 @@
 \usage{
 Disp_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\% filter(datapagename ==
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\% filter(.data$datapagename ==
     "Blinded Study Drug Completion")),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
@@ -27,6 +27,8 @@ Disp_Map_Raw(
 of the column.}
 
 \item{strContext}{Disposition Context - "Treatment" or "Study"}
+
+\item{strTreatmentPhase}{\code{character} Treatment phase descriptor.}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 

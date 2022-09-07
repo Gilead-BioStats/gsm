@@ -52,10 +52,10 @@ specific types of LB criteria by passing filtered LB data to \code{dfLB}.
 \section{Data specification}{
 \tabular{llllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \tab \strong{Require Unique Values?} \cr
-   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab TRUE \cr
-   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
-   dfLB \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab FALSE \cr
-   dfLB \tab strGradeCol \tab LB_GRADE \tab TRUE \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \tab FALSE \cr
+   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab TRUE \cr
+   dfLB \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
+   dfLB \tab strGradeCol \tab toxgr \tab TRUE \tab TRUE \tab FALSE \cr
 }
 }
 
