@@ -144,14 +144,15 @@ AE_Assess <- function(dfInput,
     ########################################
     lCharts <- list()
 
-    browser()
-
     if(!hasName(lData, 'dfBounds')) lData$dfBounds <- NULL
+
     lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created a chart.")
-    lCharts$barMetric <- Visualize_Score(strType = "metric")
+
+    lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created a chart.")
-    lCharts$barScore <- Visualize_Score(strType = "score")
+
+    lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created a chart.")
 
     return(list(
