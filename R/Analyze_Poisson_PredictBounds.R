@@ -46,14 +46,20 @@
 #' @export
 
 Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), bQuiet = TRUE) {
+
+  if (is.null(vThreshold)) {
+    vThreshold <- c(-5, 5)
+    cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-5, 5)")
+  }
+
   # Calculate log of total exposure at each site.
-  dfTransformed$LogExposure <- log(
-    dfTransformed$TotalExposure
+  dfTransformed$LogDenominator <- log(
+    dfTransformed$Denominator
   )
 
   # Fit GLM of number of events at each site predicted by total exposure.
   cModel <- glm(
-    TotalCount ~ stats::offset(LogExposure),
+    Numerator ~ stats::offset(LogDenominator),
     family = poisson(link = "log"),
     data = dfTransformed
   )
@@ -61,15 +67,15 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
   # Calculate expected event count and predicted bounds across range of total exposure.
   dfBounds <- tibble::tibble(
     # Generate sequence along range of total exposure.
-    LogExposure = seq(
-      min(dfTransformed$LogExposure) - 0.05,
-      max(dfTransformed$LogExposure) + 0.05,
+    LogDenominator = seq(
+      min(dfTransformed$LogDenominator) - 0.05,
+      max(dfTransformed$LogDenominator) + 0.05,
       by = 0.05
     )
   ) %>%
     mutate(
       # Calculate expected event count at given exposure.
-      vMu = as.numeric(exp(.data$LogExposure * cModel$coefficients[2] + cModel$coefficients[1])),
+      vMu = as.numeric(exp(.data$LogDenominator * cModel$coefficients[2] + cModel$coefficients[1])),
       a = qchisq(0.95, 1), # used in Pearson calculation
 
       # Calculate lower bound of expected event count given specified threshold.
@@ -85,7 +91,7 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
       UpperCount = if_else(is.nan(.data$PredictYHi), 0, .data$PredictYHi)
     ) %>%
     select(
-      .data$LogExposure,
+      .data$LogDenominator,
       MeanCount = .data$vMu, .data$LowerCount, .data$UpperCount
     )
 

@@ -4,10 +4,18 @@
 \alias{Visualize_Score}
 \title{Group-level visualization of scores.}
 \usage{
-Visualize_Score(dfFlagged, strType = "KRI", bFlagFilter = FALSE, strTitle = "")
+Visualize_Score(
+  dfFlagged,
+  vThreshold = NULL,
+  strType = "metric",
+  bFlagFilter = FALSE,
+  strTitle = ""
+)
 }
 \arguments{
 \item{dfFlagged}{\code{data.frame} returned by \code{\link[=Flag]{Flag()}}}
+
+\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to NULL.}
 
 \item{strType}{\code{character} One of \code{"KRI"} or \code{"score"}.}
 

@@ -50,11 +50,11 @@ specific types of IE criteria by passing filtered IE data to \code{dfIE}.
 \section{Data specification}{
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
-   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
-   dfIE \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \cr
-   dfIE \tab strCategoryCol \tab IE_CATEGORY \tab TRUE \tab FALSE \cr
-   dfIE \tab strValueCol \tab IE_VALUE \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
+   dfIE \tab strIDCol \tab subjid \tab TRUE \tab FALSE \cr
+   dfIE \tab strCategoryCol \tab iecat \tab TRUE \tab FALSE \cr
+   dfIE \tab strValueCol \tab ieorres \tab TRUE \tab FALSE \cr
 }
 }
 

@@ -49,7 +49,7 @@
 
 Analyze_Wilcoxon <- function(
   dfTransformed,
-  strOutcomeCol = "KRI",
+  strOutcomeCol = "Metric",
   strPredictorCol = "GroupID",
   bQuiet = TRUE
 ) {
@@ -68,8 +68,8 @@ Analyze_Wilcoxon <- function(
       all(c(strPredictorCol, strOutcomeCol) %in% names(dfTransformed)),
     "NA value(s) found in @param:strPredictorCol" =
       all(!is.na(dfTransformed[[strPredictorCol]])),
-    "One or more of these columns not found: GroupID, N, TotalExposure, TotalCount, KRI, KRILabel, GroupLabel" =
-      all(c("GroupID", "N", "TotalExposure", "TotalCount", "KRI", "KRILabel", "GroupLabel") %in% names(dfTransformed))
+    "One or more of these columns not found: GroupID, N, Numerator, Denominator, Metric" =
+      all(c("GroupID", "N", "Numerator", "Denominator", "Metric") %in% names(dfTransformed))
   )
 
   wilcoxon_model <- function(predictorValue) {
@@ -133,9 +133,6 @@ Analyze_Wilcoxon <- function(
 
   return(
     dfAnalyzed %>%
-      select(names(dfTransformed), .data$Estimate, Score = .data$PValue) %>%
-      mutate(
-        ScoreLabel = "P value"
-      )
+      select(names(dfTransformed), Score = .data$PValue, .data$Estimate)
   )
 }

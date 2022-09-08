@@ -43,24 +43,24 @@
 Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns not found: GroupID, N, TotalExposure, TotalCount, KRI, KRILabel" =
-      all(c("GroupID", "N", "TotalExposure", "TotalCount", "KRI", "KRILabel") %in% names(dfTransformed)),
+    "One or more of these columns not found: GroupID, N, Denominator, Numerator, Metric" =
+      all(c("GroupID", "N", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
     "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]]))
   )
 
   dfModel <- dfTransformed %>%
-    mutate(LogExposure = log(.data$TotalExposure))
+    mutate(LogDenominator = log(.data$Denominator))
 
   if (!bQuiet) {
     cli::cli_alert_info(
       glue::glue(
-        "Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ]."
+        "Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ]."
       )
     )
   }
 
   cModel <- stats::glm(
-    TotalCount ~ stats::offset(LogExposure),
+    Numerator ~ stats::offset(LogDenominator),
     family = stats::poisson(link = "log"),
     data = dfModel
   )
@@ -71,15 +71,11 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
     ) %>%
     select(
       .data$GroupID,
-      .data$GroupLabel,
       .data$N,
-      .data$TotalCount,
-      .data$TotalExposure,
-      .data$KRI,
-      .data$KRILabel,
-      .data$GroupLabel,
+      .data$Numerator,
+      .data$Denominator,
+      .data$Metric,
       Score = .data$.resid,
-      .data$ScoreLabel,
       PredictedCount = .data$.fitted
     ) %>%
     arrange(.data$Score)

@@ -4,12 +4,7 @@
 \alias{Flag}
 \title{Flag}
 \usage{
-Flag(
-  dfAnalyzed,
-  strColumn = "Score",
-  vThreshold = c(0.05, NA),
-  strValueColumn = NULL
-)
+Flag(dfAnalyzed, strColumn = "Score", vThreshold = NULL, strValueColumn = NULL)
 }
 \arguments{
 \item{dfAnalyzed}{data.frame where flags should be added.}

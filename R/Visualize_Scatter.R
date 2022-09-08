@@ -3,6 +3,7 @@
 #' @param dfFlagged analyze_poisson results with flags added.
 #' @param dfBounds data.frame giving prediction bounds for range of dfFlagged.
 #' @param strGroupCol name of stratification column for facet wrap (default=NULL)
+#' @param strGroupLabel name of group, used for labelling axes.
 #' @param strUnit exposure time unit. Defaults to "days".
 #'
 #' @return group-level plot object.
@@ -22,8 +23,14 @@
 #'
 #' @export
 
-Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strGroupCol = NULL, strUnit = "days") {
-  groupLabel <- unique(dfFlagged$GroupLabel)
+Visualize_Scatter <- function(
+    dfFlagged,
+    dfBounds = NULL,
+    strGroupCol = NULL,
+    strGroupLabel = NULL,
+    strUnit = "days") {
+
+  groupLabel <- ifelse(is.null(strGroupLabel), "GroupID: ", strGroupLabel)
 
   # Define tooltip for use in plotly.
   dfFlaggedWithTooltip <- dfFlagged %>%
@@ -31,8 +38,8 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strGroupCol = NULL, st
       tooltip = paste(
         paste0("Group: ", groupLabel),
         paste0("GroupID: ", .data$GroupID),
-        paste0("Exposure (days): ", format(.data$TotalExposure, big.mark = ",", trim = TRUE)),
-        paste0("# of Events: ", format(.data$TotalCount, big.mark = ",", trim = TRUE)),
+        paste0("Exposure (days): ", format(.data$Denominator, big.mark = ",", trim = TRUE)),
+        paste0("# of Events: ", format(.data$Numerator, big.mark = ",", trim = TRUE)),
         sep = "\n"
       )
     )
@@ -41,8 +48,8 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strGroupCol = NULL, st
   p <- dfFlaggedWithTooltip %>%
     ggplot(
       aes(
-        x = log(.data$TotalExposure),
-        y = .data$TotalCount,
+        x = log(.data$Denominator),
+        y = .data$Numerator,
         color = as.factor(.data$Flag),
         text = .data$tooltip
       )
@@ -64,7 +71,7 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strGroupCol = NULL, st
     ylab(glue::glue("{groupLabel} Total Events")) +
     geom_text(
       data = dfFlaggedWithTooltip %>% filter(.data$Flag != 0),
-      aes(x = log(.data$TotalExposure), y = .data$TotalCount, label = .data$GroupID),
+      aes(x = log(.data$Denominator), y = .data$Numerator, label = .data$GroupID),
       vjust = 1.5,
       col = "red",
       size = 3.5
@@ -72,9 +79,9 @@ Visualize_Scatter <- function(dfFlagged, dfBounds = NULL, strGroupCol = NULL, st
 
   if (!is.null(dfBounds)) {
     p <- p +
-      geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$MeanCount), color = "red", inherit.aes = FALSE) +
-      geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$LowerCount), color = "red", linetype = "dashed", inherit.aes = FALSE) +
-      geom_line(data = dfBounds, aes(x = .data$LogExposure, y = .data$UpperCount), color = "red", linetype = "dashed", inherit.aes = FALSE)
+      geom_line(data = dfBounds, aes(x = .data$LogDenominator, y = .data$MeanCount), color = "red", inherit.aes = FALSE) +
+      geom_line(data = dfBounds, aes(x = .data$LogDenominator, y = .data$LowerCount), color = "red", linetype = "dashed", inherit.aes = FALSE) +
+      geom_line(data = dfBounds, aes(x = .data$LogDenominator, y = .data$UpperCount), color = "red", linetype = "dashed", inherit.aes = FALSE)
   }
 
   if (!is.null(strGroupCol)) {
