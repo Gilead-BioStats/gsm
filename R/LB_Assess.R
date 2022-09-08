@@ -23,18 +23,21 @@
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `list` Assessment, a named list with:
+#' @return `list` `lData`, a named list with:
 #' - each data frame in the data pipeline
-#'   - `dfInput`
 #'   - `dfTransformed`, returned by [gsm::Transform_EventCount()]
-#'   - `dfAnalyzed`, returned by [gsm::Analyze_Chisq()] or [gsm::Analyze_Fisher()]
+#'   - `dfAnalyzed`, returned by [gsm::Analyze_Fisher()] or [gsm::Analyze_Identity()]
 #'   - `dfFlagged`, returned by [gsm::Flag()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
-#' - assessment metadata
-#'   - `strFunctionName`
-#'   - `lTags`
-#' - output(s)
-#'   - `chart`
+#' - `list` `lCharts`, a named list with:
+#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()]
+#'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "metric"
+#'   - `barScore`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "score"
+#' - `list` `lChecks`, a named list with:
+#'   - `dfInput`, a named list returned by [gsm::is_mapping_valid()]
+#'   - `status`, a boolean returned by [gsm::is_mapping_valid()]
+#'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::AE_Assess()]
+#'   - `spec`, a named list used to define variable specifications
 #'
 #' @includeRmd ./man/md/LB_Assess.md
 #' @includeRmd ./man/md/analyze_percent.md
