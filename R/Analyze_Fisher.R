@@ -88,15 +88,13 @@ Analyze_Fisher <- function(
     arrange(.data$Score) %>%
     select(
       .data$GroupID,
-      .data$GroupLabel,
       .data$TotalCount,
       .data$TotalCount_Other,
       .data$N,
       .data$N_Other,
       .data$Prop,
       .data$Prop_Other,
-      .data$KRI,
-      .data$KRILabel,
+      .data$Metric,
       .data$Estimate,
       .data$Score,
       .data$ScoreLabel

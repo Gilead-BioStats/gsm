@@ -44,7 +44,7 @@
 #'
 #' @export
 
-Transform_EventCount <- function(
+Transform_Count <- function(
   dfInput,
   strCountCol,
   strGroupCol = "SiteID"
@@ -53,8 +53,7 @@ Transform_EventCount <- function(
     "dfInput is not a data frame" = is.data.frame(dfInput),
     "strCountCol not found in input data" = strCountCol %in% names(dfInput),
     "strCountCol is not numeric or logical" = is.numeric(dfInput[[strCountCol]]) | is.logical(dfInput[[strCountCol]]),
-    "NA's found in numerator"=!anyNA(dfInput[[strCountCol]]),
-
+    "NA's found in numerator"=!anyNA(dfInput[[strCountCol]])
   )
 
     dfTransformed <- dfInput %>%
@@ -63,8 +62,8 @@ Transform_EventCount <- function(
         N = n(),
         TotalCount = sum(.data[[strCountCol]])
       ) %>%
-      mutate(KRI = .data$TotalCount) %>%
-      select(.data$GroupID, .data$GroupLabel, everything())
+      mutate(Metric = .data$TotalCount) %>%
+      select(.data$GroupID, everything())
 
   return(dfTransformed)
 }
