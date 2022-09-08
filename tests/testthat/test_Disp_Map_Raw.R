@@ -3,12 +3,12 @@ source(testthat::test_path("testdata/data.R"))
 map_function <- gsm::Disp_Map_Raw
 
 dfs <- list(
-  dfDISP = dfDISP,
-  dfSUBJ = dfSUBJ
+  dfSUBJ = dfSUBJ,
+  dfSTUDCOMP = dfSTUDCOMP
 )
 
-input_spec <- yaml::read_yaml(system.file("specs", "Disp_Map_Raw_Treatment.yaml", package = "gsm"))
-input_mapping <- yaml::read_yaml(system.file("mappings", "Disp_Map_Raw.yaml", package = "gsm"))
+input_spec <- yaml::read_yaml(system.file("specs", "Disp_Map_Raw_Study.yaml", package = "gsm"))
+input_mapping <- subset_input_mapping(input_spec = input_spec)
 
 
 output_spec <- yaml::read_yaml(system.file("specs", "Disp_Assess.yaml", package = "gsm"))
