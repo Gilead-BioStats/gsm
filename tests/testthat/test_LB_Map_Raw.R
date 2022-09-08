@@ -8,7 +8,7 @@ dfs <- list(
 )
 
 input_spec <- yaml::read_yaml(system.file("specs", "LB_Map_Raw.yaml", package = "gsm"))
-input_mapping <- yaml::read_yaml(system.file("mappings", "LB_Map_Raw.yaml", package = "gsm"))
+input_mapping <- subset_input_mapping(input_spec = input_spec)
 
 output_spec <- yaml::read_yaml(system.file("specs", "LB_Assess.yaml", package = "gsm"))
 output_mapping <- yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm"))
@@ -76,7 +76,7 @@ test_that("bQuiet and bReturnChecks work as intended", {
 
 test_that("correct counts are returned after join", {
   # filter so join is missing some participants
-  lb <- dfLB %>% filter(LBTEST == "Calcium")
+  lb <- dfLB %>% filter(battrnam == "HEMATOLOGY&DIFFERENTIAL PANEL")
 
   result <- LB_Map_Raw(dfs = list(dfSUBJ = dfSUBJ, dfLB = lb))
 
