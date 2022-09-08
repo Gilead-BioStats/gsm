@@ -25,10 +25,10 @@
 #' @return `list` `lData`, a named list with:
 #' - each data frame in the data pipeline
 #'   - `dfTransformed`, returned by [gsm::Transform_EventCount()]
-#'   - `dfAnalyzed`, returned by [gsm::Analyze_Poisson()] or [gsm::Analyze_Wilcoxon()]
+#'   - `dfAnalyzed`, returned by [gsm::Analyze_Poisson()], [gsm::Analyze_Wilcoxon()], or [gsm::Analyze_Identity()]
 #'   - `dfFlagged`, returned by [gsm::Flag()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
-#'   - `dfBounds`, returned by [gsm::Analyze_Poisson_PredictBounds()] when strMethod == 'poisson'
+#'   - `dfBounds`, returned by [gsm::Analyze_Poisson_PredictBounds()] only when strMethod == 'poisson'
 #' - `list` `lCharts`, a named list with:
 #'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()]
 #'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "metric"
@@ -48,7 +48,6 @@
 #' ae_assessment_wilcoxon <- AE_Assess(dfInput, strMethod = "wilcoxon")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
-#' @importFrom purrr map map_dbl
 #' @importFrom yaml read_yaml
 #' @importFrom glue glue
 #'
@@ -60,13 +59,14 @@ AE_Assess <- function(dfInput,
   lMapping =  yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE) {
+
+# data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'poisson', 'wilcoxon', or 'identity'" = strMethod %in% c("poisson", "wilcoxon", "identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strGroup must be one of: Site, Study, or CustomGroup" = strGroup %in% c("Site", "Study", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
   )
-
 
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
@@ -78,7 +78,7 @@ AE_Assess <- function(dfInput,
   )
 
 
-# set vThreshold if NULL ------------------------------------------------
+# set thresholds and flagging parameters ----------------------------------
   if (is.null(vThreshold)) {
     vThreshold <- switch(
       strMethod,
@@ -88,6 +88,15 @@ AE_Assess <- function(dfInput,
     )
   }
 
+  strValueColumnVal <- switch(
+    strMethod,
+    poisson = NULL,
+    wilcoxon = "Estimate",
+    identity = "Score"
+  )
+
+
+# begin running assessment ------------------------------------------------
   if (!lChecks$status) {
     if (!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} did not run because of failed check.")
     return(list(
@@ -98,10 +107,8 @@ AE_Assess <- function(dfInput,
   }else{
     if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Assess}")
 
-    ########################################
-    ## Save Data pipeline results to lData
-    ########################################
 
+# dfTransformed -----------------------------------------------------------
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
     lData <- list()
     lData$dfTransformed <- gsm::Transform_Rate(
@@ -113,7 +120,8 @@ AE_Assess <- function(dfInput,
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
 
-# refactor to only analyze in elseif --------------------------------------
+
+# dfAnalyzed --------------------------------------------------------------
     if (strMethod == "poisson") {
       lData$dfAnalyzed <- gsm::Analyze_Poisson(lData$dfTransformed, bQuiet = bQuiet)
       if (!bQuiet) cli::cli_alert_success("{.fn Analyze_Poisson} returned output with {nrow(lData$dfAnalyzed)} rows.")
@@ -127,26 +135,18 @@ AE_Assess <- function(dfInput,
     }
 
 
-# only parameter changed for Flag is strValueCol --------------------------
-    strValueColumnVal <- switch(
-      strMethod,
-      poisson = NULL,
-      wilcoxon = "Estimate",
-      identity = "Score"
-    )
 
+# dfFlagged ---------------------------------------------------------------
     lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
 
+
+# dfSummary ---------------------------------------------------------------
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
-    ########################################
-    ## Save Charts to lCharts
-    ##
-    ## - strGroupLabel defaults to strGroup for now
-    ## - may want to move this out to be more flexible
-    ########################################
+
+# visualizations ----------------------------------------------------------
     lCharts <- list()
 
     if(!hasName(lData, 'dfBounds')) lData$dfBounds <- NULL
@@ -160,6 +160,8 @@ AE_Assess <- function(dfInput,
     lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created a chart.")
 
+
+# return data -------------------------------------------------------------
     return(list(
       lData = lData,
       lCharts = lCharts,

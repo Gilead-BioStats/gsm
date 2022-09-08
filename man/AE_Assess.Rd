@@ -40,10 +40,10 @@ of the column.}
 \item each data frame in the data pipeline
 \itemize{
 \item \code{dfTransformed}, returned by \code{\link[=Transform_EventCount]{Transform_EventCount()}}
-\item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} or \code{\link[=Analyze_Wilcoxon]{Analyze_Wilcoxon()}}
+\item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Poisson]{Analyze_Poisson()}}, \code{\link[=Analyze_Wilcoxon]{Analyze_Wilcoxon()}}, or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
 \item \code{dfFlagged}, returned by \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
-\item \code{dfBounds}, returned by \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}} when strMethod == 'poisson'
+\item \code{dfBounds}, returned by \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}} only when strMethod == 'poisson'
 }
 \item \code{list} \code{lCharts}, a named list with:
 \itemize{
