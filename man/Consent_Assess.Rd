@@ -7,11 +7,9 @@
 Consent_Assess(
   dfInput,
   nThreshold = 0.5,
-  lTags = list(Assessment = "Consent"),
-  strKRILabel = "Total Number of Consent Issues",
+  lMapping = yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package =
+    "gsm")),
   strGroup = "Site",
-  bChart = TRUE,
-  bReturnChecks = FALSE,
   bQuiet = TRUE
 )
 }
@@ -20,37 +18,34 @@ Consent_Assess(
 
 \item{nThreshold}{\code{numeric} Threshold specification. Default: \code{0.5}}
 
-\item{lTags}{\code{list} Assessment tags, a named list of tags describing the assessment that defaults to \code{list(Assessment = "Consent")}. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as a column in \code{lAssess$dfSummary}.}
-
-\item{strKRILabel}{\code{character} KRI description. Default: \code{"Total Number of Consent Issues"}}
+\item{lMapping}{Column metadata with structure \code{domain$key}, where \code{key} contains the name
+of the column.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
-
-\item{bChart}{\code{logical} Generate data visualization? Default: \code{TRUE}}
-
-\item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{list} Assessment, a named list with:
+\code{list} \code{lData}, a named list with:
 \itemize{
 \item each data frame in the data pipeline
 \itemize{
-\item \code{dfInput}
-\item \code{dfTransformed}, returned by \code{\link[=Transform_EventCount]{Transform_EventCount()}}
-\item \code{dfAnalyzed}, a copy of \code{dfTransformed} and input to \verb{[gsm::Flag()]}
+\item \code{dfTransformed}, returned by \code{\link[=Transform_Count]{Transform_Count()}}
+\item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Identity]{Analyze_Identity()}}
 \item \code{dfFlagged}, returned by \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
 }
-\item assessment metadata
+\item \code{list} \code{lCharts}, a named list with:
 \itemize{
-\item \code{strFunctionName}
-\item \code{lTags}
+\item \code{barMetric}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}} using strType == "metric"
+\item \code{barScore}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}} using strType == "score"
 }
-\item output(s)
+\item \code{list} \code{lChecks}, a named list with:
 \itemize{
-\item \code{chart}
+\item \code{dfInput}, a named list returned by \code{\link[=is_mapping_valid]{is_mapping_valid()}}
+\item \code{status}, a boolean returned by \code{\link[=is_mapping_valid]{is_mapping_valid()}}
+\item \code{mapping}, a named list that is provided as an argument to the \code{lMapping} parameter in \code{\link[=Consent_Assess]{Consent_Assess()}}
+\item \code{spec}, a named list used to define variable specifications
 }
 }
 }

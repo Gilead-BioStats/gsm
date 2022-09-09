@@ -37,8 +37,8 @@
 #' @return `data.frame` with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+#' dfInput <- Disp_Map_Raw()
+#' dfTransformed <- Transform_Count(dfInput, strCountCol = "Count")
 #'
 #' @import dplyr
 #'

@@ -16,14 +16,14 @@
 #' The input data (`dfTransformed`) for Analyze_Fisher is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
 #' - `GroupID` - GroupID from `dfTransformed`
 #' - `N` - Total number of participants at site
-#' - `TotalCount` - Total number of participants at site with event of interest
+#' - `Numerator` - Total number of participants at site with event of interest
 #'
 #'
 #' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_EventCount}}
-#' @param strOutcome `character` required, name of column in dfTransformed dataset to perform Fisher test on. Default is "TotalCount".
+#' @param strOutcome `character` required, name of column in dfTransformed dataset to perform Fisher test on. Default is "Numerator".
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` with one row per site with columns: GroupID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
+#' @return `data.frame` with one row per site with columns: GroupID, Numerator, Numerator_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
@@ -44,7 +44,7 @@
 
 Analyze_Fisher <- function(
   dfTransformed,
-  strOutcome = "TotalCount",
+  strOutcome = "Numerator",
   bQuiet = TRUE
 ) {
   stopifnot(
@@ -59,8 +59,8 @@ Analyze_Fisher <- function(
     SiteTable <- dfTransformed %>%
       group_by(.data$GroupID == site) %>%
       summarize(
-        Participants = sum(.data$N),
-        Flag = sum(.data$TotalCount),
+        Participants = sum(.data$Denominator),
+        Flag = sum(.data$Numerator),
         NoFlag = sum(.data$Participants - .data$Flag)
       ) %>%
       select(.data$NoFlag, .data$Flag)
@@ -77,21 +77,22 @@ Analyze_Fisher <- function(
       Score = .data[["p.value"]]
     ) %>%
     mutate(
-      TotalCount_All = sum(.data$TotalCount),
-      N_All = sum(.data$N),
-      TotalCount_Other = .data$TotalCount_All - .data$TotalCount,
-      N_Other = .data$N_All - .data$N,
-      Prop = .data$TotalCount / .data$N,
-      Prop_Other = .data$TotalCount_Other / .data$N_Other,
+      Numerator_All = sum(.data$Numerator),
+      Denominator_All = sum(.data$Denominator),
+      Numerator_Other = .data$Numerator_All - .data$Numerator,
+      Denominator_Other = .data$Denominator_All - .data$Denominator,
+      Prop = .data$Numerator / .data$Denominator,
+      Prop_Other = .data$Numerator_Other / .data$Denominator_Other,
       ScoreLabel = "P value"
     ) %>%
     arrange(.data$Score) %>%
     select(
       .data$GroupID,
-      .data$TotalCount,
-      .data$TotalCount_Other,
       .data$N,
-      .data$N_Other,
+      .data$Numerator,
+      .data$Numerator_Other,
+      .data$Denominator,
+      .data$Denominator_Other,
       .data$Prop,
       .data$Prop_Other,
       .data$Metric,

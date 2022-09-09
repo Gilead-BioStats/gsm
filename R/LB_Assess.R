@@ -13,9 +13,8 @@
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
-#' `c(.05, NA)` for both Chi-square test (`strMethod` = "chisq") and Fisher's exact test (`strMethod` = "fisher").
+#' `c(.05, NA)` for Fisher's exact test (`strMethod` = "fisher") and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
-#'   - `"chisq"` (default)
 #'   - `"fisher"`
 #'   - `"identity"`
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
@@ -25,7 +24,7 @@
 #'
 #' @return `list` `lData`, a named list with:
 #' - each data frame in the data pipeline
-#'   - `dfTransformed`, returned by [gsm::Transform_EventCount()]
+#'   - `dfTransformed`, returned by [gsm::Transform_Rate()]
 #'   - `dfAnalyzed`, returned by [gsm::Analyze_Fisher()] or [gsm::Analyze_Identity()]
 #'   - `dfFlagged`, returned by [gsm::Flag()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
@@ -36,7 +35,7 @@
 #' - `list` `lChecks`, a named list with:
 #'   - `dfInput`, a named list returned by [gsm::is_mapping_valid()]
 #'   - `status`, a boolean returned by [gsm::is_mapping_valid()]
-#'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::AE_Assess()]
+#'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::LB_Assess()]
 #'   - `spec`, a named list used to define variable specifications
 #'
 #' @includeRmd ./man/md/LB_Assess.md
@@ -44,7 +43,6 @@
 #'
 #' @examples
 #' dfInput <- LB_Map_Raw()
-#' lb_assessment_chisq <- LB_Assess(dfInput)
 #' lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
 #' lb_assessment_identity <- LB_Assess(dfInput, strMethod = "identity")
 #'
@@ -57,16 +55,15 @@
 LB_Assess <- function(
   dfInput,
   vThreshold = NULL,
-  strMethod = "chisq",
+  strMethod = "fisher",
   lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE
 ) {
 
-
 # data checking -----------------------------------------------------------
   stopifnot(
-    "strMethod is not 'chisq', 'fisher', or 'identity'" = strMethod %in% c("chisq", "fisher", "identity"),
+    "strMethod is not 'fisher' or 'identity'" = strMethod %in% c("fisher", "identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strGroup must be one of: Site, Study, or CustomGroup" = strGroup %in% c("Site", "Study", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -81,12 +78,10 @@ LB_Assess <- function(
     bQuiet = bQuiet
   )
 
-
 # set thresholds and flagging parameters ----------------------------------
   if (is.null(vThreshold)) {
     vThreshold <- switch(
       strMethod,
-      chisq = c(0.5, NA),
       fisher = c(0.5, NA),
       identity = c(3.491, 5.172)
     )
@@ -94,12 +89,9 @@ LB_Assess <- function(
 
   strValueColumnVal <- switch(
     strMethod,
-    chisq = 'Metric',
-    fisher = 'Metric',
+    fisher = 'Score',
     identity = 'Score'
   )
-
-
 
 # begin running assessment ------------------------------------------------
   if (!lChecks$status) {
@@ -115,17 +107,16 @@ LB_Assess <- function(
 # dfTransformed -----------------------------------------------------------
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
     lData <- list()
-    lData$dfTransformed <- gsm::Transform_Count(
+    lData$dfTransformed <- gsm::Transform_Rate(
       dfInput = dfInput,
       strGroupCol = lMapping$dfInput$strGroupCol,
-      strCountCol = "Count"
+      strNumeratorCol = "Count",
+      strDenominatorCol = "Total"
     )
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
 # dfAnalyzed --------------------------------------------------------------
-    if (strMethod == "chisq") {
-      lData$dfAnalyzed <- gsm::Analyze_Chisq(lData$dfTransformed, bQuiet = bQuiet)
-    } else if (strMethod == "fisher") {
+    if (strMethod == "fisher") {
       lData$dfAnalyzed <- gsm::Analyze_Fisher(lData$dfTransformed, bQuiet = bQuiet)
     } else if (strMethod == "identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)

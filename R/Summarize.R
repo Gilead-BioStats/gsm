@@ -28,7 +28,7 @@
 #'   strDenominatorCol = "Exposure",
 #' )
 #'
-#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+#' dfAnalyzed <- Analyze_Poisson(dfTransformed)
 #'
 #' dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
 #'
