@@ -23,14 +23,15 @@
 #' @examples
 #' dfInput <- AE_Map_Adam()
 #'
-#' dfTransformed <- Transform_EventCount(dfInput,
+#' dfTransformed <- Transform_Rate(dfInput,
+#'   strGroupCol = "SiteID",
 #'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Exposure",
+#'   strDenominatorCol = "Exposure"
 #' )
 #'
 #' dfAnalyzed <- Analyze_Poisson(dfTransformed)
 #'
-#' dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
+#' dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
 #'
 #' dfSummary <- Summarize(dfFlagged)
 #'

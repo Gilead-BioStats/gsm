@@ -3,7 +3,7 @@
 #' @details
 #' Used in the data pipeline between `Transform` and `Flag` to rename KRI and Score columns.
 #'
-#' @param dfTransformed `data.frame` created by `Transform_EventCount()`
+#' @param dfTransformed `data.frame` created by \code{\link{Transform_Count}}
 #' @param strValueCol `character` Name of column that will be copied as `Score`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' dfInput <- Consent_Map_Raw()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count")
+#' dfTransformed <- Transform_Count(dfInput, strCountCol = "Count")
 #' dfAnalyzed <- Analyze_Identity(dfTransformed)
 #'
 #' @importFrom cli cli_text

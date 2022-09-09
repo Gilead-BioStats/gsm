@@ -13,13 +13,13 @@
 #'
 #' @section Data Specification:
 #'
-#' The input data (`dfTransformed`) for Analyze_Fisher is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
+#' The input data (`dfTransformed`) for Analyze_Fisher is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
 #' - `GroupID` - GroupID from `dfTransformed`
 #' - `N` - Total number of participants at site
 #' - `Numerator` - Total number of participants at site with event of interest
 #'
 #'
-#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_EventCount}}
+#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
 #' @param strOutcome `character` required, name of column in dfTransformed dataset to perform Fisher test on. Default is "Numerator".
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -27,10 +27,11 @@
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
-#' dfTransformed <- Transform_EventCount(
+#' dfTransformed <- Transform_Rate(
 #'   dfInput,
-#'   strCountCol = "Count",
-#'   strKRILabel = "Discontinuations due to AE"
+#'   strGroupCol = "SiteID",
+#'   strNumeratorCol = "Count",
+#'   strDenominatorCol = "Total"
 #' )
 #' dfAnalyzed <- Analyze_Fisher(dfTransformed)
 #'
