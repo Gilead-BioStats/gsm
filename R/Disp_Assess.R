@@ -141,8 +141,10 @@ Disp_Assess <- function(
 
     if(!hasName(lData, 'dfBounds')) lData$dfBounds <- NULL
 
+    if (strMethod != "identity") {
     lCharts$scatter <- Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+    }
 
     lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
     lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
