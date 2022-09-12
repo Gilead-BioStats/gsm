@@ -27,26 +27,14 @@ Study_Assess <- function(
   lMapping = NULL,
   lAssessments = NULL,
   lSubjFilters = NULL,
-  lTags = list(Study = "myStudy"),
   bQuiet = TRUE
 ) {
-  if (!is.null(lTags)) {
-    stopifnot(
-      "lTags is not named" = (!is.null(names(lTags))),
-      "lTags has unnamed elements" = all(names(lTags) != ""),
-      "lTags cannot contain elements named: 'Assessment', 'Label'" = !names(lTags) %in% c("Assessment", "Label")
-    )
-
-    if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {
-      lTags <- purrr::map(lTags, ~ paste(.x, collapse = ", "))
-    }
-  }
 
   #### --- load defaults --- ###
   # lData from clindata
   if (is.null(lData)) {
     lData <- list(
-      dfSUBJ = clindata::rawplus_dm,
+      dfSUBJ = clindata::rawplus_dm %>% filter(!is.na(timeontreatment)),
       dfAE = clindata::rawplus_ae,
       dfPD = clindata::rawplus_protdev,
       dfCONSENT = clindata::rawplus_consent,
@@ -101,7 +89,6 @@ Study_Assess <- function(
             lAssessment,
             lData = lData,
             lMapping = lMapping,
-            lTags = lTags,
             bQuiet = bQuiet
           )
         })
