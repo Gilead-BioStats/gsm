@@ -60,7 +60,6 @@ reference:
       - parse_data_mapping
       - parse_data_spec
       - generate_md_table
-      - MapMaker
 
    - title: Data
      desc: Metadata used to create workflows
