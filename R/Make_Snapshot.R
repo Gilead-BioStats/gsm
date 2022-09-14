@@ -49,8 +49,7 @@ bQuiet = TRUE
 
 
   # lSnapshot$site_status <- meta$meta_site
-  lSnapshot$site_status <- list()
-  lSnapshot$site_status$enrolled_participants <- Get_Enrolled(
+  lSnapshot$site_status <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
     dfConfig = lMeta$config_param,
     lMapping = lMapping,
@@ -71,33 +70,55 @@ bQuiet = TRUE
     bQuiet = bQuiet
   )
 
-  browser()
 
   # imap(lResults, \(x, y) tibble(x$bStatus) %>% set_names(y))
 
-  lWorkflowStatus <- parseWorkflowStatus(lResults)
-  lSnapshot$status_workflow <- meta$config_workflow
-  lSnapshot$status_workflow$Status <- lWorkflowStatus$Status
-  lSnapshot$status_workflow$Notes<- lWorkflowStatus$Notes
 
-  lSnapshot$status_param <- meta$config_param
+  # add line below to parseWorkflowStatus function
+  parseStatus <- imap(lResults, \(x, y) tibble(workflowid = y, status = x$bStatus)) %>% bind_rows()
 
-  lSnapshot$status_schedule <- meta$config_schedule
+  # lWorkflowStatus <- parseWorkflowStatus(lResults)
+  lSnapshot$status_workflow <- lMeta$config_workflow %>%
+    left_join(parseStatus, by = "workflowid")
 
-  lSnapshot$meta_workflow<-gsm::meta_workflow
+
+
+  #lSnapshot$status_workflow$Status <- lWorkflowStatus$Status
+  #lSnapshot$status_workflow$Notes<- lWorkflowStatus$Notes
+
+  lSnapshot$status_param <- lMeta$config_param
+
+  lSnapshot$status_schedule <- lMeta$config_schedule
+
+  lSnapshot$meta_workflow <- gsm::meta_workflow
 
   lSnapshot$meta_param <- gsm::meta_param
 
-  lSnapshot$results_summary <- lResults %>% map(~.x$data$dfSummary) %<% bind_rows
-  lSnapshot$results_summary$StudyID <- meta$study_status[1,'StudyID']
+
+  lSnapshot$results_summary <- lResults %>%
+    imap_dfr(~.x$lResults$lData$dfSummary %>%
+               mutate(KRIID = .y,
+                      StudyID = unique(lMeta$config_workflow$studyid)))
+
+
+  # lSnapshot$results_summary$StudyID <- meta$study_status[1,'StudyID']
   #Also need to make sure we're capturing WorkflowID here ...
 
-  lSnapshot$results_bounds <- lResults %>% map(~.x$data$dfBounds) %<% bind_rows
-  lSnapshot$results_bounds$StudyID <- meta$study_status[1,'StudyID']
+
+
+
+  lSnapshot$results_bounds <- lResults %>%
+    purrr::map(~.x$lResults$lData$dfBounds) %>%
+    purrr::discard(is.null) %>%
+    purrr::imap_dfr(~.x %>% mutate(KRIID = .y)) %>%
+    mutate(StudyID = unique(lMeta$config_workflow$studyid),
+           WorkflowID = KRIID) # not sure if this is a correct assumption
+
   #Also need to make sure we're capturing WorkflowID here ...
 
-  if(path){
+  if (!is.null(cPath)) {
     #write each snapshot item to location
+    iwalk(lSnapshot, ~ write.csv(.x, file = paste0(cPath, "/", .y, ".csv"), row.names = FALSE))
   }
 
   return(lSnapshot)
