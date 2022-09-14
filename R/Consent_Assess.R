@@ -25,25 +25,25 @@
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
-#' @param lTags `list` Assessment tags, a named list of tags describing the assessment that defaults to `list(Assessment = "Consent")`. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as a column in `lAssess$dfSummary`.
-#' @param strKRILabel `character` KRI description. Default: `"Total Number of Consent Issues"`
+#' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
+#'   of the column.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
-#' @param bChart `logical` Generate data visualization? Default: `TRUE`
-#' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `list` Assessment, a named list with:
+#' @return `list` `lData`, a named list with:
 #' - each data frame in the data pipeline
-#'   - `dfInput`
-#'   - `dfTransformed`, returned by [gsm::Transform_EventCount()]
-#'   - `dfAnalyzed`, a copy of `dfTransformed` and input to `[gsm::Flag()]`
+#'   - `dfTransformed`, returned by [gsm::Transform_Count()]
+#'   - `dfAnalyzed`, returned by [gsm::Analyze_Identity()]
 #'   - `dfFlagged`, returned by [gsm::Flag()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
-#' - assessment metadata
-#'   - `strFunctionName`
-#'   - `lTags`
-#' - output(s)
-#'   - `chart`
+#' - `list` `lCharts`, a named list with:
+#'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "metric"
+#'   - `barScore`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "score"
+#' - `list` `lChecks`, a named list with:
+#'   - `dfInput`, a named list returned by [gsm::is_mapping_valid()]
+#'   - `status`, a boolean returned by [gsm::is_mapping_valid()]
+#'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::Consent_Assess()]
+#'   - `spec`, a named list used to define variable specifications
 #'
 #' @includeRmd ./man/md/Consent_Assess.md
 #'
@@ -52,105 +52,78 @@
 #' consent_assessment <- Consent_Assess(dfInput)
 #'
 #' @importFrom cli cli_alert_info cli_alert_success cli_alert_warning cli_h2 cli_text
-#' @importFrom purrr map map_dbl
 #' @importFrom yaml read_yaml
 #' @importFrom glue glue
 #'
 #' @export
 
-Consent_Assess <- function(dfInput,
+Consent_Assess <- function(
+  dfInput,
   nThreshold = 0.5,
-  lTags = list(Assessment = "Consent"),
-  strKRILabel = "Total Number of Consent Issues",
+  lMapping = yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm")),
   strGroup = "Site",
-  bChart = TRUE,
-  bReturnChecks = FALSE,
-  bQuiet = TRUE) {
+  bQuiet = TRUE
+) {
+
+# data checking -----------------------------------------------------------
   stopifnot(
-    "dfInput is not a data.frame" = is.data.frame(dfInput),
-    "dfInput is missing one or more of these columns: SubjectID, Count" = all(c("SubjectID", "Count") %in% names(dfInput)),
     "nThreshold must be numeric" = is.numeric(nThreshold),
     "nThreshold must be length 1" = length(nThreshold) == 1,
-    "strKRILabel must be length 1" = length(strKRILabel) == 1,
     "strGroup must be one of: Site, Study, or CustomGroup" = strGroup %in% c("Site", "Study", "CustomGroup"),
-    "bChart must be logical" = is.logical(bChart),
-    "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
-  if (!is.null(lTags)) {
-    stopifnot(
-      "lTags is not named" = (!is.null(names(lTags))),
-      "lTags has unnamed elements" = all(names(lTags) != ""),
-      "lTags cannot contain elements named: 'GroupID', 'GroupLabel', 'N', 'KRI', 'KRILabel', 'Score', 'ScoreLabel', or 'Flag'" = !names(lTags) %in%
-        c(
-          "GroupID",
-          "GroupLabel",
-          "N",
-          "KRI",
-          "KRILabel",
-          "Score",
-          "ScoreLabel",
-          "Flag"
-        )
-    )
+  lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
-    if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {
-      lTags <- purrr::map(lTags, ~ paste(.x, collapse = ", "))
-    }
-  }
-
-  lAssess <- list(
-    strFunctionName = deparse(sys.call()[1]),
-    lTags = lTags,
-    dfInput = dfInput
-  )
-
-  mapping <- yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm"))
-  mapping$dfInput$strGroupCol <- mapping$dfInput[[glue::glue("str{strGroup}Col")]]
-
-  stopifnot(
-    "`strGroup` not found in mapping" = glue("str{strGroup}Col") %in% names(mapping$dfInput),
-    "`strGroupCol` not found in dfInput" = mapping$dfInput$strGroupCol %in% names(dfInput)
-  )
-
-  checks <- CheckInputs(
+  lChecks <- CheckInputs(
     context = "Consent_Assess",
-    dfs = list(dfInput = lAssess$dfInput),
-    mapping = mapping,
+    dfs = list(dfInput = dfInput),
+    mapping = lMapping,
     bQuiet = bQuiet
   )
 
-  if (checks$status) {
-    if (!bQuiet) cli::cli_h2("Initializing {.fn Consent_Assess}")
-    if (!bQuiet) cli::cli_text("Input data has {nrow(lAssess$dfInput)} rows.")
-    lAssess$dfTransformed <- gsm::Transform_EventCount(
-      lAssess$dfInput,
-      strGroupCol = mapping$dfInput$strGroupCol,
-      strCountCol = "Count",
-      strKRILabel = strKRILabel
-    )
-    if (!bQuiet) cli::cli_alert_success("{.fn Transform_EventCount} returned output with {nrow(lAssess$dfTransformed)} rows.")
-
-    lAssess$dfAnalyzed <- lAssess$dfTransformed %>%
-      Analyze_Identity(bQuiet = bQuiet)
-
-    if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed} with added {.var ScoreLabel} column.")
-
-    lAssess$dfFlagged <- gsm::Flag(lAssess$dfAnalyzed, vThreshold = c(NA, nThreshold))
-    if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lAssess$dfFlagged)} rows.")
-
-    lAssess$dfSummary <- gsm::Summarize(lAssess$dfFlagged, lTags = lTags)
-    if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lAssess$dfSummary)} rows.")
-
-    if (bChart) {
-      lAssess$chart <- gsm::Visualize_Score(lAssess$dfFlagged, strType = "score")
-      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created a chart.")
-    }
-  } else {
+# begin running assessment ------------------------------------------------
+  if (!lChecks$status) {
     if (!bQuiet) cli::cli_alert_warning("{.fn Consent_Assess} did not run because of failed check.")
-  }
+    return(list(
+      lData = NULL,
+      lCharts = NULL,
+      lChecks = lChecks
+    ))
+  } else {
+    if (!bQuiet) cli::cli_h2("Initializing {.fn Consent_Assess}")
+    if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
+    lData <- list()
+    lData$dfTransformed <- gsm::Transform_Count(
+      dfInput = dfInput,
+      strGroupCol = lMapping$dfInput$strGroupCol,
+      strCountCol = "Count"
+    )
+    if (!bQuiet) cli::cli_alert_success("{.fn Transform_Count} returned output with {nrow(lData$dfTransformed)} rows.")
 
-  if (bReturnChecks) lAssess$lChecks <- checks
-  return(lAssess)
+# dfAnalyzed --------------------------------------------------------------
+    lData$dfAnalyzed <- Analyze_Identity(lData$dfTransformed, bQuiet = bQuiet)
+    if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed}.")
+
+# dfFlagged ---------------------------------------------------------------
+    lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = c(NA, nThreshold))
+    if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
+
+# dfSummary ---------------------------------------------------------------
+    lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
+    if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
+
+# visualizations ----------------------------------------------------------
+    lCharts <- list()
+    lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+    lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score")
+    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(lCharts)} chart{?s}.")
+
+# return data -------------------------------------------------------------
+    return(list(
+      lData = lData,
+      lCharts = lCharts,
+      lChecks = lChecks
+    ))
+  }
 }

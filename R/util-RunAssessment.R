@@ -41,8 +41,15 @@
 #'
 #' @export
 
-RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = TRUE) {
+RunAssessment <- function(
+    lAssessment,
+    lData,
+    lMapping,
+    lTags = NULL,
+    bQuiet = TRUE
+    ) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lAssessment$name, "` assessment"))
+
 
   lAssessment$lData <- lData
   lAssessment$lChecks <- list()
@@ -54,11 +61,11 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = T
     for (step in lAssessment$workflow) {
       if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lAssessment$workflow), ": `", step$name, "`"))
       if (lAssessment$bStatus) {
+
         result <- gsm::RunStep(
           lStep = step,
           lMapping = lMapping,
           lData = lAssessment$lData,
-          lTags = c(lTags, lAssessment$tags),
           bQuiet = bQuiet
         )
 

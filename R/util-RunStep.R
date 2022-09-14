@@ -10,7 +10,6 @@
 #' @param lData `list` a named list of domain level data frames. Names should match the values
 #'   specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs
 #'   from `X_Map_Raw`.
-#' @param lTags `list` tags
 #' @param bQuiet `logical` Default is TRUE, which means warning messages are suppressed. Set to
 #'   FALSE to see warning messages.
 #'
@@ -40,25 +39,25 @@
 #'
 #' @export
 
-RunStep <- function(lStep, lMapping, lData, lTags, bQuiet) {
+RunStep <- function(lStep, lMapping, lData, bQuiet) {
 
   # prepare parameter list inputs
   if (!bQuiet) cli::cli_text("Preparing parameters for  {.fn {lStep$name}} ...")
 
   params <- lStep$params
   params$bQuiet <- bQuiet
-  params$bReturnChecks <- TRUE
 
   # prepare data inputs by function type
   if (stringr::str_detect(lStep$name, "_Map")) {
     params$lMapping <- lMapping
     params$dfs <- lData[lStep$inputs]
+    params$bReturnChecks <- TRUE
   } else if (stringr::str_detect(lStep$name, "_Assess")) {
     params$dfInput <- lData[[lStep$inputs]]
-    params$lTags <- lTags
   } else if (lStep$name == "FilterDomain") {
     params$lMapping <- lMapping
     params$df <- lData[[lStep$inputs]]
+    params$bReturnChecks <- TRUE
 
     if (is.null(params$df)) {
       params$df <- NA

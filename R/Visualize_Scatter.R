@@ -67,8 +67,8 @@ Visualize_Scatter <- function(
     ) +
     # Add chart elements
     geom_point() +
-    xlab(glue::glue("{groupLabel} Total Exposure ({strUnit} - log scale)")) +
-    ylab(glue::glue("{groupLabel} Total Events")) +
+    xlab(glue::glue("{groupLabel} Total (Denominator) ({strUnit} - log scale)")) +
+    ylab(glue::glue("{groupLabel} Total (Numerator)")) +
     geom_text(
       data = dfFlaggedWithTooltip %>% filter(.data$Flag != 0),
       aes(x = log(.data$Denominator), y = .data$Numerator, label = .data$GroupID),

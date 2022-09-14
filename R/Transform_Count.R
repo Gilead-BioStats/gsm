@@ -1,4 +1,4 @@
-#' Transform Event Count
+#' Transform Count
 #'
 #' Convert from input data format to needed input format to derive KRI for an Assessment.
 #'
@@ -27,7 +27,7 @@
 #' Optional
 #' - `Exposure` - Number of days of exposure, name specified by strExposureCol.
 #'
-#'  The input data has one or more rows per site. Transform_EventCount sums strCountCol for a TotalCount for each site.
+#'  The input data has one or more rows per site. Transform_Count sums strCountCol for a TotalCount for each site.
 #'  For data with an optional strExposureCol, a summed exposure is calculated for each site.
 #'
 #' @param dfInput A data.frame with one record per person.
@@ -37,14 +37,14 @@
 #' @return `data.frame` with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam()
-#' dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count", strExposureCol = "Exposure")
+#' dfInput <- Disp_Map_Raw()
+#' dfTransformed <- Transform_Count(dfInput, strCountCol = "Count")
 #'
 #' @import dplyr
 #'
 #' @export
 
-Transform_EventCount <- function(
+Transform_Count <- function(
   dfInput,
   strCountCol,
   strGroupCol = "SiteID"
@@ -53,8 +53,7 @@ Transform_EventCount <- function(
     "dfInput is not a data frame" = is.data.frame(dfInput),
     "strCountCol not found in input data" = strCountCol %in% names(dfInput),
     "strCountCol is not numeric or logical" = is.numeric(dfInput[[strCountCol]]) | is.logical(dfInput[[strCountCol]]),
-    "NA's found in numerator"=!anyNA(dfInput[[strCountCol]]),
-
+    "NA's found in numerator"=!anyNA(dfInput[[strCountCol]])
   )
 
     dfTransformed <- dfInput %>%
@@ -63,8 +62,8 @@ Transform_EventCount <- function(
         N = n(),
         TotalCount = sum(.data[[strCountCol]])
       ) %>%
-      mutate(KRI = .data$TotalCount) %>%
-      select(.data$GroupID, .data$GroupLabel, everything())
+      mutate(Metric = .data$TotalCount) %>%
+      select(.data$GroupID, everything())
 
   return(dfTransformed)
 }

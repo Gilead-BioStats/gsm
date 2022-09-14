@@ -82,8 +82,15 @@ Visualize_Score <- function(
   }
 
   if (strType == "score") {
-    ThresholdLow <- min(vThreshold)
-    ThresholdHigh <- max(vThreshold)
+
+    if (!is.null(vThreshold)) {
+      ThresholdLow <- min(vThreshold)
+      ThresholdHigh <- max(vThreshold)
+    } else {
+      ThresholdLow <- NA
+      ThresholdHigh <- NA
+    }
+
 
     dfFlaggedWithTooltip <- dfFlagged %>%
       mutate(
