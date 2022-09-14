@@ -73,6 +73,8 @@ bQuiet = TRUE
 
   browser()
 
+  # imap(lResults, \(x, y) tibble(x$bStatus) %>% set_names(y))
+
   lWorkflowStatus <- parseWorkflowStatus(lResults)
   lSnapshot$status_workflow <- meta$config_workflow
   lSnapshot$status_workflow$Status <- lWorkflowStatus$Status
