@@ -1,3 +1,24 @@
+#' Make Snapshot - say cheese
+#'
+#' @param lMeta
+#' @param lData
+#' @param lMapping
+#' @param cPath
+#' @param bQuiet
+#'
+#' @return
+#'
+#' @import purrr
+#' @importFrom yaml read_yaml
+#'
+#' @export
+#'
+#' @examples
+#'
+#' # run with default testing data
+#' snapshot <- Make_Snapshot()
+#'
+#'
 Make_Snapshot <- function(
 lMeta = list(
   meta_study = NULL,
@@ -29,7 +50,7 @@ bQuiet = TRUE
   lSnapshot <- list()
 
   # lSnapshot$study_status<-meta$meta_study
-  lSnapshot$study_status <- tibble("abc") # placeholder
+  lSnapshot$study_status <- tibble(StudyID = unique(lMeta$config_workflow$studyid)) # placeholder
 
   lSnapshot$study_status$enrolled_participants <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
@@ -75,7 +96,8 @@ bQuiet = TRUE
 
 
   # add line below to parseWorkflowStatus function
-  parseStatus <- imap(lResults, \(x, y) tibble(workflowid = y, status = x$bStatus)) %>% bind_rows()
+  parseStatus <- purrr::imap(lResults, \(x, y) tibble(workflowid = y, status = x$bStatus)) %>%
+    bind_rows()
 
   # lWorkflowStatus <- parseWorkflowStatus(lResults)
   lSnapshot$status_workflow <- lMeta$config_workflow %>%
@@ -96,7 +118,7 @@ bQuiet = TRUE
 
 
   lSnapshot$results_summary <- lResults %>%
-    imap_dfr(~.x$lResults$lData$dfSummary %>%
+    purrr::imap_dfr(~.x$lResults$lData$dfSummary %>%
                mutate(KRIID = .y,
                       StudyID = unique(lMeta$config_workflow$studyid)))
 
@@ -118,7 +140,7 @@ bQuiet = TRUE
 
   if (!is.null(cPath)) {
     #write each snapshot item to location
-    iwalk(lSnapshot, ~ write.csv(.x, file = paste0(cPath, "/", .y, ".csv"), row.names = FALSE))
+    purrr::iwalk(lSnapshot, ~ write.csv(.x, file = paste0(cPath, "/", .y, ".csv"), row.names = FALSE))
   }
 
   return(lSnapshot)
