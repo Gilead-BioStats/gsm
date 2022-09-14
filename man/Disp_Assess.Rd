@@ -39,7 +39,7 @@ of the column.}
 \itemize{
 \item each data frame in the data pipeline
 \itemize{
-\item \code{dfTransformed}, returned by \code{\link[=Transform_Count]{Transform_Count()}}
+\item \code{dfTransformed}, returned by \code{\link[=Transform_Rate]{Transform_Rate()}}
 \item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
 \item \code{dfFlagged}, returned by \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
