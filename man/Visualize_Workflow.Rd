@@ -24,12 +24,10 @@ lData <- list(
   dfCONSENT = clindata::rawplus_consent,
   dfIE = clindata::rawplus_ie
 )
-lTags <- list(
-  Study = "myStudy"
-)
+
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
-kri0001 <- RunAssessment(lAssessments$kri0001, lData = lData, lMapping = lMapping, lTags = lTags)
+kri0001 <- RunAssessment(lAssessments$kri0001, lData = lData, lMapping = lMapping)
 
 Visualize_Workflow(list(kri0001 = kri0001))
 

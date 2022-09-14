@@ -4,7 +4,7 @@
 \alias{RunAssessment}
 \title{Run a single assessment}
 \usage{
-RunAssessment(lAssessment, lData, lMapping, lTags = NULL, bQuiet = TRUE)
+RunAssessment(lAssessment, lData, lMapping, bQuiet = TRUE)
 }
 \arguments{
 \item{lAssessment}{\code{list} A named list of metadata defining how each assessment should be run. Properties should include: \code{label}, \code{tags} and \code{workflow}}
@@ -12,8 +12,6 @@ RunAssessment(lAssessment, lData, lMapping, lTags = NULL, bQuiet = TRUE)
 \item{lData}{\code{list} A named list of domain-level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
 \item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
-
-\item{lTags}{\code{list} A named list of tags describing the assessment. \code{lTags} is returned as part of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -35,16 +33,12 @@ lData <- list(
   dfPD = clindata::rawplus_protdev,
   dfSUBJ = clindata::rawplus_dm
 )
-lTags <- list(
-  Study = "myStudy"
-)
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 output <- RunAssessment(
   lAssessments$ae, # adverse event workflow
   lData,
-  lMapping,
-  lTags
-)
+  lMapping
+  )
 
 }

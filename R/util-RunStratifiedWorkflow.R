@@ -9,8 +9,6 @@
 #' specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from
 #' `X_Map_Raw`.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
-#' @param lTags `list` A named list of tags describing the assessment. `lTags` is returned as part
-#' of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lWorkflow` along with `tags`, `workflow`, `path`, `name`, `lData`, `lChecks`,
@@ -32,7 +30,7 @@
 #' lMapping <- yaml::read_yaml(
 #'   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
 #' )
-#' 
+#'
 #' output <- RunStratifiedWorkflow(
 #'   lWorkflows$aeGrade, # adverse event workflow, stratified by AE grade
 #'   lData = lData,
@@ -48,7 +46,6 @@ RunStratifiedWorkflow <- function(
   lWorkflow,
   lData,
   lMapping,
-  lTags = NULL,
   bQuiet = TRUE
 ) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` workflow"))
@@ -57,9 +54,6 @@ RunStratifiedWorkflow <- function(
     lWorkflow,
     lData,
     lMapping,
-    lTags = list(
-      type = "stratified"
-    ),
     bQuiet = bQuiet
   )
 
