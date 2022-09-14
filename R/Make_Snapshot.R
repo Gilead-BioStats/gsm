@@ -11,7 +11,6 @@
 #' @import purrr
 #' @importFrom yaml read_yaml
 #'
-#' @export
 #'
 #' @examples
 #'
@@ -19,6 +18,7 @@
 #' snapshot <- Make_Snapshot()
 #'
 #'
+#' @export
 Make_Snapshot <- function(
 lMeta = list(
   meta_study = NULL,
