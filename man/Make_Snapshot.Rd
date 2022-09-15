@@ -2,7 +2,7 @@
 % Please edit documentation in R/Make_Snapshot.R
 \name{Make_Snapshot}
 \alias{Make_Snapshot}
-\title{Make Snapshot - say cheese}
+\title{Make Snapshot - create and export Gizmo data model.}
 \usage{
 Make_Snapshot(
   lMeta = list(meta_study = NULL, meta_site = NULL, config_schedule = NULL,
@@ -15,15 +15,29 @@ Make_Snapshot(
     \%>\% filter(.data$datapagename == "Blinded Study Drug Completion")),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
+  lAssessments = NULL,
   cPath = NULL,
   bQuiet = TRUE
 )
 }
 \arguments{
-\item{bQuiet}{}
+\item{lMeta}{\code{list} a named list of data frames containing metadata, configuration, and workflow parameters for a given study.}
+
+\item{lData}{\code{list} a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
+
+\item{lMapping}{\code{list} a named list identifying the columns needed in each data domain.}
+
+\item{lAssessments}{a named list of metadata defining how each assessment should be run. By default, \code{MakeAssessmentList()} imports YAML specifications from \code{inst/workflow}.}
+
+\item{cPath}{\code{character} a character string indicating a working directory to save .csv files; the output of the snapshot.}
+
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+}
+\value{
+\code{list}, \code{lSnapshot}
 }
 \description{
-Make Snapshot - say cheese
+Make Snapshot - create and export Gizmo data model.
 }
 \examples{
 
