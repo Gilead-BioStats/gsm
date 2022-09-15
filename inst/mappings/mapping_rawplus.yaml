@@ -5,6 +5,7 @@ dfSUBJ:
   strTimeOnStudyCol: timeonstudy
   strTimeOnTreatmentCol: timeontreatment
   strRandDateCol: rfpen_dt
+  strCustomGroupCol: country
 dfAE:
   strIDCol: subjid
   strTreatmentEmergentCol: ae_te

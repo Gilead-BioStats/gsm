@@ -15,10 +15,10 @@ dfAE <- tibble::tribble(
 )
 
 dfSUBJ <- tibble::tribble(
-  ~studyid, ~siteid, ~subjid, ~timeonstudy, ~timeontreatment,    ~rfpen_dt,
-  "AA-AA-000-0000",    "86",  "0001",         730L,             678L, "2008-09-10",
-  "AA-AA-000-0000",    "76",  "0002",          50L,              13L, "2017-05-22",
-  "AA-AA-000-0000",   "166",  "0003",         901L,             857L, "2008-08-26"
+  ~studyid, ~siteid, ~subjid, ~timeonstudy, ~timeontreatment,    ~rfpen_dt, ~country,
+  "AA-AA-000-0000",    "86",  "0001",         730L,             678L, "2008-09-10", "US",
+  "AA-AA-000-0000",    "76",  "0002",          50L,              13L, "2017-05-22", "China",
+  "AA-AA-000-0000",   "166",  "0003",         901L,             857L, "2008-08-26", "Japan"
 )
 
 dfLB <- tibble::tribble(
