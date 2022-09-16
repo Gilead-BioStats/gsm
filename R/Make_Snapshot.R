@@ -69,8 +69,6 @@ bQuiet = TRUE
     strBy = "study"
   )
 
-
-
 # site_status -------------------------------------------------------------
   # lSnapshot$site_status <- meta$meta_site
   lSnapshot$site_status <- Get_Enrolled(
@@ -81,17 +79,13 @@ bQuiet = TRUE
     strBy = "site"
   )
 
-
-
 # run Study_Assess() ------------------------------------------------------
   # Make a list of assessments
   # Need to update this to use the relevant items from lMeta (meta_workflow, meta_params, config_workfow and config_params)
 
-
   if (is.null(lAssessments)) {
     lAssessments <- MakeAssessmentList(strNames = c(unique(lMeta$meta_workflow$workflowid)))
   }
-
 
   # Run Study Assessment
   lResults <- Study_Assess(
@@ -112,18 +106,14 @@ bQuiet = TRUE
   #lSnapshot$status_workflow$Status <- lWorkflowStatus$Status
   #lSnapshot$status_workflow$Notes<- lWorkflowStatus$Notes
 
-
 # status_param ------------------------------------------------------------
   lSnapshot$status_param <- lMeta$config_param
-
 
 # status_schedule ---------------------------------------------------------
   lSnapshot$status_schedule <- lMeta$config_schedule
 
-
 # meta_workflow -----------------------------------------------------------
   lSnapshot$meta_workflow <- gsm::meta_workflow
-
 
 # meta_param --------------------------------------------------------------
   lSnapshot$meta_param <- gsm::meta_param
