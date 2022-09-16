@@ -37,7 +37,7 @@ of the column.}
 \itemize{
 \item each data frame in the data pipeline
 \itemize{
-\item \code{dfTransformed}, returned by \code{\link[=Transform_Count]{Transform_Count()}}
+\item \code{dfTransformed}, returned by \code{\link[=Transform_Rate]{Transform_Rate()}}
 \item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
 \item \code{dfFlagged}, returned by \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
@@ -52,7 +52,7 @@ of the column.}
 \itemize{
 \item \code{dfInput}, a named list returned by \code{\link[=is_mapping_valid]{is_mapping_valid()}}
 \item \code{status}, a boolean returned by \code{\link[=is_mapping_valid]{is_mapping_valid()}}
-\item \code{mapping}, a named list that is provided as an argument to the \code{lMapping} parameter in \code{\link[=AE_Assess]{AE_Assess()}}
+\item \code{mapping}, a named list that is provided as an argument to the \code{lMapping} parameter in \code{\link[=LB_Assess]{LB_Assess()}}
 \item \code{spec}, a named list used to define variable specifications
 }
 }

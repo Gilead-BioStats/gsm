@@ -12,7 +12,7 @@ Analyze_Poisson_PredictBounds(
 }
 \arguments{
 \item{dfTransformed}{\code{data.frame} data.frame in format produced by
-\code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.}
+\code{\link{Transform_Rate}}. Must include GroupID, N, Numerator and Denominator}
 
 \item{vThreshold}{\code{numeric} upper and lower boundaries in residual space. Should be identical to
 the thresholds used AE_Assess().}
@@ -40,23 +40,22 @@ calculated using the method described here TODO: Add link. In short,
 
 \section{Data Specification}{
 
-The input data (\code{ dfTransformed}) for the Analyze_Poisson is typically created using
-\code{\link{Transform_EventCount}} and should be one record per site with columns for:
+The input data (\code{dfTransformed}) for Analyze_Poisson is typically created using
+\code{\link{Transform_Rate}} and should be one record per site with columns for:
 \itemize{
-\item \code{SubjectID} - Unique subject ID
-\item \code{SiteID} - Site ID
-\item \code{TotalCount} - Number of Events
-\item \code{TotalExposure} - Number of days of exposure
+\item \code{GroupID} - Unique subject ID
+\item \code{Numerator} - Number of Events
+\item \code{Denominator} - Number of days of exposure
 }
 }
 
 \examples{
-dfInput <- AE_Map_Adam()
+dfInput <- AE_Map_Raw() \%>\% na.omit()  #na.omit is placeholder for now
 
-dfTransformed <- Transform_EventCount(dfInput,
-  strCountCol = "Count",
-  strExposureCol = "Exposure",
-  strKRILabel = "AEs/Week"
+dfTransformed <- Transform_Rate(dfInput,
+  strGroupCol = "SiteID",
+  strNumeratorCol = "Count",
+  strDenominatorCol = "Exposure"
 )
 
 dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5, 5))
