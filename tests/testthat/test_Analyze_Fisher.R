@@ -2,17 +2,18 @@ source(testthat::test_path("testdata/data.R"))
 
 dfInput <- Disp_Map_Raw(
   dfs = list(
-    dfDISP = dfDISP,
+    dfSDRGCOMP = dfSDRGCOMP,
+    dfSTUDCOMP = dfSTUDCOMP,
     dfSUBJ = dfSUBJ
   )
 )
 
 test_that("output created as expected and has correct structure", {
-  df <- Transform_EventCount(
-    dfInput,
-    strCountCol = "Count",
-    strGroupCol = "SiteID",
-    strKRILabel = "test label"
+  df <-Transform_Rate(
+    dfInput = dfInput,
+    strGroupCol = "GroupID",
+    strNumeratorCol = "Count",
+    strDenominatorCol = "Total"
   )
 
   output <- Analyze_Fisher(df)
