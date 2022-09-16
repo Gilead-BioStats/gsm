@@ -52,7 +52,6 @@ bQuiet = TRUE
   # lSnapshot$study_status<-meta$meta_study
   lSnapshot$study_status <- tibble(StudyID = unique(lMeta$config_workflow$studyid)) # placeholder
 
-
 # study_status ------------------------------------------------------------
   lSnapshot$study_status$enrolled_participants <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
@@ -102,10 +101,6 @@ bQuiet = TRUE
     bQuiet = bQuiet
   )
 
-
-  # imap(lResults, \(x, y) tibble(x$bStatus) %>% set_names(y))
-
-
   # add line below to parseWorkflowStatus function
   parseStatus <- purrr::imap(lResults, \(x, y) tibble(workflowid = y, status = x$bStatus)) %>%
     bind_rows()
@@ -113,8 +108,6 @@ bQuiet = TRUE
   # lWorkflowStatus <- parseWorkflowStatus(lResults)
   lSnapshot$status_workflow <- lMeta$config_workflow %>%
     left_join(parseStatus, by = "workflowid")
-
-
 
   #lSnapshot$status_workflow$Status <- lWorkflowStatus$Status
   #lSnapshot$status_workflow$Notes<- lWorkflowStatus$Notes
