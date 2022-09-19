@@ -7,7 +7,7 @@
 #' input data to [gsm::Disp_Assess()].
 #'
 #' @details
-#' `Disp_Map_Raw` creates an input dataset for the Disposition Assessment (link to code) by adding
+#' `Disp_Map_Raw` creates an input dataset for the Disposition Assessment [gsm::Disp_Map_Raw()] by adding
 #' Discontinuation Reason Counts to basic subject-level data.
 #'
 #'
