@@ -119,9 +119,20 @@ bQuiet = TRUE
 
 # results_summary ---------------------------------------------------------
   results_summary <- lResults %>%
-    purrr::imap_dfr(~.x$lResults$lData$dfSummary %>%
+    purrr::imap_dfr(~.x$lResults$lData$dfFlagged %>%
                mutate(KRIID = .y,
-                      StudyID = unique(lMeta$config_workflow$studyid)))
+                      StudyID = unique(lMeta$config_workflow$studyid))) %>%
+    select(
+      .data$StudyID,
+      .data$KRIID,
+      .data$GroupID,
+      .data$N,
+      .data$Numerator,
+      .data$Denominator,
+      .data$Metric,
+      .data$Score,
+      .data$Flag
+      )
 
 
   # lSnapshot$results_summary$StudyID <- meta$status_study[1,'StudyID']
