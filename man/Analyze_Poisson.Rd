@@ -7,7 +7,7 @@
 Analyze_Poisson(dfTransformed, bQuiet = TRUE)
 }
 \arguments{
-\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.}
+\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_Rate}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -29,7 +29,7 @@ This function fits a poisson model to site-level data and then calculates residu
 \section{Data Specification}{
 
 
-The input data (\code{dfTransformed}) for Analyze_Poisson is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
+The input data (\code{dfTransformed}) for Analyze_Poisson is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
 \itemize{
 \item \code{SiteID} - Site ID
 \item \code{N} - Number of participants
@@ -40,12 +40,11 @@ The input data (\code{dfTransformed}) for Analyze_Poisson is typically created u
 }
 
 \examples{
-dfInput <- AE_Map_Raw()
-dfTransformed <- Transform_EventCount(dfInput,
+dfInput <- AE_Map_Raw() \%>\% na.omit()  #na.omit is placeholder for now
+dfTransformed <- Transform_Rate(dfInput,
   strGroupCol = "SiteID",
-  strCountCol = "Count",
-  strExposureCol = "Exposure",
-  strKRILabel = "AEs/Week"
+  strNumeratorCol = "Count",
+  strDenominatorCol = "Exposure"
 )
 
 dfAnalyzed <- Analyze_Poisson(dfTransformed)

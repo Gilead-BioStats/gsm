@@ -49,7 +49,7 @@ input data to \code{\link[=Disp_Assess]{Disp_Assess()}}.
 \details{
 Convert from ADaM or raw format to input format for Disposition Assessment.
 
-\code{Disp_Map_Raw} creates an input dataset for the Disposition Assessment (link to code) by adding
+\code{Disp_Map_Raw} creates an input dataset for the Disposition Assessment \code{\link[=Disp_Map_Raw]{Disp_Map_Raw()}} by adding
 Discontinuation Reason Counts to basic subject-level data.
 }
 \section{Data specification}{

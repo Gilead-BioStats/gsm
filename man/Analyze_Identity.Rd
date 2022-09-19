@@ -7,7 +7,7 @@
 Analyze_Identity(dfTransformed, strValueCol = "Metric", bQuiet = TRUE)
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} created by \code{Transform_EventCount()}}
+\item{dfTransformed}{\code{data.frame} created by \code{\link{Transform_Count}}}
 
 \item{strValueCol}{\code{character} Name of column that will be copied as \code{Score}}
 
@@ -24,7 +24,7 @@ Used in the data pipeline between \code{Transform} and \code{Flag} to rename KRI
 }
 \examples{
 dfInput <- Consent_Map_Raw()
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count")
+dfTransformed <- Transform_Count(dfInput, strCountCol = "Count")
 dfAnalyzed <- Analyze_Identity(dfTransformed)
 
 }

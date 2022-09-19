@@ -47,19 +47,15 @@ In short, the following columns are considered:
 \examples{
 dfInput <- AE_Map_Adam()
 
-dfTransformed <- Transform_EventCount(dfInput,
-  strCountCol = "Count",
-  strExposureCol = "Exposure",
-  strKRILabel = "AEs/Week"
+dfTransformed <- Transform_Rate(dfInput,
+  strGroupCol = "SiteID",
+  strNumeratorCol = "Count",
+  strDenominatorCol = "Exposure"
 )
 
-dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+dfAnalyzed <- Analyze_Poisson(dfTransformed)
 
-dfFlagged <- Flag(dfAnalyzed) # P value (dfAnalyzed$Score) < 0.05 flagged
+dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
 
-dfFlagged10 <- Flag(dfAnalyzed, vThreshold = c(0.10, NA)) # PValue <0.10 flagged
-
-# Flag direction set based on 'Statistic' column
-dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
 
 }
