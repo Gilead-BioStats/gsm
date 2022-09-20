@@ -11,7 +11,7 @@ dfInput <- Disp_Map_Raw(
 test_that("output created as expected and has correct structure", {
   df <-Transform_Rate(
     dfInput = dfInput,
-    strGroupCol = "GroupID",
+    strGroupCol = "SiteID",
     strNumeratorCol = "Count",
     strDenominatorCol = "Total"
   )
@@ -19,26 +19,28 @@ test_that("output created as expected and has correct structure", {
   output <- Analyze_Fisher(df)
 
   expect_true(is.data.frame(df))
-  expect_equal(names(output), c("GroupID", "GroupLabel", "TotalCount", "TotalCount_Other", "N", "N_Other", "Prop", "Prop_Other", "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel"))
+  expect_equal(names(output), c("GroupID", "N", "Numerator", "Numerator_Other", "Denominator",
+                                "Denominator_Other", "Prop", "Prop_Other", "Metric", "Estimate",
+                                "Score", "ScoreLabel"))
   expect_type(df$GroupID, "character")
   expect_type(df$N, "integer")
-  expect_type(df$TotalCount, "double")
-  expect_equal(df$GroupID, c("X010X", "X102X", "X999X"))
+  expect_equal(df$GroupID, c("166", "76", "86"))
 })
 
 test_that("incorrect inputs throw errors", {
   dfInput <- Disp_Map_Raw(
     dfs = list(
-      dfDISP = dfDISP,
+      dfSDRGCOMP = dfSDRGCOMP,
+      dfSTUDCOMP = dfSTUDCOMP,
       dfSUBJ = dfSUBJ
     )
   )
 
-  df <- Transform_EventCount(
-    dfInput,
-    strCountCol = "Count",
+  df <-Transform_Rate(
+    dfInput = dfInput,
     strGroupCol = "SiteID",
-    strKRILabel = "testing label"
+    strNumeratorCol = "Count",
+    strDenominatorCol = "Total"
   )
 
   expect_error(Analyze_Fisher(list()))
@@ -51,36 +53,38 @@ test_that("incorrect inputs throw errors", {
 test_that("error given if required column not found", {
   dfInput <- Disp_Map_Raw(
     dfs = list(
-      dfDISP = dfDISP,
+      dfSDRGCOMP = dfSDRGCOMP,
+      dfSTUDCOMP = dfSTUDCOMP,
       dfSUBJ = dfSUBJ
     )
   )
 
-  df <- Transform_EventCount(
-    dfInput,
-    strCountCol = "Count",
+  df <-Transform_Rate(
+    dfInput = dfInput,
     strGroupCol = "SiteID",
-    strKRILabel = "testing label"
+    strNumeratorCol = "Count",
+    strDenominatorCol = "Total"
   )
 
-  expect_error(Analyze_Fisher(df %>% select(-SiteID)))
-  expect_error(Analyze_Fisher(df %>% select(-N)))
-  expect_error(Analyze_Fisher(df %>% select(-TotalCount)))
+  expect_error(Analyze_Fisher(df %>% select(-GroupID)))
+  expect_error(Analyze_Fisher(df %>% select(-Numerator)))
+  expect_error(Analyze_Fisher(df %>% select(-Denominator)))
 })
 
 test_that("NAs are handled correctly", {
   dfInput <- Disp_Map_Raw(
     dfs = list(
-      dfDISP = dfDISP,
+      dfSDRGCOMP = dfSDRGCOMP,
+      dfSTUDCOMP = dfSTUDCOMP,
       dfSUBJ = dfSUBJ
     )
   )
 
-  df <- Transform_EventCount(
-    dfInput,
-    strCountCol = "Count",
+  df <-Transform_Rate(
+    dfInput = dfInput,
     strGroupCol = "SiteID",
-    strKRILabel = "testing label"
+    strNumeratorCol = "Count",
+    strDenominatorCol = "Total"
   )
 
   createNA <- function(data, variable) {
@@ -90,6 +94,5 @@ test_that("NAs are handled correctly", {
   }
 
   expect_error(createNA(data = df, variable = "GroupID"))
-  expect_error(createNA(data = df, variable = "N"))
-  expect_error(createNA(data = df, variable = "TotalCount"))
+
 })
