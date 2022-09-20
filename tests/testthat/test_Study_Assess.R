@@ -1,15 +1,5 @@
 source(testthat::test_path("testdata/data.R"))
 
-lData <- list(
-  dfSUBJ = dfSUBJ,
-  dfAE = dfAE,
-  dfPD = dfPD,
-  dfCONSENT = dfCONSENT,
-  dfIE = dfIE,
-  dfDISP = dfDISP,
-  dfLB = dfLB
-)
-
 meta_lookup <- tribble(
   ~workflowid, ~assessment_abbrev,
   "kri0001", "AE",
@@ -26,7 +16,18 @@ meta <- left_join(
   meta_workflow,
   meta_lookup,
   by = "workflowid"
-  )
+)
+
+lData <- list(
+  dfSUBJ = dfSUBJ,
+  dfAE = dfAE,
+  dfPD = dfPD,
+  dfCONSENT = dfCONSENT,
+  dfIE = dfIE,
+  dfSTUDCOMP = dfSTUDCOMP,
+  dfSDRGCOMP = dfSDRGCOMP,
+  dfLB = dfLB
+)
 
 lAssessments <- MakeAssessmentList()
 
@@ -36,7 +37,7 @@ result <- Study_Assess(
   lData = lData,
   lAssessments = lAssessments,
   bQuiet = TRUE
-  )
+  ) %>% suppressWarnings()
 
 
 # output is created as expected -------------------------------------------
@@ -91,7 +92,7 @@ test_that("Study_Assess() runs with missing datasets", {
     lData = lData,
     lAssessments = lAssessments,
     bQuiet = TRUE
-    )
+    ) %>% suppressWarnings()
 
   # extract bStatus from returned list
   bStatusData <- purrr::map_df(result, ~.x$bStatus) %>%
@@ -126,25 +127,27 @@ test_that("custom lMapping runs as intended", {
   expect_false(result$kri0001$bStatus)
   expect_false(result$kri0001$bStatus)
   expect_false("lResults" %in% names(result$kri0001))
-  expect_false("lResults" %in% names(result$kri0001))
+  expect_false("lResults" %in% names(result$kri0002))
+
 
   lMapping$dfAE$strIDCol <- "SUBJID"
   lData$dfAE <- lData$dfAE %>%
-    rename(SUBJID = SubjectID)
+    rename(SUBJID = subjid)
 
-  result <- Study_Assess(lData = lData, lMapping = lMapping, bQuiet = TRUE)
+  result <- Study_Assess(lData = lData, lMapping = lMapping, bQuiet = TRUE) %>%
+    suppressWarnings()
   expect_true(result$kri0001$bStatus)
   expect_true(result$kri0002$bStatus)
   expect_true("lResults" %in% names(result$kri0001))
-  expect_true("lResults" %in% names(result$kri0001))
+  expect_true("lResults" %in% names(result$kri0002))
 })
 
 test_that("bQuiet works as intended", {
 
   # run on subset to reduce runtime
   lData <- list(
-    dfSUBJ = dfSUBJ,
-    dfAE = dfAE
+    dfSUBJ = clindata::rawplus_dm %>% arrange(subjid) %>% slice(1:10),
+    dfAE = clindata::rawplus_ae %>% arrange(subjid) %>% slice(1:10)
   )
   expect_silent(Study_Assess(lData = lData, bQuiet = TRUE))
   expect_snapshot(result <- Study_Assess(lData = lData, bQuiet = FALSE))
@@ -159,9 +162,11 @@ test_that("Map + Assess yields same result as Study_Assess()", {
     dfPD = dfPD,
     dfCONSENT = dfCONSENT,
     dfIE = dfIE,
-    dfDISP = dfDISP,
+    dfSTUDCOMP = dfSTUDCOMP,
+    dfSDRGCOMP = dfSDRGCOMP,
     dfLB = dfLB
   )
+
 
   custom_workflow <- MakeAssessmentList(strNames = c("ie", "consent"), bRecursive = TRUE)
 

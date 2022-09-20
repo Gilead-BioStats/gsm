@@ -45,15 +45,6 @@ test_that("incorrect inputs throw errors", {
 })
 
 
-# custom tests ------------------------------------------------------------
-test_that("strMethod = 'identity' works as expected", {
-  identity <- assess_function(dfInput, strMethod = "identity")
-  expect_error(assess_function(dfInput, strMethod = "identity"), NA)
-  expect_equal(names(identity$lCharts), c("barMetric", "barScore"))
-  expect_null(identity$lCharts$scatter)
-  expect_null(identity$lData$dfBounds)
-})
-
 test_that("bQuiet works as intended", {
   test_logical_assess_parameters(assess_function, dfInput)
 })
