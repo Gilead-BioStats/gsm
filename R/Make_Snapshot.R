@@ -49,7 +49,7 @@ bQuiet = TRUE
 
 
   # lSnapshot$status_study<-meta$meta_study
-  status_study <- tibble(StudyID = unique(lMeta$config_workflow$studyid)) # placeholder
+  status_study <- meta_study
 
 # status_study ------------------------------------------------------------
   status_study$enrolled_participants <- Get_Enrolled(
