@@ -2,10 +2,10 @@ dfSDRGCOMP:
   vRequired:
     - strIDCol
     - strTreatmentDiscontinuationReasonCol
-    - strTreatmentCompletionFlagCol
+    - strTreatmentDiscontinuationFlagCol
   vNACols:
     - strTreatmentDiscontinuationReasonCol
-    - strTreatmentCompletionFlagCol
+    - strTreatmentDiscontinuationFlagCol
 dfSUBJ:
   vRequired:
     - strIDCol

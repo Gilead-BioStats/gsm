@@ -2,10 +2,10 @@ dfSTUDCOMP:
   vRequired:
     - strIDCol
     - strStudyDiscontinuationReasonCol
-    - strStudyCompletionFlagCol
+    - strStudyDiscontinuationFlagCol
   vNACols:
     - strStudyDiscontinuationReasonCol
-    - strStudyCompletionFlagCol
+    - strStudyDiscontinuationFlagCol
 dfSUBJ:
   vRequired:
     - strIDCol
