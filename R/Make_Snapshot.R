@@ -102,8 +102,12 @@ bQuiet = TRUE
   status_workflow <- lMeta$config_workflow %>%
     left_join(parseStatus, by = "workflowid")
 
-  #lSnapshot$status_workflow$Status <- lWorkflowStatus$Status
-  #lSnapshot$status_workflow$Notes<- lWorkflowStatus$Notes
+  warnings <- ParseWarnings(lResults)
+
+  if (nrow(warnings > 0)) {
+    status_workflow <- status_workflow %>%
+      left_join(warnings, by = "workflowid")
+  }
 
 # status_param ------------------------------------------------------------
   status_param <- lMeta$config_param
@@ -118,10 +122,11 @@ bQuiet = TRUE
   meta_param <- gsm::meta_param
 
 # results_summary ---------------------------------------------------------
-  results_summary <- lResults %>%
-    purrr::imap_dfr(~.x$lResults$lData$dfFlagged %>%
-               mutate(KRIID = .y,
-                      StudyID = unique(lMeta$config_workflow$studyid))) %>%
+  results_summary <- purrr::map(lResults, ~.x[['lResults']]) %>%
+    discard(is.null) %>%
+    purrr::imap_dfr(~.x$lData$dfFlagged %>%
+                      mutate(KRIID = .y,
+                             StudyID = unique(lMeta$config_workflow$studyid))) %>%
     select(
       .data$StudyID,
       .data$KRIID,
@@ -132,7 +137,7 @@ bQuiet = TRUE
       .data$Metric,
       .data$Score,
       .data$Flag
-      )
+    )
 
 
   # lSnapshot$results_summary$StudyID <- meta$status_study[1,'StudyID']
