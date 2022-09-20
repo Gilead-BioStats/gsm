@@ -100,7 +100,7 @@ Mapping Specifications in {gsm} define a "mapping" of column and field-level inp
 
 Each mapping object lists the required parameters for all required data domains and specifies the column and field values for specific data sets. 
 
-For example, the following could be passed to the `mapping` parameter for the `AE_Map_Raw()` function to be used with the default data from `clindata::rawplus_AE` and `clindata::rawplus_SUBJ`: 
+For example, the following could be passed to the `mapping` parameter for the `AE_Map_Raw()` function to be used with the default data from `clindata::rawplus_ae` and `clindata::rawplus_dm`: 
 
 ```{r eval = FALSE, include = TRUE}
 list(
@@ -121,7 +121,6 @@ Assessment Workflow Metadata objects are passed to the `lAssessments` parameter 
 
 The `lAssessment` object is a named list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/assessments`. Each item in `lAssessments` expects the following parameters. 
 
-- `tags`: Labels to be appended as a column to summary data.
 - `workflow`: Array defining one or more functions to be executed as part of the workflow for a given assessment.
   - `workflow[]$name`: name of the {gsm} function.
   - `workflow[]$inputs`: Specifies the required input data.
@@ -131,9 +130,6 @@ The `lAssessment` object is a named list of metadata defining how each assessmen
 For example, the workflow for the AE assessment (`inst/assessments/ae.yaml`) is shown below:
 
 ```
-tags:
-  Assessment: Safety
-  Label: AEs
 workflow:
   - name: FilterDomain
     inputs: dfAE

@@ -23,12 +23,12 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strStudyDiscontinuationReasonCol", "strStudyCompletionFlagCol"]
+              "value": ["strIDCol", "strStudyDiscontinuationReasonCol", "strStudyDiscontinuationFlagCol"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyDiscontinuationReasonCol", "strStudyCompletionFlagCol"]
+              "value": ["strStudyDiscontinuationReasonCol", "strStudyDiscontinuationFlagCol"]
             }
           ]
         },
@@ -75,7 +75,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strStudyDiscontinuationReasonCol", "strStudyDiscontinuationReasonVal", "strStudyCompletionFlagCol", "strStudyCompletionFlagVal"]
+              "value": ["strIDCol", "strStudyDiscontinuationReasonCol", "strStudyDiscontinuationReasonVal", "strStudyDiscontinuationFlagCol", "strStudyDiscontinuationFlagVal"]
             }
           },
           "value": [
@@ -102,7 +102,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Y"]
+              "value": ["N"]
             }
           ]
         },
@@ -388,7 +388,7 @@
       
       -- Checking Input Data for `Disp_Map_Raw_Study()` --
       
-      x "mapping" does not contain required parameters: strIDCol, strStudyDiscontinuationReasonCol, strStudyCompletionFlagCol
+      x "mapping" does not contain required parameters: strIDCol, strStudyDiscontinuationReasonCol, strStudyDiscontinuationFlagCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       x "mapping" does not contain required parameters: strIDCol, strSiteCol
