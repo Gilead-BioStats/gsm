@@ -8,7 +8,7 @@
     - T1_3
     - T1_4
 - ID: S1_2
-  Description: Given correct input data an Adverse Event assessment can be done using the wilcoxon method
+  Description: Given correct input data an Adverse Event assessment can be done using the identity method
   Risk: High
   Impact: High
   Tests:
@@ -50,11 +50,4 @@
     - T1_3
     - T1_4
     - T1_7
-    - T1_8
-- ID: S1_6
-  Description: An Adverse Event assessment can be done iteratively by looping over a categorical variable
-  Risk: Low
-  Impact: Medium
-  Tests:
-    - T1_4
     - T1_8
