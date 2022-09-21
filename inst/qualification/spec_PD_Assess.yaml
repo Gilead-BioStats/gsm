@@ -7,7 +7,7 @@
     - T2_2
     - T2_3
 - ID: S2_2
-  Description: Given correct input data a Protocol Deviation assessment can be done using the wilcoxon method
+  Description: Given correct input data a Protocol Deviation assessment can be done using the identity method
   Risk: High
   Impact: High
   Tests:
@@ -43,10 +43,3 @@
   Tests:
     - T2_2
     - T2_5
-- ID: S2_6
-  Description: A Protocol Deviation assessment can be done iteratively by looping over a categorical variable
-  Risk: Low
-  Impact: Medium
-  Tests:
-    - T2_3
-    - T2_6
