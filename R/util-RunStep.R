@@ -64,6 +64,7 @@ RunStep <- function(lStep, lMapping, lData, bQuiet) {
     }
   } else if (lStep$name == "FilterData") {
     params$dfInput <- lData[[lStep$inputs]]
+    params$bReturnChecks <- TRUE
   }
 
   if (!bQuiet) cli::cli_text("Calling {.fn {lStep$name}} ...")

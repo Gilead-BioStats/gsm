@@ -48,6 +48,7 @@ RunAssessment <- function(
   lAssessment$lData <- lData
   lAssessment$lChecks <- list()
   lAssessment$bStatus <- TRUE
+
   if (exists("workflow", where = lAssessment)) {
     # Run through each step in lAssessment$workflow
 

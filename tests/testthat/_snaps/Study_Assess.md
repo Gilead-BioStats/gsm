@@ -4,7 +4,7 @@
       names(result$kri0001)
     Output
       [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "checks"   "lResults"
+      [8] "lResults"
 
 ---
 
@@ -12,7 +12,7 @@
       names(result$kri0002)
     Output
       [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "checks"   "lResults"
+      [8] "lResults"
 
 ---
 
@@ -20,7 +20,7 @@
       names(result$kri0003)
     Output
       [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "checks"   "lResults"
+      [8] "lResults"
 
 ---
 
@@ -28,7 +28,7 @@
       names(result$kri0004)
     Output
       [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "checks"   "lResults"
+      [8] "lResults"
 
 ---
 
@@ -36,7 +36,7 @@
       names(result$kri0005)
     Output
       [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "checks"   "lResults"
+      [8] "lResults"
 
 ---
 
@@ -44,7 +44,7 @@
       names(result$kri0006)
     Output
       [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "checks"   "lResults"
+      [8] "lResults"
 
 ---
 
@@ -52,7 +52,7 @@
       names(result$kri0007)
     Output
       [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "checks"   "lResults"
+      [8] "lResults"
 
 ---
 
@@ -60,7 +60,7 @@
       names(result$kri0008)
     Output
       [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "checks"   "lResults"
+      [8] "lResults"
 
 # metadata is returned as expected
 
@@ -224,6 +224,589 @@
     Code
       kri0001$lChecks
     Output
+      $FilterDomain
+      $FilterDomain$dfAE
+      $FilterDomain$dfAE$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if
+      $FilterDomain$dfAE$tests_if$is_data_frame
+      $FilterDomain$dfAE$tests_if$is_data_frame$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$is_data_frame$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$has_required_params
+      $FilterDomain$dfAE$tests_if$has_required_params$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$has_required_params$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$spec_is_list
+      $FilterDomain$dfAE$tests_if$spec_is_list$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$spec_is_list$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$mapping_is_list
+      $FilterDomain$dfAE$tests_if$mapping_is_list$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$mapping_is_list$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$mappings_are_character
+      $FilterDomain$dfAE$tests_if$mappings_are_character$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$mappings_are_character$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$has_expected_columns
+      $FilterDomain$dfAE$tests_if$has_expected_columns$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$has_expected_columns$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$columns_have_na
+      $FilterDomain$dfAE$tests_if$columns_have_na$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$columns_have_na$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$columns_have_empty_values
+      $FilterDomain$dfAE$tests_if$columns_have_empty_values$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$columns_have_empty_values$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$cols_are_unique
+      $FilterDomain$dfAE$tests_if$cols_are_unique$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$cols_are_unique$warning
+      [1] NA
+      
+      
+      
+      $FilterDomain$dfAE$dim
+      [1] 12  4
+      
+      
+      $FilterDomain$status
+      [1] TRUE
+      
+      
+      $AE_Map_Raw
+      $AE_Map_Raw$dfAE
+      $AE_Map_Raw$dfAE$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfAE$tests_if
+      $AE_Map_Raw$dfAE$tests_if$is_data_frame
+      $AE_Map_Raw$dfAE$tests_if$is_data_frame$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfAE$tests_if$is_data_frame$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfAE$tests_if$has_required_params
+      $AE_Map_Raw$dfAE$tests_if$has_required_params$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfAE$tests_if$has_required_params$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfAE$tests_if$spec_is_list
+      $AE_Map_Raw$dfAE$tests_if$spec_is_list$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfAE$tests_if$spec_is_list$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfAE$tests_if$mapping_is_list
+      $AE_Map_Raw$dfAE$tests_if$mapping_is_list$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfAE$tests_if$mapping_is_list$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfAE$tests_if$mappings_are_character
+      $AE_Map_Raw$dfAE$tests_if$mappings_are_character$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfAE$tests_if$mappings_are_character$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfAE$tests_if$has_expected_columns
+      $AE_Map_Raw$dfAE$tests_if$has_expected_columns$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfAE$tests_if$has_expected_columns$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfAE$tests_if$columns_have_na
+      $AE_Map_Raw$dfAE$tests_if$columns_have_na$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfAE$tests_if$columns_have_na$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfAE$tests_if$columns_have_empty_values
+      $AE_Map_Raw$dfAE$tests_if$columns_have_empty_values$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfAE$tests_if$columns_have_empty_values$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfAE$tests_if$cols_are_unique
+      $AE_Map_Raw$dfAE$tests_if$cols_are_unique$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfAE$tests_if$cols_are_unique$warning
+      [1] NA
+      
+      
+      
+      $AE_Map_Raw$dfAE$dim
+      [1] 7 4
+      
+      
+      $AE_Map_Raw$dfSUBJ
+      $AE_Map_Raw$dfSUBJ$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfSUBJ$tests_if
+      $AE_Map_Raw$dfSUBJ$tests_if$is_data_frame
+      $AE_Map_Raw$dfSUBJ$tests_if$is_data_frame$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$is_data_frame$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$has_required_params
+      $AE_Map_Raw$dfSUBJ$tests_if$has_required_params$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$has_required_params$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$spec_is_list
+      $AE_Map_Raw$dfSUBJ$tests_if$spec_is_list$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$spec_is_list$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$mapping_is_list
+      $AE_Map_Raw$dfSUBJ$tests_if$mapping_is_list$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$mapping_is_list$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$mappings_are_character
+      $AE_Map_Raw$dfSUBJ$tests_if$mappings_are_character$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$mappings_are_character$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$has_expected_columns
+      $AE_Map_Raw$dfSUBJ$tests_if$has_expected_columns$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$has_expected_columns$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$columns_have_na
+      $AE_Map_Raw$dfSUBJ$tests_if$columns_have_na$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$columns_have_na$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$columns_have_empty_values
+      $AE_Map_Raw$dfSUBJ$tests_if$columns_have_empty_values$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$columns_have_empty_values$warning
+      [1] NA
+      
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$cols_are_unique
+      $AE_Map_Raw$dfSUBJ$tests_if$cols_are_unique$status
+      [1] TRUE
+      
+      $AE_Map_Raw$dfSUBJ$tests_if$cols_are_unique$warning
+      [1] NA
+      
+      
+      
+      $AE_Map_Raw$dfSUBJ$dim
+      [1] 3 7
+      
+      
+      $AE_Map_Raw$status
+      [1] TRUE
+      
+      $AE_Map_Raw$mapping
+      $AE_Map_Raw$mapping$dfSUBJ
+      $AE_Map_Raw$mapping$dfSUBJ$strStudyCol
+      [1] "studyid"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strSiteCol
+      [1] "siteid"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strTimeOnStudyCol
+      [1] "timeonstudy"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strTimeOnTreatmentCol
+      [1] "timeontreatment"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strRandDateCol
+      [1] "rfpen_dt"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strCustomGroupCol
+      [1] "country"
+      
+      
+      $AE_Map_Raw$mapping$dfAE
+      $AE_Map_Raw$mapping$dfAE$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfAE$strTreatmentEmergentCol
+      [1] "ae_te"
+      
+      $AE_Map_Raw$mapping$dfAE$strTreatmentEmergentVal
+      [1] "Y"
+      
+      $AE_Map_Raw$mapping$dfAE$strGradeCol
+      [1] "aetoxgr"
+      
+      $AE_Map_Raw$mapping$dfAE$strSeriousCol
+      [1] "aeser"
+      
+      $AE_Map_Raw$mapping$dfAE$strSeriousVal
+      [1] "Y"
+      
+      $AE_Map_Raw$mapping$dfAE$strNonSeriousVal
+      [1] "N"
+      
+      
+      $AE_Map_Raw$mapping$dfPD
+      $AE_Map_Raw$mapping$dfPD$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfPD$strCategoryCol
+      [1] "dvdecod"
+      
+      $AE_Map_Raw$mapping$dfPD$strImportantCol
+      [1] "importnt"
+      
+      $AE_Map_Raw$mapping$dfPD$strImportantVal
+      [1] "Y"
+      
+      $AE_Map_Raw$mapping$dfPD$strNotImportantVal
+      [1] "N"
+      
+      
+      $AE_Map_Raw$mapping$dfIE
+      $AE_Map_Raw$mapping$dfIE$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfIE$strCategoryCol
+      [1] "iecat"
+      
+      $AE_Map_Raw$mapping$dfIE$strValueCol
+      [1] "ieorres"
+      
+      $AE_Map_Raw$mapping$dfIE$strVersionCol
+      [1] "tiver"
+      
+      $AE_Map_Raw$mapping$dfIE$vCategoryValues
+      [1] "EXCL" "INCL"
+      
+      $AE_Map_Raw$mapping$dfIE$vExpectedResultValues
+      [1] 0 1
+      
+      
+      $AE_Map_Raw$mapping$dfCONSENT
+      $AE_Map_Raw$mapping$dfCONSENT$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfCONSENT$strTypeCol
+      [1] "conscat"
+      
+      $AE_Map_Raw$mapping$dfCONSENT$strValueCol
+      [1] "consyn"
+      
+      $AE_Map_Raw$mapping$dfCONSENT$strDateCol
+      [1] "consdt"
+      
+      $AE_Map_Raw$mapping$dfCONSENT$strConsentTypeVal
+      [1] "MAINCONSENT"
+      
+      $AE_Map_Raw$mapping$dfCONSENT$strConsentStatusVal
+      [1] "Y"
+      
+      
+      $AE_Map_Raw$mapping$dfSTUDCOMP
+      $AE_Map_Raw$mapping$dfSTUDCOMP$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfSTUDCOMP$strStudyDiscontinuationReasonCol
+      [1] "compreas"
+      
+      $AE_Map_Raw$mapping$dfSTUDCOMP$strStudyDiscontinuationReasonVal
+      [1] "consent"
+      
+      $AE_Map_Raw$mapping$dfSTUDCOMP$strStudyDiscontinuationFlagCol
+      [1] "compyn"
+      
+      $AE_Map_Raw$mapping$dfSTUDCOMP$strStudyDiscontinuationFlagVal
+      [1] "N"
+      
+      
+      $AE_Map_Raw$mapping$dfSDRGCOMP
+      $AE_Map_Raw$mapping$dfSDRGCOMP$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentPhaseCol
+      [1] "datapagename"
+      
+      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentPhaseVal
+      [1] "Blinded Study Drug Completion"
+      
+      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentDiscontinuationReasonCol
+      [1] "sdrgreas"
+      
+      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentDiscontinuationReasonVal
+      [1] "withdrawal"
+      
+      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentDiscontinuationFlagCol
+      [1] "sdrgyn"
+      
+      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentDiscontinuationFlagVal
+      [1] "N"
+      
+      
+      $AE_Map_Raw$mapping$dfLB
+      $AE_Map_Raw$mapping$dfLB$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfLB$strVisitCol
+      [1] "visnam"
+      
+      $AE_Map_Raw$mapping$dfLB$strVisitOrderCol
+      [1] "visnum"
+      
+      $AE_Map_Raw$mapping$dfLB$strCategoryCol
+      [1] "battrnam"
+      
+      $AE_Map_Raw$mapping$dfLB$strTestCol
+      [1] "lbtstnam"
+      
+      $AE_Map_Raw$mapping$dfLB$strValueCol
+      [1] "siresn"
+      
+      $AE_Map_Raw$mapping$dfLB$strTreatmentEmergentCol
+      [1] "lb_te"
+      
+      $AE_Map_Raw$mapping$dfLB$strTreatmentEmergentVal
+      [1] "Y"
+      
+      $AE_Map_Raw$mapping$dfLB$strGradeCol
+      [1] "toxgr"
+      
+      $AE_Map_Raw$mapping$dfLB$strGradeAnyVal
+      [1] "1" "2" "3" "4"
+      
+      $AE_Map_Raw$mapping$dfLB$strGradeHighVal
+      [1] "3" "4"
+      
+      
+      
+      $AE_Map_Raw$spec
+      $AE_Map_Raw$spec$dfAE
+      $AE_Map_Raw$spec$dfAE$vRequired
+      [1] "strIDCol"
+      
+      
+      $AE_Map_Raw$spec$dfSUBJ
+      $AE_Map_Raw$spec$dfSUBJ$vRequired
+      [1] "strIDCol"              "strSiteCol"            "strTimeOnTreatmentCol"
+      
+      $AE_Map_Raw$spec$dfSUBJ$vUniqueCols
+      [1] "strIDCol"
+      
+      $AE_Map_Raw$spec$dfSUBJ$vNACols
+      [1] "strTimeOnTreatmentCol"
+      
+      
+      
+      
+      $AE_Assess
+      $AE_Assess$dfInput
+      $AE_Assess$dfInput$status
+      [1] TRUE
+      
+      $AE_Assess$dfInput$tests_if
+      $AE_Assess$dfInput$tests_if$is_data_frame
+      $AE_Assess$dfInput$tests_if$is_data_frame$status
+      [1] TRUE
+      
+      $AE_Assess$dfInput$tests_if$is_data_frame$warning
+      [1] NA
+      
+      
+      $AE_Assess$dfInput$tests_if$has_required_params
+      $AE_Assess$dfInput$tests_if$has_required_params$status
+      [1] TRUE
+      
+      $AE_Assess$dfInput$tests_if$has_required_params$warning
+      [1] NA
+      
+      
+      $AE_Assess$dfInput$tests_if$spec_is_list
+      $AE_Assess$dfInput$tests_if$spec_is_list$status
+      [1] TRUE
+      
+      $AE_Assess$dfInput$tests_if$spec_is_list$warning
+      [1] NA
+      
+      
+      $AE_Assess$dfInput$tests_if$mapping_is_list
+      $AE_Assess$dfInput$tests_if$mapping_is_list$status
+      [1] TRUE
+      
+      $AE_Assess$dfInput$tests_if$mapping_is_list$warning
+      [1] NA
+      
+      
+      $AE_Assess$dfInput$tests_if$mappings_are_character
+      $AE_Assess$dfInput$tests_if$mappings_are_character$status
+      [1] TRUE
+      
+      $AE_Assess$dfInput$tests_if$mappings_are_character$warning
+      [1] NA
+      
+      
+      $AE_Assess$dfInput$tests_if$has_expected_columns
+      $AE_Assess$dfInput$tests_if$has_expected_columns$status
+      [1] TRUE
+      
+      $AE_Assess$dfInput$tests_if$has_expected_columns$warning
+      [1] NA
+      
+      
+      $AE_Assess$dfInput$tests_if$columns_have_na
+      $AE_Assess$dfInput$tests_if$columns_have_na$status
+      [1] TRUE
+      
+      $AE_Assess$dfInput$tests_if$columns_have_na$warning
+      [1] NA
+      
+      
+      $AE_Assess$dfInput$tests_if$columns_have_empty_values
+      $AE_Assess$dfInput$tests_if$columns_have_empty_values$status
+      [1] TRUE
+      
+      $AE_Assess$dfInput$tests_if$columns_have_empty_values$warning
+      [1] NA
+      
+      
+      $AE_Assess$dfInput$tests_if$cols_are_unique
+      $AE_Assess$dfInput$tests_if$cols_are_unique$status
+      [1] TRUE
+      
+      $AE_Assess$dfInput$tests_if$cols_are_unique$warning
+      [1] NA
+      
+      
+      
+      $AE_Assess$dfInput$dim
+      [1] 3 7
+      
+      
+      $AE_Assess$status
+      [1] TRUE
+      
+      $AE_Assess$mapping
+      $AE_Assess$mapping$dfInput
+      $AE_Assess$mapping$dfInput$strIDCol
+      [1] "SubjectID"
+      
+      $AE_Assess$mapping$dfInput$strSiteCol
+      [1] "SiteID"
+      
+      $AE_Assess$mapping$dfInput$strStudyCol
+      [1] "StudyID"
+      
+      $AE_Assess$mapping$dfInput$strCustomGroupCol
+      [1] "CustomGroupID"
+      
+      $AE_Assess$mapping$dfInput$strCountCol
+      [1] "Count"
+      
+      $AE_Assess$mapping$dfInput$strExposureCol
+      [1] "Exposure"
+      
+      $AE_Assess$mapping$dfInput$strRateCol
+      [1] "Rate"
+      
+      $AE_Assess$mapping$dfInput$strGroupCol
+      [1] "SiteID"
+      
+      
+      
+      $AE_Assess$spec
+      $AE_Assess$spec$dfInput
+      $AE_Assess$spec$dfInput$vRequired
+      [1] "strIDCol"       "strGroupCol"    "strCountCol"    "strExposureCol"
+      [5] "strRateCol"    
+      
+      $AE_Assess$spec$dfInput$vUniqueCols
+      [1] "strIDCol"
+      
+      $AE_Assess$spec$dfInput$vNACols
+      [1] "strExposureCol" "strRateCol"    
+      
+      
+      
+      
       $flowchart
       $flowchart$kri0001
       
@@ -234,374 +817,35 @@
     Code
       kri0001$checks$FilterDomain$dfAE
     Output
-      $status
-      [1] TRUE
-      
-      $tests_if
-      $tests_if$is_data_frame
-      $tests_if$is_data_frame$status
-      [1] TRUE
-      
-      $tests_if$is_data_frame$warning
-      [1] NA
-      
-      
-      $tests_if$has_required_params
-      $tests_if$has_required_params$status
-      [1] TRUE
-      
-      $tests_if$has_required_params$warning
-      [1] NA
-      
-      
-      $tests_if$spec_is_list
-      $tests_if$spec_is_list$status
-      [1] TRUE
-      
-      $tests_if$spec_is_list$warning
-      [1] NA
-      
-      
-      $tests_if$mapping_is_list
-      $tests_if$mapping_is_list$status
-      [1] TRUE
-      
-      $tests_if$mapping_is_list$warning
-      [1] NA
-      
-      
-      $tests_if$mappings_are_character
-      $tests_if$mappings_are_character$status
-      [1] TRUE
-      
-      $tests_if$mappings_are_character$warning
-      [1] NA
-      
-      
-      $tests_if$has_expected_columns
-      $tests_if$has_expected_columns$status
-      [1] TRUE
-      
-      $tests_if$has_expected_columns$warning
-      [1] NA
-      
-      
-      $tests_if$columns_have_na
-      $tests_if$columns_have_na$status
-      [1] TRUE
-      
-      $tests_if$columns_have_na$warning
-      [1] NA
-      
-      
-      $tests_if$columns_have_empty_values
-      $tests_if$columns_have_empty_values$status
-      [1] TRUE
-      
-      $tests_if$columns_have_empty_values$warning
-      [1] NA
-      
-      
-      $tests_if$cols_are_unique
-      $tests_if$cols_are_unique$status
-      [1] TRUE
-      
-      $tests_if$cols_are_unique$warning
-      [1] NA
-      
-      
-      
-      $dim
-      [1] 12  4
-      
+      NULL
 
 ---
 
     Code
       kri0001$checks$AE_Map_Raw$dfAE
     Output
-      $status
-      [1] TRUE
-      
-      $tests_if
-      $tests_if$is_data_frame
-      $tests_if$is_data_frame$status
-      [1] TRUE
-      
-      $tests_if$is_data_frame$warning
-      [1] NA
-      
-      
-      $tests_if$has_required_params
-      $tests_if$has_required_params$status
-      [1] TRUE
-      
-      $tests_if$has_required_params$warning
-      [1] NA
-      
-      
-      $tests_if$spec_is_list
-      $tests_if$spec_is_list$status
-      [1] TRUE
-      
-      $tests_if$spec_is_list$warning
-      [1] NA
-      
-      
-      $tests_if$mapping_is_list
-      $tests_if$mapping_is_list$status
-      [1] TRUE
-      
-      $tests_if$mapping_is_list$warning
-      [1] NA
-      
-      
-      $tests_if$mappings_are_character
-      $tests_if$mappings_are_character$status
-      [1] TRUE
-      
-      $tests_if$mappings_are_character$warning
-      [1] NA
-      
-      
-      $tests_if$has_expected_columns
-      $tests_if$has_expected_columns$status
-      [1] TRUE
-      
-      $tests_if$has_expected_columns$warning
-      [1] NA
-      
-      
-      $tests_if$columns_have_na
-      $tests_if$columns_have_na$status
-      [1] TRUE
-      
-      $tests_if$columns_have_na$warning
-      [1] NA
-      
-      
-      $tests_if$columns_have_empty_values
-      $tests_if$columns_have_empty_values$status
-      [1] TRUE
-      
-      $tests_if$columns_have_empty_values$warning
-      [1] NA
-      
-      
-      $tests_if$cols_are_unique
-      $tests_if$cols_are_unique$status
-      [1] TRUE
-      
-      $tests_if$cols_are_unique$warning
-      [1] NA
-      
-      
-      
-      $dim
-      [1] 7 4
-      
+      NULL
 
 ---
 
     Code
       kri0001$checks$AE_Map_Raw$dfSUBJ
     Output
-      $status
-      [1] TRUE
-      
-      $tests_if
-      $tests_if$is_data_frame
-      $tests_if$is_data_frame$status
-      [1] TRUE
-      
-      $tests_if$is_data_frame$warning
-      [1] NA
-      
-      
-      $tests_if$has_required_params
-      $tests_if$has_required_params$status
-      [1] TRUE
-      
-      $tests_if$has_required_params$warning
-      [1] NA
-      
-      
-      $tests_if$spec_is_list
-      $tests_if$spec_is_list$status
-      [1] TRUE
-      
-      $tests_if$spec_is_list$warning
-      [1] NA
-      
-      
-      $tests_if$mapping_is_list
-      $tests_if$mapping_is_list$status
-      [1] TRUE
-      
-      $tests_if$mapping_is_list$warning
-      [1] NA
-      
-      
-      $tests_if$mappings_are_character
-      $tests_if$mappings_are_character$status
-      [1] TRUE
-      
-      $tests_if$mappings_are_character$warning
-      [1] NA
-      
-      
-      $tests_if$has_expected_columns
-      $tests_if$has_expected_columns$status
-      [1] TRUE
-      
-      $tests_if$has_expected_columns$warning
-      [1] NA
-      
-      
-      $tests_if$columns_have_na
-      $tests_if$columns_have_na$status
-      [1] TRUE
-      
-      $tests_if$columns_have_na$warning
-      [1] NA
-      
-      
-      $tests_if$columns_have_empty_values
-      $tests_if$columns_have_empty_values$status
-      [1] TRUE
-      
-      $tests_if$columns_have_empty_values$warning
-      [1] NA
-      
-      
-      $tests_if$cols_are_unique
-      $tests_if$cols_are_unique$status
-      [1] TRUE
-      
-      $tests_if$cols_are_unique$warning
-      [1] NA
-      
-      
-      
-      $dim
-      [1] 3 7
-      
+      NULL
 
 ---
 
     Code
       kri0001$checks$AE_Assess$dfInput
     Output
-      $status
-      [1] TRUE
-      
-      $tests_if
-      $tests_if$is_data_frame
-      $tests_if$is_data_frame$status
-      [1] TRUE
-      
-      $tests_if$is_data_frame$warning
-      [1] NA
-      
-      
-      $tests_if$has_required_params
-      $tests_if$has_required_params$status
-      [1] TRUE
-      
-      $tests_if$has_required_params$warning
-      [1] NA
-      
-      
-      $tests_if$spec_is_list
-      $tests_if$spec_is_list$status
-      [1] TRUE
-      
-      $tests_if$spec_is_list$warning
-      [1] NA
-      
-      
-      $tests_if$mapping_is_list
-      $tests_if$mapping_is_list$status
-      [1] TRUE
-      
-      $tests_if$mapping_is_list$warning
-      [1] NA
-      
-      
-      $tests_if$mappings_are_character
-      $tests_if$mappings_are_character$status
-      [1] TRUE
-      
-      $tests_if$mappings_are_character$warning
-      [1] NA
-      
-      
-      $tests_if$has_expected_columns
-      $tests_if$has_expected_columns$status
-      [1] TRUE
-      
-      $tests_if$has_expected_columns$warning
-      [1] NA
-      
-      
-      $tests_if$columns_have_na
-      $tests_if$columns_have_na$status
-      [1] TRUE
-      
-      $tests_if$columns_have_na$warning
-      [1] NA
-      
-      
-      $tests_if$columns_have_empty_values
-      $tests_if$columns_have_empty_values$status
-      [1] TRUE
-      
-      $tests_if$columns_have_empty_values$warning
-      [1] NA
-      
-      
-      $tests_if$cols_are_unique
-      $tests_if$cols_are_unique$status
-      [1] TRUE
-      
-      $tests_if$cols_are_unique$warning
-      [1] NA
-      
-      
-      
-      $dim
-      [1] 3 7
-      
+      NULL
 
 ---
 
     Code
       kri0001$checks$AE_Assess$mapping$dfInput
     Output
-      $strIDCol
-      [1] "SubjectID"
-      
-      $strSiteCol
-      [1] "SiteID"
-      
-      $strStudyCol
-      [1] "StudyID"
-      
-      $strCustomGroupCol
-      [1] "CustomGroupID"
-      
-      $strCountCol
-      [1] "Count"
-      
-      $strExposureCol
-      [1] "Exposure"
-      
-      $strRateCol
-      [1] "Rate"
-      
-      $strGroupCol
-      [1] "SiteID"
-      
+      NULL
 
 # bQuiet works as intended
 

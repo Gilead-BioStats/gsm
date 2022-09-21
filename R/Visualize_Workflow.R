@@ -29,10 +29,14 @@
 #' @export
 
 Visualize_Workflow <- function(lAssessments) {
+
+
   if (!is.null(lAssessments[[1]][["workflow"]])) {
     dfFlowchart <- map(lAssessments, function(studyObject) {
+
+
       name <- studyObject[["name"]]
-      checks <- studyObject[["checks"]]
+      checks <- studyObject[["lChecks"]]
       workflow <- studyObject[["workflow"]]
 
       # rename workflow when checks are missing
@@ -108,6 +112,7 @@ Visualize_Workflow <- function(lAssessments) {
     # create_node_df for flowchart
     # add custom labels/tooltips
     flowchart <- map(dfFlowchart, function(assessment) {
+
       df <- DiagrammeR::create_node_df(
         n = nrow(assessment),
         type = "a",
