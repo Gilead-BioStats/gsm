@@ -1,6 +1,3 @@
-tags:
-  Assessment: Safety
-  Label: AEs by Grade
 group:
   domain: dfAE
   columnParam: strGradeCol
@@ -24,4 +21,3 @@ workflow:
       strGroup: "Site"
       vThreshold: null
       strMethod: "poisson"
-      strKRILabel: "Treatment-Emergent AEs/Week"

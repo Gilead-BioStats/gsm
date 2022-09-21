@@ -1,7 +1,7 @@
 source(testthat::test_path("testdata/data.R"))
 
 lData <- list(
-  dfSUBJ = clindata::rawplus_subj,
+  dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae
 )
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))

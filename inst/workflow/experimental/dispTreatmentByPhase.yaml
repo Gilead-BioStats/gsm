@@ -1,6 +1,3 @@
-tags:
-  Assessment: Disposition
-  Label: Treatment by Phase
 group:
   domain: dfDISP_Treatment
   columnParam: strTreatmentPhaseCol
