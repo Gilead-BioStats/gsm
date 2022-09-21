@@ -1,5 +1,5 @@
 - ID: S1_1
-  Description: Given correct input data an Adverse Event assessment can be done using the poisson method
+  Description: Given correct input data an Adverse Event assessment can be done using the poisson method including Bounds Prediction
   Risk: High
   Impact: High
   Tests:
