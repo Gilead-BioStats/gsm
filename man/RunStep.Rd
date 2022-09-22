@@ -29,7 +29,7 @@ Runs a single step of an assessment workflow. Currently supports \code{Filter}, 
 functions.
 }
 \examples{
-lStep <- MakeAssessmentList()[["kri0001"]][["workflow"]][[1]]
+lStep <- MakeWorkflowList()[["kri0001"]][["workflow"]][[1]]
 
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 

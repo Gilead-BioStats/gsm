@@ -28,7 +28,7 @@ Attempts to run a stratified workflow (\code{lWorkflow}) using shared data (\cod
 Calls \code{RunStep} for each item in \code{lWorkflow$workflow} and saves the results to \code{lWorkflow}
 }
 \examples{
-lWorkflows <- MakeAssessmentList()
+lWorkflows <- MakeWorkflowList()
 lData <- list(
   dfAE = clindata::rawplus_ae,
   dfCONSENT = clindata::rawplus_consent,

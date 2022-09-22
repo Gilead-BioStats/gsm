@@ -1,4 +1,4 @@
-workflow:
+steps:
   - name: FilterDomain
     inputs: dfDISP_Study
     output: dfDISP_Study

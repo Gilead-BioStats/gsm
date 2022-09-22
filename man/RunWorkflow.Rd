@@ -23,7 +23,7 @@ Attempts to run a single assessment (\code{lAssessment}) using shared data (\cod
 Calls \code{RunStep} for each item in \code{lAssessment$workflow} and saves the results to \code{lAssessment}
 }
 \examples{
-lAssessments <- MakeAssessmentList()
+lAssessments <- MakeWorkflowList()
 lData <- list(
   dfAE = clindata::rawplus_ae,
   dfCONSENT = clindata::rawplus_consent,
@@ -36,8 +36,8 @@ lData <- list(
 
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
-output <- RunAssessment(
-  lAssessments$ae, # adverse event workflow
+output <- RunWorkflow(
+  lAssessments$kri0001, # adverse event workflow
   lData,
   lMapping
 )

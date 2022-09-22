@@ -859,7 +859,7 @@
       v Filtered on `aeser %in% c("N")` to drop 0 rows from 10 to 10 rows.
       i NOTE: No rows dropped.
       v `FilterDomain()` Successful
-      Saving dfAE to `lAssessment$lData`
+      Saving dfAE to `lWorkflow$lData`
       
       -- Workflow Step 2 of 3: `AE_Map_Raw` --
       
@@ -878,7 +878,7 @@
       NA's will be imputed for all other columns.
       v `AE_Map_Raw()` returned output with 10 rows.
       v `AE_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
+      Saving dfInput to `lWorkflow$lData`
       
       -- Workflow Step 3 of 3: `AE_Assess` --
       
@@ -900,7 +900,7 @@
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
       v `AE_Assess()` Successful
-      Saving lResults to `lAssessment`
+      Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `kri0002` assessment -------------------------------------------
@@ -917,7 +917,7 @@
       v Filtered on `aeser %in% c("Y")` to drop 10 rows from 10 to 0 rows.
       ! WARNING: Filtered data has 0 rows.
       v `FilterDomain()` Successful
-      Saving dfAE to `lAssessment$lData`
+      Saving dfAE to `lWorkflow$lData`
       
       -- Workflow Step 2 of 3: `AE_Map_Raw` --
       
@@ -936,7 +936,7 @@
       NA's will be imputed for all other columns.
       v `AE_Map_Raw()` returned output with 10 rows.
       v `AE_Map_Raw()` Successful
-      Saving dfInput to `lAssessment$lData`
+      Saving dfInput to `lWorkflow$lData`
       
       -- Workflow Step 3 of 3: `AE_Assess` --
       
@@ -958,7 +958,7 @@
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
       v `AE_Assess()` Successful
-      Saving lResults to `lAssessment`
+      Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `kri0003` assessment -------------------------------------------
@@ -977,7 +977,7 @@
       x Unique Column Check not run
       ! Issues found for dfPD domain
       ! `FilterDomain()` Failed - Skipping remaining steps
-      Saving dfPD to `lAssessment$lData`
+      Saving dfPD to `lWorkflow$lData`
       
       -- Workflow Step 2 of 3: `PD_Map_Raw` --
       
@@ -1004,7 +1004,7 @@
       x Unique Column Check not run
       ! Issues found for dfPD domain
       ! `FilterDomain()` Failed - Skipping remaining steps
-      Saving dfPD to `lAssessment$lData`
+      Saving dfPD to `lWorkflow$lData`
       
       -- Workflow Step 2 of 3: `PD_Map_Raw` --
       
@@ -1032,7 +1032,7 @@
       ! Issues found for `LB_Map_Raw()`
       ! `LB_Map_Raw()` did not run because of failed check.
       ! `LB_Map_Raw()` Failed - Skipping remaining steps
-      Saving dfInput to `lAssessment$lData`
+      Saving dfInput to `lWorkflow$lData`
       
       -- Workflow Step 2 of 2: `LB_Assess` --
       
@@ -1055,7 +1055,7 @@
       x Unique Column Check not run
       ! Issues found for dfLB domain
       ! `FilterDomain()` Failed - Skipping remaining steps
-      Saving dfLB to `lAssessment$lData`
+      Saving dfLB to `lWorkflow$lData`
       
       -- Workflow Step 2 of 3: `LB_Map_Raw` --
       
@@ -1083,7 +1083,7 @@
       ! Issues found for `Disp_Map_Raw_Study()`
       ! `Disp_Map_Raw()` did not run because of failed check.
       ! `Disp_Map_Raw()` Failed - Skipping remaining steps
-      Saving dfInput to `lAssessment$lData`
+      Saving dfInput to `lWorkflow$lData`
       
       -- Workflow Step 2 of 2: `Disp_Assess` --
       
@@ -1106,7 +1106,7 @@
       x Unique Column Check not run
       ! Issues found for dfSDRGCOMP domain
       ! `FilterDomain()` Failed - Skipping remaining steps
-      Saving dfSDRGCOMP to `lAssessment$lData`
+      Saving dfSDRGCOMP to `lWorkflow$lData`
       
       -- Workflow Step 2 of 3: `Disp_Map_Raw` --
       

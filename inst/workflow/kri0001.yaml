@@ -1,4 +1,4 @@
-workflow:
+steps:
   - name: FilterDomain
     inputs: dfAE
     output: dfAE

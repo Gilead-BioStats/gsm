@@ -1,7 +1,7 @@
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-  assessment_list <- MakeAssessmentList()
+  assessment_list <- MakeWorkflowList()
 
   expect_snapshot(names(assessment_list))
   expect_type(assessment_list, "list")

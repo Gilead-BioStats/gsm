@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 
-lStep <- MakeAssessmentList()
+lStep <- MakeWorkflowList()
 
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 

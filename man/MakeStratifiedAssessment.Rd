@@ -26,7 +26,7 @@ Create multiple workflows from a single stratified workflow
 lMapping <- yaml::read_yaml(
   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
 )
-lAssessmentList <- MakeAssessmentList()
+lAssessmentList <- MakeWorkflowList()
 
 # Adverse events by grade
 StratifiedAE <- MakeStratifiedAssessment(
@@ -40,7 +40,7 @@ StratifiedAE <- MakeStratifiedAssessment(
 
 StratifiedAEResult <- StratifiedAE \%>\%
   purrr::map(~ .x \%>\%
-    RunAssessment(
+    RunWorkflow(
       lData = list(
         dfSUBJ = clindata::rawplus_dm,
         dfAE = clindata::rawplus_ae
@@ -55,12 +55,12 @@ StratifiedPD <- MakeStratifiedAssessment(
     dfPD = clindata::rawplus_protdev
   ),
   lMapping = lMapping,
-  lWorkflow = MakeAssessmentList()$pdCategory
+  lWorkflow = MakeWorkflowList()$pdCategory
 )
 
 StratifiedPDResult <- StratifiedPD \%>\%
   purrr::map(~ .x \%>\%
-    RunAssessment(
+    RunWorkflow(
       lData = list(
         dfSUBJ = clindata::rawplus_dm,
         dfPD = clindata::rawplus_protdev
@@ -80,7 +80,7 @@ StratifiedLB <- MakeStratifiedAssessment(
 
 StratifiedLBResult <- StratifiedLB \%>\%
   purrr::map(~ .x \%>\%
-    RunAssessment(
+    RunWorkflow(
       lData = list(
         dfSUBJ = clindata::rawplus_dm,
         dfLB = clindata::rawplus_lb

@@ -29,7 +29,7 @@ lData <- list(
   dfLB = dfLB
 )
 
-lAssessments <- MakeAssessmentList()
+lAssessments <- MakeWorkflowList()
 
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
@@ -61,7 +61,7 @@ test_that("metadata is returned as expected", {
   kri0001 <- result$kri0001
 
   # snapshot important/nested assessment data
-  expect_snapshot(kri0001$workflow)
+  expect_snapshot(kri0001$steps)
   expect_snapshot(kri0001$lData)
   expect_snapshot(kri0001$lChecks)
   expect_snapshot(kri0001$checks$FilterDomain$dfAE)
@@ -168,7 +168,7 @@ test_that("Map + Assess yields same result as Study_Assess()", {
   )
 
 
-  custom_workflow <- MakeAssessmentList(strNames = c("ie", "consent"), bRecursive = TRUE)
+  custom_workflow <- MakeWorkflowList(strNames = c("ie", "consent"), bRecursive = TRUE)
 
   study_assess <- Study_Assess(lData = lData, bQuiet = TRUE, lAssessments = custom_workflow)
   consent_assess <- Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ)) %>% Consent_Assess()
@@ -204,7 +204,7 @@ test_that("lSubjFilters with 0 rows returns NULL", {
 
 test_that("correct bStatus is returned when workflow is missing", {
 
-  custom_assessments <- MakeAssessmentList()
+  custom_assessments <- MakeWorkflowList()
 
   # remove workflows 2 - end. This only includes a workflow for kri0001
   custom_assessments[2:length(custom_assessments)] <- NULL
@@ -216,7 +216,7 @@ test_that("correct bStatus is returned when workflow is missing", {
   )
 
   # pull out all workflow names that should not have run
-  omittedNames <- names(MakeAssessmentList()[2:length(MakeAssessmentList())])
+  omittedNames <- names(MakeWorkflowList()[2:length(MakeWorkflowList())])
 
   # test that workflow names are not found in the result of Study_Assess()
   expect_false(all(omittedNames %in% names(result)))

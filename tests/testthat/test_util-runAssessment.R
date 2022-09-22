@@ -11,7 +11,7 @@ dfAE <- dfAE %>%
 
 # Valid Assessment Input
 aeData <- list(dfSUBJ = dfSUBJ, dfAE = dfAE)
-sae <- RunAssessment(sae_meta, lData = aeData, lMapping = rawDataMap, bQuiet = TRUE) %>%
+sae <- RunWorkflow(sae_meta, lData = aeData, lMapping = rawDataMap, bQuiet = TRUE) %>%
   suppressWarnings()
 
 # Invalid Assessment Input
@@ -19,7 +19,7 @@ aeData_inv <- list(dfSUBJ = dfSUBJ, dfAE = dfAE)
 aeData_inv$dfAE$subjid <- NA
 
 
-sae_inv <- RunAssessment(sae_meta, lData = aeData_inv, lMapping = rawDataMap, bQuiet = TRUE) %>%
+sae_inv <- RunWorkflow(sae_meta, lData = aeData_inv, lMapping = rawDataMap, bQuiet = TRUE) %>%
   suppressWarnings()
 
 
@@ -53,7 +53,7 @@ test_that("workflow with multiple FilterDomain steps is reported correctly", {
     rfpen_dt = c("2012-09-02", "2017-05-08", "2018-05-20")
   )
 
-  lAssessments <- MakeAssessmentList(bRecursive = TRUE, strNames = "sae")
+  lAssessments <- MakeWorkflowList(bRecursive = TRUE, strNames = "sae")
 
   lData <- list(
     dfAE = dfAE,
@@ -63,7 +63,7 @@ test_that("workflow with multiple FilterDomain steps is reported correctly", {
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 
-  sae_assessment <- RunAssessment(lAssessments$sae, lData = lData, lMapping = lMapping,  bQuiet = TRUE)
+  sae_assessment <- RunWorkflow(lAssessments$sae, lData = lData, lMapping = lMapping,  bQuiet = TRUE)
 
   expect_equal(names(sae_assessment$lChecks), c("FilterDomain", "FilterDomain", "AE_Map_Raw", "AE_Assess", "flowchart"))
 })

@@ -3,7 +3,7 @@
 #' Runs a single step of an assessment workflow. Currently supports `Filter`, `Map`, and `Assess`
 #' functions.
 #'
-#' @param lStep `list` single workflow step (typically defined in `lAssessment$workflow`). Should
+#' @param lStep `list` single workflow step (typically defined in `lWorkflow$workflow`). Should
 #'   include the name of the function to run (`lStep$name`), data inputs (`lStep$inputs`), name of
 #'   output (`lStep$output`) and configurable parameters (`lStep$params`) (if any)
 #' @param lMapping `list` List containing expected columns in each data set.
@@ -17,7 +17,7 @@
 #'   parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
 #'
 #' @examples
-#' lStep <- MakeAssessmentList()[["kri0001"]][["workflow"]][[1]]
+#' lStep <- MakeWorkflowList()[["kri0001"]][["workflow"]][[1]]
 #'
 #' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 #'

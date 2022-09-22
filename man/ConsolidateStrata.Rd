@@ -7,9 +7,9 @@
 ConsolidateStrata(lOutput, lStratifiedOutput, bQuiet = TRUE)
 }
 \arguments{
-\item{lOutput}{\code{list} The output from \code{\link[=RunAssessment]{RunAssessment()}}}
+\item{lOutput}{\code{list} The output from \code{\link[=RunWorkflow]{RunWorkflow()}}}
 
-\item{lStratifiedOutput}{\code{list} Multiple outputs from  \code{\link[=RunAssessment]{RunAssessment()}}}
+\item{lStratifiedOutput}{\code{list} Multiple outputs from  \code{\link[=RunWorkflow]{RunWorkflow()}}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -29,8 +29,8 @@ lData <- list(
 )
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
-lWorkflow <- MakeAssessmentList(bRecursive = TRUE, strNames = "aeGrade")$aeGrade
-lOutput <- RunAssessment(lWorkflow, lData = lData, lMapping = lMapping)
+lWorkflow <- MakeWorkflowList(bRecursive = TRUE, strNames = "aeGrade")$aeGrade
+lOutput <- RunWorkflow(lWorkflow, lData = lData, lMapping = lMapping)
 
 lStratifiedWorkflow <- MakeStratifiedAssessment(
   lWorkflow,
@@ -38,7 +38,7 @@ lStratifiedWorkflow <- MakeStratifiedAssessment(
   lMapping
 )
 lStratifiedOutput <- lStratifiedWorkflow \%>\%
-  purrr::map(~ RunAssessment(
+  purrr::map(~ RunWorkflow(
     .x,
     lData,
     lMapping

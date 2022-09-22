@@ -1,4 +1,4 @@
-workflow:
+steps:
   - name: LB_Map_Raw
     inputs:
       - dfLB

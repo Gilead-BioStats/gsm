@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 
-lAssessments <- MakeAssessmentList()
+lAssessments <- MakeWorkflowList()
 
 lData <- list(
   dfAE = dfAE,
