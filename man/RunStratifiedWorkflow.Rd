@@ -4,7 +4,7 @@
 \alias{RunStratifiedWorkflow}
 \title{Run a stratified workflow}
 \usage{
-RunStratifiedWorkflow(lWorkflow, lData, lMapping, lTags = NULL, bQuiet = TRUE)
+RunStratifiedWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE)
 }
 \arguments{
 \item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.
@@ -15,9 +15,6 @@ specified in \code{lMapping} and \code{lAssessments}, which are generally based 
 \code{X_Map_Raw}.}
 
 \item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
-
-\item{lTags}{\code{list} A named list of tags describing the assessment. \code{lTags} is returned as part
-of the assessment (\code{lAssess$lTags}) and each tag is added as columns in \code{lassess$dfSummary}.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }

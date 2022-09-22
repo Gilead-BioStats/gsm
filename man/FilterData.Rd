@@ -27,8 +27,8 @@ Subset a data frame
 
 subset <- FilterData(
   dfInput = clindata::rawplus_ae,
-  strCol = "AE_SERIOUS",
-  anyVal = "No"
+  strCol = "aeser",
+  anyVal = "N"
 )
 
 }

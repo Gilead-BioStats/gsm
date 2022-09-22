@@ -20,8 +20,9 @@
 #'
 #' dfSummary <- lAssessment %>%
 #'   purrr::map(~ .x$lResults) %>%
+#'   purrr::discard(is.null) %>%
 #'   purrr::compact() %>%
-#'   purrr::map_df(~ .x$dfSummary)
+#'   purrr::map_df(~ .x$lData$dfSummary, .id = 'Assessment')
 #'
 #' lStudyTable <- Study_Table(dfSummary)
 #'

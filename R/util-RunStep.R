@@ -29,9 +29,8 @@
 #'   dfIE = clindata::rawplus_ie
 #' )
 #'
-#' lTags <- list(Study = "myStudy")
 #'
-#' ae_step <- RunStep(lStep = lStep, lMapping = lMapping, lData = lData, lTags = lTags, bQuiet = FALSE)
+#' ae_step <- RunStep(lStep = lStep, lMapping = lMapping, lData = lData, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_text
 #' @importFrom stringr str_detect

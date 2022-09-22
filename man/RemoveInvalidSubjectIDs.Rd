@@ -7,7 +7,7 @@
 RemoveInvalidSubjectIDs(
   df,
   strDomain = "input",
-  strIDCol = "SubjectID",
+  strIDCol = "subjid",
   strInvalidValues = "",
   bQuiet = TRUE
 )
@@ -31,7 +31,8 @@ Remove invalid Subject IDs
 }
 \examples{
 RemoveInvalidSubjectIDs(
-  clindata::protdev,
+  clindata::rawplus_protdev,
+  strIDCol = "subjid",
   bQuiet = FALSE
 )
 

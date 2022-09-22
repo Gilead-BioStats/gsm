@@ -33,7 +33,6 @@ Imports:
     stringr,
     tibble,
     tidyr,
-    withr,
     yaml
 Suggests:
     clindata,
