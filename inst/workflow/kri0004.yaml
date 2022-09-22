@@ -1,7 +1,3 @@
-tags:
-  Assessment: Important Protocol Deviation Rate
-  Label: Important PD
-  KRIID: kri0004
 workflow:
   - name: FilterDomain
     inputs: dfPD

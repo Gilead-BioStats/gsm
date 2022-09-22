@@ -3,12 +3,12 @@
 #' Attempts to run a single assessment (`lAssessment`) using shared data (`lData`) and metadata (`lMapping`).
 #' Calls `RunStep` for each item in `lAssessment$workflow` and saves the results to `lAssessment`
 #'
-#' @param lAssessment `list` A named list of metadata defining how each assessment should be run. Properties should include: `label`, `tags` and `workflow`
+#' @param lAssessment `list` A named list of metadata defining how each assessment should be run. Properties should include: `label` and `workflow`
 #' @param lData `list` A named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `list` containing `lAssessment` with `tags`, `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
+#' @return `list` containing `lAssessment` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
 #' @examples
 #' lAssessments <- MakeAssessmentList()

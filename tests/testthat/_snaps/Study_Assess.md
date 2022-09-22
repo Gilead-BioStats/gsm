@@ -3,64 +3,56 @@
     Code
       names(result$kri0001)
     Output
-      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "lResults"
+      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0002)
     Output
-      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "lResults"
+      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0003)
     Output
-      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "lResults"
+      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0004)
     Output
-      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "lResults"
+      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0005)
     Output
-      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "lResults"
+      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0006)
     Output
-      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "lResults"
+      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0007)
     Output
-      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "lResults"
+      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0008)
     Output
-      [1] "tags"     "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus" 
-      [8] "lResults"
+      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 # metadata is returned as expected
 
