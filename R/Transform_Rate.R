@@ -52,7 +52,6 @@ Transform_Rate <- function(
   dfTransformed <- dfInput %>%
     group_by(GroupID = .data[[strGroupCol]]) %>%
     summarise(
-      N = n(),
       Numerator = sum(.data[[strNumeratorCol]]),
       Denominator = sum(.data[[strDenominatorCol]])
     ) %>%

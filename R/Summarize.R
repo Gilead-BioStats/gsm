@@ -42,13 +42,12 @@
 Summarize <- function(dfFlagged, strScoreCol = "Score") {
   stopifnot(
     "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
-    "One or more of these columns: GroupID, N, Flag , strScoreCol, not found in dfFlagged" = all(c("GroupID", "N", "Flag", strScoreCol) %in% names(dfFlagged))
+    "One or more of these columns: GroupID, Flag , strScoreCol, not found in dfFlagged" = all(c("GroupID", "Flag", strScoreCol) %in% names(dfFlagged))
   )
 
   dfSummary <- dfFlagged %>%
     select(
       .data$GroupID,
-      .data$N,
       .data$Metric,
       .data$Score,
       .data$Flag

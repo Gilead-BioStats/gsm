@@ -42,8 +42,8 @@
 Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns not found: GroupID, N, Denominator, Numerator, Metric" =
-      all(c("GroupID", "N", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
+    "One or more of these columns not found: GroupID, Denominator, Numerator, Metric" =
+      all(c("GroupID", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
     "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]]))
   )
 
@@ -70,7 +70,6 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
     ) %>%
     select(
       .data$GroupID,
-      .data$N,
       .data$Numerator,
       .data$Denominator,
       .data$Metric,

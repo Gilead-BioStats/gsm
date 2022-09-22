@@ -59,7 +59,6 @@ Transform_Count <- function(
     dfTransformed <- dfInput %>%
       group_by(GroupID = .data[[strGroupCol]]) %>%
       summarise(
-        N = n(),
         TotalCount = sum(.data[[strCountCol]])
       ) %>%
       mutate(Metric = .data$TotalCount) %>%
