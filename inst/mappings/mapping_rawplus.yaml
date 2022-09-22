@@ -5,6 +5,7 @@ dfSUBJ:
   strTimeOnStudyCol: timeonstudy
   strTimeOnTreatmentCol: timeontreatment
   strRandDateCol: rfpen_dt
+  strCustomGroupCol: country
 dfAE:
   strIDCol: subjid
   strTreatmentEmergentCol: ae_te
@@ -41,16 +42,16 @@ dfSTUDCOMP:
   strIDCol: subjid
   strStudyDiscontinuationReasonCol: compreas
   strStudyDiscontinuationReasonVal: consent
-  strStudyCompletionFlagCol: compyn
-  strStudyCompletionFlagVal: "Y"
+  strStudyDiscontinuationFlagCol: compyn
+  strStudyDiscontinuationFlagVal: "N"
 dfSDRGCOMP:
   strIDCol: subjid
   strTreatmentPhaseCol: datapagename # or foldername - temporary - should be phase
   strTreatmentPhaseVal: Blinded Study Drug Completion
   strTreatmentDiscontinuationReasonCol: sdrgreas
   strTreatmentDiscontinuationReasonVal: withdrawal
-  strTreatmentCompletionFlagCol: sdrgyn
-  strTreatmentCompletionFlagVal: "Y"
+  strTreatmentDiscontinuationFlagCol: sdrgyn
+  strTreatmentDiscontinuationFlagVal: "N"
 dfLB:
   strIDCol: subjid
   strVisitCol: visnam

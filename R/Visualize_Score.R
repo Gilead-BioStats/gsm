@@ -1,6 +1,7 @@
 #' Group-level visualization of scores.
 #'
 #' @param dfFlagged `data.frame` returned by [gsm::Flag()]
+#' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to NULL.
 #' @param strType `character` One of `"KRI"` or `"score"`.
 #' @param bFlagFilter `logical` Filter out non-flagged groups? Default: `FALSE`
 #' @param strTitle Title of plot. NULL by default.
@@ -10,11 +11,11 @@
 #' @examples
 #' ae <- AE_Map_Raw() %>% AE_Assess(vThreshold = c(-8, 8))
 #'
-#' Visualize_Score(ae$dfFlagged) # visualize KRI (default)
-#' Visualize_Score(ae$dfFlagged, bFlagFilter = TRUE) # drop non-flagged groups
+#' Visualize_Score(ae$lData$dfFlagged) # visualize KRI (default)
+#' Visualize_Score(ae$lData$dfFlagged, bFlagFilter = TRUE) # drop non-flagged groups
 #'
 #' consent <- Consent_Map_Raw() %>% Consent_Assess()
-#' Visualize_Score(consent$dfFlagged, strType = "score") # visualize score
+#' Visualize_Score(consent$lData$dfFlagged, strType = "score") # visualize score
 #'
 #' @import ggplot2
 #' @importFrom stats reorder
@@ -23,7 +24,8 @@
 
 Visualize_Score <- function(
   dfFlagged,
-  strType = "KRI",
+  vThreshold = NULL,
+  strType = "metric",
   bFlagFilter = FALSE,
   strTitle = ""
 ) {
@@ -31,7 +33,7 @@ Visualize_Score <- function(
     "strTitle must be character" = is.character(strTitle),
     "bFlagFilter must be logical" = is.logical(bFlagFilter),
     "dfFlagged must be a data.frame" = is.data.frame(dfFlagged),
-    "strType must be 'KRI' or 'score'" = strType %in% c("KRI", "score"),
+    "strType must be 'metric' or 'score'" = strType %in% c("metric", "score"),
     "strType must be length 1" = length(strType) == 1
   )
 
@@ -42,13 +44,12 @@ Visualize_Score <- function(
       )
   }
 
-  if (strType == "KRI") {
+  if (strType == "metric") {
     dfFlaggedWithTooltip <- dfFlagged %>%
       mutate(
         tooltip = paste(
-          paste0("Group: ", .data$GroupLabel),
           paste0("GroupID: ", .data$GroupID),
-          paste(.data$KRI, .data$KRILabel),
+          paste(.data$Metric),
           sep = "\n"
         )
       )
@@ -56,7 +57,7 @@ Visualize_Score <- function(
     p <- dfFlaggedWithTooltip %>%
       ggplot(
         aes(
-          x = reorder(.data$GroupID, -.data$KRI), y = .data$KRI,
+          x = reorder(.data$GroupID, -.data$Metric), y = .data$Metric,
           text = .data$tooltip
         )
       ) +
@@ -65,10 +66,10 @@ Visualize_Score <- function(
       ) +
       geom_hline(
         yintercept = (
-          if ("TotalExposure" %in% names(dfFlagged)) {
-            sum(dfFlagged$TotalCount) / sum(dfFlagged$TotalExposure)
+          if (all(c("Numerator", "Denominator") %in% names(dfFlagged))) {
+            sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator)
           } else {
-            sum(dfFlagged$TotalCount) / nrow(dfFlagged)
+            sum(dfFlagged$N) / sum(dfFlagged$TotalCount)
           }
         ),
         linetype = "dashed",
@@ -76,20 +77,26 @@ Visualize_Score <- function(
         size = 1
       ) +
       ylab(
-        paste0("KRI [", unique(dfFlagged$KRILabel), "]")
+        "Metric"
       )
   }
 
   if (strType == "score") {
-    ThresholdLow <- unique(dfFlagged$ThresholdLow)
-    ThresholdHigh <- unique(dfFlagged$ThresholdHigh)
+
+    if (!is.null(vThreshold)) {
+      ThresholdLow <- min(vThreshold)
+      ThresholdHigh <- max(vThreshold)
+    } else {
+      ThresholdLow <- NA
+      ThresholdHigh <- NA
+    }
+
 
     dfFlaggedWithTooltip <- dfFlagged %>%
       mutate(
         tooltip = paste(
-          paste0("Group: ", .data$GroupLabel),
           paste0("GroupID: ", .data$GroupID),
-          paste(.data$ScoreLabel, "=", .data$Score),
+          paste("Score", " = ", .data$Score),
           sep = "\n"
         )
       )
@@ -105,13 +112,13 @@ Visualize_Score <- function(
         stat = "identity"
       ) +
       ylab(
-        paste0("Score [", unique(dfFlagged$ScoreLabel), "]")
+        "Score"
       )
 
     if (!is.na(ThresholdLow)) {
       p <- p +
         geom_hline(
-          yintercept = unique(dfFlagged$ThresholdLow),
+          yintercept = ThresholdLow,
           linetype = "dashed",
           color = "red",
           size = 1
@@ -121,7 +128,7 @@ Visualize_Score <- function(
     if (!is.na(ThresholdHigh)) {
       p <- p +
         geom_hline(
-          yintercept = unique(dfFlagged$ThresholdHigh),
+          yintercept = ThresholdHigh,
           linetype = "dashed",
           color = "red",
           size = 1
@@ -131,7 +138,7 @@ Visualize_Score <- function(
 
   p <- p +
     xlab(
-      unique(dfFlagged$GroupLabel)
+      "Group"
     ) +
     theme_bw() +
     theme(

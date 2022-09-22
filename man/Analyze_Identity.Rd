@@ -4,24 +4,17 @@
 \alias{Analyze_Identity}
 \title{Analyze Identity}
 \usage{
-Analyze_Identity(
-  dfTransformed,
-  strValueCol = "KRI",
-  strLabelCol = "KRILabel",
-  bQuiet = TRUE
-)
+Analyze_Identity(dfTransformed, strValueCol = "Metric", bQuiet = TRUE)
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} created by \code{Transform_EventCount()}}
+\item{dfTransformed}{\code{data.frame} created by \code{\link{Transform_Count}}}
 
 \item{strValueCol}{\code{character} Name of column that will be copied as \code{Score}}
-
-\item{strLabelCol}{\code{character} Name of column that will be copied as \code{ScoreLabel}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one row per site with columns: SiteID, N, TotalCount, KRI, KRILabel, Score, ScoreLabel.
+\code{data.frame} with one row per site with columns: SiteID, N, Metric,Score
 }
 \description{
 Analyze Identity
@@ -31,7 +24,7 @@ Used in the data pipeline between \code{Transform} and \code{Flag} to rename KRI
 }
 \examples{
 dfInput <- Consent_Map_Raw()
-dfTransformed <- Transform_EventCount(dfInput, strCountCol = "Count")
+dfTransformed <- Transform_Count(dfInput, strCountCol = "Count")
 dfAnalyzed <- Analyze_Identity(dfTransformed)
 
 }

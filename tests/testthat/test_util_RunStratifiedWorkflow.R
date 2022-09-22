@@ -25,7 +25,8 @@ stratifiedOutput <- RunStratifiedWorkflow(
   stratifiedWorkflow,
   data,
   mapping
-)
+) %>%
+  suppressWarnings()
 
 test_that("Structure of stratified output matches structure of standard output", {
   expect_equal(class(output), class(stratifiedOutput))
@@ -35,7 +36,7 @@ test_that("Structure of stratified output matches structure of standard output",
 test_that("Stratified output is returned", {
   expect_true(is.list(stratifiedOutput))
   expect_equal(
-    c("chart", "dfAnalyzed", "dfBounds", "dfFlagged", "dfInput", "dfSummary", "dfTransformed", "lChecks", "lTags", "strFunctionName"),
+    c("chart", "dfAnalyzed", "dfBounds", "dfFlagged", "dfSummary", "dfTransformed", "lCharts", "lChecks", "lData"),
     names(stratifiedOutput$lResults) %>% sort()
   )
   expect_equal(
@@ -43,7 +44,7 @@ test_that("Stratified output is returned", {
     names(stratifiedOutput$lResults$chart$facet$params$facets)
   )
   expect_equal(
-    nrow(output$lResults$dfSummary) * length(unique(output$lData$dfPD$DVDECOD)),
+    nrow(output$lResults$lData$dfSummary) * length(unique(output$lData$dfPD$dvdecod)),
     nrow(stratifiedOutput$lResults$dfSummary)
   )
 })

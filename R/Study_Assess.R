@@ -6,7 +6,6 @@
 #' @param lMapping a named list identifying the columns needed in each data domain.
 #' @param lAssessments a named list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/workflow`.
 #' @param lSubjFilters a named list of parameters to filter subject-level data on.
-#' @param lTags a named list of Tags to be passed to each assessment. Default is `list(Study="myStudy")` could be expanded to include other important metadata such as analysis population or study phase.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @examples
@@ -27,20 +26,8 @@ Study_Assess <- function(
   lMapping = NULL,
   lAssessments = NULL,
   lSubjFilters = NULL,
-  lTags = list(Study = "myStudy"),
   bQuiet = TRUE
 ) {
-  if (!is.null(lTags)) {
-    stopifnot(
-      "lTags is not named" = (!is.null(names(lTags))),
-      "lTags has unnamed elements" = all(names(lTags) != ""),
-      "lTags cannot contain elements named: 'Assessment', 'Label'" = !names(lTags) %in% c("Assessment", "Label")
-    )
-
-    if (any(unname(purrr::map_dbl(lTags, ~ length(.))) > 1)) {
-      lTags <- purrr::map(lTags, ~ paste(.x, collapse = ", "))
-    }
-  }
 
   #### --- load defaults --- ###
   # lData from clindata
@@ -53,7 +40,7 @@ Study_Assess <- function(
       dfIE = clindata::rawplus_ie,
       dfLB = clindata::rawplus_lb,
       dfSTUDCOMP = clindata::rawplus_studcomp,
-      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename=="Blinded Study Drug Completion")
+      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion")
     )
   }
 
@@ -101,7 +88,6 @@ Study_Assess <- function(
             lAssessment,
             lData = lData,
             lMapping = lMapping,
-            lTags = lTags,
             bQuiet = bQuiet
           )
         })

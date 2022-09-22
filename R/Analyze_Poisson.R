@@ -9,25 +9,24 @@
 #'
 #' @section Data Specification:
 #'
-#' The input data (`dfTransformed`) for Analyze_Poisson is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
+#' The input data (`dfTransformed`) for Analyze_Poisson is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
 #' - `SiteID` - Site ID
 #' - `N` - Number of participants
 #' - `TotalCount` - Number of Adverse Events
 #' - `TotalExposure` - Number of days of exposure
 #' - `Rate` - Rate of exposure (TotalCount / TotalExposure)
 #'
-#' @param dfTransformed data.frame in format produced by \code{\link{Transform_EventCount}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
+#' @param dfTransformed data.frame in format produced by \code{\link{Transform_Rate}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` with columns added for "Residuals" and "PredictedCount".
 #'
 #' @examples
-#' dfInput <- AE_Map_Raw()
-#' dfTransformed <- Transform_EventCount(dfInput,
+#' dfInput <- AE_Map_Raw() %>% na.omit()  #na.omit is placeholder for now
+#' dfTransformed <- Transform_Rate(dfInput,
 #'   strGroupCol = "SiteID",
-#'   strCountCol = "Count",
-#'   strExposureCol = "Exposure",
-#'   strKRILabel = "AEs/Week"
+#'   strNumeratorCol = "Count",
+#'   strDenominatorCol = "Exposure"
 #' )
 #'
 #' dfAnalyzed <- Analyze_Poisson(dfTransformed)
@@ -43,24 +42,24 @@
 Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns not found: GroupID, N, TotalExposure, TotalCount, KRI, KRILabel" =
-      all(c("GroupID", "N", "TotalExposure", "TotalCount", "KRI", "KRILabel") %in% names(dfTransformed)),
+    "One or more of these columns not found: GroupID, N, Denominator, Numerator, Metric" =
+      all(c("GroupID", "N", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
     "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]]))
   )
 
   dfModel <- dfTransformed %>%
-    mutate(LogExposure = log(.data$TotalExposure))
+    mutate(LogDenominator = log(.data$Denominator))
 
   if (!bQuiet) {
     cli::cli_alert_info(
       glue::glue(
-        "Fitting log-linked Poisson generalized linear model of [ TotalCount ] ~ [ log( TotalExposure ) ]."
+        "Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ]."
       )
     )
   }
 
   cModel <- stats::glm(
-    TotalCount ~ stats::offset(LogExposure),
+    Numerator ~ stats::offset(LogDenominator),
     family = stats::poisson(link = "log"),
     data = dfModel
   )
@@ -71,15 +70,11 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
     ) %>%
     select(
       .data$GroupID,
-      .data$GroupLabel,
       .data$N,
-      .data$TotalCount,
-      .data$TotalExposure,
-      .data$KRI,
-      .data$KRILabel,
-      .data$GroupLabel,
+      .data$Numerator,
+      .data$Denominator,
+      .data$Metric,
       Score = .data$.resid,
-      .data$ScoreLabel,
       PredictedCount = .data$.fitted
     ) %>%
     arrange(.data$Score)

@@ -60,82 +60,10 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfSUBJ", "dfIE"]
+          "value": ["dfIE", "dfSUBJ"]
         }
       },
       "value": [
-        {
-          "type": "list",
-          "attributes": {
-            "names": {
-              "type": "character",
-              "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
-            }
-          },
-          "value": [
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["SubjectID"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["SiteID"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["StudyID"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["RegionID"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["TimeOnTreatment"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["TimeOnStudy"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["RandFlag"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["RandDate"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["StudCompletion"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["StudDCReason"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["TrtCompletion"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["TrtDCReason"]
-            }
-          ]
-        },
         {
           "type": "list",
           "attributes": {
@@ -149,22 +77,22 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["SubjectID"]
+              "value": ["subjid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["IE_CATEGORY"]
+              "value": ["iecat"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["IE_VALUE"]
+              "value": ["ieorres"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["IE_PROTOCOLVERSION"]
+              "value": ["tiver"]
             },
             {
               "type": "character",
@@ -175,6 +103,53 @@
               "type": "integer",
               "attributes": {},
               "value": [0, 1]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["studyid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["siteid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["timeonstudy"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["timeontreatment"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["rfpen_dt"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
             }
           ]
         }
@@ -279,12 +254,12 @@
       -- Checking Input Data for `IE_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, IE_CATEGORY, IE_VALUE
+      x the following columns not found in df: subjid, iecat, ieorres
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: subjid, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -303,7 +278,7 @@
       -- Checking Input Data for `IE_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: subjid, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -322,7 +297,7 @@
       -- Checking Input Data for `IE_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, IE_CATEGORY, IE_VALUE
+      x the following columns not found in df: subjid, iecat, ieorres
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -340,12 +315,12 @@
       -- Checking Input Data for `IE_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, IE_CATEGORY, IE_VALUE
+      x the following columns not found in df: subjid, iecat, ieorres
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: subjid, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -363,12 +338,12 @@
       -- Checking Input Data for `IE_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, IE_CATEGORY, IE_VALUE
+      x the following columns not found in df: subjid, iecat, ieorres
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: subjid, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -386,12 +361,12 @@
       -- Checking Input Data for `IE_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, IE_CATEGORY, IE_VALUE
+      x the following columns not found in df: subjid, iecat, ieorres
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: subjid, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -427,7 +402,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x Unexpected duplicates found in column: SubjectID
+      x Unexpected duplicates found in column: subjid
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` did not run because of failed check.
     Output
@@ -441,7 +416,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -458,7 +433,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x the following columns not found in df: IE_CATEGORY
+      x the following columns not found in df: iecat
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -475,7 +450,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x the following columns not found in df: IE_VALUE
+      x the following columns not found in df: ieorres
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -492,7 +467,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -509,7 +484,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x the following columns not found in df: SiteID
+      x the following columns not found in df: siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -526,7 +501,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x 1 NA values found in column: SubjectID
+      x 1 NA values found in column: subjid
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` did not run because of failed check.
     Output
@@ -540,7 +515,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x 1 NA values found in column: IE_CATEGORY
+      x 1 NA values found in column: iecat
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` did not run because of failed check.
     Output
@@ -554,7 +529,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x 1 NA values found in column: IE_VALUE
+      x 1 NA values found in column: ieorres
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` did not run because of failed check.
     Output
@@ -568,7 +543,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x 1 NA values found in column: SubjectID
+      x 1 NA values found in column: subjid
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` did not run because of failed check.
     Output
@@ -582,7 +557,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x 1 NA values found in column: SiteID
+      x 1 NA values found in column: siteid
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` did not run because of failed check.
     Output
@@ -596,7 +571,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x Unexpected duplicates found in column: SubjectID
+      x Unexpected duplicates found in column: subjid
       ! Issues found for `IE_Map_Raw()`
       ! `IE_Map_Raw()` did not run because of failed check.
     Output
@@ -700,8 +675,5 @@
       -- Initializing `IE_Map_Raw()` --
       
       i Intializing merge of domain and subject data
-      i 1 ID(s) in subject data not found in domain data.
-      These participants will have 0s imputed for the following domain data columns: Count.
-      NA's will be imputed for all other columns.
       v `IE_Map_Raw()` returned output with 3 rows.
 

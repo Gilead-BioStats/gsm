@@ -6,10 +6,12 @@ lData <- list(
   dfPD = dfPD,
   dfCONSENT = dfCONSENT,
   dfIE = dfIE,
-  dfDISP = dfDISP
+  dfSDRGCOMP = dfSDRGCOMP,
+  dfSTUDCOMP = dfSTUDCOMP
 )
 
-study <- Study_Assess(lData = lData, bQuiet = TRUE)
+study <- Study_Assess(lData = lData, bQuiet = TRUE) %>%
+  suppressWarnings()
 
 test_that("flowchart is created for all assessments", {
   expect_true("flowchart" %in% names(study$kri0001$lChecks))

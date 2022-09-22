@@ -65,82 +65,10 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfSUBJ", "dfCONSENT"]
+          "value": ["dfCONSENT", "dfSUBJ"]
         }
       },
       "value": [
-        {
-          "type": "list",
-          "attributes": {
-            "names": {
-              "type": "character",
-              "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
-            }
-          },
-          "value": [
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["SubjectID"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["SiteID"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["StudyID"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["RegionID"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["TimeOnTreatment"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["TimeOnStudy"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["RandFlag"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["RandDate"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["StudCompletion"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["StudDCReason"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["TrtCompletion"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["TrtDCReason"]
-            }
-          ]
-        },
         {
           "type": "list",
           "attributes": {
@@ -154,22 +82,22 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["SubjectID"]
+              "value": ["subjid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["CONSENT_TYPE"]
+              "value": ["conscat"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["CONSENT_VALUE"]
+              "value": ["consyn"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["CONSENT_DATE"]
+              "value": ["consdt"]
             },
             {
               "type": "character",
@@ -180,6 +108,53 @@
               "type": "character",
               "attributes": {},
               "value": ["Y"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["studyid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["siteid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["timeonstudy"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["timeontreatment"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["rfpen_dt"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
             }
           ]
         }
@@ -289,12 +264,12 @@
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
+      x the following columns not found in df: subjid, conscat, consyn, consdt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, RandDate
+      x the following columns not found in df: subjid, siteid, rfpen_dt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -313,7 +288,7 @@
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, RandDate
+      x the following columns not found in df: subjid, siteid, rfpen_dt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -332,7 +307,7 @@
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
+      x the following columns not found in df: subjid, conscat, consyn, consdt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -350,12 +325,12 @@
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
+      x the following columns not found in df: subjid, conscat, consyn, consdt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, RandDate
+      x the following columns not found in df: subjid, siteid, rfpen_dt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -373,12 +348,12 @@
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
+      x the following columns not found in df: subjid, conscat, consyn, consdt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, RandDate
+      x the following columns not found in df: subjid, siteid, rfpen_dt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -396,12 +371,12 @@
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, CONSENT_TYPE, CONSENT_VALUE, CONSENT_DATE
+      x the following columns not found in df: subjid, conscat, consyn, consdt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, RandDate
+      x the following columns not found in df: subjid, siteid, rfpen_dt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -437,7 +412,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x Unexpected duplicates found in column: SubjectID
+      x Unexpected duplicates found in column: subjid
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output
@@ -451,7 +426,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -468,7 +443,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: CONSENT_TYPE
+      x the following columns not found in df: conscat
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -485,7 +460,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: CONSENT_VALUE
+      x the following columns not found in df: consyn
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -502,7 +477,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: CONSENT_DATE
+      x the following columns not found in df: consdt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -519,7 +494,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -536,7 +511,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: SiteID
+      x the following columns not found in df: siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -553,7 +528,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: RandDate
+      x the following columns not found in df: rfpen_dt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -570,7 +545,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x 1 NA values found in column: SubjectID
+      x 1 NA values found in column: subjid
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output
@@ -584,7 +559,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x 1 NA values found in column: CONSENT_TYPE
+      x 1 NA values found in column: conscat
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output
@@ -598,7 +573,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x 1 NA values found in column: CONSENT_VALUE
+      x 1 NA values found in column: consyn
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output
@@ -612,7 +587,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x 1 NA values found in column: SubjectID
+      x 1 NA values found in column: subjid
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output
@@ -626,7 +601,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x 1 NA values found in column: SiteID
+      x 1 NA values found in column: siteid
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output
@@ -640,7 +615,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x 1 NA values found in column: RandDate
+      x 1 NA values found in column: rfpen_dt
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output
@@ -654,7 +629,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x Unexpected duplicates found in column: SubjectID
+      x Unexpected duplicates found in column: subjid
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output
@@ -792,6 +767,5 @@
       -- Initializing `Consent_Map_Raw()` --
       
       i Intializing merge of domain and subject data
-      i 1 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
       v `Consent_Map_Raw()` returned output with 3 rows.
 

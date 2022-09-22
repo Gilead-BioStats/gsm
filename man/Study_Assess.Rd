@@ -9,7 +9,6 @@ Study_Assess(
   lMapping = NULL,
   lAssessments = NULL,
   lSubjFilters = NULL,
-  lTags = list(Study = "myStudy"),
   bQuiet = TRUE
 )
 }
@@ -21,8 +20,6 @@ Study_Assess(
 \item{lAssessments}{a named list of metadata defining how each assessment should be run. By default, \code{MakeAssessmentList()} imports YAML specifications from \code{inst/workflow}.}
 
 \item{lSubjFilters}{a named list of parameters to filter subject-level data on.}
-
-\item{lTags}{a named list of Tags to be passed to each assessment. Default is \code{list(Study="myStudy")} could be expanded to include other important metadata such as analysis population or study phase.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }

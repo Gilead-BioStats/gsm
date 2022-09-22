@@ -1,6 +1,3 @@
-tags:
-  Assessment: Disposition
-  Label: Treatment - Study Withdrawals
 workflow:
   - name: FilterDomain
     inputs: dfDISP_Study

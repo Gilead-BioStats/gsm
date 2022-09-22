@@ -20,8 +20,9 @@
 #'
 #' dfSummary <- lAssessment %>%
 #'   purrr::map(~ .x$lResults) %>%
+#'   purrr::discard(is.null) %>%
 #'   purrr::compact() %>%
-#'   purrr::map_df(~ .x$dfSummary)
+#'   purrr::map_df(~ .x$lData$dfSummary, .id = 'Assessment')
 #'
 #' lStudyTable <- Study_Table(dfSummary)
 #'
@@ -46,13 +47,15 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
 
   # TODO: Add check for unique Site + Label + SiteID
 
+
   # Get site counts
   df_counts <- dfFindings %>%
     group_by(.data$GroupID) %>%
     summarize(Flag = first(.data$N)) %>%
     mutate(
       Assessment = "Number of Subjects",
-      Label = "Number of Subjects"
+      Label = "Number of Subjects",
+      Flag = as.character(Flag)
     ) %>%
     select(.data$Assessment, .data$Label, .data$GroupID, .data$Flag)
 
@@ -62,7 +65,8 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
     summarize(Flag = sum(abs(.data$Flag))) %>%
     mutate(
       Assessment = "Score",
-      Label = "Score"
+      Label = "Score",
+      Flag = as.character(Flag)
     )
 
   # create subheaders for each assessment
@@ -73,7 +77,7 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
 
   # create rows for each KRI
   df_tests <- dfFindings %>%
-    select(.data$Assessment, .data$Label, .data$GroupID, .data$Flag) %>%
+    select(.data$Assessment, .data$GroupID, .data$Flag) %>%
     mutate(Flag = case_when(
       Flag == "-1" ~ "-",
       Flag == "1" ~ "+",
@@ -81,14 +85,14 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
     ))
 
   # combine score, subheaders, tests and counts
-  df_combined <- rbind(df_tests, df_assessment)
+  df_combined <- bind_rows(df_tests, df_assessment)
 
   if (bShowSiteScore) {
-    df_combined <- rbind(df_combined, df_score)
+    df_combined <- bind_rows(df_combined, df_score)
   }
 
   if (bShowCounts) {
-    df_combined <- rbind(df_combined, df_counts)
+    df_combined <- bind_rows(df_combined, df_counts)
   }
 
   # reformat standard flags to html icons if bFormat = TRUE
@@ -109,8 +113,9 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
     spread(.data$GroupID, .data$Flag, fill = "")
 
   # Sort the table - maintain order of assessments/labels from dfFindings
+  # TODO: this is broken - fix it when reviewing tables/reporting
   assessment_order <- unique(dfFindings$Assessment)
-  label_order <- unique(paste0(dfFindings$Assessment, dfFindings$Label))
+  label_order <- assessment_order
   nPad <- nchar(nrow(dfFindings)) + 1
   df_summary <- df_summary %>%
     mutate(assessment_index = str_pad(

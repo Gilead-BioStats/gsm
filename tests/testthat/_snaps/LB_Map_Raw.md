@@ -16,14 +16,19 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["vRequired"]
+              "value": ["vRequired", "vNACols"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strAbnormalCol"]
+              "value": ["strIDCol", "strGradeCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strGradeCol"]
             }
           ]
         },
@@ -60,7 +65,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfSUBJ", "dfLB"]
+          "value": ["dfLB", "dfSUBJ"]
         }
       },
       "value": [
@@ -70,29 +75,64 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol"]
+              "value": ["strIDCol", "strVisitCol", "strVisitOrderCol", "strCategoryCol", "strTestCol", "strValueCol", "strTreatmentEmergentCol", "strTreatmentEmergentVal", "strGradeCol", "strGradeAnyVal", "strGradeHighVal"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["SubjectID"]
+              "value": ["subjid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["SiteID"]
+              "value": ["visnam"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["StudyID"]
+              "value": ["visnum"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["RegionID"]
+              "value": ["battrnam"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lbtstnam"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["siresn"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lb_te"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["toxgr"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["1", "2", "3", "4"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["3", "4"]
             }
           ]
         },
@@ -102,64 +142,44 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strVisitCol", "strVisitOrderCol", "strCategoryCol", "strTestCol", "strValueCol", "strTreatmentEmergentCol", "strTreatmentEmergentVal", "strGradeCol", "strAbnormalCol", "strAbnormalVal"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["SubjectID"]
+              "value": ["studyid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["VISIT"]
+              "value": ["siteid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["VISITNUM"]
+              "value": ["subjid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["LBCAT"]
+              "value": ["timeonstudy"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["LBTEST"]
+              "value": ["timeontreatment"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["LBSTRESN"]
+              "value": ["rfpen_dt"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["LB_TE_FLAG"]
-            },
-            {
-              "type": "logical",
-              "attributes": {},
-              "value": [true]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["LB_GRADE"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["LB_ABN_FLAG"]
-            },
-            {
-              "type": "logical",
-              "attributes": {},
-              "value": [true]
+              "value": ["country"]
             }
           ]
         }
@@ -264,12 +284,12 @@
       -- Checking Input Data for `LB_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, LB_ABN_FLAG
+      x the following columns not found in df: subjid, toxgr
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: subjid, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -288,7 +308,7 @@
       -- Checking Input Data for `LB_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: subjid, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -307,7 +327,7 @@
       -- Checking Input Data for `LB_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, LB_ABN_FLAG
+      x the following columns not found in df: subjid, toxgr
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -325,12 +345,12 @@
       -- Checking Input Data for `LB_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, LB_ABN_FLAG
+      x the following columns not found in df: subjid, toxgr
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: subjid, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -348,12 +368,12 @@
       -- Checking Input Data for `LB_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, LB_ABN_FLAG
+      x the following columns not found in df: subjid, toxgr
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: subjid, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -371,12 +391,12 @@
       -- Checking Input Data for `LB_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, LB_ABN_FLAG
+      x the following columns not found in df: subjid, toxgr
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID
+      x the following columns not found in df: subjid, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -393,7 +413,7 @@
       
       -- Checking Input Data for `LB_Map_Raw()` --
       
-      x "mapping" does not contain required parameters: strIDCol, strAbnormalCol
+      x "mapping" does not contain required parameters: strIDCol, strGradeCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       x "mapping" does not contain required parameters: strIDCol, strSiteCol
@@ -412,7 +432,7 @@
       
       -- Checking Input Data for `LB_Map_Raw()` --
       
-      x Unexpected duplicates found in column: SubjectID
+      x Unexpected duplicates found in column: subjid
       ! Issues found for `LB_Map_Raw()`
       ! `LB_Map_Raw()` did not run because of failed check.
     Output
@@ -426,7 +446,7 @@
       
       -- Checking Input Data for `LB_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -443,7 +463,7 @@
       
       -- Checking Input Data for `LB_Map_Raw()` --
       
-      x the following columns not found in df: LB_ABN_FLAG
+      x the following columns not found in df: toxgr
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -460,7 +480,7 @@
       
       -- Checking Input Data for `LB_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -477,7 +497,7 @@
       
       -- Checking Input Data for `LB_Map_Raw()` --
       
-      x the following columns not found in df: SiteID
+      x the following columns not found in df: siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -494,7 +514,7 @@
       
       -- Checking Input Data for `LB_Map_Raw()` --
       
-      x 1 NA values found in column: SubjectID
+      x 1 NA values found in column: subjid
       ! Issues found for `LB_Map_Raw()`
       ! `LB_Map_Raw()` did not run because of failed check.
     Output
@@ -508,7 +528,7 @@
       
       -- Checking Input Data for `LB_Map_Raw()` --
       
-      x 1 NA values found in column: LB_ABN_FLAG
+      x 1 NA values found in column: subjid
       ! Issues found for `LB_Map_Raw()`
       ! `LB_Map_Raw()` did not run because of failed check.
     Output
@@ -522,21 +542,7 @@
       
       -- Checking Input Data for `LB_Map_Raw()` --
       
-      x 1 NA values found in column: SubjectID
-      ! Issues found for `LB_Map_Raw()`
-      ! `LB_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs_edited, bQuiet = FALSE)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `LB_Map_Raw()` --
-      
-      x 1 NA values found in column: SiteID
+      x 1 NA values found in column: siteid
       ! Issues found for `LB_Map_Raw()`
       ! `LB_Map_Raw()` did not run because of failed check.
     Output
@@ -550,7 +556,7 @@
       
       -- Checking Input Data for `LB_Map_Raw()` --
       
-      x Unexpected duplicates found in column: SubjectID
+      x Unexpected duplicates found in column: subjid
       ! Issues found for `LB_Map_Raw()`
       ! `LB_Map_Raw()` did not run because of failed check.
     Output
@@ -636,5 +642,5 @@
       
       -- Initializing `LB_Map_Raw()` --
       
-      v `LB_Map_Raw()` returned output with 18 rows.
+      v `LB_Map_Raw()` returned output with 150 rows.
 
