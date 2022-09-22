@@ -68,8 +68,6 @@ Visualize_Score <- function(
         yintercept = (
           if (all(c("Numerator", "Denominator") %in% names(dfFlagged))) {
             sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator)
-          } else {
-            sum(dfFlagged$N) / sum(dfFlagged$TotalCount)
           }
         ),
         linetype = "dashed",
