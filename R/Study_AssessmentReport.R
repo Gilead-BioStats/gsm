@@ -31,7 +31,7 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
   allChecks <- map(names(lAssessments), function(assessment) {
 
-    workflow <- lAssessments[[assessment]][["workflow"]] %>%
+    workflow <- lAssessments[[assessment]][["steps"]] %>%
       map_df(
         ~ bind_cols(step = .x[["name"]], domain = .x[["inputs"]])
       ) %>%

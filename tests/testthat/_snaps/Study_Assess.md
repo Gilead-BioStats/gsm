@@ -3,61 +3,61 @@
     Code
       names(result$kri0001)
     Output
-      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
+      [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0002)
     Output
-      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
+      [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0003)
     Output
-      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
+      [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0004)
     Output
-      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
+      [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0005)
     Output
-      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
+      [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0006)
     Output
-      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
+      [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0007)
     Output
-      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
+      [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
     Code
       names(result$kri0008)
     Output
-      [1] "workflow" "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
+      [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 # metadata is returned as expected
 
     Code
-      kri0001$workflow
+      kri0001$steps
     Output
       [[1]]
       [[1]]$name
@@ -801,6 +801,7 @@
       
       $flowchart
       $flowchart$kri0001
+      NULL
       
       
 

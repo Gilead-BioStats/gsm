@@ -49,8 +49,8 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, lTags = NULL, bQuiet = TRUE)
     # Run through each step in lWorkflow$workflow
 
     stepCount <- 1
-    for (step in lWorkflow$workflow) {
-      if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$workflow), ": `", step$name, "`"))
+    for (step in lWorkflow$steps) {
+      if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
       if (lWorkflow$bStatus) {
 
         result <- gsm::RunStep(
@@ -59,6 +59,8 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, lTags = NULL, bQuiet = TRUE)
           lData = lWorkflow$lData,
           bQuiet = bQuiet
         )
+
+
 
         lWorkflow$lChecks[[stepCount]] <- result$lChecks
         names(lWorkflow$lChecks)[[stepCount]] <- step$name

@@ -29,13 +29,12 @@
 Visualize_Workflow <- function(lAssessments) {
 
 
-  if (!is.null(lAssessments[[1]][["workflow"]])) {
+  if (!is.null(lAssessments[[1]][["steps"]])) {
     dfFlowchart <- map(lAssessments, function(studyObject) {
-
 
       name <- studyObject[["name"]]
       checks <- studyObject[["lChecks"]]
-      workflow <- studyObject[["workflow"]]
+      workflow <- studyObject[["steps"]]
 
       # rename workflow when checks are missing
       diff <- length(workflow) - length(checks)
