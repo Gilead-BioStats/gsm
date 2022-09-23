@@ -22,7 +22,7 @@
 #' @param strDenominatorCol Optional. Numerical `Exposure` column.
 #' @param strGroupCol `character` Name of column for grouping variable. Default: `"SiteID"`
 #'
-#' @return `data.frame` with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
+#' @return `data.frame` with one row per site with columns SiteID, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()

@@ -10,16 +10,15 @@
 #' @section Data Specification:
 #'
 #' The input data (`dfTransformed`) for Analyze_Poisson is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
-#' - `SiteID` - Site ID
-#' - `N` - Number of participants
-#' - `TotalCount` - Number of Adverse Events
-#' - `TotalExposure` - Number of days of exposure
-#' - `Rate` - Rate of exposure (TotalCount / TotalExposure)
+#' - `GroupID` - Site ID
+#' - `Numerator` - Number of Adverse Events
+#' - `Denominator` - Number of days of exposure
+#' - `Metric` - Rate of exposure (Numerator / Denominator)
 #'
-#' @param dfTransformed data.frame in format produced by \code{\link{Transform_Rate}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.
+#' @param dfTransformed data.frame in format produced by \code{\link{Transform_Rate}}. Must include GroupID, Numerator, Denominator and Metric.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` with columns added for "Residuals" and "PredictedCount".
+#' @return `data.frame` with columns added for "Score" and "PredictedCount".
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw() %>% na.omit()  #na.omit is placeholder for now
