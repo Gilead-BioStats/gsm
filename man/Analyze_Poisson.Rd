@@ -7,12 +7,12 @@
 Analyze_Poisson(dfTransformed, bQuiet = TRUE)
 }
 \arguments{
-\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_Rate}}. Must include SubjectID, SiteID, TotalCount and TotalExposure.}
+\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_Rate}}. Must include GroupID, Numerator, Denominator and Metric.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with columns added for "Residuals" and "PredictedCount".
+\code{data.frame} with columns added for "Score" and "PredictedCount".
 }
 \description{
 Poisson Analysis - Site Residuals
@@ -31,11 +31,10 @@ This function fits a poisson model to site-level data and then calculates residu
 
 The input data (\code{dfTransformed}) for Analyze_Poisson is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
 \itemize{
-\item \code{SiteID} - Site ID
-\item \code{N} - Number of participants
-\item \code{TotalCount} - Number of Adverse Events
-\item \code{TotalExposure} - Number of days of exposure
-\item \code{Rate} - Rate of exposure (TotalCount / TotalExposure)
+\item \code{GroupID} - Site ID
+\item \code{Numerator} - Number of Adverse Events
+\item \code{Denominator} - Number of days of exposure
+\item \code{Metric} - Rate of exposure (Numerator / Denominator)
 }
 }
 

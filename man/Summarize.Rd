@@ -12,7 +12,7 @@ Summarize(dfFlagged, strScoreCol = "Score")
 \item{strScoreCol}{column from analysis results to be copied to \code{dfSummary$Score}}
 }
 \value{
-Simplified finding data.frame with columns for GroupID, N, Metric, Score, Flag
+Simplified finding data.frame with columns for GroupID, Metric, Score, Flag
 when associated with a workflow.
 }
 \description{
@@ -27,7 +27,6 @@ Create a concise summary of assessment results that is easy to aggregate across 
 (\code{dfFlagged}) has the following required columns:
 \itemize{
 \item \code{GroupID} - Group ID
-\item \code{N} - Total number of participants at site
 \item \code{Flag} - Flagging value of -1, 0, or 1
 \item \code{strScoreCol} - Column from analysis results.
 }

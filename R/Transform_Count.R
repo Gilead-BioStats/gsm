@@ -34,7 +34,7 @@
 #' @param strCountCol Required. Numerical or logical. Column to be counted.
 #' @param strGroupCol `character` Name of column for grouping variable. Default: `"SiteID"`
 #'
-#' @return `data.frame` with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
+#' @return `data.frame` with one row per site with columns SiteID, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
@@ -59,7 +59,6 @@ Transform_Count <- function(
     dfTransformed <- dfInput %>%
       group_by(GroupID = .data[[strGroupCol]]) %>%
       summarise(
-        N = n(),
         TotalCount = sum(.data[[strCountCol]])
       ) %>%
       mutate(Metric = .data$TotalCount) %>%
