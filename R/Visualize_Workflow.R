@@ -29,8 +29,16 @@
 Visualize_Workflow <- function(lAssessments) {
 
 
+
+
   if (!is.null(lAssessments[[1]][["steps"]])) {
+
+
+
+
     dfFlowchart <- map(lAssessments, function(studyObject) {
+
+
 
       name <- studyObject[["name"]]
       checks <- studyObject[["lChecks"]]
@@ -51,8 +59,14 @@ Visualize_Workflow <- function(lAssessments) {
       }
 
       preAssessment <- map2_dfr(checks, workflow, function(checks, workflow) {
+
+
+
         domains <- workflow$inputs
         map_df(domains, function(x) {
+
+
+
           tibble(
             assessment = name,
             name = workflow[["name"]],
@@ -83,7 +97,7 @@ Visualize_Workflow <- function(lAssessments) {
         ungroup()
 
 
-      pipelineSubset <- studyObject$lResults[grep("df", names(studyObject$lResults))]
+      pipelineSubset <- studyObject$lResults$lData[grep("df", names(studyObject$lResults$lData))]
       pipelineSubset[["dfBounds"]] <- NULL
 
       pipeline <- pipelineSubset %>%

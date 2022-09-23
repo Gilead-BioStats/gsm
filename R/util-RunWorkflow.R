@@ -60,8 +60,6 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, lTags = NULL, bQuiet = TRUE)
           bQuiet = bQuiet
         )
 
-
-
         lWorkflow$lChecks[[stepCount]] <- result$lChecks
         names(lWorkflow$lChecks)[[stepCount]] <- step$name
         lWorkflow$bStatus <- result$lChecks$status
