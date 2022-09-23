@@ -45,7 +45,7 @@
 #'
 #' @export
 
-Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5,5), bQuiet = TRUE) {
+Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), bQuiet = TRUE) {
 
   if (is.null(vThreshold)) {
     vThreshold <- c(-5,0, 5)
@@ -73,21 +73,20 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5,5), b
       max(dfTransformed$LogDenominator) + 0.05,
       by = 0.05
     )
-  
 
-  dfBounds <- tidyr::expand_grid(Threshold = vThreshold, LogDenominator = vRange)%>% 
+  dfBounds <- tidyr::expand_grid(Threshold = vThreshold, LogDenominator = vRange) %>%
   mutate(
       # Calculate expected event count at given exposure.
       vMu = as.numeric(exp(.data$LogDenominator * cModel$coefficients[2] + cModel$coefficients[1])),
-      a = qchisq(0.95, 1), # used in Pearson calculation
-
       # Calculate lower bound of expected event count given specified threshold.
       vEst = Threshold^2 - 2 * .data$vMu,
       vWEst = .data$vEst / (2 * exp(1) * .data$vMu),
-      PredictY = .data$vEst / (2 * lamW::lambertW0(.data$vWEst)),
-      Numerator = if_else(is.nan(.data$PredictY), 0, .data$PredictY)
+      PredictYPositive = .data$vEst / (2 * lamW::lambertW0(.data$vWEst)),
+      PredictYNegative = .data$vEst / (2 * lamW::lambertWm1(.data$vWEst)),
+      Numerator = if_else(Threshold <= 0, PredictYNegative, PredictYPositive),
+      Numerator = if_else(Threshold < 0 & is.nan(Numerator), 0, Numerator),
+      Denominator = exp(LogDenominator)
     ) %>%
-    mutate(Denominator = exp(LogDenominator)) %>%
     select(
       .data$Threshold,
       .data$LogDenominator,
