@@ -65,11 +65,7 @@ Visualize_Score <- function(
         stat = "identity"
       ) +
       geom_hline(
-        yintercept = (
-          if (all(c("Numerator", "Denominator") %in% names(dfFlagged))) {
-            sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator)
-          }
-        ),
+        yintercept = sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator),
         linetype = "dashed",
         color = "red",
         size = 1
