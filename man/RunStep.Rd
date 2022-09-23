@@ -4,7 +4,7 @@
 \alias{RunStep}
 \title{Run a single step in a workflow}
 \usage{
-RunStep(lStep, lMapping, lData, lTags, bQuiet)
+RunStep(lStep, lMapping, lData, bQuiet)
 }
 \arguments{
 \item{lStep}{\code{list} single workflow step (typically defined in \code{lAssessment$workflow}). Should
@@ -16,8 +16,6 @@ output (\code{lStep$output}) and configurable parameters (\code{lStep$params}) (
 \item{lData}{\code{list} a named list of domain level data frames. Names should match the values
 specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs
 from \code{X_Map_Raw}.}
-
-\item{lTags}{\code{list} tags}
 
 \item{bQuiet}{\code{logical} Default is TRUE, which means warning messages are suppressed. Set to
 FALSE to see warning messages.}

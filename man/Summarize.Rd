@@ -12,7 +12,7 @@ Summarize(dfFlagged, strScoreCol = "Score")
 \item{strScoreCol}{column from analysis results to be copied to \code{dfSummary$Score}}
 }
 \value{
-Simplified finding data.frame with columns for GroupID, N, Metric, Score, Flag
+Simplified finding data.frame with columns for GroupID, Metric, Score, Flag
 when associated with a workflow.
 }
 \description{
@@ -27,7 +27,6 @@ Create a concise summary of assessment results that is easy to aggregate across 
 (\code{dfFlagged}) has the following required columns:
 \itemize{
 \item \code{GroupID} - Group ID
-\item \code{N} - Total number of participants at site
 \item \code{Flag} - Flagging value of -1, 0, or 1
 \item \code{strScoreCol} - Column from analysis results.
 }
@@ -36,14 +35,15 @@ Create a concise summary of assessment results that is easy to aggregate across 
 \examples{
 dfInput <- AE_Map_Adam()
 
-dfTransformed <- Transform_EventCount(dfInput,
+dfTransformed <- Transform_Rate(dfInput,
+  strGroupCol = "SiteID",
   strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure",
+  strDenominatorCol = "Exposure"
 )
 
-dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+dfAnalyzed <- Analyze_Poisson(dfTransformed)
 
-dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
+dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
 
 dfSummary <- Summarize(dfFlagged)
 

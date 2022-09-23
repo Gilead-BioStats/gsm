@@ -2,7 +2,7 @@
 % Please edit documentation in R/Transform_Count.R
 \name{Transform_Count}
 \alias{Transform_Count}
-\title{Transform Event Count}
+\title{Transform Count}
 \usage{
 Transform_Count(dfInput, strCountCol, strGroupCol = "SiteID")
 }
@@ -14,7 +14,7 @@ Transform_Count(dfInput, strCountCol, strGroupCol = "SiteID")
 \item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
 }
 \value{
-\code{data.frame} with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
+\code{data.frame} with one row per site with columns SiteID, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 }
 \description{
 Convert from input data format to needed input format to derive KRI for an Assessment.
@@ -45,7 +45,7 @@ Optional
 \item \code{Exposure} - Number of days of exposure, name specified by strExposureCol.
 }
 
-The input data has one or more rows per site. Transform_EventCount sums strCountCol for a TotalCount for each site.
+The input data has one or more rows per site. Transform_Count sums strCountCol for a TotalCount for each site.
 For data with an optional strExposureCol, a summed exposure is calculated for each site.
 }
 

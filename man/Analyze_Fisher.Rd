@@ -4,25 +4,25 @@
 \alias{Analyze_Fisher}
 \title{Fisher's Exact Test Analysis}
 \usage{
-Analyze_Fisher(dfTransformed, strOutcome = "TotalCount", bQuiet = TRUE)
+Analyze_Fisher(dfTransformed, strOutcome = "Numerator", bQuiet = TRUE)
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_EventCount}}}
+\item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}}
 
-\item{strOutcome}{\code{character} required, name of column in dfTransformed dataset to perform Fisher test on. Default is "TotalCount".}
+\item{strOutcome}{\code{character} required, name of column in dfTransformed dataset to perform Fisher's exact test on. Default is "Numerator".}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one row per site with columns: GroupID, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
+\code{data.frame} with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, Score, ScoreLabel.
 }
 \description{
 Fisher's Exact Test Analysis
 }
 \details{
-Creates Analysis results data for count data using the Fisher's exact test
+Creates analysis results data for count data using the Fisher's exact test.
 
-Analyzes count data using the Fisher's exact test
+Analyzes count data using the Fisher's exact test.
 }
 \section{Statistical Methods}{
 
@@ -33,20 +33,22 @@ TODO Coming soon ...
 \section{Data Specification}{
 
 
-The input data (\code{dfTransformed}) for Analyze_Fisher is typically created using \code{\link{Transform_EventCount}} and should be one record per site with required columns for:
+The input data (\code{dfTransformed}) for Analyze_Fisher is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
 \itemize{
-\item \code{GroupID} - GroupID from \code{dfTransformed}
-\item \code{N} - Total number of participants at site
-\item \code{TotalCount} - Total number of participants at site with event of interest
+\item \code{GroupID} - Site ID
+\item \code{Numerator} - Total number of participants at site with event of interest
+\item \code{Denominator} - TBD
+\item \code{Metric} - TBD
 }
 }
 
 \examples{
 dfInput <- Disp_Map_Raw()
-dfTransformed <- Transform_EventCount(
+dfTransformed <- Transform_Rate(
   dfInput,
-  strCountCol = "Count",
-  strKRILabel = "Discontinuations due to AE"
+  strGroupCol = "SiteID",
+  strNumeratorCol = "Count",
+  strDenominatorCol = "Total"
 )
 dfAnalyzed <- Analyze_Fisher(dfTransformed)
 
