@@ -28,9 +28,3 @@
   Impact: Medium
   Tests:
     - T3_2
-- ID: S3_5
-  Description: An Inclusion/Exclusion assessment can be done iteratively by looping over a categorical variable
-  Risk: Low
-  Impact: Medium
-  Tests:
-    - T3_3
