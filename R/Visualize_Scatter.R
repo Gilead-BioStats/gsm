@@ -78,10 +78,14 @@ Visualize_Scatter <- function(
     )
 
   if (!is.null(dfBounds)) {
-    p <- p +
-      geom_line(data = dfBounds, aes(x = .data$LogDenominator, y = .data$MeanCount), color = "red", inherit.aes = FALSE) +
-      geom_line(data = dfBounds, aes(x = .data$LogDenominator, y = .data$LowerCount), color = "red", linetype = "dashed", inherit.aes = FALSE) +
-      geom_line(data = dfBounds, aes(x = .data$LogDenominator, y = .data$UpperCount), color = "red", linetype = "dashed", inherit.aes = FALSE)
+    for(current_threshold in unique(dfBounds$Threshold)){
+      p <- p + geom_line(
+        data = dfBounds %>% filter(.data$Threshold==current_threshold), 
+        aes(x = .data$LogDenominator, y = .data$Numerator), 
+        color = "gray", 
+        inherit.aes = FALSE
+      ) 
+    }
   }
 
   if (!is.null(strGroupCol)) {

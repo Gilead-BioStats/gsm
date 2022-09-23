@@ -41,15 +41,19 @@
 #' @importFrom lamW lambertWm1 lambertW0
 #' @importFrom stats glm offset poisson qchisq
 #' @importFrom tibble tibble
+#' @importFrom tidyr expand_grid
 #'
 #' @export
 
-Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), bQuiet = TRUE) {
+Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5,5), bQuiet = TRUE) {
 
   if (is.null(vThreshold)) {
-    vThreshold <- c(-5, 5)
+    vThreshold <- c(-5,0, 5)
     cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-5, 5)")
   }
+
+  # add a 0 threhsold to calcultate estimate without an offset
+  vThreshold <- c(vThreshold,0)
 
   # Calculate log of total exposure at each site.
   dfTransformed$LogDenominator <- log(
@@ -64,34 +68,31 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
   )
 
   # Calculate expected event count and predicted bounds across range of total exposure.
-  dfBounds <- tibble::tibble(
-    # Generate sequence along range of total exposure.
-    LogDenominator = seq(
+  vRange <- seq(
       min(dfTransformed$LogDenominator) - 0.05,
       max(dfTransformed$LogDenominator) + 0.05,
       by = 0.05
     )
-  ) %>%
-    mutate(
+  
+
+  dfBounds <- tidyr::expand_grid(Threshold = vThreshold, LogDenominator = vRange)%>% 
+  mutate(
       # Calculate expected event count at given exposure.
       vMu = as.numeric(exp(.data$LogDenominator * cModel$coefficients[2] + cModel$coefficients[1])),
       a = qchisq(0.95, 1), # used in Pearson calculation
 
       # Calculate lower bound of expected event count given specified threshold.
-      vLo = vThreshold[1]^2 - 2 * .data$vMu,
-      vWLo = .data$vLo / (2 * exp(1) * .data$vMu),
-
-      # Calculate upper bound of expected event count given specified threshold.
-      vHi = vThreshold[2]^2 - 2 * .data$vMu,
-      vWHi = .data$vHi / (2 * exp(1) * .data$vMu),
-      PredictYLo = .data$vLo / (2 * lamW::lambertWm1(.data$vWLo)),
-      PredictYHi = .data$vHi / (2 * lamW::lambertW0(.data$vWHi)),
-      LowerCount = if_else(is.nan(.data$PredictYLo), 0, .data$PredictYLo),
-      UpperCount = if_else(is.nan(.data$PredictYHi), 0, .data$PredictYHi)
+      vEst = Threshold^2 - 2 * .data$vMu,
+      vWEst = .data$vEst / (2 * exp(1) * .data$vMu),
+      PredictY = .data$vEst / (2 * lamW::lambertW0(.data$vWEst)),
+      Numerator = if_else(is.nan(.data$PredictY), 0, .data$PredictY)
     ) %>%
+    mutate(Denominator = exp(LogDenominator)) %>%
     select(
+      .data$Threshold,
       .data$LogDenominator,
-      MeanCount = .data$vMu, .data$LowerCount, .data$UpperCount
+      .data$Denominator,
+      .data$Numerator
     )
 
   return(dfBounds)
