@@ -67,7 +67,8 @@ Flag <- function(
 
   if (all(!is.na(vThreshold))) {
     stopifnot(
-      "vThreshold must contain a minimum and maximum value (i.e., vThreshold = c(1, 2))" = vThreshold[2] > vThreshold[1]
+      "vThreshold must contain extreme high, moderate high, moderate low, extreme low values (i.e., vThreshold = c(2, 1, -1, -2))" =
+          vThreshold[1] > vThreshold[2] > vThreshold[3] > vThreshold[4]
     )
   }
 
@@ -75,8 +76,10 @@ Flag <- function(
   dfFlagged <- dfAnalyzed %>%
     mutate(
       Flag = case_when(
-        !is.na(vThreshold[1]) & (.data[[strColumn]] < vThreshold[1]) ~ -1,
-        !is.na(vThreshold[2]) & (.data[[strColumn]] > vThreshold[2]) ~ 1,
+        !is.na(vThreshold[1]) & (.data[[strColumn]] > vThreshold[1]) ~ 2,
+        !is.na(vThreshold[2]) & (.data[[strColumn]] <= vThreshold[1]) & (.data[[strColumn]] > vThreshold[2]) ~ 1,
+        !is.na(vThreshold[2]) & (.data[[strColumn]] >= vThreshold[4]) & (.data[[strColumn]] < vThreshold[3]) ~ -1,
+        !is.na(vThreshold[2]) & (.data[[strColumn]] < vThreshold[4]) ~ -2,
         is.na(.data[[strColumn]]) ~ NA_real_,
         is.nan(.data[[strColumn]]) ~ NA_real_,
         TRUE ~ 0 # All other values set to 0 (not flagged)
@@ -84,23 +87,23 @@ Flag <- function(
     )
 
   # If strValueColumn is supplied, it can only affect sign of Flag (1 or -1).
-  if (!is.null(strValueColumn)) {
-    nMedian <- dfFlagged %>%
-      pull(strValueColumn) %>%
-      stats::median(na.rm = TRUE)
-
-    dfFlagged <- dfFlagged %>%
-      mutate(
-        Flag = case_when(
-          Flag != 0 & .data[[strValueColumn]] >= nMedian ~ 1,
-          Flag != 0 & .data[[strValueColumn]] < nMedian ~ -1,
-          TRUE ~ Flag
-        )
-      )
-  }
+  # if (!is.null(strValueColumn)) {
+  #   nMedian <- dfFlagged %>%
+  #     pull(strValueColumn) %>%
+  #     stats::median(na.rm = TRUE)
+  #
+  #   dfFlagged <- dfFlagged %>%
+  #     mutate(
+  #       Flag = case_when(
+  #         Flag != 0 & .data[[strValueColumn]] >= nMedian ~ 1,
+  #         Flag != 0 & .data[[strValueColumn]] < nMedian ~ -1,
+  #         TRUE ~ Flag
+  #       )
+  #     )
+  # }
 
   dfFlagged <- dfFlagged %>%
-    arrange(match(.data$Flag, c(1, -1, 0)))
+    arrange(match(.data$Flag, c(2, -2, 1, -1, 0)))
 
   return(dfFlagged)
 }
