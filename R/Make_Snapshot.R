@@ -69,14 +69,22 @@ bQuiet = TRUE
   )
 
 # status_site -------------------------------------------------------------
-  # lSnapshot$status_site <- meta$meta_site
-  status_site <- Get_Enrolled(
+  status_site <- lMeta$meta_site
+  status_site_count <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
     dfConfig = lMeta$config_param,
     lMapping = lMapping,
     strUnit = "participant",
     strBy = "site"
   )
+
+
+  # stopifnot(
+  #   "Sites in clinical data do not match sites in metadata" = unique(status_site$siteid) == unique(status_site_count$SiteID)
+  # )
+
+  status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID"))
+
 
 # run Study_Assess() ------------------------------------------------------
   # Make a list of assessments
@@ -107,6 +115,8 @@ bQuiet = TRUE
   if (nrow(warnings > 0)) {
     status_workflow <- status_workflow %>%
       left_join(warnings, by = "workflowid")
+  } else {
+    status_workflow$notes <- NA_character_
   }
 
 # status_param ------------------------------------------------------------
@@ -128,15 +138,15 @@ bQuiet = TRUE
                       mutate(KRIID = .y,
                              StudyID = unique(lMeta$config_workflow$studyid))) %>%
     select(
-      .data$StudyID,
-      .data$KRIID,
-      .data$GroupID,
-      .data$N,
-      .data$Numerator,
-      .data$Denominator,
-      .data$Metric,
-      .data$Score,
-      .data$Flag
+      studyid = .data$StudyID,
+      workflowid = .data$KRIID,
+      groupid = .data$GroupID,
+      n = .data$N,
+      numerator = .data$Numerator,
+      denominator = .data$Denominator,
+      metric = .data$Metric,
+      score = .data$Score,
+      flag = .data$Flag
     )
 
 
@@ -147,11 +157,9 @@ bQuiet = TRUE
   results_bounds <- lResults %>%
     purrr::map(~.x$lResults$lData$dfBounds) %>%
     purrr::discard(is.null) %>%
-    purrr::imap_dfr(~.x %>% mutate(KRIID = .y)) %>%
-    mutate(StudyID = unique(lMeta$config_workflow$studyid),
-           WorkflowID = KRIID) # not sure if this is a correct assumption
+    purrr::imap_dfr(~.x %>% mutate(workflowid = .y)) %>%
+    mutate(studyid = unique(lMeta$config_workflow$studyid)) # not sure if this is a correct assumption
 
-  #Also need to make sure we're capturing WorkflowID here ...
 
 
 # create lSnapshot --------------------------------------------------------
@@ -163,6 +171,7 @@ bQuiet = TRUE
     status_param = status_param,
     status_schedule = status_schedule,
     results_summary = results_summary,
+    results_bounds = results_bounds,
     meta_workflow = meta_workflow,
     meta_param = meta_param
     )
