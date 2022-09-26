@@ -83,10 +83,15 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
       vWEst = .data$vEst / (2 * exp(1) * .data$vMu),
       PredictYPositive = .data$vEst / (2 * lamW::lambertW0(.data$vWEst)),
       PredictYNegative = .data$vEst / (2 * lamW::lambertWm1(.data$vWEst)),
-      Numerator = if_else(Threshold <= 0, PredictYNegative, PredictYPositive),
-      Numerator = if_else(Threshold < 0 & is.nan(Numerator), 0, Numerator),
+      Numerator = case_when(
+        Threshold < 0 ~ PredictYNegative,
+        Threshold > 0 ~ PredictYPositive,
+        Threshold == 0 ~ vMu
+      ),
       Denominator = exp(LogDenominator)
     ) %>%
+    # NaN is meaningful result indicating not bounded
+    filter(!is.nan(Numerator)) %>%
     select(
       .data$Threshold,
       .data$LogDenominator,
