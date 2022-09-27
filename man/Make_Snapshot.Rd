@@ -5,12 +5,13 @@
 \title{Make Snapshot - create and export Gizmo data model.}
 \usage{
 Make_Snapshot(
-  lMeta = list(meta_study = NULL, meta_site = NULL, config_schedule = NULL,
-    config_workflow = gsm::config_workflow, config_params = gsm::config_param,
-    meta_workflow = gsm::meta_workflow, meta_params = gsm::meta_param),
+  lMeta = list(config_params = gsm::config_param, config_schedule = NULL, config_workflow
+    = gsm::config_workflow, meta_params = gsm::meta_param, meta_site =
+    clindata::ctms_site, meta_study = clindata::ctms_study, meta_workflow =
+    gsm::meta_workflow),
   lData = list(dfSUBJ = clindata::rawplus_dm \%>\% filter(!is.na(timeontreatment)), dfAE
-    = clindata::rawplus_ae, dfPD = clindata::rawplus_protdev, dfCONSENT =
-    clindata::rawplus_consent, dfIE = clindata::rawplus_ie, dfLB = clindata::rawplus_lb,
+    = clindata::rawplus_ae, dfCONSENT = clindata::rawplus_consent, dfIE =
+    clindata::rawplus_ie, dfLB = clindata::rawplus_lb, dfPD = clindata::rawplus_protdev,
     dfSTUDCOMP = clindata::rawplus_studcomp, dfSDRGCOMP = clindata::rawplus_sdrgcomp
     \%>\% filter(.data$datapagename == "Blinded Study Drug Completion")),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
@@ -21,7 +22,7 @@ Make_Snapshot(
 )
 }
 \arguments{
-\item{lMeta}{\code{list} a named list of data frames containing metadata, configuration, and workflow parameters for a given study.}
+\item{lMeta}{\code{list} a named list of data frames containing metadata, configuration, and workflow parameters for a given study. TODO: add details about expected lMeta input.}
 
 \item{lData}{\code{list} a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 

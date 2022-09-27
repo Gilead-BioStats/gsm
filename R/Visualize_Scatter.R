@@ -32,6 +32,15 @@ Visualize_Scatter <- function(
 
   groupLabel <- ifelse(is.null(strGroupLabel), "GroupID: ", strGroupLabel)
 
+  #
+  flagBreaks <- as.character(unique(sort(dfFlagged$Flag)))
+
+  if (length(flagBreaks) == 5) {
+    flagValues <- c("red", "yellow", "#999999", "yellow", "red")
+  } else {
+    flagValues <- c("#999999", "red", "red")
+  }
+
   # Define tooltip for use in plotly.
   dfFlaggedWithTooltip <- dfFlagged %>%
     mutate(
@@ -62,8 +71,8 @@ Visualize_Scatter <- function(
     ) +
     theme(legend.position = "none") +
     scale_color_manual(
-      breaks = c("0", "-1", "1"),
-      values = c("#999999", "red", "red")
+      breaks = flagBreaks,
+      values = flagValues
     ) +
     # Add chart elements
     geom_point() +
@@ -78,10 +87,23 @@ Visualize_Scatter <- function(
     )
 
   if (!is.null(dfBounds)) {
-    p <- p +
-      geom_line(data = dfBounds, aes(x = .data$LogDenominator, y = .data$MeanCount), color = "red", inherit.aes = FALSE) +
-      geom_line(data = dfBounds, aes(x = .data$LogDenominator, y = .data$LowerCount), color = "red", linetype = "dashed", inherit.aes = FALSE) +
-      geom_line(data = dfBounds, aes(x = .data$LogDenominator, y = .data$UpperCount), color = "red", linetype = "dashed", inherit.aes = FALSE)
+
+
+    for(current_threshold in unique(dfBounds$Threshold)){
+
+      color <- case_when(current_threshold == 0 ~ "gray",
+                         current_threshold == min(unique(dfBounds$Threshold)) ~ "red",
+                         current_threshold == max(unique(dfBounds$Threshold)) ~ "red",
+                         TRUE ~ "yellow")
+
+      p <- p + geom_line(
+        data = dfBounds %>% filter(.data$Threshold==current_threshold, !is.nan(.data$Numerator)),
+        aes(x = .data$LogDenominator, y = .data$Numerator),
+        color = color,
+        inherit.aes = FALSE
+      )
+
+    }
   }
 
   if (!is.null(strGroupCol)) {
