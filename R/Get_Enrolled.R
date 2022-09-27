@@ -38,12 +38,10 @@ Get_Enrolled <- function(dfSUBJ, dfConfig, lMapping, strUnit, strBy) {
       summarize(n_enrolled_sites = n_distinct(.data[[lMapping$dfSUBJ$strSiteCol]])) %>%
       pull(n_enrolled_sites)
   } else if (strUnit == "participant" & strBy == "site") {
-    enrolled <- dm %>%
+     enrolled <- dm %>%
       group_by(SiteID = .data[[lMapping$dfSUBJ$strSiteCol]]) %>%
       summarize(n_enrolled_participants = n()) %>%
-      ungroup() %>%
-      mutate(StudyID = studyid) %>%
-      select(StudyID, everything())
+      ungroup()
   }
 
   return(enrolled)

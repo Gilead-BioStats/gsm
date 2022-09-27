@@ -68,6 +68,21 @@ bQuiet = TRUE
     strBy = "study"
   )
 
+  # select in same order as spec - can remove this if not needed, but helps with comparison
+  status_study <- status_study %>%
+    select(
+      .data$studyid,
+      .data$enrolled_sites,
+      .data$enrolled_participants,
+      .data$planned_sites,
+      .data$planned_participants,
+      .data$protocol,
+      .data$indication,
+      .data$ta,
+      .data$product,
+      .data$phase
+    )
+
 # status_site -------------------------------------------------------------
   status_site <- lMeta$meta_site
   status_site_count <- Get_Enrolled(
@@ -158,7 +173,15 @@ bQuiet = TRUE
     purrr::map(~.x$lResults$lData$dfBounds) %>%
     purrr::discard(is.null) %>%
     purrr::imap_dfr(~.x %>% mutate(workflowid = .y)) %>%
-    mutate(studyid = unique(lMeta$config_workflow$studyid)) # not sure if this is a correct assumption
+    mutate(studyid = unique(lMeta$config_workflow$studyid)) %>% # not sure if this is a correct assumption
+    select(
+      .data$studyid,
+      .data$workflowid,
+      "threshold" = .data$Threshold,
+      "numerator" = .data$Numerator,
+      "denominator" = .data$Denominator,
+      "log_denominator" = .data$LogDenominator
+    )
 
 
 
