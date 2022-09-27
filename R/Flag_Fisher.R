@@ -44,30 +44,31 @@
 
 Flag_Fisher <- function(
   dfAnalyzed,
-  vThreshold = NULL,
+  vThreshold = NULL
 ) {
   stopifnot(
     "dfAnalyzed is not a data frame" = is.data.frame(dfAnalyzed),
     "vThreshold is not numeric" = is.numeric(vThreshold),
     "vThreshold must be length of 2" = length(vThreshold) == 2,
-    "vThreshold cannot be NULL" = !is.null(vThreshold),
+    "vThreshold cannot be NULL" = !is.null(vThreshold)
   )
 
   # Flag values outside the specified threshold.
-  median <- median(dfTransformed$metric)
+  median <- median(dfTransformed$Metric)
+
   dfFlagged <- dfAnalyzed %>%
     mutate(
       Flag = case_when(
-        (.data$score < min(vThresholds) & .data$metric >= median) ~ 2,
-        (.data$score < min(vThresholds) & .data$metric < median) ~ -2,
-        (.data$score < max(vThresholds) & .data$metric >= median) ~ 1,
-        (.data$score < max(vThresholds) & .data$metric < median) ~ -1,
+        (.data$Score < min(vThreshold) & .data$Metric >= median) ~ 2,
+        (.data$Score < min(vThreshold) & .data$Metric < median) ~ -2,
+        (.data$Score < max(vThreshold) & .data$Metric >= median) ~ 1,
+        (.data$Score < max(vThreshold) & .data$Metric < median) ~ -1,
         TRUE ~ 0
       )
     )
 
   dfFlagged <- dfFlagged %>%
-    arrange(match(.data$Flag, c(-2,2, 1, -1, 0)))
+    arrange(match(.data$Flag, c(-2, 2, 1, -1, 0)))
 
   return(dfFlagged)
 }

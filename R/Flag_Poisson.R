@@ -13,7 +13,7 @@
 #' @param vThreshold Vector of 4 numeric values representing lower and upper threshold values. All
 #' values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.
 #'
-#' @return `data.frame` with `Flag` column added 
+#' @return `data.frame` with `Flag` column added
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
@@ -35,29 +35,32 @@
 
 Flag_Poisson <- function(
   dfAnalyzed,
-  vThreshold = NULL,
+  vThreshold = NULL
 ) {
   stopifnot(
     "dfAnalyzed is not a data frame" = is.data.frame(dfAnalyzed),
     "vThreshold is not numeric" = is.numeric(vThreshold),
     "vThreshold must be length of 4" = length(vThreshold) == 4,
-    "vThreshold cannot be NULL" = !is.null(vThreshold),
+    "vThreshold cannot be NULL" = !is.null(vThreshold)
   )
+
+  # ensure flags are sorted so we can use indexing below
+  vThreshold <- sort(vThreshold)
 
   # Flag values outside the specified threshold.
   dfFlagged <- dfAnalyzed %>%
     mutate(
       Flag = case_when(
-        (.data$score < vThreshold[1]) ~ -2,
-        (.data$score < vThreshold[2]) ~ -1,
-        (.data$score < vThreshold[3]) ~ 0,
-        (.data$score < vThreshold[4]) ~ 1,
+        (.data$Score < vThreshold[1]) ~ -2,
+        (.data$Score < vThreshold[2]) ~ -1,
+        (.data$Score < vThreshold[3]) ~ 0,
+        (.data$Score < vThreshold[4]) ~ 1,
         TRUE ~ 2
       )
     )
 
   dfFlagged <- dfFlagged %>%
-    arrange(match(.data$Flag, c(-2,2, 1, -1, 0)))
+    arrange(match(.data$Flag, c(-2, 2, 1, -1, 0)))
 
   return(dfFlagged)
 }
