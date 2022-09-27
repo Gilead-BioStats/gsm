@@ -32,6 +32,15 @@ Visualize_Scatter <- function(
 
   groupLabel <- ifelse(is.null(strGroupLabel), "GroupID: ", strGroupLabel)
 
+  #
+  flagBreaks <- as.character(unique(sort(dfFlagged$Flag)))
+
+  if (length(flagBreaks) == 5) {
+    flagValues <- c("red", "yellow", "#999999", "yellow", "red")
+  } else {
+    flagValues <- c("#999999", "red", "red")
+  }
+
   # Define tooltip for use in plotly.
   dfFlaggedWithTooltip <- dfFlagged %>%
     mutate(
@@ -62,8 +71,8 @@ Visualize_Scatter <- function(
     ) +
     theme(legend.position = "none") +
     scale_color_manual(
-      breaks = c("0", "-1", "1"),
-      values = c("#999999", "red", "red")
+      breaks = flagBreaks,
+      values = flagValues
     ) +
     # Add chart elements
     geom_point() +
