@@ -48,12 +48,9 @@ Flag_Fisher <- function(
 ) {
   stopifnot(
     "dfAnalyzed is not a data frame" = is.data.frame(dfAnalyzed),
-    "strColumn is not character" = is.character(strColumn),
     "vThreshold is not numeric" = is.numeric(vThreshold),
     "vThreshold must be length of 2" = length(vThreshold) == 2,
     "vThreshold cannot be NULL" = !is.null(vThreshold),
-    "strColumn must be length of 1" = length(strColumn) == 1,
-    "strColumn not found in dfAnalyzed" = strColumn %in% names(dfAnalyzed),
     "GroupID not found in dfAnalyzed" = "GroupID" %in% names(dfAnalyzed)
   )
 
@@ -64,12 +61,13 @@ Flag_Fisher <- function(
   }
 
   # Flag values outside the specified threshold.
-  vThresholds <- sort(vThresholds)
+  vThreshold <- sort(vThreshold)
+
   dfFlagged <- dfAnalyzed %>%
     mutate(
       Flag = case_when(
         .data$Score < vThreshold[1] ~ -2,
-        (.data$Score < vThreshold[1]) & (.data$score < vThreshold[2]) ~ -1,
+        (.data$Score < vThreshold[1]) & (.data$Score < vThreshold[2]) ~ -1,
         TRUE ~ 0
       )
     )
