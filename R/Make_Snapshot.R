@@ -99,7 +99,17 @@ bQuiet = TRUE
   #   "Sites in clinical data do not match sites in metadata" = unique(status_site$siteid) == unique(status_site_count$SiteID)
   # )
 
-  status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID"))
+  status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
+    select(
+      .data$studyid,
+      .data$siteid,
+      .data$enrolled_participants,
+      .data$planned_participants,
+      .data$start_date,
+      .data$country,
+      .data$region,
+      .data$invname
+    )
 
 
 # run Study_Assess() ------------------------------------------------------
@@ -157,7 +167,6 @@ bQuiet = TRUE
       studyid = .data$StudyID,
       workflowid = .data$KRIID,
       groupid = .data$GroupID,
-      n = .data$N,
       numerator = .data$Numerator,
       denominator = .data$Denominator,
       metric = .data$Metric,

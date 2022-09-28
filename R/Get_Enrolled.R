@@ -40,7 +40,7 @@ Get_Enrolled <- function(dfSUBJ, dfConfig, lMapping, strUnit, strBy) {
   } else if (strUnit == "participant" & strBy == "site") {
      enrolled <- dm %>%
       group_by(SiteID = .data[[lMapping$dfSUBJ$strSiteCol]]) %>%
-      summarize(n_enrolled_participants = n()) %>%
+      summarize(enrolled_participants = n()) %>%
       ungroup()
   }
 
