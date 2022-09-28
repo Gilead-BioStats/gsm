@@ -14,7 +14,7 @@ Transform_Count(dfInput, strCountCol, strGroupCol = "SiteID")
 \item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
 }
 \value{
-\code{data.frame} with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
+\code{data.frame} with one row per site with columns SiteID, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 }
 \description{
 Convert from input data format to needed input format to derive KRI for an Assessment.

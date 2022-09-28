@@ -33,7 +33,7 @@ Merge Domain data with subject-level data
 MergeSubjects(
   dfDomain = clindata::rawplus_consent,
   dfSUBJ = clindata::rawplus_dm,
-  strIDCol = "SubjectID"
+  strIDCol = "subjid"
 )
 
 }

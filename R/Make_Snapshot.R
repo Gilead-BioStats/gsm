@@ -22,7 +22,7 @@
 #' @export
 Make_Snapshot <- function(lMeta = list(
   config_params = gsm::config_param,
-  config_schedule = NULL,
+  config_schedule = clindata::ctms_schedule,
   config_workflow = gsm::config_workflow,
   meta_params = gsm::meta_param,
   meta_site = clindata::ctms_site,
@@ -84,7 +84,8 @@ bQuiet = TRUE
     )
 
 # status_site -------------------------------------------------------------
-  status_site <- lMeta$meta_site
+  status_site <- lMeta$meta_site %>%
+    mutate(siteid = as.character(siteid))
   status_site_count <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
     dfConfig = lMeta$config_param,

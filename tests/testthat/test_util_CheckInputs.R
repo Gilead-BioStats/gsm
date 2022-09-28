@@ -18,7 +18,7 @@ test_that("output is created as expected", {
 
   expect_true(checks$status)
   expect_true(checks$dfInput$status)
-  expect_equal(names(checks), c("dfInput", "status", "mapping"))
+  expect_equal(names(checks), c("dfInput", "status", "mapping", "spec"))
   expect_type(checks$dfInput, "list")
   expect_type(checks$status, "logical")
   expect_true(all(map_lgl(checks$dfInput$tests_if, pluck("status"))))
@@ -42,7 +42,7 @@ test_that("output is created as expected", {
   expect_true(checks$status)
   expect_true(checks$dfIE$status)
   expect_true(checks$dfSUBJ$status)
-  expect_equal(names(checks), c("dfIE", "dfSUBJ", "status", "mapping"))
+  expect_equal(names(checks), c("dfIE", "dfSUBJ", "status", "mapping", "spec"))
   expect_type(checks$dfIE, "list")
   expect_type(checks$dfSUBJ, "list")
   expect_type(checks$status, "logical")
@@ -55,15 +55,16 @@ test_that("incorrect inputs throw errors", {
   expect_error(CheckInputs(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ)))
   expect_error(CheckInputs(context = "AE_Assess"))
   expect_error(CheckInputs(context = "AE_Assess", dfs = AE_Map_Raw(), bQuiet = "no"))
-  expect_false(CheckInputs(context = "IE_Assess", dfs = list(clindata::rawplus_ae, clindata::rawplus_subj))[["status"]])
+  expect_false(CheckInputs(context = "IE_Assess", dfs = list(clindata::rawplus_ae, clindata::rawplus_dm))[["status"]])
 })
 
 
 # common errors are caught ------------------------------------------------
 test_that("common errors are caught", {
+  mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
   dfInput <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
   dfInput$SubjectID[1] <- NA
-  check_na <- CheckInputs(context = "AE_Assess", dfs = list(dfInput = dfInput))
+  check_na <- CheckInputs(context = "AE_Assess", dfs = list(dfInput = dfInput), mapping = mapping)
   expect_false(check_na$status)
   expect_false(check_na$dfInput$status)
   expect_equal(
@@ -77,8 +78,8 @@ test_that("more than 2 data.frames are mapped accordingly", {
   dfInput <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
 
   expect_equal(dfInput, dfInputThree)
-  expect_equal(class(dfInput), "data.frame")
-  expect_equal(class(dfInputThree), "data.frame")
+  expect_equal(class(dfInput), c("tbl_df", "tbl", "data.frame"))
+  expect_equal(class(dfInputThree), c("tbl_df", "tbl", "data.frame"))
 })
 
 test_that("unnamed list objects return FALSE", {

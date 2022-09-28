@@ -13,7 +13,7 @@
 #' MergeSubjects(
 #'   dfDomain = clindata::rawplus_consent,
 #'   dfSUBJ = clindata::rawplus_dm,
-#'   strIDCol = "SubjectID"
+#'   strIDCol = "subjid"
 #' )
 #'
 #' @importFrom cli cli_alert_info cli_alert_warning

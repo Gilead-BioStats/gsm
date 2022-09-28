@@ -1,6 +1,3 @@
-tags:
-  Assessment: Consent
-  Label: Consent
 workflow:
   - name: Consent_Map_Raw
     inputs:

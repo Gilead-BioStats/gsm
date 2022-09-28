@@ -1,6 +1,3 @@
-tags:
-  Assessment: Safety
-  Label: AEs QTL
 workflow:
   - name: FilterDomain
     inputs: dfAE
@@ -21,4 +18,3 @@ workflow:
       strGroup: "CustomGroup" #this would be SiteID or CustomGroupID, placeholder to show how it handles other vars found in AE_Map_Raw() output
       vThreshold: null
       strMethod: "poisson"
-      strKRILabel: "Treatment-Emergent AEs/Week"

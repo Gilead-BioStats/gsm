@@ -11,11 +11,11 @@
 #' @examples
 #' ae <- AE_Map_Raw() %>% AE_Assess(vThreshold = c(-8, 8))
 #'
-#' Visualize_Score(ae$dfFlagged) # visualize KRI (default)
-#' Visualize_Score(ae$dfFlagged, bFlagFilter = TRUE) # drop non-flagged groups
+#' Visualize_Score(ae$lData$dfFlagged) # visualize KRI (default)
+#' Visualize_Score(ae$lData$dfFlagged, bFlagFilter = TRUE) # drop non-flagged groups
 #'
 #' consent <- Consent_Map_Raw() %>% Consent_Assess()
-#' Visualize_Score(consent$dfFlagged, strType = "score") # visualize score
+#' Visualize_Score(consent$lData$dfFlagged, strType = "score") # visualize score
 #'
 #' @import ggplot2
 #' @importFrom stats reorder
@@ -65,13 +65,7 @@ Visualize_Score <- function(
         stat = "identity"
       ) +
       geom_hline(
-        yintercept = (
-          if (all(c("Numerator", "Denominator") %in% names(dfFlagged))) {
-            sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator)
-          } else {
-            sum(dfFlagged$N) / sum(dfFlagged$TotalCount)
-          }
-        ),
+        yintercept = sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator),
         linetype = "dashed",
         color = "red",
         size = 1

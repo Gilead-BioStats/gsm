@@ -3,71 +3,40 @@
     Code
       tbl$df_summary$Title
     Output
-       [1] "Number of Subjects"                   
-       [2] "Score"                                
-       [3] "Non-serious AE Reporting Rate"        
-       [4] "--AEs"                                
-       [5] "SAE Reporting Rate"                   
-       [6] "--AEs"                                
-       [7] "Non-important Protocol Deviation Rate"
-       [8] "--PD"                                 
-       [9] "Important Protocol Deviation Rate"    
-      [10] "--Important PD"                       
-      [11] "Subject Discontinuation"              
-      [12] "--Study"                              
-      [13] "Subject Treatment Discontinuation"    
-      [14] "--Treatment"                          
+       [1] "Number of Subjects" "Score"              "kri0001"           
+       [4] NA                   "kri0002"            NA                  
+       [7] "kri0003"            NA                   "kri0004"           
+      [10] NA                  
 
 # bFormat works
 
     Code
-      tbl$df_summary$X010X
+      tbl$df_summary$`166`
     Output
-       [1] "1" "6" "*" "+" "*" "+" "*" "+" "*" "+" "*" "+" "*" "+"
+       [1] "1" "4" "*" "+" "*" "+" "*" "+" "*" "+"
 
 # bShowCounts works
 
     Code
       tbl$df_summary$Title
     Output
-       [1] "Score"                                
-       [2] "Non-serious AE Reporting Rate"        
-       [3] "--AEs"                                
-       [4] "SAE Reporting Rate"                   
-       [5] "--AEs"                                
-       [6] "Non-important Protocol Deviation Rate"
-       [7] "--PD"                                 
-       [8] "Important Protocol Deviation Rate"    
-       [9] "--Important PD"                       
-      [10] "Subject Discontinuation"              
-      [11] "--Study"                              
-      [12] "Subject Treatment Discontinuation"    
-      [13] "--Treatment"                          
+      [1] "Score"   "kri0001" NA        "kri0002" NA        "kri0003" NA       
+      [8] "kri0004" NA       
 
 ---
 
     Code
       tblCounts$df_summary$Title
     Output
-       [1] "Number of Subjects"                   
-       [2] "Score"                                
-       [3] "Non-serious AE Reporting Rate"        
-       [4] "--AEs"                                
-       [5] "SAE Reporting Rate"                   
-       [6] "--AEs"                                
-       [7] "Non-important Protocol Deviation Rate"
-       [8] "--PD"                                 
-       [9] "Important Protocol Deviation Rate"    
-      [10] "--Important PD"                       
-      [11] "Subject Discontinuation"              
-      [12] "--Study"                              
-      [13] "Subject Treatment Discontinuation"    
-      [14] "--Treatment"                          
+       [1] "Number of Subjects" "Score"              "kri0001"           
+       [4] NA                   "kri0002"            NA                  
+       [7] "kri0003"            NA                   "kri0004"           
+      [10] NA                  
 
 # vSiteScoreThreshold works
 
     Code
       names(tbl$df_summary)
     Output
-      [1] "Title" "X010X" "X102X" "X999X"
+      [1] "Title" "166"   "76"    "86"   
 

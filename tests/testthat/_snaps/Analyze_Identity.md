@@ -3,13 +3,12 @@
     Code
       Analyze_Identity(dfTransformed, bQuiet = FALSE)
     Message <cliMessage>
-      `Score` column created from `KRI`.
-      `ScoreLabel` column created from `KRILabel`.
+      `Score` column created from `Metric`.
     Output
-      # A tibble: 3 x 8
-        GroupID GroupLabel     N TotalCount   KRI KRILabel   Score ScoreLabel
-        <chr>   <chr>      <int>      <dbl> <dbl> <chr>      <dbl> <chr>     
-      1 X010X   SiteID         1          1     1 Test Label     1 Test Label
-      2 X102X   SiteID         1          1     1 Test Label     1 Test Label
-      3 X999X   SiteID         1          1     1 Test Label     1 Test Label
+      # A tibble: 3 x 5
+        GroupID     N TotalCount Metric Score
+        <chr>   <int>      <dbl>  <dbl> <dbl>
+      1 166         1          0      0     0
+      2 76          1          0      0     0
+      3 86          1          1      1     1
 

@@ -3,31 +3,29 @@ sae_meta <- yaml::read_yaml(system.file("workflow/experimental/sae.yaml", packag
 rawDataMap <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 dfAE <- dfAE %>%
-  tidyr::expand(dfAE, ae_serious = dfAE$AE_SERIOUS)
+  tidyr::expand(dfAE, ae_serious = dfAE$aeser)
 
 dfAE <- dfAE %>%
-  tidyr::expand(dfAE, ae_te_flag = dfAE$AE_TE_FLAG) %>%
-  select(-c(AE_SERIOUS, AE_TE_FLAG)) %>%
-  rename(
-    AE_SERIOUS = ae_serious,
-    AE_TE_FLAG = ae_te_flag
-  )
+  tidyr::expand(dfAE, ae_te_flag = dfAE$ae_te) %>%
+  select(-c(ae_serious, ae_te_flag))
 
 # Valid Assessment Input
 aeData <- list(dfSUBJ = dfSUBJ, dfAE = dfAE)
-sae <- RunAssessment(sae_meta, lData = aeData, lMapping = rawDataMap, bQuiet = TRUE)
+sae <- RunAssessment(sae_meta, lData = aeData, lMapping = rawDataMap, bQuiet = TRUE) %>%
+  suppressWarnings()
 
 # Invalid Assessment Input
 aeData_inv <- list(dfSUBJ = dfSUBJ, dfAE = dfAE)
-aeData_inv$dfAE$SubjectID[1:15] <- NA
+aeData_inv$dfAE$subjid <- NA
 
 
-sae_inv <- RunAssessment(sae_meta, lData = aeData_inv, lMapping = rawDataMap, bQuiet = TRUE)
+sae_inv <- RunAssessment(sae_meta, lData = aeData_inv, lMapping = rawDataMap, bQuiet = TRUE) %>%
+  suppressWarnings()
 
 
 test_that("Assessment data filtered as expected", {
   te_ae <- dfAE %>%
-    filter(.data$AE_TE_FLAG == TRUE & .data$AE_SERIOUS == "Yes")
+    filter(.data$ae_te == "Y" & .data$aeser == "Y")
 
   expect_equal(sae$lData$dfAE %>% nrow(), te_ae %>% nrow())
 })
@@ -40,19 +38,19 @@ test_that("Assessment correctly labeled as valid", {
 test_that("workflow with multiple FilterDomain steps is reported correctly", {
   dfAE <- data.frame(
     stringsAsFactors = FALSE,
-    SubjectID = c("1234", "1234", "5678", "5678"),
-    AE_SERIOUS = c("Yes", "Yes", "Yes", "Yes"),
-    AE_TE_FLAG = c(TRUE, TRUE, FALSE, TRUE),
-    AE_GRADE = c(1, 3, 1, 4)
+    subjid = c("1234", "1234", "5678", "5678"),
+    aeser = c("Yes", "Yes", "Yes", "Yes"),
+    ae_te = c(TRUE, TRUE, FALSE, TRUE),
+    aetoxgr = c(1, 3, 1, 4)
   )
 
   dfSUBJ <- data.frame(
     stringsAsFactors = FALSE,
-    SubjectID = c("1234", "5678", "9876"),
-    SiteID = c("X010X", "X102X", "X999X"),
-    TimeOnTreatment = c(3455, 1745, 1233),
-    TimeOnStudy = c(1234, 2345, 4567),
-    RandDate = c("2012-09-02", "2017-05-08", "2018-05-20")
+    subjid = c("1234", "5678", "9876"),
+    siteid = c("X010X", "X102X", "X999X"),
+    timeontreatment = c(3455, 1745, 1233),
+    timeonstudy = c(1234, 2345, 4567),
+    rfpen_dt = c("2012-09-02", "2017-05-08", "2018-05-20")
   )
 
   lAssessments <- MakeAssessmentList(bRecursive = TRUE, strNames = "sae")
@@ -61,13 +59,11 @@ test_that("workflow with multiple FilterDomain steps is reported correctly", {
     dfAE = dfAE,
     dfSUBJ = dfSUBJ
   )
-  lTags <- list(
-    Study = "myStudy"
-  )
+
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 
-  sae_assessment <- RunAssessment(lAssessments$sae, lData = lData, lMapping = lMapping, lTags = lTags, bQuiet = TRUE)
+  sae_assessment <- RunAssessment(lAssessments$sae, lData = lData, lMapping = lMapping,  bQuiet = TRUE)
 
-  expect_equal(names(sae_assessment$checks), c("FilterDomain", "FilterDomain", "AE_Map_Raw", "AE_Assess"))
+  expect_equal(names(sae_assessment$lChecks), c("FilterDomain", "FilterDomain", "AE_Map_Raw", "AE_Assess", "flowchart"))
 })

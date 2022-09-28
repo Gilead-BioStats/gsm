@@ -33,7 +33,7 @@ Study_Assess <- function(
   # lData from clindata
   if (is.null(lData)) {
     lData <- list(
-      dfSUBJ = clindata::rawplus_dm %>% filter(!is.na(timeontreatment)),
+      dfSUBJ = clindata::rawplus_dm,
       dfAE = clindata::rawplus_ae,
       dfPD = clindata::rawplus_protdev,
       dfCONSENT = clindata::rawplus_consent,

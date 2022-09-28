@@ -11,20 +11,30 @@ Flag_Poisson(dfAnalyzed, vThreshold = NULL)
 
 \item{vThreshold}{Vector of 4 numeric values representing lower and upper threshold values. All
 values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.}
+
+\item{strColumn}{Name of the column to use for thresholding.}
 }
 \value{
-\code{data.frame} with \code{Flag} column added
+\code{data.frame} with "Flag" column added
 }
 \description{
 Add columns flagging sites that represent possible statistical outliers.
 }
 \details{
-This function provides a generalized framework for flagging sites as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
+This function flags sites based on the Poisson analysis result as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
 }
 \section{Data Specification}{
 
-\code{Flag} is designed to support the input data (\code{dfAnalyzed}) from many different
-\code{Analyze} functions.  dfTransformed must have a \code{score} column.
+\code{Flag} is designed to support the input data (\code{dfAnalyzed}) from \code{Analyze_Poisson} function.
+At a minimum, the input data must have a \code{SiteID} column and a column of numeric values (identified
+by the \code{strColumn} parameter) that will be compared to the specified thresholds (\code{vThreshold}) to
+calculate a new \code{Flag} column.
+In short, the following columns are considered:
+\itemize{
+\item \code{GroupID} - Group ID (required)
+\item \code{strColumn} - A column to use for Thresholding (required)
+\item 'strValueColumn' - A column to be used for the sign of the flag (optional)#'
+}
 }
 
 \examples{

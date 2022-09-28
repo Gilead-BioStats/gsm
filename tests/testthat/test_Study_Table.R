@@ -7,27 +7,22 @@ lData <- list(
   dfCONSENT = dfCONSENT,
   dfIE = dfIE,
   dfPD = dfPD,
-  dfDISP = dfDISP,
   dfSUBJ = dfSUBJ
 )
 
-results <- Study_Assess(lAssessments = lAssessments, lData = lData, bQuiet = TRUE) %>%
-  purrr::map(~ .x$lResults) %>%
+results <- suppressWarnings(
+  Study_Assess(lAssessments = lAssessments, lData = lData, bQuiet = TRUE)
+  ) %>%
+  purrr::map(~.x$lResults) %>%
+  purrr::discard(is.null) %>%
   purrr::compact() %>%
-  purrr::map_df(~ .x$dfSummary) %>%
-  filter(!is.nan(Score)) %>% # Disp_Assess() for study is returning NaN for Score and failing Study_Table
-  suppressMessages() %>%
+  purrr::map_df(~ .x$lData$dfSummary, .id = 'Assessment') %>%
   mutate(Flag = 1) # none of the test data is flagged - quick fix for now.
 
 test_that("Study Table Runs as expected", {
   tbl <- Study_Table(results)
   expect_true(is.data.frame(tbl$df_summary))
   expect_null(tbl$footnote)
-  expect_equal(
-    names(tbl$df_summary),
-    c("Title", "X010X", "X102X", "X999X")
-  )
-
   expect_snapshot(tbl$df_summary$Title)
 })
 
@@ -42,7 +37,7 @@ test_that("incorrect inputs throw errors", {
 
 test_that("bFormat works", {
   tbl <- Study_Table(dfFindings = results, bFormat = FALSE)
-  expect_snapshot(tbl$df_summary$X010X)
+  expect_snapshot(tbl$df_summary$`166`)
 })
 
 test_that("bShowCounts works", {

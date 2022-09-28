@@ -1,6 +1,3 @@
-tags:
-  Assessment: PD
-  Label: PDs by Category
 group:
   domain: dfPD
   columnParam: strCategoryCol
@@ -17,4 +14,3 @@ workflow:
       strGroup: "Site"
       vThreshold: null
       strMethod: "poisson"
-      strKRILabel: "PDs/Week"

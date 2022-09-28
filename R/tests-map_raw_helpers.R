@@ -142,6 +142,8 @@ test_logical_parameters <- function(map_function, dfs) {
 }
 
 subset_input_mapping <- function(input_spec, mapping_domain = "mapping_rawplus.yaml") {
-  yaml::read_yaml(system.file("mappings", mapping_domain, package = "gsm")) %>%
-    tidyselect:::select(contains(names(input_spec)))
+  mapping <- yaml::read_yaml(system.file("mappings", mapping_domain, package = "gsm"))
+  mapping_subset <- mapping[names(input_spec)]
+  return(mapping_subset)
 }
+

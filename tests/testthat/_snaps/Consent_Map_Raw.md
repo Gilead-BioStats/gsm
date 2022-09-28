@@ -117,7 +117,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol"]
             }
           },
           "value": [
@@ -150,6 +150,11 @@
               "type": "character",
               "attributes": {},
               "value": ["rfpen_dt"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
             }
           ]
         }

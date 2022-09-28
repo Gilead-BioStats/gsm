@@ -22,16 +22,15 @@ reference:
    - title: Analyze
      desc: Conduct statistical analysis based on input data
    - contents:
-      - Analyze_Chisq
       - Analyze_Identity
       - Analyze_Fisher
       - Analyze_Poisson
-      - Analyze_Wilcoxon
 
    - title: Data Pipeline
      desc: Create site-level summary, analyzed, and flagged data for an assessment
    - contents:
-      - Transform_EventCount
+      - Transform_Count
+      - Transform_Rate
       - Flag
       - Summarize
 
@@ -60,6 +59,7 @@ reference:
       - parse_data_mapping
       - parse_data_spec
       - generate_md_table
+      - RemoveInvalidSubjectIDs
 
    - title: Data
      desc: Metadata used to create workflows

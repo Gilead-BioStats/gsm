@@ -10,6 +10,8 @@ Flag_Fisher(dfAnalyzed, vThreshold = NULL)
 \item{dfAnalyzed}{data.frame where flags should be added.}
 
 \item{vThreshold}{Vector of 2 numeric values representing lower and upper p-value thresholds.}
+
+\item{strColumn}{Name of the column to use for thresholding.}
 }
 \value{
 \code{data.frame} with "Flag" column added
@@ -18,16 +20,15 @@ Flag_Fisher(dfAnalyzed, vThreshold = NULL)
 Add columns flagging sites that represent possible statistical outliers.
 }
 \details{
-This function provides a generalized framework for flagging sites as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
+This function flags sites based on the Fisher's exact test result as part of
+the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
 }
 \section{Data Specification}{
 
-\code{Flag} is designed to support the input data (\code{dfAnalyzed}) from many different
-\code{Analyze} functions. At a minimum, the input data must have a \code{SiteID} column and a column
-of numeric values (identified by the \code{strColumn} parameter) that will be compared to the
-specified thresholds (\code{vThreshold}) to calculate a new \code{Flag} column. Optionally, a second column
-of numeric values (identified by \code{strValueColumn}) can be specified to set the directionality of
-the \code{Flag}.
+\code{Flag} is designed to support the input data (\code{dfAnalyzed}) from \code{Analyze_Fisher} function.
+At a minimum, the input data must have a \code{SiteID} column and a column of numeric values (identified
+by the \code{strColumn} parameter) that will be compared to the specified thresholds (\code{vThreshold}) to
+calculate a new \code{Flag} column.
 
 In short, the following columns are considered:
 \itemize{

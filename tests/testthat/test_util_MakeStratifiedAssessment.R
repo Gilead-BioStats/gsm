@@ -1,5 +1,5 @@
 lData <- list(
-  dfSUBJ = clindata::rawplus_subj,
+  dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae
 )
 StrataWorkflow <- MakeAssessmentList(bRecursive = TRUE, strNames = "aeGrade")$aeGrade
@@ -17,7 +17,7 @@ test_that("output is created as expected", {
   # New workflow created for each stratification level
   expect_equal(
     length(strat),
-    length(unique(clindata::rawplus_ae$AE_GRADE))
+    length(unique(clindata::rawplus_ae$aetoxgr))
   )
 
   # FilterData added as first step in each workflow

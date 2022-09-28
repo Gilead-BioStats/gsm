@@ -21,7 +21,7 @@ Transform_Rate(
 \item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
 }
 \value{
-\code{data.frame} with one row per site with columns SiteID, N, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
+\code{data.frame} with one row per site with columns SiteID, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
 }
 \description{
 Calculate a site-level Rate
