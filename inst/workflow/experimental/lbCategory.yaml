@@ -1,6 +1,3 @@
-tags:
-  Assessment: LB
-  Label: LB Category
 group:
   domain: dfLB
   columnParam: strCategoryCol

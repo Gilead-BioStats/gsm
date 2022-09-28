@@ -1,7 +1,3 @@
-tags:
-  Assessment: SAE Reporting Rate
-  Label: AEs
-  KRIID: kri0002
 workflow:
   - name: FilterDomain
     inputs: dfAE

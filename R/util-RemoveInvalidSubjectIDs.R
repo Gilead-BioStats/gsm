@@ -10,7 +10,8 @@
 #'
 #' @examples
 #' RemoveInvalidSubjectIDs(
-#'   clindata::protdev,
+#'   clindata::rawplus_protdev,
+#'   strIDCol = "subjid",
 #'   bQuiet = FALSE
 #' )
 #'
@@ -22,7 +23,7 @@
 RemoveInvalidSubjectIDs <- function(
     df,
     strDomain = 'input',
-    strIDCol = "SubjectID",
+    strIDCol = "subjid",
     strInvalidValues = '',
     bQuiet = TRUE
 ) {

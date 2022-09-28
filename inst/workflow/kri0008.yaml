@@ -1,7 +1,3 @@
-tags:
-  Assessment: Subject Treatment Discontinuation
-  Label: Treatment
-  KRIID: kri0008
 workflow:
   - name: FilterDomain
     inputs: dfSDRGCOMP

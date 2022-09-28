@@ -1,6 +1,3 @@
-tags:
-  Assessment: IE
-  Label: IE
 workflow:
   - name: IE_Map_Raw
     inputs:

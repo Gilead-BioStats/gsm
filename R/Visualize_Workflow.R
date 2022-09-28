@@ -13,14 +13,12 @@
 #'   dfCONSENT = clindata::rawplus_consent,
 #'   dfIE = clindata::rawplus_ie
 #' )
-#' lTags <- list(
-#'   Study = "myStudy"
-#' )
 #' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 #'
-#' kri0001 <- RunAssessment(lAssessments$kri0001, lData = lData, lMapping = lMapping, lTags = lTags)
-#'
+#' kri0001 <- RunAssessment(lAssessments$kri0001, lData = lData, lMapping = lMapping)
+#'\dontrun{
 #' Visualize_Workflow(list(kri0001 = kri0001))
+#'}
 #'
 #' @importFrom DiagrammeR create_node_df create_graph render_graph
 #' @importFrom utils head
@@ -29,10 +27,14 @@
 #' @export
 
 Visualize_Workflow <- function(lAssessments) {
+
+
   if (!is.null(lAssessments[[1]][["workflow"]])) {
     dfFlowchart <- map(lAssessments, function(studyObject) {
+
+
       name <- studyObject[["name"]]
-      checks <- studyObject[["checks"]]
+      checks <- studyObject[["lChecks"]]
       workflow <- studyObject[["workflow"]]
 
       # rename workflow when checks are missing
@@ -108,6 +110,7 @@ Visualize_Workflow <- function(lAssessments) {
     # create_node_df for flowchart
     # add custom labels/tooltips
     flowchart <- map(dfFlowchart, function(assessment) {
+
       df <- DiagrammeR::create_node_df(
         n = nrow(assessment),
         type = "a",

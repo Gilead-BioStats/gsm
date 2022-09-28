@@ -1,7 +1,3 @@
-tags:
-  Assessment: Lab Abnormality Rate
-  Label: LB
-  KRIID: kri0005
 workflow:
   - name: LB_Map_Raw
     inputs:

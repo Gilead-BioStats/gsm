@@ -10,8 +10,8 @@
 #'
 #' subset <- FilterData(
 #'   dfInput = clindata::rawplus_ae,
-#'   strCol = "AE_SERIOUS",
-#'   anyVal = "No"
+#'   strCol = "aeser",
+#'   anyVal = "N"
 #' )
 #'
 #' @return `data.frame` Data frame provided as `dfInput` and filtered on `strCol` == `anyVal`.
