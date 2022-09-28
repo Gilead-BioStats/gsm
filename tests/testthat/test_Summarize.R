@@ -16,14 +16,14 @@ test_that("output created as expected and has correct structure", {
   expect_true(is.data.frame(ae_default))
   expect_equal(
     names(ae_default),
-    c("GroupID", "N", "Metric", "Score", "Flag")
+    c("GroupID", "Metric", "Score", "Flag")
     )
   expect_equal(sort(unique(ae_input$SiteID)), sort(ae_default$GroupID))
 
   ae_finding <- Summarize(dfFlagged, strScoreCol = "Score")
   expect_true(is.data.frame(ae_finding))
   expect_equal(names(ae_finding),
-               c("GroupID", "N", "Metric", "Score", "Flag")
+               c("GroupID",  "Metric", "Score", "Flag")
                )
   expect_equal(sort(unique(ae_input$SiteID)), sort(ae_finding$GroupID))
 })

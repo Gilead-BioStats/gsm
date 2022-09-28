@@ -37,6 +37,8 @@ Visualize_Score <- function(
     "strType must be length 1" = length(strType) == 1
   )
 
+
+
   if (bFlagFilter) {
     dfFlagged <- dfFlagged %>%
       filter(
@@ -54,6 +56,7 @@ Visualize_Score <- function(
         )
       )
 
+
     p <- dfFlaggedWithTooltip %>%
       ggplot(
         aes(
@@ -63,16 +66,21 @@ Visualize_Score <- function(
       ) +
       geom_bar(
         stat = "identity"
-      ) +
-      geom_hline(
+      )  +
+      ylab(
+        "Metric"
+      )
+
+    if (all(c("Numerator", "Denominator") %in% names(dfFlagged))) {
+      p <- p +
+        geom_hline(
         yintercept = sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator),
         linetype = "dashed",
         color = "red",
         size = 1
-      ) +
-      ylab(
-        "Metric"
       )
+    }
+
   }
 
   if (strType == "score") {

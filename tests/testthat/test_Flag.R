@@ -18,7 +18,7 @@ test_that("output is created as expected", {
   expect_true(all(names(dfPoisson) %in% names(flag)))
   expect_equal(
     names(flag),
-    c("GroupID", "N", "Numerator", "Denominator", "Metric", "Score",
+    c("GroupID", "Numerator", "Denominator", "Metric", "Score",
       "PredictedCount", "Flag")
   )
 })
