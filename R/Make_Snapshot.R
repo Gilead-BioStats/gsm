@@ -136,7 +136,7 @@ bQuiet = TRUE
   )
 
   # add line below to parseWorkflowStatus function
-  parseStatus <- purrr::imap(lResults, \(x, y) tibble(workflowid = y, status = x$bStatus)) %>%
+  parseStatus <- purrr::imap(lResults, function(x, y) tibble(workflowid = y, status = x$bStatus)) %>%
     bind_rows()
 
   # lWorkflowStatus <- parseWorkflowStatus(lResults)
