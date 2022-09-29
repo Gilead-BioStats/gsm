@@ -896,7 +896,7 @@
       v `Transform_Rate()` returned output with 10 rows.
       i Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ].
       v `Analyze_Poisson()` returned output with 10 rows.
-      v `Flag()` returned output with 10 rows.
+      v `Flag_Poisson()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
@@ -954,7 +954,7 @@
       v `Transform_Rate()` returned output with 10 rows.
       i Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ].
       v `Analyze_Poisson()` returned output with 10 rows.
-      v `Flag()` returned output with 10 rows.
+      v `Flag_Poisson()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.

@@ -7,7 +7,6 @@
 \format{
 A data frame with 8 rows and 12 variables:
 \describe{
-\item{studyid}{Study ID}
 \item{workflowid}{Workflow ID}
 \item{gsm_version}{Version of \code{gsm} that the workflow will be run on.}
 \item{group}{Description of grouping variable: \code{Site}, \code{Study}, or \code{CustomGroup}.}

@@ -30,7 +30,7 @@ group-level plot object.
 Group-level visualization of scores.
 }
 \examples{
-ae <- AE_Map_Raw() \%>\% AE_Assess(vThreshold = c(-8, 8))
+ae <- AE_Map_Raw() \%>\% AE_Assess(vThreshold = c(-8, -5, 5, 8))
 
 Visualize_Score(ae$lData$dfFlagged) # visualize KRI (default)
 Visualize_Score(ae$lData$dfFlagged, bFlagFilter = TRUE) # drop non-flagged groups

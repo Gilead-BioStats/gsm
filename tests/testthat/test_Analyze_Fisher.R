@@ -19,11 +19,10 @@ test_that("output created as expected and has correct structure", {
   output <- Analyze_Fisher(df)
 
   expect_true(is.data.frame(df))
-  expect_equal(names(output), c("GroupID", "N", "Numerator", "Numerator_Other", "Denominator",
+  expect_equal(names(output), c("GroupID", "Numerator", "Numerator_Other", "Denominator",
                                 "Denominator_Other", "Prop", "Prop_Other", "Metric", "Estimate",
-                                "Score", "ScoreLabel"))
+                                "Score"))
   expect_type(df$GroupID, "character")
-  expect_type(df$N, "integer")
   expect_equal(df$GroupID, c("166", "76", "86"))
 })
 

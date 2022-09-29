@@ -1,11 +1,11 @@
 #' Fisher's Exact Test Analysis
 #'
 #' @details
-#' Creates Analysis results data for count data using the Fisher's exact test
+#' Creates analysis results data for count data using the Fisher's exact test.
 #'
 #' @details
 #'
-#' Analyzes count data using the Fisher's exact test
+#' Analyzes count data using the Fisher's exact test.
 #'
 #' @section Statistical Methods:
 #'
@@ -14,16 +14,16 @@
 #' @section Data Specification:
 #'
 #' The input data (`dfTransformed`) for Analyze_Fisher is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
-#' - `GroupID` - GroupID from `dfTransformed`
-#' - `N` - Total number of participants at site
+#' - `GroupID` - Site ID
 #' - `Numerator` - Total number of participants at site with event of interest
-#'
+#' - `Denominator` - TBD
+#' - `Metric` - TBD
 #'
 #' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
-#' @param strOutcome `character` required, name of column in dfTransformed dataset to perform Fisher test on. Default is "Numerator".
+#' @param strOutcome `character` required, name of column in dfTransformed dataset to perform Fisher's exact test on. Default is "Numerator".
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` with one row per site with columns: GroupID, Numerator, Numerator_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
+#' @return `data.frame` with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, Score.
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
@@ -50,7 +50,7 @@ Analyze_Fisher <- function(
 ) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns: GroupID, N, or the value in strOutcome not found in dfTransformed" = all(c("GroupID", "N", strOutcome) %in% names(dfTransformed)),
+    "GroupID or the value in strOutcome not found in dfTransformed" = all(c("GroupID", strOutcome) %in% names(dfTransformed)),
     "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]])),
     "strOutcome must be length 1" = length(strOutcome) == 1,
     "strOutcome is not character" = is.character(strOutcome)
@@ -83,13 +83,11 @@ Analyze_Fisher <- function(
       Numerator_Other = .data$Numerator_All - .data$Numerator,
       Denominator_Other = .data$Denominator_All - .data$Denominator,
       Prop = .data$Numerator / .data$Denominator,
-      Prop_Other = .data$Numerator_Other / .data$Denominator_Other,
-      ScoreLabel = "P value"
+      Prop_Other = .data$Numerator_Other / .data$Denominator_Other
     ) %>%
     arrange(.data$Score) %>%
     select(
       .data$GroupID,
-      .data$N,
       .data$Numerator,
       .data$Numerator_Other,
       .data$Denominator,
@@ -98,8 +96,7 @@ Analyze_Fisher <- function(
       .data$Prop_Other,
       .data$Metric,
       .data$Estimate,
-      .data$Score,
-      .data$ScoreLabel
+      .data$Score
     )
 
   return(dfAnalyzed)

@@ -48,10 +48,14 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
   # TODO: Add check for unique Site + Label + SiteID
 
 
+
   # Get site counts
+  #TODO - temp fix below at summarize(Flag = first(.data$Flag))
+  #Need to calculate # of patients at site
+
   df_counts <- dfFindings %>%
     group_by(.data$GroupID) %>%
-    summarize(Flag = first(.data$N)) %>%
+    summarize(Flag = first(.data$Flag)) %>%
     mutate(
       Assessment = "Number of Subjects",
       Label = "Number of Subjects",

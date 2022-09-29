@@ -9,20 +9,20 @@ Analyze_Fisher(dfTransformed, strOutcome = "Numerator", bQuiet = TRUE)
 \arguments{
 \item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}}
 
-\item{strOutcome}{\code{character} required, name of column in dfTransformed dataset to perform Fisher test on. Default is "Numerator".}
+\item{strOutcome}{\code{character} required, name of column in dfTransformed dataset to perform Fisher's exact test on. Default is "Numerator".}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one row per site with columns: GroupID, Numerator, Numerator_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
+\code{data.frame} with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, Score.
 }
 \description{
 Fisher's Exact Test Analysis
 }
 \details{
-Creates Analysis results data for count data using the Fisher's exact test
+Creates analysis results data for count data using the Fisher's exact test.
 
-Analyzes count data using the Fisher's exact test
+Analyzes count data using the Fisher's exact test.
 }
 \section{Statistical Methods}{
 
@@ -35,9 +35,10 @@ TODO Coming soon ...
 
 The input data (\code{dfTransformed}) for Analyze_Fisher is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
 \itemize{
-\item \code{GroupID} - GroupID from \code{dfTransformed}
-\item \code{N} - Total number of participants at site
+\item \code{GroupID} - Site ID
 \item \code{Numerator} - Total number of participants at site with event of interest
+\item \code{Denominator} - TBD
+\item \code{Metric} - TBD
 }
 }
 

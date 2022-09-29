@@ -10,14 +10,13 @@
 #'
 #' (`dfFlagged`) has the following required columns:
 #' - `GroupID` - Group ID
-#' - `N` - Total number of participants at site
 #' - `Flag` - Flagging value of -1, 0, or 1
 #' - `strScoreCol` - Column from analysis results.
 #'
 #' @param dfFlagged data.frame in format produced by \code{\link{Flag}}
 #' @param strScoreCol column from analysis results to be copied to `dfSummary$Score`
 #'
-#' @return Simplified finding data.frame with columns for GroupID, N, Metric, Score, Flag
+#' @return Simplified finding data.frame with columns for GroupID, Metric, Score, Flag
 #' when associated with a workflow.
 #'
 #' @examples
@@ -42,13 +41,12 @@
 Summarize <- function(dfFlagged, strScoreCol = "Score") {
   stopifnot(
     "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
-    "One or more of these columns: GroupID, N, Flag , strScoreCol, not found in dfFlagged" = all(c("GroupID", "N", "Flag", strScoreCol) %in% names(dfFlagged))
+    "One or more of these columns: GroupID, Flag , strScoreCol, not found in dfFlagged" = all(c("GroupID", "Flag", strScoreCol) %in% names(dfFlagged))
   )
 
   dfSummary <- dfFlagged %>%
     select(
       .data$GroupID,
-      .data$N,
       .data$Metric,
       .data$Score,
       .data$Flag

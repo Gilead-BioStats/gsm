@@ -34,7 +34,6 @@
 #'
 #' @format A data frame with 8 rows and 12 variables:
 #' \describe{
-#'   \item{studyid}{Study ID}
 #'   \item{workflowid}{Workflow ID}
 #'   \item{gsm_version}{Version of `gsm` that the workflow will be run on.}
 #'   \item{group}{Description of grouping variable: `Site`, `Study`, or `CustomGroup`.}
@@ -65,3 +64,17 @@
 #'   }
 #' @source \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
 "meta_param"
+
+#' RBM Data Specification
+#'
+#' A dataset containing input/output specifications for gsm and Gizmo.
+#'
+#' @format A data frame with 125 rows and 4 variables.
+#' \describe{
+#'   \item{System}{Gismo or GSM}
+#'   \item{Table}{Name of the table/data source created by `gsm::Make_Snapshot()`}
+#'   \item{Column}{Name of the column in the table}
+#'   \item{Description}{Description of `Column`}
+#'   }
+#' @source \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
+"rbm_data_spec"

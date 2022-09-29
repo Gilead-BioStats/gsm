@@ -9,7 +9,7 @@
 #' @return group-level plot object.
 #'
 #' @examples
-#' ae <- AE_Map_Raw() %>% AE_Assess(vThreshold = c(-8, 8))
+#' ae <- AE_Map_Raw() %>% AE_Assess(vThreshold = c(-8, -5, 5, 8))
 #'
 #' Visualize_Score(ae$lData$dfFlagged) # visualize KRI (default)
 #' Visualize_Score(ae$lData$dfFlagged, bFlagFilter = TRUE) # drop non-flagged groups
@@ -37,6 +37,8 @@ Visualize_Score <- function(
     "strType must be length 1" = length(strType) == 1
   )
 
+
+
   if (bFlagFilter) {
     dfFlagged <- dfFlagged %>%
       filter(
@@ -54,6 +56,7 @@ Visualize_Score <- function(
         )
       )
 
+
     p <- dfFlaggedWithTooltip %>%
       ggplot(
         aes(
@@ -63,22 +66,21 @@ Visualize_Score <- function(
       ) +
       geom_bar(
         stat = "identity"
-      ) +
-      geom_hline(
-        yintercept = (
-          if (all(c("Numerator", "Denominator") %in% names(dfFlagged))) {
-            sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator)
-          } else {
-            sum(dfFlagged$N) / sum(dfFlagged$TotalCount)
-          }
-        ),
-        linetype = "dashed",
-        color = "red",
-        size = 1
-      ) +
+      )  +
       ylab(
         "Metric"
       )
+
+    if (all(c("Numerator", "Denominator") %in% names(dfFlagged))) {
+      p <- p +
+        geom_hline(
+        yintercept = sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator),
+        linetype = "dashed",
+        color = "red",
+        size = 1
+      )
+    }
+
   }
 
   if (strType == "score") {

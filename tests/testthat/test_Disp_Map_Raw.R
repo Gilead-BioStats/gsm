@@ -74,3 +74,6 @@ test_that("invalid mapping throws errors", {
 test_that("bQuiet and bReturnChecks work as intended", {
   test_logical_parameters(map_function, dfs)
 })
+
+
+

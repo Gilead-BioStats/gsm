@@ -7,7 +7,7 @@ output_mapping <- yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", pack
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-  assessment <- assess_function(dfInput, vThreshold = c(-5.1, 5.1))
+  assessment <- assess_function(dfInput, vThreshold = c(-7.1, -5.1, 5.1, 7.1))
   expect_true(is.list(assessment))
   expect_equal(names(assessment), c("lData", "lCharts", "lChecks"))
   expect_equal(names(assessment$lData), c("dfTransformed", "dfAnalyzed", "dfBounds", "dfFlagged", "dfSummary"))
