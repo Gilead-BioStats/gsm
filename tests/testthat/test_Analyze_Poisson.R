@@ -12,7 +12,7 @@ test_that("output created as expected and has correct structure", {
   ae_anly <- Analyze_Poisson(ae_prep)
   expect_true(is.data.frame(ae_anly))
   expect_equal(sort(unique(ae_input$SiteID)), sort(ae_anly$GroupID))
-  expect_equal(names(ae_anly), c("GroupID", "N", "Numerator", "Denominator", "Metric", "Score", "PredictedCount"))
+  expect_equal(names(ae_anly), c("GroupID", "Numerator", "Denominator", "Metric", "Score", "PredictedCount"))
 })
 
 test_that("incorrect inputs throw errors", {
