@@ -1,4 +1,4 @@
-﻿System,Table,Column,Description
+System,Table,Column,Description
 Gismo,status_study,studyid,Unique Study ID
 Gismo,status_study,enrolled_sites,# of enrolled sites
 Gismo,status_study,enrolled_participants,# of enrolled participants
@@ -8,7 +8,6 @@ Gismo,status_study,title,Protocol title
 Gismo,status_study,nickname,Protocol nickname
 Gismo,status_study,indication,Indication
 Gismo,status_study,ta,Therapeutic Area
-Gismo,status_study,product,Product
 Gismo,status_study,phase,Phase
 Gismo,status_study,status,Study Status
 Gismo,status_study,fpfv,First-patient first visit date
@@ -41,7 +40,6 @@ Gismo,status_schedule,snapshot_date,Snapshot Date
 Gismo,results_summary,studyid,Unique Study ID
 Gismo,results_summary,workflowid,Unique Workflow ID
 Gismo,results_summary,groupid,Unique Group ID (e.g. SiteID for KRI workflows)
-Gismo,results_summary,n,Number of participants in group
 Gismo,results_summary,numerator,Metric numerator
 Gismo,results_summary,denominator,Metric denominator
 Gismo,results_summary,metric,Metric value
@@ -79,7 +77,6 @@ GSM,meta_study,title,Protocol title
 GSM,meta_study,nickname,Protocol nickname
 GSM,meta_study,indication,Indication
 GSM,meta_study,ta,Therapeutic Area
-GSM,meta_study,product,Product
 GSM,meta_study,phase,Phase
 GSM,meta_study,status,Study Status
 GSM,meta_study,fpfv,First-patient first visit date

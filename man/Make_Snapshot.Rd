@@ -6,7 +6,7 @@
 \usage{
 Make_Snapshot(
   lMeta = list(config_params = gsm::config_param, config_schedule =
-    clindata::ctms_schedule, config_workflow = gsm::config_workflow, meta_params =
+    clindata::config_schedule, config_workflow = gsm::config_workflow, meta_params =
     gsm::meta_param, meta_site = clindata::ctms_site, meta_study = clindata::ctms_study,
     meta_workflow = gsm::meta_workflow),
   lData = list(dfSUBJ = clindata::rawplus_dm \%>\% filter(!is.na(timeontreatment)), dfAE

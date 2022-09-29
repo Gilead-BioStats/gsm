@@ -22,7 +22,7 @@
 #' @export
 Make_Snapshot <- function(lMeta = list(
   config_params = gsm::config_param,
-  config_schedule = clindata::ctms_schedule,
+  config_schedule = clindata::config_schedule,
   config_workflow = gsm::config_workflow,
   meta_params = gsm::meta_param,
   meta_site = clindata::ctms_site,
@@ -77,11 +77,12 @@ bQuiet = TRUE
       .data$enrolled_participants,
       .data$planned_sites,
       .data$planned_participants,
+      .data$title,
+      .data$nickname,
       .data$indication,
       .data$ta,
       .data$phase,
-      .data$title,
-      .data$nickname,
+      .data$status,
       .data$fpfv,
       .data$lplv,
       .data$rbm_flag
@@ -102,20 +103,19 @@ bQuiet = TRUE
   # stopifnot(
   #   "Sites in clinical data do not match sites in metadata" = unique(status_site$siteid) == unique(status_site_count$SiteID)
   # )
-  browser()
 
   status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
     select(
       .data$studyid,
       .data$siteid,
-      .data$enrolled_participants,
-      .data$start_date,
-      .data$country,
-      .data$invname,
       .data$institution,
       .data$status,
+      .data$enrolled_participants,
+      .data$start_date,
       .data$city,
-      .data$state
+      .data$state,
+      .data$country,
+      .data$invname
     )
 
 
