@@ -68,6 +68,7 @@ bQuiet = TRUE
     strBy = "study"
   )
 
+
   # select in same order as spec - can remove this if not needed, but helps with comparison
   status_study <- status_study %>%
     select(
@@ -76,11 +77,14 @@ bQuiet = TRUE
       .data$enrolled_participants,
       .data$planned_sites,
       .data$planned_participants,
-      .data$protocol,
       .data$indication,
       .data$ta,
-      .data$product,
-      .data$phase
+      .data$phase,
+      .data$title,
+      .data$nickname,
+      .data$fpfv,
+      .data$lplv,
+      .data$rbm_flag
     )
 
 # status_site -------------------------------------------------------------
@@ -98,17 +102,20 @@ bQuiet = TRUE
   # stopifnot(
   #   "Sites in clinical data do not match sites in metadata" = unique(status_site$siteid) == unique(status_site_count$SiteID)
   # )
+  browser()
 
   status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
     select(
       .data$studyid,
       .data$siteid,
       .data$enrolled_participants,
-      .data$planned_participants,
       .data$start_date,
       .data$country,
-      .data$region,
-      .data$invname
+      .data$invname,
+      .data$institution,
+      .data$status,
+      .data$city,
+      .data$state
     )
 
 

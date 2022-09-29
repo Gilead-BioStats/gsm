@@ -1,8 +1,8 @@
 #' Parse warnings from the result of Study_Assess.
 #'
-#' @param lResults
+#' @param lResults `list` List returned from `gsm::Study_Assess()`.
 #'
-#' @return
+#' @return `data.frame` With columns `notes` and `workflowid`.
 #'
 #' @examples
 #'
@@ -10,40 +10,30 @@
 #'
 #' warnings <- ParseWarnings(study)
 #'
+#' @importFrom purrr map imap map_df discard imap_dfr
+#'
 #' @export
 ParseWarnings <- function(lResults) {
 
-
   lResults %>%
-    map(function(kri) {
-
-
-
+   purrr::map(function(kri) {
     kri$lChecks %>%
-      imap(function(workflow, workflow_name) {
-
-
-
+      purrr::imap(function(workflow, workflow_name) {
         data_checks <- names(workflow)[grep('df', names(workflow))]
-        map(data_checks, function(this_data) {
-
-
-
-          map_df(workflow[[this_data]]$tests_if, function(x){tibble(status = x$status, warning = x$warning)})
+        purrr::map(data_checks, function(this_data) {
+          purrr::map_df(workflow[[this_data]]$tests_if, function(x){dplyr::tibble(status = x$status, warning = x$warning)})
         })
 
       })
   }) %>%
-    imap(function(data, index) {
-
-
-      bind_rows(unname(data), .id = index) %>%
-        pull(warning) %>%
-        discard(is.na) %>%
+    purrr::imap(function(data, index) {
+      dplyr::bind_rows(unname(data), .id = index) %>%
+        dplyr::pull(warning) %>%
+        purrr::discard(is.na) %>%
         paste(collapse = "\n")
     }) %>%
-    imap_dfr(function(x, y) {
-      tibble(notes = x, workflowid = y)
+    purrr::imap_dfr(function(x, y) {
+      dplyr::tibble(notes = x, workflowid = y)
     }) %>%
-    filter(notes != "")
+    dplyr::filter(notes != "")
 }

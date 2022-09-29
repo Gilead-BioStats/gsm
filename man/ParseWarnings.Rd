@@ -7,7 +7,10 @@
 ParseWarnings(lResults)
 }
 \arguments{
-\item{lResults}{}
+\item{lResults}{\code{list} List returned from \code{gsm::Study_Assess()}.}
+}
+\value{
+\code{data.frame} With columns \code{notes} and \code{workflowid}.
 }
 \description{
 Parse warnings from the result of Study_Assess.
