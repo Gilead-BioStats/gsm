@@ -53,7 +53,7 @@ Transform_Count <- function(
     "dfInput is not a data frame" = is.data.frame(dfInput),
     "strCountCol not found in input data" = strCountCol %in% names(dfInput),
     "strCountCol is not numeric or logical" = is.numeric(dfInput[[strCountCol]]) | is.logical(dfInput[[strCountCol]]),
-    "NA's found in numerator"=!anyNA(dfInput[[strCountCol]])
+    "NA's found in strCountCol" = !anyNA(dfInput[[strCountCol]])
   )
 
     dfTransformed <- dfInput %>%
