@@ -9,11 +9,11 @@ Make_Snapshot(
     clindata::config_schedule, config_workflow = gsm::config_workflow, meta_params =
     gsm::meta_param, meta_site = clindata::ctms_site, meta_study = clindata::ctms_study,
     meta_workflow = gsm::meta_workflow),
-  lData = list(dfSUBJ = clindata::rawplus_dm \%>\% filter(!is.na(timeontreatment)), dfAE
-    = clindata::rawplus_ae, dfCONSENT = clindata::rawplus_consent, dfIE =
-    clindata::rawplus_ie, dfLB = clindata::rawplus_lb, dfPD = clindata::rawplus_protdev,
-    dfSTUDCOMP = clindata::rawplus_studcomp, dfSDRGCOMP = clindata::rawplus_sdrgcomp
-    \%>\% filter(.data$datapagename == "Blinded Study Drug Completion")),
+  lData = list(dfSUBJ = clindata::rawplus_dm, dfAE = clindata::rawplus_ae, dfCONSENT =
+    clindata::rawplus_consent, dfIE = clindata::rawplus_ie, dfLB = clindata::rawplus_lb,
+    dfPD = clindata::rawplus_protdev, dfSTUDCOMP = clindata::rawplus_studcomp, dfSDRGCOMP
+    = clindata::rawplus_sdrgcomp \%>\% filter(.data$datapagename ==
+    "Blinded Study Drug Completion")),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
   lAssessments = NULL,

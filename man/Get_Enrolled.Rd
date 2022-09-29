@@ -2,21 +2,34 @@
 % Please edit documentation in R/Get_Enrolled.R
 \name{Get_Enrolled}
 \alias{Get_Enrolled}
-\title{Get_Enrolled}
+\title{Get_Enrolled Calculated enrolled participants or sites.}
 \usage{
 Get_Enrolled(dfSUBJ, dfConfig, lMapping, strUnit, strBy)
 }
 \arguments{
-\item{strBy}{}
+\item{dfSUBJ}{\code{data.frame} Typically a DM dataset.}
+
+\item{dfConfig}{\code{data.frame} Dataset containing configuration parameters: \code{studyid}, \code{workflowid}, \code{gsm_version}, \code{param}, \code{index}, and \code{value}.}
+
+\item{lMapping}{\code{list} Mappings for the assessment(s) being run}
+
+\item{strUnit}{\code{character} Type of enrollment; one of \code{participant} or \code{site}.}
+
+\item{strBy}{\code{character} Domain of enrollment; one of \code{study} or \code{site}.}
+}
+\value{
+\code{character} string or \code{data.frame}, depending on input parameters.
 }
 \description{
 Derive number of enrolled participants or sites by a given denominator (study or site).
 }
 \examples{
-
 Get_Enrolled(dfSUBJ = clindata::rawplus_dm,
              dfConfig = config_param,
-             lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+             lMapping = yaml::read_yaml(
+               system.file("mappings",
+                           "mapping_rawplus.yaml",
+                           package = "gsm")),
              strUnit = "participant",
              strBy = "site")
 

@@ -46,13 +46,13 @@
 
 ---
 
-    Problem while computing `vLo = vThreshold[1]^2 - 2 * .data$vMu`.
-    Caused by error in `vThreshold[1]^2`:
+    Problem while computing `vEst = .data$Threshold^2 - 2 * .data$vMu`.
+    Caused by error in `.data$Threshold^2`:
     ! non-numeric argument to binary operator
 
 ---
 
-    vThreshold must be length of 2
+    vThreshold must be length of 4
 
 # NA in dfInput$Count results in Error for assess_function
 
@@ -208,7 +208,7 @@
       v `Transform_Rate()` returned output with 3 rows.
       i Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ].
       v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
+      v `Flag_Poisson()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.

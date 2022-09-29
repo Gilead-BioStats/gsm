@@ -15,7 +15,6 @@
 #' - `strColumn` - A column to use for Thresholding (required)
 #' - 'strValueColumn' - A column to be used for the sign of the flag (optional)#'
 #' @param dfAnalyzed data.frame where flags should be added.
-#' @param strColumn Name of the column to use for thresholding.
 #' @param vThreshold Vector of 4 numeric values representing lower and upper threshold values. All
 #' values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.
 #'

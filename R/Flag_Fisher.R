@@ -18,7 +18,6 @@
 #' - 'strValueColumn' - A column to be used for the sign of the flag (optional)
 #'
 #' @param dfAnalyzed data.frame where flags should be added.
-#' @param strColumn Name of the column to use for thresholding.
 #' @param vThreshold Vector of 2 numeric values representing lower and upper p-value thresholds.
 #'
 #' @return `data.frame` with "Flag" column added

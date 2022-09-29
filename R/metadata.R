@@ -34,7 +34,6 @@
 #'
 #' @format A data frame with 8 rows and 12 variables:
 #' \describe{
-#'   \item{studyid}{Study ID}
 #'   \item{workflowid}{Workflow ID}
 #'   \item{gsm_version}{Version of `gsm` that the workflow will be run on.}
 #'   \item{group}{Description of grouping variable: `Site`, `Study`, or `CustomGroup`.}
@@ -78,3 +77,4 @@
 #'   \item{Description}{Description of `Column`}
 #'   }
 #' @source \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
+"rbm_data_spec"

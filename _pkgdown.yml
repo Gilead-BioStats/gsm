@@ -32,6 +32,8 @@ reference:
       - Transform_Count
       - Transform_Rate
       - Flag
+      - Flag_Fisher
+      - Flag_Poisson
       - Summarize
 
    - title: Reporting
@@ -54,12 +56,15 @@ reference:
       - RunAssessment
       - FilterData
       - FilterDomain
+      - Get_Enrolled
       - RunStep
       - CheckInputs
       - parse_data_mapping
       - parse_data_spec
       - generate_md_table
       - RemoveInvalidSubjectIDs
+      - ParseWarnings
+      - Make_Snapshot
 
    - title: Data
      desc: Metadata used to create workflows
@@ -68,3 +73,4 @@ reference:
       - config_workflow
       - meta_param
       - meta_workflow
+      - rbm_data_spec

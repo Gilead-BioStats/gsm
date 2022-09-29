@@ -30,7 +30,7 @@ Make_Snapshot <- function(lMeta = list(
   meta_workflow = gsm::meta_workflow
 ),
 lData = list(
-  dfSUBJ = clindata::rawplus_dm %>% filter(!is.na(timeontreatment)),
+  dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae,
   dfCONSENT = clindata::rawplus_consent,
   dfIE = clindata::rawplus_ie,
@@ -90,7 +90,7 @@ bQuiet = TRUE
 
 # status_site -------------------------------------------------------------
   status_site <- lMeta$meta_site %>%
-    mutate(siteid = as.character(siteid))
+    mutate(siteid = as.character(.data$siteid))
   status_site_count <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
     dfConfig = lMeta$config_param,

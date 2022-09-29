@@ -11,8 +11,6 @@ Flag_Poisson(dfAnalyzed, vThreshold = NULL)
 
 \item{vThreshold}{Vector of 4 numeric values representing lower and upper threshold values. All
 values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.}
-
-\item{strColumn}{Name of the column to use for thresholding.}
 }
 \value{
 \code{data.frame} with "Flag" column added

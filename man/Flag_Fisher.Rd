@@ -10,8 +10,6 @@ Flag_Fisher(dfAnalyzed, vThreshold = NULL)
 \item{dfAnalyzed}{data.frame where flags should be added.}
 
 \item{vThreshold}{Vector of 2 numeric values representing lower and upper p-value thresholds.}
-
-\item{strColumn}{Name of the column to use for thresholding.}
 }
 \value{
 \code{data.frame} with "Flag" column added

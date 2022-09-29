@@ -28,7 +28,7 @@
 #' range of observed values.
 #'
 #' @examples
-#' dfInput <- AE_Map_Raw() %>% na.omit()  #na.omit is placeholder for now
+#' dfInput <- AE_Map_Raw()
 #'
 #' dfTransformed <- Transform_Rate(dfInput,
 #'   strGroupCol = "SiteID",
@@ -79,19 +79,19 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
       # Calculate expected event count at given exposure.
       vMu = as.numeric(exp(.data$LogDenominator * cModel$coefficients[2] + cModel$coefficients[1])),
       # Calculate lower bound of expected event count given specified threshold.
-      vEst = Threshold^2 - 2 * .data$vMu,
+      vEst = .data$Threshold^2 - 2 * .data$vMu,
       vWEst = .data$vEst / (2 * exp(1) * .data$vMu),
       PredictYPositive = .data$vEst / (2 * lamW::lambertW0(.data$vWEst)),
       PredictYNegative = .data$vEst / (2 * lamW::lambertWm1(.data$vWEst)),
       Numerator = case_when(
-        Threshold < 0 ~ PredictYNegative,
-        Threshold > 0 ~ PredictYPositive,
-        Threshold == 0 ~ vMu
+        .data$Threshold < 0 ~ PredictYNegative,
+        .data$Threshold > 0 ~ PredictYPositive,
+        .data$Threshold == 0 ~ vMu
       ),
-      Denominator = exp(LogDenominator)
+      Denominator = exp(.data$LogDenominator)
     ) %>%
     # NaN is meaningful result indicating not bounded
-    filter(!is.nan(Numerator)) %>%
+    filter(!is.nan(.data$Numerator)) %>%
     select(
       .data$Threshold,
       .data$LogDenominator,
