@@ -801,7 +801,6 @@
       
       $flowchart
       $flowchart$kri0001
-      NULL
       
       
 

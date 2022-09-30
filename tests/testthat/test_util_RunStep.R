@@ -14,7 +14,7 @@ lData <- list(
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-  ae_step <- RunStep(lStep = lStep$kri0001$workflow[[1]], lMapping = lMapping, lData = lData, bQuiet = T)
+  ae_step <- RunStep(lStep = lStep$kri0001$steps[[1]], lMapping = lMapping, lData = lData, bQuiet = T)
 
   expect_type(ae_step, "list")
   expect_true(ae_step$lChecks$status)
@@ -27,7 +27,7 @@ test_that("output is created as expected", {
 # incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors", {
   expect_error(RunStep(lStep = "step", lMapping = lMapping, lData = lData, bQuiet = T))
-  expect_error(RunStep(lStep = lStep$kri0001$workflow[[1]], lMapping = 1, lData = lData, bQuiet = T))
-  expect_error(RunStep(lStep = lStep$kri0001$workflow[[1]], lMapping = lMapping, lData = "data", bQuiet = T))
-  expect_error(RunStep(lStep = lStep$kri0001$workflow[[1]], lMapping = lMapping, lData = lData, bQuiet = "false"))
+  expect_error(RunStep(lStep = lStep$kri0001$steps[[1]], lMapping = 1, lData = lData, bQuiet = T))
+  expect_error(RunStep(lStep = lStep$kri0001$steps[[1]], lMapping = lMapping, lData = "data", bQuiet = T))
+  expect_error(RunStep(lStep = lStep$kri0001$steps[[1]], lMapping = lMapping, lData = lData, bQuiet = "false"))
 })

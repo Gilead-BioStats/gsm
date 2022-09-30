@@ -39,6 +39,8 @@
 
 RunWorkflow <- function(lWorkflow, lData, lMapping, lTags = NULL, bQuiet = TRUE) {
 
+  browser()
+
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` assessment"))
 
   lWorkflow$lData <- lData

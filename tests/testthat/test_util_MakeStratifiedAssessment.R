@@ -22,7 +22,7 @@ test_that("output is created as expected", {
 
   # FilterData added as first step in each workflow
   expect_true(
-    all(strat %>% purrr::map_lgl(~ .x$workflow[[1]]$name == "FilterData"))
+    all(strat %>% purrr::map_lgl(~ .x$steps[[1]]$name == "FilterData"))
   )
 })
 

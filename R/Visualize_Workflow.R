@@ -28,17 +28,17 @@
 
 Visualize_Workflow <- function(lAssessments) {
 
+  # checks were run
+  stepsExist <- !is.null(lAssessments[[1]][["steps"]])
+
+  # do not run on stratified assessment
+  # TODO: implement for stratified?
+  isNotFilterData <- lAssessments$temp_name$steps[[1]][[1]] != "FilterData"
 
 
-
-  if (!is.null(lAssessments[[1]][["steps"]])) {
-
-
-
+  if (stepsExist & isNotFilterData) {
 
     dfFlowchart <- map(lAssessments, function(studyObject) {
-
-
 
       name <- studyObject[["name"]]
       checks <- studyObject[["lChecks"]]
@@ -60,12 +60,9 @@ Visualize_Workflow <- function(lAssessments) {
 
       preAssessment <- map2_dfr(checks, workflow, function(checks, workflow) {
 
-
-
         domains <- workflow$inputs
+
         map_df(domains, function(x) {
-
-
 
           tibble(
             assessment = name,
