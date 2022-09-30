@@ -48,7 +48,7 @@
 Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), bQuiet = TRUE) {
 
   if (is.null(vThreshold)) {
-    vThreshold <- c(-5,0, 5)
+    vThreshold <- c(-5, 5)
     cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-5, 5)")
   }
 
