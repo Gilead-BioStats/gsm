@@ -23,7 +23,7 @@
 #' @param strOutcome `character` required, name of column in dfTransformed dataset to perform Fisher's exact test on. Default is "Numerator".
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, Score, ScoreLabel.
+#' @return `data.frame` with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, Score.
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
@@ -83,8 +83,7 @@ Analyze_Fisher <- function(
       Numerator_Other = .data$Numerator_All - .data$Numerator,
       Denominator_Other = .data$Denominator_All - .data$Denominator,
       Prop = .data$Numerator / .data$Denominator,
-      Prop_Other = .data$Numerator_Other / .data$Denominator_Other,
-      ScoreLabel = "P value"
+      Prop_Other = .data$Numerator_Other / .data$Denominator_Other
     ) %>%
     arrange(.data$Score) %>%
     select(
@@ -97,8 +96,7 @@ Analyze_Fisher <- function(
       .data$Prop_Other,
       .data$Metric,
       .data$Estimate,
-      .data$Score,
-      .data$ScoreLabel
+      .data$Score
     )
 
   return(dfAnalyzed)

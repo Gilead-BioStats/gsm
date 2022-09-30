@@ -14,7 +14,7 @@ Analyze_Fisher(dfTransformed, strOutcome = "Numerator", bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, Score, ScoreLabel.
+\code{data.frame} with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, Score.
 }
 \description{
 Fisher's Exact Test Analysis

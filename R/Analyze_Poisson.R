@@ -64,9 +64,6 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
   )
 
   dfAnalyzed <- broom::augment(cModel, dfModel, type.predict = "response") %>%
-    mutate(
-      ScoreLabel = "Residuals"
-    ) %>%
     select(
       .data$GroupID,
       .data$Numerator,

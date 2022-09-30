@@ -33,7 +33,7 @@
       Input data has 150 rows.
       v `Transform_Rate()` returned output with 3 rows.
       v `Analyze_Fisher()` returned output with 3 rows.
-      v `Flag()` returned output with 3 rows.
+      v `Flag_Fisher()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.

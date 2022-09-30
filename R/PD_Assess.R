@@ -81,7 +81,7 @@ PD_Assess <- function(
   if (is.null(vThreshold)) {
     vThreshold <- switch(
       strMethod,
-      poisson = c(-5, 5),
+      poisson = c(-7, -5, 5, 7),
       identity = c(0.000895, 0.003059)
     )
   }
@@ -126,8 +126,15 @@ PD_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn {strAnalyzeFunction}} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
 # dfFlagged ---------------------------------------------------------------
-    lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
-    if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
+    if (strMethod != "identity") {
+      lData$dfFlagged <- gsm::Flag_Poisson(lData$dfAnalyzed, vThreshold = vThreshold)
+    } else {
+      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
+    }
+
+    flag_function_name <- switch(strMethod, identity = "Flag", poisson = "Flag_Poisson")
+
+    if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
 
 # dfSummary ---------------------------------------------------------------
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
