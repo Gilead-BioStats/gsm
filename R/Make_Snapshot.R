@@ -68,6 +68,7 @@ if(!('enrolled_sites' %in% colnames(status_study))){
     strUnit = "site",
     strBy = "study"
   )
+}
 
 
   # select in same order as spec - can remove this if not needed, but helps with comparison
@@ -100,8 +101,9 @@ if(!('enrolled_participants' %in% colnames(status_site))){
     strUnit = "participant",
     strBy = "site"
   )
-    status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
 }
+    status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
+
     select(
       .data$studyid,
       .data$siteid,
