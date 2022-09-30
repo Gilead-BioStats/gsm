@@ -50,6 +50,7 @@ bQuiet = TRUE
   status_study <- lMeta$meta_study
 
 # status_study ------------------------------------------------------------
+if(!('enrolled_participants' %in% colnames(status_study))){
   status_study$enrolled_participants <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
     dfConfig = lMeta$config_param,
@@ -57,7 +58,9 @@ bQuiet = TRUE
     strUnit = "participant",
     strBy = "study"
     )
+}
 
+if(!('enrolled_sites' %in% colnames(status_study))){
   status_study$enrolled_sites <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
     dfConfig = lMeta$config_param,
@@ -89,6 +92,7 @@ bQuiet = TRUE
 # status_site -------------------------------------------------------------
   status_site <- lMeta$meta_site %>%
     mutate(siteid = as.character(.data$siteid))
+if(!('enrolled_participants' %in% colnames(status_site))){
   status_site_count <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
     dfConfig = lMeta$config_param,
@@ -96,13 +100,8 @@ bQuiet = TRUE
     strUnit = "participant",
     strBy = "site"
   )
-
-
-  # stopifnot(
-  #   "Sites in clinical data do not match sites in metadata" = unique(status_site$siteid) == unique(status_site_count$SiteID)
-  # )
-
-  status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
+    status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
+}
     select(
       .data$studyid,
       .data$siteid,
