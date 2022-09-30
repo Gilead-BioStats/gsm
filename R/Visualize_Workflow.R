@@ -28,6 +28,7 @@
 
 Visualize_Workflow <- function(lAssessments) {
 
+
   # checks were run
   stepsExist <- !is.null(lAssessments[[1]][["steps"]])
 
@@ -35,6 +36,9 @@ Visualize_Workflow <- function(lAssessments) {
   # TODO: implement for stratified?
   isNotFilterData <- lAssessments$temp_name$steps[[1]][[1]] != "FilterData"
 
+  if (length(isNotFilterData) == 0) {
+    isNotFilterData <- FALSE
+  }
 
   if (stepsExist & isNotFilterData) {
 
