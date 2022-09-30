@@ -65,14 +65,16 @@ Flag_Fisher <- function(
   dfFlagged <- dfAnalyzed %>%
     mutate(
       Flag = case_when(
-        .data$Score < vThreshold[1] ~ -2,
-        (.data$Score < vThreshold[1]) & (.data$Score < vThreshold[2]) ~ -1,
+        (.data$Score < vThreshold[1]) & (.data$Prop < .data$Prop_Other) ~ -2,
+        (.data$Score < vThreshold[1]) & (.data$Prop > .data$Prop_Other) ~ 2,
+        (.data$Score < vThreshold[2]) & (.data$Prop < .data$Prop_Other) ~ -1,
+        (.data$Score < vThreshold[2]) & (.data$Prop > .data$Prop_Other) ~ 1,
         TRUE ~ 0
       )
     )
 
   dfFlagged <- dfFlagged %>%
-    arrange(match(.data$Flag, c(-2, -1, 0)))
+    arrange(match(.data$Flag, c(2, -2, 1, -1, 0)))
 
   return(dfFlagged)
 }
