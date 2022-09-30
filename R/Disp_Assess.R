@@ -84,7 +84,7 @@ Disp_Assess <- function(
   if (is.null(vThreshold)) {
     vThreshold <- switch(
       strMethod,
-      fisher = c(0.05, NA),
+      fisher = c(0.01, 0.05),
       identity = c(3.491, 5.172)
     )
   }
