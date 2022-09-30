@@ -64,6 +64,10 @@ jobs:
         run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
         shell: bash
 
+      - name: update gsm version in metadata
+        run: source(here::here("data-raw", "update_metadata.R"))
+        shell: Rscript {0}
+
       - name: Upload check results
         if: failure()
         uses: actions/upload-artifact@main
