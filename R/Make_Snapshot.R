@@ -21,7 +21,7 @@
 #'
 #' @export
 Make_Snapshot <- function(lMeta = list(
-  config_params = gsm::config_param,
+  config_param = gsm::config_param,
   config_schedule = clindata::config_schedule,
   config_workflow = gsm::config_workflow,
   meta_params = gsm::meta_param,
@@ -32,8 +32,6 @@ Make_Snapshot <- function(lMeta = list(
 lData = list(
   dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae,
-  dfCONSENT = clindata::rawplus_consent,
-  dfIE = clindata::rawplus_ie,
   dfLB = clindata::rawplus_lb,
   dfPD = clindata::rawplus_protdev,
   dfSTUDCOMP = clindata::rawplus_studcomp,
