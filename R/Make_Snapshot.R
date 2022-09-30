@@ -21,7 +21,7 @@
 #'
 #' @export
 Make_Snapshot <- function(lMeta = list(
-  config_params = gsm::config_param,
+  config_param = gsm::config_param,
   config_schedule = clindata::config_schedule,
   config_workflow = gsm::config_workflow,
   meta_params = gsm::meta_param,
@@ -32,8 +32,6 @@ Make_Snapshot <- function(lMeta = list(
 lData = list(
   dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae,
-  dfCONSENT = clindata::rawplus_consent,
-  dfIE = clindata::rawplus_ie,
   dfLB = clindata::rawplus_lb,
   dfPD = clindata::rawplus_protdev,
   dfSTUDCOMP = clindata::rawplus_studcomp,
@@ -52,6 +50,7 @@ bQuiet = TRUE
   status_study <- lMeta$meta_study
 
 # status_study ------------------------------------------------------------
+if(!('enrolled_participants' %in% colnames(status_study))){
   status_study$enrolled_participants <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
     dfConfig = lMeta$config_param,
@@ -59,7 +58,9 @@ bQuiet = TRUE
     strUnit = "participant",
     strBy = "study"
     )
+}
 
+if(!('enrolled_sites' %in% colnames(status_study))){
   status_study$enrolled_sites <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
     dfConfig = lMeta$config_param,
@@ -67,6 +68,7 @@ bQuiet = TRUE
     strUnit = "site",
     strBy = "study"
   )
+}
 
 
   # select in same order as spec - can remove this if not needed, but helps with comparison
@@ -91,6 +93,7 @@ bQuiet = TRUE
 # status_site -------------------------------------------------------------
   status_site <- lMeta$meta_site %>%
     mutate(siteid = as.character(.data$siteid))
+if(!('enrolled_participants' %in% colnames(status_site))){
   status_site_count <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
     dfConfig = lMeta$config_param,
@@ -98,13 +101,9 @@ bQuiet = TRUE
     strUnit = "participant",
     strBy = "site"
   )
+}
+    status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
 
-
-  # stopifnot(
-  #   "Sites in clinical data do not match sites in metadata" = unique(status_site$siteid) == unique(status_site_count$SiteID)
-  # )
-
-  status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
     select(
       .data$studyid,
       .data$siteid,

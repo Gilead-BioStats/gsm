@@ -43,10 +43,12 @@ if (length(names(params$meta)) > 1) {
 # Overview Table
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 results <- params$assessments %>%
-  map(~ .x$lResults) %>%
-  compact()
+    purrr::map(~ .x$lResults) %>%
+    purrr::discard(is.null) %>%
+    purrr::compact() 
+    
 allFindings <- results %>%
-  map_df(~ .x$dfSummary)
+  purrr::map_df(~ .x$lData$dfSummary, .id = 'Assessment')
 table <- gsm::Study_Table(allFindings)
 
 overview_tbl <- table$df_summary %>%
@@ -105,25 +107,22 @@ function showDetails(elem){
 ```{r, echo=FALSE, results='asis'}
 
 for (result in results) {
-  label <- ifelse(
-    result$lTags$Assessment == result$lTags$Label,
-    result$lTags$Assessment,
-    paste(result$lTags$Assessment, "-", result$lTags$Label)
-  )
+
 
   # title
-  cat(paste0('\n\n## ', label, '\n\n'))
+  cat(paste0('\n\n## ', 'Placeholder', '\n\n'))
 
   # chart
   cat("<h3>Summary Chart</h3>")
   cat("<div style = 'text-align: center'>")
-  print(result$chart)
+  print(result$barChart)
   cat("</div>")
 
   # table
   cat("<h3>Flagged Sites</h3>")
 
-  flagged <- result$dfSummary %>%
+  
+  flagged <- result$lData$dfSummary %>%
     filter(Flag != 0)
 
   if (nrow(flagged) > 0) {
@@ -138,13 +137,13 @@ for (result in results) {
       "<p>",
       length(unique(flagged$GroupID)),
       " of ",
-      length(unique(result$dfSummary$GroupID)),
+      length(unique(result$lData$dfSummary$GroupID)),
       " sites flagged for this assessment.",
       "</p>"
     )
   )
 
-  details <- result$dfFlagged %>%
+  details <- result$lData$dfFlagged %>%
     filter(Flag != 0) %>%
     arrange(., match(GroupID, flagged$GroupID))
 
