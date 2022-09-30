@@ -58,6 +58,7 @@ bQuiet = TRUE
     strBy = "study"
     )
 
+if(!('enrolled_sites' %in% colnames(status_study))){
   status_study$enrolled_sites <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
     dfConfig = lMeta$config_param,
