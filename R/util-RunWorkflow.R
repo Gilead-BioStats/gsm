@@ -37,7 +37,7 @@
 #'
 #' @export
 
-RunWorkflow <- function(lWorkflow, lData, lMapping, lTags = NULL, bQuiet = TRUE) {
+RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
 
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` assessment"))
 

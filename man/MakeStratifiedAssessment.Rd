@@ -26,7 +26,7 @@ Create multiple workflows from a single stratified workflow
 lMapping <- yaml::read_yaml(
   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
 )
-lAssessmentList <- MakeWorkflowList()
+lWorkflowList <- MakeWorkflowList(strNames = "aeGrade", bRecursive = TRUE)
 
 # Adverse events by grade
 StratifiedAE <- MakeStratifiedAssessment(
@@ -35,7 +35,7 @@ StratifiedAE <- MakeStratifiedAssessment(
     dfAE = clindata::rawplus_ae
   ),
   lMapping = lMapping,
-  lWorkflow = lAssessmentList$aeGrade
+  lWorkflow = lWorkflowList$aeGrade
 )
 
 StratifiedAEResult <- StratifiedAE \%>\%

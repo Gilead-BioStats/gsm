@@ -14,7 +14,7 @@ ConsolidateStrata(lOutput, lStratifiedOutput, bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{list} containing \code{lAssessment} with \code{tags}, \code{workflow}, \code{path}, \code{name}, \code{lData},
+\code{list} containing \code{lWorkflow} with \code{tags}, \code{workflow}, \code{path}, \code{name}, \code{lData},
 \code{lChecks}, \code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of
 \code{assessment$workflow}.
 }

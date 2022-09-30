@@ -17,7 +17,7 @@
 #'   parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
 #'
 #' @examples
-#' lStep <- MakeWorkflowList()[["kri0001"]][["workflow"]][[1]]
+#' lStep <- MakeWorkflowList()[["kri0001"]][["steps"]][[1]]
 #'
 #' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 #'

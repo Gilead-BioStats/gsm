@@ -18,7 +18,7 @@
 #' )
 #' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 #'
-#' lWorkflow <- MakeWorkflowList(bRecursive = TRUE, strNames = "aeGrade")
+#' lWorkflow <- MakeWorkflowList(bRecursive = TRUE, strNames = "aeGrade")$aeGrade
 #' lOutput <- RunWorkflow(lWorkflow, lData = lData, lMapping = lMapping)
 #'
 #' lStratifiedWorkflow <- MakeStratifiedAssessment(
@@ -51,35 +51,21 @@ ConsolidateStrata <- function(
 ) {
 
 
-  if (lOutput$bStatus == TRUE && all(purrr::map_lgl(lStratifiedOutput, ~ .x$bStatus))) {
+  if (lOutput$bStatus == TRUE &&
+      all(purrr::map_lgl(lStratifiedOutput, ~ .x$bStatus))) {
     # Stack data pipeline from stratified output.
     consoliDataPipeline <- lStratifiedOutput %>%
       purrr::map(function(stratum) {
-
-        browser()
-
         # lResults <- stratum$lResults
-        stratum$lData[grepl("^df", names(stratum$lData))] %>% # get data frames from results
-          purrr::imap(~ .x %>% mutate(stratum = stratum$name))
+        stratum$lResults$lData[grepl("^df", names(stratum$lResults$lData))] %>% # get data frames from results
+          purrr::imap( ~ .x %>% mutate(stratum = stratum$name))
       }) %>%
       purrr::reduce(function(acc, curr) {
-
-
-
-
-
-
         df <- purrr::imap(acc, function(value, key) {
-
-
-
-
-
           bind_rows(value, curr[[key]]) # stack data frames
         })
       })
 
-    browser()
 
     # Generate paneled data visualization.
     # TODO: retrieve appropriate visualization function from... the workflow?

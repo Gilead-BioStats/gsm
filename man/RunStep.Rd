@@ -7,7 +7,7 @@
 RunStep(lStep, lMapping, lData, bQuiet)
 }
 \arguments{
-\item{lStep}{\code{list} single workflow step (typically defined in \code{lAssessment$workflow}). Should
+\item{lStep}{\code{list} single workflow step (typically defined in \code{lWorkflow$workflow}). Should
 include the name of the function to run (\code{lStep$name}), data inputs (\code{lStep$inputs}), name of
 output (\code{lStep$output}) and configurable parameters (\code{lStep$params}) (if any)}
 
@@ -29,7 +29,7 @@ Runs a single step of an assessment workflow. Currently supports \code{Filter}, 
 functions.
 }
 \examples{
-lStep <- MakeWorkflowList()[["kri0001"]][["workflow"]][[1]]
+lStep <- MakeWorkflowList()[["kri0001"]][["steps"]][[1]]
 
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 

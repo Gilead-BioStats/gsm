@@ -19,7 +19,7 @@ specified in \code{lMapping} and \code{lAssessments}, which are generally based 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{list} \code{lWorkflow} along with \code{tags}, \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks},
+\code{list} \code{lWorkflow} along with \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks},
 \code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of
 \code{lWorkflow$workflow}.
 }
