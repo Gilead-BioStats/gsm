@@ -53,7 +53,7 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
   }
 
   # add a 0 threhsold to calcultate estimate without an offset
-  vThreshold <- c(vThreshold,0)
+  vThreshold <- unique(c(vThreshold,0)) 
 
   # Calculate log of total exposure at each site.
   dfTransformed$LogDenominator <- log(
