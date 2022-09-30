@@ -50,6 +50,7 @@ bQuiet = TRUE
   status_study <- lMeta$meta_study
 
 # status_study ------------------------------------------------------------
+if(!('enrolled_participants' %in% colnames(status_study))){
   status_study$enrolled_participants <- Get_Enrolled(
     dfSUBJ = lData$dfSUBJ,
     dfConfig = lMeta$config_param,
@@ -57,6 +58,7 @@ bQuiet = TRUE
     strUnit = "participant",
     strBy = "study"
     )
+}
 
 if(!('enrolled_sites' %in% colnames(status_study))){
   status_study$enrolled_sites <- Get_Enrolled(
