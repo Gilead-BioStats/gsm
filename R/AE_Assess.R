@@ -124,7 +124,7 @@ AE_Assess <- function(dfInput,
     if (!bQuiet) cli::cli_alert_success("{.fn {strAnalyzeFunction}} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
 # dfFlagged ---------------------------------------------------------------
-    if (strMethod != "identity") {
+    if (strMethod == "poisson") {
       lData$dfFlagged <- gsm::Flag_Poisson(lData$dfAnalyzed, vThreshold = vThreshold)
     } else {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
