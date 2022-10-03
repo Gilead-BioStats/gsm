@@ -45,16 +45,6 @@ input data to \code{\link[=PD_Assess]{PD_Assess()}}. This function creates an in
 data (from \code{dfSUBJ}). Note that the function can generate data summaries for specific types of
 PDs by passing filtered PD data to \code{dfPD}.
 }
-\section{Data specification}{
-\tabular{lllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
-   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
-   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
-   dfSUBJ \tab strTimeOnStudyCol \tab timeonstudy \tab TRUE \tab FALSE \cr
-   dfPD \tab strIDCol \tab subjid \tab TRUE \tab FALSE \cr
-}
-}
-
 \examples{
 # Run with defaults.
 dfInput <- PD_Map_Raw()

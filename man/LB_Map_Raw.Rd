@@ -49,16 +49,6 @@ input data to \code{\link[=LB_Assess]{LB_Assess()}}.
 subject-level data (from \code{dfSUBJ}). Note that the function can generate data summaries for
 specific types of LB criteria by passing filtered LB data to \code{dfLB}.
 }
-\section{Data specification}{
-\tabular{llllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \tab \strong{Require Unique Values?} \cr
-   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \tab FALSE \cr
-   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab TRUE \cr
-   dfLB \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
-   dfLB \tab strGradeCol \tab toxgr \tab TRUE \tab TRUE \tab FALSE \cr
-}
-}
-
 \examples{
 # Run with defaults.
 dfInput <- LB_Map_Raw()

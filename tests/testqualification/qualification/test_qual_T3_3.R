@@ -14,7 +14,7 @@ test_that("IE assessment can return a correctly assessed data frame grouped by a
     qualification_transform_counts(
       exposureCol = NA,
       GroupID = "CustomGroupID"
-      )
+    )
 
   t3_3_analyzed <- t3_3_transformed %>%
     mutate(

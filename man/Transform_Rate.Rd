@@ -48,7 +48,8 @@ The input data (\code{dfInput}) for the AE Assessment is typically created using
 \examples{
 dfInput <- AE_Map_Raw()
 dfTransformed <- Transform_Rate(dfInput,
-                                strNumeratorCol = "Count",
-                                strDenominatorCol = "Exposure")
+  strNumeratorCol = "Count",
+  strDenominatorCol = "Exposure"
+)
 
 }

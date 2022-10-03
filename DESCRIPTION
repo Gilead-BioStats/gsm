@@ -9,7 +9,7 @@ Authors@R: c(
     person("Douglas", "Sanders", role = c("aut")),
     person("Spencer", "Childress", email="spencer.childress@gilead.com", role = c("aut")),
     person("Li", "Ge", role = c("aut")),
-    person("McLaughlin", "Colleen", email="colleen.mclaughlin@atorusresearch.com", role = c("aut"))
+    person("Colleen", "McLaughlin", email="colleen.mclaughlin@atorusresearch.com", role = c("aut"))
     )
 URL: https://github.com/Gilead-BioStats/gsm
 BugReports: https://github.com/Gilead-BioStats/gsm/issues

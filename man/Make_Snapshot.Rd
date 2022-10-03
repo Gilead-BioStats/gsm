@@ -44,5 +44,4 @@ Make Snapshot - create and export Gizmo data model.
 # run with default testing data
 snapshot <- Make_Snapshot()
 
-
 }
