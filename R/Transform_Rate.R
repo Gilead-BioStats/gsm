@@ -57,7 +57,7 @@ Transform_Rate <- function(
     ) %>%
     mutate(Metric = .data$Numerator / .data$Denominator) %>%
     select(.data$GroupID, everything()) %>%
-    filter(!is.nan(.data$Metric))
+    filter(!is.nan(.data$Metric)) # issue arises where a site has enrolled a participant but participant has not started treatment > exposure is 0 > rate is NaN
 
   return(dfTransformed)
 }
