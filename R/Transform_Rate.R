@@ -66,9 +66,10 @@ Transform_Rate <- function(
     ) # issue arises where a site has enrolled a participant but participant has not started treatment > exposure is 0 > rate is NaN or Inf
 
   if (nrow(dfTransformed) < length(unique(dfInput[[ strGroupCol ]]))) {
-    cli::cli_alert_warning(
-        '{length(unique(dfInput[[ strGroupCol ]])) - nrow(dfTransformed)} values of [ {strGroupCol} ] with a [ {strDenominatorCol} ] value of 0 removed.'
-    )
+    if (!bQuiet)
+      cli::cli_alert_warning(
+          '{length(unique(dfInput[[ strGroupCol ]])) - nrow(dfTransformed)} values of [ {strGroupCol} ] with a [ {strDenominatorCol} ] value of 0 removed.'
+      )
   }
 
   return(dfTransformed)
