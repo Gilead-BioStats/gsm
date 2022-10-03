@@ -4,6 +4,13 @@ workflow:
     output: dfAE
     params:
       strDomain: dfAE
+      strColParam: strTreatmentEmergentCol
+      strValParam: strTreatmentEmergentVal
+  - name: FilterDomain
+    inputs: dfAE
+    output: dfAE
+    params:
+      strDomain: dfAE
       strColParam: strSeriousCol
       strValParam: strSeriousVal
   - name: AE_Map_Raw
