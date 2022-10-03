@@ -1,46 +1,41 @@
+# Transform
 qualification_transform_counts <- function(dfInput,
   countCol = "Count",
   exposureCol = "Exposure",
-  KRILabel = "",
-  GroupLabel = "SiteID") {
+  GroupID = "SiteID") {
   if (is.na(exposureCol)) {
     dfTransformed <- dfInput %>%
       filter(!is.na(.data[[countCol]])) %>%
-      group_by(GroupID = .data[[GroupLabel]]) %>%
+      group_by(GroupID = .data[[GroupID]]) %>%
       summarise(
-        N = n(),
-        TotalCount = sum(.data[[countCol]]),
-        KRI = TotalCount,
-        KRILabel = KRILabel,
-        GroupLabel = GroupLabel
+        TotalCount  = sum(.data[[countCol]]),
+        Metric = TotalCount
       ) %>%
       ungroup() %>%
-      select(GroupID, GroupLabel, N, TotalCount, KRI, KRILabel) %>%
+      select(GroupID, TotalCount , Metric) %>%
       unique()
   } else {
     dfTransformed <- dfInput %>%
       filter(!is.na(.data[[countCol]])) %>%
-      group_by(GroupID = .data[[GroupLabel]]) %>%
+      group_by(GroupID = .data[[GroupID]]) %>%
       summarise(
-        N = n(),
-        TotalCount = sum(.data[[countCol]]),
-        TotalExposure = sum(.data[[exposureCol]]),
-        KRILabel = KRILabel,
-        GroupLabel = GroupLabel
+        Numerator = sum(.data[[countCol]]),
+        Denominator = sum(.data[[exposureCol]])
       ) %>%
-      mutate(KRI = .data$TotalCount / .data$TotalExposure) %>%
+      mutate(Metric = .data$Numerator / .data$Denominator) %>%
       ungroup() %>%
-      select(GroupID, GroupLabel, N, TotalCount, TotalExposure, KRI, KRILabel) %>%
+      select(GroupID, Numerator, Denominator, Metric) %>%
       unique()
   }
 
   return(dfTransformed)
 }
 
+# Poisson
 qualification_analyze_poisson <- function(dfTransformed) {
-  dfTransformed$LogExposure <- log(dfTransformed$TotalExposure)
+  dfTransformed$LogExposure <- log(dfTransformed$Denominator)
 
-  model <- glm(TotalCount ~ stats::offset(LogExposure),
+  model <- glm(Numerator ~ stats::offset(LogExposure),
     family = poisson(link = "log"),
     data = dfTransformed
   )
@@ -48,106 +43,44 @@ qualification_analyze_poisson <- function(dfTransformed) {
   outputDF <- dfTransformed %>%
     mutate(
       Score = unname(residuals(model)),
-      PredictedCount = unname(model$fitted.values),
-      ScoreLabel = "Residuals"
+      PredictedCount = unname(model$fitted.values)
     ) %>%
     arrange(Score) %>%
-    select(GroupID, GroupLabel, N, TotalCount, TotalExposure, KRI, KRILabel, Score, ScoreLabel, PredictedCount)
+    select(GroupID, Numerator, Denominator, Metric, Score, PredictedCount)
 
   return(outputDF)
 }
 
-qualification_analyze_wilcoxon <- function(dfTransformed) {
-  groups <- unique(dfTransformed$GroupID)
-  pvals <- rep(NA, length(groups))
-  estimates <- rep(NA, length(groups))
-
-  for (i in 1:length(groups)) {
-    testres <- wilcox.test(dfTransformed$KRI ~ dfTransformed$GroupID == groups[i], exact = FALSE, conf.int = TRUE)
-
-    pvals[i] <- testres$p.value
-    estimates[i] <- testres$estimate * -1
-  }
-
-  outputDF <- data.frame(
-    dfTransformed,
-    Score = pvals,
-    Estimate = estimates,
-    ScoreLabel = "P value"
-  ) %>%
-    arrange(Score) %>%
-    select(GroupID, GroupLabel, N, TotalCount, TotalExposure, KRI, KRILabel, Estimate, Score, ScoreLabel)
-
-  return(outputDF)
-}
-
-qualification_analyze_chisq <- function(dfTransformed) {
-  groups <- unique(dfTransformed$GroupID)
-  statistics <- rep(NA, length(groups))
-  pvals <- rep(NA, length(groups))
-
-  tot_y <- sum(dfTransformed$TotalCount)
-  tot_n <- sum(dfTransformed$N) - tot_y
-
-  for (i in 1:length(groups)) {
-    sitetab <- dplyr::filter(dfTransformed, GroupID == groups[i]) %>%
-      mutate(NoCount = N - TotalCount) %>%
-      select(TotalCount, NoCount)
-
-    tot_y_site <- tot_y - sitetab$TotalCount
-    tot_n_site <- tot_n - sitetab$NoCount
-
-    testtable <- rbind(
-      c(tot_y_site, tot_n_site),
-      sitetab
-    )
-
-    testres <- testtable %>%
-      stats::chisq.test() %>%
-      suppressWarnings()
-
-    pvals[i] <- testres$p.value
-    statistics[i] <- testres$statistic
-  }
-
-  outputDF <- cbind(
-    dfTransformed,
-    Score = pvals,
-    statistic_ = statistics
-  ) %>%
+qualification_flag_poisson <- function(dfAnalyzed, threshold = c(-7, -5, 5, 7)){
+  dfAnalyzed %>%
     mutate(
-      Statistic = setNames(statistic_, rep("X-squared", length(groups))),
-      TotalCount_All = sum(TotalCount),
-      N_All = sum(N),
-      TotalCount_Other = TotalCount_All - TotalCount,
-      N_Other = N_All - N,
-      Prop = TotalCount / N,
-      Prop_Other = TotalCount_Other / N_Other,
-      ScoreLabel = "P value"
+      Flag = case_when(
+        Score < threshold[1] ~ -2,
+        threshold[1] <= Score & Score < threshold[2] ~ -1,
+        threshold[4] >= Score & Score > threshold[3] ~ 1,
+        Score > threshold[4] ~ 2,
+        is.na(Score) | is.nan(Score) ~ NA_real_,
+        TRUE ~ 0
+      ),
     ) %>%
-    arrange(Score) %>%
-    select(
-      GroupID, GroupLabel, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other,
-      KRI, KRILabel, Statistic, Score, ScoreLabel
-    )
-
-  return(outputDF)
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 }
+
 
 qualification_analyze_fisher <- function(dfTransformed) {
   groups <- unique(dfTransformed$GroupID)
   estimates <- rep(NA, length(groups))
   pvals <- rep(NA, length(groups))
 
-  tot_y <- sum(dfTransformed$TotalCount)
-  tot_n <- sum(dfTransformed$N) - tot_y
+  tot_y <- sum(dfTransformed$Numerator)
+  tot_n <- sum(dfTransformed$Denominator) - tot_y
 
   for (i in 1:length(groups)) {
     sitetab <- dplyr::filter(dfTransformed, GroupID == groups[i]) %>%
-      mutate(NoCount = N - TotalCount) %>%
-      select(NoCount, TotalCount)
+      mutate(NoCount = Denominator - Numerator) %>%
+      select(NoCount, Numerator)
 
-    tot_y_site <- tot_y - sitetab$TotalCount
+    tot_y_site <- tot_y - sitetab$Numerator
     tot_n_site <- tot_n - sitetab$NoCount
 
     testtable <- rbind(
@@ -169,20 +102,35 @@ qualification_analyze_fisher <- function(dfTransformed) {
   ) %>%
     mutate(
       Estimate = setNames(estimate_, rep("odds ratio", length(groups))),
-      TotalCount_All = sum(TotalCount),
-      N_All = sum(N),
-      TotalCount_Other = TotalCount_All - TotalCount,
-      N_Other = N_All - N,
-      Prop = TotalCount / N,
-      Prop_Other = TotalCount_Other / N_Other,
-      ScoreLabel = "P value"
+      Numerator_All = sum(Numerator),
+      Denominator_All = sum(Denominator),
+      Numerator_Other = Numerator_All - Numerator,
+      Denominator_Other = Denominator_All - Denominator,
+      Prop = Numerator / Denominator,
+      Prop_Other = Numerator_Other / Denominator_Other
     ) %>%
     arrange(Score) %>%
     select(
-      GroupID, GroupLabel, TotalCount, TotalCount_Other, N, N_Other, Prop, Prop_Other,
-      KRI, KRILabel, Estimate, Score, ScoreLabel
+      GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other,
+      Metric, Estimate, Score
     )
 
 
   return(outputDF)
 }
+
+qualification_flag_fisher <- function(dfAnalyzed, threshold = c(0.01, 0.05)){
+  dfAnalyzed %>%
+    mutate(
+      Flag = case_when(
+        Score < threshold[1] & Prop < Prop_Other ~ -2,
+        Score < threshold[1] & Prop > Prop_Other ~  2,
+        Score < threshold[2] & Prop < Prop_Other ~ -1,
+        Score < threshold[2] & Prop > Prop_Other ~  1,
+        is.na(Score) | is.nan(Score) ~ NA_real_,
+        TRUE ~ 0
+      ),
+    ) %>%
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+}
+

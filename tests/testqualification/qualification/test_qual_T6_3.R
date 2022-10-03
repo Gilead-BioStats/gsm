@@ -1,11 +1,10 @@
-test_that("Labs assessment can return a correctly assessed data frame for the chisq test grouped by the site variable when given correct input data from clindata and the results should be flagged correctly", {
+test_that("Labs assessment can return a correctly assessed data frame grouped by the site variable when given correct input data from clindata and the results should be flagged correctly", {
   # gsm analysis
-  dfInput <- gsm::LB_Map_Raw()
+  dfInput <- LB_Map_Raw()
 
   test6_3 <- LB_Assess(
     dfInput = dfInput,
-    strMethod = "fisher",
-    bChart = FALSE
+    strMethod = "identity"
   )
 
   # Double Programming
@@ -13,30 +12,30 @@ test_that("Labs assessment can return a correctly assessed data frame for the ch
 
   t6_3_transformed <- dfInput %>%
     qualification_transform_counts(
-      exposureCol = "Total",
-      KRILabel = "% Abnormal Labs"
+      exposureCol = "Total"
     )
 
   t6_3_analyzed <- t6_3_transformed %>%
-    qualification_analyze_fisher()
+    mutate(
+      Score = Metric
+    ) %>%
+    arrange(Score)
 
   class(t6_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t6_3_flagged <- t6_3_analyzed %>%
     mutate(
-      ThresholdLow = .05,
-      ThresholdHigh = NA_integer_,
-      ThresholdCol = "Score",
       Flag = case_when(
-        Score < .05 ~ -1,
+        Score < 3.491 ~ -1,
+        Score > 5.172 ~ 1,
         is.na(Score) ~ NA_real_,
         is.nan(Score) ~ NA_real_,
         TRUE ~ 0
       ),
-      median = median(KRI),
+      median = median(Metric),
       Flag = case_when(
-        Flag != 0 & KRI < median ~ -1,
-        Flag != 0 & KRI >= median ~ 1,
+        Flag != 0 & Metric < median ~ -1,
+        Flag != 0 & Metric >= median ~ 1,
         TRUE ~ Flag
       )
     ) %>%
@@ -44,17 +43,11 @@ test_that("Labs assessment can return a correctly assessed data frame for the ch
     arrange(match(Flag, c(1, -1, 0)))
 
   t6_3_summary <- t6_3_flagged %>%
-    mutate(
-      Assessment = "Labs"
-    ) %>%
-    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
-    arrange(desc(abs(KRI))) %>%
+    select(GroupID, Metric, Score, Flag) %>%
+    arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t6_3 <- list(
-    "strFunctionName" = "LB_Assess()",
-    "lTags" = list(Assessment = "Labs"),
-    "dfInput" = t6_3_input,
     "dfTransformed" = t6_3_transformed,
     "dfAnalyzed" = t6_3_analyzed,
     "dfFlagged" = t6_3_flagged,
@@ -62,5 +55,5 @@ test_that("Labs assessment can return a correctly assessed data frame for the ch
   )
 
   # compare results
-  expect_equal(test6_3, t6_3)
+  expect_equal(test6_3$lData, t6_3)
 })
