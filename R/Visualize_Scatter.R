@@ -22,12 +22,11 @@
 #' @export
 
 Visualize_Scatter <- function(
-    dfFlagged,
-    dfBounds = NULL,
-    strGroupCol = NULL,
-    strGroupLabel = NULL,
-    strUnit = "days") {
-
+  dfFlagged,
+  dfBounds = NULL,
+  strGroupCol = NULL,
+  strGroupLabel = NULL,
+  strUnit = "days") {
   groupLabel <- ifelse(is.null(strGroupLabel), "GroupID: ", strGroupLabel)
 
   #
@@ -85,22 +84,20 @@ Visualize_Scatter <- function(
     )
 
   if (!is.null(dfBounds)) {
-
-
-    for(current_threshold in unique(dfBounds$Threshold)){
-
-      color <- case_when(current_threshold == 0 ~ "gray",
-                         current_threshold == min(unique(dfBounds$Threshold)) ~ "red",
-                         current_threshold == max(unique(dfBounds$Threshold)) ~ "red",
-                         TRUE ~ "yellow")
+    for (current_threshold in unique(dfBounds$Threshold)) {
+      color <- case_when(
+        current_threshold == 0 ~ "gray",
+        current_threshold == min(unique(dfBounds$Threshold)) ~ "red",
+        current_threshold == max(unique(dfBounds$Threshold)) ~ "red",
+        TRUE ~ "yellow"
+      )
 
       p <- p + geom_line(
-        data = dfBounds %>% filter(.data$Threshold==current_threshold, !is.nan(.data$Numerator)),
+        data = dfBounds %>% filter(.data$Threshold == current_threshold, !is.nan(.data$Numerator)),
         aes(x = .data$LogDenominator, y = .data$Numerator),
         color = color,
         inherit.aes = FALSE
       )
-
     }
   }
 

@@ -60,7 +60,7 @@ Disp_Map_Raw <- function(
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
-  strDomain <- ifelse(strContext=="Study",'dfSTUDCOMP','dfSDRGCOMP')
+  strDomain <- ifelse(strContext == "Study", "dfSTUDCOMP", "dfSDRGCOMP")
   dfs$dfDISP <- dfs[[strDomain]]
 
   checks <- CheckInputs(
@@ -78,13 +78,13 @@ Disp_Map_Raw <- function(
     dfDISP <- dfs$dfDISP
 
     dfDISP_mapped <- dfDISP %>%
-        select(
-            SubjectID = lMapping[[strDomain]][["strIDCol"]],
-            DCReason = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
-            Discontinuation = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagCol")]]
-        ) %>%
-        filter(.data$Discontinuation %in% lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagVal")]]) %>%
-        mutate(Count = 1)
+      select(
+        SubjectID = lMapping[[strDomain]][["strIDCol"]],
+        DCReason = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
+        Discontinuation = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagCol")]]
+      ) %>%
+      filter(.data$Discontinuation %in% lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagVal")]]) %>%
+      mutate(Count = 1)
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(

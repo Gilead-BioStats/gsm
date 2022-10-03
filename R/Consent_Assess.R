@@ -65,7 +65,7 @@ Consent_Assess <- function(
   bQuiet = TRUE
 ) {
 
-# data checking -----------------------------------------------------------
+  # data checking -----------------------------------------------------------
   stopifnot(
     "nThreshold must be numeric" = is.numeric(nThreshold),
     "nThreshold must be length 1" = length(nThreshold) == 1,
@@ -82,7 +82,7 @@ Consent_Assess <- function(
     bQuiet = bQuiet
   )
 
-# begin running assessment ------------------------------------------------
+  # begin running assessment ------------------------------------------------
   if (!lChecks$status) {
     if (!bQuiet) cli::cli_alert_warning("{.fn Consent_Assess} did not run because of failed check.")
     return(list(
@@ -101,25 +101,25 @@ Consent_Assess <- function(
     )
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Count} returned output with {nrow(lData$dfTransformed)} rows.")
 
-# dfAnalyzed --------------------------------------------------------------
+    # dfAnalyzed --------------------------------------------------------------
     lData$dfAnalyzed <- Analyze_Identity(lData$dfTransformed, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed}.")
 
-# dfFlagged ---------------------------------------------------------------
+    # dfFlagged ---------------------------------------------------------------
     lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = c(NA, nThreshold))
     if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
 
-# dfSummary ---------------------------------------------------------------
+    # dfSummary ---------------------------------------------------------------
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
-# visualizations ----------------------------------------------------------
+    # visualizations ----------------------------------------------------------
     lCharts <- list()
     lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
     lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score")
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(lCharts)} chart{?s}.")
 
-# return data -------------------------------------------------------------
+    # return data -------------------------------------------------------------
     return(list(
       lData = lData,
       lCharts = lCharts,

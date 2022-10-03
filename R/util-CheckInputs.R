@@ -26,7 +26,6 @@
 #'
 #' @export
 CheckInputs <- function(context, dfs, mapping = NULL, spec = NULL, bQuiet = TRUE) {
-
   if (!bQuiet) {
     cli::cli_h2("Checking Input Data for {.fn {context}}")
   }

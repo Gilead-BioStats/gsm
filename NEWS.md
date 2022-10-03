@@ -1,3 +1,18 @@
+# gsm v1.2.0
+
+This release includes qualified functionality for the following KRIs: 
+- Lab Abnormality
+- Disposition
+- Adverse Event
+- Protocol Deviation
+
+Notable updates include: 
+- Addition of the `Make_Snapshot()` function, which allows a user to run multiple assessments on a given study, as well as create metadata needed as the inputs to the Gismo web app. 
+- The `Flag()` function has been split into `Flag_Poisson()` and `Flag_Fisher()` functions to simplify flagging logic based on the type of statistical model that is being used.
+- The `Transform_EventCount()` function has been split into `Transform_Rate()` and `Transform_Count()` to be used based on the metric that is being evaluated.
+- `*_Assess()` functions have been refactored based on refinements to the data model. Notable changes include removing all `lTags`, and generally paring back some of the metadata captured in the assess functions which is either no longer needed, or will happen outside of the assessment function.
+
+
 # gsm v1.1.0
 
 This release includes qualified functionality for Lab Abnormality and Disposition Assessments.

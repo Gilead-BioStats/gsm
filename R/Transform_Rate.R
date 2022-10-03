@@ -28,8 +28,9 @@
 #' @examples
 #' dfInput <- AE_Map_Raw()
 #' dfTransformed <- Transform_Rate(dfInput,
-#'                                 strNumeratorCol = "Count",
-#'                                 strDenominatorCol = "Exposure")
+#'   strNumeratorCol = "Count",
+#'   strDenominatorCol = "Exposure"
+#' )
 #'
 #' @importFrom cli cli_alert_warning
 #' @import dplyr
@@ -61,15 +62,16 @@ Transform_Rate <- function(
     mutate(Metric = .data$Numerator / .data$Denominator) %>%
     select(.data$GroupID, everything()) %>%
     filter(
-        !is.nan(.data$Metric),
-        .data$Metric != Inf
+      !is.nan(.data$Metric),
+      .data$Metric != Inf
     ) # issue arises where a site has enrolled a participant but participant has not started treatment > exposure is 0 > rate is NaN or Inf
 
-  if (nrow(dfTransformed) < length(unique(dfInput[[ strGroupCol ]]))) {
-    if (!bQuiet)
+  if (nrow(dfTransformed) < length(unique(dfInput[[strGroupCol]]))) {
+    if (!bQuiet) {
       cli::cli_alert_warning(
-          '{length(unique(dfInput[[ strGroupCol ]])) - nrow(dfTransformed)} values of [ {strGroupCol} ] with a [ {strDenominatorCol} ] value of 0 removed.'
+        "{length(unique(dfInput[[ strGroupCol ]])) - nrow(dfTransformed)} values of [ {strGroupCol} ] with a [ {strDenominatorCol} ] value of 0 removed."
       )
+    }
   }
 
   return(dfTransformed)

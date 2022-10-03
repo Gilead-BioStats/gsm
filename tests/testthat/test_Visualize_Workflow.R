@@ -31,5 +31,4 @@ test_that("flowchart is created for all assessments", {
   expect_type(study$kri0006$lChecks$flowchart, "list")
   expect_type(study$kri0007$lChecks$flowchart, "list")
   expect_type(study$kri0008$lChecks$flowchart, "list")
-
 })

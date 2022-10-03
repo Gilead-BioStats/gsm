@@ -20,7 +20,7 @@
 #'
 #' @export
 
-MakeAssessmentList <- function(strNames=NULL, strPath = "workflow", strPackage = "gsm", bRecursive=FALSE) {
+MakeAssessmentList <- function(strNames = NULL, strPath = "workflow", strPackage = "gsm", bRecursive = FALSE) {
   if (!is.null(strPackage)) {
     path <- system.file(strPath, package = strPackage)
   }
@@ -43,7 +43,7 @@ MakeAssessmentList <- function(strNames=NULL, strPath = "workflow", strPackage =
       }
       return(assessment)
     })
-  names(assessments) <- assessments %>% purrr::map_chr(~.x$name)
+  names(assessments) <- assessments %>% purrr::map_chr(~ .x$name)
 
   if (!is.null(strNames)) {
     assessments <- purrr::keep(assessments, names(assessments) %in% strNames)

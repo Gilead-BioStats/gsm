@@ -56,9 +56,9 @@ Flag_Poisson <- function(
   if (all(!is.na(vThreshold))) {
     stopifnot(
       "vThreshold must contain cutoff for moderate/high risks in two directions (i.e., vThreshold = c(-7, -5, 5, 7))" =
-      vThreshold[1] < vThreshold[2],
+        vThreshold[1] < vThreshold[2],
       "vThreshold must contain cutoff for moderate/high risks in two directions (i.e., vThreshold = c(-7, -5, 5, 7))" =
-      vThreshold[2] < vThreshold[3],
+        vThreshold[2] < vThreshold[3],
       "vThreshold must contain cutoff for moderate/high risks in two directions (i.e., vThreshold = c(-7, -5, 5, 7))" =
         vThreshold[3] < vThreshold[4]
     )

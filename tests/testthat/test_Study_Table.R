@@ -12,11 +12,11 @@ lData <- list(
 
 results <- suppressWarnings(
   Study_Assess(lAssessments = lAssessments, lData = lData, bQuiet = TRUE)
-  ) %>%
-  purrr::map(~.x$lResults) %>%
+) %>%
+  purrr::map(~ .x$lResults) %>%
   purrr::discard(is.null) %>%
   purrr::compact() %>%
-  purrr::map_df(~ .x$lData$dfSummary, .id = 'Assessment') %>%
+  purrr::map_df(~ .x$lData$dfSummary, .id = "Assessment") %>%
   mutate(Flag = 1) # none of the test data is flagged - quick fix for now.
 
 test_that("Study Table Runs as expected", {

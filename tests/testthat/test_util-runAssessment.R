@@ -63,7 +63,7 @@ test_that("workflow with multiple FilterDomain steps is reported correctly", {
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 
-  sae_assessment <- RunAssessment(lAssessments$sae, lData = lData, lMapping = lMapping,  bQuiet = TRUE)
+  sae_assessment <- RunAssessment(lAssessments$sae, lData = lData, lMapping = lMapping, bQuiet = TRUE)
 
   expect_equal(names(sae_assessment$lChecks), c("FilterDomain", "FilterDomain", "AE_Map_Raw", "AE_Assess", "flowchart"))
 })

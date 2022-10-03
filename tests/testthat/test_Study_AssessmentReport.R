@@ -55,8 +55,10 @@ test_that("correct messages show when data is not found", {
 
   expect_equal(
     report$dfAllChecks %>% filter(domain == "dfPD" & step == "FilterDomain") %>% pull(notes),
-    c("Data not found for kri0003 assessment",
-      "Data not found for kri0004 assessment")
+    c(
+      "Data not found for kri0003 assessment",
+      "Data not found for kri0004 assessment"
+    )
   )
 
   expect_equal(

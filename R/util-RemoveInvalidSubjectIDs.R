@@ -21,17 +21,18 @@
 #' @export
 
 RemoveInvalidSubjectIDs <- function(
-    df,
-    strDomain = 'input',
-    strIDCol = "subjid",
-    strInvalidValues = '',
-    bQuiet = TRUE
+  df,
+  strDomain = "input",
+  strIDCol = "subjid",
+  strInvalidValues = "",
+  bQuiet = TRUE
 ) {
-    message()
-  if (!bQuiet)
+  message()
+  if (!bQuiet) {
     cli_alert_info(
       "Removing invalid subject ID values from [ {strDomain} ] data: {sub('^$', '\"\"', strInvalidValues)}."
     )
+  }
 
   stopifnot(
     "[ df ] is not a data frame" = is.data.frame(df),
@@ -43,16 +44,17 @@ RemoveInvalidSubjectIDs <- function(
 
   dfValid <- df %>%
     filter(
-        !(.data[[ strIDCol ]] %in% strInvalidValues)
+      !(.data[[strIDCol]] %in% strInvalidValues)
     )
 
   if (!bQuiet) {
     nInvalidRows <- nrow(df) - nrow(dfValid)
 
-    if (nInvalidRows > 0)
-        cli::cli_alert_warning('{nInvalidRows} rows with invalid subject IDs removed from [ {strDomain} ] data.')
-    else
-        cli::cli_alert_info('No invalid subject IDs found in [ {strDomain} ] data.')
+    if (nInvalidRows > 0) {
+      cli::cli_alert_warning("{nInvalidRows} rows with invalid subject IDs removed from [ {strDomain} ] data.")
+    } else {
+      cli::cli_alert_info("No invalid subject IDs found in [ {strDomain} ] data.")
+    }
   }
 
   dfValid

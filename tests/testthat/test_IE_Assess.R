@@ -48,4 +48,3 @@ test_that("incorrect inputs throw errors", {
 test_that("bQuiet works as intended", {
   test_logical_assess_parameters(assess_function, dfInput)
 })
-

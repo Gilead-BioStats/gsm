@@ -27,10 +27,7 @@
 #' @export
 
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
-
-
   allChecks <- map(names(lAssessments), function(assessment) {
-
     workflow <- lAssessments[[assessment]][["workflow"]] %>%
       map_df(
         ~ bind_cols(step = .x[["name"]], domain = .x[["inputs"]])
@@ -47,11 +44,9 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
 
     allChecks <- map(mapTheseSteps, function(step) {
-
-      domains <- names(step[!names(step) %in% c('mapping', 'spec', "status")])
+      domains <- names(step[!names(step) %in% c("mapping", "spec", "status")])
 
       map(domains, function(domain) {
-
         status <- step[[domain]][["status"]]
 
         step[[domain]][["tests_if"]] %>%

@@ -22,11 +22,11 @@
 #' @export
 
 MergeSubjects <- function(
-    dfDomain,
-    dfSUBJ,
-    strIDCol = "SubjectID",
-    vFillZero = NULL,
-    bQuiet = TRUE
+  dfDomain,
+  dfSUBJ,
+  strIDCol = "SubjectID",
+  vFillZero = NULL,
+  bQuiet = TRUE
 ) {
   if (!bQuiet) cli_alert_info("Intializing merge of domain and subject data")
 
