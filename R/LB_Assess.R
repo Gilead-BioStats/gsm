@@ -111,7 +111,8 @@ LB_Assess <- function(
       dfInput = dfInput,
       strGroupCol = lMapping$dfInput$strGroupCol,
       strNumeratorCol = "Count",
-      strDenominatorCol = "Total"
+      strDenominatorCol = "Total",
+      bQuiet = bQuiet
     )
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 

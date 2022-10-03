@@ -65,6 +65,31 @@ test_that("incorrect inputs throw errors", {
     ),
     "Required columns not found in input data"
   )
+})
 
+test_that("rows with a denominator of 0 are removed", {
+  testInput <- input %>%
+    group_by(SiteID) %>%
+    mutate(
+      Exposure = ifelse(
+        SiteID == input$SiteID[1],
+        0,
+        Exposure
+      ),
+      Rate = ifelse(
+        SiteID == input$SiteID[1],
+        NaN,
+        Rate
+      )
+    ) %>%
+    ungroup()
 
+  expect_message(
+    Transform_Rate(
+      dfInput = testInput,
+      strNumeratorCol = "Count",
+      strDenominatorCol = "Exposure",
+      bQuiet = FALSE
+    )
+  )
 })
