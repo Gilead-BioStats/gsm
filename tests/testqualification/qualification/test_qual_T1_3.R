@@ -5,8 +5,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   test1_3 <- AE_Assess(
     dfInput = dfInput,
     strMethod = "poisson",
-    strGroup = "CustomGroup",
-    bChart = FALSE
+    strGroup = "CustomGroup"
   )
 
   # Double Programming
@@ -14,8 +13,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
 
   t1_3_transformed <- dfInput %>%
     qualification_transform_counts(
-      KRILabel = "AEs/Week",
-      GroupLabel = "CustomGroupID"
+      GroupID = "CustomGroupID"
     )
 
   t1_3_analyzed <- t1_3_transformed %>%
@@ -24,32 +22,14 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   class(t1_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t1_3_flagged <- t1_3_analyzed %>%
-    mutate(
-      ThresholdLow = -5,
-      ThresholdHigh = 5,
-      ThresholdCol = "Score",
-      Flag = case_when(
-        Score < -5 ~ -1,
-        Score > 5 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-    ) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    qualification_flag_poisson()
 
   t1_3_summary <- t1_3_flagged %>%
-    mutate(
-      Assessment = "AE"
-    ) %>%
-    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
-    arrange(desc(abs(KRI))) %>%
+    select(GroupID, Metric, Score, Flag) %>%
+    arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t1_3 <- list(
-    "strFunctionName" = "AE_Assess()",
-    "lTags" = list(Assessment = "AE"),
-    "dfInput" = t1_3_input,
     "dfTransformed" = t1_3_transformed,
     "dfAnalyzed" = t1_3_analyzed,
     "dfFlagged" = t1_3_flagged,
@@ -57,5 +37,6 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   )
 
   # compare results
-  expect_equal(test1_3, t1_3)
+  # remove bounds dataframe for now
+  expect_equal(test1_3$lData[names(test1_3$lData) != "dfBounds"], t1_3)
 })

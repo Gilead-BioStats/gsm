@@ -3,29 +3,25 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
   dfInput <- IE_Map_Raw()
 
   test3_1 <- IE_Assess(
-    dfInput = dfInput,
-    bChart = FALSE
+    dfInput = dfInput
   )
 
   # Double Programming
   t3_1_input <- dfInput
 
   t3_1_transformed <- dfInput %>%
-    qualification_transform_counts(exposureCol = NA, KRILabel = "# of Inclusion/Exclusion Issues")
+    qualification_transform_counts(exposureCol = NA)
 
   t3_1_analyzed <- t3_1_transformed %>%
     mutate(
-      Score = TotalCount,
-      ScoreLabel = "# of Inclusion/Exclusion Issues"
-    )
+      Score = TotalCount
+    ) %>%
+    arrange(Score)
 
   class(t3_1_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t3_1_flagged <- t3_1_analyzed %>%
     mutate(
-      ThresholdLow = NA_real_,
-      ThresholdHigh = 0.5,
-      ThresholdCol = "Score",
       Flag = case_when(
         Score > 0.5 ~ 1,
         is.na(Score) ~ NA_real_,
@@ -36,17 +32,11 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
     arrange(match(Flag, c(1, -1, 0)))
 
   t3_1_summary <- t3_1_flagged %>%
-    mutate(
-      Assessment = "IE"
-    ) %>%
-    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
-    arrange(desc(abs(KRI))) %>%
+    select(GroupID, Metric, Score, Flag) %>%
+    arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t3_1 <- list(
-    "strFunctionName" = "IE_Assess()",
-    "lTags" = list(Assessment = "IE"),
-    "dfInput" = t3_1_input,
     "dfTransformed" = t3_1_transformed,
     "dfAnalyzed" = t3_1_analyzed,
     "dfFlagged" = t3_1_flagged,
@@ -54,5 +44,5 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
   )
 
   # compare results
-  expect_equal(test3_1, t3_1)
+  expect_equal(test3_1$lData, t3_1)
 })

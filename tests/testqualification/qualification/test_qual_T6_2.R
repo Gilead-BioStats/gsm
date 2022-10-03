@@ -4,9 +4,8 @@ test_that("Labs assessment can return a correctly assessed data frame for the ch
 
   test6_2 <- LB_Assess(
     dfInput = dfInput,
-    strGroup = "CustomGroup",
-    vThreshold = c(.01, NA),
-    bChart = FALSE
+    vThreshold = c(.025, .05),
+    strGroup = "CustomGroup"
   )
 
   # Double Programming
@@ -15,48 +14,23 @@ test_that("Labs assessment can return a correctly assessed data frame for the ch
   t6_2_transformed <- dfInput %>%
     qualification_transform_counts(
       exposureCol = "Total",
-      KRILabel = "% Abnormal Labs",
-      GroupLabel = "CustomGroupID"
+      GroupID = "CustomGroupID"
     )
 
   t6_2_analyzed <- t6_2_transformed %>%
-    qualification_analyze_chisq()
+    qualification_analyze_fisher()
 
   class(t6_2_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t6_2_flagged <- t6_2_analyzed %>%
-    mutate(
-      ThresholdLow = .01,
-      ThresholdHigh = NA_integer_,
-      ThresholdCol = "Score",
-      Flag = case_when(
-        Score < .01 ~ -1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(KRI),
-      Flag = case_when(
-        Flag != 0 & KRI < median ~ -1,
-        Flag != 0 & KRI >= median ~ 1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    qualification_flag_fisher(threshold = c(.025, .05))
 
   t6_2_summary <- t6_2_flagged %>%
-    mutate(
-      Assessment = "Labs"
-    ) %>%
-    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
-    arrange(desc(abs(KRI))) %>%
+    select(GroupID, Metric, Score, Flag) %>%
+    arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t6_2 <- list(
-    "strFunctionName" = "LB_Assess()",
-    "lTags" = list(Assessment = "Labs"),
-    "dfInput" = t6_2_input,
     "dfTransformed" = t6_2_transformed,
     "dfAnalyzed" = t6_2_analyzed,
     "dfFlagged" = t6_2_flagged,
@@ -64,5 +38,5 @@ test_that("Labs assessment can return a correctly assessed data frame for the ch
   )
 
   # compare results
-  expect_equal(test6_2, t6_2)
+  expect_equal(test6_2$lData, t6_2)
 })

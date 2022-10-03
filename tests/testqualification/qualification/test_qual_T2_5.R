@@ -1,15 +1,15 @@
-test_that("PD assessment can return a correctly assessed data frame for the wilcoxon test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly", {
+test_that("PD assessment can return a correctly assessed data frame for the identity test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly", {
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw(dfs = list(
-    dfPD = clindata::rawplus_pd %>% filter(PD_IMPORTANT_FLAG == "Y"),
-    dfSUBJ = clindata::rawplus_subj
+    dfPD = clindata::rawplus_protdev %>% filter(importnt == "Y"),
+    dfSUBJ = clindata::rawplus_dm
   ))
 
   test2_5 <- PD_Assess(
     dfInput = dfInput,
-    strMethod = "wilcoxon",
-    strGroup = "CustomGroup",
-    bChart = FALSE
+    strMethod = "identity",
+    vThreshold = c(0.00001, 0.1),
+    strGroup = "Study"
   )
 
   # double programming
@@ -17,31 +17,30 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
 
   t2_5_transformed <- dfInput %>%
     qualification_transform_counts(
-      KRILabel = "PDs/Week",
-      GroupLabel = "CustomGroupID"
+      GroupID = "StudyID"
     )
 
   t2_5_analyzed <- t2_5_transformed %>%
-    qualification_analyze_wilcoxon()
+    mutate(
+      Score = Metric
+    ) %>%
+    arrange(Score)
 
   class(t2_5_analyzed) <- c("tbl_df", "tbl", "data.frame")
-  names(t2_5_analyzed$Estimate) <- rep("difference in location", nrow(t2_5_analyzed))
 
   t2_5_flagged <- t2_5_analyzed %>%
     mutate(
-      ThresholdLow = 0.0001,
-      ThresholdHigh = NA_integer_,
-      ThresholdCol = "Score",
       Flag = case_when(
-        Score < 0.0001 ~ -1,
+        Score < 0.00001 ~ -1,
+        Score > 0.1 ~ 1,
         is.na(Score) ~ NA_real_,
         is.nan(Score) ~ NA_real_,
         TRUE ~ 0
       ),
-      median = median(Estimate),
+      median = median(Score),
       Flag = case_when(
-        Flag != 0 & Estimate >= median ~ 1,
-        Flag != 0 & Estimate < median ~ -1,
+        Flag != 0 & Score >= median ~ 1,
+        Flag != 0 & Score < median ~ -1,
         TRUE ~ Flag
       )
     ) %>%
@@ -49,17 +48,11 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
     arrange(match(Flag, c(1, -1, 0)))
 
   t2_5_summary <- t2_5_flagged %>%
-    mutate(
-      Assessment = "PD"
-    ) %>%
-    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
-    arrange(desc(abs(KRI))) %>%
+    select(GroupID, Metric, Score, Flag) %>%
+    arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t2_5 <- list(
-    "strFunctionName" = "PD_Assess()",
-    "lTags" = list(Assessment = "PD"),
-    "dfInput" = t2_5_input,
     "dfTransformed" = t2_5_transformed,
     "dfAnalyzed" = t2_5_analyzed,
     "dfFlagged" = t2_5_flagged,
@@ -67,5 +60,5 @@ test_that("PD assessment can return a correctly assessed data frame for the wilc
   )
 
   # compare results
-  expect_equal(test2_5, t2_5)
+  expect_equal(test2_5$lData, t2_5)
 })
