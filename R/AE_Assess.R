@@ -10,8 +10,9 @@
 #' methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
-#' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
-#'   `c(-5, 5)` for a Poisson model (`strMethod = "poisson"`) and `c(0.00006, 0.01)` for a nominal assessment (`strMethod = "identity"`).
+#' @param vThreshold `numeric` Threshold specification, a vector of length 4 that defaults to
+#'   `c(-7, -5, 5, 7)` for a Poisson model (`strMethod = "poisson"`) and a vector of length 2 that defaults to `c(0.00006, 0.01)`
+#'   for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"poisson"` (default)
 #'   - `"identity"`
@@ -25,13 +26,13 @@
 #' - each data frame in the data pipeline
 #'   - `dfTransformed`, returned by [gsm::Transform_Rate()]
 #'   - `dfAnalyzed`, returned by [gsm::Analyze_Poisson()] or [gsm::Analyze_Identity()]
-#'   - `dfFlagged`, returned by [gsm::Flag()]
+#'   - `dfFlagged`, returned by [gsm::Flag_Poisson()] or [gsm::Flag()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
-#'   - `dfBounds`, returned by [gsm::Analyze_Poisson_PredictBounds()] only when strMethod == 'poisson'
+#'   - `dfBounds`, returned by [gsm::Analyze_Poisson_PredictBounds()] only when strMethod == "poisson"
 #' - `list` `lCharts`, a named list with:
-#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()]
-#'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "metric"
-#'   - `barScore`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "score"
+#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when strMethod != "identity"
+#'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()]
+#'   - `barScore`, a ggplot2 object returned by [gsm::Visualize_Score()]
 #' - `list` `lChecks`, a named list with:
 #'   - `dfInput`, a named list returned by [gsm::is_mapping_valid()]
 #'   - `status`, a boolean returned by [gsm::is_mapping_valid()]

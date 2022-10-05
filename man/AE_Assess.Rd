@@ -16,8 +16,9 @@ AE_Assess(
 \arguments{
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
-\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to
-\code{c(-5, 5)} for a Poisson model (\code{strMethod = "poisson"}) and \code{c(0.00006, 0.01)} for a nominal assessment (\code{strMethod = "identity"}).}
+\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 4 that defaults to
+\code{c(-7, -5, 5, 7)} for a Poisson model (\code{strMethod = "poisson"}) and a vector of length 2 that defaults to \code{c(0.00006, 0.01)}
+for a nominal assessment (\code{strMethod = "identity"}).}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
@@ -40,15 +41,15 @@ Other valid options using the default mapping are \code{"Study"} and \code{"Cust
 \itemize{
 \item \code{dfTransformed}, returned by \code{\link[=Transform_Rate]{Transform_Rate()}}
 \item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
-\item \code{dfFlagged}, returned by \code{\link[=Flag]{Flag()}}
+\item \code{dfFlagged}, returned by \code{\link[=Flag_Poisson]{Flag_Poisson()}} or \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
-\item \code{dfBounds}, returned by \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}} only when strMethod == 'poisson'
+\item \code{dfBounds}, returned by \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}} only when strMethod == "poisson"
 }
 \item \code{list} \code{lCharts}, a named list with:
 \itemize{
-\item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}}
-\item \code{barMetric}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}} using strType == "metric"
-\item \code{barScore}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}} using strType == "score"
+\item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}} only when strMethod != "identity"
+\item \code{barMetric}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}}
+\item \code{barScore}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}}
 }
 \item \code{list} \code{lChecks}, a named list with:
 \itemize{
