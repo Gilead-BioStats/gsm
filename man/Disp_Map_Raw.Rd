@@ -52,6 +52,19 @@ Convert from ADaM or raw format to input format for Disposition Assessment.
 \code{Disp_Map_Raw} creates an input dataset for the Disposition Assessment \code{\link[=Disp_Map_Raw]{Disp_Map_Raw()}} by adding
 Discontinuation Reason Counts to basic subject-level data.
 }
+\section{Data specification}{
+\tabular{llllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \tab \strong{Require Unique Values?} \cr
+   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab TRUE \cr
+   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
+   dfDISP \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \tab FALSE \cr
+   dfDISP \tab strStudyDiscontinuationReasonCol \tab StudDCReason \tab TRUE \tab TRUE \tab FALSE \cr
+   dfDISP \tab strStudyCompletionFlagCol \tab StudCompletion \tab TRUE \tab TRUE \tab FALSE \cr
+   dfDISP \tab strTreatmentDiscontinuationReasonCol \tab TrtDCReason \tab TRUE \tab TRUE \tab FALSE \cr
+   dfDISP \tab strTreatmentCompletionFlagCol \tab TrtCompletion \tab TRUE \tab TRUE \tab FALSE \cr
+}
+}
+
 \examples{
 # Run with defaults.
 dfInput <- Disp_Map_Raw()

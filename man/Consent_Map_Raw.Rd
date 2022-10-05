@@ -47,6 +47,19 @@ to \code{\link[=Consent_Assess]{Consent_Assess()}}. This function creates an inp
 subject-level data (from \code{dfSUBJ}). Note the function can generate data summaries for specific
 types of consent by customizing \code{lMapping$dfCONSENT}.
 }
+\section{Data specification}{
+\tabular{llllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \tab \strong{Require Unique Values?} \cr
+   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \tab FALSE \cr
+   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab TRUE \cr
+   dfSUBJ \tab strRandDateCol \tab rfpen_dt \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strTypeCol \tab conscat \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strValueCol \tab consyn \tab TRUE \tab FALSE \tab FALSE \cr
+   dfCONSENT \tab strDateCol \tab consdt \tab TRUE \tab TRUE \tab FALSE \cr
+}
+}
+
 \examples{
 # Run with defaults.
 dfInput <- Consent_Map_Raw()
