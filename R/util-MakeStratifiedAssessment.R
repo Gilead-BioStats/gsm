@@ -133,7 +133,7 @@ MakeStratifiedAssessment <- function(
       workflow
     })
 
-  names(stratifiedWorkflows) <- map_chr(stratifiedWorkflows, ~ .x$name)
+  names(stratifiedWorkflows) <- purrr::map_chr(stratifiedWorkflows, ~ .x$name)
 
   if (!bQuiet) {
     cli::cli_alert_info(
