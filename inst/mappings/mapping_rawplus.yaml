@@ -4,7 +4,7 @@ dfSUBJ:
   strIDCol: subjid
   strTimeOnStudyCol: timeonstudy
   strTimeOnTreatmentCol: timeontreatment
-  strRandDateCol: rfpen_dt
+  strRandDateCol: rfpst_dt
   strCustomGroupCol: country
 dfAE:
   strIDCol: subjid

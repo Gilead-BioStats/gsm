@@ -144,7 +144,7 @@
     Output
       $dfSUBJ
       # A tibble: 3 x 7
-        studyid        siteid subjid timeonstudy timeontreatment rfpen_dt   country
+        studyid        siteid subjid timeonstudy timeontreatment rfpst_dt   country
         <chr>          <chr>  <chr>        <int>           <int> <chr>      <chr>  
       1 AA-AA-000-0000 86     0001           730             678 2008-09-10 US     
       2 AA-AA-000-0000 76     0002            50              13 2017-05-22 China  
@@ -598,7 +598,7 @@
       [1] "timeontreatment"
       
       $AE_Map_Raw$mapping$dfSUBJ$strRandDateCol
-      [1] "rfpen_dt"
+      [1] "rfpst_dt"
       
       $AE_Map_Raw$mapping$dfSUBJ$strCustomGroupCol
       [1] "country"
