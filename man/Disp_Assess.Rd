@@ -67,6 +67,27 @@ Evaluates disposition rate (DISP) on mapped subject-level dataset to identify si
 The Disposition Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }
+\section{Data specification}{
+\tabular{lllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
+   dfInput \tab strGroupCol \tab  \tab TRUE \tab FALSE \cr
+}
+}
+
+\section{Statistical assumptions}{
+The Fisher’s exact test, or percentage value (identity) is used to
+generate estimates and p-values for each site (as specified with the
+\code{strMethod} parameter). Those outputs are then used to flag possible
+outliers using the thresholds specified in \code{vThreshold}. In the Fisher’s
+exact test, sites with \emph{p} < 0.05 are flagged as 1 by default.
+
+See \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or
+\code{\link[=Analyze_Identity]{Analyze_Identity()}} for additional
+details about the statistical methods and their assumptions.
+}
+
 \examples{
 dfInput <- Disp_Map_Raw()
 disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "fisher")

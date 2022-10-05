@@ -58,6 +58,15 @@ The IE Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.g
 missing IE criteria, as defined by \code{nThreshold}. The count returned in the summary represents the
 number of subjects at a given site with at least one unmet or missing IE criterion.
 }
+\section{Data specification}{
+\tabular{lllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
+   dfInput \tab strGroupCol \tab  \tab TRUE \tab FALSE \cr
+}
+}
+
 \examples{
 dfInput <- IE_Map_Raw()
 ie_assessment <- IE_Assess(dfInput)

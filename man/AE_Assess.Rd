@@ -66,6 +66,28 @@ Evaluates adverse event (AE) rates to identify sites that may be over- or under-
 The AE Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }
+\section{Data specification}{
+\tabular{llllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \tab \strong{Accept NA/Empty Values?} \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \tab FALSE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \tab FALSE \cr
+   dfInput \tab strExposureCol \tab Exposure \tab TRUE \tab FALSE \tab TRUE \cr
+   dfInput \tab strRateCol \tab Rate \tab TRUE \tab FALSE \tab TRUE \cr
+   dfInput \tab strGroupCol \tab  \tab TRUE \tab FALSE \tab FALSE \cr
+}
+}
+
+\section{Statistical assumptions}{
+A Poisson model is used to generate estimates and p-values for each site
+(as specified with the \code{strMethod} parameter). Those model outputs are
+then used to flag possible outliers using the thresholds specified in
+\code{vThreshold}. Sites with an estimate less than -5 are flagged as -1 and
+greater than 5 are flagged as 1 by default.
+
+See \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} for additional
+details about the statistical methods and their assumptions.
+}
+
 \examples{
 dfInput <- AE_Map_Raw()
 ae_assessment_poisson <- AE_Assess(dfInput)
