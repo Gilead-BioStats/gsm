@@ -4,7 +4,7 @@
 |:----------|:--------------|:-----------------|:-------------|:---------------------------|:--------------------------|
 |dfSUBJ     |strSiteCol     |siteid            |TRUE          |FALSE                       |FALSE                      |
 |dfSUBJ     |strIDCol       |subjid            |TRUE          |FALSE                       |TRUE                       |
-|dfSUBJ     |strRandDateCol |rfpen_dt          |TRUE          |FALSE                       |FALSE                      |
+|dfSUBJ     |strRandDateCol |rfpst_dt          |TRUE          |FALSE                       |FALSE                      |
 |dfCONSENT  |strIDCol       |subjid            |TRUE          |FALSE                       |FALSE                      |
 |dfCONSENT  |strTypeCol     |conscat           |TRUE          |FALSE                       |FALSE                      |
 |dfCONSENT  |strValueCol    |consyn            |TRUE          |FALSE                       |FALSE                      |
