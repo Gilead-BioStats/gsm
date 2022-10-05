@@ -149,7 +149,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["rfpen_dt"]
+              "value": ["rfpst_dt"]
             },
             {
               "type": "character",
@@ -269,7 +269,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, rfpen_dt
+      x the following columns not found in df: subjid, siteid, rfpst_dt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -288,7 +288,7 @@
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, rfpen_dt
+      x the following columns not found in df: subjid, siteid, rfpst_dt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -330,7 +330,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, rfpen_dt
+      x the following columns not found in df: subjid, siteid, rfpst_dt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -353,7 +353,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, rfpen_dt
+      x the following columns not found in df: subjid, siteid, rfpst_dt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -376,7 +376,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, rfpen_dt
+      x the following columns not found in df: subjid, siteid, rfpst_dt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -528,7 +528,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: rfpen_dt
+      x the following columns not found in df: rfpst_dt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -615,7 +615,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x 1 NA values found in column: rfpen_dt
+      x 1 NA values found in column: rfpst_dt
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output

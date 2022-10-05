@@ -139,7 +139,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["rfpen_dt"]
+              "value": ["rfpst_dt"]
             },
             {
               "type": "character",
