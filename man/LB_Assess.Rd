@@ -2,7 +2,7 @@
 % Please edit documentation in R/LB_Assess.R
 \name{LB_Assess}
 \alias{LB_Assess}
-\title{Labs Assessment}
+\title{Lab Abnormality Assessment}
 \usage{
 LB_Assess(
   dfInput,
@@ -17,7 +17,7 @@ LB_Assess(
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to
-\code{c(.05, NA)} for Fisher's exact test (\code{strMethod} = "fisher") and \code{c(3.491, 5.172)} for a nominal assessment (\code{strMethod = "identity"}).}
+\code{c(.01, .05)} for Fisher's exact test (\code{strMethod} = "fisher") and \code{c(3.491, 5.172)} for a nominal assessment (\code{strMethod} = "identity").}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
@@ -39,14 +39,14 @@ of the column.}
 \itemize{
 \item \code{dfTransformed}, returned by \code{\link[=Transform_Rate]{Transform_Rate()}}
 \item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
-\item \code{dfFlagged}, returned by \code{\link[=Flag]{Flag()}}
+\item \code{dfFlagged}, returned by \code{\link[=Flag_Fisher]{Flag_Fisher()}} or \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
 }
 \item \code{list} \code{lCharts}, a named list with:
 \itemize{
-\item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}}
-\item \code{barMetric}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}} using strType == "metric"
-\item \code{barScore}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}} using strType == "score"
+\item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}} only when strMethod != "identity"
+\item \code{barMetric}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}}
+\item \code{barScore}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}}
 }
 \item \code{list} \code{lChecks}, a named list with:
 \itemize{
@@ -61,8 +61,6 @@ of the column.}
 Evaluates rate of reported Lab Abnormalities (LB).
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 The Lab Abnormality Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }
