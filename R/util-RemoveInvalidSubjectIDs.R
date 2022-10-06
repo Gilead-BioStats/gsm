@@ -6,14 +6,14 @@
 #' @param strInvalidValues `character` array of invalid subject ID values; Default: `""`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` input data frame with invalid subject ID values removed
-#'
 #' @examples
 #' RemoveInvalidSubjectIDs(
 #'   clindata::rawplus_protdev,
 #'   strIDCol = "subjid",
 #'   bQuiet = FALSE
 #' )
+#'
+#' @return `data.frame` input data frame with invalid subject ID values removed
 #'
 #' @importFrom cli cli_alert_info cli_alert_warning
 #' @importFrom dplyr filter

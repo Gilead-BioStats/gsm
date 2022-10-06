@@ -6,15 +6,14 @@
 #' @param vFillZero Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSUBJ
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` with one record per strIDCol.
-#'
-#'
 #' @examples
 #' MergeSubjects(
 #'   dfDomain = clindata::rawplus_consent,
 #'   dfSUBJ = clindata::rawplus_dm,
 #'   strIDCol = "subjid"
 #' )
+#'
+#' @return `data.frame` with one record per strIDCol.
 #'
 #' @importFrom cli cli_alert_info cli_alert_warning
 #' @importFrom tidyr replace_na

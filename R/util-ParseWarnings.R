@@ -2,10 +2,7 @@
 #'
 #' @param lResults `list` List returned from `gsm::Study_Assess()`.
 #'
-#' @return `data.frame` With columns `notes` and `workflowid`.
-#'
 #' @examples
-#'
 #' # Set all subjid to NA to create warnings
 #' lData <- list(
 #'   dfAE = clindata::rawplus_ae %>%
@@ -16,6 +13,8 @@
 #' study <- Study_Assess(lData = lData)
 #'
 #' warnings <- ParseWarnings(study)
+#'
+#' @return `data.frame` With columns `notes` and `workflowid`.
 #'
 #' @importFrom purrr map imap map_df discard imap_dfr
 #'

@@ -12,6 +12,7 @@
 #' \dontrun{
 #' results <- Study_Assess() # run using defaults
 #' }
+#'
 #' @return `list` of assessments containing status information and results.
 #'
 #' @import dplyr

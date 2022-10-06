@@ -78,8 +78,8 @@
 #' @importFrom cli cli_alert_info cli_alert_success cli_alert_warning cli_text
 #' @importFrom purrr imap map_chr
 #' @importFrom glue glue
+#'
 #' @export
-
 MakeStratifiedAssessment <- function(
   lWorkflow,
   lData,
