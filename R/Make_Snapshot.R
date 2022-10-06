@@ -7,16 +7,14 @@
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `list`, `lSnapshot`
+#' @includeRmd ./man/md/Make_Snapshot.md
+#'
+#' @examples
+#' # run with default testing data
+#' snapshot <- Make_Snapshot()
 #'
 #' @import purrr
 #' @importFrom yaml read_yaml
-#'
-#'
-#' @examples
-#'
-#' # run with default testing data
-#' snapshot <- Make_Snapshot()
 #'
 #' @export
 Make_Snapshot <- function(lMeta = list(

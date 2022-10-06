@@ -7,7 +7,7 @@
 #' @param strNames `array of character` List of workflows to include. NULL (the default) includes all workflows in the specified locations.
 #' @param strPath `character` The location of assessment YAML files. If package is specified, function will look in `/inst` folder.
 #' @param strPackage `character` The name of the package with assessments.
-#' @param bRecursive `boolean` Find files in nested folders? Default FALSE.
+#' @param bRecursive `logical` Find files in nested folders? Default FALSE.
 #'
 #' @examples
 #' MakeAssessmentList(strPath = "workflow", strPackage = "gsm")

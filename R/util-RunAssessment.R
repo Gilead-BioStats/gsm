@@ -8,7 +8,6 @@
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `list` containing `lAssessment` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
 #' @examples
 #' lAssessments <- MakeAssessmentList()
@@ -29,6 +28,8 @@
 #'   lData,
 #'   lMapping
 #' )
+#'
+#' @return `list` containing `lAssessment` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom stringr str_detect
