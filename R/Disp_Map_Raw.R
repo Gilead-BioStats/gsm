@@ -1,16 +1,12 @@
 #' Disposition Assessment - Raw Mapping
 #'
-#' Convert from ADaM or raw format to input format for Disposition Assessment.
-#'
 #' @description
 #' Convert raw disposition data to formatted input data to to formatted
 #' input data to [gsm::Disp_Assess()].
 #'
 #' @details
-#' `Disp_Map_Raw` creates an input dataset for the Disposition Assessment [gsm::Disp_Map_Raw()] by adding
-#' Discontinuation Reason Counts to basic subject-level data.
-#'
-#'
+#' `Disp_Map_Raw` creates an input dataset for the Disposition Assessment [gsm::Disp_Assess()] by adding
+#' Discontinuation Reason Counts (derived from `dfDISP`) to basic subject-level data (from `dfSUBJ`).
 #'
 #' @param dfs `list` Input data frame:
 #'   - `dfDISP`: `data.frame` Subject-level data with one record per discontinuation reason.
@@ -22,8 +18,8 @@
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` with one record per subject, the input to gsm::Disp_Assess(). If
-#' `bReturnChecks` is `TRUE` `AE_Map_Raw` returns a named `list` with:
+#' @return `data.frame` with one record per subject, the input to [gsm::Disp_Assess()]. If
+#' `bReturnChecks` is `TRUE` `Disp_Map_Raw` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
 #'
@@ -37,9 +33,9 @@
 #' dfInput <- Disp_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
-#' @import dplyr
 #' @importFrom glue glue
 #' @importFrom yaml read_yaml
+#' @import dplyr
 #'
 #' @export
 

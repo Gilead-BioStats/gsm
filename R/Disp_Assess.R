@@ -11,10 +11,9 @@
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
-#' `c(.05, NA)` for Fisher's exact test (`strMethod` = "fisher").
+#' `c(0.01, 0.05)` for Fisher's exact test (`strMethod` = "fisher") and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
-#'   - `"chisq"` (default)
-#'   - `"fisher"`
+#'   - `"fisher"` (default)
 #'   - `"identity"`
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
@@ -25,9 +24,8 @@
 #' - each data frame in the data pipeline
 #'   - `dfTransformed`, returned by [gsm::Transform_Rate()]
 #'   - `dfAnalyzed`, returned by [gsm::Analyze_Fisher()] or [gsm::Analyze_Identity()]
-#'   - `dfFlagged`, returned by [gsm::Flag()]
+#'   - `dfFlagged`, returned by [gsm::Flag()] or [gsm::Flag_Fisher()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
-#'   - `dfBounds`, returned by [gsm::Analyze_Poisson_PredictBounds()] only when strMethod == 'poisson'
 #' - `list` `lCharts`, a named list with:
 #'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()]
 #'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "metric"
