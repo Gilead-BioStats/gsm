@@ -44,7 +44,8 @@
 #' @importFrom yaml read_yaml
 #' @importFrom glue glue
 #' @import dplyr
-
+#' @importFrom tools toTitleCase
+#'
 #' @export
 
 IE_Assess <- function(

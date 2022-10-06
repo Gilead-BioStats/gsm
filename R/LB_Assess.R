@@ -1,6 +1,4 @@
-#' Labs Assessment
-#'
-#' `r lifecycle::badge("experimental")`
+#' Lab Abnormality Assessment
 #'
 #' @description
 #' Evaluates rate of reported Lab Abnormalities (LB).
@@ -13,7 +11,7 @@
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
-#' `c(.05, NA)` for Fisher's exact test (`strMethod` = "fisher") and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "identity"`).
+#' `c(.01, .05)` for Fisher's exact test (`strMethod` = "fisher") and `c(3.491, 5.172)` for a nominal assessment (`strMethod` = "identity").
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"fisher"`
 #'   - `"identity"`
@@ -26,12 +24,12 @@
 #' - each data frame in the data pipeline
 #'   - `dfTransformed`, returned by [gsm::Transform_Rate()]
 #'   - `dfAnalyzed`, returned by [gsm::Analyze_Fisher()] or [gsm::Analyze_Identity()]
-#'   - `dfFlagged`, returned by [gsm::Flag()]
+#'   - `dfFlagged`, returned by [gsm::Flag_Fisher()] or [gsm::Flag()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
 #' - `list` `lCharts`, a named list with:
-#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()]
-#'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "metric"
-#'   - `barScore`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "score"
+#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when strMethod != "identity"
+#'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()]
+#'   - `barScore`, a ggplot2 object returned by [gsm::Visualize_Score()]
 #' - `list` `lChecks`, a named list with:
 #'   - `dfInput`, a named list returned by [gsm::is_mapping_valid()]
 #'   - `status`, a boolean returned by [gsm::is_mapping_valid()]
@@ -49,6 +47,7 @@
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
 #' @importFrom glue glue
+#' @importFrom tools toTitleCase
 #'
 #' @export
 

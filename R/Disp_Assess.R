@@ -47,6 +47,7 @@
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
 #' @importFrom glue glue
+#' @importFrom tools toTitleCase
 #'
 #' @export
 

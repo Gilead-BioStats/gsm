@@ -1,9 +1,7 @@
-#' Lab Assessment - Raw Mapping
-#'
-#' `r lifecycle::badge("experimental")`
+#' Lab Abnormality Assessment - Raw Mapping
 #'
 #' @description
-#' Convert from ADaM or raw format to input format for Labs Assessment.
+#' Convert from ADaM or raw format to input format for Lab Abnormality Assessment.
 #'
 #' @details
 #' Convert raw lab data (LB), typically processed case report form data, to formatted
