@@ -30,6 +30,8 @@
 #'   lMapping
 #' )
 #'
+#' @return `list` containing `lAssessment` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
+#'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom stringr str_detect
 #' @importFrom yaml read_yaml
@@ -52,6 +54,7 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
     for (step in lWorkflow$steps) {
       if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
       if (lWorkflow$bStatus) {
+
 
         result <- gsm::RunStep(
           lStep = step,

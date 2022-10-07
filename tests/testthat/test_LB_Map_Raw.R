@@ -82,5 +82,4 @@ test_that("correct counts are returned after join", {
 
   expect_true(all(result$Count %in% c(0, 1)))
   expect_false(all(is.na(result$Count)))
-
 })

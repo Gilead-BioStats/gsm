@@ -35,8 +35,8 @@ of the column.}
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one record per subject, the input to gsm::Disp_Assess(). If
-\code{bReturnChecks} is \code{TRUE} \code{AE_Map_Raw} returns a named \code{list} with:
+\code{data.frame} with one record per subject, the input to \code{\link[=Disp_Assess]{Disp_Assess()}}. If
+\code{bReturnChecks} is \code{TRUE} \code{Disp_Map_Raw} returns a named \code{list} with:
 \itemize{
 \item \code{df}: the data frame described above
 \item \code{lChecks}: a named \code{list} of check results
@@ -47,10 +47,8 @@ Convert raw disposition data to formatted input data to to formatted
 input data to \code{\link[=Disp_Assess]{Disp_Assess()}}.
 }
 \details{
-Convert from ADaM or raw format to input format for Disposition Assessment.
-
-\code{Disp_Map_Raw} creates an input dataset for the Disposition Assessment \code{\link[=Disp_Map_Raw]{Disp_Map_Raw()}} by adding
-Discontinuation Reason Counts to basic subject-level data.
+\code{Disp_Map_Raw} creates an input dataset for the Disposition Assessment \code{\link[=Disp_Assess]{Disp_Assess()}} by adding
+Discontinuation Reason Counts (derived from \code{dfDISP}) to basic subject-level data (from \code{dfSUBJ}).
 }
 \section{Data specification}{
 \tabular{llllll}{

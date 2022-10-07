@@ -1,73 +1,40 @@
-test_that("PD assessment can return a correctly assessed data frame for the poisson test grouped by the study variable and the results should be flagged correctly when done in an iterative loop", {
-  test2_3 <- list()
-  t2_3 <- list()
+test_that("PD assessment can return a correctly assessed data frame for the poisson test grouped by the study variable and the results should be flagged correctly", {
+  # gsm analysis
+  dfInput <- gsm::PD_Map_Raw()
 
-  for (type in unique(clindata::rawplus_pd$PD_CATEGORY)) {
-    dfInput <- PD_Map_Raw(dfs = list(
-      dfPD = clindata::rawplus_pd %>% filter(PD_CATEGORY == type),
-      dfSUBJ = clindata::rawplus_subj
-    ))
+  test2_3 <- PD_Assess(
+    dfInput = dfInput,
+    strMethod = "poisson",
+    strGroup = "Study"
+  )
 
-    # gsm
-    test2_3 <- c(test2_3,
-      type = PD_Assess(dfInput,
-        strMethod = "poisson",
-        strGroup = "Study",
-        bChart = FALSE
-      )
-    )
+  # Double Programming
+  t2_3_input <- dfInput
 
+  t2_3_transformed <- dfInput %>%
+    qualification_transform_counts(GroupID = "StudyID")
 
-    # Double Programming
-    t2_3_input <- dfInput
+  t2_3_analyzed <- t2_3_transformed %>%
+    qualification_analyze_poisson()
 
-    t2_3_transformed <- dfInput %>%
-      qualification_transform_counts(
-        KRILabel = "PDs/Week",
-        GroupLabel = "StudyID"
-      )
+  class(t2_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
-    t2_3_analyzed <- t2_3_transformed %>%
-      qualification_analyze_poisson()
+  t2_3_flagged <- t2_3_analyzed %>%
+    qualification_flag_poisson()
 
-    class(t2_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
+  t2_3_summary <- t2_3_flagged %>%
+    select(GroupID, Metric, Score, Flag) %>%
+    arrange(desc(abs(Metric))) %>%
+    arrange(match(Flag, c(1, -1, 0)))
 
-    t2_3_flagged <- t2_3_analyzed %>%
-      mutate(
-        ThresholdLow = -5,
-        ThresholdHigh = 5,
-        ThresholdCol = "Score",
-        Flag = case_when(
-          Score < -5 ~ -1,
-          Score > 5 ~ 1,
-          is.na(Score) ~ NA_real_,
-          is.nan(Score) ~ NA_real_,
-          TRUE ~ 0
-        ),
-      ) %>%
-      arrange(match(Flag, c(1, -1, 0)))
-
-    t2_3_summary <- t2_3_flagged %>%
-      mutate(
-        Assessment = "PD"
-      ) %>%
-      select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
-      arrange(desc(abs(KRI))) %>%
-      arrange(match(Flag, c(1, -1, 0)))
-
-    t2_3 <- c(t2_3,
-      type = list(
-        "strFunctionName" = "PD_Assess()",
-        "lTags" = list(Assessment = "PD"),
-        "dfInput" = t2_3_input,
-        "dfTransformed" = t2_3_transformed,
-        "dfAnalyzed" = t2_3_analyzed,
-        "dfFlagged" = t2_3_flagged,
-        "dfSummary" = t2_3_summary
-      )
-    )
-  }
+  t2_3 <- list(
+    "dfTransformed" = t2_3_transformed,
+    "dfAnalyzed" = t2_3_analyzed,
+    "dfFlagged" = t2_3_flagged,
+    "dfSummary" = t2_3_summary
+  )
 
   # compare results
-  expect_equal(test2_3, t2_3)
+  # remove bounds dataframe for now
+  expect_equal(test2_3$lData[names(test2_3$lData) != "dfBounds"], t2_3)
 })

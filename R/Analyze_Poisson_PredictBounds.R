@@ -46,14 +46,13 @@
 #' @export
 
 Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), bQuiet = TRUE) {
-
   if (is.null(vThreshold)) {
     vThreshold <- c(-5, 5)
     cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-5, 5)")
   }
 
   # add a 0 threhsold to calcultate estimate without an offset
-  vThreshold <- unique(c(vThreshold,0)) 
+  vThreshold <- unique(c(vThreshold, 0))
 
   # Calculate log of total exposure at each site.
   dfTransformed$LogDenominator <- log(
@@ -69,13 +68,13 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
 
   # Calculate expected event count and predicted bounds across range of total exposure.
   vRange <- seq(
-      min(dfTransformed$LogDenominator) - 0.05,
-      max(dfTransformed$LogDenominator) + 0.05,
-      by = 0.05
-    )
+    min(dfTransformed$LogDenominator) - 0.05,
+    max(dfTransformed$LogDenominator) + 0.05,
+    by = 0.05
+  )
 
   dfBounds <- tidyr::expand_grid(Threshold = vThreshold, LogDenominator = vRange) %>%
-  mutate(
+    mutate(
       # Calculate expected event count at given exposure.
       vMu = as.numeric(exp(.data$LogDenominator * cModel$coefficients[2] + cModel$coefficients[1])),
       # Calculate lower bound of expected event count given specified threshold.

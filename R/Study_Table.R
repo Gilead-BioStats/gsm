@@ -22,7 +22,7 @@
 #'   purrr::map(~ .x$lResults) %>%
 #'   purrr::discard(is.null) %>%
 #'   purrr::compact() %>%
-#'   purrr::map_df(~ .x$lData$dfSummary, .id = 'Assessment')
+#'   purrr::map_df(~ .x$lData$dfSummary, .id = "Assessment")
 #'
 #' lStudyTable <- Study_Table(dfSummary)
 #'
@@ -50,8 +50,8 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
 
 
   # Get site counts
-  #TODO - temp fix below at summarize(Flag = first(.data$Flag))
-  #Need to calculate # of patients at site
+  # TODO - temp fix below at summarize(Flag = first(.data$Flag))
+  # Need to calculate # of patients at site
 
 
   df_counts <- dfFindings %>%

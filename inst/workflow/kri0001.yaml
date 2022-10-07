@@ -4,6 +4,13 @@ steps:
     output: dfAE
     params:
       strDomain: dfAE
+      strColParam: strTreatmentEmergentCol
+      strValParam: strTreatmentEmergentVal
+  - name: FilterDomain
+    inputs: dfAE
+    output: dfAE
+    params:
+      strDomain: dfAE
       strColParam: strSeriousCol
       strValParam: strNonSeriousVal
   - name: AE_Map_Raw

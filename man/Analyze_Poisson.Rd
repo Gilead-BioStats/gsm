@@ -39,7 +39,7 @@ The input data (\code{dfTransformed}) for Analyze_Poisson is typically created u
 }
 
 \examples{
-dfInput <- AE_Map_Raw() \%>\% na.omit()  #na.omit is placeholder for now
+dfInput <- AE_Map_Raw() \%>\% na.omit() # na.omit is placeholder for now
 dfTransformed <- Transform_Rate(dfInput,
   strGroupCol = "SiteID",
   strNumeratorCol = "Count",

@@ -37,7 +37,7 @@ result <- Study_Assess(
   lData = lData,
   lAssessments = lAssessments,
   bQuiet = TRUE
-  ) %>% suppressWarnings()
+) %>% suppressWarnings()
 
 
 # output is created as expected -------------------------------------------
@@ -45,7 +45,7 @@ test_that("output is created as expected", {
   expect_equal(length(lAssessments), length(result))
   expect_equal(names(lAssessments), names(result))
   expect_true(all(map_chr(result, ~ class(.)) == "list"))
-  expect_true(all(map_lgl(result, ~.x$bStatus)))
+  expect_true(all(map_lgl(result, ~ .x$bStatus)))
   expect_snapshot(names(result$kri0001))
   expect_snapshot(names(result$kri0002))
   expect_snapshot(names(result$kri0003))
@@ -92,10 +92,10 @@ test_that("Study_Assess() runs with missing datasets", {
     lData = lData,
     lAssessments = lAssessments,
     bQuiet = TRUE
-    ) %>% suppressWarnings()
+  ) %>% suppressWarnings()
 
   # extract bStatus from returned list
-  bStatusData <- purrr::map_df(result, ~.x$bStatus) %>%
+  bStatusData <- purrr::map_df(result, ~ .x$bStatus) %>%
     tidyr::pivot_longer(everything()) %>%
     split(.$value)
 
@@ -155,7 +155,6 @@ test_that("bQuiet works as intended", {
 
 
 test_that("Map + Assess yields same result as Study_Assess()", {
-
   lData <- list(
     dfSUBJ = dfSUBJ,
     dfAE = dfAE,
@@ -178,7 +177,6 @@ test_that("Map + Assess yields same result as Study_Assess()", {
   # expect_equal(study_assess$ae$lResults$dfSummary[1:4], ae_assess$dfSummary[1:4])
   expect_equal(study_assess$consent$lResults$dfSummary[1:4], consent_assess$dfSummary[1:4])
   expect_equal(study_assess$ie$lResults$dfSummary[1:4], ie_assess$dfSummary[1:4])
-
 })
 
 test_that("lSubjFilters with 0 rows returns NULL", {
@@ -205,6 +203,7 @@ test_that("lSubjFilters with 0 rows returns NULL", {
 test_that("correct bStatus is returned when workflow is missing", {
 
   custom_assessments <- MakeWorkflowList()
+
 
   # remove workflows 2 - end. This only includes a workflow for kri0001
   custom_assessments[2:length(custom_assessments)] <- NULL

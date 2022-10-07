@@ -45,7 +45,7 @@ dfSummary <- lWorkflow \%>\%
   purrr::map(~ .x$lResults) \%>\%
   purrr::discard(is.null) \%>\%
   purrr::compact() \%>\%
-  purrr::map_df(~ .x$lData$dfSummary, .id = 'Assessment')
+  purrr::map_df(~ .x$lData$dfSummary, .id = "Assessment")
 
 lStudyTable <- Study_Table(dfSummary)
 

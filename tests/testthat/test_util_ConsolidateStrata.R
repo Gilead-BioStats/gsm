@@ -31,8 +31,10 @@ test_that("Structure of consolidated output matches structure of standard output
 test_that("Stratified output is returned", {
   expect_true(is.list(lConsolidatedOutput))
   expect_equal(
-    c("chart", "dfAnalyzed", "dfBounds", "dfFlagged", "dfSummary",
-      "dfTransformed", "lCharts", "lChecks", "lData"),
+    c(
+      "chart", "dfAnalyzed", "dfBounds", "dfFlagged", "dfSummary",
+      "dfTransformed", "lCharts", "lChecks", "lData"
+    ),
     names(lConsolidatedOutput$lResults) %>% sort()
   )
   expect_equal(

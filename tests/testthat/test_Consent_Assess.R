@@ -39,9 +39,9 @@ test_that("grouping works as expected", {
 # incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors", {
   expect_null(assess_function("Hi")[["lData"]])
-  expect_error(assess_function(dfInput, nThreshold = "A"), 'nThreshold must be numeric')
-  expect_error(assess_function(dfInput, nThreshold = c(1, 1)), 'nThreshold must be length 1')
-  expect_error(assess_function(dfInput, strGroup = "something"), 'strGroup must be one of: Site, Study, or CustomGroup')
+  expect_error(assess_function(dfInput, nThreshold = "A"), "nThreshold must be numeric")
+  expect_error(assess_function(dfInput, nThreshold = c(1, 1)), "nThreshold must be length 1")
+  expect_error(assess_function(dfInput, strGroup = "something"), "strGroup must be one of: Site, Study, or CustomGroup")
 })
 
 
@@ -49,4 +49,3 @@ test_that("incorrect inputs throw errors", {
 test_that("bQuiet works as intended", {
   test_logical_assess_parameters(assess_function, dfInput)
 })
-

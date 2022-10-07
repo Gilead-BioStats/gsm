@@ -5,7 +5,7 @@ data <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE)) %>%
     strNumeratorCol = "Count",
     strDenominatorCol = "Exposure",
     strGroupCol = "SiteID"
-    )
+  )
 
 dfPoisson <- Analyze_Poisson(data)
 
@@ -18,8 +18,10 @@ test_that("output is created as expected", {
   expect_true(all(names(dfPoisson) %in% names(flag)))
   expect_equal(
     names(flag),
-    c("GroupID", "Numerator", "Denominator", "Metric", "Score",
-      "PredictedCount", "Flag")
+    c(
+      "GroupID", "Numerator", "Denominator", "Metric", "Score",
+      "PredictedCount", "Flag"
+    )
   )
 })
 

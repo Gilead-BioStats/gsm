@@ -1,5 +1,5 @@
 - ID: S2_1
-  Description: Given correct input data a Protocol Deviation assessment can be done using the poisson method including Bounds Prediction
+  Description: Given correct input data a Protocol Deviation assessment can be done using the poisson method
   Risk: High
   Impact: High
   Tests:

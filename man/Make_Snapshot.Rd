@@ -33,16 +33,113 @@ Make_Snapshot(
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
-\value{
-\code{list}, \code{lSnapshot}
-}
 \description{
 Make Snapshot - create and export Gizmo data model.
 }
-\examples{
+\section{Return - Data Model Description}{
+A named \code{list} of data.frames:
+\itemize{
+\item \code{status_study}, with columns:
+\itemize{
+\item \code{studyid} - Unique Study ID
+\item \code{enrolled_sites} - # of enrolled sites
+\item \code{enrolled_participants} - # of enrolled participants
+\item \code{planned_sites} - # of planned sites
+\item \code{planned_participants} - # of planned participants
+\item \code{title} - Protocol title
+\item \code{nickname} - Protocol nickname
+\item \code{indication} - Indication
+\item \code{ta} - Therapeutic Area
+\item \code{phase} - Phase
+\item \code{status} - Study Status
+\item \code{fpfv} - First-patient first visit date
+\item \code{lplv} - Last-patient last visit date
+\item \code{rbm_flag} - Risk-based monitoring flag
+}
+\item \code{status_site}, with columns:
+\itemize{
+\item \code{studyid} - Unique Study ID
+\item \code{siteid} - Unique Site ID
+\item \code{institution} - Institution Name
+\item \code{status} - Site Status
+\item \code{enrolled_participants} - # of enrolled participants
+\item \code{start_date} - Site Activation Date
+\item \code{city} - City
+\item \code{state} - State
+\item \code{country} - Country
+\item \code{invname} - Investigator name
+}
+\item \code{status_workflow}, with columns:
+\itemize{
+\item \code{studyid} - Unique Study ID
+\item \code{workflowid} - Unique Workflow ID
+\item \code{gsm_version} - GSM version of workflow
+\item \code{active} - Is workflow active?
+\item \code{status} - Did workflow run?
+\item \code{notes} - Status notes
+}
+\item \code{status_param}, with columns:
+\itemize{
+\item \code{study_id} - Unique Study ID
+\item \code{workflowid} - Unique Workflow ID
+\item \code{gsm_version} - GSM version of workflow
+\item \code{param} - Parameter name
+\item \code{index} - Index value for parameter
+\item \code{value} - Value for parameter at index
+}
+\item \code{status_schedule}, with columns:
+\itemize{
+\item \code{study_id} - Unique Study ID
+\item \code{snapshot_date} - Snapshot Date
+}
+\item \code{results_summary}, with columns:
+\itemize{
+\item \code{studyid} - Unique Study ID
+\item \code{workflowid} - Unique Workflow ID
+\item \code{groupid} - Unique Group ID (e.g. SiteID for KRI workflows)
+\item \code{numerator} - Metric numerator
+\item \code{denominator} - Metric denominator
+\item \code{metric} - Metric value
+\item \code{score} - Statistical Score
+\item \code{flag} - Flag
+}
+\item \code{results_bounds}, with columns:
+\itemize{
+\item \code{studyid} - Unique Study ID
+\item \code{workflowid} - Unique Workflow ID
+\item \code{threshold} - Threshold
+\item \code{numerator} - Y value
+\item \code{denominator} - X value
+\item \code{log_denominator} - Log X value
+}
+\item \code{meta_workflow}, with columns:
+\itemize{
+\item \code{workflowid} - Unique Workflow ID
+\item \code{gsm_version} - GSM Version of workflow
+\item \code{group} - Group for workflow - Site, Country, Region, or Study
+\item \code{metric} - Metric Label
+\item \code{numerator} - Numerator Label
+\item \code{denominator} - Denominator Label
+\item \code{outcome} - Metric Outcome Type (e.g. rate)
+\item \code{model} - Statistical Model used to create score
+\item \code{score} - Score Label
+\item \code{data_inputs} - Data inputs for workflow
+\item \code{data_filters} - Filters applied in workflow
+}
+\item \code{meta_param}, with columns:
+\itemize{
+\item \code{workflowid} - Unique Workflow ID
+\item \code{gsm_version} - GSM version of workflow
+\item \code{param} - Parameter name
+\item \code{index} - Parameter index
+\item \code{default} - Default value for parameter at index
+\item \code{configurable} - Is parameter configurable?
+}
+}
+}
 
+\examples{
 # run with default testing data
 snapshot <- Make_Snapshot()
-
 
 }

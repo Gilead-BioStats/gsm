@@ -27,6 +27,7 @@ Authors:
   \item Douglas Sanders
   \item Spencer Childress \email{spencer.childress@gilead.com}
   \item Li Ge
+  \item Colleen McLaughlin \email{colleen.mclaughlin@atorusresearch.com}
 }
 
 }

@@ -18,7 +18,7 @@ MakeWorkflowList(
 
 \item{strPackage}{\code{character} The name of the package with assessments.}
 
-\item{bRecursive}{\code{boolean} Find files in nested folders? Default FALSE.}
+\item{bRecursive}{\code{logical} Find files in nested folders? Default FALSE.}
 }
 \value{
 \code{list} A list of assessments with workflow and parameter metadata.

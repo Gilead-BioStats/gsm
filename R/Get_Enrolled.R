@@ -13,18 +13,21 @@
 #'
 #'
 #' @examples
-#' Get_Enrolled(dfSUBJ = clindata::rawplus_dm,
-#'              dfConfig = config_param,
-#'              lMapping = yaml::read_yaml(
-#'                system.file("mappings",
-#'                            "mapping_rawplus.yaml",
-#'                            package = "gsm")),
-#'              strUnit = "participant",
-#'              strBy = "site")
+#' Get_Enrolled(
+#'   dfSUBJ = clindata::rawplus_dm,
+#'   dfConfig = config_param,
+#'   lMapping = yaml::read_yaml(
+#'     system.file("mappings",
+#'       "mapping_rawplus.yaml",
+#'       package = "gsm"
+#'     )
+#'   ),
+#'   strUnit = "participant",
+#'   strBy = "site"
+#' )
 #'
 #' @export
 Get_Enrolled <- function(dfSUBJ, dfConfig, lMapping, strUnit, strBy) {
-
   studyid <- unique(dfConfig$studyid)
 
   dm <- dfSUBJ %>%
@@ -40,12 +43,11 @@ Get_Enrolled <- function(dfSUBJ, dfConfig, lMapping, strUnit, strBy) {
       summarize(n_enrolled_sites = n_distinct(.data[[lMapping$dfSUBJ$strSiteCol]])) %>%
       pull(.data$n_enrolled_sites)
   } else if (strUnit == "participant" & strBy == "site") {
-     enrolled <- dm %>%
+    enrolled <- dm %>%
       group_by(SiteID = .data[[lMapping$dfSUBJ$strSiteCol]]) %>%
       summarize(enrolled_participants = n()) %>%
       ungroup()
   }
 
   return(enrolled)
-
 }

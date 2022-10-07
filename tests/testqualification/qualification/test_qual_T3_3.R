@@ -1,77 +1,52 @@
-test_that("IE assessment can return a correctly assessed data frame grouped by the study variable and the results should be flagged correctly when done in an iterative loop", {
-  test3_3 <- list()
-  t3_3 <- list()
+test_that("IE assessment can return a correctly assessed data frame grouped by a custom variable and the results should be flagged correctly", {
+  # gsm analysis
+  dfInput <- IE_Map_Raw()
 
-  for (protocol in unique(clindata::rawplus_ie$IE_PROTOCOLVERSION)) {
-    dfInput <- IE_Map_Raw(
-      dfs = list(
-        dfIE = clindata::rawplus_ie %>% dplyr::filter(IE_PROTOCOLVERSION == protocol),
-        dfSUBJ = clindata::rawplus_subj
-      )
+  test3_3 <- IE_Assess(
+    dfInput = dfInput,
+    strGroup = "CustomGroup"
+  )
+
+  # Double Programming
+  t3_3_input <- dfInput
+
+  t3_3_transformed <- dfInput %>%
+    qualification_transform_counts(
+      exposureCol = NA,
+      GroupID = "CustomGroupID"
     )
 
-    # gsm
-    test3_3 <- c(test3_3,
-      protocol = IE_Assess(
-        dfInput = dfInput,
-        strGroup = "Study",
-        bChart = FALSE
-      )
-    )
+  t3_3_analyzed <- t3_3_transformed %>%
+    mutate(
+      Score = TotalCount
+    ) %>%
+    arrange(Score)
 
-    # Double Programming
-    t3_3_input <- dfInput
+  class(t3_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
-    t3_3_transformed <- dfInput %>%
-      qualification_transform_counts(
-        exposureCol = NA,
-        KRILabel = "# of Inclusion/Exclusion Issues",
-        GroupLabel = "StudyID"
-      )
+  t3_3_flagged <- t3_3_analyzed %>%
+    mutate(
+      Flag = case_when(
+        Score > 0.5 ~ 1,
+        is.na(Score) ~ NA_real_,
+        is.nan(Score) ~ NA_real_,
+        TRUE ~ 0
+      ),
+    ) %>%
+    arrange(match(Flag, c(1, -1, 0)))
 
-    t3_3_analyzed <- t3_3_transformed %>%
-      mutate(
-        Score = TotalCount,
-        ScoreLabel = "# of Inclusion/Exclusion Issues"
-      )
+  t3_3_summary <- t3_3_flagged %>%
+    select(GroupID, Metric, Score, Flag) %>%
+    arrange(desc(abs(Metric))) %>%
+    arrange(match(Flag, c(1, -1, 0)))
 
-    class(t3_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
-
-    t3_3_flagged <- t3_3_analyzed %>%
-      mutate(
-        ThresholdLow = NA_real_,
-        ThresholdHigh = 0.5,
-        ThresholdCol = "Score",
-        Flag = case_when(
-          Score > 0.5 ~ 1,
-          is.na(Score) ~ NA_real_,
-          is.nan(Score) ~ NA_real_,
-          TRUE ~ 0
-        ),
-      ) %>%
-      arrange(match(Flag, c(1, -1, 0)))
-
-    t3_3_summary <- t3_3_flagged %>%
-      mutate(
-        Assessment = "IE"
-      ) %>%
-      select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
-      arrange(desc(abs(KRI))) %>%
-      arrange(match(Flag, c(1, -1, 0)))
-
-    t3_3 <- c(t3_3,
-      protocol = list(
-        "strFunctionName" = "IE_Assess()",
-        "lTags" = list(Assessment = "IE"),
-        "dfInput" = t3_3_input,
-        "dfTransformed" = t3_3_transformed,
-        "dfAnalyzed" = t3_3_analyzed,
-        "dfFlagged" = t3_3_flagged,
-        "dfSummary" = t3_3_summary
-      )
-    )
-  }
+  t3_3 <- list(
+    "dfTransformed" = t3_3_transformed,
+    "dfAnalyzed" = t3_3_analyzed,
+    "dfFlagged" = t3_3_flagged,
+    "dfSummary" = t3_3_summary
+  )
 
   # compare results
-  expect_equal(test3_3, t3_3)
+  expect_equal(test3_3$lData, t3_3)
 })

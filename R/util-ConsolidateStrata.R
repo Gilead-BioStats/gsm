@@ -50,9 +50,9 @@ ConsolidateStrata <- function(
   bQuiet = TRUE
 ) {
 
-
   if (lOutput$bStatus == TRUE &&
       all(purrr::map_lgl(lStratifiedOutput, ~ .x$bStatus))) {
+
     # Stack data pipeline from stratified output.
     consoliDataPipeline <- lStratifiedOutput %>%
       purrr::map(function(stratum) {

@@ -37,6 +37,10 @@
 #'   lMapping = lMapping
 #' )
 #'
+#' @return `list` `lWorkflow` along with `tags`, `workflow`, `path`, `name`, `lData`, `lChecks`,
+#' `bStatus`, `checks`, and `lResults` added based on the results of the execution of
+#' `lWorkflow$workflow`.
+#'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom purrr map
 #'

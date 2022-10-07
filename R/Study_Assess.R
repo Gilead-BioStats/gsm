@@ -12,12 +12,14 @@
 #' \dontrun{
 #' results <- Study_Assess() # run using defaults
 #' }
+#'
 #' @return `list` of assessments containing status information and results.
 #'
 #' @import dplyr
 #' @importFrom cli cli_alert_danger
 #' @importFrom purrr map
 #' @importFrom yaml read_yaml
+#' @importFrom utils hasName
 #'
 #' @export
 
@@ -57,7 +59,7 @@ Study_Assess <- function(
   # Filter data$dfSUBJ based on lSubjFilters --------------------------------
   if (!is.null(lSubjFilters)) {
     for (colMapping in names(lSubjFilters)) {
-      if (!hasName(lMapping$dfSUBJ, colMapping)) {
+      if (!utils::hasName(lMapping$dfSUBJ, colMapping)) {
         stop(paste0("`", colMapping, "` from lSubjFilters is not specified in lMapping$dfSUBJ"))
       }
       col <- colMapping

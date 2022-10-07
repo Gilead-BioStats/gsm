@@ -18,7 +18,7 @@
 #' kri0001 <- RunWorkflow(lAssessments$kri0001, lData = lData, lMapping = lMapping)
 #'\dontrun{
 #' Visualize_Workflow(list(kri0001 = kri0001))
-#'}
+#' }
 #'
 #' @importFrom DiagrammeR create_node_df create_graph render_graph
 #' @importFrom utils head
@@ -27,7 +27,6 @@
 #' @export
 
 Visualize_Workflow <- function(lAssessments) {
-
 
   # checks were run
   stepsExist <- !is.null(lAssessments[[1]][["steps"]])
@@ -124,7 +123,6 @@ Visualize_Workflow <- function(lAssessments) {
     # create_node_df for flowchart
     # add custom labels/tooltips
     flowchart <- map(dfFlowchart, function(assessment) {
-
       df <- DiagrammeR::create_node_df(
         n = nrow(assessment),
         type = "a",

@@ -146,4 +146,3 @@ subset_input_mapping <- function(input_spec, mapping_domain = "mapping_rawplus.y
   mapping_subset <- mapping[names(input_spec)]
   return(mapping_subset)
 }
-

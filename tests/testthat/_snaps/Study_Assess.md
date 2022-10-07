@@ -74,42 +74,64 @@
       [1] "dfAE"
       
       [[1]]$params$strColParam
-      [1] "strSeriousCol"
+      [1] "strTreatmentEmergentCol"
       
       [[1]]$params$strValParam
-      [1] "strNonSeriousVal"
+      [1] "strTreatmentEmergentVal"
       
       
       
       [[2]]
       [[2]]$name
-      [1] "AE_Map_Raw"
+      [1] "FilterDomain"
       
       [[2]]$inputs
-      [1] "dfAE"   "dfSUBJ"
+      [1] "dfAE"
       
       [[2]]$output
-      [1] "dfInput"
+      [1] "dfAE"
+      
+      [[2]]$params
+      [[2]]$params$strDomain
+      [1] "dfAE"
+      
+      [[2]]$params$strColParam
+      [1] "strSeriousCol"
+      
+      [[2]]$params$strValParam
+      [1] "strNonSeriousVal"
+      
       
       
       [[3]]
       [[3]]$name
-      [1] "AE_Assess"
+      [1] "AE_Map_Raw"
       
       [[3]]$inputs
-      [1] "dfInput"
+      [1] "dfAE"   "dfSUBJ"
       
       [[3]]$output
+      [1] "dfInput"
+      
+      
+      [[4]]
+      [[4]]$name
+      [1] "AE_Assess"
+      
+      [[4]]$inputs
+      [1] "dfInput"
+      
+      [[4]]$output
       [1] "lResults"
       
-      [[3]]$params
-      [[3]]$params$strGroup
+      [[4]]$params
+      [[4]]$params$strGroup
       [1] "Site"
       
-      [[3]]$params$vThreshold
+      [[4]]$params$vThreshold
       NULL
       
-      [[3]]$params$strMethod
+      [[4]]$params$strMethod
       [1] "poisson"
       
       
@@ -122,7 +144,7 @@
     Output
       $dfSUBJ
       # A tibble: 3 x 7
-        studyid        siteid subjid timeonstudy timeontreatment rfpen_dt   country
+        studyid        siteid subjid timeonstudy timeontreatment rfpst_dt   country
         <chr>          <chr>  <chr>        <int>           <int> <chr>      <chr>  
       1 AA-AA-000-0000 86     0001           730             678 2008-09-10 US     
       2 AA-AA-000-0000 76     0002            50              13 2017-05-22 China  
@@ -216,6 +238,93 @@
     Code
       kri0001$lChecks
     Output
+      $FilterDomain
+      $FilterDomain$dfAE
+      $FilterDomain$dfAE$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if
+      $FilterDomain$dfAE$tests_if$is_data_frame
+      $FilterDomain$dfAE$tests_if$is_data_frame$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$is_data_frame$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$has_required_params
+      $FilterDomain$dfAE$tests_if$has_required_params$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$has_required_params$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$spec_is_list
+      $FilterDomain$dfAE$tests_if$spec_is_list$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$spec_is_list$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$mapping_is_list
+      $FilterDomain$dfAE$tests_if$mapping_is_list$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$mapping_is_list$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$mappings_are_character
+      $FilterDomain$dfAE$tests_if$mappings_are_character$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$mappings_are_character$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$has_expected_columns
+      $FilterDomain$dfAE$tests_if$has_expected_columns$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$has_expected_columns$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$columns_have_na
+      $FilterDomain$dfAE$tests_if$columns_have_na$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$columns_have_na$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$columns_have_empty_values
+      $FilterDomain$dfAE$tests_if$columns_have_empty_values$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$columns_have_empty_values$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfAE$tests_if$cols_are_unique
+      $FilterDomain$dfAE$tests_if$cols_are_unique$status
+      [1] TRUE
+      
+      $FilterDomain$dfAE$tests_if$cols_are_unique$warning
+      [1] NA
+      
+      
+      
+      $FilterDomain$dfAE$dim
+      [1] 12  4
+      
+      
+      $FilterDomain$status
+      [1] TRUE
+      
+      
       $FilterDomain
       $FilterDomain$dfAE
       $FilterDomain$dfAE$status
@@ -489,7 +598,7 @@
       [1] "timeontreatment"
       
       $AE_Map_Raw$mapping$dfSUBJ$strRandDateCol
-      [1] "rfpen_dt"
+      [1] "rfpst_dt"
       
       $AE_Map_Raw$mapping$dfSUBJ$strCustomGroupCol
       [1] "country"
@@ -847,7 +956,21 @@
       
       -- Initializing `kri0001` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 3: `FilterDomain` --
+      -- Workflow Step 1 of 4: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      v No issues found for dfAE domain
+      Filtering on `ae_te %in% c("Y")`.
+      v Filtered on `ae_te %in% c("Y")` to drop 0 rows from 10 to 10 rows.
+      i NOTE: No rows dropped.
+      v `FilterDomain()` Successful
+      Saving dfAE to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 4: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -861,7 +984,7 @@
       v `FilterDomain()` Successful
       Saving dfAE to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 3: `AE_Map_Raw` --
+      -- Workflow Step 3 of 4: `AE_Map_Raw` --
       
       Preparing parameters for `AE_Map_Raw()` ...
       Calling `AE_Map_Raw()` ...
@@ -880,7 +1003,7 @@
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
-      -- Workflow Step 3 of 3: `AE_Assess` --
+      -- Workflow Step 4 of 4: `AE_Assess` --
       
       Preparing parameters for `AE_Assess()` ...
       Calling `AE_Assess()` ...
@@ -905,7 +1028,21 @@
       
       -- Initializing `kri0002` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 3: `FilterDomain` --
+      -- Workflow Step 1 of 4: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      v No issues found for dfAE domain
+      Filtering on `ae_te %in% c("Y")`.
+      v Filtered on `ae_te %in% c("Y")` to drop 0 rows from 10 to 10 rows.
+      i NOTE: No rows dropped.
+      v `FilterDomain()` Successful
+      Saving dfAE to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 4: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -919,7 +1056,7 @@
       v `FilterDomain()` Successful
       Saving dfAE to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 3: `AE_Map_Raw` --
+      -- Workflow Step 3 of 4: `AE_Map_Raw` --
       
       Preparing parameters for `AE_Map_Raw()` ...
       Calling `AE_Map_Raw()` ...
@@ -938,7 +1075,7 @@
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
-      -- Workflow Step 3 of 3: `AE_Assess` --
+      -- Workflow Step 4 of 4: `AE_Assess` --
       
       Preparing parameters for `AE_Assess()` ...
       Calling `AE_Assess()` ...

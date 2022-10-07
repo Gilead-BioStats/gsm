@@ -40,11 +40,11 @@
 #' dfInput <- IE_Map_Raw()
 #' ie_assessment <- IE_Assess(dfInput)
 #'
-#' @import dplyr
 #' @importFrom cli cli_alert_info cli_alert_success cli_alert_warning cli_h2 cli_text
-#' @importFrom purrr map map_dbl
 #' @importFrom yaml read_yaml
 #' @importFrom glue glue
+#' @import dplyr
+#' @importFrom tools toTitleCase
 #'
 #' @export
 
@@ -56,7 +56,7 @@ IE_Assess <- function(
   bQuiet = TRUE
 ) {
 
-# data checking -----------------------------------------------------------
+  # data checking -----------------------------------------------------------
   stopifnot(
     "nThreshold must be numeric" = is.numeric(nThreshold),
     "nThreshold must be length 1" = length(nThreshold) == 1,
@@ -74,7 +74,7 @@ IE_Assess <- function(
   )
 
 
-# begin running assessment ------------------------------------------------
+  # begin running assessment ------------------------------------------------
   if (!lChecks$status) {
     if (!bQuiet) cli::cli_alert_warning("{.fn IE_Assess} did not run because of failed check.")
     return(list(
@@ -82,7 +82,7 @@ IE_Assess <- function(
       lCharts = NULL,
       lChecks = lChecks
     ))
-    } else {
+  } else {
     if (!bQuiet) cli::cli_h2("Initializing {.fn IE_Assess}")
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
     lData <- list()
@@ -93,25 +93,25 @@ IE_Assess <- function(
     )
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Count} returned output with {nrow(lData$dfTransformed)} rows.")
 
-# dfAnalyzed --------------------------------------------------------------
+    # dfAnalyzed --------------------------------------------------------------
     lData$dfAnalyzed <- Analyze_Identity(lData$dfTransformed, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed}.")
 
-# dfFlagged ---------------------------------------------------------------
+    # dfFlagged ---------------------------------------------------------------
     lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = c(NA, nThreshold))
     if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
 
-# dfSummary ---------------------------------------------------------------
+    # dfSummary ---------------------------------------------------------------
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
-# visualizations ----------------------------------------------------------
+    # visualizations ----------------------------------------------------------
     lCharts <- list()
     lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
     lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score")
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(lCharts)} chart{?s}.")
 
-# return data -------------------------------------------------------------
+    # return data -------------------------------------------------------------
     return(list(
       lData = lData,
       lCharts = lCharts,

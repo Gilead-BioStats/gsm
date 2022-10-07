@@ -35,15 +35,14 @@
 #'
 #' dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
 #'
-#'
 #' @import dplyr
 #' @importFrom stats median
 #'
 #' @export
 
 Flag_Fisher <- function(
-    dfAnalyzed,
-    vThreshold = NULL
+  dfAnalyzed,
+  vThreshold = NULL
 ) {
   stopifnot(
     "dfAnalyzed is not a data frame" = is.data.frame(dfAnalyzed),

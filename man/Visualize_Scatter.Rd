@@ -19,7 +19,7 @@ Visualize_Scatter(
 
 \item{strGroupCol}{name of stratification column for facet wrap (default=NULL)}
 
-\item{strGroupLabel}{name of group, used for labelling axes.}
+\item{strGroupLabel}{name of group, used for labeling axes.}
 
 \item{strUnit}{exposure time unit. Defaults to "days".}
 }

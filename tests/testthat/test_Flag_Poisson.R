@@ -12,12 +12,10 @@ dfTransformed <- Transform_Rate(
 dfAnalyzed <- Analyze_Poisson(dfTransformed)
 
 test_that("output is created as expected", {
-
   dfFlagged <- Flag_Poisson(dfAnalyzed, vThreshold = c(-.05, -.005, .005, .05))
   expect_true(is.data.frame(dfFlagged))
   expect_equal(sort(unique(dfInput$SiteID)), sort(dfFlagged$GroupID))
   expect_equal(names(dfFlagged), c("GroupID", "Numerator", "Denominator", "Metric", "Score", "PredictedCount", "Flag"))
-
 })
 
 test_that("incorrect inputs throw errors", {
@@ -27,18 +25,14 @@ test_that("incorrect inputs throw errors", {
 })
 
 test_that("flagging works correctly", {
-
   dfAnalyzedCustom <- tibble::tribble(
-    ~GroupID, ~Numerator, ~Denominator,             ~Metric,               ~Score,  ~PredictedCount,
-    "166",         5L,         857L,  0.0058343057176196,  -11, 5.12722560489132,
-    "76",         2L,          13L,   0.153846153846154, -6, 2.00753825876477,
-    "86",         5L,         678L, 0.00737463126843658,   6, 4.86523613634436,
-    "80",         5L,         678L, 0.00737463126843658,   11, 4.86523613634436
+    ~GroupID, ~Numerator, ~Denominator, ~Metric, ~Score, ~PredictedCount,
+    "166", 5L, 857L, 0.0058343057176196, -11, 5.12722560489132,
+    "76", 2L, 13L, 0.153846153846154, -6, 2.00753825876477,
+    "86", 5L, 678L, 0.00737463126843658, 6, 4.86523613634436,
+    "80", 5L, 678L, 0.00737463126843658, 11, 4.86523613634436
   )
 
   expect_silent(dfFlagged <- Flag_Poisson(dfAnalyzedCustom, vThreshold = c(-10, -5, 5, 10)))
   expect_equal(dfFlagged$Flag, c(2, -2, 1, -1))
-
 })
-
-

@@ -17,6 +17,8 @@ RunWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE)
 }
 \value{
 \code{list} containing \code{lWorkflow} with \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of \code{assessment$workflow}.
+
+\code{list} containing \code{lAssessment} with \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of \code{assessment$workflow}.
 }
 \description{
 Attempts to run a single assessment (\code{lWorkflow}) using shared data (\code{lData}) and metadata (\code{lMapping}).
