@@ -18,7 +18,7 @@ input data to Disp_Assess()."><!-- mathjax --><script src="https://cdnjs.cloudfl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -78,10 +78,13 @@ input data to <code><a href="Disp_Assess.html">Disp_Assess()</a></code>.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Disp_Map_Raw</span><span class="op">(</span></span>
-<span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfDISP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span>, dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span><span class="op">)</span>,</span>
-<span>  strContext <span class="op">=</span> <span class="st">"Treatment"</span>,</span>
+<span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span>, dfSTUDCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_studcomp.html" class="external-link">rawplus_studcomp</a></span>,</span>
+<span>    dfSDRGCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_sdrgcomp.html" class="external-link">rawplus_sdrgcomp</a></span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">datapagename</span> <span class="op">==</span></span>
+<span>    <span class="st">"Blinded Study Drug Completion"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  lMapping <span class="op">=</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_rawplus.yaml"</span>, package <span class="op">=</span></span>
 <span>    <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  strContext <span class="op">=</span> <span class="st">"Study"</span>,</span>
+<span>  strTreatmentPhase <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -95,13 +98,17 @@ input data to <code><a href="Disp_Assess.html">Disp_Assess()</a></code>.</p>
 </ul></dd>
 
 
+<dt>lMapping</dt>
+<dd><p><code>list</code> Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name
+of the column.</p></dd>
+
+
 <dt>strContext</dt>
 <dd><p>Disposition Context - "Treatment" or "Study"</p></dd>
 
 
-<dt>lMapping</dt>
-<dd><p><code>list</code> Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name
-of the column.</p></dd>
+<dt>strTreatmentPhase</dt>
+<dd><p><code>character</code> Treatment phase descriptor.</p></dd>
 
 
 <dt>bReturnChecks</dt>
@@ -116,17 +123,16 @@ of the column.</p></dd>
     <h2>Value</h2>
     
 
-<p><code>data.frame</code> with one record per subject, the input to gsm::Disp_Assess(). If
+<p><code>data.frame</code> with one record per subject, the input to <code><a href="Disp_Assess.html">Disp_Assess()</a></code>. If
 <code>bReturnChecks</code> is <code>TRUE</code></p>
 <p></p>
-<p><code>AE_Map_Raw</code> returns a named <code>list</code> with:</p><ul><li><p><code>df</code>: the data frame described above</p></li>
+<p><code>Disp_Map_Raw</code> returns a named <code>list</code> with:</p><ul><li><p><code>df</code>: the data frame described above</p></li>
 <li><p><code>lChecks</code>: a named <code>list</code> of check results</p></li>
 </ul></div>
     <div id="details">
     <h2>Details</h2>
-    <p>Convert from ADaM or raw format to input format for Disposition Assessment.</p>
-<p><code>Disp_Map_Raw</code> creates an input dataset for the Disposition Assessment (link to code) by adding
-Discontinuation Reason Counts to basic subject-level data.</p>
+    <p><code>Disp_Map_Raw</code> creates an input dataset for the Disposition Assessment <code><a href="Disp_Assess.html">Disp_Assess()</a></code> by adding
+Discontinuation Reason Counts (derived from <code>dfDISP</code>) to basic subject-level data (from <code>dfSUBJ</code>).</p>
     </div>
     <div id="data-specification">
     <h2>Data specification</h2>
@@ -141,15 +147,15 @@ Discontinuation Reason Counts to basic subject-level data.</p>
 <span class="r-in"><span><span class="co"># Run with error checking and message log.</span></span></span>
 <span class="r-in"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu">Disp_Map_Raw</span><span class="op">(</span>bReturnChecks <span class="op">=</span> <span class="cn">TRUE</span>, bQuiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `Disp_Map_Raw_Treatment()`</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `Disp_Map_Raw_Study()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `Disp_Map_Raw_Treatment()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for `Disp_Map_Raw_Study()`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `Disp_Map_Raw()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 1186 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Disp_Map_Raw()` returned output with 1297 rows.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 1179 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Disp_Map_Raw()` returned output with 1301 rows.</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -161,7 +167,7 @@ Discontinuation Reason Counts to basic subject-level data.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
 </div>
 
 <div class="pkgdown">

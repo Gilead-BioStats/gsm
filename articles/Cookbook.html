@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -167,7 +167,7 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Configure raw AE data for correct input for dfAE</span></span>
-<span><span class="va">dfAE</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/raw_ae.html" class="external-link">raw_ae</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">dfAE</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">raw_ae</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
 <span>    SubjectID <span class="op">=</span> <span class="va">SUBJID</span>, </span>
 <span>    AE_SERIOUS <span class="op">=</span> <span class="va">AESER</span></span>
@@ -181,13 +181,13 @@
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Configure raw subject-level data for correct input for dfSUBJ</span></span>
-<span><span class="va">dfSUBJ</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/clindata/man/CreateSUBJ.html" class="external-link">CreateSUBJ</a></span><span class="op">(</span></span>
-<span>  dfDm <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/raw_dm.html" class="external-link">raw_dm</a></span>,</span>
-<span>  dfIXRSrand <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/raw_iwrsrand.html" class="external-link">raw_iwrsrand</a></span>,</span>
-<span>  dfEx <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/raw_ex.html" class="external-link">raw_ex</a></span>,</span>
-<span>  dfVisit <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/raw_visdt.html" class="external-link">raw_visdt</a></span>,</span>
-<span>  dfStud <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/raw_studcomp.html" class="external-link">raw_studcomp</a></span>,</span>
-<span>  dfSdrg <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/raw_sdrgcomp.html" class="external-link">raw_sdrgcomp</a></span></span>
+<span><span class="va">dfSUBJ</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="fu">CreateSUBJ</span><span class="op">(</span></span>
+<span>  dfDm <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">raw_dm</span>,</span>
+<span>  dfIXRSrand <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">raw_iwrsrand</span>,</span>
+<span>  dfEx <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">raw_ex</span>,</span>
+<span>  dfVisit <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">raw_visdt</span>,</span>
+<span>  dfStud <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">raw_studcomp</span>,</span>
+<span>  dfSdrg <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">raw_sdrgcomp</span></span>
 <span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
 <span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">TimeOnTreatment</span><span class="op">)</span>,</span>
@@ -225,14 +225,14 @@
 <span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Map_Raw.html">AE_Map_Raw</a></span><span class="op">(</span></span>
 <span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span>
-<span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span></span>
+<span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_subj</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># The next step is to transform dfInput into site-level data, </span></span>
 <span><span class="co"># which is needed to derive the KRI for an Adverse Events Assessment.</span></span>
 <span><span class="co"># Note that strCountCol is a required numeric column, and strExposureCol is an optional numeric column. </span></span>
-<span><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Transform_EventCount.html">Transform_EventCount</a></span><span class="op">(</span></span>
+<span><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu">Transform_EventCount</span><span class="op">(</span></span>
 <span>  dfInput <span class="op">=</span> <span class="va">dfInput</span>,</span>
 <span>  strCountCol <span class="op">=</span> <span class="st">"Count"</span>,</span>
 <span>  strExposureCol <span class="op">=</span> <span class="st">"Exposure"</span>,</span>
@@ -301,10 +301,10 @@
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Specify Raw+ data domains</span></span>
-<span><span class="va">dfSUBJ</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span></span>
-<span><span class="va">dfIE</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ie.html" class="external-link">rawplus_ie</a></span></span>
-<span><span class="va">dfPD</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_pd.html" class="external-link">rawplus_pd</a></span></span>
-<span><span class="va">dfCONSENT</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_consent.html" class="external-link">rawplus_consent</a></span></span>
+<span><span class="va">dfSUBJ</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_subj</span></span>
+<span><span class="va">dfIE</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ie</span></span>
+<span><span class="va">dfPD</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_pd</span></span>
+<span><span class="va">dfCONSENT</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span></span>
 <span></span>
 <span><span class="co"># Create named list of assessment data</span></span>
 <span><span class="va">assessment_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -526,7 +526,7 @@ Filtering on SiteID == X010X
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
+<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
 </div>
 
 <div class="pkgdown">

@@ -18,7 +18,7 @@ input data to Consent_Assess()."><!-- mathjax --><script src="https://cdnjs.clou
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -78,7 +78,7 @@ input data to <code><a href="Consent_Assess.html">Consent_Assess()</a></code>.</
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Consent_Map_Raw</span><span class="op">(</span></span>
-<span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfCONSENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_consent.html" class="external-link">rawplus_consent</a></span>, dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span><span class="op">)</span>,</span>
+<span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span>, dfCONSENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span><span class="op">)</span>,</span>
 <span>  lMapping <span class="op">=</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_rawplus.yaml"</span>, package <span class="op">=</span></span>
 <span>    <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -119,7 +119,8 @@ If <code>bReturnChecks</code> is <code>TRUE</code></p>
 </ul></div>
     <div id="details">
     <h2>Details</h2>
-    <p><code>Consent_Map_Raw</code> combines consent data with subject-level data to create formatted input data
+    <p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a></p>
+<p><code>Consent_Map_Raw</code> combines consent data with subject-level data to create formatted input data
 to <code><a href="Consent_Assess.html">Consent_Assess()</a></code>. This function creates an input dataset for the Consent Assessment
 ($Consent_Assess() by binding subject-level counts of consent issues (derived from <code>dfCONSENT</code>) to
 subject-level data (from <code>dfSUBJ</code>). Note the function can generate data summaries for specific
@@ -128,7 +129,7 @@ types of consent by customizing <code>lMapping$dfCONSENT</code>.</p>
     <div id="data-specification">
     <h2>Data specification</h2>
     
-<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Accept NA/Empty Values?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfSUBJ</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>FALSE</td><td>TRUE</td></tr><tr><td>dfSUBJ</td><td>strSiteCol</td><td>SiteID</td><td>TRUE</td><td>FALSE</td><td>FALSE</td></tr><tr><td>dfSUBJ</td><td>strRandDateCol</td><td>RandDate</td><td>TRUE</td><td>FALSE</td><td>FALSE</td></tr><tr><td>dfCONSENT</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>FALSE</td><td>FALSE</td></tr><tr><td>dfCONSENT</td><td>strTypeCol</td><td>CONSENT_TYPE</td><td>TRUE</td><td>FALSE</td><td>FALSE</td></tr><tr><td>dfCONSENT</td><td>strValueCol</td><td>CONSENT_VALUE</td><td>TRUE</td><td>FALSE</td><td>FALSE</td></tr><tr><td>dfCONSENT</td><td>strDateCol</td><td>CONSENT_DATE</td><td>TRUE</td><td>TRUE</td><td>FALSE</td></tr></table></div>
+<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Accept NA/Empty Values?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfSUBJ</td><td>strSiteCol</td><td>siteid</td><td>TRUE</td><td>FALSE</td><td>FALSE</td></tr><tr><td>dfSUBJ</td><td>strIDCol</td><td>subjid</td><td>TRUE</td><td>FALSE</td><td>TRUE</td></tr><tr><td>dfSUBJ</td><td>strRandDateCol</td><td>rfpst_dt</td><td>TRUE</td><td>FALSE</td><td>FALSE</td></tr><tr><td>dfCONSENT</td><td>strIDCol</td><td>subjid</td><td>TRUE</td><td>FALSE</td><td>FALSE</td></tr><tr><td>dfCONSENT</td><td>strTypeCol</td><td>conscat</td><td>TRUE</td><td>FALSE</td><td>FALSE</td></tr><tr><td>dfCONSENT</td><td>strValueCol</td><td>consyn</td><td>TRUE</td><td>FALSE</td><td>FALSE</td></tr><tr><td>dfCONSENT</td><td>strDateCol</td><td>consdt</td><td>TRUE</td><td>TRUE</td><td>FALSE</td></tr></table></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
@@ -145,7 +146,8 @@ types of consent by customizing <code>lMapping$dfCONSENT</code>.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `Consent_Map_Raw()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Consent_Map_Raw()` returned output with 1297 rows.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 4 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `Consent_Map_Raw()` returned output with 1301 rows.</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -157,7 +159,7 @@ types of consent by customizing <code>lMapping$dfCONSENT</code>.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
 </div>
 
 <div class="pkgdown">

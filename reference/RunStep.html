@@ -18,7 +18,7 @@ functions."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -77,7 +77,7 @@ functions.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunStep</span><span class="op">(</span><span class="va">lStep</span>, <span class="va">lMapping</span>, <span class="va">lData</span>, <span class="va">lTags</span>, <span class="va">bQuiet</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunStep</span><span class="op">(</span><span class="va">lStep</span>, <span class="va">lMapping</span>, <span class="va">lData</span>, <span class="va">bQuiet</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -98,10 +98,6 @@ specified in <code>lMapping</code> and <code>lAssessments</code>, which are gene
 from <code>X_Map_Raw</code>.</p></dd>
 
 
-<dt>lTags</dt>
-<dd><p><code>list</code> tags</p></dd>
-
-
 <dt>bQuiet</dt>
 <dd><p><code>logical</code> Default is TRUE, which means warning messages are suppressed. Set to
 FALSE to see warning messages.</p></dd>
@@ -119,29 +115,28 @@ FALSE to see warning messages.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lStep</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeAssessmentList.html">MakeAssessmentList</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"ae"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"workflow"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lStep</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeAssessmentList.html">MakeAssessmentList</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"kri0001"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"workflow"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">lMapping</span> <span class="op">&lt;-</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_rawplus.yaml"</span>, package <span class="op">=</span> <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">lData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span>,</span></span>
+<span class="r-in"><span>  dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
 <span class="r-in"><span>  dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span></span>
-<span class="r-in"><span>  dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_pd.html" class="external-link">rawplus_pd</a></span>,</span></span>
-<span class="r-in"><span>  dfCONSENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_consent.html" class="external-link">rawplus_consent</a></span>,</span></span>
-<span class="r-in"><span>  dfIE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ie.html" class="external-link">rawplus_ie</a></span></span></span>
+<span class="r-in"><span>  dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_protdev.html" class="external-link">rawplus_protdev</a></span>,</span></span>
+<span class="r-in"><span>  dfCONSENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span>,</span></span>
+<span class="r-in"><span>  dfIE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ie</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lTags</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Study <span class="op">=</span> <span class="st">"myStudy"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">ae_step</span> <span class="op">&lt;-</span> <span class="fu">RunStep</span><span class="op">(</span>lStep <span class="op">=</span> <span class="va">lStep</span>, lMapping <span class="op">=</span> <span class="va">lMapping</span>, lData <span class="op">=</span> <span class="va">lData</span>, lTags <span class="op">=</span> <span class="va">lTags</span>, bQuiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ae_step</span> <span class="op">&lt;-</span> <span class="fu">RunStep</span><span class="op">(</span>lStep <span class="op">=</span> <span class="va">lStep</span>, lMapping <span class="op">=</span> <span class="va">lMapping</span>, lData <span class="op">=</span> <span class="va">lData</span>, bQuiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Preparing parameters for `FilterDomain()` ...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Calling `FilterDomain()` ...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Checking Input Data for `FilterDomain()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> No issues found for dfAE domain</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Filtering on `AE_TE_FLAG %in% c("TRUE")`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 1276 rows from 4851 to 3575 rows.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Filtering on `ae_te %in% c("Y")`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Filtered on `ae_te %in% c("Y")` to drop 111 rows from 4854 to 4743 rows.</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -153,7 +148,7 @@ FALSE to see warning messages.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
 </div>
 
 <div class="pkgdown">

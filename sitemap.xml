@@ -46,9 +46,6 @@
     <loc>/reference/AE_Map_Raw.html</loc>
   </url>
   <url>
-    <loc>/reference/Analyze_Chisq.html</loc>
-  </url>
-  <url>
     <loc>/reference/Analyze_Fisher.html</loc>
   </url>
   <url>
@@ -59,9 +56,6 @@
   </url>
   <url>
     <loc>/reference/Analyze_Poisson_PredictBounds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Analyze_Wilcoxon.html</loc>
   </url>
   <url>
     <loc>/reference/CheckInputs.html</loc>
@@ -91,6 +85,15 @@
     <loc>/reference/Flag.html</loc>
   </url>
   <url>
+    <loc>/reference/Flag_Fisher.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Flag_Poisson.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Get_Enrolled.html</loc>
+  </url>
+  <url>
     <loc>/reference/IE_Assess.html</loc>
   </url>
   <url>
@@ -109,7 +112,7 @@
     <loc>/reference/MakeStratifiedAssessment.html</loc>
   </url>
   <url>
-    <loc>/reference/MapMaker.html</loc>
+    <loc>/reference/Make_Snapshot.html</loc>
   </url>
   <url>
     <loc>/reference/MergeSubjects.html</loc>
@@ -119,6 +122,12 @@
   </url>
   <url>
     <loc>/reference/PD_Map_Raw.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ParseWarnings.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RemoveInvalidSubjectIDs.html</loc>
   </url>
   <url>
     <loc>/reference/RunAssessment.html</loc>
@@ -145,10 +154,10 @@
     <loc>/reference/Summarize.html</loc>
   </url>
   <url>
-    <loc>/reference/Transform_EventCount.html</loc>
+    <loc>/reference/Transform_Count.html</loc>
   </url>
   <url>
-    <loc>/reference/Visualize_Count.html</loc>
+    <loc>/reference/Transform_Rate.html</loc>
   </url>
   <url>
     <loc>/reference/Visualize_Scatter.html</loc>
@@ -158,6 +167,12 @@
   </url>
   <url>
     <loc>/reference/Visualize_Workflow.html</loc>
+  </url>
+  <url>
+    <loc>/reference/config_param.html</loc>
+  </url>
+  <url>
+    <loc>/reference/config_workflow.html</loc>
   </url>
   <url>
     <loc>/reference/generate_md_table.html</loc>
@@ -172,6 +187,12 @@
     <loc>/reference/is_mapping_valid.html</loc>
   </url>
   <url>
+    <loc>/reference/meta_param.html</loc>
+  </url>
+  <url>
+    <loc>/reference/meta_workflow.html</loc>
+  </url>
+  <url>
     <loc>/reference/parse_data_mapping.html</loc>
   </url>
   <url>
@@ -182,5 +203,8 @@
   </url>
   <url>
     <loc>/reference/rank_chg.html</loc>
+  </url>
+  <url>
+    <loc>/reference/rbm_data_spec.html</loc>
   </url>
 </urlset>

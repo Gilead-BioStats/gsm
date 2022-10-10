@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -75,26 +75,17 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Analyze_Identity</span><span class="op">(</span></span>
-<span>  <span class="va">dfTransformed</span>,</span>
-<span>  strValueCol <span class="op">=</span> <span class="st">"KRI"</span>,</span>
-<span>  strLabelCol <span class="op">=</span> <span class="st">"KRILabel"</span>,</span>
-<span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Analyze_Identity</span><span class="op">(</span><span class="va">dfTransformed</span>, strValueCol <span class="op">=</span> <span class="st">"Metric"</span>, bQuiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dfTransformed</dt>
-<dd><p><code>data.frame</code> created by <code><a href="Transform_EventCount.html">Transform_EventCount()</a></code></p></dd>
+<dd><p><code>data.frame</code> created by <code><a href="Transform_Count.html">Transform_Count</a></code></p></dd>
 
 
 <dt>strValueCol</dt>
 <dd><p><code>character</code> Name of column that will be copied as <code>Score</code></p></dd>
-
-
-<dt>strLabelCol</dt>
-<dd><p><code>character</code> Name of column that will be copied as <code>ScoreLabel</code></p></dd>
 
 
 <dt>bQuiet</dt>
@@ -105,7 +96,7 @@
     <h2>Value</h2>
     
 
-<p><code>data.frame</code> with one row per site with columns: SiteID, N, TotalCount, KRI, KRILabel, Score, ScoreLabel.</p>
+<p><code>data.frame</code> with one row per site with columns: SiteID, N, Metric,Score</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -115,7 +106,7 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="Consent_Map_Raw.html">Consent_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Transform_EventCount.html">Transform_EventCount</a></span><span class="op">(</span><span class="va">dfInput</span>, strCountCol <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Transform_Count.html">Transform_Count</a></span><span class="op">(</span><span class="va">dfInput</span>, strCountCol <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu">Analyze_Identity</span><span class="op">(</span><span class="va">dfTransformed</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -128,7 +119,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
 </div>
 
 <div class="pkgdown">

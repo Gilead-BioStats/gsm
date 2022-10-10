@@ -23,7 +23,7 @@ obtained after subject randomization
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -87,11 +87,9 @@ obtained after subject randomization
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Consent_Assess</span><span class="op">(</span></span>
 <span>  <span class="va">dfInput</span>,</span>
 <span>  nThreshold <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span>  lTags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Assessment <span class="op">=</span> <span class="st">"Consent"</span><span class="op">)</span>,</span>
-<span>  strKRILabel <span class="op">=</span> <span class="st">"Total Number of Consent Issues"</span>,</span>
+<span>  lMapping <span class="op">=</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"Consent_Assess.yaml"</span>, package <span class="op">=</span></span>
+<span>    <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  strGroup <span class="op">=</span> <span class="st">"Site"</span>,</span>
-<span>  bChart <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -106,24 +104,13 @@ obtained after subject randomization
 <dd><p><code>numeric</code> Threshold specification. Default: <code>0.5</code></p></dd>
 
 
-<dt>lTags</dt>
-<dd><p><code>list</code> Assessment tags, a named list of tags describing the assessment that defaults to <code>list(Assessment = "Consent")</code>. <code>lTags</code> is returned as part of the assessment (<code>lAssess$lTags</code>) and each tag is added as a column in <code>lAssess$dfSummary</code>.</p></dd>
-
-
-<dt>strKRILabel</dt>
-<dd><p><code>character</code> KRI description. Default: <code>"Total Number of Consent Issues"</code></p></dd>
+<dt>lMapping</dt>
+<dd><p>Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name
+of the column.</p></dd>
 
 
 <dt>strGroup</dt>
 <dd><p><code>character</code> Grouping variable. <code>"Site"</code> (the default) uses the column named in <code>mapping$strSiteCol</code>. Other valid options using the default mapping are <code>"Study"</code> and <code>"CustomGroup"</code>.</p></dd>
-
-
-<dt>bChart</dt>
-<dd><p><code>logical</code> Generate data visualization? Default: <code>TRUE</code></p></dd>
-
-
-<dt>bReturnChecks</dt>
-<dd><p><code>logical</code> Return input checks from <code><a href="is_mapping_valid.html">is_mapping_valid()</a></code>? Default: <code>FALSE</code></p></dd>
 
 
 <dt>bQuiet</dt>
@@ -134,22 +121,26 @@ obtained after subject randomization
     <h2>Value</h2>
     
 
-<p><code>list</code> Assessment, a named list with:</p><ul><li><p>each data frame in the data pipeline</p><ul><li><p><code>dfInput</code></p></li>
-<li><p><code>dfTransformed</code>, returned by <code><a href="Transform_EventCount.html">Transform_EventCount()</a></code></p></li>
-<li><p><code>dfAnalyzed</code>, a copy of <code>dfTransformed</code> and input to <code>[gsm::Flag()]</code></p></li>
+<p><code>list</code></p>
+<p></p>
+<p><code>lData</code>, a named list with:</p><ul><li><p>each data frame in the data pipeline</p><ul><li><p><code>dfTransformed</code>, returned by <code><a href="Transform_Count.html">Transform_Count()</a></code></p></li>
+<li><p><code>dfAnalyzed</code>, returned by <code><a href="Analyze_Identity.html">Analyze_Identity()</a></code></p></li>
 <li><p><code>dfFlagged</code>, returned by <code><a href="Flag.html">Flag()</a></code></p></li>
 <li><p><code>dfSummary</code>, returned by <code><a href="Summarize.html">Summarize()</a></code></p></li>
 </ul></li>
-<li><p>assessment metadata</p><ul><li><p><code>strFunctionName</code></p></li>
-<li><p><code>lParams</code></p></li>
-<li><p><code>lTags</code></p></li>
+<li><p><code>list</code> <code>lCharts</code>, a named list with:</p><ul><li><p><code>barMetric</code>, a ggplot2 object returned by <code><a href="Visualize_Score.html">Visualize_Score()</a></code> using strType == "metric"</p></li>
+<li><p><code>barScore</code>, a ggplot2 object returned by <code><a href="Visualize_Score.html">Visualize_Score()</a></code> using strType == "score"</p></li>
 </ul></li>
-<li><p>output(s)</p><ul><li><p><code>chart</code></p></li>
+<li><p><code>list</code> <code>lChecks</code>, a named list with:</p><ul><li><p><code>dfInput</code>, a named list returned by <code><a href="is_mapping_valid.html">is_mapping_valid()</a></code></p></li>
+<li><p><code>status</code>, a boolean returned by <code><a href="is_mapping_valid.html">is_mapping_valid()</a></code></p></li>
+<li><p><code>mapping</code>, a named list that is provided as an argument to the <code>lMapping</code> parameter in <code>Consent_Assess()</code></p></li>
+<li><p><code>spec</code>, a named list used to define variable specifications</p></li>
 </ul></li>
 </ul></div>
     <div id="details">
     <h2>Details</h2>
-    <p>The Consent Assessment uses the standard <a href="https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html" class="external-link">GSM data pipeline</a> to flag sites with consent issues. This assessment detects sites with subjects who participated
+    <p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a></p>
+<p>The Consent Assessment uses the standard <a href="https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html" class="external-link">GSM data pipeline</a> to flag sites with consent issues. This assessment detects sites with subjects who participated
 in study activities before consent was finalized. The count returned in the summary represents
 the number of subjects at a given site for whom:</p><ul><li><p>consent was not given</p></li>
 <li><p>consent was not obtained</p></li>
@@ -177,7 +168,7 @@ the number of subjects at a given site for whom:</p><ul><li><p>consent was not g
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
 </div>
 
 <div class="pkgdown">

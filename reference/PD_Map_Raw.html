@@ -18,7 +18,7 @@ input data to PD_Assess()."><!-- mathjax --><script src="https://cdnjs.cloudflar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -78,7 +78,7 @@ input data to <code><a href="PD_Assess.html">PD_Assess()</a></code>.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PD_Map_Raw</span><span class="op">(</span></span>
-<span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_pd.html" class="external-link">rawplus_pd</a></span>, dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span><span class="op">)</span>,</span>
+<span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span>, dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_protdev.html" class="external-link">rawplus_protdev</a></span><span class="op">)</span>,</span>
 <span>  lMapping <span class="op">=</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_rawplus.yaml"</span>, package <span class="op">=</span></span>
 <span>    <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -128,7 +128,7 @@ PDs by passing filtered PD data to <code>dfPD</code>.</p>
     <div id="data-specification">
     <h2>Data specification</h2>
     
-<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfSUBJ</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>TRUE</td></tr><tr><td>dfSUBJ</td><td>strSiteCol</td><td>SiteID</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfSUBJ</td><td>strTimeOnStudyCol</td><td>TimeOnStudy</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfPD</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>FALSE</td></tr></table></div>
+<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfSUBJ</td><td>strSiteCol</td><td>siteid</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfSUBJ</td><td>strIDCol</td><td>subjid</td><td>TRUE</td><td>TRUE</td></tr><tr><td>dfSUBJ</td><td>strTimeOnStudyCol</td><td>timeonstudy</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfPD</td><td>strIDCol</td><td>subjid</td><td>TRUE</td><td>FALSE</td></tr></table></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
@@ -145,10 +145,10 @@ PDs by passing filtered PD data to <code>dfPD</code>.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `PD_Map_Raw()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 216 ID(s) in subject data not found in domain data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 219 ID(s) in subject data not found in domain data.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `PD_Map_Raw()` returned output with 1297 rows.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `PD_Map_Raw()` returned output with 1301 rows.</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -160,7 +160,7 @@ PDs by passing filtered PD data to <code>dfPD</code>.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
 </div>
 
 <div class="pkgdown">

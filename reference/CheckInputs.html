@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -75,25 +75,26 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CheckInputs</span><span class="op">(</span><span class="va">context</span>, <span class="va">dfs</span>, spec <span class="op">=</span> <span class="cn">NULL</span>, mapping <span class="op">=</span> <span class="cn">NULL</span>, bQuiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CheckInputs</span><span class="op">(</span><span class="va">context</span>, <span class="va">dfs</span>, mapping <span class="op">=</span> <span class="cn">NULL</span>, spec <span class="op">=</span> <span class="cn">NULL</span>, bQuiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>context</dt>
-<dd><p>Description of the data pipeline "step" that is being checked, i.e., "AE_Map_Raw" or "PD_Assess".</p></dd>
+<dd><p><code>character</code> Name of the data pipeline "step" that is being checked, e.g.
+"AE_Map_Raw" or "PD_Assess".</p></dd>
 
 
 <dt>dfs</dt>
 <dd><p><code>list</code> A list of data frames.</p></dd>
 
 
-<dt>spec</dt>
-<dd><p><code>list</code> YAML spec for a given context.</p></dd>
-
-
 <dt>mapping</dt>
 <dd><p><code>list</code> YAML mapping for a given context.</p></dd>
+
+
+<dt>spec</dt>
+<dd><p><code>list</code> YAML spec for a given context.</p></dd>
 
 
 <dt>bQuiet</dt>
@@ -128,7 +129,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
 </div>
 
 <div class="pkgdown">

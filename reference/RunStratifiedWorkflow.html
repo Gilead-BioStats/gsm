@@ -18,7 +18,7 @@ Calls RunStep for each item in lWorkflow$workflow and saves the results to lWork
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -77,7 +77,7 @@ Calls <code>RunStep</code> for each item in <code>lWorkflow$workflow</code> and 
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunStratifiedWorkflow</span><span class="op">(</span><span class="va">lWorkflow</span>, <span class="va">lData</span>, <span class="va">lMapping</span>, lTags <span class="op">=</span> <span class="cn">NULL</span>, bQuiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunStratifiedWorkflow</span><span class="op">(</span><span class="va">lWorkflow</span>, <span class="va">lData</span>, <span class="va">lMapping</span>, bQuiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,11 +95,6 @@ specified in <code>lMapping</code> and <code>lAssessments</code>, which are gene
 
 <dt>lMapping</dt>
 <dd><p><code>list</code> A named list identifying the columns needed in each data domain.</p></dd>
-
-
-<dt>lTags</dt>
-<dd><p><code>list</code> A named list of tags describing the assessment. <code>lTags</code> is returned as part
-of the assessment (<code>lAssess$lTags</code>) and each tag is added as columns in <code>lassess$dfSummary</code>.</p></dd>
 
 
 <dt>bQuiet</dt>
@@ -122,12 +117,13 @@ of the assessment (<code>lAssess$lTags</code>) and each tag is added as columns 
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lWorkflows</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeAssessmentList.html">MakeAssessmentList</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span></span>
-<span class="r-in"><span>  dfCONSENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_consent.html" class="external-link">rawplus_consent</a></span>,</span></span>
-<span class="r-in"><span>  dfDISP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span>,</span></span>
-<span class="r-in"><span>  dfIE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ie.html" class="external-link">rawplus_ie</a></span>,</span></span>
+<span class="r-in"><span>  dfCONSENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span>,</span></span>
+<span class="r-in"><span>  dfDISP_Study <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_studcomp.html" class="external-link">rawplus_studcomp</a></span>,</span></span>
+<span class="r-in"><span>  dfDISP_Treatment <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_sdrgcomp.html" class="external-link">rawplus_sdrgcomp</a></span>,</span></span>
+<span class="r-in"><span>  dfIE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ie</span>,</span></span>
 <span class="r-in"><span>  dfLB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_lb.html" class="external-link">rawplus_lb</a></span>,</span></span>
-<span class="r-in"><span>  dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_pd.html" class="external-link">rawplus_pd</a></span>,</span></span>
-<span class="r-in"><span>  dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span></span></span>
+<span class="r-in"><span>  dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_protdev.html" class="external-link">rawplus_protdev</a></span>,</span></span>
+<span class="r-in"><span>  dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lMapping</span> <span class="op">&lt;-</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_rawplus.yaml"</span>, package <span class="op">=</span> <span class="st">"gsm"</span><span class="op">)</span></span></span>
@@ -149,7 +145,7 @@ of the assessment (<code>lAssess$lTags</code>) and each tag is added as columns 
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
 </div>
 
 <div class="pkgdown">

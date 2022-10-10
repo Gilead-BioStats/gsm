@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
       </tr><tr><td>
           <p><code><a href="LB_Assess.html">LB_Assess()</a></code> </p>
         </td>
-        <td><p>Labs Assessment</p></td>
+        <td><p>Lab Abnormality Assessment</p></td>
       </tr><tr><td>
           <p><code><a href="PD_Assess.html">PD_Assess()</a></code> </p>
         </td>
@@ -105,10 +105,6 @@
           <p class="section-desc"></p><p>Generate a visualization from the Assessment results</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="Visualize_Count.html">Visualize_Count()</a></code> </p>
-        </td>
-        <td><p>Group-level visualization of group-level Inclusion/Exclusion results</p></td>
-      </tr><tr><td>
           <p><code><a href="Visualize_Scatter.html">Visualize_Scatter()</a></code> </p>
         </td>
         <td><p>Group-level visualization of group-level results using a Poisson or Wilcoxon model.</p></td>
@@ -151,7 +147,7 @@
       </tr><tr><td>
           <p><code><a href="LB_Map_Raw.html">LB_Map_Raw()</a></code> </p>
         </td>
-        <td><p>Lab Assessment - Raw Mapping</p></td>
+        <td><p>Lab Abnormality Assessment - Raw Mapping</p></td>
       </tr><tr><td>
           <p><code><a href="PD_Map_Raw.html">PD_Map_Raw()</a></code> </p>
         </td>
@@ -161,10 +157,6 @@
           <p class="section-desc"></p><p>Conduct statistical analysis based on input data</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="Analyze_Chisq.html">Analyze_Chisq()</a></code> </p>
-        </td>
-        <td><p>Chi-squared Test Analysis</p></td>
-      </tr><tr><td>
           <p><code><a href="Analyze_Identity.html">Analyze_Identity()</a></code> </p>
         </td>
         <td><p>Analyze Identity</p></td>
@@ -176,22 +168,30 @@
           <p><code><a href="Analyze_Poisson.html">Analyze_Poisson()</a></code> </p>
         </td>
         <td><p>Poisson Analysis - Site Residuals</p></td>
-      </tr><tr><td>
-          <p><code><a href="Analyze_Wilcoxon.html">Analyze_Wilcoxon()</a></code> </p>
-        </td>
-        <td><p>AE Wilcoxon Assessment - Analysis</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="data-pipeline">Data Pipeline <a href="#data-pipeline" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Create site-level summary, analyzed, and flagged data for an assessment</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="Transform_EventCount.html">Transform_EventCount()</a></code> </p>
+          <p><code><a href="Transform_Count.html">Transform_Count()</a></code> </p>
         </td>
-        <td><p>Transform Event Count</p></td>
+        <td><p>Transform Count</p></td>
+      </tr><tr><td>
+          <p><code><a href="Transform_Rate.html">Transform_Rate()</a></code> </p>
+        </td>
+        <td><p>Transform - Rate</p></td>
       </tr><tr><td>
           <p><code><a href="Flag.html">Flag()</a></code> </p>
         </td>
         <td><p>Flag</p></td>
+      </tr><tr><td>
+          <p><code><a href="Flag_Fisher.html">Flag_Fisher()</a></code> </p>
+        </td>
+        <td><p>Flag_Fisher</p></td>
+      </tr><tr><td>
+          <p><code><a href="Flag_Poisson.html">Flag_Poisson()</a></code> </p>
+        </td>
+        <td><p>Flag_Poisson</p></td>
       </tr><tr><td>
           <p><code><a href="Summarize.html">Summarize()</a></code> </p>
         </td>
@@ -257,6 +257,10 @@
         </td>
         <td><p>Subset a data frame given a mapping</p></td>
       </tr><tr><td>
+          <p><code><a href="Get_Enrolled.html">Get_Enrolled()</a></code> </p>
+        </td>
+        <td><p>Get_Enrolled Calculated enrolled participants or sites.</p></td>
+      </tr><tr><td>
           <p><code><a href="RunStep.html">RunStep()</a></code> </p>
         </td>
         <td><p>Run a single step in a workflow</p></td>
@@ -277,9 +281,41 @@
         </td>
         <td><p>Generate Markdown Table</p></td>
       </tr><tr><td>
-          <p><code><a href="MapMaker.html">MapMaker()</a></code> </p>
+          <p><code><a href="RemoveInvalidSubjectIDs.html">RemoveInvalidSubjectIDs()</a></code> </p>
         </td>
-        <td><p>Read YAML mapping in Assess functions without params</p></td>
+        <td><p>Remove invalid Subject IDs</p></td>
+      </tr><tr><td>
+          <p><code><a href="ParseWarnings.html">ParseWarnings()</a></code> </p>
+        </td>
+        <td><p>Parse warnings from the result of Study_Assess.</p></td>
+      </tr><tr><td>
+          <p><code><a href="Make_Snapshot.html">Make_Snapshot()</a></code> </p>
+        </td>
+        <td><p>Make Snapshot - create and export Gizmo data model.</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="data">Data <a href="#data" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Metadata used to create workflows</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="config_param.html">config_param</a></code> </p>
+        </td>
+        <td><p>Parameter Configuration Data</p></td>
+      </tr><tr><td>
+          <p><code><a href="config_workflow.html">config_workflow</a></code> </p>
+        </td>
+        <td><p>Workflow Configuration Data</p></td>
+      </tr><tr><td>
+          <p><code><a href="meta_param.html">meta_param</a></code> </p>
+        </td>
+        <td><p>Workflow Parameterization Metadata</p></td>
+      </tr><tr><td>
+          <p><code><a href="meta_workflow.html">meta_workflow</a></code> </p>
+        </td>
+        <td><p>Workflow Metadata</p></td>
+      </tr><tr><td>
+          <p><code><a href="rbm_data_spec.html">rbm_data_spec</a></code> </p>
+        </td>
+        <td><p>RBM Data Specification</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -289,7 +325,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
 </div>
 
 <div class="pkgdown">

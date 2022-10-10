@@ -18,7 +18,7 @@ input data to IE_Assess()."><!-- mathjax --><script src="https://cdnjs.cloudflar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -78,7 +78,7 @@ input data to <code><a href="IE_Assess.html">IE_Assess()</a></code>.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">IE_Map_Raw</span><span class="op">(</span></span>
-<span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfIE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ie.html" class="external-link">rawplus_ie</a></span>, dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_subj.html" class="external-link">rawplus_subj</a></span><span class="op">)</span>,</span>
+<span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span>, dfIE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ie</span><span class="op">)</span>,</span>
 <span>  lMapping <span class="op">=</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_rawplus.yaml"</span>, package <span class="op">=</span></span>
 <span>    <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -119,7 +119,8 @@ of the column.</p></dd>
 </ul></div>
     <div id="details">
     <h2>Details</h2>
-    <p><code>IE_Map_Raw</code> combines IE data with subject-level data to create formatted input data to
+    <p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a></p>
+<p><code>IE_Map_Raw</code> combines IE data with subject-level data to create formatted input data to
 <code><a href="IE_Assess.html">IE_Assess()</a></code>. This function creates an input dataset for the IE Assessment
 (<code><a href="IE_Assess.html">IE_Assess()</a></code>) by binding subject-level unmet IE criteria counts (derived from <code>dfIE</code>) to
 subject-level data (from <code>dfSUBJ</code>). Note that the function can generate data summaries for
@@ -128,7 +129,7 @@ specific types of IE criteria by passing filtered IE data to <code>dfIE</code>.<
     <div id="data-specification">
     <h2>Data specification</h2>
     
-<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfSUBJ</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>TRUE</td></tr><tr><td>dfSUBJ</td><td>strSiteCol</td><td>SiteID</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfIE</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfIE</td><td>strCategoryCol</td><td>IE_CATEGORY</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfIE</td><td>strValueCol</td><td>IE_VALUE</td><td>TRUE</td><td>FALSE</td></tr></table></div>
+<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfSUBJ</td><td>strSiteCol</td><td>siteid</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfSUBJ</td><td>strIDCol</td><td>subjid</td><td>TRUE</td><td>TRUE</td></tr><tr><td>dfIE</td><td>strIDCol</td><td>subjid</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfIE</td><td>strCategoryCol</td><td>iecat</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfIE</td><td>strValueCol</td><td>ieorres</td><td>TRUE</td><td>FALSE</td></tr></table></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
@@ -145,10 +146,10 @@ specific types of IE criteria by passing filtered IE data to <code>dfIE</code>.<
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Initializing `IE_Map_Raw()`</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Intializing merge of domain and subject data</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 13 ID(s) in subject data not found in domain data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 17 ID(s) in subject data not found in domain data.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> These participants will have 0s imputed for the following domain data columns: Count.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> NA's will be imputed for all other columns.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `IE_Map_Raw()` returned output with 1297 rows.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> `IE_Map_Raw()` returned output with 1301 rows.</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -160,7 +161,7 @@ specific types of IE criteria by passing filtered IE data to <code>dfIE</code>.<
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
 </div>
 
 <div class="pkgdown">

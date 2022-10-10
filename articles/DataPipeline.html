@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -183,7 +183,7 @@
 </h3>
 <p>Mapping Specifications in {gsm} define a “mapping” of column and field-level inputs needed for a function. This mapping can be used in combination with a specification to confirm that input data meets the requirements for a function.</p>
 <p>Each mapping object lists the required parameters for all required data domains and specifies the column and field values for specific data sets.</p>
-<p>For example, the following could be passed to the <code>mapping</code> parameter for the <code><a href="../reference/AE_Map_Raw.html">AE_Map_Raw()</a></code> function to be used with the default data from <code>clindata::rawplus_AE</code> and <code>clindata::rawplus_SUBJ</code>:</p>
+<p>For example, the following could be passed to the <code>mapping</code> parameter for the <code><a href="../reference/AE_Map_Raw.html">AE_Map_Raw()</a></code> function to be used with the default data from <code><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">clindata::rawplus_ae</a></code> and <code><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">clindata::rawplus_dm</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  dfAE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>strIDCol <span class="op">=</span> <span class="st">'SubjectID'</span><span class="op">)</span>,</span>
@@ -202,8 +202,6 @@
 <p>The <code>lAssessment</code> object is a named list of metadata defining how each assessment should be run. By default, <code><a href="../reference/MakeAssessmentList.html">MakeAssessmentList()</a></code> imports YAML specifications from <code>inst/assessments</code>. Each item in <code>lAssessments</code> expects the following parameters.</p>
 <ul>
 <li>
-<code>tags</code>: Labels to be appended as a column to summary data.</li>
-<li>
 <code>workflow</code>: Array defining one or more functions to be executed as part of the workflow for a given assessment.
 <ul>
 <li>
@@ -218,10 +216,7 @@
 </li>
 </ul>
 <p>For example, the workflow for the AE assessment (<code>inst/assessments/ae.yaml</code>) is shown below:</p>
-<pre><code><span><span class="va">tags</span><span class="op">:</span></span>
-<span>  <span class="va">Assessment</span><span class="op">:</span> <span class="va">Safety</span></span>
-<span>  <span class="va">Label</span><span class="op">:</span> <span class="va">AEs</span></span>
-<span><span class="va">workflow</span><span class="op">:</span></span>
+<pre><code><span><span class="va">workflow</span><span class="op">:</span></span>
 <span>  <span class="op">-</span> <span class="va">name</span><span class="op">:</span> <span class="va">FilterDomain</span></span>
 <span>    <span class="va">inputs</span><span class="op">:</span> <span class="va">dfAE</span></span>
 <span>    <span class="va">output</span><span class="op">:</span> <span class="va">dfAE</span></span>
@@ -255,7 +250,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
+<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
 </div>
 
 <div class="pkgdown">

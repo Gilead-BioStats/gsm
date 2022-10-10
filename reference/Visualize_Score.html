@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
@@ -75,13 +75,23 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Visualize_Score</span><span class="op">(</span><span class="va">dfFlagged</span>, strType <span class="op">=</span> <span class="st">"KRI"</span>, bFlagFilter <span class="op">=</span> <span class="cn">FALSE</span>, strTitle <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Visualize_Score</span><span class="op">(</span></span>
+<span>  <span class="va">dfFlagged</span>,</span>
+<span>  vThreshold <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  strType <span class="op">=</span> <span class="st">"metric"</span>,</span>
+<span>  bFlagFilter <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  strTitle <span class="op">=</span> <span class="st">""</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dfFlagged</dt>
 <dd><p><code>data.frame</code> returned by <code><a href="Flag.html">Flag()</a></code></p></dd>
+
+
+<dt>vThreshold</dt>
+<dd><p><code>numeric</code> Threshold specification, a vector of length 2 that defaults to NULL.</p></dd>
 
 
 <dt>strType</dt>
@@ -105,15 +115,15 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ae</span> <span class="op">&lt;-</span> <span class="fu"><a href="AE_Map_Raw.html">AE_Map_Raw</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="AE_Assess.html">AE_Assess</a></span><span class="op">(</span>vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">8</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ae</span> <span class="op">&lt;-</span> <span class="fu"><a href="AE_Map_Raw.html">AE_Map_Raw</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="AE_Assess.html">AE_Assess</a></span><span class="op">(</span>vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">8</span>, <span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">Visualize_Score</span><span class="op">(</span><span class="va">ae</span><span class="op">$</span><span class="va">dfFlagged</span><span class="op">)</span> <span class="co"># visualize KRI (default)</span></span></span>
+<span class="r-in"><span><span class="fu">Visualize_Score</span><span class="op">(</span><span class="va">ae</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfFlagged</span><span class="op">)</span> <span class="co"># visualize KRI (default)</span></span></span>
 <span class="r-plt img"><img src="Visualize_Score-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">Visualize_Score</span><span class="op">(</span><span class="va">ae</span><span class="op">$</span><span class="va">dfFlagged</span>, bFlagFilter <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># drop non-flagged groups</span></span></span>
+<span class="r-in"><span><span class="fu">Visualize_Score</span><span class="op">(</span><span class="va">ae</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfFlagged</span>, bFlagFilter <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># drop non-flagged groups</span></span></span>
 <span class="r-plt img"><img src="Visualize_Score-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">consent</span> <span class="op">&lt;-</span> <span class="fu"><a href="Consent_Map_Raw.html">Consent_Map_Raw</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="Consent_Assess.html">Consent_Assess</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">Visualize_Score</span><span class="op">(</span><span class="va">consent</span><span class="op">$</span><span class="va">dfFlagged</span>, strType <span class="op">=</span> <span class="st">"score"</span><span class="op">)</span> <span class="co"># visualize score</span></span></span>
+<span class="r-in"><span><span class="fu">Visualize_Score</span><span class="op">(</span><span class="va">consent</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfFlagged</span>, strType <span class="op">=</span> <span class="st">"score"</span><span class="op">)</span> <span class="co"># visualize score</span></span></span>
 <span class="r-plt img"><img src="Visualize_Score-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -126,7 +136,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
 </div>
 
 <div class="pkgdown">
