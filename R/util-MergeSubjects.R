@@ -1,28 +1,34 @@
 #' Merge Domain data with subject-level data
 #'
 #' @param dfDomain Subject-level domain data containing one record per participant.
-#' @param dfSubjects Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)
+#' @param dfSUBJ Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)
 #' @param strIDCol name of ID Column - default='SubjectID'
-#' @param vFillZero Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject
+#' @param vFillZero Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSUBJ
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
-#'
-#' @return `data.frame` with one record per strIDCol.
-#'
 #'
 #' @examples
 #' MergeSubjects(
 #'   dfDomain = clindata::rawplus_consent,
-#'   dfSubjects = clindata::rawplus_subj,
-#'   strIDCol = "SubjectID"
+#'   dfSUBJ = clindata::rawplus_dm,
+#'   strIDCol = "subjid"
 #' )
+#'
+#' @return `data.frame` with one record per strIDCol.
 #'
 #' @importFrom cli cli_alert_info cli_alert_warning
 #' @importFrom tidyr replace_na
 #'
 #' @export
 
-MergeSubjects <- function(dfDomain, dfSubjects, strIDCol = "SubjectID", vFillZero = NULL, bQuiet = TRUE) {
+MergeSubjects <- function(
+  dfDomain,
+  dfSUBJ,
+  strIDCol = "SubjectID",
+  vFillZero = NULL,
+  bQuiet = TRUE
+) {
   if (!bQuiet) cli_alert_info("Intializing merge of domain and subject data")
+
   is_domain_valid <- gsm::is_mapping_valid(
     df = dfDomain,
     mapping = list("strIDCol" = strIDCol),
@@ -34,7 +40,7 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol = "SubjectID", vFillZer
   )
 
   is_subjects_valid <- gsm::is_mapping_valid(
-    df = dfSubjects,
+    df = dfSUBJ,
     mapping = list("strIDCol" = strIDCol),
     spec = list(
       vUniqueCols = "strIDCol",
@@ -45,7 +51,7 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol = "SubjectID", vFillZer
 
   stopifnot(
     "Errors found in dfDomain" = is_domain_valid$status,
-    "Errors found in dfSubjects" = is_subjects_valid$status,
+    "Errors found in dfSUBJ" = is_subjects_valid$status,
     "bQuiet must be TRUE or FALSE" = is.logical(bQuiet)
   )
 
@@ -56,8 +62,8 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol = "SubjectID", vFillZer
     )
   }
 
-  # Throw a warning if there are ID values in dfDomain that are not found in dfSubject
-  subject_ids <- dfSubjects[[strIDCol]]
+  # Throw a warning if there are ID values in dfDomain that are not found in dfSUBJ
+  subject_ids <- dfSUBJ[[strIDCol]]
   domain_ids <- dfDomain[[strIDCol]]
   domain_only_ids <- domain_ids[!domain_ids %in% subject_ids]
   if (length(domain_only_ids > 0)) {
@@ -71,7 +77,7 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol = "SubjectID", vFillZer
     }
   }
 
-  # Print a message if rows in dfSubject are not found in dfDomain
+  # Print a message if rows in dfSUBJ are not found in dfDomain
   subject_only_ids <- subject_ids[!subject_ids %in% domain_ids]
   if (length(subject_only_ids > 0)) {
     if (!bQuiet) {
@@ -97,11 +103,11 @@ MergeSubjects <- function(dfDomain, dfSubjects, strIDCol = "SubjectID", vFillZer
     dfDomain[[strIDCol]] <- as.character(dfDomain[[strIDCol]])
   }
 
-  if (class(dfSubjects[[strIDCol]]) != "character") {
-    dfSubjects[[strIDCol]] <- as.character(dfSubjects[[strIDCol]])
+  if (class(dfSUBJ[[strIDCol]]) != "character") {
+    dfSUBJ[[strIDCol]] <- as.character(dfSUBJ[[strIDCol]])
   }
 
-  dfOut <- left_join(dfSubjects, dfDomain, by = strIDCol)
+  dfOut <- left_join(dfSUBJ, dfDomain, by = strIDCol)
   for (col in vFillZero) {
     dfOut[[col]] <- tidyr::replace_na(dfOut[[col]], 0)
   }

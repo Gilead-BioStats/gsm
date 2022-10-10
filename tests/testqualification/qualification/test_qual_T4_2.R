@@ -4,7 +4,6 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
 
   test4_2 <- Consent_Assess(
     dfInput = dfInput,
-    bChart = FALSE,
     strGroup = "Study",
     nThreshold = 1.5
   )
@@ -15,14 +14,12 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
   t4_2_transformed <- dfInput %>%
     qualification_transform_counts(
       exposureCol = NA,
-      KRILabel = "Total Number of Consent Issues",
-      GroupLabel = "StudyID"
+      GroupID = "StudyID"
     )
 
   t4_2_analyzed <- t4_2_transformed %>%
     mutate(
-      Score = TotalCount,
-      ScoreLabel = "Total Number of Consent Issues"
+      Score = TotalCount
     ) %>%
     arrange(Score)
 
@@ -30,9 +27,6 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
 
   t4_2_flagged <- t4_2_analyzed %>%
     mutate(
-      ThresholdLow = NA_real_,
-      ThresholdHigh = 1.5,
-      ThresholdCol = "Score",
       Flag = case_when(
         Score > 1.5 ~ 1,
         is.na(Score) ~ NA_real_,
@@ -43,23 +37,11 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
     arrange(match(Flag, c(1, -1, 0)))
 
   t4_2_summary <- t4_2_flagged %>%
-    mutate(
-      Assessment = "Consent"
-    ) %>%
-    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
-    arrange(desc(abs(KRI))) %>%
+    select(GroupID, Metric, Score, Flag) %>%
+    arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t4_2 <- list(
-    "strFunctionName" = "Consent_Assess()",
-    "lParams" = list(
-      "dfInput" = "dfInput",
-      "nThreshold" = "1.5",
-      "strGroup" = "Study",
-      "bChart" = "FALSE"
-    ),
-    "lTags" = list(Assessment = "Consent"),
-    "dfInput" = t4_2_input,
     "dfTransformed" = t4_2_transformed,
     "dfAnalyzed" = t4_2_analyzed,
     "dfFlagged" = t4_2_flagged,
@@ -67,5 +49,5 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
   )
 
   # compare results
-  expect_equal(test4_2, t4_2)
+  expect_equal(test4_2$lData, t4_2)
 })

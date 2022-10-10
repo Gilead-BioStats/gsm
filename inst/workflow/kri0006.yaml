@@ -1,0 +1,20 @@
+workflow:
+  - name: FilterDomain
+    inputs: dfLB
+    output: dfLB
+    params:
+      strDomain: dfLB
+      strColParam: strGradeCol
+      strValParam: strGradeHighVal
+  - name: LB_Map_Raw
+    inputs:
+      - dfSUBJ
+      - dfLB
+    output: dfInput
+  - name: LB_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      vThreshold: null
+      strMethod: "fisher"

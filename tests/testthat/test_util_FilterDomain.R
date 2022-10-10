@@ -12,7 +12,7 @@ test_that("basic filter works", {
   )
   expect_equal(
     ae_test,
-    dfAE %>% dplyr::filter(AE_TE_FLAG == TRUE)
+    dfAE %>% dplyr::filter(ae_te == "Y")
   )
 })
 
@@ -29,7 +29,7 @@ test_that("invalid column throws an error", {
 
 test_that("filter to 0 rows throws a warning", {
   dfAE <- dfAE %>%
-    dplyr::filter(AE_TE_FLAG == FALSE)
+    dplyr::filter(ae_te == "N")
 
   expect_equal(
     suppressWarnings(
@@ -46,7 +46,7 @@ test_that("filter to 0 rows throws a warning", {
     0
   )
 
-  expect_snapshot(FilterDomain(dfAE,
+  expect_message(FilterDomain(dfAE,
     lMapping = lMapping,
     strDomain = "dfAE",
     strColParam = "strTreatmentEmergentCol",
@@ -81,7 +81,7 @@ test_that("bQuiet works as intended", {
     strDomain = "dfAE",
     strColParam = "strTreatmentEmergentCol",
     strValParam = "strTreatmentEmergentVal",
-    bQuiet = FALSE
+    bQuiet = TRUE
   ))
 
   expect_snapshot(FilterDomain(dfAE,

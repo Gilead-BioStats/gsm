@@ -8,6 +8,7 @@ Visualize_Scatter(
   dfFlagged,
   dfBounds = NULL,
   strGroupCol = NULL,
+  strGroupLabel = NULL,
   strUnit = "days"
 )
 }
@@ -17,6 +18,8 @@ Visualize_Scatter(
 \item{dfBounds}{data.frame giving prediction bounds for range of dfFlagged.}
 
 \item{strGroupCol}{name of stratification column for facet wrap (default=NULL)}
+
+\item{strGroupLabel}{name of group, used for labeling axes.}
 
 \item{strUnit}{exposure time unit. Defaults to "days".}
 }
@@ -29,11 +32,9 @@ Group-level visualization of group-level results using a Poisson or Wilcoxon mod
 \examples{
 dfInput <- AE_Map_Adam()
 SafetyAE <- AE_Assess(dfInput)
-dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$dfTransformed, c(-5, 5))
-Visualize_Scatter(SafetyAE$dfFlagged, dfBounds)
+dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$lData$dfTransformed, c(-5, 5))
+Visualize_Scatter(SafetyAE$lData$dfFlagged, dfBounds)
 
-SafetyAE_wilk <- AE_Assess(dfInput, strMethod = "wilcoxon")
-Visualize_Scatter(SafetyAE_wilk$dfFlagged)
 
 # TODO: add stratified example
 

@@ -1,0 +1,12 @@
+workflow:
+  - name: Consent_Map_Raw
+    inputs:
+      - dfSUBJ
+      - dfCONSENT
+    output: dfInput
+  - name: Consent_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      nThreshold: 0.5

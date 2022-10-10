@@ -60,7 +60,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfSUBJ", "dfPD"]
+          "value": ["dfPD", "dfSUBJ"]
         }
       },
       "value": [
@@ -70,69 +70,34 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strTimeOnTreatmentCol", "strTimeOnStudyCol", "strRandFlagCol", "strRandDateCol", "strStudyCompletionFlagCol", "strStudyDiscontinuationReasonCol", "strTreatmentCompletionFlagCol", "strTreatmentDiscontinuationReasonCol"]
+              "value": ["strIDCol", "strCategoryCol", "strImportantCol", "strImportantVal", "strNotImportantVal"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["SubjectID"]
+              "value": ["subjid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["SiteID"]
+              "value": ["dvdecod"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["StudyID"]
+              "value": ["importnt"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["RegionID"]
+              "value": ["Y"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["TimeOnTreatment"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["TimeOnStudy"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["RandFlag"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["RandDate"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["StudCompletion"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["StudDCReason"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["TrtCompletion"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["TrtDCReason"]
+              "value": ["N"]
             }
           ]
         },
@@ -142,29 +107,44 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strCategoryCol", "strImportantCol", "strImportantVal"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["SubjectID"]
+              "value": ["studyid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["DVDECOD"]
+              "value": ["siteid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["PD_IMPORTANT_FLAG"]
+              "value": ["subjid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["Y"]
+              "value": ["timeonstudy"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["timeontreatment"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["rfpst_dt"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
             }
           ]
         }
@@ -279,12 +259,12 @@
       -- Checking Input Data for `PD_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, TimeOnStudy
+      x the following columns not found in df: subjid, siteid, timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -303,7 +283,7 @@
       -- Checking Input Data for `PD_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, TimeOnStudy
+      x the following columns not found in df: subjid, siteid, timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -322,7 +302,7 @@
       -- Checking Input Data for `PD_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -340,12 +320,12 @@
       -- Checking Input Data for `PD_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, TimeOnStudy
+      x the following columns not found in df: subjid, siteid, timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -363,12 +343,12 @@
       -- Checking Input Data for `PD_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, TimeOnStudy
+      x the following columns not found in df: subjid, siteid, timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -386,12 +366,12 @@
       -- Checking Input Data for `PD_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: SubjectID, SiteID, TimeOnStudy
+      x the following columns not found in df: subjid, siteid, timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -427,7 +407,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x Unexpected duplicates found in column: SubjectID
+      x Unexpected duplicates found in column: subjid
       ! Issues found for `PD_Map_Raw()`
       ! `PD_Map_Raw()` did not run because of failed check.
     Output
@@ -441,7 +421,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -458,7 +438,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x the following columns not found in df: SubjectID
+      x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -475,7 +455,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x the following columns not found in df: SiteID
+      x the following columns not found in df: siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -492,7 +472,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x the following columns not found in df: TimeOnStudy
+      x the following columns not found in df: timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -509,7 +489,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x 1 NA values found in column: SubjectID
+      x 1 NA values found in column: subjid
       ! Issues found for `PD_Map_Raw()`
       ! `PD_Map_Raw()` did not run because of failed check.
     Output
@@ -523,7 +503,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x 1 NA values found in column: SubjectID
+      x 1 NA values found in column: subjid
       ! Issues found for `PD_Map_Raw()`
       ! `PD_Map_Raw()` did not run because of failed check.
     Output
@@ -537,7 +517,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x 1 NA values found in column: SiteID
+      x 1 NA values found in column: siteid
       ! Issues found for `PD_Map_Raw()`
       ! `PD_Map_Raw()` did not run because of failed check.
     Output
@@ -551,7 +531,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x 1 NA values found in column: TimeOnStudy
+      x 1 NA values found in column: timeonstudy
       ! Issues found for `PD_Map_Raw()`
       ! `PD_Map_Raw()` did not run because of failed check.
     Output
@@ -565,7 +545,7 @@
       
       -- Checking Input Data for `PD_Map_Raw()` --
       
-      x Unexpected duplicates found in column: SubjectID
+      x Unexpected duplicates found in column: subjid
       ! Issues found for `PD_Map_Raw()`
       ! `PD_Map_Raw()` did not run because of failed check.
     Output
@@ -652,5 +632,8 @@
       -- Initializing `PD_Map_Raw()` --
       
       i Intializing merge of domain and subject data
+      i 1 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
       v `PD_Map_Raw()` returned output with 3 rows.
 

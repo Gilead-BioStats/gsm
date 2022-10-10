@@ -4,17 +4,15 @@
 \alias{Summarize}
 \title{Make Summary Data Frame}
 \usage{
-Summarize(dfFlagged, strScoreCol = "Score", lTags = NULL)
+Summarize(dfFlagged, strScoreCol = "Score")
 }
 \arguments{
 \item{dfFlagged}{data.frame in format produced by \code{\link{Flag}}}
 
 \item{strScoreCol}{column from analysis results to be copied to \code{dfSummary$Score}}
-
-\item{lTags}{List of tags containing metadata to add to the data frame.}
 }
 \value{
-Simplified finding data.frame with columns for GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, and any associated metadata
+Simplified finding data.frame with columns for GroupID, Metric, Score, Flag
 when associated with a workflow.
 }
 \description{
@@ -29,7 +27,6 @@ Create a concise summary of assessment results that is easy to aggregate across 
 (\code{dfFlagged}) has the following required columns:
 \itemize{
 \item \code{GroupID} - Group ID
-\item \code{N} - Total number of participants at site
 \item \code{Flag} - Flagging value of -1, 0, or 1
 \item \code{strScoreCol} - Column from analysis results.
 }
@@ -38,15 +35,15 @@ Create a concise summary of assessment results that is easy to aggregate across 
 \examples{
 dfInput <- AE_Map_Adam()
 
-dfTransformed <- Transform_EventCount(dfInput,
-  strCountCol = "Count",
-  strExposureCol = "Exposure",
-  strKRILabel = "AEs/Week"
+dfTransformed <- Transform_Rate(dfInput,
+  strGroupCol = "SiteID",
+  strNumeratorCol = "Count",
+  strDenominatorCol = "Exposure"
 )
 
-dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+dfAnalyzed <- Analyze_Poisson(dfTransformed)
 
-dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
+dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
 
 dfSummary <- Summarize(dfFlagged)
 

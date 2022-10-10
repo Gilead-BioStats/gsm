@@ -98,7 +98,7 @@ test_missing_value <- function(map_function, dfs, spec, mapping) {
 
 test_duplicate_subject_id <- function(map_function, dfs) {
   dfs_edited <- dfs
-  dfs_edited$dfSUBJ$SubjectID <- "1"
+  dfs_edited$dfSUBJ$subjid <- "1"
 
   testthat::expect_snapshot(map_function(dfs = dfs_edited, bQuiet = FALSE))
 }
@@ -139,4 +139,10 @@ test_logical_parameters <- function(map_function, dfs) {
   testthat::expect_true(
     all(names(map_function(dfs = dfs, bReturnChecks = TRUE)) == c("df", "lChecks"))
   )
+}
+
+subset_input_mapping <- function(input_spec, mapping_domain = "mapping_rawplus.yaml") {
+  mapping <- yaml::read_yaml(system.file("mappings", mapping_domain, package = "gsm"))
+  mapping_subset <- mapping[names(input_spec)]
+  return(mapping_subset)
 }

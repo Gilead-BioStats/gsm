@@ -1,0 +1,16 @@
+group:
+  domain: dfPD
+  columnParam: strCategoryCol
+workflow:
+  - name: PD_Map_Raw
+    inputs:
+      - dfSUBJ
+      - dfPD
+    output: dfInput
+  - name: PD_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      vThreshold: null
+      strMethod: "poisson"

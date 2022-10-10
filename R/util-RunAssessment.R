@@ -3,36 +3,33 @@
 #' Attempts to run a single assessment (`lAssessment`) using shared data (`lData`) and metadata (`lMapping`).
 #' Calls `RunStep` for each item in `lAssessment$workflow` and saves the results to `lAssessment`
 #'
-#' @param lAssessment `list` A named list of metadata defining how each assessment should be run. Properties should include: `label`, `tags` and `workflow`
+#' @param lAssessment `list` A named list of metadata defining how each assessment should be run. Properties should include: `label` and `workflow`
 #' @param lData `list` A named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
-#' @param lTags `list` A named list of tags describing the assessment. `lTags` is returned as part of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `list` containing `lAssessment` with `tags`, `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
 #' @examples
 #' lAssessments <- MakeAssessmentList()
 #' lData <- list(
 #'   dfAE = clindata::rawplus_ae,
 #'   dfCONSENT = clindata::rawplus_consent,
-#'   dfDISP = clindata::rawplus_subj,
+#'   dfDISP = clindata::rawplus_dm,
 #'   dfIE = clindata::rawplus_ie,
 #'   dfLB = clindata::rawplus_lb,
-#'   dfPD = clindata::rawplus_pd,
-#'   dfSUBJ = clindata::rawplus_subj
+#'   dfPD = clindata::rawplus_protdev,
+#'   dfSUBJ = clindata::rawplus_dm
 #' )
-#' lTags <- list(
-#'   Study = "myStudy"
-#' )
+#'
 #' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 #'
 #' output <- RunAssessment(
 #'   lAssessments$ae, # adverse event workflow
 #'   lData,
-#'   lMapping,
-#'   lTags
+#'   lMapping
 #' )
+#'
+#' @return `list` containing `lAssessment` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom stringr str_detect
@@ -41,12 +38,18 @@
 #'
 #' @export
 
-RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = TRUE) {
+RunAssessment <- function(
+  lAssessment,
+  lData,
+  lMapping,
+  bQuiet = TRUE
+) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lAssessment$name, "` assessment"))
 
   lAssessment$lData <- lData
   lAssessment$lChecks <- list()
   lAssessment$bStatus <- TRUE
+
   if (exists("workflow", where = lAssessment)) {
     # Run through each step in lAssessment$workflow
 
@@ -58,12 +61,11 @@ RunAssessment <- function(lAssessment, lData, lMapping, lTags = NULL, bQuiet = T
           lStep = step,
           lMapping = lMapping,
           lData = lAssessment$lData,
-          lTags = c(lTags, lAssessment$tags),
           bQuiet = bQuiet
         )
 
-        lAssessment$checks[[stepCount]] <- result$lChecks
-        names(lAssessment$checks)[[stepCount]] <- step$name
+        lAssessment$lChecks[[stepCount]] <- result$lChecks
+        names(lAssessment$lChecks)[[stepCount]] <- step$name
         lAssessment$bStatus <- result$lChecks$status
 
         if (result$lChecks$status) {

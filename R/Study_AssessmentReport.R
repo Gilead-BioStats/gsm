@@ -11,8 +11,8 @@
 #'
 #' assessment <- Study_Assess(lData = list(
 #'   dfAE = clindata::rawplus_ae,
-#'   dfPD = clindata::rawplus_pd,
-#'   dfSUBJ = clindata::rawplus_subj
+#'   dfPD = clindata::rawplus_protdev,
+#'   dfSUBJ = clindata::rawplus_dm
 #' ))
 #'
 #' report <- Study_AssessmentReport(lAssessments = assessment)
@@ -37,11 +37,18 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
         index = as.character(row_number())
       )
 
-    allChecks <- map(lAssessments[[assessment]][["checks"]], function(step) {
-      domains <- names(step[!names(step) %in% c("status", "mapping")])
+    # this is needed because we are mapping everything run through `is_mapping_valid()`
+    # we added the flowchart object to lChecks, so need to remove it first
+    mapTheseSteps <- lAssessments[[assessment]][["lChecks"]]
+    mapTheseSteps$flowchart <- NULL
+
+
+    allChecks <- map(mapTheseSteps, function(step) {
+      domains <- names(step[!names(step) %in% c("mapping", "spec", "status")])
 
       map(domains, function(domain) {
         status <- step[[domain]][["status"]]
+
         step[[domain]][["tests_if"]] %>%
           bind_rows(.id = "names") %>%
           mutate(status = ifelse(is.na(.data$warning), NA_character_, .data$warning)) %>%

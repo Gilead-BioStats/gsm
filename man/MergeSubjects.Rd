@@ -6,7 +6,7 @@
 \usage{
 MergeSubjects(
   dfDomain,
-  dfSubjects,
+  dfSUBJ,
   strIDCol = "SubjectID",
   vFillZero = NULL,
   bQuiet = TRUE
@@ -15,11 +15,11 @@ MergeSubjects(
 \arguments{
 \item{dfDomain}{Subject-level domain data containing one record per participant.}
 
-\item{dfSubjects}{Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)}
+\item{dfSUBJ}{Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)}
 
 \item{strIDCol}{name of ID Column - default='SubjectID'}
 
-\item{vFillZero}{Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSubject}
+\item{vFillZero}{Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSUBJ}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -32,8 +32,8 @@ Merge Domain data with subject-level data
 \examples{
 MergeSubjects(
   dfDomain = clindata::rawplus_consent,
-  dfSubjects = clindata::rawplus_subj,
-  strIDCol = "SubjectID"
+  dfSUBJ = clindata::rawplus_dm,
+  strIDCol = "subjid"
 )
 
 }

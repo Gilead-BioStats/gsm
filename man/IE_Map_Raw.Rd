@@ -5,7 +5,7 @@
 \title{Inclusion/Exclusion Assessment - Raw Mapping}
 \usage{
 IE_Map_Raw(
-  dfs = list(dfIE = clindata::rawplus_ie, dfSUBJ = clindata::rawplus_subj),
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfIE = clindata::rawplus_ie),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
   bReturnChecks = FALSE,
@@ -39,6 +39,8 @@ Convert raw inclusion/exclusion (IE) data, typically processed case report form 
 input data to \code{\link[=IE_Assess]{IE_Assess()}}.
 }
 \details{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 \code{IE_Map_Raw} combines IE data with subject-level data to create formatted input data to
 \code{\link[=IE_Assess]{IE_Assess()}}. This function creates an input dataset for the IE Assessment
 (\code{\link[=IE_Assess]{IE_Assess()}}) by binding subject-level unmet IE criteria counts (derived from \code{dfIE}) to
@@ -48,11 +50,11 @@ specific types of IE criteria by passing filtered IE data to \code{dfIE}.
 \section{Data specification}{
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
-   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
-   dfIE \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \cr
-   dfIE \tab strCategoryCol \tab IE_CATEGORY \tab TRUE \tab FALSE \cr
-   dfIE \tab strValueCol \tab IE_VALUE \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
+   dfIE \tab strIDCol \tab subjid \tab TRUE \tab FALSE \cr
+   dfIE \tab strCategoryCol \tab iecat \tab TRUE \tab FALSE \cr
+   dfIE \tab strValueCol \tab ieorres \tab TRUE \tab FALSE \cr
 }
 }
 

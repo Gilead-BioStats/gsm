@@ -1,0 +1,23 @@
+group:
+  domain: dfAE
+  columnParam: strGradeCol
+workflow:
+  - name: FilterDomain
+    inputs: dfAE
+    output: dfAE
+    params:
+      strDomain: dfAE
+      strColParam: strTreatmentEmergentCol
+      strValParam: strTreatmentEmergentVal
+  - name: AE_Map_Raw
+    inputs:
+      - dfSUBJ
+      - dfAE
+    output: dfInput
+  - name: AE_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      vThreshold: null
+      strMethod: "poisson"

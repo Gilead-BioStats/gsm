@@ -1,7 +1,7 @@
-#' Lab Assessment - Raw Mapping
+#' Lab Abnormality Assessment - Raw Mapping
 #'
 #' @description
-#' Convert from ADaM or raw format to input format for Labs Assessment.
+#' Convert from ADaM or raw format to input format for Lab Abnormality Assessment.
 #'
 #' @details
 #' Convert raw lab data (LB), typically processed case report form data, to formatted
@@ -44,7 +44,7 @@
 
 LB_Map_Raw <- function(
   dfs = list(
-    dfSUBJ = clindata::rawplus_subj,
+    dfSUBJ = clindata::rawplus_dm,
     dfLB = clindata::rawplus_lb
   ),
 
@@ -84,7 +84,7 @@ LB_Map_Raw <- function(
     dfLB_mapped <- dfs$dfLB %>%
       select(
         SubjectID = lMapping[["dfLB"]][["strIDCol"]],
-        Abnormal = lMapping[["dfLB"]][["strAbnormalCol"]]
+        Grade = lMapping[["dfLB"]][["strGradeCol"]]
       )
 
     # Create Subject Level LB Counts and merge Subj
@@ -95,10 +95,13 @@ LB_Map_Raw <- function(
       ) %>%
       mutate(
         Count = if_else(
-          .data$Abnormal == lMapping[["dfLB"]][["strAbnormalVal"]], 1, 0
-        )
+          .data$Grade %in% lMapping[["dfLB"]][["strGradeAnyVal"]],
+          1,
+          0
+        ),
+        Total = 1
       ) %>%
-      select(any_of(c(names(dfSUBJ_mapped))), .data$Count)
+      select(any_of(c(names(dfSUBJ_mapped))), .data$Count, .data$Total)
 
     if (!bQuiet) cli::cli_alert_success("{.fn LB_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

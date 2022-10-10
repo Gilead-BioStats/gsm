@@ -5,10 +5,13 @@
 \title{Disposition Assessment - Raw Mapping}
 \usage{
 Disp_Map_Raw(
-  dfs = list(dfDISP = clindata::rawplus_subj, dfSUBJ = clindata::rawplus_subj),
-  strContext = "Treatment",
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfSTUDCOMP = clindata::rawplus_studcomp,
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\% filter(.data$datapagename ==
+    "Blinded Study Drug Completion")),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
+  strContext = "Study",
+  strTreatmentPhase = NULL,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -20,18 +23,20 @@ Disp_Map_Raw(
 \item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per participant.
 }}
 
-\item{strContext}{Disposition Context - "Treatment" or "Study"}
-
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column.}
+
+\item{strContext}{Disposition Context - "Treatment" or "Study"}
+
+\item{strTreatmentPhase}{\code{character} Treatment phase descriptor.}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one record per subject, the input to gsm::Disp_Assess(). If
-\code{bReturnChecks} is \code{TRUE} \code{AE_Map_Raw} returns a named \code{list} with:
+\code{data.frame} with one record per subject, the input to \code{\link[=Disp_Assess]{Disp_Assess()}}. If
+\code{bReturnChecks} is \code{TRUE} \code{Disp_Map_Raw} returns a named \code{list} with:
 \itemize{
 \item \code{df}: the data frame described above
 \item \code{lChecks}: a named \code{list} of check results
@@ -42,10 +47,8 @@ Convert raw disposition data to formatted input data to to formatted
 input data to \code{\link[=Disp_Assess]{Disp_Assess()}}.
 }
 \details{
-Convert from ADaM or raw format to input format for Disposition Assessment.
-
-\code{Disp_Map_Raw} creates an input dataset for the Disposition Assessment (link to code) by adding
-Discontinuation Reason Counts to basic subject-level data.
+\code{Disp_Map_Raw} creates an input dataset for the Disposition Assessment \code{\link[=Disp_Assess]{Disp_Assess()}} by adding
+Discontinuation Reason Counts (derived from \code{dfDISP}) to basic subject-level data (from \code{dfSUBJ}).
 }
 \section{Data specification}{
 \tabular{llllll}{

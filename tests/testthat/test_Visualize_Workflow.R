@@ -6,24 +6,29 @@ lData <- list(
   dfPD = dfPD,
   dfCONSENT = dfCONSENT,
   dfIE = dfIE,
-  dfDISP = dfDISP
+  dfSDRGCOMP = dfSDRGCOMP,
+  dfSTUDCOMP = dfSTUDCOMP
 )
 
-study <- Study_Assess(lData = lData, bQuiet = TRUE)
+study <- Study_Assess(lData = lData, bQuiet = TRUE) %>%
+  suppressWarnings()
 
 test_that("flowchart is created for all assessments", {
-  expect_true("flowchart" %in% names(study$ae$lChecks))
-  expect_true("flowchart" %in% names(study$consent$lChecks))
-  expect_true("flowchart" %in% names(study$ie$lChecks))
-  expect_true("flowchart" %in% names(study$importantpd$lChecks))
-  expect_true("flowchart" %in% names(study$pd$lChecks))
-  expect_true("flowchart" %in% names(study$sae$lChecks))
+  expect_true("flowchart" %in% names(study$kri0001$lChecks))
+  expect_true("flowchart" %in% names(study$kri0002$lChecks))
+  expect_true("flowchart" %in% names(study$kri0003$lChecks))
+  expect_true("flowchart" %in% names(study$kri0004$lChecks))
+  expect_true("flowchart" %in% names(study$kri0005$lChecks))
+  expect_true("flowchart" %in% names(study$kri0006$lChecks))
+  expect_true("flowchart" %in% names(study$kri0007$lChecks))
+  expect_true("flowchart" %in% names(study$kri0008$lChecks))
 
-
-  expect_type(study$ae$lChecks$flowchart, "list")
-  expect_type(study$consent$lChecks$flowchart, "list")
-  expect_type(study$ie$lChecks$flowchart, "list")
-  expect_type(study$importantpd$lChecks$flowchart, "list")
-  expect_type(study$pd$lChecks$flowchart, "list")
-  expect_type(study$sae$lChecks$flowchart, "list")
+  expect_type(study$kri0001$lChecks$flowchart, "list")
+  expect_type(study$kri0002$lChecks$flowchart, "list")
+  expect_type(study$kri0003$lChecks$flowchart, "list")
+  expect_type(study$kri0004$lChecks$flowchart, "list")
+  expect_type(study$kri0005$lChecks$flowchart, "list")
+  expect_type(study$kri0006$lChecks$flowchart, "list")
+  expect_type(study$kri0007$lChecks$flowchart, "list")
+  expect_type(study$kri0008$lChecks$flowchart, "list")
 })

@@ -4,12 +4,7 @@
 \alias{Flag}
 \title{Flag}
 \usage{
-Flag(
-  dfAnalyzed,
-  strColumn = "Score",
-  vThreshold = c(0.05, NA),
-  strValueColumn = NULL
-)
+Flag(dfAnalyzed, strColumn = "Score", vThreshold = NULL, strValueColumn = NULL)
 }
 \arguments{
 \item{dfAnalyzed}{data.frame where flags should be added.}
@@ -52,19 +47,14 @@ In short, the following columns are considered:
 \examples{
 dfInput <- AE_Map_Adam()
 
-dfTransformed <- Transform_EventCount(dfInput,
-  strCountCol = "Count",
-  strExposureCol = "Exposure",
-  strKRILabel = "AEs/Week"
+dfTransformed <- Transform_Rate(dfInput,
+  strGroupCol = "SiteID",
+  strNumeratorCol = "Count",
+  strDenominatorCol = "Exposure"
 )
 
-dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+dfAnalyzed <- Analyze_Poisson(dfTransformed)
 
-dfFlagged <- Flag(dfAnalyzed) # P value (dfAnalyzed$Score) < 0.05 flagged
-
-dfFlagged10 <- Flag(dfAnalyzed, vThreshold = c(0.10, NA)) # PValue <0.10 flagged
-
-# Flag direction set based on 'Statistic' column
-dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
+dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
 
 }

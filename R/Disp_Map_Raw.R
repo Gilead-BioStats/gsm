@@ -1,16 +1,12 @@
 #' Disposition Assessment - Raw Mapping
 #'
-#' Convert from ADaM or raw format to input format for Disposition Assessment.
-#'
 #' @description
 #' Convert raw disposition data to formatted input data to to formatted
 #' input data to [gsm::Disp_Assess()].
 #'
 #' @details
-#' `Disp_Map_Raw` creates an input dataset for the Disposition Assessment (link to code) by adding
-#' Discontinuation Reason Counts to basic subject-level data.
-#'
-#'
+#' `Disp_Map_Raw` creates an input dataset for the Disposition Assessment [gsm::Disp_Assess()] by adding
+#' Discontinuation Reason Counts (derived from `dfDISP`) to basic subject-level data (from `dfSUBJ`).
 #'
 #' @param dfs `list` Input data frame:
 #'   - `dfDISP`: `data.frame` Subject-level data with one record per discontinuation reason.
@@ -18,11 +14,12 @@
 #' @param strContext Disposition Context - "Treatment" or "Study"
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
+#' @param strTreatmentPhase `character` Treatment phase descriptor.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` with one record per subject, the input to gsm::Disp_Assess(). If
-#' `bReturnChecks` is `TRUE` `AE_Map_Raw` returns a named `list` with:
+#' @return `data.frame` with one record per subject, the input to [gsm::Disp_Assess()]. If
+#' `bReturnChecks` is `TRUE` `Disp_Map_Raw` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
 #'
@@ -36,19 +33,21 @@
 #' dfInput <- Disp_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
-#' @import dplyr
 #' @importFrom glue glue
 #' @importFrom yaml read_yaml
+#' @import dplyr
 #'
 #' @export
 
 Disp_Map_Raw <- function(
   dfs = list(
-    dfDISP = clindata::rawplus_subj,
-    dfSUBJ = clindata::rawplus_subj
+    dfSUBJ = clindata::rawplus_dm,
+    dfSTUDCOMP = clindata::rawplus_studcomp,
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion")
   ),
-  strContext = "Treatment",
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  strContext = "Study",
+  strTreatmentPhase = NULL,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
@@ -56,6 +55,9 @@ Disp_Map_Raw <- function(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)
   )
+
+  strDomain <- ifelse(strContext == "Study", "dfSTUDCOMP", "dfSDRGCOMP")
+  dfs$dfDISP <- dfs[[strDomain]]
 
   checks <- CheckInputs(
     context = paste0("Disp_Map_Raw", "_", strContext),
@@ -69,15 +71,16 @@ Disp_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn Disp_Map_Raw}")
 
     # Standarize Column Names
-    dfDISP_mapped <- dfs$dfDISP %>%
-      select(
-        SubjectID = lMapping[["dfDISP"]][["strIDCol"]],
-        DCReason = lMapping[["dfDISP"]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
-        Completion = lMapping[["dfDISP"]][[glue::glue("str{strContext}CompletionFlagCol")]]
-      ) %>%
-      filter(!.data$Completion %in% lMapping[["dfDISP"]][[glue::glue("str{strContext}CompletionFlagVal")]]) %>%
-      mutate(Count = 1)
+    dfDISP <- dfs$dfDISP
 
+    dfDISP_mapped <- dfDISP %>%
+      select(
+        SubjectID = lMapping[[strDomain]][["strIDCol"]],
+        DCReason = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
+        Discontinuation = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagCol")]]
+      ) %>%
+      filter(.data$Discontinuation %in% lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagVal")]]) %>%
+      mutate(Count = 1)
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -93,7 +96,7 @@ Disp_Map_Raw <- function(
 
     dfInput <- gsm::MergeSubjects(
       dfDomain = dfDISP_mapped,
-      dfSubjects = dfSUBJ_mapped,
+      dfSUBJ = dfSUBJ_mapped,
       bQuiet = bQuiet
     ) %>%
       mutate(

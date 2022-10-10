@@ -6,16 +6,14 @@
     - T1_1
     - T1_2
     - T1_3
-    - T1_4
 - ID: S1_2
-  Description: Given correct input data an Adverse Event assessment can be done using the wilcoxon method
+  Description: Given correct input data an Adverse Event assessment can be done using the identity method
   Risk: High
   Impact: High
   Tests:
+    - T1_4
     - T1_5
     - T1_6
-    - T1_7
-    - T1_8
 - ID: S1_3
   Description: Assessments are correctly grouped by a grouping variable such as site or country for KRIs and study for QTLs when applicable
   Risk: Low
@@ -27,8 +25,6 @@
     - T1_4
     - T1_5
     - T1_6
-    - T1_7
-    - T1_8
 - ID: S1_4
   Description: Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding
   Risk: Medium
@@ -40,21 +36,10 @@
     - T1_4
     - T1_5
     - T1_6
-    - T1_7
-    - T1_8
 - ID: S1_5
   Description: Given subset input data an Adverse Event assessment can be done
   Risk: Medium
   Impact: Medium
   Tests:
     - T1_3
-    - T1_4
-    - T1_7
-    - T1_8
-- ID: S1_6
-  Description: An Adverse Event assessment can be done iteratively by looping over a categorical variable
-  Risk: Low
-  Impact: Medium
-  Tests:
-    - T1_4
-    - T1_8
+    - T1_6

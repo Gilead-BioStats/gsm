@@ -9,24 +9,19 @@
 #' specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from
 #' `X_Map_Raw`.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
-#' @param lTags `list` A named list of tags describing the assessment. `lTags` is returned as part
-#' of the assessment (`lAssess$lTags`) and each tag is added as columns in `lassess$dfSummary`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
-#'
-#' @return `list` `lWorkflow` along with `tags`, `workflow`, `path`, `name`, `lData`, `lChecks`,
-#' `bStatus`, `checks`, and `lResults` added based on the results of the execution of
-#' `lWorkflow$workflow`.
 #'
 #' @examples
 #' lWorkflows <- MakeAssessmentList()
 #' lData <- list(
 #'   dfAE = clindata::rawplus_ae,
 #'   dfCONSENT = clindata::rawplus_consent,
-#'   dfDISP = clindata::rawplus_subj,
+#'   dfDISP_Study = clindata::rawplus_studcomp,
+#'   dfDISP_Treatment = clindata::rawplus_sdrgcomp,
 #'   dfIE = clindata::rawplus_ie,
 #'   dfLB = clindata::rawplus_lb,
-#'   dfPD = clindata::rawplus_pd,
-#'   dfSUBJ = clindata::rawplus_subj
+#'   dfPD = clindata::rawplus_protdev,
+#'   dfSUBJ = clindata::rawplus_dm
 #' )
 #' lMapping <- yaml::read_yaml(
 #'   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
@@ -38,6 +33,10 @@
 #'   lMapping = lMapping
 #' )
 #'
+#' @return `list` `lWorkflow` along with `tags`, `workflow`, `path`, `name`, `lData`, `lChecks`,
+#' `bStatus`, `checks`, and `lResults` added based on the results of the execution of
+#' `lWorkflow$workflow`.
+#'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom purrr map
 #'
@@ -47,7 +46,6 @@ RunStratifiedWorkflow <- function(
   lWorkflow,
   lData,
   lMapping,
-  lTags = NULL,
   bQuiet = TRUE
 ) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` workflow"))
@@ -56,9 +54,6 @@ RunStratifiedWorkflow <- function(
     lWorkflow,
     lData,
     lMapping,
-    lTags = list(
-      type = "stratified"
-    ),
     bQuiet = bQuiet
   )
 

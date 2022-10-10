@@ -1,0 +1,20 @@
+workflow:
+  - name: FilterDomain
+    inputs: dfAE
+    output: dfAE
+    params:
+      strDomain: dfAE
+      strColParam: strTreatmentEmergentCol
+      strValParam: strTreatmentEmergentVal
+  - name: AE_Map_Raw
+    inputs:
+      - dfSUBJ
+      - dfAE
+    output: dfInput
+  - name: AE_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "CustomGroup" #this would be SiteID or CustomGroupID, placeholder to show how it handles other vars found in AE_Map_Raw() output
+      vThreshold: null
+      strMethod: "poisson"

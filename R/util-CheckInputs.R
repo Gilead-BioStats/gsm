@@ -1,9 +1,10 @@
 #' Check mapping inputs
 #'
-#' @param context Description of the data pipeline "step" that is being checked, i.e., "AE_Map_Raw" or "PD_Assess".
+#' @param context `character` Name of the data pipeline "step" that is being checked, e.g.
+#' "AE_Map_Raw" or "PD_Assess".
 #' @param dfs `list` A list of data frames.
-#' @param spec `list` YAML spec for a given context.
 #' @param mapping `list` YAML mapping for a given context.
+#' @param spec `list` YAML spec for a given context.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @examples
@@ -24,24 +25,27 @@
 #' @importFrom yaml read_yaml
 #'
 #' @export
-CheckInputs <- function(context, dfs, spec = NULL, mapping = NULL, bQuiet = TRUE) {
+CheckInputs <- function(context, dfs, mapping = NULL, spec = NULL, bQuiet = TRUE) {
   if (!bQuiet) {
     cli::cli_h2("Checking Input Data for {.fn {context}}")
+  }
+
+  if (is.null(mapping)) {
+    mapping <- c(
+      yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+      yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
+    )
   }
 
   if (is.null(spec)) {
     spec <- yaml::read_yaml(system.file("specs", paste0(context, ".yaml"), package = "gsm"))
   }
 
-  if (is.null(mapping)) {
-    mapping <- yaml::read_yaml(system.file("mappings", paste0(context, ".yaml"), package = "gsm"))
-  }
-
   checks <- map(names(spec), function(domain) {
     domain_check <- list(
       df = dfs[[domain]],
-      spec = spec[[domain]],
-      mapping = mapping[[domain]]
+      mapping = mapping[[domain]],
+      spec = spec[[domain]]
     ) %>%
       purrr::map(~ purrr::modify_if(.x, is.null, ~NA))
 
@@ -58,6 +62,7 @@ CheckInputs <- function(context, dfs, spec = NULL, mapping = NULL, bQuiet = TRUE
 
   checks$status <- all(checks %>% purrr::map_lgl(~ .x$status))
   checks$mapping <- mapping
+  checks$spec <- spec
 
   if (checks$status) {
     if (!bQuiet) cli::cli_alert_success("No issues found for {.fn {context}}")

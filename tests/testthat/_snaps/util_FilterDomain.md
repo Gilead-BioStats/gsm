@@ -12,25 +12,6 @@
       x Non-character column names found in mapping: 
       ! Issues found for dfAE domain
 
-# filter to 0 rows throws a warning
-
-    Code
-      FilterDomain(dfAE, lMapping = lMapping, strDomain = "dfAE", strColParam = "strTreatmentEmergentCol",
-        strValParam = "strTreatmentEmergentVal", bQuiet = FALSE)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
-      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 2 to 0 rows.
-      ! WARNING: Filtered data has 0 rows.
-    Output
-      # A tibble: 0 x 4
-      # ... with 4 variables: SubjectID <chr>, AE_SERIOUS <chr>, AE_TE_FLAG <lgl>,
-      #   AE_GRADE <dbl>
-      # i Use `colnames()` to see all variable names
-
 # invalid mapping is caught
 
     Code
@@ -46,13 +27,21 @@
       x Non-character column names found in mapping: 
       ! Issues found for dfAE domain
     Output
-      # A tibble: 4 x 4
-        SubjectID AE_SERIOUS AE_TE_FLAG AE_GRADE
-        <chr>     <chr>      <lgl>         <dbl>
-      1 1234      No         TRUE              1
-      2 1234      No         TRUE              3
-      3 5678      Yes        FALSE             1
-      4 5678      No         FALSE             4
+      # A tibble: 12 x 4
+         subjid ae_te aetoxgr  aeser
+         <chr>  <chr> <chr>    <chr>
+       1 0001   Y     MILD     N    
+       2 0001   Y     MILD     N    
+       3 0001   Y     MILD     N    
+       4 0001   Y     MILD     N    
+       5 0001   Y     MILD     N    
+       6 0002   Y     MODERATE N    
+       7 0002   Y     MODERATE N    
+       8 0003   Y     MODERATE Y    
+       9 0003   Y     MILD     Y    
+      10 0003   Y     MODERATE Y    
+      11 0003   Y     MILD     Y    
+      12 0003   Y     MODERATE Y    
 
 # invalid strDomain is caught
 
@@ -68,32 +57,43 @@
       x Non-character column names found in mapping: 
       ! Issues found for dfABCD domain
     Output
-      # A tibble: 4 x 4
-        SubjectID AE_SERIOUS AE_TE_FLAG AE_GRADE
-        <chr>     <chr>      <lgl>         <dbl>
-      1 1234      No         TRUE              1
-      2 1234      No         TRUE              3
-      3 5678      Yes        FALSE             1
-      4 5678      No         FALSE             4
+      # A tibble: 12 x 4
+         subjid ae_te aetoxgr  aeser
+         <chr>  <chr> <chr>    <chr>
+       1 0001   Y     MILD     N    
+       2 0001   Y     MILD     N    
+       3 0001   Y     MILD     N    
+       4 0001   Y     MILD     N    
+       5 0001   Y     MILD     N    
+       6 0002   Y     MODERATE N    
+       7 0002   Y     MODERATE N    
+       8 0003   Y     MODERATE Y    
+       9 0003   Y     MILD     Y    
+      10 0003   Y     MODERATE Y    
+      11 0003   Y     MILD     Y    
+      12 0003   Y     MODERATE Y    
 
 # bQuiet works as intended
 
     Code
       FilterDomain(dfAE, lMapping = lMapping, strDomain = "dfAE", strColParam = "strTreatmentEmergentCol",
-        strValParam = "strTreatmentEmergentVal", bQuiet = FALSE)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
-      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
+        strValParam = "strTreatmentEmergentVal", bQuiet = TRUE)
     Output
-      # A tibble: 2 x 4
-        SubjectID AE_SERIOUS AE_TE_FLAG AE_GRADE
-        <chr>     <chr>      <lgl>         <dbl>
-      1 1234      No         TRUE              1
-      2 1234      No         TRUE              3
+      # A tibble: 12 x 4
+         subjid ae_te aetoxgr  aeser
+         <chr>  <chr> <chr>    <chr>
+       1 0001   Y     MILD     N    
+       2 0001   Y     MILD     N    
+       3 0001   Y     MILD     N    
+       4 0001   Y     MILD     N    
+       5 0001   Y     MILD     N    
+       6 0002   Y     MODERATE N    
+       7 0002   Y     MODERATE N    
+       8 0003   Y     MODERATE Y    
+       9 0003   Y     MILD     Y    
+      10 0003   Y     MODERATE Y    
+      11 0003   Y     MILD     Y    
+      12 0003   Y     MODERATE Y    
 
 ---
 
@@ -105,12 +105,23 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `AE_TE_FLAG %in% c("TRUE")`.
-      v Filtered on `AE_TE_FLAG %in% c("TRUE")` to drop 2 rows from 4 to 2 rows.
+      Filtering on `ae_te %in% c("Y")`.
+      v Filtered on `ae_te %in% c("Y")` to drop 0 rows from 12 to 12 rows.
+      i NOTE: No rows dropped.
     Output
-      # A tibble: 2 x 4
-        SubjectID AE_SERIOUS AE_TE_FLAG AE_GRADE
-        <chr>     <chr>      <lgl>         <dbl>
-      1 1234      No         TRUE              1
-      2 1234      No         TRUE              3
+      # A tibble: 12 x 4
+         subjid ae_te aetoxgr  aeser
+         <chr>  <chr> <chr>    <chr>
+       1 0001   Y     MILD     N    
+       2 0001   Y     MILD     N    
+       3 0001   Y     MILD     N    
+       4 0001   Y     MILD     N    
+       5 0001   Y     MILD     N    
+       6 0002   Y     MODERATE N    
+       7 0002   Y     MODERATE N    
+       8 0003   Y     MODERATE Y    
+       9 0003   Y     MILD     Y    
+      10 0003   Y     MODERATE Y    
+      11 0003   Y     MILD     Y    
+      12 0003   Y     MODERATE Y    
 

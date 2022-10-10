@@ -35,16 +35,17 @@ Make overview table with one row per assessment and one column per site showing 
 \examples{
 lData <- list(
   dfAE = clindata::rawplus_ae,
-  dfPD = clindata::rawplus_pd,
-  dfSUBJ = clindata::rawplus_subj
+  dfPD = clindata::rawplus_protdev,
+  dfSUBJ = clindata::rawplus_dm
 )
 
 lAssessment <- Study_Assess(lData)
 
 dfSummary <- lAssessment \%>\%
   purrr::map(~ .x$lResults) \%>\%
+  purrr::discard(is.null) \%>\%
   purrr::compact() \%>\%
-  purrr::map_df(~ .x$dfSummary)
+  purrr::map_df(~ .x$lData$dfSummary, .id = "Assessment")
 
 lStudyTable <- Study_Table(dfSummary)
 

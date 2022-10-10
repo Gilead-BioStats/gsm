@@ -1,0 +1,13 @@
+workflow:
+  - name: LB_Map_Raw
+    inputs:
+      - dfLB
+      - dfSUBJ
+    output: dfInput
+  - name: LB_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      vThreshold: null
+      strMethod: "fisher"

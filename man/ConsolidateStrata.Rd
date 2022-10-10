@@ -24,12 +24,12 @@ Consolidates multiple stratified assessment outputs by stacking the data frames 
 }
 \examples{
 lData <- list(
-  dfSUBJ = clindata::rawplus_subj,
+  dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae
 )
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
-lWorkflow <- MakeAssessmentList()$aeGrade
+lWorkflow <- MakeAssessmentList(bRecursive = TRUE, strNames = "aeGrade")$aeGrade
 lOutput <- RunAssessment(lWorkflow, lData = lData, lMapping = lMapping)
 
 lStratifiedWorkflow <- MakeStratifiedAssessment(

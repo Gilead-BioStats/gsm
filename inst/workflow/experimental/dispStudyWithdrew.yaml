@@ -1,0 +1,23 @@
+workflow:
+  - name: FilterDomain
+    inputs: dfDISP_Study
+    output: dfDISP_Study
+    params:
+      strDomain: dfDISP_Study
+      strColParam: strStudyDiscontinuationReasonCol
+      strValParam: strStudyDiscontinuationReasonVal
+  - name: Disp_Map_Raw
+    inputs:
+      - dfSUBJ
+      - dfDISP_Study
+    output: dfInput
+    params:
+      strContext: Study
+  - name: Disp_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      vThreshold: null
+      strMethod: "chisq"
+

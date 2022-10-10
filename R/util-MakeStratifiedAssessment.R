@@ -15,7 +15,7 @@
 #' # Adverse events by grade
 #' StratifiedAE <- MakeStratifiedAssessment(
 #'   lData = list(
-#'     dfSUBJ = clindata::rawplus_subj,
+#'     dfSUBJ = clindata::rawplus_dm,
 #'     dfAE = clindata::rawplus_ae
 #'   ),
 #'   lMapping = lMapping,
@@ -26,7 +26,7 @@
 #'   purrr::map(~ .x %>%
 #'     RunAssessment(
 #'       lData = list(
-#'         dfSUBJ = clindata::rawplus_subj,
+#'         dfSUBJ = clindata::rawplus_dm,
 #'         dfAE = clindata::rawplus_ae
 #'       ),
 #'       lMapping = lMapping
@@ -35,8 +35,8 @@
 #' # Protocol deviations by PD category
 #' StratifiedPD <- MakeStratifiedAssessment(
 #'   lData = list(
-#'     dfSUBJ = clindata::rawplus_subj,
-#'     dfPD = clindata::rawplus_pd
+#'     dfSUBJ = clindata::rawplus_dm,
+#'     dfPD = clindata::rawplus_protdev
 #'   ),
 #'   lMapping = lMapping,
 #'   lWorkflow = MakeAssessmentList()$pdCategory
@@ -46,8 +46,8 @@
 #'   purrr::map(~ .x %>%
 #'     RunAssessment(
 #'       lData = list(
-#'         dfSUBJ = clindata::rawplus_subj,
-#'         dfPD = clindata::rawplus_pd
+#'         dfSUBJ = clindata::rawplus_dm,
+#'         dfPD = clindata::rawplus_protdev
 #'       ),
 #'       lMapping = lMapping
 #'     ))
@@ -55,7 +55,7 @@
 #' # Labs by lab category
 #' StratifiedLB <- MakeStratifiedAssessment(
 #'   lData = list(
-#'     dfSUBJ = clindata::rawplus_subj,
+#'     dfSUBJ = clindata::rawplus_dm,
 #'     dfLB = clindata::rawplus_lb
 #'   ),
 #'   lMapping = lMapping,
@@ -66,7 +66,7 @@
 #'   purrr::map(~ .x %>%
 #'     RunAssessment(
 #'       lData = list(
-#'         dfSUBJ = clindata::rawplus_subj,
+#'         dfSUBJ = clindata::rawplus_dm,
 #'         dfLB = clindata::rawplus_lb
 #'       ),
 #'       lMapping = lMapping
@@ -78,8 +78,8 @@
 #' @importFrom cli cli_alert_info cli_alert_success cli_alert_warning cli_text
 #' @importFrom purrr imap map_chr
 #' @importFrom glue glue
+#'
 #' @export
-
 MakeStratifiedAssessment <- function(
   lWorkflow,
   lData,
@@ -114,8 +114,6 @@ MakeStratifiedAssessment <- function(
 
       # Tailor workflow to stratum.
       workflow$name <- glue::glue("{workflow$name}_{i}")
-      workflow$tags$Group <- glue::glue('{domainName}[["{columnName}"]]=={stratum}')
-      workflow$tags$Label <- glue::glue("{workflow$tags$Label}: {stratum}")
       workflow$label <- glue::glue("{workflow$tags$Label} ({workflow$tags$Group})")
 
 
@@ -135,7 +133,7 @@ MakeStratifiedAssessment <- function(
       workflow
     })
 
-  names(stratifiedWorkflows) <- map_chr(stratifiedWorkflows, ~ .x$name)
+  names(stratifiedWorkflows) <- purrr::map_chr(stratifiedWorkflows, ~ .x$name)
 
   if (!bQuiet) {
     cli::cli_alert_info(

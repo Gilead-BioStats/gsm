@@ -1,0 +1,19 @@
+group:
+  domain: dfDISP_Treatment
+  columnParam: strTreatmentPhaseCol
+workflow:
+  - name: Disp_Map_Raw
+    inputs:
+      - dfSUBJ
+      - dfDISP_Treatment
+    output: dfInput
+    params:
+      strContext: Treatment
+  - name: Disp_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      vThreshold: null
+      strMethod: "chisq"
+

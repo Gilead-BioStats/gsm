@@ -2,10 +2,10 @@
 % Please edit documentation in R/LB_Map_Raw.R
 \name{LB_Map_Raw}
 \alias{LB_Map_Raw}
-\title{Lab Assessment - Raw Mapping}
+\title{Lab Abnormality Assessment - Raw Mapping}
 \usage{
 LB_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_subj, dfLB = clindata::rawplus_lb),
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfLB = clindata::rawplus_lb),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
   bReturnChecks = FALSE,
@@ -35,7 +35,7 @@ of the column.}
 }
 }
 \description{
-Convert from ADaM or raw format to input format for Labs Assessment.
+Convert from ADaM or raw format to input format for Lab Abnormality Assessment.
 }
 \details{
 Convert raw lab data (LB), typically processed case report form data, to formatted
@@ -48,12 +48,12 @@ subject-level data (from \code{dfSUBJ}). Note that the function can generate dat
 specific types of LB criteria by passing filtered LB data to \code{dfLB}.
 }
 \section{Data specification}{
-\tabular{lllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
-   dfSUBJ \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfSUBJ \tab strSiteCol \tab SiteID \tab TRUE \tab FALSE \cr
-   dfLB \tab strIDCol \tab SubjectID \tab TRUE \tab FALSE \cr
-   dfLB \tab strAbnormalCol \tab LB_ABN_FLAG \tab TRUE \tab FALSE \cr
+\tabular{llllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \tab \strong{Require Unique Values?} \cr
+   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \tab FALSE \cr
+   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab TRUE \cr
+   dfLB \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
+   dfLB \tab strGradeCol \tab toxgr \tab TRUE \tab TRUE \tab FALSE \cr
 }
 }
 

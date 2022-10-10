@@ -31,20 +31,15 @@
 #' @examples
 #' dfInput <- AE_Map_Adam()
 #'
-#' dfTransformed <- Transform_EventCount(dfInput,
-#'   strCountCol = "Count",
-#'   strExposureCol = "Exposure",
-#'   strKRILabel = "AEs/Week"
+#' dfTransformed <- Transform_Rate(dfInput,
+#'   strGroupCol = "SiteID",
+#'   strNumeratorCol = "Count",
+#'   strDenominatorCol = "Exposure"
 #' )
 #'
-#' dfAnalyzed <- Analyze_Wilcoxon(dfTransformed)
+#' dfAnalyzed <- Analyze_Poisson(dfTransformed)
 #'
-#' dfFlagged <- Flag(dfAnalyzed) # P value (dfAnalyzed$Score) < 0.05 flagged
-#'
-#' dfFlagged10 <- Flag(dfAnalyzed, vThreshold = c(0.10, NA)) # PValue <0.10 flagged
-#'
-#' # Flag direction set based on 'Statistic' column
-#' dfFlagged <- Flag(dfAnalyzed, strColumn = "Score", strValueColumn = "Estimate")
+#' dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
 #'
 #' @import dplyr
 #' @importFrom stats median
@@ -54,7 +49,7 @@
 Flag <- function(
   dfAnalyzed,
   strColumn = "Score",
-  vThreshold = c(0.05, NA),
+  vThreshold = NULL,
   strValueColumn = NULL
 ) {
   stopifnot(
@@ -62,6 +57,7 @@ Flag <- function(
     "strColumn is not character" = is.character(strColumn),
     "vThreshold is not numeric" = is.numeric(vThreshold),
     "vThreshold must be length of 2" = length(vThreshold) == 2,
+    "vThreshold cannot be NULL" = !is.null(vThreshold),
     "strColumn must be length of 1" = length(strColumn) == 1,
     "strColumn not found in dfAnalyzed" = strColumn %in% names(dfAnalyzed),
     "strValueColumn not found in dfAnalyzed" = strValueColumn %in% names(dfAnalyzed),
@@ -77,9 +73,6 @@ Flag <- function(
   # Flag values outside the specified threshold.
   dfFlagged <- dfAnalyzed %>%
     mutate(
-      ThresholdLow = vThreshold[1],
-      ThresholdHigh = vThreshold[2],
-      ThresholdCol = strColumn,
       Flag = case_when(
         !is.na(vThreshold[1]) & (.data[[strColumn]] < vThreshold[1]) ~ -1,
         !is.na(vThreshold[2]) & (.data[[strColumn]] > vThreshold[2]) ~ 1,

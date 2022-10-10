@@ -3,8 +3,7 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
   dfInput <- Consent_Map_Raw()
 
   test4_1 <- Consent_Assess(
-    dfInput = dfInput,
-    bChart = FALSE
+    dfInput = dfInput
   )
 
   # Double Programming
@@ -12,14 +11,12 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
 
   t4_1_transformed <- dfInput %>%
     qualification_transform_counts(
-      exposureCol = NA,
-      KRILabel = "Total Number of Consent Issues"
+      exposureCol = NA
     )
 
   t4_1_analyzed <- t4_1_transformed %>%
     mutate(
-      Score = TotalCount,
-      ScoreLabel = "Total Number of Consent Issues"
+      Score = TotalCount
     ) %>%
     arrange(Score)
 
@@ -27,9 +24,6 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
 
   t4_1_flagged <- t4_1_analyzed %>%
     mutate(
-      ThresholdLow = NA_real_,
-      ThresholdHigh = 0.5,
-      ThresholdCol = "Score",
       Flag = case_when(
         Score > 0.5 ~ 1,
         is.na(Score) ~ NA_real_,
@@ -40,21 +34,11 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
     arrange(match(Flag, c(1, -1, 0)))
 
   t4_1_summary <- t4_1_flagged %>%
-    mutate(
-      Assessment = "Consent"
-    ) %>%
-    select(GroupID, GroupLabel, N, KRI, KRILabel, Score, ScoreLabel, Flag, Assessment) %>%
-    arrange(desc(abs(KRI))) %>%
+    select(GroupID, Metric, Score, Flag) %>%
+    arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
   t4_1 <- list(
-    "strFunctionName" = "Consent_Assess()",
-    "lParams" = list(
-      "dfInput" = "dfInput",
-      "bChart" = "FALSE"
-    ),
-    "lTags" = list(Assessment = "Consent"),
-    "dfInput" = t4_1_input,
     "dfTransformed" = t4_1_transformed,
     "dfAnalyzed" = t4_1_analyzed,
     "dfFlagged" = t4_1_flagged,
@@ -62,5 +46,5 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
   )
 
   # compare results
-  expect_equal(test4_1, t4_1)
+  expect_equal(test4_1$lData, t4_1)
 })

@@ -1,5 +1,7 @@
 #' Consent Assessment - Raw Mapping
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' @description
 #' Convert raw informed consent data, typically processed case report from data, to formatted
 #' input data to [gsm::Consent_Assess()].
@@ -34,14 +36,15 @@
 #' dfInput <- Consent_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
+#' @importFrom yaml read_yaml
 #' @import dplyr
 #'
 #' @export
 
 Consent_Map_Raw <- function(
   dfs = list(
-    dfCONSENT = clindata::rawplus_consent,
-    dfSUBJ = clindata::rawplus_subj
+    dfSUBJ = clindata::rawplus_dm,
+    dfCONSENT = clindata::rawplus_consent
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   bReturnChecks = FALSE,

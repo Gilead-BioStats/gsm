@@ -1,24 +1,26 @@
 source(testthat::test_path("testdata/data.R"))
 
 data <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE)) %>%
-  Transform_EventCount(strCountCol = "Count", strExposureCol = "Exposure", strGroupCol = "SiteID")
+  Transform_Rate(
+    strNumeratorCol = "Count",
+    strDenominatorCol = "Exposure",
+    strGroupCol = "SiteID"
+  )
 
 dfPoisson <- Analyze_Poisson(data)
 
-dfWilcoxon <- Analyze_Wilcoxon(data)
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-  flag <- Flag(dfWilcoxon)
+  flag <- Flag(dfPoisson, vThreshold = c(-1, 1))
   expect_true(is.data.frame(flag))
-  expect_equal(sort(unique(dfWilcoxon$GroupID)), sort(flag$GroupID))
-  expect_true(all(names(dfWilcoxon) %in% names(flag)))
+  expect_equal(sort(unique(dfPoisson$GroupID)), sort(flag$GroupID))
+  expect_true(all(names(dfPoisson) %in% names(flag)))
   expect_equal(
     names(flag),
     c(
-      "GroupID", "GroupLabel", "N", "TotalCount", "TotalExposure",
-      "KRI", "KRILabel", "Estimate", "Score", "ScoreLabel", "ThresholdLow",
-      "ThresholdHigh", "ThresholdCol", "Flag"
+      "GroupID", "Numerator", "Denominator", "Metric", "Score",
+      "PredictedCount", "Flag"
     )
   )
 })
@@ -38,17 +40,10 @@ test_that("incorrect inputs throw errors", {
 
 # custom tests ------------------------------------------------------------
 test_that("strValueColumn paramter works as intended", {
-  dfFlagged <- Flag(dfWilcoxon, vThreshold = c(0.6, NA), strValueColumn = "Estimate")
+  dfFlagged <- Flag(dfPoisson, vThreshold = c(-1, 1), strValueColumn = "PredictedCount")
   expect_equal(dfFlagged$Flag[1], 1)
-  dfFlagged <- Flag(dfWilcoxon, vThreshold = c(0.2, NA), strValueColumn = NULL)
-  expect_equal(dfFlagged$Flag[1], 0)
-})
-
-
-
-test_that("Expected Columns are added to dfFlagged", {
-  flag <- Flag(dfWilcoxon)
-  expect_true(all(c("ThresholdLow", "ThresholdHigh", "ThresholdCol", "Flag") %in% names(flag)))
+  dfFlagged <- Flag(dfPoisson, vThreshold = c(-1, 1), strValueColumn = NULL)
+  expect_equal(dfFlagged$Flag[1], 1)
 })
 
 test_that("vThreshold parameter works as intended", {

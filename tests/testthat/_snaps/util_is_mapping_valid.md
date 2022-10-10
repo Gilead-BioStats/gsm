@@ -4,7 +4,7 @@
       is_mapping_valid(dfSUBJ, mapping = mapping_rdsl, spec = list(vUniqueCols = "strIDCol",
         vRequired = c("strIDCol")), bQuiet = FALSE)
     Message <cliMessage>
-      x Unexpected duplicates found in column: SubjectID
+      x Unexpected duplicates found in column: subjid
     Output
       $status
       [1] FALSE
@@ -79,7 +79,7 @@
       [1] FALSE
       
       $tests_if$cols_are_unique$warning
-      [1] "Unexpected duplicates found in column: SubjectID"
+      [1] "Unexpected duplicates found in column: subjid"
       
       
       

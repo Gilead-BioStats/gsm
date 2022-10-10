@@ -1,0 +1,12 @@
+workflow:
+  - name: IE_Map_Raw
+    inputs:
+      - dfSUBJ
+      - dfIE
+    output: dfInput
+  - name: IE_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      nThreshold: 0.5

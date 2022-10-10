@@ -3,90 +3,40 @@
     Code
       tbl$df_summary$Title
     Output
-       [1] "Number of Subjects"                                          
-       [2] "Score"                                                       
-       [3] "Safety"                                                      
-       [4] "--AEs"                                                       
-       [5] "--AEs QTL"                                                   
-       [6] "--AEs Serious"                                               
-       [7] "Consent"                                                     
-       [8] "--Consent"                                                   
-       [9] "Disposition"                                                 
-      [10] "--Study"                                                     
-      [11] "--Treatment - Study Withdrawals"                             
-      [12] "--Treatment"                                                 
-      [13] "IE"                                                          
-      [14] "--IE"                                                        
-      [15] "PD"                                                          
-      [16] "--Important PD"                                              
-      [17] "--PD"                                                        
-      [18] "--PDs by Category: NONADHERENCE OF STUDY DRUG"               
-      [19] "--PDs by Category: STUDY MEDICATION"                         
-      [20] "--PDs by Category: SUBJECT NOT MANAGED ACCORDING TO PROTOCOL"
+       [1] "Number of Subjects" "Score"              "kri0001"           
+       [4] NA                   "kri0002"            NA                  
+       [7] "kri0003"            NA                   "kri0004"           
+      [10] NA                  
 
 # bFormat works
 
     Code
-      tbl$df_summary$X010X
+      tbl$df_summary$`166`
     Output
-       [1] "1" "1" ""  " " ""  " " "*" "+" ""  " " " " " " ""  " " ""  " " " " " " " "
-      [20] " "
+       [1] "1" "4" "*" "+" "*" "+" "*" "+" "*" "+"
 
 # bShowCounts works
 
     Code
       tbl$df_summary$Title
     Output
-       [1] "Score"                                                       
-       [2] "Safety"                                                      
-       [3] "--AEs"                                                       
-       [4] "--AEs QTL"                                                   
-       [5] "--AEs Serious"                                               
-       [6] "Consent"                                                     
-       [7] "--Consent"                                                   
-       [8] "Disposition"                                                 
-       [9] "--Study"                                                     
-      [10] "--Treatment - Study Withdrawals"                             
-      [11] "--Treatment"                                                 
-      [12] "IE"                                                          
-      [13] "--IE"                                                        
-      [14] "PD"                                                          
-      [15] "--Important PD"                                              
-      [16] "--PD"                                                        
-      [17] "--PDs by Category: NONADHERENCE OF STUDY DRUG"               
-      [18] "--PDs by Category: STUDY MEDICATION"                         
-      [19] "--PDs by Category: SUBJECT NOT MANAGED ACCORDING TO PROTOCOL"
+      [1] "Score"   "kri0001" NA        "kri0002" NA        "kri0003" NA       
+      [8] "kri0004" NA       
 
 ---
 
     Code
       tblCounts$df_summary$Title
     Output
-       [1] "Number of Subjects"                                          
-       [2] "Score"                                                       
-       [3] "Safety"                                                      
-       [4] "--AEs"                                                       
-       [5] "--AEs QTL"                                                   
-       [6] "--AEs Serious"                                               
-       [7] "Consent"                                                     
-       [8] "--Consent"                                                   
-       [9] "Disposition"                                                 
-      [10] "--Study"                                                     
-      [11] "--Treatment - Study Withdrawals"                             
-      [12] "--Treatment"                                                 
-      [13] "IE"                                                          
-      [14] "--IE"                                                        
-      [15] "PD"                                                          
-      [16] "--Important PD"                                              
-      [17] "--PD"                                                        
-      [18] "--PDs by Category: NONADHERENCE OF STUDY DRUG"               
-      [19] "--PDs by Category: STUDY MEDICATION"                         
-      [20] "--PDs by Category: SUBJECT NOT MANAGED ACCORDING TO PROTOCOL"
+       [1] "Number of Subjects" "Score"              "kri0001"           
+       [4] NA                   "kri0002"            NA                  
+       [7] "kri0003"            NA                   "kri0004"           
+      [10] NA                  
 
 # vSiteScoreThreshold works
 
     Code
       names(tbl$df_summary)
     Output
-      [1] "Title" "X010X" "X102X" "X999X"
+      [1] "Title" "166"   "76"    "86"   
 

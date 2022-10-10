@@ -4,7 +4,7 @@
 \alias{RunStep}
 \title{Run a single step in a workflow}
 \usage{
-RunStep(lStep, lMapping, lData, lTags, bQuiet)
+RunStep(lStep, lMapping, lData, bQuiet)
 }
 \arguments{
 \item{lStep}{\code{list} single workflow step (typically defined in \code{lAssessment$workflow}). Should
@@ -16,8 +16,6 @@ output (\code{lStep$output}) and configurable parameters (\code{lStep$params}) (
 \item{lData}{\code{list} a named list of domain level data frames. Names should match the values
 specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs
 from \code{X_Map_Raw}.}
-
-\item{lTags}{\code{list} tags}
 
 \item{bQuiet}{\code{logical} Default is TRUE, which means warning messages are suppressed. Set to
 FALSE to see warning messages.}
@@ -31,20 +29,19 @@ Runs a single step of an assessment workflow. Currently supports \code{Filter}, 
 functions.
 }
 \examples{
-lStep <- MakeAssessmentList()[["ae"]][["workflow"]][[1]]
+lStep <- MakeAssessmentList()[["kri0001"]][["workflow"]][[1]]
 
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 lData <- list(
-  dfSUBJ = clindata::rawplus_subj,
+  dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae,
-  dfPD = clindata::rawplus_pd,
+  dfPD = clindata::rawplus_protdev,
   dfCONSENT = clindata::rawplus_consent,
   dfIE = clindata::rawplus_ie
 )
 
-lTags <- list(Study = "myStudy")
 
-ae_step <- RunStep(lStep = lStep, lMapping = lMapping, lData = lData, lTags = lTags, bQuiet = FALSE)
+ae_step <- RunStep(lStep = lStep, lMapping = lMapping, lData = lData, bQuiet = FALSE)
 
 }
