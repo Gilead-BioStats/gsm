@@ -1,0 +1,73 @@
+---
+title: "Step-by-Step Analysis Workflow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Step-by-Step Analysis Workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+library(gsm)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+This vignette walks users through the mechanics of the `Assess()` functions within the `{gsm}` package. The image below illustrates the supporting functions that are intrinsic to the workflow of the `Assess()` functions.
+
+![](vignettes/data-analysis.png)
+
+All of these functions will run automatically and sequentially when a user calls upon a given `Assess()` function.
+
+Each of these individual functions can also be run successfully outside of an `Assess()` function.
+
+For the purposes of this documentation, we will evaluate the input(s) and output(s) of each individual function to show the stepwise progression of how `Assess()` handles and processes data.
+
+## A Technical Demo - Step-By-Step
+
+We will use sample clinical data from the `{clindata}` package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`.
+
+### 1. Create `dfInput`
+
+Generating input data is outside the scope of the assessment pipeline itself. However, the specifications for `dfInput` are designed to be simplistic enough so that this data frame can be generated from multiple clinical data standards. For example, users can run `Map_Raw()` or `Map_Adam()`, which will create `dfInput` from rawplus data or CDISC-compliant ADaM data, respectively. The [data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html) will be expanded upon in the future to incorporate data from various dashboards as well.
+
+The data frame `dfInput` needs to have one record per subject, with the following columns:
+
+-   `SubjectID` = Subject Identifier
+-   `SiteID` = Site Identifier
+-   `StudyID` = Study Identifier
+-   `CustomGroupID` = Custom Group Identifier (in this example, set to Country Identifier)
+-   `Exposure` = Total Time on Treatment (measured in days; per subject)
+-   `Count` = Total Number of Incidences of the Event of Interest (in this example, the number of AEs reported; per subject)
+-   `Rate` = Rate of Event Incidence (calculated as `Exposure`/`Count`; per subject)
+
+```{r}
+dfInput <- AE_Map_Raw(
+  dfs = list(
+    dfSUBJ = clindata::rawplus_dm,
+    dfAE = clindata::rawplus_ae
+  )
+)
+```
+
+```{r echo = FALSE}
+dt(dfInput)
+```
+
+### 2. Create `dfTransformed`
+
+The data frame `dfTransformed` is derived from `dfInput` using one of the following functions (depending on the assessment being run):
+
+-   `Transform_Rate()`: Calculates cumulative rate of the Event of Interest per site. In our example, the default metric for AEs is the number of AEs reported over time per site.
+-   `Transform_Count()`: Calculates cumulative count of the Event of Interest per site. This function is not used in `AE_Assess()` because the default metric for AEs is a rate.
+
+The resulting `dfTransformed` data frame using our example AE data will have the following columns:
+
+-   `GroupID` = Group Identifier (in this example, Site ID)
+-   `Numerator` = Cumulative Count of the Incidence of the Event of Interest (in this example, number of AEs reported)
+-   `Denominator` = Cumulative Count of the Total Time on Treatment
+-   `Metric` = Rate of the Event of Interest (in this example, number of AEs reported over the course of treatment)
