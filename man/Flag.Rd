@@ -57,5 +57,4 @@ dfAnalyzed <- Analyze_Poisson(dfTransformed)
 
 dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
 
-
 }

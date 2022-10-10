@@ -10,8 +10,9 @@
 #' methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
-#' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
-#'   `c(-5, 5)` for a Poisson model (`strMethod = "poisson"`) and `c(0.00006, 0.01)` for a nominal assessment (`strMethod = "identity"`).
+#' @param vThreshold `numeric` Threshold specification, a vector of length 4 that defaults to
+#'   `c(-7, -5, 5, 7)` for a Poisson model (`strMethod = "poisson"`) and a vector of length 2 that defaults to `c(0.00006, 0.01)`
+#'   for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"poisson"` (default)
 #'   - `"identity"`
@@ -25,13 +26,13 @@
 #' - each data frame in the data pipeline
 #'   - `dfTransformed`, returned by [gsm::Transform_Rate()]
 #'   - `dfAnalyzed`, returned by [gsm::Analyze_Poisson()] or [gsm::Analyze_Identity()]
-#'   - `dfFlagged`, returned by [gsm::Flag()]
+#'   - `dfFlagged`, returned by [gsm::Flag_Poisson()] or [gsm::Flag()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
-#'   - `dfBounds`, returned by [gsm::Analyze_Poisson_PredictBounds()] only when strMethod == 'poisson'
+#'   - `dfBounds`, returned by [gsm::Analyze_Poisson_PredictBounds()] only when strMethod == "poisson"
 #' - `list` `lCharts`, a named list with:
-#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()]
-#'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "metric"
-#'   - `barScore`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "score"
+#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when strMethod != "identity"
+#'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()]
+#'   - `barScore`, a ggplot2 object returned by [gsm::Visualize_Score()]
 #' - `list` `lChecks`, a named list with:
 #'   - `dfInput`, a named list returned by [gsm::is_mapping_valid()]
 #'   - `status`, a boolean returned by [gsm::is_mapping_valid()]
@@ -48,17 +49,18 @@
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
 #' @importFrom glue glue
+#' @importFrom tools toTitleCase
 #'
 #' @export
 
 AE_Assess <- function(dfInput,
   vThreshold = NULL,
   strMethod = "poisson",
-  lMapping =  yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
+  lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE) {
 
-# data checking -----------------------------------------------------------
+  # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'poisson' or 'identity'" = strMethod %in% c("poisson", "identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
@@ -75,22 +77,20 @@ AE_Assess <- function(dfInput,
     bQuiet = bQuiet
   )
 
-# set thresholds and flagging parameters ----------------------------------
+  # set thresholds and flagging parameters ----------------------------------
   if (is.null(vThreshold)) {
-    vThreshold <- switch(
-      strMethod,
+    vThreshold <- switch(strMethod,
       poisson = c(-7, -5, 5, 7),
       identity = c(0.00006, 0.01)
     )
   }
 
-  strValueColumnVal <- switch(
-    strMethod,
+  strValueColumnVal <- switch(strMethod,
     poisson = NULL,
     identity = "Score"
   )
 
-# begin running assessment ------------------------------------------------
+  # begin running assessment ------------------------------------------------
   if (!lChecks$status) {
     if (!bQuiet) cli::cli_alert_warning("{.fn AE_Assess} did not run because of failed check.")
     return(list(
@@ -98,10 +98,10 @@ AE_Assess <- function(dfInput,
       lCharts = NULL,
       lChecks = lChecks
     ))
-  }else{
+  } else {
     if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Assess}")
 
-# dfTransformed -----------------------------------------------------------
+    # dfTransformed -----------------------------------------------------------
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
     lData <- list()
     lData$dfTransformed <- gsm::Transform_Rate(
@@ -113,7 +113,7 @@ AE_Assess <- function(dfInput,
     )
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
-# dfAnalyzed --------------------------------------------------------------
+    # dfAnalyzed --------------------------------------------------------------
     if (strMethod == "poisson") {
       lData$dfAnalyzed <- gsm::Analyze_Poisson(lData$dfTransformed, bQuiet = bQuiet)
       lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
@@ -124,31 +124,34 @@ AE_Assess <- function(dfInput,
     strAnalyzeFunction <- paste0("Analyze_", tools::toTitleCase(strMethod))
     if (!bQuiet) cli::cli_alert_success("{.fn {strAnalyzeFunction}} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
-# dfFlagged ---------------------------------------------------------------
+    # dfFlagged ---------------------------------------------------------------
     if (strMethod == "poisson") {
       lData$dfFlagged <- gsm::Flag_Poisson(lData$dfAnalyzed, vThreshold = vThreshold)
     } else {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     }
 
-    flag_function_name <- switch(strMethod, identity = "Flag", poisson = "Flag_Poisson")
+    flag_function_name <- switch(strMethod,
+      identity = "Flag",
+      poisson = "Flag_Poisson"
+    )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
 
 
-# dfSummary ---------------------------------------------------------------
+    # dfSummary ---------------------------------------------------------------
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
 
-# visualizations ----------------------------------------------------------
+    # visualizations ----------------------------------------------------------
     lCharts <- list()
 
-    if (!hasName(lData, 'dfBounds')) lData$dfBounds <- NULL
+    if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
     if (strMethod != "identity") {
-    lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+      lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
     }
 
     lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
@@ -156,7 +159,7 @@ AE_Assess <- function(dfInput,
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
 
 
-# return data -------------------------------------------------------------
+    # return data -------------------------------------------------------------
     return(list(
       lData = lData,
       lCharts = lCharts,

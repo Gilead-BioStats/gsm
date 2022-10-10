@@ -7,17 +7,14 @@
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `list`, `lSnapshot`
-#'
-#' @import purrr
-#' @importFrom yaml read_yaml
-#'
+#' @includeRmd ./man/md/Make_Snapshot.md
 #'
 #' @examples
-#'
 #' # run with default testing data
 #' snapshot <- Make_Snapshot()
 #'
+#' @import purrr
+#' @importFrom yaml read_yaml
 #'
 #' @export
 Make_Snapshot <- function(lMeta = list(
@@ -42,33 +39,33 @@ lAssessments = NULL,
 cPath = NULL,
 bQuiet = TRUE
 
-){
+) {
 
 
 
   # lSnapshot$status_study<-meta$meta_study
   status_study <- lMeta$meta_study
 
-# status_study ------------------------------------------------------------
-if(!('enrolled_participants' %in% colnames(status_study))){
-  status_study$enrolled_participants <- Get_Enrolled(
-    dfSUBJ = lData$dfSUBJ,
-    dfConfig = lMeta$config_param,
-    lMapping = lMapping,
-    strUnit = "participant",
-    strBy = "study"
+  # status_study ------------------------------------------------------------
+  if (!("enrolled_participants" %in% colnames(status_study))) {
+    status_study$enrolled_participants <- Get_Enrolled(
+      dfSUBJ = lData$dfSUBJ,
+      dfConfig = lMeta$config_param,
+      lMapping = lMapping,
+      strUnit = "participant",
+      strBy = "study"
     )
-}
+  }
 
-if(!('enrolled_sites' %in% colnames(status_study))){
-  status_study$enrolled_sites <- Get_Enrolled(
-    dfSUBJ = lData$dfSUBJ,
-    dfConfig = lMeta$config_param,
-    lMapping = lMapping,
-    strUnit = "site",
-    strBy = "study"
-  )
-}
+  if (!("enrolled_sites" %in% colnames(status_study))) {
+    status_study$enrolled_sites <- Get_Enrolled(
+      dfSUBJ = lData$dfSUBJ,
+      dfConfig = lMeta$config_param,
+      lMapping = lMapping,
+      strUnit = "site",
+      strBy = "study"
+    )
+  }
 
 
   # select in same order as spec - can remove this if not needed, but helps with comparison
@@ -90,20 +87,19 @@ if(!('enrolled_sites' %in% colnames(status_study))){
       .data$rbm_flag
     )
 
-# status_site -------------------------------------------------------------
+  # status_site -------------------------------------------------------------
   status_site <- lMeta$meta_site %>%
     mutate(siteid = as.character(.data$siteid))
-if(!('enrolled_participants' %in% colnames(status_site))){
-  status_site_count <- Get_Enrolled(
-    dfSUBJ = lData$dfSUBJ,
-    dfConfig = lMeta$config_param,
-    lMapping = lMapping,
-    strUnit = "participant",
-    strBy = "site"
-  )
-}
-    status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
-
+  if (!("enrolled_participants" %in% colnames(status_site))) {
+    status_site_count <- Get_Enrolled(
+      dfSUBJ = lData$dfSUBJ,
+      dfConfig = lMeta$config_param,
+      lMapping = lMapping,
+      strUnit = "participant",
+      strBy = "site"
+    )
+  }
+  status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
     select(
       .data$studyid,
       .data$siteid,
@@ -118,7 +114,7 @@ if(!('enrolled_participants' %in% colnames(status_site))){
     )
 
 
-# run Study_Assess() ------------------------------------------------------
+  # run Study_Assess() ------------------------------------------------------
   # Make a list of assessments
   # Need to update this to use the relevant items from lMeta (meta_workflow, meta_params, config_workfow and config_params)
 
@@ -151,24 +147,26 @@ if(!('enrolled_participants' %in% colnames(status_site))){
     status_workflow$notes <- NA_character_
   }
 
-# status_param ------------------------------------------------------------
+  # status_param ------------------------------------------------------------
   status_param <- lMeta$config_param
 
-# status_schedule ---------------------------------------------------------
+  # status_schedule ---------------------------------------------------------
   status_schedule <- lMeta$config_schedule
 
-# meta_workflow -----------------------------------------------------------
+  # meta_workflow -----------------------------------------------------------
   meta_workflow <- gsm::meta_workflow
 
-# meta_param --------------------------------------------------------------
+  # meta_param --------------------------------------------------------------
   meta_param <- gsm::meta_param
 
-# results_summary ---------------------------------------------------------
-  results_summary <- purrr::map(lResults, ~.x[['lResults']]) %>%
+  # results_summary ---------------------------------------------------------
+  results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%
     discard(is.null) %>%
-    purrr::imap_dfr(~.x$lData$dfFlagged %>%
-                      mutate(KRIID = .y,
-                             StudyID = unique(lMeta$config_workflow$studyid))) %>%
+    purrr::imap_dfr(~ .x$lData$dfFlagged %>%
+      mutate(
+        KRIID = .y,
+        StudyID = unique(lMeta$config_workflow$studyid)
+      )) %>%
     select(
       studyid = .data$StudyID,
       workflowid = .data$KRIID,
@@ -182,13 +180,13 @@ if(!('enrolled_participants' %in% colnames(status_site))){
 
 
   # lSnapshot$results_summary$StudyID <- meta$status_study[1,'StudyID']
-  #Also need to make sure we're capturing WorkflowID here ...
+  # Also need to make sure we're capturing WorkflowID here ...
 
-# results_bounds ----------------------------------------------------------
+  # results_bounds ----------------------------------------------------------
   results_bounds <- lResults %>%
-    purrr::map(~.x$lResults$lData$dfBounds) %>%
+    purrr::map(~ .x$lResults$lData$dfBounds) %>%
     purrr::discard(is.null) %>%
-    purrr::imap_dfr(~.x %>% mutate(workflowid = .y)) %>%
+    purrr::imap_dfr(~ .x %>% mutate(workflowid = .y)) %>%
     mutate(studyid = unique(lMeta$config_workflow$studyid)) %>% # not sure if this is a correct assumption
     select(
       .data$studyid,
@@ -201,7 +199,7 @@ if(!('enrolled_participants' %in% colnames(status_site))){
 
 
 
-# create lSnapshot --------------------------------------------------------
+  # create lSnapshot --------------------------------------------------------
 
   lSnapshot <- list(
     status_study = status_study,
@@ -213,10 +211,10 @@ if(!('enrolled_participants' %in% colnames(status_site))){
     results_bounds = results_bounds,
     meta_workflow = meta_workflow,
     meta_param = meta_param
-    )
+  )
 
   if (!is.null(cPath)) {
-    #write each snapshot item to location
+    # write each snapshot item to location
     purrr::iwalk(lSnapshot, ~ write.csv(.x, file = paste0(cPath, "/", .y, ".csv"), row.names = FALSE))
   }
 

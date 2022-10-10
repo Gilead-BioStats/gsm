@@ -16,13 +16,12 @@ ParseWarnings(lResults)
 Parse warnings from the result of Study_Assess.
 }
 \examples{
-
 # Set all subjid to NA to create warnings
 lData <- list(
-         dfAE = clindata::rawplus_ae \%>\%
-           dplyr::mutate(subjid = NA),
-         dfSUBJ = clindata::rawplus_dm
-         )
+  dfAE = clindata::rawplus_ae \%>\%
+    dplyr::mutate(subjid = NA),
+  dfSUBJ = clindata::rawplus_dm
+)
 
 study <- Study_Assess(lData = lData)
 

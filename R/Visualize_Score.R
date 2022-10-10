@@ -66,7 +66,7 @@ Visualize_Score <- function(
       ) +
       geom_bar(
         stat = "identity"
-      )  +
+      ) +
       ylab(
         "Metric"
       )
@@ -74,17 +74,15 @@ Visualize_Score <- function(
     if (all(c("Numerator", "Denominator") %in% names(dfFlagged))) {
       p <- p +
         geom_hline(
-        yintercept = sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator),
-        linetype = "dashed",
-        color = "red",
-        size = 1
-      )
+          yintercept = sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator),
+          linetype = "dashed",
+          color = "red",
+          size = 1
+        )
     }
-
   }
 
   if (strType == "score") {
-
     if (!is.null(vThreshold)) {
       ThresholdLow <- min(vThreshold)
       ThresholdHigh <- max(vThreshold)

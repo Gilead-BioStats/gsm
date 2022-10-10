@@ -56,13 +56,13 @@ Transform_Count <- function(
     "NA's found in strCountCol" = !anyNA(dfInput[[strCountCol]])
   )
 
-    dfTransformed <- dfInput %>%
-      group_by(GroupID = .data[[strGroupCol]]) %>%
-      summarise(
-        TotalCount = sum(.data[[strCountCol]])
-      ) %>%
-      mutate(Metric = .data$TotalCount) %>%
-      select(.data$GroupID, everything())
+  dfTransformed <- dfInput %>%
+    group_by(GroupID = .data[[strGroupCol]]) %>%
+    summarise(
+      TotalCount = sum(.data[[strCountCol]])
+    ) %>%
+    mutate(Metric = .data$TotalCount) %>%
+    select(.data$GroupID, everything())
 
   return(dfTransformed)
 }

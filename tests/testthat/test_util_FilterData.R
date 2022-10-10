@@ -38,7 +38,6 @@ test_that("filter to 0 rows throws a warning", {
       nrow(),
     0
   )
-
 })
 
 

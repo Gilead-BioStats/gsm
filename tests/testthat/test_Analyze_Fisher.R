@@ -9,7 +9,7 @@ dfInput <- Disp_Map_Raw(
 )
 
 test_that("output created as expected and has correct structure", {
-  df <-Transform_Rate(
+  df <- Transform_Rate(
     dfInput = dfInput,
     strGroupCol = "SiteID",
     strNumeratorCol = "Count",
@@ -19,9 +19,11 @@ test_that("output created as expected and has correct structure", {
   output <- Analyze_Fisher(df)
 
   expect_true(is.data.frame(df))
-  expect_equal(names(output), c("GroupID", "Numerator", "Numerator_Other", "Denominator",
-                                "Denominator_Other", "Prop", "Prop_Other", "Metric", "Estimate",
-                                "Score"))
+  expect_equal(names(output), c(
+    "GroupID", "Numerator", "Numerator_Other", "Denominator",
+    "Denominator_Other", "Prop", "Prop_Other", "Metric", "Estimate",
+    "Score"
+  ))
   expect_type(df$GroupID, "character")
   expect_equal(df$GroupID, c("166", "76", "86"))
 })
@@ -35,7 +37,7 @@ test_that("incorrect inputs throw errors", {
     )
   )
 
-  df <-Transform_Rate(
+  df <- Transform_Rate(
     dfInput = dfInput,
     strGroupCol = "SiteID",
     strNumeratorCol = "Count",
@@ -58,7 +60,7 @@ test_that("error given if required column not found", {
     )
   )
 
-  df <-Transform_Rate(
+  df <- Transform_Rate(
     dfInput = dfInput,
     strGroupCol = "SiteID",
     strNumeratorCol = "Count",
@@ -79,7 +81,7 @@ test_that("NAs are handled correctly", {
     )
   )
 
-  df <-Transform_Rate(
+  df <- Transform_Rate(
     dfInput = dfInput,
     strGroupCol = "SiteID",
     strNumeratorCol = "Count",
@@ -93,5 +95,4 @@ test_that("NAs are handled correctly", {
   }
 
   expect_error(createNA(data = df, variable = "GroupID"))
-
 })

@@ -11,10 +11,9 @@
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
-#' `c(.05, NA)` for Fisher's exact test (`strMethod` = "fisher").
+#' `c(0.01, 0.05)` for Fisher's exact test (`strMethod` = "fisher") and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
-#'   - `"chisq"` (default)
-#'   - `"fisher"`
+#'   - `"fisher"` (default)
 #'   - `"identity"`
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
@@ -25,9 +24,8 @@
 #' - each data frame in the data pipeline
 #'   - `dfTransformed`, returned by [gsm::Transform_Rate()]
 #'   - `dfAnalyzed`, returned by [gsm::Analyze_Fisher()] or [gsm::Analyze_Identity()]
-#'   - `dfFlagged`, returned by [gsm::Flag()]
+#'   - `dfFlagged`, returned by [gsm::Flag()] or [gsm::Flag_Fisher()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
-#'   - `dfBounds`, returned by [gsm::Analyze_Poisson_PredictBounds()] only when strMethod == 'poisson'
 #' - `list` `lCharts`, a named list with:
 #'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()]
 #'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "metric"
@@ -49,6 +47,7 @@
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
 #' @importFrom glue glue
+#' @importFrom tools toTitleCase
 #'
 #' @export
 
@@ -62,7 +61,7 @@ Disp_Assess <- function(
 ) {
 
 
-# data checking -----------------------------------------------------------
+  # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'fisher' or 'identity'" = strMethod %in% c("fisher", "identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
@@ -80,22 +79,20 @@ Disp_Assess <- function(
   )
 
 
-# set thresholds and flagging parameters ----------------------------------
+  # set thresholds and flagging parameters ----------------------------------
   if (is.null(vThreshold)) {
-    vThreshold <- switch(
-      strMethod,
+    vThreshold <- switch(strMethod,
       fisher = c(0.01, 0.05),
       identity = c(3.491, 5.172)
     )
   }
 
-  strValueColumnVal <- switch(
-    strMethod,
+  strValueColumnVal <- switch(strMethod,
     fisher = "Score",
     identity = "Score"
   )
 
-# begin running assessment ------------------------------------------------
+  # begin running assessment ------------------------------------------------
   if (!lChecks$status) {
     if (!bQuiet) cli::cli_alert_warning("{.fn Disp_Assess} did not run because of failed check.")
     return(list(
@@ -106,7 +103,7 @@ Disp_Assess <- function(
   } else {
     if (!bQuiet) cli::cli_h2("Initializing {.fn Disp_Assess}")
 
-# dfTransformed -----------------------------------------------------------
+    # dfTransformed -----------------------------------------------------------
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
     lData <- list()
     lData$dfTransformed <- gsm::Transform_Rate(
@@ -118,7 +115,7 @@ Disp_Assess <- function(
     )
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
-# dfAnalyzed --------------------------------------------------------------
+    # dfAnalyzed --------------------------------------------------------------
     if (strMethod == "fisher") {
       lData$dfAnalyzed <- gsm::Analyze_Fisher(lData$dfTransformed, bQuiet = bQuiet)
     } else if (strMethod == "identity") {
@@ -128,36 +125,39 @@ Disp_Assess <- function(
     strAnalyzeFunction <- paste0("Analyze_", tools::toTitleCase(strMethod))
     if (!bQuiet) cli::cli_alert_success("{.fn {strAnalyzeFunction}} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
-# dfFlagged ---------------------------------------------------------------
+    # dfFlagged ---------------------------------------------------------------
     if (strMethod == "fisher") {
       lData$dfFlagged <- gsm::Flag_Fisher(lData$dfAnalyzed, vThreshold = vThreshold)
     } else {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     }
 
-    flag_function_name <- switch(strMethod, identity = "Flag", fisher = "Flag_Fisher")
+    flag_function_name <- switch(strMethod,
+      identity = "Flag",
+      fisher = "Flag_Fisher"
+    )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
 
 
-# dfSummary ---------------------------------------------------------------
+    # dfSummary ---------------------------------------------------------------
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
-# visualizations ----------------------------------------------------------
+    # visualizations ----------------------------------------------------------
     lCharts <- list()
 
-    if(!hasName(lData, 'dfBounds')) lData$dfBounds <- NULL
+    if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
     if (strMethod != "identity") {
-    lCharts$scatter <- Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+      lCharts$scatter <- Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
     }
 
     lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
     lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
-# return data -------------------------------------------------------------
+    # return data -------------------------------------------------------------
     return(list(
       lData = lData,
       lCharts = lCharts,

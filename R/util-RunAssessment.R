@@ -8,7 +8,6 @@
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `list` containing `lAssessment` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
 #' @examples
 #' lAssessments <- MakeAssessmentList()
@@ -30,6 +29,8 @@
 #'   lMapping
 #' )
 #'
+#' @return `list` containing `lAssessment` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
+#'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h1 cli_h2 cli_text
 #' @importFrom stringr str_detect
 #' @importFrom yaml read_yaml
@@ -38,11 +39,11 @@
 #' @export
 
 RunAssessment <- function(
-    lAssessment,
-    lData,
-    lMapping,
-    bQuiet = TRUE
-    ) {
+  lAssessment,
+  lData,
+  lMapping,
+  bQuiet = TRUE
+) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lAssessment$name, "` assessment"))
 
   lAssessment$lData <- lData
@@ -56,7 +57,6 @@ RunAssessment <- function(
     for (step in lAssessment$workflow) {
       if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lAssessment$workflow), ": `", step$name, "`"))
       if (lAssessment$bStatus) {
-
         result <- gsm::RunStep(
           lStep = step,
           lMapping = lMapping,

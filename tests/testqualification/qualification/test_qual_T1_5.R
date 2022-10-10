@@ -15,7 +15,7 @@ test_that("AE assessment can return a correctly assessed data frame for the iden
   t1_5_transformed <- dfInput %>%
     qualification_transform_counts(
       GroupID = "StudyID"
-      )
+    )
 
   t1_5_analyzed <- t1_5_transformed %>%
     mutate(

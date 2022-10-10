@@ -18,12 +18,11 @@ Disp_Assess(
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to
-\code{c(.05, NA)} for Fisher's exact test (\code{strMethod} = "fisher").}
+\code{c(0.01, 0.05)} for Fisher's exact test (\code{strMethod} = "fisher") and \code{c(3.491, 5.172)} for a nominal assessment (\code{strMethod = "identity"}).}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
-\item \code{"chisq"} (default)
-\item \code{"fisher"}
+\item \code{"fisher"} (default)
 \item \code{"identity"}
 }}
 
@@ -41,9 +40,8 @@ of the column.}
 \itemize{
 \item \code{dfTransformed}, returned by \code{\link[=Transform_Rate]{Transform_Rate()}}
 \item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
-\item \code{dfFlagged}, returned by \code{\link[=Flag]{Flag()}}
+\item \code{dfFlagged}, returned by \code{\link[=Flag]{Flag()}} or \code{\link[=Flag_Fisher]{Flag_Fisher()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
-\item \code{dfBounds}, returned by \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}} only when strMethod == 'poisson'
 }
 \item \code{list} \code{lCharts}, a named list with:
 \itemize{

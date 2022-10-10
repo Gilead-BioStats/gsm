@@ -8,11 +8,11 @@ qualification_transform_counts <- function(dfInput,
       filter(!is.na(.data[[countCol]])) %>%
       group_by(GroupID = .data[[GroupID]]) %>%
       summarise(
-        TotalCount  = sum(.data[[countCol]]),
+        TotalCount = sum(.data[[countCol]]),
         Metric = TotalCount
       ) %>%
       ungroup() %>%
-      select(GroupID, TotalCount , Metric) %>%
+      select(GroupID, TotalCount, Metric) %>%
       unique()
   } else {
     dfTransformed <- dfInput %>%
@@ -51,7 +51,7 @@ qualification_analyze_poisson <- function(dfTransformed) {
   return(outputDF)
 }
 
-qualification_flag_poisson <- function(dfAnalyzed, threshold = c(-7, -5, 5, 7)){
+qualification_flag_poisson <- function(dfAnalyzed, threshold = c(-7, -5, 5, 7)) {
   dfAnalyzed %>%
     mutate(
       Flag = case_when(
@@ -119,18 +119,17 @@ qualification_analyze_fisher <- function(dfTransformed) {
   return(outputDF)
 }
 
-qualification_flag_fisher <- function(dfAnalyzed, threshold = c(0.01, 0.05)){
+qualification_flag_fisher <- function(dfAnalyzed, threshold = c(0.01, 0.05)) {
   dfAnalyzed %>%
     mutate(
       Flag = case_when(
         Score < threshold[1] & Prop < Prop_Other ~ -2,
-        Score < threshold[1] & Prop > Prop_Other ~  2,
+        Score < threshold[1] & Prop > Prop_Other ~ 2,
         Score < threshold[2] & Prop < Prop_Other ~ -1,
-        Score < threshold[2] & Prop > Prop_Other ~  1,
+        Score < threshold[2] & Prop > Prop_Other ~ 1,
         is.na(Score) | is.nan(Score) ~ NA_real_,
         TRUE ~ 0
       ),
     ) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0)))
 }
-
