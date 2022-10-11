@@ -142,7 +142,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol", "strCountryCol"]
             }
           },
           "value": [
@@ -175,6 +175,11 @@
               "type": "character",
               "attributes": {},
               "value": ["rfpst_dt"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
             },
             {
               "type": "character",
@@ -236,7 +241,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strCountCol", "strTotalCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCountryCol", "strCustomGroupCol", "strCountCol", "strTotalCol"]
             }
           },
           "value": [
@@ -254,6 +259,11 @@
               "type": "character",
               "attributes": {},
               "value": ["StudyID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["CountryID"]
             },
             {
               "type": "character",

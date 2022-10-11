@@ -6,6 +6,7 @@ dfSUBJ:
   strTimeOnTreatmentCol: timeontreatment
   strRandDateCol: rfpst_dt
   strCustomGroupCol: country
+  strCountryCol: country
 dfAE:
   strIDCol: subjid
   strTreatmentEmergentCol: ae_te

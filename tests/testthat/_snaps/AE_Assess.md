@@ -20,18 +20,6 @@
         <chr>         
       1 AA-AA-000-0000
 
----
-
-    Code
-      subsetGroupCols(customGroup)
-    Output
-      # A tibble: 3 x 1
-        GroupID
-        <chr>  
-      1 China  
-      2 US     
-      3 Japan  
-
 # incorrect inputs throw errors
 
     strMethod is not 'poisson' or 'identity'
@@ -161,6 +149,9 @@
       
       $lChecks$mapping$dfInput$strStudyCol
       [1] "StudyID"
+      
+      $lChecks$mapping$dfInput$strCountryCol
+      [1] "CountryID"
       
       $lChecks$mapping$dfInput$strCustomGroupCol
       [1] "CustomGroupID"
