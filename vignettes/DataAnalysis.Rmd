@@ -34,7 +34,7 @@ dt <- function(data){
 
 # Introduction
 
-This vignette walks users through the mechanics of the `Assess()` functions within the `{gsm}` package, which leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials. The `Assess()` functions provide data frames, visualization, and metadata to be used in reporting and error checking. The image below illustrates the supporting functions that are intrinsic to the workflow of the `Assess()` functions.
+This vignette walks users through the mechanics of the `Assess()` functions within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials. The `Assess()` functions provide data frames, visualization, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that are intrinsic to the workflow of the `Assess()` functions.
 
 ![](data-analysis.PNG)
 
@@ -59,7 +59,7 @@ The data frame `dfInput` needs to have one record per subject, with the followin
 -   `SubjectID` = Subject Identifier
 -   `SiteID` = Site Identifier
 -   `StudyID` = Study Identifier
--   `CustomGroupID` = Custom Group Identifier (in this example, set to Country Identifier)
+-   `CustomGroupID` = Custom Group Identifier (in this example, set to Country ID)
 -   `Exposure` = Total Time on Treatment (measured in days; per subject)
 -   `Count` = Total Number of Incidences of the Event of Interest (in this example, the number of AEs reported; per subject)
 -   `Rate` = Rate of Event Incidence (calculated as `Exposure`/`Count`; per subject)
@@ -88,7 +88,7 @@ The data frame `dfTransformed` is derived from `dfInput` using one of the follow
 
 The resulting `dfTransformed` data frame will contain site-level transformed data, including KRI calculation. Using our example AE data, `dfTransformed` contains the following columns:
 
--   `GroupID` = Group Identifier (i.e., Site ID)
+-   `GroupID` = Group Identifier (default is Site ID)
 -   `Numerator` = Cumulative Count of Incidence of the Event of Interest (in this example, number of AEs reported)
 -   `Denominator` = Cumulative Count of the Total Time on Treatment (in days)
 -   `Metric` = Rate of Event of Interest (in this example, number of AEs reported over the course of treatment in days)
