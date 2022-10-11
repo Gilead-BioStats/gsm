@@ -1,11 +1,11 @@
-#' Binomial QTL Analysis
+#' QTL Analysis
 #'
 #' @details
-#' Creates QTL Analysis results data for binary event of interest (e.g. Yes/No)
+#' Creates QTL Analysis results data for binary event (e.g. Yes/No) of interest either as a proportion or as a rate
 #'
 #' @details
 #'
-#' Creates confidence intervals for the observed proportion of participants with event of interest using the exact binomial test
+#' Creates confidence intervals for the observed proportion of participants with event of interest using the exact binomial or poisson test
 #'
 #' @section Statistical Methods:
 #'
@@ -29,10 +29,23 @@
 #' dfInput <- Disp_Map_Raw()
 #' dfTransformed <- Transform_Rate(dfInput, strNumeratorCol = "Count",
 #'                                          strDenominatorCol = "Total",
-#'                                          strGroupCol = "StudyID")
+#'                                          strGroupCol = "StudyID",
+#'                                          )
 #'
-#' dfAnalyzed <- AnalyzeQTL_Binary(dfTransformed)
+#' dfAnalyzed <- AnalyzeQTL(dfTransformed, strOutcome = "Binary")
 #' dfFlagged <- Flag( dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.2) )
+#'
+#'
+#'
+#' dfInput <- AE_Map_Raw() %>% na.omit()
+#' dfTransformed <- Transform_Rate(dfInput,
+#'                                 strGroupCol = "StudyID",
+#'                                 strNumeratorCol = "Count",
+#'                                 strDenominatorCol = "Exposure"
+#'                                 )
+#'
+#' dfAnalyzed <- AnalyzeQTL(dfTransformed , strOutcome = "Rate)
+#' dfFlagged <- Flag( dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.01) )
 #'
 #' @import dplyr
 #'
@@ -49,9 +62,18 @@ AnalyzeQTL_Binary <- function(
     "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]])),
   )
 
-  lModel <- binom.test( dfTransformed$Numerator, dfTransformed$Denominator,
-                        alternative = "two-sided",
-                        conf.level = conf.level)
+  if(strOutcome == "Binary"){
+    lModel <- binom.test( dfTransformed$Numerator, dfTransformed$Denominator,
+                          alternative = "two-sided",
+                          conf.level = conf.level)
+  }
+
+  if(strOutcome == "Rate"){
+    lModel <- poisson.test( dfTransformed$Numerator, T= dfTransformed$Denominator,
+                            alternative = "two.sided",
+                            conf.level = conf.level)
+  }
+
 
   dfAnalyzed <- bind_cols( dfTransformed,
                            Method = lModel$method,
