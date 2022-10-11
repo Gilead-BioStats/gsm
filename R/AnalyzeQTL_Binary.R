@@ -1,11 +1,11 @@
 #' Binomial QTL Analysis
 #'
 #' @details
-#' Creates QTL Analysis results data for binary data (e.g. Yes/No)
+#' Creates QTL Analysis results data for binary event of interest (e.g. Yes/No)
 #'
 #' @details
 #'
-#' Creates confidence intervals using the exact binomial test
+#' Creates confidence intervals for the observed proportion of participants with event of interest using the exact binomial test
 #'
 #' @section Statistical Methods:
 #'
@@ -13,17 +13,17 @@
 #'
 #' @section Data Specification:
 #'
-#' The input data (`dfTransformed`) for Analyze_Fisher is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
-#' - `GroupID` - GroupID from `dfTransformed`
+#' The input data (`dfTransformed`) for AnalyzeQTL_Binary is typically created using \code{\link{Transform_Rate}} and should be one record for the entire study with required columns for:
+#' - `GroupID` - GroupID should be the StudyID
 #' - `N` - Total number of participants at site
 #' - `Numerator` - Total number of participants at site with event of interest
-#'
+#' - `Denominator` - Total number of participants at a site
+#' - `Metric` - Proportion of participants at site with event of interest
 #'
 #' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
-#' @param strOutcome `character` required, name of column in dfTransformed dataset to perform Fisher test on. Default is "Numerator".
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` with one row per site with columns: GroupID, Numerator, Numerator_Other, N, N_Other, Prop, Prop_Other, Estimate, PValue.
+#' @return `data.frame` with one row with columns: GroupID, N, Numerator, Denominator, Metric, Method, ConfLevel, Estimate, LowCI, UpCI.
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
@@ -32,12 +32,9 @@
 #'                                          strGroupCol = "StudyID")
 #'
 #' dfAnalyzed <- AnalyzeQTL_Binary(dfTransformed)
+#' dfFlagged <- Flag( dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.2) )
 #'
 #' @import dplyr
-#' @importFrom broom glance
-#' @importFrom purrr map
-#' @importFrom stats fisher.test
-#' @importFrom tidyr unnest
 #'
 #' @export
 
