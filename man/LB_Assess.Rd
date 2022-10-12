@@ -69,7 +69,7 @@ methods are described below.
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \cr
    dfInput \tab strIDCol \tab SubjectID \tab TRUE \cr
    dfInput \tab strCountCol \tab Count \tab TRUE \cr
-   dfInput \tab strGroupCol \tab  \tab TRUE \cr
+   dfInput \tab strGroupCol \tab SiteID \tab TRUE \cr
 }
 }
 
