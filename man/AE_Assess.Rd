@@ -74,7 +74,7 @@ methods are described below.
    dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \tab FALSE \cr
    dfInput \tab strExposureCol \tab Exposure \tab TRUE \tab FALSE \tab TRUE \cr
    dfInput \tab strRateCol \tab Rate \tab TRUE \tab FALSE \tab TRUE \cr
-   dfInput \tab strGroupCol \tab  \tab TRUE \tab FALSE \tab FALSE \cr
+   dfInput \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
 }
 }
 

@@ -70,7 +70,7 @@ methods are described below.
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
    dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
-   dfInput \tab strGroupCol \tab  \tab TRUE \tab FALSE \cr
+   dfInput \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \cr
 }
 }
 

@@ -86,6 +86,13 @@ generate_md_table <- function(
     dplyr::right_join(
       spec,
       c("domain", "col_key")
+    ) %>%
+    mutate(
+      col_value = ifelse(
+        is.na(.data$col_value) & domain == "dfInput" & .data$col_key == "strGroupCol",
+        "SiteID",
+        .data$col_value
+      )
     )
 
   # Reformat data frame as HTML table.
