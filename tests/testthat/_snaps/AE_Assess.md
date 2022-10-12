@@ -20,6 +20,30 @@
         <chr>         
       1 AA-AA-000-0000
 
+---
+
+    Code
+      subsetGroupCols(country)
+    Output
+      # A tibble: 3 x 1
+        GroupID
+        <chr>  
+      1 China  
+      2 US     
+      3 Japan  
+
+---
+
+    Code
+      subsetGroupCols(customGroup)
+    Output
+      # A tibble: 3 x 1
+        GroupID
+        <chr>  
+      1 0X201  
+      2 0X012  
+      3 0X999  
+
 # incorrect inputs throw errors
 
     strMethod is not 'poisson' or 'identity'
@@ -133,7 +157,7 @@
       
       
       $lChecks$dfInput$dim
-      [1] 3 7
+      [1] 3 8
       
       
       $lChecks$status

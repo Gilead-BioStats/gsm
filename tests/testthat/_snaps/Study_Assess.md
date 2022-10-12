@@ -143,12 +143,13 @@
       kri0001$lData
     Output
       $dfSUBJ
-      # A tibble: 3 x 7
-        studyid        siteid subjid timeonstudy timeontreatment rfpst_dt   country
-        <chr>          <chr>  <chr>        <int>           <int> <chr>      <chr>  
-      1 AA-AA-000-0000 86     0001           730             678 2008-09-10 US     
-      2 AA-AA-000-0000 76     0002            50              13 2017-05-22 China  
-      3 AA-AA-000-0000 166    0003           901             857 2008-08-26 Japan  
+      # A tibble: 3 x 8
+        studyid        siteid subjid timeonstudy timeontreatment rfpst~1 country invid
+        <chr>          <chr>  <chr>        <int>           <int> <chr>   <chr>   <chr>
+      1 AA-AA-000-0000 86     0001           730             678 2008-0~ US      0X012
+      2 AA-AA-000-0000 76     0002            50              13 2017-0~ China   0X201
+      3 AA-AA-000-0000 166    0003           901             857 2008-0~ Japan   0X999
+      # ... with abbreviated variable name 1: rfpst_dt
       
       $dfAE
       # A tibble: 7 x 4
@@ -225,12 +226,12 @@
       # ... with 140 more rows, and abbreviated variable name 1: lbtstnam
       
       $dfInput
-      # A tibble: 3 x 7
-        SubjectID SiteID StudyID        CustomGroupID Exposure Count    Rate
-        <chr>     <chr>  <chr>          <chr>            <int> <int>   <dbl>
-      1 0001      86     AA-AA-000-0000 US                 678     5 0.00737
-      2 0002      76     AA-AA-000-0000 China               13     2 0.154  
-      3 0003      166    AA-AA-000-0000 Japan              857     0 0      
+      # A tibble: 3 x 8
+        SubjectID SiteID StudyID        CountryID CustomGroupID Exposure Count    Rate
+        <chr>     <chr>  <chr>          <chr>     <chr>            <int> <int>   <dbl>
+      1 0001      86     AA-AA-000-0000 US        0X012              678     5 0.00737
+      2 0002      76     AA-AA-000-0000 China     0X201               13     2 0.154  
+      3 0003      166    AA-AA-000-0000 Japan     0X999              857     0 0      
       
 
 ---
@@ -574,7 +575,7 @@
       
       
       $AE_Map_Raw$dfSUBJ$dim
-      [1] 3 7
+      [1] 3 8
       
       
       $AE_Map_Raw$status
@@ -601,6 +602,9 @@
       [1] "rfpst_dt"
       
       $AE_Map_Raw$mapping$dfSUBJ$strCustomGroupCol
+      [1] "invid"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strCountryCol
       [1] "country"
       
       
@@ -859,7 +863,7 @@
       
       
       $AE_Assess$dfInput$dim
-      [1] 3 7
+      [1] 3 8
       
       
       $AE_Assess$status
@@ -875,6 +879,9 @@
       
       $AE_Assess$mapping$dfInput$strStudyCol
       [1] "StudyID"
+      
+      $AE_Assess$mapping$dfInput$strCountryCol
+      [1] "CountryID"
       
       $AE_Assess$mapping$dfInput$strCustomGroupCol
       [1] "CustomGroupID"
