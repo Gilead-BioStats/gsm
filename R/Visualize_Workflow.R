@@ -76,7 +76,7 @@ Visualize_Workflow <- function(lAssessments) {
           step = n(),
           to = .data$n_step + .data$step
         ) %>%
-        select(-.data$step) %>%
+        select(-"step") %>%
         ungroup()
 
 
@@ -160,7 +160,7 @@ Visualize_Workflow <- function(lAssessments) {
 
       edge_df <- assessment %>%
         filter(.data$to <= nrow(node_df)) %>%
-        select(.data$from, .data$to) %>%
+        select("from", "to") %>%
         as.data.frame()
 
       DiagrammeR::create_graph(
