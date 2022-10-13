@@ -36,7 +36,7 @@ dt <- function(data){
 
 This vignette walks users through the mechanics of the `Assess()` functions within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials. The `Assess()` functions provide data frames, visualization, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the workflow of the `Assess()` functions.
 
-![](data-analysis.PNG)
+![](data-analysis.PNG){width=100%}
 
 All of these functions will run automatically and sequentially when a user calls upon a given `Assess()` function.
 
