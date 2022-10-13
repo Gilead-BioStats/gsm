@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-The `{gsm}` package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This vignette provides an overview of the `{gsm}` data model. First, we provide an summary of the standardized data pipeline used to calculate KRIs and evaluate thresholds to set site-level flags. We also discuss workflows and reports that allow users to run multiple KRIs concurrently on a study. 
+The `{gsm}` package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This vignette provides an overview of the `{gsm}` data model. First, we provide an summary of the standardized data pipeline used to calculate KRIs and evaluate thresholds to set site-level flags. We also discuss workflows and reports that allow users to run multiple KRIs concurrently on a study.
 
 As an overview, the data pipeline can be described as follows: clinical and operational data are analyzed using the `{gsm}` R package, which generates outputs that are passed to the Gismo web application. The Appendices of this document provide detailed data specifications for the required inputs in `{gsm}` and Gismo.
 
@@ -159,7 +159,9 @@ For example, the default workflow for the AE assessment (`inst/workflow/kri0001.
           strMethod: "poisson"
           
 
-# Appendix 2 - `{gsm}` Input Specifications
+# Appendix 2 - Data Model Specifications
+
+## `{gsm}` Input Specifications
 
 Input data for `{gsm}` is pulled nightly from several systems. The data sources for `{gsm}` are:
 
@@ -169,37 +171,40 @@ Input data for `{gsm}` is pulled nightly from several systems. The data sources 
 -   **Metric Data:** Systems Metric and Parameter Definitions (saved directly in `{gsm}`) and Study-Specific Metric Specification data (imported from RACT)
 -   **Scheduling Data:** Study-Specific Custom Snapshot Schedule Data
 
-Full details are provided below:
+Full details are provided below. Note that Table Name includes all configurable outputs to `Make_Snapshot()`.
 
 [Tables in `{gsm}` Input Data Model]{.underline}:
 
-+------------------+-----------------+------------------+------------------------------------------+
-| **Table Source** | **Table Name**  | **Structure**    | **Description**                          |
-+:=================+:================+:=================+:=========================================+
-| Raw+             | {various}\*     | {various}\*      | Data for clinical KRIs/QTLs              |
-+------------------+-----------------+------------------+------------------------------------------+
-| RAVE             | {various}\*     | {various}\*      | Data for operational KRIs/QTLs           |
-+------------------+-----------------+------------------+------------------------------------------+
-| CTMS             | meta_study      | Study            | Study metadata                           |
-+------------------+-----------------+------------------+------------------------------------------+
-| CTMS             | meta_site       | Study/Site       | Site metadata                            |
-+------------------+-----------------+------------------+------------------------------------------+
-| RACT             | config_workflow | Study/Workflow   | Study-specific workflow configuration    |
-+------------------+-----------------+------------------+------------------------------------------+
-| RACT             | config_param    | Study/Workflow/\ | Study-specific workflow parameterization |
-|                  |                 | Parameter        |                                          |
-+------------------+-----------------+------------------+------------------------------------------+
-| Custom           | config_schedule | Study/date       | Study snapshot schedule                  |
-+------------------+-----------------+------------------+------------------------------------------+
-| GSM              | meta_workflow   | Workflow         | Metadata for each workflow               |
-+------------------+-----------------+------------------+------------------------------------------+
-| GSM              | meta_param      | Workflow/\       | Parameter metadata for each workflow     |
-|                  |                 | Parameter        |                                          |
-+------------------+-----------------+------------------+------------------------------------------+
++-----------+-----------------+---------------+------------------------------------------+---------------------------+
+| **Table\  | **Table Name**  | **Structure** | **Description**                          | Sample Data\              |
+| Source**  |                 |               |                                          | Equivalent                |
++:==========+:================+:==============+:=========================================+===========================+
+| Raw+      | {various}\*     | {various}\*   | Data for clinical KRIs/QTLs              | \*                        |
++-----------+-----------------+---------------+------------------------------------------+---------------------------+
+| RAVE      | {various}\*     | {various}\*   | Data for operational KRIs/QTLs           | \*                        |
++-----------+-----------------+---------------+------------------------------------------+---------------------------+
+| CTMS      | meta_study      | Study         | Study metadata                           | clindata::ctms_study      |
++-----------+-----------------+---------------+------------------------------------------+---------------------------+
+| CTMS      | meta_site       | Study/Site    | Site metadata                            | clindata::ctms_site       |
++-----------+-----------------+---------------+------------------------------------------+---------------------------+
+| RACT      | config_workflow | Study/\       | Study-specific workflow configuration    | clindata::config_workflow |
+|           |                 | Workflow      |                                          |                           |
++-----------+-----------------+---------------+------------------------------------------+---------------------------+
+| RACT      | config_param    | Study/\       | Study-specific workflow parameterization | clindata::config_param    |
+|           |                 | Workflow/\    |                                          |                           |
+|           |                 | Parameter     |                                          |                           |
++-----------+-----------------+---------------+------------------------------------------+---------------------------+
+| Custom    | config_schedule | Study/Date    | Study snapshot schedule                  | clindata::config_schedule |
++-----------+-----------------+---------------+------------------------------------------+---------------------------+
+| GSM       | meta_workflow   | Workflow      | Metadata for each workflow               | gsm::meta_workflow        |
++-----------+-----------------+---------------+------------------------------------------+---------------------------+
+| GSM       | meta_params     | Workflow/\    | Parameter metadata for each workflow     | gsm::meta_param           |
+|           |                 | Parameter     |                                          |                           |
++-----------+-----------------+---------------+------------------------------------------+---------------------------+
 
 *\* = Full spec coming in future version*
 
-[Columns in Nightly GSM Data Transfer (from above)]{.underline}:
+[Columns in Nightly `{gsm}` Data Transfer (from above)]{.underline}:
 
 +-----------------+-----------------------+----------------------------------------+
 | Table Name      | Column Name           | Description                            |
@@ -311,3 +316,118 @@ Full details are provided below:
 +-----------------+-----------------------+----------------------------------------+
 | meta_param      | configurable          | Is Parameter Configurable?             |
 +-----------------+-----------------------+----------------------------------------+
+
+## Gismo Input Specifications
+
+Input data for Gismo is generated nightly by `{gsm}` using clinical and operational data along with associated metadata. All inputs are transferred nightly as .csv files.
+
+Three types of tables are included in the input data model:
+
+-   **Status Files:** Capture the most recent metadata associated with the RBM analytics for a single study
+
+-   **Result Files:** Capture analytics results including flag status for all workflows run on a single study
+
+-   **Metadata Files:** Capture workflow details for all analytics currently available in `{gsm}` and are shared across all studies
+
+[Tables in Nightly Gismo Data Transfer]{.underline}:
+
++------------+-----------------+-------------------+-------------------------------------------+
+| Table Type | Table Name      | Structure         | Description                               |
++============+=================+===================+===========================================+
+| Status     | status_study    | Study             | Study metadata and status info            |
++------------+-----------------+-------------------+-------------------------------------------+
+| Status     | status_site     | Study/Site        | Site metadata and status info             |
++------------+-----------------+-------------------+-------------------------------------------+
+| Status     | status_workflow | Study/Workflow    | Workflow status info                      |
++------------+-----------------+-------------------+-------------------------------------------+
+| Status     | status_param    | Study/Workflow/\  | Parameter status info                     |
+|            |                 | Parameter         |                                           |
++------------+-----------------+-------------------+-------------------------------------------+
+| Status     | status_schedule | Study/Date        | Dates for QRM Snapshots                   |
++------------+-----------------+-------------------+-------------------------------------------+
+| Result     | results_summary | Study/Workflow/\  | Full analytics results for all workflows  |
+|            |                 | Group             |                                           |
++------------+-----------------+-------------------+-------------------------------------------+
+| Result     | results_bounds  | Study/Workflow/\  | x/y values for boundaries on scatter plot |
+|            |                 | Threshold/x-value |                                           |
++------------+-----------------+-------------------+-------------------------------------------+
+| Metadata   | meta_workflow   | Workflow          | Metadata for each workflow                |
++------------+-----------------+-------------------+-------------------------------------------+
+| Metadata   | meta_param      | Workflow/\        | Parameter metadata for each workflow      |
+|            |                 | Parameter         |                                           |
++------------+-----------------+-------------------+-------------------------------------------+
+
+[Columns in Nightly Gismo Data Transfer (from above)]{.underline}:
+
+| Table Name      | Column Name           | Description                                          |
+|-----------------|-----------------------|------------------------------------------------------|
+| status_study    | studyid               | Unique Study ID                                      |
+| status_study    | enrolled_sites        | Number of Enrolled Sites                             |
+| status_study    | enrolled_participants | Number of Enrolled Participants                      |
+| status_study    | planned_sites         | Number of Planned Sites                              |
+| status_study    | planned_participants  | Number of Planned Participants                       |
+| status_study    | title                 | Protocol Title                                       |
+| status_study    | nickname              | Protocol Nickname                                    |
+| status_study    | indication            | Indication                                           |
+| status_study    | ta                    | Therapeutic Area                                     |
+| status_study    | phase                 | Phase                                                |
+| status_study    | status                | Study Status                                         |
+| status_study    | fpfv                  | First Patient First Visit Date                       |
+| status_study    | lplv                  | Last Patient Last Visit Date                         |
+| status_study    | rbm_flag              | Risk-Based Monitoring Flag                           |
+| status_site     | studyid               | Unique Study ID                                      |
+| status_site     | siteid                | Unique Site ID                                       |
+| status_site     | institution           | Institution Name                                     |
+| status_site     | status                | Site Status                                          |
+| status_site     | enrolled_participants | Number of Enrolled Participants                      |
+| status_site     | start_date            | Site Activation Date                                 |
+| status_site     | city                  | City                                                 |
+| status_site     | state                 | State                                                |
+| status_site     | country               | Country                                              |
+| status_site     | invname               | Investigator Name                                    |
+| status_workflow | studyid               | Unique Study ID                                      |
+| status_workflow | workflowid            | Unique Workflow ID                                   |
+| status_workflow | gsm_version           | `{gsm}` Version of Workflow                          |
+| status_workflow | active                | Is Workflow Active?                                  |
+| status_workflow | status                | Did Workflow Run?                                    |
+| status_workflow | notes                 | Status Notes                                         |
+| status_param    | studyid               | Unique Study ID                                      |
+| status_param    | workflowid            | Unique Workflow ID                                   |
+| status_param    | gsm_version           | `{gsm}` Version of Workflow                          |
+| status_param    | param                 | Parameter Name                                       |
+| status_param    | index                 | Index Value for Parameter                            |
+| status_param    | value                 | Value for Parameter at Index                         |
+| status_schedule | studyid               | Unique Study ID                                      |
+| status_schedule | snapshot_date         | Snapshot Date                                        |
+| results_summary | studyid               | Unique Study ID                                      |
+| results_summary | workflowid            | Unique Workflow ID                                   |
+| results_summary | groupid               | Unique Group ID (e.g., Site ID for KRI Workflows)    |
+| results_summary | numerator             | Metric Numerator                                     |
+| results_summary | denominator           | Metric Denominator                                   |
+| results_summary | metric                | Metric Value                                         |
+| results_summary | score                 | Statistical Score                                    |
+| results_summary | flag                  | Flag                                                 |
+| results_bounds  | studyid               | Unique Study ID                                      |
+| results_bounds  | workflowid            | Unique Workflow ID                                   |
+| results_bounds  | threshold             | Threshold                                            |
+| results_bounds  | numerator             | Y Value                                              |
+| results_bounds  | denominator           | X Value                                              |
+| results_bounds  | log_denominator       | Log X value                                          |
+| meta_workflow   | workflowid            | Unique Workflow ID                                   |
+| meta_workflow   | gsm_version           | `{gsm}` Version of Workflow                          |
+| meta_workflow   | group                 | Group for Workflow (Site, Country, Region, or Study) |
+| meta_workflow   | metric                | Metric Label                                         |
+| meta_workflow   | numerator             | Numerator Label                                      |
+| meta_workflow   | denominator           | Denominator Label                                    |
+| meta_workflow   | outcome               | Metric Outcome Type (e.g., rate)                     |
+| meta_workflow   | model                 | Statistical Model Used to Create Score               |
+| meta_workflow   | score                 | Score Label                                          |
+| meta_workflow   | data_inputs           | Data Inputs for Workflow                             |
+| meta_workflow   | data_filters          | Filters Applied in Workflow                          |
+|                 |                       |                                                      |
+|                 |                       |                                                      |
+|                 |                       |                                                      |
+|                 |                       |                                                      |
+|                 |                       |                                                      |
+|                 |                       |                                                      |
+|                 |                       |                                                      |
