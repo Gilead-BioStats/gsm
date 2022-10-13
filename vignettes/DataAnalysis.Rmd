@@ -40,7 +40,7 @@ This vignette walks users through the mechanics of the `Assess()` functions with
 
 All of these functions will run automatically and sequentially when a user calls upon a given `Assess()` function.
 
-Each of these individual functions can also be run successfully outside of an `Assess()` function.
+Each of these individual functions can also be run independently outside of an `Assess()` function.
 
 For the purposes of this documentation, we will evaluate the input(s) and output(s) of each individual function to show the stepwise progression of how `Assess()` handles and processes data.
 
