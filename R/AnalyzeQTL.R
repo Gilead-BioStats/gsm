@@ -29,7 +29,7 @@
 #' dfInput <- Disp_Map_Raw()
 #' dfTransformed <- Transform_Rate(dfInput, strNumeratorCol = "Count",
 #'                                          strDenominatorCol = "Total",
-#'                                          strGroupCol = "StudyID",
+#'                                          strGroupCol = "StudyID"
 #'                                          )
 #'
 #' dfAnalyzed <- AnalyzeQTL(dfTransformed, strOutcome = "Binary")
@@ -44,27 +44,28 @@
 #'                                 strDenominatorCol = "Exposure"
 #'                                 )
 #'
-#' dfAnalyzed <- AnalyzeQTL(dfTransformed , strOutcome = "Rate)
+#' dfAnalyzed <- AnalyzeQTL(dfTransformed , strOutcome = "Rate")
 #' dfFlagged <- Flag( dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.01) )
 #'
 #' @import dplyr
 #'
 #' @export
 
-AnalyzeQTL_Binary <- function(
+AnalyzeQTL <- function(
     dfTransformed,
     conf.level = 0.95,
-    bQuiet = TRUE,
+    strOutcome = "Binary",
+    bQuiet = TRUE
 ) {
   stopifnot(
-    "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns: GroupID, N, or the value in strOutcome not found in dfTransformed" = all(c("GroupID", "N") %in% names(dfTransformed)),
-    "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]])),
+    #"dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
+    #"One or more of these columns: GroupID, N, or the value in strOutcome not found in dfTransformed" = all(c("GroupID", "N") %in% names(dfTransformed)),
+    #"NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]])),
   )
 
   if(strOutcome == "Binary"){
     lModel <- binom.test( dfTransformed$Numerator, dfTransformed$Denominator,
-                          alternative = "two-sided",
+                          alternative = "two.sided",
                           conf.level = conf.level)
   }
 
