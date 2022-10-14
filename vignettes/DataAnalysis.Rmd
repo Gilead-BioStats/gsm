@@ -24,7 +24,7 @@ dt <- function(data){
     DT::datatable(
       extensions = 'FixedColumns',
       options = list(
-        scrollX = TRUE,
+        scrollX = FALSE,
         fixedColumns = TRUE
       ),
       rownames = FALSE
@@ -36,7 +36,7 @@ dt <- function(data){
 
 This vignette walks users through the mechanics of the `Assess()` functions within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials. The `Assess()` functions provide data frames, visualization, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the workflow of the `Assess()` functions.
 
-![](data-analysis.PNG){width = 100%}
+![](data-analysis.PNG){width=100%}
 
 All of these functions will run automatically and sequentially when a user calls upon a given `Assess()` function.
 
@@ -170,7 +170,7 @@ dt(dfSummary)
 
 ### 6. Data Visualization
 
-Data visualizations are built into each `Assess()` function/KRI. For a Poisson AE assessment, a scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale) is created. Each data point represents one site with outliers displayed in red. The `Visualize_Scatter()` function takes inputs of `dfTransformed` to define bounds and `dfFlagged` to plot the data. Using our example AE data, we see the following scatter plot:
+Data visualizations are built into each `Assess()` function/KRI. For a Poisson AE assessment, a scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale) is created. Each data point represents one site with outliers displayed in yellow or red, depending on the "extremeness" of the KRI value. The `Visualize_Scatter()` function takes inputs of `dfTransformed` to define bounds and `dfFlagged` to plot the data. Using our example AE data, we see the following scatter plot:
 
 ```{r}
 dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, vThreshold = c(-8, 8))
@@ -178,7 +178,7 @@ dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, vThreshold = c(-8, 8))
 chart <- Visualize_Scatter(dfFlagged, dfBounds)
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, fig.width=7, fig.height=5}
 chart
 ```
 
@@ -195,9 +195,9 @@ chart
 
 ------------------------------------------------------------------------
 
-# Appendix 1 - Supporting Functions (#appendix-1)
+# Appendix 1 - Supporting Functions {#appendix-1}
 
-The following sections include various examples of supporting functions and statistical models that can be employed in the `Assess()` functions. Please note that this is **not** an exahustive list, but includes some of the most commonly called upon functions.
+The following sections include various examples of supporting functions and statistical models that can be employed in the `Assess()` functions. Please note that this is **not** an exhaustive list, but includes some of the most commonly called upon functions.
 
 ### Mapping Functions
 
@@ -207,7 +207,7 @@ The following sections include various examples of supporting functions and stat
 ### Transform Functions
 
 -   `Transform_Rate()`: Calculates cumulative rate of Event(s) of Interest per site
--   `Transform_Count()`: Calculates cumulative numer of Event(s) of Interest per site
+-   `Transform_Count()`: Calculates cumulative number of Event(s) of Interest per site
 
 ### Analyze Functions
 
@@ -233,4 +233,4 @@ The following sections include various examples of supporting functions and stat
 -   Subject Consent (Consent) and Inclusion/Exclusion (IE) Criteria: **Identity**
 -   Subject Disposition (Disp) and Laboratory (LB) Results: **Fisher or Identity**
 
-![](data-analysis-combined.PNG)
+![](data-analysis-combined.PNG){width=100%}
