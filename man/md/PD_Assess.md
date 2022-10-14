@@ -6,4 +6,4 @@
 |dfInput    |strCountCol    |Count             |TRUE          |FALSE                      |
 |dfInput    |strExposureCol |Exposure          |TRUE          |FALSE                      |
 |dfInput    |strRateCol     |Rate              |TRUE          |FALSE                      |
-|dfInput    |strGroupCol    |                  |TRUE          |FALSE                      |
+|dfInput    |strGroupCol    |SiteID            |TRUE          |FALSE                      |

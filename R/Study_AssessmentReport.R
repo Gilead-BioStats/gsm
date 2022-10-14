@@ -59,7 +59,7 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
         step[[domain]][["tests_if"]] %>%
           bind_rows(.id = "names") %>%
           mutate(status = ifelse(is.na(.data$warning), NA_character_, .data$warning)) %>%
-          select(-.data$warning) %>%
+          select(-"warning") %>%
           t() %>%
           as_tibble(.name_repair = "minimal") %>%
           janitor::row_to_names(1) %>%
@@ -67,7 +67,7 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
             domain = domain,
             status = status
           ) %>%
-          select(.data$domain, everything())
+          select("domain", everything())
       })
     }) %>%
       bind_rows(.id = "index")
@@ -77,7 +77,7 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
     left_join(workflow, allChecks, by = c("index", "domain"))
   }) %>%
     bind_rows() %>%
-    select(.data$assessment, .data$step, check = .data$status, .data$domain, everything(), -.data$index) %>%
+    select("assessment", "step", check = "status", "domain", everything(), -"index") %>%
     suppressWarnings()
 
   found_data <- map(names(lAssessments), ~ lAssessments[[.x]][["lData"]]) %>%
@@ -92,10 +92,10 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
       paste0("Data not found for ", .data$assessment, " assessment"),
       NA_character_
     )) %>%
-    select(.data$assessment, .data$step, .data$check, .data$domain, .data$notes, everything())
+    select("assessment", "step", "check", "domain", "notes", everything())
 
   check_cols <- allChecks %>%
-    select(-c(.data$assessment, .data$step, .data$check, .data$domain, .data$notes)) %>%
+    select(-c("assessment", "step", "check", "domain", "notes")) %>%
     names()
 
   allChecks <- allChecks %>%
@@ -114,7 +114,7 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
   dfSummary <- allChecks %>%
     mutate(check = map(.data$check, rank_chg)) %>%
-    select(.data$assessment, .data$step, .data$check, .data$domain, .data$notes)
+    select("assessment", "step", "check", "domain", "notes")
 
   if (!bViewReport) {
     return(list(dfAllChecks = allChecks, dfSummary = dfSummary))

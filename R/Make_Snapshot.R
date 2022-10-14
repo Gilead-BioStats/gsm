@@ -18,9 +18,9 @@
 #'
 #' @export
 Make_Snapshot <- function(lMeta = list(
-  config_param = gsm::config_param,
+  config_param = clindata::config_param,
   config_schedule = clindata::config_schedule,
-  config_workflow = gsm::config_workflow,
+  config_workflow = clindata::config_workflow,
   meta_params = gsm::meta_param,
   meta_site = clindata::ctms_site,
   meta_study = clindata::ctms_study,
@@ -71,20 +71,20 @@ bQuiet = TRUE
   # select in same order as spec - can remove this if not needed, but helps with comparison
   status_study <- status_study %>%
     select(
-      .data$studyid,
-      .data$enrolled_sites,
-      .data$enrolled_participants,
-      .data$planned_sites,
-      .data$planned_participants,
-      .data$title,
-      .data$nickname,
-      .data$indication,
-      .data$ta,
-      .data$phase,
-      .data$status,
-      .data$fpfv,
-      .data$lplv,
-      .data$rbm_flag
+      "studyid",
+      "enrolled_sites",
+      "enrolled_participants",
+      "planned_sites",
+      "planned_participants",
+      "title",
+      "nickname",
+      "indication",
+      "ta",
+      "phase",
+      "status",
+      "fpfv",
+      "lplv",
+      "rbm_flag"
     )
 
   # status_site -------------------------------------------------------------
@@ -101,16 +101,16 @@ bQuiet = TRUE
   }
   status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
     select(
-      .data$studyid,
-      .data$siteid,
-      .data$institution,
-      .data$status,
-      .data$enrolled_participants,
-      .data$start_date,
-      .data$city,
-      .data$state,
-      .data$country,
-      .data$invname
+      "studyid",
+      "siteid",
+      "institution",
+      "status",
+      "enrolled_participants",
+      "start_date",
+      "city",
+      "state",
+      "country",
+      "invname"
     )
 
 
@@ -168,14 +168,14 @@ bQuiet = TRUE
         StudyID = unique(lMeta$config_workflow$studyid)
       )) %>%
     select(
-      studyid = .data$StudyID,
-      workflowid = .data$KRIID,
-      groupid = .data$GroupID,
-      numerator = .data$Numerator,
-      denominator = .data$Denominator,
-      metric = .data$Metric,
-      score = .data$Score,
-      flag = .data$Flag
+      studyid = "StudyID",
+      workflowid = "KRIID",
+      groupid = "GroupID",
+      numerator = "Numerator",
+      denominator = "Denominator",
+      metric = "Metric",
+      score = "Score",
+      flag = "Flag"
     )
 
 
@@ -189,12 +189,12 @@ bQuiet = TRUE
     purrr::imap_dfr(~ .x %>% mutate(workflowid = .y)) %>%
     mutate(studyid = unique(lMeta$config_workflow$studyid)) %>% # not sure if this is a correct assumption
     select(
-      .data$studyid,
-      .data$workflowid,
-      "threshold" = .data$Threshold,
-      "numerator" = .data$Numerator,
-      "denominator" = .data$Denominator,
-      "log_denominator" = .data$LogDenominator
+      "studyid",
+      "workflowid",
+      "threshold" = "Threshold",
+      "numerator" = "Numerator",
+      "denominator" = "Denominator",
+      "log_denominator" = "LogDenominator"
     )
 
 

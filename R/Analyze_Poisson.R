@@ -65,12 +65,12 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
 
   dfAnalyzed <- broom::augment(cModel, dfModel, type.predict = "response") %>%
     select(
-      .data$GroupID,
-      .data$Numerator,
-      .data$Denominator,
-      .data$Metric,
-      Score = .data$.resid,
-      PredictedCount = .data$.fitted
+      "GroupID",
+      "Numerator",
+      "Denominator",
+      "Metric",
+      Score = ".resid",
+      PredictedCount = ".fitted"
     ) %>%
     arrange(.data$Score)
 

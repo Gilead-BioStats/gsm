@@ -92,10 +92,10 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
     # NaN is meaningful result indicating not bounded
     filter(!is.nan(.data$Numerator)) %>%
     select(
-      .data$Threshold,
-      .data$LogDenominator,
-      .data$Denominator,
-      .data$Numerator
+      "Threshold",
+      "LogDenominator",
+      "Denominator",
+      "Numerator"
     )
 
   return(dfBounds)

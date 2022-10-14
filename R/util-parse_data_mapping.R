@@ -52,7 +52,7 @@ parse_data_mapping <- function(
         domain = domain
       ) %>%
       dplyr::select(
-        .data$domain, .data$col_key, .data$col_value
+        "domain", "col_key", "col_value"
       )
 
     # Append domain metadata to domain list.

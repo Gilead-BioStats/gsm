@@ -60,7 +60,7 @@ Transform_Rate <- function(
       Denominator = sum(.data[[strDenominatorCol]])
     ) %>%
     mutate(Metric = .data$Numerator / .data$Denominator) %>%
-    select(.data$GroupID, everything()) %>%
+    select("GroupID", everything()) %>%
     filter(
       !is.nan(.data$Metric),
       .data$Metric != Inf
