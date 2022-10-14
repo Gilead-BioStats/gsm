@@ -114,7 +114,7 @@ Consent_Map_Raw <- function(
         any_flag = .data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare,
         Count = as.numeric(.data$any_flag, na.rm = TRUE)
       ) %>%
-      select(any_of(c(names(dfSUBJ_mapped))), .data$Count)
+      select(any_of(c(names(dfSUBJ_mapped))), "Count")
 
     if (!bQuiet) cli::cli_alert_success("{.fn Consent_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

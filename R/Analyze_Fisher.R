@@ -64,7 +64,7 @@ Analyze_Fisher <- function(
         Flag = sum(.data$Numerator),
         NoFlag = sum(.data$Participants - .data$Flag)
       ) %>%
-      select(.data$NoFlag, .data$Flag)
+      select("NoFlag", "Flag")
 
     stats::fisher.test(SiteTable)
   }
@@ -73,11 +73,9 @@ Analyze_Fisher <- function(
     mutate(model = map(.data$GroupID, fisher_model)) %>%
     mutate(summary = map(.data$model, broom::glance)) %>%
     tidyr::unnest(summary) %>%
-    rename(
-      Estimate = .data$estimate,
-      Score = .data[["p.value"]]
-    ) %>%
     mutate(
+      Estimate = .data$estimate,
+      Score = .data$p.value,
       Numerator_All = sum(.data$Numerator),
       Denominator_All = sum(.data$Denominator),
       Numerator_Other = .data$Numerator_All - .data$Numerator,
@@ -87,16 +85,16 @@ Analyze_Fisher <- function(
     ) %>%
     arrange(.data$Score) %>%
     select(
-      .data$GroupID,
-      .data$Numerator,
-      .data$Numerator_Other,
-      .data$Denominator,
-      .data$Denominator_Other,
-      .data$Prop,
-      .data$Prop_Other,
-      .data$Metric,
-      .data$Estimate,
-      .data$Score
+      "GroupID",
+      "Numerator",
+      "Numerator_Other",
+      "Denominator",
+      "Denominator_Other",
+      "Prop",
+      "Prop_Other",
+      "Metric",
+      "Estimate",
+      "Score"
     )
 
   return(dfAnalyzed)
