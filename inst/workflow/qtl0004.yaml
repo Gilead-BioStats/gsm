@@ -1,0 +1,6 @@
+workflow:
+  - name: QTL_Map_Raw
+    inputs:
+      - 'disp'
+    output: dfInput
+

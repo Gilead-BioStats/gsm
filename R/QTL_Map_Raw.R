@@ -40,6 +40,8 @@ QTL_Map_Raw <- function(strDomain, strDateMin = "2004-02-26", strDateMax = "2019
     lInput <- map(lSnapshot, ~PD_Map_Raw(dfs = .))
   }
 
-  return(list(lInput = lInput, lSnapshotDates = lSnapshotDates))
+  lInput$SnapshotDates <- lSnapshotDates
+
+  return(lInput)
 
 }
