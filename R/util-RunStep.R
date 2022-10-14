@@ -47,7 +47,7 @@ RunStep <- function(lStep, lMapping, lData, bQuiet) {
   params <- lStep$params
   params$bQuiet <- bQuiet
   # prepare data inputs by function type
-  if (lStep$name != "QTL_Map_Raw" & stringr::str_detect(lStep$name, "_Map")) {
+  if (stringr::str_detect(lStep$name, "_Map")) {
     params$lMapping <- lMapping
     params$dfs <- lData[lStep$inputs]
     params$bReturnChecks <- TRUE
@@ -64,9 +64,6 @@ RunStep <- function(lStep, lMapping, lData, bQuiet) {
   } else if (lStep$name == "FilterData") {
     params$dfInput <- lData[[lStep$inputs]]
     params$bReturnChecks <- TRUE
-  } else if (lStep$name == "QTL_Map_Raw"){
-    params <- NULL
-    params$strDomain <- lStep$inputs
   }
 
 
