@@ -75,8 +75,6 @@ Study_Assess <- function(
     }
   }
 
-  browser()
-
   if (exists("dfSUBJ", where = lData)) {
     if (nrow(lData$dfSUBJ > 0)) {
       ### --- Attempt to run each assessment --- ###

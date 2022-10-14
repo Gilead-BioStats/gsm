@@ -1,0 +1,2 @@
+"GroupID","Metric","Score","Flag","Numerator","Denominator","Method","ConfLevel","Estimate","LowCI","UpCI","date"
+"AA-AA-000-0000",0.001,0.001,0,4000,90000,"Exact Poisson test",0.95,0.004,0.004,0.005,"2022-06-14"
