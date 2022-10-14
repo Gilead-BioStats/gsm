@@ -14,9 +14,7 @@ knitr::opts_chunk$set(
 )
 
 library(gsm)
-library(tidyverse)
 library(DT)
-library(rmdformats)
 library(gt)
 
 dt <- function(data){
