@@ -36,25 +36,25 @@ dt <- function(data){
 
 This vignette walks users through the mechanics of the `Assess()` functions within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials. The `Assess()` functions provide data frames, visualization, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the workflow of the `Assess()` functions.
 
-![](data-analysis.PNG)
+![](data-analysis.PNG){width=100%}
 
 All of these functions will run automatically and sequentially when a user calls upon a given `Assess()` function.
 
-Each of these individual functions can also be run successfully outside of an `Assess()` function.
+Each of these individual functions can also be run independently outside of an `Assess()` function.
 
 For the purposes of this documentation, we will evaluate the input(s) and output(s) of each individual function to show the stepwise progression of how `Assess()` handles and processes data.
 
 ------------------------------------------------------------------------
 
-## A Technical Demo - Step-By-Step
+## Case Study -  Step-by-step Adverse Event KRI 
 
 We will use sample clinical data from the `{clindata}` package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`.
 
 ### 1. Create `dfInput`
 
-Generating input data is outside the scope of the assessment pipeline itself. However, the specifications for `dfInput` are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards. For example, users can run the `Map_Raw()` or `Map_Adam()` functions, which will create `dfInput` from Raw+ data or CDISC-compliant ADaM data, respectively. The [`{gsm}` data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html) will be expanded upon in the future to incorporate data from various dashboards as well.
+Generating input data is outside the scope of the assessment pipeline itself. However, the specifications for `dfInput` are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards. For example, users can run the `Map_Raw()` or `Map_Adam()` functions, which will create `dfInput` from Raw+ data or CDISC-compliant ADaM data, respectively. 
 
-The data frame `dfInput` needs to have one record per subject, with the following columns:
+The data frame `dfInput` for an Adverse Event will be created by running `AE_Map_Raw()` and will have one record per subject, with the following columns:
 
 -   `SubjectID` = Subject Identifier
 -   `SiteID` = Site Identifier
