@@ -62,7 +62,7 @@ Transform_Count <- function(
       TotalCount = sum(.data[[strCountCol]])
     ) %>%
     mutate(Metric = .data$TotalCount) %>%
-    select(.data$GroupID, everything())
+    select("GroupID", everything())
 
   return(dfTransformed)
 }
