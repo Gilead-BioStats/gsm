@@ -52,7 +52,7 @@ We will use sample clinical data from the `{clindata}` package to run the Advers
 
 ### 1. Create `dfInput`
 
-Generating input data is outside the scope of the assessment pipeline itself. However, the specifications for `dfInput` are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards. For example, users can run the `Map_Raw()` or `Map_Adam()` functions, which will create `dfInput` from Raw+ data or CDISC-compliant ADaM data, respectively. The [`{gsm}` data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html) will be expanded upon in the future to incorporate data from various dashboards as well.
+Generating input data is outside the scope of the assessment pipeline itself. However, the specifications for `dfInput` are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards. For example, users can run the `Map_Raw()` or `Map_Adam()` functions, which will create `dfInput` from Raw+ data or CDISC-compliant ADaM data, respectively. 
 
 The data frame `dfInput` for an Adverse Event will be created by running `AE_Map_Raw()` and will have one record per subject, with the following columns:
 
