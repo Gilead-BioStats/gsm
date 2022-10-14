@@ -1,7 +1,7 @@
 group:
   domain: dfDISP_Treatment
   columnParam: strTreatmentPhaseCol
-workflow:
+steps:
   - name: Disp_Map_Raw
     inputs:
       - dfSUBJ

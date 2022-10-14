@@ -49,11 +49,11 @@ reference:
    - contents:
       - is_mapping_valid
       - MergeSubjects
-      - MakeAssessmentList
+      - MakeWorkflowList
       - ConsolidateStrata
       - MakeStratifiedAssessment
       - RunStratifiedWorkflow
-      - RunAssessment
+      - RunWorkflow
       - FilterData
       - FilterDomain
       - Get_Enrolled

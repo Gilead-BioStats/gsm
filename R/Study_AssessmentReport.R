@@ -27,8 +27,13 @@
 #' @export
 
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
+
+
+
   allChecks <- map(names(lAssessments), function(assessment) {
-    workflow <- lAssessments[[assessment]][["workflow"]] %>%
+
+    workflow <- lAssessments[[assessment]][["steps"]] %>%
+
       map_df(
         ~ bind_cols(step = .x[["name"]], domain = .x[["inputs"]])
       ) %>%
@@ -36,6 +41,8 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
         assessment = assessment,
         index = as.character(row_number())
       )
+
+
 
     # this is needed because we are mapping everything run through `is_mapping_valid()`
     # we added the flowchart object to lChecks, so need to remove it first
@@ -64,6 +71,8 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
       })
     }) %>%
       bind_rows(.id = "index")
+
+
 
     left_join(workflow, allChecks, by = c("index", "domain"))
   }) %>%

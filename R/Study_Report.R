@@ -10,8 +10,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' lAssessment <- Study_Assess()
-#' Study_Report(lAssessment, lMeta = list(study = "my study name"))
+#' lWorkflow <- Study_Assess()
+#' Study_Report(lWorkflow, lMeta = list(study = "my study name"))
 #' }
 #'
 #' @importFrom rmarkdown render

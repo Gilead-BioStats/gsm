@@ -5,7 +5,7 @@
 #' @return A flowchart of type `grViz`/`htmlwidget`.
 #'
 #' @examples
-#' lAssessments <- list(kri0001 = MakeAssessmentList()$kri0001)
+#' lAssessments <- list(kri0001 = MakeWorkflowList()$kri0001)
 #' lData <- list(
 #'   dfSUBJ = clindata::rawplus_dm,
 #'   dfAE = clindata::rawplus_ae,
@@ -15,8 +15,8 @@
 #' )
 #' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 #'
-#' kri0001 <- RunAssessment(lAssessments$kri0001, lData = lData, lMapping = lMapping)
-#' \dontrun{
+#' kri0001 <- RunWorkflow(lAssessments$kri0001, lData = lData, lMapping = lMapping)
+#'\dontrun{
 #' Visualize_Workflow(list(kri0001 = kri0001))
 #' }
 #'
@@ -27,11 +27,25 @@
 #' @export
 
 Visualize_Workflow <- function(lAssessments) {
-  if (!is.null(lAssessments[[1]][["workflow"]])) {
+
+  # checks were run
+  stepsExist <- !is.null(lAssessments[[1]][["steps"]])
+
+  # do not run on stratified assessment
+  # TODO: implement for stratified?
+  isNotFilterData <- lAssessments$temp_name$steps[[1]][[1]] != "FilterData"
+
+  if (length(isNotFilterData) == 0) {
+    isNotFilterData <- FALSE
+  }
+
+  if (stepsExist & isNotFilterData) {
+
     dfFlowchart <- map(lAssessments, function(studyObject) {
+
       name <- studyObject[["name"]]
       checks <- studyObject[["lChecks"]]
-      workflow <- studyObject[["workflow"]]
+      workflow <- studyObject[["steps"]]
 
       # rename workflow when checks are missing
       diff <- length(workflow) - length(checks)
@@ -48,8 +62,11 @@ Visualize_Workflow <- function(lAssessments) {
       }
 
       preAssessment <- map2_dfr(checks, workflow, function(checks, workflow) {
+
         domains <- workflow$inputs
+
         map_df(domains, function(x) {
+
           tibble(
             assessment = name,
             name = workflow[["name"]],
@@ -80,7 +97,7 @@ Visualize_Workflow <- function(lAssessments) {
         ungroup()
 
 
-      pipelineSubset <- studyObject$lResults[grep("df", names(studyObject$lResults))]
+      pipelineSubset <- studyObject$lResults$lData[grep("df", names(studyObject$lResults$lData))]
       pipelineSubset[["dfBounds"]] <- NULL
 
       pipeline <- pipelineSubset %>%
