@@ -36,25 +36,27 @@ dt <- function(data){
 
 This vignette walks users through the mechanics of the `Assess()` functions within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials. The `Assess()` functions provide data frames, visualization, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the workflow of the `Assess()` functions.
 
-![](data-analysis.PNG){width=100%}
+![](data-analysis.PNG){width = 100%}
 
 All of these functions will run automatically and sequentially when a user calls upon a given `Assess()` function.
 
 Each of these individual functions can also be run independently outside of an `Assess()` function.
 
-For the purposes of this documentation, we will evaluate the input(s) and output(s) of each individual function to show the stepwise progression of how `Assess()` handles and processes data.
+For the purposes of this documentation, we will evaluate the input(s) and output(s) of each individual function for a specific KRI to show the stepwise progression of how `Assess()` handles and processes data.
 
 ------------------------------------------------------------------------
 
-## Case Study -  Step-by-step Adverse Event KRI 
+## Case Study - Step-by-Step Adverse Event KRI
 
-We will use sample clinical data from the `{clindata}` package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`.
+We will use sample clinical data from the `{clindata}` package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`, using the Poisson statistical model.
+
+Additional statistical methods and supporting functions are explored in [Appendix 1](#appendix-1).
 
 ### 1. Create `dfInput`
 
-Generating input data is outside the scope of the assessment pipeline itself. However, the specifications for `dfInput` are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards. For example, users can run the `Map_Raw()` or `Map_Adam()` functions, which will create `dfInput` from Raw+ data or CDISC-compliant ADaM data, respectively. 
+Generating input data is outside the scope of the assessment pipeline itself. However, the specifications for `dfInput` are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards. For example, users can run the `Map_Raw()` function, which will create `dfInput` from Raw+ data.
 
-The data frame `dfInput` for an Adverse Event will be created by running `AE_Map_Raw()` and will have one record per subject, with the following columns:
+The data frame `dfInput` for an AE assessment will be created by running `AE_Map_Raw()` and will have one record per subject, with the following columns:
 
 -   `SubjectID` = Subject Identifier
 -   `SiteID` = Site Identifier
@@ -81,10 +83,7 @@ dt(dfInput)
 
 ### 2. Create `dfTransformed`
 
-The data frame `dfTransformed` is derived from `dfInput` using one of the following functions (depending on the assessment being run):
-
--   `Transform_Rate()`: Calculates cumulative rate of Event(s) of Interest per site. In our example, the default metric for AEs is the number of AEs reported over the course of treatment per site.
--   `Transform_Count()`: Calculates cumulative numer of Event(s) of Interest per site. *This function is not used in `AE_Assess()` because the default metric for AEs is a rate.*
+The data frame `dfTransformed` is derived from `dfInput` using a `Transform()` function. In our example, the analysis pipeline pulls in `Transform_Rate()` since the default metric for AEs is the number of AEs reported over the course of treatment per site, i.e., a rate.
 
 The resulting `dfTransformed` data frame will contain site-level transformed data, including KRI calculation. Using our example AE data, `dfTransformed` contains the following columns:
 
@@ -109,13 +108,7 @@ dt(dfTransformed)
 
 ### 3. Create `dfAnalyzed`
 
-The data frame `dfAnalyzed` is derived from `dfTransformed` using one of the following functions, which were built from a specific statistical model (depending on the assessment being run):
-
--   `Analyze_Fisher()`: Uses Fisher's Exact Test to determine if there are non-random associations between a site and a given KRI
--   `Analyze_Identity()`: Used in the data pipeline between `Transform()` and `Flag()` functions to rename KRI and Score columns
--   `Analyze_Poisson()`: Uses a Poisson model to describe the distribution of events in the overall site population, i.e., determine how many times an event is likely to occur at a site over a specified treatment period
-
-The resulting `dfAnalyzed` data frame will contain site-level analysis results data. The Poisson model is the default analysis function for AE data, so using our example AE data, `dfAnalyzed` contains the following columns:
+The data frame `dfAnalyzed` is derived from `dfTransformed` using an `Analyze()` function, which incorporates a specific statistical model. The resulting `dfAnalyzed` data frame will contain site-level analysis results data. The Poisson model is the default statistical model for AE data, so the analysis pipeline automatically runs `Analyze_Poisson()`. Using our example AE data, `dfAnalyzed` contains the following columns:
 
 -   `GroupID` = Group Identifier (default is Site ID)
 -   `Numerator` = Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects); Carried from `dfTransformed`
@@ -136,13 +129,7 @@ dt(dfAnalyzed)
 
 ### 4. Create `dfFlagged`
 
-The data frame `dfFlagged` is derived from `dfAnalyzed` using one of the following functions (depending on the assessment and the specific statistical model that was run):
-
--   `Flag_Fisher()`: Default flagging function when `Analyze_Fisher()` is used for an assessment
--   `Flag_Poisson()`: Default flagging function when `Analyze_Poisson()` is used for an assessment
--   `Flag()`: Default flagging function when `Analyze_Identity()` is used for an assessment
-
-The resulting `dfFlagged` data frame will contain site-level analysis results data with flagging incorporated based on a pre-specified statistical threshold to highlight possible outliers. The default threshold for the AE Poisson model is (-7, -5, 5, 7) based on the available literature, so using our example AE data, `dfFlagged` contains the following columns:
+The data frame `dfFlagged` is derived from `dfAnalyzed` using a `Flag()` function. The resulting `dfFlagged` data frame will contain site-level analysis results data with flagging incorporated based on a pre-specified statistical threshold to highlight possible outliers. The default flagging function for the AE Poisson model is `Flag_Poisson()` and the default threshold is (-7, -5, 5, 7) based on the available literature. Using our example AE data, `dfFlagged` contains the following columns:
 
 -   `GroupID` = Group Identifier (default is Site ID)
 -   `Numerator` = Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects); Carried from `dfAnalyzed`
@@ -183,13 +170,7 @@ dt(dfSummary)
 
 ### 6. Data Visualization
 
-Data visualizations are built into each `Assess()` function/KRI using the following functions:
-
--   `Visualize_Scatter`: Creates scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached. This plot is only created when statistical method is **not** defined as `identity`.
--   `Visualize_Score`: Provides a standard visualization for Score or KRI
--   `Visualize_Workflow`: Provides a flowchart with a high-level overview of the data pipeline for a given assessment
-
-For an AE assessment, a scatter plot is created using `dfTransformed` to define bounds and `dfFlagged` to plot the data. Using our example AE data, we see the following scatter plot:
+Data visualizations are built into each `Assess()` function/KRI. For a Poisson AE assessment, a scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale) is created. Each data point represents one site with outliers displayed in red. The `Visualize_Scatter()` function takes inputs of `dfTransformed` to define bounds and `dfFlagged` to plot the data. Using our example AE data, we see the following scatter plot:
 
 ```{r}
 dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, vThreshold = c(-8, 8))
@@ -203,16 +184,50 @@ chart
 
 ------------------------------------------------------------------------
 
-# Recap
+# Recap - Poisson Adverse Event KRI
 
--   `dfInput` used as original input; Can be created using `Map_Raw()` or `Map_Adam()`, if needed
--   `dfTransformed` created from `dfInput` using `Transform_Count()` or `Transform_Rate()`
--   `dfAnalyzed` created from `dfTransformed` using `Analyze_Poisson()`, `Analyze_Fisher()`, or `Analyze_Identity()`
--   `dfFlagged` created from `dfAnalyzed` using `Flag_Poisson()`, `Flag_Fisher()`, or `Flag()`
+-   `dfInput` used as original input using `Map_Raw()`
+-   `dfTransformed` created from `dfInput` using `Transform_Rate()`
+-   `dfAnalyzed` created from `dfTransformed` using `Analyze_Poisson()`
+-   `dfFlagged` created from `dfAnalyzed` using `Flag_Poisson()`
 -   `dfSummary` created from `dfFlagged` using `Summarize()`
--   Visualizations created from `dfTransformed` and `dfFlagged`
+-   Scatter plot created from `Visualize_Scatter()` using `dfTransformed` and `dfFlagged`
 
-What statistical models are available for each assessment?
+------------------------------------------------------------------------
+
+# Appendix 1 - Supporting Functions (#appendix-1)
+
+The following sections include various examples of supporting functions and statistical models that can be employed in the `Assess()` functions. Please note that this is **not** an exahustive list, but includes some of the most commonly called upon functions.
+
+### Mapping Functions
+
+-   `Map_Raw()`: Creates input data using Raw+ data
+-   `Map_Adam()`: Creates input data using CDISC-compliant ADaM data
+
+### Transform Functions
+
+-   `Transform_Rate()`: Calculates cumulative rate of Event(s) of Interest per site
+-   `Transform_Count()`: Calculates cumulative numer of Event(s) of Interest per site
+
+### Analyze Functions
+
+-   `Analyze_Fisher()`: Uses Fisher's Exact Test to determine if there are non-random associations between a site and a given KRI
+-   `Analyze_Identity()`: Used in the data pipeline between `Transform()` and `Flag()` functions to rename KRI and Score columns
+-   `Analyze_Poisson()`: Uses a Poisson model to describe the distribution of events in the overall site population, i.e., determine how many times an event is likely to occur at a site over a specified treatment period
+
+### Flag Functions
+
+-   `Flag_Fisher()`: Default flagging function when `Analyze_Fisher()` is used for an assessment
+-   `Flag_Poisson()`: Default flagging function when `Analyze_Poisson()` is used for an assessment
+-   `Flag()`: Default flagging function when `Analyze_Identity()` is used for an assessment
+
+### Visualization Functions
+
+-   `Visualize_Scatter`: Creates scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached. This plot is only created when statistical method is **not** defined as `identity`.
+-   `Visualize_Score`: Provides a standard visualization for Score or KRI
+-   `Visualize_Workflow`: Provides a flowchart with a high-level overview of the data pipeline for a given assessment
+
+### What Statistical Models Are Available For Each Assessment?
 
 -   Adverse Events (AE) and Protocol Deviations (PD): **Poisson or Identity**
 -   Subject Consent (Consent) and Inclusion/Exclusion (IE) Criteria: **Identity**
