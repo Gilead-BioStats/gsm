@@ -46,7 +46,7 @@ For the purposes of this documentation, we will evaluate the input(s) and output
 
 ------------------------------------------------------------------------
 
-## A Technical Demo - Step-By-Step
+## Case Study -  Step-by-step Adverse Event KRI 
 
 We will use sample clinical data from the `{clindata}` package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`.
 
