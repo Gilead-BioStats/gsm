@@ -1,7 +1,7 @@
 group:
   domain: dfAE
   columnParam: strGradeCol
-workflow:
+steps:
   - name: FilterDomain
     inputs: dfAE
     output: dfAE

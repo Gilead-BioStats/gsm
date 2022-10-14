@@ -1,7 +1,7 @@
 group:
   domain: dfLB
   columnParam: strCategoryCol
-workflow:
+steps:
   - name: FilterDomain
     inputs: dfLB
     output: dfLB

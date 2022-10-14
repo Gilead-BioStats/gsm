@@ -19,6 +19,10 @@ specified in \code{lMapping} and \code{lAssessments}, which are generally based 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
+\code{list} \code{lWorkflow} along with \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks},
+\code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of
+\code{lWorkflow$workflow}.
+
 \code{list} \code{lWorkflow} along with \code{tags}, \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks},
 \code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of
 \code{lWorkflow$workflow}.
@@ -28,7 +32,7 @@ Attempts to run a stratified workflow (\code{lWorkflow}) using shared data (\cod
 Calls \code{RunStep} for each item in \code{lWorkflow$workflow} and saves the results to \code{lWorkflow}
 }
 \examples{
-lWorkflows <- MakeAssessmentList()
+lWorkflows <- MakeWorkflowList()
 lData <- list(
   dfAE = clindata::rawplus_ae,
   dfCONSENT = clindata::rawplus_consent,
