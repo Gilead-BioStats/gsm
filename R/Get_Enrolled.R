@@ -13,9 +13,9 @@
 #'
 #'
 #' @examples
-#' Get_Enrolled(
+#' enrolled <- Get_Enrolled(
 #'   dfSUBJ = clindata::rawplus_dm,
-#'   dfConfig = config_param,
+#'   dfConfig = clindata::config_param,
 #'   lMapping = yaml::read_yaml(
 #'     system.file("mappings",
 #'       "mapping_rawplus.yaml",
