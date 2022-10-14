@@ -11,8 +11,12 @@
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
+#' @return `list` `lWorkflow` along with `workflow`, `path`, `name`, `lData`, `lChecks`,
+#' `bStatus`, `checks`, and `lResults` added based on the results of the execution of
+#' `lWorkflow$workflow`.
+#'
 #' @examples
-#' lWorkflows <- MakeAssessmentList()
+#' lWorkflows <- MakeWorkflowList()
 #' lData <- list(
 #'   dfAE = clindata::rawplus_ae,
 #'   dfCONSENT = clindata::rawplus_consent,
@@ -50,7 +54,7 @@ RunStratifiedWorkflow <- function(
 ) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` workflow"))
 
-  lOutput <- RunAssessment(
+  lOutput <- RunWorkflow(
     lWorkflow,
     lData,
     lMapping,
@@ -73,7 +77,7 @@ RunStratifiedWorkflow <- function(
 
     # Run a workflow for each unique value of the stratification variable.
     lStratifiedOutput <- lStratifiedWorkflow %>%
-      purrr::map(~ RunAssessment(
+      purrr::map(~ RunWorkflow(
         .x,
         lData,
         lMapping,

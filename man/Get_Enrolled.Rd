@@ -24,9 +24,9 @@ Get_Enrolled(dfSUBJ, dfConfig, lMapping, strUnit, strBy)
 Derive number of enrolled participants or sites by a given denominator (study or site).
 }
 \examples{
-Get_Enrolled(
+enrolled <- Get_Enrolled(
   dfSUBJ = clindata::rawplus_dm,
-  dfConfig = config_param,
+  dfConfig = clindata::config_param,
   lMapping = yaml::read_yaml(
     system.file("mappings",
       "mapping_rawplus.yaml",

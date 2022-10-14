@@ -1,4 +1,4 @@
-workflow:
+steps:
   - name: Disp_Map_Raw
     inputs:
       - dfSUBJ

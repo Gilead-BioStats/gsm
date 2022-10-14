@@ -16,9 +16,9 @@
 #'   dfSUBJ = clindata::rawplus_dm
 #' )
 #'
-#' lAssessment <- Study_Assess(lData)
+#' lWorkflow <- Study_Assess(lData)
 #'
-#' dfSummary <- lAssessment %>%
+#' dfSummary <- lWorkflow %>%
 #'   purrr::map(~ .x$lResults) %>%
 #'   purrr::discard(is.null) %>%
 #'   purrr::compact() %>%

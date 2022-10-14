@@ -3,7 +3,7 @@
 #' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study. TODO: add details about expected lMeta input.
 #' @param lData `list` a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` a named list identifying the columns needed in each data domain.
-#' @param lAssessments a named list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/workflow`.
+#' @param lAssessments a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -18,9 +18,9 @@
 #'
 #' @export
 Make_Snapshot <- function(lMeta = list(
-  config_param = gsm::config_param,
+  config_param = clindata::config_param,
   config_schedule = clindata::config_schedule,
-  config_workflow = gsm::config_workflow,
+  config_workflow = clindata::config_workflow,
   meta_params = gsm::meta_param,
   meta_site = clindata::ctms_site,
   meta_study = clindata::ctms_study,
@@ -119,7 +119,7 @@ bQuiet = TRUE
   # Need to update this to use the relevant items from lMeta (meta_workflow, meta_params, config_workfow and config_params)
 
   if (is.null(lAssessments)) {
-    lAssessments <- MakeAssessmentList(strNames = c(unique(lMeta$meta_workflow$workflowid)))
+    lAssessments <- MakeWorkflowList(strNames = c(unique(lMeta$meta_workflow$workflowid)))
   }
 
   # Run Study Assessment
