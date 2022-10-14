@@ -4,4 +4,4 @@
 |:----------|:--------------|:-----------------|:-------------|:--------------------------|
 |dfInput    |strIDCol       |SubjectID         |TRUE          |TRUE                       |
 |dfInput    |strCountCol    |Count             |TRUE          |FALSE                      |
-|dfInput    |strGroupCol    |                  |TRUE          |FALSE                      |
+|dfInput    |strGroupCol    |SiteID            |TRUE          |FALSE                      |
