@@ -73,11 +73,9 @@ Analyze_Fisher <- function(
     mutate(model = map(.data$GroupID, fisher_model)) %>%
     mutate(summary = map(.data$model, broom::glance)) %>%
     tidyr::unnest(summary) %>%
-    rename(
-      Estimate = all_of("estimate"),
-      Score = all_of("p.value")
-    ) %>%
     mutate(
+      Estimate = .data$estimate,
+      Score = .data$p.value,
       Numerator_All = sum(.data$Numerator),
       Denominator_All = sum(.data$Denominator),
       Numerator_Other = .data$Numerator_All - .data$Numerator,
