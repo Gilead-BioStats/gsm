@@ -7,7 +7,7 @@
 LB_Assess(
   dfInput,
   vThreshold = NULL,
-  strMethod = "fisher",
+  strMethod = "funnel",
   lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE

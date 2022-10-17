@@ -7,7 +7,7 @@
 AE_Assess(
   dfInput,
   vThreshold = NULL,
-  strMethod = "poisson",
+  strMethod = "funnel",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE
