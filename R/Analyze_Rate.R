@@ -16,7 +16,6 @@
 #' - `Metric` - Rate of events at site (Numerator / Denominator)
 #'
 #' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
-#' @param strOutcome `character` required, name of column in dfTransformed dataset to perform Fisher's exact test on. Default is "Numerator".
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, Score.
@@ -39,7 +38,6 @@
 
 Analyze_Rate <- function(
   dfTransformed,
-  strOutcome = "Numerator",
   bQuiet = TRUE
 ) {
   stopifnot(

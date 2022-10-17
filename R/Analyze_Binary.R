@@ -38,7 +38,6 @@
 
 Analyze_Binary <- function(
     dfTransformed,
-    strOutcome = "Numerator",
     bQuiet = TRUE
 ) {
   stopifnot(
