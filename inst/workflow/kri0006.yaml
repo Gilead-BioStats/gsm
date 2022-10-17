@@ -17,4 +17,4 @@ steps:
     params:
       strGroup: "Site"
       vThreshold: null
-      strMethod: "fisher"
+      strMethod: "funnel"
