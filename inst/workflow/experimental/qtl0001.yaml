@@ -25,5 +25,5 @@ steps:
       strGroup: "Study"
       vThreshold: null
       strMethod: "qtl"
-      strOutcome: "Rate"
+      strOutcome: "rate"
 

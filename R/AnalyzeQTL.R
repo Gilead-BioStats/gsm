@@ -32,7 +32,7 @@
 #'                                          strGroupCol = "StudyID"
 #'                                          )
 #'
-#' dfAnalyzed <- AnalyzeQTL(dfTransformed, strOutcome = "Binary")
+#' dfAnalyzed <- AnalyzeQTL(dfTransformed, strOutcome = "binary")
 #' dfFlagged <- Flag( dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.2) )
 #'
 #'
@@ -44,7 +44,7 @@
 #'                                 strDenominatorCol = "Exposure"
 #'                                 )
 #'
-#' dfAnalyzed <- AnalyzeQTL(dfTransformed , strOutcome = "Rate")
+#' dfAnalyzed <- AnalyzeQTL(dfTransformed , strOutcome = "rate")
 #' dfFlagged <- Flag( dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.01) )
 #'
 #' @import dplyr
@@ -54,7 +54,7 @@
 AnalyzeQTL <- function(
     dfTransformed,
     conf.level = 0.95,
-    strOutcome = "Binary",
+    strOutcome = "binary",
     bQuiet = TRUE
 ) {
   stopifnot(
@@ -63,13 +63,13 @@ AnalyzeQTL <- function(
     #"NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]])),
   )
 
-  if(strOutcome == "Binary"){
+  if(strOutcome == "binary"){
     lModel <- binom.test( dfTransformed$Numerator, dfTransformed$Denominator,
                           alternative = "two.sided",
                           conf.level = conf.level)
   }
 
-  if(strOutcome == "Rate"){
+  if(strOutcome == "rate"){
     lModel <- poisson.test( dfTransformed$Numerator, T= dfTransformed$Denominator,
                             alternative = "two.sided",
                             conf.level = conf.level)

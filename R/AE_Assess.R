@@ -53,13 +53,15 @@
 #'
 #' @export
 
-AE_Assess <- function(dfInput,
+AE_Assess <- function(
+  dfInput,
   vThreshold = NULL,
   strMethod = "poisson",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   strOutcome = NULL,
-  bQuiet = TRUE) {
+  bQuiet = TRUE
+) {
 
   # data checking -----------------------------------------------------------
   stopifnot(
@@ -83,7 +85,7 @@ AE_Assess <- function(dfInput,
     vThreshold <- switch(strMethod,
       poisson = c(-7, -5, 5, 7),
       identity = c(0.00006, 0.01),
-      qtl = c(-5, 5)
+      qtl = c(0, 5)
     )
   }
 
