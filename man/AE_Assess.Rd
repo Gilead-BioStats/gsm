@@ -91,6 +91,6 @@ details about the statistical methods and their assumptions.
 
 \examples{
 dfInput <- AE_Map_Raw()
-ae_assessment_poisson <- AE_Assess(dfInput)
+ae_assessment_funnel <- AE_Assess(dfInput)
 
 }

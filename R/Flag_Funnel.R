@@ -37,7 +37,7 @@
 #'
 #' @export
 
-Flag_Poisson <- function(
+Flag_Funnel <- function(
   dfAnalyzed,
   vThreshold = NULL
 ) {

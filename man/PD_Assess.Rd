@@ -90,6 +90,6 @@ details about the statistical methods and their assumptions.
 
 \examples{
 dfInput <- PD_Map_Raw()
-pd_assessment_poisson <- PD_Assess(dfInput)
+pd_assessment_funnel <- PD_Assess(dfInput)
 
 }

@@ -43,7 +43,7 @@
 #'
 #' @examples
 #' dfInput <- PD_Map_Raw()
-#' pd_assessment_poisson <- PD_Assess(dfInput)
+#' pd_assessment_funnel <- PD_Assess(dfInput)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml

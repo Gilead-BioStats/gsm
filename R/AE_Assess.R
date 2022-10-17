@@ -44,7 +44,7 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
-#' ae_assessment_poisson <- AE_Assess(dfInput)
+#' ae_assessment_funnel <- AE_Assess(dfInput)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml

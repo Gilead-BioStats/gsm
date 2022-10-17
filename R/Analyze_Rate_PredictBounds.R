@@ -64,10 +64,12 @@ Analyze_Rate_PredictBounds <- function(dfTransformed, vThreshold = c(-3, -2, 2, 
   dfBounds <- tidyr::expand_grid(Threshold = vThreshold, LogDenominator = vRange) %>%
     mutate(
       Denominator = exp(.data$LogDenominator),
-      # Calculate expected event count at given exposure.
-      vMu = mean(dfTransformed$Metric)*.data$Denominator,
+      # Calculate expected rate at given exposure.
+      vMu = mean(dfTransformed$Metric),
+      phi = mean(((dfTransformed$Metric-mean(dfTransformed$Metric))/
+                    sqrt(mean(dfTransformed$Metric)/dfTransformed$Denominator))^2),
       # Calculate lower and upper bounds of expected event count given specified threshold.
-      Numerator = .data$vMu + .data$Threshold*sqrt(.data$vMu/.data$Denominator)*.data$Denominator
+      Numerator = (.data$vMu + .data$Threshold*sqrt(.data$phi*.data$vMu/.data$Denominator))*.data$Denominator
     ) %>%
     # Only positive counts are meaningful bounds
     filter(.data$Numerator>=0) %>%

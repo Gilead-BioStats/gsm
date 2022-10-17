@@ -41,6 +41,7 @@
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
+#' disp_assessment_funnel <- Disp_Assess(dfInput, strMethod = "funnel")
 #' disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "fisher")
 #' disp_assessment_identity <- Disp_Assess(dfInput, strMethod = "identity")
 #'
