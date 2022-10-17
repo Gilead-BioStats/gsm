@@ -191,11 +191,11 @@ Note that `Study_Assess()` provides verbose console output alerting the user to 
 
 ## Example 4 - Filtering Subject-Level Data For Multiple Assessments
 
-Let's take a closer look at functionality that is built into `Study_Assess()`. As a practical example, a user may want to keep subjects from an assessment based on some criteria (e.g., a specific site, region, etc.).
+Let's take a closer look at functionality that is built into `Study_Assess()`. As a practical example, a user may want to keep subjects from an assessment based on some criteria (e.g., a specific site(s), region, etc.).
 
 This can be done by performing some preliminary data wrangling before passing the subject-level data to `lData`. For the example below, we will use a custom `lMapping` parameter and a named list passed to `lSubjFilters`. (For a more detailed overview of mapping specifications, refer to the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette).)
 
-For this example, we will only keep subjects who belong to Site #27:
+For this example, we will only keep subjects who belong to Sites #27 and #148:
 
 ```{r eval = FALSE, include = TRUE}
 library(gsm)
@@ -206,7 +206,7 @@ library(dplyr)
 custom_mapping <-  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 ## Add the value to filter on to the custom mapping for dfSUBJ
-custom_mapping$dfSUBJ$strSiteVal <- "27"
+custom_mapping$dfSUBJ$strSiteVal <- c("27", "148")
 
 ## Create a list to pass to lSubjFilters
 custom_filter <- list(
@@ -217,15 +217,26 @@ custom_filter <- list(
 multiple_assessments <- Study_Assess(lMapping = custom_mapping, lSubjFilters = custom_filter)
 ```
 
-Note that `Study_Assess()` provides detailed information about `FilterDomain()`, which shows the number of rows dropped when filtering subject-level data:
+Note that `Study_Assess()` can provide detailed information about `FilterDomain()`, which shows the number of rows dropped when filtering subject-level data, only if/when `bQuiet` is set to `FALSE`:
+
+```{r eval = FALSE, include = TRUE}
+test <- FilterDomain(
+  df = clindata::rawplus_dm,
+  lMapping = custom_mapping,
+  strDomain = "dfSUBJ",
+  strColParam = "strSiteCol",
+  strValParam = "strSiteVal",
+  bQuiet = F
+)
+```
 
     ── Checking Input Data for `FilterDomain()` ──
 
     ✔ No issues found for dfSUBJ domain
-    Filtering on SiteID == X010X
-    ✔ Filtered on `SiteID=X010X`, to drop 1269 rows from 1297 to 28 rows.
+    Filtering on `siteid %in% c("27", "148")`.
+    ✔ Filtered on `siteid %in% c("27 and 148")` to drop 1295 rows from 1301 to 6 rows.
 
-# Reporting
+# Reporting - PICK UP HERE
 
 ## Example 6 - Creating an Assessment Overview Report for Multiple Assessments
 
