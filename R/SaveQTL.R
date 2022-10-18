@@ -1,23 +1,28 @@
 #' Title
 #'
-#' @param lSnapshot
-#' @param strPath
-#' @param bQuiet
+#' @param lSnapshot `list` List returned by [gsm::RunQTL()]
+#' @param strPath `character` Path to historical QTL data.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return
-#' @export
+#' @importFrom cli cli_alert_success
+#' @importFrom utils read.csv write.csv
 #'
 #' @examples
+#'
+#' \dontrun{
+#' dispQTL <- RunQTL('qtl0007')
+#' SaveQTL(dispQTL)
+#' }
+#'
+#' @export
 SaveQTL <- function(lSnapshot,
                     strPath = './inst/dummyqtldata.csv',
                     bQuiet = TRUE) {
 
-  qtl_path <- strPath
 
-
-    if (file.exists(qtl_path) & lSnapshot$bStatus) {
+    if (file.exists(strPath) & lSnapshot$bStatus) {
       # read historical .csv
-      qtl_old <- read.csv(qtl_path)
+      qtl_old <- utils::read.csv(strPath)
 
       # grab dfAnalyzed
       qtl_new <- lSnapshot$lResults$lData$dfAnalyzed
@@ -26,17 +31,21 @@ SaveQTL <- function(lSnapshot,
       qtl_new$date <- as.character(Sys.Date())
 
       # bind rows
-      qtl_all <- bind_rows(qtl_old,qtl_new)
+      qtl_all <- bind_rows(qtl_old, qtl_new)
 
       # overwrite
-      write.csv(qtl_all, qtl_path, row.names = FALSE)
+      write.csv(qtl_all, strPath, row.names = FALSE)
 
       # save recent
-      write.csv(qtl_all, paste0(qtl_path, " ", Sys.Date()), row.names = FALSE)
+      utils::write.csv(qtl_all, paste0(strPath, " ", Sys.Date()), row.names = FALSE)
+    } else if (!file.exists(strPath)) {
+      message('csv file not found. Check value provided to `strPath`.')
+    } else if (!lSnapshot$bStatus) {
+      message('QTL was not run successfully. Check `lSnapshot$bStatus`.')
     }
 
-  if (!bQuiet) cli::cli_alert_success(paste0("File: ", basename(qtl_path), " updated."))
-  if (!bQuiet) cli::cli_alert_success(paste0("File: ", basename(paste0(qtl_path, " ", Sys.Date())), " created."))
+  if (!bQuiet) cli::cli_alert_success(paste0("File: ", basename(strPath), " updated."))
+  if (!bQuiet) cli::cli_alert_success(paste0("File: ", basename(paste0(strPath, " ", Sys.Date())), " created."))
 
 }
 

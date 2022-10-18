@@ -24,11 +24,11 @@
 
 # incorrect inputs throw errors
 
-    strMethod is not 'fisher' or 'identity'
+    strMethod is not 'fisher', 'identity', or 'qtl'
 
 ---
 
-    strMethod is not 'fisher' or 'identity'
+    strMethod is not 'fisher', 'identity', or 'qtl'
 
 ---
 

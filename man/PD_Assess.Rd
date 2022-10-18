@@ -10,6 +10,7 @@ PD_Assess(
   strMethod = "poisson",
   lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  strOutcome = NULL,
   bQuiet = TRUE
 )
 }
@@ -30,6 +31,8 @@ that defaults to \code{c(0.000895, 0.003059)} for a nominal assessment (\code{st
 of the column.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
+
+\item{strOutcome}{\code{character} indicates statistical test used for QTL analysis. One of \code{rate} or \code{binary}.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }

@@ -21,6 +21,8 @@
 #' - `Metric` - Proportion of participants at site with event of interest
 #'
 #' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
+#' @param conf.level `numeric` specified confidence interval for QTL analysis.
+#' @param strOutcome `character` indicates statistical test used for QTL analysis. One of `rate` or `binary`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` with one row with columns: GroupID, N, Numerator, Denominator, Metric, Method, ConfLevel, Estimate, LowCI, UpCI.
@@ -48,6 +50,7 @@
 #' dfFlagged <- Flag( dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.01) )
 #'
 #' @import dplyr
+#' @importFrom stats binom.test poisson.test
 #'
 #' @export
 
@@ -64,24 +67,25 @@ AnalyzeQTL <- function(
   )
 
   if(strOutcome == "binary"){
-    lModel <- binom.test( dfTransformed$Numerator, dfTransformed$Denominator,
+    lModel <- stats::binom.test( dfTransformed$Numerator, dfTransformed$Denominator,
                           alternative = "two.sided",
                           conf.level = conf.level)
   }
 
   if(strOutcome == "rate"){
-    lModel <- poisson.test( dfTransformed$Numerator, T= dfTransformed$Denominator,
+    lModel <- stats::poisson.test( dfTransformed$Numerator, T= dfTransformed$Denominator,
                             alternative = "two.sided",
                             conf.level = conf.level)
   }
 
-
-  dfAnalyzed <- bind_cols( dfTransformed,
-                           Method = lModel$method,
-                           ConfLevel = conf.level,
-                           Estimate = lModel$estimate,
-                           LowCI = lModel$conf.int[1],
-                           UpCI = lModel$conf.int[2] )
+  dfAnalyzed <- dfTransformed %>%
+    bind_cols(
+      Method = lModel$method,
+      ConfLevel = conf.level,
+      Estimate = lModel$estimate,
+      LowCI = lModel$conf.int[1],
+      UpCI = lModel$conf.int[2]
+      )
 
   return(dfAnalyzed)
 }
