@@ -66,10 +66,12 @@ library(clindata)
 library(safetyData)
 library(gsm)
 
-## Map domain-level data to the input data standard for the selected assessment; In this case, we are making dfInput from Raw+ clinical data
+## Map domain-level data to the input data standard for the selected assessment.
+## In this case, we are making dfInput from Raw+ clinical data
 dfInput <- AE_Map_Raw()
 
-## Run the assessment with the appropriate statistical model; For AE, the choices are 'poisson' or 'identity'
+## Run the assessment with the appropriate statistical model.
+##For AE, the choices are 'poisson' or 'identity'
 ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "poisson")
 ```
 
@@ -81,7 +83,7 @@ Let's look at an illustrative example of everything that happens behind the scen
 
 ![](data-analysis.PNG)
 
-As in Example 1, we will use the Adverse Event (AE) workflow for this example.
+As in Example 1, we will use the AE workflow for this example.
 
 Start by creating `dfInput` using sample Raw+ data from `{clindata}`. Note that `AE_Map_Raw()` requires two specific datasets from `{clindata}`, which include a subject-level demographics/exposure dataset (`dfSUBJ`) and a domain-level dataset (`dfAE`) that records every adverse event per subject.
 
@@ -213,7 +215,7 @@ custom_filter <- list(
   strSiteCol = "strSiteVal"
 )
 
-# Run the assessments
+## Run the assessments
 multiple_assessments <- Study_Assess(lMapping = custom_mapping, lSubjFilters = custom_filter)
 ```
 
@@ -236,13 +238,13 @@ test <- FilterDomain(
     Filtering on `siteid %in% c("27", "148")`.
     ✔ Filtered on `siteid %in% c("27 and 148")` to drop 1295 rows from 1301 to 6 rows.
 
-# Reporting - PICK UP HERE
+# Reporting
 
-## Example 6 - Creating an Assessment Overview Report for Multiple Assessments
+## Example 5 - Creating an Assessment Overview Report for Multiple Assessments
 
 The `Study_Report()` function creates the **Assessment Overview Report**, which is an HTML document that contains tables, visualizations, and error logging for all assessments run in the `Study_Assess()` workflow.
 
-Let's create a report using sample data from {clindata}:
+Let's create a report using sample data from `{clindata}`:
 
 ```{r eval = FALSE, include = TRUE}
 library(gsm)
@@ -253,9 +255,9 @@ multiple_assessments <- Study_Assess()
 Study_Report(lAssessments = multiple_assessments, lMeta = list(label = "My Study"))
 ```
 
-The report will render and be saved to your current working directory. You can optionally set an output directory using the `strOutpath` parameter.
+The report will render and be saved to your current working directory. If you would like the report saved in a different location, you can set an output directory using the `strOutpath` argument in the `Study_Report()` function.
 
-## Example 7 - Viewing Error Checking Report
+## Example 6 - Viewing the Error Checking Report
 
 The **Assessment Overview Report** contains a Data Check Summary table in the appendix, which can be helpful for troubleshooting issues with input data provided to `lData` in `Study_Assess()`.
 
@@ -272,119 +274,125 @@ Study_AssessmentReport(lAssessments = multiple_assessments, bViewReport = TRUE)
 
 # Visualizations
 
-By default, all `*_Assess()` functions return a visualization whether run individually or in the `Study_Assess()` workflow. For example, the scatter plot for the AE assessment can be viewed by calling `AE_Assess(dfInput)$chart`.
+By default, all `Assess()` functions return a visualization whether run individually or within the `Study_Assess()` workflow. For example, the scatter plot for the AE assessment can be viewed by calling `AE_Assess(dfInput)$chart`.
 
-## Example 8 - Creating a Scatter Plot
+## Example 7 - Creating a Scatter Plot
 
-Currently, {gsm} creates scatter plots for Adverse Event and Protocol Deviation assessments.
+Currently, `{gsm}` creates scatter plots for Adverse Event and Protocol Deviation assessments. In some cases, a user may want to produce a visualization separately to make additional customizations.
 
-In some cases, a user may want to produce a visualization separately to make additional customizations.
-
-Below is an example using the default Poisson statistical model for `AE_Assess()`:
+Below is an example of this that uses the default Poisson statistical model for `AE_Assess()` and Raw+ data from `{clindata}`:
 
 ```{r eval = FALSE, include = TRUE}
 library(gsm)
 library(clindata)
 
-# Map Domain-level data to the input data standard for the selected assessment
+## Map domain-level data to the input data standard for the selected assessment
 dfInput <- AE_Map_Raw()
 
-# Run the assessment
+## Run the assessment
 ae_assessment <- AE_Assess(dfInput)
 
-# Create threshold boundaries 
+## Create threshold boundaries 
 dfBounds <- Analyze_Poisson_PredictBounds(
-  dfTransformed = ae_assessment$dfTransformed,
+  dfTransformed = ae_assessment$lData$dfTransformed,
   vThreshold = c(-5, 5)
   )
 
-# Create the visualization
+## Create the visualization
 Visualize_Scatter(
-  dfFlagged = ae_assessment$dfFlagged, 
+  dfFlagged = ae_assessment$lData$dfFlagged, 
   dfBounds = dfBounds
   )
 ```
 
-Creating a scatter plot for a Wilcoxon model is similar to the example above, but there are no threshold boundaries.
+# Custom Mapping/YAML Specifications
 
-```{r eval = FALSE, include = TRUE}
-library(gsm)
-library(clindata)
-
-# Map Domain-level data to the input data standard for the selected assessment
-dfInput <- AE_Map_Raw()
-
-# Run the assessment
-ae_assessment <- AE_Assess(dfInput, strMethod = "wilcoxon")
-
-# Create the visualization
-Visualize_Scatter(dfFlagged = ae_assessment$dfFlagged)
-```
-
-# Custom Mapping/YAML Specs
-
-As mentioned in the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette#metadata-technical-specifications), `Study_Assess()` triggers a workflow that uses pre-defined YAML specs that organize all of the required metadata for a given assessment or set of assessments.
+As mentioned in Appendix 1 of the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette##Appendix-1-Metadata-Technical-Specifications), `Study_Assess()` triggers a workflow that uses pre-defined YAML specifications that organize all of the required metadata for a given assessment or set of assessments.
 
 In some cases, the user might want to configure their own mappings, which can be done by providing custom YAML mappings for one or more assessments.
 
 Let's take a look at a few examples of editing YAML files for a custom workflow below.
 
-## Example 9 - Adding a Filtering Step to the Consent Assessment
+## Example 8 - Adding a Filtering Step
 
-In the default Assessment Specification for Consent, there is no filter step. Let's add a step that filters the `dfCONSENT` dataframe so all values of `CONSENT_TYPE == "MAINCONSENT"`:
+There are filter steps in the default specification for the AE Assessment, but we want to add an additional filter. Let's add a step that filters the `dfAE` data frame so all values of `aetoxgr == "MODERATE"` (i.e., we select for AEs with a moderate toxicity grade):
 
-The default Assessments mapping for the Consent Assessment looks like this:
+The default mappings for the AE Assessment are saved under KRI 0001, i.e., `kri0001.yaml`:
 
-``` yaml
-label: Consent Workflow
-tags:
-  Assessment: Consent
-  Label: Consent
-workflow:
-  - name: Consent_Map_Raw
-    inputs:
-      - dfCONSENT
-      - dfSUBJ
-    output: dfInput
-  - name: Consent_Assess
-    inputs: dfInput
-    output: lResults
-```
+    steps:
+      - name: FilterDomain
+        inputs: dfAE
+        output: dfAE
+        params:
+          strDomain: dfAE
+          strColParam: strTreatmentEmergentCol
+          strValParam: strTreatmentEmergentVal
+      - name: FilterDomain
+        inputs: dfAE
+        output: dfAE
+        params:
+          strDomain: dfAE
+          strColParam: strSeriousCol
+          strValParam: strNonSeriousVal
+      - name: AE_Map_Raw
+        inputs:
+          - dfAE
+          - dfSUBJ
+        output: dfInput
+      - name: AE_Assess
+        inputs: dfInput
+        output: lResults
+        params:
+          strGroup: "Site"
+          vThreshold: null
+          strMethod: "poisson"
 
-First, add the `FilterDomain` steps to the mapping above. Because `dfCONSENT` needs to be filtered before it is used in `Consent_Map_Raw`, it needs to be placed first in the workflow.
+First, we want to add an additional `FilterDomain()` step to the workflow specification to select only moderate AEs. Because `dfAE` needs to be filtered before it is used in `AE_Map_Raw()`, the filter steps need to be placed first in the workflow.
 
-The updated YAML file should look like this, and then saved to a folder. Let's name it `consent_assessment_yaml.yaml`.
+Let's name the custom YAML file `ae_assessment_moderate.yaml`. It read as follows:
 
-``` yaml
-label: Consent Workflow
-tags:
-  Assessment: Consent
-  Label: Consent
-workflow:
-  - name: FilterDomain
-    inputs: dfCONSENT
-    output: dfCONSENT
-    params:
-      strDomain: dfCONSENT
-      strColParam: strTypeCol
-      strValParam: strTypeVal
-  - name: Consent_Map_Raw
-    inputs:
-      - dfCONSENT
-      - dfSUBJ
-    output: dfInput
-  - name: Consent_Assess
-    inputs: dfInput
-    output: lResults
-```
+    steps:
+      - name: FilterDomain
+        inputs: dfAE
+        output: dfAE
+        params:
+          strDomain: dfAE
+          strColParam: strTreatmentEmergentCol
+          strValParam: strTreatmentEmergentVal
+      - name: FilterDomain
+        inputs: dfAE
+        output: dfAE
+        params:
+          strDomain: dfAE
+          strColParam: strSeriousCol
+          strValParam: strNonSeriousVal
+      - name: FilterDomain
+        inputs: dfAE
+        output: dfAE
+        params:
+          strDomain: dfAE
+          strColParam: strModerateCol
+          strValParam: strModerateVal
+      - name: AE_Map_Raw
+        inputs:
+          - dfAE
+          - dfSUBJ
+        output: dfInput
+      - name: AE_Assess
+        inputs: dfInput
+        output: lResults
+        params:
+          strGroup: "Site"
+          vThreshold: null
+          strMethod: "poisson"
 
-After setting up a custom YAML mapping, there are a few more steps in setting up input values for `Study_Assess()`:
+After setting up the custom YAML mapping, there are a few more steps a user must take before executing `Study_Assess()`:
 
-1.  Read in the default assessment mapping from `gsm::MakeAssessmentList()`.
-2.  Overwrite `lAssessmentsCustom$consent` with the custom YAML file (`consent_assessment_yaml.yaml`).
+1.  Read in the default workflow mapping from `gsm::MakeWorkflowList()`.
+2.  Overwrite `lAssessmentsCustom$kri0001` with the custom YAML file (`ae_assessment_moderate.yaml`).
 3.  Add a name value to the custom assessment list.
 4.  Add a relative path to the custom assessment list, to show where the custom YAML file is stored.
-5.  Read in the default Raw+ mappings from {clindata}.
+5.  Read in the default Raw+ mappings from `{clindata}`.
 6.  Add the value to sort `strTypeCol` on.
 7.  Run the `Study_Assess()` workflow.
 
@@ -393,24 +401,24 @@ library(gsm)
 library(clindata)
 library(yaml)
 
-# 1. read in default Assessment mapping
-lAssessmentsCustom <- MakeAssessmentList()
+## 1. Read in default workflow mapping
+lAssessmentsCustom <- MakeWorkflowList()
 
-# 2. apply custom consent assessment mapping
-lAssessmentsCustom$consent <- yaml::read_yaml("consent_assessment_yaml.yaml")
+## 2. Apply custom AE assessment mapping
+lAssessmentsCustom$kri0001 <- yaml::read_yaml("ae_assessment_moderate.yaml")
 
-# 3. add a name value 
-lAssessmentsCustom$consent$name <- "consent"
+## 3. Add a name value, i.e., the variable you want to filter on
+lAssessmentsCustom$kri0001$name <- "aetoxgr"
 
-# 4. add location of custom yaml file
-lAssessmentsCustom$consent$path <- getwd()
+## 4. Add the location of the custom YAML file
+lAssessmentsCustom$kri0001$path <- getwd()
 
-# 5. read in default data set mappings from clindata
+## 5. Read in default data set mappings from `{clindata}`
 lMappingCustom <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
-# 6. add strTypeVal, value for strTypeCol to filter on
-lMappingCustom$dfCONSENT$strTypeVal <- "MAINCONSENT"
+## 6. Add strTypeVal, i.e., the value for strTypeCol to filter on
+lMappingCustom$dfAE$strGradeCol <- "MODERATE"
 
-# 7. run the Study_Assess workflow
+## 7. Run the Study_Assess workflow
 customStudy <- Study_Assess(lMapping = lMappingCustom, lAssessments = lAssessmentsCustom)
 ```
