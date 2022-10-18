@@ -132,7 +132,7 @@ Note that `Study_Assess()` is designed to share a `mapping` object across multip
 
 Assessment workflow metadata objects are passed to the `lAssessments` parameter in `Study_Assess()` to define functions and parameters (including `mappings` and `specs`) across multiple studies.
 
-The `lAssessment` object is a named list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/workflow`. Each item in `lAssessments` expects the following parameters:
+The `lAssessment` object is a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`. Each item in `lAssessments` expects the following parameters:
 
 -   `workflow`: Array defining one or more functions to be executed as part of the workflow for a given assessment
     -   `workflow[]$name`: name of the `{gsm}` function.
