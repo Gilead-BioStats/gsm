@@ -7,4 +7,3 @@
 |dfInput    |strExposureCol |Exposure          |TRUE          |FALSE                      |TRUE                        |
 |dfInput    |strRateCol     |Rate              |TRUE          |FALSE                      |TRUE                        |
 |dfInput    |strGroupCol    |SiteID            |TRUE          |FALSE                      |FALSE                       |
-
