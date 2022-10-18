@@ -35,7 +35,7 @@ The KRI data pipeline begins with one or more clinical datasets related to the K
 
 The image above provides an overview of the KRI assessment pipeline. The pipeline is a standardized four-step process for assessing data issues by going from participant-level input data to a standardized site-level summary of model results. The functions used in each step of the data pipeline along with the input and output datasets are described in more detail below.
 
-1.  `dfInput` = Input data: Cross-domain participant-level input data with all needed data for KRI derivation. Created by `Map()` functions as needed.
+1.  `dfInput`: Input data: Cross-domain participant-level input data with all needed data for KRI derivation. Created by `Map()` functions as needed.
 2.  `dfTransformed` = Transformed data: Site-level transformed data including KRI calculation. Created by `Transform()` functions.
 3.  `dfAnalyzed` = Analyzed data: Site-level analysis results data. Created by `Analyze()` functions.
 4.  `dfFlagged` = Flagged data: Site-level analysis results with flags added to indicate potential outliers. Created by passing numeric thresholds to a `Flag()` function.
