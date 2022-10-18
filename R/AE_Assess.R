@@ -59,13 +59,12 @@ AE_Assess <- function(
   strMethod = "poisson",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
-  strOutcome = NULL,
   bQuiet = TRUE
 ) {
 
   # data checking -----------------------------------------------------------
   stopifnot(
-    "strMethod is not 'poisson', 'identity', or 'qtl'" = strMethod %in% c("poisson", "identity", "qtl"),
+    "strMethod is not 'poisson' or 'identity'" = strMethod %in% c("poisson", "identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strGroup must be one of: Site, Study, or CustomGroup" = strGroup %in% c("Site", "Study", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -84,8 +83,7 @@ AE_Assess <- function(
   if (is.null(vThreshold)) {
     vThreshold <- switch(strMethod,
       poisson = c(-7, -5, 5, 7),
-      identity = c(0.00006, 0.01),
-      qtl = c(0, 5)
+      identity = c(0.00006, 0.01)
     )
   }
 
@@ -123,8 +121,6 @@ AE_Assess <- function(
       lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
     } else if (strMethod == "identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
-    } else if (strMethod == "qtl") {
-      lData$dfAnalyzed <- AnalyzeQTL(lData$dfTransformed, strOutcome = strOutcome)
     }
 
     strAnalyzeFunction <- paste0("Analyze_", tools::toTitleCase(strMethod))
@@ -135,15 +131,11 @@ AE_Assess <- function(
       lData$dfFlagged <- gsm::Flag_Poisson(lData$dfAnalyzed, vThreshold = vThreshold)
     } else if (strMethod == "identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
-    } else if (strMethod == "qtl") {
-      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strColumn = "LowCI") %>%
-        mutate(Score = .data$Metric)
     }
 
     flag_function_name <- switch(strMethod,
       identity = "Flag",
-      poisson = "Flag_Poisson",
-      qtl = "Flag"
+      poisson = "Flag_Poisson"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
@@ -156,7 +148,6 @@ AE_Assess <- function(
 
     # visualizations ----------------------------------------------------------
     lCharts <- list()
-    if (strMethod != "qtl") {
 
       if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
@@ -168,7 +159,6 @@ AE_Assess <- function(
       lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
       lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
       if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
-    }
 
 
 
