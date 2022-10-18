@@ -70,13 +70,13 @@ The PD Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.g
 methods are described below.
 }
 \section{Data specification}{
-\tabular{lllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
-   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
-   dfInput \tab strExposureCol \tab Exposure \tab TRUE \tab FALSE \cr
-   dfInput \tab strRateCol \tab Rate \tab TRUE \tab FALSE \cr
-   dfInput \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \cr
+\tabular{llllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \tab \strong{Accept NA/Empty Values?} \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \tab FALSE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \tab FALSE \cr
+   dfInput \tab strExposureCol \tab Exposure \tab TRUE \tab FALSE \tab TRUE \cr
+   dfInput \tab strRateCol \tab Rate \tab TRUE \tab FALSE \tab TRUE \cr
+   dfInput \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
 }
 }
 
