@@ -188,6 +188,9 @@
       $lChecks$spec$dfInput$vUniqueCols
       [1] "strIDCol"
       
+      $lChecks$spec$dfInput$vNACols
+      [1] "strExposureCol" "strRateCol"    
+      
       
       
       
