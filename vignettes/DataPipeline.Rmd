@@ -36,12 +36,12 @@ The KRI data pipeline begins with one or more clinical datasets related to the K
 The image above provides an overview of the KRI assessment pipeline. The pipeline is a standardized four-step process for assessing data issues by going from participant-level input data to a standardized site-level summary of model results. The functions used in each step of the data pipeline along with the input and output datasets are described in more detail below.
 
 1.  `dfInput`: Input data: Cross-domain participant-level input data with all needed data for KRI derivation. Created by `Map()` functions as needed.
-2.  `dfTransformed` = Transformed data: Site-level transformed data including KRI calculation. Created by `Transform()` functions.
-3.  `dfAnalyzed` = Analyzed data: Site-level analysis results data. Created by `Analyze()` functions.
-4.  `dfFlagged` = Flagged data: Site-level analysis results with flags added to indicate potential outliers. Created by passing numeric thresholds to a `Flag()` function.
-5.  `dfSummary` = Summary data: Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function.
+2.  `dfTransformed`: Transformed data: Site-level transformed data including KRI calculation. Created by `Transform()` functions.
+3.  `dfAnalyzed`: Analyzed data: Site-level analysis results data. Created by `Analyze()` functions.
+4.  `dfFlagged`: Flagged data: Site-level analysis results with flags added to indicate potential outliers. Created by passing numeric thresholds to a `Flag()` function.
+5.  `dfSummary`: Summary data: Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function.
 
-Each assessment has an `Assess()` function that sequentially executes all 4 of the supporting functions and returns a list containing all 4 datasets listed above. A step-by-step example of this can be found in the [Data Analysis Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Analysis-Vignette).
+Each assessment has an `Assess()` function that sequentially executes all 4 of the supporting functions and returns a list of datasets. The 4 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`. An additional dataset, called `dfBounds`, is generated only when the Poisson statistical model is being used. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Analysis-Vignette).
 
 ### What Statistical Models Are Available For Each Assessment?
 
@@ -187,144 +187,41 @@ Full details are provided below. Note that Table Name includes all configurable 
 
 ### [Tables in `{gsm}` Input Data Model]{.underline}:
 
-+-----------+-----------------+--------------------+------------------------------------------+---------------------------+
-| **Table\  | **Table Name**  | **Structure**      | **Description**                          | Sample Data Equivalent    |
-| Source**  |                 |                    |                                          |                           |
-+:==========+:================+:===================+:=========================================+:==========================+
-| Raw+      | {various}\*     | {various}\*        | Data for clinical KRIs/QTLs              | \*                        |
-+-----------+-----------------+--------------------+------------------------------------------+---------------------------+
-| RAVE      | {various}\*     | {various}\*        | Data for operational KRIs/QTLs           | \*                        |
-+-----------+-----------------+--------------------+------------------------------------------+---------------------------+
-| CTMS      | meta_study      | Study              | Study metadata                           | clindata::ctms_study      |
-+-----------+-----------------+--------------------+------------------------------------------+---------------------------+
-| CTMS      | meta_site       | Study/Site         | Site metadata                            | clindata::ctms_site       |
-+-----------+-----------------+--------------------+------------------------------------------+---------------------------+
-| RACT      | config_workflow | Study/Workflow     | Study-specific workflow configuration    | clindata::config_workflow |
-+-----------+-----------------+--------------------+------------------------------------------+---------------------------+
-| RACT      | config_param    | Study/Workflow/\   | Study-specific workflow parameterization | clindata::config_param    |
-|           |                 | Parameter          |                                          |                           |
-+-----------+-----------------+--------------------+------------------------------------------+---------------------------+
-| Custom    | config_schedule | Study/Date         | Study snapshot schedule                  | clindata::config_schedule |
-+-----------+-----------------+--------------------+------------------------------------------+---------------------------+
-| GSM       | meta_workflow   | Workflow           | Metadata for each workflow               | gsm::meta_workflow        |
-+-----------+-----------------+--------------------+------------------------------------------+---------------------------+
-| GSM       | meta_param      | Workflow/Parameter | Parameter metadata for each workflow     | gsm::meta_param           |
-+-----------+-----------------+--------------------+------------------------------------------+---------------------------+
+```{r echo = FALSE}
+gsm_input <- read.csv("gsm_inputs.csv")
+
+library(gt)
+
+gsm_input %>%
+  gt() %>%
+  cols_label(Table.Source = md("**Table Source**"),
+             Table.Name = md("**Table Name**"),
+             Structure = md("**Structure**"),
+             Description = md("**Description**"),
+             Sample.Data.Equivalent = md("**Sample Data Equivalent**")) %>%
+  tab_style(style = cell_text(size = "small"),
+            locations = cells_body(columns = everything(), rows = everything())) %>%
+  tab_style(style = cell_text(size = "small"),
+            locations = cells_column_labels(columns = everything()))
+```
 
 *\* = Full spec coming in future version*
 
 ### [Columns in Nightly `{gsm}` Data Transfer (from above)]{.underline}:
 
-+-----------------+-----------------------+----------------------------------------+
-| Table Name      | Column Name           | Description                            |
-+:================+:======================+:=======================================+
-| meta_study      | studyid               | Unique Study ID                        |
-+-----------------+-----------------------+----------------------------------------+
-| meta_study      | enrolled_sites        | Number of Enrolled Sites               |
-+-----------------+-----------------------+----------------------------------------+
-| meta_study      | enrolled_participants | Number of Enrolled Participants        |
-+-----------------+-----------------------+----------------------------------------+
-| meta_study      | planned_sites         | Number of Planned Sites                |
-+-----------------+-----------------------+----------------------------------------+
-| meta_study      | planned_participants  | Number of Planned Participants         |
-+-----------------+-----------------------+----------------------------------------+
-| meta_study      | title                 | Protocol Title                         |
-+-----------------+-----------------------+----------------------------------------+
-| meta_study      | nickname              | Protocol Nickname                      |
-+-----------------+-----------------------+----------------------------------------+
-| meta_study      | indication            | Indication                             |
-+-----------------+-----------------------+----------------------------------------+
-| meta_study      | ta                    | Therapeutic Area                       |
-+-----------------+-----------------------+----------------------------------------+
-| meta_study      | phase                 | Phase                                  |
-+-----------------+-----------------------+----------------------------------------+
-| meta_study      | status                | Study Status                           |
-+-----------------+-----------------------+----------------------------------------+
-| meta_study      | fpfv                  | First Patient First Visit Date         |
-+-----------------+-----------------------+----------------------------------------+
-| meta_study      | lplv                  | Last Patient Last Visit Date           |
-+-----------------+-----------------------+----------------------------------------+
-| meta_study      | rbm_flag              | Risk-Based Monitoring Flag             |
-+-----------------+-----------------------+----------------------------------------+
-| meta_site       | studyid               | Unique Study ID                        |
-+-----------------+-----------------------+----------------------------------------+
-| meta_site       | siteid                | Unique Site ID                         |
-+-----------------+-----------------------+----------------------------------------+
-| meta_site       | institution           | Institution Name                       |
-+-----------------+-----------------------+----------------------------------------+
-| meta_site       | status                | Site Status                            |
-+-----------------+-----------------------+----------------------------------------+
-| meta_site       | enrolled_participants | Number of Enrolled Participants        |
-+-----------------+-----------------------+----------------------------------------+
-| meta_site       | start_date            | Site Activation Date                   |
-+-----------------+-----------------------+----------------------------------------+
-| meta_site       | city                  | City                                   |
-+-----------------+-----------------------+----------------------------------------+
-| meta_site       | state                 | State                                  |
-+-----------------+-----------------------+----------------------------------------+
-| meta_site       | country               | Country                                |
-+-----------------+-----------------------+----------------------------------------+
-| meta_site       | invname               | Investigator Name                      |
-+-----------------+-----------------------+----------------------------------------+
-| config_workflow | studyid               | Unique Study ID                        |
-+-----------------+-----------------------+----------------------------------------+
-| config_workflow | workflowid            | Unique Workflow ID                     |
-+-----------------+-----------------------+----------------------------------------+
-| config_workflow | gsm_version           | `{gsm}` Version of Workflow            |
-+-----------------+-----------------------+----------------------------------------+
-| config_workflow | active                | Is Workflow Active?                    |
-+-----------------+-----------------------+----------------------------------------+
-| config_param    | studyid               | Unique Study ID                        |
-+-----------------+-----------------------+----------------------------------------+
-| config_param    | workflowid            | Unique Workflow ID                     |
-+-----------------+-----------------------+----------------------------------------+
-| config_param    | gsm_version           | `{gsm}` Version of Workflow            |
-+-----------------+-----------------------+----------------------------------------+
-| config_param    | param                 | Parameter Name                         |
-+-----------------+-----------------------+----------------------------------------+
-| config_param    | index                 | Index Value for Parameter              |
-+-----------------+-----------------------+----------------------------------------+
-| config_param    | value                 | Value for Parameter at Index           |
-+-----------------+-----------------------+----------------------------------------+
-| config_schedule | studyid               | Unique Study ID                        |
-+-----------------+-----------------------+----------------------------------------+
-| config_schedule | snapshot_date         | Snapshot Date                          |
-+-----------------+-----------------------+----------------------------------------+
-| meta_workflow   | workflowid            | Unique Workflow ID                     |
-+-----------------+-----------------------+----------------------------------------+
-| meta_workflow   | gsm_version           | `{gsm}` Version of Workflow            |
-+-----------------+-----------------------+----------------------------------------+
-| meta_workflow   | group                 | Group for Workflow\                    |
-|                 |                       | (Site, Country, Region, or Study)      |
-+-----------------+-----------------------+----------------------------------------+
-| meta_workflow   | metric                | Metric Label                           |
-+-----------------+-----------------------+----------------------------------------+
-| meta_workflow   | numerator             | Numerator Label                        |
-+-----------------+-----------------------+----------------------------------------+
-| meta_workflow   | denominator           | Denominator Label                      |
-+-----------------+-----------------------+----------------------------------------+
-| meta_workflow   | outcome               | Metric Outcome Type (e.g., rate)       |
-+-----------------+-----------------------+----------------------------------------+
-| meta_workflow   | model                 | Statistical Model Used to Create Score |
-+-----------------+-----------------------+----------------------------------------+
-| meta_workflow   | score                 | Score Label                            |
-+-----------------+-----------------------+----------------------------------------+
-| meta_workflow   | data_inputs           | Data Inputs for Workflow               |
-+-----------------+-----------------------+----------------------------------------+
-| meta_workflow   | data_filters          | Filters Applied in Workflow            |
-+-----------------+-----------------------+----------------------------------------+
-| meta_param      | workflowid            | Unique Workflow ID                     |
-+-----------------+-----------------------+----------------------------------------+
-| meta_param      | gsm_version           | `{gsm}` Version of Workflow            |
-+-----------------+-----------------------+----------------------------------------+
-| meta_param      | param                 | Parameter Name                         |
-+-----------------+-----------------------+----------------------------------------+
-| meta_param      | index                 | Parameter Index                        |
-+-----------------+-----------------------+----------------------------------------+
-| meta_param      | default               | Default Value for Parameter at Index   |
-+-----------------+-----------------------+----------------------------------------+
-| meta_param      | configurable          | Is Parameter Configurable?             |
-+-----------------+-----------------------+----------------------------------------+
+```{r echo = FALSE}
+gsm_output <- read.csv("gsm_outputs.csv")
+
+gsm_output %>%
+  gt() %>%
+  cols_label(Table.Name = md("**Table Name**"),
+             Column.Name = md("**Column Name**"),
+             Description = md("**Description**")) %>%
+  tab_style(style = cell_text(size = "small"),
+            locations = cells_body(columns = everything(), rows = everything())) %>%
+  tab_style(style = cell_text(size = "small"),
+            locations = cells_column_labels(columns = everything()))
+```
 
 ## Gismo Input Specifications
 
@@ -340,173 +237,35 @@ Three types of tables are included in the input data model:
 
 ### [Tables in Nightly Gismo Data Transfer]{.underline}:
 
-+---------------------------+-----------------+--------------------+-------------------------------------------+
-| Table Type                | Table Name      | Structure          | Description                               |
-+:==========================+:================+:===================+:==========================================+
-| Study-level status        | status_study    | Study              | Study metadata and status info            |
-+---------------------------+-----------------+--------------------+-------------------------------------------+
-| Study-level status        | status_site     | Study/Site         | Site metadata and status info             |
-+---------------------------+-----------------+--------------------+-------------------------------------------+
-| Study-level status        | status_workflow | Study/Workflow     | Workflow status info                      |
-+---------------------------+-----------------+--------------------+-------------------------------------------+
-| Study-level status        | status_param    | Study/Workflow\    | Parameter status info                     |
-|                           |                 | /Parameter         |                                           |
-+---------------------------+-----------------+--------------------+-------------------------------------------+
-| Study-level status        | status_schedule | Study/Date         | Dates for QRM Snapshots                   |
-+---------------------------+-----------------+--------------------+-------------------------------------------+
-| Study-level results       | results_summary | Study/Workflow/\   | Full analytics results for all workflows  |
-|                           |                 | Group              |                                           |
-+---------------------------+-----------------+--------------------+-------------------------------------------+
-| Study-level results       | results_bounds  | Study/Workflow/\   | x/y values for boundaries on scatter plot |
-|                           |                 | Threshold/x-value  |                                           |
-+---------------------------+-----------------+--------------------+-------------------------------------------+
-| Metadata (across studies) | meta_workflow   | Workflow           | Metadata for each workflow                |
-+---------------------------+-----------------+--------------------+-------------------------------------------+
-| Metadata (across studies) | meta_param      | Workflow/Parameter | Parameter metadata for each workflow      |
-+---------------------------+-----------------+--------------------+-------------------------------------------+
+```{r echo = FALSE}
+gismo_input <- read.csv("gismo_inputs.csv")
+
+gismo_input %>%
+  gt() %>%
+  cols_label(Table.Type = md("**Table Type**"),
+             Table.Name = md("**Table Name**"),
+             Structure = md("**Structure**"),
+             Description = md("**Description**")) %>%
+  tab_style(style = cell_text(size = "small"),
+            locations = cells_body(columns = everything(), rows = everything())) %>%
+  tab_style(style = cell_text(size = "small"),
+            locations = cells_column_labels(columns = everything()))
+```
 
 ### [Columns in Nightly Gismo Data Transfer (from above)]{.underline}:
 
 The following tables are all contained in the output of `gsm::Make_Snapshot()`:
 
-+-----------------+-----------------------+------------------------------------------------------+
-| Table Name      | Column Name           | Description                                          |
-+:================+:======================+:=====================================================+
-| status_study    | studyid               | Unique Study ID                                      |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_study    | enrolled_sites        | Number of Enrolled Sites                             |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_study    | enrolled_participants | Number of Enrolled Participants                      |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_study    | planned_sites         | Number of Planned Sites                              |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_study    | planned_participants  | Number of Planned Participants                       |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_study    | title                 | Protocol Title                                       |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_study    | nickname              | Protocol Nickname                                    |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_study    | indication            | Indication                                           |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_study    | ta                    | Therapeutic Area                                     |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_study    | phase                 | Phase                                                |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_study    | status                | Study Status                                         |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_study    | fpfv                  | First Patient First Visit Date                       |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_study    | lplv                  | Last Patient Last Visit Date                         |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_study    | rbm_flag              | Risk-Based Monitoring Flag                           |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_site     | studyid               | Unique Study ID                                      |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_site     | siteid                | Unique Site ID                                       |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_site     | institution           | Institution Name                                     |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_site     | status                | Site Status                                          |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_site     | enrolled_participants | Number of Enrolled Participants                      |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_site     | start_date            | Site Activation Date                                 |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_site     | city                  | City                                                 |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_site     | state                 | State                                                |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_site     | country               | Country                                              |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_site     | invname               | Investigator Name                                    |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_workflow | studyid               | Unique Study ID                                      |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_workflow | workflowid            | Unique Workflow ID                                   |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_workflow | gsm_version           | `{gsm}` Version of Workflow                          |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_workflow | active                | Is Workflow Active?                                  |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_workflow | status                | Did Workflow Run?                                    |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_workflow | notes                 | Status Notes                                         |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_param    | studyid               | Unique Study ID                                      |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_param    | workflowid            | Unique Workflow ID                                   |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_param    | gsm_version           | `{gsm}` Version of Workflow                          |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_param    | param                 | Parameter Name                                       |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_param    | index                 | Index Value for Parameter                            |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_param    | value                 | Value for Parameter at Index                         |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_schedule | studyid               | Unique Study ID                                      |
-+-----------------+-----------------------+------------------------------------------------------+
-| status_schedule | snapshot_date         | Snapshot Date                                        |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_summary | studyid               | Unique Study ID                                      |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_summary | workflowid            | Unique Workflow ID                                   |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_summary | groupid               | Unique Group ID (e.g., Site ID for KRI Workflows)    |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_summary | numerator             | Metric Numerator                                     |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_summary | denominator           | Metric Denominator                                   |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_summary | metric                | Metric Value                                         |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_summary | score                 | Statistical Score                                    |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_summary | flag                  | Flag                                                 |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_bounds  | studyid               | Unique Study ID                                      |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_bounds  | workflowid            | Unique Workflow ID                                   |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_bounds  | threshold             | Threshold                                            |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_bounds  | numerator             | y Value                                              |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_bounds  | denominator           | x Value                                              |
-+-----------------+-----------------------+------------------------------------------------------+
-| results_bounds  | log_denominator       | Log x value                                          |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_workflow   | workflowid            | Unique Workflow ID                                   |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_workflow   | gsm_version           | `{gsm}` Version of Workflow                          |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_workflow   | group                 | Group for Workflow (Site, Country, Region, or Study) |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_workflow   | metric                | Metric Label                                         |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_workflow   | numerator             | Numerator Label                                      |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_workflow   | denominator           | Denominator Label                                    |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_workflow   | outcome               | Metric Outcome Type (e.g., rate)                     |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_workflow   | model                 | Statistical Model Used to Create Score               |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_workflow   | score                 | Score Label                                          |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_workflow   | data_inputs           | Data Inputs for Workflow                             |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_workflow   | data_filters          | Filters Applied in Workflow                          |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_param      | workflowid            | Unique Workflow ID                                   |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_param      | gsm_version           | `{gsm}` Version of Workflow                          |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_param      | param                 | Parameter Name                                       |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_param      | index                 | Parameter Index                                      |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_param      | default               | Default Value for Parameter at Index                 |
-+-----------------+-----------------------+------------------------------------------------------+
-| meta_param      | configurable          | Is Parameter Configurable?                           |
-+-----------------+-----------------------+------------------------------------------------------+
+```{r echo = FALSE}
+gismo_output <- read.csv("gismo_outputs.csv")
+
+gismo_output %>%
+  gt() %>%
+  cols_label(Table.Name = md("**Table Name**"),
+             Column.Name = md("**Column Name**"),
+             Description = md("**Description**")) %>%
+  tab_style(style = cell_text(size = "small"),
+            locations = cells_body(columns = everything(), rows = everything())) %>%
+  tab_style(style = cell_text(size = "small"),
+            locations = cells_column_labels(columns = everything()))
+```
