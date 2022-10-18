@@ -16,9 +16,9 @@
 #'   dfSUBJ = clindata::rawplus_dm
 #' )
 #'
-#' lAssessment <- Study_Assess(lData)
+#' lWorkflow <- Study_Assess(lData)
 #'
-#' dfSummary <- lAssessment %>%
+#' dfSummary <- lWorkflow %>%
 #'   purrr::map(~ .x$lResults) %>%
 #'   purrr::discard(is.null) %>%
 #'   purrr::compact() %>%
@@ -62,7 +62,12 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
       Label = "Number of Subjects",
       Flag = as.character(Flag)
     ) %>%
-    select(.data$Assessment, .data$Label, .data$GroupID, .data$Flag)
+    select(
+      "Assessment",
+      "Label",
+      "GroupID",
+      "Flag"
+      )
 
   # create site score for a site across all assessments
   df_score <- dfFindings %>%
@@ -82,7 +87,7 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
 
   # create rows for each KRI
   df_tests <- dfFindings %>%
-    select(.data$Assessment, .data$GroupID, .data$Flag) %>%
+    select("Assessment", "GroupID", "Flag") %>%
     mutate(Flag = case_when(
       Flag == "-1" ~ "-",
       Flag == "1" ~ "+",
@@ -114,7 +119,7 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
 
   # Create table view with one column per site
   df_summary <- df_combined %>%
-    select(.data$Assessment, .data$Label, .data$GroupID, .data$Flag) %>%
+    select("Assessment", "Label", "GroupID", "Flag") %>%
     spread(.data$GroupID, .data$Flag, fill = "")
 
   # Sort the table - maintain order of assessments/labels from dfFindings
@@ -140,7 +145,7 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
       TRUE ~ paste0(assessment_index, ".", label_index)
     )) %>%
     arrange(.data$index) %>%
-    select(-.data$index, -.data$assessment_index, -.data$label_index)
+    select(-"index", -"assessment_index", -"label_index")
 
   # Basic logic to collapse Assessment and Label if requested
   if (bColCollapse) {
@@ -154,8 +159,8 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
           paste0("--", .data$Label)
         )
       )) %>%
-      relocate(.data$Title) %>%
-      select(-.data$Assessment, -.data$Label)
+      relocate("Title") %>%
+      select(-c("Assessment", "Label"))
   }
 
   # Hide sites below vSiteScoreThreshold & sort sites by score and then N
@@ -172,7 +177,7 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
   siteCols <- df_score %>%
     rename(score = Flag) %>%
     filter(.data$score >= vSiteScoreThreshold) %>%
-    select(.data$GroupID, .data$score) %>%
+    select("GroupID", "score") %>%
     left_join(df_counts, by = "GroupID") %>%
     rename(count = Flag) %>%
     arrange(-as.numeric(.data$score), -as.numeric(.data$count)) %>%

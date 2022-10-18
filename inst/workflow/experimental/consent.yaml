@@ -1,4 +1,4 @@
-workflow:
+steps:
   - name: Consent_Map_Raw
     inputs:
       - dfSUBJ
