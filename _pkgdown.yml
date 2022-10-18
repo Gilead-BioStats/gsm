@@ -44,6 +44,13 @@ reference:
       - Study_Table
       - rank_chg
 
+   - title: QTL
+     desc: Runs QTL analysis for longitudinal metrics
+   - contents:
+      - AnalyzeQTL
+      - RunQTL
+      - SaveQTL
+
    - title: Utility
      desc: Utility functions for use within the Data Pipeline
    - contents:
