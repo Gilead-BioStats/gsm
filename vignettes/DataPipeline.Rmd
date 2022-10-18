@@ -41,7 +41,7 @@ The image above provides an overview of the KRI assessment pipeline. The pipelin
 4.  `dfFlagged` = Flagged data: Site-level analysis results with flags added to indicate potential outliers. Created by passing numeric thresholds to a `Flag()` function.
 5.  `dfSummary` = Summary data: Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function.
 
-Each assessment has an `Assess()` function that sequentially executes all 4 of the supporting functions and returns a list containing all 5 datasets listed above. A step-by-step example of this can be found in the [Data Analysis Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Analysis-Vignette).
+Each assessment has an `Assess()` function that sequentially executes all 4 of the supporting functions and returns a list containing all 4 datasets listed above. A step-by-step example of this can be found in the [Data Analysis Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Analysis-Vignette).
 
 ### What Statistical Models Are Available For Each Assessment?
 
