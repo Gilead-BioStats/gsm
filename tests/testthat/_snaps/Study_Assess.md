@@ -132,7 +132,7 @@
       NULL
       
       [[4]]$params$strMethod
-      [1] "poisson"
+      [1] "funnel"
       
       
       
@@ -1016,9 +1016,9 @@
       
       Input data has 10 rows.
       v `Transform_Rate()` returned output with 10 rows.
-      i Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ].
-      v `Analyze_Poisson()` returned output with 10 rows.
-      v `Flag_Poisson()` returned output with 10 rows.
+      `Score` column created from normal approxiamtion of the Poisson distribution
+      v `Analyze_Funnel()` returned output with 10 rows.
+      v `Flag_Funnel()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
@@ -1088,9 +1088,9 @@
       
       Input data has 10 rows.
       v `Transform_Rate()` returned output with 10 rows.
-      i Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ].
-      v `Analyze_Poisson()` returned output with 10 rows.
-      v `Flag_Poisson()` returned output with 10 rows.
+      `Score` column created from normal approxiamtion of the Poisson distribution
+      v `Analyze_Funnel()` returned output with 10 rows.
+      v `Flag_Funnel()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
