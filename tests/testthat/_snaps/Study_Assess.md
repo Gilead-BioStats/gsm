@@ -47,13 +47,6 @@
     Output
       [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
----
-
-    Code
-      names(result$kri0008)
-    Output
-      [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
-
 # metadata is returned as expected
 
     Code
@@ -1250,6 +1243,57 @@
       Skipping `Disp_Map_Raw()` ...
       
       -- Workflow Step 3 of 3: `Disp_Assess` --
+      
+      Skipping `Disp_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `qtl0003` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 3: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: importnt
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for dfPD domain
+      ! `FilterDomain()` Failed - Skipping remaining steps
+      Saving dfPD to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 3: `PD_Map_Raw` --
+      
+      Skipping `PD_Map_Raw()` ...
+      
+      -- Workflow Step 3 of 3: `PD_Assess` --
+      
+      Skipping `PD_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `qtl0007` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `Disp_Map_Raw` --
+      
+      Preparing parameters for `Disp_Map_Raw()` ...
+      Calling `Disp_Map_Raw()` ...
+      
+      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, compreas, compyn
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Disp_Map_Raw_Study()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! `Disp_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `Disp_Assess` --
       
       Skipping `Disp_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
