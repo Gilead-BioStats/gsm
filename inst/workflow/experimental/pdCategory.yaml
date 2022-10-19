@@ -1,7 +1,7 @@
 group:
   domain: dfPD
   columnParam: strCategoryCol
-workflow:
+steps:
   - name: PD_Map_Raw
     inputs:
       - dfSUBJ

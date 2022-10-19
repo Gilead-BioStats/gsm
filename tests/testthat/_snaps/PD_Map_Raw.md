@@ -33,7 +33,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["vRequired", "vUniqueCols"]
+              "value": ["vRequired", "vUniqueCols", "vNACols"]
             }
           },
           "value": [
@@ -46,6 +46,11 @@
               "type": "character",
               "attributes": {},
               "value": ["strIDCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strTimeOnStudyCol"]
             }
           ]
         }
@@ -174,7 +179,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["vRequired", "vUniqueCols"]
+              "value": ["vRequired", "vUniqueCols", "vNACols"]
             }
           },
           "value": [
@@ -187,6 +192,11 @@
               "type": "character",
               "attributes": {},
               "value": ["strIDCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strExposureCol", "strRateCol"]
             }
           ]
         }
@@ -528,20 +538,6 @@
       -- Checking Input Data for `PD_Map_Raw()` --
       
       x 1 NA values found in column: siteid
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs_edited, bQuiet = FALSE)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      x 1 NA values found in column: timeonstudy
       ! Issues found for `PD_Map_Raw()`
       ! `PD_Map_Raw()` did not run because of failed check.
     Output

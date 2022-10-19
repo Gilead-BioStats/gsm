@@ -1,33 +1,3 @@
-#' Workflow Configuration Data
-#'
-#' A dataset containing a sample workflow configuration file for running GSM with data from the {clindata} package.
-#'
-#' @format A data frame with 8 rows and 12 variables:
-#' \describe{
-#'   \item{studyid}{Study ID}
-#'   \item{workflowid}{Workflow ID}
-#'   \item{gsm_version}{Version of `gsm` that the workflow will be run on.}
-#'   \item{active}{Boolean indicating if the workflow for the specified workflowid is active.}
-#'   }
-#' @source \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
-"config_workflow"
-
-#' Parameter Configuration Data
-#'
-#' A dataset containing a sample parameter configuration file for running GSM with data from the {clindata} package.
-#'
-#' @format A data frame with 8 rows and 12 variables:
-#' \describe{
-#'   \item{studyid}{Study ID}
-#'   \item{workflowid}{Workflow ID}
-#'   \item{gsm_version}{Version of `gsm` that the workflow will be run on.}
-#'   \item{param}{Name of function parameter.}
-#'   \item{index}{Index that describes the position of the parameter values.}
-#'   \item{value}{Parameter value}
-#'   }
-#' @source \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
-"config_param"
-
 #' Workflow Metadata
 #'
 #' A dataset containing the metadata describing the workflows available in GSM. Each row describes a workflow defined in `inst/workflows`.

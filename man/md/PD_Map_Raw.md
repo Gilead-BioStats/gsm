@@ -1,8 +1,8 @@
 # Data specification
 
-|**Domain** |**Column Key**    |**Default Value** |**Required?** |**Require Unique Values?** |
-|:----------|:-----------------|:-----------------|:-------------|:--------------------------|
-|dfSUBJ     |strSiteCol        |siteid            |TRUE          |FALSE                      |
-|dfSUBJ     |strIDCol          |subjid            |TRUE          |TRUE                       |
-|dfSUBJ     |strTimeOnStudyCol |timeonstudy       |TRUE          |FALSE                      |
-|dfPD       |strIDCol          |subjid            |TRUE          |FALSE                      |
+|**Domain** |**Column Key**    |**Default Value** |**Required?** |**Require Unique Values?** |**Accept NA/Empty Values?** |
+|:----------|:-----------------|:-----------------|:-------------|:--------------------------|:---------------------------|
+|dfSUBJ     |strSiteCol        |siteid            |TRUE          |FALSE                      |FALSE                       |
+|dfSUBJ     |strIDCol          |subjid            |TRUE          |TRUE                       |FALSE                       |
+|dfSUBJ     |strTimeOnStudyCol |timeonstudy       |TRUE          |FALSE                      |TRUE                        |
+|dfPD       |strIDCol          |subjid            |TRUE          |FALSE                      |FALSE                       |

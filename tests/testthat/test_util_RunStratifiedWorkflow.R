@@ -1,8 +1,8 @@
 source(testthat::test_path("testdata/data.R"))
 
-workflows <- MakeAssessmentList(bRecursive = TRUE, strNames = c("pdCategory", "kri0004"))
+workflows <- MakeWorkflowList(bRecursive = TRUE, strNames = c("pdCategory", "kri0004"))
 workflow <- workflows$kri0004
-workflow$workflow[[1]] <- NULL # remove filtering to mimic standard PD_Map_Raw() %>% PD_Assess()
+workflow$steps[[1]] <- NULL # remove filtering to mimic standard PD_Map_Raw() %>% PD_Assess()
 stratifiedWorkflow <- workflows$pdCategory
 
 data <- list(
@@ -14,7 +14,7 @@ mapping <- yaml::read_yaml(
   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
 )
 
-output <- RunAssessment(
+output <- RunWorkflow(
   workflow,
   data,
   mapping,

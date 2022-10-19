@@ -3,7 +3,7 @@
 #' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study. TODO: add details about expected lMeta input.
 #' @param lData `list` a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` a named list identifying the columns needed in each data domain.
-#' @param lAssessments a named list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/workflow`.
+#' @param lAssessments a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -18,9 +18,9 @@
 #'
 #' @export
 Make_Snapshot <- function(lMeta = list(
-  config_param = gsm::config_param,
+  config_param = clindata::config_param,
   config_schedule = clindata::config_schedule,
-  config_workflow = gsm::config_workflow,
+  config_workflow = clindata::config_workflow,
   meta_params = gsm::meta_param,
   meta_site = clindata::ctms_site,
   meta_study = clindata::ctms_study,
@@ -71,20 +71,20 @@ bQuiet = TRUE
   # select in same order as spec - can remove this if not needed, but helps with comparison
   status_study <- status_study %>%
     select(
-      .data$studyid,
-      .data$enrolled_sites,
-      .data$enrolled_participants,
-      .data$planned_sites,
-      .data$planned_participants,
-      .data$title,
-      .data$nickname,
-      .data$indication,
-      .data$ta,
-      .data$phase,
-      .data$status,
-      .data$fpfv,
-      .data$lplv,
-      .data$rbm_flag
+      "studyid",
+      "enrolled_sites",
+      "enrolled_participants",
+      "planned_sites",
+      "planned_participants",
+      "title",
+      "nickname",
+      "indication",
+      "ta",
+      "phase",
+      "status",
+      "fpfv",
+      "lplv",
+      "rbm_flag"
     )
 
   # status_site -------------------------------------------------------------
@@ -101,16 +101,16 @@ bQuiet = TRUE
   }
   status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
     select(
-      .data$studyid,
-      .data$siteid,
-      .data$institution,
-      .data$status,
-      .data$enrolled_participants,
-      .data$start_date,
-      .data$city,
-      .data$state,
-      .data$country,
-      .data$invname
+      "studyid",
+      "siteid",
+      "institution",
+      "status",
+      "enrolled_participants",
+      "start_date",
+      "city",
+      "state",
+      "country",
+      "invname"
     )
 
 
@@ -119,7 +119,7 @@ bQuiet = TRUE
   # Need to update this to use the relevant items from lMeta (meta_workflow, meta_params, config_workfow and config_params)
 
   if (is.null(lAssessments)) {
-    lAssessments <- MakeAssessmentList(strNames = c(unique(lMeta$meta_workflow$workflowid)))
+    lAssessments <- MakeWorkflowList(strNames = c(unique(lMeta$meta_workflow$workflowid)))
   }
 
   # Run Study Assessment
@@ -168,14 +168,14 @@ bQuiet = TRUE
         StudyID = unique(lMeta$config_workflow$studyid)
       )) %>%
     select(
-      studyid = .data$StudyID,
-      workflowid = .data$KRIID,
-      groupid = .data$GroupID,
-      numerator = .data$Numerator,
-      denominator = .data$Denominator,
-      metric = .data$Metric,
-      score = .data$Score,
-      flag = .data$Flag
+      studyid = "StudyID",
+      workflowid = "KRIID",
+      groupid = "GroupID",
+      numerator = "Numerator",
+      denominator = "Denominator",
+      metric = "Metric",
+      score = "Score",
+      flag = "Flag"
     )
 
 
@@ -189,12 +189,12 @@ bQuiet = TRUE
     purrr::imap_dfr(~ .x %>% mutate(workflowid = .y)) %>%
     mutate(studyid = unique(lMeta$config_workflow$studyid)) %>% # not sure if this is a correct assumption
     select(
-      .data$studyid,
-      .data$workflowid,
-      "threshold" = .data$Threshold,
-      "numerator" = .data$Numerator,
-      "denominator" = .data$Denominator,
-      "log_denominator" = .data$LogDenominator
+      "studyid",
+      "workflowid",
+      "threshold" = "Threshold",
+      "numerator" = "Numerator",
+      "denominator" = "Denominator",
+      "log_denominator" = "LogDenominator"
     )
 
 
