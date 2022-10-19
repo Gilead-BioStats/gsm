@@ -1,6 +1,7 @@
 source(testthat::test_path("testdata/data.R"))
 
-snapshot <- Make_Snapshot()
+snapshot <- Make_Snapshot(lData = lData) %>%
+  suppressWarnings()
 
 # Output is created as expected -------------------------------------------
 test_that("Output is created as expected", {
@@ -15,11 +16,21 @@ test_that("Output is created as expected", {
   expect_true("data.frame" %in% class(snapshot$results_bounds))
   expect_true("data.frame" %in% class(snapshot$meta_workflow))
   expect_true("data.frame" %in% class(snapshot$meta_param))
+  expect_snapshot(map(snapshot, ~names(.)))
 })
 
 
 # Incorrect inputs throw errors -------------------------------------------
 test_that("Incorrect inputs throw errors", {
-  expect_null(Make_Snapshot("Hi")[["lData"]])
+  expect_error(Make_Snapshot(lMeta = "Sadie"))
+
+
+  ### lMeta is list of 7 data frames...include names/
 
 })
+
+
+
+
+### lMeta, lData, lMapping, lAssessments, cPath, bQuiet
+## expect_true, expect_false, expect_null
