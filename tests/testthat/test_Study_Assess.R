@@ -1,5 +1,3 @@
-source(testthat::test_path("testdata/data.R"))
-
 meta_lookup <- tribble(
   ~workflowid, ~assessment_abbrev,
   "kri0001", "AE",
@@ -19,14 +17,14 @@ meta <- left_join(
 )
 
 lData <- list(
-  dfSUBJ = dfSUBJ,
-  dfAE = dfAE,
-  dfPD = dfPD,
-  dfCONSENT = dfCONSENT,
-  dfIE = dfIE,
-  dfSTUDCOMP = dfSTUDCOMP,
-  dfSDRGCOMP = dfSDRGCOMP,
-  dfLB = dfLB
+  dfSUBJ = clindata::rawplus_dm[1:50,],
+  dfAE = clindata::rawplus_ae[1:50,],
+  dfPD = clindata::rawplus_protdev[1:50,],
+  dfCONSENT = clindata::rawplus_consent[1:50,],
+  dfIE = clindata::rawplus_ie[1:50,],
+  dfSTUDCOMP = clindata::rawplus_studcomp[1:50,],
+  dfSDRGCOMP = clindata::rawplus_sdrgcomp[1:50,],
+  dfLB = clindata::rawplus_lb[1:50,]
 )
 
 lAssessments <- MakeWorkflowList()
@@ -38,6 +36,15 @@ result <- Study_Assess(
   lAssessments = lAssessments,
   bQuiet = TRUE
 ) %>% suppressWarnings()
+
+dfSUBJ <- clindata::rawplus_dm[1:50,]
+dfAE <- clindata::rawplus_ae[1:50,]
+dfPD <- clindata::rawplus_protdev[1:50,]
+dfCONSENT <- clindata::rawplus_consent[1:50,]
+dfIE <- clindata::rawplus_ie[1:50,]
+dfSTUDCOMP <- clindata::rawplus_studcomp[1:50,]
+dfSDRGCOMP <- clindata::rawplus_sdrgcomp[1:50,]
+dfLB <- clindata::rawplus_lb[1:50,]
 
 
 # output is created as expected -------------------------------------------
