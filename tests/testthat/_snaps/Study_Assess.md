@@ -136,30 +136,21 @@
       kri0001$lData
     Output
       $dfSUBJ
-<<<<<<< HEAD
-      # A tibble: 50 x 7
-         studyid        siteid subjid timeonstudy timeontreatment rfpst_dt   country
-         <chr>          <chr>  <chr>        <dbl>           <dbl> <chr>      <chr>  
-       1 AA-AA-000-0000 5      0496           710             675 2013-11-26 US     
-       2 AA-AA-000-0000 78     1350           715             673 2017-10-02 US     
-       3 AA-AA-000-0000 139    0539           713             673 2005-08-31 US     
-       4 AA-AA-000-0000 162    0329           715             673 2007-09-26 US     
-       5 AA-AA-000-0000 29     0429           698             664 2014-08-14 Japan  
-       6 AA-AA-000-0000 143    1218           801             760 2004-05-23 US     
-       7 AA-AA-000-0000 173    0808           792             758 2010-04-29 US     
-       8 AA-AA-000-0000 189    1314           975             930 2003-10-21 US     
-       9 AA-AA-000-0000 58     1236           113              88 2009-02-08 China  
-      10 AA-AA-000-0000 167    0163           790             757 2015-04-20 US     
-      # ... with 40 more rows
-=======
-      # A tibble: 3 x 8
-        studyid        siteid subjid timeonstudy timeontreatment rfpst~1 country invid
-        <chr>          <chr>  <chr>        <int>           <int> <chr>   <chr>   <chr>
-      1 AA-AA-000-0000 86     0001           730             678 2008-0~ US      0X012
-      2 AA-AA-000-0000 76     0002            50              13 2017-0~ China   0X201
-      3 AA-AA-000-0000 166    0003           901             857 2008-0~ Japan   0X999
-      # ... with abbreviated variable name 1: rfpst_dt
->>>>>>> origin/dev
+      # A tibble: 50 x 8
+         studyid        siteid subjid timeonstudy timeontreatm~1 rfpst~2 country invid
+         <chr>          <chr>  <chr>        <dbl>          <dbl> <chr>   <chr>   <chr>
+       1 AA-AA-000-0000 5      0496           710            675 2013-1~ US      0X167
+       2 AA-AA-000-0000 78     1350           715            673 2017-1~ US      0X002
+       3 AA-AA-000-0000 139    0539           713            673 2005-0~ US      0X052
+       4 AA-AA-000-0000 162    0329           715            673 2007-0~ US      0X049
+       5 AA-AA-000-0000 29     0429           698            664 2014-0~ Japan   0X116
+       6 AA-AA-000-0000 143    1218           801            760 2004-0~ US      0X153
+       7 AA-AA-000-0000 173    0808           792            758 2010-0~ US      0X124
+       8 AA-AA-000-0000 189    1314           975            930 2003-1~ US      0X093
+       9 AA-AA-000-0000 58     1236           113             88 2009-0~ China   0X091
+      10 AA-AA-000-0000 167    0163           790            757 2015-0~ US      0X059
+      # ... with 40 more rows, and abbreviated variable names 1: timeontreatment,
+      #   2: rfpst_dt
       
       $dfAE
       # A tibble: 48 x 4
@@ -274,29 +265,20 @@
       # ... with 40 more rows, and abbreviated variable name 1: lbtstnam
       
       $dfInput
-<<<<<<< HEAD
-      # A tibble: 50 x 7
-         SubjectID SiteID StudyID        CustomGroupID Exposure Count    Rate
-         <chr>     <chr>  <chr>          <chr>            <dbl> <int>   <dbl>
-       1 0496      5      AA-AA-000-0000 US                 675     2 0.00296
-       2 1350      78     AA-AA-000-0000 US                 673     7 0.0104 
-       3 0539      139    AA-AA-000-0000 US                 673     2 0.00297
-       4 0329      162    AA-AA-000-0000 US                 673     8 0.0119 
-       5 0429      29     AA-AA-000-0000 Japan              664     1 0.00151
-       6 1218      143    AA-AA-000-0000 US                 760     3 0.00395
-       7 0808      173    AA-AA-000-0000 US                 758     1 0.00132
-       8 1314      189    AA-AA-000-0000 US                 930    12 0.0129 
-       9 1236      58     AA-AA-000-0000 China               88     2 0.0227 
-      10 0163      167    AA-AA-000-0000 US                 757     3 0.00396
-      # ... with 40 more rows
-=======
-      # A tibble: 3 x 8
-        SubjectID SiteID StudyID        CountryID CustomGroupID Exposure Count    Rate
-        <chr>     <chr>  <chr>          <chr>     <chr>            <int> <int>   <dbl>
-      1 0001      86     AA-AA-000-0000 US        0X012              678     5 0.00737
-      2 0002      76     AA-AA-000-0000 China     0X201               13     2 0.154  
-      3 0003      166    AA-AA-000-0000 Japan     0X999              857     0 0      
->>>>>>> origin/dev
+      # A tibble: 50 x 8
+         SubjectID SiteID StudyID        CountryID CustomGroupID Expos~1 Count    Rate
+         <chr>     <chr>  <chr>          <chr>     <chr>           <dbl> <int>   <dbl>
+       1 0496      5      AA-AA-000-0000 US        0X167             675     2 0.00296
+       2 1350      78     AA-AA-000-0000 US        0X002             673     7 0.0104 
+       3 0539      139    AA-AA-000-0000 US        0X052             673     2 0.00297
+       4 0329      162    AA-AA-000-0000 US        0X049             673     8 0.0119 
+       5 0429      29     AA-AA-000-0000 Japan     0X116             664     1 0.00151
+       6 1218      143    AA-AA-000-0000 US        0X153             760     3 0.00395
+       7 0808      173    AA-AA-000-0000 US        0X124             758     1 0.00132
+       8 1314      189    AA-AA-000-0000 US        0X093             930    12 0.0129 
+       9 1236      58     AA-AA-000-0000 China     0X091              88     2 0.0227 
+      10 0163      167    AA-AA-000-0000 US        0X059             757     3 0.00396
+      # ... with 40 more rows, and abbreviated variable name 1: Exposure
       
 
 ---
@@ -640,11 +622,7 @@
       
       
       $AE_Map_Raw$dfSUBJ$dim
-<<<<<<< HEAD
-      [1] 50  7
-=======
-      [1] 3 8
->>>>>>> origin/dev
+      [1] 50  8
       
       
       $AE_Map_Raw$status
@@ -932,11 +910,7 @@
       
       
       $AE_Assess$dfInput$dim
-<<<<<<< HEAD
-      [1] 50  7
-=======
-      [1] 3 8
->>>>>>> origin/dev
+      [1] 50  8
       
       
       $AE_Assess$status
