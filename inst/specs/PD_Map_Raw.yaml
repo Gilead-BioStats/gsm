@@ -8,3 +8,5 @@ dfSUBJ:
     - strTimeOnStudyCol
   vUniqueCols:
     - strIDCol
+  vNACols:
+    - strTimeOnStudyCol

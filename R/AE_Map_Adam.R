@@ -81,6 +81,7 @@ AE_Map_Adam <- function(
         any_of(c(
           SiteID = lMapping[["dfADSL"]][["strSiteCol"]],
           StudyID = lMapping[["dfADSL"]][["strStudyCol"]],
+          CountryID = lMapping[["dfADSL"]][["strCountryCol"]],
           CustomGroupID = lMapping[["dfADSL"]][["strCustomGroupCol"]]
         )),
         "Count",

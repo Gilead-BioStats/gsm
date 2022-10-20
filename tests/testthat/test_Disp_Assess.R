@@ -27,14 +27,16 @@ test_that("grouping works as expected", {
 
   site <- assess_function(dfInput)
   # study <- assess_function(dfInput, strGroup = "Study") - TODO: fix #659
+  country <- assess_function(dfInput, strGroup = "Country")
   customGroup <- assess_function(dfInput, strGroup = "CustomGroup")
 
   expect_snapshot(subsetGroupCols(site))
   # expect_snapshot(subsetGroupCols(study))
+  expect_snapshot(subsetGroupCols(country))
   expect_snapshot(subsetGroupCols(customGroup))
 
   # TODO: add 'study' to the list below once the above is reconciled
-  expect_false(all(map_lgl(list(site, customGroup), ~ all(map_lgl(., ~ is_grouped_df(.))))))
+  expect_false(all(map_lgl(list(site, country, customGroup), ~ all(map_lgl(., ~ is_grouped_df(.))))))
 })
 
 # incorrect inputs throw errors -------------------------------------------
