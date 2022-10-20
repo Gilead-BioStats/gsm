@@ -47,13 +47,6 @@
     Output
       [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
----
-
-    Code
-      names(result$kri0008)
-    Output
-      [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
-
 # metadata is returned as expected
 
     Code
@@ -143,6 +136,7 @@
       kri0001$lData
     Output
       $dfSUBJ
+<<<<<<< HEAD
       # A tibble: 50 x 7
          studyid        siteid subjid timeonstudy timeontreatment rfpst_dt   country
          <chr>          <chr>  <chr>        <dbl>           <dbl> <chr>      <chr>  
@@ -157,6 +151,15 @@
        9 AA-AA-000-0000 58     1236           113              88 2009-02-08 China  
       10 AA-AA-000-0000 167    0163           790             757 2015-04-20 US     
       # ... with 40 more rows
+=======
+      # A tibble: 3 x 8
+        studyid        siteid subjid timeonstudy timeontreatment rfpst~1 country invid
+        <chr>          <chr>  <chr>        <int>           <int> <chr>   <chr>   <chr>
+      1 AA-AA-000-0000 86     0001           730             678 2008-0~ US      0X012
+      2 AA-AA-000-0000 76     0002            50              13 2017-0~ China   0X201
+      3 AA-AA-000-0000 166    0003           901             857 2008-0~ Japan   0X999
+      # ... with abbreviated variable name 1: rfpst_dt
+>>>>>>> origin/dev
       
       $dfAE
       # A tibble: 48 x 4
@@ -271,6 +274,7 @@
       # ... with 40 more rows, and abbreviated variable name 1: lbtstnam
       
       $dfInput
+<<<<<<< HEAD
       # A tibble: 50 x 7
          SubjectID SiteID StudyID        CustomGroupID Exposure Count    Rate
          <chr>     <chr>  <chr>          <chr>            <dbl> <int>   <dbl>
@@ -285,6 +289,14 @@
        9 1236      58     AA-AA-000-0000 China               88     2 0.0227 
       10 0163      167    AA-AA-000-0000 US                 757     3 0.00396
       # ... with 40 more rows
+=======
+      # A tibble: 3 x 8
+        SubjectID SiteID StudyID        CountryID CustomGroupID Exposure Count    Rate
+        <chr>     <chr>  <chr>          <chr>     <chr>            <int> <int>   <dbl>
+      1 0001      86     AA-AA-000-0000 US        0X012              678     5 0.00737
+      2 0002      76     AA-AA-000-0000 China     0X201               13     2 0.154  
+      3 0003      166    AA-AA-000-0000 Japan     0X999              857     0 0      
+>>>>>>> origin/dev
       
 
 ---
@@ -628,7 +640,11 @@
       
       
       $AE_Map_Raw$dfSUBJ$dim
+<<<<<<< HEAD
       [1] 50  7
+=======
+      [1] 3 8
+>>>>>>> origin/dev
       
       
       $AE_Map_Raw$status
@@ -655,6 +671,9 @@
       [1] "rfpst_dt"
       
       $AE_Map_Raw$mapping$dfSUBJ$strCustomGroupCol
+      [1] "invid"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strCountryCol
       [1] "country"
       
       
@@ -913,7 +932,11 @@
       
       
       $AE_Assess$dfInput$dim
+<<<<<<< HEAD
       [1] 50  7
+=======
+      [1] 3 8
+>>>>>>> origin/dev
       
       
       $AE_Assess$status
@@ -929,6 +952,9 @@
       
       $AE_Assess$mapping$dfInput$strStudyCol
       [1] "StudyID"
+      
+      $AE_Assess$mapping$dfInput$strCountryCol
+      [1] "CountryID"
       
       $AE_Assess$mapping$dfInput$strCustomGroupCol
       [1] "CustomGroupID"
@@ -1208,31 +1234,7 @@
       
       -- Initializing `kri0005` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 2: `LB_Map_Raw` --
-      
-      Preparing parameters for `LB_Map_Raw()` ...
-      Calling `LB_Map_Raw()` ...
-      
-      -- Checking Input Data for `LB_Map_Raw()` --
-      
-      x df is not a data.frame()
-      x the following columns not found in df: subjid, toxgr
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `LB_Map_Raw()`
-      ! `LB_Map_Raw()` did not run because of failed check.
-      ! `LB_Map_Raw()` Failed - Skipping remaining steps
-      Saving dfInput to `lWorkflow$lData`
-      
-      -- Workflow Step 2 of 2: `LB_Assess` --
-      
-      Skipping `LB_Assess()` ...
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `kri0006` assessment -------------------------------------------
-      
-      -- Workflow Step 1 of 3: `FilterDomain` --
+      -- Workflow Step 1 of 4: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -1240,7 +1242,7 @@
       -- Checking Input Data for `FilterDomain()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: toxgr
+      x the following columns not found in df: lb_te
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -1248,16 +1250,20 @@
       ! `FilterDomain()` Failed - Skipping remaining steps
       Saving dfLB to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 3: `LB_Map_Raw` --
+      -- Workflow Step 2 of 4: `FilterDomain` --
+      
+      Skipping `FilterDomain()` ...
+      
+      -- Workflow Step 3 of 4: `LB_Map_Raw` --
       
       Skipping `LB_Map_Raw()` ...
       
-      -- Workflow Step 3 of 3: `LB_Assess` --
+      -- Workflow Step 4 of 4: `LB_Assess` --
       
       Skipping `LB_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
-      -- Initializing `kri0007` assessment -------------------------------------------
+      -- Initializing `kri0006` assessment -------------------------------------------
       
       -- Workflow Step 1 of 2: `Disp_Map_Raw` --
       
@@ -1281,7 +1287,7 @@
       Skipping `Disp_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
-      -- Initializing `kri0008` assessment -------------------------------------------
+      -- Initializing `kri0007` assessment -------------------------------------------
       
       -- Workflow Step 1 of 3: `FilterDomain` --
       

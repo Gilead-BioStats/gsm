@@ -165,7 +165,8 @@ bQuiet = TRUE
     purrr::imap_dfr(~ .x$lData$dfFlagged %>%
       mutate(
         KRIID = .y,
-        StudyID = unique(lMeta$config_workflow$studyid)
+        StudyID = unique(lMeta$config_workflow$studyid),
+        SnapshotDate = Sys.Date()
       )) %>%
     select(
       studyid = "StudyID",
@@ -175,7 +176,8 @@ bQuiet = TRUE
       denominator = "Denominator",
       metric = "Metric",
       score = "Score",
-      flag = "Flag"
+      flag = "Flag",
+      snapshot_date = "SnapshotDate"
     )
 
 
