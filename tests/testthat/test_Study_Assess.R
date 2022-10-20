@@ -53,7 +53,6 @@ test_that("output is created as expected", {
   expect_snapshot(names(result$kri0005))
   expect_snapshot(names(result$kri0006))
   expect_snapshot(names(result$kri0007))
-  expect_snapshot(names(result$kri0008))
 })
 
 # metadata is returned as expected ----------------------------------------
