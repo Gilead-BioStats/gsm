@@ -12,7 +12,9 @@ reference:
      desc: Generate a visualization from the Assessment results
    - contents:
       - starts_with("Visualize_")
+      - Analyze_Binary_PredictBounds
       - Analyze_Poisson_PredictBounds
+      - Analyze_Rate_PredictBounds
 
    - title: Map
      desc: Generate input data from multiple clinical data standards (generally Raw+ or SDTM-)
@@ -22,9 +24,11 @@ reference:
    - title: Analyze
      desc: Conduct statistical analysis based on input data
    - contents:
+      - Analyze_Binary
       - Analyze_Identity
       - Analyze_Fisher
       - Analyze_Poisson
+      - Analyze_Rate
 
    - title: Data Pipeline
      desc: Create site-level summary, analyzed, and flagged data for an assessment
@@ -33,6 +37,7 @@ reference:
       - Transform_Rate
       - Flag
       - Flag_Fisher
+      - Flag_Funnel
       - Flag_Poisson
       - Summarize
 
