@@ -9,7 +9,7 @@
 #' @param strUnit `character` Type of enrollment; one of `participant` or `site`.
 #' @param strBy `character` Domain of enrollment; one of `study` or `site`.
 #'
-#' @return `character` string or `data.frame`, depending on input parameters.
+#' @return `integer` or `data.frame`, depending on input parameters.
 #'
 #'
 #' @examples
