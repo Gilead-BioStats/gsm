@@ -6,7 +6,7 @@
 \usage{
 AnalyzeQTL(
   dfTransformed,
-  conf.level = 0.95,
+  nConfLevel = 0.95,
   strOutcome = "binary",
   bQuiet = TRUE
 )
@@ -14,7 +14,7 @@ AnalyzeQTL(
 \arguments{
 \item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}}
 
-\item{conf.level}{\code{numeric} specified confidence interval for QTL analysis.}
+\item{nConfLevel}{\code{numeric} specified confidence interval for QTL analysis.}
 
 \item{strOutcome}{\code{character} indicates statistical test used for QTL analysis. One of \code{rate} or \code{binary}.}
 
@@ -62,7 +62,7 @@ dfFlagged <- Flag( dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.2) )
 
 
 
-dfInput <- AE_Map_Raw() \%>\% na.omit()
+dfInput <- PD_Map_Raw()
 dfTransformed <- Transform_Rate(dfInput,
                                 strGroupCol = "StudyID",
                                 strNumeratorCol = "Count",

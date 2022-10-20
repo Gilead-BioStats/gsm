@@ -13,4 +13,4 @@ steps:
       strGroup: "Study"
       vThreshold: null
       strMethod: "qtl"
-      strOutcome: "rate"
+      nConfLevel: 0.95

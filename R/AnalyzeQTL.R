@@ -21,7 +21,7 @@
 #' - `Metric` - Proportion of participants at site with event of interest
 #'
 #' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
-#' @param conf.level `numeric` specified confidence interval for QTL analysis.
+#' @param nConfLevel `numeric` specified confidence interval for QTL analysis.
 #' @param strOutcome `character` indicates statistical test used for QTL analysis. One of `rate` or `binary`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -39,7 +39,7 @@
 #'
 #'
 #'
-#' dfInput <- AE_Map_Raw() %>% na.omit()
+#' dfInput <- PD_Map_Raw()
 #' dfTransformed <- Transform_Rate(dfInput,
 #'                                 strGroupCol = "StudyID",
 #'                                 strNumeratorCol = "Count",
@@ -56,32 +56,33 @@
 
 AnalyzeQTL <- function(
     dfTransformed,
-    conf.level = 0.95,
+    nConfLevel = 0.95,
     strOutcome = "binary",
     bQuiet = TRUE
 ) {
+
   stopifnot(
-    #"dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    #"One or more of these columns: GroupID, N, or the value in strOutcome not found in dfTransformed" = all(c("GroupID", "N") %in% names(dfTransformed)),
-    #"NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]])),
+    "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
+    "One or more of these columns: GroupID, Numerator, or Denominator not found in dfTransformed" = all(c("GroupID", "Numerator", "Denominator") %in% names(dfTransformed)),
+    "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]]))
   )
 
   if(strOutcome == "binary"){
     lModel <- stats::binom.test( dfTransformed$Numerator, dfTransformed$Denominator,
                           alternative = "two.sided",
-                          conf.level = conf.level)
+                          conf.level = nConfLevel)
   }
 
   if(strOutcome == "rate"){
     lModel <- stats::poisson.test( dfTransformed$Numerator, T= dfTransformed$Denominator,
                             alternative = "two.sided",
-                            conf.level = conf.level)
+                            conf.level = nConfLevel)
   }
 
   dfAnalyzed <- dfTransformed %>%
     bind_cols(
       Method = lModel$method,
-      ConfLevel = conf.level,
+      ConfLevel = nConfLevel,
       Estimate = lModel$estimate,
       LowCI = lModel$conf.int[1],
       UpCI = lModel$conf.int[2]

@@ -19,7 +19,7 @@
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
-#' @param strOutcome `character` indicates statistical test used for QTL analysis. One of `rate` or `binary`.
+#' @param nConfLevel `numeric` Confidence level for QTL analysis.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -59,7 +59,7 @@ PD_Assess <- function(
   strMethod = "poisson",
   lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm")),
   strGroup = "Site",
-  strOutcome = NULL,
+  nConfLevel = NULL,
   bQuiet = TRUE
 ) {
 
@@ -124,7 +124,7 @@ PD_Assess <- function(
     } else if (strMethod == "identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
     } else if (strMethod == "qtl") {
-      lData$dfAnalyzed <- AnalyzeQTL(lData$dfTransformed, strOutcome = strOutcome)
+      lData$dfAnalyzed <- AnalyzeQTL(lData$dfTransformed, strOutcome = "rate", nConfLevel = nConfLevel)
     }
 
     strAnalyzeFunction <- paste0("Analyze_", tools::toTitleCase(strMethod))

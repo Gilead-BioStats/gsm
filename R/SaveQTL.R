@@ -24,11 +24,11 @@ SaveQTL <- function(lSnapshot,
       # read historical .csv
       qtl_old <- utils::read.csv(strPath)
 
-      # grab dfAnalyzed
-      qtl_new <- lSnapshot$lResults$lData$dfAnalyzed
+      # grab dfFlagged
+      qtl_new <- lSnapshot$lResults$lData$dfFlagged
 
       # add date to dfAnalyzed
-      qtl_new$date <- as.character(Sys.Date())
+      qtl_new$snapshot_date <- as.character(Sys.Date())
 
       # bind rows
       qtl_all <- bind_rows(qtl_old, qtl_new)
