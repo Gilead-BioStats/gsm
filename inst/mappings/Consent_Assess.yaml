@@ -2,6 +2,7 @@ dfInput:
   strIDCol: "SubjectID"
   strSiteCol: "SiteID"
   strStudyCol: "StudyID"
+  strCountryCol: "CountryID"
   strCustomGroupCol: "CustomGroupID"
   strRandDateCol: "RandDate"
   strCountCol: "Count"

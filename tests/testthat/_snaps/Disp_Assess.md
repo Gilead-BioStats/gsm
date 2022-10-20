@@ -13,7 +13,7 @@
 ---
 
     Code
-      subsetGroupCols(customGroup)
+      subsetGroupCols(country)
     Output
       # A tibble: 3 x 1
         GroupID
@@ -21,6 +21,18 @@
       1 China  
       2 Japan  
       3 US     
+
+---
+
+    Code
+      subsetGroupCols(customGroup)
+    Output
+      # A tibble: 3 x 1
+        GroupID
+        <chr>  
+      1 0X201  
+      2 0X012  
+      3 0X999  
 
 # incorrect inputs throw errors
 

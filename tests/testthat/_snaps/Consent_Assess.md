@@ -23,7 +23,7 @@
 ---
 
     Code
-      subsetGroupCols(customGroup)
+      subsetGroupCols(country)
     Output
       # A tibble: 3 x 1
         GroupID
@@ -31,6 +31,18 @@
       1 US     
       2 China  
       3 Japan  
+
+---
+
+    Code
+      subsetGroupCols(customGroup)
+    Output
+      # A tibble: 3 x 1
+        GroupID
+        <chr>  
+      1 0X012  
+      2 0X201  
+      3 0X999  
 
 # bQuiet works as intended
 
