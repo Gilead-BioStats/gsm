@@ -143,85 +143,67 @@
       kri0001$lData
     Output
       $dfSUBJ
-      # A tibble: 50 x 47
-         studyid    siteid invid scrnid subjid subje~1 datap~2 datap~3 folde~4 insta~5
-         <chr>      <chr>  <chr> <chr>  <chr>  <chr>   <chr>   <chr>   <chr>   <chr>  
-       1 AA-AA-000~ 5      0X167 113    0496   X16704~ Demogr~ 1       Screen~ Screen~
-       2 AA-AA-000~ 78     0X002 142    1350   X00213~ Demogr~ 1       Screen~ Screen~
-       3 AA-AA-000~ 139    0X052 112    0539   X05205~ Demogr~ 1       Screen~ Screen~
-       4 AA-AA-000~ 162    0X049 142    0329   X04903~ Demogr~ 1       Screen~ Screen~
-       5 AA-AA-000~ 29     0X116 069    0429   X11604~ Demogr~ 1       Screen~ Screen~
-       6 AA-AA-000~ 143    0X153 073    1218   X15312~ Demogr~ 1       Screen~ Screen~
-       7 AA-AA-000~ 173    0X124 145    0808   X12408~ Demogr~ 1       Screen~ Screen~
-       8 AA-AA-000~ 189    0X093 087    1314   X09313~ Demogr~ 1       Screen~ Screen~
-       9 AA-AA-000~ 58     0X091 020    1236   X09112~ Demogr~ 1       Screen~ Screen~
-      10 AA-AA-000~ 167    0X059 061    0163   X05901~ Demogr~ 1       Screen~ Screen~
-      # ... with 40 more rows, 37 more variables: recordid <chr>, record_dt <chr>,
-      #   recordposition <dbl>, mincreated_dts <chr>, maxupdated_dts <chr>,
-      #   brthdat <chr>, agerep <chr>, sex <chr>, ethnic <chr>, race <chr>,
-      #   raceoth <chr>, racescat <chr>, racesoth <chr>, subjid_nsv <chr>,
-      #   scrnid_nsv <chr>, subjinit_nsv <chr>, invid_nsv <chr>, subject_nsv <chr>,
-      #   instanceid_nsv <dbl>, folder_nsv <chr>, folderseq_nsv <dbl>,
-      #   brthdat_nsv <dttm>, brthdat_yy_nsv <dbl>, brthdat_mm_nsv <dbl>, ...
+      # A tibble: 50 x 7
+         studyid        siteid subjid timeonstudy timeontreatment rfpst_dt   country
+         <chr>          <chr>  <chr>        <dbl>           <dbl> <chr>      <chr>  
+       1 AA-AA-000-0000 5      0496           710             675 2013-11-26 US     
+       2 AA-AA-000-0000 78     1350           715             673 2017-10-02 US     
+       3 AA-AA-000-0000 139    0539           713             673 2005-08-31 US     
+       4 AA-AA-000-0000 162    0329           715             673 2007-09-26 US     
+       5 AA-AA-000-0000 29     0429           698             664 2014-08-14 Japan  
+       6 AA-AA-000-0000 143    1218           801             760 2004-05-23 US     
+       7 AA-AA-000-0000 173    0808           792             758 2010-04-29 US     
+       8 AA-AA-000-0000 189    1314           975             930 2003-10-21 US     
+       9 AA-AA-000-0000 58     1236           113              88 2009-02-08 China  
+      10 AA-AA-000-0000 167    0163           790             757 2015-04-20 US     
+      # ... with 40 more rows
       
       $dfAE
-      # A tibble: 48 x 127
-         studyid    siteid invid scrnid subjid subje~1 datap~2 datap~3 folde~4 insta~5
-         <chr>      <chr>  <chr> <chr>  <chr>  <chr>   <chr>   <chr>   <chr>   <chr>  
-       1 AA-AA-000~ 5      0X167 113    0496   X16704~ Advers~ 1       Advers~ Advers~
-       2 AA-AA-000~ 5      0X167 113    0496   X16704~ Advers~ 1       Advers~ Advers~
-       3 AA-AA-000~ 78     0X002 142    1350   X00213~ Advers~ 1       Advers~ Advers~
-       4 AA-AA-000~ 78     0X002 142    1350   X00213~ Advers~ 1       Advers~ Advers~
-       5 AA-AA-000~ 78     0X002 142    1350   X00213~ Advers~ 1       Advers~ Advers~
-       6 AA-AA-000~ 78     0X002 142    1350   X00213~ Advers~ 1       Advers~ Advers~
-       7 AA-AA-000~ 78     0X002 142    1350   X00213~ Advers~ 1       Advers~ Advers~
-       8 AA-AA-000~ 78     0X002 142    1350   X00213~ Advers~ 1       Advers~ Advers~
-       9 AA-AA-000~ 78     0X002 142    1350   X00213~ Advers~ 1       Advers~ Advers~
-      10 AA-AA-000~ 139    0X052 112    0539   X05205~ Advers~ 1       Advers~ Advers~
-      # ... with 38 more rows, 117 more variables: recordid <chr>, record_dt <chr>,
-      #   recordposition <dbl>, mincreated_dts <chr>, maxupdated_dts <chr>,
-      #   aeterm <chr>, aeser <chr>, aest_dt <chr>, aeen_dt <chr>, aeongo <chr>,
-      #   aerel <chr>, aerel1 <chr>, aerel2 <chr>, aerel3 <chr>, aerelprc <chr>,
-      #   aeacn <chr>, aeacn1 <chr>, aeacn2 <chr>, aetoxgr <chr>, caseno <chr>,
-      #   aesdth <chr>, aeslife <chr>, aeshosp <chr>, aehstdat <chr>, aehendat <chr>,
-      #   aesdisab <chr>, aescong <chr>, aesmie <chr>, aediseas <chr>, ...
+      # A tibble: 48 x 4
+         subjid ae_te aetoxgr aeser
+         <chr>  <chr> <chr>   <chr>
+       1 0496   Y     MILD    N    
+       2 0496   Y     MILD    N    
+       3 1350   Y     MILD    N    
+       4 1350   Y     MILD    N    
+       5 1350   Y     MILD    N    
+       6 1350   Y     MILD    N    
+       7 1350   Y     MILD    N    
+       8 1350   Y     MILD    N    
+       9 1350   Y     MILD    N    
+      10 0539   Y     MILD    N    
+      # ... with 38 more rows
       
       $dfPD
-      # A tibble: 50 x 26
-         invid scrnid subjid dv_dt dvdecod      dvterm impor~1 cro_nsv count~2 invna~3
-         <chr> <chr>  <chr>  <chr> <chr>        <chr>  <chr>   <chr>   <chr>   <chr>  
-       1 X055X 113    0496   ""    OTHER        ""     N       ""      AS      XXX    
-       2 X108X 142    1350   ""    OTHER        ""     N       ""      OTH     XXX    
-       3 X108X 142    1350   ""    OTHER        ""     N       ""      OTH     XXX    
-       4 X108X 142    1350   ""    OTHER        ""     N       ""      OTH     XXX    
-       5 X108X 142    1350   ""    OTHER        ""     N       ""      OTH     XXX    
-       6 X108X 142    1350   ""    OTHER        ""     N       ""      OTH     XXX    
-       7 X128X 112    0539   ""    OTHER TREAT~ ""     N       ""      AS      XXX    
-       8 X128X 112    0539   ""    OTHER TREAT~ ""     N       ""      AS      XXX    
-       9 X128X 112    0539   ""    OTHER TREAT~ ""     N       ""      AS      XXX    
-      10 X128X 112    0539   ""    OTHER TREAT~ ""     N       ""      AS      XXX    
-      # ... with 40 more rows, 16 more variables: subjinit_nsv <chr>,
-      #   idendate_nsv <chr>, visit_nsv <chr>, devdesc_nsv <chr>, devused_nsv <chr>,
-      #   repdatec_nsv <chr>, comments_nsv <chr>, gsidatec_nsv <chr>,
-      #   mmdatec_nsv <chr>, addatec_nsv <chr>, retdatec_nsv <chr>,
-      #   tmfdatec_nsv <chr>, mmpddatec_nsv <chr>, revwdatec_nsv <chr>,
-      #   devdatec_nsv <chr>, idendatec_nsv <chr>, and abbreviated variable names
-      #   1: importnt, 2: country_nsv, 3: invnam_nsv
+      # A tibble: 50 x 3
+         subjid dvdecod                          importnt
+         <chr>  <chr>                            <chr>   
+       1 0496   OTHER                            N       
+       2 1350   OTHER                            N       
+       3 1350   OTHER                            N       
+       4 1350   OTHER                            N       
+       5 1350   OTHER                            N       
+       6 1350   OTHER                            N       
+       7 0539   OTHER TREATMENT COMPLIANCE ISSUE N       
+       8 0539   OTHER TREATMENT COMPLIANCE ISSUE N       
+       9 0539   OTHER TREATMENT COMPLIANCE ISSUE N       
+      10 0539   OTHER TREATMENT COMPLIANCE ISSUE N       
+      # ... with 40 more rows
       
       $dfCONSENT
       # A tibble: 50 x 4
-         subjid consdt     conscat     consyn
-         <chr>  <date>     <chr>       <chr> 
-       1 0496   2013-11-26 MAINCONSENT Y     
-       2 1350   2017-10-02 MAINCONSENT Y     
-       3 0539   2005-08-31 MAINCONSENT Y     
-       4 0329   2007-09-26 MAINCONSENT Y     
-       5 0429   2014-08-14 MAINCONSENT Y     
-       6 1218   2004-05-23 MAINCONSENT Y     
-       7 0808   2010-04-29 MAINCONSENT Y     
-       8 1314   2003-10-21 MAINCONSENT Y     
-       9 1236   2009-02-08 MAINCONSENT Y     
-      10 0163   2015-04-20 MAINCONSENT Y     
+         subjid conscat     consyn consdt    
+         <chr>  <chr>       <chr>  <date>    
+       1 0496   MAINCONSENT Y      2013-11-26
+       2 1350   MAINCONSENT Y      2017-10-02
+       3 0539   MAINCONSENT Y      2005-08-31
+       4 0329   MAINCONSENT Y      2007-09-26
+       5 0429   MAINCONSENT Y      2014-08-14
+       6 1218   MAINCONSENT Y      2004-05-23
+       7 0808   MAINCONSENT Y      2010-04-29
+       8 1314   MAINCONSENT Y      2003-10-21
+       9 1236   MAINCONSENT Y      2009-02-08
+      10 0163   MAINCONSENT Y      2015-04-20
       # ... with 40 more rows
       
       $dfIE
@@ -241,66 +223,52 @@
       # ... with 40 more rows
       
       $dfSTUDCOMP
-      # A tibble: 50 x 31
-         studyid    siteid invid scrnid subjid subje~1 datap~2 datap~3 folde~4 insta~5
-         <chr>      <chr>  <chr> <chr>  <chr>  <chr>   <chr>   <chr>   <chr>   <chr>  
-       1 AA-AA-000~ 58     0X091 020    1236   X09112~ Study ~ 1       Study ~ Study ~
-       2 AA-AA-000~ 128    0X149 123    1023   X14910~ Study ~ 1       Study ~ Study ~
-       3 AA-AA-000~ 155    0X125 058    1346   X12513~ Study ~ 1       Study ~ Study ~
-       4 AA-AA-000~ 43     0X159 113    0760   X15907~ Study ~ 1       Study ~ Study ~
-       5 AA-AA-000~ 127    0X043 058    0854   X04308~ Study ~ 1       Study ~ Study ~
-       6 AA-AA-000~ 71     0X083 142    0561   X08305~ Study ~ 1       Study ~ Study ~
-       7 AA-AA-000~ 140    0X161 091    0290   X16102~ Study ~ 1       Study ~ Study ~
-       8 AA-AA-000~ 53     0X015 142    1127   X01511~ Study ~ 1       Study ~ Study ~
-       9 AA-AA-000~ 71     0X083 020    1152   X08311~ Study ~ 1       Study ~ Study ~
-      10 AA-AA-000~ 184    0X123 123    0720   X12307~ Study ~ 1       Study ~ Study ~
-      # ... with 40 more rows, 21 more variables: recordid <chr>, record_dt <chr>,
-      #   recordposition <dbl>, mincreated_dts <chr>, maxupdated_dts <chr>,
-      #   compyn <chr>, compreas <chr>, subjid_nsv <chr>, scrnid_nsv <chr>,
-      #   subjinit_nsv <chr>, invid_nsv <chr>, subject_nsv <chr>,
-      #   instanceid_nsv <dbl>, folder_nsv <chr>, folderseq_nsv <dbl>,
-      #   compyn_std_nsv <chr>, compreas_std_nsv <chr>, compfu_nsv <chr>,
-      #   compfu_std_nsv <chr>, comptrt_nsv <chr>, comptrt_std_nsv <chr>, and ...
+      # A tibble: 50 x 3
+         subjid compreas                         compyn
+         <chr>  <chr>                            <chr> 
+       1 1236   "LOST TO FOLLOW-UP"              "N"   
+       2 1023   "ADVERSE EVENT"                  "N"   
+       3 1346   ""                               ""    
+       4 0760   "WITHDRAWAL BY SUBJECT"          "N"   
+       5 0854   "LOST TO FOLLOW-UP"              "N"   
+       6 0561   "NON-COMPLIANCE WITH STUDY DRUG" "N"   
+       7 0290   "DEATH"                          "N"   
+       8 1127   "WITHDRAWAL BY SUBJECT"          "N"   
+       9 1152   "WITHDRAWAL BY SUBJECT"          "N"   
+      10 0720   "LOST TO FOLLOW-UP"              "N"   
+      # ... with 40 more rows
       
       $dfSDRGCOMP
-      # A tibble: 50 x 34
-         studyid    siteid invid scrnid subjid subje~1 datap~2 datap~3 folde~4 insta~5
-         <chr>      <chr>  <chr> <chr>  <chr>  <chr>   <chr>   <chr>   <chr>   <chr>  
-       1 AA-AA-000~ 173    0X124 145    0808   X12408~ Blinde~ 1       Study ~ Study ~
-       2 AA-AA-000~ 189    0X093 087    1314   X09313~ Blinde~ 1       Study ~ Study ~
-       3 AA-AA-000~ 58     0X091 020    1236   X09112~ Blinde~ 1       Study ~ Study ~
-       4 AA-AA-000~ 166    0X102 011    0003   X10200~ Blinde~ 1       Study ~ Study ~
-       5 AA-AA-000~ 62     0X023 142    1315   X02313~ Blinde~ 1       Study ~ Study ~
-       6 AA-AA-000~ 109    0X127 016    0788   X12707~ Blinde~ 1       Study ~ Study ~
-       7 AA-AA-000~ 146    0X188 122    0283   X18802~ Blinde~ 1       Study ~ Study ~
-       8 AA-AA-000~ 34     0X082 087    0200   X08202~ Blinde~ 1       Study ~ Study ~
-       9 AA-AA-000~ 128    0X149 123    1023   X14910~ Blinde~ 1       Study ~ Study ~
-      10 AA-AA-000~ 91     0X175 009    0572   X17505~ Blinde~ 1       Study ~ Study ~
-      # ... with 40 more rows, 24 more variables: recordid <chr>, record_dt <chr>,
-      #   recordposition <dbl>, mincreated_dts <chr>, maxupdated_dts <chr>,
-      #   sdrgyn <chr>, sdrgreas <chr>, sdrgterm <chr>, subjid_nsv <chr>,
-      #   scrnid_nsv <chr>, subjinit_nsv <chr>, invid_nsv <chr>, subject_nsv <chr>,
-      #   instanceid_nsv <dbl>, folder_nsv <chr>, folderseq_nsv <dbl>,
-      #   sdrgyn_std_nsv <chr>, sdrgreas_std_nsv <chr>, sdrgol_nsv <chr>,
-      #   sdrgol_std_nsv <chr>, sdrgfu_nsv <chr>, sdrgfu_std_nsv <chr>, ...
+      # A tibble: 50 x 4
+         subjid datapagename                  sdrgreas            sdrgyn
+         <chr>  <chr>                         <chr>               <chr> 
+       1 0808   Blinded Study Drug Completion ""                  Y     
+       2 1314   Blinded Study Drug Completion ""                  Y     
+       3 1236   Blinded Study Drug Completion "LOST TO FOLLOW-UP" N     
+       4 0003   Blinded Study Drug Completion ""                  Y     
+       5 1315   Blinded Study Drug Completion ""                  Y     
+       6 0788   Blinded Study Drug Completion ""                  Y     
+       7 0283   Blinded Study Drug Completion ""                  Y     
+       8 0200   Blinded Study Drug Completion ""                  Y     
+       9 1023   Blinded Study Drug Completion "ADVERSE EVENT"     N     
+      10 0572   Blinded Study Drug Completion ""                  Y     
+      # ... with 40 more rows
       
       $dfLB
-      # A tibble: 50 x 15
-         subjid visnam    visnum lb_dt   battr~1 lbtst~2 lbtstcd  siresn sinrlo sinrhi
-         <chr>  <chr>      <dbl> <chr>   <chr>   <chr>   <chr>     <dbl> <chr>  <chr> 
-       1 0496   Screening    -10 2013-1~ CHEMIS~ ALT (S~ RCT4    2.32e+2 6      43    
-       2 0496   Screening    -10 2013-1~ CHEMIS~ AST (S~ RCT5    7.6 e+1 11     36    
-       3 0496   Screening    -10 2013-1~ CHEMIS~ Albumi~ RCT13   4.8 e+1 33     49    
-       4 0496   Screening    -10 2013-1~ CHEMIS~ Alkali~ RCT1407 8.4 e+1 31     129   
-       5 0496   Screening    -10 2013-1~ HEMATO~ Basoph~ HMT12   3.00e-2 0.00   0.20  
-       6 0496   Screening    -10 2013-1~ HEMATO~ Basoph~ HMT19   5   e-1 0.0    2.0   
-       7 0496   Screening    -10 2013-1~ CHEMIS~ Calciu~ RCT183  2.5 e+0 2.07   2.64  
-       8 0496   Screening    -10 2013-1~ CHEMIS~ Calciu~ CHM.CC~ 2.5 e+0 2.07   2.64  
-       9 0496   Screening    -10 2013-1~ CHEMIS~ Choles~ RCT20   4.70e+0 3.88   6.83  
-      10 0496   Screening    -10 2013-1~ CHEMIS~ Creati~ RCT14   9.5 e+1 18     198   
-      # ... with 40 more rows, 5 more variables: toxgr <chr>, alrtfl <chr>,
-      #   lb_te <chr>, alrtfl_s <chr>, lb_abn <lgl>, and abbreviated variable names
-      #   1: battrnam, 2: lbtstnam
+      # A tibble: 50 x 8
+         subjid visnam    visnum battrnam                  lbtst~1  siresn lb_te toxgr
+         <chr>  <chr>      <dbl> <chr>                     <chr>     <dbl> <chr> <chr>
+       1 0496   Screening    -10 CHEMISTRY PANEL           ALT (S~ 2.32e+2 ""    "3"  
+       2 0496   Screening    -10 CHEMISTRY PANEL           AST (S~ 7.6 e+1 ""    "1"  
+       3 0496   Screening    -10 CHEMISTRY PANEL           Albumi~ 4.8 e+1 ""    "0"  
+       4 0496   Screening    -10 CHEMISTRY PANEL           Alkali~ 8.4 e+1 ""    "0"  
+       5 0496   Screening    -10 HEMATOLOGY&DIFFERENTIAL ~ Basoph~ 3.00e-2 ""    ""   
+       6 0496   Screening    -10 HEMATOLOGY&DIFFERENTIAL ~ Basoph~ 5   e-1 ""    ""   
+       7 0496   Screening    -10 CHEMISTRY PANEL           Calciu~ 2.5 e+0 ""    ""   
+       8 0496   Screening    -10 CHEMISTRY PANEL           Calciu~ 2.5 e+0 ""    ""   
+       9 0496   Screening    -10 CHEMISTRY PANEL           Choles~ 4.70e+0 ""    "0"  
+      10 0496   Screening    -10 CHEMISTRY PANEL           Creati~ 9.5 e+1 ""    "0"  
+      # ... with 40 more rows, and abbreviated variable name 1: lbtstnam
       
       $dfInput
       # A tibble: 50 x 7
@@ -404,7 +372,7 @@
       
       
       $FilterDomain$dfAE$dim
-      [1]  50 127
+      [1] 50  4
       
       
       $FilterDomain$status
@@ -491,7 +459,7 @@
       
       
       $FilterDomain$dfAE$dim
-      [1]  49 127
+      [1] 49  4
       
       
       $FilterDomain$status
@@ -578,7 +546,7 @@
       
       
       $AE_Map_Raw$dfAE$dim
-      [1]  48 127
+      [1] 48  4
       
       
       $AE_Map_Raw$dfSUBJ
@@ -660,7 +628,7 @@
       
       
       $AE_Map_Raw$dfSUBJ$dim
-      [1] 50 47
+      [1] 50  7
       
       
       $AE_Map_Raw$status
