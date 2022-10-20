@@ -1,8 +1,22 @@
 steps:
+  - name: FilterDomain
+    inputs: dfLB
+    output: dfLB
+    params:
+      strDomain: dfLB
+      strColParam: strTreatmentEmergentCol
+      strValParam: strTreatmentEmergentVal
+  - name: FilterDomain
+    inputs: dfLB
+    output: dfLB
+    params:
+      strDomain: dfLB
+      strColParam: strGradeCol
+      strValParam: strGradeHighVal
   - name: LB_Map_Raw
     inputs:
-      - dfLB
       - dfSUBJ
+      - dfLB
     output: dfInput
   - name: LB_Assess
     inputs: dfInput

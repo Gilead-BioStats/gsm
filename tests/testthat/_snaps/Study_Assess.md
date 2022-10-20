@@ -47,13 +47,6 @@
     Output
       [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
----
-
-    Code
-      names(result$kri0008)
-    Output
-      [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
-
 # metadata is returned as expected
 
     Code
@@ -1154,31 +1147,7 @@
       
       -- Initializing `kri0005` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 2: `LB_Map_Raw` --
-      
-      Preparing parameters for `LB_Map_Raw()` ...
-      Calling `LB_Map_Raw()` ...
-      
-      -- Checking Input Data for `LB_Map_Raw()` --
-      
-      x df is not a data.frame()
-      x the following columns not found in df: subjid, toxgr
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `LB_Map_Raw()`
-      ! `LB_Map_Raw()` did not run because of failed check.
-      ! `LB_Map_Raw()` Failed - Skipping remaining steps
-      Saving dfInput to `lWorkflow$lData`
-      
-      -- Workflow Step 2 of 2: `LB_Assess` --
-      
-      Skipping `LB_Assess()` ...
-      v `Visualize_Workflow()` created a flowchart.
-      
-      -- Initializing `kri0006` assessment -------------------------------------------
-      
-      -- Workflow Step 1 of 3: `FilterDomain` --
+      -- Workflow Step 1 of 4: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -1186,7 +1155,7 @@
       -- Checking Input Data for `FilterDomain()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: toxgr
+      x the following columns not found in df: lb_te
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -1194,16 +1163,20 @@
       ! `FilterDomain()` Failed - Skipping remaining steps
       Saving dfLB to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 3: `LB_Map_Raw` --
+      -- Workflow Step 2 of 4: `FilterDomain` --
+      
+      Skipping `FilterDomain()` ...
+      
+      -- Workflow Step 3 of 4: `LB_Map_Raw` --
       
       Skipping `LB_Map_Raw()` ...
       
-      -- Workflow Step 3 of 3: `LB_Assess` --
+      -- Workflow Step 4 of 4: `LB_Assess` --
       
       Skipping `LB_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
-      -- Initializing `kri0007` assessment -------------------------------------------
+      -- Initializing `kri0006` assessment -------------------------------------------
       
       -- Workflow Step 1 of 2: `Disp_Map_Raw` --
       
@@ -1227,7 +1200,7 @@
       Skipping `Disp_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
-      -- Initializing `kri0008` assessment -------------------------------------------
+      -- Initializing `kri0007` assessment -------------------------------------------
       
       -- Workflow Step 1 of 3: `FilterDomain` --
       
