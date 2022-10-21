@@ -47,8 +47,21 @@ test_that("incorrect inputs throw errors", {
   expect_snapshot_error(assess_function(dfInput, vThreshold = "A"))
   expect_snapshot_error(assess_function(dfInput, vThreshold = 1))
   expect_error(assess_function(dfInput, strGroup = "something"))
-})
 
+  dfInput_test <- dfInput %>% select(-c(SiteID))
+  missing_req_col <- assess_function(dfInput = dfInput_test)
+  expect_silent(missing_req_col)
+  expect_null(missing_req_col$lData)
+  expect_null(missing_req_col$lCharts)
+
+  ### lMapping
+  # output_spec_test <- output_spec
+  # output_spec_test$dfInput$vRequired <- output_spec$dfInput$vRequired[3:5]
+  # expect_silent(assess_function(dfInput, lMapping = output_spec_test))
+  # expect_null()
+
+
+})
 
 # custom tests ------------------------------------------------------------
 
