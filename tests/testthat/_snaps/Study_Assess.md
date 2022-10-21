@@ -136,95 +136,149 @@
       kri0001$lData
     Output
       $dfSUBJ
-      # A tibble: 3 x 8
-        studyid        siteid subjid timeonstudy timeontreatment rfpst~1 country invid
-        <chr>          <chr>  <chr>        <int>           <int> <chr>   <chr>   <chr>
-      1 AA-AA-000-0000 86     0001           730             678 2008-0~ US      0X012
-      2 AA-AA-000-0000 76     0002            50              13 2017-0~ China   0X201
-      3 AA-AA-000-0000 166    0003           901             857 2008-0~ Japan   0X999
-      # ... with abbreviated variable name 1: rfpst_dt
+      # A tibble: 50 x 8
+         studyid        siteid subjid timeonstudy timeontreatm~1 rfpst~2 country invid
+         <chr>          <chr>  <chr>        <dbl>          <dbl> <chr>   <chr>   <chr>
+       1 AA-AA-000-0000 5      0496           710            675 2013-1~ US      0X167
+       2 AA-AA-000-0000 78     1350           715            673 2017-1~ US      0X002
+       3 AA-AA-000-0000 139    0539           713            673 2005-0~ US      0X052
+       4 AA-AA-000-0000 162    0329           715            673 2007-0~ US      0X049
+       5 AA-AA-000-0000 29     0429           698            664 2014-0~ Japan   0X116
+       6 AA-AA-000-0000 143    1218           801            760 2004-0~ US      0X153
+       7 AA-AA-000-0000 173    0808           792            758 2010-0~ US      0X124
+       8 AA-AA-000-0000 189    1314           975            930 2003-1~ US      0X093
+       9 AA-AA-000-0000 58     1236           113             88 2009-0~ China   0X091
+      10 AA-AA-000-0000 167    0163           790            757 2015-0~ US      0X059
+      # ... with 40 more rows, and abbreviated variable names 1: timeontreatment,
+      #   2: rfpst_dt
       
       $dfAE
-      # A tibble: 7 x 4
-        subjid ae_te aetoxgr  aeser
-        <chr>  <chr> <chr>    <chr>
-      1 0001   Y     MILD     N    
-      2 0001   Y     MILD     N    
-      3 0001   Y     MILD     N    
-      4 0001   Y     MILD     N    
-      5 0001   Y     MILD     N    
-      6 0002   Y     MODERATE N    
-      7 0002   Y     MODERATE N    
+      # A tibble: 48 x 4
+         subjid ae_te aetoxgr aeser
+         <chr>  <chr> <chr>   <chr>
+       1 0496   Y     MILD    N    
+       2 0496   Y     MILD    N    
+       3 1350   Y     MILD    N    
+       4 1350   Y     MILD    N    
+       5 1350   Y     MILD    N    
+       6 1350   Y     MILD    N    
+       7 1350   Y     MILD    N    
+       8 1350   Y     MILD    N    
+       9 1350   Y     MILD    N    
+      10 0539   Y     MILD    N    
+      # ... with 38 more rows
       
       $dfPD
-      # A tibble: 4 x 3
-        subjid dvdecod                          importnt
-        <chr>  <chr>                            <chr>   
-      1 0001   OTHER                            N       
-      2 0003   OTHER                            Y       
-      3 0003   OTHER TREATMENT COMPLIANCE ISSUE N       
-      4 0003   OTHER TREATMENT COMPLIANCE ISSUE N       
+      # A tibble: 50 x 3
+         subjid dvdecod                          importnt
+         <chr>  <chr>                            <chr>   
+       1 0496   OTHER                            N       
+       2 1350   OTHER                            N       
+       3 1350   OTHER                            N       
+       4 1350   OTHER                            N       
+       5 1350   OTHER                            N       
+       6 1350   OTHER                            N       
+       7 0539   OTHER TREATMENT COMPLIANCE ISSUE N       
+       8 0539   OTHER TREATMENT COMPLIANCE ISSUE N       
+       9 0539   OTHER TREATMENT COMPLIANCE ISSUE N       
+      10 0539   OTHER TREATMENT COMPLIANCE ISSUE N       
+      # ... with 40 more rows
       
       $dfCONSENT
-      # A tibble: 3 x 4
-        subjid conscat     consyn consdt
-        <chr>  <chr>       <chr>  <chr> 
-      1 0001   MAINCONSENT Y      <NA>  
-      2 0002   MAINCONSENT Y      17259 
-      3 0003   MAINCONSENT Y      13217 
+      # A tibble: 50 x 4
+         subjid conscat     consyn consdt    
+         <chr>  <chr>       <chr>  <date>    
+       1 0496   MAINCONSENT Y      2013-11-26
+       2 1350   MAINCONSENT Y      2017-10-02
+       3 0539   MAINCONSENT Y      2005-08-31
+       4 0329   MAINCONSENT Y      2007-09-26
+       5 0429   MAINCONSENT Y      2014-08-14
+       6 1218   MAINCONSENT Y      2004-05-23
+       7 0808   MAINCONSENT Y      2010-04-29
+       8 1314   MAINCONSENT Y      2003-10-21
+       9 1236   MAINCONSENT Y      2009-02-08
+      10 0163   MAINCONSENT Y      2015-04-20
+      # ... with 40 more rows
       
       $dfIE
-      # A tibble: 71 x 4
+      # A tibble: 50 x 4
          subjid iecat ieorres tiver
          <chr>  <chr>   <dbl> <chr>
-       1 0001   INCL        0 A2   
-       2 0001   INCL        0 A2   
-       3 0001   INCL        0 A2   
-       4 0001   INCL        0 A2   
-       5 0001   INCL        0 A2   
-       6 0001   INCL        0 A2   
-       7 0001   INCL        0 A2   
-       8 0001   INCL        0 A2   
-       9 0001   INCL        0 A2   
-      10 0001   INCL        0 A2   
-      # ... with 61 more rows
+       1 0496   EXCL        0 A2   
+       2 0496   EXCL        0 A2   
+       3 0496   EXCL        0 A2   
+       4 0496   EXCL        0 A2   
+       5 0496   EXCL        0 A2   
+       6 0496   EXCL        0 A2   
+       7 0496   EXCL        0 A2   
+       8 0496   EXCL        0 A2   
+       9 0496   EXCL        0 A2   
+      10 0496   EXCL        0 A2   
+      # ... with 40 more rows
       
       $dfSTUDCOMP
-      # A tibble: 1 x 3
-        subjid compreas              compyn
-        <chr>  <chr>                 <chr> 
-      1 0002   WITHDRAWAL BY SUBJECT N     
+      # A tibble: 50 x 3
+         subjid compreas                         compyn
+         <chr>  <chr>                            <chr> 
+       1 1236   "LOST TO FOLLOW-UP"              "N"   
+       2 1023   "ADVERSE EVENT"                  "N"   
+       3 1346   ""                               ""    
+       4 0760   "WITHDRAWAL BY SUBJECT"          "N"   
+       5 0854   "LOST TO FOLLOW-UP"              "N"   
+       6 0561   "NON-COMPLIANCE WITH STUDY DRUG" "N"   
+       7 0290   "DEATH"                          "N"   
+       8 1127   "WITHDRAWAL BY SUBJECT"          "N"   
+       9 1152   "WITHDRAWAL BY SUBJECT"          "N"   
+      10 0720   "LOST TO FOLLOW-UP"              "N"   
+      # ... with 40 more rows
       
       $dfSDRGCOMP
-      # A tibble: 2 x 4
-        subjid datapagename                  sdrgreas                       sdrgyn
-        <chr>  <chr>                         <chr>                          <chr> 
-      1 0002   Blinded Study Drug Completion out of bound:Withdrew Consent* N     
-      2 0003   Blinded Study Drug Completion <NA>                           Y     
+      # A tibble: 50 x 4
+         subjid datapagename                  sdrgreas            sdrgyn
+         <chr>  <chr>                         <chr>               <chr> 
+       1 0808   Blinded Study Drug Completion ""                  Y     
+       2 1314   Blinded Study Drug Completion ""                  Y     
+       3 1236   Blinded Study Drug Completion "LOST TO FOLLOW-UP" N     
+       4 0003   Blinded Study Drug Completion ""                  Y     
+       5 1315   Blinded Study Drug Completion ""                  Y     
+       6 0788   Blinded Study Drug Completion ""                  Y     
+       7 0283   Blinded Study Drug Completion ""                  Y     
+       8 0200   Blinded Study Drug Completion ""                  Y     
+       9 1023   Blinded Study Drug Completion "ADVERSE EVENT"     N     
+      10 0572   Blinded Study Drug Completion ""                  Y     
+      # ... with 40 more rows
       
       $dfLB
-      # A tibble: 150 x 8
+      # A tibble: 50 x 8
          subjid visnam    visnum battrnam                  lbtst~1  siresn lb_te toxgr
          <chr>  <chr>      <dbl> <chr>                     <chr>     <dbl> <chr> <chr>
-       1 0001   Screening    -10 CHEMISTRY PANEL           ALT (S~ 5.9 e+1 <NA>  1    
-       2 0001   Screening    -10 CHEMISTRY PANEL           AST (S~ 4.5 e+1 <NA>  1    
-       3 0001   Screening    -10 CHEMISTRY PANEL           Albumi~ 4.4 e+1 <NA>  0    
-       4 0001   Screening    -10 CHEMISTRY PANEL           Alkali~ 7.8 e+1 <NA>  0    
-       5 0001   Screening    -10 HEMATOLOGY&DIFFERENTIAL ~ Basoph~ 2.00e-2 <NA>  <NA> 
-       6 0001   Screening    -10 HEMATOLOGY&DIFFERENTIAL ~ Basoph~ 3.00e-1 <NA>  <NA> 
-       7 0001   Screening    -10 CHEMISTRY PANEL           Calciu~ 2.25e+0 <NA>  <NA> 
-       8 0001   Screening    -10 CHEMISTRY PANEL           Calciu~ 2.25e+0 <NA>  <NA> 
-       9 0001   Screening    -10 CHEMISTRY PANEL           Choles~ 5.44e+0 <NA>  1    
-      10 0001   Screening    -10 CHEMISTRY PANEL           Creati~ 1.17e+2 <NA>  0    
-      # ... with 140 more rows, and abbreviated variable name 1: lbtstnam
+       1 0496   Screening    -10 CHEMISTRY PANEL           ALT (S~ 2.32e+2 ""    "3"  
+       2 0496   Screening    -10 CHEMISTRY PANEL           AST (S~ 7.6 e+1 ""    "1"  
+       3 0496   Screening    -10 CHEMISTRY PANEL           Albumi~ 4.8 e+1 ""    "0"  
+       4 0496   Screening    -10 CHEMISTRY PANEL           Alkali~ 8.4 e+1 ""    "0"  
+       5 0496   Screening    -10 HEMATOLOGY&DIFFERENTIAL ~ Basoph~ 3.00e-2 ""    ""   
+       6 0496   Screening    -10 HEMATOLOGY&DIFFERENTIAL ~ Basoph~ 5   e-1 ""    ""   
+       7 0496   Screening    -10 CHEMISTRY PANEL           Calciu~ 2.5 e+0 ""    ""   
+       8 0496   Screening    -10 CHEMISTRY PANEL           Calciu~ 2.5 e+0 ""    ""   
+       9 0496   Screening    -10 CHEMISTRY PANEL           Choles~ 4.70e+0 ""    "0"  
+      10 0496   Screening    -10 CHEMISTRY PANEL           Creati~ 9.5 e+1 ""    "0"  
+      # ... with 40 more rows, and abbreviated variable name 1: lbtstnam
       
       $dfInput
-      # A tibble: 3 x 8
-        SubjectID SiteID StudyID        CountryID CustomGroupID Exposure Count    Rate
-        <chr>     <chr>  <chr>          <chr>     <chr>            <int> <int>   <dbl>
-      1 0001      86     AA-AA-000-0000 US        0X012              678     5 0.00737
-      2 0002      76     AA-AA-000-0000 China     0X201               13     2 0.154  
-      3 0003      166    AA-AA-000-0000 Japan     0X999              857     0 0      
+      # A tibble: 50 x 8
+         SubjectID SiteID StudyID        CountryID CustomGroupID Expos~1 Count    Rate
+         <chr>     <chr>  <chr>          <chr>     <chr>           <dbl> <int>   <dbl>
+       1 0496      5      AA-AA-000-0000 US        0X167             675     2 0.00296
+       2 1350      78     AA-AA-000-0000 US        0X002             673     7 0.0104 
+       3 0539      139    AA-AA-000-0000 US        0X052             673     2 0.00297
+       4 0329      162    AA-AA-000-0000 US        0X049             673     8 0.0119 
+       5 0429      29     AA-AA-000-0000 Japan     0X116             664     1 0.00151
+       6 1218      143    AA-AA-000-0000 US        0X153             760     3 0.00395
+       7 0808      173    AA-AA-000-0000 US        0X124             758     1 0.00132
+       8 1314      189    AA-AA-000-0000 US        0X093             930    12 0.0129 
+       9 1236      58     AA-AA-000-0000 China     0X091              88     2 0.0227 
+      10 0163      167    AA-AA-000-0000 US        0X059             757     3 0.00396
+      # ... with 40 more rows, and abbreviated variable name 1: Exposure
       
 
 ---
@@ -312,7 +366,7 @@
       
       
       $FilterDomain$dfAE$dim
-      [1] 12  4
+      [1] 50  4
       
       
       $FilterDomain$status
@@ -399,7 +453,7 @@
       
       
       $FilterDomain$dfAE$dim
-      [1] 12  4
+      [1] 49  4
       
       
       $FilterDomain$status
@@ -486,7 +540,7 @@
       
       
       $AE_Map_Raw$dfAE$dim
-      [1] 7 4
+      [1] 48  4
       
       
       $AE_Map_Raw$dfSUBJ
@@ -568,7 +622,7 @@
       
       
       $AE_Map_Raw$dfSUBJ$dim
-      [1] 3 8
+      [1] 50  8
       
       
       $AE_Map_Raw$status
@@ -856,7 +910,7 @@
       
       
       $AE_Assess$dfInput$dim
-      [1] 3 8
+      [1] 50  8
       
       
       $AE_Assess$status
