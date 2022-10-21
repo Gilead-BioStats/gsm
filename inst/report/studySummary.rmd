@@ -106,16 +106,25 @@ function showDetails(elem){
 # Results
 ```{r, echo=FALSE, results='asis'}
 
-for (result in results) {
-
+for (i in seq_along(results)) {
+  result <- results[[i]]
+  title <- gsm::meta_workflow %>%
+    filter(workflowid == names(params$assessments)[i]) %>%
+    pull(metric)
 
   # title
-  cat(paste0('\n\n## ', 'Placeholder', '\n\n'))
+  cat(paste0('\n\n## ', title, '\n\n'))
 
   # chart
-  cat("<h3>Summary Chart</h3>")
+  cat("<h3>Summary Charts</h3>")
   cat("<div style = 'text-align: center'>")
-  print(result$barChart)
+  print(result$lCharts$barScore)
+  cat("</div>")
+  cat("<div style = 'text-align: center'>")
+  print(result$lCharts$scatter)
+  cat("</div>")
+  cat("<div style = 'text-align: center'>")
+  print(result$lCharts$barMetric)
   cat("</div>")
 
   # table
