@@ -49,12 +49,12 @@ Analyze_Rate <- function(
 
   dfAnalyzed <- dfTransformed %>%
     mutate(
-      z_0 = (.data$Metric-mean(.data$Metric))/
-        sqrt(mean(.data$Metric)/.data$Denominator),
+      z_0 = (.data$Metric - mean(.data$Metric)) /
+        sqrt(mean(.data$Metric) / .data$Denominator),
       phi = mean(.data$z_0^2),
-      z_i = (.data$Metric-mean(.data$Metric))/
-        sqrt(.data$phi*mean(.data$Metric)/.data$Denominator)
-      )  %>%
+      z_i = (.data$Metric - mean(.data$Metric)) /
+        sqrt(.data$phi * mean(.data$Metric) / .data$Denominator)
+    ) %>%
     select(
       "GroupID",
       "Numerator",

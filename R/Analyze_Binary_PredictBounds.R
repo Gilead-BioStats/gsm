@@ -63,13 +63,13 @@ Analyze_Binary_PredictBounds <- function(dfTransformed, vThreshold = c(-3, -2, 2
     mutate(
       # Calculate expected event percentage at sample size.
       vMu = mean(dfTransformed$Metric),
-      phi = mean(((dfTransformed$Metric-mean(dfTransformed$Metric))/
-                    sqrt(mean(dfTransformed$Metric)/dfTransformed$Denominator))^2),
+      phi = mean(((dfTransformed$Metric - mean(dfTransformed$Metric)) /
+        sqrt(mean(dfTransformed$Metric) / dfTransformed$Denominator))^2),
       # Calculate lower and upper bounds of expected event percentage given specified threshold.
-      Numerator = .data$vMu + .data$Threshold*sqrt(.data$phi*.data$vMu*(1-.data$vMu)/.data$Denominator)
+      Numerator = .data$vMu + .data$Threshold * sqrt(.data$phi * .data$vMu * (1 - .data$vMu) / .data$Denominator)
     ) %>%
     # Only positive percentages are meaningful bounds
-    filter(.data$Numerator>=0) %>%
+    filter(.data$Numerator >= 0) %>%
     select(
       "Threshold",
       "Denominator",
