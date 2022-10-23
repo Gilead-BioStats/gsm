@@ -49,11 +49,11 @@ Analyze_Binary <- function(
 
   dfAnalyzed <- dfTransformed %>%
     mutate(
-      z_0 = (.data$Metric - mean(.data$Metric)) /
-        sqrt(mean(.data$Metric) * (1 - mean(.data$Metric)) / .data$Denominator),
+      z_0 = (.data$Metric -  sum(.data$Numerator) / sum(.data$Denominator)) /
+        sqrt((sum(.data$Numerator) / sum(.data$Denominator)) * (1 - sum(.data$Numerator) / sum(.data$Denominator)) / .data$Denominator),
       phi = mean(.data$z_0^2),
-      z_i = (.data$Metric - mean(.data$Metric)) /
-        sqrt(.data$phi * mean(.data$Metric) * (1 - mean(.data$Metric)) / .data$Denominator)
+      z_i = (.data$Metric -  sum(.data$Numerator) / sum(.data$Denominator)) /
+        sqrt(.data$phi *  sum(.data$Numerator) / sum(.data$Denominator) * (1 -  sum(.data$Numerator) / sum(.data$Denominator)) / .data$Denominator)
     ) %>%
     select(
       "GroupID",
