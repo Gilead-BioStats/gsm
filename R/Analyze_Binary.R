@@ -60,6 +60,7 @@ Analyze_Binary <- function(
       "Numerator",
       "Denominator",
       "Metric",
+      Factor = "phi",
       Score = "z_i"
     ) %>%
     arrange(.data$Score)
