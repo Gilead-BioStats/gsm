@@ -195,6 +195,9 @@ bQuiet = TRUE
     lAssessments <- gsm::MakeWorkflowList(strNames = c(unique(lMeta$meta_workflow$workflowid)))
   }
 
+  # update parameters
+  lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
+
   # Run Study Assessment
   lResults <- gsm::Study_Assess(
     lData = lData,
