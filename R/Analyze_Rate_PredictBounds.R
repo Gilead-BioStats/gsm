@@ -69,15 +69,17 @@ Analyze_Rate_PredictBounds <- function(dfTransformed, vThreshold = c(-3, -2, 2, 
       phi = mean(((dfTransformed$Metric - sum(dfTransformed$Numerator) / sum(dfTransformed$Denominator)) /
         sqrt(sum(dfTransformed$Numerator) / sum(dfTransformed$Denominator) / dfTransformed$Denominator))^2),
       # Calculate lower and upper bounds of expected event count given specified threshold.
-      Numerator = (.data$vMu + .data$Threshold * sqrt(.data$phi * .data$vMu / .data$Denominator)) * .data$Denominator
+      Metric = .data$vMu + .data$Threshold * sqrt(.data$phi * .data$vMu / .data$Denominator),
+      Numerator = .data$Metric * .data$Denominator
     ) %>%
     # Only positive counts are meaningful bounds
     filter(.data$Numerator >= 0) %>%
     select(
       "Threshold",
-      "LogDenominator",
       "Denominator",
-      "Numerator"
+      "LogDenominator",
+      "Numerator",
+      "Metric"
     )
 
   return(dfBounds)
