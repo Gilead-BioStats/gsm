@@ -66,8 +66,8 @@ Analyze_Rate_PredictBounds <- function(dfTransformed, vThreshold = c(-3, -2, 2, 
       Denominator = exp(.data$LogDenominator),
       # Calculate expected rate at given exposure.
       vMu = sum(dfTransformed$Numerator) / sum(dfTransformed$Denominator),
-      phi = mean(((dfTransformed$Metric - sum(dfTransformed$Numerator) / sum(dfTransformed$Denominator)) /
-        sqrt(sum(dfTransformed$Numerator) / sum(dfTransformed$Denominator) / dfTransformed$Denominator))^2),
+      phi = mean(((dfTransformed$Metric - .data$vMu) /
+        sqrt(.data$vMu / dfTransformed$Denominator)) ^ 2),
       # Calculate lower and upper bounds of expected event count given specified threshold.
       Metric = .data$vMu + .data$Threshold * sqrt(.data$phi * .data$vMu / .data$Denominator),
       Numerator = .data$Metric * .data$Denominator

@@ -49,17 +49,19 @@ Analyze_Rate <- function(
 
   dfAnalyzed <- dfTransformed %>%
     mutate(
-      z_0 = (.data$Metric -  sum(.data$Numerator) / sum(.data$Denominator)) /
-        sqrt( sum(.data$Numerator) / sum(.data$Denominator) / .data$Denominator),
+      vMu = sum(.data$Numerator) / sum(.data$Denominator),
+      z_0 = (.data$Metric -  .data$vMu) /
+        sqrt(.data$vMu / .data$Denominator),
       phi = mean(.data$z_0^2),
-      z_i = (.data$Metric -  sum(.data$Numerator) / sum(.data$Denominator)) /
-        sqrt(.data$phi *  sum(.data$Numerator) / sum(.data$Denominator) / .data$Denominator)
+      z_i = (.data$Metric -  .data$vMu) /
+        sqrt(.data$phi *  .data$vMu / .data$Denominator)
     ) %>%
     select(
       "GroupID",
       "Numerator",
       "Denominator",
       "Metric",
+      OverallMetric = "vMu",
       Factor = "phi",
       Score = "z_i"
     ) %>%
