@@ -122,6 +122,9 @@ bQuiet = TRUE
     lAssessments <- MakeWorkflowList(strNames = c(unique(lMeta$meta_workflow$workflowid)))
   }
 
+  # update parameters
+  lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
+
   # Run Study Assessment
   lResults <- Study_Assess(
     lData = lData,
