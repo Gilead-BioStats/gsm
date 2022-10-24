@@ -46,11 +46,11 @@
 
 # incorrect inputs throw errors
 
-    strMethod is not 'poisson' or 'identity'
+    strMethod is not 'poisson', 'identity', or 'qtl'
 
 ---
 
-    strMethod is not 'poisson' or 'identity'
+    strMethod is not 'poisson', 'identity', or 'qtl'
 
 ---
 
