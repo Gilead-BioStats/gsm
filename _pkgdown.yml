@@ -65,6 +65,7 @@ reference:
       - RemoveInvalidSubjectIDs
       - ParseWarnings
       - Make_Snapshot
+      - UpdateParams
 
    - title: Data
      desc: Metadata used to create workflows
