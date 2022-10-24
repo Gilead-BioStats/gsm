@@ -81,6 +81,8 @@ reference:
       - ParseWarnings
       - Make_Snapshot
       - MakeDfConfig
+      - UpdateParams
+
 
    - title: Data
      desc: Metadata used to create workflows
