@@ -23,7 +23,7 @@
 ---
 
     Code
-      subsetGroupCols(customGroup)
+      subsetGroupCols(country)
     Output
       # A tibble: 3 x 1
         GroupID
@@ -31,6 +31,18 @@
       1 Japan  
       2 US     
       3 China  
+
+---
+
+    Code
+      subsetGroupCols(customGroup)
+    Output
+      # A tibble: 3 x 1
+        GroupID
+        <chr>  
+      1 0X999  
+      2 0X012  
+      3 0X201  
 
 # incorrect inputs throw errors
 
@@ -145,7 +157,7 @@
       
       
       $lChecks$dfInput$dim
-      [1] 3 7
+      [1] 3 8
       
       
       $lChecks$status
@@ -161,6 +173,9 @@
       
       $lChecks$mapping$dfInput$strStudyCol
       [1] "StudyID"
+      
+      $lChecks$mapping$dfInput$strCountryCol
+      [1] "CountryID"
       
       $lChecks$mapping$dfInput$strCustomGroupCol
       [1] "CustomGroupID"

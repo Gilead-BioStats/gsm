@@ -66,7 +66,7 @@ AE_Assess <- function(
   stopifnot(
     "strMethod is not 'poisson' or 'identity'" = strMethod %in% c("poisson", "identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
-    "strGroup must be one of: Site, Study, or CustomGroup" = strGroup %in% c("Site", "Study", "CustomGroup"),
+    "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 

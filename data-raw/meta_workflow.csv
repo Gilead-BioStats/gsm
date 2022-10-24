@@ -1,4 +1,4 @@
-﻿workflowid,gsm_version,group,metric,numerator,denominator,outcome,model,score,data_inputs,data_filters
+workflowid,gsm_version,group,metric,numerator,denominator,outcome,model,score,data_inputs,data_filters
 kri0001,1.1,Site,Non-serious AE Reporting Rate,Treatment Emergent AEs,Days on Treatment,Rate,Poisson,Residual from Poisson Model,"rawplus.ae, rawplus.subj","Non-Serious, TreatmentEmergent"
 kri0002,1.1,Site,SAE Reporting Rate,Treatment Emergent SAEs,Days on Treatment,Rate,Poisson,Residual from Poisson Model,"rawplus.ae, rawplus.subj","Serious, TreatmentEmergent"
 kri0003,1.1,Site,Non-important Protocol Deviation Rate,Non-Important PDs,Days in Study,Rate,Poisson,Residual from Poisson Model,"rawplus.pd, rawplus.subj",Non-Important
@@ -8,3 +8,4 @@ kri0006,1.1,Site,Subject Discontinuation,Subjects Discontinued,Total Subjects,Pe
 kri0007,1.1,Site,Subject Treatment Discontinuation,Subjects with Treatment Discontinued,Total Subjects,Percent,Fisher,P-value from Fisher's Exact Test, rawplus.subj,
 qtl0003,1.1,Study,Important Protocol Deviation Rate,Important PDs,Days in Study,Rate,QTL,Residual from Poisson Model,"rawplus.pd, rawplus.subj",Important
 qtl0007,1.1,Study,Subject Discontinuation,Subjects Discontinued,Total Subjects,Percent,QTL,Residual from Poisson Model, rawplus.subj,
+
