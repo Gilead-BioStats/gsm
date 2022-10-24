@@ -61,7 +61,7 @@ Analyze_Binary_PredictBounds <- function(dfTransformed, vThreshold = c(-3, -2, 2
 
   dfBounds <- tidyr::expand_grid(Threshold = vThreshold, Denominator = vRange) %>%
     mutate(
-      LogDenominator = exp(.data$Denominator),
+      LogDenominator = log(.data$Denominator),
       # Calculate expected event percentage at sample size.
       vMu = sum(dfTransformed$Numerator) / sum(dfTransformed$Denominator),
       phi = mean(((dfTransformed$Metric - sum(dfTransformed$Numerator) / sum(dfTransformed$Denominator)) /
