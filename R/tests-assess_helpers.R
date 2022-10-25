@@ -99,7 +99,7 @@ test_invalid_data_assess <- function(
   expect_null(assess_function("Hi")[["lData"]])
   expect_snapshot_error(assess_function(dfInput, strMethod = 123))
   expect_snapshot_error(assess_function(dfInput, strMethod = "abacus"))
-  expect_snapshot_error(assess_function(dfInput, strMethod = c("identity", "poisson")))
+  expect_snapshot_error(assess_function(dfInput, strMethod = c("identity", "poisson", "qtl")))
   expect_snapshot_error(assess_function(dfInput, vThreshold = "A"))
   expect_snapshot_error(assess_function(dfInput, vThreshold = 1))
   expect_error(assess_function(dfInput, strGroup = "something"))
