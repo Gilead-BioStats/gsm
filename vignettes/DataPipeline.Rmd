@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-The `{gsm}` package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This vignette provides an overview of the `{gsm}` data model. First, we provide a summary of the standardized data pipeline used to calculate KRIs and evaluate thresholds to set site-level flags. We also discuss workflows and reports that allow users to run multiple KRIs concurrently on a study.
+The `{gsm}` package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Quality Management (RBQM) for clinical trials. This vignette provides an overview of the `{gsm}` data model. First, we provide a summary of the standardized data pipeline used to calculate KRIs and evaluate thresholds to set site-level flags. We also discuss workflows and reports that allow users to run multiple KRIs concurrently on a study.
 
 As an overview, clinical and operational data are analyzed using the `{gsm}` R package, which generate standardized outputs and reports suitable for use in various RBQM activities. The Appendices of this document provide detailed data input and output specifications for `{gsm}`.
 
