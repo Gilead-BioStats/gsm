@@ -269,3 +269,29 @@ gismo_output %>%
   tab_style(style = cell_text(size = "small"),
             locations = cells_column_labels(columns = everything()))
 ```
+
+# Appendix 3 - Workflow ID Basic Specs
+
+Workflow IDs are named using the following practices:
+
+**{type}{workflowid}{\_strata}{\_param}** where:
+
+-   **{type}:** Basic analysis unit of the workflow
+    -   kri: site-level
+    -   cou: country-level
+    -   qtl: study-level
+-   **{workflowid}:** 0-padded 4 digit number (e.g., "0001") specifying the workflow used for the assessment
+    -   May contain filter, mapping and assessment functions
+-   **{\_strata}:** Optional flag indicating a stratified analysis
+    -   Format is `_S1`, `_S2`, etc.
+-   **{\_param}:** Optional flag indicating a custom parameterization
+    -   Format is `_P1`, `_P2`, etc.
+
+Here are a few examples and how they translate:
+
+-   kri0001: site-level assessment for workflow 0001
+-   qtl0001: study-level assessment for workflow 0001
+-   cou0001: country-level assessment for workflow 0001
+-   kri0002_s1: stratified site-level assessment for workflow 0002
+-   cou0002_p2: country-level assessment for workflow 0002 run with custom parameters
+-   cou0002_p2_s1: stratified country-level assessment for workflow 0002 run with custom parameters
