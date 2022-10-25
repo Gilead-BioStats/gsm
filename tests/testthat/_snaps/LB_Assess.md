@@ -18,6 +18,42 @@
 
     vThreshold must be length of 2
 
+# grouping works as expected
+
+    Code
+      subsetGroupCols(site)
+    Output
+      # A tibble: 3 x 1
+        GroupID
+        <chr>  
+      1 86     
+      2 76     
+      3 166    
+
+---
+
+    Code
+      subsetGroupCols(country)
+    Output
+      # A tibble: 3 x 1
+        GroupID
+        <chr>  
+      1 US     
+      2 China  
+      3 Japan  
+
+---
+
+    Code
+      subsetGroupCols(customGroup)
+    Output
+      # A tibble: 3 x 1
+        GroupID
+        <chr>  
+      1 0X012  
+      2 0X201  
+      3 0X999  
+
 # bQuiet works as intended
 
     Code

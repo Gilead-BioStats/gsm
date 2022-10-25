@@ -1,5 +1,14 @@
 source(testthat::test_path("testdata/data.R"))
 
+dfSUBJ_cols <- colnames(dfSUBJ)
+dfAE_cols <- colnames(dfAE)
+dfPD_cols <- colnames(dfPD)
+dfCONSENT_cols <- colnames(dfCONSENT)
+dfIE_cols <- colnames(dfIE)
+dfSTUDCOMP_cols <- colnames(dfSTUDCOMP)
+dfSDRGCOMP_cols <- colnames(dfSDRGCOMP)
+dfLB_cols <- colnames(dfLB)
+
 meta_lookup <- tribble(
   ~workflowid, ~assessment_abbrev,
   "kri0001", "AE",
@@ -17,6 +26,15 @@ meta <- left_join(
   meta_lookup,
   by = "workflowid"
 )
+
+dfSUBJ <- clindata::rawplus_dm[1:50,] %>% select(all_of(dfSUBJ_cols))
+dfAE <- clindata::rawplus_ae[1:50,] %>% select(all_of(dfAE_cols))
+dfPD <- clindata::rawplus_protdev[1:50,] %>% select(all_of(dfPD_cols))
+dfCONSENT <- clindata::rawplus_consent[1:50,] %>% select(all_of(dfCONSENT_cols))
+dfIE <- clindata::rawplus_ie[1:50,] %>% select(all_of(dfIE_cols))
+dfSTUDCOMP <- clindata::rawplus_studcomp[1:50,] %>% select(all_of(dfSTUDCOMP_cols))
+dfSDRGCOMP <- clindata::rawplus_sdrgcomp[1:50,] %>% select(all_of(dfSDRGCOMP_cols))
+dfLB <- clindata::rawplus_lb[1:50,] %>% select(all_of(dfLB_cols))
 
 lData <- list(
   dfSUBJ = dfSUBJ,
@@ -39,7 +57,6 @@ result <- Study_Assess(
   bQuiet = TRUE
 ) %>% suppressWarnings()
 
-
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
   expect_equal(length(lAssessments), length(result))
@@ -53,7 +70,7 @@ test_that("output is created as expected", {
   expect_snapshot(names(result$kri0005))
   expect_snapshot(names(result$kri0006))
   expect_snapshot(names(result$kri0007))
-  expect_snapshot(names(result$kri0008))
+
 })
 
 # metadata is returned as expected ----------------------------------------

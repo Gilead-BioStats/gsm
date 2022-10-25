@@ -10,6 +10,7 @@ PD_Assess(
   strMethod = "poisson",
   lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nConfLevel = NULL,
   bQuiet = TRUE
 )
 }
@@ -30,6 +31,8 @@ that defaults to \code{c(0.000895, 0.003059)} for a nominal assessment (\code{st
 of the column.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
+
+\item{nConfLevel}{\code{numeric} Confidence level for QTL analysis.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -67,13 +70,13 @@ The PD Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.g
 methods are described below.
 }
 \section{Data specification}{
-\tabular{lllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
-   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
-   dfInput \tab strExposureCol \tab Exposure \tab TRUE \tab FALSE \cr
-   dfInput \tab strRateCol \tab Rate \tab TRUE \tab FALSE \cr
-   dfInput \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \cr
+\tabular{llllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \tab \strong{Accept NA/Empty Values?} \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \tab FALSE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \tab FALSE \cr
+   dfInput \tab strExposureCol \tab Exposure \tab TRUE \tab FALSE \tab TRUE \cr
+   dfInput \tab strRateCol \tab Rate \tab TRUE \tab FALSE \tab TRUE \cr
+   dfInput \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
 }
 }
 

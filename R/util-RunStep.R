@@ -46,7 +46,6 @@ RunStep <- function(lStep, lMapping, lData, bQuiet) {
 
   params <- lStep$params
   params$bQuiet <- bQuiet
-
   # prepare data inputs by function type
   if (stringr::str_detect(lStep$name, "_Map")) {
     params$lMapping <- lMapping
@@ -66,6 +65,8 @@ RunStep <- function(lStep, lMapping, lData, bQuiet) {
     params$dfInput <- lData[[lStep$inputs]]
     params$bReturnChecks <- TRUE
   }
+
+
 
   if (!bQuiet) cli::cli_text("Calling {.fn {lStep$name}} ...")
   return(do.call(lStep$name, params))
