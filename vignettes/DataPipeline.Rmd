@@ -44,9 +44,7 @@ The image above provides an overview of the KRI assessment pipeline. The pipelin
 Each assessment has an `Assess()` function that sequentially executes all 4 of the supporting functions and returns a list of datasets. The 4 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`. An additional dataset, called `dfBounds`, is generated only when a supported statistical model is being used. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Analysis-Vignette).
 
 
--   Adverse Events (AE) and Protocol Deviations (PD): **Poisson or Identity**
--   Subject Consent (Consent) and Inclusion/Exclusion (IE) Criteria: **Identity**
--   Subject Disposition (Disp) and Laboratory (LB) Results: **Fisher or Identity**
+Note that each step in this data pipeline can be customized based on the requirements for a specific KRI. The graphic below shows three such workflows custom workflows.
 
 ![](data-analysis-combined.PNG){width="170%"}
 
