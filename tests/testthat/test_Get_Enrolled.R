@@ -1,12 +1,10 @@
 source(testthat::test_path("testdata/data.R"))
 
-### Checking all combinations of input for strUnit and strBy
 dfSUBJ <- dfSUBJ
 dfConfig <- clindata::config_param
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
-# Output is created as expected -------------------------------------------
-test_that("Output is created as expected", {
+test_that("output is generated as expected", {
 
   enrolled_1 <- Get_Enrolled(
     dfSUBJ = dfSUBJ,
@@ -34,10 +32,9 @@ test_that("Output is created as expected", {
   expect_equal(names(enrolled_3), c("SiteID", "enrolled_participants")) ### Correct colnames when strUnit = "participant" and strBy = "site"
 })
 
+################################################################
 
-# Incorrect inputs throw errors -------------------------------------------
-
-test_that("Incorrect inputs throw errors", {
+test_that("invalid data throw errors", {
   expect_error(
     Get_Enrolled(
       dfSUBJ = "Sadie", ### dfSUBJ not a data frame
