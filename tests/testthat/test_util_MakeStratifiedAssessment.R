@@ -2,7 +2,7 @@ lData <- list(
   dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae
 )
-StrataWorkflow <- MakeAssessmentList(bRecursive = TRUE, strNames = "aeGrade")$aeGrade
+StrataWorkflow <- MakeWorkflowList(bRecursive = TRUE, strNames = "aeGrade")$aeGrade
 
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
@@ -22,7 +22,7 @@ test_that("output is created as expected", {
 
   # FilterData added as first step in each workflow
   expect_true(
-    all(strat %>% purrr::map_lgl(~ .x$workflow[[1]]$name == "FilterData"))
+    all(strat %>% purrr::map_lgl(~ .x$steps[[1]]$name == "FilterData"))
   )
 })
 

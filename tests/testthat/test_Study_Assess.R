@@ -1,5 +1,14 @@
 source(testthat::test_path("testdata/data.R"))
 
+dfSUBJ_cols <- colnames(dfSUBJ)
+dfAE_cols <- colnames(dfAE)
+dfPD_cols <- colnames(dfPD)
+dfCONSENT_cols <- colnames(dfCONSENT)
+dfIE_cols <- colnames(dfIE)
+dfSTUDCOMP_cols <- colnames(dfSTUDCOMP)
+dfSDRGCOMP_cols <- colnames(dfSDRGCOMP)
+dfLB_cols <- colnames(dfLB)
+
 meta_lookup <- tribble(
   ~workflowid, ~assessment_abbrev,
   "kri0001", "AE",
@@ -18,6 +27,15 @@ meta <- left_join(
   by = "workflowid"
 )
 
+dfSUBJ <- clindata::rawplus_dm[1:50,] %>% select(all_of(dfSUBJ_cols))
+dfAE <- clindata::rawplus_ae[1:50,] %>% select(all_of(dfAE_cols))
+dfPD <- clindata::rawplus_protdev[1:50,] %>% select(all_of(dfPD_cols))
+dfCONSENT <- clindata::rawplus_consent[1:50,] %>% select(all_of(dfCONSENT_cols))
+dfIE <- clindata::rawplus_ie[1:50,] %>% select(all_of(dfIE_cols))
+dfSTUDCOMP <- clindata::rawplus_studcomp[1:50,] %>% select(all_of(dfSTUDCOMP_cols))
+dfSDRGCOMP <- clindata::rawplus_sdrgcomp[1:50,] %>% select(all_of(dfSDRGCOMP_cols))
+dfLB <- clindata::rawplus_lb[1:50,] %>% select(all_of(dfLB_cols))
+
 lData <- list(
   dfSUBJ = dfSUBJ,
   dfAE = dfAE,
@@ -29,7 +47,7 @@ lData <- list(
   dfLB = dfLB
 )
 
-lAssessments <- MakeAssessmentList()
+lAssessments <- MakeWorkflowList()
 
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
@@ -38,7 +56,6 @@ result <- Study_Assess(
   lAssessments = lAssessments,
   bQuiet = TRUE
 ) %>% suppressWarnings()
-
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
@@ -53,7 +70,7 @@ test_that("output is created as expected", {
   expect_snapshot(names(result$kri0005))
   expect_snapshot(names(result$kri0006))
   expect_snapshot(names(result$kri0007))
-  expect_snapshot(names(result$kri0008))
+
 })
 
 # metadata is returned as expected ----------------------------------------
@@ -61,7 +78,7 @@ test_that("metadata is returned as expected", {
   kri0001 <- result$kri0001
 
   # snapshot important/nested assessment data
-  expect_snapshot(kri0001$workflow)
+  expect_snapshot(kri0001$steps)
   expect_snapshot(kri0001$lData)
   expect_snapshot(kri0001$lChecks)
   expect_snapshot(kri0001$checks$FilterDomain$dfAE)
@@ -167,7 +184,7 @@ test_that("Map + Assess yields same result as Study_Assess()", {
   )
 
 
-  custom_workflow <- MakeAssessmentList(strNames = c("ie", "consent"), bRecursive = TRUE)
+  custom_workflow <- MakeWorkflowList(strNames = c("ie", "consent"), bRecursive = TRUE)
 
   study_assess <- Study_Assess(lData = lData, bQuiet = TRUE, lAssessments = custom_workflow)
   consent_assess <- Consent_Map_Raw(dfs = list(dfCONSENT = dfCONSENT, dfSUBJ = dfSUBJ)) %>% Consent_Assess()
@@ -201,7 +218,9 @@ test_that("lSubjFilters with 0 rows returns NULL", {
 })
 
 test_that("correct bStatus is returned when workflow is missing", {
-  custom_assessments <- MakeAssessmentList()
+
+  custom_assessments <- MakeWorkflowList()
+
 
   # remove workflows 2 - end. This only includes a workflow for kri0001
   custom_assessments[2:length(custom_assessments)] <- NULL
@@ -213,7 +232,7 @@ test_that("correct bStatus is returned when workflow is missing", {
   )
 
   # pull out all workflow names that should not have run
-  omittedNames <- names(MakeAssessmentList()[2:length(MakeAssessmentList())])
+  omittedNames <- names(MakeWorkflowList()[2:length(MakeWorkflowList())])
 
   # test that workflow names are not found in the result of Study_Assess()
   expect_false(all(omittedNames %in% names(result)))

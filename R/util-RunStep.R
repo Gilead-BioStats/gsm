@@ -3,7 +3,7 @@
 #' Runs a single step of an assessment workflow. Currently supports `Filter`, `Map`, and `Assess`
 #' functions.
 #'
-#' @param lStep `list` single workflow step (typically defined in `lAssessment$workflow`). Should
+#' @param lStep `list` single workflow step (typically defined in `lWorkflow$workflow`). Should
 #'   include the name of the function to run (`lStep$name`), data inputs (`lStep$inputs`), name of
 #'   output (`lStep$output`) and configurable parameters (`lStep$params`) (if any)
 #' @param lMapping `list` List containing expected columns in each data set.
@@ -15,7 +15,7 @@
 #'
 #'
 #' @examples
-#' lStep <- MakeAssessmentList()[["kri0001"]][["workflow"]][[1]]
+#' lStep <- MakeWorkflowList()[["kri0001"]][["steps"]][[1]]
 #'
 #' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 #'
@@ -46,7 +46,6 @@ RunStep <- function(lStep, lMapping, lData, bQuiet) {
 
   params <- lStep$params
   params$bQuiet <- bQuiet
-
   # prepare data inputs by function type
   if (stringr::str_detect(lStep$name, "_Map")) {
     params$lMapping <- lMapping
@@ -66,6 +65,8 @@ RunStep <- function(lStep, lMapping, lData, bQuiet) {
     params$dfInput <- lData[[lStep$inputs]]
     params$bReturnChecks <- TRUE
   }
+
+
 
   if (!bQuiet) cli::cli_text("Calling {.fn {lStep$name}} ...")
   return(do.call(lStep$name, params))

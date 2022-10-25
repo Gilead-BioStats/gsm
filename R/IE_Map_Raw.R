@@ -80,6 +80,7 @@ IE_Map_Raw <- function(
           c(
             SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
             StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+            CountryID = lMapping[["dfSUBJ"]][["strCountryCol"]],
             CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
           )
         )
@@ -106,9 +107,9 @@ IE_Map_Raw <- function(
       ) %>%
       mutate(Count = .data$Invalid + .data$Missing) %>%
       ungroup() %>%
-      select(.data$SubjectID, .data$Count) %>%
+      select("SubjectID", "Count") %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      select(any_of(names(dfSUBJ_mapped)), .data$Count)
+      select(any_of(names(dfSUBJ_mapped)), "Count")
 
     if (!bQuiet) cli::cli_alert_success("{.fn IE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

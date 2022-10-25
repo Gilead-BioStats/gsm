@@ -89,6 +89,7 @@ Disp_Map_Raw <- function(
           c(
             SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
             StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+            CountryID = lMapping[["dfSUBJ"]][["strCountryCol"]],
             CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
           )
         )
@@ -103,7 +104,7 @@ Disp_Map_Raw <- function(
         Count = ifelse(is.na(.data$Count), 0, .data$Count),
         Total = 1
       ) %>%
-      select(any_of(names(dfSUBJ_mapped)), .data$Count, .data$Total)
+      select(any_of(names(dfSUBJ_mapped)), "Count", "Total")
 
     if (!bQuiet) cli::cli_alert_success("{.fn Disp_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

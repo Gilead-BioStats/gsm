@@ -30,6 +30,25 @@ test_that("incorrect inputs throw errors", {
   expect_error(assess_function(dfInput, strGroup = "something"))
 })
 
+# grouping works as expected ----------------------------------------------
+test_that("grouping works as expected", {
+  subsetGroupCols <- function(assessOutput) {
+    assessOutput[["lData"]][["dfSummary"]] %>% select("GroupID")
+  }
+
+  site <- assess_function(dfInput)
+  # this does not work because it creates a single group, causing stats model to error out.
+  # TODO: should be addressed with new stats models in v1.3.0
+  # study <- assess_function(dfInput, strGroup = "Study")
+  country <- assess_function(dfInput, strGroup = "Country")
+  customGroup <- assess_function(dfInput, strGroup = "CustomGroup")
+
+  expect_snapshot(subsetGroupCols(site))
+  expect_snapshot(subsetGroupCols(country))
+  expect_snapshot(subsetGroupCols(customGroup))
+  expect_false(all(map_lgl(list(site, country, customGroup), ~ all(map_lgl(., ~ is_grouped_df(.))))))
+})
+
 # custom tests ------------------------------------------------------------
 test_that("strMethod = 'identity' works as expected", {
   identity <- assess_function(dfInput, strMethod = "identity")

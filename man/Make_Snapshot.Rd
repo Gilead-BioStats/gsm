@@ -5,8 +5,8 @@
 \title{Make Snapshot - create and export Gizmo data model.}
 \usage{
 Make_Snapshot(
-  lMeta = list(config_param = gsm::config_param, config_schedule =
-    clindata::config_schedule, config_workflow = gsm::config_workflow, meta_params =
+  lMeta = list(config_param = clindata::config_param, config_schedule =
+    clindata::config_schedule, config_workflow = clindata::config_workflow, meta_params =
     gsm::meta_param, meta_site = clindata::ctms_site, meta_study = clindata::ctms_study,
     meta_workflow = gsm::meta_workflow),
   lData = list(dfSUBJ = clindata::rawplus_dm, dfAE = clindata::rawplus_ae, dfLB =
@@ -27,7 +27,7 @@ Make_Snapshot(
 
 \item{lMapping}{\code{list} a named list identifying the columns needed in each data domain.}
 
-\item{lAssessments}{a named list of metadata defining how each assessment should be run. By default, \code{MakeAssessmentList()} imports YAML specifications from \code{inst/workflow}.}
+\item{lAssessments}{a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
 
 \item{cPath}{\code{character} a character string indicating a working directory to save .csv files; the output of the snapshot.}
 
