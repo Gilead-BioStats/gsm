@@ -3,20 +3,20 @@
     Code
       subsetGroupCols(site)
     Output
-      # A tibble: 176 x 1
+      # A tibble: 40 x 1
          GroupID
          <chr>  
-       1 154    
-       2 150    
-       3 25     
-       4 120    
-       5 86     
-       6 56     
-       7 140    
-       8 77     
-       9 92     
-      10 155    
-      # ... with 166 more rows
+       1 128    
+       2 75     
+       3 56     
+       4 122    
+       5 80     
+       6 91     
+       7 162    
+       8 78     
+       9 44     
+      10 43     
+      # ... with 30 more rows
 
 ---
 
@@ -36,29 +36,29 @@
       # A tibble: 3 x 1
         GroupID
         <chr>  
-      1 US     
-      2 Japan  
-      3 China  
+      1 China  
+      2 US     
+      3 Japan  
 
 ---
 
     Code
       subsetGroupCols(customGroup)
     Output
-      # A tibble: 176 x 1
+      # A tibble: 40 x 1
          GroupID
          <chr>  
-       1 0X090  
-       2 0X054  
-       3 0X041  
-       4 0X169  
-       5 0X035  
-       6 0X014  
-       7 0X161  
-       8 0X122  
-       9 0X026  
-      10 0X125  
-      # ... with 166 more rows
+       1 0X149  
+       2 0X027  
+       3 0X014  
+       4 0X018  
+       5 0X097  
+       6 0X175  
+       7 0X002  
+       8 0X049  
+       9 0X108  
+      10 0X159  
+      # ... with 30 more rows
 
 # invalid data throw errors
 
@@ -94,12 +94,12 @@
       
       -- Initializing `AE_Assess()` --
       
-      Input data has 1301 rows.
-      v `Transform_Rate()` returned output with 176 rows.
+      Input data has 50 rows.
+      v `Transform_Rate()` returned output with 40 rows.
       i Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ].
-      v `Analyze_Poisson()` returned output with 176 rows.
-      v `Flag_Poisson()` returned output with 176 rows.
-      v `Summarize()` returned output with 176 rows.
+      v `Analyze_Poisson()` returned output with 40 rows.
+      v `Flag_Poisson()` returned output with 40 rows.
+      v `Summarize()` returned output with 40 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
 

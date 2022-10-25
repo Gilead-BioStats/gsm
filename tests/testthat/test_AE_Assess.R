@@ -1,12 +1,13 @@
 assess_function <- gsm::AE_Assess
 
-dfInput <- AE_Map_Raw()
+dfInput <- AE_Map_Raw() %>%
+  slice(1:50)
 
 output_spec <- yaml::read_yaml(system.file("specs", "AE_Assess.yaml", package = "gsm"))
 output_mapping <- yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm"))
 
 test_that("valid output is returned", {
-  test_valid_output_assess(
+  test_valid_output_assess_poisson(
     assess_function,
     dfInput,
     output_spec,

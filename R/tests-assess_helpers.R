@@ -1,4 +1,4 @@
-test_valid_output_assess <- function(
+test_valid_output_assess_poisson <- function(
     assess_function,
     dfInput,
     spec,
@@ -14,6 +14,50 @@ test_valid_output_assess <- function(
   testthat::expect_true("data.frame" %in% class(output$lData$dfTransformed))
   testthat::expect_true("data.frame" %in% class(output$lData$dfAnalyzed))
   testthat::expect_true("data.frame" %in% class(output$lData$dfBounds))
+  testthat::expect_true("data.frame" %in% class(output$lData$dfFlagged))
+  testthat::expect_true("data.frame" %in% class(output$lData$dfSummary))
+  testthat::expect_true(output$lChecks$status)
+
+}
+
+################################################################
+
+test_valid_output_assess_identity <- function(
+    assess_function,
+    dfInput,
+    spec,
+    mapping
+) {
+  output <- assess_function(dfInput = dfInput)
+
+  testthat::expect_true(is.list(output))
+  testthat::expect_equal(names(output), c("lData", "lCharts", "lChecks"))
+  testthat::expect_equal(names(output$lData), c("dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+  testthat::expect_equal(names(output$lCharts), c("barMetric", "barScore"))
+  testthat::expect_true("data.frame" %in% class(output$lData$dfTransformed))
+  testthat::expect_true("data.frame" %in% class(output$lData$dfAnalyzed))
+  testthat::expect_true("data.frame" %in% class(output$lData$dfFlagged))
+  testthat::expect_true("data.frame" %in% class(output$lData$dfSummary))
+  testthat::expect_true(output$lChecks$status)
+
+}
+
+################################################################
+
+test_valid_output_assess_fisher <- function(
+    assess_function,
+    dfInput,
+    spec,
+    mapping
+) {
+  output <- assess_function(dfInput = dfInput)
+
+  testthat::expect_true(is.list(output))
+  testthat::expect_equal(names(output), c("lData", "lCharts", "lChecks"))
+  testthat::expect_equal(names(output$lData), c("dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+  testthat::expect_equal(names(output$lCharts), c("scatter", "barMetric", "barScore"))
+  testthat::expect_true("data.frame" %in% class(output$lData$dfTransformed))
+  testthat::expect_true("data.frame" %in% class(output$lData$dfAnalyzed))
   testthat::expect_true("data.frame" %in% class(output$lData$dfFlagged))
   testthat::expect_true("data.frame" %in% class(output$lData$dfSummary))
   testthat::expect_true(output$lChecks$status)
@@ -59,6 +103,21 @@ test_invalid_data_assess <- function(
   expect_snapshot_error(assess_function(dfInput, vThreshold = "A"))
   expect_snapshot_error(assess_function(dfInput, vThreshold = 1))
   expect_error(assess_function(dfInput, strGroup = "something"))
+}
+
+################################################################
+
+test_invalid_data_assess_identity <- function(
+    assess_function,
+    dfInput,
+    spec,
+    mapping
+) {
+  expect_null(assess_function("Hi")[["lData"]])
+  expect_error(assess_function(dfInput, nThreshold = FALSE), "nThreshold must be numeric")
+  expect_error(assess_function(dfInput, nThreshold = "A"), "nThreshold must be numeric")
+  expect_error(assess_function(dfInput, nThreshold = c(1, 1)), "nThreshold must be length 1")
+  expect_error(assess_function(dfInput, strGroup = "something"), "strGroup must be one of: Site, Study, Country, or CustomGroup")
 }
 
 ################################################################

@@ -1,62 +1,65 @@
-source(testthat::test_path("testdata/data.R"))
-
 assess_function <- gsm::Disp_Assess
-dfInput <- Disp_Map_Raw(dfs = list(dfSDRGCOMP = dfSDRGCOMP, dfSTUDCOMP = dfSTUDCOMP, dfSUBJ = dfSUBJ))
+
+dfInput <- Disp_Map_Raw() %>%
+  slice(1:50)
+
 output_spec <- yaml::read_yaml(system.file("specs", "Disp_Assess.yaml", package = "gsm"))
 output_mapping <- yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm"))
 
-# output is created as expected -------------------------------------------
-test_that("output is created as expected", {
-  assessment <- assess_function(dfInput)
-  expect_true(is.list(assessment))
-  expect_equal(names(assessment), c("lData", "lCharts", "lChecks"))
-  expect_equal(names(assessment$lData), c("dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
-  expect_true("data.frame" %in% class(assessment$lData$dfTransformed))
-  expect_true("data.frame" %in% class(assessment$lData$dfAnalyzed))
-  expect_true("data.frame" %in% class(assessment$lData$dfFlagged))
-  expect_true("data.frame" %in% class(assessment$lData$dfSummary))
-  expect_equal(names(assessment$lCharts), c("scatter", "barMetric", "barScore"))
-  expect_true(assessment$lChecks$status)
+test_that("valid output is returned", {
+  test_valid_output_assess_fisher(
+    assess_function,
+    dfInput,
+    output_spec,
+    output_mapping
+  )
 })
 
-# grouping works as expected ----------------------------------------------
 test_that("grouping works as expected", {
-  subsetGroupCols <- function(assessOutput) {
-    assessOutput[["lData"]][["dfSummary"]] %>% select("GroupID")
-  }
+  dfInput$StudyID[26:50] <- "AA-AA-000-0001" ## Fisher doesn't support single input
 
-  site <- assess_function(dfInput)
-  # study <- assess_function(dfInput, strGroup = "Study") - TODO: fix #659
-  country <- assess_function(dfInput, strGroup = "Country")
-  customGroup <- assess_function(dfInput, strGroup = "CustomGroup")
-
-  expect_snapshot(subsetGroupCols(site))
-  # expect_snapshot(subsetGroupCols(study))
-  expect_snapshot(subsetGroupCols(country))
-  expect_snapshot(subsetGroupCols(customGroup))
-
-  # TODO: add 'study' to the list below once the above is reconciled
-  expect_false(all(map_lgl(list(site, country, customGroup), ~ all(map_lgl(., ~ is_grouped_df(.))))))
+  test_grouping_assess(
+    assess_function,
+    dfInput,
+    output_spec,
+    output_mapping
+  )
 })
 
-# incorrect inputs throw errors -------------------------------------------
-test_that("incorrect inputs throw errors", {
-  expect_null(assess_function("Hi")[["lData"]])
-  expect_snapshot_error(assess_function(dfInput, strMethod = 123))
-  expect_snapshot_error(assess_function(dfInput, strMethod = "abacus"))
-  expect_snapshot_error(assess_function(dfInput, strMethod = c("identity", "fisher")))
-  expect_snapshot_error(assess_function(dfInput, vThreshold = "A"))
-  expect_snapshot_error(assess_function(dfInput, vThreshold = 1))
-  expect_error(assess_function(dfInput, strGroup = "something"))
+test_that("invalid data throw errors", {
+  test_invalid_data_assess(
+    assess_function,
+    dfInput,
+    output_spec,
+    output_mapping
+  )
 })
 
-# custom tests ------------------------------------------------------------
+test_that("missing column throws errors", {
+  test_missing_column_assess(
+    assess_function,
+    dfInput,
+    output_spec,
+    output_mapping
+  )
+})
+
+test_that("invalid mapping throws errors", {
+  test_invalid_mapping_assess(
+    assess_function,
+    dfInput,
+    output_spec,
+    output_mapping
+  )
+})
+
 test_that("strMethod = 'identity' works as expected", {
-  identity <- assess_function(dfInput, strMethod = "identity")
-  expect_error(assess_function(dfInput, strMethod = "identity"), NA)
-  expect_equal(names(identity$lCharts), c("barMetric", "barScore"))
-  expect_null(identity$lCharts$scatter)
-  expect_null(identity$lData$dfBounds)
+  test_identity(
+    assess_function,
+    dfInput,
+    output_spec,
+    output_mapping
+  )
 })
 
 test_that("bQuiet works as intended", {

@@ -3,22 +3,31 @@
     Code
       subsetGroupCols(site)
     Output
-      # A tibble: 3 x 1
-        GroupID
-        <chr>  
-      1 86     
-      2 166    
-      3 76     
+      # A tibble: 40 x 1
+         GroupID
+         <chr>  
+       1 109    
+       2 114    
+       3 118    
+       4 122    
+       5 127    
+       6 128    
+       7 139    
+       8 140    
+       9 143    
+      10 144    
+      # ... with 30 more rows
 
 ---
 
     Code
       subsetGroupCols(study)
     Output
-      # A tibble: 1 x 1
+      # A tibble: 2 x 1
         GroupID       
         <chr>         
       1 AA-AA-000-0000
+      2 AA-AA-000-0001
 
 ---
 
@@ -28,26 +37,54 @@
       # A tibble: 3 x 1
         GroupID
         <chr>  
-      1 US     
-      2 China  
-      3 Japan  
+      1 China  
+      2 Japan  
+      3 US     
 
 ---
 
     Code
       subsetGroupCols(customGroup)
     Output
-      # A tibble: 3 x 1
-        GroupID
-        <chr>  
-      1 0X012  
-      2 0X201  
-      3 0X999  
+      # A tibble: 40 x 1
+         GroupID
+         <chr>  
+       1 0X002  
+       2 0X014  
+       3 0X016  
+       4 0X018  
+       5 0X020  
+       6 0X023  
+       7 0X027  
+       8 0X039  
+       9 0X043  
+      10 0X049  
+      # ... with 30 more rows
+
+# invalid data throw errors
+
+    unused argument (strMethod = 123)
+
+---
+
+    unused argument (strMethod = "abacus")
+
+---
+
+    unused argument (strMethod = c("identity", "poisson"))
+
+---
+
+    unused argument (vThreshold = "A")
+
+---
+
+    unused argument (vThreshold = 1)
 
 # bQuiet works as intended
 
     Code
-      assessment <- assess_function(dfInput, bQuiet = FALSE)
+      assessOutput <- assess_function(dfInput = dfInput, bQuiet = FALSE)
     Message <cliMessage>
       
       -- Checking Input Data for `IE_Assess()` --
@@ -56,11 +93,11 @@
       
       -- Initializing `IE_Assess()` --
       
-      Input data has 3 rows.
-      v `Transform_Count()` returned output with 3 rows.
+      Input data has 50 rows.
+      v `Transform_Count()` returned output with 40 rows.
       `Score` column created from `Metric`.
       i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed`.
-      v `Flag()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
+      v `Flag()` returned output with 40 rows.
+      v `Summarize()` returned output with 40 rows.
       v `Visualize_Score()` created 2 charts.
 
