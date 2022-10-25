@@ -75,17 +75,16 @@ test_grouping_assess <- function(
   subsetGroupCols <- function(assessOutput) {
     assessOutput[["lData"]][["dfSummary"]] %>% select("GroupID")
   }
-
   site <- assess_function(dfInput)
   study <- assess_function(dfInput, strGroup = "Study")
   country <- assess_function(dfInput, strGroup = "Country")
   customGroup <- assess_function(dfInput, strGroup = "CustomGroup")
 
-  expect_snapshot(subsetGroupCols(site))
-  expect_snapshot(subsetGroupCols(study))
-  expect_snapshot(subsetGroupCols(country))
-  expect_snapshot(subsetGroupCols(customGroup))
-  expect_false(all(map_lgl(list(site, study, country, customGroup), ~ all(map_lgl(., ~ is_grouped_df(.))))))
+  testthat::expect_snapshot(subsetGroupCols(site))
+  testthat::expect_snapshot(subsetGroupCols(study))
+  testthat::expect_snapshot(subsetGroupCols(country))
+  testthat::expect_snapshot(subsetGroupCols(customGroup))
+  testthat::expect_false(all(map_lgl(list(site, study, country, customGroup), ~ all(map_lgl(., ~ is_grouped_df(.))))))
 }
 
 ################################################################
@@ -96,13 +95,13 @@ test_invalid_data_assess <- function(
     spec,
     mapping
 ) {
-  expect_null(assess_function("Hi")[["lData"]])
-  expect_snapshot_error(assess_function(dfInput, strMethod = 123))
-  expect_snapshot_error(assess_function(dfInput, strMethod = "abacus"))
-  expect_snapshot_error(assess_function(dfInput, strMethod = c("identity", "poisson")))
-  expect_snapshot_error(assess_function(dfInput, vThreshold = "A"))
-  expect_snapshot_error(assess_function(dfInput, vThreshold = 1))
-  expect_error(assess_function(dfInput, strGroup = "something"))
+  testthat::expect_null(assess_function("Hi")[["lData"]])
+  testthat::expect_snapshot_error(assess_function(dfInput, strMethod = 123))
+  testthat::expect_snapshot_error(assess_function(dfInput, strMethod = "abacus"))
+  testthat::expect_snapshot_error(assess_function(dfInput, strMethod = c("identity", "poisson")))
+  testthat::expect_snapshot_error(assess_function(dfInput, vThreshold = "A"))
+  testthat::expect_snapshot_error(assess_function(dfInput, vThreshold = 1))
+  testthat::expect_error(assess_function(dfInput, strGroup = "something"))
 }
 
 ################################################################
@@ -113,11 +112,11 @@ test_invalid_data_assess_identity <- function(
     spec,
     mapping
 ) {
-  expect_null(assess_function("Hi")[["lData"]])
-  expect_error(assess_function(dfInput, nThreshold = FALSE), "nThreshold must be numeric")
-  expect_error(assess_function(dfInput, nThreshold = "A"), "nThreshold must be numeric")
-  expect_error(assess_function(dfInput, nThreshold = c(1, 1)), "nThreshold must be length 1")
-  expect_error(assess_function(dfInput, strGroup = "something"), "strGroup must be one of: Site, Study, Country, or CustomGroup")
+  testthat::expect_null(assess_function("Hi")[["lData"]])
+  testthat::expect_error(assess_function(dfInput, nThreshold = FALSE), "nThreshold must be numeric")
+  testthat::expect_error(assess_function(dfInput, nThreshold = "A"), "nThreshold must be numeric")
+  testthat::expect_error(assess_function(dfInput, nThreshold = c(1, 1)), "nThreshold must be length 1")
+  testthat::expect_error(assess_function(dfInput, strGroup = "something"), "strGroup must be one of: Site, Study, Country, or CustomGroup")
 }
 
 ################################################################
@@ -130,9 +129,10 @@ test_missing_column_assess <- function(
 ) {
   dfInput_test <- dfInput %>% select(-c(SiteID))
   missing_req_col <- assess_function(dfInput = dfInput_test)
-  expect_silent(missing_req_col)
-  expect_null(missing_req_col$lData)
-  expect_null(missing_req_col$lCharts)
+
+  testthat::expect_silent(missing_req_col)
+  testthat::expect_null(missing_req_col$lData)
+  testthat::expect_null(missing_req_col$lCharts)
 }
 
 ################################################################
@@ -146,10 +146,11 @@ test_invalid_mapping_assess <- function(
   mapping_edited <- mapping
   mapping_edited$dfInput$strSiteCol <- "cupcakes"
   invalid_map <- dfInput %>% assess_function(lMapping = mapping_edited)
-  expect_null(invalid_map$lData)
-  expect_null(invalid_map$lCharts)
-  expect_equal(invalid_map[["lChecks"]][["dfInput"]][["tests_if"]][["has_expected_columns"]][["warning"]],
-               "the following columns not found in df: cupcakes")
+
+  testthat::expect_null(invalid_map$lData)
+  testthat::expect_null(invalid_map$lCharts)
+  testthat::expect_equal(invalid_map[["lChecks"]][["dfInput"]][["tests_if"]][["has_expected_columns"]][["warning"]],
+                         "the following columns not found in df: cupcakes")
 }
 
 ################################################################
@@ -161,10 +162,11 @@ test_identity <- function(
     mapping
 ) {
   identity <- assess_function(dfInput, strMethod = "identity")
-  expect_error(assess_function(dfInput, strMethod = "identity"), NA)
-  expect_equal(names(identity$lCharts), c("barMetric", "barScore"))
-  expect_null(identity$lCharts$scatter)
-  expect_null(identity$lData$dfBounds)
+
+  testthat::expect_error(assess_function(dfInput, strMethod = "identity"), NA)
+  testthat::expect_equal(names(identity$lCharts), c("barMetric", "barScore"))
+  testthat::expect_null(identity$lCharts$scatter)
+  testthat::expect_null(identity$lData$dfBounds)
 }
 
 ################################################################
@@ -178,9 +180,10 @@ test_NA_count <- function(
   dfInputNA <- dfInput
   dfInputNA[1, "Count"] <- NA
   count_check <- assess_function(dfInput = dfInputNA)
-  expect_silent(count_check)
-  expect_null(count_check$lData)
-  expect_null(count_check$lCharts)
+
+  testthat::expect_silent(count_check)
+  testthat::expect_null(count_check$lData)
+  testthat::expect_null(count_check$lCharts)
 }
 
 ################################################################
