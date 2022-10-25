@@ -65,15 +65,14 @@ test_that("Incorrect inputs throw errors", {
       strBy = "site"
   ))
 
-  ### TEST NOT WORKING - Issue filed (#822)
-  # expect_error(
-  #   Get_Enrolled(
-  #     dfSUBJ = dfSUBJ,
-  #     dfConfig = dfConfig %>% select(-c(studyid)), ### dfConfig missing studyid
-  #     lMapping = lMapping,
-  #     strUnit = "participant",
-  #     strBy = "study"
-  # ))
+  expect_error(
+    Get_Enrolled(
+      dfSUBJ = dfSUBJ,
+      dfConfig = dfConfig %>% select(-c(studyid)), ### dfConfig missing studyid
+      lMapping = lMapping,
+      strUnit = "participant",
+      strBy = "study"
+  ))
 
   expect_error(
     Get_Enrolled(
@@ -113,7 +112,7 @@ test_that("Incorrect inputs throw errors", {
       strBy = "site"
     ))
 
-  ### Check that the function errors out if any inputs are missing because there are no defaults (they can exist in the environment, but they're not automatically pulled by the function) - DO WE WANT TO SET DEFAULTS?
+  ### Check that the function errors out if any inputs are missing because there are no defaults (they can exist in the environment, but they're not automatically pulled by the function)
   expect_error(
     Get_Enrolled(
       dfConfig = dfConfig,
