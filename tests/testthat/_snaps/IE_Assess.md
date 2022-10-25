@@ -71,7 +71,7 @@
 
 ---
 
-    unused argument (strMethod = c("identity", "poisson"))
+    unused argument (strMethod = c("identity", "poisson", "qtl"))
 
 ---
 

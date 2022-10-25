@@ -70,7 +70,7 @@
 
 ---
 
-    strMethod must be length 1
+    strMethod is not 'poisson' or 'identity'
 
 ---
 
