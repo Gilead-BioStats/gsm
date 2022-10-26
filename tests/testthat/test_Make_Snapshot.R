@@ -1,3 +1,13 @@
+lMeta <- list(
+  config_param = clindata::config_param,
+  config_schedule = clindata::config_schedule,
+  config_workflow = clindata::config_workflow,
+  meta_params = gsm::meta_param,
+  meta_site = clindata::ctms_site,
+  meta_study = clindata::ctms_study,
+  meta_workflow = gsm::meta_workflow
+)
+
 lData <- list(
   dfSUBJ = clindata::rawplus_dm[1:50,],
   dfAE = clindata::rawplus_ae[1:50,],
@@ -9,25 +19,16 @@ lData <- list(
   dfLB = clindata::rawplus_lb[1:50,]
 )
 
-lMeta <- list(
-  config_param = clindata::config_param,
-  config_schedule = clindata::config_schedule,
-  config_workflow = clindata::config_workflow,
-  meta_params = gsm::meta_param,
-  meta_site = clindata::ctms_site,
-  meta_study = clindata::ctms_study,
-  meta_workflow = gsm::meta_workflow
-)
-
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 lAssessments <- MakeWorkflowList()
 
-snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lAssessments = lAssessments) %>%
-  suppressWarnings()
+snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments)
 
 tool_outputs <- read.csv(system.file("vignettes", "standardized_outputs.csv", package = "gsm"))
 gsm_outputs <- read.csv(system.file("vignettes", "gsm_outputs.csv", package = "gsm"))
+
+################################################################################################################
 
 test_that("output is generated as expected", {
   expect_true(is.list(snapshot))
@@ -43,6 +44,8 @@ test_that("output is generated as expected", {
   expect_equal(names(snapshot$meta_param), unique(tool_outputs$Column.Name[tool_outputs$Table.Name == "meta_param"]))
 })
 
+################################################################################################################
+
 test_that("input data is structured as expected", {
   expect_true(is.list(lMeta))
   expect_equal(names(lMeta), c("config_param", "config_schedule", "config_workflow", "meta_params", "meta_site", "meta_study", "meta_workflow"))
@@ -55,41 +58,99 @@ test_that("input data is structured as expected", {
   expect_equal(names(lMeta$meta_workflow), unique(gsm_outputs$Column.Name[gsm_outputs$Table.Name == "meta_workflow"]))
 })
 
+################################################################################################################
+
 test_that("invalid data throw errors", {
 
-  ### lMeta
+
+  ### lMeta - testing lMeta equal to character string and missing config_param
   expect_error(Make_Snapshot("Hi")[["lMeta"]])
 
-  ### lData
+  lMeta_edited <- list(
+    config_schedule = clindata::config_schedule,
+    config_workflow = clindata::config_workflow,
+    meta_params = gsm::meta_param,
+    meta_site = clindata::ctms_site,
+    meta_study = clindata::ctms_study,
+    meta_workflow = gsm::meta_workflow
+  )
+  expect_error(Make_Snapshot(lMeta = lMeta_edited, lData = lData, lMapping = lMapping, lAssessments = lAssessments))
+
+
+  ### lData - testing lData equal to character string and missing dfSUBJ
   expect_error(Make_Snapshot("Hola")[["lData"]])
 
-  ### lMapping
+  lData_edited <- list(
+    dfAE = clindata::rawplus_ae[1:50,],
+    dfPD = clindata::rawplus_protdev[1:50,],
+    dfCONSENT = clindata::rawplus_consent[1:50,],
+    dfIE = clindata::rawplus_ie[1:50,],
+    dfSTUDCOMP = clindata::rawplus_studcomp[1:50,],
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp[1:50,],
+    dfLB = clindata::rawplus_lb[1:50,]
+  )
+  expect_error(Make_Snapshot(lMeta = lMeta, lData = lData_edited, lMapping = lMapping, lAssessments = lAssessments))
+
+
+  ### lMapping - testing lMapping equal to character string and with mislabeled siteID in dfSUBJ
   expect_error(Make_Snapshot("Bonjour")[["lMapping"]])
 
-  mapping_edited <- lMapping
-  mapping_edited$dfSUBJ$strSiteCol <- "cupcakes"
-  expect_error(Make_Snapshot(lMapping = mapping_edited))
+  lMapping_edited <- lMapping
+  lMapping_edited$dfSUBJ$strSiteCol <- "cupcakes"
+  expect_error(Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping_edited, lAssessments = lAssessments))
 
-  ### lAssessments
+
+  ### lAssessments - testing lAssessments equal to character string and with invalid YAML specs
   expect_error(Make_Snapshot("Ciao")[["lAssessments"]])
+
+  lAssessments_edited <- list(
+    yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+    yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
+  )
+  expect_error(Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments_edited))
 })
 
-# test_that("Make_Snapshot() runs with missing datasets", {
-#
-#   lMeta <- list(
-#     config_schedule = clindata::config_schedule,
-#     config_workflow = clindata::config_workflow,
-#     meta_params = gsm::meta_param,
-#     meta_site = clindata::ctms_site,
-#     meta_study = clindata::ctms_study,
-#     meta_workflow = gsm::meta_workflow
-#   )
-#   snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lAssessments = lAssessments) %>%
-#     suppressWarnings()
-# })
+################################################################################################################
+
+### Test cPath works - sent to testpath
+
+################################################################################################################
+
+### Test custom lAssessment works (?)
+
+################################################################################################################
+
+test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
+
+
+  ### Removed dfAE
+  lData_edited <- list(
+    dfSUBJ = clindata::rawplus_dm[1:50,],
+    dfPD = clindata::rawplus_protdev[1:50,],
+    dfCONSENT = clindata::rawplus_consent[1:50,],
+    dfIE = clindata::rawplus_ie[1:50,],
+    dfSTUDCOMP = clindata::rawplus_studcomp[1:50,],
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp[1:50,],
+    dfLB = clindata::rawplus_lb[1:50,]
+  )
+  expect_silent(Make_Snapshot(lMeta = lMeta, lData = lData_edited, lMapping = lMapping, lAssessments = lAssessments))
+
+
+  ### Removed meta_params
+  lMeta_edited <- list(
+    config_param = clindata::config_param,
+    config_schedule = clindata::config_schedule,
+    config_workflow = clindata::config_workflow,
+    meta_site = clindata::ctms_site,
+    meta_study = clindata::ctms_study,
+    meta_workflow = gsm::meta_workflow
+  )
+  expect_silent(Make_Snapshot(lMeta = lMeta_edited, lData = lData, lMapping = lMapping, lAssessments = lAssessments))
+})
+
+################################################################################################################
 
 test_that("bQuiet works as intended", {
-  testthat::expect_snapshot(
-    test <- Make_Snapshot(lData = lData, bQuiet = FALSE)
-  )
+  expect_silent(Make_Snapshot(lData = lData, bQuiet = TRUE))
+  expect_snapshot(snapshot <- Make_Snapshot(lData = lData, bQuiet = FALSE))
 })
