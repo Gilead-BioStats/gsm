@@ -1,7 +1,5 @@
 Table Name,Column Name,Description
 meta_study,studyid,Unique Study ID
-meta_study,enrolled_sites,Number of Enrolled Sites
-meta_study,enrolled_participants,Number of Enrolled Participants
 meta_study,planned_sites,Number of Planned Sites
 meta_study,planned_participants,Number of Planned Participants
 meta_study,title,Protocol Title
@@ -9,20 +7,19 @@ meta_study,nickname,Protocol Nickname
 meta_study,indication,Indication
 meta_study,ta,Therapeutic Area
 meta_study,phase,Phase
-meta_study,status,Study Status
 meta_study,fpfv,First Patient First Visit Date
 meta_study,lplv,Last Patient Last Visit Date
 meta_study,rbm_flag,Risk-Based Monitoring Flag
+meta_study,status,Study Status
 meta_site,studyid,Unique Study ID
 meta_site,siteid,Unique Site ID
-meta_site,institution,Institution Name
-meta_site,status,Site Status
-meta_site,enrolled_participants,Number of Enrolled Participants
 meta_site,start_date,Site Activation Date
-meta_site,city,City
-meta_site,state,State
 meta_site,country,Country
 meta_site,invname,Investigator Name
+meta_site,institution,Institution Name
+meta_site,status,Site Status
+meta_site,city,City
+meta_site,state,State
 config_workflow,studyid,Unique Study ID
 config_workflow,workflowid,Unique Workflow ID
 config_workflow,gsm_version,{gsm} Version of Workflow
