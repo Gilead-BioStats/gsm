@@ -1,0 +1,71 @@
+Table Name,Column Name,Description
+status_study,studyid,Unique Study ID
+status_study,enrolled_sites,Number of Enrolled Sites
+status_study,enrolled_participants,Number of Enrolled Participants
+status_study,planned_sites,Number of Planned Sites
+status_study,planned_participants,Number of Planned Participants
+status_study,title,Protocol Title
+status_study,nickname,Protocol Nickname
+status_study,indication,Indication
+status_study,ta,Therapeutic Area
+status_study,phase,Phase
+status_study,status,Study Status
+status_study,fpfv,First Patient First Visit Date
+status_study,lplv,Last Patient Last Visit Date
+status_study,rbm_flag,Risk-Based Monitoring Flag
+status_site,studyid,Unique Study ID
+status_site,siteid,Unique Site ID
+status_site,institution,Institution Name
+status_site,status,Site Status
+status_site,enrolled_participants,Number of Enrolled Participants
+status_site,start_date,Site Activation Date
+status_site,city,City
+status_site,state,State
+status_site,country,Country
+status_site,invname,Investigator Name
+status_workflow,studyid,Unique Study ID
+status_workflow,workflowid,Unique Workflow ID
+status_workflow,gsm_version,{gsm} Version of Workflow
+status_workflow,active,Is Workflow Active?
+status_workflow,status,Did Workflow Run?
+status_workflow,notes,Status Notes
+status_param,studyid,Unique Study ID
+status_param,workflowid,Unique Workflow ID
+status_param,gsm_version,{gsm} Version of Workflow
+status_param,param,Parameter Name
+status_param,index,Index Value for Parameter
+status_param,value,Value for Parameter at Index
+status_schedule,studyid,Unique Study ID
+status_schedule,snapshot_date,Snapshot Date
+results_summary,studyid,Unique Study ID
+results_summary,workflowid,Unique Workflow ID
+results_summary,groupid,"Unique Group ID (e.g., Site ID for KRI Workflows)"
+results_summary,numerator,Metric Numerator
+results_summary,denominator,Metric Denominator
+results_summary,metric,Metric Value
+results_summary,score,Statistical Score
+results_summary,flag,Flag
+results_summary,snapshot_date,Snapshot Date
+results_bounds,studyid,Unique Study ID
+results_bounds,workflowid,Unique Workflow ID
+results_bounds,threshold,Threshold
+results_bounds,numerator,y Value
+results_bounds,denominator,x Value
+results_bounds,log_denominator,Log x value
+meta_workflow,workflowid,Unique Workflow ID
+meta_workflow,gsm_version,{gsm} Version of Workflow
+meta_workflow,group,"Group for Workflow (Site, Country, Region, or Study)"
+meta_workflow,metric,Metric Label
+meta_workflow,numerator,Numerator Label
+meta_workflow,denominator,Denominator Label
+meta_workflow,outcome,"Metric Outcome Type (e.g., rate)"
+meta_workflow,model,Statistical Model Used to Create Score
+meta_workflow,score,Score Label
+meta_workflow,data_inputs,Data Inputs for Workflow
+meta_workflow,data_filters,Filters Applied in Workflow
+meta_param,workflowid,Unique Workflow ID
+meta_param,gsm_version,{gsm} Version of Workflow
+meta_param,param,Parameter Name
+meta_param,index,Parameter Index
+meta_param,default,Default Value for Parameter at Index
+meta_param,configurable,Is Parameter Configurable?

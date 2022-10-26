@@ -25,13 +25,22 @@ lData <- list(
 
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
-snapshot <- Make_Snapshot()
+snapshot <- Make_Snapshot(lData = lData)
+
+tool_outputs <- read.csv(system.file("vignettes", "standardized_outputs.csv", package = "gsm"))
 
 test_that("output is generated as expected", {
   expect_true(is.list(snapshot))
   expect_equal(names(snapshot), c("status_study", "status_site", "status_workflow", "status_param", "status_schedule", "results_summary", "results_bounds", "meta_workflow", "meta_param"))
-  expect_equal(names(snapshot$status_study), c("studyid", "enrolled_sites", "enrolled_participants", "planned_sites", "planned_participants", "title", "nickname", "indication", "ta", "phase", "status", "fpfv", "lplv", "rbm_flag"))
-  expect_equal(names(snapshot$status_site), c("studyid", "siteid", "institution", "status"))
+  expect_equal(names(snapshot$status_study), unique(tool_outputs$Column.Name[tool_outputs$Table.Name == "status_study"]))
+  expect_equal(names(snapshot$status_site), unique(tool_outputs$Column.Name[tool_outputs$Table.Name == "status_site"]))
+  expect_equal(names(snapshot$status_workflow), unique(tool_outputs$Column.Name[tool_outputs$Table.Name == "status_workflow"]))
+  expect_equal(names(snapshot$status_param), unique(tool_outputs$Column.Name[tool_outputs$Table.Name == "status_param"]))
+  expect_equal(names(snapshot$status_schedule), unique(tool_outputs$Column.Name[tool_outputs$Table.Name == "status_schedule"]))
+  expect_equal(names(snapshot$results_summary), unique(tool_outputs$Column.Name[tool_outputs$Table.Name == "results_summary"]))
+  expect_equal(names(snapshot$results_bounds), unique(tool_outputs$Column.Name[tool_outputs$Table.Name == "results_bounds"]))
+  expect_equal(names(snapshot$meta_workflow), unique(tool_outputs$Column.Name[tool_outputs$Table.Name == "meta_workflow"]))
+  expect_equal(names(snapshot$meta_param), unique(tool_outputs$Column.Name[tool_outputs$Table.Name == "meta_param"]))
 })
 
 
