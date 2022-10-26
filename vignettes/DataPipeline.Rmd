@@ -220,9 +220,9 @@ gsm_output %>%
             locations = cells_column_labels(columns = everything()))
 ```
 
-## Gismo Input Specifications
+## Standardized Data Tool Input Specifications
 
-Input data for Gismo is generated nightly by `{gsm}` using clinical and operational data along with associated metadata. All inputs are transferred nightly as .csv files.
+Input data for a standardized data tool is generated nightly by `{gsm}` using clinical and operational data along with associated metadata. All inputs are transferred nightly as .csv files.
 
 Three types of tables are included in the input data model:
 
@@ -232,12 +232,12 @@ Three types of tables are included in the input data model:
 
 -   **Metadata Files:** Capture workflow details for all analytics currently available in `{gsm}` and are shared across all studies
 
-### [Tables in Nightly Gismo Data Transfer]{.underline}:
+### [Tables in Standardized Data Tool Transfer]{.underline}:
 
 ```{r echo = FALSE}
-gismo_input <- read.csv("gismo_inputs.csv")
+tool_input <- read.csv("standardized_inputs.csv")
 
-gismo_input %>%
+tool_input %>%
   gt() %>%
   cols_label(Table.Type = md("**Table Type**"),
              Table.Name = md("**Table Name**"),
@@ -249,14 +249,14 @@ gismo_input %>%
             locations = cells_column_labels(columns = everything()))
 ```
 
-### [Columns in Nightly Gismo Data Transfer (from above)]{.underline}:
+### [Columns in Standardized Data Tool Transfer (from above)]{.underline}:
 
 The following tables are all contained in the output of `gsm::Make_Snapshot()`:
 
 ```{r echo = FALSE}
-gismo_output <- read.csv("gismo_outputs.csv")
+tool_output <- read.csv("standardized_outputs.csv")
 
-gismo_output %>%
+tool_output %>%
   gt() %>%
   cols_label(Table.Name = md("**Table Name**"),
              Column.Name = md("**Column Name**"),

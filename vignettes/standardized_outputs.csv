@@ -45,7 +45,6 @@ results_summary,denominator,Metric Denominator
 results_summary,metric,Metric Value
 results_summary,score,Statistical Score
 results_summary,flag,Flag
-results_summary,snapshot_date, Snapshot date
 results_bounds,studyid,Unique Study ID
 results_bounds,workflowid,Unique Workflow ID
 results_bounds,threshold,Threshold
