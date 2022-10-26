@@ -28,6 +28,7 @@ lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", pack
 snapshot <- Make_Snapshot(lData = lData)
 
 tool_outputs <- read.csv(system.file("vignettes", "standardized_outputs.csv", package = "gsm"))
+gsm_outputs <- read.csv(system.file("vignettes", "gsm_outputs.csv", package = "gsm"))
 
 test_that("output is generated as expected", {
   expect_true(is.list(snapshot))
@@ -43,12 +44,17 @@ test_that("output is generated as expected", {
   expect_equal(names(snapshot$meta_param), unique(tool_outputs$Column.Name[tool_outputs$Table.Name == "meta_param"]))
 })
 
-
-
-
-
-### incorrect input
-
+test_that("invalid data throw errors", {
+  expect_true(is.list(lMeta))
+  expect_equal(names(lMeta), c("config_param", "config_schedule", "config_workflow", "meta_params", "meta_site", "meta_study", "meta_workflow"))
+  expect_equal(names(lMeta$config_param), unique(gsm_outputs$Column.Name[gsm_outputs$Table.Name == "config_param"]))
+  expect_equal(names(lMeta$config_schedule), unique(gsm_outputs$Column.Name[gsm_outputs$Table.Name == "config_schedule"]))
+  expect_equal(names(lMeta$config_workflow), unique(gsm_outputs$Column.Name[gsm_outputs$Table.Name == "config_workflow"]))
+  expect_equal(names(lMeta$meta_params), unique(gsm_outputs$Column.Name[gsm_outputs$Table.Name == "meta_param"]))
+  expect_equal(names(lMeta$meta_site), unique(gsm_outputs$Column.Name[gsm_outputs$Table.Name == "meta_site"]))
+  expect_equal(names(lMeta$meta_study), unique(gsm_outputs$Column.Name[gsm_outputs$Table.Name == "meta_study"]))
+  expect_equal(names(lMeta$meta_workflow), unique(gsm_outputs$Column.Name[gsm_outputs$Table.Name == "meta_workflow"]))
+})
 
 test_that("bQuiet works as intended", {
   test_logical_assess_parameters(snapshot, dfInput)
