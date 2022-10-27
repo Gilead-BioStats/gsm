@@ -12,6 +12,8 @@ test_that("output is created as expected", {
   expect_true(is.data.frame(dfTransformed))
   expect_equal(names(dfTransformed), c("GroupID", "TotalCount", "Metric"))
   expect_equal(sort(unique(input$SiteID)), sort(dfTransformed$GroupID))
+  expect_equal(length(unique(input$SiteID)), length(unique(dfTransformed$GroupID)))
+  expect_equal(length(unique(input$SiteID)), nrow(dfTransformed))
 })
 
 
@@ -44,4 +46,13 @@ test_that("incorrect inputs throw errors", {
     ),
     "NA's found in strCountCol"
   )
+
+  input <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
+  expect_error(
+    Transform_Count(
+      dfInput = input,
+      strGroupCol = "SiteID",
+      strCountCol = "Count",
+      strExposure = "Exposure"
+    ))
 })
