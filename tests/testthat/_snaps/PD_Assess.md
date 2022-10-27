@@ -58,7 +58,7 @@
 
 ---
 
-    Problem while computing `Numerator = ... * .data$Denominator`.
+    Problem while computing `Metric = .data$vMu + ...`.
     Caused by error in `.data$Threshold * sqrt(.data$phi * .data$vMu / .data$Denominator)`:
     ! non-numeric argument to binary operator
 
