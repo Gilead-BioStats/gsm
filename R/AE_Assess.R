@@ -53,12 +53,14 @@
 #'
 #' @export
 
-AE_Assess <- function(dfInput,
+AE_Assess <- function(
+  dfInput,
   vThreshold = NULL,
   strMethod = "funnel",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
-  bQuiet = TRUE) {
+  bQuiet = TRUE
+) {
 
   # data checking -----------------------------------------------------------
   stopifnot(
@@ -155,16 +157,17 @@ AE_Assess <- function(dfInput,
     # visualizations ----------------------------------------------------------
     lCharts <- list()
 
-    if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
+      if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-    if (strMethod != "identity") {
-      lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
-    }
+      if (strMethod != "identity") {
+        lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+        if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+      }
 
-    lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
-    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
+      lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+      lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
+
 
 
     # return data -------------------------------------------------------------

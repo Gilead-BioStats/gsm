@@ -18,6 +18,7 @@
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param nConfLevel `numeric` Confidence level for QTL analysis.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -58,6 +59,7 @@ Disp_Assess <- function(
   strMethod = "funnel",
   lMapping = yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nConfLevel = NULL,
   bQuiet = TRUE
 ) {
 
@@ -162,17 +164,19 @@ Disp_Assess <- function(
 
     # visualizations ----------------------------------------------------------
     lCharts <- list()
+    if (strMethod != "qtl") {
+      if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-    if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
+      if (strMethod != "identity") {
+        lCharts$scatter <- Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+        if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+      }
 
-    if (strMethod != "identity") {
-      lCharts$scatter <- Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+      lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+      lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
     }
 
-    lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
-    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
     # return data -------------------------------------------------------------
     return(list(
       lData = lData,

@@ -11,6 +11,7 @@ Disp_Assess(
   lMapping = yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package =
     "gsm")),
   strGroup = "Site",
+  nConfLevel = NULL,
   bQuiet = TRUE
 )
 }
@@ -30,6 +31,8 @@ Disp_Assess(
 of the column.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
+
+\item{nConfLevel}{\code{numeric} Confidence level for QTL analysis.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
