@@ -12,6 +12,8 @@ const addToFooter = function () {
     "Study_Report()",
     "Study_Table()",
     "Study_AssessmentReport()",
+    "RunQTL()",
+    "SaveQTL()"
   ];
   aTagArray.map((data) => {
     if (gsmExperimentalList.includes(data.textContent)) {
