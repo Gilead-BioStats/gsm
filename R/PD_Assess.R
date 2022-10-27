@@ -63,7 +63,7 @@ PD_Assess <- function(
 
   # data checking -----------------------------------------------------------
   stopifnot(
-    "strMethod is not 'funnel', 'poisson' or 'identity'" = strMethod %in% c("funnel", "poisson", "identity"),
+    "strMethod is not 'funnel', 'poisson', 'identity', or 'qtl'" = strMethod %in% c("funnel", "poisson", "identity", "qtl"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -83,7 +83,8 @@ PD_Assess <- function(
     vThreshold <- switch(strMethod,
       funnel = c(-3, -2, 2, 3),
       poisson = c(-7, -5, 5, 7),
-      identity = c(0.000895, 0.003059)
+      identity = c(0.000895, 0.003059),
+      qtl = c(0, 5)
     )
   }
 
@@ -125,7 +126,10 @@ PD_Assess <- function(
       lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
     } else if (strMethod == "identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
+    } else if (strMethod == "qtl") {
+      lData$dfAnalyzed <- AnalyzeQTL(lData$dfTransformed, strOutcome = "rate", nConfLevel = nConfLevel)
     }
+
 
     strAnalyzeFunction <- paste0("Analyze_", tools::toTitleCase(strMethod))
     if (!bQuiet) cli::cli_alert_success("{.fn {strAnalyzeFunction}} returned output with {nrow(lData$dfAnalyzed)} rows.")
@@ -135,14 +139,18 @@ PD_Assess <- function(
       lData$dfFlagged <- gsm::Flag_Funnel(lData$dfAnalyzed, vThreshold = vThreshold)
     } else if (strMethod == "poisson") {
       lData$dfFlagged <- gsm::Flag_Poisson(lData$dfAnalyzed, vThreshold = vThreshold)
-    } else {
+    } else if (strMethod == "identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
+    } else if (strMethod == "qtl") {
+      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strColumn = "LowCI") %>%
+        mutate(Score = .data$Metric)
     }
 
     flag_function_name <- switch(strMethod,
       funnel = "Flag_Funnel",
       identity = "Flag",
-      poisson = "Flag_Poisson"
+      poisson = "Flag_Poisson",
+      qtl = "Flag"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")

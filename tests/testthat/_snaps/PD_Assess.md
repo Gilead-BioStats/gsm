@@ -46,11 +46,11 @@
 
 # incorrect inputs throw errors
 
-    strMethod is not 'funnel', 'poisson' or 'identity'
+    strMethod is not 'funnel', 'poisson', 'identity', or 'qtl'
 
 ---
 
-    strMethod is not 'funnel', 'poisson' or 'identity'
+    strMethod is not 'funnel', 'poisson', 'identity', or 'qtl'
 
 ---
 

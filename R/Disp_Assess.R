@@ -64,7 +64,7 @@ Disp_Assess <- function(
 
   # data checking -----------------------------------------------------------
   stopifnot(
-    "strMethod is not 'funnel', 'fisher' or 'identity'" = strMethod %in% c("funnel", "fisher", "identity"),
+    "strMethod is not 'funnel', 'fisher', 'identity', or 'qtl'" = strMethod %in% c("funnel", "fisher", "identity", "qtl"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -85,7 +85,8 @@ Disp_Assess <- function(
     vThreshold <- switch(strMethod,
       funnel = c(-3, -2, 2, 3),
       fisher = c(0.01, 0.05),
-      identity = c(3.491, 5.172)
+      identity = c(3.491, 5.172),
+      qtl = c(0, 0.2)
     )
   }
 
@@ -126,6 +127,8 @@ Disp_Assess <- function(
       lData$dfAnalyzed <- gsm::Analyze_Fisher(lData$dfTransformed, bQuiet = bQuiet)
     } else if (strMethod == "identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
+    } else if (strMethod == "qtl") {
+      lData$dfAnalyzed <- AnalyzeQTL(lData$dfTransformed, strOutcome = "binary", nConfLevel = nConfLevel)
     }
 
     strAnalyzeFunction <- paste0("Analyze_", tools::toTitleCase(strMethod))
@@ -138,12 +141,16 @@ Disp_Assess <- function(
       lData$dfFlagged <- gsm::Flag_Fisher(lData$dfAnalyzed, vThreshold = vThreshold)
     } else if (strMethod == "identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
+    } else if (strMethod == "qtl") {
+      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strColumn = "LowCI") %>%
+        mutate(Score = .data$Metric)
     }
 
     flag_function_name <- switch(strMethod,
       funnel = "Flag_Funnel",
       identity = "Flag",
-      fisher = "Flag_Fisher"
+      fisher = "Flag_Fisher",
+      qtl = "Flag"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
