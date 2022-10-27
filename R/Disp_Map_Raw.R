@@ -104,7 +104,8 @@ Disp_Map_Raw <- function(
         Count = ifelse(is.na(.data$Count), 0, .data$Count),
         Total = 1
       ) %>%
-      select(any_of(names(dfSUBJ_mapped)), "Count", "Total")
+      select(any_of(names(dfSUBJ_mapped)), "Count", "Total") %>%
+      arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Disp_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
