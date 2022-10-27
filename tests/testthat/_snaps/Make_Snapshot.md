@@ -1,3 +1,9 @@
+# Custom lAssessments and lMapping works together as intended
+
+    Code
+      snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping_edited,
+        lAssessments = lAssessments_edited)
+
 # bQuiet works as intended
 
     Code

@@ -23,6 +23,10 @@ lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", pack
 
 lAssessments <- MakeWorkflowList()
 
+cPath <- NULL
+
+bQuiet <- TRUE
+
 snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments)
 
 tool_outputs <- read.csv(system.file("vignettes", "standardized_outputs.csv", package = "gsm"))
@@ -112,9 +116,23 @@ test_that("invalid data throw errors", {
 
 ################################################################################################################
 
+test_that("Custom lAssessments and lMapping works together as intended", {
+  lAssessments_edited <- MakeWorkflowList()
+  lAssessments_edited$kri0001 <- yaml::read_yaml(system.file("/tests/testthat/testpath/ae_assessment_moderate.yaml", package = "gsm"))
+  lAssessments_edited$kri0001$name <- "aetoxgr"
+  lAssessments_edited$kri0001$path <- file.path(system.file("/tests/testthat/testpath/ae_assessment_moderate.yaml", package = "gsm"))
+
+  lMapping_edited<- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+  lMapping_edited$dfAE$strGradeCol <- "MODERATE"
+
+  expect_snapshot(snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping_edited, lAssessments = lAssessments_edited))
+})
+
+################################################################################################################
+
 test_that("cPath works as intended", {
-  cPath <- setwd(system.file("/tests/testthat/testpath/", package = "gsm"))
-  Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments, cPath = cPath)
+  cPath_edited <- setwd(system.file("/tests/testthat/testpath/", package = "gsm"))
+  Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments, cPath = cPath_edited)
 
   expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[1]), ".csv"))))
   expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[2]), ".csv"))))
