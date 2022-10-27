@@ -112,11 +112,20 @@ test_that("invalid data throw errors", {
 
 ################################################################################################################
 
-### Test cPath works - sent to testpath
+test_that("cPath works as intended", {
+  cPath <- setwd(system.file("/tests/testthat/testpath/", package = "gsm"))
+  Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments, cPath = cPath)
 
-################################################################################################################
-
-### Test custom lAssessment works (?)
+  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[1]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[2]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[3]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[4]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[5]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[6]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[7]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[8]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[9]), ".csv"))))
+})
 
 ################################################################################################################
 
