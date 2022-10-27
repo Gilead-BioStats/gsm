@@ -1,43 +1,36 @@
 #' Flag
 #'
-#' Add columns flagging sites that represent possible statistical outliers.
+#' Add columns flagging sites that represent possible statistical outliers when Identity statistical method is used.
 #'
 #' @details
 #' This function provides a generalized framework for flagging sites as part of the [GSM data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
 #'
 #' @section Data Specification:
-#' \code{Flag} is designed to support the input data (`dfAnalyzed`) from many different
-#' \code{Analyze} functions. At a minimum, the input data must have a `SiteID` column and a column
-#' of numeric values (identified by the `strColumn` parameter) that will be compared to the
-#' specified thresholds (`vThreshold`) to calculate a new `Flag` column. Optionally, a second column
-#' of numeric values (identified by `strValueColumn`) can be specified to set the directionality of
-#' the `Flag`.
+#' \code{Flag} is designed to support the input data (`dfAnalyzed`) from the `Analyze_Identity()` function. At a minimum, the input data must have `GroupID` and a numeric `strColumn` parameter defined. `strColumn` will be compared to the specified thresholds in `vThreshold` to define a new `Flag` column, which identifies possible statistical outliers. If a user would like to see the directionality of those identified points, they can define the `strValueColumn` parameter, which will assign a positive or negative indication to already flagged points.
 #'
-#' In short, the following columns are considered:
-#' - `GroupID` - Group ID (required)
-#' - `strColumn` - A column to use for Thresholding (required)
-#' - 'strValueColumn' - A column to be used for the sign of the flag (optional)
+#' The following columns are considered required:
+#' - `GroupID` - Group ID; default is site ID
+#' - `strColumn` - A column to use for thresholding
 #'
-#' @param dfAnalyzed data.frame where flags should be added.
-#' @param strColumn Name of the column to use for thresholding.
-#' @param vThreshold Vector of 2 numeric values representing lower and upper threshold values. All
-#' values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.
-#' @param strValueColumn Optional, name of the column to use for sign of Flag. If value for that row
-#' is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.
+#' The following column is considered optional:
+#' - `strValueColumn` - A column to be used for the sign/directionality of the flagging
 #'
-#' @return `data.frame` with columns added for "ThresholdLow","ThresholdHigh","ThresholdCol"
-#' and "Flag"
+#' @param dfAnalyzed A data.frame where flags should be added.
+#' @param strColumn Name of the column to use for thresholding. Default: `"Score"`
+#' @param vThreshold Vector of 2 numeric values representing lower and upper threshold values. All values in `strColumn` are compared to `vThreshold` using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged. Values equal to the threshold values are set to 0 (i.e., not flagged). If NA is provided for either threshold value, it is ignored and no values are flagged based on the threshold. NA and NaN values in `strColumn` are given NA flag values.
+#' @param strValueColumn Name of the column to use for sign of `Flag.` If the value for that row is higher than the median of `strValueColumn`, then `Flag` is set to 1. Similarly, if the value for that row is lower than the median of `strValueColumn`, then Flag is set to -1.
+#'
+#' @return `data.frame` with one row per site with columns: `GroupID`, `TotalCount`, `Metric`, `Score`, `Flag`
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam()
+#' dfInput <- Consent_Map_Raw()
 #'
-#' dfTransformed <- Transform_Rate(dfInput,
+#' dfTransformed <- Transform_Count(dfInput,
 #'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Exposure"
+#'   strCountCol = "Count"
 #' )
 #'
-#' dfAnalyzed <- Analyze_Poisson(dfTransformed)
+#' dfAnalyzed <- Analyze_Identity(dfTransformed)
 #'
 #' dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
 #'

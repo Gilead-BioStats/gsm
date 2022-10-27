@@ -7,53 +7,48 @@
 Flag(dfAnalyzed, strColumn = "Score", vThreshold = NULL, strValueColumn = NULL)
 }
 \arguments{
-\item{dfAnalyzed}{data.frame where flags should be added.}
+\item{dfAnalyzed}{A data.frame where flags should be added.}
 
-\item{strColumn}{Name of the column to use for thresholding.}
+\item{strColumn}{Name of the column to use for thresholding. Default: \code{"Score"}}
 
-\item{vThreshold}{Vector of 2 numeric values representing lower and upper threshold values. All
-values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.}
+\item{vThreshold}{Vector of 2 numeric values representing lower and upper threshold values. All values in \code{strColumn} are compared to \code{vThreshold} using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged. Values equal to the threshold values are set to 0 (i.e., not flagged). If NA is provided for either threshold value, it is ignored and no values are flagged based on the threshold. NA and NaN values in \code{strColumn} are given NA flag values.}
 
-\item{strValueColumn}{Optional, name of the column to use for sign of Flag. If value for that row
-is higher than median of strValueColumn then Flag = 1, if lower then Flag = -1.}
+\item{strValueColumn}{Name of the column to use for sign of \code{Flag.} If the value for that row is higher than the median of \code{strValueColumn}, then \code{Flag} is set to 1. Similarly, if the value for that row is lower than the median of \code{strValueColumn}, then Flag is set to -1.}
 }
 \value{
-\code{data.frame} with columns added for "ThresholdLow","ThresholdHigh","ThresholdCol"
-and "Flag"
+\code{data.frame} with one row per site with columns: \code{GroupID}, \code{TotalCount}, \code{Metric}, \code{Score}, \code{Flag}
 }
 \description{
-Add columns flagging sites that represent possible statistical outliers.
+Add columns flagging sites that represent possible statistical outliers when Identity statistical method is used.
 }
 \details{
 This function provides a generalized framework for flagging sites as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
 }
 \section{Data Specification}{
 
-\code{Flag} is designed to support the input data (\code{dfAnalyzed}) from many different
-\code{Analyze} functions. At a minimum, the input data must have a \code{SiteID} column and a column
-of numeric values (identified by the \code{strColumn} parameter) that will be compared to the
-specified thresholds (\code{vThreshold}) to calculate a new \code{Flag} column. Optionally, a second column
-of numeric values (identified by \code{strValueColumn}) can be specified to set the directionality of
-the \code{Flag}.
+\code{Flag} is designed to support the input data (\code{dfAnalyzed}) from the \code{Analyze_Identity()} function. At a minimum, the input data must have \code{GroupID} and a numeric \code{strColumn} parameter defined. \code{strColumn} will be compared to the specified thresholds in \code{vThreshold} to define a new \code{Flag} column, which identifies possible statistical outliers. If a user would like to see the directionality of those identified points, they can define the \code{strValueColumn} parameter, which will assign a positive or negative indication to already flagged points.
 
-In short, the following columns are considered:
+The following columns are considered required:
 \itemize{
-\item \code{GroupID} - Group ID (required)
-\item \code{strColumn} - A column to use for Thresholding (required)
-\item 'strValueColumn' - A column to be used for the sign of the flag (optional)
+\item \code{GroupID} - Group ID; default is site ID
+\item \code{strColumn} - A column to use for thresholding
+}
+
+The following column is considered optional:
+\itemize{
+\item \code{strValueColumn} - A column to be used for the sign/directionality of the flagging
 }
 }
 
 \examples{
-dfInput <- AE_Map_Adam()
+dfInput <- Consent_Map_Raw()
 
-dfTransformed <- Transform_Rate(dfInput,
+dfTransformed <- Transform_Count(dfInput,
   strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
+  strCountCol = "Count"
 )
 
-dfAnalyzed <- Analyze_Poisson(dfTransformed)
+dfAnalyzed <- Analyze_Identity(dfTransformed)
 
 dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
 

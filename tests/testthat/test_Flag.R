@@ -1,48 +1,46 @@
-source(testthat::test_path("testdata/data.R"))
-
-data <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE)) %>%
-  Transform_Rate(
-    strNumeratorCol = "Count",
-    strDenominatorCol = "Exposure",
+data <- Consent_Map_Raw(dfs = list(
+  dfCONSENT = clindata::rawplus_consent,
+  dfSUBJ = clindata::rawplus_dm)) %>%
+  Transform_Count(
+    strCountCol = "Count",
     strGroupCol = "SiteID"
   )
 
-dfPoisson <- Analyze_Poisson(data)
-
+dfIdentity <- Analyze_Identity(data)
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-  flag <- Flag(dfPoisson, vThreshold = c(-1, 1))
+  flag <- Flag(dfIdentity, vThreshold = c(-1, 1))
   expect_true(is.data.frame(flag))
-  expect_equal(sort(unique(dfPoisson$GroupID)), sort(flag$GroupID))
-  expect_true(all(names(dfPoisson) %in% names(flag)))
-  expect_equal(
-    names(flag),
-    c(
-      "GroupID", "Numerator", "Denominator", "Metric", "Score",
-      "PredictedCount", "Flag"
-    )
-  )
+  expect_equal(sort(unique(dfIdentity$GroupID)), sort(flag$GroupID))
+  expect_true(all(names(dfIdentity) %in% names(flag)))
+  expect_equal(names(flag), c("GroupID", "TotalCount", "Metric", "Score", "Flag"))
+  expect_equal(length(unique(dfIdentity$GroupID)), length(unique(flag$GroupID)))
+  expect_equal(length(unique(dfIdentity$GroupID)), nrow(flag))
 })
 
 # incorrect inputs throw errors -------------------------------------------
 test_that("incorrect inputs throw errors", {
   expect_error(Flag(list(), -1, 1))
   expect_error(Flag("Hi", -1, 1))
-  expect_error(Flag(dfPoisson, "1", "2"))
-  expect_error(Flag(dfPoisson, vThreshold = c(NA, 1), strColumn = 1.0, strValueColumn = "Estimate"))
-  expect_error(Flag(dfPoisson, vThreshold = "1", strValueColumn = "Estimate"))
-  expect_error(Flag(dfPoisson, vThreshold = 0.5, strValueColumn = "Estimate"))
-  expect_error(Flag(dfPoisson, vThreshold = c(NA, 1), strColumn = "PValue1", strValueColumn = "Estimate"))
-  expect_error(Flag(dfPoisson, vThreshold = c(NA, 1), strValueColumn = "Mean"))
+  expect_error(Flag(dfIdentity, "1", "2"))
+  expect_error(Flag(dfIdentity, vThreshold = c(NA, 1), strColumn = 1.0, strValueColumn = "Estimate"))
+  expect_error(Flag(dfIdentity, vThreshold = "1", strValueColumn = "Estimate"))
+  expect_error(Flag(dfIdentity, vThreshold = 0.5, strValueColumn = "Estimate"))
+  expect_error(Flag(dfIdentity, vThreshold = c(NA, 1), strColumn = "PValue1", strValueColumn = "Estimate"))
+  expect_error(Flag(dfIdentity, vThreshold = c(NA, 1), strValueColumn = "Mean"))
+  expect_error(Flag(dfIdentity, vThreshold = NULL))
+  expect_error(Flag(dfIdentity, strColumn = c("Score", "GroupID")))
+  expect_error(Flag(dfIdentity %>% select(-c(GroupID))))
+  expect_error(Flag(dfIdentity, vThreshold = c(1, -1)))
 })
 
 
 # custom tests ------------------------------------------------------------
 test_that("strValueColumn paramter works as intended", {
-  dfFlagged <- Flag(dfPoisson, vThreshold = c(-1, 1), strValueColumn = "PredictedCount")
+  dfFlagged <- Flag(dfIdentity, vThreshold = c(-1, 1), strValueColumn = "TotalCount")
   expect_equal(dfFlagged$Flag[1], 1)
-  dfFlagged <- Flag(dfPoisson, vThreshold = c(-1, 1), strValueColumn = NULL)
+  dfFlagged <- Flag(dfIdentity, vThreshold = c(-1, 1), strValueColumn = NULL)
   expect_equal(dfFlagged$Flag[1], 1)
 })
 
