@@ -69,7 +69,8 @@ AE_Map_Adam <- function(
     dfInput <- dfs$dfADSL %>%
       mutate(
         SubjectID = .data[[lMapping$dfADSL$strIDCol]],
-        Exposure = as.numeric(.data[[lMapping$dfADSL$strEndCol]] - .data[[lMapping$dfADSL$strStartCol]]) + 1) %>%
+        Exposure = as.numeric(.data[[lMapping$dfADSL$strEndCol]] - .data[[lMapping$dfADSL$strStartCol]]) + 1
+      ) %>%
       rowwise() %>%
       mutate(
         Count = sum(dfs$dfADAE[[lMapping$dfADAE$strIDCol]] == .data$SubjectID),

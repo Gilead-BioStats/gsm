@@ -20,8 +20,7 @@
 #'
 #' @export
 
-MakeWorkflowList <- function(strNames=NULL, strPath = "workflow", strPackage = "gsm", bRecursive=FALSE) {
-
+MakeWorkflowList <- function(strNames = NULL, strPath = "workflow", strPackage = "gsm", bRecursive = FALSE) {
   if (!is.null(strPackage)) {
     path <- system.file(strPath, package = strPackage)
   }
