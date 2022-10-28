@@ -16,7 +16,7 @@
 #' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 #'
 #' kri0001 <- RunWorkflow(lAssessments$kri0001, lData = lData, lMapping = lMapping)
-#'\dontrun{
+#' \dontrun{
 #' Visualize_Workflow(list(kri0001 = kri0001))
 #' }
 #'
@@ -40,9 +40,7 @@ Visualize_Workflow <- function(lAssessments) {
   }
 
   if (stepsExist & isNotFilterData) {
-
     dfFlowchart <- map(lAssessments, function(studyObject) {
-
       name <- studyObject[["name"]]
       checks <- studyObject[["lChecks"]]
       workflow <- studyObject[["steps"]]
@@ -62,11 +60,9 @@ Visualize_Workflow <- function(lAssessments) {
       }
 
       preAssessment <- map2_dfr(checks, workflow, function(checks, workflow) {
-
         domains <- workflow$inputs
 
         map_df(domains, function(x) {
-
           tibble(
             assessment = name,
             name = workflow[["name"]],

@@ -49,16 +49,15 @@ ConsolidateStrata <- function(
   lStratifiedOutput,
   bQuiet = TRUE
 ) {
-
   if (lOutput$bStatus == TRUE &&
-      all(purrr::map_lgl(lStratifiedOutput, ~ .x$bStatus))) {
+    all(purrr::map_lgl(lStratifiedOutput, ~ .x$bStatus))) {
 
     # Stack data pipeline from stratified output.
     consoliDataPipeline <- lStratifiedOutput %>%
       purrr::map(function(stratum) {
         # lResults <- stratum$lResults
         stratum$lResults$lData[grepl("^df", names(stratum$lResults$lData))] %>% # get data frames from results
-          purrr::imap( ~ .x %>% mutate(stratum = stratum$name))
+          purrr::imap(~ .x %>% mutate(stratum = stratum$name))
       }) %>%
       purrr::reduce(function(acc, curr) {
         df <- purrr::imap(acc, function(value, key) {

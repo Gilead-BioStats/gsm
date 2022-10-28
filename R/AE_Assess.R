@@ -44,7 +44,7 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
-#' ae_assessment_poisson <- AE_Assess(dfInput)
+#' ae_assessment_funnel <- AE_Assess(dfInput)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
@@ -56,7 +56,7 @@
 AE_Assess <- function(
   dfInput,
   vThreshold = NULL,
-  strMethod = "poisson",
+  strMethod = "funnel",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE
@@ -64,7 +64,7 @@ AE_Assess <- function(
 
   # data checking -----------------------------------------------------------
   stopifnot(
-    "strMethod is not 'poisson' or 'identity'" = strMethod %in% c("poisson", "identity"),
+    "strMethod is not 'funnel', 'poisson' or 'identity'" = strMethod %in% c("funnel", "poisson", "identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -82,12 +82,14 @@ AE_Assess <- function(
   # set thresholds and flagging parameters ----------------------------------
   if (is.null(vThreshold)) {
     vThreshold <- switch(strMethod,
+      funnel = c(-3, -2, 2, 3),
       poisson = c(-7, -5, 5, 7),
       identity = c(0.00006, 0.01)
     )
   }
 
   strValueColumnVal <- switch(strMethod,
+    funnel = NULL,
     poisson = NULL,
     identity = "Score"
   )
@@ -116,7 +118,10 @@ AE_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
     # dfAnalyzed --------------------------------------------------------------
-    if (strMethod == "poisson") {
+    if (strMethod == "funnel") {
+      lData$dfAnalyzed <- gsm::Analyze_Rate(lData$dfTransformed, bQuiet = bQuiet)
+      lData$dfBounds <- gsm::Analyze_Rate_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
+    } else if (strMethod == "poisson") {
       lData$dfAnalyzed <- gsm::Analyze_Poisson(lData$dfTransformed, bQuiet = bQuiet)
       lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
     } else if (strMethod == "identity") {
@@ -127,13 +132,16 @@ AE_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn {strAnalyzeFunction}} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
     # dfFlagged ---------------------------------------------------------------
-    if (strMethod == "poisson") {
+    if (strMethod == "funnel") {
+      lData$dfFlagged <- gsm::Flag_Funnel(lData$dfAnalyzed, vThreshold = vThreshold)
+    } else if (strMethod == "poisson") {
       lData$dfFlagged <- gsm::Flag_Poisson(lData$dfAnalyzed, vThreshold = vThreshold)
     } else if (strMethod == "identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     }
 
     flag_function_name <- switch(strMethod,
+      funnel = "Flag_Funnel",
       identity = "Flag",
       poisson = "Flag_Poisson"
     )

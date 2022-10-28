@@ -67,7 +67,7 @@ Study_Table <- function(dfFindings, bFormat = TRUE, bShowCounts = TRUE, bShowSit
       "Label",
       "GroupID",
       "Flag"
-      )
+    )
 
   # create site score for a site across all assessments
   df_score <- dfFindings %>%
