@@ -6,16 +6,16 @@
       # A tibble: 40 x 1
          GroupID
          <chr>  
-       1 128    
-       2 75     
-       3 56     
-       4 122    
-       5 80     
-       6 91     
-       7 162    
-       8 78     
-       9 44     
-      10 43     
+       1 75     
+       2 56     
+       3 122    
+       4 80     
+       5 91     
+       6 162    
+       7 78     
+       8 44     
+       9 43     
+      10 8      
       # ... with 30 more rows
 
 ---
@@ -48,16 +48,16 @@
       # A tibble: 40 x 1
          GroupID
          <chr>  
-       1 0X149  
-       2 0X027  
-       3 0X014  
-       4 0X018  
-       5 0X097  
-       6 0X175  
-       7 0X002  
-       8 0X049  
-       9 0X108  
-      10 0X159  
+       1 0X027  
+       2 0X014  
+       3 0X018  
+       4 0X097  
+       5 0X175  
+       6 0X002  
+       7 0X049  
+       8 0X108  
+       9 0X159  
+      10 0X154  
       # ... with 30 more rows
 
 # invalid data throw errors
@@ -94,21 +94,12 @@
       
       -- Initializing `AE_Assess()` --
       
-<<<<<<< HEAD
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 40 rows.
-      i Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ].
-      v `Analyze_Poisson()` returned output with 40 rows.
-      v `Flag_Poisson()` returned output with 40 rows.
-      v `Summarize()` returned output with 40 rows.
-=======
-      Input data has 3 rows.
-      v `Transform_Rate()` returned output with 3 rows.
       `Score` column created from normal approxiamtion of the Poisson distribution
-      v `Analyze_Funnel()` returned output with 3 rows.
-      v `Flag_Funnel()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
->>>>>>> dev
+      v `Analyze_Funnel()` returned output with 40 rows.
+      v `Flag_Funnel()` returned output with 40 rows.
+      v `Summarize()` returned output with 40 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
 

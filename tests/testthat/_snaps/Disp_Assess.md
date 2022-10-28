@@ -6,16 +6,16 @@
       # A tibble: 40 x 1
          GroupID
          <chr>  
-       1 127    
-       2 128    
-       3 43     
-       4 58     
-       5 109    
-       6 114    
-       7 118    
-       8 122    
-       9 139    
-      10 140    
+       1 43     
+       2 58     
+       3 139    
+       4 173    
+       5 189    
+       6 29     
+       7 5      
+       8 62     
+       9 8      
+      10 91     
       # ... with 30 more rows
 
 ---
@@ -49,16 +49,16 @@
       # A tibble: 40 x 1
          GroupID
          <chr>  
-       1 0X043  
-       2 0X149  
-       3 0X091  
-       4 0X159  
-       5 0X002  
-       6 0X014  
-       7 0X016  
-       8 0X018  
-       9 0X020  
-      10 0X023  
+       1 0X091  
+       2 0X159  
+       3 0X023  
+       4 0X052  
+       5 0X093  
+       6 0X116  
+       7 0X124  
+       8 0X154  
+       9 0X167  
+      10 0X175  
       # ... with 30 more rows
 
 # invalid data throw errors
@@ -71,7 +71,7 @@
 
 ---
 
-    strMethod is not 'fisher', 'identity', or 'qtl'
+    strMethod is not 'funnel', 'fisher', 'identity', or 'qtl'
 
 ---
 
@@ -96,20 +96,12 @@
       
       -- Initializing `Disp_Assess()` --
       
-<<<<<<< HEAD
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 40 rows.
-      v `Analyze_Fisher()` returned output with 40 rows.
-      v `Flag_Fisher()` returned output with 40 rows.
-      v `Summarize()` returned output with 40 rows.
-=======
-      Input data has 3 rows.
-      v `Transform_Rate()` returned output with 3 rows.
       `Score` column created from normal approxiamtion of the binomial distribution
-      v `Analyze_Funnel()` returned output with 3 rows.
-      v `Flag_Funnel()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
->>>>>>> dev
+      v `Analyze_Funnel()` returned output with 40 rows.
+      v `Flag_Funnel()` returned output with 40 rows.
+      v `Summarize()` returned output with 40 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
 

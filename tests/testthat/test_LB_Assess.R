@@ -8,7 +8,7 @@ output_spec <- yaml::read_yaml(system.file("specs", "LB_Assess.yaml", package = 
 output_mapping <- yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm"))
 
 test_that("valid output is returned", {
-  test_valid_output_assess_fisher(
+  test_valid_output_assess_funnel(
     assess_function,
     dfInput
   )

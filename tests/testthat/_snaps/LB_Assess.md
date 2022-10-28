@@ -52,7 +52,7 @@
 
 ---
 
-    strMethod is not 'fisher' or 'identity'
+    strMethod is not 'funnel', 'fisher' or 'identity'
 
 ---
 
@@ -77,20 +77,12 @@
       
       -- Initializing `LB_Assess()` --
       
-<<<<<<< HEAD
       Input data has 1000 rows.
       v `Transform_Rate()` returned output with 2 rows.
-      v `Analyze_Fisher()` returned output with 2 rows.
-      v `Flag_Fisher()` returned output with 2 rows.
-      v `Summarize()` returned output with 2 rows.
-=======
-      Input data has 150 rows.
-      v `Transform_Rate()` returned output with 3 rows.
       `Score` column created from normal approxiamtion of the binomial distribution
-      v `Analyze_Funnel()` returned output with 3 rows.
-      v `Flag_Funnel()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
->>>>>>> dev
+      v `Analyze_Funnel()` returned output with 2 rows.
+      v `Flag_Funnel()` returned output with 2 rows.
+      v `Summarize()` returned output with 2 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
 

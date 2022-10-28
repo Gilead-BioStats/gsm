@@ -19,6 +19,27 @@ test_valid_output_assess_poisson <- function(
 
 ################################################################
 
+test_valid_output_assess_funnel <- function(
+    assess_function,
+    dfInput
+) {
+  output <- assess_function(dfInput = dfInput)
+
+  testthat::expect_true(is.list(output))
+  testthat::expect_equal(names(output), c("lData", "lCharts", "lChecks"))
+  testthat::expect_equal(names(output$lData), c("dfTransformed", "dfAnalyzed", "dfBounds", "dfFlagged", "dfSummary"))
+  testthat::expect_equal(names(output$lCharts), c("scatter", "barMetric", "barScore"))
+  testthat::expect_true("data.frame" %in% class(output$lData$dfTransformed))
+  testthat::expect_true("data.frame" %in% class(output$lData$dfAnalyzed))
+  testthat::expect_true("data.frame" %in% class(output$lData$dfBounds))
+  testthat::expect_true("data.frame" %in% class(output$lData$dfFlagged))
+  testthat::expect_true("data.frame" %in% class(output$lData$dfSummary))
+  testthat::expect_true(output$lChecks$status)
+
+}
+
+################################################################
+
 test_valid_output_assess_identity <- function(
     assess_function,
     dfInput
