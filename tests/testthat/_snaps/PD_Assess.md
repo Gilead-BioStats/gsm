@@ -62,11 +62,11 @@
 
 # invalid data throw errors
 
-    strMethod is not 'poisson', 'identity', or 'qtl'
+    strMethod is not 'funnel', 'poisson', 'identity', or 'qtl'
 
 ---
 
-    strMethod is not 'poisson', 'identity', or 'qtl'
+    strMethod is not 'funnel', 'poisson', 'identity', or 'qtl'
 
 ---
 
@@ -74,8 +74,8 @@
 
 ---
 
-    Problem while computing `vEst = .data$Threshold^2 - 2 * .data$vMu`.
-    Caused by error in `.data$Threshold^2`:
+    Problem while computing `Metric = .data$vMu + ...`.
+    Caused by error in `.data$Threshold * sqrt(.data$phi * .data$vMu / .data$Denominator)`:
     ! non-numeric argument to binary operator
 
 ---
@@ -94,12 +94,21 @@
       
       -- Initializing `PD_Assess()` --
       
+<<<<<<< HEAD
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 40 rows.
       i Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ].
       v `Analyze_Poisson()` returned output with 40 rows.
       v `Flag_Poisson()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
+=======
+      Input data has 3 rows.
+      v `Transform_Rate()` returned output with 3 rows.
+      `Score` column created from normal approxiamtion of the Poisson distribution
+      v `Analyze_Funnel()` returned output with 3 rows.
+      v `Flag_Funnel()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+>>>>>>> dev
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
 
