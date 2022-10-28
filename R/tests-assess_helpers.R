@@ -97,9 +97,7 @@ test_invalid_data_assess <- function(
 
 test_invalid_data_assess_identity <- function(
     assess_function,
-    dfInput,
-    spec,
-    mapping
+    dfInput
 ) {
   testthat::expect_null(assess_function("Hi")[["lData"]])
   testthat::expect_error(assess_function(dfInput, nThreshold = FALSE), "nThreshold must be numeric")
