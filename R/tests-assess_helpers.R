@@ -110,9 +110,7 @@ test_invalid_data_assess_identity <- function(
 
 test_missing_column_assess <- function(
     assess_function,
-    dfInput,
-    spec,
-    mapping
+    dfInput
 ) {
   dfInput_test <- dfInput %>% select(-c(SiteID))
   missing_req_col <- assess_function(dfInput = dfInput_test)
