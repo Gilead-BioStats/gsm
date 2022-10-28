@@ -125,7 +125,6 @@ test_missing_column_assess <- function(
 test_invalid_mapping_assess <- function(
     assess_function,
     dfInput,
-    spec,
     mapping
 ) {
   mapping_edited <- mapping
