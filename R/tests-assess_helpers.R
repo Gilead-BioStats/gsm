@@ -82,9 +82,7 @@ test_grouping_assess <- function(
 
 test_invalid_data_assess <- function(
     assess_function,
-    dfInput,
-    spec,
-    mapping
+    dfInput
 ) {
   testthat::expect_null(assess_function("Hi")[["lData"]])
   testthat::expect_snapshot_error(assess_function(dfInput, strMethod = 123))
