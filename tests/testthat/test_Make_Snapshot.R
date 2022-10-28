@@ -29,8 +29,8 @@ bQuiet <- TRUE
 
 snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments)
 
-tool_outputs <- read.csv(system.file("/vignettes/", "standardized_outputs.csv", package = "gsm"))
-gsm_outputs <- read.csv(system.file("/vignettes/", "gsm_outputs.csv", package = "gsm"))
+tool_outputs <- read.csv(system.file("/standardized_outputs.csv", package = "gsm"))
+gsm_outputs <- read.csv(system.file("/gsm_outputs.csv", package = "gsm"))
 
 ################################################################################################################
 
