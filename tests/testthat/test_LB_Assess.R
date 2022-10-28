@@ -7,31 +7,16 @@ dfInput <- dfInputLB
 output_spec <- yaml::read_yaml(system.file("specs", "LB_Assess.yaml", package = "gsm"))
 output_mapping <- yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm"))
 
-<<<<<<< HEAD
 test_that("valid output is returned", {
   test_valid_output_assess_fisher(
     assess_function,
     dfInput
   )
-=======
-# output is created as expected -------------------------------------------
-test_that("output is created as expected", {
-  assessment <- assess_function(dfInput)
-  expect_true(is.list(assessment))
-  expect_equal(names(assessment), c("lData", "lCharts", "lChecks"))
-  expect_equal(names(assessment$lData), c("dfTransformed", "dfAnalyzed", "dfBounds", "dfFlagged", "dfSummary"))
-  expect_true("data.frame" %in% class(assessment$lData$dfTransformed))
-  expect_true("data.frame" %in% class(assessment$lData$dfAnalyzed))
-  expect_true("data.frame" %in% class(assessment$lData$dfFlagged))
-  expect_true("data.frame" %in% class(assessment$lData$dfSummary))
-  expect_equal(names(assessment$lCharts), c("scatter", "barMetric", "barScore"))
-  expect_true(assessment$lChecks$status)
->>>>>>> dev
 })
 
 test_that("grouping works as expected", {
-  dfInput$StudyID[101:199] <- "AA-AA-000-0001" ## Fisher doesn't support single input
-  dfInput$CountryID[101:199] <- "Bora Bora"
+  dfInput$StudyID[501:1000] <- "AA-AA-000-0001" ## Fisher doesn't support single input
+  dfInput$CountryID[501:1000] <- "Bora Bora"
 
   test_grouping_assess(
     assess_function,
