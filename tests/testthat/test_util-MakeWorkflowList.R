@@ -93,5 +93,4 @@ test_that("invalid data returns list of 0 elements", {
   wf_list <- MakeWorkflowList(bRecursive = TRUE, strNames = "aeGrade")$aeGrade
   expect_true(is.list(wf_list))
   expect_length(wf_list, 4)
-  expect_equal(wf_list$path, file.path(system.file("/inst/workflow/experimental/", "aeGrade.yaml", package = "gsm")))
 })
