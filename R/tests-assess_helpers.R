@@ -1,9 +1,6 @@
 test_valid_output_assess_poisson <- function(
     assess_function,
-    dfInput,
-    spec,
-    mapping,
-    vThreshold
+    dfInput
 ) {
   output <- assess_function(dfInput = dfInput)
 
