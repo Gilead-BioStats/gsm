@@ -26,7 +26,7 @@ This function provides a generalized framework for flagging sites as part of the
 }
 \section{Data Specification}{
 
-\code{Flag} is designed to support the input data (\code{dfAnalyzed}) from the \code{Analyze_Identity()} function. At a minimum, the input data must have \code{GroupID} and a numeric \code{strColumn} parameter defined. \code{strColumn} will be compared to the specified thresholds in \code{vThreshold} to define a new \code{Flag} column, which identifies possible statistical outliers. If a user would like to see the directionality of those identified points, they can define the \code{strValueColumn} parameter, which will assign a positive or negative indication to already flagged points.
+\code{Flag} is designed to support the input data (\code{dfAnalyzed}) from the \code{Analyze_Identity()} function. At a minimum, the input data must have a \code{strGroupCol} parameter and a numeric \code{strColumn} parameter defined. \code{strColumn} will be compared to the specified thresholds in \code{vThreshold} to define a new \code{Flag} column, which identifies possible statistical outliers. If a user would like to see the directionality of those identified points, they can define the \code{strValueColumn} parameter, which will assign a positive or negative indication to already flagged points.
 
 The following columns are considered required:
 \itemize{

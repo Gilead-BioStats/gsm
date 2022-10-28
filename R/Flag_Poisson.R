@@ -1,24 +1,21 @@
 #' Flag_Poisson
 #'
-#' Add columns flagging sites that represent possible statistical outliers.
+#' Add columns flagging sites that represent possible statistical outliers when Poisson statistical method is used.
 #'
 #' @details
 #' This function flags sites based on the Poisson analysis result as part of the [GSM data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
 #'
 #' @section Data Specification:
-#' \code{Flag} is designed to support the input data (`dfAnalyzed`) from \code{Analyze_Poisson} function.
-#' At a minimum, the input data must have a `SiteID` column and a column of numeric values (identified
-#' by the `strColumn` parameter) that will be compared to the specified thresholds (`vThreshold`) to
-#' calculate a new `Flag` column.
-#' In short, the following columns are considered:
-#' - `GroupID` - Group ID (required)
-#' - `strColumn` - A column to use for Thresholding (required)
-#' - 'strValueColumn' - A column to be used for the sign of the flag (optional)#'
-#' @param dfAnalyzed data.frame where flags should be added.
-#' @param vThreshold Vector of 4 numeric values representing lower and upper threshold values. All
-#' values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.
+#' \code{Flag_Poisson} is designed to support the input data (`dfAnalyzed`) generated from the \code{Analyze_Poisson} function. At a minimum, the input must define a `dfAnalyzed` data frame with a `Score` variable included and a `vThreshold`. These inputs will be used to identify possible statistical outliers in a new `Flag` column by comparing `Score` values to the specified thresholds.
 #'
-#' @return `data.frame` with "Flag" column added
+#' The following columns are considered required:
+#' - `GroupID` - Group ID; default is site ID
+#' - `Score` - Site residuals calculated from the rates of exposure provided to `Analyze_Poisson()`
+#'
+#' @param dfAnalyzed data.frame where flags should be added.
+#' @param vThreshold Vector of 4 numeric values representing lower and upper threshold values. All values in the `Score` column are compared to `vThreshold` using strict comparisons. Values less than the lower thresholds or greater than the upper thresholds are flagged. Values equal to the threshold values are set to 0 (i.e., not flagged). If NA is provided for either threshold value, it is ignored and no values are flagged based on the thresholds. NA and NaN values in `Score` are given NA flag values.
+#'
+#' @return `data.frame` with one row per site with columns: `GroupID`, `Numerator`, `Denominator`, `Metric`, `Score`, `PredictedCount`, `Flag`
 #'
 #' @examples
 #' dfInput <- AE_Map_Adam()
@@ -48,9 +45,6 @@ Flag_Poisson <- function(
     "vThreshold must be length of 4" = length(vThreshold) == 4,
     "vThreshold cannot be NULL" = !is.null(vThreshold)
   )
-
-  # ensure flags are sorted so we can use indexing below
-  vThreshold <- sort(vThreshold)
 
 
   if (all(!is.na(vThreshold))) {

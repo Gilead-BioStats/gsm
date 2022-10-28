@@ -6,7 +6,7 @@
 #' This function provides a generalized framework for flagging sites as part of the [GSM data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
 #'
 #' @section Data Specification:
-#' \code{Flag} is designed to support the input data (`dfAnalyzed`) from the `Analyze_Identity()` function. At a minimum, the input data must have `GroupID` and a numeric `strColumn` parameter defined. `strColumn` will be compared to the specified thresholds in `vThreshold` to define a new `Flag` column, which identifies possible statistical outliers. If a user would like to see the directionality of those identified points, they can define the `strValueColumn` parameter, which will assign a positive or negative indication to already flagged points.
+#' \code{Flag} is designed to support the input data (`dfAnalyzed`) from the `Analyze_Identity()` function. At a minimum, the input data must have a `strGroupCol` parameter and a numeric `strColumn` parameter defined. `strColumn` will be compared to the specified thresholds in `vThreshold` to define a new `Flag` column, which identifies possible statistical outliers. If a user would like to see the directionality of those identified points, they can define the `strValueColumn` parameter, which will assign a positive or negative indication to already flagged points.
 #'
 #' The following columns are considered required:
 #' - `GroupID` - Group ID; default is site ID

@@ -12,37 +12,34 @@ Flag_Fisher(dfAnalyzed, vThreshold = NULL)
 \item{vThreshold}{Vector of 2 numeric values representing lower and upper p-value thresholds.}
 }
 \value{
-\code{data.frame} with "Flag" column added
+\code{data.frame} with one row per site with columns: \code{GroupID}, \code{Numerator}, \code{Denominator}, \code{Numerator_Other}, \code{Denominator}, \code{Denominator_Other}, \code{Prop}, \code{Prop_Other}, \code{Metric}, \code{Estimate}, \code{Score}, \code{Flag}
 }
 \description{
-Add columns flagging sites that represent possible statistical outliers.
+Add columns flagging sites that represent possible statistical outliers when Fisher statistical method is used.
 }
 \details{
-This function flags sites based on the Fisher's exact test result as part of
-the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
+This function flags sites based on the Fisher's Exact Test result as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
 }
 \section{Data Specification}{
 
-\code{Flag} is designed to support the input data (\code{dfAnalyzed}) from \code{Analyze_Fisher} function.
-At a minimum, the input data must have a \code{SiteID} column and a column of numeric values (identified
-by the \code{strColumn} parameter) that will be compared to the specified thresholds (\code{vThreshold}) to
-calculate a new \code{Flag} column.
+\code{Flag_Fisher} is designed to support the input data (\code{dfAnalyzed}) generated from the \code{Analyze_Fisher} function. At a minimum, the input must define a \code{dfAnalyzed} data frame with \code{Score}, \code{Prop}, and \code{Prop_Other} variables included and a \code{vThreshold}. These inputs will be used to identify possible statistical outliers in a new \code{Flag} column by comparing \code{Score}, \code{Prop}, and \code{Prop_Other} values to the specified thresholds.
 
-In short, the following columns are considered:
+The following columns are considered required:
 \itemize{
-\item \code{GroupID} - Group ID (required)
-\item \code{strColumn} - A column to use for Thresholding (required)
-\item 'strValueColumn' - A column to be used for the sign of the flag (optional)
+\item \code{GroupID} - Group ID; default is site ID
+\item \code{Score} - P-value calculated from the rates of exposure provided to \code{Analyze_Fisher()}
+\item \code{Prop} - Proportion of events of interest over days of exposure
+\item \code{Prop_Other} - Cumulative proportion of events of interest over days of exposure
 }
 }
 
 \examples{
-dfInput <- AE_Map_Adam()
+dfInput <- LB_Map_Adam()
 
 dfTransformed <- Transform_Rate(dfInput,
   strGroupCol = "SiteID",
   strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
+  strDenominatorCol = "Total"
 )
 
 dfAnalyzed <- Analyze_Poisson(dfTransformed)
