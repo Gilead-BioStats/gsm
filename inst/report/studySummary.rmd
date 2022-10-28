@@ -220,7 +220,8 @@ assessment_report <- AssessmentReport$dfAllChecks %>%
   )
 
 if (nrow(assessment_report) > 0) {
-    gt::gt() %>%
+    assessment_report %>%
+      gt::gt() %>%
   gt::tab_style(
     style = list(
       cell_text(color = "white", align = "center", weight = "bold"),
