@@ -141,9 +141,7 @@ test_invalid_mapping_assess <- function(
 
 test_identity <- function(
     assess_function,
-    dfInput,
-    spec,
-    mapping
+    dfInput
 ) {
   identity <- assess_function(dfInput, strMethod = "identity")
 
