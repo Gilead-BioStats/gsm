@@ -118,9 +118,9 @@ test_that("invalid data throw errors", {
 
 test_that("Custom lAssessments and lMapping works together as intended", {
   lAssessments_edited <- MakeWorkflowList()
-  lAssessments_edited$kri0001 <- yaml::read_yaml(system.file("/tests/testthat/testpath/ae_assessment_moderate.yaml", package = "gsm"))
+  lAssessments_edited$kri0001 <- yaml::read_yaml(system.file("/testpath/ae_assessment_moderate.yaml", package = "gsm"))
   lAssessments_edited$kri0001$name <- "aetoxgr"
-  lAssessments_edited$kri0001$path <- file.path(system.file("/tests/testthat/testpath/ae_assessment_moderate.yaml", package = "gsm"))
+  lAssessments_edited$kri0001$path <- file.path(system.file("/testpath/ae_assessment_moderate.yaml", package = "gsm"))
 
   lMapping_edited<- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
   lMapping_edited$dfAE$strGradeCol <- "MODERATE"
@@ -131,18 +131,18 @@ test_that("Custom lAssessments and lMapping works together as intended", {
 ################################################################################################################
 
 test_that("cPath works as intended", {
-  cPath_edited <- file.path(system.file("/tests/testthat/testpath/", package = "gsm"))
+  cPath_edited <- file.path(system.file("/testpath/", package = "gsm"))
   snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments, cPath = cPath_edited)
 
-  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[1]), ".csv"))))
-  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[2]), ".csv"))))
-  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[3]), ".csv"))))
-  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[4]), ".csv"))))
-  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[5]), ".csv"))))
-  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[6]), ".csv"))))
-  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[7]), ".csv"))))
-  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[8]), ".csv"))))
-  expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[9]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[1]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[2]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[3]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[4]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[5]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[6]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[7]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[8]), ".csv"))))
+  expect_true(file.exists(file.path(system.file("/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[9]), ".csv"))))
 })
 
 ################################################################################################################
