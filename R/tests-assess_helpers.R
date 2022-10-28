@@ -41,9 +41,7 @@ test_valid_output_assess_identity <- function(
 
 test_valid_output_assess_fisher <- function(
     assess_function,
-    dfInput,
-    spec,
-    mapping
+    dfInput
 ) {
   output <- assess_function(dfInput = dfInput)
 
