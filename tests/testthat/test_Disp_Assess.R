@@ -10,7 +10,7 @@ test_that("output is created as expected", {
   assessment <- assess_function(dfInput)
   expect_true(is.list(assessment))
   expect_equal(names(assessment), c("lData", "lCharts", "lChecks"))
-  expect_equal(names(assessment$lData), c("dfTransformed", "dfAnalyzed", "dfFlagged", "dfSummary"))
+  expect_equal(names(assessment$lData), c("dfTransformed", "dfAnalyzed", "dfBounds", "dfFlagged", "dfSummary"))
   expect_true("data.frame" %in% class(assessment$lData$dfTransformed))
   expect_true("data.frame" %in% class(assessment$lData$dfAnalyzed))
   expect_true("data.frame" %in% class(assessment$lData$dfFlagged))

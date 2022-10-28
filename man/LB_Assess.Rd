@@ -7,7 +7,7 @@
 LB_Assess(
   dfInput,
   vThreshold = NULL,
-  strMethod = "fisher",
+  strMethod = "funnel",
   lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE
@@ -87,6 +87,7 @@ details about the statistical methods and their assumptions.
 
 \examples{
 dfInput <- LB_Map_Raw()
+lb_assessment_funnel <- LB_Assess(dfInput, strMethod = "funnel")
 lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
 lb_assessment_identity <- LB_Assess(dfInput, strMethod = "identity")
 
