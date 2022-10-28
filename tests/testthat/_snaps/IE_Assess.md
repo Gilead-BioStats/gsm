@@ -61,26 +61,6 @@
       10 0X049  
       # ... with 30 more rows
 
-# invalid data throw errors
-
-    unused argument (strMethod = 123)
-
----
-
-    unused argument (strMethod = "abacus")
-
----
-
-    unused argument (strMethod = c("identity", "poisson"))
-
----
-
-    unused argument (vThreshold = "A")
-
----
-
-    unused argument (vThreshold = 1)
-
 # bQuiet works as intended
 
     Code
