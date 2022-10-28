@@ -61,9 +61,7 @@ test_valid_output_assess_fisher <- function(
 
 test_grouping_assess <- function(
     assess_function,
-    dfInput,
-    spec,
-    mapping
+    dfInput
 ) {
   subsetGroupCols <- function(assessOutput) {
     assessOutput[["lData"]][["dfSummary"]] %>% select("GroupID")
