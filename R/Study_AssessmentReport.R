@@ -27,13 +27,7 @@
 #' @export
 
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
-
-
-
   allChecks <- map(names(lAssessments), function(assessment) {
-
-
-
     workflow <- lAssessments[[assessment]][["steps"]] %>%
 
       imap_dfr(

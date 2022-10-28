@@ -7,7 +7,7 @@
 Disp_Assess(
   dfInput,
   vThreshold = NULL,
-  strMethod = "fisher",
+  strMethod = "funnel",
   lMapping = yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package =
     "gsm")),
   strGroup = "Site",
@@ -91,6 +91,7 @@ details about the statistical methods and their assumptions.
 
 \examples{
 dfInput <- Disp_Map_Raw()
+disp_assessment_funnel <- Disp_Assess(dfInput, strMethod = "funnel")
 disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "fisher")
 disp_assessment_identity <- Disp_Assess(dfInput, strMethod = "identity")
 

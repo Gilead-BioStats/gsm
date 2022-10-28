@@ -27,14 +27,14 @@ meta <- left_join(
   by = "workflowid"
 )
 
-dfSUBJ <- clindata::rawplus_dm[1:50,] %>% select(all_of(dfSUBJ_cols))
-dfAE <- clindata::rawplus_ae[1:50,] %>% select(all_of(dfAE_cols))
-dfPD <- clindata::rawplus_protdev[1:50,] %>% select(all_of(dfPD_cols))
-dfCONSENT <- clindata::rawplus_consent[1:50,] %>% select(all_of(dfCONSENT_cols))
-dfIE <- clindata::rawplus_ie[1:50,] %>% select(all_of(dfIE_cols))
-dfSTUDCOMP <- clindata::rawplus_studcomp[1:50,] %>% select(all_of(dfSTUDCOMP_cols))
-dfSDRGCOMP <- clindata::rawplus_sdrgcomp[1:50,] %>% select(all_of(dfSDRGCOMP_cols))
-dfLB <- clindata::rawplus_lb[1:50,] %>% select(all_of(dfLB_cols))
+dfSUBJ <- clindata::rawplus_dm[1:50, ] %>% select(all_of(dfSUBJ_cols))
+dfAE <- clindata::rawplus_ae[1:50, ] %>% select(all_of(dfAE_cols))
+dfPD <- clindata::rawplus_protdev[1:50, ] %>% select(all_of(dfPD_cols))
+dfCONSENT <- clindata::rawplus_consent[1:50, ] %>% select(all_of(dfCONSENT_cols))
+dfIE <- clindata::rawplus_ie[1:50, ] %>% select(all_of(dfIE_cols))
+dfSTUDCOMP <- clindata::rawplus_studcomp[1:50, ] %>% select(all_of(dfSTUDCOMP_cols))
+dfSDRGCOMP <- clindata::rawplus_sdrgcomp[1:50, ] %>% select(all_of(dfSDRGCOMP_cols))
+dfLB <- clindata::rawplus_lb[1:50, ] %>% select(all_of(dfLB_cols))
 
 lData <- list(
   dfSUBJ = dfSUBJ,
@@ -218,7 +218,6 @@ test_that("lSubjFilters with 0 rows returns NULL", {
 })
 
 test_that("correct bStatus is returned when workflow is missing", {
-
   custom_assessments <- MakeWorkflowList()
 
 

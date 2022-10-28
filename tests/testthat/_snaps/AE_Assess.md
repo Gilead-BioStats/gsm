@@ -46,11 +46,11 @@
 
 # incorrect inputs throw errors
 
-    strMethod is not 'poisson' or 'identity'
+    strMethod is not 'funnel', 'poisson' or 'identity'
 
 ---
 
-    strMethod is not 'poisson' or 'identity'
+    strMethod is not 'funnel', 'poisson' or 'identity'
 
 ---
 
@@ -58,8 +58,8 @@
 
 ---
 
-    Problem while computing `vEst = .data$Threshold^2 - 2 * .data$vMu`.
-    Caused by error in `.data$Threshold^2`:
+    Problem while computing `Metric = .data$vMu + ...`.
+    Caused by error in `.data$Threshold * sqrt(.data$phi * .data$vMu / .data$Denominator)`:
     ! non-numeric argument to binary operator
 
 ---
@@ -224,9 +224,9 @@
       
       Input data has 3 rows.
       v `Transform_Rate()` returned output with 3 rows.
-      i Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ].
-      v `Analyze_Poisson()` returned output with 3 rows.
-      v `Flag_Poisson()` returned output with 3 rows.
+      `Score` column created from normal approxiamtion of the Poisson distribution
+      v `Analyze_Funnel()` returned output with 3 rows.
+      v `Flag_Funnel()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
