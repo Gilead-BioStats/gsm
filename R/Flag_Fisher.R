@@ -20,7 +20,7 @@
 #' @return `data.frame` with one row per site with columns: `GroupID`, `Numerator`, `Denominator`, `Numerator_Other`, `Denominator`, `Denominator_Other`, `Prop`, `Prop_Other`, `Metric`, `Estimate`, `Score`, `Flag`
 #'
 #' @examples
-#' dfInput <- LB_Map_Adam()
+#' dfInput <- LB_Map_Raw()
 #'
 #' dfTransformed <- Transform_Rate(dfInput,
 #'   strGroupCol = "SiteID",

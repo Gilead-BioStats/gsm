@@ -34,7 +34,7 @@ The following columns are considered required:
 }
 
 \examples{
-dfInput <- LB_Map_Adam()
+dfInput <- LB_Map_Raw()
 
 dfTransformed <- Transform_Rate(dfInput,
   strGroupCol = "SiteID",
