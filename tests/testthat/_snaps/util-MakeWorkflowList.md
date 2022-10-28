@@ -139,7 +139,7 @@
       NULL
       
       [[4]]$params$strMethod
-      [1] "poisson"
+      [1] "funnel"
       
       
       
@@ -222,7 +222,7 @@
       NULL
       
       [[4]]$params$strMethod
-      [1] "poisson"
+      [1] "funnel"
       
       
       
@@ -283,7 +283,7 @@
       NULL
       
       [[3]]$params$strMethod
-      [1] "poisson"
+      [1] "funnel"
       
       
       
@@ -344,7 +344,7 @@
       NULL
       
       [[3]]$params$strMethod
-      [1] "poisson"
+      [1] "funnel"
       
       
       
@@ -427,7 +427,7 @@
       NULL
       
       [[4]]$params$strMethod
-      [1] "fisher"
+      [1] "funnel"
       
       
       
@@ -471,7 +471,7 @@
       NULL
       
       [[2]]$params$strMethod
-      [1] "fisher"
+      [1] "funnel"
       
       
       
@@ -537,7 +537,7 @@
       NULL
       
       [[3]]$params$strMethod
-      [1] "fisher"
+      [1] "funnel"
       
       
       

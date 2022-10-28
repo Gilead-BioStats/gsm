@@ -29,8 +29,8 @@ bQuiet <- TRUE
 
 snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments)
 
-tool_outputs <- read.csv(system.file("vignettes", "standardized_outputs.csv", package = "gsm"))
-gsm_outputs <- read.csv(system.file("vignettes", "gsm_outputs.csv", package = "gsm"))
+tool_outputs <- read.csv(system.file("/vignettes/", "standardized_outputs.csv", package = "gsm"))
+gsm_outputs <- read.csv(system.file("/vignettes/", "gsm_outputs.csv", package = "gsm"))
 
 ################################################################################################################
 
@@ -131,8 +131,8 @@ test_that("Custom lAssessments and lMapping works together as intended", {
 ################################################################################################################
 
 test_that("cPath works as intended", {
-  cPath_edited <- setwd(system.file("/tests/testthat/testpath/", package = "gsm"))
-  Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments, cPath = cPath_edited)
+  cPath_edited <- file.path(system.file("/tests/testthat/testpath/", package = "gsm"))
+  snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments, cPath = cPath_edited)
 
   expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[1]), ".csv"))))
   expect_true(file.exists(file.path(system.file("/tests/testthat/testpath/", package = "gsm"), paste0(unique(tool_outputs$Table.Name[2]), ".csv"))))
