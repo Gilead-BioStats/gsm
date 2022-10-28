@@ -155,9 +155,7 @@ test_identity <- function(
 
 test_NA_count <- function(
     assess_function,
-    dfInput,
-    spec,
-    mapping
+    dfInput
 ) {
   dfInputNA <- dfInput
   dfInputNA[1, "Count"] <- NA
