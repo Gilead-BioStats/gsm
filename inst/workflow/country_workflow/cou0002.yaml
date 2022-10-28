@@ -22,6 +22,6 @@ steps:
     inputs: dfInput
     output: lResults
     params:
-      strGroup: "Site"
+      strGroup: "Country"
       vThreshold: null
       strMethod: "funnel"
