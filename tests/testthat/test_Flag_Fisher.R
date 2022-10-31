@@ -1,9 +1,7 @@
 source(testthat::test_path("testdata/data.R"))
 
-dfInput <- dfInputLB
-
 dfTransformed <- Transform_Rate(
-  dfInput = dfInput,
+  dfInput = dfInputLB,
   strGroupCol = "SiteID",
   strNumeratorCol = "Count",
   strDenominatorCol = "Total"
@@ -14,7 +12,7 @@ dfAnalyzed <- Analyze_Fisher(dfTransformed)
 test_that("output is created as expected", {
   dfFlagged <- Flag_Fisher(dfAnalyzed, vThreshold = c(-.05, .05))
   expect_true(is.data.frame(dfFlagged))
-  expect_equal(sort(unique(dfInput$SiteID)), sort(dfFlagged$GroupID))
+  expect_equal(sort(unique(dfInputLB$SiteID)), sort(dfFlagged$GroupID))
   expect_true(all(names(dfAnalyzed) %in% names(dfFlagged)))
   expect_equal(names(dfFlagged), c("GroupID", "Numerator", "Numerator_Other", "Denominator", "Denominator_Other", "Prop", "Prop_Other", "Metric", "Estimate", "Score", "Flag"))
   expect_equal(length(unique(dfAnalyzed$GroupID)), length(unique(dfFlagged$GroupID)))
