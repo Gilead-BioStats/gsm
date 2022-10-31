@@ -1,6 +1,6 @@
 #' Flag_Poisson
 #'
-#' Add columns flagging sites that represent possible statistical outliers when Poisson statistical method is used.
+#' Add columns flagging sites that represent possible statistical outliers when the Poisson statistical method is used.
 #'
 #' @details
 #' This function flags sites based on the Poisson analysis result as part of the [GSM data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
