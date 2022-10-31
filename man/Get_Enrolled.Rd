@@ -2,7 +2,7 @@
 % Please edit documentation in R/Get_Enrolled.R
 \name{Get_Enrolled}
 \alias{Get_Enrolled}
-\title{Get_Enrolled Calculated enrolled participants or sites.}
+\title{{experimental} Get_Enrolled Calculated enrolled participants or sites.}
 \usage{
 Get_Enrolled(dfSUBJ, dfConfig, lMapping, strUnit, strBy)
 }

@@ -21,7 +21,8 @@ FilterData(dfInput, strCol, anyVal, bReturnChecks = FALSE, bQuiet = TRUE)
 \code{data.frame} Data frame provided as \code{dfInput} and filtered on \code{strCol} == \code{anyVal}.
 }
 \description{
-Subset a data frame
+\code{FilterData} is used to subset strata for a stratified KRI. This function is called within \code{RunStep()} to create
+separate strata for a categorical variable (e.g, levels of \code{aetoxgr} for an Adverse Events assessment).
 }
 \examples{
 

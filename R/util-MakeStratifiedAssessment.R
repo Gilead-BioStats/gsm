@@ -1,4 +1,8 @@
-#' Create multiple workflows from a single stratified workflow
+#' Create multiple workflows from a single stratified workflow.
+#'
+#' @description
+#' `MakeStratifiedAssessment` is a utility function that creates a stratified workflow list using a pre-defined workflow (from `inst/workflows`), or
+#' by using a custom named list.
 #'
 #' @param lData `list` A named list of domain-level data frames.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.

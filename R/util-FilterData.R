@@ -1,5 +1,9 @@
 #' Subset a data frame
 #'
+#' @description
+#' `FilterData` is used to subset strata for a stratified KRI. This function is called within `RunStep()` to create
+#' separate strata for a categorical variable (e.g, levels of `aetoxgr` for an Adverse Events assessment).
+#'
 #' @param dfInput `data.frame` A data.frame to be filtered, likely within a mapping function.
 #' @param strCol `character` Domain in `lMapping` that references the column to filter on.
 #' @param anyVal `character` Domain in `lMapping` that references the value to filter on.

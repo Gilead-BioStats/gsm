@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-MakeStratifiedAssessment.R
 \name{MakeStratifiedAssessment}
 \alias{MakeStratifiedAssessment}
-\title{Create multiple workflows from a single stratified workflow}
+\title{Create multiple workflows from a single stratified workflow.}
 \usage{
 MakeStratifiedAssessment(lWorkflow, lData, lMapping, bQuiet = TRUE)
 }
@@ -19,7 +19,8 @@ MakeStratifiedAssessment(lWorkflow, lData, lMapping, bQuiet = TRUE)
 \code{list} A list of workflows for each specified strata
 }
 \description{
-Create multiple workflows from a single stratified workflow
+\code{MakeStratifiedAssessment} is a utility function that creates a stratified workflow list using a pre-defined workflow (from \code{inst/workflows}), or
+by using a custom named list.
 }
 \examples{
 \dontrun{

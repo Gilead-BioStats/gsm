@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-is_mapping_valid.R
 \name{is_mapping_valid}
 \alias{is_mapping_valid}
-\title{Check that a data frame contains columns and fields specified in mapping}
+\title{Check that a data frame contains columns and fields specified in mapping.}
 \usage{
 is_mapping_valid(df, mapping, spec, bQuiet = TRUE)
 }
@@ -25,7 +25,8 @@ is_mapping_valid(df, mapping, spec, bQuiet = TRUE)
 a list containing checks and a \code{status} and \code{warning} (if check does not pass).
 }
 \description{
-Check that a data frame contains columns and fields specified in mapping
+\code{is_mapping_valid} is a utility function that is a core feature of any assessment or workflow. This function evaluates the validity of input data based on
+a pre-defined, or user-defined mapping and specification.
 }
 \examples{
 subj_mapping <- list(

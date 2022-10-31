@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-ParseWarnings.R
 \name{ParseWarnings}
 \alias{ParseWarnings}
-\title{Parse warnings from the result of Study_Assess.}
+\title{{experimental} Parse warnings from the result of Study_Assess.}
 \usage{
 ParseWarnings(lResults)
 }
@@ -13,7 +13,9 @@ ParseWarnings(lResults)
 \code{data.frame} With columns \code{notes} and \code{workflowid}.
 }
 \description{
-Parse warnings from the result of Study_Assess.
+\code{ParseWarnings} is used inside of \code{Make_Snapshot()} to summarize any issues with data needed to run a KRI or QTL. If there are any warnings for any
+workflow run via \code{Make_Snapshot()}, they are appended to the \code{notes} column in the  \code{status_workflow} data.frame, which is included in the output
+of \code{Make_Snapshot()}. If there are no warnings, the \code{notes} column contains \code{NA} for all KRIs/QTLs.
 }
 \examples{
 # Set all subjid to NA to create warnings

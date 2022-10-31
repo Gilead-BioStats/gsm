@@ -1,4 +1,9 @@
-#' Parse warnings from the result of Study_Assess.
+#' {experimental} Parse warnings from the result of Study_Assess.
+#'
+#' @description
+#' `ParseWarnings` is used inside of `Make_Snapshot()` to summarize any issues with data needed to run a KRI or QTL. If there are any warnings for any
+#' workflow run via `Make_Snapshot()`, they are appended to the `notes` column in the  `status_workflow` data.frame, which is included in the output
+#' of `Make_Snapshot()`. If there are no warnings, the `notes` column contains `NA` for all KRIs/QTLs.
 #'
 #' @param lResults `list` List returned from `gsm::Study_Assess()`.
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/SaveQTL.R
 \name{SaveQTL}
 \alias{SaveQTL}
-\title{Title}
+\title{{experimental} SaveQTL}
 \usage{
 SaveQTL(lSnapshot, strPath = "./inst/dummyqtldata.csv", bQuiet = TRUE)
 }
@@ -14,7 +14,8 @@ SaveQTL(lSnapshot, strPath = "./inst/dummyqtldata.csv", bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \description{
-Title
+Save QTL analysis results to a directory location. The file specified in \code{strPath} will have an additional row appended for the current QTL analysis,
+and a separate file will be saved for the single QTL analysis result.
 }
 \examples{
 
