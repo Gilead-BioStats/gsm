@@ -165,7 +165,7 @@
       [1] "AE_Map_Raw"
       
       $kri0002[[3]]$inputs
-      [1] "dfSUBJ" "dfAE"  
+      [1] "dfAE"   "dfSUBJ"
       
       $kri0002[[3]]$output
       [1] "dfInput"
