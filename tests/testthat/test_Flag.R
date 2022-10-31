@@ -1,6 +1,6 @@
-dfInput <- Consent_Map_Raw(dfs = list(
-  dfCONSENT = clindata::rawplus_consent,
-  dfSUBJ = clindata::rawplus_dm))
+source(testthat::test_path("testdata/data.R"))
+
+dfInput <- dfInputCONSENT
 
 dfTransformed <- Transform_Count(
   dfInput = dfInput,

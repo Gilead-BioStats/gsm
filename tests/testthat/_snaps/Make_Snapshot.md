@@ -275,7 +275,7 @@
       
       v No issues found for dfLB domain
       Filtering on `lb_te %in% c("Y")`.
-      v Filtered on `lb_te %in% c("Y")` to drop 43 rows from 50 to 7 rows.
+      v Filtered on `lb_te %in% c("Y")` to drop 86 rows from 1000 to 914 rows.
       v `FilterDomain()` Successful
       Saving dfLB to `lWorkflow$lData`
       
@@ -288,7 +288,7 @@
       
       v No issues found for dfLB domain
       Filtering on `toxgr %in% c("3", "4")`.
-      v Filtered on `toxgr %in% c("3 and 4")` to drop 7 rows from 7 to 0 rows.
+      v Filtered on `toxgr %in% c("3 and 4")` to drop 914 rows from 914 to 0 rows.
       ! WARNING: Filtered data has 0 rows.
       v `FilterDomain()` Successful
       Saving dfLB to `lWorkflow$lData`

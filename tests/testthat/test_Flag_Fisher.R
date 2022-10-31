@@ -1,6 +1,6 @@
-dfInput <- LB_Map_Raw(dfs = list(
-  dfLB = clindata::rawplus_lb,
-  dfSUBJ = clindata::rawplus_dm))
+source(testthat::test_path("testdata/data.R"))
+
+dfInput <- dfInputLB
 
 dfTransformed <- Transform_Rate(
   dfInput = dfInput,

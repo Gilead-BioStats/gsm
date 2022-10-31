@@ -1,6 +1,8 @@
-dfAE <- clindata::rawplus_ae[1:50,] %>%
+source(testthat::test_path("testdata/data.R"))
+
+dfAE <- dfAE %>%
   mutate(subjid = NA)
-dfSUBJ <- clindata::rawplus_dm[1:50,]
+dfSUBJ <- dfSUBJ
 
 lData <- list(
   dfAE = dfAE,

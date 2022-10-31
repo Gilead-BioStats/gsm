@@ -1,10 +1,10 @@
 "workflowid","gsm_version","group","metric","numerator","denominator","outcome","model","score","data_inputs","data_filters","gsm_analysis_date"
-"kri0001","1.2.0","Site","Non-serious AE Reporting Rate","Treatment Emergent AEs","Days on Treatment","Rate","Poisson","Residual from Poisson Model","rawplus.ae, rawplus.subj","Non-Serious, TreatmentEmergent",2022-10-28
-"kri0002","1.2.0","Site","SAE Reporting Rate","Treatment Emergent SAEs","Days on Treatment","Rate","Poisson","Residual from Poisson Model","rawplus.ae, rawplus.subj","Serious, TreatmentEmergent",2022-10-28
-"kri0003","1.2.0","Site","Non-important Protocol Deviation Rate","Non-Important PDs","Days in Study","Rate","Poisson","Residual from Poisson Model","rawplus.pd, rawplus.subj","Non-Important",2022-10-28
-"kri0004","1.2.0","Site","Important Protocol Deviation Rate","Important PDs","Days in Study","Rate","Poisson","Residual from Poisson Model","rawplus.pd, rawplus.subj","Important",2022-10-28
-"kri0005","1.2.0","Site","G3 or higher Lab Abnormality Rate","G3+ Abnormal Labs Samples","Total Lab Samples","Percent","Fisher","P-value from Fisher's Exact Test","rawplus.lb, rawplus.subj","Treatment emergent, Grade >= 3",2022-10-28
-"kri0006","1.2.0","Site","Subject Discontinuation","Subjects Discontinued","Total Subjects","Percent","Fisher","P-value from Fisher's Exact Test","rawplus.subj","",2022-10-28
-"kri0007","1.2.0","Site","Subject Treatment Discontinuation","Subjects with Treatment Discontinued","Total Subjects","Percent","Fisher","P-value from Fisher's Exact Test"," rawplus.subj","",2022-10-28
-"qtl0003","1.2.0","Study","Important Protocol Deviation Rate","Important PDs","Days in Study","Rate","QTL","Residual from Poisson Model","rawplus.pd, rawplus.subj","Important",2022-10-28
-"qtl0007","1.2.0","Study","Subject Discontinuation","Subjects Discontinued","Total Subjects","Percent","QTL","Residual from Poisson Model"," rawplus.subj","",2022-10-28
+"kri0001","1.2.0","Site","Non-serious AE Reporting Rate","Treatment Emergent AEs","Days on Treatment","Rate","Poisson","Residual from Poisson Model","rawplus.ae, rawplus.subj","Non-Serious, TreatmentEmergent",2022-10-31
+"kri0002","1.2.0","Site","SAE Reporting Rate","Treatment Emergent SAEs","Days on Treatment","Rate","Poisson","Residual from Poisson Model","rawplus.ae, rawplus.subj","Serious, TreatmentEmergent",2022-10-31
+"kri0003","1.2.0","Site","Non-important Protocol Deviation Rate","Non-Important PDs","Days in Study","Rate","Poisson","Residual from Poisson Model","rawplus.pd, rawplus.subj","Non-Important",2022-10-31
+"kri0004","1.2.0","Site","Important Protocol Deviation Rate","Important PDs","Days in Study","Rate","Poisson","Residual from Poisson Model","rawplus.pd, rawplus.subj","Important",2022-10-31
+"kri0005","1.2.0","Site","G3 or higher Lab Abnormality Rate","G3+ Abnormal Labs Samples","Total Lab Samples","Percent","Fisher","P-value from Fisher's Exact Test","rawplus.lb, rawplus.subj","Treatment emergent, Grade >= 3",2022-10-31
+"kri0006","1.2.0","Site","Subject Discontinuation","Subjects Discontinued","Total Subjects","Percent","Fisher","P-value from Fisher's Exact Test","rawplus.subj","",2022-10-31
+"kri0007","1.2.0","Site","Subject Treatment Discontinuation","Subjects with Treatment Discontinued","Total Subjects","Percent","Fisher","P-value from Fisher's Exact Test"," rawplus.subj","",2022-10-31
+"qtl0003","1.2.0","Study","Important Protocol Deviation Rate","Important PDs","Days in Study","Rate","QTL","Residual from Poisson Model","rawplus.pd, rawplus.subj","Important",2022-10-31
+"qtl0007","1.2.0","Study","Subject Discontinuation","Subjects Discontinued","Total Subjects","Percent","QTL","Residual from Poisson Model"," rawplus.subj","",2022-10-31

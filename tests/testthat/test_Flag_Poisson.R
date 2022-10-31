@@ -1,6 +1,6 @@
-dfInput <- AE_Map_Raw(dfs = list(
-  dfAE = clindata::rawplus_ae,
-  dfSUBJ = clindata::rawplus_dm))
+source(testthat::test_path("testdata/data.R"))
+
+dfInput <- dfInputAE
 
 dfTransformed <- Transform_Rate(
   dfInput = dfInput,

@@ -1,654 +1,594 @@
 # output is generated as expected
 
     Code
-      names(wf_list$kri0001)
+      map(wf_list, ~ names(.))
     Output
+      $kri0001
       [1] "steps" "path"  "name" 
-
----
-
-    Code
-      names(wf_list$kri0002)
-    Output
+      
+      $kri0002
       [1] "steps" "path"  "name" 
-
----
-
-    Code
-      names(wf_list$kri0003)
-    Output
+      
+      $kri0003
       [1] "steps" "path"  "name" 
-
----
-
-    Code
-      names(wf_list$kri0004)
-    Output
+      
+      $kri0004
       [1] "steps" "path"  "name" 
-
----
-
-    Code
-      names(wf_list$kri0005)
-    Output
+      
+      $kri0005
       [1] "steps" "path"  "name" 
-
----
-
-    Code
-      names(wf_list$kri0006)
-    Output
+      
+      $kri0006
       [1] "steps" "path"  "name" 
-
----
-
-    Code
-      names(wf_list$kri0007)
-    Output
+      
+      $kri0007
       [1] "steps" "path"  "name" 
-
----
-
-    Code
-      names(wf_list$qtl0003)
-    Output
+      
+      $qtl0003
       [1] "steps" "path"  "name" 
-
----
-
-    Code
-      names(wf_list$qtl0007)
-    Output
+      
+      $qtl0007
       [1] "steps" "path"  "name" 
+      
 
 # Metadata is returned as expected
 
     Code
-      kri0001$steps
+      map(wf_list, ~ .x$steps)
     Output
-      [[1]]
-      [[1]]$name
+      $kri0001
+      $kri0001[[1]]
+      $kri0001[[1]]$name
       [1] "FilterDomain"
       
-      [[1]]$inputs
+      $kri0001[[1]]$inputs
       [1] "dfAE"
       
-      [[1]]$output
+      $kri0001[[1]]$output
       [1] "dfAE"
       
-      [[1]]$params
-      [[1]]$params$strDomain
+      $kri0001[[1]]$params
+      $kri0001[[1]]$params$strDomain
       [1] "dfAE"
       
-      [[1]]$params$strColParam
+      $kri0001[[1]]$params$strColParam
       [1] "strTreatmentEmergentCol"
       
-      [[1]]$params$strValParam
+      $kri0001[[1]]$params$strValParam
       [1] "strTreatmentEmergentVal"
       
       
       
-      [[2]]
-      [[2]]$name
+      $kri0001[[2]]
+      $kri0001[[2]]$name
       [1] "FilterDomain"
       
-      [[2]]$inputs
+      $kri0001[[2]]$inputs
       [1] "dfAE"
       
-      [[2]]$output
+      $kri0001[[2]]$output
       [1] "dfAE"
       
-      [[2]]$params
-      [[2]]$params$strDomain
+      $kri0001[[2]]$params
+      $kri0001[[2]]$params$strDomain
       [1] "dfAE"
       
-      [[2]]$params$strColParam
+      $kri0001[[2]]$params$strColParam
       [1] "strSeriousCol"
       
-      [[2]]$params$strValParam
+      $kri0001[[2]]$params$strValParam
       [1] "strNonSeriousVal"
       
       
       
-      [[3]]
-      [[3]]$name
+      $kri0001[[3]]
+      $kri0001[[3]]$name
       [1] "AE_Map_Raw"
       
-      [[3]]$inputs
+      $kri0001[[3]]$inputs
       [1] "dfAE"   "dfSUBJ"
       
-      [[3]]$output
+      $kri0001[[3]]$output
       [1] "dfInput"
       
       
-      [[4]]
-      [[4]]$name
+      $kri0001[[4]]
+      $kri0001[[4]]$name
       [1] "AE_Assess"
       
-      [[4]]$inputs
+      $kri0001[[4]]$inputs
       [1] "dfInput"
       
-      [[4]]$output
+      $kri0001[[4]]$output
       [1] "lResults"
       
-      [[4]]$params
-      [[4]]$params$strGroup
+      $kri0001[[4]]$params
+      $kri0001[[4]]$params$strGroup
       [1] "Site"
       
-      [[4]]$params$vThreshold
+      $kri0001[[4]]$params$vThreshold
       NULL
       
-      [[4]]$params$strMethod
+      $kri0001[[4]]$params$strMethod
       [1] "funnel"
       
       
       
-
----
-
-    Code
-      kri0002$steps
-    Output
-      [[1]]
-      [[1]]$name
+      
+      $kri0002
+      $kri0002[[1]]
+      $kri0002[[1]]$name
       [1] "FilterDomain"
       
-      [[1]]$inputs
+      $kri0002[[1]]$inputs
       [1] "dfAE"
       
-      [[1]]$output
+      $kri0002[[1]]$output
       [1] "dfAE"
       
-      [[1]]$params
-      [[1]]$params$strDomain
+      $kri0002[[1]]$params
+      $kri0002[[1]]$params$strDomain
       [1] "dfAE"
       
-      [[1]]$params$strColParam
+      $kri0002[[1]]$params$strColParam
       [1] "strTreatmentEmergentCol"
       
-      [[1]]$params$strValParam
+      $kri0002[[1]]$params$strValParam
       [1] "strTreatmentEmergentVal"
       
       
       
-      [[2]]
-      [[2]]$name
+      $kri0002[[2]]
+      $kri0002[[2]]$name
       [1] "FilterDomain"
       
-      [[2]]$inputs
+      $kri0002[[2]]$inputs
       [1] "dfAE"
       
-      [[2]]$output
+      $kri0002[[2]]$output
       [1] "dfAE"
       
-      [[2]]$params
-      [[2]]$params$strDomain
+      $kri0002[[2]]$params
+      $kri0002[[2]]$params$strDomain
       [1] "dfAE"
       
-      [[2]]$params$strColParam
+      $kri0002[[2]]$params$strColParam
       [1] "strSeriousCol"
       
-      [[2]]$params$strValParam
+      $kri0002[[2]]$params$strValParam
       [1] "strSeriousVal"
       
       
       
-      [[3]]
-      [[3]]$name
+      $kri0002[[3]]
+      $kri0002[[3]]$name
       [1] "AE_Map_Raw"
       
-      [[3]]$inputs
+      $kri0002[[3]]$inputs
       [1] "dfSUBJ" "dfAE"  
       
-      [[3]]$output
+      $kri0002[[3]]$output
       [1] "dfInput"
       
       
-      [[4]]
-      [[4]]$name
+      $kri0002[[4]]
+      $kri0002[[4]]$name
       [1] "AE_Assess"
       
-      [[4]]$inputs
+      $kri0002[[4]]$inputs
       [1] "dfInput"
       
-      [[4]]$output
+      $kri0002[[4]]$output
       [1] "lResults"
       
-      [[4]]$params
-      [[4]]$params$strGroup
+      $kri0002[[4]]$params
+      $kri0002[[4]]$params$strGroup
       [1] "Site"
       
-      [[4]]$params$vThreshold
+      $kri0002[[4]]$params$vThreshold
       NULL
       
-      [[4]]$params$strMethod
+      $kri0002[[4]]$params$strMethod
       [1] "funnel"
       
       
       
-
----
-
-    Code
-      kri0003$steps
-    Output
-      [[1]]
-      [[1]]$name
+      
+      $kri0003
+      $kri0003[[1]]
+      $kri0003[[1]]$name
       [1] "FilterDomain"
       
-      [[1]]$inputs
+      $kri0003[[1]]$inputs
       [1] "dfPD"
       
-      [[1]]$output
+      $kri0003[[1]]$output
       [1] "dfPD"
       
-      [[1]]$params
-      [[1]]$params$strDomain
+      $kri0003[[1]]$params
+      $kri0003[[1]]$params$strDomain
       [1] "dfPD"
       
-      [[1]]$params$strColParam
+      $kri0003[[1]]$params$strColParam
       [1] "strImportantCol"
       
-      [[1]]$params$strValParam
+      $kri0003[[1]]$params$strValParam
       [1] "strNotImportantVal"
       
       
       
-      [[2]]
-      [[2]]$name
+      $kri0003[[2]]
+      $kri0003[[2]]$name
       [1] "PD_Map_Raw"
       
-      [[2]]$inputs
+      $kri0003[[2]]$inputs
       [1] "dfPD"   "dfSUBJ"
       
-      [[2]]$output
+      $kri0003[[2]]$output
       [1] "dfInput"
       
       
-      [[3]]
-      [[3]]$name
+      $kri0003[[3]]
+      $kri0003[[3]]$name
       [1] "PD_Assess"
       
-      [[3]]$inputs
+      $kri0003[[3]]$inputs
       [1] "dfInput"
       
-      [[3]]$output
+      $kri0003[[3]]$output
       [1] "lResults"
       
-      [[3]]$params
-      [[3]]$params$strGroup
+      $kri0003[[3]]$params
+      $kri0003[[3]]$params$strGroup
       [1] "Site"
       
-      [[3]]$params$vThreshold
+      $kri0003[[3]]$params$vThreshold
       NULL
       
-      [[3]]$params$strMethod
+      $kri0003[[3]]$params$strMethod
       [1] "funnel"
       
       
       
-
----
-
-    Code
-      kri0004$steps
-    Output
-      [[1]]
-      [[1]]$name
+      
+      $kri0004
+      $kri0004[[1]]
+      $kri0004[[1]]$name
       [1] "FilterDomain"
       
-      [[1]]$inputs
+      $kri0004[[1]]$inputs
       [1] "dfPD"
       
-      [[1]]$output
+      $kri0004[[1]]$output
       [1] "dfPD"
       
-      [[1]]$params
-      [[1]]$params$strDomain
+      $kri0004[[1]]$params
+      $kri0004[[1]]$params$strDomain
       [1] "dfPD"
       
-      [[1]]$params$strColParam
+      $kri0004[[1]]$params$strColParam
       [1] "strImportantCol"
       
-      [[1]]$params$strValParam
+      $kri0004[[1]]$params$strValParam
       [1] "strImportantVal"
       
       
       
-      [[2]]
-      [[2]]$name
+      $kri0004[[2]]
+      $kri0004[[2]]$name
       [1] "PD_Map_Raw"
       
-      [[2]]$inputs
+      $kri0004[[2]]$inputs
       [1] "dfSUBJ" "dfPD"  
       
-      [[2]]$output
+      $kri0004[[2]]$output
       [1] "dfInput"
       
       
-      [[3]]
-      [[3]]$name
+      $kri0004[[3]]
+      $kri0004[[3]]$name
       [1] "PD_Assess"
       
-      [[3]]$inputs
+      $kri0004[[3]]$inputs
       [1] "dfInput"
       
-      [[3]]$output
+      $kri0004[[3]]$output
       [1] "lResults"
       
-      [[3]]$params
-      [[3]]$params$strGroup
+      $kri0004[[3]]$params
+      $kri0004[[3]]$params$strGroup
       [1] "Site"
       
-      [[3]]$params$vThreshold
+      $kri0004[[3]]$params$vThreshold
       NULL
       
-      [[3]]$params$strMethod
+      $kri0004[[3]]$params$strMethod
       [1] "funnel"
       
       
       
-
----
-
-    Code
-      kri0005$steps
-    Output
-      [[1]]
-      [[1]]$name
+      
+      $kri0005
+      $kri0005[[1]]
+      $kri0005[[1]]$name
       [1] "FilterDomain"
       
-      [[1]]$inputs
+      $kri0005[[1]]$inputs
       [1] "dfLB"
       
-      [[1]]$output
+      $kri0005[[1]]$output
       [1] "dfLB"
       
-      [[1]]$params
-      [[1]]$params$strDomain
+      $kri0005[[1]]$params
+      $kri0005[[1]]$params$strDomain
       [1] "dfLB"
       
-      [[1]]$params$strColParam
+      $kri0005[[1]]$params$strColParam
       [1] "strTreatmentEmergentCol"
       
-      [[1]]$params$strValParam
+      $kri0005[[1]]$params$strValParam
       [1] "strTreatmentEmergentVal"
       
       
       
-      [[2]]
-      [[2]]$name
+      $kri0005[[2]]
+      $kri0005[[2]]$name
       [1] "FilterDomain"
       
-      [[2]]$inputs
+      $kri0005[[2]]$inputs
       [1] "dfLB"
       
-      [[2]]$output
+      $kri0005[[2]]$output
       [1] "dfLB"
       
-      [[2]]$params
-      [[2]]$params$strDomain
+      $kri0005[[2]]$params
+      $kri0005[[2]]$params$strDomain
       [1] "dfLB"
       
-      [[2]]$params$strColParam
+      $kri0005[[2]]$params$strColParam
       [1] "strGradeCol"
       
-      [[2]]$params$strValParam
+      $kri0005[[2]]$params$strValParam
       [1] "strGradeHighVal"
       
       
       
-      [[3]]
-      [[3]]$name
+      $kri0005[[3]]
+      $kri0005[[3]]$name
       [1] "LB_Map_Raw"
       
-      [[3]]$inputs
+      $kri0005[[3]]$inputs
       [1] "dfSUBJ" "dfLB"  
       
-      [[3]]$output
+      $kri0005[[3]]$output
       [1] "dfInput"
       
       
-      [[4]]
-      [[4]]$name
+      $kri0005[[4]]
+      $kri0005[[4]]$name
       [1] "LB_Assess"
       
-      [[4]]$inputs
+      $kri0005[[4]]$inputs
       [1] "dfInput"
       
-      [[4]]$output
+      $kri0005[[4]]$output
       [1] "lResults"
       
-      [[4]]$params
-      [[4]]$params$strGroup
+      $kri0005[[4]]$params
+      $kri0005[[4]]$params$strGroup
       [1] "Site"
       
-      [[4]]$params$vThreshold
+      $kri0005[[4]]$params$vThreshold
       NULL
       
-      [[4]]$params$strMethod
+      $kri0005[[4]]$params$strMethod
       [1] "funnel"
       
       
       
-
----
-
-    Code
-      kri0006$steps
-    Output
-      [[1]]
-      [[1]]$name
+      
+      $kri0006
+      $kri0006[[1]]
+      $kri0006[[1]]$name
       [1] "Disp_Map_Raw"
       
-      [[1]]$inputs
+      $kri0006[[1]]$inputs
       [1] "dfSUBJ"     "dfSTUDCOMP"
       
-      [[1]]$output
+      $kri0006[[1]]$output
       [1] "dfInput"
       
-      [[1]]$params
-      [[1]]$params$strContext
+      $kri0006[[1]]$params
+      $kri0006[[1]]$params$strContext
       [1] "Study"
       
       
       
-      [[2]]
-      [[2]]$name
+      $kri0006[[2]]
+      $kri0006[[2]]$name
       [1] "Disp_Assess"
       
-      [[2]]$inputs
+      $kri0006[[2]]$inputs
       [1] "dfInput"
       
-      [[2]]$output
+      $kri0006[[2]]$output
       [1] "lResults"
       
-      [[2]]$params
-      [[2]]$params$strGroup
+      $kri0006[[2]]$params
+      $kri0006[[2]]$params$strGroup
       [1] "Site"
       
-      [[2]]$params$vThreshold
+      $kri0006[[2]]$params$vThreshold
       NULL
       
-      [[2]]$params$strMethod
+      $kri0006[[2]]$params$strMethod
       [1] "funnel"
       
       
       
-
----
-
-    Code
-      kri0007$steps
-    Output
-      [[1]]
-      [[1]]$name
+      
+      $kri0007
+      $kri0007[[1]]
+      $kri0007[[1]]$name
       [1] "FilterDomain"
       
-      [[1]]$inputs
+      $kri0007[[1]]$inputs
       [1] "dfSDRGCOMP"
       
-      [[1]]$output
+      $kri0007[[1]]$output
       [1] "dfSDRGCOMP"
       
-      [[1]]$params
-      [[1]]$params$strDomain
+      $kri0007[[1]]$params
+      $kri0007[[1]]$params$strDomain
       [1] "dfSDRGCOMP"
       
-      [[1]]$params$strColParam
+      $kri0007[[1]]$params$strColParam
       [1] "strTreatmentPhaseCol"
       
-      [[1]]$params$strValParam
+      $kri0007[[1]]$params$strValParam
       [1] "strTreatmentPhaseVal"
       
       
       
-      [[2]]
-      [[2]]$name
+      $kri0007[[2]]
+      $kri0007[[2]]$name
       [1] "Disp_Map_Raw"
       
-      [[2]]$inputs
+      $kri0007[[2]]$inputs
       [1] "dfSUBJ"     "dfSDRGCOMP"
       
-      [[2]]$output
+      $kri0007[[2]]$output
       [1] "dfInput"
       
-      [[2]]$params
-      [[2]]$params$strContext
+      $kri0007[[2]]$params
+      $kri0007[[2]]$params$strContext
       [1] "Treatment"
       
       
       
-      [[3]]
-      [[3]]$name
+      $kri0007[[3]]
+      $kri0007[[3]]$name
       [1] "Disp_Assess"
       
-      [[3]]$inputs
+      $kri0007[[3]]$inputs
       [1] "dfInput"
       
-      [[3]]$output
+      $kri0007[[3]]$output
       [1] "lResults"
       
-      [[3]]$params
-      [[3]]$params$strGroup
+      $kri0007[[3]]$params
+      $kri0007[[3]]$params$strGroup
       [1] "Site"
       
-      [[3]]$params$vThreshold
+      $kri0007[[3]]$params$vThreshold
       NULL
       
-      [[3]]$params$strMethod
+      $kri0007[[3]]$params$strMethod
       [1] "funnel"
       
       
       
-
----
-
-    Code
-      qtl0003$steps
-    Output
-      [[1]]
-      [[1]]$name
+      
+      $qtl0003
+      $qtl0003[[1]]
+      $qtl0003[[1]]$name
       [1] "FilterDomain"
       
-      [[1]]$inputs
+      $qtl0003[[1]]$inputs
       [1] "dfPD"
       
-      [[1]]$output
+      $qtl0003[[1]]$output
       [1] "dfPD"
       
-      [[1]]$params
-      [[1]]$params$strDomain
+      $qtl0003[[1]]$params
+      $qtl0003[[1]]$params$strDomain
       [1] "dfPD"
       
-      [[1]]$params$strColParam
+      $qtl0003[[1]]$params$strColParam
       [1] "strImportantCol"
       
-      [[1]]$params$strValParam
+      $qtl0003[[1]]$params$strValParam
       [1] "strNotImportantVal"
       
       
       
-      [[2]]
-      [[2]]$name
+      $qtl0003[[2]]
+      $qtl0003[[2]]$name
       [1] "PD_Map_Raw"
       
-      [[2]]$inputs
+      $qtl0003[[2]]$inputs
       [1] "dfPD"   "dfSUBJ"
       
-      [[2]]$output
+      $qtl0003[[2]]$output
       [1] "dfInput"
       
       
-      [[3]]
-      [[3]]$name
+      $qtl0003[[3]]
+      $qtl0003[[3]]$name
       [1] "PD_Assess"
       
-      [[3]]$inputs
+      $qtl0003[[3]]$inputs
       [1] "dfInput"
       
-      [[3]]$output
+      $qtl0003[[3]]$output
       [1] "lResults"
       
-      [[3]]$params
-      [[3]]$params$strGroup
+      $qtl0003[[3]]$params
+      $qtl0003[[3]]$params$strGroup
       [1] "Study"
       
-      [[3]]$params$vThreshold
+      $qtl0003[[3]]$params$vThreshold
       NULL
       
-      [[3]]$params$strMethod
+      $qtl0003[[3]]$params$strMethod
       [1] "qtl"
       
-      [[3]]$params$nConfLevel
+      $qtl0003[[3]]$params$nConfLevel
       [1] 0.95
       
       
       
-
----
-
-    Code
-      qtl0007$steps
-    Output
-      [[1]]
-      [[1]]$name
+      
+      $qtl0007
+      $qtl0007[[1]]
+      $qtl0007[[1]]$name
       [1] "Disp_Map_Raw"
       
-      [[1]]$inputs
+      $qtl0007[[1]]$inputs
       [1] "dfSUBJ"     "dfSTUDCOMP"
       
-      [[1]]$output
+      $qtl0007[[1]]$output
       [1] "dfInput"
       
-      [[1]]$params
-      [[1]]$params$strContext
+      $qtl0007[[1]]$params
+      $qtl0007[[1]]$params$strContext
       [1] "Study"
       
       
       
-      [[2]]
-      [[2]]$name
+      $qtl0007[[2]]
+      $qtl0007[[2]]$name
       [1] "Disp_Assess"
       
-      [[2]]$inputs
+      $qtl0007[[2]]$inputs
       [1] "dfInput"
       
-      [[2]]$output
+      $qtl0007[[2]]$output
       [1] "lResults"
       
-      [[2]]$params
-      [[2]]$params$strGroup
+      $qtl0007[[2]]$params
+      $qtl0007[[2]]$params$strGroup
       [1] "Study"
       
-      [[2]]$params$vThreshold
+      $qtl0007[[2]]$params$vThreshold
       NULL
       
-      [[2]]$params$strMethod
+      $qtl0007[[2]]$params$strMethod
       [1] "qtl"
       
-      [[2]]$params$nConfLevel
+      $qtl0007[[2]]$params$nConfLevel
       [1] 0.95
+      
       
       
       

@@ -1,3 +1,5 @@
+source(testthat::test_path("testdata/data.R"))
+
 lMeta <- list(
   config_param = clindata::config_param,
   config_schedule = clindata::config_schedule,
@@ -9,14 +11,14 @@ lMeta <- list(
 )
 
 lData <- list(
-  dfSUBJ = clindata::rawplus_dm[1:50,],
-  dfAE = clindata::rawplus_ae[1:50,],
-  dfPD = clindata::rawplus_protdev[1:50,],
-  dfCONSENT = clindata::rawplus_consent[1:50,],
-  dfIE = clindata::rawplus_ie[1:50,],
-  dfSTUDCOMP = clindata::rawplus_studcomp[1:50,],
-  dfSDRGCOMP = clindata::rawplus_sdrgcomp[1:50,],
-  dfLB = clindata::rawplus_lb[1:50,]
+  dfSUBJ = dfSUBJ_expanded,
+  dfAE = dfAE_expanded,
+  dfPD = dfPD_expanded,
+  dfCONSENT = dfCONSENT_expanded,
+  dfIE = dfIE_expanded,
+  dfSTUDCOMP = dfSTUDCOMP_expanded,
+  dfSDRGCOMP = dfSDRGCOMP_expanded,
+  dfLB = dfLB_expanded
 )
 
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
@@ -85,13 +87,13 @@ test_that("invalid data throw errors", {
   expect_error(Make_Snapshot("Hola")[["lData"]])
 
   lData_edited <- list(
-    dfAE = clindata::rawplus_ae[1:50,],
-    dfPD = clindata::rawplus_protdev[1:50,],
-    dfCONSENT = clindata::rawplus_consent[1:50,],
-    dfIE = clindata::rawplus_ie[1:50,],
-    dfSTUDCOMP = clindata::rawplus_studcomp[1:50,],
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp[1:50,],
-    dfLB = clindata::rawplus_lb[1:50,]
+    dfAE = dfAE_expanded,
+    dfPD = dfPD_expanded,
+    dfCONSENT = dfCONSENT_expanded,
+    dfIE = dfIE_expanded,
+    dfSTUDCOMP = dfSTUDCOMP_expanded,
+    dfSDRGCOMP = dfSDRGCOMP_expanded,
+    dfLB = dfLB_expanded
   )
   expect_error(Make_Snapshot(lMeta = lMeta, lData = lData_edited, lMapping = lMapping, lAssessments = lAssessments))
 
@@ -152,13 +154,13 @@ test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
 
   ### Removed dfAE
   lData_edited <- list(
-    dfSUBJ = clindata::rawplus_dm[1:50,],
-    dfPD = clindata::rawplus_protdev[1:50,],
-    dfCONSENT = clindata::rawplus_consent[1:50,],
-    dfIE = clindata::rawplus_ie[1:50,],
-    dfSTUDCOMP = clindata::rawplus_studcomp[1:50,],
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp[1:50,],
-    dfLB = clindata::rawplus_lb[1:50,]
+    dfSUBJ = dfSUBJ_expanded,
+    dfPD = dfPD_expanded,
+    dfCONSENT = dfCONSENT_expanded,
+    dfIE = dfIE_expanded,
+    dfSTUDCOMP = dfSTUDCOMP_expanded,
+    dfSDRGCOMP = dfSDRGCOMP_expanded,
+    dfLB = dfLB_expanded
   )
   expect_silent(Make_Snapshot(lMeta = lMeta, lData = lData_edited, lMapping = lMapping, lAssessments = lAssessments))
 

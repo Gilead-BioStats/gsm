@@ -30,7 +30,7 @@ This function provides a generalized framework for flagging sites as part of the
 
 The following columns are considered required:
 \itemize{
-\item \code{GroupID} - Group ID; default is site ID
+\item \code{GroupID} - Group ID; default is \code{SiteID}
 \item \code{strColumn} - A column to use for thresholding
 }
 

@@ -17,7 +17,7 @@ Transform_Rate(
 
 \item{strNumeratorCol}{Required. Numerical or logical. Column to be counted.}
 
-\item{strDenominatorCol}{\code{numerical} Required. Numerical \code{Exposure} column.}
+\item{strDenominatorCol}{\code{numeric} Required. Numerical \code{Exposure} column.}
 
 \item{strGroupCol}{\code{character} Required. Name of column for grouping variable. Default: \code{"SiteID"}}
 

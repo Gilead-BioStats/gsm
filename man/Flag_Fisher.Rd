@@ -15,7 +15,7 @@ Flag_Fisher(dfAnalyzed, vThreshold = NULL)
 \code{data.frame} with one row per site with columns: \code{GroupID}, \code{Numerator}, \code{Denominator}, \code{Numerator_Other}, \code{Denominator}, \code{Denominator_Other}, \code{Prop}, \code{Prop_Other}, \code{Metric}, \code{Estimate}, \code{Score}, \code{Flag}
 }
 \description{
-Add columns flagging sites that represent possible statistical outliers when Fisher statistical method is used.
+Add columns flagging sites that represent possible statistical outliers when the Fisher's Exact Test is used.
 }
 \details{
 This function flags sites based on the Fisher's Exact Test result as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
@@ -26,7 +26,7 @@ This function flags sites based on the Fisher's Exact Test result as part of the
 
 The following columns are considered required:
 \itemize{
-\item \code{GroupID} - Group ID; default is site ID
+\item \code{GroupID} - Group ID; default is \code{SiteID}
 \item \code{Score} - P-value calculated from the rates of exposure provided to \code{Analyze_Fisher()}
 \item \code{Prop} - Proportion of events of interest over days of exposure
 \item \code{Prop_Other} - Cumulative proportion of events of interest over days of exposure

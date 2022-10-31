@@ -23,15 +23,7 @@ wf_list <- MakeWorkflowList(strNames = strNames, strPath = strPath, strPackage =
 test_that("output is generated as expected", {
   expect_true(is.list(wf_list))
   expect_true(all(map_chr(wf_list, ~ class(.)) == "list"))
-  expect_snapshot(names(wf_list$kri0001))
-  expect_snapshot(names(wf_list$kri0002))
-  expect_snapshot(names(wf_list$kri0003))
-  expect_snapshot(names(wf_list$kri0004))
-  expect_snapshot(names(wf_list$kri0005))
-  expect_snapshot(names(wf_list$kri0006))
-  expect_snapshot(names(wf_list$kri0007))
-  expect_snapshot(names(wf_list$qtl0003))
-  expect_snapshot(names(wf_list$qtl0007))
+  expect_snapshot(map(wf_list, ~names(.)))
 })
 
 ################################################################################################################
@@ -47,15 +39,7 @@ test_that("Metadata is returned as expected", {
   qtl0003 <- wf_list$qtl0003
   qtl0007 <- wf_list$qtl0007
 
-  expect_snapshot(kri0001$steps)
-  expect_snapshot(kri0002$steps)
-  expect_snapshot(kri0003$steps)
-  expect_snapshot(kri0004$steps)
-  expect_snapshot(kri0005$steps)
-  expect_snapshot(kri0006$steps)
-  expect_snapshot(kri0007$steps)
-  expect_snapshot(qtl0003$steps)
-  expect_snapshot(qtl0007$steps)
+  expect_snapshot(map(wf_list, ~.x$steps))
 })
 
 ################################################################################################################

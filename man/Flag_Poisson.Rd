@@ -15,7 +15,7 @@ Flag_Poisson(dfAnalyzed, vThreshold = NULL)
 \code{data.frame} with one row per site with columns: \code{GroupID}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{PredictedCount}, \code{Flag}
 }
 \description{
-Add columns flagging sites that represent possible statistical outliers when Poisson statistical method is used.
+Add columns flagging sites that represent possible statistical outliers when the Poisson statistical method is used.
 }
 \details{
 This function flags sites based on the Poisson analysis result as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
@@ -26,7 +26,7 @@ This function flags sites based on the Poisson analysis result as part of the \h
 
 The following columns are considered required:
 \itemize{
-\item \code{GroupID} - Group ID; default is site ID
+\item \code{GroupID} - Group ID; default is \code{SiteID}
 \item \code{Score} - Site residuals calculated from the rates of exposure provided to \code{Analyze_Poisson()}
 }
 }
