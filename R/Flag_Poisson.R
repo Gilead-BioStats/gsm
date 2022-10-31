@@ -9,7 +9,7 @@
 #' \code{Flag_Poisson} is designed to support the input data (`dfAnalyzed`) generated from the \code{Analyze_Poisson} function. At a minimum, the input must define a `dfAnalyzed` data frame with a `Score` variable included and a `vThreshold`. These inputs will be used to identify possible statistical outliers in a new `Flag` column by comparing `Score` values to the specified thresholds.
 #'
 #' The following columns are considered required:
-#' - `GroupID` - Group ID; default is site ID
+#' - `GroupID` - Group ID; default is `SiteID`
 #' - `Score` - Site residuals calculated from the rates of exposure provided to `Analyze_Poisson()`
 #'
 #' @param dfAnalyzed data.frame where flags should be added.
