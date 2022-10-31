@@ -25,7 +25,7 @@
 #'
 #' @param dfInput A data.frame with one record per subject.
 #' @param strNumeratorCol Required. Numerical or logical. Column to be counted.
-#' @param strDenominatorCol `numerical` Required. Numerical `Exposure` column.
+#' @param strDenominatorCol `numeric` Required. Numerical `Exposure` column.
 #' @param strGroupCol `character` Required. Name of column for grouping variable. Default: `"SiteID"`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
