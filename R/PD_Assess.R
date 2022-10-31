@@ -19,6 +19,7 @@
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param nConfLevel `numeric` Confidence level for QTL analysis.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -43,7 +44,7 @@
 #'
 #' @examples
 #' dfInput <- PD_Map_Raw()
-#' pd_assessment_poisson <- PD_Assess(dfInput)
+#' pd_assessment_funnel <- PD_Assess(dfInput)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
@@ -55,15 +56,16 @@
 PD_Assess <- function(
   dfInput,
   vThreshold = NULL,
-  strMethod = "poisson",
+  strMethod = "funnel",
   lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nConfLevel = NULL,
   bQuiet = TRUE
 ) {
 
   # data checking -----------------------------------------------------------
   stopifnot(
-    "strMethod is not 'poisson' or 'identity'" = strMethod %in% c("poisson", "identity"),
+    "strMethod is not 'funnel', 'poisson', 'identity', or 'qtl'" = strMethod %in% c("funnel", "poisson", "identity", "qtl"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -81,12 +83,15 @@ PD_Assess <- function(
   # set thresholds and flagging parameters ----------------------------------
   if (is.null(vThreshold)) {
     vThreshold <- switch(strMethod,
+      funnel = c(-3, -2, 2, 3),
       poisson = c(-7, -5, 5, 7),
-      identity = c(0.000895, 0.003059)
+      identity = c(0.000895, 0.003059),
+      qtl = c(0, 5)
     )
   }
 
   strValueColumnVal <- switch(strMethod,
+    funnel = NULL,
     poisson = NULL,
     identity = "Score"
   )
@@ -115,26 +120,39 @@ PD_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
     # dfAnalyzed --------------------------------------------------------------
-    if (strMethod == "poisson") {
+    if (strMethod == "funnel") {
+      lData$dfAnalyzed <- gsm::Analyze_Rate(lData$dfTransformed, bQuiet = bQuiet)
+      lData$dfBounds <- gsm::Analyze_Rate_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
+    } else if (strMethod == "poisson") {
       lData$dfAnalyzed <- gsm::Analyze_Poisson(lData$dfTransformed, bQuiet = bQuiet)
       lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
     } else if (strMethod == "identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
+    } else if (strMethod == "qtl") {
+      lData$dfAnalyzed <- AnalyzeQTL(lData$dfTransformed, strOutcome = "rate", nConfLevel = nConfLevel)
     }
+
 
     strAnalyzeFunction <- paste0("Analyze_", tools::toTitleCase(strMethod))
     if (!bQuiet) cli::cli_alert_success("{.fn {strAnalyzeFunction}} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
     # dfFlagged ---------------------------------------------------------------
-    if (strMethod != "identity") {
+    if (strMethod == "funnel") {
+      lData$dfFlagged <- gsm::Flag_Funnel(lData$dfAnalyzed, vThreshold = vThreshold)
+    } else if (strMethod == "poisson") {
       lData$dfFlagged <- gsm::Flag_Poisson(lData$dfAnalyzed, vThreshold = vThreshold)
-    } else {
+    } else if (strMethod == "identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
+    } else if (strMethod == "qtl") {
+      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strColumn = "LowCI") %>%
+        mutate(Score = .data$Metric)
     }
 
     flag_function_name <- switch(strMethod,
+      funnel = "Flag_Funnel",
       identity = "Flag",
-      poisson = "Flag_Poisson"
+      poisson = "Flag_Poisson",
+      qtl = "Flag"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
@@ -145,17 +163,18 @@ PD_Assess <- function(
 
     # visualizations ----------------------------------------------------------
     lCharts <- list()
+    if (strMethod != "qtl") {
+      if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-    if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
+      if (strMethod != "identity") {
+        lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+        if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+      }
 
-    if (strMethod != "identity") {
-      lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+      lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+      lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
     }
-
-    lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
-    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
 
     # return data -------------------------------------------------------------
     return(list(

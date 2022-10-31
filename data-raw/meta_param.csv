@@ -1,4 +1,4 @@
-﻿workflowid,gsm_version,param,index,default,configurable
+workflowid,gsm_version,param,index,default,configurable
 kri0001,1.2.0,strGroup,,Site,FALSE
 kri0001,1.2.0,vThreshold,1,-7,TRUE
 kri0001,1.2.0,vThreshold,2,-5,TRUE
@@ -35,3 +35,14 @@ kri0007,1.2.0,strGroup,,Site,FALSE
 kri0007,1.2.0,vThreshold,1,0.01,TRUE
 kri0007,1.2.0,vThreshold,2,0.05,TRUE
 kri0007,1.2.0,strMethod,,fisher,FALSE
+qtl0003,1.2.0,strGroup,,Study,FALSE
+qtl0003,1.2.0,vThreshold,1,0,TRUE
+qtl0003,1.2.0,vThreshold,2,5,TRUE
+qtl0003,1.2.0,strMethod,,qtl,FALSE
+qtl0003,1.2.0,strOutcome,,rate,FALSE
+qtl0007,1.2.0,strGroup,,Study,FALSE
+qtl0007,1.2.0,vThreshold,1,0,TRUE
+qtl0007,1.2.0,vThreshold,2,0.2,TRUE
+qtl0007,1.2.0,strMethod,,qtl,FALSE
+qtl0007,1.2.0,strOutcome,,rate,FALSE
+

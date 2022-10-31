@@ -112,10 +112,15 @@ for (i in seq_along(results)) {
     filter(workflowid == names(params$assessments)[i]) %>%
     pull(metric)
 
+
   # title
   cat(paste0('\n\n## ', title, '\n\n'))
 
+  
   # chart
+  if (!is.null(result$lCharts$barScore) |
+      !is.null(result$lCharts$scatter)  |
+      !is.null(result$lCharts$barMetric)) {
   cat("<h3>Summary Charts</h3>")
   cat("<div style = 'text-align: center'>")
   print(result$lCharts$barScore)
@@ -126,6 +131,9 @@ for (i in seq_along(results)) {
   cat("<div style = 'text-align: center'>")
   print(result$lCharts$barMetric)
   cat("</div>")
+    
+  }
+
 
   # table
   cat("<h3>Flagged Sites</h3>")
@@ -156,19 +164,26 @@ for (i in seq_along(results)) {
     filter(Flag != 0) %>%
     arrange(., match(GroupID, flagged$GroupID))
 
-  cat("<div><button onclick='showDetails(this)'>Show details</button>")
-  cat("<div class='detail-wrap' style='display:none'>")
+  if (length(unique(flagged$GroupID)) > 0) {
+    cat("<div><button onclick='showDetails(this)'>Show details</button>")
+    cat("<div class='detail-wrap' style='display:none'>")
 
-  cat("<h3>Model Details</h3>")
-  if (nrow(details) > 0) {
-    details %>%
-      kbl(escape = FALSE) %>%
-      kable_styling() %>%
-      cat()
+    cat("<h3>Model Details</h3>")
+    
+      if (nrow(details) > 0) {
+        details %>%
+          kbl(escape = FALSE) %>%
+          kable_styling() %>%
+          cat()
+      }
+    
+    cat("</div>")
+    cat("</div>")
+    
   }
 
-  cat("</div>")
-  cat("</div>")
+
+
 }
 ```
 
@@ -197,13 +212,16 @@ AssessmentReport$dfSummary %>%
 
 ## Issue List
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
-AssessmentReport$dfAllChecks %>%
+assessment_report <- AssessmentReport$dfAllChecks %>%
   filter(check > 1) %>%
   mutate(
     check = map(check, rank_chg),
     across(where(is.character), ~ replace_na(., ""))
-  ) %>%
-  gt::gt() %>%
+  )
+
+if (nrow(assessment_report) > 0) {
+    assessment_report %>%
+      gt::gt() %>%
   gt::tab_style(
     style = list(
       cell_text(color = "white", align = "center", weight = "bold"),
@@ -220,6 +238,12 @@ AssessmentReport$dfAllChecks %>%
     everything() ~ px(200)
   ) %>%
   gt::fmt_markdown(columns = everything())
+} else {
+  cat("<div style = 'text-align: center'>")
+  cat("<p>No issues for this workflow!</p>")
+  cat("</div>")
+}
+
 ```
 
 

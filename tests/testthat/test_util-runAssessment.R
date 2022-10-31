@@ -64,7 +64,7 @@ test_that("workflow with multiple FilterDomain steps is reported correctly", {
 
 
 
-  sae_assessment <- RunWorkflow(lAssessments$sae, lData = lData, lMapping = lMapping,  bQuiet = TRUE)
+  sae_assessment <- RunWorkflow(lAssessments$sae, lData = lData, lMapping = lMapping, bQuiet = TRUE)
 
 
   expect_equal(names(sae_assessment$lChecks), c("FilterDomain", "FilterDomain", "AE_Map_Raw", "AE_Assess", "flowchart"))
