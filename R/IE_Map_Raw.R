@@ -109,7 +109,8 @@ IE_Map_Raw <- function(
       ungroup() %>%
       select("SubjectID", "Count") %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      select(any_of(names(dfSUBJ_mapped)), "Count")
+      select(any_of(names(dfSUBJ_mapped)), "Count") %>%
+      arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn IE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

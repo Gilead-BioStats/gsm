@@ -268,15 +268,15 @@
       # A tibble: 50 x 8
          SubjectID SiteID StudyID        CountryID CustomGroupID Expos~1 Count    Rate
          <chr>     <chr>  <chr>          <chr>     <chr>           <dbl> <int>   <dbl>
-       1 0496      5      AA-AA-000-0000 US        0X167             675     2 0.00296
-       2 1350      78     AA-AA-000-0000 US        0X002             673     7 0.0104 
-       3 0539      139    AA-AA-000-0000 US        0X052             673     2 0.00297
-       4 0329      162    AA-AA-000-0000 US        0X049             673     8 0.0119 
-       5 0429      29     AA-AA-000-0000 Japan     0X116             664     1 0.00151
-       6 1218      143    AA-AA-000-0000 US        0X153             760     3 0.00395
-       7 0808      173    AA-AA-000-0000 US        0X124             758     1 0.00132
-       8 1314      189    AA-AA-000-0000 US        0X093             930    12 0.0129 
-       9 1236      58     AA-AA-000-0000 China     0X091              88     2 0.0227 
+       1 0003      166    AA-AA-000-0000 US        0X102             857     5 0.00583
+       2 0010      122    AA-AA-000-0000 China     0X018             687     0 0      
+       3 0012      63     AA-AA-000-0000 Japan     0X129             675     0 0      
+       4 0034      91     AA-AA-000-0000 US        0X175             673     0 0      
+       5 0068      144    AA-AA-000-0000 China     0X164             761     0 0      
+       6 0080      8      AA-AA-000-0000 US        0X154             757     0 0      
+       7 0081      189    AA-AA-000-0000 US        0X093             670     0 0      
+       8 0141      177    AA-AA-000-0000 US        0X020             676     0 0      
+       9 0155      118    AA-AA-000-0000 US        0X076             757     0 0      
       10 0163      167    AA-AA-000-0000 US        0X059             757     3 0.00396
       # ... with 40 more rows, and abbreviated variable name 1: Exposure
       
