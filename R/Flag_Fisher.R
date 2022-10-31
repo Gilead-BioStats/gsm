@@ -9,7 +9,7 @@
 #' \code{Flag_Fisher} is designed to support the input data (`dfAnalyzed`) generated from the \code{Analyze_Fisher} function. At a minimum, the input must define a `dfAnalyzed` data frame with `Score`, `Prop`, and `Prop_Other` variables included and a `vThreshold`. These inputs will be used to identify possible statistical outliers in a new `Flag` column by comparing `Score`, `Prop`, and `Prop_Other` values to the specified thresholds.
 #'
 #' The following columns are considered required:
-#' - `GroupID` - Group ID; default is site ID
+#' - `GroupID` - Group ID; default is `SiteID`
 #' - `Score` - P-value calculated from the rates of exposure provided to `Analyze_Fisher()`
 #' - `Prop` - Proportion of events of interest over days of exposure
 #' - `Prop_Other` - Cumulative proportion of events of interest over days of exposure
