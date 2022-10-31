@@ -88,7 +88,8 @@ AE_Map_Adam <- function(
         "Count",
         "Exposure",
         "Rate"
-      )
+      ) %>%
+      arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Adam} returned output with {nrow(dfInput)} rows.")
   } else {
