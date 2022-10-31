@@ -1,6 +1,6 @@
 #' Flag_Fisher
 #'
-#' Add columns flagging sites that represent possible statistical outliers when Fisher statistical method is used.
+#' Add columns flagging sites that represent possible statistical outliers when the Fisher's Exact Test is used.
 #'
 #' @details
 #' This function flags sites based on the Fisher's Exact Test result as part of the [GSM data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
