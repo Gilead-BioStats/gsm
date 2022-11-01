@@ -1,3 +1,20 @@
+# output is generated as expected
+
+    Code
+      names(snapshot)
+    Output
+      [1] "status_study"    "status_site"     "status_workflow" "status_param"   
+      [5] "status_schedule" "results_summary" "results_bounds"  "meta_workflow"  
+      [9] "meta_param"     
+
+# input data is structured as expected
+
+    Code
+      names(lMeta)
+    Output
+      [1] "config_param"    "config_schedule" "config_workflow" "meta_params"    
+      [5] "meta_site"       "meta_study"      "meta_workflow"  
+
 # Custom lAssessments and lMapping works together as intended
 
     Code

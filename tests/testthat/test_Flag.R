@@ -1,9 +1,7 @@
 source(testthat::test_path("testdata/data.R"))
 
-dfInput <- dfInputCONSENT
-
 dfTransformed <- Transform_Count(
-  dfInput = dfInput,
+  dfInput = dfInputCONSENT,
   strCountCol = "Count",
   strGroupCol = "SiteID"
 )
