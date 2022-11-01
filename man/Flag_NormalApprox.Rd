@@ -56,6 +56,7 @@ dfTransformed <- Transform_Rate(
   strNumeratorCol = "Count",
   strDenominatorCol = "Exposure"
 )
+
 dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 

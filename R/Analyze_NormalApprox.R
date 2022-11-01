@@ -99,7 +99,7 @@ Analyze_NormalApprox <- function(
     arrange(.data$Score)
 
   if (!bQuiet) {
-    cli::cli_text("{.var OverallMetric}, {.var Factor}, {.var Score} columns created from normal approxiamtion")
+    cli::cli_text("{.var OverallMetric}, {.var Factor}, and {.var Score} columns created from normal approximation.")
   }
 
   return(dfAnalyzed)

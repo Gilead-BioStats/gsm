@@ -123,13 +123,38 @@ AE_Assess <- function(
 
     # dfAnalyzed --------------------------------------------------------------
     if (strMethod == "NormalApprox") {
-      lData$dfAnalyzed <- gsm::Analyze_NormalApprox(lData$dfTransformed, strType = strType, bQuiet = bQuiet)
-      lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, strType = strType, bQuiet = bQuiet)
+
+      lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
+        dfTransformed = lData$dfTransformed,
+        strType = strType,
+        bQuiet = bQuiet
+        )
+
+      lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
+        dfTransformed = lData$dfTransformed,
+        vThreshold = vThreshold,
+        strType = strType,
+        bQuiet = bQuiet
+        )
+
     } else if (strMethod == "poisson") {
-      lData$dfAnalyzed <- gsm::Analyze_Poisson(lData$dfTransformed, bQuiet = bQuiet)
-      lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
+
+      lData$dfAnalyzed <- gsm::Analyze_Poisson(
+        dfTransformed = lData$dfTransformed,
+        bQuiet = bQuiet
+        )
+
+      lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(
+        dfTransformed = lData$dfTransformed,
+        vThreshold = vThreshold,
+        bQuiet = bQuiet
+        )
     } else if (strMethod == "identity") {
-      lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
+
+      lData$dfAnalyzed <- gsm::Analyze_Identity(
+        dfTransformed = lData$dfTransformed
+        )
+
     }
 
     strAnalyzeFunction <- paste0("Analyze_", tools::toTitleCase(strMethod))

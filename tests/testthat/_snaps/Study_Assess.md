@@ -125,7 +125,7 @@
       NULL
       
       [[4]]$params$strMethod
-      [1] "funnel"
+      [1] "NormalApprox"
       
       
       
@@ -1070,9 +1070,10 @@
       
       Input data has 10 rows.
       v `Transform_Rate()` returned output with 10 rows.
-      `Score` column created from normal approxiamtion of the Poisson distribution
-      v `Analyze_Funnel()` returned output with 10 rows.
-      v `Flag_Funnel()` returned output with 10 rows.
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
+      v `Analyze_NormalApprox()` returned output with 10 rows.
+      v `Flag_NormalApprox()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
@@ -1142,9 +1143,10 @@
       
       Input data has 10 rows.
       v `Transform_Rate()` returned output with 10 rows.
-      `Score` column created from normal approxiamtion of the Poisson distribution
-      v `Analyze_Funnel()` returned output with 10 rows.
-      v `Flag_Funnel()` returned output with 10 rows.
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
+      v `Analyze_NormalApprox()` returned output with 10 rows.
+      v `Flag_NormalApprox()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.

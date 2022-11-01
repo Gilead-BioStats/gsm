@@ -121,9 +121,22 @@ LB_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
     # dfAnalyzed --------------------------------------------------------------
+
     if (strMethod == "NormalApprox") {
-      lData$dfAnalyzed <- gsm::Analyze_NormalApprox(lData$dfTransformed, strType = strType, bQuiet = bQuiet)
-      lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, strType = strType, bQuiet = bQuiet)
+
+      lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
+        dfTransformed = lData$dfTransformed,
+        strType = strType,
+        bQuiet = bQuiet
+        )
+
+      lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
+        dfTransformed = lData$dfTransformed,
+        vThreshold = vThreshold,
+        strType = strType,
+        bQuiet = bQuiet
+        )
+
     } else if (strMethod == "fisher") {
       lData$dfAnalyzed <- gsm::Analyze_Fisher(lData$dfTransformed, bQuiet = bQuiet)
     } else if (strMethod == "identity") {
