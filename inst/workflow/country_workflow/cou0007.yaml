@@ -1,0 +1,22 @@
+steps:
+  - name: FilterDomain
+    inputs: dfSDRGCOMP
+    output: dfSDRGCOMP
+    params:
+      strDomain: dfSDRGCOMP
+      strColParam: strTreatmentPhaseCol
+      strValParam: strTreatmentPhaseVal
+  - name: Disp_Map_Raw
+    inputs:
+      - dfSUBJ
+      - dfSDRGCOMP
+    output: dfInput
+    params:
+      strContext: Treatment
+  - name: Disp_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Country"
+      vThreshold: null
+      strMethod: "funnel"

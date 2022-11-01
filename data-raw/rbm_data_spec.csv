@@ -13,6 +13,7 @@ Gismo,status_study,status,Study Status
 Gismo,status_study,fpfv,First-patient first visit date
 Gismo,status_study,lplv,Last-patient last visit date
 Gismo,status_study,rbm_flag,Risk-based monitoring flag
+Gismo,status_study,gsm_analysis_date,Date that snapshot was created
 Gismo,status_site,studyid,Unique Study ID
 Gismo,status_site,siteid,Unique Site ID
 Gismo,status_site,institution,Institution Name
@@ -23,20 +24,24 @@ Gismo,status_site,city,City
 Gismo,status_site,state,State
 Gismo,status_site,country,Country
 Gismo,status_site,invname,Investigator name
+Gismo,status_site,gsm_analysis_date,Date that snapshot was created
 Gismo,status_workflow,studyid,Unique Study ID
 Gismo,status_workflow,workflowid,Unique Workflow ID
 Gismo,status_workflow,gsm_version,GSM version of workflow
 Gismo,status_workflow,active,Is workflow active?
 Gismo,status_workflow,status,Did workflow run?
 Gismo,status_workflow,notes,Status notes
+Gismo,status_workflow,gsm_analysis_date,Date that snapshot was created
 Gismo,status_param,studyid,Unique Study ID
 Gismo,status_param,workflowid,Unique Workflow ID
 Gismo,status_param,gsm_version,GSM version of workflow
 Gismo,status_param,param,Parameter name
 Gismo,status_param,index,Index value for parameter
 Gismo,status_param,value,Value for parameter at index
+Gismo,status_param,gsm_analysis_date,Date that snapshot was created
 Gismo,status_schedule,studyid,Unique Study ID
 Gismo,status_schedule,snapshot_date,Snapshot Date
+Gismo,status_schedule,gsm_analysis_date,Date that snapshot was created
 Gismo,results_summary,studyid,Unique Study ID
 Gismo,results_summary,workflowid,Unique Workflow ID
 Gismo,results_summary,groupid,Unique Group ID (e.g. SiteID for KRI workflows)
@@ -45,12 +50,14 @@ Gismo,results_summary,denominator,Metric denominator
 Gismo,results_summary,metric,Metric value
 Gismo,results_summary,score,Statistical Score
 Gismo,results_summary,flag,Flag
+Gismo,results_summary,gsm_analysis_date,Date that snapshot was created
 Gismo,results_bounds,studyid,Unique Study ID
 Gismo,results_bounds,workflowid,Unique Workflow ID
 Gismo,results_bounds,threshold,Threshold
 Gismo,results_bounds,numerator,y value
 Gismo,results_bounds,denominator,x value
 Gismo,results_bounds,log_denominator,Log X value
+Gismo,results_bounds,gsm_analysis_date,Date that snapshot was created
 Gismo,meta_workflow,workflowid,Unique Workflow ID
 Gismo,meta_workflow,gsm_version,GSM Version of workflow
 Gismo,meta_workflow,group,"Group for workflow - Site, Country, Region or Study"
@@ -62,12 +69,14 @@ Gismo,meta_workflow,model,Statistical Model used to create score
 Gismo,meta_workflow,score,Score Label
 Gismo,meta_workflow,data_inputs,Data inputs for workflow
 Gismo,meta_workflow,data_filters,Filters applied in workflow
+Gismo,meta_workflow,gsm_analysis_date,Date that snapshot was created
 Gismo,meta_param,workflowid,Unique Workflow ID
 Gismo,meta_param,gsm_version,GSM version of workflow
 Gismo,meta_param,param,Parameter name
 Gismo,meta_param,index,Parameter index
 Gismo,meta_param,default,Default value for parameter at index
 Gismo,meta_param,configurable,Is parameter configurable?
+Gismo,meta_param,gsm_analysis_date,Date that snapshot was created
 GSM,meta_study,studyid,Unique Study ID
 GSM,meta_study,enrolled_sites,# of enrolled sites
 GSM,meta_study,enrolled_participants,# of enrolled participants

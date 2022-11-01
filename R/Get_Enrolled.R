@@ -9,7 +9,7 @@
 #' @param strUnit `character` Type of enrollment; one of `participant` or `site`.
 #' @param strBy `character` Domain of enrollment; one of `study` or `site`.
 #'
-#' @return `character` string or `data.frame`, depending on input parameters.
+#' @return `integer` or `data.frame`, depending on input parameters.
 #'
 #'
 #' @examples
@@ -28,6 +28,16 @@
 #'
 #' @export
 Get_Enrolled <- function(dfSUBJ, dfConfig, lMapping, strUnit, strBy) {
+
+  # data checking -----------------------------------------------------------
+  stopifnot(
+    "studyid not found in dfConfig" = "studyid" %in% names(dfConfig),
+    "dfSUBJ is not a data.frame" = is.data.frame(dfSUBJ),
+    "dfConfig is not a data.frame" = is.data.frame(dfConfig),
+    "strUnit is not `participant` or `site`" = strUnit %in% c("participant", "site"),
+    "strBy is not `study` or `site`" = strBy %in% c("study", "site")
+  )
+
   studyid <- unique(dfConfig$studyid)
 
   dm <- dfSUBJ %>%

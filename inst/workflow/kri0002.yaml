@@ -15,8 +15,8 @@ steps:
       strValParam: strSeriousVal
   - name: AE_Map_Raw
     inputs:
-      - dfSUBJ
       - dfAE
+      - dfSUBJ
     output: dfInput
   - name: AE_Assess
     inputs: dfInput
@@ -24,4 +24,4 @@ steps:
     params:
       strGroup: "Site"
       vThreshold: null
-      strMethod: "poisson"
+      strMethod: "funnel"

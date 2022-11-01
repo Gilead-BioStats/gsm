@@ -41,6 +41,8 @@ bQuiet = TRUE
 
 ) {
 
+  # add to all outputs except meta_
+  gsm_analysis_date <- Sys.Date()
 
 
   # lSnapshot$status_study<-meta$meta_study
@@ -168,8 +170,7 @@ bQuiet = TRUE
     purrr::imap_dfr(~ .x$lData$dfFlagged %>%
       mutate(
         KRIID = .y,
-        StudyID = unique(lMeta$config_workflow$studyid),
-        SnapshotDate = Sys.Date()
+        StudyID = unique(lMeta$config_workflow$studyid)
       )) %>%
     select(
       studyid = "StudyID",
@@ -179,8 +180,7 @@ bQuiet = TRUE
       denominator = "Denominator",
       metric = "Metric",
       score = "Score",
-      flag = "Flag",
-      snapshot_date = "SnapshotDate"
+      flag = "Flag"
     )
 
 
@@ -216,7 +216,8 @@ bQuiet = TRUE
     results_bounds = results_bounds,
     meta_workflow = meta_workflow,
     meta_param = meta_param
-  )
+  ) %>%
+    purrr::map(~.x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
   if (!is.null(cPath)) {
     # write each snapshot item to location

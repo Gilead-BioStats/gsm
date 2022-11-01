@@ -1,4 +1,4 @@
-﻿workflowid,gsm_version,group,metric,numerator,denominator,outcome,model,score,data_inputs,data_filters
+workflowid,gsm_version,group,metric,numerator,denominator,outcome,model,score,data_inputs,data_filters
 kri0001,1.1,Site,Non-serious AE Reporting Rate,Treatment Emergent AEs,Days on Treatment,Rate,Poisson,Residual from Poisson Model,"rawplus.ae, rawplus.subj","Non-Serious, TreatmentEmergent"
 kri0002,1.1,Site,SAE Reporting Rate,Treatment Emergent SAEs,Days on Treatment,Rate,Poisson,Residual from Poisson Model,"rawplus.ae, rawplus.subj","Serious, TreatmentEmergent"
 kri0003,1.1,Site,Non-important Protocol Deviation Rate,Non-Important PDs,Days in Study,Rate,Poisson,Residual from Poisson Model,"rawplus.pd, rawplus.subj",Non-Important
@@ -6,3 +6,13 @@ kri0004,1.1,Site,Important Protocol Deviation Rate,Important PDs,Days in Study,R
 kri0005,1.1,Site,G3 or higher Lab Abnormality Rate,G3+ Abnormal Labs Samples,Total Lab Samples,Percent,Fisher,P-value from Fisher's Exact Test,"rawplus.lb, rawplus.subj","Treatment emergent, Grade >= 3"
 kri0006,1.1,Site,Subject Discontinuation,Subjects Discontinued,Total Subjects,Percent,Fisher,P-value from Fisher's Exact Test,rawplus.subj,
 kri0007,1.1,Site,Subject Treatment Discontinuation,Subjects with Treatment Discontinued,Total Subjects,Percent,Fisher,P-value from Fisher's Exact Test, rawplus.subj,
+cou0001,1.1,Country,Non-serious AE Reporting Rate,Treatment Emergent AEs,Days on Treatment,Rate,Poisson,Residual from Poisson Model,"rawplus.ae, rawplus.subj","Non-Serious, TreatmentEmergent"
+cou0002,1.1,Country,SAE Reporting Rate,Treatment Emergent SAEs,Days on Treatment,Rate,Poisson,Residual from Poisson Model,"rawplus.ae, rawplus.subj","Serious, TreatmentEmergent"
+cou0003,1.1,Country,Non-important Protocol Deviation Rate,Non-Important PDs,Days in Study,Rate,Poisson,Residual from Poisson Model,"rawplus.pd, rawplus.subj",Non-Important
+cou0004,1.1,Country,Important Protocol Deviation Rate,Important PDs,Days in Study,Rate,Poisson,Residual from Poisson Model,"rawplus.pd, rawplus.subj",Important
+cou0005,1.1,Country,G3 or higher Lab Abnormality Rate,G3+ Abnormal Labs Samples,Total Lab Samples,Percent,Fisher,P-value from Fisher's Exact Test,"rawplus.lb, rawplus.subj","Treatment emergent, Grade >= 3"
+cou0006,1.1,Country,Subject Discontinuation,Subjects Discontinued,Total Subjects,Percent,Fisher,P-value from Fisher's Exact Test,rawplus.subj,
+cou0007,1.1,Country,Subject Treatment Discontinuation,Subjects with Treatment Discontinued,Total Subjects,Percent,Fisher,P-value from Fisher's Exact Test, rawplus.subj,
+qtl0003,1.1,Study,Important Protocol Deviation Rate,Important PDs,Days in Study,Rate,QTL,Residual from Poisson Model,"rawplus.pd, rawplus.subj",Important
+qtl0007,1.1,Study,Subject Discontinuation,Subjects Discontinued,Total Subjects,Percent,QTL,Residual from Poisson Model, rawplus.subj,
+

@@ -18,7 +18,7 @@ Get_Enrolled(dfSUBJ, dfConfig, lMapping, strUnit, strBy)
 \item{strBy}{\code{character} Domain of enrollment; one of \code{study} or \code{site}.}
 }
 \value{
-\code{character} string or \code{data.frame}, depending on input parameters.
+\code{integer} or \code{data.frame}, depending on input parameters.
 }
 \description{
 Derive number of enrolled participants or sites by a given denominator (study or site).

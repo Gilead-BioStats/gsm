@@ -27,20 +27,18 @@
 #' @export
 
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
-
-
-
   allChecks <- map(names(lAssessments), function(assessment) {
-
     workflow <- lAssessments[[assessment]][["steps"]] %>%
 
-      map_df(
-        ~ bind_cols(step = .x[["name"]], domain = .x[["inputs"]])
+      imap_dfr(
+        ~ bind_cols(step = .x[["name"]], domain = .x[["inputs"]], temp_index = .y)
       ) %>%
+      arrange(.data$temp_index, .data$domain) %>%
       mutate(
         assessment = assessment,
         index = as.character(row_number())
-      )
+      ) %>%
+      select(-"temp_index")
 
 
 
@@ -51,9 +49,11 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
 
     allChecks <- map(mapTheseSteps, function(step) {
+
       domains <- names(step[!names(step) %in% c("mapping", "spec", "status")])
 
       map(domains, function(domain) {
+
         status <- step[[domain]][["status"]]
 
         step[[domain]][["tests_if"]] %>%
@@ -71,7 +71,6 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
       })
     }) %>%
       bind_rows(.id = "index")
-
 
 
     left_join(workflow, allChecks, by = c("index", "domain"))
@@ -97,6 +96,7 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
   check_cols <- allChecks %>%
     select(-c("assessment", "step", "check", "domain", "notes")) %>%
     names()
+
 
   allChecks <- allChecks %>%
     mutate(across(all_of(check_cols), ~ ifelse(!is.na(notes), NA_character_, .)),

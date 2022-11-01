@@ -7,9 +7,10 @@
 PD_Assess(
   dfInput,
   vThreshold = NULL,
-  strMethod = "poisson",
+  strMethod = "funnel",
   lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nConfLevel = NULL,
   bQuiet = TRUE
 )
 }
@@ -30,6 +31,8 @@ that defaults to \code{c(0.000895, 0.003059)} for a nominal assessment (\code{st
 of the column.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
+
+\item{nConfLevel}{\code{numeric} Confidence level for QTL analysis.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -90,6 +93,6 @@ details about the statistical methods and their assumptions.
 
 \examples{
 dfInput <- PD_Map_Raw()
-pd_assessment_poisson <- PD_Assess(dfInput)
+pd_assessment_funnel <- PD_Assess(dfInput)
 
 }
