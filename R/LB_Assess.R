@@ -119,8 +119,8 @@ LB_Assess <- function(
 
     # dfAnalyzed --------------------------------------------------------------
     if (strMethod == "NormalApprox") {
-      lData$dfAnalyzed <- gsm::Analyze_Binary(lData$dfTransformed, strType = strType, bQuiet = bQuiet)
-      lData$dfBounds <- gsm::Analyze_Binary_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, strType = strType, bQuiet = bQuiet)
+      lData$dfAnalyzed <- gsm::Analyze_NormalApprox(lData$dfTransformed, strType = strType, bQuiet = bQuiet)
+      lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, strType = strType, bQuiet = bQuiet)
     } else if (strMethod == "fisher") {
       lData$dfAnalyzed <- gsm::Analyze_Fisher(lData$dfTransformed, bQuiet = bQuiet)
     } else if (strMethod == "identity") {
