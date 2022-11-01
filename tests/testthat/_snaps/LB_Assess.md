@@ -101,7 +101,8 @@
       
       Input data has 1000 rows.
       v `Transform_Rate()` returned output with 2 rows.
-      `Score` column created from normal approxiamtion of the binomial distribution
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
       v `Analyze_Funnel()` returned output with 2 rows.
       v `Flag_Funnel()` returned output with 2 rows.
       v `Summarize()` returned output with 2 rows.

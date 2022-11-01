@@ -71,7 +71,7 @@ Analyze_NormalApprox <- function(
         z_i = (.data$Metric -  .data$vMu) /
           sqrt(.data$phi * .data$vMu * (1 - .data$vMu) / .data$Denominator)
       )
-  } else if (strMethod == "rate") {
+  } else if (strType == "rate") {
     dfScore <- dfTransformed %>%
       mutate(
         vMu = sum(.data$Numerator) / sum(.data$Denominator),
@@ -97,7 +97,7 @@ Analyze_NormalApprox <- function(
     arrange(.data$Score)
 
   if (!bQuiet) {
-    cli::cli_text("{.var OverallMetric}, {.var Factor}, {.var Score} columns created from normal approxiamtion")
+    cli::cli_text("{.var OverallMetric}, {.var Factor}, and {.var Score} columns created from normal approximation.")
   }
 
   return(dfAnalyzed)

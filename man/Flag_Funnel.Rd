@@ -44,7 +44,7 @@ dfTransformed <- Transform_Rate(dfInput,
   strDenominatorCol = "Exposure"
 )
 
-dfAnalyzed <- Analyze_Rate(dfTransformed)
+dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 
 dfFlagged <- Flag_Funnel(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 

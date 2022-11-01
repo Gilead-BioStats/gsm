@@ -123,8 +123,20 @@ Disp_Assess <- function(
 
     # dfAnalyzed --------------------------------------------------------------
     if (strMethod == "funnel") {
-      lData$dfAnalyzed <- gsm::Analyze_Binary(lData$dfTransformed, bQuiet = bQuiet)
-      lData$dfBounds <- gsm::Analyze_Binary_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
+
+      lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
+        dfTransformed = lData$dfTransformed,
+        strType = "binary",
+        bQuiet = bQuiet
+        )
+
+      lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
+        dfTransformed = lData$dfTransformed,
+        strType = "binary",
+        vThreshold = vThreshold,
+        bQuiet = bQuiet
+        )
+
     } else if (strMethod == "fisher") {
       lData$dfAnalyzed <- gsm::Analyze_Fisher(lData$dfTransformed, bQuiet = bQuiet)
     } else if (strMethod == "identity") {

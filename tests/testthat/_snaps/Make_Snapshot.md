@@ -87,7 +87,8 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 40 rows.
-      `Score` column created from normal approxiamtion of the Poisson distribution
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
       v `Analyze_Funnel()` returned output with 40 rows.
       v `Flag_Funnel()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
@@ -157,7 +158,8 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 40 rows.
-      `Score` column created from normal approxiamtion of the Poisson distribution
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
       v `Analyze_Funnel()` returned output with 40 rows.
       v `Flag_Funnel()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
@@ -214,7 +216,8 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 40 rows.
-      `Score` column created from normal approxiamtion of the Poisson distribution
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
       v `Analyze_Funnel()` returned output with 40 rows.
       v `Flag_Funnel()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
@@ -271,7 +274,8 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 40 rows.
-      `Score` column created from normal approxiamtion of the Poisson distribution
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
       v `Analyze_Funnel()` returned output with 40 rows.
       v `Flag_Funnel()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
@@ -338,7 +342,8 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 40 rows.
-      `Score` column created from normal approxiamtion of the binomial distribution
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
       v `Analyze_Funnel()` returned output with 40 rows.
       v `Flag_Funnel()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
@@ -382,7 +387,8 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 40 rows.
-      `Score` column created from normal approxiamtion of the binomial distribution
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
       v `Analyze_Funnel()` returned output with 40 rows.
       v `Flag_Funnel()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
@@ -440,7 +446,8 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 40 rows.
-      `Score` column created from normal approxiamtion of the binomial distribution
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
       v `Analyze_Funnel()` returned output with 40 rows.
       v `Flag_Funnel()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
