@@ -1,10 +1,10 @@
 # incorrect inputs throw errors
 
-    strMethod is not 'funnel', 'fisher' or 'identity'
+    strMethod is not 'NormalApprox', 'fisher' or 'identity'
 
 ---
 
-    strMethod is not 'funnel', 'fisher' or 'identity'
+    strMethod is not 'NormalApprox', 'fisher' or 'identity'
 
 ---
 
@@ -71,9 +71,9 @@
       
       Input data has 150 rows.
       v `Transform_Rate()` returned output with 3 rows.
-      `Score` column created from normal approxiamtion of the binomial distribution
-      v `Analyze_Funnel()` returned output with 3 rows.
-      v `Flag_Funnel()` returned output with 3 rows.
+      `OverallMetric`, `Factor`, `Score` columns created from normal approxiamtion
+      v `Analyze_NormalApprox()` returned output with 3 rows.
+      v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.

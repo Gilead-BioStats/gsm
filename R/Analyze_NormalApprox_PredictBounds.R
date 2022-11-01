@@ -98,7 +98,7 @@ Analyze_NormalApprox_PredictBounds <- function(
       "Numerator",
       "Metric"
     )
-  } else if (strMethod == "rate") {
+  } else if (strType == "rate") {
     dfBounds <- tidyr::expand_grid(Threshold = vThreshold, LogDenominator = vRange) %>%
       mutate(
         Denominator = exp(.data$LogDenominator),
