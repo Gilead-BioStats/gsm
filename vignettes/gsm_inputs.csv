@@ -1,0 +1,10 @@
+Table Source,Table Name,Structure,Description,Sample Data Equivalent
+Raw+,{various}*,{various}*,Data for clinical KRIs/QTLs,*
+RAVE,{various}*,{various}*,Data for operational KRIs/QTLs,*
+CTMS,meta_study,Study,Study metadata,clindata::ctms_study
+CTMS,meta_site,Study/Site,Site metadata,clindata::ctms_site
+RACT,config_workflow,Study/Workflow,Study-specific workflow configuration,clindata::config_workflow
+RACT,config_param,Study/Workflow/Parameter,Study-specific workflow parameterization,clindata::config_param
+Custom,config_schedule,Study/Date,Study snapshot schedule,clindata::config_schedule
+GSM,meta_workflow,Workflow,Metadata for each workflow,gsm::meta_workflow
+GSM,meta_param,Workflow/Parameter,Parameter metadata for each workflow,gsm::meta_param
