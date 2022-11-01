@@ -7,7 +7,8 @@
 AE_Assess(
   dfInput,
   vThreshold = NULL,
-  strMethod = "funnel",
+  strMethod = "NormalApprox",
+  strType = "rate",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE
@@ -91,6 +92,6 @@ details about the statistical methods and their assumptions.
 
 \examples{
 dfInput <- AE_Map_Raw()
-ae_assessment_funnel <- AE_Assess(dfInput)
+ae_assessment_NormalApprox <- AE_Assess(dfInput)
 
 }

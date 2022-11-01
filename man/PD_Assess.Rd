@@ -7,7 +7,8 @@
 PD_Assess(
   dfInput,
   vThreshold = NULL,
-  strMethod = "funnel",
+  strMethod = "NormalApprox",
+  strType = "rate",
   lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   nConfLevel = NULL,
@@ -93,6 +94,6 @@ details about the statistical methods and their assumptions.
 
 \examples{
 dfInput <- PD_Map_Raw()
-pd_assessment_funnel <- PD_Assess(dfInput)
+pd_assessment_NormalApprox <- PD_Assess(dfInput)
 
 }
