@@ -8,7 +8,7 @@ output_spec <- yaml::read_yaml(system.file("specs", "PD_Assess.yaml", package = 
 output_mapping <- yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm"))
 
 test_that("valid output is returned", {
-  test_valid_output_assess_poisson(
+  test_valid_output_assess(
     assess_function,
     dfInput
   )
