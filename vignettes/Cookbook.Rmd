@@ -105,7 +105,7 @@ dfTransformed <- Transform_Rate(
   strDenominatorCol = "Exposure")
 ```
 
-The third step is to analyze the transformed data. Certain assessments support multiple statistical models/`Analyze()` functions, so the user needs to specify certain parameters for the intended analysis to run. For example, the AE assessment currently supports a Poisson model and an Identity assessment. Since the Poisson model is the default, we will use that for this example.
+The third step is to analyze the transformed data. Certain assessments support multiple statistical models/`Analyze()` functions, so the user needs to specify certain parameters for the intended analysis to run. We use a poisson regression in this example.
 
 ```{r eval = FALSE, include = TRUE}
 dfAnalyzed <- Analyze_Poisson(dfTransformed)
