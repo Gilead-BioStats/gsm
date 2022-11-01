@@ -10,10 +10,13 @@ test_valid_output_assess <- function(
   testthat::expect_snapshot(names(output$lCharts))
   testthat::expect_true("data.frame" %in% class(output$lData$dfTransformed))
   testthat::expect_true("data.frame" %in% class(output$lData$dfAnalyzed))
-  testthat::expect_true("data.frame" %in% class(output$lData$dfBounds))
   testthat::expect_true("data.frame" %in% class(output$lData$dfFlagged))
   testthat::expect_true("data.frame" %in% class(output$lData$dfSummary))
   testthat::expect_true(output$lChecks$status)
+
+  if (exists("dfBounds", where = output$lData)) {
+    testthat::expect_true("data.frame" %in% class(output$lData$dfBounds))
+  }
 
 }
 
