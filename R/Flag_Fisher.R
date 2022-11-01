@@ -1,34 +1,31 @@
 #' Flag_Fisher
 #'
-#' Add columns flagging sites that represent possible statistical outliers.
+#' Add columns flagging sites that represent possible statistical outliers when the Fisher's Exact Test is used.
 #'
 #' @details
-#' This function flags sites based on the Fisher's exact test result as part of
-#' the [GSM data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
+#' This function flags sites based on the Fisher's Exact Test result as part of the [GSM data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
 #'
 #' @section Data Specification:
-#' \code{Flag} is designed to support the input data (`dfAnalyzed`) from \code{Analyze_Fisher} function.
-#' At a minimum, the input data must have a `SiteID` column and a column of numeric values (identified
-#' by the `strColumn` parameter) that will be compared to the specified thresholds (`vThreshold`) to
-#' calculate a new `Flag` column.
+#' \code{Flag_Fisher} is designed to support the input data (`dfAnalyzed`) generated from the \code{Analyze_Fisher} function. At a minimum, the input must define a `dfAnalyzed` data frame with `Score`, `Prop`, and `Prop_Other` variables included and a `vThreshold`. These inputs will be used to identify possible statistical outliers in a new `Flag` column by comparing `Score`, `Prop`, and `Prop_Other` values to the specified thresholds.
 #'
-#' In short, the following columns are considered:
-#' - `GroupID` - Group ID (required)
-#' - `strColumn` - A column to use for Thresholding (required)
-#' - 'strValueColumn' - A column to be used for the sign of the flag (optional)
+#' The following columns are considered required:
+#' - `GroupID` - Group ID; default is `SiteID`
+#' - `Score` - P-value calculated from the rates of exposure provided to `Analyze_Fisher()`
+#' - `Prop` - Proportion of events of interest over days of exposure
+#' - `Prop_Other` - Cumulative proportion of events of interest over days of exposure
 #'
 #' @param dfAnalyzed data.frame where flags should be added.
 #' @param vThreshold Vector of 2 numeric values representing lower and upper p-value thresholds.
 #'
-#' @return `data.frame` with "Flag" column added
+#' @return `data.frame` with one row per site with columns: `GroupID`, `Numerator`, `Denominator`, `Numerator_Other`, `Denominator`, `Denominator_Other`, `Prop`, `Prop_Other`, `Metric`, `Estimate`, `Score`, `Flag`
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam()
+#' dfInput <- LB_Map_Raw()
 #'
 #' dfTransformed <- Transform_Rate(dfInput,
 #'   strGroupCol = "SiteID",
 #'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Exposure"
+#'   strDenominatorCol = "Total"
 #' )
 #'
 #' dfAnalyzed <- Analyze_Poisson(dfTransformed)
@@ -57,9 +54,6 @@ Flag_Fisher <- function(
       "vThreshold must contain a minimum and maximum value (i.e., vThreshold = c(1, 2))" = vThreshold[2] > vThreshold[1]
     )
   }
-
-  # Flag values outside the specified threshold.
-  vThreshold <- sort(vThreshold)
 
   dfFlagged <- dfAnalyzed %>%
     mutate(
