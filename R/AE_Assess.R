@@ -16,6 +16,9 @@
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"poisson"` (default)
 #'   - `"identity"`
+#' @param strType `character` Statistical outcome type. Valid values:
+#'   - `"binary"` (default)
+#'   - `"rate"`
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`.

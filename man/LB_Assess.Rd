@@ -26,6 +26,12 @@ LB_Assess(
 \item \code{"identity"}
 }}
 
+\item{strType}{\code{character} Statistical outcome type. Valid values:
+\itemize{
+\item \code{"binary"} (default)
+\item \code{"rate"}
+}}
+
 \item{lMapping}{Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column.}
 

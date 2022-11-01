@@ -9,7 +9,11 @@ Analyze_NormalApprox(dfTransformed, strType = "binary", bQuiet = TRUE)
 \arguments{
 \item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}}
 
-\item{strType}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}}
+\item{strType}{\code{character} Statistical outcome type. Valid values:
+\itemize{
+\item \code{"binary"} (default)
+\item \code{"rate"}
+}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
