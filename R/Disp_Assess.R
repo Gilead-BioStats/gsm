@@ -42,7 +42,7 @@
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
-#' disp_assessment_funnel <- Disp_Assess(dfInput, strMethod = "funnel")
+#' disp_assessment_NormalApprox <- Disp_Assess(dfInput, strMethod = "NormalApprox")
 #' disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "fisher")
 #' disp_assessment_identity <- Disp_Assess(dfInput, strMethod = "identity")
 #'
@@ -56,7 +56,8 @@
 Disp_Assess <- function(
   dfInput,
   vThreshold = NULL,
-  strMethod = "funnel",
+  strMethod = "NormalApprox",
+  strType = "binary",
   lMapping = yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   nConfLevel = NULL,
@@ -66,7 +67,7 @@ Disp_Assess <- function(
 
   # data checking -----------------------------------------------------------
   stopifnot(
-    "strMethod is not 'funnel', 'fisher', 'identity', or 'qtl'" = strMethod %in% c("funnel", "fisher", "identity", "qtl"),
+    "strMethod is not 'NormalApprox', 'fisher', 'identity', or 'qtl'" = strMethod %in% c("NormalApprox", "fisher", "identity", "qtl"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -85,7 +86,7 @@ Disp_Assess <- function(
   # set thresholds and flagging parameters ----------------------------------
   if (is.null(vThreshold)) {
     vThreshold <- switch(strMethod,
-      funnel = c(-3, -2, 2, 3),
+      NormalApprox = c(-3, -2, 2, 3),
       fisher = c(0.01, 0.05),
       identity = c(3.491, 5.172),
       qtl = c(0, 0.2)
@@ -93,7 +94,7 @@ Disp_Assess <- function(
   }
 
   strValueColumnVal <- switch(strMethod,
-    funnel = NULL,
+    NormalApprox = NULL,
     fisher = "Score",
     identity = "Score"
   )
@@ -122,9 +123,9 @@ Disp_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
     # dfAnalyzed --------------------------------------------------------------
-    if (strMethod == "funnel") {
-      lData$dfAnalyzed <- gsm::Analyze_Binary(lData$dfTransformed, bQuiet = bQuiet)
-      lData$dfBounds <- gsm::Analyze_Binary_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
+    if (strMethod == "NormalApprox") {
+      lData$dfAnalyzed <- gsm::Analyze_NormalApprox(lData$dfTransformed, strType = strType, bQuiet = bQuiet)
+      lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, strType = strType, bQuiet = bQuiet)
     } else if (strMethod == "fisher") {
       lData$dfAnalyzed <- gsm::Analyze_Fisher(lData$dfTransformed, bQuiet = bQuiet)
     } else if (strMethod == "identity") {
@@ -137,8 +138,8 @@ Disp_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn {strAnalyzeFunction}} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
     # dfFlagged ---------------------------------------------------------------
-    if (strMethod == "funnel") {
-      lData$dfFlagged <- gsm::Flag_Funnel(lData$dfAnalyzed, vThreshold = vThreshold)
+    if (strMethod == "NormalApprox") {
+      lData$dfFlagged <- gsm::Flag_NormalApprox(lData$dfAnalyzed, vThreshold = vThreshold)
     } else if (strMethod == "fisher") {
       lData$dfFlagged <- gsm::Flag_Fisher(lData$dfAnalyzed, vThreshold = vThreshold)
     } else if (strMethod == "identity") {
@@ -149,7 +150,7 @@ Disp_Assess <- function(
     }
 
     flag_function_name <- switch(strMethod,
-      funnel = "Flag_Funnel",
+      NormalApprox = "Flag_NormalApprox",
       identity = "Flag",
       fisher = "Flag_Fisher",
       qtl = "Flag"
