@@ -17,7 +17,9 @@
 #' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
 #'
 #' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
-#' @param strType `data.frame` in format produced by \code{\link{Transform_Rate}}
+#' @param strType `character` Statistical outcome type. Valid values:
+#'   - `"binary"` (default)
+#'   - `"rate"`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, Score.

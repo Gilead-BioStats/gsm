@@ -66,15 +66,15 @@
 
 # invalid data throw errors
 
-    strMethod is not 'funnel', 'fisher' or 'identity'
+    strMethod is not 'NormalApprox', 'fisher' or 'identity'
 
 ---
 
-    strMethod is not 'funnel', 'fisher' or 'identity'
+    strMethod is not 'NormalApprox', 'fisher' or 'identity'
 
 ---
 
-    strMethod is not 'funnel', 'fisher' or 'identity'
+    strMethod is not 'NormalApprox', 'fisher' or 'identity'
 
 ---
 
@@ -103,8 +103,8 @@
       v `Transform_Rate()` returned output with 2 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      v `Analyze_Funnel()` returned output with 2 rows.
-      v `Flag_Funnel()` returned output with 2 rows.
+      v `Analyze_NormalApprox()` returned output with 2 rows.
+      v `Flag_NormalApprox()` returned output with 2 rows.
       v `Summarize()` returned output with 2 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.

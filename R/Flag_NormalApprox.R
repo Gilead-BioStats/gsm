@@ -3,10 +3,11 @@
 #' Add columns flagging sites that represent possible statistical outliers.
 #'
 #' @details
-#' This function flags sites based on the funnel plot analysis result as part of the [GSM data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
+#' This function flags sites based on the funnel plot with normal approximation analysis result as part of
+#' the [GSM data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
 #'
 #' @section Data Specification:
-#' \code{Flag} is designed to support the input data (`dfAnalyzed`) from \code{Analyze_Binary} or \code{Analyze_Rate} functions.
+#' \code{Flag_NormalApprox} is designed to support the input data (`dfAnalyzed`) from \code{Analyze_NormalApprox} function.
 #' At a minimum, the input data must have a `SiteID` column and a column of numeric values (identified
 #' by the `strColumn` parameter) that will be compared to the specified thresholds (`vThreshold`) to
 #' calculate a new `Flag` column.
@@ -21,23 +22,34 @@
 #' @return `data.frame` with "Flag" column added
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam()
+#' # Binary
+#' dfInput <- Disp_Map_Raw()
+#' dfTransformed <- Transform_Rate(
+#'   dfInput,
+#'   strGroupCol = "SiteID",
+#'   strNumeratorCol = "Count",
+#'   strDenominatorCol = "Total"
+#' )
+#' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
+#' dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 #'
-#' dfTransformed <- Transform_Rate(dfInput,
+#' # Rate
+#' dfInput <- AE_Map_Raw() %>% na.omit()
+#' dfTransformed <- Transform_Rate(
+#'   dfInput,
 #'   strGroupCol = "SiteID",
 #'   strNumeratorCol = "Count",
 #'   strDenominatorCol = "Exposure"
 #' )
 #'
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
-#'
-#' dfFlagged <- Flag_Funnel(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
+#' dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 #'
 #' @import dplyr
 #'
 #' @export
 
-Flag_Funnel <- function(
+Flag_NormalApprox <- function(
   dfAnalyzed,
   vThreshold = NULL
 ) {

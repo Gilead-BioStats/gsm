@@ -125,7 +125,7 @@
       NULL
       
       [[4]]$params$strMethod
-      [1] "funnel"
+      [1] "NormalApprox"
       
       
       
@@ -1072,8 +1072,8 @@
       v `Transform_Rate()` returned output with 10 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      v `Analyze_Funnel()` returned output with 10 rows.
-      v `Flag_Funnel()` returned output with 10 rows.
+      v `Analyze_NormalApprox()` returned output with 10 rows.
+      v `Flag_NormalApprox()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
@@ -1145,8 +1145,8 @@
       v `Transform_Rate()` returned output with 10 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      v `Analyze_Funnel()` returned output with 10 rows.
-      v `Flag_Funnel()` returned output with 10 rows.
+      v `Analyze_NormalApprox()` returned output with 10 rows.
+      v `Flag_NormalApprox()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.
