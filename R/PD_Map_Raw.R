@@ -88,7 +88,8 @@ PD_Map_Raw <- function(
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
       mutate(Rate = .data$Count / .data$Exposure) %>%
-      select(any_of(names(dfSUBJ_mapped)), "Count", "Exposure", "Rate")
+      select(any_of(names(dfSUBJ_mapped)), "Count", "Exposure", "Rate") %>%
+      arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn PD_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

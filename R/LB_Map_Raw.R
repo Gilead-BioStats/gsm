@@ -102,7 +102,8 @@ LB_Map_Raw <- function(
         ),
         Total = 1
       ) %>%
-      select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total")
+      select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
+      arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn LB_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
