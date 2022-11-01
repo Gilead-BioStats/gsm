@@ -1,0 +1,10 @@
+Table Type,Table Name,Structure,Description
+Study-level status,status_study,Study,Study metadata and status info
+Study-level status,status_site,Study/Site,Site metadata and status info
+Study-level status,status_workflow,Study/Workflow,Workflow status info
+Study-level status,status_param,Study/Workflow/Parameter,Parameter status info
+Study-level status,status_schedule,Study/Date,Dates for QRM Snapshots
+Study-level results,results_summary,Study/Workflow/Group,Full analytics results for all workflows
+Study-level results,results_bounds,Study/Workflow/Threshold/x-value,x/y values for boundaries on scatter plot
+Metadata (across studies),meta_workflow,Workflow,Metadata for each workflow
+Metadata (across studies),meta_param,Workflow/Parameter,Parameter metadata for each workflow
