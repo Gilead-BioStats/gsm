@@ -1,5 +1,9 @@
 #' Merge Domain data with subject-level data
 #'
+#' @description
+#' `MergeSubjects` is a helper function used within mapping functions to join subject-level data with domain-level data, with the ability to impute
+#' zeros when necessary.
+#'
 #' @param dfDomain Subject-level domain data containing one record per participant.
 #' @param dfSUBJ Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)
 #' @param strIDCol name of ID Column - default='SubjectID'

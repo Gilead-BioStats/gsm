@@ -1,4 +1,9 @@
-#' Title
+#' {experimental} SaveQTL
+#'
+#' @description
+#' Save QTL analysis results to a directory location. The `strPath` argument specifies the filepath, including filename, of the current QTL analysis.
+#' Running `SaveQTL` will save a new file with an added row for the single specified QTL analysis. The new file will be named the same as the original file,
+#' but will incorporate the run date for version control.
 #'
 #' @param lSnapshot `list` List returned by [gsm::RunQTL()]
 #' @param strPath `character` Path to historical QTL data.

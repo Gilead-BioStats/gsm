@@ -1,4 +1,11 @@
-#' Create multiple workflows from a single stratified workflow
+#' {experimental} Create multiple workflows from a single stratified workflow.
+#'
+#' @description
+#' `MakeStratifiedAssessment` is a utility function that creates a stratified workflow list using a pre-defined workflow (from `inst/workflows`), or
+#' by using a custom named list. For example, a user can run the Adverse Event assessment workflow and stratify by event severity (i.e., `aetoxgr`).
+#' This will give a list of compiled workflows, each of which represents the assessment results for each unique value of the stratifying variable.
+#' For this example using default data, `MakeWorkflowList` will create four lists under the main output object
+#' - one with assessment results for mild AEs, one for moderate, one for severe, and one for life-threatening events.
 #'
 #' @param lData `list` A named list of domain-level data frames.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
