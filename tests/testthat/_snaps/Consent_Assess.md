@@ -1,3 +1,24 @@
+# valid output is returned
+
+    Code
+      names(output)
+    Output
+      [1] "lData"   "lCharts" "lChecks"
+
+---
+
+    Code
+      names(output$lData)
+    Output
+      [1] "dfTransformed" "dfAnalyzed"    "dfFlagged"     "dfSummary"    
+
+---
+
+    Code
+      names(output$lCharts)
+    Output
+      [1] "barMetric" "barScore" 
+
 # grouping works as expected
 
     Code

@@ -8,7 +8,7 @@ output_spec <- yaml::read_yaml(system.file("specs", "Consent_Assess.yaml", packa
 output_mapping <- yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm"))
 
 test_that("valid output is returned", {
-  test_valid_output_assess_identity(
+  test_valid_output_assess(
     assess_function,
     dfInput
   )
