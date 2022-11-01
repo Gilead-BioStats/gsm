@@ -1,4 +1,4 @@
-#' {experimental} Run QTL - Runs QTL based on {gsm}-defined workflow, or by using a custom workflow.
+#' {experimental} Run a QTL
 #'
 #' @description
 #' Run a QTL based on a pre-defined or custom workflow outside of `Make_Snapshot()` or `Study_Assess()`. This is a helper function that makes it possible to

@@ -14,8 +14,9 @@ SaveQTL(lSnapshot, strPath = "./inst/dummyqtldata.csv", bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \description{
-Save QTL analysis results to a directory location. The file specified in \code{strPath} will have an additional row appended for the current QTL analysis,
-and a separate file will be saved for the single QTL analysis result.
+Save QTL analysis results to a directory location. The \code{strPath} argument specifies the filepath, including filename, of the current QTL analysis.
+Running \code{SaveQTL} will save a new file with an added row for the single specified QTL analysis. The new file will be named the same as the original file,
+but will incorporate the run date for version control.
 }
 \examples{
 

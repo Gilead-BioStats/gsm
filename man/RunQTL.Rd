@@ -2,7 +2,7 @@
 % Please edit documentation in R/RunQTL.R
 \name{RunQTL}
 \alias{RunQTL}
-\title{{experimental} Run QTL - Runs QTL based on {gsm}-defined workflow, or by using a custom workflow.}
+\title{{experimental} Run a QTL}
 \usage{
 RunQTL(strName = NULL, lWorkflow = NULL, lData = NULL, lMapping = NULL)
 }
