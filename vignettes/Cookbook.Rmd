@@ -52,7 +52,7 @@ devtools::install_github("Gilead-BioStats/gsm", ref = "dev")
 
 ## Example 1 - Running a Single Assessment on Standard Data
 
-All assessments can be run as standalone workflow that creates several useful data summaries and a visualization. `{gsm}` is configured to accept Raw+ data by default, so this is what we consider to be standard in this example.
+All assessments can be run as standalone workflow that creates useful data summaries and visualizations. `{gsm}` is configured to accept Raw+ data by default, and that data standard is used here. 
 
 Running a single assessment is a 2-step process. We will use the Adverse Event (AE) workflow as an example:
 
