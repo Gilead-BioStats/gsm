@@ -61,7 +61,7 @@ Note that each step in this data pipeline can be customized based on the require
 
 ## QTL and Country Analysis
 
-The default KRI data pipeline runs site-level analyses on sourced clinical data. `{gsm}` also has the capability to run overall study-level analyses using Quality Tolerance Limits, or QTLs, on sets of metadata. For example, a user can evaluate the protocol deviation rate at an aggregate study-level for all accumulated data at a specified 'snapshot date'. Analyses can also be categorized by country identifiers if desired. A user can tailor sort variables/stratifications to run custom pipelines as well (see [Appendix 3](#Appendix-3-Workflow-ID-Specs) for workflow nomenclature and examples).
+The default KRI data pipeline runs site-level analyses on sourced clinical data. `{gsm}` also has the capability to run overall study-level analyses using Quality Tolerance Limits, or QTLs. For example, a user can evaluate the protocol deviation rate at a study-level. Analyses can also be categorized by country identifiers if desired. A user can also run custom pipelines (e.g. stratified analysis) as well (see [Appendix 3](#Appendix-3-Workflow-ID-Specs) for workflow nomenclature and examples).
 
 ## Running Multiple Assessments
 
