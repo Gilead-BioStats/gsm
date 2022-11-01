@@ -111,7 +111,7 @@ The third step is to analyze the transformed data. Certain assessments support m
 dfAnalyzed <- Analyze_Poisson(dfTransformed)
 ```
 
-After analyzing the transformed data, we want to flag sites based on at least one statistical threshold. Similar to the previous step, multiple flag functions exist to support the assessment functions. The `Flag_Poisson()` function is the default for the AE Poisson assessment, and has a default threshold of (-7, -5, 5, 7). If a site falls outside of the (-5, 5) range, it is considered to be "At Risk" and will be assigned a value of -1 or 1. If a site falls outside of the (-7, 7) range, it is considered "Flagged" and will be assigned a value of -2 or 2. Both are considered to be outliers, but "Flagged" sites are more extreme outliers.
+After analyzing the transformed data, we want to flag sites based on at least one statistical threshold. Similar to the previous step, multiple flag functions exist to support the assessment functions. The `Flag_Poisson()` function is one of several options for the AE assessment, and has default thresholds of `c(-7, -5, 5, 7)`. If a site falls outside of the (-5, 5) range, it is considered to be "At Risk" and will be assigned a value of -1 or 1. If a site falls outside of the (-7, 7) range, it is considered "Flagged" and will be assigned a value of -2 or 2. Both are considered to be outliers, but "Flagged" sites are more extreme outliers.
 
 ```{r eval = FALSE, include = TRUE}
 dfFlagged <- Flag_Poisson(dfAnalyzed, vThreshold = c(-7, -5, 5, 7))
