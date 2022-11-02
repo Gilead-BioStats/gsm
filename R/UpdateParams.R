@@ -1,4 +1,4 @@
-#' Update parameters for workflow
+#' {experimental} Update parameters for workflow
 #'
 #' @param lWorkflow `list` Object returned by `MakeWorkflowList()`
 #' @param dfConfig `data.frame` Configuration parameters data.frame; `clindata::config_param`
@@ -11,7 +11,6 @@
 #'
 #' @export
 UpdateParams <- function(lWorkflow, dfConfig, dfMeta) {
-
   # join config_param and meta_param ----------------------------------------
   # filter all_params for value (user-provided value) that is not equal to the default value (gsm-recommended value)
   # mutate as character because clindata version of gsm_version is of class() == "package version" - need to update to character.
@@ -22,7 +21,6 @@ UpdateParams <- function(lWorkflow, dfConfig, dfMeta) {
   ) %>%
     filter(.data$value != .data$default)
 
-
   # update list -------------------------------------------------------------
   # lWorkflow list is only updated when different values are found
   # loop through different values and modify list
@@ -31,28 +29,27 @@ UpdateParams <- function(lWorkflow, dfConfig, dfMeta) {
     all_param <- split(all_param, all_param$workflowid)
 
     for (kri in names(lWorkflow)) {
-
       for (index in 1:length(lWorkflow[[kri]]$steps)) {
         if ("params" %in% names(lWorkflow[[kri]]$steps[[index]])) {
+          if (!is.null(all_param[[kri]])) {
+            params_to_change <- all_param[[kri]] %>%
+              pull(.data$param) %>%
+              unique()
 
-          params_to_change <- all_param[[kri]] %>%
-            filter(.data$configurable == TRUE) %>%
-            pull(.data$param) %>%
-            unique()
-
-          params_to_change_values <- all_param[[kri]]
-          params_to_change_values <- split(params_to_change_values, params_to_change_values$param) %>%
-            purrr::map(~.x %>% pull(value))
+            params_to_change_values <- all_param[[kri]]
+            params_to_change_values <- split(params_to_change_values, params_to_change_values$param) %>%
+              purrr::map( ~ .x %>% pull(value))
 
 
-          if (any(params_to_change %in% names(lWorkflow[[kri]]$steps[[index]]$params))) {
+            if (any(params_to_change %in% names(lWorkflow[[kri]]$steps[[index]]$params))) {
+              params <-
+                params_to_change[params_to_change %in% names(lWorkflow[[kri]]$steps[[index]]$params)]
 
-            params <- params_to_change[params_to_change %in% names(lWorkflow[[kri]]$steps[[index]]$params)]
-
-            for (param_name in params) {
-              lWorkflow[[kri]]$steps[[index]]$params[[param_name]] <- params_to_change_values[[param_name]]
+              for (param_name in params) {
+                lWorkflow[[kri]]$steps[[index]]$params[[param_name]] <-
+                  params_to_change_values[[param_name]]
+              }
             }
-
           }
         }
       }
