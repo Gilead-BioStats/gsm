@@ -1,5 +1,6 @@
 #' Make Snapshot - create and export Gizmo data model.
 #'
+<<<<<<< HEAD
 #' @description
 #' `Make_Snapshot()` ingests data from a variety of sources, and runs KRIs and/or QTLs based on the `list` provided in `lAssessments`. The output of `Make_Snapshot()` is used as the input data model
 #' for the Gismo web application.
@@ -7,11 +8,11 @@
 #' For more context about the inputs and outputs of `Make_Snapshot()`, refer to the [GSM Data Pipeline Vignette](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html), specifically
 #' Appendix 2 - Data Model Specifications
 #'
-#' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
-#' See the Data Model Vignette - Appendix 2 - Data Model Specifications for detailed specifications.
-#' @param lData `list` a named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
-#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for raw+.
+#' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study. TODO: add details about expected lMeta input.
+#' @param lData `list` a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
+#' @param lMapping `list` a named list identifying the columns needed in each data domain.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
+#' @param bUpdateParams `logical` If `TRUE`, invokes `UpdateParams()` to update parameters based on user-defined `value` column from `lMeta$config_param`.
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -62,6 +63,7 @@ lMapping = c(
   yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
 ),
 lAssessments = NULL,
+bUpdateParams = FALSE,
 cPath = NULL,
 bQuiet = TRUE
 
@@ -196,7 +198,9 @@ bQuiet = TRUE
   }
 
   # update parameters
-  lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
+  if (bUpdateParams) {
+    lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
+  }
 
   # Run Study Assessment
   lResults <- gsm::Study_Assess(

@@ -42,8 +42,7 @@ UpdateParams <- function(lWorkflow, dfConfig, dfMeta) {
 
 
             if (any(params_to_change %in% names(lWorkflow[[kri]]$steps[[index]]$params))) {
-              params <-
-                params_to_change[params_to_change %in% names(lWorkflow[[kri]]$steps[[index]]$params)]
+              params <- params_to_change[params_to_change %in% names(lWorkflow[[kri]]$steps[[index]]$params)]
 
               for (param_name in params) {
                 lWorkflow[[kri]]$steps[[index]]$params[[param_name]] <-
