@@ -3,7 +3,8 @@
 #' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study. TODO: add details about expected lMeta input.
 #' @param lData `list` a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` a named list identifying the columns needed in each data domain.
-#' @param lAssessments a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
+#' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
+#' @param bUpdateParams `logical` If `TRUE`, invokes `UpdateParams()` to update parameters based on user-defined `value` column from `lMeta$config_param`.
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -36,6 +37,7 @@ lData = list(
 ),
 lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
 lAssessments = NULL,
+bUpdateParams = FALSE,
 cPath = NULL,
 bQuiet = TRUE
 
@@ -125,7 +127,9 @@ bQuiet = TRUE
   }
 
   # update parameters
-  lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
+  if (bUpdateParams) {
+    lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
+  }
 
   # Run Study Assessment
   lResults <- Study_Assess(
