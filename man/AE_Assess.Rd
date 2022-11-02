@@ -7,7 +7,8 @@
 AE_Assess(
   dfInput,
   vThreshold = NULL,
-  strMethod = "funnel",
+  strMethod = "NormalApprox",
+  strType = "rate",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE
@@ -24,6 +25,12 @@ for a nominal assessment (\code{strMethod = "identity"}).}
 \itemize{
 \item \code{"poisson"} (default)
 \item \code{"identity"}
+}}
+
+\item{strType}{\code{character} Statistical outcome type. Valid values:
+\itemize{
+\item \code{"binary"} (default)
+\item \code{"rate"}
 }}
 
 \item{lMapping}{Column metadata with structure \code{domain$key}, where \code{key} contains the name
@@ -91,6 +98,6 @@ details about the statistical methods and their assumptions.
 
 \examples{
 dfInput <- AE_Map_Raw()
-ae_assessment_funnel <- AE_Assess(dfInput)
+ae_assessment_NormalApprox <- AE_Assess(dfInput)
 
 }

@@ -110,7 +110,7 @@
       NULL
       
       $kri0001[[4]]$params$strMethod
-      [1] "funnel"
+      [1] "NormalApprox"
       
       
       
@@ -189,7 +189,7 @@
       NULL
       
       $kri0002[[4]]$params$strMethod
-      [1] "funnel"
+      [1] "NormalApprox"
       
       
       
@@ -246,7 +246,7 @@
       NULL
       
       $kri0003[[3]]$params$strMethod
-      [1] "funnel"
+      [1] "NormalApprox"
       
       
       
@@ -303,7 +303,7 @@
       NULL
       
       $kri0004[[3]]$params$strMethod
-      [1] "funnel"
+      [1] "NormalApprox"
       
       
       
@@ -382,7 +382,7 @@
       NULL
       
       $kri0005[[4]]$params$strMethod
-      [1] "funnel"
+      [1] "NormalApprox"
       
       
       
@@ -422,7 +422,7 @@
       NULL
       
       $kri0006[[2]]$params$strMethod
-      [1] "funnel"
+      [1] "NormalApprox"
       
       
       
@@ -484,7 +484,7 @@
       NULL
       
       $kri0007[[3]]$params$strMethod
-      [1] "funnel"
+      [1] "NormalApprox"
       
       
       

@@ -76,7 +76,7 @@ test_missing_column_assess <- function(
     assess_function,
     dfInput
 ) {
-  dfInput_test <- dfInput %>% select(-c(SiteID))
+  dfInput_test <- dfInput %>% select("SiteID")
   missing_req_col <- assess_function(dfInput = dfInput_test)
 
   testthat::expect_silent(missing_req_col)
