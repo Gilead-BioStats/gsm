@@ -2,7 +2,7 @@
 % Please edit documentation in R/UpdateParams.R
 \name{UpdateParams}
 \alias{UpdateParams}
-\title{Title}
+\title{{experimental} Update parameters for workflow}
 \usage{
 UpdateParams(lWorkflow, dfConfig, dfMeta)
 }
@@ -17,5 +17,5 @@ UpdateParams(lWorkflow, dfConfig, dfMeta)
 \code{list} lWorkflow - modified list.
 }
 \description{
-Title
+{experimental} Update parameters for workflow
 }

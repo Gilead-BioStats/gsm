@@ -16,6 +16,7 @@ Make_Snapshot(
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
   lAssessments = NULL,
+  bUpdateParams = FALSE,
   cPath = NULL,
   bQuiet = TRUE
 )
@@ -27,7 +28,9 @@ Make_Snapshot(
 
 \item{lMapping}{\code{list} a named list identifying the columns needed in each data domain.}
 
-\item{lAssessments}{a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
+\item{lAssessments}{\code{list} a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
+
+\item{bUpdateParams}{\code{logical} If \code{TRUE}, invokes \code{UpdateParams()} to update parameters based on user-defined \code{value} column from \code{lMeta$config_param}.}
 
 \item{cPath}{\code{character} a character string indicating a working directory to save .csv files; the output of the snapshot.}
 
