@@ -1,6 +1,5 @@
 #' Make Snapshot - create and export Gizmo data model.
 #'
-<<<<<<< HEAD
 #' @description
 #' `Make_Snapshot()` ingests data from a variety of sources, and runs KRIs and/or QTLs based on the `list` provided in `lAssessments`. The output of `Make_Snapshot()` is used as the input data model
 #' for the Gismo web application.

@@ -21,19 +21,21 @@ Make_Snapshot(
     "gsm")), yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
     "gsm"))),
   lAssessments = NULL,
+  bUpdateParams = FALSE,
   cPath = NULL,
   bQuiet = TRUE
 )
 }
 \arguments{
-\item{lMeta}{\code{list} a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
-See the Data Model Vignette - Appendix 2 - Data Model Specifications for detailed specifications.}
+\item{lMeta}{\code{list} a named list of data frames containing metadata, configuration, and workflow parameters for a given study. TODO: add details about expected lMeta input.}
 
-\item{lData}{\code{list} a named list of domain-level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
+\item{lData}{\code{list} a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
-\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column. Default: package-defined mapping for raw+.}
+\item{lMapping}{\code{list} a named list identifying the columns needed in each data domain.}
 
 \item{lAssessments}{\code{list} a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
+
+\item{bUpdateParams}{\code{logical} If \code{TRUE}, invokes \code{UpdateParams()} to update parameters based on user-defined \code{value} column from \code{lMeta$config_param}.}
 
 \item{cPath}{\code{character} a character string indicating a working directory to save .csv files; the output of the snapshot.}
 
