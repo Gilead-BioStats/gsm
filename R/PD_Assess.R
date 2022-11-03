@@ -16,6 +16,9 @@
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"poisson"` (default)
 #'   - `"identity"`
+#' @param strType `character` Statistical outcome type. Valid values:
+#'   - `"binary"` (default)
+#'   - `"rate"`
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
@@ -44,7 +47,7 @@
 #'
 #' @examples
 #' dfInput <- PD_Map_Raw()
-#' pd_assessment_funnel <- PD_Assess(dfInput)
+#' pd_assessment_NormalApprox <- PD_Assess(dfInput)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
@@ -56,7 +59,8 @@
 PD_Assess <- function(
   dfInput,
   vThreshold = NULL,
-  strMethod = "funnel",
+  strMethod = "NormalApprox",
+  strType = "rate",
   lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   nConfLevel = NULL,
@@ -65,7 +69,7 @@ PD_Assess <- function(
 
   # data checking -----------------------------------------------------------
   stopifnot(
-    "strMethod is not 'funnel', 'poisson', 'identity', or 'qtl'" = strMethod %in% c("funnel", "poisson", "identity", "qtl"),
+    "strMethod is not 'NormalApprox', 'poisson', 'identity', or 'qtl'" = strMethod %in% c("NormalApprox", "poisson", "identity", "qtl"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -83,7 +87,7 @@ PD_Assess <- function(
   # set thresholds and flagging parameters ----------------------------------
   if (is.null(vThreshold)) {
     vThreshold <- switch(strMethod,
-      funnel = c(-3, -2, 2, 3),
+      NormalApprox = c(-3, -2, 2, 3),
       poisson = c(-7, -5, 5, 7),
       identity = c(0.000895, 0.003059),
       qtl = c(0, 5)
@@ -91,7 +95,7 @@ PD_Assess <- function(
   }
 
   strValueColumnVal <- switch(strMethod,
-    funnel = NULL,
+    NormalApprox = NULL,
     poisson = NULL,
     identity = "Score"
   )
@@ -120,9 +124,21 @@ PD_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
     # dfAnalyzed --------------------------------------------------------------
-    if (strMethod == "funnel") {
-      lData$dfAnalyzed <- gsm::Analyze_Rate(lData$dfTransformed, bQuiet = bQuiet)
-      lData$dfBounds <- gsm::Analyze_Rate_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
+    if (strMethod == "NormalApprox") {
+
+      lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
+        dfTransformed = lData$dfTransformed,
+        strType = strType,
+        bQuiet = bQuiet
+        )
+
+      lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
+        dfTransformed = lData$dfTransformed,
+        vThreshold = vThreshold,
+        strType = strType,
+        bQuiet = bQuiet
+        )
+
     } else if (strMethod == "poisson") {
       lData$dfAnalyzed <- gsm::Analyze_Poisson(lData$dfTransformed, bQuiet = bQuiet)
       lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
@@ -137,8 +153,8 @@ PD_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn {strAnalyzeFunction}} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
     # dfFlagged ---------------------------------------------------------------
-    if (strMethod == "funnel") {
-      lData$dfFlagged <- gsm::Flag_Funnel(lData$dfAnalyzed, vThreshold = vThreshold)
+    if (strMethod == "NormalApprox") {
+      lData$dfFlagged <- gsm::Flag_NormalApprox(lData$dfAnalyzed, vThreshold = vThreshold)
     } else if (strMethod == "poisson") {
       lData$dfFlagged <- gsm::Flag_Poisson(lData$dfAnalyzed, vThreshold = vThreshold)
     } else if (strMethod == "identity") {
@@ -149,7 +165,7 @@ PD_Assess <- function(
     }
 
     flag_function_name <- switch(strMethod,
-      funnel = "Flag_Funnel",
+      NormalApprox = "Flag_NormalApprox",
       identity = "Flag",
       poisson = "Flag_Poisson",
       qtl = "Flag"
