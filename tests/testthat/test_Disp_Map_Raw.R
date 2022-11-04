@@ -74,3 +74,25 @@ test_that("invalid mapping throws errors", {
 test_that("bQuiet and bReturnChecks work as intended", {
   test_logical_parameters(map_function, dfs)
 })
+
+
+# custom tests ------------------------------------------------------------
+
+test_that("Treatment mapping returns expected output", {
+
+  dfs <- list(
+    dfSUBJ = dfSUBJ,
+    dfSDRGCOMP = dfSDRGCOMP
+  )
+
+  output <- Disp_Map_Raw(dfs = dfs, strContext = "Treatment")
+
+  testthat::expect_true(is.data.frame(output))
+  testthat::expect_snapshot(names(output))
+  testthat::expect_true(all(names(output) %in% as.character(output_mapping$dfInput)))
+  testthat::expect_type(output$SubjectID, "character")
+  testthat::expect_type(output$SiteID, "character")
+  testthat::expect_true(class(output$Count) %in% c("double", "integer", "numeric"))
+
+
+})

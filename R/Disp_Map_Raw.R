@@ -14,7 +14,6 @@
 #' @param strContext Disposition Context - "Treatment" or "Study"
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
-#' @param strTreatmentPhase `character` Treatment phase descriptor.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -47,7 +46,6 @@ Disp_Map_Raw <- function(
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   strContext = "Study",
-  strTreatmentPhase = NULL,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
