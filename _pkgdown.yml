@@ -50,7 +50,7 @@ reference:
    - title: QTL
      desc: Runs QTL analysis for longitudinal metrics
    - contents:
-      - AnalyzeQTL
+      - Analyze_QTL
       - RunQTL
       - SaveQTL
 

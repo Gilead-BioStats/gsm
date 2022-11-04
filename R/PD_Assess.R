@@ -145,7 +145,7 @@ PD_Assess <- function(
     } else if (strMethod == "identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
     } else if (strMethod == "qtl") {
-      lData$dfAnalyzed <- AnalyzeQTL(lData$dfTransformed, strOutcome = "rate", nConfLevel = nConfLevel)
+      lData$dfAnalyzed <- Analyze_QTL(lData$dfTransformed, strOutcome = "rate", nConfLevel = nConfLevel)
     }
 
 
@@ -160,8 +160,7 @@ PD_Assess <- function(
     } else if (strMethod == "identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     } else if (strMethod == "qtl") {
-      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strColumn = "LowCI") %>%
-        mutate(Score = .data$Metric)
+      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold) 
     }
 
     flag_function_name <- switch(strMethod,
