@@ -84,11 +84,11 @@
 
 # invalid data throw errors
 
-    strMethod is not 'funnel', 'poisson', 'identity', or 'qtl'
+    strMethod is not 'NormalApprox', 'poisson', 'identity', or 'qtl'
 
 ---
 
-    strMethod is not 'funnel', 'poisson', 'identity', or 'qtl'
+    strMethod is not 'NormalApprox', 'poisson', 'identity', or 'qtl'
 
 ---
 
@@ -118,9 +118,10 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 40 rows.
-      `Score` column created from normal approxiamtion of the Poisson distribution
-      v `Analyze_Funnel()` returned output with 40 rows.
-      v `Flag_Funnel()` returned output with 40 rows.
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
+      v `Analyze_NormalApprox()` returned output with 40 rows.
+      v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
       v `Visualize_Scatter()` created 1 chart.
       v `Visualize_Score()` created 2 charts.

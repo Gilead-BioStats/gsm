@@ -7,7 +7,8 @@
 Disp_Assess(
   dfInput,
   vThreshold = NULL,
-  strMethod = "funnel",
+  strMethod = "NormalApprox",
+  strType = "binary",
   lMapping = yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package =
     "gsm")),
   strGroup = "Site",
@@ -25,6 +26,12 @@ Disp_Assess(
 \itemize{
 \item \code{"fisher"} (default)
 \item \code{"identity"}
+}}
+
+\item{strType}{\code{character} Statistical outcome type. Valid values:
+\itemize{
+\item \code{"binary"} (default)
+\item \code{"rate"}
 }}
 
 \item{lMapping}{Column metadata with structure \code{domain$key}, where \code{key} contains the name
@@ -91,7 +98,7 @@ details about the statistical methods and their assumptions.
 
 \examples{
 dfInput <- Disp_Map_Raw()
-disp_assessment_funnel <- Disp_Assess(dfInput, strMethod = "funnel")
+disp_assessment_NormalApprox <- Disp_Assess(dfInput, strMethod = "NormalApprox")
 disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "fisher")
 disp_assessment_identity <- Disp_Assess(dfInput, strMethod = "identity")
 
