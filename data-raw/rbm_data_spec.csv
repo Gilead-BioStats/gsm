@@ -91,6 +91,7 @@ GSM,meta_study,phase,Phase
 GSM,meta_study,status,Study Status
 GSM,meta_study,fpfv,First-patient first visit date
 GSM,meta_study,lplv,Last-patient last visit date
+GSM,meta_study,lpfv,Last-patient first visit date
 GSM,meta_study,rbm_flag,Risk-based monitoring flag
 GSM,meta_site,studyid,Unique Study ID
 GSM,meta_site,siteid,Unique Site ID
