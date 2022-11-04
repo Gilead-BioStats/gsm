@@ -61,6 +61,7 @@ Gismo,results_bounds,gsm_analysis_date,Date that snapshot was created
 Gismo,meta_workflow,workflowid,Unique Workflow ID
 Gismo,meta_workflow,gsm_version,GSM Version of workflow
 Gismo,meta_workflow,group,"Group for workflow - Site, Country, Region or Study"
+Gismo,meta_workflow,abbreviation,Abbreviation Label
 Gismo,meta_workflow,metric,Metric Label
 Gismo,meta_workflow,numerator,Numerator Label
 Gismo,meta_workflow,denominator,Denominator Label
