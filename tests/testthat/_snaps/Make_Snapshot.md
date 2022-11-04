@@ -20,6 +20,43 @@
     Code
       snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping_edited,
         lAssessments = lAssessments_edited)
+    Warning <lifecycle_warning_deprecated>
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
 
 # bQuiet works as intended
 
@@ -93,6 +130,14 @@
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
       v `Visualize_Scatter()` created 1 chart.
+    Warning <lifecycle_warning_deprecated>
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+    Message <cliMessage>
       v `Visualize_Score()` created 2 charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -164,6 +209,14 @@
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
       v `Visualize_Scatter()` created 1 chart.
+    Warning <lifecycle_warning_deprecated>
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+    Message <cliMessage>
       v `Visualize_Score()` created 2 charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -222,6 +275,14 @@
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
       v `Visualize_Scatter()` created 1 chart.
+    Warning <lifecycle_warning_deprecated>
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+    Message <cliMessage>
       v `Visualize_Score()` created 2 charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -280,6 +341,14 @@
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
       v `Visualize_Scatter()` created 1 chart.
+    Warning <lifecycle_warning_deprecated>
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+    Message <cliMessage>
       v `Visualize_Score()` created 2 charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -348,6 +417,14 @@
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
       v `Visualize_Scatter()` created 1 chart.
+    Warning <lifecycle_warning_deprecated>
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+    Message <cliMessage>
       v `Visualize_Score()` created 2 charts.
       v `LB_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -393,6 +470,14 @@
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
       v `Visualize_Scatter()` created 1 chart.
+    Warning <lifecycle_warning_deprecated>
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+    Message <cliMessage>
       v `Visualize_Score()` created 2 charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -452,6 +537,14 @@
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
       v `Visualize_Scatter()` created 1 chart.
+    Warning <lifecycle_warning_deprecated>
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+    Message <cliMessage>
       v `Visualize_Score()` created 2 charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
