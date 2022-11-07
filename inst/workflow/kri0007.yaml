@@ -19,4 +19,4 @@ steps:
     params:
       strGroup: "Site"
       vThreshold: null
-      strMethod: "funnel"
+      strMethod: "NormalApprox"

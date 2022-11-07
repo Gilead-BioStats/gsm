@@ -27,7 +27,8 @@ MergeSubjects(
 \code{data.frame} with one record per strIDCol.
 }
 \description{
-Merge Domain data with subject-level data
+\code{MergeSubjects} is a helper function used within mapping functions to join subject-level data with domain-level data, with the ability to impute
+zeros when necessary.
 }
 \examples{
 MergeSubjects(

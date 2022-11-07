@@ -2,7 +2,7 @@
 % Please edit documentation in R/RunQTL.R
 \name{RunQTL}
 \alias{RunQTL}
-\title{Run QTL - Runs QTL based on {gsm}-defined workflow, or by using a custom workflow.}
+\title{{experimental} Run a QTL}
 \usage{
 RunQTL(strName = NULL, lWorkflow = NULL, lData = NULL, lMapping = NULL)
 }
@@ -16,7 +16,8 @@ RunQTL(strName = NULL, lWorkflow = NULL, lData = NULL, lMapping = NULL)
 \item{lMapping}{\code{list} List of data-domain mappings.}
 }
 \description{
-Run QTL - Runs QTL based on {gsm}-defined workflow, or by using a custom workflow.
+Run a QTL based on a pre-defined or custom workflow outside of \code{Make_Snapshot()} or \code{Study_Assess()}. This is a helper function that makes it possible to
+run a QTL for any supported \verb{*_Assess} function.
 }
 \examples{
 qtl <- RunQTL('qtl0003')

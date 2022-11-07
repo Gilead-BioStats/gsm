@@ -1,4 +1,8 @@
-#' Check that a data frame contains columns and fields specified in mapping
+#' Check that a data frame contains columns and fields specified in mapping.
+#'
+#' @description
+#' `is_mapping_valid` is a utility function that is a core feature of any assessment or workflow. This function evaluates the validity of input data based on
+#' a pre-defined, or user-defined mapping and specification.
 #'
 #' @param df `data.frame` A data.frame to compare to mapping object.
 #' @param mapping `list` A named list specifying expected columns and values in df. Parameters ending in `col` are assumed to be column names in `df`, while parameters ending in `val` are values expected in for a corresponding column. For example, `mapping=list(strSiteCol="SiteID", strSiteVal=c("001","002"))` would indicate that `df` has a `df$SiteID` includes values `"001"` and `"002"`.

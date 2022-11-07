@@ -9,29 +9,25 @@ Flag_Poisson(dfAnalyzed, vThreshold = NULL)
 \arguments{
 \item{dfAnalyzed}{data.frame where flags should be added.}
 
-\item{vThreshold}{Vector of 4 numeric values representing lower and upper threshold values. All
-values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.}
+\item{vThreshold}{Vector of 4 numeric values representing lower and upper threshold values. All values in the \code{Score} column are compared to \code{vThreshold} using strict comparisons. Values less than the lower thresholds or greater than the upper thresholds are flagged. Values equal to the threshold values are set to 0 (i.e., not flagged). If NA is provided for either threshold value, it is ignored and no values are flagged based on the thresholds. NA and NaN values in \code{Score} are given NA flag values.}
 }
 \value{
-\code{data.frame} with "Flag" column added
+\code{data.frame} with one row per site with columns: \code{GroupID}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{PredictedCount}, \code{Flag}
 }
 \description{
-Add columns flagging sites that represent possible statistical outliers.
+Add columns flagging sites that represent possible statistical outliers when the Poisson statistical method is used.
 }
 \details{
 This function flags sites based on the Poisson analysis result as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
 }
 \section{Data Specification}{
 
-\code{Flag} is designed to support the input data (\code{dfAnalyzed}) from \code{Analyze_Poisson} function.
-At a minimum, the input data must have a \code{SiteID} column and a column of numeric values (identified
-by the \code{strColumn} parameter) that will be compared to the specified thresholds (\code{vThreshold}) to
-calculate a new \code{Flag} column.
-In short, the following columns are considered:
+\code{Flag_Poisson} is designed to support the input data (\code{dfAnalyzed}) generated from the \code{Analyze_Poisson} function. At a minimum, the input must define a \code{dfAnalyzed} data frame with a \code{Score} variable included and a \code{vThreshold}. These inputs will be used to identify possible statistical outliers in a new \code{Flag} column by comparing \code{Score} values to the specified thresholds.
+
+The following columns are considered required:
 \itemize{
-\item \code{GroupID} - Group ID (required)
-\item \code{strColumn} - A column to use for Thresholding (required)
-\item 'strValueColumn' - A column to be used for the sign of the flag (optional)#'
+\item \code{GroupID} - Group ID; default is \code{SiteID}
+\item \code{Score} - Site residuals calculated from the rates of exposure provided to \code{Analyze_Poisson()}
 }
 }
 

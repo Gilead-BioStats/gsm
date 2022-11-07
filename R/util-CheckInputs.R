@@ -1,4 +1,8 @@
-#' Check mapping inputs
+#' Check mapping inputs.
+#'
+#' @description
+#' `CheckInputs()` uses a mapping and specification to recursively run the `{gsm}` function `is_mapping_valid()` on data domains for a given assessment.
+#' The purpose of `CheckInputs()` is to identify any issues where the input data does not match the pre-defined mapping and/or specification for the expected input data format.
 #'
 #' @param context `character` Name of the data pipeline "step" that is being checked, e.g.
 #' "AE_Map_Raw" or "PD_Assess".
@@ -41,7 +45,7 @@ CheckInputs <- function(context, dfs, mapping = NULL, spec = NULL, bQuiet = TRUE
     spec <- yaml::read_yaml(system.file("specs", paste0(context, ".yaml"), package = "gsm"))
   }
 
-  checks <- map(names(spec), function(domain) {
+  checks <- purrr::map(names(spec), function(domain) {
     domain_check <- list(
       df = dfs[[domain]],
       mapping = mapping[[domain]],
