@@ -107,5 +107,13 @@
       v `Flag_NormalApprox()` returned output with 2 rows.
       v `Summarize()` returned output with 2 rows.
       v `Visualize_Scatter()` created 1 chart.
+    Warning <lifecycle_warning_deprecated>
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+      i Please use `linewidth` instead.
+    Message <cliMessage>
       v `Visualize_Score()` created 2 charts.
 
