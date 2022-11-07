@@ -31,7 +31,7 @@
     Code
       names(result$kri0005)
     Output
-      [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
+      [1] "steps"   "path"    "name"    "lData"   "lChecks" "bStatus"
 
 ---
 
@@ -795,7 +795,7 @@
       [1] "siresn"
       
       $AE_Map_Raw$mapping$dfLB$strTreatmentEmergentCol
-      [1] "lb_te"
+      [1] "treatment_emergent"
       
       $AE_Map_Raw$mapping$dfLB$strTreatmentEmergentVal
       [1] "Y"
@@ -1076,14 +1076,6 @@
       v `Flag_NormalApprox()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
       v `Visualize_Scatter()` created 1 chart.
-    Warning <lifecycle_warning_deprecated>
-      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-      i Please use `linewidth` instead.
-      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-      i Please use `linewidth` instead.
-      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-      i Please use `linewidth` instead.
-    Message <cliMessage>
       v `Visualize_Score()` created 2 charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -1157,14 +1149,6 @@
       v `Flag_NormalApprox()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
       v `Visualize_Scatter()` created 1 chart.
-    Warning <lifecycle_warning_deprecated>
-      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-      i Please use `linewidth` instead.
-      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-      i Please use `linewidth` instead.
-      Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-      i Please use `linewidth` instead.
-    Message <cliMessage>
       v `Visualize_Score()` created 2 charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -1226,7 +1210,7 @@
       
       -- Initializing `kri0005` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 4: `FilterDomain` --
+      -- Workflow Step 1 of 3: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -1234,7 +1218,7 @@
       -- Checking Input Data for `FilterDomain()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: lb_te
+      x the following columns not found in df: treatment_emergent
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -1242,15 +1226,11 @@
       ! `FilterDomain()` Failed - Skipping remaining steps
       Saving dfLB to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Skipping `FilterDomain()` ...
-      
-      -- Workflow Step 3 of 4: `LB_Map_Raw` --
+      -- Workflow Step 2 of 3: `LB_Map_Raw` --
       
       Skipping `LB_Map_Raw()` ...
       
-      -- Workflow Step 4 of 4: `LB_Assess` --
+      -- Workflow Step 3 of 3: `LB_Assess` --
       
       Skipping `LB_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.

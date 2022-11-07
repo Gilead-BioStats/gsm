@@ -60,7 +60,7 @@ dfLB:
   strCategoryCol: battrnam
   strTestCol: lbtstnam
   strValueCol: siresn
-  strTreatmentEmergentCol: lb_te
+  strTreatmentEmergentCol: treatment_emergent
   strTreatmentEmergentVal: "Y"
   strGradeCol: toxgr
   strGradeAnyVal:

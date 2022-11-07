@@ -9,7 +9,7 @@
 #' @return group-level plot object.
 #'
 #' @examples
-#' ae <- AE_Map_Raw() %>% AE_Assess(vThreshold = c(-8, -5, 5, 8))
+#' ae <- AE_Map_Raw() %>% AE_Assess()
 #'
 #' Visualize_Score(ae$lData$dfFlagged) # visualize KRI (default)
 #' Visualize_Score(ae$lData$dfFlagged, bFlagFilter = TRUE) # drop non-flagged groups
@@ -84,7 +84,7 @@ Visualize_Score <- function(
           yintercept = sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator),
           linetype = "dashed",
           color = "#FF4D4F",
-          size = 1
+          lwd = 1
         )
     }
   }
@@ -134,7 +134,7 @@ Visualize_Score <- function(
           yintercept = ThresholdLow,
           linetype = "dashed",
           color = "#FF4D4F",
-          size = 1
+          lwd = 1
         )
     }
 
@@ -144,7 +144,7 @@ Visualize_Score <- function(
           yintercept = ThresholdHigh,
           linetype = "dashed",
           color = "#FF4D4F",
-          size = 1
+          lwd = 1
         )
     }
   }
