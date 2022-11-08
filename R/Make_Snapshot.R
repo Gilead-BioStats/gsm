@@ -85,6 +85,7 @@ bQuiet = TRUE
       "phase",
       "status",
       "fpfv",
+      "lpfv",
       "lplv",
       "rbm_flag"
     )
