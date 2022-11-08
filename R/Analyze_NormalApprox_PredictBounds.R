@@ -99,9 +99,9 @@ Analyze_NormalApprox_PredictBounds <- function(
       "Metric"
     )
   } else if (strType == "rate") {
-    dfBounds <- tidyr::expand_grid(Threshold = vThreshold, LogDenominator = vRange) %>%
+    dfBounds <- tidyr::expand_grid(Threshold = vThreshold, Denominator = vRange) %>%
       mutate(
-        Denominator = exp(.data$LogDenominator),
+        LogDenominator = log(.data$Denominator),
         # Calculate expected rate at given exposure.
         vMu = sum(dfTransformed$Numerator) / sum(dfTransformed$Denominator),
         phi = mean(((dfTransformed$Metric - sum(dfTransformed$Numerator) / sum(dfTransformed$Denominator)) /
