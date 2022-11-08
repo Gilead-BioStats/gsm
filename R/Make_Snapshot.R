@@ -215,7 +215,7 @@ bQuiet = TRUE
     meta_workflow = meta_workflow,
     meta_param = meta_param
   ) %>%
-    purrr::map(~.x %>% mutate(gsm_analysis_date = gsm_analysis_date))
+    purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
   if (!is.null(cPath)) {
     # write each snapshot item to location

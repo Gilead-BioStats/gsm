@@ -29,25 +29,26 @@
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
-#' dfTransformed <- Transform_Rate(dfInput, strNumeratorCol = "Count",
-#'                                          strDenominatorCol = "Total",
-#'                                          strGroupCol = "StudyID"
-#'                                          )
+#' dfTransformed <- Transform_Rate(dfInput,
+#'   strNumeratorCol = "Count",
+#'   strDenominatorCol = "Total",
+#'   strGroupCol = "StudyID"
+#' )
 #'
 #' dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "binary")
-#' dfFlagged <- Flag( dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.2) )
+#' dfFlagged <- Flag(dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.2))
 #'
 #'
 #'
 #' dfInput <- PD_Map_Raw()
 #' dfTransformed <- Transform_Rate(dfInput,
-#'                                 strGroupCol = "StudyID",
-#'                                 strNumeratorCol = "Count",
-#'                                 strDenominatorCol = "Exposure"
-#'                                 )
+#'   strGroupCol = "StudyID",
+#'   strNumeratorCol = "Count",
+#'   strDenominatorCol = "Exposure"
+#' )
 #'
-#' dfAnalyzed <- Analyze_QTL(dfTransformed , strOutcome = "rate")
-#' dfFlagged <- Flag( dfAnalyzed, vThreshold = c(NA, 0.01) )
+#' dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "rate")
+#' dfFlagged <- Flag(dfAnalyzed, vThreshold = c(NA, 0.01))
 #'
 #' @import dplyr
 #' @importFrom stats binom.test poisson.test
@@ -55,28 +56,30 @@
 #' @export
 
 Analyze_QTL <- function(
-    dfTransformed,
-    nConfLevel = 0.95,
-    strOutcome = "binary",
-    bQuiet = TRUE
+  dfTransformed,
+  nConfLevel = 0.95,
+  strOutcome = "binary",
+  bQuiet = TRUE
 ) {
-
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
     "One or more of these columns: GroupID, Numerator, or Denominator not found in dfTransformed" = all(c("GroupID", "Numerator", "Denominator") %in% names(dfTransformed)),
     "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]]))
   )
 
-  if(strOutcome == "binary"){
-    lModel <- stats::binom.test( dfTransformed$Numerator, dfTransformed$Denominator,
-                          alternative = "two.sided",
-                          conf.level = nConfLevel)
+  if (strOutcome == "binary") {
+    lModel <- stats::binom.test(dfTransformed$Numerator, dfTransformed$Denominator,
+      alternative = "two.sided",
+      conf.level = nConfLevel
+    )
   }
 
-  if(strOutcome == "rate"){
-    lModel <- stats::poisson.test( dfTransformed$Numerator, T= dfTransformed$Denominator,
-                            alternative = "two.sided",
-                            conf.level = nConfLevel)
+  if (strOutcome == "rate") {
+    lModel <- stats::poisson.test(dfTransformed$Numerator,
+      T = dfTransformed$Denominator,
+      alternative = "two.sided",
+      conf.level = nConfLevel
+    )
   }
 
   dfAnalyzed <- dfTransformed %>%
@@ -85,9 +88,9 @@ Analyze_QTL <- function(
       ConfLevel = nConfLevel,
       Estimate = lModel$estimate,
       LowCI = lModel$conf.int[1],
-      UpCI = lModel$conf.int[2], 
-      )%>%
-    mutate(Score=.data$LowCI)
+      UpCI = lModel$conf.int[2],
+    ) %>%
+    mutate(Score = .data$LowCI)
 
   return(dfAnalyzed)
 }

@@ -10,18 +10,17 @@
 #' @param lMapping `list` List of data-domain mappings.
 #'
 #' @examples
-#' qtl <- RunQTL('qtl0003')
+#' qtl <- RunQTL("qtl0003")
 #'
 #' @importFrom yaml read_yaml
 #'
 #' @export
 RunQTL <- function(
-    strName = NULL,
-    lWorkflow = NULL,
-    lData = NULL,
-    lMapping = NULL
+  strName = NULL,
+  lWorkflow = NULL,
+  lData = NULL,
+  lMapping = NULL
 ) {
-
   bothNull <- is.null(strName) & is.null(lWorkflow)
 
   stopifnot(
@@ -34,7 +33,6 @@ RunQTL <- function(
     stopifnot(
       "Default workflow does not exist. Check value passed in `strName`" = !is.null(lWorkflow)
     )
-
   }
 
   if (is.null(lData)) {
@@ -61,5 +59,4 @@ RunQTL <- function(
   )
 
   return(qtl)
-
 }

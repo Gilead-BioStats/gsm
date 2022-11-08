@@ -29,7 +29,6 @@
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
   allChecks <- map(names(lAssessments), function(assessment) {
     workflow <- lAssessments[[assessment]][["steps"]] %>%
-
       imap_dfr(
         ~ bind_cols(step = .x[["name"]], domain = .x[["inputs"]], temp_index = .y)
       ) %>%
@@ -49,11 +48,9 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
 
     allChecks <- map(mapTheseSteps, function(step) {
-
       domains <- names(step[!names(step) %in% c("mapping", "spec", "status")])
 
       map(domains, function(domain) {
-
         status <- step[[domain]][["status"]]
 
         step[[domain]][["tests_if"]] %>%

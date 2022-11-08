@@ -125,20 +125,18 @@ PD_Assess <- function(
 
     # dfAnalyzed --------------------------------------------------------------
     if (strMethod == "NormalApprox") {
-
       lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
         dfTransformed = lData$dfTransformed,
         strType = strType,
         bQuiet = bQuiet
-        )
+      )
 
       lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
         strType = strType,
         bQuiet = bQuiet
-        )
-
+      )
     } else if (strMethod == "poisson") {
       lData$dfAnalyzed <- gsm::Analyze_Poisson(lData$dfTransformed, bQuiet = bQuiet)
       lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)

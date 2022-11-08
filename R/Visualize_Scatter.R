@@ -28,7 +28,6 @@ Visualize_Scatter <- function(
   strGroupLabel = NULL,
   strUnit = "days"
 ) {
-
   groupLabel <- ifelse(
     is.null(strGroupLabel),
     "GroupID: ",
