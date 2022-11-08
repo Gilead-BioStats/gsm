@@ -58,6 +58,7 @@ of the column.}
 \item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}}
 \item \code{barMetric}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}} using strType == "metric"
 \item \code{barScore}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}} using strType == "score"
+\item \code{dfBounds}, returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} when \code{strMethod == "NormalApprox"}
 }
 \item \code{list} \code{lChecks}, a named list with:
 \itemize{

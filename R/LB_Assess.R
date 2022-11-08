@@ -29,6 +29,7 @@
 #'   - `dfAnalyzed`, returned by [gsm::Analyze_Fisher()] or [gsm::Analyze_Identity()]
 #'   - `dfFlagged`, returned by [gsm::Flag_Fisher()] or [gsm::Flag()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
+#'   - `dfBounds`, returned by [gsm::Analyze_NormalApprox_PredictBounds()] when `strMethod == "NormalApprox"`
 #' - `list` `lCharts`, a named list with:
 #'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when strMethod != "identity"
 #'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()]

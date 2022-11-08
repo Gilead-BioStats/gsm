@@ -48,6 +48,7 @@ of the column.}
 \item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
 \item \code{dfFlagged}, returned by \code{\link[=Flag_Fisher]{Flag_Fisher()}} or \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
+\item \code{dfBounds}, returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} when \code{strMethod == "NormalApprox"}
 }
 \item \code{list} \code{lCharts}, a named list with:
 \itemize{

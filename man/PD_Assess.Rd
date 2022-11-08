@@ -52,7 +52,8 @@ of the column.}
 \item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
 \item \code{dfFlagged}, returned by \code{\link[=Flag_Poisson]{Flag_Poisson()}} or \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
-\item \code{dfBounds}, returned by \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}} only when strMethod == "poisson"
+\item \code{dfBounds}, returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}
+when \code{strMethod == "NormalApprox"} or \code{strMethod == "poisson"}
 }
 \item \code{list} \code{lCharts}, a named list with:
 \itemize{

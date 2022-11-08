@@ -34,6 +34,7 @@
 #'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()]
 #'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "metric"
 #'   - `barScore`, a ggplot2 object returned by [gsm::Visualize_Score()] using strType == "score"
+#'   - `dfBounds`, returned by [gsm::Analyze_NormalApprox_PredictBounds()] when `strMethod == "NormalApprox"`
 #' - `list` `lChecks`, a named list with:
 #'   - `dfInput`, a named list returned by [gsm::is_mapping_valid()]
 #'   - `status`, a boolean returned by [gsm::is_mapping_valid()]
@@ -160,7 +161,7 @@ Disp_Assess <- function(
     } else if (strMethod == "identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     } else if (strMethod == "qtl") {
-      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold) 
+      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold)
     }
 
     flag_function_name <- switch(strMethod,
