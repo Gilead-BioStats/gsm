@@ -10,9 +10,10 @@
 #' methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
-#' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
-#' `c(.01, .05)` for Fisher's exact test (`strMethod` = "fisher") and `c(3.491, 5.172)` for a nominal assessment (`strMethod` = "identity").
+#' @param vThreshold `numeric` Threshold specification, a vector of length 2 or 4 that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation (`strMethod = "NormalApprox"`),
+#' `c(.01, .05)` for Fisher's exact test (`strMethod = "fisher"`), and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
+#'   - `"NormalApprox"` (default)
 #'   - `"fisher"`
 #'   - `"identity"`
 #' @param strType `character` Statistical outcome type. Valid values:
@@ -26,9 +27,10 @@
 #' @return `list` `lData`, a named list with:
 #' - each data frame in the data pipeline
 #'   - `dfTransformed`, returned by [gsm::Transform_Rate()]
-#'   - `dfAnalyzed`, returned by [gsm::Analyze_Fisher()] or [gsm::Analyze_Identity()]
-#'   - `dfFlagged`, returned by [gsm::Flag_Fisher()] or [gsm::Flag()]
+#'   - `dfAnalyzed`, returned by [gsm::Analyze_NormalApprox()], [gsm::Analyze_Fisher()], or [gsm::Analyze_Identity()]
+#'   - `dfFlagged`, returned by [gsm::Flag_NormalApprox()], [gsm::Flag_Fisher()], or [gsm::Flag()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
+#'   - `dfBounds`, returned by [gsm::Analyze_NormalApprox_PredictBounds()] when `strMethod == "NormalApprox"`
 #' - `list` `lCharts`, a named list with:
 #'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when strMethod != "identity"
 #'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()]

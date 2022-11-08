@@ -1,12 +1,13 @@
 #' Funnel Plot Analysis with Normal Approximation - Predicted Boundaries
 #'
 #' @details
-#' Apply funnel plot analysis with normal approximation to site level data and then calculates predicted
-#' percentages/rates and upper- and lower- bounds for across the full range of sample sizes/total exposure values.
+#' Applies a funnel plot analysis with normal approximation to site-level data and then calculates predicted
+#' percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values.
 #'
 #' @section Statistical Methods:
-#' This function applies funnel plots analysis with normal approximation to site-level data and then calculates
-#' predicted percentages/rates and upper- and lower- bounds (funnels) for across the full range of sample sizes/total exposure values.
+#' This function applies a funnel plot analysis with normal approximation to site-level data and then calculates
+#' predicted percentages/rates and upper- and lower- bounds (funnels) based on the standard deviation from the mean
+#' across the full range of sample sizes/total exposure values.
 #'
 #' @section Data Specification:
 #' The input data (`dfTransformed`) for Analyze_NormalApprox is typically created using
@@ -17,8 +18,8 @@
 #' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
 #'
 #' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}.
-#' @param vThreshold `numeric` upper and lower boundaries in residual space. Should be identical to
-#' the thresholds used AE_Assess().
+#' @param vThreshold `numeric` upper and lower boundaries based on standard deviation. Should be identical to
+#' the thresholds used in `*_Assess()` functions.
 #' @param nStep `numeric` step size of imputed bounds.
 #' @param strType `character` Statistical method. Valid values:
 #'   - `"binary"` (default)
