@@ -17,11 +17,12 @@ LB_Assess(
 \arguments{
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
-\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to
-\code{c(.01, .05)} for Fisher's exact test (\code{strMethod} = "fisher") and \code{c(3.491, 5.172)} for a nominal assessment (\code{strMethod} = "identity").}
+\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 or 4 that defaults to \code{c(-3, -2, 2, 3)} for a Normal Approximation (\code{strMethod = "NormalApprox"}),
+\code{c(.01, .05)} for Fisher's exact test (\code{strMethod = "fisher"}), and \code{c(3.491, 5.172)} for a nominal assessment (\code{strMethod = "identity"}).}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
+\item \code{"NormalApprox"} (default)
 \item \code{"fisher"}
 \item \code{"identity"}
 }}
@@ -45,8 +46,8 @@ of the column.}
 \item each data frame in the data pipeline
 \itemize{
 \item \code{dfTransformed}, returned by \code{\link[=Transform_Rate]{Transform_Rate()}}
-\item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
-\item \code{dfFlagged}, returned by \code{\link[=Flag_Fisher]{Flag_Fisher()}} or \code{\link[=Flag]{Flag()}}
+\item \code{dfAnalyzed}, returned by \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}}, \code{\link[=Analyze_Fisher]{Analyze_Fisher()}}, or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
+\item \code{dfFlagged}, returned by \code{\link[=Flag_NormalApprox]{Flag_NormalApprox()}}, \code{\link[=Flag_Fisher]{Flag_Fisher()}}, or \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
 \item \code{dfBounds}, returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} when \code{strMethod == "NormalApprox"}
 }

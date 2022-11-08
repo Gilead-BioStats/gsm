@@ -2,12 +2,12 @@
 #'
 #' @details
 #'
-#' Fits a Poisson model to site level data and then calculates predicted count values and upper- and
+#' Fits a Poisson model to site-level data and then calculates predicted count values and upper- and
 #' lower- bounds for across the full range of exposure values.
 #'
 #' @section Statistical Methods:
-#' This function fits a poisson model to site-level data and then calculates residuals for each
-#' site. The poisson model is run using standard methods in the `stats` package by fitting a `glm`
+#' This function fits a Poisson model to site-level data and then calculates residuals for each
+#' site. The Poisson model is run using standard methods in the `stats` package by fitting a `glm`
 #' model with family set to `poisson` using a "log" link. Upper and lower boundary values are then
 #' calculated using the method described here TODO: Add link.
 #'

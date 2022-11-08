@@ -1,12 +1,12 @@
 #' Poisson Analysis - Site Residuals
 #'
 #' @details
-#' Fits a Poisson model to site level data and adds columns capturing Residual and Predicted Count for each site.
+#' Fits a Poisson model to site-level data and adds columns capturing Residual and Predicted Count for each site.
 #'
 #' @section Statistical Methods:
 #'
-#' This function fits a poisson model to site-level data and then calculates residuals for each site.
-#' The poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family
+#' This function fits a Poisson model to site-level data and then calculates residuals for each site.
+#' The Poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family
 #' set to `poisson` using a "log" link. Site-level residuals are calculated  `stats::predict.glm` via `broom::augment`.
 #'
 #' @section Data Specification:

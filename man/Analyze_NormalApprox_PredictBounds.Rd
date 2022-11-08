@@ -36,14 +36,14 @@ range of observed values.
 Funnel Plot Analysis with Normal Approximation - Predicted Boundaries
 }
 \details{
-Apply funnel plot analysis with normal approximation to site level data and then calculates predicted
-percentages/rates and upper- and lower- bounds for across the full range of sample sizes/total exposure values.
+Applies a funnel plot analysis with normal approximation to site-level data and then calculates predicted
+percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values.
 }
 \section{Statistical Methods}{
 
-This function applies funnel plots analysis with normal approximation to site-level data and then calculates
-predicted percentages/rates and upper- and lower- bounds (funnels) based on standard deviation from the mean
-for across the full range of sample sizes/total exposure values.
+This function applies a funnel plot analysis with normal approximation to site-level data and then calculates
+predicted percentages/rates and upper- and lower- bounds (funnels) based on the standard deviation from the mean
+across the full range of sample sizes/total exposure values.
 }
 
 \section{Data Specification}{

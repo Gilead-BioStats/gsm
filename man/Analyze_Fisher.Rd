@@ -31,9 +31,9 @@ The function \code{Analyze_Fisher} utilizes \code{stats::fisher.test} to generat
 estimate of odds ratio as well as p-value using the Fisher’s exact test with site-level count
 data. For each site, Fisher’s exact test is conducted by comparing to all other sites combined
 in a 2×2 contingency table. The p-values are then used as a scoring metric in \code{{gsm}} to flag
-possible outliers. The default in \code{stats::fisher.test} uses two-sided test (equivalent to testing
-the null of OR=1) and not to compute p-values by Monte Carlo simulation unless \code{simulate.p.value = TRUE} is
-specified.Sites with p-values less than 0.05 from the Fisher’s exact test analysis are flagged by default.
+possible outliers. The default in \code{stats::fisher.test} uses a two-sided test (equivalent to testing
+the null of OR = 1) and does not compute p-values by Monte Carlo simulation unless \code{simulate.p.value = TRUE}.
+Sites with p-values less than 0.05 from the Fisher’s exact test analysis are flagged by default.
 The significance level was set at a common choice.
 }
 
@@ -44,8 +44,8 @@ The input data (\code{dfTransformed}) for Analyze_Fisher is typically created us
 \itemize{
 \item \code{GroupID} - Site ID
 \item \code{Numerator} - Total number of participants at site with event of interest
-\item \code{Denominator} - TBD
-\item \code{Metric} - TBD
+\item \code{Denominator} - Total number of participants at site/Total number of days of exposure at site
+\item \code{Metric} - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
 }
 }
 
