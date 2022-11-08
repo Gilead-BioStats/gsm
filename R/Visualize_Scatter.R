@@ -34,9 +34,11 @@ Visualize_Scatter <- function(
     "GroupID: ",
     strGroupLabel
   )
-  # TODO: account for incomplete set of flags
+
+  # Account for incomplete set of flags
   dfFlagged$FlagAbs <- abs(dfFlagged$Flag)
-  flagBreaks <- as.character(unique(sort(dfFlagged$FlagAbs)))
+  maxFlag <- max(dfFlagged$FlagAbs)
+  flagBreaks <- as.character(seq(0, maxFlag))
   flagValues <- c("#999999", "#FADB14", "#FF4D4F")[1:length(flagBreaks)]
 
   # Define tooltip for use in plotly.

@@ -96,7 +96,7 @@ LB_Map_Raw <- function(
       ) %>%
       mutate(
         Count = if_else(
-          .data$Grade %in% lMapping[["dfLB"]][["strGradeAnyVal"]],
+          .data$Grade %in% lMapping[["dfLB"]][["strGradeHighVal"]],
           1,
           0
         ),

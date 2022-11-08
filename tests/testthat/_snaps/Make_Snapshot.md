@@ -287,7 +287,7 @@
       
       -- Initializing `kri0005` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 4: `FilterDomain` --
+      -- Workflow Step 1 of 3: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -300,21 +300,7 @@
       v `FilterDomain()` Successful
       Saving dfLB to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfLB domain
-      Filtering on `toxgr %in% c("3", "4")`.
-      v Filtered on `toxgr %in% c("3 and 4")` to drop 914 rows from 914 to 0 rows.
-      ! WARNING: Filtered data has 0 rows.
-      v `FilterDomain()` Successful
-      Saving dfLB to `lWorkflow$lData`
-      
-      -- Workflow Step 3 of 4: `LB_Map_Raw` --
+      -- Workflow Step 2 of 3: `LB_Map_Raw` --
       
       Preparing parameters for `LB_Map_Raw()` ...
       Calling `LB_Map_Raw()` ...
@@ -325,11 +311,11 @@
       
       -- Initializing `LB_Map_Raw()` --
       
-      v `LB_Map_Raw()` returned output with 50 rows.
+      v `LB_Map_Raw()` returned output with 962 rows.
       v `LB_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
-      -- Workflow Step 4 of 4: `LB_Assess` --
+      -- Workflow Step 3 of 3: `LB_Assess` --
       
       Preparing parameters for `LB_Assess()` ...
       Calling `LB_Assess()` ...
@@ -340,7 +326,7 @@
       
       -- Initializing `LB_Assess()` --
       
-      Input data has 50 rows.
+      Input data has 962 rows.
       v `Transform_Rate()` returned output with 40 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.

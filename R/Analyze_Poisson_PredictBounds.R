@@ -19,10 +19,11 @@
 #' - `Denominator` - Number of days of exposure
 #'
 #' @param dfTransformed `data.frame` data.frame in format produced by
-#' \code{\link{Transform_Rate}}. Must include GroupID, N, Numerator and Denominator
+#' \code{\link{Transform_Rate}}. Must include GroupID, N, Numerator and Denominator.
 #' @param vThreshold `numeric` upper and lower boundaries in residual space. Should be identical to
 #' the thresholds used AE_Assess().
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#' @param nStep `numeric` step size of imputed bounds.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @return `data.frame` containing predicted boundary values with upper and lower bounds across the
 #' range of observed values.
@@ -45,7 +46,12 @@
 #'
 #' @export
 
-Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), bQuiet = TRUE) {
+Analyze_Poisson_PredictBounds <- function(
+    dfTransformed,
+    vThreshold = c(-5, 5),
+    nStep = 1,
+    bQuiet = TRUE
+) {
   if (is.null(vThreshold)) {
     vThreshold <- c(-5, 5)
     cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-5, 5)")
@@ -68,9 +74,9 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
 
   # Calculate expected event count and predicted bounds across range of total exposure.
   vRange <- seq(
-    min(dfTransformed$LogDenominator) - 0.05,
-    max(dfTransformed$LogDenominator) + 0.05,
-    by = 0.05
+    min(dfTransformed$LogDenominator) - nStep,
+    max(dfTransformed$LogDenominator) + nStep,
+    by = nStep
   )
 
   dfBounds <- tidyr::expand_grid(Threshold = vThreshold, LogDenominator = vRange) %>%
