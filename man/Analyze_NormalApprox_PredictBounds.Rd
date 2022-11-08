@@ -15,8 +15,8 @@ Analyze_NormalApprox_PredictBounds(
 \arguments{
 \item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}.}
 
-\item{vThreshold}{\code{numeric} upper and lower boundaries in residual space. Should be identical to
-the thresholds used AE_Assess().}
+\item{vThreshold}{\code{numeric} upper and lower boundaries based on standard deviation. Should be identical to
+the thresholds used in \verb{*_Assess()} functions.}
 
 \item{nStep}{\code{numeric} step size of imputed bounds.}
 
@@ -42,7 +42,8 @@ percentages/rates and upper- and lower- bounds for across the full range of samp
 \section{Statistical Methods}{
 
 This function applies funnel plots analysis with normal approximation to site-level data and then calculates
-predicted percentages/rates and upper- and lower- bounds (funnels) for across the full range of sample sizes/total exposure values.
+predicted percentages/rates and upper- and lower- bounds (funnels) based on standard deviation from the mean
+for across the full range of sample sizes/total exposure values.
 }
 
 \section{Data Specification}{

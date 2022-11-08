@@ -14,11 +14,12 @@
 #'   `c(-7, -5, 5, 7)` for a Poisson model (`strMethod = "poisson"`) and a vector of length 2 that defaults to `c(0.00006, 0.01)`
 #'   for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
-#'   - `"poisson"` (default)
+#'   - `"NormalApprox"` (default)
+#'   - `"poisson"`
 #'   - `"identity"`
 #' @param strType `character` Statistical outcome type. Valid values:
-#'   - `"binary"` (default)
-#'   - `"rate"`
+#'   - `"binary"`
+#'   - `"rate"` (default)
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`.

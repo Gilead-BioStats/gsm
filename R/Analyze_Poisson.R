@@ -5,7 +5,9 @@
 #'
 #' @section Statistical Methods:
 #'
-#' This function fits a poisson model to site-level data and then calculates residuals for each site. The poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family set to `poisson` using a "log" link. Site-level residuals are calculated  `stats::predict.glm` via `broom::augment`.
+#' This function fits a poisson model to site-level data and then calculates residuals for each site.
+#' The poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family
+#' set to `poisson` using a "log" link. Site-level residuals are calculated  `stats::predict.glm` via `broom::augment`.
 #'
 #' @section Data Specification:
 #'
