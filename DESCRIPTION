@@ -24,7 +24,7 @@ Imports:
     fontawesome (>= 0.2.2),
     glue,
     gt,
-    ggplot2,
+    ggplot2 (<= 3.3.6),
     janitor,
     knitr,
     lamW,
