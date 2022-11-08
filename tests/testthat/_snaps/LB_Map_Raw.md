@@ -112,7 +112,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["treatment_emergent"]
+              "value": ["lb_te"]
             },
             {
               "type": "character",

@@ -7,15 +7,18 @@
 Analyze_NormalApprox_PredictBounds(
   dfTransformed,
   vThreshold = c(-3, -2, 2, 3),
+  nStep = 1,
   strType = "binary",
   bQuiet = TRUE
 )
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}}
+\item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}.}
 
 \item{vThreshold}{\code{numeric} upper and lower boundaries in residual space. Should be identical to
 the thresholds used AE_Assess().}
+
+\item{nStep}{\code{numeric} step size of imputed bounds.}
 
 \item{strType}{\code{character} Statistical method. Valid values:
 \itemize{

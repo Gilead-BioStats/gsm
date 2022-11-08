@@ -19,11 +19,11 @@
 #' - `Denominator` - Number of days of exposure
 #'
 #' @param dfTransformed `data.frame` data.frame in format produced by
-#' \code{\link{Transform_Rate}}. Must include GroupID, N, Numerator and Denominator
+#' \code{\link{Transform_Rate}}. Must include GroupID, N, Numerator and Denominator.
 #' @param vThreshold `numeric` upper and lower boundaries in residual space. Should be identical to
 #' the thresholds used AE_Assess().
-#' @param nStep `numeric` step size of imputed bounds
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#' @param nStep `numeric` step size of imputed bounds.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @return `data.frame` containing predicted boundary values with upper and lower bounds across the
 #' range of observed values.

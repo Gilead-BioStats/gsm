@@ -16,10 +16,10 @@
 #' - `Denominator` - Total number of participants at site/Total number of days of exposure at site
 #' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
 #'
-#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
+#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}.
 #' @param vThreshold `numeric` upper and lower boundaries in residual space. Should be identical to
 #' the thresholds used AE_Assess().
-#' @param nStep `numeric` step size of imputed bounds
+#' @param nStep `numeric` step size of imputed bounds.
 #' @param strType `character` Statistical method. Valid values:
 #'   - `"binary"` (default)
 #'   - `"rate"`

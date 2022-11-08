@@ -7,17 +7,20 @@
 Analyze_Poisson_PredictBounds(
   dfTransformed,
   vThreshold = c(-5, 5),
+  nStep = 1,
   bQuiet = TRUE
 )
 }
 \arguments{
 \item{dfTransformed}{\code{data.frame} data.frame in format produced by
-\code{\link{Transform_Rate}}. Must include GroupID, N, Numerator and Denominator}
+\code{\link{Transform_Rate}}. Must include GroupID, N, Numerator and Denominator.}
 
 \item{vThreshold}{\code{numeric} upper and lower boundaries in residual space. Should be identical to
 the thresholds used AE_Assess().}
 
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+\item{nStep}{\code{numeric} step size of imputed bounds.}
+
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 }
 \value{
 \code{data.frame} containing predicted boundary values with upper and lower bounds across the

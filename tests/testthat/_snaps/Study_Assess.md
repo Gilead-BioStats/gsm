@@ -31,7 +31,7 @@
     Code
       names(result$kri0005)
     Output
-      [1] "steps"   "path"    "name"    "lData"   "lChecks" "bStatus"
+      [1] "steps"    "path"     "name"     "lData"    "lChecks"  "bStatus"  "lResults"
 
 ---
 
@@ -795,7 +795,7 @@
       [1] "siresn"
       
       $AE_Map_Raw$mapping$dfLB$strTreatmentEmergentCol
-      [1] "treatment_emergent"
+      [1] "lb_te"
       
       $AE_Map_Raw$mapping$dfLB$strTreatmentEmergentVal
       [1] "Y"
@@ -1218,7 +1218,7 @@
       -- Checking Input Data for `FilterDomain()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: treatment_emergent
+      x the following columns not found in df: lb_te
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
