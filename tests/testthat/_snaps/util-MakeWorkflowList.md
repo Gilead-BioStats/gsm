@@ -333,55 +333,33 @@
       
       $kri0005[[2]]
       $kri0005[[2]]$name
-      [1] "FilterDomain"
+      [1] "LB_Map_Raw"
       
       $kri0005[[2]]$inputs
-      [1] "dfLB"
+      [1] "dfSUBJ" "dfLB"  
       
       $kri0005[[2]]$output
-      [1] "dfLB"
-      
-      $kri0005[[2]]$params
-      $kri0005[[2]]$params$strDomain
-      [1] "dfLB"
-      
-      $kri0005[[2]]$params$strColParam
-      [1] "strGradeCol"
-      
-      $kri0005[[2]]$params$strValParam
-      [1] "strGradeHighVal"
-      
+      [1] "dfInput"
       
       
       $kri0005[[3]]
       $kri0005[[3]]$name
-      [1] "LB_Map_Raw"
-      
-      $kri0005[[3]]$inputs
-      [1] "dfSUBJ" "dfLB"  
-      
-      $kri0005[[3]]$output
-      [1] "dfInput"
-      
-      
-      $kri0005[[4]]
-      $kri0005[[4]]$name
       [1] "LB_Assess"
       
-      $kri0005[[4]]$inputs
+      $kri0005[[3]]$inputs
       [1] "dfInput"
       
-      $kri0005[[4]]$output
+      $kri0005[[3]]$output
       [1] "lResults"
       
-      $kri0005[[4]]$params
-      $kri0005[[4]]$params$strGroup
+      $kri0005[[3]]$params
+      $kri0005[[3]]$params$strGroup
       [1] "Site"
       
-      $kri0005[[4]]$params$vThreshold
+      $kri0005[[3]]$params$vThreshold
       NULL
       
-      $kri0005[[4]]$params$strMethod
+      $kri0005[[3]]$params$strMethod
       [1] "NormalApprox"
       
       
