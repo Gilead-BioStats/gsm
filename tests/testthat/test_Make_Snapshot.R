@@ -31,9 +31,6 @@ bQuiet <- TRUE
 
 snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments)
 
-tool_outputs <- read.csv(system.file("/standardized_outputs.csv", package = "gsm"))
-gsm_outputs <- read.csv(system.file("/standards/gsm_outputs.csv", package = "gsm"))
-
 ################################################################################################################
 
 test_that("output is generated as expected", {

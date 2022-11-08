@@ -262,12 +262,12 @@ tool_input %>%
 The following tables are all contained in the output of `gsm::Make_Snapshot()`:
 
 ```{r echo = FALSE}
-tool_output <- read.csv("standardized_outputs.csv")
-
-tool_output %>%
+gsm::rbm_data_spec %>%
+  filter(System == "Gismo") %>% 
+  select(-System) %>% 
   gt() %>%
-  cols_label(Table.Name = md("**Table Name**"),
-             Column.Name = md("**Column Name**"),
+  cols_label(Table = md("**Table Name**"),
+             Column = md("**Column Name**"),
              Description = md("**Description**")) %>%
   tab_style(style = cell_text(size = "small"),
             locations = cells_body(columns = everything(), rows = everything())) %>%
