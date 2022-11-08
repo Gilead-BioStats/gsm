@@ -18,13 +18,13 @@ PD_Assess(
 \arguments{
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
-\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 4 that defaults to
-\code{c(-7, -5, 5, 7)} for a Poisson model (\code{strMethod = "poisson"}) and a vector of length 2
-that defaults to \code{c(0.000895, 0.003059)} for a nominal assessment (\code{strMethod = "identity"}).}
+\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 or 4 that defaults to \code{c(-3, -2, 2, 3)} for a Normal Approximation (\code{strMethod = "NormalApprox"}),
+\code{c(-7, -5, 5, 7)} for a Poisson model (\code{strMethod = "poisson"}), and \code{c(0.000895, 0.003059)} for a nominal assessment (\code{strMethod = "identity"}).}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
-\item \code{"poisson"} (default)
+\item \code{"NormalApprox"} (default)
+\item \code{"poisson"}
 \item \code{"identity"}
 }}
 
@@ -49,10 +49,10 @@ of the column.}
 \item each data frame in the data pipeline
 \itemize{
 \item \code{dfTransformed}, returned by \code{\link[=Transform_Rate]{Transform_Rate()}}
-\item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
-\item \code{dfFlagged}, returned by \code{\link[=Flag_Poisson]{Flag_Poisson()}} or \code{\link[=Flag]{Flag()}}
+\item \code{dfAnalyzed}, returned by \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}}, \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
+\item \code{dfFlagged}, returned by \code{\link[=Flag_NormalApprox]{Flag_NormalApprox()}}, \code{\link[=Flag_Poisson]{Flag_Poisson()}}, or \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
-\item \code{dfBounds}, returned by \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}} only when strMethod == "poisson"
+\item \code{dfBounds}, returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} when \code{strMethod == "NormalApprox"} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}} when \code{strMethod == "poisson"}
 }
 \item \code{list} \code{lCharts}, a named list with:
 \itemize{
@@ -88,13 +88,20 @@ methods are described below.
 }
 
 \section{Statistical assumptions}{
-A Poisson model is used to generate estimates and p-values for each site
-(as specified with the \code{strMethod} parameter). Those model outputs are
-then used to flag possible outliers using the thresholds specified in
-\code{vThreshold}. Sites with an estimate less than -5 are flagged as -1 and
-greater than 5 are flagged as 1 by default.
+The default function \code{Analyze_NormalApprox} applies funnel plots using
+asymptotic limits based on normal approximation of binomial distribution
+for the binary outcome, or normal approximation of Poisson distribution
+for the rate outcome with volume (the sample sizes or total exposure of
+the sites) to assess data quality and safety.
 
-See \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} for additional
+Alternatively, a Poisson model is used to generate estimates and
+p-values for each site (as specified with the \code{strMethod} parameter).
+Those model outputs are then used to flag possible outliers using the
+thresholds specified in \code{vThreshold}. Sites with an estimate less than
+-5 are flagged as -1 and greater than 5 are flagged as 1 by default.
+
+See \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}} or
+\code{\link[=Analyze_Poisson]{Analyze_Poisson()}} for additional
 details about the statistical methods and their assumptions.
 }
 
