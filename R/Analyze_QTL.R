@@ -13,7 +13,7 @@
 #'
 #' @section Data Specification:
 #'
-#' The input data (`dfTransformed`) for AnalyzeQTL_Binary is typically created using \code{\link{Transform_Rate}} and should be one record for the entire study with required columns for:
+#' The input data (`dfTransformed`) for Analyze_QTL is typically created using \code{\link{Transform_Rate}} and should be one record for the entire study with required columns for:
 #' - `GroupID` - GroupID should be the StudyID
 #' - `N` - Total number of participants at site
 #' - `Numerator` - Total number of participants at site with event of interest
@@ -25,7 +25,7 @@
 #' @param strOutcome `character` indicates statistical test used for QTL analysis. One of `rate` or `binary`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` with one row with columns: GroupID, N, Numerator, Denominator, Metric, Method, ConfLevel, Estimate, LowCI, UpCI.
+#' @return `data.frame` with one row with columns: GroupID, N, Numerator, Denominator, Metric, Method, ConfLevel, Estimate, LowCI, UpCI and Score.
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
@@ -34,7 +34,7 @@
 #'                                          strGroupCol = "StudyID"
 #'                                          )
 #'
-#' dfAnalyzed <- AnalyzeQTL(dfTransformed, strOutcome = "binary")
+#' dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "binary")
 #' dfFlagged <- Flag( dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.2) )
 #'
 #'
@@ -46,15 +46,15 @@
 #'                                 strDenominatorCol = "Exposure"
 #'                                 )
 #'
-#' dfAnalyzed <- AnalyzeQTL(dfTransformed , strOutcome = "rate")
-#' dfFlagged <- Flag( dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.01) )
+#' dfAnalyzed <- Analyze_QTL(dfTransformed , strOutcome = "rate")
+#' dfFlagged <- Flag( dfAnalyzed, vThreshold = c(NA, 0.01) )
 #'
 #' @import dplyr
 #' @importFrom stats binom.test poisson.test
 #'
 #' @export
 
-AnalyzeQTL <- function(
+Analyze_QTL <- function(
     dfTransformed,
     nConfLevel = 0.95,
     strOutcome = "binary",
@@ -85,8 +85,9 @@ AnalyzeQTL <- function(
       ConfLevel = nConfLevel,
       Estimate = lModel$estimate,
       LowCI = lModel$conf.int[1],
-      UpCI = lModel$conf.int[2]
-      )
+      UpCI = lModel$conf.int[2], 
+      )%>%
+    mutate(Score=.data$LowCI)
 
   return(dfAnalyzed)
 }

@@ -16,9 +16,10 @@
 #' - `Denominator` - Total number of participants at site/Total number of days of exposure at site
 #' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
 #'
-#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
+#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}.
 #' @param vThreshold `numeric` upper and lower boundaries in residual space. Should be identical to
 #' the thresholds used AE_Assess().
+#' @param nStep `numeric` step size of imputed bounds.
 #' @param strType `character` Statistical method. Valid values:
 #'   - `"binary"` (default)
 #'   - `"rate"`
@@ -58,6 +59,7 @@
 Analyze_NormalApprox_PredictBounds <- function(
     dfTransformed,
     vThreshold = c(-3, -2, 2, 3),
+    nStep = 1,
     strType = "binary",
     bQuiet = TRUE
 ) {
@@ -72,9 +74,9 @@ Analyze_NormalApprox_PredictBounds <- function(
 
   # Calculate expected event count and predicted bounds across range of total exposure.
   vRange <- seq(
-    min(dfTransformed$Denominator) - 0.05,
-    max(dfTransformed$Denominator) + 0.05,
-    by = 0.05
+    min(dfTransformed$Denominator) - nStep,
+    max(dfTransformed$Denominator) + nStep,
+    by = nStep
   )
 
   if (strType == "binary") {
@@ -99,9 +101,9 @@ Analyze_NormalApprox_PredictBounds <- function(
       "Metric"
     )
   } else if (strType == "rate") {
-    dfBounds <- tidyr::expand_grid(Threshold = vThreshold, LogDenominator = vRange) %>%
+    dfBounds <- tidyr::expand_grid(Threshold = vThreshold, Denominator = vRange) %>%
       mutate(
-        Denominator = exp(.data$LogDenominator),
+        LogDenominator = log(.data$Denominator),
         # Calculate expected rate at given exposure.
         vMu = sum(dfTransformed$Numerator) / sum(dfTransformed$Denominator),
         phi = mean(((dfTransformed$Metric - sum(dfTransformed$Numerator) / sum(dfTransformed$Denominator)) /
