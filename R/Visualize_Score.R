@@ -83,8 +83,7 @@ Visualize_Score <- function(
         geom_hline(
           yintercept = sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator),
           linetype = "dashed",
-          color = "#FF4D4F",
-          lwd = 1
+          color = "#FF4D4F"
         )
     }
   }
@@ -134,7 +133,7 @@ Visualize_Score <- function(
           yintercept = ThresholdLow,
           linetype = "dashed",
           color = "#FF4D4F",
-          lwd = 1
+          linewidth = 1
         )
     }
 
@@ -144,7 +143,7 @@ Visualize_Score <- function(
           yintercept = ThresholdHigh,
           linetype = "dashed",
           color = "#FF4D4F",
-          lwd = 1
+          linewidth = 1
         )
     }
   }
