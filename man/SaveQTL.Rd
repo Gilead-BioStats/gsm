@@ -4,7 +4,11 @@
 \alias{SaveQTL}
 \title{{experimental} SaveQTL}
 \usage{
-SaveQTL(lSnapshot, strPath = "./inst/dummyqtldata.csv", bQuiet = TRUE)
+SaveQTL(
+  lSnapshot,
+  strPath = "./inst/qtl_dummy_data/dummyqtldata.csv",
+  bQuiet = TRUE
+)
 }
 \arguments{
 \item{lSnapshot}{\code{list} List returned by \code{\link[=RunQTL]{RunQTL()}}}

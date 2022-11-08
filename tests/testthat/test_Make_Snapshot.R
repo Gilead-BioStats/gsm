@@ -31,9 +31,6 @@ bQuiet <- TRUE
 
 snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments)
 
-tool_outputs <- read.csv(system.file("/standardized_outputs.csv", package = "gsm"))
-gsm_outputs <- read.csv(system.file("/gsm_outputs.csv", package = "gsm"))
-
 ################################################################################################################
 
 test_that("output is generated as expected", {
@@ -46,15 +43,15 @@ test_that("output is generated as expected", {
 
   expect_true(is.list(snapshot))
   expect_snapshot(names(snapshot))
-  expect_equal(names(snapshot$status_study), specColumns("status_study"))
-  expect_equal(names(snapshot$status_site), specColumns("status_site"))
-  expect_equal(names(snapshot$status_workflow), specColumns("status_workflow"))
-  expect_equal(names(snapshot$status_param), specColumns("status_param"))
-  expect_equal(names(snapshot$status_schedule), specColumns("status_schedule"))
-  expect_equal(names(snapshot$results_summary), specColumns("results_summary"))
-  expect_equal(names(snapshot$results_bounds), specColumns("results_bounds"))
-  expect_equal(names(snapshot$meta_workflow), specColumns("meta_workflow"))
-  expect_equal(names(snapshot$meta_param), specColumns("meta_param"))
+  expect_equal(sort(names(snapshot$status_study)),    sort(specColumns("status_study")))
+  expect_equal(sort(names(snapshot$status_site)),     sort(specColumns("status_site")))
+  expect_equal(sort(names(snapshot$status_workflow)), sort(specColumns("status_workflow")))
+  expect_equal(sort(names(snapshot$status_param)),    sort(specColumns("status_param")))
+  expect_equal(sort(names(snapshot$status_schedule)), sort(specColumns("status_schedule")))
+  expect_equal(sort(names(snapshot$results_summary)), sort(specColumns("results_summary")))
+  expect_equal(sort(names(snapshot$results_bounds)),  sort(specColumns("results_bounds")))
+  expect_equal(sort(names(snapshot$meta_workflow)),   sort(specColumns("meta_workflow")))
+  expect_equal(sort(names(snapshot$meta_param)),      sort(specColumns("meta_param")))
 
 })
 

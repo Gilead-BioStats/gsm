@@ -12,6 +12,7 @@ Gismo,status_study,phase,Phase
 Gismo,status_study,status,Study Status
 Gismo,status_study,fpfv,First-patient first visit date
 Gismo,status_study,lplv,Last-patient last visit date
+Gismo,status_study,lpfv,Last-patient first visit date
 Gismo,status_study,rbm_flag,Risk-based monitoring flag
 Gismo,status_study,gsm_analysis_date,Date that snapshot was created
 Gismo,status_site,studyid,Unique Study ID
@@ -61,7 +62,7 @@ Gismo,results_bounds,gsm_analysis_date,Date that snapshot was created
 Gismo,meta_workflow,workflowid,Unique Workflow ID
 Gismo,meta_workflow,gsm_version,GSM Version of workflow
 Gismo,meta_workflow,group,"Group for workflow - Site, Country, Region or Study"
-Gismo,meta_workflow,abbreviation,Abbreviation Label
+Gismo,meta_workflow,abbreviation,Workflow Abbreviation (max 3-letters)
 Gismo,meta_workflow,metric,Metric Label
 Gismo,meta_workflow,numerator,Numerator Label
 Gismo,meta_workflow,denominator,Denominator Label
@@ -116,9 +117,9 @@ GSM,config_param,value,Value for parameter at index
 GSM,config_schedule,studyid,Unique Study ID
 GSM,config_schedule,snapshot_date,Snapshot Date
 GSM,meta_workflow,workflowid,Unique Workflow ID
+GSM,meta_workflow,abbreviation,Workflow Abbreviation (max 3-letters)
 GSM,meta_workflow,gsm_version,GSM Version of workflow
 GSM,meta_workflow,group,"Group for workflow - Site, Country, Region or Study"
-GSM,meta_workflow,abbreviation,Abbreviation Label
 GSM,meta_workflow,metric,Metric Label
 GSM,meta_workflow,numerator,Numerator Label
 GSM,meta_workflow,denominator,Denominator Label

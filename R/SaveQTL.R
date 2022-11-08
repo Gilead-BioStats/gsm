@@ -21,7 +21,7 @@
 #'
 #' @export
 SaveQTL <- function(lSnapshot,
-                    strPath = './inst/dummyqtldata.csv',
+                    strPath = './inst/qtl_dummy_data/dummyqtldata.csv',
                     bQuiet = TRUE) {
 
 

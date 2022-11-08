@@ -9,6 +9,9 @@ vignette: >
 
 ```{r setup, include = FALSE}
 library(gsm)
+library(gt)
+library(dplyr)
+
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -192,8 +195,6 @@ Full details are provided below. Note that Table Name includes all configurable 
 ```{r echo = FALSE}
 gsm_input <- read.csv("gsm_inputs.csv")
 
-library(gt)
-
 gsm_input %>%
   gt() %>%
   cols_label(Table.Source = md("**Table Source**"),
@@ -212,12 +213,14 @@ gsm_input %>%
 ### [Columns in `{gsm}` Data Transfer (from above)]{.underline}:
 
 ```{r echo = FALSE}
-gsm_output <- read.csv("gsm_outputs.csv")
+gsm_output <- gsm::rbm_data_spec %>% 
+  filter(System == "GSM") %>% 
+  select(Table, Column, Description)
 
 gsm_output %>%
   gt() %>%
-  cols_label(Table.Name = md("**Table Name**"),
-             Column.Name = md("**Column Name**"),
+  cols_label(Table = md("**Table Name**"),
+             Column = md("**Column Name**"),
              Description = md("**Description**")) %>%
   tab_style(style = cell_text(size = "small"),
             locations = cells_body(columns = everything(), rows = everything())) %>%
@@ -259,12 +262,12 @@ tool_input %>%
 The following tables are all contained in the output of `gsm::Make_Snapshot()`:
 
 ```{r echo = FALSE}
-tool_output <- read.csv("standardized_outputs.csv")
-
-tool_output %>%
+gsm::rbm_data_spec %>%
+  filter(System == "Gismo") %>% 
+  select(-System) %>% 
   gt() %>%
-  cols_label(Table.Name = md("**Table Name**"),
-             Column.Name = md("**Column Name**"),
+  cols_label(Table = md("**Table Name**"),
+             Column = md("**Column Name**"),
              Description = md("**Description**")) %>%
   tab_style(style = cell_text(size = "small"),
             locations = cells_body(columns = everything(), rows = everything())) %>%
