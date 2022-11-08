@@ -3,7 +3,8 @@ test_that("Labs assessment can return a correctly assessed data frame for the fi
   dfInput <- gsm::LB_Map_Raw()
 
   test6_1 <- LB_Assess(
-    dfInput = dfInput
+    dfInput = dfInput,
+    strMethod = "fisher"
   )
 
   # Double Programming
