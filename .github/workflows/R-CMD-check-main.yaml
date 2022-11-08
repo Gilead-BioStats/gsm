@@ -27,7 +27,7 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: webfactory/ssh-agent@v0.5.4
+      - uses: webfactory/ssh-agent@v0.6.0
         with:
           ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
 
