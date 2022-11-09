@@ -13,13 +13,13 @@ Study_Assess(
 )
 }
 \arguments{
-\item{lData}{a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
+\item{lData}{\code{list} a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
-\item{lMapping}{a named list identifying the columns needed in each data domain.}
+\item{lMapping}{\code{list} a named list identifying the columns needed in each data domain.}
 
-\item{lAssessments}{a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
+\item{lAssessments}{\code{list} a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
 
-\item{lSubjFilters}{a named list of parameters to filter subject-level data on.}
+\item{lSubjFilters}{\code{list} a named list of parameters to filter subject-level data on.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }

@@ -1,5 +1,7 @@
 #' {experimental} Study Report
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' Create HTML summary report using the results of `Study_Assess`, including tables, charts, and error checking.
 #'
 #' @param lAssessments `list` The results of multiple assessments run using `Study_Assess`.

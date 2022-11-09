@@ -1,5 +1,7 @@
 #' {experimental} SaveQTL
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' @description
 #' Save QTL analysis results to a directory location. The `strPath` argument specifies the filepath, including filename, of the current QTL analysis.
 #' Running `SaveQTL` will save a new file with an added row for the single specified QTL analysis. The new file will be named the same as the original file,
@@ -36,7 +38,7 @@ SaveQTL <- function(lSnapshot,
     qtl_all <- bind_rows(qtl_old, qtl_new)
 
     # overwrite
-    write.csv(qtl_all, strPath, row.names = FALSE)
+    utils::write.csv(qtl_all, strPath, row.names = FALSE)
 
     # save recent
     utils::write.csv(qtl_all, paste0(strPath, " ", Sys.Date()), row.names = FALSE)

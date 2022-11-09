@@ -52,24 +52,25 @@ The input data (\code{dfTransformed}) for Analyze_QTL is typically created using
 
 \examples{
 dfInput <- Disp_Map_Raw()
-dfTransformed <- Transform_Rate(dfInput, strNumeratorCol = "Count",
-                                         strDenominatorCol = "Total",
-                                         strGroupCol = "StudyID"
-                                         )
+dfTransformed <- Transform_Rate(dfInput,
+  strNumeratorCol = "Count",
+  strDenominatorCol = "Total",
+  strGroupCol = "StudyID"
+)
 
 dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "binary")
-dfFlagged <- Flag( dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.2) )
+dfFlagged <- Flag(dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.2))
 
 
 
 dfInput <- PD_Map_Raw()
 dfTransformed <- Transform_Rate(dfInput,
-                                strGroupCol = "StudyID",
-                                strNumeratorCol = "Count",
-                                strDenominatorCol = "Exposure"
-                                )
+  strGroupCol = "StudyID",
+  strNumeratorCol = "Count",
+  strDenominatorCol = "Exposure"
+)
 
-dfAnalyzed <- Analyze_QTL(dfTransformed , strOutcome = "rate")
-dfFlagged <- Flag( dfAnalyzed, vThreshold = c(NA, 0.01) )
+dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "rate")
+dfFlagged <- Flag(dfAnalyzed, vThreshold = c(NA, 0.01))
 
 }
