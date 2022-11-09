@@ -1,13 +1,32 @@
 #' Make Snapshot - create and export Gizmo data model.
 #'
-#' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study. TODO: add details about expected lMeta input.
-#' @param lData `list` a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
-#' @param lMapping `list` a named list identifying the columns needed in each data domain.
-#' @param lAssessments a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
+#' @description
+#' `Make_Snapshot()` ingests data from a variety of sources, and runs KRIs and/or QTLs based on the `list` provided in `lAssessments`. The output of `Make_Snapshot()` is used as the input data model
+#' for the Gismo web application.
+#'
+#' For more context about the inputs and outputs of `Make_Snapshot()`, refer to the [GSM Data Pipeline Vignette](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html), specifically
+#' Appendix 2 - Data Model Specifications
+#'
+#' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
+#' See the Data Model Vignette - Appendix 2 - Data Model Specifications for detailed specifications.
+#' @param lData `list` a named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for raw+.
+#' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @includeRmd ./man/md/Make_Snapshot.md
+#'
+#' @return `list` `lSnapshot`, a named list with a data.frame for each component of the {gsm} data model.
+#' - `status_study`
+#' - `status_site`
+#' - `status_workflow`
+#' - `status_param`
+#' - `status_schedule`
+#' - `results_summary`
+#' - `results_bounds`
+#' - `meta_workflow`
+#' - `meta_param`
 #'
 #' @examples
 #' # run with default testing data
@@ -50,7 +69,7 @@ bQuiet = TRUE
 
   # status_study ------------------------------------------------------------
   if (!("enrolled_participants" %in% colnames(status_study))) {
-    status_study$enrolled_participants <- Get_Enrolled(
+    status_study$enrolled_participants <- gsm::Get_Enrolled(
       dfSUBJ = lData$dfSUBJ,
       dfConfig = lMeta$config_param,
       lMapping = lMapping,
@@ -60,7 +79,7 @@ bQuiet = TRUE
   }
 
   if (!("enrolled_sites" %in% colnames(status_study))) {
-    status_study$enrolled_sites <- Get_Enrolled(
+    status_study$enrolled_sites <- gsm::Get_Enrolled(
       dfSUBJ = lData$dfSUBJ,
       dfConfig = lMeta$config_param,
       lMapping = lMapping,
@@ -94,7 +113,7 @@ bQuiet = TRUE
   status_site <- lMeta$meta_site %>%
     mutate(siteid = as.character(.data$siteid))
   if (!("enrolled_participants" %in% colnames(status_site))) {
-    status_site_count <- Get_Enrolled(
+    status_site_count <- gsm::Get_Enrolled(
       dfSUBJ = lData$dfSUBJ,
       dfConfig = lMeta$config_param,
       lMapping = lMapping,
@@ -122,11 +141,11 @@ bQuiet = TRUE
   # Need to update this to use the relevant items from lMeta (meta_workflow, meta_params, config_workfow and config_params)
 
   if (is.null(lAssessments)) {
-    lAssessments <- MakeWorkflowList(strNames = c(unique(lMeta$meta_workflow$workflowid)))
+    lAssessments <- gsm::MakeWorkflowList(strNames = c(unique(lMeta$meta_workflow$workflowid)))
   }
 
   # Run Study Assessment
-  lResults <- Study_Assess(
+  lResults <- gsm::Study_Assess(
     lData = lData,
     lMapping = lMapping,
     lAssessments = lAssessments,
@@ -164,7 +183,7 @@ bQuiet = TRUE
 
   # results_summary ---------------------------------------------------------
   results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%
-    discard(is.null) %>%
+    purrr::discard(is.null) %>%
     purrr::imap_dfr(~ .x$lData$dfFlagged %>%
       mutate(
         KRIID = .y,
@@ -216,6 +235,9 @@ bQuiet = TRUE
     meta_param = meta_param
   ) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
+
+
+# save lSnapshot ----------------------------------------------------------
 
   if (!is.null(cPath)) {
     # write each snapshot item to location

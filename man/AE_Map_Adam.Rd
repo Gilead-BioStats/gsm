@@ -15,11 +15,11 @@ AE_Map_Adam(
 \arguments{
 \item{dfs}{\code{list} Input data frames:
 \itemize{
-\item \code{dfADAE}: \code{data.frame} Event-level data with one record per AE.
-\item \code{dfADSL}: \code{data.frame} Subject-level data with one record per subject.
+\item \code{dfADAE}: \code{data.frame} Event-level data with one record per AE. Default: \code{safetyData::adam_adsl}
+\item \code{dfADSL}: \code{data.frame} Subject-level data with one record per subject. Default: \code{safetyData::adam_adae}
 }}
 
-\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column. Default: package-defined mapping for ADaM.}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 

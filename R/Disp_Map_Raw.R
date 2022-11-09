@@ -8,12 +8,13 @@
 #' `Disp_Map_Raw` creates an input dataset for the Disposition Assessment [gsm::Disp_Assess()] by adding
 #' Discontinuation Reason Counts (derived from `dfDISP`) to basic subject-level data (from `dfSUBJ`).
 #'
-#' @param dfs `list` Input data frame:
-#'   - `dfDISP`: `data.frame` Subject-level data with one record per discontinuation reason.
-#'   - `dfSUBJ`: `data.frame` Subject-level data with one record per participant.
-#' @param strContext Disposition Context - "Treatment" or "Study"
+#' @param dfs `list` Input data frames:
+#'   - `dfSTUDCOMP`: `data.frame` Subject-level study disposition data with one record per discontinuation reason. Default: `clindata::rawplus_studcomp`
+#'   - `dfSDRGCOMP`: `data.frame` Subject-level treatment disposition data with one record per discontinuation reason. Default: `clindata::rawplus_sdrgcomp`
+#'   - `dfSUBJ`: `data.frame` Subject-level data with one record per participant.Default: `clindata::rawplus_dm`
+#' @param strContext `character` Disposition Context - "Study" (default) or "Treatment".
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
-#'   of the column.
+#'   of the column. Default: package-defined mapping for raw+.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -57,7 +58,7 @@ Disp_Map_Raw <- function(
   strDomain <- ifelse(strContext == "Study", "dfSTUDCOMP", "dfSDRGCOMP")
   dfs$dfDISP <- dfs[[strDomain]]
 
-  checks <- CheckInputs(
+  checks <- gsm::CheckInputs(
     context = paste0("Disp_Map_Raw", "_", strContext),
     dfs = dfs,
     bQuiet = bQuiet,

@@ -1,5 +1,7 @@
 #' {experimental} Run a QTL
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' @description
 #' Run a QTL based on a pre-defined or custom workflow outside of `Make_Snapshot()` or `Study_Assess()`. This is a helper function that makes it possible to
 #' run a QTL for any supported `*_Assess` function.
@@ -8,6 +10,8 @@
 #' @param lWorkflow `character` Optional. Custom workflow to use in place of pre-defined workflow.
 #' @param lData `list` List of data needed to run QTL analysis.
 #' @param lMapping `list` List of data-domain mappings.
+#'
+#' @return `list` list of QTL analysis results.
 #'
 #' @examples
 #' qtl <- RunQTL("qtl0003")
@@ -28,7 +32,7 @@ RunQTL <- function(
   )
 
   if (is.null(lWorkflow)) {
-    lWorkflow <- MakeWorkflowList(strNames = strName, bRecursive = TRUE)[[strName]]
+    lWorkflow <- gsm::MakeWorkflowList(strNames = strName, bRecursive = TRUE)[[strName]]
 
     stopifnot(
       "Default workflow does not exist. Check value passed in `strName`" = !is.null(lWorkflow)
@@ -52,7 +56,7 @@ RunQTL <- function(
     lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
   }
 
-  qtl <- RunWorkflow(
+  qtl <- gsm::RunWorkflow(
     lWorkflow = lWorkflow,
     lData = lData,
     lMapping = lMapping

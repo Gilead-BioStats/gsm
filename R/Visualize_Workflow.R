@@ -2,7 +2,6 @@
 #'
 #' @param lAssessments `list` A list of assessment-specific metadata.
 #'
-#' @return A flowchart of type `grViz`/`htmlwidget`.
 #'
 #' @examples
 #' lAssessments <- list(kri0001 = MakeWorkflowList()$kri0001)
@@ -19,6 +18,8 @@
 #' \dontrun{
 #' Visualize_Workflow(list(kri0001 = kri0001))
 #' }
+#'
+#' @return A flowchart of type `grViz`/`htmlwidget`.
 #'
 #' @importFrom DiagrammeR create_node_df create_graph render_graph
 #' @importFrom utils head
@@ -40,7 +41,7 @@ Visualize_Workflow <- function(lAssessments) {
   }
 
   if (stepsExist & isNotFilterData) {
-    dfFlowchart <- map(lAssessments, function(studyObject) {
+    dfFlowchart <- purrr::map(lAssessments, function(studyObject) {
       name <- studyObject[["name"]]
       checks <- studyObject[["lChecks"]]
       workflow <- studyObject[["steps"]]
@@ -50,8 +51,8 @@ Visualize_Workflow <- function(lAssessments) {
       vec <- c(names(checks), rep("", diff))
 
       workflow <- workflow %>%
-        imap(~ append(., list(n_step = .y))) %>%
-        set_names(nm = vec)
+        purrr::imap(~ append(., list(n_step = .y))) %>%
+        purrr::set_names(nm = vec)
 
       # make checks and workflow the same length so map2_dfr below doesn't fail.
       # empty lists will result in NA and will be accounted for to show domains that were not checked.
@@ -59,10 +60,10 @@ Visualize_Workflow <- function(lAssessments) {
         checks <- append(checks, vector(mode = "list", length = diff))
       }
 
-      preAssessment <- map2_dfr(checks, workflow, function(checks, workflow) {
+      preAssessment <- purrr::map2_dfr(checks, workflow, function(checks, workflow) {
         domains <- workflow$inputs
 
-        map_df(domains, function(x) {
+        purrr::map_df(domains, function(x) {
           tibble(
             assessment = name,
             name = workflow[["name"]],
@@ -118,7 +119,7 @@ Visualize_Workflow <- function(lAssessments) {
 
     # create_node_df for flowchart
     # add custom labels/tooltips
-    flowchart <- map(dfFlowchart, function(assessment) {
+    flowchart <- purrr::map(dfFlowchart, function(assessment) {
       df <- DiagrammeR::create_node_df(
         n = nrow(assessment),
         type = "a",

@@ -35,7 +35,7 @@ for a nominal assessment (\code{strMethod = "identity"}).}
 }}
 
 \item{lMapping}{Column metadata with structure \code{domain$key}, where \code{key} contains the name
-of the column.}
+of the column. Default: package-defined Adverse Event Assessment mapping.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}.
 Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
@@ -107,6 +107,14 @@ details about the statistical methods and their assumptions.
 
 \examples{
 dfInput <- AE_Map_Raw()
+
+# Run using normal approximation method (default)
 ae_assessment_NormalApprox <- AE_Assess(dfInput)
+
+# Run using poisson method
+ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "poisson")
+
+# Run using identity method
+ae_assessment_identity <- AE_Assess(dfInput, strMethod = "identity")
 
 }

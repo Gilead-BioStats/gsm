@@ -10,7 +10,7 @@
 #' @param bRecursive `logical` Find files in nested folders? Default FALSE.
 #'
 #' @examples
-#' MakeWorkflowList(strPath = "workflow", strPackage = "gsm")
+#' workflow <- MakeWorkflowList(strPath = "workflow", strPackage = "gsm")
 #'
 #' @return `list` A list of assessments with workflow and parameter metadata.
 #'
@@ -33,7 +33,7 @@ MakeWorkflowList <- function(strNames = NULL, strPath = "workflow", strPackage =
   }
 
   assessments <- yaml_files %>%
-    map(function(path) {
+    purrr::map(function(path) {
       assessment <- yaml::read_yaml(path)
       assessment$path <- path
       if (!utils::hasName(assessment, "name")) {

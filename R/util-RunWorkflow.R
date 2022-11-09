@@ -1,5 +1,6 @@
 #' Run a single assessment
 #'
+#' @description
 #' Attempts to run a single assessment (`lWorkflow`) using shared data (`lData`) and metadata (`lMapping`).
 #' Calls `RunStep` for each item in `lWorkflow$workflow` and saves the results to `lWorkflow`
 #'
@@ -87,8 +88,8 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
     lWorkflow$bStatus <- FALSE
   }
 
-  lWorkflow$lChecks$flowchart <- Visualize_Workflow(list(temp_name = lWorkflow)) %>%
-    set_names(nm = lWorkflow$name)
+  lWorkflow$lChecks$flowchart <- gsm::Visualize_Workflow(list(temp_name = lWorkflow)) %>%
+    purrr::set_names(nm = lWorkflow$name)
   if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Workflow} created a flowchart.")
 
 
