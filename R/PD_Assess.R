@@ -16,9 +16,6 @@
 #'   - `"NormalApprox"` (default)
 #'   - `"poisson"`
 #'   - `"identity"`
-#' @param strType `character` Statistical outcome type. Valid values:
-#'   - `"binary"` (default)
-#'   - `"rate"`
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
@@ -60,7 +57,6 @@ PD_Assess <- function(
   dfInput,
   vThreshold = NULL,
   strMethod = "NormalApprox",
-  strType = "rate",
   lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   nConfLevel = NULL,
@@ -128,14 +124,14 @@ PD_Assess <- function(
 
       lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
         dfTransformed = lData$dfTransformed,
-        strType = strType,
+        strType = "rate",
         bQuiet = bQuiet
         )
 
       lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
-        strType = strType,
+        strType = "rate",
         bQuiet = bQuiet
         )
 
