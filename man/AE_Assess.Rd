@@ -8,7 +8,6 @@ AE_Assess(
   dfInput,
   vThreshold = NULL,
   strMethod = "NormalApprox",
-  strType = "rate",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE
@@ -26,12 +25,6 @@ for a nominal assessment (\code{strMethod = "identity"}).}
 \item \code{"NormalApprox"} (default)
 \item \code{"poisson"}
 \item \code{"identity"}
-}}
-
-\item{strType}{\code{character} Statistical outcome type. Valid values:
-\itemize{
-\item \code{"binary"}
-\item \code{"rate"} (default)
 }}
 
 \item{lMapping}{Column metadata with structure \code{domain$key}, where \code{key} contains the name

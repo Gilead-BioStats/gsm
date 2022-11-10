@@ -180,15 +180,28 @@ bQuiet = TRUE
       score = "Score",
       flag = "Flag"
     )
-  
+
   # results_analysis ---------------------------------------------------------
-
-  # Leaving this data munging for Matt/Spencer/Kai. Columns = workflowid, groupid, param, value. 
-  # for now, we just want to add Param = "LowCI", "UpperCI", "Mean" for the 2 QTLs. So 6 rows for now. 
-
-
+  # Leaving this data munging for Matt/Spencer/Kai. Columns = workflowid, groupid, param, value.
+  # for now, we just want to add Param = "LowCI", "UpperCI", "Mean" for the 2 QTLs. So 6 rows for now.
   # lSnapshot$results_summary$StudyID <- meta$status_study[1,'StudyID']
   # Also need to make sure we're capturing WorkflowID here ...
+
+  results_analysis <- lResults[grep("qtl", names(lResults))] %>%
+    purrr::imap_dfr(
+      ~ .x$lResults$lData$dfAnalyzed %>%
+        select(GroupID,
+               LowCI,
+               UpCI,
+               Score) %>%
+        mutate(workflowid = .y)
+    ) %>%
+    pivot_longer(-c("GroupID", "workflowid")) %>%
+    rename(param = "name",
+           studyid = "GroupID")
+
+
+
 
   # results_bounds ----------------------------------------------------------
   results_bounds <- lResults %>%
@@ -216,6 +229,7 @@ bQuiet = TRUE
     status_param = status_param,
     status_schedule = status_schedule,
     results_summary = results_summary,
+    results_analysis = results_analysis,
     results_bounds = results_bounds,
     meta_workflow = meta_workflow,
     meta_param = meta_param
