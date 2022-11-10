@@ -86,7 +86,7 @@ PD_Assess <- function(
       NormalApprox = c(-3, -2, 2, 3),
       poisson = c(-7, -5, 5, 7),
       identity = c(0.000895, 0.003059),
-      qtl = c(0, 5)
+      qtl = c(5)
     )
   }
 
@@ -156,14 +156,14 @@ PD_Assess <- function(
     } else if (strMethod == "identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     } else if (strMethod == "qtl") {
-      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold)
+      lData$dfFlagged <- gsm::Flag_QTL(lData$dfAnalyzed, vThreshold = vThreshold)
     }
 
     flag_function_name <- switch(strMethod,
       NormalApprox = "Flag_NormalApprox",
       identity = "Flag",
       poisson = "Flag_Poisson",
-      qtl = "Flag"
+      qtl = "Flag_QTL"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")

@@ -90,7 +90,7 @@ Disp_Assess <- function(
       NormalApprox = c(-3, -2, 2, 3),
       fisher = c(0.01, 0.05),
       identity = c(3.491, 5.172),
-      qtl = c(0, 0.2)
+      qtl = c(0.2)
     )
   }
 
@@ -158,14 +158,14 @@ Disp_Assess <- function(
     } else if (strMethod == "identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     } else if (strMethod == "qtl") {
-      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold)
+      lData$dfFlagged <- gsm::Flag_QTL(lData$dfAnalyzed, vThreshold = vThreshold)
     }
 
     flag_function_name <- switch(strMethod,
       NormalApprox = "Flag_NormalApprox",
       identity = "Flag",
       fisher = "Flag_Fisher",
-      qtl = "Flag"
+      qtl = "Flag_QTL"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
