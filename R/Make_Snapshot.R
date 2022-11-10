@@ -180,6 +180,11 @@ bQuiet = TRUE
       score = "Score",
       flag = "Flag"
     )
+  
+  # results_analysis ---------------------------------------------------------
+
+  # Leaving this data munging for Matt/Spencer/Kai. Columns = workflowid, groupid, param, value. 
+  # for now, we just want to add Param = "LowCI", "UpperCI", "Mean" for the 2 QTLs. So 6 rows for now. 
 
 
   # lSnapshot$results_summary$StudyID <- meta$status_study[1,'StudyID']
