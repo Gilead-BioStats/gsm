@@ -17,7 +17,7 @@ test_that("output is created as expected", {
 
 test_that("incorrect inputs throw errors", {
   expect_error(Flag_QTL(list(), vThreshold = 1))
-  expect_error(Flag_QTL(dfAnalyzed %>% select(-Score), vThreshold = 1))
+  expect_error(Flag_QTL(dfAnalyzed %>% select(-Estimate), vThreshold = 1))
   expect_error(Flag_QTL(dfAnalyzed %>% select(-LowCI), vThreshold = 1))
   expect_error(Flag_QTL(dfAnalyzed, vThreshold = "1"))
   expect_error(Flag_QTL(dfAnalyzed, vThreshold = c(1, 2)))
