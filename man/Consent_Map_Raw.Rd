@@ -15,12 +15,12 @@ Consent_Map_Raw(
 \arguments{
 \item{dfs}{\code{list} Input data frames:
 \itemize{
-\item \code{dfCONSENT}: \code{data.frame} Consent type-level data with one record per subject per consent type.
-\item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per subject.
+\item \code{dfCONSENT}: \code{data.frame} Consent type-level data with one record per subject per consent type. Default: \code{clindata::rawplus_consent}
+\item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per subject. Default: \code{clindata::rawplus_dm}
 }}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
-of the column.}
+of the column. Default: package-defined mapping for raw+.}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 

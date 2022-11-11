@@ -21,10 +21,10 @@ Visualize_Score(
 
 \item{bFlagFilter}{\code{logical} Filter out non-flagged groups? Default: \code{FALSE}}
 
-\item{strTitle}{Title of plot. NULL by default.}
+\item{strTitle}{\code{character} Title of plot.}
 }
 \value{
-group-level plot object.
+group-level ggplot2 object.
 }
 \description{
 Group-level visualization of scores.

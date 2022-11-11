@@ -11,7 +11,7 @@ Get_Enrolled(dfSUBJ, dfConfig, lMapping, strUnit, strBy)
 
 \item{dfConfig}{\code{data.frame} Dataset containing configuration parameters: \code{studyid}, \code{workflowid}, \code{gsm_version}, \code{param}, \code{index}, and \code{value}.}
 
-\item{lMapping}{\code{list} Mappings for the assessment(s) being run}
+\item{lMapping}{\code{list} Mappings for the assessment(s) being run.}
 
 \item{strUnit}{\code{character} Type of enrollment; one of \code{participant} or \code{site}.}
 

@@ -19,12 +19,13 @@ Disp_Assess(
 \arguments{
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
-\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to
-\code{c(0.01, 0.05)} for Fisher's exact test (\code{strMethod} = "fisher") and \code{c(3.491, 5.172)} for a nominal assessment (\code{strMethod = "identity"}).}
+\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 or 4 that defaults to \code{c(-3, -2, 2, 3)} for a Normal Approximation (\code{strMethod = "NormalApprox"}),
+\code{c(0.01, 0.05)} for Fisher's exact test (\code{strMethod = "fisher"}), and \code{c(3.491, 5.172)} for a nominal assessment (\code{strMethod = "identity"}).}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
-\item \code{"fisher"} (default)
+\item \code{"NormalApprox"} (default)
+\item \code{"fisher"}
 \item \code{"identity"}
 }}
 
@@ -34,8 +35,8 @@ Disp_Assess(
 \item \code{"rate"}
 }}
 
-\item{lMapping}{Column metadata with structure \code{domain$key}, where \code{key} contains the name
-of the column.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
+of the column. Default: package-defined Disposition Assessment mapping.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
 
@@ -49,8 +50,8 @@ of the column.}
 \item each data frame in the data pipeline
 \itemize{
 \item \code{dfTransformed}, returned by \code{\link[=Transform_Rate]{Transform_Rate()}}
-\item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
-\item \code{dfFlagged}, returned by \code{\link[=Flag]{Flag()}} or \code{\link[=Flag_Fisher]{Flag_Fisher()}}
+\item \code{dfAnalyzed}, returned by \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}}, \code{\link[=Analyze_Fisher]{Analyze_Fisher()}}, or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
+\item \code{dfFlagged}, returned by \code{\link[=Flag_NormalApprox]{Flag_NormalApprox()}}, \code{\link[=Flag_Fisher]{Flag_Fisher()}}, or \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
 }
 \item \code{list} \code{lCharts}, a named list with:
@@ -58,6 +59,7 @@ of the column.}
 \item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}}
 \item \code{barMetric}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}} using strType == "metric"
 \item \code{barScore}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}} using strType == "score"
+\item \code{dfBounds}, returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} when \code{strMethod == "NormalApprox"}
 }
 \item \code{list} \code{lChecks}, a named list with:
 \itemize{
@@ -85,13 +87,20 @@ methods are described below.
 }
 
 \section{Statistical assumptions}{
-The Fisher’s exact test, or percentage value (identity) is used to
-generate estimates and p-values for each site (as specified with the
-\code{strMethod} parameter). Those outputs are then used to flag possible
-outliers using the thresholds specified in \code{vThreshold}. In the Fisher’s
-exact test, sites with \emph{p} < 0.05 are flagged as 1 by default.
+The default function \code{Analyze_NormalApprox} applies funnel plots using
+asymptotic limits based on normal approximation of binomial distribution
+for the binary outcome, or normal approximation of Poisson distribution
+for the rate outcome with volume (the sample sizes or total exposure of
+the sites) to assess data quality and safety.
 
-See \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or
+Alternatively, the Fisher’s exact test, or percentage value (identity)
+is used to generate estimates and p-values for each site (as specified
+with the \code{strMethod} parameter). Those outputs are then used to flag
+possible outliers using the thresholds specified in \code{vThreshold}. In the
+Fisher’s exact test, sites with \emph{p} < 0.05 are flagged as 1 by default.
+
+See \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}} or
+\code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or
 \code{\link[=Analyze_Identity]{Analyze_Identity()}} for additional
 details about the statistical methods and their assumptions.
 }

@@ -5,13 +5,13 @@ dfConfig <- clindata::config_param
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 test_that("output is generated as expected", {
-
   enrolled_1 <- Get_Enrolled(
     dfSUBJ = dfSUBJ,
     dfConfig = dfConfig,
     lMapping = lMapping,
     strUnit = "participant",
-    strBy = "study")
+    strBy = "study"
+  )
   expect_true(is.integer(enrolled_1)) ### Function creates integer (participants in study)
 
   enrolled_2 <- Get_Enrolled(
@@ -19,7 +19,8 @@ test_that("output is generated as expected", {
     dfConfig = dfConfig,
     lMapping = lMapping,
     strUnit = "site",
-    strBy = "study")
+    strBy = "study"
+  )
   expect_true(is.integer(enrolled_2)) ### Function creates integer (sites in study)
 
   enrolled_3 <- Get_Enrolled(
@@ -27,7 +28,8 @@ test_that("output is generated as expected", {
     dfConfig = dfConfig,
     lMapping = lMapping,
     strUnit = "participant",
-    strBy = "site")
+    strBy = "site"
+  )
   expect_true(is.data.frame(enrolled_3)) ### Function creates data frame (participants per site)
   expect_equal(names(enrolled_3), c("SiteID", "enrolled_participants")) ### Correct colnames when strUnit = "participant" and strBy = "site"
 })
@@ -42,7 +44,8 @@ test_that("invalid data throw errors", {
       lMapping = lMapping,
       strUnit = "participant",
       strBy = "site"
-  ))
+    )
+  )
 
   expect_error(
     Get_Enrolled(
@@ -51,7 +54,8 @@ test_that("invalid data throw errors", {
       lMapping = lMapping,
       strUnit = "participant",
       strBy = "site"
-  ))
+    )
+  )
 
   expect_error(
     Get_Enrolled(
@@ -60,7 +64,8 @@ test_that("invalid data throw errors", {
       lMapping = lMapping,
       strUnit = "participant",
       strBy = "site"
-  ))
+    )
+  )
 
   expect_error(
     Get_Enrolled(
@@ -69,7 +74,8 @@ test_that("invalid data throw errors", {
       lMapping = lMapping,
       strUnit = "participant",
       strBy = "study"
-  ))
+    )
+  )
 
   expect_error(
     Get_Enrolled(
@@ -78,7 +84,8 @@ test_that("invalid data throw errors", {
       lMapping = lMapping,
       strUnit = "Honey", ### strUnit must be `participant` or `site`
       strBy = "site"
-    ))
+    )
+  )
 
   expect_error(
     Get_Enrolled(
@@ -87,7 +94,8 @@ test_that("invalid data throw errors", {
       lMapping = lMapping,
       strUnit = "participant",
       strBy = "Junie" ### strBy must be `study` or `site`
-    ))
+    )
+  )
 
   expect_error(
     Get_Enrolled(
@@ -96,7 +104,8 @@ test_that("invalid data throw errors", {
       lMapping = lMapping,
       strUnit = "site",
       strBy = "site" ### strUnit and strBy cannot both be `site`
-    ))
+    )
+  )
 
   lMapping_wrong <- lMapping
   lMapping_wrong$dfSUBJ$strSiteCol <- "Piper"
@@ -107,7 +116,8 @@ test_that("invalid data throw errors", {
       lMapping = lMapping_wrong, ### Wrong group column name in lMapping
       strUnit = "participant",
       strBy = "site"
-    ))
+    )
+  )
 
   ### Check that the function errors out if any inputs are missing because there are no defaults (they can exist in the environment, but they're not automatically pulled by the function)
   expect_error(
@@ -116,7 +126,8 @@ test_that("invalid data throw errors", {
       lMapping = lMapping,
       strUnit = "participant",
       strBy = "site"
-    ))
+    )
+  )
 
   expect_error(
     Get_Enrolled(
@@ -124,7 +135,8 @@ test_that("invalid data throw errors", {
       lMapping = lMapping,
       strUnit = "participant",
       strBy = "site"
-    ))
+    )
+  )
 
   expect_error(
     Get_Enrolled(
@@ -132,7 +144,8 @@ test_that("invalid data throw errors", {
       dfConfig = dfConfig,
       strUnit = "participant",
       strBy = "site"
-    ))
+    )
+  )
 
   expect_error(
     Get_Enrolled(
@@ -140,7 +153,8 @@ test_that("invalid data throw errors", {
       dfConfig = dfConfig,
       lMapping = lMapping,
       strBy = "site"
-    ))
+    )
+  )
 
   expect_error(
     Get_Enrolled(
@@ -148,6 +162,6 @@ test_that("invalid data throw errors", {
       dfConfig = dfConfig,
       lMapping = lMapping,
       strUnit = "site",
-    ))
-
+    )
+  )
 })

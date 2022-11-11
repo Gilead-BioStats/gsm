@@ -79,7 +79,6 @@ test_that("bQuiet and bReturnChecks work as intended", {
 # custom tests ------------------------------------------------------------
 
 test_that("Treatment mapping returns expected output", {
-
   dfs <- list(
     dfSUBJ = dfSUBJ,
     dfSDRGCOMP = dfSDRGCOMP
@@ -93,6 +92,4 @@ test_that("Treatment mapping returns expected output", {
   testthat::expect_type(output$SubjectID, "character")
   testthat::expect_type(output$SiteID, "character")
   testthat::expect_true(class(output$Count) %in% c("double", "integer", "numeric"))
-
-
 })

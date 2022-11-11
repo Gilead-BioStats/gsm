@@ -4,7 +4,11 @@
 \alias{SaveQTL}
 \title{{experimental} SaveQTL}
 \usage{
-SaveQTL(lSnapshot, strPath = "./inst/dummyqtldata.csv", bQuiet = TRUE)
+SaveQTL(
+  lSnapshot,
+  strPath = "./inst/qtl_dummy_data/dummyqtldata.csv",
+  bQuiet = TRUE
+)
 }
 \arguments{
 \item{lSnapshot}{\code{list} List returned by \code{\link[=RunQTL]{RunQTL()}}}
@@ -18,10 +22,12 @@ Save QTL analysis results to a directory location. The \code{strPath} argument s
 Running \code{SaveQTL} will save a new file with an added row for the single specified QTL analysis. The new file will be named the same as the original file,
 but will incorporate the run date for version control.
 }
+\details{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+}
 \examples{
-
 \dontrun{
-dispQTL <- RunQTL('qtl0007')
+dispQTL <- RunQTL("qtl0007")
 SaveQTL(dispQTL)
 }
 

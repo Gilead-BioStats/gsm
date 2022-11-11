@@ -7,14 +7,17 @@
 Study_AssessmentReport(lAssessments, bViewReport = FALSE)
 }
 \arguments{
-\item{lAssessments}{List of 1+ assessments like those created by \code{runAssessment()} or \code{Study_Assess()}}
+\item{lAssessments}{\code{list} List of 1+ assessments like those created by \code{RunWorkflow()} or \code{Study_Assess()}}
 
-\item{bViewReport}{HTML table of dfSummary that can be viewed in most IDEs.}
+\item{bViewReport}{\code{logical} HTML table of dfSummary that can be viewed in most IDEs. Default: \code{FALSE}}
 }
 \value{
 \code{list} containing a \code{data.frame} summarizing the checks \code{dfSummary} and a \code{data.frame} listing all checks (\code{dfAllChecks}).
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+}
+\details{
 Make overview table with one row per assessment and one column per site showing flagged assessments.
 }
 \examples{

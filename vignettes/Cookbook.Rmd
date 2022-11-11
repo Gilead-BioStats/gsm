@@ -57,7 +57,7 @@ All assessments can be run as standalone workflow that creates useful data summa
 Running a single assessment is a 2-step process. We will use the Adverse Event (AE) workflow as an example:
 
 1.  Map domain-level data to the input data standard for the selected assessment (e.g., `dfInput <- AE_Map_Raw()`)
-2.  Run the assessment using an appropriate statistical method (e.g., `ae_assess <- AE_Assess(dfInput, strMethod = "poisson)`)
+2.  Run the assessment using an appropriate statistical method (e.g., `ae_assess <- AE_Assess(dfInput, strMethod = "NormalApprox)`)
 
 Putting these steps together looks like this:
 
@@ -71,7 +71,8 @@ library(gsm)
 dfInput <- AE_Map_Raw()
 
 ## Run the assessment with the appropriate statistical model.
-##For AE, the choices are 'poisson' or 'identity'
+##For AE, the choices are 'NormalApprox' or 'poisson' or 'identity'
+ae_assessment_NormalApprox <- AE_Assess(dfInput)
 ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "poisson")
 ```
 
@@ -96,7 +97,7 @@ dfInput <- AE_Map_Raw(
 )
 ```
 
-The second step is to transform `dfInput` into site-level summary data, which is needed to derive the KRI. Two `Transform()` functions are available, `Transform_Rate()` and `Transform_Count()`, and `Transform_Rate()` is the function that is used with the AE Poisson assessment. Note that `strNumeratorCol` is a required numeric column, and `strDenominatorCol` is an optional numeric column.
+The second step is to transform `dfInput` into site-level summary data, which is needed to derive the KRI. Two `Transform()` functions are available, `Transform_Rate()` and `Transform_Count()`, and `Transform_Rate()` is the function that is used with the AE assessment. Note that `strNumeratorCol` is a required numeric column, and `strDenominatorCol` is an optional numeric column.
 
 ```{r eval = FALSE, include = TRUE}
 dfTransformed <- Transform_Rate(

@@ -31,13 +31,9 @@ bQuiet <- TRUE
 
 snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments)
 
-tool_outputs <- read.csv(system.file("/standardized_outputs.csv", package = "gsm"))
-gsm_outputs <- read.csv(system.file("/gsm_outputs.csv", package = "gsm"))
-
 ################################################################################################################
 
 test_that("output is generated as expected", {
-
   specColumns <- function(table) {
     gsm::rbm_data_spec %>%
       filter(System == "Gismo" & Table == table) %>%
@@ -46,22 +42,20 @@ test_that("output is generated as expected", {
 
   expect_true(is.list(snapshot))
   expect_snapshot(names(snapshot))
-  expect_equal(names(snapshot$status_study), specColumns("status_study"))
-  expect_equal(names(snapshot$status_site), specColumns("status_site"))
-  expect_equal(names(snapshot$status_workflow), specColumns("status_workflow"))
-  expect_equal(names(snapshot$status_param), specColumns("status_param"))
-  expect_equal(names(snapshot$status_schedule), specColumns("status_schedule"))
-  expect_equal(names(snapshot$results_summary), specColumns("results_summary"))
-  expect_equal(names(snapshot$results_bounds), specColumns("results_bounds"))
-  expect_equal(names(snapshot$meta_workflow), specColumns("meta_workflow"))
-  expect_equal(names(snapshot$meta_param), specColumns("meta_param"))
-
+  expect_equal(sort(names(snapshot$status_study)), sort(specColumns("status_study")))
+  expect_equal(sort(names(snapshot$status_site)), sort(specColumns("status_site")))
+  expect_equal(sort(names(snapshot$status_workflow)), sort(specColumns("status_workflow")))
+  expect_equal(sort(names(snapshot$status_param)), sort(specColumns("status_param")))
+  expect_equal(sort(names(snapshot$status_schedule)), sort(specColumns("status_schedule")))
+  expect_equal(sort(names(snapshot$results_summary)), sort(specColumns("results_summary")))
+  expect_equal(sort(names(snapshot$results_bounds)), sort(specColumns("results_bounds")))
+  expect_equal(sort(names(snapshot$meta_workflow)), sort(specColumns("meta_workflow")))
+  expect_equal(sort(names(snapshot$meta_param)), sort(specColumns("meta_param")))
 })
 
 ################################################################################################################
 
 test_that("input data is structured as expected", {
-
   gsmColumns <- function(table) {
     gsm::rbm_data_spec %>%
       filter(System == "GSM" & Table == table) %>%
@@ -73,11 +67,11 @@ test_that("input data is structured as expected", {
 
 
 
-  expect_equal(sort(names(lMeta$config_param)),    sort(gsmColumns("config_param")))
+  expect_equal(sort(names(lMeta$config_param)), sort(gsmColumns("config_param")))
   expect_equal(sort(names(lMeta$config_schedule)), sort(gsmColumns("config_schedule")))
   expect_equal(sort(names(lMeta$config_workflow)), sort(gsmColumns("config_workflow")))
-  expect_equal(sort(names(lMeta$meta_params)),     sort(gsmColumns("meta_param")))
-  expect_equal(sort(names(lMeta$meta_workflow)),   sort(gsmColumns("meta_workflow")))
+  expect_equal(sort(names(lMeta$meta_params)), sort(gsmColumns("meta_param")))
+  expect_equal(sort(names(lMeta$meta_workflow)), sort(gsmColumns("meta_workflow")))
 
   # all names %in% because enrolled_participants/site are added in Make_Snapshot()
   expect_true(all(names(lMeta$meta_site) %in% gsmColumns("meta_site")))
@@ -190,7 +184,7 @@ test_that("Custom lAssessments and lMapping works together as intended", {
   lAssessments_edited$kri0001$name <- "aetoxgr"
   lAssessments_edited$kri0001$path <- file.path(system.file("/testpath/ae_assessment_moderate.yaml", package = "gsm"))
 
-  lMapping_edited<- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+  lMapping_edited <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
   lMapping_edited$dfAE$strGradeCol <- "MODERATE"
 
   expect_snapshot(snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping_edited, lAssessments = lAssessments_edited))
@@ -211,7 +205,6 @@ test_that("cPath works as intended", {
     unique()
 
   expect_true(all(expected_files %in% all_files))
-
 })
 
 ################################################################################################################
