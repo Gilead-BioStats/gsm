@@ -2,7 +2,7 @@
 % Please edit documentation in R/Transform_Rate.R
 \name{Transform_Rate}
 \alias{Transform_Rate}
-\title{Transform - Rate}
+\title{Transform Rate}
 \usage{
 Transform_Rate(
   dfInput,
@@ -13,36 +13,44 @@ Transform_Rate(
 )
 }
 \arguments{
-\item{dfInput}{A data.frame with one record per person.}
+\item{dfInput}{A data.frame with one record per subject.}
 
 \item{strNumeratorCol}{Required. Numerical or logical. Column to be counted.}
 
-\item{strDenominatorCol}{Optional. Numerical \code{Exposure} column.}
+\item{strDenominatorCol}{\code{numeric} Required. Numerical \code{Exposure} column.}
 
 \item{strGroupCol}{\code{character} Required. Name of column for grouping variable. Default: \code{"SiteID"}}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one row per site with columns SiteID, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
+\code{data.frame} with one row per site with columns \code{GroupID}, \code{Numerator}, \code{Denominator}, and \code{Metric}.
 }
 \description{
-Calculate a site-level Rate
+Convert from input data format to needed input format to derive KRI for an Assessment. Calculate a site-level rate.
 }
 \details{
-This function transforms data to prepare it for the Analysis step
+This function transforms data to prepare it for the analysis step. It is currently only sourced for the Adverse Event, Disposition, Labs, and Protocol Deviations Assessments.
 }
 \section{Data Specification}{
 
 
-The input data (\code{dfInput}) for the AE Assessment is typically created using any of these functions:
+The input data (\code{dfInput}) for the Assessment is typically created using any of these functions:
 \code{\link{AE_Map_Raw}}
 \code{\link{AE_Map_Adam}}
 \code{\link{Disp_Map_Raw}}
 \code{\link{LB_Map_Raw}}
 \code{\link{PD_Map_Raw}}
 
-(\code{dfInput}) must include the columns specified by \code{strNumeratorCol}, \code{strDenominatorCol} and \code{strGroupCol}
+(\code{dfInput}) must include the columns specified by \code{strNumeratorCol}, \code{strDenominatorCol} and \code{strGroupCol}.
+Required columns include:
+\itemize{
+\item \code{SiteID} - Site ID
+\item \code{StudyID} - Study ID
+\item \code{CustomGroupID} - Custom Group ID
+\item \code{Count} - Number of events of interest; the actual name of this column is specified by the parameter \code{strNumeratorCol}
+\item \code{Exposure} - Number of days on treatment; the actual name of this column is specified by the parameter \code{strDenominatorCol}
+}
 }
 
 \examples{

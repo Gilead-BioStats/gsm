@@ -12,6 +12,7 @@ reference:
      desc: Generate a visualization from the Assessment results
    - contents:
       - starts_with("Visualize_")
+      - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
 
    - title: Map
@@ -22,6 +23,7 @@ reference:
    - title: Analyze
      desc: Conduct statistical analysis based on input data
    - contents:
+      - Analyze_NormalApprox
       - Analyze_Identity
       - Analyze_Fisher
       - Analyze_Poisson
@@ -33,6 +35,7 @@ reference:
       - Transform_Rate
       - Flag
       - Flag_Fisher
+      - Flag_NormalApprox
       - Flag_Poisson
       - Summarize
 
@@ -44,16 +47,23 @@ reference:
       - Study_Table
       - rank_chg
 
+   - title: QTL
+     desc: Runs QTL analysis for longitudinal metrics
+   - contents:
+      - Analyze_QTL
+      - RunQTL
+      - SaveQTL
+
    - title: Utility
      desc: Utility functions for use within the Data Pipeline
    - contents:
       - is_mapping_valid
       - MergeSubjects
-      - MakeAssessmentList
+      - MakeWorkflowList
       - ConsolidateStrata
       - MakeStratifiedAssessment
       - RunStratifiedWorkflow
-      - RunAssessment
+      - RunWorkflow
       - FilterData
       - FilterDomain
       - Get_Enrolled
@@ -69,8 +79,6 @@ reference:
    - title: Data
      desc: Metadata used to create workflows
    - contents:
-      - config_param
-      - config_workflow
       - meta_param
       - meta_workflow
       - rbm_data_spec

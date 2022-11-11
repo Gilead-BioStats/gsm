@@ -1,4 +1,4 @@
-workflow:
+steps:
   - name: FilterDomain
     inputs: dfAE
     output: dfAE
@@ -24,4 +24,4 @@ workflow:
     params:
       strGroup: "Site"
       vThreshold: null
-      strMethod: "poisson"
+      strMethod: "NormalApprox"

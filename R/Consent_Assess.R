@@ -25,8 +25,8 @@
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
-#' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
-#'   of the column.
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
+#'   of the column. Default: package-defined Consent Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -70,13 +70,13 @@ Consent_Assess <- function(
   stopifnot(
     "nThreshold must be numeric" = is.numeric(nThreshold),
     "nThreshold must be length 1" = length(nThreshold) == 1,
-    "strGroup must be one of: Site, Study, or CustomGroup" = strGroup %in% c("Site", "Study", "CustomGroup"),
+    "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
-  lChecks <- CheckInputs(
+  lChecks <- gsm::CheckInputs(
     context = "Consent_Assess",
     dfs = list(dfInput = dfInput),
     mapping = lMapping,
@@ -103,7 +103,7 @@ Consent_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Count} returned output with {nrow(lData$dfTransformed)} rows.")
 
     # dfAnalyzed --------------------------------------------------------------
-    lData$dfAnalyzed <- Analyze_Identity(lData$dfTransformed, bQuiet = bQuiet)
+    lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_info("No analysis function used. {.var dfTransformed} copied directly to {.var dfAnalyzed}.")
 
     # dfFlagged ---------------------------------------------------------------
@@ -116,8 +116,8 @@ Consent_Assess <- function(
 
     # visualizations ----------------------------------------------------------
     lCharts <- list()
-    lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score")
+    lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+    lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score")
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(lCharts)} chart{?s}.")
 
     # return data -------------------------------------------------------------

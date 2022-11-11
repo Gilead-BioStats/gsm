@@ -1,4 +1,11 @@
-#' Create multiple workflows from a single stratified workflow
+#' {experimental} Create multiple workflows from a single stratified workflow.
+#'
+#' @description
+#' `MakeStratifiedAssessment` is a utility function that creates a stratified workflow list using a pre-defined workflow (from `inst/workflows`), or
+#' by using a custom named list. For example, a user can run the Adverse Event assessment workflow and stratify by event severity (i.e., `aetoxgr`).
+#' This will give a list of compiled workflows, each of which represents the assessment results for each unique value of the stratifying variable.
+#' For this example using default data, `MakeWorkflowList` will create four lists under the main output object
+#' - one with assessment results for mild AEs, one for moderate, one for severe, and one for life-threatening events.
 #'
 #' @param lData `list` A named list of domain-level data frames.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
@@ -10,7 +17,7 @@
 #' lMapping <- yaml::read_yaml(
 #'   system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
 #' )
-#' lAssessmentList <- MakeAssessmentList()
+#' lWorkflowList <- MakeWorkflowList(strNames = "aeGrade", bRecursive = TRUE)
 #'
 #' # Adverse events by grade
 #' StratifiedAE <- MakeStratifiedAssessment(
@@ -19,12 +26,12 @@
 #'     dfAE = clindata::rawplus_ae
 #'   ),
 #'   lMapping = lMapping,
-#'   lWorkflow = lAssessmentList$aeGrade
+#'   lWorkflow = lWorkflowList$aeGrade
 #' )
 #'
 #' StratifiedAEResult <- StratifiedAE %>%
 #'   purrr::map(~ .x %>%
-#'     RunAssessment(
+#'     RunWorkflow(
 #'       lData = list(
 #'         dfSUBJ = clindata::rawplus_dm,
 #'         dfAE = clindata::rawplus_ae
@@ -39,12 +46,12 @@
 #'     dfPD = clindata::rawplus_protdev
 #'   ),
 #'   lMapping = lMapping,
-#'   lWorkflow = MakeAssessmentList()$pdCategory
+#'   lWorkflow = MakeWorkflowList()$pdCategory
 #' )
 #'
 #' StratifiedPDResult <- StratifiedPD %>%
 #'   purrr::map(~ .x %>%
-#'     RunAssessment(
+#'     RunWorkflow(
 #'       lData = list(
 #'         dfSUBJ = clindata::rawplus_dm,
 #'         dfPD = clindata::rawplus_protdev
@@ -64,7 +71,7 @@
 #'
 #' StratifiedLBResult <- StratifiedLB %>%
 #'   purrr::map(~ .x %>%
-#'     RunAssessment(
+#'     RunWorkflow(
 #'       lData = list(
 #'         dfSUBJ = clindata::rawplus_dm,
 #'         dfLB = clindata::rawplus_lb
@@ -114,7 +121,6 @@ MakeStratifiedAssessment <- function(
 
       # Tailor workflow to stratum.
       workflow$name <- glue::glue("{workflow$name}_{i}")
-      workflow$label <- glue::glue("{workflow$tags$Label} ({workflow$tags$Group})")
 
 
       # Add an additional workflow step that subsets on the current stratum.
@@ -128,7 +134,7 @@ MakeStratifiedAssessment <- function(
         )
       ))
 
-      workflow$workflow <- c(lStrata, lWorkflow$workflow)
+      workflow$steps <- c(lStrata, lWorkflow$steps)
 
       workflow
     })

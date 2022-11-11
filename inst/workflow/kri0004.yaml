@@ -1,4 +1,4 @@
-workflow:
+steps:
   - name: FilterDomain
     inputs: dfPD
     output: dfPD
@@ -17,4 +17,4 @@ workflow:
     params:
       strGroup: "Site"
       vThreshold: null
-      strMethod: "poisson"
+      strMethod: "NormalApprox"

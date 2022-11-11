@@ -1,4 +1,6 @@
-#' Study Report
+#' {experimental} Study Report
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' Create HTML summary report using the results of `Study_Assess`, including tables, charts, and error checking.
 #'
@@ -10,8 +12,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' lAssessment <- Study_Assess()
-#' Study_Report(lAssessment, lMeta = list(study = "my study name"))
+#' lWorkflow <- Study_Assess()
+#' Study_Report(lWorkflow, lMeta = list(study = "my study name"))
 #' }
 #'
 #' @importFrom rmarkdown render

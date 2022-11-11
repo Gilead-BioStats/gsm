@@ -1,4 +1,4 @@
-workflow:
+steps:
   - name: FilterDomain
     inputs: dfSDRGCOMP
     output: dfSDRGCOMP
@@ -17,6 +17,6 @@ workflow:
     inputs: dfInput
     output: lResults
     params:
-      strGroup: "Site"
+      strGroup: "Country"
       vThreshold: null
-      strMethod: "fisher"
+      strMethod: "funnel"

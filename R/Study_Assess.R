@@ -1,11 +1,12 @@
 #' Run Multiple Assessments on a Study
 #'
+#' @description
 #' Attempts to run one or more assessments (`lAssessments`) using shared data (`lData`) and metadata (`lMapping`). By default, the sample `rawplus` data from the {clindata} package is used, and all assessments defined in `inst/workflow` are evaluated. Individual assessments are run using `gsm::RunAssessment()`
 #'
-#' @param lData a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
-#' @param lMapping a named list identifying the columns needed in each data domain.
-#' @param lAssessments a named list of metadata defining how each assessment should be run. By default, `MakeAssessmentList()` imports YAML specifications from `inst/workflow`.
-#' @param lSubjFilters a named list of parameters to filter subject-level data on.
+#' @param lData `list` a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
+#' @param lMapping `list` a named list identifying the columns needed in each data domain.
+#' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
+#' @param lSubjFilters `list` a named list of parameters to filter subject-level data on.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @examples
@@ -53,7 +54,7 @@ Study_Assess <- function(
 
   # lAssessments from gsm inst/workflow
   if (is.null(lAssessments)) {
-    lAssessments <- MakeAssessmentList()
+    lAssessments <- gsm::MakeWorkflowList()
   }
 
   # Filter data$dfSUBJ based on lSubjFilters --------------------------------
@@ -64,7 +65,7 @@ Study_Assess <- function(
       }
       col <- colMapping
       vals <- lSubjFilters[[colMapping]]
-      lData$dfSUBJ <- FilterDomain(
+      lData$dfSUBJ <- gsm::FilterDomain(
         df = lData$dfSUBJ,
         strDomain = "dfSUBJ",
         lMapping = lMapping,
@@ -79,15 +80,15 @@ Study_Assess <- function(
     if (nrow(lData$dfSUBJ > 0)) {
       ### --- Attempt to run each assessment --- ###
       lAssessments <- lAssessments %>%
-        map(function(lAssessment) {
+        purrr::map(function(lWorkflow) {
           Runction <- ifelse(
-            hasName(lAssessment, "group"),
+            hasName(lWorkflow, "group"),
             RunStratifiedWorkflow,
-            RunAssessment
+            RunWorkflow
           )
 
           Runction(
-            lAssessment,
+            lWorkflow,
             lData = lData,
             lMapping = lMapping,
             bQuiet = bQuiet

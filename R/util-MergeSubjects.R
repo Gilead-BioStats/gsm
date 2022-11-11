@@ -1,9 +1,13 @@
 #' Merge Domain data with subject-level data
 #'
-#' @param dfDomain Subject-level domain data containing one record per participant.
-#' @param dfSUBJ Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)
-#' @param strIDCol name of ID Column - default='SubjectID'
-#' @param vFillZero Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSUBJ
+#' @description
+#' `MergeSubjects` is a helper function used within mapping functions to join subject-level data with domain-level data, with the ability to impute
+#' zeros when necessary.
+#'
+#' @param dfDomain `data.frame` Subject-level domain data containing one record per participant.
+#' @param dfSUBJ `data.frame` Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)
+#' @param strIDCol `character` Vector of length 1. The name of ID Column - Default: `SubjectID`
+#' @param vFillZero `vector` Column names from `dfDomain` to fill with zeros when no matching row is found for an ID in `dfSUBJ`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @examples

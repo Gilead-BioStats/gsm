@@ -1,8 +1,15 @@
-workflow:
+steps:
+  - name: FilterDomain
+    inputs: dfLB
+    output: dfLB
+    params:
+      strDomain: dfLB
+      strColParam: strTreatmentEmergentCol
+      strValParam: strTreatmentEmergentVal
   - name: LB_Map_Raw
     inputs:
-      - dfLB
       - dfSUBJ
+      - dfLB
     output: dfInput
   - name: LB_Assess
     inputs: dfInput
@@ -10,4 +17,4 @@ workflow:
     params:
       strGroup: "Site"
       vThreshold: null
-      strMethod: "fisher"
+      strMethod: "NormalApprox"

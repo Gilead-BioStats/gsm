@@ -12,10 +12,10 @@
 #' AEs by passing filtered AE data to `dfAE`.
 #'
 #' @param dfs `list` Input data frames:
-#'   - `dfAE`: `data.frame` Event-level data with one record per AE.
-#'   - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
+#'   - `dfAE`: `data.frame` Event-level data with one record per AE. Default: `clindata::rawplus_ae`
+#'   - `dfSUBJ`: `data.frame` Subject-level data with one record per subject. Default: `clindata::rawplus_dm`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
-#'   of the column.
+#'   of the column. Default: package-defined mapping for raw+.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -34,6 +34,7 @@
 #' dfInput <- AE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
+#' @importFrom yaml read_yaml
 #' @import dplyr
 #'
 #' @export
@@ -74,6 +75,7 @@ AE_Map_Raw <- function(
           c(
             SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
             StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+            CountryID = lMapping[["dfSUBJ"]][["strCountryCol"]],
             CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
           )
         ),
@@ -87,7 +89,8 @@ AE_Map_Raw <- function(
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
       mutate(Rate = .data$Count / .data$Exposure) %>%
-      select(any_of(c(names(dfSUBJ_mapped))), .data$Count, .data$Rate)
+      select(any_of(c(names(dfSUBJ_mapped))), "Count", "Rate") %>%
+      arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

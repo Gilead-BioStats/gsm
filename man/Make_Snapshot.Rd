@@ -5,8 +5,8 @@
 \title{Make Snapshot - create and export Gizmo data model.}
 \usage{
 Make_Snapshot(
-  lMeta = list(config_param = gsm::config_param, config_schedule =
-    clindata::config_schedule, config_workflow = gsm::config_workflow, meta_params =
+  lMeta = list(config_param = clindata::config_param, config_schedule =
+    clindata::config_schedule, config_workflow = clindata::config_workflow, meta_params =
     gsm::meta_param, meta_site = clindata::ctms_site, meta_study = clindata::ctms_study,
     meta_workflow = gsm::meta_workflow),
   lData = list(dfSUBJ = clindata::rawplus_dm, dfAE = clindata::rawplus_ae, dfLB =
@@ -21,20 +21,39 @@ Make_Snapshot(
 )
 }
 \arguments{
-\item{lMeta}{\code{list} a named list of data frames containing metadata, configuration, and workflow parameters for a given study. TODO: add details about expected lMeta input.}
+\item{lMeta}{\code{list} a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
+See the Data Model Vignette - Appendix 2 - Data Model Specifications for detailed specifications.}
 
-\item{lData}{\code{list} a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
+\item{lData}{\code{list} a named list of domain-level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
-\item{lMapping}{\code{list} a named list identifying the columns needed in each data domain.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column. Default: package-defined mapping for raw+.}
 
-\item{lAssessments}{a named list of metadata defining how each assessment should be run. By default, \code{MakeAssessmentList()} imports YAML specifications from \code{inst/workflow}.}
+\item{lAssessments}{\code{list} a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
 
 \item{cPath}{\code{character} a character string indicating a working directory to save .csv files; the output of the snapshot.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
+\value{
+\code{list} \code{lSnapshot}, a named list with a data.frame for each component of the {gsm} data model.
+\itemize{
+\item \code{status_study}
+\item \code{status_site}
+\item \code{status_workflow}
+\item \code{status_param}
+\item \code{status_schedule}
+\item \code{results_summary}
+\item \code{results_bounds}
+\item \code{meta_workflow}
+\item \code{meta_param}
+}
+}
 \description{
-Make Snapshot - create and export Gizmo data model.
+\code{Make_Snapshot()} ingests data from a variety of sources, and runs KRIs and/or QTLs based on the \code{list} provided in \code{lAssessments}. The output of \code{Make_Snapshot()} is used as the input data model
+for the Gismo web application.
+
+For more context about the inputs and outputs of \code{Make_Snapshot()}, refer to the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM Data Pipeline Vignette}, specifically
+Appendix 2 - Data Model Specifications
 }
 \section{Return - Data Model Description}{
 A named \code{list} of data.frames:

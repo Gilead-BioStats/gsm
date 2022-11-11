@@ -10,22 +10,27 @@
 #' methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
-#' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to
-#' `c(.01, .05)` for Fisher's exact test (`strMethod` = "fisher") and `c(3.491, 5.172)` for a nominal assessment (`strMethod` = "identity").
+#' @param vThreshold `numeric` Threshold specification, a vector of length 2 or 4 that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation (`strMethod = "NormalApprox"`),
+#' `c(.01, .05)` for Fisher's exact test (`strMethod = "fisher"`), and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
+#'   - `"NormalApprox"` (default)
 #'   - `"fisher"`
 #'   - `"identity"`
-#' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
-#'   of the column.
+#' @param strType `character` Statistical outcome type. Valid values:
+#'   - `"binary"` (default)
+#'   - `"rate"`
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
+#'   of the column. Default: package-defined Labs Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
 #' - each data frame in the data pipeline
 #'   - `dfTransformed`, returned by [gsm::Transform_Rate()]
-#'   - `dfAnalyzed`, returned by [gsm::Analyze_Fisher()] or [gsm::Analyze_Identity()]
-#'   - `dfFlagged`, returned by [gsm::Flag_Fisher()] or [gsm::Flag()]
+#'   - `dfAnalyzed`, returned by [gsm::Analyze_NormalApprox()], [gsm::Analyze_Fisher()], or [gsm::Analyze_Identity()]
+#'   - `dfFlagged`, returned by [gsm::Flag_NormalApprox()], [gsm::Flag_Fisher()], or [gsm::Flag()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
+#'   - `dfBounds`, returned by [gsm::Analyze_NormalApprox_PredictBounds()] when `strMethod == "NormalApprox"`
 #' - `list` `lCharts`, a named list with:
 #'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when strMethod != "identity"
 #'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()]
@@ -41,6 +46,7 @@
 #'
 #' @examples
 #' dfInput <- LB_Map_Raw()
+#' lb_assessment_NormalApprox <- LB_Assess(dfInput, strMethod = "NormalApprox")
 #' lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
 #' lb_assessment_identity <- LB_Assess(dfInput, strMethod = "identity")
 #'
@@ -54,7 +60,8 @@
 LB_Assess <- function(
   dfInput,
   vThreshold = NULL,
-  strMethod = "fisher",
+  strMethod = "NormalApprox",
+  strType = "binary",
   lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE
@@ -62,15 +69,15 @@ LB_Assess <- function(
 
   # data checking -----------------------------------------------------------
   stopifnot(
-    "strMethod is not 'fisher' or 'identity'" = strMethod %in% c("fisher", "identity"),
+    "strMethod is not 'NormalApprox', 'fisher' or 'identity'" = strMethod %in% c("NormalApprox", "fisher", "identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
-    "strGroup must be one of: Site, Study, or CustomGroup" = strGroup %in% c("Site", "Study", "CustomGroup"),
+    "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
-  lChecks <- CheckInputs(
+  lChecks <- gsm::CheckInputs(
     context = "LB_Assess",
     dfs = list(dfInput = dfInput),
     mapping = lMapping,
@@ -80,12 +87,14 @@ LB_Assess <- function(
   # set thresholds and flagging parameters ----------------------------------
   if (is.null(vThreshold)) {
     vThreshold <- switch(strMethod,
+      NormalApprox = c(-3, -2, 2, 3),
       fisher = c(0.01, 0.05),
       identity = c(3.491, 5.172)
     )
   }
 
   strValueColumnVal <- switch(strMethod,
+    NormalApprox = NULL,
     fisher = "Score",
     identity = "Score"
   )
@@ -114,7 +123,21 @@ LB_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
     # dfAnalyzed --------------------------------------------------------------
-    if (strMethod == "fisher") {
+
+    if (strMethod == "NormalApprox") {
+      lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
+        dfTransformed = lData$dfTransformed,
+        strType = strType,
+        bQuiet = bQuiet
+      )
+
+      lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
+        dfTransformed = lData$dfTransformed,
+        vThreshold = vThreshold,
+        strType = strType,
+        bQuiet = bQuiet
+      )
+    } else if (strMethod == "fisher") {
       lData$dfAnalyzed <- gsm::Analyze_Fisher(lData$dfTransformed, bQuiet = bQuiet)
     } else if (strMethod == "identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
@@ -124,13 +147,16 @@ LB_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn {strAnalyzeFunction}} returned output with {nrow(lData$dfAnalyzed)} rows.")
 
     # dfFlagged ---------------------------------------------------------------
-    if (strMethod == "fisher") {
+    if (strMethod == "NormalApprox") {
+      lData$dfFlagged <- gsm::Flag_NormalApprox(lData$dfAnalyzed, vThreshold = vThreshold)
+    } else if (strMethod == "fisher") {
       lData$dfFlagged <- gsm::Flag_Fisher(lData$dfAnalyzed, vThreshold = vThreshold)
-    } else {
+    } else if (strMethod == "identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     }
 
     flag_function_name <- switch(strMethod,
+      NormalApprox = "Flag_NormalApprox",
       identity = "Flag",
       fisher = "Flag_Fisher"
     )
@@ -151,9 +177,11 @@ LB_Assess <- function(
       if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
     }
 
-    lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+    lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+    lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
+
+
 
     # return data -------------------------------------------------------------
     return(list(

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Study_Table.R
 \name{Study_Table}
 \alias{Study_Table}
-\title{Make Assessment overview table}
+\title{{experimental} Make Assessment overview table}
 \usage{
 Study_Table(
   dfFindings,
@@ -14,22 +14,25 @@ Study_Table(
 )
 }
 \arguments{
-\item{dfFindings}{dataframe containing one or more stacked findings. Findings are one record per assessment per site and have the following columns: Assessment, Label, GroupID, N, PValue, Flag. PValue is ignored in the summary table.}
+\item{dfFindings}{\code{data.frame} dataframe containing one or more stacked findings. Findings are one record per assessment per site and have the following columns: Assessment, Label, GroupID, N, PValue, Flag. PValue is ignored in the summary table.}
 
-\item{bFormat}{Use html-friendly icons in table cells. -1 is converted to a down arrow. 1 is converted to an up arrow. 0 is not shown. Other values are left as is.}
+\item{bFormat}{\code{logical} Use html-friendly icons in table cells. -1 is converted to a down arrow. 1 is converted to an up arrow. 0 is not shown. Other values are left as is. Default: \code{TRUE}}
 
-\item{bShowCounts}{Show site counts? Uses first value of N for each site given in dfFindings.}
+\item{bShowCounts}{\code{logical} Show site counts? Uses first value of N for each site given in dfFindings. Default: \code{TRUE}}
 
-\item{bShowSiteScore}{Show a "Score" row with total number of flagged assessments for each site. TODO:  add method for custom scoring in future release)}
+\item{bShowSiteScore}{\code{logical} Show a "Score" row with total number of flagged assessments for each site. TODO:  add method for custom scoring in future release) Default: \code{TRUE}}
 
-\item{vSiteScoreThreshold}{Hide sites with a site score less than this value (1 by default).}
+\item{vSiteScoreThreshold}{\code{numeric} Hide sites with a site score less than this value (1 by default). Default: \code{1}}
 
-\item{bColCollapse}{Combine the Assessment and Label columns into a single "Title Column"}
+\item{bColCollapse}{\code{logical} Combine the Assessment and Label columns into a single "Title Column" Default: \code{TRUE}}
 }
 \value{
 \code{data.frame} Returns a data.frame giving assessment status (rows) by Site (column)
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+}
+\details{
 Make overview table with one row per assessment and one column per site showing flagged assessments.
 }
 \examples{
@@ -39,9 +42,9 @@ lData <- list(
   dfSUBJ = clindata::rawplus_dm
 )
 
-lAssessment <- Study_Assess(lData)
+lWorkflow <- Study_Assess(lData)
 
-dfSummary <- lAssessment \%>\%
+dfSummary <- lWorkflow \%>\%
   purrr::map(~ .x$lResults) \%>\%
   purrr::discard(is.null) \%>\%
   purrr::compact() \%>\%

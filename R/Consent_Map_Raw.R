@@ -14,10 +14,10 @@
 #' types of consent by customizing `lMapping$dfCONSENT`.
 #'
 #' @param dfs `list` Input data frames:
-#'  - `dfCONSENT`: `data.frame` Consent type-level data with one record per subject per consent type.
-#'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
+#'  - `dfCONSENT`: `data.frame` Consent type-level data with one record per subject per consent type. Default: `clindata::rawplus_consent`
+#'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject. Default: `clindata::rawplus_dm`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
-#'   of the column.
+#'   of the column. Default: package-defined mapping for raw+.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -81,6 +81,7 @@ Consent_Map_Raw <- function(
           c(
             SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
             StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+            CountryID = lMapping[["dfSUBJ"]][["strCountryCol"]],
             CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
           )
         ),
@@ -114,7 +115,8 @@ Consent_Map_Raw <- function(
         any_flag = .data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare,
         Count = as.numeric(.data$any_flag, na.rm = TRUE)
       ) %>%
-      select(any_of(c(names(dfSUBJ_mapped))), .data$Count)
+      select(any_of(c(names(dfSUBJ_mapped))), "Count") %>%
+      arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Consent_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

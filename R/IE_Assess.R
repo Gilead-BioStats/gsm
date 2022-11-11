@@ -14,8 +14,8 @@
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
-#' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
-#'   of the column.
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
+#'   of the column. Default: package-defined Inclusion/Exclusion Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -60,7 +60,7 @@ IE_Assess <- function(
   stopifnot(
     "nThreshold must be numeric" = is.numeric(nThreshold),
     "nThreshold must be length 1" = length(nThreshold) == 1,
-    "strGroup must be one of: Site, Study, or CustomGroup" = strGroup %in% c("Site", "Study", "CustomGroup"),
+    "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 

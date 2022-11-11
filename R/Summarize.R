@@ -46,10 +46,10 @@ Summarize <- function(dfFlagged, strScoreCol = "Score") {
 
   dfSummary <- dfFlagged %>%
     select(
-      .data$GroupID,
-      .data$Metric,
-      .data$Score,
-      .data$Flag
+      "GroupID",
+      "Metric",
+      "Score",
+      "Flag"
     ) %>%
     arrange(desc(abs(.data$Metric))) %>%
     arrange(match(.data$Flag, c(1, -1, 0)))

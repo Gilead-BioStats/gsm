@@ -2,14 +2,14 @@
 #'
 #' @details
 #'
-#' Fits a Poisson model to site level data and then calculates predicted count values and upper- and
+#' Fits a Poisson model to site-level data and then calculates predicted count values and upper- and
 #' lower- bounds for across the full range of exposure values.
 #'
 #' @section Statistical Methods:
-#' This function fits a poisson model to site-level data and then calculates residuals for each
-#' site. The poisson model is run using standard methods in the `stats` package by fitting a `glm`
+#' This function fits a Poisson model to site-level data and then calculates residuals for each
+#' site. The Poisson model is run using standard methods in the `stats` package by fitting a `glm`
 #' model with family set to `poisson` using a "log" link. Upper and lower boundary values are then
-#' calculated using the method described here TODO: Add link. In short,
+#' calculated using the method described here TODO: Add link.
 #'
 #' @section Data Specification:
 #' The input data (`dfTransformed`) for Analyze_Poisson is typically created using
@@ -19,10 +19,11 @@
 #' - `Denominator` - Number of days of exposure
 #'
 #' @param dfTransformed `data.frame` data.frame in format produced by
-#' \code{\link{Transform_Rate}}. Must include GroupID, N, Numerator and Denominator
+#' \code{\link{Transform_Rate}}. Must include GroupID, N, Numerator and Denominator.
 #' @param vThreshold `numeric` upper and lower boundaries in residual space. Should be identical to
 #' the thresholds used AE_Assess().
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#' @param nStep `numeric` step size of imputed bounds.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @return `data.frame` containing predicted boundary values with upper and lower bounds across the
 #' range of observed values.
@@ -45,7 +46,12 @@
 #'
 #' @export
 
-Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), bQuiet = TRUE) {
+Analyze_Poisson_PredictBounds <- function(
+  dfTransformed,
+  vThreshold = c(-5, 5),
+  nStep = 1,
+  bQuiet = TRUE
+) {
   if (is.null(vThreshold)) {
     vThreshold <- c(-5, 5)
     cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-5, 5)")
@@ -68,9 +74,9 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
 
   # Calculate expected event count and predicted bounds across range of total exposure.
   vRange <- seq(
-    min(dfTransformed$LogDenominator) - 0.05,
-    max(dfTransformed$LogDenominator) + 0.05,
-    by = 0.05
+    min(dfTransformed$LogDenominator) - nStep,
+    max(dfTransformed$LogDenominator) + nStep,
+    by = nStep
   )
 
   dfBounds <- tidyr::expand_grid(Threshold = vThreshold, LogDenominator = vRange) %>%
@@ -92,10 +98,10 @@ Analyze_Poisson_PredictBounds <- function(dfTransformed, vThreshold = c(-5, 5), 
     # NaN is meaningful result indicating not bounded
     filter(!is.nan(.data$Numerator)) %>%
     select(
-      .data$Threshold,
-      .data$LogDenominator,
-      .data$Denominator,
-      .data$Numerator
+      "Threshold",
+      "LogDenominator",
+      "Denominator",
+      "Numerator"
     )
 
   return(dfBounds)

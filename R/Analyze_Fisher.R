@@ -9,15 +9,22 @@
 #'
 #' @section Statistical Methods:
 #'
-#' TODO Coming soon ...
+#' The function `Analyze_Fisher` utilizes `stats::fisher.test` to generate an
+#' estimate of odds ratio as well as p-value using the Fisher’s exact test with site-level count
+#' data. For each site, Fisher’s exact test is conducted by comparing to all other sites combined
+#' in a 2×2 contingency table. The p-values are then used as a scoring metric in `{gsm}` to flag
+#' possible outliers. The default in `stats::fisher.test` uses a two-sided test (equivalent to testing
+#' the null of OR = 1) and does not compute p-values by Monte Carlo simulation unless `simulate.p.value = TRUE`.
+#' Sites with p-values less than 0.05 from the Fisher’s exact test analysis are flagged by default.
+#' The significance level was set at a common choice.
 #'
 #' @section Data Specification:
 #'
 #' The input data (`dfTransformed`) for Analyze_Fisher is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
 #' - `GroupID` - Site ID
 #' - `Numerator` - Total number of participants at site with event of interest
-#' - `Denominator` - TBD
-#' - `Metric` - TBD
+#' - `Denominator` - Total number of participants at site/Total number of days of exposure at site
+#' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
 #'
 #' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
 #' @param strOutcome `character` required, name of column in dfTransformed dataset to perform Fisher's exact test on. Default is "Numerator".
@@ -64,7 +71,7 @@ Analyze_Fisher <- function(
         Flag = sum(.data$Numerator),
         NoFlag = sum(.data$Participants - .data$Flag)
       ) %>%
-      select(.data$NoFlag, .data$Flag)
+      select("NoFlag", "Flag")
 
     stats::fisher.test(SiteTable)
   }
@@ -73,11 +80,9 @@ Analyze_Fisher <- function(
     mutate(model = map(.data$GroupID, fisher_model)) %>%
     mutate(summary = map(.data$model, broom::glance)) %>%
     tidyr::unnest(summary) %>%
-    rename(
-      Estimate = .data$estimate,
-      Score = .data[["p.value"]]
-    ) %>%
     mutate(
+      Estimate = .data$estimate,
+      Score = .data$p.value,
       Numerator_All = sum(.data$Numerator),
       Denominator_All = sum(.data$Denominator),
       Numerator_Other = .data$Numerator_All - .data$Numerator,
@@ -87,16 +92,16 @@ Analyze_Fisher <- function(
     ) %>%
     arrange(.data$Score) %>%
     select(
-      .data$GroupID,
-      .data$Numerator,
-      .data$Numerator_Other,
-      .data$Denominator,
-      .data$Denominator_Other,
-      .data$Prop,
-      .data$Prop_Other,
-      .data$Metric,
-      .data$Estimate,
-      .data$Score
+      "GroupID",
+      "Numerator",
+      "Numerator_Other",
+      "Denominator",
+      "Denominator_Other",
+      "Prop",
+      "Prop_Other",
+      "Metric",
+      "Estimate",
+      "Score"
     )
 
   return(dfAnalyzed)

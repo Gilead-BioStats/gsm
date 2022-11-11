@@ -21,7 +21,6 @@ test_that("flowchart is created for all assessments", {
   expect_true("flowchart" %in% names(study$kri0005$lChecks))
   expect_true("flowchart" %in% names(study$kri0006$lChecks))
   expect_true("flowchart" %in% names(study$kri0007$lChecks))
-  expect_true("flowchart" %in% names(study$kri0008$lChecks))
 
   expect_type(study$kri0001$lChecks$flowchart, "list")
   expect_type(study$kri0002$lChecks$flowchart, "list")
@@ -30,5 +29,4 @@ test_that("flowchart is created for all assessments", {
   expect_type(study$kri0005$lChecks$flowchart, "list")
   expect_type(study$kri0006$lChecks$flowchart, "list")
   expect_type(study$kri0007$lChecks$flowchart, "list")
-  expect_type(study$kri0008$lChecks$flowchart, "list")
 })

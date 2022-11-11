@@ -1,0 +1,20 @@
+steps:
+  - name: FilterDomain
+    inputs: dfPD
+    output: dfPD
+    params:
+      strDomain: dfPD
+      strColParam: strImportantCol
+      strValParam: strNotImportantVal
+  - name: PD_Map_Raw
+    inputs:
+      - dfPD
+      - dfSUBJ
+    output: dfInput
+  - name: PD_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Country"
+      vThreshold: null
+      strMethod: "funnel"

@@ -13,13 +13,13 @@ MergeSubjects(
 )
 }
 \arguments{
-\item{dfDomain}{Subject-level domain data containing one record per participant.}
+\item{dfDomain}{\code{data.frame} Subject-level domain data containing one record per participant.}
 
-\item{dfSUBJ}{Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)}
+\item{dfSUBJ}{\code{data.frame} Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)}
 
-\item{strIDCol}{name of ID Column - default='SubjectID'}
+\item{strIDCol}{\code{character} Vector of length 1. The name of ID Column - Default: \code{SubjectID}}
 
-\item{vFillZero}{Columns from dfDomain to fill with zeros when no matching row is found in for an ID in dfSUBJ}
+\item{vFillZero}{\code{vector} Column names from \code{dfDomain} to fill with zeros when no matching row is found for an ID in \code{dfSUBJ}.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -27,7 +27,8 @@ MergeSubjects(
 \code{data.frame} with one record per strIDCol.
 }
 \description{
-Merge Domain data with subject-level data
+\code{MergeSubjects} is a helper function used within mapping functions to join subject-level data with domain-level data, with the ability to impute
+zeros when necessary.
 }
 \examples{
 MergeSubjects(

@@ -1,9 +1,11 @@
-#' Make Summary of 1 or more assessment Data checks
+#' {experimental} Make Summary of 1 or more assessment Data checks
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' Make overview table with one row per assessment and one column per site showing flagged assessments.
 #'
-#' @param lAssessments List of 1+ assessments like those created by `runAssessment()` or `Study_Assess()`
-#' @param bViewReport HTML table of dfSummary that can be viewed in most IDEs.
+#' @param lAssessments `list` List of 1+ assessments like those created by `RunWorkflow()` or `Study_Assess()`
+#' @param bViewReport `logical` HTML table of dfSummary that can be viewed in most IDEs. Default: `FALSE`
 #'
 #' @return `list` containing a `data.frame` summarizing the checks `dfSummary` and a `data.frame` listing all checks (`dfAllChecks`).
 #'
@@ -27,15 +29,19 @@
 #' @export
 
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
-  allChecks <- map(names(lAssessments), function(assessment) {
-    workflow <- lAssessments[[assessment]][["workflow"]] %>%
-      map_df(
-        ~ bind_cols(step = .x[["name"]], domain = .x[["inputs"]])
+  allChecks <- purrr::map(names(lAssessments), function(assessment) {
+    workflow <- lAssessments[[assessment]][["steps"]] %>%
+      purrr::imap_dfr(
+        ~ bind_cols(step = .x[["name"]], domain = .x[["inputs"]], temp_index = .y)
       ) %>%
+      arrange(.data$temp_index, .data$domain) %>%
       mutate(
         assessment = assessment,
         index = as.character(row_number())
-      )
+      ) %>%
+      select(-"temp_index")
+
+
 
     # this is needed because we are mapping everything run through `is_mapping_valid()`
     # we added the flowchart object to lChecks, so need to remove it first
@@ -43,16 +49,16 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
     mapTheseSteps$flowchart <- NULL
 
 
-    allChecks <- map(mapTheseSteps, function(step) {
+    allChecks <- purrr::map(mapTheseSteps, function(step) {
       domains <- names(step[!names(step) %in% c("mapping", "spec", "status")])
 
-      map(domains, function(domain) {
+      purrr::map(domains, function(domain) {
         status <- step[[domain]][["status"]]
 
         step[[domain]][["tests_if"]] %>%
           bind_rows(.id = "names") %>%
           mutate(status = ifelse(is.na(.data$warning), NA_character_, .data$warning)) %>%
-          select(-.data$warning) %>%
+          select(-"warning") %>%
           t() %>%
           as_tibble(.name_repair = "minimal") %>%
           janitor::row_to_names(1) %>%
@@ -60,20 +66,21 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
             domain = domain,
             status = status
           ) %>%
-          select(.data$domain, everything())
+          select("domain", everything())
       })
     }) %>%
       bind_rows(.id = "index")
 
+
     left_join(workflow, allChecks, by = c("index", "domain"))
   }) %>%
     bind_rows() %>%
-    select(.data$assessment, .data$step, check = .data$status, .data$domain, everything(), -.data$index) %>%
+    select("assessment", "step", check = "status", "domain", everything(), -"index") %>%
     suppressWarnings()
 
-  found_data <- map(names(lAssessments), ~ lAssessments[[.x]][["lData"]]) %>%
-    flatten() %>%
-    discard(~ "logical" %in% class(.)) %>%
+  found_data <- purrr::map(names(lAssessments), ~ lAssessments[[.x]][["lData"]]) %>%
+    purrr::flatten() %>%
+    purrr::discard(~ "logical" %in% class(.)) %>%
     names() %>%
     unique()
 
@@ -83,11 +90,12 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
       paste0("Data not found for ", .data$assessment, " assessment"),
       NA_character_
     )) %>%
-    select(.data$assessment, .data$step, .data$check, .data$domain, .data$notes, everything())
+    select("assessment", "step", "check", "domain", "notes", everything())
 
   check_cols <- allChecks %>%
-    select(-c(.data$assessment, .data$step, .data$check, .data$domain, .data$notes)) %>%
+    select(-c("assessment", "step", "check", "domain", "notes")) %>%
     names()
+
 
   allChecks <- allChecks %>%
     mutate(across(all_of(check_cols), ~ ifelse(!is.na(notes), NA_character_, .)),
@@ -104,8 +112,8 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
     )
 
   dfSummary <- allChecks %>%
-    mutate(check = map(.data$check, rank_chg)) %>%
-    select(.data$assessment, .data$step, .data$check, .data$domain, .data$notes)
+    mutate(check = purrr::map(.data$check, rank_chg)) %>%
+    select("assessment", "step", "check", "domain", "notes")
 
   if (!bViewReport) {
     return(list(dfAllChecks = allChecks, dfSummary = dfSummary))

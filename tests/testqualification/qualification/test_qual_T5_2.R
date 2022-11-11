@@ -5,7 +5,8 @@ test_that("Disposition assessment can return a correctly assessed data frame for
   test5_2 <- Disp_Assess(
     dfInput = dfInput,
     vThreshold = c(.025, .05),
-    strGroup = "CustomGroup"
+    strGroup = "CustomGroup",
+    strMethod = "fisher"
   )
 
   # Double Programming

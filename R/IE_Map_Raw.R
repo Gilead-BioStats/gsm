@@ -14,10 +14,10 @@
 #' specific types of IE criteria by passing filtered IE data to `dfIE`.
 #'
 #' @param dfs `list` Input data frames:
-#'  - `dfIE`: `data.frame` Criterion-level data with one record subject per criterion.
-#'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
+#'  - `dfIE`: `data.frame` Criterion-level data with one record subject per criterion. Default: `clindata::rawplus_ie`
+#'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject. Default: `clindata::rawplus_dm`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
-#'   of the column.
+#'   of the column. Default: package-defined mapping for raw+.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -37,7 +37,6 @@
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
 #' @importFrom yaml read_yaml
-#' @import dplyr
 #'
 #' @export
 
@@ -55,7 +54,7 @@ IE_Map_Raw <- function(
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
-  checks <- CheckInputs(
+  checks <- gsm::CheckInputs(
     context = "IE_Map_Raw",
     dfs = dfs,
     bQuiet = bQuiet,
@@ -80,6 +79,7 @@ IE_Map_Raw <- function(
           c(
             SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
             StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+            CountryID = lMapping[["dfSUBJ"]][["strCountryCol"]],
             CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
           )
         )
@@ -106,9 +106,10 @@ IE_Map_Raw <- function(
       ) %>%
       mutate(Count = .data$Invalid + .data$Missing) %>%
       ungroup() %>%
-      select(.data$SubjectID, .data$Count) %>%
+      select("SubjectID", "Count") %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      select(any_of(names(dfSUBJ_mapped)), .data$Count)
+      select(any_of(names(dfSUBJ_mapped)), "Count") %>%
+      arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn IE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

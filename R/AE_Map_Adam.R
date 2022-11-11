@@ -12,9 +12,9 @@
 #' AEs by passing filtered AE data to `dfADAE`.
 #'
 #' @param dfs `list` Input data frames:
-#'  - `dfADAE`: `data.frame` Event-level data with one record per AE.
-#'  - `dfADSL`: `data.frame` Subject-level data with one record per subject.
-#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column.
+#'  - `dfADAE`: `data.frame` Event-level data with one record per AE. Default: `safetyData::adam_adsl`
+#'  - `dfADSL`: `data.frame` Subject-level data with one record per subject. Default: `safetyData::adam_adae`
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for ADaM.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -32,8 +32,9 @@
 #' # Run with error checking and message log
 #' dfInput <- AE_Map_Adam(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
-#' @import dplyr
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
+#' @importFrom yaml read_yaml
+#' @import dplyr
 #'
 #' @export
 
@@ -67,8 +68,10 @@ AE_Map_Adam <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Map_Adam}")
 
     dfInput <- dfs$dfADSL %>%
-      rename(SubjectID = .data[[lMapping$dfADSL$strIDCol]]) %>%
-      mutate(Exposure = as.numeric(.data[[lMapping$dfADSL$strEndCol]] - .data[[lMapping$dfADSL$strStartCol]]) + 1) %>%
+      mutate(
+        SubjectID = .data[[lMapping$dfADSL$strIDCol]],
+        Exposure = as.numeric(.data[[lMapping$dfADSL$strEndCol]] - .data[[lMapping$dfADSL$strStartCol]]) + 1
+      ) %>%
       rowwise() %>%
       mutate(
         Count = sum(dfs$dfADAE[[lMapping$dfADAE$strIDCol]] == .data$SubjectID),
@@ -76,16 +79,18 @@ AE_Map_Adam <- function(
       ) %>%
       ungroup() %>%
       select(
-        .data$SubjectID,
+        "SubjectID",
         any_of(c(
           SiteID = lMapping[["dfADSL"]][["strSiteCol"]],
           StudyID = lMapping[["dfADSL"]][["strStudyCol"]],
+          CountryID = lMapping[["dfADSL"]][["strCountryCol"]],
           CustomGroupID = lMapping[["dfADSL"]][["strCustomGroupCol"]]
         )),
-        .data$Count,
-        .data$Exposure,
-        .data$Rate
-      )
+        "Count",
+        "Exposure",
+        "Rate"
+      ) %>%
+      arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Adam} returned output with {nrow(dfInput)} rows.")
   } else {

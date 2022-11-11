@@ -1,3 +1,14 @@
+# gsm v1.3.0
+
+This release introduces new and refined statistical methods for qualified assessments. 
+
+- A new statistical method `Analyze_NormalApprox` is now the default method used for the Adverse Event (AE), Disposition (DISP), Lab Abnormality (LB), and Protocol Deviation (PD) assessments.
+- Additionally, `Flag_NormalApprox` flags values, and `Analyze_NormalApprox_PredictBounds` creates upper and lower-boundaries for data visualization when a normal approximation is used.
+- QTLs are now supported for Disposition and Protocol Deviation assessments by providing a QTL workflow for `Study_Assess()` or `Make_Snapshot()`.
+- Country-level workflow YAML files are now available in `inst/workflow/country_workflow`.
+- Significant documentation and vignette updates, including the Cookbook vignette, Contributor Guidelines, and a new Step-by-Step Analysis vignette.
+
+
 # gsm v1.2.0
 
 This release includes qualified functionality for the following KRIs: 

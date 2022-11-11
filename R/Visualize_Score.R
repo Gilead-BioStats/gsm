@@ -4,12 +4,12 @@
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to NULL.
 #' @param strType `character` One of `"KRI"` or `"score"`.
 #' @param bFlagFilter `logical` Filter out non-flagged groups? Default: `FALSE`
-#' @param strTitle Title of plot. NULL by default.
+#' @param strTitle `character` Title of plot.
 #'
-#' @return group-level plot object.
+#' @return group-level ggplot2 object.
 #'
 #' @examples
-#' ae <- AE_Map_Raw() %>% AE_Assess(vThreshold = c(-8, -5, 5, 8))
+#' ae <- AE_Map_Raw() %>% AE_Assess()
 #'
 #' Visualize_Score(ae$lData$dfFlagged) # visualize KRI (default)
 #' Visualize_Score(ae$lData$dfFlagged, bFlagFilter = TRUE) # drop non-flagged groups
@@ -37,7 +37,9 @@ Visualize_Score <- function(
     "strType must be length 1" = length(strType) == 1
   )
 
-
+  dfFlagged$FlagAbs <- abs(dfFlagged$Flag)
+  flagBreaks <- as.character(unique(sort(dfFlagged$FlagAbs)))
+  flagValues <- c("#999999", "#FADB14", "#FF4D4F")[1:length(flagBreaks)]
 
   if (bFlagFilter) {
     dfFlagged <- dfFlagged %>%
@@ -56,16 +58,21 @@ Visualize_Score <- function(
         )
       )
 
-
     p <- dfFlaggedWithTooltip %>%
       ggplot(
         aes(
-          x = reorder(.data$GroupID, -.data$Metric), y = .data$Metric,
+          x = reorder(.data$GroupID, -.data$Metric),
+          y = .data$Metric,
+          fill = as.factor(.data$FlagAbs),
           text = .data$tooltip
         )
       ) +
       geom_bar(
         stat = "identity"
+      ) +
+      scale_fill_manual(
+        breaks = flagBreaks,
+        values = flagValues
       ) +
       ylab(
         "Metric"
@@ -76,8 +83,7 @@ Visualize_Score <- function(
         geom_hline(
           yintercept = sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator),
           linetype = "dashed",
-          color = "red",
-          size = 1
+          color = "#FF4D4F"
         )
     }
   }
@@ -104,12 +110,18 @@ Visualize_Score <- function(
     p <- dfFlaggedWithTooltip %>%
       ggplot(
         aes(
-          x = reorder(.data$GroupID, -.data$Score), y = .data$Score,
+          x = reorder(.data$GroupID, -.data$Score),
+          y = .data$Score,
+          fill = as.factor(.data$FlagAbs),
           tooltip = .data$tooltip
         )
       ) +
       geom_bar(
         stat = "identity"
+      ) +
+      scale_fill_manual(
+        breaks = flagBreaks,
+        values = flagValues
       ) +
       ylab(
         "Score"
@@ -120,8 +132,8 @@ Visualize_Score <- function(
         geom_hline(
           yintercept = ThresholdLow,
           linetype = "dashed",
-          color = "red",
-          size = 1
+          color = "#FF4D4F",
+          linewidth = 1
         )
     }
 
@@ -130,8 +142,8 @@ Visualize_Score <- function(
         geom_hline(
           yintercept = ThresholdHigh,
           linetype = "dashed",
-          color = "red",
-          size = 1
+          color = "#FF4D4F",
+          linewidth = 1
         )
     }
   }

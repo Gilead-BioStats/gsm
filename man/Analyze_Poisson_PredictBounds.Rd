@@ -7,17 +7,20 @@
 Analyze_Poisson_PredictBounds(
   dfTransformed,
   vThreshold = c(-5, 5),
+  nStep = 1,
   bQuiet = TRUE
 )
 }
 \arguments{
 \item{dfTransformed}{\code{data.frame} data.frame in format produced by
-\code{\link{Transform_Rate}}. Must include GroupID, N, Numerator and Denominator}
+\code{\link{Transform_Rate}}. Must include GroupID, N, Numerator and Denominator.}
 
 \item{vThreshold}{\code{numeric} upper and lower boundaries in residual space. Should be identical to
 the thresholds used AE_Assess().}
 
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+\item{nStep}{\code{numeric} step size of imputed bounds.}
+
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 }
 \value{
 \code{data.frame} containing predicted boundary values with upper and lower bounds across the
@@ -27,15 +30,15 @@ range of observed values.
 Poisson Analysis - Predicted Boundaries
 }
 \details{
-Fits a Poisson model to site level data and then calculates predicted count values and upper- and
+Fits a Poisson model to site-level data and then calculates predicted count values and upper- and
 lower- bounds for across the full range of exposure values.
 }
 \section{Statistical Methods}{
 
-This function fits a poisson model to site-level data and then calculates residuals for each
-site. The poisson model is run using standard methods in the \code{stats} package by fitting a \code{glm}
+This function fits a Poisson model to site-level data and then calculates residuals for each
+site. The Poisson model is run using standard methods in the \code{stats} package by fitting a \code{glm}
 model with family set to \code{poisson} using a "log" link. Upper and lower boundary values are then
-calculated using the method described here TODO: Add link. In short,
+calculated using the method described here TODO: Add link.
 }
 
 \section{Data Specification}{

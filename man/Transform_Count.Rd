@@ -7,50 +7,42 @@
 Transform_Count(dfInput, strCountCol, strGroupCol = "SiteID")
 }
 \arguments{
-\item{dfInput}{A data.frame with one record per person.}
+\item{dfInput}{A data.frame with one record per subject.}
 
 \item{strCountCol}{Required. Numerical or logical. Column to be counted.}
 
 \item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
 }
 \value{
-\code{data.frame} with one row per site with columns SiteID, TotalCount with additional columns Exposure and Rate if strExposureCol is used.
+\code{data.frame} with one row per site with columns \code{GroupID}, \code{TotalCount}, and \code{Metric.}
 }
 \description{
-Convert from input data format to needed input format to derive KRI for an Assessment.
+Convert from input data format to needed input format to derive KRI for an Assessment. Calculate site-level count.
 }
 \details{
-This function transforms data to prepare it for the Analysis step
+This function transforms data to prepare it for the analysis step. It is currently only sourced for the Consent and IE Assessments.
 }
 \section{Data Specification}{
 
 
-The input data (\code{dfInput}) for the AE Assessment is typically created using any of these functions:
-\code{\link{AE_Map_Raw}}
-\code{\link{AE_Map_Adam}}
+The input data (\code{dfInput}) for the Consent and IE Assessments is typically created using any of these functions:
 \code{\link{Consent_Map_Raw}}
-\code{\link{Disp_Map_Raw}}
 \code{\link{IE_Map_Raw}}
-\code{\link{LB_Map_Raw}}
-\code{\link{PD_Map_Raw}}
 
-(\code{dfInput}) has the following required and optional columns:
-Required:
+(\code{dfInput}) must include the columns specified by \code{strCountCol} and \code{strGroupCol}.
+Required columns include:
 \itemize{
 \item \code{SiteID} - Site ID
 \item \code{StudyID} - Study ID
-\item \code{CustomGroupID} - Custom Group ID, currently implemented as a placeholder for Country ID.
-\item \code{Count} - Number of Adverse Events the actual name of this column is specified by the parameter strCountCol.
-Optional
-\item \code{Exposure} - Number of days of exposure, name specified by strExposureCol.
+\item \code{CustomGroupID} - Custom Group ID
+\item \code{Count} - Number of events of interest; the actual name of this column is specified by the parameter \code{strCountCol.}
 }
 
-The input data has one or more rows per site. Transform_Count sums strCountCol for a TotalCount for each site.
-For data with an optional strExposureCol, a summed exposure is calculated for each site.
+The input data has one or more rows per site. \code{Transform_Count()} sums \code{strCountCol} for a \code{TotalCount} for each site. \code{Metric} is set to \code{TotalCount} to be used downstream in the workflow.
 }
 
 \examples{
-dfInput <- Disp_Map_Raw()
+dfInput <- Consent_Map_Raw()
 dfTransformed <- Transform_Count(dfInput, strCountCol = "Count")
 
 }

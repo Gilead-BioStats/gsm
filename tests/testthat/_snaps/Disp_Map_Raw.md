@@ -112,7 +112,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol", "strCountryCol"]
             }
           },
           "value": [
@@ -145,6 +145,11 @@
               "type": "character",
               "attributes": {},
               "value": ["rfpst_dt"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
             },
             {
               "type": "character",
@@ -211,7 +216,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCustomGroupCol", "strCountCol", "strTotalCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCountryCol", "strCustomGroupCol", "strCountCol", "strTotalCol"]
             }
           },
           "value": [
@@ -229,6 +234,11 @@
               "type": "character",
               "attributes": {},
               "value": ["StudyID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["CountryID"]
             },
             {
               "type": "character",
@@ -654,4 +664,12 @@
       i Intializing merge of domain and subject data
       i 2 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
       v `Disp_Map_Raw()` returned output with 3 rows.
+
+# Treatment mapping returns expected output
+
+    Code
+      names(output)
+    Output
+      [1] "SubjectID"     "SiteID"        "StudyID"       "CountryID"    
+      [5] "CustomGroupID" "Count"         "Total"        
 

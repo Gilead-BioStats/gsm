@@ -7,29 +7,39 @@
 PD_Assess(
   dfInput,
   vThreshold = NULL,
-  strMethod = "poisson",
+  strMethod = "NormalApprox",
+  strType = "rate",
   lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nConfLevel = NULL,
   bQuiet = TRUE
 )
 }
 \arguments{
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
-\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 4 that defaults to
-\code{c(-7, -5, 5, 7)} for a Poisson model (\code{strMethod = "poisson"}) and a vector of length 2
-that defaults to \code{c(0.000895, 0.003059)} for a nominal assessment (\code{strMethod = "identity"}).}
+\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 or 4 that defaults to \code{c(-3, -2, 2, 3)} for a Normal Approximation (\code{strMethod = "NormalApprox"}),
+\code{c(-7, -5, 5, 7)} for a Poisson model (\code{strMethod = "poisson"}), and \code{c(0.000895, 0.003059)} for a nominal assessment (\code{strMethod = "identity"}).}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
-\item \code{"poisson"} (default)
+\item \code{"NormalApprox"} (default)
+\item \code{"poisson"}
 \item \code{"identity"}
 }}
 
-\item{lMapping}{Column metadata with structure \code{domain$key}, where \code{key} contains the name
-of the column.}
+\item{strType}{\code{character} Statistical outcome type. Valid values:
+\itemize{
+\item \code{"binary"} (default)
+\item \code{"rate"}
+}}
+
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
+of the column. Default: package-defined Protocol Deviation Assessment mapping.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
+
+\item{nConfLevel}{\code{numeric} Confidence level for QTL analysis.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -39,10 +49,10 @@ of the column.}
 \item each data frame in the data pipeline
 \itemize{
 \item \code{dfTransformed}, returned by \code{\link[=Transform_Rate]{Transform_Rate()}}
-\item \code{dfAnalyzed}, returned by \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
-\item \code{dfFlagged}, returned by \code{\link[=Flag_Poisson]{Flag_Poisson()}} or \code{\link[=Flag]{Flag()}}
+\item \code{dfAnalyzed}, returned by \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}}, \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
+\item \code{dfFlagged}, returned by \code{\link[=Flag_NormalApprox]{Flag_NormalApprox()}}, \code{\link[=Flag_Poisson]{Flag_Poisson()}}, or \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
-\item \code{dfBounds}, returned by \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}} only when strMethod == "poisson"
+\item \code{dfBounds}, returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} when \code{strMethod == "NormalApprox"} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}} when \code{strMethod == "poisson"}
 }
 \item \code{list} \code{lCharts}, a named list with:
 \itemize{
@@ -67,29 +77,38 @@ The PD Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.g
 methods are described below.
 }
 \section{Data specification}{
-\tabular{lllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
-   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
-   dfInput \tab strExposureCol \tab Exposure \tab TRUE \tab FALSE \cr
-   dfInput \tab strRateCol \tab Rate \tab TRUE \tab FALSE \cr
-   dfInput \tab strGroupCol \tab  \tab TRUE \tab FALSE \cr
+\tabular{llllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \tab \strong{Accept NA/Empty Values?} \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \tab FALSE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \tab FALSE \cr
+   dfInput \tab strExposureCol \tab Exposure \tab TRUE \tab FALSE \tab TRUE \cr
+   dfInput \tab strRateCol \tab Rate \tab TRUE \tab FALSE \tab TRUE \cr
+   dfInput \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
 }
 }
 
 \section{Statistical assumptions}{
-A Poisson model is used to generate estimates and p-values for each site
-(as specified with the \code{strMethod} parameter). Those model outputs are
-then used to flag possible outliers using the thresholds specified in
-\code{vThreshold}. Sites with an estimate less than -5 are flagged as -1 and
-greater than 5 are flagged as 1 by default.
+The default function \code{Analyze_NormalApprox} applies funnel plots using
+asymptotic limits based on normal approximation of binomial distribution
+for the binary outcome, or normal approximation of Poisson distribution
+for the rate outcome with volume (the sample sizes or total exposure of
+the sites) to assess data quality and safety.
 
-See \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} for additional
+Alternatively, a Poisson model is used to generate estimates and
+p-values for each site (as specified with the \code{strMethod} parameter).
+Those model outputs are then used to flag possible outliers using the
+thresholds specified in \code{vThreshold}. Sites with an estimate less than
+-5 are flagged as -1 and greater than 5 are flagged as 1 by default.
+
+See \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}} or
+\code{\link[=Analyze_Poisson]{Analyze_Poisson()}} for additional
 details about the statistical methods and their assumptions.
 }
 
 \examples{
 dfInput <- PD_Map_Raw()
-pd_assessment_poisson <- PD_Assess(dfInput)
+pd_assessment_NormalApprox <- PD_Assess(dfInput)
+pd_assessment_poisson <- PD_Assess(dfInput, strMethod = "poisson")
+pd_assessment_identity <- PD_Assess(dfInput, strMethod = "identity")
 
 }

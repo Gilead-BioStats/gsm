@@ -20,7 +20,7 @@ PD_Map_Raw(
 }}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
-of the column.}
+of the column. Default: package-defined mapping for raw+.}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
@@ -46,12 +46,12 @@ data (from \code{dfSUBJ}). Note that the function can generate data summaries fo
 PDs by passing filtered PD data to \code{dfPD}.
 }
 \section{Data specification}{
-\tabular{lllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
-   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
-   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
-   dfSUBJ \tab strTimeOnStudyCol \tab timeonstudy \tab TRUE \tab FALSE \cr
-   dfPD \tab strIDCol \tab subjid \tab TRUE \tab FALSE \cr
+\tabular{llllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \tab \strong{Accept NA/Empty Values?} \cr
+   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \tab FALSE \cr
+   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strTimeOnStudyCol \tab timeonstudy \tab TRUE \tab FALSE \tab TRUE \cr
+   dfPD \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
 }
 }
 

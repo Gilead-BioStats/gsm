@@ -18,8 +18,8 @@ Consent_Assess(
 
 \item{nThreshold}{\code{numeric} Threshold specification. Default: \code{0.5}}
 
-\item{lMapping}{Column metadata with structure \code{domain$key}, where \code{key} contains the name
-of the column.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
+of the column. Default: package-defined Consent Assessment mapping.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
 
@@ -78,7 +78,7 @@ Additional details regarding the data pipeline and statistical methods are descr
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
    dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
-   dfInput \tab strGroupCol \tab  \tab TRUE \tab FALSE \cr
+   dfInput \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \cr
 }
 }
 

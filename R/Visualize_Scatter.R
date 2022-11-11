@@ -1,10 +1,10 @@
 #' Group-level visualization of group-level results using a Poisson or Wilcoxon model.
 #'
-#' @param dfFlagged analyze_poisson results with flags added.
-#' @param dfBounds data.frame giving prediction bounds for range of dfFlagged.
-#' @param strGroupCol name of stratification column for facet wrap (default=NULL)
-#' @param strGroupLabel name of group, used for labeling axes.
-#' @param strUnit exposure time unit. Defaults to "days".
+#' @param dfFlagged `data.frame` analyze_poisson results with flags added.
+#' @param dfBounds `data.frame` data.frame giving prediction bounds for range of dfFlagged.
+#' @param strGroupCol `character` name of stratification column for facet wrap Default: `NULL`
+#' @param strGroupLabel `character` name of group, used for labeling axes. Default: `NULL`
+#' @param strUnit `character` exposure time unit. Default: `days`
 #'
 #' @return group-level plot object.
 #'
@@ -26,17 +26,19 @@ Visualize_Scatter <- function(
   dfBounds = NULL,
   strGroupCol = NULL,
   strGroupLabel = NULL,
-  strUnit = "days") {
-  groupLabel <- ifelse(is.null(strGroupLabel), "GroupID: ", strGroupLabel)
+  strUnit = "days"
+) {
+  groupLabel <- ifelse(
+    is.null(strGroupLabel),
+    "GroupID: ",
+    strGroupLabel
+  )
 
-  #
-  flagBreaks <- as.character(unique(sort(dfFlagged$Flag)))
-
-  if (length(flagBreaks) == 5) {
-    flagValues <- c("red", "yellow", "#999999", "yellow", "red")
-  } else {
-    flagValues <- c("#999999", "red", "red")
-  }
+  # Account for incomplete set of flags
+  dfFlagged$FlagAbs <- abs(dfFlagged$Flag)
+  maxFlag <- max(dfFlagged$FlagAbs)
+  flagBreaks <- as.character(seq(0, maxFlag))
+  flagValues <- c("#999999", "#FADB14", "#FF4D4F")[1:length(flagBreaks)]
 
   # Define tooltip for use in plotly.
   dfFlaggedWithTooltip <- dfFlagged %>%
@@ -56,7 +58,7 @@ Visualize_Scatter <- function(
       aes(
         x = log(.data$Denominator),
         y = .data$Numerator,
-        color = as.factor(.data$Flag),
+        color = as.factor(.data$FlagAbs),
         text = .data$tooltip
       )
     ) +
@@ -74,22 +76,15 @@ Visualize_Scatter <- function(
     # Add chart elements
     geom_point() +
     xlab(glue::glue("{groupLabel} Total (Denominator) ({strUnit} - log scale)")) +
-    ylab(glue::glue("{groupLabel} Total (Numerator)")) +
-    geom_text(
-      data = dfFlaggedWithTooltip %>% filter(.data$Flag != 0),
-      aes(x = log(.data$Denominator), y = .data$Numerator, label = .data$GroupID),
-      vjust = 1.5,
-      col = "red",
-      size = 3.5
-    )
+    ylab(glue::glue("{groupLabel} Total (Numerator)"))
 
   if (!is.null(dfBounds)) {
     for (current_threshold in unique(dfBounds$Threshold)) {
       color <- case_when(
         current_threshold == 0 ~ "gray",
-        current_threshold == min(unique(dfBounds$Threshold)) ~ "red",
-        current_threshold == max(unique(dfBounds$Threshold)) ~ "red",
-        TRUE ~ "yellow"
+        current_threshold == min(unique(dfBounds$Threshold)) ~ "#FF4D4F",
+        current_threshold == max(unique(dfBounds$Threshold)) ~ "#FF4D4F",
+        TRUE ~ "#FADB14"
       )
 
       p <- p + geom_line(
@@ -100,6 +95,15 @@ Visualize_Scatter <- function(
       )
     }
   }
+
+  p <- p +
+    geom_text(
+      data = dfFlaggedWithTooltip %>% filter(.data$FlagAbs != 0),
+      aes(x = log(.data$Denominator), y = .data$Numerator, label = .data$GroupID),
+      vjust = 1.5,
+      col = "black",
+      size = 3.5
+    )
 
   if (!is.null(strGroupCol)) {
     p <- p + facet_wrap(vars(.data[[strGroupCol]]))
