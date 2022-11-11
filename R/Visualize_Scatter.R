@@ -1,10 +1,10 @@
 #' Group-level visualization of group-level results using a Poisson or Wilcoxon model.
 #'
-#' @param dfFlagged analyze_poisson results with flags added.
-#' @param dfBounds data.frame giving prediction bounds for range of dfFlagged.
-#' @param strGroupCol name of stratification column for facet wrap (default=NULL)
-#' @param strGroupLabel name of group, used for labeling axes.
-#' @param strUnit exposure time unit. Defaults to "days".
+#' @param dfFlagged `data.frame` analyze_poisson results with flags added.
+#' @param dfBounds `data.frame` data.frame giving prediction bounds for range of dfFlagged.
+#' @param strGroupCol `character` name of stratification column for facet wrap Default: `NULL`
+#' @param strGroupLabel `character` name of group, used for labeling axes. Default: `NULL`
+#' @param strUnit `character` exposure time unit. Default: `days`
 #'
 #' @return group-level plot object.
 #'
@@ -28,7 +28,6 @@ Visualize_Scatter <- function(
   strGroupLabel = NULL,
   strUnit = "days"
 ) {
-
   groupLabel <- ifelse(
     is.null(strGroupLabel),
     "GroupID: ",

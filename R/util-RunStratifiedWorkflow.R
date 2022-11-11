@@ -1,5 +1,6 @@
 #' Run a stratified workflow
 #'
+#' @description
 #' Attempts to run a stratified workflow (`lWorkflow`) using shared data (`lData`) and metadata (`lMapping`).
 #' Calls `RunStep` for each item in `lWorkflow$workflow` and saves the results to `lWorkflow`
 #'
@@ -68,7 +69,7 @@ RunStratifiedWorkflow <- function(
       lMapping[[lWorkflow$group$domain]][[lWorkflow$group$columnParam]] %in% names(lData[[lWorkflow$group$domain]])
   ) {
     # Generate a workflow for each unique value of the stratification variable.
-    lStratifiedWorkflow <- MakeStratifiedAssessment(
+    lStratifiedWorkflow <- gsm::MakeStratifiedAssessment(
       lWorkflow,
       lData,
       lMapping,
@@ -77,7 +78,7 @@ RunStratifiedWorkflow <- function(
 
     # Run a workflow for each unique value of the stratification variable.
     lStratifiedOutput <- lStratifiedWorkflow %>%
-      purrr::map(~ RunWorkflow(
+      purrr::map(~ gsm::RunWorkflow(
         .x,
         lData,
         lMapping,
@@ -86,7 +87,7 @@ RunStratifiedWorkflow <- function(
 
     # Consolidate the stratified output from each workflow into a singular output with stacked data
     # frames and a paneled data visualization.
-    lConsolidatedOutput <- ConsolidateStrata(
+    lConsolidatedOutput <- gsm::ConsolidateStrata(
       lOutput,
       lStratifiedOutput,
       bQuiet = bQuiet

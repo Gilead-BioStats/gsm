@@ -1,5 +1,6 @@
 #' Run a single step in a workflow
 #'
+#' @description
 #' Runs a single step of an assessment workflow. Currently supports `Filter`, `Map`, and `Assess`
 #' functions.
 #'
