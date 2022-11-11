@@ -187,18 +187,30 @@ bQuiet = TRUE
   # lSnapshot$results_summary$StudyID <- meta$status_study[1,'StudyID']
   # Also need to make sure we're capturing WorkflowID here ...
 
-  results_analysis <- lResults[grep("qtl", names(lResults))] %>%
-    purrr::imap_dfr(
-      ~ .x$lResults$lData$dfAnalyzed %>%
-        select(GroupID,
-               LowCI,
-               UpCI,
-               Score) %>%
-        mutate(workflowid = .y)
-    ) %>%
-    pivot_longer(-c("GroupID", "workflowid")) %>%
-    rename(param = "name",
-           studyid = "GroupID")
+  hasQTL <- grep("qtl", names(lResults))
+
+  if (length(hasQTL) > 0) {
+    results_analysis <- lResults[hasQTL] %>%
+      purrr::imap_dfr(
+        ~ .x$lResults$lData$dfAnalyzed %>%
+          select(GroupID,
+                 LowCI,
+                 UpCI,
+                 Score) %>%
+          mutate(workflowid = .y)
+      ) %>%
+      pivot_longer(-c("GroupID", "workflowid")) %>%
+      rename(param = "name",
+             studyid = "GroupID")
+  } else {
+    results_analysis <- tibble(
+      studyid = NA,
+      workflowid = NA,
+      param = NA,
+      value = NA
+    )
+  }
+
 
 
 
