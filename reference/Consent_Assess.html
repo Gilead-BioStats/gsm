@@ -23,7 +23,7 @@ obtained after subject randomization
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -39,6 +39,9 @@ obtained after subject randomization
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
+      <a href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
@@ -105,8 +108,8 @@ obtained after subject randomization
 
 
 <dt>lMapping</dt>
-<dd><p>Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name
-of the column.</p></dd>
+<dd><p><code>list</code> Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name
+of the column. Default: package-defined Consent Assessment mapping.</p></dd>
 
 
 <dt>strGroup</dt>
@@ -151,7 +154,7 @@ the number of subjects at a given site for whom:</p><ul><li><p>consent was not g
     <div id="data-specification">
     <h2>Data specification</h2>
     
-<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfInput</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>TRUE</td></tr><tr><td>dfInput</td><td>strCountCol</td><td>Count</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfInput</td><td>strGroupCol</td><td></td><td>TRUE</td><td>FALSE</td></tr></table></div>
+<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfInput</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>TRUE</td></tr><tr><td>dfInput</td><td>strCountCol</td><td>Count</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfInput</td><td>strGroupCol</td><td>SiteID</td><td>TRUE</td><td>FALSE</td></tr></table></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>

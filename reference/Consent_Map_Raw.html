@@ -18,7 +18,7 @@ input data to Consent_Assess()."><!-- mathjax --><script src="https://cdnjs.clou
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -34,6 +34,9 @@ input data to Consent_Assess()."><!-- mathjax --><script src="https://cdnjs.clou
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
+      <a href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
@@ -89,14 +92,14 @@ input data to <code><a href="Consent_Assess.html">Consent_Assess()</a></code>.</
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dfs</dt>
-<dd><p><code>list</code> Input data frames:</p><ul><li><p><code>dfCONSENT</code>: <code>data.frame</code> Consent type-level data with one record per subject per consent type.</p></li>
-<li><p><code>dfSUBJ</code>: <code>data.frame</code> Subject-level data with one record per subject.</p></li>
+<dd><p><code>list</code> Input data frames:</p><ul><li><p><code>dfCONSENT</code>: <code>data.frame</code> Consent type-level data with one record per subject per consent type. Default: <code>clindata::rawplus_consent</code></p></li>
+<li><p><code>dfSUBJ</code>: <code>data.frame</code> Subject-level data with one record per subject. Default: <code><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">clindata::rawplus_dm</a></code></p></li>
 </ul></dd>
 
 
 <dt>lMapping</dt>
 <dd><p><code>list</code> Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name
-of the column.</p></dd>
+of the column. Default: package-defined mapping for raw+.</p></dd>
 
 
 <dt>bReturnChecks</dt>

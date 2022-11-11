@@ -18,7 +18,7 @@ Calls RunStep for each item in lWorkflow$workflow and saves the results to lWork
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -34,6 +34,9 @@ Calls RunStep for each item in lWorkflow$workflow and saves the results to lWork
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
+      <a href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
@@ -107,6 +110,13 @@ specified in <code>lMapping</code> and <code>lAssessments</code>, which are gene
 
 <p><code>list</code></p>
 <p></p>
+<p><code>lWorkflow</code> along with <code>workflow</code>, <code>path</code>, <code>name</code>, <code>lData</code>, <code>lChecks</code>,
+<code>bStatus</code>, <code>checks</code>, and <code>lResults</code> added based on the results of the execution of
+<code>lWorkflow$workflow</code>.</p>
+
+
+<p><code>list</code></p>
+<p></p>
 <p><code>lWorkflow</code> along with <code>tags</code>, <code>workflow</code>, <code>path</code>, <code>name</code>, <code>lData</code>, <code>lChecks</code>,
 <code>bStatus</code>, <code>checks</code>, and <code>lResults</code> added based on the results of the execution of
 <code>lWorkflow$workflow</code>.</p>
@@ -114,7 +124,7 @@ specified in <code>lMapping</code> and <code>lAssessments</code>, which are gene
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lWorkflows</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeAssessmentList.html">MakeAssessmentList</a></span><span class="op">(</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lWorkflows</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span></span>
 <span class="r-in"><span>  dfCONSENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span>,</span></span>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -33,6 +33,9 @@
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
+      <a href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
@@ -78,7 +81,8 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">LB_Assess</span><span class="op">(</span></span>
 <span>  <span class="va">dfInput</span>,</span>
 <span>  vThreshold <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  strMethod <span class="op">=</span> <span class="st">"fisher"</span>,</span>
+<span>  strMethod <span class="op">=</span> <span class="st">"NormalApprox"</span>,</span>
+<span>  strType <span class="op">=</span> <span class="st">"binary"</span>,</span>
 <span>  lMapping <span class="op">=</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"LB_Assess.yaml"</span>, package <span class="op">=</span> <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  strGroup <span class="op">=</span> <span class="st">"Site"</span>,</span>
 <span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -92,19 +96,26 @@
 
 
 <dt>vThreshold</dt>
-<dd><p><code>numeric</code> Threshold specification, a vector of length 2 that defaults to
-<code>c(.01, .05)</code> for Fisher's exact test (<code>strMethod</code> = "fisher") and <code>c(3.491, 5.172)</code> for a nominal assessment (<code>strMethod</code> = "identity").</p></dd>
+<dd><p><code>numeric</code> Threshold specification, a vector of length 2 or 4 that defaults to <code>c(-3, -2, 2, 3)</code> for a Normal Approximation (<code>strMethod = "NormalApprox"</code>),
+<code>c(.01, .05)</code> for Fisher's exact test (<code>strMethod = "fisher"</code>), and <code>c(3.491, 5.172)</code> for a nominal assessment (<code>strMethod = "identity"</code>).</p></dd>
 
 
 <dt>strMethod</dt>
-<dd><p><code>character</code> Statistical method. Valid values:</p><ul><li><p><code>"fisher"</code></p></li>
+<dd><p><code>character</code> Statistical method. Valid values:</p><ul><li><p><code>"NormalApprox"</code> (default)</p></li>
+<li><p><code>"fisher"</code></p></li>
 <li><p><code>"identity"</code></p></li>
 </ul></dd>
 
 
+<dt>strType</dt>
+<dd><p><code>character</code> Statistical outcome type. Valid values:</p><ul><li><p><code>"binary"</code> (default)</p></li>
+<li><p><code>"rate"</code></p></li>
+</ul></dd>
+
+
 <dt>lMapping</dt>
-<dd><p>Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name
-of the column.</p></dd>
+<dd><p><code>list</code> Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name
+of the column. Default: package-defined Labs Assessment mapping.</p></dd>
 
 
 <dt>strGroup</dt>
@@ -122,9 +133,10 @@ of the column.</p></dd>
 <p><code>list</code></p>
 <p></p>
 <p><code>lData</code>, a named list with:</p><ul><li><p>each data frame in the data pipeline</p><ul><li><p><code>dfTransformed</code>, returned by <code><a href="Transform_Rate.html">Transform_Rate()</a></code></p></li>
-<li><p><code>dfAnalyzed</code>, returned by <code><a href="Analyze_Fisher.html">Analyze_Fisher()</a></code> or <code><a href="Analyze_Identity.html">Analyze_Identity()</a></code></p></li>
-<li><p><code>dfFlagged</code>, returned by <code><a href="Flag_Fisher.html">Flag_Fisher()</a></code> or <code><a href="Flag.html">Flag()</a></code></p></li>
+<li><p><code>dfAnalyzed</code>, returned by <code><a href="Analyze_NormalApprox.html">Analyze_NormalApprox()</a></code>, <code><a href="Analyze_Fisher.html">Analyze_Fisher()</a></code>, or <code><a href="Analyze_Identity.html">Analyze_Identity()</a></code></p></li>
+<li><p><code>dfFlagged</code>, returned by <code><a href="Flag_NormalApprox.html">Flag_NormalApprox()</a></code>, <code><a href="Flag_Fisher.html">Flag_Fisher()</a></code>, or <code><a href="Flag.html">Flag()</a></code></p></li>
 <li><p><code>dfSummary</code>, returned by <code><a href="Summarize.html">Summarize()</a></code></p></li>
+<li><p><code>dfBounds</code>, returned by <code><a href="Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds()</a></code> when <code>strMethod == "NormalApprox"</code></p></li>
 </ul></li>
 <li><p><code>list</code> <code>lCharts</code>, a named list with:</p><ul><li><p><code>scatter</code>, a ggplot2 object returned by <code><a href="Visualize_Scatter.html">Visualize_Scatter()</a></code> only when strMethod != "identity"</p></li>
 <li><p><code>barMetric</code>, a ggplot2 object returned by <code><a href="Visualize_Score.html">Visualize_Score()</a></code></p></li>
@@ -144,15 +156,21 @@ methods are described below.</p>
     <div id="data-specification">
     <h2>Data specification</h2>
     
-<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td></tr><tr><td>dfInput</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td></tr><tr><td>dfInput</td><td>strCountCol</td><td>Count</td><td>TRUE</td></tr><tr><td>dfInput</td><td>strGroupCol</td><td></td><td>TRUE</td></tr></table></div>
+<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td></tr><tr><td>dfInput</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td></tr><tr><td>dfInput</td><td>strCountCol</td><td>Count</td><td>TRUE</td></tr><tr><td>dfInput</td><td>strGroupCol</td><td>SiteID</td><td>TRUE</td></tr></table></div>
     <div id="statistical-assumptions">
     <h2>Statistical assumptions</h2>
-    <p>The Fisher’s exact test, or percentage value (identity) is used to
-generate estimates and p-values for each site (as specified with the
-<code>strMethod</code> parameter). Those outputs are then used to flag possible
-outliers using the thresholds specified in <code>vThreshold</code>. In the Fisher’s
-exact test, sites with <em>p</em> &lt; 0.05 are flagged as 1 by default.</p>
-<p>See <code><a href="Analyze_Fisher.html">Analyze_Fisher()</a></code> or
+    <p>The default function <code>Analyze_NormalApprox</code> applies funnel plots using
+asymptotic limits based on normal approximation of binomial distribution
+for the binary outcome, or normal approximation of Poisson distribution
+for the rate outcome with volume (the sample sizes or total exposure of
+the sites) to assess data quality and safety.</p>
+<p>Alternatively, the Fisher’s exact test, or percentage value (identity)
+is used to generate estimates and p-values for each site (as specified
+with the <code>strMethod</code> parameter). Those outputs are then used to flag
+possible outliers using the thresholds specified in <code>vThreshold</code>. In the
+Fisher’s exact test, sites with <em>p</em> &lt; 0.05 are flagged as 1 by default.</p>
+<p>See <code><a href="Analyze_NormalApprox.html">Analyze_NormalApprox()</a></code> or
+<code><a href="Analyze_Fisher.html">Analyze_Fisher()</a></code> or
 <code><a href="Analyze_Identity.html">Analyze_Identity()</a></code> for additional
 details about the statistical methods and their assumptions.</p>
     </div>
@@ -160,6 +178,7 @@ details about the statistical methods and their assumptions.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="LB_Map_Raw.html">LB_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lb_assessment_NormalApprox</span> <span class="op">&lt;-</span> <span class="fu">LB_Assess</span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"NormalApprox"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lb_assessment_fisher</span> <span class="op">&lt;-</span> <span class="fu">LB_Assess</span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"fisher"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lb_assessment_identity</span> <span class="op">&lt;-</span> <span class="fu">LB_Assess</span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>

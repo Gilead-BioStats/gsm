@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -51,6 +51,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
+      <a href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
@@ -87,7 +90,7 @@
 
       
 
-      </header><script src="DataPipeline_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Data Pipeline</h1>
@@ -101,72 +104,178 @@
     
     
 <div class="section level2">
-<h2 id="intro">Intro<a class="anchor" aria-label="anchor" href="#intro"></a>
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This vignette provides an overview of the {gsm} data model. First, we provide an overview of the standardized data pipeline used to calculate KRIs and evaluate thresholds to set site-level flags. We also discuss workflows and reports that allow users to run multiple KRIs concurrently on a study.</p>
+<p>The <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> package provides a standardized workflow that
+leverages Key Risk Indicators (KRIs) and thresholds to conduct
+study-level Risk Based Quality Management (RBQM) for clinical trials.
+This vignette provides an overview of the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> data model.
+First, we provide a summary of the standardized data pipeline used to
+calculate KRIs and evaluate thresholds to set site-level flags. We also
+discuss workflows and reports that allow users to run multiple KRIs
+concurrently on a study and/or create custom data workflows.</p>
+<p>As an overview, clinical and operational data are analyzed using the
+<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> R package, which generate standardized outputs and
+reports suitable for use in various RBQM activities. The Appendices of
+this document provide detailed data input and output specifications for
+<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="kri-data-pipeline">KRI Data Pipeline<a class="anchor" aria-label="anchor" href="#kri-data-pipeline"></a>
 </h2>
-<p><img width="862" alt="image" src="https://user-images.githubusercontent.com/3680095/169086356-e31ab9a5-c709-46cf-9bd9-68b7bdbba72b.png"></p>
-<p>In the context of clinical research, a KRI is a measure of risk associated with the conduct of a clinical trial. Examples of KRIs include the rate of adverse events or amount of missing data at a site or across sites. Defining and deploying KRIs during study start-up allows sponsors to continually monitor risks to the integrity of the trial and take corrective actions accordingly.</p>
-<p>The KRI data pipeline begins with one or more clinical datasets related to the KRI. An optional participant-level subset is then applied to each dataset before aggregating by participant to quantify the KRI at the participant level. This aggregated dataset is then further summarized by site to obtain site-level metrics.</p>
+<p><img src="data-pipeline.PNG" style="width:125.0%"></p>
+<p>In the context of clinical research, a KRI is a measure of risk
+associated with the conduct of a clinical trial. Examples of KRIs
+include the rate of adverse events or amount of missing data at a site
+or across sites. Defining and deploying KRIs during study start-up
+allows sponsors to continually monitor risks to the integrity of the
+trial and take corrective actions accordingly.</p>
+<p>The default KRI data pipeline begins with one or more clinical
+datasets related to the KRI. An optional participant-level subset is
+then applied to each dataset before aggregating by participant to
+quantify the KRI at the participant level. This aggregated dataset is
+then further summarized by site to obtain site-level metrics.</p>
+<div class="section level3">
+<h3 id="generating-input-data">Generating Input Data<a class="anchor" aria-label="anchor" href="#generating-input-data"></a>
+</h3>
+<p>Generating input data is outside the scope of the assessment
+pipeline. The specifications for input data (i.e., <code>dfInput</code>)
+are designed to be flexible enough so that this data frame can be
+generated from multiple clinical data standards (e.g., Raw, Raw+, or
+CDISC-compliant ADaM). Most assessment workflows have <code><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map()</a></code>
+functions that can be used to generate input data. For example, the
+Adverse Event assessment has two <code><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map()</a></code> functions:</p>
+<ul>
+<li><p><code><a href="../reference/AE_Map_Raw.html">AE_Map_Raw()</a></code>: creates input data from Raw+
+data</p></li>
+<li><p><code><a href="../reference/AE_Map_Adam.html">AE_Map_Adam()</a></code>: creates input data from
+CDISC-compliant ADaM data</p></li>
+</ul>
+<p>These <code><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map()</a></code> functions are provided for convenience, but
+may not work for all clinical studies. When no <code><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map()</a></code>
+function is available for a given assessment, the user is expected to
+manually create input data following the specifications for that
+assessment. Details on this can be found in the <a href="https://github.com/Gilead-BioStats/gsm/wiki/Cookbook-Vignette" class="external-link">Cookbook
+Vignette</a>.</p>
+</div>
 <div class="section level3">
 <h3 id="assessment-data-pipeline">Assessment Data Pipeline<a class="anchor" aria-label="anchor" href="#assessment-data-pipeline"></a>
 </h3>
-<p><img width="862" alt="image" src="https://user-images.githubusercontent.com/3680095/157536920-81fa77b1-2ded-4e5b-8915-07537c1fb8d5.png"></p>
-<p>The image above provides an overview of the KRI assessment pipeline. The pipeline is a standardized four-step process for <strong>assessing</strong> data issues by going from participant-level <code>input</code> data to a standardized site-level <code>summary</code> of model results. The functions used in each step of the data pipeline along with the input and output datasets are described in more detail below.</p>
+<p><img src="data-analysis.PNG" style="width:170.0%"></p>
+<p>The image above provides an overview of the default KRI assessment
+pipeline. The pipeline is a standardized four-step process for assessing
+data issues by going from participant-level input data to a standardized
+site-level summary of model results. The functions used in each step of
+the data pipeline along with the input and output datasets are described
+in more detail below.</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>input</code> data - Cross-domain participant-level input data with all needed data for KRI derivation.</li>
+<code>dfInput</code>: Input data; Cross-domain participant-level
+input data with all needed data for KRI derivation. Created by
+<code><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map()</a></code> functions as needed.</li>
 <li>
-<code>transformed</code> data - Site-level transformed data including KRI calculation. Created by <code>Transform</code> functions.</li>
+<code>dfTransformed</code>: Transformed data; Site-level transformed
+data including KRI calculation. Created by <code>Transform()</code>
+functions.</li>
 <li>
-<code>analyzed</code> data - Site-level analysis result data. Created by <code>Analyze</code> functions.</li>
+<code>dfAnalyzed</code>: Analyzed data; Site-level analysis results
+data. Created by <code>Analyze()</code> functions.</li>
 <li>
-<code>flagged</code> data - Site-level analysis results with flags added. Created by passing numeric <code>thresholds</code> to a <code>Flag</code> function.</li>
+<code>dfFlagged</code>: Flagged data; Site-level analysis results
+with flags added to indicate potential statistical outliers. Created by
+passing numeric thresholds to a <code><a href="../reference/Flag.html">Flag()</a></code> function.</li>
 <li>
-<code>summary</code> data - Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both <code>KRI</code> and <code>Flag</code> values so that we can easily look at trends for any given site across multiple assessments. Created using a <code>Summarize</code> Function.</li>
+<code>dfSummary</code>: Summary data; Standardized subset of the
+flagged data. This summary data has the same structure for all
+assessments and always includes both KRI and Flag values so that a user
+can easily look at trends for any given site across multiple
+assessments. Created using the <code><a href="../reference/Summarize.html">Summarize()</a></code> function.</li>
 </ol>
-<p>Finally, each assessment has an <code>Assess</code> function that sequentially executes all 4 of the functions and returns a list containing all 5 data sets listed above.</p>
-</div>
-<div class="section level3">
-<h3 id="generating-input-data">Generating <code>input</code> data<a class="anchor" aria-label="anchor" href="#generating-input-data"></a>
-</h3>
-<p>Creating input data is outside the scope of the assessment pipeline. The specifications for <code>input</code> data are designed so that the data can easily be generated from multiple clinical data standards (e.g. Raw, ADaM or SDTM). Most assessments have <code>Map</code> functions that can be used to generate <code>input</code> data. For example, the Adverse Event assessment has 2 map functions, <code><a href="../reference/AE_Map_Raw.html">AE_Map_Raw()</a></code> and <code><a href="../reference/AE_Map_Adam.html">AE_Map_Adam()</a></code>, which create <code>input</code> data from Raw and ADaM data respectively.</p>
-<p>These <code>map</code> functions are provided for convenience but may not work for all clinical studies. When no <code>map</code> function is available for a given assessment, the user is expected to manually create <code>input</code> data following the specifications for that assessment.</p>
+<p>Each assessment has an <code>Assess()</code> function that
+sequentially executes all 4 of the supporting functions and returns a
+list of datasets and visualizations. The 4 standard datasets that are
+always returned are <code>dfTransformed</code>, <code>dfAnalyzed</code>,
+<code>dfFlagged</code>, and <code>dfSummary</code>. An additional
+dataset, called <code>dfBounds</code>, is generated only when a
+supported statistical model is being used. A step-by-step example of the
+data assessment workflow can be found in the <a href="https://github.com/Gilead-BioStats/gsm/wiki/Data-Analysis-Vignette" class="external-link">Data
+Analysis Vignette</a>.</p>
+<p>Note that each step in this data pipeline can be customized based on
+the requirements for a specific KRI. The graphic below shows three such
+workflows.</p>
+<p><img src="data-analysis-combined.PNG" style="width:170.0%"></p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="running-multiple-assessments">Running Multiple Assessments<a class="anchor" aria-label="anchor" href="#running-multiple-assessments"></a>
+<h2 id="custom-pipelines">Custom Pipelines<a class="anchor" aria-label="anchor" href="#custom-pipelines"></a>
 </h2>
-<p>Running multiple assessments for a single study is a common use case and {gsm} provides workflow and reporting functions to streamline this process.</p>
-<p><code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> attempts to run one or more assessment workflows using shared data and metadata. The metadata used for this study-level assessment is described in detail in <a href="#Appendix-1-Metadata-Technical-Specifications">Appendix 1</a>. The <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> function returns a list of assessments containing status information and results that is used as input for the reporting functions described below.</p>
-<p><code><a href="../reference/Study_Report.html">Study_Report()</a></code> creates a detailed report showing both charts and listings summarizing each KRI that was run for the study, along with a study-level table (via <code><a href="../reference/Study_Table.html">Study_Table()</a></code>), and a summary of the workflow run to generate each KRI (via <code>Study_AssessmentTable()</code>) .</p>
+<div class="section level3">
+<h3 id="qtl-and-country-analysis">QTL and Country Analysis<a class="anchor" aria-label="anchor" href="#qtl-and-country-analysis"></a>
+</h3>
+<p>The default KRI data pipeline runs site-level analyses on sourced
+clinical data. <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> also has the capability to run overall
+study-level analyses using Quality Tolerance Limits, or QTLs. For
+example, a user can evaluate the protocol deviation rate at a
+study-level. Analyses can also be categorized by country identifiers if
+desired. A user can also run custom pipelines (e.g. stratified analysis)
+as well (see <a href="#Appendix-3-Workflow-ID-Specs">Appendix 3</a> for
+workflow nomenclature and examples).</p>
+</div>
+<div class="section level3">
+<h3 id="running-multiple-assessments">Running Multiple Assessments<a class="anchor" aria-label="anchor" href="#running-multiple-assessments"></a>
+</h3>
+<p>Running multiple assessments simultaneously for a single study is a
+common use case of <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> and the package provides workflow
+and reporting functions to streamline this process.</p>
+<p><code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> attempts to run one or more assessment
+workflows using shared data and metadata. The metadata used for this
+study-level assessment is described in detail in <a href="#Appendix-1-Metadata-Technical-Specifications">Appendix 1</a>. The
+<code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> function returns a list of assessments
+containing status information and results that is used as input for the
+reporting functions described below.</p>
+<p><code><a href="../reference/Study_Report.html">Study_Report()</a></code> creates a detailed report showing both
+charts and listings summarizing each KRI that was run for the study,
+along with a study-level table (via <code><a href="../reference/Study_Table.html">Study_Table()</a></code>) and a
+summary of the workflow run to generate each KRI (via
+<code><a href="../reference/Study_AssessmentReport.html">Study_AssessmentReport()</a></code>) .</p>
 <p>To see a sample report, simply run:</p>
 <pre><code><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/Study_Report.html">Study_Report</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre>
-<p>Many additional examples are provided in the <a href="Cookbook.html"><code>Cookbook</code> Vignette</a>.</p>
+<p>Additional examples are provided in the <a href="https://github.com/Gilead-BioStats/gsm/wiki/Cookbook-Vignette" class="external-link">Cookbook
+Vignette</a>.</p>
+</div>
 </div>
 <div class="section level2">
-<h2 id="appendix-1---metadata-technical-specifications">Appendix 1 - Metadata Technical Specifications<a class="anchor" aria-label="anchor" href="#appendix-1---metadata-technical-specifications"></a>
+<h2 id="Appendix-1-Metadata-Technical-Specifications">Appendix 1 - Metadata Technical Specifications<a class="anchor" aria-label="anchor" href="#Appendix-1-Metadata-Technical-Specifications"></a>
 </h2>
-<p>{gsm} has several standardized metadata models that are used to facilitate a standardized, reusable workflow for RBM. The default metadata used by {gsm} are stored as YAML files in the <code>inst</code> folder, and can be customized for any given study.</p>
-<p>Detailed specifications for each type of metadata is provided below, and example data for the AE domain is provided.</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> has several standardized metadata models that are
+used to facilitate a standardized, reusable workflow for RBQM. The
+default metadata used by <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> are stored as YAML files in
+the <code>inst</code> folder, and can be customized for any given
+study.</p>
+<p>Detailed specifications for each type of metadata is provided below,
+and example data for the Adverse Events (AE) domain is provided.</p>
 <div class="section level3">
 <h3 id="data-specification-metadata">Data Specification Metadata<a class="anchor" aria-label="anchor" href="#data-specification-metadata"></a>
 </h3>
-<p>Input data specifications define the data requirements for a given {gsm} function and are saved in <code>inst/specs</code>.</p>
-<p>Each input data specification lists the data domains required for the function and specifies the following parameters for each domain:</p>
+<p>Input data specifications define the data requirements for a given
+<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> function and are saved in
+<code>inst/specs</code>.</p>
+<p>Each input data specification lists the data domains required for the
+function and specifies the following parameters for each domain:</p>
 <ul>
 <li>
-<code>vRequired</code> - list of parameters that should be defined in <code>mapping</code> (see more details in the following section).</li>
+<code>vRequired</code>: list of parameters that should be defined in
+<code>mapping</code> (see more details in the following section)</li>
 <li>
-<code>vUniqueCols</code> - list of column parameters that should not contain duplicate values</li>
+<code>vUniqueCols</code>: list of column parameters that should not
+contain duplicate values</li>
 <li>
-<code>vNACols</code> - list of column parameters where NA and empty string values are acceptable.</li>
+<code>vNACols</code>: list of column parameters where NA and empty
+string values are acceptable</li>
 </ul>
-<p>The specification for the AE mapping function (<code>inst/specs/AE_Map_Raw.yaml</code>) is shown below:</p>
+<p>The specification for the AE mapping function
+(<code>inst/specs/AE_Map_Raw.yaml</code>) is shown below:</p>
 <pre><code><span><span class="va">dfAE</span><span class="op">:</span></span>
 <span>  <span class="va">vRequired</span><span class="op">:</span></span>
 <span>    <span class="op">-</span> <span class="va">strIDCol</span></span>
@@ -176,14 +285,25 @@
 <span>    <span class="op">-</span> <span class="va">strSiteCol</span></span>
 <span>    <span class="op">-</span> <span class="va">strTimeOnTreatmentCol</span></span>
 <span>  <span class="va">vUniqueCols</span><span class="op">:</span></span>
-<span>    <span class="op">-</span> <span class="va">strIDCol</span></span></code></pre>
+<span>    <span class="op">-</span> <span class="va">strIDCol</span></span>
+<span>  <span class="va">vNACols</span><span class="op">:</span></span>
+<span>    <span class="op">-</span> <span class="va">strTimeOnTreatmentCol</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="data-mappings-metadata">Data Mappings Metadata<a class="anchor" aria-label="anchor" href="#data-mappings-metadata"></a>
 </h3>
-<p>Mapping Specifications in {gsm} define a “mapping” of column and field-level inputs needed for a function. This mapping can be used in combination with a specification to confirm that input data meets the requirements for a function.</p>
-<p>Each mapping object lists the required parameters for all required data domains and specifies the column and field values for specific data sets.</p>
-<p>For example, the following could be passed to the <code>mapping</code> parameter for the <code><a href="../reference/AE_Map_Raw.html">AE_Map_Raw()</a></code> function to be used with the default data from <code><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">clindata::rawplus_ae</a></code> and <code><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">clindata::rawplus_dm</a></code>:</p>
+<p>Mapping specifications in <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> define a “mapping” of
+column and field-level inputs needed for a function. This mapping can be
+used in combination with a specification to confirm that input data
+meets the requirements for a function.</p>
+<p>Each mapping object lists the required parameters for all required
+data domains and specifies the column and field values for specific
+datasets.</p>
+<p>For example, the following could be passed to the
+<code>mapping</code> parameter for the <code><a href="../reference/AE_Map_Raw.html">AE_Map_Raw()</a></code>
+function to be used with the default data from
+<code><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">clindata::rawplus_ae</a></code> and
+<code><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">clindata::rawplus_dm</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  dfAE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>strIDCol <span class="op">=</span> <span class="st">'SubjectID'</span><span class="op">)</span>,</span>
@@ -193,29 +313,50 @@
 <span>    strTimeOnTreatmentCol <span class="op">=</span> <span class="st">'TimeOnTreatment'</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>Note that <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> is designed to share a <code>mapping</code> object across multiple assessments. The default mapping is saved as a YAML file (<code>inst/mappings/mapping_rawplus.yaml</code>), but users can also create a custom mapping object for their use cases by making a custom YAML file, or by creating or modifying a <code>list</code> like that returned by <code>yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))</code>.</p>
+<p>Note that <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> is designed to share a
+<code>mapping</code> object across multiple assessments. The default
+mapping is saved as a YAML file
+(<code>inst/mappings/mapping_rawplus.yaml</code>). However, users can
+also create a custom mapping object for their use cases by making a
+custom YAML file, or by creating or modifying a <code>list</code> like
+that returned by
+<code>yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="assessment-workflow-metadata">Assessment Workflow Metadata<a class="anchor" aria-label="anchor" href="#assessment-workflow-metadata"></a>
 </h3>
-<p>Assessment Workflow Metadata objects are passed to the <code>lAssessments</code> parameter in <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> to define functions and parameters (including <code>mappings</code> and <code>specs</code>) across multiple studies.</p>
-<p>The <code>lAssessment</code> object is a named list of metadata defining how each assessment should be run. By default, <code><a href="../reference/MakeAssessmentList.html">MakeAssessmentList()</a></code> imports YAML specifications from <code>inst/assessments</code>. Each item in <code>lAssessments</code> expects the following parameters.</p>
+<p>Assessment workflow metadata objects are passed to the
+<code>lAssessments</code> parameter in <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> to
+define functions and parameters (including <code>mappings</code> and
+<code>specs</code>) across multiple studies.</p>
+<p>The <code>lAssessment</code> object is a named list of metadata
+defining how each assessment should be run. By default,
+<code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code> imports YAML specifications from
+<code>inst/workflow</code>. Each item in <code>lAssessments</code>
+expects the following parameters:</p>
 <ul>
 <li>
-<code>workflow</code>: Array defining one or more functions to be executed as part of the workflow for a given assessment.
+<code>workflow</code>: Array defining one or more functions to be
+executed as part of the workflow for a given assessment
 <ul>
 <li>
-<code>workflow[]$name</code>: name of the {gsm} function.</li>
+<code>workflow[]$name</code>: name of the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>
+function.</li>
 <li>
-<code>workflow[]$inputs</code>: Specifies the required input data.</li>
+<code>workflow[]$inputs</code>: specifies the required input
+data</li>
 <li>
-<code>workflow[]$output</code>: Specifies the output data from the workflow step; can be used as an input in the next step in the workflow.</li>
+<code>workflow[]$output</code>: specifies the output data from the
+workflow step, which can be used as an input in the next step in the
+workflow</li>
 <li>
-<code>workflow[]$params</code>: Specifies parameters to be passed to the function.</li>
+<code>workflow[]$params</code>: specifies parameters to be passed to
+the function</li>
 </ul>
 </li>
 </ul>
-<p>For example, the workflow for the AE assessment (<code>inst/assessments/ae.yaml</code>) is shown below:</p>
+<p>For example, the default workflow for the AE assessment
+(<code>inst/workflow/kri0001.yaml</code>) is shown below:</p>
 <pre><code><span><span class="va">workflow</span><span class="op">:</span></span>
 <span>  <span class="op">-</span> <span class="va">name</span><span class="op">:</span> <span class="va">FilterDomain</span></span>
 <span>    <span class="va">inputs</span><span class="op">:</span> <span class="va">dfAE</span></span>
@@ -224,6 +365,13 @@
 <span>      <span class="va">strDomain</span><span class="op">:</span> <span class="va">dfAE</span></span>
 <span>      <span class="va">strColParam</span><span class="op">:</span> <span class="va">strTreatmentEmergentCol</span></span>
 <span>      <span class="va">strValParam</span><span class="op">:</span> <span class="va">strTreatmentEmergentVal</span></span>
+<span>  <span class="op">-</span> <span class="va">name</span><span class="op">:</span> <span class="va">FilterDomain</span></span>
+<span>    <span class="va">inputs</span><span class="op">:</span> <span class="va">dfAE</span></span>
+<span>    <span class="va">output</span><span class="op">:</span> <span class="va">dfAE</span></span>
+<span>    <span class="va">params</span><span class="op">:</span></span>
+<span>      <span class="va">strDomain</span><span class="op">:</span> <span class="va">dfAE</span></span>
+<span>      <span class="va">strColParam</span><span class="op">:</span> <span class="va">strSeriousCol</span></span>
+<span>      <span class="va">strValParam</span><span class="op">:</span> <span class="va">strNonSeriousVal</span></span>
 <span>  <span class="op">-</span> <span class="va">name</span><span class="op">:</span> <span class="va">AE_Map_Raw</span></span>
 <span>    <span class="va">inputs</span><span class="op">:</span> </span>
 <span>      <span class="op">-</span> <span class="va">dfAE</span></span>
@@ -233,8 +381,2591 @@
 <span>    <span class="va">inputs</span><span class="op">:</span> <span class="va">dfInput</span></span>
 <span>    <span class="va">output</span><span class="op">:</span> <span class="va">lResults</span></span>
 <span>    <span class="va">params</span><span class="op">:</span></span>
-<span>      <span class="va">strMethod</span><span class="op">:</span> <span class="st">"poisson"</span></span></code></pre>
+<span>      <span class="va">strGroup</span><span class="op">:</span> <span class="st">"Site"</span></span>
+<span>      <span class="va">vThreshold</span><span class="op">:</span> <span class="va">null</span></span>
+<span>      <span class="va">strMethod</span><span class="op">:</span> <span class="st">"poisson"</span></span>
+<span>      </span></code></pre>
 </div>
+</div>
+<div class="section level2">
+<h2 id="appendix-2---data-model-specifications">Appendix 2 - Data Model Specifications<a class="anchor" aria-label="anchor" href="#appendix-2---data-model-specifications"></a>
+</h2>
+<div class="section level3">
+<h3 id="gsm-input-specifications">
+<code>{gsm}</code> Input Specifications<a class="anchor" aria-label="anchor" href="#gsm-input-specifications"></a>
+</h3>
+<p>Input data for <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> is pulled from several systems. The
+data sources for <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> are:</p>
+<ul>
+<li>
+<strong>Clinical Data:</strong> Study-level clinical data across
+multiple data domains saved in the Raw+ format <em>(detailed
+specification in future releases)</em>
+</li>
+<li>
+<strong>Operational Data:</strong> Study-level operational data
+including operational metadata from Rave and adjudicated Protocol
+Deviation data from the PD database <em>(detailed specification in
+future releases)</em>
+</li>
+<li>
+<strong>CTMS Data:</strong> Study-level and site-level metadata from
+Gilda</li>
+<li>
+<strong>Metric Data:</strong> Systems Metric and Parameter
+Definitions (saved directly in <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>) and Study-Specific
+Metric Specification data (imported from RACT)</li>
+<li>
+<strong>Scheduling Data:</strong> Study-Specific Custom Snapshot
+Schedule Data</li>
+</ul>
+<p>Full details are provided below. Note that Table Name includes all
+configurable outputs to <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code>.</p>
+<div class="section level4">
+<h4 id="tables-in-gsm-input-data-model">
+<u>Tables in <code>{gsm}</code> Input Data Model</u>:<a class="anchor" aria-label="anchor" href="#tables-in-gsm-input-data-model"></a>
+</h4>
+<div id="wqbsdrldhs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#wqbsdrldhs .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wqbsdrldhs .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wqbsdrldhs .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wqbsdrldhs .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wqbsdrldhs .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wqbsdrldhs .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wqbsdrldhs .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wqbsdrldhs .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wqbsdrldhs .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wqbsdrldhs .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wqbsdrldhs .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wqbsdrldhs .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wqbsdrldhs .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wqbsdrldhs .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wqbsdrldhs .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wqbsdrldhs .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wqbsdrldhs .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wqbsdrldhs .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#wqbsdrldhs .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#wqbsdrldhs .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wqbsdrldhs .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#wqbsdrldhs .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#wqbsdrldhs .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wqbsdrldhs .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wqbsdrldhs .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wqbsdrldhs .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wqbsdrldhs .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wqbsdrldhs .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wqbsdrldhs .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wqbsdrldhs .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wqbsdrldhs .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wqbsdrldhs .gt_left {
+  text-align: left;
+}
+
+#wqbsdrldhs .gt_center {
+  text-align: center;
+}
+
+#wqbsdrldhs .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wqbsdrldhs .gt_font_normal {
+  font-weight: normal;
+}
+
+#wqbsdrldhs .gt_font_bold {
+  font-weight: bold;
+}
+
+#wqbsdrldhs .gt_font_italic {
+  font-style: italic;
+}
+
+#wqbsdrldhs .gt_super {
+  font-size: 65%;
+}
+
+#wqbsdrldhs .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#wqbsdrldhs .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#wqbsdrldhs .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#wqbsdrldhs .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#wqbsdrldhs .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#wqbsdrldhs .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#wqbsdrldhs .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="table gt_table">
+<thead class="gt_col_headings"><tr>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Table Source</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Table Name</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Structure</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Description</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Sample Data Equivalent</strong></th>
+    </tr></thead>
+<tbody class="gt_table_body">
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">Raw+</td>
+<td class="gt_row gt_left" style="font-size: small;">{various}*</td>
+<td class="gt_row gt_left" style="font-size: small;">{various}*</td>
+<td class="gt_row gt_left" style="font-size: small;">Data for clinical KRIs/QTLs</td>
+<td class="gt_row gt_left" style="font-size: small;">*</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">RAVE</td>
+<td class="gt_row gt_left" style="font-size: small;">{various}*</td>
+<td class="gt_row gt_left" style="font-size: small;">{various}*</td>
+<td class="gt_row gt_left" style="font-size: small;">Data for operational KRIs/QTLs</td>
+<td class="gt_row gt_left" style="font-size: small;">*</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">CTMS</td>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">Study</td>
+<td class="gt_row gt_left" style="font-size: small;">Study metadata</td>
+<td class="gt_row gt_left" style="font-size: small;">clindata::ctms_study</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">CTMS</td>
+<td class="gt_row gt_left" style="font-size: small;">meta_site</td>
+<td class="gt_row gt_left" style="font-size: small;">Study/Site</td>
+<td class="gt_row gt_left" style="font-size: small;">Site metadata</td>
+<td class="gt_row gt_left" style="font-size: small;">clindata::ctms_site</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">RACT</td>
+<td class="gt_row gt_left" style="font-size: small;">config_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">Study/Workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">Study-specific workflow configuration</td>
+<td class="gt_row gt_left" style="font-size: small;">clindata::config_workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">RACT</td>
+<td class="gt_row gt_left" style="font-size: small;">config_param</td>
+<td class="gt_row gt_left" style="font-size: small;">Study/Workflow/Parameter</td>
+<td class="gt_row gt_left" style="font-size: small;">Study-specific workflow parameterization</td>
+<td class="gt_row gt_left" style="font-size: small;">clindata::config_param</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">Custom</td>
+<td class="gt_row gt_left" style="font-size: small;">config_schedule</td>
+<td class="gt_row gt_left" style="font-size: small;">Study/Date</td>
+<td class="gt_row gt_left" style="font-size: small;">Study snapshot schedule</td>
+<td class="gt_row gt_left" style="font-size: small;">clindata::config_schedule</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">GSM</td>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">Workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">Metadata for each workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm::meta_workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">GSM</td>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">Workflow/Parameter</td>
+<td class="gt_row gt_left" style="font-size: small;">Parameter metadata for each workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm::meta_param</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><em>* = Full spec coming in future version</em></p>
+</div>
+<div class="section level4">
+<h4 id="columns-in-gsm-data-transfer-from-above">
+<u>Columns in <code>{gsm}</code> Data Transfer (from
+above)</u>:<a class="anchor" aria-label="anchor" href="#columns-in-gsm-data-transfer-from-above"></a>
+</h4>
+<div id="gjczxcajxz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#gjczxcajxz .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gjczxcajxz .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gjczxcajxz .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gjczxcajxz .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gjczxcajxz .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gjczxcajxz .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gjczxcajxz .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gjczxcajxz .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gjczxcajxz .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gjczxcajxz .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gjczxcajxz .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gjczxcajxz .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gjczxcajxz .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gjczxcajxz .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gjczxcajxz .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gjczxcajxz .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gjczxcajxz .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gjczxcajxz .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#gjczxcajxz .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#gjczxcajxz .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gjczxcajxz .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#gjczxcajxz .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#gjczxcajxz .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gjczxcajxz .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gjczxcajxz .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gjczxcajxz .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gjczxcajxz .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gjczxcajxz .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gjczxcajxz .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gjczxcajxz .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gjczxcajxz .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gjczxcajxz .gt_left {
+  text-align: left;
+}
+
+#gjczxcajxz .gt_center {
+  text-align: center;
+}
+
+#gjczxcajxz .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gjczxcajxz .gt_font_normal {
+  font-weight: normal;
+}
+
+#gjczxcajxz .gt_font_bold {
+  font-weight: bold;
+}
+
+#gjczxcajxz .gt_font_italic {
+  font-style: italic;
+}
+
+#gjczxcajxz .gt_super {
+  font-size: 65%;
+}
+
+#gjczxcajxz .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#gjczxcajxz .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#gjczxcajxz .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#gjczxcajxz .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#gjczxcajxz .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#gjczxcajxz .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#gjczxcajxz .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="table gt_table">
+<thead class="gt_col_headings"><tr>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Table Name</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Column Name</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Description</strong></th>
+    </tr></thead>
+<tbody class="gt_table_body">
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">studyid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Study ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">enrolled_sites</td>
+<td class="gt_row gt_left" style="font-size: small;"># of enrolled sites</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">enrolled_participants</td>
+<td class="gt_row gt_left" style="font-size: small;"># of enrolled participants</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">planned_sites</td>
+<td class="gt_row gt_left" style="font-size: small;"># of planned sites</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">planned_participants</td>
+<td class="gt_row gt_left" style="font-size: small;"># of planned participants</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">title</td>
+<td class="gt_row gt_left" style="font-size: small;">Protocol title</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">nickname</td>
+<td class="gt_row gt_left" style="font-size: small;">Protocol nickname</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">indication</td>
+<td class="gt_row gt_left" style="font-size: small;">Indication</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">ta</td>
+<td class="gt_row gt_left" style="font-size: small;">Therapeutic Area</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">phase</td>
+<td class="gt_row gt_left" style="font-size: small;">Phase</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">status</td>
+<td class="gt_row gt_left" style="font-size: small;">Study Status</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">fpfv</td>
+<td class="gt_row gt_left" style="font-size: small;">First-patient first visit date</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">lplv</td>
+<td class="gt_row gt_left" style="font-size: small;">Last-patient last visit date</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">lpfv</td>
+<td class="gt_row gt_left" style="font-size: small;">Last-patient first visit date</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_study</td>
+<td class="gt_row gt_left" style="font-size: small;">rbm_flag</td>
+<td class="gt_row gt_left" style="font-size: small;">Risk-based monitoring flag</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_site</td>
+<td class="gt_row gt_left" style="font-size: small;">studyid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Study ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_site</td>
+<td class="gt_row gt_left" style="font-size: small;">siteid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Site ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_site</td>
+<td class="gt_row gt_left" style="font-size: small;">institution</td>
+<td class="gt_row gt_left" style="font-size: small;">Institution Name</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_site</td>
+<td class="gt_row gt_left" style="font-size: small;">status</td>
+<td class="gt_row gt_left" style="font-size: small;">Site Status</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_site</td>
+<td class="gt_row gt_left" style="font-size: small;">enrolled_participants</td>
+<td class="gt_row gt_left" style="font-size: small;"># of enrolled participants</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_site</td>
+<td class="gt_row gt_left" style="font-size: small;">start_date</td>
+<td class="gt_row gt_left" style="font-size: small;">Site Activation Date</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_site</td>
+<td class="gt_row gt_left" style="font-size: small;">city</td>
+<td class="gt_row gt_left" style="font-size: small;">City</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_site</td>
+<td class="gt_row gt_left" style="font-size: small;">state</td>
+<td class="gt_row gt_left" style="font-size: small;">State</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_site</td>
+<td class="gt_row gt_left" style="font-size: small;">country</td>
+<td class="gt_row gt_left" style="font-size: small;">Country</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_site</td>
+<td class="gt_row gt_left" style="font-size: small;">invname</td>
+<td class="gt_row gt_left" style="font-size: small;">Investigator name</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">config_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">studyid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Study ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">config_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">workflowid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Workflow ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">config_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_version</td>
+<td class="gt_row gt_left" style="font-size: small;">GSM version of workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">config_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">active</td>
+<td class="gt_row gt_left" style="font-size: small;">Is workflow active?</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">config_param</td>
+<td class="gt_row gt_left" style="font-size: small;">studyid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Study ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">config_param</td>
+<td class="gt_row gt_left" style="font-size: small;">workflowid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Workflow ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">config_param</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_version</td>
+<td class="gt_row gt_left" style="font-size: small;">GSM version of workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">config_param</td>
+<td class="gt_row gt_left" style="font-size: small;">param</td>
+<td class="gt_row gt_left" style="font-size: small;">Parameter name</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">config_param</td>
+<td class="gt_row gt_left" style="font-size: small;">index</td>
+<td class="gt_row gt_left" style="font-size: small;">Index value for parameter</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">config_param</td>
+<td class="gt_row gt_left" style="font-size: small;">value</td>
+<td class="gt_row gt_left" style="font-size: small;">Value for parameter at index</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">config_schedule</td>
+<td class="gt_row gt_left" style="font-size: small;">studyid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Study ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">config_schedule</td>
+<td class="gt_row gt_left" style="font-size: small;">snapshot_date</td>
+<td class="gt_row gt_left" style="font-size: small;">Snapshot Date</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">workflowid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Workflow ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">abbreviation</td>
+<td class="gt_row gt_left" style="font-size: small;">Workflow Abbreviation (max 3-letters)</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_version</td>
+<td class="gt_row gt_left" style="font-size: small;">GSM Version of workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">group</td>
+<td class="gt_row gt_left" style="font-size: small;">Group for workflow - Site, Country, Region or Study</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">metric</td>
+<td class="gt_row gt_left" style="font-size: small;">Metric Label</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">numerator</td>
+<td class="gt_row gt_left" style="font-size: small;">Numerator Label</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">denominator</td>
+<td class="gt_row gt_left" style="font-size: small;">Denominator Label</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">outcome</td>
+<td class="gt_row gt_left" style="font-size: small;">Metric Outcome Type (e.g. rate)</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">model</td>
+<td class="gt_row gt_left" style="font-size: small;">Statistical Model used to create score</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">score</td>
+<td class="gt_row gt_left" style="font-size: small;">Score Label</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">data_inputs</td>
+<td class="gt_row gt_left" style="font-size: small;">Data inputs for workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">data_filters</td>
+<td class="gt_row gt_left" style="font-size: small;">Filters applied in workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">workflowid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Workflow ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_version</td>
+<td class="gt_row gt_left" style="font-size: small;">GSM version of workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">param</td>
+<td class="gt_row gt_left" style="font-size: small;">Parameter name</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">index</td>
+<td class="gt_row gt_left" style="font-size: small;">Parameter index</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">default</td>
+<td class="gt_row gt_left" style="font-size: small;">Default value for parameter at index</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">configurable</td>
+<td class="gt_row gt_left" style="font-size: small;">Is parameter configurable?</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="standardized-data-tool-input-specifications">Standardized Data Tool Input Specifications<a class="anchor" aria-label="anchor" href="#standardized-data-tool-input-specifications"></a>
+</h3>
+<p>Input data for a standardized data tool is generated by
+<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> using clinical and operational data along with
+associated metadata. All inputs are transferred as .csv files.</p>
+<p>Three types of tables are included in the input data model:</p>
+<ul>
+<li><p><strong>Status Files:</strong> Capture the most recent metadata
+associated with the RBQM analytics for a single study</p></li>
+<li><p><strong>Result Files:</strong> Capture analytics results
+including flag status for all workflows run on a single study</p></li>
+<li><p><strong>Metadata Files:</strong> Capture workflow details for all
+analytics currently available in <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> and are shared
+across all studies</p></li>
+</ul>
+<div class="section level4">
+<h4 id="tables-in-standardized-data-tool-transfer">
+<u>Tables in Standardized Data Tool Transfer</u>:<a class="anchor" aria-label="anchor" href="#tables-in-standardized-data-tool-transfer"></a>
+</h4>
+<div id="gooneywuql" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#gooneywuql .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gooneywuql .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gooneywuql .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gooneywuql .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gooneywuql .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gooneywuql .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gooneywuql .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gooneywuql .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gooneywuql .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gooneywuql .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gooneywuql .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gooneywuql .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gooneywuql .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gooneywuql .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gooneywuql .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gooneywuql .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gooneywuql .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gooneywuql .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#gooneywuql .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#gooneywuql .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gooneywuql .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#gooneywuql .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#gooneywuql .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gooneywuql .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gooneywuql .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gooneywuql .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gooneywuql .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gooneywuql .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gooneywuql .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gooneywuql .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gooneywuql .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gooneywuql .gt_left {
+  text-align: left;
+}
+
+#gooneywuql .gt_center {
+  text-align: center;
+}
+
+#gooneywuql .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gooneywuql .gt_font_normal {
+  font-weight: normal;
+}
+
+#gooneywuql .gt_font_bold {
+  font-weight: bold;
+}
+
+#gooneywuql .gt_font_italic {
+  font-style: italic;
+}
+
+#gooneywuql .gt_super {
+  font-size: 65%;
+}
+
+#gooneywuql .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#gooneywuql .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#gooneywuql .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#gooneywuql .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#gooneywuql .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#gooneywuql .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#gooneywuql .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="table gt_table">
+<thead class="gt_col_headings"><tr>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Table Type</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Table Name</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Structure</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Description</strong></th>
+    </tr></thead>
+<tbody class="gt_table_body">
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">Study-level status</td>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">Study</td>
+<td class="gt_row gt_left" style="font-size: small;">Study metadata and status info</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">Study-level status</td>
+<td class="gt_row gt_left" style="font-size: small;">status_site</td>
+<td class="gt_row gt_left" style="font-size: small;">Study/Site</td>
+<td class="gt_row gt_left" style="font-size: small;">Site metadata and status info</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">Study-level status</td>
+<td class="gt_row gt_left" style="font-size: small;">status_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">Study/Workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">Workflow status info</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">Study-level status</td>
+<td class="gt_row gt_left" style="font-size: small;">status_param</td>
+<td class="gt_row gt_left" style="font-size: small;">Study/Workflow/Parameter</td>
+<td class="gt_row gt_left" style="font-size: small;">Parameter status info</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">Study-level status</td>
+<td class="gt_row gt_left" style="font-size: small;">status_schedule</td>
+<td class="gt_row gt_left" style="font-size: small;">Study/Date</td>
+<td class="gt_row gt_left" style="font-size: small;">Dates for QRM Snapshots</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">Study-level results</td>
+<td class="gt_row gt_left" style="font-size: small;">results_summary</td>
+<td class="gt_row gt_left" style="font-size: small;">Study/Workflow/Group</td>
+<td class="gt_row gt_left" style="font-size: small;">Full analytics results for all workflows</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">Study-level results</td>
+<td class="gt_row gt_left" style="font-size: small;">results_bounds</td>
+<td class="gt_row gt_left" style="font-size: small;">Study/Workflow/Threshold/x-value</td>
+<td class="gt_row gt_left" style="font-size: small;">x/y values for boundaries on scatter plot</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">Metadata (across studies)</td>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">Workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">Metadata for each workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">Metadata (across studies)</td>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">Workflow/Parameter</td>
+<td class="gt_row gt_left" style="font-size: small;">Parameter metadata for each workflow</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section level4">
+<h4 id="columns-in-standardized-data-tool-transfer-from-above">
+<u>Columns in Standardized Data Tool Transfer (from above)</u>:<a class="anchor" aria-label="anchor" href="#columns-in-standardized-data-tool-transfer-from-above"></a>
+</h4>
+<p>The following tables are all contained in the output of
+<code><a href="../reference/Make_Snapshot.html">gsm::Make_Snapshot()</a></code>:</p>
+<div id="bbfowkaksa" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#bbfowkaksa .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#bbfowkaksa .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bbfowkaksa .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bbfowkaksa .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bbfowkaksa .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bbfowkaksa .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bbfowkaksa .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#bbfowkaksa .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bbfowkaksa .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#bbfowkaksa .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#bbfowkaksa .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#bbfowkaksa .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bbfowkaksa .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bbfowkaksa .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#bbfowkaksa .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#bbfowkaksa .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#bbfowkaksa .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bbfowkaksa .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#bbfowkaksa .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#bbfowkaksa .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bbfowkaksa .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#bbfowkaksa .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#bbfowkaksa .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bbfowkaksa .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bbfowkaksa .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#bbfowkaksa .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#bbfowkaksa .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bbfowkaksa .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bbfowkaksa .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bbfowkaksa .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bbfowkaksa .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bbfowkaksa .gt_left {
+  text-align: left;
+}
+
+#bbfowkaksa .gt_center {
+  text-align: center;
+}
+
+#bbfowkaksa .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#bbfowkaksa .gt_font_normal {
+  font-weight: normal;
+}
+
+#bbfowkaksa .gt_font_bold {
+  font-weight: bold;
+}
+
+#bbfowkaksa .gt_font_italic {
+  font-style: italic;
+}
+
+#bbfowkaksa .gt_super {
+  font-size: 65%;
+}
+
+#bbfowkaksa .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#bbfowkaksa .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#bbfowkaksa .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#bbfowkaksa .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#bbfowkaksa .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#bbfowkaksa .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#bbfowkaksa .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="table gt_table">
+<thead class="gt_col_headings"><tr>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Table Name</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Column Name</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-size: small;" scope="col"><strong>Description</strong></th>
+    </tr></thead>
+<tbody class="gt_table_body">
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">studyid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Study ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">enrolled_sites</td>
+<td class="gt_row gt_left" style="font-size: small;"># of enrolled sites</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">enrolled_participants</td>
+<td class="gt_row gt_left" style="font-size: small;"># of enrolled participants</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">planned_sites</td>
+<td class="gt_row gt_left" style="font-size: small;"># of planned sites</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">planned_participants</td>
+<td class="gt_row gt_left" style="font-size: small;"># of planned participants</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">title</td>
+<td class="gt_row gt_left" style="font-size: small;">Protocol title</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">nickname</td>
+<td class="gt_row gt_left" style="font-size: small;">Protocol nickname</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">indication</td>
+<td class="gt_row gt_left" style="font-size: small;">Indication</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">ta</td>
+<td class="gt_row gt_left" style="font-size: small;">Therapeutic Area</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">phase</td>
+<td class="gt_row gt_left" style="font-size: small;">Phase</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">status</td>
+<td class="gt_row gt_left" style="font-size: small;">Study Status</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">fpfv</td>
+<td class="gt_row gt_left" style="font-size: small;">First-patient first visit date</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">lplv</td>
+<td class="gt_row gt_left" style="font-size: small;">Last-patient last visit date</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">lpfv</td>
+<td class="gt_row gt_left" style="font-size: small;">Last-patient first visit date</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">rbm_flag</td>
+<td class="gt_row gt_left" style="font-size: small;">Risk-based monitoring flag</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_study</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_analysis_date</td>
+<td class="gt_row gt_left" style="font-size: small;">Date that snapshot was created</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_site</td>
+<td class="gt_row gt_left" style="font-size: small;">studyid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Study ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_site</td>
+<td class="gt_row gt_left" style="font-size: small;">siteid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Site ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_site</td>
+<td class="gt_row gt_left" style="font-size: small;">institution</td>
+<td class="gt_row gt_left" style="font-size: small;">Institution Name</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_site</td>
+<td class="gt_row gt_left" style="font-size: small;">status</td>
+<td class="gt_row gt_left" style="font-size: small;">Site Status</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_site</td>
+<td class="gt_row gt_left" style="font-size: small;">enrolled_participants</td>
+<td class="gt_row gt_left" style="font-size: small;"># of enrolled participants</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_site</td>
+<td class="gt_row gt_left" style="font-size: small;">start_date</td>
+<td class="gt_row gt_left" style="font-size: small;">Site Activation Date</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_site</td>
+<td class="gt_row gt_left" style="font-size: small;">city</td>
+<td class="gt_row gt_left" style="font-size: small;">City</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_site</td>
+<td class="gt_row gt_left" style="font-size: small;">state</td>
+<td class="gt_row gt_left" style="font-size: small;">State</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_site</td>
+<td class="gt_row gt_left" style="font-size: small;">country</td>
+<td class="gt_row gt_left" style="font-size: small;">Country</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_site</td>
+<td class="gt_row gt_left" style="font-size: small;">invname</td>
+<td class="gt_row gt_left" style="font-size: small;">Investigator name</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_site</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_analysis_date</td>
+<td class="gt_row gt_left" style="font-size: small;">Date that snapshot was created</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">studyid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Study ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">workflowid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Workflow ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_version</td>
+<td class="gt_row gt_left" style="font-size: small;">GSM version of workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">active</td>
+<td class="gt_row gt_left" style="font-size: small;">Is workflow active?</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">status</td>
+<td class="gt_row gt_left" style="font-size: small;">Did workflow run?</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">notes</td>
+<td class="gt_row gt_left" style="font-size: small;">Status notes</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_analysis_date</td>
+<td class="gt_row gt_left" style="font-size: small;">Date that snapshot was created</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_param</td>
+<td class="gt_row gt_left" style="font-size: small;">studyid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Study ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_param</td>
+<td class="gt_row gt_left" style="font-size: small;">workflowid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Workflow ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_param</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_version</td>
+<td class="gt_row gt_left" style="font-size: small;">GSM version of workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_param</td>
+<td class="gt_row gt_left" style="font-size: small;">param</td>
+<td class="gt_row gt_left" style="font-size: small;">Parameter name</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_param</td>
+<td class="gt_row gt_left" style="font-size: small;">index</td>
+<td class="gt_row gt_left" style="font-size: small;">Index value for parameter</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_param</td>
+<td class="gt_row gt_left" style="font-size: small;">value</td>
+<td class="gt_row gt_left" style="font-size: small;">Value for parameter at index</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_param</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_analysis_date</td>
+<td class="gt_row gt_left" style="font-size: small;">Date that snapshot was created</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_schedule</td>
+<td class="gt_row gt_left" style="font-size: small;">studyid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Study ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_schedule</td>
+<td class="gt_row gt_left" style="font-size: small;">snapshot_date</td>
+<td class="gt_row gt_left" style="font-size: small;">Snapshot Date</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">status_schedule</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_analysis_date</td>
+<td class="gt_row gt_left" style="font-size: small;">Date that snapshot was created</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_summary</td>
+<td class="gt_row gt_left" style="font-size: small;">studyid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Study ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_summary</td>
+<td class="gt_row gt_left" style="font-size: small;">workflowid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Workflow ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_summary</td>
+<td class="gt_row gt_left" style="font-size: small;">groupid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Group ID (e.g. SiteID for KRI workflows)</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_summary</td>
+<td class="gt_row gt_left" style="font-size: small;">numerator</td>
+<td class="gt_row gt_left" style="font-size: small;">Metric numerator</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_summary</td>
+<td class="gt_row gt_left" style="font-size: small;">denominator</td>
+<td class="gt_row gt_left" style="font-size: small;">Metric denominator</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_summary</td>
+<td class="gt_row gt_left" style="font-size: small;">metric</td>
+<td class="gt_row gt_left" style="font-size: small;">Metric value</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_summary</td>
+<td class="gt_row gt_left" style="font-size: small;">score</td>
+<td class="gt_row gt_left" style="font-size: small;">Statistical Score</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_summary</td>
+<td class="gt_row gt_left" style="font-size: small;">flag</td>
+<td class="gt_row gt_left" style="font-size: small;">Flag</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_summary</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_analysis_date</td>
+<td class="gt_row gt_left" style="font-size: small;">Date that snapshot was created</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_bounds</td>
+<td class="gt_row gt_left" style="font-size: small;">studyid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Study ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_bounds</td>
+<td class="gt_row gt_left" style="font-size: small;">workflowid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Workflow ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_bounds</td>
+<td class="gt_row gt_left" style="font-size: small;">threshold</td>
+<td class="gt_row gt_left" style="font-size: small;">Threshold</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_bounds</td>
+<td class="gt_row gt_left" style="font-size: small;">numerator</td>
+<td class="gt_row gt_left" style="font-size: small;">y value</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_bounds</td>
+<td class="gt_row gt_left" style="font-size: small;">denominator</td>
+<td class="gt_row gt_left" style="font-size: small;">x value</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_bounds</td>
+<td class="gt_row gt_left" style="font-size: small;">log_denominator</td>
+<td class="gt_row gt_left" style="font-size: small;">Log X value</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">results_bounds</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_analysis_date</td>
+<td class="gt_row gt_left" style="font-size: small;">Date that snapshot was created</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">workflowid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Workflow ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_version</td>
+<td class="gt_row gt_left" style="font-size: small;">GSM Version of workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">group</td>
+<td class="gt_row gt_left" style="font-size: small;">Group for workflow - Site, Country, Region or Study</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">abbreviation</td>
+<td class="gt_row gt_left" style="font-size: small;">Workflow Abbreviation (max 3-letters)</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">metric</td>
+<td class="gt_row gt_left" style="font-size: small;">Metric Label</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">numerator</td>
+<td class="gt_row gt_left" style="font-size: small;">Numerator Label</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">denominator</td>
+<td class="gt_row gt_left" style="font-size: small;">Denominator Label</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">outcome</td>
+<td class="gt_row gt_left" style="font-size: small;">Metric Outcome Type (e.g. rate)</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">model</td>
+<td class="gt_row gt_left" style="font-size: small;">Statistical Model used to create score</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">score</td>
+<td class="gt_row gt_left" style="font-size: small;">Score Label</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">data_inputs</td>
+<td class="gt_row gt_left" style="font-size: small;">Data inputs for workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">data_filters</td>
+<td class="gt_row gt_left" style="font-size: small;">Filters applied in workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_workflow</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_analysis_date</td>
+<td class="gt_row gt_left" style="font-size: small;">Date that snapshot was created</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">workflowid</td>
+<td class="gt_row gt_left" style="font-size: small;">Unique Workflow ID</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_version</td>
+<td class="gt_row gt_left" style="font-size: small;">GSM version of workflow</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">param</td>
+<td class="gt_row gt_left" style="font-size: small;">Parameter name</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">index</td>
+<td class="gt_row gt_left" style="font-size: small;">Parameter index</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">default</td>
+<td class="gt_row gt_left" style="font-size: small;">Default value for parameter at index</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">configurable</td>
+<td class="gt_row gt_left" style="font-size: small;">Is parameter configurable?</td>
+</tr>
+<tr>
+<td class="gt_row gt_left" style="font-size: small;">meta_param</td>
+<td class="gt_row gt_left" style="font-size: small;">gsm_analysis_date</td>
+<td class="gt_row gt_left" style="font-size: small;">Date that snapshot was created</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="Appendix-3-Workflow-ID-Specs">Appendix 3 - Workflow ID Basic Specs<a class="anchor" aria-label="anchor" href="#Appendix-3-Workflow-ID-Specs"></a>
+</h2>
+<p>Workflow IDs are named using the following practices:</p>
+<p><strong>{type}{workflowid}{_strata}{_param}</strong> where:</p>
+<ul>
+<li>
+<strong>{type}:</strong> Basic analysis unit of the workflow
+<ul>
+<li>kri: site-level</li>
+<li>cou: country-level</li>
+<li>qtl: study-level</li>
+</ul>
+</li>
+<li>
+<strong>{workflowid}:</strong> 0-padded 4 digit number (e.g.,
+“0001”) specifying the workflow used for the assessment
+<ul>
+<li>May contain filter, mapping and assessment functions</li>
+</ul>
+</li>
+<li>
+<strong>{_strata}:</strong> Optional flag indicating a stratified
+analysis
+<ul>
+<li>Format is <code>_S1</code>, <code>_S2</code>, etc.</li>
+</ul>
+</li>
+<li>
+<strong>{_param}:</strong> Optional flag indicating a custom
+parameterization
+<ul>
+<li>Format is <code>_P1</code>, <code>_P2</code>, etc.</li>
+</ul>
+</li>
+</ul>
+<p>Here are a few examples and how they translate:</p>
+<ul>
+<li>kri0001: site-level assessment for workflow 0001</li>
+<li>qtl0001: study-level assessment for workflow 0001</li>
+<li>cou0001: country-level assessment for workflow 0001</li>
+<li>kri0002_s1: stratified site-level assessment for workflow 0002</li>
+<li>cou0002_p2: country-level assessment for workflow 0002 run with
+custom parameters</li>
+<li>cou0002_p2_s1: stratified country-level assessment for workflow 0002
+run with custom parameters</li>
+</ul>
 </div>
   </div>
 

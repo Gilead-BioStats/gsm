@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -33,6 +33,9 @@
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
+      <a href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
@@ -108,7 +111,14 @@
     
 
 
-<p>TODO Coming soon ...</p>
+<p>The function <code>Analyze_Fisher</code> utilizes <code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">stats::fisher.test</a></code> to generate an
+estimate of odds ratio as well as p-value using the Fisher’s exact test with site-level count
+data. For each site, Fisher’s exact test is conducted by comparing to all other sites combined
+in a 2×2 contingency table. The p-values are then used as a scoring metric in <code>{gsm}</code> to flag
+possible outliers. The default in <code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">stats::fisher.test</a></code> uses a two-sided test (equivalent to testing
+the null of OR = 1) and does not compute p-values by Monte Carlo simulation unless <code>simulate.p.value = TRUE</code>.
+Sites with p-values less than 0.05 from the Fisher’s exact test analysis are flagged by default.
+The significance level was set at a common choice.</p>
     </div>
     <div id="data-specification">
     <h2>Data Specification</h2>
@@ -117,8 +127,8 @@
 
 <p>The input data (<code>dfTransformed</code>) for Analyze_Fisher is typically created using <code><a href="Transform_Rate.html">Transform_Rate</a></code> and should be one record per site with required columns for:</p><ul><li><p><code>GroupID</code> - Site ID</p></li>
 <li><p><code>Numerator</code> - Total number of participants at site with event of interest</p></li>
-<li><p><code>Denominator</code> - TBD</p></li>
-<li><p><code>Metric</code> - TBD</p></li>
+<li><p><code>Denominator</code> - Total number of participants at site/Total number of days of exposure at site</p></li>
+<li><p><code>Metric</code> - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)</p></li>
 </ul></div>
 
     <div id="ref-examples">

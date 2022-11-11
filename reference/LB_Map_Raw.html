@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -33,6 +33,9 @@
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
+      <a href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
@@ -87,14 +90,14 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dfs</dt>
-<dd><p><code>list</code> Input data frames:</p><ul><li><p><code>dfLB</code>: <code>data.frame</code> Lab data with one record subject per visit per lab result.</p></li>
-<li><p><code>dfSUBJ</code>: <code>data.frame</code> Subject-level data with one record per subject.</p></li>
+<dd><p><code>list</code> Input data frames:</p><ul><li><p><code>dfLB</code>: <code>data.frame</code> Lab data with one record subject per visit per lab result. Default: <code><a href="https://rdrr.io/pkg/clindata/man/rawplus_lb.html" class="external-link">clindata::rawplus_lb</a></code></p></li>
+<li><p><code>dfSUBJ</code>: <code>data.frame</code> Subject-level data with one record per subject. Default: <code><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">clindata::rawplus_dm</a></code></p></li>
 </ul></dd>
 
 
 <dt>lMapping</dt>
 <dd><p><code>list</code> Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name
-of the column.</p></dd>
+of the column. Default: package-defined mapping for raw+.</p></dd>
 
 
 <dt>bReturnChecks</dt>

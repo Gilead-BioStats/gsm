@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -51,6 +51,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
+      <a href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
@@ -87,7 +90,7 @@
 
       
 
-      </header><script src="ContributorGuidelines_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Contributor Guidelines</h1>
@@ -101,21 +104,39 @@
     
     
 <div class="section level2">
-<h2 id="intro">Intro<a class="anchor" aria-label="anchor" href="#intro"></a>
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>This page outlines the development process for <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>, and how to contribute by filing issues, bug reports, and submitting code via a Pull Request.</p>
+<p>This page outlines the development process for <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>,
+including how to contribute by filing issues, bug reports, and
+submitting code via a Pull Request.</p>
 <div class="section level3">
 <h3 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
 </h3>
-<p>Before contributing code via a Pull Request, make sure to file an <a href="https://github.com/Gilead-BioStats/gsm/issues/new/choose" class="external-link">issue</a>, and choose the template that best suits your situation. This is generally one of:</p>
+<p>Before contributing code via a Pull Request, make sure to file an <a href="https://github.com/Gilead-BioStats/gsm/issues/new/choose" class="external-link">issue</a>
+using one of the pre-specified issue templates. Choose the template that
+best categorizes what you aim to contribute, which generally can be one
+of the following:</p>
 <ul>
-<li>Bugfix</li>
-<li>Feature Issue</li>
-<li>QC Issue</li>
+<li>Bugfix Issue: Fix a bug in the code</li>
+<li>Feature Issue: Develop a new feature</li>
+<li>QC Issue: Update QC framework, including documentation,
+qualification, automation, etc.</li>
 </ul>
-<p>Someone from the team will decide if this is an issue that is in scope and will triage the issue appropriately, either by giving the go-ahead to submit a Pull Request, assigning the issue to a core developer, or closing the issue if it is out of scope or not otherwise relevant.</p>
-<p>The issue templates provide comments to assist in gathering any relevant information that can be provided. In the case of bug reports or specific feature requests, it is often helpful to provide a minimal <a href="https://www.tidyverse.org/help/#reprex" class="external-link">reprex</a> to illustrate the issue or request.</p>
-<p>Additionally, suggestions or other input that might not necessarily fit into an issue template can be filed under <a href="https://github.com/Gilead-BioStats/gsm/discussions" class="external-link">discussions</a>, which can help to talk through specific use-cases or requests.</p>
+<p>Someone from the development team will decide if the issue is in
+scope. If so, the issue will be appropriately triaged and assigned to a
+core developer, or approval to submit a Pull Request associated with the
+submitted issue will be granted. If it is decided that the issue is out
+of scope or otherwise irrelevant, the issue will be closed.</p>
+<p>The issue templates provide comments/prompts to help ensure that all
+relevant information is included. When submitting issues for bug fixes
+or specific feature requests, it is often helpful to provide a minimal
+<a href="https://www.tidyverse.org/help/#reprex" class="external-link">reprex</a>, or
+reproducible example, to help the core developers visualize the
+issue.</p>
+<p>Suggestions or other input that might not warrant formal submission
+of an issue can be filed under <a href="https://github.com/Gilead-BioStats/gsm/discussions" class="external-link">discussions</a>,
+which can help facilitate discourse of specific use-cases or
+requests.</p>
 </div>
 <div class="section level3">
 <h3 id="branches">Branches<a class="anchor" aria-label="anchor" href="#branches"></a>
@@ -123,48 +144,98 @@
 <p>The core branches that are used in this repository are:</p>
 <ul>
 <li>
-<code>main</code>: Contains the production version of the package.</li>
+<code>main</code>: Contains the production version of the
+package.</li>
 <li>
-<code>dev</code>: Contains the development version of the package.</li>
+<code>dev</code>: Contains the development version of the
+package.</li>
 <li>
-<code>fix</code>: Used to develop new functionality in the package. See the <a href="#development-process">Development Process</a> section below for more details.</li>
+<code>fix</code>: Used to develop new functionality in the package.
+See <a href="#development-process">Development Process</a> below for
+more details.</li>
 <li>
-<code>release</code>: Used to conduct regression testing and finalize QC documentation for a release. See the <a href="#release-process">Release Process Section</a> for more details.</li>
+<code>release</code>: Used to conduct regression testing and
+finalize QC documentation for a release. See <a href="#release-process">Release Process</a> below for more details.</li>
 </ul>
 </div>
 </div>
 <div class="section level2">
 <h2 id="development-process">Development Process<a class="anchor" aria-label="anchor" href="#development-process"></a>
 </h2>
-<p>All code development takes place in <code>fix</code> branches. This section describes the process and provides general guidance and a detailed <a href="#fix-branch-workflow">step-by-step workflow</a> is available below.</p>
-<p>Once an issue is filed, all package development takes place by addressing issues in <code>fix</code> branches. Each <code>fix</code> branch should be linked to one or more GitHub <a href="https://github.com/Gilead-BioStats/gsm/issues" class="external-link">issue</a>, which should be referenced in the branch name. For example, <code>fix-111</code> addresses issue #111. Tasks related to documentation, testing, and/or qualification may also use <code>fix</code> branches and associated issues. A detailed workflow for <code>fix</code> branches is provided below.</p>
-<p>Please also use the following general guidance when creating a Pull Request:</p>
+<p>All code development takes place in <code>fix</code> branches. This
+section provides general guidance about this process flow. A detailed
+step-by-step workflow for code development in <code>fix</code> branches
+can be found in the first section of <a href="#fix-branch-workflow">Appendix 1</a> below.</p>
+<p>Once an issue is filed and delegated to a core developer, a
+<code>fix</code> branch will be opened, which is where all package
+development related to that issue will be conducted. Each
+<code>fix</code> branch should be linked to one or more of the filed
+GitHub <a href="https://github.com/Gilead-BioStats/gsm/issues" class="external-link">issue(s)</a>. The
+issue(s) will be referenced in the naming of the <code>fix</code>
+branch. For example, a branch named <code>fix-111</code> addresses issue
+#111. Tasks related to documentation, testing, and/or qualification may
+also use <code>fix</code> branches and associated issues.</p>
+<p>In addition to the above, please also use the following general
+guidelines when creating a Pull Request:</p>
 <ul>
-<li>As noted above, we recommend creating a Git branch that references one or more issues.</li>
-<li>New code should generally follow the <a href="https://style.tidyverse.org/" class="external-link">tidyverse style guide</a>, but automatic styling is applied before each release <a href="#style-guide">here</a> for details.</li>
-<li>Documentation should be included, using <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html" class="external-link">roxygen2</a>.</li>
-<li>New functions, or changes to existing functions, should include updated unit tests. We use <a href="https://testthat.r-lib.org/" class="external-link">testthat &gt;= v3.0.0</a>.</li>
-<li>When submitting a Pull Request, make sure to include any relevant details that will help the reviewer to understand the proposed updates or new functionality. Additionally, link the PR to the relevant issue by using <a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword" class="external-link">closing keywords</a>, or manually link to the issue by using the <code>Development</code> section on the sidebar.</li>
-<li>In general, all Pull Requests should target the <code>dev</code> branch (with the exception of a release PR).</li>
-<li>All checks and tests must be passing before merging a PR to dev. These checks are automatically run via <a href="#github-action-workflow">GitHub Actions</a>, but you can also run them locally by calling <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> on your branch before finalizing a PR.</li>
-<li>Developers should check the qualification-dev-check output during development. If there are any issues present or new functionality is added that needs to be qualified the developer should add it to the version qualification issue.</li>
+<li>New code should generally follow the <a href="https://style.tidyverse.org/" class="external-link">tidyverse style guide</a>, but
+automatic styling will be applied before each release. More details
+about the style guide can be found <a href="#style-guide">here</a>.</li>
+<li>Documentation should be included, using the <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html" class="external-link">roxygen2</a>
+package.</li>
+<li>New functions or changes to existing functions should include
+updated unit tests to demonstrate branch compatibility. Core developers
+request that unit tests are developed using <a href="https://testthat.r-lib.org/" class="external-link">testthat &gt;= v3.0.0</a>.</li>
+<li>Please include any relevant details that will provide context for
+the proposed updates or new functionality. Additionally, link the Pull
+Request to the relevant issue(s) by using either <a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword" class="external-link">closing
+keywords</a>, or the <code>Development</code> section on the sidebar of
+the Pull Request page.</li>
+<li>In general, all Pull Requests should target the <code>dev</code>
+branch (with the exception of a release Pull Request).</li>
+<li>All checks and tests must be passing before merging a Pull Request
+to <code>dev</code>. These checks are automatically run via GitHub
+Actions, as described in <a href="#github-action-workflow">Appendix
+3</a>, but you can also run them locally by calling
+<code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> on your <code>fix</code> branch before
+finalizing a Pull Request.</li>
+<li>During the development process, developers should verify that the
+<code>qualification-dev-check</code> Action runs successfully. This
+checks whether the qualification tests were executed successfully or
+failed. This can be verified by looking under the Checks tab of a given
+Pull Request - the status will read either “Success” or “Failure”. If
+there are any conflicts present or new functionality is added to code
+that is not covered by existing qualification tests, the developer
+submitting the Pull Request should add this information to the version
+qualification issue.</li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="release-process">Release Process<a class="anchor" aria-label="anchor" href="#release-process"></a>
 </h2>
-<p>Code release follows a process using <code>release</code> branches. A release is initiated when all feature development, QC, and qualification is done for a set of functionality. The primary objective of the Release Workflow is to conduct regression testing and finalize all QC documentation for a release. More details are provided in the detailed <a href="#release-branch-workflow">step-by-step workflow</a> below.</p>
+<p>Code release follows a process using <code>release</code> branches. A
+release is initiated when all feature development, QC, and qualification
+has been completed for a given functionality. The primary objective of
+the Release Workflow is to conduct regression testing and finalize all
+QC documentation for that release. A detailed step-by-step workflow for
+code release can be found in the second section of <a href="#release-branch-workflow">Appendix 1</a> below.</p>
 </div>
 <div class="section level2">
 <h2 id="style-guide">Style Guide<a class="anchor" aria-label="anchor" href="#style-guide"></a>
 </h2>
-<p>We use the <a href="https://style.tidyverse.org/" class="external-link">tidyverse style guide</a> with minor modifications. The code below is run to standardize styling before before each release.</p>
+<p>Code developers for <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> use the <a href="https://style.tidyverse.org/" class="external-link">tidyverse style guide</a> with
+minimal modifications. The code below is run to standardize styling
+before each release:</p>
 <pre><code><span><span class="va">double_indent_style</span> <span class="op">&lt;-</span> <span class="fu">styler</span><span class="fu">::</span><span class="fu">tidyverse_style</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">double_indent_style</span><span class="op">$</span><span class="va">indention</span><span class="op">$</span><span class="va">unindent_fun_dec</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span><span class="va">double_indent_style</span><span class="op">$</span><span class="va">indention</span><span class="op">$</span><span class="va">update_indention_ref_fun_dec</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span><span class="va">double_indent_style</span><span class="op">$</span><span class="va">line_break</span><span class="op">$</span><span class="va">remove_line_breaks_in_fun_dec</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span><span class="fu">styler</span><span class="fu">::</span><span class="fu">style_dir</span><span class="op">(</span><span class="st">'R'</span>, transformers <span class="op">=</span> <span class="va">double_indent_style</span><span class="op">)</span></span>
 <span><span class="fu">styler</span><span class="fu">::</span><span class="fu">style_dir</span><span class="op">(</span><span class="st">'tests'</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, transformers <span class="op">=</span> <span class="va">double_indent_style</span><span class="op">)</span></span></code></pre>
+<p>Instead of copying/pasting the code above, a wrapper function in
+<code>{gutil}</code> can be used by running:</p>
+<pre><code><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'Gilead-BioStats/gutil'</span><span class="op">)</span></span>
+<span><span class="fu">gutil</span><span class="fu">::</span><span class="fu">style_code</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="appendix-1---detailed-workflows">Appendix 1 - Detailed Workflows<a class="anchor" aria-label="anchor" href="#appendix-1---detailed-workflows"></a>
@@ -174,29 +245,43 @@
 <code>fix</code> Branch Workflow<a class="anchor" aria-label="anchor" href="#fix-branch-workflow"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>Create issue(s) defining addition(s):
+<li>Create issue(s) defining addition(s) and/or revision(s):
 <ul>
-<li>Select the appropriate template to use, one of: <code>Bugfix</code>, <code>Feature Issue</code>, or <code>QC Issue</code>.</li>
-<li>Assign issue to developer(s).</li>
-<li>Assign Milestone.</li>
+<li>Select the appropriate <a href="https://github.com/Gilead-BioStats/gsm/issues/new/choose" class="external-link">template</a>
+to use (should be one of the following):
+<ul>
+<li><code>Bugfix Issue</code></li>
+<li><code>Feature Issue</code></li>
+<li><code>QC Issue</code></li>
 </ul>
 </li>
-<li>Developer codes <code>fix</code> branch with updates to code.</li>
-<li>Developer creates PR into <code>dev</code> using the default PR template and does the following:
+<li>Assign issue(s) to core developer(s).</li>
+<li>Assign milestone within issue(s).</li>
+</ul>
+</li>
+<li>Developer creates <code>fix</code> branch (with nomenclature
+reflecting associated issue(s)) and updates the associated code(s).</li>
+<li>Developer opens Pull Request for the <code>fix</code> branch to be
+merged into the <code>dev</code> branch using the GitHub default Pull
+Request template. Developer should do the following:
 <ul>
-<li>Assign PR to self.</li>
+<li>Assign Pull Request to self.</li>
 <li>Requests review(s).</li>
 <li>Assign milestone.</li>
 <li>Link to associated issue(s).</li>
 </ul>
 </li>
-<li>Before merge, the PR must have the following:
+<li>Before the <code>fix</code> branch can be merged into the
+<code>dev</code> branch, the Pull Request must:
 <ul>
-<li>PR Approved by code reviewers.</li>
-<li>GitHub checks all passing.</li>
+<li>Be approved by assigned code reviewer(s).</li>
+<li>Pass all GitHub qualification checks.</li>
 </ul>
 </li>
-<li>Branch is merged to <code>dev</code>.</li>
+<li>
+<code>fix</code> branch is merged into the <code>dev</code> branch
+after the above requirements are fulfilled. The user who merges the
+<code>fix</code> branch should make sure to delete it upon merging.</li>
 </ol>
 </div>
 <div class="section level3">
@@ -204,61 +289,100 @@
 <code>release</code> Branch Workflow<a class="anchor" aria-label="anchor" href="#release-branch-workflow"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>Release Owner creates branch from <code>dev</code> to create a new <code>release</code> branch.
+<li>Release Owner creates <code>release</code> branch from
+<code>dev</code> branch.
 <ul>
-<li>The branch should be named after the version being released (e.g. <code>release-v1.2.0</code>) using <a href="https://semver.org/" class="external-link">semantic versioning</a>.</li>
+<li>The <code>release</code> branch should be named according to the
+version of <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> being released (e.g.,
+<code>release-v1.2.0</code>) using <a href="https://semver.org/" class="external-link">semantic versioning</a>.</li>
 </ul>
 </li>
-<li>Release Owner prepares the release for QC by pushing the following updates to the release branch:
+<li>Release Owner prepares the release for QC by performing the
+following steps and pushing updates to the <code>release</code> branch:
 <ul>
-<li>Confirm that the version in the <code>DESCRIPTION</code> file is up to date.<br>
-</li>
-<li>Run <code>styler</code> using <a href="#style-guide">this script</a> and commit any updates.</li>
-<li>update <code>NEWS.md</code> with a summary of the updates in the release.</li>
-<li>If applicable, review <code>README.md</code> and relevant vignettes to make sure updates are accurately described.</li>
+<li>Confirm that the version in the <code>DESCRIPTION</code> file is up
+to date.</li>
+<li>Run <code>styler</code> using the script from the <a href="#style-guide">style guide</a> above (or by running
+<code>gutil::style_code()</code>) and commit any updates.</li>
+<li>Update <code>NEWS.md</code> with a summary of the
+revisions/additions in the release. Keep any information from previous
+releases to maintain traceability through versions.</li>
+<li>If applicable, review <code>README.md</code> and relevant vignettes
+to make sure updates are accurately described.</li>
 <li>Ensure all unit tests are passing.</li>
-<li>Check if qualification tests are all passing or if new features were added that need to be qualified. If updates are needed they should be outlined in a release QC issue.</li>
-<li>Run <code><a href="https://devtools.r-lib.org/reference/spell_check.html" class="external-link">devtools::spell_check()</a></code> and resolve issues.</li>
-<li>Build site <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site()</a></code> and check that all affected examples are displayed correctly and that all new functions occur on the “Reference” page.</li>
-<li>Open a clean R session and run <code><a href="https://devtools.r-lib.org/reference/install.html" class="external-link">devtools::install()</a></code> and then <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> locally and confirm that there are no issues.</li>
+<li>Check if all qualification tests are passing and if new features
+were added that need to be qualified. If updates are needed, they should
+be outlined in a release QC issue.</li>
+<li>Run <code><a href="https://devtools.r-lib.org/reference/spell_check.html" class="external-link">devtools::spell_check()</a></code> and resolve findings.</li>
+<li>Build site using <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site()</a></code>. Check that all
+examples are displayed correctly and that all new functions occur on the
+Reference page.</li>
+<li>Open a clean R session. Run <code><a href="https://devtools.r-lib.org/reference/install.html" class="external-link">devtools::install()</a></code> and
+then <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> locally and confirm that there are
+no issues/conflicts.</li>
 </ul>
 </li>
-<li>Release Owner creates PR from <code>release</code> to <code>main</code>:
+<li>Release Owner creates Pull Request from the <code>release</code>
+branch to the <code>main</code> branch:
 <ul>
-<li>Use the <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/.github/PULL_REQUEST_TEMPLATE/release.md" class="external-link">release PR template</a> by adding <code>?template=release.md</code> to the URL when creating the PR (Or, click the link, click <code>raw</code>, and copy/paste the markdown into the PR.)</li>
-<li>Assign PR to self.</li>
-<li>Requests QC review(s).</li>
+<li>Use the <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/.github/PULL_REQUEST_TEMPLATE/release.md" class="external-link">release
+Pull Request template</a> by adding <code>?template=release.md</code> to
+the URL when creating the Pull Request. The user can also click the
+link, then click <code>Raw</code>, and copy/paste the displayed Markdown
+into the Pull Request.</li>
+<li>Assign Pull Request to self.</li>
+<li>Request QC review(s).</li>
 <li>Assign milestone.</li>
-<li>Complete Risk Assessments for each Assessment/Feature added using PR Template.</li>
-<li>Create comments in the PR with a unique <a href="#appendix-2---qc-checklist">QC checklist</a> for each selected Assessment/Feature. (<a href="https://github.com/Gilead-BioStats/gsm/pull/194" class="external-link">Example for v0.1.0</a>).</li>
+<li>Complete Risk Assessments for each Assessment/Feature added as
+outlined in the Pull Request template.</li>
+<li>Create comments in the Pull Request with a unique <a href="#appendix-2---qc-checklist">QC checklist</a> for each selected
+Assessment/Feature (See <a href="https://github.com/Gilead-BioStats/gsm/pull/194" class="external-link">example for
+v0.1.0</a>).</li>
 </ul>
 </li>
-<li>QC Reviewer(s) conducts review:
+<li>QC Reviewer(s) conduct(s) review by:
 <ul>
-<li>Complete all QC checklists in PR.</li>
-<li>Ensure all GitHub Actions on the PR to <code>main</code> are all passing.</li>
+<li>Completing all QC checklists in the Pull Request.</li>
+<li>Ensuring all GitHub Actions on the Pull Request to the
+<code>main</code> branch are passing.</li>
 </ul>
 </li>
-<li>QC Reviewer(s) Mark PR approved or requests changes. If changes are needed:
+<li>QC Reviewer(s) approve(s) Pull Request or request(s) changes. If
+changes are needed:
 <ul>
-<li>Reviewer should file issues and team should follow standard dev process using <code>fix</code> branches.</li>
-<li>Once issues are resolved and merged to <code>dev</code>, Release Owner can merge <code>dev</code> in to the <code>release</code> branch and re-request review.</li>
-<li>If needed, PR can be closed, and a new release PR can be created with a release candidate added to the branch name (e.g. <code>release-v1.2.0-RC2</code>)</li>
+<li>QC Reviewer(s) should file issues and the development team should
+follow the standard package development process using <code>fix</code>
+branches.</li>
+<li>Once issues are resolved and merged to the <code>dev</code> branch,
+Release Owner can merge the <code>dev</code> branch into the
+<code>release</code> branch, and re-request review.</li>
+<li>If needed, the original Pull Request can be closed and a new release
+Pull Request can be created with a Release Candidate (RC) value added to
+the branch name (e.g., <code>release-v1.2.0-RC2</code>)</li>
 </ul>
 </li>
-<li>Once PR is approved, Release Owner should complete the release by:
+<li>Once the Pull Request is approved, the Release Owner should complete
+the release by taking the following steps:
 <ul>
-<li>Merge the release PR to <code>main</code>.</li>
-<li>Create the GitHub release <strong>targeting the <code>main</code> branch</strong> using the wording from <code>NEWS.md</code> in addition to the automatically generated content in GitHub.</li>
-<li>Confirm that QC Report is attached to release.</li>
+<li>Merge the release Pull Request to the <code>main</code> branch.</li>
+<li>Create the GitHub release targeting the <code>main</code> branch
+using the wording from <code>NEWS.md</code>, in addition to the
+automatically generated content in GitHub.</li>
+<li>Confirm that the QC Report is attached to release.</li>
 </ul>
 </li>
-<li>Finally, Release Owner or their delegate should complete the following housekeeping tasks:
+<li>Finally, the Release Owner (or qualified designee) should complete
+the following housekeeping tasks:
 <ul>
-<li>Create PR to merge <code>main</code> into <code>dev</code> to sync any updates made during Release process.</li>
-<li>Check that all issues associated with the current release are closed. Update the milestone for any incomplete tasks.</li>
-<li>Delete branches associated with previous releases.</li>
-<li>Close the milestone and project associated with the previous release.</li>
+<li>Create a Pull Request to merge the <code>main</code> branch into the
+<code>dev</code> branch to sync any updates that were made during
+release process.</li>
+<li>Check that all issues associated with the current release are
+closed.</li>
+<li>Update the milestone for any incomplete tasks.</li>
+<li>Delete code branches associated with previous releases.</li>
+<li>Close the milestone and project associated with the previous
+release.</li>
 </ul>
 </li>
 </ol>
@@ -267,119 +391,204 @@
 <div class="section level2">
 <h2 id="appendix-2---qc-checklist">Appendix 2 - QC Checklist<a class="anchor" aria-label="anchor" href="#appendix-2---qc-checklist"></a>
 </h2>
-<p>This QC checklist is used as part of the development and release workflows described above. When applied to an Assessment, confirm that each function meets the requirements described.</p>
-<ul>
+<p>This QC checklist is to be used as part of the Development and
+Release Workflows described above. When applied to an
+Assessment/Feature, confirm that each function meets the requirements
+described. When applied to utility or other functionality, use relevant
+sections of the checklist and modify QC checks as needed.</p>
+<ul class="task-list">
 <li>
-<input type="checkbox" disabled>
-Documentation<ul>
+<input type="checkbox" disabled>Documentation<ul class="task-list">
 <li>
-<input type="checkbox" disabled>
-Function name captured in <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block" class="external-link">Roxygen title</a> (e.g. “Adverse Event Assessment”)</li>
+<input type="checkbox" disabled>Function name captured in <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block" class="external-link">roxygen2
+title</a> (e.g., “Adverse Event Assessment”)</li>
 <li>
-<input type="checkbox" disabled>
-Assessment purpose captured in <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block" class="external-link">Roxygen description</a> (e.g. “Evaluates adverse event (AE) rates to identify sites that may be over- or under-reporting AEs”)</li>
+<input type="checkbox" disabled>Assessment purpose captured in
+<a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block" class="external-link">roxygen2
+description</a> (e.g., “Evaluates adverse event (AE) rates to identify
+sites that may be over- or under-reporting AEs”)</li>
 <li>
-<input type="checkbox" disabled>
-Input data requirements are captured in a dedicated <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#sections" class="external-link">Roxygen details section</a> under <em>Data specification</em> (<code>#' @section Data specification</code> or <em># Data specification</em> if storing data specification in a .md file).</li>
+<input type="checkbox" disabled>Input data requirements are
+captured in a dedicated <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#sections" class="external-link">roxygen2
+details section</a> under <em>Data specification</em>
+(<code>#' @section Data specification</code>, or <em># Data
+specification</em> if storing data specification in a <code>.md</code>
+file).</li>
 <li>
-<input type="checkbox" disabled>
-Statistical methods and assumptions are captured in a dedicated <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#sections" class="external-link">Roxygen details section</a> under <em>Statistical assumptions</em> (<code>#' @section Statistical assumptions</code> or <em># Statistical assumptions</em> if storing statistical assumptions in a .md file). This section should link to the relevant <code>Analyze_</code> function(s) for further details.</li>
+<input type="checkbox" disabled>Statistical methods and
+assumptions are captured in a dedicated <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#sections" class="external-link">roxygen2
+details section</a> under <em>Statistical assumptions</em>
+(<code>#' @section Statistical assumptions</code>, or <em># Statistical
+assumptions</em> if storing statistical assumptions in a
+<code>.md</code> file). This section should link to the relevant
+<code>Analyze_</code> function(s) for further details.</li>
 <li>
-<input type="checkbox" disabled>
-All function parameters are described with a <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#functions" class="external-link"><code>@param</code> tag</a>. Each parameter description should include its name, type, purpose, usage details, default value (if any), requirement, and valid options (if applicable).</li>
+<input type="checkbox" disabled>All function parameters are
+described with a <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#functions" class="external-link"><code>@param</code>
+tag</a>. Each parameter description should include its name, type,
+purpose, usage details, default value (if applicable), requirement, and
+valid options (if applicable).</li>
 <li>
-<input type="checkbox" disabled>
-All external dependencies are captured. Use <code>@importFrom _package_ _function_</code> when importing five or fewer functions and <code>@import _package_</code> otherwise.</li>
+<input type="checkbox" disabled>All external dependencies are
+captured. Use <code>@importFrom _package_ _function_</code> when
+importing five (5) or fewer functions, and
+<code>@import _package_</code> otherwise.</li>
 <li>
-<input type="checkbox" disabled>
-Function output is captured with a <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#functions" class="external-link"><code>@return</code> tag</a>, including output type, structure, and data specification, if applicable.</li>
+<input type="checkbox" disabled>Function output is captured
+with a <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#functions" class="external-link"><code>@return</code>
+tag</a>. Each output description should include output type, structure,
+and data specification (if applicable).</li>
 <li>
-<input type="checkbox" disabled>
-At least one example is provided under <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#functions" class="external-link"><code>@examples</code> tag</a>.</li>
+<input type="checkbox" disabled>At least one (1) example is
+provided under an <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#functions" class="external-link"><code>@examples</code>
+tag</a>.</li>
 </ul>
 </li>
 <li>
-<input type="checkbox" disabled>
-Error Checking<ul>
+<input type="checkbox" disabled>Error Checking<ul class="task-list">
 <li>
-<input type="checkbox" disabled>
-Basic checks for all parameters should be included using <code><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot()</a></code> or similar logic (e.g. <code>stopifnot("dfInput is not a data frame" = is.data.frame(dfInput))</code>)</li>
+<input type="checkbox" disabled>Basic checks for all parameters
+should be included using <code><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot()</a></code> or similar logic
+(e.g.,
+<code>stopifnot("dfInput is not a data frame" = is.data.frame(dfInput))</code>)</li>
 <li>
-<input type="checkbox" disabled>
-Tests confirm that <code><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot()</a></code> parameter checks are working as expected.</li>
+<input type="checkbox" disabled>Tests confirm that
+<code><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot()</a></code> parameter checks are working as expected.</li>
 <li>
-<input type="checkbox" disabled>
-Tests confirm that the input data has required columns (if any).</li>
+<input type="checkbox" disabled>Tests confirm that the input
+data has required columns (if any).</li>
 <li>
-<input type="checkbox" disabled>
-Tests confirm that the output data has expected columns.</li>
+<input type="checkbox" disabled>Tests confirm that the output
+data has expected columns/structure.</li>
 <li>
-<input type="checkbox" disabled>
-Tests confirm intended functionality for each parameter.</li>
+<input type="checkbox" disabled>Tests confirm intended
+functionality for each parameter.</li>
 <li>
-<input type="checkbox" disabled>
-Tests confirm that missing data in required columns is handled appropriately and errors/warnings are produced if needed.</li>
+<input type="checkbox" disabled>Tests confirm that missing data
+in required columns is handled appropriately and errors/warnings are
+produced if needed.</li>
 </ul>
 </li>
 <li>
-<input type="checkbox" disabled>
-Basic QC<ul>
+<input type="checkbox" disabled>Basic QC<ul class="task-list">
 <li>
-<input type="checkbox" disabled>
-Assessment has User Requirements + Qualification tests captured using {valtools} framework. Report is generating as expected and all checks are passing.</li>
+<input type="checkbox" disabled>Assessment has User
+Requirements + Qualification tests captured using qualification
+framework. A QC report is generated as expected and all checks pass
+successfully.</li>
 <li>
-<input type="checkbox" disabled>
-Code is well commented and easy to read</li>
+<input type="checkbox" disabled>Code is well commented and easy
+to read/understand.</li>
 <li>
-<input type="checkbox" disabled>
-No file paths or other company-specific data is present</li>
+<input type="checkbox" disabled>No file paths or other
+company-specific data are present.</li>
 <li>
-<input type="checkbox" disabled>
-Function calls from non-tidyverse dependencies are called via <code>::</code>
-</li>
+<input type="checkbox" disabled>Function called from
+non-tidyverse dependencies are called via <code>::</code>.</li>
 <li>
-<input type="checkbox" disabled>
-devtools::check() passes with no errors/warnings/notes</li>
+<input type="checkbox" disabled><code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code>
+passes with no errors/warnings/notes.</li>
 <li>
-<input type="checkbox" disabled>
-package docs up to date. devtools::document() doesn’t change any files</li>
+<input type="checkbox" disabled>Package documents are up to
+date, and running <code><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">devtools::document()</a></code> does not change any
+files.</li>
 <li>
-<input type="checkbox" disabled>
-Uses tidyverse best practices for standard data manipulation (start discussion thread if unclear)</li>
+<input type="checkbox" disabled>Codes use
+<a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a> best practices for standard data manipulation.
+If unclear, reviewer should start a discussion thread.</li>
 <li>
-<input type="checkbox" disabled>
-All new dependencies add significant value (start discussion thread)</li>
+<input type="checkbox" disabled>All new dependencies add
+significant value. If unclear, reviewer should start a discussion
+thread.</li>
 <li>
-<input type="checkbox" disabled>
-All GitHub Actions run with no errors</li>
+<input type="checkbox" disabled>All GitHub Actions run with no
+errors.</li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section level2">
-<h2 id="appendix-3---continuous-integration-with-github-actions">Appendix 3 - Continuous Integration with GitHub Actions<a class="anchor" aria-label="anchor" href="#appendix-3---continuous-integration-with-github-actions"></a>
+<h2 id="github-action-workflow">Appendix 3 - Continuous Integration with GitHub Actions
+<!--# Do we need to add missing actions, i.e., Style, check-dev, pages-build-deployment? --><a class="anchor" aria-label="anchor" href="#github-action-workflow"></a>
 </h2>
-<p>GitHub Actions are used in <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> to automate processes and ensure all code and documentation is created consistently and documented thoroughly.</p>
+<p>GitHub Actions are used in <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> to automate processes
+and ensure all code and documentation is created consistently and
+documented thoroughly.</p>
 <div class="section level3">
-<h3 id="merges-to-dev-branch">Merges to <code>dev</code> branch<a class="anchor" aria-label="anchor" href="#merges-to-dev-branch"></a>
+<h3 id="merges-to-dev-branch">Merges to <code>dev</code> Branch<a class="anchor" aria-label="anchor" href="#merges-to-dev-branch"></a>
 </h3>
 <ul>
-<li>R CMD check - Basic R CMD check run using <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>. Additional check for the ability to build the pkgdown reference index to make sure all functions are documented correctly. This check will run on <code>ubuntu-latest</code> and will be run on R versions 4.0.5 and 4.1.3</li>
-<li>Build Markdown - Builds Assessment specification tables from function documentation. Outputs are added to man/md and any changes are committed to the compare branch or the triggering Pull Request.</li>
-<li>Test Coverage - Uses <a href="https://covr.r-lib.org" class="external-link">covr</a> to check the package coverage of <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>
+<li>R CMD Check (<code>R-CMD-check-dev</code>):
+<ul>
+<li>Basic R CMD check which can be run using
+<code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>
 </li>
-<li>Qualification Check - Runs the qualification tests but will not fail if any of the tests do not pass. Developers should review this check when changes that might need updates to qualification are done.</li>
+<li>Provides an additional check for the ability to build the
+<code>pkgdown</code> reference index and ensure that all functions are
+documented correctly. This check will run on <code>ubuntu-latest</code>
+and on R versions 4.0.5 and 4.1.3.</li>
+</ul>
+</li>
+<li>Build Markdown (<code>build-markdown</code>):
+<ul>
+<li>Builds Assessment Specification tables from function
+documentation</li>
+<li>Outputs are added to <code>man</code>/<code>.md</code> and any
+changes are committed to the compare branch or the triggering Pull
+Request.</li>
+</ul>
+</li>
+<li>Test Coverage (<code>test-coverage</code>):
+<ul>
+<li>Uses <a href="https://covr.r-lib.org" class="external-link">covr</a> to check the package coverage of
+<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>.</li>
+</ul>
+</li>
+<li>Qualification Check (<code>qualification-check-dev</code>):
+<ul>
+<li>Runs the qualification tests but will not fail if any of the tests
+do not pass. Developers should review this check when changes that might
+need updates to qualification are done.
+<!--# Unsure what this sentence means -->
+</li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="section level3">
-<h3 id="merges-to-main-branch">Merges to <code>main</code> branch<a class="anchor" aria-label="anchor" href="#merges-to-main-branch"></a>
+<h3 id="merges-to-main-branch">Merges to <code>main</code> Branch<a class="anchor" aria-label="anchor" href="#merges-to-main-branch"></a>
 </h3>
 <ul>
-<li>R CMD check - Basic R CMD check run using <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>. Additional check for the ability to build the pkgdown reference index to make sure all functions are documented correctly. The check will also run all qualification tests to ensure that the release is fully qualified. This check will run on <code>ubuntu-latest</code> and will be run on R versions 4.0.5 and 4.1.3. Additionally, it will be run on the latest R release version on <code>windows-latest</code>, <code>macOS-latest</code>, and <code>ubuntu-latest</code>.<br>
+<li>R CMD Check (<code>R-CMD-check-main</code>):
+<ul>
+<li>Basic R CMD check which can be run using
+<code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>
 </li>
-<li>pkgdown - Builds the <a href="https://silver-potato-cfe8c2fb.pages.github.io/" class="external-link">pkgdown site</a> for <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>.<br>
+<li>Provides an additional check for the ability to build the
+<code>pkgdown</code> reference index and ensure that all functions are
+documented correctly. The check will also run all qualification tests to
+ensure that the release is fully qualified. This check will run on
+<code>ubuntu-latest</code> and on R versions 4.0.5 and 4.1.3.
+Additionally, it will be run on the latest R release version on
+<code>windows-latest</code>, <code>macOS-latest</code>, and
+<code>ubuntu-latest</code>.</li>
+</ul>
 </li>
-<li>Qualification report - Builds the qualification vignette as an attached artifact to the Pull Request. This should be reviewed by the Pull Request owner for completeness and correctness to ensure the artifact that is added to the release is correct.</li>
+<li>
+<code>pkgdown</code>:
+<ul>
+<li>Builds the <a href="https://silver-potato-cfe8c2fb.pages.github.io/" class="external-link">pkgdown site</a>
+for <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>.</li>
+</ul>
+</li>
+<li>Qualification Report (<code>qualification-report</code>):
+<ul>
+<li>Builds the qualification vignette as an attached artifact to the
+Pull Request. This should be reviewed by the Pull Request Owner for
+completeness and correctness to ensure that the artifact added to the
+release is correct.</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>

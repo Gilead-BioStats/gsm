@@ -13,6 +13,9 @@
     <loc>/articles/Cookbook.html</loc>
   </url>
   <url>
+    <loc>/articles/DataAnalysis.html</loc>
+  </url>
+  <url>
     <loc>/articles/DataPipeline.html</loc>
   </url>
   <url>
@@ -52,10 +55,19 @@
     <loc>/reference/Analyze_Identity.html</loc>
   </url>
   <url>
+    <loc>/reference/Analyze_NormalApprox.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Analyze_NormalApprox_PredictBounds.html</loc>
+  </url>
+  <url>
     <loc>/reference/Analyze_Poisson.html</loc>
   </url>
   <url>
     <loc>/reference/Analyze_Poisson_PredictBounds.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Analyze_QTL.html</loc>
   </url>
   <url>
     <loc>/reference/CheckInputs.html</loc>
@@ -88,6 +100,9 @@
     <loc>/reference/Flag_Fisher.html</loc>
   </url>
   <url>
+    <loc>/reference/Flag_NormalApprox.html</loc>
+  </url>
+  <url>
     <loc>/reference/Flag_Poisson.html</loc>
   </url>
   <url>
@@ -106,10 +121,10 @@
     <loc>/reference/LB_Map_Raw.html</loc>
   </url>
   <url>
-    <loc>/reference/MakeAssessmentList.html</loc>
+    <loc>/reference/MakeStratifiedAssessment.html</loc>
   </url>
   <url>
-    <loc>/reference/MakeStratifiedAssessment.html</loc>
+    <loc>/reference/MakeWorkflowList.html</loc>
   </url>
   <url>
     <loc>/reference/Make_Snapshot.html</loc>
@@ -130,13 +145,19 @@
     <loc>/reference/RemoveInvalidSubjectIDs.html</loc>
   </url>
   <url>
-    <loc>/reference/RunAssessment.html</loc>
+    <loc>/reference/RunQTL.html</loc>
   </url>
   <url>
     <loc>/reference/RunStep.html</loc>
   </url>
   <url>
     <loc>/reference/RunStratifiedWorkflow.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RunWorkflow.html</loc>
+  </url>
+  <url>
+    <loc>/reference/SaveQTL.html</loc>
   </url>
   <url>
     <loc>/reference/Study_Assess.html</loc>
@@ -167,12 +188,6 @@
   </url>
   <url>
     <loc>/reference/Visualize_Workflow.html</loc>
-  </url>
-  <url>
-    <loc>/reference/config_param.html</loc>
-  </url>
-  <url>
-    <loc>/reference/config_workflow.html</loc>
   </url>
   <url>
     <loc>/reference/generate_md_table.html</loc>

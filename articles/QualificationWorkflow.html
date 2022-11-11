@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -51,6 +51,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
+      <a href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
@@ -87,7 +90,7 @@
 
       
 
-      </header><script src="QualificationWorkflow_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Qualification Workflow</h1>
@@ -103,29 +106,59 @@
 <div class="section level2">
 <h2 id="intro">Intro<a class="anchor" aria-label="anchor" href="#intro"></a>
 </h2>
-<p>Qualification for this repository is done to ensure that the package is functioning as intended. While unit tests should also be written to test the code, qualification testing is used to test that the expected behaviors are happening correctly. Qualification is done using a set of machine-readable documents and associated functions to create a strong documentation structure as well as a cohesive qualification report. This qualification process will be modified to add new assessments and should be updated whenever there are updates that affect the workflows tested by qualification tests. Qualification tests are designed to provide developers with a repeatable process that is easy to update and document.</p>
+<p>Qualification for this repository is done to ensure that the package
+is functioning as intended. While unit tests should also be written to
+test the code, qualification testing is used to test that the expected
+behaviors are happening correctly. Qualification is done using a set of
+machine-readable documents and associated functions to create a strong
+documentation structure as well as a cohesive qualification report. This
+qualification process will be modified to add new assessments and should
+be updated whenever there are updates that affect the workflows tested
+by qualification tests. Qualification tests are designed to provide
+developers with a repeatable process that is easy to update and
+document.</p>
 </div>
 <div class="section level2">
 <h2 id="process-overview">Process Overview<a class="anchor" aria-label="anchor" href="#process-overview"></a>
 </h2>
-<p>Each GSM assessment is independently qualified using <strong>Specifications</strong> and <strong>Test Cases</strong>, which are then compiled in to a <strong>Qualification Report</strong>.</p>
+<p>Each GSM assessment is independently qualified using
+<strong>Specifications</strong> and <strong>Test Cases</strong>, which
+are then compiled in to a <strong>Qualification Report</strong>.</p>
 <ul>
 <li>
-<strong>Specifications</strong> - the expected behaviors that are being tested.</li>
+<strong>Specifications</strong> - the expected behaviors that are
+being tested.</li>
 <li>
-<strong>Test cases</strong> - testable pieces of code associated with Specifications.</li>
+<strong>Test cases</strong> - testable pieces of code associated
+with Specifications.</li>
 <li>
-<strong>Qualification Report</strong> - Summary snapshot of all qualification activity.</li>
+<strong>Qualification Report</strong> - Summary snapshot of all
+qualification activity.</li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="specifications">Specifications<a class="anchor" aria-label="anchor" href="#specifications"></a>
 </h2>
-<p>Specifications should capture the most important the use cases for an assessment. One set of specifications will be created per assessment. Each assessment is likely to have several specifications, and each specification should have one or more associated test cases.</p>
-<p>Each Specification should include the following components: - <strong>Description</strong> - describe the use case for the specification<br>
-- <strong>Risk Assessment</strong> - evaluation of risk for the the use case. Includes 2 components: - <strong>Risk Severity</strong> - risk severity can be ‘low’, ‘medium’, or ‘high’ and corresponds to the risk level that this specification would fail. - <strong>Risk Impact</strong> - The impact severity can be can be low, medium, or high and corresponds to the impact that the specification failing would have. - <strong>Test Cases</strong> - A list of test cases associated with the specification</p>
-<p>This should be saved using the YAML format and named for the assessment that is being qualified and saved in <code>inst/qualification</code>.</p>
-<p>For example, the first specification from <code>spec_AE_Assess.yaml</code> is written as:</p>
+<p>Specifications should capture the most important the use cases for an
+assessment. One set of specifications will be created per assessment.
+Each assessment is likely to have several specifications, and each
+specification should have one or more associated test cases.</p>
+<p>Each Specification should include the following components: -
+<strong>Description</strong> - describe the use case for the
+specification<br>
+- <strong>Risk Assessment</strong> - evaluation of risk for the the use
+case. Includes 2 components: - <strong>Risk Severity</strong> - risk
+severity can be ‘low’, ‘medium’, or ‘high’ and corresponds to the risk
+level that this specification would fail. - <strong>Risk Impact</strong>
+- The impact severity can be can be low, medium, or high and corresponds
+to the impact that the specification failing would have. - <strong>Test
+Cases</strong> - A list of test cases associated with the
+specification</p>
+<p>This should be saved using the YAML format and named for the
+assessment that is being qualified and saved in
+<code>inst/qualification</code>.</p>
+<p>For example, the first specification from
+<code>spec_AE_Assess.yaml</code> is written as:</p>
 <pre><code>- ID: S1_1
   Description: Given correct input data an Adverse Event assessment can be done using the Poisson method
   Risk: High
@@ -137,37 +170,84 @@
 <div class="section level2">
 <h2 id="test-cases">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases"></a>
 </h2>
-<p>Test cases take specifications and turn them into the actual testable pieces that make up the larger specification. The test cases are built to confirm that the package meets the requirements laid out for it. Test cases should be representative of how a user may utilize the program since that will be the most helpful to uncovering defects and supporting test automation. Test cases are linked to the assessment as shown above.</p>
-<p>Test cases are written using the standard <code>testthat</code> workflow and saved in <code>tests/qualification</code>. Each test case should be saved as it’s own file and named using with the convention <code>test_qual_{TestID}.R</code> where test number corresponds to the <code>Tests</code> section in the relevant specification. Note that tests can be associated with multiple specifications. Test code should be written in a clear and concise manner making it quick to execute and easy to review and interpret. Test cases should also have an informative description to outline what is being tested.</p>
-<p>An simple example test case is shown below. For this test case the file would be called <code>test_qual_T1_1.R</code> and would correspond to T1_1 in the specifications:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">test_that</span>(<span class="st">"the object mtcars is a dataframe"</span>, {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>   test_data &lt;-<span class="st"> </span>mtcars</span>
-<span id="cb2-3"><a href="#cb2-3"></a>   <span class="kw">expect_true</span>(<span class="kw">is.data.frame</span>(test_data))</span>
-<span id="cb2-4"><a href="#cb2-4"></a>}</span></code></pre></div>
+<p>Test cases take specifications and turn them into the actual testable
+pieces that make up the larger specification. The test cases are built
+to confirm that the package meets the requirements laid out for it. Test
+cases should be representative of how a user may utilize the program
+since that will be the most helpful to uncovering defects and supporting
+test automation. Test cases are linked to the assessment as shown
+above.</p>
+<p>Test cases are written using the standard <code>testthat</code>
+workflow and saved in <code>tests/qualification</code>. Each test case
+should be saved as it’s own file and named using with the convention
+<code>test_qual_{TestID}.R</code> where test number corresponds to the
+<code>Tests</code> section in the relevant specification. Note that
+tests can be associated with multiple specifications. Test code should
+be written in a clear and concise manner making it quick to execute and
+easy to review and interpret. Test cases should also have an informative
+description to outline what is being tested.</p>
+<p>An simple example test case is shown below. For this test case the
+file would be called <code>test_qual_T1_1.R</code> and would correspond
+to T1_1 in the specifications:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"the object mtcars is a dataframe"</span>, {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>   test_data <span class="ot">&lt;-</span> mtcars</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">expect_true</span>(<span class="fu">is.data.frame</span>(test_data))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="qualification-report">Qualification Report<a class="anchor" aria-label="anchor" href="#qualification-report"></a>
 </h2>
-<p>The Qualification Report is generated to document and display the code and the qualification that code has been through. The report lives as a Qualification vignette in <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> and rendered during other workflows. The Qualification Report is also attached to each release and included in the <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a> site to display the qualification status of <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>. The sections of the Qualification Report are outlined below.</p>
+<p>The Qualification Report is generated to document and display the
+code and the qualification that code has been through. The report lives
+as a Qualification vignette in <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> and rendered during
+other workflows. The Qualification Report is also attached to each
+release and included in the <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a> site to display the
+qualification status of <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>. The sections of the
+Qualification Report are outlined below.</p>
 <div class="section level4">
 <h4 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h4>
-<p>The <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code> of the qualification environment is included to show what environment the tests were run in. This is called after all necessary packages have been loaded and all setup is done. The environment should not change after this part of the report is created.</p>
+<p>The <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code> of the qualification environment is
+included to show what environment the tests were run in. This is called
+after all necessary packages have been loaded and all setup is done. The
+environment should not change after this part of the report is
+created.</p>
 </div>
 <div class="section level4">
 <h4 id="assessment-qualification">Assessment Qualification<a class="anchor" aria-label="anchor" href="#assessment-qualification"></a>
 </h4>
-<p>Using the specifications, test cases, and test code outlined above the qualification status of all assessments currently qualified within <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> is shown. This will be made up of smaller sections for each assessment. These smaller sections will include the Assessment that is being qualified, this should correspond to the function that is used for that assessment. An overview of the Specifications is also included that has the ID, description, risk, impact, and associated test cases corresponding to each Specification. This information is pulled from each Specification YAML file outlined above. A Traceability Matrix is also included to show what Specifications are covered by what Test Cases. The last part is an overview of the test cases that correspond to the Assessment. A table is displayed to show the test case ID, description, and the pass/fail status of the test case.</p>
+<p>Using the specifications, test cases, and test code outlined above
+the qualification status of all assessments currently qualified within
+<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> is shown. This will be made up of smaller sections
+for each assessment. These smaller sections will include the Assessment
+that is being qualified, this should correspond to the function that is
+used for that assessment. An overview of the Specifications is also
+included that has the ID, description, risk, impact, and associated test
+cases corresponding to each Specification. This information is pulled
+from each Specification YAML file outlined above. A Traceability Matrix
+is also included to show what Specifications are covered by what Test
+Cases. The last part is an overview of the test cases that correspond to
+the Assessment. A table is displayed to show the test case ID,
+description, and the pass/fail status of the test case.</p>
 </div>
 <div class="section level4">
 <h4 id="unit-tests">Unit Tests<a class="anchor" aria-label="anchor" href="#unit-tests"></a>
 </h4>
-<p>A summary of the unit test coverage is included in the Qualification Report to show how well the package functions are unit tested. This is created by using <code><a href="http://covr.r-lib.org/reference/package_coverage.html" class="external-link">covr::package_coverage()</a></code> and then listing it out by function.</p>
+<p>A summary of the unit test coverage is included in the Qualification
+Report to show how well the package functions are unit tested. This is
+created by using <code><a href="http://covr.r-lib.org/reference/package_coverage.html" class="external-link">covr::package_coverage()</a></code> and then listing
+it out by function.</p>
 </div>
 <div class="section level4">
 <h4 id="pull-requests">Pull Requests<a class="anchor" aria-label="anchor" href="#pull-requests"></a>
 </h4>
-<p>The final section of the Qualification Report is an overview of all Pull Requests since last release. This includes the title, compare and base branches, a link to the GitHub page, requester, reviewers, date requested, and the status of the Pull Request. While this is meant to be a comprehensive overview of the Pull Requests the release documentation should also include links to all Pull Requests included in the release.</p>
+<p>The final section of the Qualification Report is an overview of all
+Pull Requests since last release. This includes the title, compare and
+base branches, a link to the GitHub page, requester, reviewers, date
+requested, and the status of the Pull Request. While this is meant to be
+a comprehensive overview of the Pull Requests the release documentation
+should also include links to all Pull Requests included in the
+release.</p>
 </div>
 </div>
   </div>

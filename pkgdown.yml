@@ -1,11 +1,12 @@
-pandoc: 2.7.3
+pandoc: 2.19.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   Cookbook: Cookbook.html
+  DataAnalysis: DataAnalysis.html
   DataPipeline: DataPipeline.html
   ContributorGuidelines: ContributorGuidelines.html
   Qualification: Qualification.html
   QualificationWorkflow: QualificationWorkflow.html
-last_built: 2022-10-10T14:37Z
+last_built: 2022-11-11T17:56Z
 

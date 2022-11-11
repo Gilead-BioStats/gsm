@@ -18,7 +18,7 @@ input data to PD_Assess()."><!-- mathjax --><script src="https://cdnjs.cloudflar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -34,6 +34,9 @@ input data to PD_Assess()."><!-- mathjax --><script src="https://cdnjs.cloudflar
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
+      <a href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
@@ -96,7 +99,7 @@ input data to <code><a href="PD_Assess.html">PD_Assess()</a></code>.</p>
 
 <dt>lMapping</dt>
 <dd><p><code>list</code> Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name
-of the column.</p></dd>
+of the column. Default: package-defined mapping for raw+.</p></dd>
 
 
 <dt>bReturnChecks</dt>
@@ -128,7 +131,7 @@ PDs by passing filtered PD data to <code>dfPD</code>.</p>
     <div id="data-specification">
     <h2>Data specification</h2>
     
-<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfSUBJ</td><td>strSiteCol</td><td>siteid</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfSUBJ</td><td>strIDCol</td><td>subjid</td><td>TRUE</td><td>TRUE</td></tr><tr><td>dfSUBJ</td><td>strTimeOnStudyCol</td><td>timeonstudy</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfPD</td><td>strIDCol</td><td>subjid</td><td>TRUE</td><td>FALSE</td></tr></table></div>
+<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td><td><strong>Accept NA/Empty Values?</strong></td></tr><tr><td>dfSUBJ</td><td>strSiteCol</td><td>siteid</td><td>TRUE</td><td>FALSE</td><td>FALSE</td></tr><tr><td>dfSUBJ</td><td>strIDCol</td><td>subjid</td><td>TRUE</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfSUBJ</td><td>strTimeOnStudyCol</td><td>timeonstudy</td><td>TRUE</td><td>FALSE</td><td>TRUE</td></tr><tr><td>dfPD</td><td>strIDCol</td><td>subjid</td><td>TRUE</td><td>FALSE</td><td>FALSE</td></tr></table></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>

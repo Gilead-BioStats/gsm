@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -33,6 +33,9 @@
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
+      <a href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
@@ -78,6 +81,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Analyze_Poisson_PredictBounds</span><span class="op">(</span></span>
 <span>  <span class="va">dfTransformed</span>,</span>
 <span>  vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  nStep <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -86,7 +90,7 @@
     <h2>Arguments</h2>
     <dl><dt>dfTransformed</dt>
 <dd><p><code>data.frame</code> data.frame in format produced by
-<code><a href="Transform_Rate.html">Transform_Rate</a></code>. Must include GroupID, N, Numerator and Denominator</p></dd>
+<code><a href="Transform_Rate.html">Transform_Rate</a></code>. Must include GroupID, N, Numerator and Denominator.</p></dd>
 
 
 <dt>vThreshold</dt>
@@ -94,8 +98,12 @@
 the thresholds used AE_Assess().</p></dd>
 
 
+<dt>nStep</dt>
+<dd><p><code>numeric</code> step size of imputed bounds.</p></dd>
+
+
 <dt>bQuiet</dt>
-<dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code></p></dd>
+<dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code>.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -107,17 +115,17 @@ range of observed values.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>Fits a Poisson model to site level data and then calculates predicted count values and upper- and
+    <p>Fits a Poisson model to site-level data and then calculates predicted count values and upper- and
 lower- bounds for across the full range of exposure values.</p>
     </div>
     <div id="statistical-methods">
     <h2>Statistical Methods</h2>
     
 
-<p>This function fits a poisson model to site-level data and then calculates residuals for each
-site. The poisson model is run using standard methods in the <code>stats</code> package by fitting a <code>glm</code>
+<p>This function fits a Poisson model to site-level data and then calculates residuals for each
+site. The Poisson model is run using standard methods in the <code>stats</code> package by fitting a <code>glm</code>
 model with family set to <code>poisson</code> using a "log" link. Upper and lower boundary values are then
-calculated using the method described here TODO: Add link. In short,</p>
+calculated using the method described here TODO: Add link.</p>
     </div>
     <div id="data-specification">
     <h2>Data Specification</h2>

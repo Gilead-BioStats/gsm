@@ -18,7 +18,7 @@ input data to Disp_Assess()."><!-- mathjax --><script src="https://cdnjs.cloudfl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -34,6 +34,9 @@ input data to Disp_Assess()."><!-- mathjax --><script src="https://cdnjs.cloudfl
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/Cookbook.html">Cookbook</a>
+    </li>
+    <li>
+      <a href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a>
     </li>
     <li>
       <a href="../articles/DataPipeline.html">Data Pipeline</a>
@@ -84,7 +87,6 @@ input data to <code><a href="Disp_Assess.html">Disp_Assess()</a></code>.</p>
 <span>  lMapping <span class="op">=</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_rawplus.yaml"</span>, package <span class="op">=</span></span>
 <span>    <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  strContext <span class="op">=</span> <span class="st">"Study"</span>,</span>
-<span>  strTreatmentPhase <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -93,22 +95,19 @@ input data to <code><a href="Disp_Assess.html">Disp_Assess()</a></code>.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dfs</dt>
-<dd><p><code>list</code> Input data frame:</p><ul><li><p><code>dfDISP</code>: <code>data.frame</code> Subject-level data with one record per discontinuation reason.</p></li>
-<li><p><code>dfSUBJ</code>: <code>data.frame</code> Subject-level data with one record per participant.</p></li>
+<dd><p><code>list</code> Input data frames:</p><ul><li><p><code>dfSTUDCOMP</code>: <code>data.frame</code> Subject-level study disposition data with one record per discontinuation reason. Default: <code><a href="https://rdrr.io/pkg/clindata/man/rawplus_studcomp.html" class="external-link">clindata::rawplus_studcomp</a></code></p></li>
+<li><p><code>dfSDRGCOMP</code>: <code>data.frame</code> Subject-level treatment disposition data with one record per discontinuation reason. Default: <code><a href="https://rdrr.io/pkg/clindata/man/rawplus_sdrgcomp.html" class="external-link">clindata::rawplus_sdrgcomp</a></code></p></li>
+<li><p><code>dfSUBJ</code>: <code>data.frame</code> Subject-level data with one record per participant.Default: <code><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">clindata::rawplus_dm</a></code></p></li>
 </ul></dd>
 
 
 <dt>lMapping</dt>
 <dd><p><code>list</code> Column metadata with structure <code>domain$key</code>, where <code>key</code> contains the name
-of the column.</p></dd>
+of the column. Default: package-defined mapping for raw+.</p></dd>
 
 
 <dt>strContext</dt>
-<dd><p>Disposition Context - "Treatment" or "Study"</p></dd>
-
-
-<dt>strTreatmentPhase</dt>
-<dd><p><code>character</code> Treatment phase descriptor.</p></dd>
+<dd><p><code>character</code> Disposition Context - "Study" (default) or "Treatment".</p></dd>
 
 
 <dt>bReturnChecks</dt>
