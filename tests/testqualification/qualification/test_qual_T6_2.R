@@ -5,7 +5,8 @@ test_that("Labs assessment can return a correctly assessed data frame for the ch
   test6_2 <- LB_Assess(
     dfInput = dfInput,
     vThreshold = c(.025, .05),
-    strGroup = "CustomGroup"
+    strGroup = "CustomGroup",
+    strMethod = "fisher"
   )
 
   # Double Programming

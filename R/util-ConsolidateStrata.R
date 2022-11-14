@@ -1,5 +1,6 @@
 #' Consolidate stratified assessment outputs
 #'
+#' @description
 #' Consolidates multiple stratified assessment outputs by stacking the data frames returned by an
 #' `*_Assess` function and generating a paneled data visualization.
 #'
