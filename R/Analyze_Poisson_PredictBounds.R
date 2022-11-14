@@ -49,7 +49,7 @@
 Analyze_Poisson_PredictBounds <- function(
     dfTransformed,
     vThreshold = c(-5, 5),
-    nStep = 1,
+    nStep = .05,
     bQuiet = TRUE
 ) {
   if (is.null(vThreshold)) {
