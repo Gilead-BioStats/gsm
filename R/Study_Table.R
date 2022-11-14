@@ -1,13 +1,15 @@
 #' {experimental} Make Assessment overview table
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' Make overview table with one row per assessment and one column per site showing flagged assessments.
 #'
-#' @param dfFindings dataframe containing one or more stacked findings. Findings are one record per assessment per site and have the following columns: Assessment, Label, GroupID, N, PValue, Flag. PValue is ignored in the summary table.
-#' @param bFormat Use html-friendly icons in table cells. -1 is converted to a down arrow. 1 is converted to an up arrow. 0 is not shown. Other values are left as is.
-#' @param bShowSiteScore Show a "Score" row with total number of flagged assessments for each site. TODO:  add method for custom scoring in future release)
-#' @param vSiteScoreThreshold Hide sites with a site score less than this value (1 by default).
-#' @param bShowCounts Show site counts? Uses first value of N for each site given in dfFindings.
-#' @param bColCollapse Combine the Assessment and Label columns into a single "Title Column"
+#' @param dfFindings `data.frame` dataframe containing one or more stacked findings. Findings are one record per assessment per site and have the following columns: Assessment, Label, GroupID, N, PValue, Flag. PValue is ignored in the summary table.
+#' @param bFormat `logical` Use html-friendly icons in table cells. -1 is converted to a down arrow. 1 is converted to an up arrow. 0 is not shown. Other values are left as is. Default: `TRUE`
+#' @param bShowCounts `logical` Show site counts? Uses first value of N for each site given in dfFindings. Default: `TRUE`
+#' @param bShowSiteScore `logical` Show a "Score" row with total number of flagged assessments for each site. TODO:  add method for custom scoring in future release) Default: `TRUE`
+#' @param vSiteScoreThreshold `numeric` Hide sites with a site score less than this value (1 by default). Default: `1`
+#' @param bColCollapse `logical` Combine the Assessment and Label columns into a single "Title Column" Default: `TRUE`
 #'
 #' @examples
 #' lData <- list(
