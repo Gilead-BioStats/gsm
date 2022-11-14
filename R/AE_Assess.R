@@ -18,7 +18,7 @@
 #'   - `"poisson"`
 #'   - `"identity"`
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
-#'   of the column.
+#'   of the column. Default: package-defined Adverse Event Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`.
 #' Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
@@ -46,7 +46,15 @@
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw()
+#'
+#' # Run using normal approximation method (default)
 #' ae_assessment_NormalApprox <- AE_Assess(dfInput)
+#'
+#' # Run using poisson method
+#' ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "poisson")
+#'
+#' # Run using identity method
+#' ae_assessment_identity <- AE_Assess(dfInput, strMethod = "identity")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
@@ -74,7 +82,7 @@ AE_Assess <- function(
 
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
-  lChecks <- CheckInputs(
+  lChecks <- gsm::CheckInputs(
     context = "AE_Assess",
     dfs = list(dfInput = dfInput),
     mapping = lMapping,
@@ -121,38 +129,33 @@ AE_Assess <- function(
 
     # dfAnalyzed --------------------------------------------------------------
     if (strMethod == "NormalApprox") {
-
       lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
         dfTransformed = lData$dfTransformed,
         strType = "rate",
         bQuiet = bQuiet
-        )
+      )
 
       lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
         strType = "rate",
         bQuiet = bQuiet
-        )
-
+      )
     } else if (strMethod == "poisson") {
-
       lData$dfAnalyzed <- gsm::Analyze_Poisson(
         dfTransformed = lData$dfTransformed,
         bQuiet = bQuiet
-        )
+      )
 
       lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
         bQuiet = bQuiet
-        )
+      )
     } else if (strMethod == "identity") {
-
       lData$dfAnalyzed <- gsm::Analyze_Identity(
         dfTransformed = lData$dfTransformed
-        )
-
+      )
     }
 
     strAnalyzeFunction <- paste0("Analyze_", tools::toTitleCase(strMethod))
@@ -184,16 +187,16 @@ AE_Assess <- function(
     # visualizations ----------------------------------------------------------
     lCharts <- list()
 
-      if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
+    if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-      if (strMethod != "identity") {
-        lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-        if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
-      }
+    if (strMethod != "identity") {
+      lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+    }
 
-      lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-      lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
-      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
+    lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+    lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
 
 
 

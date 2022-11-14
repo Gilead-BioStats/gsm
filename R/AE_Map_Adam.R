@@ -12,9 +12,9 @@
 #' AEs by passing filtered AE data to `dfADAE`.
 #'
 #' @param dfs `list` Input data frames:
-#'  - `dfADAE`: `data.frame` Event-level data with one record per AE.
-#'  - `dfADSL`: `data.frame` Subject-level data with one record per subject.
-#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column.
+#'  - `dfADAE`: `data.frame` Event-level data with one record per AE. Default: `safetyData::adam_adsl`
+#'  - `dfADSL`: `data.frame` Subject-level data with one record per subject. Default: `safetyData::adam_adae`
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for ADaM.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -32,8 +32,9 @@
 #' # Run with error checking and message log
 #' dfInput <- AE_Map_Adam(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
-#' @import dplyr
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
+#' @importFrom yaml read_yaml
+#' @import dplyr
 #'
 #' @export
 

@@ -12,10 +12,10 @@
 #' AEs by passing filtered AE data to `dfAE`.
 #'
 #' @param dfs `list` Input data frames:
-#'   - `dfAE`: `data.frame` Event-level data with one record per AE.
-#'   - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
+#'   - `dfAE`: `data.frame` Event-level data with one record per AE. Default: `clindata::rawplus_ae`
+#'   - `dfSUBJ`: `data.frame` Subject-level data with one record per subject. Default: `clindata::rawplus_dm`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
-#'   of the column.
+#'   of the column. Default: package-defined mapping for raw+.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -34,6 +34,7 @@
 #' dfInput <- AE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
+#' @importFrom yaml read_yaml
 #' @import dplyr
 #'
 #' @export

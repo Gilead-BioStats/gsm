@@ -30,6 +30,6 @@ Load assessments from a package/directory
 \code{MakeWorkflowList()} is a utility function that creates a workflow mapping for assessments used in \code{Study_Assess()}.
 }
 \examples{
-MakeWorkflowList(strPath = "workflow", strPackage = "gsm")
+workflow <- MakeWorkflowList(strPath = "workflow", strPackage = "gsm")
 
 }

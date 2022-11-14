@@ -54,5 +54,6 @@ test_that("incorrect inputs throw errors", {
       strGroupCol = "SiteID",
       strCountCol = "Count",
       strExposure = "Exposure"
-    ))
+    )
+  )
 })

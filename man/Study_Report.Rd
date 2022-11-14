@@ -21,6 +21,9 @@ Study_Report(
 HTML report of study data.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+}
+\details{
 Create HTML summary report using the results of \code{Study_Assess}, including tables, charts, and error checking.
 }
 \examples{

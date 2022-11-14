@@ -5,7 +5,7 @@
 #'
 #' @param dfSUBJ `data.frame` Typically a DM dataset.
 #' @param dfConfig `data.frame` Dataset containing configuration parameters: `studyid`, `workflowid`, `gsm_version`, `param`, `index`, and `value`.
-#' @param lMapping `list` Mappings for the assessment(s) being run
+#' @param lMapping `list` Mappings for the assessment(s) being run.
 #' @param strUnit `character` Type of enrollment; one of `participant` or `site`.
 #' @param strBy `character` Domain of enrollment; one of `study` or `site`.
 #'

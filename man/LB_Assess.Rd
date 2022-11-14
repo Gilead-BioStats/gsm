@@ -26,8 +26,8 @@ LB_Assess(
 \item \code{"identity"}
 }}
 
-\item{lMapping}{Column metadata with structure \code{domain$key}, where \code{key} contains the name
-of the column.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
+of the column. Default: package-defined Labs Assessment mapping.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
 

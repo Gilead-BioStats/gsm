@@ -4,9 +4,9 @@
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to NULL.
 #' @param strType `character` One of `"KRI"` or `"score"`.
 #' @param bFlagFilter `logical` Filter out non-flagged groups? Default: `FALSE`
-#' @param strTitle Title of plot. NULL by default.
+#' @param strTitle `character` Title of plot.
 #'
-#' @return group-level plot object.
+#' @return group-level ggplot2 object.
 #'
 #' @examples
 #' ae <- AE_Map_Raw() %>% AE_Assess()
