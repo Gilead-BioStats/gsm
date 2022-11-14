@@ -77,7 +77,7 @@ barChart <- function(
     x,
     width = width,
     height = height,
-    package = 'rbmvizwidgets',
+    package = 'gsm',
     elementId = elementId
   )
 }
@@ -100,7 +100,7 @@ barChart <- function(
 #'
 #' @export
 barChartOutput <- function(outputId, width = '100%', height = '400px'){
-  htmlwidgets::shinyWidgetOutput(outputId, 'barChart', width, height, package = 'rbmvizwidgets')
+  htmlwidgets::shinyWidgetOutput(outputId, 'barChart', width, height, package = 'gsm')
 }
 
 #' @rdname barChart-shiny
