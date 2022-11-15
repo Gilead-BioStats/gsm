@@ -52,6 +52,11 @@ Gismo,results_summary,metric,Metric value
 Gismo,results_summary,score,Statistical Score
 Gismo,results_summary,flag,Flag
 Gismo,results_summary,gsm_analysis_date,Date that snapshot was created
+Gismo,results_analysis,studyid,Unique Study ID
+Gismo,results_analysis,workflowid,Unique Workflow ID
+Gismo,results_analysis,param,Parameter name
+Gismo,results_analysis,value,Value for parameter
+Gismo,results_analysis,gsm_analysis_date,Date that snapshot was created
 Gismo,results_bounds,studyid,Unique Study ID
 Gismo,results_bounds,workflowid,Unique Workflow ID
 Gismo,results_bounds,threshold,Threshold
