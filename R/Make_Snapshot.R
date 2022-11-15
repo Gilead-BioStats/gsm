@@ -209,10 +209,10 @@ bQuiet = TRUE
       purrr::imap_dfr(lResults[hasQTL], function(qtl, qtl_name) {
         if (qtl$bStatus) {
           qtl$lResults$lData$dfAnalyzed %>%
-            select(GroupID,
-                   LowCI,
-                   UpCI,
-                   Score) %>%
+            select("GroupID",
+                   "LowCI",
+                   "UpCI",
+                   "Score") %>%
             mutate(workflowid = qtl_name) %>%
             pivot_longer(-c("GroupID", "workflowid")) %>%
             rename(param = "name",
