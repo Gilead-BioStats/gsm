@@ -201,37 +201,33 @@ bQuiet = TRUE
     )
 
   # results_analysis ---------------------------------------------------------
-  # Leaving this data munging for Matt/Spencer/Kai. Columns = workflowid, groupid, param, value.
-  # for now, we just want to add Param = "LowCI", "UpperCI", "Mean" for the 2 QTLs. So 6 rows for now.
-  # lSnapshot$results_summary$StudyID <- meta$status_study[1,'StudyID']
-  # Also need to make sure we're capturing WorkflowID here ...
 
   hasQTL <- grep("qtl", names(lResults))
 
   if (length(hasQTL) > 0) {
-    results_analysis <- lResults[hasQTL] %>%
-      purrr::imap_dfr(
-        ~ .x$lResults$lData$dfAnalyzed %>%
-          select(GroupID,
-                 LowCI,
-                 UpCI,
-                 Score) %>%
-          mutate(workflowid = .y)
-      ) %>%
-      pivot_longer(-c("GroupID", "workflowid")) %>%
-      rename(param = "name",
-             studyid = "GroupID")
-  } else {
-    results_analysis <- tibble(
-      studyid = NA,
-      workflowid = NA,
-      param = NA,
-      value = NA
-    )
+    results_analysis <-
+      purrr::imap_dfr(lResults[hasQTL], function(qtl, qtl_name) {
+        if (qtl$bStatus) {
+          qtl$lResults$lData$dfAnalyzed %>%
+            select(GroupID,
+                   LowCI,
+                   UpCI,
+                   Score) %>%
+            mutate(workflowid = qtl_name) %>%
+            pivot_longer(-c("GroupID", "workflowid")) %>%
+            rename(param = "name",
+                   studyid = "GroupID")
+        } else {
+          tibble(
+            studyid = unique(lMeta$config_workflow$studyid),
+            workflowid = qtl_name,
+            param = NA,
+            value = NA
+          )
+        }
+
+      })
   }
-
-
-
 
 
   # results_bounds ----------------------------------------------------------
