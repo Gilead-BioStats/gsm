@@ -58,11 +58,11 @@
 #' @export
 
 Analyze_NormalApprox_PredictBounds <- function(
-  dfTransformed,
-  vThreshold = c(-3, -2, 2, 3),
-  nStep = 1,
-  strType = "binary",
-  bQuiet = TRUE
+    dfTransformed,
+    vThreshold = c(-3, -2, 2, 3),
+    nStep = 100,
+    strType = "binary",
+    bQuiet = TRUE
 ) {
   if (is.null(vThreshold)) {
     vThreshold <- c(-3, -2, 2, 3)
@@ -81,6 +81,7 @@ Analyze_NormalApprox_PredictBounds <- function(
 
   if (strType == "binary") {
     dfBounds <- tidyr::expand_grid(Threshold = vThreshold, Denominator = vRange) %>%
+      filter(.data$Denominator > 0) %>%
       mutate(
         LogDenominator = log(.data$Denominator),
         # Calculate expected event percentage at sample size.
@@ -102,6 +103,7 @@ Analyze_NormalApprox_PredictBounds <- function(
       )
   } else if (strType == "rate") {
     dfBounds <- tidyr::expand_grid(Threshold = vThreshold, Denominator = vRange) %>%
+      filter(.data$Denominator > 0) %>%
       mutate(
         LogDenominator = log(.data$Denominator),
         # Calculate expected rate at given exposure.
