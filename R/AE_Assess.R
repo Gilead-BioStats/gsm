@@ -199,10 +199,52 @@ AE_Assess <- function(
     }
 
     # yaxis = "metric"
-    lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+    dfThreshold <- tibble(default = vThreshold) %>%
+      mutate(index = row_number(),
+             workflowid = "kri0001",
+             param = "vThreshold",
+             configurable = "TRUE",
+             gsm_version = "v1.1.0") %>%
+      arrange(.data$default)
 
-    # yaxis = "score"
-    lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+
+
+
+    dfConfig <- tibble::tribble(
+      ~group,              ~score,               ~numerator,        ~denominator,
+      "Site", "Adjusted Z-Score ", "Treatment Emergent AEs", "Days on Treatment"
+    )
+
+    # lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+
+    lCharts$barMetric <- barChart(
+      data = lData$dfFlagged %>% rename_all(~tolower(.)),
+      config = dfConfig,
+      threshold = dfThreshold,
+      yaxis = "metric",
+      elementId = "AE_Assess()"
+    )
+
+    # barChart(
+    #   data = results,
+    #   config = workflow,
+    #   threshold = threshold,
+    #   yaxis = yaxis,
+    #   elementId = "test"
+    # )
+    browser()
+
+    # lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+    lCharts$barScore <- barChart(
+      data = lData$dfFlagged %>% rename_all(~tolower(.)),
+      config = dfConfig,
+      threshold = dfThreshold,
+      yaxis = "score",
+      elementId = "AE_Assess()"
+    )
+
+
+
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
 
 

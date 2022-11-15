@@ -17,8 +17,7 @@ HTMLWidgets.widget({
 
       let threshold = HTMLWidgets.dataframeToD3(x.threshold)
 
-      console.log(config)
-      console.log(data)
+      console.log(threshold)
 
       const instance = rbmViz.default.barChart(
            el,
