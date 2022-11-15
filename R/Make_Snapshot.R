@@ -181,6 +181,7 @@ bQuiet = TRUE
   # meta_param --------------------------------------------------------------
   meta_param <- gsm::meta_param
 
+
   # results_summary ---------------------------------------------------------
   results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%
     purrr::discard(is.null) %>%
@@ -205,6 +206,7 @@ bQuiet = TRUE
   hasQTL <- grep("qtl", names(lResults))
 
   if (length(hasQTL) > 0) {
+
     results_analysis <-
       purrr::imap_dfr(lResults[hasQTL], function(qtl, qtl_name) {
         if (qtl$bStatus) {
@@ -217,13 +219,6 @@ bQuiet = TRUE
             pivot_longer(-c("GroupID", "workflowid")) %>%
             rename(param = "name",
                    studyid = "GroupID")
-        } else {
-          tibble(
-            studyid = unique(lMeta$config_workflow$studyid),
-            workflowid = qtl_name,
-            param = NA,
-            value = NA
-          )
         }
 
       })
@@ -233,17 +228,26 @@ bQuiet = TRUE
   # results_bounds ----------------------------------------------------------
   results_bounds <- lResults %>%
     purrr::map(~ .x$lResults$lData$dfBounds) %>%
-    purrr::discard(is.null) %>%
-    purrr::imap_dfr(~ .x %>% mutate(workflowid = .y)) %>%
-    mutate(studyid = unique(lMeta$config_workflow$studyid)) %>% # not sure if this is a correct assumption
-    select(
-      "studyid",
-      "workflowid",
-      "threshold" = "Threshold",
-      "numerator" = "Numerator",
-      "denominator" = "Denominator",
-      "log_denominator" = "LogDenominator"
-    )
+    purrr::discard(is.null)
+
+  if (length(results_bounds) > 0) {
+    results_bounds <- results_bounds %>%
+      purrr::imap_dfr(~ .x %>% mutate(workflowid = .y)) %>%
+      mutate(studyid = unique(lMeta$config_workflow$studyid)) %>% # not sure if this is a correct assumption
+      select(
+        "studyid",
+        "workflowid",
+        "threshold" = "Threshold",
+        "numerator" = "Numerator",
+        "denominator" = "Denominator",
+        "log_denominator" = "LogDenominator"
+      )
+  } else {
+    results_bounds <- results_bounds %>%
+      as_tibble()
+  }
+
+
 
 
 
