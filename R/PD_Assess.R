@@ -88,7 +88,7 @@ PD_Assess <- function(
       NormalApprox = c(-3, -2, 2, 3),
       poisson = c(-7, -5, 5, 7),
       identity = c(0.000895, 0.003059),
-      qtl = c(5)
+      qtl = c(0.01)
     )
   }
 
