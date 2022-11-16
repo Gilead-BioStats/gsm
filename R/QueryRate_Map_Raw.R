@@ -1,26 +1,25 @@
-#' Adverse Event Assessment - Raw Mapping
+#' Query Rate - Raw Mapping
 #'
 #' @description
-#' Convert raw adverse event (AE) data, typically processed case report form data, to formatted
-#' input data to [gsm::AE_Assess()].
+#' Convert raw query data to formatted input data to [gsm::QueryRate_Assess()].
 #'
 #' @details
-#' `AE_Map_Raw` combines AE data with subject-level treatment exposure data to create formatted
-#' input data to [gsm::AE_Assess()]. This function creates an input dataset for the AE Assessment
-#' ([gsm::AE_Assess()]) by binding subject-level AE counts (derived from `dfAE`) to subject-level
+#' `QueryRate_Map_Raw` combines query data with data points data and subject-level data to create
+#' formatted input data to [gsm::QueryRate_Assess()]. This function creates an input dataset for the AE Assessment
+#' ([gsm::AE_Assess()]) by binding subject-level query counts (derived from `dfQuery`) to subject-level
 #' data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
-#' AEs by passing filtered AE data to `dfAE`.
+#' queries by passing filtered query data to `dfQuery`.
 #'
 #' @param dfs `list` Input data frames:
-#'   - `dfAE`: `data.frame` Event-level data with one record per AE.
+#'   - `dfQuery`: `data.frame` Query-level data with one record per query.
 #'   - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` Data frame with one record per subject, the input to [gsm::AE_Assess()]. If
-#' `bReturnChecks` is `TRUE` `AE_Map_Raw` returns a named `list` with:
+#' @return `data.frame` Data frame with one record per subject, the input to [gsm::QueryRate_Assess()]. If
+#' `bReturnChecks` is `TRUE` `QueryRate_Map_Raw` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
 #'
@@ -28,22 +27,23 @@
 #'
 #' @examples
 #' # Run with defaults.
-#' dfInput <- AE_Map_Raw()
+#' dfInput <- QueryRate_Map_Raw()
 #'
 #' # Run with error checking and message log.
-#' dfInput <- AE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
+#' dfInput <- QueryRate_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
 #' @import dplyr
 #'
 #' @export
 
-AE_Map_Raw <- function(
+QueryRate_Map_Raw <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
-    dfAE = clindata::rawplus_ae
+    dfQuery = clindata::edc_queries,
+    dfDataChg = clindata::edc_data_change_rate
   ),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
@@ -53,7 +53,7 @@ AE_Map_Raw <- function(
   )
 
   checks <- CheckInputs(
-    context = "AE_Map_Raw",
+    context = "QueryRate_Map_Raw",
     dfs = dfs,
     bQuiet = bQuiet,
     mapping = lMapping
