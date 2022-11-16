@@ -7,8 +7,8 @@
 Analyze_NormalApprox_PredictBounds(
   dfTransformed,
   vThreshold = c(-3, -2, 2, 3),
-  nStep = 1,
   strType = "binary",
+  nStep = NULL,
   bQuiet = TRUE
 )
 }
@@ -18,13 +18,13 @@ Analyze_NormalApprox_PredictBounds(
 \item{vThreshold}{\code{numeric} upper and lower boundaries based on standard deviation. Should be identical to
 the thresholds used in \verb{*_Assess()} functions.}
 
-\item{nStep}{\code{numeric} step size of imputed bounds.}
-
 \item{strType}{\code{character} Statistical method. Valid values:
 \itemize{
 \item \code{"binary"} (default)
 \item \code{"rate"}
 }}
+
+\item{nStep}{\code{numeric} step size of imputed bounds.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
