@@ -49,8 +49,8 @@
 #'
 #' @export
 barChart <- function(
-      data = NULL,
-      config = list(),
+      results = NULL,
+      workflow = list(),
       threshold = NULL,
       yaxis = 'score',
       selectedGroupIDs = NULL,
@@ -58,14 +58,12 @@ barChart <- function(
       height = NULL,
       elementId = NULL) {
 
-  data <- dplyr::mutate(data, across(everything(), as.character))
-  # config <- dplyr::mutate(config, across(everything(), as.character))
-  # threshold <- dplyr::mutate(threshold, across(everything(), as.character))
+  results <- dplyr::mutate(results, across(everything(), as.character))
 
   # forward options using x
   x = list(
-     data = data,
-     config = config,
+     results = results,
+     workflow = workflow,
      threshold = threshold,
      yaxis = yaxis,
      selectedGroupIDs = as.character(selectedGroupIDs)

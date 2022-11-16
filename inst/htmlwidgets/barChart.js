@@ -10,19 +10,19 @@ HTMLWidgets.widget({
 
       renderValue: function(x) {
 
-      let data = HTMLWidgets.dataframeToD3(x.data)
+      let results = HTMLWidgets.dataframeToD3(x.results)
 
-      let config = HTMLWidgets.dataframeToD3(x.config)[0]
-      config.y = x.yaxis
-      config.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
-          console.log(config);
+      let workflow = HTMLWidgets.dataframeToD3(x.workflow)[0]
+      workflow.y = x.yaxis
+      workflow.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
+          console.log(workflow);
 
       let threshold = HTMLWidgets.dataframeToD3(x.threshold)
 
       const instance = rbmViz.default.barChart(
            el,
-           data,
-           config,
+           results,
+           workflow,
            threshold
          )
 
