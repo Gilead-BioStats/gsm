@@ -215,27 +215,17 @@ AE_Assess <- function(
       "Site", "Adjusted Z-Score ", "Treatment Emergent AEs", "Days on Treatment"
     )
 
-    # lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+    lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+    lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
 
-    lCharts$barMetric <- barChart(
+    lCharts$barMetricJS <- barChart(
       data = lData$dfFlagged %>% rename_all(~tolower(.)),
       config = dfConfig,
-      threshold = dfThreshold,
       yaxis = "metric",
       elementId = "AE_Assess()"
     )
 
-    # barChart(
-    #   data = results,
-    #   config = workflow,
-    #   threshold = threshold,
-    #   yaxis = yaxis,
-    #   elementId = "test"
-    # )
-    browser()
-
-    # lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
-    lCharts$barScore <- barChart(
+    lCharts$barScoreJS <- barChart(
       data = lData$dfFlagged %>% rename_all(~tolower(.)),
       config = dfConfig,
       threshold = dfThreshold,
