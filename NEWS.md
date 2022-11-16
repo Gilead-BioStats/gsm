@@ -1,3 +1,7 @@
+# gsm v1.3.1
+
+This minor release adds a data frame to the output/data model of `Make_Snapshot()` that includes parameters and values for QTL analyses. 
+
 # gsm v1.3.0
 
 This release introduces new and refined statistical methods for qualified assessments. 
