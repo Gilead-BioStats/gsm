@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.1</span>
       </span>
     </div>
 
@@ -82,7 +82,6 @@
 <span>  <span class="va">dfInput</span>,</span>
 <span>  vThreshold <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  strMethod <span class="op">=</span> <span class="st">"NormalApprox"</span>,</span>
-<span>  strType <span class="op">=</span> <span class="st">"rate"</span>,</span>
 <span>  lMapping <span class="op">=</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"PD_Assess.yaml"</span>, package <span class="op">=</span> <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  strGroup <span class="op">=</span> <span class="st">"Site"</span>,</span>
 <span>  nConfLevel <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -105,12 +104,6 @@
 <dd><p><code>character</code> Statistical method. Valid values:</p><ul><li><p><code>"NormalApprox"</code> (default)</p></li>
 <li><p><code>"poisson"</code></p></li>
 <li><p><code>"identity"</code></p></li>
-</ul></dd>
-
-
-<dt>strType</dt>
-<dd><p><code>character</code> Statistical outcome type. Valid values:</p><ul><li><p><code>"binary"</code> (default)</p></li>
-<li><p><code>"rate"</code></p></li>
 </ul></dd>
 
 

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.1</span>
       </span>
     </div>
 
@@ -144,7 +144,7 @@
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu">Analyze_QTL</span><span class="op">(</span><span class="va">dfTransformed</span>, strOutcome <span class="op">=</span> <span class="st">"binary"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="Flag.html">Flag</a></span><span class="op">(</span><span class="va">dfAnalyzed</span>, strColumn <span class="op">=</span> <span class="st">"LowCI"</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="Flag_QTL.html">Flag_QTL</a></span><span class="op">(</span><span class="va">dfAnalyzed</span>, vThreshold <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -156,7 +156,7 @@
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu">Analyze_QTL</span><span class="op">(</span><span class="va">dfTransformed</span>, strOutcome <span class="op">=</span> <span class="st">"rate"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="Flag.html">Flag</a></span><span class="op">(</span><span class="va">dfAnalyzed</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="Flag_QTL.html">Flag_QTL</a></span><span class="op">(</span><span class="va">dfAnalyzed</span>, vThreshold <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
