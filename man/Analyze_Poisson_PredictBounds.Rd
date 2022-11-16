@@ -7,7 +7,7 @@
 Analyze_Poisson_PredictBounds(
   dfTransformed,
   vThreshold = c(-5, 5),
-  nStep = 0.05,
+  nStep = NULL,
   bQuiet = TRUE
 )
 }
