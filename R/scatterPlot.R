@@ -1,9 +1,16 @@
-#' <Add Title>
+#' Scatter plot HTML widget from `{rbm-viz}`
 #'
-#' <Add Description>
+#' TODO: Update documentation
 #'
-#' @import htmlwidgets
+#' @param results TODO
+#' @param workflow TODO
+#' @param bounds TODO
+#' @param selectedGroupIDs TODO
+#' @param width TODO
+#' @param height TODO
+#' @param elementId TODO
 #'
+#' @return htmlwidget scatter plot
 #' @export
 scatterPlot <- function(
     results,

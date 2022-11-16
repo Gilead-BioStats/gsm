@@ -5,8 +5,8 @@
 \title{KRI bar chart}
 \usage{
 barChart(
-  data = NULL,
-  config = list(),
+  results = NULL,
+  workflow = list(),
   threshold = NULL,
   yaxis = "score",
   selectedGroupIDs = NULL,
@@ -16,7 +16,7 @@ barChart(
 )
 }
 \arguments{
-\item{data}{data with column names:
+\item{results}{data with column names:
 \itemize{
 \item{\code{studyid}}
 \item{\code{workflowid}}
@@ -28,7 +28,7 @@ barChart(
 \item{\code{flag}}
 }}
 
-\item{config}{configuration data with columns:
+\item{workflow}{configuration data with columns:
 \itemize{
 \item{\code{workflow}}
 \item{\code{gsm_version}}
@@ -64,5 +64,5 @@ barChart(
 \item{elementId}{ID of container HTML element}
 }
 \description{
-<Add Description>
+TODO: Add Description + update documentation
 }

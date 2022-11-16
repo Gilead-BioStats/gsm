@@ -25,6 +25,7 @@ Imports:
     glue,
     gt,
     ggplot2,
+    htmlwidgets,
     janitor,
     knitr,
     lamW,

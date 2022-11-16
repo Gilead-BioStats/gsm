@@ -18,7 +18,8 @@
     Code
       names(output$lCharts)
     Output
-      [1] "scatter"     "barMetric"   "barScore"    "barMetricJS" "barScoreJS" 
+      [1] "scatter"     "scatterJS"   "barMetric"   "barScore"    "barMetricJS"
+      [6] "barScoreJS" 
 
 # grouping works as expected
 
@@ -130,6 +131,6 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 4 charts.
+      v `Visualize_Scatter()` created 2 chart.
+      v `Visualize_Score()` created 5 charts.
 

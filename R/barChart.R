@@ -1,8 +1,8 @@
 #' KRI bar chart
 #'
-#' <Add Description>
+#' TODO: Add Description + update documentation
 #'
-#' @param data data with column names:
+#' @param results data with column names:
 #'\itemize{
 #'  \item{\code{studyid}}
 #'  \item{\code{workflowid}}
@@ -14,7 +14,7 @@
 #'  \item{\code{flag}}
 #'}
 #'
-#' @param config configuration data with columns:
+#' @param workflow configuration data with columns:
 #' \itemize{
 #'  \item{\code{workflow}}
 #'  \item{\code{gsm_version}}
