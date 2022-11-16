@@ -12,6 +12,24 @@
       x Non-character column names found in mapping: 
       ! Issues found for dfAE domain
 
+# filter to 0 rows throws a warning
+
+    Code
+      FilterDomain(dfAE, lMapping = lMapping, strDomain = "dfAE", strColParam = "strTreatmentEmergentCol",
+        strValParam = "strTreatmentEmergentVal", bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      v No issues found for dfAE domain
+      Filtering on `ae_te %in% c("Y")`.
+      v Filtered on `ae_te %in% c("Y")` to drop 0 rows from 0 to 0 rows.
+      ! WARNING: Filtered data has 0 rows.
+      i NOTE: No rows dropped.
+    Output
+      # A tibble: 0 x 4
+      # ... with 4 variables: subjid <chr>, ae_te <chr>, aetoxgr <chr>, aeser <chr>
+
 # invalid mapping is caught
 
     Code

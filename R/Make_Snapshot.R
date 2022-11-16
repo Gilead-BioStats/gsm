@@ -205,6 +205,7 @@ bQuiet = TRUE
 
   hasQTL <- grep("qtl", names(lResults))
 
+  results_analysis <- NULL
   if (length(hasQTL) > 0) {
     results_analysis <-
       purrr::imap_dfr(lResults[hasQTL], function(qtl, qtl_name) {
@@ -267,6 +268,7 @@ bQuiet = TRUE
     meta_workflow = meta_workflow,
     meta_param = meta_param
   ) %>%
+  keep(~!is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
 

@@ -52,21 +52,38 @@
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 #' dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, c(-3, -2, 2, 3), strType = "rate")
 #'
+#' @importFrom cli cli_alert
 #' @import dplyr
 #' @importFrom tidyr expand_grid
 #'
 #' @export
 
 Analyze_NormalApprox_PredictBounds <- function(
-  dfTransformed,
-  vThreshold = c(-3, -2, 2, 3),
-  nStep = 100,
-  strType = "binary",
-  bQuiet = TRUE
+    dfTransformed,
+    vThreshold = c(-3, -2, 2, 3),
+    strType = "binary",
+    nStep = NULL,
+    bQuiet = TRUE
 ) {
   if (is.null(vThreshold)) {
     vThreshold <- c(-3, -2, 2, 3)
-    cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-3, -2, 2, 3)")
+    if (bQuiet == FALSE)
+      cli::cli_alert("vThreshold was not provided. Setting default threshold to {vThreshold}")
+  }
+
+  # Set [ nStep ] to the range of the denominator divided by 250.
+  if (is.null(nStep)) {
+    nMinDenominator <- min(dfTransformed$Denominator)
+    nMaxDenominator <- max(dfTransformed$Denominator)
+    nRange <- nMaxDenominator - nMinDenominator
+
+    if (!is.null(nRange) & !is.na(nRange) & nRange != 0)
+        nStep <- nRange/250
+    else
+        nStep <- 1
+
+    if (bQuiet == FALSE)
+      cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
   }
 
   # add a 0 threhsold to calcultate estimate without an offset
