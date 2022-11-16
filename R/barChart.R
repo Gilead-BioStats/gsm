@@ -59,7 +59,7 @@ barChart <- function(
       elementId = NULL) {
 
   data <- dplyr::mutate(data, across(everything(), as.character))
-  config <- dplyr::mutate(config, across(everything(), as.character))
+  # config <- dplyr::mutate(config, across(everything(), as.character))
   # threshold <- dplyr::mutate(threshold, across(everything(), as.character))
 
   # forward options using x
