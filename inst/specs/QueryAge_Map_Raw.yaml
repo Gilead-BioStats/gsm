@@ -1,0 +1,10 @@
+dfQuery:
+  vRequired:
+    - strIDCol
+    - strQueryAgeCol
+dfSUBJ:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+  vUniqueCols:
+    - strIDCol

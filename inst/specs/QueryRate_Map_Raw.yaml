@@ -1,0 +1,13 @@
+dfQuery:
+  vRequired:
+    - strIDCol
+dfDataChg:
+  vRequired:
+    - strIDCol
+    - strDataPointsCol
+dfSUBJ:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+  vUniqueCols:
+    - strIDCol
