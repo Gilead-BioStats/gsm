@@ -1,22 +1,22 @@
 #' Data Entry Lag - Raw Mapping
 #'
 #' @description
-#' Convert raw data entry data to formatted input data to [gsm::DataEntry_Assess()].
+#' Convert raw data entry data to formatted input data to [gsm::DataChg_Assess()].
 #'
 #' @details
-#' `DataEntry_Map_Raw` creates an input dataset for the Data Entry Lag Assessment [gsm::DataEntry_Assess()] by adding
+#' `DataChg_Map_Raw` creates an input dataset for the Data Entry Lag Assessment [gsm::DataChg_Assess()] by adding
 #' Data Entry Lag Counts (derived from `dfDISP`) to basic subject-level data (from `dfSUBJ`).
 #'
 #' @param dfs `list` Input data frame:
-#'   - `dfDataEntry`: `data.frame` Data-Point-level data with one record per data entry.
+#'   - `dfDataChg`: `data.frame` Data-Point-level data with one record per data entry.
 #'   - `dfSUBJ`: `data.frame` Subject-level data with one record per participant.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` with one record per subject, the input to [gsm::DataEntry_Assess()]. If
-#' `bReturnChecks` is `TRUE` `DataEntry_Map_Raw` returns a named `list` with:
+#' @return `data.frame` with one record per subject, the input to [gsm::DataChg_Assess()]. If
+#' `bReturnChecks` is `TRUE` `DataChg_Map_Raw` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
 #'
@@ -24,10 +24,10 @@
 #'
 #' @examples
 #' # Run with defaults.
-#' dfInput <- DataEntry_Map_Raw()
+#' dfInput <- DataChg_Map_Raw()
 #'
 #' # Run with error checking and message log.
-#' dfInput <- DataEntry_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
+#' dfInput <- DataChg_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
 #' @importFrom glue glue
@@ -36,10 +36,10 @@
 #'
 #' @export
 
-DataEntry_Map_Raw <- function(
+DataChg_Map_Raw <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
-    dfDataEntry = clindata::edc_data_entry_lag
+    dfDataChg = clindata::edc_data_change_rate
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
   bReturnChecks = FALSE,
@@ -51,7 +51,7 @@ DataEntry_Map_Raw <- function(
   )
 
   checks <- CheckInputs(
-    context = "DataEntry_Map_Raw",
+    context = "DataChg_Map_Raw",
     dfs = dfs,
     bQuiet = bQuiet,
     mapping = lMapping

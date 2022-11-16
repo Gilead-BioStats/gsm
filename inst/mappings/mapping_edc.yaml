@@ -1,0 +1,23 @@
+dfSUBJ:
+  strStudyCol: studyid
+  strSiteCol: siteid
+  strIDCol: subjid
+  strTimeOnStudyCol: timeonstudy
+  strTimeOnTreatmentCol: timeontreatment
+  strRandDateCol: rfpst_dt
+  strCustomGroupCol: invid
+  strCountryCol: country
+dfQuery:
+  strIDCol: subjid
+  strQueryAgeCol: qry30fl
+  strQueryAgeVal: "Y"
+dfDataEntry:
+  strIDCol: subjid
+  strDataEntryLagCol: data_entry_lag_fl
+  strDataEntryLagVal: "Y"
+dfDataChg:
+  strIDCol: subjid
+  strDataPointsCol: n_data_points
+  strDataPointsChangeCol: n_data_points_with_changes
+  strChangeCol: n_data_points_changes
+
