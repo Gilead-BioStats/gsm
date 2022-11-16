@@ -58,11 +58,11 @@
 #' @export
 
 Analyze_NormalApprox_PredictBounds <- function(
-    dfTransformed,
-    vThreshold = c(-3, -2, 2, 3),
-    nStep = 100,
-    strType = "binary",
-    bQuiet = TRUE
+  dfTransformed,
+  vThreshold = c(-3, -2, 2, 3),
+  nStep = 100,
+  strType = "binary",
+  bQuiet = TRUE
 ) {
   if (is.null(vThreshold)) {
     vThreshold <- c(-3, -2, 2, 3)

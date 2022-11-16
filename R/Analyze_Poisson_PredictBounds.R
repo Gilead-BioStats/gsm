@@ -47,10 +47,10 @@
 #' @export
 
 Analyze_Poisson_PredictBounds <- function(
-    dfTransformed,
-    vThreshold = c(-5, 5),
-    nStep = .05,
-    bQuiet = TRUE
+  dfTransformed,
+  vThreshold = c(-5, 5),
+  nStep = .05,
+  bQuiet = TRUE
 ) {
   if (is.null(vThreshold)) {
     vThreshold <- c(-5, 5)

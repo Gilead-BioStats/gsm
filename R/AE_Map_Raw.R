@@ -48,7 +48,6 @@ AE_Map_Raw <- function(
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
-
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)
