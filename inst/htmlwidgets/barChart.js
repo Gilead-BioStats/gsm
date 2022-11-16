@@ -15,6 +15,7 @@ HTMLWidgets.widget({
       let config = HTMLWidgets.dataframeToD3(x.config)[0]
       config.y = x.yaxis
       config.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
+          console.log(config);
 
       let threshold = HTMLWidgets.dataframeToD3(x.threshold)
 

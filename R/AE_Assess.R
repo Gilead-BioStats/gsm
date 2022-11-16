@@ -199,20 +199,20 @@ AE_Assess <- function(
     }
 
     # yaxis = "metric"
-    dfThreshold <- tibble(default = vThreshold) %>%
-      mutate(index = row_number(),
-             workflowid = "kri0001",
-             param = "vThreshold",
-             configurable = "TRUE",
-             gsm_version = "v1.1.0") %>%
-      arrange(.data$default)
+    #dfThreshold <- tibble(default = vThreshold) %>%
+    #  mutate(index = row_number(),
+    #         workflowid = "kri0001",
+    #         param = "vThreshold",
+    #         configurable = "TRUE",
+    #         gsm_version = "v1.1.0") %>%
+    #  arrange(.data$default)
 
 
 
 
     dfConfig <- tibble::tribble(
-      ~group,              ~score,               ~numerator,        ~denominator,
-      "Site", "Adjusted Z-Score ", "Treatment Emergent AEs", "Days on Treatment"
+      ~group,              ~score,               ~numerator,        ~denominator, ~thresholds,
+      "Site", "Adjusted Z-Score ", "Treatment Emergent AEs", "Days on Treatment", vThreshold
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
@@ -228,7 +228,7 @@ AE_Assess <- function(
     lCharts$barScoreJS <- barChart(
       data = lData$dfFlagged %>% rename_all(~tolower(.)),
       config = dfConfig,
-      threshold = dfThreshold,
+      #threshold = dfThreshold,
       yaxis = "score",
       elementId = "AE_Assess()"
     )
