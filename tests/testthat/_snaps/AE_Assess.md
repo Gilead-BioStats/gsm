@@ -18,7 +18,7 @@
     Code
       names(output$lCharts)
     Output
-      [1] "scatter"   "barMetric" "barScore" 
+      [1] "scatter"     "barMetric"   "barScore"    "barMetricJS" "barScoreJS" 
 
 # grouping works as expected
 
@@ -104,6 +104,13 @@
 
     vThreshold must be length of 4
 
+# strMethod = 'identity' works as expected
+
+    Code
+      names(identity$lCharts)
+    Output
+      [1] "barMetric"   "barScore"    "barMetricJS" "barScoreJS" 
+
 # bQuiet works as intended
 
     Code
@@ -124,5 +131,5 @@
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
       v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v `Visualize_Score()` created 4 charts.
 

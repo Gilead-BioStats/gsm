@@ -111,7 +111,7 @@ test_identity <- function(
   identity <- assess_function(dfInput, strMethod = "identity")
 
   testthat::expect_error(assess_function(dfInput, strMethod = "identity"), NA)
-  testthat::expect_equal(names(identity$lCharts), c("barMetric", "barScore"))
+  testthat::expect_snapshot(names(identity$lCharts))
   testthat::expect_null(identity$lCharts$scatter)
   testthat::expect_null(identity$lData$dfBounds)
 }
