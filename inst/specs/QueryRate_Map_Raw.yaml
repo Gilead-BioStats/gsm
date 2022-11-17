@@ -2,12 +2,12 @@ dfQuery:
   vRequired:
     - strIDCol
     - strVisitCol
-    - strformCol
+    - strFormCol
 dfDataChg:
   vRequired:
     - strIDCol
     - strVisitCol
-    - strformCol
+    - strFormCol
     - strDataPointsCol
 dfSUBJ:
   vRequired:
