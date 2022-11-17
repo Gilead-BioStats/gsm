@@ -49,7 +49,7 @@ imap(lAssessments, function(kri, kri_name) {
     }
 
     if (length(inputs) > 1) {
-    inputs <- paste0("dfs = list(", paste(inputs, collapse = ", "), ")")
+      inputs <- paste0("dfs = list(", paste(inputs, collapse = ", "), ")")
     }
     glue::glue("{output} <- {arg_string})")
   })
