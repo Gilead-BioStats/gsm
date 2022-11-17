@@ -4,5 +4,4 @@
 |:-----------|:----------------------|:------------------|:--------------|:---------------------------|:----------------------------|
 | dfSUBJ     | strSiteCol            | siteid            | TRUE          | FALSE                      | FALSE                       |
 | dfSUBJ     | strIDCol              | subjid            | TRUE          | TRUE                       | FALSE                       |
-| dfSUBJ     | strTimeOnTreatmentCol | timeontreatment   | TRUE          | FALSE                      | TRUE                        |
 | dfDataChg  | strIDCol              | subjid            | TRUE          | FALSE                      | FALSE                       |

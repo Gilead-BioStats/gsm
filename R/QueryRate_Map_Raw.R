@@ -66,7 +66,16 @@ QueryRate_Map_Raw <- function(
 
     # Standarize Column Names
     dfQuery_mapped <- dfs$dfQuery %>%
-      select(SubjectID = lMapping[["dfQuery"]][["strIDCol"]])
+      select(SubjectID = lMapping[["dfQuery"]][["strIDCol"]],
+             VisitID = lMapping[["dfQuery"]][["strVisitCol"]],
+             FormID = lMapping[["dfQuery"]][["strFormCol"]])
+
+    dfDataChg_mapped <- dfs$dfDataChg %>%
+      select(SubjectID = lMapping[["dfDataChg"]][["strIDCol"]],
+             VisitID = lMapping[["dfDataChg"]][["strVisitCol"]],
+             FormID = lMapping[["dfDataChg"]][["strFormCol"]],
+             DataPoint = lMapping[["dfDataChg"]][["strDataPointsCol"]]) %>%
+      mutate(DataPoint = as.numeric(.data$DataPoint, na.rm = TRUE))
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -82,13 +91,22 @@ QueryRate_Map_Raw <- function(
       )
 
     # Create Subject Level AE Counts and merge dfSUBJ
-    dfInput <- dfAE_mapped %>%
+    dfInput <- dfQuery_mapped %>%
+      left_join(
+        dfSUBJ_mapped,
+        "SubjectID"
+      ) %>%
       group_by(.data$SubjectID) %>%
-      summarize(Count = n()) %>%
+      mutate(Count= n()) %>%
+      distinct(.data$SubjectID, .keep_all=TRUE) %>%
       ungroup() %>%
-      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      mutate(Rate = .data$Count / .data$Exposure) %>%
-      select(any_of(c(names(dfSUBJ_mapped))), "Count", "Rate") %>%
+      left_join(
+        dfDataChg_mapped,
+        c("SubjectID", "VisitID", "FormID")) %>%
+      mutate(
+        Rate = .data$Count / .data$DataPoint
+      ) %>%
+      select(any_of(c(names(dfSUBJ_mapped))), "DataPoint", "Count", "Rate") %>%
       arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")

@@ -10,19 +10,19 @@ dfSUBJ:
 dfQuery:
   strIDCol: subjid
   strVisitCol: foldername
-  strformCol: form
+  strFormCol: form
   strQueryAgeCol: qry30fl
   strQueryAgeVal: "Y"
 dfDataEntry:
   strIDCol: subjid
   strVisitCol: foldername
-  strformCol: form
+  strFormCol: form
   strDataEntryLagCol: data_entry_lag_fl
   strDataEntryLagVal: "Y"
 dfDataChg:
   strIDCol: subjid
   strVisitCol: foldername
-  strformCol: form
+  strFormCol: form
   strDataPointsCol: n_data_points
   strDataPointsChangeCol: n_data_points_with_changes
   strChangeCol: n_data_points_changes
