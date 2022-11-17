@@ -3,6 +3,27 @@
     Code
       map(wf_list, ~ names(.))
     Output
+      $cou0001
+      [1] "steps" "path"  "name" 
+      
+      $cou0002
+      [1] "steps" "path"  "name" 
+      
+      $cou0003
+      [1] "steps" "path"  "name" 
+      
+      $cou0004
+      [1] "steps" "path"  "name" 
+      
+      $cou0005
+      [1] "steps" "path"  "name" 
+      
+      $cou0006
+      [1] "steps" "path"  "name" 
+      
+      $cou0007
+      [1] "steps" "path"  "name" 
+      
       $kri0001
       [1] "steps" "path"  "name" 
       
@@ -24,18 +45,465 @@
       $kri0007
       [1] "steps" "path"  "name" 
       
-      $qtl0003
-      [1] "steps" "path"  "name" 
-      
-      $qtl0007
-      [1] "steps" "path"  "name" 
-      
 
 # Metadata is returned as expected
 
     Code
       map(wf_list, ~ .x$steps)
     Output
+      $cou0001
+      $cou0001[[1]]
+      $cou0001[[1]]$name
+      [1] "FilterDomain"
+      
+      $cou0001[[1]]$inputs
+      [1] "dfAE"
+      
+      $cou0001[[1]]$output
+      [1] "dfAE"
+      
+      $cou0001[[1]]$params
+      $cou0001[[1]]$params$strDomain
+      [1] "dfAE"
+      
+      $cou0001[[1]]$params$strColParam
+      [1] "strTreatmentEmergentCol"
+      
+      $cou0001[[1]]$params$strValParam
+      [1] "strTreatmentEmergentVal"
+      
+      
+      
+      $cou0001[[2]]
+      $cou0001[[2]]$name
+      [1] "FilterDomain"
+      
+      $cou0001[[2]]$inputs
+      [1] "dfAE"
+      
+      $cou0001[[2]]$output
+      [1] "dfAE"
+      
+      $cou0001[[2]]$params
+      $cou0001[[2]]$params$strDomain
+      [1] "dfAE"
+      
+      $cou0001[[2]]$params$strColParam
+      [1] "strSeriousCol"
+      
+      $cou0001[[2]]$params$strValParam
+      [1] "strNonSeriousVal"
+      
+      
+      
+      $cou0001[[3]]
+      $cou0001[[3]]$name
+      [1] "AE_Map_Raw"
+      
+      $cou0001[[3]]$inputs
+      [1] "dfAE"   "dfSUBJ"
+      
+      $cou0001[[3]]$output
+      [1] "dfInput"
+      
+      
+      $cou0001[[4]]
+      $cou0001[[4]]$name
+      [1] "AE_Assess"
+      
+      $cou0001[[4]]$inputs
+      [1] "dfInput"
+      
+      $cou0001[[4]]$output
+      [1] "lResults"
+      
+      $cou0001[[4]]$params
+      $cou0001[[4]]$params$strGroup
+      [1] "Country"
+      
+      $cou0001[[4]]$params$vThreshold
+      NULL
+      
+      $cou0001[[4]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $cou0002
+      $cou0002[[1]]
+      $cou0002[[1]]$name
+      [1] "FilterDomain"
+      
+      $cou0002[[1]]$inputs
+      [1] "dfAE"
+      
+      $cou0002[[1]]$output
+      [1] "dfAE"
+      
+      $cou0002[[1]]$params
+      $cou0002[[1]]$params$strDomain
+      [1] "dfAE"
+      
+      $cou0002[[1]]$params$strColParam
+      [1] "strTreatmentEmergentCol"
+      
+      $cou0002[[1]]$params$strValParam
+      [1] "strTreatmentEmergentVal"
+      
+      
+      
+      $cou0002[[2]]
+      $cou0002[[2]]$name
+      [1] "FilterDomain"
+      
+      $cou0002[[2]]$inputs
+      [1] "dfAE"
+      
+      $cou0002[[2]]$output
+      [1] "dfAE"
+      
+      $cou0002[[2]]$params
+      $cou0002[[2]]$params$strDomain
+      [1] "dfAE"
+      
+      $cou0002[[2]]$params$strColParam
+      [1] "strSeriousCol"
+      
+      $cou0002[[2]]$params$strValParam
+      [1] "strSeriousVal"
+      
+      
+      
+      $cou0002[[3]]
+      $cou0002[[3]]$name
+      [1] "AE_Map_Raw"
+      
+      $cou0002[[3]]$inputs
+      [1] "dfAE"   "dfSUBJ"
+      
+      $cou0002[[3]]$output
+      [1] "dfInput"
+      
+      
+      $cou0002[[4]]
+      $cou0002[[4]]$name
+      [1] "AE_Assess"
+      
+      $cou0002[[4]]$inputs
+      [1] "dfInput"
+      
+      $cou0002[[4]]$output
+      [1] "lResults"
+      
+      $cou0002[[4]]$params
+      $cou0002[[4]]$params$strGroup
+      [1] "Country"
+      
+      $cou0002[[4]]$params$vThreshold
+      NULL
+      
+      $cou0002[[4]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $cou0003
+      $cou0003[[1]]
+      $cou0003[[1]]$name
+      [1] "FilterDomain"
+      
+      $cou0003[[1]]$inputs
+      [1] "dfPD"
+      
+      $cou0003[[1]]$output
+      [1] "dfPD"
+      
+      $cou0003[[1]]$params
+      $cou0003[[1]]$params$strDomain
+      [1] "dfPD"
+      
+      $cou0003[[1]]$params$strColParam
+      [1] "strImportantCol"
+      
+      $cou0003[[1]]$params$strValParam
+      [1] "strNotImportantVal"
+      
+      
+      
+      $cou0003[[2]]
+      $cou0003[[2]]$name
+      [1] "PD_Map_Raw"
+      
+      $cou0003[[2]]$inputs
+      [1] "dfPD"   "dfSUBJ"
+      
+      $cou0003[[2]]$output
+      [1] "dfInput"
+      
+      
+      $cou0003[[3]]
+      $cou0003[[3]]$name
+      [1] "PD_Assess"
+      
+      $cou0003[[3]]$inputs
+      [1] "dfInput"
+      
+      $cou0003[[3]]$output
+      [1] "lResults"
+      
+      $cou0003[[3]]$params
+      $cou0003[[3]]$params$strGroup
+      [1] "Country"
+      
+      $cou0003[[3]]$params$vThreshold
+      NULL
+      
+      $cou0003[[3]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $cou0004
+      $cou0004[[1]]
+      $cou0004[[1]]$name
+      [1] "FilterDomain"
+      
+      $cou0004[[1]]$inputs
+      [1] "dfPD"
+      
+      $cou0004[[1]]$output
+      [1] "dfPD"
+      
+      $cou0004[[1]]$params
+      $cou0004[[1]]$params$strDomain
+      [1] "dfPD"
+      
+      $cou0004[[1]]$params$strColParam
+      [1] "strImportantCol"
+      
+      $cou0004[[1]]$params$strValParam
+      [1] "strImportantVal"
+      
+      
+      
+      $cou0004[[2]]
+      $cou0004[[2]]$name
+      [1] "PD_Map_Raw"
+      
+      $cou0004[[2]]$inputs
+      [1] "dfSUBJ" "dfPD"  
+      
+      $cou0004[[2]]$output
+      [1] "dfInput"
+      
+      
+      $cou0004[[3]]
+      $cou0004[[3]]$name
+      [1] "PD_Assess"
+      
+      $cou0004[[3]]$inputs
+      [1] "dfInput"
+      
+      $cou0004[[3]]$output
+      [1] "lResults"
+      
+      $cou0004[[3]]$params
+      $cou0004[[3]]$params$strGroup
+      [1] "Country"
+      
+      $cou0004[[3]]$params$vThreshold
+      NULL
+      
+      $cou0004[[3]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $cou0005
+      $cou0005[[1]]
+      $cou0005[[1]]$name
+      [1] "FilterDomain"
+      
+      $cou0005[[1]]$inputs
+      [1] "dfLB"
+      
+      $cou0005[[1]]$output
+      [1] "dfLB"
+      
+      $cou0005[[1]]$params
+      $cou0005[[1]]$params$strDomain
+      [1] "dfLB"
+      
+      $cou0005[[1]]$params$strColParam
+      [1] "strTreatmentEmergentCol"
+      
+      $cou0005[[1]]$params$strValParam
+      [1] "strTreatmentEmergentVal"
+      
+      
+      
+      $cou0005[[2]]
+      $cou0005[[2]]$name
+      [1] "FilterDomain"
+      
+      $cou0005[[2]]$inputs
+      [1] "dfLB"
+      
+      $cou0005[[2]]$output
+      [1] "dfLB"
+      
+      $cou0005[[2]]$params
+      $cou0005[[2]]$params$strDomain
+      [1] "dfLB"
+      
+      $cou0005[[2]]$params$strColParam
+      [1] "strGradeCol"
+      
+      $cou0005[[2]]$params$strValParam
+      [1] "strGradeHighVal"
+      
+      
+      
+      $cou0005[[3]]
+      $cou0005[[3]]$name
+      [1] "LB_Map_Raw"
+      
+      $cou0005[[3]]$inputs
+      [1] "dfSUBJ" "dfLB"  
+      
+      $cou0005[[3]]$output
+      [1] "dfInput"
+      
+      
+      $cou0005[[4]]
+      $cou0005[[4]]$name
+      [1] "LB_Assess"
+      
+      $cou0005[[4]]$inputs
+      [1] "dfInput"
+      
+      $cou0005[[4]]$output
+      [1] "lResults"
+      
+      $cou0005[[4]]$params
+      $cou0005[[4]]$params$strGroup
+      [1] "Country"
+      
+      $cou0005[[4]]$params$vThreshold
+      NULL
+      
+      $cou0005[[4]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $cou0006
+      $cou0006[[1]]
+      $cou0006[[1]]$name
+      [1] "Disp_Map_Raw"
+      
+      $cou0006[[1]]$inputs
+      [1] "dfSUBJ"     "dfSTUDCOMP"
+      
+      $cou0006[[1]]$output
+      [1] "dfInput"
+      
+      $cou0006[[1]]$params
+      $cou0006[[1]]$params$strContext
+      [1] "Study"
+      
+      
+      
+      $cou0006[[2]]
+      $cou0006[[2]]$name
+      [1] "Disp_Assess"
+      
+      $cou0006[[2]]$inputs
+      [1] "dfInput"
+      
+      $cou0006[[2]]$output
+      [1] "lResults"
+      
+      $cou0006[[2]]$params
+      $cou0006[[2]]$params$strGroup
+      [1] "Country"
+      
+      $cou0006[[2]]$params$vThreshold
+      NULL
+      
+      $cou0006[[2]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $cou0007
+      $cou0007[[1]]
+      $cou0007[[1]]$name
+      [1] "FilterDomain"
+      
+      $cou0007[[1]]$inputs
+      [1] "dfSDRGCOMP"
+      
+      $cou0007[[1]]$output
+      [1] "dfSDRGCOMP"
+      
+      $cou0007[[1]]$params
+      $cou0007[[1]]$params$strDomain
+      [1] "dfSDRGCOMP"
+      
+      $cou0007[[1]]$params$strColParam
+      [1] "strTreatmentPhaseCol"
+      
+      $cou0007[[1]]$params$strValParam
+      [1] "strTreatmentPhaseVal"
+      
+      
+      
+      $cou0007[[2]]
+      $cou0007[[2]]$name
+      [1] "Disp_Map_Raw"
+      
+      $cou0007[[2]]$inputs
+      [1] "dfSUBJ"     "dfSDRGCOMP"
+      
+      $cou0007[[2]]$output
+      [1] "dfInput"
+      
+      $cou0007[[2]]$params
+      $cou0007[[2]]$params$strContext
+      [1] "Treatment"
+      
+      
+      
+      $cou0007[[3]]
+      $cou0007[[3]]$name
+      [1] "Disp_Assess"
+      
+      $cou0007[[3]]$inputs
+      [1] "dfInput"
+      
+      $cou0007[[3]]$output
+      [1] "lResults"
+      
+      $cou0007[[3]]$params
+      $cou0007[[3]]$params$strGroup
+      [1] "Country"
+      
+      $cou0007[[3]]$params$vThreshold
+      NULL
+      
+      $cou0007[[3]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
       $kri0001
       $kri0001[[1]]
       $kri0001[[1]]$name
@@ -463,109 +931,6 @@
       
       $kri0007[[3]]$params$strMethod
       [1] "NormalApprox"
-      
-      
-      
-      
-      $qtl0003
-      $qtl0003[[1]]
-      $qtl0003[[1]]$name
-      [1] "FilterDomain"
-      
-      $qtl0003[[1]]$inputs
-      [1] "dfPD"
-      
-      $qtl0003[[1]]$output
-      [1] "dfPD"
-      
-      $qtl0003[[1]]$params
-      $qtl0003[[1]]$params$strDomain
-      [1] "dfPD"
-      
-      $qtl0003[[1]]$params$strColParam
-      [1] "strImportantCol"
-      
-      $qtl0003[[1]]$params$strValParam
-      [1] "strNotImportantVal"
-      
-      
-      
-      $qtl0003[[2]]
-      $qtl0003[[2]]$name
-      [1] "PD_Map_Raw"
-      
-      $qtl0003[[2]]$inputs
-      [1] "dfPD"   "dfSUBJ"
-      
-      $qtl0003[[2]]$output
-      [1] "dfInput"
-      
-      
-      $qtl0003[[3]]
-      $qtl0003[[3]]$name
-      [1] "PD_Assess"
-      
-      $qtl0003[[3]]$inputs
-      [1] "dfInput"
-      
-      $qtl0003[[3]]$output
-      [1] "lResults"
-      
-      $qtl0003[[3]]$params
-      $qtl0003[[3]]$params$strGroup
-      [1] "Study"
-      
-      $qtl0003[[3]]$params$vThreshold
-      NULL
-      
-      $qtl0003[[3]]$params$strMethod
-      [1] "qtl"
-      
-      $qtl0003[[3]]$params$nConfLevel
-      [1] 0.95
-      
-      
-      
-      
-      $qtl0007
-      $qtl0007[[1]]
-      $qtl0007[[1]]$name
-      [1] "Disp_Map_Raw"
-      
-      $qtl0007[[1]]$inputs
-      [1] "dfSUBJ"     "dfSTUDCOMP"
-      
-      $qtl0007[[1]]$output
-      [1] "dfInput"
-      
-      $qtl0007[[1]]$params
-      $qtl0007[[1]]$params$strContext
-      [1] "Study"
-      
-      
-      
-      $qtl0007[[2]]
-      $qtl0007[[2]]$name
-      [1] "Disp_Assess"
-      
-      $qtl0007[[2]]$inputs
-      [1] "dfInput"
-      
-      $qtl0007[[2]]$output
-      [1] "lResults"
-      
-      $qtl0007[[2]]$params
-      $qtl0007[[2]]$params$strGroup
-      [1] "Study"
-      
-      $qtl0007[[2]]$params$vThreshold
-      NULL
-      
-      $qtl0007[[2]]$params$strMethod
-      [1] "qtl"
-      
-      $qtl0007[[2]]$params$nConfLevel
-      [1] 0.95
       
       
       
