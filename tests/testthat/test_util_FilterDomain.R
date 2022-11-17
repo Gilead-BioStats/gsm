@@ -46,7 +46,7 @@ test_that("filter to 0 rows throws a warning", {
     0
   )
 
-  expect_message(FilterDomain(dfAE,
+  expect_snapshot(FilterDomain(dfAE,
     lMapping = lMapping,
     strDomain = "dfAE",
     strColParam = "strTreatmentEmergentCol",

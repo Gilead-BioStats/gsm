@@ -205,22 +205,25 @@ bQuiet = TRUE
 
   hasQTL <- grep("qtl", names(lResults))
 
+  results_analysis <- NULL
   if (length(hasQTL) > 0) {
-
     results_analysis <-
       purrr::imap_dfr(lResults[hasQTL], function(qtl, qtl_name) {
         if (qtl$bStatus) {
           qtl$lResults$lData$dfAnalyzed %>%
-            select("GroupID",
-                   "LowCI",
-                   "UpCI",
-                   "Score") %>%
+            select(
+              "GroupID",
+              "LowCI",
+              "UpCI",
+              "Score"
+            ) %>%
             mutate(workflowid = qtl_name) %>%
             pivot_longer(-c("GroupID", "workflowid")) %>%
-            rename(param = "name",
-                   studyid = "GroupID")
+            rename(
+              param = "name",
+              studyid = "GroupID"
+            )
         }
-
       })
   }
 
@@ -265,10 +268,11 @@ bQuiet = TRUE
     meta_workflow = meta_workflow,
     meta_param = meta_param
   ) %>%
+  keep(~!is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
 
-# save lSnapshot ----------------------------------------------------------
+  # save lSnapshot ----------------------------------------------------------
 
   if (!is.null(cPath)) {
     # write each snapshot item to location

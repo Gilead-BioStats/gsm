@@ -1,6 +1,6 @@
 dfAnalyzed <- tibble::tribble(
-  ~GroupID,         ~Numerator, ~Denominator,  ~Metric, ~Method,                ~ConfLevel, ~Estimate, ~LowCI, ~UpCI,  ~Score,
-  "AA-AA-000-0000",  122,         1301,        0.0937,  "Exact binomial test",  0.95,       0.0937,    0.0784, 0.1109, 0.0784
+  ~GroupID, ~Numerator, ~Denominator, ~Metric, ~Method, ~ConfLevel, ~Estimate, ~LowCI, ~UpCI, ~Score,
+  "AA-AA-000-0000", 122, 1301, 0.0937, "Exact binomial test", 0.95, 0.0937, 0.0784, 0.1109, 0.0784
 )
 
 dfAnalyzed %>%
