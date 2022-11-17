@@ -6,13 +6,14 @@
 #' @details
 #' `QueryRate_Map_Raw` combines query data with data points data and subject-level data to create
 #' formatted input data to [gsm::QueryRate_Assess()]. This function creates an input dataset for the AE Assessment
-#' ([gsm::AE_Assess()]) by binding subject-level query counts (derived from `dfQuery`) to subject-level
-#' data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
+#' ([gsm::QueryRate_Assess()]) by binding subject-level query counts (derived from `dfQuery`) and data point counts
+#' (derived from `dfDataChg`) to subject-level data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
 #' queries by passing filtered query data to `dfQuery`.
 #'
 #' @param dfs `list` Input data frames:
-#'   - `dfQuery`: `data.frame` Query-level data with one record per query.
 #'   - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
+#'   - `dfQuery`: `data.frame` Query-level data with one record per query.
+#'   - `dfDataChg`: `data.frame` Data-Point-level data with one record per data entry.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
@@ -23,7 +24,7 @@
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
 #'
-#' @includeRmd ./man/md/AE_Map_Raw.md
+#' @includeRmd ./man/md/DataChg_Map_Raw.md
 #'
 #' @examples
 #' # Run with defaults.
@@ -61,11 +62,11 @@ QueryRate_Map_Raw <- function(
 
   # Run mapping if checks passed.
   if (checks$status) {
-    if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Map_Raw}")
+    if (!bQuiet) cli::cli_h2("Initializing {.fn QueryRate_Map_Raw}")
 
     # Standarize Column Names
-    dfAE_mapped <- dfs$dfAE %>%
-      select(SubjectID = lMapping[["dfAE"]][["strIDCol"]])
+    dfQuery_mapped <- dfs$dfQuery %>%
+      select(SubjectID = lMapping[["dfQuery"]][["strIDCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -77,8 +78,7 @@ QueryRate_Map_Raw <- function(
             CountryID = lMapping[["dfSUBJ"]][["strCountryCol"]],
             CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
           )
-        ),
-        Exposure = lMapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
+        )
       )
 
     # Create Subject Level AE Counts and merge dfSUBJ
