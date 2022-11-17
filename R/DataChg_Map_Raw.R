@@ -62,14 +62,10 @@ DataChg_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn DataChg_Map_Raw}")
 
     # Standarize Column Names
-    dfDISP_mapped <- dfs$dfDISP %>%
-      select(
-        SubjectID = lMapping[[strDomain]][["strIDCol"]],
-        DCReason = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
-        Discontinuation = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagCol")]]
-      ) %>%
-      filter(.data$Discontinuation %in% lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagVal")]]) %>%
-      mutate(Count = 1)
+    dfDataChg_mapped <- dfs$dfDataChg %>%
+      select(SubjectID = lMapping[["dfDataChg"]][["strIDCol"]],
+             DataChg = lMapping[["dfDataChg"]][["strDataPointsChangeCol"]],
+             DataPoint = lMapping[["dfDataChg"]][["strDataPointsCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -84,16 +80,17 @@ DataChg_Map_Raw <- function(
         )
       )
 
-    dfInput <- gsm::MergeSubjects(
-      dfDomain = dfDISP_mapped,
-      dfSUBJ = dfSUBJ_mapped,
-      bQuiet = bQuiet
-    ) %>%
-      mutate(
-        Count = ifelse(is.na(.data$Count), 0, .data$Count),
-        Total = 1
+    # Create Subject Level data point with change counts and merge dfSUBJ
+    dfInput <- dfDataChg_mapped %>%
+      left_join(
+        dfSUBJ_mapped,
+        "SubjectID"
       ) %>%
-      select(any_of(names(dfSUBJ_mapped)), "Count", "Total") %>%
+      mutate(
+        Count = as.numeric(.data$DataChg, na.rm = TRUE),
+        Total = as.numeric(.data$DataPoint, na.rm = TRUE)
+      ) %>%
+      select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
       arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Disp_Map_Raw} returned output with {nrow(dfInput)} rows.")

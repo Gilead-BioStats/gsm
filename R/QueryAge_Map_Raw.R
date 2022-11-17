@@ -63,8 +63,9 @@ QueryAge_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn QueryAge_Map_Raw}")
 
     # Standarize Column Names
-    dfAE_mapped <- dfs$dfAE %>%
-      select(SubjectID = lMapping[["dfAE"]][["strIDCol"]])
+    dfQuery_mapped <- dfs$dfQuery %>%
+      select(SubjectID = lMapping[["dfQuery"]][["strIDCol"]],
+             QueryAge = lMapping[["dfQuery"]][["strQueryAgeCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -79,14 +80,21 @@ QueryAge_Map_Raw <- function(
         )
       )
 
-    # Create Subject Level AE Counts and merge dfSUBJ
-    dfInput <- dfAE_mapped %>%
-      group_by(.data$SubjectID) %>%
-      summarize(Count = n()) %>%
-      ungroup() %>%
-      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      mutate(Rate = .data$Count / .data$Exposure) %>%
-      select(any_of(c(names(dfSUBJ_mapped))), "Count", "Rate") %>%
+    # Create Subject Level query Counts and merge dfSUBJ
+    dfInput <- dfQuery_mapped %>%
+      left_join(
+        dfSUBJ_mapped,
+        "SubjectID"
+      ) %>%
+      mutate(
+        Count = if_else(
+          .data$QueryAge %in% lMapping[["dfQuery"]][["strQueryAgeVal"]],
+          1,
+          0
+        ),
+        Total = 1
+      ) %>%
+      select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
       arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")

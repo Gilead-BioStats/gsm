@@ -62,14 +62,9 @@ DataEntry_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn DataEntry_Map_Raw}")
 
     # Standarize Column Names
-    dfDISP_mapped <- dfs$dfDISP %>%
-      select(
-        SubjectID = lMapping[[strDomain]][["strIDCol"]],
-        DCReason = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
-        Discontinuation = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagCol")]]
-      ) %>%
-      filter(.data$Discontinuation %in% lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagVal")]]) %>%
-      mutate(Count = 1)
+    dfDataEntry_mapped <- dfs$dfDataEntry %>%
+      select(SubjectID = lMapping[["dfDataEntry"]][["strIDCol"]],
+             DataEntryLag = lMapping[["dfDataEntry"]][["strDataEntryLagCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -84,16 +79,21 @@ DataEntry_Map_Raw <- function(
         )
       )
 
-    dfInput <- gsm::MergeSubjects(
-      dfDomain = dfDISP_mapped,
-      dfSUBJ = dfSUBJ_mapped,
-      bQuiet = bQuiet
-    ) %>%
+    # Create Subject Level query Counts and merge dfSUBJ
+    dfInput <- dfDataEntry_mapped %>%
+      left_join(
+        dfSUBJ_mapped,
+        "SubjectID"
+      ) %>%
       mutate(
-        Count = ifelse(is.na(.data$Count), 0, .data$Count),
+        Count = if_else(
+          .data$DataEntryLag %in% lMapping[["dfDataEntry"]][["strDataEntryLagVal"]],
+          1,
+          0
+        ),
         Total = 1
       ) %>%
-      select(any_of(names(dfSUBJ_mapped)), "Count", "Total") %>%
+      select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
       arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Disp_Map_Raw} returned output with {nrow(dfInput)} rows.")
