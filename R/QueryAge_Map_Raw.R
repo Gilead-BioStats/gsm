@@ -6,13 +6,13 @@
 #' @details
 #' `QueryAge_Map_Raw` combines query data with data points data and subject-level data to create
 #' formatted input data to [gsm::QueryAge_Assess()]. This function creates an input dataset for the AE Assessment
-#' ([gsm::AE_Assess()]) by binding subject-level query counts (derived from `dfQuery`) to subject-level
+#' ([gsm::QueryAge_Assess()]) by binding subject-level query counts (derived from `dfQuery`) to subject-level
 #' data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
 #' queries by passing filtered query data to `dfQuery`.
 #'
 #' @param dfs `list` Input data frames:
-#'   - `dfQuery`: `data.frame` Query-level data with one record per query.
 #'   - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
+#'   - `dfQuery`: `data.frame` Query-level data with one record per query.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
@@ -23,26 +23,26 @@
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
 #'
-#' @includeRmd ./man/md/AE_Map_Raw.md
+#' @includeRmd ./man/md/DataChg_Map_Raw.md
 #'
 #' @examples
 #' # Run with defaults.
-#' dfInput <- QueryRate_Map_Raw()
+#' dfInput <- QueryAge_Map_Raw()
 #'
 #' # Run with error checking and message log.
-#' dfInput <- QueryRate_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
+#' dfInput <- QueryAge_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
 #' @import dplyr
 #'
 #' @export
 
-QueryRate_Map_Raw <- function(
+QueryAge_Map_Raw <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
     dfQuery = clindata::edc_queries
   ),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
@@ -52,7 +52,7 @@ QueryRate_Map_Raw <- function(
   )
 
   checks <- CheckInputs(
-    context = "QueryRate_Map_Raw",
+    context = "QueryAge_Map_Raw",
     dfs = dfs,
     bQuiet = bQuiet,
     mapping = lMapping
@@ -60,7 +60,7 @@ QueryRate_Map_Raw <- function(
 
   # Run mapping if checks passed.
   if (checks$status) {
-    if (!bQuiet) cli::cli_h2("Initializing {.fn AE_Map_Raw}")
+    if (!bQuiet) cli::cli_h2("Initializing {.fn QueryAge_Map_Raw}")
 
     # Standarize Column Names
     dfAE_mapped <- dfs$dfAE %>%
@@ -76,8 +76,7 @@ QueryRate_Map_Raw <- function(
             CountryID = lMapping[["dfSUBJ"]][["strCountryCol"]],
             CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
           )
-        ),
-        Exposure = lMapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
+        )
       )
 
     # Create Subject Level AE Counts and merge dfSUBJ

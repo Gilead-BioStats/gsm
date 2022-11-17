@@ -8,8 +8,8 @@
 #' Data Entry Lag Counts (derived from `dfDISP`) to basic subject-level data (from `dfSUBJ`).
 #'
 #' @param dfs `list` Input data frame:
-#'   - `dfDataChg`: `data.frame` Data-Point-level data with one record per data entry.
 #'   - `dfSUBJ`: `data.frame` Subject-level data with one record per participant.
+#'   - `dfDataChg`: `data.frame` Data-Point-level data with one record per data entry.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
@@ -20,7 +20,7 @@
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
 #'
-#' @includeRmd ./man/md/Disp_Map_Raw.md
+#' @includeRmd ./man/md/DataChg_Map_Raw.md
 #'
 #' @examples
 #' # Run with defaults.
@@ -59,12 +59,10 @@ DataChg_Map_Raw <- function(
 
   # Run mapping if checks passed.
   if (checks$status) {
-    if (!bQuiet) cli::cli_h2("Initializing {.fn Disp_Map_Raw}")
+    if (!bQuiet) cli::cli_h2("Initializing {.fn DataChg_Map_Raw}")
 
     # Standarize Column Names
-    dfDISP <- dfs$dfDISP
-
-    dfDISP_mapped <- dfDISP %>%
+    dfDISP_mapped <- dfs$dfDISP %>%
       select(
         SubjectID = lMapping[[strDomain]][["strIDCol"]],
         DCReason = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
