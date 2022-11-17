@@ -1,15 +1,15 @@
-#' Lab Abnormality Assessment
+#' Data Entry Lag Assessment
 #'
 #' @description
-#' Evaluates rate of reported Lab Abnormalities (LB).
+#' Evaluates rate of reported Data Entry Lag >10 days.
 #'
 #' @details
-#' The Lab Abnormality Assessment uses the standard [GSM data pipeline](
+#' The Data Entry Lag Assessment uses the standard [GSM data pipeline](
 #'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
 #'
-#' @param dfInput `data.frame` Input data, a data frame with one record per lab record.
+#' @param dfInput `data.frame` Input data, a data frame with one record per data pages.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 or 4 that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation (`strMethod = "NormalApprox"`),
 #' `c(.01, .05)` for Fisher's exact test (`strMethod = "fisher"`), and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
@@ -38,17 +38,17 @@
 #' - `list` `lChecks`, a named list with:
 #'   - `dfInput`, a named list returned by [gsm::is_mapping_valid()]
 #'   - `status`, a boolean returned by [gsm::is_mapping_valid()]
-#'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::LB_Assess()]
+#'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::DataEntry_Assess()]
 #'   - `spec`, a named list used to define variable specifications
 #'
-#' @includeRmd ./man/md/LB_Assess.md
+#' @includeRmd ./man/md/QueryAge_Assess.md
 #' @includeRmd ./man/md/analyze_percent.md
 #'
 #' @examples
-#' dfInput <- LB_Map_Raw()
-#' lb_assessment_NormalApprox <- LB_Assess(dfInput, strMethod = "NormalApprox")
-#' lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
-#' lb_assessment_identity <- LB_Assess(dfInput, strMethod = "identity")
+#' dfInput <- DataEntry_Map_Raw()
+#' DataEntry_assessment_NormalApprox <- DataEntry_Assess(dfInput, strMethod = "NormalApprox")
+#' DataEntry_assessment_fisher <- DataEntry_Assess(dfInput, strMethod = "fisher")
+#' DataEntry_assessment_identity <- DataEntry_Assess(dfInput, strMethod = "identity")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
@@ -57,12 +57,12 @@
 #'
 #' @export
 
-LB_Assess <- function(
+DataEntry_Assess <- function(
   dfInput,
   vThreshold = NULL,
   strMethod = "NormalApprox",
   strType = "binary",
-  lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
+  lMapping = yaml::read_yaml(system.file("mappings", "DataEntry_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE
 ) {
@@ -78,7 +78,7 @@ LB_Assess <- function(
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
   lChecks <- gsm::CheckInputs(
-    context = "LB_Assess",
+    context = "DataEntry_Assess",
     dfs = list(dfInput = dfInput),
     mapping = lMapping,
     bQuiet = bQuiet

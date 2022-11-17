@@ -1,54 +1,63 @@
-#' Lab Abnormality Assessment
+#' Query Rate Assessment
 #'
 #' @description
-#' Evaluates rate of reported Lab Abnormalities (LB).
+#' Evaluates query rates to identify sites that may be over- or under-reporting queries.
 #'
 #' @details
-#' The Lab Abnormality Assessment uses the standard [GSM data pipeline](
+#' The Query Rate Assessment uses the standard [GSM data pipeline](
 #'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
 #'
-#' @param dfInput `data.frame` Input data, a data frame with one record per lab record.
-#' @param vThreshold `numeric` Threshold specification, a vector of length 2 or 4 that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation (`strMethod = "NormalApprox"`),
-#' `c(.01, .05)` for Fisher's exact test (`strMethod = "fisher"`), and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "identity"`).
+#' @param dfInput `data.frame` Input data, a data frame with one record per data point.
+#' @param vThreshold `numeric` Threshold specification, a vector of length 4 that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation,
+#'   `c(-7, -5, 5, 7)` for a Poisson model (`strMethod = "poisson"`) and a vector of length 2 that defaults to `c(0.00006, 0.01)`
+#'   for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"NormalApprox"` (default)
-#'   - `"fisher"`
+#'   - `"poisson"`
 #'   - `"identity"`
 #' @param strType `character` Statistical outcome type. Valid values:
-#'   - `"binary"` (default)
-#'   - `"rate"`
-#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
-#'   of the column. Default: package-defined Labs Assessment mapping.
-#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#'   - `"binary"`
+#'   - `"rate"` (default)
+#' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
+#'   of the column. Default: package-defined Adverse Event Assessment mapping.
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`.
+#' Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
 #' - each data frame in the data pipeline
 #'   - `dfTransformed`, returned by [gsm::Transform_Rate()]
-#'   - `dfAnalyzed`, returned by [gsm::Analyze_NormalApprox()], [gsm::Analyze_Fisher()], or [gsm::Analyze_Identity()]
-#'   - `dfFlagged`, returned by [gsm::Flag_NormalApprox()], [gsm::Flag_Fisher()], or [gsm::Flag()]
+#'   - `dfAnalyzed`, returned by [gsm::Analyze_NormalApprox()], [gsm::Analyze_Poisson()], or [gsm::Analyze_Identity()]
+#'   - `dfFlagged`, returned by [gsm::Flag_NormalApprox()], [gsm::Flag_Poisson()], or [gsm::Flag()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
-#'   - `dfBounds`, returned by [gsm::Analyze_NormalApprox_PredictBounds()] when `strMethod == "NormalApprox"`
+#'   - `dfBounds`, returned by [gsm::Analyze_NormalApprox_PredictBounds()] or [gsm::Analyze_Poisson_PredictBounds()]
+#'   when `strMethod == "NormalApprox"` or `strMethod == "poisson"`. `dfBounds` is not returned when using `strMethod == "identity"`.
 #' - `list` `lCharts`, a named list with:
-#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when strMethod != "identity"
+#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when `strMethod != "identity"`
 #'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()]
 #'   - `barScore`, a ggplot2 object returned by [gsm::Visualize_Score()]
 #' - `list` `lChecks`, a named list with:
 #'   - `dfInput`, a named list returned by [gsm::is_mapping_valid()]
 #'   - `status`, a boolean returned by [gsm::is_mapping_valid()]
-#'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::LB_Assess()]
+#'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::QueryRate_Assess()]
 #'   - `spec`, a named list used to define variable specifications
 #'
-#' @includeRmd ./man/md/LB_Assess.md
-#' @includeRmd ./man/md/analyze_percent.md
+#' @includeRmd ./man/md/QueryAge_Assess.md
+#' @includeRmd ./man/md/analyze_rate.md
 #'
 #' @examples
-#' dfInput <- LB_Map_Raw()
-#' lb_assessment_NormalApprox <- LB_Assess(dfInput, strMethod = "NormalApprox")
-#' lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
-#' lb_assessment_identity <- LB_Assess(dfInput, strMethod = "identity")
+#' dfInput <- QueryRate_Map_Raw()
+#'
+#' # Run using normal approximation method (default)
+#' QueryRate_assessment_NormalApprox <- QueryRate_Assess(dfInput)
+#'
+#' # Run using poisson method
+#' QueryRate_assessment_poisson <- QueryRate_Assess(dfInput, strMethod = "poisson")
+#'
+#' # Run using identity method
+#' QueryRate_assessment_identity <- QueryRate_Assess(dfInput, strMethod = "identity")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
@@ -57,19 +66,19 @@
 #'
 #' @export
 
-LB_Assess <- function(
+QueryRate_Assess <- function(
   dfInput,
   vThreshold = NULL,
   strMethod = "NormalApprox",
-  strType = "binary",
-  lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
+  strType = "rate",
+  lMapping = yaml::read_yaml(system.file("mappings", "QueryRate_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE
 ) {
 
   # data checking -----------------------------------------------------------
   stopifnot(
-    "strMethod is not 'NormalApprox', 'fisher' or 'identity'" = strMethod %in% c("NormalApprox", "fisher", "identity"),
+    "strMethod is not 'NormalApprox', 'poisson' or 'identity'" = strMethod %in% c("NormalApprox", "poisson", "identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -78,7 +87,7 @@ LB_Assess <- function(
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
   lChecks <- gsm::CheckInputs(
-    context = "LB_Assess",
+    context = "QueryRate_Assess",
     dfs = list(dfInput = dfInput),
     mapping = lMapping,
     bQuiet = bQuiet
@@ -88,27 +97,27 @@ LB_Assess <- function(
   if (is.null(vThreshold)) {
     vThreshold <- switch(strMethod,
       NormalApprox = c(-3, -2, 2, 3),
-      fisher = c(0.01, 0.05),
-      identity = c(3.491, 5.172)
+      poisson = c(-7, -5, 5, 7),
+      identity = c(0.00006, 0.01)
     )
   }
 
   strValueColumnVal <- switch(strMethod,
     NormalApprox = NULL,
-    fisher = "Score",
+    poisson = NULL,
     identity = "Score"
   )
 
   # begin running assessment ------------------------------------------------
   if (!lChecks$status) {
-    if (!bQuiet) cli::cli_alert_warning("{.fn LB_Assess} did not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn QueryRate_Assess} did not run because of failed check.")
     return(list(
       lData = NULL,
       lCharts = NULL,
       lChecks = lChecks
     ))
   } else {
-    if (!bQuiet) cli::cli_h2("Initializing {.fn LB_Assess}")
+    if (!bQuiet) cli::cli_h2("Initializing {.fn QueryRate_Assess}")
 
     # dfTransformed -----------------------------------------------------------
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
@@ -117,13 +126,12 @@ LB_Assess <- function(
       dfInput = dfInput,
       strGroupCol = lMapping$dfInput$strGroupCol,
       strNumeratorCol = "Count",
-      strDenominatorCol = "Total",
+      strDenominatorCol = "DataPoint",
       bQuiet = bQuiet
     )
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
     # dfAnalyzed --------------------------------------------------------------
-
     if (strMethod == "NormalApprox") {
       lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
         dfTransformed = lData$dfTransformed,
@@ -134,13 +142,25 @@ LB_Assess <- function(
       lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
+        nStep = 1,
         strType = strType,
         bQuiet = bQuiet
       )
-    } else if (strMethod == "fisher") {
-      lData$dfAnalyzed <- gsm::Analyze_Fisher(lData$dfTransformed, bQuiet = bQuiet)
+    } else if (strMethod == "poisson") {
+      lData$dfAnalyzed <- gsm::Analyze_Poisson(
+        dfTransformed = lData$dfTransformed,
+        bQuiet = bQuiet
+      )
+
+      lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(
+        dfTransformed = lData$dfTransformed,
+        vThreshold = vThreshold,
+        bQuiet = bQuiet
+      )
     } else if (strMethod == "identity") {
-      lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
+      lData$dfAnalyzed <- gsm::Analyze_Identity(
+        dfTransformed = lData$dfTransformed
+      )
     }
 
     strAnalyzeFunction <- paste0("Analyze_", tools::toTitleCase(strMethod))
@@ -149,8 +169,8 @@ LB_Assess <- function(
     # dfFlagged ---------------------------------------------------------------
     if (strMethod == "NormalApprox") {
       lData$dfFlagged <- gsm::Flag_NormalApprox(lData$dfAnalyzed, vThreshold = vThreshold)
-    } else if (strMethod == "fisher") {
-      lData$dfFlagged <- gsm::Flag_Fisher(lData$dfAnalyzed, vThreshold = vThreshold)
+    } else if (strMethod == "poisson") {
+      lData$dfFlagged <- gsm::Flag_Poisson(lData$dfAnalyzed, vThreshold = vThreshold)
     } else if (strMethod == "identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     }
@@ -158,14 +178,16 @@ LB_Assess <- function(
     flag_function_name <- switch(strMethod,
       NormalApprox = "Flag_NormalApprox",
       identity = "Flag",
-      fisher = "Flag_Fisher"
+      poisson = "Flag_Poisson"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
 
+
     # dfSummary ---------------------------------------------------------------
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
+
 
     # visualizations ----------------------------------------------------------
     lCharts <- list()
