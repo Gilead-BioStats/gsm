@@ -84,6 +84,7 @@ test_that("rows with a denominator of 0 are removed", {
     ) %>%
     ungroup()
 
+  # TODO: use expect_snapshot here?
   expect_message(
     Transform_Rate(
       dfInput = testInput,

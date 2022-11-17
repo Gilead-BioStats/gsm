@@ -16,9 +16,6 @@
 #'   - `"NormalApprox"` (default)
 #'   - `"fisher"`
 #'   - `"identity"`
-#' @param strType `character` Statistical outcome type. Valid values:
-#'   - `"binary"` (default)
-#'   - `"rate"`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Disposition Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
@@ -62,7 +59,6 @@ Disp_Assess <- function(
   dfInput,
   vThreshold = NULL,
   strMethod = "NormalApprox",
-  strType = "binary",
   lMapping = yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   nConfLevel = NULL,
@@ -94,7 +90,7 @@ Disp_Assess <- function(
       NormalApprox = c(-3, -2, 2, 3),
       fisher = c(0.01, 0.05),
       identity = c(3.491, 5.172),
-      qtl = c(0, 0.2)
+      qtl = c(0.2)
     )
   }
 
@@ -131,14 +127,14 @@ Disp_Assess <- function(
     if (strMethod == "NormalApprox") {
       lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
         dfTransformed = lData$dfTransformed,
-        strType = strType,
+        strType = "binary",
         bQuiet = bQuiet
       )
 
       lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
-        strType = strType,
+        strType = "binary",
         bQuiet = bQuiet
       )
     } else if (strMethod == "fisher") {
@@ -160,14 +156,14 @@ Disp_Assess <- function(
     } else if (strMethod == "identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     } else if (strMethod == "qtl") {
-      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold)
+      lData$dfFlagged <- gsm::Flag_QTL(lData$dfAnalyzed, vThreshold = vThreshold)
     }
 
     flag_function_name <- switch(strMethod,
       NormalApprox = "Flag_NormalApprox",
       identity = "Flag",
       fisher = "Flag_Fisher",
-      qtl = "Flag"
+      qtl = "Flag_QTL"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")

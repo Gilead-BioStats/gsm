@@ -181,6 +181,7 @@ bQuiet = TRUE
   # meta_param --------------------------------------------------------------
   meta_param <- gsm::meta_param
 
+
   # results_summary ---------------------------------------------------------
   results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%
     purrr::discard(is.null) %>%
@@ -200,24 +201,56 @@ bQuiet = TRUE
       flag = "Flag"
     )
 
+  # results_analysis ---------------------------------------------------------
 
-  # lSnapshot$results_summary$StudyID <- meta$status_study[1,'StudyID']
-  # Also need to make sure we're capturing WorkflowID here ...
+  hasQTL <- grep("qtl", names(lResults))
+
+  results_analysis <- NULL
+  if (length(hasQTL) > 0) {
+    results_analysis <-
+      purrr::imap_dfr(lResults[hasQTL], function(qtl, qtl_name) {
+        if (qtl$bStatus) {
+          qtl$lResults$lData$dfAnalyzed %>%
+            select(
+              "GroupID",
+              "LowCI",
+              "UpCI",
+              "Score"
+            ) %>%
+            mutate(workflowid = qtl_name) %>%
+            pivot_longer(-c("GroupID", "workflowid")) %>%
+            rename(
+              param = "name",
+              studyid = "GroupID"
+            )
+        }
+      })
+  }
+
 
   # results_bounds ----------------------------------------------------------
   results_bounds <- lResults %>%
     purrr::map(~ .x$lResults$lData$dfBounds) %>%
-    purrr::discard(is.null) %>%
-    purrr::imap_dfr(~ .x %>% mutate(workflowid = .y)) %>%
-    mutate(studyid = unique(lMeta$config_workflow$studyid)) %>% # not sure if this is a correct assumption
-    select(
-      "studyid",
-      "workflowid",
-      "threshold" = "Threshold",
-      "numerator" = "Numerator",
-      "denominator" = "Denominator",
-      "log_denominator" = "LogDenominator"
-    )
+    purrr::discard(is.null)
+
+  if (length(results_bounds) > 0) {
+    results_bounds <- results_bounds %>%
+      purrr::imap_dfr(~ .x %>% mutate(workflowid = .y)) %>%
+      mutate(studyid = unique(lMeta$config_workflow$studyid)) %>% # not sure if this is a correct assumption
+      select(
+        "studyid",
+        "workflowid",
+        "threshold" = "Threshold",
+        "numerator" = "Numerator",
+        "denominator" = "Denominator",
+        "log_denominator" = "LogDenominator"
+      )
+  } else {
+    results_bounds <- results_bounds %>%
+      as_tibble()
+  }
+
+
 
 
 
@@ -230,14 +263,16 @@ bQuiet = TRUE
     status_param = status_param,
     status_schedule = status_schedule,
     results_summary = results_summary,
+    results_analysis = results_analysis,
     results_bounds = results_bounds,
     meta_workflow = meta_workflow,
     meta_param = meta_param
   ) %>%
+  keep(~!is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
 
-# save lSnapshot ----------------------------------------------------------
+  # save lSnapshot ----------------------------------------------------------
 
   if (!is.null(cPath)) {
     # write each snapshot item to location

@@ -3,9 +3,9 @@
     Code
       names(snapshot)
     Output
-      [1] "status_study"    "status_site"     "status_workflow" "status_param"   
-      [5] "status_schedule" "results_summary" "results_bounds"  "meta_workflow"  
-      [9] "meta_param"     
+       [1] "status_study"     "status_site"      "status_workflow"  "status_param"    
+       [5] "status_schedule"  "results_summary"  "results_analysis" "results_bounds"  
+       [9] "meta_workflow"    "meta_param"      
 
 # input data is structured as expected
 
@@ -89,6 +89,7 @@
       v `Transform_Rate()` returned output with 40 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
+      > nStep was not provided. Setting default step to 5.648
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
@@ -160,6 +161,7 @@
       v `Transform_Rate()` returned output with 40 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
+      > nStep was not provided. Setting default step to 5.648
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
@@ -218,6 +220,7 @@
       v `Transform_Rate()` returned output with 40 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
+      > nStep was not provided. Setting default step to 5.46
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
@@ -276,6 +279,7 @@
       v `Transform_Rate()` returned output with 40 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
+      > nStep was not provided. Setting default step to 5.46
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
@@ -330,6 +334,7 @@
       v `Transform_Rate()` returned output with 40 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
+      > nStep was not provided. Setting default step to 3.212
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
@@ -375,6 +380,7 @@
       v `Transform_Rate()` returned output with 40 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
+      > nStep was not provided. Setting default step to 0.004
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
@@ -434,6 +440,7 @@
       v `Transform_Rate()` returned output with 40 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
+      > nStep was not provided. Setting default step to 0.004
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
@@ -491,7 +498,7 @@
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 1 rows.
       v `Analyze_Qtl()` returned output with 1 rows.
-      v `Flag()` returned output with 1 rows.
+      v `Flag_QTL()` returned output with 1 rows.
       v `Summarize()` returned output with 1 rows.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -532,7 +539,7 @@
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 1 rows.
       v `Analyze_Qtl()` returned output with 1 rows.
-      v `Flag()` returned output with 1 rows.
+      v `Flag_QTL()` returned output with 1 rows.
       v `Summarize()` returned output with 1 rows.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
