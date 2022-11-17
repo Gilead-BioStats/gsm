@@ -1,21 +1,24 @@
-#' Lab Abnormality Assessment
+#' Query Age Assessment
 #'
 #' @description
-#' Evaluates rate of reported Lab Abnormalities (LB).
+#' Evaluates rate of reported Query Age >30 days.
 #'
 #' @details
-#' The Lab Abnormality Assessment uses the standard [GSM data pipeline](
+#' The Query Age Assessment uses the standard [GSM data pipeline](
 #'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
 #'
-#' @param dfInput `data.frame` Input data, a data frame with one record per lab record.
+#' @param dfInput `data.frame` Input data, a data frame with one record per query.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 or 4 that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation (`strMethod = "NormalApprox"`),
 #' `c(.01, .05)` for Fisher's exact test (`strMethod = "fisher"`), and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"NormalApprox"` (default)
 #'   - `"fisher"`
 #'   - `"identity"`
+#' @param strType `character` Statistical outcome type. Valid values:
+#'   - `"binary"` (default)
+#'   - `"rate"`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Labs Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
@@ -35,17 +38,17 @@
 #' - `list` `lChecks`, a named list with:
 #'   - `dfInput`, a named list returned by [gsm::is_mapping_valid()]
 #'   - `status`, a boolean returned by [gsm::is_mapping_valid()]
-#'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::LB_Assess()]
+#'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::QueryAge_Assess()]
 #'   - `spec`, a named list used to define variable specifications
 #'
-#' @includeRmd ./man/md/LB_Assess.md
+#' @includeRmd ./man/md/QueryAge_Assess.md
 #' @includeRmd ./man/md/analyze_percent.md
 #'
 #' @examples
-#' dfInput <- LB_Map_Raw()
-#' lb_assessment_NormalApprox <- LB_Assess(dfInput, strMethod = "NormalApprox")
-#' lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
-#' lb_assessment_identity <- LB_Assess(dfInput, strMethod = "identity")
+#' dfInput <- QueryAge_Map_Raw()
+#' QueryAge_assessment_NormalApprox <- QueryAge_Assess(dfInput, strMethod = "NormalApprox")
+#' QueryAge_assessment_fisher <- QueryAge_Assess(dfInput, strMethod = "fisher")
+#' QueryAge_assessment_identity <- QueryAge_Assess(dfInput, strMethod = "identity")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
@@ -54,11 +57,12 @@
 #'
 #' @export
 
-LB_Assess <- function(
+QueryAge_Assess <- function(
   dfInput,
   vThreshold = NULL,
   strMethod = "NormalApprox",
-  lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
+  strType = "binary",
+  lMapping = yaml::read_yaml(system.file("mappings", "QueryAge_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE
 ) {
@@ -74,7 +78,7 @@ LB_Assess <- function(
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
   lChecks <- gsm::CheckInputs(
-    context = "LB_Assess",
+    context = "QueryAge_Assess",
     dfs = list(dfInput = dfInput),
     mapping = lMapping,
     bQuiet = bQuiet
@@ -123,14 +127,14 @@ LB_Assess <- function(
     if (strMethod == "NormalApprox") {
       lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
         dfTransformed = lData$dfTransformed,
-        strType = "binary",
+        strType = strType,
         bQuiet = bQuiet
       )
 
       lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
-        strType = "binary",
+        strType = strType,
         bQuiet = bQuiet
       )
     } else if (strMethod == "fisher") {
@@ -168,48 +172,14 @@ LB_Assess <- function(
 
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-    dfConfig <- MakeDfConfig(
-      strMethod = strMethod,
-      strGroup = strGroup,
-      strAbbreviation = "LB",
-      strMetric = "LB Abnormalities (Rate)",
-      strNumerator = "Abnormal Lab Samples",
-      strDenominator = "Total Lab Samples",
-      vThreshold = vThreshold
-    )
-
     if (strMethod != "identity") {
       lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-
-      # rbm-viz charts ----------------------------------------------------------
-      lCharts$scatterJS <- scatterPlot(
-        results = lData$dfFlagged,
-        workflow = dfConfig,
-        bounds = lData$dfBounds,
-        elementId = "lbAssessScatter"
-      )
-
-      if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
+      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
     }
 
     lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
     lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
-
-    lCharts$barMetricJS <- barChart(
-      results = lData$dfFlagged,
-      workflow = dfConfig,
-      yaxis = "metric",
-      elementId = "lbAssessMetric"
-    )
-
-    lCharts$barScoreJS <- barChart(
-      results = lData$dfFlagged,
-      workflow = dfConfig,
-      yaxis = "score",
-      elementId = "lbAssessScore"
-    )
-
-    if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
+    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
 
 
 

@@ -1,4 +1,4 @@
-#' Query Rate - Raw Mapping
+#' Query Age - Raw Mapping
 #'
 #' @description
 #' Convert raw query data to formatted input data to [gsm::QueryAge_Assess()].

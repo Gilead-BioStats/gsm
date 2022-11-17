@@ -1,11 +1,11 @@
-#' Data Entry Lag - Raw Mapping
+#' Data Change Rate - Raw Mapping
 #'
 #' @description
 #' Convert raw data entry data to formatted input data to [gsm::DataChg_Assess()].
 #'
 #' @details
-#' `DataChg_Map_Raw` creates an input dataset for the Data Entry Lag Assessment [gsm::DataChg_Assess()] by adding
-#' Data Entry Lag Counts (derived from `dfDISP`) to basic subject-level data (from `dfSUBJ`).
+#' `DataChg_Map_Raw` creates an input dataset for the Data Change Rate Assessment [gsm::DataChg_Assess()] by adding
+#' Data Points with Change Counts (derived from `dfDataChg`) to basic subject-level data (from `dfSUBJ`).
 #'
 #' @param dfs `list` Input data frame:
 #'   - `dfSUBJ`: `data.frame` Subject-level data with one record per participant.

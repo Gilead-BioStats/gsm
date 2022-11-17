@@ -1,0 +1,5 @@
+dfInput:
+  vRequired:
+    - "strIDCol"
+    - "strGroupCol"
+    - "strCountCol"

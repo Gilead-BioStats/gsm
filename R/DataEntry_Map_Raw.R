@@ -5,7 +5,7 @@
 #'
 #' @details
 #' `DataEntry_Map_Raw` creates an input dataset for the Data Entry Lag Assessment [gsm::DataEntry_Assess()] by adding
-#' Data Entry Lag Counts (derived from `dfDISP`) to basic subject-level data (from `dfSUBJ`).
+#' Data Entry Lag Counts (derived from `dfDataEntry`) to basic subject-level data (from `dfSUBJ`).
 #'
 #' @param dfs `list` Input data frame:
 #'   - `dfSUBJ`: `data.frame` Subject-level data with one record per participant.
