@@ -886,4 +886,99 @@
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `qtl0004` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 3: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      v No issues found for dfPD domain
+      Filtering on `importnt %in% c("N")`.
+      v Filtered on `importnt %in% c("N")` to drop 6 rows from 50 to 44 rows.
+      v `FilterDomain()` Successful
+      Saving dfPD to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 3: `PD_Map_Raw` --
+      
+      Preparing parameters for `PD_Map_Raw()` ...
+      Calling `PD_Map_Raw()` ...
+      
+      -- Checking Input Data for `PD_Map_Raw()` --
+      
+      v No issues found for `PD_Map_Raw()`
+      
+      -- Initializing `PD_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 37 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `PD_Map_Raw()` returned output with 50 rows.
+      v `PD_Map_Raw()` Successful
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 3 of 3: `PD_Assess` --
+      
+      Preparing parameters for `PD_Assess()` ...
+      Calling `PD_Assess()` ...
+      
+      -- Checking Input Data for `PD_Assess()` --
+      
+      v No issues found for `PD_Assess()`
+      
+      -- Initializing `PD_Assess()` --
+      
+      Input data has 50 rows.
+      v `Transform_Rate()` returned output with 1 rows.
+      v `Analyze_Qtl()` returned output with 1 rows.
+      v `Flag_QTL()` returned output with 1 rows.
+      v `Summarize()` returned output with 1 rows.
+      v `PD_Assess()` Successful
+      Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `qtl0006` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `Disp_Map_Raw` --
+      
+      Preparing parameters for `Disp_Map_Raw()` ...
+      Calling `Disp_Map_Raw()` ...
+      
+      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      
+      v No issues found for `Disp_Map_Raw_Study()`
+      
+      -- Initializing `Disp_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      ! 42 ID(s) in domain data not found in subject data.
+      Associated rows will not be included in merged data.
+      i 46 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
+      v `Disp_Map_Raw()` returned output with 50 rows.
+      v `Disp_Map_Raw()` Successful
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `Disp_Assess` --
+      
+      Preparing parameters for `Disp_Assess()` ...
+      Calling `Disp_Assess()` ...
+      
+      -- Checking Input Data for `Disp_Assess()` --
+      
+      v No issues found for `Disp_Assess()`
+      
+      -- Initializing `Disp_Assess()` --
+      
+      Input data has 50 rows.
+      v `Transform_Rate()` returned output with 1 rows.
+      v `Analyze_Qtl()` returned output with 1 rows.
+      v `Flag_QTL()` returned output with 1 rows.
+      v `Summarize()` returned output with 1 rows.
+      v `Disp_Assess()` Successful
+      Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
 

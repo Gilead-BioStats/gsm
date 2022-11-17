@@ -45,6 +45,12 @@
       $kri0007
       [1] "steps" "path"  "name" 
       
+      $qtl0004
+      [1] "steps" "path"  "name" 
+      
+      $qtl0006
+      [1] "steps" "path"  "name" 
+      
 
 # Metadata is returned as expected
 
@@ -931,6 +937,109 @@
       
       $kri0007[[3]]$params$strMethod
       [1] "NormalApprox"
+      
+      
+      
+      
+      $qtl0004
+      $qtl0004[[1]]
+      $qtl0004[[1]]$name
+      [1] "FilterDomain"
+      
+      $qtl0004[[1]]$inputs
+      [1] "dfPD"
+      
+      $qtl0004[[1]]$output
+      [1] "dfPD"
+      
+      $qtl0004[[1]]$params
+      $qtl0004[[1]]$params$strDomain
+      [1] "dfPD"
+      
+      $qtl0004[[1]]$params$strColParam
+      [1] "strImportantCol"
+      
+      $qtl0004[[1]]$params$strValParam
+      [1] "strNotImportantVal"
+      
+      
+      
+      $qtl0004[[2]]
+      $qtl0004[[2]]$name
+      [1] "PD_Map_Raw"
+      
+      $qtl0004[[2]]$inputs
+      [1] "dfPD"   "dfSUBJ"
+      
+      $qtl0004[[2]]$output
+      [1] "dfInput"
+      
+      
+      $qtl0004[[3]]
+      $qtl0004[[3]]$name
+      [1] "PD_Assess"
+      
+      $qtl0004[[3]]$inputs
+      [1] "dfInput"
+      
+      $qtl0004[[3]]$output
+      [1] "lResults"
+      
+      $qtl0004[[3]]$params
+      $qtl0004[[3]]$params$strGroup
+      [1] "Study"
+      
+      $qtl0004[[3]]$params$vThreshold
+      NULL
+      
+      $qtl0004[[3]]$params$strMethod
+      [1] "qtl"
+      
+      $qtl0004[[3]]$params$nConfLevel
+      [1] 0.95
+      
+      
+      
+      
+      $qtl0006
+      $qtl0006[[1]]
+      $qtl0006[[1]]$name
+      [1] "Disp_Map_Raw"
+      
+      $qtl0006[[1]]$inputs
+      [1] "dfSUBJ"     "dfSTUDCOMP"
+      
+      $qtl0006[[1]]$output
+      [1] "dfInput"
+      
+      $qtl0006[[1]]$params
+      $qtl0006[[1]]$params$strContext
+      [1] "Study"
+      
+      
+      
+      $qtl0006[[2]]
+      $qtl0006[[2]]$name
+      [1] "Disp_Assess"
+      
+      $qtl0006[[2]]$inputs
+      [1] "dfInput"
+      
+      $qtl0006[[2]]$output
+      [1] "lResults"
+      
+      $qtl0006[[2]]$params
+      $qtl0006[[2]]$params$strGroup
+      [1] "Study"
+      
+      $qtl0006[[2]]$params$vThreshold
+      NULL
+      
+      $qtl0006[[2]]$params$strMethod
+      [1] "qtl"
+      
+      $qtl0006[[2]]$params$nConfLevel
+      [1] 0.95
       
       
       
