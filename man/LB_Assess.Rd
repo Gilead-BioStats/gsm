@@ -14,7 +14,7 @@ LB_Assess(
 )
 }
 \arguments{
-\item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
+\item{dfInput}{\code{data.frame} Input data, a data frame with one record per lab record.}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 or 4 that defaults to \code{c(-3, -2, 2, 3)} for a Normal Approximation (\code{strMethod = "NormalApprox"}),
 \code{c(.01, .05)} for Fisher's exact test (\code{strMethod = "fisher"}), and \code{c(3.491, 5.172)} for a nominal assessment (\code{strMethod = "identity"}).}
@@ -86,7 +86,7 @@ Alternatively, the Fisher’s exact test, or percentage value (identity)
 is used to generate estimates and p-values for each site (as specified
 with the \code{strMethod} parameter). Those outputs are then used to flag
 possible outliers using the thresholds specified in \code{vThreshold}. In the
-Fisher’s exact test, sites with \emph{p} < 0.05 are flagged as 1 by default.
+Fisher’s exact test, sites with $p<0.05$ are flagged as 1 by default.
 
 See \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}} or
 \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or
