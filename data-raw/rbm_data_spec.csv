@@ -40,9 +40,6 @@ Gismo,status_param,param,Parameter name
 Gismo,status_param,index,Index value for parameter
 Gismo,status_param,value,Value for parameter at index
 Gismo,status_param,gsm_analysis_date,Date that snapshot was created
-Gismo,status_schedule,studyid,Unique Study ID
-Gismo,status_schedule,snapshot_date,Snapshot Date
-Gismo,status_schedule,gsm_analysis_date,Date that snapshot was created
 Gismo,results_summary,studyid,Unique Study ID
 Gismo,results_summary,workflowid,Unique Workflow ID
 Gismo,results_summary,groupid,Unique Group ID (e.g. SiteID for KRI workflows)
@@ -119,8 +116,6 @@ GSM,config_param,gsm_version,GSM version of workflow
 GSM,config_param,param,Parameter name
 GSM,config_param,index,Index value for parameter
 GSM,config_param,value,Value for parameter at index
-GSM,config_schedule,studyid,Unique Study ID
-GSM,config_schedule,snapshot_date,Snapshot Date
 GSM,meta_workflow,workflowid,Unique Workflow ID
 GSM,meta_workflow,abbreviation,Workflow Abbreviation (max 3-letters)
 GSM,meta_workflow,gsm_version,GSM Version of workflow

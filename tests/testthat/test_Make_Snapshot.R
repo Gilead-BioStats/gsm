@@ -46,7 +46,6 @@ test_that("output is generated as expected", {
   expect_equal(sort(names(snapshot$status_site)), sort(specColumns("status_site")))
   expect_equal(sort(names(snapshot$status_workflow)), sort(specColumns("status_workflow")))
   expect_equal(sort(names(snapshot$status_param)), sort(specColumns("status_param")))
-  expect_equal(sort(names(snapshot$status_schedule)), sort(specColumns("status_schedule")))
   expect_equal(sort(names(snapshot$results_summary)), sort(specColumns("results_summary")))
   expect_equal(sort(names(snapshot$results_bounds)), sort(specColumns("results_bounds")))
   expect_equal(sort(names(snapshot$meta_workflow)), sort(specColumns("meta_workflow")))
@@ -68,7 +67,6 @@ test_that("input data is structured as expected", {
 
 
   expect_equal(sort(names(lMeta$config_param)), sort(gsmColumns("config_param")))
-  expect_equal(sort(names(lMeta$config_schedule)), sort(gsmColumns("config_schedule")))
   expect_equal(sort(names(lMeta$config_workflow)), sort(gsmColumns("config_workflow")))
   expect_equal(sort(names(lMeta$meta_params)), sort(gsmColumns("meta_param")))
   expect_equal(sort(names(lMeta$meta_workflow)), sort(gsmColumns("meta_workflow")))

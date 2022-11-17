@@ -3,9 +3,9 @@
     Code
       names(snapshot)
     Output
-       [1] "status_study"     "status_site"      "status_workflow"  "status_param"    
-       [5] "status_schedule"  "results_summary"  "results_analysis" "results_bounds"  
-       [9] "meta_workflow"    "meta_param"      
+      [1] "status_study"     "status_site"      "status_workflow"  "status_param"    
+      [5] "results_summary"  "results_analysis" "results_bounds"   "meta_workflow"   
+      [9] "meta_param"      
 
 # input data is structured as expected
 
