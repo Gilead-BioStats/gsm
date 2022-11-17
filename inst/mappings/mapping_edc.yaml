@@ -2,9 +2,6 @@ dfSUBJ:
   strStudyCol: studyid
   strSiteCol: siteid
   strIDCol: subjid
-  strTimeOnStudyCol: timeonstudy
-  strTimeOnTreatmentCol: timeontreatment
-  strRandDateCol: rfpst_dt
   strCustomGroupCol: invid
   strCountryCol: country
 dfQuery:
