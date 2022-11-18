@@ -1008,6 +1008,290 @@
       result <- Study_Assess(lData = lData, bQuiet = FALSE)
     Message <cliMessage>
       
+      -- Initializing `cou0001` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 4: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      v No issues found for dfAE domain
+      Filtering on `ae_te %in% c("Y")`.
+      v Filtered on `ae_te %in% c("Y")` to drop 0 rows from 10 to 10 rows.
+      i NOTE: No rows dropped.
+      v `FilterDomain()` Successful
+      Saving dfAE to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 4: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      v No issues found for dfAE domain
+      Filtering on `aeser %in% c("N")`.
+      v Filtered on `aeser %in% c("N")` to drop 0 rows from 10 to 10 rows.
+      i NOTE: No rows dropped.
+      v `FilterDomain()` Successful
+      Saving dfAE to `lWorkflow$lData`
+      
+      -- Workflow Step 3 of 4: `AE_Map_Raw` --
+      
+      Preparing parameters for `AE_Map_Raw()` ...
+      Calling `AE_Map_Raw()` ...
+      
+      -- Checking Input Data for `AE_Map_Raw()` --
+      
+      v No issues found for `AE_Map_Raw()`
+      
+      -- Initializing `AE_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 7 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `AE_Map_Raw()` returned output with 10 rows.
+      v `AE_Map_Raw()` Successful
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 4 of 4: `AE_Assess` --
+      
+      Preparing parameters for `AE_Assess()` ...
+      Calling `AE_Assess()` ...
+      
+      -- Checking Input Data for `AE_Assess()` --
+      
+      v No issues found for `AE_Assess()`
+      
+      -- Initializing `AE_Assess()` --
+      
+      Input data has 10 rows.
+      v `Transform_Rate()` returned output with 3 rows.
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
+      > nStep was not provided. Setting default step to 13.124
+      v `Analyze_NormalApprox()` returned output with 3 rows.
+      v `Flag_NormalApprox()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+      v `Visualize_Scatter()` created 1 chart.
+      v `Visualize_Score()` created 2 charts.
+      v `AE_Assess()` Successful
+      Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0002` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 4: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      v No issues found for dfAE domain
+      Filtering on `ae_te %in% c("Y")`.
+      v Filtered on `ae_te %in% c("Y")` to drop 0 rows from 10 to 10 rows.
+      i NOTE: No rows dropped.
+      v `FilterDomain()` Successful
+      Saving dfAE to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 4: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      v No issues found for dfAE domain
+      Filtering on `aeser %in% c("Y")`.
+      v Filtered on `aeser %in% c("Y")` to drop 10 rows from 10 to 0 rows.
+      ! WARNING: Filtered data has 0 rows.
+      v `FilterDomain()` Successful
+      Saving dfAE to `lWorkflow$lData`
+      
+      -- Workflow Step 3 of 4: `AE_Map_Raw` --
+      
+      Preparing parameters for `AE_Map_Raw()` ...
+      Calling `AE_Map_Raw()` ...
+      
+      -- Checking Input Data for `AE_Map_Raw()` --
+      
+      v No issues found for `AE_Map_Raw()`
+      
+      -- Initializing `AE_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      i 10 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `AE_Map_Raw()` returned output with 10 rows.
+      v `AE_Map_Raw()` Successful
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 4 of 4: `AE_Assess` --
+      
+      Preparing parameters for `AE_Assess()` ...
+      Calling `AE_Assess()` ...
+      
+      -- Checking Input Data for `AE_Assess()` --
+      
+      v No issues found for `AE_Assess()`
+      
+      -- Initializing `AE_Assess()` --
+      
+      Input data has 10 rows.
+      v `Transform_Rate()` returned output with 3 rows.
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
+      > nStep was not provided. Setting default step to 13.124
+      v `Analyze_NormalApprox()` returned output with 3 rows.
+      v `Flag_NormalApprox()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+      v `Visualize_Scatter()` created 1 chart.
+      v `Visualize_Score()` created 2 charts.
+      v `AE_Assess()` Successful
+      Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0003` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 3: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: importnt
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for dfPD domain
+      ! `FilterDomain()` Failed - Skipping remaining steps
+      Saving dfPD to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 3: `PD_Map_Raw` --
+      
+      Skipping `PD_Map_Raw()` ...
+      
+      -- Workflow Step 3 of 3: `PD_Assess` --
+      
+      Skipping `PD_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0004` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 3: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: importnt
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for dfPD domain
+      ! `FilterDomain()` Failed - Skipping remaining steps
+      Saving dfPD to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 3: `PD_Map_Raw` --
+      
+      Skipping `PD_Map_Raw()` ...
+      
+      -- Workflow Step 3 of 3: `PD_Assess` --
+      
+      Skipping `PD_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0005` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 4: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: lb_te
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for dfLB domain
+      ! `FilterDomain()` Failed - Skipping remaining steps
+      Saving dfLB to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 4: `FilterDomain` --
+      
+      Skipping `FilterDomain()` ...
+      
+      -- Workflow Step 3 of 4: `LB_Map_Raw` --
+      
+      Skipping `LB_Map_Raw()` ...
+      
+      -- Workflow Step 4 of 4: `LB_Assess` --
+      
+      Skipping `LB_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0006` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `Disp_Map_Raw` --
+      
+      Preparing parameters for `Disp_Map_Raw()` ...
+      Calling `Disp_Map_Raw()` ...
+      
+      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, compreas, compyn
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Disp_Map_Raw_Study()`
+      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! `Disp_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `Disp_Assess` --
+      
+      Skipping `Disp_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0007` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 3: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: datapagename
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for dfSDRGCOMP domain
+      ! `FilterDomain()` Failed - Skipping remaining steps
+      Saving dfSDRGCOMP to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 3: `Disp_Map_Raw` --
+      
+      Skipping `Disp_Map_Raw()` ...
+      
+      -- Workflow Step 3 of 3: `Disp_Assess` --
+      
+      Skipping `Disp_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
       -- Initializing `kri0001` assessment -------------------------------------------
       
       -- Workflow Step 1 of 4: `FilterDomain` --
@@ -1072,6 +1356,7 @@
       v `Transform_Rate()` returned output with 10 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
+      > nStep was not provided. Setting default step to 3.984
       v `Analyze_NormalApprox()` returned output with 10 rows.
       v `Flag_NormalApprox()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
@@ -1145,6 +1430,7 @@
       v `Transform_Rate()` returned output with 10 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
+      > nStep was not provided. Setting default step to 3.984
       v `Analyze_NormalApprox()` returned output with 10 rows.
       v `Flag_NormalApprox()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
@@ -1286,7 +1572,7 @@
       Skipping `Disp_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
-      -- Initializing `qtl0003` assessment -------------------------------------------
+      -- Initializing `qtl0004` assessment -------------------------------------------
       
       -- Workflow Step 1 of 3: `FilterDomain` --
       
@@ -1313,7 +1599,7 @@
       Skipping `PD_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
-      -- Initializing `qtl0007` assessment -------------------------------------------
+      -- Initializing `qtl0006` assessment -------------------------------------------
       
       -- Workflow Step 1 of 2: `Disp_Map_Raw` --
       

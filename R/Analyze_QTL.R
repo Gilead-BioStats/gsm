@@ -36,7 +36,7 @@
 #' )
 #'
 #' dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "binary")
-#' dfFlagged <- Flag(dfAnalyzed, strColumn = "LowCI", vThreshold = c(NA, 0.2))
+#' dfFlagged <- Flag_QTL(dfAnalyzed, vThreshold = 0.2)
 #'
 #'
 #'
@@ -48,7 +48,7 @@
 #' )
 #'
 #' dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "rate")
-#' dfFlagged <- Flag(dfAnalyzed, vThreshold = c(NA, 0.01))
+#' dfFlagged <- Flag_QTL(dfAnalyzed, vThreshold = 0.01)
 #'
 #' @import dplyr
 #' @importFrom stats binom.test poisson.test

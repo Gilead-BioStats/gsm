@@ -39,6 +39,7 @@ reference:
       - Flag_Fisher
       - Flag_NormalApprox
       - Flag_Poisson
+      - Flag_QTL
       - Summarize
 
    - title: Reporting

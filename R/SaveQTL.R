@@ -16,7 +16,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' dispQTL <- RunQTL("qtl0007")
+#' dispQTL <- RunQTL("qtl0006")
 #' SaveQTL(dispQTL)
 #' }
 #'

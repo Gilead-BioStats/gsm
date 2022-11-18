@@ -27,7 +27,7 @@ but will incorporate the run date for version control.
 }
 \examples{
 \dontrun{
-dispQTL <- RunQTL("qtl0007")
+dispQTL <- RunQTL("qtl0006")
 SaveQTL(dispQTL)
 }
 

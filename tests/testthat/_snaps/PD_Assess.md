@@ -127,6 +127,7 @@
       v `Transform_Rate()` returned output with 40 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
+      > nStep was not provided. Setting default step to 5.46
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.

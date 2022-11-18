@@ -52,7 +52,7 @@ allFindings <- results %>%
 table <- gsm::Study_Table(allFindings)
 
 overview_tbl <- table$df_summary %>%
-  mutate(across(everything(), ~ map(., ~ gt::html(.)))) %>%
+  dplyr::mutate(dplyr::across(dplyr::everything(), ~ purrr::map(., ~ gt::html(.)))) %>%
   gt::gt() %>%
   gt::tab_style(
     style = list(
@@ -108,9 +108,14 @@ function showDetails(elem){
 
 for (i in seq_along(results)) {
   result <- results[[i]]
-  title <- gsm::meta_workflow %>%
-    filter(workflowid == names(params$assessments)[i]) %>%
-    pull(metric)
+  workflow <- gsm::meta_workflow %>%
+    dplyr::filter(workflowid == names(params$assessments)[i])
+  title <- workflow %>%
+    dplyr::pull(metric)
+
+  isQTL <- grepl('^qtl', workflow$workflowid)
+  if (isQTL)
+      title <- paste0(title, ' (QTL)')
 
 
   # title
@@ -136,35 +141,41 @@ for (i in seq_along(results)) {
 
 
   # table
-  cat("<h3>Flagged Sites</h3>")
+  if (!isQTL)
+    cat("<h3>Flagged Sites</h3>")
 
-  
-  flagged <- result$lData$dfSummary %>%
-    filter(Flag != 0)
+  if (isQTL)
+    flagged <- result$lData$dfSummary
+  else
+    flagged <- result$lData$dfSummary %>%
+        dplyr::filter(
+            Flag != 0
+        )
 
-  if (nrow(flagged) > 0) {
+  if (nrow(flagged) > 0 || isQTL) {
     flagged %>%
-      kbl(escape = FALSE) %>%
-      kable_styling() %>%
+      kableExtra::kbl(escape = FALSE) %>%
+      kableExtra::kable_styling() %>%
       cat()
   }
 
-  cat(
-    paste0(
-      "<p>",
-      length(unique(flagged$GroupID)),
-      " of ",
-      length(unique(result$lData$dfSummary$GroupID)),
-      " sites flagged for this assessment.",
-      "</p>"
+  if (!isQTL)
+    cat(
+      paste0(
+        "<p>",
+        length(unique(flagged$GroupID)),
+        " of ",
+        length(unique(result$lData$dfSummary$GroupID)),
+        " sites flagged for this assessment.",
+        "</p>"
+      )
     )
-  )
 
   details <- result$lData$dfFlagged %>%
-    filter(Flag != 0) %>%
-    arrange(., match(GroupID, flagged$GroupID))
+    dplyr::filter(Flag != 0) %>%
+    dplyr::arrange(., match(GroupID, flagged$GroupID))
 
-  if (length(unique(flagged$GroupID)) > 0) {
+  if (length(unique(flagged$GroupID)) > 0 & !isQTL) {
     cat("<div><button onclick='showDetails(this)'>Show details</button>")
     cat("<div class='detail-wrap' style='display:none'>")
 
@@ -172,8 +183,8 @@ for (i in seq_along(results)) {
     
       if (nrow(details) > 0) {
         details %>%
-          kbl(escape = FALSE) %>%
-          kable_styling() %>%
+          kableExtra::kbl(escape = FALSE) %>%
+          kableExtra::kable_styling() %>%
           cat()
       }
     
@@ -213,10 +224,10 @@ AssessmentReport$dfSummary %>%
 ## Issue List
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 assessment_report <- AssessmentReport$dfAllChecks %>%
-  filter(check > 1) %>%
-  mutate(
-    check = map(check, rank_chg),
-    across(where(is.character), ~ replace_na(., ""))
+  dplyr::filter(check > 1) %>%
+  dplyr::mutate(
+    check = purrr::map(check, rank_chg),
+    dplyr::across(where(is.character), ~ tidyr::replace_na(., ""))
   )
 
 if (nrow(assessment_report) > 0) {

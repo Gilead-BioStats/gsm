@@ -17,9 +17,6 @@
 #'   - `"NormalApprox"` (default)
 #'   - `"poisson"`
 #'   - `"identity"`
-#' @param strType `character` Statistical outcome type. Valid values:
-#'   - `"binary"`
-#'   - `"rate"` (default)
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Adverse Event Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`.
@@ -70,7 +67,6 @@ AE_Assess <- function(
   dfInput,
   vThreshold = NULL,
   strMethod = "NormalApprox",
-  strType = "rate",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   bQuiet = TRUE
@@ -135,14 +131,14 @@ AE_Assess <- function(
     if (strMethod == "NormalApprox") {
       lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
         dfTransformed = lData$dfTransformed,
-        strType = strType,
+        strType = "rate",
         bQuiet = bQuiet
       )
 
       lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
-        strType = strType,
+        strType = "rate",
         bQuiet = bQuiet
       )
     } else if (strMethod == "poisson") {

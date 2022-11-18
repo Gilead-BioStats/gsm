@@ -33,12 +33,13 @@ Visualize_Scatter <- function(
     "GroupID: ",
     strGroupLabel
   )
+  colors <- c("#999999", "#FADB14", "#FF4D4F")
 
   # Account for incomplete set of flags
   dfFlagged$FlagAbs <- abs(dfFlagged$Flag)
   maxFlag <- max(dfFlagged$FlagAbs)
   flagBreaks <- as.character(seq(0, maxFlag))
-  flagValues <- c("#999999", "#FADB14", "#FF4D4F")[1:length(flagBreaks)]
+  flagValues <- colors[1:length(flagBreaks)]
 
   # Define tooltip for use in plotly.
   dfFlaggedWithTooltip <- dfFlagged %>%
@@ -78,18 +79,27 @@ Visualize_Scatter <- function(
     xlab(glue::glue("{groupLabel} Total (Denominator) ({strUnit} - log scale)")) +
     ylab(glue::glue("{groupLabel} Total (Numerator)"))
 
+  # Add bound lines one at a time.
   if (!is.null(dfBounds)) {
-    for (current_threshold in unique(dfBounds$Threshold)) {
-      color <- case_when(
-        current_threshold == 0 ~ "gray",
-        current_threshold == min(unique(dfBounds$Threshold)) ~ "#FF4D4F",
-        current_threshold == max(unique(dfBounds$Threshold)) ~ "#FF4D4F",
-        TRUE ~ "#FADB14"
-      )
+    dfBounds$ThresholdAbs <- abs(dfBounds$Threshold)
+    thresholds <- unique(dfBounds$Threshold) %>% sort()
+    thresholdAbs <- unique(dfBounds$ThresholdAbs) %>% sort()
+
+    for (i in seq_along(thresholds)) {
+      threshold <- thresholds[i]
+      thresholdAb <- thresholdAbs[thresholdAbs == abs(threshold)]
+      color <- colors[match(thresholdAb, thresholdAbs)]
 
       p <- p + geom_line(
-        data = dfBounds %>% filter(.data$Threshold == current_threshold, !is.nan(.data$Numerator)),
-        aes(x = .data$LogDenominator, y = .data$Numerator),
+        data = dfBounds %>%
+            filter(
+              .data$Threshold == threshold,
+              !is.nan(.data$Numerator)
+            ),
+        aes(
+          x = .data$LogDenominator,
+          y = .data$Numerator
+        ),
         color = color,
         inherit.aes = FALSE
       )
