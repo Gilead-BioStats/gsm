@@ -58,11 +58,6 @@ bQuiet = TRUE
 
 ) {
 
-  # TODO: Remove when clindata is updated
-  # lMeta$meta_study <- lMeta$meta_study %>%
-  #   rename("EST_LPFV" = "EST_LPLV.1",
-  #          "ACT_LPFV" = "ACT_LPLV.1")
-
   # add to all outputs except meta_
   gsm_analysis_date <- Sys.Date()
 
