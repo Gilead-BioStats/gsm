@@ -19,4 +19,4 @@ steps:
     params:
       strGroup: "Country"
       vThreshold: null
-      strMethod: "funnel"
+      strMethod: "NormalApprox"
