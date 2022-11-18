@@ -12,8 +12,8 @@
     Code
       names(lMeta)
     Output
-      [1] "config_param"    "config_schedule" "config_workflow" "meta_params"    
-      [5] "meta_site"       "meta_study"      "meta_workflow"  
+      [1] "config_param"    "config_workflow" "meta_params"     "meta_site"      
+      [5] "meta_study"      "meta_workflow"  
 
 # Custom lAssessments and lMapping works together as intended
 

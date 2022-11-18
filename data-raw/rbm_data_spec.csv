@@ -110,7 +110,7 @@ GSM,meta_study,EST_FPFV,Estimated first-patient first visit date
 GSM,meta_study,ACT_FPFV,First-patient first visit date
 GSM,meta_study,EST_LPFV,Estimated last-patient first visit date
 GSM,meta_study,ACT_LPFV,Last-patient first visit date
-GSM,meta_study,EST_LPFV,Estimated last-patient first visit date
+GSM,meta_study,EST_LPLV,Estimated last-patient last visit date
 GSM,meta_study,ACT_LPLV,Last-patient last visit date
 GSM,meta_study,STATUS,Study Status
 GSM,meta_study,NUM_PLAN_SUBJ,# of planned participants from CTMS

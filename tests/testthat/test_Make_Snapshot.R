@@ -2,7 +2,6 @@ source(testthat::test_path("testdata/data.R"))
 
 lMeta <- list(
   config_param = clindata::config_param,
-  config_schedule = clindata::config_schedule,
   config_workflow = clindata::config_workflow,
   meta_params = gsm::meta_param,
   meta_site = clindata::ctms_site,
@@ -65,8 +64,6 @@ test_that("input data is structured as expected", {
 
   expect_true(is.list(lMeta))
   expect_snapshot(names(lMeta))
-
-
 
   expect_equal(sort(names(lMeta$config_param)), sort(gsmColumns("config_param")))
   expect_equal(sort(names(lMeta$config_workflow)), sort(gsmColumns("config_workflow")))
