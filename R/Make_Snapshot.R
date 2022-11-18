@@ -58,12 +58,59 @@ bQuiet = TRUE
 
 ) {
 
+  # TODO: Remove when clindata is updated
+  lMeta$meta_study <- lMeta$meta_study %>%
+    rename("EST_LPFV" = "EST_LPLV.1",
+           "ACT_LPFV" = "ACT_LPLV.1")
+
   # add to all outputs except meta_
   gsm_analysis_date <- Sys.Date()
 
 
-  # lSnapshot$status_study<-meta$meta_study
-  status_study <- lMeta$meta_study
+
+  # rename GILDA to expected gsm variable names -----------------------------
+
+  # ctms_study / meta_study:
+  status_study <- lMeta$meta_study %>%
+    select(
+      "studyid" = "PROTOCOL_TITLE",
+      "enrolled_sites_ctms" = "NUM_SITE_ACTL",
+      "enrolled_participants_ctms" = "NUM_ENROLLED_SUBJ_M",
+      "planned_sites" = "NUM_PLAN_SITE",
+      "planned_participants" = "NUM_PLAN_SUBJ",
+      "title" = "PROTOCOL_TITLE",
+      "nickname" = "NICKNAME",
+      "indication" = "PROTOCOL_INDICATION",
+      "ta" = "THERAPEUTIC_AREA",
+      "phase" = "PHASE",
+      "status" = "STATUS",
+      "fpfv" = "ACT_FPFV",
+      "lpfv" = "ACT_LPFV",
+      "lplv" = "ACT_LPLV",
+      "rbm_flag" = "X_RBM_FLG",
+      everything()
+    ) %>%
+    rename_with(tolower)
+
+  # ctms_site / meta_site:
+  status_site <- lMeta$meta_site %>%
+    mutate(
+      siteid = as.character(.data$SITE_NUM),
+      invname = paste0(.data$PI_LAST_NAME, ", ", .data$PI_FIRST_NAME)
+    ) %>%
+    select(
+      "studyid" = "PROTOCOL",
+      "siteid",
+      "institution" = "ACCOUNT",
+      "status" = "SITE_STATUS",
+      "start_date" = "SITE_ACTIVE_DT",
+      "city" = "CITY",
+      "state" = "STATE",
+      "country" = "COUNTRY",
+      "invname",
+      everything()
+    ) %>%
+    rename_with(tolower)
 
   # status_study ------------------------------------------------------------
   if (!("enrolled_participants" %in% colnames(status_study))) {
@@ -86,30 +133,7 @@ bQuiet = TRUE
     )
   }
 
-
-  # select in same order as spec - can remove this if not needed, but helps with comparison
-  status_study <- status_study %>%
-    select(
-      "studyid",
-      "enrolled_sites",
-      "enrolled_participants",
-      "planned_sites",
-      "planned_participants",
-      "title",
-      "nickname",
-      "indication",
-      "ta",
-      "phase",
-      "status",
-      "fpfv",
-      "lpfv",
-      "lplv",
-      "rbm_flag"
-    )
-
   # status_site -------------------------------------------------------------
-  status_site <- lMeta$meta_site %>%
-    mutate(siteid = as.character(.data$siteid))
   if (!("enrolled_participants" %in% colnames(status_site))) {
     status_site_count <- gsm::Get_Enrolled(
       dfSUBJ = lData$dfSUBJ,
@@ -118,20 +142,23 @@ bQuiet = TRUE
       strUnit = "participant",
       strBy = "site"
     )
+
+    status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID"))
   }
-  status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
+
+  # reorder columns
+  status_study <- status_study %>%
     select(
       "studyid",
-      "siteid",
-      "institution",
-      "status",
+      "enrolled_sites",
       "enrolled_participants",
-      "start_date",
-      "city",
-      "state",
-      "country",
-      "invname"
+      "planned_sites",
+      "planned_participants",
+      everything()
     )
+
+  status_site <- status_site %>%
+    relocate("enrolled_participants", .after = "status")
 
 
   # run Study_Assess() ------------------------------------------------------
@@ -150,14 +177,15 @@ bQuiet = TRUE
     bQuiet = bQuiet
   )
 
-  # add line below to parseWorkflowStatus function
+  # grab boolean status of each workflow
   parseStatus <- purrr::imap(lResults, function(x, y) tibble(workflowid = y, status = x$bStatus)) %>%
     bind_rows()
 
-  # lWorkflowStatus <- parseWorkflowStatus(lResults)
+  # join boolean status column to status_workflow
   status_workflow <- lMeta$config_workflow %>%
     left_join(parseStatus, by = "workflowid")
 
+  # parse warnings from is_mapping_valid to create an informative "notes" column
   warnings <- ParseWarnings(lResults)
 
   if (nrow(warnings > 0)) {
@@ -244,9 +272,6 @@ bQuiet = TRUE
     results_bounds <- results_bounds %>%
       as_tibble()
   }
-
-
-
 
 
   # create lSnapshot --------------------------------------------------------

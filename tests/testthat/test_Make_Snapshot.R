@@ -31,6 +31,8 @@ bQuiet <- TRUE
 
 snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments)
 
+
+
 ################################################################################################################
 
 test_that("output is generated as expected", {
