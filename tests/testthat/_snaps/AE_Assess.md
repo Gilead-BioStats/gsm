@@ -131,6 +131,6 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 2 chart.
-      v `Visualize_Score()` created 5 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
 

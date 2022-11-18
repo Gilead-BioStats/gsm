@@ -193,57 +193,71 @@ AE_Assess <- function(
 
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
+    # rbm-viz setup -----------------------------------------------------------
+
+    modelLabel <- switch(
+      strMethod,
+      NormalApprox = glue::glue("Normal Approximation ({tools::toTitleCase(strType)})"),
+      poisson = glue::glue("Poisson ({tools::toTitleCase(strType)})")
+    )
+
+    scoreLabel <- switch(
+      strMethod,
+      NormalApprox = "Adjusted Z-Score",
+      poisson = "Residual",
+      identity = "Identity"
+    )
+
+    dfConfig <- dplyr::tibble(
+      workflowid = "temp",
+      group = strGroup,
+      abbreviation = "AE",
+      metric = glue::glue("AE Reporting {strType}"),
+      numerator = "AEs",
+      denominator = "Days on Treatment",
+      model = modelLabel,
+      score = scoreLabel
+    ) %>%
+      mutate(thresholds = list(vThreshold))
+
     if (strMethod != "identity") {
 
-      # TODO: need to figure out implementation here
-      # - we don't have access to the specific KRI within an assess function
-      # - need to figure out a way to set defaults or pass through with a mapping when running with custom params
-      dfConfigScatter <- tibble::tribble(
-        ~workflowid, ~gsm_version, ~group, ~abbreviation,                         ~metric,               ~numerator,        ~denominator, ~outcome,                        ~model,              ~score,               ~data_inputs,                    ~data_filters,
-        "kri0001",      "1.2.0", "Site",          "AE", "Non-serious AE Reporting Rate", "Treatment Emergent AEs", "Days on Treatment",   "Rate", "Normal Approximation (Rate)", "Adjusted Z-Score ", "rawplus.ae, rawplus.subj", "Non-Serious, TreatmentEmergent"
-      )
 
+      # scatter plots -----------------------------------------------------------
 
+      # ggplot bar charts -------------------------------------------------------
       lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
+      # rbm-viz charts ----------------------------------------------------------
       lCharts$scatterJS <- scatterPlot(
-        results = lData$dfFlagged %>% rename_all(~tolower(.)) %>% mutate(across(everything(), ~as.character(.))),
-        workflow = dfConfigScatter,
-        bounds = lData$dfBounds %>% rename_all(~tolower(.)) %>% mutate(across(everything(), ~as.character(.))),
+        results = lData$dfFlagged %>% rename_with(tolower),
+        workflow = dfConfig,
+        bounds = lData$dfBounds %>% rename_with(tolower),
         elementId = "aeAssessScatter"
       )
-      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+      if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
     }
 
 
-    # ggplot bar charts -------------------------------------------------------
-    lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+      # bar charts --------------------------------------------------------------
+      lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+      lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
 
+      lCharts$barMetricJS <- barChart(
+        results = lData$dfFlagged %>% rename_with(tolower),
+        workflow = dfConfig,
+        yaxis = "metric",
+        elementId = "aeAssessMetric"
+      )
 
+      lCharts$barScoreJS <- barChart(
+        results = lData$dfFlagged %>% rename_all(~tolower(.)),
+        workflow = dfConfig,
+        yaxis = "score",
+        elementId = "aeAssessScore"
+      )
 
-    # JS bar charts -----------------------------------------------------------
-    # TODO: need to figure out implementation here
-    dfConfig <- tibble::tribble(
-      ~group,              ~score,               ~numerator,        ~denominator, ~thresholds,
-      "Site", "Adjusted Z-Score ", "Treatment Emergent AEs", "Days on Treatment", vThreshold
-    )
-
-    lCharts$barMetricJS <- barChart(
-      results = lData$dfFlagged %>% rename_all(~tolower(.)),
-      workflow = dfConfig,
-      yaxis = "metric",
-      elementId = "aeAssessMetric"
-    )
-
-    lCharts$barScoreJS <- barChart(
-      results = lData$dfFlagged %>% rename_all(~tolower(.)),
-      workflow = dfConfig,
-      yaxis = "score",
-      elementId = "aeAssessScore"
-    )
-
-    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
+    if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
 
 
     # return data -------------------------------------------------------------
