@@ -102,6 +102,8 @@ barChartOutput <- function(outputId, width = '100%', height = '400px'){
 }
 
 #' @rdname barChart-shiny
+#'
+#'
 #' @export
 renderBarChart <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted

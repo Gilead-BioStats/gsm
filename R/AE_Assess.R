@@ -193,8 +193,8 @@ AE_Assess <- function(
 
     modelLabel <- switch(
       strMethod,
-      NormalApprox = glue::glue("Normal Approximation ({tools::toTitleCase(strType)})"),
-      poisson = glue::glue("Poisson ({tools::toTitleCase(strType)})")
+      NormalApprox = glue::glue("Normal Approximation (Rate)"),
+      poisson = glue::glue("Poisson (Rate)")
     )
 
     scoreLabel <- switch(
@@ -208,7 +208,7 @@ AE_Assess <- function(
       workflowid = "temp",
       group = strGroup,
       abbreviation = "AE",
-      metric = glue::glue("AE Reporting {strType}"),
+      metric = glue::glue("AE Reporting (Rate)"),
       numerator = "AEs",
       denominator = "Days on Treatment",
       model = modelLabel,

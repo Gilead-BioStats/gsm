@@ -13,7 +13,9 @@ reference:
    - contents:
       - starts_with("Visualize_")
       - barChart
+      - barChart-shiny
       - scatterPlot
+      - scatterPlot-shiny
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
 
