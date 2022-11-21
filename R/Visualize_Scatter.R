@@ -5,6 +5,7 @@
 #' @param strGroupCol `character` name of stratification column for facet wrap Default: `NULL`
 #' @param strGroupLabel `character` name of group, used for labeling axes. Default: `NULL`
 #' @param strUnit `character` exposure time unit. Default: `days`
+#' @param vColors `character` vector of hex colors for plotting boundaries/thresholds. Index 1: mean; index 2: first threshold boundary; index 3: second threshold boundary.
 #'
 #' @return group-level plot object.
 #'

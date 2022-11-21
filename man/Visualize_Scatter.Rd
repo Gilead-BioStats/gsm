@@ -23,6 +23,8 @@ Visualize_Scatter(
 \item{strGroupLabel}{\code{character} name of group, used for labeling axes. Default: \code{NULL}}
 
 \item{strUnit}{\code{character} exposure time unit. Default: \code{days}}
+
+\item{vColors}{\code{character} vector of hex colors for plotting boundaries/thresholds. Index 1: mean; index 2: first threshold boundary; index 3: second threshold boundary.}
 }
 \value{
 group-level plot object.
