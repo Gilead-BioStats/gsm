@@ -28,6 +28,10 @@ Visualize_Scatter <- function(
   strGroupLabel = NULL,
   strUnit = "days"
 ) {
+  # Kick out data with a single group, e.g. study-level data.
+  if (nrow(dfFlagged) <= 1 || any(is.na(dfFlagged$Flag)))
+      return(NULL)
+
   groupLabel <- ifelse(
     is.null(strGroupLabel),
     "GroupID: ",
