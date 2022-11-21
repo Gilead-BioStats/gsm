@@ -26,27 +26,20 @@ Visualize_Scatter <- function(
   dfBounds = NULL,
   strGroupCol = NULL,
   strGroupLabel = NULL,
-  strUnit = "days"
+  strUnit = "days",
+  vColors = c("#999999", "#FADB14", "#FF4D4F")
 ) {
-  # Kick out data with a single group, e.g. study-level data.
-  if (nrow(dfFlagged) <= 1 || any(is.na(dfFlagged$Flag)))
-      return(NULL)
-
   groupLabel <- ifelse(
     is.null(strGroupLabel),
     "GroupID: ",
     strGroupLabel
   )
-  colors <- c("#999999", "#FADB14", "#FF4D4F")
 
-  # Account for incomplete set of flags
-  dfFlagged$FlagAbs <- abs(dfFlagged$Flag)
-  maxFlag <- max(dfFlagged$FlagAbs)
-  flagBreaks <- as.character(seq(0, maxFlag))
-  flagValues <- colors[1:length(flagBreaks)]
-
-  # Define tooltip for use in plotly.
+  # Remove `NA` flags and define tooltip for use in plotly.
   dfFlaggedWithTooltip <- dfFlagged %>%
+    filter(
+      !is.na(Flag)
+    ) %>%
     mutate(
       tooltip = paste(
         paste0("Group: ", groupLabel),
@@ -56,6 +49,16 @@ Visualize_Scatter <- function(
         sep = "\n"
       )
     )
+
+  # Avoid plotting empty datasets
+  if (nrow(dfFlaggedWithTooltip) == 0)
+      return(NULL)
+
+  # Account for incomplete set of flags
+  dfFlaggedWithTooltip$FlagAbs <- abs(dfFlaggedWithTooltip$Flag)
+  maxFlag <- max(dfFlaggedWithTooltip$FlagAbs)
+  flagBreaks <- as.character(seq(0, maxFlag))
+  flagValues <- vColors[1:length(flagBreaks)]
 
   ### Plot of data
   p <- dfFlaggedWithTooltip %>%
@@ -92,7 +95,7 @@ Visualize_Scatter <- function(
     for (i in seq_along(thresholds)) {
       threshold <- thresholds[i]
       thresholdAb <- thresholdAbs[thresholdAbs == abs(threshold)]
-      color <- colors[match(thresholdAb, thresholdAbs)]
+      color <- vColors[match(thresholdAb, thresholdAbs)]
 
       p <- p + geom_line(
         data = dfBounds %>%
