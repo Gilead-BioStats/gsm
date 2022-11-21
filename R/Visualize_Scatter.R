@@ -92,10 +92,10 @@ Visualize_Scatter <- function(
 
       p <- p + geom_line(
         data = dfBounds %>%
-            filter(
-              .data$Threshold == threshold,
-              !is.nan(.data$Numerator)
-            ),
+          filter(
+            .data$Threshold == threshold,
+            !is.nan(.data$Numerator)
+          ),
         aes(
           x = .data$LogDenominator,
           y = .data$Numerator
