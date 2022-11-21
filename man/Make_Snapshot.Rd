@@ -5,10 +5,10 @@
 \title{Make Snapshot - create and export Gizmo data model.}
 \usage{
 Make_Snapshot(
-  lMeta = list(config_param = clindata::config_param, config_schedule =
-    clindata::config_schedule, config_workflow = clindata::config_workflow, meta_params =
-    gsm::meta_param, meta_site = clindata::ctms_site, meta_study = clindata::ctms_study,
-    meta_workflow = gsm::meta_workflow),
+  lMeta = list(config_param = clindata::config_param, config_workflow =
+    clindata::config_workflow, meta_params = gsm::meta_param, meta_site =
+    clindata::ctms_site, meta_study = clindata::ctms_study, meta_workflow =
+    gsm::meta_workflow),
   lData = list(dfSUBJ = clindata::rawplus_dm, dfAE = clindata::rawplus_ae, dfLB =
     clindata::rawplus_lb, dfPD = clindata::rawplus_protdev, dfSTUDCOMP =
     clindata::rawplus_studcomp, dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\%
@@ -41,7 +41,6 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \item \code{status_site}
 \item \code{status_workflow}
 \item \code{status_param}
-\item \code{status_schedule}
 \item \code{results_summary}
 \item \code{results_bounds}
 \item \code{meta_workflow}
