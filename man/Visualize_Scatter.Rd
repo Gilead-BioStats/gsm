@@ -9,7 +9,8 @@ Visualize_Scatter(
   dfBounds = NULL,
   strGroupCol = NULL,
   strGroupLabel = NULL,
-  strUnit = "days"
+  strUnit = "days",
+  vColors = c("#999999", "#FADB14", "#FF4D4F")
 )
 }
 \arguments{
