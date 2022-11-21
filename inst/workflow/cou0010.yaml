@@ -1,0 +1,13 @@
+steps:
+  - name: DataEntry_Map_Raw
+    inputs:
+      - dfSUBJ
+      - dfDataEntry
+    output: dfInput
+  - name: DataEntry_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Country"
+      vThreshold: null
+      strMethod: "NormalApprox"
