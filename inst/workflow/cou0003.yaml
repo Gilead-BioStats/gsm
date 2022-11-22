@@ -5,11 +5,11 @@ steps:
     params:
       strDomain: dfPD
       strColParam: strImportantCol
-      strValParam: strImportantVal
+      strValParam: strNotImportantVal
   - name: PD_Map_Raw
     inputs:
-      - dfSUBJ
       - dfPD
+      - dfSUBJ
     output: dfInput
   - name: PD_Assess
     inputs: dfInput
@@ -17,4 +17,4 @@ steps:
     params:
       strGroup: "Country"
       vThreshold: null
-      strMethod: "funnel"
+      strMethod: "NormalApprox"
