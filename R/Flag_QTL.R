@@ -46,7 +46,7 @@ Flag_QTL <- function(
       Flag = case_when(
         (.data$LowCI > vThreshold) ~ 2,
         (.data$Estimate > vThreshold) ~ 1,
-        TRUE ~ 0
+        (.data$Estimate <= vThreshold) ~ 0
       )
     )
 

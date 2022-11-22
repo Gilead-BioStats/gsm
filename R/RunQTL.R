@@ -14,7 +14,7 @@
 #' @return `list` list of QTL analysis results.
 #'
 #' @examples
-#' qtl <- RunQTL("qtl0003")
+#' qtl <- RunQTL("qtl0004")
 #'
 #' @importFrom yaml read_yaml
 #'

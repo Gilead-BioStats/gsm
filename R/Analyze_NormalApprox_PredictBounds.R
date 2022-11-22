@@ -59,16 +59,17 @@
 #' @export
 
 Analyze_NormalApprox_PredictBounds <- function(
-    dfTransformed,
-    vThreshold = c(-3, -2, 2, 3),
-    strType = "binary",
-    nStep = NULL,
-    bQuiet = TRUE
+  dfTransformed,
+  vThreshold = c(-3, -2, 2, 3),
+  strType = "binary",
+  nStep = NULL,
+  bQuiet = TRUE
 ) {
   if (is.null(vThreshold)) {
     vThreshold <- c(-3, -2, 2, 3)
-    if (bQuiet == FALSE)
+    if (bQuiet == FALSE) {
       cli::cli_alert("vThreshold was not provided. Setting default threshold to {vThreshold}")
+    }
   }
 
   # Set [ nStep ] to the range of the denominator divided by 250.
@@ -77,13 +78,15 @@ Analyze_NormalApprox_PredictBounds <- function(
     nMaxDenominator <- max(dfTransformed$Denominator)
     nRange <- nMaxDenominator - nMinDenominator
 
-    if (!is.null(nRange) & !is.na(nRange) & nRange != 0)
-        nStep <- nRange/250
-    else
-        nStep <- 1
+    if (!is.null(nRange) & !is.na(nRange) & nRange != 0) {
+      nStep <- nRange / 250
+    } else {
+      nStep <- 1
+    }
 
-    if (bQuiet == FALSE)
+    if (bQuiet == FALSE) {
       cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
+    }
   }
 
   # add a 0 threhsold to calcultate estimate without an offset

@@ -26,6 +26,6 @@ run a QTL for any supported \verb{*_Assess} function.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
-qtl <- RunQTL("qtl0003")
+qtl <- RunQTL("qtl0004")
 
 }
