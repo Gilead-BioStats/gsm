@@ -9,7 +9,8 @@ Visualize_Scatter(
   dfBounds = NULL,
   strGroupCol = NULL,
   strGroupLabel = NULL,
-  strUnit = "days"
+  strUnit = "days",
+  vColors = c("#999999", "#FADB14", "#FF4D4F")
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ Visualize_Scatter(
 \item{strGroupLabel}{\code{character} name of group, used for labeling axes. Default: \code{NULL}}
 
 \item{strUnit}{\code{character} exposure time unit. Default: \code{days}}
+
+\item{vColors}{\code{character} vector of hex colors for plotting boundaries/thresholds. Index 1: mean; index 2: first threshold boundary; index 3: second threshold boundary.}
 }
 \value{
 group-level plot object.
