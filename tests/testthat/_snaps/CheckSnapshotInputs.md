@@ -4,7 +4,7 @@
       map(check_all, function(x) names(x))
     Output
       $expected_tables
-      [1] "in_snapshot"    "expected_gismo" "status"        
+      [1] "tables_gismo"    "tables_snapshot" "status"         
       
       $expected_columns
       [1] "snapshot_table"  "snapshot_column" "gismo_table"     "gismo_column"   
@@ -26,7 +26,7 @@
       map(check_qtl, function(x) names(x))
     Output
       $expected_tables
-      [1] "in_snapshot"    "expected_gismo" "status"        
+      [1] "tables_gismo"    "tables_snapshot" "status"         
       
       $expected_columns
       [1] "snapshot_table"  "snapshot_column" "gismo_table"     "gismo_column"   
@@ -48,7 +48,7 @@
       map(check_cou, function(x) names(x))
     Output
       $expected_tables
-      [1] "in_snapshot"    "expected_gismo" "status"        
+      [1] "tables_gismo"    "tables_snapshot" "status"         
       
       $expected_columns
       [1] "snapshot_table"  "snapshot_column" "gismo_table"     "gismo_column"   

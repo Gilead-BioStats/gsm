@@ -60,12 +60,22 @@ CheckSnapshotInputs <- function(snapshot) {
     gismo_input$results_analysis <- NULL
   }
 
-  expected_tables <- tibble(
-    in_snapshot = sort(names(snapshot)),
-    expected_gismo = sort(names(gismo_input))
+  # expected tables for gismo input
+  expected_gismo <- tibble(tables = sort(names(gismo_input)))
+
+  # tables in snapshot
+  in_snapshot <- tibble(tables = sort(names(snapshot)))
+
+  expected_tables <- left_join(
+    expected_gismo,
+    in_snapshot,
+    by = "tables",
+    suffix = c("_gismo", "_snapshot"),
+    keep = TRUE
   ) %>%
     mutate(
-      status = in_snapshot == expected_gismo
+      status = tables_gismo == tables_snapshot,
+      status = ifelse(is.na(status), FALSE, status)
     )
 
   tables_status <- all(expected_tables$status)
