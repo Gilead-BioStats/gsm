@@ -60,9 +60,6 @@ Flag_NormalApprox <- function(
     "vThreshold cannot be NULL" = !is.null(vThreshold)
   )
 
-  # ensure flags are sorted so we can use indexing below
-  vThreshold <- sort(vThreshold)
-
 
   if (all(!is.na(vThreshold))) {
     stopifnot(
