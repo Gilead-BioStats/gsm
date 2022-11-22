@@ -96,6 +96,7 @@ with the \code{strMethod} parameter). Those outputs are then used to flag
 possible outliers using the thresholds specified in \code{vThreshold}. In the
 Fisher’s exact test, sites with \emph{p} < 0.05 are flagged as 1 by default.
 
+
 See \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}} or
 \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or
 \code{\link[=Analyze_Identity]{Analyze_Identity()}} for additional

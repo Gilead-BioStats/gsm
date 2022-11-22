@@ -47,6 +47,7 @@ formatted input data to \code{\link[=QueryRate_Assess]{QueryRate_Assess()}}. Thi
 queries by passing filtered query data to \code{dfQuery}.
 }
 \section{Data specification}{
+
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
@@ -54,6 +55,7 @@ queries by passing filtered query data to \code{dfQuery}.
    dfDataChg \tab strIDCol \tab  \tab TRUE \tab FALSE \cr
    dfDataChg \tab strDataPointsCol \tab  \tab TRUE \tab FALSE \cr
    dfDataChg \tab strDataPointsChangeCol \tab  \tab TRUE \tab FALSE \cr
+
 }
 }
 

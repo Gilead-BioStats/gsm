@@ -94,6 +94,7 @@ Alternatively, the Fisher’s exact test, or percentage value (identity)
 is used to generate estimates and p-values for each site (as specified
 with the \code{strMethod} parameter). Those outputs are then used to flag
 possible outliers using the thresholds specified in \code{vThreshold}. In the
+
 Fisher’s exact test, sites with \emph{p} < 0.05 are flagged as 1 by default.
 
 See \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}} or

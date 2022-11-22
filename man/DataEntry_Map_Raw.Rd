@@ -42,6 +42,7 @@ Convert raw data entry data to formatted input data to \code{\link[=DataEntry_As
 Data Entry Lag Counts (derived from \code{dfDataEntry}) to basic subject-level data (from \code{dfSUBJ}).
 }
 \section{Data specification}{
+
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
@@ -49,6 +50,7 @@ Data Entry Lag Counts (derived from \code{dfDataEntry}) to basic subject-level d
    dfDataChg \tab strIDCol \tab  \tab TRUE \tab FALSE \cr
    dfDataChg \tab strDataPointsCol \tab  \tab TRUE \tab FALSE \cr
    dfDataChg \tab strDataPointsChangeCol \tab  \tab TRUE \tab FALSE \cr
+
 }
 }
 

@@ -42,6 +42,7 @@ Convert raw data entry data to formatted input data to \code{\link[=DataChg_Asse
 Data Points with Change Counts (derived from \code{dfDataChg}) to basic subject-level data (from \code{dfSUBJ}).
 }
 \section{Data specification}{
+
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
