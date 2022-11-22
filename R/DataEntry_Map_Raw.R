@@ -80,9 +80,9 @@ DataEntry_Map_Raw <- function(
       )
 
     # Create Subject Level query Counts and merge dfSUBJ
-    dfInput <- dfDataEntry_mapped %>%
+    dfInput <- dfSUBJ_mapped %>%
       left_join(
-        dfSUBJ_mapped,
+        dfDataEntry_mapped,
         "SubjectID"
       ) %>%
       mutate(

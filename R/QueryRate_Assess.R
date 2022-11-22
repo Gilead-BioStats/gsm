@@ -48,7 +48,7 @@
 #' @includeRmd ./man/md/analyze_rate.md
 #'
 #' @examples
-#' dfInput <- QueryRate_Map_Raw()
+#' dfInput <- QueryRate_Map_Raw() %>% na.omit()
 #'
 #' # Run using normal approximation method (default)
 #' QueryRate_assessment_NormalApprox <- QueryRate_Assess(dfInput)

@@ -81,9 +81,9 @@ DataChg_Map_Raw <- function(
       )
 
     # Create Subject Level data point with change counts and merge dfSUBJ
-    dfInput <- dfDataChg_mapped %>%
+    dfInput <- dfSUBJ_mapped %>%
       left_join(
-        dfSUBJ_mapped,
+        dfDataChg_mapped,
         "SubjectID"
       ) %>%
       mutate(
