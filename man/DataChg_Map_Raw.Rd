@@ -42,11 +42,13 @@ Convert raw data entry data to formatted input data to \code{\link[=DataChg_Asse
 Data Points with Change Counts (derived from \code{dfDataChg}) to basic subject-level data (from \code{dfSUBJ}).
 }
 \section{Data specification}{
-\tabular{llllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \tab \strong{Accept NA/Empty Values?} \cr
-   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \tab FALSE \cr
-   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \tab FALSE \cr
-   dfDataChg \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
+\tabular{lllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
+   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
+   dfDataChg \tab strIDCol \tab  \tab TRUE \tab FALSE \cr
+   dfDataChg \tab strDataPointsCol \tab  \tab TRUE \tab FALSE \cr
+   dfDataChg \tab strDataPointsChangeCol \tab  \tab TRUE \tab FALSE \cr
 }
 }
 

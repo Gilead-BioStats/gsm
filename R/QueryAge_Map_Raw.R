@@ -81,9 +81,9 @@ QueryAge_Map_Raw <- function(
       )
 
     # Create Subject Level query Counts and merge dfSUBJ
-    dfInput <- dfQuery_mapped %>%
+    dfInput <- dfSUBJ_mapped %>%
       left_join(
-        dfSUBJ_mapped,
+        dfQuery_mapped,
         "SubjectID"
       ) %>%
       mutate(
@@ -96,6 +96,7 @@ QueryAge_Map_Raw <- function(
       ) %>%
       select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
       arrange(.data$SubjectID)
+
 
     if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {

@@ -54,8 +54,7 @@ lData = list(
   dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion"),
   dfDataChg = clindata::edc_data_change_rate,
   dfDataEntry = clindata::edc_data_entry_lag,
-  dfQuery = clindata::edc_queries,
-  dfDataChg = clindata::edc_data_change_rate
+  dfQuery = clindata::edc_queries
 ),
 lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
 lAssessments = NULL,
