@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfSTUDCOMP", "dfSUBJ"]
+          "value": ["dfQuery", "dfSUBJ"]
         }
       },
       "value": [
@@ -16,19 +16,14 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["vRequired", "vNACols"]
+              "value": ["vRequired"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strStudyDiscontinuationReasonCol", "strStudyDiscontinuationFlagCol"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["strStudyDiscontinuationReasonCol", "strStudyDiscontinuationFlagCol"]
+              "value": ["strIDCol", "strQueryAgeCol"]
             }
           ]
         },
@@ -65,7 +60,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfSTUDCOMP", "dfSUBJ"]
+          "value": ["dfQuery", "dfSUBJ"]
         }
       },
       "value": [
@@ -75,7 +70,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strStudyDiscontinuationReasonCol", "strStudyDiscontinuationReasonVal", "strStudyDiscontinuationFlagCol", "strStudyDiscontinuationFlagVal"]
+              "value": ["strIDCol", "strVisitCol", "strFormCol", "strQueryAgeCol", "strQueryAgeVal"]
             }
           },
           "value": [
@@ -87,22 +82,22 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["compreas"]
+              "value": ["foldername"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["consent"]
+              "value": ["form"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["compyn"]
+              "value": ["qry30fl"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["N"]
+              "value": ["Y"]
             }
           ]
         },
@@ -112,7 +107,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol", "strCountryCol"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strCustomGroupCol", "strCountryCol"]
             }
           },
           "value": [
@@ -130,21 +125,6 @@
               "type": "character",
               "attributes": {},
               "value": ["subjid"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["timeonstudy"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["timeontreatment"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["rfpst_dt"]
             },
             {
               "type": "character",
@@ -179,7 +159,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["vRequired", "vUniqueCols"]
+              "value": ["vRequired"]
             }
           },
           "value": [
@@ -187,11 +167,6 @@
               "type": "character",
               "attributes": {},
               "value": ["strIDCol", "strGroupCol", "strCountCol"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["strIDCol"]
             }
           ]
         }
@@ -266,10 +241,10 @@
       map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, compreas, compyn
+      x the following columns not found in df: subjid, qry30fl
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -278,8 +253,8 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -290,15 +265,15 @@
       bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x df is not a data.frame()
       x the following columns not found in df: subjid, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -309,15 +284,15 @@
       bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, compreas, compyn
+      x the following columns not found in df: subjid, qry30fl
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -327,10 +302,10 @@
       map_function(dfs = purrr::imap(dfs, ~"Hi Mom"), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, compreas, compyn
+      x the following columns not found in df: subjid, qry30fl
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -339,8 +314,8 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -350,10 +325,10 @@
       map_function(dfs = purrr::imap(dfs, ~9999), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, compreas, compyn
+      x the following columns not found in df: subjid, qry30fl
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -362,8 +337,8 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -373,10 +348,10 @@
       map_function(dfs = purrr::imap(dfs, ~TRUE), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, compreas, compyn
+      x the following columns not found in df: subjid, qry30fl
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -385,8 +360,8 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -396,16 +371,16 @@
       map_function(dfs = purrr::imap(dfs, ~.x), lMapping = list(), bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
-      x "mapping" does not contain required parameters: strIDCol, strStudyDiscontinuationReasonCol, strStudyDiscontinuationFlagCol
+      x "mapping" does not contain required parameters: strIDCol, strQueryAgeCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       x "mapping" does not contain required parameters: strIDCol, strSiteCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -415,11 +390,11 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x Unexpected duplicates found in column: subjid
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -429,14 +404,14 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -446,14 +421,14 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
-      x the following columns not found in df: compreas
+      x the following columns not found in df: qry30fl
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -463,31 +438,14 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
-      
-      x the following columns not found in df: compyn
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs_edited, bQuiet = FALSE)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -497,14 +455,14 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x the following columns not found in df: siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -514,11 +472,11 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x 1 NA values found in column: subjid
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -528,11 +486,11 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
-      x 1 NA values found in column: subjid
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      x 1 NA values found in column: qry30fl
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -542,11 +500,25 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
+      
+      x 1 NA values found in column: subjid
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message <cliMessage>
+      
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x 1 NA values found in column: siteid
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -556,11 +528,11 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x Unexpected duplicates found in column: subjid
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -570,14 +542,14 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -587,14 +559,14 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -604,14 +576,14 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -621,31 +593,14 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
-    Message <cliMessage>
-      
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
-      
-      x the following columns not found in df: asdf
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `Disp_Map_Raw_Study()`
-      ! `Disp_Map_Raw()` did not run because of failed check.
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
@@ -655,21 +610,11 @@
       dfInput <- map_function(dfs = dfs, bQuiet = FALSE)
     Message <cliMessage>
       
-      -- Checking Input Data for `Disp_Map_Raw_Study()` --
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
       
-      v No issues found for `Disp_Map_Raw_Study()`
+      v No issues found for `QueryAge_Map_Raw()`
       
-      -- Initializing `Disp_Map_Raw()` --
+      -- Initializing `QueryAge_Map_Raw()` --
       
-      i Intializing merge of domain and subject data
-      i 2 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
-      v `Disp_Map_Raw()` returned output with 3 rows.
-
-# Treatment mapping returns expected output
-
-    Code
-      names(output)
-    Output
-      [1] "SubjectID"     "SiteID"        "StudyID"       "CountryID"    
-      [5] "CustomGroupID" "Count"         "Total"        
+      v `QueryAge_Map_Raw()` returned output with 74 rows.
 

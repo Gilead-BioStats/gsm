@@ -330,7 +330,7 @@
 ---
 
     Code
-      map_function(dfs = purrr::imap(dfs, ~ if (.y == map_domain) list() else .x),
+      map_function(dfs = purrr::imap(dfs, ~ if (.y %in% map_domain) list() else .x),
       bQuiet = FALSE)
     Message <cliMessage>
       

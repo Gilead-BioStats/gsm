@@ -97,9 +97,9 @@ DataEntry_Map_Raw <- function(
       select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
       arrange(.data$SubjectID)
 
-    if (!bQuiet) cli::cli_alert_success("{.fn Disp_Map_Raw} returned output with {nrow(dfInput)} rows.")
+    if (!bQuiet) cli::cli_alert_success("{.fn DataEntry_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
-    if (!bQuiet) cli::cli_alert_warning("{.fn Disp_Map_Raw} did not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn DataEntry_Map_Raw} did not run because of failed check.")
     dfInput <- NULL
   }
 

@@ -23,26 +23,30 @@ test_invalid_data <- function(
     names(dfs) != "dfSUBJ"
   ]
 
-  # empty data frames
-  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = FALSE))
-  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ if (.y == "dfSUBJ") list() else .x), bQuiet = FALSE))
-  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ if (.y == map_domain) list() else .x), bQuiet = FALSE))
 
-  # mistyped data frames
-  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~"Hi Mom"), bQuiet = FALSE))
-  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~9999), bQuiet = FALSE))
-  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~TRUE), bQuiet = FALSE))
+    # empty data frames
+    testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = FALSE))
+    testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ if (.y == "dfSUBJ") list() else .x), bQuiet = FALSE))
+    testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~ if (.y %in% map_domain) list() else .x), bQuiet = FALSE))
 
-  # empty mapping
-  testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~.x), lMapping = list(), bQuiet = FALSE))
+    # mistyped data frames
+    testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~"Hi Mom"), bQuiet = FALSE))
+    testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~9999), bQuiet = FALSE))
+    testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~TRUE), bQuiet = FALSE))
 
-  # duplicate subject IDs in subject-level data frame
-  dfs_edited <- dfs
-  dfs_edited$dfSUBJ <- dfs_edited$dfSUBJ %>% bind_rows(utils::head(dfs_edited$dfSUBJ, 1))
-  testthat::expect_snapshot(map_function(dfs = dfs_edited, bQuiet = FALSE))
+    # empty mapping
+    testthat::expect_snapshot(map_function(dfs = purrr::imap(dfs, ~.x), lMapping = list(), bQuiet = FALSE))
+
+    # duplicate subject IDs in subject-level data frame
+    dfs_edited <- dfs
+    dfs_edited$dfSUBJ <- dfs_edited$dfSUBJ %>% bind_rows(utils::head(dfs_edited$dfSUBJ, 1))
+    testthat::expect_snapshot(map_function(dfs = dfs_edited, bQuiet = FALSE))
+
+
 }
 
 test_missing_column <- function(map_function, dfs, spec, mapping) {
+
   # for each domain in spec
   for (domain in names(spec)) {
     column_keys <- spec[[domain]]$vRequired
