@@ -1,27 +1,27 @@
 steps:
   - name: FilterDomain
-    inputs: dfLB
-    output: dfLB
+    inputs: dfAE
+    output: dfAE
     params:
-      strDomain: dfLB
+      strDomain: dfAE
       strColParam: strTreatmentEmergentCol
       strValParam: strTreatmentEmergentVal
   - name: FilterDomain
-    inputs: dfLB
-    output: dfLB
+    inputs: dfAE
+    output: dfAE
     params:
-      strDomain: dfLB
-      strColParam: strGradeCol
-      strValParam: strGradeHighVal
-  - name: LB_Map_Raw
+      strDomain: dfAE
+      strColParam: strSeriousCol
+      strValParam: strNonSeriousVal
+  - name: AE_Map_Raw
     inputs:
+      - dfAE
       - dfSUBJ
-      - dfLB
     output: dfInput
-  - name: LB_Assess
+  - name: AE_Assess
     inputs: dfInput
     output: lResults
     params:
       strGroup: "Country"
       vThreshold: null
-      strMethod: "funnel"
+      strMethod: "NormalApprox"

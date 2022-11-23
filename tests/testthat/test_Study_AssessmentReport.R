@@ -53,18 +53,15 @@ test_that("correct messages show when data is not found", {
 
   report <- Study_AssessmentReport(lAssessments)
 
-  expect_equal(
-    report$dfAllChecks %>% filter(domain == "dfPD" & step == "FilterDomain") %>% pull(notes),
-    c(
-      "Data not found for kri0003 assessment",
-      "Data not found for kri0004 assessment",
-      "Data not found for qtl0003 assessment"
-    )
+  expect_snapshot(
+    report$dfAllChecks %>%
+      filter(domain == "dfPD" & step == "FilterDomain") %>%
+      pull(notes)
   )
 
-  expect_equal(
+  expect_snapshot(
     report$dfAllChecks %>%
-      filter(domain == "dfPD" & step == "PD_Map_Raw") %>% pull(notes),
-    c("Check not run.", "Check not run.", "Check not run.")
+      filter(domain == "dfPD" & step == "PD_Map_Raw") %>%
+      pull(notes)
   )
 })
