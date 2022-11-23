@@ -82,6 +82,8 @@ reference:
       - Make_Snapshot
       - MakeDfConfig
       - UpdateParams
+      - CheckClindataMeta
+      - UpdateGSMVersion
 
 
    - title: Data
