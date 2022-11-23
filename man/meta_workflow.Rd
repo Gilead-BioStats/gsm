@@ -9,7 +9,8 @@ A data frame with 8 rows and 12 variables:
 \describe{
 \item{workflowid}{Workflow ID}
 \item{gsm_version}{Version of \code{gsm} that the workflow will be run on.}
-\item{group}{Description of grouping variable: \code{Site}, \code{Study}, or \code{CustomGroup}.}
+\item{group}{Description of grouping variable: \code{Site}, \code{Study}, or \code{Country}.}
+\item{abbreviation}{Metric abbreviation - 3 characters max}
 \item{metric}{Description of the assessment.}
 \item{numerator}{The numerator used to calculate the KRI/QTL.}
 \item{denominator}{The denominator used to calculate the KRI/QTL.}

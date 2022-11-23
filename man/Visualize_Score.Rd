@@ -21,16 +21,16 @@ Visualize_Score(
 
 \item{bFlagFilter}{\code{logical} Filter out non-flagged groups? Default: \code{FALSE}}
 
-\item{strTitle}{Title of plot. NULL by default.}
+\item{strTitle}{\code{character} Title of plot.}
 }
 \value{
-group-level plot object.
+group-level ggplot2 object.
 }
 \description{
 Group-level visualization of scores.
 }
 \examples{
-ae <- AE_Map_Raw() \%>\% AE_Assess(vThreshold = c(-8, -5, 5, 8))
+ae <- AE_Map_Raw() \%>\% AE_Assess()
 
 Visualize_Score(ae$lData$dfFlagged) # visualize KRI (default)
 Visualize_Score(ae$lData$dfFlagged, bFlagFilter = TRUE) # drop non-flagged groups

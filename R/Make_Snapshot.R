@@ -1,14 +1,39 @@
 #' Make Snapshot - create and export Gizmo data model.
 #'
+<<<<<<< HEAD
 #' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study. TODO: add details about expected lMeta input.
 #' @param lData `list` a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` a named list identifying the columns needed in each data domain.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
 #' @param bUpdateParams `logical` If `TRUE`, invokes `UpdateParams()` to update parameters based on user-defined `value` column from `lMeta$config_param`.
+=======
+#' @description
+#' `Make_Snapshot()` ingests data from a variety of sources, and runs KRIs and/or QTLs based on the `list` provided in `lAssessments`. The output of `Make_Snapshot()` is used as the input data model
+#' for the Gismo web application.
+#'
+#' For more context about the inputs and outputs of `Make_Snapshot()`, refer to the [GSM Data Pipeline Vignette](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html), specifically
+#' Appendix 2 - Data Model Specifications
+#'
+#' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
+#' See the Data Model Vignette - Appendix 2 - Data Model Specifications for detailed specifications.
+#' @param lData `list` a named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for raw+.
+#' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
+>>>>>>> origin/dev
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @includeRmd ./man/md/Make_Snapshot.md
+#'
+#' @return `list` `lSnapshot`, a named list with a data.frame for each component of the {gsm} data model.
+#' - `status_study`
+#' - `status_site`
+#' - `status_workflow`
+#' - `status_param`
+#' - `results_summary`
+#' - `results_bounds`
+#' - `meta_workflow`
+#' - `meta_param`
 #'
 #' @examples
 #' # run with default testing data
@@ -20,7 +45,6 @@
 #' @export
 Make_Snapshot <- function(lMeta = list(
   config_param = clindata::config_param,
-  config_schedule = clindata::config_schedule,
   config_workflow = clindata::config_workflow,
   meta_params = gsm::meta_param,
   meta_site = clindata::ctms_site,
@@ -47,12 +71,54 @@ bQuiet = TRUE
   gsm_analysis_date <- Sys.Date()
 
 
-  # lSnapshot$status_study<-meta$meta_study
-  status_study <- lMeta$meta_study
+
+  # rename GILDA to expected gsm variable names -----------------------------
+
+  # ctms_study / meta_study:
+  status_study <- lMeta$meta_study %>%
+    select(
+      "studyid" = "PROTOCOL_TITLE",
+      "enrolled_sites_ctms" = "NUM_SITE_ACTL",
+      "enrolled_participants_ctms" = "NUM_ENROLLED_SUBJ_M",
+      "planned_sites" = "NUM_PLAN_SITE",
+      "planned_participants" = "NUM_PLAN_SUBJ",
+      "title" = "PROTOCOL_TITLE",
+      "nickname" = "NICKNAME",
+      "indication" = "PROTOCOL_INDICATION",
+      "ta" = "THERAPEUTIC_AREA",
+      "phase" = "PHASE",
+      "status" = "STATUS",
+      "fpfv" = "ACT_FPFV",
+      "lpfv" = "ACT_LPFV",
+      "lplv" = "ACT_LPLV",
+      "rbm_flag" = "X_RBM_FLG",
+      everything()
+    ) %>%
+    rename_with(tolower)
+
+  # ctms_site / meta_site:
+  status_site <- lMeta$meta_site %>%
+    mutate(
+      siteid = as.character(.data$SITE_NUM),
+      invname = paste0(.data$PI_LAST_NAME, ", ", .data$PI_FIRST_NAME)
+    ) %>%
+    select(
+      "studyid" = "PROTOCOL",
+      "siteid",
+      "institution" = "ACCOUNT",
+      "status" = "SITE_STATUS",
+      "start_date" = "SITE_ACTIVE_DT",
+      "city" = "CITY",
+      "state" = "STATE",
+      "country" = "COUNTRY",
+      "invname",
+      everything()
+    ) %>%
+    rename_with(tolower)
 
   # status_study ------------------------------------------------------------
   if (!("enrolled_participants" %in% colnames(status_study))) {
-    status_study$enrolled_participants <- Get_Enrolled(
+    status_study$enrolled_participants <- gsm::Get_Enrolled(
       dfSUBJ = lData$dfSUBJ,
       dfConfig = lMeta$config_param,
       lMapping = lMapping,
@@ -62,7 +128,7 @@ bQuiet = TRUE
   }
 
   if (!("enrolled_sites" %in% colnames(status_study))) {
-    status_study$enrolled_sites <- Get_Enrolled(
+    status_study$enrolled_sites <- gsm::Get_Enrolled(
       dfSUBJ = lData$dfSUBJ,
       dfConfig = lMeta$config_param,
       lMapping = lMapping,
@@ -71,8 +137,20 @@ bQuiet = TRUE
     )
   }
 
+  # status_site -------------------------------------------------------------
+  if (!("enrolled_participants" %in% colnames(status_site))) {
+    status_site_count <- gsm::Get_Enrolled(
+      dfSUBJ = lData$dfSUBJ,
+      dfConfig = lMeta$config_param,
+      lMapping = lMapping,
+      strUnit = "participant",
+      strBy = "site"
+    )
 
-  # select in same order as spec - can remove this if not needed, but helps with comparison
+    status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID"))
+  }
+
+  # reorder columns
   status_study <- status_study %>%
     select(
       "studyid",
@@ -80,42 +158,11 @@ bQuiet = TRUE
       "enrolled_participants",
       "planned_sites",
       "planned_participants",
-      "title",
-      "nickname",
-      "indication",
-      "ta",
-      "phase",
-      "status",
-      "fpfv",
-      "lplv",
-      "rbm_flag"
+      everything()
     )
 
-  # status_site -------------------------------------------------------------
-  status_site <- lMeta$meta_site %>%
-    mutate(siteid = as.character(.data$siteid))
-  if (!("enrolled_participants" %in% colnames(status_site))) {
-    status_site_count <- Get_Enrolled(
-      dfSUBJ = lData$dfSUBJ,
-      dfConfig = lMeta$config_param,
-      lMapping = lMapping,
-      strUnit = "participant",
-      strBy = "site"
-    )
-  }
-  status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID")) %>%
-    select(
-      "studyid",
-      "siteid",
-      "institution",
-      "status",
-      "enrolled_participants",
-      "start_date",
-      "city",
-      "state",
-      "country",
-      "invname"
-    )
+  status_site <- status_site %>%
+    relocate("enrolled_participants", .after = "status")
 
 
   # run Study_Assess() ------------------------------------------------------
@@ -123,7 +170,7 @@ bQuiet = TRUE
   # Need to update this to use the relevant items from lMeta (meta_workflow, meta_params, config_workfow and config_params)
 
   if (is.null(lAssessments)) {
-    lAssessments <- MakeWorkflowList(strNames = c(unique(lMeta$meta_workflow$workflowid)))
+    lAssessments <- gsm::MakeWorkflowList(strNames = c(unique(lMeta$meta_workflow$workflowid)))
   }
 
   # update parameters
@@ -132,21 +179,22 @@ bQuiet = TRUE
   }
 
   # Run Study Assessment
-  lResults <- Study_Assess(
+  lResults <- gsm::Study_Assess(
     lData = lData,
     lMapping = lMapping,
     lAssessments = lAssessments,
     bQuiet = bQuiet
   )
 
-  # add line below to parseWorkflowStatus function
+  # grab boolean status of each workflow
   parseStatus <- purrr::imap(lResults, function(x, y) tibble(workflowid = y, status = x$bStatus)) %>%
     bind_rows()
 
-  # lWorkflowStatus <- parseWorkflowStatus(lResults)
+  # join boolean status column to status_workflow
   status_workflow <- lMeta$config_workflow %>%
     left_join(parseStatus, by = "workflowid")
 
+  # parse warnings from is_mapping_valid to create an informative "notes" column
   warnings <- ParseWarnings(lResults)
 
   if (nrow(warnings > 0)) {
@@ -159,18 +207,16 @@ bQuiet = TRUE
   # status_param ------------------------------------------------------------
   status_param <- lMeta$config_param
 
-  # status_schedule ---------------------------------------------------------
-  status_schedule <- lMeta$config_schedule
-
   # meta_workflow -----------------------------------------------------------
   meta_workflow <- gsm::meta_workflow
 
   # meta_param --------------------------------------------------------------
   meta_param <- gsm::meta_param
 
+
   # results_summary ---------------------------------------------------------
   results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%
-    discard(is.null) %>%
+    purrr::discard(is.null) %>%
     purrr::imap_dfr(~ .x$lData$dfFlagged %>%
       mutate(
         KRIID = .y,
@@ -187,25 +233,54 @@ bQuiet = TRUE
       flag = "Flag"
     )
 
+  # results_analysis ---------------------------------------------------------
 
-  # lSnapshot$results_summary$StudyID <- meta$status_study[1,'StudyID']
-  # Also need to make sure we're capturing WorkflowID here ...
+  hasQTL <- grep("qtl", names(lResults))
+
+  results_analysis <- NULL
+  if (length(hasQTL) > 0) {
+    results_analysis <-
+      purrr::imap_dfr(lResults[hasQTL], function(qtl, qtl_name) {
+        if (qtl$bStatus) {
+          qtl$lResults$lData$dfAnalyzed %>%
+            select(
+              "GroupID",
+              "LowCI",
+              "UpCI",
+              "Score"
+            ) %>%
+            mutate(workflowid = qtl_name) %>%
+            pivot_longer(-c("GroupID", "workflowid")) %>%
+            rename(
+              param = "name",
+              studyid = "GroupID"
+            )
+        }
+      })
+  }
+
 
   # results_bounds ----------------------------------------------------------
   results_bounds <- lResults %>%
     purrr::map(~ .x$lResults$lData$dfBounds) %>%
-    purrr::discard(is.null) %>%
-    purrr::imap_dfr(~ .x %>% mutate(workflowid = .y)) %>%
-    mutate(studyid = unique(lMeta$config_workflow$studyid)) %>% # not sure if this is a correct assumption
-    select(
-      "studyid",
-      "workflowid",
-      "threshold" = "Threshold",
-      "numerator" = "Numerator",
-      "denominator" = "Denominator",
-      "log_denominator" = "LogDenominator"
-    )
+    purrr::discard(is.null)
 
+  if (length(results_bounds) > 0) {
+    results_bounds <- results_bounds %>%
+      purrr::imap_dfr(~ .x %>% mutate(workflowid = .y)) %>%
+      mutate(studyid = unique(lMeta$config_workflow$studyid)) %>% # not sure if this is a correct assumption
+      select(
+        "studyid",
+        "workflowid",
+        "threshold" = "Threshold",
+        "numerator" = "Numerator",
+        "denominator" = "Denominator",
+        "log_denominator" = "LogDenominator"
+      )
+  } else {
+    results_bounds <- results_bounds %>%
+      as_tibble()
+  }
 
 
   # create lSnapshot --------------------------------------------------------
@@ -215,13 +290,17 @@ bQuiet = TRUE
     status_site = status_site,
     status_workflow = status_workflow,
     status_param = status_param,
-    status_schedule = status_schedule,
     results_summary = results_summary,
+    results_analysis = results_analysis,
     results_bounds = results_bounds,
     meta_workflow = meta_workflow,
     meta_param = meta_param
   ) %>%
-    purrr::map(~.x %>% mutate(gsm_analysis_date = gsm_analysis_date))
+    keep(~ !is.null(.x)) %>%
+    purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
+
+
+  # save lSnapshot ----------------------------------------------------------
 
   if (!is.null(cPath)) {
     # write each snapshot item to location

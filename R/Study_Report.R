@@ -1,4 +1,6 @@
-#' Study Report
+#' {experimental} Study Report
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' Create HTML summary report using the results of `Study_Assess`, including tables, charts, and error checking.
 #'

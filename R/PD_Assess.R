@@ -10,17 +10,14 @@
 #' methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
-#' @param vThreshold `numeric` Threshold specification, a vector of length 4 that defaults to
-#'   `c(-7, -5, 5, 7)` for a Poisson model (`strMethod = "poisson"`) and a vector of length 2
-#'   that defaults to `c(0.000895, 0.003059)` for a nominal assessment (`strMethod = "identity"`).
+#' @param vThreshold `numeric` Threshold specification, a vector of length 2 or 4 that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation (`strMethod = "NormalApprox"`),
+#'   `c(-7, -5, 5, 7)` for a Poisson model (`strMethod = "poisson"`), and `c(0.000895, 0.003059)` for a nominal assessment (`strMethod = "identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
-#'   - `"poisson"` (default)
+#'   - `"NormalApprox"` (default)
+#'   - `"poisson"`
 #'   - `"identity"`
-#' @param strType `character` Statistical outcome type. Valid values:
-#'   - `"binary"` (default)
-#'   - `"rate"`
-#' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
-#'   of the column.
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
+#'   of the column. Default: package-defined Protocol Deviation Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param nConfLevel `numeric` Confidence level for QTL analysis.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
@@ -28,10 +25,10 @@
 #' @return `list` `lData`, a named list with:
 #' - each data frame in the data pipeline
 #'   - `dfTransformed`, returned by [gsm::Transform_Rate()]
-#'   - `dfAnalyzed`, returned by [gsm::Analyze_Poisson()] or [gsm::Analyze_Identity()]
-#'   - `dfFlagged`, returned by [gsm::Flag_Poisson()] or [gsm::Flag()]
+#'   - `dfAnalyzed`, returned by [gsm::Analyze_NormalApprox()], [gsm::Analyze_Poisson()] or [gsm::Analyze_Identity()]
+#'   - `dfFlagged`, returned by [gsm::Flag_NormalApprox()], [gsm::Flag_Poisson()], or [gsm::Flag()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
-#'   - `dfBounds`, returned by [gsm::Analyze_Poisson_PredictBounds()] only when strMethod == "poisson"
+#'   - `dfBounds`, returned by [gsm::Analyze_NormalApprox_PredictBounds()] when `strMethod == "NormalApprox"` or [gsm::Analyze_Poisson_PredictBounds()] when `strMethod == "poisson"`
 #' - `list` `lCharts`, a named list with:
 #'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when strMethod != "identity"
 #'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()]
@@ -48,6 +45,8 @@
 #' @examples
 #' dfInput <- PD_Map_Raw()
 #' pd_assessment_NormalApprox <- PD_Assess(dfInput)
+#' pd_assessment_poisson <- PD_Assess(dfInput, strMethod = "poisson")
+#' pd_assessment_identity <- PD_Assess(dfInput, strMethod = "identity")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
@@ -60,7 +59,6 @@ PD_Assess <- function(
   dfInput,
   vThreshold = NULL,
   strMethod = "NormalApprox",
-  strType = "rate",
   lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   nConfLevel = NULL,
@@ -77,7 +75,7 @@ PD_Assess <- function(
 
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
-  lChecks <- CheckInputs(
+  lChecks <- gsm::CheckInputs(
     context = "PD_Assess",
     dfs = list(dfInput = dfInput),
     mapping = lMapping,
@@ -90,7 +88,7 @@ PD_Assess <- function(
       NormalApprox = c(-3, -2, 2, 3),
       poisson = c(-7, -5, 5, 7),
       identity = c(0.000895, 0.003059),
-      qtl = c(0, 5)
+      qtl = c(0.01)
     )
   }
 
@@ -125,27 +123,25 @@ PD_Assess <- function(
 
     # dfAnalyzed --------------------------------------------------------------
     if (strMethod == "NormalApprox") {
-
       lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
         dfTransformed = lData$dfTransformed,
-        strType = strType,
+        strType = "rate",
         bQuiet = bQuiet
-        )
+      )
 
       lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
-        strType = strType,
+        strType = "rate",
         bQuiet = bQuiet
-        )
-
+      )
     } else if (strMethod == "poisson") {
       lData$dfAnalyzed <- gsm::Analyze_Poisson(lData$dfTransformed, bQuiet = bQuiet)
       lData$dfBounds <- gsm::Analyze_Poisson_PredictBounds(lData$dfTransformed, vThreshold = vThreshold, bQuiet = bQuiet)
     } else if (strMethod == "identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
     } else if (strMethod == "qtl") {
-      lData$dfAnalyzed <- AnalyzeQTL(lData$dfTransformed, strOutcome = "rate", nConfLevel = nConfLevel)
+      lData$dfAnalyzed <- gsm::Analyze_QTL(lData$dfTransformed, strOutcome = "rate", nConfLevel = nConfLevel)
     }
 
 
@@ -160,15 +156,14 @@ PD_Assess <- function(
     } else if (strMethod == "identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     } else if (strMethod == "qtl") {
-      lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strColumn = "LowCI") %>%
-        mutate(Score = .data$Metric)
+      lData$dfFlagged <- gsm::Flag_QTL(lData$dfAnalyzed, vThreshold = vThreshold)
     }
 
     flag_function_name <- switch(strMethod,
       NormalApprox = "Flag_NormalApprox",
       identity = "Flag",
       poisson = "Flag_Poisson",
-      qtl = "Flag"
+      qtl = "Flag_QTL"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
@@ -187,8 +182,8 @@ PD_Assess <- function(
         if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
       }
 
-      lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-      lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+      lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+      lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
       if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
     }
 

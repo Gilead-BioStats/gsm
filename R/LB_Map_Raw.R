@@ -14,10 +14,10 @@
 #' specific types of LB criteria by passing filtered LB data to `dfLB`.
 #'
 #' @param dfs `list` Input data frames:
-#'  - `dfLB`: `data.frame` Lab data with one record subject per visit per lab result.
-#'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
+#'  - `dfLB`: `data.frame` Lab data with one record subject per visit per lab result. Default: `clindata::rawplus_lb`
+#'  - `dfSUBJ`: `data.frame` Subject-level data with one record per subject. Default: `clindata::rawplus_dm`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
-#'   of the column.
+#'   of the column. Default: package-defined mapping for raw+.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -36,7 +36,6 @@
 #' dfInput <- LB_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
-#' @import dplyr
 #' @importFrom glue glue
 #' @importFrom yaml read_yaml
 #'
@@ -57,7 +56,7 @@ LB_Map_Raw <- function(
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
-  checks <- CheckInputs(
+  checks <- gsm::CheckInputs(
     context = "LB_Map_Raw",
     dfs = dfs,
     bQuiet = bQuiet,
@@ -96,7 +95,7 @@ LB_Map_Raw <- function(
       ) %>%
       mutate(
         Count = if_else(
-          .data$Grade %in% lMapping[["dfLB"]][["strGradeAnyVal"]],
+          .data$Grade %in% lMapping[["dfLB"]][["strGradeHighVal"]],
           1,
           0
         ),

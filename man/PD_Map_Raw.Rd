@@ -20,7 +20,7 @@ PD_Map_Raw(
 }}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
-of the column.}
+of the column. Default: package-defined mapping for raw+.}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 

@@ -9,19 +9,22 @@ Visualize_Scatter(
   dfBounds = NULL,
   strGroupCol = NULL,
   strGroupLabel = NULL,
-  strUnit = "days"
+  strUnit = "days",
+  vColors = c("#999999", "#FADB14", "#FF4D4F")
 )
 }
 \arguments{
-\item{dfFlagged}{analyze_poisson results with flags added.}
+\item{dfFlagged}{\code{data.frame} analyze_poisson results with flags added.}
 
-\item{dfBounds}{data.frame giving prediction bounds for range of dfFlagged.}
+\item{dfBounds}{\code{data.frame} data.frame giving prediction bounds for range of dfFlagged.}
 
-\item{strGroupCol}{name of stratification column for facet wrap (default=NULL)}
+\item{strGroupCol}{\code{character} name of stratification column for facet wrap Default: \code{NULL}}
 
-\item{strGroupLabel}{name of group, used for labeling axes.}
+\item{strGroupLabel}{\code{character} name of group, used for labeling axes. Default: \code{NULL}}
 
-\item{strUnit}{exposure time unit. Defaults to "days".}
+\item{strUnit}{\code{character} exposure time unit. Default: \code{days}}
+
+\item{vColors}{\code{character} vector of hex colors for plotting boundaries/thresholds. Index 1: mean; index 2: first threshold boundary; index 3: second threshold boundary.}
 }
 \value{
 group-level plot object.

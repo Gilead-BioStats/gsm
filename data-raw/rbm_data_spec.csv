@@ -4,6 +4,8 @@ Gismo,status_study,enrolled_sites,# of enrolled sites
 Gismo,status_study,enrolled_participants,# of enrolled participants
 Gismo,status_study,planned_sites,# of planned sites
 Gismo,status_study,planned_participants,# of planned participants
+Gismo,status_study,enrolled_sites_ctms,# of enrolled sites from GILDA
+Gismo,status_study,enrolled_participants_ctms,# of enrolled participants from GILDA
 Gismo,status_study,title,Protocol title
 Gismo,status_study,nickname,Protocol nickname
 Gismo,status_study,indication,Indication
@@ -11,8 +13,17 @@ Gismo,status_study,ta,Therapeutic Area
 Gismo,status_study,phase,Phase
 Gismo,status_study,status,Study Status
 Gismo,status_study,fpfv,First-patient first visit date
+Gismo,status_study,lpfv,Last-patient first visit date
 Gismo,status_study,lplv,Last-patient last visit date
 Gismo,status_study,rbm_flag,Risk-based monitoring flag
+Gismo,status_study,protocol_row_id,Protocol row ID
+Gismo,status_study,protocol_number,Protocol number
+Gismo,status_study,protocol_type,Protocol type
+Gismo,status_study,est_fpfv,Estimated first-patient first visit date from GILDA
+Gismo,status_study,est_lplv,Estimated last-patient last visit date from GILDA
+Gismo,status_study,est_lpfv,Estimated last-patient first visit date from GILDA
+Gismo,status_study,product,Product
+Gismo,status_study,protocol_product_number,Protocol product number
 Gismo,status_study,gsm_analysis_date,Date that snapshot was created
 Gismo,status_site,studyid,Unique Study ID
 Gismo,status_site,siteid,Unique Site ID
@@ -24,6 +35,13 @@ Gismo,status_site,city,City
 Gismo,status_site,state,State
 Gismo,status_site,country,Country
 Gismo,status_site,invname,Investigator name
+Gismo,status_site,protocol_row_id,Protocol row ID
+Gismo,status_site,site_num,Site number
+Gismo,status_site,site_row_id,Site row ID
+Gismo,status_site,pi_number,Principal investigator number
+Gismo,status_site,pi_last_name,Principal investigator last name
+Gismo,status_site,pi_first_name,Principal investigator first name
+Gismo,status_site,is_satellite,Is site a satellite location?
 Gismo,status_site,gsm_analysis_date,Date that snapshot was created
 Gismo,status_workflow,studyid,Unique Study ID
 Gismo,status_workflow,workflowid,Unique Workflow ID
@@ -39,9 +57,6 @@ Gismo,status_param,param,Parameter name
 Gismo,status_param,index,Index value for parameter
 Gismo,status_param,value,Value for parameter at index
 Gismo,status_param,gsm_analysis_date,Date that snapshot was created
-Gismo,status_schedule,studyid,Unique Study ID
-Gismo,status_schedule,snapshot_date,Snapshot Date
-Gismo,status_schedule,gsm_analysis_date,Date that snapshot was created
 Gismo,results_summary,studyid,Unique Study ID
 Gismo,results_summary,workflowid,Unique Workflow ID
 Gismo,results_summary,groupid,Unique Group ID (e.g. SiteID for KRI workflows)
@@ -51,6 +66,11 @@ Gismo,results_summary,metric,Metric value
 Gismo,results_summary,score,Statistical Score
 Gismo,results_summary,flag,Flag
 Gismo,results_summary,gsm_analysis_date,Date that snapshot was created
+Gismo,results_analysis,studyid,Unique Study ID
+Gismo,results_analysis,workflowid,Unique Workflow ID
+Gismo,results_analysis,param,Parameter name
+Gismo,results_analysis,value,Value for parameter
+Gismo,results_analysis,gsm_analysis_date,Date that snapshot was created
 Gismo,results_bounds,studyid,Unique Study ID
 Gismo,results_bounds,workflowid,Unique Workflow ID
 Gismo,results_bounds,threshold,Threshold
@@ -61,6 +81,7 @@ Gismo,results_bounds,gsm_analysis_date,Date that snapshot was created
 Gismo,meta_workflow,workflowid,Unique Workflow ID
 Gismo,meta_workflow,gsm_version,GSM Version of workflow
 Gismo,meta_workflow,group,"Group for workflow - Site, Country, Region or Study"
+Gismo,meta_workflow,abbreviation,Workflow Abbreviation (max 3-letters)
 Gismo,meta_workflow,metric,Metric Label
 Gismo,meta_workflow,numerator,Numerator Label
 Gismo,meta_workflow,denominator,Denominator Label
@@ -77,30 +98,42 @@ Gismo,meta_param,index,Parameter index
 Gismo,meta_param,default,Default value for parameter at index
 Gismo,meta_param,configurable,Is parameter configurable?
 Gismo,meta_param,gsm_analysis_date,Date that snapshot was created
-GSM,meta_study,studyid,Unique Study ID
-GSM,meta_study,enrolled_sites,# of enrolled sites
-GSM,meta_study,enrolled_participants,# of enrolled participants
-GSM,meta_study,planned_sites,# of planned sites
-GSM,meta_study,planned_participants,# of planned participants
-GSM,meta_study,title,Protocol title
-GSM,meta_study,nickname,Protocol nickname
-GSM,meta_study,indication,Indication
-GSM,meta_study,ta,Therapeutic Area
-GSM,meta_study,phase,Phase
-GSM,meta_study,status,Study Status
-GSM,meta_study,fpfv,First-patient first visit date
-GSM,meta_study,lplv,Last-patient last visit date
-GSM,meta_study,rbm_flag,Risk-based monitoring flag
-GSM,meta_site,studyid,Unique Study ID
-GSM,meta_site,siteid,Unique Site ID
-GSM,meta_site,institution,Institution Name
-GSM,meta_site,status,Site Status
-GSM,meta_site,enrolled_participants,# of enrolled participants
-GSM,meta_site,start_date,Site Activation Date
-GSM,meta_site,city,City
-GSM,meta_site,state,State
-GSM,meta_site,country,Country
-GSM,meta_site,invname,Investigator name
+GSM,meta_study,PROTOCOL_ROW_ID,Protocol row ID
+GSM,meta_study,PROTOCOL_NUMBER,Protocol number
+GSM,meta_study,PROTOCOL_TITLE,Protocol title
+GSM,meta_study,NICKNAME,Protocol nickname
+GSM,meta_study,PROTOCOL_TYPE,Protocol type
+GSM,meta_study,PHASE,Phase
+GSM,meta_study,NUM_PLAN_SITE,# of planned sites from CTMS
+GSM,meta_study,NUM_SITE_ACTL,# of enrolled sites from CTMS
+GSM,meta_study,EST_FPFV,Estimated first-patient first visit date
+GSM,meta_study,ACT_FPFV,First-patient first visit date
+GSM,meta_study,EST_LPFV,Estimated last-patient first visit date
+GSM,meta_study,ACT_LPFV,Last-patient first visit date
+GSM,meta_study,EST_LPLV,Estimated last-patient last visit date
+GSM,meta_study,ACT_LPLV,Last-patient last visit date
+GSM,meta_study,STATUS,Study Status
+GSM,meta_study,NUM_PLAN_SUBJ,# of planned participants from CTMS
+GSM,meta_study,NUM_ENROLLED_SUBJ_M,# of enrolled participants from CTMS
+GSM,meta_study,PROTOCOL_INDICATION,Indication
+GSM,meta_study,PRODUCT,Product
+GSM,meta_study,THERAPEUTIC_AREA,Therapeutic Area
+GSM,meta_study,PROTOCOL_PRODUCT_NUMBER,Protocol product number
+GSM,meta_study,X_RBM_FLG,Risk-based monitoring flag
+GSM,meta_site,PROTOCOL_ROW_ID,Protocol row ID
+GSM,meta_site,SITE_NUM,Unique Site ID
+GSM,meta_site,SITE_ROW_ID,Site row ID
+GSM,meta_site,PROTOCOL,Unique Study ID
+GSM,meta_site,PI_NUMBER,Principal investigator number
+GSM,meta_site,PI_LAST_NAME,Principal investigator last name
+GSM,meta_site,PI_FIRST_NAME,Principal investigator first name
+GSM,meta_site,SITE_STATUS,Site Status
+GSM,meta_site,IS_SATELLITE,Is site a satellite location?
+GSM,meta_site,ACCOUNT,Institution Name
+GSM,meta_site,SITE_ACTIVE_DT,Site Activation Date
+GSM,meta_site,CITY,City
+GSM,meta_site,STATE,State
+GSM,meta_site,COUNTRY,Country
 GSM,config_workflow,studyid,Unique Study ID
 GSM,config_workflow,workflowid,Unique Workflow ID
 GSM,config_workflow,gsm_version,GSM version of workflow
@@ -111,9 +144,8 @@ GSM,config_param,gsm_version,GSM version of workflow
 GSM,config_param,param,Parameter name
 GSM,config_param,index,Index value for parameter
 GSM,config_param,value,Value for parameter at index
-GSM,config_schedule,studyid,Unique Study ID
-GSM,config_schedule,snapshot_date,Snapshot Date
 GSM,meta_workflow,workflowid,Unique Workflow ID
+GSM,meta_workflow,abbreviation,Workflow Abbreviation (max 3-letters)
 GSM,meta_workflow,gsm_version,GSM Version of workflow
 GSM,meta_workflow,group,"Group for workflow - Site, Country, Region or Study"
 GSM,meta_workflow,metric,Metric Label

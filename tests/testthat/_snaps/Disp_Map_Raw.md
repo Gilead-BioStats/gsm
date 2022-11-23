@@ -665,3 +665,11 @@
       i 2 ID(s) in subject data not found in domain data.These participants will have NA values imputed for all domain data columns:
       v `Disp_Map_Raw()` returned output with 3 rows.
 
+# Treatment mapping returns expected output
+
+    Code
+      names(output)
+    Output
+      [1] "SubjectID"     "SiteID"        "StudyID"       "CountryID"    
+      [5] "CustomGroupID" "Count"         "Total"        
+

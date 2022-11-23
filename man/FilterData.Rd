@@ -21,7 +21,9 @@ FilterData(dfInput, strCol, anyVal, bReturnChecks = FALSE, bQuiet = TRUE)
 \code{data.frame} Data frame provided as \code{dfInput} and filtered on \code{strCol} == \code{anyVal}.
 }
 \description{
-Subset a data frame
+\code{FilterData} is used to select rows of a data.frame that satisfy a specified condition. \code{FilterData} is called within the \code{RunStep} function to subset available data
+for a stratified KRI on an existing categorical variable. For example, we can filter Adverse Event assessment data on the \code{aetoxgr} variable,
+which specifies if the adverse event was mild, moderate, or severe.
 }
 \examples{
 

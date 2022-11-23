@@ -1,5 +1,8 @@
 #' Remove invalid Subject IDs
 #'
+#' @description
+#' `RemoveInvalidSubjectIDs` is a helper function that allows a user to specify a character vector of `SubjectID`s to remove from input data.
+#'
 #' @param df `data.frame` data frame with column for subject ID
 #' @param strDomain `character` domain name of data frame
 #' @param strIDCol `character` name of subject ID Column; Default: `"SubjectID"`

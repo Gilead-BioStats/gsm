@@ -37,6 +37,7 @@ reference:
       - Flag_Fisher
       - Flag_NormalApprox
       - Flag_Poisson
+      - Flag_QTL
       - Summarize
 
    - title: Reporting
@@ -50,7 +51,7 @@ reference:
    - title: QTL
      desc: Runs QTL analysis for longitudinal metrics
    - contents:
-      - AnalyzeQTL
+      - Analyze_QTL
       - RunQTL
       - SaveQTL
 

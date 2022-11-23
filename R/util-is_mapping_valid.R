@@ -1,4 +1,8 @@
-#' Check that a data frame contains columns and fields specified in mapping
+#' Check that a data frame contains columns and fields specified in mapping.
+#'
+#' @description
+#' `is_mapping_valid` is a utility function that is a core feature of any assessment or workflow. This function evaluates the validity of input data based on
+#' a pre-defined, or user-defined mapping and specification.
 #'
 #' @param df `data.frame` A data.frame to compare to mapping object.
 #' @param mapping `list` A named list specifying expected columns and values in df. Parameters ending in `col` are assumed to be column names in `df`, while parameters ending in `val` are values expected in for a corresponding column. For example, `mapping=list(strSiteCol="SiteID", strSiteVal=c("001","002"))` would indicate that `df` has a `df$SiteID` includes values `"001"` and `"002"`.
@@ -139,7 +143,7 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
     }
 
     # Check for empty string values in columns that are not specificed in "vNACols"
-    empty_strings <- sum(map_dbl(df[check_na], ~ sum(as.character(.x) == "" & !is.na(.x))))
+    empty_strings <- sum(purrr::map_dbl(df[check_na], ~ sum(as.character(.x) == "" & !is.na(.x))))
     if (empty_strings > 0) {
       warning <- df %>%
         summarize(across(all_of(check_na), ~ sum(as.character(.) == ""))) %>%
@@ -159,7 +163,7 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
       unique_cols <- mapping[spec$vUniqueCols] %>%
         unname() %>%
         unlist()
-      dupes <- map_lgl(df[unique_cols], ~ any(duplicated(.)))
+      dupes <- purrr::map_lgl(df[unique_cols], ~ any(duplicated(.)))
       if (any(dupes)) {
         tests_if$cols_are_unique$status <- FALSE
         warning <- paste0("Unexpected duplicates found in column: ", names(dupes))
@@ -183,8 +187,8 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
   # create warning message for multiple warnings (if applicable)
   if (bQuiet == FALSE) {
     all_warnings <- tests_if %>%
-      map(~ .x$warning) %>%
-      keep(~ !is.na(.x))
+      purrr::map(~ .x$warning) %>%
+      purrr::keep(~ !is.na(.x))
     if (length(all_warnings) > 0) {
       all_warnings <- unlist(unname(all_warnings))
       x <- map(all_warnings, ~ cli::cli_alert_danger(cli::col_br_yellow(.)))
@@ -194,7 +198,7 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
   # get overall status for df/mapping: if tests_if$*$status is TRUE for all tests, return tests_if$status <- TRUE
   # if not, FALSE
   is_valid <- list(
-    status = all(map_lgl(tests_if, ~ .$status)),
+    status = all(purrr::map_lgl(tests_if, ~ .$status)),
     tests_if = tests_if,
     dim = dim
   )

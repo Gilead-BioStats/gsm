@@ -6,7 +6,8 @@
 #' \describe{
 #'   \item{workflowid}{Workflow ID}
 #'   \item{gsm_version}{Version of `gsm` that the workflow will be run on.}
-#'   \item{group}{Description of grouping variable: `Site`, `Study`, or `CustomGroup`.}
+#'   \item{group}{Description of grouping variable: `Site`, `Study`, or `Country`.}
+#'   \item{abbreviation}{Metric abbreviation - 3 characters max}
 #'   \item{metric}{Description of the assessment.}
 #'   \item{numerator}{The numerator used to calculate the KRI/QTL.}
 #'   \item{denominator}{The denominator used to calculate the KRI/QTL.}

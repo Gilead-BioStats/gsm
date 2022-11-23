@@ -15,7 +15,7 @@
 #'   - `dfPD`: `data.frame` Event-level data with one record per PD.
 #'   - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
-#'   of the column.
+#'   of the column. Default: package-defined mapping for raw+.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -34,7 +34,7 @@
 #' dfInput <- PD_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
-#' @import dplyr
+#' @importFrom yaml read_yaml
 #'
 #' @export
 
@@ -52,7 +52,7 @@ PD_Map_Raw <- function(
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
-  checks <- CheckInputs(
+  checks <- gsm::CheckInputs(
     context = "PD_Map_Raw",
     dfs = dfs,
     bQuiet = bQuiet,

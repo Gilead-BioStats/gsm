@@ -1,6 +1,6 @@
 test_valid_output_assess <- function(
-    assess_function,
-    dfInput
+  assess_function,
+  dfInput
 ) {
   output <- assess_function(dfInput = dfInput)
 
@@ -17,15 +17,14 @@ test_valid_output_assess <- function(
   if (exists("dfBounds", where = output$lData)) {
     testthat::expect_true("data.frame" %in% class(output$lData$dfBounds))
   }
-
 }
 
 
 ################################################################
 
 test_grouping_assess <- function(
-    assess_function,
-    dfInput
+  assess_function,
+  dfInput
 ) {
   subsetGroupCols <- function(assessOutput) {
     assessOutput[["lData"]][["dfSummary"]] %>% select("GroupID")
@@ -45,8 +44,8 @@ test_grouping_assess <- function(
 ################################################################
 
 test_invalid_data_assess <- function(
-    assess_function,
-    dfInput
+  assess_function,
+  dfInput
 ) {
   testthat::expect_null(assess_function("Hi")[["lData"]])
   testthat::expect_snapshot_error(assess_function(dfInput, strMethod = 123))
@@ -60,8 +59,8 @@ test_invalid_data_assess <- function(
 ################################################################
 
 test_invalid_data_assess_identity <- function(
-    assess_function,
-    dfInput
+  assess_function,
+  dfInput
 ) {
   testthat::expect_null(assess_function("Hi")[["lData"]])
   testthat::expect_error(assess_function(dfInput, nThreshold = FALSE), "nThreshold must be numeric")
@@ -73,10 +72,10 @@ test_invalid_data_assess_identity <- function(
 ################################################################
 
 test_missing_column_assess <- function(
-    assess_function,
-    dfInput
+  assess_function,
+  dfInput
 ) {
-  dfInput_test <- dfInput %>% select("SiteID")
+  dfInput_test <- dfInput %>% select(-"SiteID")
   missing_req_col <- assess_function(dfInput = dfInput_test)
 
   testthat::expect_silent(missing_req_col)
@@ -87,9 +86,9 @@ test_missing_column_assess <- function(
 ################################################################
 
 test_invalid_mapping_assess <- function(
-    assess_function,
-    dfInput,
-    mapping
+  assess_function,
+  dfInput,
+  mapping
 ) {
   mapping_edited <- mapping
   mapping_edited$dfInput$strSiteCol <- "cupcakes"
@@ -97,15 +96,17 @@ test_invalid_mapping_assess <- function(
 
   testthat::expect_null(invalid_map$lData)
   testthat::expect_null(invalid_map$lCharts)
-  testthat::expect_equal(invalid_map[["lChecks"]][["dfInput"]][["tests_if"]][["has_expected_columns"]][["warning"]],
-                         "the following columns not found in df: cupcakes")
+  testthat::expect_equal(
+    invalid_map[["lChecks"]][["dfInput"]][["tests_if"]][["has_expected_columns"]][["warning"]],
+    "the following columns not found in df: cupcakes"
+  )
 }
 
 ################################################################
 
 test_identity <- function(
-    assess_function,
-    dfInput
+  assess_function,
+  dfInput
 ) {
   identity <- assess_function(dfInput, strMethod = "identity")
 
@@ -118,8 +119,8 @@ test_identity <- function(
 ################################################################
 
 test_NA_count <- function(
-    assess_function,
-    dfInput
+  assess_function,
+  dfInput
 ) {
   dfInputNA <- dfInput
   dfInputNA[1, "Count"] <- NA
@@ -133,8 +134,8 @@ test_NA_count <- function(
 ################################################################
 
 test_logical_assess_parameters <- function(
-    assess_function,
-    dfInput
+  assess_function,
+  dfInput
 ) {
   testthat::expect_snapshot(
     assessOutput <- assess_function(dfInput = dfInput, bQuiet = FALSE)

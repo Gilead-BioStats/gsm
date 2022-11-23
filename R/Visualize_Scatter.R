@@ -1,10 +1,11 @@
 #' Group-level visualization of group-level results using a Poisson or Wilcoxon model.
 #'
-#' @param dfFlagged analyze_poisson results with flags added.
-#' @param dfBounds data.frame giving prediction bounds for range of dfFlagged.
-#' @param strGroupCol name of stratification column for facet wrap (default=NULL)
-#' @param strGroupLabel name of group, used for labeling axes.
-#' @param strUnit exposure time unit. Defaults to "days".
+#' @param dfFlagged `data.frame` analyze_poisson results with flags added.
+#' @param dfBounds `data.frame` data.frame giving prediction bounds for range of dfFlagged.
+#' @param strGroupCol `character` name of stratification column for facet wrap Default: `NULL`
+#' @param strGroupLabel `character` name of group, used for labeling axes. Default: `NULL`
+#' @param strUnit `character` exposure time unit. Default: `days`
+#' @param vColors `character` vector of hex colors for plotting boundaries/thresholds. Index 1: mean; index 2: first threshold boundary; index 3: second threshold boundary.
 #'
 #' @return group-level plot object.
 #'
@@ -26,20 +27,20 @@ Visualize_Scatter <- function(
   dfBounds = NULL,
   strGroupCol = NULL,
   strGroupLabel = NULL,
-  strUnit = "days"
+  strUnit = "days",
+  vColors = c("#999999", "#FADB14", "#FF4D4F")
 ) {
   groupLabel <- ifelse(
     is.null(strGroupLabel),
     "GroupID: ",
     strGroupLabel
   )
-  # TODO: account for incomplete set of flags
-  dfFlagged$FlagAbs <- abs(dfFlagged$Flag)
-  flagBreaks <- as.character(unique(sort(dfFlagged$FlagAbs)))
-  flagValues <- c("#999999", "#FADB14", "#FF4D4F")[1:length(flagBreaks)]
 
-  # Define tooltip for use in plotly.
+  # Remove `NA` flags and define tooltip for use in plotly.
   dfFlaggedWithTooltip <- dfFlagged %>%
+    filter(
+      !is.na(Flag)
+    ) %>%
     mutate(
       tooltip = paste(
         paste0("Group: ", groupLabel),
@@ -49,6 +50,16 @@ Visualize_Scatter <- function(
         sep = "\n"
       )
     )
+
+  # Avoid plotting empty datasets
+  if (nrow(dfFlaggedWithTooltip) == 0)
+      return(NULL)
+
+  # Account for incomplete set of flags
+  dfFlaggedWithTooltip$FlagAbs <- abs(dfFlaggedWithTooltip$Flag)
+  maxFlag <- max(dfFlaggedWithTooltip$FlagAbs)
+  flagBreaks <- as.character(seq(0, maxFlag))
+  flagValues <- vColors[1:length(flagBreaks)]
 
   ### Plot of data
   p <- dfFlaggedWithTooltip %>%
@@ -76,18 +87,27 @@ Visualize_Scatter <- function(
     xlab(glue::glue("{groupLabel} Total (Denominator) ({strUnit} - log scale)")) +
     ylab(glue::glue("{groupLabel} Total (Numerator)"))
 
+  # Add bound lines one at a time.
   if (!is.null(dfBounds)) {
-    for (current_threshold in unique(dfBounds$Threshold)) {
-      color <- case_when(
-        current_threshold == 0 ~ "gray",
-        current_threshold == min(unique(dfBounds$Threshold)) ~ "#FF4D4F",
-        current_threshold == max(unique(dfBounds$Threshold)) ~ "#FF4D4F",
-        TRUE ~ "#FADB14"
-      )
+    dfBounds$ThresholdAbs <- abs(dfBounds$Threshold)
+    thresholds <- unique(dfBounds$Threshold) %>% sort()
+    thresholdAbs <- unique(dfBounds$ThresholdAbs) %>% sort()
+
+    for (i in seq_along(thresholds)) {
+      threshold <- thresholds[i]
+      thresholdAb <- thresholdAbs[thresholdAbs == abs(threshold)]
+      color <- vColors[match(thresholdAb, thresholdAbs)]
 
       p <- p + geom_line(
-        data = dfBounds %>% filter(.data$Threshold == current_threshold, !is.nan(.data$Numerator)),
-        aes(x = .data$LogDenominator, y = .data$Numerator),
+        data = dfBounds %>%
+          filter(
+            .data$Threshold == threshold,
+            !is.nan(.data$Numerator)
+          ),
+        aes(
+          x = .data$LogDenominator,
+          y = .data$Numerator
+        ),
         color = color,
         inherit.aes = FALSE
       )

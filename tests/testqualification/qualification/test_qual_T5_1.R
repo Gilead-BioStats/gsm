@@ -3,7 +3,8 @@ test_that("Disposition assessment can return a correctly assessed data frame for
   dfInput <- gsm::Disp_Map_Raw()
 
   test5_1 <- Disp_Assess(
-    dfInput = dfInput
+    dfInput = dfInput,
+    strMethod = "fisher"
   )
 
   # Double Programming

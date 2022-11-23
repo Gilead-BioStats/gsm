@@ -1,4 +1,4 @@
-lMeta = list(
+lMeta <- list(
   config_param = clindata::config_param,
   config_schedule = clindata::config_schedule,
   config_workflow = clindata::config_workflow,
@@ -23,23 +23,13 @@ wf_list <- MakeWorkflowList(strNames = strNames, strPath = strPath, strPackage =
 test_that("output is generated as expected", {
   expect_true(is.list(wf_list))
   expect_true(all(map_chr(wf_list, ~ class(.)) == "list"))
-  expect_snapshot(map(wf_list, ~names(.)))
+  expect_snapshot(map(wf_list, ~ names(.)))
 })
 
 ################################################################################################################
 
 test_that("Metadata is returned as expected", {
-  kri0001 <- wf_list$kri0001
-  kri0002 <- wf_list$kri0002
-  kri0003 <- wf_list$kri0003
-  kri0004 <- wf_list$kri0004
-  kri0005 <- wf_list$kri0005
-  kri0006 <- wf_list$kri0006
-  kri0007 <- wf_list$kri0007
-  qtl0003 <- wf_list$qtl0003
-  qtl0007 <- wf_list$qtl0007
-
-  expect_snapshot(map(wf_list, ~.x$steps))
+  expect_snapshot(map(wf_list, ~ .x$steps))
 })
 
 ################################################################################################################

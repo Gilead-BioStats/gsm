@@ -27,7 +27,7 @@ RemoveInvalidSubjectIDs(
 \code{data.frame} input data frame with invalid subject ID values removed
 }
 \description{
-Remove invalid Subject IDs
+\code{RemoveInvalidSubjectIDs} is a helper function that allows a user to specify a character vector of \code{SubjectID}s to remove from input data.
 }
 \examples{
 RemoveInvalidSubjectIDs(
