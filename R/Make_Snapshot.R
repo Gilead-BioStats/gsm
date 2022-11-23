@@ -11,10 +11,7 @@
 #' @param lData `list` a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` a named list identifying the columns needed in each data domain.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
-<<<<<<< HEAD
 #' @param bUpdateParams `logical` If `TRUE`, invokes `UpdateParams()` to update parameters based on user-defined `value` column from `lMeta$config_param`.
-=======
->>>>>>> 0736453f (update docs)
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -234,10 +231,10 @@ bQuiet = TRUE
   status_param <- lMeta$config_param
 
   # meta_workflow -----------------------------------------------------------
-  meta_workflow <- gsm::meta_workflow
+  meta_workflow <- lMeta$meta_workflow
 
   # meta_param --------------------------------------------------------------
-  meta_param <- gsm::meta_param
+  meta_param <- lMeta$meta_params
 
 
   # results_summary ---------------------------------------------------------

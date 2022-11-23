@@ -14,6 +14,7 @@ UpdateParams <- function(lWorkflow, dfConfig, dfMeta) {
   # join config_param and meta_param ----------------------------------------
   # filter all_params for value (user-provided value) that is not equal to the default value (gsm-recommended value)
   # mutate as character because clindata version of gsm_version is of class() == "package version" - need to update to character.
+
   all_param <- left_join(
     dfConfig %>% mutate(gsm_version = as.character(.data$gsm_version)),
     dfMeta %>% mutate(gsm_version = as.character(.data$gsm_version)),
