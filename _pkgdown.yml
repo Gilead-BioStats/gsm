@@ -77,6 +77,8 @@ reference:
       - ParseWarnings
       - Make_Snapshot
       - UpdateParams
+      - CheckClindataMeta
+      - UpdateGSMVersion
 
    - title: Data
      desc: Metadata used to create workflows
