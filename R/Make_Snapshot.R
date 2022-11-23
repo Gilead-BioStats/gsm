@@ -11,7 +11,9 @@
 #' See the Data Model Vignette - Appendix 2 - Data Model Specifications for detailed specifications.
 #' @param lData `list` a named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for raw+.
+
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
+#' @param bUpdateParams `logical` if `TRUE`, configurable parameters found in `lMeta$config_param` will overwrite the default values in `lMeta$meta_params`. Default: `FALSE`.
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -200,10 +202,10 @@ bQuiet = TRUE
   status_param <- lMeta$config_param
 
   # meta_workflow -----------------------------------------------------------
-  meta_workflow <- gsm::meta_workflow
+  meta_workflow <- lMeta$meta_workflow
 
   # meta_param --------------------------------------------------------------
-  meta_param <- gsm::meta_param
+  meta_param <- lMeta$meta_params
 
 
   # results_summary ---------------------------------------------------------
