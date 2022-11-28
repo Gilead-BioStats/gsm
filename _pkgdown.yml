@@ -80,6 +80,7 @@ reference:
       - RemoveInvalidSubjectIDs
       - ParseWarnings
       - Make_Snapshot
+      - MakeDfConfig
 
    - title: Data
      desc: Metadata used to create workflows
