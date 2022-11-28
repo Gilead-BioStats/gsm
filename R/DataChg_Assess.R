@@ -101,14 +101,14 @@ DataChg_Assess <- function(
 
   # begin running assessment ------------------------------------------------
   if (!lChecks$status) {
-    if (!bQuiet) cli::cli_alert_warning("{.fn LB_Assess} did not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn DataChg_Assess} did not run because of failed check.")
     return(list(
       lData = NULL,
       lCharts = NULL,
       lChecks = lChecks
     ))
   } else {
-    if (!bQuiet) cli::cli_h2("Initializing {.fn LB_Assess}")
+    if (!bQuiet) cli::cli_h2("Initializing {.fn DataChg_Assess}")
 
     # dfTransformed -----------------------------------------------------------
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
