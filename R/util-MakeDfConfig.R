@@ -42,14 +42,15 @@ MakeDfConfig <- function(
     strMethod,
     NormalApprox = "Normal Approximation (Rate)",
     poisson = "Poisson (Rate)",
-    fisher = "Fisher (Rate)"
+    fisher = "Fisher (Rate)",
+    identity = "Identity (Count)"
   )
 
   scoreLabel <- switch(
     strMethod,
     NormalApprox = "Adjusted Z-Score",
     poisson = "Residual",
-    identity = "Identity",
+    identity = "Count",
     fisher = "Fisher"
   )
 

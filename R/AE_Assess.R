@@ -236,9 +236,9 @@ AE_Assess <- function(
 
       # rbm-viz charts ----------------------------------------------------------
       lCharts$scatterJS <- scatterPlot(
-        results = lData$dfFlagged %>% rename_with(tolower),
+        results = lData$dfFlagged,
         workflow = dfConfig,
-        bounds = lData$dfBounds %>% rename_with(tolower),
+        bounds = lData$dfBounds,
         elementId = "aeAssessScatter"
       )
       if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
@@ -250,14 +250,14 @@ AE_Assess <- function(
       lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
 
       lCharts$barMetricJS <- barChart(
-        results = lData$dfFlagged %>% rename_with(tolower),
+        results = lData$dfFlagged,
         workflow = dfConfig,
         yaxis = "metric",
         elementId = "aeAssessMetric"
       )
 
       lCharts$barScoreJS <- barChart(
-        results = lData$dfFlagged %>% rename_all(~tolower(.)),
+        results = lData$dfFlagged,
         workflow = dfConfig,
         yaxis = "score",
         elementId = "aeAssessScore"

@@ -25,8 +25,9 @@ scatterPlot <- function(
   results <- results %>%
     dplyr::rename_with(tolower)
 
-  bounds <- bounds %>%
-    dplyr::rename_with(tolower)
+  if (!is.null(bounds)) {
+    bounds <- bounds %>% dplyr::rename_with(tolower)
+  }
 
   # forward options using x
   x = list(

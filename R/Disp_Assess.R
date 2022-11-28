@@ -203,11 +203,10 @@ Disp_Assess <- function(
         lCharts$scatterJS <- scatterPlot(
           results = lData$dfFlagged,
           workflow = dfConfig,
-          #bounds = lData$dfBounds,
           bounds = bounds,
           elementId = "dispAssessScatter"
         )
-        if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart{?s}.")
+        if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
       }
 
 
