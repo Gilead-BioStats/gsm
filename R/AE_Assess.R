@@ -191,30 +191,40 @@ AE_Assess <- function(
 
     # rbm-viz setup -----------------------------------------------------------
 
-    modelLabel <- switch(
-      strMethod,
-      NormalApprox = glue::glue("Normal Approximation (Rate)"),
-      poisson = glue::glue("Poisson (Rate)")
-    )
+    # modelLabel <- switch(
+    #   strMethod,
+    #   NormalApprox = glue::glue("Normal Approximation (Rate)"),
+    #   poisson = glue::glue("Poisson (Rate)")
+    # )
+    #
+    # scoreLabel <- switch(
+    #   strMethod,
+    #   NormalApprox = "Adjusted Z-Score",
+    #   poisson = "Residual",
+    #   identity = "Identity"
+    # )
+    #
+    # dfConfig <- dplyr::tibble(
+    #   workflowid = "temp",
+    #   group = strGroup,
+    #   abbreviation = "AE",
+    #   metric = glue::glue("AE Reporting (Rate)"),
+    #   numerator = "AEs",
+    #   denominator = "Days on Treatment",
+    #   model = modelLabel,
+    #   score = scoreLabel
+    # ) %>%
+    #   mutate(thresholds = list(vThreshold))
 
-    scoreLabel <- switch(
-      strMethod,
-      NormalApprox = "Adjusted Z-Score",
-      poisson = "Residual",
-      identity = "Identity"
+    dfConfig <- MakeDfConfig(
+      strMethod = strMethod,
+      strGroup = strGroup,
+      strAbbreviation = "AE",
+      strMetric = "AE Reporting (Rate)",
+      strNumerator = "AEs",
+      strDenominator = "Days on Treatment",
+      vThreshold = vThreshold
     )
-
-    dfConfig <- dplyr::tibble(
-      workflowid = "temp",
-      group = strGroup,
-      abbreviation = "AE",
-      metric = glue::glue("AE Reporting (Rate)"),
-      numerator = "AEs",
-      denominator = "Days on Treatment",
-      model = modelLabel,
-      score = scoreLabel
-    ) %>%
-      mutate(thresholds = list(vThreshold))
 
     if (strMethod != "identity") {
 

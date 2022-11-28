@@ -58,7 +58,9 @@ barChart <- function(
       height = NULL,
       elementId = NULL) {
 
-  results <- dplyr::mutate(results, across(everything(), as.character))
+  results <- results %>%
+    dplyr::mutate(across(everything(), as.character)) %>%
+    dplyr::rename_with(tolower)
 
   # forward options using x
   x = list(
