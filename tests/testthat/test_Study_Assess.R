@@ -35,6 +35,9 @@ dfIE <- clindata::rawplus_ie[1:50, ] %>% select(all_of(dfIE_cols))
 dfSTUDCOMP <- clindata::rawplus_studcomp[1:50, ] %>% select(all_of(dfSTUDCOMP_cols))
 dfSDRGCOMP <- clindata::rawplus_sdrgcomp[1:50, ] %>% select(all_of(dfSDRGCOMP_cols))
 dfLB <- clindata::rawplus_lb[1:50, ] %>% select(all_of(dfLB_cols))
+dfDataChg <- clindata::edc_data_change_rate
+dfDataEntry <- clindata::edc_data_entry_lag
+dfQuery <- clindata::edc_queries
 
 lData <- list(
   dfSUBJ = dfSUBJ,
@@ -44,12 +47,19 @@ lData <- list(
   dfIE = dfIE,
   dfSTUDCOMP = dfSTUDCOMP,
   dfSDRGCOMP = dfSDRGCOMP,
-  dfLB = dfLB
+  dfLB = dfLB,
+  dfDataChg = dfDataChg,
+  dfDataEntry = dfDataEntry,
+  dfQuery = dfQuery
 )
 
 lAssessments <- MakeWorkflowList()
 
-lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+lMapping <- c(
+  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
+)
 
 result <- Study_Assess(
   lData = lData,

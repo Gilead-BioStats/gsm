@@ -41,17 +41,19 @@ Convert raw query data to formatted input data to \code{\link[=QueryRate_Assess]
 }
 \details{
 \code{QueryRate_Map_Raw} combines query data with data points data and subject-level data to create
-formatted input data to \code{\link[=QueryRate_Assess]{QueryRate_Assess()}}. This function creates an input dataset for the AE Assessment
+formatted input data to \code{\link[=QueryRate_Assess]{QueryRate_Assess()}}. This function creates an input dataset for the Query Rate Assessment
 (\code{\link[=QueryRate_Assess]{QueryRate_Assess()}}) by binding subject-level query counts (derived from \code{dfQuery}) and data point counts
 (derived from \code{dfDataChg}) to subject-level data (from \code{dfSUBJ}). Note that the function can generate data summaries for specific types of
 queries by passing filtered query data to \code{dfQuery}.
 }
 \section{Data specification}{
-\tabular{llllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \tab \strong{Accept NA/Empty Values?} \cr
-   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \tab FALSE \cr
-   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \tab FALSE \cr
-   dfDataChg \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
+\tabular{lllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
+   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
+   dfDataChg \tab strIDCol \tab  \tab TRUE \tab FALSE \cr
+   dfDataChg \tab strDataPointsCol \tab  \tab TRUE \tab FALSE \cr
+   dfDataChg \tab strDataPointsChangeCol \tab  \tab TRUE \tab FALSE \cr
 }
 }
 

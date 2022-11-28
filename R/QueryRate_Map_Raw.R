@@ -5,7 +5,7 @@
 #'
 #' @details
 #' `QueryRate_Map_Raw` combines query data with data points data and subject-level data to create
-#' formatted input data to [gsm::QueryRate_Assess()]. This function creates an input dataset for the AE Assessment
+#' formatted input data to [gsm::QueryRate_Assess()]. This function creates an input dataset for the Query Rate Assessment
 #' ([gsm::QueryRate_Assess()]) by binding subject-level query counts (derived from `dfQuery`) and data point counts
 #' (derived from `dfDataChg`) to subject-level data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
 #' queries by passing filtered query data to `dfQuery`.
@@ -91,9 +91,10 @@ QueryRate_Map_Raw <- function(
       )
 
     # Create Subject Level AE Counts and merge dfSUBJ
-    dfInput <- dfQuery_mapped %>%
+
+    dfInput <- dfSUBJ_mapped %>%
       left_join(
-        dfSUBJ_mapped,
+        dfQuery_mapped,
         "SubjectID"
       ) %>%
       group_by(.data$SubjectID) %>%
@@ -109,9 +110,9 @@ QueryRate_Map_Raw <- function(
       select(any_of(c(names(dfSUBJ_mapped))), "DataPoint", "Count", "Rate") %>%
       arrange(.data$SubjectID)
 
-    if (!bQuiet) cli::cli_alert_success("{.fn AE_Map_Raw} returned output with {nrow(dfInput)} rows.")
+    if (!bQuiet) cli::cli_alert_success("{.fn QueryRate_Map_Raw} returned output with {nrow(dfInput)} rows.")
   } else {
-    if (!bQuiet) cli::cli_alert_warning("{.fn AE_Map_Raw} did not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn QueryRate_Map_Raw} did not run because of failed check.")
     dfInput <- NULL
   }
 

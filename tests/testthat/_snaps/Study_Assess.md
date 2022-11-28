@@ -264,6 +264,58 @@
       10 0496   Screening    -10 CHEMISTRY PANEL           Creati~ 9.5 e+1 ""    "0"  
       # ... with 40 more rows, and abbreviated variable name 1: lbtstnam
       
+      $dfDataChg
+      # A tibble: 235,499 x 6
+         subjid foldername form                              n_data_~1 n_dat~2 n_dat~3
+         <chr>  <chr>      <chr>                             <chr>     <chr>   <chr>  
+       1 0001   Day 1      Enrollment                        6         0       0      
+       2 0001   Day 1      PK                                6         0       0      
+       3 0001   Day 1      Prior and Concomitant Medication  7         0       0      
+       4 0001   Day 1      Study Drug Accountability         8         0       0      
+       5 0001   Day 1      Study Drug Administration (DRUG1) 8         0       0      
+       6 0001   Day 1      Study Drug Administration (DRUG2) 8         0       0      
+       7 0001   Day 1      Study Drug Administration (DRUG3) 8         0       0      
+       8 0001   Day 1      Study Drug Administration (PK)    11        0       0      
+       9 0001   Day 1      Visit Date                        12        1       1      
+      10 0001   Day 1      Vital Signs Performed             9         0       0      
+      # ... with 235,489 more rows, and abbreviated variable names 1: n_data_points,
+      #   2: n_data_points_with_changes, 3: n_data_point_changes
+      
+      $dfDataEntry
+      # A tibble: 235,499 x 5
+         subjid foldername form                              data_entry_lag data_ent~1
+         <chr>  <chr>      <chr>                             <chr>          <chr>     
+       1 0001   Day 1      Enrollment                        0              N         
+       2 0001   Day 1      PK                                1              N         
+       3 0001   Day 1      Prior and Concomitant Medication  7              N         
+       4 0001   Day 1      Study Drug Accountability         1              N         
+       5 0001   Day 1      Study Drug Administration (DRUG1) 4              N         
+       6 0001   Day 1      Study Drug Administration (DRUG2) 0              N         
+       7 0001   Day 1      Study Drug Administration (DRUG3) 3              N         
+       8 0001   Day 1      Study Drug Administration (PK)    1              N         
+       9 0001   Day 1      Visit Date                        2              N         
+      10 0001   Day 1      Vital Signs Performed             9              N         
+      # ... with 235,489 more rows, and abbreviated variable name
+      #   1: data_entry_lag_fl
+      
+      $dfQuery
+      # A tibble: 41,000 x 12
+         subjid foldername  form  field qryst~1 marki~2 qryage qryag~3 qry30fl qryop~4
+         <chr>  <chr>       <chr> <chr> <chr>   <chr>   <chr>  <chr>   <chr>   <chr>  
+       1 0001   Day 1       Stud~ EXTRT Closed  CRA to~ 2      <7 days N       2008-0~
+       2 0001   Day 1       Visi~ VISI~ Closed  System~ 32     >28 da~ Y       2008-0~
+       3 0001   Unscheduled PK    PKPE~ Closed  System~ 30     >28 da~ N       2006-1~
+       4 0001   Unscheduled Stud~ EXFA~ Closed  System~ 2      <7 days N       2007-0~
+       5 0001   Week 12     Stud~ EXEN~ Closed  CRA to~ 7      7-14 d~ N       2008-0~
+       6 0001   Week 12     Visi~ PEPE~ Closed  System~ 1      <7 days N       2008-0~
+       7 0001   Week 12     Vita~ DIABP Closed  CDA to~ 4      <7 days N       2008-0~
+       8 0001   Week 16     Stud~ EXDS~ Closed  CDA to~ 4      <7 days N       2008-0~
+       9 0001   Week 20     Prio~ CMTRT Closed  CDA to~ 5      <7 days N       2008-0~
+      10 0001   Week 20     Stud~ EXPE~ Closed  System~ 7      7-14 d~ N       2008-0~
+      # ... with 40,990 more rows, 2 more variables: qryresponsedate <chr>,
+      #   qryclosedate <chr>, and abbreviated variable names 1: qrystatus,
+      #   2: markinggroupname, 3: qryagecat, 4: qryopendate
+      
       $dfInput
       # A tibble: 50 x 8
          SubjectID SiteID StudyID        CountryID CustomGroupID Expos~1 Count    Rate
@@ -810,6 +862,141 @@
       [1] "3" "4"
       
       
+      $AE_Map_Raw$mapping$dfADSL
+      $AE_Map_Raw$mapping$dfADSL$strIDCol
+      [1] "USUBJID"
+      
+      $AE_Map_Raw$mapping$dfADSL$strSiteCol
+      [1] "SITEID"
+      
+      $AE_Map_Raw$mapping$dfADSL$strStudyCol
+      [1] "STUDYID"
+      
+      $AE_Map_Raw$mapping$dfADSL$strCustomGroupCol
+      [1] "RegionID"
+      
+      $AE_Map_Raw$mapping$dfADSL$strStartCol
+      [1] "TRTSDT"
+      
+      $AE_Map_Raw$mapping$dfADSL$strEndCol
+      [1] "TRTEDT"
+      
+      $AE_Map_Raw$mapping$dfADSL$strTimeOnTreatmentCol
+      [1] "TDUR"
+      
+      $AE_Map_Raw$mapping$dfADSL$strTimeOnStudyCol
+      [1] "SDUR"
+      
+      $AE_Map_Raw$mapping$dfADSL$strRandFlagCol
+      [1] "RANDFL"
+      
+      $AE_Map_Raw$mapping$dfADSL$strRandDateCol
+      [1] "RANDDT"
+      
+      $AE_Map_Raw$mapping$dfADSL$strStudyCompletionFlagCol
+      [1] "COMPLSFL"
+      
+      $AE_Map_Raw$mapping$dfADSL$strStudyDiscontinuationReasonCol
+      [1] "DCSREAS"
+      
+      $AE_Map_Raw$mapping$dfADSL$strTreatmentCompletionFlagCol
+      [1] "COMPLTFL"
+      
+      $AE_Map_Raw$mapping$dfADSL$strTreatmentDiscontinuationReasonCol
+      [1] "DCTREAS"
+      
+      
+      $AE_Map_Raw$mapping$dfADAE
+      $AE_Map_Raw$mapping$dfADAE$strIDCol
+      [1] "USUBJID"
+      
+      $AE_Map_Raw$mapping$dfADAE$strTreatmentEmergentCol
+      [1] "TRTEMFL"
+      
+      $AE_Map_Raw$mapping$dfADAE$strTreatmentEmergentVal
+      [1] "Y"
+      
+      $AE_Map_Raw$mapping$dfADAE$strGradeCol
+      [1] "AETOXGR"
+      
+      $AE_Map_Raw$mapping$dfADAE$strSeriousCol
+      [1] "AESER"
+      
+      $AE_Map_Raw$mapping$dfADAE$strSeriousVal
+      [1] "Yes"
+      
+      
+      $AE_Map_Raw$mapping$dfSUBJ
+      $AE_Map_Raw$mapping$dfSUBJ$strStudyCol
+      [1] "studyid"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strSiteCol
+      [1] "siteid"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strCustomGroupCol
+      [1] "invid"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strCountryCol
+      [1] "country"
+      
+      
+      $AE_Map_Raw$mapping$dfQuery
+      $AE_Map_Raw$mapping$dfQuery$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfQuery$strVisitCol
+      [1] "foldername"
+      
+      $AE_Map_Raw$mapping$dfQuery$strFormCol
+      [1] "form"
+      
+      $AE_Map_Raw$mapping$dfQuery$strQueryAgeCol
+      [1] "qry30fl"
+      
+      $AE_Map_Raw$mapping$dfQuery$strQueryAgeVal
+      [1] "Y"
+      
+      
+      $AE_Map_Raw$mapping$dfDataEntry
+      $AE_Map_Raw$mapping$dfDataEntry$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfDataEntry$strVisitCol
+      [1] "foldername"
+      
+      $AE_Map_Raw$mapping$dfDataEntry$strFormCol
+      [1] "form"
+      
+      $AE_Map_Raw$mapping$dfDataEntry$strDataEntryLagCol
+      [1] "data_entry_lag_fl"
+      
+      $AE_Map_Raw$mapping$dfDataEntry$strDataEntryLagVal
+      [1] "Y"
+      
+      
+      $AE_Map_Raw$mapping$dfDataChg
+      $AE_Map_Raw$mapping$dfDataChg$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfDataChg$strVisitCol
+      [1] "foldername"
+      
+      $AE_Map_Raw$mapping$dfDataChg$strFormCol
+      [1] "form"
+      
+      $AE_Map_Raw$mapping$dfDataChg$strDataPointsCol
+      [1] "n_data_points"
+      
+      $AE_Map_Raw$mapping$dfDataChg$strDataPointsChangeCol
+      [1] "n_data_points_with_changes"
+      
+      $AE_Map_Raw$mapping$dfDataChg$strChangeCol
+      [1] "n_data_points_changes"
+      
+      
       
       $AE_Map_Raw$spec
       $AE_Map_Raw$spec$dfAE
@@ -1292,6 +1479,107 @@
       Skipping `Disp_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
+      -- Initializing `cou0008` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryRate_Map_Raw` --
+      
+      Preparing parameters for `QueryRate_Map_Raw()` ...
+      Calling `QueryRate_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryRate_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, foldername, form
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, foldername, form, n_data_points
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `QueryRate_Map_Raw()`
+      ! `QueryRate_Map_Raw()` did not run because of failed check.
+      ! `QueryRate_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryRate_Assess` --
+      
+      Skipping `QueryRate_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0009` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryAge_Map_Raw` --
+      
+      Preparing parameters for `QueryAge_Map_Raw()` ...
+      Calling `QueryAge_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, qry30fl
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
+      ! `QueryAge_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryAge_Assess` --
+      
+      Skipping `QueryAge_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0010` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataEntry_Map_Raw` --
+      
+      Preparing parameters for `DataEntry_Map_Raw()` ...
+      Calling `DataEntry_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataEntry_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, data_entry_lag_fl
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `DataEntry_Map_Raw()`
+      ! `DataEntry_Map_Raw()` did not run because of failed check.
+      ! `DataEntry_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataEntry_Assess` --
+      
+      Skipping `DataEntry_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0011` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataChg_Map_Raw` --
+      
+      Preparing parameters for `DataChg_Map_Raw()` ...
+      Calling `DataChg_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataChg_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, n_data_points, n_data_points_with_changes
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `DataChg_Map_Raw()`
+      ! `DataChg_Map_Raw()` did not run because of failed check.
+      ! `DataChg_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataChg_Assess` --
+      
+      Skipping `DataChg_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
       -- Initializing `kri0001` assessment -------------------------------------------
       
       -- Workflow Step 1 of 4: `FilterDomain` --
@@ -1570,6 +1858,107 @@
       -- Workflow Step 3 of 3: `Disp_Assess` --
       
       Skipping `Disp_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0008` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryRate_Map_Raw` --
+      
+      Preparing parameters for `QueryRate_Map_Raw()` ...
+      Calling `QueryRate_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryRate_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, foldername, form
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, foldername, form, n_data_points
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `QueryRate_Map_Raw()`
+      ! `QueryRate_Map_Raw()` did not run because of failed check.
+      ! `QueryRate_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryRate_Assess` --
+      
+      Skipping `QueryRate_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0009` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryAge_Map_Raw` --
+      
+      Preparing parameters for `QueryAge_Map_Raw()` ...
+      Calling `QueryAge_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, qry30fl
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
+      ! `QueryAge_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryAge_Assess` --
+      
+      Skipping `QueryAge_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0010` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataEntry_Map_Raw` --
+      
+      Preparing parameters for `DataEntry_Map_Raw()` ...
+      Calling `DataEntry_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataEntry_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, data_entry_lag_fl
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `DataEntry_Map_Raw()`
+      ! `DataEntry_Map_Raw()` did not run because of failed check.
+      ! `DataEntry_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataEntry_Assess` --
+      
+      Skipping `DataEntry_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0011` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataChg_Map_Raw` --
+      
+      Preparing parameters for `DataChg_Map_Raw()` ...
+      Calling `DataChg_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataChg_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, n_data_points, n_data_points_with_changes
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `DataChg_Map_Raw()`
+      ! `DataChg_Map_Raw()` did not run because of failed check.
+      ! `DataChg_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataChg_Assess` --
+      
+      Skipping `DataChg_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `qtl0004` assessment -------------------------------------------
