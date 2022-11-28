@@ -105,9 +105,7 @@ details about the statistical methods and their assumptions.
 }
 
 \examples{
-
 dfInput <- QueryRate_Map_Raw() \%>\% na.omit()
-
 
 # Run using normal approximation method (default)
 QueryRate_assessment_NormalApprox <- QueryRate_Assess(dfInput)

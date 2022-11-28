@@ -5,7 +5,7 @@
 #'
 #' @details
 #' `QueryAge_Map_Raw` combines query data with data points data and subject-level data to create
-#' formatted input data to [gsm::QueryAge_Assess()]. This function creates an input dataset for the AE Assessment
+#' formatted input data to [gsm::QueryAge_Assess()]. This function creates an input dataset for the Query Age Assessment
 #' ([gsm::QueryAge_Assess()]) by binding subject-level query counts (derived from `dfQuery`) to subject-level
 #' data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
 #' queries by passing filtered query data to `dfQuery`.
@@ -18,7 +18,7 @@
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` Data frame with one record per subject, the input to [gsm::QueryAge_Assess()]. If
+#' @return `data.frame` Data frame with one record per query, the input to [gsm::QueryAge_Assess()]. If
 #' `bReturnChecks` is `TRUE` `QueryAge_Map_Raw` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
