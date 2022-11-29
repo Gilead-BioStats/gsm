@@ -1,4 +1,4 @@
-dfDataEntry:
+dfDATAENT:
   vRequired:
     - strIDCol
     - strDataEntryLagCol

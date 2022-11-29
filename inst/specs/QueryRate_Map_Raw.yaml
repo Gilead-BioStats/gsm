@@ -1,9 +1,9 @@
-dfQuery:
+dfQUERY:
   vRequired:
     - strIDCol
     - strVisitCol
     - strFormCol
-dfDataChg:
+dfDATACHG:
   vRequired:
     - strIDCol
     - strVisitCol
