@@ -3,7 +3,7 @@ source(testthat::test_path("testdata/data.R"))
 map_function <- gsm::DataChg_Map_Raw
 
 dfs <- list(
-  dfDataChg = clindata::edc_data_change_rate,
+  dfDATACHG = clindata::edc_data_change_rate,
   dfSUBJ = dfSUBJ
 )
 

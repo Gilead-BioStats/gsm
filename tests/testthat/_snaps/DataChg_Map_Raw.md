@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfDataChg", "dfSUBJ"]
+          "value": ["dfDATACHG", "dfSUBJ"]
         }
       },
       "value": [
@@ -60,7 +60,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfDataChg", "dfSUBJ"]
+          "value": ["dfDATACHG", "dfSUBJ"]
         }
       },
       "value": [

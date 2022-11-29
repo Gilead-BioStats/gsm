@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfQuery", "dfSUBJ"]
+          "value": ["dfQUERY", "dfSUBJ"]
         }
       },
       "value": [
@@ -60,7 +60,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfQuery", "dfSUBJ"]
+          "value": ["dfQUERY", "dfSUBJ"]
         }
       },
       "value": [

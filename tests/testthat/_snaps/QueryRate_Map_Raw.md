@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfQuery", "dfDataChg", "dfSUBJ"]
+          "value": ["dfQUERY", "dfDATACHG", "dfSUBJ"]
         }
       },
       "value": [
@@ -77,7 +77,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfQuery", "dfDataChg", "dfSUBJ"]
+          "value": ["dfQUERY", "dfDATACHG", "dfSUBJ"]
         }
       },
       "value": [
