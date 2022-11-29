@@ -1,4 +1,4 @@
-dfQuery:
+dfQUERY:
   vRequired:
     - strIDCol
     - strQueryAgeCol

@@ -4,19 +4,19 @@ dfSUBJ:
   strIDCol: subjid
   strCustomGroupCol: invid
   strCountryCol: country
-dfQuery:
+dfQUERY:
   strIDCol: subjid
   strVisitCol: foldername
   strFormCol: form
   strQueryAgeCol: qry30fl
   strQueryAgeVal: "Y"
-dfDataEntry:
+dfDATAENT:
   strIDCol: subjid
   strVisitCol: foldername
   strFormCol: form
   strDataEntryLagCol: data_entry_lag_fl
   strDataEntryLagVal: "Y"
-dfDataChg:
+dfDATACHG:
   strIDCol: subjid
   strVisitCol: foldername
   strFormCol: form
