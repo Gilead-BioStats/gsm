@@ -5,7 +5,7 @@
 \title{Data Change Rate - Raw Mapping}
 \usage{
 DataChg_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDataChg = clindata::edc_data_change_rate),
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDATACHG = clindata::edc_data_change_rate),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
     "gsm")),
   bReturnChecks = FALSE,
@@ -16,7 +16,7 @@ DataChg_Map_Raw(
 \item{dfs}{\code{list} Input data frame:
 \itemize{
 \item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per participant.
-\item \code{dfDataChg}: \code{data.frame} Data-Point-level data with one record per data entry.
+\item \code{dfDATACHG}: \code{data.frame} Data-Point-level data with one record per data entry.
 }}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
@@ -39,7 +39,7 @@ Convert raw data entry data to formatted input data to \code{\link[=DataChg_Asse
 }
 \details{
 \code{DataChg_Map_Raw} creates an input dataset for the Data Change Rate Assessment \code{\link[=DataChg_Assess]{DataChg_Assess()}} by adding
-Data Points with Change Counts (derived from \code{dfDataChg}) to basic subject-level data (from \code{dfSUBJ}).
+Data Points with Change Counts (derived from \code{dfDATACHG}) to basic subject-level data (from \code{dfSUBJ}).
 }
 \section{Data specification}{
 \tabular{lllll}{

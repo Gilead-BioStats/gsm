@@ -5,7 +5,7 @@
 \title{Query Age - Raw Mapping}
 \usage{
 QueryAge_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfQuery = clindata::edc_queries),
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
     "gsm")),
   bReturnChecks = FALSE,
@@ -16,7 +16,7 @@ QueryAge_Map_Raw(
 \item{dfs}{\code{list} Input data frames:
 \itemize{
 \item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per subject.
-\item \code{dfQuery}: \code{data.frame} Query-level data with one record per query.
+\item \code{dfQUERY}: \code{data.frame} Query-level data with one record per query.
 }}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
@@ -40,9 +40,9 @@ Convert raw query data to formatted input data to \code{\link[=QueryAge_Assess]{
 \details{
 \code{QueryAge_Map_Raw} combines query data with data points data and subject-level data to create
 formatted input data to \code{\link[=QueryAge_Assess]{QueryAge_Assess()}}. This function creates an input dataset for the Query Age Assessment
-(\code{\link[=QueryAge_Assess]{QueryAge_Assess()}}) by binding subject-level query counts (derived from \code{dfQuery}) to subject-level
+(\code{\link[=QueryAge_Assess]{QueryAge_Assess()}}) by binding subject-level query counts (derived from \code{dfQUERY}) to subject-level
 data (from \code{dfSUBJ}). Note that the function can generate data summaries for specific types of
-queries by passing filtered query data to \code{dfQuery}.
+queries by passing filtered query data to \code{dfQUERY}.
 }
 \section{Data specification}{
 \tabular{lllll}{

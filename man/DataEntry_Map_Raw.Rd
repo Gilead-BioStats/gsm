@@ -5,7 +5,7 @@
 \title{Data Entry Lag - Raw Mapping}
 \usage{
 DataEntry_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDataEntry = clindata::edc_data_entry_lag),
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDATAENT = clindata::edc_data_entry_lag),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
     "gsm")),
   bReturnChecks = FALSE,
@@ -16,7 +16,7 @@ DataEntry_Map_Raw(
 \item{dfs}{\code{list} Input data frame:
 \itemize{
 \item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per participant.
-\item \code{dfDataEntry}: \code{data.frame} Data-Point-level data with one record per data entry.
+\item \code{dfDATAENT}: \code{data.frame} Data-Point-level data with one record per data entry.
 }}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
@@ -39,7 +39,7 @@ Convert raw data entry data to formatted input data to \code{\link[=DataEntry_As
 }
 \details{
 \code{DataEntry_Map_Raw} creates an input dataset for the Data Entry Lag Assessment \code{\link[=DataEntry_Assess]{DataEntry_Assess()}} by adding
-Data Entry Lag Counts (derived from \code{dfDataEntry}) to basic subject-level data (from \code{dfSUBJ}).
+Data Entry Lag Counts (derived from \code{dfDATAENT}) to basic subject-level data (from \code{dfSUBJ}).
 }
 \section{Data specification}{
 \tabular{lllll}{
