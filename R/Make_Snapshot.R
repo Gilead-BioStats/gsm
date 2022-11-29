@@ -282,7 +282,7 @@ bQuiet = TRUE
     meta_workflow = meta_workflow,
     meta_param = meta_param
   ) %>%
-  keep(~!is.null(.x)) %>%
+    keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
 

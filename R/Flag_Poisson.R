@@ -67,7 +67,7 @@ Flag_Poisson <- function(
         (.data$Score < vThreshold[2]) ~ -1,
         (.data$Score < vThreshold[3]) ~ 0,
         (.data$Score < vThreshold[4]) ~ 1,
-        TRUE ~ 2
+        (.data$Score >= vThreshold[4]) ~ 2
       )
     )
 

@@ -1152,6 +1152,7 @@
       v `Summarize()` returned output with 3 rows.
       v Created 2 scatter plots.
       v Created 4 bar charts.
+
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -1436,6 +1437,7 @@
       v `Summarize()` returned output with 10 rows.
       v Created 2 scatter plots.
       v Created 4 bar charts.
+
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.

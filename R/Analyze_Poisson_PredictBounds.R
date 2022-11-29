@@ -48,16 +48,17 @@
 #' @export
 
 Analyze_Poisson_PredictBounds <- function(
-    dfTransformed,
-    vThreshold = c(-5, 5),
-    nStep = NULL,
-    bQuiet = TRUE
+  dfTransformed,
+  vThreshold = c(-5, 5),
+  nStep = NULL,
+  bQuiet = TRUE
 ) {
   if (is.null(vThreshold)) {
     vThreshold <- c(-5, 5)
 
-    if (bQuiet == FALSE)
+    if (bQuiet == FALSE) {
       cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-5, 5)")
+    }
   }
 
   # add a 0 threhsold to calcultate estimate without an offset
@@ -74,13 +75,15 @@ Analyze_Poisson_PredictBounds <- function(
     nMaxLogDenominator <- max(dfTransformed$LogDenominator)
     nRange <- nMaxLogDenominator - nMinLogDenominator
 
-    if (!is.null(nRange) & !is.na(nRange) & nRange != 0)
-        nStep <- nRange/250
-    else
-        nStep <- .05
+    if (!is.null(nRange) & !is.na(nRange) & nRange != 0) {
+      nStep <- nRange / 250
+    } else {
+      nStep <- .05
+    }
 
-    if (bQuiet == FALSE)
+    if (bQuiet == FALSE) {
       cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
+    }
   }
 
   # Fit GLM of number of events at each site predicted by total exposure.
