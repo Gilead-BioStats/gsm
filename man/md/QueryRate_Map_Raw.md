@@ -4,10 +4,10 @@
 |:----------|:----------------|:-----------------|:-------------|:--------------------------|
 |dfSUBJ     |strSiteCol       |siteid            |TRUE          |FALSE                      |
 |dfSUBJ     |strIDCol         |subjid            |TRUE          |TRUE                       |
-|dfQuery    |strIDCol         |                  |TRUE          |FALSE                      |
-|dfQuery    |strVisitCol      |                  |TRUE          |FALSE                      |
-|dfQuery    |strFormCol       |                  |TRUE          |FALSE                      |
-|dfDataChg  |strIDCol         |                  |TRUE          |FALSE                      |
-|dfDataChg  |strVisitCol      |                  |TRUE          |FALSE                      |
-|dfDataChg  |strFormCol       |                  |TRUE          |FALSE                      |
-|dfDataChg  |strDataPointsCol |                  |TRUE          |FALSE                      |
+|dfQUERY    |strIDCol         |                  |TRUE          |FALSE                      |
+|dfQUERY    |strVisitCol      |                  |TRUE          |FALSE                      |
+|dfQUERY    |strFormCol       |                  |TRUE          |FALSE                      |
+|dfDATACHG  |strIDCol         |                  |TRUE          |FALSE                      |
+|dfDATACHG  |strVisitCol      |                  |TRUE          |FALSE                      |
+|dfDATACHG  |strFormCol       |                  |TRUE          |FALSE                      |
+|dfDATACHG  |strDataPointsCol |                  |TRUE          |FALSE                      |
