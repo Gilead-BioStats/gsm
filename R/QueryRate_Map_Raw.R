@@ -92,9 +92,9 @@ QueryRate_Map_Raw <- function(
 
     # Create Subject Level AE Counts and merge dfSUBJ
 
-    dfInput <- dfSUBJ_mapped %>%
+    dfInput <- dfQUERY_mapped %>%
       left_join(
-        dfQUERY_mapped,
+        dfSUBJ_mapped,
         "SubjectID"
       ) %>%
       group_by(.data$SubjectID) %>%

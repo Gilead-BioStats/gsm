@@ -2,7 +2,7 @@ steps:
   - name: DataEntry_Map_Raw
     inputs:
       - dfSUBJ
-      - dfDataEntry
+      - dfDATAENT
     output: dfInput
   - name: DataEntry_Assess
     inputs: dfInput

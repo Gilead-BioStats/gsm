@@ -2,8 +2,8 @@ steps:
   - name: QueryRate_Map_Raw
     inputs:
       - dfSUBJ
-      - dfQuery
-      - dfDataChg
+      - dfQUERY
+      - dfDATACHG
     output: dfInput
   - name: QueryRate_Assess
     inputs: dfInput
