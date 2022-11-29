@@ -5,11 +5,11 @@
 #'
 #' @details
 #' `DataChg_Map_Raw` creates an input dataset for the Data Change Rate Assessment [gsm::DataChg_Assess()] by adding
-#' Data Points with Change Counts (derived from `dfDataChg`) to basic subject-level data (from `dfSUBJ`).
+#' Data Points with Change Counts (derived from `dfDATACHG`) to basic subject-level data (from `dfSUBJ`).
 #'
 #' @param dfs `list` Input data frame:
 #'   - `dfSUBJ`: `data.frame` Subject-level data with one record per participant.
-#'   - `dfDataChg`: `data.frame` Data-Point-level data with one record per data entry.
+#'   - `dfDATACHG`: `data.frame` Data-Point-level data with one record per data entry.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
@@ -39,7 +39,7 @@
 DataChg_Map_Raw <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
-    dfDataChg = clindata::edc_data_change_rate
+    dfDATACHG = clindata::edc_data_change_rate
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
   bReturnChecks = FALSE,
@@ -62,10 +62,10 @@ DataChg_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn DataChg_Map_Raw}")
 
     # Standarize Column Names
-    dfDataChg_mapped <- dfs$dfDataChg %>%
-      select(SubjectID = lMapping[["dfDataChg"]][["strIDCol"]],
-             DataChg = lMapping[["dfDataChg"]][["strDataPointsChangeCol"]],
-             DataPoint = lMapping[["dfDataChg"]][["strDataPointsCol"]])
+    dfDATACHG_mapped <- dfs$dfDATACHG %>%
+      select(SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]],
+             DataChg = lMapping[["dfDATACHG"]][["strDataPointsChangeCol"]],
+             DataPoint = lMapping[["dfDATACHG"]][["strDataPointsCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -83,7 +83,7 @@ DataChg_Map_Raw <- function(
     # Create Subject Level data point with change counts and merge dfSUBJ
     dfInput <- dfSUBJ_mapped %>%
       left_join(
-        dfDataChg_mapped,
+        dfDATACHG_mapped,
         "SubjectID"
       ) %>%
       mutate(

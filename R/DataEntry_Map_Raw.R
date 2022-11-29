@@ -5,11 +5,11 @@
 #'
 #' @details
 #' `DataEntry_Map_Raw` creates an input dataset for the Data Entry Lag Assessment [gsm::DataEntry_Assess()] by adding
-#' Data Entry Lag Counts (derived from `dfDataEntry`) to basic subject-level data (from `dfSUBJ`).
+#' Data Entry Lag Counts (derived from `dfDATAENT`) to basic subject-level data (from `dfSUBJ`).
 #'
 #' @param dfs `list` Input data frame:
 #'   - `dfSUBJ`: `data.frame` Subject-level data with one record per participant.
-#'   - `dfDataEntry`: `data.frame` Data-Point-level data with one record per data entry.
+#'   - `dfDATAENT`: `data.frame` Data-Point-level data with one record per data entry.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
@@ -39,7 +39,7 @@
 DataEntry_Map_Raw <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
-    dfDataEntry = clindata::edc_data_entry_lag
+    dfDATAENT = clindata::edc_data_entry_lag
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
   bReturnChecks = FALSE,
@@ -62,9 +62,9 @@ DataEntry_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn DataEntry_Map_Raw}")
 
     # Standarize Column Names
-    dfDataEntry_mapped <- dfs$dfDataEntry %>%
-      select(SubjectID = lMapping[["dfDataEntry"]][["strIDCol"]],
-             DataEntryLag = lMapping[["dfDataEntry"]][["strDataEntryLagCol"]])
+    dfDATAENT_mapped <- dfs$dfDATAENT %>%
+      select(SubjectID = lMapping[["dfDATAENT"]][["strIDCol"]],
+             DataEntryLag = lMapping[["dfDATAENT"]][["strDataEntryLagCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -82,12 +82,12 @@ DataEntry_Map_Raw <- function(
     # Create Subject Level query Counts and merge dfSUBJ
     dfInput <- dfSUBJ_mapped %>%
       left_join(
-        dfDataEntry_mapped,
+        dfDATAENT_mapped,
         "SubjectID"
       ) %>%
       mutate(
         Count = if_else(
-          .data$DataEntryLag %in% lMapping[["dfDataEntry"]][["strDataEntryLagVal"]],
+          .data$DataEntryLag %in% lMapping[["dfDATAENT"]][["strDataEntryLagVal"]],
           1,
           0
         ),

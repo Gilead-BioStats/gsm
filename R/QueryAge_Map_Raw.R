@@ -6,13 +6,13 @@
 #' @details
 #' `QueryAge_Map_Raw` combines query data with data points data and subject-level data to create
 #' formatted input data to [gsm::QueryAge_Assess()]. This function creates an input dataset for the Query Age Assessment
-#' ([gsm::QueryAge_Assess()]) by binding subject-level query counts (derived from `dfQuery`) to subject-level
+#' ([gsm::QueryAge_Assess()]) by binding subject-level query counts (derived from `dfQUERY`) to subject-level
 #' data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
-#' queries by passing filtered query data to `dfQuery`.
+#' queries by passing filtered query data to `dfQUERY`.
 #'
 #' @param dfs `list` Input data frames:
 #'   - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
-#'   - `dfQuery`: `data.frame` Query-level data with one record per query.
+#'   - `dfQUERY`: `data.frame` Query-level data with one record per query.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
@@ -40,7 +40,7 @@
 QueryAge_Map_Raw <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
-    dfQuery = clindata::edc_queries
+    dfQUERY = clindata::edc_queries
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
   bReturnChecks = FALSE,
@@ -63,9 +63,9 @@ QueryAge_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn QueryAge_Map_Raw}")
 
     # Standarize Column Names
-    dfQuery_mapped <- dfs$dfQuery %>%
-      select(SubjectID = lMapping[["dfQuery"]][["strIDCol"]],
-             QueryAge = lMapping[["dfQuery"]][["strQueryAgeCol"]])
+    dfQUERY_mapped <- dfs$dfQUERY %>%
+      select(SubjectID = lMapping[["dfQUERY"]][["strIDCol"]],
+             QueryAge = lMapping[["dfQUERY"]][["strQueryAgeCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -83,12 +83,12 @@ QueryAge_Map_Raw <- function(
     # Create Subject Level query Counts and merge dfSUBJ
     dfInput <- dfSUBJ_mapped %>%
       left_join(
-        dfQuery_mapped,
+        dfQUERY_mapped,
         "SubjectID"
       ) %>%
       mutate(
         Count = if_else(
-          .data$QueryAge %in% lMapping[["dfQuery"]][["strQueryAgeVal"]],
+          .data$QueryAge %in% lMapping[["dfQUERY"]][["strQueryAgeVal"]],
           1,
           0
         ),
