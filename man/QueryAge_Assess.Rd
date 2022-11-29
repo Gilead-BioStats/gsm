@@ -8,7 +8,6 @@ QueryAge_Assess(
   dfInput,
   vThreshold = NULL,
   strMethod = "NormalApprox",
-  strType = "binary",
   lMapping = yaml::read_yaml(system.file("mappings", "QueryAge_Assess.yaml", package =
     "gsm")),
   strGroup = "Site",
@@ -26,12 +25,6 @@ QueryAge_Assess(
 \item \code{"NormalApprox"} (default)
 \item \code{"fisher"}
 \item \code{"identity"}
-}}
-
-\item{strType}{\code{character} Statistical outcome type. Valid values:
-\itemize{
-\item \code{"binary"} (default)
-\item \code{"rate"}
 }}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name

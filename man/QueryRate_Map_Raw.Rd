@@ -5,7 +5,7 @@
 \title{Query Rate - Raw Mapping}
 \usage{
 QueryRate_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfQuery = clindata::edc_queries, dfDataChg =
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries, dfDATACHG =
     clindata::edc_data_change_rate),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
     "gsm")),
@@ -17,8 +17,8 @@ QueryRate_Map_Raw(
 \item{dfs}{\code{list} Input data frames:
 \itemize{
 \item \code{dfSUBJ}: \code{data.frame} Subject-level data with one record per subject.
-\item \code{dfQuery}: \code{data.frame} Query-level data with one record per query.
-\item \code{dfDataChg}: \code{data.frame} Data-Point-level data with one record per data entry.
+\item \code{dfQUERY}: \code{data.frame} Query-level data with one record per query.
+\item \code{dfDATACHG}: \code{data.frame} Data-Point-level data with one record per data entry.
 }}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
@@ -42,9 +42,9 @@ Convert raw query data to formatted input data to \code{\link[=QueryRate_Assess]
 \details{
 \code{QueryRate_Map_Raw} combines query data with data points data and subject-level data to create
 formatted input data to \code{\link[=QueryRate_Assess]{QueryRate_Assess()}}. This function creates an input dataset for the Query Rate Assessment
-(\code{\link[=QueryRate_Assess]{QueryRate_Assess()}}) by binding subject-level query counts (derived from \code{dfQuery}) and data point counts
-(derived from \code{dfDataChg}) to subject-level data (from \code{dfSUBJ}). Note that the function can generate data summaries for specific types of
-queries by passing filtered query data to \code{dfQuery}.
+(\code{\link[=QueryRate_Assess]{QueryRate_Assess()}}) by binding subject-level query counts (derived from \code{dfQUERY}) and data point counts
+(derived from \code{dfDATACHG}) to subject-level data (from \code{dfSUBJ}). Note that the function can generate data summaries for specific types of
+queries by passing filtered query data to \code{dfQUERY}.
 }
 \section{Data specification}{
 \tabular{lllll}{
