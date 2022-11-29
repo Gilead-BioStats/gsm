@@ -3,8 +3,8 @@ source(testthat::test_path("testdata/data.R"))
 map_function <- gsm::QueryRate_Map_Raw
 
 dfs <- list(
-  dfQuery = clindata::edc_queries,
-  dfDataChg = clindata::edc_data_change_rate,
+  dfQUERY = clindata::edc_queries,
+  dfDATACHG = clindata::edc_data_change_rate,
   dfSUBJ = dfSUBJ
 )
 

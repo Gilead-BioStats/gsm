@@ -46,9 +46,9 @@ Data Entry Lag Counts (derived from \code{dfDATAENT}) to basic subject-level dat
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
    dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
-   dfDataChg \tab strIDCol \tab  \tab TRUE \tab FALSE \cr
-   dfDataChg \tab strDataPointsCol \tab  \tab TRUE \tab FALSE \cr
-   dfDataChg \tab strDataPointsChangeCol \tab  \tab TRUE \tab FALSE \cr
+   dfDATACHG \tab strIDCol \tab  \tab TRUE \tab FALSE \cr
+   dfDATACHG \tab strDataPointsCol \tab  \tab TRUE \tab FALSE \cr
+   dfDATACHG \tab strDataPointsChangeCol \tab  \tab TRUE \tab FALSE \cr
 }
 }
 

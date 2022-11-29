@@ -3,7 +3,7 @@ source(testthat::test_path("testdata/data.R"))
 map_function <- gsm::QueryAge_Map_Raw
 
 dfs <- list(
-  dfQuery = clindata::edc_queries,
+  dfQUERY = clindata::edc_queries,
   dfSUBJ = dfSUBJ
 )
 
