@@ -1,13 +1,10 @@
 source(testthat::test_path("testdata/data.R"))
 
-dfSUBJ_cols <- colnames(dfSUBJ)
-dfAE_cols <- colnames(dfAE)
-dfPD_cols <- colnames(dfPD)
-dfCONSENT_cols <- colnames(dfCONSENT)
-dfIE_cols <- colnames(dfIE)
-dfSTUDCOMP_cols <- colnames(dfSTUDCOMP)
-dfSDRGCOMP_cols <- colnames(dfSDRGCOMP)
-dfLB_cols <- colnames(dfLB)
+subsetDfs <- function(data, domain, max_rows = 50) {
+  data %>%
+    select(all_of(colnames(domain))) %>%
+    slice(1:max_rows)
+}
 
 meta_lookup <- tribble(
   ~workflowid, ~assessment_abbrev,
@@ -27,17 +24,20 @@ meta <- left_join(
   by = "workflowid"
 )
 
-dfSUBJ <- clindata::rawplus_dm[1:50, ] %>% select(all_of(dfSUBJ_cols))
-dfAE <- clindata::rawplus_ae[1:50, ] %>% select(all_of(dfAE_cols))
-dfPD <- clindata::rawplus_protdev[1:50, ] %>% select(all_of(dfPD_cols))
-dfCONSENT <- clindata::rawplus_consent[1:50, ] %>% select(all_of(dfCONSENT_cols))
-dfIE <- clindata::rawplus_ie[1:50, ] %>% select(all_of(dfIE_cols))
-dfSTUDCOMP <- clindata::rawplus_studcomp[1:50, ] %>% select(all_of(dfSTUDCOMP_cols))
-dfSDRGCOMP <- clindata::rawplus_sdrgcomp[1:50, ] %>% select(all_of(dfSDRGCOMP_cols))
-dfLB <- clindata::rawplus_lb[1:50, ] %>% select(all_of(dfLB_cols))
-dfDataChg <- clindata::edc_data_change_rate
-dfDataEntry <- clindata::edc_data_entry_lag
-dfQuery <- clindata::edc_queries
+
+
+dfSUBJ <- clindata::rawplus_dm %>% subsetDfs(dfSUBJ)
+dfAE <- clindata::rawplus_ae %>% subsetDfs(dfAE)
+dfPD <- clindata::rawplus_protdev %>% subsetDfs(dfPD)
+dfCONSENT <- clindata::rawplus_consent %>% subsetDfs(dfCONSENT)
+dfIE <- clindata::rawplus_ie %>% subsetDfs(dfIE)
+dfSTUDCOMP <- clindata::rawplus_studcomp %>% subsetDfs(dfSTUDCOMP)
+dfSDRGCOMP <- clindata::rawplus_sdrgcomp %>% subsetDfs(dfSDRGCOMP)
+dfLB <- clindata::rawplus_lb %>% subsetDfs(dfLB)
+dfDATACHG <- clindata::edc_data_change_rate %>% filter(subjid %in% dfSUBJ$subjid)
+dfDATAENT <- clindata::edc_data_entry_lag %>% filter(subjid %in% dfSUBJ$subjid)
+dfQUERY <- clindata::edc_queries %>% filter(subjid %in% dfSUBJ$subjid)
+
 
 lData <- list(
   dfSUBJ = dfSUBJ,
@@ -48,9 +48,9 @@ lData <- list(
   dfSTUDCOMP = dfSTUDCOMP,
   dfSDRGCOMP = dfSDRGCOMP,
   dfLB = dfLB,
-  dfDataChg = dfDataChg,
-  dfDataEntry = dfDataEntry,
-  dfQuery = dfQuery
+  dfDATACHG = dfDATACHG,
+  dfDATAENT = dfDATAENT,
+  dfQUERY = dfQUERY
 )
 
 lAssessments <- MakeWorkflowList()
@@ -65,7 +65,7 @@ result <- Study_Assess(
   lData = lData,
   lAssessments = lAssessments,
   bQuiet = TRUE
-) %>% suppressWarnings()
+)
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {

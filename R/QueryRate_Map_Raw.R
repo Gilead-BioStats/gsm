@@ -39,14 +39,14 @@
 #' @export
 
 QueryRate_Map_Raw <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfQUERY = clindata::edc_queries,
-    dfDATACHG = clindata::edc_data_change_rate
-  ),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
-  bReturnChecks = FALSE,
-  bQuiet = TRUE
+    dfs = list(
+      dfSUBJ = clindata::rawplus_dm,
+      dfQUERY = clindata::edc_queries,
+      dfDATACHG = clindata::edc_data_change_rate
+    ),
+    lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+    bReturnChecks = FALSE,
+    bQuiet = TRUE
 ) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
@@ -90,19 +90,22 @@ QueryRate_Map_Raw <- function(
         )
       )
 
-    # Create Subject Level AE Counts and merge dfSUBJ
-    dfInput <- dfSUBJ_mapped %>%
-      left_join(
-        dfQUERY_mapped,
-        "SubjectID"
-      ) %>%
-      group_by(.data$SubjectID) %>%
-      mutate(Count= n()) %>%
-      distinct(.data$SubjectID, .keep_all=TRUE) %>%
+    # Create subject Level query and data point counts and merge dfSUBJ
+
+    dfInput <- dfQUERY_mapped %>%
+      group_by(.data$SubjectID, .data$VisitID, .data$FormID) %>%
+      summarize(Count= n()) %>%
       ungroup() %>%
-      left_join(
+      full_join(
         dfDATACHG_mapped,
         c("SubjectID", "VisitID", "FormID")) %>%
+      mutate(Count = tidyr::replace_na(.data$Count, 0)) %>%
+      group_by(.data$SubjectID) %>%
+      summarize(Count = sum(.data$Count, na.rm = TRUE),
+                DataPoint = sum(.data$DataPoint, na.rm = TRUE)) %>%
+      ungroup() %>%
+      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
+      filter(!is.na(.data$DataPoint)) %>%
       mutate(
         Rate = .data$Count / .data$DataPoint
       ) %>%

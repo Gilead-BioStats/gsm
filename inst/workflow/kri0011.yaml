@@ -2,7 +2,7 @@ steps:
   - name: DataChg_Map_Raw
     inputs:
       - dfSUBJ
-      - dfDataChg
+      - dfDATACHG
     output: dfInput
   - name: DataChg_Assess
     inputs: dfInput
