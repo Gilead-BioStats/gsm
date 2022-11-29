@@ -6,14 +6,14 @@
 #' @details
 #' `QueryRate_Map_Raw` combines query data with data points data and subject-level data to create
 #' formatted input data to [gsm::QueryRate_Assess()]. This function creates an input dataset for the Query Rate Assessment
-#' ([gsm::QueryRate_Assess()]) by binding subject-level query counts (derived from `dfQuery`) and data point counts
-#' (derived from `dfDataChg`) to subject-level data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
-#' queries by passing filtered query data to `dfQuery`.
+#' ([gsm::QueryRate_Assess()]) by binding subject-level query counts (derived from `dfQUERY`) and data point counts
+#' (derived from `dfDATACHG`) to subject-level data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
+#' queries by passing filtered query data to `dfQUERY`.
 #'
 #' @param dfs `list` Input data frames:
 #'   - `dfSUBJ`: `data.frame` Subject-level data with one record per subject.
-#'   - `dfQuery`: `data.frame` Query-level data with one record per query.
-#'   - `dfDataChg`: `data.frame` Data-Point-level data with one record per data entry.
+#'   - `dfQUERY`: `data.frame` Query-level data with one record per query.
+#'   - `dfDATACHG`: `data.frame` Data-Point-level data with one record per data entry.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
@@ -41,8 +41,8 @@
 QueryRate_Map_Raw <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
-    dfQuery = clindata::edc_queries,
-    dfDataChg = clindata::edc_data_change_rate
+    dfQUERY = clindata::edc_queries,
+    dfDATACHG = clindata::edc_data_change_rate
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
   bReturnChecks = FALSE,
@@ -65,16 +65,16 @@ QueryRate_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn QueryRate_Map_Raw}")
 
     # Standarize Column Names
-    dfQuery_mapped <- dfs$dfQuery %>%
-      select(SubjectID = lMapping[["dfQuery"]][["strIDCol"]],
-             VisitID = lMapping[["dfQuery"]][["strVisitCol"]],
-             FormID = lMapping[["dfQuery"]][["strFormCol"]])
+    dfQUERY_mapped <- dfs$dfQUERY %>%
+      select(SubjectID = lMapping[["dfQUERY"]][["strIDCol"]],
+             VisitID = lMapping[["dfQUERY"]][["strVisitCol"]],
+             FormID = lMapping[["dfQUERY"]][["strFormCol"]])
 
-    dfDataChg_mapped <- dfs$dfDataChg %>%
-      select(SubjectID = lMapping[["dfDataChg"]][["strIDCol"]],
-             VisitID = lMapping[["dfDataChg"]][["strVisitCol"]],
-             FormID = lMapping[["dfDataChg"]][["strFormCol"]],
-             DataPoint = lMapping[["dfDataChg"]][["strDataPointsCol"]]) %>%
+    dfDATACHG_mapped <- dfs$dfDATACHG %>%
+      select(SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]],
+             VisitID = lMapping[["dfDATACHG"]][["strVisitCol"]],
+             FormID = lMapping[["dfDATACHG"]][["strFormCol"]],
+             DataPoint = lMapping[["dfDATACHG"]][["strDataPointsCol"]]) %>%
       mutate(DataPoint = as.numeric(.data$DataPoint, na.rm = TRUE))
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
@@ -94,7 +94,7 @@ QueryRate_Map_Raw <- function(
 
     dfInput <- dfSUBJ_mapped %>%
       left_join(
-        dfQuery_mapped,
+        dfQUERY_mapped,
         "SubjectID"
       ) %>%
       group_by(.data$SubjectID) %>%
@@ -102,7 +102,7 @@ QueryRate_Map_Raw <- function(
       distinct(.data$SubjectID, .keep_all=TRUE) %>%
       ungroup() %>%
       left_join(
-        dfDataChg_mapped,
+        dfDATACHG_mapped,
         c("SubjectID", "VisitID", "FormID")) %>%
       mutate(
         Rate = .data$Count / .data$DataPoint
