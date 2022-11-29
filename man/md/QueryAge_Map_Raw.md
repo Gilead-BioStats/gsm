@@ -4,5 +4,5 @@
 |:----------|:--------------|:-----------------|:-------------|:--------------------------|
 |dfSUBJ     |strSiteCol     |siteid            |TRUE          |FALSE                      |
 |dfSUBJ     |strIDCol       |subjid            |TRUE          |TRUE                       |
-|dfQuery    |strIDCol       |                  |TRUE          |FALSE                      |
-|dfQuery    |strQueryAgeCol |                  |TRUE          |FALSE                      |
+|dfQUERY    |strIDCol       |                  |TRUE          |FALSE                      |
+|dfQUERY    |strQueryAgeCol |                  |TRUE          |FALSE                      |
