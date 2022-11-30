@@ -22,5 +22,5 @@ dfDATACHG:
   strFormCol: form
   strDataPointsCol: n_data_points
   strDataPointsChangeCol: n_data_points_with_changes
-  strChangeCol: n_data_points_changes
+  strChangeCol: n_data_point_changes
 

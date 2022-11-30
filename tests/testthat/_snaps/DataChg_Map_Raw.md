@@ -102,7 +102,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["n_data_points_changes"]
+              "value": ["n_data_point_changes"]
             }
           ]
         },
