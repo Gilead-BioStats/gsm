@@ -993,7 +993,7 @@
       [1] "n_data_points_with_changes"
       
       $AE_Map_Raw$mapping$dfDATACHG$strChangeCol
-      [1] "n_data_points_changes"
+      [1] "n_data_point_changes"
       
       
       
