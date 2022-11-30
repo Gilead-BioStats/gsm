@@ -352,9 +352,8 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v Created 2 scatter plots.
+      v Created 1 scatter plot.
       v Created 4 bar charts.
-
       v `LB_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -776,9 +775,8 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v Created 2 scatter plots.
+      v Created 1 scatter plot.
       v Created 4 bar charts.
-
       v `LB_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
