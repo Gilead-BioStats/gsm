@@ -29,8 +29,7 @@ lData <- list(
   dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion"),
   dfDATACHG = clindata::edc_data_change_rate,
   dfDATAENT = clindata::edc_data_entry_lag,
-  dfQUERY = clindata::edc_queries,
-  dfDATACHG = clindata::edc_data_change_rate
+  dfQUERY = clindata::edc_queries
 )
 
 # keep these three subjids for unit tests
