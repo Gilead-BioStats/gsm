@@ -958,5 +958,5 @@
       
       -- Initializing `QueryRate_Map_Raw()` --
       
-      v `QueryRate_Map_Raw()` returned output with 3 rows.
+      v `QueryRate_Map_Raw()` returned output with 1299 rows.
 

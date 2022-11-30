@@ -13,8 +13,8 @@ Make_Snapshot(
     clindata::rawplus_protdev, dfCONSENT = clindata::rawplus_consent, dfIE =
     clindata::rawplus_ie, dfLB = clindata::rawplus_lb, dfSTUDCOMP =
     clindata::rawplus_studcomp, dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\%
-    filter(.data$datapagename == "Blinded Study Drug Completion"), dfDataChg =
-    clindata::edc_data_change_rate, dfDataEntry = clindata::edc_data_entry_lag, dfQuery =
+    filter(.data$datapagename == "Blinded Study Drug Completion"), dfDATACHG =
+    clindata::edc_data_change_rate, dfDATAENTRY = clindata::edc_data_entry_lag, dfQUERY =
     clindata::edc_queries),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
