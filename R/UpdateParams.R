@@ -20,7 +20,15 @@ UpdateParams <- function(lWorkflow, dfConfig, dfMeta) {
     dfMeta %>% mutate(gsm_version = as.character(.data$gsm_version)),
     by = c("workflowid", "gsm_version", "param", "index")
   ) %>%
-    filter(.data$value != .data$default)
+  group_by(workflowid, param) %>%
+    mutate(
+        value = as.character(.data$value),
+        default = as.character(.data$default),
+        flag = any(.data$value != .data$default)
+    ) %>%
+  ungroup() %>%
+  filter(flag) %>%
+  select(-flag)
 
   # update list -------------------------------------------------------------
   # lWorkflow list is only updated when different values are found
@@ -41,13 +49,12 @@ UpdateParams <- function(lWorkflow, dfConfig, dfMeta) {
             params_to_change_values <- split(params_to_change_values, params_to_change_values$param) %>%
               purrr::map( ~ .x %>% pull(value))
 
-
             if (any(params_to_change %in% names(lWorkflow[[kri]]$steps[[index]]$params))) {
               params <- params_to_change[params_to_change %in% names(lWorkflow[[kri]]$steps[[index]]$params)]
 
               for (param_name in params) {
                 lWorkflow[[kri]]$steps[[index]]$params[[param_name]] <-
-                  params_to_change_values[[param_name]]
+                  as.numeric(params_to_change_values[[param_name]]) %>% sort()
               }
             }
           }
@@ -57,7 +64,4 @@ UpdateParams <- function(lWorkflow, dfConfig, dfMeta) {
   }
 
   return(lWorkflow)
-
 }
-
-
