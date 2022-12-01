@@ -87,12 +87,8 @@ LB_Map_Raw <- function(
         Grade = lMapping[["dfLB"]][["strGradeCol"]]
       )
 
-    # Create Subject Level LB Counts and merge Subj
-    dfInput <- dfSUBJ_mapped %>%
-      left_join(
-        dfLB_mapped,
-        "SubjectID"
-      ) %>%
+    # Create subject Level LB counts and merge Subj
+    dfInput <- dfLB_mapped %>%
       mutate(
         Count = if_else(
           .data$Grade %in% lMapping[["dfLB"]][["strGradeHighVal"]],
@@ -101,6 +97,11 @@ LB_Map_Raw <- function(
         ),
         Total = 1
       ) %>%
+      group_by(.data$SubjectID) %>%
+      summarize(Count = sum(.data$Count, na.rm = TRUE),
+                Total = sum(.data$Total, na.rm = TRUE)) %>%
+      ungroup() %>%
+      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
       select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
       arrange(.data$SubjectID)
 
