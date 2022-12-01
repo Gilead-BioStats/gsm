@@ -4,7 +4,7 @@ test_that("Labs assessment can return a correctly assessed data frame grouped by
 
   test6_4 <- LB_Assess(
     dfInput = dfInput,
-    strMethod = "identity",
+    strMethod = "Identity",
     strGroup = "Study"
   )
 

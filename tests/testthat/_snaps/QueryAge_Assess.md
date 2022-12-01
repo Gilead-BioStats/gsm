@@ -68,15 +68,15 @@
 
 # invalid data throw errors
 
-    strMethod is not 'NormalApprox', 'fisher' or 'identity'
+    strMethod is not 'NormalApprox', 'Fisher' or 'Identity'
 
 ---
 
-    strMethod is not 'NormalApprox', 'fisher' or 'identity'
+    strMethod is not 'NormalApprox', 'Fisher' or 'Identity'
 
 ---
 
-    strMethod is not 'NormalApprox', 'fisher' or 'identity'
+    strMethod is not 'NormalApprox', 'Fisher' or 'Identity'
 
 ---
 
@@ -101,7 +101,7 @@
       
       -- Initializing `QueryAge_Assess()` --
       
-      Input data has 74 rows.
+      Input data has 3 rows.
       v `Transform_Rate()` returned output with 3 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.

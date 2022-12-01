@@ -174,7 +174,7 @@ test_that("Custom lAssessments and lMapping works together as intended", {
       params = list(
         strGroup = "Site",
         vThreshold = NULL,
-        strMethod = "poisson"
+        strMethod = "Poisson"
       )
     )
   ))

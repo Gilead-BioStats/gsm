@@ -28,9 +28,9 @@
       # A tibble: 3 x 1
         GroupID
         <chr>  
-      1 86     
-      2 166    
-      3 76     
+      1 76     
+      2 86     
+      3 166    
 
 ---
 
@@ -50,9 +50,9 @@
       # A tibble: 3 x 1
         GroupID
         <chr>  
-      1 US     
-      2 Japan  
-      3 China  
+      1 China  
+      2 US     
+      3 Japan  
 
 ---
 
@@ -62,17 +62,17 @@
       # A tibble: 3 x 1
         GroupID
         <chr>  
-      1 0X012  
-      2 0X999  
-      3 0X201  
+      1 0X201  
+      2 0X012  
+      3 0X999  
 
 # invalid data throw errors
 
-    strMethod is not 'NormalApprox', 'poisson' or 'identity'
+    strMethod is not 'NormalApprox', 'Poisson' or 'Identity'
 
 ---
 
-    strMethod is not 'NormalApprox', 'poisson' or 'identity'
+    strMethod is not 'NormalApprox', 'Poisson' or 'Identity'
 
 ---
 

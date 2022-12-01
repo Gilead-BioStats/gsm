@@ -19,5 +19,5 @@ steps:
     params:
       strGroup: "Site"
       vThreshold: null
-      strMethod: "chisq"
+      strMethod: "Chisq"
 

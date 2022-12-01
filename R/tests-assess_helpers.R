@@ -50,7 +50,7 @@ test_invalid_data_assess <- function(
   testthat::expect_null(assess_function("Hi")[["lData"]])
   testthat::expect_snapshot_error(assess_function(dfInput, strMethod = 123))
   testthat::expect_snapshot_error(assess_function(dfInput, strMethod = "abacus"))
-  testthat::expect_snapshot_error(assess_function(dfInput, strMethod = c("identity", "poisson")))
+  testthat::expect_snapshot_error(assess_function(dfInput, strMethod = c("Identity", "Poisson")))
   testthat::expect_snapshot_error(assess_function(dfInput, vThreshold = "A"))
   testthat::expect_snapshot_error(assess_function(dfInput, vThreshold = 1))
   testthat::expect_error(assess_function(dfInput, strGroup = "something"))
@@ -108,12 +108,14 @@ test_identity <- function(
   assess_function,
   dfInput
 ) {
-  identity <- assess_function(dfInput, strMethod = "identity")
+  Identity <- assess_function(dfInput, strMethod = "Identity")
 
-  testthat::expect_error(assess_function(dfInput, strMethod = "identity"), NA)
+
+  testthat::expect_error(assess_function(dfInput, strMethod = "Identity"), NA)
   testthat::expect_snapshot(names(identity$lCharts))
-  testthat::expect_null(identity$lCharts$scatter)
-  testthat::expect_null(identity$lData$dfBounds)
+  testthat::expect_null(Identity$lCharts$scatter)
+  testthat::expect_null(Identity$lData$dfBounds)
+
 }
 
 ################################################################

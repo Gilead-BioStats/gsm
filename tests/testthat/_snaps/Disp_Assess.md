@@ -86,15 +86,15 @@
 
 # invalid data throw errors
 
-    strMethod is not 'NormalApprox', 'fisher', 'identity', or 'qtl'
+    strMethod is not 'NormalApprox', 'Fisher', 'Identity', or 'QTL'
 
 ---
 
-    strMethod is not 'NormalApprox', 'fisher', 'identity', or 'qtl'
+    strMethod is not 'NormalApprox', 'Fisher', 'Identity', or 'QTL'
 
 ---
 
-    strMethod is not 'NormalApprox', 'fisher', 'identity', or 'qtl'
+    strMethod is not 'NormalApprox', 'Fisher', 'Identity', or 'QTL'
 
 ---
 

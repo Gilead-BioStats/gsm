@@ -11,11 +11,11 @@
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 or 4 that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation (`strMethod = "NormalApprox"`),
-#'  `c(0.01, 0.05)` for Fisher's exact test (`strMethod = "fisher"`), and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "identity"`).
+#'  `c(0.01, 0.05)` for Fisher's exact test (`strMethod = "Fisher"`), and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "Identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"NormalApprox"` (default)
-#'   - `"fisher"`
-#'   - `"identity"`
+#'   - `"Fisher"`
+#'   - `"Identity"`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Disposition Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
@@ -45,8 +45,8 @@
 #' @examples
 #' dfInput <- Disp_Map_Raw()
 #' disp_assessment_NormalApprox <- Disp_Assess(dfInput, strMethod = "NormalApprox")
-#' disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "fisher")
-#' disp_assessment_identity <- Disp_Assess(dfInput, strMethod = "identity")
+#' disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "Fisher")
+#' disp_assessment_identity <- Disp_Assess(dfInput, strMethod = "Identity")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
@@ -68,7 +68,7 @@ Disp_Assess <- function(
 
   # data checking -----------------------------------------------------------
   stopifnot(
-    "strMethod is not 'NormalApprox', 'fisher', 'identity', or 'qtl'" = strMethod %in% c("NormalApprox", "fisher", "identity", "qtl"),
+    "strMethod is not 'NormalApprox', 'Fisher', 'Identity', or 'QTL'" = strMethod %in% c("NormalApprox", "Fisher", "Identity", "QTL"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -88,16 +88,16 @@ Disp_Assess <- function(
   if (is.null(vThreshold)) {
     vThreshold <- switch(strMethod,
       NormalApprox = c(-3, -2, 2, 3),
-      fisher = c(0.01, 0.05),
-      identity = c(3.491, 5.172),
-      qtl = c(0.2)
+      Fisher = c(0.01, 0.05),
+      Identity = c(3.491, 5.172),
+      QTL = c(0.2)
     )
   }
 
   strValueColumnVal <- switch(strMethod,
     NormalApprox = NULL,
-    fisher = "Score",
-    identity = "Score"
+    Fisher = "Score",
+    Identity = "Score"
   )
 
   # begin running assessment ------------------------------------------------
@@ -137,11 +137,11 @@ Disp_Assess <- function(
         strType = "binary",
         bQuiet = bQuiet
       )
-    } else if (strMethod == "fisher") {
+    } else if (strMethod == "Fisher") {
       lData$dfAnalyzed <- gsm::Analyze_Fisher(lData$dfTransformed, bQuiet = bQuiet)
-    } else if (strMethod == "identity") {
+    } else if (strMethod == "Identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
-    } else if (strMethod == "qtl") {
+    } else if (strMethod == "QTL") {
       lData$dfAnalyzed <- gsm::Analyze_QTL(lData$dfTransformed, strOutcome = "binary", nConfLevel = nConfLevel)
     }
 
@@ -151,19 +151,19 @@ Disp_Assess <- function(
     # dfFlagged ---------------------------------------------------------------
     if (strMethod == "NormalApprox") {
       lData$dfFlagged <- gsm::Flag_NormalApprox(lData$dfAnalyzed, vThreshold = vThreshold)
-    } else if (strMethod == "fisher") {
+    } else if (strMethod == "Fisher") {
       lData$dfFlagged <- gsm::Flag_Fisher(lData$dfAnalyzed, vThreshold = vThreshold)
-    } else if (strMethod == "identity") {
+    } else if (strMethod == "Identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
-    } else if (strMethod == "qtl") {
+    } else if (strMethod == "QTL") {
       lData$dfFlagged <- gsm::Flag_QTL(lData$dfAnalyzed, vThreshold = vThreshold)
     }
 
     flag_function_name <- switch(strMethod,
       NormalApprox = "Flag_NormalApprox",
-      identity = "Flag",
-      fisher = "Flag_Fisher",
-      qtl = "Flag_QTL"
+      Identity = "Flag",
+      Fisher = "Flag_Fisher",
+      QTL = "Flag_QTL"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
@@ -175,8 +175,9 @@ Disp_Assess <- function(
 
     # visualizations ----------------------------------------------------------
     lCharts <- list()
-    if (strMethod != "qtl") {
+    if (strMethod != "QTL") {
       if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
+
 
 
     # rbm-viz setup -----------------------------------------------------------
@@ -191,7 +192,9 @@ Disp_Assess <- function(
     )
 
 
-      if (strMethod != "identity") {
+
+      if (strMethod != "Identity") {
+
         lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
         if (exists('dfBounds', lData)) {
