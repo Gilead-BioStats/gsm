@@ -652,5 +652,6 @@
       
       -- Initializing `LB_Map_Raw()` --
       
-      v `LB_Map_Raw()` returned output with 150 rows.
+      i Intializing merge of domain and subject data
+      v `LB_Map_Raw()` returned output with 3 rows.
 

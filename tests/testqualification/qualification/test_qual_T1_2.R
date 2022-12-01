@@ -4,7 +4,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
 
   test1_2 <- AE_Assess(
     dfInput = dfInput,
-    strMethod = "poisson",
+    strMethod = "Poisson",
     vThreshold = c(-3, -1, 1, 3),
     strGroup = "Study"
   )

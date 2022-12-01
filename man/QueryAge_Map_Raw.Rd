@@ -27,7 +27,7 @@ of the column.}
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} Data frame with one record per query, the input to \code{\link[=QueryAge_Assess]{QueryAge_Assess()}}. If
+\code{data.frame} Data frame with one record per subject, the input to \code{\link[=QueryAge_Assess]{QueryAge_Assess()}}. If
 \code{bReturnChecks} is \code{TRUE} \code{QueryAge_Map_Raw} returns a named \code{list} with:
 \itemize{
 \item \code{df}: the data frame described above

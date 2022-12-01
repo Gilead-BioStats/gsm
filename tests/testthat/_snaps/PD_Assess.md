@@ -84,11 +84,11 @@
 
 # invalid data throw errors
 
-    strMethod is not 'NormalApprox', 'poisson', 'identity', or 'qtl'
+    strMethod is not 'NormalApprox', 'Poisson', 'Identity', or 'QTL'
 
 ---
 
-    strMethod is not 'NormalApprox', 'poisson', 'identity', or 'qtl'
+    strMethod is not 'NormalApprox', 'Poisson', 'Identity', or 'QTL'
 
 ---
 

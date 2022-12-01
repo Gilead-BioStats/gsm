@@ -616,5 +616,8 @@
       
       -- Initializing `DataEntry_Map_Raw()` --
       
-      v `DataEntry_Map_Raw()` returned output with 408 rows.
+      i Intializing merge of domain and subject data
+      ! 1298 ID(s) in domain data not found in subject data.
+      Associated rows will not be included in merged data.
+      v `DataEntry_Map_Raw()` returned output with 3 rows.
 
