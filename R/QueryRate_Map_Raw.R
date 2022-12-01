@@ -99,13 +99,13 @@ QueryRate_Map_Raw <- function(
       full_join(
         dfDATACHG_mapped,
         c("SubjectID", "VisitID", "FormID")) %>%
-      mutate(Count = tidyr::replace_na(Count, 0)) %>%
+      mutate(Count = tidyr::replace_na(.data$Count, 0)) %>%
       group_by(.data$SubjectID) %>%
       summarize(Count = sum(.data$Count, na.rm = TRUE),
                 DataPoint = sum(.data$DataPoint, na.rm = TRUE)) %>%
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      filter(!is.na(DataPoint)) %>%
+      filter(!is.na(.data$DataPoint)) %>%
       mutate(
         Rate = .data$Count / .data$DataPoint
       ) %>%

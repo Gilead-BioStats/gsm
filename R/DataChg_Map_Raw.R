@@ -67,8 +67,8 @@ DataChg_Map_Raw <- function(
       select(SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]],
              DataChg = lMapping[["dfDATACHG"]][["strDataPointsChangeCol"]],
              DataPoint = lMapping[["dfDATACHG"]][["strDataPointsCol"]]) %>%
-      mutate(DataChg = as.numeric(DataChg),
-             DataPoint = as.numeric(DataPoint))
+      mutate(DataChg = as.numeric(.data$DataChg),
+             DataPoint = as.numeric(.data$DataPoint))
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -91,7 +91,7 @@ DataChg_Map_Raw <- function(
                 Total = sum(.data$DataPoint, na.rm = TRUE)) %>%
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      filter(!is.na(Total)) %>%
+      filter(!is.na(.data$Total)) %>%
       select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
       arrange(.data$SubjectID)
 

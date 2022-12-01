@@ -1,5 +1,22 @@
 source(testthat::test_path("testdata/data.R"))
 
+lData <- list(
+  dfSUBJ = dfSUBJ_expanded,
+  dfAE = dfAE_expanded,
+  dfPD = dfPD_expanded,
+  dfCONSENT = dfCONSENT_expanded,
+  dfIE = dfIE_expanded,
+  dfSTUDCOMP = dfSTUDCOMP_expanded,
+  dfSDRGCOMP = dfSDRGCOMP_expanded,
+  dfLB = clindata::rawplus_lb %>% filter(subjid %in% dfSUBJ_expanded$subjid) %>% slice(1:2000)
+)
+
+lMapping <- c(
+  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
+)
+
 lMeta <- list(
   config_param = clindata::config_param,
   config_workflow = clindata::config_workflow,
@@ -9,26 +26,9 @@ lMeta <- list(
   meta_workflow = gsm::meta_workflow
 )
 
-lData <- list(
-  dfSUBJ = dfSUBJ_expanded,
-  dfAE = dfAE_expanded,
-  dfPD = dfPD_expanded,
-  dfCONSENT = dfCONSENT_expanded,
-  dfIE = dfIE_expanded,
-  dfSTUDCOMP = dfSTUDCOMP_expanded,
-  dfSDRGCOMP = dfSDRGCOMP_expanded,
-  dfLB = dfLB_expanded
-)
-
-lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
-
 lAssessments <- MakeWorkflowList()
 
-cPath <- NULL
-
-bQuiet <- TRUE
-
-snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments)
+snapshot <- Make_Snapshot(lData = lData)
 
 
 
@@ -216,8 +216,7 @@ test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
     dfCONSENT = dfCONSENT_expanded,
     dfIE = dfIE_expanded,
     dfSTUDCOMP = dfSTUDCOMP_expanded,
-    dfSDRGCOMP = dfSDRGCOMP_expanded,
-    dfLB = dfLB_expanded
+    dfSDRGCOMP = dfSDRGCOMP_expanded
   )
   expect_silent(Make_Snapshot(lMeta = lMeta, lData = lData_edited, lMapping = lMapping, lAssessments = lAssessments))
 
