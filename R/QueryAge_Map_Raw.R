@@ -97,6 +97,7 @@ QueryAge_Map_Raw <- function(
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
       filter(!is.na(.data$Total)) %>%
+
       select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
       arrange(.data$SubjectID)
 
