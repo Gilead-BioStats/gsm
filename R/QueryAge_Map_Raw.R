@@ -18,7 +18,7 @@
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` Data frame with one record per query, the input to [gsm::QueryAge_Assess()]. If
+#' @return `data.frame` Data frame with one record per subject, the input to [gsm::QueryAge_Assess()]. If
 #' `bReturnChecks` is `TRUE` `QueryAge_Map_Raw` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
@@ -38,13 +38,13 @@
 #' @export
 
 QueryAge_Map_Raw <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfQUERY = clindata::edc_queries
-  ),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
-  bReturnChecks = FALSE,
-  bQuiet = TRUE
+    dfs = list(
+      dfSUBJ = clindata::rawplus_dm,
+      dfQUERY = clindata::edc_queries
+    ),
+    lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+    bReturnChecks = FALSE,
+    bQuiet = TRUE
 ) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
@@ -80,12 +80,9 @@ QueryAge_Map_Raw <- function(
         )
       )
 
-    # Create Subject Level query Counts and merge dfSUBJ
-    dfInput <- dfSUBJ_mapped %>%
-      left_join(
-        dfQUERY_mapped,
-        "SubjectID"
-      ) %>%
+    # Create subject Level aged query counts and merge dfSUBJ
+
+    dfInput <- dfQUERY_mapped %>%
       mutate(
         Count = if_else(
           .data$QueryAge %in% lMapping[["dfQUERY"]][["strQueryAgeVal"]],
@@ -94,6 +91,12 @@ QueryAge_Map_Raw <- function(
         ),
         Total = 1
       ) %>%
+      group_by(.data$SubjectID) %>%
+      summarize(Count = sum(.data$Count, na.rm = TRUE),
+                Total = sum(.data$Total, na.rm = TRUE)) %>%
+      ungroup() %>%
+      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
+      filter(!is.na(.data$Total)) %>%
       select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
       arrange(.data$SubjectID)
 
