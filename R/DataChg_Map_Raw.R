@@ -66,7 +66,9 @@ DataChg_Map_Raw <- function(
     dfDATACHG_mapped <- dfs$dfDATACHG %>%
       select(SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]],
              DataChg = lMapping[["dfDATACHG"]][["strDataPointsChangeCol"]],
-             DataPoint = lMapping[["dfDATACHG"]][["strDataPointsCol"]])
+             DataPoint = lMapping[["dfDATACHG"]][["strDataPointsCol"]]) %>%
+      mutate(DataChg = as.numeric(DataChg),
+             DataPoint = as.numeric(DataPoint))
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -81,17 +83,14 @@ DataChg_Map_Raw <- function(
         )
       )
 
-    # Create Subject Level data point with change counts and merge dfSUBJ
+    # Create subject Level data point with change counts and merge dfSUBJ
 
-    dfInput <- dfSUBJ_mapped %>%
-      left_join(
-        dfDATACHG_mapped,
-        "SubjectID"
-      ) %>%
-      mutate(
-        Count = as.numeric(.data$DataChg, na.rm = TRUE),
-        Total = as.numeric(.data$DataPoint, na.rm = TRUE)
-      ) %>%
+    dfInput <- dfDATACHG_mapped %>%
+      group_by(.data$SubjectID) %>%
+      summarize(Count = sum(.data$DataChg, na.rm = TRUE),
+                Total = sum(.data$DataPoint, na.rm = TRUE)) %>%
+      ungroup() %>%
+      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
       select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
       arrange(.data$SubjectID)
 

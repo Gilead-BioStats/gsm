@@ -90,20 +90,21 @@ QueryRate_Map_Raw <- function(
         )
       )
 
-    # Create Subject Level AE Counts and merge dfSUBJ
+    # Create subject Level query and data point counts and merge dfSUBJ
 
     dfInput <- dfQUERY_mapped %>%
-      left_join(
-        dfSUBJ_mapped,
-        "SubjectID"
-      ) %>%
-      group_by(.data$SubjectID) %>%
-      mutate(Count= n()) %>%
-      distinct(.data$SubjectID, .keep_all=TRUE) %>%
+      group_by(.data$SubjectID, .data$VisitID, .data$FormID) %>%
+      summarize(Count= n()) %>%
       ungroup() %>%
-      left_join(
+      full_join(
         dfDATACHG_mapped,
         c("SubjectID", "VisitID", "FormID")) %>%
+      mutate(Count = tidyr::replace_na(Count, 0)) %>%
+      group_by(.data$SubjectID) %>%
+      summarize(Count = sum(.data$Count, na.rm = TRUE),
+                DataPoint = sum(.data$DataPoint, na.rm = TRUE)) %>%
+      ungroup() %>%
+      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
       mutate(
         Rate = .data$Count / .data$DataPoint
       ) %>%
