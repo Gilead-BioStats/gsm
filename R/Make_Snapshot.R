@@ -56,7 +56,11 @@ lData = list(
   dfDATAENTRY = clindata::edc_data_entry_lag,
   dfQUERY = clindata::edc_queries
 ),
-lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+lMapping = c(
+  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
+),
 lAssessments = NULL,
 cPath = NULL,
 bQuiet = TRUE
