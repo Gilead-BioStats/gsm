@@ -897,8 +897,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfPD domain
-      Filtering on `importnt %in% c("N")`.
-      v Filtered on `importnt %in% c("N")` to drop 6 rows from 50 to 44 rows.
+      Filtering on `importnt %in% c("Y")`.
+      v Filtered on `importnt %in% c("Y")` to drop 44 rows from 50 to 6 rows.
       v `FilterDomain()` Successful
       Saving dfPD to `lWorkflow$lData`
       
@@ -914,7 +914,7 @@
       -- Initializing `PD_Map_Raw()` --
       
       i Intializing merge of domain and subject data
-      i 37 ID(s) in subject data not found in domain data.
+      i 46 ID(s) in subject data not found in domain data.
       These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `PD_Map_Raw()` returned output with 50 rows.

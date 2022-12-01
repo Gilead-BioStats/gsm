@@ -960,7 +960,7 @@
       [1] "strImportantCol"
       
       $qtl0004[[1]]$params$strValParam
-      [1] "strNotImportantVal"
+      [1] "strImportantVal"
       
       
       
