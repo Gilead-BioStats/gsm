@@ -16,6 +16,7 @@ Make_Snapshot(
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
   lAssessments = NULL,
+  bUpdateParams = FALSE,
   cPath = NULL,
   bQuiet = TRUE
 )
@@ -29,6 +30,8 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column. Default: package-defined mapping for raw+.}
 
 \item{lAssessments}{\code{list} a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
+
+\item{bUpdateParams}{\code{logical} if \code{TRUE}, configurable parameters found in \code{lMeta$config_param} will overwrite the default values in \code{lMeta$meta_params}. Default: \code{FALSE}.}
 
 \item{cPath}{\code{character} a character string indicating a working directory to save .csv files; the output of the snapshot.}
 
