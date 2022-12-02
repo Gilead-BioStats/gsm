@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap');
+
+:root {
+  --gilead-red: #c51f3f;
+  --blue-button-color: #3C587F;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+  background-color: var(--gilead-red);
+  border-color: white;
+}
+
+
+.btn-show-report {
+   background-color: var(--blue-button-color);
+   color: white;
+   font-family: 'Roboto', sans-serif;
+   font-weight: thin;
+}
+
