@@ -16,54 +16,40 @@ library(gsm)
 library(tidyverse)
 library(DT)
 
-study <- params$study
+study <- params$study[grep("kri", names(params$study))]
 
 overview_table <- Overview_Table(study) 
 
 ```
 
 # Study Overview
-
+<div class="gsm-overview-table">
 ```{r echo=FALSE, warning=FALSE}
 overview_table
 ```
+</div>
 
 # Results
 
 ```{r, echo = FALSE, results='asis'}
-
-
-
-# for (i in seq_along(study)) {
-# 
-#   title <- gsm::meta_workflow %>% 
-#     filter(workflowid == study[[i]]$name) %>% 
-#     pull(metric)
-#   
-#   print(htmltools::h1(title))
-#   print(htmltools::h2("Summary Charts"))
-#     for (chart in study[[i]]$lResults$lCharts) {
-#     browser()
-#     print(chart)
-#   }
-# }
-
 for (i in seq_along(study)) {
   
   title <- gsm::meta_workflow %>% 
     filter(workflowid == study[[i]]$name) %>% 
     pull(metric)
   
-  print(htmltools::h1(title))
-  print(htmltools::h2("Summary Charts"))
+  print(htmltools::h3(title))
+  print(htmltools::h5("Summary Charts"))
   print(htmltools::tags$button(class = 'btn-show-report', htmltools::tags$i(class = "fa fa-cloud"), "Show Plots"))
   
   for (chart in seq_along(study[[i]]$lResults$lCharts)) {
-    cat(paste0("<div class =", names(study[[i]]$lResults$lCharts)[[chart]], ">"))
+    
+    customClass <- paste0(names(study[[i]]$lResults$lCharts)[[chart]])
+    
+    cat(paste0("<div class =", customClass, ">"))
     print(study[[i]]$lResults$lCharts[[chart]])
     cat("</div>")
   }
-
 }
 ```
 
@@ -80,23 +66,18 @@ const btnReport = document.querySelectorAll(".btn-show-report");
 const barMetric = document.querySelectorAll(".barMetric");
 const barScore = document.querySelectorAll(".barScore");
 
-btnReport.forEach(function (el) {
+btnReport.forEach(function (el, index) {
   el.addEventListener("click", function () {
-    barMetric.forEach(function (chart) {
-      let displayStyle = chart.style.display === "none" ? null : "none";
-      chart.style.display = displayStyle;
-
-      let buttonText = displayStyle === "none" ? "Show Plots" : "Hide Plots";
-
-      btnReport.forEach(function (text) {
-        text.textContent = buttonText;
-      });
-    });
-
-    barScore.forEach(function (chart) {
-      let displayStyle = chart.style.display === "none" ? null : "none";
-      chart.style.display = displayStyle;
-    });
+    console.log(el.textContent);
+    if (el.textContent === "Show Plots") {
+      barMetric[index].style.display = null;
+      barScore[index].style.display = null;
+      el.textContent = "Hide Plots";
+    } else {
+      barMetric[index].style.display = "none";
+      barScore[index].style.display = "none";
+      el.textContent = "Show Plots";
+    }
   });
 });
 

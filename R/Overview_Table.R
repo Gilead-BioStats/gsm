@@ -9,6 +9,7 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
 
   study <- lAssessments[grep("kri", names(lAssessments))]
 
+
   overview_table <- map(study, function(kri) {
 
     name <- kri$name

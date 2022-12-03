@@ -3,6 +3,7 @@
 :root {
   --gilead-red: #c51f3f;
   --blue-button-color: #3C587F;
+  --default: 'Roboto', sans-serif
 }
 
 body {
@@ -22,3 +23,6 @@ body {
    font-weight: thin;
 }
 
+.gsm-overview-table {
+  font-family: var(--default);
+}
