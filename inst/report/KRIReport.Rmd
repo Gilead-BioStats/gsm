@@ -20,16 +20,33 @@ study <- params$study[grep("kri", names(params$study))]
 
 overview_table <- Overview_Table(study) 
 
+# turn into a function
+summary_table <- map(study, function(kri) {
+  
+  dfFlagged <- kri$lResults$lData$dfFlagged 
+  
+  if(nrow(dfFlagged) > 0) {
+    kri$lResults$lData$dfFlagged %>% 
+      filter(Flag != 0) %>% 
+      arrange(desc(abs(Flag))) %>% 
+      mutate(FlagDirectionality = map(Flag, kri_directionality_logo), 
+             across(where(is.numeric), ~round(.x, 3))) %>% 
+      DT::datatable()
+  } else {
+    return(NULL)
+  }
+  
+})
 ```
 
-# Study Overview
+### Study Overview
 <div class="gsm-overview-table">
 ```{r echo=FALSE, warning=FALSE}
 overview_table
 ```
 </div>
 
-# Results
+### Results
 
 ```{r, echo = FALSE, results='asis'}
 for (i in seq_along(study)) {
@@ -38,7 +55,7 @@ for (i in seq_along(study)) {
     filter(workflowid == study[[i]]$name) %>% 
     pull(metric)
   
-  print(htmltools::h3(title))
+  print(htmltools::h4(title))
   print(htmltools::h5("Summary Charts"))
   print(htmltools::tags$button(class = 'btn-show-report', htmltools::tags$i(class = "fa fa-cloud"), "Show Plots"))
   
@@ -50,6 +67,13 @@ for (i in seq_along(study)) {
     print(study[[i]]$lResults$lCharts[[chart]])
     cat("</div>")
   }
+  
+  if (!is.null(summary_table[[study[[i]]$name]])) {
+    print(htmltools::h5("Summary Table"))
+    print(htmltools::tagList(summary_table[[study[[i]]$name]]))
+  }
+  
+  
 }
 ```
 
@@ -68,8 +92,8 @@ const barScore = document.querySelectorAll(".barScore");
 
 btnReport.forEach(function (el, index) {
   el.addEventListener("click", function () {
-    console.log(el.textContent);
-    if (el.textContent === "Show Plots") {
+    console.log(el);
+    if (barMetric[index].style.display === "none") {
       barMetric[index].style.display = null;
       barScore[index].style.display = null;
       el.textContent = "Hide Plots";
