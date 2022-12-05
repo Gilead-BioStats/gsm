@@ -184,7 +184,7 @@ PD_Assess <- function(
         strAbbreviation = "DISP",
         strMetric = "Subject Discontinuation",
         strNumerator = "Subjects Discontinued",
-        strDenominator = "Total Subjects",
+        strDenominator = "Days in Study",
         vThreshold = vThreshold
       )
 
