@@ -220,7 +220,7 @@ AE_Assess <- function(
       strMethod = strMethod,
       strGroup = strGroup,
       strAbbreviation = "AE",
-      strMetric = "AE Reporting (Rate)",
+      strMetric = "AE Reporting Rate",
       strNumerator = "AEs",
       strDenominator = "Days on Treatment",
       vThreshold = vThreshold
