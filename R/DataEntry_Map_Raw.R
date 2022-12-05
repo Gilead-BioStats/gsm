@@ -44,6 +44,7 @@ DataEntry_Map_Raw <- function(
     lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
     bReturnChecks = FALSE,
     bQuiet = TRUE
+
 ) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),

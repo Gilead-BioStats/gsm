@@ -7,11 +7,12 @@
 #' For more context about the inputs and outputs of `Make_Snapshot()`, refer to the [GSM Data Pipeline Vignette](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html), specifically
 #' Appendix 2 - Data Model Specifications
 #'
-#' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study. TODO: add details about expected lMeta input.
-#' @param lData `list` a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
-#' @param lMapping `list` a named list identifying the columns needed in each data domain.
+#' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
+#' See the Data Model Vignette - Appendix 2 - Data Model Specifications for detailed specifications.
+#' @param lData `list` a named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for raw+.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
-#' @param bUpdateParams `logical` If `TRUE`, invokes `UpdateParams()` to update parameters based on user-defined `value` column from `lMeta$config_param`.
+#' @param bUpdateParams `logical` if `TRUE`, configurable parameters found in `lMeta$config_param` will overwrite the default values in `lMeta$meta_params`. Default: `FALSE`.
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -139,6 +140,7 @@ bQuiet = TRUE
   }
 
 
+
   # select in same order as spec - can remove this if not needed, but helps with comparison
   status_study <- status_study %>%
     select(
@@ -158,6 +160,7 @@ bQuiet = TRUE
       "lplv",
       "rbm_flag"
     )
+
 
 
   # status_site -------------------------------------------------------------

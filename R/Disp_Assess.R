@@ -195,6 +195,7 @@ Disp_Assess <- function(
 
       if (strMethod != "Identity") {
 
+
         lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
         if (exists('dfBounds', lData)) {

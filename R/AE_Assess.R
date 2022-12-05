@@ -190,6 +190,7 @@ AE_Assess <- function(
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
 
+
     # rbm-viz setup -----------------------------------------------------------
 
     dfConfig <- MakeDfConfig(
@@ -209,6 +210,7 @@ AE_Assess <- function(
       # ggplot bar charts -------------------------------------------------------
 
     if (strMethod != "Identity") {
+
 
       lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 

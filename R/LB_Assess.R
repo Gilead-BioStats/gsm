@@ -168,7 +168,6 @@ LB_Assess <- function(
 
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-
     dfConfig <- MakeDfConfig(
       strMethod = strMethod,
       strGroup = strGroup,
@@ -182,6 +181,7 @@ LB_Assess <- function(
 
 
     if (strMethod != "Identity") {
+
 
       lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
