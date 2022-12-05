@@ -88,6 +88,13 @@
 
     vThreshold must be length of 4
 
+# strMethod = 'Identity' works as expected
+
+    Code
+      names(Identity$lCharts)
+    Output
+      [1] "barMetric" "barScore" 
+
 # bQuiet works as intended
 
     Code
