@@ -1,4 +1,3 @@
-'use strict'
 var rbmViz = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -20091,16 +20090,8 @@ var rbmViz = (() => {
   }
 
   // src/util/mapThresholdsToFlags.js
-  function mapThresholdsToFlags(_thresholds_) {
-    const nonNegativeThresholds = [
-      ...new Set(_thresholds_.map((threshold) => Math.abs(threshold)))
-    ];
-    const negativeThresholds = nonNegativeThresholds.map(
-      (threshold) => -1 * threshold
-    );
-    const thresholds2 = [
-      .../* @__PURE__ */ new Set([...nonNegativeThresholds, ...negativeThresholds])
-    ].sort((a, b) => a - b);
+  function mapThresholdsToFlags(_thresholds_, complete = true) {
+    let thresholds2 = _thresholds_.map((threshold) => +threshold);
     const flags = thresholds2.map((threshold, i) => {
       const flag = i - Math.floor(thresholds2.length / 2);
       return {
@@ -20114,7 +20105,7 @@ var rbmViz = (() => {
   // src/util/checkThresholds.js
   function checkThresholds(_config_, _thresholds_) {
     let thresholds2 = _config_.thresholds;
-    if (_config_.y === "metric")
+    if (_config_.y === "metric" && !/^qtl/.test(_config_.workflowid))
       return null;
     if (Array.isArray(thresholds2) && thresholds2.length > 0 && thresholds2.every((threshold) => typeof threshold === "number"))
       return mapThresholdsToFlags(thresholds2);
@@ -20125,7 +20116,10 @@ var rbmViz = (() => {
     if (_thresholds_ === null || [null].includes(thresholds2) || Array.isArray(thresholds2) && (thresholds2.length === 0 || thresholds2.some((threshold) => typeof threshold !== "number")))
       return null;
     thresholds2 = _thresholds_.filter((d) => d.param === "vThreshold").map((d) => d.default);
-    return mapThresholdsToFlags(thresholds2);
+    return mapThresholdsToFlags(
+      thresholds2,
+      thresholds2.some((threshold) => threshold < 0)
+    );
   }
 
   // src/barChart/configure.js
@@ -20137,13 +20131,9 @@ var rbmViz = (() => {
     defaults3.xLabel = _config_["group"];
     defaults3.y = "score";
     defaults3.yType = "linear";
-    defaults3.yLabel = _config_[defaults3.y];
+    defaults3.yLabel = _config_[_config_.y || defaults3.y];
     defaults3.color = "flag";
     defaults3.colorLabel = _config_[defaults3.color];
-    defaults3.num = "numerator";
-    defaults3.numeratorLabel = _config_[defaults3.num];
-    defaults3.denom = "denominator";
-    defaults3.denominatorLabel = _config_[defaults3.denom];
     defaults3.hoverCallback = (datum2) => {
     };
     defaults3.clickCallback = (datum2) => {
@@ -20222,9 +20212,7 @@ var rbmViz = (() => {
         ...d,
         x: d[config.x],
         y: +d[config.y],
-        stratum: +d[config.color],
-        numerator: +d[config.num],
-        denominator: +d[config.denom]
+        stratum: +d[config.color]
       };
       return datum2;
     }).sort((a, b) => b.y - a.y);
@@ -20260,10 +20248,17 @@ var rbmViz = (() => {
     const datasets = [
       {
         type: "bar",
-        label: "asdf",
         data,
-        ...scriptableOptions()
-      }
+        label: "",
+        ...scriptableOptions(),
+        minBarLength: 2,
+        grouped: false
+      },
+      ...colorScheme_default.map((color3) => ({
+        type: "bar",
+        label: color3.description,
+        backgroundColor: color3.color
+      }))
     ];
     return datasets;
   }
@@ -20331,7 +20326,13 @@ var rbmViz = (() => {
   // src/barChart/plugins/legend.js
   function legend(config) {
     return {
-      display: false
+      display: !config.thresholds,
+      labels: {
+        filter: function(item, chart) {
+          return item.text !== "";
+        }
+      },
+      position: "top"
     };
   }
 
@@ -20559,7 +20560,6 @@ var rbmViz = (() => {
 
   // src/barChart.js
   function barChart(_element_, _data_, _config_ = {}, _thresholds_ = null) {
-    console.log(_thresholds_);
     const config = configure3(_config_, _data_, _thresholds_);
     const canvas = addCanvas(_element_, config);
     const datasets = structureData(_data_, config);
@@ -21230,13 +21230,11 @@ var rbmViz = (() => {
     defaults3.dataType = /flag|risk/.test(_config_.y) ? "discrete" : "continuous";
     if (defaults3.dataType === "discrete")
       defaults3.discreteUnit = Object.keys(_data_[0]).includes("groupid") ? "KRI" : "Site";
-    defaults3.type = defaults3.dataType === "continuous" ? "boxplot" : "aggregate";
+    defaults3.type = defaults3.dataType === "discrete" ? "aggregate" : /^qtl/.test(_config_?.workflowid) ? "identity" : "boxplot";
     defaults3.x = "snapshot_date";
     defaults3.xType = "category";
-    defaults3.xLabel = "Snapshot Date";
     defaults3.y = "score";
     defaults3.yType = "linear";
-    defaults3.yLabel = defaults3.dataType === "continuous" ? _config_[defaults3.y] : /flag/.test(_config_.y) && /risk/.test(_config_.y) ? `At Risk or Flagged ${defaults3.discreteUnit}s` : /flag/.test(_config_.y) ? `Flagged ${defaults3.discreteUnit}s` : /risk/.test(_config_.y) ? `At Risk ${defaults3.discreteUnit}s` : "";
     defaults3.colorScheme = colorScheme_default;
     defaults3.hoverCallback = (datum2) => {
     };
@@ -21259,33 +21257,127 @@ var rbmViz = (() => {
       ),
       thresholds: checkThresholds.bind(null, _config_, _thresholds_)
     });
+    config.xLabel = coalesce(_config_.xLabel, "Snapshot Date");
+    config.yLabel = coalesce(
+      _config_.yLabel,
+      config.dataType === "continuous" ? config[config.y] : /flag/.test(config.y) && /risk/.test(config.y) ? `At Risk or Flagged ${config.discreteUnit}s` : /flag/.test(config.y) ? `Flagged ${config.discreteUnit}s` : /risk/.test(config.y) ? `At Risk ${config.discreteUnit}s` : ""
+    );
     return config;
   }
 
+  // src/timeSeries/structureData/mutate.js
+  function mutate4(_data_, config) {
+    return _data_.sort((a, b) => ascending(a[config.x], b[config.x]));
+  }
+
   // src/timeSeries/structureData/getLabels.js
-  function getLabels(_data_, config) {
-    const labels = [...new Set(_data_.map((d) => d[config.x]))];
+  function getLabels(data, config) {
+    const labels = [...new Set(data.map((d) => d[config.x]))];
     return labels;
   }
 
-  // src/timeSeries/structureData/selectedGroupLine.js
-  function selectedGroupLine(_data_, config, labels) {
-    const lineData = _data_.filter((d) => config.selectedGroupIDs.includes(d.groupid)).map((d, i) => {
-      const datum2 = { ...d };
-      datum2.x = datum2[config.x];
-      datum2.y = +datum2[config.y];
-      return datum2;
-    });
-    const color3 = "#1890FF";
+  // src/timeSeries/structureData/identityLine.js
+  function identityLine(data, config, labels) {
+    const aggregateData = rollup(
+      data,
+      (group2) => mean(group2, (d) => d[config.y]),
+      (d) => d[config.x]
+    );
+    const color3 = "#666666";
     const backgroundColor4 = color2(color3);
     backgroundColor4.opacity = 1;
     const borderColor4 = color2(color3);
     borderColor4.opacity = 0.25;
     const dataset = {
-      data: lineData,
-      backgroundColor: backgroundColor4,
+      backgroundColor: (d) => {
+        if (d.type === "dataset") {
+          return backgroundColor4;
+        } else {
+          return config.colorScheme.find(
+            (color4) => color4.flag.includes(+d.raw.flag)
+          ).color;
+        }
+      },
       borderColor: borderColor4,
-      label: config.selectedGroupIDs.length > 0 ? `${config.group} ${lineData[0]?.groupid}` : "",
+      data: [...aggregateData].map(([key, value], i) => {
+        const x = labels[i];
+        const y = value;
+        return {
+          ...data.find((d) => d[config.x] === x),
+          x,
+          y
+        };
+      }),
+      label: "",
+      pointStyle: "circle",
+      purpose: "aggregate",
+      radius: 2.5,
+      type: "line"
+    };
+    return dataset;
+  }
+
+  // src/timeSeries/structureData/intervalLines.js
+  function intervalLines(_intervals_, config, labels) {
+    if (_intervals_ === null)
+      return [null];
+    const intervals = rollup(
+      _intervals_.filter((d) => /ci/i.test(d.param)),
+      (group2) => +group2[0].value,
+      (d) => d.param,
+      (d) => d.snapshot_date
+    );
+    const datasets = [...intervals].map(([key, value], i) => {
+      return {
+        borderColor: "#666",
+        borderDash: [2],
+        borderWidth: 1,
+        data: [...value.values()],
+        label: i === 0 ? "Confidence Interval" : "",
+        pointStyle: "line",
+        purpose: "aggregate",
+        radius: 0,
+        type: "line"
+      };
+    });
+    return datasets;
+  }
+
+  // src/timeSeries/structureData/selectedGroupLine.js
+  function selectedGroupLine(data, config, labels) {
+    if (config.selectedGroupIDs.length === 0)
+      return null;
+    const lineData = data.filter((d) => config.selectedGroupIDs.includes(d.groupid)).map((d, i) => {
+      const datum2 = { ...d };
+      datum2.x = datum2[config.x];
+      datum2.y = +datum2[config.y];
+      return datum2;
+    });
+    const color3 = "black";
+    const backgroundColor4 = color2(color3);
+    backgroundColor4.opacity = 0.5;
+    const borderColor4 = color2(color3);
+    borderColor4.opacity = 0.25;
+    const dataset = {
+      data: lineData,
+      backgroundColor: function(d) {
+        const color4 = config.colorScheme.find(
+          (color5) => color5.flag.includes(+d.raw?.flag)
+        );
+        if (color4 !== void 0)
+          color4.rgba.opacity = 0.5;
+        return color4 !== void 0 ? color4.rgba + "" : backgroundColor4;
+      },
+      borderColor: function(d) {
+        const color4 = config.colorScheme.find(
+          (color5) => color5.flag.includes(+d.raw?.flag)
+        );
+        if (color4 !== void 0)
+          color4.rgba.opacity = 1;
+        return color4 !== void 0 ? "black" : borderColor4;
+      },
+      label: "",
+      pointStyle: "circle",
       purpose: "highlight",
       radius: 3,
       type: "line"
@@ -21294,8 +21386,8 @@ var rbmViz = (() => {
   }
 
   // src/timeSeries/structureData/atRisk.js
-  function atRisk(_data_, config, labels) {
-    const pointData = _data_.filter((d) => Math.abs(+d.flag) === 1).map((d) => {
+  function atRisk(data, config, labels) {
+    const pointData = data.filter((d) => Math.abs(+d.flag) === 1).map((d) => {
       const datum2 = { ...d };
       datum2.x = datum2[config.x];
       datum2.y = +datum2[config.y];
@@ -21309,7 +21401,8 @@ var rbmViz = (() => {
       borderColor: color3.color,
       backgroundColor: color3.rgba + "",
       data: pointData,
-      label: pointData.length ? "At Risk" : "",
+      label: "",
+      pointStyle: "circle",
       purpose: "scatter",
       radius: 2,
       type: "scatter"
@@ -21318,8 +21411,8 @@ var rbmViz = (() => {
   }
 
   // src/timeSeries/structureData/flagged.js
-  function flagged(_data_, config, labels) {
-    const pointData = _data_.filter((d) => Math.abs(+d.flag) > 1).map((d) => {
+  function flagged(data, config, labels) {
+    const pointData = data.filter((d) => Math.abs(+d.flag) > 1).map((d) => {
       const datum2 = { ...d };
       datum2.x = datum2[config.x];
       datum2.y = +datum2[config.y];
@@ -21333,7 +21426,8 @@ var rbmViz = (() => {
       borderColor: color3.color,
       backgroundColor: color3.rgba + "",
       data: pointData,
-      label: pointData.length ? "Flagged" : "",
+      label: "",
+      pointStyle: "circle",
       purpose: "scatter",
       radius: 2,
       type: "scatter"
@@ -21341,15 +21435,68 @@ var rbmViz = (() => {
     return dataset;
   }
 
+  // src/timeSeries/structureData/distribution/boxplot.js
+  function boxplot2(data, config) {
+    const grouped = rollups(
+      data,
+      (group2) => group2.map((d) => +d[config.y]),
+      (d) => d.snapshot_date
+    );
+    const color3 = config.colorScheme.find(
+      (color4) => color4.flag.some((flag) => Math.abs(flag) === 0)
+    );
+    color3.rgba.opacity = 0.5;
+    const dataset = {
+      data: grouped.map((d) => d[1]),
+      maxBarThickness: 7,
+      maxWhiskerThickness: 0,
+      meanRadius: /^n_/.test(config.y) ? 3 : 0,
+      label: /flag|at.risk/.test(config.y) ? `Distribution` : `${config.group} Distribution`,
+      outlierRadius: 0,
+      pointStyle: "rect",
+      purpose: "distribution",
+      type: "boxplot"
+    };
+    return dataset;
+  }
+
+  // src/timeSeries/structureData/distribution/violin.js
+  function violin(data, config) {
+    const grouped = rollups(
+      data,
+      (group2) => group2.map((d) => +d[config.y]),
+      (d) => d.snapshot_date
+    );
+    const color3 = config.colorScheme.find(
+      (color4) => color4.flag.some((flag) => Math.abs(flag) === 0)
+    );
+    color3.rgba.opacity = 0.5;
+    const dataset = {
+      data: grouped.map((d) => d[1]),
+      label: /flag|at.risk/.test(config.y) ? `Distribution` : `${config.group} Distribution`,
+      purpose: "distribution",
+      type: "violin"
+    };
+    return dataset;
+  }
+
+  // src/timeSeries/structureData/distribution.js
+  function distribution(data, config, labels) {
+    if (!["boxplot", "violin"].includes(config.type))
+      return null;
+    const dataset = config.type === "boxplot" ? boxplot2(data, config, labels) : config.type === "violin" ? violin(data, config, labels) : null;
+    return dataset;
+  }
+
   // src/timeSeries/structureData/aggregateLine.js
-  function aggregateGroupLine(_data_, config, labels) {
+  function aggregateLine(data, config, labels) {
     const aggregateData = rollup(
-      _data_,
+      data,
       (group2) => mean(group2, (d) => d[config.y]),
       (d) => d[config.x]
     );
     const countsBySnapshot = rollup(
-      _data_,
+      data,
       (group2) => {
         const N = group2.length;
         return rollup(
@@ -21377,6 +21524,7 @@ var rbmViz = (() => {
         const y = value;
         const counts = [...countsBySnapshot.get(labels[i])];
         return {
+          ...data.find((d) => d[config.x] === x),
           x,
           y,
           counts: counts.map(([key1, value1]) => {
@@ -21388,79 +21536,104 @@ var rbmViz = (() => {
           }).sort((a, b) => a[config.y] - b[config.y])
         };
       }),
-      label: "Study Average",
+      label: "",
+      pointStyle: "circle",
       purpose: "aggregate",
+      radius: 2.5,
       type: "line"
     };
     return dataset;
   }
 
-  // src/timeSeries/structureData/boxplot.js
-  function boxplot2(_data_, config) {
-    const grouped = rollups(
-      _data_,
-      (group2) => group2.map((d) => +d[config.y]),
-      (d) => d.snapshot_date
-    );
-    const color3 = config.colorScheme.find(
-      (color4) => color4.flag.some((flag) => Math.abs(flag) === 0)
-    );
-    color3.rgba.opacity = 0.5;
-    const dataset = {
-      data: grouped.map((d) => d[1]),
-      maxBarThickness: 7,
-      maxWhiskerThickness: 0,
-      meanRadius: /^n_/.test(config.y) ? 3 : 0,
-      label: /flag|at.risk/.test(config.y) ? `Distribution` : `${config.group} Distribution`,
-      outlierRadius: 0,
-      pointStyle: "rect",
-      purpose: "distribution",
-      type: "boxplot"
-    };
-    return dataset;
-  }
-
-  // src/timeSeries/structureData/violin.js
-  function violin(_data_, config) {
-    const grouped = rollups(
-      _data_,
-      (group2) => group2.map((d) => +d[config.y]),
-      (d) => d.snapshot_date
-    );
-    const color3 = config.colorScheme.find(
-      (color4) => color4.flag.some((flag) => Math.abs(flag) === 0)
-    );
-    color3.rgba.opacity = 0.5;
-    const dataset = {
-      data: grouped.map((d) => d[1]),
-      label: /flag|at.risk/.test(config.y) ? `Distribution` : `${config.group} Distribution`,
-      purpose: "distribution",
-      type: "violin"
-    };
-    return dataset;
-  }
-
   // src/timeSeries/structureData.js
-  function structureData4(_data_, config) {
-    _data_.sort((a, b) => ascending(a[config.x], b[config.x]));
-    const labels = getLabels(_data_, config);
-    let datasets;
-    const selectedGroupLine2 = selectedGroupLine(_data_, config, labels);
-    const flagged2 = flagged(_data_, config, labels);
-    const atRisk2 = atRisk(_data_, config, labels);
-    const aggregateLine = config.dataType === "discrete" ? aggregateGroupLine(_data_, config, labels) : null;
-    const distribution = config.type === "boxplot" ? boxplot2(_data_, config, labels) : config.type === "violin" ? violin(_data_, config, labels) : null;
-    const data = {
+  function structureData4(_data_, config, _intervals_) {
+    const data = mutate4(_data_, config);
+    const labels = getLabels(data, config);
+    let datasets = [];
+    if (config.hasOwnProperty("workflowid") && config.dataType !== "discrete") {
+      if (/^qtl/.test(config.workflowid)) {
+        datasets = [
+          identityLine(data, config, labels),
+          ...intervalLines(_intervals_, config, labels),
+          {
+            type: "scatter",
+            label: "Study Average",
+            pointStyle: "line",
+            pointStyleWidth: 24,
+            boxWidth: 24,
+            backgroundColor: "rgba(0,0,0,.5)",
+            borderColor: "rgba(0,0,0,.25)",
+            borderWidth: 3
+          },
+          ...colorScheme_default.map((color3) => ({
+            type: "bar",
+            label: color3.description,
+            backgroundColor: color3.color,
+            borderColor: color3.color
+          }))
+        ];
+      } else {
+        datasets = [
+          selectedGroupLine(data, config, labels),
+          {
+            type: "scatter",
+            label: config.selectedGroupIDs.length > 0 ? `${config.group} ${config.selectedGroupIDs[0]}` : "",
+            pointStyle: "line",
+            pointStyleWidth: 24,
+            boxWidth: 24,
+            backgroundColor: "rgba(0,0,0,.5)",
+            borderColor: "rgba(0,0,0,.5)",
+            borderWidth: 3
+          },
+          ...colorScheme_default.map((color3) => ({
+            type: "bar",
+            label: !(color3.description === "Within Thresholds" && config.selectedGroupIDs.length === 0) ? color3.description : "",
+            backgroundColor: color3.color
+          })),
+          flagged(data, config, labels),
+          atRisk(data, config, labels),
+          distribution(data, config, labels)
+        ];
+      }
+    } else if (config.dataType === "discrete") {
+      datasets = [
+        config.selectedGroupIDs.length > 0 ? {
+          ...selectedGroupLine(data, config, labels),
+          backgroundColor: "#1890FF",
+          borderColor: (d) => {
+            return d.raw !== void 0 ? "black" : "#1890FF";
+          }
+        } : null,
+        {
+          type: "scatter",
+          label: config.selectedGroupIDs.length > 0 ? `${config.group} ${config.selectedGroupIDs[0]}` : "",
+          pointStyle: "line",
+          pointStyleWidth: 24,
+          boxWidth: 24,
+          backgroundColor: "#1890FF",
+          borderColor: (d) => {
+            return d.raw !== void 0 ? "black" : "#1890FF";
+          },
+          borderWidth: 3
+        },
+        aggregateLine(data, config, labels),
+        {
+          type: "scatter",
+          label: "Study Average",
+          pointStyle: "line",
+          pointStyleWidth: 24,
+          boxWidth: 24,
+          backgroundColor: "rgba(0,0,0,.5)",
+          borderColor: "rgba(0,0,0,.25)",
+          borderWidth: 3
+        }
+      ];
+    }
+    const chartData = {
       labels,
-      datasets: [
-        selectedGroupLine2,
-        flagged2,
-        atRisk2,
-        aggregateLine,
-        distribution
-      ].filter((dataset) => dataset !== null)
+      datasets: datasets.filter((dataset) => dataset !== null)
     };
-    return data;
+    return chartData;
   }
 
   // src/timeSeries/plugins/annotations.js
@@ -21468,17 +21641,29 @@ var rbmViz = (() => {
     let annotations5 = null;
     if (config.thresholds) {
       annotations5 = config.thresholds.map((x, i) => {
-        const color3 = colorScheme_default.find((y) => y.flag.includes(+x.flag));
-        color3.rgba.opacity = 0.5;
         const annotation2 = {
           drawTime: "beforeDatasetsDraw",
           type: "line",
           yMin: x.threshold,
           yMax: x.threshold,
-          borderColor: color3.rgba + "",
+          borderColor: colorScheme_default.find((y) => y.flag.includes(+x.flag)).color,
           borderWidth: 1,
           borderDash: [2]
         };
+        if (config.type === "identity")
+          annotation2.label = {
+            rotation: "auto",
+            position: Math.sign(+x.flag) === 1 ? "end" : "start",
+            color: colorScheme_default.filter(
+              (y) => y.flag.includes(+x.flag)
+            )[0].color,
+            backgroundColor: "white",
+            content: `QTL: ${config.thresholds[0].threshold}`,
+            display: true,
+            font: {
+              size: 12
+            }
+          };
         return annotation2;
       });
     }
@@ -21488,23 +21673,56 @@ var rbmViz = (() => {
   // src/timeSeries/plugins/legend.js
   function legend4(config) {
     const legendOrder = colorScheme_default.sort((a, b) => a.order - b.order).map((color3) => color3.description);
+    legendOrder.unshift("Confidence Interval");
+    legendOrder.unshift("Study Average");
     legendOrder.unshift("Site Distribution");
-    return {
-      display: true,
-      labels: {
-        boxHeight: 6,
-        filter: (legendItem, chartData) => {
-          return legendItem.text !== "";
+    if (config.group === "Study")
+      return {
+        display: true,
+        labels: {
+          boxHeight: 7,
+          filter: (legendItem, chartData) => {
+            return legendItem.text !== "";
+          },
+          generateLabels: (chart) => chart.data.datasets.map((dataset, i) => {
+            return {
+              datasetIndex: i,
+              fillStyle: dataset.backgroundColor,
+              lineWidth: dataset.label !== "Study Average" ? 1 : 3,
+              lineDash: dataset.borderDash,
+              pointStyle: dataset.pointStyle,
+              strokeStyle: dataset.borderColor,
+              text: dataset.label
+            };
+          }),
+          sort: function(a, b, chartData) {
+            const order = legendOrder.indexOf(a.text) - legendOrder.indexOf(b.text);
+            return /^Site (?!Distribution)/i.test(a.text) ? 1 : /^Site (?!Distribution)/i.test(b.text) ? -1 : order;
+          },
+          usePointStyle: true
         },
-        sort: function(a, b, chartData) {
-          const order = legendOrder.indexOf(a.text) - legendOrder.indexOf(b.text);
-          return /^Site (?!Distribution)/i.test(a.text) ? 1 : /^Site (?!Distribution)/i.test(b.text) ? -1 : order;
+        onClick: () => null,
+        position: "top"
+      };
+    else
+      return {
+        display: true,
+        labels: {
+          boxHeight: 7,
+          lineWidth: 10,
+          borderWidth: 10,
+          filter: (legendItem, chartData) => {
+            return legendItem.text !== "";
+          },
+          sort: function(a, b, chartData) {
+            const order = legendOrder.indexOf(a.text) - legendOrder.indexOf(b.text);
+            return /^Site (?!Distribution)/i.test(a.text) ? 1 : /^Site (?!Distribution)/i.test(b.text) ? -1 : order;
+          },
+          usePointStyle: true
         },
-        usePointStyle: true
-      },
-      onClick: () => null,
-      position: "top"
-    };
+        onClick: () => null,
+        position: "top"
+      };
   }
 
   // src/timeSeries/plugins/tooltip.js
@@ -21568,17 +21786,17 @@ var rbmViz = (() => {
   }
 
   // src/timeSeries.js
-  function timeSeries(_element_, _data_, _config_ = {}, _thresholds_ = null) {
+  function timeSeries(_element_, _data_, _config_ = {}, _thresholds_ = null, _intervals_ = null) {
     const config = configure6(_config_, _data_, _thresholds_);
     const canvas = addCanvas(_element_, config);
-    const data = structureData4(_data_, config);
+    const data = structureData4(_data_, config, _intervals_);
     const options = {
       animation: false,
       events: ["click", "mousemove", "mouseout"],
       maintainAspectRatio: config.maintainAspectRatio,
       plugins: plugins5(config),
       responsive: true,
-      scales: getScales4(config)
+      scales: getScales4(config, _data_)
     };
     const chart = new auto_default(canvas, {
       data: {
@@ -21606,10 +21824,78 @@ var rbmViz = (() => {
     Violin
   );
   var rbmViz = {
-    barChart,
-    scatterPlot,
-    sparkline,
-    timeSeries
+    barChart: barChart.bind({
+      x: "groupid",
+      y: "score",
+      chartType: "bar",
+      dataType: "continuous"
+    }),
+    barChartMetric: barChart.bind({
+      x: "groupid",
+      y: "metric",
+      chartType: "bar",
+      dataType: "continuous"
+    }),
+    barChartScore: barChart.bind({
+      x: "groupid",
+      y: "score",
+      chartType: "bar",
+      dataType: "continuous"
+    }),
+    scatterPlot: scatterPlot.bind({
+      x: "denominator",
+      y: "numerator",
+      chartType: "scatter",
+      dataType: "discrete"
+    }),
+    sparkline: sparkline.bind({
+      x: "snapshot_date",
+      y: "score",
+      chartType: "line",
+      dataType: "continuous"
+    }),
+    sparklineMetric: sparkline.bind({
+      x: "snapshot_date",
+      y: "metric",
+      chartType: "line",
+      dataType: "continuous"
+    }),
+    sparklineScore: sparkline.bind({
+      x: "snapshot_date",
+      y: "score",
+      chartType: "line",
+      dataType: "continuous"
+    }),
+    sparklineDiscrete: sparkline.bind({
+      x: "snapshot_date",
+      y: "n_at_risk_or_flagged",
+      chartType: "line",
+      dataType: "discrete"
+    }),
+    timeSeries: timeSeries.bind({
+      x: "snapshot_date",
+      y: "score",
+      chartType: "boxplot",
+      dataType: "continuous"
+    }),
+    timeSeriesScore: timeSeries.bind({
+      x: "snapshot_date",
+      y: "score",
+      chartType: "boxplot",
+      dataType: "continuous"
+    }),
+    timeSeriesDiscrete: timeSeries.bind({
+      x: "snapshot_date",
+      y: "n_at_risk_or_flagged",
+      chartType: "line",
+      dataType: "discrete"
+    }),
+    timeSeriesQTL: timeSeries.bind({
+      x: "snapshot_date",
+      y: "metric",
+      chartType: "identity",
+      dataType: "continuous"
+    })
   };
   var main_default = rbmViz;
   return __toCommonJS(main_exports);

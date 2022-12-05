@@ -141,27 +141,6 @@ bQuiet = TRUE
 
 
 
-  # select in same order as spec - can remove this if not needed, but helps with comparison
-  status_study <- status_study %>%
-    select(
-      "studyid",
-      "enrolled_sites",
-      "enrolled_participants",
-      "planned_sites",
-      "planned_participants",
-      "title",
-      "nickname",
-      "indication",
-      "ta",
-      "phase",
-      "status",
-      "fpfv",
-      "lpfv",
-      "lplv",
-      "rbm_flag"
-    )
-
-
 
   # status_site -------------------------------------------------------------
   if (!("enrolled_participants" %in% colnames(status_site))) {
