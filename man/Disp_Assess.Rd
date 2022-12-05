@@ -19,13 +19,13 @@ Disp_Assess(
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 or 4 that defaults to \code{c(-3, -2, 2, 3)} for a Normal Approximation (\code{strMethod = "NormalApprox"}),
-\code{c(0.01, 0.05)} for Fisher's exact test (\code{strMethod = "fisher"}), and \code{c(3.491, 5.172)} for a nominal assessment (\code{strMethod = "identity"}).}
+\code{c(0.01, 0.05)} for Fisher's exact test (\code{strMethod = "Fisher"}), and \code{c(3.491, 5.172)} for a nominal assessment (\code{strMethod = "Identity"}).}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
 \item \code{"NormalApprox"} (default)
-\item \code{"fisher"}
-\item \code{"identity"}
+\item \code{"Fisher"}
+\item \code{"Identity"}
 }}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
@@ -101,7 +101,7 @@ details about the statistical methods and their assumptions.
 \examples{
 dfInput <- Disp_Map_Raw()
 disp_assessment_NormalApprox <- Disp_Assess(dfInput, strMethod = "NormalApprox")
-disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "fisher")
-disp_assessment_identity <- Disp_Assess(dfInput, strMethod = "identity")
+disp_assessment_fisher <- Disp_Assess(dfInput, strMethod = "Fisher")
+disp_assessment_identity <- Disp_Assess(dfInput, strMethod = "Identity")
 
 }

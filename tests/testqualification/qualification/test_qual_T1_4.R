@@ -4,7 +4,7 @@ test_that("AE assessment can return a correctly assessed data frame for the iden
 
   test1_4 <- AE_Assess(
     dfInput = dfInput,
-    strMethod = "identity"
+    strMethod = "Identity"
   )
 
   # double programming

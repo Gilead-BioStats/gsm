@@ -66,15 +66,15 @@
 
 # invalid data throw errors
 
-    strMethod is not 'NormalApprox', 'fisher' or 'identity'
+    strMethod is not 'NormalApprox', 'Fisher' or 'Identity'
 
 ---
 
-    strMethod is not 'NormalApprox', 'fisher' or 'identity'
+    strMethod is not 'NormalApprox', 'Fisher' or 'Identity'
 
 ---
 
-    strMethod is not 'NormalApprox', 'fisher' or 'identity'
+    strMethod is not 'NormalApprox', 'Fisher' or 'Identity'
 
 ---
 

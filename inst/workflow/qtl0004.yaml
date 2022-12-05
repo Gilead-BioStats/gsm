@@ -17,5 +17,5 @@ steps:
     params:
       strGroup: "Study"
       vThreshold: null
-      strMethod: "qtl"
+      strMethod: "QTL"
       nConfLevel: 0.95

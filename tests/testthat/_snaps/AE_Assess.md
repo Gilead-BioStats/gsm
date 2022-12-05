@@ -84,11 +84,11 @@
 
 # invalid data throw errors
 
-    strMethod is not 'NormalApprox', 'poisson' or 'identity'
+    strMethod is not 'NormalApprox', 'Poisson' or 'Identity'
 
 ---
 
-    strMethod is not 'NormalApprox', 'poisson' or 'identity'
+    strMethod is not 'NormalApprox', 'Poisson' or 'Identity'
 
 ---
 

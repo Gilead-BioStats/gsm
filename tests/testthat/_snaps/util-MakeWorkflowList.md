@@ -993,7 +993,7 @@
       NULL
       
       $qtl0004[[3]]$params$strMethod
-      [1] "qtl"
+      [1] "QTL"
       
       $qtl0004[[3]]$params$nConfLevel
       [1] 0.95
@@ -1036,7 +1036,7 @@
       NULL
       
       $qtl0006[[2]]$params$strMethod
-      [1] "qtl"
+      [1] "QTL"
       
       $qtl0006[[2]]$params$nConfLevel
       [1] 0.95
