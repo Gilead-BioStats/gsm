@@ -184,7 +184,7 @@ Disp_Assess <- function(
       strMethod = strMethod,
       strGroup = strGroup,
       strAbbreviation = "DISP",
-      strMetric = "Subject Discontinuation",
+      strMetric = "Subject Discontinuation Rate",
       strNumerator = "Subjects Discontinued",
       strDenominator = "Total Subjects",
       vThreshold = vThreshold
