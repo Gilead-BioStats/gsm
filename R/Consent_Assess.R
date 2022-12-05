@@ -121,7 +121,7 @@ Consent_Assess <- function(
       strMethod = "identity",
       strGroup = strGroup,
       strAbbreviation = "CONSENT",
-      strMetric = "Consent Issues (Count)",
+      strMetric = "Consent Issues",
       strNumerator = "Consent Issues",
       strDenominator = "Total Subjects",
       vThreshold = nThreshold
