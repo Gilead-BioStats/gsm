@@ -20,15 +20,17 @@ UpdateParams <- function(lWorkflow, dfConfig, dfMeta) {
     dfMeta %>% mutate(gsm_version = as.character(.data$gsm_version)),
     by = c("workflowid", "gsm_version", "param", "index")
   ) %>%
-  group_by(workflowid, param) %>%
+
+  group_by(.data$workflowid, .data$param) %>%
+
     mutate(
         value = as.character(.data$value),
         default = as.character(.data$default),
         flag = any(.data$value != .data$default)
     ) %>%
   ungroup() %>%
-  filter(flag) %>%
-  select(-flag)
+  filter(.data$flag) %>%
+  select(-.data$flag)
 
   # update list -------------------------------------------------------------
   # lWorkflow list is only updated when different values are found

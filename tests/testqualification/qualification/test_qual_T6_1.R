@@ -4,7 +4,7 @@ test_that("Labs assessment can return a correctly assessed data frame for the fi
 
   test6_1 <- LB_Assess(
     dfInput = dfInput,
-    strMethod = "fisher"
+    strMethod = "Fisher"
   )
 
   # Double Programming

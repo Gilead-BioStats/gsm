@@ -4,7 +4,7 @@ test_that("Disposition assessment can return a correctly assessed data frame for
 
   test5_5 <- Disp_Assess(
     dfInput = dfInput,
-    strMethod = "identity",
+    strMethod = "Identity",
     strGroup = "CustomGroup",
     vThreshold = c(2.31, 6.58)
   )

@@ -7,7 +7,7 @@ test_that("PD assessment can return a correctly assessed data frame for the iden
 
   test2_5 <- PD_Assess(
     dfInput = dfInput,
-    strMethod = "identity",
+    strMethod = "Identity",
     vThreshold = c(0.00001, 0.1),
     strGroup = "Study"
   )

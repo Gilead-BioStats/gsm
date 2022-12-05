@@ -13,7 +13,8 @@
 # grab rawplus mappings
 # adam mappings will remain as-is since they haven't changed
 mappings <- c(
-  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
 )
 
 # clindata datasets to use to create test data
@@ -25,7 +26,10 @@ lData <- list(
   dfIE = clindata::rawplus_ie,
   dfLB = clindata::rawplus_lb,
   dfSTUDCOMP = clindata::rawplus_studcomp,
-  dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename=="Blinded Study Drug Completion")
+  dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion"),
+  dfDATACHG = clindata::edc_data_change_rate,
+  dfDATAENT = clindata::edc_data_entry_lag,
+  dfQUERY = clindata::edc_queries
 )
 
 # keep these three subjids for unit tests
@@ -36,6 +40,8 @@ reqVariables <- imap(mappings, ~{
    allVars <- .x[grep("Col", names(.x))] %>%
      map_chr(~.x) %>%
      unname()
+
+  # print(paste0(.y, ": ", allVars))
 
    lData[[.y]] %>%
      select(all_of(allVars))
@@ -71,6 +77,12 @@ dfSTUDCOMP <- reqVariables$dfSTUDCOMP
 
 dfSDRGCOMP <- reqVariables$dfSDRGCOMP
 
+dfQUERY <- reqVariables$dfQUERY
+
+dfDATAENT <- reqVariables$dfDATAENT
+
+dfDATACHG <- reqVariables$dfDATACHG
+
 
 
 # Take a look -------------------------------------------------------------
@@ -104,6 +116,8 @@ dfSDRGCOMP <- reqVariables$dfSDRGCOMP
 #   dfs = list(dfLB = dfLB, dfSUBJ = dfSUBJ)
 # ) %>%
 #   LB_Assess()
+
+DataChg_Map_Raw(dfs = list(dfSUBJ = dfSUBJ, dfDATACHG = dfDATACHG))
 
 
 # datapasta::tribble_paste() ----------------------------------------------
