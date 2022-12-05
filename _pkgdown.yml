@@ -12,6 +12,10 @@ reference:
      desc: Generate a visualization from the Assessment results
    - contents:
       - starts_with("Visualize_")
+      - barChart
+      - barChart-shiny
+      - scatterPlot
+      - scatterPlot-shiny
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
 
@@ -76,9 +80,12 @@ reference:
       - RemoveInvalidSubjectIDs
       - ParseWarnings
       - Make_Snapshot
+      - MakeDfConfig
       - UpdateParams
       - CheckClindataMeta
       - UpdateGSMVersion
+
+
 
    - title: Data
      desc: Metadata used to create workflows

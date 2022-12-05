@@ -1262,8 +1262,8 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -1336,8 +1336,8 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 0 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 1 scatter plot.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -1647,8 +1647,8 @@
       v `Analyze_NormalApprox()` returned output with 10 rows.
       v `Flag_NormalApprox()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -1721,8 +1721,8 @@
       v `Analyze_NormalApprox()` returned output with 10 rows.
       v `Flag_NormalApprox()` returned output with 10 rows.
       v `Summarize()` returned output with 10 rows.
-      v `Visualize_Scatter()` created 0 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 1 scatter plot.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.

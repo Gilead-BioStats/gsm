@@ -39,14 +39,15 @@
 #' @export
 
 QueryRate_Map_Raw <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfQUERY = clindata::edc_queries,
-    dfDATACHG = clindata::edc_data_change_rate
-  ),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
-  bReturnChecks = FALSE,
-  bQuiet = TRUE
+    dfs = list(
+      dfSUBJ = clindata::rawplus_dm,
+      dfQUERY = clindata::edc_queries,
+      dfDATACHG = clindata::edc_data_change_rate
+    ),
+    lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+    bReturnChecks = FALSE,
+    bQuiet = TRUE
+
 ) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),

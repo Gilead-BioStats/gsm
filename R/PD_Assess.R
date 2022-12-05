@@ -177,14 +177,58 @@ PD_Assess <- function(
     if (strMethod != "QTL") {
       if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
+
+      # rbm-viz setup -----------------------------------------------------------
+      dfConfig <- MakeDfConfig(
+        strMethod = strMethod,
+        strGroup = strGroup,
+        strAbbreviation = "DISP",
+        strMetric = "Subject Discontinuation",
+        strNumerator = "Subjects Discontinued",
+        strDenominator = "Days in Study",
+        vThreshold = vThreshold
+      )
+
+
       if (strMethod != "Identity") {
+
+
         lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-        if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+
+        if (exists('dfBounds', lData)) {
+          bounds <- lData$dfBounds
+        } else {
+          bounds <- NULL
+        }
+
+        lCharts$scatterJS <- scatterPlot(
+          results = lData$dfFlagged,
+          workflow = dfConfig,
+          bounds = bounds,
+          elementId = "pdAssessScatter"
+        )
+
+        if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
       }
 
       lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
       lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
-      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
+
+      lCharts$barMetricJS <- barChart(
+        results = lData$dfFlagged,
+        workflow = dfConfig,
+        yaxis = "metric",
+        elementId = "pdAssessMetric"
+      )
+
+      lCharts$barScoreJS <- barChart(
+        results = lData$dfFlagged,
+        workflow = dfConfig,
+        yaxis = "score",
+        elementId = "pdAssessScore"
+      )
+
+      if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
     }
 
     # return data -------------------------------------------------------------

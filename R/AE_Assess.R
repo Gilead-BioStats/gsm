@@ -189,15 +189,61 @@ AE_Assess <- function(
 
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
+
+
+    # rbm-viz setup -----------------------------------------------------------
+
+    dfConfig <- MakeDfConfig(
+      strMethod = strMethod,
+      strGroup = strGroup,
+      strAbbreviation = "AE",
+      strMetric = "AE Reporting Rate",
+      strNumerator = "AEs",
+      strDenominator = "Days on Treatment",
+      vThreshold = vThreshold
+    )
+
+
+
+      # scatter plots -----------------------------------------------------------
+
+      # ggplot bar charts -------------------------------------------------------
+
     if (strMethod != "Identity") {
+
+
       lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+
+      # rbm-viz charts ----------------------------------------------------------
+      lCharts$scatterJS <- scatterPlot(
+        results = lData$dfFlagged,
+        workflow = dfConfig,
+        bounds = lData$dfBounds,
+        elementId = "aeAssessScatter"
+      )
+      if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
     }
 
-    lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
-    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
 
+      # bar charts --------------------------------------------------------------
+      lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+      lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+
+      lCharts$barMetricJS <- barChart(
+        results = lData$dfFlagged,
+        workflow = dfConfig,
+        yaxis = "metric",
+        elementId = "aeAssessMetric"
+      )
+
+      lCharts$barScoreJS <- barChart(
+        results = lData$dfFlagged,
+        workflow = dfConfig,
+        yaxis = "score",
+        elementId = "aeAssessScore"
+      )
+
+    if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
 
 
     # return data -------------------------------------------------------------

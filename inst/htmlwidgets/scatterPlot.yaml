@@ -1,0 +1,9 @@
+dependencies:
+  - name: rbmviz
+    version: 0.4.1
+    src: 'rbm-viz-0.13.0'
+    script: 'rbm-viz.js'
+  - name: number_to_array
+    version: 0.0.1
+    src: 'utils-0.0.1'
+    script: 'number_to_array.js'
