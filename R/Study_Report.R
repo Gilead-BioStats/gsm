@@ -6,6 +6,7 @@
 #'
 #' @param lAssessments `list` The results of multiple assessments run using `Study_Assess`.
 #' @param strOutpath `character` File path; location where the report will be saved.
+#' @param strReportType `character` Type of report to generate. Default: `kri`. Other options include: `study`.
 #'
 #' @return HTML report of study data.
 #'

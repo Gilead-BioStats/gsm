@@ -67,12 +67,21 @@ for (i in seq_along(study)) {
   print(htmltools::h5("Summary Charts"))
   print(htmltools::tags$button(class = 'btn-show-report', htmltools::tags$i(class = "fa fa-cloud"), "Show Plots"))
   
-  for (chart in seq_along(study[[i]]$lResults$lCharts)) {
+  charts <- study[[i]]$lResults$lCharts[names(study[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS")]
+  
+  
+  for (chart in seq_along(charts)) {
     
-    customClass <- paste0(names(study[[i]]$lResults$lCharts)[[chart]])
-    
+  # need to initialize JS dependencies within loop in order to print correctly
+  # see here: https://github.com/rstudio/rmarkdown/issues/1877#issuecomment-678996452
+  purrr::map(charts, ~.x %>%  knitr::knit_print() %>%
+  attr('knit_meta') %>%
+  knitr::knit_meta_add() %>%
+  invisible())
+  
+    customClass <- paste0(names(charts)[[chart]])
     cat(paste0("<div class =", customClass, ">"))
-    print(study[[i]]$lResults$lCharts[[chart]])
+    cat(knitr::knit_print(htmltools::tagList(charts[[chart]])))
     cat("</div>")
   }
   
@@ -86,17 +95,17 @@ for (i in seq_along(study)) {
 ```
 
 ```{js, echo = FALSE}
-document.querySelectorAll(".barScore").forEach(function (el) {
+document.querySelectorAll(".barScoreJS").forEach(function (el) {
   el.style.display = "none";
 });
 
-document.querySelectorAll(".barMetric").forEach(function (el) {
+document.querySelectorAll(".barMetricJS").forEach(function (el) {
   el.style.display = "none";
 });
 
 const btnReport = document.querySelectorAll(".btn-show-report");
-const barMetric = document.querySelectorAll(".barMetric");
-const barScore = document.querySelectorAll(".barScore");
+const barMetric = document.querySelectorAll(".barMetricJS");
+const barScore = document.querySelectorAll(".barScoreJS");
 
 btnReport.forEach(function (el, index) {
   el.addEventListener("click", function () {
