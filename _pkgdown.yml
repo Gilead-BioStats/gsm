@@ -82,13 +82,11 @@ reference:
       - RemoveInvalidSubjectIDs
       - ParseWarnings
       - Make_Snapshot
+      - CheckSnapshotInputs
       - MakeDfConfig
       - UpdateParams
       - CheckClindataMeta
       - UpdateGSMVersion
-
-
-
    - title: Data
      desc: Metadata used to create workflows
    - contents:
