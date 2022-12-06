@@ -93,8 +93,8 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -165,8 +165,8 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -224,8 +224,8 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -283,8 +283,8 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -300,7 +300,7 @@
       
       v No issues found for dfLB domain
       Filtering on `lb_te %in% c("Y")`.
-      v Filtered on `lb_te %in% c("Y")` to drop 86 rows from 1000 to 914 rows.
+      v Filtered on `lb_te %in% c("Y")` to drop 129 rows from 2000 to 1871 rows.
       v `FilterDomain()` Successful
       Saving dfLB to `lWorkflow$lData`
       
@@ -313,8 +313,7 @@
       
       v No issues found for dfLB domain
       Filtering on `toxgr %in% c("3", "4")`.
-      v Filtered on `toxgr %in% c("3 and 4")` to drop 914 rows from 914 to 0 rows.
-      ! WARNING: Filtered data has 0 rows.
+      v Filtered on `toxgr %in% c("3 and 4")` to drop 1870 rows from 1871 to 1 rows.
       v `FilterDomain()` Successful
       Saving dfLB to `lWorkflow$lData`
       
@@ -329,7 +328,11 @@
       
       -- Initializing `LB_Map_Raw()` --
       
-      v `LB_Map_Raw()` returned output with 50 rows.
+      i Intializing merge of domain and subject data
+      i 49 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `LB_Map_Raw()` returned output with 1 rows.
       v `LB_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
@@ -344,16 +347,16 @@
       
       -- Initializing `LB_Assess()` --
       
-      Input data has 50 rows.
-      v `Transform_Rate()` returned output with 3 rows.
+      Input data has 1 rows.
+      v `Transform_Rate()` returned output with 1 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      > nStep was not provided. Setting default step to 0.104
-      v `Analyze_NormalApprox()` returned output with 3 rows.
-      v `Flag_NormalApprox()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 0 chart.
-      v `Visualize_Score()` created 2 charts.
+      > nStep was not provided. Setting default step to 1
+      v `Analyze_NormalApprox()` returned output with 1 rows.
+      v `Flag_NormalApprox()` returned output with 1 rows.
+      v `Summarize()` returned output with 1 rows.
+      v Created 1 scatter plot.
+      v Created 4 bar charts.
       v `LB_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -398,8 +401,8 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -458,8 +461,8 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -530,8 +533,8 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -602,8 +605,8 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -661,8 +664,8 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -720,8 +723,8 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -737,7 +740,7 @@
       
       v No issues found for dfLB domain
       Filtering on `lb_te %in% c("Y")`.
-      v Filtered on `lb_te %in% c("Y")` to drop 86 rows from 1000 to 914 rows.
+      v Filtered on `lb_te %in% c("Y")` to drop 129 rows from 2000 to 1871 rows.
       v `FilterDomain()` Successful
       Saving dfLB to `lWorkflow$lData`
       
@@ -752,7 +755,11 @@
       
       -- Initializing `LB_Map_Raw()` --
       
-      v `LB_Map_Raw()` returned output with 962 rows.
+      i Intializing merge of domain and subject data
+      i 47 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      v `LB_Map_Raw()` returned output with 3 rows.
       v `LB_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
@@ -767,16 +774,16 @@
       
       -- Initializing `LB_Assess()` --
       
-      Input data has 962 rows.
-      v `Transform_Rate()` returned output with 40 rows.
+      Input data has 3 rows.
+      v `Transform_Rate()` returned output with 3 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      > nStep was not provided. Setting default step to 3.212
-      v `Analyze_NormalApprox()` returned output with 40 rows.
-      v `Flag_NormalApprox()` returned output with 40 rows.
-      v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 0 chart.
-      v `Visualize_Score()` created 2 charts.
+      > nStep was not provided. Setting default step to 2.448
+      v `Analyze_NormalApprox()` returned output with 3 rows.
+      v `Flag_NormalApprox()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `LB_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -821,8 +828,8 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -881,8 +888,8 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -897,8 +904,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfPD domain
-      Filtering on `importnt %in% c("N")`.
-      v Filtered on `importnt %in% c("N")` to drop 6 rows from 50 to 44 rows.
+      Filtering on `importnt %in% c("Y")`.
+      v Filtered on `importnt %in% c("Y")` to drop 44 rows from 50 to 6 rows.
       v `FilterDomain()` Successful
       Saving dfPD to `lWorkflow$lData`
       
@@ -914,7 +921,7 @@
       -- Initializing `PD_Map_Raw()` --
       
       i Intializing merge of domain and subject data
-      i 37 ID(s) in subject data not found in domain data.
+      i 46 ID(s) in subject data not found in domain data.
       These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `PD_Map_Raw()` returned output with 50 rows.
@@ -934,7 +941,7 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 1 rows.
-      v `Analyze_Qtl()` returned output with 1 rows.
+      v `Analyze_QTL()` returned output with 1 rows.
       v `Flag_QTL()` returned output with 1 rows.
       v `Summarize()` returned output with 1 rows.
       v `PD_Assess()` Successful
@@ -975,7 +982,7 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 1 rows.
-      v `Analyze_Qtl()` returned output with 1 rows.
+      v `Analyze_QTL()` returned output with 1 rows.
       v `Flag_QTL()` returned output with 1 rows.
       v `Summarize()` returned output with 1 rows.
       v `Disp_Assess()` Successful

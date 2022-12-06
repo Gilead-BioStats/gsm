@@ -6,7 +6,7 @@ test_that("Disposition assessment can return a correctly assessed data frame for
     dfInput = dfInput,
     vThreshold = c(.025, .05),
     strGroup = "CustomGroup",
-    strMethod = "fisher"
+    strMethod = "Fisher"
   )
 
   # Double Programming

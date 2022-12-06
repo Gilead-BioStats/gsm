@@ -7,7 +7,7 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
 
   test2_2 <- PD_Assess(
     dfInput = dfInput,
-    strMethod = "poisson",
+    strMethod = "Poisson",
     strGroup = "CustomGroup"
   )
 

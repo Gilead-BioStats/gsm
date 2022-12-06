@@ -1,0 +1,17 @@
+dfQUERY:
+  vRequired:
+    - strIDCol
+    - strVisitCol
+    - strFormCol
+dfDATACHG:
+  vRequired:
+    - strIDCol
+    - strVisitCol
+    - strFormCol
+    - strDataPointsCol
+dfSUBJ:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+  vUniqueCols:
+    - strIDCol
