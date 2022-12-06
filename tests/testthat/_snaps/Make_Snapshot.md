@@ -25,7 +25,7 @@
 
     Code
       snapshot <- Make_Snapshot(lData = lData, bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       
       -- Initializing `cou0001` assessment -------------------------------------------
       

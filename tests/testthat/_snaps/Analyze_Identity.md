@@ -2,7 +2,7 @@
 
     Code
       Analyze_Identity(dfTransformed, bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       `Score` column created from `Metric`.
     Output
       # A tibble: 3 x 4
