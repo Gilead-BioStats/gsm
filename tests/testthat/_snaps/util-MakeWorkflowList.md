@@ -24,6 +24,18 @@
       $cou0007
       [1] "steps" "path"  "name" 
       
+      $cou0008
+      [1] "steps" "path"  "name" 
+      
+      $cou0009
+      [1] "steps" "path"  "name" 
+      
+      $cou0010
+      [1] "steps" "path"  "name" 
+      
+      $cou0011
+      [1] "steps" "path"  "name" 
+      
       $kri0001
       [1] "steps" "path"  "name" 
       
@@ -43,6 +55,18 @@
       [1] "steps" "path"  "name" 
       
       $kri0007
+      [1] "steps" "path"  "name" 
+      
+      $kri0008
+      [1] "steps" "path"  "name" 
+      
+      $kri0009
+      [1] "steps" "path"  "name" 
+      
+      $kri0010
+      [1] "steps" "path"  "name" 
+      
+      $kri0011
       [1] "steps" "path"  "name" 
       
       $qtl0004
@@ -510,6 +534,146 @@
       
       
       
+      $cou0008
+      $cou0008[[1]]
+      $cou0008[[1]]$name
+      [1] "QueryRate_Map_Raw"
+      
+      $cou0008[[1]]$inputs
+      [1] "dfSUBJ"    "dfQUERY"   "dfDATACHG"
+      
+      $cou0008[[1]]$output
+      [1] "dfInput"
+      
+      
+      $cou0008[[2]]
+      $cou0008[[2]]$name
+      [1] "QueryRate_Assess"
+      
+      $cou0008[[2]]$inputs
+      [1] "dfInput"
+      
+      $cou0008[[2]]$output
+      [1] "lResults"
+      
+      $cou0008[[2]]$params
+      $cou0008[[2]]$params$strGroup
+      [1] "Country"
+      
+      $cou0008[[2]]$params$vThreshold
+      NULL
+      
+      $cou0008[[2]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $cou0009
+      $cou0009[[1]]
+      $cou0009[[1]]$name
+      [1] "QueryAge_Map_Raw"
+      
+      $cou0009[[1]]$inputs
+      [1] "dfSUBJ"  "dfQUERY"
+      
+      $cou0009[[1]]$output
+      [1] "dfInput"
+      
+      
+      $cou0009[[2]]
+      $cou0009[[2]]$name
+      [1] "QueryAge_Assess"
+      
+      $cou0009[[2]]$inputs
+      [1] "dfInput"
+      
+      $cou0009[[2]]$output
+      [1] "lResults"
+      
+      $cou0009[[2]]$params
+      $cou0009[[2]]$params$strGroup
+      [1] "Country"
+      
+      $cou0009[[2]]$params$vThreshold
+      NULL
+      
+      $cou0009[[2]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $cou0010
+      $cou0010[[1]]
+      $cou0010[[1]]$name
+      [1] "DataEntry_Map_Raw"
+      
+      $cou0010[[1]]$inputs
+      [1] "dfSUBJ"    "dfDATAENT"
+      
+      $cou0010[[1]]$output
+      [1] "dfInput"
+      
+      
+      $cou0010[[2]]
+      $cou0010[[2]]$name
+      [1] "DataEntry_Assess"
+      
+      $cou0010[[2]]$inputs
+      [1] "dfInput"
+      
+      $cou0010[[2]]$output
+      [1] "lResults"
+      
+      $cou0010[[2]]$params
+      $cou0010[[2]]$params$strGroup
+      [1] "Country"
+      
+      $cou0010[[2]]$params$vThreshold
+      NULL
+      
+      $cou0010[[2]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $cou0011
+      $cou0011[[1]]
+      $cou0011[[1]]$name
+      [1] "DataChg_Map_Raw"
+      
+      $cou0011[[1]]$inputs
+      [1] "dfSUBJ"    "dfDATACHG"
+      
+      $cou0011[[1]]$output
+      [1] "dfInput"
+      
+      
+      $cou0011[[2]]
+      $cou0011[[2]]$name
+      [1] "DataChg_Assess"
+      
+      $cou0011[[2]]$inputs
+      [1] "dfInput"
+      
+      $cou0011[[2]]$output
+      [1] "lResults"
+      
+      $cou0011[[2]]$params
+      $cou0011[[2]]$params$strGroup
+      [1] "Country"
+      
+      $cou0011[[2]]$params$vThreshold
+      NULL
+      
+      $cou0011[[2]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
       $kri0001
       $kri0001[[1]]
       $kri0001[[1]]$name
@@ -936,6 +1100,146 @@
       NULL
       
       $kri0007[[3]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $kri0008
+      $kri0008[[1]]
+      $kri0008[[1]]$name
+      [1] "QueryRate_Map_Raw"
+      
+      $kri0008[[1]]$inputs
+      [1] "dfSUBJ"    "dfQUERY"   "dfDATACHG"
+      
+      $kri0008[[1]]$output
+      [1] "dfInput"
+      
+      
+      $kri0008[[2]]
+      $kri0008[[2]]$name
+      [1] "QueryRate_Assess"
+      
+      $kri0008[[2]]$inputs
+      [1] "dfInput"
+      
+      $kri0008[[2]]$output
+      [1] "lResults"
+      
+      $kri0008[[2]]$params
+      $kri0008[[2]]$params$strGroup
+      [1] "Site"
+      
+      $kri0008[[2]]$params$vThreshold
+      NULL
+      
+      $kri0008[[2]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $kri0009
+      $kri0009[[1]]
+      $kri0009[[1]]$name
+      [1] "QueryAge_Map_Raw"
+      
+      $kri0009[[1]]$inputs
+      [1] "dfSUBJ"  "dfQUERY"
+      
+      $kri0009[[1]]$output
+      [1] "dfInput"
+      
+      
+      $kri0009[[2]]
+      $kri0009[[2]]$name
+      [1] "QueryAge_Assess"
+      
+      $kri0009[[2]]$inputs
+      [1] "dfInput"
+      
+      $kri0009[[2]]$output
+      [1] "lResults"
+      
+      $kri0009[[2]]$params
+      $kri0009[[2]]$params$strGroup
+      [1] "Site"
+      
+      $kri0009[[2]]$params$vThreshold
+      NULL
+      
+      $kri0009[[2]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $kri0010
+      $kri0010[[1]]
+      $kri0010[[1]]$name
+      [1] "DataEntry_Map_Raw"
+      
+      $kri0010[[1]]$inputs
+      [1] "dfSUBJ"    "dfDATAENT"
+      
+      $kri0010[[1]]$output
+      [1] "dfInput"
+      
+      
+      $kri0010[[2]]
+      $kri0010[[2]]$name
+      [1] "DataEntry_Assess"
+      
+      $kri0010[[2]]$inputs
+      [1] "dfInput"
+      
+      $kri0010[[2]]$output
+      [1] "lResults"
+      
+      $kri0010[[2]]$params
+      $kri0010[[2]]$params$strGroup
+      [1] "Site"
+      
+      $kri0010[[2]]$params$vThreshold
+      NULL
+      
+      $kri0010[[2]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $kri0011
+      $kri0011[[1]]
+      $kri0011[[1]]$name
+      [1] "DataChg_Map_Raw"
+      
+      $kri0011[[1]]$inputs
+      [1] "dfSUBJ"    "dfDATACHG"
+      
+      $kri0011[[1]]$output
+      [1] "dfInput"
+      
+      
+      $kri0011[[2]]
+      $kri0011[[2]]$name
+      [1] "DataChg_Assess"
+      
+      $kri0011[[2]]$inputs
+      [1] "dfInput"
+      
+      $kri0011[[2]]$output
+      [1] "lResults"
+      
+      $kri0011[[2]]$params
+      $kri0011[[2]]$params$strGroup
+      [1] "Site"
+      
+      $kri0011[[2]]$params$vThreshold
+      NULL
+      
+      $kri0011[[2]]$params$strMethod
       [1] "NormalApprox"
       
       
