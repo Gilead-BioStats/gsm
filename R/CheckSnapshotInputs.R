@@ -28,7 +28,7 @@ CheckSnapshotInputs <- function(snapshot) {
   gismo_input <- gsm::rbm_data_spec %>%
     filter(.data$System == "Gismo") %>%
     arrange(match(.data$Table, names(snapshot))) %>%
-    split(.data$Table)
+    split(.$Table)
 
 
 
