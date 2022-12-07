@@ -2,7 +2,7 @@
 
     Code
       FilterData(dfAE, "ae_te", "Y", bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       Applying subset: `ae_te %in% ("Y")`
       v Subset removed 0 rows from 12 to 12 rows.
       i NOTE: Subset removed 0 rows.

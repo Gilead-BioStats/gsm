@@ -1,0 +1,53 @@
+/* MAIN */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap');
+
+:root {
+  --gilead-red: #c51f3f;
+  --gilead-gray: #9D9D9D;
+  --blue-button-color: #3C587F;
+  --default: 'Roboto', sans-serif
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+/* MAIN */
+
+
+/* SIDEBAR */
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+  background-color: var(--gilead-gray);
+  border-color: white;
+}
+/* SIDEBAR */
+
+
+
+/* BUTTON: SHOW REPORT */
+.btn-show-report {
+    background-color: var(--blue-button-color);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    border-radius: 1.5px;
+    border-color: var(--blue-button-color);
+    box-shadow: none;
+    border-style: solid;
+    height: 30px;
+    width: 100px;
+}
+
+button.btn-show-report:hover {
+    background-color: var(--gilead-gray);
+    border-color: var(--gilead-gray);
+}
+/* BUTTON: SHOW REPORT */
+
+
+
+/* TABLE: FLAGGED SUMMARY TABLE */
+.gsm-overview-table {
+  font-family: var(--default);
+}
+/* TABLE: FLAGGED SUMMARY TABLE */
+

@@ -50,7 +50,9 @@ reference:
       - Study_AssessmentReport
       - Study_Report
       - Study_Table
+      - Overview_Table
       - rank_chg
+      - kri_directionality_logo
 
    - title: QTL
      desc: Runs QTL analysis for longitudinal metrics
