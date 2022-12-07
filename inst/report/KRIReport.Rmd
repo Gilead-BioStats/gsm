@@ -1,7 +1,7 @@
 ---
 title: "Assessment Overview"
 subtitle: "Generated with the Gilead Statistical Monitoring {gsm} package"
-date: "Report Generated on: `r format(Sys.time(), '%B %d, %Y')`"
+date: "Report Generated on `r format(Sys.time(), '%B %d, %Y')`"
 output:
   html_document:
      toc: true
@@ -10,117 +10,123 @@ output:
 params:
     study: NA
 ---
+
 ```{r, echo=FALSE}
-htmltools::img(src = knitr::image_uri("gilead.png"), 
-               alt = 'logo', 
-               style = 'position:absolute; top:0; right:0; padding:10px;', 
-               width = "125px", 
-               height = "50px")
+htmltools::img(
+  src = knitr::image_uri("gilead.png"), 
+  alt = 'logo', 
+  style = 'position:absolute; top:0; right:0; padding:10px;', 
+  width = "125px", 
+  height = "50px"
+)
 ```
+
 ---
 
-```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
+```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
 library(tidyverse)
 library(DT)
 
-study <- params$study[grep("kri", names(params$study))]
+study <- params$study[
+  grep("kri", names(params$study))
+]
 
 overview_table <- Overview_Table(study) 
 
 # turn into a function
 summary_table <- map(study, function(kri) {
-  
   dfFlagged <- kri$lResults$lData$dfFlagged 
   
   if(nrow(dfFlagged) > 0) {
     kri$lResults$lData$dfFlagged %>% 
       filter(Flag != 0) %>% 
       arrange(desc(abs(Flag))) %>% 
-      mutate(FlagDirectionality = map(Flag, kri_directionality_logo), 
-             across(where(is.numeric), ~round(.x, 3))) %>% 
+      mutate(
+        FlagDirectionality = map(Flag, kri_directionality_logo),
+        across(
+          where(is.numeric),
+          ~round(.x, 3)
+        )
+      ) %>% 
       DT::datatable()
   } else {
     return(NULL)
   }
-  
 })
 ```
 
-### Study Overview
+## Study Overview
+
 <div class="gsm-overview-table">
 ```{r echo=FALSE, warning=FALSE}
 overview_table
 ```
 </div>
 
-### Results
+## Results
 
 ```{r, echo = FALSE, results='asis'}
 for (i in seq_along(study)) {
-  
+  kri_key <- names(study)[i]
+  kri <- study[[ kri_key ]]
+
   title <- gsm::meta_workflow %>% 
-    filter(workflowid == study[[i]]$name) %>% 
+    filter(workflowid == kri_key) %>% 
     pull(metric)
-  
-  print(htmltools::h3(title))
-  print(htmltools::h5("Summary Charts"))
-  print(htmltools::tags$button(class = 'btn-show-report', htmltools::tags$i(class = "fa fa-cloud"), "Show Plots"))
-  
-  charts <- study[[i]]$lResults$lCharts[names(study[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS")]
-  
-  
-  for (chart in seq_along(charts)) {
-    
-  # need to initialize JS dependencies within loop in order to print correctly
-  # see here: https://github.com/rstudio/rmarkdown/issues/1877#issuecomment-678996452
-  purrr::map(charts, ~.x %>%  knitr::knit_print() %>%
-  attr('knit_meta') %>%
-  knitr::knit_meta_add() %>%
-  invisible())
-  
-    customClass <- paste0(names(charts)[[chart]])
-    cat(paste0("<div class =", customClass, ">"))
-    cat(knitr::knit_print(htmltools::tagList(charts[[chart]])))
-    cat("</div>")
-  }
-  
-  if (!is.null(summary_table[[study[[i]]$name]])) {
-    print(htmltools::h5("Summary Table"))
-    print(htmltools::tagList(summary_table[[study[[i]]$name]]))
-  }
-  
-  
+
+  ### KRI section /
+    print(htmltools::h3(title))
+
+    #### charts tabset /
+        cat("#### Summary Charts {.tabset} \n")
+        
+        charts <- study[[i]]$lResults$lCharts[
+            names(study[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS")
+        ]
+        
+        for (j in seq_along(charts)) {
+            chart_key <- names(charts)[j]
+            chart <- charts[[ chart_key ]]
+            chart_name <- switch(
+            chart_key,
+            scatterJS = "Scatter Plot",
+            barScoreJS = "Bar Chart (KRI Score)",
+            barMetricJS = "Bar Chart (KRI Metric)"
+            )
+
+            ##### chart tab /
+                chart_header <- paste('#####', chart_name, '\n')
+
+                cat(chart_header)
+                
+                # need to initialize JS dependencies within loop in order to print correctly
+                # see here: https://github.com/rstudio/rmarkdown/issues/1877#issuecomment-678996452
+                purrr::map(
+                charts,
+                ~.x %>%
+                    knitr::knit_print() %>%
+                    attr('knit_meta') %>%
+                    knitr::knit_meta_add() %>%
+                    invisible()
+                )
+            
+                # Display chart.
+                cat(paste0("<div class =", chart_key, ">"))
+                cat(knitr::knit_print(htmltools::tagList(chart)))
+                cat("</div>")
+            ##### / chart tab
+        }
+        
+        cat("#### {-} \n")
+    #### / charts tabset
+
+    #### table /
+        if (!is.null(summary_table[[study[[i]]$name]])) {
+            print(htmltools::h4("Summary Table"))
+            print(htmltools::tagList(summary_table[[study[[i]]$name]]))
+        }
+    #### / table
+  ### / KRI section
 }
-```
-
-```{js, echo = FALSE}
-document.querySelectorAll(".barScoreJS").forEach(function (el) {
-  el.style.display = "none";
-});
-
-document.querySelectorAll(".barMetricJS").forEach(function (el) {
-  el.style.display = "none";
-});
-
-const btnReport = document.querySelectorAll(".btn-show-report");
-const barMetric = document.querySelectorAll(".barMetricJS");
-const barScore = document.querySelectorAll(".barScoreJS");
-
-btnReport.forEach(function (el, index) {
-  el.addEventListener("click", function () {
-    console.log(el);
-    if (barMetric[index].style.display === "none") {
-      barMetric[index].style.display = null;
-      barScore[index].style.display = null;
-      el.textContent = "Hide Plots";
-    } else {
-      barMetric[index].style.display = "none";
-      barScore[index].style.display = "none";
-      el.textContent = "Show Plots";
-    }
-  });
-});
-
-
 ```
