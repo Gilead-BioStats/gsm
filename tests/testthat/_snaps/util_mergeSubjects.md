@@ -2,7 +2,7 @@
 
     Code
       MergeSubjects(domain, subjects, vFillZero = "Count", bQuiet = F)
-    Message <cliMessage>
+    Message
       i Intializing merge of domain and subject data
       ! 5 ID(s) in domain data not found in subject data.
       Associated rows will not be included in merged data.

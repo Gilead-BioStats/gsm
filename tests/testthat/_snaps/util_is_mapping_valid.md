@@ -3,7 +3,7 @@
     Code
       is_mapping_valid(dfSUBJ, mapping = mapping_rdsl, spec = list(vUniqueCols = "strIDCol",
         vRequired = c("strIDCol")), bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       x Unexpected duplicates found in column: subjid
     Output
       $status
@@ -92,7 +92,7 @@
     Code
       is_mapping_valid(df = dfSUBJ, mapping = mapping_rdsl, bQuiet = FALSE, spec = list(
         vRequired = "notACol"))
-    Message <cliMessage>
+    Message
       x "mapping" does not contain required parameters: notACol
       x Non-character column names found in mapping: 
     Output
@@ -182,7 +182,7 @@
     Code
       result <- is_mapping_valid(df = dfSUBJ, mapping = mapping_rdsl, bQuiet = FALSE,
         spec = list(vRequired = "notACol"))
-    Message <cliMessage>
+    Message
       x "mapping" does not contain required parameters: notACol
       x Non-character column names found in mapping: 
 
