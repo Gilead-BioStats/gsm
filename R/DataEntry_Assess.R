@@ -175,7 +175,7 @@ DataEntry_Assess <- function(
       strGroup = strGroup,
       strAbbreviation = "DATAENTRY",
       strMetric = "Data Entry Lag",
-      strNumerator = "Data Page Entered > 10 Days",
+      strNumerator = "Data Pages Entered > 10 Days",
       strDenominator = "Total Data Pages",
       vThreshold = vThreshold
     )
