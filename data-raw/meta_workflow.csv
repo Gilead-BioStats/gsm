@@ -1,17 +1,25 @@
-"workflowid","gsm_version","group","abbreviation","metric","numerator","denominator","outcome","model","score","data_inputs","data_filters"
-"kri0001","1.3.2","Site","AE","Non-serious AE Reporting Rate","Treatment Emergent AEs","Days on Treatment","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.ae, rawplus.subj","Non-Serious, TreatmentEmergent"
-"kri0002","1.3.2","Site","SAE","SAE Reporting Rate","Treatment Emergent SAEs","Days on Treatment","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.ae, rawplus.subj","Serious, TreatmentEmergent"
-"kri0003","1.3.2","Site","PD","Non-important Protocol Deviation Rate","Non-Important PDs","Days in Study","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.pd, rawplus.subj","Non-Important"
-"kri0004","1.3.2","Site","IPD","Important Protocol Deviation Rate","Important PDs","Days in Study","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.pd, rawplus.subj","Important"
-"kri0005","1.3.2","Site","LAB","G3 or higher Lab Abnormality Rate","G3+ Abnormal Labs Samples","Total Lab Samples","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.lb, rawplus.subj","Treatment emergent, Grade >= 3"
-"kri0006","1.3.2","Site","SUB","Subject Discontinuation","Subjects Discontinued","Total Subjects","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.subj",""
-"kri0007","1.3.2","Site","TRT","Subject Treatment Discontinuation","Subjects with Treatment Discontinued","Total Subjects","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.subj",""
-"cou0001","1.3.2","Country","AE","Non-serious AE Reporting Rate","Treatment Emergent AEs","Days on Treatment","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.ae, rawplus.subj","Non-Serious, TreatmentEmergent"
-"cou0002","1.3.2","Country","SAE","SAE Reporting Rate","Treatment Emergent SAEs","Days on Treatment","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.ae, rawplus.subj","Serious, TreatmentEmergent"
-"cou0003","1.3.2","Country","PD","Non-important Protocol Deviation Rate","Non-Important PDs","Days in Study","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.pd, rawplus.subj","Non-Important"
-"cou0004","1.3.2","Country","IPD","Important Protocol Deviation Rate","Important PDs","Days in Study","Rate","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.pd, rawplus.subj","Important"
-"cou0005","1.3.2","Country","LAB","G3 or higher Lab Abnormality Rate","G3+ Abnormal Labs Samples","Total Lab Samples","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.lb, rawplus.subj","Treatment emergent, Grade >= 3"
-"cou0006","1.3.2","Country","SUB","Subject Discontinuation","Subjects Discontinued","Total Subjects","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.subj",""
-"cou0007","1.3.2","Country","TRT","Subject Treatment Discontinuation","Subjects with Treatment Discontinued","Total Subjects","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.subj",""
-"qtl0004","1.3.2","Study","IPD","Important Protocol Deviation Rate","Important PDs","Days in Study","Rate","Poisson Test","Poisson Confidence Interval - Lower Bound","rawplus.pd, rawplus.subj","Important"
-"qtl0006","1.3.2","Study","SUB","Subject Discontinuation","Subjects Discontinued","Total Subjects","Percent","Binomial Test","Binomial Confidence Interval - Lower Bound","rawplus.subj",""
+workflowid,gsm_version,group,abbreviation,metric,numerator,denominator,outcome,model,score,data_inputs,data_filters
+kri0001,1.3.2,Site,AE,Non-serious AE Reporting Rate,Treatment Emergent AEs,Days on Treatment,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.subj","Non-Serious, TreatmentEmergent"
+kri0002,1.3.2,Site,SAE,SAE Reporting Rate,Treatment Emergent SAEs,Days on Treatment,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.subj","Serious, TreatmentEmergent"
+kri0003,1.3.2,Site,PD,Non-important Protocol Deviation Rate,Non-Important PDs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.pd, rawplus.subj",Non-Important
+kri0004,1.3.2,Site,IPD,Important Protocol Deviation Rate,Important PDs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.pd, rawplus.subj",Important
+kri0005,1.3.2,Site,LAB,G3 or higher Lab Abnormality Rate,G3+ Abnormal Labs Samples,Total Lab Samples,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.lb, rawplus.subj","Treatment emergent, Grade >= 3"
+kri0006,1.3.2,Site,SUB,Subject Discontinuation,Subjects Discontinued,Total Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,rawplus.subj,
+kri0007,1.3.2,Site,TRT,Subject Treatment Discontinuation,Subjects with Treatment Discontinued,Total Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,rawplus.subj,
+kri0008,1.3.2,Site,QR,Query Rate,Total Queries,Total Data Points,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.subj, edc.queries, edc.data.change.rate",
+kri0009,1.3.2,Site,QA,Query Age,Queries Open > 30 Days,Total Queries,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.subj, edc.queries",
+kri0010,1.3.2,Site,DEL,Data Entry Lag,Data Pages Entered > 10 Days,Total Data Pages,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.subj, edc.data.entry.lag",
+kri0011,1.3.2,Site,DCR,Data Change Rate,Data Points with 1+ Change,Total Data Points,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.subj, edc.data.change.rate",
+cou0001,1.3.2,Country,AE,Non-serious AE Reporting Rate,Treatment Emergent AEs,Days on Treatment,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.subj","Non-Serious, TreatmentEmergent"
+cou0002,1.3.2,Country,SAE,SAE Reporting Rate,Treatment Emergent SAEs,Days on Treatment,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.subj","Serious, TreatmentEmergent"
+cou0003,1.3.2,Country,PD,Non-important Protocol Deviation Rate,Non-Important PDs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.pd, rawplus.subj",Non-Important
+cou0004,1.3.2,Country,IPD,Important Protocol Deviation Rate,Important PDs,Days in Study,Rate,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.pd, rawplus.subj",Important
+cou0005,1.3.2,Country,LAB,G3 or higher Lab Abnormality Rate,G3+ Abnormal Labs Samples,Total Lab Samples,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.lb, rawplus.subj","Treatment emergent, Grade >= 3"
+cou0006,1.3.2,Country,SUB,Subject Discontinuation,Subjects Discontinued,Total Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,rawplus.subj,
+cou0007,1.3.2,Country,TRT,Subject Treatment Discontinuation,Subjects with Treatment Discontinued,Total Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,rawplus.subj,
+cou0008,1.3.2,Country,QR,Query Rate,Total Queries,Total Data Points,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.subj, edc.queries, edc.data.change.rate",
+cou0009,1.3.2,Country,QA,Query Age,Queries Open > 30 Days,Total Queries,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.subj, edc.queries",
+cou0010,1.3.2,Country,DEL,Data Entry Lag,Data Pages Entered > 10 Days,Total Data Pages,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.subj, edc.data.entry.lag",
+cou0011,1.3.2,Country,DCR,Data Change Rate,Data Points with 1+ Change,Total Data Points,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.subj, edc.data.change.rate",
+qtl0004,1.3.2,Study,IPD,Important Protocol Deviation Rate,Important PDs,Days in Study,Rate,Poisson Test,Poisson Confidence Interval - Lower Bound,"rawplus.pd, rawplus.subj",Important
+qtl0006,1.3.2,Study,SUB,Subject Discontinuation,Subjects Discontinued,Total Subjects,Percent,Binomial Test,Binomial Confidence Interval - Lower Bound,rawplus.subj,

@@ -85,7 +85,7 @@
 
     Code
       assessOutput <- assess_function(dfInput = dfInput, bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `Consent_Assess()` --
       

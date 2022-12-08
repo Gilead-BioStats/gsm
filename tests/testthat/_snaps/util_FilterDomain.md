@@ -4,7 +4,7 @@
       ae_test <- FilterDomain(dfAE, lMapping = lMapping, strDomain = "dfAE",
         strColParam = "strWhateverEmergentCol", strValParam = "strWhateverEmergentVal",
         bQuiet = F)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `FilterDomain()` --
       
@@ -17,7 +17,7 @@
     Code
       FilterDomain(dfAE, lMapping = lMapping, strDomain = "dfAE", strColParam = "strTreatmentEmergentCol",
         strValParam = "strTreatmentEmergentVal", bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `FilterDomain()` --
       
@@ -36,7 +36,7 @@
       FilterDomain(dfAE, lMapping = list(this_is = "my mapping"), strDomain = "dfAE",
       strColParam = "strTreatmentEmergentCol", strValParam = "strTreatmentEmergentVal",
       bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `FilterDomain()` --
       
@@ -66,7 +66,7 @@
     Code
       FilterDomain(dfAE, lMapping = lMapping, strDomain = "dfABCD", strColParam = "strTreatmentEmergentCol",
         strValParam = "strTreatmentEmergentVal", bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `FilterDomain()` --
       
@@ -118,7 +118,7 @@
     Code
       FilterDomain(dfAE, lMapping = lMapping, strDomain = "dfAE", strColParam = "strTreatmentEmergentCol",
         strValParam = "strTreatmentEmergentVal", bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `FilterDomain()` --
       

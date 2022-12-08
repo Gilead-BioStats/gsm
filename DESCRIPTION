@@ -21,6 +21,7 @@ Imports:
     cli,
     DiagrammeR,
     dplyr,
+    DT,
     fontawesome (>= 0.2.2),
     glue,
     gt,
@@ -37,21 +38,21 @@ Imports:
     stringr,
     tibble,
     tidyr,
-    yaml
+    yaml,
+    rlang (>= 0.4.11)
 Suggests:
     clindata,
     covr,
     devtools,
-    DT,
     kableExtra,
     pander,
-    rlang,
     safetyData,
     testthat (>= 3.0.0),
     usethis,
     tools,
     pkgdown,
-    riskmetric
+    riskmetric,
+    roxygen2
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.2

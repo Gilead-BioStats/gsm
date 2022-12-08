@@ -2,7 +2,7 @@
 
     Code
       AE_Map_Adam(dfs = list(dfADSL = list(), dfADAE = list()), bQuiet = F)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
@@ -25,7 +25,7 @@
 
     Code
       AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = list()), bQuiet = F)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
@@ -43,7 +43,7 @@
 
     Code
       AE_Map_Adam(dfs = list(dfADSL = list(), dfADAE = dfADAE), bQuiet = F)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
@@ -61,7 +61,7 @@
 
     Code
       AE_Map_Adam(dfs = list(dfADSL = "Hi", dfADAE = "Mom"), bQuiet = F)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
@@ -84,7 +84,7 @@
 
     Code
       AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE, mapping = list()), bQuiet = F)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
@@ -103,7 +103,7 @@
     Code
       AE_Map_Adam(dfs = list(dfADSL = dfADSL %>% select(-USUBJID), dfADAE = dfADAE),
       bQuiet = F)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
@@ -121,7 +121,7 @@
     Code
       AE_Map_Adam(dfs = list(dfADSL = dfADSL %>% select(-SITEID), dfADAE = dfADAE),
       bQuiet = F)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
@@ -139,7 +139,7 @@
     Code
       AE_Map_Adam(dfs = list(dfADSL = dfADSL %>% select(-TRTSDT), dfADAE = dfADAE),
       bQuiet = F)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
@@ -157,7 +157,7 @@
     Code
       AE_Map_Adam(dfs = list(dfADSL = dfADSL %>% select(-TRTEDT), dfADAE = dfADAE),
       bQuiet = F)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
@@ -175,7 +175,7 @@
     Code
       AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE %>% select(-USUBJID)),
       bQuiet = F)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `AE_Map_Adam()` --
       
@@ -192,7 +192,7 @@
 
     Code
       dfInput <- AE_Map_Adam(dfs = list(dfADAE = dfADAE, dfADSL = dfADSL), bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `AE_Map_Adam()` --
       

@@ -1192,7 +1192,7 @@
 
     Code
       result <- Study_Assess(lData = lData, bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       
       -- Initializing `cou0001` assessment -------------------------------------------
       

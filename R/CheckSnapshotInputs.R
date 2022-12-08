@@ -26,8 +26,8 @@ CheckSnapshotInputs <- function(snapshot) {
 
   # get rbm_data_spec/data model
   gismo_input <- gsm::rbm_data_spec %>%
-    filter(System == "Gismo") %>%
-    arrange(match(Table, names(snapshot))) %>%
+    filter(.data$System == "Gismo") %>%
+    arrange(match(.data$Table, names(snapshot))) %>%
     split(.$Table)
 
 
@@ -74,8 +74,8 @@ CheckSnapshotInputs <- function(snapshot) {
     keep = TRUE
   ) %>%
     mutate(
-      status = tables_gismo == tables_snapshot,
-      status = ifelse(is.na(status), FALSE, status)
+      status = .data$tables_gismo == .data$tables_snapshot,
+      status = ifelse(is.na(.data$status), FALSE, .data$status)
     )
 
   tables_status <- all(expected_tables$status)
@@ -83,9 +83,9 @@ CheckSnapshotInputs <- function(snapshot) {
 
 # expected columns --------------------------------------------------------
   expected_columns_snapshot <- purrr::imap_dfr(snapshot, ~tibble(snapshot_table = .y, snapshot_column = names(.x))) %>%
-    arrange(snapshot_table, snapshot_column)
+    arrange(.data$snapshot_table, .data$snapshot_column)
   expected_columns_gismo <- purrr::imap_dfr(gismo_input, ~tibble(gismo_table = .y, gismo_column = .x$Column)) %>%
-    arrange(gismo_table, gismo_column)
+    arrange(.data$gismo_table, .data$gismo_column)
 
   expected_columns <- full_join(
     expected_columns_snapshot,
@@ -95,7 +95,7 @@ CheckSnapshotInputs <- function(snapshot) {
   ) %>%
     rowwise() %>%
     mutate(status = sum(is.na(cur_data())),
-           status = ifelse(status == 0, TRUE, FALSE)) %>%
+           status = ifelse(.data$status == 0, TRUE, FALSE)) %>%
     ungroup()
 
   columns_status <- all(expected_columns$status)
