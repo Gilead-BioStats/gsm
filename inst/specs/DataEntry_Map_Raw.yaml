@@ -1,0 +1,10 @@
+dfDATAENT:
+  vRequired:
+    - strIDCol
+    - strDataEntryLagCol
+dfSUBJ:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+  vUniqueCols:
+    - strIDCol

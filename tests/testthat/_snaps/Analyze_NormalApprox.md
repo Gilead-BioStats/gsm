@@ -2,7 +2,7 @@
 
     Code
       Analyze_NormalApprox(dfTransformed, bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
     Output

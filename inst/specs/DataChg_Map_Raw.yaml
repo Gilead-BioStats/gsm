@@ -1,0 +1,11 @@
+dfDATACHG:
+  vRequired:
+    - strIDCol
+    - strDataPointsCol
+    - strDataPointsChangeCol
+dfSUBJ:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+  vUniqueCols:
+    - strIDCol

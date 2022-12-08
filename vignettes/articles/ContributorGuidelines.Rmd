@@ -106,6 +106,9 @@ Instead of copying/pasting the code above, a wrapper function in `{gutil}` can b
     -   The `release` branch should be named according to the version of `{gsm}` being released (e.g., `release-v1.2.0`) using [semantic versioning](https://semver.org/).
 2.  Release Owner prepares the release for QC by performing the following steps and pushing updates to the `release` branch:
     -   Confirm that the version in the `DESCRIPTION` file is up to date.
+        -   **After** the version in the `DESCRIPTION` file is updated, run `gsm::UpdateGSMVersion()` to update metadata that includes the `{gsm}` version number.
+
+        -   After running `gsm::UpdateGSMVersion()`, run `gsm::CheckClindataMeta()` to make sure that the versions in `{gsm}` and `{clindata}` are in sync. If not, open a PR in `{clindata}` to update any metadata that includes `gsm_version`.
     -   Run `styler` using the script from the [style guide](#style-guide) above (or by running `gutil::style_code()`) and commit any updates.
     -   Update `NEWS.md` with a summary of the revisions/additions in the release. Keep any information from previous releases to maintain traceability through versions.
     -   If applicable, review `README.md` and relevant vignettes to make sure updates are accurately described.

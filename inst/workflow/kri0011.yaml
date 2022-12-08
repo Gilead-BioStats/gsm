@@ -1,0 +1,13 @@
+steps:
+  - name: DataChg_Map_Raw
+    inputs:
+      - dfSUBJ
+      - dfDATACHG
+    output: dfInput
+  - name: DataChg_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      vThreshold: null
+      strMethod: "NormalApprox"

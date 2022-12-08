@@ -18,13 +18,13 @@ PD_Assess(
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 or 4 that defaults to \code{c(-3, -2, 2, 3)} for a Normal Approximation (\code{strMethod = "NormalApprox"}),
-\code{c(-7, -5, 5, 7)} for a Poisson model (\code{strMethod = "poisson"}), and \code{c(0.000895, 0.003059)} for a nominal assessment (\code{strMethod = "identity"}).}
+\code{c(-7, -5, 5, 7)} for a Poisson model (\code{strMethod = "Poisson"}), and \code{c(0.000895, 0.003059)} for a nominal assessment (\code{strMethod = "Identity"}).}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
 \item \code{"NormalApprox"} (default)
-\item \code{"poisson"}
-\item \code{"identity"}
+\item \code{"Poisson"}
+\item \code{"Identity"}
 }}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
@@ -45,11 +45,11 @@ of the column. Default: package-defined Protocol Deviation Assessment mapping.}
 \item \code{dfAnalyzed}, returned by \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}}, \code{\link[=Analyze_Poisson]{Analyze_Poisson()}} or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
 \item \code{dfFlagged}, returned by \code{\link[=Flag_NormalApprox]{Flag_NormalApprox()}}, \code{\link[=Flag_Poisson]{Flag_Poisson()}}, or \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
-\item \code{dfBounds}, returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} when \code{strMethod == "NormalApprox"} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}} when \code{strMethod == "poisson"}
+\item \code{dfBounds}, returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} when \code{strMethod == "NormalApprox"} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}} when \code{strMethod == "Poisson"}
 }
 \item \code{list} \code{lCharts}, a named list with:
 \itemize{
-\item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}} only when strMethod != "identity"
+\item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}} only when strMethod != "Identity"
 \item \code{barMetric}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}}
 \item \code{barScore}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}}
 }
@@ -101,7 +101,7 @@ details about the statistical methods and their assumptions.
 \examples{
 dfInput <- PD_Map_Raw()
 pd_assessment_NormalApprox <- PD_Assess(dfInput)
-pd_assessment_poisson <- PD_Assess(dfInput, strMethod = "poisson")
-pd_assessment_identity <- PD_Assess(dfInput, strMethod = "identity")
+pd_assessment_poisson <- PD_Assess(dfInput, strMethod = "Poisson")
+pd_assessment_identity <- PD_Assess(dfInput, strMethod = "Identity")
 
 }

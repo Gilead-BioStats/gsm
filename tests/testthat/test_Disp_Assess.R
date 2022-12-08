@@ -45,7 +45,7 @@ test_that("invalid mapping throws errors", {
   )
 })
 
-test_that("strMethod = 'identity' works as expected", {
+test_that("strMethod = 'Identity' works as expected", {
   test_identity(
     assess_function,
     dfInput

@@ -116,9 +116,35 @@ Consent_Assess <- function(
 
     # visualizations ----------------------------------------------------------
     lCharts <- list()
+
+    dfConfig <- MakeDfConfig(
+      strMethod = "identity",
+      strGroup = strGroup,
+      strAbbreviation = "CONSENT",
+      strMetric = "Consent Issues",
+      strNumerator = "Consent Issues",
+      strDenominator = "Total Subjects",
+      vThreshold = nThreshold
+    )
+
     lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
     lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score")
-    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(lCharts)} chart{?s}.")
+
+    lCharts$barMetricJS <- barChart(
+      results = lData$dfFlagged,
+      workflow = dfConfig,
+      yaxis = "metric",
+      elementId = "consentAssessMetric"
+    )
+
+    lCharts$barScoreJS <- barChart(
+      results = lData$dfFlagged,
+      workflow = dfConfig,
+      yaxis = "score",
+      elementId = "consentAssessScore"
+    )
+
+    if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} bar chart{?s}.")
 
     # return data -------------------------------------------------------------
     return(list(
