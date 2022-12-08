@@ -3,8 +3,9 @@
 #' @param lAssessments `list` The output of running [gsm::Study_Assess()]
 #' @param bInteractive `logical` Display interactive widget? Default: `TRUE`.
 #'
-#' @importFrom purrr map reduce
 #' @importFrom DT datatable
+#' @importFrom glue glue
+#' @importFrom purrr map reduce
 #' @importFrom stats na.omit
 #'
 #' @export
@@ -40,20 +41,45 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     ) %>%
     arrange(desc(.data$`Flagged KRIs`), desc(.data$`At Risk KRIs`))
 
-  lookup <- as_tibble(names(overview_table)) %>%
+  abbreviation_lookup <- as_tibble(names(overview_table)) %>%
     left_join(gsm::meta_workflow, by = c("value" = "workflowid")) %>%
     select(.data$abbreviation, .data$value) %>%
     stats::na.omit() %>%
     tibble::deframe()
 
+  metric_lookup <- as_tibble(names(overview_table)) %>%
+    left_join(gsm::meta_workflow, by = c("value" = "workflowid")) %>%
+    select(.data$metric, .data$value) %>%
+    stats::na.omit() %>%
+    tibble::deframe()
+
   overview_table <- overview_table %>%
-    rename(any_of(lookup))
+    rename(any_of(abbreviation_lookup))
 
   if (bInteractive) {
+    n_headers <- ncol(overview_table)
+    kri_index <- n_headers - length(study)
+
+    headerCallback <- glue::glue("
+      function(thead, data, start, end, display) {
+        var tooltips = ['{{paste(names(metric_lookup), collapse = \"', '\")}'];
+        for (var i={{kri_index}; i<{{n_headers}; i++) {
+          $('th:eq('+i+')', thead).attr('title', tooltips[i-{{kri_index}]);
+        }
+      }
+    ", .open = '{{')
 
     overview_table <- overview_table %>%
-      mutate(across(-c(.data$GroupID:.data$`At Risk KRIs`), ~purrr::map(.x, kri_directionality_logo))) %>%
+      mutate(
+        across(
+          -c(.data$GroupID:.data$`At Risk KRIs`),
+          ~purrr::map(.x, kri_directionality_logo)
+        )
+      ) %>%
       DT::datatable(
+        options = list(
+          headerCallback = JS(headerCallback)
+        ),
         rownames = FALSE
       )
 
