@@ -467,6 +467,107 @@
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
       
+      -- Initializing `cou0008` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryRate_Map_Raw` --
+      
+      Preparing parameters for `QueryRate_Map_Raw()` ...
+      Calling `QueryRate_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryRate_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, foldername, form
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, foldername, form, n_data_points
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `QueryRate_Map_Raw()`
+      ! `QueryRate_Map_Raw()` did not run because of failed check.
+      ! `QueryRate_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryRate_Assess` --
+      
+      Skipping `QueryRate_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0009` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryAge_Map_Raw` --
+      
+      Preparing parameters for `QueryAge_Map_Raw()` ...
+      Calling `QueryAge_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, qry30fl
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
+      ! `QueryAge_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryAge_Assess` --
+      
+      Skipping `QueryAge_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0010` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataEntry_Map_Raw` --
+      
+      Preparing parameters for `DataEntry_Map_Raw()` ...
+      Calling `DataEntry_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataEntry_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, data_entry_lag_fl
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `DataEntry_Map_Raw()`
+      ! `DataEntry_Map_Raw()` did not run because of failed check.
+      ! `DataEntry_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataEntry_Assess` --
+      
+      Skipping `DataEntry_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0011` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataChg_Map_Raw` --
+      
+      Preparing parameters for `DataChg_Map_Raw()` ...
+      Calling `DataChg_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataChg_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, n_data_points, n_data_points_with_changes
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `DataChg_Map_Raw()`
+      ! `DataChg_Map_Raw()` did not run because of failed check.
+      ! `DataChg_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataChg_Assess` --
+      
+      Skipping `DataChg_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
       -- Initializing `kri0001` assessment -------------------------------------------
       
       -- Workflow Step 1 of 4: `FilterDomain` --
@@ -892,6 +993,107 @@
       v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0008` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryRate_Map_Raw` --
+      
+      Preparing parameters for `QueryRate_Map_Raw()` ...
+      Calling `QueryRate_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryRate_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, foldername, form
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, foldername, form, n_data_points
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `QueryRate_Map_Raw()`
+      ! `QueryRate_Map_Raw()` did not run because of failed check.
+      ! `QueryRate_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryRate_Assess` --
+      
+      Skipping `QueryRate_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0009` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryAge_Map_Raw` --
+      
+      Preparing parameters for `QueryAge_Map_Raw()` ...
+      Calling `QueryAge_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, qry30fl
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
+      ! `QueryAge_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryAge_Assess` --
+      
+      Skipping `QueryAge_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0010` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataEntry_Map_Raw` --
+      
+      Preparing parameters for `DataEntry_Map_Raw()` ...
+      Calling `DataEntry_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataEntry_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, data_entry_lag_fl
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `DataEntry_Map_Raw()`
+      ! `DataEntry_Map_Raw()` did not run because of failed check.
+      ! `DataEntry_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataEntry_Assess` --
+      
+      Skipping `DataEntry_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0011` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataChg_Map_Raw` --
+      
+      Preparing parameters for `DataChg_Map_Raw()` ...
+      Calling `DataChg_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataChg_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, n_data_points, n_data_points_with_changes
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `DataChg_Map_Raw()`
+      ! `DataChg_Map_Raw()` did not run because of failed check.
+      ! `DataChg_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataChg_Assess` --
+      
+      Skipping `DataChg_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `qtl0004` assessment -------------------------------------------
