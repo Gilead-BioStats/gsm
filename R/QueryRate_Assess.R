@@ -196,7 +196,7 @@ QueryRate_Assess <- function(
       strMethod = strMethod,
       strGroup = strGroup,
       strAbbreviation = "QUERYRATE",
-      strMetric = "Queries Rate",
+      strMetric = "Query Rate",
       strNumerator = "Total Number of Queries",
       strDenominator = "Total Data Points",
       vThreshold = vThreshold

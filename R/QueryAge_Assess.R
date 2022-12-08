@@ -174,8 +174,8 @@ QueryAge_Assess <- function(
       strMethod = strMethod,
       strGroup = strGroup,
       strAbbreviation = "QUERYAGE",
-      strMetric = "Queries Age",
-      strNumerator = "Queries Open > 30 days",
+      strMetric = "Query Age",
+      strNumerator = "Queries Open > 30 Days",
       strDenominator = "Total Queries",
       vThreshold = vThreshold
     )
