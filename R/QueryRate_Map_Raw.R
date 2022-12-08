@@ -106,7 +106,6 @@ QueryRate_Map_Raw <- function(
                 DataPoint = sum(.data$DataPoint, na.rm = TRUE)) %>%
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      filter(!is.na(.data$DataPoint)) %>%
       mutate(
         Rate = .data$Count / .data$DataPoint
       ) %>%

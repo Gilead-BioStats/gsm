@@ -91,7 +91,6 @@ DataChg_Map_Raw <- function(
                 Total = sum(.data$DataPoint, na.rm = TRUE)) %>%
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      filter(!is.na(.data$Total)) %>%
       select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
       arrange(.data$SubjectID)
 

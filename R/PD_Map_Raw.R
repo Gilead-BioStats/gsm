@@ -87,7 +87,6 @@ PD_Map_Raw <- function(
       summarize(Count = n()) %>%
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      filter(!is.na(.data$Exposure)) %>%
       mutate(Rate = .data$Count / .data$Exposure) %>%
       select(any_of(names(dfSUBJ_mapped)), "Count", "Exposure", "Rate") %>%
       arrange(.data$SubjectID)

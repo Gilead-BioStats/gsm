@@ -88,7 +88,6 @@ AE_Map_Raw <- function(
       summarize(Count = n()) %>%
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      filter(!is.na(.data$Exposure)) %>%
       mutate(Rate = .data$Count / .data$Exposure) %>%
       select(any_of(c(names(dfSUBJ_mapped))), "Count", "Rate") %>%
       arrange(.data$SubjectID)
