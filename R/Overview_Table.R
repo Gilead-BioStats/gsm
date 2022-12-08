@@ -1,4 +1,4 @@
-#' Overview Table - Create summary of flagged and at-risk KRIs for a study.
+#' Overview Table - Create summary of red and amber KRIs for a study.
 #'
 #' @param lAssessments `list` The output of running [gsm::Study_Assess()]
 #' @param bInteractive `logical` Display interactive widget? Default: `TRUE`.
@@ -24,22 +24,22 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
   }) %>%
     purrr::reduce(left_join, by = "GroupID") %>%
     rowwise() %>%
-    mutate("Flagged KRIs" = {
+    mutate("Red KRIs" = {
       x <- c_across(-.data$GroupID)
       sum(x %in% c(2, -2))
     }) %>%
-    mutate("At Risk KRIs" = {
-      x <- c_across(-c(.data$GroupID, .data$`Flagged KRIs`))
+    mutate("Amber KRIs" = {
+      x <- c_across(-c(.data$GroupID, .data$`Red KRIs`))
       sum(x %in% c(1, -1))
     }) %>%
     ungroup() %>%
     select(
       "GroupID",
-      "Flagged KRIs",
-      "At Risk KRIs",
+      "Red KRIs",
+      "Amber KRIs",
       everything()
     ) %>%
-    arrange(desc(.data$`Flagged KRIs`), desc(.data$`At Risk KRIs`))
+    arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`))
 
   abbreviation_lookup <- as_tibble(names(overview_table)) %>%
     left_join(gsm::meta_workflow, by = c("value" = "workflowid")) %>%
@@ -72,12 +72,18 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     overview_table <- overview_table %>%
       mutate(
         across(
-          -c(.data$GroupID:.data$`At Risk KRIs`),
+          -c(.data$GroupID:.data$`Amber KRIs`),
           ~purrr::map(.x, kri_directionality_logo)
         )
       ) %>%
       DT::datatable(
         options = list(
+          columnDefs = list(
+            list(
+              className = 'dt-center',
+              targets = 0:(n_headers-1)
+            )
+          ),
           headerCallback = JS(headerCallback)
         ),
         rownames = FALSE
