@@ -1,0 +1,12 @@
+steps:
+  - name: Screening_Map_Raw
+    inputs:
+      - dfENROLL
+    output: dfInput
+  - name: Screening_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      vThreshold: null
+      strMethod: "NormalApprox"
