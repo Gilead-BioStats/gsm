@@ -4,7 +4,7 @@ test_that("Disposition assessment can return a correctly assessed data frame for
 
   test5_1 <- Disp_Assess(
     dfInput = dfInput,
-    strMethod = "Fisher"
+    strMethod = "fisher"
   )
 
   # Double Programming
