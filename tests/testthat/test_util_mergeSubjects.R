@@ -199,3 +199,32 @@ test_that("basic functionality check - only matching ids", {
     c(5, 1)
   )
 })
+
+
+test_that("vRemoval works as intended", {
+
+  # starting with 3 patients
+  # -- one patient has Exposure == 0
+  # -- one patient has NA Exposure
+  # -- should return 1 row only
+  dfDomain <- tibble::tribble(
+    ~SubjectID, ~SiteID,         ~StudyID, ~CountryID, ~CustomGroupID, ~Exposure,
+    "0003",   "166", "AA-AA-000-0000",       "US",        "0X102",       857,
+    "0002",    "76", "AA-AA-000-0000",       "US",        "0X104",        NA,
+    "0001",    "86", "AA-AA-000-0000",       "US",        "0X035",       0
+  )
+
+  dfSUBJ <- tibble::tribble(
+    ~SubjectID, ~Count,
+    "0001",     5L,
+    "0002",     2L,
+    "0003",     5L
+  )
+
+  result <- MergeSubjects(dfDomain = dfDomain, dfSUBJ = dfSUBJ, vRemoval = "Exposure")
+
+  expect_equal(nrow(result), 1)
+
+
+})
+
