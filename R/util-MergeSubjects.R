@@ -70,7 +70,7 @@ MergeSubjects <- function(
 
   if (!is.null(vRemoval)) {
     stopifnot(
-      "Columns specified in vFillZero not found in dfDomain" = all(vRemoval %in% c(names(dfDomain), names(dfSUBJ))),
+      "Columns specified in vRemoval not found in dfDomain" = all(vRemoval %in% c(names(dfDomain), names(dfSUBJ))),
       is.character(vRemoval)
     )
   }
@@ -131,7 +131,7 @@ MergeSubjects <- function(
   if (!is.null(vRemoval)) {
     # Print a message if NAs or zeros are found in vRemoval columns after merging
     n_na_zero <- dfOut %>%
-      filter_at(vars(vRemoval), any_vars(is.na(.) | (. == 0))) %>%
+      filter_at(vars(all_of(vRemoval)), any_vars(is.na(.) | (. == 0))) %>%
       nrow()
 
     if (n_na_zero > 0) {
@@ -149,7 +149,7 @@ MergeSubjects <- function(
 
     for (col in vRemoval) {
       dfOut <- dfOut  %>%
-        filter_at(vars(vRemoval), any_vars(!is.na(.) | (. != 0)))
+        filter_at(vars(all_of(vRemoval)), any_vars(!is.na(.) | (. != 0)))
     }
   }
 
