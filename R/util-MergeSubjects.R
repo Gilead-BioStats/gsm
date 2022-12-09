@@ -131,8 +131,8 @@ MergeSubjects <- function(
   if (!is.null(vRemoval)) {
     # Print a message if NAs or zeros are found in vRemoval columns after merging
     n_na_zero <- dfOut %>%
-      filter_at(vars(all_of(vRemoval)), any_vars(is.na(.) | (. == 0))) %>%
-      nrow()
+      summarise(across(all_of(vRemoval), ~sum(is.na(.x) | .x == 0))) %>%
+      rowSums()
 
     if (n_na_zero > 0) {
       if (!bQuiet) {
@@ -148,8 +148,8 @@ MergeSubjects <- function(
     }
 
     for (col in vRemoval) {
-      dfOut <- dfOut  %>%
-        filter_at(vars(all_of(vRemoval)), any_vars(!is.na(.) | (. != 0)))
+      dfOut <- dfOut %>%
+        filter(!!sym(col) != 0 & !is.na(!!sym(col)))
     }
   }
 
