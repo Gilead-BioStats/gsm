@@ -5,12 +5,10 @@
 #'
 #' @details
 #' `Screening_Map_Raw` creates an input dataset for the Screening Assessment
-#' [gsm::Screening_Assess()] by adding Screen Failure Reason Counts (derived from `dfSCREENING`)
-#' to basic subject-level data (from `dfSUBJ`).
+#' [gsm::Screening_Assess()] by identifying Screen Failures (derived from `dfENROLL`).
 #'
 #' @param dfs `list` Input data frames:
-#'   - `dfSUBJ`: `data.frame` Subject-level data with one record per participant. Default: `clindata::rawplus_dm`
-#'   - `dfSCREENING`: `data.frame` Subject-level study screening data with one record per subject. Default: `clindata::rawplus_enroll`
+#'   - `dfENROLL`: `data.frame` Subject-level study enrollment data with one record per subject. Default: `clindata::rawplus_enroll`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined mapping for raw+.
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
@@ -38,8 +36,7 @@
 
 Screening_Map_Raw <- function(
   dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfSCREENING = clindata::rawplus_enroll
+    dfENROLL = clindata::rawplus_enroll
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   bReturnChecks = FALSE,
@@ -62,44 +59,27 @@ Screening_Map_Raw <- function(
     if (!bQuiet) cli::cli_h2("Initializing {.fn Screening_Map_Raw}")
 
     # Standarize Column Names
-    dfSCREENING <- dfs$dfSCREENING
+    dfENROLL <- dfs$dfENROLL
 
-    dfSCREENING_mapped <- dfSCREENING %>%
+    dfInput <- dfENROLL %>%
       select(
-        SubjectID = lMapping[["dfSCREENING"]][["strIDCol"]],
-        SFReason = lMapping[["dfSCREENING"]][["strScreenFailureReasonCol"]],
-        ScreenFailure = lMapping[["dfSCREENING"]][["strScreenFailureFlagCol"]]
-      ) %>%
-      filter(
-        .data$ScreenFailure %in% lMapping[["dfSCREENING"]][["strScreenFailureFlagVal"]]
-      ) %>%
-      mutate(
-        Count = 1
-      )
-
-    dfSUBJ_mapped <- dfs$dfSUBJ %>%
-      select(
-        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
         any_of(
           c(
-            SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
-            StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
-            CountryID = lMapping[["dfSUBJ"]][["strCountryCol"]],
-            CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
+            StudyID = lMapping[["dfENROLL"]][["strStudyCol"]],
+            SiteID = lMapping[["dfENROLL"]][["strSiteCol"]],
+            CountryID = lMapping[["dfENROLL"]][["strCountryCol"]]
+            #CustomGroupID = lMapping[["dfENROLL"]][["strCustomGroupCol"]]
           )
-        )
-      )
-
-    dfInput <- gsm::MergeSubjects(
-      dfDomain = dfSCREENING_mapped,
-      dfSUBJ = dfSUBJ_mapped,
-      bQuiet = bQuiet
-    ) %>%
-      mutate(
-        Count = ifelse(is.na(.data$Count), 0, .data$Count),
-        Total = 1
+        ),
+        SubjectID = lMapping[["dfENROLL"]][["strIDCol"]],
+        ScreenFail = lMapping[["dfENROLL"]][["strScreenFailCol"]],
+        ScreenFailReason = lMapping[["dfENROLL"]][["strScreenFailReasonCol"]]
       ) %>%
-      select(any_of(names(dfSUBJ_mapped)), "Count", "Total") %>%
+      mutate(
+        Count = as.numeric(
+          .data$ScreenFail %in% lMapping[["dfENROLL"]][["strScreenFailFlagVal"]]
+        )
+      ) %>%
       arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Screening_Map_Raw} returned output with {nrow(dfInput)} rows.")

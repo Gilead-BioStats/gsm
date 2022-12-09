@@ -71,3 +71,12 @@ dfLB:
   strGradeHighVal:
     - "3"
     - "4"
+dfENROLL:
+  strStudyCol: studyid
+  strSiteCol: siteid
+  strCountryCol: country
+  strIDCol: subjid
+  strScreenFailCol: enrollyn
+  strScreenFailVal: N
+  strScreenFailReasonCol: sfreas
+  strScreenFailReasonVal: Inclusion/Exclusion Criteria

@@ -1,0 +1,6 @@
+dfENROLL:
+  vRequired:
+    - strSiteCol
+    - strIDCol
+    - strScreenFailCol
+    - strScreenFailReasonCol
