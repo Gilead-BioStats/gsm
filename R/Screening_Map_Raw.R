@@ -67,8 +67,8 @@ Screening_Map_Raw <- function(
           c(
             StudyID = lMapping[["dfENROLL"]][["strStudyCol"]],
             SiteID = lMapping[["dfENROLL"]][["strSiteCol"]],
-            CountryID = lMapping[["dfENROLL"]][["strCountryCol"]]
-            #CustomGroupID = lMapping[["dfENROLL"]][["strCustomGroupCol"]]
+            CountryID = lMapping[["dfENROLL"]][["strCountryCol"]],
+            CustomGroupID = lMapping[["dfENROLL"]][["strCustomGroupCol"]]
           )
         ),
         SubjectID = lMapping[["dfENROLL"]][["strIDCol"]],
@@ -77,9 +77,11 @@ Screening_Map_Raw <- function(
       ) %>%
       mutate(
         Count = as.numeric(
-          .data$ScreenFail %in% lMapping[["dfENROLL"]][["strScreenFailFlagVal"]]
-        )
+          .data$ScreenFail %in% lMapping[["dfENROLL"]][["strScreenFailVal"]]
+        ),
+        Total = 1
       ) %>%
+      select(ends_with('ID'), 'Count', 'Total') %>%
       arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Screening_Map_Raw} returned output with {nrow(dfInput)} rows.")

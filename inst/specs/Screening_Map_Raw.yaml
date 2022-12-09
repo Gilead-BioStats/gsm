@@ -4,3 +4,6 @@ dfENROLL:
     - strIDCol
     - strScreenFailCol
     - strScreenFailReasonCol
+  vNACols:
+    - strScreenFailCol
+    - strScreenFailReasonCol

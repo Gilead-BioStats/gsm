@@ -21,6 +21,13 @@ dfSUBJ <- tibble::tribble(
   "AA-AA-000-0000", "166", "0003", 901L, 857L, "2008-08-26", "Japan", "0X999"
 )
 
+dfENROLL <- tibble::tribble(
+  ~studyid, ~siteid, ~subjid, ~ernolldt, ~country, ~invid, ~enrollyn, ~sfreas,
+  "AA-AA-000-0000", "86", "0001", "2008-09-10", "US", "0X012", 'Y', '',
+  "AA-AA-000-0000", "76", "sf0001", "2017-05-22", "China", "0X201", 'N', 'Inclusion/Exclusion Criteria',
+  "AA-AA-000-0000", "166", "0003", "2008-08-26", "Japan", "0X999", 'Y', ''
+)
+
 dfLB <- tibble::tribble(
   ~subjid, ~visnam, ~visnum, ~battrnam, ~lbtstnam, ~siresn, ~lb_te, ~toxgr,
   "0001", "Screening", -10, "CHEMISTRY PANEL", "ALT (SGPT)", 59, NA, "1",
@@ -190,7 +197,6 @@ dfCONSENT <- tibble::tribble(
   "0003", "MAINCONSENT", "Y", "13217"
 )
 
-
 dfSTUDCOMP <- tibble::tribble(
   ~subjid, ~compreas, ~compyn,
   "0002", "WITHDRAWAL BY SUBJECT", "N"
@@ -201,8 +207,6 @@ dfSDRGCOMP <- tibble::tribble(
   "0002", "Blinded Study Drug Completion", "out of bound:Withdrew Consent*", "N",
   "0003", "Blinded Study Drug Completion", NA, "Y"
 )
-
-
 
 dfIE <- tibble::tribble(
   ~subjid, ~iecat, ~ieorres, ~tiver,
@@ -278,7 +282,6 @@ dfIE <- tibble::tribble(
   "0003", "INCL", 1, "A1",
   "0003", "INCL", 1, "A1"
 )
-
 
 # dfADSL <- safetyData::adam_adsl %>%
 #   select(USUBJID, SITEID, TRTSDT, TRTEDT) %>%
@@ -640,6 +643,7 @@ dfInputLB <- tibble::tribble(
   "0496",     "5", "AA-AA-000-0000",       "US",        "0X167",      0,      1,
   "0496",     "5", "AA-AA-000-0000",       "US",        "0X167",      0,      1,
   "0496",     "5", "AA-AA-000-0000",       "US",        "0X167",      0,      1,
+
   "0496",     "5", "AA-AA-000-0000",       "US",        "0X167",      0,      1,
   "0496",     "5", "AA-AA-000-0000",       "US",        "0X167",      0,      1,
   "0496",     "5", "AA-AA-000-0000",       "US",        "0X167",      0,      1,

@@ -75,8 +75,9 @@ dfENROLL:
   strStudyCol: studyid
   strSiteCol: siteid
   strCountryCol: country
+  strCustomGroupCol: invid
   strIDCol: subjid
   strScreenFailCol: enrollyn
-  strScreenFailVal: N
+  strScreenFailVal: "N"
   strScreenFailReasonCol: sfreas
   strScreenFailReasonVal: Inclusion/Exclusion Criteria

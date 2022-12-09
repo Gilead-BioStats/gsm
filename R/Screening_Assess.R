@@ -185,13 +185,11 @@ Screening_Assess <- function(
       strMethod = strMethod,
       strGroup = strGroup,
       strAbbreviation = "SF",
-      strMetric = "Subject Discontinuation Rate",
-      strNumerator = "Subjects Discontinued",
-      strDenominator = "Total Subjects",
+      strMetric = "Screen Failure Rate",
+      strNumerator = "Screen Failures",
+      strDenominator = "Screened Subjects",
       vThreshold = vThreshold
     )
-
-
 
       if (strMethod != "Identity") {
 
