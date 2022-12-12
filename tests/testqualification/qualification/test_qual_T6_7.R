@@ -1,0 +1,42 @@
+test_that("Labs assessment can return a correctly assessed data frame for the normal approximation test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly", {
+  # gsm analysis
+  dfInput <- gsm::LB_Map_Raw()
+
+  test6_7 <- LB_Assess(
+    dfInput = dfInput,
+    strMethod = "NormalApprox",
+    strGroup = "Study"
+  )
+
+  # Double Programming
+  t6_7_input <- dfInput
+
+  t6_7_transformed <- dfInput %>%
+    qualification_transform_counts(
+      exposureCol = "Total",
+      GroupID = "StudyID"
+    )
+
+  t6_7_analyzed <- t6_7_transformed %>%
+    qualification_analyze_normalapprox(strType = "binary")
+
+  class(t6_7_analyzed) <- c("tbl_df", "tbl", "data.frame")
+
+  t6_7_flagged <- t6_7_analyzed %>%
+    qualification_flag_normalapprox()
+
+  t6_7_summary <- t6_7_flagged %>%
+    select(GroupID, Metric, Score, Flag) %>%
+    arrange(desc(abs(Metric))) %>%
+    arrange(match(Flag, c(1, -1, 0)))
+
+  t6_7 <- list(
+    "dfTransformed" = t6_7_transformed,
+    "dfAnalyzed" = t6_7_analyzed,
+    "dfFlagged" = t6_7_flagged,
+    "dfSummary" = t6_7_summary
+  )
+
+  # compare results
+  expect_equal(test6_7$lData[!names(test6_7$lData) == "dfBounds"], t6_7)
+})
