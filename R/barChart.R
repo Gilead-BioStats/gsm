@@ -62,6 +62,10 @@ barChart <- function(
     dplyr::mutate(across(everything(), as.character)) %>%
     dplyr::rename_with(tolower)
 
+  if (!is.null(elementId)) {
+    elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = '-')
+  }
+
   # forward options using x
   x = list(
      results = results,
