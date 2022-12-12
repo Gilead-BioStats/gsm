@@ -384,55 +384,33 @@
       
       $cou0005[[2]]
       $cou0005[[2]]$name
-      [1] "FilterDomain"
+      [1] "LB_Map_Raw"
       
       $cou0005[[2]]$inputs
-      [1] "dfLB"
+      [1] "dfSUBJ" "dfLB"  
       
       $cou0005[[2]]$output
-      [1] "dfLB"
-      
-      $cou0005[[2]]$params
-      $cou0005[[2]]$params$strDomain
-      [1] "dfLB"
-      
-      $cou0005[[2]]$params$strColParam
-      [1] "strGradeCol"
-      
-      $cou0005[[2]]$params$strValParam
-      [1] "strGradeHighVal"
-      
+      [1] "dfInput"
       
       
       $cou0005[[3]]
       $cou0005[[3]]$name
-      [1] "LB_Map_Raw"
-      
-      $cou0005[[3]]$inputs
-      [1] "dfSUBJ" "dfLB"  
-      
-      $cou0005[[3]]$output
-      [1] "dfInput"
-      
-      
-      $cou0005[[4]]
-      $cou0005[[4]]$name
       [1] "LB_Assess"
       
-      $cou0005[[4]]$inputs
+      $cou0005[[3]]$inputs
       [1] "dfInput"
       
-      $cou0005[[4]]$output
+      $cou0005[[3]]$output
       [1] "lResults"
       
-      $cou0005[[4]]$params
-      $cou0005[[4]]$params$strGroup
+      $cou0005[[3]]$params
+      $cou0005[[3]]$params$strGroup
       [1] "Country"
       
-      $cou0005[[4]]$params$vThreshold
+      $cou0005[[3]]$params$vThreshold
       NULL
       
-      $cou0005[[4]]$params$strMethod
+      $cou0005[[3]]$params$strMethod
       [1] "NormalApprox"
       
       
