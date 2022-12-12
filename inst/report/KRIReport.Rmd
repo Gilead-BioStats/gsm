@@ -38,7 +38,7 @@ overview_table <- Overview_Table(study)
 summary_table <- map(study, function(kri) {
   dfFlagged <- kri$lResults$lData$dfFlagged 
   
-  if(nrow(dfFlagged) > 0) {
+  if(nrow(dfFlagged) > 0 & !all(dfFlagged$Flag == 0)) {
     kri$lResults$lData$dfFlagged %>% 
       filter(Flag != 0) %>% 
       arrange(desc(abs(Flag))) %>% 
@@ -51,12 +51,14 @@ summary_table <- map(study, function(kri) {
       ) %>% 
       DT::datatable()
   } else {
-    return(NULL)
+    htmltools::p("Nothing flagged for this KRI.")
   }
 })
 ```
 
 ## Study Overview
+
+Overview for Study: **`r purrr::map_chr(study, ~.x$lData$dfInput$StudyID %>% unique()) %>% unique()`**
 
 <div class="gsm-overview-table">
 ```{r echo=FALSE, warning=FALSE}

@@ -10,6 +10,7 @@ kri0008,1.3.2,Site,QR,Query Rate,Total Queries,Total Data Points,Rate,Normal App
 kri0009,1.3.2,Site,QA,Query Age,Queries Open > 30 Days,Total Queries,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.subj, edc.queries",
 kri0010,1.3.2,Site,DEL,Data Entry Lag,Data Pages Entered > 10 Days,Total Data Pages,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.subj, edc.data.entry.lag",
 kri0011,1.3.2,Site,DCR,Data Change Rate,Data Points with 1+ Change,Total Data Points,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.subj, edc.data.change.rate",
+kri0012,1.3.2,Site,SCR,Screen Failure,Number of Screen Failures,Total Screened,Percent,Normal Approximation (Percent),Adjusted Z-Score ,rawplus.enroll,
 cou0001,1.3.2,Country,AE,Non-serious AE Reporting Rate,Treatment Emergent AEs,Days on Treatment,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.subj","Non-Serious, TreatmentEmergent"
 cou0002,1.3.2,Country,SAE,SAE Reporting Rate,Treatment Emergent SAEs,Days on Treatment,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.subj","Serious, TreatmentEmergent"
 cou0003,1.3.2,Country,PD,Non-important Protocol Deviation Rate,Non-Important PDs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.pd, rawplus.subj",Non-Important
@@ -21,5 +22,6 @@ cou0008,1.3.2,Country,QR,Query Rate,Total Queries,Total Data Points,Rate,Normal 
 cou0009,1.3.2,Country,QA,Query Age,Queries Open > 30 Days,Total Queries,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.subj, edc.queries",
 cou0010,1.3.2,Country,DEL,Data Entry Lag,Data Pages Entered > 10 Days,Total Data Pages,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.subj, edc.data.entry.lag",
 cou0011,1.3.2,Country,DCR,Data Change Rate,Data Points with 1+ Change,Total Data Points,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.subj, edc.data.change.rate",
+cou0012,1.3.2,Country,SCR,Screen Failure,Number of Screen Failures,Total Screened,Percent,Normal Approximation (Percent),Adjusted Z-Score ,rawplus.enroll,
 qtl0004,1.3.2,Study,IPD,Important Protocol Deviation Rate,Important PDs,Days in Study,Rate,Poisson Test,Poisson Confidence Interval - Lower Bound,"rawplus.pd, rawplus.subj",Important
 qtl0006,1.3.2,Study,SUB,Subject Discontinuation,Subjects Discontinued,Total Subjects,Percent,Binomial Test,Binomial Confidence Interval - Lower Bound,rawplus.subj,
