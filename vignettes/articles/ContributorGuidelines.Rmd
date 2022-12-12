@@ -146,7 +146,7 @@ Instead of copying/pasting the code above, a wrapper function in `{gutil}` can b
 
 This QC checklist is to be used as part of the Development and Release Workflows described above. When applied to an Assessment/Feature, confirm that each function meets the requirements described. When applied to utility or other functionality, use relevant sections of the checklist and modify QC checks as needed. A risk-based approach will be used to determine whether each release requires a high-level or detailed release QC.
 
-### Increment Level QC Checklist
+### High-Level QC Checklist
 
 -   [ ] Documentation
     -   [ ] New functionality contains an `@export` tag.
