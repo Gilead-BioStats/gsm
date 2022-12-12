@@ -171,7 +171,7 @@ This QC checklist is to be used as part of the Development and Release Workflows
     -   [ ] All new dependencies add significant value. If unclear, reviewer should start a discussion thread.
     -   [ ] All GitHub Actions run with no errors.
     
-### Production Level QC Checklist
+### Detailed QC Checklist
 
 -   [ ] Documentation
     -   [ ] Function name captured in [roxygen2 title](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) (e.g., "Adverse Event Assessment")
