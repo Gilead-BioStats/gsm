@@ -10,11 +10,6 @@ output:
     css: styles.css
 params:
     assessment: NA
-    study: NA
----
-
----
-title: "`r params$study` Assessment Overview"
 ---
 
 ```{r, echo=FALSE}
@@ -26,7 +21,7 @@ htmltools::img(
   height = "50px"
 )
 ```
----
+
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
@@ -59,7 +54,16 @@ summary_table <- map(assessment, function(kri) {
     return(NULL)
   }
 })
+
+## StudyID
+study_id <- purrr::map_chr(study, ~.x$lData$dfInput$StudyID %>% unique()) %>% unique()
 ```
+
+---
+title: "`r study_id` Assessment Overview"
+---
+
+
 
 ## Study Overview
 

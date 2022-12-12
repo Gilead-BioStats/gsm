@@ -23,8 +23,7 @@
 Study_Report <- function(
     lAssessments,
     strOutpath = NULL,
-    strReportType = "kri",
-    study = 'Study'
+    strReportType = "kri"
 ) {
   report_type <- switch(
     strReportType,
@@ -41,8 +40,7 @@ Study_Report <- function(
     projectTemplate,
     output_file = strOutpath,
     params = list(
-      assessment = lAssessments,
-      study = study
+      assessment = lAssessments
     ),
     envir = new.env(parent = globalenv())
   )
