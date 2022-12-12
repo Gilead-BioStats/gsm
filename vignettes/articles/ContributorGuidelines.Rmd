@@ -144,7 +144,34 @@ Instead of copying/pasting the code above, a wrapper function in `{gutil}` can b
 
 # Appendix 2 - QC Checklist {#appendix-2---qc-checklist}
 
-This QC checklist is to be used as part of the Development and Release Workflows described above. When applied to an Assessment/Feature, confirm that each function meets the requirements described. When applied to utility or other functionality, use relevant sections of the checklist and modify QC checks as needed.
+This QC checklist is to be used as part of the Development and Release Workflows described above. When applied to an Assessment/Feature, confirm that each function meets the requirements described. When applied to utility or other functionality, use relevant sections of the checklist and modify QC checks as needed. A risk-based approach will be used to determine whether each release requires a high-level or detailed release QC.
+
+### High-Level QC Checklist
+
+-   [ ] Documentation
+    -   [ ] New functionality contains an `@export` tag.
+    -   [ ] New functionality contains an adequate level of documentation.
+-   [ ] Error Checking
+    -   [ ] New functionality has associated unit test(s).
+    -   [ ] Tests confirm that the input data has required columns (if any).
+    -   [ ] Tests confirm that the output data has expected columns/structure.
+    -   [ ] Tests confirm intended functionality for each parameter.
+-   [ ] Data Model
+    -   [ ] Running `Make_Snapshot()` using defaults returns no errors.
+    -   [ ] Running `CheckSnapshotInputs()` using the output of `Make_Snapshot()` returns no errors.
+    -   [ ] Running `Study_Assess()` using defaults returns no errors.
+    -   [ ] Running `Study_Report()` using the output of `Study_Assess()` from above produces a HTML report that accurately displays results.
+-   [ ] Basic QC
+    -   [ ] Assessment has User Requirements + Qualification tests captured using qualification framework. A QC report is generated as expected and all checks pass successfully.
+    -   [ ] Code is well commented and easy to read/understand.
+    -   [ ] No file paths or other company-specific data are present.
+    -   [ ] `devtools::check()` passes with no errors/warnings/notes.
+    -   [ ] Package documents are up to date, and running `devtools::document()` does not change any files.
+    -   [ ] Codes use `{tidyverse}` best practices for standard data manipulation. If unclear, reviewer should start a discussion thread.
+    -   [ ] All new dependencies add significant value. If unclear, reviewer should start a discussion thread.
+    -   [ ] All GitHub Actions run with no errors.
+    
+### Detailed QC Checklist
 
 -   [ ] Documentation
     -   [ ] Function name captured in [roxygen2 title](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html#the-description-block) (e.g., "Adverse Event Assessment")
