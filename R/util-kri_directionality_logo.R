@@ -7,6 +7,10 @@
 #'
 #' @export
 kri_directionality_logo <- function(flag_value) {
+  if (is.na(flag_value)) {
+    return(fontawesome::fa('minus', fill = '#aaa'))
+  }
+
   if (flag_value == -2) {
     a <- fontawesome::fa("angles-down", fill = "#FF5859") # red
   }
@@ -26,5 +30,6 @@ kri_directionality_logo <- function(flag_value) {
   if (flag_value == 2) {
     a <- fontawesome::fa("angles-up", fill = "#FF5859")
   }
+
   return(a)
 }
