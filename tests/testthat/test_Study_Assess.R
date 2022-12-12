@@ -50,7 +50,8 @@ lData <- list(
   dfLB = dfLB,
   dfDATACHG = dfDATACHG,
   dfDATAENT = dfDATAENT,
-  dfQUERY = dfQUERY
+  dfQUERY = dfQUERY,
+  dfENROLL = dfENROLL
 )
 
 lAssessments <- MakeWorkflowList()

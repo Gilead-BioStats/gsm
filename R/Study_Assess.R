@@ -47,7 +47,8 @@ Study_Assess <- function(
       dfDATACHG = clindata::edc_data_change_rate,
       dfDATAENT = clindata::edc_data_entry_lag,
       dfQUERY = clindata::edc_queries,
-      dfDATACHG = clindata::edc_data_change_rate
+      dfDATACHG = clindata::edc_data_change_rate,
+      dfENROLL = clindata::rawplus_enroll
     )
   }
 
