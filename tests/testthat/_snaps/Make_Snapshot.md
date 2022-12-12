@@ -570,6 +570,30 @@
       Skipping `DataChg_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
+      -- Initializing `cou0012` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `Screening_Map_Raw` --
+      
+      Preparing parameters for `Screening_Map_Raw()` ...
+      Calling `Screening_Map_Raw()` ...
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+      ! `Screening_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `Screening_Assess` --
+      
+      Skipping `Screening_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
       -- Initializing `kri0001` assessment -------------------------------------------
       
       -- Workflow Step 1 of 4: `FilterDomain` --
@@ -1098,6 +1122,30 @@
       -- Workflow Step 2 of 2: `DataChg_Assess` --
       
       Skipping `DataChg_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0012` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `Screening_Map_Raw` --
+      
+      Preparing parameters for `Screening_Map_Raw()` ...
+      Calling `Screening_Map_Raw()` ...
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+      ! `Screening_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `Screening_Assess` --
+      
+      Skipping `Screening_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `qtl0004` assessment -------------------------------------------
