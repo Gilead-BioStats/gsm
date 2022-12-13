@@ -173,8 +173,8 @@ QueryAge_Assess <- function(
     dfConfig <- MakeDfConfig(
       strMethod = strMethod,
       strGroup = strGroup,
-      strAbbreviation = "QUERYAGE",
-      strMetric = "Query Age",
+      strAbbreviation = "OQRY",
+      strMetric = "Outstanding Query Rate",
       strNumerator = "Queries Open > 30 Days",
       strDenominator = "Total Queries",
       vThreshold = vThreshold

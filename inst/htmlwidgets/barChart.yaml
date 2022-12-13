@@ -1,6 +1,6 @@
 dependencies:
   - name: rbmviz
-    version: 0.4.1
+    version: 0.13.1
     src: 'rbm-viz-0.13.2'
     script: 'rbm-viz.js'
   - name: number_to_array

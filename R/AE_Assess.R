@@ -197,8 +197,8 @@ AE_Assess <- function(
       strMethod = strMethod,
       strGroup = strGroup,
       strAbbreviation = "AE",
-      strMetric = "AE Reporting Rate",
-      strNumerator = "AEs",
+      strMetric = "Adverse Event Rate",
+      strNumerator = "Adverse Events",
       strDenominator = "Days on Treatment",
       vThreshold = vThreshold
     )
