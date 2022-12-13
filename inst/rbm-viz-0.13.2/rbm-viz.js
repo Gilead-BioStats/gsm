@@ -2248,18 +2248,18 @@ var rbmViz = (() => {
     return _pointInLine(d, e, t);
   }
   var intlCache = /* @__PURE__ */ new Map();
-  function getNumberFormat(locale2, options) {
+  function getNumberFormat(locale3, options) {
     options = options || {};
-    const cacheKey = locale2 + JSON.stringify(options);
+    const cacheKey = locale3 + JSON.stringify(options);
     let formatter2 = intlCache.get(cacheKey);
     if (!formatter2) {
-      formatter2 = new Intl.NumberFormat(locale2, options);
+      formatter2 = new Intl.NumberFormat(locale3, options);
       intlCache.set(cacheKey, formatter2);
     }
     return formatter2;
   }
-  function formatNumber(num, locale2, options) {
-    return getNumberFormat(locale2, options).format(num);
+  function formatNumber(num, locale3, options) {
+    return getNumberFormat(locale3, options).format(num);
   }
   var getRightToLeftAdapter = function(rectX, width) {
     return {
@@ -4958,7 +4958,7 @@ var rbmViz = (() => {
       if (tickValue === 0) {
         return "0";
       }
-      const locale2 = this.chart.options.locale;
+      const locale3 = this.chart.options.locale;
       let notation;
       let delta = tickValue;
       if (ticks.length > 1) {
@@ -4972,7 +4972,7 @@ var rbmViz = (() => {
       const numDecimal = Math.max(Math.min(-1 * Math.floor(logDelta), 20), 0);
       const options = { notation, minimumFractionDigits: numDecimal, maximumFractionDigits: numDecimal };
       Object.assign(options, this.options.ticks.format);
-      return formatNumber(tickValue, locale2, options);
+      return formatNumber(tickValue, locale3, options);
     },
     logarithmic(tickValue, index3, ticks) {
       if (tickValue === 0) {
@@ -6679,7 +6679,7 @@ var rbmViz = (() => {
     diff(a, b, unit) {
       return abstract();
     }
-    startOf(timestamp, unit, weekday) {
+    startOf(timestamp, unit, weekday2) {
       return abstract();
     }
     endOf(timestamp, unit) {
@@ -12949,13 +12949,13 @@ var rbmViz = (() => {
       const timeOpts = options.time;
       const minor = timeOpts.unit || determineUnitForAutoTicks(timeOpts.minUnit, min3, max3, this._getLabelCapacity(min3));
       const stepSize = valueOrDefault(timeOpts.stepSize, 1);
-      const weekday = minor === "week" ? timeOpts.isoWeekday : false;
-      const hasWeekday = isNumber(weekday) || weekday === true;
+      const weekday2 = minor === "week" ? timeOpts.isoWeekday : false;
+      const hasWeekday = isNumber(weekday2) || weekday2 === true;
       const ticks = {};
       let first = min3;
       let time, count;
       if (hasWeekday) {
-        first = +adapter.startOf(first, "isoWeek", weekday);
+        first = +adapter.startOf(first, "isoWeek", weekday2);
       }
       first = +adapter.startOf(first, hasWeekday ? "day" : minor);
       if (adapter.diff(max3, min3, minor) > 1e5 * stepSize) {
@@ -17155,6 +17155,11 @@ var rbmViz = (() => {
     return a == null || b == null ? NaN : a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
   }
 
+  // node_modules/d3-array/src/descending.js
+  function descending(a, b) {
+    return a == null || b == null ? NaN : b < a ? -1 : b > a ? 1 : b >= a ? 0 : NaN;
+  }
+
   // node_modules/internmap/src/index.js
   var InternMap = class extends Map {
     constructor(entries, key = keyof) {
@@ -18573,9 +18578,9 @@ var rbmViz = (() => {
   }
 
   // node_modules/d3-interpolate/src/basis.js
-  function basis(t1, v0, v1, v2, v3) {
-    var t2 = t1 * t1, t3 = t2 * t1;
-    return ((1 - 3 * t1 + 3 * t2 - t3) * v0 + (4 - 6 * t2 + 3 * t3) * v1 + (1 + 3 * t1 + 3 * t2 - 3 * t3) * v2 + t3 * v3) / 6;
+  function basis(t12, v0, v1, v2, v3) {
+    var t2 = t12 * t12, t3 = t2 * t12;
+    return ((1 - 3 * t12 + 3 * t2 - t3) * v0 + (4 - 6 * t2 + 3 * t3) * v1 + (1 + 3 * t12 + 3 * t2 - 3 * t3) * v2 + t3 * v3) / 6;
   }
   function basis_default(values) {
     var n = values.length - 1;
@@ -18901,18 +18906,18 @@ var rbmViz = (() => {
       clockSkew -= delay, clockLast = now2;
   }
   function nap() {
-    var t0, t1 = taskHead, t2, time = Infinity;
-    while (t1) {
-      if (t1._call) {
-        if (time > t1._time)
-          time = t1._time;
-        t0 = t1, t1 = t1._next;
+    var t02, t12 = taskHead, t2, time = Infinity;
+    while (t12) {
+      if (t12._call) {
+        if (time > t12._time)
+          time = t12._time;
+        t02 = t12, t12 = t12._next;
       } else {
-        t2 = t1._next, t1._next = null;
-        t1 = t0 ? t0._next = t2 : taskHead = t2;
+        t2 = t12._next, t12._next = null;
+        t12 = t02 ? t02._next = t2 : taskHead = t2;
       }
     }
-    taskTail = t0;
+    taskTail = t02;
     sleep(time);
   }
   function sleep(time) {
@@ -19225,23 +19230,23 @@ var rbmViz = (() => {
     };
   }
   function attrTweenNS(fullname, value) {
-    var t0, i0;
+    var t02, i0;
     function tween() {
       var i = value.apply(this, arguments);
       if (i !== i0)
-        t0 = (i0 = i) && attrInterpolateNS(fullname, i);
-      return t0;
+        t02 = (i0 = i) && attrInterpolateNS(fullname, i);
+      return t02;
     }
     tween._value = value;
     return tween;
   }
   function attrTween(name, value) {
-    var t0, i0;
+    var t02, i0;
     function tween() {
       var i = value.apply(this, arguments);
       if (i !== i0)
-        t0 = (i0 = i) && attrInterpolate(name, i);
-      return t0;
+        t02 = (i0 = i) && attrInterpolate(name, i);
+      return t02;
     }
     tween._value = value;
     return tween;
@@ -19526,12 +19531,12 @@ var rbmViz = (() => {
     };
   }
   function textTween(value) {
-    var t0, i0;
+    var t02, i0;
     function tween() {
       var i = value.apply(this, arguments);
       if (i !== i0)
-        t0 = (i0 = i) && textInterpolate(i);
-      return t0;
+        t02 = (i0 = i) && textInterpolate(i);
+      return t02;
     }
     tween._value = value;
     return tween;
@@ -19869,8 +19874,8 @@ var rbmViz = (() => {
   // node_modules/d3-format/src/locale.js
   var map3 = Array.prototype.map;
   var prefixes = ["y", "z", "a", "f", "p", "n", "\xB5", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"];
-  function locale_default(locale2) {
-    var group2 = locale2.grouping === void 0 || locale2.thousands === void 0 ? identity_default : formatGroup_default(map3.call(locale2.grouping, Number), locale2.thousands + ""), currencyPrefix = locale2.currency === void 0 ? "" : locale2.currency[0] + "", currencySuffix = locale2.currency === void 0 ? "" : locale2.currency[1] + "", decimal = locale2.decimal === void 0 ? "." : locale2.decimal + "", numerals = locale2.numerals === void 0 ? identity_default : formatNumerals_default(map3.call(locale2.numerals, String)), percent = locale2.percent === void 0 ? "%" : locale2.percent + "", minus = locale2.minus === void 0 ? "\u2212" : locale2.minus + "", nan = locale2.nan === void 0 ? "NaN" : locale2.nan + "";
+  function locale_default(locale3) {
+    var group2 = locale3.grouping === void 0 || locale3.thousands === void 0 ? identity_default : formatGroup_default(map3.call(locale3.grouping, Number), locale3.thousands + ""), currencyPrefix = locale3.currency === void 0 ? "" : locale3.currency[0] + "", currencySuffix = locale3.currency === void 0 ? "" : locale3.currency[1] + "", decimal = locale3.decimal === void 0 ? "." : locale3.decimal + "", numerals = locale3.numerals === void 0 ? identity_default : formatNumerals_default(map3.call(locale3.numerals, String)), percent = locale3.percent === void 0 ? "%" : locale3.percent + "", minus = locale3.minus === void 0 ? "\u2212" : locale3.minus + "", nan = locale3.nan === void 0 ? "NaN" : locale3.nan + "";
     function newFormat(specifier) {
       specifier = formatSpecifier(specifier);
       var fill2 = specifier.fill, align = specifier.align, sign2 = specifier.sign, symbol = specifier.symbol, zero2 = specifier.zero, width = specifier.width, comma = specifier.comma, precision = specifier.precision, trim = specifier.trim, type2 = specifier.type;
@@ -19961,6 +19966,786 @@ var rbmViz = (() => {
     format = locale.format;
     formatPrefix = locale.formatPrefix;
     return locale;
+  }
+
+  // node_modules/d3-time/src/interval.js
+  var t0 = new Date();
+  var t1 = new Date();
+  function newInterval(floori, offseti, count, field) {
+    function interval2(date) {
+      return floori(date = arguments.length === 0 ? new Date() : new Date(+date)), date;
+    }
+    interval2.floor = function(date) {
+      return floori(date = new Date(+date)), date;
+    };
+    interval2.ceil = function(date) {
+      return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
+    };
+    interval2.round = function(date) {
+      var d0 = interval2(date), d1 = interval2.ceil(date);
+      return date - d0 < d1 - date ? d0 : d1;
+    };
+    interval2.offset = function(date, step) {
+      return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
+    };
+    interval2.range = function(start2, stop, step) {
+      var range = [], previous;
+      start2 = interval2.ceil(start2);
+      step = step == null ? 1 : Math.floor(step);
+      if (!(start2 < stop) || !(step > 0))
+        return range;
+      do
+        range.push(previous = new Date(+start2)), offseti(start2, step), floori(start2);
+      while (previous < start2 && start2 < stop);
+      return range;
+    };
+    interval2.filter = function(test) {
+      return newInterval(function(date) {
+        if (date >= date)
+          while (floori(date), !test(date))
+            date.setTime(date - 1);
+      }, function(date, step) {
+        if (date >= date) {
+          if (step < 0)
+            while (++step <= 0) {
+              while (offseti(date, -1), !test(date)) {
+              }
+            }
+          else
+            while (--step >= 0) {
+              while (offseti(date, 1), !test(date)) {
+              }
+            }
+        }
+      });
+    };
+    if (count) {
+      interval2.count = function(start2, end) {
+        t0.setTime(+start2), t1.setTime(+end);
+        floori(t0), floori(t1);
+        return Math.floor(count(t0, t1));
+      };
+      interval2.every = function(step) {
+        step = Math.floor(step);
+        return !isFinite(step) || !(step > 0) ? null : !(step > 1) ? interval2 : interval2.filter(field ? function(d) {
+          return field(d) % step === 0;
+        } : function(d) {
+          return interval2.count(0, d) % step === 0;
+        });
+      };
+    }
+    return interval2;
+  }
+
+  // node_modules/d3-time/src/duration.js
+  var durationSecond = 1e3;
+  var durationMinute = durationSecond * 60;
+  var durationHour = durationMinute * 60;
+  var durationDay = durationHour * 24;
+  var durationWeek = durationDay * 7;
+  var durationMonth = durationDay * 30;
+  var durationYear = durationDay * 365;
+
+  // node_modules/d3-time/src/day.js
+  var day = newInterval(
+    (date) => date.setHours(0, 0, 0, 0),
+    (date, step) => date.setDate(date.getDate() + step),
+    (start2, end) => (end - start2 - (end.getTimezoneOffset() - start2.getTimezoneOffset()) * durationMinute) / durationDay,
+    (date) => date.getDate() - 1
+  );
+  var day_default = day;
+  var days = day.range;
+
+  // node_modules/d3-time/src/week.js
+  function weekday(i) {
+    return newInterval(function(date) {
+      date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
+      date.setHours(0, 0, 0, 0);
+    }, function(date, step) {
+      date.setDate(date.getDate() + step * 7);
+    }, function(start2, end) {
+      return (end - start2 - (end.getTimezoneOffset() - start2.getTimezoneOffset()) * durationMinute) / durationWeek;
+    });
+  }
+  var sunday = weekday(0);
+  var monday = weekday(1);
+  var tuesday = weekday(2);
+  var wednesday = weekday(3);
+  var thursday = weekday(4);
+  var friday = weekday(5);
+  var saturday = weekday(6);
+  var sundays = sunday.range;
+  var mondays = monday.range;
+  var tuesdays = tuesday.range;
+  var wednesdays = wednesday.range;
+  var thursdays = thursday.range;
+  var fridays = friday.range;
+  var saturdays = saturday.range;
+
+  // node_modules/d3-time/src/year.js
+  var year = newInterval(function(date) {
+    date.setMonth(0, 1);
+    date.setHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setFullYear(date.getFullYear() + step);
+  }, function(start2, end) {
+    return end.getFullYear() - start2.getFullYear();
+  }, function(date) {
+    return date.getFullYear();
+  });
+  year.every = function(k) {
+    return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
+      date.setFullYear(Math.floor(date.getFullYear() / k) * k);
+      date.setMonth(0, 1);
+      date.setHours(0, 0, 0, 0);
+    }, function(date, step) {
+      date.setFullYear(date.getFullYear() + step * k);
+    });
+  };
+  var year_default = year;
+  var years = year.range;
+
+  // node_modules/d3-time/src/utcDay.js
+  var utcDay = newInterval(function(date) {
+    date.setUTCHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setUTCDate(date.getUTCDate() + step);
+  }, function(start2, end) {
+    return (end - start2) / durationDay;
+  }, function(date) {
+    return date.getUTCDate() - 1;
+  });
+  var utcDay_default = utcDay;
+  var utcDays = utcDay.range;
+
+  // node_modules/d3-time/src/utcWeek.js
+  function utcWeekday(i) {
+    return newInterval(function(date) {
+      date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
+      date.setUTCHours(0, 0, 0, 0);
+    }, function(date, step) {
+      date.setUTCDate(date.getUTCDate() + step * 7);
+    }, function(start2, end) {
+      return (end - start2) / durationWeek;
+    });
+  }
+  var utcSunday = utcWeekday(0);
+  var utcMonday = utcWeekday(1);
+  var utcTuesday = utcWeekday(2);
+  var utcWednesday = utcWeekday(3);
+  var utcThursday = utcWeekday(4);
+  var utcFriday = utcWeekday(5);
+  var utcSaturday = utcWeekday(6);
+  var utcSundays = utcSunday.range;
+  var utcMondays = utcMonday.range;
+  var utcTuesdays = utcTuesday.range;
+  var utcWednesdays = utcWednesday.range;
+  var utcThursdays = utcThursday.range;
+  var utcFridays = utcFriday.range;
+  var utcSaturdays = utcSaturday.range;
+
+  // node_modules/d3-time/src/utcYear.js
+  var utcYear = newInterval(function(date) {
+    date.setUTCMonth(0, 1);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setUTCFullYear(date.getUTCFullYear() + step);
+  }, function(start2, end) {
+    return end.getUTCFullYear() - start2.getUTCFullYear();
+  }, function(date) {
+    return date.getUTCFullYear();
+  });
+  utcYear.every = function(k) {
+    return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
+      date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
+      date.setUTCMonth(0, 1);
+      date.setUTCHours(0, 0, 0, 0);
+    }, function(date, step) {
+      date.setUTCFullYear(date.getUTCFullYear() + step * k);
+    });
+  };
+  var utcYear_default = utcYear;
+  var utcYears = utcYear.range;
+
+  // node_modules/d3-time-format/src/locale.js
+  function localDate(d) {
+    if (0 <= d.y && d.y < 100) {
+      var date = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
+      date.setFullYear(d.y);
+      return date;
+    }
+    return new Date(d.y, d.m, d.d, d.H, d.M, d.S, d.L);
+  }
+  function utcDate(d) {
+    if (0 <= d.y && d.y < 100) {
+      var date = new Date(Date.UTC(-1, d.m, d.d, d.H, d.M, d.S, d.L));
+      date.setUTCFullYear(d.y);
+      return date;
+    }
+    return new Date(Date.UTC(d.y, d.m, d.d, d.H, d.M, d.S, d.L));
+  }
+  function newDate(y, m, d) {
+    return { y, m, d, H: 0, M: 0, S: 0, L: 0 };
+  }
+  function formatLocale(locale3) {
+    var locale_dateTime = locale3.dateTime, locale_date = locale3.date, locale_time = locale3.time, locale_periods = locale3.periods, locale_weekdays = locale3.days, locale_shortWeekdays = locale3.shortDays, locale_months = locale3.months, locale_shortMonths = locale3.shortMonths;
+    var periodRe = formatRe(locale_periods), periodLookup = formatLookup(locale_periods), weekdayRe = formatRe(locale_weekdays), weekdayLookup = formatLookup(locale_weekdays), shortWeekdayRe = formatRe(locale_shortWeekdays), shortWeekdayLookup = formatLookup(locale_shortWeekdays), monthRe = formatRe(locale_months), monthLookup = formatLookup(locale_months), shortMonthRe = formatRe(locale_shortMonths), shortMonthLookup = formatLookup(locale_shortMonths);
+    var formats = {
+      "a": formatShortWeekday,
+      "A": formatWeekday,
+      "b": formatShortMonth,
+      "B": formatMonth,
+      "c": null,
+      "d": formatDayOfMonth,
+      "e": formatDayOfMonth,
+      "f": formatMicroseconds,
+      "g": formatYearISO,
+      "G": formatFullYearISO,
+      "H": formatHour24,
+      "I": formatHour12,
+      "j": formatDayOfYear,
+      "L": formatMilliseconds,
+      "m": formatMonthNumber,
+      "M": formatMinutes,
+      "p": formatPeriod,
+      "q": formatQuarter,
+      "Q": formatUnixTimestamp,
+      "s": formatUnixTimestampSeconds,
+      "S": formatSeconds,
+      "u": formatWeekdayNumberMonday,
+      "U": formatWeekNumberSunday,
+      "V": formatWeekNumberISO,
+      "w": formatWeekdayNumberSunday,
+      "W": formatWeekNumberMonday,
+      "x": null,
+      "X": null,
+      "y": formatYear,
+      "Y": formatFullYear,
+      "Z": formatZone,
+      "%": formatLiteralPercent
+    };
+    var utcFormats = {
+      "a": formatUTCShortWeekday,
+      "A": formatUTCWeekday,
+      "b": formatUTCShortMonth,
+      "B": formatUTCMonth,
+      "c": null,
+      "d": formatUTCDayOfMonth,
+      "e": formatUTCDayOfMonth,
+      "f": formatUTCMicroseconds,
+      "g": formatUTCYearISO,
+      "G": formatUTCFullYearISO,
+      "H": formatUTCHour24,
+      "I": formatUTCHour12,
+      "j": formatUTCDayOfYear,
+      "L": formatUTCMilliseconds,
+      "m": formatUTCMonthNumber,
+      "M": formatUTCMinutes,
+      "p": formatUTCPeriod,
+      "q": formatUTCQuarter,
+      "Q": formatUnixTimestamp,
+      "s": formatUnixTimestampSeconds,
+      "S": formatUTCSeconds,
+      "u": formatUTCWeekdayNumberMonday,
+      "U": formatUTCWeekNumberSunday,
+      "V": formatUTCWeekNumberISO,
+      "w": formatUTCWeekdayNumberSunday,
+      "W": formatUTCWeekNumberMonday,
+      "x": null,
+      "X": null,
+      "y": formatUTCYear,
+      "Y": formatUTCFullYear,
+      "Z": formatUTCZone,
+      "%": formatLiteralPercent
+    };
+    var parses = {
+      "a": parseShortWeekday,
+      "A": parseWeekday,
+      "b": parseShortMonth,
+      "B": parseMonth,
+      "c": parseLocaleDateTime,
+      "d": parseDayOfMonth,
+      "e": parseDayOfMonth,
+      "f": parseMicroseconds,
+      "g": parseYear,
+      "G": parseFullYear,
+      "H": parseHour24,
+      "I": parseHour24,
+      "j": parseDayOfYear,
+      "L": parseMilliseconds,
+      "m": parseMonthNumber,
+      "M": parseMinutes,
+      "p": parsePeriod,
+      "q": parseQuarter,
+      "Q": parseUnixTimestamp,
+      "s": parseUnixTimestampSeconds,
+      "S": parseSeconds,
+      "u": parseWeekdayNumberMonday,
+      "U": parseWeekNumberSunday,
+      "V": parseWeekNumberISO,
+      "w": parseWeekdayNumberSunday,
+      "W": parseWeekNumberMonday,
+      "x": parseLocaleDate,
+      "X": parseLocaleTime,
+      "y": parseYear,
+      "Y": parseFullYear,
+      "Z": parseZone,
+      "%": parseLiteralPercent
+    };
+    formats.x = newFormat(locale_date, formats);
+    formats.X = newFormat(locale_time, formats);
+    formats.c = newFormat(locale_dateTime, formats);
+    utcFormats.x = newFormat(locale_date, utcFormats);
+    utcFormats.X = newFormat(locale_time, utcFormats);
+    utcFormats.c = newFormat(locale_dateTime, utcFormats);
+    function newFormat(specifier, formats2) {
+      return function(date) {
+        var string = [], i = -1, j = 0, n = specifier.length, c, pad2, format2;
+        if (!(date instanceof Date))
+          date = new Date(+date);
+        while (++i < n) {
+          if (specifier.charCodeAt(i) === 37) {
+            string.push(specifier.slice(j, i));
+            if ((pad2 = pads[c = specifier.charAt(++i)]) != null)
+              c = specifier.charAt(++i);
+            else
+              pad2 = c === "e" ? " " : "0";
+            if (format2 = formats2[c])
+              c = format2(date, pad2);
+            string.push(c);
+            j = i + 1;
+          }
+        }
+        string.push(specifier.slice(j, i));
+        return string.join("");
+      };
+    }
+    function newParse(specifier, Z) {
+      return function(string) {
+        var d = newDate(1900, void 0, 1), i = parseSpecifier(d, specifier, string += "", 0), week, day2;
+        if (i != string.length)
+          return null;
+        if ("Q" in d)
+          return new Date(d.Q);
+        if ("s" in d)
+          return new Date(d.s * 1e3 + ("L" in d ? d.L : 0));
+        if (Z && !("Z" in d))
+          d.Z = 0;
+        if ("p" in d)
+          d.H = d.H % 12 + d.p * 12;
+        if (d.m === void 0)
+          d.m = "q" in d ? d.q : 0;
+        if ("V" in d) {
+          if (d.V < 1 || d.V > 53)
+            return null;
+          if (!("w" in d))
+            d.w = 1;
+          if ("Z" in d) {
+            week = utcDate(newDate(d.y, 0, 1)), day2 = week.getUTCDay();
+            week = day2 > 4 || day2 === 0 ? utcMonday.ceil(week) : utcMonday(week);
+            week = utcDay_default.offset(week, (d.V - 1) * 7);
+            d.y = week.getUTCFullYear();
+            d.m = week.getUTCMonth();
+            d.d = week.getUTCDate() + (d.w + 6) % 7;
+          } else {
+            week = localDate(newDate(d.y, 0, 1)), day2 = week.getDay();
+            week = day2 > 4 || day2 === 0 ? monday.ceil(week) : monday(week);
+            week = day_default.offset(week, (d.V - 1) * 7);
+            d.y = week.getFullYear();
+            d.m = week.getMonth();
+            d.d = week.getDate() + (d.w + 6) % 7;
+          }
+        } else if ("W" in d || "U" in d) {
+          if (!("w" in d))
+            d.w = "u" in d ? d.u % 7 : "W" in d ? 1 : 0;
+          day2 = "Z" in d ? utcDate(newDate(d.y, 0, 1)).getUTCDay() : localDate(newDate(d.y, 0, 1)).getDay();
+          d.m = 0;
+          d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day2 + 5) % 7 : d.w + d.U * 7 - (day2 + 6) % 7;
+        }
+        if ("Z" in d) {
+          d.H += d.Z / 100 | 0;
+          d.M += d.Z % 100;
+          return utcDate(d);
+        }
+        return localDate(d);
+      };
+    }
+    function parseSpecifier(d, specifier, string, j) {
+      var i = 0, n = specifier.length, m = string.length, c, parse2;
+      while (i < n) {
+        if (j >= m)
+          return -1;
+        c = specifier.charCodeAt(i++);
+        if (c === 37) {
+          c = specifier.charAt(i++);
+          parse2 = parses[c in pads ? specifier.charAt(i++) : c];
+          if (!parse2 || (j = parse2(d, string, j)) < 0)
+            return -1;
+        } else if (c != string.charCodeAt(j++)) {
+          return -1;
+        }
+      }
+      return j;
+    }
+    function parsePeriod(d, string, i) {
+      var n = periodRe.exec(string.slice(i));
+      return n ? (d.p = periodLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    }
+    function parseShortWeekday(d, string, i) {
+      var n = shortWeekdayRe.exec(string.slice(i));
+      return n ? (d.w = shortWeekdayLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    }
+    function parseWeekday(d, string, i) {
+      var n = weekdayRe.exec(string.slice(i));
+      return n ? (d.w = weekdayLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    }
+    function parseShortMonth(d, string, i) {
+      var n = shortMonthRe.exec(string.slice(i));
+      return n ? (d.m = shortMonthLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    }
+    function parseMonth(d, string, i) {
+      var n = monthRe.exec(string.slice(i));
+      return n ? (d.m = monthLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    }
+    function parseLocaleDateTime(d, string, i) {
+      return parseSpecifier(d, locale_dateTime, string, i);
+    }
+    function parseLocaleDate(d, string, i) {
+      return parseSpecifier(d, locale_date, string, i);
+    }
+    function parseLocaleTime(d, string, i) {
+      return parseSpecifier(d, locale_time, string, i);
+    }
+    function formatShortWeekday(d) {
+      return locale_shortWeekdays[d.getDay()];
+    }
+    function formatWeekday(d) {
+      return locale_weekdays[d.getDay()];
+    }
+    function formatShortMonth(d) {
+      return locale_shortMonths[d.getMonth()];
+    }
+    function formatMonth(d) {
+      return locale_months[d.getMonth()];
+    }
+    function formatPeriod(d) {
+      return locale_periods[+(d.getHours() >= 12)];
+    }
+    function formatQuarter(d) {
+      return 1 + ~~(d.getMonth() / 3);
+    }
+    function formatUTCShortWeekday(d) {
+      return locale_shortWeekdays[d.getUTCDay()];
+    }
+    function formatUTCWeekday(d) {
+      return locale_weekdays[d.getUTCDay()];
+    }
+    function formatUTCShortMonth(d) {
+      return locale_shortMonths[d.getUTCMonth()];
+    }
+    function formatUTCMonth(d) {
+      return locale_months[d.getUTCMonth()];
+    }
+    function formatUTCPeriod(d) {
+      return locale_periods[+(d.getUTCHours() >= 12)];
+    }
+    function formatUTCQuarter(d) {
+      return 1 + ~~(d.getUTCMonth() / 3);
+    }
+    return {
+      format: function(specifier) {
+        var f = newFormat(specifier += "", formats);
+        f.toString = function() {
+          return specifier;
+        };
+        return f;
+      },
+      parse: function(specifier) {
+        var p = newParse(specifier += "", false);
+        p.toString = function() {
+          return specifier;
+        };
+        return p;
+      },
+      utcFormat: function(specifier) {
+        var f = newFormat(specifier += "", utcFormats);
+        f.toString = function() {
+          return specifier;
+        };
+        return f;
+      },
+      utcParse: function(specifier) {
+        var p = newParse(specifier += "", true);
+        p.toString = function() {
+          return specifier;
+        };
+        return p;
+      }
+    };
+  }
+  var pads = { "-": "", "_": " ", "0": "0" };
+  var numberRe = /^\s*\d+/;
+  var percentRe = /^%/;
+  var requoteRe = /[\\^$*+?|[\]().{}]/g;
+  function pad(value, fill2, width) {
+    var sign2 = value < 0 ? "-" : "", string = (sign2 ? -value : value) + "", length = string.length;
+    return sign2 + (length < width ? new Array(width - length + 1).join(fill2) + string : string);
+  }
+  function requote(s) {
+    return s.replace(requoteRe, "\\$&");
+  }
+  function formatRe(names2) {
+    return new RegExp("^(?:" + names2.map(requote).join("|") + ")", "i");
+  }
+  function formatLookup(names2) {
+    return new Map(names2.map((name, i) => [name.toLowerCase(), i]));
+  }
+  function parseWeekdayNumberSunday(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 1));
+    return n ? (d.w = +n[0], i + n[0].length) : -1;
+  }
+  function parseWeekdayNumberMonday(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 1));
+    return n ? (d.u = +n[0], i + n[0].length) : -1;
+  }
+  function parseWeekNumberSunday(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.U = +n[0], i + n[0].length) : -1;
+  }
+  function parseWeekNumberISO(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.V = +n[0], i + n[0].length) : -1;
+  }
+  function parseWeekNumberMonday(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.W = +n[0], i + n[0].length) : -1;
+  }
+  function parseFullYear(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 4));
+    return n ? (d.y = +n[0], i + n[0].length) : -1;
+  }
+  function parseYear(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.y = +n[0] + (+n[0] > 68 ? 1900 : 2e3), i + n[0].length) : -1;
+  }
+  function parseZone(d, string, i) {
+    var n = /^(Z)|([+-]\d\d)(?::?(\d\d))?/.exec(string.slice(i, i + 6));
+    return n ? (d.Z = n[1] ? 0 : -(n[2] + (n[3] || "00")), i + n[0].length) : -1;
+  }
+  function parseQuarter(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 1));
+    return n ? (d.q = n[0] * 3 - 3, i + n[0].length) : -1;
+  }
+  function parseMonthNumber(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.m = n[0] - 1, i + n[0].length) : -1;
+  }
+  function parseDayOfMonth(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.d = +n[0], i + n[0].length) : -1;
+  }
+  function parseDayOfYear(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 3));
+    return n ? (d.m = 0, d.d = +n[0], i + n[0].length) : -1;
+  }
+  function parseHour24(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.H = +n[0], i + n[0].length) : -1;
+  }
+  function parseMinutes(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.M = +n[0], i + n[0].length) : -1;
+  }
+  function parseSeconds(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 2));
+    return n ? (d.S = +n[0], i + n[0].length) : -1;
+  }
+  function parseMilliseconds(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 3));
+    return n ? (d.L = +n[0], i + n[0].length) : -1;
+  }
+  function parseMicroseconds(d, string, i) {
+    var n = numberRe.exec(string.slice(i, i + 6));
+    return n ? (d.L = Math.floor(n[0] / 1e3), i + n[0].length) : -1;
+  }
+  function parseLiteralPercent(d, string, i) {
+    var n = percentRe.exec(string.slice(i, i + 1));
+    return n ? i + n[0].length : -1;
+  }
+  function parseUnixTimestamp(d, string, i) {
+    var n = numberRe.exec(string.slice(i));
+    return n ? (d.Q = +n[0], i + n[0].length) : -1;
+  }
+  function parseUnixTimestampSeconds(d, string, i) {
+    var n = numberRe.exec(string.slice(i));
+    return n ? (d.s = +n[0], i + n[0].length) : -1;
+  }
+  function formatDayOfMonth(d, p) {
+    return pad(d.getDate(), p, 2);
+  }
+  function formatHour24(d, p) {
+    return pad(d.getHours(), p, 2);
+  }
+  function formatHour12(d, p) {
+    return pad(d.getHours() % 12 || 12, p, 2);
+  }
+  function formatDayOfYear(d, p) {
+    return pad(1 + day_default.count(year_default(d), d), p, 3);
+  }
+  function formatMilliseconds(d, p) {
+    return pad(d.getMilliseconds(), p, 3);
+  }
+  function formatMicroseconds(d, p) {
+    return formatMilliseconds(d, p) + "000";
+  }
+  function formatMonthNumber(d, p) {
+    return pad(d.getMonth() + 1, p, 2);
+  }
+  function formatMinutes(d, p) {
+    return pad(d.getMinutes(), p, 2);
+  }
+  function formatSeconds(d, p) {
+    return pad(d.getSeconds(), p, 2);
+  }
+  function formatWeekdayNumberMonday(d) {
+    var day2 = d.getDay();
+    return day2 === 0 ? 7 : day2;
+  }
+  function formatWeekNumberSunday(d, p) {
+    return pad(sunday.count(year_default(d) - 1, d), p, 2);
+  }
+  function dISO(d) {
+    var day2 = d.getDay();
+    return day2 >= 4 || day2 === 0 ? thursday(d) : thursday.ceil(d);
+  }
+  function formatWeekNumberISO(d, p) {
+    d = dISO(d);
+    return pad(thursday.count(year_default(d), d) + (year_default(d).getDay() === 4), p, 2);
+  }
+  function formatWeekdayNumberSunday(d) {
+    return d.getDay();
+  }
+  function formatWeekNumberMonday(d, p) {
+    return pad(monday.count(year_default(d) - 1, d), p, 2);
+  }
+  function formatYear(d, p) {
+    return pad(d.getFullYear() % 100, p, 2);
+  }
+  function formatYearISO(d, p) {
+    d = dISO(d);
+    return pad(d.getFullYear() % 100, p, 2);
+  }
+  function formatFullYear(d, p) {
+    return pad(d.getFullYear() % 1e4, p, 4);
+  }
+  function formatFullYearISO(d, p) {
+    var day2 = d.getDay();
+    d = day2 >= 4 || day2 === 0 ? thursday(d) : thursday.ceil(d);
+    return pad(d.getFullYear() % 1e4, p, 4);
+  }
+  function formatZone(d) {
+    var z = d.getTimezoneOffset();
+    return (z > 0 ? "-" : (z *= -1, "+")) + pad(z / 60 | 0, "0", 2) + pad(z % 60, "0", 2);
+  }
+  function formatUTCDayOfMonth(d, p) {
+    return pad(d.getUTCDate(), p, 2);
+  }
+  function formatUTCHour24(d, p) {
+    return pad(d.getUTCHours(), p, 2);
+  }
+  function formatUTCHour12(d, p) {
+    return pad(d.getUTCHours() % 12 || 12, p, 2);
+  }
+  function formatUTCDayOfYear(d, p) {
+    return pad(1 + utcDay_default.count(utcYear_default(d), d), p, 3);
+  }
+  function formatUTCMilliseconds(d, p) {
+    return pad(d.getUTCMilliseconds(), p, 3);
+  }
+  function formatUTCMicroseconds(d, p) {
+    return formatUTCMilliseconds(d, p) + "000";
+  }
+  function formatUTCMonthNumber(d, p) {
+    return pad(d.getUTCMonth() + 1, p, 2);
+  }
+  function formatUTCMinutes(d, p) {
+    return pad(d.getUTCMinutes(), p, 2);
+  }
+  function formatUTCSeconds(d, p) {
+    return pad(d.getUTCSeconds(), p, 2);
+  }
+  function formatUTCWeekdayNumberMonday(d) {
+    var dow = d.getUTCDay();
+    return dow === 0 ? 7 : dow;
+  }
+  function formatUTCWeekNumberSunday(d, p) {
+    return pad(utcSunday.count(utcYear_default(d) - 1, d), p, 2);
+  }
+  function UTCdISO(d) {
+    var day2 = d.getUTCDay();
+    return day2 >= 4 || day2 === 0 ? utcThursday(d) : utcThursday.ceil(d);
+  }
+  function formatUTCWeekNumberISO(d, p) {
+    d = UTCdISO(d);
+    return pad(utcThursday.count(utcYear_default(d), d) + (utcYear_default(d).getUTCDay() === 4), p, 2);
+  }
+  function formatUTCWeekdayNumberSunday(d) {
+    return d.getUTCDay();
+  }
+  function formatUTCWeekNumberMonday(d, p) {
+    return pad(utcMonday.count(utcYear_default(d) - 1, d), p, 2);
+  }
+  function formatUTCYear(d, p) {
+    return pad(d.getUTCFullYear() % 100, p, 2);
+  }
+  function formatUTCYearISO(d, p) {
+    d = UTCdISO(d);
+    return pad(d.getUTCFullYear() % 100, p, 2);
+  }
+  function formatUTCFullYear(d, p) {
+    return pad(d.getUTCFullYear() % 1e4, p, 4);
+  }
+  function formatUTCFullYearISO(d, p) {
+    var day2 = d.getUTCDay();
+    d = day2 >= 4 || day2 === 0 ? utcThursday(d) : utcThursday.ceil(d);
+    return pad(d.getUTCFullYear() % 1e4, p, 4);
+  }
+  function formatUTCZone() {
+    return "+0000";
+  }
+  function formatLiteralPercent() {
+    return "%";
+  }
+  function formatUnixTimestamp(d) {
+    return +d;
+  }
+  function formatUnixTimestampSeconds(d) {
+    return Math.floor(+d / 1e3);
+  }
+
+  // node_modules/d3-time-format/src/defaultLocale.js
+  var locale2;
+  var timeFormat;
+  var timeParse;
+  var utcFormat;
+  var utcParse;
+  defaultLocale2({
+    dateTime: "%x, %X",
+    date: "%-m/%-d/%Y",
+    time: "%-I:%M:%S %p",
+    periods: ["AM", "PM"],
+    days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    shortMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  });
+  function defaultLocale2(definition) {
+    locale2 = formatLocale(definition);
+    timeFormat = locale2.format;
+    timeParse = locale2.parse;
+    utcFormat = locale2.utcFormat;
+    utcParse = locale2.utcParse;
+    return locale2;
   }
 
   // node_modules/d3-zoom/src/transform.js
@@ -20090,15 +20875,31 @@ var rbmViz = (() => {
   }
 
   // src/util/mapThresholdsToFlags.js
-  function mapThresholdsToFlags(_thresholds_, complete = true) {
-    let thresholds2 = _thresholds_.map((threshold) => +threshold);
-    const flags = thresholds2.map((threshold, i) => {
-      const flag = i - Math.floor(thresholds2.length / 2);
+  function mapThresholdsToFlags(_thresholds_) {
+    const thresholds2 = _thresholds_.map((threshold) => +threshold).sort(ascending);
+    const negativeThresholds = thresholds2.filter((threshold) => threshold < 0).sort(descending);
+    const negativeFlags = negativeThresholds.map((threshold, i) => {
       return {
         threshold,
-        flag: flag + (thresholds2.length % 2 === 0 && flag >= 0)
+        flag: -(i + 1)
       };
     });
+    const positiveThresholds = thresholds2.filter((threshold) => threshold > 0).sort(ascending);
+    const positiveFlags = positiveThresholds.map((threshold, i) => {
+      return {
+        threshold,
+        flag: i + 1
+      };
+    });
+    const zeroFlag = thresholds2.filter((threshold) => threshold === 0).map((threshold) => {
+      return {
+        threshold,
+        flag: 0
+      };
+    });
+    const flags = [...negativeFlags, ...zeroFlag, ...positiveFlags].sort(
+      (a, b) => a.flag - b.flag
+    );
     return flags;
   }
 
@@ -20128,10 +20929,8 @@ var rbmViz = (() => {
     defaults3.type = "bar";
     defaults3.x = "groupid";
     defaults3.xType = "category";
-    defaults3.xLabel = _config_["group"];
     defaults3.y = "score";
     defaults3.yType = "linear";
-    defaults3.yLabel = _config_[_config_.y || defaults3.y];
     defaults3.color = "flag";
     defaults3.colorLabel = _config_[defaults3.color];
     defaults3.hoverCallback = (datum2) => {
@@ -20148,6 +20947,8 @@ var rbmViz = (() => {
       ),
       thresholds: checkThresholds.bind(null, _config_, _thresholds_)
     });
+    config.xLabel = coalesce(_config_.xLabel, config["group"]);
+    config.yLabel = coalesce(_config_.yLabel, config[config.y]);
     return config;
   }
 
@@ -20299,25 +21100,34 @@ var rbmViz = (() => {
   function annotations(config) {
     let annotations5 = null;
     if (config.thresholds) {
-      annotations5 = config.thresholds.map((x, i) => ({
-        drawTime: "beforeDatasetsDraw",
-        type: "line",
-        yMin: x.threshold,
-        yMax: x.threshold,
-        borderColor: colorScheme_default.filter((y) => y.flag.includes(+x.flag))[0].color,
-        borderWidth: 1,
+      annotations5 = config.thresholds.sort((a, b) => Math.abs(a.threshold) - Math.abs(b.threshold)).map((x, i) => ({
+        adjustScaleRange: false,
+        borderColor: colorScheme_default.filter(
+          (y) => y.flag.includes(+x.flag)
+        )[0].color,
         borderDash: [2],
+        borderWidth: 1,
         label: {
-          rotation: "auto",
-          position: Math.sign(+x.flag) === 1 ? "end" : "start",
-          color: colorScheme_default.filter((y) => y.flag.includes(+x.flag))[0].color,
           backgroundColor: "white",
-          content: colorScheme_default.filter((y) => y.flag.includes(+x.flag))[0].description,
+          color: colorScheme_default.filter(
+            (y) => y.flag.includes(+x.flag)
+          )[0].color,
+          content: colorScheme_default.filter(
+            (y) => y.flag.includes(+x.flag)
+          )[0].description,
           display: true,
           font: {
             size: 12
-          }
-        }
+          },
+          padding: 2,
+          position: Math.sign(+x.flag) === 1 ? "end" : "start",
+          rotation: "auto",
+          yValue: x.threshold,
+          yAdjust: 0
+        },
+        type: "line",
+        yMin: x.threshold,
+        yMax: x.threshold
       }));
     }
     return annotations5;
@@ -20328,6 +21138,8 @@ var rbmViz = (() => {
     return {
       display: !config.thresholds,
       labels: {
+        boxHeight: 10,
+        boxWidth: 10,
         filter: function(item, chart) {
           return item.text !== "";
         }
@@ -20341,11 +21153,22 @@ var rbmViz = (() => {
     const datum2 = data.dataset.data[data.dataIndex];
     let content;
     if (["bar", "line", "scatter"].includes(data.dataset.type) && config.dataType !== "discrete") {
-      content = [
+      content = config.group === "Study" ? [
+        `${config.yLabel}: ${format(".3f")(datum2.metric)}`,
+        `Confidence Interval: (${format(".3f")(
+          datum2.lowerCI
+        )}, ${format(".3f")(datum2.upperCI)})`,
+        `${config.numerator}: ${format(",")(datum2.numerator)}`,
+        `${config.denominator}: ${format(",")(
+          datum2.denominator
+        )}`
+      ] : [
         `KRI Score: ${format(".1f")(datum2.score)} (${config.score})`,
         `KRI Value: ${format(".3f")(datum2.metric)} (${config.metric})`,
         `${config.numerator}: ${format(",")(datum2.numerator)}`,
-        `${config.denominator}: ${format(",")(datum2.denominator)}`
+        `${config.denominator}: ${format(",")(
+          datum2.denominator
+        )}`
       ];
     } else if (["boxplot", "violin"].includes(data.dataset.type)) {
       const stats = ["mean", "min", "q1", "median", "q3", "max"].map(
@@ -20363,7 +21186,7 @@ var rbmViz = (() => {
         ...datum2.counts.map(
           (d) => `${d[config.y]} ${config.yLabel}: ${d.n}/${d.N} (${d.pct}%) ${config.group}s`
         )
-      ] : data.dataset.purpose === "aggregate" && config.discreteUnit === "Site" ? `${datum2.y} ${config.yLabel}` : null;
+      ] : data.dataset.purpose === "aggregate" && config.discreteUnit === "Site" ? `${format(".1f")(datum2.y)} ${config.yLabel}` : null;
     }
     return content;
   }
@@ -20432,7 +21255,8 @@ var rbmViz = (() => {
   function plugins2(config) {
     const plugins6 = {
       annotation: {
-        annotations: annotations(config)
+        annotations: annotations(config),
+        clip: true
       },
       datalabels: chartLabels(config),
       legend: legend(config),
@@ -20487,6 +21311,7 @@ var rbmViz = (() => {
     scales2.x.type = config.xType;
     scales2.y.title.text = config.yLabel;
     scales2.y.type = config.yType;
+    scales2.y.offset = true;
     return scales2;
   }
 
@@ -20565,6 +21390,7 @@ var rbmViz = (() => {
     const datasets = structureData(_data_, config);
     const options = {
       animation: false,
+      clip: false,
       events: ["click", "mousemove", "mouseout"],
       interaction: {
         intersect: false,
@@ -20608,10 +21434,8 @@ var rbmViz = (() => {
     defaults3.type = "scatter";
     defaults3.x = "denominator";
     defaults3.xType = "logarithmic";
-    defaults3.xLabel = _config_[defaults3.x];
     defaults3.y = "numerator";
     defaults3.yType = "linear";
-    defaults3.yLabel = _config_[defaults3.y];
     defaults3.color = "flag";
     defaults3.colorScheme = colorScheme_default;
     defaults3.hoverCallback = (datum2) => {
@@ -20629,6 +21453,8 @@ var rbmViz = (() => {
         _data_
       )
     });
+    config.xLabel = coalesce(_config_.xLabel, config[config.x]);
+    config.yLabel = coalesce(_config_.yLabel, config[config.y]);
     return config;
   }
 
@@ -20955,10 +21781,8 @@ var rbmViz = (() => {
     defaults3.type = "line";
     defaults3.x = "snapshot_date";
     defaults3.xType = "category";
-    defaults3.xLabel = _config_[defaults3.x];
     defaults3.y = "score";
     defaults3.yType = "linear";
-    defaults3.yLabel = _config_[defaults3.y];
     defaults3.color = "flag";
     defaults3.colorScheme = colorScheme_default;
     defaults3.hoverCallback = (datum2) => {
@@ -20973,6 +21797,9 @@ var rbmViz = (() => {
       thresholds: checkThresholds.bind(null, _config_, _thresholds_)
     });
     config.annotation = ["metric", "score"].includes(config.y) ? "numerator" : config.y;
+    config.dataType = ["metric", "score"].includes(config.y) ? "continuous" : "discrete";
+    config.xLabel = coalesce(_config_.xLabel, "Snapshot Date");
+    config.yLabel = coalesce(_config_.yLabel, config[config.y]);
     return config;
   }
 
@@ -21121,16 +21948,24 @@ var rbmViz = (() => {
   // src/sparkline/plugins/tooltip.js
   function tooltip3(config) {
     const tooltipAesthetics = getTooltipAesthetics();
-    tooltipAesthetics.padding = 5;
+    tooltipAesthetics.padding = 4;
+    tooltipAesthetics.caretSize = 0;
     return {
       callbacks: {
         label: function(data) {
           const fmt = config.y === "score" ? ".1f" : config.y === "metric" ? ".3f" : ",d";
-          return `${data.label}: ${format(fmt)(data.parsed.y)}`;
+          const date = timeFormat("'%y %b %d")(
+            timeParse("%Y-%m-%d")(data.label)
+          );
+          return config.dataType === "continuous" ? `${date}: ${format(fmt)(data.parsed.y)}` : [
+            `${date}: ${format(fmt)(data.raw.n_flagged)} flagged`,
+            `${date}: ${format(fmt)(data.raw.n_at_risk)} at risk`
+          ];
         },
-        labelPointStyle: () => ({ pointStyle: "circle" }),
-        title: () => null
+        title: () => null,
+        footer: () => null
       },
+      displayColors: config.dataType === "continuous",
       ...tooltipAesthetics
     };
   }
@@ -21230,6 +22065,8 @@ var rbmViz = (() => {
     defaults3.dataType = /flag|risk/.test(_config_.y) ? "discrete" : "continuous";
     if (defaults3.dataType === "discrete")
       defaults3.discreteUnit = Object.keys(_data_[0]).includes("groupid") ? "KRI" : "Site";
+    else
+      defaults3.discreteUnit = null;
     defaults3.type = defaults3.dataType === "discrete" ? "aggregate" : /^qtl/.test(_config_?.workflowid) ? "identity" : "boxplot";
     defaults3.x = "snapshot_date";
     defaults3.xType = "category";
@@ -21242,13 +22079,8 @@ var rbmViz = (() => {
       console.log(datum2);
     };
     defaults3.group = "Site";
+    defaults3.aggregateLabel = "Study";
     defaults3.maintainAspectRatio = false;
-    defaults3.displayBoxplots = true;
-    defaults3.displayViolins = false;
-    defaults3.displayAtRisk = true;
-    defaults3.displayFlagged = true;
-    defaults3.displayThresholds = true;
-    defaults3.displayTrendLine = true;
     const config = configure2(defaults3, _config_, {
       selectedGroupIDs: checkSelectedGroupIDs.bind(
         null,
@@ -21266,8 +22098,22 @@ var rbmViz = (() => {
   }
 
   // src/timeSeries/structureData/mutate.js
-  function mutate4(_data_, config) {
-    return _data_.sort((a, b) => ascending(a[config.x], b[config.x]));
+  function mutate4(_data_, config, _intervals_) {
+    return _data_.map((d) => {
+      const datum2 = { ...d };
+      if ([void 0, null].includes(_intervals_) === false) {
+        const intervals = _intervals_.filter(
+          (interval2) => interval2.snapshot_date === datum2.snapshot_date
+        );
+        datum2.lowerCI = intervals.find(
+          (interval2) => interval2.param === "LowCI"
+        )?.value;
+        datum2.upperCI = intervals.find(
+          (interval2) => interval2.param === "UpCI"
+        )?.value;
+      }
+      return datum2;
+    }).sort((a, b) => ascending(a[config.x], b[config.x]));
   }
 
   // src/timeSeries/structureData/getLabels.js
@@ -21333,6 +22179,7 @@ var rbmViz = (() => {
         borderDash: [2],
         borderWidth: 1,
         data: [...value.values()],
+        hoverRadius: 0,
         label: i === 0 ? "Confidence Interval" : "",
         pointStyle: "line",
         purpose: "aggregate",
@@ -21547,7 +22394,7 @@ var rbmViz = (() => {
 
   // src/timeSeries/structureData.js
   function structureData4(_data_, config, _intervals_) {
-    const data = mutate4(_data_, config);
+    const data = mutate4(_data_, config, _intervals_);
     const labels = getLabels(data, config);
     let datasets = [];
     if (config.hasOwnProperty("workflowid") && config.dataType !== "discrete") {
@@ -21619,7 +22466,7 @@ var rbmViz = (() => {
         aggregateLine(data, config, labels),
         {
           type: "scatter",
-          label: "Study Average",
+          label: `${config.aggregateLabel} Average`,
           pointStyle: "line",
           pointStyleWidth: 24,
           boxWidth: 24,
@@ -21642,21 +22489,20 @@ var rbmViz = (() => {
     if (config.thresholds) {
       annotations5 = config.thresholds.map((x, i) => {
         const annotation2 = {
+          adjustScaleRange: config.group === "Study",
           drawTime: "beforeDatasetsDraw",
           type: "line",
           yMin: x.threshold,
           yMax: x.threshold,
-          borderColor: colorScheme_default.find((y) => y.flag.includes(+x.flag)).color,
+          borderColor: config.group === "Study" ? "#FD9432" : colorScheme_default.find((y) => y.flag.includes(+x.flag)).color,
           borderWidth: 1,
           borderDash: [2]
         };
-        if (config.type === "identity")
+        if (config.type === "identity") {
           annotation2.label = {
             rotation: "auto",
-            position: Math.sign(+x.flag) === 1 ? "end" : "start",
-            color: colorScheme_default.filter(
-              (y) => y.flag.includes(+x.flag)
-            )[0].color,
+            position: Math.sign(+x.flag) >= 0 ? "end" : "start",
+            color: config.group === "Study" ? "#FD9432" : colorScheme_default.find((y) => y.flag.includes(+x.flag)).color,
             backgroundColor: "white",
             content: `QTL: ${config.thresholds[0].threshold}`,
             display: true,
@@ -21664,6 +22510,7 @@ var rbmViz = (() => {
               size: 12
             }
           };
+        }
         return annotation2;
       });
     }
@@ -21674,7 +22521,7 @@ var rbmViz = (() => {
   function legend4(config) {
     const legendOrder = colorScheme_default.sort((a, b) => a.order - b.order).map((color3) => color3.description);
     legendOrder.unshift("Confidence Interval");
-    legendOrder.unshift("Study Average");
+    legendOrder.unshift(`${config.aggregateLabel} Average`);
     legendOrder.unshift("Site Distribution");
     if (config.group === "Study")
       return {
@@ -21745,9 +22592,10 @@ var rbmViz = (() => {
           }
         }
       },
+      displayColors: config.dataType !== "discrete",
       filter: (data) => {
         const datum2 = data.dataset.data[data.dataIndex];
-        return !(config.selectedGroupIDs.includes(datum2.groupid) && data.dataset.type === "scatter");
+        return typeof datum2 === "object" && !(config.selectedGroupIDs.includes(datum2.groupid) && data.dataset.type === "scatter");
       },
       ...tooltipAesthetics
     };
@@ -21774,6 +22622,19 @@ var rbmViz = (() => {
     return scales2;
   }
 
+  // src/timeSeries/updateData.js
+  function updateData4(chart, _data_, _config_, _parameters_ = null, _analysis_ = null) {
+    const config = configure6(_config_, _data_, _parameters_);
+    chart.data = {
+      ...structureData4(_data_, config, _analysis_),
+      config,
+      _data_
+    };
+    chart.options.scales = getScales4(config);
+    chart.options.plugins = plugins5(config);
+    chart.update();
+  }
+
   // src/timeSeries/updateSelectedGroupIDs.js
   function updateSelectedGroupIDs(selectedGroupIDs) {
     this.data.config.selectedGroupIDs = selectedGroupIDs;
@@ -21794,6 +22655,8 @@ var rbmViz = (() => {
       animation: false,
       events: ["click", "mousemove", "mouseout"],
       maintainAspectRatio: config.maintainAspectRatio,
+      onClick,
+      onHover,
       plugins: plugins5(config),
       responsive: true,
       scales: getScales4(config, _data_)
@@ -21807,6 +22670,7 @@ var rbmViz = (() => {
       options
     });
     chart.helpers = {
+      updateData: updateData4.bind(chart),
       updateSelectedGroupIDs: updateSelectedGroupIDs.bind(chart)
     };
     canvas.chart = chart;
