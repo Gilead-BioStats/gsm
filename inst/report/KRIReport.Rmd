@@ -38,7 +38,7 @@ overview_table <- Overview_Table(assessment)
 summary_table <- map(assessment, function(kri) {
   dfFlagged <- kri$lResults$lData$dfFlagged 
   
-  if(nrow(dfFlagged) > 0 & !all(dfFlagged$Flag == 0)) {
+  if(nrow(dfFlagged) > 0 & !all(dfFlagged$Flag == 0, na.rm = TRUE)) {
     kri$lResults$lData$dfFlagged %>% 
       filter(Flag != 0) %>% 
       arrange(desc(abs(Flag))) %>% 
@@ -56,7 +56,7 @@ summary_table <- map(assessment, function(kri) {
 })
 
 ## StudyID
-study_id <- purrr::map_chr(study, ~.x$lData$dfInput$StudyID %>% unique()) %>% unique()
+study_id <- purrr::map_chr(assessment, ~.x$lData$dfInput$StudyID %>% unique()) %>% unique()
 ```
 
 ---
@@ -67,7 +67,6 @@ title: "`r study_id` Assessment Overview"
 
 ## Study Overview
 
-Overview for Study: **`r purrr::map_chr(study, ~.x$lData$dfInput$StudyID %>% unique()) %>% unique()`**
 
 <div class="gsm-overview-table">
 ```{r echo=FALSE, warning=FALSE}
