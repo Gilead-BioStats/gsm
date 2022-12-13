@@ -1,0 +1,11 @@
+- 'S1_1: Given correct input data an Adverse Event assessment can be done using the
+  poisson method'
+- 'S1_2: Given correct input data an Adverse Event assessment can be done using the
+  identity method'
+- 'S1_3: Assessments are correctly grouped by a grouping variable such as site or
+  country for KRIs and study for QTLs when applicable'
+- 'S1_4: Given correct input data flags will correctly be applied to records that
+  meet flagging criteria, including custom thresholding'
+- 'S1_5: Given subset input data an Adverse Event assessment can be done'
+- 'S1_6: Given correct input data an Adverse Event assessment can be done using the
+  normal approximation method'
