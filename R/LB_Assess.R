@@ -172,7 +172,7 @@ LB_Assess <- function(
       strMethod = strMethod,
       strGroup = strGroup,
       strAbbreviation = "LB",
-      strMetric = "LB Abnormalities (Rate)",
+      strMetric = "Lab Abnormality Rate",
       strNumerator = "Abnormal Lab Samples",
       strDenominator = "Total Lab Samples",
       vThreshold = vThreshold

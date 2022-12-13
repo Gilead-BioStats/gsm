@@ -184,8 +184,8 @@ Disp_Assess <- function(
     dfConfig <- MakeDfConfig(
       strMethod = strMethod,
       strGroup = strGroup,
-      strAbbreviation = "DISP",
-      strMetric = "Subject Discontinuation Rate",
+      strAbbreviation = "DSC",
+      strMetric = "Discontinuation Rate",
       strNumerator = "Subjects Discontinued",
       strDenominator = "Total Subjects",
       vThreshold = vThreshold

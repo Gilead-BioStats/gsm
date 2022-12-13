@@ -16,7 +16,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["vRequired"]
+              "value": ["vRequired", "vNACols"]
             }
           },
           "value": [
@@ -24,6 +24,11 @@
               "type": "character",
               "attributes": {},
               "value": ["strIDCol", "strVisitCol", "strFormCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strVisitCol"]
             }
           ]
         },
@@ -33,7 +38,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["vRequired"]
+              "value": ["vRequired", "vNACols"]
             }
           },
           "value": [
@@ -41,6 +46,11 @@
               "type": "character",
               "attributes": {},
               "value": ["strIDCol", "strVisitCol", "strFormCol", "strDataPointsCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strVisitCol"]
             }
           ]
         },
@@ -675,20 +685,6 @@
       
       -- Checking Input Data for `QueryRate_Map_Raw()` --
       
-      x 1 NA values found in column: foldername
-      ! Issues found for `QueryRate_Map_Raw()`
-      ! `QueryRate_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs_edited, bQuiet = FALSE)
-    Message
-      
-      -- Checking Input Data for `QueryRate_Map_Raw()` --
-      
       x 1 NA values found in column: form
       ! Issues found for `QueryRate_Map_Raw()`
       ! `QueryRate_Map_Raw()` did not run because of failed check.
@@ -704,20 +700,6 @@
       -- Checking Input Data for `QueryRate_Map_Raw()` --
       
       x 1 NA values found in column: subjid
-      ! Issues found for `QueryRate_Map_Raw()`
-      ! `QueryRate_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs_edited, bQuiet = FALSE)
-    Message
-      
-      -- Checking Input Data for `QueryRate_Map_Raw()` --
-      
-      x 1 NA values found in column: foldername
       ! Issues found for `QueryRate_Map_Raw()`
       ! `QueryRate_Map_Raw()` did not run because of failed check.
     Output

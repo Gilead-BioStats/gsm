@@ -195,7 +195,7 @@ QueryRate_Assess <- function(
     dfConfig <- MakeDfConfig(
       strMethod = strMethod,
       strGroup = strGroup,
-      strAbbreviation = "QUERYRATE",
+      strAbbreviation = "QRY",
       strMetric = "Query Rate",
       strNumerator = "Total Queries",
       strDenominator = "Total Data Points",

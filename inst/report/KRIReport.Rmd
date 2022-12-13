@@ -22,6 +22,7 @@ htmltools::img(
 )
 ```
 
+---
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
@@ -56,18 +57,14 @@ summary_table <- map(assessment, function(kri) {
 })
 
 ## StudyID
-study_id <- purrr::map_chr(study, ~.x$lData$dfInput$StudyID %>% unique()) %>% unique()
+study_id <- purrr::map_chr(assessment, ~.x$lData$dfInput$StudyID %>% unique()) %>% unique()
 ```
 
 ---
 title: "`r study_id` Assessment Overview"
 ---
 
-
-
 ## Study Overview
-
-Overview for Study: **`r purrr::map_chr(study, ~.x$lData$dfInput$StudyID %>% unique()) %>% unique()`**
 
 <div class="gsm-overview-table">
 ```{r echo=FALSE, warning=FALSE}
@@ -77,7 +74,7 @@ overview_table
 
 ## Results
 
-```{r, echo = FALSE, results='asis'}
+```{r, echo=FALSE, results='asis'}
 for (i in seq_along(assessment)) {
   kri_key <- names(assessment)[i]
   kri <- assessment[[ kri_key ]]
