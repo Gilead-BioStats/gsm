@@ -38,7 +38,7 @@ overview_table <- Overview_Table(assessment)
 summary_table <- map(assessment, function(kri) {
   dfFlagged <- kri$lResults$lData$dfFlagged 
   
-  if(nrow(dfFlagged) > 0 & !all(dfFlagged$Flag == 0, na.rm = TRUE)) {
+  if(nrow(dfFlagged) > 0 & !all(dfFlagged$Flag %in% c(-2, -1, 1, 2), na.rm = TRUE)) {
     kri$lResults$lData$dfFlagged %>% 
       filter(Flag != 0) %>% 
       arrange(desc(abs(Flag))) %>% 
