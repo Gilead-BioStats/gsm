@@ -183,8 +183,8 @@ PD_Assess <- function(
         strMethod = strMethod,
         strGroup = strGroup,
         strAbbreviation = "DISP",
-        strMetric = "Subject Discontinuation",
-        strNumerator = "Subjects Discontinued",
+        strMetric = "Protocol Deviation Rate",
+        strNumerator = "Protocol Deviations",
         strDenominator = "Days in Study",
         vThreshold = vThreshold
       )
