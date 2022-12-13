@@ -101,8 +101,7 @@ LB_Map_Raw <- function(
       summarize(Count = sum(.data$Count, na.rm = TRUE),
                 Total = sum(.data$Total, na.rm = TRUE)) %>%
       ungroup() %>%
-      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      filter(!is.na(.data$Total)) %>%
+      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", vRemoval = "Total", bQuiet = bQuiet) %>%
       select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
       arrange(.data$SubjectID)
 

@@ -332,6 +332,8 @@
       i 49 ID(s) in subject data not found in domain data.
       These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
+      i 49 row(s) in merged data have zero or NA values for columns: Total.
+      These participant(s) will be excluded.
       v `LB_Map_Raw()` returned output with 1 rows.
       v `LB_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
@@ -860,6 +862,8 @@
       i 47 ID(s) in subject data not found in domain data.
       These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
+      i 47 row(s) in merged data have zero or NA values for columns: Total.
+      These participant(s) will be excluded.
       v `LB_Map_Raw()` returned output with 3 rows.
       v `LB_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`

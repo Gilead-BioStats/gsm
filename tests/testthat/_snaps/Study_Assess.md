@@ -315,6 +315,14 @@
       #   qryclosedate <chr>, and abbreviated variable names 1: qrystatus,
       #   2: markinggroupname, 3: qryagecat, 4: qryopendate
       
+      $dfENROLL
+      # A tibble: 3 x 8
+        studyid        siteid subjid ernolldt   country invid enrollyn sfreas         
+        <chr>          <chr>  <chr>  <chr>      <chr>   <chr> <chr>    <chr>          
+      1 AA-AA-000-0000 86     0001   2008-09-10 US      0X012 Y        ""             
+      2 AA-AA-000-0000 76     sf0001 2017-05-22 China   0X201 N        "Inclusion/Exc~
+      3 AA-AA-000-0000 166    0003   2008-08-26 Japan   0X999 Y        ""             
+      
       $dfInput
       # A tibble: 50 x 8
          SubjectID SiteID StudyID        CountryID CustomGroupID Expos~1 Count    Rate
@@ -859,6 +867,35 @@
       
       $AE_Map_Raw$mapping$dfLB$strGradeHighVal
       [1] "3" "4"
+      
+      
+      $AE_Map_Raw$mapping$dfENROLL
+      $AE_Map_Raw$mapping$dfENROLL$strStudyCol
+      [1] "studyid"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strSiteCol
+      [1] "siteid"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strCountryCol
+      [1] "country"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strCustomGroupCol
+      [1] "invid"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strScreenFailCol
+      [1] "enrollyn"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strScreenFailVal
+      [1] "N"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strScreenFailReasonCol
+      [1] "sfreas"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strScreenFailReasonVal
+      [1] "Inclusion/Exclusion Criteria"
       
       
       $AE_Map_Raw$mapping$dfADSL
@@ -1579,6 +1616,30 @@
       Skipping `DataChg_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
+      -- Initializing `cou0012` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `Screening_Map_Raw` --
+      
+      Preparing parameters for `Screening_Map_Raw()` ...
+      Calling `Screening_Map_Raw()` ...
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+      ! `Screening_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `Screening_Assess` --
+      
+      Skipping `Screening_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
       -- Initializing `kri0001` assessment -------------------------------------------
       
       -- Workflow Step 1 of 4: `FilterDomain` --
@@ -1958,6 +2019,30 @@
       -- Workflow Step 2 of 2: `DataChg_Assess` --
       
       Skipping `DataChg_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0012` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `Screening_Map_Raw` --
+      
+      Preparing parameters for `Screening_Map_Raw()` ...
+      Calling `Screening_Map_Raw()` ...
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+      ! `Screening_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `Screening_Assess` --
+      
+      Skipping `Screening_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `qtl0004` assessment -------------------------------------------

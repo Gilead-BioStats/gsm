@@ -15,7 +15,7 @@ Make_Snapshot(
     clindata::rawplus_studcomp, dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\%
     filter(.data$datapagename == "Blinded Study Drug Completion"), dfDATACHG =
     clindata::edc_data_change_rate, dfDATAENTRY = clindata::edc_data_entry_lag, dfQUERY =
-    clindata::edc_queries),
+    clindata::edc_queries, dfENROLL = clindata::rawplus_enroll),
   lMapping = c(yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")), yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package =
     "gsm")), yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =

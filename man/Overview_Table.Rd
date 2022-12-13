@@ -2,7 +2,7 @@
 % Please edit documentation in R/Overview_Table.R
 \name{Overview_Table}
 \alias{Overview_Table}
-\title{Overview Table - Create summary of flagged and at-risk KRIs for a study.}
+\title{Overview Table - Create summary of red and amber KRIs for a study.}
 \usage{
 Overview_Table(lAssessments, bInteractive = TRUE)
 }
@@ -12,5 +12,5 @@ Overview_Table(lAssessments, bInteractive = TRUE)
 \item{bInteractive}{\code{logical} Display interactive widget? Default: \code{TRUE}.}
 }
 \description{
-Overview Table - Create summary of flagged and at-risk KRIs for a study.
+Overview Table - Create summary of red and amber KRIs for a study.
 }
