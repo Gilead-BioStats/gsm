@@ -208,10 +208,10 @@ test_that("vRemoval works as intended", {
   # -- one patient has NA Exposure
   # -- should return 1 row only
   dfDomain <- tibble::tribble(
-    ~SubjectID, ~SiteID,         ~StudyID, ~CountryID, ~CustomGroupID, ~Exposure,
-    "0003",   "166", "AA-AA-000-0000",       "US",        "0X102",       857,
-    "0002",    "76", "AA-AA-000-0000",       "US",        "0X104",        NA,
-    "0001",    "86", "AA-AA-000-0000",       "US",        "0X035",       0
+    ~SubjectID, ~SiteID, ~StudyID, ~CountryID, ~CustomGroupID, ~Exposure,
+    "0003", "166", "AA-AA-000-0000", "US", "0X102", 857,
+    "0002", "76", "AA-AA-000-0000", "US", "0X104", NA,
+    "0001", "86", "AA-AA-000-0000", "US", "0X035", 0
   )
 
   dfSUBJ <- tibble::tribble(
@@ -224,7 +224,4 @@ test_that("vRemoval works as intended", {
   result <- MergeSubjects(dfDomain = dfDomain, dfSUBJ = dfSUBJ, vRemoval = "Exposure")
 
   expect_equal(nrow(result), 1)
-
-
 })
-

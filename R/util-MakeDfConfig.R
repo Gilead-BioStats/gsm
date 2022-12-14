@@ -17,37 +17,35 @@
 #'
 #' @examples
 #' \dontrun{
-#'dfConfig <- MakeDfConfig(
-#   strMethod = strMethod,
-#   strGroup = strGroup,
-#   strAbbreviation = "AE",
-#   strMetric = "AE Reporting (Rate)",
-#   strNumerator = "AEs",
-#   strDenominator = "Days on Treatment",
-#   vThreshold = vThreshold
+#' dfConfig <- MakeDfConfig(
+#'   #   strMethod = strMethod,
+#'   #   strGroup = strGroup,
+#'   #   strAbbreviation = "AE",
+#'   #   strMetric = "AE Reporting (Rate)",
+#'   #   strNumerator = "AEs",
+#'   #   strDenominator = "Days on Treatment",
+#'   #   vThreshold = vThreshold
 #' )
 #' }
 #'
 #' @export
 MakeDfConfig <- function(
-    strMethod,
-    strGroup,
-    strAbbreviation,
-    strMetric,
-    strNumerator,
-    strDenominator,
-    vThreshold
-    ) {
-  modelLabel <- switch(
-    strMethod,
+  strMethod,
+  strGroup,
+  strAbbreviation,
+  strMetric,
+  strNumerator,
+  strDenominator,
+  vThreshold
+) {
+  modelLabel <- switch(strMethod,
     NormalApprox = "Normal Approximation (Rate)",
     poisson = "Poisson (Rate)",
     fisher = "Fisher (Rate)",
     identity = "Identity (Count)"
   )
 
-  scoreLabel <- switch(
-    strMethod,
+  scoreLabel <- switch(strMethod,
     NormalApprox = "Adjusted Z-Score",
     poisson = "Residual",
     identity = "Count",

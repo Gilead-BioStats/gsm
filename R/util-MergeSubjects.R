@@ -131,7 +131,7 @@ MergeSubjects <- function(
   if (!is.null(vRemoval)) {
     # Print a message if NAs or zeros are found in vRemoval columns after merging
     n_na_zero <- dfOut %>%
-      summarise(across(all_of(vRemoval), ~sum(is.na(.x) | .x == 0))) %>%
+      summarise(across(all_of(vRemoval), ~ sum(is.na(.x) | .x == 0))) %>%
       rowSums()
 
     if (n_na_zero > 0) {
@@ -142,7 +142,7 @@ MergeSubjects <- function(
             " row(s) in merged data have zero or NA values for columns: ",
             paste(vRemoval, sep = ", "),
             ".\nThese participant(s) will be excluded."
-            )
+          )
         )
       }
     }

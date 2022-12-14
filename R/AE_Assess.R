@@ -205,13 +205,11 @@ AE_Assess <- function(
 
 
 
-      # scatter plots -----------------------------------------------------------
+    # scatter plots -----------------------------------------------------------
 
-      # ggplot bar charts -------------------------------------------------------
+    # ggplot bar charts -------------------------------------------------------
 
     if (strMethod != "Identity") {
-
-
       lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
       # rbm-viz charts ----------------------------------------------------------
@@ -225,23 +223,23 @@ AE_Assess <- function(
     }
 
 
-      # bar charts --------------------------------------------------------------
-      lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-      lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+    # bar charts --------------------------------------------------------------
+    lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
+    lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
 
-      lCharts$barMetricJS <- barChart(
-        results = lData$dfFlagged,
-        workflow = dfConfig,
-        yaxis = "metric",
-        elementId = "aeAssessMetric"
-      )
+    lCharts$barMetricJS <- barChart(
+      results = lData$dfFlagged,
+      workflow = dfConfig,
+      yaxis = "metric",
+      elementId = "aeAssessMetric"
+    )
 
-      lCharts$barScoreJS <- barChart(
-        results = lData$dfFlagged,
-        workflow = dfConfig,
-        yaxis = "score",
-        elementId = "aeAssessScore"
-      )
+    lCharts$barScoreJS <- barChart(
+      results = lData$dfFlagged,
+      workflow = dfConfig,
+      yaxis = "score",
+      elementId = "aeAssessScore"
+    )
 
     if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
 
