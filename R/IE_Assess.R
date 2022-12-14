@@ -112,9 +112,9 @@ IE_Assess <- function(
       strMethod = "identity",
       strGroup = strGroup,
       strAbbreviation = "IE",
-      strMetric = "Inclusion/Exclusion Issues (Count)",
+      strMetric = "Inclusion/Exclusion Issues",
       strNumerator = "Inclusion/Exclusion Issues",
-      strDenominator = "Total Subjects",
+      strDenominator = "",
       vThreshold = nThreshold
     )
 

@@ -36,6 +36,9 @@
       $cou0011
       [1] "steps" "path"  "name" 
       
+      $cou0012
+      [1] "steps" "path"  "name" 
+      
       $kri0001
       [1] "steps" "path"  "name" 
       
@@ -67,6 +70,9 @@
       [1] "steps" "path"  "name" 
       
       $kri0011
+      [1] "steps" "path"  "name" 
+      
+      $kri0012
       [1] "steps" "path"  "name" 
       
       $qtl0004
@@ -378,55 +384,33 @@
       
       $cou0005[[2]]
       $cou0005[[2]]$name
-      [1] "FilterDomain"
+      [1] "LB_Map_Raw"
       
       $cou0005[[2]]$inputs
-      [1] "dfLB"
+      [1] "dfSUBJ" "dfLB"  
       
       $cou0005[[2]]$output
-      [1] "dfLB"
-      
-      $cou0005[[2]]$params
-      $cou0005[[2]]$params$strDomain
-      [1] "dfLB"
-      
-      $cou0005[[2]]$params$strColParam
-      [1] "strGradeCol"
-      
-      $cou0005[[2]]$params$strValParam
-      [1] "strGradeHighVal"
-      
+      [1] "dfInput"
       
       
       $cou0005[[3]]
       $cou0005[[3]]$name
-      [1] "LB_Map_Raw"
-      
-      $cou0005[[3]]$inputs
-      [1] "dfSUBJ" "dfLB"  
-      
-      $cou0005[[3]]$output
-      [1] "dfInput"
-      
-      
-      $cou0005[[4]]
-      $cou0005[[4]]$name
       [1] "LB_Assess"
       
-      $cou0005[[4]]$inputs
+      $cou0005[[3]]$inputs
       [1] "dfInput"
       
-      $cou0005[[4]]$output
+      $cou0005[[3]]$output
       [1] "lResults"
       
-      $cou0005[[4]]$params
-      $cou0005[[4]]$params$strGroup
+      $cou0005[[3]]$params
+      $cou0005[[3]]$params$strGroup
       [1] "Country"
       
-      $cou0005[[4]]$params$vThreshold
+      $cou0005[[3]]$params$vThreshold
       NULL
       
-      $cou0005[[4]]$params$strMethod
+      $cou0005[[3]]$params$strMethod
       [1] "NormalApprox"
       
       
@@ -669,6 +653,41 @@
       NULL
       
       $cou0011[[2]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $cou0012
+      $cou0012[[1]]
+      $cou0012[[1]]$name
+      [1] "Screening_Map_Raw"
+      
+      $cou0012[[1]]$inputs
+      [1] "dfENROLL"
+      
+      $cou0012[[1]]$output
+      [1] "dfInput"
+      
+      
+      $cou0012[[2]]
+      $cou0012[[2]]$name
+      [1] "Screening_Assess"
+      
+      $cou0012[[2]]$inputs
+      [1] "dfInput"
+      
+      $cou0012[[2]]$output
+      [1] "lResults"
+      
+      $cou0012[[2]]$params
+      $cou0012[[2]]$params$strGroup
+      [1] "Country"
+      
+      $cou0012[[2]]$params$vThreshold
+      NULL
+      
+      $cou0012[[2]]$params$strMethod
       [1] "NormalApprox"
       
       
@@ -1240,6 +1259,41 @@
       NULL
       
       $kri0011[[2]]$params$strMethod
+      [1] "NormalApprox"
+      
+      
+      
+      
+      $kri0012
+      $kri0012[[1]]
+      $kri0012[[1]]$name
+      [1] "Screening_Map_Raw"
+      
+      $kri0012[[1]]$inputs
+      [1] "dfENROLL"
+      
+      $kri0012[[1]]$output
+      [1] "dfInput"
+      
+      
+      $kri0012[[2]]
+      $kri0012[[2]]$name
+      [1] "Screening_Assess"
+      
+      $kri0012[[2]]$inputs
+      [1] "dfInput"
+      
+      $kri0012[[2]]$output
+      [1] "lResults"
+      
+      $kri0012[[2]]$params
+      $kri0012[[2]]$params$strGroup
+      [1] "Site"
+      
+      $kri0012[[2]]$params$vThreshold
+      NULL
+      
+      $kri0012[[2]]$params$strMethod
       [1] "NormalApprox"
       
       

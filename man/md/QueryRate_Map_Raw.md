@@ -1,13 +1,13 @@
 # Data specification
 
-|**Domain** |**Column Key**   |**Default Value** |**Required?** |**Require Unique Values?** |
-|:----------|:----------------|:-----------------|:-------------|:--------------------------|
-|dfSUBJ     |strSiteCol       |siteid            |TRUE          |FALSE                      |
-|dfSUBJ     |strIDCol         |subjid            |TRUE          |TRUE                       |
-|dfQUERY    |strIDCol         |                  |TRUE          |FALSE                      |
-|dfQUERY    |strVisitCol      |                  |TRUE          |FALSE                      |
-|dfQUERY    |strFormCol       |                  |TRUE          |FALSE                      |
-|dfDATACHG  |strIDCol         |                  |TRUE          |FALSE                      |
-|dfDATACHG  |strVisitCol      |                  |TRUE          |FALSE                      |
-|dfDATACHG  |strFormCol       |                  |TRUE          |FALSE                      |
-|dfDATACHG  |strDataPointsCol |                  |TRUE          |FALSE                      |
+|**Domain** |**Column Key**   |**Default Value** |**Required?** |**Accept NA/Empty Values?** |**Require Unique Values?** |
+|:----------|:----------------|:-----------------|:-------------|:---------------------------|:--------------------------|
+|dfSUBJ     |strSiteCol       |siteid            |TRUE          |FALSE                       |FALSE                      |
+|dfSUBJ     |strIDCol         |subjid            |TRUE          |FALSE                       |TRUE                       |
+|dfQUERY    |strIDCol         |                  |TRUE          |FALSE                       |FALSE                      |
+|dfQUERY    |strVisitCol      |                  |TRUE          |TRUE                        |FALSE                      |
+|dfQUERY    |strFormCol       |                  |TRUE          |FALSE                       |FALSE                      |
+|dfDATACHG  |strIDCol         |                  |TRUE          |FALSE                       |FALSE                      |
+|dfDATACHG  |strVisitCol      |                  |TRUE          |TRUE                        |FALSE                      |
+|dfDATACHG  |strFormCol       |                  |TRUE          |FALSE                       |FALSE                      |
+|dfDATACHG  |strDataPointsCol |                  |TRUE          |FALSE                       |FALSE                      |
