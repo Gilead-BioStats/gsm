@@ -1,4 +1,4 @@
-test_that("PD assessment can return a correctly assessed data frame for the poisson test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly", {
+test_that("PD assessment can return a correctly assessed data frame for the normal approximation test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly", {
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw(dfs = list(
     dfPD = clindata::rawplus_protdev %>% filter(importnt == "Y"),
