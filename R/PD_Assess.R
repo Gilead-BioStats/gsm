@@ -182,7 +182,7 @@ PD_Assess <- function(
       dfConfig <- MakeDfConfig(
         strMethod = strMethod,
         strGroup = strGroup,
-        strAbbreviation = "DISP",
+        strAbbreviation = "PD",
         strMetric = "Protocol Deviation Rate",
         strNumerator = "Protocol Deviations",
         strDenominator = "Days in Study",

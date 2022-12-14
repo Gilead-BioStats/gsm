@@ -173,7 +173,7 @@ DataChg_Assess <- function(
     dfConfig <- MakeDfConfig(
       strMethod = strMethod,
       strGroup = strGroup,
-      strAbbreviation = "DATACHG",
+      strAbbreviation = "CDAT",
       strMetric = "Data Change Rate",
       strNumerator = "Data Points with 1+ Change",
       strDenominator = "Total Data Points",
