@@ -21,6 +21,7 @@
 #'   of the column. Default: package-defined Adverse Event Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`.
 #' Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -69,6 +70,7 @@ AE_Assess <- function(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nMinDenominator = NULL,
   bQuiet = TRUE
 ) {
 
@@ -132,6 +134,7 @@ AE_Assess <- function(
       lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
         dfTransformed = lData$dfTransformed,
         strType = "rate",
+        nMinDenominator = nMinDenominator,
         bQuiet = bQuiet
       )
 
@@ -139,6 +142,7 @@ AE_Assess <- function(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
         strType = "rate",
+        nMinDenominator=nMinDenom
         bQuiet = bQuiet
       )
     } else if (strMethod == "Poisson") {

@@ -38,7 +38,7 @@
 #'
 #' @export
 
-Summarize <- function(dfFlagged, strScoreCol = "Score") {
+Summarize <- function(dfFlagged, nMinDenominator= NULL, strScoreCol = "Score") {
   stopifnot(
     "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
     "One or more of these columns: GroupID, Flag , strScoreCol, not found in dfFlagged" = all(c("GroupID", "Flag", strScoreCol) %in% names(dfFlagged))
@@ -48,11 +48,21 @@ Summarize <- function(dfFlagged, strScoreCol = "Score") {
     select(
       "GroupID",
       "Metric",
+      "Numerator",
+      "Denominator",
       "Score",
       "Flag"
     ) %>%
     arrange(desc(abs(.data$Metric))) %>%
     arrange(match(.data$Flag, c(1, -1, 0)))
+
+  if(!is.null(nMinDenominator)){
+    dfSummary$Score[dfSummary$Denominator < nMinDenominator] <- NA
+    dfSummary$Flag[dfSummary$Denominator < nMinDenominator] <- NA 
+
+    #Add bQuiet logic to summarize the number of sites excluded
+    # X sites excluded because of denominator less than Y
+  }
 
   return(dfSummary)
 }
