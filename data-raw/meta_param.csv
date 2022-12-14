@@ -65,6 +65,12 @@ kri0011,1.3.2,vThreshold,2,-2,TRUE
 kri0011,1.3.2,vThreshold,3,2,TRUE
 kri0011,1.3.2,vThreshold,4,3,TRUE
 kri0011,1.3.2,strMethod,NA,NormalApprox,FALSE
+kri0012,1.3.2,strGroup,NA,Site,FALSE
+kri0012,1.3.2,vThreshold,1,-3,TRUE
+kri0012,1.3.2,vThreshold,2,-2,TRUE
+kri0012,1.3.2,vThreshold,3,2,TRUE
+kri0012,1.3.2,vThreshold,4,3,TRUE
+kri0012,1.3.2,strMethod,NA,NormalApprox,FALSE
 cou0001,1.3.2,strGroup,NA,Country,FALSE
 cou0001,1.3.2,vThreshold,1,-3,TRUE
 cou0001,1.3.2,vThreshold,2,-2,TRUE
@@ -131,6 +137,12 @@ cou0011,1.3.2,vThreshold,2,-2,TRUE
 cou0011,1.3.2,vThreshold,3,2,TRUE
 cou0011,1.3.2,vThreshold,4,3,TRUE
 cou0011,1.3.2,strMethod,NA,NormalApprox,FALSE
+cou0012,1.3.2,strGroup,NA,Site,FALSE
+cou0012,1.3.2,vThreshold,1,-3,TRUE
+cou0012,1.3.2,vThreshold,2,-2,TRUE
+cou0012,1.3.2,vThreshold,3,2,TRUE
+cou0012,1.3.2,vThreshold,4,3,TRUE
+cou0012,1.3.2,strMethod,NA,NormalApprox,FALSE
 qtl0004,1.3.2,strGroup,NA,Study,FALSE
 qtl0004,1.3.2,vThreshold,1,0.01,TRUE
 qtl0004,1.3.2,strMethod,NA,qtl,FALSE

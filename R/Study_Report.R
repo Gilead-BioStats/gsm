@@ -20,25 +20,27 @@
 #'
 #' @export
 
-Study_Report <- function(lAssessments,
-                         strOutpath = NULL,
-                         strReportType = "kri"
-                         ) {
-  report_type <- switch(strReportType,
-                        kri = "KRIReport.Rmd",
-                        study = "studySummary.rmd")
+Study_Report <- function(
+    lAssessments,
+    strOutpath = NULL,
+    strReportType = "kri"
+) {
+  report_type <- switch(
+    strReportType,
+    kri = "KRIReport.Rmd",
+    study = "studySummary.rmd"
+  )
 
   if (is.null(strOutpath)) {
     strOutpath <- paste0(getwd(), "/gsm_report.html")
   }
-
 
   projectTemplate <- system.file("report", report_type, package = "gsm")
   rmarkdown::render(
     projectTemplate,
     output_file = strOutpath,
     params = list(
-      study = lAssessments
+      assessment = lAssessments
     ),
     envir = new.env(parent = globalenv())
   )

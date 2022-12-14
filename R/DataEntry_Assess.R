@@ -173,8 +173,8 @@ DataEntry_Assess <- function(
     dfConfig <- MakeDfConfig(
       strMethod = strMethod,
       strGroup = strGroup,
-      strAbbreviation = "DATAENTRY",
-      strMetric = "Data Entry Lag",
+      strAbbreviation = "ODAT",
+      strMetric = "Outstanding Data Entry Rate",
       strNumerator = "Data Pages Entered > 10 Days",
       strDenominator = "Total Data Pages",
       vThreshold = vThreshold

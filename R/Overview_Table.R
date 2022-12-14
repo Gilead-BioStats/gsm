@@ -10,18 +10,16 @@
 #'
 #' @export
 Overview_Table <- function(lAssessments, bInteractive = TRUE) {
-
   study <- lAssessments[grep("kri", names(lAssessments))]
 
+  overview_table <- study %>%
+    purrr::map(function(kri) {
+      name <- kri$name
 
-  overview_table <- purrr::map(study, function(kri) {
-
-    name <- kri$name
-
-    kri$lResults$lData$dfFlagged %>%
-      select("GroupID", "Flag") %>%
-      rename(!!name := Flag)
-  }) %>%
+      kri$lResults$lData$dfFlagged %>%
+        select("GroupID", "Flag") %>%
+        rename(!!name := Flag)
+    }) %>%
     purrr::reduce(left_join, by = "GroupID") %>%
     rowwise() %>%
     mutate("Red KRIs" = {
@@ -34,7 +32,7 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     }) %>%
     ungroup() %>%
     select(
-      "GroupID",
+      "Site" = "GroupID",
       "Red KRIs",
       "Amber KRIs",
       everything()
@@ -53,13 +51,21 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     stats::na.omit() %>%
     tibble::deframe()
 
+  # Rename columns from KRI name to KRI abbreviation.
   overview_table <- overview_table %>%
     rename(any_of(abbreviation_lookup))
+
+  # Add # of subjects to overview table.
+  dfSUBJ <- study[[ 1 ]]$lData$dfSUBJ
+  overview_table[[ '# Subjects' ]] <- overview_table$Site %>%
+      map_int(~dfSUBJ %>% filter(.data$siteid == .x) %>% nrow())
+  overview_table <- relocate(overview_table, '# Subjects', .after = 'Site')
 
   if (bInteractive) {
     n_headers <- ncol(overview_table)
     kri_index <- n_headers - length(study)
 
+    # Add tooltips to column headers.
     headerCallback <- glue::glue("
       function(thead, data, start, end, display) {
         var tooltips = ['{{paste(names(metric_lookup), collapse = \"', '\")}'];
@@ -72,7 +78,7 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     overview_table <- overview_table %>%
       mutate(
         across(
-          -c(.data$GroupID:.data$`Amber KRIs`),
+          -c(.data$Site:.data$`Amber KRIs`),
           ~purrr::map(.x, kri_directionality_logo)
         )
       ) %>%

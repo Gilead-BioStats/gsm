@@ -123,7 +123,7 @@ Consent_Assess <- function(
       strAbbreviation = "CONSENT",
       strMetric = "Consent Issues",
       strNumerator = "Consent Issues",
-      strDenominator = "Total Subjects",
+      strDenominator = "",
       vThreshold = nThreshold
     )
 
