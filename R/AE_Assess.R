@@ -134,7 +134,6 @@ AE_Assess <- function(
       lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
         dfTransformed = lData$dfTransformed,
         strType = "rate",
-        nMinDenominator = nMinDenominator,
         bQuiet = bQuiet
       )
 
@@ -142,7 +141,6 @@ AE_Assess <- function(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
         strType = "rate",
-        nMinDenominator = nMinDenominator,
         bQuiet = bQuiet
       )
     } else if (strMethod == "Poisson") {
@@ -184,7 +182,7 @@ AE_Assess <- function(
 
 
     # dfSummary ---------------------------------------------------------------
-    lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
+    lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
 
@@ -210,17 +208,14 @@ AE_Assess <- function(
 
 
       # scatter plots -----------------------------------------------------------
-
-      # ggplot bar charts -------------------------------------------------------
-
     if (strMethod != "Identity") {
 
 
-      lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+      lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
       # rbm-viz charts ----------------------------------------------------------
       lCharts$scatterJS <- scatterPlot(
-        results = lData$dfFlagged,
+        results = lData$dfSummary,
         workflow = dfConfig,
         bounds = lData$dfBounds,
         elementId = "aeAssessScatter"
@@ -230,18 +225,18 @@ AE_Assess <- function(
 
 
       # bar charts --------------------------------------------------------------
-      lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-      lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+      lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfSummary, strType = "metric")
+      lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfSummary, strType = "score", vThreshold = vThreshold)
 
       lCharts$barMetricJS <- barChart(
-        results = lData$dfFlagged,
+        results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "metric",
         elementId = "aeAssessMetric"
       )
 
       lCharts$barScoreJS <- barChart(
-        results = lData$dfFlagged,
+        results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "score",
         elementId = "aeAssessScore"
