@@ -142,7 +142,7 @@ AE_Assess <- function(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
         strType = "rate",
-        nMinDenominator=nMinDenom
+        nMinDenominator = nMinDenominator,
         bQuiet = bQuiet
       )
     } else if (strMethod == "Poisson") {
