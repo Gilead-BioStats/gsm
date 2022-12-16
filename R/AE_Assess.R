@@ -70,7 +70,7 @@ AE_Assess <- function(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
-  nMinDenominator = NULL,
+  nMinDenominator = 30,
   bQuiet = TRUE
 ) {
 
@@ -209,9 +209,7 @@ AE_Assess <- function(
 
       # scatter plots -----------------------------------------------------------
     if (strMethod != "Identity") {
-
-
-      lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+      lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
       # rbm-viz charts ----------------------------------------------------------
       lCharts$scatterJS <- scatterPlot(
@@ -225,8 +223,8 @@ AE_Assess <- function(
 
 
       # bar charts --------------------------------------------------------------
-      lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfSummary, strType = "metric")
-      lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfSummary, strType = "score", vThreshold = vThreshold)
+      lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
+      lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
 
       lCharts$barMetricJS <- barChart(
         results = lData$dfSummary,

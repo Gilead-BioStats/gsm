@@ -61,7 +61,7 @@ DataEntry_Assess <- function(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "DataEntry_Assess.yaml", package = "gsm")),
   strGroup = "Site",
-  nMinDenominator = NULL,
+  nMinDenominator = 30,
   bQuiet = TRUE
 ) {
 
@@ -162,7 +162,7 @@ DataEntry_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
 
     # dfSummary ---------------------------------------------------------------
-    lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
+    lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
@@ -183,10 +183,10 @@ DataEntry_Assess <- function(
     )
 
     if (strMethod != "Identity") {
-      lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+      lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
       lCharts$scatterJS <- scatterPlot(
-        results = lData$dfFlagged,
+        results = lData$dfSummary,
         workflow = dfConfig,
         bounds = lData$dfBounds,
         elementId = "dataEntryAssessScatter"
@@ -195,18 +195,18 @@ DataEntry_Assess <- function(
       if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
     }
 
-    lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+    lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
+    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
 
     lCharts$barMetricJS <- barChart(
-      results = lData$dfFlagged,
+      results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "metric",
       elementId = "dataEntryAssessMetric"
     )
 
     lCharts$barScoreJS <- barChart(
-      results = lData$dfFlagged,
+      results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "score",
       elementId = "dataEntryAssessScore"

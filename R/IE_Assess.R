@@ -104,7 +104,7 @@ IE_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
 
     # dfSummary ---------------------------------------------------------------
-    lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
+    lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
@@ -120,18 +120,18 @@ IE_Assess <- function(
       vThreshold = nThreshold
     )
 
-    lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score")
+    lCharts$barMetric <- Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
+    lCharts$barScore <- Visualize_Score(dfSummary = lData$dfSummary, strType = "score")
 
     lCharts$barMetricJS <- barChart(
-      results = lData$dfFlagged,
+      results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "metric",
       elementId = "ieAssessMetric"
     )
 
     lCharts$barScoreJS <- barChart(
-      results = lData$dfFlagged,
+      results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "score",
       elementId = "ieAssessScore"

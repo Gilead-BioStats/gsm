@@ -113,7 +113,7 @@ Consent_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
 
     # dfSummary ---------------------------------------------------------------
-    lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
+    lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
@@ -129,18 +129,18 @@ Consent_Assess <- function(
       vThreshold = nThreshold
     )
 
-    lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score")
+    lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
+    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score")
 
     lCharts$barMetricJS <- barChart(
-      results = lData$dfFlagged,
+      results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "metric",
       elementId = "consentAssessMetric"
     )
 
     lCharts$barScoreJS <- barChart(
-      results = lData$dfFlagged,
+      results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "score",
       elementId = "consentAssessScore"

@@ -62,7 +62,7 @@ Disp_Assess <- function(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm")),
   strGroup = "Site",
-  nMinDenominator = NULL,
+  nMinDenominator = 3,
   nConfLevel = NULL,
   bQuiet = TRUE
 ) {
@@ -172,7 +172,7 @@ Disp_Assess <- function(
 
 
     # dfSummary ---------------------------------------------------------------
-    lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
+    lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
@@ -195,10 +195,9 @@ Disp_Assess <- function(
 
 
 
-      if (strMethod != "Identity") {
-
-
-        lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+    # scatter plots -----------------------------------------------------------
+    if (strMethod != "Identity") {
+        lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
         if (exists('dfBounds', lData)) {
           bounds <- lData$dfBounds
@@ -207,7 +206,7 @@ Disp_Assess <- function(
         }
 
         lCharts$scatterJS <- scatterPlot(
-          results = lData$dfFlagged,
+          results = lData$dfSummary,
           workflow = dfConfig,
           bounds = bounds,
           elementId = "dispAssessScatter"
@@ -217,19 +216,18 @@ Disp_Assess <- function(
 
 
     # bar charts --------------------------------------------------------------
-
-      lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-      lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+      lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
+      lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
 
       lCharts$barMetricJS <- barChart(
-        results = lData$dfFlagged,
+        results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "metric",
         elementId = "dispAssessMetric"
       )
 
       lCharts$barScoreJS <- barChart(
-        results = lData$dfFlagged,
+        results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "score",
         elementId = "dispAssessScore"

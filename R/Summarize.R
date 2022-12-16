@@ -51,12 +51,20 @@ Summarize <- function(
     "One or more of these columns: GroupID, Flag , strScoreCol, not found in dfFlagged" = all(c("GroupID", "Flag", strScoreCol) %in% names(dfFlagged))
   )
 
+  if (!("Numerator" %in% colnames(dfFlagged))) {
+    dfFlagged$Numerator <- NA
+  }
+
+  if (!("Denominator" %in% colnames(dfFlagged))) {
+    dfFlagged$Denominator <- NA
+  }
+
   dfSummary <- dfFlagged %>%
     select(
       "GroupID",
-      "Metric",
       "Numerator",
       "Denominator",
+      "Metric",
       "Score",
       "Flag"
     ) %>%
