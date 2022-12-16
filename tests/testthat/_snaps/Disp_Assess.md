@@ -18,8 +18,7 @@
     Code
       names(output$lCharts)
     Output
-      [1] "scatter"     "scatterJS"   "barMetric"   "barScore"    "barMetricJS"
-      [6] "barScoreJS" 
+      [1] "scatterJS"   "barMetric"   "barScore"    "barMetricJS" "barScoreJS" 
 
 # grouping works as expected
 
@@ -29,16 +28,16 @@
       # A tibble: 40 x 1
          GroupID
          <chr>  
-       1 43     
-       2 58     
-       3 139    
-       4 173    
-       5 189    
-       6 29     
-       7 5      
-       8 62     
-       9 8      
-      10 91     
+       1 127    
+       2 128    
+       3 43     
+       4 58     
+       5 139    
+       6 173    
+       7 189    
+       8 29     
+       9 5      
+      10 62     
       # ... with 30 more rows
 
 ---
@@ -72,16 +71,16 @@
       # A tibble: 40 x 1
          GroupID
          <chr>  
-       1 0X091  
-       2 0X159  
-       3 0X023  
-       4 0X052  
-       5 0X093  
-       6 0X116  
-       7 0X124  
-       8 0X154  
-       9 0X167  
-      10 0X175  
+       1 0X043  
+       2 0X149  
+       3 0X091  
+       4 0X159  
+       5 0X023  
+       6 0X052  
+       7 0X093  
+       8 0X116  
+       9 0X124  
+      10 0X154  
       # ... with 30 more rows
 
 # invalid data throw errors
@@ -133,7 +132,9 @@
       > nStep was not provided. Setting default step to 0.004
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
+      i 40 Site(s) have insufficient sample size due to KRI denominator less than 3. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 40 rows.
-      v Created 2 scatter plots.
+      v Created 1 scatter plot.
       v Created 4 bar charts.
 

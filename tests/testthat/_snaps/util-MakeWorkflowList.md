@@ -769,6 +769,9 @@
       $kri0001[[4]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0001[[4]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -848,6 +851,9 @@
       $kri0002[[4]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0002[[4]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -904,6 +910,9 @@
       
       $kri0003[[3]]$params$strMethod
       [1] "NormalApprox"
+      
+      $kri0003[[3]]$params$nMinDenominator
+      [1] 30
       
       
       
@@ -962,6 +971,9 @@
       $kri0004[[3]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0004[[3]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -1019,6 +1031,9 @@
       $kri0005[[3]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0005[[3]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -1058,6 +1073,9 @@
       
       $kri0006[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $kri0006[[2]]$params$nMinDenominator
+      [1] 2
       
       
       
@@ -1121,6 +1139,9 @@
       $kri0007[[3]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0007[[3]]$params$nMinDenominator
+      [1] 2
+      
       
       
       
@@ -1155,6 +1176,9 @@
       
       $kri0008[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $kri0008[[2]]$params$nMinDenominator
+      [1] 30
       
       
       
@@ -1191,6 +1215,9 @@
       $kri0009[[2]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0009[[2]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -1225,6 +1252,9 @@
       
       $kri0010[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $kri0010[[2]]$params$nMinDenominator
+      [1] 30
       
       
       
@@ -1261,6 +1291,9 @@
       $kri0011[[2]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0011[[2]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -1295,6 +1328,9 @@
       
       $kri0012[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $kri0012[[2]]$params$nMinDenominator
+      [1] 2
       
       
       
