@@ -11,6 +11,7 @@ Screening_Assess(
   lMapping = yaml::read_yaml(system.file("mappings", "Screening_Assess.yaml", package =
     "gsm")),
   strGroup = "Site",
+  nMinDenominator = 3,
   nConfLevel = NULL,
   bQuiet = TRUE
 )
@@ -32,6 +33,8 @@ Screening_Assess(
 of the column. Default: package-defined Screening Assessment mapping.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
+
+\item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
 
 \item{nConfLevel}{\code{numeric} Confidence level for QTL analysis.}
 
