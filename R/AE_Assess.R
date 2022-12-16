@@ -70,7 +70,7 @@ AE_Assess <- function(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
-  nMinDenominator = 30,
+  nMinDenominator = NULL,
   bQuiet = TRUE
 ) {
 

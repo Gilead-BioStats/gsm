@@ -13,4 +13,4 @@ steps:
       strGroup: "Site"
       vThreshold: null
       strMethod: "NormalApprox"
-      nMinDenominator: 2
+      nMinDenominator: 3

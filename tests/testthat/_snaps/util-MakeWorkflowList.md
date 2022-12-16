@@ -163,6 +163,9 @@
       $cou0001[[4]]$params$strMethod
       [1] "NormalApprox"
       
+      $cou0001[[4]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -242,6 +245,9 @@
       $cou0002[[4]]$params$strMethod
       [1] "NormalApprox"
       
+      $cou0002[[4]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -298,6 +304,9 @@
       
       $cou0003[[3]]$params$strMethod
       [1] "NormalApprox"
+      
+      $cou0003[[3]]$params$nMinDenominator
+      [1] 30
       
       
       
@@ -356,6 +365,9 @@
       $cou0004[[3]]$params$strMethod
       [1] "NormalApprox"
       
+      $cou0004[[3]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -413,6 +425,9 @@
       $cou0005[[3]]$params$strMethod
       [1] "NormalApprox"
       
+      $cou0005[[3]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -452,6 +467,9 @@
       
       $cou0006[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $cou0006[[2]]$params$nMinDenominator
+      [1] 3
       
       
       
@@ -515,6 +533,9 @@
       $cou0007[[3]]$params$strMethod
       [1] "NormalApprox"
       
+      $cou0007[[3]]$params$nMinDenominator
+      [1] 3
+      
       
       
       
@@ -549,6 +570,9 @@
       
       $cou0008[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $cou0008[[2]]$params$nMinDenominator
+      [1] 30
       
       
       
@@ -585,6 +609,9 @@
       $cou0009[[2]]$params$strMethod
       [1] "NormalApprox"
       
+      $cou0009[[2]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -619,6 +646,9 @@
       
       $cou0010[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $cou0010[[2]]$params$nMinDenominator
+      [1] 30
       
       
       
@@ -655,6 +685,9 @@
       $cou0011[[2]]$params$strMethod
       [1] "NormalApprox"
       
+      $cou0011[[2]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -689,6 +722,9 @@
       
       $cou0012[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $cou0012[[2]]$params$nMinDenominator
+      [1] 3
       
       
       
@@ -1075,7 +1111,7 @@
       [1] "NormalApprox"
       
       $kri0006[[2]]$params$nMinDenominator
-      [1] 2
+      [1] 3
       
       
       
@@ -1140,7 +1176,7 @@
       [1] "NormalApprox"
       
       $kri0007[[3]]$params$nMinDenominator
-      [1] 2
+      [1] 3
       
       
       
@@ -1330,7 +1366,7 @@
       [1] "NormalApprox"
       
       $kri0012[[2]]$params$nMinDenominator
-      [1] 2
+      [1] 3
       
       
       

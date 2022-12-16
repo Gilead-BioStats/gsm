@@ -11,7 +11,7 @@ Disp_Assess(
   lMapping = yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package =
     "gsm")),
   strGroup = "Site",
-  nMinDenominator = 3,
+  nMinDenominator = NULL,
   nConfLevel = NULL,
   bQuiet = TRUE
 )

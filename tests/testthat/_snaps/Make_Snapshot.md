@@ -967,10 +967,10 @@
       > nStep was not provided. Setting default step to 0.004
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
-      i 30 Site(s) have insufficient sample size due to KRI denominator less than 2. 
+      i 40 Site(s) have insufficient sample size due to KRI denominator less than 3. 
       These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 40 rows.
-      v Created 2 scatter plots.
+      v Created 1 scatter plot.
       v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -1029,10 +1029,10 @@
       > nStep was not provided. Setting default step to 0.004
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
-      i 30 Site(s) have insufficient sample size due to KRI denominator less than 2. 
+      i 40 Site(s) have insufficient sample size due to KRI denominator less than 3. 
       These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 40 rows.
-      v Created 2 scatter plots.
+      v Created 1 scatter plot.
       v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -1212,8 +1212,6 @@
       v `Transform_Rate()` returned output with 1 rows.
       v `Analyze_QTL()` returned output with 1 rows.
       v `Flag_QTL()` returned output with 1 rows.
-      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
-      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 1 rows.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -1255,8 +1253,6 @@
       v `Transform_Rate()` returned output with 1 rows.
       v `Analyze_QTL()` returned output with 1 rows.
       v `Flag_QTL()` returned output with 1 rows.
-      i 0 Site(s) have insufficient sample size due to KRI denominator less than 3. 
-      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 1 rows.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`

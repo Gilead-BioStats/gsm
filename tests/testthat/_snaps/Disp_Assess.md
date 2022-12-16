@@ -18,7 +18,8 @@
     Code
       names(output$lCharts)
     Output
-      [1] "scatterJS"   "barMetric"   "barScore"    "barMetricJS" "barScoreJS" 
+      [1] "scatter"     "scatterJS"   "barMetric"   "barScore"    "barMetricJS"
+      [6] "barScoreJS" 
 
 # grouping works as expected
 
@@ -132,9 +133,7 @@
       > nStep was not provided. Setting default step to 0.004
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
-      i 40 Site(s) have insufficient sample size due to KRI denominator less than 3. 
-      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 40 rows.
-      v Created 1 scatter plot.
+      v Created 2 scatter plots.
       v Created 4 bar charts.
 

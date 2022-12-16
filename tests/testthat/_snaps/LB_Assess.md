@@ -114,8 +114,6 @@
       > nStep was not provided. Setting default step to 2.768
       v `Analyze_NormalApprox()` returned output with 2 rows.
       v `Flag_NormalApprox()` returned output with 2 rows.
-      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
-      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 2 rows.
       v Created 2 scatter plots.
       v Created 4 bar charts.
