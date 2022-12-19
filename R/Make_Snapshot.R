@@ -71,7 +71,7 @@ bQuiet = TRUE
 ) {
 
   # add to all outputs except meta_
-  gsm_analysis_date <- Sys.Date()
+  gsm_analysis_date <- Sys.time()
 
 
 
