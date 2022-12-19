@@ -22,7 +22,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
     qualification_flag_poisson()
 
   t1_summary <- t1_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 

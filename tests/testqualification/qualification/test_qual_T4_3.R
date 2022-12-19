@@ -36,7 +36,11 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
     arrange(match(Flag, c(1, -1, 0)))
 
   t4_3_summary <- t4_3_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    mutate(
+      Numerator = NA,
+      Denominator = NA
+    ) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(1, -1, 0)))
 
