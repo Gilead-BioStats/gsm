@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -72,6 +72,33 @@
       <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.4.0" id="gsm-v140">gsm v1.4.0<a class="anchor" aria-label="anchor" href="#gsm-v140"></a></h2>
+<p>This release introduces five new KRIs, the inclusion of interactive widgets ported over from the <code>rbm-viz</code> Javascript library, reporting updates, and various bug fixes and utility functions. Major changes are noted below!</p>
+<div class="section level4">
+<h4 id="mappingassessment-functions-for-new-kris-1-4-0">Mapping/Assessment Functions for new KRIs<a class="anchor" aria-label="anchor" href="#mappingassessment-functions-for-new-kris-1-4-0"></a></h4>
+<ul><li>
+<code>DataChg_Map_Raw</code> &amp; <code>DataChg_Assess</code>: Evaluates rate of reported data point with &gt;1 changes.</li>
+<li>
+<code>DataEntry_Map_Raw</code> &amp; <code>DataEntry_Assess</code>: Evaluates rate of reported Data Entry Lag &gt;10 days.</li>
+<li>
+<code>Screening_Map_Raw</code> &amp; <code>Screening_Assess</code>: Evaluates screen failure rate (SF) on mapped subject-level dataset to identify sites that may be over- or under-reporting patient discontinuations.</li>
+<li>
+<code>QueryAge_Map_Raw</code> &amp; <code>QueryAge_Assess</code>: Evaluates rate of reported Query Age &gt;30 days.</li>
+<li>
+<code>QueryRate_Map_Raw</code> &amp; <code>QueryRate_Assess</code>: Evaluates query rates to identify sites that may be over- or under-reporting queries.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="interactive-widgets-1-4-0">Interactive Widgets<a class="anchor" aria-label="anchor" href="#interactive-widgets-1-4-0"></a></h4>
+<ul><li>When running any <code>*_Assess()</code> function, visualizations that are suffixed with <code>JS</code> are interactive <code>htmlwidgets</code> ported over from <code>rbm-viz</code> that can be explored in an IDE or web browser.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="reporting-updates-1-4-0">Reporting Updates<a class="anchor" aria-label="anchor" href="#reporting-updates-1-4-0"></a></h4>
+<ul><li>Interactive visualizations are now the default in the output of <code><a href="../reference/Study_Report.html">Study_Report()</a></code>.</li>
+<li>Tables are now interactive and show flag directionality.</li>
+<li>Only KRIs at the site-level are supported for now. QTLs and country-level KRI reporting is not currently supported.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.2" id="gsm-v132">gsm v1.3.2<a class="anchor" aria-label="anchor" href="#gsm-v132"></a></h2>
 <p>This minor release includes updates to the data model that is passed to Gismo via <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> - All CTMS metadata is passed through via <code>lMeta$status_study</code> and <code>lMeta$status_site</code> - <code>config_schedule</code>/<code>status_schedule</code> are removed as inputs/outputs to <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code></p>
@@ -149,7 +176,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

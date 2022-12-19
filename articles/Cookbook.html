@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -170,9 +170,9 @@ assessment (e.g., <code>dfInput &lt;- AE_Map_Raw()</code>)</li>
 <span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Map_Raw.html">AE_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Run the assessment with the appropriate statistical model.</span></span>
-<span><span class="co">##For AE, the choices are 'NormalApprox' or 'poisson' or 'identity'</span></span>
+<span><span class="co">##For AE, the choices are 'NormalApprox' or 'Poisson' or 'Identity'</span></span>
 <span><span class="va">ae_assessment_NormalApprox</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span><span class="op">)</span></span>
-<span><span class="va">ae_assessment_poisson</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"poisson"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">ae_assessment_poisson</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"Poisson"</span><span class="op">)</span></span></code></pre></div>
 <p>Each assessment has representative examples in the help files. The
 example above can be reviewed by entering <code><a href="../reference/AE_Assess.html">?AE_Assess</a></code> into
 the console.</p>
@@ -257,7 +257,7 @@ with additional error-checking and metadata. For reference, the code
 from Example 1 is repeated below:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Map_Raw.html">AE_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">ae_assessment_poisson</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"poisson"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">ae_assessment_poisson</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"Poisson"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3---running-multiple-assessments-using-standard-data">Example 3 - Running Multiple Assessments Using Standard Data<a class="anchor" aria-label="anchor" href="#example-3---running-multiple-assessments-using-standard-data"></a>
@@ -508,7 +508,7 @@ i.e., <code>kri0001.yaml</code>:</p>
 <span>    <span class="va">params</span><span class="op">:</span></span>
 <span>      <span class="va">strGroup</span><span class="op">:</span> <span class="st">"Site"</span></span>
 <span>      <span class="va">vThreshold</span><span class="op">:</span> <span class="va">null</span></span>
-<span>      <span class="va">strMethod</span><span class="op">:</span> <span class="st">"poisson"</span></span></code></pre>
+<span>      <span class="va">strMethod</span><span class="op">:</span> <span class="st">"Poisson"</span></span></code></pre>
 <p>First, we want to add an additional <code><a href="../reference/FilterDomain.html">FilterDomain()</a></code> step
 to the workflow specification to select only moderate AEs. Because
 <code>dfAE</code> needs to be filtered before it is used in
@@ -549,7 +549,7 @@ the workflow.</p>
 <span>    <span class="va">params</span><span class="op">:</span></span>
 <span>      <span class="va">strGroup</span><span class="op">:</span> <span class="st">"Site"</span></span>
 <span>      <span class="va">vThreshold</span><span class="op">:</span> <span class="va">null</span></span>
-<span>      <span class="va">strMethod</span><span class="op">:</span> <span class="st">"poisson"</span></span></code></pre>
+<span>      <span class="va">strMethod</span><span class="op">:</span> <span class="st">"Poisson"</span></span></code></pre>
 <p>After setting up the custom YAML mapping, there are a few more steps
 a user must take before executing <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>:</p>
 <ol style="list-style-type: decimal">
@@ -610,7 +610,7 @@ custom YAML file is stored.</li>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

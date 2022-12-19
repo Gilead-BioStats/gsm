@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -78,11 +78,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Study_Report</span><span class="op">(</span></span>
-<span>  <span class="va">lAssessments</span>,</span>
-<span>  lMeta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Project <span class="op">=</span> <span class="st">"My Project"</span><span class="op">)</span>,</span>
-<span>  strOutpath <span class="op">=</span> <span class="cn">NULL</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Study_Report</span><span class="op">(</span><span class="va">lAssessments</span>, strOutpath <span class="op">=</span> <span class="cn">NULL</span>, strReportType <span class="op">=</span> <span class="st">"kri"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -91,12 +87,12 @@
 <dd><p><code>list</code> The results of multiple assessments run using <code>Study_Assess</code>.</p></dd>
 
 
-<dt>lMeta</dt>
-<dd><p><code>list</code> Metadata related to study.</p></dd>
-
-
 <dt>strOutpath</dt>
 <dd><p><code>character</code> File path; location where the report will be saved.</p></dd>
+
+
+<dt>strReportType</dt>
+<dd><p><code>character</code> Type of report to generate. Default: <code>kri</code>. Other options include: <code>study</code>.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -131,7 +127,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

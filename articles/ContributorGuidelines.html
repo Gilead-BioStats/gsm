@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -301,7 +301,19 @@ version of <a href="https://github.com/Gilead-BioStats/gsm" class="external-link
 following steps and pushing updates to the <code>release</code> branch:
 <ul>
 <li>Confirm that the version in the <code>DESCRIPTION</code> file is up
-to date.</li>
+to date.
+<ul>
+<li><p><strong>After</strong> the version in the
+<code>DESCRIPTION</code> file is updated, run
+<code><a href="../reference/UpdateGSMVersion.html">gsm::UpdateGSMVersion()</a></code> to update metadata that includes
+the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> version number.</p></li>
+<li><p>After running <code><a href="../reference/UpdateGSMVersion.html">gsm::UpdateGSMVersion()</a></code>, run
+<code><a href="../reference/CheckClindataMeta.html">gsm::CheckClindataMeta()</a></code> to make sure that the versions in
+<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> and <code>{clindata}</code> are in sync. If not, open
+a PR in <code>{clindata}</code> to update any metadata that includes
+<code>gsm_version</code>.</p></li>
+</ul>
+</li>
 <li>Run <code>styler</code> using the script from the <a href="#style-guide">style guide</a> above (or by running
 <code>gutil::style_code()</code>) and commit any updates.</li>
 <li>Update <code>NEWS.md</code> with a summary of the
@@ -395,7 +407,96 @@ release.</li>
 Release Workflows described above. When applied to an
 Assessment/Feature, confirm that each function meets the requirements
 described. When applied to utility or other functionality, use relevant
-sections of the checklist and modify QC checks as needed.</p>
+sections of the checklist and modify QC checks as needed. A risk-based
+approach will be used to determine whether each release requires a
+high-level or detailed release QC.</p>
+<div class="section level4">
+<h4 id="high-level-qc-checklist">High-Level QC Checklist<a class="anchor" aria-label="anchor" href="#high-level-qc-checklist"></a>
+</h4>
+<ul class="task-list">
+<li>
+<input type="checkbox" disabled>Documentation<ul class="task-list">
+<li>
+<input type="checkbox" disabled>New functionality contains an
+<code>@export</code> tag.</li>
+<li>
+<input type="checkbox" disabled>New functionality contains an
+adequate level of documentation.</li>
+</ul>
+</li>
+<li>
+<input type="checkbox" disabled>Error Checking<ul class="task-list">
+<li>
+<input type="checkbox" disabled>New functionality has
+associated unit test(s).</li>
+<li>
+<input type="checkbox" disabled>Tests confirm that the input
+data has required columns (if any).</li>
+<li>
+<input type="checkbox" disabled>Tests confirm that the output
+data has expected columns/structure.</li>
+<li>
+<input type="checkbox" disabled>Tests confirm intended
+functionality for each parameter.</li>
+</ul>
+</li>
+<li>
+<input type="checkbox" disabled>Data Model<ul class="task-list">
+<li>
+<input type="checkbox" disabled>Running
+<code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> using defaults returns no errors.</li>
+<li>
+<input type="checkbox" disabled>Running
+<code><a href="../reference/CheckSnapshotInputs.html">CheckSnapshotInputs()</a></code> using the output of
+<code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> returns no errors.</li>
+<li>
+<input type="checkbox" disabled>Running
+<code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> using defaults returns no errors.</li>
+<li>
+<input type="checkbox" disabled>Running
+<code><a href="../reference/Study_Report.html">Study_Report()</a></code> using the output of
+<code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> from above produces a HTML report that
+accurately displays results.</li>
+</ul>
+</li>
+<li>
+<input type="checkbox" disabled>Basic QC<ul class="task-list">
+<li>
+<input type="checkbox" disabled>Assessment has User
+Requirements + Qualification tests captured using qualification
+framework. A QC report is generated as expected and all checks pass
+successfully.</li>
+<li>
+<input type="checkbox" disabled>Code is well commented and easy
+to read/understand.</li>
+<li>
+<input type="checkbox" disabled>No file paths or other
+company-specific data are present.</li>
+<li>
+<input type="checkbox" disabled><code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code>
+passes with no errors/warnings/notes.</li>
+<li>
+<input type="checkbox" disabled>Package documents are up to
+date, and running <code><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">devtools::document()</a></code> does not change any
+files.</li>
+<li>
+<input type="checkbox" disabled>Codes use
+<a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a> best practices for standard data manipulation.
+If unclear, reviewer should start a discussion thread.</li>
+<li>
+<input type="checkbox" disabled>All new dependencies add
+significant value. If unclear, reviewer should start a discussion
+thread.</li>
+<li>
+<input type="checkbox" disabled>All GitHub Actions run with no
+errors.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="detailed-qc-checklist">Detailed QC Checklist<a class="anchor" aria-label="anchor" href="#detailed-qc-checklist"></a>
+</h4>
 <ul class="task-list">
 <li>
 <input type="checkbox" disabled>Documentation<ul class="task-list">
@@ -507,6 +608,7 @@ errors.</li>
 </li>
 </ul>
 </div>
+</div>
 <div class="section level2">
 <h2 id="github-action-workflow">Appendix 3 - Continuous Integration with GitHub Actions
 <!--# Do we need to add missing actions, i.e., Style, check-dev, pages-build-deployment? --><a class="anchor" aria-label="anchor" href="#github-action-workflow"></a>
@@ -611,7 +713,7 @@ release is correct.</li>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
