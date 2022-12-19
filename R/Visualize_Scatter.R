@@ -53,8 +53,10 @@ Visualize_Scatter <- function(
 
   # Avoid plotting empty datasets
 
-  if (nrow(dfSummaryWithTooltip) == 0)
-      return(NULL)
+  if (nrow(dfSummaryWithTooltip) == 0) {
+    return(NULL)
+  }
+
 
   # Account for incomplete set of flags
   dfSummaryWithTooltip$FlagAbs <- abs(dfSummaryWithTooltip$Flag)
