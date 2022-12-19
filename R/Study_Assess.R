@@ -43,13 +43,22 @@ Study_Assess <- function(
       dfIE = clindata::rawplus_ie,
       dfLB = clindata::rawplus_lb,
       dfSTUDCOMP = clindata::rawplus_studcomp,
-      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion")
+      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion"),
+      dfDATACHG = clindata::edc_data_change_rate,
+      dfDATAENT = clindata::edc_data_entry_lag,
+      dfQUERY = clindata::edc_queries,
+      dfDATACHG = clindata::edc_data_change_rate,
+      dfENROLL = clindata::rawplus_enroll
     )
   }
 
   # lMapping from clindata
   if (is.null(lMapping)) {
-    lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+    lMapping <- c(
+      yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+      yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm")),
+      yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
+    )
   }
 
   # lAssessments from gsm inst/workflow

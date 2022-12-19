@@ -2,6 +2,6 @@
 
     Code
       dfAnalyzed <- Analyze_Poisson(dfTransformed, bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       i Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ].
 

@@ -1,7 +1,7 @@
 #' Flag QTL
 #'
 #' @details
-#' This function flags a study-level QTL metric by comparing the mean and lower confidence bound for the metric to a single threhsold.
+#' This function flags a study-level QTL metric by comparing the mean and lower confidence bound for the metric to a single threshold.
 #'
 #' @section Data Specification:
 #' \code{Flag_NormalApprox} is designed to support the input data (`dfAnalyzed`) from \code{Analyze_QTL} function.
@@ -46,7 +46,7 @@ Flag_QTL <- function(
       Flag = case_when(
         (.data$LowCI > vThreshold) ~ 2,
         (.data$Estimate > vThreshold) ~ 1,
-        TRUE ~ 0
+        (.data$Estimate <= vThreshold) ~ 0
       )
     )
 

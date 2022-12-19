@@ -1,6 +1,6 @@
 Package: gsm
 Title: Gilead Statistical Monitoring
-Version: 1.3.2
+Version: 1.4.0
 Authors@R: c(
     person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", email="jwildfire@gmail.com", role = c("aut")),
@@ -21,10 +21,13 @@ Imports:
     cli,
     DiagrammeR,
     dplyr,
+    DT,
     fontawesome (>= 0.2.2),
     glue,
     gt,
     ggplot2,
+    htmlwidgets,
+    here,
     janitor,
     knitr,
     lamW,
@@ -35,25 +38,24 @@ Imports:
     stringr,
     tibble,
     tidyr,
-    yaml
+    yaml,
+    rlang (>= 0.4.11)
 Suggests:
     clindata,
     covr,
     devtools,
-    DT,
-    here,
     kableExtra,
     pander,
-    rlang,
     safetyData,
     testthat (>= 3.0.0),
     usethis,
     tools,
     pkgdown,
-    riskmetric
+    riskmetric,
+    roxygen2
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.2
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Depends: 

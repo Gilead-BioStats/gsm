@@ -1,0 +1,14 @@
+steps:
+  - name: QueryRate_Map_Raw
+    inputs:
+      - dfSUBJ
+      - dfQUERY
+      - dfDATACHG
+    output: dfInput
+  - name: QueryRate_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      vThreshold: null
+      strMethod: "NormalApprox"

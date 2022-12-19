@@ -58,11 +58,15 @@ Flag_Fisher <- function(
   dfFlagged <- dfAnalyzed %>%
     mutate(
       Flag = case_when(
+        # score < lower threshold and metric < overall metric sans current group
         (.data$Score < vThreshold[1]) & (.data$Prop < .data$Prop_Other) ~ -2,
-        (.data$Score < vThreshold[1]) & (.data$Prop > .data$Prop_Other) ~ 2,
+        # score < lower threshold and metric >= overall metric sans current group
+        (.data$Score < vThreshold[1]) & (.data$Prop >= .data$Prop_Other) ~ 2,
+        # score < upper threshold and metric < overall metric sans current group
         (.data$Score < vThreshold[2]) & (.data$Prop < .data$Prop_Other) ~ -1,
-        (.data$Score < vThreshold[2]) & (.data$Prop > .data$Prop_Other) ~ 1,
-        TRUE ~ 0
+        # score < upper threshold and metric >= overall metric sans current group
+        (.data$Score < vThreshold[2]) & (.data$Prop >= .data$Prop_Other) ~ 1,
+        !is.na(.data$Score) & !is.nan(.data$Score) ~ 0
       )
     )
 

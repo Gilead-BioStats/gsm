@@ -1,0 +1,13 @@
+steps:
+  - name: QueryAge_Map_Raw
+    inputs:
+      - dfSUBJ
+      - dfQUERY
+    output: dfInput
+  - name: QueryAge_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Country"
+      vThreshold: null
+      strMethod: "NormalApprox"

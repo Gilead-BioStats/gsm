@@ -7,7 +7,7 @@ test_that("AE assessment can return a correctly assessed data frame for the iden
 
   test1_6 <- AE_Assess(
     dfInput = dfInput,
-    strMethod = "identity",
+    strMethod = "Identity",
     strGroup = "CustomGroup"
   )
 

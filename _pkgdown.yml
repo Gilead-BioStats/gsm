@@ -12,6 +12,10 @@ reference:
      desc: Generate a visualization from the Assessment results
    - contents:
       - starts_with("Visualize_")
+      - barChart
+      - barChart-shiny
+      - scatterPlot
+      - scatterPlot-shiny
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
 
@@ -46,7 +50,9 @@ reference:
       - Study_AssessmentReport
       - Study_Report
       - Study_Table
+      - Overview_Table
       - rank_chg
+      - kri_directionality_logo
 
    - title: QTL
      desc: Runs QTL analysis for longitudinal metrics
@@ -76,7 +82,11 @@ reference:
       - RemoveInvalidSubjectIDs
       - ParseWarnings
       - Make_Snapshot
-
+      - CheckSnapshotInputs
+      - MakeDfConfig
+      - UpdateParams
+      - CheckClindataMeta
+      - UpdateGSMVersion
    - title: Data
      desc: Metadata used to create workflows
    - contents:

@@ -6,13 +6,6 @@ steps:
       strDomain: dfLB
       strColParam: strTreatmentEmergentCol
       strValParam: strTreatmentEmergentVal
-  - name: FilterDomain
-    inputs: dfLB
-    output: dfLB
-    params:
-      strDomain: dfLB
-      strColParam: strGradeCol
-      strValParam: strGradeHighVal
   - name: LB_Map_Raw
     inputs:
       - dfSUBJ

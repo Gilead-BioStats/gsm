@@ -4,18 +4,14 @@
 \alias{Study_Report}
 \title{{experimental} Study Report}
 \usage{
-Study_Report(
-  lAssessments,
-  lMeta = list(Project = "My Project"),
-  strOutpath = NULL
-)
+Study_Report(lAssessments, strOutpath = NULL, strReportType = "kri")
 }
 \arguments{
 \item{lAssessments}{\code{list} The results of multiple assessments run using \code{Study_Assess}.}
 
-\item{lMeta}{\code{list} Metadata related to study.}
-
 \item{strOutpath}{\code{character} File path; location where the report will be saved.}
+
+\item{strReportType}{\code{character} Type of report to generate. Default: \code{kri}. Other options include: \code{study}.}
 }
 \value{
 HTML report of study data.

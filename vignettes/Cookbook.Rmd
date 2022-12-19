@@ -71,9 +71,9 @@ library(gsm)
 dfInput <- AE_Map_Raw()
 
 ## Run the assessment with the appropriate statistical model.
-##For AE, the choices are 'NormalApprox' or 'poisson' or 'identity'
+##For AE, the choices are 'NormalApprox' or 'Poisson' or 'Identity'
 ae_assessment_NormalApprox <- AE_Assess(dfInput)
-ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "poisson")
+ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "Poisson")
 ```
 
 Each assessment has representative examples in the help files. The example above can be reviewed by entering `?AE_Assess` into the console.
@@ -135,7 +135,7 @@ Reviewing this step-by-step example will allow the user to better understand eac
 
 ```{r eval = FALSE, include = TRUE}
 dfInput <- AE_Map_Raw()
-ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "poisson")
+ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "Poisson")
 ```
 
 ## Example 3 - Running Multiple Assessments Using Standard Data
@@ -346,7 +346,7 @@ The default mappings for the AE Assessment are saved under KRI 0001, i.e., `kri0
         params:
           strGroup: "Site"
           vThreshold: null
-          strMethod: "poisson"
+          strMethod: "Poisson"
 
 First, we want to add an additional `FilterDomain()` step to the workflow specification to select only moderate AEs. Because `dfAE` needs to be filtered before it is used in `AE_Map_Raw()`, the filter steps need to be placed first in the workflow.
 
@@ -385,7 +385,7 @@ Let's name the custom YAML file `ae_assessment_moderate.yaml`. It read as follow
         params:
           strGroup: "Site"
           vThreshold: null
-          strMethod: "poisson"
+          strMethod: "Poisson"
 
 After setting up the custom YAML mapping, there are a few more steps a user must take before executing `Study_Assess()`:
 

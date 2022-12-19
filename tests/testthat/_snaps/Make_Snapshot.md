@@ -25,7 +25,7 @@
 
     Code
       snapshot <- Make_Snapshot(lData = lData, bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       
       -- Initializing `cou0001` assessment -------------------------------------------
       
@@ -93,8 +93,8 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -165,8 +165,8 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -224,8 +224,8 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -283,15 +283,15 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `cou0005` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 4: `FilterDomain` --
+      -- Workflow Step 1 of 3: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -300,25 +300,11 @@
       
       v No issues found for dfLB domain
       Filtering on `lb_te %in% c("Y")`.
-      v Filtered on `lb_te %in% c("Y")` to drop 86 rows from 1000 to 914 rows.
+      v Filtered on `lb_te %in% c("Y")` to drop 129 rows from 2000 to 1871 rows.
       v `FilterDomain()` Successful
       Saving dfLB to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfLB domain
-      Filtering on `toxgr %in% c("3", "4")`.
-      v Filtered on `toxgr %in% c("3 and 4")` to drop 914 rows from 914 to 0 rows.
-      ! WARNING: Filtered data has 0 rows.
-      v `FilterDomain()` Successful
-      Saving dfLB to `lWorkflow$lData`
-      
-      -- Workflow Step 3 of 4: `LB_Map_Raw` --
+      -- Workflow Step 2 of 3: `LB_Map_Raw` --
       
       Preparing parameters for `LB_Map_Raw()` ...
       Calling `LB_Map_Raw()` ...
@@ -329,11 +315,17 @@
       
       -- Initializing `LB_Map_Raw()` --
       
-      v `LB_Map_Raw()` returned output with 50 rows.
+      i Intializing merge of domain and subject data
+      i 47 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      i 47 row(s) in merged data have zero or NA values for columns: Total.
+      These participant(s) will be excluded.
+      v `LB_Map_Raw()` returned output with 3 rows.
       v `LB_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
-      -- Workflow Step 4 of 4: `LB_Assess` --
+      -- Workflow Step 3 of 3: `LB_Assess` --
       
       Preparing parameters for `LB_Assess()` ...
       Calling `LB_Assess()` ...
@@ -344,16 +336,16 @@
       
       -- Initializing `LB_Assess()` --
       
-      Input data has 50 rows.
-      v `Transform_Rate()` returned output with 3 rows.
+      Input data has 3 rows.
+      v `Transform_Rate()` returned output with 1 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      > nStep was not provided. Setting default step to 0.104
-      v `Analyze_NormalApprox()` returned output with 3 rows.
-      v `Flag_NormalApprox()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      > nStep was not provided. Setting default step to 1
+      v `Analyze_NormalApprox()` returned output with 1 rows.
+      v `Flag_NormalApprox()` returned output with 1 rows.
+      v `Summarize()` returned output with 1 rows.
+      v Created 1 scatter plot.
+      v Created 4 bar charts.
       v `LB_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -398,8 +390,8 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -458,10 +450,135 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0008` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryRate_Map_Raw` --
+      
+      Preparing parameters for `QueryRate_Map_Raw()` ...
+      Calling `QueryRate_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryRate_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, foldername, form
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, foldername, form, n_data_points
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `QueryRate_Map_Raw()`
+      ! `QueryRate_Map_Raw()` did not run because of failed check.
+      ! `QueryRate_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryRate_Assess` --
+      
+      Skipping `QueryRate_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0009` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryAge_Map_Raw` --
+      
+      Preparing parameters for `QueryAge_Map_Raw()` ...
+      Calling `QueryAge_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, qry30fl
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
+      ! `QueryAge_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryAge_Assess` --
+      
+      Skipping `QueryAge_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0010` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataEntry_Map_Raw` --
+      
+      Preparing parameters for `DataEntry_Map_Raw()` ...
+      Calling `DataEntry_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataEntry_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, data_entry_lag_fl
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `DataEntry_Map_Raw()`
+      ! `DataEntry_Map_Raw()` did not run because of failed check.
+      ! `DataEntry_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataEntry_Assess` --
+      
+      Skipping `DataEntry_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0011` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataChg_Map_Raw` --
+      
+      Preparing parameters for `DataChg_Map_Raw()` ...
+      Calling `DataChg_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataChg_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, n_data_points, n_data_points_with_changes
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `DataChg_Map_Raw()`
+      ! `DataChg_Map_Raw()` did not run because of failed check.
+      ! `DataChg_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataChg_Assess` --
+      
+      Skipping `DataChg_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0012` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `Screening_Map_Raw` --
+      
+      Preparing parameters for `Screening_Map_Raw()` ...
+      Calling `Screening_Map_Raw()` ...
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+      ! `Screening_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `Screening_Assess` --
+      
+      Skipping `Screening_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `kri0001` assessment -------------------------------------------
@@ -530,8 +647,8 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -602,8 +719,8 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -661,8 +778,8 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -720,8 +837,8 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -737,7 +854,7 @@
       
       v No issues found for dfLB domain
       Filtering on `lb_te %in% c("Y")`.
-      v Filtered on `lb_te %in% c("Y")` to drop 86 rows from 1000 to 914 rows.
+      v Filtered on `lb_te %in% c("Y")` to drop 129 rows from 2000 to 1871 rows.
       v `FilterDomain()` Successful
       Saving dfLB to `lWorkflow$lData`
       
@@ -752,7 +869,13 @@
       
       -- Initializing `LB_Map_Raw()` --
       
-      v `LB_Map_Raw()` returned output with 962 rows.
+      i Intializing merge of domain and subject data
+      i 47 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      i 47 row(s) in merged data have zero or NA values for columns: Total.
+      These participant(s) will be excluded.
+      v `LB_Map_Raw()` returned output with 3 rows.
       v `LB_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
@@ -767,16 +890,16 @@
       
       -- Initializing `LB_Assess()` --
       
-      Input data has 962 rows.
-      v `Transform_Rate()` returned output with 40 rows.
+      Input data has 3 rows.
+      v `Transform_Rate()` returned output with 3 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      > nStep was not provided. Setting default step to 3.212
-      v `Analyze_NormalApprox()` returned output with 40 rows.
-      v `Flag_NormalApprox()` returned output with 40 rows.
-      v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      > nStep was not provided. Setting default step to 2.448
+      v `Analyze_NormalApprox()` returned output with 3 rows.
+      v `Flag_NormalApprox()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `LB_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -821,8 +944,8 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -881,10 +1004,135 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0008` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryRate_Map_Raw` --
+      
+      Preparing parameters for `QueryRate_Map_Raw()` ...
+      Calling `QueryRate_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryRate_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, foldername, form
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, foldername, form, n_data_points
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `QueryRate_Map_Raw()`
+      ! `QueryRate_Map_Raw()` did not run because of failed check.
+      ! `QueryRate_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryRate_Assess` --
+      
+      Skipping `QueryRate_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0009` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryAge_Map_Raw` --
+      
+      Preparing parameters for `QueryAge_Map_Raw()` ...
+      Calling `QueryAge_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, qry30fl
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `QueryAge_Map_Raw()`
+      ! `QueryAge_Map_Raw()` did not run because of failed check.
+      ! `QueryAge_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryAge_Assess` --
+      
+      Skipping `QueryAge_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0010` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataEntry_Map_Raw` --
+      
+      Preparing parameters for `DataEntry_Map_Raw()` ...
+      Calling `DataEntry_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataEntry_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, data_entry_lag_fl
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `DataEntry_Map_Raw()`
+      ! `DataEntry_Map_Raw()` did not run because of failed check.
+      ! `DataEntry_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataEntry_Assess` --
+      
+      Skipping `DataEntry_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0011` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataChg_Map_Raw` --
+      
+      Preparing parameters for `DataChg_Map_Raw()` ...
+      Calling `DataChg_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataChg_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: subjid, n_data_points, n_data_points_with_changes
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `DataChg_Map_Raw()`
+      ! `DataChg_Map_Raw()` did not run because of failed check.
+      ! `DataChg_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataChg_Assess` --
+      
+      Skipping `DataChg_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0012` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `Screening_Map_Raw` --
+      
+      Preparing parameters for `Screening_Map_Raw()` ...
+      Calling `Screening_Map_Raw()` ...
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+      ! `Screening_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `Screening_Assess` --
+      
+      Skipping `Screening_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `qtl0004` assessment -------------------------------------------
@@ -897,8 +1145,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfPD domain
-      Filtering on `importnt %in% c("N")`.
-      v Filtered on `importnt %in% c("N")` to drop 6 rows from 50 to 44 rows.
+      Filtering on `importnt %in% c("Y")`.
+      v Filtered on `importnt %in% c("Y")` to drop 44 rows from 50 to 6 rows.
       v `FilterDomain()` Successful
       Saving dfPD to `lWorkflow$lData`
       
@@ -914,7 +1162,7 @@
       -- Initializing `PD_Map_Raw()` --
       
       i Intializing merge of domain and subject data
-      i 37 ID(s) in subject data not found in domain data.
+      i 46 ID(s) in subject data not found in domain data.
       These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `PD_Map_Raw()` returned output with 50 rows.
@@ -934,7 +1182,7 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 1 rows.
-      v `Analyze_Qtl()` returned output with 1 rows.
+      v `Analyze_QTL()` returned output with 1 rows.
       v `Flag_QTL()` returned output with 1 rows.
       v `Summarize()` returned output with 1 rows.
       v `PD_Assess()` Successful
@@ -975,7 +1223,7 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 1 rows.
-      v `Analyze_Qtl()` returned output with 1 rows.
+      v `Analyze_QTL()` returned output with 1 rows.
       v `Flag_QTL()` returned output with 1 rows.
       v `Summarize()` returned output with 1 rows.
       v `Disp_Assess()` Successful

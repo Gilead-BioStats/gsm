@@ -4,7 +4,7 @@ test_that("PD assessment can return a correctly assessed data frame for the iden
 
   test2_4 <- PD_Assess(
     dfInput = dfInput,
-    strMethod = "identity"
+    strMethod = "Identity"
   )
 
   # double programming

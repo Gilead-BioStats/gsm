@@ -17,7 +17,7 @@
     Code
       names(output$lCharts)
     Output
-      [1] "barMetric" "barScore" 
+      [1] "barMetric"   "barScore"    "barMetricJS" "barScoreJS" 
 
 # grouping works as expected
 
@@ -85,7 +85,7 @@
 
     Code
       assessOutput <- assess_function(dfInput = dfInput, bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `Consent_Assess()` --
       
@@ -99,5 +99,5 @@
       i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed`.
       v `Flag()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Score()` created 2 charts.
+      v Created 4 bar charts.
 
