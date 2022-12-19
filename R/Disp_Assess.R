@@ -180,25 +180,23 @@ Disp_Assess <- function(
 
 
 
-    # rbm-viz setup -----------------------------------------------------------
-    dfConfig <- MakeDfConfig(
-      strMethod = strMethod,
-      strGroup = strGroup,
-      strAbbreviation = "DSC",
-      strMetric = "Discontinuation Rate",
-      strNumerator = "Subjects Discontinued",
-      strDenominator = "Total Subjects",
-      vThreshold = vThreshold
-    )
+      # rbm-viz setup -----------------------------------------------------------
+      dfConfig <- MakeDfConfig(
+        strMethod = strMethod,
+        strGroup = strGroup,
+        strAbbreviation = "DSC",
+        strMetric = "Discontinuation Rate",
+        strNumerator = "Subjects Discontinued",
+        strDenominator = "Total Subjects",
+        vThreshold = vThreshold
+      )
 
 
 
       if (strMethod != "Identity") {
-
-
         lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
-        if (exists('dfBounds', lData)) {
+        if (exists("dfBounds", lData)) {
           bounds <- lData$dfBounds
         } else {
           bounds <- NULL
@@ -214,7 +212,7 @@ Disp_Assess <- function(
       }
 
 
-    # bar charts --------------------------------------------------------------
+      # bar charts --------------------------------------------------------------
 
       lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
       lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)

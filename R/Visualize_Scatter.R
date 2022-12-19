@@ -52,8 +52,9 @@ Visualize_Scatter <- function(
     )
 
   # Avoid plotting empty datasets
-  if (nrow(dfFlaggedWithTooltip) == 0)
-      return(NULL)
+  if (nrow(dfFlaggedWithTooltip) == 0) {
+    return(NULL)
+  }
 
   # Account for incomplete set of flags
   dfFlaggedWithTooltip$FlagAbs <- abs(dfFlaggedWithTooltip$Flag)

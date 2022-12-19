@@ -56,10 +56,12 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     rename(any_of(abbreviation_lookup))
 
   # Add # of subjects to overview table.
-  dfSUBJ <- study[[ 1 ]]$lData$dfSUBJ
-  overview_table[[ '# Subjects' ]] <- overview_table$Site %>%
-      map_int(~dfSUBJ %>% filter(.data$siteid == .x) %>% nrow())
-  overview_table <- relocate(overview_table, '# Subjects', .after = 'Site')
+  dfSUBJ <- study[[1]]$lData$dfSUBJ
+  overview_table[["# Subjects"]] <- overview_table$Site %>%
+    map_int(~ dfSUBJ %>%
+      filter(.data$siteid == .x) %>%
+      nrow())
+  overview_table <- relocate(overview_table, "# Subjects", .after = "Site")
 
   if (bInteractive) {
     n_headers <- ncol(overview_table)
@@ -73,31 +75,28 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
           $('th:eq('+i+')', thead).attr('title', tooltips[i-{{kri_index}]);
         }
       }
-    ", .open = '{{')
+    ", .open = "{{")
 
     overview_table <- overview_table %>%
       mutate(
         across(
           -c(.data$Site:.data$`Amber KRIs`),
-          ~purrr::map(.x, kri_directionality_logo)
+          ~ purrr::map(.x, kri_directionality_logo)
         )
       ) %>%
       DT::datatable(
         options = list(
           columnDefs = list(
             list(
-              className = 'dt-center',
-              targets = 0:(n_headers-1)
+              className = "dt-center",
+              targets = 0:(n_headers - 1)
             )
           ),
           headerCallback = JS(headerCallback)
         ),
         rownames = FALSE
       )
-
   }
 
   return(overview_table)
-
 }
-
