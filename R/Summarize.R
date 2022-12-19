@@ -41,11 +41,10 @@
 #' @export
 
 Summarize <- function(
-    dfFlagged,
-    nMinDenominator= NULL,
-    strScoreCol = "Score",
-    bQuiet = TRUE) {
-
+  dfFlagged,
+  nMinDenominator = NULL,
+  strScoreCol = "Score",
+  bQuiet = TRUE) {
   stopifnot(
     "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
     "One or more of these columns: GroupID, Flag , strScoreCol, not found in dfFlagged" = all(c("GroupID", "Flag", strScoreCol) %in% names(dfFlagged))
@@ -71,7 +70,7 @@ Summarize <- function(
     arrange(desc(abs(.data$Metric))) %>%
     arrange(match(.data$Flag, c(2, -2, 1, -1, 0)))
 
-  if(!is.null(nMinDenominator)){
+  if (!is.null(nMinDenominator)) {
     dfSummary$Score[dfSummary$Denominator < nMinDenominator] <- NA
     dfSummary$Flag[dfSummary$Denominator < nMinDenominator] <- NA
 
