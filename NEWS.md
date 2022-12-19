@@ -1,3 +1,25 @@
+# gsm v1.4.0
+
+This release introduces five new KRIs, the inclusion of interactive widgets ported over from the `rbm-viz` Javascript library, reporting updates, and various bug fixes and utility functions. Major changes are noted below!
+
+### Mapping/Assessment Functions for new KRIs
+- `DataChg_Map_Raw` & `DataChg_Assess`: Evaluates rate of reported data point with >1 changes.
+- `DataEntry_Map_Raw` & `DataEntry_Assess`: Evaluates rate of reported Data Entry Lag >10 days.
+- `Screening_Map_Raw` & `Screening_Assess`: Evaluates screen failure rate (SF) on mapped subject-level dataset to identify sites that may be over- or under-reporting patient discontinuations.
+- `QueryAge_Map_Raw` & `QueryAge_Assess`: Evaluates rate of reported Query Age >30 days.
+- `QueryRate_Map_Raw` & `QueryRate_Assess`: Evaluates query rates to identify sites that may be over- or under-reporting queries.
+
+### Interactive Widgets
+
+- When running any `*_Assess()` function, visualizations that are suffixed with `JS` are interactive `htmlwidgets` ported over from `rbm-viz` that can be explored in an IDE or web browser. 
+
+
+### Reporting Updates
+- Interactive visualizations are now the default in the output of `Study_Report()`.
+- Tables are now interactive and show flag directionality.
+- Only KRIs at the site-level are supported for now. QTLs and country-level KRI reporting is not currently supported. 
+ 
+
 # gsm v1.3.2
 
 This minor release includes updates to the data model that is passed to Gismo via `Make_Snapshot()`

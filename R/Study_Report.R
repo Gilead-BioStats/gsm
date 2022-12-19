@@ -21,12 +21,11 @@
 #' @export
 
 Study_Report <- function(
-    lAssessments,
-    strOutpath = NULL,
-    strReportType = "kri"
+  lAssessments,
+  strOutpath = NULL,
+  strReportType = "kri"
 ) {
-  report_type <- switch(
-    strReportType,
+  report_type <- switch(strReportType,
     kri = "KRIReport.Rmd",
     study = "studySummary.rmd"
   )

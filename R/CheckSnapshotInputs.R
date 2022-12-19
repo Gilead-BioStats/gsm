@@ -13,7 +13,6 @@
 #' - `status_columns` `logical` TRUE if all checks pass. FALSE if not.
 #'
 #' @examples
-#'
 #' \dontrun{
 #' snapshot <- Make_Snapshot()
 #' check_snapshot <- CheckSnapshotInputs(snapshot)
@@ -32,7 +31,7 @@ CheckSnapshotInputs <- function(snapshot) {
 
 
 
-# expected tables ---------------------------------------------------------
+  # expected tables ---------------------------------------------------------
 
   # check to see if there are any QTL workflows
   # if yes - results_analysis should be included
@@ -43,7 +42,7 @@ CheckSnapshotInputs <- function(snapshot) {
     # check to see if there are *only* QTLs being run
     # if yes - results_bounds should not be included
     # if no - results_bounds should be included
-    qtlOnly <- sum(purrr::map_int(c("kri", "cou"), ~length(grep(.x, unique(snapshot$results_summary$workflowid)))))
+    qtlOnly <- sum(purrr::map_int(c("kri", "cou"), ~ length(grep(.x, unique(snapshot$results_summary$workflowid)))))
 
     if (qtlOnly == 0) {
       # QTLs don't produce a meaningful results_bounds data.frame
@@ -51,7 +50,6 @@ CheckSnapshotInputs <- function(snapshot) {
       # Duplicate expected result here
       gismo_input$results_bounds <- tibble(Column = "gsm_analysis_date")
     }
-
   } else {
     hasQTL <- FALSE
   }
@@ -81,25 +79,30 @@ CheckSnapshotInputs <- function(snapshot) {
   tables_status <- all(expected_tables$status)
 
 
-# expected columns --------------------------------------------------------
-  expected_columns_snapshot <- purrr::imap_dfr(snapshot, ~tibble(snapshot_table = .y, snapshot_column = names(.x))) %>%
+  # expected columns --------------------------------------------------------
+  expected_columns_snapshot <- purrr::imap_dfr(snapshot, ~ tibble(snapshot_table = .y, snapshot_column = names(.x))) %>%
     arrange(.data$snapshot_table, .data$snapshot_column)
-  expected_columns_gismo <- purrr::imap_dfr(gismo_input, ~tibble(gismo_table = .y, gismo_column = .x$Column)) %>%
+  expected_columns_gismo <- purrr::imap_dfr(gismo_input, ~ tibble(gismo_table = .y, gismo_column = .x$Column)) %>%
     arrange(.data$gismo_table, .data$gismo_column)
 
   expected_columns <- full_join(
     expected_columns_snapshot,
-    expected_columns_gismo, by = c("snapshot_table" = "gismo_table",
-                                   "snapshot_column" = "gismo_column"),
+    expected_columns_gismo,
+    by = c(
+      "snapshot_table" = "gismo_table",
+      "snapshot_column" = "gismo_column"
+    ),
     keep = TRUE
   ) %>%
     rowwise() %>%
-    mutate(status = sum(is.na(cur_data())),
-           status = ifelse(.data$status == 0, TRUE, FALSE)) %>%
+    mutate(
+      status = sum(is.na(cur_data())),
+      status = ifelse(.data$status == 0, TRUE, FALSE)
+    ) %>%
     ungroup()
 
   columns_status <- all(expected_columns$status)
-# return ------------------------------------------------------------------
+  # return ------------------------------------------------------------------
 
 
   all_checks <- list(
@@ -111,7 +114,4 @@ CheckSnapshotInputs <- function(snapshot) {
   )
 
   return(all_checks)
-
 }
-
-

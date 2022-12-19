@@ -52,6 +52,7 @@ Visualize_Scatter <- function(
     )
 
   # Avoid plotting empty datasets
+
   if (nrow(dfSummaryWithTooltip) == 0)
       return(NULL)
 

@@ -211,6 +211,7 @@ AE_Assess <- function(
     if (strMethod != "Identity") {
       lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
+
       # rbm-viz charts ----------------------------------------------------------
       lCharts$scatterJS <- scatterPlot(
         results = lData$dfSummary,
@@ -239,6 +240,7 @@ AE_Assess <- function(
         yaxis = "score",
         elementId = "aeAssessScore"
       )
+
 
     if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
 

@@ -193,11 +193,10 @@ PD_Assess <- function(
 
 
       if (strMethod != "Identity") {
-
-
         lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
-        if (exists('dfBounds', lData)) {
+
+        if (exists("dfBounds", lData)) {
           bounds <- lData$dfBounds
         } else {
           bounds <- NULL

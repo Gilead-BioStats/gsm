@@ -183,9 +183,8 @@ LB_Assess <- function(
 
 
     if (strMethod != "Identity") {
-
-
       lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+
 
       # rbm-viz charts ----------------------------------------------------------
       lCharts$scatterJS <- scatterPlot(

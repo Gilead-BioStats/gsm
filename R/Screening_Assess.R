@@ -182,23 +182,22 @@ Screening_Assess <- function(
 
 
 
-    # rbm-viz setup -----------------------------------------------------------
-    dfConfig <- MakeDfConfig(
-      strMethod = strMethod,
-      strGroup = strGroup,
-      strAbbreviation = "SF",
-      strMetric = "Screen Failure Rate",
-      strNumerator = "Screen Failures",
-      strDenominator = "Screened Subjects",
-      vThreshold = vThreshold
-    )
+      # rbm-viz setup -----------------------------------------------------------
+      dfConfig <- MakeDfConfig(
+        strMethod = strMethod,
+        strGroup = strGroup,
+        strAbbreviation = "SF",
+        strMetric = "Screen Failure Rate",
+        strNumerator = "Screen Failures",
+        strDenominator = "Screened Subjects",
+        vThreshold = vThreshold
+      )
 
       if (strMethod != "Identity") {
-
-
         lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
-        if (exists('dfBounds', lData)) {
+
+        if (exists("dfBounds", lData)) {
           bounds <- lData$dfBounds
         } else {
           bounds <- NULL
@@ -214,7 +213,7 @@ Screening_Assess <- function(
       }
 
 
-    # bar charts --------------------------------------------------------------
+      # bar charts --------------------------------------------------------------
 
       lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
       lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)

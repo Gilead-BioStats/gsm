@@ -182,16 +182,17 @@ Disp_Assess <- function(
 
 
 
-    # rbm-viz setup -----------------------------------------------------------
-    dfConfig <- MakeDfConfig(
-      strMethod = strMethod,
-      strGroup = strGroup,
-      strAbbreviation = "DSC",
-      strMetric = "Discontinuation Rate",
-      strNumerator = "Subjects Discontinued",
-      strDenominator = "Total Subjects",
-      vThreshold = vThreshold
-    )
+      # rbm-viz setup -----------------------------------------------------------
+      dfConfig <- MakeDfConfig(
+        strMethod = strMethod,
+        strGroup = strGroup,
+        strAbbreviation = "DSC",
+        strMetric = "Discontinuation Rate",
+        strNumerator = "Subjects Discontinued",
+        strDenominator = "Total Subjects",
+        vThreshold = vThreshold
+      )
+
 
 
 
@@ -199,7 +200,8 @@ Disp_Assess <- function(
     if (strMethod != "Identity") {
         lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
-        if (exists('dfBounds', lData)) {
+
+        if (exists("dfBounds", lData)) {
           bounds <- lData$dfBounds
         } else {
           bounds <- NULL
@@ -218,6 +220,7 @@ Disp_Assess <- function(
     # bar charts --------------------------------------------------------------
       lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
       lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
+
 
       lCharts$barMetricJS <- barChart(
         results = lData$dfSummary,
