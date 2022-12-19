@@ -71,7 +71,7 @@ bQuiet = TRUE
 ) {
 
   # add to all outputs except meta_
-  gsm_analysis_date <- Sys.Date()
+  gsm_analysis_date <- Sys.time()
 
 
 
@@ -223,7 +223,7 @@ bQuiet = TRUE
   # results_summary ---------------------------------------------------------
   results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%
     purrr::discard(is.null) %>%
-    purrr::imap_dfr(~ .x$lData$dfFlagged %>%
+    purrr::imap_dfr(~ .x$lData$dfSummary %>%
       mutate(
         KRIID = .y,
         StudyID = unique(lMeta$config_workflow$studyid)
