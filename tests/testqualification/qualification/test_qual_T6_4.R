@@ -42,7 +42,7 @@ test_that("Labs assessment can return a correctly assessed data frame grouped by
       )
     ) %>%
     select(-median) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t6_4_summary <- t6_4_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

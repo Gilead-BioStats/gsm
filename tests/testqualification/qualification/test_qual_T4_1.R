@@ -31,7 +31,7 @@ test_that("Consent assessment can return a correctly assessed data frame grouped
         TRUE ~ 0
       ),
     ) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t4_1_summary <- t4_1_flagged %>%
     mutate(

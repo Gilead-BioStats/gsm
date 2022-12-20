@@ -38,7 +38,7 @@ test_that("PD assessment can return a correctly assessed data frame for the iden
       )
     ) %>%
     select(-median) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t2_4_summary <- t2_4_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

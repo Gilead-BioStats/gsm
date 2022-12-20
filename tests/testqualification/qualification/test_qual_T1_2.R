@@ -28,7 +28,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   t1_2_summary <- t1_2_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t1_2 <- list(
     "dfTransformed" = t1_2_transformed,

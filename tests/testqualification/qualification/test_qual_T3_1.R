@@ -29,7 +29,7 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
         TRUE ~ 0
       ),
     ) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t3_1_summary <- t3_1_flagged %>%
     mutate(

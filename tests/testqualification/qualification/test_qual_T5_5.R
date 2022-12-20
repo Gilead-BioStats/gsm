@@ -48,7 +48,7 @@ test_that("Disposition assessment can return a correctly assessed data frame for
   t5_5_summary <- t5_5_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t5_5 <- list(
     "dfTransformed" = t5_5_transformed,
