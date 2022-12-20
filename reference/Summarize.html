@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.1</span>
       </span>
     </div>
 
@@ -78,7 +78,12 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Summarize</span><span class="op">(</span><span class="va">dfFlagged</span>, strScoreCol <span class="op">=</span> <span class="st">"Score"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Summarize</span><span class="op">(</span></span>
+<span>  <span class="va">dfFlagged</span>,</span>
+<span>  nMinDenominator <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  strScoreCol <span class="op">=</span> <span class="st">"Score"</span>,</span>
+<span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -87,8 +92,16 @@
 <dd><p>data.frame in format produced by <code><a href="Flag.html">Flag</a></code></p></dd>
 
 
+<dt>nMinDenominator</dt>
+<dd><p><code>numeric</code> Specifies the minimum denominator required to return a <code>score</code> and calculate a <code>flag</code>. Default: NULL</p></dd>
+
+
 <dt>strScoreCol</dt>
 <dd><p>column from analysis results to be copied to <code>dfSummary$Score</code></p></dd>
+
+
+<dt>bQuiet</dt>
+<dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code></p></dd>
 
 </dl></div>
     <div id="value">
