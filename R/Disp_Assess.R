@@ -196,8 +196,8 @@ Disp_Assess <- function(
 
 
 
-    # scatter plots -----------------------------------------------------------
-    if (strMethod != "Identity") {
+      # scatter plots -----------------------------------------------------------
+      if (strMethod != "Identity") {
         lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
 
@@ -217,7 +217,7 @@ Disp_Assess <- function(
       }
 
 
-    # bar charts --------------------------------------------------------------
+      # bar charts --------------------------------------------------------------
       lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
       lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
 
