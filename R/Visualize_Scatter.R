@@ -1,7 +1,7 @@
-#' Group-level visualization of group-level results using a Poisson or Wilcoxon model.
+#' Group-level visualization of group-level results
 #'
-#' @param dfFlagged `data.frame` analyze_poisson results with flags added.
-#' @param dfBounds `data.frame` data.frame giving prediction bounds for range of dfFlagged.
+#' @param dfSummary `data.frame` returned by [gsm::Summarize()]
+#' @param dfBounds `data.frame` data.frame giving prediction bounds for range of denominator in dfSummary.
 #' @param strGroupCol `character` name of stratification column for facet wrap Default: `NULL`
 #' @param strGroupLabel `character` name of group, used for labeling axes. Default: `NULL`
 #' @param strUnit `character` exposure time unit. Default: `days`
@@ -13,7 +13,7 @@
 #' dfInput <- AE_Map_Adam()
 #' SafetyAE <- AE_Assess(dfInput)
 #' dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$lData$dfTransformed, c(-5, 5))
-#' Visualize_Scatter(SafetyAE$lData$dfFlagged, dfBounds)
+#' Visualize_Scatter(SafetyAE$lData$dfSummary, dfBounds)
 #'
 #'
 #' # TODO: add stratified example
@@ -23,7 +23,7 @@
 #' @export
 
 Visualize_Scatter <- function(
-  dfFlagged,
+  dfSummary,
   dfBounds = NULL,
   strGroupCol = NULL,
   strGroupLabel = NULL,
@@ -37,7 +37,7 @@ Visualize_Scatter <- function(
   )
 
   # Remove `NA` flags and define tooltip for use in plotly.
-  dfFlaggedWithTooltip <- dfFlagged %>%
+  dfSummaryWithTooltip <- dfSummary %>%
     filter(
       !is.na(Flag)
     ) %>%
@@ -52,17 +52,20 @@ Visualize_Scatter <- function(
     )
 
   # Avoid plotting empty datasets
-  if (nrow(dfFlaggedWithTooltip) == 0)
-      return(NULL)
+
+  if (nrow(dfSummaryWithTooltip) == 0) {
+    return(NULL)
+  }
+
 
   # Account for incomplete set of flags
-  dfFlaggedWithTooltip$FlagAbs <- abs(dfFlaggedWithTooltip$Flag)
-  maxFlag <- max(dfFlaggedWithTooltip$FlagAbs)
+  dfSummaryWithTooltip$FlagAbs <- abs(dfSummaryWithTooltip$Flag)
+  maxFlag <- max(dfSummaryWithTooltip$FlagAbs)
   flagBreaks <- as.character(seq(0, maxFlag))
   flagValues <- vColors[1:length(flagBreaks)]
 
   ### Plot of data
-  p <- dfFlaggedWithTooltip %>%
+  p <- dfSummaryWithTooltip %>%
     ggplot(
       aes(
         x = log(.data$Denominator),
@@ -116,7 +119,7 @@ Visualize_Scatter <- function(
 
   p <- p +
     geom_text(
-      data = dfFlaggedWithTooltip %>% filter(.data$FlagAbs != 0),
+      data = dfSummaryWithTooltip %>% filter(.data$FlagAbs != 0),
       aes(x = log(.data$Denominator), y = .data$Numerator, label = .data$GroupID),
       vjust = 1.5,
       col = "black",

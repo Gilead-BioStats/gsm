@@ -18,7 +18,7 @@ Flag_QTL(dfAnalyzed, vThreshold = NULL)
 Flag QTL
 }
 \details{
-This function flags a study-level QTL metric by comparing the mean and lower confidence bound for the metric to a single threhsold.
+This function flags a study-level QTL metric by comparing the mean and lower confidence bound for the metric to a single threshold.
 }
 \section{Data Specification}{
 

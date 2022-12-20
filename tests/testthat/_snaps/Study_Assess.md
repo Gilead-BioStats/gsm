@@ -127,6 +127,9 @@
       [[4]]$params$strMethod
       [1] "NormalApprox"
       
+      [[4]]$params$nMinDenominator
+      [1] 30
+      
       
       
 
@@ -1298,6 +1301,8 @@
       > nStep was not provided. Setting default step to 13.124
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 3 rows.
       v Created 2 scatter plots.
       v Created 4 bar charts.
@@ -1372,8 +1377,10 @@
       > nStep was not provided. Setting default step to 13.124
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 3 rows.
-      v Created 1 scatter plot.
+      v Created 2 scatter plots.
       v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -1435,7 +1442,7 @@
       
       -- Initializing `cou0005` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 4: `FilterDomain` --
+      -- Workflow Step 1 of 3: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -1451,15 +1458,11 @@
       ! `FilterDomain()` Failed - Skipping remaining steps
       Saving dfLB to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Skipping `FilterDomain()` ...
-      
-      -- Workflow Step 3 of 4: `LB_Map_Raw` --
+      -- Workflow Step 2 of 3: `LB_Map_Raw` --
       
       Skipping `LB_Map_Raw()` ...
       
-      -- Workflow Step 4 of 4: `LB_Assess` --
+      -- Workflow Step 3 of 3: `LB_Assess` --
       
       Skipping `LB_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
@@ -1707,6 +1710,8 @@
       > nStep was not provided. Setting default step to 3.984
       v `Analyze_NormalApprox()` returned output with 10 rows.
       v `Flag_NormalApprox()` returned output with 10 rows.
+      i 1 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 10 rows.
       v Created 2 scatter plots.
       v Created 4 bar charts.
@@ -1781,8 +1786,10 @@
       > nStep was not provided. Setting default step to 3.984
       v `Analyze_NormalApprox()` returned output with 10 rows.
       v `Flag_NormalApprox()` returned output with 10 rows.
+      i 1 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 10 rows.
-      v Created 1 scatter plot.
+      v Created 2 scatter plots.
       v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`

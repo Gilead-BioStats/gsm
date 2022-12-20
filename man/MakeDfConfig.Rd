@@ -30,16 +30,23 @@ MakeDfConfig(
 \item{vThreshold}{\code{numeric} Numeric vector of thresholds provided to the \verb{*_Assess()} function; used for flagging.}
 }
 \value{
-\code{data.frame} containing all metadata needed to create an interactive visualization using \code{{rbm-viz}} HTMLwidgets.
+\code{data.frame} containing all metadata needed to create an interactive visualization using \code{{rbm-viz}} htmlwidget.
 }
 \description{
 \code{MakeDfConfig} is a utility function that is used within \verb{*_Assess()} functions in \code{{gsm}}.
 
-The output of \code{MakeDfConfig} is used as a configuration dataset for \code{{rbm-viz}} HTMLWidgets.
+The output of \code{MakeDfConfig} is used as a configuration dataset for a \code{{rbm-viz}} htmlwidget.
 }
 \examples{
 \dontrun{
 dfConfig <- MakeDfConfig(
+  #   strMethod = strMethod,
+  #   strGroup = strGroup,
+  #   strAbbreviation = "AE",
+  #   strMetric = "AE Reporting (Rate)",
+  #   strNumerator = "AEs",
+  #   strDenominator = "Days on Treatment",
+  #   vThreshold = vThreshold
 )
 }
 
