@@ -1,8 +1,16 @@
-test_that("Raw+ AE data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and AE data with one record per subject, omitting subjects with zero days of treatment exposure.", {
+test_that("A subset of Raw+ AE data can be mapped correctly to create an analysis-ready input dataset.", {
 
 
   ########### gsm mapping ###########
-  observed <- gsm::AE_Map_Raw()
+  subset <- FilterData(dfInput = clindata::rawplus_ae,
+                       strCol = "aetoxgr",
+                       anyVal = "MODERATE")
+
+  observed <- gsm::AE_Map_Raw(
+    dfs = list(
+      dfSUBJ = clindata::rawplus_dm,
+      dfAE = subset
+  ))
 
 
   ########### double programming ###########
@@ -24,6 +32,7 @@ test_that("Raw+ AE data can be mapped correctly to create an analysis-ready inpu
 
   # count unique number of AEs within each subject and remove duplicate records
   ae_raw <- ae_raw_orig %>%
+    filter(!!sym(lMapping$dfAE$strGradeCol) == "MODERATE") %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
     select(lMapping$dfAE$strIDCol) %>%
     mutate(Count = n()) %>%
@@ -38,24 +47,12 @@ test_that("Raw+ AE data can be mapped correctly to create an analysis-ready inpu
     mutate(Count = replace_na(Count, 0),
            Rate = as.numeric(Count)/!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol)) %>%
     filter(!(!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol) == 0)) %>% # remove subjects that were not treated
+    arrange(!!sym(lMapping$dfSUBJ$strIDCol)) %>%
     select(all_of(cols))
 
 
   ########### testing ###########
-  # check that unique number of rows is the same as the unique number of subjects
-  subj_test <- length(unique(observed$SubjectID)) == nrow(expected)
-
-  # check that there is one record per subject
-  subj_length_check <- expected %>%
-    group_by(SubjectID) %>%
-    mutate(check = n())
-  subj_length_test <- unique(subj_length_check$check) == 1
-
-  # check that subjects with 0 days on treatment are excluded
-  treat_test <- unique(!(unique(!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol) == 0) %in% unique(expected$SubjectID)))
-
-  all_tests <- isTRUE(subj_test) & isTRUE(subj_length_test) & isTRUE(treat_test)
-  expect_true(all_tests)
+  expect_equal(observed, expected)
 
 })
 

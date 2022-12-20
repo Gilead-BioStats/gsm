@@ -1,4 +1,4 @@
-test_that("Raw+ AE data can be mapped correctly to create an analysis-ready input dataset that has all required columns in the pre-specified, default mapping specifications.", {
+test_that("Raw+ AE data can be mapped correctly to create an analysis-ready input dataset that has all required columns in the default Raw+ mapping specifications.", {
 
 
   ########### gsm mapping ###########
@@ -9,7 +9,7 @@ test_that("Raw+ AE data can be mapped correctly to create an analysis-ready inpu
   # read in default mapping specs
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
-  # create vector to facilitate connecting lMapping with source data
+  # create cols vector to facilitate connecting lMapping with source data variables
   cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
             SiteID = lMapping$dfSUBJ$strSiteCol,
             StudyID = lMapping$dfSUBJ$strStudyCol,
@@ -19,7 +19,7 @@ test_that("Raw+ AE data can be mapped correctly to create an analysis-ready inpu
             "Count",
             "Rate")
 
-  # read in source AE data
+  # read in raw source AE data
   ae_raw_orig <- clindata::rawplus_ae
 
   # count unique number of AEs within each subject and remove duplicate records
@@ -37,10 +37,11 @@ test_that("Raw+ AE data can be mapped correctly to create an analysis-ready inpu
   expected <- full_join(dm_raw, ae_raw) %>%
     mutate(Count = replace_na(Count, 0),
            Rate = as.numeric(Count)/!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol)) %>%
-    filter(!(lMapping$dfSUBJ$strIDCol %in% unique(lMapping$dfSUBJ$strIDCol[lMapping$dfSUBJ$strTimeOnTreatmentCol == 0]))) %>% # remove subjects that were not treated
+    filter(!(!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol) == 0)) %>% # remove subjects that were not treated
     select(all_of(cols))
 
-  # test
+
+  ########### testing ###########
   expect_equal(colnames(observed), colnames(expected))
 
 })
