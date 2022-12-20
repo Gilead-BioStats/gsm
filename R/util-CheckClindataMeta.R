@@ -37,7 +37,6 @@ CheckClindataMeta <- function(
 
 
   if (!any(config$status)) {
-
     mismatch <- config %>%
       filter(.data$status == FALSE) %>%
       mutate(warning = glue::glue("clindata table: `{data}` has gsm version {gsm_version} and the current gsm version is {current_gsm_version}"))
@@ -45,7 +44,6 @@ CheckClindataMeta <- function(
     for (warning in mismatch$warning) {
       cli::cli_alert_danger(warning)
     }
-
   } else {
     cli::cli_alert_success("gsm versions are equivalent for gsm and clindata.")
   }
@@ -53,6 +51,4 @@ CheckClindataMeta <- function(
   if (ci_check) {
     return(config)
   }
-
 }
-
