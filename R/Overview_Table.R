@@ -16,7 +16,7 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     purrr::map(function(kri) {
       name <- kri$name
 
-      kri$lResults$lData$dfFlagged %>%
+      kri$lResults$lData$dfSummary %>%
         select("GroupID", "Flag") %>%
         rename(!!name := Flag)
     }) %>%

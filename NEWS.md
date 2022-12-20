@@ -1,3 +1,10 @@
+# gsm v1.4.1
+
+This minor release updates the following:
+- In cases where the group of interest has a denominator lower than a specified threshold, flagging values return `NA` to indicate that there was not enough data to reasonably evaluate the group.
+- `Make_Snapshot()` records the time and date of the snapshot, rather than just the date.
+
+
 # gsm v1.4.0
 
 This release introduces five new KRIs, the inclusion of interactive widgets ported over from the `rbm-viz` Javascript library, reporting updates, and various bug fixes and utility functions. Major changes are noted below!
