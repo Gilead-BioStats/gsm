@@ -9,7 +9,7 @@ test_that("A subset of Raw+ PD data can be mapped correctly to create an analysi
   observed <- gsm::PD_Map_Raw(
     dfs = list(
       dfSUBJ = clindata::rawplus_dm,
-      dfAE = subset
+      dfPD = subset
     ))
 
 
