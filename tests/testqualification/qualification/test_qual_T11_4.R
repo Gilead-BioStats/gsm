@@ -3,8 +3,8 @@ test_that("A subset of Raw+ AE data can be mapped correctly to create an analysi
 
   ########### gsm mapping ###########
   subset <- FilterData(dfInput = clindata::rawplus_ae,
-                       strCol = "aetoxgr",
-                       anyVal = "MODERATE")
+                       strCol = "aeser",
+                       anyVal = "Y")
 
   observed <- gsm::AE_Map_Raw(
     dfs = list(
@@ -32,7 +32,7 @@ test_that("A subset of Raw+ AE data can be mapped correctly to create an analysi
 
   # count unique number of AEs within each subject and remove duplicate records
   ae_raw <- ae_raw_orig %>%
-    filter(!!sym(lMapping$dfAE$strGradeCol) == "MODERATE") %>%
+    filter(!!sym(lMapping$dfAE$strSeriousCol) == lMapping$dfAE$strSeriousVal) %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
     select(lMapping$dfAE$strIDCol) %>%
     mutate(Count = n()) %>%
