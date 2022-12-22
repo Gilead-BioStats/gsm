@@ -4,7 +4,7 @@ test_that("A subset of Raw+ AE data can be mapped correctly to create an analysi
   ########### gsm mapping ###########
   subset <- FilterData(dfInput = clindata::rawplus_ae,
                        strCol = "aeser",
-                       anyVal = "Y")
+                       anyVal = "Y") # filtering only for serious AEs
 
   observed <- gsm::AE_Map_Raw(
     dfs = list(
@@ -30,7 +30,7 @@ test_that("A subset of Raw+ AE data can be mapped correctly to create an analysi
   # read in raw source AE data
   ae_raw_orig <- clindata::rawplus_ae
 
-  # count unique number of AEs within each subject and remove duplicate records
+  # count unique number of serious AEs within each subject and remove duplicate records
   ae_raw <- ae_raw_orig %>%
     filter(!!sym(lMapping$dfAE$strSeriousCol) == lMapping$dfAE$strSeriousVal) %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
