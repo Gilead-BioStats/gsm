@@ -4,7 +4,7 @@ test_that("A subset of Raw+ PD data can be mapped correctly to create an analysi
   ########### gsm mapping ###########
   subset <- FilterData(dfInput = clindata::rawplus_protdev,
                        strCol = "importnt",
-                       anyVal = "Y")
+                       anyVal = "Y") # filtering only for important PDs
 
   observed <- gsm::PD_Map_Raw(
     dfs = list(
@@ -30,7 +30,7 @@ test_that("A subset of Raw+ PD data can be mapped correctly to create an analysi
   # read in raw source PD data
   pd_raw_orig <- clindata::rawplus_protdev
 
-  # count unique number of PDs within each subject and remove duplicate records
+  # count unique number of important PDs within each subject and remove duplicate records
   pd_raw <- pd_raw_orig %>%
     filter(!!sym(lMapping$dfPD$strImportantCol) == lMapping$dfPD$strImportantVal) %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
@@ -52,6 +52,6 @@ test_that("A subset of Raw+ PD data can be mapped correctly to create an analysi
 
 
   ########### testing ###########
-  expect_equal(observed, expected)
+  expect_equal(as.data.frame(observed), as.data.frame(expected))
 
 })
