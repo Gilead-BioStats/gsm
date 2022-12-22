@@ -43,13 +43,16 @@ test_that("Raw+ PD data can be mapped correctly to create an analysis-ready inpu
 
 
   ########### testing ###########
-  # check that number of events per subject is correct/consistent
+  # check that calculated number of events per subject is correct/consistent
   num_events <- unique(observed$Count == expected$Count)
 
   # check that days of exposure per subject is correct/consistent
   num_exposure <- unique(observed$Exposure == expected$Exposure)
 
-  all_tests <- isTRUE(num_events) & isTRUE(num_exposure)
+  # check that calculated rate of PDs/exposure per subject is correct/consistent
+  rate <- unique(observed$Rate == expected$Rate)
+
+  all_tests <- isTRUE(num_events) & isTRUE(num_exposure) & isTRUE(rate)
   expect_true(all_tests)
 
 })
