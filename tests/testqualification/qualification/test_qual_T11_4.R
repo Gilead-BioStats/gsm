@@ -52,7 +52,7 @@ test_that("A subset of Raw+ AE data can be mapped correctly to create an analysi
 
 
   ########### testing ###########
-  expect_equal(observed, expected)
+  expect_equal(as.data.frame(observed), as.data.frame(expected))
 
 })
 
