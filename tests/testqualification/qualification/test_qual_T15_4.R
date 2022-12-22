@@ -4,7 +4,7 @@ test_that("A subset of Raw+ lab data can be mapped correctly to create an analys
   ########### gsm mapping ###########
   subset <- FilterData(dfInput = clindata::rawplus_lb,
                        strCol = "lb_te",
-                       anyVal = "Y")
+                       anyVal = "Y") # filtering only for treatment-emergent abnormal lab values
 
   observed <- gsm::LB_Map_Raw(
     dfs = list(
@@ -29,7 +29,7 @@ test_that("A subset of Raw+ lab data can be mapped correctly to create an analys
   # read in raw source LB data
   lb_raw_orig <- clindata::rawplus_lb
 
-  # count unique number of abnormal lab values within each subject and remove duplicate records
+  # count unique number of treatment-emergent abnormal lab values within each subject and remove duplicate records
   lb_raw_abn <- lb_raw_orig %>%
     filter(!!sym(lMapping$dfLB$strTreatmentEmergentCol) == lMapping$dfLB$strTreatmentEmergentVal) %>%
     filter(!!sym(lMapping$dfLB$strGradeCol) %in% unique(lMapping$dfLB$strGradeHighVal)) %>%
@@ -38,7 +38,7 @@ test_that("A subset of Raw+ lab data can be mapped correctly to create an analys
     select(lMapping$dfLB$strIDCol, Count) %>%
     distinct()
 
-  # count number of overall lab values within each subject and remove duplicate records
+  # count number of overall treatment-emergent lab values within each subject and remove duplicate records
   lb_raw_all <- lb_raw_orig %>%
     filter(!!sym(lMapping$dfLB$strTreatmentEmergentCol) == lMapping$dfLB$strTreatmentEmergentVal) %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
@@ -62,6 +62,6 @@ test_that("A subset of Raw+ lab data can be mapped correctly to create an analys
 
 
   ########### testing ###########
-  expect_equal(observed, expected)
+  expect_equal(as.data.frame(observed), as.data.frame(expected))
 
 })
