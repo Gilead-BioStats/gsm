@@ -1,43 +1,3 @@
-#' functions to scrape specifications from a file
-#'
-#' @param file file to scrape
-#'
-#' @return dataframe of specs in file
-#' @export
-scrape_specs <- function(file){
-  file_text <- yaml::read_yaml(file = file) %>%
-    purrr::map(~ purrr::modify_at(.x, "Tests", paste, collapse = ", "))
-
-  file_text_df <- as.data.frame(do.call(rbind, file_text)) %>%
-    dplyr::mutate(
-      Assessment = stringr::str_match(file, "spec_(.*).yaml")[[2]],
-      ID = unlist(ID),
-      Description = unlist(Description),
-      Risk = unlist(Risk),
-      Impact = unlist(Impact),
-      Tests = unlist(Tests)
-    )
-
-  return(file_text_df)
-}
-
-#' scrape all specifications in a directory
-#'
-#' @param dir dir with spec yaml files
-#'
-#' @return dataframe of all specs in dir
-#' @export
-scrape_dir_specs <- function(dir = "."){
-  dir_yamls <- list.files(dir, pattern = "\\.yaml$", full.names = TRUE)
-
-  dir_specs <- purrr::map(dir_yamls, scrape_specs)
-
-  dir_spec_df <- do.call(rbind, dir_specs) %>%
-    as.data.frame()
-
-  return(dir_spec_df)
-}
-
 #' build traceability matrix from dataframe of specs
 #'
 #' @param df dataframe for input, must have columns ID, Tests
@@ -58,4 +18,32 @@ build_traceability_matrix <- function(df){
                        values_fill = "")
 
   return(traceability_matrix)
+}
+
+#' import and clean qualification specification .csv file
+#'
+#'
+#' @return data.frame to be used for qualification report/pkgdown.
+#' @export
+import_specs <- function() {
+
+  output <- read.csv(system.file("qualification", "qualification_specs.csv", package = "gsm")) %>%
+    dplyr::mutate(
+      ID = paste0("S", Spec, "_", Test.ID),
+      Test.Status = tolower(Test.Status)
+    ) %>%
+    dplyr::filter(
+      Test.Status == "approved"
+    ) %>%
+    dplyr::select(
+      "ID",
+      "Description",
+      "Risk",
+      "Impact",
+      "Tests",
+      "Assessment" = "Function.Name"
+    )
+
+  return(output)
+
 }
