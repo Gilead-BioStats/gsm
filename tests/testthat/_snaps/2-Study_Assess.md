@@ -138,23 +138,6 @@
     Code
       kri0001$lData
     Output
-      $dfAE
-      # A tibble: 48 x 4
-         subjid ae_te aetoxgr aeser
-         <chr>  <chr> <chr>   <chr>
-       1 0496   Y     MILD    N    
-       2 0496   Y     MILD    N    
-       3 1350   Y     MILD    N    
-       4 1350   Y     MILD    N    
-       5 1350   Y     MILD    N    
-       6 1350   Y     MILD    N    
-       7 1350   Y     MILD    N    
-       8 1350   Y     MILD    N    
-       9 1350   Y     MILD    N    
-      10 0539   Y     MILD    N    
-      # ... with 38 more rows
-      
-<<<<<<< HEAD
       $dfSUBJ
       # A tibble: 50 x 8
          studyid        siteid subjid timeonstudy timeontreatm~1 rfpst~2 country invid
@@ -171,7 +154,23 @@
       10 AA-AA-000-0000 167    0163           790            757 2015-0~ US      0X059
       # ... with 40 more rows, and abbreviated variable names 1: timeontreatment,
       #   2: rfpst_dt
-=======
+      
+      $dfAE
+      # A tibble: 48 x 4
+         subjid ae_te aetoxgr aeser
+         <chr>  <chr> <chr>   <chr>
+       1 0496   Y     MILD    N    
+       2 0496   Y     MILD    N    
+       3 1350   Y     MILD    N    
+       4 1350   Y     MILD    N    
+       5 1350   Y     MILD    N    
+       6 1350   Y     MILD    N    
+       7 1350   Y     MILD    N    
+       8 1350   Y     MILD    N    
+       9 1350   Y     MILD    N    
+      10 0539   Y     MILD    N    
+      # ... with 38 more rows
+      
       $dfPD
       # A tibble: 50 x 3
          subjid dvdecod                          importnt
@@ -324,7 +323,6 @@
       1 AA-AA-000-0000 86     0001   2008-09-10 US      0X012 Y        ""             
       2 AA-AA-000-0000 76     sf0001 2017-05-22 China   0X201 N        "Inclusion/Exc~
       3 AA-AA-000-0000 166    0003   2008-08-26 Japan   0X999 Y        ""             
->>>>>>> 1cb929f7 (update tests)
       
       $dfInput
       # A tibble: 50 x 8
