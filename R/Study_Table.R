@@ -12,6 +12,7 @@
 #' @param bColCollapse `logical` Combine the Assessment and Label columns into a single "Title Column" Default: `TRUE`
 #'
 #' @examples
+#' \dontrun{
 #' lData <- list(
 #'   dfAE = clindata::rawplus_ae,
 #'   dfPD = clindata::rawplus_protdev,
@@ -27,6 +28,7 @@
 #'   purrr::map_df(~ .x$lData$dfSummary, .id = "Assessment")
 #'
 #' lStudyTable <- Study_Table(dfSummary)
+#' }
 #'
 #' @return `data.frame` Returns a data.frame giving assessment status (rows) by Site (column)
 #'
