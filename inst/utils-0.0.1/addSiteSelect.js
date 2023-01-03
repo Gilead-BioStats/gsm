@@ -26,6 +26,7 @@ const addSiteSelect = function(el, results, instance) {
 
     // add dropdown
     const siteSelect = document.createElement('select');
+    siteSelect.multiple = true;
     siteSelectContainer.appendChild(siteSelect);
 
     // add default option
@@ -49,13 +50,25 @@ const addSiteSelect = function(el, results, instance) {
     for (const site of sites) {
         const siteOption = document.createElement('option');
         siteOption.innerHTML = site;
+        siteOption.className = "selected-site";
         siteSelect.appendChild(siteOption);
     }
 
     // add event listener to dropdown that updates chart
     siteSelect.addEventListener('change', event => {
-        instance.data.config.selectedGroupIDs = event.target.value; // site
-        instance.helpers.updateConfig(instance, instance.data.config);
+        const allSites = document.getElementsByClassName("selected-site");
+
+        let selected = Array.from(allSites).filter( function(option) {
+          return option.selected;
+        }).map( function(option) {
+          return option.value;
+        });
+
+        const id = instance.id;
+
+      instance.data.config.selectedGroupIDs = null;
+      instance.helpers.updateConfig(instance, instance.data.config);
+
     });
 
     return siteSelect;
