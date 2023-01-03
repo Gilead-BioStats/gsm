@@ -37,7 +37,7 @@ test_that("Raw+ AE data can be mapped correctly to create an analysis-ready inpu
   expected <- full_join(dm_raw, ae_raw) %>%
     mutate(Count = replace_na(Count, 0),
            Rate = as.numeric(Count)/!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol)) %>%
-    filter(!(!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol) == 0)) %>% # remove subjects that were not treated
+    filter(!(!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol) == 0) & !is.na(!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol))) %>% # remove subjects that were not treated (i.e., had 0 or NA days of treatment)
     select(all_of(cols))
 
 
