@@ -155,6 +155,9 @@
       # ... with 38 more rows
       
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ee268b3c (update docs)
       $dfSUBJ
       # A tibble: 50 x 8
          studyid        siteid subjid timeonstudy timeontreatm~1 rfpst~2 country invid
@@ -171,6 +174,7 @@
       10 AA-AA-000-0000 167    0163           790            757 2015-0~ US      0X059
       # ... with 40 more rows, and abbreviated variable names 1: timeontreatment,
       #   2: rfpst_dt
+<<<<<<< HEAD
 =======
       $dfPD
       # A tibble: 50 x 3
@@ -325,6 +329,8 @@
       2 AA-AA-000-0000 76     sf0001 2017-05-22 China   0X201 N        "Inclusion/Exc~
       3 AA-AA-000-0000 166    0003   2008-08-26 Japan   0X999 Y        ""             
 >>>>>>> 1cb929f7 (update tests)
+=======
+>>>>>>> ee268b3c (update docs)
       
       $dfInput
       # A tibble: 50 x 8
