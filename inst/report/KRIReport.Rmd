@@ -138,3 +138,22 @@ for (i in seq_along(assessment)) {
   ### / KRI section
 }
 ```
+
+## Error Log
+
+```{r echo = FALSE}
+error <- Study_AssessmentReport(assessment)
+
+error_table <- error$dfSummary %>% 
+  arrange(desc(notes), assessment) %>% 
+  rename(
+    "Assessment" = "assessment",
+    "Step" = "step",
+    "Check" = "check",
+    "Domain" = "domain",
+    "Notes" = "notes"
+  )
+
+DT::datatable(error_table)
+```
+
