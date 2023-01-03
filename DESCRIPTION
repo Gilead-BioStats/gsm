@@ -28,7 +28,6 @@ Imports:
     ggplot2,
     htmlwidgets,
     here,
-    janitor,
     knitr,
     lamW,
     lifecycle (>= 1.0.1),
