@@ -10,6 +10,7 @@ barChart(
   threshold = NULL,
   yaxis = "score",
   selectedGroupIDs = NULL,
+  addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -56,6 +57,8 @@ barChart(
 \item{yaxis}{either \code{'score'} or \code{'metric'}}
 
 \item{selectedGroupIDs}{group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
+
+\item{addSiteSelect}{add a dropdown to highlight sites?}
 
 \item{width}{width of widget, full screen by default}
 
