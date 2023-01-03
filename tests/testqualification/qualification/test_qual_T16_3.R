@@ -37,7 +37,7 @@ test_that("Raw+ PD data can be mapped correctly to create an analysis-ready inpu
   expected <- full_join(dm_raw, pd_raw) %>%
     mutate(Count = replace_na(Count, 0),
            Rate = as.numeric(Count)/!!sym(lMapping$dfSUBJ$strTimeOnStudyCol)) %>%
-    filter(!(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol) == 0)) %>% # remove subjects that were not treated
+    filter(!(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol) == 0) & !is.na(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol))) %>% # remove subjects that were not treated (i.e., had 0 or NA days of treatment)
     arrange(!!sym(lMapping$dfSUBJ$strIDCol)) %>%
     select(all_of(cols))
 
