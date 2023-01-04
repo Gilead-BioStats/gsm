@@ -10,6 +10,7 @@ LB_Assess(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nMinDenominator = NULL,
   bQuiet = TRUE
 )
 }
@@ -30,6 +31,8 @@ LB_Assess(
 of the column. Default: package-defined Labs Assessment mapping.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
+
+\item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -86,7 +89,7 @@ Alternatively, the Fisher’s exact test, or percentage value (identity)
 is used to generate estimates and p-values for each site (as specified
 with the \code{strMethod} parameter). Those outputs are then used to flag
 possible outliers using the thresholds specified in \code{vThreshold}. In the
-Fisher’s exact test, sites with $p<0.05$ are flagged as 1 by default.
+Fisher’s exact test, sites with \emph{p} < 0.05 are flagged as 1 by default.
 
 See \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}} or
 \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or

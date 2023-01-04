@@ -29,12 +29,16 @@ test_that("IE assessment can return a correctly assessed data frame grouped by t
         TRUE ~ 0
       ),
     ) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t3_1_summary <- t3_1_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    mutate(
+      Numerator = NA,
+      Denominator = NA
+    ) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t3_1 <- list(
     "dfTransformed" = t3_1_transformed,

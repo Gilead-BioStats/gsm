@@ -13,15 +13,14 @@
 #' @return htmlwidget scatter plot
 #' @export
 scatterPlot <- function(
-    results,
-    workflow,
-    bounds,
-    selectedGroupIDs = NULL,
-    width = NULL,
-    height = NULL,
-    elementId = NULL
+  results,
+  workflow,
+  bounds,
+  selectedGroupIDs = NULL,
+  width = NULL,
+  height = NULL,
+  elementId = NULL
 ) {
-
   results <- results %>%
     dplyr::rename_with(tolower)
 
@@ -29,8 +28,12 @@ scatterPlot <- function(
     bounds <- bounds %>% dplyr::rename_with(tolower)
   }
 
+  if (!is.null(elementId)) {
+    elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
+  }
+
   # forward options using x
-  x = list(
+  x <- list(
     results = results,
     workflow = workflow,
     bounds = bounds,
@@ -39,11 +42,11 @@ scatterPlot <- function(
 
   # create widget
   htmlwidgets::createWidget(
-    name = 'scatterPlot',
+    name = "scatterPlot",
     x,
     width = width,
     height = height,
-    package = 'gsm',
+    package = "gsm",
     elementId = elementId
   )
 }
@@ -65,13 +68,15 @@ scatterPlot <- function(
 #' @name scatterPlot-shiny
 #'
 #' @export
-scatterPlotOutput <- function(outputId, width = '100%', height = '400px'){
-  htmlwidgets::shinyWidgetOutput(outputId, 'scatterPlot', width, height, package = 'gsm')
+scatterPlotOutput <- function(outputId, width = "100%", height = "400px") {
+  htmlwidgets::shinyWidgetOutput(outputId, "scatterPlot", width, height, package = "gsm")
 }
 
 #' @rdname scatterPlot-shiny
 #' @export
 renderScatterPlot <- function(expr, env = parent.frame(), quoted = FALSE) {
-  if (!quoted) { expr <- substitute(expr) } # force quoted
+  if (!quoted) {
+    expr <- substitute(expr)
+  } # force quoted
   htmlwidgets::shinyRenderWidget(expr, scatterPlotOutput, env, quoted = TRUE)
 }

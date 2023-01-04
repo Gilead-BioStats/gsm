@@ -127,6 +127,9 @@
       [[4]]$params$strMethod
       [1] "NormalApprox"
       
+      [[4]]$params$nMinDenominator
+      [1] 30
+      
       
       
 
@@ -135,23 +138,6 @@
     Code
       kri0001$lData
     Output
-      $dfSUBJ
-      # A tibble: 50 x 8
-         studyid        siteid subjid timeonstudy timeontreatm~1 rfpst~2 country invid
-         <chr>          <chr>  <chr>        <dbl>          <dbl> <chr>   <chr>   <chr>
-       1 AA-AA-000-0000 5      0496           710            675 2013-1~ US      0X167
-       2 AA-AA-000-0000 78     1350           715            673 2017-1~ US      0X002
-       3 AA-AA-000-0000 139    0539           713            673 2005-0~ US      0X052
-       4 AA-AA-000-0000 162    0329           715            673 2007-0~ US      0X049
-       5 AA-AA-000-0000 29     0429           698            664 2014-0~ Japan   0X116
-       6 AA-AA-000-0000 143    1218           801            760 2004-0~ US      0X153
-       7 AA-AA-000-0000 173    0808           792            758 2010-0~ US      0X124
-       8 AA-AA-000-0000 189    1314           975            930 2003-1~ US      0X093
-       9 AA-AA-000-0000 58     1236           113             88 2009-0~ China   0X091
-      10 AA-AA-000-0000 167    0163           790            757 2015-0~ US      0X059
-      # ... with 40 more rows, and abbreviated variable names 1: timeontreatment,
-      #   2: rfpst_dt
-      
       $dfAE
       # A tibble: 48 x 4
          subjid ae_te aetoxgr aeser
@@ -168,152 +154,22 @@
       10 0539   Y     MILD    N    
       # ... with 38 more rows
       
-      $dfPD
-      # A tibble: 50 x 3
-         subjid dvdecod                          importnt
-         <chr>  <chr>                            <chr>   
-       1 0496   OTHER                            N       
-       2 1350   OTHER                            N       
-       3 1350   OTHER                            N       
-       4 1350   OTHER                            N       
-       5 1350   OTHER                            N       
-       6 1350   OTHER                            N       
-       7 0539   OTHER TREATMENT COMPLIANCE ISSUE N       
-       8 0539   OTHER TREATMENT COMPLIANCE ISSUE N       
-       9 0539   OTHER TREATMENT COMPLIANCE ISSUE N       
-      10 0539   OTHER TREATMENT COMPLIANCE ISSUE N       
-      # ... with 40 more rows
-      
-      $dfCONSENT
-      # A tibble: 50 x 4
-         subjid conscat     consyn consdt    
-         <chr>  <chr>       <chr>  <date>    
-       1 0496   MAINCONSENT Y      2013-11-26
-       2 1350   MAINCONSENT Y      2017-10-02
-       3 0539   MAINCONSENT Y      2005-08-31
-       4 0329   MAINCONSENT Y      2007-09-26
-       5 0429   MAINCONSENT Y      2014-08-14
-       6 1218   MAINCONSENT Y      2004-05-23
-       7 0808   MAINCONSENT Y      2010-04-29
-       8 1314   MAINCONSENT Y      2003-10-21
-       9 1236   MAINCONSENT Y      2009-02-08
-      10 0163   MAINCONSENT Y      2015-04-20
-      # ... with 40 more rows
-      
-      $dfIE
-      # A tibble: 50 x 4
-         subjid iecat ieorres tiver
-         <chr>  <chr>   <dbl> <chr>
-       1 0496   EXCL        0 A2   
-       2 0496   EXCL        0 A2   
-       3 0496   EXCL        0 A2   
-       4 0496   EXCL        0 A2   
-       5 0496   EXCL        0 A2   
-       6 0496   EXCL        0 A2   
-       7 0496   EXCL        0 A2   
-       8 0496   EXCL        0 A2   
-       9 0496   EXCL        0 A2   
-      10 0496   EXCL        0 A2   
-      # ... with 40 more rows
-      
-      $dfSTUDCOMP
-      # A tibble: 50 x 3
-         subjid compreas                         compyn
-         <chr>  <chr>                            <chr> 
-       1 1236   "LOST TO FOLLOW-UP"              "N"   
-       2 1023   "ADVERSE EVENT"                  "N"   
-       3 1346   ""                               ""    
-       4 0760   "WITHDRAWAL BY SUBJECT"          "N"   
-       5 0854   "LOST TO FOLLOW-UP"              "N"   
-       6 0561   "NON-COMPLIANCE WITH STUDY DRUG" "N"   
-       7 0290   "DEATH"                          "N"   
-       8 1127   "WITHDRAWAL BY SUBJECT"          "N"   
-       9 1152   "WITHDRAWAL BY SUBJECT"          "N"   
-      10 0720   "LOST TO FOLLOW-UP"              "N"   
-      # ... with 40 more rows
-      
-      $dfSDRGCOMP
-      # A tibble: 50 x 4
-         subjid datapagename                  sdrgreas            sdrgyn
-         <chr>  <chr>                         <chr>               <chr> 
-       1 0808   Blinded Study Drug Completion ""                  Y     
-       2 1314   Blinded Study Drug Completion ""                  Y     
-       3 1236   Blinded Study Drug Completion "LOST TO FOLLOW-UP" N     
-       4 0003   Blinded Study Drug Completion ""                  Y     
-       5 1315   Blinded Study Drug Completion ""                  Y     
-       6 0788   Blinded Study Drug Completion ""                  Y     
-       7 0283   Blinded Study Drug Completion ""                  Y     
-       8 0200   Blinded Study Drug Completion ""                  Y     
-       9 1023   Blinded Study Drug Completion "ADVERSE EVENT"     N     
-      10 0572   Blinded Study Drug Completion ""                  Y     
-      # ... with 40 more rows
-      
-      $dfLB
-      # A tibble: 2,000 x 8
-         subjid visnam    visnum battrnam                  lbtst~1  siresn lb_te toxgr
-         <chr>  <chr>      <dbl> <chr>                     <chr>     <dbl> <chr> <chr>
-       1 0496   Screening    -10 CHEMISTRY PANEL           ALT (S~ 2.32e+2 ""    "3"  
-       2 0496   Screening    -10 CHEMISTRY PANEL           AST (S~ 7.6 e+1 ""    "1"  
-       3 0496   Screening    -10 CHEMISTRY PANEL           Albumi~ 4.8 e+1 ""    "0"  
-       4 0496   Screening    -10 CHEMISTRY PANEL           Alkali~ 8.4 e+1 ""    "0"  
-       5 0496   Screening    -10 HEMATOLOGY&DIFFERENTIAL ~ Basoph~ 3.00e-2 ""    ""   
-       6 0496   Screening    -10 HEMATOLOGY&DIFFERENTIAL ~ Basoph~ 5   e-1 ""    ""   
-       7 0496   Screening    -10 CHEMISTRY PANEL           Calciu~ 2.5 e+0 ""    ""   
-       8 0496   Screening    -10 CHEMISTRY PANEL           Calciu~ 2.5 e+0 ""    ""   
-       9 0496   Screening    -10 CHEMISTRY PANEL           Choles~ 4.70e+0 ""    "0"  
-      10 0496   Screening    -10 CHEMISTRY PANEL           Creati~ 9.5 e+1 ""    "0"  
-      # ... with 1,990 more rows, and abbreviated variable name 1: lbtstnam
-      
-      $dfDATACHG
-      # A tibble: 8,933 x 6
-         subjid foldername form                              n_data_~1 n_dat~2 n_dat~3
-         <chr>  <chr>      <chr>                             <chr>     <chr>   <chr>  
-       1 0003   Day 1      Enrollment                        6         0       0      
-       2 0003   Day 1      PK                                6         0       0      
-       3 0003   Day 1      Prior and Concomitant Medication  7         0       0      
-       4 0003   Day 1      Study Drug Accountability         8         0       0      
-       5 0003   Day 1      Study Drug Administration (DRUG1) 8         0       0      
-       6 0003   Day 1      Study Drug Administration (DRUG2) 8         0       0      
-       7 0003   Day 1      Study Drug Administration (DRUG3) 8         0       0      
-       8 0003   Day 1      Study Drug Administration (PK)    11        0       0      
-       9 0003   Day 1      Visit Date                        12        0       0      
-      10 0003   Day 1      Vital Signs Performed             9         0       0      
-      # ... with 8,923 more rows, and abbreviated variable names 1: n_data_points,
-      #   2: n_data_points_with_changes, 3: n_data_point_changes
-      
-      $dfDATAENT
-      # A tibble: 8,933 x 5
-         subjid foldername form                              data_entry_lag data_ent~1
-         <chr>  <chr>      <chr>                             <chr>          <chr>     
-       1 0003   Day 1      Enrollment                        1              N         
-       2 0003   Day 1      PK                                0              N         
-       3 0003   Day 1      Prior and Concomitant Medication  7              N         
-       4 0003   Day 1      Study Drug Accountability         5              N         
-       5 0003   Day 1      Study Drug Administration (DRUG1) 2              N         
-       6 0003   Day 1      Study Drug Administration (DRUG2) 0              N         
-       7 0003   Day 1      Study Drug Administration (DRUG3) 2              N         
-       8 0003   Day 1      Study Drug Administration (PK)    0              N         
-       9 0003   Day 1      Visit Date                        3              N         
-      10 0003   Day 1      Vital Signs Performed             4              N         
-      # ... with 8,923 more rows, and abbreviated variable name 1: data_entry_lag_fl
-      
-      $dfQUERY
-      # A tibble: 1,494 x 12
-         subjid foldername  form  field qryst~1 marki~2 qryage qryag~3 qry30fl qryop~4
-         <chr>  <chr>       <chr> <chr> <chr>   <chr>   <chr>  <chr>   <chr>   <chr>  
-       1 0003   Day 1       Prio~ CMST~ Closed  CRA to~ 36     >28 da~ Y       2008-0~
-       2 0003   Unscheduled PK    PKTPT Closed  CRA to~ 14     7-14 d~ N       2007-1~
-       3 0003   Unscheduled Stud~ EXEN~ Closed  System~ 9      7-14 d~ N       2008-0~
-       4 0003   Unscheduled Stud~ EXST~ Closed  System~ 18     14-21 ~ N       2007-0~
-       5 0003   Week 108    Prio~ CMTRT Closed  System~ 9      7-14 d~ N       2006-0~
-       6 0003   Week 108    Stud~ EXDS~ Closed  System~ 3      <7 days N       2006-0~
-       7 0003   Week 108    Visi~ SVAE~ Closed  CDA to~ 28     21-28 ~ N       2006-0~
-       8 0003   Week 120    Stud~ EXPE~ Closed  System~ 12     7-14 d~ N       2006-0~
-       9 0003   Week 120    Stud~ EXEN~ Closed  System~ 2      <7 days N       2006-0~
-      10 0003   Week 16     Stud~ EXDS~ Closed  System~ 4      <7 days N       2008-0~
-      # ... with 1,484 more rows, 2 more variables: qryresponsedate <chr>,
-      #   qryclosedate <chr>, and abbreviated variable names 1: qrystatus,
-      #   2: markinggroupname, 3: qryagecat, 4: qryopendate
+      $dfSUBJ
+      # A tibble: 50 x 8
+         studyid        siteid subjid timeonstudy timeontreatm~1 rfpst~2 country invid
+         <chr>          <chr>  <chr>        <dbl>          <dbl> <chr>   <chr>   <chr>
+       1 AA-AA-000-0000 5      0496           710            675 2013-1~ US      0X167
+       2 AA-AA-000-0000 78     1350           715            673 2017-1~ US      0X002
+       3 AA-AA-000-0000 139    0539           713            673 2005-0~ US      0X052
+       4 AA-AA-000-0000 162    0329           715            673 2007-0~ US      0X049
+       5 AA-AA-000-0000 29     0429           698            664 2014-0~ Japan   0X116
+       6 AA-AA-000-0000 143    1218           801            760 2004-0~ US      0X153
+       7 AA-AA-000-0000 173    0808           792            758 2010-0~ US      0X124
+       8 AA-AA-000-0000 189    1314           975            930 2003-1~ US      0X093
+       9 AA-AA-000-0000 58     1236           113             88 2009-0~ China   0X091
+      10 AA-AA-000-0000 167    0163           790            757 2015-0~ US      0X059
+      # ... with 40 more rows, and abbreviated variable names 1: timeontreatment,
+      #   2: rfpst_dt
       
       $dfInput
       # A tibble: 50 x 8
@@ -861,6 +717,35 @@
       [1] "3" "4"
       
       
+      $AE_Map_Raw$mapping$dfENROLL
+      $AE_Map_Raw$mapping$dfENROLL$strStudyCol
+      [1] "studyid"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strSiteCol
+      [1] "siteid"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strCountryCol
+      [1] "country"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strCustomGroupCol
+      [1] "invid"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strIDCol
+      [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strScreenFailCol
+      [1] "enrollyn"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strScreenFailVal
+      [1] "N"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strScreenFailReasonCol
+      [1] "sfreas"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strScreenFailReasonVal
+      [1] "Inclusion/Exclusion Criteria"
+      
+      
       $AE_Map_Raw$mapping$dfADSL
       $AE_Map_Raw$mapping$dfADSL$strIDCol
       [1] "USUBJID"
@@ -1261,6 +1146,8 @@
       > nStep was not provided. Setting default step to 13.124
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 3 rows.
       v Created 2 scatter plots.
       v Created 4 bar charts.
@@ -1335,8 +1222,10 @@
       > nStep was not provided. Setting default step to 13.124
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 3 rows.
-      v Created 1 scatter plot.
+      v Created 2 scatter plots.
       v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -1398,7 +1287,7 @@
       
       -- Initializing `cou0005` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 4: `FilterDomain` --
+      -- Workflow Step 1 of 3: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -1414,15 +1303,11 @@
       ! `FilterDomain()` Failed - Skipping remaining steps
       Saving dfLB to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Skipping `FilterDomain()` ...
-      
-      -- Workflow Step 3 of 4: `LB_Map_Raw` --
+      -- Workflow Step 2 of 3: `LB_Map_Raw` --
       
       Skipping `LB_Map_Raw()` ...
       
-      -- Workflow Step 4 of 4: `LB_Assess` --
+      -- Workflow Step 3 of 3: `LB_Assess` --
       
       Skipping `LB_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
@@ -1579,6 +1464,30 @@
       Skipping `DataChg_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
+      -- Initializing `cou0012` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `Screening_Map_Raw` --
+      
+      Preparing parameters for `Screening_Map_Raw()` ...
+      Calling `Screening_Map_Raw()` ...
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+      ! `Screening_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `Screening_Assess` --
+      
+      Skipping `Screening_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
       -- Initializing `kri0001` assessment -------------------------------------------
       
       -- Workflow Step 1 of 4: `FilterDomain` --
@@ -1646,6 +1555,8 @@
       > nStep was not provided. Setting default step to 3.984
       v `Analyze_NormalApprox()` returned output with 10 rows.
       v `Flag_NormalApprox()` returned output with 10 rows.
+      i 1 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 10 rows.
       v Created 2 scatter plots.
       v Created 4 bar charts.
@@ -1720,8 +1631,10 @@
       > nStep was not provided. Setting default step to 3.984
       v `Analyze_NormalApprox()` returned output with 10 rows.
       v `Flag_NormalApprox()` returned output with 10 rows.
+      i 1 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 10 rows.
-      v Created 1 scatter plot.
+      v Created 2 scatter plots.
       v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
@@ -1958,6 +1871,30 @@
       -- Workflow Step 2 of 2: `DataChg_Assess` --
       
       Skipping `DataChg_Assess()` ...
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0012` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `Screening_Map_Raw` --
+      
+      Preparing parameters for `Screening_Map_Raw()` ...
+      Calling `Screening_Map_Raw()` ...
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+      ! `Screening_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `Screening_Assess` --
+      
+      Skipping `Screening_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `qtl0004` assessment -------------------------------------------
