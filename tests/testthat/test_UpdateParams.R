@@ -1,3 +1,11 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
-})
+lWorkflow <- MakeWorkflowList(strNames = c("kri0001", "kri0002", "kri0003"))
+
+dfConfig <- clindata::config_param
+
+dfMeta <- gsm::meta_param
+
+x <- UpdateParams(
+  lWorkflow,
+  dfConfig,
+  dfMeta
+)
