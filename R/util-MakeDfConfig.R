@@ -40,16 +40,16 @@ MakeDfConfig <- function(
 ) {
   modelLabel <- switch(strMethod,
     NormalApprox = "Normal Approximation (Rate)",
-    poisson = "Poisson (Rate)",
-    fisher = "Fisher (Rate)",
-    identity = "Identity (Count)"
+    Poisson = "Poisson (Rate)",
+    Fisher = "Fisher (Rate)",
+    Identity = "Identity (Count)"
   )
 
   scoreLabel <- switch(strMethod,
     NormalApprox = "Adjusted Z-Score",
-    poisson = "Residual",
-    identity = "Count",
-    fisher = "Fisher"
+    Poisson = "Residual",
+    Identity = "Count",
+    Fisher = "Fisher"
   )
 
   dfConfig <- dplyr::tibble(
