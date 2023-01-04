@@ -139,53 +139,33 @@
       kri0001$lData
     Output
       $dfAE
-      # A tibble: 48 x 4
-         subjid ae_te aetoxgr aeser
-         <chr>  <chr> <chr>   <chr>
-       1 0496   Y     MILD    N    
-       2 0496   Y     MILD    N    
-       3 1350   Y     MILD    N    
-       4 1350   Y     MILD    N    
-       5 1350   Y     MILD    N    
-       6 1350   Y     MILD    N    
-       7 1350   Y     MILD    N    
-       8 1350   Y     MILD    N    
-       9 1350   Y     MILD    N    
-      10 0539   Y     MILD    N    
-      # ... with 38 more rows
+      # A tibble: 7 x 4
+        subjid ae_te aetoxgr  aeser
+        <chr>  <chr> <chr>    <chr>
+      1 0001   Y     MILD     N    
+      2 0001   Y     MILD     N    
+      3 0001   Y     MILD     N    
+      4 0001   Y     MILD     N    
+      5 0001   Y     MILD     N    
+      6 0002   Y     MODERATE N    
+      7 0002   Y     MODERATE N    
       
       $dfSUBJ
-      # A tibble: 50 x 8
-         studyid        siteid subjid timeonstudy timeontreatm~1 rfpst~2 country invid
-         <chr>          <chr>  <chr>        <dbl>          <dbl> <chr>   <chr>   <chr>
-       1 AA-AA-000-0000 5      0496           710            675 2013-1~ US      0X167
-       2 AA-AA-000-0000 78     1350           715            673 2017-1~ US      0X002
-       3 AA-AA-000-0000 139    0539           713            673 2005-0~ US      0X052
-       4 AA-AA-000-0000 162    0329           715            673 2007-0~ US      0X049
-       5 AA-AA-000-0000 29     0429           698            664 2014-0~ Japan   0X116
-       6 AA-AA-000-0000 143    1218           801            760 2004-0~ US      0X153
-       7 AA-AA-000-0000 173    0808           792            758 2010-0~ US      0X124
-       8 AA-AA-000-0000 189    1314           975            930 2003-1~ US      0X093
-       9 AA-AA-000-0000 58     1236           113             88 2009-0~ China   0X091
-      10 AA-AA-000-0000 167    0163           790            757 2015-0~ US      0X059
-      # ... with 40 more rows, and abbreviated variable names 1: timeontreatment,
-      #   2: rfpst_dt
+      # A tibble: 3 x 8
+        studyid        siteid subjid timeonstudy timeontreatment rfpst~1 country invid
+        <chr>          <chr>  <chr>        <int>           <int> <chr>   <chr>   <chr>
+      1 AA-AA-000-0000 86     0001           730             678 2008-0~ US      0X012
+      2 AA-AA-000-0000 76     0002            50              13 2017-0~ China   0X201
+      3 AA-AA-000-0000 166    0003           901             857 2008-0~ Japan   0X999
+      # ... with abbreviated variable name 1: rfpst_dt
       
       $dfInput
-      # A tibble: 50 x 8
-         SubjectID SiteID StudyID        CountryID CustomGroupID Expos~1 Count    Rate
-         <chr>     <chr>  <chr>          <chr>     <chr>           <dbl> <int>   <dbl>
-       1 0003      166    AA-AA-000-0000 US        0X102             857     5 0.00583
-       2 0010      122    AA-AA-000-0000 China     0X018             687     0 0      
-       3 0012      63     AA-AA-000-0000 Japan     0X129             675     0 0      
-       4 0034      91     AA-AA-000-0000 US        0X175             673     0 0      
-       5 0068      144    AA-AA-000-0000 China     0X164             761     0 0      
-       6 0080      8      AA-AA-000-0000 US        0X154             757     0 0      
-       7 0081      189    AA-AA-000-0000 US        0X093             670     0 0      
-       8 0141      177    AA-AA-000-0000 US        0X020             676     0 0      
-       9 0155      118    AA-AA-000-0000 US        0X076             757     0 0      
-      10 0163      167    AA-AA-000-0000 US        0X059             757     3 0.00396
-      # ... with 40 more rows, and abbreviated variable name 1: Exposure
+      # A tibble: 3 x 8
+        SubjectID SiteID StudyID        CountryID CustomGroupID Exposure Count    Rate
+        <chr>     <chr>  <chr>          <chr>     <chr>            <int> <int>   <dbl>
+      1 0001      86     AA-AA-000-0000 US        0X012              678     5 0.00737
+      2 0002      76     AA-AA-000-0000 China     0X201               13     2 0.154  
+      3 0003      166    AA-AA-000-0000 Japan     0X999              857     0 0      
       
 
 ---
@@ -273,7 +253,7 @@
       
       
       $FilterDomain$dfAE$dim
-      [1] 50  4
+      [1] 12  4
       
       
       $FilterDomain$status
@@ -360,7 +340,7 @@
       
       
       $FilterDomain$dfAE$dim
-      [1] 49  4
+      [1] 12  4
       
       
       $FilterDomain$status
@@ -447,7 +427,7 @@
       
       
       $AE_Map_Raw$dfAE$dim
-      [1] 48  4
+      [1] 7 4
       
       
       $AE_Map_Raw$dfSUBJ
@@ -529,7 +509,7 @@
       
       
       $AE_Map_Raw$dfSUBJ$dim
-      [1] 50  8
+      [1] 3 8
       
       
       $AE_Map_Raw$status
@@ -981,7 +961,7 @@
       
       
       $AE_Assess$dfInput$dim
-      [1] 50  8
+      [1] 3 8
       
       
       $AE_Assess$status

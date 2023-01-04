@@ -1,4 +1,5 @@
 source(testthat::test_path("testdata/data.R"))
+load(testthat::test_path("testdata/SnapshotStandard.RData"))
 
 lData <- list(
   dfSUBJ = dfSUBJ_expanded,
@@ -28,7 +29,7 @@ lMeta <- list(
 
 lAssessments <- MakeWorkflowList()
 
-snapshot <- Make_Snapshot(lData = lData)
+snapshot <- SnapshotStandard
 
 
 

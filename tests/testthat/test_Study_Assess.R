@@ -1,4 +1,5 @@
 source(testthat::test_path("testdata/data.R"))
+load(testthat::test_path("testdata/StudyStandard.RData"))
 
 subsetDfs <- function(data, domain, max_rows = 50) {
   data %>%
@@ -62,11 +63,7 @@ lMapping <- c(
   yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
 )
 
-result <- Study_Assess(
-  lData = lData,
-  lAssessments = lAssessments,
-  bQuiet = TRUE
-)
+result <- StudyStandard
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {

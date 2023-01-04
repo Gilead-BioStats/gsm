@@ -1,9 +1,9 @@
 source(testthat::test_path("testdata/data.R"))
+load(testthat::test_path("testdata/StudyStandard.RData"))
+load(testthat::test_path("testdata/StudyStandardError.RData"))
+load(testthat::test_path("testdata/StudyStandardErrorSubj.RData"))
 
-assessment_list <- MakeWorkflowList(strNames = c("kri0001", "kri0002", "kri0003"))
-
-lAssessments <- Study_Assess(lData = lData, bQuiet = TRUE, lAssessments = assessment_list) %>%
-  suppressWarnings()
+lAssessments <- StudyStandard[names(StudyStandard) %in% c("kri0001", "kri0002", "kri0003")]
 
 test_that("Assessment Report with all Valid assessments", {
   a <- Study_AssessmentReport(lAssessments = lAssessments)
@@ -20,16 +20,8 @@ test_that("Assessment Report with all Valid assessments", {
 })
 
 test_that("Assessment Report with an issue in dfSUBJ", {
-  lData <- list(
-    dfSUBJ = dfSUBJ,
-    dfAE = dfAE
-  )
 
-  lData$dfSUBJ[1, "SubjectID"] <- NA
-
-  lAssessments <- Study_Assess(lData = lData, bQuiet = TRUE) %>%
-    suppressWarnings()
-  a <- Study_AssessmentReport(lAssessments = lAssessments)
+  a <- Study_AssessmentReport(StudyStandardErrorSubj)
   expect_true(is.data.frame(a$dfAllChecks))
   expect_true(is.data.frame(a$dfSummary))
 })
@@ -45,15 +37,9 @@ test_that("bViewReport works", {
 })
 
 test_that("correct messages show when data is not found", {
-  ldata <- list(
-    dfAE = dfAE,
-    dfSUBJ = dfSUBJ
-  )
 
-  lAssessments <- Study_Assess(lData = ldata, bQuiet = TRUE) %>%
-    suppressWarnings()
 
-  report <- Study_AssessmentReport(lAssessments)
+  report <- Study_AssessmentReport(StudyStandardError)
 
   expect_snapshot(
     report$dfAllChecks %>%
