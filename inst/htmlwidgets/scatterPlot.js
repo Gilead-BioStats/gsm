@@ -1,38 +1,43 @@
 HTMLWidgets.widget({
+    name: 'scatterPlot',
+    type: 'output',
+    factory: function(el, width, height) {
+        return {
+            renderValue: function(x) {
+                // scatter plot data - points
+                const results = HTMLWidgets.dataframeToD3(x.results)
 
-  name: 'scatterPlot',
+                // scatter plot configuration
+                const workflow = HTMLWidgets.dataframeToD3(x.workflow)[0]
+                workflow.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
 
-  type: 'output',
+                if (x.addSiteSelect)
+                    workflow.clickCallback = function(d) { // clickCallback.bind(null, instance, siteSelect);
+                        instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
+                            ? 'None'
+                            : d.groupid;
+                        siteSelect.value = instance.data.config.selectedGroupIDs;
+                        instance.helpers.updateConfig(instance, instance.data.config);
+                    };
 
-  factory: function(el, width, height) {
+                // scatter plot data - bound annotations
+                const bounds = HTMLWidgets.dataframeToD3(x.bounds)
 
-    return {
+                // generate scatter plot
+                const instance = rbmViz.default.scatterPlot(
+                    el,
+                    results,
+                    workflow,
+                    bounds
+                );
 
-      renderValue: function(x) {
-
-      let results = HTMLWidgets.dataframeToD3(x.results)
-
-      let workflow = HTMLWidgets.dataframeToD3(x.workflow)[0]
-      workflow.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
-          console.log(workflow);
-
-      let bounds = HTMLWidgets.dataframeToD3(x.bounds)
-
-      const instance = rbmViz.default.scatterPlot(
-           el,
-           results,
-           workflow,
-           bounds
-         )
-
-      },
-
-      resize: function(width, height) {
-
-        // TODO: code to re-render the widget with a new size
-
-      }
-
-    };
-  }
+                // add dropdown that highlights sites
+                let siteSelect;
+                if (x.addSiteSelect)
+                    siteSelect = addSiteSelect(el, results, instance);
+            },
+            resize: function(width, height) {
+            }
+        };
+    }
 });
