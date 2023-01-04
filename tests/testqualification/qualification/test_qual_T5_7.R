@@ -27,9 +27,9 @@ test_that("Disposition assessment can return a correctly assessed data frame for
     qualification_flag_normalapprox(threshold = c(-2, -1, 1, 2))
 
   t5_7_summary <- t5_7_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t5_7 <- list(
     "dfTransformed" = t5_7_transformed,
