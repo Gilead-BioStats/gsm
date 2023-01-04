@@ -5,7 +5,8 @@ test_that("PD assessment can return a correctly assessed data frame for the norm
   test2_9 <- PD_Assess(
     dfInput = dfInput,
     strMethod = "NormalApprox",
-    strGroup = "Study"
+    strGroup = "Study",
+    vThreshold = c(-2, -1, 1, 2)
   )
 
   # Double Programming
@@ -25,9 +26,9 @@ test_that("PD assessment can return a correctly assessed data frame for the norm
     qualification_flag_normalapprox(threshold = c(-2, -1, 1, 2))
 
   t2_9_summary <- t2_9_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t2_9 <- list(
     "dfTransformed" = t2_9_transformed,
