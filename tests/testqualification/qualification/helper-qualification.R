@@ -181,7 +181,7 @@ qualification_flag_normalapprox <- function(dfAnalyzed, threshold = c(-3, -2, 2,
         threshold[1] <= Score & Score < threshold[2] ~ -1,
         threshold[2] <= Score & Score < threshold[3] ~ 0,
         threshold[3] <= Score & Score < threshold[4] ~ 1,
-        TRUE ~ 2
+        threshold[4] <= Score ~ 2
       ),
     ) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0)))

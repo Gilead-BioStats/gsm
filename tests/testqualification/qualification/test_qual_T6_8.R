@@ -27,9 +27,9 @@ test_that("Labs assessment can return a correctly assessed data frame grouped by
     qualification_flag_normalapprox(threshold = c(-2, -1, 1, 2))
 
   t6_8_summary <- t6_8_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t6_8 <- list(
     "dfTransformed" = t6_8_transformed,
