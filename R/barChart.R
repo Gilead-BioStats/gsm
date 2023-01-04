@@ -41,6 +41,7 @@
 #'
 #' @param yaxis either \code{'score'} or \code{'metric'}
 #' @param selectedGroupIDs group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
+#' @param addSiteSelect add a dropdown to highlight sites?
 #' @param width width of widget, full screen by default
 #' @param height height of widget, calculated based on width
 #' @param elementId ID of container HTML element
@@ -54,9 +55,11 @@ barChart <- function(
   threshold = NULL,
   yaxis = "score",
   selectedGroupIDs = NULL,
+  addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
-  elementId = NULL) {
+  elementId = NULL
+) {
   results <- results %>%
     dplyr::mutate(across(everything(), as.character)) %>%
     dplyr::rename_with(tolower)
@@ -71,7 +74,8 @@ barChart <- function(
     workflow = workflow,
     threshold = threshold,
     yaxis = yaxis,
-    selectedGroupIDs = as.character(selectedGroupIDs)
+    selectedGroupIDs = as.character(selectedGroupIDs),
+    addSiteSelect = addSiteSelect
   )
 
   # create widget
