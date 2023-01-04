@@ -37,13 +37,13 @@
 #' @export
 
 DataEntry_Map_Raw <- function(
-    dfs = list(
-      dfSUBJ = clindata::rawplus_dm,
-      dfDATAENT = clindata::edc_data_entry_lag
-    ),
-    lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
+  dfs = list(
+    dfSUBJ = clindata::rawplus_dm,
+    dfDATAENT = clindata::edc_data_entry_lag
+  ),
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 
 ) {
   stopifnot(
@@ -64,8 +64,10 @@ DataEntry_Map_Raw <- function(
 
     # Standarize Column Names
     dfDATAENT_mapped <- dfs$dfDATAENT %>%
-      select(SubjectID = lMapping[["dfDATAENT"]][["strIDCol"]],
-             DataEntryLag = lMapping[["dfDATAENT"]][["strDataEntryLagCol"]])
+      select(
+        SubjectID = lMapping[["dfDATAENT"]][["strIDCol"]],
+        DataEntryLag = lMapping[["dfDATAENT"]][["strDataEntryLagCol"]]
+      )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -92,8 +94,10 @@ DataEntry_Map_Raw <- function(
         Total = 1
       ) %>%
       group_by(.data$SubjectID) %>%
-      summarize(Count = sum(.data$Count, na.rm = TRUE),
-                Total = sum(.data$Total, na.rm = TRUE)) %>%
+      summarize(
+        Count = sum(.data$Count, na.rm = TRUE),
+        Total = sum(.data$Total, na.rm = TRUE)
+      ) %>%
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", vRemoval = "Total", bQuiet = bQuiet) %>%
       select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%

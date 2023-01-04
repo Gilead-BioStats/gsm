@@ -37,10 +37,10 @@ overview_table <- Overview_Table(assessment)
 
 # turn into a function
 summary_table <- map(assessment, function(kri) {
-  dfFlagged <- kri$lResults$lData$dfFlagged 
+  dfSummary <- kri$lResults$lData$dfSummary
   
-  if(nrow(dfFlagged) > 0 & any(c(-2, -1, 1, 2) %in% unique(dfFlagged$Flag))) {
-    kri$lResults$lData$dfFlagged %>% 
+  if(nrow(dfSummary) > 0 & any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
+    dfSummary %>% 
       filter(Flag != 0) %>% 
       arrange(desc(abs(Flag))) %>% 
       mutate(
@@ -138,3 +138,22 @@ for (i in seq_along(assessment)) {
   ### / KRI section
 }
 ```
+
+## Error Log
+
+```{r echo = FALSE}
+error <- Study_AssessmentReport(assessment)
+
+error_table <- error$dfSummary %>% 
+  arrange(desc(notes), assessment) %>% 
+  rename(
+    "Assessment" = "assessment",
+    "Step" = "step",
+    "Check" = "check",
+    "Domain" = "domain",
+    "Notes" = "notes"
+  )
+
+DT::datatable(error_table)
+```
+

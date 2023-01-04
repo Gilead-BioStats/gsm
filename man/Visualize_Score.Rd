@@ -5,7 +5,7 @@
 \title{Group-level visualization of scores.}
 \usage{
 Visualize_Score(
-  dfFlagged,
+  dfSummary,
   vThreshold = NULL,
   strType = "metric",
   bFlagFilter = FALSE,
@@ -13,7 +13,7 @@ Visualize_Score(
 )
 }
 \arguments{
-\item{dfFlagged}{\code{data.frame} returned by \code{\link[=Flag]{Flag()}}}
+\item{dfSummary}{\code{data.frame} returned by \code{\link[=Summarize]{Summarize()}}}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to NULL.}
 
@@ -32,10 +32,10 @@ Group-level visualization of scores.
 \examples{
 ae <- AE_Map_Raw() \%>\% AE_Assess()
 
-Visualize_Score(ae$lData$dfFlagged) # visualize KRI (default)
-Visualize_Score(ae$lData$dfFlagged, bFlagFilter = TRUE) # drop non-flagged groups
+Visualize_Score(ae$lData$dfSummary) # visualize KRI (default)
+Visualize_Score(ae$lData$dfSummary, bFlagFilter = TRUE) # drop non-flagged groups
 
 consent <- Consent_Map_Raw() \%>\% Consent_Assess()
-Visualize_Score(consent$lData$dfFlagged, strType = "score") # visualize score
+Visualize_Score(consent$lData$dfSummary, strType = "score") # visualize score
 
 }

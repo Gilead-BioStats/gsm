@@ -114,8 +114,6 @@ test_identity <- function(
   testthat::expect_snapshot(names(Identity$lCharts))
   testthat::expect_null(Identity$lCharts$scatter)
   testthat::expect_null(Identity$lData$dfBounds)
-
-
 }
 
 ################################################################
