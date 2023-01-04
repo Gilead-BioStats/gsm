@@ -4,7 +4,6 @@ test_that("AE assessment can return a correctly assessed data frame for the Norm
 
   test1_9 <- AE_Assess(dfInput,
                        strMethod = "NormalApprox",
-                       strType = "rate",
                        strGroup = "CustomGroup")
 
 
@@ -25,9 +24,9 @@ test_that("AE assessment can return a correctly assessed data frame for the Norm
     qualification_flag_normalapprox()
 
   t9_summary <- t9_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
 
   t1_9 <- list(
