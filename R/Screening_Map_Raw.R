@@ -81,7 +81,7 @@ Screening_Map_Raw <- function(
         ),
         Total = 1
       ) %>%
-      select(ends_with('ID'), 'Count', 'Total') %>%
+      select(ends_with("ID"), "Count", "Total") %>%
       arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn Screening_Map_Raw} returned output with {nrow(dfInput)} rows.")

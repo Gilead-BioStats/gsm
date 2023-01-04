@@ -6,7 +6,6 @@
 #'
 #' @param lAssessments `list` The results of multiple assessments run using `Study_Assess`.
 #' @param strOutpath `character` File path; location where the report will be saved.
-#' @param strReportType `character` Type of report to generate. Default: `kri`. Other options include: `study`.
 #'
 #' @return HTML report of study data.
 #'
@@ -20,25 +19,21 @@
 #'
 #' @export
 
-Study_Report <- function(lAssessments,
-                         strOutpath = NULL,
-                         strReportType = "kri"
-                         ) {
-  report_type <- switch(strReportType,
-                        kri = "KRIReport.Rmd",
-                        study = "studySummary.rmd")
+Study_Report <- function(
+  lAssessments,
+  strOutpath = NULL
+) {
 
   if (is.null(strOutpath)) {
     strOutpath <- paste0(getwd(), "/gsm_report.html")
   }
 
-
-  projectTemplate <- system.file("report", report_type, package = "gsm")
+  projectTemplate <- system.file("report", "KRIReport.Rmd", package = "gsm")
   rmarkdown::render(
     projectTemplate,
     output_file = strOutpath,
     params = list(
-      study = lAssessments
+      assessment = lAssessments
     ),
     envir = new.env(parent = globalenv())
   )

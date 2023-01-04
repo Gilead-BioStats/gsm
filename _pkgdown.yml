@@ -47,9 +47,8 @@ reference:
    - title: Reporting
      desc: Creates summary tables and HTML objects to create a report
    - contents:
-      - Study_AssessmentReport
       - Study_Report
-      - Study_Table
+      - Study_AssessmentReport
       - Overview_Table
       - rank_chg
       - kri_directionality_logo
