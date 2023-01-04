@@ -27,9 +27,9 @@ test_that("Labs assessment can return a correctly assessed data frame for the ch
     qualification_flag_fisher(threshold = c(.025, .05))
 
   t6_2_summary <- t6_2_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t6_2 <- list(
     "dfTransformed" = t6_2_transformed,

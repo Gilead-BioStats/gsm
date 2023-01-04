@@ -36,6 +36,9 @@
       $cou0011
       [1] "steps" "path"  "name" 
       
+      $cou0012
+      [1] "steps" "path"  "name" 
+      
       $kri0001
       [1] "steps" "path"  "name" 
       
@@ -67,6 +70,9 @@
       [1] "steps" "path"  "name" 
       
       $kri0011
+      [1] "steps" "path"  "name" 
+      
+      $kri0012
       [1] "steps" "path"  "name" 
       
       $qtl0004
@@ -157,6 +163,9 @@
       $cou0001[[4]]$params$strMethod
       [1] "NormalApprox"
       
+      $cou0001[[4]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -236,6 +245,9 @@
       $cou0002[[4]]$params$strMethod
       [1] "NormalApprox"
       
+      $cou0002[[4]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -292,6 +304,9 @@
       
       $cou0003[[3]]$params$strMethod
       [1] "NormalApprox"
+      
+      $cou0003[[3]]$params$nMinDenominator
+      [1] 30
       
       
       
@@ -350,6 +365,9 @@
       $cou0004[[3]]$params$strMethod
       [1] "NormalApprox"
       
+      $cou0004[[3]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -378,56 +396,37 @@
       
       $cou0005[[2]]
       $cou0005[[2]]$name
-      [1] "FilterDomain"
+      [1] "LB_Map_Raw"
       
       $cou0005[[2]]$inputs
-      [1] "dfLB"
+      [1] "dfSUBJ" "dfLB"  
       
       $cou0005[[2]]$output
-      [1] "dfLB"
-      
-      $cou0005[[2]]$params
-      $cou0005[[2]]$params$strDomain
-      [1] "dfLB"
-      
-      $cou0005[[2]]$params$strColParam
-      [1] "strGradeCol"
-      
-      $cou0005[[2]]$params$strValParam
-      [1] "strGradeHighVal"
-      
+      [1] "dfInput"
       
       
       $cou0005[[3]]
       $cou0005[[3]]$name
-      [1] "LB_Map_Raw"
-      
-      $cou0005[[3]]$inputs
-      [1] "dfSUBJ" "dfLB"  
-      
-      $cou0005[[3]]$output
-      [1] "dfInput"
-      
-      
-      $cou0005[[4]]
-      $cou0005[[4]]$name
       [1] "LB_Assess"
       
-      $cou0005[[4]]$inputs
+      $cou0005[[3]]$inputs
       [1] "dfInput"
       
-      $cou0005[[4]]$output
+      $cou0005[[3]]$output
       [1] "lResults"
       
-      $cou0005[[4]]$params
-      $cou0005[[4]]$params$strGroup
+      $cou0005[[3]]$params
+      $cou0005[[3]]$params$strGroup
       [1] "Country"
       
-      $cou0005[[4]]$params$vThreshold
+      $cou0005[[3]]$params$vThreshold
       NULL
       
-      $cou0005[[4]]$params$strMethod
+      $cou0005[[3]]$params$strMethod
       [1] "NormalApprox"
+      
+      $cou0005[[3]]$params$nMinDenominator
+      [1] 30
       
       
       
@@ -468,6 +467,9 @@
       
       $cou0006[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $cou0006[[2]]$params$nMinDenominator
+      [1] 3
       
       
       
@@ -531,6 +533,9 @@
       $cou0007[[3]]$params$strMethod
       [1] "NormalApprox"
       
+      $cou0007[[3]]$params$nMinDenominator
+      [1] 3
+      
       
       
       
@@ -565,6 +570,9 @@
       
       $cou0008[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $cou0008[[2]]$params$nMinDenominator
+      [1] 30
       
       
       
@@ -601,6 +609,9 @@
       $cou0009[[2]]$params$strMethod
       [1] "NormalApprox"
       
+      $cou0009[[2]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -636,6 +647,9 @@
       $cou0010[[2]]$params$strMethod
       [1] "NormalApprox"
       
+      $cou0010[[2]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -670,6 +684,47 @@
       
       $cou0011[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $cou0011[[2]]$params$nMinDenominator
+      [1] 30
+      
+      
+      
+      
+      $cou0012
+      $cou0012[[1]]
+      $cou0012[[1]]$name
+      [1] "Screening_Map_Raw"
+      
+      $cou0012[[1]]$inputs
+      [1] "dfENROLL"
+      
+      $cou0012[[1]]$output
+      [1] "dfInput"
+      
+      
+      $cou0012[[2]]
+      $cou0012[[2]]$name
+      [1] "Screening_Assess"
+      
+      $cou0012[[2]]$inputs
+      [1] "dfInput"
+      
+      $cou0012[[2]]$output
+      [1] "lResults"
+      
+      $cou0012[[2]]$params
+      $cou0012[[2]]$params$strGroup
+      [1] "Country"
+      
+      $cou0012[[2]]$params$vThreshold
+      NULL
+      
+      $cou0012[[2]]$params$strMethod
+      [1] "NormalApprox"
+      
+      $cou0012[[2]]$params$nMinDenominator
+      [1] 3
       
       
       
@@ -750,6 +805,9 @@
       $kri0001[[4]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0001[[4]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -829,6 +887,9 @@
       $kri0002[[4]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0002[[4]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -885,6 +946,9 @@
       
       $kri0003[[3]]$params$strMethod
       [1] "NormalApprox"
+      
+      $kri0003[[3]]$params$nMinDenominator
+      [1] 30
       
       
       
@@ -943,6 +1007,9 @@
       $kri0004[[3]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0004[[3]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -1000,6 +1067,9 @@
       $kri0005[[3]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0005[[3]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -1039,6 +1109,9 @@
       
       $kri0006[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $kri0006[[2]]$params$nMinDenominator
+      [1] 3
       
       
       
@@ -1102,6 +1175,9 @@
       $kri0007[[3]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0007[[3]]$params$nMinDenominator
+      [1] 3
+      
       
       
       
@@ -1136,6 +1212,9 @@
       
       $kri0008[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $kri0008[[2]]$params$nMinDenominator
+      [1] 30
       
       
       
@@ -1172,6 +1251,9 @@
       $kri0009[[2]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0009[[2]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -1207,6 +1289,9 @@
       $kri0010[[2]]$params$strMethod
       [1] "NormalApprox"
       
+      $kri0010[[2]]$params$nMinDenominator
+      [1] 30
+      
       
       
       
@@ -1241,6 +1326,47 @@
       
       $kri0011[[2]]$params$strMethod
       [1] "NormalApprox"
+      
+      $kri0011[[2]]$params$nMinDenominator
+      [1] 30
+      
+      
+      
+      
+      $kri0012
+      $kri0012[[1]]
+      $kri0012[[1]]$name
+      [1] "Screening_Map_Raw"
+      
+      $kri0012[[1]]$inputs
+      [1] "dfENROLL"
+      
+      $kri0012[[1]]$output
+      [1] "dfInput"
+      
+      
+      $kri0012[[2]]
+      $kri0012[[2]]$name
+      [1] "Screening_Assess"
+      
+      $kri0012[[2]]$inputs
+      [1] "dfInput"
+      
+      $kri0012[[2]]$output
+      [1] "lResults"
+      
+      $kri0012[[2]]$params
+      $kri0012[[2]]$params$strGroup
+      [1] "Site"
+      
+      $kri0012[[2]]$params$vThreshold
+      NULL
+      
+      $kri0012[[2]]$params$strMethod
+      [1] "NormalApprox"
+      
+      $kri0012[[2]]$params$nMinDenominator
+      [1] 3
       
       
       

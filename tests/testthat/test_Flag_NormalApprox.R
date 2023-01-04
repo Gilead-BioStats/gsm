@@ -38,10 +38,10 @@ test_that("incorrect inputs throw errors", {
 test_that("flagging works correctly", {
   dfAnalyzedCustom <- tibble::tribble(
     ~GroupID, ~Numerator, ~Denominator, ~Metric, ~OverallMetric, ~Factor, ~Score,
-    "139",             0,           2,      0,          0.08,  0.910, -0.437,
-    "109",             0,           1,      0,          0.08,  0.910, -0.309,
-    "43",              1,           2,      0.5,        0.08,  0.910, 2.295,
-    "127",             1,           1,      1,          0.08,  0.910, 3.554
+    "139", 0, 2, 0, 0.08, 0.910, -0.437,
+    "109", 0, 1, 0, 0.08, 0.910, -0.309,
+    "43", 1, 2, 0.5, 0.08, 0.910, 2.295,
+    "127", 1, 1, 1, 0.08, 0.910, 3.554
   )
 
   expect_silent(dfFlagged <- Flag_NormalApprox(dfAnalyzedCustom, vThreshold = c(-3, -2, 2, 3)))
