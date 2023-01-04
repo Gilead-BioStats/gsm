@@ -19,6 +19,7 @@
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Labs Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -60,6 +61,7 @@ DataChg_Assess <- function(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "DataChg_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nMinDenominator = NULL,
   bQuiet = TRUE
 ) {
 
@@ -160,7 +162,7 @@ DataChg_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
 
     # dfSummary ---------------------------------------------------------------
-    lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
+    lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
@@ -181,10 +183,10 @@ DataChg_Assess <- function(
     )
 
     if (strMethod != "Identity") {
-      lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+      lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
       lCharts$scatterJS <- scatterPlot(
-        results = lData$dfFlagged,
+        results = lData$dfSummary,
         workflow = dfConfig,
         bounds = lData$dfBounds,
         elementId = "dataChgAssessScatter"
@@ -193,8 +195,8 @@ DataChg_Assess <- function(
       if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
     }
 
-    lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
+    lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
+    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
 
     lCharts$barMetricJS <- barChart(
       results = lData$dfFlagged,

@@ -24,13 +24,12 @@ UpdateGSMVersion <- function(version = NULL) {
 
   meta_update <- c("meta_param.csv", "meta_workflow.csv")
 
-  lMeta_update <- purrr::map(meta_update, ~read.csv(here::here("data-raw", .x))) %>%
-    purrr::map(~.x %>% mutate(gsm_version = version)) %>%
+  lMeta_update <- purrr::map(meta_update, ~ read.csv(here::here("data-raw", .x))) %>%
+    purrr::map(~ .x %>% mutate(gsm_version = version)) %>%
     purrr::set_names(meta_update)
 
-  purrr::iwalk(lMeta_update, ~utils::write.csv(.x, file = paste0(here::here("data-raw", .y)), row.names = FALSE))
+  purrr::iwalk(lMeta_update, ~ utils::write.csv(.x, file = paste0(here::here("data-raw", .y)), row.names = FALSE))
 
   source(here::here("data-raw", "meta_param.R"))
   source(here::here("data-raw", "meta_workflow.R"))
 }
-

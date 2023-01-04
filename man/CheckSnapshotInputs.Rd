@@ -23,7 +23,6 @@ Check that the output created from \code{\link[=Make_Snapshot]{Make_Snapshot()}}
 data model (\link{rbm_data_spec}).
 }
 \examples{
-
 \dontrun{
 snapshot <- Make_Snapshot()
 check_snapshot <- CheckSnapshotInputs(snapshot)

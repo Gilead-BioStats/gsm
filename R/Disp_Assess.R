@@ -19,6 +19,7 @@
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Disposition Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param nConfLevel `numeric` Confidence level for QTL analysis.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -61,6 +62,7 @@ Disp_Assess <- function(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "Disp_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nMinDenominator = NULL,
   nConfLevel = NULL,
   bQuiet = TRUE
 ) {
@@ -170,7 +172,7 @@ Disp_Assess <- function(
 
 
     # dfSummary ---------------------------------------------------------------
-    lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
+    lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
@@ -180,32 +182,33 @@ Disp_Assess <- function(
 
 
 
-    # rbm-viz setup -----------------------------------------------------------
-    dfConfig <- MakeDfConfig(
-      strMethod = strMethod,
-      strGroup = strGroup,
-      strAbbreviation = "DSC",
-      strMetric = "Discontinuation Rate",
-      strNumerator = "Subjects Discontinued",
-      strDenominator = "Total Subjects",
-      vThreshold = vThreshold
-    )
+      # rbm-viz setup -----------------------------------------------------------
+      dfConfig <- MakeDfConfig(
+        strMethod = strMethod,
+        strGroup = strGroup,
+        strAbbreviation = "DSC",
+        strMetric = "Discontinuation Rate",
+        strNumerator = "Subjects Discontinued",
+        strDenominator = "Total Subjects",
+        vThreshold = vThreshold
+      )
 
 
 
+
+      # scatter plots -----------------------------------------------------------
       if (strMethod != "Identity") {
+        lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
 
-        lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-
-        if (exists('dfBounds', lData)) {
+        if (exists("dfBounds", lData)) {
           bounds <- lData$dfBounds
         } else {
           bounds <- NULL
         }
 
         lCharts$scatterJS <- scatterPlot(
-          results = lData$dfFlagged,
+          results = lData$dfSummary,
           workflow = dfConfig,
           bounds = bounds,
           elementId = "dispAssessScatter"
@@ -214,20 +217,20 @@ Disp_Assess <- function(
       }
 
 
-    # bar charts --------------------------------------------------------------
+      # bar charts --------------------------------------------------------------
+      lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
+      lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
 
-      lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-      lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
 
       lCharts$barMetricJS <- barChart(
-        results = lData$dfFlagged,
+        results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "metric",
         elementId = "dispAssessMetric"
       )
 
       lCharts$barScoreJS <- barChart(
-        results = lData$dfFlagged,
+        results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "score",
         elementId = "dispAssessScore"
