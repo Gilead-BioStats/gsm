@@ -28,7 +28,7 @@ UpdateParams <- function(lWorkflow, dfConfig, dfMeta) {
     ) %>%
     ungroup() %>%
     filter(.data$flag) %>%
-    select(-.data$flag)
+    select(-"flag")
 
 
   # update list -------------------------------------------------------------
