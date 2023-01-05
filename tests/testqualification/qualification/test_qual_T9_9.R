@@ -1,0 +1,43 @@
+test_that("Query age assessment can return a correctly assessed data frame for the normal approximation test grouped by the country variable when given subset input data from clindata and the results should be flagged correctly.", {
+  # gsm analysis
+  dfInput <- gsm::QueryAge_Map_Raw()
+
+  test9_9 <- QueryAge_Assess(
+    dfInput = dfInput,
+    strMethod = "NormalApprox",
+    strGroup = "Country"
+  )
+
+  # double programming
+  t9_9_input <- dfInput
+
+  t9_9_transformed <- dfInput %>%
+    qualification_transform_counts(countCol = "Count",
+                                   exposureCol = "Total",
+                                   GroupID = "CountryID")
+
+  t9_9_analyzed <- t9_9_transformed %>%
+    qualification_analyze_normalapprox(strType = "binary")
+
+  class(t9_9_analyzed) <- c("tbl_df", "tbl", "data.frame")
+
+
+  t9_9_flagged <- t9_9_analyzed %>%
+    qualification_flag_normalapprox()
+
+  t9_9_summary <- t9_9_flagged %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
+    arrange(desc(abs(Metric))) %>%
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+
+
+  t9_9 <- list(
+    "dfTransformed" = t9_9_transformed,
+    "dfAnalyzed" = t9_9_analyzed,
+    "dfFlagged" = t9_9_flagged,
+    "dfSummary" = t9_9_summary
+  )
+
+  # compare results
+  expect_equal(test9_9$lData[names(test9_9$lData) != "dfBounds"], t9_9)
+})
