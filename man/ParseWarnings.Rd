@@ -19,6 +19,8 @@ of \code{Make_Snapshot()}. If there are no warnings, the \code{notes} column con
 }
 \examples{
 # Set all subjid to NA to create warnings
+
+\dontrun{
 lData <- list(
   dfAE = clindata::rawplus_ae \%>\%
     dplyr::mutate(subjid = NA),
@@ -28,5 +30,6 @@ lData <- list(
 study <- Study_Assess(lData = lData)
 
 warnings <- ParseWarnings(study)
+}
 
 }
