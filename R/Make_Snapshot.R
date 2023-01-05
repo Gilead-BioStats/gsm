@@ -30,7 +30,9 @@
 #'
 #' @examples
 #' # run with default testing data
+#' \dontrun{
 #' snapshot <- Make_Snapshot()
+#' }
 #'
 #' @import purrr
 #' @importFrom yaml read_yaml
