@@ -29,8 +29,6 @@ CheckSnapshotInputs <- function(snapshot) {
     arrange(match(.data$Table, names(snapshot))) %>%
     split(.$Table)
 
-
-
   # expected tables ---------------------------------------------------------
 
   # check to see if there are any QTL workflows
