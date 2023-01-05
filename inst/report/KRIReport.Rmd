@@ -1,14 +1,15 @@
 ---
-title: "Assessment Overview"
 subtitle: "Generated with the Gilead Statistical Monitoring {gsm} package"
 date: "Report Generated on `r format(Sys.time(), '%B %d, %Y')`"
 output:
   html_document:
-     toc: true
-     toc_float: true
-     css: styles.css
+    toc: true
+    toc_float:
+       collapsed: false
+       smooth_scroll: true
+    css: styles.css
 params:
-    study: NA
+    assessment: NA
 ---
 
 ```{r, echo=FALSE}
@@ -28,18 +29,18 @@ library(gsm)
 library(tidyverse)
 library(DT)
 
-study <- params$study[
-  grep("kri", names(params$study))
+assessment <- params$assessment[
+  grep("kri", names(params$assessment))
 ]
 
-overview_table <- Overview_Table(study) 
+overview_table <- Overview_Table(assessment) 
 
 # turn into a function
-summary_table <- map(study, function(kri) {
-  dfFlagged <- kri$lResults$lData$dfFlagged 
+summary_table <- map(assessment, function(kri) {
+  dfSummary <- kri$lResults$lData$dfSummary
   
-  if(nrow(dfFlagged) > 0) {
-    kri$lResults$lData$dfFlagged %>% 
+  if(nrow(dfSummary) > 0 & any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
+    dfSummary %>% 
       filter(Flag != 0) %>% 
       arrange(desc(abs(Flag))) %>% 
       mutate(
@@ -51,10 +52,17 @@ summary_table <- map(study, function(kri) {
       ) %>% 
       DT::datatable()
   } else {
-    return(NULL)
+    htmltools::p("Nothing flagged for this KRI.")
   }
 })
+
+## StudyID
+study_id <- purrr::map_chr(assessment, ~.x$lData$dfInput$StudyID %>% unique()) %>% unique()
 ```
+
+---
+title: "`r study_id` Assessment Overview"
+---
 
 ## Study Overview
 
@@ -66,10 +74,10 @@ overview_table
 
 ## Results
 
-```{r, echo = FALSE, results='asis'}
-for (i in seq_along(study)) {
-  kri_key <- names(study)[i]
-  kri <- study[[ kri_key ]]
+```{r, echo=FALSE, results='asis'}
+for (i in seq_along(assessment)) {
+  kri_key <- names(assessment)[i]
+  kri <- assessment[[ kri_key ]]
 
   title <- gsm::meta_workflow %>% 
     filter(workflowid == kri_key) %>% 
@@ -81,8 +89,8 @@ for (i in seq_along(study)) {
     #### charts tabset /
         cat("#### Summary Charts {.tabset} \n")
         
-        charts <- study[[i]]$lResults$lCharts[
-            names(study[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS")
+        charts <- assessment[[i]]$lResults$lCharts[
+            names(assessment[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS")
         ]
         
         for (j in seq_along(charts)) {
@@ -122,11 +130,30 @@ for (i in seq_along(study)) {
     #### / charts tabset
 
     #### table /
-        if (!is.null(summary_table[[study[[i]]$name]])) {
+        if (!is.null(summary_table[[assessment[[i]]$name]])) {
             print(htmltools::h4("Summary Table"))
-            print(htmltools::tagList(summary_table[[study[[i]]$name]]))
+            print(htmltools::tagList(summary_table[[assessment[[i]]$name]]))
         }
     #### / table
   ### / KRI section
 }
 ```
+
+## Error Log
+
+```{r echo = FALSE}
+error <- Study_AssessmentReport(assessment)
+
+error_table <- error$dfSummary %>% 
+  arrange(desc(notes), assessment) %>% 
+  rename(
+    "Assessment" = "assessment",
+    "Step" = "step",
+    "Check" = "check",
+    "Domain" = "domain",
+    "Notes" = "notes"
+  )
+
+DT::datatable(error_table)
+```
+

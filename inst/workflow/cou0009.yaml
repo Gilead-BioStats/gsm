@@ -11,3 +11,4 @@ steps:
       strGroup: "Country"
       vThreshold: null
       strMethod: "NormalApprox"
+      nMinDenominator: 30
