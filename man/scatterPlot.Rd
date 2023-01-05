@@ -2,36 +2,66 @@
 % Please edit documentation in R/scatterPlot.R
 \name{scatterPlot}
 \alias{scatterPlot}
-\title{Scatter plot HTML widget from \code{{rbm-viz}}}
+\title{KRI scatter plot}
 \usage{
 scatterPlot(
   results,
   workflow,
   bounds,
   selectedGroupIDs = NULL,
+  addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
   elementId = NULL
 )
 }
 \arguments{
-\item{results}{TODO}
+\item{results}{data with columns:
+\itemize{
+\item{\code{studyid}}
+\item{\code{workflowid}}
+\item{\code{groupid}}
+\item{\code{numerator}}
+\item{\code{denominator}}
+\item{\code{metric}}
+\item{\code{score}}
+\item{\code{flag}}
+}}
 
-\item{workflow}{TODO}
+\item{workflow}{configuration with columns:
+\itemize{
+\item{\code{workflow}}
+\item{\code{gsm_version}}
+\item{\code{group}}
+\item{\code{metric}}
+\item{\code{numerator}}
+\item{\code{denominator}}
+\item{\code{outcome}}
+\item{\code{model}}
+\item{\code{score}}
+\item{\code{data_inputs}}
+\item{\code{data_filters}}
+}}
 
-\item{bounds}{TODO}
+\item{bounds}{bounds data with columns:
+\itemize{
+\item{\code{threshold}}
+\item{\code{numerator}}
+\item{\code{denominator}}
+\item{\code{metric}}
+\item{\code{logdenominator}}
+}}
 
-\item{selectedGroupIDs}{TODO}
+\item{selectedGroupIDs}{group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
 
-\item{width}{TODO}
+\item{addSiteSelect}{add a dropdown to highlight sites?}
 
-\item{height}{TODO}
+\item{width}{width of widget, full screen by default}
 
-\item{elementId}{TODO}
-}
-\value{
-htmlwidget scatter plot
+\item{height}{height of widget, calculated based on width}
+
+\item{elementId}{ID of container HTML element}
 }
 \description{
-TODO: Update documentation
+TODO: Add Description + update documentation
 }

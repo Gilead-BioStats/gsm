@@ -1,0 +1,48 @@
+test_that("Raw+ study drug disposition data can be mapped correctly to create an analysis-ready input dataset that has all required columns in the default Raw+ mapping specifications.", {
+
+
+  ########### gsm mapping ###########
+  observed <- gsm::Disp_Map_Raw(strContext = "Treatment")
+
+
+  ########### double programming ###########
+  # read in default mapping specs
+  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+
+  # create cols vector to facilitate connecting lMapping with source data variables
+  cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
+            SiteID = lMapping$dfSUBJ$strSiteCol,
+            StudyID = lMapping$dfSUBJ$strStudyCol,
+            CountryID = lMapping$dfSUBJ$strCountryCol,
+            CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
+            "Count",
+            "Total")
+
+  # read in raw source study drug disposition data
+  disp_raw_orig <- clindata::rawplus_sdrgcomp %>%
+    filter(!!sym(lMapping$dfSDRGCOMP$strTreatmentPhaseCol) == lMapping$dfSDRGCOMP$strTreatmentPhaseVal)
+
+  # count unique number of subjects who discontinued use of study drug
+  disp_raw <- disp_raw_orig %>%
+    filter(!!sym(lMapping$dfSDRGCOMP$strTreatmentDiscontinuationFlagCol) == lMapping$dfSDRGCOMP$strTreatmentDiscontinuationFlagVal) %>%
+    group_by_at(lMapping$dfSUBJ$strIDCol) %>%
+    mutate(Count = n()) %>%
+    select(lMapping$dfSDRGCOMP$strIDCol, Count) %>%
+    distinct()
+
+  # read in raw source DM data
+  dm_raw_orig <- clindata::rawplus_dm
+  dm_raw <- dm_raw_orig
+
+  # join DM and study drug disposition data - full_join() to keep records from both data frames
+  expected <- full_join(dm_raw, disp_raw) %>%
+    group_by_at(lMapping$dfSUBJ$strIDCol) %>%
+    mutate(Count = replace_na(Count, 0),
+           Total = n()) %>%
+    select(all_of(cols))
+
+
+  ########### testing ###########
+  expect_equal(colnames(observed), colnames(expected))
+
+})
