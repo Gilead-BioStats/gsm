@@ -17,9 +17,9 @@ test_that("parameters are updated correctly", {
   )
 
   updated <- params %>%
-    map(\(kri) {
+    map(function(kri) {
       kri$steps %>%
-        map(\(x) {
+        map(function(x) {
             return(x$params$vThreshold)
         }) %>%
         discard(is.null)
@@ -49,8 +49,8 @@ test_that("input and output list contain the same dimensions", {
   expect_equal(length(input), length(output))
   expect_equal(names(input), names(output))
   expect_equal(
-    map(input, \(x) names(x)),
-    map(output, \(x) names(x))
+    map(input, function(x) names(x)),
+    map(output, function(x) names(x))
   )
 
   expect_equal(
