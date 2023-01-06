@@ -166,6 +166,8 @@ A named \code{list} of data.frames:
 
 \examples{
 # run with default testing data
+\dontrun{
 snapshot <- Make_Snapshot()
+}
 
 }
