@@ -8,6 +8,7 @@
 #' @param dfSUBJ `data.frame` Subject level data often using ADSL-like data. Should include one record per participant for each participant included in the analysis population (all other participants should be dropped before calling mergeSubjects)
 #' @param strIDCol `character` Vector of length 1. The name of ID Column - Default: `SubjectID`
 #' @param vFillZero `vector` Column names from `dfDomain` to fill with zeros when no matching row is found for an ID in `dfSUBJ`.
+#' @param vRemoval `vector` Column names from `dfDomain` or `dfSUBJ` to check for zeros or NA for rows to be removed for non-meaningful records.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @examples
@@ -29,6 +30,7 @@ MergeSubjects <- function(
   dfSUBJ,
   strIDCol = "SubjectID",
   vFillZero = NULL,
+  vRemoval = NULL,
   bQuiet = TRUE
 ) {
   if (!bQuiet) cli_alert_info("Intializing merge of domain and subject data")
@@ -63,6 +65,13 @@ MergeSubjects <- function(
     stopifnot(
       "Columns specified in vFillZero not found in dfDomain" = all(vFillZero %in% names(dfDomain)),
       is.character(vFillZero)
+    )
+  }
+
+  if (!is.null(vRemoval)) {
+    stopifnot(
+      "Columns specified in vRemoval not found in dfDomain" = all(vRemoval %in% c(names(dfDomain), names(dfSUBJ))),
+      is.character(vRemoval)
     )
   }
 
@@ -103,6 +112,7 @@ MergeSubjects <- function(
     }
   }
 
+
   if (class(dfDomain[[strIDCol]]) != "character") {
     dfDomain[[strIDCol]] <- as.character(dfDomain[[strIDCol]])
   }
@@ -112,8 +122,35 @@ MergeSubjects <- function(
   }
 
   dfOut <- left_join(dfSUBJ, dfDomain, by = strIDCol)
+
   for (col in vFillZero) {
     dfOut[[col]] <- tidyr::replace_na(dfOut[[col]], 0)
+  }
+
+
+  if (!is.null(vRemoval)) {
+    # Print a message if NAs or zeros are found in vRemoval columns after merging
+    n_na_zero <- dfOut %>%
+      summarise(across(all_of(vRemoval), ~ sum(is.na(.x) | .x == 0))) %>%
+      rowSums()
+
+    if (n_na_zero > 0) {
+      if (!bQuiet) {
+        cli::cli_alert_info(
+          paste0(
+            n_na_zero,
+            " row(s) in merged data have zero or NA values for columns: ",
+            paste(vRemoval, sep = ", "),
+            ".\nThese participant(s) will be excluded."
+          )
+        )
+      }
+    }
+
+    for (col in vRemoval) {
+      dfOut <- dfOut %>%
+        filter(!!sym(col) != 0 & !is.na(!!sym(col)))
+    }
   }
 
   return(dfOut)

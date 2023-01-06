@@ -37,13 +37,13 @@
 #' @export
 
 DataChg_Map_Raw <- function(
-    dfs = list(
-      dfSUBJ = clindata::rawplus_dm,
-      dfDATACHG = clindata::edc_data_change_rate
-    ),
-    lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
+  dfs = list(
+    dfSUBJ = clindata::rawplus_dm,
+    dfDATACHG = clindata::edc_data_change_rate
+  ),
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 ) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
@@ -64,11 +64,15 @@ DataChg_Map_Raw <- function(
 
     # Standarize Column Names
     dfDATACHG_mapped <- dfs$dfDATACHG %>%
-      select(SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]],
-             DataChg = lMapping[["dfDATACHG"]][["strDataPointsChangeCol"]],
-             DataPoint = lMapping[["dfDATACHG"]][["strDataPointsCol"]]) %>%
-      mutate(DataChg = as.numeric(.data$DataChg),
-             DataPoint = as.numeric(.data$DataPoint))
+      select(
+        SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]],
+        DataChg = lMapping[["dfDATACHG"]][["strDataPointsChangeCol"]],
+        DataPoint = lMapping[["dfDATACHG"]][["strDataPointsCol"]]
+      ) %>%
+      mutate(
+        DataChg = as.numeric(.data$DataChg),
+        DataPoint = as.numeric(.data$DataPoint)
+      )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -87,11 +91,12 @@ DataChg_Map_Raw <- function(
 
     dfInput <- dfDATACHG_mapped %>%
       group_by(.data$SubjectID) %>%
-      summarize(Count = sum(.data$DataChg, na.rm = TRUE),
-                Total = sum(.data$DataPoint, na.rm = TRUE)) %>%
+      summarize(
+        Count = sum(.data$DataChg, na.rm = TRUE),
+        Total = sum(.data$DataPoint, na.rm = TRUE)
+      ) %>%
       ungroup() %>%
-      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      filter(!is.na(.data$Total)) %>%
+      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", vRemoval = "Total", bQuiet = bQuiet) %>%
       select(any_of(c(names(dfSUBJ_mapped))), "Count", "Total") %>%
       arrange(.data$SubjectID)
 

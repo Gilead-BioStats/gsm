@@ -43,7 +43,13 @@
 RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` assessment"))
 
-  lWorkflow$lData <- lData
+  vDataDomains <- purrr::map(lWorkflow$steps, function(x) {
+    data <- c(x$inputs[x$inputs != "dfInput"])
+  }) %>%
+    unlist() %>%
+    unique()
+
+  lWorkflow$lData <- lData[vDataDomains]
   lWorkflow$lChecks <- list()
   lWorkflow$bStatus <- TRUE
 

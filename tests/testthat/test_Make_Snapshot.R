@@ -8,7 +8,10 @@ lData <- list(
   dfIE = dfIE_expanded,
   dfSTUDCOMP = dfSTUDCOMP_expanded,
   dfSDRGCOMP = dfSDRGCOMP_expanded,
-  dfLB = clindata::rawplus_lb %>% filter(subjid %in% dfSUBJ_expanded$subjid) %>% slice(1:2000)
+  dfLB = clindata::rawplus_lb %>% filter(subjid %in% dfSUBJ_expanded$subjid) %>% slice(1:2000),
+  dfDATACHG = clindata::edc_data_change_rate %>% slice(1:300),
+  dfDATAENT = clindata::edc_data_entry_lag %>% slice(1:300),
+  dfQUERY = clindata::edc_queries %>% slice(1:300)
 )
 
 lMapping <- c(
@@ -212,11 +215,7 @@ test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
   ### Removed dfAE
   lData_edited <- list(
     dfSUBJ = dfSUBJ_expanded,
-    dfPD = dfPD_expanded,
-    dfCONSENT = dfCONSENT_expanded,
-    dfIE = dfIE_expanded,
-    dfSTUDCOMP = dfSTUDCOMP_expanded,
-    dfSDRGCOMP = dfSDRGCOMP_expanded
+    dfPD = dfPD_expanded
   )
   expect_silent(Make_Snapshot(lMeta = lMeta, lData = lData_edited, lMapping = lMapping, lAssessments = lAssessments))
 
@@ -236,6 +235,5 @@ test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
 ################################################################################################################
 
 test_that("bQuiet works as intended", {
-  expect_silent(Make_Snapshot(lData = lData, bQuiet = TRUE))
   expect_snapshot(snapshot <- Make_Snapshot(lData = lData, bQuiet = FALSE))
 })

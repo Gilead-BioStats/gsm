@@ -9,13 +9,23 @@
 #' @return list of the test and the outcome of the test run
 #' @export
 run_test_case <- function(test_case, test_file_prefix = "test_qual_"){
-  test_case_file <- here::here("tests", "testqualification", "qualification", paste0(test_file_prefix, test_case, ".R"))
 
-  test_case_report <- invisible(testthat::test_file(test_case_file, reporter = testthat::SilentReporter)[[1]])
+  file_name <- paste0(test_file_prefix, test_case, ".R")
+  all_files <- list.files(here::here("tests", "testqualification", "qualification"))
 
-  test_case_report_list <- data.frame("Description" = test_case_report$test,
-                                      "Outcome" = gsub("^expectation_", "",
-                                                       class(test_case_report$result[[1]])[[1]]))
+  if (file_name %in% all_files) {
+    test_case_file <- here::here("tests", "testqualification", "qualification", paste0(test_file_prefix, test_case, ".R"))
+
+    test_case_report <- invisible(testthat::test_file(test_case_file, reporter = testthat::SilentReporter)[[1]])
+
+    test_case_report_list <- data.frame("Description" = test_case_report$test,
+                                        "Outcome" = gsub("^expectation_", "",
+                                                         class(test_case_report$result[[1]])[[1]]))
+  } else {
+    test_case_report_list <- data.frame("Description" = paste0("Test for ", file_name, " not found"),
+                                        "Outcome" = "Test not run")
+  }
+
 
   return(test_case_report_list)
 }

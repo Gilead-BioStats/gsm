@@ -30,7 +30,9 @@
 #'
 #' @examples
 #' # run with default testing data
+#' \dontrun{
 #' snapshot <- Make_Snapshot()
+#' }
 #'
 #' @import purrr
 #' @importFrom yaml read_yaml
@@ -54,8 +56,9 @@ lData = list(
   dfSTUDCOMP = clindata::rawplus_studcomp,
   dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion"),
   dfDATACHG = clindata::edc_data_change_rate,
-  dfDATAENTRY = clindata::edc_data_entry_lag,
-  dfQUERY = clindata::edc_queries
+  dfDATAENT = clindata::edc_data_entry_lag,
+  dfQUERY = clindata::edc_queries,
+  dfENROLL = clindata::rawplus_enroll
 ),
 lMapping = c(
   yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
@@ -79,21 +82,37 @@ bQuiet = TRUE
   # ctms_study / meta_study:
   status_study <- lMeta$meta_study %>%
     select(
-      "studyid" = "PROTOCOL_TITLE",
-      "enrolled_sites_ctms" = "NUM_SITE_ACTL",
-      "enrolled_participants_ctms" = "NUM_ENROLLED_SUBJ_M",
-      "planned_sites" = "NUM_PLAN_SITE",
-      "planned_participants" = "NUM_PLAN_SUBJ",
+      # study name/ID
+      "studyid" = "PROTOCOL_NUMBER",
       "title" = "PROTOCOL_TITLE",
       "nickname" = "NICKNAME",
-      "indication" = "PROTOCOL_INDICATION",
-      "ta" = "THERAPEUTIC_AREA",
-      "phase" = "PHASE",
-      "status" = "STATUS",
+
+      # enrollment
+      "planned_sites" = "NUM_PLAN_SITE",
+      "enrolled_sites_ctms" = "NUM_SITE_ACTL",
+      "planned_participants" = "NUM_PLAN_SUBJ",
+      "enrolled_participants_ctms" = "NUM_ENROLLED_SUBJ_M",
+
+      # milestones
       "fpfv" = "ACT_FPFV",
       "lpfv" = "ACT_LPFV",
       "lplv" = "ACT_LPLV",
+
+      # study characteristics
+      "ta" = "THERAPEUTIC_AREA",
+      "indication" = "PROTOCOL_INDICATION",
+      "phase" = "PHASE",
+      "status" = "STATUS",
       "rbm_flag" = "X_RBM_FLG",
+
+      # miscellany
+      "product" = "PRODUCT",
+      "protocol_type" = "PROTOCOL_TYPE",
+      "protocol_row_id" = "PROTOCOL_ROW_ID",
+      "est_fpfv" = "EST_FPFV",
+      "est_lpfv" = "EST_LPFV",
+      "est_lplv" = "EST_LPLV",
+      "protocol_product_number" = "PROTOCOL_PRODUCT_NUMBER",
       everything()
     ) %>%
     rename_with(tolower)
@@ -222,7 +241,7 @@ bQuiet = TRUE
   # results_summary ---------------------------------------------------------
   results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%
     purrr::discard(is.null) %>%
-    purrr::imap_dfr(~ .x$lData$dfFlagged %>%
+    purrr::imap_dfr(~ .x$lData$dfSummary %>%
       mutate(
         KRIID = .y,
         StudyID = unique(lMeta$config_workflow$studyid)

@@ -3,7 +3,7 @@
 #' @description
 #' `MakeDfConfig` is a utility function that is used within `*_Assess()` functions in `{gsm}`.
 #'
-#' The output of `MakeDfConfig` is used as a configuration dataset for `{rbm-viz}` HTMLWidgets.
+#' The output of `MakeDfConfig` is used as a configuration dataset for a `{rbm-viz}` htmlwidget.
 #'
 #' @param strMethod `character` Statistical method used in the `*_Assess()` function.
 #' @param strGroup `character` Grouping variable used in the `*_Assess()` function.
@@ -13,41 +13,39 @@
 #' @param strDenominator `character` Brief description of the `Denominator` being returned from the assessment being run; used as axis label.
 #' @param vThreshold `numeric` Numeric vector of thresholds provided to the `*_Assess()` function; used for flagging.
 #'
-#' @return `data.frame` containing all metadata needed to create an interactive visualization using `{rbm-viz}` HTMLwidgets.
+#' @return `data.frame` containing all metadata needed to create an interactive visualization using `{rbm-viz}` htmlwidget.
 #'
 #' @examples
 #' \dontrun{
-#'dfConfig <- MakeDfConfig(
-#   strMethod = strMethod,
-#   strGroup = strGroup,
-#   strAbbreviation = "AE",
-#   strMetric = "AE Reporting (Rate)",
-#   strNumerator = "AEs",
-#   strDenominator = "Days on Treatment",
-#   vThreshold = vThreshold
+#' dfConfig <- MakeDfConfig(
+#'   #   strMethod = strMethod,
+#'   #   strGroup = strGroup,
+#'   #   strAbbreviation = "AE",
+#'   #   strMetric = "AE Reporting (Rate)",
+#'   #   strNumerator = "AEs",
+#'   #   strDenominator = "Days on Treatment",
+#'   #   vThreshold = vThreshold
 #' )
 #' }
 #'
 #' @export
 MakeDfConfig <- function(
-    strMethod,
-    strGroup,
-    strAbbreviation,
-    strMetric,
-    strNumerator,
-    strDenominator,
-    vThreshold
-    ) {
-  modelLabel <- switch(
-    strMethod,
+  strMethod,
+  strGroup,
+  strAbbreviation,
+  strMetric,
+  strNumerator,
+  strDenominator,
+  vThreshold
+) {
+  modelLabel <- switch(strMethod,
     NormalApprox = "Normal Approximation (Rate)",
     poisson = "Poisson (Rate)",
     fisher = "Fisher (Rate)",
     identity = "Identity (Count)"
   )
 
-  scoreLabel <- switch(
-    strMethod,
+  scoreLabel <- switch(strMethod,
     NormalApprox = "Adjusted Z-Score",
     poisson = "Residual",
     identity = "Count",

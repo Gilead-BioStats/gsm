@@ -9,6 +9,8 @@
 #'
 #' @examples
 #' # Set all subjid to NA to create warnings
+#'
+#' \dontrun{
 #' lData <- list(
 #'   dfAE = clindata::rawplus_ae %>%
 #'     dplyr::mutate(subjid = NA),
@@ -18,6 +20,7 @@
 #' study <- Study_Assess(lData = lData)
 #'
 #' warnings <- ParseWarnings(study)
+#' }
 #'
 #' @return `data.frame` With columns `notes` and `workflowid`.
 #'
