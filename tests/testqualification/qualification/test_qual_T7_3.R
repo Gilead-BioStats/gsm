@@ -1,4 +1,4 @@
-test_that("Data change assessment can return a correctly assessed data frame for the identity test grouped by the country variable when given subset input data from clindata and the results should be flagged correctly.", {
+test_that("Data change assessment can return a correctly assessed data frame for the identity test grouped by the country variable when given correct input data from clindata and the results should be flagged correctly.", {
   # gsm analysis
   dfInput <- gsm::DataChg_Map_Raw()
 
