@@ -1,5 +1,4 @@
 source(testthat::test_path("testdata/data.R"))
-load(testthat::test_path("testdata/StudyStandard.RData"))
 
 dfAE <- dfAE %>%
   mutate(subjid = NA)
@@ -10,7 +9,7 @@ lData <- list(
   dfSUBJ = dfSUBJ
 )
 
-lResults <- StudyStandard
+lResults <- Study_Assess(lData = lData)
 warnings <- ParseWarnings(lResults)
 
 test_that("output is generated as expected", {

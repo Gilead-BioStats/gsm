@@ -1,5 +1,4 @@
 source(testthat::test_path("testdata/data.R"))
-load(testthat::test_path("testdata/SnapshotStandard.RData"))
 
 lData <- list(
   dfSUBJ = dfSUBJ_expanded,
@@ -32,7 +31,7 @@ lMeta <- list(
 
 lAssessments <- MakeWorkflowList()
 
-snapshot <- SnapshotStandard
+snapshot <- Make_Snapshot(lData = lData)
 
 
 
@@ -218,8 +217,6 @@ test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
     dfSUBJ = dfSUBJ_expanded,
     dfPD = dfPD_expanded
   )
-  expect_silent(Make_Snapshot(lMeta = lMeta, lData = lData_edited, lMapping = lMapping, lAssessments = lAssessments))
-
 
   ### Removed meta_params
   lMeta_edited <- list(
@@ -230,11 +227,23 @@ test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
     meta_study = clindata::ctms_study,
     meta_workflow = gsm::meta_workflow
   )
-  expect_silent(Make_Snapshot(lMeta = lMeta_edited, lData = lData, lMapping = lMapping, lAssessments = lAssessments))
+  expect_silent(
+    Make_Snapshot(
+      lMeta = lMeta_edited,
+      lData = lData_edited,
+      lMapping = lMapping,
+      lAssessments = lAssessments
+      )
+    )
 })
 
 ################################################################################################################
 
 test_that("bQuiet works as intended", {
-  expect_snapshot(snapshot <- Make_Snapshot(lData = lData, bQuiet = FALSE))
+  expect_snapshot(
+    out <- Make_Snapshot(
+      lData = lData,
+      lAssessments = MakeWorkflowList(strNames = c("cou0001")),
+      bQuiet = FALSE)
+    )
 })

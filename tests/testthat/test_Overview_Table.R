@@ -1,7 +1,9 @@
-load(testthat::test_path("testdata/StudyStandard.RData"))
+source(testthat::test_path("testdata/data.R"))
 
-table_interactive <- Overview_Table(StudyStandard)
-table <- Overview_Table(StudyStandard, bInteractive = FALSE)
+study <- Study_Assess(lAssessments = MakeWorkflowList(strNames = c("kri0001", "kri0005")))
+
+table_interactive <- Overview_Table(study)
+table <- Overview_Table(study, bInteractive = FALSE)
 
 testthat::test_that("interactive table structure is returned as expected", {
 
