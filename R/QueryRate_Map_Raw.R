@@ -39,14 +39,14 @@
 #' @export
 
 QueryRate_Map_Raw <- function(
-    dfs = list(
-      dfSUBJ = clindata::rawplus_dm,
-      dfQUERY = clindata::edc_queries,
-      dfDATACHG = clindata::edc_data_change_rate
-    ),
-    lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
-    bReturnChecks = FALSE,
-    bQuiet = TRUE
+  dfs = list(
+    dfSUBJ = clindata::rawplus_dm,
+    dfQUERY = clindata::edc_queries,
+    dfDATACHG = clindata::edc_data_change_rate
+  ),
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+  bReturnChecks = FALSE,
+  bQuiet = TRUE
 
 ) {
   stopifnot(
@@ -67,15 +67,19 @@ QueryRate_Map_Raw <- function(
 
     # Standarize Column Names
     dfQUERY_mapped <- dfs$dfQUERY %>%
-      select(SubjectID = lMapping[["dfQUERY"]][["strIDCol"]],
-             VisitID = lMapping[["dfQUERY"]][["strVisitCol"]],
-             FormID = lMapping[["dfQUERY"]][["strFormCol"]])
+      select(
+        SubjectID = lMapping[["dfQUERY"]][["strIDCol"]],
+        VisitID = lMapping[["dfQUERY"]][["strVisitCol"]],
+        FormID = lMapping[["dfQUERY"]][["strFormCol"]]
+      )
 
     dfDATACHG_mapped <- dfs$dfDATACHG %>%
-      select(SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]],
-             VisitID = lMapping[["dfDATACHG"]][["strVisitCol"]],
-             FormID = lMapping[["dfDATACHG"]][["strFormCol"]],
-             DataPoint = lMapping[["dfDATACHG"]][["strDataPointsCol"]]) %>%
+      select(
+        SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]],
+        VisitID = lMapping[["dfDATACHG"]][["strVisitCol"]],
+        FormID = lMapping[["dfDATACHG"]][["strFormCol"]],
+        DataPoint = lMapping[["dfDATACHG"]][["strDataPointsCol"]]
+      ) %>%
       mutate(DataPoint = as.numeric(.data$DataPoint, na.rm = TRUE))
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
@@ -95,18 +99,20 @@ QueryRate_Map_Raw <- function(
 
     dfInput <- dfQUERY_mapped %>%
       group_by(.data$SubjectID, .data$VisitID, .data$FormID) %>%
-      summarize(Count= n()) %>%
+      summarize(Count = n()) %>%
       ungroup() %>%
       full_join(
         dfDATACHG_mapped,
-        c("SubjectID", "VisitID", "FormID")) %>%
+        c("SubjectID", "VisitID", "FormID")
+      ) %>%
       mutate(Count = tidyr::replace_na(.data$Count, 0)) %>%
       group_by(.data$SubjectID) %>%
-      summarize(Count = sum(.data$Count, na.rm = TRUE),
-                DataPoint = sum(.data$DataPoint, na.rm = TRUE)) %>%
+      summarize(
+        Count = sum(.data$Count, na.rm = TRUE),
+        DataPoint = sum(.data$DataPoint, na.rm = TRUE)
+      ) %>%
       ungroup() %>%
-      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", bQuiet = bQuiet) %>%
-      filter(!is.na(.data$DataPoint)) %>%
+      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", vRemoval = "DataPoint", bQuiet = bQuiet) %>%
       mutate(
         Rate = .data$Count / .data$DataPoint
       ) %>%

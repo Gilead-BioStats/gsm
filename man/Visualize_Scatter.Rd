@@ -2,10 +2,10 @@
 % Please edit documentation in R/Visualize_Scatter.R
 \name{Visualize_Scatter}
 \alias{Visualize_Scatter}
-\title{Group-level visualization of group-level results using a Poisson or Wilcoxon model.}
+\title{Group-level visualization of group-level results}
 \usage{
 Visualize_Scatter(
-  dfFlagged,
+  dfSummary,
   dfBounds = NULL,
   strGroupCol = NULL,
   strGroupLabel = NULL,
@@ -14,9 +14,9 @@ Visualize_Scatter(
 )
 }
 \arguments{
-\item{dfFlagged}{\code{data.frame} analyze_poisson results with flags added.}
+\item{dfSummary}{\code{data.frame} returned by \code{\link[=Summarize]{Summarize()}}}
 
-\item{dfBounds}{\code{data.frame} data.frame giving prediction bounds for range of dfFlagged.}
+\item{dfBounds}{\code{data.frame} data.frame giving prediction bounds for range of denominator in dfSummary.}
 
 \item{strGroupCol}{\code{character} name of stratification column for facet wrap Default: \code{NULL}}
 
@@ -30,13 +30,13 @@ Visualize_Scatter(
 group-level plot object.
 }
 \description{
-Group-level visualization of group-level results using a Poisson or Wilcoxon model.
+Group-level visualization of group-level results
 }
 \examples{
 dfInput <- AE_Map_Adam()
 SafetyAE <- AE_Assess(dfInput)
 dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$lData$dfTransformed, c(-5, 5))
-Visualize_Scatter(SafetyAE$lData$dfFlagged, dfBounds)
+Visualize_Scatter(SafetyAE$lData$dfSummary, dfBounds)
 
 
 # TODO: add stratified example
