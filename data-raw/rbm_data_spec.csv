@@ -17,7 +17,6 @@ Gismo,status_study,lpfv,Last-patient first visit date
 Gismo,status_study,lplv,Last-patient last visit date
 Gismo,status_study,rbm_flag,Risk-based monitoring flag
 Gismo,status_study,protocol_row_id,Protocol row ID
-Gismo,status_study,protocol_number,Protocol number
 Gismo,status_study,protocol_type,Protocol type
 Gismo,status_study,est_fpfv,Estimated first-patient first visit date from GILDA
 Gismo,status_study,est_lplv,Estimated last-patient last visit date from GILDA
