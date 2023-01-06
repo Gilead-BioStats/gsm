@@ -1,4 +1,4 @@
-test_that("Data entry assessment can return a correctly assessed data frame for the normal approximation test grouped by the country variable when given subset input data from clindata and the results should be flagged correctly.", {
+test_that("Data entry assessment can return a correctly assessed data frame for the normal approximation test grouped by the country variable when given correct input data from clindata and the results should be flagged correctly.", {
   # gsm analysis
   dfInput <- gsm::DataEntry_Map_Raw()
 
