@@ -1,0 +1,557 @@
+# metadata have not changed
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfENROLL"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired", "vNACols"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strSiteCol", "strIDCol", "strScreenFailCol", "strScreenFailReasonCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strScreenFailCol", "strScreenFailReasonCol"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfENROLL"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strStudyCol", "strSiteCol", "strCountryCol", "strCustomGroupCol", "strIDCol", "strScreenFailCol", "strScreenFailVal", "strScreenFailReasonCol", "strScreenFailReasonVal"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["studyid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["siteid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["enrollyn"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["N"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["sfreas"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Inclusion/Exclusion Criteria"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfInput"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["vRequired", "vUniqueCols"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strGroupCol", "strCountCol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol"]
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["dfInput"]
+        }
+      },
+      "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCountryCol", "strCustomGroupCol", "strCountCol", "strTotalCol"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SubjectID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["SiteID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["StudyID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["CountryID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["CustomGroupID"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Count"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Total"]
+            }
+          ]
+        }
+      ]
+    }
+
+# invalid data throw errors
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~ if (.y == "dfSUBJ") list() else .x),
+      bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      v No issues found for `Screening_Map_Raw()`
+      
+      -- Initializing `Screening_Map_Raw()` --
+      
+      v `Screening_Map_Raw()` returned output with 3 rows.
+    Output
+      # A tibble: 3 x 7
+        StudyID        SiteID CountryID CustomGroupID SubjectID Count Total
+        <chr>          <chr>  <chr>     <chr>         <chr>     <dbl> <dbl>
+      1 AA-AA-000-0000 86     US        0X012         0001          0     1
+      2 AA-AA-000-0000 166    Japan     0X999         0003          0     1
+      3 AA-AA-000-0000 76     China     0X201         sf0001        1     1
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~ if (.y %in% map_domain) list() else .x),
+      bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~"Hi Mom"), bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~9999), bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~TRUE), bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = purrr::imap(dfs, ~.x), lMapping = list(), bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x "mapping" does not contain required parameters: strSiteCol, strIDCol, strScreenFailCol, strScreenFailReasonCol
+      x mapping is not a list()
+      x Non-character column names found in mapping: 
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      v No issues found for `Screening_Map_Raw()`
+      
+      -- Initializing `Screening_Map_Raw()` --
+      
+      v `Screening_Map_Raw()` returned output with 3 rows.
+    Output
+      # A tibble: 3 x 7
+        StudyID        SiteID CountryID CustomGroupID SubjectID Count Total
+        <chr>          <chr>  <chr>     <chr>         <chr>     <dbl> <dbl>
+      1 AA-AA-000-0000 86     US        0X012         0001          0     1
+      2 AA-AA-000-0000 166    Japan     0X999         0003          0     1
+      3 AA-AA-000-0000 76     China     0X201         sf0001        1     1
+
+# missing column throws errors
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x the following columns not found in df: siteid
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x the following columns not found in df: subjid
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x the following columns not found in df: enrollyn
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x the following columns not found in df: sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+# missing value throws errors
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x 1 NA values found in column: siteid
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x 1 NA values found in column: subjid
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+# duplicate subject ID is detected
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      v No issues found for `Screening_Map_Raw()`
+      
+      -- Initializing `Screening_Map_Raw()` --
+      
+      v `Screening_Map_Raw()` returned output with 3 rows.
+    Output
+      # A tibble: 3 x 7
+        StudyID        SiteID CountryID CustomGroupID SubjectID Count Total
+        <chr>          <chr>  <chr>     <chr>         <chr>     <dbl> <dbl>
+      1 AA-AA-000-0000 86     US        0X012         0001          0     1
+      2 AA-AA-000-0000 166    Japan     0X999         0003          0     1
+      3 AA-AA-000-0000 76     China     0X201         sf0001        1     1
+
+# invalid mapping throws errors
+
+    Code
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x the following columns not found in df: asdf
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x the following columns not found in df: asdf
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x the following columns not found in df: asdf
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+---
+
+    Code
+      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x the following columns not found in df: asdf
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+    Output
+      NULL
+
+# bQuiet and bReturnChecks work as intended
+
+    Code
+      dfInput <- map_function(dfs = dfs, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      v No issues found for `Screening_Map_Raw()`
+      
+      -- Initializing `Screening_Map_Raw()` --
+      
+      v `Screening_Map_Raw()` returned output with 3 rows.
+

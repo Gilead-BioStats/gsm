@@ -74,9 +74,7 @@ Analyze_NormalApprox_PredictBounds <- function(
 
   # Set [ nStep ] to the range of the denominator divided by 250.
   if (is.null(nStep)) {
-    nMinDenominator <- min(dfTransformed$Denominator)
-    nMaxDenominator <- max(dfTransformed$Denominator)
-    nRange <- nMaxDenominator - nMinDenominator
+    nRange <- max(dfTransformed$Denominator) - min(dfTransformed$Denominator)
 
     if (!is.null(nRange) & !is.na(nRange) & nRange != 0) {
       nStep <- nRange / 250

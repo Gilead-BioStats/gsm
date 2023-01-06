@@ -18,7 +18,8 @@
     Code
       names(output$lCharts)
     Output
-      [1] "scatter"   "barMetric" "barScore" 
+      [1] "scatter"     "scatterJS"   "barMetric"   "barScore"    "barMetricJS"
+      [6] "barScoreJS" 
 
 # grouping works as expected
 
@@ -28,16 +29,16 @@
       # A tibble: 40 x 1
          GroupID
          <chr>  
-       1 75     
-       2 56     
-       3 122    
-       4 80     
-       5 91     
-       6 162    
-       7 78     
-       8 44     
-       9 43     
-      10 8      
+       1 128    
+       2 75     
+       3 56     
+       4 122    
+       5 80     
+       6 91     
+       7 162    
+       8 78     
+       9 44     
+      10 43     
       # ... with 30 more rows
 
 ---
@@ -70,25 +71,25 @@
       # A tibble: 40 x 1
          GroupID
          <chr>  
-       1 0X027  
-       2 0X014  
-       3 0X018  
-       4 0X097  
-       5 0X175  
-       6 0X002  
-       7 0X049  
-       8 0X108  
-       9 0X159  
-      10 0X154  
+       1 0X149  
+       2 0X027  
+       3 0X014  
+       4 0X018  
+       5 0X097  
+       6 0X175  
+       7 0X002  
+       8 0X049  
+       9 0X108  
+      10 0X159  
       # ... with 30 more rows
 
 # invalid data throw errors
 
-    strMethod is not 'NormalApprox', 'poisson' or 'identity'
+    strMethod is not 'NormalApprox', 'Poisson' or 'Identity'
 
 ---
 
-    strMethod is not 'NormalApprox', 'poisson' or 'identity'
+    strMethod is not 'NormalApprox', 'Poisson' or 'Identity'
 
 ---
 
@@ -104,11 +105,18 @@
 
     vThreshold must be length of 4
 
+# strMethod = 'Identity' works as expected
+
+    Code
+      names(Identity$lCharts)
+    Output
+      [1] "barMetric"   "barScore"    "barMetricJS" "barScoreJS" 
+
 # bQuiet works as intended
 
     Code
       assessOutput <- assess_function(dfInput = dfInput, bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       
       -- Checking Input Data for `AE_Assess()` --
       
@@ -124,6 +132,6 @@
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
 

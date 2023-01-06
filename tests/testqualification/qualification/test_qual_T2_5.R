@@ -7,7 +7,7 @@ test_that("PD assessment can return a correctly assessed data frame for the iden
 
   test2_5 <- PD_Assess(
     dfInput = dfInput,
-    strMethod = "identity",
+    strMethod = "Identity",
     vThreshold = c(0.00001, 0.1),
     strGroup = "Study"
   )
@@ -45,12 +45,12 @@ test_that("PD assessment can return a correctly assessed data frame for the iden
       )
     ) %>%
     select(-median) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t2_5_summary <- t2_5_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t2_5 <- list(
     "dfTransformed" = t2_5_transformed,

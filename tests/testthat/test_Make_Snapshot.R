@@ -1,5 +1,25 @@
 source(testthat::test_path("testdata/data.R"))
 
+lData <- list(
+  dfSUBJ = dfSUBJ_expanded,
+  dfAE = dfAE_expanded,
+  dfPD = dfPD_expanded,
+  dfCONSENT = dfCONSENT_expanded,
+  dfIE = dfIE_expanded,
+  dfSTUDCOMP = dfSTUDCOMP_expanded,
+  dfSDRGCOMP = dfSDRGCOMP_expanded,
+  dfLB = clindata::rawplus_lb %>% filter(subjid %in% dfSUBJ_expanded$subjid) %>% slice(1:2000),
+  dfDATACHG = clindata::edc_data_change_rate %>% slice(1:300),
+  dfDATAENT = clindata::edc_data_entry_lag %>% slice(1:300),
+  dfQUERY = clindata::edc_queries %>% slice(1:300)
+)
+
+lMapping <- c(
+  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
+)
+
 lMeta <- list(
   config_param = clindata::config_param,
   config_workflow = clindata::config_workflow,
@@ -9,26 +29,9 @@ lMeta <- list(
   meta_workflow = gsm::meta_workflow
 )
 
-lData <- list(
-  dfSUBJ = dfSUBJ_expanded,
-  dfAE = dfAE_expanded,
-  dfPD = dfPD_expanded,
-  dfCONSENT = dfCONSENT_expanded,
-  dfIE = dfIE_expanded,
-  dfSTUDCOMP = dfSTUDCOMP_expanded,
-  dfSDRGCOMP = dfSDRGCOMP_expanded,
-  dfLB = dfLB_expanded
-)
-
-lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
-
 lAssessments <- MakeWorkflowList()
 
-cPath <- NULL
-
-bQuiet <- TRUE
-
-snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments)
+snapshot <- Make_Snapshot(lData = lData)
 
 
 
@@ -174,7 +177,7 @@ test_that("Custom lAssessments and lMapping works together as intended", {
       params = list(
         strGroup = "Site",
         vThreshold = NULL,
-        strMethod = "poisson"
+        strMethod = "Poisson"
       )
     )
   ))
@@ -212,12 +215,7 @@ test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
   ### Removed dfAE
   lData_edited <- list(
     dfSUBJ = dfSUBJ_expanded,
-    dfPD = dfPD_expanded,
-    dfCONSENT = dfCONSENT_expanded,
-    dfIE = dfIE_expanded,
-    dfSTUDCOMP = dfSTUDCOMP_expanded,
-    dfSDRGCOMP = dfSDRGCOMP_expanded,
-    dfLB = dfLB_expanded
+    dfPD = dfPD_expanded
   )
   expect_silent(Make_Snapshot(lMeta = lMeta, lData = lData_edited, lMapping = lMapping, lAssessments = lAssessments))
 
@@ -237,6 +235,5 @@ test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
 ################################################################################################################
 
 test_that("bQuiet works as intended", {
-  expect_silent(Make_Snapshot(lData = lData, bQuiet = TRUE))
   expect_snapshot(snapshot <- Make_Snapshot(lData = lData, bQuiet = FALSE))
 })

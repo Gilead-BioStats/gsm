@@ -9,6 +9,7 @@ MergeSubjects(
   dfSUBJ,
   strIDCol = "SubjectID",
   vFillZero = NULL,
+  vRemoval = NULL,
   bQuiet = TRUE
 )
 }
@@ -20,6 +21,8 @@ MergeSubjects(
 \item{strIDCol}{\code{character} Vector of length 1. The name of ID Column - Default: \code{SubjectID}}
 
 \item{vFillZero}{\code{vector} Column names from \code{dfDomain} to fill with zeros when no matching row is found for an ID in \code{dfSUBJ}.}
+
+\item{vRemoval}{\code{vector} Column names from \code{dfDomain} or \code{dfSUBJ} to check for zeros or NA for rows to be removed for non-meaningful records.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }

@@ -10,26 +10,29 @@ LB_Assess(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nMinDenominator = NULL,
   bQuiet = TRUE
 )
 }
 \arguments{
-\item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
+\item{dfInput}{\code{data.frame} Input data, a data frame with one record per lab record.}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 or 4 that defaults to \code{c(-3, -2, 2, 3)} for a Normal Approximation (\code{strMethod = "NormalApprox"}),
-\code{c(.01, .05)} for Fisher's exact test (\code{strMethod = "fisher"}), and \code{c(3.491, 5.172)} for a nominal assessment (\code{strMethod = "identity"}).}
+\code{c(.01, .05)} for Fisher's exact test (\code{strMethod = "Fisher"}), and \code{c(3.491, 5.172)} for a nominal assessment (\code{strMethod = "Identity"}).}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
 \item \code{"NormalApprox"} (default)
-\item \code{"fisher"}
-\item \code{"identity"}
+\item \code{"Fisher"}
+\item \code{"Identity"}
 }}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column. Default: package-defined Labs Assessment mapping.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
+
+\item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -46,7 +49,7 @@ of the column. Default: package-defined Labs Assessment mapping.}
 }
 \item \code{list} \code{lCharts}, a named list with:
 \itemize{
-\item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}} only when strMethod != "identity"
+\item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}} only when strMethod != "Identity"
 \item \code{barMetric}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}}
 \item \code{barScore}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}}
 }
@@ -86,7 +89,7 @@ Alternatively, the Fisher’s exact test, or percentage value (identity)
 is used to generate estimates and p-values for each site (as specified
 with the \code{strMethod} parameter). Those outputs are then used to flag
 possible outliers using the thresholds specified in \code{vThreshold}. In the
-Fisher’s exact test, sites with \emph{p} < 0.05 are flagged as 1 by default.
+Fisher’s exact test, sites with $p<0.05$ are flagged as 1 by default.
 
 See \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}} or
 \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or
@@ -97,7 +100,7 @@ details about the statistical methods and their assumptions.
 \examples{
 dfInput <- LB_Map_Raw()
 lb_assessment_NormalApprox <- LB_Assess(dfInput, strMethod = "NormalApprox")
-lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
-lb_assessment_identity <- LB_Assess(dfInput, strMethod = "identity")
+lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "Fisher")
+lb_assessment_identity <- LB_Assess(dfInput, strMethod = "Identity")
 
 }

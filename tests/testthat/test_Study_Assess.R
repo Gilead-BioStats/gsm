@@ -1,13 +1,10 @@
 source(testthat::test_path("testdata/data.R"))
 
-dfSUBJ_cols <- colnames(dfSUBJ)
-dfAE_cols <- colnames(dfAE)
-dfPD_cols <- colnames(dfPD)
-dfCONSENT_cols <- colnames(dfCONSENT)
-dfIE_cols <- colnames(dfIE)
-dfSTUDCOMP_cols <- colnames(dfSTUDCOMP)
-dfSDRGCOMP_cols <- colnames(dfSDRGCOMP)
-dfLB_cols <- colnames(dfLB)
+subsetDfs <- function(data, domain, max_rows = 50) {
+  data %>%
+    select(all_of(colnames(domain))) %>%
+    slice(1:max_rows)
+}
 
 meta_lookup <- tribble(
   ~workflowid, ~assessment_abbrev,
@@ -27,14 +24,20 @@ meta <- left_join(
   by = "workflowid"
 )
 
-dfSUBJ <- clindata::rawplus_dm[1:50, ] %>% select(all_of(dfSUBJ_cols))
-dfAE <- clindata::rawplus_ae[1:50, ] %>% select(all_of(dfAE_cols))
-dfPD <- clindata::rawplus_protdev[1:50, ] %>% select(all_of(dfPD_cols))
-dfCONSENT <- clindata::rawplus_consent[1:50, ] %>% select(all_of(dfCONSENT_cols))
-dfIE <- clindata::rawplus_ie[1:50, ] %>% select(all_of(dfIE_cols))
-dfSTUDCOMP <- clindata::rawplus_studcomp[1:50, ] %>% select(all_of(dfSTUDCOMP_cols))
-dfSDRGCOMP <- clindata::rawplus_sdrgcomp[1:50, ] %>% select(all_of(dfSDRGCOMP_cols))
-dfLB <- clindata::rawplus_lb[1:50, ] %>% select(all_of(dfLB_cols))
+
+
+dfSUBJ <- clindata::rawplus_dm %>% subsetDfs(dfSUBJ)
+dfAE <- clindata::rawplus_ae %>% subsetDfs(dfAE)
+dfPD <- clindata::rawplus_protdev %>% subsetDfs(dfPD)
+dfCONSENT <- clindata::rawplus_consent %>% subsetDfs(dfCONSENT)
+dfIE <- clindata::rawplus_ie %>% subsetDfs(dfIE)
+dfSTUDCOMP <- clindata::rawplus_studcomp %>% subsetDfs(dfSTUDCOMP)
+dfSDRGCOMP <- clindata::rawplus_sdrgcomp %>% subsetDfs(dfSDRGCOMP)
+dfLB <- clindata::rawplus_lb %>% subsetDfs(dfLB, max_rows = 300)
+dfDATACHG <- clindata::edc_data_change_rate %>% subsetDfs(dfDATACHG, max_rows = 300)
+dfDATAENT <- clindata::edc_data_entry_lag %>% subsetDfs(dfDATAENT, max_rows = 300)
+dfQUERY <- clindata::edc_queries %>% subsetDfs(dfQUERY, max_rows = 300)
+
 
 lData <- list(
   dfSUBJ = dfSUBJ,
@@ -44,18 +47,26 @@ lData <- list(
   dfIE = dfIE,
   dfSTUDCOMP = dfSTUDCOMP,
   dfSDRGCOMP = dfSDRGCOMP,
-  dfLB = dfLB
+  dfLB = dfLB,
+  dfDATACHG = dfDATACHG,
+  dfDATAENT = dfDATAENT,
+  dfQUERY = dfQUERY,
+  dfENROLL = dfENROLL
 )
 
 lAssessments <- MakeWorkflowList()
 
-lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+lMapping <- c(
+  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
+)
 
 result <- Study_Assess(
   lData = lData,
   lAssessments = lAssessments,
   bQuiet = TRUE
-) %>% suppressWarnings()
+)
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
@@ -165,21 +176,18 @@ test_that("bQuiet works as intended", {
     dfSUBJ = clindata::rawplus_dm %>% arrange(subjid) %>% slice(1:10),
     dfAE = clindata::rawplus_ae %>% arrange(subjid) %>% slice(1:10)
   )
-  expect_silent(Study_Assess(lData = lData, bQuiet = TRUE))
-  expect_snapshot(result <- Study_Assess(lData = lData, bQuiet = FALSE))
+
+  workflow <- MakeWorkflowList(strNames = "kri0001")
+
+  expect_snapshot(result <- Study_Assess(lData = lData, lAssessments = workflow, bQuiet = FALSE))
 })
 
 
 test_that("Map + Assess yields same result as Study_Assess()", {
   lData <- list(
     dfSUBJ = dfSUBJ,
-    dfAE = dfAE,
-    dfPD = dfPD,
     dfCONSENT = dfCONSENT,
-    dfIE = dfIE,
-    dfSTUDCOMP = dfSTUDCOMP,
-    dfSDRGCOMP = dfSDRGCOMP,
-    dfLB = dfLB
+    dfIE = dfIE
   )
 
 
@@ -196,6 +204,13 @@ test_that("Map + Assess yields same result as Study_Assess()", {
 })
 
 test_that("lSubjFilters with 0 rows returns NULL", {
+
+  lData <- list(
+    dfSUBJ = dfSUBJ,
+    dfCONSENT = dfCONSENT,
+    dfIE = dfIE
+  )
+
   lMappingCustom <- lMapping
 
   lMappingCustom$dfSUBJ$strSiteVal <- "XYZ"

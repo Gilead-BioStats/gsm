@@ -7,7 +7,7 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
 
   test2_2 <- PD_Assess(
     dfInput = dfInput,
-    strMethod = "poisson",
+    strMethod = "Poisson",
     strGroup = "CustomGroup"
   )
 
@@ -28,9 +28,9 @@ test_that("PD assessment can return a correctly assessed data frame for the pois
     qualification_flag_poisson()
 
   t2_2_summary <- t2_2_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t2_2 <- list(
     "dfTransformed" = t2_2_transformed,

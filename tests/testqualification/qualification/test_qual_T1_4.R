@@ -4,7 +4,7 @@ test_that("AE assessment can return a correctly assessed data frame for the iden
 
   test1_4 <- AE_Assess(
     dfInput = dfInput,
-    strMethod = "identity"
+    strMethod = "Identity"
   )
 
   # double programming
@@ -38,12 +38,12 @@ test_that("AE assessment can return a correctly assessed data frame for the iden
       )
     ) %>%
     select(-median) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t1_4_summary <- t1_4_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
 
   t1_4 <- list(

@@ -4,7 +4,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
 
   test1_2 <- AE_Assess(
     dfInput = dfInput,
-    strMethod = "poisson",
+    strMethod = "Poisson",
     vThreshold = c(-3, -1, 1, 3),
     strGroup = "Study"
   )
@@ -26,9 +26,9 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
     qualification_flag_poisson(threshold = c(-3, -1, 1, 3))
 
   t1_2_summary <- t1_2_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t1_2 <- list(
     "dfTransformed" = t1_2_transformed,

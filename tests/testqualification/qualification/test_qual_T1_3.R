@@ -1,10 +1,14 @@
 test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly.", {
   # gsm analysis
-  dfInput <- gsm::AE_Map_Raw()
+
+  dfInput <- gsm::AE_Map_Raw(dfs = list(
+    dfAE = clindata::rawplus_ae %>% filter(aeser_std_nsv == "Y"),
+    dfSUBJ = clindata::rawplus_dm
+  ))
 
   test1_3 <- AE_Assess(
     dfInput = dfInput,
-    strMethod = "poisson",
+    strMethod = "Poisson",
     strGroup = "CustomGroup"
   )
 
@@ -25,9 +29,9 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
     qualification_flag_poisson()
 
   t1_3_summary <- t1_3_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t1_3 <- list(
     "dfTransformed" = t1_3_transformed,

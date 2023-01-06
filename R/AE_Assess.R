@@ -11,16 +11,17 @@
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 4 that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation,
-#'   `c(-7, -5, 5, 7)` for a Poisson model (`strMethod = "poisson"`) and a vector of length 2 that defaults to `c(0.00006, 0.01)`
-#'   for a nominal assessment (`strMethod = "identity"`).
+#'   `c(-7, -5, 5, 7)` for a Poisson model (`strMethod = "Poisson"`) and a vector of length 2 that defaults to `c(0.00006, 0.01)`
+#'   for a nominal assessment (`strMethod = "Identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"NormalApprox"` (default)
-#'   - `"poisson"`
-#'   - `"identity"`
+#'   - `"Poisson"`
+#'   - `"Identity"`
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Adverse Event Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`.
 #' Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -30,9 +31,9 @@
 #'   - `dfFlagged`, returned by [gsm::Flag_NormalApprox()], [gsm::Flag_Poisson()], or [gsm::Flag()]
 #'   - `dfSummary`, returned by [gsm::Summarize()]
 #'   - `dfBounds`, returned by [gsm::Analyze_NormalApprox_PredictBounds()] or [gsm::Analyze_Poisson_PredictBounds()]
-#'   when `strMethod == "NormalApprox"` or `strMethod == "poisson"`. `dfBounds` is not returned when using `strMethod == "identity"`.
+#'   when `strMethod == "NormalApprox"` or `strMethod == "Poisson"`. `dfBounds` is not returned when using `strMethod == "Identity"`.
 #' - `list` `lCharts`, a named list with:
-#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when `strMethod != "identity"`
+#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when `strMethod != "Identity"`
 #'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()]
 #'   - `barScore`, a ggplot2 object returned by [gsm::Visualize_Score()]
 #' - `list` `lChecks`, a named list with:
@@ -50,11 +51,11 @@
 #' # Run using normal approximation method (default)
 #' ae_assessment_NormalApprox <- AE_Assess(dfInput)
 #'
-#' # Run using poisson method
-#' ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "poisson")
+#' # Run using Poisson method
+#' ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "Poisson")
 #'
-#' # Run using identity method
-#' ae_assessment_identity <- AE_Assess(dfInput, strMethod = "identity")
+#' # Run using Identity method
+#' ae_assessment_identity <- AE_Assess(dfInput, strMethod = "Identity")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
@@ -69,12 +70,13 @@ AE_Assess <- function(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nMinDenominator = NULL,
   bQuiet = TRUE
 ) {
 
   # data checking -----------------------------------------------------------
   stopifnot(
-    "strMethod is not 'NormalApprox', 'poisson' or 'identity'" = strMethod %in% c("NormalApprox", "poisson", "identity"),
+    "strMethod is not 'NormalApprox', 'Poisson' or 'Identity'" = strMethod %in% c("NormalApprox", "Poisson", "Identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -93,15 +95,15 @@ AE_Assess <- function(
   if (is.null(vThreshold)) {
     vThreshold <- switch(strMethod,
       NormalApprox = c(-3, -2, 2, 3),
-      poisson = c(-7, -5, 5, 7),
-      identity = c(0.00006, 0.01)
+      Poisson = c(-7, -5, 5, 7),
+      Identity = c(0.00006, 0.01)
     )
   }
 
   strValueColumnVal <- switch(strMethod,
     NormalApprox = NULL,
-    poisson = NULL,
-    identity = "Score"
+    Poisson = NULL,
+    Identity = "Score"
   )
 
   # begin running assessment ------------------------------------------------
@@ -141,7 +143,7 @@ AE_Assess <- function(
         strType = "rate",
         bQuiet = bQuiet
       )
-    } else if (strMethod == "poisson") {
+    } else if (strMethod == "Poisson") {
       lData$dfAnalyzed <- gsm::Analyze_Poisson(
         dfTransformed = lData$dfTransformed,
         bQuiet = bQuiet
@@ -152,7 +154,7 @@ AE_Assess <- function(
         vThreshold = vThreshold,
         bQuiet = bQuiet
       )
-    } else if (strMethod == "identity") {
+    } else if (strMethod == "Identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(
         dfTransformed = lData$dfTransformed
       )
@@ -164,23 +166,23 @@ AE_Assess <- function(
     # dfFlagged ---------------------------------------------------------------
     if (strMethod == "NormalApprox") {
       lData$dfFlagged <- gsm::Flag_NormalApprox(lData$dfAnalyzed, vThreshold = vThreshold)
-    } else if (strMethod == "poisson") {
+    } else if (strMethod == "Poisson") {
       lData$dfFlagged <- gsm::Flag_Poisson(lData$dfAnalyzed, vThreshold = vThreshold)
-    } else if (strMethod == "identity") {
+    } else if (strMethod == "Identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     }
 
     flag_function_name <- switch(strMethod,
       NormalApprox = "Flag_NormalApprox",
-      identity = "Flag",
-      poisson = "Flag_Poisson"
+      Identity = "Flag",
+      Poisson = "Flag_Poisson"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
 
 
     # dfSummary ---------------------------------------------------------------
-    lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
+    lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
 
@@ -189,15 +191,58 @@ AE_Assess <- function(
 
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-    if (strMethod != "identity") {
-      lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+
+
+    # rbm-viz setup -----------------------------------------------------------
+
+    dfConfig <- MakeDfConfig(
+      strMethod = strMethod,
+      strGroup = strGroup,
+      strAbbreviation = "AE",
+      strMetric = "Adverse Event Rate",
+      strNumerator = "Adverse Events",
+      strDenominator = "Days on Treatment",
+      vThreshold = vThreshold
+    )
+
+
+
+    # scatter plots -----------------------------------------------------------
+    if (strMethod != "Identity") {
+      lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+
+
+      # rbm-viz charts ----------------------------------------------------------
+      lCharts$scatterJS <- scatterPlot(
+        results = lData$dfSummary,
+        workflow = dfConfig,
+        bounds = lData$dfBounds,
+        elementId = "aeAssessScatter"
+      )
+      if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
     }
 
-    lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
-    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
 
+    # bar charts --------------------------------------------------------------
+    lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
+    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
+
+    lCharts$barMetricJS <- barChart(
+      results = lData$dfSummary,
+      workflow = dfConfig,
+      yaxis = "metric",
+      elementId = "aeAssessMetric"
+    )
+
+    lCharts$barScoreJS <- barChart(
+      results = lData$dfSummary,
+      workflow = dfConfig,
+      yaxis = "score",
+      elementId = "aeAssessScore"
+    )
+
+
+    if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
 
 
     # return data -------------------------------------------------------------

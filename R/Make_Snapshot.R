@@ -12,6 +12,7 @@
 #' @param lData `list` a named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for raw+.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
+#' @param bUpdateParams `logical` if `TRUE`, configurable parameters found in `lMeta$config_param` will overwrite the default values in `lMeta$meta_params`. Default: `FALSE`.
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -29,7 +30,9 @@
 #'
 #' @examples
 #' # run with default testing data
+#' \dontrun{
 #' snapshot <- Make_Snapshot()
+#' }
 #'
 #' @import purrr
 #' @importFrom yaml read_yaml
@@ -46,13 +49,24 @@ Make_Snapshot <- function(lMeta = list(
 lData = list(
   dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae,
-  dfLB = clindata::rawplus_lb,
   dfPD = clindata::rawplus_protdev,
+  dfCONSENT = clindata::rawplus_consent,
+  dfIE = clindata::rawplus_ie,
+  dfLB = clindata::rawplus_lb,
   dfSTUDCOMP = clindata::rawplus_studcomp,
-  dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion")
+  dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion"),
+  dfDATACHG = clindata::edc_data_change_rate,
+  dfDATAENT = clindata::edc_data_entry_lag,
+  dfQUERY = clindata::edc_queries,
+  dfENROLL = clindata::rawplus_enroll
 ),
-lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+lMapping = c(
+  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
+),
 lAssessments = NULL,
+bUpdateParams = FALSE,
 cPath = NULL,
 bQuiet = TRUE
 
@@ -68,21 +82,37 @@ bQuiet = TRUE
   # ctms_study / meta_study:
   status_study <- lMeta$meta_study %>%
     select(
-      "studyid" = "PROTOCOL_TITLE",
-      "enrolled_sites_ctms" = "NUM_SITE_ACTL",
-      "enrolled_participants_ctms" = "NUM_ENROLLED_SUBJ_M",
-      "planned_sites" = "NUM_PLAN_SITE",
-      "planned_participants" = "NUM_PLAN_SUBJ",
+      # study name/ID
+      "studyid" = "PROTOCOL_NUMBER",
       "title" = "PROTOCOL_TITLE",
       "nickname" = "NICKNAME",
-      "indication" = "PROTOCOL_INDICATION",
-      "ta" = "THERAPEUTIC_AREA",
-      "phase" = "PHASE",
-      "status" = "STATUS",
+
+      # enrollment
+      "planned_sites" = "NUM_PLAN_SITE",
+      "enrolled_sites_ctms" = "NUM_SITE_ACTL",
+      "planned_participants" = "NUM_PLAN_SUBJ",
+      "enrolled_participants_ctms" = "NUM_ENROLLED_SUBJ_M",
+
+      # milestones
       "fpfv" = "ACT_FPFV",
       "lpfv" = "ACT_LPFV",
       "lplv" = "ACT_LPLV",
+
+      # study characteristics
+      "ta" = "THERAPEUTIC_AREA",
+      "indication" = "PROTOCOL_INDICATION",
+      "phase" = "PHASE",
+      "status" = "STATUS",
       "rbm_flag" = "X_RBM_FLG",
+
+      # miscellany
+      "product" = "PRODUCT",
+      "protocol_type" = "PROTOCOL_TYPE",
+      "protocol_row_id" = "PROTOCOL_ROW_ID",
+      "est_fpfv" = "EST_FPFV",
+      "est_lpfv" = "EST_LPFV",
+      "est_lplv" = "EST_LPLV",
+      "protocol_product_number" = "PROTOCOL_PRODUCT_NUMBER",
       everything()
     ) %>%
     rename_with(tolower)
@@ -128,6 +158,9 @@ bQuiet = TRUE
     )
   }
 
+
+
+
   # status_site -------------------------------------------------------------
   if (!("enrolled_participants" %in% colnames(status_site))) {
     status_site_count <- gsm::Get_Enrolled(
@@ -164,6 +197,11 @@ bQuiet = TRUE
     lAssessments <- gsm::MakeWorkflowList(strNames = c(unique(lMeta$meta_workflow$workflowid)))
   }
 
+  # update parameters
+  if (bUpdateParams) {
+    lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
+  }
+
   # Run Study Assessment
   lResults <- gsm::Study_Assess(
     lData = lData,
@@ -194,16 +232,16 @@ bQuiet = TRUE
   status_param <- lMeta$config_param
 
   # meta_workflow -----------------------------------------------------------
-  meta_workflow <- gsm::meta_workflow
+  meta_workflow <- lMeta$meta_workflow
 
   # meta_param --------------------------------------------------------------
-  meta_param <- gsm::meta_param
+  meta_param <- lMeta$meta_params
 
 
   # results_summary ---------------------------------------------------------
   results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%
     purrr::discard(is.null) %>%
-    purrr::imap_dfr(~ .x$lData$dfFlagged %>%
+    purrr::imap_dfr(~ .x$lData$dfSummary %>%
       mutate(
         KRIID = .y,
         StudyID = unique(lMeta$config_workflow$studyid)

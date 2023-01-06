@@ -1,6 +1,8 @@
 source(testthat::test_path("testdata/data.R"))
 
-lAssessments <- Study_Assess(lData = lData, bQuiet = TRUE) %>%
+assessment_list <- MakeWorkflowList(strNames = c("kri0001", "kri0002", "kri0003"))
+
+lAssessments <- Study_Assess(lData = lData, bQuiet = TRUE, lAssessments = assessment_list) %>%
   suppressWarnings()
 
 test_that("Assessment Report with all Valid assessments", {

@@ -10,6 +10,7 @@ AE_Assess(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nMinDenominator = NULL,
   bQuiet = TRUE
 )
 }
@@ -17,14 +18,14 @@ AE_Assess(
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 4 that defaults to \code{c(-3, -2, 2, 3)} for a Normal Approximation,
-\code{c(-7, -5, 5, 7)} for a Poisson model (\code{strMethod = "poisson"}) and a vector of length 2 that defaults to \code{c(0.00006, 0.01)}
-for a nominal assessment (\code{strMethod = "identity"}).}
+\code{c(-7, -5, 5, 7)} for a Poisson model (\code{strMethod = "Poisson"}) and a vector of length 2 that defaults to \code{c(0.00006, 0.01)}
+for a nominal assessment (\code{strMethod = "Identity"}).}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
 \item \code{"NormalApprox"} (default)
-\item \code{"poisson"}
-\item \code{"identity"}
+\item \code{"Poisson"}
+\item \code{"Identity"}
 }}
 
 \item{lMapping}{Column metadata with structure \code{domain$key}, where \code{key} contains the name
@@ -32,6 +33,8 @@ of the column. Default: package-defined Adverse Event Assessment mapping.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}.
 Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
+
+\item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -45,11 +48,11 @@ Other valid options using the default mapping are \code{"Study"} and \code{"Cust
 \item \code{dfFlagged}, returned by \code{\link[=Flag_NormalApprox]{Flag_NormalApprox()}}, \code{\link[=Flag_Poisson]{Flag_Poisson()}}, or \code{\link[=Flag]{Flag()}}
 \item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
 \item \code{dfBounds}, returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}
-when \code{strMethod == "NormalApprox"} or \code{strMethod == "poisson"}. \code{dfBounds} is not returned when using \code{strMethod == "identity"}.
+when \code{strMethod == "NormalApprox"} or \code{strMethod == "Poisson"}. \code{dfBounds} is not returned when using \code{strMethod == "Identity"}.
 }
 \item \code{list} \code{lCharts}, a named list with:
 \itemize{
-\item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}} only when \code{strMethod != "identity"}
+\item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}} only when \code{strMethod != "Identity"}
 \item \code{barMetric}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}}
 \item \code{barScore}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}}
 }
@@ -104,10 +107,10 @@ dfInput <- AE_Map_Raw()
 # Run using normal approximation method (default)
 ae_assessment_NormalApprox <- AE_Assess(dfInput)
 
-# Run using poisson method
-ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "poisson")
+# Run using Poisson method
+ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "Poisson")
 
-# Run using identity method
-ae_assessment_identity <- AE_Assess(dfInput, strMethod = "identity")
+# Run using Identity method
+ae_assessment_identity <- AE_Assess(dfInput, strMethod = "Identity")
 
 }

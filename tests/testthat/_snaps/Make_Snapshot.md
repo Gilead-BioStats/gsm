@@ -25,7 +25,7 @@
 
     Code
       snapshot <- Make_Snapshot(lData = lData, bQuiet = FALSE)
-    Message <cliMessage>
+    Message
       
       -- Initializing `cou0001` assessment -------------------------------------------
       
@@ -92,9 +92,11 @@
       > nStep was not provided. Setting default step to 78.136
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -164,9 +166,11 @@
       > nStep was not provided. Setting default step to 78.136
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -223,9 +227,11 @@
       > nStep was not provided. Setting default step to 81.816
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -282,16 +288,18 @@
       > nStep was not provided. Setting default step to 81.816
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `cou0005` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 4: `FilterDomain` --
+      -- Workflow Step 1 of 3: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -300,25 +308,11 @@
       
       v No issues found for dfLB domain
       Filtering on `lb_te %in% c("Y")`.
-      v Filtered on `lb_te %in% c("Y")` to drop 86 rows from 1000 to 914 rows.
+      v Filtered on `lb_te %in% c("Y")` to drop 129 rows from 2000 to 1871 rows.
       v `FilterDomain()` Successful
       Saving dfLB to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfLB domain
-      Filtering on `toxgr %in% c("3", "4")`.
-      v Filtered on `toxgr %in% c("3 and 4")` to drop 914 rows from 914 to 0 rows.
-      ! WARNING: Filtered data has 0 rows.
-      v `FilterDomain()` Successful
-      Saving dfLB to `lWorkflow$lData`
-      
-      -- Workflow Step 3 of 4: `LB_Map_Raw` --
+      -- Workflow Step 2 of 3: `LB_Map_Raw` --
       
       Preparing parameters for `LB_Map_Raw()` ...
       Calling `LB_Map_Raw()` ...
@@ -329,11 +323,17 @@
       
       -- Initializing `LB_Map_Raw()` --
       
-      v `LB_Map_Raw()` returned output with 50 rows.
+      i Intializing merge of domain and subject data
+      i 47 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      i 47 row(s) in merged data have zero or NA values for columns: Total.
+      These participant(s) will be excluded.
+      v `LB_Map_Raw()` returned output with 3 rows.
       v `LB_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
-      -- Workflow Step 4 of 4: `LB_Assess` --
+      -- Workflow Step 3 of 3: `LB_Assess` --
       
       Preparing parameters for `LB_Assess()` ...
       Calling `LB_Assess()` ...
@@ -344,16 +344,18 @@
       
       -- Initializing `LB_Assess()` --
       
-      Input data has 50 rows.
-      v `Transform_Rate()` returned output with 3 rows.
+      Input data has 3 rows.
+      v `Transform_Rate()` returned output with 1 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      > nStep was not provided. Setting default step to 0.104
-      v `Analyze_NormalApprox()` returned output with 3 rows.
-      v `Flag_NormalApprox()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 0 chart.
-      v `Visualize_Score()` created 2 charts.
+      > nStep was not provided. Setting default step to 1
+      v `Analyze_NormalApprox()` returned output with 1 rows.
+      v `Flag_NormalApprox()` returned output with 1 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
+      v `Summarize()` returned output with 1 rows.
+      v Created 1 scatter plot.
+      v Created 4 bar charts.
       v `LB_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -397,9 +399,11 @@
       > nStep was not provided. Setting default step to 0.104
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 3. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -457,11 +461,245 @@
       > nStep was not provided. Setting default step to 0.104
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 3. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 3 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0008` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryRate_Map_Raw` --
+      
+      Preparing parameters for `QueryRate_Map_Raw()` ...
+      Calling `QueryRate_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryRate_Map_Raw()` --
+      
+      v No issues found for `QueryRate_Map_Raw()`
+      
+      -- Initializing `QueryRate_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      ! 8 ID(s) in domain data not found in subject data.
+      Associated rows will not be included in merged data.
+      i 47 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      i 49 row(s) in merged data have zero or NA values for columns: DataPoint.
+      These participant(s) will be excluded.
+      v `QueryRate_Map_Raw()` returned output with 1 rows.
+      v `QueryRate_Map_Raw()` Successful
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryRate_Assess` --
+      
+      Preparing parameters for `QueryRate_Assess()` ...
+      Calling `QueryRate_Assess()` ...
+      
+      -- Checking Input Data for `QueryRate_Assess()` --
+      
+      v No issues found for `QueryRate_Assess()`
+      
+      -- Initializing `QueryRate_Assess()` --
+      
+      Input data has 1 rows.
+      v `Transform_Rate()` returned output with 1 rows.
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
+      > nStep was not provided. Setting default step to 1
+      v `Analyze_NormalApprox()` returned output with 1 rows.
+      v `Flag_NormalApprox()` returned output with 1 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
+      v `Summarize()` returned output with 1 rows.
+      v Created 1 scatter plot.
+      v Created 4 bar charts.
+      v `QueryRate_Assess()` Successful
+      Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0009` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryAge_Map_Raw` --
+      
+      Preparing parameters for `QueryAge_Map_Raw()` ...
+      Calling `QueryAge_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
+      
+      v No issues found for `QueryAge_Map_Raw()`
+      
+      -- Initializing `QueryAge_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      ! 8 ID(s) in domain data not found in subject data.
+      Associated rows will not be included in merged data.
+      i 47 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      i 47 row(s) in merged data have zero or NA values for columns: Total.
+      These participant(s) will be excluded.
+      v `QueryAge_Map_Raw()` returned output with 3 rows.
+      v `QueryAge_Map_Raw()` Successful
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryAge_Assess` --
+      
+      Preparing parameters for `QueryAge_Assess()` ...
+      Calling `QueryAge_Assess()` ...
+      
+      -- Checking Input Data for `QueryAge_Assess()` --
+      
+      v No issues found for `QueryAge_Assess()`
+      
+      -- Initializing `QueryAge_Assess()` --
+      
+      Input data has 3 rows.
+      v `Transform_Rate()` returned output with 3 rows.
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
+      > nStep was not provided. Setting default step to 0.044
+      v `Analyze_NormalApprox()` returned output with 3 rows.
+      v `Flag_NormalApprox()` returned output with 3 rows.
+      i 1 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
+      v `Summarize()` returned output with 3 rows.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
+      v `QueryAge_Assess()` Successful
+      Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0010` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataEntry_Map_Raw` --
+      
+      Preparing parameters for `DataEntry_Map_Raw()` ...
+      Calling `DataEntry_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataEntry_Map_Raw()` --
+      
+      v No issues found for `DataEntry_Map_Raw()`
+      
+      -- Initializing `DataEntry_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      ! 2 ID(s) in domain data not found in subject data.
+      Associated rows will not be included in merged data.
+      i 49 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      i 49 row(s) in merged data have zero or NA values for columns: Total.
+      These participant(s) will be excluded.
+      v `DataEntry_Map_Raw()` returned output with 1 rows.
+      v `DataEntry_Map_Raw()` Successful
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataEntry_Assess` --
+      
+      Preparing parameters for `DataEntry_Assess()` ...
+      Calling `DataEntry_Assess()` ...
+      
+      -- Checking Input Data for `DataEntry_Assess()` --
+      
+      v No issues found for `DataEntry_Assess()`
+      
+      -- Initializing `DataEntry_Assess()` --
+      
+      Input data has 1 rows.
+      v `Transform_Rate()` returned output with 1 rows.
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
+      > nStep was not provided. Setting default step to 1
+      v `Analyze_NormalApprox()` returned output with 1 rows.
+      v `Flag_NormalApprox()` returned output with 1 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
+      v `Summarize()` returned output with 1 rows.
+      v Created 1 scatter plot.
+      v Created 4 bar charts.
+      v `DataEntry_Assess()` Successful
+      Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0011` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataChg_Map_Raw` --
+      
+      Preparing parameters for `DataChg_Map_Raw()` ...
+      Calling `DataChg_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataChg_Map_Raw()` --
+      
+      v No issues found for `DataChg_Map_Raw()`
+      
+      -- Initializing `DataChg_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      ! 2 ID(s) in domain data not found in subject data.
+      Associated rows will not be included in merged data.
+      i 49 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      i 49 row(s) in merged data have zero or NA values for columns: Total.
+      These participant(s) will be excluded.
+      v `DataChg_Map_Raw()` returned output with 1 rows.
+      v `DataChg_Map_Raw()` Successful
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataChg_Assess` --
+      
+      Preparing parameters for `DataChg_Assess()` ...
+      Calling `DataChg_Assess()` ...
+      
+      -- Checking Input Data for `DataChg_Assess()` --
+      
+      v No issues found for `DataChg_Assess()`
+      
+      -- Initializing `DataChg_Assess()` --
+      
+      Input data has 1 rows.
+      v `Transform_Rate()` returned output with 1 rows.
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
+      > nStep was not provided. Setting default step to 1
+      v `Analyze_NormalApprox()` returned output with 1 rows.
+      v `Flag_NormalApprox()` returned output with 1 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
+      v `Summarize()` returned output with 1 rows.
+      v Created 1 scatter plot.
+      v Created 4 bar charts.
+      v `DataChg_Assess()` Successful
+      Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `cou0012` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `Screening_Map_Raw` --
+      
+      Preparing parameters for `Screening_Map_Raw()` ...
+      Calling `Screening_Map_Raw()` ...
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+      ! `Screening_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `Screening_Assess` --
+      
+      Skipping `Screening_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `kri0001` assessment -------------------------------------------
@@ -529,9 +767,11 @@
       > nStep was not provided. Setting default step to 5.648
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -601,9 +841,11 @@
       > nStep was not provided. Setting default step to 5.648
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -660,9 +902,11 @@
       > nStep was not provided. Setting default step to 5.46
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -719,9 +963,11 @@
       > nStep was not provided. Setting default step to 5.46
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `PD_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -737,7 +983,7 @@
       
       v No issues found for dfLB domain
       Filtering on `lb_te %in% c("Y")`.
-      v Filtered on `lb_te %in% c("Y")` to drop 86 rows from 1000 to 914 rows.
+      v Filtered on `lb_te %in% c("Y")` to drop 129 rows from 2000 to 1871 rows.
       v `FilterDomain()` Successful
       Saving dfLB to `lWorkflow$lData`
       
@@ -752,7 +998,13 @@
       
       -- Initializing `LB_Map_Raw()` --
       
-      v `LB_Map_Raw()` returned output with 962 rows.
+      i Intializing merge of domain and subject data
+      i 47 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      i 47 row(s) in merged data have zero or NA values for columns: Total.
+      These participant(s) will be excluded.
+      v `LB_Map_Raw()` returned output with 3 rows.
       v `LB_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
@@ -767,16 +1019,18 @@
       
       -- Initializing `LB_Assess()` --
       
-      Input data has 962 rows.
-      v `Transform_Rate()` returned output with 40 rows.
+      Input data has 3 rows.
+      v `Transform_Rate()` returned output with 3 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      > nStep was not provided. Setting default step to 3.212
-      v `Analyze_NormalApprox()` returned output with 40 rows.
-      v `Flag_NormalApprox()` returned output with 40 rows.
-      v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 0 chart.
-      v `Visualize_Score()` created 2 charts.
+      > nStep was not provided. Setting default step to 2.448
+      v `Analyze_NormalApprox()` returned output with 3 rows.
+      v `Flag_NormalApprox()` returned output with 3 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
+      v `Summarize()` returned output with 3 rows.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
       v `LB_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -820,9 +1074,11 @@
       > nStep was not provided. Setting default step to 0.004
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
+      i 40 Site(s) have insufficient sample size due to KRI denominator less than 3. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 1 scatter plot.
+      v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
       v `Visualize_Workflow()` created a flowchart.
@@ -880,11 +1136,245 @@
       > nStep was not provided. Setting default step to 0.004
       v `Analyze_NormalApprox()` returned output with 40 rows.
       v `Flag_NormalApprox()` returned output with 40 rows.
+      i 40 Site(s) have insufficient sample size due to KRI denominator less than 3. 
+      These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 40 rows.
-      v `Visualize_Scatter()` created 1 chart.
-      v `Visualize_Score()` created 2 charts.
+      v Created 1 scatter plot.
+      v Created 4 bar charts.
       v `Disp_Assess()` Successful
       Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0008` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryRate_Map_Raw` --
+      
+      Preparing parameters for `QueryRate_Map_Raw()` ...
+      Calling `QueryRate_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryRate_Map_Raw()` --
+      
+      v No issues found for `QueryRate_Map_Raw()`
+      
+      -- Initializing `QueryRate_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      ! 8 ID(s) in domain data not found in subject data.
+      Associated rows will not be included in merged data.
+      i 47 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      i 49 row(s) in merged data have zero or NA values for columns: DataPoint.
+      These participant(s) will be excluded.
+      v `QueryRate_Map_Raw()` returned output with 1 rows.
+      v `QueryRate_Map_Raw()` Successful
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryRate_Assess` --
+      
+      Preparing parameters for `QueryRate_Assess()` ...
+      Calling `QueryRate_Assess()` ...
+      
+      -- Checking Input Data for `QueryRate_Assess()` --
+      
+      v No issues found for `QueryRate_Assess()`
+      
+      -- Initializing `QueryRate_Assess()` --
+      
+      Input data has 1 rows.
+      v `Transform_Rate()` returned output with 1 rows.
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
+      > nStep was not provided. Setting default step to 1
+      v `Analyze_NormalApprox()` returned output with 1 rows.
+      v `Flag_NormalApprox()` returned output with 1 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
+      v `Summarize()` returned output with 1 rows.
+      v Created 1 scatter plot.
+      v Created 4 bar charts.
+      v `QueryRate_Assess()` Successful
+      Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0009` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `QueryAge_Map_Raw` --
+      
+      Preparing parameters for `QueryAge_Map_Raw()` ...
+      Calling `QueryAge_Map_Raw()` ...
+      
+      -- Checking Input Data for `QueryAge_Map_Raw()` --
+      
+      v No issues found for `QueryAge_Map_Raw()`
+      
+      -- Initializing `QueryAge_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      ! 8 ID(s) in domain data not found in subject data.
+      Associated rows will not be included in merged data.
+      i 47 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      i 47 row(s) in merged data have zero or NA values for columns: Total.
+      These participant(s) will be excluded.
+      v `QueryAge_Map_Raw()` returned output with 3 rows.
+      v `QueryAge_Map_Raw()` Successful
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `QueryAge_Assess` --
+      
+      Preparing parameters for `QueryAge_Assess()` ...
+      Calling `QueryAge_Assess()` ...
+      
+      -- Checking Input Data for `QueryAge_Assess()` --
+      
+      v No issues found for `QueryAge_Assess()`
+      
+      -- Initializing `QueryAge_Assess()` --
+      
+      Input data has 3 rows.
+      v `Transform_Rate()` returned output with 3 rows.
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
+      > nStep was not provided. Setting default step to 0.044
+      v `Analyze_NormalApprox()` returned output with 3 rows.
+      v `Flag_NormalApprox()` returned output with 3 rows.
+      i 1 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
+      v `Summarize()` returned output with 3 rows.
+      v Created 2 scatter plots.
+      v Created 4 bar charts.
+      v `QueryAge_Assess()` Successful
+      Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0010` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataEntry_Map_Raw` --
+      
+      Preparing parameters for `DataEntry_Map_Raw()` ...
+      Calling `DataEntry_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataEntry_Map_Raw()` --
+      
+      v No issues found for `DataEntry_Map_Raw()`
+      
+      -- Initializing `DataEntry_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      ! 2 ID(s) in domain data not found in subject data.
+      Associated rows will not be included in merged data.
+      i 49 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      i 49 row(s) in merged data have zero or NA values for columns: Total.
+      These participant(s) will be excluded.
+      v `DataEntry_Map_Raw()` returned output with 1 rows.
+      v `DataEntry_Map_Raw()` Successful
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataEntry_Assess` --
+      
+      Preparing parameters for `DataEntry_Assess()` ...
+      Calling `DataEntry_Assess()` ...
+      
+      -- Checking Input Data for `DataEntry_Assess()` --
+      
+      v No issues found for `DataEntry_Assess()`
+      
+      -- Initializing `DataEntry_Assess()` --
+      
+      Input data has 1 rows.
+      v `Transform_Rate()` returned output with 1 rows.
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
+      > nStep was not provided. Setting default step to 1
+      v `Analyze_NormalApprox()` returned output with 1 rows.
+      v `Flag_NormalApprox()` returned output with 1 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
+      v `Summarize()` returned output with 1 rows.
+      v Created 1 scatter plot.
+      v Created 4 bar charts.
+      v `DataEntry_Assess()` Successful
+      Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0011` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `DataChg_Map_Raw` --
+      
+      Preparing parameters for `DataChg_Map_Raw()` ...
+      Calling `DataChg_Map_Raw()` ...
+      
+      -- Checking Input Data for `DataChg_Map_Raw()` --
+      
+      v No issues found for `DataChg_Map_Raw()`
+      
+      -- Initializing `DataChg_Map_Raw()` --
+      
+      i Intializing merge of domain and subject data
+      ! 2 ID(s) in domain data not found in subject data.
+      Associated rows will not be included in merged data.
+      i 49 ID(s) in subject data not found in domain data.
+      These participants will have 0s imputed for the following domain data columns: Count.
+      NA's will be imputed for all other columns.
+      i 49 row(s) in merged data have zero or NA values for columns: Total.
+      These participant(s) will be excluded.
+      v `DataChg_Map_Raw()` returned output with 1 rows.
+      v `DataChg_Map_Raw()` Successful
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `DataChg_Assess` --
+      
+      Preparing parameters for `DataChg_Assess()` ...
+      Calling `DataChg_Assess()` ...
+      
+      -- Checking Input Data for `DataChg_Assess()` --
+      
+      v No issues found for `DataChg_Assess()`
+      
+      -- Initializing `DataChg_Assess()` --
+      
+      Input data has 1 rows.
+      v `Transform_Rate()` returned output with 1 rows.
+      `OverallMetric`, `Factor`, and `Score` columns created from normal
+      approximation.
+      > nStep was not provided. Setting default step to 1
+      v `Analyze_NormalApprox()` returned output with 1 rows.
+      v `Flag_NormalApprox()` returned output with 1 rows.
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      These site(s) will not have KRI score and flag summarized.
+      v `Summarize()` returned output with 1 rows.
+      v Created 1 scatter plot.
+      v Created 4 bar charts.
+      v `DataChg_Assess()` Successful
+      Saving lResults to `lWorkflow`
+      v `Visualize_Workflow()` created a flowchart.
+      
+      -- Initializing `kri0012` assessment -------------------------------------------
+      
+      -- Workflow Step 1 of 2: `Screening_Map_Raw` --
+      
+      Preparing parameters for `Screening_Map_Raw()` ...
+      Calling `Screening_Map_Raw()` ...
+      
+      -- Checking Input Data for `Screening_Map_Raw()` --
+      
+      x df is not a data.frame()
+      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x NA check not run
+      x Empty Value check not run
+      x Unique Column Check not run
+      ! Issues found for `Screening_Map_Raw()`
+      ! `Screening_Map_Raw()` did not run because of failed check.
+      ! `Screening_Map_Raw()` Failed - Skipping remaining steps
+      Saving dfInput to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 2: `Screening_Assess` --
+      
+      Skipping `Screening_Assess()` ...
       v `Visualize_Workflow()` created a flowchart.
       
       -- Initializing `qtl0004` assessment -------------------------------------------
@@ -897,8 +1387,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfPD domain
-      Filtering on `importnt %in% c("N")`.
-      v Filtered on `importnt %in% c("N")` to drop 6 rows from 50 to 44 rows.
+      Filtering on `importnt %in% c("Y")`.
+      v Filtered on `importnt %in% c("Y")` to drop 44 rows from 50 to 6 rows.
       v `FilterDomain()` Successful
       Saving dfPD to `lWorkflow$lData`
       
@@ -914,7 +1404,7 @@
       -- Initializing `PD_Map_Raw()` --
       
       i Intializing merge of domain and subject data
-      i 37 ID(s) in subject data not found in domain data.
+      i 46 ID(s) in subject data not found in domain data.
       These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
       v `PD_Map_Raw()` returned output with 50 rows.
@@ -934,7 +1424,7 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 1 rows.
-      v `Analyze_Qtl()` returned output with 1 rows.
+      v `Analyze_QTL()` returned output with 1 rows.
       v `Flag_QTL()` returned output with 1 rows.
       v `Summarize()` returned output with 1 rows.
       v `PD_Assess()` Successful
@@ -975,7 +1465,7 @@
       
       Input data has 50 rows.
       v `Transform_Rate()` returned output with 1 rows.
-      v `Analyze_Qtl()` returned output with 1 rows.
+      v `Analyze_QTL()` returned output with 1 rows.
       v `Flag_QTL()` returned output with 1 rows.
       v `Summarize()` returned output with 1 rows.
       v `Disp_Assess()` Successful

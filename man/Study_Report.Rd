@@ -4,16 +4,10 @@
 \alias{Study_Report}
 \title{{experimental} Study Report}
 \usage{
-Study_Report(
-  lAssessments,
-  lMeta = list(Project = "My Project"),
-  strOutpath = NULL
-)
+Study_Report(lAssessments, strOutpath = NULL)
 }
 \arguments{
 \item{lAssessments}{\code{list} The results of multiple assessments run using \code{Study_Assess}.}
-
-\item{lMeta}{\code{list} Metadata related to study.}
 
 \item{strOutpath}{\code{character} File path; location where the report will be saved.}
 }

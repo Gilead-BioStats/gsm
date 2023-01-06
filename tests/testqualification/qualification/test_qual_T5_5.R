@@ -4,7 +4,7 @@ test_that("Disposition assessment can return a correctly assessed data frame for
 
   test5_5 <- Disp_Assess(
     dfInput = dfInput,
-    strMethod = "identity",
+    strMethod = "Identity",
     strGroup = "CustomGroup",
     vThreshold = c(2.31, 6.58)
   )
@@ -43,12 +43,12 @@ test_that("Disposition assessment can return a correctly assessed data frame for
       )
     ) %>%
     select(-median) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t5_5_summary <- t5_5_flagged %>%
-    select(GroupID, Metric, Score, Flag) %>%
+    select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(1, -1, 0)))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t5_5 <- list(
     "dfTransformed" = t5_5_transformed,

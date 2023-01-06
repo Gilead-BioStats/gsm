@@ -9,16 +9,17 @@
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
 #'
-#' @param dfInput `data.frame` Input data, a data frame with one record per subject.
+#' @param dfInput `data.frame` Input data, a data frame with one record per lab record.
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 or 4 that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation (`strMethod = "NormalApprox"`),
-#' `c(.01, .05)` for Fisher's exact test (`strMethod = "fisher"`), and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "identity"`).
+#' `c(.01, .05)` for Fisher's exact test (`strMethod = "Fisher"`), and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "Identity"`).
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"NormalApprox"` (default)
-#'   - `"fisher"`
-#'   - `"identity"`
+#'   - `"Fisher"`
+#'   - `"Identity"`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Labs Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -29,7 +30,7 @@
 #'   - `dfSummary`, returned by [gsm::Summarize()]
 #'   - `dfBounds`, returned by [gsm::Analyze_NormalApprox_PredictBounds()] when `strMethod == "NormalApprox"`
 #' - `list` `lCharts`, a named list with:
-#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when strMethod != "identity"
+#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when strMethod != "Identity"
 #'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()]
 #'   - `barScore`, a ggplot2 object returned by [gsm::Visualize_Score()]
 #' - `list` `lChecks`, a named list with:
@@ -44,8 +45,8 @@
 #' @examples
 #' dfInput <- LB_Map_Raw()
 #' lb_assessment_NormalApprox <- LB_Assess(dfInput, strMethod = "NormalApprox")
-#' lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "fisher")
-#' lb_assessment_identity <- LB_Assess(dfInput, strMethod = "identity")
+#' lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "Fisher")
+#' lb_assessment_identity <- LB_Assess(dfInput, strMethod = "Identity")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
@@ -60,12 +61,13 @@ LB_Assess <- function(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nMinDenominator = NULL,
   bQuiet = TRUE
 ) {
 
   # data checking -----------------------------------------------------------
   stopifnot(
-    "strMethod is not 'NormalApprox', 'fisher' or 'identity'" = strMethod %in% c("NormalApprox", "fisher", "identity"),
+    "strMethod is not 'NormalApprox', 'Fisher' or 'Identity'" = strMethod %in% c("NormalApprox", "Fisher", "Identity"),
     "strMethod must be length 1" = length(strMethod) == 1,
     "strGroup must be one of: Site, Study, Country, or CustomGroup" = strGroup %in% c("Site", "Study", "Country", "CustomGroup"),
     "bQuiet must be logical" = is.logical(bQuiet)
@@ -84,15 +86,15 @@ LB_Assess <- function(
   if (is.null(vThreshold)) {
     vThreshold <- switch(strMethod,
       NormalApprox = c(-3, -2, 2, 3),
-      fisher = c(0.01, 0.05),
-      identity = c(3.491, 5.172)
+      Fisher = c(0.01, 0.05),
+      Identity = c(3.491, 5.172)
     )
   }
 
   strValueColumnVal <- switch(strMethod,
     NormalApprox = NULL,
-    fisher = "Score",
-    identity = "Score"
+    Fisher = "Score",
+    Identity = "Score"
   )
 
   # begin running assessment ------------------------------------------------
@@ -133,9 +135,9 @@ LB_Assess <- function(
         strType = "binary",
         bQuiet = bQuiet
       )
-    } else if (strMethod == "fisher") {
+    } else if (strMethod == "Fisher") {
       lData$dfAnalyzed <- gsm::Analyze_Fisher(lData$dfTransformed, bQuiet = bQuiet)
-    } else if (strMethod == "identity") {
+    } else if (strMethod == "Identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
     }
 
@@ -145,22 +147,22 @@ LB_Assess <- function(
     # dfFlagged ---------------------------------------------------------------
     if (strMethod == "NormalApprox") {
       lData$dfFlagged <- gsm::Flag_NormalApprox(lData$dfAnalyzed, vThreshold = vThreshold)
-    } else if (strMethod == "fisher") {
+    } else if (strMethod == "Fisher") {
       lData$dfFlagged <- gsm::Flag_Fisher(lData$dfAnalyzed, vThreshold = vThreshold)
-    } else if (strMethod == "identity") {
+    } else if (strMethod == "Identity") {
       lData$dfFlagged <- gsm::Flag(lData$dfAnalyzed, vThreshold = vThreshold, strValueColumn = strValueColumnVal)
     }
 
     flag_function_name <- switch(strMethod,
       NormalApprox = "Flag_NormalApprox",
-      identity = "Flag",
-      fisher = "Flag_Fisher"
+      Identity = "Flag",
+      Fisher = "Flag_Fisher"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
 
     # dfSummary ---------------------------------------------------------------
-    lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
+    lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
@@ -168,14 +170,51 @@ LB_Assess <- function(
 
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-    if (strMethod != "identity") {
-      lCharts$scatter <- gsm::Visualize_Scatter(dfFlagged = lData$dfFlagged, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-      if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Scatter} created {length(lCharts)} chart.")
+    dfConfig <- MakeDfConfig(
+      strMethod = strMethod,
+      strGroup = strGroup,
+      strAbbreviation = "LB",
+      strMetric = "Lab Abnormality Rate",
+      strNumerator = "Abnormal Lab Samples",
+      strDenominator = "Total Lab Samples",
+      vThreshold = vThreshold
+    )
+
+
+
+    if (strMethod != "Identity") {
+      lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+
+
+      # rbm-viz charts ----------------------------------------------------------
+      lCharts$scatterJS <- scatterPlot(
+        results = lData$dfSummary,
+        workflow = dfConfig,
+        bounds = lData$dfBounds,
+        elementId = "lbAssessScatter"
+      )
+
+      if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
     }
 
-    lCharts$barMetric <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score", vThreshold = vThreshold)
-    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(names(lCharts)[names(lCharts) != 'scatter'])} chart{?s}.")
+    lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
+    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
+
+    lCharts$barMetricJS <- barChart(
+      results = lData$dfSummary,
+      workflow = dfConfig,
+      yaxis = "metric",
+      elementId = "lbAssessMetric"
+    )
+
+    lCharts$barScoreJS <- barChart(
+      results = lData$dfSummary,
+      workflow = dfConfig,
+      yaxis = "score",
+      elementId = "lbAssessScore"
+    )
+
+    if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
 
 
 

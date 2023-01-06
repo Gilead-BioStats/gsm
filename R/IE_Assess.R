@@ -17,6 +17,7 @@
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Inclusion/Exclusion Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -53,6 +54,7 @@ IE_Assess <- function(
   nThreshold = 0.5,
   lMapping = yaml::read_yaml(system.file("mappings", "IE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
+  nMinDenominator = NULL,
   bQuiet = TRUE
 ) {
 
@@ -102,14 +104,40 @@ IE_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Flag} returned output with {nrow(lData$dfFlagged)} rows.")
 
     # dfSummary ---------------------------------------------------------------
-    lData$dfSummary <- gsm::Summarize(lData$dfFlagged)
+    lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
     lCharts <- list()
-    lCharts$barMetric <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "metric")
-    lCharts$barScore <- Visualize_Score(dfFlagged = lData$dfFlagged, strType = "score")
-    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Score} created {length(lCharts)} chart{?s}.")
+
+    dfConfig <- MakeDfConfig(
+      strMethod = "identity",
+      strGroup = strGroup,
+      strAbbreviation = "IE",
+      strMetric = "Inclusion/Exclusion Issues",
+      strNumerator = "Inclusion/Exclusion Issues",
+      strDenominator = "",
+      vThreshold = nThreshold
+    )
+
+    lCharts$barMetric <- Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
+    lCharts$barScore <- Visualize_Score(dfSummary = lData$dfSummary, strType = "score")
+
+    lCharts$barMetricJS <- barChart(
+      results = lData$dfSummary,
+      workflow = dfConfig,
+      yaxis = "metric",
+      elementId = "ieAssessMetric"
+    )
+
+    lCharts$barScoreJS <- barChart(
+      results = lData$dfSummary,
+      workflow = dfConfig,
+      yaxis = "score",
+      elementId = "ieAssessScore"
+    )
+
+    if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} bar chart{?s}.")
 
     # return data -------------------------------------------------------------
     return(list(

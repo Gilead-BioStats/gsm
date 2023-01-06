@@ -1,6 +1,6 @@
 #' Group-level visualization of scores.
 #'
-#' @param dfFlagged `data.frame` returned by [gsm::Flag()]
+#' @param dfSummary `data.frame` returned by [gsm::Summarize()]
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to NULL.
 #' @param strType `character` One of `"KRI"` or `"score"`.
 #' @param bFlagFilter `logical` Filter out non-flagged groups? Default: `FALSE`
@@ -11,11 +11,11 @@
 #' @examples
 #' ae <- AE_Map_Raw() %>% AE_Assess()
 #'
-#' Visualize_Score(ae$lData$dfFlagged) # visualize KRI (default)
-#' Visualize_Score(ae$lData$dfFlagged, bFlagFilter = TRUE) # drop non-flagged groups
+#' Visualize_Score(ae$lData$dfSummary) # visualize KRI (default)
+#' Visualize_Score(ae$lData$dfSummary, bFlagFilter = TRUE) # drop non-flagged groups
 #'
 #' consent <- Consent_Map_Raw() %>% Consent_Assess()
-#' Visualize_Score(consent$lData$dfFlagged, strType = "score") # visualize score
+#' Visualize_Score(consent$lData$dfSummary, strType = "score") # visualize score
 #'
 #' @import ggplot2
 #' @importFrom stats reorder
@@ -23,7 +23,7 @@
 #' @export
 
 Visualize_Score <- function(
-  dfFlagged,
+  dfSummary,
   vThreshold = NULL,
   strType = "metric",
   bFlagFilter = FALSE,
@@ -32,24 +32,24 @@ Visualize_Score <- function(
   stopifnot(
     "strTitle must be character" = is.character(strTitle),
     "bFlagFilter must be logical" = is.logical(bFlagFilter),
-    "dfFlagged must be a data.frame" = is.data.frame(dfFlagged),
+    "dfSummary must be a data.frame" = is.data.frame(dfSummary),
     "strType must be 'metric' or 'score'" = strType %in% c("metric", "score"),
     "strType must be length 1" = length(strType) == 1
   )
 
-  dfFlagged$FlagAbs <- abs(dfFlagged$Flag)
-  flagBreaks <- as.character(unique(sort(dfFlagged$FlagAbs)))
+  dfSummary$FlagAbs <- abs(dfSummary$Flag)
+  flagBreaks <- as.character(unique(sort(dfSummary$FlagAbs)))
   flagValues <- c("#999999", "#FADB14", "#FF4D4F")[1:length(flagBreaks)]
 
   if (bFlagFilter) {
-    dfFlagged <- dfFlagged %>%
+    dfSummary <- dfSummary %>%
       filter(
         .data$Flag != 0
       )
   }
 
   if (strType == "metric") {
-    dfFlaggedWithTooltip <- dfFlagged %>%
+    dfSummaryWithTooltip <- dfSummary %>%
       mutate(
         tooltip = paste(
           paste0("GroupID: ", .data$GroupID),
@@ -58,7 +58,7 @@ Visualize_Score <- function(
         )
       )
 
-    p <- dfFlaggedWithTooltip %>%
+    p <- dfSummaryWithTooltip %>%
       ggplot(
         aes(
           x = reorder(.data$GroupID, -.data$Metric),
@@ -78,10 +78,10 @@ Visualize_Score <- function(
         "Metric"
       )
 
-    if (all(c("Numerator", "Denominator") %in% names(dfFlagged))) {
+    if (all(c("Numerator", "Denominator") %in% names(dfSummary))) {
       p <- p +
         geom_hline(
-          yintercept = sum(dfFlagged$Numerator) / sum(dfFlagged$Denominator),
+          yintercept = sum(dfSummary$Numerator) / sum(dfSummary$Denominator),
           linetype = "dashed",
           color = "#FF4D4F"
         )
@@ -98,7 +98,7 @@ Visualize_Score <- function(
     }
 
 
-    dfFlaggedWithTooltip <- dfFlagged %>%
+    dfSummaryWithTooltip <- dfSummary %>%
       mutate(
         tooltip = paste(
           paste0("GroupID: ", .data$GroupID),
@@ -107,7 +107,7 @@ Visualize_Score <- function(
         )
       )
 
-    p <- dfFlaggedWithTooltip %>%
+    p <- dfSummaryWithTooltip %>%
       ggplot(
         aes(
           x = reorder(.data$GroupID, -.data$Score),
@@ -160,7 +160,7 @@ Visualize_Score <- function(
     ) +
     ggtitle(strTitle)
 
-  if (nrow(dfFlaggedWithTooltip) > 25) {
+  if (nrow(dfSummaryWithTooltip) > 25) {
     p <- p +
       theme(
         axis.ticks.x = element_blank()

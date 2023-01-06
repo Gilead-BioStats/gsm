@@ -1,0 +1,12 @@
+dfInput:
+  vRequired:
+    - "strIDCol"
+    - "strGroupCol"
+    - "strCountCol"
+    - "strDataPointsCol"
+    - "strRateCol"
+  vUniqueCols:
+    - "strIDCol"
+  vNACols:
+    - strDataPointsCol
+    - strRateCol
