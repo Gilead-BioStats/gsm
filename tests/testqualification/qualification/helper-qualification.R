@@ -1,8 +1,8 @@
 # Transform
 qualification_transform_counts <- function(dfInput,
-  countCol = "Count",
-  exposureCol = "Exposure",
-  GroupID = "SiteID") {
+                                           countCol = "Count",
+                                           exposureCol = "Exposure",
+                                           GroupID = "SiteID") {
   if (is.na(exposureCol)) {
     dfTransformed <- dfInput %>%
       filter(!is.na(.data[[countCol]])) %>%
@@ -36,8 +36,8 @@ qualification_analyze_poisson <- function(dfTransformed) {
   dfTransformed$LogExposure <- log(dfTransformed$Denominator)
 
   model <- glm(Numerator ~ stats::offset(LogExposure),
-    family = poisson(link = "log"),
-    data = dfTransformed
+               family = poisson(link = "log"),
+               data = dfTransformed
   )
 
   outputDF <- dfTransformed %>%
@@ -66,7 +66,7 @@ qualification_flag_poisson <- function(dfAnalyzed, threshold = c(-7, -5, 5, 7)) 
     arrange(match(Flag, c(2, -2, 1, -1, 0)))
 }
 
-
+# Fisher
 qualification_analyze_fisher <- function(dfTransformed) {
   groups <- unique(dfTransformed$GroupID)
   estimates <- rep(NA, length(groups))
@@ -129,6 +129,59 @@ qualification_flag_fisher <- function(dfAnalyzed, threshold = c(0.01, 0.05)) {
         Score < threshold[2] & Prop > Prop_Other ~ 1,
         is.na(Score) | is.nan(Score) ~ NA_real_,
         TRUE ~ 0
+      ),
+    ) %>%
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+}
+
+# Normal
+qualification_analyze_normalapprox <- function(dfTransformed, strType) {
+  if(strType == "binary"){
+    scored <- dfTransformed %>%
+      mutate(
+        OverallMetric = sum(Numerator) / sum(Denominator),
+        z_0 = (Metric - OverallMetric) /
+          sqrt(OverallMetric * (1 - OverallMetric) / Denominator),
+        Factor = mean(z_0^2),
+        Score = (Metric - OverallMetric) /
+          sqrt(Factor * OverallMetric * (1 - OverallMetric) / Denominator)
+      )
+  } else if (strType == "rate") {
+    scored <- dfTransformed %>%
+      mutate(
+        OverallMetric = sum(Numerator) / sum(Denominator),
+        z_0 = (Metric - OverallMetric) /
+          sqrt(OverallMetric / Denominator),
+        Factor = mean(z_0^2),
+        Score = (Metric - OverallMetric) /
+          sqrt(Factor * OverallMetric / Denominator)
+      )
+
+  }
+
+  outputDF <- scored %>%
+    select("GroupID",
+           "Numerator",
+           "Denominator",
+           "Metric",
+           "OverallMetric",
+           "Factor",
+           "Score") %>%
+    arrange(Score)
+
+  return(outputDF)
+
+}
+
+qualification_flag_normalapprox <- function(dfAnalyzed, threshold = c(-3, -2, 2, 3)) {
+  dfAnalyzed %>%
+    mutate(
+      Flag = case_when(
+        Score < threshold[1] ~ -2,
+        threshold[1] <= Score & Score < threshold[2] ~ -1,
+        threshold[2] <= Score & Score < threshold[3] ~ 0,
+        threshold[3] <= Score & Score < threshold[4] ~ 1,
+        threshold[4] <= Score ~ 2
       ),
     ) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0)))
