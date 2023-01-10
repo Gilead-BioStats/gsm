@@ -20,6 +20,8 @@ ExportCode(
 
 \item{lAssessments}{\code{list} The result of running \code{\link[=MakeWorkflowList]{MakeWorkflowList()}}, or a custom workflow.}
 
+\item{bInsertText}{\code{logical} Should code be inserted into a new .R file? Default: \code{TRUE}.}
+
 \item{strPath}{\code{character} Path for where the code should be saved.}
 
 \item{strFileName}{\code{character} Name of file to save.}
@@ -36,7 +38,7 @@ lData <- list(
   dfIE = clindata::rawplus_ie,
   dfLB = clindata::rawplus_lb,
   dfSTUDCOMP = clindata::rawplus_studcomp,
-  dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\% filter(.data$datapagename == "Blinded Study Drug Completion")
+  dfSDRGCOMP = clindata::rawplus_sdrgcomp
 )
 
 

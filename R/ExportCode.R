@@ -5,6 +5,7 @@
 #' @param lData `list` Raw+ data to use as inputs.
 #' @param lMapping `list` Standard mapping provided for [gsm::FilterDomain()] and `*_Map_Raw()` functions.
 #' @param lAssessments `list` The result of running [gsm::MakeWorkflowList()], or a custom workflow.
+#' @param bInsertText `logical` Should code be inserted into a new .R file? Default: `TRUE`.
 #' @param strPath `character` Path for where the code should be saved.
 #' @param strFileName `character` Name of file to save.
 #'
@@ -18,7 +19,7 @@
 #'   dfIE = clindata::rawplus_ie,
 #'   dfLB = clindata::rawplus_lb,
 #'   dfSTUDCOMP = clindata::rawplus_studcomp,
-#'   dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion")
+#'   dfSDRGCOMP = clindata::rawplus_sdrgcomp
 #' )
 #'
 #'
