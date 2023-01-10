@@ -29,7 +29,7 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     purrr::reduce(left_join, by = "GroupID") %>%
     rowwise() %>%
     mutate("Red KRIs" = {
-      x <- c_across("GroupID")
+      x <- c_across(-"GroupID")
       sum(x %in% c(2, -2))
     }) %>%
     mutate("Amber KRIs" = {
