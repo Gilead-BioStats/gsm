@@ -1,5 +1,7 @@
 #' Export gsm analysis script using Data, Mapping, and Workflow
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' @param lData `list` Raw+ data to use as inputs.
 #' @param lMapping `list` Standard mapping provided for [gsm::FilterDomain()] and `*_Map_Raw()` functions.
 #' @param lAssessments `list` The result of running [gsm::MakeWorkflowList()], or a custom workflow.
@@ -24,35 +26,30 @@
 #'
 #' code <- ExportCode(lData, lMapping, lAssessments)
 #'
+#' @importFrom rstudioapi navigateToFile getSourceEditorContext insertText
+#' @importFrom fs file_create
+#' @importFrom glue glue glue_collapse
+#' @importFrom purrr map imap flatten
+#' @importFrom stringr str_detect
+#'
 #' @export
-ExportCode <- function(lData, lMapping, lAssessments) {
+ExportCode <- function(
+    lData,
+    lMapping,
+    lAssessments,
+    bInsertText = FALSE
+    ) {
   # required packages -------------------------------------------------------
   packages <- glue::glue("library(gsm)
-                    library(tidyverse)
-                       ⢤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⡤
-                      ⠀⢻⣿⣿⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣶⣿⣿⣿⠀
-                      ⢀⣿⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⡄
-                      ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣇
-                      ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟
-                      ⠈⠻⣿⣿⣿⣿⣿⣿⡿⣿⣿⢿⣿⣿⣿⣿⡿⣿⣿⢿⣿⣿⣿⣿⣿⣿⠟⠁
-                      ⠀⠀⠈⢹⣿⣿⣿⣍⡸⣿⣿⢀⣹⣿⣿⣏⡐⣿⣿⢇⣩⣿⣿⣿⡏⠀⠀⠀
-                      ⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⠛⠛⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀
-                      ⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⡟⠋⠁⠀⠀⠈⠙⠻⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀
-                      ⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣧⣀⣀⠀⠀⣀⣀⣴⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀
-                      ⠀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀
-                      ⠀⠀⠀⠀⠀⠀⠈⠛⠛⠻⠿⠿⠿⠿⠿⠿⠿⠿⠟⠛⠛⠉⠀⠀⠀⠀⠀⠀")
-
-
-
-
+                    library(tidyverse)")
 
 
 
   # loop over KRIs ----------------------------------------------------------
-  code_for_kri <- imap(lAssessments, function(kri, kri_name) {
+  code_for_kri <- purrr::imap(lAssessments, function(kri, kri_name) {
 
     # loop over KRI workflow steps --------------------------------------------
-    map(1:length(kri$steps), function(index) {
+    purrr::map(1:length(kri$steps), function(index) {
       steps <- kri$steps[[index]]
       function_name <- steps$name
       args <- formals(eval(as.name(function_name)))
@@ -104,7 +101,7 @@ ExportCode <- function(lData, lMapping, lAssessments) {
 
       if (!is.null(params)) {
         if (!stringr::str_detect(function_name, "Assess")) {
-          params <- imap(params, function(value, name) {
+          params <- purrr::imap(params, function(value, name) {
 
             if (name == "strDomain") {
               glue::glue("'{value}'")
@@ -138,7 +135,7 @@ ExportCode <- function(lData, lMapping, lAssessments) {
       }
 
       # create comma separated function inputs ----------------------------------
-      function_inputs <- imap(args, function(param, arg) {
+      function_inputs <- purrr::imap(args, function(param, arg) {
         if (substring(arg, 1, 3) == "str" & !stringr::str_detect(function_name, "Filter")) {
           # quote string-type arguments
           glue::glue("{enexpr(arg)} = '{param}'")
@@ -163,6 +160,7 @@ ExportCode <- function(lData, lMapping, lAssessments) {
             {function_inputs}
             )")
 
+
       return(list(comments, code))
 
 
@@ -171,20 +169,28 @@ ExportCode <- function(lData, lMapping, lAssessments) {
 
 
 
-  collapsed <- map(code_for_kri, function(kri) {
-    map(kri, function(x) {
+  collapsed <- purrr::map(code_for_kri, function(kri) {
+    purrr::map(kri, function(x) {
       glue::glue_collapse(x, sep = "\n\n")
     })
   }) %>%
-    flatten()
+    purrr::flatten()
 
   output <- list(
     packages = packages,
     code = collapsed
   ) %>%
-    flatten() %>%
+    purrr::flatten() %>%
     glue::glue_collapse(sep = "\n\n")
 
-  return(output)
+  if (bInsertText) {
+    rstudioapi::navigateToFile(fs::file_create(tempfile(fileext = ".r")))
+    id <- rstudioapi::getSourceEditorContext()$id
+    Sys.sleep(1)
+    rstudioapi::insertText(c(1, 1), output, id)
+  } else {
+    return(output)
+  }
+
 
 }
