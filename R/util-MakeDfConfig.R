@@ -49,7 +49,7 @@ MakeDfConfig <- function(
     NormalApprox = "Adjusted Z-Score",
     Poisson = "Residual",
     Identity = "Count",
-    Fisher = "Fisher"
+    Fisher = "P-value"
   )
 
   dfConfig <- dplyr::tibble(
