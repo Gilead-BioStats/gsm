@@ -5,6 +5,8 @@
 #' @param lData `list` Raw+ data to use as inputs.
 #' @param lMapping `list` Standard mapping provided for [gsm::FilterDomain()] and `*_Map_Raw()` functions.
 #' @param lAssessments `list` The result of running [gsm::MakeWorkflowList()], or a custom workflow.
+#' @param strPath `character` Path for where the code should be saved.
+#' @param strFileName `character` Name of file to save.
 #'
 #'
 #' @examples
@@ -33,12 +35,12 @@
 #' @importFrom stringr str_detect
 #'
 #' @export
-ExportCode <- function(
-    lData,
-    lMapping,
-    lAssessments,
-    bInsertText = FALSE
-    ) {
+ExportCode <- function(lData,
+                       lMapping,
+                       lAssessments,
+                       bInsertText = FALSE,
+                       strPath = NULL,
+                       strFileName = NULL) {
   # required packages -------------------------------------------------------
   packages <- glue::glue("library(gsm)
                     library(tidyverse)")
@@ -63,19 +65,15 @@ ExportCode <- function(
 
       if (index == 1) {
 
-          # if input is only one object, e.g., df = ...
-          inputs <- glue::glue("lData[['{steps$inputs}']]")
+        # if input is only one object, e.g., df = ...
+        inputs <- glue::glue("lData[['{steps$inputs}']]")
 
-          if (length(inputs) > 1) {
-            # if input is a list of objects, e.g., dfs = list(...)
-            inputs <- paste0("list(", glue::glue_collapse(inputs, sep = ", "), ")")
-          }
-
-
-
+        if (length(inputs) > 1) {
+          # if input is a list of objects, e.g., dfs = list(...)
+          inputs <- paste0("list(", glue::glue_collapse(inputs, sep = ", "), ")")
+        }
       } else {
         if (length(inputs) > 1) {
-
           inputs <- map(inputs, function(input_name) {
             # if any input == the output of the previous workflow, it will be available in the R environment when running script top-to-bottom
             # -- if so, use the object that should be present in the global environment
@@ -83,12 +81,12 @@ ExportCode <- function(
             if (!any(input_name %in% kri$steps[[index - 1]][["output"]])) {
               if (!input_name %in% kri$steps[[index - 1]][["output"]]) {
 
-              # source from lData
-              glue::glue("{input_name} = lData[['{input_name}']]")
+                # source from lData
+                glue::glue("{input_name} = lData[['{input_name}']]")
               } else {
 
-              # source from environment
-              glue::glue("{input_name} = {input_name}")
+                # source from environment
+                glue::glue("{input_name} = {input_name}")
               }
             } else {
               glue::glue("{input_name} = {input_name}")
@@ -102,7 +100,6 @@ ExportCode <- function(
       if (!is.null(params)) {
         if (!stringr::str_detect(function_name, "Assess")) {
           params <- purrr::imap(params, function(value, name) {
-
             if (name == "strDomain") {
               glue::glue("'{value}'")
             } else {
@@ -143,27 +140,22 @@ ExportCode <- function(
           # otherwise, do not quote
           glue::glue("{enexpr(arg)} = {param}")
         }
-
       }) %>%
         glue::glue_collapse(sep = ",\n")
 
+      # identify start of code for each workflow
       if (index == 1) {
         comments <- glue::glue("# START OF {kri$name}
                                 #--- {kri$name}:{function_name} ---")
-
       } else {
         comments <- glue::glue("#--- {kri$name}:{function_name} ---")
       }
-
 
       code <- glue::glue("{output} <- {steps$name}(
             {function_inputs}
             )")
 
-
       return(list(comments, code))
-
-
     })
   })
 
@@ -183,14 +175,25 @@ ExportCode <- function(
     purrr::flatten() %>%
     glue::glue_collapse(sep = "\n\n")
 
-  if (bInsertText) {
-    rstudioapi::navigateToFile(fs::file_create(tempfile(fileext = ".r")))
+
+  # save/insert output ------------------------------------------------------
+  if (!is.null(strPath)) {
+    if (!is.null(strFileName)) {
+      cat(output, file = paste0(strPath, "/", strFileName, ".R"))
+    } else {
+      cat(output, file = paste0(strPath, "/gsm_code.R"))
+    }
+  } else if (bInsertText) {
+    if (is.null(strFileName)) {
+      file <- tempfile(fileext = ".r")
+    } else {
+      file <- paste0(strFileName, ".r")
+    }
+    rstudioapi::navigateToFile(fs::file_create(file))
     id <- rstudioapi::getSourceEditorContext()$id
     Sys.sleep(1)
     rstudioapi::insertText(c(1, 1), output, id)
   } else {
     return(output)
   }
-
-
 }

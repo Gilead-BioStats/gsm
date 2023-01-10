@@ -4,7 +4,14 @@
 \alias{ExportCode}
 \title{Export gsm analysis script using Data, Mapping, and Workflow}
 \usage{
-ExportCode(lData, lMapping, lAssessments, bInsertText = FALSE)
+ExportCode(
+  lData,
+  lMapping,
+  lAssessments,
+  bInsertText = FALSE,
+  strPath = NULL,
+  strFileName = NULL
+)
 }
 \arguments{
 \item{lData}{\code{list} Raw+ data to use as inputs.}
@@ -12,6 +19,10 @@ ExportCode(lData, lMapping, lAssessments, bInsertText = FALSE)
 \item{lMapping}{\code{list} Standard mapping provided for \code{\link[=FilterDomain]{FilterDomain()}} and \verb{*_Map_Raw()} functions.}
 
 \item{lAssessments}{\code{list} The result of running \code{\link[=MakeWorkflowList]{MakeWorkflowList()}}, or a custom workflow.}
+
+\item{strPath}{\code{character} Path for where the code should be saved.}
+
+\item{strFileName}{\code{character} Name of file to save.}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
