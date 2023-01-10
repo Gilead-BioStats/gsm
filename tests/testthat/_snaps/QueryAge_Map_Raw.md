@@ -70,7 +70,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strVisitCol", "strFormCol", "strQueryAgeCol", "strQueryAgeVal"]
+              "value": ["strIDCol", "strVisitCol", "strFormCol", "strFieldCol", "strQueryAgeCol", "strQueryAgeVal"]
             }
           },
           "value": [
@@ -88,6 +88,11 @@
               "type": "character",
               "attributes": {},
               "value": ["form"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["field"]
             },
             {
               "type": "character",
