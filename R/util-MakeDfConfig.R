@@ -39,10 +39,10 @@ MakeDfConfig <- function(
   vThreshold
 ) {
   modelLabel <- switch(strMethod,
-    NormalApprox = "Normal Approximation (Rate)",
-    Poisson = "Poisson (Rate)",
-    Fisher = "Fisher (Rate)",
-    Identity = "Identity (Count)"
+    NormalApprox = "Normal Approximation",
+    Poisson = "Poisson",
+    Fisher = "Fisher",
+    Identity = "Identity"
   )
 
   scoreLabel <- switch(strMethod,

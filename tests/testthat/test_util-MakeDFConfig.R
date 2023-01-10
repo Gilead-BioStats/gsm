@@ -140,15 +140,15 @@ test_that("correct modelLabel values are returned", {
     vThreshold = c(-3, -2, 2, 3)
   )
 
-  expect_equal(NormalApprox$model, "Normal Approximation (Rate)")
+  expect_equal(NormalApprox$model, "Normal Approximation")
   expect_equal(NormalApprox$score, "Adjusted Z-Score")
 
-  expect_equal(Poisson$model, "Poisson (Rate)")
+  expect_equal(Poisson$model, "Poisson")
   expect_equal(Poisson$score, "Residual")
 
-  expect_equal(Identity$model, "Identity (Count)")
+  expect_equal(Identity$model, "Identity")
   expect_equal(Identity$score, "Count")
 
-  expect_equal(Fisher$model, "Fisher (Rate)")
-  expect_equal(Fisher$score, "Fisher")
+  expect_equal(Fisher$model, "Fisher")
+  expect_equal(Fisher$score, "P-value")
 })
