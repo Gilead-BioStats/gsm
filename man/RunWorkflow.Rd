@@ -4,7 +4,7 @@
 \alias{RunWorkflow}
 \title{Run a single assessment}
 \usage{
-RunWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE)
+RunWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE, bFlowchart = FALSE)
 }
 \arguments{
 \item{lWorkflow}{\code{list} A named list of metadata defining how each assessment should be run. Properties should include: \code{label} and \code{workflow}}
@@ -14,6 +14,8 @@ RunWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE)
 \item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+
+\item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}}
 }
 \value{
 \code{list} containing \code{lWorkflow} with \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of \code{assessment$workflow}.

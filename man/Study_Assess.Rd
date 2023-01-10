@@ -9,7 +9,8 @@ Study_Assess(
   lMapping = NULL,
   lAssessments = NULL,
   lSubjFilters = NULL,
-  bQuiet = TRUE
+  bQuiet = TRUE,
+  bFlowchart = FALSE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ Study_Assess(
 \item{lSubjFilters}{\code{list} a named list of parameters to filter subject-level data on.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+
+\item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}}
 }
 \value{
 \code{list} of assessments containing status information and results.
