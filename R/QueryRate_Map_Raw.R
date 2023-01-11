@@ -99,7 +99,7 @@ QueryRate_Map_Raw <- function(
       )
 
     # Create subject Level query and data point counts and merge dfSUBJ
-    # Count queryat Form level in dfQUERY to match with data points at Form level in dfDATACHG
+    # Count query at Form level in dfQUERY to match with data points at Form level in dfDATACHG
     dfInput <- dfQUERY_mapped %>%
       group_by(.data$SubjectID, .data$VisitID, .data$FormID) %>%
       summarize(Count = n()) %>%
