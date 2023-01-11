@@ -14,7 +14,9 @@ lData <- list(
   dfQUERY = dfQUERY
 )
 
-study <- Study_Assess(lData = lData, bQuiet = TRUE)
+lAssessments <- MakeWorkflowList(strNames = c("cou0002", "kri0007", "kri0009"))
+
+study <- Study_Assess(lData = lData, bQuiet = TRUE, bFlowchart = TRUE)
 
 
 test_that("flowchart is created for all assessments", {
