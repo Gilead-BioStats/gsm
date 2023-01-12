@@ -65,12 +65,15 @@ QueryRate_Map_Raw <- function(
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn QueryRate_Map_Raw}")
 
+
+
     # Standarize Column Names
     dfQUERY_mapped <- dfs$dfQUERY %>%
       select(
         SubjectID = lMapping[["dfQUERY"]][["strIDCol"]],
         VisitID = lMapping[["dfQUERY"]][["strVisitCol"]],
-        FormID = lMapping[["dfQUERY"]][["strFormCol"]]
+        FormID = lMapping[["dfQUERY"]][["strFormCol"]],
+        FieldID = lMapping[["dfQUERY"]][["strFieldCol"]]
       )
 
     dfDATACHG_mapped <- dfs$dfDATACHG %>%
@@ -96,7 +99,7 @@ QueryRate_Map_Raw <- function(
       )
 
     # Create subject Level query and data point counts and merge dfSUBJ
-
+    # Count query at Form level in dfQUERY to match with data points at Form level in dfDATACHG
     dfInput <- dfQUERY_mapped %>%
       group_by(.data$SubjectID, .data$VisitID, .data$FormID) %>%
       summarize(Count = n()) %>%

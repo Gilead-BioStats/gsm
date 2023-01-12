@@ -70,7 +70,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strVisitCol", "strFormCol", "strQueryAgeCol", "strQueryAgeVal"]
+              "value": ["strIDCol", "strVisitCol", "strFormCol", "strFieldCol", "strQueryAgeCol", "strQueryAgeVal"]
             }
           },
           "value": [
@@ -88,6 +88,11 @@
               "type": "character",
               "attributes": {},
               "value": ["form"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["field"]
             },
             {
               "type": "character",
@@ -617,7 +622,7 @@
       -- Initializing `QueryAge_Map_Raw()` --
       
       i Intializing merge of domain and subject data
-      ! 1296 ID(s) in domain data not found in subject data.
+      ! 1298 ID(s) in domain data not found in subject data.
       Associated rows will not be included in merged data.
       v `QueryAge_Map_Raw()` returned output with 3 rows.
 

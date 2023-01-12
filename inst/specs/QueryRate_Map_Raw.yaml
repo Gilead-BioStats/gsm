@@ -3,6 +3,7 @@ dfQUERY:
     - strIDCol
     - strVisitCol
     - strFormCol
+    - strFieldCol
   vNACols:
     - strVisitCol
 dfDATACHG:

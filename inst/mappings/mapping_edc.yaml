@@ -8,6 +8,7 @@ dfQUERY:
   strIDCol: subjid
   strVisitCol: foldername
   strFormCol: form
+  strFieldCol: field
   strQueryAgeCol: qry30fl
   strQueryAgeVal: "Y"
 dfDATAENT:
