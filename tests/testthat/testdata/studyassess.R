@@ -5,4 +5,4 @@ standardOutput <- Study_Assess(
   bQuiet = TRUE
 )
 
-usethis::use_data(standardOutput, overwrite = TRUE)
+saveRDS(standardOutput, testthat::test_path("testdata/studyassess.rda"))
