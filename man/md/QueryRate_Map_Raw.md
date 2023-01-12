@@ -7,6 +7,7 @@
 |dfQUERY    |strIDCol         |                  |TRUE          |FALSE                       |FALSE                      |
 |dfQUERY    |strVisitCol      |                  |TRUE          |TRUE                        |FALSE                      |
 |dfQUERY    |strFormCol       |                  |TRUE          |FALSE                       |FALSE                      |
+|dfQUERY    |strFieldCol      |                  |TRUE          |FALSE                       |FALSE                      |
 |dfDATACHG  |strIDCol         |                  |TRUE          |FALSE                       |FALSE                      |
 |dfDATACHG  |strVisitCol      |                  |TRUE          |TRUE                        |FALSE                      |
 |dfDATACHG  |strFormCol       |                  |TRUE          |FALSE                       |FALSE                      |

@@ -22,6 +22,8 @@ UpdateGSMVersion <- function(version = NULL) {
     version <- as.character(utils::packageVersion("gsm"))
   }
 
+  cli::cli_alert_success("Setting {.pkg gsm} version to {.strong {version}}")
+
   meta_update <- c("meta_param.csv", "meta_workflow.csv")
 
   lMeta_update <- purrr::map(meta_update, ~ read.csv(here::here("data-raw", .x))) %>%

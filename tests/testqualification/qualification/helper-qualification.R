@@ -207,3 +207,4 @@ qualification_flag_identity <- function(dfAnalyzed, threshold = c(3.491, 5.172))
     select(-median) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0)))
 }
+

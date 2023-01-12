@@ -14,3 +14,10 @@ Overview_Table(lAssessments, bInteractive = TRUE)
 \description{
 Overview Table - Create summary of red and amber KRIs for a study.
 }
+\examples{
+\dontrun{
+lAssessments <- Study_Assess()
+Overview_Table(lAssessments)
+}
+
+}
