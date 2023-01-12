@@ -16,8 +16,8 @@ UpdateParams <- function(lWorkflow, dfConfig, dfMeta) {
   # mutate as character because clindata version of gsm_version is of class() == "package version" - need to update to character.
 
   all_param <- left_join(
-    dfConfig %>% mutate(gsm_version = as.character(.data$gsm_version)),
-    dfMeta %>% mutate(gsm_version = as.character(.data$gsm_version)),
+    dfConfig %>% mutate(index = as.character(.data$index)),
+    dfMeta %>% mutate(index = as.character(.data$index)),
     by = c("workflowid", "gsm_version", "param", "index")
   ) %>%
     group_by(.data$workflowid, .data$param) %>%
@@ -28,7 +28,8 @@ UpdateParams <- function(lWorkflow, dfConfig, dfMeta) {
     ) %>%
     ungroup() %>%
     filter(.data$flag) %>%
-    select(-.data$flag)
+    select(-"flag")
+
 
   # update list -------------------------------------------------------------
   # lWorkflow list is only updated when different values are found
