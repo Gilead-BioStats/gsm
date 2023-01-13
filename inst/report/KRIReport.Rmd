@@ -54,7 +54,7 @@ summary_table <- map(assessment, function(kri) {
     }
     
   } else {
-    htmltools::p("Workflow failed.")
+    htmltools::strong("Workflow failed.")
   }
   
 })
