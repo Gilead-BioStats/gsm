@@ -29,7 +29,7 @@ test_that("A subset of raw data entry data can be mapped correctly to create an 
   # read in raw data change count data
   data_chg_orig <- clindata::edc_data_change_rate
 
-  # count unique number of data point changes within each subject and remove duplicate records
+  # count unique number of PK data point changes within each subject and remove duplicate records
   data_chg <- data_chg_orig %>%
     filter(!!sym(lMapping$dfDATACHG$strFormCol) == "PK") %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%

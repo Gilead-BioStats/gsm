@@ -1,10 +1,10 @@
-test_that("A subset of Raw+ study drug disposition data can be mapped correctly to create an analysis-ready input dataset.", {
+test_that("A subset of Raw+ study treatment disposition data can be mapped correctly to create an analysis-ready input dataset.", {
 
 
   ########### gsm mapping ###########
   subset <- FilterData(dfInput = clindata::rawplus_sdrgcomp,
                        strCol = "sdrgreas",
-                       anyVal = "ADVERSE EVENT") # filtering only for subjects who discontinued study drug due to an AE
+                       anyVal = "ADVERSE EVENT") # filtering only for subjects who discontinued study treatment due to an AE
 
   observed <- gsm::Disp_Map_Raw(
     dfs = list(
@@ -28,11 +28,11 @@ test_that("A subset of Raw+ study drug disposition data can be mapped correctly 
             "Count",
             "Total")
 
-  # read in raw source study drug disposition data
+  # read in raw source study treatment disposition data
   disp_raw_orig <- clindata::rawplus_sdrgcomp %>%
     filter(!!sym(lMapping$dfSDRGCOMP$strTreatmentPhaseCol) == lMapping$dfSDRGCOMP$strTreatmentPhaseVal)
 
-  # count unique number of subjects who discontinued use of study drug due to an AE
+  # count unique number of subjects who discontinued use of study treatment due to an AE
   disp_raw <- disp_raw_orig %>%
     filter(!!sym(lMapping$dfSDRGCOMP$strTreatmentDiscontinuationFlagCol) == lMapping$dfSDRGCOMP$strTreatmentDiscontinuationFlagVal) %>%
     filter(!!sym(lMapping$dfSDRGCOMP$strTreatmentDiscontinuationReasonCol) == lMapping$dfSDRGCOMP$strTreatmentDiscontinuationReasonVal) %>%
@@ -45,8 +45,8 @@ test_that("A subset of Raw+ study drug disposition data can be mapped correctly 
   dm_raw_orig <- clindata::rawplus_dm
   dm_raw <- dm_raw_orig
 
-  # join DM and study drug disposition data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, disp_raw) %>%
+  # join DM and study treatment disposition data - full_join() to keep records from both data frames
+  expected <- full_join(dm_raw, disp_raw, by = "subjid") %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
     mutate(Count = replace_na(Count, 0),
            Total = n()) %>%
