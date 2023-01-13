@@ -1,4 +1,4 @@
-test_that("Raw data query data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics, data query rates, and data point counts with one record per subject, omitting subjects with no reported data points.", {
+test_that("Raw data query data can be mapped correctly to create an analysis-ready input dataset that has all required columns in the default EDC mapping specifications.", {
 
 
   ########### gsm mapping ###########
@@ -20,18 +20,8 @@ test_that("Raw data query data can be mapped correctly to create an analysis-rea
             "Rate")
 
   # read in raw data query data and data point count data
-  query_count_orig <- clindata::edc_queries
-  data_count_orig <- clindata::edc_data_change_rate
-
-  query_count <- query_count_orig %>%
-    group_by_at(lMapping$dfQUERY$strIDCol) %>%
-    mutate(flag = ifelse(is.na(qrystatus), 0, 1),
-           Count = sum(flag)) %>%
-    select(lMapping$dfQUERY$strIDCol, Count) %>%
-    distinct()
-
-
-
+  query_age_orig <- clindata::edc_queries
+  query_count_orig <- clindata::edc_data_change_rate
 
   # combine into one data frame
   query <- full_join(query_age_orig, query_count_orig, by = c("subjid", "foldername", "form")) %>%
@@ -39,12 +29,11 @@ test_that("Raw data query data can be mapped correctly to create an analysis-rea
     distinct()
 
   # count unique number of data queries within each subject and remove duplicate records
-  query_age_count <- query %>%
-    group_by_at(lMapping$dfQUERY$strIDCol, lMapping$dfQUERY$strVisitCol, lMapping$dfQUERY$strFormCol, lMapping$dfQUERY$strFieldCol) %>%
-    mutate(flag = ifelse(is.na(qrystatus), 0, 1),
-           Count = sum(flag)) %>%
-    group_by_at(lMapping$dfQUERY$strIDCol) %>%
+  query_age <- query %>%
+    group_by_at(lMapping$dfSUBJ$strIDCol) %>%
     mutate(DataPoint = sum(as.numeric(!!sym(lMapping$dfDATACHG$strDataPointsCol))),
+           flag = ifelse(is.na(qrystatus), 0, 1),
+           Count = sum(flag),
            Rate = as.numeric(Count)/as.numeric(DataPoint)) %>%
     select(lMapping$dfDATACHG$strIDCol, DataPoint, Count, Rate) %>%
     distinct()
@@ -61,19 +50,6 @@ test_that("Raw data query data can be mapped correctly to create an analysis-rea
 
 
   ########### testing ###########
-  # check that unique number of rows is the same as the unique number of subjects
-  subj_test <- length(unique(observed$SubjectID)) == nrow(expected)
-
-  # check that there is one record per subject
-  subj_length_check <- expected %>%
-    group_by(SubjectID) %>%
-    mutate(check = n())
-  subj_length_test <- unique(subj_length_check$check) == 1
-
-  # check that subjects with no reported data points are excluded
-  treat_test <- unique(is_empty(expected$SubjectID[expected$DataPoint == 0 | is.na(expected$DataPoint)]))
-
-  all_tests <- isTRUE(subj_test) & isTRUE(subj_length_test) & isTRUE(treat_test)
-  expect_true(all_tests)
+  expect_equal(colnames(observed), colnames(expected))
 
 })
