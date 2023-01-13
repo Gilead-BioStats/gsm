@@ -186,3 +186,26 @@ qualification_flag_normalapprox <- function(dfAnalyzed, threshold = c(-3, -2, 2,
     ) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0)))
 }
+
+
+qualification_flag_identity <- function(dfAnalyzed, threshold = c(3.491, 5.172)){
+  dfAnalyzed %>%
+  mutate(
+    Flag = case_when(
+      Score < threshold[1] ~ -1,
+      Score > threshold[2] ~ 1,
+      is.na(Score) ~ NA_real_,
+      is.nan(Score) ~ NA_real_,
+      TRUE ~ 0
+    ),
+    median = median(Score),
+    Flag = case_when(
+      Flag != 0 & Score < median ~ -1,
+      Flag != 0 & Score >= median ~ 1,
+      TRUE ~ Flag
+    )
+  ) %>%
+    select(-median) %>%
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+}
+
