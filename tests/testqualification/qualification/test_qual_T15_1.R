@@ -1,4 +1,4 @@
-test_that("Raw+ lab data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and lab data with one record per subject, omitting subjects with no reported lab values.", {
+test_that("Raw+ lab data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and abnormal lab data with one record per subject, omitting subjects with no reported lab values.", {
 
 
   ########### gsm mapping ###########
@@ -37,14 +37,14 @@ test_that("Raw+ lab data can be mapped correctly to create an analysis-ready inp
     distinct()
 
   # combine into one data frame
-  lb_raw <- full_join(lb_raw_abn, lb_raw_all)
+  lb_raw <- full_join(lb_raw_abn, lb_raw_all, by = "subjid")
 
   # read in raw source DM data
   dm_raw_orig <- clindata::rawplus_dm
   dm_raw <- dm_raw_orig
 
   # join DM and LB data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, lb_raw) %>%
+  expected <- full_join(dm_raw, lb_raw, by = "subjid") %>%
     mutate(Count = replace_na(Count, 0)) %>%
     filter(Total != 0 | !is.na(Total)) %>% # remove subjects without any lab values
     select(all_of(cols))
@@ -61,9 +61,9 @@ test_that("Raw+ lab data can be mapped correctly to create an analysis-ready inp
   subj_length_test <- unique(subj_length_check$check) == 1
 
   # check that subjects with no reported lab values are excluded
-  treat_test <- unique(is_empty(expected$SubjectID[expected$Total == 0 | is.na(expected$Total)]))
+  empty_test <- unique(is_empty(expected$SubjectID[expected$Total == 0 | is.na(expected$Total)]))
 
-  all_tests <- isTRUE(subj_test) & isTRUE(subj_length_test) & isTRUE(treat_test)
+  all_tests <- isTRUE(subj_test) & isTRUE(subj_length_test) & isTRUE(empty_test)
   expect_true(all_tests)
 
 })
