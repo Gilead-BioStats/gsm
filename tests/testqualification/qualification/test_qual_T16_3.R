@@ -34,7 +34,7 @@ test_that("Raw+ PD data can be mapped correctly to create an analysis-ready inpu
   dm_raw <- dm_raw_orig
 
   # join DM and PD data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, pd_raw) %>%
+  expected <- full_join(dm_raw, pd_raw, by = "subjid") %>%
     mutate(Count = replace_na(Count, 0),
            Rate = as.numeric(Count)/!!sym(lMapping$dfSUBJ$strTimeOnStudyCol)) %>%
     filter(!(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol) == 0) & !is.na(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol))) %>% # remove subjects that were not treated (i.e., had 0 or NA days of treatment)
@@ -46,10 +46,10 @@ test_that("Raw+ PD data can be mapped correctly to create an analysis-ready inpu
   # check that calculated number of events per subject is correct/consistent
   num_events <- unique(observed$Count == expected$Count)
 
-  # check that days of exposure per subject is correct/consistent
+  # check that calculated days on study per subject is correct/consistent
   num_exposure <- unique(observed$Exposure == expected$Exposure)
 
-  # check that calculated rate of PDs/exposure per subject is correct/consistent
+  # check that calculated rate of PDs/days on study per subject is correct/consistent
   rate <- unique(observed$Rate == expected$Rate)
 
   all_tests <- isTRUE(num_events) & isTRUE(num_exposure) & isTRUE(rate)
