@@ -29,7 +29,7 @@ test_that("A subset of raw data entry data can be mapped correctly to create an 
   # read in raw data change count data
   data_chg_orig <- clindata::edc_data_change_rate
 
-  # count unique number of PK form data point changes within each subject and remove duplicate records
+  # count unique number of data point changes within each subject and remove duplicate records
   data_chg <- data_chg_orig %>%
     filter(!!sym(lMapping$dfDATACHG$strFormCol) == "PK") %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
@@ -43,9 +43,9 @@ test_that("A subset of raw data entry data can be mapped correctly to create an 
   dm_raw <- dm_raw_orig
 
   # join DM and data change count data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, data_chg) %>%
+  expected <- full_join(dm_raw, data_chg, by = "subjid") %>%
     mutate(Count = replace_na(Count, 0)) %>%
-    filter(Total != 0 | !is.na(Total)) %>% # remove subjects without any data point changes
+    filter(Total != 0 | !is.na(Total)) %>% # remove subjects without any data points
     arrange(!!sym(lMapping$dfSUBJ$strIDCol)) %>%
     select(all_of(cols))
 
