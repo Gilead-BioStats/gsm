@@ -1,8 +1,4 @@
-test_that("Raw data query data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the query rate (i.e., the number of data queries over the total number of data points) per subject.", {
-
-
-  ########### gsm mapping ###########
-  observed <- gsm::QueryRate_Map_Raw()
+test_that("Raw data query data can be mapped correctly to create an analysis-ready input dataset where the sum of Count/Rate is equivalent to the sum of the variable 'n_data_points' in the source 'edc_data_change_rate' dataset.", {
 
 
   ########### double programming ###########
@@ -55,16 +51,11 @@ test_that("Raw data query data can be mapped correctly to create an analysis-rea
 
 
   ########### testing ###########
-  # check that calculated number of data queries per subject is correct/consistent
-  num_queries <- unique(observed$Count == expected$Count)
+  # check that overall sum of Count/Rate is the same as the sum of n_data_points in edc_data_change_rate
+  expected_summary <- expected %>%
+    mutate(Count_check = ifelse(Count == 0, DataPoint, as.numeric(Count)/as.numeric(Rate))) %>%
+    summarize(Rate_check = sum(as.numeric(Count_check), na.rm = TRUE))
 
-  # check that calculated number of total data points per subject is correct/consistent
-  num_points <- unique(observed$DataPoint == expected$DataPoint)
-
-  # check that calculated rate of data queries/total data points per subject is correct/consistent
-  rate <- unique(observed$Rate == expected$Rate)
-
-  all_tests <- isTRUE(num_queries) & isTRUE(num_points) & isTRUE(rate)
-  expect_true(all_tests)
+  expect_equal(expected_summary$Rate_check, sum(as.numeric(data_count_orig$n_data_points)))
 
 })

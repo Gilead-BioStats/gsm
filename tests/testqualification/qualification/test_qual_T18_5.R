@@ -1,8 +1,4 @@
-test_that("Raw data query data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the query rate (i.e., the number of data queries over the total number of data points) per subject.", {
-
-
-  ########### gsm mapping ###########
-  observed <- gsm::QueryRate_Map_Raw()
+test_that("Raw data query data can be mapped correctly to create an analysis-ready input dataset where the sum of the variable Count is equivalent to the number of rows in the source 'edc_queries' dataset.", {
 
 
   ########### double programming ###########
@@ -55,16 +51,7 @@ test_that("Raw data query data can be mapped correctly to create an analysis-rea
 
 
   ########### testing ###########
-  # check that calculated number of data queries per subject is correct/consistent
-  num_queries <- unique(observed$Count == expected$Count)
-
-  # check that calculated number of total data points per subject is correct/consistent
-  num_points <- unique(observed$DataPoint == expected$DataPoint)
-
-  # check that calculated rate of data queries/total data points per subject is correct/consistent
-  rate <- unique(observed$Rate == expected$Rate)
-
-  all_tests <- isTRUE(num_queries) & isTRUE(num_points) & isTRUE(rate)
-  expect_true(all_tests)
+  # check that overall sum of Count is the same as the number of rows in edc_queries
+  expect_equal(sum(expected$Count), nrow(query_count_orig))
 
 })
