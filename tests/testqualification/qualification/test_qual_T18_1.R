@@ -64,9 +64,9 @@ test_that("Raw data query data can be mapped correctly to create an analysis-rea
   subj_length_test <- unique(subj_length_check$check) == 1
 
   # check that subjects with no reported data points are excluded
-  treat_test <- unique(is_empty(expected$SubjectID[expected$DataPoint == 0 | is.na(expected$DataPoint)]))
+  empty_test <- unique(is_empty(expected$SubjectID[expected$DataPoint == 0 | is.na(expected$DataPoint)]))
 
-  all_tests <- isTRUE(subj_test) & isTRUE(subj_length_test) & isTRUE(treat_test)
+  all_tests <- isTRUE(subj_test) & isTRUE(subj_length_test) & isTRUE(empty_test)
   expect_true(all_tests)
 
 })
