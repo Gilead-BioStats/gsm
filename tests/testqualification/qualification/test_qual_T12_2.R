@@ -34,9 +34,9 @@ test_that("Raw data entry data can be mapped correctly to create an analysis-rea
   dm_raw <- dm_raw_orig
 
   # join DM and data change count data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, data_chg) %>%
+  expected <- full_join(dm_raw, data_chg, by = "subjid") %>%
     mutate(Count = replace_na(Count, 0)) %>%
-    filter(Total != 0 | !is.na(Total)) %>% # remove subjects without any data point changes
+    filter(Total != 0 | !is.na(Total)) %>% # remove subjects without any data points
     select(all_of(cols))
 
 
