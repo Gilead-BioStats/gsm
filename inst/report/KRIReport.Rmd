@@ -174,7 +174,7 @@ error_table <- error$dfSummary %>%
 DT::datatable(error_table)
 ```
 
-```{js}
+```{js echo=FALSE}
 function overallSiteDropdown() {
   // add container for drop-down
   const overallSiteSelectContainer = document.getElementById(
