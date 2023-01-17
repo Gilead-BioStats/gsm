@@ -1,4 +1,4 @@
-test_that("Raw+ study drug disposition data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and study drug disposition data with one record per subject.", {
+test_that("Raw+ study treatment disposition data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and study treatment disposition data with one record per subject.", {
 
 
   ########### gsm mapping ###########
@@ -18,11 +18,11 @@ test_that("Raw+ study drug disposition data can be mapped correctly to create an
             "Count",
             "Total")
 
-  # read in raw source study drug disposition data
+  # read in raw source study treatment disposition data
   disp_raw_orig <- clindata::rawplus_sdrgcomp %>%
     filter(!!sym(lMapping$dfSDRGCOMP$strTreatmentPhaseCol) == lMapping$dfSDRGCOMP$strTreatmentPhaseVal)
 
-  # count unique number of subjects who discontinued use of study drug
+  # count unique number of subjects who discontinued use of study treatment
   disp_raw <- disp_raw_orig %>%
     filter(!!sym(lMapping$dfSDRGCOMP$strTreatmentDiscontinuationFlagCol) == lMapping$dfSDRGCOMP$strTreatmentDiscontinuationFlagVal) %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
@@ -34,8 +34,8 @@ test_that("Raw+ study drug disposition data can be mapped correctly to create an
   dm_raw_orig <- clindata::rawplus_dm
   dm_raw <- dm_raw_orig
 
-  # join DM and study drug disposition data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, disp_raw) %>%
+  # join DM and study treatment disposition data - full_join() to keep records from both data frames
+  expected <- full_join(dm_raw, disp_raw, by = "subjid") %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
     mutate(Count = replace_na(Count, 0),
            Total = n()) %>%

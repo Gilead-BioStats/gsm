@@ -1,4 +1,4 @@
-test_that("Raw+ AE data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the number of AEs and days of exposure per subject.", {
+test_that("Raw+ AE data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the number of AEs and days of treatment exposure per subject.", {
 
 
   ########### gsm mapping ###########
@@ -34,7 +34,7 @@ test_that("Raw+ AE data can be mapped correctly to create an analysis-ready inpu
   dm_raw <- dm_raw_orig
 
   # join DM and AE data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, ae_raw) %>%
+  expected <- full_join(dm_raw, ae_raw, by = "subjid") %>%
     mutate(Count = replace_na(Count, 0),
            Rate = as.numeric(Count)/!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol)) %>%
     filter(!(!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol) == 0) & !is.na(!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol))) %>% # remove subjects that were not treated (i.e., had 0 or NA days of treatment)
@@ -43,10 +43,10 @@ test_that("Raw+ AE data can be mapped correctly to create an analysis-ready inpu
 
 
   ########### testing ###########
-  # check that calculated number of events per subject is correct/consistent
+  # check that calculated number of AEs per subject is correct/consistent
   num_events <- unique(observed$Count == expected$Count)
 
-  # check that days of exposure per subject is correct/consistent
+  # check that calculated days of treatment exposure per subject is correct/consistent
   num_exposure <- unique(observed$Exposure == expected$Exposure)
 
   # check that calculated rate of AEs/exposure per subject is correct/consistent

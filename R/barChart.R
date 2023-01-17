@@ -1,6 +1,8 @@
-#' KRI bar chart
+#' KRI Bar Chart
 #'
-#' TODO: Add Description + update documentation
+#' @description
+#' A widget that displays a group-level bar chart based on the output of a KRI analysis.
+#' Bar charts are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an `htmlwidget` ported from the `rbm-viz` JavaScript library.
 #'
 #' @param results data with column names:
 #' \itemize{
@@ -47,6 +49,48 @@
 #' @param elementId ID of container HTML element
 #'
 #' @import htmlwidgets
+#'
+#' @examples
+#'
+#' ae <- AE_Map_Raw()
+#'
+#' ae_transform <- Transform_Rate(
+#'   dfInput = ae,
+#'   strGroupCol = "SiteID",
+#'   strNumeratorCol = "Count",
+#'   strDenominatorCol = "Exposure"
+#' )
+#'
+#' ae_analyze <- Analyze_NormalApprox(
+#'   dfTransformed = ae_transform,
+#'   strType = "rate"
+#' )
+#'
+#' ae_flag <- Flag_NormalApprox(
+#'   ae_analyze,
+#'   vThreshold = c(-3, -2, 2, 3)
+#' )
+#'
+#' ae_summary <- Summarize(
+#'   ae_flag
+#' )
+#'
+#' dfConfig <- MakeDfConfig(
+#'   strMethod = "NormalApprox",
+#'   strGroup = "Site",
+#'   strAbbreviation = "AE",
+#'   strMetric = "Adverse Event Rate",
+#'   strNumerator = "Adverse Events",
+#'   strDenominator = "Days on Treatment",
+#'   vThreshold = c(-3, -2, 2, 3)
+#' )
+#'
+#' plot <- barChart(
+#'   results = ae_summary,
+#'   workflow = dfConfig,
+#'   yaxis = "metric",
+#'   elementId = "aeAssessMetric"
+#' )
 #'
 #' @export
 barChart <- function(

@@ -34,7 +34,7 @@ test_that("Raw+ study disposition data can be mapped correctly to create an anal
   dm_raw <- dm_raw_orig
 
   # join DM and study disposition data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, disp_raw) %>%
+  expected <- full_join(dm_raw, disp_raw, by = "subjid") %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
     mutate(Count = replace_na(Count, 0),
            Total = n()) %>%
