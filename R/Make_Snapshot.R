@@ -15,6 +15,7 @@
 #' @param bUpdateParams `logical` if `TRUE`, configurable parameters found in `lMeta$config_param` will overwrite the default values in `lMeta$meta_params`. Default: `FALSE`.
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`
 #'
 #' @includeRmd ./man/md/Make_Snapshot.md
 #'
@@ -68,7 +69,8 @@ lMapping = c(
 lAssessments = NULL,
 bUpdateParams = FALSE,
 cPath = NULL,
-bQuiet = TRUE
+bQuiet = TRUE,
+bFlowchart = FALSE
 
 ) {
 

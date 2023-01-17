@@ -4,7 +4,13 @@
 \alias{RunStratifiedWorkflow}
 \title{Run a stratified workflow}
 \usage{
-RunStratifiedWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE)
+RunStratifiedWorkflow(
+  lWorkflow,
+  lData,
+  lMapping,
+  bQuiet = TRUE,
+  bFlowchart = FALSE
+)
 }
 \arguments{
 \item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.
@@ -17,6 +23,8 @@ specified in \code{lMapping} and \code{lAssessments}, which are generally based 
 \item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+
+\item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}}
 }
 \value{
 \code{list} \code{lWorkflow} along with \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks},

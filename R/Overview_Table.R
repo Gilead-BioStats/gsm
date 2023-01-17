@@ -8,9 +8,17 @@
 #' @importFrom purrr map reduce
 #' @importFrom stats na.omit
 #'
+#' @examples
+#' \dontrun{
+#' lAssessments <- Study_Assess()
+#' Overview_Table(lAssessments)
+#'}
+#'
 #' @export
 Overview_Table <- function(lAssessments, bInteractive = TRUE) {
   study <- lAssessments[grep("kri", names(lAssessments))]
+
+  study <- keep(study, function(x) x$bStatus == TRUE)
 
   overview_table <- study %>%
     purrr::map(function(kri) {
@@ -23,11 +31,11 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     purrr::reduce(left_join, by = "GroupID") %>%
     rowwise() %>%
     mutate("Red KRIs" = {
-      x <- c_across(-.data$GroupID)
+      x <- c_across(-"GroupID")
       sum(x %in% c(2, -2))
     }) %>%
     mutate("Amber KRIs" = {
-      x <- c_across(-c(.data$GroupID, .data$`Red KRIs`))
+      x <- c_across(-c("GroupID", "Red KRIs"))
       sum(x %in% c(1, -1))
     }) %>%
     ungroup() %>%
@@ -41,13 +49,13 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
 
   abbreviation_lookup <- as_tibble(names(overview_table)) %>%
     left_join(gsm::meta_workflow, by = c("value" = "workflowid")) %>%
-    select(.data$abbreviation, .data$value) %>%
+    select("abbreviation", "value") %>%
     stats::na.omit() %>%
     tibble::deframe()
 
   metric_lookup <- as_tibble(names(overview_table)) %>%
     left_join(gsm::meta_workflow, by = c("value" = "workflowid")) %>%
-    select(.data$metric, .data$value) %>%
+    select("metric", "value") %>%
     stats::na.omit() %>%
     tibble::deframe()
 
@@ -80,7 +88,7 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     overview_table <- overview_table %>%
       mutate(
         across(
-          -c(.data$Site:.data$`Amber KRIs`),
+          -c("Site":"Amber KRIs"),
           ~ purrr::map(.x, kri_directionality_logo)
         )
       ) %>%
