@@ -83,6 +83,12 @@ overview_table
 ```
 </div>
 
+
+## Select Site
+<div class="overall-site-select-container" id="overall-site-select-container">
+
+</div>
+
 ## Results
 
 ```{r, echo=FALSE, results='asis'}
@@ -168,3 +174,68 @@ error_table <- error$dfSummary %>%
 DT::datatable(error_table)
 ```
 
+```{js}
+function overallSiteDropdown() {
+  // add container for drop-down
+  const overallSiteSelectContainer = document.getElementById(
+    "overall-site-select-container"
+  );
+
+  overallSiteSelectContainer.style.position = "relative";
+  overallSiteSelectContainer.style.top = 0;
+  overallSiteSelectContainer.style.left = 0;
+
+  // add dropdown label
+  const overallSiteSelectLabel = document.createElement("span");
+  overallSiteSelectLabel.innerHTML = "Select Overall Site ";
+  overallSiteSelectContainer.appendChild(overallSiteSelectLabel);
+
+  // add dropdown
+  const overallSiteSelect = document.createElement("select");
+  overallSiteSelectContainer.appendChild(overallSiteSelect);
+
+  let ids = [...document.querySelector(".site-select").options].map(
+    (el) => el.text
+  );
+
+  for (id of ids) {
+    const siteOptionAll = document.createElement("option");
+    siteOptionAll.innerHTML = id;
+    overallSiteSelect.appendChild(siteOptionAll);
+    overallSiteSelect.classList.add("overall-site-select");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  overallSiteDropdown();
+
+  document
+    .querySelector(".overall-site-select")
+    .addEventListener("change", function () {
+      let canvases = document.querySelectorAll(
+        ".scatterJS, .barMetricJS, .barScoreJS"
+      );
+      canvases = [...canvases].map((el) => el.getElementsByTagName("canvas"));
+
+      let widgets = [];
+
+      canvases.forEach((el) => {
+        widgets.push(el[0].chart);
+      });
+
+      for (const widget of widgets) {
+        widget.data.config.selectedGroupIDs = event.target.value; // site
+        widget.helpers.updateConfig(widget, widget.data.config);
+        if (event.target.value !== 'None') {
+          document.querySelectorAll('.site-select').forEach((el) => el.options[el.selectedIndex].innerHTML = event.target.value)
+          document.querySelectorAll('.site-select').forEach((el) => el.disabled = true)
+        } else {
+          document.querySelectorAll('.site-select').forEach((el) => el.options[el.selectedIndex].innerHTML = 'None')
+          document.querySelectorAll('.site-select').forEach((el) => el.disabled = false)
+        }
+      }
+    });
+});
+
+
+```
