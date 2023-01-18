@@ -227,11 +227,15 @@ document.addEventListener("DOMContentLoaded", function () {
         widget.data.config.selectedGroupIDs = event.target.value; // site
         widget.helpers.updateConfig(widget, widget.data.config);
         if (event.target.value !== 'None') {
-          document.querySelectorAll('.site-select').forEach((el) => el.options[el.selectedIndex].innerHTML = event.target.value)
-          document.querySelectorAll('.site-select').forEach((el) => el.disabled = true)
+          document.querySelectorAll(".site-select").forEach((el) => {
+            el.options[el.selectedIndex].innerHTML = event.target.value;
+            el.disabled = true;
+          });
         } else {
-          document.querySelectorAll('.site-select').forEach((el) => el.options[el.selectedIndex].innerHTML = 'None')
-          document.querySelectorAll('.site-select').forEach((el) => el.disabled = false)
+          document.querySelectorAll(".site-select").forEach((el) => {
+            el.options[el.selectedIndex].innerHTML = "None";
+            el.disabled = false;
+          });
         }
       }
     });
