@@ -77,8 +77,6 @@ bFlowchart = FALSE
   # add to all outputs except meta_
   gsm_analysis_date <- Sys.Date()
 
-
-
   # rename GILDA to expected gsm variable names -----------------------------
 
   # ctms_study / meta_study:
@@ -160,9 +158,6 @@ bFlowchart = FALSE
     )
   }
 
-
-
-
   # status_site -------------------------------------------------------------
   if (!("enrolled_participants" %in% colnames(status_site))) {
     status_site_count <- gsm::Get_Enrolled(
@@ -193,14 +188,18 @@ bFlowchart = FALSE
 
   # run Study_Assess() ------------------------------------------------------
   # Make a list of assessments
-  # Need to update this to use the relevant items from lMeta (meta_workflow, meta_params, config_workfow and config_params)
+  # Need to update this to use the relevant items from lMeta (meta_workflow, meta_params, config_workflow and config_params)
+
+
 
   if (is.null(lAssessments)) {
-    lAssessments <- gsm::MakeWorkflowList(strNames = c(unique(lMeta$meta_workflow$workflowid)))
+    # if assessment list is not passed in, derive workflow from `lMeta$config_workflow`
+    lAssessments <- gsm::MakeWorkflowList(strNames = c(unique(lMeta$config_workflow$workflowid)))
   }
 
   # update parameters
   if (bUpdateParams) {
+    # TODO: Add vignette about updating values
     lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
   }
 
@@ -217,8 +216,12 @@ bFlowchart = FALSE
     bind_rows()
 
   # join boolean status column to status_workflow
+  # `lMeta$config_workflow` represents intended workflow to be run
+  # `parseStatus` represents the actual results - workflowid + `x$bStatus`
+  # if `workflowid` is not found in the results, that means it was not run.
   status_workflow <- lMeta$config_workflow %>%
-    left_join(parseStatus, by = "workflowid")
+    left_join(parseStatus, by = "workflowid") %>%
+    mutate(status = ifelse(is.na(status), FALSE, status))
 
   # parse warnings from is_mapping_valid to create an informative "notes" column
   warnings <- ParseWarnings(lResults)
