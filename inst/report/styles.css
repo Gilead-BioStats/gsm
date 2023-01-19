@@ -66,6 +66,10 @@ button.btn-show-report:hover {
   z-index: 1;
 }
 
+.overall-site-select:hover {
+  cursor: grab;
+}
+
 
 
 .overall-site-select select,
