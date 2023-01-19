@@ -85,7 +85,11 @@ overview_table
 
 ## Results
 
-<div class = 'overall-site-select' id = 'overall-site-select'></div>
+<div
+    class = 'overall-site-select'
+    id = 'overall-site-select'
+    title = 'Selected site will be highlighted in all charts for all KRIs.'
+></div>
 
 ```{r, echo=FALSE, results='asis'}
 for (i in seq_along(assessment)) {

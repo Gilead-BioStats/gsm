@@ -4,7 +4,7 @@ function overallSiteDropdown() {
 
     // add dropdown label
     const overallSiteSelectLabel = document.createElement("span");
-    overallSiteSelectLabel.innerHTML = "Highlighted Site in All Charts";
+    overallSiteSelectLabel.innerHTML = "Select Site ";
     overallSiteSelectContainer.appendChild(overallSiteSelectLabel);
 
     // add dropdown
@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const canvases = [
                 ...document.querySelectorAll(".scatterJS, .barMetricJS, .barScoreJS")
             ].map((el) => el.getElementsByTagName("canvas")[0]);
-            console.log(canvases);
 
             const widgets = [];
 
