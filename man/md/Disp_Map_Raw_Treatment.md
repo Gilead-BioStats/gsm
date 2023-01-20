@@ -5,5 +5,5 @@
 |dfSUBJ     |strSiteCol                           |siteid            |TRUE          |FALSE                       |FALSE                      |
 |dfSUBJ     |strIDCol                             |subjid            |TRUE          |FALSE                       |TRUE                       |
 |dfSDRGCOMP |strIDCol                             |subjid            |TRUE          |FALSE                       |FALSE                      |
-|dfSDRGCOMP |strTreatmentDiscontinuationReasonCol |sdrgreas          |TRUE          |TRUE                        |FALSE                      |
 |dfSDRGCOMP |strTreatmentDiscontinuationFlagCol   |sdrgyn            |TRUE          |TRUE                        |FALSE                      |
+|dfSDRGCOMP |strTreatmentDiscontinuationReasonCol |sdrgreas          |TRUE          |TRUE                        |FALSE                      |

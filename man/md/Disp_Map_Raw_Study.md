@@ -5,5 +5,5 @@
 |dfSUBJ     |strSiteCol                       |siteid            |TRUE          |FALSE                       |FALSE                      |
 |dfSUBJ     |strIDCol                         |subjid            |TRUE          |FALSE                       |TRUE                       |
 |dfSTUDCOMP |strIDCol                         |subjid            |TRUE          |FALSE                       |FALSE                      |
-|dfSTUDCOMP |strStudyDiscontinuationReasonCol |compreas          |TRUE          |TRUE                        |FALSE                      |
 |dfSTUDCOMP |strStudyDiscontinuationFlagCol   |compyn            |TRUE          |TRUE                        |FALSE                      |
+|dfSTUDCOMP |strStudyDiscontinuationReasonCol |compreas          |TRUE          |TRUE                        |FALSE                      |

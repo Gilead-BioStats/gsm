@@ -69,8 +69,8 @@ Consent_Map_Raw <- function(
     dfCONSENT_mapped <- dfs$dfCONSENT %>%
       select(
         SubjectID = lMapping[["dfCONSENT"]][["strIDCol"]],
-        ConsentType = lMapping[["dfCONSENT"]][["strTypeCol"]],
-        ConsentStatus = lMapping[["dfCONSENT"]][["strValueCol"]],
+        ConsentType = lMapping[["dfCONSENT"]][["strConsentTypeCol"]],
+        ConsentStatus = lMapping[["dfCONSENT"]][["strConsentStatusCol"]],
         ConsentDate = lMapping[["dfCONSENT"]][["strDateCol"]]
       )
 
@@ -97,7 +97,7 @@ Consent_Map_Raw <- function(
       if (nrow(dfCONSENT_mapped) == 0) {
         stop(paste0(
           "No records in [ dfs$dfCONSENT$",
-          lMapping$dfCONSENT$strTypeCol,
+          lMapping$dfCONSENT$strConsentTypeCol,
           " ] contain a consent type of [ ",
           lMapping$dfCONSENT$strConsentTypeVal,
           " ]."
