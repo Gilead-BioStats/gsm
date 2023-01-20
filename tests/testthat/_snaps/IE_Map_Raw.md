@@ -23,7 +23,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strCategoryCol", "strValueCol"]
+              "value": ["strIDCol", "strCategoryCol", "strResultCol"]
             }
           ]
         },
@@ -70,7 +70,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strCategoryCol", "strValueCol", "strVersionCol", "vCategoryValues", "vExpectedResultValues"]
+              "value": ["strIDCol", "strVersionCol", "strCategoryCol", "strCategoryVal", "strResultCol", "strResultVal"]
             }
           },
           "value": [
@@ -82,22 +82,22 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["iecat"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["ieorres"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
               "value": ["tiver"]
             },
             {
               "type": "character",
               "attributes": {},
+              "value": ["iecat"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
               "value": ["EXCL", "INCL"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["ieorres"]
             },
             {
               "type": "integer",
@@ -112,7 +112,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol", "strCountryCol"]
+              "value": ["strStudyCol", "strSiteCol", "strCustomGroupCol", "strCountryCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol"]
             }
           },
           "value": [
@@ -125,6 +125,16 @@
               "type": "character",
               "attributes": {},
               "value": ["siteid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
             },
             {
               "type": "character",
@@ -145,16 +155,6 @@
               "type": "character",
               "attributes": {},
               "value": ["rfpst_dt"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["invid"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["country"]
             }
           ]
         }
@@ -393,7 +393,7 @@
       
       -- Checking Input Data for `IE_Map_Raw()` --
       
-      x "mapping" does not contain required parameters: strIDCol, strCategoryCol, strValueCol
+      x "mapping" does not contain required parameters: strIDCol, strCategoryCol, strResultCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       x "mapping" does not contain required parameters: strIDCol, strSiteCol

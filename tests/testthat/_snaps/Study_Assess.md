@@ -543,6 +543,12 @@
       $AE_Map_Raw$mapping$dfSUBJ$strSiteCol
       [1] "siteid"
       
+      $AE_Map_Raw$mapping$dfSUBJ$strCustomGroupCol
+      [1] "invid"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strCountryCol
+      [1] "country"
+      
       $AE_Map_Raw$mapping$dfSUBJ$strIDCol
       [1] "subjid"
       
@@ -555,22 +561,10 @@
       $AE_Map_Raw$mapping$dfSUBJ$strRandDateCol
       [1] "rfpst_dt"
       
-      $AE_Map_Raw$mapping$dfSUBJ$strCustomGroupCol
-      [1] "invid"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strCountryCol
-      [1] "country"
-      
       
       $AE_Map_Raw$mapping$dfAE
       $AE_Map_Raw$mapping$dfAE$strIDCol
       [1] "subjid"
-      
-      $AE_Map_Raw$mapping$dfAE$strTreatmentEmergentCol
-      [1] "ae_te"
-      
-      $AE_Map_Raw$mapping$dfAE$strTreatmentEmergentVal
-      [1] "Y"
       
       $AE_Map_Raw$mapping$dfAE$strGradeCol
       [1] "aetoxgr"
@@ -583,6 +577,12 @@
       
       $AE_Map_Raw$mapping$dfAE$strNonSeriousVal
       [1] "N"
+      
+      $AE_Map_Raw$mapping$dfAE$strTreatmentEmergentCol
+      [1] "ae_te"
+      
+      $AE_Map_Raw$mapping$dfAE$strTreatmentEmergentVal
+      [1] "Y"
       
       
       $AE_Map_Raw$mapping$dfPD
@@ -598,7 +598,7 @@
       $AE_Map_Raw$mapping$dfPD$strImportantVal
       [1] "Y"
       
-      $AE_Map_Raw$mapping$dfPD$strNotImportantVal
+      $AE_Map_Raw$mapping$dfPD$strNonImportantVal
       [1] "N"
       
       
@@ -606,19 +606,19 @@
       $AE_Map_Raw$mapping$dfIE$strIDCol
       [1] "subjid"
       
-      $AE_Map_Raw$mapping$dfIE$strCategoryCol
-      [1] "iecat"
-      
-      $AE_Map_Raw$mapping$dfIE$strValueCol
-      [1] "ieorres"
-      
       $AE_Map_Raw$mapping$dfIE$strVersionCol
       [1] "tiver"
       
-      $AE_Map_Raw$mapping$dfIE$vCategoryValues
+      $AE_Map_Raw$mapping$dfIE$strCategoryCol
+      [1] "iecat"
+      
+      $AE_Map_Raw$mapping$dfIE$strCategoryVal
       [1] "EXCL" "INCL"
       
-      $AE_Map_Raw$mapping$dfIE$vExpectedResultValues
+      $AE_Map_Raw$mapping$dfIE$strResultCol
+      [1] "ieorres"
+      
+      $AE_Map_Raw$mapping$dfIE$strResultVal
       [1] 0 1
       
       
@@ -626,31 +626,25 @@
       $AE_Map_Raw$mapping$dfCONSENT$strIDCol
       [1] "subjid"
       
-      $AE_Map_Raw$mapping$dfCONSENT$strTypeCol
-      [1] "conscat"
-      
-      $AE_Map_Raw$mapping$dfCONSENT$strValueCol
-      [1] "consyn"
-      
       $AE_Map_Raw$mapping$dfCONSENT$strDateCol
       [1] "consdt"
       
-      $AE_Map_Raw$mapping$dfCONSENT$strConsentTypeVal
-      [1] "MAINCONSENT"
+      $AE_Map_Raw$mapping$dfCONSENT$strConsentStatusCol
+      [1] "consyn"
       
       $AE_Map_Raw$mapping$dfCONSENT$strConsentStatusVal
       [1] "Y"
+      
+      $AE_Map_Raw$mapping$dfCONSENT$strConsentTypeCol
+      [1] "conscat"
+      
+      $AE_Map_Raw$mapping$dfCONSENT$strConsentTypeVal
+      [1] "MAINCONSENT"
       
       
       $AE_Map_Raw$mapping$dfSTUDCOMP
       $AE_Map_Raw$mapping$dfSTUDCOMP$strIDCol
       [1] "subjid"
-      
-      $AE_Map_Raw$mapping$dfSTUDCOMP$strStudyDiscontinuationReasonCol
-      [1] "compreas"
-      
-      $AE_Map_Raw$mapping$dfSTUDCOMP$strStudyDiscontinuationReasonVal
-      [1] "consent"
       
       $AE_Map_Raw$mapping$dfSTUDCOMP$strStudyDiscontinuationFlagCol
       [1] "compyn"
@@ -658,16 +652,22 @@
       $AE_Map_Raw$mapping$dfSTUDCOMP$strStudyDiscontinuationFlagVal
       [1] "N"
       
+      $AE_Map_Raw$mapping$dfSTUDCOMP$strStudyDiscontinuationReasonCol
+      [1] "compreas"
+      
+      $AE_Map_Raw$mapping$dfSTUDCOMP$strStudyDiscontinuationReasonVal
+      [1] "consent"
+      
       
       $AE_Map_Raw$mapping$dfSDRGCOMP
       $AE_Map_Raw$mapping$dfSDRGCOMP$strIDCol
       [1] "subjid"
       
-      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentPhaseCol
-      [1] "datapagename"
+      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentDiscontinuationFlagCol
+      [1] "sdrgyn"
       
-      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentPhaseVal
-      [1] "Blinded Study Drug Completion"
+      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentDiscontinuationFlagVal
+      [1] "N"
       
       $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentDiscontinuationReasonCol
       [1] "sdrgreas"
@@ -675,11 +675,11 @@
       $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentDiscontinuationReasonVal
       [1] "withdrawal"
       
-      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentDiscontinuationFlagCol
-      [1] "sdrgyn"
+      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentPhaseCol
+      [1] "datapagename"
       
-      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentDiscontinuationFlagVal
-      [1] "N"
+      $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentPhaseVal
+      [1] "Blinded Study Drug Completion"
       
       
       $AE_Map_Raw$mapping$dfLB
@@ -698,7 +698,7 @@
       $AE_Map_Raw$mapping$dfLB$strTestCol
       [1] "lbtstnam"
       
-      $AE_Map_Raw$mapping$dfLB$strValueCol
+      $AE_Map_Raw$mapping$dfLB$strResultCol
       [1] "siresn"
       
       $AE_Map_Raw$mapping$dfLB$strTreatmentEmergentCol
@@ -724,11 +724,11 @@
       $AE_Map_Raw$mapping$dfENROLL$strSiteCol
       [1] "siteid"
       
-      $AE_Map_Raw$mapping$dfENROLL$strCountryCol
-      [1] "country"
-      
       $AE_Map_Raw$mapping$dfENROLL$strCustomGroupCol
       [1] "invid"
+      
+      $AE_Map_Raw$mapping$dfENROLL$strCountryCol
+      [1] "country"
       
       $AE_Map_Raw$mapping$dfENROLL$strIDCol
       [1] "subjid"

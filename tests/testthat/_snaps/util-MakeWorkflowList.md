@@ -270,7 +270,7 @@
       [1] "strImportantCol"
       
       $cou0003[[1]]$params$strValParam
-      [1] "strNotImportantVal"
+      [1] "strNonImportantVal"
       
       
       
@@ -912,7 +912,7 @@
       [1] "strImportantCol"
       
       $kri0003[[1]]$params$strValParam
-      [1] "strNotImportantVal"
+      [1] "strNonImportantVal"
       
       
       

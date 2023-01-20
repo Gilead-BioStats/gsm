@@ -69,8 +69,8 @@ Consent_Map_Raw <- function(
     dfCONSENT_mapped <- dfs$dfCONSENT %>%
       select(
         SubjectID = lMapping[["dfCONSENT"]][["strIDCol"]],
-        ConsentType = lMapping[["dfCONSENT"]][["strTypeCol"]],
-        ConsentStatus = lMapping[["dfCONSENT"]][["strValueCol"]],
+        ConsentType = lMapping[["dfCONSENT"]][["strConsentTypeCol"]],
+        ConsentStatus = lMapping[["dfCONSENT"]][["strConsentStatusCol"]],
         ConsentDate = lMapping[["dfCONSENT"]][["strDateCol"]]
       )
 
