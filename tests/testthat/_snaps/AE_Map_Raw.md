@@ -75,7 +75,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strTreatmentEmergentCol", "strTreatmentEmergentVal", "strGradeCol", "strSeriousCol", "strSeriousVal", "strNonSeriousVal"]
+              "value": ["strIDCol", "strGradeCol", "strSeriousCol", "strSeriousVal", "strNonSeriousVal", "strTreatmentEmergentCol", "strTreatmentEmergentVal"]
             }
           },
           "value": [
@@ -83,16 +83,6 @@
               "type": "character",
               "attributes": {},
               "value": ["subjid"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["ae_te"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["Y"]
             },
             {
               "type": "character",
@@ -113,6 +103,16 @@
               "type": "character",
               "attributes": {},
               "value": ["N"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["ae_te"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
             }
           ]
         },
@@ -122,7 +122,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol", "strCountryCol"]
+              "value": ["strStudyCol", "strSiteCol", "strCustomGroupCol", "strCountryCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol"]
             }
           },
           "value": [
@@ -135,6 +135,16 @@
               "type": "character",
               "attributes": {},
               "value": ["siteid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
             },
             {
               "type": "character",
@@ -155,16 +165,6 @@
               "type": "character",
               "attributes": {},
               "value": ["rfpst_dt"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["invid"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["country"]
             }
           ]
         }
