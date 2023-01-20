@@ -97,7 +97,7 @@ Consent_Map_Raw <- function(
       if (nrow(dfCONSENT_mapped) == 0) {
         stop(paste0(
           "No records in [ dfs$dfCONSENT$",
-          lMapping$dfCONSENT$strTypeCol,
+          lMapping$dfCONSENT$strConsentTypeCol,
           " ] contain a consent type of [ ",
           lMapping$dfCONSENT$strConsentTypeVal,
           " ]."

@@ -54,7 +54,7 @@ specific types of IE criteria by passing filtered IE data to \code{dfIE}.
    dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
    dfIE \tab strIDCol \tab subjid \tab TRUE \tab FALSE \cr
    dfIE \tab strCategoryCol \tab iecat \tab TRUE \tab FALSE \cr
-   dfIE \tab strValueCol \tab ieorres \tab TRUE \tab FALSE \cr
+   dfIE \tab strResultCol \tab ieorres \tab TRUE \tab FALSE \cr
 }
 }
 
