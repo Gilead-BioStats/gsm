@@ -229,7 +229,7 @@ bFlowchart = FALSE
   # if `workflowid` is not found in the results, that means it was not run.
   status_workflow <- lMeta$config_workflow %>%
     left_join(parseStatus, by = "workflowid") %>%
-    mutate(status = ifelse(is.na(status), FALSE, status))
+    mutate(status = ifelse(is.na(.data$status), FALSE, .data$status))
 
   # parse warnings from is_mapping_valid to create an informative "notes" column
   warnings <- ParseWarnings(lResults)
