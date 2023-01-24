@@ -1,12 +1,12 @@
-test_that("Disposition assessment can return a correctly assessed data frame for the normal approximation test grouped by the site variable when given correct input data and a site with low enrollment from clindata, and the results should be flagged correctly", {
+test_that("Disposition assessment can return a correctly assessed data frame for the identity test grouped by the site variable when given correct input data and a site with low enrollment from clindata, and the results should be flagged correctly", {
   # gsm analysis
-  dfInput <- gsm::Disp_Map_Raw()
+  dfInput <- Disp_Map_Raw()
 
   nMinDenominator <- 5
 
   test5_10 <- Disp_Assess(
     dfInput = dfInput,
-    strMethod = "NormalApprox",
+    strMethod = "Identity",
     nMinDenominator = nMinDenominator
   )
 
@@ -15,16 +15,35 @@ test_that("Disposition assessment can return a correctly assessed data frame for
 
   t5_10_transformed <- dfInput %>%
     qualification_transform_counts(
-      exposureCol = "Total"
+      exposureCol = "Total",
     )
 
   t5_10_analyzed <- t5_10_transformed %>%
-    qualification_analyze_normalapprox(strType = "binary")
+    mutate(
+      Score = Metric
+    ) %>%
+    arrange(Score)
 
   class(t5_10_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t5_10_flagged <- t5_10_analyzed %>%
-    qualification_flag_normalapprox()
+    mutate(
+      Flag = case_when(
+        Score < 3.491 ~ -1,
+        Score > 5.172 ~ 1,
+        is.na(Score) ~ NA_real_,
+        is.nan(Score) ~ NA_real_,
+        TRUE ~ 0
+      ),
+      median = median(Score),
+      Flag = case_when(
+        Flag != 0 & Score < median ~ -1,
+        Flag != 0 & Score >= median ~ 1,
+        TRUE ~ Flag
+      )
+    ) %>%
+    select(-median) %>%
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t5_10_summary <- t5_10_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
@@ -35,6 +54,7 @@ test_that("Disposition assessment can return a correctly assessed data frame for
            Flag = case_when(Denominator >= nMinDenominator ~ Flag,
                             Denominator < nMinDenominator ~ NA_real_))
 
+
   t5_10 <- list(
     "dfTransformed" = t5_10_transformed,
     "dfAnalyzed" = t5_10_analyzed,
@@ -43,5 +63,5 @@ test_that("Disposition assessment can return a correctly assessed data frame for
   )
 
   # compare results
-  expect_equal(test5_10$lData[!names(test5_10$lData) == "dfBounds"], t5_10)
+  expect_equal(test5_10$lData, t5_10)
 })

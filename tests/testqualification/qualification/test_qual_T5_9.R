@@ -1,12 +1,12 @@
-test_that("Disposition assessment can return a correctly assessed data frame for the identity test grouped by the site variable when given correct input data and a site with low enrollment from clindata, and the results should be flagged correctly", {
+test_that("Disposition assessment can return a correctly assessed data frame for the fisher test grouped by the site variable when given correct input data and a site with low enrollment from clindata, and the results should be flagged correctly", {
   # gsm analysis
-  dfInput <- Disp_Map_Raw()
+  dfInput <- gsm::Disp_Map_Raw()
 
   nMinDenominator <- 5
 
   test5_9 <- Disp_Assess(
     dfInput = dfInput,
-    strMethod = "Identity",
+    strMethod = "Fisher",
     nMinDenominator = nMinDenominator
   )
 
@@ -15,35 +15,16 @@ test_that("Disposition assessment can return a correctly assessed data frame for
 
   t5_9_transformed <- dfInput %>%
     qualification_transform_counts(
-      exposureCol = "Total",
+      exposureCol = "Total"
     )
 
   t5_9_analyzed <- t5_9_transformed %>%
-    mutate(
-      Score = Metric
-    ) %>%
-    arrange(Score)
+    qualification_analyze_fisher()
 
   class(t5_9_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t5_9_flagged <- t5_9_analyzed %>%
-    mutate(
-      Flag = case_when(
-        Score < 3.491 ~ -1,
-        Score > 5.172 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(Score),
-      Flag = case_when(
-        Flag != 0 & Score < median ~ -1,
-        Flag != 0 & Score >= median ~ 1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+    qualification_flag_fisher()
 
   t5_9_summary <- t5_9_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
@@ -53,7 +34,6 @@ test_that("Disposition assessment can return a correctly assessed data frame for
                              Denominator < nMinDenominator ~ NA_real_),
            Flag = case_when(Denominator >= nMinDenominator ~ Flag,
                             Denominator < nMinDenominator ~ NA_real_))
-
 
   t5_9 <- list(
     "dfTransformed" = t5_9_transformed,
