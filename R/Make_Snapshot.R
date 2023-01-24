@@ -208,25 +208,14 @@ bFlowchart = FALSE
   # -- must have steps and name
   # -- within steps, must have name, inputs, output
   # -- steps$name must be a gsm function
-  browser()
+  lWorkflowCheck <- is_workflow_valid(lAssessments)
 
-  is_workflow_valid <- map(lAssessments, function(x) {
-
-    checks <- list(
-      workflow_is_list = is.list(x),
-      workflow_has_steps = "steps" %in% names(x)
-    )
-
-    map(x$steps, function(s) {
-      browser()
-    })
-  })
 
   # Run Study Assessment
   lResults <- gsm::Study_Assess(
     lData = lData,
     lMapping = lMapping,
-    lAssessments = lAssessments,
+    lAssessments = lAssessments[lWorkflowCheck == TRUE],
     bQuiet = bQuiet
   )
 
