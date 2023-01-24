@@ -275,6 +275,7 @@ bFlowchart = FALSE
             select(
               "GroupID",
               "LowCI",
+              "Estimate",
               "UpCI",
               "Score"
             ) %>%
