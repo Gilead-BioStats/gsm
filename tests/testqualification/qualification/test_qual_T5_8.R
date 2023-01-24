@@ -1,15 +1,11 @@
-test_that("Disposition assessment can return a correctly assessed data frame for the normal approximation test grouped by the study variable when given subset input data from clindata and the results should be flagged correctly", {
+test_that("Disposition assessment can return a correctly assessed data frame for the normal approximation test grouped by a custom variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
   # gsm analysis
-  dfInput <- gsm::Disp_Map_Raw(dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfSTUDCOMP = clindata::rawplus_studcomp %>% filter(compreas_std_nsv == "ID"),
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename ==
-                                                         "Blinded Study Drug Completion")
-  ))
+  dfInput <- gsm::Disp_Map_Raw()
 
   test5_7 <- Disp_Assess(
     dfInput = dfInput,
-    strGroup = "Study",
+    vThreshold = c(-2, -1, 1, 2),
+    strGroup = "CustomGroup",
     strMethod = "NormalApprox"
   )
 
@@ -19,7 +15,7 @@ test_that("Disposition assessment can return a correctly assessed data frame for
   t5_7_transformed <- dfInput %>%
     qualification_transform_counts(
       exposureCol = "Total",
-      GroupID = "StudyID"
+      GroupID = "CustomGroupID"
     )
 
   t5_7_analyzed <- t5_7_transformed %>%
@@ -28,7 +24,7 @@ test_that("Disposition assessment can return a correctly assessed data frame for
   class(t5_7_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t5_7_flagged <- t5_7_analyzed %>%
-    qualification_flag_normalapprox()
+    qualification_flag_normalapprox(threshold = c(-2, -1, 1, 2))
 
   t5_7_summary <- t5_7_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
