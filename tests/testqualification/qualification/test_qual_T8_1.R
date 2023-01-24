@@ -1,6 +1,9 @@
-test_that("Data entry assessment can return a correctly assessed data frame for the identity test grouped by the site variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold.", {
+test_that("Data entry assessment can return a correctly assessed data frame for the identity test grouped by the site variable when given subset input data from clindata and the results should be flagged correctly using a custom threshold.", {
   # gsm analysis
-  dfInput <- gsm::DataEntry_Map_Raw()
+  dfInput <- gsm::DataEntry_Map_Raw(dfs = list(
+    dfDATAENT = clindata::edc_data_entry_lag %>% filter(foldername == "Week 120"),
+    dfSUBJ = clindata::rawplus_dm
+  ))
 
   test8_1 <- DataEntry_Assess(
     dfInput = dfInput,
