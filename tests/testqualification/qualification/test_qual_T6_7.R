@@ -1,6 +1,8 @@
-test_that("Labs assessment can return a correctly assessed data frame for the normal approximation test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly", {
+test_that("Labs assessment can return a correctly assessed data frame for the normal approximation test grouped by the study variable when given subset input data from clindata and the results should be flagged correctly", {
   # gsm analysis
-  dfInput <- gsm::LB_Map_Raw()
+  dfInput <- gsm::LB_Map_Raw(dfs = list(
+    dfSUBJ = clindata::rawplus_dm  %>% filter(!siteid %in% c("5", "29", "58")),
+    dfLB = clindata::rawplus_lb))
 
   test6_7 <- LB_Assess(
     dfInput = dfInput,

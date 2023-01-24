@@ -1,6 +1,11 @@
-test_that("Disposition assessment can return a correctly assessed data frame for the identity test grouped by the site variable when given correct input data from clindata and the results should be flagged correctly", {
+test_that("Disposition assessment can return a correctly assessed data frame for the identity test grouped by the site variable when given subset input data from clindata and the results should be flagged correctly", {
   # gsm analysis
-  dfInput <- Disp_Map_Raw()
+  dfInput <- gsm::Disp_Map_Raw(dfs = list(
+    dfSUBJ = clindata::rawplus_dm,
+    dfSTUDCOMP = clindata::rawplus_studcomp %>% filter(compreas_std_nsv == "ID"),
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename ==
+                                                         "Blinded Study Drug Completion")
+  ))
 
   test5_3 <- Disp_Assess(
     dfInput = dfInput,
