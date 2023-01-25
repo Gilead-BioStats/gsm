@@ -114,13 +114,25 @@ PD_Assess <- function(
     # dfTransformed -----------------------------------------------------------
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
     lData <- list()
-    lData$dfTransformed <- gsm::Transform_Rate(
-      dfInput = dfInput,
-      strGroupCol = lMapping$dfInput$strGroupCol,
-      strNumeratorCol = "Count",
-      strDenominatorCol = "Exposure",
-      bQuiet = bQuiet
-    )
+
+    if (strMethod == "QTL") {
+      lData$dfTransformed <- gsm::Transform_Rate(
+        dfInput = dfInput,
+        strGroupCol = lMapping$dfInput$strGroupCol,
+        strNumeratorCol = "Count",
+        strDenominatorCol = "Total",
+        bQuiet = bQuiet
+      )
+    } else {
+      lData$dfTransformed <- gsm::Transform_Rate(
+        dfInput = dfInput,
+        strGroupCol = lMapping$dfInput$strGroupCol,
+        strNumeratorCol = "Count",
+        strDenominatorCol = "Exposure",
+        bQuiet = bQuiet
+      )
+    }
+
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
     # dfAnalyzed --------------------------------------------------------------
@@ -143,7 +155,7 @@ PD_Assess <- function(
     } else if (strMethod == "Identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
     } else if (strMethod == "QTL") {
-      lData$dfAnalyzed <- gsm::Analyze_QTL(lData$dfTransformed, strOutcome = "rate", nConfLevel = nConfLevel)
+      lData$dfAnalyzed <- gsm::Analyze_QTL(lData$dfTransformed, nConfLevel = nConfLevel)
     }
 
 

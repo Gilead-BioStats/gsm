@@ -18,4 +18,5 @@ steps:
       strGroup: "Site"
       vThreshold: null
       strMethod: "NormalApprox"
+      lMapping: yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm"))
       nMinDenominator: 30

@@ -6,7 +6,7 @@ steps:
       strDomain: dfPD
       strColParam: strImportantCol
       strValParam: strImportantVal
-  - name: PD_Map_Raw
+  - name: PD_Map_Raw_binary
     inputs:
       - dfPD
       - dfSUBJ
@@ -18,4 +18,5 @@ steps:
       strGroup: "Study"
       vThreshold: null
       strMethod: "QTL"
+      lMapping: yaml::read_yaml(system.file("mappings", "PD_Assess_binary.yaml", package = "gsm"))
       nConfLevel: 0.95

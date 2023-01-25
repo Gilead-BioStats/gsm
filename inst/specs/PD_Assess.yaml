@@ -3,8 +3,6 @@ dfInput:
     - "strIDCol"
     - "strGroupCol"
     - "strCountCol"
-    - "strExposureCol"
-    - "strRateCol"
   vUniqueCols:
     - "strIDCol"
   vNACols:
