@@ -17,5 +17,4 @@
         notes)
     Output
       [1] "Check not run." "Check not run." "Check not run." "Check not run."
-      [5] "Check not run."
 

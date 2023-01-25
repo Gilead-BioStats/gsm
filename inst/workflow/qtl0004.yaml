@@ -18,5 +18,4 @@ steps:
       strGroup: "Study"
       vThreshold: null
       strMethod: "QTL"
-      lMapping: yaml::read_yaml(system.file("mappings", "PD_Assess_binary.yaml", package = "gsm"))
       nConfLevel: 0.95

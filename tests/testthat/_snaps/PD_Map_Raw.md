@@ -186,7 +186,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strGroupCol", "strCountCol", "strExposureCol", "strRateCol"]
+              "value": ["strIDCol", "strGroupCol", "strCountCol"]
             },
             {
               "type": "character",

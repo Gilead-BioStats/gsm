@@ -1396,7 +1396,7 @@
       
       $qtl0004[[2]]
       $qtl0004[[2]]$name
-      [1] "PD_Map_Raw"
+      [1] "PD_Map_Raw_binary"
       
       $qtl0004[[2]]$inputs
       [1] "dfPD"   "dfSUBJ"

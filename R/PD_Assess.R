@@ -75,6 +75,10 @@ PD_Assess <- function(
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
+  if (strMethod == "QTL") {
+  lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess_binary.yaml", package = "gsm"))
+  }
+
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
   lChecks <- gsm::CheckInputs(
