@@ -26,8 +26,9 @@ CheckSnapshotInputs <- function(snapshot) {
   # get rbm_data_spec/data model
   gismo_input <- gsm::rbm_data_spec %>%
     filter(.data$System == "Gismo") %>%
-    arrange(match(.data$Table, names(snapshot))) %>%
-    split(.$Table)
+    arrange(match(.data$Table, names(snapshot)))
+
+  gismo_input <- split(gismo_input, gismo_input$Table)
 
   # expected tables ---------------------------------------------------------
 
