@@ -190,7 +190,7 @@ ExportCode <- function(lData,
     if (is.null(strFileName)) {
       file <- tempfile(fileext = ".R")
     } else {
-      file <- paste0(strFileName, ".r")
+      file <- paste0(strFileName, ".R")
     }
     rstudioapi::navigateToFile(fs::file_create(file))
     id <- rstudioapi::getSourceEditorContext()$id
