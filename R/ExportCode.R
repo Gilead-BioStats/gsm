@@ -188,7 +188,7 @@ ExportCode <- function(lData,
     }
   } else if (bInsertText) {
     if (is.null(strFileName)) {
-      file <- tempfile(fileext = ".r")
+      file <- tempfile(fileext = ".R")
     } else {
       file <- paste0(strFileName, ".r")
     }
