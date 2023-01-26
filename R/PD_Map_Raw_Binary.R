@@ -5,7 +5,7 @@
 #' input data to [gsm::PD_Assess()].
 #'
 #' @details
-#' `PD_Map_Raw_binary` combines PD data with subject-level study duration data to create formatted
+#' `PD_Map_Raw_Binary` combines PD data with subject-level study duration data to create formatted
 #' input data to [gsm::PD_Assess()]. This function creates an input dataset for the PD Assessment
 #' ([gsm::PD_Assess()]) by binding subject-level PD counts (derived from `dfPD`) to subject-level
 #' data (from `dfSUBJ`). Note that the function can generate data summaries for specific types of
@@ -28,17 +28,17 @@
 #'
 #' @examples
 #' # Run with defaults.
-#' dfInput <- PD_Map_Raw_binary()
+#' dfInput <- PD_Map_Raw_Binary()
 #'
 #' # Run with error checking and message log.
-#' dfInput <- PD_Map_Raw_binary(bReturnChecks = TRUE, bQuiet = FALSE)
+#' dfInput <- PD_Map_Raw_Binary(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
 #' @importFrom yaml read_yaml
 #'
 #' @export
 
-PD_Map_Raw_binary <- function(
+PD_Map_Raw_Binary <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
     dfPD = clindata::rawplus_protdev
@@ -90,9 +90,9 @@ PD_Map_Raw_binary <- function(
       select(any_of(names(dfSUBJ_mapped)), "Count", "Total") %>%
       arrange(.data$SubjectID)
 
-    if (!bQuiet) cli::cli_alert_success("{.fn PD_Map_Raw} returned output with {nrow(dfInput)} rows.")
+    if (!bQuiet) cli::cli_alert_success("{.fn PD_Map_Raw_Binary} returned output with {nrow(dfInput)} rows.")
   } else {
-    if (!bQuiet) cli::cli_alert_warning("{.fn PD_Map_Raw} did not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn PD_Map_Raw_Binary} did not run because of failed check.")
     dfInput <- NULL
   }
 
