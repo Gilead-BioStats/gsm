@@ -44,7 +44,7 @@
 #' @includeRmd ./man/md/analyze_rate.md
 #'
 #' @examples
-#' dfInput <- PD_Map_Raw()
+#' dfInput <- PD_Map_Raw_Rate()
 #' pd_assessment_NormalApprox <- PD_Assess(dfInput)
 #' pd_assessment_poisson <- PD_Assess(dfInput, strMethod = "Poisson")
 #' pd_assessment_identity <- PD_Assess(dfInput, strMethod = "Identity")

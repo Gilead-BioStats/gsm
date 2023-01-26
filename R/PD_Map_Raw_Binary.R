@@ -20,7 +20,7 @@
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` Data frame with one record per subject, the input to [gsm::PD_Assess()]. If
-#' `bReturnChecks` is `TRUE` `PD_Map_Raw` returns a named `list` with:
+#' `bReturnChecks` is `TRUE` `PD_Map_Raw_Binary` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
 #'
@@ -53,7 +53,7 @@ PD_Map_Raw_Binary <- function(
   )
 
   checks <- gsm::CheckInputs(
-    context = "PD_Map_Raw",
+    context = "PD_Map_Raw_Binary",
     dfs = dfs,
     bQuiet = bQuiet,
     mapping = lMapping

@@ -40,7 +40,7 @@ The input data (\code{dfInput}) for the Assessment is typically created using an
 \code{\link{AE_Map_Adam}}
 \code{\link{Disp_Map_Raw}}
 \code{\link{LB_Map_Raw}}
-\code{\link{PD_Map_Raw}}
+\code{\link{PD_Map_Raw_Rate}}
 
 (\code{dfInput}) must include the columns specified by \code{strNumeratorCol}, \code{strDenominatorCol} and \code{strGroupCol}.
 Required columns include:

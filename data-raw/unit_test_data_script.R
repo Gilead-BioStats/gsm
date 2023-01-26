@@ -102,7 +102,7 @@ dfDATACHG <- reqVariables$dfDATACHG
 # ) %>%
 #   IE_Assess()
 #
-# PD_Map_Raw(
+# PD_Map_Raw_Rate(
 #   dfs = list(dfPD = dfPD, dfSUBJ = dfSUBJ)
 # ) %>%
 #   PD_Assess()

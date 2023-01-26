@@ -77,8 +77,8 @@ methods are described below.
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \tab \strong{Accept NA/Empty Values?} \cr
    dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \tab FALSE \cr
    dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \tab FALSE \cr
-   dfInput \tab strExposureCol \tab Exposure \tab FALSE \tab FALSE \tab TRUE \cr
-   dfInput \tab strRateCol \tab Rate \tab FALSE \tab FALSE \tab TRUE \cr
+   dfInput \tab strExposureCol \tab Exposure \tab TRUE \tab FALSE \tab TRUE \cr
+   dfInput \tab strRateCol \tab Rate \tab TRUE \tab FALSE \tab TRUE \cr
    dfInput \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
 }
 }
@@ -102,7 +102,7 @@ details about the statistical methods and their assumptions.
 }
 
 \examples{
-dfInput <- PD_Map_Raw()
+dfInput <- PD_Map_Raw_Rate()
 pd_assessment_NormalApprox <- PD_Assess(dfInput)
 pd_assessment_poisson <- PD_Assess(dfInput, strMethod = "Poisson")
 pd_assessment_identity <- PD_Assess(dfInput, strMethod = "Identity")

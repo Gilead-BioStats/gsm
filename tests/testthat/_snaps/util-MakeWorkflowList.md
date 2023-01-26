@@ -276,7 +276,7 @@
       
       $cou0003[[2]]
       $cou0003[[2]]$name
-      [1] "PD_Map_Raw"
+      [1] "PD_Map_Raw_Rate"
       
       $cou0003[[2]]$inputs
       [1] "dfPD"   "dfSUBJ"
@@ -336,7 +336,7 @@
       
       $cou0004[[2]]
       $cou0004[[2]]$name
-      [1] "PD_Map_Raw"
+      [1] "PD_Map_Raw_Rate"
       
       $cou0004[[2]]$inputs
       [1] "dfSUBJ" "dfPD"  
@@ -918,7 +918,7 @@
       
       $kri0003[[2]]
       $kri0003[[2]]$name
-      [1] "PD_Map_Raw"
+      [1] "PD_Map_Raw_Rate"
       
       $kri0003[[2]]$inputs
       [1] "dfPD"   "dfSUBJ"
@@ -978,7 +978,7 @@
       
       $kri0004[[2]]
       $kri0004[[2]]$name
-      [1] "PD_Map_Raw"
+      [1] "PD_Map_Raw_Rate"
       
       $kri0004[[2]]$inputs
       [1] "dfSUBJ" "dfPD"  
