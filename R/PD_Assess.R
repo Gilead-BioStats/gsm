@@ -75,14 +75,23 @@ PD_Assess <- function(
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
-  if (strMethod == "QTL") {
-  lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess_binary.yaml", package = "gsm"))
-  }
+  # if (strMethod == "QTL") {
+  #   lMapping <- yaml::read_yaml(system.file("mappings", "PD_Assess_binary.yaml", package = "gsm"))
+  # }
+  #
+
+  # QTL uses the outcome of PD_Map_Raw_Binary, and needs a separate specification for required columns.
+  # All other methods use PD_Map_Raw (Rate) and the standard specification for PD_Assess
+  strContext <- switch(strMethod,
+                       QTL = "PD_Assess_Binary",
+                       NormalApprox = "PD_Assess",
+                       Poisson = "PD_Assess",
+                       Identity = "PD_Assess")
 
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
   lChecks <- gsm::CheckInputs(
-    context = "PD_Assess",
+    context = strContext,
     dfs = list(dfInput = dfInput),
     mapping = lMapping,
     bQuiet = bQuiet
@@ -119,25 +128,16 @@ PD_Assess <- function(
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
     lData <- list()
 
-    if (strMethod == "QTL") {
       lData$dfTransformed <- gsm::Transform_Rate(
         dfInput = dfInput,
         strGroupCol = lMapping$dfInput$strGroupCol,
         strNumeratorCol = "Count",
-        strDenominatorCol = "Total",
+        strDenominatorCol = ifelse(strMethod == "QTL", "Total", "Exposure"),
         bQuiet = bQuiet
       )
-    } else {
-      lData$dfTransformed <- gsm::Transform_Rate(
-        dfInput = dfInput,
-        strGroupCol = lMapping$dfInput$strGroupCol,
-        strNumeratorCol = "Count",
-        strDenominatorCol = "Exposure",
-        bQuiet = bQuiet
-      )
-    }
 
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
+
 
     # dfAnalyzed --------------------------------------------------------------
     if (strMethod == "NormalApprox") {

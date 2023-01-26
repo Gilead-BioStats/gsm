@@ -7,3 +7,4 @@ dfInput:
   strCountCol: "Count"
   strExposureCol: "Exposure"
   strRateCol: "Rate"
+  strTotalCol: "Total"

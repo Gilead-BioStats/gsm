@@ -6,7 +6,7 @@ steps:
       strDomain: dfPD
       strColParam: strImportantCol
       strValParam: strImportantVal
-  - name: PD_Map_Raw_binary
+  - name: PD_Map_Raw_Binary
     inputs:
       - dfPD
       - dfSUBJ
