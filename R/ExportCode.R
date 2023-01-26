@@ -174,7 +174,9 @@ ExportCode <- function(lData,
     code = collapsed
   ) %>%
     purrr::flatten() %>%
-    glue::glue_collapse(sep = "\n\n")
+    glue::glue_collapse(sep = "\n\n") %>%
+    styler::style_text() %>%
+    paste(collapse = '\n')
 
 
   # save/insert output ------------------------------------------------------
