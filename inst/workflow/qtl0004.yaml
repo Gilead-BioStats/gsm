@@ -11,7 +11,7 @@ steps:
       - dfPD
       - dfSUBJ
     output: dfInput
-  - name: PD_Assess_Rate
+  - name: PD_Assess_Binary
     inputs: dfInput
     output: lResults
     params:

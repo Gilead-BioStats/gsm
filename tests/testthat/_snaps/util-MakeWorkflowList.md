@@ -1407,7 +1407,7 @@
       
       $qtl0004[[3]]
       $qtl0004[[3]]$name
-      [1] "PD_Assess_Rate"
+      [1] "PD_Assess_Binary"
       
       $qtl0004[[3]]$inputs
       [1] "dfInput"

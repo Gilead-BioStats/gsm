@@ -4,8 +4,8 @@ assess_function <- gsm::PD_Assess_Rate
 
 dfInput <- dfInputPD
 
-output_spec <- yaml::read_yaml(system.file("specs", "PD_Assess.yaml", package = "gsm"))
-output_mapping <- yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm"))
+output_spec <- yaml::read_yaml(system.file("specs", "PD_Assess_Rate.yaml", package = "gsm"))
+output_mapping <- yaml::read_yaml(system.file("mappings", "PD_Assess_Rate.yaml", package = "gsm"))
 
 test_that("valid output is returned", {
   test_valid_output_assess(
