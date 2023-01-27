@@ -40,14 +40,14 @@
 #'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::PD_Assess_Rate()]
 #'   - `spec`, a named list used to define variable specifications
 #'
-#' @includeRmd ./man/md/PD_Assess.md
+#' @includeRmd ./man/md/PD_Assess_Binary.md
 #' @includeRmd ./man/md/analyze_rate.md
 #'
 #' @examples
-#' dfInput <- PD_Map_Raw_Rate()
-#' pd_assessment_NormalApprox <- PD_Assess_Rate(dfInput)
-#' pd_assessment_poisson <- PD_Assess_Rate(dfInput, strMethod = "Poisson")
-#' pd_assessment_identity <- PD_Assess_Rate(dfInput, strMethod = "Identity")
+#' dfInput <- PD_Map_Raw_Binary()
+#' pd_assessment_NormalApprox <- PD_Assess_Binary(dfInput)
+#' pd_assessment_poisson <- PD_Assess_Binary(dfInput, strMethod = "Poisson")
+#' pd_assessment_identity <- PD_Assess_Binary(dfInput, strMethod = "Identity")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
@@ -56,11 +56,11 @@
 #'
 #' @export
 
-PD_Assess_Rate <- function(
+PD_Assess_Binary <- function(
     dfInput,
     vThreshold = NULL,
     strMethod = "NormalApprox",
-    lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess_Rate.yaml", package = "gsm")),
+    lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess_Binary.yaml", package = "gsm")),
     strGroup = "Site",
     nMinDenominator = NULL,
     nConfLevel = NULL,
@@ -76,18 +76,10 @@ PD_Assess_Rate <- function(
   )
 
 
-  # QTL uses the outcome of PD_Map_Raw_Binary, and needs a separate specification for required columns.
-  # All other methods use PD_Map_Raw (Rate) and the standard specification for PD_Assess
-  strContext <- switch(strMethod,
-                       QTL = "PD_Assess_Binary",
-                       NormalApprox = "PD_Assess_Rate",
-                       Poisson = "PD_Assess_Rate",
-                       Identity = "PD_Assess_Rate")
-
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
   lChecks <- gsm::CheckInputs(
-    context = strContext,
+    context = "PD_Assess_Binary",
     dfs = list(dfInput = dfInput),
     mapping = lMapping,
     bQuiet = bQuiet
@@ -111,14 +103,14 @@ PD_Assess_Rate <- function(
 
   # begin running assessment ------------------------------------------------
   if (!lChecks$status) {
-    if (!bQuiet) cli::cli_alert_warning("{.fn PD_Assess_Rate} did not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn PD_Assess_Binary} did not run because of failed check.")
     return(list(
       lData = NULL,
       lCharts = NULL,
       lChecks = lChecks
     ))
   } else {
-    if (!bQuiet) cli::cli_h2("Initializing {.fn PD_Assess_Rate}")
+    if (!bQuiet) cli::cli_h2("Initializing {.fn PD_Assess_Binary}")
 
     # dfTransformed -----------------------------------------------------------
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
@@ -128,7 +120,7 @@ PD_Assess_Rate <- function(
       dfInput = dfInput,
       strGroupCol = lMapping$dfInput$strGroupCol,
       strNumeratorCol = "Count",
-      strDenominatorCol = ifelse(strMethod == "QTL", "Total", "Exposure"),
+      strDenominatorCol = "Total",
       bQuiet = bQuiet
     )
 

@@ -40,7 +40,7 @@
 #'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::PD_Assess_Rate()]
 #'   - `spec`, a named list used to define variable specifications
 #'
-#' @includeRmd ./man/md/PD_Assess.md
+#' @includeRmd ./man/md/PD_Assess_Rate.md
 #' @includeRmd ./man/md/analyze_rate.md
 #'
 #' @examples
@@ -76,18 +76,10 @@ PD_Assess_Rate <- function(
   )
 
 
-  # QTL uses the outcome of PD_Map_Raw_Binary, and needs a separate specification for required columns.
-  # All other methods use PD_Map_Raw (Rate) and the standard specification for PD_Assess
-  strContext <- switch(strMethod,
-                       QTL = "PD_Assess_Binary",
-                       NormalApprox = "PD_Assess_Rate",
-                       Poisson = "PD_Assess_Rate",
-                       Identity = "PD_Assess_Rate")
-
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
   lChecks <- gsm::CheckInputs(
-    context = strContext,
+    context = "PD_Assess_Rate",
     dfs = list(dfInput = dfInput),
     mapping = lMapping,
     bQuiet = bQuiet
@@ -128,7 +120,7 @@ PD_Assess_Rate <- function(
         dfInput = dfInput,
         strGroupCol = lMapping$dfInput$strGroupCol,
         strNumeratorCol = "Count",
-        strDenominatorCol = ifelse(strMethod == "QTL", "Total", "Exposure"),
+        strDenominatorCol = "Exposure",
         bQuiet = bQuiet
       )
 
