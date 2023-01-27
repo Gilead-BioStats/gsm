@@ -8,7 +8,7 @@ PD_Assess_Binary(
   dfInput,
   vThreshold = NULL,
   strMethod = "NormalApprox",
-  lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess_Rate.yaml", package =
+  lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess_Binary.yaml", package =
     "gsm")),
   strGroup = "Site",
   nMinDenominator = NULL,
