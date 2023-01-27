@@ -186,7 +186,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strGroupCol", "strCountCol", "strExposureCol", "strRateCol"]
+              "value": ["strIDCol", "strGroupCol", "strCountCol"]
             },
             {
               "type": "character",
@@ -221,7 +221,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCountryCol", "strCustomGroupCol", "strCountCol", "strExposureCol", "strRateCol", "strTotalCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCountryCol", "strCustomGroupCol", "strCountCol", "strTotalCol"]
             }
           },
           "value": [
@@ -254,16 +254,6 @@
               "type": "character",
               "attributes": {},
               "value": ["Count"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["Exposure"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["Rate"]
             },
             {
               "type": "character",

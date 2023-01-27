@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 
-assess_function <- gsm::PD_Assess
+assess_function <- gsm::PD_Assess_Rate
 
 dfInput <- dfInputPD
 

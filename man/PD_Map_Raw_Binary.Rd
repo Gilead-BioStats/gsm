@@ -27,7 +27,7 @@ of the column. Default: package-defined mapping for raw+.}
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} Data frame with one record per subject, the input to \code{\link[=PD_Assess]{PD_Assess()}}. If
+\code{data.frame} Data frame with one record per subject, the input to \code{\link[=PD_Assess_Binary]{PD_Assess_Binary()}}. If
 \code{bReturnChecks} is \code{TRUE} \code{PD_Map_Raw_Binary} returns a named \code{list} with:
 \itemize{
 \item \code{df}: the data frame described above
@@ -36,12 +36,12 @@ of the column. Default: package-defined mapping for raw+.}
 }
 \description{
 Convert raw protocol deviation (PD) data, typically processed case report form data, to formatted
-input data to \code{\link[=PD_Assess]{PD_Assess()}}.
+input data to \code{\link[=PD_Assess_Binary]{PD_Assess_Binary()}}.
 }
 \details{
 \code{PD_Map_Raw_Binary} combines PD data with subject-level study duration data to create formatted
-input data to \code{\link[=PD_Assess]{PD_Assess()}}. This function creates an input dataset for the PD Assessment
-(\code{\link[=PD_Assess]{PD_Assess()}}) by binding subject-level PD counts (derived from \code{dfPD}) to subject-level
+input data to \code{\link[=PD_Assess_Binary]{PD_Assess_Binary()}}. This function creates an input dataset for the PD Assessment
+(\code{\link[=PD_Assess_Binary]{PD_Assess_Binary()}}) by binding subject-level PD counts (derived from \code{dfPD}) to subject-level
 data (from \code{dfSUBJ}). Note that the function can generate data summaries for specific types of
 PDs by passing filtered PD data to \code{dfPD}.
 }

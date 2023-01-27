@@ -8,7 +8,7 @@ CheckInputs(context, dfs, mapping = NULL, spec = NULL, bQuiet = TRUE)
 }
 \arguments{
 \item{context}{\code{character} Name of the data pipeline "step" that is being checked, e.g.
-"AE_Map_Raw" or "PD_Assess".}
+"AE_Map_Raw" or "PD_Assess_Rate".}
 
 \item{dfs}{\code{list} A list of data frames.}
 

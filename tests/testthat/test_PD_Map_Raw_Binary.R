@@ -10,8 +10,8 @@ dfs <- list(
 input_spec <- yaml::read_yaml(system.file("specs", "PD_Map_Raw_Binary.yaml", package = "gsm"))
 input_mapping <- subset_input_mapping(input_spec = input_spec)
 
-output_spec <- yaml::read_yaml(system.file("specs", "PD_Assess.yaml", package = "gsm"))
-output_mapping <- yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm"))
+output_spec <- yaml::read_yaml(system.file("specs", "PD_Assess_Binary.yaml", package = "gsm"))
+output_mapping <- yaml::read_yaml(system.file("mappings", "PD_Assess_Binary.yaml", package = "gsm"))
 
 test_that("metadata have not changed", {
   expect_snapshot_value(input_spec, "json2")
