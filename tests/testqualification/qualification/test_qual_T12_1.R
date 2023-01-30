@@ -1,4 +1,4 @@
-test_that("Raw data entry data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and data point change counts with one record per subject, omitting subjects with no reported data point changes.", {
+test_that("Raw data entry data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and data point change counts with one record per subject, omitting subjects with no reported data points.", {
 
 
   ########### gsm mapping ###########
@@ -34,9 +34,9 @@ test_that("Raw data entry data can be mapped correctly to create an analysis-rea
   dm_raw <- dm_raw_orig
 
   # join DM and data change count data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, data_chg) %>%
+  expected <- full_join(dm_raw, data_chg, by = "subjid") %>%
     mutate(Count = replace_na(Count, 0)) %>%
-    filter(Total != 0 | !is.na(Total)) %>% # remove subjects without any data point changes
+    filter(Total != 0 | !is.na(Total)) %>% # remove subjects without any data points
     select(all_of(cols))
 
 
@@ -50,7 +50,7 @@ test_that("Raw data entry data can be mapped correctly to create an analysis-rea
     mutate(check = n())
   subj_length_test <- unique(subj_length_check$check) == 1
 
-  # check that subjects with no reported data change counts are excluded
+  # check that subjects with no reported data points are excluded
   empty_test <- unique(is_empty(expected$SubjectID[expected$Total == 0 | is.na(expected$Total)]))
 
   all_tests <- isTRUE(subj_test) & isTRUE(subj_length_test) & isTRUE(empty_test)

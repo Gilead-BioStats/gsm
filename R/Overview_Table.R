@@ -18,6 +18,8 @@
 Overview_Table <- function(lAssessments, bInteractive = TRUE) {
   study <- lAssessments[grep("kri", names(lAssessments))]
 
+  study <- keep(study, function(x) x$bStatus == TRUE)
+
   overview_table <- study %>%
     purrr::map(function(kri) {
       name <- kri$name

@@ -37,14 +37,14 @@ test_that("Raw data query data can be mapped correctly to create an analysis-rea
     distinct()
 
   # combine into one data frame
-  query_age_all <- full_join(query_age, query_age_forms)
+  query_age_all <- full_join(query_age, query_age_forms, by = "subjid")
 
   # read in raw source DM data
   dm_raw_orig <- clindata::rawplus_dm
   dm_raw <- dm_raw_orig
 
   # join DM and data query age counts - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, query_age_all) %>%
+  expected <- full_join(dm_raw, query_age_all, by = "subjid") %>%
     mutate(Count = replace_na(Count, 0)) %>%
     filter(Total != 0 | !is.na(Total)) %>% # remove subjects without any data queries
     select(all_of(cols))
@@ -61,9 +61,9 @@ test_that("Raw data query data can be mapped correctly to create an analysis-rea
   subj_length_test <- unique(subj_length_check$check) == 1
 
   # check that subjects with no reported data queries are excluded
-  treat_test <- unique(is_empty(expected$SubjectID[expected$Total == 0 | is.na(expected$Total)]))
+  empty_test <- unique(is_empty(expected$SubjectID[expected$Total == 0 | is.na(expected$Total)]))
 
-  all_tests <- isTRUE(subj_test) & isTRUE(subj_length_test) & isTRUE(treat_test)
+  all_tests <- isTRUE(subj_test) & isTRUE(subj_length_test) & isTRUE(empty_test)
   expect_true(all_tests)
 
 })

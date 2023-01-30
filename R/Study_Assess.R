@@ -8,6 +8,7 @@
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
 #' @param lSubjFilters `list` a named list of parameters to filter subject-level data on.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`
 #'
 #' @examples
 #' \dontrun{
@@ -29,7 +30,8 @@ Study_Assess <- function(
   lMapping = NULL,
   lAssessments = NULL,
   lSubjFilters = NULL,
-  bQuiet = TRUE
+  bQuiet = TRUE,
+  bFlowchart = FALSE
 ) {
 
   #### --- load defaults --- ###
@@ -90,18 +92,24 @@ Study_Assess <- function(
       ### --- Attempt to run each assessment --- ###
       lAssessments <- lAssessments %>%
         purrr::map(function(lWorkflow) {
-          Runction <- ifelse(
-            hasName(lWorkflow, "group"),
-            RunStratifiedWorkflow,
-            RunWorkflow
-          )
 
-          Runction(
-            lWorkflow,
-            lData = lData,
-            lMapping = lMapping,
-            bQuiet = bQuiet
-          )
+          if (hasName(lWorkflow, "group")) {
+            RunStratifiedWorkflow(
+              lWorkflow,
+              lData = lData,
+              lMapping = lMapping,
+              bQuiet = bQuiet,
+              bFlowchart = bFlowchart
+            )
+          } else {
+            RunWorkflow(
+              lWorkflow,
+              lData = lData,
+              lMapping = lMapping,
+              bQuiet = bQuiet,
+              bFlowchart = bFlowchart
+            )
+          }
         })
     } else {
       if (!bQuiet) cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")

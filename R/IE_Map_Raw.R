@@ -68,8 +68,8 @@ IE_Map_Raw <- function(
     dfIE_mapped <- dfs$dfIE %>%
       select(
         SubjectID = lMapping[["dfIE"]][["strIDCol"]],
-        category = lMapping[["dfIE"]][["strCategoryCol"]],
-        result = lMapping[["dfIE"]][["strValueCol"]]
+        Category = lMapping[["dfIE"]][["strCategoryCol"]],
+        Result = lMapping[["dfIE"]][["strResultCol"]]
       )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
@@ -88,21 +88,21 @@ IE_Map_Raw <- function(
     # Create Subject Level IE Counts and merge Subj
     dfInput <- dfIE_mapped %>%
       mutate(
-        expected = ifelse(
-          .data$category == lMapping$dfIE$vCategoryValues[1],
-          lMapping$dfIE$vExpectedResultValues[1],
-          lMapping$dfIE$vExpectedResultValues[2]
+        Expected = ifelse(
+          .data$Category == lMapping$dfIE$strCategoryVal[1],
+          lMapping$dfIE$strResultVal[1],
+          lMapping$dfIE$strResultVal[2]
         ),
-        valid = .data$result == .data$expected,
-        invalid = .data$result != .data$expected,
-        missing = !(.data$result %in% lMapping$dfIE$vExpectedResultValues)
+        Valid = .data$Result == .data$Expected,
+        Invalid = .data$Result != .data$Expected,
+        Missing = !(.data$Result %in% lMapping$dfIE$strResultVal)
       ) %>%
       group_by(.data$SubjectID) %>%
       summarise(
         Total = n(),
-        Valid = sum(.data$valid),
-        Invalid = sum(.data$invalid),
-        Missing = sum(.data$missing)
+        Valid = sum(.data$Valid),
+        Invalid = sum(.data$Invalid),
+        Missing = sum(.data$Missing)
       ) %>%
       mutate(Count = .data$Invalid + .data$Missing) %>%
       ungroup() %>%

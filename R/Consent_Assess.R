@@ -120,7 +120,7 @@ Consent_Assess <- function(
     lCharts <- list()
 
     dfConfig <- MakeDfConfig(
-      strMethod = "identity",
+      strMethod = "Identity",
       strGroup = strGroup,
       strAbbreviation = "CONSENT",
       strMetric = "Consent Issues",
@@ -130,7 +130,7 @@ Consent_Assess <- function(
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score")
+    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = nThreshold)
 
     lCharts$barMetricJS <- barChart(
       results = lData$dfSummary,

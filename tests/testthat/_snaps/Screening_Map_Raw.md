@@ -53,7 +53,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strCountryCol", "strCustomGroupCol", "strIDCol", "strScreenFailCol", "strScreenFailVal", "strScreenFailReasonCol", "strScreenFailReasonVal"]
+              "value": ["strStudyCol", "strSiteCol", "strCustomGroupCol", "strCountryCol", "strIDCol", "strScreenFailCol", "strScreenFailVal", "strScreenFailReasonCol", "strScreenFailReasonVal"]
             }
           },
           "value": [
@@ -70,12 +70,12 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["country"]
+              "value": ["invid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["invid"]
+              "value": ["country"]
             },
             {
               "type": "character",

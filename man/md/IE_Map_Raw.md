@@ -6,4 +6,4 @@
 |dfSUBJ     |strIDCol       |subjid            |TRUE          |TRUE                       |
 |dfIE       |strIDCol       |subjid            |TRUE          |FALSE                      |
 |dfIE       |strCategoryCol |iecat             |TRUE          |FALSE                      |
-|dfIE       |strValueCol    |ieorres           |TRUE          |FALSE                      |
+|dfIE       |strResultCol   |ieorres           |TRUE          |FALSE                      |

@@ -23,7 +23,8 @@ Make_Snapshot(
   lAssessments = NULL,
   bUpdateParams = FALSE,
   cPath = NULL,
-  bQuiet = TRUE
+  bQuiet = TRUE,
+  bFlowchart = FALSE
 )
 }
 \arguments{
@@ -41,6 +42,8 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \item{cPath}{\code{character} a character string indicating a working directory to save .csv files; the output of the snapshot.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+
+\item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}}
 }
 \value{
 \code{list} \code{lSnapshot}, a named list with a data.frame for each component of the {gsm} data model.

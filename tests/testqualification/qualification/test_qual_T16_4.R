@@ -43,7 +43,7 @@ test_that("A subset of Raw+ PD data can be mapped correctly to create an analysi
   dm_raw <- dm_raw_orig
 
   # join DM and PD data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, pd_raw) %>%
+  expected <- full_join(dm_raw, pd_raw, by = "subjid") %>%
     mutate(Count = replace_na(Count, 0),
            Rate = as.numeric(Count)/!!sym(lMapping$dfSUBJ$strTimeOnStudyCol)) %>%
     filter(!(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol) == 0) & !is.na(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol))) %>% # remove subjects that were not treated (i.e., had 0 or NA days of treatment)

@@ -75,7 +75,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strCategoryCol", "strImportantCol", "strImportantVal", "strNotImportantVal"]
+              "value": ["strIDCol", "strCategoryCol", "strImportantCol", "strImportantVal", "strNonImportantVal"]
             }
           },
           "value": [
@@ -112,7 +112,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol", "strCountryCol"]
+              "value": ["strStudyCol", "strSiteCol", "strCustomGroupCol", "strCountryCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol"]
             }
           },
           "value": [
@@ -125,6 +125,16 @@
               "type": "character",
               "attributes": {},
               "value": ["siteid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
             },
             {
               "type": "character",
@@ -145,16 +155,6 @@
               "type": "character",
               "attributes": {},
               "value": ["rfpst_dt"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["invid"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["country"]
             }
           ]
         }
