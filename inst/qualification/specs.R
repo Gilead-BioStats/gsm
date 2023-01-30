@@ -33,7 +33,10 @@ import_specs <- function() {
       Test.Status = tolower(Test.Status)
     ) %>%
     dplyr::filter(
-      Test.Status == "approved"
+      Test.Status == "complete"
+    ) %>%
+    arrange(
+      Spec, Test.ID
     ) %>%
     dplyr::select(
       "ID",
