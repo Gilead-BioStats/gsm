@@ -182,7 +182,15 @@ ExportCode <- function(lData,
   # save/insert output ------------------------------------------------------
   if (!is.null(strPath)) {
     if (!is.null(strFileName)) {
-      cat(output, file = paste0(strPath, "/", strFileName, ".R"))
+      file_out <- paste0(strPath, "/", strFileName, ".R")
+      if (!file.exists(file_out)) {
+        cat(output, file = file_out)
+      } else {
+        file_out_dupe <- paste0(strPath, "/", strFileName, "(", make.names(Sys.time()), ").R")
+        cli::cli_alert_warning("File {.file {file_out}} already exists! Saving as {.file {file_out_dupe}} instead.")
+        cat(output, file = file_out_dupe)
+      }
+
     } else {
       cat(output, file = paste0(strPath, "/gsm_code.R"))
     }
