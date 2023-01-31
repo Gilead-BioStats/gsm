@@ -11,11 +11,18 @@ build_traceability_matrix <- function(df){
     ) %>%
     tidyr::unnest_longer(col = Tests) %>%
     dplyr::arrange(ID) %>%
-    dplyr::mutate(holder = "X") %>%
+    dplyr::mutate(holder = "X",
+                  testid = as.numeric(gsub("^.*\\_", "", Tests))) %>%
+    arrange(testid) %>%
     tidyr::pivot_wider(names_from = "Tests",
                        id_cols = c("ID"),
                        values_from = holder,
-                       values_fill = "")
+                       values_fill = "") %>%
+    mutate(
+      specid = as.numeric(gsub("^.*\\_", "", ID))
+    ) %>%
+    arrange(specid) %>%
+    select(-specid)
 
   return(traceability_matrix)
 }
