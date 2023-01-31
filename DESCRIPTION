@@ -23,6 +23,7 @@ Imports:
     dplyr,
     DT,
     fontawesome (>= 0.2.2),
+    fs,
     glue,
     gt,
     ggplot2,
@@ -34,6 +35,7 @@ Imports:
     magrittr,
     purrr,
     rmarkdown,
+    rstudioapi,
     stringr,
     tibble,
     tidyr,
@@ -51,7 +53,8 @@ Suggests:
     tools,
     pkgdown,
     riskmetric,
-    roxygen2
+    roxygen2,
+    styler
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

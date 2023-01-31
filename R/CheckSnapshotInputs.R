@@ -95,7 +95,7 @@ CheckSnapshotInputs <- function(snapshot) {
   ) %>%
     rowwise() %>%
     mutate(
-      status = sum(is.na(cur_data())),
+      status = sum(is.na(pick(everything()))),
       status = ifelse(.data$status == 0, TRUE, FALSE)
     ) %>%
     ungroup()
