@@ -46,7 +46,18 @@ MakeWorkflowList <- function(strNames = NULL, strPath = "workflow", strPackage =
   names(assessments) <- assessments %>% purrr::map_chr(~ .x$name)
 
   if (!is.null(strNames)) {
-    assessments <- purrr::keep(assessments, names(assessments) %in% strNames)
+
+    not_found <- strNames[!strNames %in% names(assessments)]
+
+    if(length(not_found) > 0) {
+      cli::cli_alert_warning("{.val {not_found}} {?is/are} not {?a /}supported workflow{?/s}! Check the output of {.fn MakeAssessmentList} for NULL values.")
+      assessments <- c(
+        vector(mode = "list", length = length(not_found)) %>% purrr::set_names(nm = not_found),
+        purrr::keep(assessments, names(assessments) %in% strNames)
+      )
+    } else {
+      assessments <- purrr::keep(assessments, names(assessments) %in% strNames)
+    }
   }
 
   return(assessments)

@@ -12,16 +12,15 @@
 #'
 #' @export
 is_workflow_valid <- function(lWorkflow) {
-  purrr::map(lWorkflow, function(workflow) {
 
     checks <- list(
-      workflow_is_list = is.list(workflow),
-      workflow_has_steps = "steps" %in% names(workflow)
+      workflow_is_list = is.list(lWorkflow),
+      workflow_has_steps = "steps" %in% names(lWorkflow)
     )
 
     if (checks$workflow_has_steps) {
 
-      checks$steps_are_valid <- purrr::map(workflow$steps, function(step) {
+      checks$steps_are_valid <- purrr::map(lWorkflow$steps, function(step) {
 
         list(
           step$name %in% getNamespaceExports("gsm"),
@@ -29,9 +28,7 @@ is_workflow_valid <- function(lWorkflow) {
           exists("output", where = step)
         )
       })
-
     }
-
 
     if (exists("steps_are_valid", checks)) {
       checks$steps_are_valid <- checks$steps_are_valid %>%
@@ -48,5 +45,5 @@ is_workflow_valid <- function(lWorkflow) {
 
     return(checks)
 
-  })
+
 }
