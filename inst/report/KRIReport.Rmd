@@ -174,10 +174,10 @@ error_table <- error$dfSummary %>%
 DT::datatable(error_table)
 ```
 
-```{js, file='../utils-0.0.1/overallSiteDropdown.js'}
+```{js, file='../utils-0.0.1/overallSiteDropdown.js', echo=FALSE}
 ```
 
-```{js, file='../utils-0.0.1/dragOverallSiteDropdown.js'}
+```{js, file='../utils-0.0.1/dragOverallSiteDropdown.js', echo=FALSE}
 
 ```
 
