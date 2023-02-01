@@ -203,19 +203,20 @@ bFlowchart = FALSE
     lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
   }
 
-  # is workflow valid?
-  # -- must be a list
-  # -- must have steps and name
-  # -- within steps, must have name, inputs, output
-  # -- steps$name must be a gsm function
-  lWorkflowCheck <- is_workflow_valid(lAssessments)
+  # # is workflow valid?
+  # # -- must be a list
+  # # -- must have steps and name
+  # # -- within steps, must have name, inputs, output
+  # # -- steps$name must be a gsm function
+  # lWorkflowCheck <- is_workflow_valid(lAssessments)
+
 
 
   # Run Study Assessment
   lResults <- gsm::Study_Assess(
     lData = lData,
     lMapping = lMapping,
-    lAssessments = lAssessments[lWorkflowCheck == TRUE],
+    lAssessments = lAssessments,
     bQuiet = bQuiet
   )
 
@@ -228,8 +229,11 @@ bFlowchart = FALSE
   # `parseStatus` represents the actual results - workflowid + `x$bStatus`
   # if `workflowid` is not found in the results, that means it was not run.
   status_workflow <- lMeta$config_workflow %>%
-    left_join(parseStatus, by = "workflowid") %>%
+    full_join(parseStatus, by = "workflowid") %>%
     mutate(status = ifelse(is.na(.data$status), FALSE, .data$status))
+
+  browser()
+
 
   # parse warnings from is_mapping_valid to create an informative "notes" column
   warnings <- ParseWarnings(lResults)
