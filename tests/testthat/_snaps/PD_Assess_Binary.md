@@ -26,20 +26,12 @@
     Code
       subsetGroupCols(site)
     Output
-      # A tibble: 40 x 1
-         GroupID
-         <chr>  
-       1 68     
-       2 114    
-       3 75     
-       4 122    
-       5 15     
-       6 172    
-       7 34     
-       8 139    
-       9 173    
-      10 109    
-      # ... with 30 more rows
+      # A tibble: 3 x 1
+        GroupID
+        <chr>  
+      1 166    
+      2 86     
+      3 76     
 
 ---
 
@@ -59,29 +51,21 @@
       # A tibble: 3 x 1
         GroupID
         <chr>  
-      1 China  
-      2 Japan  
-      3 US     
+      1 Japan  
+      2 US     
+      3 China  
 
 ---
 
     Code
       subsetGroupCols(customGroup)
     Output
-      # A tibble: 40 x 1
-         GroupID
-         <chr>  
-       1 0X155  
-       2 0X016  
-       3 0X027  
-       4 0X018  
-       5 0X039  
-       6 0X163  
-       7 0X082  
-       8 0X052  
-       9 0X124  
-      10 0X127  
-      # ... with 30 more rows
+      # A tibble: 3 x 1
+        GroupID
+        <chr>  
+      1 0X012  
+      2 0X999  
+      3 0X201  
 
 # invalid data throw errors
 
@@ -98,7 +82,8 @@
 ---
 
     i In argument: `Metric = .data$vMu + ...`.
-    Caused by error in `.data$Threshold * sqrt(.data$phi * .data$vMu / .data$Denominator)`:
+    Caused by error in `.data$Threshold * sqrt(.data$phi * .data$vMu * (1 - .data$vMu) / .data$
+        Denominator)`:
     ! non-numeric argument to binary operator
 
 ---
@@ -118,20 +103,20 @@
       assessOutput <- assess_function(dfInput = dfInput, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Assess_Rate()` --
+      -- Checking Input Data for `PD_Assess_Binary()` --
       
-      v No issues found for `PD_Assess_Rate()`
+      v No issues found for `PD_Assess_Binary()`
       
-      -- Initializing `PD_Assess_Rate()` --
+      -- Initializing `PD_Assess_Binary()` --
       
-      Input data has 50 rows.
-      v `Transform_Rate()` returned output with 40 rows.
+      Input data has 3 rows.
+      v `Transform_Rate()` returned output with 3 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      > nStep was not provided. Setting default step to 5.46
-      v `Analyze_NormalApprox()` returned output with 40 rows.
-      v `Flag_NormalApprox()` returned output with 40 rows.
-      v `Summarize()` returned output with 40 rows.
+      > nStep was not provided. Setting default step to 1
+      v `Analyze_NormalApprox()` returned output with 3 rows.
+      v `Flag_NormalApprox()` returned output with 3 rows.
+      v `Summarize()` returned output with 3 rows.
       v Created 2 scatter plots.
       v Created 4 bar charts.
 

@@ -5,5 +5,4 @@ dfInput:
   strCountryCol: "CountryID"
   strCustomGroupCol: "CustomGroupID"
   strCountCol: "Count"
-  strExposureCol: "Exposure"
-  strRateCol: "Rate"
+  strTotalCol: "Total"

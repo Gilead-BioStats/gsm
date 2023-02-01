@@ -5,7 +5,7 @@
 #' The purpose of `CheckInputs()` is to identify any issues where the input data does not match the pre-defined mapping and/or specification for the expected input data format.
 #'
 #' @param context `character` Name of the data pipeline "step" that is being checked, e.g.
-#' "AE_Map_Raw" or "PD_Assess".
+#' "AE_Map_Raw" or "PD_Assess_Rate".
 #' @param dfs `list` A list of data frames.
 #' @param mapping `list` YAML mapping for a given context.
 #' @param spec `list` YAML spec for a given context.

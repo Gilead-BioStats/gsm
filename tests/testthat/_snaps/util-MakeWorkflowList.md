@@ -276,7 +276,7 @@
       
       $cou0003[[2]]
       $cou0003[[2]]$name
-      [1] "PD_Map_Raw"
+      [1] "PD_Map_Raw_Rate"
       
       $cou0003[[2]]$inputs
       [1] "dfPD"   "dfSUBJ"
@@ -287,7 +287,7 @@
       
       $cou0003[[3]]
       $cou0003[[3]]$name
-      [1] "PD_Assess"
+      [1] "PD_Assess_Rate"
       
       $cou0003[[3]]$inputs
       [1] "dfInput"
@@ -336,7 +336,7 @@
       
       $cou0004[[2]]
       $cou0004[[2]]$name
-      [1] "PD_Map_Raw"
+      [1] "PD_Map_Raw_Rate"
       
       $cou0004[[2]]$inputs
       [1] "dfSUBJ" "dfPD"  
@@ -347,7 +347,7 @@
       
       $cou0004[[3]]
       $cou0004[[3]]$name
-      [1] "PD_Assess"
+      [1] "PD_Assess_Rate"
       
       $cou0004[[3]]$inputs
       [1] "dfInput"
@@ -918,7 +918,7 @@
       
       $kri0003[[2]]
       $kri0003[[2]]$name
-      [1] "PD_Map_Raw"
+      [1] "PD_Map_Raw_Rate"
       
       $kri0003[[2]]$inputs
       [1] "dfPD"   "dfSUBJ"
@@ -929,7 +929,7 @@
       
       $kri0003[[3]]
       $kri0003[[3]]$name
-      [1] "PD_Assess"
+      [1] "PD_Assess_Rate"
       
       $kri0003[[3]]$inputs
       [1] "dfInput"
@@ -978,7 +978,7 @@
       
       $kri0004[[2]]
       $kri0004[[2]]$name
-      [1] "PD_Map_Raw"
+      [1] "PD_Map_Raw_Rate"
       
       $kri0004[[2]]$inputs
       [1] "dfSUBJ" "dfPD"  
@@ -989,7 +989,7 @@
       
       $kri0004[[3]]
       $kri0004[[3]]$name
-      [1] "PD_Assess"
+      [1] "PD_Assess_Rate"
       
       $kri0004[[3]]$inputs
       [1] "dfInput"
@@ -1396,7 +1396,7 @@
       
       $qtl0004[[2]]
       $qtl0004[[2]]$name
-      [1] "PD_Map_Raw"
+      [1] "PD_Map_Raw_Binary"
       
       $qtl0004[[2]]$inputs
       [1] "dfPD"   "dfSUBJ"
@@ -1407,7 +1407,7 @@
       
       $qtl0004[[3]]
       $qtl0004[[3]]$name
-      [1] "PD_Assess"
+      [1] "PD_Assess_Binary"
       
       $qtl0004[[3]]$inputs
       [1] "dfInput"

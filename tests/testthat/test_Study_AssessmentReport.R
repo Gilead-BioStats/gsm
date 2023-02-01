@@ -68,7 +68,7 @@ test_that("correct messages show when data is not found", {
 
   expect_snapshot(
     report$dfAllChecks %>%
-      filter(domain == "dfPD" & step == "PD_Map_Raw") %>%
+      filter(domain == "dfPD" & step == "PD_Map_Raw_Rate") %>%
       pull(notes)
   )
 })

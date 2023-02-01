@@ -13,9 +13,8 @@
 ---
 
     Code
-      report$dfAllChecks %>% filter(domain == "dfPD" & step == "PD_Map_Raw") %>% pull(
-        notes)
+      report$dfAllChecks %>% filter(domain == "dfPD" & step == "PD_Map_Raw_Rate") %>%
+        pull(notes)
     Output
       [1] "Check not run." "Check not run." "Check not run." "Check not run."
-      [5] "Check not run."
 
