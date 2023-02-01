@@ -1,11 +1,11 @@
 source(testthat::test_path("testdata/data.R"))
 
-assess_function <- gsm::PD_Assess
+assess_function <- gsm::PD_Assess_Binary
 
-dfInput <- dfInputPD
+dfInput <- PD_Map_Raw_Binary(dfs = list(dfSUBJ = dfSUBJ, dfPD = dfPD))
 
-output_spec <- yaml::read_yaml(system.file("specs", "PD_Assess.yaml", package = "gsm"))
-output_mapping <- yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm"))
+output_spec <- yaml::read_yaml(system.file("specs", "PD_Assess_Binary.yaml", package = "gsm"))
+output_mapping <- yaml::read_yaml(system.file("mappings", "PD_Assess_Binary.yaml", package = "gsm"))
 
 test_that("valid output is returned", {
   test_valid_output_assess(
