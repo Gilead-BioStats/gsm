@@ -10,12 +10,13 @@
 #' methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
-#' @param vThreshold `numeric` Threshold specification, a vector of length 2 or 4 that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation (`strMethod = "NormalApprox"`),
-#'   `c(-7, -5, 5, 7)` for a Poisson model (`strMethod = "Poisson"`), and `c(0.000895, 0.003059)` for a nominal assessment (`strMethod = "Identity"`).
+#' @param vThreshold `numeric` Threshold specification, a numeric vector that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation (`strMethod = "NormalApprox"`),
+#'   `c(-7, -5, 5, 7)` for a Poisson model (`strMethod = "Poisson"`), `c(0.000895, 0.003059)` for a nominal assessment (`strMethod = "Identity"`), and `c(0.01)` for a QTL (`strMethod = "QTL"`).
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"NormalApprox"` (default)
 #'   - `"Poisson"`
 #'   - `"Identity"`
+#'   - `"QTL"`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Protocol Deviation Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
@@ -131,14 +132,14 @@ PD_Assess_Binary <- function(
     if (strMethod == "NormalApprox") {
       lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
         dfTransformed = lData$dfTransformed,
-        strType = "rate",
+        strType = "binary",
         bQuiet = bQuiet
       )
 
       lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
-        strType = "rate",
+        strType = "binary",
         bQuiet = bQuiet
       )
     } else if (strMethod == "Poisson") {
@@ -147,7 +148,7 @@ PD_Assess_Binary <- function(
     } else if (strMethod == "Identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
     } else if (strMethod == "QTL") {
-      lData$dfAnalyzed <- gsm::Analyze_QTL(lData$dfTransformed, nConfLevel = nConfLevel)
+      lData$dfAnalyzed <- gsm::Analyze_QTL(lData$dfTransformed, strOutcome = "binary", nConfLevel = nConfLevel)
     }
 
 

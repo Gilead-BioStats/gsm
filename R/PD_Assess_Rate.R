@@ -147,7 +147,7 @@ PD_Assess_Rate <- function(
     } else if (strMethod == "Identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
     } else if (strMethod == "QTL") {
-      lData$dfAnalyzed <- gsm::Analyze_QTL(lData$dfTransformed, nConfLevel = nConfLevel)
+      lData$dfAnalyzed <- gsm::Analyze_QTL(lData$dfTransformed, strOutcome = "rate", nConfLevel = nConfLevel)
     }
 
 
