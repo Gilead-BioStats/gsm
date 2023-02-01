@@ -1,6 +1,4 @@
 test_that("Raw+ lab data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and abnormal lab data with one record per subject, omitting subjects with no reported lab values.", {
-
-
   ########### gsm mapping ###########
   observed <- gsm::LB_Map_Raw()
 
@@ -10,13 +8,15 @@ test_that("Raw+ lab data can be mapped correctly to create an analysis-ready inp
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
-  cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
-            SiteID = lMapping$dfSUBJ$strSiteCol,
-            StudyID = lMapping$dfSUBJ$strStudyCol,
-            CountryID = lMapping$dfSUBJ$strCountryCol,
-            CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
-            "Count",
-            "Total")
+  cols <- c(
+    SubjectID = lMapping$dfSUBJ$strIDCol,
+    SiteID = lMapping$dfSUBJ$strSiteCol,
+    StudyID = lMapping$dfSUBJ$strStudyCol,
+    CountryID = lMapping$dfSUBJ$strCountryCol,
+    CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
+    "Count",
+    "Total"
+  )
 
   # read in raw source LB data
   lb_raw_orig <- clindata::rawplus_lb
@@ -65,5 +65,4 @@ test_that("Raw+ lab data can be mapped correctly to create an analysis-ready inp
 
   all_tests <- isTRUE(subj_test) & isTRUE(subj_length_test) & isTRUE(empty_test)
   expect_true(all_tests)
-
 })

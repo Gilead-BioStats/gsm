@@ -12,9 +12,11 @@ test_that("Query rate assessment can return a correctly assessed data frame for 
   t10_3_input <- dfInput
 
   t10_3_transformed <- dfInput %>%
-    qualification_transform_counts(countCol = "Count",
-                                   exposureCol = "DataPoint",
-                                   GroupID = "CountryID")
+    qualification_transform_counts(
+      countCol = "Count",
+      exposureCol = "DataPoint",
+      GroupID = "CountryID"
+    )
 
   t10_3_analyzed <- t10_3_transformed %>%
     mutate(

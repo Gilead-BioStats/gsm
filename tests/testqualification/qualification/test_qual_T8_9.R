@@ -12,9 +12,11 @@ test_that("Data entry assessment can return a correctly assessed data frame for 
   t8_9_input <- dfInput
 
   t8_9_transformed <- dfInput %>%
-    qualification_transform_counts(countCol = "Count",
-                                   exposureCol = "Total",
-                                   GroupID = "CountryID")
+    qualification_transform_counts(
+      countCol = "Count",
+      exposureCol = "Total",
+      GroupID = "CountryID"
+    )
 
   t8_9_analyzed <- t8_9_transformed %>%
     qualification_analyze_normalapprox(strType = "binary")

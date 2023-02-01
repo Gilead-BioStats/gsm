@@ -1,16 +1,17 @@
 test_that("A subset of Raw+ lab data can be mapped correctly to create an analysis-ready input dataset.", {
-
-
   ########### gsm mapping ###########
-  subset <- FilterData(dfInput = clindata::rawplus_lb,
-                       strCol = "lb_te",
-                       anyVal = "Y") # filtering only for treatment-emergent abnormal lab values
+  subset <- FilterData(
+    dfInput = clindata::rawplus_lb,
+    strCol = "lb_te",
+    anyVal = "Y"
+  ) # filtering only for treatment-emergent abnormal lab values
 
   observed <- gsm::LB_Map_Raw(
     dfs = list(
       dfSUBJ = clindata::rawplus_dm,
       dfLB = subset
-    ))
+    )
+  )
 
 
   ########### double programming ###########
@@ -18,13 +19,15 @@ test_that("A subset of Raw+ lab data can be mapped correctly to create an analys
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
-  cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
-            SiteID = lMapping$dfSUBJ$strSiteCol,
-            StudyID = lMapping$dfSUBJ$strStudyCol,
-            CountryID = lMapping$dfSUBJ$strCountryCol,
-            CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
-            "Count",
-            "Total")
+  cols <- c(
+    SubjectID = lMapping$dfSUBJ$strIDCol,
+    SiteID = lMapping$dfSUBJ$strSiteCol,
+    StudyID = lMapping$dfSUBJ$strStudyCol,
+    CountryID = lMapping$dfSUBJ$strCountryCol,
+    CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
+    "Count",
+    "Total"
+  )
 
   # read in raw source LB data
   lb_raw_orig <- clindata::rawplus_lb
@@ -63,5 +66,4 @@ test_that("A subset of Raw+ lab data can be mapped correctly to create an analys
 
   ########### testing ###########
   expect_equal(as.data.frame(observed), as.data.frame(expected))
-
 })

@@ -58,16 +58,15 @@
 #' @export
 
 PD_Assess_Binary <- function(
-    dfInput,
-    vThreshold = NULL,
-    strMethod = "NormalApprox",
-    lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess_Binary.yaml", package = "gsm")),
-    strGroup = "Site",
-    nMinDenominator = NULL,
-    nConfLevel = NULL,
-    bQuiet = TRUE
+  dfInput,
+  vThreshold = NULL,
+  strMethod = "NormalApprox",
+  lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess_Binary.yaml", package = "gsm")),
+  strGroup = "Site",
+  nMinDenominator = NULL,
+  nConfLevel = NULL,
+  bQuiet = TRUE
 ) {
-
   # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'NormalApprox', 'Poisson', 'Identity', or 'QTL'" = strMethod %in% c("NormalApprox", "Poisson", "Identity", "QTL"),
@@ -89,17 +88,17 @@ PD_Assess_Binary <- function(
   # set thresholds and flagging parameters ----------------------------------
   if (is.null(vThreshold)) {
     vThreshold <- switch(strMethod,
-                         NormalApprox = c(-3, -2, 2, 3),
-                         Poisson = c(-7, -5, 5, 7),
-                         Identity = c(0.000895, 0.003059),
-                         QTL = c(0.01)
+      NormalApprox = c(-3, -2, 2, 3),
+      Poisson = c(-7, -5, 5, 7),
+      Identity = c(0.000895, 0.003059),
+      QTL = c(0.01)
     )
   }
 
   strValueColumnVal <- switch(strMethod,
-                              NormalApprox = NULL,
-                              Poisson = NULL,
-                              Identity = "Score"
+    NormalApprox = NULL,
+    Poisson = NULL,
+    Identity = "Score"
   )
 
   # begin running assessment ------------------------------------------------
@@ -167,10 +166,10 @@ PD_Assess_Binary <- function(
     }
 
     flag_function_name <- switch(strMethod,
-                                 NormalApprox = "Flag_NormalApprox",
-                                 Identity = "Flag",
-                                 Poisson = "Flag_Poisson",
-                                 QTL = "Flag_QTL"
+      NormalApprox = "Flag_NormalApprox",
+      Identity = "Flag",
+      Poisson = "Flag_Poisson",
+      QTL = "Flag_QTL"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")

@@ -5,7 +5,6 @@ dfConfig <- clindata::config_param
 dfMeta <- gsm::meta_param
 
 test_that("parameters are updated correctly", {
-
   # change all threshold values to 999
   config <- dfConfig %>%
     mutate(value = 999)
@@ -20,7 +19,7 @@ test_that("parameters are updated correctly", {
     map(function(kri) {
       kri$steps %>%
         map(function(x) {
-            return(x$params$vThreshold)
+          return(x$params$vThreshold)
         }) %>%
         discard(is.null)
     }) %>%
@@ -29,12 +28,10 @@ test_that("parameters are updated correctly", {
 
 
   expect_true(all(updated == 999))
-
 })
 
 
 test_that("input and output list contain the same dimensions", {
-
   input <- lWorkflow
 
   config <- dfConfig %>%
@@ -60,5 +57,4 @@ test_that("input and output list contain the same dimensions", {
     ),
     "123"
   )
-
 })
