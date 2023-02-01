@@ -36,29 +36,20 @@ is_workflow_valid <- function(lWorkflow) {
         return(step_status)
       })
 
-      browser()
-
       if (all(check_all_steps$status)) {
         checks$steps_are_valid$status <- TRUE
       } else {
         checks$steps_are_valid$status <- FALSE
-        checks$steps_are_valid$message <- paste(check_all_steps %>% filter(message != "") %>%  pull(message), collapse = ", ") # make message indicate step/index that error occurred at.
+        msg <- check_all_steps %>%
+          filter(status == F) %>%
+          mutate(x = paste0("Issue at step ", n_step, ": ", message)) %>%
+          pull(x)
+        checks$steps_are_valid$message <- paste(msg, collapse = ", ") # make message indicate step/index that error occurred at.
       }
 
     }
 
-    #   checks$steps_are_valid$status <- checks$steps_are_valid %>%
-    #     purrr::list_flatten() %>%
-    #     purrr::flatten_lgl() %>%
-    #     all()
-    # } else {
-    #   checks$steps_are_valid <- FALSE
-    # }
-
-
-    checks <- checks %>%
-      purrr::flatten_lgl() %>%
-      all()
+    checks$bStatus <- all(purrr::map_lgl(checks, function(x) x$status))
 
     return(checks)
 
