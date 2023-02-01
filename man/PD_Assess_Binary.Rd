@@ -19,14 +19,15 @@ PD_Assess_Binary(
 \arguments{
 \item{dfInput}{\code{data.frame} Input data, a data frame with one record per subject.}
 
-\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 or 4 that defaults to \code{c(-3, -2, 2, 3)} for a Normal Approximation (\code{strMethod = "NormalApprox"}),
-\code{c(-7, -5, 5, 7)} for a Poisson model (\code{strMethod = "Poisson"}), and \code{c(0.000895, 0.003059)} for a nominal assessment (\code{strMethod = "Identity"}).}
+\item{vThreshold}{\code{numeric} Threshold specification, a numeric vector that defaults to \code{c(-3, -2, 2, 3)} for a Normal Approximation (\code{strMethod = "NormalApprox"}),
+\code{c(-7, -5, 5, 7)} for a Poisson model (\code{strMethod = "Poisson"}), \code{c(0.000895, 0.003059)} for a nominal assessment (\code{strMethod = "Identity"}), and \code{c(0.01)} for a QTL (\code{strMethod = "QTL"}).}
 
 \item{strMethod}{\code{character} Statistical method. Valid values:
 \itemize{
 \item \code{"NormalApprox"} (default)
 \item \code{"Poisson"}
 \item \code{"Identity"}
+\item \code{"QTL"}
 }}
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name

@@ -81,8 +81,9 @@
 
 ---
 
-    Problem while computing `Metric = .data$vMu + ...`.
-    Caused by error in `.data$Threshold * sqrt(.data$phi * .data$vMu / .data$Denominator)`:
+    i In argument: `Metric = .data$vMu + ...`.
+    Caused by error in `.data$Threshold * sqrt(.data$phi * .data$vMu * (1 - .data$vMu) / .data$
+        Denominator)`:
     ! non-numeric argument to binary operator
 
 ---
