@@ -1,11 +1,11 @@
 test_that("PD assessment can return a correctly assessed data frame for the poisson test grouped by the site variable when given subset input data from clindata and the results should be flagged correctly using a custom threshold", {
   # gsm analysis
-  dfInput <- gsm::PD_Map_Raw(dfs = list(
+  dfInput <- gsm::PD_Map_Raw_Rate(dfs = list(
     dfPD = clindata::rawplus_protdev %>% filter(importnt == "Y"),
     dfSUBJ = clindata::rawplus_dm
   ))
 
-  test2_1 <- PD_Assess(
+  test2_1 <- PD_Assess_Rate(
     dfInput = dfInput,
     strMethod = "Poisson",
     vThreshold = c(-3, -1, 1, 3)

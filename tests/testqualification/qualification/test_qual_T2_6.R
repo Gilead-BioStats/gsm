@@ -1,8 +1,8 @@
 test_that("PD assessment can return a correctly assessed data frame for the identity test grouped by the site variable and the results should be flagged correctly", {
   # gsm analysis
-  dfInput <- gsm::PD_Map_Raw()
+  dfInput <- gsm::PD_Map_Raw_Rate()
 
-  test2_6 <- PD_Assess(
+  test2_6 <- PD_Assess_Rate(
     dfInput = dfInput,
     strMethod = "Identity",
     strGroup = "CustomGroup"

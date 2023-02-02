@@ -1,11 +1,11 @@
 test_that("PD assessment can return a correctly assessed data frame for the identity test grouped by the site variable when given subset input data from clindata and the results should be flagged correctly using a custom threshold.", {
   # gsm analysis
-  dfInput <- gsm::PD_Map_Raw(dfs = list(
+  dfInput <- gsm::PD_Map_Raw_Rate(dfs = list(
     dfPD = clindata::rawplus_protdev %>% filter(importnt == "Y"),
     dfSUBJ = clindata::rawplus_dm
   ))
 
-  test2_4 <- PD_Assess(
+  test2_4 <- PD_Assess_Rate(
     dfInput = dfInput,
     strMethod = "Identity"
   )

@@ -1,8 +1,8 @@
 test_that("PD assessment can return a correctly assessed data frame for the poisson test grouped by the study variable and the results should be flagged correctly", {
   # gsm analysis
-  dfInput <- gsm::PD_Map_Raw()
+  dfInput <- gsm::PD_Map_Raw_Rate()
 
-  test2_3 <- PD_Assess(
+  test2_3 <- PD_Assess_Rate(
     dfInput = dfInput,
     strMethod = "Poisson",
     strGroup = "Study"

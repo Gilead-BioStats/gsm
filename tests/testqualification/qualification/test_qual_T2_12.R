@@ -1,10 +1,10 @@
 test_that("PD assessment can return a correctly assessed data frame for the normal approximation test grouped by the site variable when given correct input data and a site with low enrollment from clindata, and the results should be flagged correctly using a custom threshold", {
   # gsm analysis
-  dfInput <- gsm::PD_Map_Raw()
+  dfInput <- gsm::PD_Map_Raw_Rate()
 
   nMinDenominator <- 54
 
-  test2_12 <- PD_Assess(
+  test2_12 <- PD_Assess_Rate(
     dfInput = dfInput,
     strMethod = "NormalApprox",
     vThreshold = c(-2, -1, 1, 2),

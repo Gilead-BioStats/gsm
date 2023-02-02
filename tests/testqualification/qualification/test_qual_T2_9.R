@@ -1,8 +1,8 @@
 test_that("PD assessment can return a correctly assessed data frame for the normal approximation test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
   # gsm analysis
-  dfInput <- gsm::PD_Map_Raw()
+  dfInput <- gsm::PD_Map_Raw_Rate()
 
-  test2_9 <- PD_Assess(
+  test2_9 <- PD_Assess_Rate(
     dfInput = dfInput,
     strMethod = "NormalApprox",
     strGroup = "Study",
