@@ -27,6 +27,11 @@ The {gsm} package establishes a data pipeline for RBM using R. The package provi
 4.  Important Protocol Deviation Frequency
 5.  Lab Abnormality Frequency
 6.  Subject Discontinuation Frequency
+7.  Query Rate
+8.  Query Age
+9.  Data Entry Lag
+10. Data Change Rate
+11. Screen Failure
 
 All {gsm} assessments use a standardized 6 step data pipeline: 
 
