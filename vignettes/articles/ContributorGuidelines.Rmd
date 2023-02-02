@@ -111,6 +111,12 @@ Instead of copying/pasting the code above, a wrapper function in `{gutil}` can b
         -   After running `gsm::UpdateGSMVersion()`, run `gsm::CheckClindataMeta()` to make sure that the versions in `{gsm}` and `{clindata}` are in sync. If not, open a PR in `{clindata}` to update any metadata that includes `gsm_version`.
     -   Run `styler` using the script from the [style guide](#style-guide) above (or by running `gutil::style_code()`) and commit any updates.
     -   Update `NEWS.md` with a summary of the revisions/additions in the release. Keep any information from previous releases to maintain traceability through versions.
+    -   Ensure that the qualification specifications spreadsheet is up-to-date and accurate:
+        -   Download the latest version of `gsm_qualification_status.xlsx` from the Teams/OneDrive repository.
+
+        -   Save the `Specs - batch 1` sheet as a `.csv` file named `qualification_specs.csv`.
+
+        -   Upload `qualification_specs.csv` to the `~/inst/qualification/` directory.
     -   If applicable, review `README.md` and relevant vignettes to make sure updates are accurately described.
     -   Ensure all unit tests are passing.
     -   Check if all qualification tests are passing and if new features were added that need to be qualified. If updates are needed, they should be outlined in a release QC issue.
@@ -164,13 +170,14 @@ This QC checklist is to be used as part of the Development and Release Workflows
 -   [ ] Basic QC
     -   [ ] Assessment has User Requirements + Qualification tests captured using qualification framework. A QC report is generated as expected and all checks pass successfully.
     -   [ ] Code is well commented and easy to read/understand.
+    -   [ ] Qualification specifications spreadsheet (`qualification_specs.csv`) has been reviewed and approved by a qualification developer.
     -   [ ] No file paths or other company-specific data are present.
     -   [ ] `devtools::check()` passes with no errors/warnings/notes.
     -   [ ] Package documents are up to date, and running `devtools::document()` does not change any files.
     -   [ ] Codes use `{tidyverse}` best practices for standard data manipulation. If unclear, reviewer should start a discussion thread.
     -   [ ] All new dependencies add significant value. If unclear, reviewer should start a discussion thread.
     -   [ ] All GitHub Actions run with no errors.
-    
+
 ### Detailed QC Checklist
 
 -   [ ] Documentation
@@ -192,6 +199,7 @@ This QC checklist is to be used as part of the Development and Release Workflows
 -   [ ] Basic QC
     -   [ ] Assessment has User Requirements + Qualification tests captured using qualification framework. A QC report is generated as expected and all checks pass successfully.
     -   [ ] Code is well commented and easy to read/understand.
+    -   [ ] Qualification specifications spreadsheet (`qualification_specs.csv`) has been reviewed and approved by a qualification developer.
     -   [ ] No file paths or other company-specific data are present.
     -   [ ] Function called from non-tidyverse dependencies are called via `::`.
     -   [ ] `devtools::check()` passes with no errors/warnings/notes.
