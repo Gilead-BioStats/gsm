@@ -2,7 +2,7 @@ test_that("Raw+ PD data can be mapped correctly to create an analysis-ready inpu
 
 
   ########### gsm mapping ###########
-  observed <- gsm::PD_Map_Raw()
+  observed <- gsm::PD_Map_Raw_Rate()
 
 
   ########### double programming ###########
