@@ -1,5 +1,5 @@
 ---
-title: "Qualification of ```gsm```"
+title: "Qualification of {gsm}"
 date: "`r Sys.Date()`"
 output: 
   pdf_document:
@@ -86,7 +86,6 @@ create_assessment_section <- function(assessment, df){
 
 ```{r assessments}
 assessments <- spec_df %>% 
-  arrange(ID) %>% 
   pull(Assessment) %>% 
   unique()
 
