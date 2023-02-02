@@ -1,17 +1,17 @@
 source(testthat::test_path("testdata/data.R"))
 
-map_function <- gsm::PD_Map_Raw
+map_function <- gsm::PD_Map_Raw_Rate
 
 dfs <- list(
   dfPD = dfPD,
   dfSUBJ = dfSUBJ
 )
 
-input_spec <- yaml::read_yaml(system.file("specs", "PD_Map_Raw.yaml", package = "gsm"))
+input_spec <- yaml::read_yaml(system.file("specs", "PD_Map_Raw_Rate.yaml", package = "gsm"))
 input_mapping <- subset_input_mapping(input_spec = input_spec)
 
-output_spec <- yaml::read_yaml(system.file("specs", "PD_Assess.yaml", package = "gsm"))
-output_mapping <- yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm"))
+output_spec <- yaml::read_yaml(system.file("specs", "PD_Assess_Rate.yaml", package = "gsm"))
+output_mapping <- yaml::read_yaml(system.file("mappings", "PD_Assess_Rate.yaml", package = "gsm"))
 
 test_that("metadata have not changed", {
   expect_snapshot_value(input_spec, "json2")

@@ -186,7 +186,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strGroupCol", "strCountCol", "strExposureCol", "strRateCol"]
+              "value": ["strIDCol", "strGroupCol", "strCountCol"]
             },
             {
               "type": "character",
@@ -221,7 +221,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCountryCol", "strCustomGroupCol", "strCountCol", "strExposureCol", "strRateCol", "strTotalCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCountryCol", "strCustomGroupCol", "strCountCol", "strTotalCol"]
             }
           },
           "value": [
@@ -258,16 +258,6 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Exposure"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["Rate"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
               "value": ["Total"]
             }
           ]
@@ -281,7 +271,7 @@
       map_function(dfs = purrr::imap(dfs, ~ list()), bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x df is not a data.frame()
       x the following columns not found in df: subjid
@@ -293,8 +283,8 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -305,15 +295,15 @@
       bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x df is not a data.frame()
       x the following columns not found in df: subjid, siteid, timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -324,15 +314,15 @@
       bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x df is not a data.frame()
       x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -342,7 +332,7 @@
       map_function(dfs = purrr::imap(dfs, ~"Hi Mom"), bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x df is not a data.frame()
       x the following columns not found in df: subjid
@@ -354,8 +344,8 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -365,7 +355,7 @@
       map_function(dfs = purrr::imap(dfs, ~9999), bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x df is not a data.frame()
       x the following columns not found in df: subjid
@@ -377,8 +367,8 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -388,7 +378,7 @@
       map_function(dfs = purrr::imap(dfs, ~TRUE), bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x df is not a data.frame()
       x the following columns not found in df: subjid
@@ -400,8 +390,8 @@
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -411,7 +401,7 @@
       map_function(dfs = purrr::imap(dfs, ~.x), lMapping = list(), bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x "mapping" does not contain required parameters: strIDCol
       x mapping is not a list()
@@ -419,8 +409,8 @@
       x "mapping" does not contain required parameters: strIDCol, strSiteCol, strTimeOnStudyCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -430,11 +420,11 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x Unexpected duplicates found in column: subjid
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -444,14 +434,14 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -461,14 +451,14 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x the following columns not found in df: subjid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -478,14 +468,14 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x the following columns not found in df: siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -495,31 +485,14 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x the following columns not found in df: timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs_edited, bQuiet = FALSE)
-    Message
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      x the following columns not found in df: subjid
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -529,11 +502,11 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x 1 NA values found in column: subjid
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -543,11 +516,11 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x 1 NA values found in column: subjid
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -557,25 +530,11 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x 1 NA values found in column: siteid
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs_edited, bQuiet = FALSE)
-    Message
-      
-      -- Checking Input Data for `PD_Map_Raw()` --
-      
-      x 1 NA values found in column: subjid
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -585,11 +544,11 @@
       map_function(dfs = dfs_edited, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x Unexpected duplicates found in column: subjid
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -599,14 +558,14 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -616,14 +575,14 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -633,14 +592,14 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -650,14 +609,14 @@
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x the following columns not found in df: asdf
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
-      ! Issues found for `PD_Map_Raw()`
-      ! `PD_Map_Raw()` did not run because of failed check.
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output
       NULL
 
@@ -667,9 +626,9 @@
       dfInput <- map_function(dfs = dfs, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `PD_Map_Raw()` --
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
-      v No issues found for `PD_Map_Raw()`
+      v No issues found for `PD_Map_Raw_Binary()`
       
       -- Initializing `PD_Map_Raw()` --
       
@@ -677,5 +636,5 @@
       i 1 ID(s) in subject data not found in domain data.
       These participants will have 0s imputed for the following domain data columns: Count.
       NA's will be imputed for all other columns.
-      v `PD_Map_Raw()` returned output with 3 rows.
+      v `PD_Map_Raw_Binary()` returned output with 3 rows.
 

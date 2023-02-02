@@ -1,0 +1,10 @@
+dfInput:
+  vRequired:
+    - "strIDCol"
+    - "strGroupCol"
+    - "strCountCol"
+  vUniqueCols:
+    - "strIDCol"
+  vNACols:
+    - strExposureCol
+    - strRateCol

@@ -10,12 +10,13 @@
 #' methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
-#' @param vThreshold `numeric` Threshold specification, a vector of length 2 or 4 that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation (`strMethod = "NormalApprox"`),
-#'   `c(-7, -5, 5, 7)` for a Poisson model (`strMethod = "Poisson"`), and `c(0.000895, 0.003059)` for a nominal assessment (`strMethod = "Identity"`).
+#' @param vThreshold `numeric` Threshold specification, a numeric vector that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation (`strMethod = "NormalApprox"`),
+#'   `c(-7, -5, 5, 7)` for a Poisson model (`strMethod = "Poisson"`), `c(0.000895, 0.003059)` for a nominal assessment (`strMethod = "Identity"`), and `c(0.01)` for a QTL (`strMethod = "QTL"`).
 #' @param strMethod `character` Statistical method. Valid values:
 #'   - `"NormalApprox"` (default)
 #'   - `"Poisson"`
 #'   - `"Identity"`
+#'   - `"QTL"`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Protocol Deviation Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
@@ -37,17 +38,17 @@
 #' - `list` `lChecks`, a named list with:
 #'   - `dfInput`, a named list returned by [gsm::is_mapping_valid()]
 #'   - `status`, a boolean returned by [gsm::is_mapping_valid()]
-#'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::PD_Assess()]
+#'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::PD_Assess_Rate()]
 #'   - `spec`, a named list used to define variable specifications
 #'
-#' @includeRmd ./man/md/PD_Assess.md
+#' @includeRmd ./man/md/PD_Assess_Binary.md
 #' @includeRmd ./man/md/analyze_rate.md
 #'
 #' @examples
-#' dfInput <- PD_Map_Raw()
-#' pd_assessment_NormalApprox <- PD_Assess(dfInput)
-#' pd_assessment_poisson <- PD_Assess(dfInput, strMethod = "Poisson")
-#' pd_assessment_identity <- PD_Assess(dfInput, strMethod = "Identity")
+#' dfInput <- PD_Map_Raw_Binary()
+#' pd_assessment_NormalApprox <- PD_Assess_Binary(dfInput)
+#' pd_assessment_poisson <- PD_Assess_Binary(dfInput, strMethod = "Poisson")
+#' pd_assessment_identity <- PD_Assess_Binary(dfInput, strMethod = "Identity")
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
 #' @importFrom yaml read_yaml
@@ -56,15 +57,15 @@
 #'
 #' @export
 
-PD_Assess <- function(
-  dfInput,
-  vThreshold = NULL,
-  strMethod = "NormalApprox",
-  lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess.yaml", package = "gsm")),
-  strGroup = "Site",
-  nMinDenominator = NULL,
-  nConfLevel = NULL,
-  bQuiet = TRUE
+PD_Assess_Binary <- function(
+    dfInput,
+    vThreshold = NULL,
+    strMethod = "NormalApprox",
+    lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess_Binary.yaml", package = "gsm")),
+    strGroup = "Site",
+    nMinDenominator = NULL,
+    nConfLevel = NULL,
+    bQuiet = TRUE
 ) {
 
   # data checking -----------------------------------------------------------
@@ -75,10 +76,11 @@ PD_Assess <- function(
     "bQuiet must be logical" = is.logical(bQuiet)
   )
 
+
   lMapping$dfInput$strGroupCol <- lMapping$dfInput[[glue::glue("str{strGroup}Col")]]
 
   lChecks <- gsm::CheckInputs(
-    context = "PD_Assess",
+    context = "PD_Assess_Binary",
     dfs = list(dfInput = dfInput),
     mapping = lMapping,
     bQuiet = bQuiet
@@ -87,54 +89,57 @@ PD_Assess <- function(
   # set thresholds and flagging parameters ----------------------------------
   if (is.null(vThreshold)) {
     vThreshold <- switch(strMethod,
-      NormalApprox = c(-3, -2, 2, 3),
-      Poisson = c(-7, -5, 5, 7),
-      Identity = c(0.000895, 0.003059),
-      QTL = c(0.01)
+                         NormalApprox = c(-3, -2, 2, 3),
+                         Poisson = c(-7, -5, 5, 7),
+                         Identity = c(0.000895, 0.003059),
+                         QTL = c(0.01)
     )
   }
 
   strValueColumnVal <- switch(strMethod,
-    NormalApprox = NULL,
-    Poisson = NULL,
-    Identity = "Score"
+                              NormalApprox = NULL,
+                              Poisson = NULL,
+                              Identity = "Score"
   )
 
   # begin running assessment ------------------------------------------------
   if (!lChecks$status) {
-    if (!bQuiet) cli::cli_alert_warning("{.fn PD_Assess} did not run because of failed check.")
+    if (!bQuiet) cli::cli_alert_warning("{.fn PD_Assess_Binary} did not run because of failed check.")
     return(list(
       lData = NULL,
       lCharts = NULL,
       lChecks = lChecks
     ))
   } else {
-    if (!bQuiet) cli::cli_h2("Initializing {.fn PD_Assess}")
+    if (!bQuiet) cli::cli_h2("Initializing {.fn PD_Assess_Binary}")
 
     # dfTransformed -----------------------------------------------------------
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
     lData <- list()
+
     lData$dfTransformed <- gsm::Transform_Rate(
       dfInput = dfInput,
       strGroupCol = lMapping$dfInput$strGroupCol,
       strNumeratorCol = "Count",
-      strDenominatorCol = "Exposure",
+      strDenominatorCol = "Total",
       bQuiet = bQuiet
     )
+
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
+
 
     # dfAnalyzed --------------------------------------------------------------
     if (strMethod == "NormalApprox") {
       lData$dfAnalyzed <- gsm::Analyze_NormalApprox(
         dfTransformed = lData$dfTransformed,
-        strType = "rate",
+        strType = "binary",
         bQuiet = bQuiet
       )
 
       lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
-        strType = "rate",
+        strType = "binary",
         bQuiet = bQuiet
       )
     } else if (strMethod == "Poisson") {
@@ -143,7 +148,7 @@ PD_Assess <- function(
     } else if (strMethod == "Identity") {
       lData$dfAnalyzed <- gsm::Analyze_Identity(lData$dfTransformed)
     } else if (strMethod == "QTL") {
-      lData$dfAnalyzed <- gsm::Analyze_QTL(lData$dfTransformed, strOutcome = "rate", nConfLevel = nConfLevel)
+      lData$dfAnalyzed <- gsm::Analyze_QTL(lData$dfTransformed, strOutcome = "binary", nConfLevel = nConfLevel)
     }
 
 
@@ -162,10 +167,10 @@ PD_Assess <- function(
     }
 
     flag_function_name <- switch(strMethod,
-      NormalApprox = "Flag_NormalApprox",
-      Identity = "Flag",
-      Poisson = "Flag_Poisson",
-      QTL = "Flag_QTL"
+                                 NormalApprox = "Flag_NormalApprox",
+                                 Identity = "Flag",
+                                 Poisson = "Flag_Poisson",
+                                 QTL = "Flag_QTL"
     )
 
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
