@@ -12,6 +12,9 @@
 #' @examples
 #' workflow <- MakeWorkflowList(strPath = "workflow", strPackage = "gsm")
 #'
+#' # get specific workflow files
+#' workflow <- MakeWorkflowList(strNames = c("kri0001", "kri0005", "cou0003"))
+#'
 #' @return `list` A list of assessments with workflow and parameter metadata.
 #'
 #' @importFrom purrr map_chr keep

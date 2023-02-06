@@ -32,4 +32,7 @@ Load assessments from a package/directory
 \examples{
 workflow <- MakeWorkflowList(strPath = "workflow", strPackage = "gsm")
 
+# get specific workflow files
+workflow <- MakeWorkflowList(strNames = c("kri0001", "kri0005", "cou0003"))
+
 }
