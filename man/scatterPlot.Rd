@@ -2,36 +2,115 @@
 % Please edit documentation in R/scatterPlot.R
 \name{scatterPlot}
 \alias{scatterPlot}
-\title{Scatter plot HTML widget from \code{{rbm-viz}}}
+\title{KRI Scatter Plot}
 \usage{
 scatterPlot(
   results,
   workflow,
   bounds,
   selectedGroupIDs = NULL,
+  addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
   elementId = NULL
 )
 }
 \arguments{
-\item{results}{TODO}
+\item{results}{data with columns:
+\itemize{
+\item{\code{studyid}}
+\item{\code{workflowid}}
+\item{\code{groupid}}
+\item{\code{numerator}}
+\item{\code{denominator}}
+\item{\code{metric}}
+\item{\code{score}}
+\item{\code{flag}}
+}}
 
-\item{workflow}{TODO}
+\item{workflow}{configuration with columns:
+\itemize{
+\item{\code{workflow}}
+\item{\code{gsm_version}}
+\item{\code{group}}
+\item{\code{metric}}
+\item{\code{numerator}}
+\item{\code{denominator}}
+\item{\code{outcome}}
+\item{\code{model}}
+\item{\code{score}}
+\item{\code{data_inputs}}
+\item{\code{data_filters}}
+}}
 
-\item{bounds}{TODO}
+\item{bounds}{bounds data with columns:
+\itemize{
+\item{\code{threshold}}
+\item{\code{numerator}}
+\item{\code{denominator}}
+\item{\code{metric}}
+\item{\code{logdenominator}}
+}}
 
-\item{selectedGroupIDs}{TODO}
+\item{selectedGroupIDs}{group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
 
-\item{width}{TODO}
+\item{addSiteSelect}{add a dropdown to highlight sites?}
 
-\item{height}{TODO}
+\item{width}{width of widget, full screen by default}
 
-\item{elementId}{TODO}
-}
-\value{
-htmlwidget scatter plot
+\item{height}{height of widget, calculated based on width}
+
+\item{elementId}{ID of container HTML element}
 }
 \description{
-TODO: Update documentation
+A widget that displays a group-level scatter plot based on the output of a KRI analysis.
+Scatter plots are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an \code{htmlwidget} ported from the \code{rbm-viz} JavaScript library.
+}
+\examples{
+ae <- AE_Map_Raw()
+
+ae_transform <- Transform_Rate(
+  dfInput = ae,
+  strGroupCol = "SiteID",
+  strNumeratorCol = "Count",
+  strDenominatorCol = "Exposure"
+)
+
+ae_analyze <- Analyze_NormalApprox(
+  dfTransformed = ae_transform,
+  strType = "rate"
+)
+
+bounds <- Analyze_NormalApprox_PredictBounds(
+  dfTransformed = ae_transform,
+  vThreshold = c(-3, -2, 2, 3),
+  strType = "rate"
+)
+
+ae_flag <- Flag_NormalApprox(
+  ae_analyze,
+  vThreshold = c(-3, -2, 2, 3)
+)
+
+ae_summary <- Summarize(
+  ae_flag
+)
+
+dfConfig <- MakeDfConfig(
+  strMethod = "NormalApprox",
+  strGroup = "Site",
+  strAbbreviation = "AE",
+  strMetric = "Adverse Event Rate",
+  strNumerator = "Adverse Events",
+  strDenominator = "Days on Treatment",
+  vThreshold = c(-3, -2, 2, 3)
+)
+
+plot <- scatterPlot(
+  results = ae_summary,
+  workflow = dfConfig,
+  bounds = bounds,
+  elementId = "aeAssessScatter"
+)
+
 }

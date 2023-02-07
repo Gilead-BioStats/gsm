@@ -2,7 +2,7 @@ dfIE:
   vRequired:
     - strIDCol
     - strCategoryCol
-    - strValueCol
+    - strResultCol
 dfSUBJ:
   vRequired:
     - strIDCol

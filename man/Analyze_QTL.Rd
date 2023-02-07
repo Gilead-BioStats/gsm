@@ -63,11 +63,11 @@ dfFlagged <- Flag_QTL(dfAnalyzed, vThreshold = 0.2)
 
 
 
-dfInput <- PD_Map_Raw()
+dfInput <- PD_Map_Raw_Binary()
 dfTransformed <- Transform_Rate(dfInput,
   strGroupCol = "StudyID",
   strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
+  strDenominatorCol = "Total"
 )
 
 dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "rate")

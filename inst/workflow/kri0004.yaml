@@ -6,12 +6,12 @@ steps:
       strDomain: dfPD
       strColParam: strImportantCol
       strValParam: strImportantVal
-  - name: PD_Map_Raw
+  - name: PD_Map_Raw_Rate
     inputs:
       - dfSUBJ
       - dfPD
     output: dfInput
-  - name: PD_Assess
+  - name: PD_Assess_Rate
     inputs: dfInput
     output: lResults
     params:

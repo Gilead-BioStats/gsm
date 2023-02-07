@@ -1,4 +1,3 @@
-
 # all workflow types
 snapshot_all <- Make_Snapshot(lAssessments = MakeWorkflowList(strNames = c("kri0001", "qtl0004", "cou0006")))
 

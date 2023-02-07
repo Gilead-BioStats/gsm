@@ -2,7 +2,7 @@
 % Please edit documentation in R/barChart.R
 \name{barChart}
 \alias{barChart}
-\title{KRI bar chart}
+\title{KRI Bar Chart}
 \usage{
 barChart(
   results = NULL,
@@ -10,6 +10,7 @@ barChart(
   threshold = NULL,
   yaxis = "score",
   selectedGroupIDs = NULL,
+  addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -57,6 +58,8 @@ barChart(
 
 \item{selectedGroupIDs}{group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
 
+\item{addSiteSelect}{add a dropdown to highlight sites?}
+
 \item{width}{width of widget, full screen by default}
 
 \item{height}{height of widget, calculated based on width}
@@ -64,5 +67,49 @@ barChart(
 \item{elementId}{ID of container HTML element}
 }
 \description{
-TODO: Add Description + update documentation
+A widget that displays a group-level bar chart based on the output of a KRI analysis.
+Bar charts are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an \code{htmlwidget} ported from the \code{rbm-viz} JavaScript library.
+}
+\examples{
+
+ae <- AE_Map_Raw()
+
+ae_transform <- Transform_Rate(
+  dfInput = ae,
+  strGroupCol = "SiteID",
+  strNumeratorCol = "Count",
+  strDenominatorCol = "Exposure"
+)
+
+ae_analyze <- Analyze_NormalApprox(
+  dfTransformed = ae_transform,
+  strType = "rate"
+)
+
+ae_flag <- Flag_NormalApprox(
+  ae_analyze,
+  vThreshold = c(-3, -2, 2, 3)
+)
+
+ae_summary <- Summarize(
+  ae_flag
+)
+
+dfConfig <- MakeDfConfig(
+  strMethod = "NormalApprox",
+  strGroup = "Site",
+  strAbbreviation = "AE",
+  strMetric = "Adverse Event Rate",
+  strNumerator = "Adverse Events",
+  strDenominator = "Days on Treatment",
+  vThreshold = c(-3, -2, 2, 3)
+)
+
+plot <- barChart(
+  results = ae_summary,
+  workflow = dfConfig,
+  yaxis = "metric",
+  elementId = "aeAssessMetric"
+)
+
 }

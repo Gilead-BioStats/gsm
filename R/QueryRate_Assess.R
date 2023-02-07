@@ -72,7 +72,6 @@ QueryRate_Assess <- function(
   nMinDenominator = NULL,
   bQuiet = TRUE
 ) {
-
   # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'NormalApprox', 'Poisson' or 'Identity'" = strMethod %in% c("NormalApprox", "Poisson", "Identity"),
@@ -139,7 +138,6 @@ QueryRate_Assess <- function(
       lData$dfBounds <- gsm::Analyze_NormalApprox_PredictBounds(
         dfTransformed = lData$dfTransformed,
         vThreshold = vThreshold,
-        nStep = 1,
         strType = "rate",
         bQuiet = bQuiet
       )

@@ -1,6 +1,6 @@
 Package: gsm
 Title: Gilead Statistical Monitoring
-Version: 1.4.1
+Version: 1.5.0
 Authors@R: c(
     person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", email="jwildfire@gmail.com", role = c("aut")),
@@ -9,7 +9,8 @@ Authors@R: c(
     person("Douglas", "Sanders", role = c("aut")),
     person("Spencer", "Childress", email="spencer.childress@gilead.com", role = c("aut")),
     person("Li", "Ge", role = c("aut")),
-    person("Colleen", "McLaughlin", email="colleen.mclaughlin@atorusresearch.com", role = c("aut"))
+    person("Colleen", "McLaughlin", email="colleen.mclaughlin@atorusresearch.com", role = c("aut")),
+    person("Chelsea", "Dickens", email="chelsea.dickens@atorusresearch.com", role = c("aut"))
     )
 URL: https://github.com/Gilead-BioStats/gsm
 BugReports: https://github.com/Gilead-BioStats/gsm/issues
@@ -23,18 +24,19 @@ Imports:
     dplyr,
     DT,
     fontawesome (>= 0.2.2),
+    fs,
     glue,
     gt,
     ggplot2,
     htmlwidgets,
     here,
-    janitor,
     knitr,
     lamW,
     lifecycle (>= 1.0.1),
     magrittr,
     purrr,
     rmarkdown,
+    rstudioapi,
     stringr,
     tibble,
     tidyr,
@@ -52,11 +54,14 @@ Suggests:
     tools,
     pkgdown,
     riskmetric,
-    roxygen2
+    roxygen2,
+    styler
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Config/testthat/edition: 3
+Config/testthat/parallel: true
+Config/testthat/start-first: Make_Snapshot, Study_Assess*
 VignetteBuilder: knitr
 Depends: 
     R (>= 4.0)

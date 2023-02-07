@@ -2,8 +2,11 @@ source(testthat::test_path("testdata/data.R"))
 
 assessment_list <- MakeWorkflowList(strNames = c("kri0001", "kri0002", "kri0003"))
 
-lAssessments <- Study_Assess(lData = lData, bQuiet = TRUE, lAssessments = assessment_list) %>%
-  suppressWarnings()
+lAssessments <- Study_Assess(
+  lData = lData,
+  bQuiet = TRUE,
+  lAssessments = assessment_list
+)
 
 test_that("Assessment Report with all Valid assessments", {
   a <- Study_AssessmentReport(lAssessments = lAssessments)
@@ -27,9 +30,9 @@ test_that("Assessment Report with an issue in dfSUBJ", {
 
   lData$dfSUBJ[1, "SubjectID"] <- NA
 
-  lAssessments <- Study_Assess(lData = lData, bQuiet = TRUE) %>%
-    suppressWarnings()
+  lAssessments <- Study_Assess(lData = lData, bQuiet = TRUE)
   a <- Study_AssessmentReport(lAssessments = lAssessments)
+
   expect_true(is.data.frame(a$dfAllChecks))
   expect_true(is.data.frame(a$dfSummary))
 })
@@ -50,8 +53,7 @@ test_that("correct messages show when data is not found", {
     dfSUBJ = dfSUBJ
   )
 
-  lAssessments <- Study_Assess(lData = ldata, bQuiet = TRUE) %>%
-    suppressWarnings()
+  lAssessments <- Study_Assess(lData = ldata, bQuiet = TRUE)
 
   report <- Study_AssessmentReport(lAssessments)
 
@@ -63,7 +65,7 @@ test_that("correct messages show when data is not found", {
 
   expect_snapshot(
     report$dfAllChecks %>%
-      filter(domain == "dfPD" & step == "PD_Map_Raw") %>%
+      filter(domain == "dfPD" & step == "PD_Map_Raw_Rate") %>%
       pull(notes)
   )
 })

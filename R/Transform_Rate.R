@@ -13,7 +13,7 @@
 #'  \code{\link{AE_Map_Adam}}
 #'  \code{\link{Disp_Map_Raw}}
 #'  \code{\link{LB_Map_Raw}}
-#'  \code{\link{PD_Map_Raw}}
+#'  \code{\link{PD_Map_Raw_Rate}}
 #'
 #' (`dfInput`) must include the columns specified by `strNumeratorCol`, `strDenominatorCol` and `strGroupCol`.
 #' Required columns include:

@@ -28,7 +28,6 @@
 #' @export
 
 Visualize_Workflow <- function(lAssessments) {
-
   # checks were run
   stepsExist <- !is.null(lAssessments[[1]][["steps"]])
 

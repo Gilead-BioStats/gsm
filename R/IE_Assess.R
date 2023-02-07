@@ -57,7 +57,6 @@ IE_Assess <- function(
   nMinDenominator = NULL,
   bQuiet = TRUE
 ) {
-
   # data checking -----------------------------------------------------------
   stopifnot(
     "nThreshold must be numeric" = is.numeric(nThreshold),
@@ -111,7 +110,7 @@ IE_Assess <- function(
     lCharts <- list()
 
     dfConfig <- MakeDfConfig(
-      strMethod = "identity",
+      strMethod = "Identity",
       strGroup = strGroup,
       strAbbreviation = "IE",
       strMetric = "Inclusion/Exclusion Issues",
@@ -120,8 +119,10 @@ IE_Assess <- function(
       vThreshold = nThreshold
     )
 
+
+
     lCharts$barMetric <- Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
-    lCharts$barScore <- Visualize_Score(dfSummary = lData$dfSummary, strType = "score")
+    lCharts$barScore <- Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = nThreshold)
 
     lCharts$barMetricJS <- barChart(
       results = lData$dfSummary,

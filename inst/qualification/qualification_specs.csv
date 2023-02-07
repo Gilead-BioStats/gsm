@@ -1,0 +1,71 @@
+Spec,Test.ID,Tests,Function.Name,Description,Risk,Impact,Spec.Status,Spec.Comments,Test.Status,Test.Comments
+1,1,"T1_1, T1_2, T1_3",AE_Assess,Given correct input data an Adverse Event assessment can be done using the poisson method,High,High,Approved,,Complete,NA
+1,2,"T1_4, T1_5, T1_6",AE_Assess,Given correct input data an Adverse Event assessment can be done using the identity method,High,High,Approved,,Complete,NA
+1,4,"T1_1, T1_2, T1_3, T1_4, T1_5, T1_6, T1_7, T1_8, T1_9",AE_Assess,Assessments are correctly grouped by a grouping variable such as site or country for KRIs and study for QTLs when applicable,Low,High,Approved,Add normal approximation tests in specs once finished.,Complete,NA
+1,5,"T1_1, T1_2, T1_3, T1_4, T1_5, T1_6, T1_7, T1_8, T1_9",AE_Assess,"Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding",Medium,High,Approved,Add normal approximation tests in specs once finished.,Complete,NA
+1,6,"T1_1, T1_2, T1_4, T1_5, T1_7, T1_8",AE_Assess,Given subset input data an Adverse Event assessment can be done,Medium,Medium,Approved,Add normal approximation tests in specs once finished.,Complete,NA
+1,3,"T1_7, T1_8, T1_9",AE_Assess,Given correct input data an Adverse Event assessment can be done using the normal approximation method,High,High,Approved,Good.,Complete,NA
+1,7,"T1_10, T1_11, T1_12",AE_Assess,"Given correct input data and a site with low enrollment, flags are set to NA",,,,,,NA
+11,1,"T11_1, T11_2, T11_3, T11_4",AE_Map_Raw,"Given correct metadata, the raw data for an AE assessment can be correctly mapped to an analysis-ready input dataset.",Medium,High,Approved,"Good. I think this test in general should be good, and the handling of NA/zero is part of this test. No additional qualification needed for mapping functions.",,NA
+4,1,"T4_1, T4_2, T4_3",Consent_Assess,Given correct input data a Consent assessment can be done,High,High,Approved,,Complete,NA
+4,2,"T4_1, T4_2, T4_3",Consent_Assess,Assessments are correctly grouped by a grouping variable such as site or country for KRIs and study for QTLs when applicable,Low,High,Approved,,Complete,NA
+4,3,"T4_1, T4_2, T4_3",Consent_Assess,"Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding",Medium,High,Approved,,Complete,NA
+4,4,"T4_1, T4_2",Consent_Assess,Given subset input data a Consent assessment can be done,Medium,Medium,Approved,,Complete,NA
+7,1,"T7_4, T7_5, T7_6",DataChg_Assess,Given correct input data a data change rate assessment can be done using the fisher method,High,High,Approved,Good.,Complete,NA
+7,2,"T7_1, T7_2, T7_3",DataChg_Assess,Given correct input data a data change rate assessment can be done using the identity method ,High,High,Approved,Good.,Complete,NA
+7,3,"T7_7, T7_8, T7_9",DataChg_Assess,Given correct input data a data change rate assessment can be done using the normal approximation method,High,High,Approved,Good.,Complete,NA
+7,4,"T7_1, T7_2, T7_3, T7_4, T7_5, T7_6, T7_7, T7_8, T7_9",DataChg_Assess,Assessments are correctly grouped by a grouping variable such as site or country for KRIs and study for QTLs when applicable,Low,High,Approved,Good.,Complete,NA
+7,5,"T7_1, T7_2, T7_3, T7_4, T7_5, T7_6, T7_7, T7_8, T7_9",DataChg_Assess,"Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding",Medium,High,Approved,Good.,Complete,NA
+7,6,"T7_1, T7_2, T7_4, T7_5, T7_7, T7_8",DataChg_Assess,Given subset input data a Data Change assessment can be done,Medium,Medium,Approved,Good.,Complete,NA
+7,7,"T7_10, T7_11, T7_12",DataChg_Assess,"Given correct input data and a site with low enrollment, flags are set to NA",,,,,,NA
+12,1,"T12_1, T12_2, T12_3, T12_4",DataChg_Map_Raw,"Given correct metadata, the raw data for a Data Change Rate assessment can be correctly mapped to an analysis-ready input dataset.",Medium,High,Approved,Good.,,NA
+8,2,"T8_4, T8_5, T8_6",DataEntry_Assess,Given correct input data a Data Entry Lag assessment can be done using the fisher method ,High,High,Approved,Good.,Complete,NA
+8,1,"T8_1, T8_2, T8_3",DataEntry_Assess,Given correct input data a Data Entry Lag assessment can be done using the identity method,High,High,Approved,Good.,Complete,NA
+8,3,"T8_7, T8_8, T8_9",DataEntry_Assess,Given correct input data a Data Entry Lag assessment can be done using the normal approximation method ,High,High,Approved,Good.,Complete,NA
+8,4,"T8_1, T8_2, T8_3, T8_4, T8_5, T8_6, T8_7, T8_8, T8_9",DataEntry_Assess,Assessments are correctly grouped by a grouping variable such as site or country for KRIs and study for QTLs when applicable,Low,High,Approved,Good.,Complete,NA
+8,5,"T8_1, T8_2, T8_3, T8_4, T8_5, T8_6, T8_7, T8_8, T8_9",DataEntry_Assess,"Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding",Medium,High,Approved,Good.,Complete,NA
+8,6,"T8_1, T8_2, T8_4, T8_5, T8_7, T8_8",DataEntry_Assess,Given subset input data a Data Entry Lag assessment can be done ,Medium,Medium,Approved,Good.,Complete,NA
+8,7,"T8_10, T8_11, T8_12",DataEntry_Assess,"Given correct input data and a site with low enrollment, flags are set to NA",,,,,,NA
+13,1,"T13_1, T13_2, T13_3, T13_4",DataEntry_Map_Raw,"Given correct metadata, the raw data for a Data Entry Lag assessment can be correctly mapped to an analysis-ready input dataset.",Medium,High,Approved,Good.,,NA
+5,1,"T5_1, T5_2",Disp_Assess,Given correct input data a Disposition assessment can be done using the fisher method,High,High,Approved,,Complete,NA
+5,2,"T5_3, T5_4, T5_5",Disp_Assess,Given correct input data a Disposition assessment can be done using the identity method,High,High,Approved,,Complete,NA
+5,4,"T5_1, T5_2, T5_3, T5_4, T5_5, T5_6, T5_7",Disp_Assess,Assessments are correctly grouped by a grouping variable such as site or country for KRIs and study for QTLs when applicable,Low,High,Approved,,Complete,NA
+5,5,"T5_1, T5_2, T5_3, T5_4, T5_5, T5_6, T5_7",Disp_Assess,"Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding",Medium,High,Approved,,Complete,NA
+5,6,"T5_1, T5_2, T5_3, T5_4, T5_6, T5_7",Disp_Assess,Given subset input data a Disposition assessment can be done,Medium,Medium,Approved,,In Revision,NA
+5,3,"T5_6, T5_7",Disp_Assess,Given correct input data a Disposition assessment can be done using the normal approximation method,High,High,Approved,Good.,Complete,NA
+5,7,"T5_9, T5_10, T5_11",Disp_Assess,"Given correct input data and a site with low enrollment, flags are set to NA",,,,,,NA
+14,1,"T14_1, T14_2, T14_3, T14_4, T14_5, T14_6, T14_7, T14_8",Disp_Map_Raw,"Given correct metadata, the raw data for a Disposition assessment can be correctly mapped to an analysis-ready input dataset.",Medium,High,Approved,Good.,,NA
+21,1,"T21_1, T21_2",FilterDomain,Input data can be correctly filtered on a specified key variable and key variable value.,Low,Medium,,,,NA
+24,1,T24_1,Get_Enrolled,"Given correct input data and metadata, the correct number of enrolled participants per study can be derived.",Low,High,Approved,Good.,,NA
+24,2,T24_2,Get_Enrolled,"Given correct input data and metadata, the correct number of sites per study can be derived.",Low,High,Approved,Good.,,NA
+24,3,T24_3,Get_Enrolled,"Given correct input data and metadata, the correct number of enrolled participants per site can be derived.",Low,High,Approved,Good.,,NA
+3,1,"T3_1, T3_2, T3_3",IE_Assess,Given correct input data an Inclusion/Exclusion assessment can be done,High,High,Approved,,Complete,NA
+3,2,"T3_1, T3_2, T3_3",IE_Assess,Assessments are correctly grouped by a grouping variable such as site or country for KRIs and study for QTLs when applicable,Low,High,Approved,,Complete,NA
+3,3,"T3_1, T3_2, T3_3",IE_Assess,"Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding",Medium,High,Approved,,Complete,NA
+3,4,T3_2,IE_Assess,Given subset input data an Inclusion/Exclusion assessment can be done,Medium,Medium,Approved,,Complete,NA
+26,1,,is_mapping_valid,,,,,,,NA
+6,1,"T6_1, T6_2, T6_9",LB_Assess,Given correct input data a Labs assessment can be done using the fisher method,High,High,Approved,,Approved,NA
+6,2,"T6_3, T6_4, T6_5, T6_10",LB_Assess,Given correct input data a Labs assessment can be done using the identity method,High,High,Approved,,Approved,NA
+6,4,"T6_1, T6_2, T6_3, T6_4, T6_5, T6_6, T6_7, T6_8, T6_9, T6_10",LB_Assess,Assessments are correctly grouped by a grouping variable such as site or country for KRIs and study for QTLs when applicable,Low,High,Approved,,Approved,NA
+6,5,"T6_1, T6_2, T6_3, T6_4, T6_5, T6_6, T6_7, T6_8, T6_9, T6_10",LB_Assess,"Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding",Medium,High,Approved,,Approved,NA
+6,6,"T6_1, T6_2, T6_3, T6_4, T6_6, T6_7",LB_Assess,Given subset input data a Labs assessment can be done,Medium,Medium,Approved,,In Revision,NA
+6,3,"T6_6, T6_7, T6_8",LB_Assess,Given correct input data a Labs assessment can be done using the normal approximation method,High,High,Approved,Good.,Complete,NA
+6,7,"T6_9, T6_10, T6_11",LB_Assess,"Given correct input data and a site with low enrollment, flags are set to NA",,,,,,NA
+15,1,"T15_1, T15_2, T15_3, T15_4",LB_Map_Raw,"Given correct metadata, the raw data for a Labs assessment can be correctly mapped to an analysis-ready input dataset.",Medium,High,Approved,Good.,,NA
+25,1,,MergeSubjects,,,,,,,NA
+9,2,"T9_4, T9_5, T9_6",QueryAge_Assess,Given correct input data a Query Age assessment can be done using the fisher method ,High,High,Approved,Good.,Complete,NA
+9,1,"T9_1, T9_2, T9_3",QueryAge_Assess,Given correct input data a Query Age assessment can be done using the identity method ,High,High,Approved,Good.,Complete,NA
+9,3,"T9_7, T9_8, T9_9",QueryAge_Assess,Given correct input data a Query Age assessment can be done using the normal approximation method ,High,High,Approved,Good.,Complete,NA
+9,4,"T9_1, T9_2, T9_3, T9_4, T9_5, T9_6, T9_7, T9_8, T9_9",QueryAge_Assess,Assessments are correctly grouped by a grouping variable such as site or country for KRIs and study for QTLs when applicable ,Low,High,Approved,Good.,Complete,NA
+9,5,"T9_1, T9_2, T9_3, T9_4, T9_5, T9_6, T9_7, T9_8, T9_9",QueryAge_Assess,"Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding ",Medium,High,Approved,Good.,Complete,NA
+9,6,"T9_1, T9_2, T9_4, T9_5, T9_7, T9_8",QueryAge_Assess,Given subset input data a Query Age assessment can be done ,Medium,Medium,Approved,Good.,Complete,NA
+9,7,"T9_10, T9_11, T9_12",QueryAge_Assess,"Given correct input data and a site with low enrollment, flags are set to NA",,,,,,NA
+17,1,"T17_1, T17_2, T17_3, T17_4",QueryAge_Map_Raw,"Given correct metadata, the raw data for a Query Age assessment can be correctly mapped to an analysis-ready input dataset.",Medium,High,Approved,Good.,,NA
+10,2,"T10_4, T10_5, T10_6",QueryRate_Assess,Given correct input data a Query Rate assessment can be done using the poisson method ,High,High,Approved,Poisson method instead of Fisher.,Complete,NA
+10,1,"T10_1, T10_2, T10_3",QueryRate_Assess,Given correct input data a Query Rate assessment can be done using the identity method ,High,High,Approved,Good.,Complete,NA
+10,3,"T10_7, T10_8, T10_9",QueryRate_Assess,Given correct input data a Query Rate assessment can be done using the normal approximation method ,High,High,Approved,Good.,Complete,NA
+10,4,"T10_1, T10_2, T10_3, T10_4, T10_5, T10_6, T10_7, T10_8, T10_9",QueryRate_Assess,Assessments are correctly grouped by a grouping variable such as site or country for KRIs and study for QTLs when applicable ,Low,High,Approved,Good.,Complete,NA
+10,5,"T10_1, T10_2, T10_3, T10_4, T10_5, T10_6, T10_7, T10_8, T10_9",QueryRate_Assess,"Given correct input data flags will correctly be applied to records that meet flagging criteria, including custom thresholding ",Medium,High,Approved,Good.,Complete,NA
+10,6,"T10_1, T10_2, T10_4, T10_5, T10_7, T10_8",QueryRate_Assess,Given subset input data a Query Rate assessment can be done ,Medium,Medium,Approved,Good.,Complete,NA
+10,7,"T10_10, T10_11, T10_12",QueryRate_Assess,"Given correct input data and a site with low enrollment, flags are set to NA",,,,,,NA
+18,1,"T18_1, T18_2, T18_3, T18_4, T18_5, T18_6",QueryRate_Map_Raw,"Given correct metadata, the raw data for a Query Rate assessment can be correctly mapped to an analysis-ready input dataset.",Medium,High,Approved,Good.,,NA

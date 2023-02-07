@@ -6,7 +6,7 @@ reference:
    - title: Assess
      desc: Sequentially execute the Assessment Pipeline Functions (Transform, Analyze, Flag, and Summarize)
    - contents:
-      - ends_with("_Assess")
+      - matches("*_Assess_*")
 
    - title: Visualize
      desc: Generate a visualization from the Assessment results
@@ -47,9 +47,8 @@ reference:
    - title: Reporting
      desc: Creates summary tables and HTML objects to create a report
    - contents:
-      - Study_AssessmentReport
       - Study_Report
-      - Study_Table
+      - Study_AssessmentReport
       - Overview_Table
       - rank_chg
       - kri_directionality_logo
@@ -87,6 +86,8 @@ reference:
       - UpdateParams
       - CheckClindataMeta
       - UpdateGSMVersion
+      - ExportCode
+
    - title: Data
      desc: Metadata used to create workflows
    - contents:

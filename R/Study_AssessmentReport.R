@@ -10,7 +10,7 @@
 #' @return `list` containing a `data.frame` summarizing the checks `dfSummary` and a `data.frame` listing all checks (`dfAllChecks`).
 #'
 #' @examples
-#'
+#' \dontrun{
 #' assessment <- Study_Assess(lData = list(
 #'   dfAE = clindata::rawplus_ae,
 #'   dfPD = clindata::rawplus_protdev,
@@ -18,10 +18,10 @@
 #' ))
 #'
 #' report <- Study_AssessmentReport(lAssessments = assessment)
+#' }
 #'
 #' @importFrom fontawesome fa
 #' @importFrom gt fmt_markdown gt
-#' @importFrom janitor row_to_names
 #' @importFrom purrr discard flatten map map_df pluck
 #' @importFrom tibble enframe
 #' @importFrom tidyr unnest
@@ -55,13 +55,18 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
       purrr::map(domains, function(domain) {
         status <- step[[domain]][["status"]]
 
-        step[[domain]][["tests_if"]] %>%
+        df <- step[[domain]][["tests_if"]] %>%
           bind_rows(.id = "names") %>%
           mutate(status = ifelse(is.na(.data$warning), NA_character_, .data$warning)) %>%
           select(-"warning") %>%
           t() %>%
-          as_tibble(.name_repair = "minimal") %>%
-          janitor::row_to_names(1) %>%
+          as_tibble(.name_repair = "minimal")
+
+
+        colnames(df) <- df[1, ]
+
+        df %>%
+          slice(-1) %>%
           mutate(
             domain = domain,
             status = status

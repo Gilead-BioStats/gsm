@@ -1,11 +1,11 @@
 /* MAIN */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400');
 
 :root {
   --gilead-red: #c51f3f;
   --gilead-gray: #9D9D9D;
   --blue-button-color: #3C587F;
-  --default: 'Roboto', sans-serif
+  --default: 'Roboto', sans-serif;
 }
 
 body {
@@ -51,3 +51,28 @@ button.btn-show-report:hover {
 }
 /* TABLE: FLAGGED SUMMARY TABLE */
 
+/* Site select */
+.overall-site-select {
+  position: fixed;
+  width: 128px;
+  top: 64px;
+  right: 32px;
+  background-color: var(--blue-button-color);
+  color: white;
+  border: 2px solid var(--gilead-gray);
+  border-radius: 4px;
+  padding: 4px;
+  text-align: center;
+  z-index: 1;
+}
+
+.overall-site-select:hover {
+  cursor: grab;
+}
+
+
+
+.overall-site-select select,
+.overall-site-select option {
+    color: black;
+}

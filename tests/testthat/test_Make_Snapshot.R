@@ -8,7 +8,10 @@ lData <- list(
   dfIE = dfIE_expanded,
   dfSTUDCOMP = dfSTUDCOMP_expanded,
   dfSDRGCOMP = dfSDRGCOMP_expanded,
-  dfLB = clindata::rawplus_lb %>% filter(subjid %in% dfSUBJ_expanded$subjid) %>% slice(1:2000)
+  dfLB = clindata::rawplus_lb %>% filter(subjid %in% dfSUBJ_expanded$subjid) %>% slice(1:2000),
+  dfDATACHG = clindata::edc_data_change_rate %>% slice(1:300),
+  dfDATAENT = clindata::edc_data_entry_lag %>% slice(1:300),
+  dfQUERY = clindata::edc_queries %>% slice(1:300)
 )
 
 lMapping <- c(
@@ -78,8 +81,6 @@ test_that("input data is structured as expected", {
 ################################################################################################################
 
 test_that("invalid data throw errors", {
-
-
   ### lMeta - testing lMeta equal to character string and missing config_param
   expect_error(Make_Snapshot("Hi")[["lMeta"]])
 
@@ -207,19 +208,11 @@ test_that("cPath works as intended", {
 ################################################################################################################
 
 test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
-
-
   ### Removed dfAE
   lData_edited <- list(
     dfSUBJ = dfSUBJ_expanded,
-    dfPD = dfPD_expanded,
-    dfCONSENT = dfCONSENT_expanded,
-    dfIE = dfIE_expanded,
-    dfSTUDCOMP = dfSTUDCOMP_expanded,
-    dfSDRGCOMP = dfSDRGCOMP_expanded
+    dfPD = dfPD_expanded
   )
-  expect_silent(Make_Snapshot(lMeta = lMeta, lData = lData_edited, lMapping = lMapping, lAssessments = lAssessments))
-
 
   ### Removed meta_params
   lMeta_edited <- list(
@@ -230,12 +223,24 @@ test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
     meta_study = clindata::ctms_study,
     meta_workflow = gsm::meta_workflow
   )
-  expect_silent(Make_Snapshot(lMeta = lMeta_edited, lData = lData, lMapping = lMapping, lAssessments = lAssessments))
+  expect_silent(
+    Make_Snapshot(
+      lMeta = lMeta_edited,
+      lData = lData_edited,
+      lMapping = lMapping,
+      lAssessments = lAssessments
+    )
+  )
 })
 
 ################################################################################################################
 
 test_that("bQuiet works as intended", {
-  expect_silent(Make_Snapshot(lData = lData, bQuiet = TRUE))
-  expect_snapshot(snapshot <- Make_Snapshot(lData = lData, bQuiet = FALSE))
+  expect_snapshot(
+    out <- Make_Snapshot(
+      lData = lData,
+      lAssessments = MakeWorkflowList(strNames = c("cou0001")),
+      bQuiet = FALSE
+    )
+  )
 })

@@ -8,6 +8,7 @@
 #' @param lData `list` A named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`
 #'
 #' @return `list` containing `lWorkflow` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
@@ -40,10 +41,16 @@
 #'
 #' @export
 
-RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
+RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE, bFlowchart = FALSE) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` assessment"))
 
-  lWorkflow$lData <- lData
+  vDataDomains <- purrr::map(lWorkflow$steps, function(x) {
+    data <- c(x$inputs[x$inputs != "dfInput"])
+  }) %>%
+    unlist() %>%
+    unique()
+
+  lWorkflow$lData <- lData[vDataDomains]
   lWorkflow$lChecks <- list()
   lWorkflow$bStatus <- TRUE
 
@@ -88,9 +95,12 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
     lWorkflow$bStatus <- FALSE
   }
 
-  lWorkflow$lChecks$flowchart <- gsm::Visualize_Workflow(list(temp_name = lWorkflow)) %>%
-    purrr::set_names(nm = lWorkflow$name)
-  if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Workflow} created a flowchart.")
+  if (bFlowchart) {
+    lWorkflow$lChecks$flowchart <- gsm::Visualize_Workflow(list(temp_name = lWorkflow)) %>%
+      purrr::set_names(nm = lWorkflow$name)
+    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Workflow} created a flowchart.")
+  }
+
 
 
   return(lWorkflow)

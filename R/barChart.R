@@ -1,6 +1,8 @@
-#' KRI bar chart
+#' KRI Bar Chart
 #'
-#' TODO: Add Description + update documentation
+#' @description
+#' A widget that displays a group-level bar chart based on the output of a KRI analysis.
+#' Bar charts are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an `htmlwidget` ported from the `rbm-viz` JavaScript library.
 #'
 #' @param results data with column names:
 #' \itemize{
@@ -41,11 +43,54 @@
 #'
 #' @param yaxis either \code{'score'} or \code{'metric'}
 #' @param selectedGroupIDs group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
+#' @param addSiteSelect add a dropdown to highlight sites?
 #' @param width width of widget, full screen by default
 #' @param height height of widget, calculated based on width
 #' @param elementId ID of container HTML element
 #'
 #' @import htmlwidgets
+#'
+#' @examples
+#'
+#' ae <- AE_Map_Raw()
+#'
+#' ae_transform <- Transform_Rate(
+#'   dfInput = ae,
+#'   strGroupCol = "SiteID",
+#'   strNumeratorCol = "Count",
+#'   strDenominatorCol = "Exposure"
+#' )
+#'
+#' ae_analyze <- Analyze_NormalApprox(
+#'   dfTransformed = ae_transform,
+#'   strType = "rate"
+#' )
+#'
+#' ae_flag <- Flag_NormalApprox(
+#'   ae_analyze,
+#'   vThreshold = c(-3, -2, 2, 3)
+#' )
+#'
+#' ae_summary <- Summarize(
+#'   ae_flag
+#' )
+#'
+#' dfConfig <- MakeDfConfig(
+#'   strMethod = "NormalApprox",
+#'   strGroup = "Site",
+#'   strAbbreviation = "AE",
+#'   strMetric = "Adverse Event Rate",
+#'   strNumerator = "Adverse Events",
+#'   strDenominator = "Days on Treatment",
+#'   vThreshold = c(-3, -2, 2, 3)
+#' )
+#'
+#' plot <- barChart(
+#'   results = ae_summary,
+#'   workflow = dfConfig,
+#'   yaxis = "metric",
+#'   elementId = "aeAssessMetric"
+#' )
 #'
 #' @export
 barChart <- function(
@@ -54,9 +99,11 @@ barChart <- function(
   threshold = NULL,
   yaxis = "score",
   selectedGroupIDs = NULL,
+  addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
-  elementId = NULL) {
+  elementId = NULL
+) {
   results <- results %>%
     dplyr::mutate(across(everything(), as.character)) %>%
     dplyr::rename_with(tolower)
@@ -71,7 +118,8 @@ barChart <- function(
     workflow = workflow,
     threshold = threshold,
     yaxis = yaxis,
-    selectedGroupIDs = as.character(selectedGroupIDs)
+    selectedGroupIDs = as.character(selectedGroupIDs),
+    addSiteSelect = addSiteSelect
   )
 
   # create widget

@@ -1,5 +1,5 @@
 ---
-title: "Qualification of ```gsm```"
+title: "Qualification of {gsm}"
 date: "`r Sys.Date()`"
 output: 
   pdf_document:
@@ -35,7 +35,7 @@ opts_chunk$set(
 
 source(here::here("inst", "qualification", "specs.R"))
 source(here::here("inst", "qualification", "test_cases.R"))
-spec_df <- scrape_dir_specs(here::here("inst", "qualification"))
+spec_df <- import_specs()
 ```
 
 # Testing Environment
@@ -85,7 +85,10 @@ create_assessment_section <- function(assessment, df){
 ```
 
 ```{r assessments}
-assessments <- unique(spec_df$Assessment)
+assessments <- spec_df %>% 
+  pull(Assessment) %>% 
+  unique()
+
 for (a in assessments){
   a_df <- filter(spec_df, Assessment == a) %>%
     select(-Assessment)

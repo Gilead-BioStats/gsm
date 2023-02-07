@@ -2,7 +2,6 @@ source(testthat::test_path("testdata/data.R"))
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
-
   # single df for AE_Assess
   dfInput <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ))
 

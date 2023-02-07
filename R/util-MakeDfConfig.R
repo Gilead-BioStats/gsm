@@ -39,17 +39,17 @@ MakeDfConfig <- function(
   vThreshold
 ) {
   modelLabel <- switch(strMethod,
-    NormalApprox = "Normal Approximation (Rate)",
-    poisson = "Poisson (Rate)",
-    fisher = "Fisher (Rate)",
-    identity = "Identity (Count)"
+    NormalApprox = "Normal Approximation",
+    Poisson = "Poisson",
+    Fisher = "Fisher",
+    Identity = "Identity"
   )
 
   scoreLabel <- switch(strMethod,
     NormalApprox = "Adjusted Z-Score",
-    poisson = "Residual",
-    identity = "Count",
-    fisher = "Fisher"
+    Poisson = "Residual",
+    Identity = "Count",
+    Fisher = "P-value"
   )
 
   dfConfig <- dplyr::tibble(

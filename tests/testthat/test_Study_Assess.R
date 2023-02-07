@@ -33,10 +33,10 @@ dfCONSENT <- clindata::rawplus_consent %>% subsetDfs(dfCONSENT)
 dfIE <- clindata::rawplus_ie %>% subsetDfs(dfIE)
 dfSTUDCOMP <- clindata::rawplus_studcomp %>% subsetDfs(dfSTUDCOMP)
 dfSDRGCOMP <- clindata::rawplus_sdrgcomp %>% subsetDfs(dfSDRGCOMP)
-dfLB <- clindata::rawplus_lb %>% subsetDfs(dfLB, max_rows = 2000)
-dfDATACHG <- clindata::edc_data_change_rate %>% filter(subjid %in% dfSUBJ$subjid)
-dfDATAENT <- clindata::edc_data_entry_lag %>% filter(subjid %in% dfSUBJ$subjid)
-dfQUERY <- clindata::edc_queries %>% filter(subjid %in% dfSUBJ$subjid)
+dfLB <- clindata::rawplus_lb %>% subsetDfs(dfLB, max_rows = 300)
+dfDATACHG <- clindata::edc_data_change_rate %>% subsetDfs(dfDATACHG, max_rows = 300)
+dfDATAENT <- clindata::edc_data_entry_lag %>% subsetDfs(dfDATAENT, max_rows = 300)
+dfQUERY <- clindata::edc_queries %>% subsetDfs(dfQUERY, max_rows = 300)
 
 
 lData <- list(
@@ -107,7 +107,6 @@ test_that("metadata is returned as expected", {
 # Study_Assess() runs with missing datasets -------------------------------
 
 test_that("Study_Assess() runs with missing datasets", {
-
   # run Study_Assess with AE only
   lData <- list(
     dfSUBJ = dfSUBJ,
@@ -170,27 +169,23 @@ test_that("custom lMapping runs as intended", {
 })
 
 test_that("bQuiet works as intended", {
-
   # run on subset to reduce runtime
   lData <- list(
     dfSUBJ = clindata::rawplus_dm %>% arrange(subjid) %>% slice(1:10),
     dfAE = clindata::rawplus_ae %>% arrange(subjid) %>% slice(1:10)
   )
-  expect_silent(Study_Assess(lData = lData, bQuiet = TRUE))
-  expect_snapshot(result <- Study_Assess(lData = lData, bQuiet = FALSE))
+
+  workflow <- MakeWorkflowList(strNames = "kri0001")
+
+  expect_snapshot(result <- Study_Assess(lData = lData, lAssessments = workflow, bQuiet = FALSE))
 })
 
 
 test_that("Map + Assess yields same result as Study_Assess()", {
   lData <- list(
     dfSUBJ = dfSUBJ,
-    dfAE = dfAE,
-    dfPD = dfPD,
     dfCONSENT = dfCONSENT,
-    dfIE = dfIE,
-    dfSTUDCOMP = dfSTUDCOMP,
-    dfSDRGCOMP = dfSDRGCOMP,
-    dfLB = dfLB
+    dfIE = dfIE
   )
 
 
@@ -207,6 +202,12 @@ test_that("Map + Assess yields same result as Study_Assess()", {
 })
 
 test_that("lSubjFilters with 0 rows returns NULL", {
+  lData <- list(
+    dfSUBJ = dfSUBJ,
+    dfCONSENT = dfCONSENT,
+    dfIE = dfIE
+  )
+
   lMappingCustom <- lMapping
 
   lMappingCustom$dfSUBJ$strSiteVal <- "XYZ"

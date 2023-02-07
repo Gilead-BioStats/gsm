@@ -81,7 +81,7 @@
 
 ---
 
-    Problem while computing `Metric = .data$vMu + ...`.
+    i In argument: `Metric = .data$vMu + ...`.
     Caused by error in `.data$Threshold * sqrt(.data$phi * .data$vMu / .data$Denominator)`:
     ! non-numeric argument to binary operator
 
@@ -112,6 +112,7 @@
       v `Transform_Rate()` returned output with 3 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
+      > nStep was not provided. Setting default step to 6.18
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
