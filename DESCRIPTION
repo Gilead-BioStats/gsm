@@ -24,7 +24,6 @@ Imports:
     dplyr,
     DT,
     fontawesome (>= 0.2.2),
-    fs,
     glue,
     gt,
     ggplot2,
@@ -36,7 +35,6 @@ Imports:
     magrittr,
     purrr,
     rmarkdown,
-    rstudioapi,
     stringr,
     tibble,
     tidyr,
@@ -46,6 +44,7 @@ Suggests:
     clindata,
     covr,
     devtools,
+    fs,
     kableExtra,
     pander,
     safetyData,
@@ -54,6 +53,7 @@ Suggests:
     tools,
     pkgdown,
     riskmetric,
+    rstudioapi,
     roxygen2,
     styler
 LazyData: true
