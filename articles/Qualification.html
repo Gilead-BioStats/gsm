@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Qualification of ```gsm``` • gsm</title>
+<title>Qualification of {gsm} • gsm</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Qualification of ```gsm```">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Qualification of {gsm}">
 <meta property="og:description" content="gsm">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.0</span>
       </span>
     </div>
 
@@ -62,10 +62,13 @@
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
+      <a href="../articles/Qualification.html">Qualification of {gsm}</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
+    </li>
+    <li>
+      <a href="../articles/Statistics%20Method.html">Statistics Method</a>
     </li>
   </ul>
 </li>
@@ -93,10 +96,9 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Qualification of <code>gsm</code>
-</h1>
+      <h1 data-toc-skip>Qualification of {gsm}</h1>
             
-            <h4 data-toc-skip class="date">2022-12-20</h4>
+            <h4 data-toc-skip class="date">2023-02-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/vignettes/articles/Qualification.Rmd" class="external-link"><code>vignettes/articles/Qualification.Rmd</code></a></small>
       <div class="hidden name"><code>Qualification.Rmd</code></div>
@@ -121,54 +123,53 @@
 <em>datasets</em>, <em>methods</em> and <em>base</em></p>
 <p><strong>other attached packages:</strong>
 <em>riskmetric(v.0.1.2)</em>, <em>stringr(v.1.5.0)</em>,
-<em>gh(v.1.3.1)</em>, <em>pander(v.0.6.5)</em>, <em>purrr(v.0.3.5)</em>,
-<em>dplyr(v.1.0.10)</em>, <em>knitr(v.1.41)</em> and
-<em>gsm(v.1.4.1)</em></p>
+<em>gh(v.1.3.1)</em>, <em>pander(v.0.6.5)</em>, <em>purrr(v.1.0.1)</em>,
+<em>dplyr(v.1.1.0)</em>, <em>knitr(v.1.42)</em> and
+<em>gsm(v.1.5.0)</em></p>
 <p><strong>loaded via a namespace (and not attached):</strong>
-<em>fs(v.1.5.2)</em>, <em>usethis(v.2.1.6)</em>,
-<em>lubridate(v.1.9.0)</em>, <em>fontawesome(v.0.4.0)</em>,
-<em>devtools(v.2.4.5)</em>, <em>covr(v.3.6.1)</em>,
-<em>RColorBrewer(v.1.1-3)</em>, <em>httr(v.1.4.4)</em>,
-<em>rprojroot(v.2.0.3)</em>, <em>profvis(v.0.3.7)</em>,
-<em>tools(v.4.2.2)</em>, <em>backports(v.1.4.1)</em>,
-<em>bslib(v.0.4.2)</em>, <em>utf8(v.1.2.2)</em>, <em>R6(v.2.5.1)</em>,
-<em>DT(v.0.26)</em>, <em>lazyeval(v.0.2.2)</em>,
-<em>colorspace(v.2.0-3)</em>, <em>urlchecker(v.1.0.1)</em>,
-<em>prettyunits(v.1.1.1)</em>, <em>tidyselect(v.1.2.0)</em>,
-<em>processx(v.3.8.0)</em>, <em>curl(v.4.3.3)</em>,
+<em>fs(v.1.6.1)</em>, <em>usethis(v.2.1.6)</em>,
+<em>fontawesome(v.0.5.0)</em>, <em>devtools(v.2.4.5)</em>,
+<em>covr(v.3.6.1)</em>, <em>RColorBrewer(v.1.1-3)</em>,
+<em>httr(v.1.4.4)</em>, <em>rprojroot(v.2.0.3)</em>,
+<em>profvis(v.0.3.7)</em>, <em>tools(v.4.2.2)</em>,
+<em>backports(v.1.4.1)</em>, <em>bslib(v.0.4.2)</em>,
+<em>utf8(v.1.2.3)</em>, <em>R6(v.2.5.1)</em>, <em>DT(v.0.27)</em>,
+<em>lazyeval(v.0.2.2)</em>, <em>colorspace(v.2.1-0)</em>,
+<em>withr(v.2.5.0)</em>, <em>urlchecker(v.1.0.1)</em>,
+<em>tidyselect(v.1.2.0)</em>, <em>prettyunits(v.1.1.1)</em>,
+<em>processx(v.3.8.0)</em>, <em>curl(v.5.0.0)</em>,
 <em>compiler(v.4.2.2)</em>, <em>textshaping(v.0.3.6)</em>,
-<em>cli(v.3.5.0)</em>, <em>gt(v.0.8.0)</em>, <em>xml2(v.1.3.3)</em>,
+<em>cli(v.3.6.0)</em>, <em>gt(v.0.8.0)</em>, <em>xml2(v.1.3.3)</em>,
 <em>desc(v.1.4.2)</em>, <em>triebeard(v.0.3.0)</em>,
-<em>sass(v.0.4.4)</em>, <em>scales(v.1.2.1)</em>,
+<em>sass(v.0.4.5)</em>, <em>scales(v.1.2.1)</em>,
 <em>callr(v.3.7.3)</em>, <em>pkgdown(v.2.0.7)</em>,
 <em>systemfonts(v.1.0.4)</em>, <em>digest(v.0.6.31)</em>,
-<em>rmarkdown(v.2.19)</em>, <em>pkgconfig(v.2.0.3)</em>,
+<em>rmarkdown(v.2.20)</em>, <em>pkgconfig(v.2.0.3)</em>,
 <em>htmltools(v.0.5.4)</em>, <em>sessioninfo(v.1.2.2)</em>,
 <em>lamW(v.2.1.1)</em>, <em>fastmap(v.1.1.0)</em>,
-<em>htmlwidgets(v.1.6.0)</em>, <em>rlang(v.1.0.6)</em>,
-<em>shiny(v.1.7.4)</em>, <em>visNetwork(v.2.1.2)</em>,
-<em>jquerylib(v.0.1.4)</em>, <em>generics(v.0.1.3)</em>,
-<em>jsonlite(v.1.8.4)</em>, <em>magrittr(v.2.0.3)</em>,
-<em>Rcpp(v.1.0.9)</em>, <em>munsell(v.0.5.0)</em>,
-<em>fansi(v.1.0.3)</em>, <em>lifecycle(v.1.0.3)</em>,
-<em>stringi(v.1.7.8)</em>, <em>yaml(v.2.3.6)</em>,
-<em>snakecase(v.0.11.0)</em>, <em>pkgbuild(v.1.4.0)</em>,
+<em>htmlwidgets(v.1.6.1)</em>, <em>rlang(v.1.0.6)</em>,
+<em>rstudioapi(v.0.14)</em>, <em>shiny(v.1.7.4)</em>,
+<em>visNetwork(v.2.1.2)</em>, <em>jquerylib(v.0.1.4)</em>,
+<em>generics(v.0.1.3)</em>, <em>jsonlite(v.1.8.4)</em>,
+<em>magrittr(v.2.0.3)</em>, <em>Rcpp(v.1.0.10)</em>,
+<em>munsell(v.0.5.0)</em>, <em>fansi(v.1.0.4)</em>,
+<em>lifecycle(v.1.0.3)</em>, <em>stringi(v.1.7.12)</em>,
+<em>yaml(v.2.3.7)</em>, <em>pkgbuild(v.1.4.0)</em>,
 <em>grid(v.4.2.2)</em>, <em>promises(v.1.2.0.1)</em>,
 <em>crayon(v.1.5.2)</em>, <em>miniUI(v.0.1.1.1)</em>,
 <em>ps(v.1.7.2)</em>, <em>pillar(v.1.8.1)</em>,
 <em>pkgload(v.1.3.2)</em>, <em>glue(v.1.6.2)</em>,
-<em>evaluate(v.0.19)</em>, <em>rex(v.1.2.1)</em>,
+<em>evaluate(v.0.20)</em>, <em>rex(v.1.2.1)</em>,
 <em>remotes(v.2.4.2)</em>, <em>BiocManager(v.1.30.19)</em>,
-<em>RcppParallel(v.5.1.5)</em>, <em>urltools(v.1.7.3)</em>,
-<em>vctrs(v.0.5.1)</em>, <em>httpuv(v.1.6.7)</em>,
-<em>gtable(v.0.3.1)</em>, <em>tidyr(v.1.2.1)</em>,
+<em>RcppParallel(v.5.1.6)</em>, <em>urltools(v.1.7.3)</em>,
+<em>vctrs(v.0.5.2)</em>, <em>httpuv(v.1.6.8)</em>,
+<em>gtable(v.0.3.1)</em>, <em>tidyr(v.1.3.0)</em>,
 <em>cachem(v.1.0.6)</em>, <em>ggplot2(v.3.4.0)</em>,
-<em>xfun(v.0.35)</em>, <em>cranlogs(v.2.1.1)</em>,
-<em>mime(v.0.12)</em>, <em>janitor(v.2.1.0)</em>,
-<em>xtable(v.1.8-4)</em>, <em>broom(v.1.0.2)</em>,
-<em>later(v.1.3.0)</em>, <em>ragg(v.1.2.4)</em>,
-<em>tibble(v.3.1.8)</em>, <em>memoise(v.2.0.1)</em>,
-<em>timechange(v.0.1.1)</em>, <em>DiagrammeR(v.1.0.9)</em>,
+<em>xfun(v.0.37)</em>, <em>cranlogs(v.2.1.1)</em>,
+<em>mime(v.0.12)</em>, <em>xtable(v.1.8-4)</em>,
+<em>broom(v.1.0.3)</em>, <em>later(v.1.3.0)</em>,
+<em>ragg(v.1.2.5)</em>, <em>tibble(v.3.1.8)</em>,
+<em>memoise(v.2.0.1)</em>, <em>DiagrammeR(v.1.0.9)</em>,
 <em>ellipsis(v.0.3.2)</em> and <em>here(v.1.0.1)</em></p>
 <div style="page-break-after: always;"></div>
 </div>
@@ -195,118 +196,123 @@ the package.</p>
 <tbody>
 <tr class="odd">
 <td>broom</td>
-<td>1.0.2</td>
-<td>-0.1933</td>
+<td>1.0.3</td>
+<td>-0.2633</td>
 </tr>
 <tr class="even">
 <td><pre><code><span><span class="va">cli</span></span></code></pre></td>
-<td>3.5.0</td>
-<td>-14.64</td>
+<td>3.6.0</td>
+<td>-14.97</td>
 </tr>
 <tr class="odd">
 <td>DiagrammeR</td>
 <td>1.0.9</td>
-<td>-15.68</td>
+<td>-15.73</td>
 </tr>
 <tr class="even">
 <td>dplyr</td>
-<td>1.0.10</td>
-<td>-18.79</td>
+<td>1.1.0</td>
+<td>-19.17</td>
 </tr>
 <tr class="odd">
 <td><pre><code><span><span class="va">DT</span></span></code></pre></td>
-<td>0.26</td>
-<td>-2.304</td>
+<td>0.27</td>
+<td>-2.361</td>
 </tr>
 <tr class="even">
 <td>fontawesome</td>
-<td>0.4.0</td>
-<td>0.1467</td>
+<td>0.5.0</td>
+<td>0.07603</td>
 </tr>
 <tr class="odd">
+<td><pre><code><span><span class="va">fs</span></span></code></pre></td>
+<td>1.6.1</td>
+<td>-4.086</td>
+</tr>
+<tr class="even">
 <td>glue</td>
 <td>1.6.2</td>
-<td>-0.6178</td>
+<td>-0.6972</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><pre><code><span><span class="va">gt</span></span></code></pre></td>
 <td>0.8.0</td>
-<td>-9.238</td>
+<td>-9.29</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>ggplot2</td>
 <td>3.4.0</td>
-<td>-35.1</td>
-</tr>
-<tr class="even">
-<td>htmlwidgets</td>
-<td>1.6.0</td>
-<td>-0.5178</td>
+<td>-35.15</td>
 </tr>
 <tr class="odd">
-<td>here</td>
-<td>1.0.1</td>
-<td>0.1711</td>
+<td>htmlwidgets</td>
+<td>1.6.1</td>
+<td>-0.5914</td>
 </tr>
 <tr class="even">
-<td>janitor</td>
-<td>2.1.0</td>
-<td>-1.973</td>
+<td>here</td>
+<td>1.0.1</td>
+<td>0.1104</td>
 </tr>
 <tr class="odd">
 <td>knitr</td>
-<td>1.41</td>
-<td>-8.044</td>
+<td>1.42</td>
+<td>-8.11</td>
 </tr>
 <tr class="even">
 <td>lamW</td>
 <td>2.1.1</td>
-<td>0.2667</td>
+<td>0.248</td>
 </tr>
 <tr class="odd">
 <td>lifecycle</td>
 <td>1.0.3</td>
-<td>-0.58</td>
+<td>-0.6373</td>
 </tr>
 <tr class="even">
 <td>magrittr</td>
 <td>2.0.3</td>
-<td>-2.387</td>
+<td>-2.399</td>
 </tr>
 <tr class="odd">
 <td>purrr</td>
-<td>0.3.5</td>
-<td>-11.46</td>
+<td>1.0.1</td>
+<td>-12.2</td>
 </tr>
 <tr class="even">
 <td>rmarkdown</td>
-<td>2.19</td>
-<td>-5.764</td>
+<td>2.20</td>
+<td>-5.732</td>
 </tr>
 <tr class="odd">
+<td>rstudioapi</td>
+<td>0.14</td>
+<td>-7.399</td>
+</tr>
+<tr class="even">
 <td>stringr</td>
 <td>1.5.0</td>
-<td>-3.467</td>
+<td>-3.533</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>tibble</td>
 <td>3.1.8</td>
-<td>-2.665</td>
-</tr>
-<tr class="odd">
-<td>tidyr</td>
-<td>1.2.1</td>
-<td>-3.867</td>
+<td>-2.731</td>
 </tr>
 <tr class="even">
-<td>yaml</td>
-<td>2.3.6</td>
-<td>0.3333</td>
+<td>tidyr</td>
+<td>1.3.0</td>
+<td>-4.266</td>
 </tr>
 <tr class="odd">
+<td>yaml</td>
+<td>2.3.7</td>
+<td>0.2678</td>
+</tr>
+<tr class="even">
 <td>rlang</td>
 <td>1.0.6</td>
-<td>-28.73</td>
+<td>-28.8</td>
 </tr>
 </tbody>
 </table>
@@ -330,34 +336,42 @@ done using the identity method</p>
 <pre><code>    Risk: High
     Impact: High
     Tests: T1_4, T1_5, T1_6</code></pre>
-<p>S1_3: Assessments are correctly grouped by a grouping variable such
+<p>S1_3: Given correct input data an Adverse Event assessment can be
+done using the normal approximation method</p>
+<pre><code>    Risk: High
+    Impact: High
+    Tests: T1_7, T1_8, T1_9</code></pre>
+<p>S1_4: Assessments are correctly grouped by a grouping variable such
 as site or country for KRIs and study for QTLs when applicable</p>
 <pre><code>    Risk: Low
     Impact: High
-    Tests: T1_1, T1_2, T1_3, T1_4, T1_5, T1_6</code></pre>
-<p>S1_4: Given correct input data flags will correctly be applied to
+    Tests: T1_1, T1_2, T1_3, T1_4, T1_5, T1_6, T1_7, T1_8, T1_9</code></pre>
+<p>S1_5: Given correct input data flags will correctly be applied to
 records that meet flagging criteria, including custom thresholding</p>
 <pre><code>    Risk: Medium
     Impact: High
-    Tests: T1_1, T1_2, T1_3, T1_4, T1_5, T1_6</code></pre>
-<p>S1_5: Given subset input data an Adverse Event assessment can be
+    Tests: T1_1, T1_2, T1_3, T1_4, T1_5, T1_6, T1_7, T1_8, T1_9</code></pre>
+<p>S1_6: Given subset input data an Adverse Event assessment can be
 done</p>
 <pre><code>    Risk: Medium
     Impact: Medium
-    Tests: T1_3, T1_6</code></pre>
+    Tests: T1_1, T1_2, T1_4, T1_5, T1_7, T1_8</code></pre>
 </div>
 <div class="section level4">
 <h4 id="traceability-matrix">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix"></a>
 </h4>
-<table style="width:68%;" class="table">
+<table style="width:90%;" class="table">
 <colgroup>
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
 </colgroup>
 <thead><tr class="header">
 <th>ID</th>
@@ -367,6 +381,9 @@ done</p>
 <th>T1_4</th>
 <th>T1_5</th>
 <th>T1_6</th>
+<th>T1_7</th>
+<th>T1_8</th>
+<th>T1_9</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -374,6 +391,9 @@ done</p>
 <td>X</td>
 <td>X</td>
 <td>X</td>
+<td></td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -386,12 +406,18 @@ done</p>
 <td>X</td>
 <td>X</td>
 <td>X</td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
 <td>S1_3</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 <td>X</td>
 <td>X</td>
 <td>X</td>
@@ -404,15 +430,33 @@ done</p>
 <td>X</td>
 <td>X</td>
 <td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
 </tr>
 <tr class="odd">
 <td>S1_5</td>
-<td></td>
-<td></td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td>S1_6</td>
+<td>X</td>
 <td>X</td>
 <td></td>
+<td>X</td>
+<td>X</td>
 <td></td>
 <td>X</td>
+<td>X</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -420,10 +464,10 @@ done</p>
 <div class="section level4">
 <h4 id="test-cases">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases"></a>
 </h4>
-<table style="width:69%;" class="table">
+<table style="width:71%;" class="table">
 <colgroup>
 <col width="11%">
-<col width="44%">
+<col width="45%">
 <col width="13%">
 </colgroup>
 <thead><tr class="header">
@@ -477,6 +521,141 @@ identity test grouped by a custom variable when given subset input data
 from clindata and the results should be flagged correctly.</td>
 <td>success</td>
 </tr>
+<tr class="odd">
+<td>T1_7</td>
+<td>AE assessment can return a correctly assessed data frame for the
+Normal Approximation test grouped by the site variable when given
+correct input data from safetyData and the results should be flagged
+correctly.</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td>T1_8</td>
+<td>AE assessment can return a correctly assessed data frame for the
+Normal Approximation test grouped by the study variable when given
+correct input data from clindata and the results should be flagged
+correctly using a custom threshold.</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T1_9</td>
+<td>AE assessment can return a correctly assessed data frame for the
+Normal Approximation test grouped by a custom variable when given subset
+input data from clindata and the results should be flagged
+correctly.</td>
+<td>success</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="assessment-ie_assess">Assessment IE_Assess<a class="anchor" aria-label="anchor" href="#assessment-ie_assess"></a>
+</h3>
+<div class="section level4">
+<h4 id="specifications-1">Specifications<a class="anchor" aria-label="anchor" href="#specifications-1"></a>
+</h4>
+<p>S3_1: Given correct input data an Inclusion/Exclusion assessment can
+be done</p>
+<pre><code>    Risk: High
+    Impact: High
+    Tests: T3_1, T3_2, T3_3</code></pre>
+<p>S3_2: Assessments are correctly grouped by a grouping variable such
+as site or country for KRIs and study for QTLs when applicable</p>
+<pre><code>    Risk: Low
+    Impact: High
+    Tests: T3_1, T3_2, T3_3</code></pre>
+<p>S3_3: Given correct input data flags will correctly be applied to
+records that meet flagging criteria, including custom thresholding</p>
+<pre><code>    Risk: Medium
+    Impact: High
+    Tests: T3_1, T3_2, T3_3</code></pre>
+<p>S3_4: Given subset input data an Inclusion/Exclusion assessment can
+be done</p>
+<pre><code><span>    <span class="va">Risk</span><span class="op">:</span> <span class="va">Medium</span></span>
+<span>    <span class="va">Impact</span><span class="op">:</span> <span class="va">Medium</span></span>
+<span>    <span class="va">Tests</span><span class="op">:</span> <span class="va">T3_2</span></span></code></pre>
+</div>
+<div class="section level4">
+<h4 id="traceability-matrix-1">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix-1"></a>
+</h4>
+<table style="width:39%;" class="table">
+<colgroup>
+<col width="9%">
+<col width="9%">
+<col width="9%">
+<col width="9%">
+</colgroup>
+<thead><tr class="header">
+<th>ID</th>
+<th>T3_1</th>
+<th>T3_2</th>
+<th>T3_3</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>S3_1</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td>S3_2</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="odd">
+<td>S3_3</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td>S3_4</td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="test-cases-1">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases-1"></a>
+</h4>
+<table style="width:69%;" class="table">
+<colgroup>
+<col width="11%">
+<col width="44%">
+<col width="13%">
+</colgroup>
+<thead><tr class="header">
+<th>Tests</th>
+<th><pre><code><span>     <span class="va">Description</span></span></code></pre></th>
+<th>Outcome</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>T3_1</td>
+<td>IE assessment can return a correctly assessed data frame grouped by
+the site variable when given correct input data from clindata and the
+results should be flagged correctly</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td>T3_2</td>
+<td>IE assessment can return a correctly assessed data frame grouped by
+the study variable when given subset input data from clindata and the
+results should be flagged correctly</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T3_3</td>
+<td>IE assessment can return a correctly assessed data frame grouped by
+a custom variable and the results should be flagged correctly</td>
+<td>success</td>
+</tr>
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
@@ -486,32 +665,33 @@ from clindata and the results should be flagged correctly.</td>
 <h3 id="assessment-consent_assess">Assessment Consent_Assess<a class="anchor" aria-label="anchor" href="#assessment-consent_assess"></a>
 </h3>
 <div class="section level4">
-<h4 id="specifications-1">Specifications<a class="anchor" aria-label="anchor" href="#specifications-1"></a>
+<h4 id="specifications-2">Specifications<a class="anchor" aria-label="anchor" href="#specifications-2"></a>
 </h4>
 <p>S4_1: Given correct input data a Consent assessment can be done</p>
 <pre><code>    Risk: High
     Impact: High
-    Tests: T4_1, T4_2</code></pre>
+    Tests: T4_1, T4_2, T4_3</code></pre>
 <p>S4_2: Assessments are correctly grouped by a grouping variable such
 as site or country for KRIs and study for QTLs when applicable</p>
 <pre><code>    Risk: Low
     Impact: High
-    Tests: T4_1, T4_2</code></pre>
+    Tests: T4_1, T4_2, T4_3</code></pre>
 <p>S4_3: Given correct input data flags will correctly be applied to
 records that meet flagging criteria, including custom thresholding</p>
 <pre><code>    Risk: Medium
     Impact: High
-    Tests: T4_1, T4_2</code></pre>
+    Tests: T4_1, T4_2, T4_3</code></pre>
 <p>S4_4: Given subset input data a Consent assessment can be done</p>
-<pre><code><span>    <span class="va">Risk</span><span class="op">:</span> <span class="va">Medium</span></span>
-<span>    <span class="va">Impact</span><span class="op">:</span> <span class="va">Medium</span></span>
-<span>    <span class="va">Tests</span><span class="op">:</span> <span class="va">T4_2</span></span></code></pre>
+<pre><code>    Risk: Medium
+    Impact: Medium
+    Tests: T4_1, T4_2</code></pre>
 </div>
 <div class="section level4">
-<h4 id="traceability-matrix-1">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix-1"></a>
+<h4 id="traceability-matrix-2">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix-2"></a>
 </h4>
-<table style="width:29%;" class="table">
+<table style="width:39%;" class="table">
 <colgroup>
+<col width="9%">
 <col width="9%">
 <col width="9%">
 <col width="9%">
@@ -520,10 +700,12 @@ records that meet flagging criteria, including custom thresholding</p>
 <th>ID</th>
 <th>T4_1</th>
 <th>T4_2</th>
+<th>T4_3</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td>S4_1</td>
+<td>X</td>
 <td>X</td>
 <td>X</td>
 </tr>
@@ -531,22 +713,25 @@ records that meet flagging criteria, including custom thresholding</p>
 <td>S4_2</td>
 <td>X</td>
 <td>X</td>
+<td>X</td>
 </tr>
 <tr class="odd">
 <td>S4_3</td>
 <td>X</td>
 <td>X</td>
+<td>X</td>
 </tr>
 <tr class="even">
 <td>S4_4</td>
-<td></td>
 <td>X</td>
+<td>X</td>
+<td></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level4">
-<h4 id="test-cases-1">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases-1"></a>
+<h4 id="test-cases-2">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases-2"></a>
 </h4>
 <table style="width:69%;" class="table">
 <colgroup>
@@ -575,6 +760,13 @@ clindata and the results should be flagged correctly using a custom
 threshold</td>
 <td>success</td>
 </tr>
+<tr class="odd">
+<td>T4_3</td>
+<td>Consent assessment can return a correctly assessed data frame
+grouped by a custom variable when given correct input data from clindata
+and the results should be flagged correctly</td>
+<td>success</td>
+</tr>
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
@@ -584,7 +776,7 @@ threshold</td>
 <h3 id="assessment-disp_assess">Assessment Disp_Assess<a class="anchor" aria-label="anchor" href="#assessment-disp_assess"></a>
 </h3>
 <div class="section level4">
-<h4 id="specifications-2">Specifications<a class="anchor" aria-label="anchor" href="#specifications-2"></a>
+<h4 id="specifications-3">Specifications<a class="anchor" aria-label="anchor" href="#specifications-3"></a>
 </h4>
 <p>S5_1: Given correct input data a Disposition assessment can be done
 using the fisher method</p>
@@ -596,27 +788,29 @@ using the identity method</p>
 <pre><code>    Risk: High
     Impact: High
     Tests: T5_3, T5_4, T5_5</code></pre>
-<p>S5_3: Assessments are correctly grouped by a grouping variable such
+<p>S5_3: Given correct input data a Disposition assessment can be done
+using the normal approximation method</p>
+<pre><code>    Risk: High
+    Impact: High
+    Tests: T5_6, T5_7</code></pre>
+<p>S5_4: Assessments are correctly grouped by a grouping variable such
 as site or country for KRIs and study for QTLs when applicable</p>
 <pre><code>    Risk: Low
     Impact: High
-    Tests: T5_1, T5_2, T5_3, T5_4, T5_5</code></pre>
-<p>S5_4: Given correct input data flags will correctly be applied to
+    Tests: T5_1, T5_2, T5_3, T5_4, T5_5, T5_6, T5_7</code></pre>
+<p>S5_5: Given correct input data flags will correctly be applied to
 records that meet flagging criteria, including custom thresholding</p>
 <pre><code>    Risk: Medium
     Impact: High
-    Tests: T5_1, T5_2, T5_3, T5_4, T5_5</code></pre>
-<p>S5_5: Given subset input data a Disposition assessment can be
-done</p>
-<pre><code>    Risk: Medium
-    Impact: Medium
-    Tests: T5_2, T5_4</code></pre>
+    Tests: T5_1, T5_2, T5_3, T5_4, T5_5, T5_6, T5_7</code></pre>
 </div>
 <div class="section level4">
-<h4 id="traceability-matrix-2">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix-2"></a>
+<h4 id="traceability-matrix-3">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix-3"></a>
 </h4>
-<table style="width:58%;" class="table">
+<table style="width:78%;" class="table">
 <colgroup>
+<col width="9%">
+<col width="9%">
 <col width="9%">
 <col width="9%">
 <col width="9%">
@@ -631,12 +825,16 @@ done</p>
 <th>T5_3</th>
 <th>T5_4</th>
 <th>T5_5</th>
+<th>T5_6</th>
+<th>T5_7</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td>S5_1</td>
 <td>X</td>
 <td>X</td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -648,12 +846,16 @@ done</p>
 <td>X</td>
 <td>X</td>
 <td>X</td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
 <td>S5_3</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 <td>X</td>
 <td>X</td>
 </tr>
@@ -664,20 +866,24 @@ done</p>
 <td>X</td>
 <td>X</td>
 <td>X</td>
+<td>X</td>
+<td>X</td>
 </tr>
 <tr class="odd">
 <td>S5_5</td>
-<td></td>
 <td>X</td>
-<td></td>
 <td>X</td>
-<td></td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level4">
-<h4 id="test-cases-2">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases-2"></a>
+<h4 id="test-cases-3">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases-3"></a>
 </h4>
 <table style="width:71%;" class="table">
 <colgroup>
@@ -731,40 +937,41 @@ input data from clindata and the results should be flagged correctly
 using a custom threshold</td>
 <td>success</td>
 </tr>
+<tr class="even">
+<td>T5_6</td>
+<td>Disposition assessment can return a correctly assessed data frame
+for the normal approximation test grouped by the site variable when
+given correct input data from clindata and the results should be flagged
+correctly</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T5_7</td>
+<td>Disposition assessment can return a correctly assessed data frame
+for the normal approximation test grouped by a custom variable when
+given correct input data from clindata and the results should be flagged
+correctly using a custom threshold</td>
+<td>success</td>
+</tr>
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
 <div class="section level3">
-<h3 id="assessment-ie_assess">Assessment IE_Assess<a class="anchor" aria-label="anchor" href="#assessment-ie_assess"></a>
+<h3 id="assessment-lb_assess">Assessment LB_Assess<a class="anchor" aria-label="anchor" href="#assessment-lb_assess"></a>
 </h3>
 <div class="section level4">
-<h4 id="specifications-3">Specifications<a class="anchor" aria-label="anchor" href="#specifications-3"></a>
+<h4 id="specifications-4">Specifications<a class="anchor" aria-label="anchor" href="#specifications-4"></a>
 </h4>
-<p>S3_1: Given correct input data an Inclusion/Exclusion assessment can
-be done</p>
+<p>S6_3: Given correct input data a Labs assessment can be done using
+the normal approximation method</p>
 <pre><code>    Risk: High
     Impact: High
-    Tests: T3_1, T3_2, T3_3</code></pre>
-<p>S3_2: Assessments are correctly grouped by a grouping variable such
-as site or country for KRIs and study for QTLs when applicable</p>
-<pre><code>    Risk: Low
-    Impact: High
-    Tests: T3_1, T3_2, T3_3</code></pre>
-<p>S3_3: Given correct input data flags will correctly be applied to
-records that meet flagging criteria, including custom thresholding</p>
-<pre><code>    Risk: Medium
-    Impact: High
-    Tests: T3_1, T3_2, T3_3</code></pre>
-<p>S3_4: Given subset input data an Inclusion/Exclusion assessment can
-be done</p>
-<pre><code><span>    <span class="va">Risk</span><span class="op">:</span> <span class="va">Medium</span></span>
-<span>    <span class="va">Impact</span><span class="op">:</span> <span class="va">Medium</span></span>
-<span>    <span class="va">Tests</span><span class="op">:</span> <span class="va">T3_2</span></span></code></pre>
+    Tests: T6_6, T6_7, T6_8</code></pre>
 </div>
 <div class="section level4">
-<h4 id="traceability-matrix-3">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix-3"></a>
+<h4 id="traceability-matrix-4">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix-4"></a>
 </h4>
 <table style="width:39%;" class="table">
 <colgroup>
@@ -775,40 +982,20 @@ be done</p>
 </colgroup>
 <thead><tr class="header">
 <th>ID</th>
-<th>T3_1</th>
-<th>T3_2</th>
-<th>T3_3</th>
+<th>T6_6</th>
+<th>T6_7</th>
+<th>T6_8</th>
 </tr></thead>
-<tbody>
-<tr class="odd">
-<td>S3_1</td>
+<tbody><tr class="odd">
+<td>S6_3</td>
 <td>X</td>
 <td>X</td>
 <td>X</td>
-</tr>
-<tr class="even">
-<td>S3_2</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr class="odd">
-<td>S3_3</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr class="even">
-<td>S3_4</td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 </div>
 <div class="section level4">
-<h4 id="test-cases-3">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases-3"></a>
+<h4 id="test-cases-4">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases-4"></a>
 </h4>
 <table style="width:69%;" class="table">
 <colgroup>
@@ -823,23 +1010,26 @@ be done</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>T3_1</td>
-<td>IE assessment can return a correctly assessed data frame grouped by
-the site variable when given correct input data from clindata and the
-results should be flagged correctly</td>
+<td>T6_6</td>
+<td>Labs assessment can return a correctly assessed data frame for the
+normal approximation test grouped by the site variable when given
+correct input data from clindata and the results should be flagged
+correctly</td>
 <td>success</td>
 </tr>
 <tr class="even">
-<td>T3_2</td>
-<td>IE assessment can return a correctly assessed data frame grouped by
-the study variable when given subset input data from clindata and the
-results should be flagged correctly</td>
+<td>T6_7</td>
+<td>Labs assessment can return a correctly assessed data frame for the
+normal approximation test grouped by the study variable when given
+correct input data from clindata and the results should be flagged
+correctly</td>
 <td>success</td>
 </tr>
 <tr class="odd">
-<td>T3_3</td>
-<td>IE assessment can return a correctly assessed data frame grouped by
-a custom variable and the results should be flagged correctly</td>
+<td>T6_8</td>
+<td>Labs assessment can return a correctly assessed data frame grouped
+by a custom variable when given correct input data from clindata and the
+results should be flagged correctly using a custom threshold</td>
 <td>success</td>
 </tr>
 </tbody>
@@ -848,59 +1038,77 @@ a custom variable and the results should be flagged correctly</td>
 </div>
 </div>
 <div class="section level3">
-<h3 id="assessment-lb_assess">Assessment LB_Assess<a class="anchor" aria-label="anchor" href="#assessment-lb_assess"></a>
+<h3 id="assessment-datachg_assess">Assessment DataChg_Assess<a class="anchor" aria-label="anchor" href="#assessment-datachg_assess"></a>
 </h3>
 <div class="section level4">
-<h4 id="specifications-4">Specifications<a class="anchor" aria-label="anchor" href="#specifications-4"></a>
+<h4 id="specifications-5">Specifications<a class="anchor" aria-label="anchor" href="#specifications-5"></a>
 </h4>
-<p>S6_1: Given correct input data a Labs assessment can be done using
-the fisher method</p>
+<p>S7_1: Given correct input data a data change rate assessment can be
+done using the fisher method</p>
 <pre><code>    Risk: High
     Impact: High
-    Tests: T6_1, T6_2</code></pre>
-<p>S6_2: Given correct input data a Labs assessment can be done using
-the identity method</p>
+    Tests: T7_4, T7_5, T7_6</code></pre>
+<p>S7_2: Given correct input data a data change rate assessment can be
+done using the identity method </p>
 <pre><code>    Risk: High
     Impact: High
-    Tests: T6_3, T6_4, T6_5</code></pre>
-<p>S6_3: Assessments are correctly grouped by a grouping variable such
+    Tests: T7_1, T7_2, T7_3</code></pre>
+<p>S7_3: Given correct input data a data change rate assessment can be
+done using the normal approximation method</p>
+<pre><code>    Risk: High
+    Impact: High
+    Tests: T7_7, T7_8, T7_9</code></pre>
+<p>S7_4: Assessments are correctly grouped by a grouping variable such
 as site or country for KRIs and study for QTLs when applicable</p>
 <pre><code>    Risk: Low
     Impact: High
-    Tests: T6_1, T6_2, T6_3, T6_4, T6_5</code></pre>
-<p>S6_4: Given correct input data flags will correctly be applied to
+    Tests: T7_1, T7_2, T7_3, T7_4, T7_5, T7_6, T7_7, T7_8, T7_9</code></pre>
+<p>S7_5: Given correct input data flags will correctly be applied to
 records that meet flagging criteria, including custom thresholding</p>
 <pre><code>    Risk: Medium
     Impact: High
-    Tests: T6_1, T6_2, T6_3, T6_4, T6_5</code></pre>
-<p>S6_5: Given subset input data a Labs assessment can be done</p>
+    Tests: T7_1, T7_2, T7_3, T7_4, T7_5, T7_6, T7_7, T7_8, T7_9</code></pre>
+<p>S7_6: Given subset input data a Data Change assessment can be
+done</p>
 <pre><code>    Risk: Medium
     Impact: Medium
-    Tests: T6_2, T6_4</code></pre>
+    Tests: T7_1, T7_2, T7_4, T7_5, T7_7, T7_8</code></pre>
 </div>
 <div class="section level4">
-<h4 id="traceability-matrix-4">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix-4"></a>
+<h4 id="traceability-matrix-5">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix-5"></a>
 </h4>
-<table style="width:58%;" class="table">
+<table style="width:90%;" class="table">
 <colgroup>
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
 </colgroup>
 <thead><tr class="header">
 <th>ID</th>
-<th>T6_1</th>
-<th>T6_2</th>
-<th>T6_3</th>
-<th>T6_4</th>
-<th>T6_5</th>
+<th>T7_1</th>
+<th>T7_2</th>
+<th>T7_3</th>
+<th>T7_4</th>
+<th>T7_5</th>
+<th>T7_6</th>
+<th>T7_7</th>
+<th>T7_8</th>
+<th>T7_9</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>S6_1</td>
+<td>S7_1</td>
+<td></td>
+<td></td>
+<td></td>
+<td>X</td>
 <td>X</td>
 <td>X</td>
 <td></td>
@@ -908,15 +1116,47 @@ records that meet flagging criteria, including custom thresholding</p>
 <td></td>
 </tr>
 <tr class="even">
-<td>S6_2</td>
+<td>S7_2</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>S7_3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 <td>X</td>
 <td>X</td>
 <td>X</td>
 </tr>
+<tr class="even">
+<td>S7_4</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
 <tr class="odd">
-<td>S6_3</td>
+<td>S7_5</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
 <td>X</td>
 <td>X</td>
 <td>X</td>
@@ -924,18 +1164,14 @@ records that meet flagging criteria, including custom thresholding</p>
 <td>X</td>
 </tr>
 <tr class="even">
-<td>S6_4</td>
+<td>S7_6</td>
 <td>X</td>
 <td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr class="odd">
-<td>S6_5</td>
 <td></td>
 <td>X</td>
+<td>X</td>
 <td></td>
+<td>X</td>
 <td>X</td>
 <td></td>
 </tr>
@@ -943,7 +1179,7 @@ records that meet flagging criteria, including custom thresholding</p>
 </table>
 </div>
 <div class="section level4">
-<h4 id="test-cases-4">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases-4"></a>
+<h4 id="test-cases-5">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases-5"></a>
 </h4>
 <table style="width:71%;" class="table">
 <colgroup>
@@ -958,39 +1194,74 @@ records that meet flagging criteria, including custom thresholding</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>T6_1</td>
-<td>Labs assessment can return a correctly assessed data frame for the
-fisher test grouped by the site variable when given correct input data
-from clindata and the results should be flagged correctly</td>
+<td>T7_1</td>
+<td>Data change assessment can return a correctly assessed data frame
+for the identity test grouped by the site variable when given correct
+input data from clindata and the results should be flagged correctly
+using a custom threshold.</td>
 <td>success</td>
 </tr>
 <tr class="even">
-<td>T6_2</td>
-<td>Labs assessment can return a correctly assessed data frame for the
-chisq test grouped by a custom variable when given correct input data
-from clindata and the results should be flagged correctly using a custom
-threshold</td>
+<td>T7_2</td>
+<td>Data change assessment can return a correctly assessed data frame
+for the identity test grouped by a custom variable when given subset
+input data from clindata and the results should be flagged
+correctly.</td>
 <td>success</td>
 </tr>
 <tr class="odd">
-<td>T6_3</td>
-<td>Labs assessment can return a correctly assessed data frame grouped
-by the site variable when given correct input data from clindata and the
-results should be flagged correctly</td>
+<td>T7_3</td>
+<td>Data change assessment can return a correctly assessed data frame
+for the identity test grouped by the country variable when given correct
+input data from clindata and the results should be flagged
+correctly.</td>
 <td>success</td>
 </tr>
 <tr class="even">
-<td>T6_4</td>
-<td>Labs assessment can return a correctly assessed data frame grouped
-by the study variable when given correct input data from clindata and
-the results should be flagged correctly</td>
+<td>T7_4</td>
+<td>Data change assessment can return a correctly assessed data frame
+for the fisher test grouped by the site variable when given correct
+input data from clindata and the results should be flagged correctly
+using a custom threshold.</td>
 <td>success</td>
 </tr>
 <tr class="odd">
-<td>T6_5</td>
-<td>Labs assessment can return a correctly assessed data frame grouped
-by a custom variable when given correct input data from clindata and the
-results should be flagged correctly using a custom threshold</td>
+<td>T7_5</td>
+<td>Data change assessment can return a correctly assessed data frame
+for the fisher test grouped by a custom variable when given subset input
+data from clindata and the results should be flagged correctly.</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td>T7_6</td>
+<td>Data change assessment can return a correctly assessed data frame
+for the fisher test grouped by the country variable when given correct
+input data from clindata and the results should be flagged
+correctly.</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T7_7</td>
+<td>Data change assessment can return a correctly assessed data frame
+for the normal approximation test grouped by the site variable when
+given correct input data from clindata and the results should be flagged
+correctly using a custom threshold.</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td>T7_8</td>
+<td>Data change assessment can return a correctly assessed data frame
+for the normal approximation test grouped by a custom variable when
+given subset input data from clindata and the results should be flagged
+correctly.</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T7_9</td>
+<td>Data change assessment can return a correctly assessed data frame
+for the normal approximation test grouped by the country variable when
+given correct input data from clindata and the results should be flagged
+correctly.</td>
 <td>success</td>
 </tr>
 </tbody>
@@ -999,71 +1270,100 @@ results should be flagged correctly using a custom threshold</td>
 </div>
 </div>
 <div class="section level3">
-<h3 id="assessment-pd_assess">Assessment PD_Assess<a class="anchor" aria-label="anchor" href="#assessment-pd_assess"></a>
+<h3 id="assessment-dataentry_assess">Assessment DataEntry_Assess<a class="anchor" aria-label="anchor" href="#assessment-dataentry_assess"></a>
 </h3>
 <div class="section level4">
-<h4 id="specifications-5">Specifications<a class="anchor" aria-label="anchor" href="#specifications-5"></a>
+<h4 id="specifications-6">Specifications<a class="anchor" aria-label="anchor" href="#specifications-6"></a>
 </h4>
-<p>S2_1: Given correct input data a Protocol Deviation assessment can be
-done using the poisson method</p>
-<pre><code>    Risk: High
-    Impact: High
-    Tests: T2_1, T2_2, T2_3</code></pre>
-<p>S2_2: Given correct input data a Protocol Deviation assessment can be
+<p>S8_1: Given correct input data a Data Entry Lag assessment can be
 done using the identity method</p>
 <pre><code>    Risk: High
     Impact: High
-    Tests: T2_4, T2_5, T2_6</code></pre>
-<p>S2_3: Assessments are correctly grouped by a grouping variable such
+    Tests: T8_1, T8_2, T8_3</code></pre>
+<p>S8_2: Given correct input data a Data Entry Lag assessment can be
+done using the fisher method </p>
+<pre><code>    Risk: High
+    Impact: High
+    Tests: T8_4, T8_5, T8_6</code></pre>
+<p>S8_3: Given correct input data a Data Entry Lag assessment can be
+done using the normal approximation method </p>
+<pre><code>    Risk: High
+    Impact: High
+    Tests: T8_7, T8_8, T8_9</code></pre>
+<p>S8_4: Assessments are correctly grouped by a grouping variable such
 as site or country for KRIs and study for QTLs when applicable</p>
 <pre><code>    Risk: Low
     Impact: High
-    Tests: T2_1, T2_2, T2_3, T2_4, T2_5, T2_6</code></pre>
-<p>S2_4: Given correct input data flags will correctly be applied to
+    Tests: T8_1, T8_2, T8_3, T8_4, T8_5, T8_6, T8_7, T8_8, T8_9</code></pre>
+<p>S8_5: Given correct input data flags will correctly be applied to
 records that meet flagging criteria, including custom thresholding</p>
 <pre><code>    Risk: Medium
     Impact: High
-    Tests: T2_1, T2_2, T2_3, T2_4, T2_5, T2_6</code></pre>
-<p>S2_5: Given subset input data a Protocol Deviation assessment can be
-done</p>
+    Tests: T8_1, T8_2, T8_3, T8_4, T8_5, T8_6, T8_7, T8_8, T8_9</code></pre>
+<p>S8_6: Given subset input data a Data Entry Lag assessment can be
+done </p>
 <pre><code>    Risk: Medium
     Impact: Medium
-    Tests: T2_2, T2_5</code></pre>
+    Tests: T8_1, T8_2, T8_4, T8_5, T8_7, T8_8</code></pre>
 </div>
 <div class="section level4">
-<h4 id="traceability-matrix-5">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix-5"></a>
+<h4 id="traceability-matrix-6">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix-6"></a>
 </h4>
-<table style="width:68%;" class="table">
+<table style="width:90%;" class="table">
 <colgroup>
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
 </colgroup>
 <thead><tr class="header">
 <th>ID</th>
-<th>T2_1</th>
-<th>T2_2</th>
-<th>T2_3</th>
-<th>T2_4</th>
-<th>T2_5</th>
-<th>T2_6</th>
+<th>T8_1</th>
+<th>T8_2</th>
+<th>T8_3</th>
+<th>T8_4</th>
+<th>T8_5</th>
+<th>T8_6</th>
+<th>T8_7</th>
+<th>T8_8</th>
+<th>T8_9</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>S2_1</td>
+<td>S8_1</td>
 <td>X</td>
 <td>X</td>
 <td>X</td>
+<td></td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
-<td>S2_2</td>
+<td>S8_2</td>
+<td></td>
+<td></td>
+<td></td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>S8_3</td>
+<td></td>
+<td></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -1071,8 +1371,23 @@ done</p>
 <td>X</td>
 <td>X</td>
 </tr>
+<tr class="even">
+<td>S8_4</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
 <tr class="odd">
-<td>S2_3</td>
+<td>S8_5</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
 <td>X</td>
 <td>X</td>
 <td>X</td>
@@ -1081,20 +1396,14 @@ done</p>
 <td>X</td>
 </tr>
 <tr class="even">
-<td>S2_4</td>
+<td>S8_6</td>
 <td>X</td>
 <td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr class="odd">
-<td>S2_5</td>
 <td></td>
 <td>X</td>
+<td>X</td>
 <td></td>
-<td></td>
+<td>X</td>
 <td>X</td>
 <td></td>
 </tr>
@@ -1102,7 +1411,485 @@ done</p>
 </table>
 </div>
 <div class="section level4">
-<h4 id="test-cases-5">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases-5"></a>
+<h4 id="test-cases-6">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases-6"></a>
+</h4>
+<table style="width:71%;" class="table">
+<colgroup>
+<col width="11%">
+<col width="45%">
+<col width="13%">
+</colgroup>
+<thead><tr class="header">
+<th>Tests</th>
+<th><pre><code><span>     <span class="va">Description</span></span></code></pre></th>
+<th>Outcome</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>T8_1</td>
+<td>Data entry assessment can return a correctly assessed data frame for
+the identity test grouped by the site variable when given correct input
+data from clindata and the results should be flagged correctly using a
+custom threshold.</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td>T8_2</td>
+<td>Data entry assessment can return a correctly assessed data frame for
+the identity test grouped by a custom variable when given subset input
+data from clindata and the results should be flagged correctly.</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T8_3</td>
+<td>Data entry assessment can return a correctly assessed data frame for
+the identity test grouped by the country variable when given correct
+input data from clindata and the results should be flagged
+correctly.</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td>T8_4</td>
+<td>Data entry assessment can return a correctly assessed data frame for
+the fisher test grouped by the site variable when given correct input
+data from clindata and the results should be flagged correctly using a
+custom threshold.</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T8_5</td>
+<td>Data entry assessment can return a correctly assessed data frame for
+the fisher test grouped by a custom variable when given subset input
+data from clindata and the results should be flagged correctly.</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td>T8_6</td>
+<td>Data entry assessment can return a correctly assessed data frame for
+the fisher test grouped by the country variable when given correct input
+data from clindata and the results should be flagged correctly.</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T8_7</td>
+<td>Data entry assessment can return a correctly assessed data frame for
+the normal approximation test grouped by the site variable when given
+correct input data from clindata and the results should be flagged
+correctly using a custom threshold.</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td>T8_8</td>
+<td>Data entry assessment can return a correctly assessed data frame for
+the normal approximation test grouped by a custom variable when given
+subset input data from clindata and the results should be flagged
+correctly.</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T8_9</td>
+<td>Data entry assessment can return a correctly assessed data frame for
+the normal approximation test grouped by the country variable when given
+correct input data from clindata and the results should be flagged
+correctly.</td>
+<td>success</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="assessment-queryage_assess">Assessment QueryAge_Assess<a class="anchor" aria-label="anchor" href="#assessment-queryage_assess"></a>
+</h3>
+<div class="section level4">
+<h4 id="specifications-7">Specifications<a class="anchor" aria-label="anchor" href="#specifications-7"></a>
+</h4>
+<p>S9_1: Given correct input data a Query Age assessment can be done
+using the identity method </p>
+<pre><code>    Risk: High
+    Impact: High
+    Tests: T9_1, T9_2, T9_3</code></pre>
+<p>S9_2: Given correct input data a Query Age assessment can be done
+using the fisher method</p>
+<pre><code>    Risk: High
+    Impact: High
+    Tests: T9_4, T9_5, T9_6</code></pre>
+<p>S9_3: Given correct input data a Query Age assessment can be done
+using the normal approximation method </p>
+<pre><code>    Risk: High
+    Impact: High
+    Tests: T9_7, T9_8, T9_9</code></pre>
+<p>S9_4: Assessments are correctly grouped by a grouping variable such
+as site or country for KRIs and study for QTLs when applicable </p>
+<pre><code>    Risk: Low
+    Impact: High
+    Tests: T9_1, T9_2, T9_3, T9_4, T9_5, T9_6, T9_7, T9_8, T9_9</code></pre>
+<p>S9_5: Given correct input data flags will correctly be applied to
+records that meet flagging criteria, including custom thresholding </p>
+<pre><code>    Risk: Medium
+    Impact: High
+    Tests: T9_1, T9_2, T9_3, T9_4, T9_5, T9_6, T9_7, T9_8, T9_9</code></pre>
+<p>S9_6: Given subset input data a Query Age assessment can be done </p>
+<pre><code>    Risk: Medium
+    Impact: Medium
+    Tests: T9_1, T9_2, T9_4, T9_5, T9_7, T9_8</code></pre>
+</div>
+<div class="section level4">
+<h4 id="traceability-matrix-7">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix-7"></a>
+</h4>
+<table style="width:90%;" class="table">
+<colgroup>
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+</colgroup>
+<thead><tr class="header">
+<th>ID</th>
+<th>T9_1</th>
+<th>T9_2</th>
+<th>T9_3</th>
+<th>T9_4</th>
+<th>T9_5</th>
+<th>T9_6</th>
+<th>T9_7</th>
+<th>T9_8</th>
+<th>T9_9</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>S9_1</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>S9_2</td>
+<td></td>
+<td></td>
+<td></td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>S9_3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td>S9_4</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="odd">
+<td>S9_5</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td>S9_6</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td>X</td>
+<td>X</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="test-cases-7">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases-7"></a>
+</h4>
+<table style="width:71%;" class="table">
+<colgroup>
+<col width="11%">
+<col width="45%">
+<col width="13%">
+</colgroup>
+<thead><tr class="header">
+<th>Tests</th>
+<th><pre><code><span>     <span class="va">Description</span></span></code></pre></th>
+<th>Outcome</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>T9_1</td>
+<td>Query age assessment can return a correctly assessed data frame for
+the identity test grouped by the site variable when given correct input
+data from clindata and the results should be flagged correctly using a
+custom threshold.</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td>T9_2</td>
+<td>Query age assessment can return a correctly assessed data frame for
+the identity test grouped by a custom variable when given subset input
+data from clindata and the results should be flagged correctly.</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T9_3</td>
+<td>Query age assessment can return a correctly assessed data frame for
+the identity test grouped by the country variable when given correct
+input data from clindata and the results should be flagged
+correctly.</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td>T9_4</td>
+<td>Query age assessment can return a correctly assessed data frame for
+the fisher test grouped by the site variable when given correct input
+data from clindata and the results should be flagged correctly using a
+custom threshold.</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T9_5</td>
+<td>Query age assessment can return a correctly assessed data frame for
+the fisher test grouped by a custom variable when given subset input
+data from clindata and the results should be flagged correctly.</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td>T9_6</td>
+<td>Query age assessment can return a correctly assessed data frame for
+the fisher test grouped by the country variable when given correct input
+data from clindata and the results should be flagged correctly.</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T9_7</td>
+<td>Query age assessment can return a correctly assessed data frame for
+the normal approximation test grouped by the site variable when given
+correct input data from clindata and the results should be flagged
+correctly using a custom threshold.</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td>T9_8</td>
+<td>Query age assessment can return a correctly assessed data frame for
+the normal approximation test grouped by a custom variable when given
+subset input data from clindata and the results should be flagged
+correctly.</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T9_9</td>
+<td>Query age assessment can return a correctly assessed data frame for
+the normal approximation test grouped by the country variable when given
+correct input data from clindata and the results should be flagged
+correctly.</td>
+<td>success</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="assessment-queryrate_assess">Assessment QueryRate_Assess<a class="anchor" aria-label="anchor" href="#assessment-queryrate_assess"></a>
+</h3>
+<div class="section level4">
+<h4 id="specifications-8">Specifications<a class="anchor" aria-label="anchor" href="#specifications-8"></a>
+</h4>
+<p>S10_1: Given correct input data a Query Rate assessment can be done
+using the identity method </p>
+<pre><code>    Risk: High
+    Impact: High
+    Tests: T10_1, T10_2, T10_3</code></pre>
+<p>S10_2: Given correct input data a Query Rate assessment can be done
+using the poisson method </p>
+<pre><code>    Risk: High
+    Impact: High
+    Tests: T10_4, T10_5, T10_6</code></pre>
+<p>S10_3: Given correct input data a Query Rate assessment can be done
+using the normal approximation method </p>
+<pre><code>    Risk: High
+    Impact: High
+    Tests: T10_7, T10_8, T10_9</code></pre>
+<p>S10_4: Assessments are correctly grouped by a grouping variable such
+as site or country for KRIs and study for QTLs when applicable </p>
+<pre><code>    Risk: Low
+    Impact: High
+    Tests: T10_1, T10_2, T10_3, T10_4, T10_5, T10_6, T10_7, T10_8, T10_9</code></pre>
+<p>S10_5: Given correct input data flags will correctly be applied to
+records that meet flagging criteria, including custom thresholding </p>
+<pre><code>    Risk: Medium
+    Impact: High
+    Tests: T10_1, T10_2, T10_3, T10_4, T10_5, T10_6, T10_7, T10_8, T10_9</code></pre>
+<p>S10_6: Given subset input data a Query Rate assessment can be
+done </p>
+<pre><code>    Risk: Medium
+    Impact: Medium
+    Tests: T10_1, T10_2, T10_4, T10_5, T10_7, T10_8</code></pre>
+</div>
+<div class="section level4">
+<h4 id="traceability-matrix-8">Traceability Matrix<a class="anchor" aria-label="anchor" href="#traceability-matrix-8"></a>
+</h4>
+<table style="width:91%;" class="table">
+<caption>Table continues below</caption>
+<colgroup>
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+</colgroup>
+<thead><tr class="header">
+<th>ID</th>
+<th>T10_1</th>
+<th>T10_2</th>
+<th>T10_3</th>
+<th>T10_4</th>
+<th>T10_5</th>
+<th>T10_6</th>
+<th>T10_7</th>
+<th>T10_8</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>S10_1</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>S10_2</td>
+<td></td>
+<td></td>
+<td></td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>S10_3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td>S10_4</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="odd">
+<td>S10_5</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td>S10_6</td>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td>X</td>
+<td>X</td>
+<td></td>
+<td>X</td>
+<td>X</td>
+</tr>
+</tbody>
+</table>
+<table style="width:11%;" class="table">
+<colgroup><col width="11%"></colgroup>
+<thead><tr class="header">
+<th>T10_9</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td>X</td>
+</tr>
+<tr class="even">
+<td>X</td>
+</tr>
+<tr class="odd">
+<td>X</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="test-cases-8">Test Cases<a class="anchor" aria-label="anchor" href="#test-cases-8"></a>
 </h4>
 <table style="width:69%;" class="table">
 <colgroup>
@@ -1117,47 +1904,73 @@ done</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>T2_1</td>
-<td>PD assessment can return a correctly assessed data frame for the
-poisson test grouped by the site variable when given correct input data
-from clindata and the results should be flagged correctly using a custom
-threshold</td>
+<td>T10_1</td>
+<td>Query rate assessment can return a correctly assessed data frame for
+the identity test grouped by the site variable when given correct input
+data from clindata and the results should be flagged correctly using a
+custom threshold.</td>
 <td>success</td>
 </tr>
 <tr class="even">
-<td>T2_2</td>
-<td>PD assessment can return a correctly assessed data frame for the
-poisson test grouped by a custom variable when given subset input data
-from clindata and the results should be flagged correctly</td>
+<td>T10_2</td>
+<td>Query rate assessment can return a correctly assessed data frame for
+the identity test grouped by a custom variable when given subset input
+data from clindata and the results should be flagged correctly.</td>
 <td>success</td>
 </tr>
 <tr class="odd">
-<td>T2_3</td>
-<td>PD assessment can return a correctly assessed data frame for the
-poisson test grouped by the study variable and the results should be
-flagged correctly</td>
+<td>T10_3</td>
+<td>Query rate assessment can return a correctly assessed data frame for
+the identity test grouped by the country variable when given correct
+input data from clindata and the results should be flagged
+correctly.</td>
 <td>success</td>
 </tr>
 <tr class="even">
-<td>T2_4</td>
-<td>PD assessment can return a correctly assessed data frame for the
-identity test grouped by the site variable when given correct input data
-from clindata and the results should be flagged correctly using a custom
-threshold.</td>
+<td>T10_4</td>
+<td>Query rate assessment can return a correctly assessed data frame for
+the poisson test grouped by the site variable when given correct input
+data from clindata and the results should be flagged correctly using a
+custom threshold.</td>
 <td>success</td>
 </tr>
 <tr class="odd">
-<td>T2_5</td>
-<td>PD assessment can return a correctly assessed data frame for the
-identity test grouped by a custom variable when given subset input data
-from clindata and the results should be flagged correctly</td>
+<td>T10_5</td>
+<td>Query rate assessment can return a correctly assessed data frame for
+the poisson test grouped by a custom variable when given subset input
+data from clindata and the results should be flagged correctly.</td>
 <td>success</td>
 </tr>
 <tr class="even">
-<td>T2_6</td>
-<td>PD assessment can return a correctly assessed data frame for the
-identity test grouped by the site variable and the results should be
-flagged correctly</td>
+<td>T10_6</td>
+<td>Query rate assessment can return a correctly assessed data frame for
+the poisson test grouped by the country variable when given correct
+input data from clindata and the results should be flagged
+correctly.</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T10_7</td>
+<td>Query rate assessment can return a correctly assessed data frame for
+the normal approximation test grouped by the site variable when given
+correct input data from clindata and the results should be flagged
+correctly using a custom threshold.</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td>T10_8</td>
+<td>Query rate assessment can return a correctly assessed data frame for
+the normal approximation test grouped by a custom variable when given
+subset input data from clindata and the results should be flagged
+correctly.</td>
+<td>success</td>
+</tr>
+<tr class="odd">
+<td>T10_9</td>
+<td>Query rate assessment can return a correctly assessed data frame for
+the normal approximation test grouped by the country variable when given
+correct input data from clindata and the results should be flagged
+correctly.</td>
 <td>success</td>
 </tr>
 </tbody>
@@ -1178,8 +1991,8 @@ flagged correctly</td>
 <p>R/Analyze_NormalApprox.R = 100%</p>
 <p>R/Analyze_Poisson_PredictBounds.R = 89.8%</p>
 <p>R/Analyze_Poisson.R = 100%</p>
-<p>R/Analyze_QTL.R = 100%</p>
-<p>R/barChart.R = 83.33%</p>
+<p>R/Analyze_QTL.R = 80.77%</p>
+<p>R/barChart.R = 84%</p>
 <p>R/build-md.R = 0%</p>
 <p>R/CheckSnapshotInputs.R = 100%</p>
 <p>R/Consent_Assess.R = 98.46%</p>
@@ -1190,6 +2003,7 @@ flagged correctly</td>
 <p>R/DataEntry_Map_Raw.R = 100%</p>
 <p>R/Disp_Assess.R = 96.77%</p>
 <p>R/Disp_Map_Raw.R = 100%</p>
+<p>R/ExportCode.R = 0%</p>
 <p>R/Flag_Fisher.R = 100%</p>
 <p>R/Flag_NormalApprox.R = 100%</p>
 <p>R/Flag_Poisson.R = 100%</p>
@@ -1200,29 +2014,30 @@ flagged correctly</td>
 <p>R/IE_Map_Raw.R = 100%</p>
 <p>R/LB_Assess.R = 97.37%</p>
 <p>R/LB_Map_Raw.R = 100%</p>
-<p>R/Make_Snapshot.R = 99.4%</p>
-<p>R/Overview_Table.R = 0%</p>
-<p>R/PD_Assess.R = 98.4%</p>
-<p>R/PD_Map_Raw.R = 100%</p>
+<p>R/Make_Snapshot.R = 99.44%</p>
+<p>R/Overview_Table.R = 100%</p>
+<p>R/PD_Assess_Binary.R = 96%</p>
+<p>R/PD_Assess_Rate.R = 95.2%</p>
+<p>R/PD_Map_Raw_Binary.R = 100%</p>
+<p>R/PD_Map_Raw_Rate.R = 100%</p>
 <p>R/QueryAge_Assess.R = 97.37%</p>
 <p>R/QueryAge_Map_Raw.R = 100%</p>
-<p>R/QueryRate_Assess.R = 91.2%</p>
+<p>R/QueryRate_Assess.R = 91.13%</p>
 <p>R/QueryRate_Map_Raw.R = 100%</p>
 <p>R/RunQTL.R = 64.29%</p>
 <p>R/SaveQTL.R = 23.08%</p>
-<p>R/scatterPlot.R = 83.33%</p>
+<p>R/scatterPlot.R = 84%</p>
 <p>R/Screening_Assess.R = 93.55%</p>
 <p>R/Screening_Map_Raw.R = 100%</p>
-<p>R/Study_Assess.R = 67.8%</p>
+<p>R/Study_Assess.R = 83.08%</p>
 <p>R/Study_AssessmentReport.R = 100%</p>
 <p>R/Study_Report.R = 0%</p>
-<p>R/Study_Table.R = 99.12%</p>
 <p>R/Summarize.R = 100%</p>
 <p>R/tests-assess_helpers.R = 100%</p>
 <p>R/tests-map_raw_helpers.R = 100%</p>
 <p>R/Transform_Count.R = 100%</p>
 <p>R/Transform_Rate.R = 100%</p>
-<p>R/UpdateParams.R = 0%</p>
+<p>R/UpdateParams.R = 100%</p>
 <p>R/util-CheckClindataMeta.R = 76.19%</p>
 <p>R/util-CheckInputs.R = 100%</p>
 <p>R/util-ConsolidateStrata.R = 73.33%</p>
@@ -1230,27 +2045,1313 @@ flagged correctly</td>
 <p>R/util-FilterDomain.R = 100%</p>
 <p>R/util-generate_md_table.R = 0%</p>
 <p>R/util-is_mapping_valid.R = 98%</p>
-<p>R/util-kri_directionality_logo.R = 0%</p>
+<p>R/util-kri_directionality_logo.R = 84.62%</p>
 <p>R/util-MakeDfConfig.R = 100%</p>
 <p>R/util-MakeStratifiedAssessment.R = 92.86%</p>
 <p>R/util-MakeWorkflowList.R = 100%</p>
-<p>R/util-MergeSubjects.R = 97.73%</p>
+<p>R/util-MergeSubjects.R = 88.64%</p>
 <p>R/util-parse_data_mapping.R = 0%</p>
 <p>R/util-parse_data_spec.R = 0%</p>
 <p>R/util-ParseWarnings.R = 100%</p>
 <p>R/util-rank_chg.R = 100%</p>
 <p>R/util-RemoveInvalidSubjectIDs.R = 0%</p>
 <p>R/util-RunStep.R = 100%</p>
-<p>R/util-RunStratifiedWorkflow.R = 90.62%</p>
-<p>R/util-RunWorkflow.R = 97.06%</p>
+<p>R/util-RunStratifiedWorkflow.R = 90.91%</p>
+<p>R/util-RunWorkflow.R = 90%</p>
 <p>R/util-UpdateGSMVersion.R = 0%</p>
 <p>R/Visualize_Scatter.R = 100%</p>
 <p>R/Visualize_Score.R = 100%</p>
-<p>R/Visualize_Workflow.R = 100%</p>
+<p>R/Visualize_Workflow.R = 98.44%</p>
 </div>
 <div class="section level2">
 <h2 id="pull-request-overview">Pull Request Overview<a class="anchor" aria-label="anchor" href="#pull-request-overview"></a>
 </h2>
+<div class="section level4">
+<h4 id="pull-request-1055-release-v1-5-0">Pull Request 1055: Release v1.5.0<a class="anchor" aria-label="anchor" href="#pull-request-1055-release-v1-5-0"></a>
+</h4>
+<p>Merging release-v1.5.0 into main</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1055" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1055</a></p>
+<table style="width:82%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="22%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-02-01 22:29:19</td>
+<td align="center">samussiah Zhongkai-Wang</td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1054-fix-929---util-filterdomain-qual--tests">Pull Request 1054: Fix 929 - util-FilterDomain() Qual. Tests<a class="anchor" aria-label="anchor" href="#pull-request-1054-fix-929---util-filterdomain-qual--tests"></a>
+</h4>
+<p>Merging fix-929 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1054" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1054</a></p>
+<table style="width:86%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2023-02-01 20:40:59</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1051-fix-935---util-mergesubjects-qual--test">Pull Request 1051: Fix 935 - util-MergeSubjects() Qual. Test<a class="anchor" aria-label="anchor" href="#pull-request-1051-fix-935---util-mergesubjects-qual--test"></a>
+</h4>
+<p>Merging fix-935 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1051" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1051</a></p>
+<table style="width:86%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2023-02-01 19:40:33</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1048-fix-932---get_enrolled-qual--tests">Pull Request 1048: Fix 932 - Get_Enrolled() Qual. Tests<a class="anchor" aria-label="anchor" href="#pull-request-1048-fix-932---get_enrolled-qual--tests"></a>
+</h4>
+<p>Merging fix-932 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1048" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1048</a></p>
+<table style="width:86%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2023-02-01 18:00:11</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1046-qualification-specs-management">Pull Request 1046: qualification specs management<a class="anchor" aria-label="anchor" href="#pull-request-1046-qualification-specs-management"></a>
+</h4>
+<p>Merging fix-1016 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1046" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1046</a></p>
+<table style="width:89%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="29%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-30 23:21:19</td>
+<td align="center">samussiah collleenmclaughlin</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1044-fix-1034---qual-scraping-function">Pull Request 1044: Fix 1034 - Qual Scraping Function<a class="anchor" aria-label="anchor" href="#pull-request-1044-fix-1034---qual-scraping-function"></a>
+</h4>
+<p>Merging fix-1034 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1044" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1044</a></p>
+<table style="width:94%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="23%">
+<col width="23%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2023-01-30 21:22:42</td>
+<td align="center">chelseadickens Zhongkai-Wang</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1042-tweaks">Pull Request 1042: tweaks<a class="anchor" aria-label="anchor" href="#pull-request-1042-tweaks"></a>
+</h4>
+<p>Merging fix-1003-review into fix-1003</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1042" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1042</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-26 03:19:19</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1041-fix-905---create-stats-vignette">Pull Request 1041: Fix 905 - Create stats vignette<a class="anchor" aria-label="anchor" href="#pull-request-1041-fix-905---create-stats-vignette"></a>
+</h4>
+<p>Merging fix-905 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1041" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1041</a></p>
+<table style="width:82%;" class="table">
+<colgroup>
+<col width="22%">
+<col width="18%">
+<col width="19%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">Zhongkai-Wang</td>
+<td align="center">2023-01-25 14:03:37</td>
+<td align="center">jwildfire mattroumaya</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1040-fix-1003---update-ipd-qtl">Pull Request 1040: Fix 1003 - Update IPD QTL<a class="anchor" aria-label="anchor" href="#pull-request-1040-fix-1003---update-ipd-qtl"></a>
+</h4>
+<p>Merging fix-1003 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1040" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1040</a></p>
+<table style="width:79%;" class="table">
+<colgroup>
+<col width="22%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">Zhongkai-Wang</td>
+<td align="center">2023-01-25 13:51:13</td>
+<td align="center">samussiah</td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1038-9871031---resolve-conflicts">Pull Request 1038: 987/1031 - resolve conflicts<a class="anchor" aria-label="anchor" href="#pull-request-1038-9871031---resolve-conflicts"></a>
+</h4>
+<p>Merging 987-subset-oriented-qualification-tests into
+1031-qual-tests-for-nmindenominator</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1038" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1038</a></p>
+<table style="width:81%;" class="table">
+<colgroup>
+<col width="23%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">chelseadickens</td>
+<td align="center">2023-01-24 21:46:39</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1037-add-estimate-to-qtl-output-">Pull Request 1037: Add <code>Estimate</code> to QTL output.<a class="anchor" aria-label="anchor" href="#pull-request-1037-add-estimate-to-qtl-output-"></a>
+</h4>
+<p>Merging fix-894 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1037" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1037</a></p>
+<table style="width:74%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2023-01-24 14:40:21</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1032-fix-987---subset-oriented-qualification-tests">Pull Request 1032: Fix 987 - subset oriented qualification
+tests<a class="anchor" aria-label="anchor" href="#pull-request-1032-fix-987---subset-oriented-qualification-tests"></a>
+</h4>
+<p>Merging 987-subset-oriented-qualification-tests into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1032" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1032</a></p>
+<table style="width:86%;" class="table">
+<colgroup>
+<col width="23%">
+<col width="18%">
+<col width="22%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">chelseadickens</td>
+<td align="center">2023-01-20 21:43:35</td>
+<td align="center">samussiah Zhongkai-Wang</td>
+<td align="center"></td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1030-update-mappings-to-more-easily-integrate-with-safetygraphics-for-gsmapp-">Pull Request 1030: Update mappings to more easily integrate with
+safetyGraphics for gsmApp.<a class="anchor" aria-label="anchor" href="#pull-request-1030-update-mappings-to-more-easily-integrate-with-safetygraphics-for-gsmapp-"></a>
+</h4>
+<p>Merging consistent-mappings into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1030" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1030</a></p>
+<table style="width:86%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="29%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2023-01-20 18:25:31</td>
+<td align="center">chelseadickens collleenmclaughlin</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1028-fix-988-even-more-tweaks">Pull Request 1028: Fix 988 even more tweaks<a class="anchor" aria-label="anchor" href="#pull-request-1028-fix-988-even-more-tweaks"></a>
+</h4>
+<p>Merging fix-988-tweaks-tweak into fix-988-tweaks</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1028" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1028</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-19 22:13:59</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1027-reposition-dropdown-to-remain-visible-throughout-report-">Pull Request 1027: Reposition dropdown to remain visible throughout
+report.<a class="anchor" aria-label="anchor" href="#pull-request-1027-reposition-dropdown-to-remain-visible-throughout-report-"></a>
+</h4>
+<p>Merging fix-988-tweaks into fix-988</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1027" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1027</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="19%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2023-01-19 19:15:45</td>
+<td align="center">mattroumaya</td>
+<td align="center"></td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1026-fix-639-1025---fix-barcharts-warning-during-rcmd-check">Pull Request 1026: Fix 639; 1025 - fix barcharts + warning during
+rcmd check<a class="anchor" aria-label="anchor" href="#pull-request-1026-fix-639-1025---fix-barcharts-warning-during-rcmd-check"></a>
+</h4>
+<p>Merging fix-639 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1026" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1026</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-18 20:42:30</td>
+<td align="center"></td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1023-fix-988---report-level-site-dropdown">Pull Request 1023: Fix 988 - report-level site dropdown<a class="anchor" aria-label="anchor" href="#pull-request-1023-fix-988---report-level-site-dropdown"></a>
+</h4>
+<p>Merging fix-988 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1023" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1023</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-17 22:43:46</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1022-fix-962---clean-up-make_snapshot-merging">Pull Request 1022: Fix 962 - clean up Make_Snapshot() merging<a class="anchor" aria-label="anchor" href="#pull-request-1022-fix-962---clean-up-make_snapshot-merging"></a>
+</h4>
+<p>Merging fix-962 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1022" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1022</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-17 16:10:19</td>
+<td align="center">samussiah</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1019-fix-1018---minor-qual--test-updates">Pull Request 1019: Fix 1018 - Minor Qual. Test Updates<a class="anchor" aria-label="anchor" href="#pull-request-1019-fix-1018---minor-qual--test-updates"></a>
+</h4>
+<p>Merging fix-1018 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1019" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1019</a></p>
+<table style="width:86%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2023-01-13 17:54:14</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1017-fix-941---queryrate_map_raw-qual--tests">Pull Request 1017: Fix 941 - QueryRate_Map_Raw() Qual. Tests<a class="anchor" aria-label="anchor" href="#pull-request-1017-fix-941---queryrate_map_raw-qual--tests"></a>
+</h4>
+<p>Merging fix-941 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1017" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1017</a></p>
+<table style="width:86%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2023-01-13 16:36:17</td>
+<td align="center"></td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1015-fix-1014---update-reporting-functions">Pull Request 1015: Fix 1014 - update reporting functions<a class="anchor" aria-label="anchor" href="#pull-request-1015-fix-1014---update-reporting-functions"></a>
+</h4>
+<p>Merging fix-1014 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1015" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1015</a></p>
+<table style="width:82%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="22%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-12 22:12:52</td>
+<td align="center">Zhongkai-Wang</td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1013-fix-966---update-rbm-viz-function-docs">Pull Request 1013: Fix 966 - update rbm-viz function docs<a class="anchor" aria-label="anchor" href="#pull-request-1013-fix-966---update-rbm-viz-function-docs"></a>
+</h4>
+<p>Merging fix-966 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1013" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1013</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-12 20:48:55</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1011-update-rbm-viz-to-v1-0-0--">Pull Request 1011: Update <code>rbm-viz</code> to
+<code>v1.0.0</code> .<a class="anchor" aria-label="anchor" href="#pull-request-1011-update-rbm-viz-to-v1-0-0--"></a>
+</h4>
+<p>Merging fix-1010 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1011" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1011</a></p>
+<table style="width:74%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2023-01-11 20:14:47</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1009-fix-1005---additional-update-to-correct-counting-and-merging-logic">Pull Request 1009: Fix-1005 - Additional update to correct counting
+and merging logic<a class="anchor" aria-label="anchor" href="#pull-request-1009-fix-1005---additional-update-to-correct-counting-and-merging-logic"></a>
+</h4>
+<p>Merging fix-1005-more into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1009" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1009</a></p>
+<table style="width:92%;" class="table">
+<colgroup>
+<col width="22%">
+<col width="18%">
+<col width="29%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">Zhongkai-Wang</td>
+<td align="center">2023-01-11 15:30:02</td>
+<td align="center">collleenmclaughlin</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1008-fix-1006---make-flowchart-optional">Pull Request 1008: Fix 1006 - make flowchart optional<a class="anchor" aria-label="anchor" href="#pull-request-1008-fix-1006---make-flowchart-optional"></a>
+</h4>
+<p>Merging fix-1006 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1008" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1008</a></p>
+<table style="width:82%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="22%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-10 22:53:52</td>
+<td align="center">jwildfire Zhongkai-Wang</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1007-fix-1005---queryrate_map_raw-grouping">Pull Request 1007: Fix 1005 - QueryRate_Map_Raw Grouping<a class="anchor" aria-label="anchor" href="#pull-request-1007-fix-1005---queryrate_map_raw-grouping"></a>
+</h4>
+<p>Merging fix-1005 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1007" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1007</a></p>
+<table style="width:89%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="29%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-10 17:22:04</td>
+<td align="center">samussiah collleenmclaughlin</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1004-fix-520---add-ability-to-export-code-from-workflow-ldata-and-lmapping">Pull Request 1004: Fix 520 - add ability to export code from
+workflow, lData, and lMapping<a class="anchor" aria-label="anchor" href="#pull-request-1004-fix-520---add-ability-to-export-code-from-workflow-ldata-and-lmapping"></a>
+</h4>
+<p>Merging fix-520 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1004" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1004</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-09 22:10:48</td>
+<td align="center">jwildfire</td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1002-fix-925---qualify-dataentry_assess">Pull Request 1002: fix 925 - qualify DataEntry_Assess<a class="anchor" aria-label="anchor" href="#pull-request-1002-fix-925---qualify-dataentry_assess"></a>
+</h4>
+<p>Merging 925-qualify-dataentry_assess into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1002" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1002</a></p>
+<table style="width:81%;" class="table">
+<colgroup>
+<col width="23%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">chelseadickens</td>
+<td align="center">2023-01-06 15:44:35</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1001-fix-923---qualify-datachg_assess">Pull Request 1001: fix 923 - qualify DataChg_Assess<a class="anchor" aria-label="anchor" href="#pull-request-1001-fix-923---qualify-datachg_assess"></a>
+</h4>
+<p>Merging 923-qualify-datachg_assess into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1001" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1001</a></p>
+<table style="width:81%;" class="table">
+<colgroup>
+<col width="23%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">chelseadickens</td>
+<td align="center">2023-01-06 15:23:23</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1000-fix-938---qualify-queryage_assess">Pull Request 1000: fix 938 - qualify QueryAge_Assess<a class="anchor" aria-label="anchor" href="#pull-request-1000-fix-938---qualify-queryage_assess"></a>
+</h4>
+<p>Merging 938-qualify-queryage_assess into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1000" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1000</a></p>
+<table style="width:81%;" class="table">
+<colgroup>
+<col width="23%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">chelseadickens</td>
+<td align="center">2023-01-06 14:58:19</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-999-fix-940---qualify-queryrate_assess">Pull Request 999: fix 940 - qualify QueryRate_Assess<a class="anchor" aria-label="anchor" href="#pull-request-999-fix-940---qualify-queryrate_assess"></a>
+</h4>
+<p>Merging 940-qualify-queryrate_assess into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/999" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/999</a></p>
+<table style="width:81%;" class="table">
+<colgroup>
+<col width="23%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">chelseadickens</td>
+<td align="center">2023-01-06 14:51:37</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-998-fix-965---add-missing-unit-tests">Pull Request 998: Fix 965 - add missing unit tests<a class="anchor" aria-label="anchor" href="#pull-request-998-fix-965---add-missing-unit-tests"></a>
+</h4>
+<p>Merging fix-965 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/998" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/998</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-05 22:27:06</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-997-data-model-fixes">Pull Request 997: Data model fixes<a class="anchor" aria-label="anchor" href="#pull-request-997-data-model-fixes"></a>
+</h4>
+<p>Merging data-model-fixes into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/997" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/997</a></p>
+<table style="width:86%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="29%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2023-01-05 22:09:30</td>
+<td align="center">Zhongkai-Wang collleenmclaughlin</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-996-fix-939---queryage_map_raw-qual--tests">Pull Request 996: Fix 939 - QueryAge_Map_Raw() Qual. Tests<a class="anchor" aria-label="anchor" href="#pull-request-996-fix-939---queryage_map_raw-qual--tests"></a>
+</h4>
+<p>Merging fix-939 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/996" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/996</a></p>
+<table style="width:86%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2023-01-05 22:04:51</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-995-fix-926---dataentry_map_raw-qual--tests">Pull Request 995: Fix 926 - DataEntry_Map_Raw() Qual. Tests<a class="anchor" aria-label="anchor" href="#pull-request-995-fix-926---dataentry_map_raw-qual--tests"></a>
+</h4>
+<p>Merging fix-926 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/995" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/995</a></p>
+<table style="width:86%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2023-01-05 14:58:53</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-992-fix-924---datachg_map_raw-qual--tests">Pull Request 992: Fix 924 - DataChg_Map_Raw() Qual. Tests<a class="anchor" aria-label="anchor" href="#pull-request-992-fix-924---datachg_map_raw-qual--tests"></a>
+</h4>
+<p>Merging fix-924 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/992" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/992</a></p>
+<table style="width:86%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2023-01-04 19:57:21</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-991-fix-924---datachg_map_raw-qual--tests">Pull Request 991: Fix 924 - DataChg_Map_Raw() Qual. Tests<a class="anchor" aria-label="anchor" href="#pull-request-991-fix-924---datachg_map_raw-qual--tests"></a>
+</h4>
+<p>Merging fix-924 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/991" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/991</a></p>
+<table style="width:86%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2023-01-04 19:20:45</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-990-multiple-select">Pull Request 990: multiple select<a class="anchor" aria-label="anchor" href="#pull-request-990-multiple-select"></a>
+</h4>
+<p>Merging fix-984-multiple into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/990" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/990</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-03 18:30:48</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-989-fix-986---make-unit-tests-faster">Pull Request 989: Fix 986 - make unit tests faster<a class="anchor" aria-label="anchor" href="#pull-request-989-fix-986---make-unit-tests-faster"></a>
+</h4>
+<p>Merging fix-986 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/989" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/989</a></p>
+<table style="width:82%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="22%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-01-03 14:28:03</td>
+<td align="center">jwildfire Zhongkai-Wang</td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-985-add-dropdown-to-widgets-to-highlight-sites-">Pull Request 985: Add dropdown to widgets to highlight sites.<a class="anchor" aria-label="anchor" href="#pull-request-985-add-dropdown-to-widgets-to-highlight-sites-"></a>
+</h4>
+<p>Merging fix-984 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/985" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/985</a></p>
+<table style="width:74%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2022-12-22 21:34:46</td>
+<td align="center">MayaGans</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-983-fix-961---minify-ldata">Pull Request 983: Fix 961 - minify lData<a class="anchor" aria-label="anchor" href="#pull-request-983-fix-961---minify-ldata"></a>
+</h4>
+<p>Merging fix-961 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/983" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/983</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2022-12-22 20:03:27</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-982-fix-979---remove-unused-functions-and-dependencies">Pull Request 982: Fix 979 - remove unused functions and
+dependencies<a class="anchor" aria-label="anchor" href="#pull-request-982-fix-979---remove-unused-functions-and-dependencies"></a>
+</h4>
+<p>Merging fix-979 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/982" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/982</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2022-12-22 19:16:40</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-980-fix-928---disp_map_raw-qual--tests">Pull Request 980: Fix 928 - Disp_Map_Raw() Qual. Tests<a class="anchor" aria-label="anchor" href="#pull-request-980-fix-928---disp_map_raw-qual--tests"></a>
+</h4>
+<p>Merging fix-928 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/980" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/980</a></p>
+<table style="width:92%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="22%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2022-12-22 17:15:53</td>
+<td align="center">samussiah gwu05 Zhongkai-Wang</td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-978-fix-934---lb_map_raw-qual--tests">Pull Request 978: Fix 934 - LB_Map_Raw() Qual. Tests<a class="anchor" aria-label="anchor" href="#pull-request-978-fix-934---lb_map_raw-qual--tests"></a>
+</h4>
+<p>Merging fix-934 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/978" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/978</a></p>
+<table style="width:92%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="22%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2022-12-21 21:30:03</td>
+<td align="center">samussiah gwu05 Zhongkai-Wang</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-977-fix-937---pd_map_raw-qual--tests">Pull Request 977: Fix 937 - PD_Map_Raw() Qual. Tests<a class="anchor" aria-label="anchor" href="#pull-request-977-fix-937---pd_map_raw-qual--tests"></a>
+</h4>
+<p>Merging fix-937 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/977" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/977</a></p>
+<table style="width:92%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="22%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2022-12-21 19:26:15</td>
+<td align="center">samussiah gwu05 Zhongkai-Wang</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-976-fix-953---remove-qualification-yaml-csv-file">Pull Request 976: Fix 953 - remove qualification YAML –&gt; csv
+file<a class="anchor" aria-label="anchor" href="#pull-request-976-fix-953---remove-qualification-yaml-csv-file"></a>
+</h4>
+<p>Merging fix-953 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/976" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/976</a></p>
+<table style="width:89%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="29%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2022-12-20 22:52:52</td>
+<td align="center">jwildfire chelseadickens Zhongkai-Wang
+collleenmclaughlin</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-975-fix-920---ae_map_raw-qual--tests">Pull Request 975: Fix 920 - AE_Map_Raw() Qual. Tests<a class="anchor" aria-label="anchor" href="#pull-request-975-fix-920---ae_map_raw-qual--tests"></a>
+</h4>
+<p>Merging fix-920 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/975" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/975</a></p>
+<table style="width:92%;" class="table">
+<colgroup>
+<col width="29%">
+<col width="18%">
+<col width="22%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">collleenmclaughlin</td>
+<td align="center">2022-12-20 21:44:00</td>
+<td align="center">samussiah gwu05 Zhongkai-Wang</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-974-remove-nstep-argument-in-queryrate_assess--">Pull Request 974: Remove <code>nStep</code> argument in
+<code>QueryRate_Assess()</code> .<a class="anchor" aria-label="anchor" href="#pull-request-974-remove-nstep-argument-in-queryrate_assess--"></a>
+</h4>
+<p>Merging fix-973 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/974" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/974</a></p>
+<table style="width:74%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2022-12-20 19:04:44</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-972-sync-dev-and-main">Pull Request 972: Sync <code>dev</code> and <code>main</code><a class="anchor" aria-label="anchor" href="#pull-request-972-sync-dev-and-main"></a>
+</h4>
+<p>Merging main into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/972" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/972</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2022-12-20 15:17:04</td>
+<td align="center">samussiah</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
 <div class="section level4">
 <h4 id="pull-request-971-release-v1-4-1">Pull Request 971: Release v1.4.1<a class="anchor" aria-label="anchor" href="#pull-request-971-release-v1-4-1"></a>
 </h4>
@@ -1358,6 +3459,60 @@ rules<a class="anchor" aria-label="anchor" href="#pull-request-964-fix-614---den
 </table>
 </div>
 <div class="section level4">
+<h4 id="pull-request-960-fix-936---qualify-pd_assess-for-normal-approximation">Pull Request 960: fix 936 - qualify PD_Assess for normal
+approximation<a class="anchor" aria-label="anchor" href="#pull-request-960-fix-936---qualify-pd_assess-for-normal-approximation"></a>
+</h4>
+<p>Merging 936-qualify-pd_assess into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/960" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/960</a></p>
+<table style="width:81%;" class="table">
+<colgroup>
+<col width="23%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">chelseadickens</td>
+<td align="center">2022-12-14 15:48:01</td>
+<td align="center">jwildfire gwu05</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-959-fix-933---qualify-lb_assess-for-normal-approximation">Pull Request 959: fix 933 - qualify LB_Assess for normal
+approximation<a class="anchor" aria-label="anchor" href="#pull-request-959-fix-933---qualify-lb_assess-for-normal-approximation"></a>
+</h4>
+<p>Merging 933-qualify-lb_assess into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/959" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/959</a></p>
+<table style="width:81%;" class="table">
+<colgroup>
+<col width="23%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">chelseadickens</td>
+<td align="center">2022-12-14 14:50:59</td>
+<td align="center">jwildfire gwu05</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
 <h4 id="pull-request-958-release-v1-4-0">Pull Request 958: Release v1.4.0<a class="anchor" aria-label="anchor" href="#pull-request-958-release-v1-4-0"></a>
 </h4>
 <p>Merging release-v1.4.0 into main</p>
@@ -1406,6 +3561,60 @@ report.<a class="anchor" aria-label="anchor" href="#pull-request-957-add-of-part
 <td align="center">samussiah</td>
 <td align="center">2022-12-13 21:30:12</td>
 <td align="center">Zhongkai-Wang</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-956-fix-927---qualify-disp_assess-for-normal-approximation">Pull Request 956: fix 927 - qualify Disp_Assess for normal
+approximation<a class="anchor" aria-label="anchor" href="#pull-request-956-fix-927---qualify-disp_assess-for-normal-approximation"></a>
+</h4>
+<p>Merging 927-qualify-disp_assess into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/956" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/956</a></p>
+<table style="width:81%;" class="table">
+<colgroup>
+<col width="23%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">chelseadickens</td>
+<td align="center">2022-12-13 20:57:14</td>
+<td align="center">jwildfire gwu05</td>
+<td align="center">DISMISSED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-955-fix-919---qualify-ae_assess-for-normal-approximation">Pull Request 955: fix 919 - qualify AE_Assess for normal
+approximation<a class="anchor" aria-label="anchor" href="#pull-request-955-fix-919---qualify-ae_assess-for-normal-approximation"></a>
+</h4>
+<p>Merging 919-qualify-ae_assess into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/955" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/955</a></p>
+<table style="width:81%;" class="table">
+<colgroup>
+<col width="23%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">chelseadickens</td>
+<td align="center">2022-12-13 20:35:10</td>
+<td align="center">jwildfire gwu05</td>
 <td align="center">APPROVED</td>
 </tr></tbody>
 </table>
@@ -2357,1397 +4566,6 @@ release<a class="anchor" aria-label="anchor" href="#pull-request-862-fix-853---c
 </tr></tbody>
 </table>
 </div>
-<div class="section level4">
-<h4 id="pull-request-846-fix-718">Pull Request 846: Fix 718<a class="anchor" aria-label="anchor" href="#pull-request-846-fix-718"></a>
-</h4>
-<p>Merging fix-718 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/846" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/846</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-11-02 03:50:38</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-845-fix-833-fixes">Pull Request 845: Fix 833 fixes<a class="anchor" aria-label="anchor" href="#pull-request-845-fix-833-fixes"></a>
-</h4>
-<p>Merging fix-833-mr into fix-833</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/845" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/845</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-11-01 20:23:23</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-844-fix-791-tweaks">Pull Request 844: Fix 791 tweaks<a class="anchor" aria-label="anchor" href="#pull-request-844-fix-791-tweaks"></a>
-</h4>
-<p>Merging fix-791-mr into fix-791</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/844" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/844</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-11-01 16:29:25</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-842-fix-771-ffwd">Pull Request 842: Fix 771 ffwd<a class="anchor" aria-label="anchor" href="#pull-request-842-fix-771-ffwd"></a>
-</h4>
-<p>Merging fix-771-ffwd into fix-771</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/842" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/842</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-11-01 13:49:55</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-841-add-to-unit-tests">Pull Request 841: add to unit tests<a class="anchor" aria-label="anchor" href="#pull-request-841-add-to-unit-tests"></a>
-</h4>
-<p>Merging fix-771-mr into fix-771</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/841" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/841</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-31 21:42:03</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-840-fix-794-and-fix-818---update-documentation">Pull Request 840: Fix 794 and Fix 818 - Update Documentation<a class="anchor" aria-label="anchor" href="#pull-request-840-fix-794-and-fix-818---update-documentation"></a>
-</h4>
-<p>Merging fix-794 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/840" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/840</a></p>
-<table style="width:82%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="27%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-31 18:54:41</td>
-<td align="center"></td>
-<td align="center">CHANGES_REQUESTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-839-fix-781---create-new-operational-kris-and-update-workflows">Pull Request 839: Fix 781 - Create new operational KRIs and update
-workflows<a class="anchor" aria-label="anchor" href="#pull-request-839-fix-781---create-new-operational-kris-and-update-workflows"></a>
-</h4>
-<p>Merging fix-781 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/839" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/839</a></p>
-<table style="width:79%;" class="table">
-<colgroup>
-<col width="22%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">Zhongkai-Wang</td>
-<td align="center">2022-10-31 15:37:31</td>
-<td align="center">samussiah</td>
-<td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-838-fix-833---refine-new-stats-methods">Pull Request 838: Fix 833 - Refine new stats methods<a class="anchor" aria-label="anchor" href="#pull-request-838-fix-833---refine-new-stats-methods"></a>
-</h4>
-<p>Merging fix-833 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/838" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/838</a></p>
-<table style="width:82%;" class="table">
-<colgroup>
-<col width="22%">
-<col width="18%">
-<col width="19%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">Zhongkai-Wang</td>
-<td align="center">2022-10-31 14:08:01</td>
-<td align="center">mattroumaya gwu05</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-836-fix-771---new-updated-unit-tests">Pull Request 836: Fix 771 - New &amp; Updated Unit Tests<a class="anchor" aria-label="anchor" href="#pull-request-836-fix-771---new-updated-unit-tests"></a>
-</h4>
-<p>Merging fix-771 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/836" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/836</a></p>
-<table style="width:92%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="27%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2022-10-28 03:03:16</td>
-<td align="center"></td>
-<td align="center">CHANGES_REQUESTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-835-add-country-mappings">Pull Request 835: add country mappings<a class="anchor" aria-label="anchor" href="#pull-request-835-add-country-mappings"></a>
-</h4>
-<p>Merging fix-829 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/835" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/835</a></p>
-<table style="width:89%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="29%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-27 21:49:24</td>
-<td align="center">jwildfire collleenmclaughlin</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-834-fix-825---arrange-map-functions">Pull Request 834: Fix 825 - arrange map functions<a class="anchor" aria-label="anchor" href="#pull-request-834-fix-825---arrange-map-functions"></a>
-</h4>
-<p>Merging fix-825 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/834" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/834</a></p>
-<table style="width:89%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="29%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-27 18:52:13</td>
-<td align="center">collleenmclaughlin</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-832-fix-830---add-experimental-badges-to-function-reference">Pull Request 832: Fix 830 - add experimental badges to function
-reference<a class="anchor" aria-label="anchor" href="#pull-request-832-fix-830---add-experimental-badges-to-function-reference"></a>
-</h4>
-<p>Merging fix-830 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/832" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/832</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-27 13:50:23</td>
-<td align="center">jwildfire</td>
-<td align="center"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-831-add-snapshot-gsm_analysis_date">Pull Request 831: add snapshot gsm_analysis_date<a class="anchor" aria-label="anchor" href="#pull-request-831-add-snapshot-gsm_analysis_date"></a>
-</h4>
-<p>Merging fix-828 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/831" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/831</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-25 20:59:13</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-826-fix-813---report-tweaks">Pull Request 826: Fix 813 - report tweaks<a class="anchor" aria-label="anchor" href="#pull-request-826-fix-813---report-tweaks"></a>
-</h4>
-<p>Merging fix-813 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/826" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/826</a></p>
-<table style="width:89%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="29%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-25 17:53:55</td>
-<td align="center">jwildfire collleenmclaughlin</td>
-<td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-824-fix-791---updated-assess-unit-testsadded-helper-functions">Pull Request 824: Fix 791 - Updated Assess() Unit Tests/Added Helper
-Functions<a class="anchor" aria-label="anchor" href="#pull-request-824-fix-791---updated-assess-unit-testsadded-helper-functions"></a>
-</h4>
-<p>Merging fix-791 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/824" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/824</a></p>
-<table style="width:92%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="27%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2022-10-25 16:37:51</td>
-<td align="center"></td>
-<td align="center">CHANGES_REQUESTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-823-fix-783---add-updateparams-function">Pull Request 823: Fix 783 - add UpdateParams function<a class="anchor" aria-label="anchor" href="#pull-request-823-fix-783---add-updateparams-function"></a>
-</h4>
-<p>Merging fix-783 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/823" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/823</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-24 19:40:33</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-821-fix-596---updated-source-data-for-study_assess-unit-tests">Pull Request 821: Fix 596 - Updated Source Data for Study_Assess()
-Unit Tests<a class="anchor" aria-label="anchor" href="#pull-request-821-fix-596---updated-source-data-for-study_assess-unit-tests"></a>
-</h4>
-<p>Merging fix-596 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/821" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/821</a></p>
-<table style="width:86%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2022-10-20 15:52:17</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-820-fix-unit-tests-for-new-stats-methods">Pull Request 820: Fix unit tests for new stats methods<a class="anchor" aria-label="anchor" href="#pull-request-820-fix-unit-tests-for-new-stats-methods"></a>
-</h4>
-<p>Merging fix-750-mr into fix-750</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/820" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/820</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-19 21:34:11</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-819-fix-811---added-snapshot-date-to-results_summary-of-make_snapshot">Pull Request 819: Fix 811 - Added Snapshot Date to results_summary
-of Make_Snapshot()<a class="anchor" aria-label="anchor" href="#pull-request-819-fix-811---added-snapshot-date-to-results_summary-of-make_snapshot"></a>
-</h4>
-<p>Merging fix-811 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/819" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/819</a></p>
-<table style="width:86%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2022-10-19 21:14:17</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-816-fix-706---finalize-lab-kri-workflow">Pull Request 816: Fix 706 - Finalize Lab KRI Workflow<a class="anchor" aria-label="anchor" href="#pull-request-816-fix-706---finalize-lab-kri-workflow"></a>
-</h4>
-<p>Merging fix-706 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/816" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/816</a></p>
-<table style="width:89%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="29%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-19 15:57:38</td>
-<td align="center">jwildfire collleenmclaughlin</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-815-fix-766---more-vignette-updates">Pull Request 815: Fix 766 - More Vignette Updates<a class="anchor" aria-label="anchor" href="#pull-request-815-fix-766---more-vignette-updates"></a>
-</h4>
-<p>Merging fix-766 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/815" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/815</a></p>
-<table style="width:89%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="19%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2022-10-18 19:42:57</td>
-<td align="center">mattroumaya</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-814-update-tests-and-docs">Pull Request 814: update tests and docs<a class="anchor" aria-label="anchor" href="#pull-request-814-update-tests-and-docs"></a>
-</h4>
-<p>Merging fix-tests into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/814" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/814</a></p>
-<table style="width:89%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="29%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-18 18:54:53</td>
-<td align="center">collleenmclaughlin</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-812-add-funnel-plot-methods">Pull Request 812: Add funnel plot methods<a class="anchor" aria-label="anchor" href="#pull-request-812-add-funnel-plot-methods"></a>
-</h4>
-<p>Merging fix-750 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/812" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/812</a></p>
-<table style="width:82%;" class="table">
-<colgroup>
-<col width="22%">
-<col width="18%">
-<col width="19%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">Zhongkai-Wang</td>
-<td align="center">2022-10-17 19:09:27</td>
-<td align="center">kodesiba mattroumaya</td>
-<td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-809-fix-630---updates-to-data-pipeline-vignette">Pull Request 809: Fix 630 - Updates to Data Pipeline Vignette<a class="anchor" aria-label="anchor" href="#pull-request-809-fix-630---updates-to-data-pipeline-vignette"></a>
-</h4>
-<p>Merging fix-630 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/809" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/809</a></p>
-<table style="width:86%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2022-10-17 15:58:58</td>
-<td align="center"></td>
-<td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-807-update-report-and-charts-">Pull Request 807: Update report and charts.<a class="anchor" aria-label="anchor" href="#pull-request-807-update-report-and-charts-"></a>
-</h4>
-<p>Merging fix-report into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/807" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/807</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">samussiah</td>
-<td align="center">2022-10-14 20:54:15</td>
-<td align="center">jwildfire</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-806-add-qtl-analysis">Pull Request 806: Add QTL Analysis<a class="anchor" aria-label="anchor" href="#pull-request-806-add-qtl-analysis"></a>
-</h4>
-<p>Merging fix-782-matt into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/806" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/806</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-14 14:20:03</td>
-<td align="center">jwildfire</td>
-<td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-805-tidyselect-updates">Pull Request 805: tidyselect updates<a class="anchor" aria-label="anchor" href="#pull-request-805-tidyselect-updates"></a>
-</h4>
-<p>Merging fix-804 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/805" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/805</a></p>
-<table style="width:89%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="29%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-12 20:06:58</td>
-<td align="center">samussiah collleenmclaughlin</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-803-fix-635---add-country-to-grouping">Pull Request 803: Fix 635 - Add country to grouping<a class="anchor" aria-label="anchor" href="#pull-request-803-fix-635---add-country-to-grouping"></a>
-</h4>
-<p>Merging fix-635 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/803" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/803</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-12 14:52:15</td>
-<td align="center">jwildfire</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-802-fix-790---data-analysis-vignette">Pull Request 802: Fix 790 - Data Analysis Vignette<a class="anchor" aria-label="anchor" href="#pull-request-802-fix-790---data-analysis-vignette"></a>
-</h4>
-<p>Merging fix-790 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/802" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/802</a></p>
-<table style="width:86%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2022-10-11 21:51:49</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-800-fix-793---update-data-spec-table">Pull Request 800: Fix 793 - Update Data Spec Table<a class="anchor" aria-label="anchor" href="#pull-request-800-fix-793---update-data-spec-table"></a>
-</h4>
-<p>Merging fix-793 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/800" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/800</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-10 15:04:36</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-799-main">Pull Request 799: Main<a class="anchor" aria-label="anchor" href="#pull-request-799-main"></a>
-</h4>
-<p>Merging main into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/799" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/799</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-10 14:29:19</td>
-<td align="center">jwildfire samussiah</td>
-<td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-798-fix-797---remove-config-update-contributor-guidelines">Pull Request 798: Fix 797 - Remove config + update contributor
-guidelines<a class="anchor" aria-label="anchor" href="#pull-request-798-fix-797---remove-config-update-contributor-guidelines"></a>
-</h4>
-<p>Merging fix-797 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/798" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/798</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-07 19:44:17</td>
-<td align="center">samussiah</td>
-<td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-792-documentation-updates">Pull Request 792: documentation updates<a class="anchor" aria-label="anchor" href="#pull-request-792-documentation-updates"></a>
-</h4>
-<p>Merging release-v1.2.0-lb into release-v1.2.0</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/792" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/792</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-06 20:14:37</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-789-documentation-updates-for-consent-disp-ie">Pull Request 789: Documentation updates for Consent, Disp, IE<a class="anchor" aria-label="anchor" href="#pull-request-789-documentation-updates-for-consent-disp-ie"></a>
-</h4>
-<p>Merging release-v1.2.0-ie into release-v1.2.0</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/789" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/789</a></p>
-<table style="width:92%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="27%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2022-10-06 18:58:20</td>
-<td align="center"></td>
-<td align="center">CHANGES_REQUESTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-788-release-v1-2-0-workflow-utility">Pull Request 788: Release v1.2.0 workflow utility<a class="anchor" aria-label="anchor" href="#pull-request-788-release-v1-2-0-workflow-utility"></a>
-</h4>
-<p>Merging release-v1.2.0-workflow-utility into release-v1.2.0</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/788" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/788</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-06 14:53:34</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-787-release-v1-2-0-pd">Pull Request 787: Release v1.2.0 pd<a class="anchor" aria-label="anchor" href="#pull-request-787-release-v1-2-0-pd"></a>
-</h4>
-<p>Merging release-v1.2.0-pd into release-v1.2.0</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/787" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/787</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-05 19:50:51</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-786-fix-785---updated-randomization-date-to-source-rfpst_dt">Pull Request 786: Fix 785 - Updated Randomization Date to Source
-rfpst_dt<a class="anchor" aria-label="anchor" href="#pull-request-786-fix-785---updated-randomization-date-to-source-rfpst_dt"></a>
-</h4>
-<p>Merging fix-785 into release-v1.2.0</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/786" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/786</a></p>
-<table style="width:86%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2022-10-05 18:45:16</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-780-update-meta">Pull Request 780: update meta<a class="anchor" aria-label="anchor" href="#pull-request-780-update-meta"></a>
-</h4>
-<p>Merging update_meta into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/780" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/780</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-04 14:09:05</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-778-release-v1-2-0">Pull Request 778: Release v1.2.0<a class="anchor" aria-label="anchor" href="#pull-request-778-release-v1-2-0"></a>
-</h4>
-<p>Merging release-v1.2.0 into main</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/778" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/778</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-10-03 21:34:57</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-777-fix-776">Pull Request 777: Fix 776<a class="anchor" aria-label="anchor" href="#pull-request-777-fix-776"></a>
-</h4>
-<p>Merging fix-776 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/777" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/777</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">samussiah</td>
-<td align="center">2022-10-03 15:14:30</td>
-<td align="center">jwildfire</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-775-qualification-test-updates-for-assess-functions">Pull Request 775: Qualification Test Updates for Assess
-Functions<a class="anchor" aria-label="anchor" href="#pull-request-775-qualification-test-updates-for-assess-functions"></a>
-</h4>
-<p>Merging qc_assess_function_updates into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/775" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/775</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">kodesiba</td>
-<td align="center">2022-10-03 14:39:09</td>
-<td align="center">jwildfire</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-774-fix-772---update-default-thresholds-for-fishers-used-in-_assess-functions-for-consistency">Pull Request 774: Fix #772 - Update default thresholds for Fisher’s
-used in <code>_Assess</code> functions for consistency<a class="anchor" aria-label="anchor" href="#pull-request-774-fix-772---update-default-thresholds-for-fishers-used-in-_assess-functions-for-consistency"></a>
-</h4>
-<p>Merging fix-772 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/774" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/774</a></p>
-<table style="width:79%;" class="table">
-<colgroup>
-<col width="22%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">Zhongkai-Wang</td>
-<td align="center">2022-09-30 18:50:54</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-773-fix-770---update-metadata">Pull Request 773: Fix 770 - update metadata<a class="anchor" aria-label="anchor" href="#pull-request-773-fix-770---update-metadata"></a>
-</h4>
-<p>Merging fix-770 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/773" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/773</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-09-30 18:40:17</td>
-<td align="center">jwildfire samussiah</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-768-fix-554-update-verbiage">Pull Request 768: Fix #554: Update verbiage<a class="anchor" aria-label="anchor" href="#pull-request-768-fix-554-update-verbiage"></a>
-</h4>
-<p>Merging fix-554 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/768" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/768</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-09-30 01:07:03</td>
-<td align="center">samussiah</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-767-fix-763-update-unit-tests">Pull Request 767: Fix #763: update unit tests<a class="anchor" aria-label="anchor" href="#pull-request-767-fix-763-update-unit-tests"></a>
-</h4>
-<p>Merging fix-763 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/767" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/767</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-09-28 15:36:22</td>
-<td align="center">jwildfire</td>
-<td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-758-fix-609-updated---create-separate-flag_-functions-based-on-methods-used">Pull Request 758: Fix #609 Updated - Create separate
-<code>Flag_()</code> functions based on methods used<a class="anchor" aria-label="anchor" href="#pull-request-758-fix-609-updated---create-separate-flag_-functions-based-on-methods-used"></a>
-</h4>
-<p>Merging fix-609-jw into fix-755</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/758" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/758</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jwildfire</td>
-<td align="center">2022-09-23 18:06:53</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-756-fix-755">Pull Request 756: Fix 755<a class="anchor" aria-label="anchor" href="#pull-request-756-fix-755"></a>
-</h4>
-<p>Merging fix-755 into fix-737</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/756" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/756</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jwildfire</td>
-<td align="center">2022-09-23 15:35:22</td>
-<td align="center"></td>
-<td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-754-fix-752---updatecreate-flag-functions">Pull Request 754: Fix #752 - Update/create <code>Flag()</code>
-function(s)<a class="anchor" aria-label="anchor" href="#pull-request-754-fix-752---updatecreate-flag-functions"></a>
-</h4>
-<p>Merging fix-752 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/754" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/754</a></p>
-<table style="width:79%;" class="table">
-<colgroup>
-<col width="22%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">Zhongkai-Wang</td>
-<td align="center">2022-09-23 13:05:27</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-753-fix-747---remove-n-from-assess-functions">Pull Request 753: Fix #747 - Remove N from Assess() Functions<a class="anchor" aria-label="anchor" href="#pull-request-753-fix-747---remove-n-from-assess-functions"></a>
-</h4>
-<p>Merging fix-747 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/753" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/753</a></p>
-<table style="width:92%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="27%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2022-09-22 17:17:31</td>
-<td align="center"></td>
-<td align="center">CHANGES_REQUESTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-748-qualification-specification-updates-for-assess-functions">Pull Request 748: Qualification Specification Updates for Assess
-Functions<a class="anchor" aria-label="anchor" href="#pull-request-748-qualification-specification-updates-for-assess-functions"></a>
-</h4>
-<p>Merging qc_assess_function_updates_specs into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/748" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/748</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">kodesiba</td>
-<td align="center">2022-09-21 14:58:47</td>
-<td align="center">jwildfire</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-746-update-disposition-mapping-with-discontinuation-rather-than-completion-">Pull Request 746: Update disposition mapping with discontinuation
-rather than completion.<a class="anchor" aria-label="anchor" href="#pull-request-746-update-disposition-mapping-with-discontinuation-rather-than-completion-"></a>
-</h4>
-<p>Merging fix-692 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/746" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/746</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">samussiah</td>
-<td align="center">2022-09-20 16:08:10</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-743-fix-742">Pull Request 743: Fix 742<a class="anchor" aria-label="anchor" href="#pull-request-743-fix-742"></a>
-</h4>
-<p>Merging fix-742 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/743" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/743</a></p>
-<table style="width:86%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2022-09-19 14:52:08</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-741-fix-724---update-unit-tests-for-release-v1-2">Pull Request 741: Fix #724 - Update Unit Tests for release v1.2<a class="anchor" aria-label="anchor" href="#pull-request-741-fix-724---update-unit-tests-for-release-v1-2"></a>
-</h4>
-<p>Merging fix-724 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/741" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/741</a></p>
-<table style="width:82%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="22%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2022-09-16 19:48:19</td>
-<td align="center">jwildfire Zhongkai-Wang</td>
-<td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
 </div>
   </div>
 
@@ -3763,7 +4581,7 @@ rather than completion.<a class="anchor" aria-label="anchor" href="#pull-request
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
+<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens.</p>
 </div>
 
 <div class="pkgdown">

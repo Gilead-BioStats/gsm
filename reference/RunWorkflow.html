@@ -18,7 +18,7 @@ Calls RunStep for each item in lWorkflow$workflow and saves the results to lWork
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.0</span>
       </span>
     </div>
 
@@ -45,10 +45,13 @@ Calls RunStep for each item in lWorkflow$workflow and saves the results to lWork
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
+      <a href="../articles/Qualification.html">Qualification of {gsm}</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
+    </li>
+    <li>
+      <a href="../articles/Statistics%20Method.html">Statistics Method</a>
     </li>
   </ul></li>
 <li>
@@ -80,7 +83,7 @@ Calls <code>RunStep</code> for each item in <code>lWorkflow$workflow</code> and 
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunWorkflow</span><span class="op">(</span><span class="va">lWorkflow</span>, <span class="va">lData</span>, <span class="va">lMapping</span>, bQuiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunWorkflow</span><span class="op">(</span><span class="va">lWorkflow</span>, <span class="va">lData</span>, <span class="va">lMapping</span>, bQuiet <span class="op">=</span> <span class="cn">TRUE</span>, bFlowchart <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -99,6 +102,10 @@ Calls <code>RunStep</code> for each item in <code>lWorkflow$workflow</code> and 
 
 <dt>bQuiet</dt>
 <dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code></p></dd>
+
+
+<dt>bFlowchart</dt>
+<dd><p><code>logical</code> Create flowchart to show data pipeline? Default: <code>FALSE</code></p></dd>
 
 </dl></div>
     <div id="value">
@@ -142,7 +149,7 @@ Calls <code>RunStep</code> for each item in <code>lWorkflow$workflow</code> and 
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens.</p>
 </div>
 
 <div class="pkgdown">

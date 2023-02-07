@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.0</span>
       </span>
     </div>
 
@@ -44,10 +44,13 @@
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
+      <a href="../articles/Qualification.html">Qualification of {gsm}</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
+    </li>
+    <li>
+      <a href="../articles/Statistics%20Method.html">Statistics Method</a>
     </li>
   </ul></li>
 <li>
@@ -104,7 +107,11 @@
         </td>
         <td><p>Lab Abnormality Assessment</p></td>
       </tr><tr><td>
-          <p><code><a href="PD_Assess.html">PD_Assess()</a></code> </p>
+          <p><code><a href="PD_Assess_Binary.html">PD_Assess_Binary()</a></code> </p>
+        </td>
+        <td><p>Protocol Deviation Assessment</p></td>
+      </tr><tr><td>
+          <p><code><a href="PD_Assess_Rate.html">PD_Assess_Rate()</a></code> </p>
         </td>
         <td><p>Protocol Deviation Assessment</p></td>
       </tr><tr><td>
@@ -123,6 +130,10 @@
           <p><code><a href="Study_Assess.html">Study_Assess()</a></code> </p>
         </td>
         <td><p>Run Multiple Assessments on a Study</p></td>
+      </tr><tr><td>
+          <p><code><a href="Study_AssessmentReport.html">Study_AssessmentReport()</a></code> </p>
+        </td>
+        <td><p>experimental Make Summary of 1 or more assessment Data checks</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="visualize">Visualize <a href="#visualize" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Generate a visualization from the Assessment results</p>
@@ -142,7 +153,7 @@
       </tr><tr><td>
           <p><code><a href="barChart.html">barChart()</a></code> </p>
         </td>
-        <td><p>KRI bar chart</p></td>
+        <td><p>KRI Bar Chart</p></td>
       </tr><tr><td>
           <p><code><a href="barChart-shiny.html">barChartOutput()</a></code> <code><a href="barChart-shiny.html">renderBarChart()</a></code> </p>
         </td>
@@ -150,7 +161,7 @@
       </tr><tr><td>
           <p><code><a href="scatterPlot.html">scatterPlot()</a></code> </p>
         </td>
-        <td><p>Scatter plot HTML widget from <code>{rbm-viz}</code></p></td>
+        <td><p>KRI Scatter Plot</p></td>
       </tr><tr><td>
           <p><code><a href="scatterPlot-shiny.html">scatterPlotOutput()</a></code> <code><a href="scatterPlot-shiny.html">renderScatterPlot()</a></code> </p>
         </td>
@@ -200,7 +211,11 @@
         </td>
         <td><p>Lab Abnormality Assessment - Raw Mapping</p></td>
       </tr><tr><td>
-          <p><code><a href="PD_Map_Raw.html">PD_Map_Raw()</a></code> </p>
+          <p><code><a href="PD_Map_Raw_Binary.html">PD_Map_Raw_Binary()</a></code> </p>
+        </td>
+        <td><p>Protocol Deviation Assessment - Raw Mapping</p></td>
+      </tr><tr><td>
+          <p><code><a href="PD_Map_Raw_Rate.html">PD_Map_Raw_Rate()</a></code> </p>
         </td>
         <td><p>Protocol Deviation Assessment - Raw Mapping</p></td>
       </tr><tr><td>
@@ -276,17 +291,13 @@
           <p class="section-desc"></p><p>Creates summary tables and HTML objects to create a report</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="Study_AssessmentReport.html">Study_AssessmentReport()</a></code> </p>
-        </td>
-        <td><p>experimental Make Summary of 1 or more assessment Data checks</p></td>
-      </tr><tr><td>
           <p><code><a href="Study_Report.html">Study_Report()</a></code> </p>
         </td>
         <td><p>experimental Study Report</p></td>
       </tr><tr><td>
-          <p><code><a href="Study_Table.html">Study_Table()</a></code> </p>
+          <p><code><a href="Study_AssessmentReport.html">Study_AssessmentReport()</a></code> </p>
         </td>
-        <td><p>experimental Make Assessment overview table</p></td>
+        <td><p>experimental Make Summary of 1 or more assessment Data checks</p></td>
       </tr><tr><td>
           <p><code><a href="Overview_Table.html">Overview_Table()</a></code> </p>
         </td>
@@ -411,6 +422,10 @@
           <p><code><a href="UpdateGSMVersion.html">UpdateGSMVersion()</a></code> </p>
         </td>
         <td><p>Update GSM Version</p></td>
+      </tr><tr><td>
+          <p><code><a href="ExportCode.html">ExportCode()</a></code> </p>
+        </td>
+        <td><p>Export gsm analysis script using Data, Mapping, and Workflow</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="data">Data <a href="#data" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Metadata used to create workflows</p>
@@ -436,7 +451,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens.</p>
 </div>
 
 <div class="pkgdown">

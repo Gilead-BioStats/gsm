@@ -20,7 +20,7 @@ Appendix 2 - Data Model Specifications"><!-- mathjax --><script src="https://cdn
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.0</span>
       </span>
     </div>
 
@@ -47,10 +47,13 @@ Appendix 2 - Data Model Specifications"><!-- mathjax --><script src="https://cdn
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
+      <a href="../articles/Qualification.html">Qualification of {gsm}</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
+    </li>
+    <li>
+      <a href="../articles/Statistics%20Method.html">Statistics Method</a>
     </li>
   </ul></li>
 <li>
@@ -103,7 +106,8 @@ Appendix 2 - Data Model Specifications</p>
 <span>  lAssessments <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bUpdateParams <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  cPath <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bFlowchart <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -136,6 +140,10 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 
 <dt>bQuiet</dt>
 <dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code></p></dd>
+
+
+<dt>bFlowchart</dt>
+<dd><p><code>logical</code> Create flowchart to show data pipeline? Default: <code>FALSE</code></p></dd>
 
 </dl></div>
     <div id="value">
@@ -238,7 +246,9 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># run with default testing data</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">snapshot</span> <span class="op">&lt;-</span> <span class="fu">Make_Snapshot</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -250,7 +260,7 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens.</p>
 </div>
 
 <div class="pkgdown">

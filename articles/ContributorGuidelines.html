@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.0</span>
       </span>
     </div>
 
@@ -62,10 +62,13 @@
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
+      <a href="../articles/Qualification.html">Qualification of {gsm}</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
+    </li>
+    <li>
+      <a href="../articles/Statistics%20Method.html">Statistics Method</a>
     </li>
   </ul>
 </li>
@@ -226,12 +229,12 @@ code release can be found in the second section of <a href="#release-branch-work
 <p>Code developers for <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> use the <a href="https://style.tidyverse.org/" class="external-link">tidyverse style guide</a> with
 minimal modifications. The code below is run to standardize styling
 before each release:</p>
-<pre><code><span><span class="va">double_indent_style</span> <span class="op">&lt;-</span> <span class="fu">styler</span><span class="fu">::</span><span class="fu">tidyverse_style</span><span class="op">(</span><span class="op">)</span></span>
+<pre><code><span><span class="va">double_indent_style</span> <span class="op">&lt;-</span> <span class="fu">styler</span><span class="fu">::</span><span class="fu"><a href="https://styler.r-lib.org/reference/tidyverse_style.html" class="external-link">tidyverse_style</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">double_indent_style</span><span class="op">$</span><span class="va">indention</span><span class="op">$</span><span class="va">unindent_fun_dec</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span><span class="va">double_indent_style</span><span class="op">$</span><span class="va">indention</span><span class="op">$</span><span class="va">update_indention_ref_fun_dec</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span><span class="va">double_indent_style</span><span class="op">$</span><span class="va">line_break</span><span class="op">$</span><span class="va">remove_line_breaks_in_fun_dec</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
-<span><span class="fu">styler</span><span class="fu">::</span><span class="fu">style_dir</span><span class="op">(</span><span class="st">'R'</span>, transformers <span class="op">=</span> <span class="va">double_indent_style</span><span class="op">)</span></span>
-<span><span class="fu">styler</span><span class="fu">::</span><span class="fu">style_dir</span><span class="op">(</span><span class="st">'tests'</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, transformers <span class="op">=</span> <span class="va">double_indent_style</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">styler</span><span class="fu">::</span><span class="fu"><a href="https://styler.r-lib.org/reference/style_dir.html" class="external-link">style_dir</a></span><span class="op">(</span><span class="st">'R'</span>, transformers <span class="op">=</span> <span class="va">double_indent_style</span><span class="op">)</span></span>
+<span><span class="fu">styler</span><span class="fu">::</span><span class="fu"><a href="https://styler.r-lib.org/reference/style_dir.html" class="external-link">style_dir</a></span><span class="op">(</span><span class="st">'tests'</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, transformers <span class="op">=</span> <span class="va">double_indent_style</span><span class="op">)</span></span></code></pre>
 <p>Instead of copying/pasting the code above, a wrapper function in
 <code>{gutil}</code> can be used by running:</p>
 <pre><code><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'Gilead-BioStats/gutil'</span><span class="op">)</span></span>
@@ -319,6 +322,19 @@ a PR in <code>{clindata}</code> to update any metadata that includes
 <li>Update <code>NEWS.md</code> with a summary of the
 revisions/additions in the release. Keep any information from previous
 releases to maintain traceability through versions.</li>
+<li>Ensure that the qualification specifications spreadsheet is
+up-to-date and accurate:
+<ul>
+<li><p>Download the latest version of
+<code>gsm_qualification_status.xlsx</code> from the Teams/OneDrive
+repository.</p></li>
+<li><p>Save the <code>Specs - batch 1</code> sheet as a
+<code>.csv</code> file named
+<code>qualification_specs.csv</code>.</p></li>
+<li><p>Upload <code>qualification_specs.csv</code> to the
+<code>~/inst/qualification/</code> directory.</p></li>
+</ul>
+</li>
 <li>If applicable, review <code>README.md</code> and relevant vignettes
 to make sure updates are accurately described.</li>
 <li>Ensure all unit tests are passing.</li>
@@ -470,6 +486,10 @@ successfully.</li>
 <input type="checkbox" disabled>Code is well commented and easy
 to read/understand.</li>
 <li>
+<input type="checkbox" disabled>Qualification specifications
+spreadsheet (<code>qualification_specs.csv</code>) has been reviewed and
+approved by a qualification developer.</li>
+<li>
 <input type="checkbox" disabled>No file paths or other
 company-specific data are present.</li>
 <li>
@@ -580,6 +600,10 @@ successfully.</li>
 <li>
 <input type="checkbox" disabled>Code is well commented and easy
 to read/understand.</li>
+<li>
+<input type="checkbox" disabled>Qualification specifications
+spreadsheet (<code>qualification_specs.csv</code>) has been reviewed and
+approved by a qualification developer.</li>
 <li>
 <input type="checkbox" disabled>No file paths or other
 company-specific data are present.</li>
@@ -708,7 +732,7 @@ release is correct.</li>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
+<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens.</p>
 </div>
 
 <div class="pkgdown">

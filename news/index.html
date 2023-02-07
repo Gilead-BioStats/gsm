@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.0</span>
       </span>
     </div>
 
@@ -44,10 +44,13 @@
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of ```gsm```</a>
+      <a href="../articles/Qualification.html">Qualification of {gsm}</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
+    </li>
+    <li>
+      <a href="../articles/Statistics%20Method.html">Statistics Method</a>
     </li>
   </ul></li>
 <li>
@@ -72,6 +75,28 @@
       <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.5.0" id="gsm-v150">gsm v1.5.0<a class="anchor" aria-label="anchor" href="#gsm-v150"></a></h2>
+<p>This release includes changes to Protocol Deviation mapping and analysis, significant qualification testing updates, improvements to reporting, and workflow updates:</p>
+<div class="section level4">
+<h4 id="protocol-deviation-mapping-and-assessment-1-5-0">Protocol Deviation Mapping and Assessment<a class="anchor" aria-label="anchor" href="#protocol-deviation-mapping-and-assessment-1-5-0"></a></h4>
+<ul><li>
+<code>PD_Map_Raw()</code> has been split into two separate functions: <code><a href="../reference/PD_Map_Raw_Binary.html">PD_Map_Raw_Binary()</a></code> and <code><a href="../reference/PD_Map_Raw_Rate.html">PD_Map_Raw_Rate()</a></code>.</li>
+<li>
+<code>PD_Assess()</code> has been split into two separate functions: <code><a href="../reference/PD_Assess_Binary.html">PD_Assess_Binary()</a></code> and <code><a href="../reference/PD_Assess_Rate.html">PD_Assess_Rate()</a></code>.</li>
+<li>The default Important Protocol Deviation QTL now uses the binary PD mapping and assessment.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="qualification-testing-1-5-0">Qualification Testing<a class="anchor" aria-label="anchor" href="#qualification-testing-1-5-0"></a></h4>
+<ul><li>Management of qualification specifications is now done in a <code>.csv</code> file, rather than separate YAML files.</li>
+<li>Most mapping and assess functions are now qualified.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="reporting-1-5-0">Reporting<a class="anchor" aria-label="anchor" href="#reporting-1-5-0"></a></h4>
+<ul><li>New feature added to the output of <code><a href="../reference/Study_Report.html">Study_Report()</a></code> to highlight an individual site/group in any given visualization.</li>
+<li>New feature added to the output of <code><a href="../reference/Study_Report.html">Study_Report()</a></code> to hightlight an individual site/group across all visualizations.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.1" id="gsm-v141">gsm v1.4.1<a class="anchor" aria-label="anchor" href="#gsm-v141"></a></h2>
 <p>This minor release updates the following: - In cases where the group of interest has a denominator lower than a specified threshold, flagging values return <code>NA</code> to indicate that there was not enough data to reasonably evaluate the group. - <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> records the time and date of the snapshot, rather than just the date.</p>
@@ -176,7 +201,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens.</p>
 </div>
 
 <div class="pkgdown">
