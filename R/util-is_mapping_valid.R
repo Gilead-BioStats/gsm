@@ -122,7 +122,6 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
   # Remaining checks only runs if all expected columns are found
   # If expected columns are missing, check status is FALSE and with a "check not run" warning.
   if (tests_if$has_expected_columns$status) {
-
     # Check for NA values in columns that are not specified in "vNACols"
     no_check_na <- mapping[spec$vNACols] %>%
       unname() %>%

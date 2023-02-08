@@ -1,8 +1,8 @@
 # Transform
 qualification_transform_counts <- function(dfInput,
-                                           countCol = "Count",
-                                           exposureCol = "Exposure",
-                                           GroupID = "SiteID") {
+  countCol = "Count",
+  exposureCol = "Exposure",
+  GroupID = "SiteID") {
   if (is.na(exposureCol)) {
     dfTransformed <- dfInput %>%
       filter(!is.na(.data[[countCol]])) %>%
@@ -36,8 +36,8 @@ qualification_analyze_poisson <- function(dfTransformed) {
   dfTransformed$LogExposure <- log(dfTransformed$Denominator)
 
   model <- glm(Numerator ~ stats::offset(LogExposure),
-               family = poisson(link = "log"),
-               data = dfTransformed
+    family = poisson(link = "log"),
+    data = dfTransformed
   )
 
   outputDF <- dfTransformed %>%
@@ -136,7 +136,7 @@ qualification_flag_fisher <- function(dfAnalyzed, threshold = c(0.01, 0.05)) {
 
 # Normal
 qualification_analyze_normalapprox <- function(dfTransformed, strType) {
-  if(strType == "binary"){
+  if (strType == "binary") {
     scored <- dfTransformed %>%
       mutate(
         OverallMetric = sum(Numerator) / sum(Denominator),
@@ -156,21 +156,21 @@ qualification_analyze_normalapprox <- function(dfTransformed, strType) {
         Score = (Metric - OverallMetric) /
           sqrt(Factor * OverallMetric / Denominator)
       )
-
   }
 
   outputDF <- scored %>%
-    select("GroupID",
-           "Numerator",
-           "Denominator",
-           "Metric",
-           "OverallMetric",
-           "Factor",
-           "Score") %>%
+    select(
+      "GroupID",
+      "Numerator",
+      "Denominator",
+      "Metric",
+      "OverallMetric",
+      "Factor",
+      "Score"
+    ) %>%
     arrange(Score)
 
   return(outputDF)
-
 }
 
 qualification_flag_normalapprox <- function(dfAnalyzed, threshold = c(-3, -2, 2, 3)) {
@@ -187,7 +187,7 @@ qualification_flag_normalapprox <- function(dfAnalyzed, threshold = c(-3, -2, 2,
     arrange(match(Flag, c(2, -2, 1, -1, 0)))
 }
 
-qualification_flag_identity <- function(dfAnalyzed, threshold = c(3.491, 5.172)){
+qualification_flag_identity <- function(dfAnalyzed, threshold = c(3.491, 5.172)) {
   dfAnalyzed %>%
     mutate(
       Flag = case_when(
@@ -207,4 +207,3 @@ qualification_flag_identity <- function(dfAnalyzed, threshold = c(3.491, 5.172))
     select(-median) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0)))
 }
-

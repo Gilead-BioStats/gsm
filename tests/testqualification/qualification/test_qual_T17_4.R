@@ -1,16 +1,17 @@
 test_that("A subset of raw data query data can be mapped correctly to create an analysis-ready input dataset.", {
-
-
   ########### gsm mapping ###########
-  subset <- FilterData(dfInput = clindata::edc_queries,
-                       strCol = "form",
-                       anyVal = "PK") # filtering only for PK forms
+  subset <- FilterData(
+    dfInput = clindata::edc_queries,
+    strCol = "form",
+    anyVal = "PK"
+  ) # filtering only for PK forms
 
   observed <- gsm::QueryAge_Map_Raw(
     dfs = list(
       dfSUBJ = clindata::rawplus_dm,
       dfQUERY = subset
-    ))
+    )
+  )
 
 
   ########### double programming ###########
@@ -18,13 +19,15 @@ test_that("A subset of raw data query data can be mapped correctly to create an 
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
-  cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
-            SiteID = lMapping$dfSUBJ$strSiteCol,
-            StudyID = lMapping$dfSUBJ$strStudyCol,
-            CountryID = lMapping$dfSUBJ$strCountryCol,
-            CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
-            "Count",
-            "Total")
+  cols <- c(
+    SubjectID = lMapping$dfSUBJ$strIDCol,
+    SiteID = lMapping$dfSUBJ$strSiteCol,
+    StudyID = lMapping$dfSUBJ$strStudyCol,
+    CountryID = lMapping$dfSUBJ$strCountryCol,
+    CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
+    "Count",
+    "Total"
+  )
 
   # read in raw data query age data
   query_age_orig <- clindata::edc_queries
@@ -63,5 +66,4 @@ test_that("A subset of raw data query data can be mapped correctly to create an 
 
   ########### testing ###########
   expect_equal(as.data.frame(observed), as.data.frame(expected))
-
 })

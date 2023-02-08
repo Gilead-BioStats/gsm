@@ -1,10 +1,10 @@
 test_that("AE assessment can return a correctly assessed data frame for the Normal Approximation test grouped by the site variable when given correct input data from safetyData and the results should be flagged correctly.", {
-
   dfInput <- gsm::AE_Map_Adam()
 
   test1_7 <- AE_Assess(dfInput,
-                       strMethod = "NormalApprox",
-                       vThreshold = c(-3, -2, 2, 3))
+    strMethod = "NormalApprox",
+    vThreshold = c(-3, -2, 2, 3)
+  )
 
 
   # Double Programming

@@ -1,6 +1,4 @@
 test_that("Raw+ study disposition data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the number of subjects who discontinued from the study.", {
-
-
   ########### gsm mapping ###########
   observed <- gsm::Disp_Map_Raw(strContext = "Study")
 
@@ -10,13 +8,15 @@ test_that("Raw+ study disposition data can be mapped correctly to create an anal
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
-  cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
-            SiteID = lMapping$dfSUBJ$strSiteCol,
-            StudyID = lMapping$dfSUBJ$strStudyCol,
-            CountryID = lMapping$dfSUBJ$strCountryCol,
-            CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
-            "Count",
-            "Total")
+  cols <- c(
+    SubjectID = lMapping$dfSUBJ$strIDCol,
+    SiteID = lMapping$dfSUBJ$strSiteCol,
+    StudyID = lMapping$dfSUBJ$strStudyCol,
+    CountryID = lMapping$dfSUBJ$strCountryCol,
+    CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
+    "Count",
+    "Total"
+  )
 
   # read in raw source study disposition data
   disp_raw_orig <- clindata::rawplus_studcomp
@@ -36,8 +36,10 @@ test_that("Raw+ study disposition data can be mapped correctly to create an anal
   # join DM and study disposition data - full_join() to keep records from both data frames
   expected <- full_join(dm_raw, disp_raw, by = "subjid") %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
-    mutate(Count = replace_na(Count, 0),
-           Total = n()) %>%
+    mutate(
+      Count = replace_na(Count, 0),
+      Total = n()
+    ) %>%
     arrange(!!sym(lMapping$dfSUBJ$strIDCol)) %>%
     select(all_of(cols))
 
@@ -46,5 +48,4 @@ test_that("Raw+ study disposition data can be mapped correctly to create an anal
   # check that calculated number of subjects who discontinued from the study is correct/consistent
   num_events <- unique(observed$Count == expected$Count)
   expect_true(num_events)
-
 })
