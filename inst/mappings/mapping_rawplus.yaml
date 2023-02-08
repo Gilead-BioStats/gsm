@@ -5,16 +5,16 @@ dfSUBJ:
   strTimeOnStudyCol: timeonstudy
   strTimeOnTreatmentCol: timeontreatment
   strRandDateCol: rfpst_dt
-  strCustomGroupCol: invid
   strCountryCol: country
+  strCustomGroupCol: invid
 dfAE:
   strIDCol: subjid
-  strTreatmentEmergentCol: ae_te
-  strTreatmentEmergentVal: "Y"
-  strGradeCol: aetoxgr
   strSeriousCol: aeser
   strSeriousVal: "Y"
   strNonSeriousVal: "N"
+  strGradeCol: aetoxgr
+  strTreatmentEmergentCol: treatment_emergent
+  strTreatmentEmergentVal: "Y"
 dfPD:
   strIDCol: subjid
   strCategoryCol: dvdecod
@@ -60,7 +60,7 @@ dfLB:
   strCategoryCol: battrnam
   strTestCol: lbtstnam
   strValueCol: siresn
-  strTreatmentEmergentCol: lb_te
+  strTreatmentEmergentCol: treatment_emergent
   strTreatmentEmergentVal: "Y"
   strGradeCol: toxgr
   strGradeAnyVal:

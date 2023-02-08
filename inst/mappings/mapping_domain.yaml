@@ -1,0 +1,48 @@
+dfSUBJ:
+  source: Raw+
+  domain: dm
+  method: AWS S3
+dfAE:
+  source: Raw+
+  domain: ae
+  method: AWS S3
+dfIE:
+  source: Raw+
+  domain: ie
+  method: AWS S3
+dfCONSENT:
+  source: Raw+
+  domain: consent
+  method: AWS S3
+dfSTUDCOMP:
+  source: Raw+
+  domain: studcomp
+  method: AWS S3
+dfSDRGCOMP:
+  source: Raw+
+  domain: sdrgcomp
+  method: AWS S3
+dfLB:
+  source: Raw+
+  domain: lb
+  method: AWS S3
+dfENROLL:
+  source: Raw+
+  domain: enroll
+  method: AWS S3
+dfQUERY:
+  source: Rave
+  domain: queries_gismo
+  method: SQL query
+dfDATAENT:
+  source: Rave
+  domain: dataentry_lag
+  method: SQL query
+dfDATACHG:
+  source: Rave
+  domain: data_chg
+  method: SQL query
+dfPD:
+  source: ClinOps data warehouse
+  domain: protdev
+  method: API
