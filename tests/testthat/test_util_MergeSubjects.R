@@ -202,7 +202,6 @@ test_that("basic functionality check - only matching ids", {
 
 
 test_that("vRemoval works as intended", {
-
   # starting with 3 patients
   # -- one patient has Exposure == 0
   # -- one patient has NA Exposure

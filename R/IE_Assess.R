@@ -57,7 +57,6 @@ IE_Assess <- function(
   nMinDenominator = NULL,
   bQuiet = TRUE
 ) {
-
   # data checking -----------------------------------------------------------
   stopifnot(
     "nThreshold must be numeric" = is.numeric(nThreshold),

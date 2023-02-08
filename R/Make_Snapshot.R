@@ -73,7 +73,6 @@ bQuiet = TRUE,
 bFlowchart = FALSE
 
 ) {
-
   # add to all outputs except meta_
   gsm_analysis_date <- Sys.Date()
 

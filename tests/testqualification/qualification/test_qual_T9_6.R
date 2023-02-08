@@ -12,9 +12,11 @@ test_that("Query age assessment can return a correctly assessed data frame for t
   t9_6_input <- dfInput
 
   t9_6_transformed <- dfInput %>%
-    qualification_transform_counts(countCol = "Count",
-                                   exposureCol = "Total",
-                                   GroupID = "CountryID")
+    qualification_transform_counts(
+      countCol = "Count",
+      exposureCol = "Total",
+      GroupID = "CountryID"
+    )
 
   t9_6_analyzed <- t9_6_transformed %>%
     qualification_analyze_fisher()

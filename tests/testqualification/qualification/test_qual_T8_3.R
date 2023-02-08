@@ -12,9 +12,11 @@ test_that("Data entry assessment can return a correctly assessed data frame for 
   t8_3_input <- dfInput
 
   t8_3_transformed <- dfInput %>%
-    qualification_transform_counts(countCol = "Count",
-                                   exposureCol = "Total",
-                                   GroupID = "CountryID")
+    qualification_transform_counts(
+      countCol = "Count",
+      exposureCol = "Total",
+      GroupID = "CountryID"
+    )
 
   t8_3_analyzed <- t8_3_transformed %>%
     mutate(

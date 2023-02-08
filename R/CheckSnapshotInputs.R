@@ -22,7 +22,6 @@
 #'
 #' @export
 CheckSnapshotInputs <- function(snapshot) {
-
   # get rbm_data_spec/data model
   gismo_input <- gsm::rbm_data_spec %>%
     filter(.data$System == "Gismo") %>%

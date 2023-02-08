@@ -1,4 +1,6 @@
 library(testthat)
 library(gsm)
 
-test_dir(here::here("tests", "testqualification", "qualification"), load_package = "source")
+devtools::load_all()
+test_dir(here::here("tests", "testqualification", "qualification"), package = "gsm")
+

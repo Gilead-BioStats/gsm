@@ -10,7 +10,7 @@
 #' @return `list` containing a `data.frame` summarizing the checks `dfSummary` and a `data.frame` listing all checks (`dfAllChecks`).
 #'
 #' @examples
-#'\dontrun{
+#' \dontrun{
 #' assessment <- Study_Assess(lData = list(
 #'   dfAE = clindata::rawplus_ae,
 #'   dfPD = clindata::rawplus_protdev,
@@ -18,7 +18,7 @@
 #' ))
 #'
 #' report <- Study_AssessmentReport(lAssessments = assessment)
-#'}
+#' }
 #'
 #' @importFrom fontawesome fa
 #' @importFrom gt fmt_markdown gt
@@ -63,9 +63,9 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
           as_tibble(.name_repair = "minimal")
 
 
-          colnames(df) <- df[1,]
+        colnames(df) <- df[1, ]
 
-          df %>%
+        df %>%
           slice(-1) %>%
           mutate(
             domain = domain,

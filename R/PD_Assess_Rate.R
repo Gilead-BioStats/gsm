@@ -66,7 +66,6 @@ PD_Assess_Rate <- function(
   nConfLevel = NULL,
   bQuiet = TRUE
 ) {
-
   # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'NormalApprox', 'Poisson', 'Identity', or 'QTL'" = strMethod %in% c("NormalApprox", "Poisson", "Identity", "QTL"),
@@ -116,13 +115,13 @@ PD_Assess_Rate <- function(
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
     lData <- list()
 
-      lData$dfTransformed <- gsm::Transform_Rate(
-        dfInput = dfInput,
-        strGroupCol = lMapping$dfInput$strGroupCol,
-        strNumeratorCol = "Count",
-        strDenominatorCol = "Exposure",
-        bQuiet = bQuiet
-      )
+    lData$dfTransformed <- gsm::Transform_Rate(
+      dfInput = dfInput,
+      strGroupCol = lMapping$dfInput$strGroupCol,
+      strNumeratorCol = "Count",
+      strDenominatorCol = "Exposure",
+      bQuiet = bQuiet
+    )
 
     if (!bQuiet) cli::cli_alert_success("{.fn Transform_Rate} returned output with {nrow(lData$dfTransformed)} rows.")
 
