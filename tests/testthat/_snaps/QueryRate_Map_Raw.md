@@ -994,6 +994,12 @@
       -- Initializing `QueryRate_Map_Raw()` --
       
       i Intializing merge of domain and subject data
+    Condition
+      Warning in `full_join()`:
+      Each row in `x` is expected to match at most 1 row in `y`.
+      i Row 3 of `x` matches multiple rows.
+      i If multiple matches are expected, set `multiple = "all"` to silence this warning.
+    Message
       ! 1298 ID(s) in domain data not found in subject data.
       Associated rows will not be included in merged data.
       v `QueryRate_Map_Raw()` returned output with 3 rows.
