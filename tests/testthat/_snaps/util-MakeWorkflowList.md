@@ -112,58 +112,36 @@
       
       $cou0001[[2]]
       $cou0001[[2]]$name
-      [1] "FilterDomain"
+      [1] "AE_Map_Raw"
       
       $cou0001[[2]]$inputs
-      [1] "dfAE"
+      [1] "dfAE"   "dfSUBJ"
       
       $cou0001[[2]]$output
-      [1] "dfAE"
-      
-      $cou0001[[2]]$params
-      $cou0001[[2]]$params$strDomain
-      [1] "dfAE"
-      
-      $cou0001[[2]]$params$strColParam
-      [1] "strSeriousCol"
-      
-      $cou0001[[2]]$params$strValParam
-      [1] "strNonSeriousVal"
-      
+      [1] "dfInput"
       
       
       $cou0001[[3]]
       $cou0001[[3]]$name
-      [1] "AE_Map_Raw"
-      
-      $cou0001[[3]]$inputs
-      [1] "dfAE"   "dfSUBJ"
-      
-      $cou0001[[3]]$output
-      [1] "dfInput"
-      
-      
-      $cou0001[[4]]
-      $cou0001[[4]]$name
       [1] "AE_Assess"
       
-      $cou0001[[4]]$inputs
+      $cou0001[[3]]$inputs
       [1] "dfInput"
       
-      $cou0001[[4]]$output
+      $cou0001[[3]]$output
       [1] "lResults"
       
-      $cou0001[[4]]$params
-      $cou0001[[4]]$params$strGroup
+      $cou0001[[3]]$params
+      $cou0001[[3]]$params$strGroup
       [1] "Country"
       
-      $cou0001[[4]]$params$vThreshold
+      $cou0001[[3]]$params$vThreshold
       NULL
       
-      $cou0001[[4]]$params$strMethod
+      $cou0001[[3]]$params$strMethod
       [1] "NormalApprox"
       
-      $cou0001[[4]]$params$nMinDenominator
+      $cou0001[[3]]$params$nMinDenominator
       [1] 30
       
       
@@ -754,58 +732,36 @@
       
       $kri0001[[2]]
       $kri0001[[2]]$name
-      [1] "FilterDomain"
+      [1] "AE_Map_Raw"
       
       $kri0001[[2]]$inputs
-      [1] "dfAE"
+      [1] "dfAE"   "dfSUBJ"
       
       $kri0001[[2]]$output
-      [1] "dfAE"
-      
-      $kri0001[[2]]$params
-      $kri0001[[2]]$params$strDomain
-      [1] "dfAE"
-      
-      $kri0001[[2]]$params$strColParam
-      [1] "strSeriousCol"
-      
-      $kri0001[[2]]$params$strValParam
-      [1] "strNonSeriousVal"
-      
+      [1] "dfInput"
       
       
       $kri0001[[3]]
       $kri0001[[3]]$name
-      [1] "AE_Map_Raw"
-      
-      $kri0001[[3]]$inputs
-      [1] "dfAE"   "dfSUBJ"
-      
-      $kri0001[[3]]$output
-      [1] "dfInput"
-      
-      
-      $kri0001[[4]]
-      $kri0001[[4]]$name
       [1] "AE_Assess"
       
-      $kri0001[[4]]$inputs
+      $kri0001[[3]]$inputs
       [1] "dfInput"
       
-      $kri0001[[4]]$output
+      $kri0001[[3]]$output
       [1] "lResults"
       
-      $kri0001[[4]]$params
-      $kri0001[[4]]$params$strGroup
+      $kri0001[[3]]$params
+      $kri0001[[3]]$params$strGroup
       [1] "Site"
       
-      $kri0001[[4]]$params$vThreshold
+      $kri0001[[3]]$params$vThreshold
       NULL
       
-      $kri0001[[4]]$params$strMethod
+      $kri0001[[3]]$params$strMethod
       [1] "NormalApprox"
       
-      $kri0001[[4]]$params$nMinDenominator
+      $kri0001[[3]]$params$nMinDenominator
       [1] 30
       
       

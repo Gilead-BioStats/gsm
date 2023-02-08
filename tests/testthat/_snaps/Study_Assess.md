@@ -83,58 +83,36 @@
       
       [[2]]
       [[2]]$name
-      [1] "FilterDomain"
+      [1] "AE_Map_Raw"
       
       [[2]]$inputs
-      [1] "dfAE"
+      [1] "dfAE"   "dfSUBJ"
       
       [[2]]$output
-      [1] "dfAE"
-      
-      [[2]]$params
-      [[2]]$params$strDomain
-      [1] "dfAE"
-      
-      [[2]]$params$strColParam
-      [1] "strSeriousCol"
-      
-      [[2]]$params$strValParam
-      [1] "strNonSeriousVal"
-      
+      [1] "dfInput"
       
       
       [[3]]
       [[3]]$name
-      [1] "AE_Map_Raw"
-      
-      [[3]]$inputs
-      [1] "dfAE"   "dfSUBJ"
-      
-      [[3]]$output
-      [1] "dfInput"
-      
-      
-      [[4]]
-      [[4]]$name
       [1] "AE_Assess"
       
-      [[4]]$inputs
+      [[3]]$inputs
       [1] "dfInput"
       
-      [[4]]$output
+      [[3]]$output
       [1] "lResults"
       
-      [[4]]$params
-      [[4]]$params$strGroup
+      [[3]]$params
+      [[3]]$params$strGroup
       [1] "Site"
       
-      [[4]]$params$vThreshold
+      [[3]]$params$vThreshold
       NULL
       
-      [[4]]$params$strMethod
+      [[3]]$params$strMethod
       [1] "NormalApprox"
       
-      [[4]]$params$nMinDenominator
+      [[3]]$params$nMinDenominator
       [1] 30
       
       
@@ -146,7 +124,7 @@
       kri0001$lData
     Output
       $dfAE
-      # A tibble: 48 x 4
+      # A tibble: 49 x 4
          subjid ae_te aetoxgr aeser
          <chr>  <chr> <chr>   <chr>
        1 0496   Y     MILD    N    
@@ -159,7 +137,7 @@
        8 1350   Y     MILD    N    
        9 1350   Y     MILD    N    
       10 0539   Y     MILD    N    
-      # ... with 38 more rows
+      # ... with 39 more rows
       
       $dfSUBJ
       # A tibble: 50 x 8
@@ -287,93 +265,6 @@
       [1] TRUE
       
       
-      $FilterDomain
-      $FilterDomain$dfAE
-      $FilterDomain$dfAE$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if
-      $FilterDomain$dfAE$tests_if$is_data_frame
-      $FilterDomain$dfAE$tests_if$is_data_frame$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$is_data_frame$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$has_required_params
-      $FilterDomain$dfAE$tests_if$has_required_params$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$has_required_params$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$spec_is_list
-      $FilterDomain$dfAE$tests_if$spec_is_list$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$spec_is_list$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$mapping_is_list
-      $FilterDomain$dfAE$tests_if$mapping_is_list$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$mapping_is_list$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$mappings_are_character
-      $FilterDomain$dfAE$tests_if$mappings_are_character$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$mappings_are_character$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$has_expected_columns
-      $FilterDomain$dfAE$tests_if$has_expected_columns$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$has_expected_columns$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$columns_have_na
-      $FilterDomain$dfAE$tests_if$columns_have_na$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$columns_have_na$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$columns_have_empty_values
-      $FilterDomain$dfAE$tests_if$columns_have_empty_values$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$columns_have_empty_values$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$cols_are_unique
-      $FilterDomain$dfAE$tests_if$cols_are_unique$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$cols_are_unique$warning
-      [1] NA
-      
-      
-      
-      $FilterDomain$dfAE$dim
-      [1] 49  4
-      
-      
-      $FilterDomain$status
-      [1] TRUE
-      
-      
       $AE_Map_Raw
       $AE_Map_Raw$dfAE
       $AE_Map_Raw$dfAE$status
@@ -454,7 +345,7 @@
       
       
       $AE_Map_Raw$dfAE$dim
-      [1] 48  4
+      [1] 49  4
       
       
       $AE_Map_Raw$dfSUBJ
@@ -1087,7 +978,7 @@
       
       -- Initializing `kri0001` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 4: `FilterDomain` --
+      -- Workflow Step 1 of 3: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -1101,21 +992,7 @@
       v `FilterDomain()` Successful
       Saving dfAE to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `aeser %in% c("N")`.
-      v Filtered on `aeser %in% c("N")` to drop 0 rows from 10 to 10 rows.
-      i NOTE: No rows dropped.
-      v `FilterDomain()` Successful
-      Saving dfAE to `lWorkflow$lData`
-      
-      -- Workflow Step 3 of 4: `AE_Map_Raw` --
+      -- Workflow Step 2 of 3: `AE_Map_Raw` --
       
       Preparing parameters for `AE_Map_Raw()` ...
       Calling `AE_Map_Raw()` ...
@@ -1134,7 +1011,7 @@
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
-      -- Workflow Step 4 of 4: `AE_Assess` --
+      -- Workflow Step 3 of 3: `AE_Assess` --
       
       Preparing parameters for `AE_Assess()` ...
       Calling `AE_Assess()` ...
