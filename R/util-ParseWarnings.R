@@ -28,12 +28,16 @@
 #'
 #' @export
 ParseWarnings <- function(lResults) {
+
+
   lResults %>%
     purrr::map(function(kri) {
+
       kri$lChecks %>%
         purrr::imap(function(workflow, workflow_name) {
           data_checks <- names(workflow)[grep("df", names(workflow))]
           purrr::map(data_checks, function(this_data) {
+            browser()
             purrr::map_df(workflow[[this_data]]$tests_if, function(x) {
               dplyr::tibble(status = x$status, warning = x$warning)
             })

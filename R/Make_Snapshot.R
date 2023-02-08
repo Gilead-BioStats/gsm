@@ -233,7 +233,6 @@ bFlowchart = FALSE
 
   browser()
 
-
   # parse warnings from is_mapping_valid to create an informative "notes" column
   warnings <- ParseWarnings(lResults)
 
