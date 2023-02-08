@@ -1,3 +1,20 @@
+# gsm v1.5.0
+
+This release includes changes to Protocol Deviation mapping and analysis, significant qualification testing updates, improvements to reporting, and workflow updates:
+
+### Protocol Deviation Mapping and Assessment
+- `PD_Map_Raw()` has been split into two separate functions: `PD_Map_Raw_Binary()` and `PD_Map_Raw_Rate()`.
+- `PD_Assess()` has been split into two separate functions: `PD_Assess_Binary()` and `PD_Assess_Rate()`.
+- The default Important Protocol Deviation QTL now uses the binary PD mapping and assessment.
+
+### Qualification Testing
+- Management of qualification specifications is now done in a `.csv` file, rather than separate YAML files. 
+- Most mapping and assess functions are now qualified.
+
+### Reporting
+- New feature added to the output of `Study_Report()` to highlight an individual site/group in any given visualization.
+- New feature added to the output of `Study_Report()` to hightlight an individual site/group across all visualizations.
+
 # gsm v1.4.1
 
 This minor release updates the following:

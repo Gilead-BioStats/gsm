@@ -23,7 +23,6 @@ Study_Report <- function(
   lAssessments,
   strOutpath = NULL
 ) {
-
   if (is.null(strOutpath)) {
     strOutpath <- paste0(getwd(), "/gsm_report.html")
   }

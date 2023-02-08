@@ -107,7 +107,6 @@ test_that("metadata is returned as expected", {
 # Study_Assess() runs with missing datasets -------------------------------
 
 test_that("Study_Assess() runs with missing datasets", {
-
   # run Study_Assess with AE only
   lData <- list(
     dfSUBJ = dfSUBJ,
@@ -170,7 +169,6 @@ test_that("custom lMapping runs as intended", {
 })
 
 test_that("bQuiet works as intended", {
-
   # run on subset to reduce runtime
   lData <- list(
     dfSUBJ = clindata::rawplus_dm %>% arrange(subjid) %>% slice(1:10),
@@ -204,7 +202,6 @@ test_that("Map + Assess yields same result as Study_Assess()", {
 })
 
 test_that("lSubjFilters with 0 rows returns NULL", {
-
   lData <- list(
     dfSUBJ = dfSUBJ,
     dfCONSENT = dfCONSENT,

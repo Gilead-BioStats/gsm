@@ -37,11 +37,11 @@
 #'
 #' @export
 ExportCode <- function(lData,
-                       lMapping,
-                       lAssessments,
-                       bInsertText = FALSE,
-                       strPath = NULL,
-                       strFileName = NULL) {
+  lMapping,
+  lAssessments,
+  bInsertText = FALSE,
+  strPath = NULL,
+  strFileName = NULL) {
   # required packages -------------------------------------------------------
   packages <- glue::glue("library(gsm)
                     library(tidyverse)")
@@ -50,7 +50,6 @@ ExportCode <- function(lData,
 
   # loop over KRIs ----------------------------------------------------------
   code_for_kri <- purrr::imap(lAssessments, function(kri, kri_name) {
-
     # loop over KRI workflow steps --------------------------------------------
     purrr::map(1:length(kri$steps), function(index) {
       steps <- kri$steps[[index]]
@@ -65,7 +64,6 @@ ExportCode <- function(lData,
       params <- steps$params
 
       if (index == 1) {
-
         # if input is only one object, e.g., df = ...
         inputs <- glue::glue("lData[['{steps$inputs}']]")
 
@@ -81,11 +79,9 @@ ExportCode <- function(lData,
             # -- if not, source from lData
             if (!any(input_name %in% kri$steps[[index - 1]][["output"]])) {
               if (!input_name %in% kri$steps[[index - 1]][["output"]]) {
-
                 # source from lData
                 glue::glue("{input_name} = lData[['{input_name}']]")
               } else {
-
                 # source from environment
                 glue::glue("{input_name} = {input_name}")
               }
@@ -176,7 +172,7 @@ ExportCode <- function(lData,
     purrr::flatten() %>%
     glue::glue_collapse(sep = "\n\n") %>%
     styler::style_text() %>%
-    paste(collapse = '\n')
+    paste(collapse = "\n")
 
 
   # save/insert output ------------------------------------------------------
@@ -190,7 +186,6 @@ ExportCode <- function(lData,
         cli::cli_alert_warning("File {.file {file_out}} already exists! Saving as {.file {file_out_dupe}} instead.")
         cat(output, file = file_out_dupe)
       }
-
     } else {
       cat(output, file = paste0(strPath, "/gsm_code.R"))
     }

@@ -1,10 +1,10 @@
 source(testthat::test_path("testdata/data.R"))
 
 dfInput <- Consent_Map_Raw(
-    dfs = list(
-        dfCONSENT = dfCONSENT,
-        dfSUBJ = dfSUBJ
-    )
+  dfs = list(
+    dfCONSENT = dfCONSENT,
+    dfSUBJ = dfSUBJ
+  )
 )
 dfTransformed <- Transform_Count(
   dfInput,

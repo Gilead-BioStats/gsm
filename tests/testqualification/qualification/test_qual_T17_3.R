@@ -1,6 +1,4 @@
 test_that("Raw data query data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the number of data query age counts and total number of data queries reported per subject.", {
-
-
   ########### gsm mapping ###########
   observed <- gsm::QueryAge_Map_Raw()
 
@@ -10,13 +8,15 @@ test_that("Raw data query data can be mapped correctly to create an analysis-rea
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
-  cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
-            SiteID = lMapping$dfSUBJ$strSiteCol,
-            StudyID = lMapping$dfSUBJ$strStudyCol,
-            CountryID = lMapping$dfSUBJ$strCountryCol,
-            CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
-            "Count",
-            "Total")
+  cols <- c(
+    SubjectID = lMapping$dfSUBJ$strIDCol,
+    SiteID = lMapping$dfSUBJ$strSiteCol,
+    StudyID = lMapping$dfSUBJ$strStudyCol,
+    CountryID = lMapping$dfSUBJ$strCountryCol,
+    CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
+    "Count",
+    "Total"
+  )
 
   # read in raw data query age data
   query_age_orig <- clindata::edc_queries
@@ -60,5 +60,4 @@ test_that("Raw data query data can be mapped correctly to create an analysis-rea
 
   all_tests <- isTRUE(num_events) & isTRUE(num_exposure)
   expect_true(all_tests)
-
 })
