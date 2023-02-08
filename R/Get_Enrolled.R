@@ -28,7 +28,6 @@
 #'
 #' @export
 Get_Enrolled <- function(dfSUBJ, dfConfig, lMapping, strUnit, strBy) {
-
   # data checking -----------------------------------------------------------
   stopifnot(
     "studyid not found in dfConfig" = "studyid" %in% names(dfConfig),

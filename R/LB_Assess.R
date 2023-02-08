@@ -64,7 +64,6 @@ LB_Assess <- function(
   nMinDenominator = NULL,
   bQuiet = TRUE
 ) {
-
   # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'NormalApprox', 'Fisher' or 'Identity'" = strMethod %in% c("NormalApprox", "Fisher", "Identity"),

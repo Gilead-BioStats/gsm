@@ -47,7 +47,11 @@ run_all_tests <- function(df){
     dplyr::select(Tests) %>%
     unique() %>%
     dplyr::mutate(result = map(Tests, run_test_case)) %>%
-    tidyr::unnest(result)
+    tidyr::unnest(result) %>%
+    mutate(testnum = as.numeric(gsub("^.*\\_", "", Tests))) %>%
+    arrange(testnum) %>%
+    select(-testnum)
 
   return(test_case_result)
 }
+

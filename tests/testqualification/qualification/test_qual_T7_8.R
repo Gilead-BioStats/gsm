@@ -15,9 +15,11 @@ test_that("Data change assessment can return a correctly assessed data frame for
   t7_8_input <- dfInput
 
   t7_8_transformed <- dfInput %>%
-    qualification_transform_counts(countCol = "Count",
-                                   exposureCol = "Total",
-                                   GroupID = "CustomGroupID")
+    qualification_transform_counts(
+      countCol = "Count",
+      exposureCol = "Total",
+      GroupID = "CustomGroupID"
+    )
 
   t7_8_analyzed <- t7_8_transformed %>%
     qualification_analyze_normalapprox(strType = "binary")

@@ -33,7 +33,6 @@ Study_Assess <- function(
   bQuiet = TRUE,
   bFlowchart = FALSE
 ) {
-
   #### --- load defaults --- ###
   # lData from clindata
   if (is.null(lData)) {
@@ -92,7 +91,6 @@ Study_Assess <- function(
       ### --- Attempt to run each assessment --- ###
       lAssessments <- lAssessments %>%
         purrr::map(function(lWorkflow) {
-
           if (hasName(lWorkflow, "group")) {
             RunStratifiedWorkflow(
               lWorkflow,

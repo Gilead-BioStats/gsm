@@ -1,6 +1,4 @@
 test_that("Raw data entry data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and data point change counts with one record per subject, omitting subjects with no reported data points.", {
-
-
   ########### gsm mapping ###########
   observed <- gsm::DataChg_Map_Raw()
 
@@ -10,13 +8,15 @@ test_that("Raw data entry data can be mapped correctly to create an analysis-rea
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
-  cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
-            SiteID = lMapping$dfSUBJ$strSiteCol,
-            StudyID = lMapping$dfSUBJ$strStudyCol,
-            CountryID = lMapping$dfSUBJ$strCountryCol,
-            CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
-            "Count",
-            "Total")
+  cols <- c(
+    SubjectID = lMapping$dfSUBJ$strIDCol,
+    SiteID = lMapping$dfSUBJ$strSiteCol,
+    StudyID = lMapping$dfSUBJ$strStudyCol,
+    CountryID = lMapping$dfSUBJ$strCountryCol,
+    CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
+    "Count",
+    "Total"
+  )
 
   # read in raw data change count data
   data_chg_orig <- clindata::edc_data_change_rate
@@ -24,8 +24,10 @@ test_that("Raw data entry data can be mapped correctly to create an analysis-rea
   # count unique number of data point changes within each subject and remove duplicate records
   data_chg <- data_chg_orig %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
-    mutate(Count = sum(as.numeric(!!sym(lMapping$dfDATACHG$strDataPointsChangeCol))), # count for total number of times any data point changed for a given data page
-           Total = sum(as.numeric(!!sym(lMapping$dfDATACHG$strDataPointsCol)))) %>% # count for total number of data points
+    mutate(
+      Count = sum(as.numeric(!!sym(lMapping$dfDATACHG$strDataPointsChangeCol))), # count for total number of times any data point changed for a given data page
+      Total = sum(as.numeric(!!sym(lMapping$dfDATACHG$strDataPointsCol)))
+    ) %>% # count for total number of data points
     select(lMapping$dfDATACHG$strIDCol, Count, Total) %>%
     distinct()
 
@@ -55,5 +57,4 @@ test_that("Raw data entry data can be mapped correctly to create an analysis-rea
 
   all_tests <- isTRUE(subj_test) & isTRUE(subj_length_test) & isTRUE(empty_test)
   expect_true(all_tests)
-
 })

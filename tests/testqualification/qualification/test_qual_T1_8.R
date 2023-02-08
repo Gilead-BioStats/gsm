@@ -1,11 +1,11 @@
 test_that("AE assessment can return a correctly assessed data frame for the Normal Approximation test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold.", {
-
   dfInput <- gsm::AE_Map_Raw()
 
   test1_8 <- AE_Assess(dfInput,
-                       strMethod = "NormalApprox",
-                       vThreshold = c(-3, -1, 1, 3),
-                       strGroup = "Study")
+    strMethod = "NormalApprox",
+    vThreshold = c(-3, -1, 1, 3),
+    strGroup = "Study"
+  )
 
 
   # Double Programming

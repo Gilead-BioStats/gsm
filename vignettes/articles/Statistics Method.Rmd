@@ -224,7 +224,7 @@ TODO. Discuss hard rules on STOP-IF-NOT situations
 4. Other considerations: Structural zeros may happen in contrast to random zeros due to sampling from poisson distribution. In this case, a mixture model (zero-inflated Poisson model) may be required.
 
 
-## Recommondation
+## Recommendation
 
 TODO
 

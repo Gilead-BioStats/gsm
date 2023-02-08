@@ -41,7 +41,6 @@
 #' @export
 
 RunStep <- function(lStep, lMapping, lData, bQuiet) {
-
   # prepare parameter list inputs
   if (!bQuiet) cli::cli_text("Preparing parameters for  {.fn {lStep$name}} ...")
 

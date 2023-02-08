@@ -113,5 +113,4 @@ plot <- scatterPlot(
   elementId = "aeAssessScatter"
 )
 
-
 }
