@@ -29,15 +29,19 @@
 #' @export
 ParseWarnings <- function(lResults) {
 
+  # lChecks
+  overall_standard <- lResults %>%
+    purrr::imap(function(x, y) {
+      tibble(overall_status = x$bStatus, workflowid = y)
+    }) %>%
+    list_rbind()
 
-  lResults %>%
+  standard <- lResults %>%
     purrr::map(function(kri) {
-
       kri$lChecks %>%
         purrr::imap(function(workflow, workflow_name) {
           data_checks <- names(workflow)[grep("df", names(workflow))]
           purrr::map(data_checks, function(this_data) {
-            browser()
             purrr::map_df(workflow[[this_data]]$tests_if, function(x) {
               dplyr::tibble(status = x$status, warning = x$warning)
             })
@@ -45,13 +49,135 @@ ParseWarnings <- function(lResults) {
         })
     }) %>%
     purrr::imap(function(data, index) {
-      dplyr::bind_rows(unname(data), .id = index) %>%
-        dplyr::pull(warning) %>%
-        purrr::discard(is.na) %>%
-        paste(collapse = "\n")
+
+      if (length(data) > 0) {
+        dplyr::bind_rows(unname(data), .id = index) %>%
+          dplyr::pull(warning) %>%
+          purrr::discard(is.na) %>%
+          paste(collapse = "\n")
+      }
+
     }) %>%
     purrr::imap_dfr(function(x, y) {
       dplyr::tibble(notes = x, workflowid = y)
     }) %>%
-    dplyr::filter(.data$notes != "")
+    mutate(
+      notes = ifelse(is.na(notes), "", notes)
+    ) %>%
+    left_join(overall_standard, by = "workflowid")
+
+
+  # get overall workflow status ---------------------------------------------
+  workflow <- lResults %>%
+    purrr::map(function(checks) {
+      checks$lWorkflowChecks
+    })
+
+  workflow_overall <-
+    workflow %>% imap(function(x, y) {
+      tibble(workflowid = y,
+             workflow_overall_status = x$bStatus)
+    }) %>%
+    list_rbind()
+
+
+  # get workflow dimensions check -------------------------------------------
+  workflow_dimensions <- workflow %>%
+    purrr::map(function(x) {
+      list(
+        workflow_is_list = x$workflow_is_list,
+        workflow_has_steps = x$workflow_has_steps
+      )
+    }) %>%
+    imap(function(x, y) {
+      x %>%
+        imap(function(data, nm) {
+          tibble(
+            workflowid = y,
+            check = nm,
+            status = data$status,
+            notes = data$message
+          )
+        })
+    }) %>%
+    map(function(x) {
+      x %>% list_rbind()
+    }) %>%
+    list_rbind()
+
+
+  # get each step of workflow check -----------------------------------------
+  workflow_steps <- workflow %>%
+    purrr::imap(function(x, y) {
+      x$steps_are_valid %>%
+        purrr::map(function(step) {
+              browser()
+          purrr::imap(step, function(check, check_name) {
+            if (check_name != 1) {
+              tibble(workflowid = y, check_name, status = check$status, notes = check$message)
+            } else {
+              tibble(workflowid = y, check_name = "overall", status = check, notes = "")
+            }
+          }) %>%
+            list_rbind()
+        })
+    }) %>%
+    purrr::map(function(x) {
+      browser()
+      bind_rows(x, .id = "step")
+    }) %>%
+    list_rbind()
+
+
+  # consolidate notes to single row -----------------------------------------
+  steps <- workflow_steps %>%
+    group_split(workflowid) %>%
+    purrr::map(function(x) {
+      overall <- x %>% filter(check_name == "overall") %>% pull(status)
+
+      if (overall) {
+        tibble(workflowid = unique(x$workflowid), workflow_steps_status = TRUE, workflow_steps_notes = "")
+      } else {
+        notes <- x %>% filter(status == FALSE) %>% pull(notes)
+        notes <- paste(notes, collapse = ", ")
+        tibble(workflowid = unique(x$workflowid), workflow_steps_status = FALSE, workflow_steps_notes = notes)
+      }
+    }) %>%
+    list_rbind()
+
+
+  # consolidate dimensions to single row ------------------------------------
+  dimensions <- workflow_dimensions %>%
+    group_split(workflowid) %>%
+    purrr::map(function(x) {
+      if (all(x$status)) {
+        tibble(workflowid = unique(x$workflowid), workflow_dimensions_status = TRUE, workflow_dimensions_notes = "")
+      } else {
+        notes <- x %>% filter(status == FALSE) %>% pull(notes)
+        notes <- paste(notes, collapse = ", ")
+        tibble(workflowid = unique(x$workflowid), workflow_dimensions_status = FALSE, workflow_dimensions_notes = notes)
+      }
+    }) %>%
+    list_rbind()
+
+
+  all_workflow <- reduce(list(workflow_overall, steps, dimensions), left_join, by = "workflowid")
+
+  warnings <- left_join(standard, all_workflow, by = "workflowid") %>%
+    select("workflowid", ends_with("status"), ends_with("notes"))
+
+  warnings <- warnings %>%
+    mutate(
+      status = all(c(overall_status, workflow_overall_status, workflow_steps_status, workflow_dimensions_status)),
+      across(c(notes, workflow_steps_notes, workflow_dimensions_notes), function(x) ifelse(x == "", NA, x))
+    ) %>%
+    unite("notes", c(notes, workflow_steps_notes, workflow_dimensions_notes), na.rm = TRUE, sep = ", ") %>%
+    select(
+      "workflowid",
+      "status",
+      "notes"
+    )
+
+  return(warnings)
+
 }

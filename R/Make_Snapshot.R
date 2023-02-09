@@ -231,17 +231,12 @@ bFlowchart = FALSE
     full_join(parseStatus, by = "workflowid") %>%
     mutate(status = ifelse(is.na(.data$status), FALSE, .data$status))
 
-  browser()
-
   # parse warnings from is_mapping_valid to create an informative "notes" column
   warnings <- ParseWarnings(lResults)
 
-  if (nrow(warnings > 0)) {
     status_workflow <- status_workflow %>%
-      left_join(warnings, by = "workflowid")
-  } else {
-    status_workflow$notes <- NA_character_
-  }
+      left_join(warnings, by = c("workflowid", "status"))
+
 
   # status_param ------------------------------------------------------------
   status_param <- lMeta$config_param
