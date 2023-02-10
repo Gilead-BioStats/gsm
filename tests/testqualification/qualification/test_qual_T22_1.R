@@ -10,7 +10,7 @@ test_that("The utility function can correctly evaluate that the input data is or
 
   lSpec <- list(
     vRequired = c("strIDCol", "strSiteCol", "strExposureCol"),
-    vUniqueCols = "subjid"
+    vUniqueCols = "strIDCol"
   )
 
 

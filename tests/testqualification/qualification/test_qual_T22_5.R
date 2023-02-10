@@ -6,7 +6,7 @@ test_that("The utility function can correctly evaluate that the input mapping(s)
 
   lSpec <- list(
     vRequired = c("strIDCol", "strSiteCol", "strExposureCol"),
-    vUniqueCols = "subjid"
+    vUniqueCols = "strIDCol"
   )
 
 

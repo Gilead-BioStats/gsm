@@ -17,7 +17,7 @@ test_that("The utility function can correctly evaluate that the input parameter 
     mapping = lMapping,
     spec = list(
       vRequired = c("strIDCol", "strSiteCol", "strExposureCol"),
-      vUniqueCols = "subjid"
+      vUniqueCols = "strIDCol"
     )
   )
 

@@ -6,7 +6,7 @@ test_that("The utility function can correctly evaluate that the elements of the 
 
   lSpec <- list(
     vRequired = c("strIDCol", "strSiteCol", "strExposureCol"),
-    vUniqueCols = "subjid"
+    vUniqueCols = "strIDCol"
   )
 
 

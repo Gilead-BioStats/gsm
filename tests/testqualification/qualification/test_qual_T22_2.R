@@ -10,7 +10,7 @@ test_that("The utility function can correctly evaluate that the input data frame
 
   lSpec <- list(
     vRequired = c("strIDCol", "strSiteCol", "strExposureCol"),
-    vUniqueCols = "subjid"
+    vUniqueCols = "strIDCol"
   )
 
 
