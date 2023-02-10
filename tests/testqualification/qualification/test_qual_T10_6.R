@@ -1,10 +1,10 @@
-test_that("Query rate assessment can return a correctly assessed data frame for the poisson test grouped by the country variable when given correct input data from clindata and the results should be flagged correctly.", {
+test_that("Query rate assessment can return a correctly assessed data frame for the identity test grouped by the country variable when given correct input data from clindata and the results should be flagged correctly.", {
   # gsm analysis
   dfInput <- gsm::QueryRate_Map_Raw()
 
   test10_6 <- QueryRate_Assess(
     dfInput = dfInput,
-    strMethod = "Poisson",
+    strMethod = "Identity",
     strGroup = "Country"
   )
 
@@ -19,13 +19,16 @@ test_that("Query rate assessment can return a correctly assessed data frame for 
     )
 
   t10_6_analyzed <- t10_6_transformed %>%
-    qualification_analyze_poisson()
+    mutate(
+      Score = Metric
+    ) %>%
+    arrange(Score)
 
   class(t10_6_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
 
   t10_6_flagged <- t10_6_analyzed %>%
-    qualification_flag_poisson()
+    qualification_flag_identity(threshold = c(0.00006, 0.01))
 
   t10_6_summary <- t10_6_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
@@ -41,5 +44,5 @@ test_that("Query rate assessment can return a correctly assessed data frame for 
   )
 
   # compare results
-  expect_equal(test10_6$lData[names(test10_6$lData) != "dfBounds"], t10_6)
+  expect_equal(test10_6$lData, t10_6)
 })
