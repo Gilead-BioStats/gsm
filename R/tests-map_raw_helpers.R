@@ -44,7 +44,6 @@ test_invalid_data <- function(
 }
 
 test_missing_column <- function(map_function, dfs, spec, mapping) {
-
   # for each domain in spec
   for (domain in names(spec)) {
     column_keys <- spec[[domain]]$vRequired

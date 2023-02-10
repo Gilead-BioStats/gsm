@@ -3,8 +3,9 @@ test_that("AE assessment can return a correctly assessed data frame for the Norm
   dfInput <- gsm::AE_Map_Raw()
 
   test1_9 <- AE_Assess(dfInput,
-                       strMethod = "NormalApprox",
-                       strGroup = "CustomGroup")
+    strMethod = "NormalApprox",
+    strGroup = "CustomGroup"
+  )
 
 
   # Double Programming

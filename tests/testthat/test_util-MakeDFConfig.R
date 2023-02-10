@@ -16,7 +16,6 @@ test_that("configuration data.frame is created as expected", {
 })
 
 test_that("configuration data.frame is not created when missing arguments", {
-
   expect_error(
     MakeDfConfig(
       strGroup = "Site",
@@ -93,13 +92,10 @@ test_that("configuration data.frame is not created when missing arguments", {
       strDenominator = "Days on Treatment"
     )
   )
-
-
 })
 
 
 test_that("correct modelLabel values are returned", {
-
   NormalApprox <- MakeDfConfig(
     strMethod = "NormalApprox",
     strGroup = "Site",

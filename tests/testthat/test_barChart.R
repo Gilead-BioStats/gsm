@@ -49,7 +49,7 @@ chart <- barChart(
 )
 
 test_that("chart is created", {
-  expect_true(all(c('barChart', 'htmlwidget') %in% class(chart)))
+  expect_true(all(c("barChart", "htmlwidget") %in% class(chart)))
   expect_equal(substr(chart$elementId, 1, 9), "unit_test")
   expect_equal(
     nrow(chart$x$results),

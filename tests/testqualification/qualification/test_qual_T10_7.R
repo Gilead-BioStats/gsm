@@ -17,8 +17,10 @@ test_that("Query rate assessment can return a correctly assessed data frame for 
   t10_7_input <- dfInput
 
   t10_7_transformed <- dfInput %>%
-    qualification_transform_counts(countCol = "Count",
-                                   exposureCol = "DataPoint")
+    qualification_transform_counts(
+      countCol = "Count",
+      exposureCol = "DataPoint"
+    )
 
   t10_7_analyzed <- t10_7_transformed %>%
     qualification_analyze_normalapprox(strType = "rate")

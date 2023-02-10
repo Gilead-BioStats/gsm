@@ -1,6 +1,4 @@
 test_that("Raw data entry data can be mapped correctly to create an analysis-ready input dataset that has all required columns in the default EDC mapping specifications.", {
-
-
   ########### gsm mapping ###########
   observed <- gsm::DataEntry_Map_Raw()
 
@@ -10,13 +8,15 @@ test_that("Raw data entry data can be mapped correctly to create an analysis-rea
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
-  cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
-            SiteID = lMapping$dfSUBJ$strSiteCol,
-            StudyID = lMapping$dfSUBJ$strStudyCol,
-            CountryID = lMapping$dfSUBJ$strCountryCol,
-            CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
-            "Count",
-            "Total")
+  cols <- c(
+    SubjectID = lMapping$dfSUBJ$strIDCol,
+    SiteID = lMapping$dfSUBJ$strSiteCol,
+    StudyID = lMapping$dfSUBJ$strStudyCol,
+    CountryID = lMapping$dfSUBJ$strCountryCol,
+    CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
+    "Count",
+    "Total"
+  )
 
   # read in raw data entry lag data
   # note that data_entry_lag is number of days between the visit date and the earliest field entry date
@@ -53,5 +53,4 @@ test_that("Raw data entry data can be mapped correctly to create an analysis-rea
 
   ########### testing ###########
   expect_equal(colnames(observed), colnames(expected))
-
 })

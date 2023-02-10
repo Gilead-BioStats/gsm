@@ -1,16 +1,17 @@
 test_that("A subset of raw data entry data can be mapped correctly to create an analysis-ready input dataset.", {
-
-
   ########### gsm mapping ###########
-  subset <- FilterData(dfInput = clindata::edc_data_entry_lag,
-                       strCol = "form",
-                       anyVal = "PK") # filtering only for PK forms
+  subset <- FilterData(
+    dfInput = clindata::edc_data_entry_lag,
+    strCol = "form",
+    anyVal = "PK"
+  ) # filtering only for PK forms
 
   observed <- gsm::DataEntry_Map_Raw(
     dfs = list(
       dfSUBJ = clindata::rawplus_dm,
       dfDATAENT = subset
-    ))
+    )
+  )
 
 
   ########### double programming ###########
@@ -18,13 +19,15 @@ test_that("A subset of raw data entry data can be mapped correctly to create an 
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
-  cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
-            SiteID = lMapping$dfSUBJ$strSiteCol,
-            StudyID = lMapping$dfSUBJ$strStudyCol,
-            CountryID = lMapping$dfSUBJ$strCountryCol,
-            CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
-            "Count",
-            "Total")
+  cols <- c(
+    SubjectID = lMapping$dfSUBJ$strIDCol,
+    SiteID = lMapping$dfSUBJ$strSiteCol,
+    StudyID = lMapping$dfSUBJ$strStudyCol,
+    CountryID = lMapping$dfSUBJ$strCountryCol,
+    CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
+    "Count",
+    "Total"
+  )
 
   # read in raw data entry lag data
   # note that data_entry_lag is number of days between the visit date and the earliest field entry date
@@ -64,5 +67,4 @@ test_that("A subset of raw data entry data can be mapped correctly to create an 
 
   ########### testing ###########
   expect_equal(as.data.frame(observed), as.data.frame(expected))
-
 })

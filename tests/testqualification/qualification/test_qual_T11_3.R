@@ -1,6 +1,4 @@
 test_that("Raw+ AE data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the number of AEs and days of treatment exposure per subject.", {
-
-
   ########### gsm mapping ###########
   observed <- gsm::AE_Map_Raw()
 
@@ -10,14 +8,16 @@ test_that("Raw+ AE data can be mapped correctly to create an analysis-ready inpu
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
-  cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
-            SiteID = lMapping$dfSUBJ$strSiteCol,
-            StudyID = lMapping$dfSUBJ$strStudyCol,
-            CountryID = lMapping$dfSUBJ$strCountryCol,
-            CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
-            Exposure = lMapping$dfSUBJ$strTimeOnTreatmentCol,
-            "Count",
-            "Rate")
+  cols <- c(
+    SubjectID = lMapping$dfSUBJ$strIDCol,
+    SiteID = lMapping$dfSUBJ$strSiteCol,
+    StudyID = lMapping$dfSUBJ$strStudyCol,
+    CountryID = lMapping$dfSUBJ$strCountryCol,
+    CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
+    Exposure = lMapping$dfSUBJ$strTimeOnTreatmentCol,
+    "Count",
+    "Rate"
+  )
 
   # read in raw source AE data
   ae_raw_orig <- clindata::rawplus_ae
@@ -35,8 +35,10 @@ test_that("Raw+ AE data can be mapped correctly to create an analysis-ready inpu
 
   # join DM and AE data - full_join() to keep records from both data frames
   expected <- full_join(dm_raw, ae_raw, by = "subjid") %>%
-    mutate(Count = replace_na(Count, 0),
-           Rate = as.numeric(Count)/!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol)) %>%
+    mutate(
+      Count = replace_na(Count, 0),
+      Rate = as.numeric(Count) / !!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol)
+    ) %>%
     filter(!(!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol) == 0) & !is.na(!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol))) %>% # remove subjects that were not treated (i.e., had 0 or NA days of treatment)
     arrange(!!sym(lMapping$dfSUBJ$strIDCol)) %>%
     select(all_of(cols))
@@ -54,6 +56,4 @@ test_that("Raw+ AE data can be mapped correctly to create an analysis-ready inpu
 
   all_tests <- isTRUE(num_events) & isTRUE(num_exposure) & isTRUE(rate)
   expect_true(all_tests)
-
 })
-

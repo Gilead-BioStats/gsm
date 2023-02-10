@@ -35,8 +35,6 @@ test_that("Metadata is returned as expected", {
 ################################################################################################################
 
 test_that("invalid data returns list of 0 elements", {
-
-
   ### strNames - testing strNames equal to random numeric array
   strNames_edited <- array(1:12, dim = c(2, 3, 2))
   wf_list <- MakeWorkflowList(strNames = strNames_edited, strPath = strPath, strPackage = strPackage, bRecursive = bRecursive)

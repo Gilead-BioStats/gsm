@@ -95,7 +95,6 @@
 #'   elementId = "aeAssessScatter"
 #' )
 #'
-#'
 #' @export
 scatterPlot <- function(
   results,

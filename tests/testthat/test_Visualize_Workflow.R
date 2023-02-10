@@ -20,10 +20,8 @@ study <- Study_Assess(lData = lData, bQuiet = TRUE, bFlowchart = TRUE)
 
 
 test_that("flowchart is created for all assessments", {
-  expect_true(all(study %>% map_lgl(function(x) {"flowchart" %in% names(x$lChecks)})))
+  expect_true(all(study %>% map_lgl(function(x) {
+    "flowchart" %in% names(x$lChecks)
+  })))
   expect_true(all(study %>% map_lgl(function(x) class(x$lChecks$flowchart) == "list")))
 })
-
-
-
-

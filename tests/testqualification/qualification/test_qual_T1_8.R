@@ -6,9 +6,10 @@ test_that("AE assessment can return a correctly assessed data frame for the Norm
   ))
 
   test1_8 <- AE_Assess(dfInput,
-                       strMethod = "NormalApprox",
-                       vThreshold = c(-3, -1, 1, 3),
-                       strGroup = "Study")
+    strMethod = "NormalApprox",
+    vThreshold = c(-3, -1, 1, 3),
+    strGroup = "Study"
+  )
 
 
   # Double Programming
