@@ -4,8 +4,8 @@
 |:----------|:-------------------|:-----------------|:-------------|:---------------------------|:--------------------------|
 |dfSUBJ     |strSiteCol          |siteid            |TRUE          |FALSE                       |FALSE                      |
 |dfSUBJ     |strIDCol            |subjid            |TRUE          |FALSE                       |TRUE                       |
-|dfSUBJ     |strRandDateCol      |rfpst_dt          |TRUE          |FALSE                       |FALSE                      |
 |dfCONSENT  |strIDCol            |subjid            |TRUE          |FALSE                       |FALSE                      |
 |dfCONSENT  |strDateCol          |consdt            |TRUE          |TRUE                        |FALSE                      |
 |dfCONSENT  |strConsentStatusCol |consyn            |TRUE          |FALSE                       |FALSE                      |
 |dfCONSENT  |strConsentTypeCol   |conscat           |TRUE          |FALSE                       |FALSE                      |
+|dfSUBJ     |strRandDateCol      |                  |TRUE          |FALSE                       |FALSE                      |
