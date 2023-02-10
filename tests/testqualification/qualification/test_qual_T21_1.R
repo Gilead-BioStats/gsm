@@ -1,37 +1,26 @@
-test_that("Given pre-specified mapping, input data can be filtered to produce a data frame with the correct number of rows.", {
+test_that("Domain-level data can be correctly merged into subject-level data using subject ID as the key variable.", {
 
 
   ########### gsm mapping ###########
-  observed <- FilterDomain(
-    df = clindata::rawplus_ae,
-    lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-    strDomain = "dfAE",
-    strColParam = "strSeriousCol",
-    strValParam = "strSeriousVal"
-  )
+  observed <- gsm::MergeSubjects(
+    dfDomain = clindata::rawplus_consent,
+    dfSUBJ = clindata::rawplus_dm,
+    strIDCol = "subjid"
+    )
 
 
   ########### double programming ###########
-  # read in default mapping specs
-  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+  # read in raw consent data
+  consent_orig <- clindata::rawplus_consent
 
-  # read in raw source AE data
-  ae_raw_orig <- clindata::rawplus_ae
+  # read in raw source DM data
+  dm_raw_orig <- clindata::rawplus_dm
 
-  # filter raw source AE data for serious AEs
-  expected <- ae_raw_orig %>%
-    filter(!!sym(lMapping$dfAE$strSeriousCol) == lMapping$dfAE$strSeriousVal)
+  # join DM and consent data
+  expected <- left_join(dm_raw_orig, consent_orig, by = "subjid")
 
 
   ########### testing ###########
-  # check that observed and expected have same number of rows
-  row_check <- nrow(observed) == nrow(expected)
-
-  # check that observed has the same number of rows as clindata::rawplus_ae where aeser == "Y"
-  cross_check <- nrow(observed) == nrow(ae_raw_orig[ae_raw_orig$aeser == "Y",])
-
-  all_tests <- isTRUE(row_check) & isTRUE(cross_check)
-  expect_true(all_tests)
+  expect_equal(as.data.frame(observed), as.data.frame(expected))
 
 })
-
