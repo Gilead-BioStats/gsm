@@ -1,4 +1,4 @@
-test_that("Query age assessment can return a correctly assessed data frame for the identity test grouped by the site variable when given correct input data and a site with low enrollment from clindata, and the results should be flagged correctly using a custom threshold.", {
+test_that("Query age assessment can return a correctly assessed data frame for the fisher test grouped by the site variable when given correct input data and a site with low enrollment from clindata, and the results should be flagged correctly using a custom threshold.", {
   # gsm analysis
   dfInput <- gsm::QueryAge_Map_Raw()
 
@@ -6,9 +6,9 @@ test_that("Query age assessment can return a correctly assessed data frame for t
 
   test9_10 <- QueryAge_Assess(
     dfInput = dfInput,
-    strMethod = "Identity",
+    strMethod = "Fisher",
     strGroup = "Site",
-    vThreshold = c(0.00006, 0.01),
+    vThreshold = c(0.02, 0.06),
     nMinDenominator = nMinDenominator
   )
 
@@ -20,15 +20,12 @@ test_that("Query age assessment can return a correctly assessed data frame for t
                                    exposureCol = "Total")
 
   t9_10_analyzed <- t9_10_transformed %>%
-    mutate(
-      Score = Metric
-    ) %>%
-    arrange(Score)
+    qualification_analyze_fisher()
 
   class(t9_10_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t9_10_flagged <- t9_10_analyzed %>%
-    qualification_flag_identity(threshold = c(0.00006, 0.01))
+    qualification_flag_fisher(threshold = c(0.02, 0.06))
 
   t9_10_summary <- t9_10_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
@@ -38,7 +35,6 @@ test_that("Query age assessment can return a correctly assessed data frame for t
                              Denominator < nMinDenominator ~ NA_real_),
            Flag = case_when(Denominator >= nMinDenominator ~ Flag,
                             Denominator < nMinDenominator ~ NA_real_))
-
 
 
   t9_10 <- list(
