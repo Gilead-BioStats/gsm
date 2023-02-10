@@ -105,29 +105,55 @@ ParseWarnings <- function(lResults) {
     }) %>%
     list_rbind()
 
-
   # get each step of workflow check -----------------------------------------
+  workflow_steps_overall <- workflow %>%
+    purrr::imap(function(x, y) {
+      overall <- x$steps_are_valid
+
+      tibble(
+        workflowid = y,
+        status = overall$status,
+        notes = overall$message
+      )
+    }) %>%
+    list_rbind() %>%
+    mutate(
+      check_name = "overall",
+      step = 0
+    )
+
   workflow_steps <- workflow %>%
     purrr::imap(function(x, y) {
       x$steps_are_valid %>%
         purrr::map(function(step) {
-              browser()
-          purrr::imap(step, function(check, check_name) {
-            if (check_name != 1) {
-              tibble(workflowid = y, check_name, status = check$status, notes = check$message)
-            } else {
-              tibble(workflowid = y, check_name = "overall", status = check, notes = "")
-            }
-          }) %>%
-            list_rbind()
+          if (is.list(step)) {
+            step %>%
+              purrr::imap(function(check, check_name) {
+                tibble(workflowid = y, check_name, status = check$status, notes = check$message)
+              })
+          }
         })
     }) %>%
-    purrr::map(function(x) {
-      browser()
-      bind_rows(x, .id = "step")
+    map(function(x) {
+      x %>% discard(is.null)
     }) %>%
-    list_rbind()
-
+    compact() %>%
+    purrr::map(function(x) {
+      x %>%
+        purrr::imap(function(x, y) {
+          bind_rows(x)
+        })
+    }) %>%
+    purrr::imap(function(x, y) {
+      bind_rows(setNames(x, seq_along(x)), .id = "step") %>%
+        mutate(
+          step = as.numeric(step)
+        )
+    }) %>%
+    list_rbind() %>%
+    bind_rows(
+      workflow_steps_overall
+    )
 
   # consolidate notes to single row -----------------------------------------
   steps <- workflow_steps %>%
@@ -171,7 +197,7 @@ ParseWarnings <- function(lResults) {
       status = all(c(overall_status, workflow_overall_status, workflow_steps_status, workflow_dimensions_status)),
       across(c(notes, workflow_steps_notes, workflow_dimensions_notes), function(x) ifelse(x == "", NA, x))
     ) %>%
-    unite("notes", c(notes, workflow_steps_notes, workflow_dimensions_notes), na.rm = TRUE, sep = ", ") %>%
+    tidyr::unite("notes", c(notes, workflow_steps_notes, workflow_dimensions_notes), na.rm = TRUE, sep = ", ") %>%
     select(
       "workflowid",
       "status",

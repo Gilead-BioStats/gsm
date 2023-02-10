@@ -47,6 +47,9 @@ is_workflow_valid <- function(lWorkflow) {
         checks$steps_are_valid$message <- paste(msg, collapse = ", ") # make message indicate step/index that error occurred at.
       }
 
+    } else {
+      checks$steps_are_valid$status <- FALSE
+      checks$steps_are_valid$message <- "Steps not found in workflow."
     }
 
     checks$bStatus <- all(purrr::map_lgl(checks, function(x) x$status))

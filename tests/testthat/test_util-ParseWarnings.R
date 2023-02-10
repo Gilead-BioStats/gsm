@@ -14,7 +14,7 @@ warnings <- ParseWarnings(lResults)
 
 test_that("output is generated as expected", {
   expect_true("data.frame" %in% class(warnings))
-  expect_equal(names(warnings), c("notes", "workflowid"))
+  expect_equal(names(warnings), c("workflowid", "status", "notes"))
 })
 
 test_that("invalid data throw errors", {
