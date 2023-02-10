@@ -2,30 +2,30 @@ test_that("PD assessment can return a correctly assessed data frame for the iden
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw_Binary()
 
-  test27_6 <- PD_Assess_Binary(
+  test23_6 <- PD_Assess_Binary(
     dfInput = dfInput,
     strMethod = "Identity",
     strGroup = "CustomGroup"
   )
 
   # double programming
-  t27_6_input <- dfInput
+  t23_6_input <- dfInput
 
-  t27_6_transformed <- dfInput %>%
+  t23_6_transformed <- dfInput %>%
     qualification_transform_counts(
       GroupID = "CustomGroupID",
       exposureCol = "Total"
     )
 
-  t27_6_analyzed <- t27_6_transformed %>%
+  t23_6_analyzed <- t23_6_transformed %>%
     mutate(
       Score = Metric
     ) %>%
     arrange(Score)
 
-  class(t27_6_analyzed) <- c("tbl_df", "tbl", "data.frame")
+  class(t23_6_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
-  t27_6_flagged <- t27_6_analyzed %>%
+  t23_6_flagged <- t23_6_analyzed %>%
     mutate(
       Flag = case_when(
         Score < 0.000895 ~ -1,
@@ -44,18 +44,18 @@ test_that("PD assessment can return a correctly assessed data frame for the iden
     select(-median) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
-  t27_6_summary <- t27_6_flagged %>%
+  t23_6_summary <- t23_6_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
-  t27_6 <- list(
-    "dfTransformed" = t27_6_transformed,
-    "dfAnalyzed" = t27_6_analyzed,
-    "dfFlagged" = t27_6_flagged,
-    "dfSummary" = t27_6_summary
+  t23_6 <- list(
+    "dfTransformed" = t23_6_transformed,
+    "dfAnalyzed" = t23_6_analyzed,
+    "dfFlagged" = t23_6_flagged,
+    "dfSummary" = t23_6_summary
   )
 
   # compare results
-  expect_equal(test27_6$lData, t27_6)
+  expect_equal(test23_6$lData, t23_6)
 })

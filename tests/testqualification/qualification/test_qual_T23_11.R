@@ -4,27 +4,27 @@ test_that("PD assessment can return a correctly assessed data frame for the iden
 
   nMinDenominator <- 54
 
-  test27_11 <- PD_Assess_Binary(
+  test23_11 <- PD_Assess_Binary(
     dfInput = dfInput,
     strMethod = "Identity",
     nMinDenominator = nMinDenominator
   )
 
   # double programming
-  t27_11_input <- dfInput
+  t23_11_input <- dfInput
 
-  t27_11_transformed <- dfInput %>%
+  t23_11_transformed <- dfInput %>%
     qualification_transform_counts(exposureCol = "Total")
 
-  t27_11_analyzed <- t27_11_transformed %>%
+  t23_11_analyzed <- t23_11_transformed %>%
     mutate(
       Score = Metric
     ) %>%
     arrange(Score)
 
-  class(t27_11_analyzed) <- c("tbl_df", "tbl", "data.frame")
+  class(t23_11_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
-  t27_11_flagged <- t27_11_analyzed %>%
+  t23_11_flagged <- t23_11_analyzed %>%
     mutate(
       Flag = case_when(
         Score < 0.000895 ~ -1,
@@ -43,7 +43,7 @@ test_that("PD assessment can return a correctly assessed data frame for the iden
     select(-median) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
-  t27_11_summary <- t27_11_flagged %>%
+  t23_11_summary <- t23_11_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0))) %>%
@@ -52,13 +52,13 @@ test_that("PD assessment can return a correctly assessed data frame for the iden
            Flag = case_when(Denominator >= nMinDenominator ~ Flag,
                             Denominator < nMinDenominator ~ NA_real_))
 
-  t27_11 <- list(
-    "dfTransformed" = t27_11_transformed,
-    "dfAnalyzed" = t27_11_analyzed,
-    "dfFlagged" = t27_11_flagged,
-    "dfSummary" = t27_11_summary
+  t23_11 <- list(
+    "dfTransformed" = t23_11_transformed,
+    "dfAnalyzed" = t23_11_analyzed,
+    "dfFlagged" = t23_11_flagged,
+    "dfSummary" = t23_11_summary
   )
 
   # compare results
-  expect_equal(test27_11$lData, t27_11)
+  expect_equal(test23_11$lData, t23_11)
 })

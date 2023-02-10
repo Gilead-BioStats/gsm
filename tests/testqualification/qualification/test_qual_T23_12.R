@@ -4,7 +4,7 @@ test_that("PD assessment can return a correctly assessed data frame for the norm
 
   nMinDenominator <- 54
 
-  test27_12 <- PD_Assess_Binary(
+  test23_12 <- PD_Assess_Binary(
     dfInput = dfInput,
     strMethod = "NormalApprox",
     vThreshold = c(-2, -1, 1, 2),
@@ -12,20 +12,20 @@ test_that("PD assessment can return a correctly assessed data frame for the norm
   )
 
   # Double Programming
-  t27_12_input <- dfInput
+  t23_12_input <- dfInput
 
-  t27_12_transformed <- dfInput %>%
+  t23_12_transformed <- dfInput %>%
     qualification_transform_counts(exposureCol = "Total")
 
-  t27_12_analyzed <- t27_12_transformed %>%
+  t23_12_analyzed <- t23_12_transformed %>%
     qualification_analyze_normalapprox(strType = "binary")
 
-  class(t27_12_analyzed) <- c("tbl_df", "tbl", "data.frame")
+  class(t23_12_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
-  t27_12_flagged <- t27_12_analyzed %>%
+  t23_12_flagged <- t23_12_analyzed %>%
     qualification_flag_normalapprox(threshold = c(-2, -1, 1, 2))
 
-  t27_12_summary <- t27_12_flagged %>%
+  t23_12_summary <- t23_12_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0))) %>%
@@ -34,14 +34,14 @@ test_that("PD assessment can return a correctly assessed data frame for the norm
            Flag = case_when(Denominator >= nMinDenominator ~ Flag,
                             Denominator < nMinDenominator ~ NA_real_))
 
-  t27_12 <- list(
-    "dfTransformed" = t27_12_transformed,
-    "dfAnalyzed" = t27_12_analyzed,
-    "dfFlagged" = t27_12_flagged,
-    "dfSummary" = t27_12_summary
+  t23_12 <- list(
+    "dfTransformed" = t23_12_transformed,
+    "dfAnalyzed" = t23_12_analyzed,
+    "dfFlagged" = t23_12_flagged,
+    "dfSummary" = t23_12_summary
   )
 
   # compare results
   # remove bounds dataframe for now
-  expect_equal(test27_12$lData[names(test27_12$lData) != "dfBounds"], t27_12)
+  expect_equal(test23_12$lData[names(test23_12$lData) != "dfBounds"], t23_12)
 })
