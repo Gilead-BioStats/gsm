@@ -12,7 +12,7 @@
 #' \dontrun{
 #' lAssessments <- Study_Assess()
 #' Overview_Table(lAssessments)
-#'}
+#' }
 #'
 #' @export
 Overview_Table <- function(lAssessments, bInteractive = TRUE) {

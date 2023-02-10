@@ -81,8 +81,6 @@ test_that("input data is structured as expected", {
 ################################################################################################################
 
 test_that("invalid data throw errors", {
-
-
   ### lMeta - testing lMeta equal to character string and missing config_param
   expect_error(Make_Snapshot("Hi")[["lMeta"]])
 
@@ -210,8 +208,6 @@ test_that("cPath works as intended", {
 ################################################################################################################
 
 test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
-
-
   ### Removed dfAE
   lData_edited <- list(
     dfSUBJ = dfSUBJ_expanded,
@@ -233,8 +229,8 @@ test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
       lData = lData_edited,
       lMapping = lMapping,
       lAssessments = lAssessments
-      )
     )
+  )
 })
 
 ################################################################################################################
@@ -244,6 +240,7 @@ test_that("bQuiet works as intended", {
     out <- Make_Snapshot(
       lData = lData,
       lAssessments = MakeWorkflowList(strNames = c("cou0001")),
-      bQuiet = FALSE)
+      bQuiet = FALSE
     )
+  )
 })

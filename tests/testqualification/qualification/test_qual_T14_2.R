@@ -1,6 +1,4 @@
 test_that("Raw+ study treatment disposition data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and study treatment disposition data with one record per subject.", {
-
-
   ########### gsm mapping ###########
   observed <- gsm::Disp_Map_Raw(strContext = "Treatment")
 
@@ -10,13 +8,15 @@ test_that("Raw+ study treatment disposition data can be mapped correctly to crea
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
-  cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
-            SiteID = lMapping$dfSUBJ$strSiteCol,
-            StudyID = lMapping$dfSUBJ$strStudyCol,
-            CountryID = lMapping$dfSUBJ$strCountryCol,
-            CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
-            "Count",
-            "Total")
+  cols <- c(
+    SubjectID = lMapping$dfSUBJ$strIDCol,
+    SiteID = lMapping$dfSUBJ$strSiteCol,
+    StudyID = lMapping$dfSUBJ$strStudyCol,
+    CountryID = lMapping$dfSUBJ$strCountryCol,
+    CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
+    "Count",
+    "Total"
+  )
 
   # read in raw source study treatment disposition data
   disp_raw_orig <- clindata::rawplus_sdrgcomp %>%
@@ -37,8 +37,10 @@ test_that("Raw+ study treatment disposition data can be mapped correctly to crea
   # join DM and study treatment disposition data - full_join() to keep records from both data frames
   expected <- full_join(dm_raw, disp_raw, by = "subjid") %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
-    mutate(Count = replace_na(Count, 0),
-           Total = n()) %>%
+    mutate(
+      Count = replace_na(Count, 0),
+      Total = n()
+    ) %>%
     select(all_of(cols))
 
 
@@ -54,5 +56,4 @@ test_that("Raw+ study treatment disposition data can be mapped correctly to crea
 
   all_tests <- isTRUE(subj_test) & isTRUE(subj_length_test)
   expect_true(all_tests)
-
 })

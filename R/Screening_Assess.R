@@ -66,8 +66,6 @@ Screening_Assess <- function(
   nConfLevel = NULL,
   bQuiet = TRUE
 ) {
-
-
   # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'NormalApprox', 'Fisher', 'Identity', or 'QTL'" = strMethod %in% c("NormalApprox", "Fisher", "Identity", "QTL"),

@@ -1,17 +1,18 @@
 test_that("A subset of Raw+ study treatment disposition data can be mapped correctly to create an analysis-ready input dataset.", {
-
-
   ########### gsm mapping ###########
-  subset <- FilterData(dfInput = clindata::rawplus_sdrgcomp,
-                       strCol = "sdrgreas",
-                       anyVal = "ADVERSE EVENT") # filtering only for subjects who discontinued study treatment due to an AE
+  subset <- FilterData(
+    dfInput = clindata::rawplus_sdrgcomp,
+    strCol = "sdrgreas",
+    anyVal = "ADVERSE EVENT"
+  ) # filtering only for subjects who discontinued study treatment due to an AE
 
   observed <- gsm::Disp_Map_Raw(
     dfs = list(
       dfSUBJ = clindata::rawplus_dm,
       dfSDRGCOMP = subset
     ),
-    strContext = "Treatment")
+    strContext = "Treatment"
+  )
 
 
   ########### double programming ###########
@@ -20,13 +21,15 @@ test_that("A subset of Raw+ study treatment disposition data can be mapped corre
   lMapping$dfSDRGCOMP$strTreatmentDiscontinuationReasonVal <- "ADVERSE EVENT"
 
   # create cols vector to facilitate connecting lMapping with source data variables
-  cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
-            SiteID = lMapping$dfSUBJ$strSiteCol,
-            StudyID = lMapping$dfSUBJ$strStudyCol,
-            CountryID = lMapping$dfSUBJ$strCountryCol,
-            CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
-            "Count",
-            "Total")
+  cols <- c(
+    SubjectID = lMapping$dfSUBJ$strIDCol,
+    SiteID = lMapping$dfSUBJ$strSiteCol,
+    StudyID = lMapping$dfSUBJ$strStudyCol,
+    CountryID = lMapping$dfSUBJ$strCountryCol,
+    CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
+    "Count",
+    "Total"
+  )
 
   # read in raw source study treatment disposition data
   disp_raw_orig <- clindata::rawplus_sdrgcomp %>%
@@ -48,13 +51,14 @@ test_that("A subset of Raw+ study treatment disposition data can be mapped corre
   # join DM and study treatment disposition data - full_join() to keep records from both data frames
   expected <- full_join(dm_raw, disp_raw, by = "subjid") %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
-    mutate(Count = replace_na(Count, 0),
-           Total = n()) %>%
+    mutate(
+      Count = replace_na(Count, 0),
+      Total = n()
+    ) %>%
     arrange(!!sym(lMapping$dfSUBJ$strIDCol)) %>%
     select(all_of(cols))
 
 
   ########### testing ###########
   expect_equal(as.data.frame(observed), as.data.frame(expected))
-
 })

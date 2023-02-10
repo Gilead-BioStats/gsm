@@ -1,26 +1,27 @@
 dfSUBJ:
   strStudyCol: studyid
   strSiteCol: siteid
-  strIDCol: subjid
+  strIDCol: subject_nsv
+  strAltIDCol: subjid
   strCustomGroupCol: invid
   strCountryCol: country
 dfQUERY:
-  strIDCol: subjid
+  strIDCol: subjectname
   strVisitCol: foldername
-  strFormCol: form
-  strFieldCol: field
+  strFormCol: formoid
+  strFieldCol: fieldoid
   strQueryAgeCol: qry30fl
   strQueryAgeVal: "Y"
 dfDATAENT:
-  strIDCol: subjid
+  strIDCol: subjectname
   strVisitCol: foldername
-  strFormCol: form
+  strFormCol: formoid
   strDataEntryLagCol: data_entry_lag_fl
   strDataEntryLagVal: "Y"
 dfDATACHG:
-  strIDCol: subjid
+  strIDCol: subjectname
   strVisitCol: foldername
-  strFormCol: form
+  strFormCol: formoid
   strDataPointsCol: n_data_points
   strDataPointsChangeCol: n_data_points_with_changes
   strChangeCol: n_data_point_changes

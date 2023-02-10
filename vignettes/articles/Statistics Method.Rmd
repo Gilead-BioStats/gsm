@@ -1,0 +1,285 @@
+---
+title: "Statistics Method"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Statistics Method}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+library(gsm)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+
+dt <- function(data){
+  data %>%
+    DT::datatable(
+      extensions = 'FixedColumns',
+      options = list(
+        scrollX = FALSE,
+        fixedColumns = TRUE
+      ),
+      rownames = FALSE
+    )
+}
+```
+
+# Introduction
+
+This page outlines the statistical methods of `{gsm}`. Based on the type of the KRIs (binary outcome or count outcome), the statistical methods include Identity, Fisher, Poisson, Normal Approximation.
+
+# Overview
+
+The assessment of each KRI in `{gsm}` is either a percentage of a binary outcome (e.g. proportion of patients discontinued treatment in the disposition assessment) or a rate of a count outcome (e.g. rate of AE events over a period of exposure time). `{gsm}` can apply corresponding statistical methods:
+
+- **binary outcome** - `Identity`, `Fisher`, `NormalApprox`
+- **rate outcome** - `Identity`, `Poisson`, `NormalApprox`
+
+# 1. The Identity Method
+Identity method uses the KRI itself as the metric (score).
+
+# 2. The Fisher's Exact Method
+## Background
+Fisher's exact test is a statistical significance test used in the analysis of contingency tables when you have nominal variables and want to find out if proportions for one variable are different among values of the other variables. 
+
+In contrast to large-sample based statistics which rely on approximation, Fisher's exact test can be applied when sample sizes are small. 
+
+The function `Analyze_Fisher` utilizes `stats::fisher.test` to generate an
+estimate of odds ratio as well as p-value using the Fisher’s exact test with site-level count
+data. For each site, Fisher’s exact test is conducted by comparing to all other sites combined
+in a 2×2 contingency table. The p-values are then used as a scoring metric in `{gsm}` to flag
+possible outliers. The default in `stats::fisher.test` uses a two-sided test (equivalent to testing
+the null of OR = 1) and does not compute p-values by Monte Carlo simulation unless `simulate.p.value = TRUE`.
+Sites with p-values less than 0.05 from the Fisher’s exact test analysis are flagged by default.
+The significance level was set at a common choice.
+
+## Methods
+For example, in a $2 \times 2$ contingency table, the two rows are considered repeated Bernoulli random samples with same probability $p=0.5$ of success or failure under the null. Given a $2 \times 2$ contingency table,
+
+```{r echo = FALSE, results = 'asis'}
+library(knitr)
+table1<-data.frame(Group1=c("a","b"), Group2=c("c","d"))
+rownames(table1)<-c("Condition1", "Condition2")
+kable(table1)
+```
+
+Fisher (1922) showed that conditional on the margins of the table, $a$ is distributed as an hypergeometric distribution with $a+c$ draws from a population with $a+b$ successes and $c+d$ failures. Let $n=a+b+c+d$, the probability of obtaining such set of values is given by: 
+$$
+p=\frac{{{a+b} \choose a} {{c+d} \choose c}}{{n \choose {a+c}}}=\frac{{{a+b} \choose b} {{c+d} \choose d}}{{n \choose {b+d}}}=\frac{(a+b)!(c+d)!(a+c)!(b+d)!}{a! b! c! d! n!}.
+$$
+## $m \times n$ contingency table
+
+In general, consider a $m \times n$ contingency table with entries $a_{ij}$, where $i=1, \dots, m$ and $j=1, \dots, n$. Let $R_i$ and $C_j$ denote the row sum and column sum, respectively. Then the total $N=\sum_i R_i=\sum_j C_j$. The probability of getting the exact contingency table given the observed row and column sums is given by 
+$$
+p=\frac{(R_1! R_2!, \dots, R_m!)(C_1! C_2!, \dots, C_n!)}{N!\prod_{i, j}a_{ij}!}.
+$$
+which is a multivariate version of the hypergeometric probability function.
+
+
+## Application
+An example using the KRI: subject Discontinuation:
+
+```{r}
+dfInput <- Disp_Map_Raw()
+dfTransformed <- Transform_Rate(
+  dfInput,
+  strGroupCol = "SiteID",
+  strNumeratorCol = "Count",
+  strDenominatorCol = "Total"
+)
+dfAnalyzed <- Analyze_Fisher(dfTransformed)
+
+dfFlagged <- Flag_Fisher(dfAnalyzed, vThreshold = c(0.01, 0.05))
+
+dt(dfFlagged)
+```
+
+## Estimate and Score
+
+The function `Analyze_Fisher()` in `{gsm}` utilizes `stats::fisher.test()` to generate an estimate of odds ratio as well as p-value using the Fisher's exact test with site-level count data. For each site, Fisher's exact test is conducted by comparing to all other sites combined in a $2 \times 2$ contingency table. The p-values are then used as a scoring metric in `{gsm}` to flag possible outliers using the thresholds discussed below. The default in `stats::fisher.test()` uses two-sided test (equivalent to testing the null: OR=1) and not to compute p-values by Monte Carlo simulation unless `simulate.p.value = TRUE` is specified.
+
+## Threshold
+
+Sites with p-values less than 0.05 from the Fisher's exact test analysis are flagged by default. The significance level was set at a common choice. However, in different scenarios, the cut-off might need to be adjusted. (TODO: methods comparison) .
+
+## KRI interpretation
+
+TODO.
+
+## The Fisher's exact test assumptions
+
+1.  The row totals and the column totals are both fixed by design.
+
+2.  The samples are mutually exclusive and mutually independent.
+
+The assumptions can be assessed by the knowledge of data collected. No assumption check is necessary.
+
+## `STOPIFNOT` situations
+
+1. Functionally: where we don't have required input to run Fishers: p-value will be set `NA`.
+
+2. Results not interpretable/statistical solid: we don't want to flag in certain situations, but we don't want to stop the pipeline running. We might want a meaningful warning or output.
+
+Although in practice, the Fisher's exact test is usually used when sample sizes are small (e.g., n\<5), it is valid for all sample sizes. 
+
+An observed zero cell is not an issue when using Fisher's exact test, however, when the expected cell is zero, it means either the marginal is zero (meaningless) or there are structural zeros (need to consider zero-inflated issue: West, L. and Hankin, R. (2008), “Exact Tests for Two-Way Contingency Tables with Structural Zeros,” Journal of Statistical Software, 28(11), 1–19). TODO: add more clarification, example and reference.
+
+## constraints
+
+For small samples, Fisher's exact test is highly discrete. Fisher's exact test is often considered to be more conservative. This may due to the use a discrete statistic with fixed significance levels ([FET Controversies Wiki](https://en.wikipedia.org/wiki/Fisher%27s_exact_test#Controversies)).
+
+Although in practice, Fisher's exact test is usually used when sample sizes are small (e.g., n\<5), it is valid for all sample sizes. However, when sample sizes are large, the computation of the exact test evaluating the hypergeometric probability function given the marginal can take a very long time. 
+
+## Recommendation
+
+1.  Fisher's exact test can be used in all scenarios.
+
+
+
+# 3. The Poisson Regression Method
+
+## Intruduction
+
+The poisson distribution is often used to model count data. If $Y$ is the number of counts following poisson distribution, the probability mass function is given by
+$$
+f(y)=\frac{\mu^ye^{-\mu}}{y!}
+$$
+where $\mu$ is the average number of counts and $E(Y)=Var(Y)=\mu$.
+
+## Methods
+This method fits a Poisson model to site-level data and then calculates residuals for each site.
+The Poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family
+set to `poisson` using a "log" link. Site-level residuals are calculated  `stats::predict.glm` via `broom::augment`.
+
+Let $Y_1, ..., Y_N$ be independent random variables with $Y_i \sim Pisson(\mu_i)$ denoting the number of events observed from $n_i$ for the $i$th observation following poisson distribution. Then $E(Y_i)=\mu_i=n_ie^{x_i\beta}$.
+Thus,the log-linear generalized linear model (poisson regression) is
+$$
+\log{\mu_i}=\log{n_i}+x_i\beta \quad Y_i \sim Pisson(\mu_i)
+$$
+
+where $\log{n_i}$ is an offset term.
+
+## Application
+An example using the KRI: Adverse Events:
+
+```{r}
+dfInput <- AE_Map_Raw() %>% na.omit()
+
+dfTransformed <- Transform_Rate(dfInput,
+  strGroupCol = "SiteID",
+  strNumeratorCol = "Count",
+  strDenominatorCol = "Exposure"
+)
+
+dfAnalyzed <- Analyze_Poisson(dfTransformed)
+
+dfFlagged <- Flag_Poisson(dfAnalyzed, vThreshold = c(-7, -5, 5, 7))
+
+dfBounds <- Analyze_Poisson_PredictBounds(
+        dfTransformed = dfTransformed,
+        vThreshold = c(-7, -5, 5, 7))
+
+chart <- Visualize_Scatter(dfFlagged, dfBounds)
+
+dt(dfFlagged)
+chart
+
+```
+
+## Score
+
+TODO. Add GSM scoring and example
+
+
+## Threshold
+
+TODO. Add GSM threshold logic and stats rationale
+
+## STOP-IF-NOT situations
+
+TODO. Discuss hard rules on STOP-IF-NOT situations
+
+## Poisson regression assumptions
+
+1. **Independence** The responses $y_i$ are independent of each other.
+
+2. **Count data** The responses $y_i$ are non-negative integer (counts).
+
+3. **Poisson response** Each $Y_i$ follows the Poisson distribution as noted above with mean and variance equal to $\mu_i$.
+
+4. **Linearity** $\log{\mu_i}=\log{n_i}+x_i\beta$ where $x_i$ are independent predictors.
+
+## Assumption checks, constraints and model diagnosis 
+
+1. The assumptions on independence and counted data can be assessed by the knowledge of data collected.
+
+2. The assumptions on Poisson response can be checked by plotting histogram of the data and comparing empirical mean and variance stratified by the explanatory variable(s). If there is evidence that the assumption of mean=variance is violated, oftentimes we observe variance>mean. This is called overdispersion. In this case, negative binomial distribution provides an alternative where $Var(Y_i)=\phi E(Y_i)$.
+
+3. Diagnosis: Goodness of fit test (chi-squared) and deviance residuals. Residuals vs fitted plot. Q-Q plot.
+
+4. Other considerations: Structural zeros may happen in contrast to random zeros due to sampling from poisson distribution. In this case, a mixture model (zero-inflated Poisson model) may be required.
+
+
+## Recommendation
+
+TODO
+
+
+# 4. The Normal Approximation Method
+
+## Intruduction
+
+This method applies funnel plots using asymptotic limits based on normal approximation of binomial distribution for
+the binary outcome, or normal approximation of Poisson distribution for the rate outcome with volume (the sample sizes
+or total exposure of the sites) to assess data quality and safety.
+
+Reference:
+Zink, Richard C., Anastasia Dmitrienko, and Alex Dmitrienko. **Rethinking the clinically based thresholds of TransCelerate BioPharma for risk-based monitoring.** *Therapeutic Innovation & Regulatory Science* 52, no. 5 (2018): 560-571.
+
+## Method
+
+### Binary
+Consider the problem of monitoring binary outcomes, such as protocol deviation or discontinuation from the study, across multiple sites in a clinical trial. Assume that there are $m$ sites with $n_i$ patients at the $i$ th site, $i = 1, 2, \dots, m$. Denote the total number of patients in the study by $n=\sum_{i=1}^m n_i$.
+Let $X_{ij}$ signify the outcome of interest for the $j$ th patient at the $i$ th site, where indicates that an event has occurred and indicates that an event has not occurred. 
+Finally, let $p_i$ denote the true event rate at the $i$ th site. Monitoring tools focus on testing the null hypothesis of consistency of the true event rates across the sites. Specifically, the null hypothesis states that the event rate is constant across the sites, that is, $H_0: p_1 = \dots = p_m = p$, where $p$ is the common event rate. This common event rate can be estimated as $\hat{p} = \frac{1}{n}\sum_{i=1}^m\sum_{j=1}^{n_i}X_{ij}$.
+
+The control limits are computed using confidence limits based on an asymptotic normal approximation. Let $X_i=\sum_{j=1}^{N_i}X_{ij}$ represent the total number of events that occur and let r^i ¼ Xi=ni denote the estimated event
+rate at the $i$ th site. The asymptotic $100(1 – a)%$ confidence interval for $p_i$ is given by
+$$
+\hat{p_i}-z_{1-\alpha/2}\sqrt{\frac{\hat{p_i}(1-\hat{p_i})}{n_i}} \leq p_i \leq \hat{p_i}+z_{1-\alpha/2}\sqrt{\frac{\hat{p_i}(1-\hat{p_i})}{n_i}}
+$$
+where $z_{1-\alpha/2}$ is the upper percentile of the standard normal
+distribution. To construct the control limits for the observed
+event rate at this site, the estimated event rate is forced to be
+equal to the overall event rate $\hat{p_i}$. This means that the lower and
+upper asymptotic control limits for the $i$ th site are defined as
+$l_i=\hat{p}-z_{1-\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{n_i}}$ and $u_i=\hat{p}+z_{1-\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{n_i}}$, respectively. Asymptotic control limits may not be reliable in smaller clinical trials, so exact limits for an event rate may be preferable.  
+
+### Rate
+Assume that the number of events up to time $T$ is Poisson with mean $\lambda t$, where $\lambda$ is the event rate for a given unit of time.
+For the $i$ th site with $X_i=\sum_{j=1}^{N_i}X_{ij}$ events and $T_i=\sum_{j=1}^{N_i}t_{ij}$ exposure, define the EAIR as $\hat{\lambda_i}=\frac{X_i}{T_i}$. For all sites, define $X=\sum_{i=1}^{m}X_{i}$ and $T=\sum_{i=1}^{m}t_{i}$ with $\hat{\lambda}=\frac{X}{T}$. Under a normal approximation, $100(1 – a)%$ confidence interval for the $i$ th site is
+$$
+\hat{\lambda_i}-z_{1-\alpha/2}\sqrt{\frac{\hat{\lambda_i}}{T_i}} \leq p_i \leq \hat{\lambda_i}+z_{1-\alpha/2}\sqrt{\frac{\hat{\lambda_i}}{T_i}}
+$$. 
+For these funnel plots accounting for exposure, the x-axis representing the site sample size ($n$) in the above examples is replaced by the total exposure time $T$. To develop a funnel plot, fix $\hat{\lambda_i}=\hat{\lambda}$, and vary $T$ from
+$min(T_i)$ to $max(T_i)$ to compute the control limits. As an area of future research, the work of Chan and Wang (2009) may suggest methods appropriate for computing an exact confidence interval for the EAIR. Finally, similar methods can be applied
+for a count-type endpoint $X_{ij}$, where tij would denote the time on study for the $j$ th patient at the $i$ th site.
+
+
+## Z-score
+For site $i$, $z_i=\frac{y_i-\theta_0}{\sqrt{V(Y|\theta_0)}}$, where $y_i$ is the metric calculated for site $i$, $\theta_0$ is the overall mean, $\sqrt{V(Y|\theta_0)}$ is the measurement of variance.
+
+For binary outcome,  $\sqrt{V(Y|\theta_0)}=\sqrt{\frac{\hat{p}(1-\hat{p})}{n_i}}$.
+
+For rate outcome,  $\sqrt{V(Y|\theta_0)}=\sqrt{\frac{\hat{\lambda}}{T_i}}$.
+
+## Over-dispersion adjustment
+Multiplicative over-dispersion adjustment was performed. $\phi=\frac{1}{m}\sum_{i=1}^m z_i^2$
+
+For binary outcome,  $\sqrt{V'(Y|\theta_0)}=\sqrt{\phi\frac{\hat{p}(1-\hat{p})}{n_i}}$.
+
+For rate outcome,  $\sqrt{V'(Y|\theta_0)}=\sqrt{\phi\frac{\hat{\lambda}}{T_i}}$.

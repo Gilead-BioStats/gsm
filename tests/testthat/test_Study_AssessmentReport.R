@@ -6,7 +6,7 @@ lAssessments <- Study_Assess(
   lData = lData,
   bQuiet = TRUE,
   lAssessments = assessment_list
-  )
+)
 
 test_that("Assessment Report with all Valid assessments", {
   a <- Study_AssessmentReport(lAssessments = lAssessments)
@@ -23,7 +23,6 @@ test_that("Assessment Report with all Valid assessments", {
 })
 
 test_that("Assessment Report with an issue in dfSUBJ", {
-
   lData <- list(
     dfSUBJ = dfSUBJ,
     dfAE = dfAE
@@ -49,8 +48,6 @@ test_that("bViewReport works", {
 })
 
 test_that("correct messages show when data is not found", {
-
-
   ldata <- list(
     dfAE = dfAE,
     dfSUBJ = dfSUBJ
@@ -68,7 +65,7 @@ test_that("correct messages show when data is not found", {
 
   expect_snapshot(
     report$dfAllChecks %>%
-      filter(domain == "dfPD" & step == "PD_Map_Raw") %>%
+      filter(domain == "dfPD" & step == "PD_Map_Raw_Rate") %>%
       pull(notes)
   )
 })

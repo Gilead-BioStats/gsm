@@ -22,7 +22,6 @@
 #'
 #' @export
 CheckSnapshotInputs <- function(snapshot) {
-
   # get rbm_data_spec/data model
   gismo_input <- gsm::rbm_data_spec %>%
     filter(.data$System == "Gismo") %>%
@@ -95,7 +94,7 @@ CheckSnapshotInputs <- function(snapshot) {
   ) %>%
     rowwise() %>%
     mutate(
-      status = sum(is.na(cur_data())),
+      status = sum(is.na(pick(everything()))),
       status = ifelse(.data$status == 0, TRUE, FALSE)
     ) %>%
     ungroup()

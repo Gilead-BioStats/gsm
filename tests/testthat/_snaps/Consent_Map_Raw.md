@@ -23,7 +23,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strTypeCol", "strValueCol", "strDateCol"]
+              "value": ["strIDCol", "strConsentStatusCol", "strConsentTypeCol", "strDateCol"]
             },
             {
               "type": "character",
@@ -75,7 +75,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strTypeCol", "strValueCol", "strDateCol", "strConsentTypeVal", "strConsentStatusVal"]
+              "value": ["strIDCol", "strDateCol", "strConsentStatusCol", "strConsentStatusVal", "strConsentTypeCol", "strConsentTypeVal"]
             }
           },
           "value": [
@@ -87,7 +87,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["conscat"]
+              "value": ["consdt"]
             },
             {
               "type": "character",
@@ -97,17 +97,17 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["consdt"]
+              "value": ["Y"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["conscat"]
             },
             {
               "type": "character",
               "attributes": {},
               "value": ["MAINCONSENT"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["Y"]
             }
           ]
         },
@@ -117,7 +117,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strCustomGroupCol", "strCountryCol"]
+              "value": ["strStudyCol", "strSiteCol", "strCustomGroupCol", "strCountryCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol"]
             }
           },
           "value": [
@@ -130,6 +130,16 @@
               "type": "character",
               "attributes": {},
               "value": ["siteid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
             },
             {
               "type": "character",
@@ -150,16 +160,6 @@
               "type": "character",
               "attributes": {},
               "value": ["rfpst_dt"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["invid"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["country"]
             }
           ]
         }
@@ -274,7 +274,7 @@
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, conscat, consyn, consdt
+      x the following columns not found in df: subjid, consyn, conscat, consdt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -317,7 +317,7 @@
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, conscat, consyn, consdt
+      x the following columns not found in df: subjid, consyn, conscat, consdt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -335,7 +335,7 @@
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, conscat, consyn, consdt
+      x the following columns not found in df: subjid, consyn, conscat, consdt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -358,7 +358,7 @@
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, conscat, consyn, consdt
+      x the following columns not found in df: subjid, consyn, conscat, consdt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -381,7 +381,7 @@
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, conscat, consyn, consdt
+      x the following columns not found in df: subjid, consyn, conscat, consdt
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -403,7 +403,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x "mapping" does not contain required parameters: strIDCol, strTypeCol, strValueCol, strDateCol
+      x "mapping" does not contain required parameters: strIDCol, strConsentStatusCol, strConsentTypeCol, strDateCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       x "mapping" does not contain required parameters: strIDCol, strSiteCol, strRandDateCol
@@ -453,7 +453,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: conscat
+      x the following columns not found in df: consyn
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -470,7 +470,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: consyn
+      x the following columns not found in df: conscat
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -569,7 +569,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x 1 NA values found in column: conscat
+      x 1 NA values found in column: consyn
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output
@@ -583,7 +583,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x 1 NA values found in column: consyn
+      x 1 NA values found in column: conscat
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output

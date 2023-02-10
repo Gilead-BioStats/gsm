@@ -1,65 +1,75 @@
 dfSUBJ:
   strStudyCol: studyid
   strSiteCol: siteid
-  strIDCol: subjid
-  strTimeOnStudyCol: timeonstudy
-  strTimeOnTreatmentCol: timeontreatment
-  strRandDateCol: rfpst_dt
   strCountryCol: country
   strCustomGroupCol: invid
+  strIDCol: subjid
+  strStudyStartDateCol: rfpst_dt
+  strStudyEndDateCol: rfpen_dt
+  strTimeOnStudyCol: timeonstudy
+  strTreatmentStartDateCol: rfxst_dt
+  strTreatmentEndDateCol: rfxen_dt
+  strTimeOnTreatmentCol: timeontreatment
 dfAE:
   strIDCol: subjid
+  strStartDateCol: aest_dt
+  strEndDateCol: aeen_dt
+  strPTCol: aedecod
+  strSOCCol: aebodsys
+  strSeverityCol: aesev
+  strGradeCol: aetoxgr
   strSeriousCol: aeser
   strSeriousVal: "Y"
   strNonSeriousVal: "N"
-  strGradeCol: aetoxgr
   strTreatmentEmergentCol: treatment_emergent
   strTreatmentEmergentVal: "Y"
 dfPD:
   strIDCol: subjid
+  strDateCol: dv_dt
   strCategoryCol: dvdecod
   strImportantCol: importnt
   strImportantVal: "Y"
-  strNotImportantVal: "N"
+  strNonImportantVal: "N"
 dfIE:
   strIDCol: subjid
-  strCategoryCol: iecat
-  strValueCol: ieorres
   strVersionCol: tiver
-  vCategoryValues:
+  strCategoryCol: iecat
+  strCategoryVal:
     - EXCL
     - INCL
-  vExpectedResultValues:
+  strResultCol: ieorres
+  strResultVal:
     - 0
     - 1
 dfCONSENT:
   strIDCol: subjid
-  strTypeCol: conscat
-  strValueCol: consyn
   strDateCol: consdt
-  strConsentTypeVal: MAINCONSENT
+  strConsentStatusCol: consyn
   strConsentStatusVal: "Y"
+  strConsentTypeCol: conscat
+  strConsentTypeVal: MAINCONSENT
 dfSTUDCOMP:
   strIDCol: subjid
-  strStudyDiscontinuationReasonCol: compreas
-  strStudyDiscontinuationReasonVal: consent
   strStudyDiscontinuationFlagCol: compyn
   strStudyDiscontinuationFlagVal: "N"
+  strStudyDiscontinuationReasonCol: compreas
+  strStudyDiscontinuationReasonVal: WITHDRAWAL BY SUBJECT
 dfSDRGCOMP:
   strIDCol: subjid
-  strTreatmentPhaseCol: datapagename # or foldername - temporary - should be phase
-  strTreatmentPhaseVal: Blinded Study Drug Completion
-  strTreatmentDiscontinuationReasonCol: sdrgreas
-  strTreatmentDiscontinuationReasonVal: withdrawal
   strTreatmentDiscontinuationFlagCol: sdrgyn
   strTreatmentDiscontinuationFlagVal: "N"
+  strTreatmentDiscontinuationReasonCol: sdrgreas
+  strTreatmentDiscontinuationReasonVal: out of bound:Withdrew Consent*
+  strTreatmentPhaseCol: phase
+  strTreatmentPhaseVal: Blinded Study Drug Completion
 dfLB:
   strIDCol: subjid
+  strDateCol: lb_dt
   strVisitCol: visnam
   strVisitOrderCol: visnum
   strCategoryCol: battrnam
   strTestCol: lbtstnam
-  strValueCol: siresn
+  strResultCol: siresn
   strTreatmentEmergentCol: treatment_emergent
   strTreatmentEmergentVal: "Y"
   strGradeCol: toxgr
@@ -74,8 +84,8 @@ dfLB:
 dfENROLL:
   strStudyCol: studyid
   strSiteCol: siteid
-  strCountryCol: country
   strCustomGroupCol: invid
+  strCountryCol: country
   strIDCol: subjid
   strScreenFailCol: enrollyn
   strScreenFailVal: "N"

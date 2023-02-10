@@ -1,8 +1,8 @@
 dfCONSENT:
   vRequired:
     - strIDCol
-    - strTypeCol
-    - strValueCol
+    - strConsentStatusCol
+    - strConsentTypeCol
     - strDateCol
   vNACols:
     - strDateCol

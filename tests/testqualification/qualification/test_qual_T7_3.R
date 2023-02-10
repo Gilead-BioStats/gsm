@@ -12,9 +12,11 @@ test_that("Data change assessment can return a correctly assessed data frame for
   t7_3_input <- dfInput
 
   t7_3_transformed <- dfInput %>%
-    qualification_transform_counts(countCol = "Count",
-                                   exposureCol = "Total",
-                                   GroupID = "CountryID")
+    qualification_transform_counts(
+      countCol = "Count",
+      exposureCol = "Total",
+      GroupID = "CountryID"
+    )
 
   t7_3_analyzed <- t7_3_transformed %>%
     mutate(

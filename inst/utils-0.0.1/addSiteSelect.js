@@ -50,6 +50,7 @@ const addSiteSelect = function(el, results, instance) {
         const siteOption = document.createElement('option');
         siteOption.innerHTML = site;
         siteSelect.appendChild(siteOption);
+        siteSelect.classList.add('site-select');
     }
 
     // add event listener to dropdown that updates chart
