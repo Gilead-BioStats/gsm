@@ -1,14 +1,14 @@
-test_that("Data change assessment can return a correctly assessed data frame for the identity test grouped by the site variable when given correct input data and a site with low enrollment from clindata, and the results should be flagged correctly using a custom threshold.", {
+test_that("Data change assessment can return a correctly assessed data frame for the fisher test grouped by the site variable when given correct input data and a site with low enrollment from clindata, and the results should be flagged correctly using a custom threshold.", {
   # gsm analysis
   dfInput <- gsm::DataChg_Map_Raw()
 
-  nMinDenominator <- 197
+  nMinDenominator <- 97
 
   test7_10 <- DataChg_Assess(
     dfInput = dfInput,
-    strMethod = "Identity",
+    strMethod = "Fisher",
     strGroup = "Site",
-    vThreshold = c(0.00006, 0.01),
+    vThreshold = c(0.02, 0.06),
     nMinDenominator = nMinDenominator
   )
 
@@ -20,15 +20,12 @@ test_that("Data change assessment can return a correctly assessed data frame for
                                    exposureCol = "Total")
 
   t7_10_analyzed <- t7_10_transformed %>%
-    mutate(
-      Score = Metric
-    ) %>%
-    arrange(Score)
+    qualification_analyze_fisher()
 
   class(t7_10_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t7_10_flagged <- t7_10_analyzed %>%
-    qualification_flag_identity(threshold = c(0.00006, 0.01))
+    qualification_flag_fisher(threshold = c(0.02, 0.06))
 
   t7_10_summary <- t7_10_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
@@ -38,6 +35,7 @@ test_that("Data change assessment can return a correctly assessed data frame for
                              Denominator < nMinDenominator ~ NA_real_),
            Flag = case_when(Denominator >= nMinDenominator ~ Flag,
                             Denominator < nMinDenominator ~ NA_real_))
+
 
 
   t7_10 <- list(
