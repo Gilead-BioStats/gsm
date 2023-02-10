@@ -41,9 +41,9 @@ is_workflow_valid <- function(lWorkflow) {
       } else {
         checks$steps_are_valid$status <- FALSE
         msg <- check_all_steps %>%
-          filter(status == F & message != "") %>%
-          mutate(x = paste0("Issue at step ", n_step, ": ", message)) %>%
-          pull(x)
+          filter(.data$status == F & .data$message != "") %>%
+          mutate(x = paste0("Issue at step ", .data$n_step, ": ", .data$message)) %>%
+          pull(.data$x)
         checks$steps_are_valid$message <- paste(msg, collapse = ", ") # make message indicate step/index that error occurred at.
       }
 
@@ -55,7 +55,6 @@ is_workflow_valid <- function(lWorkflow) {
     checks$bStatus <- all(purrr::map_lgl(checks, function(x) x$status))
 
     return(checks)
-
 
 }
 
