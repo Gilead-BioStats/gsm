@@ -196,10 +196,12 @@ ParseWarnings <- function(lResults) {
     select("workflowid", ends_with("status"), ends_with("notes"))
 
   warnings <- warnings %>%
+    rowwise() %>%
     mutate(
-      status = all(c(.data$overall_status, .data$workflow_overall_status, .data$workflow_steps_status, .data$workflow_dimensions_status)),
-      across(c("notes", "workflow_steps_notes", "workflow_dimensions_notes"), function(x) ifelse(x == "", NA, x))
+      status = all(c(.data$overall_status, .data$workflow_overall_status, .data$workflow_steps_status, .data$workflow_dimensions_status))
     ) %>%
+    ungroup() %>%
+    mutate(across(c("notes", "workflow_steps_notes", "workflow_dimensions_notes"), function(x) ifelse(x == "", NA, x))) %>%
     tidyr::unite("notes", c("notes", "workflow_steps_notes", 'workflow_dimensions_notes'), na.rm = TRUE, sep = ", ") %>%
     select(
       "workflowid",

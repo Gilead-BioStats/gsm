@@ -22,3 +22,26 @@ test_that("invalid data throw errors", {
   expect_null(warnings("Hi")[["lData"]])
   expect_error(ParseWarnings(dfSUBJ))
 })
+
+
+test_that("invalid workflows are caught", {
+
+  workflow <- MakeWorkflowList(strNames = c("kri0001", "kri0003", "kri0005"))
+  workflow$kri0001$steps <- NULL
+
+  workflow$kri0003$steps[[2]]$name <- 'not_a_gsm_function'
+
+  lData <- list(
+    dfAE = dfAE,
+    dfSUBJ = dfSUBJ,
+    dfPD = dfPD,
+    dfLB = dfLB
+  )
+
+  study <- Study_Assess(lData = lData, lAssessments = workflow)
+
+  warnings <- ParseWarnings(study)
+
+  expect_snapshot(warnings)
+
+})
