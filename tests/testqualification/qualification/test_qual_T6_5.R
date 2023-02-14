@@ -1,6 +1,6 @@
 test_that("Labs assessment can return a correctly assessed data frame grouped by a custom variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
   # gsm analysis
-  dfInput <- LB_Map_Raw()
+  dfInput <- gsm::LB_Map_Raw()
 
   test6_5 <- LB_Assess(
     dfInput = dfInput,
