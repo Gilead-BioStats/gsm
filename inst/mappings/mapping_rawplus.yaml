@@ -21,7 +21,7 @@ dfAE:
   strSeriousCol: aeser
   strSeriousVal: "Y"
   strNonSeriousVal: "N"
-  strTreatmentEmergentCol: treatment_emergent
+  strTreatmentEmergentCol: ae_te
   strTreatmentEmergentVal: "Y"
 dfPD:
   strIDCol: subjid

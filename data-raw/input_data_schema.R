@@ -43,8 +43,14 @@ column_schema <- bind_rows(
     get_column_schema(mapping_edc)
 )
 
-data_schema <- domain_schema %>%
+input_data_schema <- domain_schema %>%
     full_join(
         column_schema,
-        'GSM_Key'
+        'GSM_Key',
+        multiple = 'all'
     )
+
+usethis::use_data(
+    input_data_schema,
+    overwrite = TRUE
+)
