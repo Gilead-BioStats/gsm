@@ -1,5 +1,9 @@
-test_that("AE assessment can return a correctly assessed data frame for the Normal Approximation test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold.", {
-  dfInput <- gsm::AE_Map_Raw()
+test_that("AE assessment can return a correctly assessed data frame for the Normal Approximation test grouped by the study variable when given subset input data from clindata and the results should be flagged correctly using a custom threshold.", {
+
+  dfInput <- gsm::AE_Map_Raw(dfs = list(
+    dfAE = clindata::rawplus_ae %>% filter(aeser_std_nsv == "Y"),
+    dfSUBJ = clindata::rawplus_dm
+  ))
 
   test1_8 <- AE_Assess(dfInput,
     strMethod = "NormalApprox",

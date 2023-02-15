@@ -1,10 +1,10 @@
-test_that("Query age assessment can return a correctly assessed data frame for the identity test grouped by the country variable when given correct input data from clindata and the results should be flagged correctly.", {
+test_that("Query age assessment can return a correctly assessed data frame for the fisher test grouped by the country variable when given correct input data from clindata and the results should be flagged correctly.", {
   # gsm analysis
   dfInput <- gsm::QueryAge_Map_Raw()
 
   test9_3 <- QueryAge_Assess(
     dfInput = dfInput,
-    strMethod = "Identity",
+    strMethod = "Fisher",
     strGroup = "Country"
   )
 
@@ -19,16 +19,13 @@ test_that("Query age assessment can return a correctly assessed data frame for t
     )
 
   t9_3_analyzed <- t9_3_transformed %>%
-    mutate(
-      Score = Metric
-    ) %>%
-    arrange(Score)
+    qualification_analyze_fisher()
 
   class(t9_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
 
   t9_3_flagged <- t9_3_analyzed %>%
-    qualification_flag_identity()
+    qualification_flag_fisher()
 
   t9_3_summary <- t9_3_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
