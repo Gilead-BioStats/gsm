@@ -1,6 +1,8 @@
-test_that("Consent assessment can return a correctly assessed data frame grouped by the study variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
+test_that("Consent assessment can return a correctly assessed data frame grouped by the study variable when given subset input data from clindata and the results should be flagged correctly using a custom threshold", {
   # gsm analysis
-  dfInput <- Consent_Map_Raw()
+  dfInput <- Consent_Map_Raw( dfs = list(
+    dfSUBJ = clindata::rawplus_dm %>% filter(!siteid %in% c("5", "29", "58")),
+    dfCONSENT = clindata::rawplus_consent))
 
   test4_2 <- Consent_Assess(
     dfInput = dfInput,

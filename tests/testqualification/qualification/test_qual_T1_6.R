@@ -1,9 +1,6 @@
-test_that("AE assessment can return a correctly assessed data frame for the identity test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly.", {
+test_that("AE assessment can return a correctly assessed data frame for the identity test grouped by a custom variable when given correct input data from clindata and the results should be flagged correctly.", {
   # gsm analysis
-  dfInput <- gsm::AE_Map_Raw(dfs = list(
-    dfAE = clindata::rawplus_ae %>% filter(aeser_std_nsv == "Y"),
-    dfSUBJ = clindata::rawplus_dm
-  ))
+  dfInput <- gsm::AE_Map_Raw()
 
   test1_6 <- AE_Assess(
     dfInput = dfInput,

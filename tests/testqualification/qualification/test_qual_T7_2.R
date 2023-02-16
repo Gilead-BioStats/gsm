@@ -1,4 +1,4 @@
-test_that("Data change assessment can return a correctly assessed data frame for the identity test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly.", {
+test_that("Data change assessment can return a correctly assessed data frame for the fisher test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly.", {
   # gsm analysis
   dfInput <- gsm::DataChg_Map_Raw(dfs = list(
     dfDATACHG = clindata::edc_data_change_rate %>% filter(foldername == "Week 120"),
@@ -7,7 +7,7 @@ test_that("Data change assessment can return a correctly assessed data frame for
 
   test7_2 <- DataChg_Assess(
     dfInput = dfInput,
-    strMethod = "Identity",
+    strMethod = "Fisher",
     strGroup = "CustomGroup"
   )
 
@@ -22,15 +22,12 @@ test_that("Data change assessment can return a correctly assessed data frame for
     )
 
   t7_2_analyzed <- t7_2_transformed %>%
-    mutate(
-      Score = Metric
-    ) %>%
-    arrange(Score)
+    qualification_analyze_fisher()
 
   class(t7_2_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t7_2_flagged <- t7_2_analyzed %>%
-    qualification_flag_identity()
+    qualification_flag_fisher()
 
   t7_2_summary <- t7_2_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

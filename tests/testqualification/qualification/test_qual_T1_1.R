@@ -1,6 +1,9 @@
-test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the poissonsite variable when given correct input data from safetyData and the results should be flagged correctly.", {
+test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the site variable when given subset input data from safetyData and the results should be flagged correctly.", {
   # gsm analysis
-  dfInput <- gsm::AE_Map_Adam()
+  dfInput <- gsm::AE_Map_Raw(dfs = list(
+    dfAE = clindata::rawplus_ae %>% filter(aeser_std_nsv == "Y"),
+    dfSUBJ = clindata::rawplus_dm
+  ))
 
   test1_1 <- AE_Assess(
     dfInput = dfInput,
