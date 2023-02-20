@@ -2,7 +2,7 @@
 % Please edit documentation in R/Flag_Fisher.R
 \name{Flag_Fisher}
 \alias{Flag_Fisher}
-\title{Flag_Fisher}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Flag_Fisher(dfAnalyzed, vThreshold = NULL)
 }
@@ -15,9 +15,11 @@ Flag_Fisher(dfAnalyzed, vThreshold = NULL)
 \code{data.frame} with one row per site with columns: \code{GroupID}, \code{Numerator}, \code{Denominator}, \code{Numerator_Other}, \code{Denominator}, \code{Denominator_Other}, \code{Prop}, \code{Prop_Other}, \code{Metric}, \code{Estimate}, \code{Score}, \code{Flag}
 }
 \description{
-Add columns flagging sites that represent possible statistical outliers when the Fisher's Exact Test is used.
+Flag_Fisher
 }
 \details{
+Add columns flagging sites that represent possible statistical outliers when the Fisher's Exact Test is used.
+
 This function flags sites based on the Fisher's Exact Test result as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
 }
 \section{Data Specification}{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Consent_Assess.R
 \name{Consent_Assess}
 \alias{Consent_Assess}
-\title{Consent Assessment}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Consent_Assess(
   dfInput,
@@ -62,7 +62,7 @@ Evaluates sites where subject consent was:
 }
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+Consent Assessment
 
 The Consent Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag sites with consent issues. This assessment detects sites with subjects who participated
 in study activities before consent was finalized. The count returned in the summary represents

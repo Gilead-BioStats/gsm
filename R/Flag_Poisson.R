@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Flag_Poisson
 #'
 #' Add columns flagging sites that represent possible statistical outliers when the Poisson statistical method is used.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/CheckSnapshotInputs.R
 \name{CheckSnapshotInputs}
 \alias{CheckSnapshotInputs}
-\title{Check Snapshot Inputs}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 CheckSnapshotInputs(snapshot)
 }
@@ -21,6 +21,9 @@ CheckSnapshotInputs(snapshot)
 \description{
 Check that the output created from \code{\link[=Make_Snapshot]{Make_Snapshot()}} returns all expected tables and columns within tables as defined by the
 data model (\link{rbm_data_spec}).
+}
+\details{
+Check Snapshot Inputs
 }
 \examples{
 \dontrun{

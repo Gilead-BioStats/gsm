@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Screening Assessment - Raw Mapping
 #'
 #' @description

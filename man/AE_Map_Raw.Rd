@@ -2,7 +2,7 @@
 % Please edit documentation in R/AE_Map_Raw.R
 \name{AE_Map_Raw}
 \alias{AE_Map_Raw}
-\title{Adverse Event Assessment - Raw Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 AE_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfAE = clindata::rawplus_ae),
@@ -39,6 +39,8 @@ Convert raw adverse event (AE) data, typically processed case report form data, 
 input data to \code{\link[=AE_Assess]{AE_Assess()}}.
 }
 \details{
+Adverse Event Assessment - Raw Mapping
+
 \code{AE_Map_Raw} combines AE data with subject-level treatment exposure data to create formatted
 input data to \code{\link[=AE_Assess]{AE_Assess()}}. This function creates an input dataset for the AE Assessment
 (\code{\link[=AE_Assess]{AE_Assess()}}) by binding subject-level AE counts (derived from \code{dfAE}) to subject-level

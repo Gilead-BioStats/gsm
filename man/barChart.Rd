@@ -2,7 +2,7 @@
 % Please edit documentation in R/barChart.R
 \name{barChart}
 \alias{barChart}
-\title{KRI Bar Chart}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 barChart(
   results = NULL,
@@ -69,6 +69,9 @@ barChart(
 \description{
 A widget that displays a group-level bar chart based on the output of a KRI analysis.
 Bar charts are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an \code{htmlwidget} ported from the \code{rbm-viz} JavaScript library.
+}
+\details{
+KRI Bar Chart
 }
 \examples{
 

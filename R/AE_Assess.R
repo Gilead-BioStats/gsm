@@ -1,7 +1,10 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Adverse Event Assessment
 #'
 #' @description
 #' Evaluates adverse event (AE) rates to identify sites that may be over- or under-reporting AEs.
+#'
 #'
 #' @details
 #' The AE Assessment uses the standard [GSM data pipeline](

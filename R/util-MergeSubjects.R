@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Merge Domain data with subject-level data
 #'
 #' @description

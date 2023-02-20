@@ -1,6 +1,7 @@
-#' {experimental} Make Summary of 1 or more assessment Data checks
-#'
 #' `r lifecycle::badge("experimental")`
+#'
+#' Make Summary of 1 or more assessment Data checks
+#'
 #'
 #' Make overview table with one row per assessment and one column per site showing flagged assessments.
 #'

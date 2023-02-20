@@ -2,7 +2,7 @@
 % Please edit documentation in R/Make_Snapshot.R
 \name{Make_Snapshot}
 \alias{Make_Snapshot}
-\title{Make Snapshot - create and export Gizmo data model.}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Make_Snapshot(
   lMeta = list(config_param = clindata::config_param, config_workflow =
@@ -64,6 +64,9 @@ for the Gismo web application.
 
 For more context about the inputs and outputs of \code{Make_Snapshot()}, refer to the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM Data Pipeline Vignette}, specifically
 Appendix 2 - Data Model Specifications
+}
+\details{
+Make Snapshot - create and export Gizmo data model.
 }
 \section{Return - Data Model Description}{
 A named \code{list} of data.frames:

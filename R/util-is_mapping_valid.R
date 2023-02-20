@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Check that a data frame contains columns and fields specified in mapping.
 #'
 #' @description

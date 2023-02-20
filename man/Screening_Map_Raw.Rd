@@ -2,7 +2,7 @@
 % Please edit documentation in R/Screening_Map_Raw.R
 \name{Screening_Map_Raw}
 \alias{Screening_Map_Raw}
-\title{Screening Assessment - Raw Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Screening_Map_Raw(
   dfs = list(dfENROLL = clindata::rawplus_enroll),
@@ -37,6 +37,8 @@ of the column. Default: package-defined mapping for raw+.}
 Convert raw screening data to formatted input data to \code{\link[=Screening_Assess]{Screening_Assess()}}.
 }
 \details{
+Screening Assessment - Raw Mapping
+
 \code{Screening_Map_Raw} creates an input dataset for the Screening Assessment
 \code{\link[=Screening_Assess]{Screening_Assess()}} by identifying Screen Failures (derived from \code{dfENROLL}).
 }
