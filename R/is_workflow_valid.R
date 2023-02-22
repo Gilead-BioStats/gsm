@@ -69,7 +69,7 @@ workflow_is_list <- function(lWorkflow) {
 }
 
 workflow_has_steps <- function(lWorkflow) {
-  status <- "steps" %in% names(lWorkflow)
+  status <- "steps" %in% names(lWorkflow) && length(lWorkflow$steps) > 0
   message <- ifelse(status, "", "'steps' object not found in lWorkflow")
 
   return(
