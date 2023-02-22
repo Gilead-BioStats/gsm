@@ -202,15 +202,6 @@ bFlowchart = FALSE
     lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
   }
 
-  # # is workflow valid?
-  # # -- must be a list
-  # # -- must have steps and name
-  # # -- within steps, must have name, inputs, output
-  # # -- steps$name must be a gsm function
-  # lWorkflowCheck <- is_workflow_valid(lAssessments)
-
-
-
   # Run Study Assessment
   lResults <- gsm::Study_Assess(
     lData = lData,
