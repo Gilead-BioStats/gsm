@@ -8,7 +8,7 @@
 #'
 #' @return `list` with TRUE/FALSE status for each workflow.
 #'
-#' @importFrom purrr map list_flatten flatten_lgl
+#' @import purrr
 #'
 #' @export
 is_workflow_valid <- function(lWorkflow) {
