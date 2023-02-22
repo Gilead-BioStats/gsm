@@ -1,12 +1,16 @@
-test_that("Query rate assessment can return a correctly assessed data frame for the identity test grouped by the site variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold.", {
+test_that("Query rate assessment can return a correctly assessed data frame for the poisson test grouped by the site variable when given subset input data from clindata and the results should be flagged correctly using a custom threshold.", {
   # gsm analysis
-  dfInput <- gsm::QueryRate_Map_Raw()
+  dfInput <- gsm::QueryRate_Map_Raw(dfs = list(
+    dfQUERY = clindata::edc_queries %>% filter(foldername == "Week 120"),
+    dfSUBJ = clindata::rawplus_dm,
+    dfDATACHG = clindata::edc_data_change_rate
+  ))
 
   test10_1 <- QueryRate_Assess(
     dfInput = dfInput,
-    strMethod = "Identity",
+    strMethod = "Poisson",
     strGroup = "Site",
-    vThreshold = c(0.005, 0.05)
+    vThreshold = c(-6, -4, 4, 6)
   )
 
   # double programming
@@ -19,15 +23,12 @@ test_that("Query rate assessment can return a correctly assessed data frame for 
     )
 
   t10_1_analyzed <- t10_1_transformed %>%
-    mutate(
-      Score = Metric
-    ) %>%
-    arrange(Score)
+    qualification_analyze_poisson()
 
   class(t10_1_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t10_1_flagged <- t10_1_analyzed %>%
-    qualification_flag_identity(threshold = c(0.005, 0.05))
+    qualification_flag_poisson(threshold = c(-6, -4, 4, 6))
 
   t10_1_summary <- t10_1_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
@@ -43,5 +44,5 @@ test_that("Query rate assessment can return a correctly assessed data frame for 
   )
 
   # compare results
-  expect_equal(test10_1$lData, t10_1)
+  expect_equal(test10_1$lData[names(test10_1$lData) != "dfBounds"], t10_1)
 })

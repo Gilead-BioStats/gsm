@@ -76,3 +76,28 @@ button.btn-show-report:hover {
 .overall-site-select option {
     color: black;
 }
+
+.flag {
+  display: inline-block;
+  border-style: solid;
+  border-color: black;
+  font-weight: bold;
+  text-align: center;
+  margin: 5px;
+  width: 20%;
+  font-family: 'Roboto', sans-serif;
+}
+
+.flag-amber {
+  background-color: #FEAA0280;
+}
+
+.flag-red {
+  background-color: #FF585980;
+}
+
+.flag-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

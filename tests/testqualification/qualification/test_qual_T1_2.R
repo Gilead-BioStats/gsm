@@ -1,6 +1,9 @@
-test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
+test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the study variable when given subset input data from clindata and the results should be flagged correctly using a custom threshold", {
   # gsm analysis
-  dfInput <- gsm::AE_Map_Raw()
+  dfInput <- gsm::AE_Map_Raw(dfs = list(
+    dfAE = clindata::rawplus_ae %>% filter(aeser_std_nsv == "Y"),
+    dfSUBJ = clindata::rawplus_dm
+  ))
 
   test1_2 <- AE_Assess(
     dfInput = dfInput,

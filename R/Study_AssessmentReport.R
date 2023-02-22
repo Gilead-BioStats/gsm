@@ -29,7 +29,10 @@
 #' @export
 
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
+
+
   allChecks <- purrr::map(names(lAssessments), function(assessment) {
+
     workflow <- lAssessments[[assessment]][["steps"]] %>%
       purrr::imap_dfr(
         ~ bind_cols(step = .x[["name"]], domain = .x[["inputs"]], temp_index = .y)
@@ -50,9 +53,11 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
 
 
     allChecks <- purrr::map(mapTheseSteps, function(step) {
-      domains <- names(step[!names(step) %in% c("mapping", "spec", "status")])
+
+      domains <- sort(names(step[!names(step) %in% c("mapping", "spec", "status")]))
 
       purrr::map(domains, function(domain) {
+
         status <- step[[domain]][["status"]]
 
         df <- step[[domain]][["tests_if"]] %>%

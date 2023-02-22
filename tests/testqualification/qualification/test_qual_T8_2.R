@@ -1,4 +1,4 @@
-test_that("Data entry assessment can return a correctly assessed data frame for the identity test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly.", {
+test_that("Data entry assessment can return a correctly assessed data frame for the fisher test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly.", {
   # gsm analysis
   dfInput <- gsm::DataEntry_Map_Raw(dfs = list(
     dfDATAENT = clindata::edc_data_entry_lag %>% filter(foldername == "Week 120"),
@@ -7,7 +7,7 @@ test_that("Data entry assessment can return a correctly assessed data frame for 
 
   test8_2 <- DataEntry_Assess(
     dfInput = dfInput,
-    strMethod = "Identity",
+    strMethod = "Fisher",
     strGroup = "CustomGroup"
   )
 
@@ -22,15 +22,12 @@ test_that("Data entry assessment can return a correctly assessed data frame for 
     )
 
   t8_2_analyzed <- t8_2_transformed %>%
-    mutate(
-      Score = Metric
-    ) %>%
-    arrange(Score)
+    qualification_analyze_fisher()
 
   class(t8_2_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t8_2_flagged <- t8_2_analyzed %>%
-    qualification_flag_identity()
+    qualification_flag_fisher()
 
   t8_2_summary <- t8_2_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
