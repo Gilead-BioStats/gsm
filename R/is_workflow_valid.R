@@ -82,7 +82,7 @@ steps_are_valid <- function(lWorkflow) {
 
   check <- purrr::map(lWorkflow$steps, function(step) {
 
-      status_function_is_valid <- step$name %in% getNamespaceExports("gsm")
+      status_function_is_valid <- exists('name', step) && step$name %in% getNamespaceExports("gsm")
       status_input_is_valid <- exists("inputs", where = step)
       status_output_is_valid <- exists("output", where = step)
 
