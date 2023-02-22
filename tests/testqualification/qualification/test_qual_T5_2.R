@@ -1,6 +1,11 @@
-test_that("Disposition assessment can return a correctly assessed data frame for the fisher test grouped by a custom variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
+test_that("Disposition assessment can return a correctly assessed data frame for the fisher test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly using a custom threshold", {
   # gsm analysis
-  dfInput <- gsm::Disp_Map_Raw()
+  dfInput <- gsm::Disp_Map_Raw(dfs = list(
+    dfSUBJ = clindata::rawplus_dm,
+    dfSTUDCOMP = clindata::rawplus_studcomp %>% filter(compreas_std_nsv == "ID"),
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename ==
+                                                         "Blinded Study Drug Completion")
+  ))
 
   test5_2 <- Disp_Assess(
     dfInput = dfInput,
