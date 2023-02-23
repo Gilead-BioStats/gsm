@@ -1,4 +1,4 @@
-test_that("A subset of Raw+ study treatment disposition data can be mapped correctly to create an analysis-ready input dataset.", {
+test_that("A subset of Raw+ Study Treatment Disposition data can be mapped correctly to create an analysis-ready input dataset.", {
   ########### gsm mapping ###########
   subset <- FilterData(
     dfInput = clindata::rawplus_sdrgcomp,

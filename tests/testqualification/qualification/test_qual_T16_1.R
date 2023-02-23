@@ -1,4 +1,4 @@
-test_that("Raw+ PD data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and PD data with one record per subject, omitting subjects with zero days on study.", {
+test_that("Raw+ Protocol Deviation data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and Protocol Deviation data with one record per subject, omitting subjects with zero days on study.", {
 
 
   ########### gsm mapping ###########

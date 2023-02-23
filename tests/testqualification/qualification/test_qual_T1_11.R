@@ -1,4 +1,4 @@
-test_that("AE assessment can return a correctly assessed data frame for the identity test grouped by the site variable when given correct input data and a site with low enrollment from safetyData, from safetyData and the results should be flagged correctly.", {
+test_that("Given appropriate Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Site variable using the Identity method and correctly assigns the Flag variable as NA for sites with low enrollment.", {
   # gsm analysis
   dfInput <- gsm::AE_Map_Raw()
 

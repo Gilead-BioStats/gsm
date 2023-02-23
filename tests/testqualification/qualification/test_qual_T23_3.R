@@ -1,4 +1,4 @@
-test_that("PD assessment can return a correctly assessed data frame for the poisson test grouped by the study variable and the results should be flagged correctly", {
+test_that("Given appropriate Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by the Study variable using the Poisson method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw_Binary()
 

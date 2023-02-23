@@ -1,4 +1,4 @@
-test_that("Raw+ lab data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the number of abnormal lab values and total number of lab values reported per subject.", {
+test_that("Raw+ Labs data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the number of abnormal lab values and total number of lab values reported per subject.", {
   ########### gsm mapping ###########
   observed <- gsm::LB_Map_Raw()
 

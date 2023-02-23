@@ -1,4 +1,4 @@
-test_that("Labs assessment can return a correctly assessed data frame for the normal approximation test grouped by the site variable when given correct input data and a site with low enrollment from clindata, and the results should be flagged correctly", {
+test_that("Given appropriate Labs data, the assessment function correctly performs a Labs Assessment grouped by the Site variable using the Normal Approximation method and correctly assigns the Flag variable as NA for sites with low enrollment.", {
   # gsm analysis
   dfInput <- gsm::LB_Map_Raw()
 

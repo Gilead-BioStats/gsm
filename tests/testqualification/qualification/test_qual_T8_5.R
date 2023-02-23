@@ -1,4 +1,4 @@
-test_that("Data entry assessment can return a correctly assessed data frame for the identity test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly.", {
+test_that("Given an appropriate subset of Data Entry Lag data, the assessment function correctly performs a Data Entry Lag Assessment grouped by a custom variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::DataEntry_Map_Raw(dfs = list(
     dfDATAENT = clindata::edc_data_entry_lag %>% filter(foldername == "Week 120"),

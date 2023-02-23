@@ -1,4 +1,4 @@
-test_that("Raw+ PD data can be mapped correctly to create an analysis-ready input dataset that has all required columns in the default Raw+ mapping specifications.", {
+test_that("Raw+ Protocol Deviation data can be mapped correctly to create an analysis-ready input dataset that has all required columns in the default Raw+ mapping specifications.", {
 
 
   ########### gsm mapping ###########

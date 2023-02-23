@@ -1,4 +1,4 @@
-test_that("AE assessment can return a correctly assessed data frame for the identity test grouped by the study variable when given subset input data from clindata and the results should be flagged correctly using a custom threshold.", {
+test_that("Given an appropriate subset of Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Study variable using the Identity method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
   dfInput <- gsm::AE_Map_Raw(dfs = list(
     dfAE = clindata::rawplus_ae %>% filter(aeser_std_nsv == "Y"),

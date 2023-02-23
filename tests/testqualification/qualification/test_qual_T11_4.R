@@ -1,4 +1,4 @@
-test_that("A subset of Raw+ AE data can be mapped correctly to create an analysis-ready input dataset.", {
+test_that("A subset of Raw+ Adverse Event data can be mapped correctly to create an analysis-ready input dataset.", {
   ########### gsm mapping ###########
   subset <- FilterData(
     dfInput = clindata::rawplus_ae,

@@ -1,4 +1,4 @@
-test_that("PD assessment can return a correctly assessed data frame for the identity test grouped by the site variable and the results should be flagged correctly", {
+test_that("Given appropriate Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by the Site variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw_Rate()
 
