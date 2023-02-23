@@ -2,7 +2,7 @@
 % Please edit documentation in R/AE_Assess.R
 \name{AE_Assess}
 \alias{AE_Assess}
-\title{Adverse Event Assessment}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 AE_Assess(
   dfInput,
@@ -69,6 +69,8 @@ when \code{strMethod == "NormalApprox"} or \code{strMethod == "Poisson"}. \code{
 Evaluates adverse event (AE) rates to identify sites that may be over- or under-reporting AEs.
 }
 \details{
+Adverse Event Assessment
+
 The AE Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }

@@ -35,6 +35,11 @@ assessment <- params$assessment[
 
 overview_table <- Overview_Table(assessment) 
 
+overview_raw_table <- Overview_Table(assessment, bInteractive = FALSE)
+
+red_kris <- overview_raw_table %>% pull(`Red KRIs`) %>% sum()
+amber_kris <- overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
+
 # turn into a function
 summary_table <- map(assessment, function(kri) {
   if (kri$bStatus) {
@@ -76,6 +81,10 @@ title: "`r study_id` Assessment Overview"
 ---
 
 ## Study Overview
+<div class="flag-container">
+  <div class="flag flag-red">`r red_kris` Red KRIs</div>
+  <div class="flag flag-amber">`r amber_kris` Amber KRIs</div>
+</div>
 
 <div class="gsm-overview-table">
 ```{r echo=FALSE, warning=FALSE}

@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Adverse Event Assessment - ADaM Mapping
 #'
 #' @description

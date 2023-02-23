@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Check Snapshot Inputs
 #'
 #' @description

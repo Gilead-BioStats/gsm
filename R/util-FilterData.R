@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Subset a data frame
 #'
 #' @description

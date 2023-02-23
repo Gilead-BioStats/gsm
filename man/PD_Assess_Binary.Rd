@@ -2,7 +2,7 @@
 % Please edit documentation in R/PD_Assess_Binary.R
 \name{PD_Assess_Binary}
 \alias{PD_Assess_Binary}
-\title{Protocol Deviation Assessment}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 PD_Assess_Binary(
   dfInput,
@@ -71,6 +71,8 @@ of the column. Default: package-defined Protocol Deviation Assessment mapping.}
 Evaluates protocol deviation (PD) rates to identify sites that may be over- or under-reporting PDs.
 }
 \details{
+Protocol Deviation Assessment
+
 The PD Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }

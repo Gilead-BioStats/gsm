@@ -2,7 +2,7 @@
 % Please edit documentation in R/Visualize_Scatter.R
 \name{Visualize_Scatter}
 \alias{Visualize_Scatter}
-\title{Group-level visualization of group-level results}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Visualize_Scatter(
   dfSummary,

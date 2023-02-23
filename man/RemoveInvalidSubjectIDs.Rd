@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-RemoveInvalidSubjectIDs.R
 \name{RemoveInvalidSubjectIDs}
 \alias{RemoveInvalidSubjectIDs}
-\title{Remove invalid Subject IDs}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 RemoveInvalidSubjectIDs(
   df,
@@ -28,6 +28,9 @@ RemoveInvalidSubjectIDs(
 }
 \description{
 \code{RemoveInvalidSubjectIDs} is a helper function that allows a user to specify a character vector of \code{SubjectID}s to remove from input data.
+}
+\details{
+Remove invalid Subject IDs
 }
 \examples{
 RemoveInvalidSubjectIDs(

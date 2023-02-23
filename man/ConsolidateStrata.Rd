@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-ConsolidateStrata.R
 \name{ConsolidateStrata}
 \alias{ConsolidateStrata}
-\title{Consolidate stratified assessment outputs}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 ConsolidateStrata(lOutput, lStratifiedOutput, bQuiet = TRUE)
 }
@@ -21,6 +21,9 @@ ConsolidateStrata(lOutput, lStratifiedOutput, bQuiet = TRUE)
 \description{
 Consolidates multiple stratified assessment outputs by stacking the data frames returned by an
 \verb{*_Assess} function and generating a paneled data visualization.
+}
+\details{
+Consolidate stratified assessment outputs
 }
 \examples{
 lData <- list(

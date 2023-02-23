@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Funnel Plot Analysis with Normal Approximation - Predicted Boundaries
 #'
 #' @details

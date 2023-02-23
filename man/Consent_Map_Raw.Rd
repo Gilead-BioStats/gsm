@@ -2,7 +2,7 @@
 % Please edit documentation in R/Consent_Map_Raw.R
 \name{Consent_Map_Raw}
 \alias{Consent_Map_Raw}
-\title{Consent Assessment - Raw Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Consent_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfCONSENT = clindata::rawplus_consent),
@@ -39,7 +39,7 @@ Convert raw informed consent data, typically processed case report from data, to
 input data to \code{\link[=Consent_Assess]{Consent_Assess()}}.
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+Consent Assessment - Raw Mapping
 
 \code{Consent_Map_Raw} combines consent data with subject-level data to create formatted input data
 to \code{\link[=Consent_Assess]{Consent_Assess()}}. This function creates an input dataset for the Consent Assessment

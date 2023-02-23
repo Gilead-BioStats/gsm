@@ -1,4 +1,6 @@
-#' {experimental} Update parameters for workflow
+#' `r lifecycle::badge("experimental")`
+#'
+#' Update parameters for workflow
 #'
 #' @param lWorkflow `list` Object returned by `MakeWorkflowList()`
 #' @param dfConfig `data.frame` Configuration parameters data.frame; `clindata::config_param`

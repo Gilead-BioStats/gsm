@@ -2,7 +2,7 @@
 % Please edit documentation in R/Visualize_Score.R
 \name{Visualize_Score}
 \alias{Visualize_Score}
-\title{Group-level visualization of scores.}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Visualize_Score(
   dfSummary,

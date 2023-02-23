@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Check gsm_version in clindata metadata
 #'
 #' @param config `list` Named list of metadata to check from the `{clindata}` package.

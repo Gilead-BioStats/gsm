@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Load assessments from a package/directory
 #'
 #' @details

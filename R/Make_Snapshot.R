@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Make Snapshot - create and export Gizmo data model.
 #'
 #' @description

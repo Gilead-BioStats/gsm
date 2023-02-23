@@ -2,7 +2,7 @@
 % Please edit documentation in R/QueryAge_Map_Raw.R
 \name{QueryAge_Map_Raw}
 \alias{QueryAge_Map_Raw}
-\title{Query Age - Raw Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 QueryAge_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries),
@@ -38,6 +38,8 @@ of the column.}
 Convert raw query data to formatted input data to \code{\link[=QueryAge_Assess]{QueryAge_Assess()}}.
 }
 \details{
+Query Age - Raw Mapping
+
 \code{QueryAge_Map_Raw} combines query data with data points data and subject-level data to create
 formatted input data to \code{\link[=QueryAge_Assess]{QueryAge_Assess()}}. This function creates an input dataset for the Query Age Assessment
 (\code{\link[=QueryAge_Assess]{QueryAge_Assess()}}) by binding subject-level query counts (derived from \code{dfQUERY}) to subject-level

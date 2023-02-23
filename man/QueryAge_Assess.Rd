@@ -2,7 +2,7 @@
 % Please edit documentation in R/QueryAge_Assess.R
 \name{QueryAge_Assess}
 \alias{QueryAge_Assess}
-\title{Query Age Assessment}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 QueryAge_Assess(
   dfInput,
@@ -67,6 +67,8 @@ of the column. Default: package-defined Labs Assessment mapping.}
 Evaluates rate of reported Query Age >30 days.
 }
 \details{
+Query Age Assessment
+
 The Query Age Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }

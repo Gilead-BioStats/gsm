@@ -2,7 +2,7 @@
 % Please edit documentation in R/Transform_Count.R
 \name{Transform_Count}
 \alias{Transform_Count}
-\title{Transform Count}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Transform_Count(dfInput, strCountCol, strGroupCol = "SiteID")
 }
@@ -17,9 +17,11 @@ Transform_Count(dfInput, strCountCol, strGroupCol = "SiteID")
 \code{data.frame} with one row per site with columns \code{GroupID}, \code{TotalCount}, and \code{Metric.}
 }
 \description{
-Convert from input data format to needed input format to derive KRI for an Assessment. Calculate site-level count.
+Transform Count
 }
 \details{
+Convert from input data format to needed input format to derive KRI for an Assessment. Calculate site-level count.
+
 This function transforms data to prepare it for the analysis step. It is currently only sourced for the Consent and IE Assessments.
 }
 \section{Data Specification}{

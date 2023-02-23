@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Lab Abnormality Assessment - Raw Mapping
 #'
 #' @description

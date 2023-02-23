@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Data Entry Lag Assessment
 #'
 #' @description

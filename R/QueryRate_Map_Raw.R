@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Query Rate - Raw Mapping
 #'
 #' @description
