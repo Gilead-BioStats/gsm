@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_Fisher.R
 \name{Analyze_Fisher}
 \alias{Analyze_Fisher}
-\title{Fisher's Exact Test Analysis}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Analyze_Fisher(dfTransformed, strOutcome = "Numerator", bQuiet = TRUE)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Visualize_Workflow.R
 \name{Visualize_Workflow}
 \alias{Visualize_Workflow}
-\title{Flowchart visualization of data pipeline steps from filtering to summary data for an assessment workflow.}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Visualize_Workflow(lAssessments)
 }

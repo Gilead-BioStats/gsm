@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Flowchart visualization of data pipeline steps from filtering to summary data for an assessment workflow.
 #'
 #' @param lAssessments `list` A list of assessment-specific metadata.

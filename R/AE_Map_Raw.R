@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Adverse Event Assessment - Raw Mapping
 #'
 #' @description

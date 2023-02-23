@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Make dfConfig for use in {rbm-viz}
 #'
 #' @description

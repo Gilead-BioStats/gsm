@@ -2,7 +2,7 @@
 % Please edit documentation in R/scatterPlot.R
 \name{scatterPlot}
 \alias{scatterPlot}
-\title{KRI Scatter Plot}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 scatterPlot(
   results,
@@ -65,6 +65,9 @@ scatterPlot(
 \description{
 A widget that displays a group-level scatter plot based on the output of a KRI analysis.
 Scatter plots are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an \code{htmlwidget} ported from the \code{rbm-viz} JavaScript library.
+}
+\details{
+KRI Scatter Plot
 }
 \examples{
 ae <- AE_Map_Raw()

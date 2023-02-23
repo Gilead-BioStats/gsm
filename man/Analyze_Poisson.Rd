@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_Poisson.R
 \name{Analyze_Poisson}
 \alias{Analyze_Poisson}
-\title{Poisson Analysis - Site Residuals}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Analyze_Poisson(dfTransformed, bQuiet = TRUE)
 }

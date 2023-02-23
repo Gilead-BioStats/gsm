@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_Identity.R
 \name{Analyze_Identity}
 \alias{Analyze_Identity}
-\title{Analyze Identity}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Analyze_Identity(dfTransformed, strValueCol = "Metric", bQuiet = TRUE)
 }

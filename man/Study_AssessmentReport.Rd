@@ -2,7 +2,7 @@
 % Please edit documentation in R/Study_AssessmentReport.R
 \name{Study_AssessmentReport}
 \alias{Study_AssessmentReport}
-\title{{experimental} Make Summary of 1 or more assessment Data checks}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Study_AssessmentReport(lAssessments, bViewReport = FALSE)
 }
@@ -15,7 +15,7 @@ Study_AssessmentReport(lAssessments, bViewReport = FALSE)
 \code{list} containing a \code{data.frame} summarizing the checks \code{dfSummary} and a \code{data.frame} listing all checks (\code{dfAllChecks}).
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+Make Summary of 1 or more assessment Data checks
 }
 \details{
 Make overview table with one row per assessment and one column per site showing flagged assessments.

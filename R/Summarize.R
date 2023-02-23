@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Make Summary Data Frame
 #'
 #' Create a concise summary of assessment results that is easy to aggregate across assessments

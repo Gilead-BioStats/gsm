@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_Poisson_PredictBounds.R
 \name{Analyze_Poisson_PredictBounds}
 \alias{Analyze_Poisson_PredictBounds}
-\title{Poisson Analysis - Predicted Boundaries}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Analyze_Poisson_PredictBounds(
   dfTransformed,

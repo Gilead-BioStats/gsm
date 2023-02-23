@@ -2,7 +2,7 @@
 % Please edit documentation in R/Get_Enrolled.R
 \name{Get_Enrolled}
 \alias{Get_Enrolled}
-\title{{experimental} Get_Enrolled Calculated enrolled participants or sites.}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Get_Enrolled(dfSUBJ, dfConfig, lMapping, strUnit, strBy)
 }
@@ -22,6 +22,9 @@ Get_Enrolled(dfSUBJ, dfConfig, lMapping, strUnit, strBy)
 }
 \description{
 Derive number of enrolled participants or sites by a given denominator (study or site).
+}
+\details{
+Get_Enrolled Calculated enrolled participants or sites.
 }
 \examples{
 enrolled <- Get_Enrolled(

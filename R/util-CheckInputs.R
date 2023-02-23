@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Check mapping inputs.
 #'
 #' @description

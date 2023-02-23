@@ -2,7 +2,7 @@
 % Please edit documentation in R/QueryRate_Map_Raw.R
 \name{QueryRate_Map_Raw}
 \alias{QueryRate_Map_Raw}
-\title{Query Rate - Raw Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 QueryRate_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries, dfDATACHG =
@@ -40,6 +40,8 @@ of the column.}
 Convert raw query data to formatted input data to \code{\link[=QueryRate_Assess]{QueryRate_Assess()}}.
 }
 \details{
+Query Rate - Raw Mapping
+
 \code{QueryRate_Map_Raw} combines query data with data points data and subject-level data to create
 formatted input data to \code{\link[=QueryRate_Assess]{QueryRate_Assess()}}. This function creates an input dataset for the Query Rate Assessment
 (\code{\link[=QueryRate_Assess]{QueryRate_Assess()}}) by binding subject-level query counts (derived from \code{dfQUERY}) and data point counts

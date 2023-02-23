@@ -1,4 +1,6 @@
-#' {experimental} Parse warnings from the result of Study_Assess.
+#' `r lifecycle::badge("experimental")`
+#'
+#' Parse warnings from the result of Study_Assess.
 #'
 #' @description
 #' `ParseWarnings` is used inside of `Make_Snapshot()` to summarize any issues with data needed to run a KRI or QTL. If there are any warnings for any

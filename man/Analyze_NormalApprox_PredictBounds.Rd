@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_NormalApprox_PredictBounds.R
 \name{Analyze_NormalApprox_PredictBounds}
 \alias{Analyze_NormalApprox_PredictBounds}
-\title{Funnel Plot Analysis with Normal Approximation - Predicted Boundaries}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Analyze_NormalApprox_PredictBounds(
   dfTransformed,

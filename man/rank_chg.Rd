@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-rank_chg.R
 \name{rank_chg}
 \alias{rank_chg}
-\title{Report Helper Functions}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 rank_chg(status)
 }
@@ -13,4 +13,7 @@ rank_chg(status)
 \code{rank_chg} - inserts icons for status in {gt} table.
 
 Adopted from https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/.
+}
+\details{
+Report Helper Functions
 }

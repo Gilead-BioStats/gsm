@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-UpdateGSMVersion.R
 \name{UpdateGSMVersion}
 \alias{UpdateGSMVersion}
-\title{Update GSM Version}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 UpdateGSMVersion(version = NULL)
 }
@@ -14,6 +14,9 @@ Updated metadata. Currently \link{meta_param} and \link{meta_workflow}
 }
 \description{
 Automatically updates metadata that relies on the current \code{{gsm}} version.
+}
+\details{
+Update GSM Version
 }
 \examples{
 \dontrun{

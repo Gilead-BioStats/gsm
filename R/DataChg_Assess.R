@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Data Change Rate Assessment
 #'
 #' @description

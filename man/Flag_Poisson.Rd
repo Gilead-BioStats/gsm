@@ -2,7 +2,7 @@
 % Please edit documentation in R/Flag_Poisson.R
 \name{Flag_Poisson}
 \alias{Flag_Poisson}
-\title{Flag_Poisson}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Flag_Poisson(dfAnalyzed, vThreshold = NULL)
 }
@@ -15,9 +15,11 @@ Flag_Poisson(dfAnalyzed, vThreshold = NULL)
 \code{data.frame} with one row per site with columns: \code{GroupID}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{PredictedCount}, \code{Flag}
 }
 \description{
-Add columns flagging sites that represent possible statistical outliers when the Poisson statistical method is used.
+Flag_Poisson
 }
 \details{
+Add columns flagging sites that represent possible statistical outliers when the Poisson statistical method is used.
+
 This function flags sites based on the Poisson analysis result as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
 }
 \section{Data Specification}{
