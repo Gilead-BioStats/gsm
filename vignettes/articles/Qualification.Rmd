@@ -1,6 +1,6 @@
 ---
-title: "Qualification of {gsm}"
-date: "`r Sys.Date()`"
+title: "Qualification Report for the {gsm} R Package (v1.5)"
+date: "Report Run Date: `r Sys.Date()`"
 output: 
   pdf_document:
     toc: true
@@ -37,6 +37,71 @@ source(here::here("inst", "qualification", "specs.R"))
 source(here::here("inst", "qualification", "test_cases.R"))
 spec_df <- import_specs()
 ```
+
+# Introduction
+
+What is ```gsm```? How does it support RBQM?
+
+Blah blah...
+
+# Test Results: Overview
+
+```{r SummariseResults}
+spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R")
+spec_list <- spec_list[-1]
+spec_list <- paste0("~/gsm/tests/testqualification/qualification/", spec_list)
+
+scrape <- map_df(spec_list, function(x) {
+    test_case_report <- invisible(testthat::test_file(x, reporter = testthat::SilentReporter)[[1]])
+    tibble(name = test_case_report$file, result = test_case_report$results[[1]]$message)
+})
+
+
+
+
+
+testResultsRaw <- testthat::test_file("~/gsm/tests/testqualification/qualification/test_qual_T1_1.R", reporter = testthat::ListReporter)
+
+testResultsIndividual <- testResultsRaw %>%
+  as_tibble() %>%
+  rename(`Test Name` = test) %>%
+  group_by(file, context, `Test Name`) %>%
+  summarise(`Number of Tests` = first(nb),
+            `Number Passed` = sum(passed),
+            `Number Failed` = sum(failed),
+            `Number Warnings` = sum(warning),
+            `Number Errors` = sum(as.numeric(error)),
+            `Number Skipped` = sum(as.numeric(skipped)),
+            `User Runtime (sec)` = user,
+            `System Runtime (sec)` = system,
+            `Real Runtime (sec)` = real,
+            .groups = "drop")
+
+testResultsNested <- testResultsIndividual %>%
+  nest_by(file, context, .key = "Results") %>%
+  nest_by(file, .key = "Categories")
+
+SummariseResults <- function(res) {
+  res %>% 
+    summarise_if(is.numeric, sum) %>% 
+    knitr::kable(align = rep("c",9))
+}
+
+SummariseResults(testResultsIndividual)
+```
+
+# Test Results: Detailed
+
+Loop through qual_map
+Add function description to specs file
+
+
+
+
+
+
+
+
 
 # Testing Environment
 
