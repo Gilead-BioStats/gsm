@@ -1,4 +1,4 @@
-test_that("Given appropriate Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Site variable using the Normal Approximation method and correctly assigns the Flag variable as NA for sites with low enrollment.", {
+test_that("Given appropriate Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Site variable using the Normal Approximation method and correctly assigns the Flag variable values when given a custom threshold, and Flag variable values are set to NA for sites with low enrollment.", {
 
   dfInput <- gsm::AE_Map_Raw()
 
