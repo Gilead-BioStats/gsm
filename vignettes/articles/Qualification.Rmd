@@ -1,5 +1,5 @@
 ---
-title: "Qualification Report for the {gsm} R Package (v1.5)"
+title: "Qualification Report for the {gsm} R Package"
 date: "Report Run Date: `r Sys.Date()`"
 output: 
   pdf_document:
@@ -40,41 +40,70 @@ spec_df <- import_specs()
 
 # Introduction
 
-What is ```gsm```? How does it support RBQM?
+Risk-Based Quality Monitoring (RBQM) is a proactive approach to clinical trial monitoring that focuses on identifying and addressing the most critical risks to the integrity of study data and patient safety. This approach aims to ensure that study data are accurate, reliable, and credible while optimizing the use of resources and minimizing the burden on study sites.
 
-Blah blah...
+The `{gsm}` R package supports RBQM by performing risk assessments primarily focused on detecting differences in quality at the site level. This approach is intended to detect potential issues related to critical data or process(es) across the major risk categories of safety, efficacy, disposition, treatment, and general quality. Each category consists of one or more risk assessment(s). Each risk assessment analyzes the data to flag sites with potential outliers and provides a visualization to help the user understand the issue.
+
+# Scope
+
+Qualification testing ensures that core functions execute as expected on a system-wide scale. Qualification includes executing various functional, performance, and usability testing. Qualification tests are designed to provide developers with a repeatable process that is easy to update and document. This document summarizes the qualification testing performed on `{gsm}` functions essential to the analytics workflow.
+
+# Process Overview
+
+Each essential `{gsm}` workflow function is independently qualified using specifications and test cases compiled in this report. Details are provided below.
+
+## Specifications
+
+Specifications capture the most critical use cases for a given function. Each function must have at least one (1) specification, and each specification must have at least one (1) associated test case. Multiple specifications may exist for a function, and multiple test cases may exist for a specification.
+
+Each specification includes the following components:
+
+-   Description: outlines the use case for the specification
+
+-   Risk Assessment
+
+    -   Risk Level: assigned a value of "Low", "Medium", or "High", corresponding to the risk associated with the specification failing
+
+    -   Risk Impact: assigned a value of "Low", "Medium", or "High", corresponding to the severity of the impact associated with the specification failing
+
+-   Test Cases: lists measurable test cases associated with the specification
+
+## Test Cases
+
+Test cases translate specifications into testable scripts to confirm that the package functions meet the established requirements. Test cases represent how a user may utilize the function to help identify code gaps and support testing automation.
+
+Test cases for `{gsm}` are written using the standard `testthat` workflow. A single test script is saved for each test case and is named following the convention `test_qual_{TestID}.R`, where `TestID` is the test case number. Test code within these scripts is written clearly and concisely to facilitate quick execution and interpretability. Note that a single test case may be associated with multiple specifications.
 
 # Test Results: Overview
 
 ```{r SummariseResults}
 spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R")
 spec_list <- spec_list[-1]
+spec_list <- spec_list[1:5]
 spec_list <- paste0("~/gsm/tests/testqualification/qualification/", spec_list)
 
 scrape <- map_df(spec_list, function(x) {
-    test_case_report <- invisible(testthat::test_file(x, reporter = testthat::SilentReporter)[[1]])
-    tibble(name = test_case_report$file, result = test_case_report$results[[1]]$message)
-})
+    testResultsRaw <- invisible(testthat::test_file(x, reporter = testthat::SilentReporter)[[1]])
+    tibble(name = testResultsRaw$file, 
+           result = testResultsRaw$results[[1]]$message, 
+           test = testResultsRaw$results[[1]]$test)
+}) %>%
+  mutate(Tests = gsub("test_qual_", "", name),
+         Tests = gsub(".R", "", Tests))
 
-
-
-
-
-testResultsRaw <- testthat::test_file("~/gsm/tests/testqualification/qualification/test_qual_T1_1.R", reporter = testthat::ListReporter)
-
-testResultsIndividual <- testResultsRaw %>%
+testResultsIndividual <- scrape %>%
   as_tibble() %>%
   rename(`Test Name` = test) %>%
-  group_by(file, context, `Test Name`) %>%
-  summarise(`Number of Tests` = first(nb),
+  # group_by(file, context, `Test Name`) %>%
+  summarise(`Number of Tests` = length(unique(name)),
             `Number Passed` = sum(passed),
             `Number Failed` = sum(failed),
             `Number Warnings` = sum(warning),
             `Number Errors` = sum(as.numeric(error)),
             `Number Skipped` = sum(as.numeric(skipped)),
-            `User Runtime (sec)` = user,
-            `System Runtime (sec)` = system,
-            `Real Runtime (sec)` = real,
+            # `User Runtime (sec)` = user,
+            # `System Runtime (sec)` = system,
+            # `Real Runtime (sec)` = real,
             .groups = "drop")
 
 testResultsNested <- testResultsIndividual %>%
@@ -92,27 +121,56 @@ SummariseResults(testResultsIndividual)
 
 # Test Results: Detailed
 
-Loop through qual_map
-Add function description to specs file
+```{r}
+qual_specs_orig <- read.csv(system.file("qualification", "qualification_specs.csv", package = "gsm"))
+qual_specs <- qual_specs_orig %>%
+  mutate(SpecID = paste0("S", Spec, "_", Test.ID)) %>%
+  select(SpecID, Tests) %>%
+  tidyr::separate_rows("Tests", sep = ",") %>%
+  mutate(Tests = trimws(Tests)) %>%
+  split(.$Tests) %>%
+  purrr::map(function(x){
+    x %>%
+      group_by(Tests) %>%
+      mutate(Specs = paste(SpecID, collapse = ", ")) %>%
+      select(-SpecID) %>%
+      distinct()
+  }) %>%
+  list_rbind()
+  
+```
 
+#*************************Add function description to specs file************************************
 
+# Unit Tests
 
+## Unit Testing Overview
 
+Unit testing was performed in addition to qualification testing to help ensure that individual pieces of code within the R package function correctly and produce the expected results. By testing individual units of code in isolation, developers can identify and fix issues early in the development process before more significant and scaled problems arise.
 
+## Unit Test Coverage
 
+The table below summarizes unit test coverage of each `{gsm}` function. This metric quantifies the extent of unit testing. The closer this measure is to 100%, the more unit testing that function has.
 
+The functions that have an asterisk (*) are qualified.
 
+```{r covr}
+pkg_cov <- covr::coverage_to_list(covr::package_coverage(here::here()))
+pandoc.p(paste(paste0(names(pkg_cov[[1]]), " = ", pkg_cov[[1]], "%"), collapse = "\n\n"))
+```
 
-# Testing Environment
+# Qualification Testing Environment
+
+## Session Information
 
 ```{r sessioninfo}
 pander::pander(sessionInfo())
 pander::pandoc.p('\\pagebreak')
 ```
 
-# ```gsm``` Imports
+# Package List
 
-This section outlines the ```riskmetric``` scores for all of the R packages which ```gsm``` imports for use within the package.  When interpreting the pkg_score, the scale goes from 1 into the negatives. The farther a number is from 1 the better the score is for the package.
+The table below utilizes the `riskmetric` package, which quantifies the robustness of an R package. The `pkg_score` presented is a corrected measure of the volume of downloads by users in the last year. The more times a package has been downloaded, the more extensive the user testing and the greater the chance of identifying and logging a bug. When interpreting the `pkg_score`, the scale goes from 0 to 1. The closer the `pkg_score` is to 1, the better the package score is considered.
 
 ```{r riskmetric, warning = FALSE}
 import_risk <- strsplit(devtools::as.package(here::here())$imports, ",\n")[[1]] %>% 
@@ -124,51 +182,7 @@ import_risk <- strsplit(devtools::as.package(here::here())$imports, ",\n")[[1]] 
 pander::pandoc.table(import_risk, style = "grid")
 ```
 
-
-# Assessments
-
-```{r create_assessment_section}
-create_assessment_section <- function(assessment, df){
-  pander::pandoc.header(paste0("Assessment ", assessment), level = 2)
-  pander::pandoc.header("Specifications", level = 3)
-  for (i in 1:nrow(df)){
-    pander::pandoc.p(
-      c(
-        pander::pandoc.p(paste0(df[i, "ID"], ": ", df[i, "Description"])),
-        pander::pandoc.indent(paste0("Risk: ", df[i, "Risk"]), 2),
-        pander::pandoc.indent(paste0("Impact: ", df[i, "Impact"]), 2),
-        pander::pandoc.indent(paste0("Tests: ", df[i, "Tests"]), 2)
-        )
-      )
-  }
-  pander::pandoc.header("Traceability Matrix", level = 3)
-  pander::pandoc.table(build_traceability_matrix(df), style = "grid")
-  pander::pandoc.header("Test Cases", level = 3)
-  pander::pandoc.table(run_all_tests(df), style = "grid")
-  pander::pandoc.p('\\pagebreak')
-}
-```
-
-```{r assessments}
-assessments <- spec_df %>% 
-  pull(Assessment) %>% 
-  unique()
-
-for (a in assessments){
-  a_df <- filter(spec_df, Assessment == a) %>%
-    select(-Assessment)
-  create_assessment_section(a, a_df)
-}
-```
-
-# Unit Tests
-
-```{r covr}
-pkg_cov <- covr::coverage_to_list(covr::package_coverage(here::here()))
-pandoc.p(paste(paste0(names(pkg_cov[[1]]), " = ", pkg_cov[[1]], "%"), collapse = "\n\n"))
-```
-
-# Pull Request Overview
+# Pull Request History
 
 ```{r prs}
 release <- gh("/repos/Gilead-BioStats/gsm/releases", .token = remotes:::github_pat())[[1]]
