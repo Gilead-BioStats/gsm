@@ -1,4 +1,4 @@
-test_that("Disposition assessment can return a correctly assessed data frame for the fisher test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly using a custom threshold", {
+test_that("Given an appropriate subset of Disposition data, the assessment function correctly performs a Disposition Assessment grouped by a custom variable using the Fisher method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
   dfInput <- gsm::Disp_Map_Raw(dfs = list(
     dfSUBJ = clindata::rawplus_dm,

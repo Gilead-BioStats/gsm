@@ -1,4 +1,4 @@
-test_that("Consent assessment can return a correctly assessed data frame grouped by a custom variable when given correct input data from clindata and the results should be flagged correctly", {
+test_that("Given appropriate Consent data, the assessment function correctly performs a Consent Assessment grouped by a custom variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- Consent_Map_Raw()
 

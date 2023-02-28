@@ -49,6 +49,7 @@ qualification_map <- function(
     mutate(Tests = trimws(Tests))
 
   ### Merge test descriptions with parent specs
+
   qualification <- left_join(spec, scrape, by = "Tests")
 
   return(qualification)

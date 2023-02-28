@@ -1,4 +1,4 @@
-test_that("Disposition assessment can return a correctly assessed data frame for the identity test grouped by a custom variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
+test_that("Given appropriate Disposition data, the assessment function correctly performs a Disposition Assessment grouped by a custom variable using the Identity method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
   dfInput <- Disp_Map_Raw()
 

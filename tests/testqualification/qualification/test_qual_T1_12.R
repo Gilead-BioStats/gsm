@@ -1,4 +1,4 @@
-test_that("AE assessment can return a correctly assessed data frame for the Normal Approximation test grouped by the site variable when given correct input data and a site with low enrollment from safetyData, and the results should be flagged correctly.", {
+test_that("Given appropriate Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Site variable using the Normal Approximation method and correctly assigns the Flag variable values when given a custom threshold, and Flag variable values are set to NA for sites with low enrollment.", {
 
   dfInput <- gsm::AE_Map_Raw()
 

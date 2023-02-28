@@ -1,8 +1,16 @@
-test_that("Raw+ PD data can be mapped correctly to create an analysis-ready input dataset that has all required columns in the default Raw+ mapping specifications.", {
+test_that("A subset of Raw+ Protocol Deviation data can be mapped correctly to create an analysis-ready input dataset.", {
 
 
   ########### gsm mapping ###########
-  observed <- gsm::PD_Map_Raw_Binary()
+  subset <- FilterData(dfInput = clindata::rawplus_protdev,
+                       strCol = "importnt",
+                       anyVal = "Y") # filtering only for important PDs
+
+  observed <- gsm::PD_Map_Raw_Binary(
+    dfs = list(
+      dfSUBJ = clindata::rawplus_dm,
+      dfPD = subset
+    ))
 
 
   ########### double programming ###########
@@ -23,6 +31,7 @@ test_that("Raw+ PD data can be mapped correctly to create an analysis-ready inpu
 
   # assign binary indicator for occurrence of PDs within each subject and remove duplicate records
   pd_raw <- pd_raw_orig %>%
+    filter(!!sym(lMapping$dfPD$strImportantCol) == lMapping$dfPD$strImportantVal) %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
     select(lMapping$dfPD$strIDCol) %>%
     mutate(Count = 1) %>%
@@ -38,10 +47,11 @@ test_that("Raw+ PD data can be mapped correctly to create an analysis-ready inpu
     mutate(Count = replace_na(Count, 0),
            Total = n()) %>%
     filter(!(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol) == 0) & !is.na(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol))) %>% # remove subjects that were not treated (i.e., had 0 or NA days of treatment)
+    arrange(!!sym(lMapping$dfSUBJ$strIDCol)) %>%
     select(all_of(cols))
 
 
   ########### testing ###########
-  expect_equal(colnames(observed), colnames(expected))
+  expect_equal(as.data.frame(observed), as.data.frame(expected))
 
 })

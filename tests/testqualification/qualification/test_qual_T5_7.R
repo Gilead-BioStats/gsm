@@ -1,4 +1,4 @@
-test_that("Disposition assessment can return a correctly assessed data frame for the normal approximation test grouped by the study variable when given subset input data from clindata and the results should be flagged correctly", {
+test_that("Given an appropriate subset of Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Study variable using the Normal Approximation method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::Disp_Map_Raw(dfs = list(
     dfSUBJ = clindata::rawplus_dm,

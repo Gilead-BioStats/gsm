@@ -1,4 +1,4 @@
-test_that("Raw+ PD data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the number of PDs and days on study per subject.", {
+test_that("Raw+ Protocol Deviation data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the number of Protocol Deviations and days on study per subject.", {
 
 
   ########### gsm mapping ###########

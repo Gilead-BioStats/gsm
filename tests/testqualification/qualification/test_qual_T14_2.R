@@ -1,4 +1,4 @@
-test_that("Raw+ study treatment disposition data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and study treatment disposition data with one record per subject.", {
+test_that("Raw+ Study Treatment Disposition data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and Study Treatment Disposition data with one record per subject.", {
   ########### gsm mapping ###########
   observed <- gsm::Disp_Map_Raw(strContext = "Treatment")
 
