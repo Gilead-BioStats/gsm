@@ -64,6 +64,7 @@ reference:
      desc: Utility functions for use within the Data Pipeline
    - contents:
       - is_mapping_valid
+      - is_workflow_valid
       - MergeSubjects
       - MakeWorkflowList
       - ConsolidateStrata

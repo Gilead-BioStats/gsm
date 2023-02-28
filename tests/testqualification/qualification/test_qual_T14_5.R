@@ -1,4 +1,4 @@
-test_that("Raw+ study disposition data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the number of subjects who discontinued from the study.", {
+test_that("Raw+ Study Disposition data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the number of subjects who discontinued from the study.", {
   ########### gsm mapping ###########
   observed <- gsm::Disp_Map_Raw(strContext = "Study")
 

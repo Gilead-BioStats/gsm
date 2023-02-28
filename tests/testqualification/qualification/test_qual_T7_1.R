@@ -1,4 +1,4 @@
-test_that("Data change assessment can return a correctly assessed data frame for the fisher test grouped by the site variable when given subset input data from clindata and the results should be flagged correctly using a custom threshold.", {
+test_that("Given an appropriate subset of Data Change Rate data, the assessment function correctly performs a Data Change Rate Assessment grouped by the Site variable using the Fisher method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
   dfInput <- gsm::DataChg_Map_Raw(dfs = list(
     dfDATACHG = clindata::edc_data_change_rate %>% filter(foldername == "Week 120"),

@@ -1,4 +1,4 @@
-test_that("Query rate assessment can return a correctly assessed data frame for the identity test grouped by the country variable when given correct input data from clindata and the results should be flagged correctly.", {
+test_that("Given appropriate Query Rate data, the assessment function correctly performs a Query Rate Assessment grouped by the Country variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::QueryRate_Map_Raw()
 

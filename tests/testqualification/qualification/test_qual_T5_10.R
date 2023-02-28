@@ -1,4 +1,4 @@
-test_that("Disposition assessment can return a correctly assessed data frame for the identity test grouped by the site variable when given correct input data and a site with low enrollment from clindata, and the results should be flagged correctly", {
+test_that("Given appropriate Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Site variable using the Identity method and correctly assigns the Flag variable as NA for sites with low enrollment.", {
   # gsm analysis
   dfInput <- Disp_Map_Raw()
 

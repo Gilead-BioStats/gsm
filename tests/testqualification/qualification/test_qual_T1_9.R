@@ -1,4 +1,4 @@
-test_that("AE assessment can return a correctly assessed data frame for the Normal Approximation test grouped by a custom variable when given correct input data from clindata and the results should be flagged correctly.", {
+test_that("Given appropriate Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by a custom variable using the Normal Approximation method and correctly assigns Flag variable values.", {
 
   dfInput <- gsm::AE_Map_Raw()
 
