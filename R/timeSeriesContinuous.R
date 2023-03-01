@@ -28,16 +28,16 @@ timeSeriesContinuous <- function(kri,
 
 
   results <- raw_results %>%
-    filter(workflowid == kri) # contains the string kri
+    filter(.data$workflowid == kri) # contains the string kri
 
 
   workflow <- raw_workflow %>%
-    filter(grepl('kri', workflowid))%>%
-    filter(workflowid == kri) %>%
+    filter(grepl('kri', .data$workflowid))%>%
+    filter(.data$workflowid == kri) %>%
     mutate(selectedGroupIDs = selectedGroupIDs)
 
   parameters <- raw_param %>%
-    filter(workflowid == kri)
+    filter(.data$workflowid == kri)
 
 
   # forward options using x

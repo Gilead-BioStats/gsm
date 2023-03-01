@@ -26,7 +26,7 @@ MakeTimeSeriesLongitudinal <- function(cDirectory) {
     read.csv(paste0(cDirectory, "/", x, "/meta_workflow.csv")) %>%
       mutate(gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d"))
   }) %>%
-    filter(gsm_analysis_date == max(.data$gsm_analysis_date))
+    filter(.data$gsm_analysis_date == max(.data$gsm_analysis_date))
 
 
 # make params -------------------------------------------------------------
@@ -40,7 +40,7 @@ MakeTimeSeriesLongitudinal <- function(cDirectory) {
     read.csv(paste0(cDirectory, "/", x, "/meta_param.csv")) %>%
       mutate(gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d"))
   }) %>%
-    filter(gsm_analysis_date == max(.data$gsm_analysis_date))
+    filter(.data$gsm_analysis_date == max(.data$gsm_analysis_date))
 
   params <- left_join(
     status_param,

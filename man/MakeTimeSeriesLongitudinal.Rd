@@ -7,7 +7,7 @@
 MakeTimeSeriesLongitudinal(cDirectory)
 }
 \arguments{
-\item{cDirectory}{}
+\item{cDirectory}{\code{character} Path to longitudinal data folders.}
 }
 \value{
 \code{data.frame} containing longitudinal snapshots of \code{{gsm}} analyses.

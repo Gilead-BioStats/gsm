@@ -29,7 +29,11 @@ timeSeriesContinuous(
 
 \item{selectedGroupIDs}{specific group to highlight in the chart}
 
-\item{elementId}{}
+\item{width}{width of widget}
+
+\item{height}{height of widget}
+
+\item{elementId}{optional elementId of widget}
 }
 \description{
 A widget that displays a time-series plot based on longitudinal "snapshots" using \code{{gsm}}

@@ -16,6 +16,8 @@ reference:
       - barChart-shiny
       - scatterPlot
       - scatterPlot-shiny
+      - timeSeriesContinuous
+      - timeSeriesContinuous-shiny
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
 
@@ -59,6 +61,12 @@ reference:
       - Analyze_QTL
       - RunQTL
       - SaveQTL
+
+   - title: Longitudinal
+     desc: Utility functions to analyze longitudinal/trend data.
+   - contents:
+      - MakeTimeSeriesLongitudinal
+      - MakeTrendData
 
    - title: Utility
      desc: Utility functions for use within the Data Pipeline
