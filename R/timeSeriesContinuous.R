@@ -2,10 +2,28 @@
 #'
 #' <Add Description>
 #'
+#' @param kri selected workflow to filter data and display
+#' @param selectedGroupIDs specific group to highlight in the chart
+#' @param raw_results results_summary_over_time
+#' @param raw_workflow meta_workflow
+#' @param raw_param meta_param
+#' @param raw_param_over_time status_param_over_time
+#' @param width
+#' @param height
+#' @param elementId
+#'
 #' @import htmlwidgets
 #'
 #' @export
-timeSeriesContinuous <- function(kri, selectedGroupIDs = NULL, raw_results, message, width = NULL, height = NULL, elementId = NULL) {
+timeSeriesContinuous <- function(kri,
+                                 selectedGroupIDs = NULL,
+                                 raw_results,
+                                 raw_workflow,
+                                 raw_param,
+                                 raw_param_over_time,
+                                 width = NULL,
+                                 height = NULL,
+                                 elementId = NULL) {
 
   results <- raw_results %>%
     #filter(workflowid == ) # contains the string kri
