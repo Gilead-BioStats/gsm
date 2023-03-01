@@ -13,7 +13,10 @@ MakeTrendData <- function(lStudyAssess, cDirectory) {
 
   longitudinal <- MakeTimeSeriesLongitudinal(cDirectory)
 
-  lStudyAssess[["longitudinal"]] <- longitudinal
+  lStudyAssess[["longitudinal"]] <- longitudinal %>%
+    map(function(x) {
+      x %>% mutate(gsm_analysis_date = as.Date(gsm_analysis_date, "%Y-%d-%m"))
+    })
 
   return(lStudyAssess)
 

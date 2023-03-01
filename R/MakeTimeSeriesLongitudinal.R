@@ -18,11 +18,22 @@
 MakeTimeSeriesLongitudinal <- function(cDirectory) {
 
   results_summary <- purrr::map_df(list.files(cDirectory), function(x) {
-    read.csv(paste0(cDirectory, "/", x, "/results_summary.csv"))
+    read.csv(paste0(cDirectory, "/", x, "/results_summary.csv")) %>%
+      mutate(snapshot_date = gsm_analysis_date)
   })
 
+  meta_workflow <- purrr::map_df(list.files(cDirectory), function(x) {
+    read.csv(paste0(cDirectory, "/", x, "/meta_workflow.csv")) %>%
+      mutate(gsm_analysis_date = as.Date(gsm_analysis_date, "%Y-%m-%d"))
+  }) %>%
+    filter(gsm_analysis_date == max(gsm_analysis_date))
+
+
+# make params -------------------------------------------------------------
+
   status_param <- purrr::map_df(list.files(cDirectory), function(x) {
-    read.csv(paste0(cDirectory, "/", x, "/status_param.csv"))
+    read.csv(paste0(cDirectory, "/", x, "/status_param.csv")) %>%
+      mutate(gsm_analysis_date = as.Date(gsm_analysis_date, "%Y-%m-%d"))
   })
 
   meta_param <- purrr::map_df(list.files(cDirectory), function(x) {
@@ -31,16 +42,17 @@ MakeTimeSeriesLongitudinal <- function(cDirectory) {
   }) %>%
     filter(gsm_analysis_date == max(gsm_analysis_date))
 
-  meta_workflow <- purrr::map_df(list.files(cDirectory), function(x) {
-    read.csv(paste0(cDirectory, "/", x, "/meta_workflow.csv")) %>%
-      mutate(gsm_analysis_date = as.Date(gsm_analysis_date, "%Y-%m-%d"))
-  }) %>%
-    filter(gsm_analysis_date == max(gsm_analysis_date))
+  params <- left_join(
+    status_param,
+    meta_param,
+    by = join_by(workflowid, gsm_version, param, index, gsm_analysis_date)
+  ) %>%
+    select(-c(default, configurable)) %>%
+    mutate(snapshot_date = as.Date(gsm_analysis_date, "%Y-%d-%m"))
 
   all_data <- list(
     results_summary = results_summary,
-    status_param = status_param,
-    meta_param = meta_param,
+    params = params,
     meta_workflow = meta_workflow
   )
 

@@ -27,19 +27,17 @@ timeSeriesContinuous <- function(kri,
 
 
   results <- raw_results %>%
-    filter(grepl('kri', workflowid))%>%
-    filter(workflowid == kri)
+    filter(workflowid == kri) # contains the string kri
+
 
   workflow <- raw_workflow %>%
     filter(grepl('kri', workflowid))%>%
     filter(workflowid == kri) %>%
     mutate(selectedGroupIDs = selectedGroupIDs)
 
-  # TODO use raw_param and raw_param_over_time
-  # and make it look like this thing
-  parameters <- jsonlite::read_json("inst/DELETE-THIS/param_cleaned.js") %>%
-    bind_rows() %>%
-    tidyr::fill(studyid, .direction = 'updown')
+  parameters <- raw_param %>%
+    filter(workflowid == kri)
+
 
   # forward options using x
   x <- list(
