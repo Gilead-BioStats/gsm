@@ -12,8 +12,18 @@ HTMLWidgets.widget({
 
       renderValue: function(x) {
 
-        // TODO: code to render the widget, e.g.
-        el.innerText = x.message;
+        results = HTMLWidgets.dataframeToD3(x.results)
+        workflow = HTMLWidgets.dataframeToD3(x.workflow)[0]
+        parameters = HTMLWidgets.dataframeToD3(x.parameters)
+
+        // visualization
+        const instance = rbmViz.default.timeSeries(
+            el,
+            results,
+            workflow,
+            parameters
+        );
+
 
       },
 

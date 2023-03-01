@@ -5,11 +5,23 @@
 #' @import htmlwidgets
 #'
 #' @export
-timeSeriesContinuous <- function(message, width = NULL, height = NULL, elementId = NULL) {
+timeSeriesContinuous <- function(kri, selectedGroupIDs = NULL, raw_results, message, width = NULL, height = NULL, elementId = NULL) {
+
+  results <- raw_results %>%
+    #filter(workflowid == ) # contains the string kri
+
+  workflow <- raw_workflow %>%
+    filter(workflowid == kri) %>%
+    mutate(selectedGroupIDs = selectedGroupIDs)
+
+  parameters <- raw_params %>%
+    filter(workflowid == kri)
 
   # forward options using x
-  x = list(
-    message = message
+  x <- list(
+    results = results,
+    workflow = workflow,
+    parameters = parameters
   )
 
   # create widget
