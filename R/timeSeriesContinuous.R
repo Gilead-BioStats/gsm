@@ -3,11 +3,11 @@
 #' <Add Description>
 #'
 #' @param kri selected workflow to filter data and display
-#' @param selectedGroupIDs specific group to highlight in the chart
 #' @param raw_results results_summary_over_time
 #' @param raw_workflow meta_workflow
 #' @param raw_param meta_param
 #' @param raw_param_over_time status_param_over_time
+#' @param selectedGroupIDs specific group to highlight in the chart
 #' @param width
 #' @param height
 #' @param elementId
@@ -16,24 +16,30 @@
 #'
 #' @export
 timeSeriesContinuous <- function(kri,
-                                 selectedGroupIDs = NULL,
-                                 raw_results,
-                                 raw_workflow,
-                                 raw_param,
-                                 raw_param_over_time,
-                                 width = NULL,
-                                 height = NULL,
-                                 elementId = NULL) {
+                       raw_results,
+                       raw_workflow,
+                       raw_param,
+                       raw_param_over_time,
+                       selectedGroupIDs = NULL,
+                       width = NULL,
+                       height = NULL,
+                       elementId = NULL) {
+
 
   results <- raw_results %>%
-    #filter(workflowid == ) # contains the string kri
+    filter(grepl('kri', workflowid))%>%
+    filter(workflowid == kri)
 
   workflow <- raw_workflow %>%
+    filter(grepl('kri', workflowid))%>%
     filter(workflowid == kri) %>%
     mutate(selectedGroupIDs = selectedGroupIDs)
 
-  parameters <- raw_params %>%
-    filter(workflowid == kri)
+  # TODO use raw_param and raw_param_over_time
+  # and make it look like this thing
+  parameters <- jsonlite::read_json("inst/DELETE-THIS/param_cleaned.js") %>%
+    bind_rows() %>%
+    tidyr::fill(studyid, .direction = 'updown')
 
   # forward options using x
   x <- list(
