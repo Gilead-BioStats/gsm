@@ -1,15 +1,11 @@
-test_that("Given an appropriate subset of Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Site variable using the Normal Approximation method and correctly assigns Flag variable values.", {
+test_that("Given appropriate Disposition data, the assessment function correctly performs a Disposition Assessment grouped by a custom variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
-  dfInput <- gsm::Disp_Map_Raw(dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfSTUDCOMP = clindata::rawplus_studcomp %>% filter(compreas_std_nsv == "ID"),
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename ==
-                                                         "Blinded Study Drug Completion")
-  ))
+  dfInput <- Disp_Map_Raw()
 
   test5_6 <- Disp_Assess(
     dfInput = dfInput,
-    strMethod = "NormalApprox"
+    strMethod = "Identity",
+    strGroup = "CustomGroup"
   )
 
   # Double Programming
@@ -17,16 +13,20 @@ test_that("Given an appropriate subset of Disposition data, the assessment funct
 
   t5_6_transformed <- dfInput %>%
     qualification_transform_counts(
-      exposureCol = "Total"
+      exposureCol = "Total",
+      GroupID = "CustomGroupID"
     )
 
   t5_6_analyzed <- t5_6_transformed %>%
-    qualification_analyze_normalapprox(strType = "binary")
+    mutate(
+      Score = Metric
+    ) %>%
+    arrange(Score)
 
   class(t5_6_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t5_6_flagged <- t5_6_analyzed %>%
-    qualification_flag_normalapprox()
+   qualification_flag_identity()
 
   t5_6_summary <- t5_6_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
@@ -41,5 +41,5 @@ test_that("Given an appropriate subset of Disposition data, the assessment funct
   )
 
   # compare results
-  expect_equal(test5_6$lData[!names(test5_6$lData) == "dfBounds"], t5_6)
+  expect_equal(test5_6$lData, t5_6)
 })

@@ -1,12 +1,13 @@
-test_that("Given appropriate Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Site variable using the Identity method and correctly assigns the Flag variable as NA for sites with low enrollment.", {
+test_that("Given appropriate Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Site variable using the Fisher method and correctly assigns Flag variable when given a custom threshold, and Flag variable values are set to NA for sites with low enrollment.", {
   # gsm analysis
-  dfInput <- Disp_Map_Raw()
+  dfInput <- gsm::Disp_Map_Raw()
 
   nMinDenominator <- 5
 
   test5_10 <- Disp_Assess(
     dfInput = dfInput,
-    strMethod = "Identity",
+    strMethod = "Fisher",
+    vThreshold = c(.025, .05),
     nMinDenominator = nMinDenominator
   )
 
@@ -15,35 +16,16 @@ test_that("Given appropriate Disposition data, the assessment function correctly
 
   t5_10_transformed <- dfInput %>%
     qualification_transform_counts(
-      exposureCol = "Total",
+      exposureCol = "Total"
     )
 
   t5_10_analyzed <- t5_10_transformed %>%
-    mutate(
-      Score = Metric
-    ) %>%
-    arrange(Score)
+    qualification_analyze_fisher()
 
   class(t5_10_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t5_10_flagged <- t5_10_analyzed %>%
-    mutate(
-      Flag = case_when(
-        Score < 3.491 ~ -1,
-        Score > 5.172 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(Score),
-      Flag = case_when(
-        Flag != 0 & Score < median ~ -1,
-        Flag != 0 & Score >= median ~ 1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+    qualification_flag_fisher(threshold = c(.025, .05))
 
   t5_10_summary <- t5_10_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
@@ -53,7 +35,6 @@ test_that("Given appropriate Disposition data, the assessment function correctly
                              Denominator < nMinDenominator ~ NA_real_),
            Flag = case_when(Denominator >= nMinDenominator ~ Flag,
                             Denominator < nMinDenominator ~ NA_real_))
-
 
   t5_10 <- list(
     "dfTransformed" = t5_10_transformed,

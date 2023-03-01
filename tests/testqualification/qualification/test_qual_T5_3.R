@@ -1,15 +1,11 @@
-test_that("Given an appropriate subset of Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Site variable using the Identity method and correctly assigns Flag variable values.", {
+test_that("Given appropriate Disposition data, the assessment function correctly performs a Disposition Assessment grouped by a custom variable using the Fisher method and correctly assigns Flag variable values.", {
   # gsm analysis
-  dfInput <- gsm::Disp_Map_Raw(dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfSTUDCOMP = clindata::rawplus_studcomp %>% filter(compreas_std_nsv == "ID"),
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename ==
-                                                         "Blinded Study Drug Completion")
-  ))
+  dfInput <- gsm::Disp_Map_Raw()
 
   test5_3 <- Disp_Assess(
     dfInput = dfInput,
-    strMethod = "Identity"
+    strGroup = "CustomGroup",
+    strMethod = "Fisher"
   )
 
   # Double Programming
@@ -18,34 +14,16 @@ test_that("Given an appropriate subset of Disposition data, the assessment funct
   t5_3_transformed <- dfInput %>%
     qualification_transform_counts(
       exposureCol = "Total",
+      GroupID = "CustomGroupID"
     )
 
   t5_3_analyzed <- t5_3_transformed %>%
-    mutate(
-      Score = Metric
-    ) %>%
-    arrange(Score)
+    qualification_analyze_fisher()
 
   class(t5_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t5_3_flagged <- t5_3_analyzed %>%
-    mutate(
-      Flag = case_when(
-        Score < 3.491 ~ -1,
-        Score > 5.172 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(Score),
-      Flag = case_when(
-        Flag != 0 & Score < median ~ -1,
-        Flag != 0 & Score >= median ~ 1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+    qualification_flag_fisher()
 
   t5_3_summary <- t5_3_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
