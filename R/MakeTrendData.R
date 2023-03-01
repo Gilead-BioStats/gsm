@@ -5,6 +5,13 @@
 #'
 #'
 #' @examples
+#' \dontrun{
+#' study <- Study_Assess()
+#' directory_location <- here::here("snapshots")
+#'
+#' trend_data <- MakeTrendData(lStudyAssess = study, cDirectory = directory_location)
+#'
+#' }
 #'
 #' @return `list` The output of [gsm::Study_Assess()] with longitudinal data appended.
 #'
@@ -14,8 +21,11 @@ MakeTrendData <- function(lStudyAssess, cDirectory) {
   longitudinal <- MakeTimeSeriesLongitudinal(cDirectory)
 
   lStudyAssess[["longitudinal"]] <- longitudinal %>%
-    map(function(x) {
-      x %>% mutate(gsm_analysis_date = as.Date(gsm_analysis_date, "%Y-%d-%m"))
+    purrr::map(function(x) {
+      x %>%
+        mutate(
+          gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%d-%m")
+          )
     })
 
   return(lStudyAssess)

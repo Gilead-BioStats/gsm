@@ -1,6 +1,6 @@
 #' Create longitudinal snapshot from results_summary.
 #'
-#' @param cDirectory
+#' @param cDirectory `character` Path to longitudinal data folders.
 #'
 #' @return `data.frame` containing longitudinal snapshots of `{gsm}` analyses.
 #'
@@ -19,36 +19,36 @@ MakeTimeSeriesLongitudinal <- function(cDirectory) {
 
   results_summary <- purrr::map_df(list.files(cDirectory), function(x) {
     read.csv(paste0(cDirectory, "/", x, "/results_summary.csv")) %>%
-      mutate(snapshot_date = gsm_analysis_date)
+      mutate(snapshot_date = .data$gsm_analysis_date)
   })
 
   meta_workflow <- purrr::map_df(list.files(cDirectory), function(x) {
     read.csv(paste0(cDirectory, "/", x, "/meta_workflow.csv")) %>%
-      mutate(gsm_analysis_date = as.Date(gsm_analysis_date, "%Y-%m-%d"))
+      mutate(gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d"))
   }) %>%
-    filter(gsm_analysis_date == max(gsm_analysis_date))
+    filter(gsm_analysis_date == max(.data$gsm_analysis_date))
 
 
 # make params -------------------------------------------------------------
 
   status_param <- purrr::map_df(list.files(cDirectory), function(x) {
     read.csv(paste0(cDirectory, "/", x, "/status_param.csv")) %>%
-      mutate(gsm_analysis_date = as.Date(gsm_analysis_date, "%Y-%m-%d"))
+      mutate(gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d"))
   })
 
   meta_param <- purrr::map_df(list.files(cDirectory), function(x) {
     read.csv(paste0(cDirectory, "/", x, "/meta_param.csv")) %>%
-      mutate(gsm_analysis_date = as.Date(gsm_analysis_date, "%Y-%m-%d"))
+      mutate(gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d"))
   }) %>%
-    filter(gsm_analysis_date == max(gsm_analysis_date))
+    filter(gsm_analysis_date == max(.data$gsm_analysis_date))
 
   params <- left_join(
     status_param,
     meta_param,
-    by = join_by(workflowid, gsm_version, param, index, gsm_analysis_date)
+    by = join_by(.data$workflowid, .data$gsm_version, .data$param, .data$index, .data$gsm_analysis_date)
   ) %>%
-    select(-c(default, configurable)) %>%
-    mutate(snapshot_date = as.Date(gsm_analysis_date, "%Y-%d-%m"))
+    select(-c("default", "configurable")) %>%
+    mutate(snapshot_date = as.Date(.data$gsm_analysis_date, "%Y-%d-%m"))
 
   all_data <- list(
     results_summary = results_summary,

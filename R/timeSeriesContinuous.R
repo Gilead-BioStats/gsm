@@ -1,6 +1,7 @@
-#' <Add Title>
+#' Time-Series Continuous Plot
 #'
-#' <Add Description>
+#' @description
+#' A widget that displays a time-series plot based on longitudinal "snapshots" using `{gsm}`
 #'
 #' @param kri selected workflow to filter data and display
 #' @param raw_results results_summary_over_time
@@ -8,9 +9,9 @@
 #' @param raw_param meta_param
 #' @param raw_param_over_time status_param_over_time
 #' @param selectedGroupIDs specific group to highlight in the chart
-#' @param width
-#' @param height
-#' @param elementId
+#' @param width width of widget
+#' @param height height of widget
+#' @param elementId optional elementId of widget
 #'
 #' @import htmlwidgets
 #'
