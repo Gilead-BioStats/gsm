@@ -1,4 +1,4 @@
-test_that("Given an appropriate subset of Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by a custom variable using the Poisson method and correctly assigns Flag variable values.", {
+test_that("Given an appropriate subset of Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by the Study variable using the Poisson method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw_Binary(dfs = list(
     dfPD = clindata::rawplus_protdev %>% dplyr::filter(importnt == "Y"),
@@ -8,17 +8,16 @@ test_that("Given an appropriate subset of Protocol Deviation data, the assessmen
   test23_2 <- PD_Assess_Binary(
     dfInput = dfInput,
     strMethod = "Poisson",
-    strGroup = "CustomGroup"
+    vThreshold = c(-3, -1, 1, 3),
+    strGroup = "Study"
   )
 
   # Double Programming
   t23_2_input <- dfInput
 
   t23_2_transformed <- dfInput %>%
-    qualification_transform_counts(
-      GroupID = "CustomGroupID",
-      exposureCol = "Total"
-    )
+    qualification_transform_counts(GroupID = "StudyID",
+                                   exposureCol = "Total")
 
   t23_2_analyzed <- t23_2_transformed %>%
     qualification_analyze_poisson()
@@ -26,7 +25,7 @@ test_that("Given an appropriate subset of Protocol Deviation data, the assessmen
   class(t23_2_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t23_2_flagged <- t23_2_analyzed %>%
-    qualification_flag_poisson()
+    qualification_flag_poisson(threshold = c(-3, -1, 1, 3))
 
   t23_2_summary <- t23_2_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
