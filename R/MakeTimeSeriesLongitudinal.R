@@ -45,7 +45,7 @@ MakeTimeSeriesLongitudinal <- function(cDirectory) {
   params <- left_join(
     status_param,
     meta_param,
-    by = join_by(.data$workflowid, .data$gsm_version, .data$param, .data$index, .data$gsm_analysis_date)
+    by = join_by("workflowid", "gsm_version", "param", "index", "gsm_analysis_date")
   ) %>%
     select(-c("default", "configurable")) %>%
     mutate(snapshot_date = as.Date(.data$gsm_analysis_date, "%Y-%d-%m"))
