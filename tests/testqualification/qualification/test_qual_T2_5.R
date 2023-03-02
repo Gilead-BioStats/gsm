@@ -1,4 +1,4 @@
-test_that("Given an appropriate subset of Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by a custom variable using the Identity method and correctly assigns Flag variable values when given a custom threshold.", {
+test_that("Given an appropriate subset of Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by a custom variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw_Rate(dfs = list(
     dfPD = clindata::rawplus_protdev %>% filter(importnt == "Y"),
@@ -8,7 +8,6 @@ test_that("Given an appropriate subset of Protocol Deviation data, the assessmen
   test2_5 <- PD_Assess_Rate(
     dfInput = dfInput,
     strMethod = "Identity",
-    vThreshold = c(0.00001, 0.1),
     strGroup = "Study"
   )
 
@@ -29,7 +28,7 @@ test_that("Given an appropriate subset of Protocol Deviation data, the assessmen
   class(t2_5_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t2_5_flagged <- t2_5_analyzed %>%
-    qualification_flag_identity(threshold = c(0.00001, 0.1))
+    qualification_flag_identity()
 
   t2_5_summary <- t2_5_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

@@ -1,4 +1,4 @@
-test_that("Given an appropriate subset of Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by the Study variable using the Normal Approximation method and correctly assigns Flag variable values when given a custom threshold.", {
+test_that("Given an appropriate subset of Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by the Study variable using the Normal Approximation method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw_Rate(dfs = list(
     dfPD = clindata::rawplus_protdev %>% filter(importnt == "Y"),
@@ -8,8 +8,7 @@ test_that("Given an appropriate subset of Protocol Deviation data, the assessmen
   test2_8 <- PD_Assess_Rate(
     dfInput = dfInput,
     strMethod = "NormalApprox",
-    strGroup = "Study",
-    vThreshold = c(-2, -1, 1, 2)
+    strGroup = "Study"
   )
 
   # Double Programming
@@ -26,7 +25,7 @@ test_that("Given an appropriate subset of Protocol Deviation data, the assessmen
   class(t2_8_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t2_8_flagged <- t2_8_analyzed %>%
-    qualification_flag_normalapprox(threshold = c(-2, -1, 1, 2))
+    qualification_flag_normalapprox()
 
   t2_8_summary <- t2_8_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
