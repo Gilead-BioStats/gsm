@@ -50,10 +50,19 @@ MakeTimeSeriesLongitudinal <- function(cDirectory) {
     select(-c("default", "configurable")) %>%
     mutate(snapshot_date = as.Date(.data$gsm_analysis_date, "%Y-%d-%m"))
 
+
+# metadata for report -----------------------------------------------------
+  status_study <- purrr::map_df(list.files(cDirectory), function(x) {
+    read.csv(paste0(cDirectory, "/", x, "/status_study.csv")) %>%
+      mutate(gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d"))
+  }) %>%
+    filter(.data$gsm_analysis_date == max(.data$gsm_analysis_date))
+
   all_data <- list(
     results_summary = results_summary,
     params = params,
-    meta_workflow = meta_workflow
+    meta_workflow = meta_workflow,
+    status_study = status_study
   )
 
   return(all_data)

@@ -74,11 +74,31 @@ study_id <- purrr::map(assessment, function(kri) {
     as.character() %>% 
     unique()
 
+
+
+
 ```
 
 ---
 title: "`r study_id` Assessment Overview"
 ---
+
+
+
+```{r, echo=FALSE, results='asis'}
+## metadata report if longitudinal data is provided
+if (exists("longitudinal", where = params$assessment)) {
+  study_status_table <- params$assessment$longitudinal$status_study %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  rownames_to_column() %>% 
+  rename(Parameter = rowname, Value = V1) 
+  
+  print(htmltools::h2("Study Status"))
+  print(htmltools::tagList(DT::datatable(study_status_table)))
+}
+```
+
 
 ## Study Overview
 <div class="flag-container">
