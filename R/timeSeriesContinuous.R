@@ -12,6 +12,7 @@
 #' @param width width of widget
 #' @param height height of widget
 #' @param elementId optional elementId of widget
+#' @param addSiteSelect add a dropdown to highlight sites?
 #'
 #' @import htmlwidgets
 #'
@@ -24,7 +25,8 @@ timeSeriesContinuous <- function(kri,
                        selectedGroupIDs = NULL,
                        width = NULL,
                        height = NULL,
-                       elementId = NULL) {
+                       elementId = NULL,
+                       addSiteSelect = TRUE) {
 
 
   results <- raw_results %>%
@@ -44,7 +46,8 @@ timeSeriesContinuous <- function(kri,
   x <- list(
     results = results,
     workflow = workflow,
-    parameters = parameters
+    parameters = parameters,
+    addSiteSelect = addSiteSelect
   )
 
   # create widget

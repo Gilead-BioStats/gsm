@@ -13,7 +13,8 @@ timeSeriesContinuous(
   selectedGroupIDs = NULL,
   width = NULL,
   height = NULL,
-  elementId = NULL
+  elementId = NULL,
+  addSiteSelect = TRUE
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ timeSeriesContinuous(
 \item{height}{height of widget}
 
 \item{elementId}{optional elementId of widget}
+
+\item{addSiteSelect}{add a dropdown to highlight sites?}
 }
 \description{
 A widget that displays a time-series plot based on longitudinal "snapshots" using \code{{gsm}}

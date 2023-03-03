@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .querySelector(".overall-site-select")
         .addEventListener("change", function () {
             const canvases = [
-                ...document.querySelectorAll(".scatterJS, .barMetricJS, .barScoreJS")
+                ...document.querySelectorAll(".scatterJS, .barMetricJS, .barScoreJS, .timeSeriesContinuousJS")
             ].map((el) => el.getElementsByTagName("canvas")[0]);
 
             const widgets = [];
