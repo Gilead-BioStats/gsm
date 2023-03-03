@@ -116,7 +116,7 @@ for (i in seq_along(assessment)) {
         cat("#### Summary Charts {.tabset} \n")
         
         charts <- assessment[[i]]$lResults$lCharts[
-            names(assessment[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS")
+            names(assessment[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousJS")
         ]
         
         for (j in seq_along(charts)) {
@@ -126,7 +126,8 @@ for (i in seq_along(assessment)) {
             chart_key,
             scatterJS = "Scatter Plot",
             barScoreJS = "Bar Chart (KRI Score)",
-            barMetricJS = "Bar Chart (KRI Metric)"
+            barMetricJS = "Bar Chart (KRI Metric)",
+            timeSeriesContinuousJS = "Time Series (Continuous)"
             )
 
             ##### chart tab /
@@ -187,6 +188,5 @@ DT::datatable(error_table)
 ```
 
 ```{js, file='../utils-0.0.1/dragOverallSiteDropdown.js', echo=FALSE}
-
 ```
 
