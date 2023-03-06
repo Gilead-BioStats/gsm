@@ -80,18 +80,19 @@ Test cases for `{gsm}` are written using the standard `testthat` workflow. A sin
 ```{r SummariseResults}
 spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R")
 spec_list <- spec_list[-1]
+<<<<<<< HEAD
 spec_list <- spec_list[1:10]
+=======
+spec_list <- spec_list
+>>>>>>> 7a991019 (update scrape code)
 spec_list <- paste0("~/gsm/tests/testqualification/qualification/", spec_list)
 
 scrape <- map_df(spec_list, function(x) {
-    testResultsRaw <- invisible(testthat::test_file(x, reporter = testthat::ListReporter)[[1]])
-    assign("testResultsRaw", testResultsRaw, .GlobalEnv)
-    tibble(name = testResultsRaw$file, 
-           result = testResultsRaw$results[[1]]$message, 
-           test = testResultsRaw$results[[1]]$test)
-}) %>%
-  mutate(Tests = gsub("test_qual_", "", name),
-         Tests = gsub(".R", "", Tests)) 
+    testResultsRaw <- testthat::test_file(x, reporter = testthat::ListReporter, package = "gsm") %>% 
+      as_tibble()
+    
+    return(testResultsRaw)
+}) 
 
 funcs <- spec_df %>%
   select(Tests, Assessment) %>%
