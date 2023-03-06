@@ -21,6 +21,7 @@ suppressPackageStartupMessages({
   library(gh)
   library(stringr)
   library(riskmetric)
+  suppressMessages(devtools::load_all())
 })
 
 opts_chunk$set(
@@ -58,15 +59,15 @@ Specifications capture the most critical use cases for a given function. Each fu
 
 Each specification includes the following components:
 
--   Description: outlines the use case for the specification
+-   **Description:** outlines the use case for the specification
 
--   Risk Assessment
+-   **Risk Assessment**
 
-    -   Risk Level: assigned a value of "Low", "Medium", or "High", corresponding to the risk associated with the specification failing
+    -   **Risk Level:** assigned a value of "Low", "Medium", or "High", corresponding to the risk associated with the specification failing
 
-    -   Risk Impact: assigned a value of "Low", "Medium", or "High", corresponding to the severity of the impact associated with the specification failing
+    -   **Risk Impact:** assigned a value of "Low", "Medium", or "High", corresponding to the severity of the impact associated with the specification failing
 
--   Test Cases: lists measurable test cases associated with the specification
+-   **Test Cases:** lists measurable test cases associated with the specification
 
 ## Test Cases
 
@@ -79,7 +80,7 @@ Test cases for `{gsm}` are written using the standard `testthat` workflow. A sin
 ```{r SummariseResults}
 spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R")
 spec_list <- spec_list[-1]
-spec_list <- spec_list[1:20]
+spec_list <- spec_list[1:10]
 spec_list <- paste0("~/gsm/tests/testqualification/qualification/", spec_list)
 
 scrape <- map_df(spec_list, function(x) {
@@ -96,10 +97,10 @@ funcs <- spec_df %>%
   select(Tests, Assessment) %>%
   tidyr::separate_rows("Tests", sep = ",") %>%
   mutate(Tests = trimws(Tests)) %>%
-  rename(Function = Assessment)
-
-scrape_new <- left_join(scrape, funcs) %>%
+  rename(Function = Assessment) %>%
   distinct()
+
+scrape_new <- left_join(scrape, funcs) 
 
 testResultsIndividual <- scrape_new %>%
   mutate(Status = ifelse(result != "Pass", "Fail", "Pass")) %>%
@@ -108,7 +109,8 @@ testResultsIndividual <- scrape_new %>%
             `Number Passed` = length(unique(name)[Status == "Pass"]),
             `Number Failed` = length(unique(name)[Status == "Fail"]))
 
-knitr::kable(testResultsIndividual)
+knitr::kable(testResultsIndividual) %>%
+  kableExtra::kable_styling(latex_options = c("basic", "fontsize=10pt"))
 ```
 
 # Test Results: Detailed
@@ -135,7 +137,10 @@ Specifications <- spec_df %>%
   select(ID, Description, Risk, Impact, Tests)
 colnames(Specifications) <- c("Spec ID", "Spec Description", "Risk", "Impact", "Associated Test IDs")
 
-knitr::kable(Specifications)
+knitr::kable(Specifications) %>%
+  kableExtra::kable_styling(latex_options = c("basic", "fontsize = 10pt")) %>%
+  kableExtra::column_spec(2, width = "5cm") %>%
+  kableExtra::column_spec(5, width = "5cm") 
 
 ### One row per test
 test <- scrape_new %>%
@@ -145,7 +150,8 @@ Results <- left_join(test, qual_specs) %>%
   select(Function, Specs, Tests, test, result)
 colnames(Results) <- c("Function", "Spec ID", "Test ID", "Test Description", "Test Result")
 
-knitr::kable(Results)
+knitr::kable(Results) %>%
+  kableExtra::kable_styling(latex_options = c("basic", "fontsize = 10pt"))
   
 ```
 
@@ -159,7 +165,7 @@ Unit testing was performed in addition to qualification testing to help ensure t
 
 The table below summarizes unit test coverage of each `{gsm}` function. This metric quantifies the extent of unit testing. The closer this measure is to 100%, the more unit testing that function has.
 
-The functions that have an asterisk (*) are qualified.
+The functions that have an asterisk (\*) are qualified.
 
 ```{r covr}
 # pkg_cov <- covr::coverage_to_list(covr::package_coverage(here::here()))
@@ -283,4 +289,3 @@ pander::pandoc.table(import_risk, style = "grid")
 #     )
 # }
 ```
-
