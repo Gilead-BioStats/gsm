@@ -8,7 +8,7 @@ dfSUBJ:
   strTreatmentStartDateCol: firstdosedate
   strTreatmentEndDateCol: lastdosedate
   strTimeOnTreatmentCol: timeontreatment
-  strCountryCol: country
+  strCountryCol: sitegroup_nsv
   strCustomGroupCol: invid
 dfAE:
   strIDCol: subjid
@@ -19,8 +19,8 @@ dfAE:
   strNonSeriousVal: "N"
   strSeverityCol: aesev
   strGradeCol: aetoxgr
-  strPTCol: mdrpt
-  strSOCCol: mdrsoc
+  strPTCol: mdrpt_nsv
+  strSOCCol: mdrsoc_nsv
   strTreatmentEmergentCol: treatmentemergent
   strTreatmentEmergentVal: "Y"
 dfPD:
@@ -69,7 +69,7 @@ dfLB:
   strTestCol: lbtstnam
   strResultCol: siresn
   strAlertCol: alertsimplified
-  strGradeCol: toxgrg
+  strGradeCol: toxgrg_nsv
   strGradeAnyVal:
     - "1"
     - "2"
@@ -90,4 +90,4 @@ dfENROLL:
   strScreenFailReasonCol: sfreas
   strScreenFailReasonVal: Inclusion/Exclusion Criteria
   strCustomGroupCol: invid
-  strCountryCol: country
+  strCountryCol: sitegroup_nsv
