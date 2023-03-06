@@ -80,11 +80,8 @@ Test cases for `{gsm}` are written using the standard `testthat` workflow. A sin
 ```{r SummariseResults}
 spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R")
 spec_list <- spec_list[-1]
-<<<<<<< HEAD
-spec_list <- spec_list[1:10]
-=======
-spec_list <- spec_list
->>>>>>> 7a991019 (update scrape code)
+spec_list <- spec_list[1:20]
+
 spec_list <- paste0("~/gsm/tests/testqualification/qualification/", spec_list)
 
 scrape <- map_df(spec_list, function(x) {
@@ -92,7 +89,9 @@ scrape <- map_df(spec_list, function(x) {
       as_tibble()
     
     return(testResultsRaw)
-}) 
+}) %>% 
+  mutate(Tests = gsub("test_qual_", "", file),
+         Tests = gsub(".R", "", Tests))
 
 funcs <- spec_df %>%
   select(Tests, Assessment) %>%
@@ -101,17 +100,20 @@ funcs <- spec_df %>%
   rename(Function = Assessment) %>%
   distinct()
 
-scrape_new <- left_join(scrape, funcs) 
+testResultsIndividual <- left_join(scrape, funcs) %>% 
+  reframe(`Function Name` = unique(Function),
+            `Number of Tests` = n(),
+            `Number Passed` = sum(passed),
+            `Number Failed` = sum(failed),
+            `Number Skipped` = sum(skipped),
+            `Number Errored` = sum(error),
+            `Number Warning` = sum(warning))
 
-testResultsIndividual <- scrape_new %>%
-  mutate(Status = ifelse(result != "Pass", "Fail", "Pass")) %>%
-  group_by(Function) %>%
-  summarise(`Number of Tests` = n(),
-            `Number Passed` = length(unique(name)[Status == "Pass"]),
-            `Number Failed` = length(unique(name)[Status == "Fail"]))
+scrape_new <-left_join(scrape, funcs) 
+
 
 knitr::kable(testResultsIndividual) %>%
-  kableExtra::kable_styling(latex_options = c("basic", "fontsize=10pt"))
+  kableExtra::kable_styling(latex_options = c("scale_down", "fontsize=10pt"))
 ```
 
 # Test Results: Detailed
