@@ -6,23 +6,30 @@ dfSUBJ:
   strCustomGroupCol: invid
   strCountryCol: country
 dfQUERY:
+  strStudyCol: protocolname
   strIDCol: subjectname
   strVisitCol: foldername
   strFormCol: formoid
   strFieldCol: fieldoid
-  strQueryAgeCol: qry30fl
-  strQueryAgeVal: "Y"
+  strStatusCol: querystatus
+  strCreationDateCol: created
+  strAnswerDateCol: answered
+  strResolutionDateCol: resolved
+  strMarkingGroupCol: markinggroup
 dfDATAENT:
+  strStudyCol: protocolname
   strIDCol: subjectname
   strVisitCol: foldername
   strFormCol: formoid
-  strDataEntryLagCol: data_entry_lag_fl
-  strDataEntryLagVal: "Y"
+  strVisitDateCol: visitdat_date
+  strDataEntryLagCol: data_entry_lag
 dfDATACHG:
+  strStudyCol: protocolname
   strIDCol: subjectname
   strVisitCol: foldername
   strFormCol: formoid
-  strDataPointsCol: n_data_points
-  strDataPointsChangeCol: n_data_points_with_changes
-  strChangeCol: n_data_point_changes
+  strFieldCol: fieldoid
+  strLogNumberCol: log_number
+  strChangeCol: n_changes
+  strRequiredCol: req
 

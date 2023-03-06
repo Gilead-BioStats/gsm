@@ -8,13 +8,9 @@ mapping_edc <- read_yaml('inst/mappings/mapping_edc.yaml')
 mapping_domain <- read_yaml('inst/mappings/mapping_domain.yaml')
 
 domain_schema <- tibble(
-    System = 'G.DASH',
-    Source = mapping_domain %>%
-        map_chr(~.x$source),
-    Table = mapping_domain %>%
-        map_chr(~.x$domain),
-    Method = mapping_domain %>%
-        map_chr(~.x$method),
+    Source = mapping_domain %>% map_chr(~.x$source),
+    Table = mapping_domain %>% map_chr(~.x$domain),
+    Active = mapping_domain %>% map_lgl(~.x$active),
     GSM_Key = names(mapping_domain)
 )
 
@@ -30,8 +26,11 @@ get_column_schema <- function(mapping) {
                         GSM_Key = domain,
                         Column = value,
                         Description = key %>%
+                            # remove 'str' prefix and 'Col' suffix
                             gsub('^str|Col$', '', .) %>%
-                            gsub('(?<=[a-z])([A-Z])', ' \\1', ., perl = TRUE)
+                            # replace camelCase with Prop Case
+                            gsub('(?<=[a-z])([A-Z])', ' \\1', ., perl = TRUE) %>%
+                            sub('ID', 'Subject ID', .)
                         )
                 }) %>%
                 purrr::list_rbind()
@@ -48,7 +47,10 @@ input_data_schema <- domain_schema %>%
         column_schema,
         'GSM_Key',
         multiple = 'all'
-    )
+    ) %>%
+    filter(Active) %>%
+    select(-Active) %>%
+    distinct(GSM_Key, Column, .keep_all = TRUE)
 
 usethis::use_data(
     input_data_schema,

@@ -1,27 +1,27 @@
 dfSUBJ:
   strStudyCol: studyid
   strSiteCol: siteid
+  strIDCol: subjid
+  strStudyStartDateCol: firstparticipantdate
+  strStudyEndDateCol: lastparticipantdate
+  strTimeOnStudyCol: timeonstudy
+  strTreatmentStartDateCol: firstdosedate
+  strTreatmentEndDateCol: lastdosedate
+  strTimeOnTreatmentCol: timeontreatment
   strCountryCol: country
   strCustomGroupCol: invid
-  strIDCol: subjid
-  strStudyStartDateCol: rfpst_dt
-  strStudyEndDateCol: rfpen_dt
-  strTimeOnStudyCol: timeonstudy
-  strTreatmentStartDateCol: rfxst_dt
-  strTreatmentEndDateCol: rfxen_dt
-  strTimeOnTreatmentCol: timeontreatment
 dfAE:
   strIDCol: subjid
   strStartDateCol: aest_dt
   strEndDateCol: aeen_dt
-  strPTCol: aedecod
-  strSOCCol: aebodsys
-  strSeverityCol: aesev
-  strGradeCol: aetoxgr
   strSeriousCol: aeser
   strSeriousVal: "Y"
   strNonSeriousVal: "N"
-  strTreatmentEmergentCol: ae_te
+  strSeverityCol: aesev
+  strGradeCol: aetoxgr
+  strPTCol: mdrpt
+  strSOCCol: mdrsoc
+  strTreatmentEmergentCol: treatmentemergent
   strTreatmentEmergentVal: "Y"
 dfPD:
   strIDCol: subjid
@@ -66,13 +66,10 @@ dfLB:
   strIDCol: subjid
   strDateCol: lb_dt
   strVisitCol: visnam
-  strVisitOrderCol: visnum
-  strCategoryCol: battrnam
   strTestCol: lbtstnam
   strResultCol: siresn
-  strTreatmentEmergentCol: treatment_emergent
-  strTreatmentEmergentVal: "Y"
-  strGradeCol: toxgr
+  strAlertCol: alertsimplified
+  strGradeCol: toxgrg
   strGradeAnyVal:
     - "1"
     - "2"
@@ -81,13 +78,16 @@ dfLB:
   strGradeHighVal:
     - "3"
     - "4"
+  strTreatmentEmergentCol: treatmentemergent
+  strTreatmentEmergentVal: "Y"
 dfENROLL:
   strStudyCol: studyid
   strSiteCol: siteid
-  strCustomGroupCol: invid
-  strCountryCol: country
   strIDCol: subjid
+  strEnrollmentDateCol: enroll_dt
   strScreenFailCol: enrollyn
   strScreenFailVal: "N"
   strScreenFailReasonCol: sfreas
   strScreenFailReasonVal: Inclusion/Exclusion Criteria
+  strCustomGroupCol: invid
+  strCountryCol: country

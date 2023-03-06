@@ -1,48 +1,48 @@
 dfSUBJ:
-  source: Raw+
+  source: clinical
   domain: dm
-  method: AWS S3
+  active: true
 dfAE:
-  source: Raw+
+  source: clinical
   domain: ae
-  method: AWS S3
+  active: true
 dfIE:
-  source: Raw+
+  source: clinical
   domain: ie
-  method: AWS S3
+  active: false
 dfCONSENT:
-  source: Raw+
+  source: clinical
   domain: consent
-  method: AWS S3
+  active: false
 dfSTUDCOMP:
-  source: Raw+
+  source: clinical
   domain: studcomp
-  method: AWS S3
+  active: true
 dfSDRGCOMP:
-  source: Raw+
+  source: clinical
   domain: sdrgcomp
-  method: AWS S3
+  active: true
 dfLB:
-  source: Raw+
+  source: clinical
   domain: lb
-  method: AWS S3
+  active: true
 dfENROLL:
-  source: Raw+
+  source: clinical
   domain: enroll
-  method: AWS S3
+  active: true
 dfQUERY:
-  source: Rave
-  domain: queries_gismo
-  method: SQL query
+  source: edc
+  domain: raveplus_queries_gismo
+  active: true
 dfDATAENT:
-  source: Rave
-  domain: dataentry_lag
-  method: SQL query
+  source: edc
+  domain: raveplus_dataentry_lag
+  active: true
 dfDATACHG:
-  source: Rave
-  domain: data_chg
-  method: SQL query
+  source: edc
+  domain: raveplus_data_chg
+  active: true
 dfPD:
-  source: ClinOps data warehouse
+  source: ctms
   domain: protdev
-  method: API
+  active: true
