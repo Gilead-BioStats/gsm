@@ -225,14 +225,19 @@ test_that("correct bStatus is returned when workflow is missing", {
 })
 
 
+
 test_that("non-enrolled subjects are filtered out using a default workflow", {
   dfSUBJ <- lData$dfSUBJ %>%
     mutate(enrollyn = rep(c("Y", "N"), times = 25))
+
+
+  # run Study_Assess with AE only
 
   lData <- list(
     dfSUBJ = dfSUBJ,
     dfAE = dfAE
   )
+
 
   result <- Study_Assess(
     lData = lData,
@@ -241,5 +246,15 @@ test_that("non-enrolled subjects are filtered out using a default workflow", {
 
   expect_equal(25, nrow(result$kri0001$lData$dfSUBJ))
   expect_true(all(result$kri0001$lData$dfSUBJ$enrollyn == "Y"))
+})
+
+test_that("flowchart is returned when bFlowchart is TRUE", {
+  lWorkflow <- MakeWorkflowList(strNames = "kri0001")
+
+  result <- Study_Assess(lData = lData, lAssessments = lWorkflow, bFlowchart = TRUE)
+
+  expect_type(result$kri0001$lChecks$flowchart, "list")
+  expect_snapshot(result$kri0001$lChecks$flowchart)
+
 
 })
