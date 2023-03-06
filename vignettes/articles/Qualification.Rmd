@@ -79,44 +79,36 @@ Test cases for `{gsm}` are written using the standard `testthat` workflow. A sin
 ```{r SummariseResults}
 spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R")
 spec_list <- spec_list[-1]
-spec_list <- spec_list[1:5]
+spec_list <- spec_list[1:20]
 spec_list <- paste0("~/gsm/tests/testqualification/qualification/", spec_list)
 
 scrape <- map_df(spec_list, function(x) {
-    testResultsRaw <- invisible(testthat::test_file(x, reporter = testthat::SilentReporter)[[1]])
+    testResultsRaw <- invisible(testthat::test_file(x, reporter = testthat::ListReporter)[[1]])
+    assign("testResultsRaw", testResultsRaw, .GlobalEnv)
     tibble(name = testResultsRaw$file, 
            result = testResultsRaw$results[[1]]$message, 
            test = testResultsRaw$results[[1]]$test)
 }) %>%
   mutate(Tests = gsub("test_qual_", "", name),
-         Tests = gsub(".R", "", Tests))
+         Tests = gsub(".R", "", Tests)) 
 
-testResultsIndividual <- scrape %>%
-  as_tibble() %>%
-  rename(`Test Name` = test) %>%
-  # group_by(file, context, `Test Name`) %>%
-  summarise(`Number of Tests` = length(unique(name)),
-            `Number Passed` = sum(passed),
-            `Number Failed` = sum(failed),
-            `Number Warnings` = sum(warning),
-            `Number Errors` = sum(as.numeric(error)),
-            `Number Skipped` = sum(as.numeric(skipped)),
-            # `User Runtime (sec)` = user,
-            # `System Runtime (sec)` = system,
-            # `Real Runtime (sec)` = real,
-            .groups = "drop")
+funcs <- spec_df %>%
+  select(Tests, Assessment) %>%
+  tidyr::separate_rows("Tests", sep = ",") %>%
+  mutate(Tests = trimws(Tests)) %>%
+  rename(Function = Assessment)
 
-testResultsNested <- testResultsIndividual %>%
-  nest_by(file, context, .key = "Results") %>%
-  nest_by(file, .key = "Categories")
+scrape_new <- left_join(scrape, funcs) %>%
+  distinct()
 
-SummariseResults <- function(res) {
-  res %>% 
-    summarise_if(is.numeric, sum) %>% 
-    knitr::kable(align = rep("c",9))
-}
+testResultsIndividual <- scrape_new %>%
+  mutate(Status = ifelse(result != "Pass", "Fail", "Pass")) %>%
+  group_by(Function) %>%
+  summarise(`Number of Tests` = n(),
+            `Number Passed` = length(unique(name)[Status == "Pass"]),
+            `Number Failed` = length(unique(name)[Status == "Fail"]))
 
-SummariseResults(testResultsIndividual)
+knitr::kable(testResultsIndividual)
 ```
 
 # Test Results: Detailed
@@ -137,10 +129,25 @@ qual_specs <- qual_specs_orig %>%
       distinct()
   }) %>%
   list_rbind()
+
+### One row per spec
+Specifications <- spec_df %>%
+  select(ID, Description, Risk, Impact, Tests)
+colnames(Specifications) <- c("Spec ID", "Spec Description", "Risk", "Impact", "Associated Test IDs")
+
+knitr::kable(Specifications)
+
+### One row per test
+test <- scrape_new %>%
+  select(Tests, test, result, Function)
+
+Results <- left_join(test, qual_specs) %>%
+  select(Function, Specs, Tests, test, result)
+colnames(Results) <- c("Function", "Spec ID", "Test ID", "Test Description", "Test Result")
+
+knitr::kable(Results)
   
 ```
-
-#*************************Add function description to specs file************************************
 
 # Unit Tests
 
@@ -155,8 +162,8 @@ The table below summarizes unit test coverage of each `{gsm}` function. This met
 The functions that have an asterisk (*) are qualified.
 
 ```{r covr}
-pkg_cov <- covr::coverage_to_list(covr::package_coverage(here::here()))
-pandoc.p(paste(paste0(names(pkg_cov[[1]]), " = ", pkg_cov[[1]], "%"), collapse = "\n\n"))
+# pkg_cov <- covr::coverage_to_list(covr::package_coverage(here::here()))
+# pandoc.p(paste(paste0(names(pkg_cov[[1]]), " = ", pkg_cov[[1]], "%"), collapse = "\n\n"))
 ```
 
 # Qualification Testing Environment
@@ -178,101 +185,102 @@ import_risk <- strsplit(devtools::as.package(here::here())$imports, ",\n")[[1]] 
   pkg_ref() %>%
   pkg_assess() %>%
   pkg_score() %>% 
-  select("package", "version", "pkg_score")
+  select("package", "version", "downloads_1yr") %>%
+  rename("pkg_score" = "downloads_1yr")
 pander::pandoc.table(import_risk, style = "grid")
 ```
 
 # Pull Request History
 
 ```{r prs}
-release <- gh("/repos/Gilead-BioStats/gsm/releases", .token = remotes:::github_pat())[[1]]
-release_date <- ifelse(is.null(release$published_at), release$created_at, release$published_at)
-
-pr_at_date <- FALSE
-page_num <- 1
-prs <- list()
-while(pr_at_date != TRUE){
-  resp <- gh("/repos/Gilead-BioStats/gsm/pulls", per_page = 100, .token = remotes:::github_pat(),
-             .params = list(page = page_num, state = "all"))
-
-  map(resp, function(x){
-    if (!is.null(x$closed_at) &
-        min(as.character(x$closed_at), as.POSIXct(Sys.time())) < as.character(release_date)){
-      pr_at_date <<- TRUE
-      }
-    })
-
-  if (pr_at_date == TRUE){
-    resp_sub <- resp %>%
-      keep(~ !is.null(.$closed_at) &
-             min(as.character(.$closed_at), as.POSIXct(Sys.time())) < as.character(release_date))
-    prs <<- append(prs, resp_sub)
-
-  }else{
-    prs <<- append(prs, resp)
-  }
-  page_num <<- page_num + 1
-}
-
-getRepoDetails <- function(x) {
-
-  PullRequest <- x[["number"]]
-  Requester <- x[["user"]][["login"]]
-  DateRequested <- x[["created_at"]]
-  Branch <- x[["head"]][["ref"]]
-  Target <- x[["base"]][["ref"]]
-  Title <- x[["title"]]
-  Link <- x[["html_url"]]
-
-  if (length(x[["requested_reviewers"]]) > 0) {
-    Reviewers <- paste(map(x[["requested_reviewers"]], ~ .x[["login"]]), collapse = "\n\n")
-  } else {
-    Reviewers = ""
-  }
-
-  tempReviews <- gh(paste0("GET /repos/Gilead-BioStats/gsm/pulls/", PullRequest, "/reviews"))
-
-  if (length(tempReviews) > 0) {
-  ReviewStatus <- tempReviews[[1]][["state"]]
-  ReviewComments <- tempReviews[[1]][["body"]]
-  } else {
-    ReviewStatus <- ""
-    ReviewComments <- "None"
-  }
-
-  pr <- tibble(
-    `Pull Request` = PullRequest,
-    Requester = Requester,
-    `Date Requested` = gsub("T|Z", " ", DateRequested),
-    Branch = Branch,
-    Target = Target,
-    Title = Title,
-    Reviewers = Reviewers,
-    `Review Status` = ReviewStatus,
-    Link = Link
-  ) %>%
-    map(~ gsub("[^\u0001-\u007F]+|<U\\+\\w+>","", .x)) %>%
-    map(~ gsub("`", " ` ", .x)) %>%
-    map(~ str_squish(.x)) %>%
-    map(~ trimws(.x))
-
-  return(pr)
-
-}
-
-tbl <- map_df(prs, ~getRepoDetails(.))
-
-for (i in 1:nrow(tbl)){
-  pander::pandoc.p(
-    c(
-      pander::pandoc.header(paste0("Pull Request ", tbl[i, "Pull Request"], ": ", tbl[i, "Title"]), level = 3),
-      pander::pandoc.p(paste0("Merging ", tbl[i, "Branch"], " into ", tbl[i, "Target"], "\n")),
-      pander::pandoc.p(pander::pandoc.link(tbl[i, "Link"])),
-      pander::pandoc.table(tbl[i, c("Requester", "Date Requested",
-                                    "Reviewers", "Review Status")],
-                           split.cells = 13)
-      )
-    )
-}
+# release <- gh("/repos/Gilead-BioStats/gsm/releases", .token = remotes:::github_pat())[[1]]
+# release_date <- ifelse(is.null(release$published_at), release$created_at, release$published_at)
+# 
+# pr_at_date <- FALSE
+# page_num <- 1
+# prs <- list()
+# while(pr_at_date != TRUE){
+#   resp <- gh("/repos/Gilead-BioStats/gsm/pulls", per_page = 100, .token = remotes:::github_pat(),
+#              .params = list(page = page_num, state = "all"))
+# 
+#   map(resp, function(x){
+#     if (!is.null(x$closed_at) &
+#         min(as.character(x$closed_at), as.POSIXct(Sys.time())) < as.character(release_date)){
+#       pr_at_date <<- TRUE
+#       }
+#     })
+# 
+#   if (pr_at_date == TRUE){
+#     resp_sub <- resp %>%
+#       keep(~ !is.null(.$closed_at) &
+#              min(as.character(.$closed_at), as.POSIXct(Sys.time())) < as.character(release_date))
+#     prs <<- append(prs, resp_sub)
+# 
+#   }else{
+#     prs <<- append(prs, resp)
+#   }
+#   page_num <<- page_num + 1
+# }
+# 
+# getRepoDetails <- function(x) {
+# 
+#   PullRequest <- x[["number"]]
+#   Requester <- x[["user"]][["login"]]
+#   DateRequested <- x[["created_at"]]
+#   Branch <- x[["head"]][["ref"]]
+#   Target <- x[["base"]][["ref"]]
+#   Title <- x[["title"]]
+#   Link <- x[["html_url"]]
+# 
+#   if (length(x[["requested_reviewers"]]) > 0) {
+#     Reviewers <- paste(map(x[["requested_reviewers"]], ~ .x[["login"]]), collapse = "\n\n")
+#   } else {
+#     Reviewers = ""
+#   }
+# 
+#   tempReviews <- gh(paste0("GET /repos/Gilead-BioStats/gsm/pulls/", PullRequest, "/reviews"))
+# 
+#   if (length(tempReviews) > 0) {
+#   ReviewStatus <- tempReviews[[1]][["state"]]
+#   ReviewComments <- tempReviews[[1]][["body"]]
+#   } else {
+#     ReviewStatus <- ""
+#     ReviewComments <- "None"
+#   }
+# 
+#   pr <- tibble(
+#     `Pull Request` = PullRequest,
+#     Requester = Requester,
+#     `Date Requested` = gsub("T|Z", " ", DateRequested),
+#     Branch = Branch,
+#     Target = Target,
+#     Title = Title,
+#     Reviewers = Reviewers,
+#     `Review Status` = ReviewStatus,
+#     Link = Link
+#   ) %>%
+#     map(~ gsub("[^\u0001-\u007F]+|<U\\+\\w+>","", .x)) %>%
+#     map(~ gsub("`", " ` ", .x)) %>%
+#     map(~ str_squish(.x)) %>%
+#     map(~ trimws(.x))
+# 
+#   return(pr)
+# 
+# }
+# 
+# tbl <- map_df(prs, ~getRepoDetails(.))
+# 
+# for (i in 1:nrow(tbl)){
+#   pander::pandoc.p(
+#     c(
+#       pander::pandoc.header(paste0("Pull Request ", tbl[i, "Pull Request"], ": ", tbl[i, "Title"]), level = 3),
+#       pander::pandoc.p(paste0("Merging ", tbl[i, "Branch"], " into ", tbl[i, "Target"], "\n")),
+#       pander::pandoc.p(pander::pandoc.link(tbl[i, "Link"])),
+#       pander::pandoc.table(tbl[i, c("Requester", "Date Requested",
+#                                     "Reviewers", "Review Status")],
+#                            split.cells = 13)
+#       )
+#     )
+# }
 ```
 
