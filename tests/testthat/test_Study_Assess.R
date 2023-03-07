@@ -275,7 +275,14 @@ test_that("lSubjFilter correctly filters subjects from dm dataset", {
   lWorkflow <- MakeWorkflowList(strNames = "kri0001")
 
   # filter for US only
-  result <- Study_Assess(lData = lData, lAssessments = lWorkflow, lSubjFilters = list("strCountryCol" = "US"))
+  lMappingFilter <- lMapping
+  lMappingFilter$dfSUBJ[['strCountryVal']] <- "US"
+  result <- Study_Assess(
+    lData = lData,
+    lAssessments = lWorkflow,
+    lMapping = lMappingFilter,
+    lSubjFilters = list("strCountryCol" = "strCountryVal")
+    )
 
   # these should only be group ids where country == "US"
   us_group_ids <- result$kri0001$lResults$lData$dfSummary$GroupID
@@ -287,4 +294,67 @@ test_that("lSubjFilter correctly filters subjects from dm dataset", {
     unique()
 
   expect_true(!all(us_group_ids %in% not_us_group_ids))
+})
+
+test_that("lSubjFilter identifies dm dataset with 0 rows", {
+  # run Study_Assess with AE only
+  lData <- list(
+    dfSUBJ = dfSUBJ,
+    dfAE = dfAE
+  )
+
+  lWorkflow <- MakeWorkflowList(strNames = "kri0001")
+
+  lMappingFilter <- lMapping
+  lMappingFilter$dfSUBJ[['strStudyVal']] <- 'XYZ'
+
+  # filter for US only
+  # expected snapshot:
+  # ── Checking Input Data for `FilterDomain()` ──
+  #
+  # ✔ No issues found for dfSUBJ domain
+  # Filtering on `studyid %in% c("XYZ")`.
+  # ✔ Filtered on `studyid %in% c("XYZ")` to drop 50 rows from 50 to 0 rows.
+  # ! WARNING: Filtered data has 0 rows.
+  # ✖ Subject-level data contains 0 rows. Assessment not run.
+  # NULL
+  expect_snapshot(
+    Study_Assess(
+      lData = lData,
+      lAssessments = lWorkflow,
+      lMapping = lMappingFilter,
+      lSubjFilters = list("strStudyCol" = "strStudyVal"),
+      bQuiet = FALSE
+      )
+    )
+})
+
+
+test_that("a stratified workflow can be run using Study_Assess", {
+
+  lData <- list(
+    dfSUBJ = dfSUBJ,
+    dfAE = dfAE
+  )
+
+  lMapping <- yaml::read_yaml(
+    system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
+  )
+
+  lWorkflowList <- MakeWorkflowList(strNames = "aeGrade", bRecursive = TRUE)
+
+  # Adverse events by grade
+  StratifiedAE <- MakeStratifiedAssessment(
+    lData = list(
+      dfSUBJ = clindata::rawplus_dm,
+      dfAE = clindata::rawplus_ae
+    ),
+    lMapping = lMapping,
+    lWorkflow = lWorkflowList$aeGrade
+  )
+
+  result <- Study_Assess(lData = lData, lMapping = lMapping, lAssessments = StratifiedAE)
+
+  expect_equal(names(result), c("aeGrade_1", "aeGrade_2", "aeGrade_3", "aeGrade_4"))
+  expect_true(all(result %>% map_lgl(~.x$bStatus)))
 })
