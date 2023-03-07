@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Make Snapshot - create and export Gizmo data model.
 #'
 #' @description
@@ -219,18 +221,15 @@ bFlowchart = FALSE
   # `parseStatus` represents the actual results - workflowid + `x$bStatus`
   # if `workflowid` is not found in the results, that means it was not run.
   status_workflow <- lMeta$config_workflow %>%
-    left_join(parseStatus, by = "workflowid") %>%
+    full_join(parseStatus, by = "workflowid") %>%
     mutate(status = ifelse(is.na(.data$status), FALSE, .data$status))
 
   # parse warnings from is_mapping_valid to create an informative "notes" column
   warnings <- ParseWarnings(lResults)
 
-  if (nrow(warnings > 0)) {
     status_workflow <- status_workflow %>%
-      left_join(warnings, by = "workflowid")
-  } else {
-    status_workflow$notes <- NA_character_
-  }
+      left_join(warnings, by = c("workflowid", "status"))
+
 
   # status_param ------------------------------------------------------------
   status_param <- lMeta$config_param

@@ -1,4 +1,4 @@
-test_that("Query age assessment can return a correctly assessed data frame for the fisher test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly.", {
+test_that("Given an appropriate subset of Query Age data, the assessment function correctly performs a Query Age Assessment grouped by a custom variable using the Fisher method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::QueryAge_Map_Raw(dfs = list(
     dfQUERY = clindata::edc_queries %>% filter(foldername == "Week 120"),

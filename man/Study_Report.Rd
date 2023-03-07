@@ -2,7 +2,7 @@
 % Please edit documentation in R/Study_Report.R
 \name{Study_Report}
 \alias{Study_Report}
-\title{{experimental} Study Report}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Study_Report(lAssessments, strOutpath = NULL)
 }
@@ -15,7 +15,7 @@ Study_Report(lAssessments, strOutpath = NULL)
 HTML report of study data.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+Study Report
 }
 \details{
 Create HTML summary report using the results of \code{Study_Assess}, including tables, charts, and error checking.

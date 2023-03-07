@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Transform Rate
 #'
 #' Convert from input data format to needed input format to derive KRI for an Assessment. Calculate a site-level rate.

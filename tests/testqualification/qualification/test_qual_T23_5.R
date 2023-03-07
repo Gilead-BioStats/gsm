@@ -1,4 +1,4 @@
-test_that("PD assessment can return a correctly assessed data frame for the identity test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly", {
+test_that("Given an appropriate subset of Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by a custom variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw_Binary(dfs = list(
     dfPD = clindata::rawplus_protdev %>% dplyr::filter(importnt == "Y"),

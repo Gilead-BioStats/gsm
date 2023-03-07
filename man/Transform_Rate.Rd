@@ -2,7 +2,7 @@
 % Please edit documentation in R/Transform_Rate.R
 \name{Transform_Rate}
 \alias{Transform_Rate}
-\title{Transform Rate}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Transform_Rate(
   dfInput,
@@ -27,9 +27,11 @@ Transform_Rate(
 \code{data.frame} with one row per site with columns \code{GroupID}, \code{Numerator}, \code{Denominator}, and \code{Metric}.
 }
 \description{
-Convert from input data format to needed input format to derive KRI for an Assessment. Calculate a site-level rate.
+Transform Rate
 }
 \details{
+Convert from input data format to needed input format to derive KRI for an Assessment. Calculate a site-level rate.
+
 This function transforms data to prepare it for the analysis step. It is currently only sourced for the Adverse Event, Disposition, Labs, and Protocol Deviations Assessments.
 }
 \section{Data Specification}{

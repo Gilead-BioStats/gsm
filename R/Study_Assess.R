@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Run Multiple Assessments on a Study
 #'
 #' @description

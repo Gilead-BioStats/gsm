@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-RunStratifiedWorkflow.R
 \name{RunStratifiedWorkflow}
 \alias{RunStratifiedWorkflow}
-\title{Run a stratified workflow}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 RunStratifiedWorkflow(
   lWorkflow,
@@ -38,6 +38,9 @@ specified in \code{lMapping} and \code{lAssessments}, which are generally based 
 \description{
 Attempts to run a stratified workflow (\code{lWorkflow}) using shared data (\code{lData}) and metadata (\code{lMapping}).
 Calls \code{RunStep} for each item in \code{lWorkflow$workflow} and saves the results to \code{lWorkflow}
+}
+\details{
+Run a stratified workflow
 }
 \examples{
 lWorkflows <- MakeWorkflowList()

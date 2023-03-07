@@ -1,4 +1,4 @@
-test_that("Query age assessment can return a correctly assessed data frame for the normal approximation test grouped by the country variable when given correct input data from clindata and the results should be flagged correctly.", {
+test_that("Given appropriate Query Age data, the assessment function correctly performs a Query Age Assessment grouped by the Country variable using the Normal Approximation method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::QueryAge_Map_Raw()
 

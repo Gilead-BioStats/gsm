@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Funnel Plot Analysis with Normal Approximation for Binary and Rate Outcomes
 #'
 #' @details

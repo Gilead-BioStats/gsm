@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Flag
 #'
 #' Add columns flagging sites that represent possible statistical outliers when Identity statistical

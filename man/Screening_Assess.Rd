@@ -2,7 +2,7 @@
 % Please edit documentation in R/Screening_Assess.R
 \name{Screening_Assess}
 \alias{Screening_Assess}
-\title{Screening Assessment}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Screening_Assess(
   dfInput,
@@ -70,6 +70,8 @@ of the column. Default: package-defined Screening Assessment mapping.}
 Evaluates screen failure rate (SF) on mapped subject-level dataset to identify sites that may be over- or under-reporting patient discontinuations.
 }
 \details{
+Screening Assessment
+
 The Screening Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }

@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Run a single step in a workflow
 #'
 #' @description

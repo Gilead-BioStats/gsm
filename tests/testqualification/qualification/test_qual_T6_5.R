@@ -1,4 +1,4 @@
-test_that("Labs assessment can return a correctly assessed data frame grouped by a custom variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
+test_that("Given appropriate Labs data, the assessment function correctly performs a Labs Assessment grouped by a custom variable using the Identity method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
   dfInput <- gsm::LB_Map_Raw()
 

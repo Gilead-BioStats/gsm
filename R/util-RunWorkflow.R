@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Run a single assessment
 #'
 #' @description
@@ -53,8 +55,11 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE, bFlowchart = 
   lWorkflow$lData <- lData[vDataDomains]
   lWorkflow$lChecks <- list()
   lWorkflow$bStatus <- TRUE
+  lWorkflow$lWorkflowChecks <- is_workflow_valid(lWorkflow)
 
-  if (exists("steps", where = lWorkflow)) {
+
+
+  if (lWorkflow$lWorkflowChecks$bStatus) {
     # Run through each step in lWorkflow$workflow
 
     stepCount <- 1

@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Protocol Deviation Assessment - Raw Mapping
 #'
 #' @description

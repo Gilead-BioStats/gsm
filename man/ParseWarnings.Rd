@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-ParseWarnings.R
 \name{ParseWarnings}
 \alias{ParseWarnings}
-\title{{experimental} Parse warnings from the result of Study_Assess.}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 ParseWarnings(lResults)
 }
@@ -16,6 +16,9 @@ ParseWarnings(lResults)
 \code{ParseWarnings} is used inside of \code{Make_Snapshot()} to summarize any issues with data needed to run a KRI or QTL. If there are any warnings for any
 workflow run via \code{Make_Snapshot()}, they are appended to the \code{notes} column in the  \code{status_workflow} data.frame, which is included in the output
 of \code{Make_Snapshot()}. If there are no warnings, the \code{notes} column contains \code{NA} for all KRIs/QTLs.
+}
+\details{
+Parse warnings from the result of Study_Assess.
 }
 \examples{
 # Set all subjid to NA to create warnings

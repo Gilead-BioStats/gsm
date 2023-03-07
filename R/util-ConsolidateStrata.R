@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Consolidate stratified assessment outputs
 #'
 #' @description

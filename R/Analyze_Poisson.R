@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Poisson Analysis - Site Residuals
 #'
 #' @details

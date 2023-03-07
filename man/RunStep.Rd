@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-RunStep.R
 \name{RunStep}
 \alias{RunStep}
-\title{Run a single step in a workflow}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 RunStep(lStep, lMapping, lData, bQuiet)
 }
@@ -27,6 +27,9 @@ parameter with results from \code{is_mapping_vald} for each domain in \code{lSte
 \description{
 Runs a single step of an assessment workflow. Currently supports \code{Filter}, \code{Map}, and \code{Assess}
 functions.
+}
+\details{
+Run a single step in a workflow
 }
 \examples{
 lStep <- MakeWorkflowList()[["kri0001"]][["steps"]][[1]]

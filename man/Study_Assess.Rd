@@ -2,7 +2,7 @@
 % Please edit documentation in R/Study_Assess.R
 \name{Study_Assess}
 \alias{Study_Assess}
-\title{Run Multiple Assessments on a Study}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Study_Assess(
   lData = NULL,
@@ -31,6 +31,9 @@ Study_Assess(
 }
 \description{
 Attempts to run one or more assessments (\code{lAssessments}) using shared data (\code{lData}) and metadata (\code{lMapping}). By default, the sample \code{rawplus} data from the {clindata} package is used, and all assessments defined in \code{inst/workflow} are evaluated. Individual assessments are run using \code{gsm::RunAssessment()}
+}
+\details{
+Run Multiple Assessments on a Study
 }
 \examples{
 \dontrun{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/LB_Map_Raw.R
 \name{LB_Map_Raw}
 \alias{LB_Map_Raw}
-\title{Lab Abnormality Assessment - Raw Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 LB_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfLB = clindata::rawplus_lb),
@@ -38,6 +38,8 @@ of the column. Default: package-defined mapping for raw+.}
 Convert from ADaM or raw format to input format for Lab Abnormality Assessment.
 }
 \details{
+Lab Abnormality Assessment - Raw Mapping
+
 Convert raw lab data (LB), typically processed case report form data, to formatted
 input data to \code{\link[=LB_Assess]{LB_Assess()}}.
 
