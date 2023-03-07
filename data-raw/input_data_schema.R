@@ -10,8 +10,8 @@ mapping_domain <- read_yaml('inst/mappings/mapping_domain.yaml')
 mapping_column <- c(mapping_rawplus, mapping_edc)
 
 # TODO: identify required columns
-specs <- list.files('inst/specs', 'Map_Raw', full.names = TRUE) %>%
-    purrr::map(function(file) {
+required_columns <- list.files('inst/specs', 'Map_Raw', full.names = TRUE) %>%
+    purrr::map_dfr(function(file) {
         filename <- stringr::str_split_1(file, '/') %>%
             tail(1)
 
@@ -36,7 +36,9 @@ specs <- list.files('inst/specs', 'Map_Raw', full.names = TRUE) %>%
             })
 
         spec
-    })
+    }) %>%
+    distinct(domain, column) %>%
+    arrange(domain, column)
 
 domain_schema <- tibble(
     Source = mapping_domain %>% map_chr(~.x$source),

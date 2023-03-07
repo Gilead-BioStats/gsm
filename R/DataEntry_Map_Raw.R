@@ -66,7 +66,8 @@ DataEntry_Map_Raw <- function(
     dfDATAENT_mapped <- dfs$dfDATAENT %>%
       select(
         SubjectID = lMapping[["dfDATAENT"]][["strIDCol"]],
-        DataEntryLag = lMapping[["dfDATAENT"]][["strDataEntryLagCol"]]
+        DataEntryLag = lMapping[["dfDATAENT"]][["strDataEntryLagCol"]],
+        DataEntryLagFlag = lMapping[["dfDATAENT"]][["strDataEntryLagFlagCol"]]
       )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
@@ -87,7 +88,7 @@ DataEntry_Map_Raw <- function(
     dfInput <- dfDATAENT_mapped %>%
       mutate(
         Count = if_else(
-          .data$DataEntryLag %in% lMapping[["dfDATAENT"]][["strDataEntryLagVal"]],
+          .data$DataEntryLagFlag %in% lMapping[["dfDATAENT"]][["strDataEntryLagFlagVal"]],
           1,
           0
         ),

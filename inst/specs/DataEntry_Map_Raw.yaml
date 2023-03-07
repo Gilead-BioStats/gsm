@@ -2,6 +2,7 @@ dfDATAENT:
   vRequired:
     - strIDCol
     - strDataEntryLagCol
+    - strDataEntryLagFlagCol
 dfSUBJ:
   vRequired:
     - strIDCol

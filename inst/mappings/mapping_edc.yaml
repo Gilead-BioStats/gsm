@@ -11,6 +11,7 @@ dfQUERY:
   strVisitCol: foldername
   strFormCol: formoid
   strFieldCol: fieldoid
+  strLogNumberCol: log_number
   strStatusCol: querystatus
   strCreationDateCol: created
   strAnswerDateCol: answered
