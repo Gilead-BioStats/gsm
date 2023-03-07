@@ -258,3 +258,28 @@ test_that("flowchart is returned when bFlowchart is TRUE", {
 
 
 })
+
+
+test_that("lSubjFilter correctly filters subjects from dm dataset", {
+  # run Study_Assess with AE only
+  lData <- list(
+    dfSUBJ = dfSUBJ,
+    dfAE = dfAE
+  )
+
+  lWorkflow <- MakeWorkflowList(strNames = "kri0001")
+
+  # filter for US only
+  result <- Study_Assess(lData = lData, lAssessments = lWorkflow, lSubjFilters = list("strCountryCol" = "US"))
+
+  # these should only be group ids where country == "US"
+  us_group_ids <- result$kri0001$lResults$lData$dfSummary$GroupID
+
+  # filter where country != "US" should not be found in the result above
+  not_us_group_ids <- dfSUBJ %>%
+    filter(country != "US") %>%
+    pull(siteid) %>%
+    unique()
+
+  expect_true(!all(us_group_ids %in% not_us_group_ids))
+})
