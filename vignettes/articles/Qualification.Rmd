@@ -5,6 +5,8 @@ output:
   pdf_document:
     toc: true
     number_sections: true
+header-includes:
+  - \usepackage{longtable}
 vignette: >
   %\VignetteIndexEntry{Qualification}
   %\VignetteEncoding{UTF-8}
@@ -38,6 +40,8 @@ source(here::here("inst", "qualification", "specs.R"))
 source(here::here("inst", "qualification", "test_cases.R"))
 spec_df <- import_specs()
 ```
+
+\newpage
 
 # Introduction
 
@@ -77,7 +81,7 @@ Test cases for `{gsm}` are written using the standard `testthat` workflow. A sin
 
 # Test Results: Overview
 
-```{r SummariseResults}
+```{r}
 spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R")
 spec_list <- spec_list[-1]
 spec_list <- spec_list[1:20]
@@ -100,23 +104,24 @@ funcs <- spec_df %>%
   rename(Function = Assessment) %>%
   distinct()
 
-testResultsIndividual <- left_join(scrape, funcs) %>% 
+testResultsIndividual <- left_join(scrape, funcs, by = "Tests") %>% 
   reframe(`Function Name` = unique(Function),
             `Number of Tests` = n(),
             `Number Passed` = sum(passed),
             `Number Failed` = sum(failed),
-            `Number Skipped` = sum(skipped),
-            `Number Errored` = sum(error),
-            `Number Warning` = sum(warning))
+            `Number Skipped` = sum(skipped))
 
-scrape_new <-left_join(scrape, funcs) 
+scrape_new <-left_join(scrape, funcs, by = "Tests") 
 
-
-knitr::kable(testResultsIndividual) %>%
-  kableExtra::kable_styling(latex_options = c("scale_down", "fontsize=10pt"))
+knitr::kable(testResultsIndividual, booktabs = TRUE, longtable = TRUE) %>%
+  kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
+                            font_size = 9, full_width = FALSE) %>%
+  kableExtra::kable_classic()
 ```
 
 # Test Results: Detailed
+
+## One Row Per Specification
 
 ```{r}
 qual_specs_orig <- read.csv(system.file("qualification", "qualification_specs.csv", package = "gsm"))
@@ -140,22 +145,33 @@ Specifications <- spec_df %>%
   select(ID, Description, Risk, Impact, Tests)
 colnames(Specifications) <- c("Spec ID", "Spec Description", "Risk", "Impact", "Associated Test IDs")
 
-knitr::kable(Specifications) %>%
-  kableExtra::kable_styling(latex_options = c("basic", "fontsize = 10pt")) %>%
-  kableExtra::column_spec(2, width = "5cm") %>%
-  kableExtra::column_spec(5, width = "5cm") 
+knitr::kable(Specifications, booktabs = TRUE, longtable = TRUE) %>%
+  kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
+                            font_size = 9, full_width = FALSE) %>%
+  kableExtra::column_spec(2, width = "6cm") %>%
+  kableExtra::column_spec(5, width = "5cm")
+```
 
+\newpage
+
+## One Row Per Test
+
+```{r}
 ### One row per test
 test <- scrape_new %>%
-  select(Tests, test, result, Function)
+  mutate(result_new = ifelse(passed == 1, "Pass", "Fail")) %>%
+  select(Tests, test, result_new, Function)
 
-Results <- left_join(test, qual_specs) %>%
-  select(Function, Specs, Tests, test, result)
+Results <- left_join(test, qual_specs, by = "Tests") %>%
+  select(Function, Specs, Tests, test, result_new)
 colnames(Results) <- c("Function", "Spec ID", "Test ID", "Test Description", "Test Result")
 
-knitr::kable(Results) %>%
-  kableExtra::kable_styling(latex_options = c("basic", "fontsize = 10pt"))
-  
+knitr::kable(Results, booktabs = TRUE, longtable = TRUE) %>%
+  kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
+                            font_size = 9, full_width = FALSE) %>%
+  kableExtra::column_spec(1, width = "3cm") %>%
+  kableExtra::column_spec(2, width = "3cm") %>%
+  kableExtra::column_spec(4, width = "6cm")
 ```
 
 # Unit Tests
@@ -168,12 +184,12 @@ Unit testing was performed in addition to qualification testing to help ensure t
 
 The table below summarizes unit test coverage of each `{gsm}` function. This metric quantifies the extent of unit testing. The closer this measure is to 100%, the more unit testing that function has.
 
-The functions that have an asterisk (\*) are qualified.
-
 ```{r covr}
 # pkg_cov <- covr::coverage_to_list(covr::package_coverage(here::here()))
 # pandoc.p(paste(paste0(names(pkg_cov[[1]]), " = ", pkg_cov[[1]], "%"), collapse = "\n\n"))
 ```
+
+\newpage
 
 # Qualification Testing Environment
 
@@ -184,20 +200,30 @@ pander::pander(sessionInfo())
 pander::pandoc.p('\\pagebreak')
 ```
 
-# Package List
+\newpage
 
-The table below utilizes the `riskmetric` package, which quantifies the robustness of an R package. The `pkg_score` presented is a corrected measure of the volume of downloads by users in the last year. The more times a package has been downloaded, the more extensive the user testing and the greater the chance of identifying and logging a bug. When interpreting the `pkg_score`, the scale goes from 0 to 1. The closer the `pkg_score` is to 1, the better the package score is considered.
+## Package List
+
+The table below utilizes the `riskmetric` package, which quantifies the robustness of an R package. The `pkg_score` column captures the risk involved with using a package. The risk level ranges from 0 (low-risk) to 1 (high-risk). 
+
+The `downloads` column captures a corrected measure of the volume of downloads by users in the last year. The more times a package has been downloaded, the more extensive the user testing and the greater the chance of identifying and logging a bug. When interpreting `downloads`, the scale goes from 0 to 1. The closer `downloads` is to 1, the better the package score is considered.
 
 ```{r riskmetric, warning = FALSE}
-import_risk <- strsplit(devtools::as.package(here::here())$imports, ",\n")[[1]] %>% 
-  map_chr(~gsub( " .*$", "", .x )) %>% 
+import_risk <- strsplit(devtools::as.package(here::here())$imports, ",\n")[[1]] %>%
+  map_chr(~gsub( " .*$", "", .x )) %>%
   pkg_ref() %>%
   pkg_assess() %>%
-  pkg_score() %>% 
-  select("package", "version", "downloads_1yr") %>%
-  rename("pkg_score" = "downloads_1yr")
-pander::pandoc.table(import_risk, style = "grid")
+  pkg_score() %>%
+  select("package", "version", "pkg_score") %>%
+  mutate(pkg_score = sprintf("%.3f", round(pkg_score, 5)))
+
+knitr::kable(import_risk, booktabs = TRUE, longtable = TRUE) %>%
+  kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
+                            font_size = 9, full_width = FALSE) %>%
+  kableExtra::kable_classic()
 ```
+
+\newpage
 
 # Pull Request History
 
