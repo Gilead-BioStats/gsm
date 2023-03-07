@@ -7,6 +7,37 @@ mapping_rawplus <- read_yaml('inst/mappings/mapping_rawplus.yaml')
 mapping_edc <- read_yaml('inst/mappings/mapping_edc.yaml')
 mapping_domain <- read_yaml('inst/mappings/mapping_domain.yaml')
 
+mapping_column <- c(mapping_rawplus, mapping_edc)
+
+# TODO: identify required columns
+specs <- list.files('inst/specs', 'Map_Raw', full.names = TRUE) %>%
+    purrr::map(function(file) {
+        filename <- stringr::str_split_1(file, '/') %>%
+            tail(1)
+
+        assessment <- sub('_Map_Raw.*$', '', filename)
+        cli::cli_alert_info('assessment: {assessment}')
+
+        spec <- yaml::read_yaml(file) %>%
+            imap_dfr(function(value, key) {
+                cli::cli_alert_info('domain: {key}')
+                domain_mapping <- mapping_column[[ key ]]
+
+                required_columns <- tibble(
+                    assessment = assessment,
+                    domain = key,
+                    column = map_chr(
+                        value$vRequired,
+                        ~domain_mapping[[ .x ]]
+                    )
+                )
+
+                required_columns
+            })
+
+        spec
+    })
+
 domain_schema <- tibble(
     Source = mapping_domain %>% map_chr(~.x$source),
     Table = mapping_domain %>% map_chr(~.x$domain),

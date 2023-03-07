@@ -89,5 +89,5 @@ dfENROLL:
   strScreenFailVal: "N"
   strScreenFailReasonCol: sfreas
   strScreenFailReasonVal: Inclusion/Exclusion Criteria
-  strCustomGroupCol: invid
   strCountryCol: sitegroup_nsv
+  strCustomGroupCol: invid

@@ -1,8 +1,7 @@
 dfDATACHG:
   vRequired:
     - strIDCol
-    - strDataPointsCol
-    - strDataPointsChangeCol
+    - strChangeCol
 dfSUBJ:
   vRequired:
     - strIDCol

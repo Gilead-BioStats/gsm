@@ -67,7 +67,7 @@ QueryAge_Map_Raw <- function(
     dfQUERY_mapped <- dfs$dfQUERY %>%
       select(
         SubjectID = lMapping[["dfQUERY"]][["strIDCol"]],
-        QueryAge = lMapping[["dfQUERY"]][["strQueryAgeCol"]]
+        QueryAge = lMapping[["dfQUERY"]][["strAgeCol"]]
       )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%

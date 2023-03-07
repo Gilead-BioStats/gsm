@@ -1,7 +1,7 @@
 dfQUERY:
   vRequired:
     - strIDCol
-    - strQueryAgeCol
+    - strAgeCol
 dfSUBJ:
   vRequired:
     - strIDCol

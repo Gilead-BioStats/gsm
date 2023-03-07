@@ -16,6 +16,9 @@ dfQUERY:
   strAnswerDateCol: answered
   strResolutionDateCol: resolved
   strMarkingGroupCol: markinggroup
+  strQueryAgeCol: queryage
+  strQueryAgeFlagCol: qry30fl
+  strQueryAgeFlagVal: "Y"
 dfDATAENT:
   strStudyCol: protocolname
   strIDCol: subjectname
@@ -23,6 +26,8 @@ dfDATAENT:
   strFormCol: formoid
   strVisitDateCol: visitdat_date
   strDataEntryLagCol: data_entry_lag
+  strDataEntryLagFlagCol: data_entry_lag
+  strDataEntryLagFlagVal: "Y"
 dfDATACHG:
   strStudyCol: protocolname
   strIDCol: subjectname
