@@ -1,4 +1,4 @@
-test_that("Given an appropriate subset of Labs data, the assessment function correctly performs a Labs Assessment grouped by the Site variable using the Fisher method and correctly assigns Flag variable values.", {
+test_that("Given an appropriate subset of Labs data, the assessment function correctly performs a Labs Assessment grouped by the Country variable using the Fisher method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::LB_Map_Raw(dfs = list(
     dfSUBJ = clindata::rawplus_dm  %>% filter(!siteid %in% c("5", "29", "58")),
