@@ -111,7 +111,8 @@ testResultsIndividual <- left_join(scrape, funcs, by = "Tests") %>%
           `Number Passed` = sum(passed),
           `Number Failed` = sum(failed),
           `Number Skipped` = sum(skipped)) %>%
-  arrange(`Function Name`)
+  arrange(`Function Name`) %>%
+  select(-Function)
 
 scrape_new <-left_join(scrape, funcs, by = "Tests") 
 
@@ -179,10 +180,12 @@ colnames(Results) <- c("Function", "Spec ID", "Test ID", "Test Description", "Te
 knitr::kable(Results, booktabs = TRUE, longtable = TRUE) %>%
   kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
                             font_size = 9, full_width = FALSE) %>%
-  kableExtra::column_spec(1, width = "3cm") %>%
+  kableExtra::column_spec(1, width = "4cm") %>%
   kableExtra::column_spec(2, width = "3cm") %>%
   kableExtra::column_spec(4, width = "6cm")
 ```
+
+\newpage
 
 # Unit Tests
 
