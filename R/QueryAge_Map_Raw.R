@@ -75,7 +75,7 @@ QueryAge_Map_Raw <- function(
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
-        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        SubjectID = lMapping[["dfSUBJ"]][["strEDCIDCol"]],
         any_of(
           c(
             SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],

@@ -178,7 +178,7 @@ DataEntry_Assess <- function(
       strGroup = strGroup,
       strAbbreviation = "ODAT",
       strMetric = "Outstanding Data Entry Rate",
-      strNumerator = "Data Pages Entered > 10 Days",
+      strNumerator = "Outstanding Data Pages",
       strDenominator = "Total Data Pages",
       vThreshold = vThreshold
     )

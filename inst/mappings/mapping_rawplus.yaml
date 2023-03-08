@@ -2,6 +2,7 @@ dfSUBJ:
   strStudyCol: studyid
   strSiteCol: siteid
   strIDCol: subjid
+  strEDCIDCol: subject_nsv
   strStudyStartDateCol: firstparticipantdate
   strStudyEndDateCol: lastparticipantdate
   strTimeOnStudyCol: timeonstudy

@@ -1,10 +1,16 @@
 dfSUBJ:
   strStudyCol: studyid
   strSiteCol: siteid
-  strIDCol: subject_nsv
-  strAltIDCol: subjid
+  strIDCol: subjid
+  strEDCIDCol: subject_nsv
+  strStudyStartDateCol: firstparticipantdate
+  strStudyEndDateCol: lastparticipantdate
+  strTimeOnStudyCol: timeonstudy
+  strTreatmentStartDateCol: firstdosedate
+  strTreatmentEndDateCol: lastdosedate
+  strTimeOnTreatmentCol: timeontreatment
+  strCountryCol: sitegroup_nsv
   strCustomGroupCol: invid
-  strCountryCol: country
 dfQUERY:
   strStudyCol: protocolname
   strIDCol: subjectname
@@ -27,7 +33,7 @@ dfDATAENT:
   strFormCol: formoid
   strVisitDateCol: visitdat_date
   strDataEntryLagCol: data_entry_lag
-  strDataEntryLagFlagCol: data_entry_lag
+  strDataEntryLagFlagCol: data_entry_lag_flag
   strDataEntryLagFlagVal: "Y"
 dfDATACHG:
   strStudyCol: protocolname
