@@ -90,7 +90,6 @@ DataChg_Map_Raw <- function(
       )
 
     # Create subject Level data point with change counts and merge dfSUBJ
-
     dfInput <- dfDATACHG_mapped %>%
       group_by(.data$SubjectID) %>%
       summarize(

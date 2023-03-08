@@ -9,7 +9,7 @@ dfSUBJ:
   strTreatmentStartDateCol: firstdosedate
   strTreatmentEndDateCol: lastdosedate
   strTimeOnTreatmentCol: timeontreatment
-  strCountryCol: sitegroup_nsv
+  strCountryCol: country
   strCustomGroupCol: invid
 dfQUERY:
   strStudyCol: protocolname
@@ -18,14 +18,13 @@ dfQUERY:
   strFormCol: formoid
   strFieldCol: fieldoid
   strLogNumberCol: log_number
+  strDataPointIDCol: datapointid
   strStatusCol: querystatus
   strCreationDateCol: created
   strAnswerDateCol: answered
   strResolutionDateCol: resolved
   strMarkingGroupCol: markinggroup
   strQueryAgeCol: queryage
-  strQueryAgeFlagCol: qry30fl
-  strQueryAgeFlagVal: "Y"
 dfDATAENT:
   strStudyCol: protocolname
   strIDCol: subjectname
@@ -33,8 +32,6 @@ dfDATAENT:
   strFormCol: formoid
   strVisitDateCol: visitdat_date
   strDataEntryLagCol: data_entry_lag
-  strDataEntryLagFlagCol: data_entry_lag_flag
-  strDataEntryLagFlagVal: "Y"
 dfDATACHG:
   strStudyCol: protocolname
   strIDCol: subjectname

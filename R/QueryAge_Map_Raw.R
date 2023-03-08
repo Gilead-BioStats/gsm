@@ -17,6 +17,7 @@
 #'   - `dfQUERY`: `data.frame` Query-level data with one record per query.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
+#' @param nMaxQueryAge `numeric` Expected number of days allowed to answer or resolve query
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -45,6 +46,7 @@ QueryAge_Map_Raw <- function(
     dfQUERY = clindata::edc_queries
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+  nMaxQueryAge = 30,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 
@@ -69,8 +71,7 @@ QueryAge_Map_Raw <- function(
     dfQUERY_mapped <- dfs$dfQUERY %>%
       select(
         SubjectID = lMapping[["dfQUERY"]][["strIDCol"]],
-        QueryAge = lMapping[["dfQUERY"]][["strQueryAgeCol"]],
-        QueryAgeFlag = lMapping[["dfQUERY"]][["strQueryAgeFlagCol"]]
+        QueryAge = lMapping[["dfQUERY"]][["strQueryAgeCol"]]
       )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
@@ -87,11 +88,10 @@ QueryAge_Map_Raw <- function(
       )
 
     # Create subject Level aged query counts and merge dfSUBJ
-
     dfInput <- dfQUERY_mapped %>%
       mutate(
         Count = if_else(
-          .data$QueryAgeFlag %in% lMapping[["dfQUERY"]][["strQueryAgeFlagVal"]],
+          .data$QueryAge > nMaxQueryAge,
           1,
           0
         ),

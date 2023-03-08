@@ -14,6 +14,7 @@
 #'   - `dfDATAENT`: `data.frame` Data-Point-level data with one record per data entry.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
+#' @param nMaxDataEntryLag `numeric` Expected number of days allowed to enter data
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -44,6 +45,7 @@ DataEntry_Map_Raw <- function(
     dfDATAENT = clindata::edc_data_entry_lag
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+  nMaxDataEntryLag = 10,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 
@@ -68,8 +70,7 @@ DataEntry_Map_Raw <- function(
     dfDATAENT_mapped <- dfs$dfDATAENT %>%
       select(
         SubjectID = lMapping[["dfDATAENT"]][["strIDCol"]],
-        DataEntryLag = lMapping[["dfDATAENT"]][["strDataEntryLagCol"]],
-        DataEntryLagFlag = lMapping[["dfDATAENT"]][["strDataEntryLagFlagCol"]]
+        DataEntryLag = lMapping[["dfDATAENT"]][["strDataEntryLagCol"]]
       )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
@@ -90,7 +91,7 @@ DataEntry_Map_Raw <- function(
     dfInput <- dfDATAENT_mapped %>%
       mutate(
         Count = if_else(
-          .data$DataEntryLagFlag %in% lMapping[["dfDATAENT"]][["strDataEntryLagFlagVal"]],
+          .data$DataEntryLag > nMaxDataEntryLag,
           1,
           0
         ),

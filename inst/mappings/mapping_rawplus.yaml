@@ -9,7 +9,7 @@ dfSUBJ:
   strTreatmentStartDateCol: firstdosedate
   strTreatmentEndDateCol: lastdosedate
   strTimeOnTreatmentCol: timeontreatment
-  strCountryCol: sitegroup_nsv
+  strCountryCol: country
   strCustomGroupCol: invid
 dfAE:
   strIDCol: subjid
@@ -90,5 +90,5 @@ dfENROLL:
   strScreenFailVal: "N"
   strScreenFailReasonCol: sfreas
   strScreenFailReasonVal: Inclusion/Exclusion Criteria
-  strCountryCol: sitegroup_nsv
+  strCountryCol: country
   strCustomGroupCol: invid
