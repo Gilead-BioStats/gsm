@@ -42,6 +42,7 @@ dfDATACHG:
   strFormCol: formoid
   strFieldCol: fieldoid
   strLogNumberCol: log_number
+  strDataPointIDCol: datapointid
   strChangeCol: n_changes
-  strRequiredCol: req
+  strRequiredCol: isrequired
 
