@@ -257,93 +257,93 @@ knitr::kable(import_risk, booktabs = TRUE, longtable = TRUE) %>%
 # Pull Request History
 
 ```{r prs}
-release <- gh("/repos/Gilead-BioStats/gsm/releases", .token = remotes:::github_pat())[[1]]
-release_date <- ifelse(is.null(release$published_at), release$created_at, release$published_at)
-
-pr_at_date <- FALSE
-page_num <- 1
-prs <- list()
-while(pr_at_date != TRUE){
-  resp <- gh("/repos/Gilead-BioStats/gsm/pulls", per_page = 100, .token = remotes:::github_pat(),
-             .params = list(page = page_num, state = "all"))
-
-  map(resp, function(x){
-    if (!is.null(x$closed_at) &
-        min(as.character(x$closed_at), as.POSIXct(Sys.time())) < as.character(release_date)){
-      pr_at_date <<- TRUE
-      }
-    })
-
-  if (pr_at_date == TRUE){
-    resp_sub <- resp %>%
-      keep(~ !is.null(.$closed_at) &
-             min(as.character(.$closed_at), as.POSIXct(Sys.time())) < as.character(release_date))
-    prs <<- append(prs, resp_sub)
-
-  }else{
-    prs <<- append(prs, resp)
-  }
-  page_num <<- page_num + 1
-}
-
-getRepoDetails <- function(x) {
-
-  PullRequest <- x[["number"]]
-  Requester <- x[["user"]][["login"]]
-  DateRequested <- x[["created_at"]]
-  Branch <- x[["head"]][["ref"]]
-  Target <- x[["base"]][["ref"]]
-  Title <- x[["title"]]
-  Link <- x[["html_url"]]
-
-  if (length(x[["requested_reviewers"]]) > 0) {
-    Reviewers <- paste(map(x[["requested_reviewers"]], ~ .x[["login"]]), collapse = "\n\n")
-  } else {
-    Reviewers = ""
-  }
-
-  tempReviews <- gh(paste0("GET /repos/Gilead-BioStats/gsm/pulls/", PullRequest, "/reviews"))
-
-  if (length(tempReviews) > 0) {
-  ReviewStatus <- tempReviews[[1]][["state"]]
-  ReviewComments <- tempReviews[[1]][["body"]]
-  } else {
-    ReviewStatus <- ""
-    ReviewComments <- "None"
-  }
-
-  pr <- tibble(
-    `Pull Request` = PullRequest,
-    Requester = Requester,
-    `Date Requested` = gsub("T|Z", " ", DateRequested),
-    Branch = Branch,
-    Target = Target,
-    Title = Title,
-    Reviewers = Reviewers,
-    `Review Status` = ReviewStatus,
-    Link = Link
-  ) %>%
-    map(~ gsub("[^\u0001-\u007F]+|<U\\+\\w+>","", .x)) %>%
-    map(~ gsub("`", " ` ", .x)) %>%
-    map(~ str_squish(.x)) %>%
-    map(~ trimws(.x))
-
-  return(pr)
-
-}
-
-tbl <- map_df(prs, ~getRepoDetails(.))
-
-for (i in 1:nrow(tbl)){
-  pander::pandoc.p(
-    c(
-      pander::pandoc.header(paste0("Pull Request ", tbl[i, "Pull Request"], ": ", tbl[i, "Title"]), level = 3),
-      pander::pandoc.p(paste0("Merging ", tbl[i, "Branch"], " into ", tbl[i, "Target"], "\n")),
-      pander::pandoc.p(pander::pandoc.link(tbl[i, "Link"])),
-      pander::pandoc.table(tbl[i, c("Requester", "Date Requested",
-                                    "Reviewers", "Review Status")],
-                           split.cells = 13)
-      )
-    )
-}
+# release <- gh("/repos/Gilead-BioStats/gsm/releases", .token = remotes:::github_pat())[[1]]
+# release_date <- ifelse(is.null(release$published_at), release$created_at, release$published_at)
+# 
+# pr_at_date <- FALSE
+# page_num <- 1
+# prs <- list()
+# while(pr_at_date != TRUE){
+#   resp <- gh("/repos/Gilead-BioStats/gsm/pulls", per_page = 100, .token = remotes:::github_pat(),
+#              .params = list(page = page_num, state = "all"))
+# 
+#   map(resp, function(x){
+#     if (!is.null(x$closed_at) &
+#         min(as.character(x$closed_at), as.POSIXct(Sys.time())) < as.character(release_date)){
+#       pr_at_date <<- TRUE
+#       }
+#     })
+# 
+#   if (pr_at_date == TRUE){
+#     resp_sub <- resp %>%
+#       keep(~ !is.null(.$closed_at) &
+#              min(as.character(.$closed_at), as.POSIXct(Sys.time())) < as.character(release_date))
+#     prs <<- append(prs, resp_sub)
+# 
+#   }else{
+#     prs <<- append(prs, resp)
+#   }
+#   page_num <<- page_num + 1
+# }
+# 
+# getRepoDetails <- function(x) {
+# 
+#   PullRequest <- x[["number"]]
+#   Requester <- x[["user"]][["login"]]
+#   DateRequested <- x[["created_at"]]
+#   Branch <- x[["head"]][["ref"]]
+#   Target <- x[["base"]][["ref"]]
+#   Title <- x[["title"]]
+#   Link <- x[["html_url"]]
+# 
+#   if (length(x[["requested_reviewers"]]) > 0) {
+#     Reviewers <- paste(map(x[["requested_reviewers"]], ~ .x[["login"]]), collapse = "\n\n")
+#   } else {
+#     Reviewers = ""
+#   }
+# 
+#   tempReviews <- gh(paste0("GET /repos/Gilead-BioStats/gsm/pulls/", PullRequest, "/reviews"))
+# 
+#   if (length(tempReviews) > 0) {
+#   ReviewStatus <- tempReviews[[1]][["state"]]
+#   ReviewComments <- tempReviews[[1]][["body"]]
+#   } else {
+#     ReviewStatus <- ""
+#     ReviewComments <- "None"
+#   }
+# 
+#   pr <- tibble(
+#     `Pull Request` = PullRequest,
+#     Requester = Requester,
+#     `Date Requested` = gsub("T|Z", " ", DateRequested),
+#     Branch = Branch,
+#     Target = Target,
+#     Title = Title,
+#     Reviewers = Reviewers,
+#     `Review Status` = ReviewStatus,
+#     Link = Link
+#   ) %>%
+#     map(~ gsub("[^\u0001-\u007F]+|<U\\+\\w+>","", .x)) %>%
+#     map(~ gsub("`", " ` ", .x)) %>%
+#     map(~ str_squish(.x)) %>%
+#     map(~ trimws(.x))
+# 
+#   return(pr)
+# 
+# }
+# 
+# tbl <- map_df(prs, ~getRepoDetails(.))
+# 
+# for (i in 1:nrow(tbl)){
+#   pander::pandoc.p(
+#     c(
+#       pander::pandoc.header(paste0("Pull Request ", tbl[i, "Pull Request"], ": ", tbl[i, "Title"]), level = 3),
+#       pander::pandoc.p(paste0("Merging ", tbl[i, "Branch"], " into ", tbl[i, "Target"], "\n")),
+#       pander::pandoc.p(pander::pandoc.link(tbl[i, "Link"])),
+#       pander::pandoc.table(tbl[i, c("Requester", "Date Requested",
+#                                     "Reviewers", "Review Status")],
+#                            split.cells = 13)
+#       )
+#     )
+# }
 ```
