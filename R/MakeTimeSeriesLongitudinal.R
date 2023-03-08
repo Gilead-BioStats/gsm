@@ -39,12 +39,11 @@ MakeTimeSeriesLongitudinal <- function(cDirectory) {
   meta_param <- purrr::map_df(list.files(cDirectory), function(x) {
     read.csv(paste0(cDirectory, "/", x, "/meta_param.csv")) %>%
       mutate(gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d"))
-  }) %>%
-    filter(.data$gsm_analysis_date == max(.data$gsm_analysis_date))
+  })
 
   params <- left_join(
-    status_param,
     meta_param,
+    status_param,
     by = join_by("workflowid", "gsm_version", "param", "index", "gsm_analysis_date")
   ) %>%
     select(-c("default", "configurable")) %>%

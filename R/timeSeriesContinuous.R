@@ -34,7 +34,7 @@ timeSeriesContinuous <- function(kri,
 
 
   workflow <- raw_workflow %>%
-    filter(grepl('kri', .data$workflowid))%>%
+    filter(grepl('kri', .data$workflowid)) %>%
     filter(.data$workflowid == kri) %>%
     mutate(selectedGroupIDs = selectedGroupIDs)
 
