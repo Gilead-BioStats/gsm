@@ -8,7 +8,6 @@ test_that("Given an appropriate subset of Protocol Deviation data, the assessmen
   test2_5 <- PD_Assess_Rate(
     dfInput = dfInput,
     strMethod = "Identity",
-    vThreshold = c(0.00001, 0.1),
     strGroup = "Study"
   )
 
@@ -29,23 +28,7 @@ test_that("Given an appropriate subset of Protocol Deviation data, the assessmen
   class(t2_5_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t2_5_flagged <- t2_5_analyzed %>%
-    mutate(
-      Flag = case_when(
-        Score < 0.00001 ~ -1,
-        Score > 0.1 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(Score),
-      Flag = case_when(
-        Flag != 0 & Score >= median ~ 1,
-        Flag != 0 & Score < median ~ -1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+    qualification_flag_identity()
 
   t2_5_summary <- t2_5_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

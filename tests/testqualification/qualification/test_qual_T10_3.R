@@ -1,11 +1,11 @@
-test_that("Given appropriate Query Rate data, the assessment function correctly performs a Query Rate Assessment grouped by the Country variable using the Poisson method and correctly assigns Flag variable values.", {
+test_that("Given appropriate Query Rate data, the assessment function correctly performs a Query Rate Assessment grouped by a custom variable using the Poisson method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::QueryRate_Map_Raw()
 
   test10_3 <- QueryRate_Assess(
     dfInput = dfInput,
     strMethod = "Poisson",
-    strGroup = "Country"
+    strGroup = "CustomGroup"
   )
 
   # double programming
@@ -15,7 +15,7 @@ test_that("Given appropriate Query Rate data, the assessment function correctly 
     qualification_transform_counts(
       countCol = "Count",
       exposureCol = "DataPoint",
-      GroupID = "CountryID"
+      GroupID = "CustomGroupID"
     )
 
   t10_3_analyzed <- t10_3_transformed %>%

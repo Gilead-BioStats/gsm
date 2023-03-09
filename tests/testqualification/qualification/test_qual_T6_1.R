@@ -1,4 +1,4 @@
-test_that("Given an appropriate subset of Labs data, the assessment function correctly performs a Labs Assessment grouped by the Site variable using the Fisher method and correctly assigns Flag variable values.", {
+test_that("Given an appropriate subset of Labs data, the assessment function correctly performs a Labs Assessment grouped by the Site variable using the Fisher method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
   dfInput <- gsm::LB_Map_Raw(dfs = list(
     dfSUBJ = clindata::rawplus_dm  %>% filter(!siteid %in% c("5", "29", "58")),
@@ -6,7 +6,8 @@ test_that("Given an appropriate subset of Labs data, the assessment function cor
 
   test6_1 <- LB_Assess(
     dfInput = dfInput,
-    strMethod = "Fisher"
+    strMethod = "Fisher",
+    vThreshold = c(.025, .05)
   )
 
   # Double Programming
@@ -23,7 +24,7 @@ test_that("Given an appropriate subset of Labs data, the assessment function cor
   class(t6_1_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t6_1_flagged <- t6_1_analyzed %>%
-    qualification_flag_fisher()
+    qualification_flag_fisher(threshold = c(.025, .05))
 
   t6_1_summary <- t6_1_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

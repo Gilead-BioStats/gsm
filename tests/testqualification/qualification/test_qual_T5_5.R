@@ -1,12 +1,16 @@
-test_that("Given appropriate Disposition data, the assessment function correctly performs a Disposition Assessment grouped by a custom variable using the Identity method and correctly assigns Flag variable values when given a custom threshold.", {
+test_that("Given an appropriate subset of Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Study variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
-  dfInput <- Disp_Map_Raw()
+  dfInput <- gsm::Disp_Map_Raw(dfs = list(
+    dfSUBJ = clindata::rawplus_dm,
+    dfSTUDCOMP = clindata::rawplus_studcomp %>% filter(compreas_std_nsv == "ID"),
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename ==
+                                                         "Blinded Study Drug Completion")
+  ))
 
   test5_5 <- Disp_Assess(
     dfInput = dfInput,
     strMethod = "Identity",
-    strGroup = "CustomGroup",
-    vThreshold = c(2.31, 6.58)
+    strGroup = "Study"
   )
 
   # Double Programming
@@ -15,7 +19,7 @@ test_that("Given appropriate Disposition data, the assessment function correctly
   t5_5_transformed <- dfInput %>%
     qualification_transform_counts(
       exposureCol = "Total",
-      GroupID = "CustomGroupID"
+      GroupID = "StudyID"
     )
 
   t5_5_analyzed <- t5_5_transformed %>%
@@ -27,23 +31,7 @@ test_that("Given appropriate Disposition data, the assessment function correctly
   class(t5_5_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t5_5_flagged <- t5_5_analyzed %>%
-    mutate(
-      Flag = case_when(
-        Score < 2.31 ~ -1,
-        Score > 6.58 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(Metric),
-      Flag = case_when(
-        Flag != 0 & Metric < median ~ -1,
-        Flag != 0 & Metric >= median ~ 1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+    qualification_flag_identity()
 
   t5_5_summary <- t5_5_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
