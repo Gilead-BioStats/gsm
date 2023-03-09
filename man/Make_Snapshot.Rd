@@ -38,7 +38,7 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 
 \item{lAssessments}{\code{list} a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
 
-\item{strAnalysisDate}{\code{character} date that the data was pulled/wrangled/snapshot.}
+\item{strAnalysisDate}{\code{character} date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: \code{YYYY-MM-DD}.}
 
 \item{bUpdateParams}{\code{logical} if \code{TRUE}, configurable parameters found in \code{lMeta$config_param} will overwrite the default values in \code{lMeta$meta_params}. Default: \code{FALSE}.}
 
