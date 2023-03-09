@@ -1,18 +1,20 @@
-test_that("Given appropriate Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by the Study variable using the Poisson method and correctly assigns Flag variable values.", {
+test_that("Given appropriate Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by a custom variable using the Poisson method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw_Rate()
 
   test2_3 <- PD_Assess_Rate(
     dfInput = dfInput,
     strMethod = "Poisson",
-    strGroup = "Study"
+    strGroup = "CustomGroup"
   )
 
   # Double Programming
   t2_3_input <- dfInput
 
   t2_3_transformed <- dfInput %>%
-    qualification_transform_counts(GroupID = "StudyID")
+    qualification_transform_counts(
+      GroupID = "CustomGroupID"
+    )
 
   t2_3_analyzed <- t2_3_transformed %>%
     qualification_analyze_poisson()

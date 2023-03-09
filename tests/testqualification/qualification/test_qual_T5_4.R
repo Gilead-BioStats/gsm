@@ -1,4 +1,4 @@
-test_that("Given an appropriate subset of Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Study variable using the Identity method and correctly assigns Flag variable values.", {
+test_that("Given an appropriate subset of Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Site variable using the Identity method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
   dfInput <- gsm::Disp_Map_Raw(dfs = list(
     dfSUBJ = clindata::rawplus_dm,
@@ -10,7 +10,7 @@ test_that("Given an appropriate subset of Disposition data, the assessment funct
   test5_4 <- Disp_Assess(
     dfInput = dfInput,
     strMethod = "Identity",
-    strGroup = "Study"
+    vThreshold = c(2.31, 6.58)
   )
 
   # Double Programming
@@ -19,7 +19,6 @@ test_that("Given an appropriate subset of Disposition data, the assessment funct
   t5_4_transformed <- dfInput %>%
     qualification_transform_counts(
       exposureCol = "Total",
-      GroupID = "StudyID"
     )
 
   t5_4_analyzed <- t5_4_transformed %>%
@@ -31,23 +30,7 @@ test_that("Given an appropriate subset of Disposition data, the assessment funct
   class(t5_4_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t5_4_flagged <- t5_4_analyzed %>%
-    mutate(
-      Flag = case_when(
-        Score < 3.491 ~ -1,
-        Score > 5.172 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(Metric),
-      Flag = case_when(
-        Flag != 0 & Metric < median ~ -1,
-        Flag != 0 & Metric >= median ~ 1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+    qualification_flag_identity(threshold =  c(2.31, 6.58))
 
   t5_4_summary <- t5_4_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

@@ -187,7 +187,7 @@ qualification_flag_normalapprox <- function(dfAnalyzed, threshold = c(-3, -2, 2,
     arrange(match(Flag, c(2, -2, 1, -1, 0)))
 }
 
-qualification_flag_identity <- function(dfAnalyzed, threshold = c(3.491, 5.172)) {
+qualification_flag_identity <- function(dfAnalyzed, threshold = c(0.000895, 0.003059)) {
   dfAnalyzed %>%
     mutate(
       Flag = case_when(

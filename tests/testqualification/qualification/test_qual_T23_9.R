@@ -1,12 +1,11 @@
-test_that("Given appropriate Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by the Study variable using the Normal Approximation method and correctly assigns Flag variable values when given a custom threshold.", {
+test_that("Given appropriate Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by a custom variable using the Normal Approximation method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw_Binary()
 
   test23_9 <- PD_Assess_Binary(
     dfInput = dfInput,
     strMethod = "NormalApprox",
-    strGroup = "Study",
-    vThreshold = c(-2, -1, 1, 2)
+    strGroup = "CustomGroup"
   )
 
   # Double Programming
@@ -14,7 +13,7 @@ test_that("Given appropriate Protocol Deviation data, the assessment function co
 
   t23_9_transformed <- dfInput %>%
     qualification_transform_counts(
-      GroupID = "StudyID",
+      GroupID = "CustomGroupID",
       exposureCol = "Total"
     )
 
@@ -24,7 +23,7 @@ test_that("Given appropriate Protocol Deviation data, the assessment function co
   class(t23_9_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t23_9_flagged <- t23_9_analyzed %>%
-    qualification_flag_normalapprox(threshold = c(-2, -1, 1, 2))
+    qualification_flag_normalapprox()
 
   t23_9_summary <- t23_9_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
