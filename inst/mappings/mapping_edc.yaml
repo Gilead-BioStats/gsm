@@ -1,4 +1,4 @@
-dfSUBJ:
+dfSUBJ: # one record per subject
   strStudyCol: studyid
   strSiteCol: siteid
   strIDCol: subjid
@@ -11,7 +11,7 @@ dfSUBJ:
   strTimeOnTreatmentCol: timeontreatment
   strCountryCol: country
   strCustomGroupCol: invid
-dfQUERY:
+dfQUERY: # one record per query
   strStudyCol: protocolname
   strIDCol: subjectname
   strVisitCol: foldername
@@ -25,14 +25,15 @@ dfQUERY:
   strResolutionDateCol: resolved
   strMarkingGroupCol: markinggroup
   strQueryAgeCol: queryage
-dfDATAENT:
+dfDATAENT: # one record per data page
   strStudyCol: protocolname
   strIDCol: subjectname
   strVisitCol: foldername
   strFormCol: formoid
   strVisitDateCol: visitdat_date
+  strEntryDateCol: min_entereddate
   strDataEntryLagCol: data_entry_lag
-dfDATACHG:
+dfDATACHG: # one record per data point
   strStudyCol: protocolname
   strIDCol: subjectname
   strVisitCol: foldername
@@ -40,6 +41,6 @@ dfDATACHG:
   strFieldCol: fieldoid
   strLogNumberCol: log_number
   strDataPointIDCol: datapointid
-  strChangeCol: n_changes
+  strNChangesCol: n_changes
   strRequiredCol: isrequired
 

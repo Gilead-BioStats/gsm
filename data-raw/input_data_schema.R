@@ -63,7 +63,7 @@ get_column_schema <- function(mapping) {
                             gsub('^str|Col$', '', .) %>%
                             # replace camelCase with Prop Case
                             gsub('(?<=[a-z])([A-Z])', ' \\1', ., perl = TRUE) %>%
-                            sub('ID', 'Subject ID', .)
+                            sub('^ID$', 'Subject ID', .)
                         )
                 }) %>%
                 purrr::list_rbind()

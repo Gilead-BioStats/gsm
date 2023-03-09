@@ -66,9 +66,6 @@ QueryRate_Map_Raw <- function(
   # Run mapping if checks passed.
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn QueryRate_Map_Raw}")
-
-
-
     # Standarize Column Names
     dfQUERY_mapped <- dfs$dfQUERY %>%
       select(
@@ -83,9 +80,8 @@ QueryRate_Map_Raw <- function(
         SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]],
         VisitID = lMapping[["dfDATACHG"]][["strVisitCol"]],
         FormID = lMapping[["dfDATACHG"]][["strFormCol"]],
-        DataPoint = lMapping[["dfDATACHG"]][["strDataPointsCol"]]
-      ) %>%
-      mutate(DataPoint = as.numeric(.data$DataPoint, na.rm = TRUE))
+        FieldID = lMapping[["dfDATACHG"]][["strFieldCol"]]
+      )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(

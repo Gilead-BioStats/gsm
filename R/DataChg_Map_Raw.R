@@ -68,12 +68,10 @@ DataChg_Map_Raw <- function(
     dfDATACHG_mapped <- dfs$dfDATACHG %>%
       select(
         SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]],
-        DataChg = lMapping[["dfDATACHG"]][["strChangeCol"]],
-        #DataPoint = lMapping[["dfDATACHG"]][["strDataPointsCol"]]
+        DataChg = lMapping[["dfDATACHG"]][["strNChangesCol"]]
       ) %>%
       mutate(
-        DataChg = as.numeric(.data$DataChg),
-        #DataPoint = as.numeric(.data$DataPoint)
+        DataChg = as.numeric(.data$DataChg)
       )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
@@ -94,7 +92,7 @@ DataChg_Map_Raw <- function(
       group_by(.data$SubjectID) %>%
       summarize(
         Count = sum(.data$DataChg, na.rm = TRUE),
-        Total = n()#sum(.data$DataPoint, na.rm = TRUE)
+        Total = n()
       ) %>%
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", vRemoval = "Total", bQuiet = bQuiet) %>%
