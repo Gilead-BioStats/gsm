@@ -1,4 +1,4 @@
-test_that("Given an appropriate subset of Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Study variable using the Normal Approximation method and correctly assigns Flag variable values.", {
+test_that("Given an appropriate subset of Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Site variable using the Normal Approximation method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
   dfInput <- gsm::Disp_Map_Raw(dfs = list(
     dfSUBJ = clindata::rawplus_dm,
@@ -9,8 +9,8 @@ test_that("Given an appropriate subset of Disposition data, the assessment funct
 
   test5_7 <- Disp_Assess(
     dfInput = dfInput,
-    strGroup = "Study",
-    strMethod = "NormalApprox"
+    strMethod = "NormalApprox",
+    vThreshold = c(-2, -1, 1, 2)
   )
 
   # Double Programming
@@ -18,8 +18,7 @@ test_that("Given an appropriate subset of Disposition data, the assessment funct
 
   t5_7_transformed <- dfInput %>%
     qualification_transform_counts(
-      exposureCol = "Total",
-      GroupID = "StudyID"
+      exposureCol = "Total"
     )
 
   t5_7_analyzed <- t5_7_transformed %>%
@@ -28,7 +27,7 @@ test_that("Given an appropriate subset of Disposition data, the assessment funct
   class(t5_7_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t5_7_flagged <- t5_7_analyzed %>%
-    qualification_flag_normalapprox()
+    qualification_flag_normalapprox(threshold = c(-2, -1, 1, 2))
 
   t5_7_summary <- t5_7_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

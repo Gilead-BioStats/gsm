@@ -1,4 +1,4 @@
-test_that("Given appropriate Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Site variable using the Identity method and correctly assigns the Flag variable as NA for sites with low enrollment.", {
+test_that("Given appropriate Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Site variable using the Identity method and correctly assigns Flag variable values when given a custom threshold, and Flag variable values are set to NA for sites with low enrollment.", {
   # gsm analysis
   dfInput <- gsm::AE_Map_Raw()
 
@@ -7,6 +7,7 @@ test_that("Given appropriate Adverse Event data, the assessment function correct
   test1_11 <- AE_Assess(
     dfInput = dfInput,
     strMethod = "Identity",
+    vThreshold = c(0.00001, 0.1),
     nMinDenominator = nMinDenominator
   )
 
@@ -25,23 +26,7 @@ test_that("Given appropriate Adverse Event data, the assessment function correct
   class(t1_11_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t1_11_flagged <- t1_11_analyzed %>%
-    mutate(
-      Flag = case_when(
-        Score < 0.00006 ~ -1,
-        Score > 0.01 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(Score),
-      Flag = case_when(
-        Flag != 0 & Score < median ~ -1,
-        Flag != 0 & Score >= median ~ 1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+   qualification_flag_identity(threshold = c(0.00001, 0.1))
 
   t1_11_summary <- t1_11_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

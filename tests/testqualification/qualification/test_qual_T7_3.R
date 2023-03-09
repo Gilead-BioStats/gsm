@@ -1,11 +1,11 @@
-test_that("Given appropriate Data Change Rate data, the assessment function correctly performs a Data Change Rate Assessment grouped by the Country variable using the Fisher method and correctly assigns Flag variable values.", {
+test_that("Given appropriate Data Change Rate data, the assessment function correctly performs a Data Change Rate Assessment grouped by a custom variable using the Fisher method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::DataChg_Map_Raw()
 
   test7_3 <- DataChg_Assess(
     dfInput = dfInput,
     strMethod = "Fisher",
-    strGroup = "Country"
+    strGroup = "CustomGroup"
   )
 
   # double programming
@@ -15,7 +15,7 @@ test_that("Given appropriate Data Change Rate data, the assessment function corr
     qualification_transform_counts(
       countCol = "Count",
       exposureCol = "Total",
-      GroupID = "CountryID"
+      GroupID = "CustomGroupID"
     )
 
   t7_3_analyzed <- t7_3_transformed %>%

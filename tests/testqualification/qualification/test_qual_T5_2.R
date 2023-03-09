@@ -1,4 +1,4 @@
-test_that("Given an appropriate subset of Disposition data, the assessment function correctly performs a Disposition Assessment grouped by a custom variable using the Fisher method and correctly assigns Flag variable values when given a custom threshold.", {
+test_that("Given an appropriate subset of Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Country variable using the Fisher method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::Disp_Map_Raw(dfs = list(
     dfSUBJ = clindata::rawplus_dm,
@@ -7,42 +7,41 @@ test_that("Given an appropriate subset of Disposition data, the assessment funct
                                                          "Blinded Study Drug Completion")
   ))
 
-  test5_2 <- Disp_Assess(
+  test5_1 <- Disp_Assess(
     dfInput = dfInput,
-    vThreshold = c(.025, .05),
-    strGroup = "CustomGroup",
+    strGroup = "Country",
     strMethod = "Fisher"
   )
 
   # Double Programming
-  t5_2_input <- dfInput
+  t5_1_input <- dfInput
 
-  t5_2_transformed <- dfInput %>%
+  t5_1_transformed <- dfInput %>%
     qualification_transform_counts(
       exposureCol = "Total",
-      GroupID = "CustomGroupID"
+      GroupID = "CountryID"
     )
 
-  t5_2_analyzed <- t5_2_transformed %>%
+  t5_1_analyzed <- t5_1_transformed %>%
     qualification_analyze_fisher()
 
-  class(t5_2_analyzed) <- c("tbl_df", "tbl", "data.frame")
+  class(t5_1_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
-  t5_2_flagged <- t5_2_analyzed %>%
-    qualification_flag_fisher(threshold = c(.025, .05))
+  t5_1_flagged <- t5_1_analyzed %>%
+    qualification_flag_fisher()
 
-  t5_2_summary <- t5_2_flagged %>%
+  t5_1_summary <- t5_1_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
-  t5_2 <- list(
-    "dfTransformed" = t5_2_transformed,
-    "dfAnalyzed" = t5_2_analyzed,
-    "dfFlagged" = t5_2_flagged,
-    "dfSummary" = t5_2_summary
+  t5_1 <- list(
+    "dfTransformed" = t5_1_transformed,
+    "dfAnalyzed" = t5_1_analyzed,
+    "dfFlagged" = t5_1_flagged,
+    "dfSummary" = t5_1_summary
   )
 
   # compare results
-  expect_equal(test5_2$lData, t5_2)
+  expect_equal(test5_1$lData, t5_1)
 })
