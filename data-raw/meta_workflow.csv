@@ -12,7 +12,8 @@ kri0008,1.5.0,Site,QRY,Query Rate,Queries,Total Data Points,Rate,Normal Approxim
 kri0009,1.5.0,Site,OQRY,Outstanding Query Rate,Queries Open > 30 Days,Total Queries,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.dm, edc.queries",
 kri0010,1.5.0,Site,ODAT,Outstanding Data Entry Rate,Data Pages Entered > 10 Days,Total Data Pages,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.dm, edc.data_entry_lag",
 kri0011,1.5.0,Site,CDAT,Data Change Rate,Data Points with 1+ Change,Total Data Points,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.dm, edc.data_change_rate",
-kri0012,1.5.0,Site,SF,Screen Failure Rate,Screen Failures,Total Screened,Percent,Normal Approximation (Percent),Adjusted Z-Score ,rawplus.enroll,
+kri0012,1.5.0,Site,SF,Screen Failure Rate,Screen Failures,Screened Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,rawplus.enroll,
+
 cou0001,1.5.0,Country,AE,AE Reporting Rate,Treatment-emergent AEs,Days on Treatment,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm",TreatmentEmergent
 cou0002,1.5.0,Country,SAE,SAE Reporting Rate,Treatment-emergent SAEs,Days on Treatment,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm","Serious, TreatmentEmergent"
 cou0003,1.5.0,Country,PD,Non-important PD Rate,Non-important PDs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.pd, rawplus.dm",Non-Important
