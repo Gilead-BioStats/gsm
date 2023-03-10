@@ -4,7 +4,7 @@ dfDATACHG:
     - strNChangesCol
 dfSUBJ:
   vRequired:
-    - strIDCol
+    - strEDCIDCol
     - strSiteCol
   vUniqueCols:
-    - strIDCol
+    - strEDCIDCol

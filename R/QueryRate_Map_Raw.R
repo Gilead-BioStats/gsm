@@ -71,17 +71,21 @@ QueryRate_Map_Raw <- function(
       select(
         SubjectID = lMapping[["dfQUERY"]][["strIDCol"]],
         VisitID = lMapping[["dfQUERY"]][["strVisitCol"]],
-        FormID = lMapping[["dfQUERY"]][["strFormCol"]],
-        FieldID = lMapping[["dfQUERY"]][["strFieldCol"]]
-      )
+        FormID = lMapping[["dfQUERY"]][["strFormCol"]]
+      ) %>%
+      group_by(.data$SubjectID, .data$VisitID, .data$FormID) %>%
+      summarize(Count = n()) %>%
+      ungroup()
 
     dfDATACHG_mapped <- dfs$dfDATACHG %>%
       select(
         SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]],
         VisitID = lMapping[["dfDATACHG"]][["strVisitCol"]],
-        FormID = lMapping[["dfDATACHG"]][["strFormCol"]],
-        FieldID = lMapping[["dfDATACHG"]][["strFieldCol"]]
-      )
+        FormID = lMapping[["dfDATACHG"]][["strFormCol"]]
+      ) %>%
+      group_by(.data$SubjectID, .data$VisitID, .data$FormID) %>%
+      summarize(DataPoint = n()) %>%
+      ungroup()
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
@@ -99,25 +103,30 @@ QueryRate_Map_Raw <- function(
     # Create subject Level query and data point counts and merge dfSUBJ
     # Count query at Form level in dfQUERY to match with data points at Form level in dfDATACHG
     dfInput <- dfQUERY_mapped %>%
-      group_by(.data$SubjectID, .data$VisitID, .data$FormID) %>%
-      summarize(Count = n()) %>%
-      ungroup() %>%
       full_join(
         dfDATACHG_mapped,
         c("SubjectID", "VisitID", "FormID")
       ) %>%
-      mutate(Count = tidyr::replace_na(.data$Count, 0)) %>%
       group_by(.data$SubjectID) %>%
       summarize(
         Count = sum(.data$Count, na.rm = TRUE),
         DataPoint = sum(.data$DataPoint, na.rm = TRUE)
       ) %>%
       ungroup() %>%
-      gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", vRemoval = "DataPoint", bQuiet = bQuiet) %>%
+      mutate(
+        Count = tidyr::replace_na(.data$Count, 0),
+        DataPoint = tidyr::replace_na(.data$DataPoint, 0)
+      ) %>%
+      gsm::MergeSubjects(
+        dfSUBJ_mapped,
+        vFillZero = "Count",
+        vRemoval = "DataPoint",
+        bQuiet = bQuiet
+      ) %>%
       mutate(
         Rate = .data$Count / .data$DataPoint
       ) %>%
-      select(any_of(c(names(dfSUBJ_mapped))), "DataPoint", "Count", "Rate") %>%
+      select(any_of(c(names(dfSUBJ_mapped))), "Count", "DataPoint", "Rate") %>%
       arrange(.data$SubjectID)
 
     if (!bQuiet) cli::cli_alert_success("{.fn QueryRate_Map_Raw} returned output with {nrow(dfInput)} rows.")
