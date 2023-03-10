@@ -44,7 +44,7 @@ QueryRate_Map_Raw <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
     dfQUERY = clindata::edc_queries,
-    dfDATACHG = clindata::edc_data_change_rate
+    dfDATACHG = clindata::edc_data_points
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
   bReturnChecks = FALSE,

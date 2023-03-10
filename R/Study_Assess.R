@@ -47,10 +47,9 @@ Study_Assess <- function(
       dfLB = clindata::rawplus_lb,
       dfSTUDCOMP = clindata::rawplus_studcomp,
       dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion"),
-      dfDATACHG = clindata::edc_data_change_rate,
+      dfDATACHG = clindata::edc_data_points,
       dfDATAENT = clindata::edc_data_entry_lag,
       dfQUERY = clindata::edc_queries,
-      dfDATACHG = clindata::edc_data_change_rate,
       dfENROLL = clindata::rawplus_enroll
     )
   }
