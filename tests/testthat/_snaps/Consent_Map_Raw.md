@@ -45,7 +45,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strRandDateCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyStartDateCol"]
             },
             {
               "type": "character",
@@ -117,7 +117,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strCustomGroupCol", "strCountryCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strEDCIDCol", "strStudyStartDateCol", "strStudyEndDateCol", "strTimeOnStudyCol", "strTreatmentStartDateCol", "strTreatmentEndDateCol", "strTimeOnTreatmentCol", "strCountryCol", "strCustomGroupCol"]
             }
           },
           "value": [
@@ -134,17 +134,22 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["invid"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["country"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
               "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subject_nsv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["firstparticipantdate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lastparticipantdate"]
             },
             {
               "type": "character",
@@ -154,12 +159,27 @@
             {
               "type": "character",
               "attributes": {},
+              "value": ["firstdosedate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lastdosedate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
               "value": ["timeontreatment"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["rfpst_dt"]
+              "value": ["country"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
             }
           ]
         }
@@ -221,7 +241,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCountryCol", "strCustomGroupCol", "strRandDateCol", "strCountCol"]
+              "value": ["strIDCol", "strSiteCol", "strStudyCol", "strCountryCol", "strCustomGroupCol", "strStudyStartDateCol", "strCountCol"]
             }
           },
           "value": [
@@ -253,7 +273,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["RandDate"]
+              "value": ["StudyStartDate"]
             },
             {
               "type": "character",
@@ -279,7 +299,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, rfpst_dt
+      x the following columns not found in df: subjid, siteid, firstparticipantdate
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -298,7 +318,7 @@
       -- Checking Input Data for `Consent_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, rfpst_dt
+      x the following columns not found in df: subjid, siteid, firstparticipantdate
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -340,7 +360,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, rfpst_dt
+      x the following columns not found in df: subjid, siteid, firstparticipantdate
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -363,7 +383,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, rfpst_dt
+      x the following columns not found in df: subjid, siteid, firstparticipantdate
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -386,7 +406,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, rfpst_dt
+      x the following columns not found in df: subjid, siteid, firstparticipantdate
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -406,7 +426,7 @@
       x "mapping" does not contain required parameters: strIDCol, strConsentStatusCol, strConsentTypeCol, strDateCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      x "mapping" does not contain required parameters: strIDCol, strSiteCol, strRandDateCol
+      x "mapping" does not contain required parameters: strIDCol, strSiteCol, strStudyStartDateCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       ! Issues found for `Consent_Map_Raw()`
@@ -538,7 +558,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x the following columns not found in df: rfpst_dt
+      x the following columns not found in df: firstparticipantdate
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -625,7 +645,7 @@
       
       -- Checking Input Data for `Consent_Map_Raw()` --
       
-      x 1 NA values found in column: rfpst_dt
+      x 1 NA values found in column: firstparticipantdate
       ! Issues found for `Consent_Map_Raw()`
       ! `Consent_Map_Raw()` did not run because of failed check.
     Output

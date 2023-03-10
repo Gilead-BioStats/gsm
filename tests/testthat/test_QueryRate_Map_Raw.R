@@ -5,7 +5,8 @@ map_function <- gsm::QueryRate_Map_Raw
 dfs <- list(
   dfQUERY = clindata::edc_queries,
   dfDATACHG = clindata::edc_data_points,
-  dfSUBJ = dfSUBJ
+  dfSUBJ = clindata::rawplus_dm %>%
+    slice_sample(n = 3)
 )
 
 input_spec <- yaml::read_yaml(system.file("specs", "QueryRate_Map_Raw.yaml", package = "gsm"))

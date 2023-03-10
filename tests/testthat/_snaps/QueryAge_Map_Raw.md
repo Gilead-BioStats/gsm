@@ -40,12 +40,12 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol"]
+              "value": ["strEDCIDCol", "strSiteCol"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol"]
+              "value": ["strEDCIDCol"]
             }
           ]
         }
@@ -70,14 +70,19 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strVisitCol", "strFormCol", "strFieldCol", "strQueryAgeCol", "strQueryAgeVal"]
+              "value": ["strStudyCol", "strIDCol", "strVisitCol", "strFormCol", "strFieldCol", "strLogNumberCol", "strDataPointIDCol", "strStatusCol", "strCreationDateCol", "strAnswerDateCol", "strResolutionDateCol", "strMarkingGroupCol", "strQueryAgeCol"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["subjid"]
+              "value": ["protocolname"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subjectname"]
             },
             {
               "type": "character",
@@ -87,22 +92,52 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["form"]
+              "value": ["formoid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["field"]
+              "value": ["fieldoid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["qry30fl"]
+              "value": ["log_number"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["Y"]
+              "value": ["datapointid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["querystatus"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["created"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["answered"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["resolved"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["markinggroup"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["queryage"]
             }
           ]
         },
@@ -112,7 +147,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strCustomGroupCol", "strCountryCol"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strEDCIDCol", "strStudyStartDateCol", "strStudyEndDateCol", "strTimeOnStudyCol", "strTreatmentStartDateCol", "strTreatmentEndDateCol", "strTimeOnTreatmentCol", "strCountryCol", "strCustomGroupCol"]
             }
           },
           "value": [
@@ -134,12 +169,47 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["invid"]
+              "value": ["subject_nsv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["firstparticipantdate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lastparticipantdate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["timeonstudy"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["firstdosedate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lastdosedate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["timeontreatment"]
             },
             {
               "type": "character",
               "attributes": {},
               "value": ["country"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
             }
           ]
         }
@@ -249,12 +319,12 @@
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, qry30fl
+      x the following columns not found in df: subjectname, queryage
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -273,7 +343,7 @@
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -292,7 +362,7 @@
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, qry30fl
+      x the following columns not found in df: subjectname, queryage
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -310,12 +380,12 @@
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, qry30fl
+      x the following columns not found in df: subjectname, queryage
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -333,12 +403,12 @@
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, qry30fl
+      x the following columns not found in df: subjectname, queryage
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -356,12 +426,12 @@
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, qry30fl
+      x the following columns not found in df: subjectname, queryage
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -381,7 +451,7 @@
       x "mapping" does not contain required parameters: strIDCol, strQueryAgeCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      x "mapping" does not contain required parameters: strIDCol, strSiteCol
+      x "mapping" does not contain required parameters: strEDCIDCol, strSiteCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       ! Issues found for `QueryAge_Map_Raw()`
@@ -397,7 +467,7 @@
       
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
-      x Unexpected duplicates found in column: subjid
+      x Unexpected duplicates found in column: subject_nsv
       ! Issues found for `QueryAge_Map_Raw()`
       ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
@@ -411,7 +481,7 @@
       
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
-      x the following columns not found in df: subjid
+      x the following columns not found in df: subjectname
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -428,7 +498,7 @@
       
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
-      x the following columns not found in df: qry30fl
+      x the following columns not found in df: queryage
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -445,7 +515,7 @@
       
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
-      x the following columns not found in df: subjid
+      x the following columns not found in df: subject_nsv
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -479,7 +549,7 @@
       
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
-      x 1 NA values found in column: subjid
+      x 1 NA values found in column: subjectname
       ! Issues found for `QueryAge_Map_Raw()`
       ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
@@ -493,7 +563,7 @@
       
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
-      x 1 NA values found in column: qry30fl
+      x 1 NA values found in column: queryage
       ! Issues found for `QueryAge_Map_Raw()`
       ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
@@ -507,7 +577,7 @@
       
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
-      x 1 NA values found in column: subjid
+      x 1 NA values found in column: subject_nsv
       ! Issues found for `QueryAge_Map_Raw()`
       ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output
@@ -535,7 +605,7 @@
       
       -- Checking Input Data for `QueryAge_Map_Raw()` --
       
-      x Unexpected duplicates found in column: subjid
+      x Unexpected duplicates found in column: subject_nsv
       ! Issues found for `QueryAge_Map_Raw()`
       ! `QueryAge_Map_Raw()` did not run because of failed check.
     Output

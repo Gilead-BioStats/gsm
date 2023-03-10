@@ -12,7 +12,7 @@ test_that("basic filter works", {
   )
   expect_equal(
     ae_test,
-    dfAE %>% dplyr::filter(ae_te == "Y")
+    dfAE %>% dplyr::filter(treatmentemergent == "Y")
   )
 })
 
@@ -29,7 +29,7 @@ test_that("invalid column throws an error", {
 
 test_that("filter to 0 rows throws a warning", {
   dfAE <- dfAE %>%
-    dplyr::filter(ae_te == "N")
+    dplyr::filter(treatmentemergent == "N")
 
   expect_equal(
     suppressWarnings(

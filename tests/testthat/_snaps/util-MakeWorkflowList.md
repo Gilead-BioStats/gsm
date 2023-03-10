@@ -566,6 +566,11 @@
       $cou0009[[1]]$output
       [1] "dfInput"
       
+      $cou0009[[1]]$params
+      $cou0009[[1]]$params$nMaxQueryAge
+      [1] 30
+      
+      
       
       $cou0009[[2]]
       $cou0009[[2]]$name
@@ -603,6 +608,11 @@
       
       $cou0010[[1]]$output
       [1] "dfInput"
+      
+      $cou0010[[1]]$params
+      $cou0010[[1]]$params$nMaxDataEntryLag
+      [1] 10
+      
       
       
       $cou0010[[2]]
@@ -1186,6 +1196,11 @@
       $kri0009[[1]]$output
       [1] "dfInput"
       
+      $kri0009[[1]]$params
+      $kri0009[[1]]$params$nMaxQueryAge
+      [1] 30
+      
+      
       
       $kri0009[[2]]
       $kri0009[[2]]$name
@@ -1223,6 +1238,11 @@
       
       $kri0010[[1]]$output
       [1] "dfInput"
+      
+      $kri0010[[1]]$params
+      $kri0010[[1]]$params$nMaxDataEntryLag
+      [1] 10
+      
       
       
       $kri0010[[2]]

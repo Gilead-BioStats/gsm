@@ -4,6 +4,6 @@ dfInput:
   strStudyCol: "StudyID"
   strCountryCol: "CountryID"
   strCustomGroupCol: "CustomGroupID"
-  strRandDateCol: "RandDate"
+  strStudyStartDateCol: "StudyStartDate"
   strCountCol: "Count"
 

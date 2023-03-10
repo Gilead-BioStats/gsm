@@ -23,7 +23,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strDataPointsCol", "strDataPointsChangeCol"]
+              "value": ["strIDCol", "strNChangesCol"]
             }
           ]
         },
@@ -40,12 +40,12 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol"]
+              "value": ["strEDCIDCol", "strSiteCol"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol"]
+              "value": ["strEDCIDCol"]
             }
           ]
         }
@@ -70,14 +70,19 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strVisitCol", "strFormCol", "strDataPointsCol", "strDataPointsChangeCol", "strChangeCol"]
+              "value": ["strStudyCol", "strIDCol", "strVisitCol", "strFormCol", "strFieldCol", "strLogNumberCol", "strDataPointIDCol", "strNChangesCol", "strRequiredCol"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["subjid"]
+              "value": ["protocolname"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subjectname"]
             },
             {
               "type": "character",
@@ -87,22 +92,32 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["form"]
+              "value": ["formoid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["n_data_points"]
+              "value": ["fieldoid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["n_data_points_with_changes"]
+              "value": ["log_number"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["n_data_point_changes"]
+              "value": ["datapointid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["n_changes"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["isrequired"]
             }
           ]
         },
@@ -112,7 +127,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strCustomGroupCol", "strCountryCol"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strEDCIDCol", "strStudyStartDateCol", "strStudyEndDateCol", "strTimeOnStudyCol", "strTreatmentStartDateCol", "strTreatmentEndDateCol", "strTimeOnTreatmentCol", "strCountryCol", "strCustomGroupCol"]
             }
           },
           "value": [
@@ -134,12 +149,47 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["invid"]
+              "value": ["subject_nsv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["firstparticipantdate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lastparticipantdate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["timeonstudy"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["firstdosedate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lastdosedate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["timeontreatment"]
             },
             {
               "type": "character",
               "attributes": {},
               "value": ["country"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
             }
           ]
         }
@@ -249,12 +299,12 @@
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, n_data_points, n_data_points_with_changes
+      x the following columns not found in df: subjectname, n_changes
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -273,7 +323,7 @@
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -292,7 +342,7 @@
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, n_data_points, n_data_points_with_changes
+      x the following columns not found in df: subjectname, n_changes
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -310,12 +360,12 @@
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, n_data_points, n_data_points_with_changes
+      x the following columns not found in df: subjectname, n_changes
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -333,12 +383,12 @@
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, n_data_points, n_data_points_with_changes
+      x the following columns not found in df: subjectname, n_changes
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -356,12 +406,12 @@
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, n_data_points, n_data_points_with_changes
+      x the following columns not found in df: subjectname, n_changes
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -378,10 +428,10 @@
       
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
-      x "mapping" does not contain required parameters: strIDCol, strDataPointsCol, strDataPointsChangeCol
+      x "mapping" does not contain required parameters: strIDCol, strNChangesCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      x "mapping" does not contain required parameters: strIDCol, strSiteCol
+      x "mapping" does not contain required parameters: strEDCIDCol, strSiteCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       ! Issues found for `DataChg_Map_Raw()`
@@ -397,7 +447,7 @@
       
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
-      x Unexpected duplicates found in column: subjid
+      x Unexpected duplicates found in column: subject_nsv
       ! Issues found for `DataChg_Map_Raw()`
       ! `DataChg_Map_Raw()` did not run because of failed check.
     Output
@@ -411,7 +461,7 @@
       
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
-      x the following columns not found in df: subjid
+      x the following columns not found in df: subjectname
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -428,7 +478,7 @@
       
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
-      x the following columns not found in df: n_data_points
+      x the following columns not found in df: n_changes
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -445,24 +495,7 @@
       
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
-      x the following columns not found in df: n_data_points_with_changes
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `DataChg_Map_Raw()`
-      ! `DataChg_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs_edited, bQuiet = FALSE)
-    Message
-      
-      -- Checking Input Data for `DataChg_Map_Raw()` --
-      
-      x the following columns not found in df: subjid
+      x the following columns not found in df: subject_nsv
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -496,7 +529,7 @@
       
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
-      x 1 NA values found in column: subjid
+      x 1 NA values found in column: subjectname
       ! Issues found for `DataChg_Map_Raw()`
       ! `DataChg_Map_Raw()` did not run because of failed check.
     Output
@@ -510,7 +543,7 @@
       
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
-      x 1 NA values found in column: n_data_points
+      x 1 NA values found in column: n_changes
       ! Issues found for `DataChg_Map_Raw()`
       ! `DataChg_Map_Raw()` did not run because of failed check.
     Output
@@ -524,21 +557,7 @@
       
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
-      x 1 NA values found in column: n_data_points_with_changes
-      ! Issues found for `DataChg_Map_Raw()`
-      ! `DataChg_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
-
-    Code
-      map_function(dfs = dfs_edited, bQuiet = FALSE)
-    Message
-      
-      -- Checking Input Data for `DataChg_Map_Raw()` --
-      
-      x 1 NA values found in column: subjid
+      x 1 NA values found in column: subject_nsv
       ! Issues found for `DataChg_Map_Raw()`
       ! `DataChg_Map_Raw()` did not run because of failed check.
     Output
@@ -566,30 +585,13 @@
       
       -- Checking Input Data for `DataChg_Map_Raw()` --
       
-      x Unexpected duplicates found in column: subjid
+      x Unexpected duplicates found in column: subject_nsv
       ! Issues found for `DataChg_Map_Raw()`
       ! `DataChg_Map_Raw()` did not run because of failed check.
     Output
       NULL
 
 # invalid mapping throws errors
-
-    Code
-      map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
-    Message
-      
-      -- Checking Input Data for `DataChg_Map_Raw()` --
-      
-      x the following columns not found in df: asdf
-      x NA check not run
-      x Empty Value check not run
-      x Unique Column Check not run
-      ! Issues found for `DataChg_Map_Raw()`
-      ! `DataChg_Map_Raw()` did not run because of failed check.
-    Output
-      NULL
-
----
 
     Code
       map_function(dfs = dfs, lMapping = mapping_edited, bQuiet = FALSE)
