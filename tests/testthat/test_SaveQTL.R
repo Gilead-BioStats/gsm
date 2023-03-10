@@ -11,3 +11,17 @@ test_that("qtl with bStatus == FALSE returns message", {
 
   expect_snapshot(SaveQTL(df_error))
 })
+
+
+test_that("bQuiet = FALSE returns console messages", {
+  tf <- tempfile()
+
+  expect_message(
+    SaveQTL(
+      df,
+      bQuiet = FALSE
+      )
+  )
+
+
+})
