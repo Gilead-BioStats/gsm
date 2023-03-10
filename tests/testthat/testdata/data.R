@@ -203,7 +203,7 @@ dfSTUDCOMP <- tibble::tribble(
 )
 
 dfSDRGCOMP <- tibble::tribble(
-  ~subjid, ~datapagename, ~sdrgreas, ~sdrgyn,
+  ~subjid, ~phase, ~sdrgreas, ~sdrgyn,
   "0002", "Blinded Study Drug Completion", "out of bound:Withdrew Consent*", "N",
   "0003", "Blinded Study Drug Completion", NA, "Y"
 )
@@ -2173,7 +2173,7 @@ dfSTUDCOMP_expanded <- tibble::tribble(
 )
 
 dfSDRGCOMP_expanded <- tibble::tribble(
-  ~subjid, ~datapagename, ~sdrgreas, ~sdrgyn,
+  ~subjid, ~phase, ~sdrgreas, ~sdrgyn,
   "0808", "Blinded Study Drug Completion", NA, "Y",
   "1314", "Blinded Study Drug Completion", NA, "Y",
   "1236", "Blinded Study Drug Completion", "LOST TO FOLLOW-UP", "N",

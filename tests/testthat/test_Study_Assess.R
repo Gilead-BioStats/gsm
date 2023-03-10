@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 
-subsetDfs <- function(data, domain, max_rows = 50) {
+subsetByIndex <- function(data, domain, max_rows = 50) {
   data %>%
     select(all_of(colnames(domain))) %>%
     slice(1:max_rows)
@@ -24,20 +24,21 @@ meta <- left_join(
   by = "workflowid"
 )
 
+dfSUBJ <- clindata::rawplus_dm %>% subsetByIndex(dfSUBJ)
+dfAE <- clindata::rawplus_ae %>% subsetByIndex(dfAE)
+dfPD <- clindata::rawplus_protdev %>% subsetByIndex(dfPD)
+dfCONSENT <- clindata::rawplus_consent %>% subsetByIndex(dfCONSENT)
+dfIE <- clindata::rawplus_ie %>% subsetByIndex(dfIE)
+dfSTUDCOMP <- clindata::rawplus_studcomp %>% subsetByIndex(dfSTUDCOMP)
+dfSDRGCOMP <- clindata::rawplus_sdrgcomp %>% subsetByIndex(dfSDRGCOMP)
 
-
-dfSUBJ <- clindata::rawplus_dm %>% subsetDfs(dfSUBJ)
-dfAE <- clindata::rawplus_ae %>% subsetDfs(dfAE)
-dfPD <- clindata::rawplus_protdev %>% subsetDfs(dfPD)
-dfCONSENT <- clindata::rawplus_consent %>% subsetDfs(dfCONSENT)
-dfIE <- clindata::rawplus_ie %>% subsetDfs(dfIE)
-dfSTUDCOMP <- clindata::rawplus_studcomp %>% subsetDfs(dfSTUDCOMP)
-dfSDRGCOMP <- clindata::rawplus_sdrgcomp %>% subsetDfs(dfSDRGCOMP)
-dfLB <- clindata::rawplus_lb %>% subsetDfs(dfLB, max_rows = 300)
-dfDATACHG <- clindata::edc_data_points %>% subsetDfs(dfDATACHG, max_rows = 300)
-dfDATAENT <- clindata::edc_data_pages %>% subsetDfs(dfDATAENT, max_rows = 300)
-dfQUERY <- clindata::edc_queries %>% subsetDfs(dfQUERY, max_rows = 300)
-
+set.seed(8675309)
+subset <- dfSUBJ %>%
+    slice_sample(n = 5)
+dfLB <- clindata::rawplus_lb %>% filter(subjid %in% subset$subjid)
+dfDATACHG <- clindata::edc_data_points %>% filter(subjectname %in% subset$subject_nsv)
+dfDATAENT <- clindata::edc_data_pages %>% filter(subjectname %in% subset$subject_nsv)
+dfQUERY <- clindata::edc_queries %>% filter(subjectname %in% subset$subject_nsv)
 
 lData <- list(
   dfSUBJ = dfSUBJ,
