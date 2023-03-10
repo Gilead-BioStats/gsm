@@ -4,7 +4,7 @@ map_function <- gsm::QueryRate_Map_Raw
 
 dfs <- list(
   dfQUERY = clindata::edc_queries,
-  dfDATACHG = clindata::edc_data_change_rate,
+  dfDATACHG = clindata::edc_data_points,
   dfSUBJ = dfSUBJ
 )
 

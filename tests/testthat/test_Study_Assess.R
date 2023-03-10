@@ -34,8 +34,8 @@ dfIE <- clindata::rawplus_ie %>% subsetDfs(dfIE)
 dfSTUDCOMP <- clindata::rawplus_studcomp %>% subsetDfs(dfSTUDCOMP)
 dfSDRGCOMP <- clindata::rawplus_sdrgcomp %>% subsetDfs(dfSDRGCOMP)
 dfLB <- clindata::rawplus_lb %>% subsetDfs(dfLB, max_rows = 300)
-dfDATACHG <- clindata::edc_data_change_rate %>% subsetDfs(dfDATACHG, max_rows = 300)
-dfDATAENT <- clindata::edc_data_entry_lag %>% subsetDfs(dfDATAENT, max_rows = 300)
+dfDATACHG <- clindata::edc_data_points %>% subsetDfs(dfDATACHG, max_rows = 300)
+dfDATAENT <- clindata::edc_data_pages %>% subsetDfs(dfDATAENT, max_rows = 300)
 dfQUERY <- clindata::edc_queries %>% subsetDfs(dfQUERY, max_rows = 300)
 
 

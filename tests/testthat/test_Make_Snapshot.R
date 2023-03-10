@@ -9,8 +9,8 @@ lData <- list(
   dfSTUDCOMP = dfSTUDCOMP_expanded,
   dfSDRGCOMP = dfSDRGCOMP_expanded,
   dfLB = clindata::rawplus_lb %>% filter(subjid %in% dfSUBJ_expanded$subjid) %>% slice(1:2000),
-  dfDATACHG = clindata::edc_data_change_rate %>% slice(1:300),
-  dfDATAENT = clindata::edc_data_entry_lag %>% slice(1:300),
+  dfDATACHG = clindata::edc_data_points %>% slice(1:300),
+  dfDATAENT = clindata::edc_data_pages %>% slice(1:300),
   dfQUERY = clindata::edc_queries %>% slice(1:300)
 )
 

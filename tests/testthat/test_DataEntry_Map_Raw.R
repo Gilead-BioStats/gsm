@@ -3,7 +3,7 @@ source(testthat::test_path("testdata/data.R"))
 map_function <- gsm::DataEntry_Map_Raw
 
 dfs <- list(
-  dfDATAENT = clindata::edc_data_entry_lag,
+  dfDATAENT = clindata::edc_data_pages,
   dfSUBJ = dfSUBJ
 )
 
