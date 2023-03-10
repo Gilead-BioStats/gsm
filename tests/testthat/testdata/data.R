@@ -1,5 +1,5 @@
 dfAE <- tibble::tribble(
-  ~subjid, ~ae_te, ~aetoxgr, ~aeser,
+  ~subjid, ~treatmentemergent, ~aetoxgr, ~aeser,
   "0001", "Y", "MILD", "N",
   "0001", "Y", "MILD", "N",
   "0001", "Y", "MILD", "N",
@@ -15,21 +15,21 @@ dfAE <- tibble::tribble(
 )
 
 dfSUBJ <- tibble::tribble(
-  ~studyid, ~siteid, ~subjid, ~timeonstudy, ~timeontreatment, ~rfpst_dt, ~country, ~invid,
+  ~studyid, ~siteid, ~subjid, ~timeonstudy, ~timeontreatment, ~firstparticipantdate, ~country, ~invid,
   "AA-AA-000-0000", "86", "0001", 730L, 678L, "2008-09-10", "US", "0X012",
   "AA-AA-000-0000", "76", "0002", 50L, 13L, "2017-05-22", "China", "0X201",
   "AA-AA-000-0000", "166", "0003", 901L, 857L, "2008-08-26", "Japan", "0X999"
 )
 
 dfENROLL <- tibble::tribble(
-  ~studyid, ~siteid, ~subjid, ~ernolldt, ~country, ~invid, ~enrollyn, ~sfreas,
+  ~studyid, ~siteid, ~subjid, ~enroll_dt, ~enrollyn, ~sfreas, ~country, ~invid,
   "AA-AA-000-0000", "86", "0001", "2008-09-10", "US", "0X012", "Y", "",
   "AA-AA-000-0000", "76", "sf0001", "2017-05-22", "China", "0X201", "N", "Inclusion/Exclusion Criteria",
   "AA-AA-000-0000", "166", "0003", "2008-08-26", "Japan", "0X999", "Y", ""
 )
 
 dfLB <- tibble::tribble(
-  ~subjid, ~visnam, ~visnum, ~battrnam, ~lbtstnam, ~siresn, ~lb_te, ~toxgr,
+  ~subjid, ~visnam, ~visnum, ~battrnam, ~lbtstnam, ~siresn, ~treatmentemergent, ~toxgrg_nsv,
   "0001", "Screening", -10, "CHEMISTRY PANEL", "ALT (SGPT)", 59, NA, "1",
   "0001", "Screening", -10, "CHEMISTRY PANEL", "AST (SGOT)", 45, NA, "1",
   "0001", "Screening", -10, "CHEMISTRY PANEL", "Albumin-QT", 44, NA, "0",
@@ -1850,7 +1850,7 @@ dfInputPD <- tibble::tribble(
 
 
 dfSUBJ_expanded <- tibble::tribble(
-  ~studyid, ~siteid, ~subjid, ~timeonstudy, ~timeontreatment, ~rfpst_dt, ~country, ~invid,
+  ~studyid, ~siteid, ~subjid, ~timeonstudy, ~timeontreatment, ~firstparticipantdate, ~country, ~invid,
   "AA-AA-000-0000", "5", "0496", 710, 675, "2013-11-26", "US", "0X167",
   "AA-AA-000-0000", "78", "1350", 715, 673, "2017-10-02", "US", "0X002",
   "AA-AA-000-0000", "139", "0539", 713, 673, "2005-08-31", "US", "0X052",
@@ -1904,7 +1904,7 @@ dfSUBJ_expanded <- tibble::tribble(
 )
 
 dfSUBJ_expanded <- tibble::tribble(
-  ~studyid, ~siteid, ~subjid, ~timeonstudy, ~timeontreatment, ~rfpst_dt, ~country, ~invid,
+  ~studyid, ~siteid, ~subjid, ~timeonstudy, ~timeontreatment, ~firstparticipantdate, ~country, ~invid,
   "AA-AA-000-0000", "5", "0496", 710, 675, "2013-11-26", "US", "0X167",
   "AA-AA-000-0000", "78", "1350", 715, 673, "2017-10-02", "US", "0X002",
   "AA-AA-000-0000", "139", "0539", 713, 673, "2005-08-31", "US", "0X052",
@@ -1958,7 +1958,7 @@ dfSUBJ_expanded <- tibble::tribble(
 )
 
 dfAE_expanded <- tibble::tribble(
-  ~subjid, ~ae_te, ~aetoxgr, ~aeser,
+  ~subjid, ~treatmentemergent, ~aetoxgr, ~aeser,
   "0496", "Y", "MILD", "N",
   "0496", "Y", "MILD", "N",
   "1350", "Y", "MILD", "N",
@@ -2282,7 +2282,7 @@ dfSDRGCOMP_expanded <- tibble::tribble(
 )
 
 dfLB_expanded <- tibble::tribble(
-  ~subjid, ~visnam, ~visnum, ~battrnam, ~lbtstnam, ~siresn, ~lb_te, ~toxgr,
+  ~subjid, ~visnam, ~visnum, ~battrnam, ~lbtstnam, ~siresn, ~treatmentemergent, ~toxgrg_nsv,
   "0496", "Screening", -10, "CHEMISTRY PANEL", "ALT (SGPT)", 232, NA, "3",
   "0496", "Screening", -10, "CHEMISTRY PANEL", "AST (SGOT)", 76, NA, "1",
   "0496", "Screening", -10, "CHEMISTRY PANEL", "Albumin-QT", 48, NA, "0",
@@ -3288,8 +3288,6 @@ dfLB_expanded <- tibble::tribble(
 
 
 # dfQUERY -----------------------------------------------------------------
-
-
 dfQUERY <- tibble::tribble(
   ~subjid, ~foldername, ~form, ~field, ~qry30fl,
   "0001", "Day 1", "Study Drug Administration (DRUG1)", "EXTRT", "N",
