@@ -27,7 +27,7 @@ GetDataSpec <- function(strName = NULL, strPath = "workflow", strPackage = "gsm"
   if (!is.null(strPackage)) {
     path <- system.file(strPath, paste0(strName, '.yaml'), package = strPackage)
   }
-message(path)
+  message(path)
 
   # copied from tools package
   file_path_sans_ext <- function(x) {
@@ -79,6 +79,7 @@ required_columns <- list.files('inst/specs', 'Map_Raw', full.names = TRUE) %>%
     }) %>%
     distinct(domain, column) %>%
     arrange(domain, column)
+browser()
 
   return(workflow)
 }

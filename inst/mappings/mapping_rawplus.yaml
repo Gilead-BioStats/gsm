@@ -18,7 +18,6 @@ dfAE:
   strSeriousCol: aeser
   strSeriousVal: "Y"
   strNonSeriousVal: "N"
-  strSeverityCol: aesev
   strGradeCol: aetoxgr
   strPTCol: mdrpt_nsv
   strSOCCol: mdrsoc_nsv
@@ -65,8 +64,8 @@ dfSDRGCOMP:
   strTreatmentPhaseVal: Blinded Study Drug Completion
 dfLB:
   strIDCol: subjid
-  strDateCol: lb_dt
   strVisitCol: visnam
+  strDateCol: lb_dt
   strTestCol: lbtstnam
   strResultCol: siresn
   strAlertCol: alertsimplified

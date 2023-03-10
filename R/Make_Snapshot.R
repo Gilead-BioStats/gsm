@@ -59,7 +59,7 @@ lData = list(
   dfSTUDCOMP = clindata::rawplus_studcomp,
   dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion"),
   dfDATACHG = clindata::edc_data_points,
-  dfDATAENT = clindata::edc_data_entry_lag,
+  dfDATAENT = clindata::edc_data_pages,
   dfQUERY = clindata::edc_queries,
   dfENROLL = clindata::rawplus_enroll
 ),
