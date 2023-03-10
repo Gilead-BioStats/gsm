@@ -42,7 +42,7 @@
 DataEntry_Map_Raw <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
-    dfDATAENT = clindata::edc_data_entry_lag
+    dfDATAENT = clindata::edc_data_pages
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
   nMaxDataEntryLag = 10,
