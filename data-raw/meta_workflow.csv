@@ -28,4 +28,5 @@ cou0011,1.5.0,Country,CDAT,Data Change Rate,Data Points with 1+ Change,Total Dat
 cou0012,1.5.0,Country,SF,Screen Failure Rate,Screen Failures,Total Screened,Percent,Normal Approximation (Percent),Adjusted Z-Score ,rawplus.enroll,
 qtl0004,1.5.0,Study,IPD,Important PD Percent,Participants with 1+ Important PD,Enrolled Subjects,Percent,Binomial Test,Binomial Confidence Interval - Lower Bound,"rawplus.pd, rawplus.dm",Important
 
-qtl0006,1.5.0,Study,SDSC,Study Discontinuation Rate,Subjects Discontinued - Study,Total Subjects,Percent,Binomial Test,Binomial Confidence Interval - Lower Bound,"rawplus.studcomp, rawplus.dm",
+qtl0006,1.5.0,Study,SDSC,Study Discontinuation Rate,Subjects Discontinued - Study,Enrolled Subjects,Percent,Binomial Test,Binomial Confidence Interval - Lower Bound,"rawplus.studcomp, rawplus.dm",
+
