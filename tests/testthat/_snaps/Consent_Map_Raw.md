@@ -117,7 +117,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strCustomGroupCol", "strCountryCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol"]
+              "value": ["strStudyCol", "strSiteCol", "strCustomGroupCol", "strCountryCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol", "strEnrollCol", "strEnrollVal"]
             }
           },
           "value": [
@@ -160,6 +160,16 @@
               "type": "character",
               "attributes": {},
               "value": ["rfpst_dt"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["enrollyn"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
             }
           ]
         }

@@ -8,7 +8,6 @@ Study_Assess(
   lData = NULL,
   lMapping = NULL,
   lAssessments = NULL,
-  lSubjFilters = NULL,
   bQuiet = TRUE,
   bFlowchart = FALSE
 )
@@ -19,8 +18,6 @@ Study_Assess(
 \item{lMapping}{\code{list} a named list identifying the columns needed in each data domain.}
 
 \item{lAssessments}{\code{list} a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
-
-\item{lSubjFilters}{\code{list} a named list of parameters to filter subject-level data on.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 

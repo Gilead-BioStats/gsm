@@ -201,32 +201,7 @@ test_that("Map + Assess yields same result as Study_Assess()", {
   expect_equal(study_assess$ie$lResults$dfSummary[1:4], ie_assess$dfSummary[1:4])
 })
 
-test_that("lSubjFilters with 0 rows returns NULL", {
-  lData <- list(
-    dfSUBJ = dfSUBJ,
-    dfCONSENT = dfCONSENT,
-    dfIE = dfIE
-  )
 
-  lMappingCustom <- lMapping
-
-  lMappingCustom$dfSUBJ$strSiteVal <- "XYZ"
-  lMappingCustom$dfSUBJ$strRandFlagVal <- "N"
-
-
-  tmp <- Study_Assess(
-    lData = lData,
-    lMapping = lMappingCustom,
-    lSubjFilters = list(
-      strSiteCol = "strSiteVal",
-      strSiteCol = "strSiteVal2",
-      strSiteCol = "strSiteVal3"
-    ),
-    bQuiet = TRUE
-  )
-
-  expect_null(tmp)
-})
 
 test_that("correct bStatus is returned when workflow is missing", {
   custom_assessments <- MakeWorkflowList()
@@ -246,4 +221,24 @@ test_that("correct bStatus is returned when workflow is missing", {
 
   # test that workflow names are not found in the result of Study_Assess()
   expect_false(all(omittedNames %in% names(result)))
+})
+
+
+test_that("non-enrolled subjects are filtered out using a default workflow", {
+  dfSUBJ <- lData$dfSUBJ %>%
+    mutate(enrollyn = rep(c("Y", "N"), times = 25))
+
+  lData <- list(
+    dfSUBJ = dfSUBJ,
+    dfAE = dfAE
+  )
+
+  result <- Study_Assess(
+    lData = lData,
+    lAssessments = MakeWorkflowList(strNames = 'kri0001')
+  )
+
+  expect_equal(25, nrow(result$kri0001$lData$dfSUBJ))
+  expect_true(all(result$kri0001$lData$dfSUBJ$enrollyn == "Y"))
+
 })

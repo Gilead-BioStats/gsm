@@ -64,55 +64,77 @@
       [1] "FilterDomain"
       
       [[1]]$inputs
-      [1] "dfAE"
+      [1] "dfSUBJ"
       
       [[1]]$output
-      [1] "dfAE"
+      [1] "dfSUBJ"
       
       [[1]]$params
       [[1]]$params$strDomain
-      [1] "dfAE"
+      [1] "dfSUBJ"
       
       [[1]]$params$strColParam
-      [1] "strTreatmentEmergentCol"
+      [1] "strEnrollCol"
       
       [[1]]$params$strValParam
-      [1] "strTreatmentEmergentVal"
+      [1] "strEnrollVal"
       
       
       
       [[2]]
       [[2]]$name
-      [1] "AE_Map_Raw"
+      [1] "FilterDomain"
       
       [[2]]$inputs
-      [1] "dfAE"   "dfSUBJ"
+      [1] "dfAE"
       
       [[2]]$output
-      [1] "dfInput"
+      [1] "dfAE"
+      
+      [[2]]$params
+      [[2]]$params$strDomain
+      [1] "dfAE"
+      
+      [[2]]$params$strColParam
+      [1] "strTreatmentEmergentCol"
+      
+      [[2]]$params$strValParam
+      [1] "strTreatmentEmergentVal"
+      
       
       
       [[3]]
       [[3]]$name
-      [1] "AE_Assess"
+      [1] "AE_Map_Raw"
       
       [[3]]$inputs
-      [1] "dfInput"
+      [1] "dfAE"   "dfSUBJ"
       
       [[3]]$output
+      [1] "dfInput"
+      
+      
+      [[4]]
+      [[4]]$name
+      [1] "AE_Assess"
+      
+      [[4]]$inputs
+      [1] "dfInput"
+      
+      [[4]]$output
       [1] "lResults"
       
-      [[3]]$params
-      [[3]]$params$strGroup
+      [[4]]$params
+      [[4]]$params$strGroup
       [1] "Site"
       
-      [[3]]$params$vThreshold
+      [[4]]$params$vThreshold
       NULL
       
-      [[3]]$params$strMethod
+      [[4]]$params$strMethod
       [1] "NormalApprox"
       
-      [[3]]$params$nMinDenominator
+      [[4]]$params$nMinDenominator
       [1] 30
       
       
@@ -123,6 +145,23 @@
     Code
       kri0001$lData
     Output
+      $dfSUBJ
+      # A tibble: 50 x 9
+         studyid        siteid subjid timeonst~1 timeo~2 rfpst~3 country invid enrol~4
+         <chr>          <chr>  <chr>       <dbl>   <dbl> <chr>   <chr>   <chr> <chr>  
+       1 AA-AA-000-0000 5      0496          710     675 2013-1~ US      0X167 Y      
+       2 AA-AA-000-0000 78     1350          715     673 2017-1~ US      0X002 Y      
+       3 AA-AA-000-0000 139    0539          713     673 2005-0~ US      0X052 Y      
+       4 AA-AA-000-0000 162    0329          715     673 2007-0~ US      0X049 Y      
+       5 AA-AA-000-0000 29     0429          698     664 2014-0~ Japan   0X116 Y      
+       6 AA-AA-000-0000 143    1218          801     760 2004-0~ US      0X153 Y      
+       7 AA-AA-000-0000 173    0808          792     758 2010-0~ US      0X124 Y      
+       8 AA-AA-000-0000 189    1314          975     930 2003-1~ US      0X093 Y      
+       9 AA-AA-000-0000 58     1236          113      88 2009-0~ China   0X091 Y      
+      10 AA-AA-000-0000 167    0163          790     757 2015-0~ US      0X059 Y      
+      # ... with 40 more rows, and abbreviated variable names 1: timeonstudy,
+      #   2: timeontreatment, 3: rfpst_dt, 4: enrollyn
+      
       $dfAE
       # A tibble: 49 x 4
          subjid ae_te aetoxgr aeser
@@ -138,23 +177,6 @@
        9 1350   Y     MILD    N    
       10 0539   Y     MILD    N    
       # ... with 39 more rows
-      
-      $dfSUBJ
-      # A tibble: 50 x 8
-         studyid        siteid subjid timeonstudy timeontreatm~1 rfpst~2 country invid
-         <chr>          <chr>  <chr>        <dbl>          <dbl> <chr>   <chr>   <chr>
-       1 AA-AA-000-0000 5      0496           710            675 2013-1~ US      0X167
-       2 AA-AA-000-0000 78     1350           715            673 2017-1~ US      0X002
-       3 AA-AA-000-0000 139    0539           713            673 2005-0~ US      0X052
-       4 AA-AA-000-0000 162    0329           715            673 2007-0~ US      0X049
-       5 AA-AA-000-0000 29     0429           698            664 2014-0~ Japan   0X116
-       6 AA-AA-000-0000 143    1218           801            760 2004-0~ US      0X153
-       7 AA-AA-000-0000 173    0808           792            758 2010-0~ US      0X124
-       8 AA-AA-000-0000 189    1314           975            930 2003-1~ US      0X093
-       9 AA-AA-000-0000 58     1236           113             88 2009-0~ China   0X091
-      10 AA-AA-000-0000 167    0163           790            757 2015-0~ US      0X059
-      # ... with 40 more rows, and abbreviated variable names 1: timeontreatment,
-      #   2: rfpst_dt
       
       $dfInput
       # A tibble: 50 x 8
@@ -178,6 +200,93 @@
     Code
       kri0001$lChecks
     Output
+      $FilterDomain
+      $FilterDomain$dfSUBJ
+      $FilterDomain$dfSUBJ$status
+      [1] TRUE
+      
+      $FilterDomain$dfSUBJ$tests_if
+      $FilterDomain$dfSUBJ$tests_if$is_data_frame
+      $FilterDomain$dfSUBJ$tests_if$is_data_frame$status
+      [1] TRUE
+      
+      $FilterDomain$dfSUBJ$tests_if$is_data_frame$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfSUBJ$tests_if$has_required_params
+      $FilterDomain$dfSUBJ$tests_if$has_required_params$status
+      [1] TRUE
+      
+      $FilterDomain$dfSUBJ$tests_if$has_required_params$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfSUBJ$tests_if$spec_is_list
+      $FilterDomain$dfSUBJ$tests_if$spec_is_list$status
+      [1] TRUE
+      
+      $FilterDomain$dfSUBJ$tests_if$spec_is_list$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfSUBJ$tests_if$mapping_is_list
+      $FilterDomain$dfSUBJ$tests_if$mapping_is_list$status
+      [1] TRUE
+      
+      $FilterDomain$dfSUBJ$tests_if$mapping_is_list$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfSUBJ$tests_if$mappings_are_character
+      $FilterDomain$dfSUBJ$tests_if$mappings_are_character$status
+      [1] TRUE
+      
+      $FilterDomain$dfSUBJ$tests_if$mappings_are_character$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfSUBJ$tests_if$has_expected_columns
+      $FilterDomain$dfSUBJ$tests_if$has_expected_columns$status
+      [1] TRUE
+      
+      $FilterDomain$dfSUBJ$tests_if$has_expected_columns$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfSUBJ$tests_if$columns_have_na
+      $FilterDomain$dfSUBJ$tests_if$columns_have_na$status
+      [1] TRUE
+      
+      $FilterDomain$dfSUBJ$tests_if$columns_have_na$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfSUBJ$tests_if$columns_have_empty_values
+      $FilterDomain$dfSUBJ$tests_if$columns_have_empty_values$status
+      [1] TRUE
+      
+      $FilterDomain$dfSUBJ$tests_if$columns_have_empty_values$warning
+      [1] NA
+      
+      
+      $FilterDomain$dfSUBJ$tests_if$cols_are_unique
+      $FilterDomain$dfSUBJ$tests_if$cols_are_unique$status
+      [1] TRUE
+      
+      $FilterDomain$dfSUBJ$tests_if$cols_are_unique$warning
+      [1] NA
+      
+      
+      
+      $FilterDomain$dfSUBJ$dim
+      [1] 50  9
+      
+      
+      $FilterDomain$status
+      [1] TRUE
+      
+      
       $FilterDomain
       $FilterDomain$dfAE
       $FilterDomain$dfAE$status
@@ -427,7 +536,7 @@
       
       
       $AE_Map_Raw$dfSUBJ$dim
-      [1] 50  8
+      [1] 50  9
       
       
       $AE_Map_Raw$status
@@ -458,6 +567,12 @@
       
       $AE_Map_Raw$mapping$dfSUBJ$strRandDateCol
       [1] "rfpst_dt"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strEnrollCol
+      [1] "enrollyn"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strEnrollVal
+      [1] "Y"
       
       
       $AE_Map_Raw$mapping$dfAE
@@ -978,7 +1093,21 @@
       
       -- Initializing `kri0001` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 3: `FilterDomain` --
+      -- Workflow Step 1 of 4: `FilterDomain` --
+      
+      Preparing parameters for `FilterDomain()` ...
+      Calling `FilterDomain()` ...
+      
+      -- Checking Input Data for `FilterDomain()` --
+      
+      v No issues found for dfSUBJ domain
+      Filtering on `enrollyn %in% c("Y")`.
+      v Filtered on `enrollyn %in% c("Y")` to drop 0 rows from 10 to 10 rows.
+      i NOTE: No rows dropped.
+      v `FilterDomain()` Successful
+      Saving dfSUBJ to `lWorkflow$lData`
+      
+      -- Workflow Step 2 of 4: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -992,7 +1121,7 @@
       v `FilterDomain()` Successful
       Saving dfAE to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 3: `AE_Map_Raw` --
+      -- Workflow Step 3 of 4: `AE_Map_Raw` --
       
       Preparing parameters for `AE_Map_Raw()` ...
       Calling `AE_Map_Raw()` ...
@@ -1011,7 +1140,7 @@
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
-      -- Workflow Step 3 of 3: `AE_Assess` --
+      -- Workflow Step 4 of 4: `AE_Assess` --
       
       Preparing parameters for `AE_Assess()` ...
       Calling `AE_Assess()` ...
