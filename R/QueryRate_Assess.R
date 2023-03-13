@@ -120,6 +120,7 @@ QueryRate_Assess <- function(
     # dfTransformed -----------------------------------------------------------
     if (!bQuiet) cli::cli_text("Input data has {nrow(dfInput)} rows.")
     lData <- list()
+
     lData$dfTransformed <- gsm::Transform_Rate(
       dfInput = dfInput,
       strGroupCol = lMapping$dfInput$strGroupCol,

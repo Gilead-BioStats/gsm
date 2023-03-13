@@ -23,9 +23,9 @@ dfSUBJ <- tibble::tribble(
 
 dfENROLL <- tibble::tribble(
   ~studyid, ~siteid, ~subjid, ~enroll_dt, ~enrollyn, ~sfreas, ~country, ~invid,
-  "AA-AA-000-0000", "86", "0001", "2008-09-10", "US", "0X012", "Y", "",
-  "AA-AA-000-0000", "76", "sf0001", "2017-05-22", "China", "0X201", "N", "Inclusion/Exclusion Criteria",
-  "AA-AA-000-0000", "166", "0003", "2008-08-26", "Japan", "0X999", "Y", ""
+  "AA-AA-000-0000", "86", "0001", "2008-09-10", "US", "0X012", "Y", "0X001",
+  "AA-AA-000-0000", "76", "sf0001", "2017-05-22", "China", "0X201", "N", "0X002",
+  "AA-AA-000-0000", "166", "0003", "2008-08-26", "Japan", "0X999", "Y", "0X001"
 )
 
 dfLB <- tibble::tribble(

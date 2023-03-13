@@ -6,7 +6,7 @@
 \usage{
 Disp_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\% filter(.data$datapagename ==
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\% filter(.data$phase ==
     "Blinded Study Drug Completion")),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),

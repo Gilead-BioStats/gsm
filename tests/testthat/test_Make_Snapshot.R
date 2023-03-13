@@ -1,5 +1,16 @@
 source(testthat::test_path("testdata/data.R"))
 
+makeTestData <- function(data) {
+  data %>%
+    slice(1:300) %>%
+    mutate(subjectname = substr(subjectname, 0, 4),
+           subjectname = case_when(subjectname == "0001" ~ "0003",
+                                   subjectname == "0002" ~ "0496",
+                                   subjectname == "0004" ~ "1350",
+                                   .default = subjectname)
+    )
+}
+
 lData <- list(
   dfSUBJ = dfSUBJ_expanded,
   dfAE = dfAE_expanded,
@@ -9,9 +20,9 @@ lData <- list(
   dfSTUDCOMP = dfSTUDCOMP_expanded,
   dfSDRGCOMP = dfSDRGCOMP_expanded,
   dfLB = clindata::rawplus_lb %>% filter(subjid %in% dfSUBJ_expanded$subjid) %>% slice(1:2000),
-  dfDATACHG = clindata::edc_data_points %>% slice(1:300),
-  dfDATAENT = clindata::edc_data_pages %>% slice(1:300),
-  dfQUERY = clindata::edc_queries %>% slice(1:300)
+  dfDATACHG = makeTestData(clindata::edc_data_points),
+  dfDATAENT = makeTestData(clindata::edc_data_pages),
+  dfQUERY = makeTestData(clindata::edc_queries)
 )
 
 lMapping <- c(

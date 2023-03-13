@@ -49,3 +49,20 @@
 #'   }
 #' @source \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
 "rbm_data_spec"
+
+
+#' Input Data Schema
+#'
+#' A dataset containing key/column pairs for clinical, ctms, and edc mappings.
+#'
+#' @format A data frame with 76 rows and 7 variables.
+#' #' \describe{
+#'   \item{Source}{clinical, ctms, or edc}
+#'   \item{Name}{Name of the Raw+ data source}
+#'   \item{Domain}{Abbreviated data domain name, e.g., dfSUBJ == dm}
+#'   \item{GSM_Domain_Key}{Name of the data domain as it is referenced in `gsm`, e.g., "dfNAME"}
+#'   \item{Column}{Raw+ column name.}
+#'   \item{GSM_Column_Key}{Name of `gsm` key that is paired with `column`}
+#'   \item{Description}{Description of `Column`}
+#'   }
+"input_data_schema"

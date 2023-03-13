@@ -890,6 +890,12 @@
       $AE_Map_Raw$mapping$dfSUBJ$strCustomGroupCol
       [1] "invid"
       
+      $AE_Map_Raw$mapping$dfSUBJ$strEnrollCol
+      [1] "enrollyn"
+      
+      $AE_Map_Raw$mapping$dfSUBJ$strEnrollVal
+      [1] "Y"
+      
       
       $AE_Map_Raw$mapping$dfQUERY
       $AE_Map_Raw$mapping$dfQUERY$strStudyCol

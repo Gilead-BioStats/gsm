@@ -245,12 +245,11 @@
       v `Screening_Map_Raw()` returned output with 3 rows.
     Output
       # A tibble: 3 x 7
-        StudyID        SiteID CountryID CustomGroupID              Subje~1 Count Total
-        <chr>          <chr>  <chr>     <chr>                      <chr>   <dbl> <dbl>
-      1 AA-AA-000-0000 86     Y         ""                         0001        0     1
-      2 AA-AA-000-0000 166    Y         ""                         0003        0     1
-      3 AA-AA-000-0000 76     N         "Inclusion/Exclusion Crit~ sf0001      0     1
-      # ... with abbreviated variable name 1: SubjectID
+        StudyID        SiteID CountryID CustomGroupID SubjectID Count Total
+        <chr>          <chr>  <chr>     <chr>         <chr>     <dbl> <dbl>
+      1 AA-AA-000-0000 86     Y         0X001         0001          0     1
+      2 AA-AA-000-0000 166    Y         0X001         0003          0     1
+      3 AA-AA-000-0000 76     N         0X002         sf0001        0     1
 
 ---
 
@@ -356,12 +355,11 @@
       v `Screening_Map_Raw()` returned output with 3 rows.
     Output
       # A tibble: 3 x 7
-        StudyID        SiteID CountryID CustomGroupID              Subje~1 Count Total
-        <chr>          <chr>  <chr>     <chr>                      <chr>   <dbl> <dbl>
-      1 AA-AA-000-0000 86     Y         ""                         0001        0     1
-      2 AA-AA-000-0000 166    Y         ""                         0003        0     1
-      3 AA-AA-000-0000 76     N         "Inclusion/Exclusion Crit~ sf0001      0     1
-      # ... with abbreviated variable name 1: SubjectID
+        StudyID        SiteID CountryID CustomGroupID SubjectID Count Total
+        <chr>          <chr>  <chr>     <chr>         <chr>     <dbl> <dbl>
+      1 AA-AA-000-0000 86     Y         0X001         0001          0     1
+      2 AA-AA-000-0000 166    Y         0X001         0003          0     1
+      3 AA-AA-000-0000 76     N         0X002         sf0001        0     1
 
 # missing column throws errors
 
@@ -474,12 +472,11 @@
       v `Screening_Map_Raw()` returned output with 3 rows.
     Output
       # A tibble: 3 x 7
-        StudyID        SiteID CountryID CustomGroupID              Subje~1 Count Total
-        <chr>          <chr>  <chr>     <chr>                      <chr>   <dbl> <dbl>
-      1 AA-AA-000-0000 86     Y         ""                         0001        0     1
-      2 AA-AA-000-0000 166    Y         ""                         0003        0     1
-      3 AA-AA-000-0000 76     N         "Inclusion/Exclusion Crit~ sf0001      0     1
-      # ... with abbreviated variable name 1: SubjectID
+        StudyID        SiteID CountryID CustomGroupID SubjectID Count Total
+        <chr>          <chr>  <chr>     <chr>         <chr>     <dbl> <dbl>
+      1 AA-AA-000-0000 86     Y         0X001         0001          0     1
+      2 AA-AA-000-0000 166    Y         0X001         0003          0     1
+      3 AA-AA-000-0000 76     N         0X002         sf0001        0     1
 
 # invalid mapping throws errors
 

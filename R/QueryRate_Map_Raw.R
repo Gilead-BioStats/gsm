@@ -67,6 +67,9 @@ QueryRate_Map_Raw <- function(
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn QueryRate_Map_Raw}")
     # Standarize Column Names
+
+
+
     dfQUERY_mapped <- dfs$dfQUERY %>%
       select(
         SubjectID = lMapping[["dfQUERY"]][["strIDCol"]],

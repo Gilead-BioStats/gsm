@@ -55,7 +55,7 @@ specific types of LB criteria by passing filtered LB data to \code{dfLB}.
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \tab FALSE \cr
    dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab TRUE \cr
    dfLB \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
-   dfLB \tab strGradeCol \tab toxgrg \tab TRUE \tab TRUE \tab FALSE \cr
+   dfLB \tab strGradeCol \tab toxgrg_nsv \tab TRUE \tab TRUE \tab FALSE \cr
 }
 }
 
