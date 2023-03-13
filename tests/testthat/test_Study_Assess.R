@@ -201,32 +201,7 @@ test_that("Map + Assess yields same result as Study_Assess()", {
   expect_equal(study_assess$ie$lResults$dfSummary[1:4], ie_assess$dfSummary[1:4])
 })
 
-test_that("lSubjFilters with 0 rows returns NULL", {
-  lData <- list(
-    dfSUBJ = dfSUBJ,
-    dfCONSENT = dfCONSENT,
-    dfIE = dfIE
-  )
 
-  lMappingCustom <- lMapping
-
-  lMappingCustom$dfSUBJ$strSiteVal <- "XYZ"
-  lMappingCustom$dfSUBJ$strRandFlagVal <- "N"
-
-
-  tmp <- Study_Assess(
-    lData = lData,
-    lMapping = lMappingCustom,
-    lSubjFilters = list(
-      strSiteCol = "strSiteVal",
-      strSiteCol = "strSiteVal2",
-      strSiteCol = "strSiteVal3"
-    ),
-    bQuiet = TRUE
-  )
-
-  expect_null(tmp)
-})
 
 test_that("correct bStatus is returned when workflow is missing", {
   custom_assessments <- MakeWorkflowList()

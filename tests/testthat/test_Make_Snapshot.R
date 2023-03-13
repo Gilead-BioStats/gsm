@@ -244,3 +244,48 @@ test_that("bQuiet works as intended", {
     )
   )
 })
+
+################################################################################################################
+
+test_that("valid gsm_analysis_date is passed to output", {
+  result <- Make_Snapshot(
+    lData = lData,
+    lAssessments = MakeWorkflowList(strNames = c("kri0001", "kri0004")),
+    strAnalysisDate = "2023-02-15"
+    )
+
+  expect_equal(
+    unique(result$results_summary$gsm_analysis_date),
+    "2023-02-15"
+  )
+
+})
+
+test_that("invalid date input returns the current date", {
+
+  result <- Make_Snapshot(
+    lData = lData,
+    lAssessments = MakeWorkflowList(strNames = c("kri0001", "kri0004")),
+    strAnalysisDate = "not a date"
+  )
+
+  expect_equal(
+    unique(result$results_summary$gsm_analysis_date),
+    Sys.Date()
+  )
+
+})
+
+test_that("NULL date input returns the current date", {
+
+  result <- Make_Snapshot(
+    lData = lData,
+    lAssessments = MakeWorkflowList(strNames = c("kri0001", "kri0004"))
+  )
+
+  expect_equal(
+    unique(result$results_summary$gsm_analysis_date),
+    Sys.Date()
+  )
+
+})
