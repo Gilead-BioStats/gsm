@@ -112,7 +112,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strEDCIDCol", "strStudyStartDateCol", "strStudyEndDateCol", "strTimeOnStudyCol", "strTreatmentStartDateCol", "strTreatmentEndDateCol", "strTimeOnTreatmentCol", "strCountryCol", "strCustomGroupCol"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strEDCIDCol", "strStudyStartDateCol", "strStudyEndDateCol", "strTimeOnStudyCol", "strTreatmentStartDateCol", "strTreatmentEndDateCol", "strTimeOnTreatmentCol", "strCountryCol", "strCustomGroupCol", "strEnrollCol", "strEnrollVal"]
             }
           },
           "value": [
@@ -175,6 +175,16 @@
               "type": "character",
               "attributes": {},
               "value": ["invid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["enrollyn"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
             }
           ]
         }

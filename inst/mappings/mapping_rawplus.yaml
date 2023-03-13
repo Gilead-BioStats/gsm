@@ -11,6 +11,8 @@ dfSUBJ:
   strTimeOnTreatmentCol: timeontreatment
   strCountryCol: country
   strCustomGroupCol: invid
+  strEnrollCol: enrollyn
+  strEnrollVal: "Y"
 dfAE:
   strIDCol: subjid
   strStartDateCol: aest_dt

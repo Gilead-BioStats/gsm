@@ -1,12 +1,11 @@
-test_that("Given an appropriate subset of Labs data, the assessment function correctly performs a Labs Assessment grouped by the Site variable using the Normal Approximation method and correctly assigns Flag variable values.", {
+test_that("Given appropriate Labs data, the assessment function correctly performs a Labs Assessment grouped by a custom variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
-  dfInput <- gsm::LB_Map_Raw(dfs = list(
-    dfSUBJ = clindata::rawplus_dm  %>% filter(!siteid %in% c("5", "29", "58")),
-    dfLB = clindata::rawplus_lb))
+  dfInput <- gsm::LB_Map_Raw()
 
   test6_6 <- LB_Assess(
     dfInput = dfInput,
-    strMethod = "NormalApprox"
+    strMethod = "Identity",
+    strGroup = "CustomGroup"
   )
 
   # Double Programming
@@ -14,16 +13,20 @@ test_that("Given an appropriate subset of Labs data, the assessment function cor
 
   t6_6_transformed <- dfInput %>%
     qualification_transform_counts(
-      exposureCol = "Total"
+      exposureCol = "Total",
+      GroupID = "CustomGroupID"
     )
 
   t6_6_analyzed <- t6_6_transformed %>%
-    qualification_analyze_normalapprox(strType = "binary")
+    mutate(
+      Score = Metric
+    ) %>%
+    arrange(Score)
 
   class(t6_6_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t6_6_flagged <- t6_6_analyzed %>%
-    qualification_flag_normalapprox()
+    qualification_flag_identity(threshold = c(3.491, 5.172))
 
   t6_6_summary <- t6_6_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
@@ -38,5 +41,5 @@ test_that("Given an appropriate subset of Labs data, the assessment function cor
   )
 
   # compare results
-  expect_equal(test6_6$lData[!names(test6_6$lData) == "dfBounds"], t6_6)
+  expect_equal(test6_6$lData, t6_6)
 })

@@ -15,10 +15,10 @@ dfAE <- tibble::tribble(
 )
 
 dfSUBJ <- tibble::tribble(
-  ~studyid, ~siteid, ~subjid, ~timeonstudy, ~timeontreatment, ~firstparticipantdate, ~country, ~invid,
-  "AA-AA-000-0000", "86", "0001", 730L, 678L, "2008-09-10", "US", "0X012",
-  "AA-AA-000-0000", "76", "0002", 50L, 13L, "2017-05-22", "China", "0X201",
-  "AA-AA-000-0000", "166", "0003", 901L, 857L, "2008-08-26", "Japan", "0X999"
+  ~studyid, ~siteid, ~subjid, ~timeonstudy, ~timeontreatment, ~firstparticipantdate, ~country, ~invid, ~enrollyn,
+  "AA-AA-000-0000", "86", "0001", 730L, 678L, "2008-09-10", "US", "0X012", "Y",
+  "AA-AA-000-0000", "76", "0002", 50L, 13L, "2017-05-22", "China", "0X201", "Y",
+  "AA-AA-000-0000", "166", "0003", 901L, 857L, "2008-08-26", "Japan", "0X999", "Y"
 ) %>% mutate(subject_nsv = subjid)
 
 dfENROLL <- tibble::tribble(

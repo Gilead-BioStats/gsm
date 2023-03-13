@@ -11,6 +11,8 @@ dfSUBJ: # one record per subject
   strTimeOnTreatmentCol: timeontreatment
   strCountryCol: country
   strCustomGroupCol: invid
+  strEnrollCol: enrollyn
+  strEnrollVal: "Y"
 dfQUERY: # one record per query
   strStudyCol: protocolname
   strIDCol: subjectname

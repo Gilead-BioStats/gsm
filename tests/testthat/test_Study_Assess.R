@@ -248,3 +248,23 @@ test_that("correct bStatus is returned when workflow is missing", {
   # test that workflow names are not found in the result of Study_Assess()
   expect_false(all(omittedNames %in% names(result)))
 })
+
+
+test_that("non-enrolled subjects are filtered out using a default workflow", {
+  dfSUBJ <- lData$dfSUBJ %>%
+    mutate(enrollyn = rep(c("Y", "N"), times = 25))
+
+  lData <- list(
+    dfSUBJ = dfSUBJ,
+    dfAE = dfAE
+  )
+
+  result <- Study_Assess(
+    lData = lData,
+    lAssessments = MakeWorkflowList(strNames = 'kri0001')
+  )
+
+  expect_equal(25, nrow(result$kri0001$lData$dfSUBJ))
+  expect_true(all(result$kri0001$lData$dfSUBJ$enrollyn == "Y"))
+
+})
