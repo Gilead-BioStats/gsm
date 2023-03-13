@@ -46,3 +46,4 @@ test_that("Stratified output is returned", {
     nrow(lConsolidatedOutput$lResults$dfSummary)
   )
 })
+
