@@ -1,7 +1,7 @@
 source(testthat::test_path("testdata/data.R"))
 
 lData <- list(
-  dfSUBJ = dfSUBJ_expanded,
+  dfSUBJ = dfSUBJ_expanded %>% mutate(enrollyn = "Y"),
   dfAE = dfAE_expanded,
   dfPD = dfPD_expanded,
   dfCONSENT = dfCONSENT_expanded,
@@ -256,7 +256,7 @@ test_that("valid gsm_analysis_date is passed to output", {
 
   expect_equal(
     unique(result$results_summary$gsm_analysis_date),
-    "2023-02-15"
+    as.Date("2023-02-15")
   )
 
 })
