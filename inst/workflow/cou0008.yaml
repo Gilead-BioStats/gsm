@@ -1,4 +1,11 @@
 steps:
+  - name: FilterDomain
+    inputs: dfSUBJ
+    output: dfSUBJ
+    params:
+      strDomain: dfSUBJ
+      strColParam: strEnrollCol
+      strValParam: strEnrollVal
   - name: QueryRate_Map_Raw
     inputs:
       - dfSUBJ

@@ -7,6 +7,8 @@ dfSUBJ:
   strTimeOnStudyCol: timeonstudy
   strTimeOnTreatmentCol: timeontreatment
   strRandDateCol: rfpst_dt
+  strEnrollCol: enrollyn
+  strEnrollVal: "Y"
 dfAE:
   strIDCol: subjid
   strGradeCol: aetoxgr

@@ -97,7 +97,6 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
   }
 
   if (tests_if$spec_is_list$status) {
-
     # has required parameters in `mapping`
     if (!all(spec$vRequired %in% names(mapping))) {
       missing_params <- paste(spec$vRequired[!(spec$vRequired %in% names(mapping))], collapse = ", ")
