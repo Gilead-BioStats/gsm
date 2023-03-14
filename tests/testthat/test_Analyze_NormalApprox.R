@@ -84,6 +84,25 @@ test_that("NAs are handled correctly", {
 
 ################################################################################
 
+test_that("Score (z_i) is 0 when vMu is 1 or 0", {
+
+  # z_i == 1
+  result_one <- Analyze_NormalApprox(
+    dfTransformed %>%
+      mutate(Numerator = 1, Denominator = 1, Metric = 1), strType = "rate"
+    )
+
+  # z_i == 0
+  result_zero <- Analyze_NormalApprox(
+    dfTransformed %>%
+      mutate(Numerator = 0, Denominator = 1, Metric = 0), strType = "rate"
+  )
+
+  expect_true(all(result_one$Score == 0))
+  expect_true(all(result_zero$Score == 0))
+})
+
+
 test_that("bQuiet works as intended", {
   expect_snapshot(Analyze_NormalApprox(dfTransformed, bQuiet = FALSE))
 })
