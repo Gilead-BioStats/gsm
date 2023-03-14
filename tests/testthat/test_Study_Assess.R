@@ -260,70 +260,6 @@ test_that("flowchart is returned when bFlowchart is TRUE", {
 })
 
 
-test_that("lSubjFilter correctly filters subjects from dm dataset", {
-  # run Study_Assess with AE only
-  lData <- list(
-    dfSUBJ = dfSUBJ,
-    dfAE = dfAE
-  )
-
-  lWorkflow <- MakeWorkflowList(strNames = "kri0001")
-
-  # filter for US only
-  lMappingFilter <- lMapping
-  lMappingFilter$dfSUBJ[['strCountryVal']] <- "US"
-  result <- Study_Assess(
-    lData = lData,
-    lAssessments = lWorkflow,
-    lMapping = lMappingFilter,
-    lSubjFilters = list("strCountryCol" = "strCountryVal")
-    )
-
-  # these should only be group ids where country == "US"
-  us_group_ids <- result$kri0001$lResults$lData$dfSummary$GroupID
-
-  # filter where country != "US" should not be found in the result above
-  not_us_group_ids <- dfSUBJ %>%
-    filter(country != "US") %>%
-    pull(siteid) %>%
-    unique()
-
-  expect_true(!all(us_group_ids %in% not_us_group_ids))
-})
-
-test_that("lSubjFilter identifies dm dataset with 0 rows", {
-  # run Study_Assess with AE only
-  lData <- list(
-    dfSUBJ = dfSUBJ,
-    dfAE = dfAE
-  )
-
-  lWorkflow <- MakeWorkflowList(strNames = "kri0001")
-
-  lMappingFilter <- lMapping
-  lMappingFilter$dfSUBJ[['strStudyVal']] <- 'XYZ'
-
-  # filter for US only
-  # expected snapshot:
-  # ── Checking Input Data for `FilterDomain()` ──
-  #
-  # ✔ No issues found for dfSUBJ domain
-  # Filtering on `studyid %in% c("XYZ")`.
-  # ✔ Filtered on `studyid %in% c("XYZ")` to drop 50 rows from 50 to 0 rows.
-  # ! WARNING: Filtered data has 0 rows.
-  # ✖ Subject-level data contains 0 rows. Assessment not run.
-  # NULL
-  expect_snapshot(
-    Study_Assess(
-      lData = lData,
-      lAssessments = lWorkflow,
-      lMapping = lMappingFilter,
-      lSubjFilters = list("strStudyCol" = "strStudyVal"),
-      bQuiet = FALSE
-      )
-    )
-})
-
 
 test_that("a stratified workflow can be run using Study_Assess", {
 
@@ -352,4 +288,19 @@ test_that("a stratified workflow can be run using Study_Assess", {
 
   expect_equal(names(result), c("aeGrade_1", "aeGrade_2", "aeGrade_3", "aeGrade_4"))
   expect_true(all(result %>% map_lgl(~.x$bStatus)))
+
+})
+
+
+test_that("non-enrolled subjects are filtered out using a default workflow", {
+  lData$dfSUBJ <- lData$dfSUBJ %>%
+    mutate(enrollyn = rep(c("Y", "N"), times = 25))
+
+result <- Study_Assess(
+  lData = lData,
+  lAssessments = MakeWorkflowList(strNames = 'kri0001')
+)
+
+expect_equal(25, nrow(result$kri0001$lData$dfSUBJ))
+expect_true(all(result$kri0001$lData$dfSUBJ$enrollyn == "Y"))
 })

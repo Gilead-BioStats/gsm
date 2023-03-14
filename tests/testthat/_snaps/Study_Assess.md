@@ -1267,20 +1267,3 @@
       $kri0001
       
 
-# lSubjFilter identifies dm dataset with 0 rows
-
-    Code
-      Study_Assess(lData = lData, lAssessments = lWorkflow, lMapping = lMappingFilter,
-        lSubjFilters = list(strStudyCol = "strStudyVal"), bQuiet = FALSE)
-    Message
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfSUBJ domain
-      Filtering on `studyid %in% c("XYZ")`.
-      v Filtered on `studyid %in% c("XYZ")` to drop 50 rows from 50 to 0 rows.
-      ! WARNING: Filtered data has 0 rows.
-      x Subject-level data contains 0 rows. Assessment not run.
-    Output
-      NULL
-
