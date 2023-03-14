@@ -140,21 +140,33 @@ qualification_analyze_normalapprox <- function(dfTransformed, strType) {
     scored <- dfTransformed %>%
       mutate(
         OverallMetric = sum(Numerator) / sum(Denominator),
-        z_0 = (Metric - OverallMetric) /
-          sqrt(OverallMetric * (1 - OverallMetric) / Denominator),
+        z_0 = ifelse(OverallMetric == 0 | OverallMetric == 1,
+                     0,
+                     ((Metric - OverallMetric) /
+                        sqrt(OverallMetric * (1 - OverallMetric) / Denominator))
+        ),
         Factor = mean(z_0^2),
-        Score = (Metric - OverallMetric) /
-          sqrt(Factor * OverallMetric * (1 - OverallMetric) / Denominator)
+        Score = ifelse(OverallMetric == 0 | OverallMetric == 1 | Factor == 0,
+                       0,
+                       ((Metric - OverallMetric) /
+                          sqrt(Factor * OverallMetric * (1 - OverallMetric) / Denominator))
+        )
       )
   } else if (strType == "rate") {
     scored <- dfTransformed %>%
       mutate(
         OverallMetric = sum(Numerator) / sum(Denominator),
-        z_0 = (Metric - OverallMetric) /
-          sqrt(OverallMetric / Denominator),
+        z_0 = ifelse(OverallMetric == 0 | OverallMetric == 1,
+                     0,
+                     ((Metric - OverallMetric) /
+                        sqrt(OverallMetric / Denominator))
+        ),
         Factor = mean(z_0^2),
-        Score = (Metric - OverallMetric) /
-          sqrt(Factor * OverallMetric / Denominator)
+        Score = ifelse(OverallMetric == 0 | Factor == 0,
+                       0,
+                       ((Metric - OverallMetric) /
+                          sqrt(Factor * OverallMetric / Denominator))
+        )
       )
   }
 
