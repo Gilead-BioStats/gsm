@@ -79,7 +79,6 @@ reference:
       - parse_data_mapping
       - parse_data_spec
       - generate_md_table
-      - RemoveInvalidSubjectIDs
       - ParseWarnings
       - Make_Snapshot
       - CheckSnapshotInputs
