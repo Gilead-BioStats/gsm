@@ -16,7 +16,7 @@ dfSUBJ: # one record per subject
 dfQUERY: # one record per query
   strStudyCol: protocolname
   strIDCol: subjectname
-  strVisitCol: foldername
+  strVisitCol: visit
   strFormCol: formoid
   strFieldCol: fieldoid
   strLogNumberCol: log_number
@@ -30,7 +30,7 @@ dfQUERY: # one record per query
 dfDATAENT: # one record per data page
   strStudyCol: protocolname
   strIDCol: subjectname
-  strVisitCol: foldername
+  strVisitCol: visit
   strFormCol: formoid
   strVisitDateCol: visitdat_date
   strEntryDateCol: min_entereddate
@@ -38,7 +38,7 @@ dfDATAENT: # one record per data page
 dfDATACHG: # one record per data point
   strStudyCol: protocolname
   strIDCol: subjectname
-  strVisitCol: foldername
+  strVisitCol: visit
   strFormCol: formoid
   strFieldCol: fieldoid
   strLogNumberCol: log_number

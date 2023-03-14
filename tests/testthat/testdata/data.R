@@ -3232,7 +3232,7 @@ dfLB_expanded <- tibble::tribble(
 
 # dfQUERY -----------------------------------------------------------------
 dfQUERY <- tribble(
-    ~subjectname, ~foldername, ~formoid, ~fieldoid, ~queryage,
+    ~subjectname, ~visit, ~formoid, ~fieldoid, ~queryage,
     "0001","Day 1","Study Drug Administration (DRUG1)","EXTRT",6,
     "0001","Day 1","Visit Date","VISITPERF",24,
     "0001","Unscheduled","PK","PKPERF",3,
@@ -3311,7 +3311,7 @@ dfQUERY <- tribble(
 
 # dfDATACHG ---------------------------------------------------------------
 dfDATACHG <- tribble(
-    ~subjectname, ~foldername, ~formoid, ~n_changes,
+    ~subjectname, ~visit, ~formoid, ~n_changes,
     "0001","Day 1","Enrollment","0",
     "0001","Day 1","PK","0",
     "0001","Day 1","Prior and Concomitant Medication","0",
@@ -3724,7 +3724,7 @@ dfDATACHG <- tribble(
 
 # dfDATAENT ---------------------------------------------------------------
 dfDATAENT <- tribble(
-    ~subjectname, ~foldername, ~formoid, ~data_entry_lag,
+    ~subjectname, ~visit, ~formoid, ~data_entry_lag,
     "0001","Day 1","Enrollment",8,
     "0001","Day 1","PK",5,
     "0001","Day 1","Prior and Concomitant Medication",7,
