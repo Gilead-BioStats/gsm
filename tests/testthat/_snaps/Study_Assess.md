@@ -905,7 +905,7 @@
       [1] "subjectname"
       
       $AE_Map_Raw$mapping$dfQUERY$strVisitCol
-      [1] "foldername"
+      [1] "visit"
       
       $AE_Map_Raw$mapping$dfQUERY$strFormCol
       [1] "formoid"
@@ -946,7 +946,7 @@
       [1] "subjectname"
       
       $AE_Map_Raw$mapping$dfDATAENT$strVisitCol
-      [1] "foldername"
+      [1] "visit"
       
       $AE_Map_Raw$mapping$dfDATAENT$strFormCol
       [1] "formoid"
@@ -969,7 +969,7 @@
       [1] "subjectname"
       
       $AE_Map_Raw$mapping$dfDATACHG$strVisitCol
-      [1] "foldername"
+      [1] "visit"
       
       $AE_Map_Raw$mapping$dfDATACHG$strFormCol
       [1] "formoid"

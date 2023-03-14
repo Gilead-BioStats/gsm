@@ -114,7 +114,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["foldername"]
+              "value": ["visit"]
             },
             {
               "type": "character",
@@ -191,7 +191,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["foldername"]
+              "value": ["visit"]
             },
             {
               "type": "character",
@@ -428,12 +428,12 @@
       -- Checking Input Data for `QueryRate_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjectname, foldername, formoid
+      x the following columns not found in df: subjectname, visit, formoid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjectname, foldername, formoid
+      x the following columns not found in df: subjectname, visit, formoid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -476,12 +476,12 @@
       -- Checking Input Data for `QueryRate_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjectname, foldername, formoid
+      x the following columns not found in df: subjectname, visit, formoid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjectname, foldername, formoid
+      x the following columns not found in df: subjectname, visit, formoid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -499,12 +499,12 @@
       -- Checking Input Data for `QueryRate_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjectname, foldername, formoid
+      x the following columns not found in df: subjectname, visit, formoid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjectname, foldername, formoid
+      x the following columns not found in df: subjectname, visit, formoid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -527,12 +527,12 @@
       -- Checking Input Data for `QueryRate_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjectname, foldername, formoid
+      x the following columns not found in df: subjectname, visit, formoid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjectname, foldername, formoid
+      x the following columns not found in df: subjectname, visit, formoid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -555,12 +555,12 @@
       -- Checking Input Data for `QueryRate_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjectname, foldername, formoid
+      x the following columns not found in df: subjectname, visit, formoid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjectname, foldername, formoid
+      x the following columns not found in df: subjectname, visit, formoid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -635,7 +635,7 @@
       
       -- Checking Input Data for `QueryRate_Map_Raw()` --
       
-      x the following columns not found in df: foldername
+      x the following columns not found in df: visit
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -686,7 +686,7 @@
       
       -- Checking Input Data for `QueryRate_Map_Raw()` --
       
-      x the following columns not found in df: foldername
+      x the following columns not found in df: visit
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
