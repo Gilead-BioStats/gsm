@@ -41,8 +41,20 @@
       # START OF cou0002
       #--- cou0002:FilterDomain ---
       
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
+      #--- cou0002:FilterDomain ---
+      
       dfAE <- FilterDomain(
-        df = lData[["dfAE"]],
+        df = dfAE,
         strDomain = "dfAE",
         lMapping = lMapping,
         strColParam = lMapping[["dfAE"]][["strTreatmentEmergentCol"]],
@@ -85,8 +97,20 @@
       # START OF cou0003
       #--- cou0003:FilterDomain ---
       
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
+      #--- cou0003:FilterDomain ---
+      
       dfPD <- FilterDomain(
-        df = lData[["dfPD"]],
+        df = dfPD,
         strDomain = "dfPD",
         lMapping = lMapping,
         strColParam = lMapping[["dfPD"]][["strImportantCol"]],
@@ -117,8 +141,20 @@
       # START OF cou0004
       #--- cou0004:FilterDomain ---
       
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
+      #--- cou0004:FilterDomain ---
+      
       dfPD <- FilterDomain(
-        df = lData[["dfPD"]],
+        df = dfPD,
         strDomain = "dfPD",
         lMapping = lMapping,
         strColParam = lMapping[["dfPD"]][["strImportantCol"]],
@@ -149,8 +185,20 @@
       # START OF cou0005
       #--- cou0005:FilterDomain ---
       
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
+      #--- cou0005:FilterDomain ---
+      
       dfLB <- FilterDomain(
-        df = lData[["dfLB"]],
+        df = dfLB,
         strDomain = "dfLB",
         lMapping = lMapping,
         strColParam = lMapping[["dfLB"]][["strTreatmentEmergentCol"]],
@@ -179,10 +227,22 @@
       )
       
       # START OF cou0006
+      #--- cou0006:FilterDomain ---
+      
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- cou0006:Disp_Map_Raw ---
       
       dfInput <- Disp_Map_Raw(
-        dfs = list(lData[["dfSUBJ"]], lData[["dfSTUDCOMP"]]),
+        dfs = list(dfSUBJ = dfSUBJ, dfSTUDCOMP = lData[["dfSTUDCOMP"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -201,8 +261,20 @@
       # START OF cou0007
       #--- cou0007:FilterDomain ---
       
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
+      #--- cou0007:FilterDomain ---
+      
       dfSDRGCOMP <- FilterDomain(
-        df = lData[["dfSDRGCOMP"]],
+        df = dfSDRGCOMP,
         strDomain = "dfSDRGCOMP",
         lMapping = lMapping,
         strColParam = lMapping[["dfSDRGCOMP"]][["strTreatmentPhaseCol"]],
@@ -231,10 +303,22 @@
       )
       
       # START OF cou0008
+      #--- cou0008:FilterDomain ---
+      
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- cou0008:QueryRate_Map_Raw ---
       
       dfInput <- QueryRate_Map_Raw(
-        dfs = list(lData[["dfSUBJ"]], lData[["dfQUERY"]], lData[["dfDATACHG"]]),
+        dfs = list(dfSUBJ = dfSUBJ, dfQUERY = lData[["dfQUERY"]], dfDATACHG = lData[["dfDATACHG"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -251,10 +335,22 @@
       )
       
       # START OF cou0009
+      #--- cou0009:FilterDomain ---
+      
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- cou0009:QueryAge_Map_Raw ---
       
       dfInput <- QueryAge_Map_Raw(
-        dfs = list(lData[["dfSUBJ"]], lData[["dfQUERY"]]),
+        dfs = list(dfSUBJ = dfSUBJ, dfQUERY = lData[["dfQUERY"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -271,10 +367,22 @@
       )
       
       # START OF cou0010
+      #--- cou0010:FilterDomain ---
+      
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- cou0010:DataEntry_Map_Raw ---
       
       dfInput <- DataEntry_Map_Raw(
-        dfs = list(lData[["dfSUBJ"]], lData[["dfDATAENT"]]),
+        dfs = list(dfSUBJ = dfSUBJ, dfDATAENT = lData[["dfDATAENT"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -291,10 +399,22 @@
       )
       
       # START OF cou0011
+      #--- cou0011:FilterDomain ---
+      
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- cou0011:DataChg_Map_Raw ---
       
       dfInput <- DataChg_Map_Raw(
-        dfs = list(lData[["dfSUBJ"]], lData[["dfDATACHG"]]),
+        dfs = list(dfSUBJ = dfSUBJ, dfDATACHG = lData[["dfDATACHG"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -333,8 +453,20 @@
       # START OF kri0001
       #--- kri0001:FilterDomain ---
       
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
+      #--- kri0001:FilterDomain ---
+      
       dfAE <- FilterDomain(
-        df = lData[["dfAE"]],
+        df = dfAE,
         strDomain = "dfAE",
         lMapping = lMapping,
         strColParam = lMapping[["dfAE"]][["strTreatmentEmergentCol"]],
@@ -365,8 +497,20 @@
       # START OF kri0002
       #--- kri0002:FilterDomain ---
       
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
+      #--- kri0002:FilterDomain ---
+      
       dfAE <- FilterDomain(
-        df = lData[["dfAE"]],
+        df = dfAE,
         strDomain = "dfAE",
         lMapping = lMapping,
         strColParam = lMapping[["dfAE"]][["strTreatmentEmergentCol"]],
@@ -409,8 +553,20 @@
       # START OF kri0003
       #--- kri0003:FilterDomain ---
       
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
+      #--- kri0003:FilterDomain ---
+      
       dfPD <- FilterDomain(
-        df = lData[["dfPD"]],
+        df = dfPD,
         strDomain = "dfPD",
         lMapping = lMapping,
         strColParam = lMapping[["dfPD"]][["strImportantCol"]],
@@ -441,8 +597,20 @@
       # START OF kri0004
       #--- kri0004:FilterDomain ---
       
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
+      #--- kri0004:FilterDomain ---
+      
       dfPD <- FilterDomain(
-        df = lData[["dfPD"]],
+        df = dfPD,
         strDomain = "dfPD",
         lMapping = lMapping,
         strColParam = lMapping[["dfPD"]][["strImportantCol"]],
@@ -473,8 +641,20 @@
       # START OF kri0005
       #--- kri0005:FilterDomain ---
       
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
+      #--- kri0005:FilterDomain ---
+      
       dfLB <- FilterDomain(
-        df = lData[["dfLB"]],
+        df = dfLB,
         strDomain = "dfLB",
         lMapping = lMapping,
         strColParam = lMapping[["dfLB"]][["strTreatmentEmergentCol"]],
@@ -503,10 +683,22 @@
       )
       
       # START OF kri0006
+      #--- kri0006:FilterDomain ---
+      
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- kri0006:Disp_Map_Raw ---
       
       dfInput <- Disp_Map_Raw(
-        dfs = list(lData[["dfSUBJ"]], lData[["dfSTUDCOMP"]]),
+        dfs = list(dfSUBJ = dfSUBJ, dfSTUDCOMP = lData[["dfSTUDCOMP"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -525,8 +717,20 @@
       # START OF kri0007
       #--- kri0007:FilterDomain ---
       
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
+      #--- kri0007:FilterDomain ---
+      
       dfSDRGCOMP <- FilterDomain(
-        df = lData[["dfSDRGCOMP"]],
+        df = dfSDRGCOMP,
         strDomain = "dfSDRGCOMP",
         lMapping = lMapping,
         strColParam = lMapping[["dfSDRGCOMP"]][["strTreatmentPhaseCol"]],
@@ -555,10 +759,22 @@
       )
       
       # START OF kri0008
+      #--- kri0008:FilterDomain ---
+      
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- kri0008:QueryRate_Map_Raw ---
       
       dfInput <- QueryRate_Map_Raw(
-        dfs = list(lData[["dfSUBJ"]], lData[["dfQUERY"]], lData[["dfDATACHG"]]),
+        dfs = list(dfSUBJ = dfSUBJ, dfQUERY = lData[["dfQUERY"]], dfDATACHG = lData[["dfDATACHG"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -575,10 +791,22 @@
       )
       
       # START OF kri0009
+      #--- kri0009:FilterDomain ---
+      
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- kri0009:QueryAge_Map_Raw ---
       
       dfInput <- QueryAge_Map_Raw(
-        dfs = list(lData[["dfSUBJ"]], lData[["dfQUERY"]]),
+        dfs = list(dfSUBJ = dfSUBJ, dfQUERY = lData[["dfQUERY"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -595,10 +823,22 @@
       )
       
       # START OF kri0010
+      #--- kri0010:FilterDomain ---
+      
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- kri0010:DataEntry_Map_Raw ---
       
       dfInput <- DataEntry_Map_Raw(
-        dfs = list(lData[["dfSUBJ"]], lData[["dfDATAENT"]]),
+        dfs = list(dfSUBJ = dfSUBJ, dfDATAENT = lData[["dfDATAENT"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -615,10 +855,22 @@
       )
       
       # START OF kri0011
+      #--- kri0011:FilterDomain ---
+      
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- kri0011:DataChg_Map_Raw ---
       
       dfInput <- DataChg_Map_Raw(
-        dfs = list(lData[["dfSUBJ"]], lData[["dfDATACHG"]]),
+        dfs = list(dfSUBJ = dfSUBJ, dfDATACHG = lData[["dfDATACHG"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
