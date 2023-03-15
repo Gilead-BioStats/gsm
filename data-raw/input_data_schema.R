@@ -4,6 +4,7 @@ library(dplyr)
 library(purrr)
 
 mapping_rawplus <- read_yaml('inst/mappings/mapping_rawplus.yaml')
+mapping_ctms <- read_yaml('inst/mappings/mapping_ctms.yaml')
 mapping_edc <- read_yaml('inst/mappings/mapping_edc.yaml')
 mapping_domain <- read_yaml('inst/mappings/mapping_domain.yaml')
 
