@@ -745,7 +745,7 @@
       [1] "siteid"
       
       $AE_Map_Raw$mapping$dfENROLL$strIDCol
-      [1] "subjid"
+      [1] "subjectid"
       
       $AE_Map_Raw$mapping$dfENROLL$strEnrollmentDateCol
       [1] "enroll_dt"
