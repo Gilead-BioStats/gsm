@@ -12,12 +12,12 @@ dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "binary")
 
 
 # rate outcome ------------------------------------------------------------
-dfInputRate <- PD_Map_Raw_Binary()
+dfInputRate <- PD_Map_Raw_Rate()
 dfTransformedRate <- Transform_Rate(
   dfInputRate,
   strGroupCol = "StudyID",
   strNumeratorCol = "Count",
-  strDenominatorCol = "Total"
+  strDenominatorCol = "Rate"
 )
 dfAnalyzedRate <- Analyze_QTL(dfTransformedRate, strOutcome = "rate")
 
