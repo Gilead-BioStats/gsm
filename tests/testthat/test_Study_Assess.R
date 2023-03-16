@@ -263,6 +263,7 @@ test_that("a stratified workflow can be run using Study_Assess", {
     ),
     lMapping = lMapping,
     lWorkflow = lWorkflowList$aeGrade
+
   )
 
   result <- Study_Assess(lData = lData, lMapping = lMapping, lAssessments = StratifiedAE)
@@ -284,4 +285,5 @@ test_that("non-enrolled subjects are filtered out using a default workflow", {
 
   expect_equal(25, nrow(result$kri0001$lData$dfSUBJ))
   expect_true(all(result$kri0001$lData$dfSUBJ$enrollyn == "Y"))
+
 })
