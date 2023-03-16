@@ -78,7 +78,7 @@ dfLB:
 dfENROLL:
   strStudyCol: studyid
   strSiteCol: siteid
-  strIDCol: subjid
+  strIDCol: subjectid
   strEnrollmentDateCol: enroll_dt
   strScreenFailCol: enrollyn
   strScreenFailVal: "N"

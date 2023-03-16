@@ -70,7 +70,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["subjid"]
+              "value": ["subjectid"]
             },
             {
               "type": "character",
@@ -220,7 +220,7 @@
       -- Checking Input Data for `Screening_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x the following columns not found in df: siteid, subjectid, enrollyn, sfreas
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -261,7 +261,7 @@
       -- Checking Input Data for `Screening_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x the following columns not found in df: siteid, subjectid, enrollyn, sfreas
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -279,7 +279,7 @@
       -- Checking Input Data for `Screening_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x the following columns not found in df: siteid, subjectid, enrollyn, sfreas
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -297,7 +297,7 @@
       -- Checking Input Data for `Screening_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x the following columns not found in df: siteid, subjectid, enrollyn, sfreas
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -315,7 +315,7 @@
       -- Checking Input Data for `Screening_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x the following columns not found in df: siteid, subjectid, enrollyn, sfreas
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -386,7 +386,7 @@
       
       -- Checking Input Data for `Screening_Map_Raw()` --
       
-      x the following columns not found in df: subjid
+      x the following columns not found in df: subjectid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -451,7 +451,7 @@
       
       -- Checking Input Data for `Screening_Map_Raw()` --
       
-      x 1 NA values found in column: subjid
+      x 1 NA values found in column: subjectid
       ! Issues found for `Screening_Map_Raw()`
       ! `Screening_Map_Raw()` did not run because of failed check.
     Output
