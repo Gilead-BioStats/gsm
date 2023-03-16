@@ -45,6 +45,7 @@ get_column_schema <- function(mapping) {
 # column-level schema
 column_schema <- bind_rows(
     get_column_schema(mapping_rawplus),
+    get_column_schema(mapping_ctms),
     get_column_schema(mapping_edc)
 )
 
