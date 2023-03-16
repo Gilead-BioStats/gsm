@@ -1,60 +1,72 @@
 dfSUBJ:
   source: clinical
-  domain: dm
-  name: rawplus_dm
+  domain: Demographics
+  clindata_name: rawplus_dm
+  db_table: gsm_crf_medidata_dm
   active: true
 dfAE:
   source: clinical
-  domain: ae
-  name: rawplus_ae
+  domain: Adverse Events
+  clindata_name: rawplus_ae
+  db_table: gsm_crf_medidata_ae
   active: true
 dfIE:
   source: clinical
-  domain: ie
-  name: rawplus_ie
+  domain: Inclusion/Exclusion Criteria
+  clindata_name: rawplus_ie
+  db_table: gsm_crf_medidata_ie
   active: false
 dfCONSENT:
   source: clinical
-  domain: consent
-  name: rawplus_consent
+  domain: Informed Consent
+  clindata_name: rawplus_consent
+  db_table: gsm_crf_medidata_consent
   active: false
 dfSTUDCOMP:
   source: clinical
-  domain: studcomp
-  name: rawplus_studcomp
+  domain: Study Disposition
+  clindata_name: rawplus_studcomp
+  db_table: gsm_crf_medidata_studcomp
   active: true
 dfSDRGCOMP:
   source: clinical
-  domain: sdrgcomp
-  name: rawplus_sdrgcomp
+  domain: Treatment Disposition
+  clindata_name: rawplus_sdrgcomp
+  db_table: gsm_crf_medidata_sdrgcomp
   active: true
 dfLB:
   source: clinical
-  domain: lb
-  name: rawplus_lb
+  domain: Labs
+  clindata_name: rawplus_lb
+  db_table: gsm_crf_medidata_lb
   active: true
 dfENROLL:
   source: clinical
-  domain: enroll
-  name: rawplus_enroll
+  domain: Screening Disposition
+  clindata_name: rawplus_enroll
+  db_table: gsm_crf_medidata_enroll
   active: true
 dfPD:
   source: ctms
-  domain: dv
-  name: ctms_protdev
+  domain: Protocol Deviations
+  clindata_name: ctms_protdev
+  db_table: ''
   active: true
 dfDATACHG:
   source: edc
-  domain: data_points
-  name: edc_data_points
+  domain: Data Points
+  clindata_name: edc_data_points
+  db_table: raveplus_data_chg
   active: true
 dfDATAENT:
   source: edc
-  domain: data_pages
-  name: edc_data_pages
+  domain: Data Pages
+  clindata_name: edc_data_pages
+  db_table: raveplus_dataentry_lag
   active: true
 dfQUERY:
   source: edc
-  domain: queries
-  name: edc_queries
+  domain: Queries
+  clindata_name: edc_queries
+  db_table: raveplus_queries
   active: true

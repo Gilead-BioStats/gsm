@@ -46,7 +46,7 @@ Screening Assessment - Raw Mapping
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \cr
    dfENROLL \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
-   dfENROLL \tab strIDCol \tab subjid \tab TRUE \tab FALSE \cr
+   dfENROLL \tab strIDCol \tab subjectid \tab TRUE \tab FALSE \cr
    dfENROLL \tab strScreenFailCol \tab enrollyn \tab TRUE \tab TRUE \cr
    dfENROLL \tab strScreenFailReasonCol \tab sfreas \tab TRUE \tab TRUE \cr
 }
