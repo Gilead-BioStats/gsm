@@ -1,6 +1,6 @@
 source(testthat::test_path("testdata/data.R"))
 
-subsetByIndex <- function(data, domain, max_rows = 50) {
+subsetDfs <- function(data, domain, max_rows = 50) {
   data %>%
     select(all_of(colnames(domain))) %>%
     slice(1:max_rows)
@@ -24,21 +24,20 @@ meta <- left_join(
   by = "workflowid"
 )
 
-dfSUBJ <- clindata::rawplus_dm %>% subsetByIndex(dfSUBJ)
-dfAE <- clindata::rawplus_ae %>% subsetByIndex(dfAE)
-dfPD <- clindata::rawplus_protdev %>% subsetByIndex(dfPD)
-dfCONSENT <- clindata::rawplus_consent %>% subsetByIndex(dfCONSENT)
-dfIE <- clindata::rawplus_ie %>% subsetByIndex(dfIE)
-dfSTUDCOMP <- clindata::rawplus_studcomp %>% subsetByIndex(dfSTUDCOMP)
-dfSDRGCOMP <- clindata::rawplus_sdrgcomp %>% subsetByIndex(dfSDRGCOMP)
 
-set.seed(8675309)
-subset <- dfSUBJ %>%
-    slice_sample(n = 5)
-dfLB <- clindata::rawplus_lb %>% filter(subjid %in% subset$subjid)
-dfDATACHG <- clindata::edc_data_points %>% filter(subjectname %in% subset$subject_nsv)
-dfDATAENT <- clindata::edc_data_pages %>% filter(subjectname %in% subset$subject_nsv)
-dfQUERY <- clindata::edc_queries %>% filter(subjectname %in% subset$subject_nsv)
+
+dfSUBJ <- clindata::rawplus_dm %>% subsetDfs(dfSUBJ)
+dfAE <- clindata::rawplus_ae %>% subsetDfs(dfAE)
+dfPD <- clindata::rawplus_protdev %>% subsetDfs(dfPD)
+dfCONSENT <- clindata::rawplus_consent %>% subsetDfs(dfCONSENT)
+dfIE <- clindata::rawplus_ie %>% subsetDfs(dfIE)
+dfSTUDCOMP <- clindata::rawplus_studcomp %>% subsetDfs(dfSTUDCOMP)
+dfSDRGCOMP <- clindata::rawplus_sdrgcomp %>% subsetDfs(dfSDRGCOMP)
+dfLB <- clindata::rawplus_lb %>% subsetDfs(dfLB, max_rows = 300)
+dfDATACHG <- clindata::edc_data_change_rate %>% subsetDfs(dfDATACHG, max_rows = 300)
+dfDATAENT <- clindata::edc_data_entry_lag %>% subsetDfs(dfDATAENT, max_rows = 300)
+dfQUERY <- clindata::edc_queries %>% subsetDfs(dfQUERY, max_rows = 300)
+
 
 lData <- list(
   dfSUBJ = dfSUBJ,
@@ -225,37 +224,19 @@ test_that("correct bStatus is returned when workflow is missing", {
 })
 
 
-
-test_that("non-enrolled subjects are filtered out using a default workflow", {
-  dfSUBJ <- lData$dfSUBJ %>%
-    mutate(enrollyn = rep(c("Y", "N"), times = 25))
-
-
+test_that("flowchart is returned when bFlowchart is TRUE", {
   # run Study_Assess with AE only
-
   lData <- list(
     dfSUBJ = dfSUBJ,
     dfAE = dfAE
   )
 
-
-  result <- Study_Assess(
-    lData = lData,
-    lAssessments = MakeWorkflowList(strNames = 'kri0001')
-  )
-
-  expect_equal(25, nrow(result$kri0001$lData$dfSUBJ))
-  expect_true(all(result$kri0001$lData$dfSUBJ$enrollyn == "Y"))
-})
-
-test_that("flowchart is returned when bFlowchart is TRUE", {
   lWorkflow <- MakeWorkflowList(strNames = "kri0001")
 
   result <- Study_Assess(lData = lData, lAssessments = lWorkflow, bFlowchart = TRUE)
 
   expect_type(result$kri0001$lChecks$flowchart, "list")
   expect_snapshot(result$kri0001$lChecks$flowchart)
-
 
 })
 
@@ -296,11 +277,11 @@ test_that("non-enrolled subjects are filtered out using a default workflow", {
   lData$dfSUBJ <- lData$dfSUBJ %>%
     mutate(enrollyn = rep(c("Y", "N"), times = 25))
 
-result <- Study_Assess(
-  lData = lData,
-  lAssessments = MakeWorkflowList(strNames = 'kri0001')
-)
+  result <- Study_Assess(
+    lData = lData,
+    lAssessments = MakeWorkflowList(strNames = 'kri0001')
+  )
 
-expect_equal(25, nrow(result$kri0001$lData$dfSUBJ))
-expect_true(all(result$kri0001$lData$dfSUBJ$enrollyn == "Y"))
+  expect_equal(25, nrow(result$kri0001$lData$dfSUBJ))
+  expect_true(all(result$kri0001$lData$dfSUBJ$enrollyn == "Y"))
 })
