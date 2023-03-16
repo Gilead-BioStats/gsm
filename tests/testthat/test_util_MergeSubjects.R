@@ -261,6 +261,3 @@ test_that("bQuiet works as intended", {
   )
 })
 
-test_that("missing parameters are caught", {
-
-})
