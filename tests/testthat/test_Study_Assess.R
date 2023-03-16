@@ -224,21 +224,64 @@ test_that("correct bStatus is returned when workflow is missing", {
 })
 
 
-test_that("non-enrolled subjects are filtered out using a default workflow", {
-  dfSUBJ <- lData$dfSUBJ %>%
-    mutate(enrollyn = rep(c("Y", "N"), times = 25))
+test_that("flowchart is returned when bFlowchart is TRUE", {
+  # run Study_Assess with AE only
+  lData <- list(
+    dfSUBJ = dfSUBJ,
+    dfAE = dfAE
+  )
+
+  lWorkflow <- MakeWorkflowList(strNames = "kri0001")
+
+  result <- Study_Assess(lData = lData, lAssessments = lWorkflow, bFlowchart = TRUE)
+
+  expect_type(result$kri0001$lChecks$flowchart, "list")
+  expect_snapshot(result$kri0001$lChecks$flowchart)
+
+})
+
+
+
+test_that("a stratified workflow can be run using Study_Assess", {
 
   lData <- list(
     dfSUBJ = dfSUBJ,
     dfAE = dfAE
   )
 
-  result <- Study_Assess(
-    lData = lData,
-    lAssessments = MakeWorkflowList(strNames = 'kri0001')
+  lMapping <- yaml::read_yaml(
+    system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
   )
 
-  expect_equal(25, nrow(result$kri0001$lData$dfSUBJ))
-  expect_true(all(result$kri0001$lData$dfSUBJ$enrollyn == "Y"))
+  lWorkflowList <- MakeWorkflowList(strNames = "aeGrade", bRecursive = TRUE)
 
+  # Adverse events by grade
+  StratifiedAE <- MakeStratifiedAssessment(
+    lData = list(
+      dfSUBJ = clindata::rawplus_dm,
+      dfAE = clindata::rawplus_ae
+    ),
+    lMapping = lMapping,
+    lWorkflow = lWorkflowList$aeGrade
+  )
+
+  result <- Study_Assess(lData = lData, lMapping = lMapping, lAssessments = StratifiedAE)
+
+  expect_equal(names(result), c("aeGrade_1", "aeGrade_2", "aeGrade_3", "aeGrade_4"))
+  expect_true(all(result %>% map_lgl(~.x$bStatus)))
+
+})
+
+
+test_that("non-enrolled subjects are filtered out using a default workflow", {
+  lData$dfSUBJ <- lData$dfSUBJ %>%
+    mutate(enrollyn = rep(c("Y", "N"), times = 25))
+
+result <- Study_Assess(
+  lData = lData,
+  lAssessments = MakeWorkflowList(strNames = 'kri0001')
+)
+
+expect_equal(25, nrow(result$kri0001$lData$dfSUBJ))
+expect_true(all(result$kri0001$lData$dfSUBJ$enrollyn == "Y"))
 })

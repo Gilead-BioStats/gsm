@@ -20,7 +20,7 @@
 #' `lWorkflow$workflow`.
 #'
 #' @examples
-#' lWorkflows <- MakeWorkflowList()
+#' lWorkflows <- MakeWorkflowList(bRecursive = TRUE)
 #' lData <- list(
 #'   dfAE = clindata::rawplus_ae,
 #'   dfCONSENT = clindata::rawplus_consent,
