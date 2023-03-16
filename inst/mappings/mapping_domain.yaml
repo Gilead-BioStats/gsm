@@ -38,6 +38,11 @@ dfENROLL:
   domain: enroll
   name: rawplus_enroll
   active: true
+dfPD:
+  source: ctms
+  domain: dv
+  name: ctms_protdev
+  active: true
 dfDATACHG:
   source: edc
   domain: data_points
@@ -52,9 +57,4 @@ dfQUERY:
   source: edc
   domain: queries
   name: edc_queries
-  active: true
-dfPD:
-  source: ctms
-  domain: dv
-  name: rawplus_protdev
   active: true

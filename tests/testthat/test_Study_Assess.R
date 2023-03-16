@@ -26,7 +26,7 @@ meta <- left_join(
 
 dfSUBJ <- clindata::rawplus_dm %>% subsetByIndex(dfSUBJ)
 dfAE <- clindata::rawplus_ae %>% subsetByIndex(dfAE)
-dfPD <- clindata::rawplus_protdev %>% subsetByIndex(dfPD)
+dfPD <- clindata::ctms_protdev %>% subsetByIndex(dfPD)
 dfCONSENT <- clindata::rawplus_consent %>% subsetByIndex(dfCONSENT)
 dfIE <- clindata::rawplus_ie %>% subsetByIndex(dfIE)
 dfSTUDCOMP <- clindata::rawplus_studcomp %>% subsetByIndex(dfSTUDCOMP)
@@ -67,7 +67,7 @@ lMapping <- c(
 result <- Study_Assess(
   lData = lData,
   lAssessments = lAssessments,
-  bQuiet = TRUE
+  bQuiet = FALSE
 )
 
 # output is created as expected -------------------------------------------

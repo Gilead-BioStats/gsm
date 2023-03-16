@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' RemoveInvalidSubjectIDs(
-#'   clindata::rawplus_protdev,
+#'   clindata::ctms_protdev,
 #'   strIDCol = "subjid",
 #'   bQuiet = FALSE
 #' )

@@ -43,7 +43,7 @@
 PD_Map_Raw_Rate <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
-    dfPD = clindata::rawplus_protdev
+    dfPD = clindata::ctms_protdev
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm")),
   bReturnChecks = FALSE,
@@ -67,7 +67,9 @@ PD_Map_Raw_Rate <- function(
 
     # Standarize Column Names
     dfPD_mapped <- dfs$dfPD %>%
-      select(SubjectID = lMapping[["dfPD"]][["strIDCol"]])
+      select(SubjectID = lMapping[["dfPD"]][["strIDCol"]]) %>%
+      # missing subject IDs expected for some protocol deviations
+      filter(.data$SubjectID != '')
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
