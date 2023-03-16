@@ -1,7 +1,7 @@
 test_that("Given an appropriate subset of Query Age data, the assessment function correctly performs a Query Age Assessment grouped by the Study variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::QueryAge_Map_Raw(dfs = list(
-    dfQUERY = clindata::edc_queries %>% filter(foldername == "Week 120"),
+    dfQUERY = clindata::edc_queries %>% filter(visit == "Week 120"),
     dfSUBJ = clindata::rawplus_dm
   ))
 
