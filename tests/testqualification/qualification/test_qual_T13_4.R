@@ -18,6 +18,7 @@ test_that("A subset of raw data entry data can be mapped correctly to create an 
   # read in default mapping specs
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
 
+  # set expected number of days allowed to enter data
   nMaxDataEntryLag <- 10
 
   # create cols vector to facilitate connecting lMapping with source data variables
@@ -35,7 +36,7 @@ test_that("A subset of raw data entry data can be mapped correctly to create an 
   # note that data_entry_lag is number of days between the visit date and the earliest field entry date
   data_entry_orig <- clindata::edc_data_pages
 
-  # count unique number of PK data pages with data entry lag (i.e., >10 days between the visit date and the earliest field entry date - where data_entry_lag_fl == "Y") within each subject and remove duplicate records
+  # count unique number of PK data pages with data entry lag (i.e., >nMaxDataEntryLag days between the visit date and the earliest field entry date) within each subject and remove duplicate records
   data_entry <- data_entry_orig %>%
     filter(!!sym(lMapping$dfDATAENT$strFormCol) == "PK") %>%
     filter(!!sym(lMapping$dfDATAENT$strDataEntryLagCol) > nMaxDataEntryLag) %>%

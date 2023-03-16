@@ -41,7 +41,7 @@ test_that("A subset of raw data query data can be mapped correctly to create an 
   query_count_orig <- clindata::edc_queries
   data_count_orig <- clindata::edc_data_points
 
-  # count unique number of data queries within each subject and remove duplicate records
+  # count unique number of PK data queries within each subject and remove duplicate records
   query_count <- query_count_orig %>%
     filter(!!sym(lMapping$dfQUERY$strFormCol) == "PK") %>%
     group_by_at(lMapping$dfQUERY$strIDCol) %>%
@@ -52,7 +52,7 @@ test_that("A subset of raw data query data can be mapped correctly to create an 
     select(lMapping$dfQUERY$strIDCol, Count) %>%
     distinct()
 
-  # count number of overall data points within each subject and remove duplicate records
+  # count number of overall PK data points within each subject and remove duplicate records
   data_count <- data_count_orig %>%
     filter(!!sym(lMapping$dfDATACHG$strFormCol) == "PK") %>%
     group_by_at(lMapping$dfDATACHG$strIDCol) %>%

@@ -7,6 +7,7 @@ test_that("Raw data query data can be mapped correctly to create an analysis-rea
   # read in default mapping specs
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
 
+  # set expected number of days allowed to answer or resolve query
   nMaxQueryAge <- 30
 
   # create cols vector to facilitate connecting lMapping with source data variables
@@ -23,7 +24,7 @@ test_that("Raw data query data can be mapped correctly to create an analysis-rea
   # read in raw data query age data
   query_age_orig <- clindata::edc_queries
 
-  # count unique number of data queries open for >30 days within each subject and remove duplicate records
+  # count unique number of data queries open for >nMaxQueryAge days within each subject and remove duplicate records
   query_age <- query_age_orig %>%
     filter(!!sym(lMapping$dfQUERY$strQueryAgeCol) > nMaxQueryAge) %>%
     group_by_at(lMapping$dfQUERY$strIDCol) %>%
