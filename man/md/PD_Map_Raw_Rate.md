@@ -5,4 +5,4 @@
 |dfSUBJ     |strSiteCol        |siteid            |TRUE          |FALSE                      |FALSE                       |
 |dfSUBJ     |strIDCol          |subjid            |TRUE          |TRUE                       |FALSE                       |
 |dfSUBJ     |strTimeOnStudyCol |timeonstudy       |TRUE          |FALSE                      |TRUE                        |
-|dfPD       |strIDCol          |subjid            |TRUE          |FALSE                      |FALSE                       |
+|dfPD       |strIDCol          |                  |TRUE          |FALSE                      |FALSE                       |
