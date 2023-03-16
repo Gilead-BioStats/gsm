@@ -10,15 +10,16 @@ Make_Snapshot(
     clindata::ctms_site, meta_study = clindata::ctms_study, meta_workflow =
     gsm::meta_workflow),
   lData = list(dfSUBJ = clindata::rawplus_dm, dfAE = clindata::rawplus_ae, dfPD =
-    clindata::rawplus_protdev, dfCONSENT = clindata::rawplus_consent, dfIE =
+    clindata::ctms_protdev, dfCONSENT = clindata::rawplus_consent, dfIE =
     clindata::rawplus_ie, dfLB = clindata::rawplus_lb, dfSTUDCOMP =
     clindata::rawplus_studcomp, dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\%
     filter(.data$phase == "Blinded Study Drug Completion"), dfDATACHG =
     clindata::edc_data_points, dfDATAENT = clindata::edc_data_pages, dfQUERY =
     clindata::edc_queries, dfENROLL = clindata::rawplus_enroll),
   lMapping = c(yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
-    "gsm")), yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package =
+    "gsm")), yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package =
     "gsm")), yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
+    "gsm")), yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package =
     "gsm"))),
   lAssessments = NULL,
   bUpdateParams = FALSE,

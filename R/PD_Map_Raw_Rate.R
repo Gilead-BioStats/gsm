@@ -67,9 +67,7 @@ PD_Map_Raw_Rate <- function(
 
     # Standarize Column Names
     dfPD_mapped <- dfs$dfPD %>%
-      select(SubjectID = lMapping[["dfPD"]][["strIDCol"]]) %>%
-      # missing subject IDs expected for some protocol deviations
-      filter(.data$SubjectID != '')
+      select(SubjectID = lMapping[["dfPD"]][["strIDCol"]])
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(

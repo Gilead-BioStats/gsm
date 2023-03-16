@@ -16,15 +16,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["vRequired", "vNACols"]
+              "value": ["vRequired"]
             }
           },
           "value": [
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["strIDCol"]
-            },
             {
               "type": "character",
               "attributes": {},
@@ -537,6 +532,20 @@
       NULL
 
 # missing value throws errors
+
+    Code
+      map_function(dfs = dfs_edited, bQuiet = FALSE)
+    Message
+      
+      -- Checking Input Data for `PD_Map_Raw_Binary()` --
+      
+      x 1 NA values found in column: SubjectEnrollmentNumber
+      ! Issues found for `PD_Map_Raw_Binary()`
+      ! `PD_Map_Raw_Binary()` did not run because of failed check.
+    Output
+      NULL
+
+---
 
     Code
       map_function(dfs = dfs_edited, bQuiet = FALSE)

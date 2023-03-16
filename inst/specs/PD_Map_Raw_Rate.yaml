@@ -1,8 +1,6 @@
 dfPD:
   vRequired:
     - strIDCol
-  vNACols:
-    - strIDCol
 dfSUBJ:
   vRequired:
     - strIDCol
