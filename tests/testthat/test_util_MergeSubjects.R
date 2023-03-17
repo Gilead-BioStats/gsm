@@ -257,7 +257,6 @@ test_that("bQuiet works as intended", {
   )
 
   expect_error(
-    MergeSubjects(dfDomain = dfDomain, dfSUBJ = dfSUBJ, bQuiet = 'ok')
+    MergeSubjects(dfDomain = dfDomain, dfSUBJ = dfSUBJ, bQuiet = "ok")
   )
 })
-

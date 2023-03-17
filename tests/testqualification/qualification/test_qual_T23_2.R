@@ -15,8 +15,10 @@ test_that("Given an appropriate subset of Protocol Deviation data, the assessmen
   t23_2_input <- dfInput
 
   t23_2_transformed <- dfInput %>%
-    qualification_transform_counts(GroupID = "StudyID",
-                                   exposureCol = "Total")
+    qualification_transform_counts(
+      GroupID = "StudyID",
+      exposureCol = "Total"
+    )
 
   t23_2_analyzed <- t23_2_transformed %>%
     qualification_analyze_poisson()

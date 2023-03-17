@@ -3,11 +3,13 @@ source(testthat::test_path("testdata/data.R"))
 makeTestData <- function(data) {
   data %>%
     slice(1:300) %>%
-    mutate(subjectname = substr(subjectname, 0, 4),
-           subjectname = case_when(subjectname == "0001" ~ "0003",
-                                   subjectname == "0002" ~ "0496",
-                                   subjectname == "0004" ~ "1350",
-                                   .default = subjectname)
+    mutate(
+      subjectname = substr(subjectname, 0, 4),
+      subjectname = case_when(subjectname == "0001" ~ "0003",
+        subjectname == "0002" ~ "0496",
+        subjectname == "0004" ~ "1350",
+        .default = subjectname
+      )
     )
 }
 
@@ -263,17 +265,15 @@ test_that("valid gsm_analysis_date is passed to output", {
     lData = lData,
     lAssessments = MakeWorkflowList(strNames = c("kri0001", "kri0004")),
     strAnalysisDate = "2023-02-15"
-    )
+  )
 
   expect_equal(
     unique(result$results_summary$gsm_analysis_date),
     as.Date("2023-02-15")
   )
-
 })
 
 test_that("invalid date input returns the current date", {
-
   result <- Make_Snapshot(
     lData = lData,
     lAssessments = MakeWorkflowList(strNames = c("kri0001", "kri0004")),
@@ -284,11 +284,9 @@ test_that("invalid date input returns the current date", {
     unique(result$results_summary$gsm_analysis_date),
     Sys.Date()
   )
-
 })
 
 test_that("NULL date input returns the current date", {
-
   result <- Make_Snapshot(
     lData = lData,
     lAssessments = MakeWorkflowList(strNames = c("kri0001", "kri0004"))
@@ -298,5 +296,4 @@ test_that("NULL date input returns the current date", {
     unique(result$results_summary$gsm_analysis_date),
     Sys.Date()
   )
-
 })

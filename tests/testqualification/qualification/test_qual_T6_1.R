@@ -1,8 +1,9 @@
 test_that("Given an appropriate subset of Labs data, the assessment function correctly performs a Labs Assessment grouped by the Site variable using the Fisher method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
   dfInput <- gsm::LB_Map_Raw(dfs = list(
-    dfSUBJ = clindata::rawplus_dm  %>% filter(!siteid %in% c("5", "29", "58")),
-    dfLB = clindata::rawplus_lb))
+    dfSUBJ = clindata::rawplus_dm %>% filter(!siteid %in% c("5", "29", "58")),
+    dfLB = clindata::rawplus_lb
+  ))
 
   test6_1 <- LB_Assess(
     dfInput = dfInput,

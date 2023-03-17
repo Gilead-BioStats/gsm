@@ -91,7 +91,6 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
     tests_if$spec_is_list$warning <- "spec is not a list()"
     tests_if$mappings_are_character$warning <- "spec is not a list()"
     tests_if$has_expected_columns$warning <- "spec is not a list()"
-
   } else {
     tests_if$spec_is_list$status <- TRUE
   }
@@ -127,7 +126,6 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
     } else {
       tests_if$has_expected_columns$status <- TRUE
     }
-
   }
 
 

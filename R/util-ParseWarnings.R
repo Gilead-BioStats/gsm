@@ -31,7 +31,6 @@
 #'
 #' @export
 ParseWarnings <- function(lResults) {
-
   # lChecks
   overall_standard <- lResults %>%
     purrr::imap(function(x, y) {
@@ -52,14 +51,12 @@ ParseWarnings <- function(lResults) {
         })
     }) %>%
     purrr::imap(function(data, index) {
-
       if (length(data) > 0) {
         dplyr::bind_rows(unname(data), .id = index) %>%
           dplyr::pull(warning) %>%
           purrr::discard(is.na) %>%
           paste(collapse = "\n")
       }
-
     }) %>%
     purrr::imap_dfr(function(x, y) {
       dplyr::tibble(notes = x, workflowid = y)
@@ -77,9 +74,12 @@ ParseWarnings <- function(lResults) {
     })
 
   workflow_overall <-
-    workflow %>% imap(function(x, y) {
-      tibble(workflowid = y,
-             workflow_overall_status = x$bStatus)
+    workflow %>%
+    imap(function(x, y) {
+      tibble(
+        workflowid = y,
+        workflow_overall_status = x$bStatus
+      )
     }) %>%
     list_rbind()
 
@@ -111,7 +111,6 @@ ParseWarnings <- function(lResults) {
   # get each step of workflow check -----------------------------------------
   workflow_steps_overall <- workflow %>%
     purrr::imap(function(x, y) {
-
       overall <- x$steps_are_valid
 
       tibble(
@@ -119,7 +118,6 @@ ParseWarnings <- function(lResults) {
         status = overall$status,
         notes = overall$message
       )
-
     }) %>%
     purrr::list_rbind() %>%
     mutate(
@@ -164,12 +162,16 @@ ParseWarnings <- function(lResults) {
   steps <- workflow_steps %>%
     group_split(.data$workflowid) %>%
     purrr::map(function(x) {
-      overall <- x %>% filter(.data$check_name == "overall") %>% pull(.data$status)
+      overall <- x %>%
+        filter(.data$check_name == "overall") %>%
+        pull(.data$status)
 
       if (overall) {
         tibble(workflowid = unique(x$workflowid), workflow_steps_status = TRUE, workflow_steps_notes = "")
       } else {
-        notes <- x %>% filter(.data$status == FALSE) %>% pull(.data$notes)
+        notes <- x %>%
+          filter(.data$status == FALSE) %>%
+          pull(.data$notes)
         notes <- paste(notes, collapse = ", ")
         tibble(workflowid = unique(x$workflowid), workflow_steps_status = FALSE, workflow_steps_notes = notes)
       }
@@ -184,7 +186,9 @@ ParseWarnings <- function(lResults) {
       if (all(x$status)) {
         tibble(workflowid = unique(x$workflowid), workflow_dimensions_status = TRUE, workflow_dimensions_notes = "")
       } else {
-        notes <- x %>% filter(.data$status == FALSE) %>% pull(notes)
+        notes <- x %>%
+          filter(.data$status == FALSE) %>%
+          pull(notes)
         notes <- paste(notes, collapse = ", ")
         tibble(workflowid = unique(x$workflowid), workflow_dimensions_status = FALSE, workflow_dimensions_notes = notes)
       }
@@ -204,7 +208,7 @@ ParseWarnings <- function(lResults) {
     ) %>%
     ungroup() %>%
     mutate(across(c("notes", "workflow_steps_notes", "workflow_dimensions_notes"), function(x) ifelse(x == "", NA, x))) %>%
-    tidyr::unite("notes", c("notes", "workflow_steps_notes", 'workflow_dimensions_notes'), na.rm = TRUE, sep = ", ") %>%
+    tidyr::unite("notes", c("notes", "workflow_steps_notes", "workflow_dimensions_notes"), na.rm = TRUE, sep = ", ") %>%
     select(
       "workflowid",
       "status",
@@ -212,5 +216,4 @@ ParseWarnings <- function(lResults) {
     )
 
   return(warnings)
-
 }

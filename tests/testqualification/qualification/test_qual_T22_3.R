@@ -1,6 +1,4 @@
 test_that("The utility function can correctly evaluate that the input mapping(s) is(are) or is(are) not a list.", {
-
-
   ### Preliminary setup
   df <- clindata::rawplus_dm
 
@@ -37,5 +35,4 @@ test_that("The utility function can correctly evaluate that the input mapping(s)
 
   all_tests <- isTRUE(is_list) & isTRUE(is_not_list)
   expect_true(all_tests)
-
 })

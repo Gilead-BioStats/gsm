@@ -24,7 +24,6 @@ CheckClindataMeta <- function(
   ),
   ci_check = FALSE
 ) {
-
   config <- config %>%
     purrr::imap(
       ~ .x %>%

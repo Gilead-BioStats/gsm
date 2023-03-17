@@ -1,6 +1,4 @@
 test_that("Given pre-specified mapping, input data can be filtered to produce a data frame with the correct number of rows.", {
-
-
   ########### gsm mapping ###########
   observed <- FilterDomain(
     df = clindata::rawplus_ae,
@@ -28,10 +26,8 @@ test_that("Given pre-specified mapping, input data can be filtered to produce a 
   row_check <- nrow(observed) == nrow(expected)
 
   # check that observed has the same number of rows as clindata::rawplus_ae where aeser == "Y"
-  cross_check <- nrow(observed) == nrow(ae_raw_orig[ae_raw_orig$aeser == "Y",])
+  cross_check <- nrow(observed) == nrow(ae_raw_orig[ae_raw_orig$aeser == "Y", ])
 
   all_tests <- isTRUE(row_check) & isTRUE(cross_check)
   expect_true(all_tests)
-
 })
-

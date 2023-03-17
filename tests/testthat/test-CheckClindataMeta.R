@@ -7,16 +7,15 @@ testthat::test_that("versions are in sync", {
 })
 
 test_that("FALSE ci_check returns null", {
-
   expect_message(
     output <- CheckClindataMeta(ci_check = FALSE)
-    )
+  )
 
   expect_null(output)
 })
 
 test_that("mismatch returns warning", {
-  config = list(
+  config <- list(
     config_param = clindata::config_param %>% mutate(gsm_version = "1.2.3"),
     config_workflow = clindata::config_workflow
   )
@@ -24,5 +23,4 @@ test_that("mismatch returns warning", {
   expect_message(
     CheckClindataMeta(config = config)
   )
-
 })

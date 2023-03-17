@@ -2,7 +2,7 @@ test_that("Given appropriate Labs data, the assessment function correctly perfor
   # gsm analysis
   dfInput <- gsm::LB_Map_Raw()
 
-  nMinDenominator = 67
+  nMinDenominator <- 67
 
   test6_12 <- LB_Assess(
     dfInput = dfInput,
@@ -31,10 +31,16 @@ test_that("Given appropriate Labs data, the assessment function correctly perfor
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0))) %>%
-    mutate(Score = case_when(Denominator >= nMinDenominator ~ Score,
-                             Denominator < nMinDenominator ~ NA_real_),
-           Flag = case_when(Denominator >= nMinDenominator ~ Flag,
-                            Denominator < nMinDenominator ~ NA_real_))
+    mutate(
+      Score = case_when(
+        Denominator >= nMinDenominator ~ Score,
+        Denominator < nMinDenominator ~ NA_real_
+      ),
+      Flag = case_when(
+        Denominator >= nMinDenominator ~ Flag,
+        Denominator < nMinDenominator ~ NA_real_
+      )
+    )
 
   t6_12 <- list(
     "dfTransformed" = t6_12_transformed,

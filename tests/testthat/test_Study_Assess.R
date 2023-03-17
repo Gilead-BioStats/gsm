@@ -11,11 +11,13 @@ subsetDfs <- function(data, domain, max_rows = 50) {
 makeTestData <- function(data, max_rows = 300) {
   data %>%
     slice(1:max_rows) %>%
-    mutate(subjectname = substr(subjectname, 0, 4),
-           subjectname = case_when(subjectname == "0001" ~ "0003",
-                                   subjectname == "0002" ~ "0496",
-                                   subjectname == "0004" ~ "1350",
-                                   .default = subjectname)
+    mutate(
+      subjectname = substr(subjectname, 0, 4),
+      subjectname = case_when(subjectname == "0001" ~ "0003",
+        subjectname == "0002" ~ "0496",
+        subjectname == "0004" ~ "1350",
+        .default = subjectname
+      )
     )
 }
 
@@ -252,13 +254,11 @@ test_that("flowchart is returned when bFlowchart is TRUE", {
 
   expect_type(result$kri0001$lChecks$flowchart, "list")
   expect_snapshot(result$kri0001$lChecks$flowchart)
-
 })
 
 
 
 test_that("a stratified workflow can be run using Study_Assess", {
-
   lData <- list(
     dfSUBJ = dfSUBJ,
     dfAE = dfAE
@@ -278,26 +278,21 @@ test_that("a stratified workflow can be run using Study_Assess", {
     ),
     lMapping = lMapping,
     lWorkflow = lWorkflowList$aeGrade
-
   )
 
   result <- Study_Assess(lData = lData, lMapping = lMapping, lAssessments = StratifiedAE)
 
   expect_equal(names(result), c("aeGrade_1", "aeGrade_2", "aeGrade_3", "aeGrade_4"))
-  expect_true(all(result %>% map_lgl(~.x$bStatus)))
-
+  expect_true(all(result %>% map_lgl(~ .x$bStatus)))
 })
 
 
 test_that("non-enrolled subjects are filtered out using a default workflow", {
-
-
   result <- Study_Assess(
     lData = lData,
-    lAssessments = MakeWorkflowList(strNames = 'kri0001')
+    lAssessments = MakeWorkflowList(strNames = "kri0001")
   )
 
   expect_equal(1301, nrow(result$kri0001$lData$dfSUBJ))
   expect_true(all(result$kri0001$lData$dfSUBJ$enrollyn == "Y"))
-
 })

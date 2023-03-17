@@ -39,7 +39,6 @@ test_that("file writes to strPath when provided", {
 
 
 test_that("file is saved with correct name when provided", {
-
   dir <- tempdir()
 
   ExportCode(
@@ -47,13 +46,11 @@ test_that("file is saved with correct name when provided", {
     lMapping,
     lAssessments,
     strPath = dir,
-    strFileName = 'testing_file_name'
+    strFileName = "testing_file_name"
   )
 
   expect_true("testing_file_name.R" %in% list.files(dir))
-
 })
 
 
 ## possible resource to test inserting text: https://github.com/rstudio/rstudioapi/blob/main/tests/testthat/test-document-apis.R
-

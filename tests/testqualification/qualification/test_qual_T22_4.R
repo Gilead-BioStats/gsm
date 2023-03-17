@@ -1,6 +1,4 @@
 test_that("The utility function can correctly evaluate that the elements of the input mapping(s) are or are not of character class.", {
-
-
   ### Preliminary setup
   df <- clindata::rawplus_dm
 
@@ -41,5 +39,4 @@ test_that("The utility function can correctly evaluate that the elements of the 
 
   all_tests <- isTRUE(is_chr) & isTRUE(is_not_chr)
   expect_true(all_tests)
-
 })

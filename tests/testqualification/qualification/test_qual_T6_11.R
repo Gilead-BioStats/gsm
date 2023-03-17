@@ -28,16 +28,22 @@ test_that("Given appropriate Labs data, the assessment function correctly perfor
   class(t6_11_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t6_11_flagged <- t6_11_analyzed %>%
-   qualification_flag_identity(threshold = c(2.31, 6.58))
+    qualification_flag_identity(threshold = c(2.31, 6.58))
 
   t6_11_summary <- t6_11_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0))) %>%
-    mutate(Score = case_when(Denominator >= nMinDenominator ~ Score,
-                             Denominator < nMinDenominator ~ NA_real_),
-           Flag = case_when(Denominator >= nMinDenominator ~ Flag,
-                            Denominator < nMinDenominator ~ NA_real_))
+    mutate(
+      Score = case_when(
+        Denominator >= nMinDenominator ~ Score,
+        Denominator < nMinDenominator ~ NA_real_
+      ),
+      Flag = case_when(
+        Denominator >= nMinDenominator ~ Flag,
+        Denominator < nMinDenominator ~ NA_real_
+      )
+    )
 
   t6_11 <- list(
     "dfTransformed" = t6_11_transformed,

@@ -25,7 +25,7 @@ lConsolidatedOutput <- ConsolidateStrata(
 
 test_that("bQuiet returns informative messages", {
   expect_message(
-      output <- ConsolidateStrata(
+    output <- ConsolidateStrata(
       lOutput,
       lStratifiedOutput,
       bQuiet = FALSE
@@ -34,7 +34,6 @@ test_that("bQuiet returns informative messages", {
 })
 
 test_that("error in workflow returns error console message", {
-
   output <- lOutput
   output$bStatus <- FALSE
 
@@ -45,7 +44,6 @@ test_that("error in workflow returns error console message", {
       bQuiet = FALSE
     )
   )
-
 })
 
 test_that("Structure of consolidated output matches structure of standard output", {
@@ -71,4 +69,3 @@ test_that("Stratified output is returned", {
     nrow(lConsolidatedOutput$lResults$dfSummary)
   )
 })
-
