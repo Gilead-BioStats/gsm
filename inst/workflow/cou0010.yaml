@@ -11,6 +11,8 @@ steps:
       - dfSUBJ
       - dfDATAENT
     output: dfInput
+    params:
+      nMaxDataEntryLag: 10
   - name: DataEntry_Assess
     inputs: dfInput
     output: lResults

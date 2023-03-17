@@ -29,8 +29,8 @@
       # A tibble: 3 x 1
         GroupID
         <chr>  
-      1 86     
-      2 166    
+      1 166    
+      2 86     
       3 76     
 
 ---
@@ -51,8 +51,8 @@
       # A tibble: 3 x 1
         GroupID
         <chr>  
-      1 US     
-      2 Japan  
+      1 Japan  
+      2 US     
       3 China  
 
 ---
@@ -63,8 +63,8 @@
       # A tibble: 3 x 1
         GroupID
         <chr>  
-      1 0X012  
-      2 0X999  
+      1 0X999  
+      2 0X012  
       3 0X201  
 
 # invalid data throw errors

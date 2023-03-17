@@ -17,7 +17,6 @@ PRs
 PredictedCount
 RBM
 README
-RandDate
 Roxygen
 SDTM
 SITEID
@@ -71,7 +70,6 @@ strEndCol
 strExposureCol
 strFunctionName
 strIDCol
-strRandDateCol
 strRateCol
 strSiteCol
 strStartCol

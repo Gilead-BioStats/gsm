@@ -91,6 +91,7 @@ reference:
    - title: Data
      desc: Metadata used to create workflows
    - contents:
+      - input_data_schema
       - meta_param
       - meta_workflow
       - rbm_data_spec

@@ -1,7 +1,7 @@
 test_that("Given an appropriate subset of Data Entry Lag data, the assessment function correctly performs a Data Entry Lag Assessment grouped by the Country variable using the Fisher method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::DataEntry_Map_Raw(dfs = list(
-    dfDATAENT = clindata::edc_data_entry_lag %>% filter(foldername == "Week 120"),
+    dfDATAENT = clindata::edc_data_pages %>% filter(visit == "Week 120"),
     dfSUBJ = clindata::rawplus_dm
   ))
 

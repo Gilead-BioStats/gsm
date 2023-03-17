@@ -11,6 +11,8 @@ steps:
       - dfSUBJ
       - dfQUERY
     output: dfInput
+    params:
+      nMaxQueryAge: 30
   - name: QueryAge_Assess
     inputs: dfInput
     output: lResults

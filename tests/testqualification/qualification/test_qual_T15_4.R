@@ -2,7 +2,7 @@ test_that("A subset of Raw+ Labs data can be mapped correctly to create an analy
   ########### gsm mapping ###########
   subset <- FilterData(
     dfInput = clindata::rawplus_lb,
-    strCol = "lb_te",
+    strCol = "treatmentemergent",
     anyVal = "Y"
   ) # filtering only for treatment-emergent abnormal lab values
 

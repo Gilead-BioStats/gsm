@@ -84,7 +84,7 @@
       
       
       $dim
-      [1] 4 9
+      [1]  4 10
       
 
 # status is FALSE when spec is incorrect
@@ -174,7 +174,7 @@
       
       
       $dim
-      [1] 3 9
+      [1]  3 10
       
 
 # bQuiet works as intended

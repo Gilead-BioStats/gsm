@@ -53,7 +53,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strCustomGroupCol", "strCountryCol", "strIDCol", "strScreenFailCol", "strScreenFailVal", "strScreenFailReasonCol", "strScreenFailReasonVal"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strEnrollmentDateCol", "strScreenFailCol", "strScreenFailVal", "strScreenFailReasonCol", "strScreenFailReasonVal", "strCountryCol", "strCustomGroupCol"]
             }
           },
           "value": [
@@ -70,17 +70,12 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["invid"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["country"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
               "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["enroll_dt"]
             },
             {
               "type": "character",
@@ -101,6 +96,16 @@
               "type": "character",
               "attributes": {},
               "value": ["Inclusion/Exclusion Criteria"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
             }
           ]
         }
@@ -242,9 +247,9 @@
       # A tibble: 3 x 7
         StudyID        SiteID CountryID CustomGroupID SubjectID Count Total
         <chr>          <chr>  <chr>     <chr>         <chr>     <dbl> <dbl>
-      1 AA-AA-000-0000 86     US        0X012         0001          0     1
-      2 AA-AA-000-0000 166    Japan     0X999         0003          0     1
-      3 AA-AA-000-0000 76     China     0X201         sf0001        1     1
+      1 AA-AA-000-0000 86     Y         0X001         0001          0     1
+      2 AA-AA-000-0000 166    Y         0X001         0003          0     1
+      3 AA-AA-000-0000 76     N         0X002         sf0001        0     1
 
 ---
 
@@ -352,9 +357,9 @@
       # A tibble: 3 x 7
         StudyID        SiteID CountryID CustomGroupID SubjectID Count Total
         <chr>          <chr>  <chr>     <chr>         <chr>     <dbl> <dbl>
-      1 AA-AA-000-0000 86     US        0X012         0001          0     1
-      2 AA-AA-000-0000 166    Japan     0X999         0003          0     1
-      3 AA-AA-000-0000 76     China     0X201         sf0001        1     1
+      1 AA-AA-000-0000 86     Y         0X001         0001          0     1
+      2 AA-AA-000-0000 166    Y         0X001         0003          0     1
+      3 AA-AA-000-0000 76     N         0X002         sf0001        0     1
 
 # missing column throws errors
 
@@ -469,9 +474,9 @@
       # A tibble: 3 x 7
         StudyID        SiteID CountryID CustomGroupID SubjectID Count Total
         <chr>          <chr>  <chr>     <chr>         <chr>     <dbl> <dbl>
-      1 AA-AA-000-0000 86     US        0X012         0001          0     1
-      2 AA-AA-000-0000 166    Japan     0X999         0003          0     1
-      3 AA-AA-000-0000 76     China     0X201         sf0001        1     1
+      1 AA-AA-000-0000 86     Y         0X001         0001          0     1
+      2 AA-AA-000-0000 166    Y         0X001         0003          0     1
+      3 AA-AA-000-0000 76     N         0X002         sf0001        0     1
 
 # invalid mapping throws errors
 
