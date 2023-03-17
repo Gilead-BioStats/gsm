@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Check if workflow is valid/contains necessary metadata.
 #'
 #' @param lWorkflow `list` of workflows to be run in `Study_Assess()` or `Make_Snapshot()`.

@@ -4,7 +4,7 @@
 \alias{scatterPlot-shiny}
 \alias{scatterPlotOutput}
 \alias{renderScatterPlot}
-\title{Shiny bindings for scatterPlot}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 scatterPlotOutput(outputId, width = "100\%", height = "400px")
 
@@ -25,6 +25,9 @@ string and have \code{'px'} appended.}
 is useful if you want to save an expression in a variable.}
 }
 \description{
+Shiny bindings for scatterPlot
+}
+\details{
 Output and render functions for using scatterPlot within Shiny
 applications and interactive Rmd documents.
 }

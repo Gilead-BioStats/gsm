@@ -139,6 +139,8 @@ scatterPlot <- function(
   )
 }
 
+#' `r lifecycle::badge("experimental")`
+#'
 #' Shiny bindings for scatterPlot
 #'
 #' Output and render functions for using scatterPlot within Shiny
