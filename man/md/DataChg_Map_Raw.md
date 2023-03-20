@@ -4,5 +4,5 @@
 |:----------|:--------------|:-----------------|:-------------|:--------------------------|
 |dfSUBJ     |strSiteCol     |siteid            |TRUE          |FALSE                      |
 |dfSUBJ     |strEDCIDCol    |subject_nsv       |TRUE          |TRUE                       |
-|dfDATACHG  |strIDCol       |                  |TRUE          |FALSE                      |
-|dfDATACHG  |strNChangesCol |                  |TRUE          |FALSE                      |
+|dfDATACHG  |strIDCol       |subjectname       |TRUE          |FALSE                      |
+|dfDATACHG  |strNChangesCol |n_changes         |TRUE          |FALSE                      |

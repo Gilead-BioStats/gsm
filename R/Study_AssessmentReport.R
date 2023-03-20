@@ -14,7 +14,7 @@
 #' \dontrun{
 #' assessment <- Study_Assess(lData = list(
 #'   dfAE = clindata::rawplus_ae,
-#'   dfPD = clindata::rawplus_protdev,
+#'   dfPD = clindata::ctms_protdev,
 #'   dfSUBJ = clindata::rawplus_dm
 #' ))
 #'

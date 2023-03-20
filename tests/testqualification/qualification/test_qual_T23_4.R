@@ -1,7 +1,7 @@
 test_that("Given an appropriate subset of Protocol Deviation data, the assessment function correctly performs a Protocol Deviation Assessment grouped by the Site variable using the Identity method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
   dfInput <- gsm::PD_Map_Raw_Binary(dfs = list(
-    dfPD = clindata::rawplus_protdev %>% dplyr::filter(importnt == "Y"),
+    dfPD = clindata::ctms_protdev %>% filter(DeemedImportant == "Yes"),
     dfSUBJ = clindata::rawplus_dm
   ))
 

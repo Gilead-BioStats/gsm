@@ -82,32 +82,32 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["subjid"]
+              "value": ["SubjectEnrollmentNumber"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["dv_dt"]
+              "value": ["DeviationDate"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["dvdecod"]
+              "value": ["GileadCategory"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["importnt"]
+              "value": ["DeemedImportant"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["Y"]
+              "value": ["Yes"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["N"]
+              "value": ["No"]
             }
           ]
         },
@@ -309,7 +309,7 @@
       -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid
+      x the following columns not found in df: SubjectEnrollmentNumber
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -352,7 +352,7 @@
       -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid
+      x the following columns not found in df: SubjectEnrollmentNumber
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -370,7 +370,7 @@
       -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid
+      x the following columns not found in df: SubjectEnrollmentNumber
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -393,7 +393,7 @@
       -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid
+      x the following columns not found in df: SubjectEnrollmentNumber
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -416,7 +416,7 @@
       -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid
+      x the following columns not found in df: SubjectEnrollmentNumber
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -471,7 +471,7 @@
       
       -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
-      x the following columns not found in df: subjid
+      x the following columns not found in df: SubjectEnrollmentNumber
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -539,7 +539,7 @@
       
       -- Checking Input Data for `PD_Map_Raw_Binary()` --
       
-      x 1 NA values found in column: subjid
+      x 1 NA values found in column: SubjectEnrollmentNumber
       ! Issues found for `PD_Map_Raw_Binary()`
       ! `PD_Map_Raw_Binary()` did not run because of failed check.
     Output

@@ -1,0 +1,22 @@
+dfSUBJ:
+  strStudyCol: studyid
+  strSiteCol: siteid
+  strIDCol: subjid
+  strEDCIDCol: subject_nsv
+  strStudyStartDateCol: firstparticipantdate
+  strStudyEndDateCol: lastparticipantdate
+  strTimeOnStudyCol: timeonstudy
+  strTreatmentStartDateCol: firstdosedate
+  strTreatmentEndDateCol: lastdosedate
+  strTimeOnTreatmentCol: timeontreatment
+  strCountryCol: country
+  strCustomGroupCol: invid
+  strEnrollCol: enrollyn
+  strEnrollVal: "Y"
+dfPD:
+  strIDCol: SubjectEnrollmentNumber
+  strDateCol: DeviationDate
+  strCategoryCol: GileadCategory
+  strImportantCol: DeemedImportant
+  strImportantVal: "Yes"
+  strNonImportantVal: "No"
