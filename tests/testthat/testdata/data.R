@@ -1,3 +1,5 @@
+library(dplyr)
+
 dfAE <- tibble::tribble(
   ~subjid, ~treatmentemergent, ~aetoxgr, ~aeser,
   "0001", "Y", "MILD", "N",
