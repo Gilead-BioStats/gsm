@@ -45,7 +45,7 @@
 #' StratifiedPD <- MakeStratifiedAssessment(
 #'   lData = list(
 #'     dfSUBJ = clindata::rawplus_dm,
-#'     dfPD = clindata::rawplus_protdev
+#'     dfPD = clindata::ctms_protdev
 #'   ),
 #'   lMapping = lMapping,
 #'   lWorkflow = MakeWorkflowList()$pdCategory
@@ -56,7 +56,7 @@
 #'     RunWorkflow(
 #'       lData = list(
 #'         dfSUBJ = clindata::rawplus_dm,
-#'         dfPD = clindata::rawplus_protdev
+#'         dfPD = clindata::ctms_protdev
 #'       ),
 #'       lMapping = lMapping
 #'     ))

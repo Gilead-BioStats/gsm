@@ -28,7 +28,7 @@
 #'   dfDISP_Treatment = clindata::rawplus_sdrgcomp,
 #'   dfIE = clindata::rawplus_ie,
 #'   dfLB = clindata::rawplus_lb,
-#'   dfPD = clindata::rawplus_protdev,
+#'   dfPD = clindata::ctms_protdev,
 #'   dfSUBJ = clindata::rawplus_dm
 #' )
 #' lMapping <- yaml::read_yaml(

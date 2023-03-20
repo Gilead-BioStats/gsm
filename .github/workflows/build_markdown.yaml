@@ -38,7 +38,7 @@ jobs:
           devtools::install(dependencies=TRUE)
 
       - name: Build markdown
-        run: gsm:::build_markdown("inst/mappings/mapping_adam.yaml")
+        run: gsm:::build_markdown()
         shell: Rscript {0}
 
       - name: Commit and push changes

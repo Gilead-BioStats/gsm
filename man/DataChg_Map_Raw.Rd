@@ -48,8 +48,8 @@ Data Points with Change Counts (derived from \code{dfDATACHG}) to basic subject-
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
    dfSUBJ \tab strEDCIDCol \tab subject_nsv \tab TRUE \tab TRUE \cr
-   dfDATACHG \tab strIDCol \tab  \tab TRUE \tab FALSE \cr
-   dfDATACHG \tab strNChangesCol \tab  \tab TRUE \tab FALSE \cr
+   dfDATACHG \tab strIDCol \tab subjectname \tab TRUE \tab FALSE \cr
+   dfDATACHG \tab strNChangesCol \tab n_changes \tab TRUE \tab FALSE \cr
 }
 }
 

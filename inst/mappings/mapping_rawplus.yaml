@@ -25,13 +25,6 @@ dfAE:
   strSOCCol: mdrsoc_nsv
   strTreatmentEmergentCol: treatmentemergent
   strTreatmentEmergentVal: "Y"
-dfPD:
-  strIDCol: subjid
-  strDateCol: dv_dt
-  strCategoryCol: dvdecod
-  strImportantCol: importnt
-  strImportantVal: "Y"
-  strNonImportantVal: "N"
 dfIE:
   strIDCol: subjid
   strVersionCol: tiver
@@ -85,7 +78,7 @@ dfLB:
 dfENROLL:
   strStudyCol: studyid
   strSiteCol: siteid
-  strIDCol: subjid
+  strIDCol: subjectid
   strEnrollmentDateCol: enroll_dt
   strScreenFailCol: enrollyn
   strScreenFailVal: "N"

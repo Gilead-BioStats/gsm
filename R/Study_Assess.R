@@ -39,7 +39,7 @@ Study_Assess <- function(
     lData <- list(
       dfSUBJ = clindata::rawplus_dm,
       dfAE = clindata::rawplus_ae,
-      dfPD = clindata::rawplus_protdev,
+      dfPD = clindata::ctms_protdev,
       dfCONSENT = clindata::rawplus_consent,
       dfIE = clindata::rawplus_ie,
       dfLB = clindata::rawplus_lb,
@@ -56,8 +56,9 @@ Study_Assess <- function(
   if (is.null(lMapping)) {
     lMapping <- c(
       yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-      yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm")),
-      yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
+      yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm")),
+      yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+      yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
     )
   }
 

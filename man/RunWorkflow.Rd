@@ -37,7 +37,7 @@ lData <- list(
   dfDISP = clindata::rawplus_dm,
   dfIE = clindata::rawplus_ie,
   dfLB = clindata::rawplus_lb,
-  dfPD = clindata::rawplus_protdev,
+  dfPD = clindata::ctms_protdev,
   dfSUBJ = clindata::rawplus_dm
 )
 

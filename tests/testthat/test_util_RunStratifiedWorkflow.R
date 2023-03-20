@@ -11,8 +11,9 @@ data <- list(
   dfPD = dfPD
 )
 
-mapping <- yaml::read_yaml(
-  system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
+mapping <- c(
+    yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+    yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm"))
 )
 
 output <- RunWorkflow(
@@ -45,7 +46,7 @@ test_that("Stratified output is returned", {
     names(stratifiedOutput$lResults$chart$facet$params$facets)
   )
   expect_equal(
-    nrow(output$lResults$lData$dfSummary) * length(unique(output$lData$dfPD$dvdecod)),
+    nrow(output$lResults$lData$dfSummary) * length(unique(output$lData$dfPD$GileadCategory)),
     nrow(stratifiedOutput$lResults$dfSummary)
   )
 })
