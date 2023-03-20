@@ -1,14 +1,14 @@
-test_that("Given an appropriate subset of Query Age data, the assessment function correctly performs a Query Age Assessment grouped by a custom variable using the Normal Approximation method and correctly assigns Flag variable values.", {
+test_that("Given an appropriate subset of Query Age data, the assessment function correctly performs a Query Age Assessment grouped by the Study variable using the Normal Approximation method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::QueryAge_Map_Raw(dfs = list(
-    dfQUERY = clindata::edc_queries %>% filter(foldername == "Week 120"),
+    dfQUERY = clindata::edc_queries %>% filter(visit == "Week 120"),
     dfSUBJ = clindata::rawplus_dm
   ))
 
   test9_8 <- QueryAge_Assess(
     dfInput = dfInput,
     strMethod = "NormalApprox",
-    strGroup = "CustomGroup"
+    strGroup = "Study"
   )
 
   # double programming
@@ -18,7 +18,7 @@ test_that("Given an appropriate subset of Query Age data, the assessment functio
     qualification_transform_counts(
       countCol = "Count",
       exposureCol = "Total",
-      GroupID = "CustomGroupID"
+      GroupID = "StudyID"
     )
 
   t9_8_analyzed <- t9_8_transformed %>%

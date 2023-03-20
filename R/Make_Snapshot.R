@@ -14,6 +14,7 @@
 #' @param lData `list` a named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for raw+.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
+#' @param strAnalysisDate `character` date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: `YYYY-MM-DD`.
 #' @param bUpdateParams `logical` if `TRUE`, configurable parameters found in `lMeta$config_param` will overwrite the default values in `lMeta$meta_params`. Default: `FALSE`.
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
@@ -57,9 +58,9 @@ lData = list(
   dfIE = clindata::rawplus_ie,
   dfLB = clindata::rawplus_lb,
   dfSTUDCOMP = clindata::rawplus_studcomp,
-  dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion"),
-  dfDATACHG = clindata::edc_data_change_rate,
-  dfDATAENT = clindata::edc_data_entry_lag,
+  dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$phase == "Blinded Study Drug Completion"),
+  dfDATACHG = clindata::edc_data_points,
+  dfDATAENT = clindata::edc_data_pages,
   dfQUERY = clindata::edc_queries,
   dfENROLL = clindata::rawplus_enroll
 ),
@@ -69,14 +70,35 @@ lMapping = c(
   yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
 ),
 lAssessments = NULL,
+strAnalysisDate = NULL,
 bUpdateParams = FALSE,
 cPath = NULL,
 bQuiet = TRUE,
 bFlowchart = FALSE
 
 ) {
-  # add to all outputs except meta_
-  gsm_analysis_date <- Sys.Date()
+  # add gsm_analysis_date to all outputs except meta_
+  # -- if date is provided, it should be the date that the data was pulled/wrangled.
+  # -- if date is NOT provided, it will default to the date that the analysis was run.
+
+
+
+  if (!is.null(strAnalysisDate)) {
+
+    # date validation check
+    date_is_valid <- try(as.Date(strAnalysisDate))
+
+    if (!"try-error" %in% class(date_is_valid) && !is.na(date_is_valid)) {
+      gsm_analysis_date <- as.Date(strAnalysisDate)
+    } else {
+      if (!bQuiet) cli::cli_alert_warning("strAnalysisDate does not seem to be in format YYYY-MM-DD. Defaulting to current date of {Sys.Date()}")
+      gsm_analysis_date <- Sys.Date()
+    }
+
+  } else {
+    gsm_analysis_date <- Sys.Date()
+  }
+
 
   # rename GILDA to expected gsm variable names -----------------------------
 

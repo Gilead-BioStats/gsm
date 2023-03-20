@@ -1,13 +1,11 @@
-test_that("Given appropriate Labs data, the assessment function correctly performs a Labs Assessment grouped by the Site variable using the Fisher method and correctly assigns the Flag variable as NA for sites with low enrollment.", {
+test_that("Given appropriate Labs data, the assessment function correctly performs a Labs Assessment grouped by a custom variable using the Normal Approximation method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::LB_Map_Raw()
 
-  nMinDenominator <- 67
-
   test6_9 <- LB_Assess(
     dfInput = dfInput,
-    strMethod = "Fisher",
-    nMinDenominator = nMinDenominator
+    strGroup = "CustomGroup",
+    strMethod = "NormalApprox"
   )
 
   # Double Programming
@@ -15,25 +13,22 @@ test_that("Given appropriate Labs data, the assessment function correctly perfor
 
   t6_9_transformed <- dfInput %>%
     qualification_transform_counts(
-      exposureCol = "Total"
+      exposureCol = "Total",
+      GroupID = "CustomGroupID"
     )
 
   t6_9_analyzed <- t6_9_transformed %>%
-    qualification_analyze_fisher()
+    qualification_analyze_normalapprox(strType = "binary")
 
   class(t6_9_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t6_9_flagged <- t6_9_analyzed %>%
-    qualification_flag_fisher()
+    qualification_flag_normalapprox()
 
   t6_9_summary <- t6_9_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0))) %>%
-    mutate(Score = case_when(Denominator >= nMinDenominator ~ Score,
-                             Denominator < nMinDenominator ~ NA_real_),
-           Flag = case_when(Denominator >= nMinDenominator ~ Flag,
-                            Denominator < nMinDenominator ~ NA_real_))
+    arrange(match(Flag, c(2, -2, 1, -1, 0)))
 
   t6_9 <- list(
     "dfTransformed" = t6_9_transformed,
@@ -43,5 +38,5 @@ test_that("Given appropriate Labs data, the assessment function correctly perfor
   )
 
   # compare results
-  expect_equal(test6_9$lData, t6_9)
+  expect_equal(test6_9$lData[!names(test6_9$lData) == "dfBounds"], t6_9)
 })

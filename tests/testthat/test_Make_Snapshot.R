@@ -1,7 +1,18 @@
 source(testthat::test_path("testdata/data.R"))
 
+makeTestData <- function(data) {
+  data %>%
+    slice(1:300) %>%
+    mutate(subjectname = substr(subjectname, 0, 4),
+           subjectname = case_when(subjectname == "0001" ~ "0003",
+                                   subjectname == "0002" ~ "0496",
+                                   subjectname == "0004" ~ "1350",
+                                   .default = subjectname)
+    )
+}
+
 lData <- list(
-  dfSUBJ = dfSUBJ_expanded,
+  dfSUBJ = dfSUBJ_expanded %>% mutate(enrollyn = "Y"),
   dfAE = dfAE_expanded,
   dfPD = dfPD_expanded,
   dfCONSENT = dfCONSENT_expanded,
@@ -9,9 +20,9 @@ lData <- list(
   dfSTUDCOMP = dfSTUDCOMP_expanded,
   dfSDRGCOMP = dfSDRGCOMP_expanded,
   dfLB = clindata::rawplus_lb %>% filter(subjid %in% dfSUBJ_expanded$subjid) %>% slice(1:2000),
-  dfDATACHG = clindata::edc_data_change_rate %>% slice(1:300),
-  dfDATAENT = clindata::edc_data_entry_lag %>% slice(1:300),
-  dfQUERY = clindata::edc_queries %>% slice(1:300)
+  dfDATACHG = makeTestData(clindata::edc_data_points),
+  dfDATAENT = makeTestData(clindata::edc_data_pages),
+  dfQUERY = makeTestData(clindata::edc_queries)
 )
 
 lMapping <- c(
@@ -243,4 +254,49 @@ test_that("bQuiet works as intended", {
       bQuiet = FALSE
     )
   )
+})
+
+################################################################################################################
+
+test_that("valid gsm_analysis_date is passed to output", {
+  result <- Make_Snapshot(
+    lData = lData,
+    lAssessments = MakeWorkflowList(strNames = c("kri0001", "kri0004")),
+    strAnalysisDate = "2023-02-15"
+    )
+
+  expect_equal(
+    unique(result$results_summary$gsm_analysis_date),
+    as.Date("2023-02-15")
+  )
+
+})
+
+test_that("invalid date input returns the current date", {
+
+  result <- Make_Snapshot(
+    lData = lData,
+    lAssessments = MakeWorkflowList(strNames = c("kri0001", "kri0004")),
+    strAnalysisDate = "not a date"
+  )
+
+  expect_equal(
+    unique(result$results_summary$gsm_analysis_date),
+    Sys.Date()
+  )
+
+})
+
+test_that("NULL date input returns the current date", {
+
+  result <- Make_Snapshot(
+    lData = lData,
+    lAssessments = MakeWorkflowList(strNames = c("kri0001", "kri0004"))
+  )
+
+  expect_equal(
+    unique(result$results_summary$gsm_analysis_date),
+    Sys.Date()
+  )
+
 })

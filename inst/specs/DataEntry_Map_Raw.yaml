@@ -4,7 +4,7 @@ dfDATAENT:
     - strDataEntryLagCol
 dfSUBJ:
   vRequired:
-    - strIDCol
+    - strEDCIDCol
     - strSiteCol
   vUniqueCols:
-    - strIDCol
+    - strEDCIDCol

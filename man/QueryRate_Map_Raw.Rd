@@ -6,7 +6,7 @@
 \usage{
 QueryRate_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries, dfDATACHG =
-    clindata::edc_data_change_rate),
+    clindata::edc_data_points),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
     "gsm")),
   bReturnChecks = FALSE,
@@ -52,10 +52,9 @@ queries by passing filtered query data to \code{dfQUERY}.
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
-   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
+   dfSUBJ \tab strEDCIDCol \tab subject_nsv \tab TRUE \tab TRUE \cr
    dfDATACHG \tab strIDCol \tab  \tab TRUE \tab FALSE \cr
-   dfDATACHG \tab strDataPointsCol \tab  \tab TRUE \tab FALSE \cr
-   dfDATACHG \tab strDataPointsChangeCol \tab  \tab TRUE \tab FALSE \cr
+   dfDATACHG \tab strNChangesCol \tab  \tab TRUE \tab FALSE \cr
 }
 }
 

@@ -1,4 +1,4 @@
-test_that("Given an appropriate subset of Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Study variable using the Poisson method and correctly assigns Flag variable values when given a custom threshold.", {
+test_that("Given an appropriate subset of Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Study variable using the Poisson method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::AE_Map_Raw(dfs = list(
     dfAE = clindata::rawplus_ae %>% filter(aeser_std_nsv == "Y"),
@@ -8,7 +8,6 @@ test_that("Given an appropriate subset of Adverse Event data, the assessment fun
   test1_2 <- AE_Assess(
     dfInput = dfInput,
     strMethod = "Poisson",
-    vThreshold = c(-3, -1, 1, 3),
     strGroup = "Study"
   )
 
@@ -26,7 +25,7 @@ test_that("Given an appropriate subset of Adverse Event data, the assessment fun
   class(t1_2_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t1_2_flagged <- t1_2_analyzed %>%
-    qualification_flag_poisson(threshold = c(-3, -1, 1, 3))
+    qualification_flag_poisson()
 
   t1_2_summary <- t1_2_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
