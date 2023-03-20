@@ -9,7 +9,7 @@ test_that("Raw data entry data can be mapped correctly to create an analysis-rea
 
   # create cols vector to facilitate connecting lMapping with source data variables
   cols <- c(
-    SubjectID = lMapping$dfSUBJ$strIDCol,
+    SubjectID = lMapping$dfSUBJ$strEDCIDCol,
     SiteID = lMapping$dfSUBJ$strSiteCol,
     StudyID = lMapping$dfSUBJ$strStudyCol,
     CountryID = lMapping$dfSUBJ$strCountryCol,
@@ -19,14 +19,14 @@ test_that("Raw data entry data can be mapped correctly to create an analysis-rea
   )
 
   # read in raw data change count data
-  data_chg_orig <- clindata::edc_data_change_rate
+  data_chg_orig <- clindata::edc_data_points
 
   # count unique number of data point changes within each subject and remove duplicate records
   data_chg <- data_chg_orig %>%
-    group_by_at(lMapping$dfSUBJ$strIDCol) %>%
+    group_by_at(lMapping$dfDATACHG$strIDCol) %>%
     mutate(
-      Count = sum(as.numeric(!!sym(lMapping$dfDATACHG$strDataPointsChangeCol))), # count for total number of times any data point changed for a given data page
-      Total = sum(as.numeric(!!sym(lMapping$dfDATACHG$strDataPointsCol)))
+      Count = sum(as.numeric(!!sym(lMapping$dfDATACHG$strNChangesCol))), # count for total number of times any data point changed for a given data page
+      Total = n()
     ) %>% # count for total number of data points
     select(lMapping$dfDATACHG$strIDCol, Count, Total) %>%
     distinct()
@@ -36,7 +36,7 @@ test_that("Raw data entry data can be mapped correctly to create an analysis-rea
   dm_raw <- dm_raw_orig
 
   # join DM and data change count data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, data_chg, by = "subjid") %>%
+  expected <- full_join(dm_raw, data_chg, by = c("subject_nsv" = "subjectname")) %>%
     mutate(Count = replace_na(Count, 0)) %>%
     filter(Total != 0 | !is.na(Total)) %>% # remove subjects without any data points
     select(all_of(cols))

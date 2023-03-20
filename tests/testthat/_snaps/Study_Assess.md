@@ -146,21 +146,26 @@
       kri0001$lData
     Output
       $dfSUBJ
-      # A tibble: 50 x 10
-         studyid   siteid subjid timeo~1 timeo~2 first~3 country invid enrol~4 subje~5
-         <chr>     <chr>  <chr>    <dbl>   <dbl> <chr>   <chr>   <chr> <chr>   <chr>  
-       1 AA-AA-00~ 5      0496       710     675 2013-1~ US      0X167 Y       0496-1~
-       2 AA-AA-00~ 78     1350       715     673 2017-1~ US      0X002 Y       1350-1~
-       3 AA-AA-00~ 139    0539       713     673 2005-0~ US      0X052 Y       0539-1~
-       4 AA-AA-00~ 162    0329       715     673 2007-0~ US      0X049 Y       0329-1~
-       5 AA-AA-00~ 29     0429       698     664 2014-0~ Japan   0X116 Y       0429-0~
-       6 AA-AA-00~ 143    1218       801     760 2004-0~ US      0X153 Y       1218-0~
-       7 AA-AA-00~ 173    0808       792     758 2010-0~ US      0X124 Y       0808-1~
-       8 AA-AA-00~ 189    1314       975     930 2003-1~ US      0X093 Y       1314-0~
-       9 AA-AA-00~ 58     1236       113      88 2009-0~ China   0X091 Y       1236-0~
-      10 AA-AA-00~ 167    0163       790     757 2015-0~ US      0X059 Y       0163-0~
-      # ... with 40 more rows, and abbreviated variable names 1: timeonstudy,
-      #   2: timeontreatment, 3: firstparticipantdate, 4: enrollyn, 5: subject_nsv
+      # A tibble: 1,301 x 48
+         studyid    siteid invid scrnid subjid subje~1 datap~2 datap~3 folde~4 insta~5
+         <chr>      <chr>  <chr> <chr>  <chr>  <chr>   <chr>   <chr>   <chr>   <chr>  
+       1 AA-AA-000~ 5      0X167 113    0496   X16704~ Demogr~ 1       Screen~ Screen~
+       2 AA-AA-000~ 78     0X002 142    1350   X00213~ Demogr~ 1       Screen~ Screen~
+       3 AA-AA-000~ 139    0X052 112    0539   X05205~ Demogr~ 1       Screen~ Screen~
+       4 AA-AA-000~ 162    0X049 142    0329   X04903~ Demogr~ 1       Screen~ Screen~
+       5 AA-AA-000~ 29     0X116 069    0429   X11604~ Demogr~ 1       Screen~ Screen~
+       6 AA-AA-000~ 143    0X153 073    1218   X15312~ Demogr~ 1       Screen~ Screen~
+       7 AA-AA-000~ 173    0X124 145    0808   X12408~ Demogr~ 1       Screen~ Screen~
+       8 AA-AA-000~ 189    0X093 087    1314   X09313~ Demogr~ 1       Screen~ Screen~
+       9 AA-AA-000~ 58     0X091 020    1236   X09112~ Demogr~ 1       Screen~ Screen~
+      10 AA-AA-000~ 167    0X059 061    0163   X05901~ Demogr~ 1       Screen~ Screen~
+      # ... with 1,291 more rows, 38 more variables: recordid <chr>, record_dt <chr>,
+      #   recordposition <dbl>, mincreated_dts <chr>, maxupdated_dts <chr>,
+      #   brthdat <chr>, agerep <chr>, sex <chr>, ethnic <chr>, race <chr>,
+      #   raceoth <chr>, racescat <chr>, racesoth <chr>, subjid_nsv <chr>,
+      #   scrnid_nsv <chr>, subjinit_nsv <chr>, invid_nsv <chr>, subject_nsv <chr>,
+      #   instanceid_nsv <dbl>, folder_nsv <chr>, folderseq_nsv <dbl>,
+      #   brthdat_nsv <dttm>, brthdat_yy_nsv <dbl>, brthdat_mm_nsv <dbl>, ...
       
       $dfAE
       # A tibble: 49 x 4
@@ -179,20 +184,20 @@
       # ... with 39 more rows
       
       $dfInput
-      # A tibble: 50 x 8
+      # A tibble: 1,298 x 8
          SubjectID SiteID StudyID        CountryID CustomGroupID Expos~1 Count    Rate
          <chr>     <chr>  <chr>          <chr>     <chr>           <dbl> <int>   <dbl>
-       1 0003      166    AA-AA-000-0000 US        0X102             857     5 0.00583
-       2 0010      122    AA-AA-000-0000 China     0X018             687     0 0      
-       3 0012      63     AA-AA-000-0000 Japan     0X129             675     0 0      
-       4 0034      91     AA-AA-000-0000 US        0X175             673     0 0      
-       5 0068      144    AA-AA-000-0000 China     0X164             761     0 0      
-       6 0080      8      AA-AA-000-0000 US        0X154             757     0 0      
-       7 0081      189    AA-AA-000-0000 US        0X093             670     0 0      
-       8 0141      177    AA-AA-000-0000 US        0X020             676     0 0      
-       9 0155      118    AA-AA-000-0000 US        0X076             757     0 0      
-      10 0163      167    AA-AA-000-0000 US        0X059             757     3 0.00396
-      # ... with 40 more rows, and abbreviated variable name 1: Exposure
+       1 0001      86     AA-AA-000-0000 US        0X035             678     0 0      
+       2 0002      76     AA-AA-000-0000 US        0X104              13     0 0      
+       3 0003      166    AA-AA-000-0000 US        0X102             857     5 0.00583
+       4 0004      8      AA-AA-000-0000 US        0X154             757     0 0      
+       5 0005      104    AA-AA-000-0000 US        0X140             771     0 0      
+       6 0007      29     AA-AA-000-0000 Japan     0X116             672     0 0      
+       7 0008      28     AA-AA-000-0000 US        0X103             203     0 0      
+       8 0009      15     AA-AA-000-0000 China     0X039            1009     0 0      
+       9 0010      122    AA-AA-000-0000 China     0X018             687     0 0      
+      10 0011      143    AA-AA-000-0000 US        0X153             674     0 0      
+      # ... with 1,288 more rows, and abbreviated variable name 1: Exposure
       
 
 ---
@@ -280,7 +285,7 @@
       
       
       $FilterDomain$dfSUBJ$dim
-      [1] 50 10
+      [1] 1301   48
       
       
       $FilterDomain$status
@@ -536,7 +541,7 @@
       
       
       $AE_Map_Raw$dfSUBJ$dim
-      [1] 50 10
+      [1] 1301   48
       
       
       $AE_Map_Raw$status
@@ -1134,7 +1139,7 @@
       
       
       $AE_Assess$dfInput$dim
-      [1] 50  8
+      [1] 1298    8
       
       
       $AE_Assess$status
@@ -1302,4 +1307,12 @@
       v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
+
+# flowchart is returned when bFlowchart is TRUE
+
+    Code
+      result$kri0001$lChecks$flowchart
+    Output
+      $kri0001
+      
 

@@ -19,7 +19,7 @@ dfSUBJ <- tibble::tribble(
   "AA-AA-000-0000", "86", "0001", 730L, 678L, "2008-09-10", "US", "0X012", "Y",
   "AA-AA-000-0000", "76", "0002", 50L, 13L, "2017-05-22", "China", "0X201", "Y",
   "AA-AA-000-0000", "166", "0003", 901L, 857L, "2008-08-26", "Japan", "0X999", "Y"
-) %>% mutate(subject_nsv = subjid)
+) %>% dplyr::mutate(subject_nsv = subjid)
 
 dfENROLL <- tibble::tribble(
   ~studyid, ~siteid, ~subjid, ~enroll_dt, ~enrollyn, ~sfreas, ~country, ~invid,
@@ -1900,7 +1900,7 @@ dfSUBJ_expanded <- tibble::tribble(
   "AA-AA-000-0000", "139", "0479", 720, 679, "2011-08-08", "US", "0X052",
   "AA-AA-000-0000", "75", "0305", 708, 672, "2017-07-11", "China", "0X027",
   "AA-AA-000-0000", "5", "1099", 755, 755, "2015-08-11", "US", "0X167"
-) %>% mutate(subject_nsv = subjid)
+) %>% dplyr::mutate(subject_nsv = subjid)
 
 dfAE_expanded <- tibble::tribble(
   ~subjid, ~treatmentemergent, ~aetoxgr, ~aeser,
@@ -3231,7 +3231,7 @@ dfLB_expanded <- tibble::tribble(
 )
 
 # dfQUERY -----------------------------------------------------------------
-dfQUERY <- tribble(
+dfQUERY <- tibble::tribble(
     ~subjectname, ~visit, ~formoid, ~fieldoid, ~queryage,
     "0001","Day 1","Study Drug Administration (DRUG1)","EXTRT",6,
     "0001","Day 1","Visit Date","VISITPERF",24,
@@ -3310,7 +3310,7 @@ dfQUERY <- tribble(
 )
 
 # dfDATACHG ---------------------------------------------------------------
-dfDATACHG <- tribble(
+dfDATACHG <- tibble::tribble(
     ~subjectname, ~visit, ~formoid, ~n_changes,
     "0001","Day 1","Enrollment","0",
     "0001","Day 1","PK","0",
@@ -3723,7 +3723,7 @@ dfDATACHG <- tribble(
 )
 
 # dfDATAENT ---------------------------------------------------------------
-dfDATAENT <- tribble(
+dfDATAENT <- tibble::tribble(
     ~subjectname, ~visit, ~formoid, ~data_entry_lag,
     "0001","Day 1","Enrollment",8,
     "0001","Day 1","PK",5,

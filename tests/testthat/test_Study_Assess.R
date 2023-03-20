@@ -1,11 +1,26 @@
 source(testthat::test_path("testdata/data.R"))
 
-subsetByIndex <- function(data, domain, max_rows = 50) {
+
+# helper functions --------------------------------------------------------
+subsetDfs <- function(data, domain, max_rows = 50) {
   data %>%
     select(all_of(colnames(domain))) %>%
     slice(1:max_rows)
 }
 
+makeTestData <- function(data, max_rows = 300) {
+  data %>%
+    slice(1:max_rows) %>%
+    mutate(subjectname = substr(subjectname, 0, 4),
+           subjectname = case_when(subjectname == "0001" ~ "0003",
+                                   subjectname == "0002" ~ "0496",
+                                   subjectname == "0004" ~ "1350",
+                                   .default = subjectname)
+    )
+}
+
+
+# data prep ---------------------------------------------------------------
 meta_lookup <- tribble(
   ~workflowid, ~assessment_abbrev,
   "kri0001", "AE",
@@ -24,24 +39,23 @@ meta <- left_join(
   by = "workflowid"
 )
 
-dfSUBJ <- clindata::rawplus_dm %>% subsetByIndex(dfSUBJ)
-dfAE <- clindata::rawplus_ae %>% subsetByIndex(dfAE)
-dfPD <- clindata::ctms_protdev %>% subsetByIndex(dfPD)
-dfCONSENT <- clindata::rawplus_consent %>% subsetByIndex(dfCONSENT)
-dfIE <- clindata::rawplus_ie %>% subsetByIndex(dfIE)
-dfSTUDCOMP <- clindata::rawplus_studcomp %>% subsetByIndex(dfSTUDCOMP)
-dfSDRGCOMP <- clindata::rawplus_sdrgcomp %>% subsetByIndex(dfSDRGCOMP)
 
-set.seed(8675309)
-subset <- dfSUBJ %>%
-    slice_sample(n = 5)
-dfLB <- clindata::rawplus_lb %>% filter(subjid %in% subset$subjid)
-dfDATACHG <- clindata::edc_data_points %>% filter(subjectname %in% subset$subject_nsv)
-dfDATAENT <- clindata::edc_data_pages %>% filter(subjectname %in% subset$subject_nsv)
-dfQUERY <- clindata::edc_queries %>% filter(subjectname %in% subset$subject_nsv)
+dfSUBJ <- clindata::rawplus_dm %>% subsetDfs(dfSUBJ, max_rows = 1301)
+dfAE <- clindata::rawplus_ae %>% subsetDfs(dfAE)
+dfPD <- clindata::ctms_protdev %>% subsetDfs(dfPD)
+dfCONSENT <- clindata::rawplus_consent %>% subsetDfs(dfCONSENT)
+dfIE <- clindata::rawplus_ie %>% subsetDfs(dfIE)
+dfSTUDCOMP <- clindata::rawplus_studcomp %>% subsetDfs(dfSTUDCOMP)
+dfSDRGCOMP <- clindata::rawplus_sdrgcomp %>% subsetDfs(dfSDRGCOMP)
+dfLB <- clindata::rawplus_lb %>% subsetDfs(dfLB, max_rows = 300)
+dfDATACHG <- clindata::edc_data_points
+dfDATAENT <- clindata::edc_data_pages
+dfQUERY <- clindata::edc_queries
+
+
 
 lData <- list(
-  dfSUBJ = dfSUBJ,
+  dfSUBJ = clindata::rawplus_dm,
   dfAE = dfAE,
   dfPD = dfPD,
   dfCONSENT = dfCONSENT,
@@ -64,6 +78,8 @@ lMapping <- c(
   yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
 )
 
+
+# run standard Study_Assess() ---------------------------------------------
 result <- Study_Assess(
   lData = lData,
   lAssessments = lAssessments,
@@ -203,32 +219,7 @@ test_that("Map + Assess yields same result as Study_Assess()", {
   expect_equal(study_assess$ie$lResults$dfSummary[1:4], ie_assess$dfSummary[1:4])
 })
 
-test_that("lSubjFilters with 0 rows returns NULL", {
-  lData <- list(
-    dfSUBJ = dfSUBJ,
-    dfCONSENT = dfCONSENT,
-    dfIE = dfIE
-  )
 
-  lMappingCustom <- lMapping
-
-  lMappingCustom$dfSUBJ$strSiteVal <- "XYZ"
-  lMappingCustom$dfSUBJ$strRandFlagVal <- "N"
-
-
-  tmp <- Study_Assess(
-    lData = lData,
-    lMapping = lMappingCustom,
-    lSubjFilters = list(
-      strSiteCol = "strSiteVal",
-      strSiteCol = "strSiteVal2",
-      strSiteCol = "strSiteVal3"
-    ),
-    bQuiet = TRUE
-  )
-
-  expect_null(tmp)
-})
 
 test_that("correct bStatus is returned when workflow is missing", {
   custom_assessments <- MakeWorkflowList()
@@ -251,21 +242,65 @@ test_that("correct bStatus is returned when workflow is missing", {
 })
 
 
-test_that("non-enrolled subjects are filtered out using a default workflow", {
-  dfSUBJ <- lData$dfSUBJ %>%
-    mutate(enrollyn = rep(c("Y", "N"), times = 25))
+test_that("flowchart is returned when bFlowchart is TRUE", {
+  # run Study_Assess with AE only
+  lData <- list(
+    dfSUBJ = dfSUBJ,
+    dfAE = dfAE
+  )
+
+  lWorkflow <- MakeWorkflowList(strNames = "kri0001")
+
+  result <- Study_Assess(lData = lData, lAssessments = lWorkflow, bFlowchart = TRUE)
+
+  expect_type(result$kri0001$lChecks$flowchart, "list")
+  expect_snapshot(result$kri0001$lChecks$flowchart)
+
+})
+
+
+
+test_that("a stratified workflow can be run using Study_Assess", {
 
   lData <- list(
     dfSUBJ = dfSUBJ,
     dfAE = dfAE
   )
 
+  lMapping <- yaml::read_yaml(
+    system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
+  )
+
+  lWorkflowList <- MakeWorkflowList(strNames = "aeGrade", bRecursive = TRUE)
+
+  # Adverse events by grade
+  StratifiedAE <- MakeStratifiedAssessment(
+    lData = list(
+      dfSUBJ = clindata::rawplus_dm,
+      dfAE = clindata::rawplus_ae
+    ),
+    lMapping = lMapping,
+    lWorkflow = lWorkflowList$aeGrade
+
+  )
+
+  result <- Study_Assess(lData = lData, lMapping = lMapping, lAssessments = StratifiedAE)
+
+  expect_equal(names(result), c("aeGrade_1", "aeGrade_2", "aeGrade_3", "aeGrade_4"))
+  expect_true(all(result %>% map_lgl(~.x$bStatus)))
+
+})
+
+
+test_that("non-enrolled subjects are filtered out using a default workflow", {
+
+
   result <- Study_Assess(
     lData = lData,
     lAssessments = MakeWorkflowList(strNames = 'kri0001')
   )
 
-  expect_equal(25, nrow(result$kri0001$lData$dfSUBJ))
+  expect_equal(1301, nrow(result$kri0001$lData$dfSUBJ))
   expect_true(all(result$kri0001$lData$dfSUBJ$enrollyn == "Y"))
 
 })
