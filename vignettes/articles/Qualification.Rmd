@@ -82,11 +82,9 @@ Test cases for `{gsm}` are written using the standard `testthat` workflow. A sin
 # Test Results: Overview
 
 ```{r}
-spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R")
+spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R", full.names = TRUE)
 spec_list <- spec_list[-1]
 # spec_list <- spec_list[1:15]
-
-spec_list <- paste0("~/gsm/tests/testqualification/qualification/", spec_list)
 
 scrape <- map_df(spec_list, function(x) {
     testResultsRaw <- testthat::test_file(x, reporter = testthat::ListReporter, package = "gsm") %>% 
