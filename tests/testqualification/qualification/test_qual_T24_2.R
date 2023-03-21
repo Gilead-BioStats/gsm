@@ -1,6 +1,4 @@
 test_that("Raw+ Protocol Deviation data can be mapped correctly to create an analysis-ready input dataset that has all required columns in the default Raw+ mapping specifications.", {
-
-
   ########### gsm mapping ###########
   observed <- gsm::PD_Map_Raw_Binary()
 
@@ -10,13 +8,15 @@ test_that("Raw+ Protocol Deviation data can be mapped correctly to create an ana
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
-  cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
-            SiteID = lMapping$dfSUBJ$strSiteCol,
-            StudyID = lMapping$dfSUBJ$strStudyCol,
-            CountryID = lMapping$dfSUBJ$strCountryCol,
-            CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
-            "Count",
-            "Total")
+  cols <- c(
+    SubjectID = lMapping$dfSUBJ$strIDCol,
+    SiteID = lMapping$dfSUBJ$strSiteCol,
+    StudyID = lMapping$dfSUBJ$strStudyCol,
+    CountryID = lMapping$dfSUBJ$strCountryCol,
+    CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
+    "Count",
+    "Total"
+  )
 
   # read in raw source PD data
   pd_raw_orig <- clindata::ctms_protdev
@@ -35,13 +35,14 @@ test_that("Raw+ Protocol Deviation data can be mapped correctly to create an ana
   # join DM and PD data - full_join() to keep records from both data frames
   expected <- full_join(dm_raw, pd_raw, by = c("subjid" = "SubjectEnrollmentNumber")) %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
-    mutate(Count = replace_na(Count, 0),
-           Total = n()) %>%
+    mutate(
+      Count = replace_na(Count, 0),
+      Total = n()
+    ) %>%
     filter(!(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol) == 0) & !is.na(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol))) %>% # remove subjects that were not treated (i.e., had 0 or NA days of treatment)
     select(all_of(cols))
 
 
   ########### testing ###########
   expect_equal(colnames(observed), colnames(expected))
-
 })

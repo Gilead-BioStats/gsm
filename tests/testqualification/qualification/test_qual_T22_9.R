@@ -1,6 +1,4 @@
 test_that("The utility function can correctly evaluate if duplicate values are or are not acceptable in given columns depending on the vUniqueCols component of the input parameter specifications.", {
-
-
   ### Preliminary setup
   df <- clindata::rawplus_dm
 
@@ -43,5 +41,4 @@ test_that("The utility function can correctly evaluate if duplicate values are o
 
   all_tests <- isTRUE(dup_acceptable) & isTRUE(dup_not_acceptable)
   expect_true(all_tests)
-
 })

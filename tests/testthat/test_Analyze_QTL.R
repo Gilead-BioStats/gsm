@@ -1,5 +1,3 @@
-
-
 # binary outcome ----------------------------------------------------------
 dfInput <- Disp_Map_Raw()
 dfTransformed <- Transform_Rate(
@@ -30,8 +28,6 @@ test_that("binary outcome returns expected results", {
 })
 
 test_that("rate outcome returns expected results", {
-
-
   expect_equal(1, nrow(dfAnalyzedRate))
   expect_snapshot(names(dfAnalyzedRate))
   expect_equal(dfAnalyzedRate$Method, "Exact Poisson test")
@@ -39,7 +35,7 @@ test_that("rate outcome returns expected results", {
 
 test_that("bad inputs are caught", {
   expect_error(
-    Analyze_QTL('not a dataframe')
+    Analyze_QTL("not a dataframe")
   )
 
   expect_error(
@@ -57,6 +53,4 @@ test_that("bad inputs are caught", {
   expect_error(
     Analyze_QTL(dfAnalyzed %>% mutate(GroupID = NA))
   )
-
-
 })

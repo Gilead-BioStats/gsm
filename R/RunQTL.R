@@ -53,8 +53,8 @@ RunQTL <- function(
 
   if (is.null(lMapping)) {
     lMapping <- c(
-        yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-        yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm"))
+      yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+      yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm"))
     )
   }
 

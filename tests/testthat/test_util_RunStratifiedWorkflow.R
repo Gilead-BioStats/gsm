@@ -12,8 +12,8 @@ data <- list(
 )
 
 mapping <- c(
-    yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-    yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm"))
+  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm"))
 )
 
 output <- RunWorkflow(

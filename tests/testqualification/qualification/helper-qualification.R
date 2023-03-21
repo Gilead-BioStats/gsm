@@ -141,15 +141,15 @@ qualification_analyze_normalapprox <- function(dfTransformed, strType) {
       mutate(
         OverallMetric = sum(Numerator) / sum(Denominator),
         z_0 = ifelse(OverallMetric == 0 | OverallMetric == 1,
-                     0,
-                     ((Metric - OverallMetric) /
-                        sqrt(OverallMetric * (1 - OverallMetric) / Denominator))
+          0,
+          ((Metric - OverallMetric) /
+            sqrt(OverallMetric * (1 - OverallMetric) / Denominator))
         ),
         Factor = mean(z_0^2),
         Score = ifelse(OverallMetric == 0 | OverallMetric == 1 | Factor == 0,
-                       0,
-                       ((Metric - OverallMetric) /
-                          sqrt(Factor * OverallMetric * (1 - OverallMetric) / Denominator))
+          0,
+          ((Metric - OverallMetric) /
+            sqrt(Factor * OverallMetric * (1 - OverallMetric) / Denominator))
         )
       )
   } else if (strType == "rate") {
@@ -157,15 +157,15 @@ qualification_analyze_normalapprox <- function(dfTransformed, strType) {
       mutate(
         OverallMetric = sum(Numerator) / sum(Denominator),
         z_0 = ifelse(OverallMetric == 0 | OverallMetric == 1,
-                     0,
-                     ((Metric - OverallMetric) /
-                        sqrt(OverallMetric / Denominator))
+          0,
+          ((Metric - OverallMetric) /
+            sqrt(OverallMetric / Denominator))
         ),
         Factor = mean(z_0^2),
         Score = ifelse(OverallMetric == 0 | Factor == 0,
-                       0,
-                       ((Metric - OverallMetric) /
-                          sqrt(Factor * OverallMetric / Denominator))
+          0,
+          ((Metric - OverallMetric) /
+            sqrt(Factor * OverallMetric / Denominator))
         )
       )
   }

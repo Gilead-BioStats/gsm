@@ -1,6 +1,4 @@
 test_that("The utility function can correctly evaluate that the input data is or is not a data frame.", {
-
-
   ### Preliminary setup
   lMapping <- list(
     strIDCol = "subjid",
@@ -37,5 +35,4 @@ test_that("The utility function can correctly evaluate that the input data is or
 
   all_tests <- isTRUE(is_df) & isTRUE(is_not_df)
   expect_true(all_tests)
-
 })

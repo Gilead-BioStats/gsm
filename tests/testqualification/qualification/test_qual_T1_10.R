@@ -29,10 +29,16 @@ test_that("Given appropriate Adverse Event data, the assessment function correct
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0))) %>%
-    mutate(Score = case_when(Denominator >= nMinDenominator ~ Score,
-                             Denominator < nMinDenominator ~ NA_real_),
-           Flag = case_when(Denominator >= nMinDenominator ~ Flag,
-                             Denominator < nMinDenominator ~ NA_real_))
+    mutate(
+      Score = case_when(
+        Denominator >= nMinDenominator ~ Score,
+        Denominator < nMinDenominator ~ NA_real_
+      ),
+      Flag = case_when(
+        Denominator >= nMinDenominator ~ Flag,
+        Denominator < nMinDenominator ~ NA_real_
+      )
+    )
 
   T1_10 <- list(
     "dfTransformed" = t1_10_transformed,

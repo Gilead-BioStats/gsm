@@ -17,12 +17,12 @@
 generate_md_table <- function(
   domain,
   mapping = NULL,
-  #mappings = c(
+  # mappings = c(
   #  yaml::read_yaml(system.file('mappings', 'mapping_rawplus.yaml', package = 'gsm')),
   #  yaml::read_yaml(system.file('mappings', 'mapping_ctms.yaml', package = 'gsm')),
   #  yaml::read_yaml(system.file('mappings', 'mapping_edc.yaml', package = 'gsm')),
   #  yaml::read_yaml(system.file('mappings', 'mapping_adam.yaml', package = 'gsm'))
-  #),
+  # ),
   mapping_path = "./inst/mappings/",
   spec = NULL,
   spec_path = "./inst/specs/",

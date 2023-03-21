@@ -25,11 +25,10 @@ test_that("invalid data throw errors", {
 
 
 test_that("invalid workflows are caught", {
-
   workflow <- MakeWorkflowList(strNames = c("kri0001", "kri0003", "kri0005"))
   workflow$kri0001$steps <- NULL
 
-  workflow$kri0003$steps[[2]]$name <- 'not_a_gsm_function'
+  workflow$kri0003$steps[[2]]$name <- "not_a_gsm_function"
 
   lData <- list(
     dfAE = dfAE,
@@ -43,5 +42,4 @@ test_that("invalid workflows are caught", {
   warnings <- ParseWarnings(study)
 
   expect_snapshot(warnings)
-
 })

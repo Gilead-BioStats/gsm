@@ -20,15 +20,13 @@ test_that("bQuiet = FALSE returns console messages", {
     SaveQTL(
       df,
       bQuiet = FALSE
-      )
+    )
   )
-
-
 })
 
 test_that("test file is successfully updated", {
   temp <- tempdir()
-  csv <- read.csv(system.file('qtl_dummy_data', "dummyqtldata.csv", package = "gsm"))
+  csv <- read.csv(system.file("qtl_dummy_data", "dummyqtldata.csv", package = "gsm"))
   write.csv(csv, file = paste0(temp, "/test.csv"))
 
   SaveQTL(strPath = paste0(temp, "/test.csv"), lSnapshot = RunQTL("qtl0006"), bQuiet = FALSE)

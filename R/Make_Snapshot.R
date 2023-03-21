@@ -85,7 +85,6 @@ bFlowchart = FALSE
 
 
   if (!is.null(strAnalysisDate)) {
-
     # date validation check
     date_is_valid <- try(as.Date(strAnalysisDate))
 
@@ -95,7 +94,6 @@ bFlowchart = FALSE
       if (!bQuiet) cli::cli_alert_warning("strAnalysisDate does not seem to be in format YYYY-MM-DD. Defaulting to current date of {Sys.Date()}")
       gsm_analysis_date <- Sys.Date()
     }
-
   } else {
     gsm_analysis_date <- Sys.Date()
   }
@@ -250,8 +248,8 @@ bFlowchart = FALSE
   # parse warnings from is_mapping_valid to create an informative "notes" column
   warnings <- ParseWarnings(lResults)
 
-    status_workflow <- status_workflow %>%
-      left_join(warnings, by = c("workflowid", "status"))
+  status_workflow <- status_workflow %>%
+    left_join(warnings, by = c("workflowid", "status"))
 
 
   # status_param ------------------------------------------------------------
