@@ -135,6 +135,8 @@ barChart <- function(
   )
 }
 
+#' `r lifecycle::badge("stable")`
+#'
 #' Shiny bindings for barChart
 #'
 #' Output and render functions for using barChart within Shiny
