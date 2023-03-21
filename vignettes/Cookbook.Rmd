@@ -174,7 +174,7 @@ dfAE <- clindata::rawplus_ae %>%
 ## Specify Raw+ data domains
 dfSUBJ <- clindata::rawplus_dm
 dfIE <- clindata::rawplus_ie
-dfPD <- clindata::rawplus_protdev
+dfPD <- clindata::ctms_protdev
 dfCONSENT <- clindata::rawplus_consent
 
 ## Create named list of assessment data

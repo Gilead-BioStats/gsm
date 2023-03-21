@@ -1,3 +1,5 @@
+library(dplyr)
+
 dfAE <- tibble::tribble(
   ~subjid, ~treatmentemergent, ~aetoxgr, ~aeser,
   "0001", "Y", "MILD", "N",
@@ -26,7 +28,7 @@ dfENROLL <- tibble::tribble(
   "AA-AA-000-0000", "86", "0001", "2008-09-10", "US", "0X012", "Y", "0X001",
   "AA-AA-000-0000", "76", "sf0001", "2017-05-22", "China", "0X201", "N", "0X002",
   "AA-AA-000-0000", "166", "0003", "2008-08-26", "Japan", "0X999", "Y", "0X001"
-)
+) %>% mutate(subjectid = subjid)
 
 dfLB <- tibble::tribble(
   ~subjid, ~visnam, ~visnum, ~battrnam, ~lbtstnam, ~siresn, ~treatmentemergent, ~toxgrg_nsv,
@@ -183,11 +185,11 @@ dfLB <- tibble::tribble(
 )
 
 dfPD <- tibble::tribble(
-  ~subjid, ~dvdecod, ~importnt,
-  "0001", "OTHER", "N",
-  "0003", "OTHER", "Y",
-  "0003", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0003", "OTHER TREATMENT COMPLIANCE ISSUE", "N"
+  ~SubjectEnrollmentNumber, ~GileadCategory, ~DeemedImportant,
+  "0001", "OTHER", "No",
+  "0003", "OTHER", "Yes",
+  "0003", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0003", "OTHER TREATMENT COMPLIANCE ISSUE", "No"
 )
 
 dfCONSENT <- tibble::tribble(
@@ -1957,57 +1959,57 @@ dfAE_expanded <- tibble::tribble(
 )
 
 dfPD_expanded <- tibble::tribble(
-  ~subjid, ~dvdecod, ~importnt,
-  "0496", "OTHER", "N",
-  "1350", "OTHER", "N",
-  "1350", "OTHER", "N",
-  "1350", "OTHER", "N",
-  "1350", "OTHER", "N",
-  "1350", "OTHER", "N",
-  "0539", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0539", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0539", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0539", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0539", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0539", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0329", "OTHER", "N",
-  "0329", "OTHER", "N",
-  "0329", "OTHER", "N",
-  "0329", "OTHER", "Y",
-  "0429", "ELIGIBILITY CRITERIA", "N",
-  "0429", "OTHER", "N",
-  "0429", "OTHER", "N",
-  "1218", "OTHER", "N",
-  "1218", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "1218", "OTHER", "N",
-  "1218", "OTHER", "N",
-  "0808", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0808", "OTHER", "Y",
-  "0808", "OTHER", "Y",
-  "0808", "OTHER", "N",
-  "0808", "OTHER", "N",
-  "0808", "OTHER", "N",
-  "1314", "OTHER", "N",
-  "1314", "OTHER", "N",
-  "1314", "OTHER", "N",
-  "1314", "OTHER", "N",
-  "1236", "OTHER", "N",
-  "0163", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0163", "OTHER", "N",
-  "0003", "OTHER", "Y",
-  "0003", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0003", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0559", "OTHER", "N",
-  "0559", "OTHER", "N",
-  "0010", "OTHER TREATMENT COMPLIANCE ISSUE", "Y",
-  "0010", "OTHER", "Y",
-  "0010", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0010", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0010", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0010", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0010", "OTHER TREATMENT COMPLIANCE ISSUE", "N",
-  "0010", "OTHER", "N",
-  "0010", "OTHER", "N"
+  ~SubjectEnrollmentNumber, ~GileadCategory, ~DeemedImportant,
+  "0496", "OTHER", "No",
+  "1350", "OTHER", "No",
+  "1350", "OTHER", "No",
+  "1350", "OTHER", "No",
+  "1350", "OTHER", "No",
+  "1350", "OTHER", "No",
+  "0539", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0539", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0539", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0539", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0539", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0539", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0329", "OTHER", "No",
+  "0329", "OTHER", "No",
+  "0329", "OTHER", "No",
+  "0329", "OTHER", "Yes",
+  "0429", "ELIGIBILITY CRITERIA", "No",
+  "0429", "OTHER", "No",
+  "0429", "OTHER", "No",
+  "1218", "OTHER", "No",
+  "1218", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "1218", "OTHER", "No",
+  "1218", "OTHER", "No",
+  "0808", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0808", "OTHER", "Yes",
+  "0808", "OTHER", "Yes",
+  "0808", "OTHER", "No",
+  "0808", "OTHER", "No",
+  "0808", "OTHER", "No",
+  "1314", "OTHER", "No",
+  "1314", "OTHER", "No",
+  "1314", "OTHER", "No",
+  "1314", "OTHER", "No",
+  "1236", "OTHER", "No",
+  "0163", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0163", "OTHER", "No",
+  "0003", "OTHER", "Yes",
+  "0003", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0003", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0559", "OTHER", "No",
+  "0559", "OTHER", "No",
+  "0010", "OTHER TREATMENT COMPLIANCE ISSUE", "Yes",
+  "0010", "OTHER", "Yes",
+  "0010", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0010", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0010", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0010", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0010", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
+  "0010", "OTHER", "No",
+  "0010", "OTHER", "No"
 )
 
 dfCONSENT_expanded <- tibble::tribble(

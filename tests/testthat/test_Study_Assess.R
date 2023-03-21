@@ -41,9 +41,10 @@ meta <- left_join(
   by = "workflowid"
 )
 
+
 dfSUBJ <- clindata::rawplus_dm %>% subsetDfs(dfSUBJ, max_rows = 1301)
 dfAE <- clindata::rawplus_ae %>% subsetDfs(dfAE)
-dfPD <- clindata::rawplus_protdev %>% subsetDfs(dfPD)
+dfPD <- clindata::ctms_protdev %>% subsetDfs(dfPD)
 dfCONSENT <- clindata::rawplus_consent %>% subsetDfs(dfCONSENT)
 dfIE <- clindata::rawplus_ie %>% subsetDfs(dfIE)
 dfSTUDCOMP <- clindata::rawplus_studcomp %>% subsetDfs(dfSTUDCOMP)
@@ -52,6 +53,7 @@ dfLB <- clindata::rawplus_lb %>% subsetDfs(dfLB, max_rows = 300)
 dfDATACHG <- clindata::edc_data_points
 dfDATAENT <- clindata::edc_data_pages
 dfQUERY <- clindata::edc_queries
+
 
 
 lData <- list(
@@ -73,8 +75,9 @@ lAssessments <- MakeWorkflowList()
 
 lMapping <- c(
   yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-  yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm")),
-  yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
+  yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+  yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
 )
 
 
@@ -82,7 +85,7 @@ lMapping <- c(
 result <- Study_Assess(
   lData = lData,
   lAssessments = lAssessments,
-  bQuiet = TRUE
+  bQuiet = FALSE
 )
 
 # output is created as expected -------------------------------------------

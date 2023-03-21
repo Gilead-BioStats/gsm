@@ -5,15 +5,16 @@
 \alias{input_data_schema}
 \title{Input Data Schema}
 \format{
-A data frame with 76 rows and 7 variables.
+A data frame with 77 rows and 8 variables.
 #' \describe{
-\item{Source}{clinical, ctms, or edc}
-\item{Name}{Name of the Raw+ data source}
-\item{Domain}{Abbreviated data domain name, e.g., dfSUBJ == dm}
-\item{GSM_Domain_Key}{Name of the data domain as it is referenced in \code{gsm}, e.g., "dfNAME"}
+\item{Source}{clinical, ctms, or edc.}
+\item{Domain}{Name of the Raw+ data domain.}
+\item{Database Table}{Name of Database Table.}
+\item{{clindata} Name}{Name of the data source as it is referenced in \code{clindata}, e.g., "dfNAME".}
+\item{GSM_Domain_Key}{Name of \code{gsm} key that is paired with \code{column}.}
+\item{Column Description}{Description of \code{Column}.}
 \item{Column}{Raw+ column name.}
-\item{GSM_Column_Key}{Name of \code{gsm} key that is paired with \code{column}}
-\item{Description}{Description of \code{Column}}
+\item{GSM_Column_Key}{Column key as it is referred to in mapping.}
 }
 }
 \usage{

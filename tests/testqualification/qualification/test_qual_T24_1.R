@@ -5,7 +5,7 @@ test_that("Raw+ Protocol Deviation data can be mapped correctly to create an ana
 
   ########### double programming ###########
   # read in default mapping specs
-  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
   cols <- c(
@@ -19,11 +19,11 @@ test_that("Raw+ Protocol Deviation data can be mapped correctly to create an ana
   )
 
   # read in raw source PD data
-  pd_raw_orig <- clindata::rawplus_protdev
+  pd_raw_orig <- clindata::ctms_protdev
 
   # assign binary indicator for occurrence of PDs within each subject and remove duplicate records
   pd_raw <- pd_raw_orig %>%
-    group_by_at(lMapping$dfSUBJ$strIDCol) %>%
+    group_by_at(lMapping$dfPD$strIDCol) %>%
     select(lMapping$dfPD$strIDCol) %>%
     mutate(Count = 1) %>%
     distinct()
@@ -33,7 +33,7 @@ test_that("Raw+ Protocol Deviation data can be mapped correctly to create an ana
   dm_raw <- dm_raw_orig
 
   # join DM and PD data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, pd_raw, by = "subjid") %>%
+  expected <- full_join(dm_raw, pd_raw, by = c("subjid" = "SubjectEnrollmentNumber")) %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
     mutate(
       Count = replace_na(Count, 0),

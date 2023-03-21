@@ -24,7 +24,7 @@ Make overview table with one row per assessment and one column per site showing 
 \dontrun{
 assessment <- Study_Assess(lData = list(
   dfAE = clindata::rawplus_ae,
-  dfPD = clindata::rawplus_protdev,
+  dfPD = clindata::ctms_protdev,
   dfSUBJ = clindata::rawplus_dm
 ))
 

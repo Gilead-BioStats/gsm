@@ -4,5 +4,5 @@
 |:----------|:------------------|:-----------------|:-------------|:--------------------------|
 |dfSUBJ     |strSiteCol         |siteid            |TRUE          |FALSE                      |
 |dfSUBJ     |strEDCIDCol        |subject_nsv       |TRUE          |TRUE                       |
-|dfDATAENT  |strIDCol           |                  |TRUE          |FALSE                      |
-|dfDATAENT  |strDataEntryLagCol |                  |TRUE          |FALSE                      |
+|dfDATAENT  |strIDCol           |subjectname       |TRUE          |FALSE                      |
+|dfDATAENT  |strDataEntryLagCol |data_entry_lag    |TRUE          |FALSE                      |

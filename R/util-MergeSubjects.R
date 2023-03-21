@@ -114,7 +114,6 @@ MergeSubjects <- function(
     }
   }
 
-
   if (class(dfDomain[[strIDCol]]) != "character") {
     dfDomain[[strIDCol]] <- as.character(dfDomain[[strIDCol]])
   }

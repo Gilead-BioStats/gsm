@@ -55,14 +55,15 @@
 #'
 #' A dataset containing key/column pairs for clinical, ctms, and edc mappings.
 #'
-#' @format A data frame with 76 rows and 7 variables.
+#' @format A data frame with 77 rows and 8 variables.
 #' #' \describe{
-#'   \item{Source}{clinical, ctms, or edc}
-#'   \item{Name}{Name of the Raw+ data source}
-#'   \item{Domain}{Abbreviated data domain name, e.g., dfSUBJ == dm}
-#'   \item{GSM_Domain_Key}{Name of the data domain as it is referenced in `gsm`, e.g., "dfNAME"}
+#'   \item{Source}{clinical, ctms, or edc.}
+#'   \item{Domain}{Name of the Raw+ data domain.}
+#'   \item{Database Table}{Name of Database Table.}
+#'   \item{{clindata} Name}{Name of the data source as it is referenced in `clindata`, e.g., "dfNAME".}
+#'   \item{GSM_Domain_Key}{Name of `gsm` key that is paired with `column`.}
+#'   \item{Column Description}{Description of `Column`.}
 #'   \item{Column}{Raw+ column name.}
-#'   \item{GSM_Column_Key}{Name of `gsm` key that is paired with `column`}
-#'   \item{Description}{Description of `Column`}
+#'   \item{GSM_Column_Key}{Column key as it is referred to in mapping.}
 #'   }
 "input_data_schema"

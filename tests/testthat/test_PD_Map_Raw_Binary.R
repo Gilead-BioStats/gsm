@@ -8,7 +8,7 @@ dfs <- list(
 )
 
 input_spec <- yaml::read_yaml(system.file("specs", "PD_Map_Raw_Binary.yaml", package = "gsm"))
-input_mapping <- subset_input_mapping(input_spec = input_spec)
+input_mapping <- subset_input_mapping(input_spec = input_spec, mapping_domain = "mapping_ctms.yaml")
 
 output_spec <- yaml::read_yaml(system.file("specs", "PD_Assess_Binary.yaml", package = "gsm"))
 output_mapping <- yaml::read_yaml(system.file("mappings", "PD_Assess_Binary.yaml", package = "gsm"))
