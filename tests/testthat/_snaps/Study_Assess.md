@@ -147,25 +147,25 @@
     Output
       $dfSUBJ
       # A tibble: 1,301 x 48
-         studyid    siteid invid scrnid subjid subje~1 datap~2 datap~3 folde~4 insta~5
-         <chr>      <chr>  <chr> <chr>  <chr>  <chr>   <chr>   <chr>   <chr>   <chr>  
-       1 AA-AA-000~ 5      0X167 113    0496   X16704~ Demogr~ 1       Screen~ Screen~
-       2 AA-AA-000~ 78     0X002 142    1350   X00213~ Demogr~ 1       Screen~ Screen~
-       3 AA-AA-000~ 139    0X052 112    0539   X05205~ Demogr~ 1       Screen~ Screen~
-       4 AA-AA-000~ 162    0X049 142    0329   X04903~ Demogr~ 1       Screen~ Screen~
-       5 AA-AA-000~ 29     0X116 069    0429   X11604~ Demogr~ 1       Screen~ Screen~
-       6 AA-AA-000~ 143    0X153 073    1218   X15312~ Demogr~ 1       Screen~ Screen~
-       7 AA-AA-000~ 173    0X124 145    0808   X12408~ Demogr~ 1       Screen~ Screen~
-       8 AA-AA-000~ 189    0X093 087    1314   X09313~ Demogr~ 1       Screen~ Screen~
-       9 AA-AA-000~ 58     0X091 020    1236   X09112~ Demogr~ 1       Screen~ Screen~
-      10 AA-AA-000~ 167    0X059 061    0163   X05901~ Demogr~ 1       Screen~ Screen~
-      # ... with 1,291 more rows, 38 more variables: recordid <chr>, record_dt <chr>,
-      #   recordposition <dbl>, mincreated_dts <chr>, maxupdated_dts <chr>,
-      #   brthdat <chr>, agerep <chr>, sex <chr>, ethnic <chr>, race <chr>,
-      #   raceoth <chr>, racescat <chr>, racesoth <chr>, subjid_nsv <chr>,
-      #   scrnid_nsv <chr>, subjinit_nsv <chr>, invid_nsv <chr>, subject_nsv <chr>,
-      #   instanceid_nsv <dbl>, folder_nsv <chr>, folderseq_nsv <dbl>,
-      #   brthdat_nsv <dttm>, brthdat_yy_nsv <dbl>, brthdat_mm_nsv <dbl>, ...
+         studyid        siteid invid scrnid subjid subjectid   datapagename datapageid
+         <chr>          <chr>  <chr> <chr>  <chr>  <chr>       <chr>        <chr>     
+       1 AA-AA-000-0000 5      0X167 113    0496   X1670496-1~ Demographics 1         
+       2 AA-AA-000-0000 78     0X002 142    1350   X0021350-1~ Demographics 1         
+       3 AA-AA-000-0000 139    0X052 112    0539   X0520539-1~ Demographics 1         
+       4 AA-AA-000-0000 162    0X049 142    0329   X0490329-1~ Demographics 1         
+       5 AA-AA-000-0000 29     0X116 069    0429   X1160429-0~ Demographics 1         
+       6 AA-AA-000-0000 143    0X153 073    1218   X1531218-0~ Demographics 1         
+       7 AA-AA-000-0000 173    0X124 145    0808   X1240808-1~ Demographics 1         
+       8 AA-AA-000-0000 189    0X093 087    1314   X0931314-0~ Demographics 1         
+       9 AA-AA-000-0000 58     0X091 020    1236   X0911236-0~ Demographics 1         
+      10 AA-AA-000-0000 167    0X059 061    0163   X0590163-0~ Demographics 1         
+      # i 1,291 more rows
+      # i 40 more variables: foldername <chr>, instancename <chr>, recordid <chr>,
+      #   record_dt <chr>, recordposition <dbl>, mincreated_dts <chr>,
+      #   maxupdated_dts <chr>, brthdat <chr>, agerep <chr>, sex <chr>, ethnic <chr>,
+      #   race <chr>, raceoth <chr>, racescat <chr>, racesoth <chr>,
+      #   subjid_nsv <chr>, scrnid_nsv <chr>, subjinit_nsv <chr>, invid_nsv <chr>,
+      #   subject_nsv <chr>, instanceid_nsv <dbl>, folder_nsv <chr>, ...
       
       $dfAE
       # A tibble: 49 x 4
@@ -181,23 +181,23 @@
        8 1350   Y                 MILD    N    
        9 1350   Y                 MILD    N    
       10 0539   Y                 MILD    N    
-      # ... with 39 more rows
+      # i 39 more rows
       
       $dfInput
       # A tibble: 1,298 x 8
-         SubjectID SiteID StudyID        CountryID CustomGroupID Expos~1 Count    Rate
-         <chr>     <chr>  <chr>          <chr>     <chr>           <dbl> <int>   <dbl>
-       1 0001      86     AA-AA-000-0000 US        0X035             678     0 0      
-       2 0002      76     AA-AA-000-0000 US        0X104              13     0 0      
-       3 0003      166    AA-AA-000-0000 US        0X102             857     5 0.00583
-       4 0004      8      AA-AA-000-0000 US        0X154             757     0 0      
-       5 0005      104    AA-AA-000-0000 US        0X140             771     0 0      
-       6 0007      29     AA-AA-000-0000 Japan     0X116             672     0 0      
-       7 0008      28     AA-AA-000-0000 US        0X103             203     0 0      
-       8 0009      15     AA-AA-000-0000 China     0X039            1009     0 0      
-       9 0010      122    AA-AA-000-0000 China     0X018             687     0 0      
-      10 0011      143    AA-AA-000-0000 US        0X153             674     0 0      
-      # ... with 1,288 more rows, and abbreviated variable name 1: Exposure
+         SubjectID SiteID StudyID       CountryID CustomGroupID Exposure Count    Rate
+         <chr>     <chr>  <chr>         <chr>     <chr>            <dbl> <int>   <dbl>
+       1 0001      86     AA-AA-000-00~ US        0X035              678     0 0      
+       2 0002      76     AA-AA-000-00~ US        0X104               13     0 0      
+       3 0003      166    AA-AA-000-00~ US        0X102              857     5 0.00583
+       4 0004      8      AA-AA-000-00~ US        0X154              757     0 0      
+       5 0005      104    AA-AA-000-00~ US        0X140              771     0 0      
+       6 0007      29     AA-AA-000-00~ Japan     0X116              672     0 0      
+       7 0008      28     AA-AA-000-00~ US        0X103              203     0 0      
+       8 0009      15     AA-AA-000-00~ China     0X039             1009     0 0      
+       9 0010      122    AA-AA-000-00~ China     0X018              687     0 0      
+      10 0011      143    AA-AA-000-00~ US        0X153              674     0 0      
+      # i 1,288 more rows
       
 
 ---

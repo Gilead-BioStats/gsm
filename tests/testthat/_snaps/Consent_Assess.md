@@ -37,7 +37,7 @@
        8 62     
        9 8      
       10 91     
-      # ... with 30 more rows
+      # i 30 more rows
 
 ---
 
@@ -79,7 +79,7 @@
        8 0X159  
        9 0X167  
       10 0X175  
-      # ... with 30 more rows
+      # i 30 more rows
 
 # bQuiet works as intended
 

@@ -39,7 +39,7 @@
        8 78     
        9 44     
       10 43     
-      # ... with 30 more rows
+      # i 30 more rows
 
 ---
 
@@ -81,7 +81,7 @@
        8 0X049  
        9 0X108  
       10 0X159  
-      # ... with 30 more rows
+      # i 30 more rows
 
 # invalid data throw errors
 
