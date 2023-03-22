@@ -1,11 +1,11 @@
-test_that("Data change assessment can return a correctly assessed data frame for the identity test grouped by the country variable when given correct input data from clindata and the results should be flagged correctly.", {
+test_that("Given appropriate Data Change Rate data, the assessment function correctly performs a Data Change Rate Assessment grouped by a custom variable using the Fisher method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::DataChg_Map_Raw()
 
   test7_3 <- DataChg_Assess(
     dfInput = dfInput,
-    strMethod = "Identity",
-    strGroup = "Country"
+    strMethod = "Fisher",
+    strGroup = "CustomGroup"
   )
 
   # double programming
@@ -15,20 +15,17 @@ test_that("Data change assessment can return a correctly assessed data frame for
     qualification_transform_counts(
       countCol = "Count",
       exposureCol = "Total",
-      GroupID = "CountryID"
+      GroupID = "CustomGroupID"
     )
 
   t7_3_analyzed <- t7_3_transformed %>%
-    mutate(
-      Score = Metric
-    ) %>%
-    arrange(Score)
+    qualification_analyze_fisher()
 
   class(t7_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
 
   t7_3_flagged <- t7_3_analyzed %>%
-    qualification_flag_identity()
+    qualification_flag_fisher()
 
   t7_3_summary <- t7_3_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

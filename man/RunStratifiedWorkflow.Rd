@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-RunStratifiedWorkflow.R
 \name{RunStratifiedWorkflow}
 \alias{RunStratifiedWorkflow}
-\title{Run a stratified workflow}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 RunStratifiedWorkflow(
   lWorkflow,
@@ -39,8 +39,11 @@ specified in \code{lMapping} and \code{lAssessments}, which are generally based 
 Attempts to run a stratified workflow (\code{lWorkflow}) using shared data (\code{lData}) and metadata (\code{lMapping}).
 Calls \code{RunStep} for each item in \code{lWorkflow$workflow} and saves the results to \code{lWorkflow}
 }
+\details{
+Run a stratified workflow
+}
 \examples{
-lWorkflows <- MakeWorkflowList()
+lWorkflows <- MakeWorkflowList(bRecursive = TRUE)
 lData <- list(
   dfAE = clindata::rawplus_ae,
   dfCONSENT = clindata::rawplus_consent,
@@ -48,7 +51,7 @@ lData <- list(
   dfDISP_Treatment = clindata::rawplus_sdrgcomp,
   dfIE = clindata::rawplus_ie,
   dfLB = clindata::rawplus_lb,
-  dfPD = clindata::rawplus_protdev,
+  dfPD = clindata::ctms_protdev,
   dfSUBJ = clindata::rawplus_dm
 )
 lMapping <- yaml::read_yaml(

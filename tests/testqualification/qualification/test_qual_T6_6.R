@@ -1,10 +1,11 @@
-test_that("Labs assessment can return a correctly assessed data frame for the normal approximation test grouped by the site variable when given correct input data from clindata and the results should be flagged correctly", {
+test_that("Given appropriate Labs data, the assessment function correctly performs a Labs Assessment grouped by a custom variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::LB_Map_Raw()
 
   test6_6 <- LB_Assess(
     dfInput = dfInput,
-    strMethod = "NormalApprox"
+    strMethod = "Identity",
+    strGroup = "CustomGroup"
   )
 
   # Double Programming
@@ -12,16 +13,20 @@ test_that("Labs assessment can return a correctly assessed data frame for the no
 
   t6_6_transformed <- dfInput %>%
     qualification_transform_counts(
-      exposureCol = "Total"
+      exposureCol = "Total",
+      GroupID = "CustomGroupID"
     )
 
   t6_6_analyzed <- t6_6_transformed %>%
-    qualification_analyze_normalapprox(strType = "binary")
+    mutate(
+      Score = Metric
+    ) %>%
+    arrange(Score)
 
   class(t6_6_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t6_6_flagged <- t6_6_analyzed %>%
-    qualification_flag_normalapprox()
+    qualification_flag_identity(threshold = c(3.491, 5.172))
 
   t6_6_summary <- t6_6_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
@@ -36,5 +41,5 @@ test_that("Labs assessment can return a correctly assessed data frame for the no
   )
 
   # compare results
-  expect_equal(test6_6$lData[!names(test6_6$lData) == "dfBounds"], t6_6)
+  expect_equal(test6_6$lData, t6_6)
 })

@@ -39,9 +39,9 @@ import_specs <- function() {
       ID = paste0("S", Spec, "_", Test.ID),
       Test.Status = tolower(Test.Status)
     ) %>%
-    dplyr::filter(
-      Test.Status == "complete"
-    ) %>%
+    # dplyr::filter(
+    #   Test.Status == "complete"
+    # ) %>%
     arrange(
       Spec, Test.ID
     ) %>%

@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Funnel Plot Analysis with Normal Approximation for Binary and Rate Outcomes
 #'
 #' @details
@@ -67,13 +69,13 @@ Analyze_NormalApprox <- function(
     dfScore <- dfTransformed %>%
       mutate(
         vMu = sum(.data$Numerator) / sum(.data$Denominator),
-        z_0 = ifelse(.data$vMu == 0,
+        z_0 = ifelse(.data$vMu == 0 | .data$vMu == 1,
           0,
           (.data$Metric - .data$vMu) /
             sqrt(.data$vMu * (1 - .data$vMu) / .data$Denominator)
         ),
         phi = mean(.data$z_0^2),
-        z_i = ifelse(.data$vMu == 0,
+        z_i = ifelse(.data$vMu == 0 | .data$vMu == 1 | .data$phi == 0,
           0,
           (.data$Metric - .data$vMu) /
             sqrt(.data$phi * .data$vMu * (1 - .data$vMu) / .data$Denominator)
@@ -83,13 +85,13 @@ Analyze_NormalApprox <- function(
     dfScore <- dfTransformed %>%
       mutate(
         vMu = sum(.data$Numerator) / sum(.data$Denominator),
-        z_0 = ifelse(.data$vMu == 0,
+        z_0 = ifelse(.data$vMu == 0 | .data$vMu == 1,
           0,
           (.data$Metric - .data$vMu) /
             sqrt(.data$vMu / .data$Denominator)
         ),
         phi = mean(.data$z_0^2),
-        z_i = ifelse(.data$vMu == 0,
+        z_i = ifelse(.data$vMu == 0 | .data$phi == 0,
           0,
           (.data$Metric - .data$vMu) /
             sqrt(.data$phi * .data$vMu / .data$Denominator)

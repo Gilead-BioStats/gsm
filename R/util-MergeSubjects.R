@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Merge Domain data with subject-level data
 #'
 #' @description
@@ -111,7 +113,6 @@ MergeSubjects <- function(
       )
     }
   }
-
 
   if (class(dfDomain[[strIDCol]]) != "character") {
     dfDomain[[strIDCol]] <- as.character(dfDomain[[strIDCol]])

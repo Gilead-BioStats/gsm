@@ -3,7 +3,6 @@ dfQUERY:
     - strIDCol
     - strVisitCol
     - strFormCol
-    - strFieldCol
   vNACols:
     - strVisitCol
 dfDATACHG:
@@ -11,12 +10,11 @@ dfDATACHG:
     - strIDCol
     - strVisitCol
     - strFormCol
-    - strDataPointsCol
   vNACols:
     - strVisitCol
 dfSUBJ:
   vRequired:
-    - strIDCol
+    - strEDCIDCol
     - strSiteCol
   vUniqueCols:
-    - strIDCol
+    - strEDCIDCol

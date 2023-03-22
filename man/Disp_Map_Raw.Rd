@@ -2,11 +2,11 @@
 % Please edit documentation in R/Disp_Map_Raw.R
 \name{Disp_Map_Raw}
 \alias{Disp_Map_Raw}
-\title{Disposition Assessment - Raw Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Disp_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\% filter(.data$datapagename ==
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\% filter(.data$phase ==
     "Blinded Study Drug Completion")),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
     "gsm")),
@@ -45,6 +45,8 @@ Convert raw disposition data to formatted input data to to formatted
 input data to \code{\link[=Disp_Assess]{Disp_Assess()}}.
 }
 \details{
+Disposition Assessment - Raw Mapping
+
 \code{Disp_Map_Raw} creates an input dataset for the Disposition Assessment \code{\link[=Disp_Assess]{Disp_Assess()}} by adding
 Discontinuation Reason Counts (derived from \code{dfDISP}) to basic subject-level data (from \code{dfSUBJ}).
 }

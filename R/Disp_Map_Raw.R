@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Disposition Assessment - Raw Mapping
 #'
 #' @description
@@ -43,7 +45,7 @@ Disp_Map_Raw <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
     dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion")
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$phase == "Blinded Study Drug Completion")
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
   strContext = "Study",

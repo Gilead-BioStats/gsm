@@ -1,4 +1,6 @@
-#' {experimental} Create multiple workflows from a single stratified workflow.
+#' `r lifecycle::badge("experimental")`
+#'
+#' Create multiple workflows from a single stratified workflow.
 #'
 #' @description
 #' `MakeStratifiedAssessment` is a utility function that creates a stratified workflow list using a pre-defined workflow (from `inst/workflows`), or
@@ -43,7 +45,7 @@
 #' StratifiedPD <- MakeStratifiedAssessment(
 #'   lData = list(
 #'     dfSUBJ = clindata::rawplus_dm,
-#'     dfPD = clindata::rawplus_protdev
+#'     dfPD = clindata::ctms_protdev
 #'   ),
 #'   lMapping = lMapping,
 #'   lWorkflow = MakeWorkflowList()$pdCategory
@@ -54,7 +56,7 @@
 #'     RunWorkflow(
 #'       lData = list(
 #'         dfSUBJ = clindata::rawplus_dm,
-#'         dfPD = clindata::rawplus_protdev
+#'         dfPD = clindata::ctms_protdev
 #'       ),
 #'       lMapping = lMapping
 #'     ))

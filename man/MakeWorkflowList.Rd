@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-MakeWorkflowList.R
 \name{MakeWorkflowList}
 \alias{MakeWorkflowList}
-\title{Load assessments from a package/directory}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 MakeWorkflowList(
   strNames = NULL,

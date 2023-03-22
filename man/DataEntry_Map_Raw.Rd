@@ -2,12 +2,13 @@
 % Please edit documentation in R/DataEntry_Map_Raw.R
 \name{DataEntry_Map_Raw}
 \alias{DataEntry_Map_Raw}
-\title{Data Entry Lag - Raw Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 DataEntry_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDATAENT = clindata::edc_data_entry_lag),
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDATAENT = clindata::edc_data_pages),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
     "gsm")),
+  nMaxDataEntryLag = 10,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -21,6 +22,8 @@ DataEntry_Map_Raw(
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column.}
+
+\item{nMaxDataEntryLag}{\code{numeric} Expected number of days allowed to enter data}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
@@ -38,6 +41,8 @@ of the column.}
 Convert raw data entry data to formatted input data to \code{\link[=DataEntry_Assess]{DataEntry_Assess()}}.
 }
 \details{
+Data Entry Lag - Raw Mapping
+
 \code{DataEntry_Map_Raw} creates an input dataset for the Data Entry Lag Assessment \code{\link[=DataEntry_Assess]{DataEntry_Assess()}} by adding
 Data Entry Lag Counts (derived from \code{dfDATAENT}) to basic subject-level data (from \code{dfSUBJ}).
 }
@@ -45,10 +50,9 @@ Data Entry Lag Counts (derived from \code{dfDATAENT}) to basic subject-level dat
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
-   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
-   dfDATACHG \tab strIDCol \tab  \tab TRUE \tab FALSE \cr
-   dfDATACHG \tab strDataPointsCol \tab  \tab TRUE \tab FALSE \cr
-   dfDATACHG \tab strDataPointsChangeCol \tab  \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strEDCIDCol \tab subject_nsv \tab TRUE \tab TRUE \cr
+   dfDATACHG \tab strIDCol \tab subjectname \tab TRUE \tab FALSE \cr
+   dfDATACHG \tab strNChangesCol \tab n_changes \tab TRUE \tab FALSE \cr
 }
 }
 

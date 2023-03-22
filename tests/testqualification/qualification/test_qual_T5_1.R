@@ -1,10 +1,16 @@
-test_that("Disposition assessment can return a correctly assessed data frame for the fisher test grouped by the site variable when given correct input data from clindata and the results should be flagged correctly", {
+test_that("Given an appropriate subset of Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Site variable using the Fisher method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
-  dfInput <- gsm::Disp_Map_Raw()
+  dfInput <- gsm::Disp_Map_Raw(dfs = list(
+    dfSUBJ = clindata::rawplus_dm,
+    dfSTUDCOMP = clindata::rawplus_studcomp %>% filter(compreas_std_nsv == "ID"),
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename ==
+                                                         "Blinded Study Drug Completion")
+  ))
 
   test5_1 <- Disp_Assess(
     dfInput = dfInput,
-    strMethod = "Fisher"
+    strMethod = "Fisher",
+    vThreshold = c(.025, .05)
   )
 
   # Double Programming
@@ -21,7 +27,7 @@ test_that("Disposition assessment can return a correctly assessed data frame for
   class(t5_1_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t5_1_flagged <- t5_1_analyzed %>%
-    qualification_flag_fisher()
+    qualification_flag_fisher(threshold = c(.025, .05))
 
   t5_1_summary <- t5_1_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

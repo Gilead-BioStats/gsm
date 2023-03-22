@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Subset a data frame given a mapping
 #'
 #' @param df `data.frame` A data.frame to be filtered, likely within a mapping function.

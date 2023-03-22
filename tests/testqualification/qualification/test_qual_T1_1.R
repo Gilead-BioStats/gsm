@@ -1,10 +1,14 @@
-test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by the poissonsite variable when given correct input data from safetyData and the results should be flagged correctly.", {
+test_that("Given an appropriate subset of Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Site variable using the Poisson method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
-  dfInput <- gsm::AE_Map_Adam()
+  dfInput <- gsm::AE_Map_Raw(dfs = list(
+    dfAE = clindata::rawplus_ae %>% filter(aeser_std_nsv == "Y"),
+    dfSUBJ = clindata::rawplus_dm
+  ))
 
   test1_1 <- AE_Assess(
     dfInput = dfInput,
-    strMethod = "Poisson"
+    strMethod = "Poisson",
+    vThreshold = c(-3, -1, 1, 3)
   )
 
   # Double Programming
@@ -19,7 +23,7 @@ test_that("AE assessment can return a correctly assessed data frame for the pois
   class(t1_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t1_flagged <- t1_analyzed %>%
-    qualification_flag_poisson()
+    qualification_flag_poisson(threshold = c(-3, -1, 1, 3))
 
   t1_summary <- t1_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

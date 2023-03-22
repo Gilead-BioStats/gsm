@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-MakeStratifiedAssessment.R
 \name{MakeStratifiedAssessment}
 \alias{MakeStratifiedAssessment}
-\title{{experimental} Create multiple workflows from a single stratified workflow.}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 MakeStratifiedAssessment(lWorkflow, lData, lMapping, bQuiet = TRUE)
 }
@@ -26,6 +26,9 @@ For this example using default data, \code{MakeWorkflowList} will create four li
 \itemize{
 \item one with assessment results for mild AEs, one for moderate, one for severe, and one for life-threatening events.
 }
+}
+\details{
+Create multiple workflows from a single stratified workflow.
 }
 \examples{
 \dontrun{
@@ -58,7 +61,7 @@ StratifiedAEResult <- StratifiedAE \%>\%
 StratifiedPD <- MakeStratifiedAssessment(
   lData = list(
     dfSUBJ = clindata::rawplus_dm,
-    dfPD = clindata::rawplus_protdev
+    dfPD = clindata::ctms_protdev
   ),
   lMapping = lMapping,
   lWorkflow = MakeWorkflowList()$pdCategory
@@ -69,7 +72,7 @@ StratifiedPDResult <- StratifiedPD \%>\%
     RunWorkflow(
       lData = list(
         dfSUBJ = clindata::rawplus_dm,
-        dfPD = clindata::rawplus_protdev
+        dfPD = clindata::ctms_protdev
       ),
       lMapping = lMapping
     ))

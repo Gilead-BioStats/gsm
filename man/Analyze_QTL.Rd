@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_QTL.R
 \name{Analyze_QTL}
 \alias{Analyze_QTL}
-\title{QTL Analysis}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Analyze_QTL(
   dfTransformed,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-FilterData.R
 \name{FilterData}
 \alias{FilterData}
-\title{Subset a data frame}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 FilterData(dfInput, strCol, anyVal, bReturnChecks = FALSE, bQuiet = TRUE)
 }
@@ -24,6 +24,9 @@ FilterData(dfInput, strCol, anyVal, bReturnChecks = FALSE, bQuiet = TRUE)
 \code{FilterData} is used to select rows of a data.frame that satisfy a specified condition. \code{FilterData} is called within the \code{RunStep} function to subset available data
 for a stratified KRI on an existing categorical variable. For example, we can filter Adverse Event assessment data on the \code{aetoxgr} variable,
 which specifies if the adverse event was mild, moderate, or severe.
+}
+\details{
+Subset a data frame
 }
 \examples{
 

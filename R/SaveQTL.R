@@ -1,6 +1,6 @@
-#' {experimental} SaveQTL
-#'
 #' `r lifecycle::badge("experimental")`
+#'
+#' SaveQTL
 #'
 #' @description
 #' Save QTL analysis results to a directory location. The `strPath` argument specifies the filepath, including filename, of the current QTL analysis.
@@ -41,13 +41,22 @@ SaveQTL <- function(lSnapshot,
     utils::write.csv(qtl_all, strPath, row.names = FALSE)
 
     # save recent
-    utils::write.csv(qtl_all, paste0(strPath, " ", Sys.Date()), row.names = FALSE)
+    utils::write.csv(qtl_all,
+                     paste0(tools::file_path_sans_ext(strPath),
+                            " ",
+                            Sys.Date(),
+                            ".csv"),
+                     row.names = FALSE)
+
   } else if (!file.exists(strPath)) {
     message("csv file not found. Check value provided to `strPath`.")
   } else if (!lSnapshot$bStatus) {
     message("QTL was not run successfully. Check `lSnapshot$bStatus`.")
   }
 
-  if (!bQuiet) cli::cli_alert_success(paste0("File: ", basename(strPath), " updated."))
-  if (!bQuiet) cli::cli_alert_success(paste0("File: ", basename(paste0(strPath, " ", Sys.Date())), " created."))
+  if (!bQuiet) cli::cli_alert_success(paste0("File: ", strPath, " updated."))
+  if (!bQuiet) cli::cli_alert_success(paste0("File: ", paste0(tools::file_path_sans_ext(strPath),
+                                                                                   " ",
+                                                                                   Sys.Date(),
+                                                                                   ".csv"), " created."))
 }

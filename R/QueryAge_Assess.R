@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Query Age Assessment
 #'
 #' @description

@@ -1,27 +1,48 @@
-dfSUBJ:
+dfSUBJ: # one record per subject
   strStudyCol: studyid
   strSiteCol: siteid
   strIDCol: subjid
-  strCustomGroupCol: invid
+  strEDCIDCol: subject_nsv
+  strStudyStartDateCol: firstparticipantdate
+  strStudyEndDateCol: lastparticipantdate
+  strTimeOnStudyCol: timeonstudy
+  strTreatmentStartDateCol: firstdosedate
+  strTreatmentEndDateCol: lastdosedate
+  strTimeOnTreatmentCol: timeontreatment
   strCountryCol: country
-dfQUERY:
-  strIDCol: subjid
-  strVisitCol: foldername
-  strFormCol: form
-  strFieldCol: field
-  strQueryAgeCol: qry30fl
-  strQueryAgeVal: "Y"
-dfDATAENT:
-  strIDCol: subjid
-  strVisitCol: foldername
-  strFormCol: form
-  strDataEntryLagCol: data_entry_lag_fl
-  strDataEntryLagVal: "Y"
-dfDATACHG:
-  strIDCol: subjid
-  strVisitCol: foldername
-  strFormCol: form
-  strDataPointsCol: n_data_points
-  strDataPointsChangeCol: n_data_points_with_changes
-  strChangeCol: n_data_point_changes
+  strCustomGroupCol: invid
+  strEnrollCol: enrollyn
+  strEnrollVal: "Y"
+dfQUERY: # one record per query
+  strStudyCol: protocolname
+  strIDCol: subjectname
+  strVisitCol: visit
+  strFormCol: formoid
+  strFieldCol: fieldoid
+  strLogNumberCol: log_number
+  strDataPointIDCol: datapointid
+  strStatusCol: querystatus
+  strCreationDateCol: created
+  strAnswerDateCol: answered
+  strResolutionDateCol: resolved
+  strMarkingGroupCol: markinggroup
+  strQueryAgeCol: queryage
+dfDATAENT: # one record per data page
+  strStudyCol: protocolname
+  strIDCol: subjectname
+  strVisitCol: visit
+  strFormCol: formoid
+  strVisitDateCol: visitdat_date
+  strEntryDateCol: min_entereddate
+  strDataEntryLagCol: data_entry_lag
+dfDATACHG: # one record per data point
+  strStudyCol: protocolname
+  strIDCol: subjectname
+  strVisitCol: visit
+  strFormCol: formoid
+  strFieldCol: fieldoid
+  strLogNumberCol: log_number
+  strDataPointIDCol: datapointid
+  strNChangesCol: n_changes
+  strRequiredCol: isrequired
 

@@ -1,11 +1,11 @@
-test_that("Query rate assessment can return a correctly assessed data frame for the normal approximation test grouped by the country variable when given correct input data from clindata and the results should be flagged correctly.", {
+test_that("Given appropriate Query Rate data, the assessment function correctly performs a Query Rate Assessment grouped by a custom variable using the Normal Approximation method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::QueryRate_Map_Raw()
 
   test10_9 <- QueryRate_Assess(
     dfInput = dfInput,
     strMethod = "NormalApprox",
-    strGroup = "Country"
+    strGroup = "CustomGroup"
   )
 
   # double programming
@@ -15,7 +15,7 @@ test_that("Query rate assessment can return a correctly assessed data frame for 
     qualification_transform_counts(
       countCol = "Count",
       exposureCol = "DataPoint",
-      GroupID = "CountryID"
+      GroupID = "CustomGroupID"
     )
 
   t10_9_analyzed <- t10_9_transformed %>%

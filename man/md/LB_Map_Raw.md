@@ -5,4 +5,4 @@
 |dfSUBJ     |strSiteCol     |siteid            |TRUE          |FALSE                       |FALSE                      |
 |dfSUBJ     |strIDCol       |subjid            |TRUE          |FALSE                       |TRUE                       |
 |dfLB       |strIDCol       |subjid            |TRUE          |FALSE                       |FALSE                      |
-|dfLB       |strGradeCol    |toxgr             |TRUE          |TRUE                        |FALSE                      |
+|dfLB       |strGradeCol    |toxgrg_nsv        |TRUE          |TRUE                        |FALSE                      |

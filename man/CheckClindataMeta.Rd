@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-CheckClindataMeta.R
 \name{CheckClindataMeta}
 \alias{CheckClindataMeta}
-\title{Check gsm_version in clindata metadata}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 CheckClindataMeta(
   config = list(config_param = clindata::config_param, config_workflow =

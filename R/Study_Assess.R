@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Run Multiple Assessments on a Study
 #'
 #' @description
@@ -6,7 +8,6 @@
 #' @param lData `list` a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` a named list identifying the columns needed in each data domain.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
-#' @param lSubjFilters `list` a named list of parameters to filter subject-level data on.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`
 #'
@@ -29,7 +30,6 @@ Study_Assess <- function(
   lData = NULL,
   lMapping = NULL,
   lAssessments = NULL,
-  lSubjFilters = NULL,
   bQuiet = TRUE,
   bFlowchart = FALSE
 ) {
@@ -39,16 +39,15 @@ Study_Assess <- function(
     lData <- list(
       dfSUBJ = clindata::rawplus_dm,
       dfAE = clindata::rawplus_ae,
-      dfPD = clindata::rawplus_protdev,
+      dfPD = clindata::ctms_protdev,
       dfCONSENT = clindata::rawplus_consent,
       dfIE = clindata::rawplus_ie,
       dfLB = clindata::rawplus_lb,
       dfSTUDCOMP = clindata::rawplus_studcomp,
-      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion"),
-      dfDATACHG = clindata::edc_data_change_rate,
-      dfDATAENT = clindata::edc_data_entry_lag,
+      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$phase == "Blinded Study Drug Completion"),
+      dfDATACHG = clindata::edc_data_points,
+      dfDATAENT = clindata::edc_data_pages,
       dfQUERY = clindata::edc_queries,
-      dfDATACHG = clindata::edc_data_change_rate,
       dfENROLL = clindata::rawplus_enroll
     )
   }
@@ -57,33 +56,15 @@ Study_Assess <- function(
   if (is.null(lMapping)) {
     lMapping <- c(
       yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-      yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm")),
-      yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
+      yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm")),
+      yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+      yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
     )
   }
 
   # lAssessments from gsm inst/workflow
   if (is.null(lAssessments)) {
     lAssessments <- gsm::MakeWorkflowList()
-  }
-
-  # Filter data$dfSUBJ based on lSubjFilters --------------------------------
-  if (!is.null(lSubjFilters)) {
-    for (colMapping in names(lSubjFilters)) {
-      if (!utils::hasName(lMapping$dfSUBJ, colMapping)) {
-        stop(paste0("`", colMapping, "` from lSubjFilters is not specified in lMapping$dfSUBJ"))
-      }
-      col <- colMapping
-      vals <- lSubjFilters[[colMapping]]
-      lData$dfSUBJ <- gsm::FilterDomain(
-        df = lData$dfSUBJ,
-        strDomain = "dfSUBJ",
-        lMapping = lMapping,
-        strColParam = col,
-        strValParam = vals,
-        bQuiet = bQuiet
-      )
-    }
   }
 
   if (exists("dfSUBJ", where = lData)) {

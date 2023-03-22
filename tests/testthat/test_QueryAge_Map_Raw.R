@@ -4,7 +4,8 @@ map_function <- gsm::QueryAge_Map_Raw
 
 dfs <- list(
   dfQUERY = clindata::edc_queries,
-  dfSUBJ = dfSUBJ
+  dfSUBJ = clindata::rawplus_dm %>%
+    slice_sample(n = 3)
 )
 
 input_spec <- yaml::read_yaml(system.file("specs", "QueryAge_Map_Raw.yaml", package = "gsm"))

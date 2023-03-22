@@ -1,4 +1,6 @@
-#' Flag_Funnel
+#' `r lifecycle::badge("stable")`
+#'
+#' Flag_NormalApprox
 #'
 #' Add columns flagging sites that represent possible statistical outliers.
 #'

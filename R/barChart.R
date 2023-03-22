@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' KRI Bar Chart
 #'
 #' @description

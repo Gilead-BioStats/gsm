@@ -1,11 +1,13 @@
-test_that("Labs assessment can return a correctly assessed data frame for the normal approximation test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly", {
+test_that("Given an appropriate subset of Labs data, the assessment function correctly performs a Labs Assessment grouped by the Site variable using the Normal Approximation method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
-  dfInput <- gsm::LB_Map_Raw()
+  dfInput <- gsm::LB_Map_Raw(dfs = list(
+    dfSUBJ = clindata::rawplus_dm  %>% filter(!siteid %in% c("5", "29", "58")),
+    dfLB = clindata::rawplus_lb))
 
   test6_7 <- LB_Assess(
     dfInput = dfInput,
     strMethod = "NormalApprox",
-    strGroup = "Study"
+    vThreshold = c(-2, -1, 1, 2)
   )
 
   # Double Programming
@@ -13,8 +15,7 @@ test_that("Labs assessment can return a correctly assessed data frame for the no
 
   t6_7_transformed <- dfInput %>%
     qualification_transform_counts(
-      exposureCol = "Total",
-      GroupID = "StudyID"
+      exposureCol = "Total"
     )
 
   t6_7_analyzed <- t6_7_transformed %>%
@@ -23,7 +24,7 @@ test_that("Labs assessment can return a correctly assessed data frame for the no
   class(t6_7_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t6_7_flagged <- t6_7_analyzed %>%
-    qualification_flag_normalapprox()
+    qualification_flag_normalapprox(threshold = c(-2, -1, 1, 2))
 
   t6_7_summary <- t6_7_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

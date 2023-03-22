@@ -1,10 +1,14 @@
-test_that("AE assessment can return a correctly assessed data frame for the identity test grouped by the site variable when given correct input data from safetyData and the results should be flagged correctly.", {
+test_that("Given an appropriate subset of Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Site variable using the Identity method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
-  dfInput <- gsm::AE_Map_Adam()
+  dfInput <- gsm::AE_Map_Raw(dfs = list(
+    dfAE = clindata::rawplus_ae %>% filter(aeser_std_nsv == "Y"),
+    dfSUBJ = clindata::rawplus_dm
+  ))
 
   test1_4 <- AE_Assess(
     dfInput = dfInput,
-    strMethod = "Identity"
+    strMethod = "Identity",
+    vThreshold = c(0.00001, 0.1)
   )
 
   # double programming
@@ -22,23 +26,7 @@ test_that("AE assessment can return a correctly assessed data frame for the iden
   class(t1_4_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t1_4_flagged <- t1_4_analyzed %>%
-    mutate(
-      Flag = case_when(
-        Score < 0.00006 ~ -1,
-        Score > 0.01 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(Score),
-      Flag = case_when(
-        Flag != 0 & Score < median ~ -1,
-        Flag != 0 & Score >= median ~ 1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+    qualification_flag_identity(threshold = c(0.00001, 0.1))
 
   t1_4_summary <- t1_4_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

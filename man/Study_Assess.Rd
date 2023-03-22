@@ -2,13 +2,12 @@
 % Please edit documentation in R/Study_Assess.R
 \name{Study_Assess}
 \alias{Study_Assess}
-\title{Run Multiple Assessments on a Study}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Study_Assess(
   lData = NULL,
   lMapping = NULL,
   lAssessments = NULL,
-  lSubjFilters = NULL,
   bQuiet = TRUE,
   bFlowchart = FALSE
 )
@@ -20,8 +19,6 @@ Study_Assess(
 
 \item{lAssessments}{\code{list} a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
 
-\item{lSubjFilters}{\code{list} a named list of parameters to filter subject-level data on.}
-
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 
 \item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}}
@@ -31,6 +28,9 @@ Study_Assess(
 }
 \description{
 Attempts to run one or more assessments (\code{lAssessments}) using shared data (\code{lData}) and metadata (\code{lMapping}). By default, the sample \code{rawplus} data from the {clindata} package is used, and all assessments defined in \code{inst/workflow} are evaluated. Individual assessments are run using \code{gsm::RunAssessment()}
+}
+\details{
+Run Multiple Assessments on a Study
 }
 \examples{
 \dontrun{

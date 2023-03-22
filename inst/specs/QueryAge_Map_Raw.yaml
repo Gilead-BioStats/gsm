@@ -4,7 +4,7 @@ dfQUERY:
     - strQueryAgeCol
 dfSUBJ:
   vRequired:
-    - strIDCol
+    - strEDCIDCol
     - strSiteCol
   vUniqueCols:
-    - strIDCol
+    - strEDCIDCol

@@ -22,13 +22,14 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `ae_te %in% c("Y")`.
-      v Filtered on `ae_te %in% c("Y")` to drop 0 rows from 0 to 0 rows.
+      Filtering on `treatmentemergent %in% c("Y")`.
+      v Filtered on `treatmentemergent %in% c("Y")` to drop 0 rows from 0 to 0 rows.
       ! WARNING: Filtered data has 0 rows.
       i NOTE: No rows dropped.
     Output
       # A tibble: 0 x 4
-      # ... with 4 variables: subjid <chr>, ae_te <chr>, aetoxgr <chr>, aeser <chr>
+      # ... with 4 variables: subjid <chr>, treatmentemergent <chr>, aetoxgr <chr>,
+      #   aeser <chr>
 
 # invalid mapping is caught
 
@@ -46,20 +47,20 @@
       ! Issues found for dfAE domain
     Output
       # A tibble: 12 x 4
-         subjid ae_te aetoxgr  aeser
-         <chr>  <chr> <chr>    <chr>
-       1 0001   Y     MILD     N    
-       2 0001   Y     MILD     N    
-       3 0001   Y     MILD     N    
-       4 0001   Y     MILD     N    
-       5 0001   Y     MILD     N    
-       6 0002   Y     MODERATE N    
-       7 0002   Y     MODERATE N    
-       8 0003   Y     MODERATE Y    
-       9 0003   Y     MILD     Y    
-      10 0003   Y     MODERATE Y    
-      11 0003   Y     MILD     Y    
-      12 0003   Y     MODERATE Y    
+         subjid treatmentemergent aetoxgr  aeser
+         <chr>  <chr>             <chr>    <chr>
+       1 0001   Y                 MILD     N    
+       2 0001   Y                 MILD     N    
+       3 0001   Y                 MILD     N    
+       4 0001   Y                 MILD     N    
+       5 0001   Y                 MILD     N    
+       6 0002   Y                 MODERATE N    
+       7 0002   Y                 MODERATE N    
+       8 0003   Y                 MODERATE Y    
+       9 0003   Y                 MILD     Y    
+      10 0003   Y                 MODERATE Y    
+      11 0003   Y                 MILD     Y    
+      12 0003   Y                 MODERATE Y    
 
 # invalid strDomain is caught
 
@@ -76,20 +77,20 @@
       ! Issues found for dfABCD domain
     Output
       # A tibble: 12 x 4
-         subjid ae_te aetoxgr  aeser
-         <chr>  <chr> <chr>    <chr>
-       1 0001   Y     MILD     N    
-       2 0001   Y     MILD     N    
-       3 0001   Y     MILD     N    
-       4 0001   Y     MILD     N    
-       5 0001   Y     MILD     N    
-       6 0002   Y     MODERATE N    
-       7 0002   Y     MODERATE N    
-       8 0003   Y     MODERATE Y    
-       9 0003   Y     MILD     Y    
-      10 0003   Y     MODERATE Y    
-      11 0003   Y     MILD     Y    
-      12 0003   Y     MODERATE Y    
+         subjid treatmentemergent aetoxgr  aeser
+         <chr>  <chr>             <chr>    <chr>
+       1 0001   Y                 MILD     N    
+       2 0001   Y                 MILD     N    
+       3 0001   Y                 MILD     N    
+       4 0001   Y                 MILD     N    
+       5 0001   Y                 MILD     N    
+       6 0002   Y                 MODERATE N    
+       7 0002   Y                 MODERATE N    
+       8 0003   Y                 MODERATE Y    
+       9 0003   Y                 MILD     Y    
+      10 0003   Y                 MODERATE Y    
+      11 0003   Y                 MILD     Y    
+      12 0003   Y                 MODERATE Y    
 
 # bQuiet works as intended
 
@@ -98,20 +99,20 @@
         strValParam = "strTreatmentEmergentVal", bQuiet = TRUE)
     Output
       # A tibble: 12 x 4
-         subjid ae_te aetoxgr  aeser
-         <chr>  <chr> <chr>    <chr>
-       1 0001   Y     MILD     N    
-       2 0001   Y     MILD     N    
-       3 0001   Y     MILD     N    
-       4 0001   Y     MILD     N    
-       5 0001   Y     MILD     N    
-       6 0002   Y     MODERATE N    
-       7 0002   Y     MODERATE N    
-       8 0003   Y     MODERATE Y    
-       9 0003   Y     MILD     Y    
-      10 0003   Y     MODERATE Y    
-      11 0003   Y     MILD     Y    
-      12 0003   Y     MODERATE Y    
+         subjid treatmentemergent aetoxgr  aeser
+         <chr>  <chr>             <chr>    <chr>
+       1 0001   Y                 MILD     N    
+       2 0001   Y                 MILD     N    
+       3 0001   Y                 MILD     N    
+       4 0001   Y                 MILD     N    
+       5 0001   Y                 MILD     N    
+       6 0002   Y                 MODERATE N    
+       7 0002   Y                 MODERATE N    
+       8 0003   Y                 MODERATE Y    
+       9 0003   Y                 MILD     Y    
+      10 0003   Y                 MODERATE Y    
+      11 0003   Y                 MILD     Y    
+      12 0003   Y                 MODERATE Y    
 
 ---
 
@@ -123,23 +124,23 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `ae_te %in% c("Y")`.
-      v Filtered on `ae_te %in% c("Y")` to drop 0 rows from 12 to 12 rows.
+      Filtering on `treatmentemergent %in% c("Y")`.
+      v Filtered on `treatmentemergent %in% c("Y")` to drop 0 rows from 12 to 12 rows.
       i NOTE: No rows dropped.
     Output
       # A tibble: 12 x 4
-         subjid ae_te aetoxgr  aeser
-         <chr>  <chr> <chr>    <chr>
-       1 0001   Y     MILD     N    
-       2 0001   Y     MILD     N    
-       3 0001   Y     MILD     N    
-       4 0001   Y     MILD     N    
-       5 0001   Y     MILD     N    
-       6 0002   Y     MODERATE N    
-       7 0002   Y     MODERATE N    
-       8 0003   Y     MODERATE Y    
-       9 0003   Y     MILD     Y    
-      10 0003   Y     MODERATE Y    
-      11 0003   Y     MILD     Y    
-      12 0003   Y     MODERATE Y    
+         subjid treatmentemergent aetoxgr  aeser
+         <chr>  <chr>             <chr>    <chr>
+       1 0001   Y                 MILD     N    
+       2 0001   Y                 MILD     N    
+       3 0001   Y                 MILD     N    
+       4 0001   Y                 MILD     N    
+       5 0001   Y                 MILD     N    
+       6 0002   Y                 MODERATE N    
+       7 0002   Y                 MODERATE N    
+       8 0003   Y                 MODERATE Y    
+       9 0003   Y                 MILD     Y    
+      10 0003   Y                 MODERATE Y    
+      11 0003   Y                 MILD     Y    
+      12 0003   Y                 MODERATE Y    
 

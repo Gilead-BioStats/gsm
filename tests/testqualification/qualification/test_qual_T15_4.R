@@ -1,8 +1,8 @@
-test_that("A subset of Raw+ lab data can be mapped correctly to create an analysis-ready input dataset.", {
+test_that("A subset of Raw+ Labs data can be mapped correctly to create an analysis-ready input dataset.", {
   ########### gsm mapping ###########
   subset <- FilterData(
     dfInput = clindata::rawplus_lb,
-    strCol = "lb_te",
+    strCol = "treatmentemergent",
     anyVal = "Y"
   ) # filtering only for treatment-emergent abnormal lab values
 

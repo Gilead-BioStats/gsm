@@ -1,12 +1,15 @@
-test_that("Data change assessment can return a correctly assessed data frame for the fisher test grouped by the site variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold.", {
+test_that("Given an appropriate subset of Data Change Rate data, the assessment function correctly performs a Data Change Rate Assessment grouped by the Site variable using the Identity method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
-  dfInput <- gsm::DataChg_Map_Raw()
+  dfInput <- gsm::DataChg_Map_Raw(dfs = list(
+    dfDATACHG = clindata::edc_data_points %>% filter(visit == "Week 120"),
+    dfSUBJ = clindata::rawplus_dm
+  ))
 
   test7_4 <- DataChg_Assess(
     dfInput = dfInput,
-    strMethod = "Fisher",
+    strMethod = "Identity",
     strGroup = "Site",
-    vThreshold = c(0.02, 0.06)
+    vThreshold = c(0.00006, 0.01)
   )
 
   # double programming
@@ -19,12 +22,15 @@ test_that("Data change assessment can return a correctly assessed data frame for
     )
 
   t7_4_analyzed <- t7_4_transformed %>%
-    qualification_analyze_fisher()
+    mutate(
+      Score = Metric
+    ) %>%
+    arrange(Score)
 
   class(t7_4_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t7_4_flagged <- t7_4_analyzed %>%
-    qualification_flag_fisher(threshold = c(0.02, 0.06))
+    qualification_flag_identity(threshold = c(0.00006, 0.01))
 
   t7_4_summary <- t7_4_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Visualize_Workflow.R
 \name{Visualize_Workflow}
 \alias{Visualize_Workflow}
-\title{Flowchart visualization of data pipeline steps from filtering to summary data for an assessment workflow.}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Visualize_Workflow(lAssessments)
 }
@@ -20,7 +20,7 @@ lAssessments <- list(kri0001 = MakeWorkflowList()$kri0001)
 lData <- list(
   dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae,
-  dfPD = clindata::rawplus_protdev,
+  dfPD = clindata::ctms_protdev,
   dfCONSENT = clindata::rawplus_consent,
   dfIE = clindata::rawplus_ie
 )

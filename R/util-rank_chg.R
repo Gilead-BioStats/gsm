@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Report Helper Functions
 #'
 #' @description

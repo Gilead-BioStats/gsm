@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Run a stratified workflow
 #'
 #' @description
@@ -18,7 +20,7 @@
 #' `lWorkflow$workflow`.
 #'
 #' @examples
-#' lWorkflows <- MakeWorkflowList()
+#' lWorkflows <- MakeWorkflowList(bRecursive = TRUE)
 #' lData <- list(
 #'   dfAE = clindata::rawplus_ae,
 #'   dfCONSENT = clindata::rawplus_consent,
@@ -26,7 +28,7 @@
 #'   dfDISP_Treatment = clindata::rawplus_sdrgcomp,
 #'   dfIE = clindata::rawplus_ie,
 #'   dfLB = clindata::rawplus_lb,
-#'   dfPD = clindata::rawplus_protdev,
+#'   dfPD = clindata::ctms_protdev,
 #'   dfSUBJ = clindata::rawplus_dm
 #' )
 #' lMapping <- yaml::read_yaml(

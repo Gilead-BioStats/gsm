@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-kri_directionality_logo.R
 \name{kri_directionality_logo}
 \alias{kri_directionality_logo}
-\title{KRI Directionality Logo}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 kri_directionality_logo(flag_value)
 }
@@ -11,4 +11,7 @@ kri_directionality_logo(flag_value)
 }
 \description{
 Reporting utility function to create fontawesome directionality logos within \code{DT::datatable()}
+}
+\details{
+KRI Directionality Logo
 }

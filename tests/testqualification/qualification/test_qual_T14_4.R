@@ -1,4 +1,4 @@
-test_that("Raw+ study treatment disposition data can be mapped correctly to create an analysis-ready input dataset that has all required columns in the default Raw+ mapping specifications.", {
+test_that("Raw+ Study Treatment Disposition data can be mapped correctly to create an analysis-ready input dataset that has all required columns in the default Raw+ mapping specifications.", {
   ########### gsm mapping ###########
   observed <- gsm::Disp_Map_Raw(strContext = "Treatment")
 

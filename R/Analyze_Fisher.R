@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Fisher's Exact Test Analysis
 #'
 #' @details

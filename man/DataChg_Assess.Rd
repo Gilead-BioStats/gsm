@@ -2,7 +2,7 @@
 % Please edit documentation in R/DataChg_Assess.R
 \name{DataChg_Assess}
 \alias{DataChg_Assess}
-\title{Data Change Rate Assessment}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 DataChg_Assess(
   dfInput,
@@ -67,6 +67,8 @@ of the column. Default: package-defined Labs Assessment mapping.}
 Evaluates rate of reported data point with >1 changes.
 }
 \details{
+Data Change Rate Assessment
+
 The Data Change Rate Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }

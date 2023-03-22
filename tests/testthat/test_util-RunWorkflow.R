@@ -6,8 +6,8 @@ dfAE <- dfAE %>%
   tidyr::expand(dfAE, ae_serious = dfAE$aeser)
 
 dfAE <- dfAE %>%
-  tidyr::expand(dfAE, ae_te_flag = dfAE$ae_te) %>%
-  select(-c(ae_serious, ae_te_flag))
+  tidyr::expand(dfAE, treatmentemergent_flag = dfAE$treatmentemergent) %>%
+  select(-c(ae_serious, treatmentemergent_flag))
 
 # Valid Assessment Input
 aeData <- list(dfSUBJ = dfSUBJ, dfAE = dfAE)
@@ -25,7 +25,7 @@ sae_inv <- RunWorkflow(sae_meta, lData = aeData_inv, lMapping = rawDataMap, bQui
 
 test_that("Assessment data filtered as expected", {
   te_ae <- dfAE %>%
-    filter(.data$ae_te == "Y" & .data$aeser == "Y")
+    filter(.data$treatmentemergent == "Y" & .data$aeser == "Y")
 
   expect_equal(sae$lData$dfAE %>% nrow(), te_ae %>% nrow())
 })
@@ -40,7 +40,7 @@ test_that("workflow with multiple FilterDomain steps is reported correctly", {
     stringsAsFactors = FALSE,
     subjid = c("1234", "1234", "5678", "5678"),
     aeser = c("Yes", "Yes", "Yes", "Yes"),
-    ae_te = c(TRUE, TRUE, FALSE, TRUE),
+    treatmentemergent = c(TRUE, TRUE, FALSE, TRUE),
     aetoxgr = c(1, 3, 1, 4)
   )
 

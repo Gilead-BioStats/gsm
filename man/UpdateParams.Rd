@@ -2,7 +2,7 @@
 % Please edit documentation in R/UpdateParams.R
 \name{UpdateParams}
 \alias{UpdateParams}
-\title{{experimental} Update parameters for workflow}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 UpdateParams(lWorkflow, dfConfig, dfMeta)
 }
@@ -17,5 +17,5 @@ UpdateParams(lWorkflow, dfConfig, dfMeta)
 \code{list} lWorkflow - modified list.
 }
 \description{
-{experimental} Update parameters for workflow
+Update parameters for workflow
 }

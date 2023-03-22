@@ -3,6 +3,7 @@ source(testthat::test_path("testdata/data.R"))
 workflows <- MakeWorkflowList(bRecursive = TRUE, strNames = c("pdCategory", "kri0004"))
 workflow <- workflows$kri0004
 workflow$steps[[1]] <- NULL # remove filtering to mimic standard PD_Map_Raw_Rate() %>% PD_Assess_Rate()
+workflow$steps[[1]] <- NULL
 stratifiedWorkflow <- workflows$pdCategory
 
 data <- list(
@@ -10,8 +11,9 @@ data <- list(
   dfPD = dfPD
 )
 
-mapping <- yaml::read_yaml(
-  system.file("mappings", "mapping_rawplus.yaml", package = "gsm")
+mapping <- c(
+    yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+    yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm"))
 )
 
 output <- RunWorkflow(
@@ -44,7 +46,7 @@ test_that("Stratified output is returned", {
     names(stratifiedOutput$lResults$chart$facet$params$facets)
   )
   expect_equal(
-    nrow(output$lResults$lData$dfSummary) * length(unique(output$lData$dfPD$dvdecod)),
+    nrow(output$lResults$lData$dfSummary) * length(unique(output$lData$dfPD$GileadCategory)),
     nrow(stratifiedOutput$lResults$dfSummary)
   )
 })

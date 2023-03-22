@@ -2,11 +2,11 @@
 % Please edit documentation in R/PD_Map_Raw_Rate.R
 \name{PD_Map_Raw_Rate}
 \alias{PD_Map_Raw_Rate}
-\title{Protocol Deviation Assessment - Raw Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 PD_Map_Raw_Rate(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfPD = clindata::rawplus_protdev),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfPD = clindata::ctms_protdev),
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package =
     "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
@@ -39,6 +39,8 @@ Convert raw protocol deviation (PD) data, typically processed case report form d
 input data to \code{\link[=PD_Assess_Rate]{PD_Assess_Rate()}}.
 }
 \details{
+Protocol Deviation Assessment - Raw Mapping
+
 \code{PD_Map_Raw_Rate} combines PD data with subject-level study duration data to create formatted
 input data to \code{\link[=PD_Assess_Rate]{PD_Assess_Rate()}}. This function creates an input dataset for the PD Assessment
 (\code{\link[=PD_Assess_Rate]{PD_Assess_Rate()}}) by binding subject-level PD counts (derived from \code{dfPD}) to subject-level

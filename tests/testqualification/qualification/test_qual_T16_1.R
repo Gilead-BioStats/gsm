@@ -1,4 +1,4 @@
-test_that("Raw+ PD data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and PD data with one record per subject, omitting subjects with zero days on study.", {
+test_that("Raw+ Protocol Deviation data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and Protocol Deviation data with one record per subject, omitting subjects with zero days on study.", {
 
 
   ########### gsm mapping ###########
@@ -7,7 +7,7 @@ test_that("Raw+ PD data can be mapped correctly to create an analysis-ready inpu
 
   ########### double programming ###########
   # read in default mapping specs
-  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
   cols <- c(SubjectID = lMapping$dfSUBJ$strIDCol,
@@ -20,11 +20,11 @@ test_that("Raw+ PD data can be mapped correctly to create an analysis-ready inpu
             "Rate")
 
   # read in raw source PD data
-  pd_raw_orig <- clindata::rawplus_protdev
+  pd_raw_orig <- clindata::ctms_protdev
 
   # count unique number of PDs within each subject and remove duplicate records
   pd_raw <- pd_raw_orig %>%
-    group_by_at(lMapping$dfSUBJ$strIDCol) %>%
+    group_by_at(lMapping$dfPD$strIDCol) %>%
     select(lMapping$dfPD$strIDCol) %>%
     mutate(Count = n()) %>%
     distinct()
@@ -34,7 +34,7 @@ test_that("Raw+ PD data can be mapped correctly to create an analysis-ready inpu
   dm_raw <- dm_raw_orig
 
   # join DM and PD data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, pd_raw, by = "subjid") %>%
+  expected <- full_join(dm_raw, pd_raw, by = c("subjid" = "SubjectEnrollmentNumber")) %>%
     mutate(Count = replace_na(Count, 0),
            Rate = as.numeric(Count)/!!sym(lMapping$dfSUBJ$strTimeOnStudyCol)) %>%
     filter(!(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol) == 0) & !is.na(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol))) %>% # remove subjects that were not treated (i.e., had 0 or NA days of treatment)
