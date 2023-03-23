@@ -39,7 +39,7 @@
        8 139    
        9 173    
       10 109    
-      # ... with 30 more rows
+      # i 30 more rows
 
 ---
 
@@ -81,7 +81,7 @@
        8 0X052  
        9 0X124  
       10 0X127  
-      # ... with 30 more rows
+      # i 30 more rows
 
 # invalid data throw errors
 
@@ -97,7 +97,7 @@
 
 ---
 
-    i In argument: `Metric = .data$vMu + ...`.
+    i In argument: `Metric = .data$vMu + .data$Threshold * sqrt(.data$phi * .data$vMu/.data$Denominator)`.
     Caused by error in `.data$Threshold * sqrt(.data$phi * .data$vMu / .data$Denominator)`:
     ! non-numeric argument to binary operator
 
