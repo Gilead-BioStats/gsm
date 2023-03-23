@@ -1,9 +1,9 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Protocol Deviation Assessment
+#' Protocol Deviation Assessment (Rate)
 #'
 #' @description
-#' Evaluates protocol deviation (PD) rates to identify sites that may be over- or under-reporting PDs.
+#' Evaluates Protocol Deviation (PD) rates to identify sites that may be over- or under-reporting PDs.
 #'
 #' @details
 #' The PD Assessment uses the standard [GSM data pipeline](
@@ -20,7 +20,7 @@
 #'   - `"Identity"`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Protocol Deviation Assessment mapping.
-#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param nConfLevel `numeric` Confidence level for QTL analysis.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`

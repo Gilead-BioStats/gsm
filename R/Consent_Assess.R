@@ -2,7 +2,6 @@
 #'
 #' Consent Assessment
 #'
-#'
 #' @description
 #' Evaluates sites where subject consent was:
 #' - not given
@@ -13,22 +12,13 @@
 #' @details
 #' The Consent Assessment uses the standard [GSM data pipeline](
 #'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
-#' ) to flag sites with consent issues. This assessment detects sites with subjects who participated
-#' in study activities before consent was finalized. The count returned in the summary represents
-#' the number of subjects at a given site for whom:
-#'
-#' - consent was not given
-#' - consent was not obtained
-#' - consent did not result in randomization
-#' - consent was obtained after randomization
-#'
-#' Additional details regarding the data pipeline and statistical methods are described below.
+#' ) to flag sites with consent issues. Additional details regarding the data pipeline and statistical methods are described below.
 #'
 #' @param dfInput `data.frame` Input data, a data frame with one record per subject.
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Consent Assessment mapping.
-#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'

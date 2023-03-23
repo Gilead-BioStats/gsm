@@ -19,6 +19,20 @@
     Output
       [1] "barMetric"   "barScore"    "barMetricJS" "barScoreJS" 
 
+---
+
+    Code
+      names(output$lChecks)
+    Output
+      [1] "dfInput" "status"  "mapping" "spec"   
+
+---
+
+    Code
+      names(output$lChecks$lData$dfSummary)
+    Output
+      NULL
+
 # grouping works as expected
 
     Code

@@ -1,12 +1,12 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Screening Assessment
+#' Screen Failure Assessment
 #'
 #' @description
-#' Evaluates screen failure rate (SF) on mapped subject-level dataset to identify sites that may be over- or under-reporting patient discontinuations.
+#' Evaluates screen failure (SF) rate on a mapped subject-level dataset to identify sites that may be over- or under-reporting screen failures.
 #'
 #' @details
-#' The Screening Assessment uses the standard [GSM data pipeline](
+#' The Screen Failure Assessment uses the standard [GSM data pipeline](
 #'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
@@ -20,7 +20,7 @@
 #'   - `"Identity"`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Screening Assessment mapping.
-#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param nConfLevel `numeric` Confidence level for QTL analysis.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
