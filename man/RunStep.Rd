@@ -17,8 +17,7 @@ output (\code{lStep$output}) and configurable parameters (\code{lStep$params}) (
 specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs
 from \code{X_Map_Raw}.}
 
-\item{bQuiet}{\code{logical} Default is TRUE, which means warning messages are suppressed. Set to
-FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 }
 \value{
 \code{list} containing the results of the \code{lStep$name} function call should contain \code{.$checks}

@@ -13,8 +13,7 @@
 #' @param lData `list` a named list of domain level data frames. Names should match the values
 #'   specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs
 #'   from `X_Map_Raw`.
-#' @param bQuiet `logical` Default is TRUE, which means warning messages are suppressed. Set to
-#'   FALSE to see warning messages.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #'
 #' @examples

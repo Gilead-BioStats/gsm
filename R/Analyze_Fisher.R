@@ -1,19 +1,15 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Fisher's Exact Test Analysis
+#' Fisher's Exact Test Analysis.
 #'
 #' @details
-#' Creates analysis results data for count data using the Fisher's exact test.
-#'
-#' @details
-#'
 #' Analyzes count data using the Fisher's exact test.
 #'
 #' @section Statistical Methods:
 #'
 #' The function `Analyze_Fisher` utilizes `stats::fisher.test` to generate an
-#' estimate of odds ratio as well as p-value using the Fisher’s exact test with site-level count
-#' data. For each site, Fisher’s exact test is conducted by comparing to all other sites combined
+#' estimate of odds ratio as well as a p-value using the Fisher’s exact test with site-level count
+#' data. For each site, the Fisher’s exact test is conducted by comparing the given site to all other sites combined
 #' in a 2×2 contingency table. The p-values are then used as a scoring metric in `{gsm}` to flag
 #' possible outliers. The default in `stats::fisher.test` uses a two-sided test (equivalent to testing
 #' the null of OR = 1) and does not compute p-values by Monte Carlo simulation unless `simulate.p.value = TRUE`.
@@ -22,17 +18,17 @@
 #'
 #' @section Data Specification:
 #'
-#' The input data (`dfTransformed`) for Analyze_Fisher is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
+#' The input data (`dfTransformed`) for `Analyze_Fisher` is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
 #' - `GroupID` - Site ID
-#' - `Numerator` - Total number of participants at site with event of interest
-#' - `Denominator` - Total number of participants at site/Total number of days of exposure at site
-#' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
+#' - `Numerator` - Total number of participants at site with event of interest.
+#' - `Denominator` - Total number of participants at site/Total number of days of exposure at site.
+#' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator).
 #'
-#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
-#' @param strOutcome `character` required, name of column in dfTransformed dataset to perform Fisher's exact test on. Default is "Numerator".
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}.
+#' @param strOutcome `character` required, name of column in `dfTransformed` dataset to perform Fisher's exact test on. Default is "Numerator".
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
-#' @return `data.frame` with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, Score.
+#' @return `data.frame` with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, and Score.
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
@@ -79,8 +75,8 @@ Analyze_Fisher <- function(
   }
 
   dfAnalyzed <- dfTransformed %>%
-    mutate(model = map(.data$GroupID, fisher_model)) %>%
-    mutate(summary = map(.data$model, broom::glance)) %>%
+    mutate(model = purrr::map(.data$GroupID, fisher_model)) %>%
+    mutate(summary = purrr::map(.data$model, broom::glance)) %>%
     tidyr::unnest(summary) %>%
     mutate(
       Estimate = .data$estimate,
