@@ -26,7 +26,7 @@ for a stratified KRI on an existing categorical variable. For example, we can fi
 which specifies if the adverse event was mild, moderate, or severe.
 }
 \details{
-Subset a data frame
+Subset a data frame.
 }
 \examples{
 

@@ -1,7 +1,8 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Parse Data Specification
+#' Parse Data Specification.
 #'
+#' @description
 #' Transform nested data specification to tabular structure for use in documentation.
 #'
 #' @param content `list` data specification

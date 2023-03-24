@@ -38,7 +38,7 @@ MakeDfConfig(
 The output of \code{MakeDfConfig} is used as a configuration dataset for a \code{{rbm-viz}} htmlwidget.
 }
 \details{
-Make dfConfig for use in {rbm-viz}
+Make dfConfig for use in {rbm-viz}.
 }
 \examples{
 \dontrun{

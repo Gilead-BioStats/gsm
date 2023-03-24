@@ -7,15 +7,24 @@
 is_workflow_valid(lWorkflow)
 }
 \arguments{
-\item{lWorkflow}{\code{list} of workflows to be run in \code{Study_Assess()} or \code{Make_Snapshot()}.}
+\item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
 }
 \value{
-\code{list} with TRUE/FALSE status for each workflow.
+\code{list} with \code{TRUE}/\code{FALSE} status for each workflow.
 }
 \description{
 Check if workflow is valid/contains necessary metadata.
 }
 \examples{
 workflow <- MakeWorkflowList()
+
+# check a single workflow
+valid_workflow <- is_workflow_valid(workflow[[2]])
+
+# check all workflows
+library(dplyr)
+library(purrr)
+valid_workflow_all <- workflow \%>\%
+  purrr::map(~is_workflow_valid(.) \%>\% purrr::pluck('bStatus'))
 
 }

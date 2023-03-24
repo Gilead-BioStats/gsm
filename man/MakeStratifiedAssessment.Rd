@@ -7,7 +7,7 @@
 MakeStratifiedAssessment(lWorkflow, lData, lMapping, bQuiet = TRUE)
 }
 \arguments{
-\item{lWorkflow}{\code{list} A named list of metadata defining how an workflow should be run.}
+\item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
 
 \item{lData}{\code{list} A named list of domain-level data frames.}
 
@@ -16,13 +16,13 @@ MakeStratifiedAssessment(lWorkflow, lData, lMapping, bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{list} A list of workflows for each specified strata
+\code{list} A list of workflows for each specified strata.
 }
 \description{
 \code{MakeStratifiedAssessment} is a utility function that creates a stratified workflow list using a pre-defined workflow (from \code{inst/workflows}), or
 by using a custom named list. For example, a user can run the Adverse Event assessment workflow and stratify by event severity (i.e., \code{aetoxgr}).
 This will give a list of compiled workflows, each of which represents the assessment results for each unique value of the stratifying variable.
-For this example using default data, \code{MakeWorkflowList} will create four lists under the main output object
+For this example using default data, \code{\link[=MakeWorkflowList]{MakeWorkflowList()}} will create four lists under the main output object
 \itemize{
 \item one with assessment results for mild AEs, one for moderate, one for severe, and one for life-threatening events.
 }

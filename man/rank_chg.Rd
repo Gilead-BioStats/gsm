@@ -15,5 +15,5 @@ rank_chg(status)
 Adopted from https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/.
 }
 \details{
-Report Helper Functions
+Report helper functions used to create fontawesome status icons for the report that is generated with \link{Study_Report}.
 }

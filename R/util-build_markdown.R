@@ -1,4 +1,4 @@
-#' build markdown from mapping
+#' build markdown from mapping.
 #'
 #' @param yaml_path path to adam mapping yaml
 #'

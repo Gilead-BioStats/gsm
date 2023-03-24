@@ -13,5 +13,5 @@ kri_directionality_logo(flag_value)
 Reporting utility function to create fontawesome directionality logos within \code{DT::datatable()}
 }
 \details{
-KRI Directionality Logo
+KRI Directionality Logo.
 }

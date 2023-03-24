@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("experimental")`
 #'
-#' Run a stratified workflow
+#' Run a stratified workflow via workflow YAML specification.
 #'
 #' @description
 #' Attempts to run a stratified workflow (`lWorkflow`) using shared data (`lData`) and metadata (`lMapping`).
@@ -15,8 +15,7 @@
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`
 #'
-#' @return `list` `lWorkflow` along with `workflow`, `path`, `name`, `lData`, `lChecks`,
-#' `bStatus`, `checks`, and `lResults` added based on the results of the execution of
+#' @return `list` with `group`, `steps`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `lWorkflowChecks` and `lResults` added based on the results of the execution of
 #' `lWorkflow$workflow`.
 #'
 #' @examples

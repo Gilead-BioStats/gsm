@@ -106,7 +106,7 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
     }
 
     # mapping contains character values for column names
-    colParams <- spec$vRequired %>% str_subset("[c|C]ol$")
+    colParams <- spec$vRequired %>% stringr::str_subset("[c|C]ol$")
     colNames <- unlist(unname(mapping[colParams]))
     if (!all(is.character(colNames))) {
       tests_if$mappings_are_character$status <- FALSE

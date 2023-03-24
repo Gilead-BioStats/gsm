@@ -30,8 +30,8 @@ generate_md_table(
 \item{header}{\code{character} section header}
 }
 \description{
-Generate Markdown Table
+Combine data mapping and specification, and then output as markdown table.
 }
 \details{
-Combine data mapping and specification, and then output as markdown table.
+Generate Markdown Table
 }

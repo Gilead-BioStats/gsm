@@ -2,13 +2,22 @@
 #'
 #' Check if workflow is valid/contains necessary metadata.
 #'
-#' @param lWorkflow `list` of workflows to be run in `Study_Assess()` or `Make_Snapshot()`.
+#' @param lWorkflow `list` A named list of metadata defining how the workflow should be run.
 #'
 #'
 #' @examples
 #' workflow <- MakeWorkflowList()
 #'
-#' @return `list` with TRUE/FALSE status for each workflow.
+#' # check a single workflow
+#' valid_workflow <- is_workflow_valid(workflow[[2]])
+#'
+#' # check all workflows
+#' library(dplyr)
+#' library(purrr)
+#' valid_workflow_all <- workflow %>%
+#'   purrr::map(~is_workflow_valid(.) %>% purrr::pluck('bStatus'))
+#'
+#' @return `list` with `TRUE`/`FALSE` status for each workflow.
 #'
 #' @import purrr
 #'

@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Merge Domain data with subject-level data
+#' Merge Domain data with subject-level data.
 #'
 #' @description
 #' `MergeSubjects` is a helper function used within mapping functions to join subject-level data with domain-level data, with the ability to impute
@@ -20,7 +20,7 @@
 #'   strIDCol = "subjid"
 #' )
 #'
-#' @return `data.frame` with one record per strIDCol.
+#' @return `data.frame` with one record per ID variable specified in the `strIDCol` parameter.
 #'
 #' @importFrom cli cli_alert_info cli_alert_warning
 #' @importFrom tidyr replace_na
