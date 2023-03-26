@@ -39,7 +39,7 @@ Convert raw protocol deviation (PD) data, typically processed case report form d
 input data to \code{\link[=PD_Assess_Rate]{PD_Assess_Rate()}}.
 }
 \details{
-Protocol Deviation Assessment - Raw Mapping
+Protocol Deviation Assessment (Rate Outcome) - Raw Mapping
 
 \code{PD_Map_Raw_Rate} combines PD data with subject-level study duration data to create formatted
 input data to \code{\link[=PD_Assess_Rate]{PD_Assess_Rate()}}. This function creates an input dataset for the PD Assessment

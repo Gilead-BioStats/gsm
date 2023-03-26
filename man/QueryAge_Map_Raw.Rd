@@ -41,7 +41,7 @@ of the column.}
 Convert raw query data to formatted input data to \code{\link[=QueryAge_Assess]{QueryAge_Assess()}}.
 }
 \details{
-Query Age - Raw Mapping
+Query Age Assessment - Raw Mapping
 
 \code{QueryAge_Map_Raw} combines query data with data points data and subject-level data to create
 formatted input data to \code{\link[=QueryAge_Assess]{QueryAge_Assess()}}. This function creates an input dataset for the Query Age Assessment

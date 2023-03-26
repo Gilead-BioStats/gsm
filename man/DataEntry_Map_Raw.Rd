@@ -41,7 +41,7 @@ of the column.}
 Convert raw data entry data to formatted input data to \code{\link[=DataEntry_Assess]{DataEntry_Assess()}}.
 }
 \details{
-Data Entry Lag - Raw Mapping
+Data Entry Lag Assessment - Raw Mapping
 
 \code{DataEntry_Map_Raw} creates an input dataset for the Data Entry Lag Assessment \code{\link[=DataEntry_Assess]{DataEntry_Assess()}} by adding
 Data Entry Lag Counts (derived from \code{dfDATAENT}) to basic subject-level data (from \code{dfSUBJ}).

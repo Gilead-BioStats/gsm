@@ -40,7 +40,7 @@ of the column.}
 Convert raw query data to formatted input data to \code{\link[=QueryRate_Assess]{QueryRate_Assess()}}.
 }
 \details{
-Query Rate - Raw Mapping
+Query Rate Assessment - Raw Mapping
 
 \code{QueryRate_Map_Raw} combines query data with data points data and subject-level data to create
 formatted input data to \code{\link[=QueryRate_Assess]{QueryRate_Assess()}}. This function creates an input dataset for the Query Rate Assessment

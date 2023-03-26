@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Data Change Rate - Raw Mapping
+#' Data Change Rate Assessment - Raw Mapping
 #'
 #' @description
 #' Convert raw data entry data to formatted input data to [gsm::DataChg_Assess()].

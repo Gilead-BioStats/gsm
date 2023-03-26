@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Data Entry Lag - Raw Mapping
+#' Data Entry Lag Assessment - Raw Mapping
 #'
 #' @description
 #' Convert raw data entry data to formatted input data to [gsm::DataEntry_Assess()].
