@@ -25,10 +25,10 @@ Simplified finding data.frame with columns for GroupID, Metric, Score, Flag
 when associated with a workflow.
 }
 \description{
-Make Summary Data Frame
+Create a concise summary of assessment results that is easy to aggregate across assessments
 }
 \details{
-Create a concise summary of assessment results that is easy to aggregate across assessments
+Make Summary Data Frame
 
 \code{Summarize} supports the input data (\code{dfFlagged}) from the \code{Flag} function.
 }

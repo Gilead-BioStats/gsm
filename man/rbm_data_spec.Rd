@@ -20,6 +20,6 @@ A data frame with 125 rows and 4 variables.
 rbm_data_spec
 }
 \description{
-A dataset containing input/output specifications for gsm and Gizmo.
+A dataset containing input/output specifications for gsm and Gismo.
 }
 \keyword{datasets}

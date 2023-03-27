@@ -27,10 +27,10 @@ Transform_Rate(
 \code{data.frame} with one row per site with columns \code{GroupID}, \code{Numerator}, \code{Denominator}, and \code{Metric}.
 }
 \description{
-Transform Rate
+Convert from input data format to needed input format to derive KRI for an Assessment. Calculate a site-level rate.
 }
 \details{
-Convert from input data format to needed input format to derive KRI for an Assessment. Calculate a site-level rate.
+Transform Rate
 
 This function transforms data to prepare it for the analysis step. It is currently only sourced for the Adverse Event, Disposition, Labs, and Protocol Deviations Assessments.
 }

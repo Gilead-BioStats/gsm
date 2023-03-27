@@ -17,10 +17,10 @@ Transform_Count(dfInput, strCountCol, strGroupCol = "SiteID")
 \code{data.frame} with one row per site with columns \code{GroupID}, \code{TotalCount}, and \code{Metric.}
 }
 \description{
-Transform Count
+Convert from input data format to needed input format to derive KRI for an Assessment. Calculate site-level count.
 }
 \details{
-Convert from input data format to needed input format to derive KRI for an Assessment. Calculate site-level count.
+Transform Count
 
 This function transforms data to prepare it for the analysis step. It is currently only sourced for the Consent and IE Assessments.
 }

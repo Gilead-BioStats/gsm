@@ -28,7 +28,7 @@ of the column. Default: package-defined mapping for raw+.}
 }
 \value{
 \code{data.frame} Data frame with one record per subject, the input to \code{\link[=PD_Assess_Rate]{PD_Assess_Rate()}}. If
-\code{bReturnChecks} is \code{TRUE} \code{PD_Map_Raw} returns a named \code{list} with:
+\code{bReturnChecks} is \code{TRUE} \code{PD_Map_Raw_Rate} returns a named \code{list} with:
 \itemize{
 \item \code{df}: the data frame described above
 \item \code{lChecks}: a named \code{list} of check results
