@@ -26,23 +26,7 @@ test_that("Given appropriate Protocol Deviation data, the assessment function co
   class(t23_6_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t23_6_flagged <- t23_6_analyzed %>%
-    mutate(
-      Flag = case_when(
-        Score < 0.000895 ~ -1,
-        Score > 0.003059 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(Score),
-      Flag = case_when(
-        Flag != 0 & Score >= median ~ 1,
-        Flag != 0 & Score < median ~ -1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+    qualification_flag_identity()
 
   t23_6_summary <- t23_6_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

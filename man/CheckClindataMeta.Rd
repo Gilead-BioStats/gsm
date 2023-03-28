@@ -19,7 +19,7 @@ CheckClindataMeta(
 Console message indicating if \code{{clindata}} and \code{{gsm}} versions are compatible.
 }
 \description{
-Check gsm_version in clindata metadata
+Check gsm_version in clindata metadata.
 }
 \examples{
 \dontrun{

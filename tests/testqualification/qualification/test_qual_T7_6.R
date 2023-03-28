@@ -1,11 +1,11 @@
-test_that("Given appropriate Data Change Rate data, the assessment function correctly performs a Data Change Rate Assessment grouped by the Country variable using the Identity method and correctly assigns Flag variable values.", {
+test_that("Given appropriate Data Change Rate data, the assessment function correctly performs a Data Change Rate Assessment grouped by a custom variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::DataChg_Map_Raw()
 
   test7_6 <- DataChg_Assess(
     dfInput = dfInput,
     strMethod = "Identity",
-    strGroup = "Country"
+    strGroup = "CustomGroup"
   )
 
   # double programming
@@ -15,7 +15,7 @@ test_that("Given appropriate Data Change Rate data, the assessment function corr
     qualification_transform_counts(
       countCol = "Count",
       exposureCol = "Total",
-      GroupID = "CountryID"
+      GroupID = "CustomGroupID"
     )
 
   t7_6_analyzed <- t7_6_transformed %>%
@@ -28,7 +28,7 @@ test_that("Given appropriate Data Change Rate data, the assessment function corr
 
 
   t7_6_flagged <- t7_6_analyzed %>%
-    qualification_flag_identity()
+    qualification_flag_identity(threshold = c(3.491, 5.172))
 
   t7_6_summary <- t7_6_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

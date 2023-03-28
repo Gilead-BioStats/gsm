@@ -1,3 +1,19 @@
+# gsm v1.6.0
+
+This release includes significant qualification testing updates, improvements to reporting, updates to default variable names, and updates to mappings and workflows.
+
+### Mapping and Workflow Updates
+- All default KRI workflows (except for Screen Failure) only include enrolled patients by default.
+- Mappings have been updated to reflect expected default variable names.
+- A new mapping_domain has been added.
+
+### Reporting
+- Small bugs were squashed that resulted in erroneous data being reported about workflow status.
+
+### Qualification Testing and Reporting
+- Major refactor for the qualification report, which adds more detail, and more easily-read tables.
+- Qualified functionality for 24 functions that include the bulk of the entire analytics pipeline in `{gsm}`
+
 # gsm v1.5.0
 
 This release includes changes to Protocol Deviation mapping and analysis, significant qualification testing updates, improvements to reporting, and workflow updates:

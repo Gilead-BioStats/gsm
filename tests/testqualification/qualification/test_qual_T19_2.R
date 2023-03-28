@@ -1,6 +1,4 @@
 test_that("Given pre-specified mapping, input data can be filtered to produce a data frame which retains all original source columns.", {
-
-
   ########### gsm mapping ###########
   observed <- FilterDomain(
     df = clindata::rawplus_ae,
@@ -35,6 +33,4 @@ test_that("Given pre-specified mapping, input data can be filtered to produce a 
 
   all_tests <- isTRUE(col_check) & isTRUE(cross_check)
   expect_true(all_tests)
-
 })
-

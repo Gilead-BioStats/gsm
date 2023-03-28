@@ -1,5 +1,4 @@
 test_that("Given appropriate Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by a custom variable using the Normal Approximation method and correctly assigns Flag variable values.", {
-
   dfInput <- gsm::AE_Map_Raw()
 
   test1_9 <- AE_Assess(dfInput,

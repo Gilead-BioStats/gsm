@@ -4,9 +4,8 @@
       config
     Output
       # A tibble: 1 x 9
-        workflowid group abbreviation metric       numer~1 denom~2 model score thres~3
-        <chr>      <chr> <chr>        <chr>        <chr>   <chr>   <chr> <chr> <list> 
-      1 temp       Site  AE           Adverse Eve~ Advers~ Days o~ Norm~ Adju~ <dbl>  
-      # ... with abbreviated variable names 1: numerator, 2: denominator,
-      #   3: thresholds
+        workflowid group abbreviation metric         numerator denominator model score
+        <chr>      <chr> <chr>        <chr>          <chr>     <chr>       <chr> <chr>
+      1 temp       Site  AE           Adverse Event~ Adverse ~ Days on Tr~ Norm~ Adju~
+      # i 1 more variable: thresholds <list>
 

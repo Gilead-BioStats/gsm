@@ -19,6 +19,20 @@
     Output
       [1] "barMetric"   "barScore"    "barMetricJS" "barScoreJS" 
 
+---
+
+    Code
+      names(output$lChecks)
+    Output
+      [1] "dfInput" "status"  "mapping" "spec"   
+
+---
+
+    Code
+      names(output$lChecks$lData$dfSummary)
+    Output
+      NULL
+
 # grouping works as expected
 
     Code
@@ -37,7 +51,7 @@
        8 140    
        9 143    
       10 144    
-      # ... with 30 more rows
+      # i 30 more rows
 
 ---
 
@@ -80,7 +94,7 @@
        8 0X039  
        9 0X043  
       10 0X049  
-      # ... with 30 more rows
+      # i 30 more rows
 
 # bQuiet works as intended
 

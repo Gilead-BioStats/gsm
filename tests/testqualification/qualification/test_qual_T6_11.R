@@ -1,12 +1,13 @@
-test_that("Given appropriate Labs data, the assessment function correctly performs a Labs Assessment grouped by the Site variable using the Normal Approximation method and correctly assigns the Flag variable as NA for sites with low enrollment.", {
+test_that("Given appropriate Labs data, the assessment function correctly performs a Labs Assessment grouped by the Site variable using the Identity method and correctly assigns Flag variable values when given a custom threshold, and Flag variable values are set to NA for sites with low enrollment.", {
   # gsm analysis
-  dfInput <- gsm::LB_Map_Raw()
+  dfInput <- LB_Map_Raw()
 
-  nMinDenominator = 67
+  nMinDenominator <- 67
 
   test6_11 <- LB_Assess(
     dfInput = dfInput,
-    strMethod = "NormalApprox",
+    strMethod = "Identity",
+    vThreshold = c(2.31, 6.58),
     nMinDenominator = nMinDenominator
   )
 
@@ -19,21 +20,30 @@ test_that("Given appropriate Labs data, the assessment function correctly perfor
     )
 
   t6_11_analyzed <- t6_11_transformed %>%
-    qualification_analyze_normalapprox(strType = "binary")
+    mutate(
+      Score = Metric
+    ) %>%
+    arrange(Score)
 
   class(t6_11_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t6_11_flagged <- t6_11_analyzed %>%
-    qualification_flag_normalapprox()
+    qualification_flag_identity(threshold = c(2.31, 6.58))
 
   t6_11_summary <- t6_11_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0))) %>%
-    mutate(Score = case_when(Denominator >= nMinDenominator ~ Score,
-                             Denominator < nMinDenominator ~ NA_real_),
-           Flag = case_when(Denominator >= nMinDenominator ~ Flag,
-                            Denominator < nMinDenominator ~ NA_real_))
+    mutate(
+      Score = case_when(
+        Denominator >= nMinDenominator ~ Score,
+        Denominator < nMinDenominator ~ NA_real_
+      ),
+      Flag = case_when(
+        Denominator >= nMinDenominator ~ Flag,
+        Denominator < nMinDenominator ~ NA_real_
+      )
+    )
 
   t6_11 <- list(
     "dfTransformed" = t6_11_transformed,
@@ -43,5 +53,5 @@ test_that("Given appropriate Labs data, the assessment function correctly perfor
   )
 
   # compare results
-  expect_equal(test6_11$lData[!names(test6_11$lData) == "dfBounds"], t6_11)
+  expect_equal(test6_11$lData, t6_11)
 })

@@ -1,12 +1,13 @@
-test_that("Given appropriate Labs data, the assessment function correctly performs a Labs Assessment grouped by the Site variable using the Identity method and correctly assigns the Flag variable as NA for sites with low enrollment.", {
+test_that("Given appropriate Labs data, the assessment function correctly performs a Labs Assessment grouped by the Site variable using the Fisher method and correctly assigns Flag variable values when given a custom threshold, and Flag variable values are set to NA for sites with low enrollment.", {
   # gsm analysis
-  dfInput <- LB_Map_Raw()
+  dfInput <- gsm::LB_Map_Raw()
 
   nMinDenominator <- 67
 
   test6_10 <- LB_Assess(
     dfInput = dfInput,
-    strMethod = "Identity",
+    strMethod = "Fisher",
+    vThreshold = c(.025, .05),
     nMinDenominator = nMinDenominator
   )
 
@@ -19,40 +20,27 @@ test_that("Given appropriate Labs data, the assessment function correctly perfor
     )
 
   t6_10_analyzed <- t6_10_transformed %>%
-    mutate(
-      Score = Metric
-    ) %>%
-    arrange(Score)
+    qualification_analyze_fisher()
 
   class(t6_10_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t6_10_flagged <- t6_10_analyzed %>%
-    mutate(
-      Flag = case_when(
-        Score < 3.491 ~ -1,
-        Score > 5.172 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(Metric),
-      Flag = case_when(
-        Flag != 0 & Metric < median ~ -1,
-        Flag != 0 & Metric >= median ~ 1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+    qualification_flag_fisher(threshold = c(.025, .05))
 
   t6_10_summary <- t6_10_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0))) %>%
-    mutate(Score = case_when(Denominator >= nMinDenominator ~ Score,
-                             Denominator < nMinDenominator ~ NA_real_),
-           Flag = case_when(Denominator >= nMinDenominator ~ Flag,
-                            Denominator < nMinDenominator ~ NA_real_))
+    mutate(
+      Score = case_when(
+        Denominator >= nMinDenominator ~ Score,
+        Denominator < nMinDenominator ~ NA_real_
+      ),
+      Flag = case_when(
+        Denominator >= nMinDenominator ~ Flag,
+        Denominator < nMinDenominator ~ NA_real_
+      )
+    )
 
   t6_10 <- list(
     "dfTransformed" = t6_10_transformed,

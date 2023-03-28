@@ -40,12 +40,12 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol"]
+              "value": ["strEDCIDCol", "strSiteCol"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol"]
+              "value": ["strEDCIDCol"]
             }
           ]
         }
@@ -70,34 +70,44 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strVisitCol", "strFormCol", "strDataEntryLagCol", "strDataEntryLagVal"]
+              "value": ["strStudyCol", "strIDCol", "strVisitCol", "strFormCol", "strVisitDateCol", "strEntryDateCol", "strDataEntryLagCol"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["subjid"]
+              "value": ["protocolname"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["foldername"]
+              "value": ["subjectname"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["form"]
+              "value": ["visit"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["data_entry_lag_fl"]
+              "value": ["formoid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["Y"]
+              "value": ["visitdat_date"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["min_entereddate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["data_entry_lag"]
             }
           ]
         },
@@ -107,7 +117,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strCustomGroupCol", "strCountryCol"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strEDCIDCol", "strStudyStartDateCol", "strStudyEndDateCol", "strTimeOnStudyCol", "strTreatmentStartDateCol", "strTreatmentEndDateCol", "strTimeOnTreatmentCol", "strCountryCol", "strCustomGroupCol", "strEnrollCol", "strEnrollVal"]
             }
           },
           "value": [
@@ -129,12 +139,57 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["invid"]
+              "value": ["subject_nsv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["firstparticipantdate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lastparticipantdate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["timeonstudy"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["firstdosedate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lastdosedate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["timeontreatment"]
             },
             {
               "type": "character",
               "attributes": {},
               "value": ["country"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["enrollyn"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
             }
           ]
         }
@@ -244,12 +299,12 @@
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, data_entry_lag_fl
+      x the following columns not found in df: subjectname, data_entry_lag
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -268,7 +323,7 @@
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -287,7 +342,7 @@
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, data_entry_lag_fl
+      x the following columns not found in df: subjectname, data_entry_lag
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -305,12 +360,12 @@
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, data_entry_lag_fl
+      x the following columns not found in df: subjectname, data_entry_lag
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -328,12 +383,12 @@
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, data_entry_lag_fl
+      x the following columns not found in df: subjectname, data_entry_lag
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -351,12 +406,12 @@
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, data_entry_lag_fl
+      x the following columns not found in df: subjectname, data_entry_lag
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid
+      x the following columns not found in df: subject_nsv, siteid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -376,7 +431,7 @@
       x "mapping" does not contain required parameters: strIDCol, strDataEntryLagCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      x "mapping" does not contain required parameters: strIDCol, strSiteCol
+      x "mapping" does not contain required parameters: strEDCIDCol, strSiteCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       ! Issues found for `DataEntry_Map_Raw()`
@@ -392,7 +447,7 @@
       
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
-      x Unexpected duplicates found in column: subjid
+      x Unexpected duplicates found in column: subject_nsv
       ! Issues found for `DataEntry_Map_Raw()`
       ! `DataEntry_Map_Raw()` did not run because of failed check.
     Output
@@ -406,7 +461,7 @@
       
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
-      x the following columns not found in df: subjid
+      x the following columns not found in df: subjectname
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -423,7 +478,7 @@
       
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
-      x the following columns not found in df: data_entry_lag_fl
+      x the following columns not found in df: data_entry_lag
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -440,7 +495,7 @@
       
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
-      x the following columns not found in df: subjid
+      x the following columns not found in df: subject_nsv
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -474,7 +529,7 @@
       
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
-      x 1 NA values found in column: subjid
+      x 1 NA values found in column: subjectname
       ! Issues found for `DataEntry_Map_Raw()`
       ! `DataEntry_Map_Raw()` did not run because of failed check.
     Output
@@ -488,7 +543,7 @@
       
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
-      x 1 NA values found in column: data_entry_lag_fl
+      x 1 NA values found in column: data_entry_lag
       ! Issues found for `DataEntry_Map_Raw()`
       ! `DataEntry_Map_Raw()` did not run because of failed check.
     Output
@@ -502,7 +557,7 @@
       
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
-      x 1 NA values found in column: subjid
+      x 1 NA values found in column: subject_nsv
       ! Issues found for `DataEntry_Map_Raw()`
       ! `DataEntry_Map_Raw()` did not run because of failed check.
     Output
@@ -530,7 +585,7 @@
       
       -- Checking Input Data for `DataEntry_Map_Raw()` --
       
-      x Unexpected duplicates found in column: subjid
+      x Unexpected duplicates found in column: subject_nsv
       ! Issues found for `DataEntry_Map_Raw()`
       ! `DataEntry_Map_Raw()` did not run because of failed check.
     Output

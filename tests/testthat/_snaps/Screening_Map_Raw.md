@@ -53,7 +53,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strCustomGroupCol", "strCountryCol", "strIDCol", "strScreenFailCol", "strScreenFailVal", "strScreenFailReasonCol", "strScreenFailReasonVal"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strEnrollmentDateCol", "strScreenFailCol", "strScreenFailVal", "strScreenFailReasonCol", "strScreenFailReasonVal", "strCountryCol", "strCustomGroupCol"]
             }
           },
           "value": [
@@ -70,17 +70,12 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["invid"]
+              "value": ["subjectid"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["country"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["subjid"]
+              "value": ["enroll_dt"]
             },
             {
               "type": "character",
@@ -101,6 +96,16 @@
               "type": "character",
               "attributes": {},
               "value": ["Inclusion/Exclusion Criteria"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
             }
           ]
         }
@@ -215,7 +220,7 @@
       -- Checking Input Data for `Screening_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x the following columns not found in df: siteid, subjectid, enrollyn, sfreas
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -242,9 +247,9 @@
       # A tibble: 3 x 7
         StudyID        SiteID CountryID CustomGroupID SubjectID Count Total
         <chr>          <chr>  <chr>     <chr>         <chr>     <dbl> <dbl>
-      1 AA-AA-000-0000 86     US        0X012         0001          0     1
-      2 AA-AA-000-0000 166    Japan     0X999         0003          0     1
-      3 AA-AA-000-0000 76     China     0X201         sf0001        1     1
+      1 AA-AA-000-0000 86     Y         0X001         0001          0     1
+      2 AA-AA-000-0000 166    Y         0X001         0003          0     1
+      3 AA-AA-000-0000 76     N         0X002         sf0001        0     1
 
 ---
 
@@ -256,7 +261,7 @@
       -- Checking Input Data for `Screening_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x the following columns not found in df: siteid, subjectid, enrollyn, sfreas
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -274,7 +279,7 @@
       -- Checking Input Data for `Screening_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x the following columns not found in df: siteid, subjectid, enrollyn, sfreas
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -292,7 +297,7 @@
       -- Checking Input Data for `Screening_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x the following columns not found in df: siteid, subjectid, enrollyn, sfreas
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -310,7 +315,7 @@
       -- Checking Input Data for `Screening_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: siteid, subjid, enrollyn, sfreas
+      x the following columns not found in df: siteid, subjectid, enrollyn, sfreas
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -352,9 +357,9 @@
       # A tibble: 3 x 7
         StudyID        SiteID CountryID CustomGroupID SubjectID Count Total
         <chr>          <chr>  <chr>     <chr>         <chr>     <dbl> <dbl>
-      1 AA-AA-000-0000 86     US        0X012         0001          0     1
-      2 AA-AA-000-0000 166    Japan     0X999         0003          0     1
-      3 AA-AA-000-0000 76     China     0X201         sf0001        1     1
+      1 AA-AA-000-0000 86     Y         0X001         0001          0     1
+      2 AA-AA-000-0000 166    Y         0X001         0003          0     1
+      3 AA-AA-000-0000 76     N         0X002         sf0001        0     1
 
 # missing column throws errors
 
@@ -381,7 +386,7 @@
       
       -- Checking Input Data for `Screening_Map_Raw()` --
       
-      x the following columns not found in df: subjid
+      x the following columns not found in df: subjectid
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -446,7 +451,7 @@
       
       -- Checking Input Data for `Screening_Map_Raw()` --
       
-      x 1 NA values found in column: subjid
+      x 1 NA values found in column: subjectid
       ! Issues found for `Screening_Map_Raw()`
       ! `Screening_Map_Raw()` did not run because of failed check.
     Output
@@ -469,9 +474,9 @@
       # A tibble: 3 x 7
         StudyID        SiteID CountryID CustomGroupID SubjectID Count Total
         <chr>          <chr>  <chr>     <chr>         <chr>     <dbl> <dbl>
-      1 AA-AA-000-0000 86     US        0X012         0001          0     1
-      2 AA-AA-000-0000 166    Japan     0X999         0003          0     1
-      3 AA-AA-000-0000 76     China     0X201         sf0001        1     1
+      1 AA-AA-000-0000 86     Y         0X001         0001          0     1
+      2 AA-AA-000-0000 166    Y         0X001         0003          0     1
+      3 AA-AA-000-0000 76     N         0X002         sf0001        0     1
 
 # invalid mapping throws errors
 

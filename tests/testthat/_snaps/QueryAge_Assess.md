@@ -21,6 +21,20 @@
       [1] "scatter"     "scatterJS"   "barMetric"   "barScore"    "barMetricJS"
       [6] "barScoreJS" 
 
+---
+
+    Code
+      names(output$lChecks)
+    Output
+      [1] "dfInput" "status"  "mapping" "spec"   
+
+---
+
+    Code
+      names(output$lChecks$lData$dfSummary)
+    Output
+      NULL
+
 # grouping works as expected
 
     Code
@@ -29,8 +43,8 @@
       # A tibble: 3 x 1
         GroupID
         <chr>  
-      1 86     
-      2 166    
+      1 166    
+      2 86     
       3 76     
 
 ---
@@ -51,8 +65,8 @@
       # A tibble: 3 x 1
         GroupID
         <chr>  
-      1 US     
-      2 Japan  
+      1 Japan  
+      2 US     
       3 China  
 
 ---
@@ -63,8 +77,8 @@
       # A tibble: 3 x 1
         GroupID
         <chr>  
-      1 0X012  
-      2 0X999  
+      1 0X999  
+      2 0X012  
       3 0X201  
 
 # invalid data throw errors
@@ -81,7 +95,7 @@
 
 ---
 
-    i In argument: `Metric = .data$vMu + ...`.
+    i In argument: `Metric = +...`.
     Caused by error in `.data$Threshold * sqrt(.data$phi * .data$vMu * (1 - .data$vMu) / .data$
         Denominator)`:
     ! non-numeric argument to binary operator

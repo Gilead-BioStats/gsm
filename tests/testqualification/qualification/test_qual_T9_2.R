@@ -1,14 +1,14 @@
-test_that("Given an appropriate subset of Query Age data, the assessment function correctly performs a Query Age Assessment grouped by a custom variable using the Fisher method and correctly assigns Flag variable values.", {
+test_that("Given an appropriate subset of Query Age data, the assessment function correctly performs a Query Age Assessment grouped by the Country variable using the Fisher method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::QueryAge_Map_Raw(dfs = list(
-    dfQUERY = clindata::edc_queries %>% filter(foldername == "Week 120"),
+    dfQUERY = clindata::edc_queries %>% filter(visit == "Week 120"),
     dfSUBJ = clindata::rawplus_dm
   ))
 
   test9_2 <- QueryAge_Assess(
     dfInput = dfInput,
     strMethod = "Fisher",
-    strGroup = "CustomGroup"
+    strGroup = "Country"
   )
 
   # double programming
@@ -18,7 +18,7 @@ test_that("Given an appropriate subset of Query Age data, the assessment functio
     qualification_transform_counts(
       countCol = "Count",
       exposureCol = "Total",
-      GroupID = "CustomGroupID"
+      GroupID = "CountryID"
     )
 
   t9_2_analyzed <- t9_2_transformed %>%

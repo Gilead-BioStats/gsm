@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Protocol Deviation Assessment - Raw Mapping
+#' Protocol Deviation Assessment (Rate Outcome) - Raw Mapping
 #'
 #' @description
 #' Convert raw protocol deviation (PD) data, typically processed case report form data, to formatted
@@ -22,7 +22,7 @@
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` Data frame with one record per subject, the input to [gsm::PD_Assess_Rate()]. If
-#' `bReturnChecks` is `TRUE` `PD_Map_Raw` returns a named `list` with:
+#' `bReturnChecks` is `TRUE` `PD_Map_Raw_Rate` returns a named `list` with:
 #' - `df`: the data frame described above
 #' - `lChecks`: a named `list` of check results
 #'
@@ -43,9 +43,9 @@
 PD_Map_Raw_Rate <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
-    dfPD = clindata::rawplus_protdev
+    dfPD = clindata::ctms_protdev
   ),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  lMapping = yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {

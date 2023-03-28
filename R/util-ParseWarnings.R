@@ -1,13 +1,13 @@
 #' `r lifecycle::badge("experimental")`
 #'
-#' Parse warnings from the result of Study_Assess.
+#' Parse warnings from the result of [gsm::Study_Assess()].
 #'
 #' @description
-#' `ParseWarnings` is used inside of `Make_Snapshot()` to summarize any issues with data needed to run a KRI or QTL. If there are any warnings for any
+#' `ParseWarnings` is used inside of [gsm::Make_Snapshot()] to summarize any issues with data needed to run a KRI or QTL. If there are any warnings for any
 #' workflow run via `Make_Snapshot()`, they are appended to the `notes` column in the  `status_workflow` data.frame, which is included in the output
 #' of `Make_Snapshot()`. If there are no warnings, the `notes` column contains `NA` for all KRIs/QTLs.
 #'
-#' @param lResults `list` List returned from `gsm::Study_Assess()`.
+#' @param lResults `list` List returned from [gsm::Study_Assess()].
 #'
 #' @examples
 #' # Set all subjid to NA to create warnings
@@ -24,20 +24,19 @@
 #' warnings <- ParseWarnings(study)
 #' }
 #'
-#' @return `data.frame` With columns `notes` and `workflowid`.
+#' @return `data.frame` With columns `workflowid`, `status`, and `notes`.
 #'
-#' @importFrom purrr map imap map_df discard imap_dfr
+#' @import purrr
 #' @importFrom stats setNames
 #'
 #' @export
 ParseWarnings <- function(lResults) {
-
   # lChecks
   overall_standard <- lResults %>%
     purrr::imap(function(x, y) {
       tibble(overall_status = x$bStatus, workflowid = y)
     }) %>%
-    list_rbind()
+    purrr::list_rbind()
 
   standard <- lResults %>%
     purrr::map(function(kri) {
@@ -52,14 +51,12 @@ ParseWarnings <- function(lResults) {
         })
     }) %>%
     purrr::imap(function(data, index) {
-
       if (length(data) > 0) {
         dplyr::bind_rows(unname(data), .id = index) %>%
           dplyr::pull(warning) %>%
           purrr::discard(is.na) %>%
           paste(collapse = "\n")
       }
-
     }) %>%
     purrr::imap_dfr(function(x, y) {
       dplyr::tibble(notes = x, workflowid = y)
@@ -77,11 +74,14 @@ ParseWarnings <- function(lResults) {
     })
 
   workflow_overall <-
-    workflow %>% imap(function(x, y) {
-      tibble(workflowid = y,
-             workflow_overall_status = x$bStatus)
+    workflow %>%
+    purrr::imap(function(x, y) {
+      tibble(
+        workflowid = y,
+        workflow_overall_status = x$bStatus
+      )
     }) %>%
-    list_rbind()
+    purrr::list_rbind()
 
 
   # get workflow dimensions check -------------------------------------------
@@ -92,9 +92,9 @@ ParseWarnings <- function(lResults) {
         workflow_has_steps = x$workflow_has_steps
       )
     }) %>%
-    imap(function(x, y) {
+    purrr::imap(function(x, y) {
       x %>%
-        imap(function(data, nm) {
+        purrr::imap(function(data, nm) {
           tibble(
             workflowid = y,
             check = nm,
@@ -103,15 +103,14 @@ ParseWarnings <- function(lResults) {
           )
         })
     }) %>%
-    map(function(x) {
-      x %>% list_rbind()
+    purrr::map(function(x) {
+      x %>% purrr::list_rbind()
     }) %>%
-    list_rbind()
+    purrr::list_rbind()
 
   # get each step of workflow check -----------------------------------------
   workflow_steps_overall <- workflow %>%
     purrr::imap(function(x, y) {
-
       overall <- x$steps_are_valid
 
       tibble(
@@ -119,7 +118,6 @@ ParseWarnings <- function(lResults) {
         status = overall$status,
         notes = overall$message
       )
-
     }) %>%
     purrr::list_rbind() %>%
     mutate(
@@ -164,17 +162,21 @@ ParseWarnings <- function(lResults) {
   steps <- workflow_steps %>%
     group_split(.data$workflowid) %>%
     purrr::map(function(x) {
-      overall <- x %>% filter(.data$check_name == "overall") %>% pull(.data$status)
+      overall <- x %>%
+        filter(.data$check_name == "overall") %>%
+        pull(.data$status)
 
       if (overall) {
         tibble(workflowid = unique(x$workflowid), workflow_steps_status = TRUE, workflow_steps_notes = "")
       } else {
-        notes <- x %>% filter(.data$status == FALSE) %>% pull(.data$notes)
+        notes <- x %>%
+          filter(.data$status == FALSE) %>%
+          pull(.data$notes)
         notes <- paste(notes, collapse = ", ")
         tibble(workflowid = unique(x$workflowid), workflow_steps_status = FALSE, workflow_steps_notes = notes)
       }
     }) %>%
-    list_rbind()
+    purrr::list_rbind()
 
 
   # consolidate dimensions to single row ------------------------------------
@@ -184,15 +186,17 @@ ParseWarnings <- function(lResults) {
       if (all(x$status)) {
         tibble(workflowid = unique(x$workflowid), workflow_dimensions_status = TRUE, workflow_dimensions_notes = "")
       } else {
-        notes <- x %>% filter(.data$status == FALSE) %>% pull(notes)
+        notes <- x %>%
+          filter(.data$status == FALSE) %>%
+          pull(notes)
         notes <- paste(notes, collapse = ", ")
         tibble(workflowid = unique(x$workflowid), workflow_dimensions_status = FALSE, workflow_dimensions_notes = notes)
       }
     }) %>%
-    list_rbind()
+    purrr::list_rbind()
 
 
-  all_workflow <- reduce(list(workflow_overall, steps, dimensions), left_join, by = "workflowid")
+  all_workflow <- purrr::reduce(list(workflow_overall, steps, dimensions), left_join, by = "workflowid")
 
   warnings <- left_join(standard, all_workflow, by = "workflowid") %>%
     select("workflowid", ends_with("status"), ends_with("notes"))
@@ -204,7 +208,7 @@ ParseWarnings <- function(lResults) {
     ) %>%
     ungroup() %>%
     mutate(across(c("notes", "workflow_steps_notes", "workflow_dimensions_notes"), function(x) ifelse(x == "", NA, x))) %>%
-    tidyr::unite("notes", c("notes", "workflow_steps_notes", 'workflow_dimensions_notes'), na.rm = TRUE, sep = ", ") %>%
+    tidyr::unite("notes", c("notes", "workflow_steps_notes", "workflow_dimensions_notes"), na.rm = TRUE, sep = ", ") %>%
     select(
       "workflowid",
       "status",
@@ -212,5 +216,4 @@ ParseWarnings <- function(lResults) {
     )
 
   return(warnings)
-
 }

@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Data Entry Lag - Raw Mapping
+#' Data Entry Lag Assessment - Raw Mapping
 #'
 #' @description
 #' Convert raw data entry data to formatted input data to [gsm::DataEntry_Assess()].
@@ -14,6 +14,7 @@
 #'   - `dfDATAENT`: `data.frame` Data-Point-level data with one record per data entry.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
+#' @param nMaxDataEntryLag `numeric` Expected number of days allowed to enter data
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -41,9 +42,10 @@
 DataEntry_Map_Raw <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
-    dfDATAENT = clindata::edc_data_entry_lag
+    dfDATAENT = clindata::edc_data_pages
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+  nMaxDataEntryLag = 10,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 
@@ -73,7 +75,7 @@ DataEntry_Map_Raw <- function(
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
-        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        SubjectID = lMapping[["dfSUBJ"]][["strEDCIDCol"]],
         any_of(
           c(
             SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
@@ -89,7 +91,7 @@ DataEntry_Map_Raw <- function(
     dfInput <- dfDATAENT_mapped %>%
       mutate(
         Count = if_else(
-          .data$DataEntryLag %in% lMapping[["dfDATAENT"]][["strDataEntryLagVal"]],
+          .data$DataEntryLag > nMaxDataEntryLag,
           1,
           0
         ),

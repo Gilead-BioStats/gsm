@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Run a single step in a workflow
+#' Run a single step in a workflow.
 #'
 #' @description
 #' Runs a single step of an assessment workflow. Currently supports `Filter`, `Map`, and `Assess`
@@ -9,12 +9,11 @@
 #' @param lStep `list` single workflow step (typically defined in `lWorkflow$workflow`). Should
 #'   include the name of the function to run (`lStep$name`), data inputs (`lStep$inputs`), name of
 #'   output (`lStep$output`) and configurable parameters (`lStep$params`) (if any)
-#' @param lMapping `list` List containing expected columns in each data set.
+#' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param lData `list` a named list of domain level data frames. Names should match the values
 #'   specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs
 #'   from `X_Map_Raw`.
-#' @param bQuiet `logical` Default is TRUE, which means warning messages are suppressed. Set to
-#'   FALSE to see warning messages.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #'
 #' @examples
@@ -25,7 +24,7 @@
 #' lData <- list(
 #'   dfSUBJ = clindata::rawplus_dm,
 #'   dfAE = clindata::rawplus_ae,
-#'   dfPD = clindata::rawplus_protdev,
+#'   dfPD = clindata::ctms_protdev,
 #'   dfCONSENT = clindata::rawplus_consent,
 #'   dfIE = clindata::rawplus_ie
 #' )

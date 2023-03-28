@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("experimental")`
 #'
-#' Run a stratified workflow
+#' Run a stratified workflow via workflow YAML specification.
 #'
 #' @description
 #' Attempts to run a stratified workflow (`lWorkflow`) using shared data (`lData`) and metadata (`lMapping`).
@@ -15,12 +15,11 @@
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`
 #'
-#' @return `list` `lWorkflow` along with `workflow`, `path`, `name`, `lData`, `lChecks`,
-#' `bStatus`, `checks`, and `lResults` added based on the results of the execution of
+#' @return `list` with `group`, `steps`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `lWorkflowChecks` and `lResults` added based on the results of the execution of
 #' `lWorkflow$workflow`.
 #'
 #' @examples
-#' lWorkflows <- MakeWorkflowList()
+#' lWorkflows <- MakeWorkflowList(bRecursive = TRUE)
 #' lData <- list(
 #'   dfAE = clindata::rawplus_ae,
 #'   dfCONSENT = clindata::rawplus_consent,
@@ -28,7 +27,7 @@
 #'   dfDISP_Treatment = clindata::rawplus_sdrgcomp,
 #'   dfIE = clindata::rawplus_ie,
 #'   dfLB = clindata::rawplus_lb,
-#'   dfPD = clindata::rawplus_protdev,
+#'   dfPD = clindata::ctms_protdev,
 #'   dfSUBJ = clindata::rawplus_dm
 #' )
 #' lMapping <- yaml::read_yaml(

@@ -21,6 +21,20 @@
       [1] "scatter"     "scatterJS"   "barMetric"   "barScore"    "barMetricJS"
       [6] "barScoreJS" 
 
+---
+
+    Code
+      names(output$lChecks)
+    Output
+      [1] "dfInput" "status"  "mapping" "spec"   
+
+---
+
+    Code
+      names(output$lChecks$lData$dfSummary)
+    Output
+      NULL
+
 # grouping works as expected
 
     Code
@@ -39,7 +53,7 @@
        8 78     
        9 44     
       10 43     
-      # ... with 30 more rows
+      # i 30 more rows
 
 ---
 
@@ -81,7 +95,7 @@
        8 0X049  
        9 0X108  
       10 0X159  
-      # ... with 30 more rows
+      # i 30 more rows
 
 # invalid data throw errors
 
@@ -97,7 +111,7 @@
 
 ---
 
-    i In argument: `Metric = .data$vMu + ...`.
+    i In argument: `Metric = .data$vMu + .data$Threshold * sqrt(.data$phi * .data$vMu/.data$Denominator)`.
     Caused by error in `.data$Threshold * sqrt(.data$phi * .data$vMu / .data$Denominator)`:
     ! non-numeric argument to binary operator
 

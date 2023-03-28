@@ -15,10 +15,10 @@ Flag_QTL(dfAnalyzed, vThreshold = NULL)
 \code{data.frame} with "Flag" column added
 }
 \description{
-Flag QTL
+This function flags a study-level QTL metric by comparing the mean and lower confidence bound for the metric to a single threshold.
 }
 \details{
-This function flags a study-level QTL metric by comparing the mean and lower confidence bound for the metric to a single threshold.
+Flag QTL
 }
 \section{Data Specification}{
 

@@ -91,13 +91,11 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
     tests_if$spec_is_list$warning <- "spec is not a list()"
     tests_if$mappings_are_character$warning <- "spec is not a list()"
     tests_if$has_expected_columns$warning <- "spec is not a list()"
-
   } else {
     tests_if$spec_is_list$status <- TRUE
   }
 
   if (tests_if$spec_is_list$status) {
-
     # has required parameters in `mapping`
     if (!all(spec$vRequired %in% names(mapping))) {
       missing_params <- paste(spec$vRequired[!(spec$vRequired %in% names(mapping))], collapse = ", ")
@@ -108,7 +106,7 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
     }
 
     # mapping contains character values for column names
-    colParams <- spec$vRequired %>% str_subset("[c|C]ol$")
+    colParams <- spec$vRequired %>% stringr::str_subset("[c|C]ol$")
     colNames <- unlist(unname(mapping[colParams]))
     if (!all(is.character(colNames))) {
       tests_if$mappings_are_character$status <- FALSE
@@ -128,7 +126,6 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
     } else {
       tests_if$has_expected_columns$status <- TRUE
     }
-
   }
 
 

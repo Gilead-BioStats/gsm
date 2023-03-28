@@ -1,13 +1,13 @@
 #' `r lifecycle::badge("experimental")`
 #'
-#' Update GSM Version
+#' Update GSM Version (`gsm_version` column) in metadata for [gsm::meta_param] and [gsm::meta_workflow].
 #'
 #' @description
-#' Automatically updates metadata that relies on the current `{gsm}` version.
+#' Automatically updates metadata that relies on the current `{gsm}` version. Exported `{gsm}` data, as well as raw `.csv` files are updated.
 #'
 #' @param version If `NULL` (the default), updates metadata to current version as indicated in the DESCRIPTION file.
 #'
-#' @return Updated metadata. Currently [gsm::meta_param] and [gsm::meta_workflow]
+#' @return Updated metadata. Currently [gsm::meta_param] and [gsm::meta_workflow].
 #'
 #' @examples
 #' \dontrun{
@@ -17,6 +17,7 @@
 #' @importFrom utils packageVersion write.csv
 #' @importFrom here here
 #' @importFrom purrr map set_names iwalk
+#' @importFrom cli cli_alert_success
 #'
 #' @export
 UpdateGSMVersion <- function(version = NULL) {

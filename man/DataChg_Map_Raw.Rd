@@ -5,7 +5,7 @@
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 DataChg_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDATACHG = clindata::edc_data_change_rate),
+  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDATACHG = clindata::edc_data_points),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
     "gsm")),
   bReturnChecks = FALSE,
@@ -38,7 +38,7 @@ of the column.}
 Convert raw data entry data to formatted input data to \code{\link[=DataChg_Assess]{DataChg_Assess()}}.
 }
 \details{
-Data Change Rate - Raw Mapping
+Data Change Rate Assessment - Raw Mapping
 
 \code{DataChg_Map_Raw} creates an input dataset for the Data Change Rate Assessment \code{\link[=DataChg_Assess]{DataChg_Assess()}} by adding
 Data Points with Change Counts (derived from \code{dfDATACHG}) to basic subject-level data (from \code{dfSUBJ}).
@@ -47,10 +47,9 @@ Data Points with Change Counts (derived from \code{dfDATACHG}) to basic subject-
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
-   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
-   dfDATACHG \tab strIDCol \tab  \tab TRUE \tab FALSE \cr
-   dfDATACHG \tab strDataPointsCol \tab  \tab TRUE \tab FALSE \cr
-   dfDATACHG \tab strDataPointsChangeCol \tab  \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strEDCIDCol \tab subject_nsv \tab TRUE \tab TRUE \cr
+   dfDATACHG \tab strIDCol \tab subjectname \tab TRUE \tab FALSE \cr
+   dfDATACHG \tab strNChangesCol \tab n_changes \tab TRUE \tab FALSE \cr
 }
 }
 

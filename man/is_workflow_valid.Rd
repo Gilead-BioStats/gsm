@@ -2,20 +2,29 @@
 % Please edit documentation in R/is_workflow_valid.R
 \name{is_workflow_valid}
 \alias{is_workflow_valid}
-\title{Check if workflow is valid/contains necessary metadata.}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 is_workflow_valid(lWorkflow)
 }
 \arguments{
-\item{lWorkflow}{\code{list} of workflows to be run in \code{Study_Assess()} or \code{Make_Snapshot()}.}
+\item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
 }
 \value{
-\code{list} with TRUE/FALSE status for each workflow.
+\code{list} with \code{TRUE}/\code{FALSE} status for each workflow.
 }
 \description{
 Check if workflow is valid/contains necessary metadata.
 }
 \examples{
 workflow <- MakeWorkflowList()
+
+# check a single workflow
+valid_workflow <- is_workflow_valid(workflow[[2]])
+
+# check all workflows
+library(dplyr)
+library(purrr)
+valid_workflow_all <- workflow \%>\%
+  purrr::map(~is_workflow_valid(.) \%>\% purrr::pluck('bStatus'))
 
 }

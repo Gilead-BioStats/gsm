@@ -7,7 +7,7 @@
 RunWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE, bFlowchart = FALSE)
 }
 \arguments{
-\item{lWorkflow}{\code{list} A named list of metadata defining how each assessment should be run. Properties should include: \code{label} and \code{workflow}}
+\item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
 
 \item{lData}{\code{list} A named list of domain-level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
@@ -18,16 +18,16 @@ RunWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE, bFlowchart = FALSE)
 \item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}}
 }
 \value{
-\code{list} containing \code{lWorkflow} with \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of \code{assessment$workflow}.
+\code{list} containing objects named: \code{steps}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{lWorkflowChecks}, and \code{lResults}.
 
 \code{list} containing \code{lAssessment} with \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of \code{assessment$workflow}.
 }
 \description{
 Attempts to run a single assessment (\code{lWorkflow}) using shared data (\code{lData}) and metadata (\code{lMapping}).
-Calls \code{RunStep} for each item in \code{lWorkflow$workflow} and saves the results to \code{lWorkflow}
+Calls \code{RunStep} for each item in \code{lWorkflow$workflow} and saves the results to \code{lWorkflow}.
 }
 \details{
-Run a single assessment
+Run a single assessment via workflow YAML specification.
 }
 \examples{
 lAssessments <- MakeWorkflowList()
@@ -37,7 +37,7 @@ lData <- list(
   dfDISP = clindata::rawplus_dm,
   dfIE = clindata::rawplus_ie,
   dfLB = clindata::rawplus_lb,
-  dfPD = clindata::rawplus_protdev,
+  dfPD = clindata::ctms_protdev,
   dfSUBJ = clindata::rawplus_dm
 )
 

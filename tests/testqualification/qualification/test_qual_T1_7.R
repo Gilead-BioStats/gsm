@@ -1,5 +1,4 @@
-test_that("Given an appropriate subset of Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Site variable using the Normal Approximation method and correctly assigns Flag variable values.", {
-
+test_that("Given an appropriate subset of Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Site variable using the Normal Approximation method and correctly assigns Flag variable values when given a custom threshold.", {
   dfInput <- gsm::AE_Map_Raw(dfs = list(
     dfAE = clindata::rawplus_ae %>% filter(aeser_std_nsv == "Y"),
     dfSUBJ = clindata::rawplus_dm
@@ -7,7 +6,7 @@ test_that("Given an appropriate subset of Adverse Event data, the assessment fun
 
   test1_7 <- AE_Assess(dfInput,
     strMethod = "NormalApprox",
-    vThreshold = c(-3, -2, 2, 3)
+    vThreshold = c(-3, -1, 1, 3)
   )
 
 
@@ -23,7 +22,7 @@ test_that("Given an appropriate subset of Adverse Event data, the assessment fun
   class(t7_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t7_flagged <- t7_analyzed %>%
-    qualification_flag_normalapprox()
+    qualification_flag_normalapprox(threshold = c(-3, -1, 1, 3))
 
   t7_summary <- t7_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

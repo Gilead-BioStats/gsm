@@ -6,7 +6,7 @@
 #' Evaluates sites exhibiting aberrant or excessive rates of unmet or missing inclusion/exclusion (IE) criteria.
 #'
 #' @details
-#' The IE Assessment uses the standard [GSM data pipeline](
+#' The Inclusion/Exclusion Assessment uses the standard [GSM data pipeline](
 #'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
 #' ) to flag sites with IE issues. This assessment detects sites with excessive rates of unmet or
 #' missing IE criteria, as defined by `nThreshold`. The count returned in the summary represents the
@@ -16,7 +16,7 @@
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Inclusion/Exclusion Assessment mapping.
-#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'

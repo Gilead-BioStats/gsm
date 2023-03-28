@@ -8,6 +8,7 @@ QueryAge_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
     "gsm")),
+  nMaxQueryAge = 30,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -21,6 +22,8 @@ QueryAge_Map_Raw(
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column.}
+
+\item{nMaxQueryAge}{\code{numeric} Expected number of days allowed to answer or resolve query}
 
 \item{bReturnChecks}{\code{logical} Return input checks from \code{\link[=is_mapping_valid]{is_mapping_valid()}}? Default: \code{FALSE}}
 
@@ -38,7 +41,7 @@ of the column.}
 Convert raw query data to formatted input data to \code{\link[=QueryAge_Assess]{QueryAge_Assess()}}.
 }
 \details{
-Query Age - Raw Mapping
+Query Age Assessment - Raw Mapping
 
 \code{QueryAge_Map_Raw} combines query data with data points data and subject-level data to create
 formatted input data to \code{\link[=QueryAge_Assess]{QueryAge_Assess()}}. This function creates an input dataset for the Query Age Assessment
@@ -50,10 +53,9 @@ queries by passing filtered query data to \code{dfQUERY}.
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
-   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
-   dfDATACHG \tab strIDCol \tab  \tab TRUE \tab FALSE \cr
-   dfDATACHG \tab strDataPointsCol \tab  \tab TRUE \tab FALSE \cr
-   dfDATACHG \tab strDataPointsChangeCol \tab  \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strEDCIDCol \tab subject_nsv \tab TRUE \tab TRUE \cr
+   dfDATACHG \tab strIDCol \tab subjectname \tab TRUE \tab FALSE \cr
+   dfDATACHG \tab strNChangesCol \tab n_changes \tab TRUE \tab FALSE \cr
 }
 }
 

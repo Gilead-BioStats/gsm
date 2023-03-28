@@ -3,8 +3,9 @@ source(testthat::test_path("testdata/data.R"))
 map_function <- gsm::DataEntry_Map_Raw
 
 dfs <- list(
-  dfDATAENT = clindata::edc_data_entry_lag,
-  dfSUBJ = dfSUBJ
+  dfDATAENT = clindata::edc_data_pages,
+  dfSUBJ = clindata::rawplus_dm %>%
+    slice_sample(n = 3)
 )
 
 input_spec <- yaml::read_yaml(system.file("specs", "DataEntry_Map_Raw.yaml", package = "gsm"))

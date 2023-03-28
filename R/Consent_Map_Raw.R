@@ -86,7 +86,7 @@ Consent_Map_Raw <- function(
             CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
           )
         ),
-        RandDate = lMapping[["dfSUBJ"]][["strRandDateCol"]]
+        StudyStartDate = lMapping[["dfSUBJ"]][["strStudyStartDateCol"]]
       )
 
     if (!is.null(lMapping$dfCONSENT$strConsentTypeVal)) {
@@ -111,8 +111,8 @@ Consent_Map_Raw <- function(
       mutate(
         flag_noconsent = .data$ConsentStatus != lMapping$dfCONSENT$strConsentStatusVal,
         flag_missing_consent = is.na(.data$ConsentDate),
-        flag_missing_rand = is.na(.data$RandDate),
-        flag_date_compare = .data$ConsentDate >= .data$RandDate,
+        flag_missing_rand = is.na(.data$StudyStartDate),
+        flag_date_compare = .data$ConsentDate >= .data$StudyStartDate,
         any_flag = .data$flag_noconsent | .data$flag_missing_consent | .data$flag_missing_rand | .data$flag_date_compare,
         Count = as.numeric(.data$any_flag, na.rm = TRUE)
       ) %>%

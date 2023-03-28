@@ -12,13 +12,13 @@ Flag_Fisher(dfAnalyzed, vThreshold = NULL)
 \item{vThreshold}{Vector of 2 numeric values representing lower and upper p-value thresholds.}
 }
 \value{
-\code{data.frame} with one row per site with columns: \code{GroupID}, \code{Numerator}, \code{Denominator}, \code{Numerator_Other}, \code{Denominator}, \code{Denominator_Other}, \code{Prop}, \code{Prop_Other}, \code{Metric}, \code{Estimate}, \code{Score}, \code{Flag}
+\code{data.frame} with one row per site with columns: \code{GroupID}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{PredictedCount}, and \code{Flag}.
 }
 \description{
-Flag_Fisher
+Add columns flagging sites that represent possible statistical outliers when the Fisher's Exact Test is used.
 }
 \details{
-Add columns flagging sites that represent possible statistical outliers when the Fisher's Exact Test is used.
+Flag_Fisher
 
 This function flags sites based on the Fisher's Exact Test result as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
 }

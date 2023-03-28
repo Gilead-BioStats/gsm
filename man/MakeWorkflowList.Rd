@@ -24,10 +24,10 @@ MakeWorkflowList(
 \code{list} A list of assessments with workflow and parameter metadata.
 }
 \description{
-Load assessments from a package/directory
+Load assessments from a package/directory.
 }
 \details{
-\code{MakeWorkflowList()} is a utility function that creates a workflow mapping for assessments used in \code{Study_Assess()}.
+\code{MakeWorkflowList()} is a utility function that creates a workflow mapping for assessments used in \code{\link[=Study_Assess]{Study_Assess()}}.
 }
 \examples{
 workflow <- MakeWorkflowList(strPath = "workflow", strPackage = "gsm")

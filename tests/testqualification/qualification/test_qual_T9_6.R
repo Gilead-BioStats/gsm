@@ -1,11 +1,11 @@
-test_that("Given appropriate Query Age data, the assessment function correctly performs a Query Age Assessment grouped by the Country variable using the Identity method and correctly assigns Flag variable values.", {
+test_that("Given appropriate Query Age data, the assessment function correctly performs a Query Age Assessment grouped by a custom variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::QueryAge_Map_Raw()
 
   test9_6 <- QueryAge_Assess(
     dfInput = dfInput,
     strMethod = "Identity",
-    strGroup = "Country"
+    strGroup = "CustomGroup"
   )
 
   # double programming
@@ -15,7 +15,7 @@ test_that("Given appropriate Query Age data, the assessment function correctly p
     qualification_transform_counts(
       countCol = "Count",
       exposureCol = "Total",
-      GroupID = "CountryID"
+      GroupID = "CustomGroupID"
     )
 
   t9_6_analyzed <- t9_6_transformed %>%

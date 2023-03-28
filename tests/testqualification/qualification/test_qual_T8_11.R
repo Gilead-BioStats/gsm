@@ -16,8 +16,10 @@ test_that("Given appropriate Data Entry Lag data, the assessment function correc
   t8_11_input <- dfInput
 
   t8_11_transformed <- dfInput %>%
-    qualification_transform_counts(countCol = "Count",
-                                   exposureCol = "Total")
+    qualification_transform_counts(
+      countCol = "Count",
+      exposureCol = "Total"
+    )
 
   t8_11_analyzed <- t8_11_transformed %>%
     mutate(
@@ -34,10 +36,16 @@ test_that("Given appropriate Data Entry Lag data, the assessment function correc
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0))) %>%
-    mutate(Score = case_when(Denominator >= nMinDenominator ~ Score,
-                             Denominator < nMinDenominator ~ NA_real_),
-           Flag = case_when(Denominator >= nMinDenominator ~ Flag,
-                            Denominator < nMinDenominator ~ NA_real_))
+    mutate(
+      Score = case_when(
+        Denominator >= nMinDenominator ~ Score,
+        Denominator < nMinDenominator ~ NA_real_
+      ),
+      Flag = case_when(
+        Denominator >= nMinDenominator ~ Flag,
+        Denominator < nMinDenominator ~ NA_real_
+      )
+    )
 
 
   t8_11 <- list(

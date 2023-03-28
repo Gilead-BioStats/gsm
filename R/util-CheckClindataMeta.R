@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("experimental")`
 #'
-#' Check gsm_version in clindata metadata
+#' Check gsm_version in clindata metadata.
 #'
 #' @param config `list` Named list of metadata to check from the `{clindata}` package.
 #' @param ci_check `logical` If `TRUE`, return data.frame with results of the version check. If `FALSE` (default), only console messages are returned.
@@ -15,6 +15,7 @@
 #' @importFrom cli cli_alert_danger cli_alert_success
 #' @importFrom purrr imap
 #' @importFrom utils packageVersion
+#' @importFrom glue glue
 #'
 #' @export
 CheckClindataMeta <- function(
@@ -38,7 +39,7 @@ CheckClindataMeta <- function(
     bind_rows()
 
 
-  if (!any(config$status)) {
+  if (any(config$status == FALSE)) {
     mismatch <- config %>%
       filter(.data$status == FALSE) %>%
       mutate(warning = glue::glue("clindata table: `{data}` has gsm version {gsm_version} and the current gsm version is {current_gsm_version}"))

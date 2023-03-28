@@ -12,8 +12,8 @@ parse_data_mapping(content = NULL, file = NULL)
 \item{file}{\code{character} file path of .yaml file}
 }
 \description{
-Parse Data Mapping
+Transform nested data mapping to tabular structure for use in documentation.
 }
 \details{
-Transform nested data mapping to tabular structure for use in documentation.
+Parse Data Mapping.
 }

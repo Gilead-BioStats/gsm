@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Query Age - Raw Mapping
+#' Query Age Assessment - Raw Mapping
 #'
 #' @description
 #' Convert raw query data to formatted input data to [gsm::QueryAge_Assess()].
@@ -17,6 +17,7 @@
 #'   - `dfQUERY`: `data.frame` Query-level data with one record per query.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column.
+#' @param nMaxQueryAge `numeric` Expected number of days allowed to answer or resolve query
 #' @param bReturnChecks `logical` Return input checks from [gsm::is_mapping_valid()]? Default: `FALSE`
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -35,6 +36,7 @@
 #' dfInput <- QueryAge_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
+#' @importFrom yaml read_yaml
 #' @import dplyr
 #'
 #' @export
@@ -45,6 +47,7 @@ QueryAge_Map_Raw <- function(
     dfQUERY = clindata::edc_queries
   ),
   lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+  nMaxQueryAge = 30,
   bReturnChecks = FALSE,
   bQuiet = TRUE
 
@@ -74,7 +77,7 @@ QueryAge_Map_Raw <- function(
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
-        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        SubjectID = lMapping[["dfSUBJ"]][["strEDCIDCol"]],
         any_of(
           c(
             SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
@@ -86,11 +89,10 @@ QueryAge_Map_Raw <- function(
       )
 
     # Create subject Level aged query counts and merge dfSUBJ
-
     dfInput <- dfQUERY_mapped %>%
       mutate(
         Count = if_else(
-          .data$QueryAge %in% lMapping[["dfQUERY"]][["strQueryAgeVal"]],
+          .data$QueryAge > nMaxQueryAge,
           1,
           0
         ),

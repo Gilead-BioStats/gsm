@@ -140,21 +140,33 @@ qualification_analyze_normalapprox <- function(dfTransformed, strType) {
     scored <- dfTransformed %>%
       mutate(
         OverallMetric = sum(Numerator) / sum(Denominator),
-        z_0 = (Metric - OverallMetric) /
-          sqrt(OverallMetric * (1 - OverallMetric) / Denominator),
+        z_0 = ifelse(OverallMetric == 0 | OverallMetric == 1,
+          0,
+          ((Metric - OverallMetric) /
+            sqrt(OverallMetric * (1 - OverallMetric) / Denominator))
+        ),
         Factor = mean(z_0^2),
-        Score = (Metric - OverallMetric) /
-          sqrt(Factor * OverallMetric * (1 - OverallMetric) / Denominator)
+        Score = ifelse(OverallMetric == 0 | OverallMetric == 1 | Factor == 0,
+          0,
+          ((Metric - OverallMetric) /
+            sqrt(Factor * OverallMetric * (1 - OverallMetric) / Denominator))
+        )
       )
   } else if (strType == "rate") {
     scored <- dfTransformed %>%
       mutate(
         OverallMetric = sum(Numerator) / sum(Denominator),
-        z_0 = (Metric - OverallMetric) /
-          sqrt(OverallMetric / Denominator),
+        z_0 = ifelse(OverallMetric == 0 | OverallMetric == 1,
+          0,
+          ((Metric - OverallMetric) /
+            sqrt(OverallMetric / Denominator))
+        ),
         Factor = mean(z_0^2),
-        Score = (Metric - OverallMetric) /
-          sqrt(Factor * OverallMetric / Denominator)
+        Score = ifelse(OverallMetric == 0 | Factor == 0,
+          0,
+          ((Metric - OverallMetric) /
+            sqrt(Factor * OverallMetric / Denominator))
+        )
       )
   }
 
@@ -187,7 +199,7 @@ qualification_flag_normalapprox <- function(dfAnalyzed, threshold = c(-3, -2, 2,
     arrange(match(Flag, c(2, -2, 1, -1, 0)))
 }
 
-qualification_flag_identity <- function(dfAnalyzed, threshold = c(3.491, 5.172)) {
+qualification_flag_identity <- function(dfAnalyzed, threshold = c(0.000895, 0.003059)) {
   dfAnalyzed %>%
     mutate(
       Flag = case_when(

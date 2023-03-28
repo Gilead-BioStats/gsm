@@ -20,7 +20,7 @@
 #'   - `"Identity"`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Labs Assessment mapping.
-#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
@@ -178,7 +178,7 @@ DataEntry_Assess <- function(
       strGroup = strGroup,
       strAbbreviation = "ODAT",
       strMetric = "Outstanding Data Entry Rate",
-      strNumerator = "Data Pages Entered > 10 Days",
+      strNumerator = "Outstanding Data Pages",
       strDenominator = "Total Data Pages",
       vThreshold = vThreshold
     )

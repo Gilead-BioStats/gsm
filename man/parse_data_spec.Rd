@@ -12,8 +12,8 @@ parse_data_spec(content = NULL, file = NULL)
 \item{file}{\code{character} file path of .yaml file}
 }
 \description{
-Parse Data Specification
+Transform nested data specification to tabular structure for use in documentation.
 }
 \details{
-Transform nested data specification to tabular structure for use in documentation.
+Parse Data Specification.
 }

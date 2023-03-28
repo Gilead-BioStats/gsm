@@ -75,34 +75,39 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strCategoryCol", "strImportantCol", "strImportantVal", "strNonImportantVal"]
+              "value": ["strIDCol", "strDateCol", "strCategoryCol", "strImportantCol", "strImportantVal", "strNonImportantVal"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["subjid"]
+              "value": ["SubjectEnrollmentNumber"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["dvdecod"]
+              "value": ["DeviationDate"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["importnt"]
+              "value": ["GileadCategory"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["Y"]
+              "value": ["DeemedImportant"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["N"]
+              "value": ["Yes"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["No"]
             }
           ]
         },
@@ -112,7 +117,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strCustomGroupCol", "strCountryCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol"]
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strEDCIDCol", "strStudyStartDateCol", "strStudyEndDateCol", "strTimeOnStudyCol", "strTreatmentStartDateCol", "strTreatmentEndDateCol", "strTimeOnTreatmentCol", "strCountryCol", "strCustomGroupCol", "strEnrollCol", "strEnrollVal"]
             }
           },
           "value": [
@@ -129,17 +134,22 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["invid"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["country"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
               "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subject_nsv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["firstparticipantdate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lastparticipantdate"]
             },
             {
               "type": "character",
@@ -149,12 +159,37 @@
             {
               "type": "character",
               "attributes": {},
+              "value": ["firstdosedate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lastdosedate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
               "value": ["timeontreatment"]
             },
             {
               "type": "character",
               "attributes": {},
-              "value": ["rfpst_dt"]
+              "value": ["country"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["enrollyn"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
             }
           ]
         }
@@ -284,7 +319,7 @@
       -- Checking Input Data for `PD_Map_Raw_Rate()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid
+      x the following columns not found in df: SubjectEnrollmentNumber
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -327,7 +362,7 @@
       -- Checking Input Data for `PD_Map_Raw_Rate()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid
+      x the following columns not found in df: SubjectEnrollmentNumber
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -345,7 +380,7 @@
       -- Checking Input Data for `PD_Map_Raw_Rate()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid
+      x the following columns not found in df: SubjectEnrollmentNumber
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -368,7 +403,7 @@
       -- Checking Input Data for `PD_Map_Raw_Rate()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid
+      x the following columns not found in df: SubjectEnrollmentNumber
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -391,7 +426,7 @@
       -- Checking Input Data for `PD_Map_Raw_Rate()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid
+      x the following columns not found in df: SubjectEnrollmentNumber
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -446,7 +481,7 @@
       
       -- Checking Input Data for `PD_Map_Raw_Rate()` --
       
-      x the following columns not found in df: subjid
+      x the following columns not found in df: SubjectEnrollmentNumber
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -514,7 +549,7 @@
       
       -- Checking Input Data for `PD_Map_Raw_Rate()` --
       
-      x 1 NA values found in column: subjid
+      x 1 NA values found in column: SubjectEnrollmentNumber
       ! Issues found for `PD_Map_Raw_Rate()`
       ! `PD_Map_Raw_Rate()` did not run because of failed check.
     Output

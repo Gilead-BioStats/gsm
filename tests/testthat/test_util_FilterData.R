@@ -5,12 +5,12 @@ lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", pack
 test_that("basic filter works", {
   ae_test <- FilterData(
     dfAE,
-    "ae_te",
+    "treatmentemergent",
     "Y"
   )
   expect_equal(
     ae_test,
-    dfAE %>% dplyr::filter(ae_te == "Y")
+    dfAE %>% dplyr::filter(treatmentemergent == "Y")
   )
 })
 
@@ -25,13 +25,13 @@ test_that("invalid column throws an error", {
 
 test_that("filter to 0 rows throws a warning", {
   dfAE <- dfAE %>%
-    dplyr::filter(ae_te == "Y")
+    dplyr::filter(treatmentemergent == "Y")
 
   expect_equal(
     suppressWarnings(
       FilterData(
         dfAE,
-        "ae_te",
+        "treatmentemergent",
         "N"
       )
     ) %>%
@@ -43,7 +43,7 @@ test_that("filter to 0 rows throws a warning", {
 
 test_that("bQuiet works as intended", {
   expect_snapshot(FilterData(dfAE,
-    "ae_te",
+    "treatmentemergent",
     "Y",
     bQuiet = FALSE
   ))
@@ -53,6 +53,6 @@ test_that("error when 'val' and 'col' are switched", {
   expect_error(FilterData(
     dfAE,
     "Y",
-    "ae_te"
+    "treatmentemergent"
   ))
 })

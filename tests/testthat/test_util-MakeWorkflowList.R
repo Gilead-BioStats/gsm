@@ -36,10 +36,8 @@ test_that("Metadata is returned as expected", {
 
 
 test_that("invalid data returns list NULL elements", {
-
-
   ### strNames - testing strNames equal to random numeric array
-  expect_snapshot(wf_list <- MakeWorkflowList(strNames = 'kri8675309', strPath = strPath, strPackage = strPackage, bRecursive = bRecursive))
+  expect_snapshot(wf_list <- MakeWorkflowList(strNames = "kri8675309", strPath = strPath, strPackage = strPackage, bRecursive = bRecursive))
   expect_true(is.list(wf_list))
   expect_null(wf_list$kri8675309)
 

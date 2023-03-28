@@ -7,6 +7,7 @@ test_that("Given appropriate Protocol Deviation data, the assessment function co
   test23_11 <- PD_Assess_Binary(
     dfInput = dfInput,
     strMethod = "Identity",
+    vThreshold = c(0.00001, 0.1),
     nMinDenominator = nMinDenominator
   )
 
@@ -25,32 +26,22 @@ test_that("Given appropriate Protocol Deviation data, the assessment function co
   class(t23_11_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t23_11_flagged <- t23_11_analyzed %>%
-    mutate(
-      Flag = case_when(
-        Score < 0.000895 ~ -1,
-        Score > 0.003059 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(Score),
-      Flag = case_when(
-        Flag != 0 & Score >= median ~ 1,
-        Flag != 0 & Score < median ~ -1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+    qualification_flag_identity(threshold = c(0.00001, 0.1))
 
   t23_11_summary <- t23_11_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0))) %>%
-    mutate(Score = case_when(Denominator >= nMinDenominator ~ Score,
-                             Denominator < nMinDenominator ~ NA_real_),
-           Flag = case_when(Denominator >= nMinDenominator ~ Flag,
-                            Denominator < nMinDenominator ~ NA_real_))
+    mutate(
+      Score = case_when(
+        Denominator >= nMinDenominator ~ Score,
+        Denominator < nMinDenominator ~ NA_real_
+      ),
+      Flag = case_when(
+        Denominator >= nMinDenominator ~ Flag,
+        Denominator < nMinDenominator ~ NA_real_
+      )
+    )
 
   t23_11 <- list(
     "dfTransformed" = t23_11_transformed,

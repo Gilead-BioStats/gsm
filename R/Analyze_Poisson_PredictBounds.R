@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Poisson Analysis - Predicted Boundaries
+#' Poisson Analysis - Predicted Boundaries.
 #'
 #' @details
 #'
@@ -14,7 +14,8 @@
 #' calculated using the method described here TODO: Add link.
 #'
 #' @section Data Specification:
-#' The input data (`dfTransformed`) for Analyze_Poisson is typically created using
+#'
+#' The input data (`dfTransformed`) for `Analyze_Poisson_PredictBounds` is typically created using
 #' \code{\link{Transform_Rate}} and should be one record per site with columns for:
 #' - `GroupID` - Unique subject ID
 #' - `Numerator` - Number of Events

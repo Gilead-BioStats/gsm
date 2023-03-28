@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Poisson Analysis - Site Residuals
+#' Poisson Analysis - Site Residuals.
 #'
 #' @details
 #' Fits a Poisson model to site-level data and adds columns capturing Residual and Predicted Count for each site.
@@ -9,11 +9,11 @@
 #'
 #' This function fits a Poisson model to site-level data and then calculates residuals for each site.
 #' The Poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family
-#' set to `poisson` using a "log" link. Site-level residuals are calculated  `stats::predict.glm` via `broom::augment`.
+#' set to `poisson` using a "log" link. Site-level residuals are calculated using `stats::predict.glm` via `broom::augment`.
 #'
 #' @section Data Specification:
 #'
-#' The input data (`dfTransformed`) for Analyze_Poisson is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
+#' The input data (`dfTransformed`) for `Analyze_Poisson` is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
 #' - `GroupID` - Site ID
 #' - `Numerator` - Number of Adverse Events
 #' - `Denominator` - Number of days of exposure
@@ -22,7 +22,7 @@
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_Rate}}. Must include GroupID, Numerator, Denominator and Metric.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` with columns added for "Score" and "PredictedCount".
+#' @return `data.frame` with one row per site with columns: GroupID, Numerator, Denominator, Metric, Score, and PredictedCount.
 #'
 #' @examples
 #' dfInput <- AE_Map_Raw() %>% na.omit() # na.omit is placeholder for now
