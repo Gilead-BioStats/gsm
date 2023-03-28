@@ -30,9 +30,15 @@ dt <- function(data){
 
 # Overview
 
-This vignette outlines the statistical methods used to evaluate Key Risk Indicators (KRIs) in {gsm}. KRIs are metrics that allow users to measure pre-defined risk and assess the level of observed risk to data quality and patient safety in a clinical trial. The {gsm} package implements a standardized data pipeline to facilitate KRI analysis. Other vignettes provide an overview of this framework ([1](https://silver-potato-cfe8c2fb.pages.github.io/), [2](https://silver-potato-cfe8c2fb.pages.github.io/articles/Cookbook.html) [3](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html), [4](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataAnalysis.html)), and the statistical methods for this process are described in detail below.
+This vignette outlines the statistical methods used to evaluate Key Risk Indicators (KRIs) in {gsm}. KRIs are metrics that allow users to measure pre-defined risks and determine the level of observed risk to data quality and patient safety in a clinical trial. The {gsm} package implements a standardized data pipeline to facilitate KRI analysis. Other vignettes provide an overview of this framework ([1](https://silver-potato-cfe8c2fb.pages.github.io/), [2](https://silver-potato-cfe8c2fb.pages.github.io/articles/Cookbook.html) [3](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html), [4](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataAnalysis.html)), and the statistical methods for this process are described in detail below.
 
-By default, GSM calculates z-scores using a normal approximation with adjustment for over-dispersion to assign risk levels. For KRIs that are percentages (binary outcome), we apply the normal approximation of the binomial distribution; for KRIs that are rates, the normal approximation of the Poisson distribution is used. Alternative statistical methods to calculate standardized scores are also available in {gsm}, including the Identity, Fisher and Poisson methods. More details are provided below.
+GSM calculates KRIs by defining a numerator and a denominator for each metric. Then by default, GSM calculates z-scores using a normal approximation with adjustment for over-dispersion to assign risk levels. 
+
+For KRIs that are percentages (binary outcome), the numerator is the # of events and the denominator is the # of total participants, and we then apply the normal approximation of the binomial distribution to determine a risk level. 
+
+For KRIs that are rates (count outcome), the numerator is the # of events and the denominator is the total participant exposure or study duration, and we then apply the normal approximation of the Poisson distribution to determine a risk level. 
+
+Alternative statistical methods to calculate standardized scores are also available in {gsm}, including the Identity, Fisher and Poisson methods. More details are provided below.
 
 # Statistical Methods
 
@@ -83,13 +89,15 @@ For rate outcome, the over-dispersion adjusted variance is $V'(Y|\theta_0)=\phi\
 
 Therefore, after the over-dispersion adjustment, the adjusted z-score for site $i$ is: $$z_i=\frac{y_i-\theta_0}{\phi\sqrt{V'(Y|\theta_0)}}.$$
 
+Reference: Spiegelhalter, David J. **Funnel plots for comparing institutional performance.** *Statistics in medicine* 24.8 (2005): 1185-1202.
+
 ### Estimate and Score
 
 The function `Analyze_NormalApprox()` in `{gsm}` calculates adjusted z-score for each site as discussed above. The adjusted z-scores are then used as a scoring metric in `{gsm}` to flag possible outliers using the thresholds discussed below.
 
 ### Threshold
 
-Sites with adjusted z-score exceeding +/- 2 or +/- 3 from the normal approximation analysis are flagged as amber or red by default, respectively. The significance level was set at a common choice. However, in different scenarios, the cut-off can be adjusted.
+By default, sites with adjusted z-score exceeding $\pm 2$ or $\pm 3$ from the normal approximation analysis are flagged as amber or red, respectively. The thresholds are set at common choices corresponding to 95.6% and 99.7% of the data around the mean in a standard normal distribution. However, they are fully configurable in the package and can be customized and specified in the {gsm} functions. 
 
 ### Special Situations
 
@@ -101,7 +109,7 @@ Normal approximation method can be used in all scenarios with binary or rate KRI
 
 ## 2. The Identity Method
 
-Identity method simply uses the defined KRI metric itself as the score. The thresholds for monitoring site risk are set based on the actual KRI values.
+Identity method simply uses the count of event in the numerator of the KRI metric itself as the score. The thresholds for monitoring site risk are set based on the actual counts.
 
 ## 3. The Fisher's Exact Method
 
@@ -138,7 +146,7 @@ The function `Analyze_Fisher()` in `{gsm}` utilizes `stats::fisher.test()` to ge
 
 ### Threshold
 
-Sites with p-values less than 0.05 or 0.01 from the Fisher's exact test analysis are flagged as amber or red by default. The significance level was set at a common choice. However, in different scenarios, the cut-off can be adjusted.
+By default, sites with p-values less than 0.05 or 0.01 from the Fisher's exact test analysis are flagged as amber or red, respectively. The thresholds are set based on empirical p-value approach, where we use the distribution of the p-values to find the best separation of the data to identify sites at risk. The default thresholds are set at common choices of significance levels. However, they are fully configurable in the package and can be customized and specified in the {gsm} functions. 
 
 
 ### The Fisher's exact test assumptions
@@ -153,7 +161,7 @@ The assumptions can be assessed by the knowledge of data collected. No assumptio
 
 1.  Functionally: where we don't have required input to run Fishers: p-value will be set `NA`.
 
-2.  Results not interpretable: we don't want to flag in certain situations when results not interpretable due to small sample sizes. The default threshold for minimum denominator requirement is 30 days exposure or 3 patients at the site level.
+2.  Results not interpretable: we don't want to flag in certain situations when results not interpretable due to small sample sizes. The default threshold for minimum denominator requirement is 3 patients at the site level.
 
 3. An observed zero cell is not an issue when using Fisher's exact test, however, when the expected cell is zero, it means either the marginal is zero (meaningless) or there are structural zeros (need to consider zero-inflated issue: West, L. and Hankin, R. (2008), "Exact Tests for Two-Way Contingency Tables with Structural Zeros," Journal of Statistical Software, 28(11), 1--19).
 
@@ -195,11 +203,12 @@ The function `Analyze_Poisson()` in `{gsm}` utilizes `stats::glm()` to generate 
 
 ### Threshold
 
-Sites with deviance residuals exceeding +/- 5 or +/- 7 from the Poisson analysis are flagged as amber or red by default. Based on pilot studies, defaults of $\pm 5$ and $\pm 7$ were chosen as defaults, however, they are fully configurable and can be adjusted by specifying the threshold in the {gsm} functions. 
+By default, sites with deviance residuals exceeding $\pm 5$ or $\pm 7$ from the Poisson analysis are flagged as amber or red, respectively. The thresholds are set based on empirical approach, where we use the distribution of the deviance residuals to find the best separation of the data to identify sites at risk. The default thresholds are set at empirical values based on pilot studies' data. However, they are fully configurable in the package and can be customized and specified in the {gsm} functions. 
+
 
 ### Special Situations
 
-1.  Results not interpretable/statistical solid: we don't want to flag in certain situations when results not interpretable/statistical solid. The default threshold for minimum denominator requirement is 30 days exposure or 3 patients at the site level. <!-- ### STOP-IF-NOT situations -->
+1.  Results are not interpretable or it is not appropriate to apply the Poisson method: We don't want to flag in certain situations when results not interpretable or when it is not appropriate to apply the Poisson method due to the small sample sizes. The default threshold for minimum denominator requirement is 30 days exposure at the site level.
 
 <!-- TODO. Discuss hard rules on STOP-IF-NOT situations -->
 
