@@ -93,55 +93,77 @@
       [1] "FilterDomain"
       
       $cou0001[[1]]$inputs
-      [1] "dfAE"
+      [1] "dfSUBJ"
       
       $cou0001[[1]]$output
-      [1] "dfAE"
+      [1] "dfSUBJ"
       
       $cou0001[[1]]$params
       $cou0001[[1]]$params$strDomain
-      [1] "dfAE"
+      [1] "dfSUBJ"
       
       $cou0001[[1]]$params$strColParam
-      [1] "strTreatmentEmergentCol"
+      [1] "strEnrollCol"
       
       $cou0001[[1]]$params$strValParam
-      [1] "strTreatmentEmergentVal"
+      [1] "strEnrollVal"
       
       
       
       $cou0001[[2]]
       $cou0001[[2]]$name
-      [1] "AE_Map_Raw"
+      [1] "FilterDomain"
       
       $cou0001[[2]]$inputs
-      [1] "dfAE"   "dfSUBJ"
+      [1] "dfAE"
       
       $cou0001[[2]]$output
-      [1] "dfInput"
+      [1] "dfAE"
+      
+      $cou0001[[2]]$params
+      $cou0001[[2]]$params$strDomain
+      [1] "dfAE"
+      
+      $cou0001[[2]]$params$strColParam
+      [1] "strTreatmentEmergentCol"
+      
+      $cou0001[[2]]$params$strValParam
+      [1] "strTreatmentEmergentVal"
+      
       
       
       $cou0001[[3]]
       $cou0001[[3]]$name
-      [1] "AE_Assess"
+      [1] "AE_Map_Raw"
       
       $cou0001[[3]]$inputs
-      [1] "dfInput"
+      [1] "dfAE"   "dfSUBJ"
       
       $cou0001[[3]]$output
+      [1] "dfInput"
+      
+      
+      $cou0001[[4]]
+      $cou0001[[4]]$name
+      [1] "AE_Assess"
+      
+      $cou0001[[4]]$inputs
+      [1] "dfInput"
+      
+      $cou0001[[4]]$output
       [1] "lResults"
       
-      $cou0001[[3]]$params
-      $cou0001[[3]]$params$strGroup
+      $cou0001[[4]]$params
+      $cou0001[[4]]$params$strGroup
       [1] "Country"
       
-      $cou0001[[3]]$params$vThreshold
+      $cou0001[[4]]$params$vThreshold
       NULL
       
-      $cou0001[[3]]$params$strMethod
+      $cou0001[[4]]$params$strMethod
       [1] "NormalApprox"
       
-      $cou0001[[3]]$params$nMinDenominator
+      $cou0001[[4]]$params$nMinDenominator
       [1] 30
       
       

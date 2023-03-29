@@ -1,4 +1,4 @@
-#' `r lifecycle::badge("experimental")`
+#' `r lifecycle::badge("stable")`
 #'
 #' Check if workflow is valid/contains necessary metadata.
 #'
