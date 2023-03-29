@@ -87,7 +87,7 @@
 #'   vThreshold = c(-3, -2, 2, 3)
 #' )
 #'
-#' plot <- barChart(
+#' plot <- Widget_BarChart(
 #'   results = ae_summary,
 #'   workflow = dfConfig,
 #'   yaxis = "metric",
@@ -95,7 +95,7 @@
 #' )
 #'
 #' @export
-barChart <- function(
+Widget_BarChart <- function(
   results = NULL,
   workflow = list(),
   threshold = NULL,
@@ -126,7 +126,7 @@ barChart <- function(
 
   # create widget
   htmlwidgets::createWidget(
-    name = "barChart",
+    name = "Widget_BarChart",
     x,
     width = width,
     height = height,
@@ -137,7 +137,7 @@ barChart <- function(
 
 #' `r lifecycle::badge("stable")`
 #'
-#' Shiny bindings for barChart
+#' Shiny bindings for Widget_BarChart
 #'
 #' Output and render functions for using barChart within Shiny
 #' applications and interactive Rmd documents.
@@ -154,7 +154,7 @@ barChart <- function(
 #' @name barChart-shiny
 #'
 #' @export
-barChartOutput <- function(outputId, width = "100%", height = "400px") {
+Widget_BarChartOutput <- function(outputId, width = "100%", height = "400px") {
   htmlwidgets::shinyWidgetOutput(outputId, "barChart", width, height, package = "gsm")
 }
 
@@ -162,7 +162,7 @@ barChartOutput <- function(outputId, width = "100%", height = "400px") {
 #'
 #'
 #' @export
-renderBarChart <- function(expr, env = parent.frame(), quoted = FALSE) {
+renderWidget_BarChart <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) {
     expr <- substitute(expr)
   } # force quoted

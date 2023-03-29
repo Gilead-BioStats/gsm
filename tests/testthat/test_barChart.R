@@ -41,7 +41,7 @@ dfConfig <- MakeDfConfig(
   vThreshold = c(-3, -2, 2, 3)
 )
 
-chart <- barChart(
+chart <- Widget_BarChart(
   results = ae_summary,
   workflow = dfConfig,
   yaxis = "metric",
@@ -49,7 +49,7 @@ chart <- barChart(
 )
 
 test_that("chart is created", {
-  expect_true(all(c("barChart", "htmlwidget") %in% class(chart)))
+  expect_true(all(c("Widget_BarChart", "htmlwidget") %in% class(chart)))
   expect_equal(substr(chart$elementId, 1, 9), "unit_test")
   expect_equal(
     nrow(chart$x$results),
