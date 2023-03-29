@@ -152,14 +152,14 @@ Widget_BarChart <- function(
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
 #'
-#' @name barChart-shiny
+#' @name Widget_BarChart-shiny
 #'
 #' @export
 Widget_BarChartOutput <- function(outputId, width = "100%", height = "400px") {
-  htmlwidgets::shinyWidgetOutput(outputId, "barChart", width, height, package = "gsm")
+  htmlwidgets::shinyWidgetOutput(outputId, "Widget_BarChart", width, height, package = "gsm")
 }
 
-#' @rdname barChart-shiny
+#' @rdname Widget_BarChart-shiny
 #'
 #'
 #' @export
@@ -167,5 +167,5 @@ renderWidget_BarChart <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) {
     expr <- substitute(expr)
   } # force quoted
-  htmlwidgets::shinyRenderWidget(expr, barChartOutput, env, quoted = TRUE)
+  htmlwidgets::shinyRenderWidget(expr, Widget_BarChartOutput, env, quoted = TRUE)
 }

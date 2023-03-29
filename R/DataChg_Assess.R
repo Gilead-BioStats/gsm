@@ -186,7 +186,7 @@ DataChg_Assess <- function(
     if (strMethod != "Identity") {
       lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
-      lCharts$scatterJS <- scatterPlot(
+      lCharts$scatterJS <- gsm::Widget_ScatterPlot(
         results = lData$dfSummary,
         workflow = dfConfig,
         bounds = lData$dfBounds,
