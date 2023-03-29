@@ -16,6 +16,7 @@ HTMLWidgets.widget({
         workflow = HTMLWidgets.dataframeToD3(x.workflow)[0]
         parameters = HTMLWidgets.dataframeToD3(x.parameters)
 
+
         if (x.analysis !== null) {
           analysis = HTMLWidgets.dataframeToD3(x.analysis)
         } else {
@@ -50,6 +51,7 @@ HTMLWidgets.widget({
                 if (x.addSiteSelect)
                     siteSelect = addSiteSelect(el, results, instance);
                 */
+
 
 
       },
