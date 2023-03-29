@@ -90,7 +90,7 @@
 #'   vThreshold = c(-3, -2, 2, 3)
 #' )
 #'
-#' plot <- scatterPlot(
+#' plot <- Widget_ScatterPlot(
 #'   results = ae_summary,
 #'   workflow = dfConfig,
 #'   bounds = bounds,
@@ -98,7 +98,7 @@
 #' )
 #'
 #' @export
-scatterPlot <- function(
+Widget_ScatterPlot <- function(
   results,
   workflow,
   bounds,
@@ -130,7 +130,7 @@ scatterPlot <- function(
 
   # create widget
   htmlwidgets::createWidget(
-    name = "scatterPlot",
+    name = "Widget_ScatterPlot",
     x,
     width = width,
     height = height,
@@ -141,32 +141,32 @@ scatterPlot <- function(
 
 #' `r lifecycle::badge("stable")`
 #'
-#' Shiny bindings for scatterPlot
+#' Shiny bindings for Widget_ScatterPlot
 #'
-#' Output and render functions for using scatterPlot within Shiny
+#' Output and render functions for using Widget_ScatterPlot within Shiny
 #' applications and interactive Rmd documents.
 #'
 #' @param outputId output variable to read from
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
-#' @param expr An expression that generates a scatterPlot
+#' @param expr An expression that generates a Widget_ScatterPlot
 #' @param env The environment in which to evaluate \code{expr}.
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
 #'
-#' @name scatterPlot-shiny
+#' @name Widget_ScatterPlot-shiny
 #'
 #' @export
-scatterPlotOutput <- function(outputId, width = "100%", height = "400px") {
-  htmlwidgets::shinyWidgetOutput(outputId, "scatterPlot", width, height, package = "gsm")
+Widget_ScatterPlotOutput <- function(outputId, width = "100%", height = "400px") {
+  htmlwidgets::shinyWidgetOutput(outputId, "Widget_ScatterPlot", width, height, package = "gsm")
 }
 
-#' @rdname scatterPlot-shiny
+#' @rdname Widget_ScatterPlot-shiny
 #' @export
-renderScatterPlot <- function(expr, env = parent.frame(), quoted = FALSE) {
+renderWidget_ScatterPlot <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) {
     expr <- substitute(expr)
   } # force quoted
-  htmlwidgets::shinyRenderWidget(expr, scatterPlotOutput, env, quoted = TRUE)
+  htmlwidgets::shinyRenderWidget(expr, Widget_ScatterPlotOutput, env, quoted = TRUE)
 }

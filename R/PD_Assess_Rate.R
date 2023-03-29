@@ -207,7 +207,7 @@ PD_Assess_Rate <- function(
           bounds <- NULL
         }
 
-        lCharts$scatterJS <- scatterPlot(
+        lCharts$scatterJS <- gsm::Widget_ScatterPlot(
           results = lData$dfSummary,
           workflow = dfConfig,
           bounds = bounds,

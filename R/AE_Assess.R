@@ -215,7 +215,7 @@ AE_Assess <- function(
 
 
       # rbm-viz charts ----------------------------------------------------------
-      lCharts$scatterJS <- scatterPlot(
+      lCharts$scatterJS <- gsm::Widget_ScatterPlot(
         results = lData$dfSummary,
         workflow = dfConfig,
         bounds = lData$dfBounds,

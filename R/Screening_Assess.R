@@ -203,7 +203,7 @@ Screening_Assess <- function(
           bounds <- NULL
         }
 
-        lCharts$scatterJS <- scatterPlot(
+        lCharts$scatterJS <- gsm::Widget_ScatterPlot(
           results = lData$dfSummary,
           workflow = dfConfig,
           bounds = bounds,
