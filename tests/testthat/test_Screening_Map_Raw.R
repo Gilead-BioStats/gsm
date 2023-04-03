@@ -7,7 +7,7 @@ dfs <- list(
 )
 
 input_spec <- yaml::read_yaml(system.file("specs", "Screening_Map_Raw.yaml", package = "gsm"))
-input_mapping <- subset_input_mapping(input_spec = input_spec)
+input_mapping <- gsm::Read_Mapping("rawplus")
 
 output_spec <- yaml::read_yaml(system.file("specs", "Screening_Assess.yaml", package = "gsm"))
 output_mapping <- yaml::read_yaml(system.file("mappings", "Screening_Assess.yaml", package = "gsm"))

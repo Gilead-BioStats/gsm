@@ -40,7 +40,7 @@ Screening_Map_Raw <- function(
   dfs = list(
     dfENROLL = clindata::rawplus_enroll
   ),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {

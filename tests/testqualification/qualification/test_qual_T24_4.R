@@ -16,7 +16,7 @@ test_that("A subset of Raw+ Protocol Deviation data can be mapped correctly to c
 
   ########### double programming ###########
   # read in default mapping specs
-  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm"))
+  lMapping <- gsm::Read_Mapping(c("rawplus", "ctms"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
   cols <- c(
