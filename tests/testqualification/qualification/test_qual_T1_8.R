@@ -1,9 +1,11 @@
-test_that("AE assessment can return a correctly assessed data frame for the Normal Approximation test grouped by the study variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold.", {
-  dfInput <- gsm::AE_Map_Raw()
+test_that("Given an appropriate subset of Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Study variable using the Normal Approximation method  and correctly assigns Flag variable values.", {
+  dfInput <- gsm::AE_Map_Raw(dfs = list(
+    dfAE = clindata::rawplus_ae %>% filter(aeser_std_nsv == "Y"),
+    dfSUBJ = clindata::rawplus_dm
+  ))
 
   test1_8 <- AE_Assess(dfInput,
     strMethod = "NormalApprox",
-    vThreshold = c(-3, -1, 1, 3),
     strGroup = "Study"
   )
 
@@ -22,7 +24,7 @@ test_that("AE assessment can return a correctly assessed data frame for the Norm
   class(t8_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t8_flagged <- t8_analyzed %>%
-    qualification_flag_normalapprox(threshold = c(-3, -1, 1, 3))
+    qualification_flag_normalapprox()
 
   t8_summary <- t8_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

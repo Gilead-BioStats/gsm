@@ -2,7 +2,7 @@
 % Please edit documentation in R/PD_Assess_Binary.R
 \name{PD_Assess_Binary}
 \alias{PD_Assess_Binary}
-\title{Protocol Deviation Assessment}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 PD_Assess_Binary(
   dfInput,
@@ -33,7 +33,7 @@ PD_Assess_Binary(
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column. Default: package-defined Protocol Deviation Assessment mapping.}
 
-\item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
+\item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"}, \code{"Country"}, and \code{"CustomGroup"}.}
 
 \item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
 
@@ -68,10 +68,12 @@ of the column. Default: package-defined Protocol Deviation Assessment mapping.}
 }
 }
 \description{
-Evaluates protocol deviation (PD) rates to identify sites that may be over- or under-reporting PDs.
+Evaluates Protocol Deviation (PD) rates to identify sites that may be over- or under-reporting PDs.
 }
 \details{
-The PD Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
+Protocol Deviation Assessment (Binary)
+
+The Protocol Deviation Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }
 \section{Data specification}{

@@ -1,9 +1,18 @@
 steps:
+  - name: FilterDomain
+    inputs: dfSUBJ
+    output: dfSUBJ
+    params:
+      strDomain: dfSUBJ
+      strColParam: strEnrollCol
+      strValParam: strEnrollVal
   - name: QueryAge_Map_Raw
     inputs:
       - dfSUBJ
       - dfQUERY
     output: dfInput
+    params:
+      nMaxQueryAge: 30
   - name: QueryAge_Assess
     inputs: dfInput
     output: lResults

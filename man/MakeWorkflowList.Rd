@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-MakeWorkflowList.R
 \name{MakeWorkflowList}
 \alias{MakeWorkflowList}
-\title{Load assessments from a package/directory}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 MakeWorkflowList(
   strNames = NULL,
@@ -24,10 +24,10 @@ MakeWorkflowList(
 \code{list} A list of assessments with workflow and parameter metadata.
 }
 \description{
-Load assessments from a package/directory
+Load assessments from a package/directory.
 }
 \details{
-\code{MakeWorkflowList()} is a utility function that creates a workflow mapping for assessments used in \code{Study_Assess()}.
+\code{MakeWorkflowList()} is a utility function that creates a workflow mapping for assessments used in \code{\link[=Study_Assess]{Study_Assess()}}.
 }
 \examples{
 workflow <- MakeWorkflowList(strPath = "workflow", strPackage = "gsm")

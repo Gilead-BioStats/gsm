@@ -2,12 +2,11 @@
 % Please edit documentation in R/LB_Map_Raw.R
 \name{LB_Map_Raw}
 \alias{LB_Map_Raw}
-\title{Lab Abnormality Assessment - Raw Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 LB_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfLB = clindata::rawplus_lb),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
-    "gsm")),
+  lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -38,6 +37,8 @@ of the column. Default: package-defined mapping for raw+.}
 Convert from ADaM or raw format to input format for Lab Abnormality Assessment.
 }
 \details{
+Lab Abnormality Assessment - Raw Mapping
+
 Convert raw lab data (LB), typically processed case report form data, to formatted
 input data to \code{\link[=LB_Assess]{LB_Assess()}}.
 
@@ -53,7 +54,7 @@ specific types of LB criteria by passing filtered LB data to \code{dfLB}.
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \tab FALSE \cr
    dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab TRUE \cr
    dfLB \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
-   dfLB \tab strGradeCol \tab toxgr \tab TRUE \tab TRUE \tab FALSE \cr
+   dfLB \tab strGradeCol \tab toxgrg_nsv \tab TRUE \tab TRUE \tab FALSE \cr
 }
 }
 

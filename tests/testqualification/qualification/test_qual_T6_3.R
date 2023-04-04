@@ -1,10 +1,11 @@
-test_that("Labs assessment can return a correctly assessed data frame grouped by the site variable when given correct input data from clindata and the results should be flagged correctly", {
+test_that("Given appropriate Labs data, the assessment function correctly performs a Labs Assessment grouped by a custom variable using the Fisher method and correctly assigns Flag variable values.", {
   # gsm analysis
-  dfInput <- LB_Map_Raw()
+  dfInput <- gsm::LB_Map_Raw()
 
   test6_3 <- LB_Assess(
     dfInput = dfInput,
-    strMethod = "Identity"
+    strGroup = "CustomGroup",
+    strMethod = "Fisher"
   )
 
   # Double Programming
@@ -12,35 +13,17 @@ test_that("Labs assessment can return a correctly assessed data frame grouped by
 
   t6_3_transformed <- dfInput %>%
     qualification_transform_counts(
-      exposureCol = "Total"
+      exposureCol = "Total",
+      GroupID = "CustomGroupID"
     )
 
   t6_3_analyzed <- t6_3_transformed %>%
-    mutate(
-      Score = Metric
-    ) %>%
-    arrange(Score)
+    qualification_analyze_fisher()
 
   class(t6_3_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t6_3_flagged <- t6_3_analyzed %>%
-    mutate(
-      Flag = case_when(
-        Score < 3.491 ~ -1,
-        Score > 5.172 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(Metric),
-      Flag = case_when(
-        Flag != 0 & Metric < median ~ -1,
-        Flag != 0 & Metric >= median ~ 1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+    qualification_flag_fisher()
 
   t6_3_summary <- t6_3_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Group-level visualization of scores.
 #'
 #' @param dfSummary `data.frame` returned by [gsm::Summarize()]

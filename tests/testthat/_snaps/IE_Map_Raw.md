@@ -60,10 +60,159 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfIE", "dfSUBJ"]
+          "value": ["dfSUBJ", "dfAE", "dfIE", "dfCONSENT", "dfSTUDCOMP", "dfSDRGCOMP", "dfLB", "dfENROLL"]
         }
       },
       "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strEDCIDCol", "strStudyStartDateCol", "strStudyEndDateCol", "strTimeOnStudyCol", "strTreatmentStartDateCol", "strTreatmentEndDateCol", "strTimeOnTreatmentCol", "strCountryCol", "strCustomGroupCol", "strEnrollCol", "strEnrollVal"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["studyid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["siteid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subject_nsv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["firstparticipantdate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lastparticipantdate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["timeonstudy"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["firstdosedate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lastdosedate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["timeontreatment"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["invid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["enrollyn"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strStartDateCol", "strEndDateCol", "strSeriousCol", "strSeriousVal", "strNonSeriousVal", "strGradeCol", "strPTCol", "strSOCCol", "strTreatmentEmergentCol", "strTreatmentEmergentVal"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["aest_dt"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["aeen_dt"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["aeser"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["N"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["aetoxgr"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["mdrpt_nsv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["mdrsoc_nsv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["treatmentemergent"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
+            }
+          ]
+        },
         {
           "type": "list",
           "attributes": {
@@ -112,7 +261,200 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strSiteCol", "strCustomGroupCol", "strCountryCol", "strIDCol", "strTimeOnStudyCol", "strTimeOnTreatmentCol", "strRandDateCol"]
+              "value": ["strIDCol", "strDateCol", "strConsentStatusCol", "strConsentStatusVal", "strConsentTypeCol", "strConsentTypeVal"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["consdt"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["consyn"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["conscat"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["MAINCONSENT"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strStudyDiscontinuationFlagCol", "strStudyDiscontinuationFlagVal", "strStudyDiscontinuationReasonCol", "strStudyDiscontinuationReasonVal"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["compyn"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["N"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["compreas"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["WITHDRAWAL BY SUBJECT"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strTreatmentDiscontinuationFlagCol", "strTreatmentDiscontinuationFlagVal", "strTreatmentDiscontinuationReasonCol", "strTreatmentDiscontinuationReasonVal", "strTreatmentPhaseCol", "strTreatmentPhaseVal"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["sdrgyn"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["N"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["sdrgreas"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["out of bound:Withdrew Consent*"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["phase"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Blinded Study Drug Completion"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strVisitCol", "strDateCol", "strTestCol", "strResultCol", "strAlertCol", "strGradeCol", "strGradeAnyVal", "strGradeHighVal", "strTreatmentEmergentCol", "strTreatmentEmergentVal"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["visnam"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lb_dt"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["lbtstnam"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["siresn"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["alertsimplified"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["toxgrg_nsv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["1", "2", "3", "4"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["3", "4"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["treatmentemergent"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strStudyCol", "strSiteCol", "strIDCol", "strEnrollmentDateCol", "strScreenFailCol", "strScreenFailVal", "strScreenFailReasonCol", "strScreenFailReasonVal", "strCountryCol", "strCustomGroupCol"]
             }
           },
           "value": [
@@ -129,7 +471,32 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["invid"]
+              "value": ["subjectid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["enroll_dt"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["enrollyn"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["N"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["sfreas"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Inclusion/Exclusion Criteria"]
             },
             {
               "type": "character",
@@ -139,22 +506,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["subjid"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["timeonstudy"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["timeontreatment"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["rfpst_dt"]
+              "value": ["invid"]
             }
           ]
         }

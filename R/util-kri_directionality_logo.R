@@ -1,4 +1,6 @@
-#' KRI Directionality Logo
+#' `r lifecycle::badge("stable")`
+#'
+#' KRI Directionality Logo.
 #'
 #' @description
 #' Reporting utility function to create fontawesome directionality logos within `DT::datatable()`

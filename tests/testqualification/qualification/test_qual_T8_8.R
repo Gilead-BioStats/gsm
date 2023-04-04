@@ -1,14 +1,14 @@
-test_that("Data entry assessment can return a correctly assessed data frame for the normal approximation test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly.", {
+test_that("Given an appropriate subset of Data Entry Lag data, the assessment function correctly performs a Data Entry Lag Assessment grouped by the Study variable using the Normal Approximation method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::DataEntry_Map_Raw(dfs = list(
-    dfDATAENT = clindata::edc_data_entry_lag %>% filter(foldername == "Week 120"),
+    dfDATAENT = clindata::edc_data_pages %>% filter(visit == "Week 120"),
     dfSUBJ = clindata::rawplus_dm
   ))
 
   test8_8 <- DataEntry_Assess(
     dfInput = dfInput,
     strMethod = "NormalApprox",
-    strGroup = "CustomGroup"
+    strGroup = "Study"
   )
 
   # double programming
@@ -18,7 +18,7 @@ test_that("Data entry assessment can return a correctly assessed data frame for 
     qualification_transform_counts(
       countCol = "Count",
       exposureCol = "Total",
-      GroupID = "CustomGroupID"
+      GroupID = "StudyID"
     )
 
   t8_8_analyzed <- t8_8_transformed %>%

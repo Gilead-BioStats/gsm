@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_Poisson.R
 \name{Analyze_Poisson}
 \alias{Analyze_Poisson}
-\title{Poisson Analysis - Site Residuals}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Analyze_Poisson(dfTransformed, bQuiet = TRUE)
 }
@@ -12,10 +12,10 @@ Analyze_Poisson(dfTransformed, bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with columns added for "Score" and "PredictedCount".
+\code{data.frame} with one row per site with columns: GroupID, Numerator, Denominator, Metric, Score, and PredictedCount.
 }
 \description{
-Poisson Analysis - Site Residuals
+Poisson Analysis - Site Residuals.
 }
 \details{
 Fits a Poisson model to site-level data and adds columns capturing Residual and Predicted Count for each site.
@@ -25,13 +25,13 @@ Fits a Poisson model to site-level data and adds columns capturing Residual and 
 
 This function fits a Poisson model to site-level data and then calculates residuals for each site.
 The Poisson model is run using standard methods in the \code{stats} package by fitting a \code{glm} model with family
-set to \code{poisson} using a "log" link. Site-level residuals are calculated  \code{stats::predict.glm} via \code{broom::augment}.
+set to \code{poisson} using a "log" link. Site-level residuals are calculated using \code{stats::predict.glm} via \code{broom::augment}.
 }
 
 \section{Data Specification}{
 
 
-The input data (\code{dfTransformed}) for Analyze_Poisson is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
+The input data (\code{dfTransformed}) for \code{Analyze_Poisson} is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
 \itemize{
 \item \code{GroupID} - Site ID
 \item \code{Numerator} - Number of Adverse Events

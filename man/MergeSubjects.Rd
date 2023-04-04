@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-MergeSubjects.R
 \name{MergeSubjects}
 \alias{MergeSubjects}
-\title{Merge Domain data with subject-level data}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 MergeSubjects(
   dfDomain,
@@ -27,11 +27,14 @@ MergeSubjects(
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one record per strIDCol.
+\code{data.frame} with one record per ID variable specified in the \code{strIDCol} parameter.
 }
 \description{
 \code{MergeSubjects} is a helper function used within mapping functions to join subject-level data with domain-level data, with the ability to impute
 zeros when necessary.
+}
+\details{
+Merge Domain data with subject-level data.
 }
 \examples{
 MergeSubjects(

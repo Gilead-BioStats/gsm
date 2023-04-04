@@ -2,12 +2,12 @@
 % Please edit documentation in R/UpdateParams.R
 \name{UpdateParams}
 \alias{UpdateParams}
-\title{{experimental} Update parameters for workflow}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 UpdateParams(lWorkflow, dfConfig, dfMeta)
 }
 \arguments{
-\item{lWorkflow}{\code{list} Object returned by \code{MakeWorkflowList()}}
+\item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
 
 \item{dfConfig}{\code{data.frame} Configuration parameters data.frame; \code{clindata::config_param}}
 
@@ -17,5 +17,5 @@ UpdateParams(lWorkflow, dfConfig, dfMeta)
 \code{list} lWorkflow - modified list.
 }
 \description{
-{experimental} Update parameters for workflow
+Update parameters for workflow
 }

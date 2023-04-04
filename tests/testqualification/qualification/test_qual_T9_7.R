@@ -1,6 +1,9 @@
-test_that("Query age assessment can return a correctly assessed data frame for the normal approximation test grouped by the site variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold.", {
+test_that("Given an appropriate subset of Query Age data, the assessment function correctly performs a Query Age Assessment grouped by the Site variable using the Normal Approximation method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
-  dfInput <- gsm::QueryAge_Map_Raw()
+  dfInput <- gsm::QueryAge_Map_Raw(dfs = list(
+    dfQUERY = clindata::edc_queries %>% filter(visit == "Week 120"),
+    dfSUBJ = clindata::rawplus_dm
+  ))
 
   test9_7 <- QueryAge_Assess(
     dfInput = dfInput,

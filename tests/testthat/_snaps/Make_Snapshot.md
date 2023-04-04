@@ -37,11 +37,12 @@
       
       -- Checking Input Data for `FilterDomain()` --
       
-      v No issues found for dfAE domain
-      Filtering on `ae_te %in% c("Y")`.
-      v Filtered on `ae_te %in% c("Y")` to drop 1 rows from 50 to 49 rows.
+      v No issues found for dfSUBJ domain
+      Filtering on `enrollyn %in% c("Y")`.
+      v Filtered on `enrollyn %in% c("Y")` to drop 0 rows from 50 to 50 rows.
+      i NOTE: No rows dropped.
       v `FilterDomain()` Successful
-      Saving dfAE to `lWorkflow$lData`
+      Saving dfSUBJ to `lWorkflow$lData`
       
       -- Workflow Step 2 of 4: `FilterDomain` --
       
@@ -51,8 +52,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `aeser %in% c("N")`.
-      v Filtered on `aeser %in% c("N")` to drop 1 rows from 49 to 48 rows.
+      Filtering on `treatmentemergent %in% c("Y")`.
+      v Filtered on `treatmentemergent %in% c("Y")` to drop 1 rows from 50 to 49 rows.
       v `FilterDomain()` Successful
       Saving dfAE to `lWorkflow$lData`
       

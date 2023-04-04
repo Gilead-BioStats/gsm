@@ -1,89 +1,261 @@
 ---
 title: "Qualification Workflow"
-output: rmarkdown::html_vignette
+date: 'Date: `r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Qualification Workflow}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+ %\\VignetteIndexEntry{Qualification Workflow} 
+ %\\VignetteEncoding{UTF-8}
+ %\\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r setup, include = FALSE}
-library(gsm)
-knitr::opts_chunk$set(
+suppressPackageStartupMessages({
+  library(gsm)
+  library(knitr)
+  library(dplyr)
+  library(purrr)
+  library(pander)
+  library(gh)
+  library(stringr)
+  library(riskmetric)
+  suppressMessages(devtools::load_all())
+})
+
+opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = TRUE,
+  echo = FALSE,
+  results = "asis",
+  message = FALSE,
+  tidy = FALSE
 )
+
+source(here::here("inst", "qualification", "specs.R"))
+source(here::here("inst", "qualification", "test_cases.R"))
+spec_df <- import_specs()
 ```
 
-# Intro
+# Introduction
 
-Qualification for this repository is done to ensure that the package is functioning as intended.  While unit tests should also be written to test the code, qualification testing is used to test that the expected behaviors are happening correctly.  Qualification is done using a set of machine-readable documents and associated functions to create a strong documentation structure as well as a cohesive qualification report.  This qualification process will be modified to add new assessments and should be updated whenever there are updates that affect the workflows tested by qualification tests.  Qualification tests are designed to provide developers with a repeatable process that is easy to update and document.
+Qualification for this repository is done to ensure that the package is functioning as intended and that core functions execute as expected on a system-wide scale.  While unit tests should also be written to test the code, qualification testing is used to test that the expected behaviors are happening correctly.  Qualification is done using a set of machine-readable documents and associated functions to create a strong documentation structure as well as a cohesive qualification report.  This qualification process will be modified to add new assessments and should be updated whenever there are updates that affect the workflows tested by qualification tests.  Qualification tests are designed to provide developers with a repeatable process that is easy to update and document.
 
 # Process Overview
 
-Each GSM assessment is independently qualified using **Specifications** and **Test Cases**, which are then compiled in to a **Qualification Report**. 
+Each GSM assessment is independently qualified using **Specifications** and **Test Cases**, which are then compiled into a **Qualification Report**. 
 
 - **Specifications** - the expected behaviors that are being tested. 
-- **Test cases** - testable pieces of code associated with Specifications.
+- **Test Cases** - testable pieces of code associated with Specifications.
 - **Qualification Report** - Summary snapshot of all qualification activity.
 
 # Specifications 
 
-Specifications should capture the most important the use cases for an assessment. One set of specifications will be created per assessment. Each assessment is likely to have several specifications, and each specification should have one or more associated test cases. 
+Specifications should capture the most important use cases for a given function. Each function must have at least one
+(1) specification, and each specification must have at least one (1) associated test case. Multiple specifications
+may exist for a function, and multiple test cases may exist for a specification.
 
-Each Specification should include the following components: 
-- **Description** - describe the use case for the specification   
-- **Risk Assessment** - evaluation of risk for the the use case. Includes 2 components:
-  - **Risk Severity** - risk severity can be 'low', 'medium', or 'high' and corresponds to the risk level that this specification would fail.
-  - **Risk Impact** - The impact severity can be can be low, medium, or high and corresponds to the impact that the specification failing would have.
-- **Test Cases** - A list of test cases associated with the specification
+Each Specification should include the following components:  
 
- This should be saved using the YAML format and named for the assessment that is being qualified and saved in `inst/qualification`. 
+- **Description** - Outlines the use case for the specification.    
+- **Risk Assessment** - An evaluation of risk for the the use case. Includes 2 components:  
+  - **Risk Level** - Risk Level can be "Low," "Medium," or "High," corresponding to the risk associated with the specification failing.  
+  - **Risk Impact** - Risk Impact can be "Low," "Medium," or "High," corresponding to the severity of the impact associated with the specification failing.  
+- **Test Cases** - A list of test cases associated with the specification.  
 
-For example, the first specification from `spec_AE_Assess.yaml` is written as: 
+The specifications (including Description, Risk Level, and Risk Impact) should be documented in `qualification_specs.csv`, to be rendered by the Qualification Report, documented in a later section. 
+For example, the first specification from `qualification_specs.csv` is written as: 
 
-```
-- ID: S1_1
-  Description: Given correct input data an Adverse Event assessment can be done using the Poisson method
-  Risk: High
-  Impact: High
-  Tests:
-    - T1_1
-    - T1_2
-``` 
+
+```{r}
+qual_specs_orig <- read.csv(system.file("qualification", "qualification_specs.csv", package = "gsm"))
+qual_specs <- qual_specs_orig %>%
+  mutate(SpecID = paste0("S", Spec, "_", Test.ID)) %>%
+  select(SpecID, Tests) %>%
+  tidyr::separate_rows("Tests", sep = ",") %>%
+  mutate(Tests = trimws(Tests)) %>%
+  split(.$Tests) %>%
+  purrr::map(function(x){
+    x %>%
+      group_by(Tests) %>%
+      mutate(Specs = paste(SpecID, collapse = ", ")) %>%
+      select(-SpecID) %>%
+      distinct()
+  }) %>%
+  list_rbind()
+### One row per spec
+Specifications <- spec_df %>%
+  select(ID, Description, Risk, Impact, Tests) %>%
+  mutate(sort1 = as.numeric(str_extract(ID, "(?<=S)\\d+")),
+         sort2 = as.numeric(str_extract(ID, "\\d+$"))) %>%
+  arrange(as.numeric(sort1), as.numeric(sort2)) %>%
+  slice(1:6) %>%
+  select(-c(sort1, sort2))
+colnames(Specifications) <- c("Spec ID", "Spec Description", "Risk", "Impact", "Associated Test IDs")
+knitr::kable(Specifications, booktabs = TRUE, longtable = TRUE) %>%
+  kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
+                            font_size = 9, full_width = FALSE) %>%
+  kableExtra::column_spec(2, width = "6cm") %>%
+  kableExtra::column_spec(5, width = "5cm")
+```  
 
 # Test Cases
 
-Test cases take specifications and turn them into the actual testable pieces that make up the larger specification.  The test cases are built to confirm that the package meets the requirements laid out for it.  Test cases should be representative of how a user may utilize the program since that will be the most helpful to uncovering defects and supporting test automation.  Test cases are linked to the assessment as shown above.
+Test cases translate specifications into testable scripts to confirm that the package functions meet the
+established requirements. Test cases should be representative of how a user may utilize the function to help identify code gaps and support testing automation. Test cases are linked to the assessment as shown above.
 
-Test cases are written using the standard `testthat` workflow and saved in `tests/qualification`.
-Each test case should be saved as it's own file and named using with the convention `test_qual_{TestID}.R` where test number corresponds to the `Tests` section in the relevant specification. Note that tests can be associated with multiple specifications. Test code should be written in a clear and concise manner making it quick to execute and easy to review and interpret.  Test cases should also have an informative description to outline what is being tested.
+Test cases are written using the standard `testthat` workflow and saved in `tests/testqualification/qualification`.  Each test case should be saved as an individual file and named using the convention `test_qual_{TestID}.R`, where TestID corresponds to the test case number. Test code within these scripts should be written clearly and concisely to facilitate quick execution, review, and interpretation. Test cases should also have an informative description to outline what is being tested.
 
-An simple example test case is shown below.  For this test case the file would be called `test_qual_T1_1.R` and would correspond to T1_1 in the specifications:
+Note that test cases can be associated with multiple specifications.  For example, S1_1 includes tests (T1_1, T1_2, T1_3) that the AE_Assess function is performed properly for the Poisson method.  Each of these tests (T1_1, T1_2, T1_3) tests whether the Poisson method output is accurate when the data is grouped by a different grouping variable (Site, Study, Custom, respectively).  In addition, the input data for T1_1 and T1_2 are a subset of a larger dataframe, and thus T1_1 and T1_2 also test whether the AE_Assess function performs appropriately when provided a subset of the input data, which satisfies spec S1_6.  
+
+An simple example test case is shown below.  For this test case the file would be called `test_qual_T21_1.R` and would correspond to T21_1 in the specifications:
 
 ```r
-test_that("the object mtcars is a dataframe", {
-   test_data <- mtcars
-   expect_true(is.data.frame(test_data))
-}
+test_that("Domain-level data can be correctly merged into subject-level data using subject ID as the key variable.", {
+
+
+  ########### gsm mapping ###########
+  observed <- gsm::MergeSubjects(
+    dfDomain = clindata::rawplus_consent,
+    dfSUBJ = clindata::rawplus_dm,
+    strIDCol = "subjid"
+    )
+
+
+  ########### double programming ###########
+  # read in raw consent data
+  consent_orig <- clindata::rawplus_consent
+
+  # read in raw source DM data
+  dm_raw_orig <- clindata::rawplus_dm
+
+  # join DM and consent data
+  expected <- left_join(dm_raw_orig, consent_orig, by = "subjid")
+
+  ########### testing ###########
+  expect_equal(as.data.frame(observed), as.data.frame(expected))
+})
 ```
 
 # Qualification Report
 
-The Qualification Report is generated to document and display the code and the qualification that code has been through.  The report lives as a Qualification vignette in `{gsm}` and rendered during other workflows.  The Qualification Report is also attached to each release and included in the `{pkgdown}` site to display the qualification status of `{gsm}`.  The sections of the Qualification Report are outlined below.
+The Qualification Report is generated to document and display the qualification that the code has been through.  The report lives as a Qualification vignette in `{gsm}` and is rendered during other workflows.  The Qualification Report is also attached to each release and included in the `{pkgdown}` site to display the qualification status of `{gsm}`.  The sections of the Qualification Report are outlined below.
 
-### Session Info
+### Qualification Testing Results
 
-The `sessionInfo()` of the qualification environment is included to show what environment the tests were run in.  This is called after all necessary packages have been loaded and all setup is done. The environment should not change after this part of the report is created.
+Using the specifications, test cases, and test code outlined above the qualification status of all assessments currently qualified within `{gsm}` is rendered, consisting of smaller sections for each assessment.  These smaller sections will include the procedure that is being qualified, which should correspond to the function that is used for that procedure.  An overview of the specifications is also included that has the ID, Description, Risk Level, Risk Impact, and associated test cases corresponding to each specification.  This information is pulled from the Specification Spreadsheet file (`qualification_specs.csv`) outlined above.  
 
-### Assessment Qualification
+#### Test Results: Overview
 
-Using the specifications, test cases, and test code outlined above the qualification status of all assessments currently qualified within `{gsm}` is shown.  This will be made up of smaller sections for each assessment.  These smaller sections will include the Assessment that is being qualified, this should correspond to the function that is used for that assessment.  An overview of the Specifications is also included that has the ID, description, risk, impact, and associated test cases corresponding to each Specification.  This information is pulled from each Specification YAML file outlined above.  A Traceability Matrix is also included to show what Specifications are covered by what Test Cases.  The last part is an overview of the test cases that correspond to the Assessment.  A table is displayed to show the test case ID, description, and the pass/fail status of the test case.  
+An overview of the qualification test results is presented as a table, with one row for each function that has been tested. The results are presented as a series of columns for the number of tests, number of passing tests, number of failing tests, and number of skipped tests.  
+
+```{r}
+spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R")
+spec_list <- spec_list[-1]
+spec_list <- spec_list[1:16]
+# spec_list <- spec_list[1:15]
+spec_list <- paste0("~/gsm/tests/testqualification/qualification/", spec_list)
+scrape <- map_df(spec_list, function(x) {
+    testResultsRaw <- testthat::test_file(x, reporter = testthat::ListReporter, package = "gsm") %>% 
+      as_tibble()
+    
+    return(testResultsRaw)
+}) %>% 
+  mutate(Tests = gsub("test_qual_", "", file),
+         Tests = gsub(".R", "", Tests))
+funcs <- spec_df %>%
+  select(Tests, Assessment) %>%
+  tidyr::separate_rows("Tests", sep = ",") %>%
+  mutate(Tests = trimws(Tests)) %>%
+  rename(Function = Assessment) %>%
+  distinct()
+testResultsIndividual <- left_join(scrape, funcs, by = "Tests") %>% 
+  group_by(Function) %>%
+  reframe(`Function Name` = unique(Function),
+          `Number of Tests` = n(),
+          `Number Passed` = sum(passed),
+          `Number Failed` = sum(failed),
+          `Number Skipped` = sum(skipped)) %>%
+  arrange(`Function Name`) %>%
+  select(-Function)
+scrape_new <-left_join(scrape, funcs, by = "Tests") 
+knitr::kable(testResultsIndividual, booktabs = TRUE, longtable = TRUE) %>%
+  kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
+                            font_size = 9, full_width = FALSE) %>%
+  kableExtra::kable_classic()
+```  
+
+#### Test Results: Detailed  
+
+A detailed summary of the qualification test results is also provided in table format in the Qualification Report. In this section, two tables are presented, where the first presents each row as corresponding to a single specification and the second presents each row as corresponding to a single test. 
+
+- **One Row Per Specification** - Each row corresponds to a specification, and each specification is presented with a general description of the functionality tested for each specification, along with risk level, risk impact, and associated test IDs. In most cases, there are multiple test IDs associated with each specification.  
+
+```{r}
+qual_specs_orig <- read.csv(system.file("qualification", "qualification_specs.csv", package = "gsm"))
+qual_specs <- qual_specs_orig %>%
+  mutate(SpecID = paste0("S", Spec, "_", Test.ID)) %>%
+  select(SpecID, Tests) %>%
+  tidyr::separate_rows("Tests", sep = ",") %>%
+  mutate(Tests = trimws(Tests)) %>%
+  split(.$Tests) %>%
+  purrr::map(function(x){
+    x %>%
+      group_by(Tests) %>%
+      mutate(Specs = paste(SpecID, collapse = ", ")) %>%
+      select(-SpecID) %>%
+      distinct()
+  }) %>%
+  list_rbind()
+### One row per spec
+Specifications <- spec_df %>%
+  select(ID, Description, Risk, Impact, Tests) %>%
+  mutate(sort1 = as.numeric(str_extract(ID, "(?<=S)\\d+")),
+         sort2 = as.numeric(str_extract(ID, "\\d+$"))) %>%
+  arrange(as.numeric(sort1), as.numeric(sort2)) %>%
+  slice(1:6) %>%
+  select(-c(sort1, sort2))
+colnames(Specifications) <- c("Spec ID", "Spec Description", "Risk", "Impact", "Associated Test IDs")
+knitr::kable(Specifications, booktabs = TRUE, longtable = TRUE) %>%
+  kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
+                            font_size = 9, full_width = FALSE) %>%
+  kableExtra::column_spec(2, width = "6cm") %>%
+  kableExtra::column_spec(5, width = "5cm")
+```  
+
+- **One Row Per Test** - Each row corresponds to a single test (Test ID), and each test is presented with the function which is tested, the specification IDs the test satisfies, the detailed test description (including grouping variables and other function arguments that are tested), and the result of the test (Pass/Fail/Skip).  
+
+```{r}
+### One row per test
+test <- scrape_new %>%
+  mutate(result_new = ifelse(passed == 1, "Pass", "Fail")) %>%
+  select(Tests, test, result_new, Function)
+Results <- left_join(test, qual_specs, by = "Tests") %>%
+  select(Function, Specs, Tests, test, result_new) %>%
+  mutate(sort1 = as.numeric(str_extract(Tests, "(?<=T)\\d+")),
+         sort2 = as.numeric(str_extract(Tests, "\\d+$"))) %>%
+  arrange(as.numeric(sort1), as.numeric(sort2)) %>%
+  select(-c(sort1, sort2)) %>% 
+  slice(1:6)
+colnames(Results) <- c("Function", "Spec ID", "Test ID", "Test Description", "Test Result")
+knitr::kable(Results, booktabs = TRUE, longtable = TRUE) %>%
+  kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
+                            font_size = 9, full_width = FALSE) %>%
+  kableExtra::column_spec(1, width = "4cm") %>%
+  kableExtra::column_spec(2, width = "3cm") %>%
+  kableExtra::column_spec(4, width = "6cm")
+```  
 
 ### Unit Tests
 
-A summary of the unit test coverage is included in the Qualification Report to show how well the package functions are unit tested.  This is created by using `covr::package_coverage()` and then listing it out by function.
+A summary of the unit test coverage is included in the Qualification Report to show how well the package functions are unit tested.  This is created by using `covr::package_coverage()` and then listed out by function. Unit testing is performed in addition to qualification testing to help ensure that individual pieces of code within the R package function correctly and produce the expected results. By testing individual units of code in isolation, developers can identify and fix issues early in the development process before more significant and scaled problems arise. 
+
+
+### Qualification Testing Environment
+
+The `sessionInfo()` of the qualification environment is included to show what R version, platform, and packages were used when running the Qualification Report. This is called after all necessary packages have been loaded and all setup is done. The environment should not change after this part of the report is created. In addition, a package list is provided, which includes the package version and package score from `riskmetric`, which quantifies the robustness of an R package. The `pkg_score` column captures the risk involved with using a package. The risk level ranges from 0 (low risk) to 1 (high risk).  
+
 
 ### Pull Requests
 
-The final section of the Qualification Report is an overview of all Pull Requests since last release.  This includes the title, compare and base branches, a link to the GitHub page, requester, reviewers, date requested, and the status of the Pull Request.  While this is meant to be a comprehensive overview of the Pull Requests the release documentation should also include links to all Pull Requests included in the release.
+The final section of the Qualification Report is an overview of all Pull Requests since the last release. This includes the title, compare and base branches, a link to the GitHub page, requester, reviewers, date requested, and the status of the Pull Request.  While this is meant to be a comprehensive overview of the Pull Requests the release documentation should also include links to all Pull Requests included in the release.

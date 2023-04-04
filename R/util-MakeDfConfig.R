@@ -1,4 +1,6 @@
-#' Make dfConfig for use in {rbm-viz}
+#' `r lifecycle::badge("experimental")`
+#'
+#' Make dfConfig for use in {rbm-viz}.
 #'
 #' @description
 #' `MakeDfConfig` is a utility function that is used within `*_Assess()` functions in `{gsm}`.

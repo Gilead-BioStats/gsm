@@ -1,26 +1,30 @@
 dfSUBJ:
   strStudyCol: studyid
   strSiteCol: siteid
-  strCustomGroupCol: invid
-  strCountryCol: country
   strIDCol: subjid
+  strEDCIDCol: subject_nsv
+  strStudyStartDateCol: firstparticipantdate
+  strStudyEndDateCol: lastparticipantdate
   strTimeOnStudyCol: timeonstudy
+  strTreatmentStartDateCol: firstdosedate
+  strTreatmentEndDateCol: lastdosedate
   strTimeOnTreatmentCol: timeontreatment
-  strRandDateCol: rfpst_dt
+  strCountryCol: country
+  strCustomGroupCol: invid
+  strEnrollCol: enrollyn
+  strEnrollVal: "Y"
 dfAE:
   strIDCol: subjid
-  strGradeCol: aetoxgr
+  strStartDateCol: aest_dt
+  strEndDateCol: aeen_dt
   strSeriousCol: aeser
   strSeriousVal: "Y"
   strNonSeriousVal: "N"
-  strTreatmentEmergentCol: ae_te
+  strGradeCol: aetoxgr
+  strPTCol: mdrpt_nsv
+  strSOCCol: mdrsoc_nsv
+  strTreatmentEmergentCol: treatmentemergent
   strTreatmentEmergentVal: "Y"
-dfPD:
-  strIDCol: subjid
-  strCategoryCol: dvdecod
-  strImportantCol: importnt
-  strImportantVal: "Y"
-  strNonImportantVal: "N"
 dfIE:
   strIDCol: subjid
   strVersionCol: tiver
@@ -44,25 +48,23 @@ dfSTUDCOMP:
   strStudyDiscontinuationFlagCol: compyn
   strStudyDiscontinuationFlagVal: "N"
   strStudyDiscontinuationReasonCol: compreas
-  strStudyDiscontinuationReasonVal: consent
+  strStudyDiscontinuationReasonVal: WITHDRAWAL BY SUBJECT
 dfSDRGCOMP:
   strIDCol: subjid
   strTreatmentDiscontinuationFlagCol: sdrgyn
   strTreatmentDiscontinuationFlagVal: "N"
   strTreatmentDiscontinuationReasonCol: sdrgreas
-  strTreatmentDiscontinuationReasonVal: withdrawal
-  strTreatmentPhaseCol: datapagename # or foldername - temporary - should be phase
+  strTreatmentDiscontinuationReasonVal: out of bound:Withdrew Consent*
+  strTreatmentPhaseCol: phase
   strTreatmentPhaseVal: Blinded Study Drug Completion
 dfLB:
   strIDCol: subjid
   strVisitCol: visnam
-  strVisitOrderCol: visnum
-  strCategoryCol: battrnam
+  strDateCol: lb_dt
   strTestCol: lbtstnam
   strResultCol: siresn
-  strTreatmentEmergentCol: lb_te
-  strTreatmentEmergentVal: "Y"
-  strGradeCol: toxgr
+  strAlertCol: alertsimplified
+  strGradeCol: toxgrg_nsv
   strGradeAnyVal:
     - "1"
     - "2"
@@ -71,13 +73,16 @@ dfLB:
   strGradeHighVal:
     - "3"
     - "4"
+  strTreatmentEmergentCol: treatmentemergent
+  strTreatmentEmergentVal: "Y"
 dfENROLL:
   strStudyCol: studyid
   strSiteCol: siteid
-  strCustomGroupCol: invid
-  strCountryCol: country
-  strIDCol: subjid
+  strIDCol: subjectid
+  strEnrollmentDateCol: enroll_dt
   strScreenFailCol: enrollyn
   strScreenFailVal: "N"
   strScreenFailReasonCol: sfreas
   strScreenFailReasonVal: Inclusion/Exclusion Criteria
+  strCountryCol: country
+  strCustomGroupCol: invid

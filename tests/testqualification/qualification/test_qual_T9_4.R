@@ -1,12 +1,15 @@
-test_that("Query age assessment can return a correctly assessed data frame for the fisher test grouped by the site variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold.", {
+test_that("Given an appropriate subset of Query Age data, the assessment function correctly performs a Query Age Assessment grouped by the Site variable using the Identity method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
-  dfInput <- gsm::QueryAge_Map_Raw()
+  dfInput <- gsm::QueryAge_Map_Raw(dfs = list(
+    dfQUERY = clindata::edc_queries %>% filter(visit == "Week 120"),
+    dfSUBJ = clindata::rawplus_dm
+  ))
 
   test9_4 <- QueryAge_Assess(
     dfInput = dfInput,
-    strMethod = "Fisher",
+    strMethod = "Identity",
     strGroup = "Site",
-    vThreshold = c(0.02, 0.06)
+    vThreshold = c(0.00006, 0.01)
   )
 
   # double programming
@@ -19,12 +22,15 @@ test_that("Query age assessment can return a correctly assessed data frame for t
     )
 
   t9_4_analyzed <- t9_4_transformed %>%
-    qualification_analyze_fisher()
+    mutate(
+      Score = Metric
+    ) %>%
+    arrange(Score)
 
   class(t9_4_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t9_4_flagged <- t9_4_analyzed %>%
-    qualification_flag_fisher(threshold = c(0.02, 0.06))
+    qualification_flag_identity(threshold = c(0.00006, 0.01))
 
   t9_4_summary <- t9_4_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

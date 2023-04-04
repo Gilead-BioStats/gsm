@@ -1,6 +1,5 @@
-#' {experimental} Run a QTL
-#'
 #' `r lifecycle::badge("experimental")`
+#'
 #'
 #' @description
 #' Run a QTL based on a pre-defined or custom workflow outside of `Make_Snapshot()` or `Study_Assess()`. This is a helper function that makes it possible to
@@ -43,17 +42,20 @@ RunQTL <- function(
     lData <- list(
       dfSUBJ = clindata::rawplus_dm,
       dfAE = clindata::rawplus_ae,
-      dfPD = clindata::rawplus_protdev,
+      dfPD = clindata::ctms_protdev,
       dfCONSENT = clindata::rawplus_consent,
       dfIE = clindata::rawplus_ie,
       dfLB = clindata::rawplus_lb,
       dfSTUDCOMP = clindata::rawplus_studcomp,
-      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$datapagename == "Blinded Study Drug Completion")
+      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$phase == "Blinded Study Drug Completion")
     )
   }
 
   if (is.null(lMapping)) {
-    lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+    lMapping <- c(
+      yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+      yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm"))
+    )
   }
 
   qtl <- gsm::RunWorkflow(

@@ -1,5 +1,8 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Flag_Fisher
 #'
+#' @description
 #' Add columns flagging sites that represent possible statistical outliers when the Fisher's Exact Test is used.
 #'
 #' @details
@@ -17,7 +20,7 @@
 #' @param dfAnalyzed data.frame where flags should be added.
 #' @param vThreshold Vector of 2 numeric values representing lower and upper p-value thresholds.
 #'
-#' @return `data.frame` with one row per site with columns: `GroupID`, `Numerator`, `Denominator`, `Numerator_Other`, `Denominator`, `Denominator_Other`, `Prop`, `Prop_Other`, `Metric`, `Estimate`, `Score`, `Flag`
+#' @return `data.frame` with one row per site with columns: `GroupID`, `Numerator`, `Denominator`, `Metric`, `Score`, `PredictedCount`, and `Flag`.
 #'
 #' @examples
 #' dfInput <- LB_Map_Raw()

@@ -1,4 +1,6 @@
-#' Subset a data frame
+#' `r lifecycle::badge("stable")`
+#'
+#' Subset a data frame.
 #'
 #' @description
 #' `FilterData` is used to select rows of a data.frame that satisfy a specified condition. `FilterData` is called within the `RunStep` function to subset available data

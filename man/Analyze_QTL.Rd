@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_QTL.R
 \name{Analyze_QTL}
 \alias{Analyze_QTL}
-\title{QTL Analysis}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Analyze_QTL(
   dfTransformed,
@@ -21,15 +21,13 @@ Analyze_QTL(
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one row with columns: GroupID, N, Numerator, Denominator, Metric, Method, ConfLevel, Estimate, LowCI, UpCI and Score.
+\code{data.frame} with one row with columns: GroupID, Numerator, Denominator, Metric, Method, ConfLevel, Estimate, LowCI, UpCI and Score.
 }
 \description{
-QTL Analysis
+QTL Analysis for Binary and Rate Outcomes.
 }
 \details{
-Creates QTL Analysis results data for binary event (e.g. Yes/No) of interest either as a proportion or as a rate
-
-Creates confidence intervals for the observed proportion of participants with event of interest using the exact binomial or poisson test
+Creates confidence intervals for the observed proportion of participants for the event of interest. Uses the exact binomial (\code{stats::binom.test}) or poisson test (\code{stats::poisson.test}).
 }
 \section{Statistical Methods}{
 
@@ -40,7 +38,7 @@ TODO Coming soon ...
 \section{Data Specification}{
 
 
-The input data (\code{dfTransformed}) for Analyze_QTL is typically created using \code{\link{Transform_Rate}} and should be one record for the entire study with required columns for:
+The input data (\code{dfTransformed}) for \code{Analyze_QTL} is typically created using \code{\link{Transform_Rate}} and should be one record for the entire study with required columns for:
 \itemize{
 \item \code{GroupID} - GroupID should be the StudyID
 \item \code{N} - Total number of participants at site
@@ -60,8 +58,6 @@ dfTransformed <- Transform_Rate(dfInput,
 
 dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "binary")
 dfFlagged <- Flag_QTL(dfAnalyzed, vThreshold = 0.2)
-
-
 
 dfInput <- PD_Map_Raw_Binary()
 dfTransformed <- Transform_Rate(dfInput,

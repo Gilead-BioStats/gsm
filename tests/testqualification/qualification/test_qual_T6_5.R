@@ -1,12 +1,14 @@
-test_that("Labs assessment can return a correctly assessed data frame grouped by a custom variable when given correct input data from clindata and the results should be flagged correctly using a custom threshold", {
+test_that("Given an appropriate subset of Labs data, the assessment function correctly performs a Labs Assessment grouped by the Study variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
-  dfInput <- LB_Map_Raw()
+  dfInput <- gsm::LB_Map_Raw(dfs = list(
+    dfSUBJ = clindata::rawplus_dm %>% filter(!siteid %in% c("5", "29", "58")),
+    dfLB = clindata::rawplus_lb
+  ))
 
   test6_5 <- LB_Assess(
     dfInput = dfInput,
     strMethod = "Identity",
-    strGroup = "CustomGroup",
-    vThreshold = c(2.31, 6.58)
+    strGroup = "Study"
   )
 
   # Double Programming
@@ -15,7 +17,7 @@ test_that("Labs assessment can return a correctly assessed data frame grouped by
   t6_5_transformed <- dfInput %>%
     qualification_transform_counts(
       exposureCol = "Total",
-      GroupID = "CustomGroupID"
+      GroupID = "StudyID"
     )
 
   t6_5_analyzed <- t6_5_transformed %>%
@@ -27,23 +29,7 @@ test_that("Labs assessment can return a correctly assessed data frame grouped by
   class(t6_5_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t6_5_flagged <- t6_5_analyzed %>%
-    mutate(
-      Flag = case_when(
-        Score < 2.31 ~ -1,
-        Score > 6.58 ~ 1,
-        is.na(Score) ~ NA_real_,
-        is.nan(Score) ~ NA_real_,
-        TRUE ~ 0
-      ),
-      median = median(Metric),
-      Flag = case_when(
-        Flag != 0 & Metric < median ~ -1,
-        Flag != 0 & Metric >= median ~ 1,
-        TRUE ~ Flag
-      )
-    ) %>%
-    select(-median) %>%
-    arrange(match(Flag, c(2, -2, 1, -1, 0)))
+    qualification_flag_identity(threshold = c(3.491, 5.172))
 
   t6_5_summary <- t6_5_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

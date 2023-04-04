@@ -1,4 +1,6 @@
-#' Consolidate stratified assessment outputs
+#' `r lifecycle::badge("experimental")`
+#'
+#' Consolidate stratified assessment outputs.
 #'
 #' @description
 #' Consolidates multiple stratified assessment outputs by stacking the data frames returned by an
@@ -8,8 +10,7 @@
 #' @param lStratifiedOutput `list` Multiple outputs from  [gsm::RunWorkflow()]
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `list` containing `lWorkflow` with `tags`, `workflow`, `path`, `name`, `lData`,
-#' `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of
+#' @return `list` with `group`, `steps`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `lWorkflowChecks`, and `lResults` added based on the results of the execution of
 #' `assessment$workflow`.
 #'
 #' @examples

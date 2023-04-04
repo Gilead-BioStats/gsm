@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_Poisson_PredictBounds.R
 \name{Analyze_Poisson_PredictBounds}
 \alias{Analyze_Poisson_PredictBounds}
-\title{Poisson Analysis - Predicted Boundaries}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Analyze_Poisson_PredictBounds(
   dfTransformed,
@@ -27,7 +27,7 @@ the thresholds used AE_Assess().}
 range of observed values.
 }
 \description{
-Poisson Analysis - Predicted Boundaries
+Poisson Analysis - Predicted Boundaries.
 }
 \details{
 Fits a Poisson model to site-level data and then calculates predicted count values and upper- and
@@ -43,7 +43,8 @@ calculated using the method described here TODO: Add link.
 
 \section{Data Specification}{
 
-The input data (\code{dfTransformed}) for Analyze_Poisson is typically created using
+
+The input data (\code{dfTransformed}) for \code{Analyze_Poisson_PredictBounds} is typically created using
 \code{\link{Transform_Rate}} and should be one record per site with columns for:
 \itemize{
 \item \code{GroupID} - Unique subject ID

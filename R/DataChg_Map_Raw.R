@@ -1,4 +1,6 @@
-#' Data Change Rate - Raw Mapping
+#' `r lifecycle::badge("stable")`
+#'
+#' Data Change Rate Assessment - Raw Mapping
 #'
 #' @description
 #' Convert raw data entry data to formatted input data to [gsm::DataChg_Assess()].
@@ -39,9 +41,9 @@
 DataChg_Map_Raw <- function(
   dfs = list(
     dfSUBJ = clindata::rawplus_dm,
-    dfDATACHG = clindata::edc_data_change_rate
+    dfDATACHG = clindata::edc_data_points
   ),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+  lMapping = gsm::Read_Mapping(c("rawplus", "edc")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
@@ -66,17 +68,15 @@ DataChg_Map_Raw <- function(
     dfDATACHG_mapped <- dfs$dfDATACHG %>%
       select(
         SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]],
-        DataChg = lMapping[["dfDATACHG"]][["strDataPointsChangeCol"]],
-        DataPoint = lMapping[["dfDATACHG"]][["strDataPointsCol"]]
+        DataChg = lMapping[["dfDATACHG"]][["strNChangesCol"]]
       ) %>%
       mutate(
-        DataChg = as.numeric(.data$DataChg),
-        DataPoint = as.numeric(.data$DataPoint)
+        DataChg = as.numeric(.data$DataChg)
       )
 
     dfSUBJ_mapped <- dfs$dfSUBJ %>%
       select(
-        SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+        SubjectID = lMapping[["dfSUBJ"]][["strEDCIDCol"]],
         any_of(
           c(
             SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
@@ -88,12 +88,11 @@ DataChg_Map_Raw <- function(
       )
 
     # Create subject Level data point with change counts and merge dfSUBJ
-
     dfInput <- dfDATACHG_mapped %>%
       group_by(.data$SubjectID) %>%
       summarize(
         Count = sum(.data$DataChg, na.rm = TRUE),
-        Total = sum(.data$DataPoint, na.rm = TRUE)
+        Total = n()
       ) %>%
       ungroup() %>%
       gsm::MergeSubjects(dfSUBJ_mapped, vFillZero = "Count", vRemoval = "Total", bQuiet = bQuiet) %>%

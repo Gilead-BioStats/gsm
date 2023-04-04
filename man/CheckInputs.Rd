@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-CheckInputs.R
 \name{CheckInputs}
 \alias{CheckInputs}
-\title{Check mapping inputs.}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 CheckInputs(context, dfs, mapping = NULL, spec = NULL, bQuiet = TRUE)
 }
@@ -32,6 +32,9 @@ CheckInputs(context, dfs, mapping = NULL, spec = NULL, bQuiet = TRUE)
 \description{
 \code{CheckInputs()} uses a mapping and specification to recursively run the \code{{gsm}} function \code{is_mapping_valid()} on data domains for a given assessment.
 The purpose of \code{CheckInputs()} is to identify any issues where the input data does not match the pre-defined mapping and/or specification for the expected input data format.
+}
+\details{
+Check mapping inputs.
 }
 \examples{
 checks <- CheckInputs(

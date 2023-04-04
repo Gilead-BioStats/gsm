@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_NormalApprox.R
 \name{Analyze_NormalApprox}
 \alias{Analyze_NormalApprox}
-\title{Funnel Plot Analysis with Normal Approximation for Binary and Rate Outcomes}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Analyze_NormalApprox(dfTransformed, strType = "binary", bQuiet = TRUE)
 }
@@ -18,22 +18,23 @@ Analyze_NormalApprox(dfTransformed, strType = "binary", bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, Score.
+\code{data.frame} with one row per site with columns: GroupID, Numerator, Denominator, Metric, OverallMetric, Factor, and Score.
 }
 \description{
-Funnel Plot Analysis with Normal Approximation for Binary and Rate Outcomes
+Funnel Plot Analysis with Normal Approximation for Binary and Rate Outcomes.
 }
 \details{
 Creates analysis results data for percentage/rate data using funnel plot method with normal approximation.
 }
 \section{Statistical Methods}{
 
-This function applies funnel plots using asymptotic limits based on normal approximation of binomial distribution for
-the binary outcome, or normal approximation of Poisson distribution for the rate outcome with volume (the sample sizes
+This function applies funnel plots using asymptotic limits based on the normal approximation of a binomial distribution for
+the binary outcome, or normal approximation of a Poisson distribution for the rate outcome with volume (the sample sizes
 or total exposure of the sites) to assess data quality and safety.
 }
 
 \section{Data Specification}{
+
 
 The input data (\code{dfTransformed}) is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
 \itemize{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_Identity.R
 \name{Analyze_Identity}
 \alias{Analyze_Identity}
-\title{Analyze Identity}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Analyze_Identity(dfTransformed, strValueCol = "Metric", bQuiet = TRUE)
 }
@@ -14,14 +14,26 @@ Analyze_Identity(dfTransformed, strValueCol = "Metric", bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one row per site with columns: SiteID, N, Metric,Score
+\code{data.frame} with one row per site with columns: GroupID, TotalCount, Metric, and Score.
 }
 \description{
-Analyze Identity
+Identity Analysis.
 }
 \details{
 Used in the data pipeline between \code{Transform} and \code{Flag} to rename KRI and Score columns.
 }
+\section{Data Specification}{
+
+
+The input data (\code{dfTransformed}) for \code{Analyze_Identity} is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
+\itemize{
+\item \code{GroupID} - Site ID
+\item \code{Numerator} - Total number of participants at site with event of interest.
+\item \code{Denominator} - Total number of participants at site/Total number of days of exposure at site.
+\item \code{Metric} - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator).
+}
+}
+
 \examples{
 dfInput <- Consent_Map_Raw()
 dfTransformed <- Transform_Count(dfInput, strCountCol = "Count")

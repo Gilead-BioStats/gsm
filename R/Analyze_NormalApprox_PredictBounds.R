@@ -1,7 +1,9 @@
-#' Funnel Plot Analysis with Normal Approximation - Predicted Boundaries
+#' `r lifecycle::badge("stable")`
+#'
+#' Funnel Plot Analysis with Normal Approximation - Predicted Boundaries.
 #'
 #' @details
-#' Applies a funnel plot analysis with normal approximation to site-level data and then calculates predicted
+#' Applies a funnel plot analysis with normal approximation to site-level data, and then calculates predicted
 #' percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values.
 #'
 #' @section Statistical Methods:
@@ -10,7 +12,8 @@
 #' across the full range of sample sizes/total exposure values.
 #'
 #' @section Data Specification:
-#' The input data (`dfTransformed`) for Analyze_NormalApprox is typically created using
+#'
+#' The input data (`dfTransformed`) for `Analyze_NormalApprox_PredictBounds` is typically created using
 #' \code{\link{Transform_Rate}} and should be one record per site with columns for:
 #' - `GroupID` - Site ID
 #' - `Numerator` - Total number of participants at site with event of interest/Total number of events of interest at site
@@ -30,7 +33,7 @@
 #' range of observed values.
 #'
 #' @examples
-#' #' # Binary
+#' # Binary
 #' dfInput <- Disp_Map_Raw()
 #' dfTransformed <- Transform_Rate(
 #'   dfInput,

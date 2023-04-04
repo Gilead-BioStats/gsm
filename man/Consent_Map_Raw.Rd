@@ -2,12 +2,11 @@
 % Please edit documentation in R/Consent_Map_Raw.R
 \name{Consent_Map_Raw}
 \alias{Consent_Map_Raw}
-\title{Consent Assessment - Raw Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Consent_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfCONSENT = clindata::rawplus_consent),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
-    "gsm")),
+  lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -39,7 +38,7 @@ Convert raw informed consent data, typically processed case report from data, to
 input data to \code{\link[=Consent_Assess]{Consent_Assess()}}.
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+Consent Assessment - Raw Mapping
 
 \code{Consent_Map_Raw} combines consent data with subject-level data to create formatted input data
 to \code{\link[=Consent_Assess]{Consent_Assess()}}. This function creates an input dataset for the Consent Assessment
@@ -52,7 +51,7 @@ types of consent by customizing \code{lMapping$dfCONSENT}.
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \tab FALSE \cr
    dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab TRUE \cr
-   dfSUBJ \tab strRandDateCol \tab rfpst_dt \tab TRUE \tab FALSE \tab FALSE \cr
+   dfSUBJ \tab strStudyStartDateCol \tab firstparticipantdate \tab TRUE \tab FALSE \tab FALSE \cr
    dfCONSENT \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
    dfCONSENT \tab strDateCol \tab consdt \tab TRUE \tab TRUE \tab FALSE \cr
    dfCONSENT \tab strConsentStatusCol \tab consyn \tab TRUE \tab FALSE \tab FALSE \cr

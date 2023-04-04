@@ -1,8 +1,9 @@
-#' Load assessments from a package/directory
+#' `r lifecycle::badge("stable")`
+#'
+#' Load assessments from a package/directory.
 #'
 #' @details
-#'
-#' `MakeWorkflowList()` is a utility function that creates a workflow mapping for assessments used in `Study_Assess()`.
+#' `MakeWorkflowList()` is a utility function that creates a workflow mapping for assessments used in [gsm::Study_Assess()].
 #'
 #' @param strNames `array of character` List of workflows to include. NULL (the default) includes all workflows in the specified locations.
 #' @param strPath `character` The location of assessment YAML files. If package is specified, function will look in `/inst` folder.
@@ -17,7 +18,8 @@
 #'
 #' @return `list` A list of assessments with workflow and parameter metadata.
 #'
-#' @importFrom purrr map_chr keep
+#' @importFrom cli cli_alert_warning
+#' @importFrom purrr map map_chr keep set_names
 #' @importFrom utils hasName
 #' @importFrom yaml read_yaml
 #'
@@ -49,7 +51,17 @@ MakeWorkflowList <- function(strNames = NULL, strPath = "workflow", strPackage =
   names(assessments) <- assessments %>% purrr::map_chr(~ .x$name)
 
   if (!is.null(strNames)) {
-    assessments <- purrr::keep(assessments, names(assessments) %in% strNames)
+    not_found <- strNames[!strNames %in% names(assessments)]
+
+    if (length(not_found) > 0) {
+      cli::cli_alert_warning("{.val {not_found}} {?is/are} not {?a /}supported workflow{?/s}! Check the output of {.fn MakeAssessmentList} for NULL values.")
+      assessments <- c(
+        vector(mode = "list", length = length(not_found)) %>% purrr::set_names(nm = not_found),
+        purrr::keep(assessments, names(assessments) %in% strNames)
+      )
+    } else {
+      assessments <- purrr::keep(assessments, names(assessments) %in% strNames)
+    }
   }
 
   return(assessments)

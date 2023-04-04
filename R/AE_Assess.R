@@ -1,7 +1,10 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Adverse Event Assessment
 #'
 #' @description
-#' Evaluates adverse event (AE) rates to identify sites that may be over- or under-reporting AEs.
+#' Evaluates Adverse Event (AE) rates to identify sites that may be over- or under-reporting AEs.
+#'
 #'
 #' @details
 #' The AE Assessment uses the standard [GSM data pipeline](
@@ -19,7 +22,7 @@
 #'   - `"Identity"`
 #' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Adverse Event Assessment mapping.
-#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`.
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
@@ -212,7 +215,7 @@ AE_Assess <- function(
 
 
       # rbm-viz charts ----------------------------------------------------------
-      lCharts$scatterJS <- scatterPlot(
+      lCharts$scatterJS <- gsm::Widget_ScatterPlot(
         results = lData$dfSummary,
         workflow = dfConfig,
         bounds = lData$dfBounds,
@@ -226,14 +229,14 @@ AE_Assess <- function(
     lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
     lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
 
-    lCharts$barMetricJS <- barChart(
+    lCharts$barMetricJS <- gsm::Widget_BarChart(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "metric",
       elementId = "aeAssessMetric"
     )
 
-    lCharts$barScoreJS <- barChart(
+    lCharts$barScoreJS <- gsm::Widget_BarChart(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "score",

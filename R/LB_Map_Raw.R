@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Lab Abnormality Assessment - Raw Mapping
 #'
 #' @description
@@ -47,7 +49,7 @@ LB_Map_Raw <- function(
     dfLB = clindata::rawplus_lb
   ),
 
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {

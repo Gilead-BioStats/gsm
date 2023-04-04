@@ -2,15 +2,15 @@
 % Please edit documentation in R/Flag_NormalApprox.R
 \name{Flag_NormalApprox}
 \alias{Flag_NormalApprox}
-\title{Flag_Funnel}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Flag_NormalApprox(dfAnalyzed, vThreshold = NULL)
 }
 \arguments{
-\item{dfAnalyzed}{data.frame where flags should be added.}
+\item{dfAnalyzed}{\code{data.frame} where flags should be added.}
 
-\item{vThreshold}{Vector of 4 numeric values representing lower and upper threshold values. All
-values in strColumn are compared to vThreshold using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in strColumn are given NA flag values.}
+\item{vThreshold}{\code{vector} of 4 numeric values representing lower and upper threshold values. All
+values in \code{strColumn} are compared to \code{vThreshold} using strict comparisons. Values less than the lower threshold or greater than the upper threshold are flagged as -1 and 1 respectively. Values equal to the threshold values are set to 0 (i.e. not flagged). If NA is provided for either threshold value it is ignored, and no values are flagged based on the threshold. NA and NaN values in \code{strColumn} are given NA flag values.}
 }
 \value{
 \code{data.frame} with "Flag" column added
@@ -19,6 +19,8 @@ values in strColumn are compared to vThreshold using strict comparisons. Values 
 Add columns flagging sites that represent possible statistical outliers.
 }
 \details{
+Flag_NormalApprox
+
 This function flags sites based on the funnel plot with normal approximation analysis result as part of
 the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
 }
@@ -32,7 +34,7 @@ In short, the following columns are considered:
 \itemize{
 \item \code{GroupID} - Group ID (required)
 \item \code{strColumn} - A column to use for Thresholding (required)
-\item 'strValueColumn' - A column to be used for the sign of the flag (optional)#'
+\item \code{strValueColumn} - A column to be used for the sign of the flag (optional)
 }
 }
 

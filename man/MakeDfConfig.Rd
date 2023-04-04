@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-MakeDfConfig.R
 \name{MakeDfConfig}
 \alias{MakeDfConfig}
-\title{Make dfConfig for use in {rbm-viz}}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 MakeDfConfig(
   strMethod,
@@ -36,6 +36,9 @@ MakeDfConfig(
 \code{MakeDfConfig} is a utility function that is used within \verb{*_Assess()} functions in \code{{gsm}}.
 
 The output of \code{MakeDfConfig} is used as a configuration dataset for a \code{{rbm-viz}} htmlwidget.
+}
+\details{
+Make dfConfig for use in {rbm-viz}.
 }
 \examples{
 \dontrun{

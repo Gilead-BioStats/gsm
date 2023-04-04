@@ -3,12 +3,13 @@ source(testthat::test_path("testdata/data.R"))
 map_function <- gsm::DataEntry_Map_Raw
 
 dfs <- list(
-  dfDATAENT = clindata::edc_data_entry_lag,
-  dfSUBJ = dfSUBJ
+  dfDATAENT = clindata::edc_data_pages,
+  dfSUBJ = clindata::rawplus_dm %>%
+    slice_sample(n = 3)
 )
 
 input_spec <- yaml::read_yaml(system.file("specs", "DataEntry_Map_Raw.yaml", package = "gsm"))
-input_mapping <- subset_input_mapping(input_spec = input_spec, mapping_domain = "mapping_edc.yaml")
+input_mapping <- gsm::Read_Mapping(c("rawplus", "edc"))
 
 output_spec <- yaml::read_yaml(system.file("specs", "DataEntry_Assess.yaml", package = "gsm"))
 output_mapping <- yaml::read_yaml(system.file("mappings", "DataEntry_Assess.yaml", package = "gsm"))

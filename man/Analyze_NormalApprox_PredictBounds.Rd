@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_NormalApprox_PredictBounds.R
 \name{Analyze_NormalApprox_PredictBounds}
 \alias{Analyze_NormalApprox_PredictBounds}
-\title{Funnel Plot Analysis with Normal Approximation - Predicted Boundaries}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Analyze_NormalApprox_PredictBounds(
   dfTransformed,
@@ -33,10 +33,10 @@ the thresholds used in \verb{*_Assess()} functions.}
 range of observed values.
 }
 \description{
-Funnel Plot Analysis with Normal Approximation - Predicted Boundaries
+Funnel Plot Analysis with Normal Approximation - Predicted Boundaries.
 }
 \details{
-Applies a funnel plot analysis with normal approximation to site-level data and then calculates predicted
+Applies a funnel plot analysis with normal approximation to site-level data, and then calculates predicted
 percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values.
 }
 \section{Statistical Methods}{
@@ -48,7 +48,8 @@ across the full range of sample sizes/total exposure values.
 
 \section{Data Specification}{
 
-The input data (\code{dfTransformed}) for Analyze_NormalApprox is typically created using
+
+The input data (\code{dfTransformed}) for \code{Analyze_NormalApprox_PredictBounds} is typically created using
 \code{\link{Transform_Rate}} and should be one record per site with columns for:
 \itemize{
 \item \code{GroupID} - Site ID
@@ -59,7 +60,7 @@ The input data (\code{dfTransformed}) for Analyze_NormalApprox is typically crea
 }
 
 \examples{
-#' # Binary
+# Binary
 dfInput <- Disp_Map_Raw()
 dfTransformed <- Transform_Rate(
   dfInput,

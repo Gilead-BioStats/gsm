@@ -12,10 +12,7 @@ reference:
      desc: Generate a visualization from the Assessment results
    - contents:
       - starts_with("Visualize_")
-      - barChart
-      - barChart-shiny
-      - scatterPlot
-      - scatterPlot-shiny
+      - starts_with("Widget_")
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
 
@@ -63,34 +60,35 @@ reference:
    - title: Utility
      desc: Utility functions for use within the Data Pipeline
    - contents:
-      - is_mapping_valid
-      - MergeSubjects
-      - MakeWorkflowList
-      - ConsolidateStrata
-      - MakeStratifiedAssessment
-      - RunStratifiedWorkflow
-      - RunWorkflow
-      - FilterData
-      - FilterDomain
-      - Get_Enrolled
-      - RunStep
-      - CheckInputs
-      - parse_data_mapping
-      - parse_data_spec
-      - generate_md_table
-      - RemoveInvalidSubjectIDs
-      - ParseWarnings
-      - Make_Snapshot
-      - CheckSnapshotInputs
-      - MakeDfConfig
-      - UpdateParams
-      - CheckClindataMeta
-      - UpdateGSMVersion
-      - ExportCode
+      -  CheckClindataMeta
+      -  CheckInputs
+      -  CheckSnapshotInputs
+      -  ConsolidateStrata
+      -  ExportCode
+      -  FilterData
+      -  FilterDomain
+      -  Get_Enrolled
+      -  MakeDfConfig
+      -  MakeStratifiedAssessment
+      -  MakeWorkflowList
+      -  Make_Snapshot
+      -  MergeSubjects
+      -  ParseWarnings
+      -  RunStep
+      -  RunStratifiedWorkflow
+      -  RunWorkflow
+      -  UpdateGSMVersion
+      -  UpdateParams
+      -  generate_md_table
+      -  is_mapping_valid
+      -  is_workflow_valid
+      -  parse_data_mapping
+      -  parse_data_spec
 
    - title: Data
      desc: Metadata used to create workflows
    - contents:
+      - input_data_schema
       - meta_param
       - meta_workflow
       - rbm_data_spec

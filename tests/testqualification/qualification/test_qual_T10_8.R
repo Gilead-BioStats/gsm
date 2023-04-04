@@ -1,15 +1,15 @@
-test_that("Query rate assessment can return a correctly assessed data frame for the normal approximation test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly.", {
+test_that("Given an appropriate subset of Query Rate data, the assessment function correctly performs a Query Rate Assessment grouped by the Study variable using the Normal Approximation method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::QueryRate_Map_Raw(dfs = list(
-    dfQUERY = clindata::edc_queries %>% filter(foldername == "Week 120"),
+    dfQUERY = clindata::edc_queries %>% filter(visit == "Week 120"),
     dfSUBJ = clindata::rawplus_dm,
-    dfDATACHG = clindata::edc_data_change_rate
+    dfDATACHG = clindata::edc_data_points
   ))
 
   test10_8 <- QueryRate_Assess(
     dfInput = dfInput,
     strMethod = "NormalApprox",
-    strGroup = "CustomGroup"
+    strGroup = "Study"
   )
 
   # double programming
@@ -19,7 +19,7 @@ test_that("Query rate assessment can return a correctly assessed data frame for 
     qualification_transform_counts(
       countCol = "Count",
       exposureCol = "DataPoint",
-      GroupID = "CustomGroupID"
+      GroupID = "StudyID"
     )
 
   t10_8_analyzed <- t10_8_transformed %>%

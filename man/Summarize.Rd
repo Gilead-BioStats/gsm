@@ -2,7 +2,7 @@
 % Please edit documentation in R/Summarize.R
 \name{Summarize}
 \alias{Summarize}
-\title{Make Summary Data Frame}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Summarize(
   dfFlagged,
@@ -28,6 +28,8 @@ when associated with a workflow.
 Create a concise summary of assessment results that is easy to aggregate across assessments
 }
 \details{
+Make Summary Data Frame
+
 \code{Summarize} supports the input data (\code{dfFlagged}) from the \code{Flag} function.
 }
 \section{Data Specification}{

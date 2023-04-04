@@ -4,12 +4,13 @@ map_function <- gsm::QueryRate_Map_Raw
 
 dfs <- list(
   dfQUERY = clindata::edc_queries,
-  dfDATACHG = clindata::edc_data_change_rate,
-  dfSUBJ = dfSUBJ
+  dfDATACHG = clindata::edc_data_points,
+  dfSUBJ = clindata::rawplus_dm %>%
+    slice_sample(n = 3)
 )
 
 input_spec <- yaml::read_yaml(system.file("specs", "QueryRate_Map_Raw.yaml", package = "gsm"))
-input_mapping <- subset_input_mapping(input_spec = input_spec, mapping_domain = "mapping_edc.yaml")
+input_mapping <- gsm::Read_Mapping(c("edc", "rawplus"))
 
 output_spec <- yaml::read_yaml(system.file("specs", "QueryRate_Assess.yaml", package = "gsm"))
 output_mapping <- yaml::read_yaml(system.file("mappings", "QueryRate_Assess.yaml", package = "gsm"))

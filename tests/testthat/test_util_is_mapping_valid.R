@@ -109,3 +109,20 @@ test_that("bQuiet works as intended", {
     )
   )
 })
+
+test_that("non-list spec does not cause function to fail", {
+  subj_mapping <- list(
+    strIDCol = "SubjectID",
+    strSiteCol = "SiteID",
+    strExposureCol = "TimeOnTreatment"
+  )
+
+
+  expect_silent(
+    is_mapping_valid(
+      df = clindata::rawplus_dm,
+      mapping = subj_mapping,
+      spec = "string"
+    )
+  )
+})

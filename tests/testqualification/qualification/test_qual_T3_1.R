@@ -1,4 +1,4 @@
-test_that("IE assessment can return a correctly assessed data frame grouped by the site variable when given correct input data from clindata and the results should be flagged correctly", {
+test_that("Given appropriate  Inclusion/Exclusion data, the assessment function correctly performs an Inclusion/Exclusion Assessment grouped by the Site variable using the Identity method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- IE_Map_Raw()
 

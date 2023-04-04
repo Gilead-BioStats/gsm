@@ -1,6 +1,9 @@
-test_that("IE assessment can return a correctly assessed data frame grouped by the study variable when given subset input data from clindata and the results should be flagged correctly", {
+test_that("Given an appropriate subset of Inclusion/Exclusion data, the assessment function correctly performs an Inclusion/Exclusion Assessment grouped by the Study variable using the Identity method and correctly assigns Flag variable values when given a custom threshold.", {
   # gsm analysis
-  dfInput <- IE_Map_Raw()
+  dfInput <- IE_Map_Raw(dfs = list(
+    dfSUBJ = clindata::rawplus_dm %>% filter(!siteid %in% c("5", "29", "58")),
+    dfIE = clindata::rawplus_ie
+  ))
 
   test3_2 <- IE_Assess(
     dfInput = dfInput,

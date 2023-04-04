@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-RunStep.R
 \name{RunStep}
 \alias{RunStep}
-\title{Run a single step in a workflow}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 RunStep(lStep, lMapping, lData, bQuiet)
 }
@@ -11,14 +11,13 @@ RunStep(lStep, lMapping, lData, bQuiet)
 include the name of the function to run (\code{lStep$name}), data inputs (\code{lStep$inputs}), name of
 output (\code{lStep$output}) and configurable parameters (\code{lStep$params}) (if any)}
 
-\item{lMapping}{\code{list} List containing expected columns in each data set.}
+\item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
 
 \item{lData}{\code{list} a named list of domain level data frames. Names should match the values
 specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs
 from \code{X_Map_Raw}.}
 
-\item{bQuiet}{\code{logical} Default is TRUE, which means warning messages are suppressed. Set to
-FALSE to see warning messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 }
 \value{
 \code{list} containing the results of the \code{lStep$name} function call should contain \code{.$checks}
@@ -28,6 +27,9 @@ parameter with results from \code{is_mapping_vald} for each domain in \code{lSte
 Runs a single step of an assessment workflow. Currently supports \code{Filter}, \code{Map}, and \code{Assess}
 functions.
 }
+\details{
+Run a single step in a workflow.
+}
 \examples{
 lStep <- MakeWorkflowList()[["kri0001"]][["steps"]][[1]]
 
@@ -36,7 +38,7 @@ lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", pack
 lData <- list(
   dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae,
-  dfPD = clindata::rawplus_protdev,
+  dfPD = clindata::ctms_protdev,
   dfCONSENT = clindata::rawplus_consent,
   dfIE = clindata::rawplus_ie
 )

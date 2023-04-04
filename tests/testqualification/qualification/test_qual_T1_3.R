@@ -1,10 +1,7 @@
-test_that("AE assessment can return a correctly assessed data frame for the poisson test grouped by a custom variable when given subset input data from clindata and the results should be flagged correctly.", {
+test_that("Given appropriate Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by a custom variable using the Poisson method and correctly assigns Flag variable values.", {
   # gsm analysis
 
-  dfInput <- gsm::AE_Map_Raw(dfs = list(
-    dfAE = clindata::rawplus_ae %>% filter(aeser_std_nsv == "Y"),
-    dfSUBJ = clindata::rawplus_dm
-  ))
+  dfInput <- gsm::AE_Map_Raw()
 
   test1_3 <- AE_Assess(
     dfInput = dfInput,

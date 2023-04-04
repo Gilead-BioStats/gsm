@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-parse_data_spec.R
 \name{parse_data_spec}
 \alias{parse_data_spec}
-\title{Parse Data Specification}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 parse_data_spec(content = NULL, file = NULL)
 }
@@ -13,4 +13,7 @@ parse_data_spec(content = NULL, file = NULL)
 }
 \description{
 Transform nested data specification to tabular structure for use in documentation.
+}
+\details{
+Parse Data Specification.
 }

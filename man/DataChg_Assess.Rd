@@ -2,7 +2,7 @@
 % Please edit documentation in R/DataChg_Assess.R
 \name{DataChg_Assess}
 \alias{DataChg_Assess}
-\title{Data Change Rate Assessment}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 DataChg_Assess(
   dfInput,
@@ -31,7 +31,7 @@ DataChg_Assess(
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column. Default: package-defined Labs Assessment mapping.}
 
-\item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
+\item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"}, \code{"Country"}, and \code{"CustomGroup"}.}
 
 \item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
 
@@ -67,6 +67,8 @@ of the column. Default: package-defined Labs Assessment mapping.}
 Evaluates rate of reported data point with >1 changes.
 }
 \details{
+Data Change Rate Assessment
+
 The Data Change Rate Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }

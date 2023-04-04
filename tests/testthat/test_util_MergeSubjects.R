@@ -75,6 +75,11 @@ test_that("incorrect inputs throw errors", {
   )
 
   expect_error(
+    MergeSubjects(domain, subjects, vRemoval = "abc") %>%
+      suppressMessages()
+  )
+
+  expect_error(
     MergeSubjects(domain, subjects, bQuiet = 1) %>%
       suppressMessages()
   )
@@ -160,8 +165,10 @@ test_that("basic functionality check - no matching ids", {
     "0002", "X010X", 3455
   )
 
-  merged <- MergeSubjects(domain, subjects) %>%
-    suppressWarnings()
+  expect_snapshot(
+    merged <- MergeSubjects(domain, subjects, bQuiet = FALSE)
+  )
+
 
   expect_true(
     all(is.na(merged$Count))
@@ -223,4 +230,33 @@ test_that("vRemoval works as intended", {
   result <- MergeSubjects(dfDomain = dfDomain, dfSUBJ = dfSUBJ, vRemoval = "Exposure")
 
   expect_equal(nrow(result), 1)
+})
+
+
+test_that("bQuiet works as intended", {
+  expect_snapshot(
+    MergeSubjects(domain, subjects, bQuiet = FALSE)
+  )
+
+  dfDomain <- tibble::tribble(
+    ~SubjectID, ~SiteID, ~StudyID, ~CountryID, ~CustomGroupID, ~Exposure,
+    "0003", "166", "AA-AA-000-0000", "US", "0X102", 857,
+    "0002", "76", "AA-AA-000-0000", "US", "0X104", NA,
+    "0001", "86", "AA-AA-000-0000", "US", "0X035", 0
+  )
+
+  dfSUBJ <- tibble::tribble(
+    ~SubjectID, ~Count,
+    "0001",     5L,
+    "0002",     2L,
+    "0003",     5L
+  )
+
+  expect_snapshot(
+    MergeSubjects(dfDomain = dfDomain, dfSUBJ = dfSUBJ, vRemoval = "Exposure", bQuiet = FALSE)
+  )
+
+  expect_error(
+    MergeSubjects(dfDomain = dfDomain, dfSUBJ = dfSUBJ, bQuiet = "ok")
+  )
 })

@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Check that a data frame contains columns and fields specified in mapping.
 #'
 #' @description
@@ -82,41 +84,52 @@ is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
   # basic `spec` check
   if (!is.list(spec)) {
     tests_if$spec_is_list$status <- FALSE
+    tests_if$mappings_are_character$status <- FALSE
+    tests_if$has_expected_columns$status <- FALSE
+
+
     tests_if$spec_is_list$warning <- "spec is not a list()"
+    tests_if$mappings_are_character$warning <- "spec is not a list()"
+    tests_if$has_expected_columns$warning <- "spec is not a list()"
   } else {
     tests_if$spec_is_list$status <- TRUE
   }
 
-  # has required parameters in `mapping`
-  if (!all(spec$vRequired %in% names(mapping))) {
-    missing_params <- paste(spec$vRequired[!(spec$vRequired %in% names(mapping))], collapse = ", ")
-    tests_if$has_required_params$status <- FALSE
-    tests_if$has_required_params$warning <- paste0('"mapping" does not contain required parameters: ', missing_params)
-  } else {
-    tests_if$has_required_params$status <- TRUE
+  if (tests_if$spec_is_list$status) {
+    # has required parameters in `mapping`
+    if (!all(spec$vRequired %in% names(mapping))) {
+      missing_params <- paste(spec$vRequired[!(spec$vRequired %in% names(mapping))], collapse = ", ")
+      tests_if$has_required_params$status <- FALSE
+      tests_if$has_required_params$warning <- paste0('"mapping" does not contain required parameters: ', missing_params)
+    } else {
+      tests_if$has_required_params$status <- TRUE
+    }
+
+    # mapping contains character values for column names
+    colParams <- spec$vRequired %>% stringr::str_subset("[c|C]ol$")
+    colNames <- unlist(unname(mapping[colParams]))
+    if (!all(is.character(colNames))) {
+      tests_if$mappings_are_character$status <- FALSE
+      warning <- "Non-character column names found in mapping"
+      warning_cols <- colNames[!is.character(colNames)]
+      tests_if$mappings_are_character$warning <- paste0(warning, ": ", paste(warning_cols, collapse = ", "))
+    } else {
+      tests_if$mappings_are_character$status <- TRUE
+    }
+
+    # expected columns are found in "df"
+    if (!all(colNames %in% names(df))) {
+      tests_if$has_expected_columns$status <- FALSE
+      warning_cols <- paste(colNames[!colNames %in% names(df)], collapse = ", ")
+      warning <- paste0("the following columns not found in df: ", warning_cols)
+      tests_if$has_expected_columns$warning <- warning
+    } else {
+      tests_if$has_expected_columns$status <- TRUE
+    }
   }
 
-  # mapping contains character values for column names
-  colParams <- spec$vRequired %>% str_subset("[c|C]ol$")
-  colNames <- unlist(unname(mapping[colParams]))
-  if (!all(is.character(colNames))) {
-    tests_if$mappings_are_character$status <- FALSE
-    warning <- "Non-character column names found in mapping"
-    warning_cols <- colNames[!is.character(colNames)]
-    tests_if$mappings_are_character$warning <- paste0(warning, ": ", paste(warning_cols, collapse = ", "))
-  } else {
-    tests_if$mappings_are_character$status <- TRUE
-  }
 
-  # expected columns are found in "df"
-  if (!all(colNames %in% names(df))) {
-    tests_if$has_expected_columns$status <- FALSE
-    warning_cols <- paste(colNames[!colNames %in% names(df)], collapse = ", ")
-    warning <- paste0("the following columns not found in df: ", warning_cols)
-    tests_if$has_expected_columns$warning <- warning
-  } else {
-    tests_if$has_expected_columns$status <- TRUE
-  }
+
 
 
   # Remaining checks only runs if all expected columns are found

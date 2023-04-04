@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-ConsolidateStrata.R
 \name{ConsolidateStrata}
 \alias{ConsolidateStrata}
-\title{Consolidate stratified assessment outputs}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 ConsolidateStrata(lOutput, lStratifiedOutput, bQuiet = TRUE)
 }
@@ -14,13 +14,15 @@ ConsolidateStrata(lOutput, lStratifiedOutput, bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{list} containing \code{lWorkflow} with \code{tags}, \code{workflow}, \code{path}, \code{name}, \code{lData},
-\code{lChecks}, \code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of
+\code{list} with \code{group}, \code{steps}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{lWorkflowChecks}, and \code{lResults} added based on the results of the execution of
 \code{assessment$workflow}.
 }
 \description{
 Consolidates multiple stratified assessment outputs by stacking the data frames returned by an
 \verb{*_Assess} function and generating a paneled data visualization.
+}
+\details{
+Consolidate stratified assessment outputs.
 }
 \examples{
 lData <- list(

@@ -1,6 +1,7 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Export gsm analysis script using Data, Mapping, and Workflow
 #'
-#' `r lifecycle::badge("experimental")`
 #'
 #' @param lData `list` Raw+ data to use as inputs.
 #' @param lMapping `list` Standard mapping provided for [gsm::FilterDomain()] and `*_Map_Raw()` functions.
@@ -14,7 +15,7 @@
 #' lData <- list(
 #'   dfSUBJ = clindata::rawplus_dm,
 #'   dfAE = clindata::rawplus_ae,
-#'   dfPD = clindata::rawplus_protdev,
+#'   dfPD = clindata::ctms_protdev,
 #'   dfCONSENT = clindata::rawplus_consent,
 #'   dfIE = clindata::rawplus_ie,
 #'   dfLB = clindata::rawplus_lb,

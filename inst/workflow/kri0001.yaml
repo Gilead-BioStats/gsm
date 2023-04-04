@@ -1,18 +1,18 @@
 steps:
   - name: FilterDomain
+    inputs: dfSUBJ
+    output: dfSUBJ
+    params:
+      strDomain: dfSUBJ
+      strColParam: strEnrollCol
+      strValParam: strEnrollVal
+  - name: FilterDomain
     inputs: dfAE
     output: dfAE
     params:
       strDomain: dfAE
       strColParam: strTreatmentEmergentCol
       strValParam: strTreatmentEmergentVal
-  - name: FilterDomain
-    inputs: dfAE
-    output: dfAE
-    params:
-      strDomain: dfAE
-      strColParam: strSeriousCol
-      strValParam: strNonSeriousVal
   - name: AE_Map_Raw
     inputs:
       - dfAE

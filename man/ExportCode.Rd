@@ -2,7 +2,7 @@
 % Please edit documentation in R/ExportCode.R
 \name{ExportCode}
 \alias{ExportCode}
-\title{Export gsm analysis script using Data, Mapping, and Workflow}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 ExportCode(
   lData,
@@ -27,13 +27,13 @@ ExportCode(
 \item{strFileName}{\code{character} Name of file to save.}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+Export gsm analysis script using Data, Mapping, and Workflow
 }
 \examples{
 lData <- list(
   dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae,
-  dfPD = clindata::rawplus_protdev,
+  dfPD = clindata::ctms_protdev,
   dfCONSENT = clindata::rawplus_consent,
   dfIE = clindata::rawplus_ie,
   dfLB = clindata::rawplus_lb,

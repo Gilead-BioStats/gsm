@@ -2,13 +2,12 @@
 % Please edit documentation in R/QueryRate_Map_Raw.R
 \name{QueryRate_Map_Raw}
 \alias{QueryRate_Map_Raw}
-\title{Query Rate - Raw Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 QueryRate_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries, dfDATACHG =
-    clindata::edc_data_change_rate),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
-    "gsm")),
+    clindata::edc_data_points),
+  lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -40,6 +39,8 @@ of the column.}
 Convert raw query data to formatted input data to \code{\link[=QueryRate_Assess]{QueryRate_Assess()}}.
 }
 \details{
+Query Rate Assessment - Raw Mapping
+
 \code{QueryRate_Map_Raw} combines query data with data points data and subject-level data to create
 formatted input data to \code{\link[=QueryRate_Assess]{QueryRate_Assess()}}. This function creates an input dataset for the Query Rate Assessment
 (\code{\link[=QueryRate_Assess]{QueryRate_Assess()}}) by binding subject-level query counts (derived from \code{dfQUERY}) and data point counts
@@ -50,10 +51,9 @@ queries by passing filtered query data to \code{dfQUERY}.
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
-   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
-   dfDATACHG \tab strIDCol \tab  \tab TRUE \tab FALSE \cr
-   dfDATACHG \tab strDataPointsCol \tab  \tab TRUE \tab FALSE \cr
-   dfDATACHG \tab strDataPointsChangeCol \tab  \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strEDCIDCol \tab subject_nsv \tab TRUE \tab TRUE \cr
+   dfDATACHG \tab strIDCol \tab subjectname \tab TRUE \tab FALSE \cr
+   dfDATACHG \tab strNChangesCol \tab n_changes \tab TRUE \tab FALSE \cr
 }
 }
 

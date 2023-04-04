@@ -3,12 +3,13 @@ source(testthat::test_path("testdata/data.R"))
 map_function <- gsm::DataChg_Map_Raw
 
 dfs <- list(
-  dfDATACHG = clindata::edc_data_change_rate,
-  dfSUBJ = dfSUBJ
+  dfDATACHG = clindata::edc_data_points,
+  dfSUBJ = clindata::rawplus_dm %>%
+    slice_sample(n = 3)
 )
 
 input_spec <- yaml::read_yaml(system.file("specs", "DataChg_Map_Raw.yaml", package = "gsm"))
-input_mapping <- subset_input_mapping(input_spec = input_spec, mapping_domain = "mapping_edc.yaml")
+input_mapping <- gsm::Read_Mapping(c("rawplus", "edc"))
 
 output_spec <- yaml::read_yaml(system.file("specs", "DataChg_Assess.yaml", package = "gsm"))
 output_mapping <- yaml::read_yaml(system.file("mappings", "DataChg_Assess.yaml", package = "gsm"))

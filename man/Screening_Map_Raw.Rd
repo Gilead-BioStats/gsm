@@ -2,12 +2,11 @@
 % Please edit documentation in R/Screening_Map_Raw.R
 \name{Screening_Map_Raw}
 \alias{Screening_Map_Raw}
-\title{Screening Assessment - Raw Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Screening_Map_Raw(
   dfs = list(dfENROLL = clindata::rawplus_enroll),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
-    "gsm")),
+  lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -37,6 +36,8 @@ of the column. Default: package-defined mapping for raw+.}
 Convert raw screening data to formatted input data to \code{\link[=Screening_Assess]{Screening_Assess()}}.
 }
 \details{
+Screening Assessment - Raw Mapping
+
 \code{Screening_Map_Raw} creates an input dataset for the Screening Assessment
 \code{\link[=Screening_Assess]{Screening_Assess()}} by identifying Screen Failures (derived from \code{dfENROLL}).
 }
@@ -44,7 +45,7 @@ Convert raw screening data to formatted input data to \code{\link[=Screening_Ass
 \tabular{lllll}{
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \cr
    dfENROLL \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
-   dfENROLL \tab strIDCol \tab subjid \tab TRUE \tab FALSE \cr
+   dfENROLL \tab strIDCol \tab subjectid \tab TRUE \tab FALSE \cr
    dfENROLL \tab strScreenFailCol \tab enrollyn \tab TRUE \tab TRUE \cr
    dfENROLL \tab strScreenFailReasonCol \tab sfreas \tab TRUE \tab TRUE \cr
 }

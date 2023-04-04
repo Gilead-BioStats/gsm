@@ -2,7 +2,7 @@
 % Please edit documentation in R/Flag.R
 \name{Flag}
 \alias{Flag}
-\title{Flag}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Flag(dfAnalyzed, strColumn = "Score", vThreshold = NULL, strValueColumn = NULL)
 }
@@ -26,10 +26,12 @@ the value for that row is lower than the median of \code{strValueColumn}, then F
 \code{data.frame} with one row per site with columns: \code{GroupID}, \code{TotalCount}, \code{Metric}, \code{Score}, \code{Flag}
 }
 \description{
-Add columns flagging sites that represent possible statistical outliers when Identity statistical
+Add columns flagging sites that represent possible statistical outliers when the Identity statistical
 method is used.
 }
 \details{
+Flag
+
 This function provides a generalized framework for flagging sites as part of the
 \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/RunQTL.R
 \name{RunQTL}
 \alias{RunQTL}
-\title{{experimental} Run a QTL}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 RunQTL(strName = NULL, lWorkflow = NULL, lData = NULL, lMapping = NULL)
 }
@@ -21,9 +21,6 @@ RunQTL(strName = NULL, lWorkflow = NULL, lData = NULL, lMapping = NULL)
 \description{
 Run a QTL based on a pre-defined or custom workflow outside of \code{Make_Snapshot()} or \code{Study_Assess()}. This is a helper function that makes it possible to
 run a QTL for any supported \verb{*_Assess} function.
-}
-\details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 qtl <- RunQTL("qtl0004")

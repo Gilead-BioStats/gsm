@@ -1,16 +1,18 @@
-#' Run a single assessment
+#' `r lifecycle::badge("stable")`
+#'
+#' Run a single assessment via workflow YAML specification.
 #'
 #' @description
 #' Attempts to run a single assessment (`lWorkflow`) using shared data (`lData`) and metadata (`lMapping`).
-#' Calls `RunStep` for each item in `lWorkflow$workflow` and saves the results to `lWorkflow`
+#' Calls `RunStep` for each item in `lWorkflow$workflow` and saves the results to `lWorkflow`.
 #'
-#' @param lWorkflow `list` A named list of metadata defining how each assessment should be run. Properties should include: `label` and `workflow`
+#' @param lWorkflow `list` A named list of metadata defining how the workflow should be run.
 #' @param lData `list` A named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`
 #'
-#' @return `list` containing `lWorkflow` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
+#' @return `list` containing objects named: `steps`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `lWorkflowChecks`, and `lResults`.
 #'
 #' @examples
 #' lAssessments <- MakeWorkflowList()
@@ -20,7 +22,7 @@
 #'   dfDISP = clindata::rawplus_dm,
 #'   dfIE = clindata::rawplus_ie,
 #'   dfLB = clindata::rawplus_lb,
-#'   dfPD = clindata::rawplus_protdev,
+#'   dfPD = clindata::ctms_protdev,
 #'   dfSUBJ = clindata::rawplus_dm
 #' )
 #'
@@ -53,8 +55,11 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE, bFlowchart = 
   lWorkflow$lData <- lData[vDataDomains]
   lWorkflow$lChecks <- list()
   lWorkflow$bStatus <- TRUE
+  lWorkflow$lWorkflowChecks <- is_workflow_valid(lWorkflow)
 
-  if (exists("steps", where = lWorkflow)) {
+
+
+  if (lWorkflow$lWorkflowChecks$bStatus) {
     # Run through each step in lWorkflow$workflow
 
     stepCount <- 1
@@ -100,8 +105,6 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE, bFlowchart = 
       purrr::set_names(nm = lWorkflow$name)
     if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Workflow} created a flowchart.")
   }
-
-
 
   return(lWorkflow)
 }

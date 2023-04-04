@@ -1,6 +1,6 @@
-#' Inclusion/Exclusion Assessment - Raw Mapping
-#'
 #' `r lifecycle::badge("experimental")`
+#'
+#' Inclusion/Exclusion Assessment - Raw Mapping
 #'
 #' @description
 #' Convert raw inclusion/exclusion (IE) data, typically processed case report form data, to formatted
@@ -45,7 +45,7 @@ IE_Map_Raw <- function(
     dfSUBJ = clindata::rawplus_dm,
     dfIE = clindata::rawplus_ie
   ),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {
