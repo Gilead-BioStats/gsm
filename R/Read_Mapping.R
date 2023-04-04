@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Read Mapping
 #'
 #' @description

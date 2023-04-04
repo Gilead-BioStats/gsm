@@ -2,7 +2,7 @@
 % Please edit documentation in R/Read_Mapping.R
 \name{Read_Mapping}
 \alias{Read_Mapping}
-\title{Read Mapping}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Read_Mapping(strDomain = NULL)
 }
@@ -14,6 +14,9 @@ Read_Mapping(strDomain = NULL)
 }
 \description{
 Read default mapping files from \code{inst/mappings}.
+}
+\details{
+Read Mapping
 }
 \examples{
 mappings <- Read_Mapping(c("ctms", "rawplus"))
