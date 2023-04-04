@@ -48,6 +48,17 @@ timeSeriesContinuous <- function(kri,
   parameters <- raw_param %>%
     dplyr::filter(.data$workflowid == kri)
 
+  # highlight the most concerning site(s)
+  # TODO: this doesn't work
+  if (is.null(selectedGroupIDs)) {
+
+    selectedGroupIDs <- results %>%
+      filter(flag == max(abs(flag))) %>%
+      filter(score == max(abs(score))) %>%
+      pull(groupid) %>%
+      unique()
+  }
+
 
   # forward options using x
   x <- list(
@@ -55,30 +66,35 @@ timeSeriesContinuous <- function(kri,
     workflow = workflow,
     parameters = parameters,
     addSiteSelect = addSiteSelect,
-    analysis = analysis
+    analysis = analysis,
+    selectedGroupIDs = c(selectedGroupIDs) #TODO: decide if this is the right implementation
   )
 
-  # # create widget
-  # widgetObject <- list(
-  #   widget =
-  #
-  # el <- htmltools::tags$div(
-  #   htmltools::tags$select(
-  #     purrr::map(widgetObject$selections, ~htmltools::tags$option(.x, value=.x))
-  #   ),
-  #   htmltools::tags$div(widgetObject$widget)
-  # )
-  #
-  # htmltools::html_print(el)
-
-  htmlwidgets::createWidget(
+  # create standalone timeseries widget
+  widgetObject <- list(
+    widget = htmlwidgets::createWidget(
         name = 'timeSeriesContinuous',
         x,
         width = width,
         height = height,
         package = 'gsm',
         elementId = elementId
+  ),
+  selections = sort(unique(as.numeric(results$groupid))))
+
+  # get unique sites
+  uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))
+
+  # create div + select drop-down
+  siteSelectionDropDown <- htmltools::tags$div(
+    htmltools::tags$select(
+      purrr::map(uniqueSiteSelections, ~htmltools::tags$option(.x, value=.x))
+    )
   )
+
+
+  return(widgetObject$widget %>%
+           htmlwidgets::prependContent(siteSelectionDropDown))
 
 }
 
