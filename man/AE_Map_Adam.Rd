@@ -6,8 +6,7 @@
 \usage{
 AE_Map_Adam(
   dfs = list(dfADSL = safetyData::adam_adsl, dfADAE = safetyData::adam_adae),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package =
-    "gsm")),
+  lMapping = gsm::Read_Mapping("adam"),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )

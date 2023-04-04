@@ -6,8 +6,7 @@
 \usage{
 LB_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfLB = clindata::rawplus_lb),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
-    "gsm")),
+  lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )

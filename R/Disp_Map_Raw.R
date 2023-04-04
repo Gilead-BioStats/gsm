@@ -47,7 +47,7 @@ Disp_Map_Raw <- function(
     dfSTUDCOMP = clindata::rawplus_studcomp,
     dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$phase == "Blinded Study Drug Completion")
   ),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+  lMapping = gsm::Read_Mapping("rawplus"),
   strContext = "Study",
   bReturnChecks = FALSE,
   bQuiet = TRUE
