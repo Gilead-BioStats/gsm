@@ -21,25 +21,32 @@ timeSeriesContinuous <- function(kri,
                        raw_results,
                        raw_workflow,
                        raw_param,
-                       raw_param_over_time,
+                       raw_analysis = NULL,
                        selectedGroupIDs = NULL,
                        width = NULL,
                        height = NULL,
                        elementId = NULL,
                        addSiteSelect = TRUE) {
 
-
   results <- raw_results %>%
-    filter(.data$workflowid == kri) # contains the string kri
+    dplyr::filter(.data$workflowid == kri) # contains the string kri
 
 
   workflow <- raw_workflow %>%
-    filter(grepl('kri', .data$workflowid)) %>%
-    filter(.data$workflowid == kri) %>%
-    mutate(selectedGroupIDs = selectedGroupIDs)
+    dplyr::filter(.data$workflowid == kri) %>%
+    dplyr::mutate(selectedGroupIDs = selectedGroupIDs)
+
+  if (length(raw_analysis) > 0) {
+    workflow <- workflow %>% dplyr::mutate(y = "metric")
+
+    analysis <- raw_analysis %>%
+      dplyr::filter(.data$workflowid == kri)
+  } else {
+    analysis <- raw_analysis
+  }
 
   parameters <- raw_param %>%
-    filter(.data$workflowid == kri)
+    dplyr::filter(.data$workflowid == kri)
 
 
   # forward options using x
@@ -47,18 +54,42 @@ timeSeriesContinuous <- function(kri,
     results = results,
     workflow = workflow,
     parameters = parameters,
-    addSiteSelect = addSiteSelect
+    addSiteSelect = addSiteSelect,
+    analysis = analysis
   )
 
-  # create widget
+  # # create widget
+  # widgetObject <- list(
+  #   widget =
+  #
+  # el <- htmltools::tags$div(
+  #   htmltools::tags$select(
+  #     purrr::map(widgetObject$selections, ~htmltools::tags$option(.x, value=.x))
+  #   ),
+  #   htmltools::tags$div(widgetObject$widget)
+  # )
+  #
+  # htmltools::html_print(el)
+
   htmlwidgets::createWidget(
-    name = 'timeSeriesContinuous',
-    x,
-    width = width,
-    height = height,
-    package = 'gsm',
-    elementId = elementId
+        name = 'timeSeriesContinuous',
+        x,
+        width = width,
+        height = height,
+        package = 'gsm',
+        elementId = elementId
   )
+
+}
+
+#' Time Series Continuous
+#'
+#' @param listThing
+#'
+#' @return
+#' @export
+continuousWrapper <- function(listThing) {
+
 }
 
 #' Shiny bindings for timeSeriesContinuous
@@ -88,3 +119,13 @@ renderTimeSeriesContinuous <- function(expr, env = parent.frame(), quoted = FALS
   if (!quoted) { expr <- substitute(expr) } # force quoted
   htmlwidgets::shinyRenderWidget(expr, timeSeriesContinuousOutput, env, quoted = TRUE)
 }
+
+# timeSeriesContinuous_html <- function(...) {
+#   browser()
+#   htmltools::tags$div(
+#     htmltools::tags$select(
+#       purrr::map(selections, ~htmltools::tags$option(.x, value=.x))
+#     ),
+#     htmltools::tags$div(...)
+#   )
+# }
