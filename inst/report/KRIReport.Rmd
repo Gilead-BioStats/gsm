@@ -204,6 +204,8 @@ error_table <- error$dfSummary %>%
 DT::datatable(error_table)
 ```
 
+<script src="../utils-0.0.1/overallSiteDropdown.js"></script>
+
 ```{js, file='../utils-0.0.1/overallSiteDropdown.js', echo=FALSE}
 ```
 
