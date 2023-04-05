@@ -33,36 +33,36 @@ assessment <- params$assessment[
   grep("kri", names(params$assessment))
 ]
 
-overview_table <- Overview_Table(assessment) 
-
-overview_raw_table <- Overview_Table(assessment, bInteractive = FALSE)
-
-red_kris <- overview_raw_table %>% pull(`Red KRIs`) %>% sum()
-amber_kris <- overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
+# overview_table <- Overview_Table(assessment) 
+# 
+# overview_raw_table <- Overview_Table(assessment, bInteractive = FALSE)
+# 
+# red_kris <- overview_raw_table %>% pull(`Red KRIs`) %>% sum()
+# amber_kris <- overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
 
 # turn into a function
-summary_table <- map(assessment, function(kri) {
-  if (kri$bStatus) {
-    dfSummary <- kri$lResults$lData$dfSummary
-    
-    if (nrow(dfSummary) > 0 &
-        any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
-      dfSummary %>%
-        filter(Flag != 0) %>%
-        arrange(desc(abs(Flag))) %>%
-        mutate(FlagDirectionality = map(Flag, kri_directionality_logo),
-               across(where(is.numeric),
-                      ~ round(.x, 3))) %>%
-        DT::datatable()
-    } else {
-      htmltools::p("Nothing flagged for this KRI.")
-    }
-    
-  } else {
-    htmltools::strong("Workflow failed.")
-  }
-  
-})
+# summary_table <- map(assessment, function(kri) {
+#   if (kri$bStatus) {
+#     dfSummary <- kri$lResults$lData$dfSummary
+#     
+#     if (nrow(dfSummary) > 0 &
+#         any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
+#       dfSummary %>%
+#         filter(Flag != 0) %>%
+#         arrange(desc(abs(Flag))) %>%
+#         mutate(FlagDirectionality = map(Flag, kri_directionality_logo),
+#                across(where(is.numeric),
+#                       ~ round(.x, 3))) %>%
+#         DT::datatable()
+#     } else {
+#       htmltools::p("Nothing flagged for this KRI.")
+#     }
+#     
+#   } else {
+#     htmltools::strong("Workflow failed.")
+#   }
+#   
+# })
 
 ## StudyID
 study_id <- purrr::map(assessment, function(kri) {
@@ -102,13 +102,13 @@ if (exists("longitudinal", where = params$assessment)) {
 
 ## Study Overview
 <div class="flag-container">
-  <div class="flag flag-red">`r red_kris` Red KRIs</div>
-  <div class="flag flag-amber">`r amber_kris` Amber KRIs</div>
+  <div class="flag flag-red">0 Red KRIs</div>
+  <div class="flag flag-amber">0 Amber KRIs</div>
 </div>
 
 <div class="gsm-overview-table">
 ```{r echo=FALSE, warning=FALSE}
-overview_table
+#overview_table
 ```
 </div>
 
@@ -177,10 +177,10 @@ for (i in seq_along(assessment)) {
     #### / charts tabset
 
     #### table /
-        if (!is.null(summary_table[[assessment[[i]]$name]])) {
-            print(htmltools::h4("Summary Table"))
-            print(htmltools::tagList(summary_table[[assessment[[i]]$name]]))
-        }
+        # if (!is.null(summary_table[[assessment[[i]]$name]])) {
+        #     print(htmltools::h4("Summary Table"))
+        #     print(htmltools::tagList(summary_table[[assessment[[i]]$name]]))
+        # }
     #### / table
   ### / KRI section
 }
