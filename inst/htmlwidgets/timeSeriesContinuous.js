@@ -14,6 +14,7 @@ HTMLWidgets.widget({
 
         results = HTMLWidgets.dataframeToD3(x.results)
         workflow = HTMLWidgets.dataframeToD3(x.workflow)[0]
+        workflow.selectedGroupIDs = x.selectedGroupIDs
         parameters = HTMLWidgets.dataframeToD3(x.parameters)
 
 
@@ -23,20 +24,6 @@ HTMLWidgets.widget({
           analysis = null
         }
 
-
-               // add click event listener to chart
-               /*
-                if (x.addSiteSelect)
-                    workflow.clickCallback = function(d) { // clickCallback.bind(null, instance, siteSelect);
-                        instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
-                            ? 'None'
-                            : d.groupid;
-                        siteSelect.value = instance.data.config.selectedGroupIDs;
-                        instance.helpers.updateConfig(instance, instance.data.config);
-                    };
-               */
-
-        // visualization
         const instance = rbmViz.default.timeSeries(
             el,
             results,
@@ -45,12 +32,10 @@ HTMLWidgets.widget({
             analysis
         );
 
-                // add dropdown that highlights sites
-                /*
-                let siteSelect;
-                if (x.addSiteSelect)
-                    siteSelect = addSiteSelect(el, results, instance);
-                */
+        el.previousElementSibling.addEventListener('change', (event) => {
+            instance.helpers.updateSelectedGroupIDs(event.target.value + "");
+            instance.helpers.updateConfig(instance, instance.data.config);
+        });
 
 
 

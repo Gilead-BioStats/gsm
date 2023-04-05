@@ -50,15 +50,13 @@ timeSeriesContinuous <- function(kri,
 
   # highlight the most concerning site(s)
   # TODO: this doesn't work
-  if (is.null(selectedGroupIDs)) {
-
-    selectedGroupIDs <- results %>%
-      filter(flag == max(abs(flag))) %>%
-      filter(score == max(abs(score))) %>%
-      pull(groupid) %>%
-      unique()
-  }
-
+  # if (is.null(selectedGroupIDs)) {
+  #   selectedGroupIDs <- results %>%
+  #     filter(flag == max(abs(flag))) %>%
+  #     filter(score == max(abs(score))) %>%
+  #     pull(groupid) %>%
+  #     unique()
+  # }
 
   # forward options using x
   x <- list(
@@ -67,34 +65,44 @@ timeSeriesContinuous <- function(kri,
     parameters = parameters,
     addSiteSelect = addSiteSelect,
     analysis = analysis,
-    selectedGroupIDs = c(selectedGroupIDs) #TODO: decide if this is the right implementation
+    selectedGroupIDs = c(as.character(selectedGroupIDs))
+    # selectedGroupIDs = c(selectedGroupIDs) #TODO: decide if this is the right implementation
   )
 
+  # get unique sites
+  uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))
+
+  if (is.null(selectedGroupIDs)) {
+    selectedGroupIDs <- uniqueSiteSelections[1]
+  }
+
   # create standalone timeseries widget
-  widgetObject <- list(
-    widget = htmlwidgets::createWidget(
+  htmlwidgets::createWidget(
         name = 'timeSeriesContinuous',
         x,
         width = width,
         height = height,
         package = 'gsm',
         elementId = elementId
-  ),
-  selections = sort(unique(as.numeric(results$groupid))))
-
-  # get unique sites
-  uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))
-
-  # create div + select drop-down
-  siteSelectionDropDown <- htmltools::tags$div(
-    htmltools::tags$select(
-      purrr::map(uniqueSiteSelections, ~htmltools::tags$option(.x, value=.x))
+  ) %>%
+    htmlwidgets::prependContent(
+      htmltools::tags$div(class="select-group-container",
+        htmltools::tags$label("Highlighted Site:"),
+        htmltools::tags$select(class="selectedGroupIDs",
+                               purrr::map(uniqueSiteSelections,
+                                          ~shiny::HTML(paste0(
+                                            "<option value='",
+                                            .x,
+                                            "'",
+                                            ifelse(.x == selectedGroupIDs, 'selected', ''),
+                                            ">",
+                                            .x,
+                                            "</option>"
+                                          ))
+                               )
+        )
+      )
     )
-  )
-
-
-  return(widgetObject$widget %>%
-           htmlwidgets::prependContent(siteSelectionDropDown))
 
 }
 
