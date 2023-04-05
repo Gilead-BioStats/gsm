@@ -33,10 +33,8 @@ HTMLWidgets.widget({
         );
 
         el.previousElementSibling.addEventListener('change', (event) => {
-            instance.helpers.updateSelectedGroupIDs(event.target.value + "");
-            instance.helpers.updateConfig(instance, instance.data.config);
+          instance.helpers.updateSelectedGroupIDs(event.target.value);
         });
-
 
 
       },

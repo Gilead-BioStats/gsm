@@ -1,6 +1,9 @@
 test <- Make_Snapshot()
 test2 <- MakeTrendData(test, here::here("snapshots"), FALSE)
 
+studyobj <- Study_Assess()
+
+
 timeSeriesContinuous(
   "kri0001",
   test2$longitudinal$results_summary,

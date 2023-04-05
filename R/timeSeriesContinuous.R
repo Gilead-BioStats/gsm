@@ -73,7 +73,7 @@ timeSeriesContinuous <- function(kri,
   uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))
 
   if (is.null(selectedGroupIDs)) {
-    selectedGroupIDs <- uniqueSiteSelections[1]
+    selectedGroupIDs <- 'None'
   }
 
   # create standalone timeseries widget
@@ -88,8 +88,8 @@ timeSeriesContinuous <- function(kri,
     htmlwidgets::prependContent(
       htmltools::tags$div(class="select-group-container",
         htmltools::tags$label("Highlighted Site:"),
-        htmltools::tags$select(class="selectedGroupIDs",
-                               purrr::map(uniqueSiteSelections,
+        htmltools::tags$select(class="site-select",
+                               purrr::map(c('None', uniqueSiteSelections),
                                           ~shiny::HTML(paste0(
                                             "<option value='",
                                             .x,
