@@ -1,17 +1,20 @@
 function overallClick() {
 
+  // TODO add back .barMetricJS !!!
   const widgets = [
-    ...document.querySelectorAll(".scatterJS, .barMetricJS, .barScoreJS, .timeSeriesContinuousJS")
+    ...document.querySelectorAll(".scatterJS, .barScoreJS, .timeSeriesContinuousJS")
   ].map(el => ({
     chart: el.getElementsByTagName("canvas")[0].chart,
     type: el.className
   }))
+
 
   for (const widget of widgets) {
     if (widget.type === "timeSeriesContinuousJS") {
       widget.chart.helpers.updateSelectedGroupIDs(event.target.value);
     } else {
       widget.chart.data.config.selectedGroupIDs = event.target.value; // site
+      console.log(widget.chart)
       widget.chart.helpers.updateConfig(widget.chart, widget.chart.data.config);
     }
 
