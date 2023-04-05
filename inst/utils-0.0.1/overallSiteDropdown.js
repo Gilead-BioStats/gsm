@@ -34,13 +34,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const widgets = [];
 
+            // TODO - put the class from above in the object so we can query
             canvases.forEach((el) => {
-                widgets.push(el.chart);
+                widgets.push({chart: el.chart, type: 'CLASSHERE'});
             });
 
             for (const widget of widgets) {
-                widget.data.config.selectedGroupIDs = event.target.value; // site
-                widget.helpers.updateConfig(widget, widget.data.config);
+
+                if (widget.type === "timeSeriesContinuousJS") {
+                  instance.helpers.updateSelectedGroupIDs(event.target.value);
+                } else {
+                  widget.chart.data.config.selectedGroupIDs = event.target.value; // site
+                  widget.chart.helpers.updateConfig(widget, widget.data.config);
+                }
+
                 if (event.target.value !== 'None') {
                     document.querySelectorAll(".site-select").forEach((el) => {
                         el.options[el.selectedIndex].innerHTML = event.target.value;
@@ -53,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
                 }
             }
+
         });
 });
 
