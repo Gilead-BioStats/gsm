@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.6.0</span>
       </span>
     </div>
 
@@ -62,13 +62,13 @@
       <a href="../articles/ContributorGuidelines.html">Contributor Guidelines</a>
     </li>
     <li>
-      <a href="../articles/Qualification.html">Qualification of {gsm}</a>
+      <a href="../articles/KRI%20Method.html">KRI Method</a>
+    </li>
+    <li>
+      <a href="../articles/Qualification.html">Qualification Report for the {gsm} R Package</a>
     </li>
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
-    </li>
-    <li>
-      <a href="../articles/Statistics%20Method.html">Statistics Method</a>
     </li>
   </ul>
 </li>
@@ -308,7 +308,7 @@ default data frame names, run
 <span><span class="co">## Specify Raw+ data domains</span></span>
 <span><span class="va">dfSUBJ</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span></span>
 <span><span class="va">dfIE</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ie</span></span>
-<span><span class="va">dfPD</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_protdev.html" class="external-link">rawplus_protdev</a></span></span>
+<span><span class="va">dfPD</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/ctms_protdev.html" class="external-link">ctms_protdev</a></span></span>
 <span><span class="va">dfCONSENT</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span></span>
 <span></span>
 <span><span class="co">## Create named list of assessment data</span></span>
@@ -326,66 +326,13 @@ default data frame names, run
 alerting the user to success, warnings, or errors with the workflow.</p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="example-4---filtering-subject-level-data-for-multiple-assessments">Example 4 - Filtering Subject-Level Data For Multiple
-Assessments<a class="anchor" aria-label="anchor" href="#example-4---filtering-subject-level-data-for-multiple-assessments"></a>
-</h3>
-<p>Let’s take a closer look at functionality that is built into
-<code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>. As a practical example, a user may want to
-keep subjects from an assessment based on some criteria (e.g., a
-specific site(s), region, etc.).</p>
-<p>This can be done by performing some preliminary data wrangling before
-passing the subject-level data to <code>lData</code>. For the example
-below, we will use a custom <code>lMapping</code> parameter and a named
-list passed to <code>lSubjFilters</code>. (For a more detailed overview
-of mapping specifications, refer to the <a href="https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette" class="external-link">Data
-Pipeline Vignette</a>.)</p>
-<p>For this example, we will only keep subjects who belong to Sites #27
-and #148:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Start with the default lMapping</span></span>
-<span><span class="va">custom_mapping</span> <span class="op">&lt;-</span>  <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_rawplus.yaml"</span>, package <span class="op">=</span> <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Add the value to filter on to the custom mapping for dfSUBJ</span></span>
-<span><span class="va">custom_mapping</span><span class="op">$</span><span class="va">dfSUBJ</span><span class="op">$</span><span class="va">strSiteVal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"27"</span>, <span class="st">"148"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Create a list to pass to lSubjFilters</span></span>
-<span><span class="va">custom_filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  strSiteCol <span class="op">=</span> <span class="st">"strSiteVal"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Run the assessments</span></span>
-<span><span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span>lMapping <span class="op">=</span> <span class="va">custom_mapping</span>, lSubjFilters <span class="op">=</span> <span class="va">custom_filter</span><span class="op">)</span></span></code></pre></div>
-<p>Note that <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> can provide detailed
-information about <code><a href="../reference/FilterDomain.html">FilterDomain()</a></code>, which shows the number of
-rows dropped when filtering subject-level data, only if/when
-<code>bQuiet</code> is set to <code>FALSE</code>:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FilterDomain.html">FilterDomain</a></span><span class="op">(</span></span>
-<span>  df <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span>
-<span>  lMapping <span class="op">=</span> <span class="va">custom_mapping</span>,</span>
-<span>  strDomain <span class="op">=</span> <span class="st">"dfSUBJ"</span>,</span>
-<span>  strColParam <span class="op">=</span> <span class="st">"strSiteCol"</span>,</span>
-<span>  strValParam <span class="op">=</span> <span class="st">"strSiteVal"</span>,</span>
-<span>  bQuiet <span class="op">=</span> <span class="cn">F</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<pre><code>── Checking Input Data for `FilterDomain()` ──
-
-✔ No issues found for dfSUBJ domain
-Filtering on `siteid %in% c("27", "148")`.
-✔ Filtered on `siteid %in% c("27 and 148")` to drop 1295 rows from 1301 to 6 rows.</code></pre>
-</div>
 </div>
 <div class="section level2">
 <h2 id="reporting">Reporting<a class="anchor" aria-label="anchor" href="#reporting"></a>
 </h2>
 <div class="section level3">
-<h3 id="example-5---creating-an-assessment-overview-report-for-multiple-assessments">Example 5 - Creating an Assessment Overview Report for Multiple
-Assessments<a class="anchor" aria-label="anchor" href="#example-5---creating-an-assessment-overview-report-for-multiple-assessments"></a>
+<h3 id="example-4---creating-an-assessment-overview-report-for-multiple-assessments">Example 4 - Creating an Assessment Overview Report for Multiple
+Assessments<a class="anchor" aria-label="anchor" href="#example-4---creating-an-assessment-overview-report-for-multiple-assessments"></a>
 </h3>
 <p>The <code><a href="../reference/Study_Report.html">Study_Report()</a></code> function creates the
 <strong>Assessment Overview Report</strong>, which is an HTML document
@@ -393,7 +340,7 @@ that contains tables, visualizations, and error logging for all
 assessments run in the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> workflow.</p>
 <p>Let’s create a report using sample data from
 <code>{clindata}</code>:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
 <span></span>
@@ -406,14 +353,14 @@ you can set an output directory using the <code>strOutpath</code>
 argument in the <code><a href="../reference/Study_Report.html">Study_Report()</a></code> function.</p>
 </div>
 <div class="section level3">
-<h3 id="example-6---viewing-the-error-checking-report">Example 6 - Viewing the Error Checking Report<a class="anchor" aria-label="anchor" href="#example-6---viewing-the-error-checking-report"></a>
+<h3 id="example-5---viewing-the-error-checking-report">Example 5 - Viewing the Error Checking Report<a class="anchor" aria-label="anchor" href="#example-5---viewing-the-error-checking-report"></a>
 </h3>
 <p>The <strong>Assessment Overview Report</strong> contains a Data Check
 Summary table in the appendix, which can be helpful for troubleshooting
 issues with input data provided to <code>lData</code> in
 <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>.</p>
 <p>To view the report directly as an object in your IDE, run:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
 <span></span>
@@ -431,7 +378,7 @@ visualization whether run individually or within the
 the AE assessment can be viewed by calling
 <code>AE_Assess(dfInput)$chart</code>.</p>
 <div class="section level3">
-<h3 id="example-7---creating-a-scatter-plot">Example 7 - Creating a Scatter Plot<a class="anchor" aria-label="anchor" href="#example-7---creating-a-scatter-plot"></a>
+<h3 id="example-6---creating-a-scatter-plot">Example 6 - Creating a Scatter Plot<a class="anchor" aria-label="anchor" href="#example-6---creating-a-scatter-plot"></a>
 </h3>
 <p>Currently, <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> creates scatter plots for Adverse Event
 and Protocol Deviation assessments. In some cases, a user may want to
@@ -440,7 +387,7 @@ customizations.</p>
 <p>Below is an example of this that uses the default Poisson statistical
 model for <code><a href="../reference/AE_Assess.html">AE_Assess()</a></code> and Raw+ data from
 <code>{clindata}</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
 <span></span>
@@ -458,7 +405,7 @@ model for <code><a href="../reference/AE_Assess.html">AE_Assess()</a></code> and
 <span></span>
 <span><span class="co">## Create the visualization</span></span>
 <span><span class="fu"><a href="../reference/Visualize_Scatter.html">Visualize_Scatter</a></span><span class="op">(</span></span>
-<span>  dfFlagged <span class="op">=</span> <span class="va">ae_assessment</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfFlagged</span>, </span>
+<span>  dfSummary <span class="op">=</span> <span class="va">ae_assessment</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfFlagged</span>, </span>
 <span>  dfBounds <span class="op">=</span> <span class="va">dfBounds</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 </div>
@@ -476,7 +423,7 @@ assessments.</p>
 <p>Let’s take a look at a few examples of editing YAML files for a
 custom workflow below.</p>
 <div class="section level3">
-<h3 id="example-8---adding-a-filtering-step">Example 8 - Adding a Filtering Step<a class="anchor" aria-label="anchor" href="#example-8---adding-a-filtering-step"></a>
+<h3 id="example-7---adding-a-filtering-step">Example 7 - Adding a Filtering Step<a class="anchor" aria-label="anchor" href="#example-7---adding-a-filtering-step"></a>
 </h3>
 <p>There are filter steps in the default specification for the AE
 Assessment, but we want to add an additional filter. Let’s add a step
@@ -518,7 +465,7 @@ to the workflow specification to select only moderate AEs. Because
 <code><a href="../reference/AE_Map_Raw.html">AE_Map_Raw()</a></code>, the filter steps need to be placed first in
 the workflow.</p>
 <p>Let’s name the custom YAML file
-<code>ae_assessment_moderate.yaml</code>. It read as follows:</p>
+<code>ae_assessment_moderate.yaml</code>. It reads as follows:</p>
 <pre><code><span><span class="va">steps</span><span class="op">:</span></span>
 <span>  <span class="op">-</span> <span class="va">name</span><span class="op">:</span> <span class="va">FilterDomain</span></span>
 <span>    <span class="va">inputs</span><span class="op">:</span> <span class="va">dfAE</span></span>
@@ -567,7 +514,7 @@ custom YAML file is stored.</li>
 <li>Add the value to sort <code>strTypeCol</code> on.</li>
 <li>Run the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> workflow.</li>
 </ol>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vubiostat/r-yaml/" class="external-link">yaml</a></span><span class="op">)</span></span>
@@ -608,7 +555,7 @@ custom YAML file is stored.</li>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens.</p>
+<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown">

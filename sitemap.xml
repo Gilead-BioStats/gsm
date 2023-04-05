@@ -19,13 +19,13 @@
     <loc>/articles/DataPipeline.html</loc>
   </url>
   <url>
+    <loc>/articles/KRI Method.html</loc>
+  </url>
+  <url>
     <loc>/articles/Qualification.html</loc>
   </url>
   <url>
     <loc>/articles/QualificationWorkflow.html</loc>
-  </url>
-  <url>
-    <loc>/articles/Statistics Method.html</loc>
   </url>
   <url>
     <loc>/articles/index.html</loc>
@@ -193,7 +193,7 @@
     <loc>/reference/QueryRate_Map_Raw.html</loc>
   </url>
   <url>
-    <loc>/reference/RemoveInvalidSubjectIDs.html</loc>
+    <loc>/reference/Read_Mapping.html</loc>
   </url>
   <url>
     <loc>/reference/RunQTL.html</loc>
@@ -250,10 +250,16 @@
     <loc>/reference/Visualize_Workflow.html</loc>
   </url>
   <url>
-    <loc>/reference/barChart-shiny.html</loc>
+    <loc>/reference/Widget_BarChart-shiny.html</loc>
   </url>
   <url>
-    <loc>/reference/barChart.html</loc>
+    <loc>/reference/Widget_BarChart.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Widget_ScatterPlot-shiny.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Widget_ScatterPlot.html</loc>
   </url>
   <url>
     <loc>/reference/generate_md_table.html</loc>
@@ -265,7 +271,13 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
+    <loc>/reference/input_data_schema.html</loc>
+  </url>
+  <url>
     <loc>/reference/is_mapping_valid.html</loc>
+  </url>
+  <url>
+    <loc>/reference/is_workflow_valid.html</loc>
   </url>
   <url>
     <loc>/reference/kri_directionality_logo.html</loc>
@@ -290,12 +302,6 @@
   </url>
   <url>
     <loc>/reference/rbm_data_spec.html</loc>
-  </url>
-  <url>
-    <loc>/reference/scatterPlot-shiny.html</loc>
-  </url>
-  <url>
-    <loc>/reference/scatterPlot.html</loc>
   </url>
   <url>
     <loc>/reference/tidyeval.html</loc>
