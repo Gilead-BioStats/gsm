@@ -38,7 +38,7 @@
 
 #' RBM Data Specification
 #'
-#' A dataset containing input/output specifications for gsm and Gizmo.
+#' A dataset containing input/output specifications for gsm and Gismo.
 #'
 #' @format A data frame with 125 rows and 4 variables.
 #' \describe{

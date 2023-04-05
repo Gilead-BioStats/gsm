@@ -2,7 +2,7 @@
 #'
 #' Update parameters for workflow
 #'
-#' @param lWorkflow `list` Object returned by `MakeWorkflowList()`
+#' @param lWorkflow `list` A named list of metadata defining how the workflow should be run.
 #' @param dfConfig `data.frame` Configuration parameters data.frame; `clindata::config_param`
 #' @param dfMeta `data.frame` Metadata parameters data.frame; `gsm::meta_param`
 #'

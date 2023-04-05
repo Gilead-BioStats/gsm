@@ -19,22 +19,25 @@ FilterDomain(
 
 \item{strDomain}{\code{character} Domain step that is being filtered.}
 
-\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column.}
+\item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
 
 \item{strColParam}{\code{character} Domain in \code{lMapping} that references the column to filter on.}
 
 \item{strValParam}{\code{character} Domain in \code{lMapping} that references the value to filter on.}
 
-\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}.}
 
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 }
 \value{
 \code{data.frame} Data frame provided as \code{df} and filtered on \code{strColParam} == \code{strValParam}.
 If \code{bReturnChecks} is \code{TRUE}, a \code{list} is returned with a filtered \code{df}, and a list of checks run on input data (\code{lChecks}).
 }
 \description{
-Subset a data frame given a mapping
+\code{FilterDomain} is primarily used in a KRI/assessment workflow, and is used to filter or pre-process input data sources before the creation of \code{dfInput} via a \verb{*_Map_Raw} function.
+}
+\details{
+Subset a data frame given a mapping.
 }
 \examples{
 lMapping <- list(dfAE = list(

@@ -2,12 +2,15 @@ test_valid_output_assess <- function(
   assess_function,
   dfInput
 ) {
+
   output <- assess_function(dfInput = dfInput)
 
   testthat::expect_true(is.list(output))
   testthat::expect_snapshot(names(output))
   testthat::expect_snapshot(names(output$lData))
   testthat::expect_snapshot(names(output$lCharts))
+  testthat::expect_snapshot(names(output$lChecks))
+  testthat::expect_snapshot(names(output$lChecks$lData$dfSummary))
   testthat::expect_true("data.frame" %in% class(output$lData$dfTransformed))
   testthat::expect_true("data.frame" %in% class(output$lData$dfAnalyzed))
   testthat::expect_true("data.frame" %in% class(output$lData$dfFlagged))
@@ -54,6 +57,7 @@ test_invalid_data_assess <- function(
   testthat::expect_snapshot_error(assess_function(dfInput, vThreshold = "A"))
   testthat::expect_snapshot_error(assess_function(dfInput, vThreshold = 1))
   testthat::expect_error(assess_function(dfInput, strGroup = "something"))
+  testthat::expect_error(assess_function(dfInput, bQuiet = "quiet"))
 }
 
 ################################################################

@@ -2,7 +2,8 @@ test_that("Given an appropriate subset of Inclusion/Exclusion data, the assessme
   # gsm analysis
   dfInput <- IE_Map_Raw(dfs = list(
     dfSUBJ = clindata::rawplus_dm %>% filter(!siteid %in% c("5", "29", "58")),
-    dfIE = clindata::rawplus_ie))
+    dfIE = clindata::rawplus_ie
+  ))
 
   test3_2 <- IE_Assess(
     dfInput = dfInput,

@@ -1,7 +1,8 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Parse Data Mapping
+#' Parse Data Mapping.
 #'
+#' @description
 #' Transform nested data mapping to tabular structure for use in documentation.
 #'
 #' @param content `list` data mapping

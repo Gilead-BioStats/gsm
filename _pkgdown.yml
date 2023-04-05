@@ -12,10 +12,7 @@ reference:
      desc: Generate a visualization from the Assessment results
    - contents:
       - starts_with("Visualize_")
-      - barChart
-      - barChart-shiny
-      - scatterPlot
-      - scatterPlot-shiny
+      - starts_with("Widget_")
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
 

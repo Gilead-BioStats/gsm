@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Protocol Deviation Assessment - Raw Mapping
+#' Protocol Deviation Assessment (Binary Outcome) - Raw Mapping
 #'
 #' @description
 #' Convert raw protocol deviation (PD) data, typically processed case report form data, to formatted
@@ -45,7 +45,7 @@ PD_Map_Raw_Binary <- function(
     dfSUBJ = clindata::rawplus_dm,
     dfPD = clindata::ctms_protdev
   ),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm")),
+  lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 ) {

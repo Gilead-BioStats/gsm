@@ -1,5 +1,5 @@
 HTMLWidgets.widget({
-    name: 'barChart',
+    name: 'Widget_BarChart',
     type: 'output',
     factory: function(el, width, height) {
         return {

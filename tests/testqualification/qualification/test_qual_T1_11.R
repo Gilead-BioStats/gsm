@@ -26,16 +26,22 @@ test_that("Given appropriate Adverse Event data, the assessment function correct
   class(t1_11_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t1_11_flagged <- t1_11_analyzed %>%
-   qualification_flag_identity(threshold = c(0.00001, 0.1))
+    qualification_flag_identity(threshold = c(0.00001, 0.1))
 
   t1_11_summary <- t1_11_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0))) %>%
-    mutate(Score = case_when(Denominator >= nMinDenominator ~ Score,
-                             Denominator < nMinDenominator ~ NA_real_),
-           Flag = case_when(Denominator >= nMinDenominator ~ Flag,
-                            Denominator < nMinDenominator ~ NA_real_))
+    mutate(
+      Score = case_when(
+        Denominator >= nMinDenominator ~ Score,
+        Denominator < nMinDenominator ~ NA_real_
+      ),
+      Flag = case_when(
+        Denominator >= nMinDenominator ~ Flag,
+        Denominator < nMinDenominator ~ NA_real_
+      )
+    )
 
 
   t1_11 <- list(

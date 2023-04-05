@@ -1,5 +1,4 @@
 test_that("Given an appropriate subset of Adverse Event data, the assessment function correctly performs an Adverse Event Assessment grouped by the Study variable using the Normal Approximation method  and correctly assigns Flag variable values.", {
-
   dfInput <- gsm::AE_Map_Raw(dfs = list(
     dfAE = clindata::rawplus_ae %>% filter(aeser_std_nsv == "Y"),
     dfSUBJ = clindata::rawplus_dm

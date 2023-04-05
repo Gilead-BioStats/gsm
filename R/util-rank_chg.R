@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("experimental")`
 #'
-#' Report Helper Functions
+#' Report helper functions used to create fontawesome status icons for the report that is generated with [gsm::Study_Report].
 #'
 #' @description
 #' `rank_chg` - inserts icons for status in {gt} table.
@@ -10,7 +10,7 @@
 #' @param status `boolean` fontawesome emoji indicator that describes the status of error checking for all assessments run in `Study_Assess()`
 #'
 #' @importFrom fontawesome fa
-#' @importFrom gt gt
+#' @importFrom gt html
 #'
 #' @export
 

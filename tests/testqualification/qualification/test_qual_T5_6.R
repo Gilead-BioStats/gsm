@@ -26,7 +26,7 @@ test_that("Given appropriate Disposition data, the assessment function correctly
   class(t5_6_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t5_6_flagged <- t5_6_analyzed %>%
-   qualification_flag_identity()
+    qualification_flag_identity()
 
   t5_6_summary <- t5_6_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

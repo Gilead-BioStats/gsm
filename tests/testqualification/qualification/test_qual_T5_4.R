@@ -4,7 +4,7 @@ test_that("Given an appropriate subset of Disposition data, the assessment funct
     dfSUBJ = clindata::rawplus_dm,
     dfSTUDCOMP = clindata::rawplus_studcomp %>% filter(compreas_std_nsv == "ID"),
     dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename ==
-                                                         "Blinded Study Drug Completion")
+      "Blinded Study Drug Completion")
   ))
 
   test5_4 <- Disp_Assess(
@@ -30,7 +30,7 @@ test_that("Given an appropriate subset of Disposition data, the assessment funct
   class(t5_4_analyzed) <- c("tbl_df", "tbl", "data.frame")
 
   t5_4_flagged <- t5_4_analyzed %>%
-    qualification_flag_identity(threshold =  c(2.31, 6.58))
+    qualification_flag_identity(threshold = c(2.31, 6.58))
 
   t5_4_summary <- t5_4_flagged %>%
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%

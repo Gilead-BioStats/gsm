@@ -6,8 +6,7 @@
 \usage{
 QueryAge_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
-    "gsm")),
+  lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
   nMaxQueryAge = 30,
   bReturnChecks = FALSE,
   bQuiet = TRUE
@@ -41,7 +40,7 @@ of the column.}
 Convert raw query data to formatted input data to \code{\link[=QueryAge_Assess]{QueryAge_Assess()}}.
 }
 \details{
-Query Age - Raw Mapping
+Query Age Assessment - Raw Mapping
 
 \code{QueryAge_Map_Raw} combines query data with data points data and subject-level data to create
 formatted input data to \code{\link[=QueryAge_Assess]{QueryAge_Assess()}}. This function creates an input dataset for the Query Age Assessment

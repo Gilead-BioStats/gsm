@@ -15,10 +15,10 @@ Flag_Poisson(dfAnalyzed, vThreshold = NULL)
 \code{data.frame} with one row per site with columns: \code{GroupID}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{PredictedCount}, \code{Flag}
 }
 \description{
-Flag_Poisson
+Add columns flagging sites that represent possible statistical outliers when the Poisson statistical method is used.
 }
 \details{
-Add columns flagging sites that represent possible statistical outliers when the Poisson statistical method is used.
+Flag_Poisson
 
 This function flags sites based on the Poisson analysis result as part of the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
 }

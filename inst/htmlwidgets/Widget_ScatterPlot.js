@@ -1,5 +1,5 @@
 HTMLWidgets.widget({
-    name: 'scatterPlot',
+    name: 'Widget_ScatterPlot',
     type: 'output',
     factory: function(el, width, height) {
         return {

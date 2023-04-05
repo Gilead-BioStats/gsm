@@ -1,13 +1,12 @@
 test_that("Given correct input data and metadata, the correct number of enrolled participants per site can be derived.", {
-
-
   ########### gsm mapping ###########
   observed <- gsm::Get_Enrolled(
     dfSUBJ = clindata::rawplus_dm,
     dfConfig = clindata::config_param,
     lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     strUnit = "participant",
-    strBy = "site")
+    strBy = "site"
+  )
 
 
   ########### double programming ###########
@@ -15,8 +14,10 @@ test_that("Given correct input data and metadata, the correct number of enrolled
   lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
-  cols <- c(SiteID = lMapping$dfSUBJ$strSiteCol,
-            "enrolled_participants")
+  cols <- c(
+    SiteID = lMapping$dfSUBJ$strSiteCol,
+    "enrolled_participants"
+  )
 
   # read in raw source DM data
   dm_raw_orig <- clindata::rawplus_dm
@@ -32,5 +33,4 @@ test_that("Given correct input data and metadata, the correct number of enrolled
 
   ########### testing ###########
   expect_equal(as.data.frame(observed), as.data.frame(expected))
-
 })

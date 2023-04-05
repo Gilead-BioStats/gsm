@@ -6,8 +6,7 @@
 \usage{
 PD_Map_Raw_Rate(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfPD = clindata::ctms_protdev),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package =
-    "gsm")),
+  lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -28,7 +27,7 @@ of the column. Default: package-defined mapping for raw+.}
 }
 \value{
 \code{data.frame} Data frame with one record per subject, the input to \code{\link[=PD_Assess_Rate]{PD_Assess_Rate()}}. If
-\code{bReturnChecks} is \code{TRUE} \code{PD_Map_Raw} returns a named \code{list} with:
+\code{bReturnChecks} is \code{TRUE} \code{PD_Map_Raw_Rate} returns a named \code{list} with:
 \itemize{
 \item \code{df}: the data frame described above
 \item \code{lChecks}: a named \code{list} of check results
@@ -39,7 +38,7 @@ Convert raw protocol deviation (PD) data, typically processed case report form d
 input data to \code{\link[=PD_Assess_Rate]{PD_Assess_Rate()}}.
 }
 \details{
-Protocol Deviation Assessment - Raw Mapping
+Protocol Deviation Assessment (Rate Outcome) - Raw Mapping
 
 \code{PD_Map_Raw_Rate} combines PD data with subject-level study duration data to create formatted
 input data to \code{\link[=PD_Assess_Rate]{PD_Assess_Rate()}}. This function creates an input dataset for the PD Assessment

@@ -1,10 +1,9 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Make Snapshot - create and export Gizmo data model.
+#' Make Snapshot - create and export data model.
 #'
 #' @description
-#' `Make_Snapshot()` ingests data from a variety of sources, and runs KRIs and/or QTLs based on the `list` provided in `lAssessments`. The output of `Make_Snapshot()` is used as the input data model
-#' for the Gismo web application.
+#' `Make_Snapshot()` ingests data from a variety of sources, and runs KRIs and/or QTLs based on the `list` provided in `lAssessments`.
 #'
 #' For more context about the inputs and outputs of `Make_Snapshot()`, refer to the [GSM Data Pipeline Vignette](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html), specifically
 #' Appendix 2 - Data Model Specifications
@@ -28,6 +27,7 @@
 #' - `status_workflow`
 #' - `status_param`
 #' - `results_summary`
+#' - `results_analysis`
 #' - `results_bounds`
 #' - `meta_workflow`
 #' - `meta_param`
@@ -39,6 +39,9 @@
 #' }
 #'
 #' @import purrr
+#' @importFrom cli cli_alert_warning
+#' @importFrom tidyr pivot_longer
+#' @importFrom utils write.csv
 #' @importFrom yaml read_yaml
 #'
 #' @export
@@ -85,7 +88,6 @@ bFlowchart = FALSE
 
 
   if (!is.null(strAnalysisDate)) {
-
     # date validation check
     date_is_valid <- try(as.Date(strAnalysisDate))
 
@@ -95,7 +97,6 @@ bFlowchart = FALSE
       if (!bQuiet) cli::cli_alert_warning("strAnalysisDate does not seem to be in format YYYY-MM-DD. Defaulting to current date of {Sys.Date()}")
       gsm_analysis_date <- Sys.Date()
     }
-
   } else {
     gsm_analysis_date <- Sys.Date()
   }
@@ -250,8 +251,8 @@ bFlowchart = FALSE
   # parse warnings from is_mapping_valid to create an informative "notes" column
   warnings <- ParseWarnings(lResults)
 
-    status_workflow <- status_workflow %>%
-      left_join(warnings, by = c("workflowid", "status"))
+  status_workflow <- status_workflow %>%
+    left_join(warnings, by = c("workflowid", "status"))
 
 
   # status_param ------------------------------------------------------------
@@ -286,8 +287,8 @@ bFlowchart = FALSE
   # results_analysis ---------------------------------------------------------
 
   hasQTL <- grep("qtl", names(lResults))
-
   results_analysis <- NULL
+
   if (length(hasQTL) > 0) {
     results_analysis <-
       purrr::imap_dfr(lResults[hasQTL], function(qtl, qtl_name) {
@@ -301,7 +302,7 @@ bFlowchart = FALSE
               "Score"
             ) %>%
             mutate(workflowid = qtl_name) %>%
-            pivot_longer(-c("GroupID", "workflowid")) %>%
+            tidyr::pivot_longer(-c("GroupID", "workflowid")) %>%
             rename(
               param = "name",
               studyid = "GroupID"
@@ -347,7 +348,7 @@ bFlowchart = FALSE
     meta_workflow = meta_workflow,
     meta_param = meta_param
   ) %>%
-    keep(~ !is.null(.x)) %>%
+    purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
 
@@ -355,7 +356,7 @@ bFlowchart = FALSE
 
   if (!is.null(cPath)) {
     # write each snapshot item to location
-    purrr::iwalk(lSnapshot, ~ write.csv(.x, file = paste0(cPath, "/", .y, ".csv"), row.names = FALSE))
+    purrr::iwalk(lSnapshot, ~ utils::write.csv(.x, file = paste0(cPath, "/", .y, ".csv"), row.names = FALSE))
   }
 
   return(lSnapshot)

@@ -14,8 +14,7 @@ ConsolidateStrata(lOutput, lStratifiedOutput, bQuiet = TRUE)
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{list} containing \code{lWorkflow} with \code{tags}, \code{workflow}, \code{path}, \code{name}, \code{lData},
-\code{lChecks}, \code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of
+\code{list} with \code{group}, \code{steps}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{lWorkflowChecks}, and \code{lResults} added based on the results of the execution of
 \code{assessment$workflow}.
 }
 \description{
@@ -23,7 +22,7 @@ Consolidates multiple stratified assessment outputs by stacking the data frames 
 \verb{*_Assess} function and generating a paneled data visualization.
 }
 \details{
-Consolidate stratified assessment outputs
+Consolidate stratified assessment outputs.
 }
 \examples{
 lData <- list(

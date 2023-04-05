@@ -28,7 +28,7 @@
       i NOTE: No rows dropped.
     Output
       # A tibble: 0 x 4
-      # ... with 4 variables: subjid <chr>, treatmentemergent <chr>, aetoxgr <chr>,
+      # i 4 variables: subjid <chr>, treatmentemergent <chr>, aetoxgr <chr>,
       #   aeser <chr>
 
 # invalid mapping is caught

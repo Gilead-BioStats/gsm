@@ -1,13 +1,9 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' QTL Analysis
+#' QTL Analysis for Binary and Rate Outcomes.
 #'
 #' @details
-#' Creates QTL Analysis results data for binary event (e.g. Yes/No) of interest either as a proportion or as a rate
-#'
-#' @details
-#'
-#' Creates confidence intervals for the observed proportion of participants with event of interest using the exact binomial or poisson test
+#' Creates confidence intervals for the observed proportion of participants for the event of interest. Uses the exact binomial (`stats::binom.test`) or poisson test (`stats::poisson.test`).
 #'
 #' @section Statistical Methods:
 #'
@@ -15,7 +11,7 @@
 #'
 #' @section Data Specification:
 #'
-#' The input data (`dfTransformed`) for Analyze_QTL is typically created using \code{\link{Transform_Rate}} and should be one record for the entire study with required columns for:
+#' The input data (`dfTransformed`) for `Analyze_QTL` is typically created using \code{\link{Transform_Rate}} and should be one record for the entire study with required columns for:
 #' - `GroupID` - GroupID should be the StudyID
 #' - `N` - Total number of participants at site
 #' - `Numerator` - Total number of participants at site with event of interest
@@ -27,7 +23,7 @@
 #' @param strOutcome `character` indicates statistical test used for QTL analysis. One of `rate` or `binary`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return `data.frame` with one row with columns: GroupID, N, Numerator, Denominator, Metric, Method, ConfLevel, Estimate, LowCI, UpCI and Score.
+#' @return `data.frame` with one row with columns: GroupID, Numerator, Denominator, Metric, Method, ConfLevel, Estimate, LowCI, UpCI and Score.
 #'
 #' @examples
 #' dfInput <- Disp_Map_Raw()
@@ -39,8 +35,6 @@
 #'
 #' dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "binary")
 #' dfFlagged <- Flag_QTL(dfAnalyzed, vThreshold = 0.2)
-#'
-#'
 #'
 #' dfInput <- PD_Map_Raw_Binary()
 #' dfTransformed <- Transform_Rate(dfInput,

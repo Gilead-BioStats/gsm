@@ -22,7 +22,7 @@ Consent_Assess(
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column. Default: package-defined Consent Assessment mapping.}
 
-\item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
+\item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"}, \code{"Country"}, and \code{"CustomGroup"}.}
 
 \item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
 
@@ -64,17 +64,7 @@ Evaluates sites where subject consent was:
 \details{
 Consent Assessment
 
-The Consent Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag sites with consent issues. This assessment detects sites with subjects who participated
-in study activities before consent was finalized. The count returned in the summary represents
-the number of subjects at a given site for whom:
-\itemize{
-\item consent was not given
-\item consent was not obtained
-\item consent did not result in randomization
-\item consent was obtained after randomization
-}
-
-Additional details regarding the data pipeline and statistical methods are described below.
+The Consent Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag sites with consent issues. Additional details regarding the data pipeline and statistical methods are described below.
 }
 \section{Data specification}{
 \tabular{lllll}{

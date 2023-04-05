@@ -2,7 +2,8 @@
 #'
 #' Flag
 #'
-#' Add columns flagging sites that represent possible statistical outliers when Identity statistical
+#' @description
+#' Add columns flagging sites that represent possible statistical outliers when the Identity statistical
 #' method is used.
 #'
 #' @details

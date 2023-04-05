@@ -6,8 +6,7 @@
 \usage{
 PD_Map_Raw_Binary(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfPD = clindata::ctms_protdev),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package =
-    "gsm")),
+  lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -39,7 +38,7 @@ Convert raw protocol deviation (PD) data, typically processed case report form d
 input data to \code{\link[=PD_Assess_Binary]{PD_Assess_Binary()}}.
 }
 \details{
-Protocol Deviation Assessment - Raw Mapping
+Protocol Deviation Assessment (Binary Outcome) - Raw Mapping
 
 \code{PD_Map_Raw_Binary} combines PD data with subject-level study duration data to create formatted
 input data to \code{\link[=PD_Assess_Binary]{PD_Assess_Binary()}}. This function creates an input dataset for the PD Assessment

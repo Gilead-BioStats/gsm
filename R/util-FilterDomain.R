@@ -1,14 +1,17 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Subset a data frame given a mapping
+#' Subset a data frame given a mapping.
+#'
+#' @description
+#' `FilterDomain` is primarily used in a KRI/assessment workflow, and is used to filter or pre-process input data sources before the creation of `dfInput` via a `*_Map_Raw` function.
 #'
 #' @param df `data.frame` A data.frame to be filtered, likely within a mapping function.
 #' @param strDomain `character` Domain step that is being filtered.
-#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column.
+#' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param strColParam `character` Domain in `lMapping` that references the column to filter on.
 #' @param strValParam `character` Domain in `lMapping` that references the value to filter on.
-#' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @examples
 #' lMapping <- list(dfAE = list(
@@ -28,7 +31,7 @@
 #' @return `data.frame` Data frame provided as `df` and filtered on `strColParam` == `strValParam`.
 #' If `bReturnChecks` is `TRUE`, a `list` is returned with a filtered `df`, and a list of checks run on input data (`lChecks`).
 #'
-#' @importFrom cli cli_alert_info cli_alert_success cli_alert_warning cli_text
+#' @import cli
 #'
 #' @export
 

@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Query Rate - Raw Mapping
+#' Query Rate Assessment - Raw Mapping
 #'
 #' @description
 #' Convert raw query data to formatted input data to [gsm::QueryRate_Assess()].
@@ -36,6 +36,7 @@
 #' dfInput <- QueryRate_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
+#' @importFrom yaml read_yaml
 #' @import dplyr
 #'
 #' @export
@@ -46,7 +47,7 @@ QueryRate_Map_Raw <- function(
     dfQUERY = clindata::edc_queries,
     dfDATACHG = clindata::edc_data_points
   ),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+  lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 

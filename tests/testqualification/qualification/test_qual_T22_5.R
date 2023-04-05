@@ -1,6 +1,4 @@
 test_that("The utility function can correctly evaluate that the input mapping(s) have or do not have all required parameters.", {
-
-
   ### Preliminary setup
   df <- clindata::rawplus_dm
 
@@ -40,5 +38,4 @@ test_that("The utility function can correctly evaluate that the input mapping(s)
 
   all_tests <- isTRUE(are_present) & isTRUE(are_missing)
   expect_true(all_tests)
-
 })

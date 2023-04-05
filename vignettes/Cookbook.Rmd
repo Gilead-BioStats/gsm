@@ -192,56 +192,10 @@ multiple_assessments <- Study_Assess(lData = assessment_data)
 
 Note that `Study_Assess()` provides verbose console output alerting the user to success, warnings, or errors with the workflow.
 
-## Example 4 - Filtering Subject-Level Data For Multiple Assessments
-
-Let's take a closer look at functionality that is built into `Study_Assess()`. As a practical example, a user may want to keep subjects from an assessment based on some criteria (e.g., a specific site(s), region, etc.).
-
-This can be done by performing some preliminary data wrangling before passing the subject-level data to `lData`. For the example below, we will use a custom `lMapping` parameter and a named list passed to `lSubjFilters`. (For a more detailed overview of mapping specifications, refer to the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette).)
-
-For this example, we will only keep subjects who belong to Sites #27 and #148:
-
-```{r eval = FALSE, include = TRUE}
-library(gsm)
-library(clindata)
-library(dplyr)
-
-## Start with the default lMapping
-custom_mapping <-  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
-
-## Add the value to filter on to the custom mapping for dfSUBJ
-custom_mapping$dfSUBJ$strSiteVal <- c("27", "148")
-
-## Create a list to pass to lSubjFilters
-custom_filter <- list(
-  strSiteCol = "strSiteVal"
-)
-
-## Run the assessments
-multiple_assessments <- Study_Assess(lMapping = custom_mapping, lSubjFilters = custom_filter)
-```
-
-Note that `Study_Assess()` can provide detailed information about `FilterDomain()`, which shows the number of rows dropped when filtering subject-level data, only if/when `bQuiet` is set to `FALSE`:
-
-```{r eval = FALSE, include = TRUE}
-test <- FilterDomain(
-  df = clindata::rawplus_dm,
-  lMapping = custom_mapping,
-  strDomain = "dfSUBJ",
-  strColParam = "strSiteCol",
-  strValParam = "strSiteVal",
-  bQuiet = F
-)
-```
-
-    ── Checking Input Data for `FilterDomain()` ──
-
-    ✔ No issues found for dfSUBJ domain
-    Filtering on `siteid %in% c("27", "148")`.
-    ✔ Filtered on `siteid %in% c("27 and 148")` to drop 1295 rows from 1301 to 6 rows.
 
 # Reporting
 
-## Example 5 - Creating an Assessment Overview Report for Multiple Assessments
+## Example 4 - Creating an Assessment Overview Report for Multiple Assessments
 
 The `Study_Report()` function creates the **Assessment Overview Report**, which is an HTML document that contains tables, visualizations, and error logging for all assessments run in the `Study_Assess()` workflow.
 
@@ -258,7 +212,7 @@ Study_Report(lAssessments = multiple_assessments)
 
 The report will render and be saved to your current working directory. If you would like the report saved in a different location, you can set an output directory using the `strOutpath` argument in the `Study_Report()` function.
 
-## Example 6 - Viewing the Error Checking Report
+## Example 5 - Viewing the Error Checking Report
 
 The **Assessment Overview Report** contains a Data Check Summary table in the appendix, which can be helpful for troubleshooting issues with input data provided to `lData` in `Study_Assess()`.
 
@@ -277,7 +231,7 @@ Study_AssessmentReport(lAssessments = multiple_assessments, bViewReport = TRUE)
 
 By default, all `Assess()` functions return a visualization whether run individually or within the `Study_Assess()` workflow. For example, the scatter plot for the AE assessment can be viewed by calling `AE_Assess(dfInput)$chart`.
 
-## Example 7 - Creating a Scatter Plot
+## Example 6 - Creating a Scatter Plot
 
 Currently, `{gsm}` creates scatter plots for Adverse Event and Protocol Deviation assessments. In some cases, a user may want to produce a visualization separately to make additional customizations.
 
@@ -301,7 +255,7 @@ dfBounds <- Analyze_Poisson_PredictBounds(
 
 ## Create the visualization
 Visualize_Scatter(
-  dfFlagged = ae_assessment$lData$dfFlagged, 
+  dfSummary = ae_assessment$lData$dfFlagged, 
   dfBounds = dfBounds
   )
 ```
@@ -314,7 +268,7 @@ In some cases, the user might want to configure their own mappings, which can be
 
 Let's take a look at a few examples of editing YAML files for a custom workflow below.
 
-## Example 8 - Adding a Filtering Step
+## Example 7 - Adding a Filtering Step
 
 There are filter steps in the default specification for the AE Assessment, but we want to add an additional filter. Let's add a step that filters the `dfAE` data frame so all values of `aetoxgr == "MODERATE"` (i.e., we select for AEs with a moderate toxicity grade):
 
@@ -350,7 +304,7 @@ The default mappings for the AE Assessment are saved under KRI 0001, i.e., `kri0
 
 First, we want to add an additional `FilterDomain()` step to the workflow specification to select only moderate AEs. Because `dfAE` needs to be filtered before it is used in `AE_Map_Raw()`, the filter steps need to be placed first in the workflow.
 
-Let's name the custom YAML file `ae_assessment_moderate.yaml`. It read as follows:
+Let's name the custom YAML file `ae_assessment_moderate.yaml`. It reads as follows:
 
     steps:
       - name: FilterDomain

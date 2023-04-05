@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Query Age - Raw Mapping
+#' Query Age Assessment - Raw Mapping
 #'
 #' @description
 #' Convert raw query data to formatted input data to [gsm::QueryAge_Assess()].
@@ -36,6 +36,7 @@
 #' dfInput <- QueryAge_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
 #' @importFrom cli cli_alert_success cli_alert_warning cli_h2
+#' @importFrom yaml read_yaml
 #' @import dplyr
 #'
 #' @export
@@ -45,7 +46,7 @@ QueryAge_Map_Raw <- function(
     dfSUBJ = clindata::rawplus_dm,
     dfQUERY = clindata::edc_queries
   ),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
+  lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
   nMaxQueryAge = 30,
   bReturnChecks = FALSE,
   bQuiet = TRUE

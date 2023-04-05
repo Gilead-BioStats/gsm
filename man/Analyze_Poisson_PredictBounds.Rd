@@ -27,7 +27,7 @@ the thresholds used AE_Assess().}
 range of observed values.
 }
 \description{
-Poisson Analysis - Predicted Boundaries
+Poisson Analysis - Predicted Boundaries.
 }
 \details{
 Fits a Poisson model to site-level data and then calculates predicted count values and upper- and
@@ -43,7 +43,8 @@ calculated using the method described here TODO: Add link.
 
 \section{Data Specification}{
 
-The input data (\code{dfTransformed}) for Analyze_Poisson is typically created using
+
+The input data (\code{dfTransformed}) for \code{Analyze_Poisson_PredictBounds} is typically created using
 \code{\link{Transform_Rate}} and should be one record per site with columns for:
 \itemize{
 \item \code{GroupID} - Unique subject ID

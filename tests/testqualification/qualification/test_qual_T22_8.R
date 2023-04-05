@@ -1,6 +1,4 @@
 test_that("The utility function can correctly evaluate if empty string values are or are not acceptable in given columns depending on the vNACols component of the input parameter specifications.", {
-
-
   ### Preliminary setup
   df <- clindata::rawplus_dm
 
@@ -45,5 +43,4 @@ test_that("The utility function can correctly evaluate if empty string values ar
 
   all_tests <- isTRUE(empty_acceptable) & isTRUE(empty_not_acceptable)
   expect_true(all_tests)
-
 })

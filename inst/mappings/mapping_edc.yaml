@@ -1,18 +1,3 @@
-dfSUBJ: # one record per subject
-  strStudyCol: studyid
-  strSiteCol: siteid
-  strIDCol: subjid
-  strEDCIDCol: subject_nsv
-  strStudyStartDateCol: firstparticipantdate
-  strStudyEndDateCol: lastparticipantdate
-  strTimeOnStudyCol: timeonstudy
-  strTreatmentStartDateCol: firstdosedate
-  strTreatmentEndDateCol: lastdosedate
-  strTimeOnTreatmentCol: timeontreatment
-  strCountryCol: country
-  strCustomGroupCol: invid
-  strEnrollCol: enrollyn
-  strEnrollVal: "Y"
 dfQUERY: # one record per query
   strStudyCol: protocolname
   strIDCol: subjectname

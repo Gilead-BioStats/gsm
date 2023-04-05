@@ -1,8 +1,9 @@
 test_that("Given an appropriate subset of Labs data, the assessment function correctly performs a Labs Assessment grouped by the Study variable using the Normal Approximation method and correctly assigns Flag variable values.", {
   # gsm analysis
   dfInput <- gsm::LB_Map_Raw(dfs = list(
-    dfSUBJ = clindata::rawplus_dm  %>% filter(!siteid %in% c("5", "29", "58")),
-    dfLB = clindata::rawplus_lb))
+    dfSUBJ = clindata::rawplus_dm %>% filter(!siteid %in% c("5", "29", "58")),
+    dfLB = clindata::rawplus_lb
+  ))
 
   test6_8 <- LB_Assess(
     dfInput = dfInput,

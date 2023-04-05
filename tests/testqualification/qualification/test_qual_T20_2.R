@@ -1,13 +1,12 @@
 test_that("Given correct input data and metadata, the correct number of sites per study can be derived.", {
-
-
   ########### gsm mapping ###########
   observed <- gsm::Get_Enrolled(
     dfSUBJ = clindata::rawplus_dm,
     dfConfig = clindata::config_param,
     lMapping = yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     strUnit = "site",
-    strBy = "study")
+    strBy = "study"
+  )
 
 
   ########### double programming ###########
@@ -25,5 +24,4 @@ test_that("Given correct input data and metadata, the correct number of sites pe
 
   ########### testing ###########
   expect_equal(observed, as.integer(unique(expected$n)))
-
 })

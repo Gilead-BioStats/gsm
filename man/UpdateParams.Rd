@@ -7,7 +7,7 @@
 UpdateParams(lWorkflow, dfConfig, dfMeta)
 }
 \arguments{
-\item{lWorkflow}{\code{list} Object returned by \code{MakeWorkflowList()}}
+\item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
 
 \item{dfConfig}{\code{data.frame} Configuration parameters data.frame; \code{clindata::config_param}}
 

@@ -122,8 +122,7 @@ test_that("non-list spec does not cause function to fail", {
     is_mapping_valid(
       df = clindata::rawplus_dm,
       mapping = subj_mapping,
-      spec = 'string'
+      spec = "string"
     )
   )
-
 })

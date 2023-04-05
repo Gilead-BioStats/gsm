@@ -7,8 +7,7 @@
 QueryRate_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries, dfDATACHG =
     clindata::edc_data_points),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
-    "gsm")),
+  lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -40,7 +39,7 @@ of the column.}
 Convert raw query data to formatted input data to \code{\link[=QueryRate_Assess]{QueryRate_Assess()}}.
 }
 \details{
-Query Rate - Raw Mapping
+Query Rate Assessment - Raw Mapping
 
 \code{QueryRate_Map_Raw} combines query data with data points data and subject-level data to create
 formatted input data to \code{\link[=QueryRate_Assess]{QueryRate_Assess()}}. This function creates an input dataset for the Query Rate Assessment

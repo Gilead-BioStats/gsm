@@ -27,8 +27,7 @@ specified in \code{lMapping} and \code{lAssessments}, which are generally based 
 \item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}}
 }
 \value{
-\code{list} \code{lWorkflow} along with \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks},
-\code{bStatus}, \code{checks}, and \code{lResults} added based on the results of the execution of
+\code{list} with \code{group}, \code{steps}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{lWorkflowChecks} and \code{lResults} added based on the results of the execution of
 \code{lWorkflow$workflow}.
 
 \code{list} \code{lWorkflow} along with \code{tags}, \code{workflow}, \code{path}, \code{name}, \code{lData}, \code{lChecks},
@@ -40,7 +39,7 @@ Attempts to run a stratified workflow (\code{lWorkflow}) using shared data (\cod
 Calls \code{RunStep} for each item in \code{lWorkflow$workflow} and saves the results to \code{lWorkflow}
 }
 \details{
-Run a stratified workflow
+Run a stratified workflow via workflow YAML specification.
 }
 \examples{
 lWorkflows <- MakeWorkflowList(bRecursive = TRUE)

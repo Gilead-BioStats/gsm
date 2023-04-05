@@ -4,7 +4,7 @@ test_that("Given an appropriate subset of Disposition data, the assessment funct
     dfSUBJ = clindata::rawplus_dm,
     dfSTUDCOMP = clindata::rawplus_studcomp %>% filter(compreas_std_nsv == "ID"),
     dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(datapagename ==
-                                                         "Blinded Study Drug Completion")
+      "Blinded Study Drug Completion")
   ))
 
   test5_1 <- Disp_Assess(

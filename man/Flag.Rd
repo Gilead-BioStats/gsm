@@ -26,11 +26,11 @@ the value for that row is lower than the median of \code{strValueColumn}, then F
 \code{data.frame} with one row per site with columns: \code{GroupID}, \code{TotalCount}, \code{Metric}, \code{Score}, \code{Flag}
 }
 \description{
-Flag
+Add columns flagging sites that represent possible statistical outliers when the Identity statistical
+method is used.
 }
 \details{
-Add columns flagging sites that represent possible statistical outliers when Identity statistical
-method is used.
+Flag
 
 This function provides a generalized framework for flagging sites as part of the
 \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.

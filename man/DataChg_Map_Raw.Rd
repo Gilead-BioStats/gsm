@@ -6,8 +6,7 @@
 \usage{
 DataChg_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfDATACHG = clindata::edc_data_points),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
-    "gsm")),
+  lMapping = gsm::Read_Mapping(c("rawplus", "edc")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )
@@ -38,7 +37,7 @@ of the column.}
 Convert raw data entry data to formatted input data to \code{\link[=DataChg_Assess]{DataChg_Assess()}}.
 }
 \details{
-Data Change Rate - Raw Mapping
+Data Change Rate Assessment - Raw Mapping
 
 \code{DataChg_Map_Raw} creates an input dataset for the Data Change Rate Assessment \code{\link[=DataChg_Assess]{DataChg_Assess()}} by adding
 Data Points with Change Counts (derived from \code{dfDATACHG}) to basic subject-level data (from \code{dfSUBJ}).

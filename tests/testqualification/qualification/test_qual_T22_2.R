@@ -1,6 +1,4 @@
 test_that("The utility function can correctly evaluate that the input data frame has or does not have the expected columns.", {
-
-
   ### Preliminary setup
   lMapping <- list(
     strIDCol = "subjid",
@@ -38,5 +36,4 @@ test_that("The utility function can correctly evaluate that the input data frame
 
   all_tests <- isTRUE(expected_cols) & isTRUE(missing)
   expect_true(all_tests)
-
 })

@@ -6,7 +6,7 @@
 #' Attempts to run one or more assessments (`lAssessments`) using shared data (`lData`) and metadata (`lMapping`). By default, the sample `rawplus` data from the {clindata} package is used, and all assessments defined in `inst/workflow` are evaluated. Individual assessments are run using `gsm::RunAssessment()`
 #'
 #' @param lData `list` a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
-#' @param lMapping `list` a named list identifying the columns needed in each data domain.
+#' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`
@@ -54,12 +54,7 @@ Study_Assess <- function(
 
   # lMapping from clindata
   if (is.null(lMapping)) {
-    lMapping <- c(
-      yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-      yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm")),
-      yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
-      yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
-    )
+    lMapping <- gsm::Read_Mapping()
   }
 
   # lAssessments from gsm inst/workflow

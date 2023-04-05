@@ -1,5 +1,4 @@
 test_that("Given appropriate Disposition data, the assessment function correctly performs a Disposition Assessment grouped by the Site variable using the Fisher method and correctly assigns Flag variable values when given a custom threshold, and Flag variable values are set to NA for sites with low enrollment.", {
-
   # gsm analysis
   dfInput <- gsm::Disp_Map_Raw()
 
@@ -32,10 +31,16 @@ test_that("Given appropriate Disposition data, the assessment function correctly
     select(GroupID, Numerator, Denominator, Metric, Score, Flag) %>%
     arrange(desc(abs(Metric))) %>%
     arrange(match(Flag, c(2, -2, 1, -1, 0))) %>%
-    mutate(Score = case_when(Denominator >= nMinDenominator ~ Score,
-                             Denominator < nMinDenominator ~ NA_real_),
-           Flag = case_when(Denominator >= nMinDenominator ~ Flag,
-                            Denominator < nMinDenominator ~ NA_real_))
+    mutate(
+      Score = case_when(
+        Denominator >= nMinDenominator ~ Score,
+        Denominator < nMinDenominator ~ NA_real_
+      ),
+      Flag = case_when(
+        Denominator >= nMinDenominator ~ Flag,
+        Denominator < nMinDenominator ~ NA_real_
+      )
+    )
 
   t5_10 <- list(
     "dfTransformed" = t5_10_transformed,
