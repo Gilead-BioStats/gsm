@@ -41,6 +41,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             for (const widget of widgets) {
 
+                /*
+                  TODO - now we can use widget.type to run the correct function
+                  give the chart type
+                */
                 if (widget.type === "timeSeriesContinuousJS") {
                   instance.helpers.updateSelectedGroupIDs(event.target.value);
                 } else {
