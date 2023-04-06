@@ -1,8 +1,7 @@
 function overallClick() {
 
-  // TODO add back .barMetricJS !!!
   const widgets = [
-    ...document.querySelectorAll(".scatterJS, .barScoreJS, .timeSeriesContinuousJS")
+    ...document.querySelectorAll(".scatterJS, .barScoreJS, .barMetricJS, .timeSeriesContinuousJS")
   ].map(el => ({
     chart: el.getElementsByTagName("canvas")[0].chart,
     type: el.className
@@ -14,8 +13,7 @@ function overallClick() {
       widget.chart.helpers.updateSelectedGroupIDs(event.target.value);
     } else {
       widget.chart.data.config.selectedGroupIDs = event.target.value; // site
-      console.log(widget.chart)
-      widget.chart.helpers.updateConfig(widget.chart, widget.chart.data.config);
+      widget.chart.helpers.updateConfig(widget.chart, widget.chart.data.config, widget.chart.data._thresholds_);
     }
 
     if (event.target.value !== 'None') {
