@@ -21,7 +21,6 @@ timeSeriesContinuous <- function(kri,
                        raw_results,
                        raw_workflow,
                        raw_param,
-                       raw_analysis = NULL,
                        selectedGroupIDs = NULL,
                        width = NULL,
                        height = NULL,
@@ -31,19 +30,9 @@ timeSeriesContinuous <- function(kri,
   results <- raw_results %>%
     dplyr::filter(.data$workflowid == kri) # contains the string kri
 
-
   workflow <- raw_workflow %>%
     dplyr::filter(.data$workflowid == kri) %>%
     dplyr::mutate(selectedGroupIDs = selectedGroupIDs)
-
-  if (length(raw_analysis) > 0) {
-    workflow <- workflow %>% dplyr::mutate(y = "metric")
-
-    analysis <- raw_analysis %>%
-      dplyr::filter(.data$workflowid == kri)
-  } else {
-    analysis <- raw_analysis
-  }
 
   parameters <- raw_param %>%
     dplyr::filter(.data$workflowid == kri)
@@ -57,6 +46,9 @@ timeSeriesContinuous <- function(kri,
   #     pull(groupid) %>%
   #     unique()
   # }
+  if (is.null(selectedGroupIDs)) {
+    selectedGroupIDs <- 'None'
+  }
 
   # forward options using x
   x <- list(
@@ -71,10 +63,6 @@ timeSeriesContinuous <- function(kri,
 
   # get unique sites
   uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))
-
-  if (is.null(selectedGroupIDs)) {
-    selectedGroupIDs <- 'None'
-  }
 
   # create standalone timeseries widget
   htmlwidgets::createWidget(
