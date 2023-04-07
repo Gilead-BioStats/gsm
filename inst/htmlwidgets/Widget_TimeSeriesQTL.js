@@ -1,6 +1,6 @@
 HTMLWidgets.widget({
 
-  name: 'timeSeriesContinuous',
+  name: 'Widget_TimeSeriesQTL',
 
   type: 'output',
 
@@ -15,7 +15,9 @@ HTMLWidgets.widget({
         results = HTMLWidgets.dataframeToD3(x.results)
         workflow = HTMLWidgets.dataframeToD3(x.workflow)[0]
         workflow.selectedGroupIDs = x.selectedGroupIDs
+        workflow.y = 'metric';
         parameters = HTMLWidgets.dataframeToD3(x.parameters)
+        analysis = HTMLWidgets.dataframeToD3(x.parameters)
 
         const instance = rbmViz.default.timeSeries(
             el,
@@ -24,10 +26,6 @@ HTMLWidgets.widget({
             parameters,
             analysis
         );
-
-        el.previousElementSibling.addEventListener('change', (event) => {
-          instance.helpers.updateSelectedGroupIDs(event.target.value);
-        });
 
 
       },

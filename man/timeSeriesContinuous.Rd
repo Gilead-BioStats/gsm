@@ -9,7 +9,6 @@ timeSeriesContinuous(
   raw_results,
   raw_workflow,
   raw_param,
-  raw_analysis = NULL,
   selectedGroupIDs = NULL,
   width = NULL,
   height = NULL,
