@@ -9,7 +9,6 @@ timeSeriesContinuous(
   raw_results,
   raw_workflow,
   raw_param,
-  raw_analysis = NULL,
   selectedGroupIDs = NULL,
   width = NULL,
   height = NULL,
@@ -35,8 +34,6 @@ timeSeriesContinuous(
 \item{elementId}{optional elementId of widget}
 
 \item{addSiteSelect}{add a dropdown to highlight sites?}
-
-\item{raw_param_over_time}{status_param_over_time}
 }
 \description{
 A widget that displays a time-series plot based on longitudinal "snapshots" using \code{{gsm}}

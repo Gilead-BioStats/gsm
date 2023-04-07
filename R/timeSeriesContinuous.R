@@ -7,7 +7,6 @@
 #' @param raw_results results_summary_over_time
 #' @param raw_workflow meta_workflow
 #' @param raw_param meta_param
-#' @param raw_param_over_time status_param_over_time
 #' @param selectedGroupIDs specific group to highlight in the chart
 #' @param width width of widget
 #' @param height height of widget
@@ -15,6 +14,8 @@
 #' @param addSiteSelect add a dropdown to highlight sites?
 #'
 #' @import htmlwidgets
+#' @import htmltools
+#' @importFrom shiny HTML
 #'
 #' @export
 timeSeriesContinuous <- function(kri,
@@ -37,18 +38,6 @@ timeSeriesContinuous <- function(kri,
   parameters <- raw_param %>%
     dplyr::filter(.data$workflowid == kri)
 
-  # highlight the most concerning site(s)
-  # TODO: this doesn't work
-  # if (is.null(selectedGroupIDs)) {
-  #   selectedGroupIDs <- results %>%
-  #     filter(flag == max(abs(flag))) %>%
-  #     filter(score == max(abs(score))) %>%
-  #     pull(groupid) %>%
-  #     unique()
-  # }
-  if (is.null(selectedGroupIDs)) {
-    selectedGroupIDs <- 'None'
-  }
 
   # forward options using x
   x <- list(
@@ -58,7 +47,6 @@ timeSeriesContinuous <- function(kri,
     addSiteSelect = addSiteSelect,
     analysis = analysis,
     selectedGroupIDs = c(as.character(selectedGroupIDs))
-    # selectedGroupIDs = c(selectedGroupIDs) #TODO: decide if this is the right implementation
   )
 
   # get unique sites
@@ -121,3 +109,4 @@ renderTimeSeriesContinuous <- function(expr, env = parent.frame(), quoted = FALS
   if (!quoted) { expr <- substitute(expr) } # force quoted
   htmlwidgets::shinyRenderWidget(expr, timeSeriesContinuousOutput, env, quoted = TRUE)
 }
+
