@@ -45,7 +45,6 @@ Widget_TimeSeries <- function(kri,
     workflow = workflow,
     parameters = parameters,
     addSiteSelect = addSiteSelect,
-    analysis = analysis,
     selectedGroupIDs = c(as.character(selectedGroupIDs))
   )
 

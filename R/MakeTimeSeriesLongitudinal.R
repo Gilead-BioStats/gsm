@@ -21,7 +21,7 @@ MakeTimeSeriesLongitudinal <- function(cDirectory, lSnapshot = NULL) {
   results_summary <- purrr::map_df(list.files(cDirectory), function(x) {
     read.csv(paste0(cDirectory, "/", x, "/results_summary.csv")) %>%
       mutate(gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d"),
-             snapshot_date = gsm_analysis_date)
+             snapshot_date = .data$gsm_analysis_date)
   })
 
   meta_workflow <- purrr::map_df(list.files(cDirectory), function(x) {
@@ -86,7 +86,7 @@ MakeTimeSeriesLongitudinal <- function(cDirectory, lSnapshot = NULL) {
       results_summary,
       lSnapshot$lSnapshot$results_summary %>%
         mutate(
-          snapshot_date = gsm_analysis_date
+          snapshot_date = .data$gsm_analysis_date
         )
     )
 
