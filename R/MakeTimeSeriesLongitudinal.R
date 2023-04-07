@@ -52,6 +52,26 @@ MakeTimeSeriesLongitudinal <- function(cDirectory, lSnapshot = NULL) {
     mutate(snapshot_date = as.Date(.data$gsm_analysis_date, "%Y-%d-%m"))
 
 
+
+# look for results_analysis and include if it exists ----------------------
+  results_analysis_exists <- map_lgl(list.files(cDirectory), function(x) {
+    "results_analysis.csv" %in% list.files(paste0(cDirectory, "/", x))
+  })
+
+  if(any(results_analysis_exists)) {
+    results_analysis <- purrr::imap_dfr(list.files(cDirectory), function(x, index) {
+      if (results_analysis_exists[index]) {
+        read.csv(paste0(cDirectory, "/", x, "/results_analysis.csv")) %>%
+          mutate(gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d"))
+      } else {
+        return(NULL)
+      }
+    })
+  }
+
+
+
+
 # metadata for report -----------------------------------------------------
   status_study <- purrr::map_df(list.files(cDirectory), function(x) {
     read.csv(paste0(cDirectory, "/", x, "/status_study.csv")) %>%
@@ -80,13 +100,21 @@ MakeTimeSeriesLongitudinal <- function(cDirectory, lSnapshot = NULL) {
       lSnapshot$lSnapshot$status_study
     )
 
+    if ("results_analysis" %in% names(lSnapshot$lSnapshot)) {
+      results_analysis <- bind_rows(
+        results_analysis,
+        lSnapshot$lSnapshot$results_analysis
+      )
+    }
+
   }
 
   all_data <- list(
     results_summary = results_summary,
     params = params,
     meta_workflow = meta_workflow,
-    status_study = status_study
+    status_study = status_study,
+    results_analysis = results_analysis
   )
 
   return(all_data)
