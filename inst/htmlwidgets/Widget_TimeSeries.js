@@ -21,8 +21,7 @@ HTMLWidgets.widget({
             el,
             results,
             workflow,
-            parameters,
-            analysis
+            parameters
         );
 
         el.previousElementSibling.addEventListener('change', (event) => {

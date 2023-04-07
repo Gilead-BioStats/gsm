@@ -25,8 +25,6 @@ Widget_TimeSeriesQTL <- function(qtl,
                           height = NULL,
                           elementId = NULL) {
 
-  browser()
-
   results <- raw_results %>%
     dplyr::filter(.data$workflowid == qtl) # contains the string qtl
 
