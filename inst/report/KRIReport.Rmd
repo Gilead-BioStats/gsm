@@ -83,6 +83,11 @@ study_id <- purrr::map(assessment, function(kri) {
 title: "`r study_id` Assessment Overview"
 ---
 
+<div class = 'overall-site-select'
+    id = 'overall-site-select'
+    title = 'Selected site will be highlighted in all charts for all KRIs.'>
+
+</div>
 
 
 ```{r, echo=FALSE, results='asis'}
@@ -116,11 +121,6 @@ if (exists("longitudinal", where = params$assessment)) {
 
 ## Results
 
-<div class = 'overall-site-select'
-    id = 'overall-site-select'
-    title = 'Selected site will be highlighted in all charts for all KRIs.'>
-
-</div>
 
 ```{r, echo=FALSE, results='asis'}
 for (i in seq_along(assessment)) {
@@ -207,4 +207,8 @@ DT::datatable(error_table)
 ```
 
 
+```{js, file='../utils-0.0.1/overallSiteDropdown.js', echo=FALSE}
+```
 
+```{js, file='../utils-0.0.1/dragOverallSiteDropdown.js', echo=FALSE}
+```

@@ -4,10 +4,12 @@
 \alias{MakeTimeSeriesLongitudinal}
 \title{Create longitudinal snapshot from results_summary.}
 \usage{
-MakeTimeSeriesLongitudinal(cDirectory)
+MakeTimeSeriesLongitudinal(cDirectory, lSnapshot = NULL)
 }
 \arguments{
 \item{cDirectory}{\code{character} Path to longitudinal data folders.}
+
+\item{lSnapshot}{\code{list} Optional. Pass the output of \code{\link[=Make_Snapshot]{Make_Snapshot()}} to be appended to historical results.}
 }
 \value{
 \code{data.frame} containing longitudinal snapshots of \code{{gsm}} analyses.

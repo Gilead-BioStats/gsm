@@ -1,7 +1,8 @@
 #' Make Time Series Trend Data
 #'
-#' @param lStudyAssess `list` The output of [gsm::Study_Assess()].
+#' @param lSnapshot `list` The output of [gsm::Make_Snapshot()] where `bReturnStudyObject = TRUE`.
 #' @param cDirectory `character` Path to longitudinal snapshots, returned by [gsm::Make_Snapshot()].
+#' @param bAppendSnapshot `logical` The output of [gsm::Make_Snapshot()], to be appended to historical snapshots.
 #' @param bAppendTimeSeriesCharts `logical` Append time series charts to KRIs? Default: `TRUE`.
 #'
 #' @examples
@@ -16,13 +17,14 @@
 #' @return `list` The output of [gsm::Study_Assess()] with longitudinal data appended.
 #'
 #' @export
-MakeTrendData <- function(lStudyAssess, cDirectory, bAppendTimeSeriesCharts = TRUE) {
+MakeTrendData <- function(lSnapshot, cDirectory, bAppendSnapshot = TRUE, bAppendTimeSeriesCharts = TRUE) {
 
-  longitudinal <- MakeTimeSeriesLongitudinal(cDirectory)
+  longitudinal <- MakeTimeSeriesLongitudinal(cDirectory, lSnapshot)
 
   if (bAppendTimeSeriesCharts) {
-    lStudyAssess <- lStudyAssess %>%
+    lSnapshot$lStudyAssessResults <- lSnapshot$lStudyAssessResults %>%
       purrr::map(function(kri) {
+
         kri$lResults$lCharts[['timeSeriesContinuousJS']] <- timeSeriesContinuous(kri = kri$name,
                                                                                  raw_results = longitudinal$results_summary,
                                                                                  raw_param = longitudinal$params,
@@ -31,7 +33,8 @@ MakeTrendData <- function(lStudyAssess, cDirectory, bAppendTimeSeriesCharts = TR
       })
   }
 
-  lStudyAssess[["longitudinal"]] <- longitudinal %>%
+
+  lSnapshot$lStudyAssessResults[["longitudinal"]] <- longitudinal %>%
     purrr::map(function(x) {
       x %>%
         mutate(
@@ -40,7 +43,6 @@ MakeTrendData <- function(lStudyAssess, cDirectory, bAppendTimeSeriesCharts = TR
     })
 
 
-
-  return(lStudyAssess)
+  return(lSnapshot)
 
 }
