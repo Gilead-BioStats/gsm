@@ -7,8 +7,7 @@
 IE_Assess(
   dfInput,
   nThreshold = 0.5,
-  lMapping = yaml::read_yaml(system.file("mappings", "IE_Assess.yaml", package =
-    "gsm")),
+  lMapping = yaml::read_yaml(system.file("mappings", "IE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   nMinDenominator = NULL,
   bQuiet = TRUE

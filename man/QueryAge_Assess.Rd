@@ -92,9 +92,7 @@ Alternatively, the Fisher’s exact test, or percentage value (identity)
 is used to generate estimates and p-values for each site (as specified
 with the \code{strMethod} parameter). Those outputs are then used to flag
 possible outliers using the thresholds specified in \code{vThreshold}. In the
-Fisher’s exact test, sites with
-\figure{https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p%3C0.05}{p<0.05}
-are flagged as 1 by default.
+Fisher’s exact test, sites with $p<0.05$ are flagged as 1 by default.
 
 See \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}} or
 \code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or

@@ -298,3 +298,14 @@ test_that("NULL date input returns the current date", {
     Sys.Date()
   )
 })
+
+test_that("Study_Assess() list is returned", {
+  result <- Make_Snapshot(
+    lData = lData,
+    lAssessments = MakeWorkflowList(strNames = c("kri0001", "kri0004")),
+    bReturnStudyObject = TRUE
+  )
+
+  expect_equal(length(result), 2)
+  expect_true(all(c("lSnapshot", "lStudyAssessResults") %in% names(result)))
+})

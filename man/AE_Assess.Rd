@@ -8,8 +8,7 @@ AE_Assess(
   dfInput,
   vThreshold = NULL,
   strMethod = "NormalApprox",
-  lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package =
-    "gsm")),
+  lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   nMinDenominator = NULL,
   bQuiet = TRUE
