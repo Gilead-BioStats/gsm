@@ -106,16 +106,6 @@ timeSeriesContinuous <- function(kri,
 
 }
 
-#' Time Series Continuous
-#'
-#' @param listThing
-#'
-#' @return
-#' @export
-continuousWrapper <- function(listThing) {
-
-}
-
 #' Shiny bindings for timeSeriesContinuous
 #'
 #' Output and render functions for using timeSeriesContinuous within Shiny
@@ -143,13 +133,3 @@ renderTimeSeriesContinuous <- function(expr, env = parent.frame(), quoted = FALS
   if (!quoted) { expr <- substitute(expr) } # force quoted
   htmlwidgets::shinyRenderWidget(expr, timeSeriesContinuousOutput, env, quoted = TRUE)
 }
-
-# timeSeriesContinuous_html <- function(...) {
-#   browser()
-#   htmltools::tags$div(
-#     htmltools::tags$select(
-#       purrr::map(selections, ~htmltools::tags$option(.x, value=.x))
-#     ),
-#     htmltools::tags$div(...)
-#   )
-# }
