@@ -101,3 +101,7 @@ button.btn-show-report:hover {
   justify-content: center;
   align-items: center;
 }
+
+#tocify-header0 {
+  display: none;
+}

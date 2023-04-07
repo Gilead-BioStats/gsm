@@ -105,8 +105,8 @@ if (exists("longitudinal", where = params$assessment)) {
 ## Study Overview
 
 <div class="flag-container">
-  <div class="flag flag-red">0 Red KRIs</div>
-  <div class="flag flag-amber">0 Amber KRIs</div>
+  <div class="flag flag-red">`r red_kris` Red KRIs</div>
+  <div class="flag flag-amber">`r amber_kris` Amber KRIs</div>
 </div>
 
 
