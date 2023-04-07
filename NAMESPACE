@@ -78,10 +78,13 @@ export(Widget_BarChart)
 export(Widget_BarChartOutput)
 export(Widget_ScatterPlot)
 export(Widget_ScatterPlotOutput)
+<<<<<<< HEAD
 export(Widget_TimeSeries)
 export(Widget_TimeSeriesOutput)
 export(Widget_TimeSeriesQTL)
 export(Widget_TimeSeriesQTLOutput)
+=======
+>>>>>>> origin
 export(as_label)
 export(as_name)
 export(enquo)
@@ -95,8 +98,11 @@ export(parse_data_spec)
 export(rank_chg)
 export(renderWidget_BarChart)
 export(renderWidget_ScatterPlot)
+<<<<<<< HEAD
 export(renderWidget_TimeSeries)
 export(renderWidget_TimeSeriesQTL)
+=======
+>>>>>>> origin
 import(cli)
 import(dplyr)
 import(ggplot2)
