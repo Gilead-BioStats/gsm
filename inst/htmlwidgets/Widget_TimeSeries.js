@@ -1,6 +1,6 @@
 HTMLWidgets.widget({
 
-  name: 'timeSeriesContinuous',
+  name: 'Widget_TimeSeries',
 
   type: 'output',
 

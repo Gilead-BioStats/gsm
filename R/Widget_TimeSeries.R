@@ -1,7 +1,7 @@
 #' Time-Series Continuous Plot
 #'
 #' @description
-#' A widget that displays a time-series plot based on longitudinal "snapshots" using `{gsm}`
+#' A widget that displays a time-series plot based on longitudinal snapshots using `{gsm}`
 #'
 #' @param kri selected workflow to filter data and display
 #' @param raw_results results_summary_over_time
@@ -18,7 +18,7 @@
 #' @importFrom shiny HTML
 #'
 #' @export
-timeSeriesContinuous <- function(kri,
+Widget_TimeSeries <- function(kri,
                        raw_results,
                        raw_workflow,
                        raw_param,
@@ -54,7 +54,7 @@ timeSeriesContinuous <- function(kri,
 
   # create standalone timeseries widget
   htmlwidgets::createWidget(
-        name = 'timeSeriesContinuous',
+        name = 'Widget_TimeSeries',
         x,
         width = width,
         height = height,
@@ -82,31 +82,31 @@ timeSeriesContinuous <- function(kri,
 
 }
 
-#' Shiny bindings for timeSeriesContinuous
+#' Shiny bindings for Widget_TimeSeries
 #'
-#' Output and render functions for using timeSeriesContinuous within Shiny
+#' Output and render functions for using Widget_TimeSeries within Shiny
 #' applications and interactive Rmd documents.
 #'
 #' @param outputId output variable to read from
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
-#' @param expr An expression that generates a timeSeriesContinuous
+#' @param expr An expression that generates a Widget_TimeSeries
 #' @param env The environment in which to evaluate \code{expr}.
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
 #'
-#' @name timeSeriesContinuous-shiny
+#' @name Widget_TimeSeries-shiny
 #'
 #' @export
-timeSeriesContinuousOutput <- function(outputId, width = '100%', height = '400px'){
-  htmlwidgets::shinyWidgetOutput(outputId, 'timeSeriesContinuous', width, height, package = 'gsm')
+Widget_TimeSeriesOutput <- function(outputId, width = '100%', height = '400px'){
+  htmlwidgets::shinyWidgetOutput(outputId, 'Widget_TimeSeries', width, height, package = 'gsm')
 }
 
-#' @rdname timeSeriesContinuous-shiny
+#' @rdname Widget_TimeSeries-shiny
 #' @export
-renderTimeSeriesContinuous <- function(expr, env = parent.frame(), quoted = FALSE) {
+renderWidget_TimeSeries <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
-  htmlwidgets::shinyRenderWidget(expr, timeSeriesContinuousOutput, env, quoted = TRUE)
+  htmlwidgets::shinyRenderWidget(expr, Widget_TimeSeriesOutput, env, quoted = TRUE)
 }
 
