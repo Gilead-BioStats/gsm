@@ -9,8 +9,20 @@
       # START OF cou0001
       #--- cou0001:FilterDomain ---
       
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
+      #--- cou0001:FilterDomain ---
+      
       dfAE <- FilterDomain(
-        df = lData[["dfAE"]],
+        df = dfAE,
         strDomain = "dfAE",
         lMapping = lMapping,
         strColParam = lMapping[["dfAE"]][["strTreatmentEmergentCol"]],

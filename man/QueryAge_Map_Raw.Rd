@@ -6,8 +6,7 @@
 \usage{
 QueryAge_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
-    "gsm")),
+  lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
   nMaxQueryAge = 30,
   bReturnChecks = FALSE,
   bQuiet = TRUE

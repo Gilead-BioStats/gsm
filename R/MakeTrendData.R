@@ -25,10 +25,13 @@ MakeTrendData <- function(lSnapshot, cDirectory, bAppendSnapshot = TRUE, bAppend
     lSnapshot$lStudyAssessResults <- lSnapshot$lStudyAssessResults %>%
       purrr::map(function(kri) {
 
-        kri$lResults$lCharts[['timeSeriesContinuousJS']] <- timeSeriesContinuous(kri = kri$name,
-                                                                                 raw_results = longitudinal$results_summary,
-                                                                                 raw_param = longitudinal$params,
-                                                                                 raw_workflow = longitudinal$meta_workflow)
+        kri$lResults$lCharts[['timeSeriesContinuousJS']] <- Widget_TimeSeries(
+          kri = kri$name,
+          raw_results = longitudinal$results_summary,
+          raw_param = longitudinal$params, raw_workflow =
+            longitudinal$meta_workflow
+          )
+
         return(kri)
       })
   }

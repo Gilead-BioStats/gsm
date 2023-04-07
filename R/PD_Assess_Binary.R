@@ -208,7 +208,7 @@ PD_Assess_Binary <- function(
           bounds <- NULL
         }
 
-        lCharts$scatterJS <- scatterPlot(
+        lCharts$scatterJS <- gsm::Widget_ScatterPlot(
           results = lData$dfSummary,
           workflow = dfConfig,
           bounds = bounds,
@@ -221,14 +221,14 @@ PD_Assess_Binary <- function(
       lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
       lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
 
-      lCharts$barMetricJS <- barChart(
+      lCharts$barMetricJS <- gsm::Widget_BarChart(
         results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "metric",
         elementId = "pdAssessMetric"
       )
 
-      lCharts$barScoreJS <- barChart(
+      lCharts$barScoreJS <- gsm::Widget_BarChart(
         results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "score",

@@ -207,7 +207,7 @@ QueryRate_Assess <- function(
     if (strMethod != "Identity") {
       lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
 
-      lCharts$scatterJS <- scatterPlot(
+      lCharts$scatterJS <- gsm::Widget_ScatterPlot(
         results = lData$dfSummary,
         workflow = dfConfig,
         bounds = lData$dfBounds,
@@ -220,14 +220,14 @@ QueryRate_Assess <- function(
     lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
     lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
 
-    lCharts$barMetricJS <- barChart(
+    lCharts$barMetricJS <- gsm::Widget_BarChart(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "metric",
       elementId = "queryRateAssessMetric"
     )
 
-    lCharts$barScoreJS <- barChart(
+    lCharts$barScoreJS <- gsm::Widget_BarChart(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "score",

@@ -548,6 +548,183 @@
       [1] TRUE
       
       $AE_Map_Raw$mapping
+      $AE_Map_Raw$mapping$dfADSL
+      $AE_Map_Raw$mapping$dfADSL$strIDCol
+      [1] "USUBJID"
+      
+      $AE_Map_Raw$mapping$dfADSL$strSiteCol
+      [1] "SITEID"
+      
+      $AE_Map_Raw$mapping$dfADSL$strStudyCol
+      [1] "STUDYID"
+      
+      $AE_Map_Raw$mapping$dfADSL$strCustomGroupCol
+      [1] "RegionID"
+      
+      $AE_Map_Raw$mapping$dfADSL$strStartCol
+      [1] "TRTSDT"
+      
+      $AE_Map_Raw$mapping$dfADSL$strEndCol
+      [1] "TRTEDT"
+      
+      $AE_Map_Raw$mapping$dfADSL$strTimeOnTreatmentCol
+      [1] "TDUR"
+      
+      $AE_Map_Raw$mapping$dfADSL$strTimeOnStudyCol
+      [1] "SDUR"
+      
+      $AE_Map_Raw$mapping$dfADSL$strRandFlagCol
+      [1] "RANDFL"
+      
+      $AE_Map_Raw$mapping$dfADSL$strRandDateCol
+      [1] "RANDDT"
+      
+      $AE_Map_Raw$mapping$dfADSL$strStudyCompletionFlagCol
+      [1] "COMPLSFL"
+      
+      $AE_Map_Raw$mapping$dfADSL$strStudyDiscontinuationReasonCol
+      [1] "DCSREAS"
+      
+      $AE_Map_Raw$mapping$dfADSL$strTreatmentCompletionFlagCol
+      [1] "COMPLTFL"
+      
+      $AE_Map_Raw$mapping$dfADSL$strTreatmentDiscontinuationReasonCol
+      [1] "DCTREAS"
+      
+      
+      $AE_Map_Raw$mapping$dfADAE
+      $AE_Map_Raw$mapping$dfADAE$strIDCol
+      [1] "USUBJID"
+      
+      $AE_Map_Raw$mapping$dfADAE$strTreatmentEmergentCol
+      [1] "TRTEMFL"
+      
+      $AE_Map_Raw$mapping$dfADAE$strTreatmentEmergentVal
+      [1] "Y"
+      
+      $AE_Map_Raw$mapping$dfADAE$strGradeCol
+      [1] "AETOXGR"
+      
+      $AE_Map_Raw$mapping$dfADAE$strSeriousCol
+      [1] "AESER"
+      
+      $AE_Map_Raw$mapping$dfADAE$strSeriousVal
+      [1] "Yes"
+      
+      
+      $AE_Map_Raw$mapping$dfPD
+      $AE_Map_Raw$mapping$dfPD$strIDCol
+      [1] "SubjectEnrollmentNumber"
+      
+      $AE_Map_Raw$mapping$dfPD$strDateCol
+      [1] "DeviationDate"
+      
+      $AE_Map_Raw$mapping$dfPD$strCategoryCol
+      [1] "GileadCategory"
+      
+      $AE_Map_Raw$mapping$dfPD$strImportantCol
+      [1] "DeemedImportant"
+      
+      $AE_Map_Raw$mapping$dfPD$strImportantVal
+      [1] "Yes"
+      
+      $AE_Map_Raw$mapping$dfPD$strNonImportantVal
+      [1] "No"
+      
+      
+      $AE_Map_Raw$mapping$dfQUERY
+      $AE_Map_Raw$mapping$dfQUERY$strStudyCol
+      [1] "protocolname"
+      
+      $AE_Map_Raw$mapping$dfQUERY$strIDCol
+      [1] "subjectname"
+      
+      $AE_Map_Raw$mapping$dfQUERY$strVisitCol
+      [1] "visit"
+      
+      $AE_Map_Raw$mapping$dfQUERY$strFormCol
+      [1] "formoid"
+      
+      $AE_Map_Raw$mapping$dfQUERY$strFieldCol
+      [1] "fieldoid"
+      
+      $AE_Map_Raw$mapping$dfQUERY$strLogNumberCol
+      [1] "log_number"
+      
+      $AE_Map_Raw$mapping$dfQUERY$strDataPointIDCol
+      [1] "datapointid"
+      
+      $AE_Map_Raw$mapping$dfQUERY$strStatusCol
+      [1] "querystatus"
+      
+      $AE_Map_Raw$mapping$dfQUERY$strCreationDateCol
+      [1] "created"
+      
+      $AE_Map_Raw$mapping$dfQUERY$strAnswerDateCol
+      [1] "answered"
+      
+      $AE_Map_Raw$mapping$dfQUERY$strResolutionDateCol
+      [1] "resolved"
+      
+      $AE_Map_Raw$mapping$dfQUERY$strMarkingGroupCol
+      [1] "markinggroup"
+      
+      $AE_Map_Raw$mapping$dfQUERY$strQueryAgeCol
+      [1] "queryage"
+      
+      
+      $AE_Map_Raw$mapping$dfDATAENT
+      $AE_Map_Raw$mapping$dfDATAENT$strStudyCol
+      [1] "protocolname"
+      
+      $AE_Map_Raw$mapping$dfDATAENT$strIDCol
+      [1] "subjectname"
+      
+      $AE_Map_Raw$mapping$dfDATAENT$strVisitCol
+      [1] "visit"
+      
+      $AE_Map_Raw$mapping$dfDATAENT$strFormCol
+      [1] "formoid"
+      
+      $AE_Map_Raw$mapping$dfDATAENT$strVisitDateCol
+      [1] "visitdat_date"
+      
+      $AE_Map_Raw$mapping$dfDATAENT$strEntryDateCol
+      [1] "min_entereddate"
+      
+      $AE_Map_Raw$mapping$dfDATAENT$strDataEntryLagCol
+      [1] "data_entry_lag"
+      
+      
+      $AE_Map_Raw$mapping$dfDATACHG
+      $AE_Map_Raw$mapping$dfDATACHG$strStudyCol
+      [1] "protocolname"
+      
+      $AE_Map_Raw$mapping$dfDATACHG$strIDCol
+      [1] "subjectname"
+      
+      $AE_Map_Raw$mapping$dfDATACHG$strVisitCol
+      [1] "visit"
+      
+      $AE_Map_Raw$mapping$dfDATACHG$strFormCol
+      [1] "formoid"
+      
+      $AE_Map_Raw$mapping$dfDATACHG$strFieldCol
+      [1] "fieldoid"
+      
+      $AE_Map_Raw$mapping$dfDATACHG$strLogNumberCol
+      [1] "log_number"
+      
+      $AE_Map_Raw$mapping$dfDATACHG$strDataPointIDCol
+      [1] "datapointid"
+      
+      $AE_Map_Raw$mapping$dfDATACHG$strNChangesCol
+      [1] "n_changes"
+      
+      $AE_Map_Raw$mapping$dfDATACHG$strRequiredCol
+      [1] "isrequired"
+      
+      
       $AE_Map_Raw$mapping$dfSUBJ
       $AE_Map_Raw$mapping$dfSUBJ$strStudyCol
       [1] "studyid"
@@ -772,271 +949,6 @@
       
       $AE_Map_Raw$mapping$dfENROLL$strCustomGroupCol
       [1] "invid"
-      
-      
-      $AE_Map_Raw$mapping$dfSUBJ
-      $AE_Map_Raw$mapping$dfSUBJ$strStudyCol
-      [1] "studyid"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strSiteCol
-      [1] "siteid"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strIDCol
-      [1] "subjid"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strEDCIDCol
-      [1] "subject_nsv"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strStudyStartDateCol
-      [1] "firstparticipantdate"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strStudyEndDateCol
-      [1] "lastparticipantdate"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strTimeOnStudyCol
-      [1] "timeonstudy"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strTreatmentStartDateCol
-      [1] "firstdosedate"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strTreatmentEndDateCol
-      [1] "lastdosedate"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strTimeOnTreatmentCol
-      [1] "timeontreatment"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strCountryCol
-      [1] "country"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strCustomGroupCol
-      [1] "invid"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strEnrollCol
-      [1] "enrollyn"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strEnrollVal
-      [1] "Y"
-      
-      
-      $AE_Map_Raw$mapping$dfPD
-      $AE_Map_Raw$mapping$dfPD$strIDCol
-      [1] "SubjectEnrollmentNumber"
-      
-      $AE_Map_Raw$mapping$dfPD$strDateCol
-      [1] "DeviationDate"
-      
-      $AE_Map_Raw$mapping$dfPD$strCategoryCol
-      [1] "GileadCategory"
-      
-      $AE_Map_Raw$mapping$dfPD$strImportantCol
-      [1] "DeemedImportant"
-      
-      $AE_Map_Raw$mapping$dfPD$strImportantVal
-      [1] "Yes"
-      
-      $AE_Map_Raw$mapping$dfPD$strNonImportantVal
-      [1] "No"
-      
-      
-      $AE_Map_Raw$mapping$dfSUBJ
-      $AE_Map_Raw$mapping$dfSUBJ$strStudyCol
-      [1] "studyid"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strSiteCol
-      [1] "siteid"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strIDCol
-      [1] "subjid"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strEDCIDCol
-      [1] "subject_nsv"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strStudyStartDateCol
-      [1] "firstparticipantdate"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strStudyEndDateCol
-      [1] "lastparticipantdate"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strTimeOnStudyCol
-      [1] "timeonstudy"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strTreatmentStartDateCol
-      [1] "firstdosedate"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strTreatmentEndDateCol
-      [1] "lastdosedate"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strTimeOnTreatmentCol
-      [1] "timeontreatment"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strCountryCol
-      [1] "country"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strCustomGroupCol
-      [1] "invid"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strEnrollCol
-      [1] "enrollyn"
-      
-      $AE_Map_Raw$mapping$dfSUBJ$strEnrollVal
-      [1] "Y"
-      
-      
-      $AE_Map_Raw$mapping$dfQUERY
-      $AE_Map_Raw$mapping$dfQUERY$strStudyCol
-      [1] "protocolname"
-      
-      $AE_Map_Raw$mapping$dfQUERY$strIDCol
-      [1] "subjectname"
-      
-      $AE_Map_Raw$mapping$dfQUERY$strVisitCol
-      [1] "visit"
-      
-      $AE_Map_Raw$mapping$dfQUERY$strFormCol
-      [1] "formoid"
-      
-      $AE_Map_Raw$mapping$dfQUERY$strFieldCol
-      [1] "fieldoid"
-      
-      $AE_Map_Raw$mapping$dfQUERY$strLogNumberCol
-      [1] "log_number"
-      
-      $AE_Map_Raw$mapping$dfQUERY$strDataPointIDCol
-      [1] "datapointid"
-      
-      $AE_Map_Raw$mapping$dfQUERY$strStatusCol
-      [1] "querystatus"
-      
-      $AE_Map_Raw$mapping$dfQUERY$strCreationDateCol
-      [1] "created"
-      
-      $AE_Map_Raw$mapping$dfQUERY$strAnswerDateCol
-      [1] "answered"
-      
-      $AE_Map_Raw$mapping$dfQUERY$strResolutionDateCol
-      [1] "resolved"
-      
-      $AE_Map_Raw$mapping$dfQUERY$strMarkingGroupCol
-      [1] "markinggroup"
-      
-      $AE_Map_Raw$mapping$dfQUERY$strQueryAgeCol
-      [1] "queryage"
-      
-      
-      $AE_Map_Raw$mapping$dfDATAENT
-      $AE_Map_Raw$mapping$dfDATAENT$strStudyCol
-      [1] "protocolname"
-      
-      $AE_Map_Raw$mapping$dfDATAENT$strIDCol
-      [1] "subjectname"
-      
-      $AE_Map_Raw$mapping$dfDATAENT$strVisitCol
-      [1] "visit"
-      
-      $AE_Map_Raw$mapping$dfDATAENT$strFormCol
-      [1] "formoid"
-      
-      $AE_Map_Raw$mapping$dfDATAENT$strVisitDateCol
-      [1] "visitdat_date"
-      
-      $AE_Map_Raw$mapping$dfDATAENT$strEntryDateCol
-      [1] "min_entereddate"
-      
-      $AE_Map_Raw$mapping$dfDATAENT$strDataEntryLagCol
-      [1] "data_entry_lag"
-      
-      
-      $AE_Map_Raw$mapping$dfDATACHG
-      $AE_Map_Raw$mapping$dfDATACHG$strStudyCol
-      [1] "protocolname"
-      
-      $AE_Map_Raw$mapping$dfDATACHG$strIDCol
-      [1] "subjectname"
-      
-      $AE_Map_Raw$mapping$dfDATACHG$strVisitCol
-      [1] "visit"
-      
-      $AE_Map_Raw$mapping$dfDATACHG$strFormCol
-      [1] "formoid"
-      
-      $AE_Map_Raw$mapping$dfDATACHG$strFieldCol
-      [1] "fieldoid"
-      
-      $AE_Map_Raw$mapping$dfDATACHG$strLogNumberCol
-      [1] "log_number"
-      
-      $AE_Map_Raw$mapping$dfDATACHG$strDataPointIDCol
-      [1] "datapointid"
-      
-      $AE_Map_Raw$mapping$dfDATACHG$strNChangesCol
-      [1] "n_changes"
-      
-      $AE_Map_Raw$mapping$dfDATACHG$strRequiredCol
-      [1] "isrequired"
-      
-      
-      $AE_Map_Raw$mapping$dfADSL
-      $AE_Map_Raw$mapping$dfADSL$strIDCol
-      [1] "USUBJID"
-      
-      $AE_Map_Raw$mapping$dfADSL$strSiteCol
-      [1] "SITEID"
-      
-      $AE_Map_Raw$mapping$dfADSL$strStudyCol
-      [1] "STUDYID"
-      
-      $AE_Map_Raw$mapping$dfADSL$strCustomGroupCol
-      [1] "RegionID"
-      
-      $AE_Map_Raw$mapping$dfADSL$strStartCol
-      [1] "TRTSDT"
-      
-      $AE_Map_Raw$mapping$dfADSL$strEndCol
-      [1] "TRTEDT"
-      
-      $AE_Map_Raw$mapping$dfADSL$strTimeOnTreatmentCol
-      [1] "TDUR"
-      
-      $AE_Map_Raw$mapping$dfADSL$strTimeOnStudyCol
-      [1] "SDUR"
-      
-      $AE_Map_Raw$mapping$dfADSL$strRandFlagCol
-      [1] "RANDFL"
-      
-      $AE_Map_Raw$mapping$dfADSL$strRandDateCol
-      [1] "RANDDT"
-      
-      $AE_Map_Raw$mapping$dfADSL$strStudyCompletionFlagCol
-      [1] "COMPLSFL"
-      
-      $AE_Map_Raw$mapping$dfADSL$strStudyDiscontinuationReasonCol
-      [1] "DCSREAS"
-      
-      $AE_Map_Raw$mapping$dfADSL$strTreatmentCompletionFlagCol
-      [1] "COMPLTFL"
-      
-      $AE_Map_Raw$mapping$dfADSL$strTreatmentDiscontinuationReasonCol
-      [1] "DCTREAS"
-      
-      
-      $AE_Map_Raw$mapping$dfADAE
-      $AE_Map_Raw$mapping$dfADAE$strIDCol
-      [1] "USUBJID"
-      
-      $AE_Map_Raw$mapping$dfADAE$strTreatmentEmergentCol
-      [1] "TRTEMFL"
-      
-      $AE_Map_Raw$mapping$dfADAE$strTreatmentEmergentVal
-      [1] "Y"
-      
-      $AE_Map_Raw$mapping$dfADAE$strGradeCol
-      [1] "AETOXGR"
-      
-      $AE_Map_Raw$mapping$dfADAE$strSeriousCol
-      [1] "AESER"
-      
-      $AE_Map_Raw$mapping$dfADAE$strSeriousVal
-      [1] "Yes"
       
       
       

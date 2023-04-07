@@ -2,13 +2,13 @@
 % Please edit documentation in R/timeSeriesQTL.R
 \name{timeSeriesQTL-shiny}
 \alias{timeSeriesQTL-shiny}
-\alias{timeSeriesQTLOutput}
-\alias{renderTimeSeriesQTL}
+\alias{Widget_TimeSeriesQTLOutput}
+\alias{renderWidget_TimeSeriesQTL}
 \title{Shiny bindings for timeSeriesQTL}
 \usage{
-timeSeriesQTLOutput(outputId, width = "100\%", height = "400px")
+Widget_TimeSeriesQTLOutput(outputId, width = "100\%", height = "400px")
 
-renderTimeSeriesQTL(expr, env = parent.frame(), quoted = FALSE)
+renderWidget_TimeSeriesQTL(expr, env = parent.frame(), quoted = FALSE)
 }
 \arguments{
 \item{outputId}{output variable to read from}

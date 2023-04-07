@@ -23,7 +23,7 @@ test_that("A subset of raw data query data can be mapped correctly to create an 
 
   ########### double programming ###########
   # read in default mapping specs
-  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm"))
+  lMapping <- gsm::Read_Mapping(c("rawplus", "edc"))
 
   # create cols vector to facilitate connecting lMapping with source data variables
   cols <- c(

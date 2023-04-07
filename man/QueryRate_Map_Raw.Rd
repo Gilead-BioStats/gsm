@@ -7,8 +7,7 @@
 QueryRate_Map_Raw(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries, dfDATACHG
     = clindata::edc_data_points),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
-    "gsm")),
+  lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )

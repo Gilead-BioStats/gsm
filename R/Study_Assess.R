@@ -54,12 +54,7 @@ Study_Assess <- function(
 
   # lMapping from clindata
   if (is.null(lMapping)) {
-    lMapping <- c(
-      yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-      yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm")),
-      yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
-      yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
-    )
+    lMapping <- gsm::Read_Mapping()
   }
 
   # lAssessments from gsm inst/workflow

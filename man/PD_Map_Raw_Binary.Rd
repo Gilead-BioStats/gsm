@@ -6,8 +6,7 @@
 \usage{
 PD_Map_Raw_Binary(
   dfs = list(dfSUBJ = clindata::rawplus_dm, dfPD = clindata::ctms_protdev),
-  lMapping = yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package =
-    "gsm")),
+  lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
 )

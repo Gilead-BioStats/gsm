@@ -3,8 +3,10 @@ title: "Qualification Workflow"
 date: 'Date: `r Sys.Date()`'
 output:
   rmarkdown::html_vignette
-vignette: "%\\VignetteIndexEntry{Qualification Workflow} %\\VignetteEncoding{UTF-8}
-  %\\VignetteEngine{knitr::rmarkdown}\n"
+vignette: >
+ %\\VignetteIndexEntry{Qualification Workflow} 
+ %\\VignetteEncoding{UTF-8}
+ %\\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r setup, include = FALSE}
@@ -148,11 +150,9 @@ Using the specifications, test cases, and test code outlined above the qualifica
 An overview of the qualification test results is presented as a table, with one row for each function that has been tested. The results are presented as a series of columns for the number of tests, number of passing tests, number of failing tests, and number of skipped tests.  
 
 ```{r}
-spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R")
+spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R", full.names = TRUE)
 spec_list <- spec_list[-1]
-spec_list <- spec_list[1:16]
-# spec_list <- spec_list[1:15]
-spec_list <- paste0("~/gsm/tests/testqualification/qualification/", spec_list)
+
 scrape <- map_df(spec_list, function(x) {
     testResultsRaw <- testthat::test_file(x, reporter = testthat::ListReporter, package = "gsm") %>% 
       as_tibble()

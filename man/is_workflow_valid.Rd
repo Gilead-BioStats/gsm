@@ -2,7 +2,7 @@
 % Please edit documentation in R/is_workflow_valid.R
 \name{is_workflow_valid}
 \alias{is_workflow_valid}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 is_workflow_valid(lWorkflow)
 }
