@@ -26,8 +26,7 @@ Make_Snapshot(
   bUpdateParams = FALSE,
   cPath = NULL,
   bQuiet = TRUE,
-  bFlowchart = FALSE,
-  bReturnStudyObject = FALSE
+  bFlowchart = FALSE
 )
 }
 \arguments{
@@ -49,8 +48,6 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 
 \item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}.}
-
-\item{bReturnStudyObject}{\code{logical} Return the \code{list} output of \code{\link[=Study_Assess]{Study_Assess()}}? Default: \code{FALSE}.}
 }
 \value{
 \code{list} \code{lSnapshot}, a named list with a data.frame for each component of the {gsm} data model.

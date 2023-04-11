@@ -18,7 +18,6 @@
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`.
-#' @param bReturnStudyObject `logical` Return the `list` output of [gsm::Study_Assess()]? Default: `FALSE`.
 #'
 #' @includeRmd ./man/md/Make_Snapshot.md
 #'
@@ -79,8 +78,7 @@ strAnalysisDate = NULL,
 bUpdateParams = FALSE,
 cPath = NULL,
 bQuiet = TRUE,
-bFlowchart = FALSE,
-bReturnStudyObject = FALSE
+bFlowchart = FALSE
 
 ) {
   # add gsm_analysis_date to all outputs except meta_
@@ -361,15 +359,11 @@ bReturnStudyObject = FALSE
     purrr::iwalk(lSnapshot, ~ utils::write.csv(.x, file = paste0(cPath, "/", .y, ".csv"), row.names = FALSE))
   }
 
-  if (bReturnStudyObject) {
-    return(
-      list(
-        lSnapshot = lSnapshot,
-        lStudyAssessResults = lResults
-        )
+  return(
+    list(
+      lSnapshot = lSnapshot,
+      lStudyAssessResults = lResults
     )
-  } else {
-    return(lSnapshot)
-  }
+  )
 
 }
