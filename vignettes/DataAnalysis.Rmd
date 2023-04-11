@@ -46,7 +46,7 @@ For the purposes of this documentation, we will evaluate the input(s) and output
 
 ## Case Study - Step-by-Step Adverse Event KRI
 
-We will use sample clinical data from the `{clindata}` package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`, using the Poisson statistical model.
+We will use sample clinical data from the `{clindata}` package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`, using the Normal Approximation Method.
 
 Additional statistical methods and supporting functions are explored in [Appendix 1](#appendix-1).
 
@@ -59,7 +59,8 @@ The data frame `dfInput` for an AE assessment will be created by running `AE_Map
 -   `SubjectID` = Subject Identifier
 -   `SiteID` = Site Identifier
 -   `StudyID` = Study Identifier
--   `CustomGroupID` = Custom Group Identifier (in this example, set to Country ID)
+-   `CountryID` = Country Identifier
+-   `CustomGroupID` = Custom Group Identifier
 -   `Exposure` = Total Time on Treatment (measured in days; per subject)
 -   `Count` = Total Number of Event(s) of Interest (in this example, the number of AEs reported; per subject)
 -   `Rate` = Rate of Event Incidence (calculated as `Exposure`/`Count`; per subject)
@@ -81,9 +82,9 @@ dt(dfInput)
 
 ### 2. Create `dfTransformed`
 
-The data frame `dfTransformed` is derived from `dfInput` using a `Transform()` function. In our example, the analysis pipeline pulls in `Transform_Rate()` since the default metric for AEs is the number of AEs reported over the course of treatment per site, i.e., a rate.
+The data.frame `dfTransformed` is derived from `dfInput` using a `Transform()` function. In our example, the analysis pipeline pulls in `Transform_Rate()` since the default metric for AEs is the number of AEs reported over the course of treatment per site, i.e., a rate.
 
-The resulting `dfTransformed` data frame will contain site-level transformed data, including KRI calculation. Using our example AE data, `dfTransformed` contains the following columns:
+The resulting `dfTransformed` data.frame will contain site-level transformed data, including KRI calculation. Using our example AE data, `dfTransformed` contains the following columns:
 
 -   `GroupID` = Group Identifier (default is Site ID)
 -   `Numerator` = Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects)
@@ -106,17 +107,18 @@ dt(dfTransformed)
 
 ### 3. Create `dfAnalyzed`
 
-The data frame `dfAnalyzed` is derived from `dfTransformed` using an `Analyze()` function, which incorporates a specific statistical model. The resulting `dfAnalyzed` data frame will contain site-level analysis results data. The Poisson model is the default statistical model for AE data, so the analysis pipeline automatically runs `Analyze_Poisson()`. Using our example AE data, `dfAnalyzed` contains the following columns:
+The data.frame `dfAnalyzed` is derived from `dfTransformed` using an `Analyze()` function, which incorporates a specific statistical model. The resulting `dfAnalyzed` data frame will contain site-level analysis results data. The Normal Approximation Method is the default statistical model for AE data, so the analysis pipeline automatically runs `Analyze_NormalApprox()`. Using our example AE data, `dfAnalyzed` contains the following columns:
 
 -   `GroupID` = Group Identifier (default is Site ID)
 -   `Numerator` = Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects); Carried from `dfTransformed`
 -   `Denominator` = Cumulative Time on Treatment (in days, across subjects); Carried from `dfTransformed`
 -   `Metric` = Rate of Event(s) of Interest (in this example, number of AEs reported over the course of treatment in days); Carried from `dfTransformed`
+-   `OverallMetric` = Group Total Rate of Event(s) of Interest
+-   `Factor` = 
 -   `Score` = Calculated Residual (per site)
--   `PredictedCount` = Calculated Predicted Count (per site)
 
 ```{r}
-dfAnalyzed <- Analyze_Poisson(dfTransformed)
+dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
 ```
 
 ```{r, echo = FALSE}
