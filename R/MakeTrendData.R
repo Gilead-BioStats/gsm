@@ -32,6 +32,8 @@ MakeTrendData <- function(lSnapshot, cDirectory, bAppendSnapshot = TRUE, bAppend
             longitudinal$meta_workflow
           )
 
+        kri$lResults$lLongitudinal <- #append data
+
         return(kri)
       })
   }
