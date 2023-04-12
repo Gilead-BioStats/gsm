@@ -69,17 +69,6 @@ MakeTimeSeriesLongitudinal <- function(cDirectory, lSnapshot = NULL) {
     })
   }
 
-
-
-
-# metadata for report -----------------------------------------------------
-  status_study <- purrr::map_df(list.files(cDirectory), function(x) {
-    read.csv(paste0(cDirectory, "/", x, "/status_study.csv")) %>%
-      mutate(gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d"))
-  }) %>%
-    filter(.data$gsm_analysis_date == max(.data$gsm_analysis_date))
-
-
 # append recent data ------------------------------------------------------
   if (!is.null(lSnapshot)) {
     results_summary <- bind_rows(
@@ -88,16 +77,6 @@ MakeTimeSeriesLongitudinal <- function(cDirectory, lSnapshot = NULL) {
         mutate(
           snapshot_date = .data$gsm_analysis_date
         )
-    )
-
-    meta_workflow <- bind_rows(
-      meta_workflow,
-      lSnapshot$lSnapshot$meta_workflow
-    )
-
-    status_study <- bind_rows(
-      status_study,
-      lSnapshot$lSnapshot$status_study
     )
 
     if ("results_analysis" %in% names(lSnapshot$lSnapshot)) {
@@ -112,8 +91,8 @@ MakeTimeSeriesLongitudinal <- function(cDirectory, lSnapshot = NULL) {
   all_data <- list(
     results_summary = results_summary,
     params = params,
-    meta_workflow = meta_workflow,
-    status_study = status_study,
+    meta_workflow = lSnapshot$lSnapshot$meta_workflow, # only get most recent meta_workflow
+    status_study = lSnapshot$lSnapshot$status_study,   # only get most recent status_study
     results_analysis = results_analysis
   )
 

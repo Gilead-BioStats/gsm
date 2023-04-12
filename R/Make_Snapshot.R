@@ -79,7 +79,6 @@ bUpdateParams = FALSE,
 cPath = NULL,
 bQuiet = TRUE,
 bFlowchart = FALSE
-
 ) {
   # add gsm_analysis_date to all outputs except meta_
   # -- if date is provided, it should be the date that the data was pulled/wrangled.

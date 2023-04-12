@@ -2,7 +2,7 @@
 % Please edit documentation in R/Widget_TimeSeries.R
 \name{Widget_TimeSeries}
 \alias{Widget_TimeSeries}
-\title{Time-Series Continuous Plot}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Widget_TimeSeries(
   kri,
@@ -17,24 +17,27 @@ Widget_TimeSeries(
 )
 }
 \arguments{
-\item{kri}{selected workflow to filter data and display}
+\item{kri}{\code{character} selected \code{workflowid} for a single KRI.}
 
-\item{raw_results}{results_summary_over_time}
+\item{raw_results}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lSnapshot$results_summary}, containing a minimum of two unique values for \code{gsm_analysis_date}.}
 
-\item{raw_workflow}{meta_workflow}
+\item{raw_workflow}{\code{data.frame} the output of \code{Make_Snapshot()$lSnapshot$meta_workflow}.}
 
-\item{raw_param}{meta_param}
+\item{raw_param}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lSnapshot$meta_param}.}
 
-\item{selectedGroupIDs}{specific group to highlight in the chart}
+\item{selectedGroupIDs}{\code{character} group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
 
-\item{width}{width of widget}
+\item{width}{\code{numeric} width of widget.}
 
-\item{height}{height of widget}
+\item{height}{\code{numeric} height of widget.}
 
-\item{elementId}{optional elementId of widget}
+\item{elementId}{\code{character} ID of container HTML element.}
 
-\item{addSiteSelect}{add a dropdown to highlight sites?}
+\item{addSiteSelect}{\code{logical} add a dropdown to highlight sites? Default: \code{TRUE}.}
 }
 \description{
-A widget that displays a time-series plot based on longitudinal snapshots using \code{{gsm}}
+A widget that displays a time-series plot based on longitudinal snapshots using \code{{gsm}}.
+}
+\details{
+Time-Series Continuous Plot
 }

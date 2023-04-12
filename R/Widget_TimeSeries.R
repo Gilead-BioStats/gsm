@@ -1,17 +1,19 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Time-Series Continuous Plot
 #'
 #' @description
-#' A widget that displays a time-series plot based on longitudinal snapshots using `{gsm}`
+#' A widget that displays a time-series plot based on longitudinal snapshots using `{gsm}`.
 #'
-#' @param kri selected workflow to filter data and display
-#' @param raw_results results_summary_over_time
-#' @param raw_workflow meta_workflow
-#' @param raw_param meta_param
-#' @param selectedGroupIDs specific group to highlight in the chart
-#' @param width width of widget
-#' @param height height of widget
-#' @param elementId optional elementId of widget
-#' @param addSiteSelect add a dropdown to highlight sites?
+#' @param kri `character` selected `workflowid` for a single KRI.
+#' @param raw_results `data.frame` the stacked output of `Make_Snapshot()$lSnapshot$results_summary`, containing a minimum of two unique values for `gsm_analysis_date`.
+#' @param raw_workflow `data.frame` the output of `Make_Snapshot()$lSnapshot$meta_workflow`.
+#' @param raw_param `data.frame` the stacked output of `Make_Snapshot()$lSnapshot$meta_param`.
+#' @param selectedGroupIDs `character` group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
+#' @param width `numeric` width of widget.
+#' @param height `numeric` height of widget.
+#' @param elementId `character` ID of container HTML element.
+#' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
 #'
 #' @import htmlwidgets
 #' @import htmltools
@@ -61,9 +63,9 @@ Widget_TimeSeries <- function(kri,
         elementId = elementId
   ) %>%
     htmlwidgets::prependContent(
-      htmltools::tags$div(class="select-group-container",
+      htmltools::tags$div(class = "select-group-container",
         htmltools::tags$label("Highlighted Site:"),
-        htmltools::tags$select(class="site-select",
+        htmltools::tags$select(class = "site-select",
                                purrr::map(c('None', uniqueSiteSelections),
                                           ~shiny::HTML(paste0(
                                             "<option value='",

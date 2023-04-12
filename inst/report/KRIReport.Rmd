@@ -185,40 +185,6 @@ for (i in seq_along(assessment)) {
 }
 ```
 
-```{r, echo=FALSE, results='asis'}
-if (exists("longitudinal", where = params$assessment)) {
-  if (exists("results_analysis", where = params$assessment$longitudinal)) {
-    
-    print(htmltools::h2("QTL Results"))
-    
-    for (i in seq_along(unique(params$assessment$longitudinal$results_analysis$workflowid))) {
-      
-      qtl_key <- unique(params$assessment$longitudinal$results_analysis$workflowid)[i]
-      
-      title <- gsm::meta_workflow %>% filter(workflowid == qtl_key) %>% pull(metric)
-      
-      print(htmltools::h3(title))
-      
-      chart <- Widget_TimeSeriesQTL(qtl_key,
-                                    params$assessment$longitudinal$results_summary,
-                                    params$assessment$longitudinal$meta_workflow,
-                                    params$assessment$longitudinal$params,
-                                    params$assessment$longitudinal$results_analysis
-                                    )
-      
-      chart %>% knitr::knit_print() %>%
-                    attr('knit_meta') %>%
-                    knitr::knit_meta_add() %>%
-                    invisible()
-      
-      cat(knitr::knit_print(htmltools::tagList(chart)))
-      
-    }
-  }
-}
-
-```
-
 
 
 ## Error Log
