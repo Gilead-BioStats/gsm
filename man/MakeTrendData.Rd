@@ -4,19 +4,12 @@
 \alias{MakeTrendData}
 \title{Make Time Series Trend Data}
 \usage{
-MakeTrendData(
-  lSnapshot,
-  cDirectory,
-  bAppendSnapshot = TRUE,
-  bAppendTimeSeriesCharts = TRUE
-)
+MakeTrendData(lSnapshot, cDirectory, bAppendTimeSeriesCharts = TRUE)
 }
 \arguments{
 \item{lSnapshot}{\code{list} The output of \code{\link[=Make_Snapshot]{Make_Snapshot()}} where \code{bReturnStudyObject = TRUE}.}
 
 \item{cDirectory}{\code{character} Path to longitudinal snapshots, returned by \code{\link[=Make_Snapshot]{Make_Snapshot()}}.}
-
-\item{bAppendSnapshot}{\code{logical} The output of \code{\link[=Make_Snapshot]{Make_Snapshot()}}, to be appended to historical snapshots.}
 
 \item{bAppendTimeSeriesCharts}{\code{logical} Append time series charts to KRIs? Default: \code{TRUE}.}
 }

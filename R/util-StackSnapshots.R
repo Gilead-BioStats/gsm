@@ -31,7 +31,6 @@ StackSnapshots <- function(cDirectory, lSnapshot = NULL) {
         'meta_param',
         'meta_workflow',
         'results_analysis',
-        #'results_bounds',
         'results_summary',
         'status_param',
         'status_site',

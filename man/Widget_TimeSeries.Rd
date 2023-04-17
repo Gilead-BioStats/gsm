@@ -5,10 +5,9 @@
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Widget_TimeSeries(
-  kri,
-  raw_results,
-  raw_workflow,
-  raw_param,
+  results,
+  workflow,
+  parameters,
   selectedGroupIDs = NULL,
   width = NULL,
   height = NULL,
@@ -17,13 +16,11 @@ Widget_TimeSeries(
 )
 }
 \arguments{
-\item{kri}{\code{character} selected \code{workflowid} for a single KRI.}
+\item{results}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lSnapshot$results_summary}, containing a minimum of two unique values for \code{gsm_analysis_date}.}
 
-\item{raw_results}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lSnapshot$results_summary}, containing a minimum of two unique values for \code{gsm_analysis_date}.}
+\item{workflow}{\code{data.frame} the output of \code{Make_Snapshot()$lSnapshot$meta_workflow}.}
 
-\item{raw_workflow}{\code{data.frame} the output of \code{Make_Snapshot()$lSnapshot$meta_workflow}.}
-
-\item{raw_param}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lSnapshot$meta_param}.}
+\item{parameters}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lSnapshot$meta_param}.}
 
 \item{selectedGroupIDs}{\code{character} group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
 
