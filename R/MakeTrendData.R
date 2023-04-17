@@ -2,7 +2,6 @@
 #'
 #' @param lSnapshot `list` The output of [gsm::Make_Snapshot()] where `bReturnStudyObject = TRUE`.
 #' @param cDirectory `character` Path to longitudinal snapshots, returned by [gsm::Make_Snapshot()].
-#' @param bAppendSnapshot `logical` The output of [gsm::Make_Snapshot()], to be appended to historical snapshots.
 #' @param bAppendTimeSeriesCharts `logical` Append time series charts to KRIs? Default: `TRUE`.
 #'
 #' @examples
@@ -17,37 +16,43 @@
 #' @return `list` The output of [gsm::Study_Assess()] with longitudinal data appended.
 #'
 #' @export
-MakeTrendData <- function(lSnapshot, cDirectory, bAppendSnapshot = TRUE, bAppendTimeSeriesCharts = TRUE) {
-
-  longitudinal <- MakeTimeSeriesLongitudinal(cDirectory, lSnapshot)
+MakeTrendData <- function(
+    lSnapshot,
+    cDirectory,
+    bAppendTimeSeriesCharts = TRUE
+) {
+  # TODO: alternatively accept the output of StackSnapshots?
+  snapshots <- StackSnapshots(cDirectory, lSnapshot)
 
   if (bAppendTimeSeriesCharts) {
     lSnapshot$lStudyAssessResults <- lSnapshot$lStudyAssessResults %>%
-      purrr::map(function(kri) {
-
-        kri$lResults$lCharts[['timeSeriesContinuousJS']] <- Widget_TimeSeries(
-          kri = kri$name,
-          raw_results = longitudinal$results_summary,
-          raw_param = longitudinal$params, raw_workflow =
-            longitudinal$meta_workflow
+      purrr::imap(function(result, workflowid) {
+        result$lResults$lData$dfSummaryLongitudinal <- snapshots$results_summary %>%
+          dplyr::filter(
+              .data$workflowid == !!workflowid
           )
 
-        kri$lResults$lLongitudinal <- #append data
+        workflow <- snapshots$meta_workflow %>%
+          dplyr::filter(
+              .data$workflowid == !!workflowid
+          )
 
-        return(kri)
+        parameters <- snapshots$parameters %>%
+          dplyr::filter(
+              .data$workflowid == !!workflowid
+          )
+
+        result$lResults$lCharts[['timeSeriesContinuousJS']] <- Widget_TimeSeries(
+          results = result$lResults$lData$dfSummaryLongitudinal,
+          workflow = workflow,
+          parameters = parameters
+        )
+
+        return(result)
       })
   }
 
-
-  lSnapshot$lStudyAssessResults[["longitudinal"]] <- longitudinal %>%
-    purrr::map(function(x) {
-      x %>%
-        mutate(
-          gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%d-%m")
-          )
-    })
-
+  lSnapshot[["lSnapshots"]] <- snapshots
 
   return(lSnapshot)
-
 }
