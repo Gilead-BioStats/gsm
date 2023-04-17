@@ -10,6 +10,7 @@ output:
     css: styles.css
 params:
     assessment: NA
+    status_study: NA
 ---
 
 ```{r, echo=FALSE}
@@ -89,12 +90,15 @@ title: "`r study_id` Assessment Overview"
 
 ```{r, echo=FALSE, results='asis'}
 ## metadata report if longitudinal data is provided
-if (exists("longitudinal", where = params$assessment)) {
-  study_status_table <- params$assessment$longitudinal$status_study %>% 
-  t() %>% 
-  as.data.frame() %>% 
-  rownames_to_column() %>% 
-  rename(Parameter = rowname, Value = V1) 
+if (exists('status_study', where = params) && !is.null(params$status_study)) {
+  study_status_table <- params$status_study %>% 
+    #filter(
+    #  .data$gsm_analysis_date == max(.data$gsm_analysis_date)
+    #) %>%
+    t() %>% 
+    as.data.frame() %>% 
+    rownames_to_column() %>% 
+    rename(Parameter = rowname, Value = V1) 
   
   print(htmltools::h2("Study Status"))
   print(htmltools::tagList(DT::datatable(study_status_table)))
@@ -117,7 +121,6 @@ overview_table
 </div>
 
 ## Results
-
 
 ```{r, echo=FALSE, results='asis'}
 for (i in seq_along(assessment)) {
@@ -142,11 +145,11 @@ for (i in seq_along(assessment)) {
             chart_key <- names(charts)[j]
             chart <- charts[[ chart_key ]]
             chart_name <- switch(
-            chart_key,
-            scatterJS = "Scatter Plot",
-            barScoreJS = "Bar Chart (KRI Score)",
-            barMetricJS = "Bar Chart (KRI Metric)",
-            timeSeriesContinuousJS = "Time Series (Continuous)"
+                chart_key,
+                scatterJS = "Scatter Plot",
+                barScoreJS = "Bar Chart (KRI Score)",
+                barMetricJS = "Bar Chart (KRI Metric)",
+                timeSeriesContinuousJS = "Time Series (Continuous)"
             )
 
             ##### chart tab /

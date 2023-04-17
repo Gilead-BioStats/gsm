@@ -22,6 +22,7 @@
 
 Study_Report <- function(
   lAssessments,
+  dfStudy = NULL,
   strOutpath = NULL
 ) {
   if (is.null(strOutpath)) {
@@ -29,11 +30,13 @@ Study_Report <- function(
   }
 
   projectTemplate <- system.file("report", "KRIReport.Rmd", package = "gsm")
+
   rmarkdown::render(
     projectTemplate,
     output_file = strOutpath,
     params = list(
-      assessment = lAssessments
+      assessment = lAssessments,
+      status_study = dfStudy
     ),
     envir = new.env(parent = globalenv())
   )
