@@ -9,7 +9,7 @@ Study_Report(lAssessments, dfStudy = NULL, strOutpath = NULL)
 \arguments{
 \item{lAssessments}{\code{list} The results of multiple assessments run using \code{Study_Assess}.}
 
-\item{dfStudy}{\code{data.frame} A data.frame containing site status metadata. Typically output from Make_Snapshot()[\link{'lSnapshot'}][\link{'status_study'}]}
+\item{dfStudy}{\code{data.frame} A data.frame containing site status metadata. Typically output from \code{Make_Snapshot()$lSnapshot$status_study}}
 
 \item{strOutpath}{\code{character} File path; location where the report will be saved.}
 }
