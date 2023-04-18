@@ -1,27 +1,27 @@
-workflowid,gsm_version,group,abbreviation,metric,numerator,denominator,outcome,model,score,data_inputs,data_filters,gsm_analysis_date
-kri0001,1.5.0,Site,AE,AE Reporting Rate,Treatment-emergent AEs,Days on Treatment,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm",TreatmentEmergent,2016-12-01
-kri0002,1.5.0,Site,SAE,SAE Reporting Rate,Treatment-emergent SAEs,Days on Treatment,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm","Serious, TreatmentEmergent",2016-12-01
-kri0003,1.5.0,Site,PD,Non-important PD Rate,Non-important PDs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.pd, rawplus.dm",Non-Important,2016-12-01
-kri0004,1.5.0,Site,IPD,Important PD Rate,Important PDs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.pd, rawplus.dm",Important,2016-12-01
-kri0005,1.5.0,Site,LB,G3+ Lab Abnormality Rate,G3+ Abnormal Lab Samples,Total Lab Samples,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.lb, rawplus.dm","Treatment emergent, Grade >= 3",2016-12-01
-kri0006,1.5.0,Site,SDSC,Study Discontinuation Rate,Subjects Discontinued - Study,Total Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.studcomp, rawplus.dm","",2016-12-01
-kri0007,1.5.0,Site,TDSC,Treatment Discontinuation Rate,Subjects Discontinued - Treatment,Total Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.sdrgcomp, rawplus.dm","",2016-12-01
-kri0008,1.5.0,Site,QRY,Query Rate,Queries,Total Data Points,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.dm, edc.queries, edc.data_change_rate","",2016-12-01
-kri0009,1.5.0,Site,OQRY,Outstanding Query Rate,Queries Open > 30 Days,Total Queries,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.dm, edc.queries","",2016-12-01
-kri0010,1.5.0,Site,ODAT,Outstanding Data Entry Rate,Data Pages Entered > 10 Days,Total Data Pages,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.dm, edc.data_entry_lag","",2016-12-01
-kri0011,1.5.0,Site,CDAT,Data Change Rate,Data Points with 1+ Change,Total Data Points,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.dm, edc.data_change_rate","",2016-12-01
-kri0012,1.5.0,Site,SF,Screen Failure Rate,Screen Failures,Total Screened,Percent,Normal Approximation (Percent),Adjusted Z-Score ,rawplus.enroll,"",2016-12-01
-cou0001,1.5.0,Country,AE,AE Reporting Rate,Treatment-emergent AEs,Days on Treatment,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm",TreatmentEmergent,2016-12-01
-cou0002,1.5.0,Country,SAE,SAE Reporting Rate,Treatment-emergent SAEs,Days on Treatment,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm","Serious, TreatmentEmergent",2016-12-01
-cou0003,1.5.0,Country,PD,Non-important PD Rate,Non-important PDs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.pd, rawplus.dm",Non-Important,2016-12-01
-cou0004,1.5.0,Country,IPD,Important PD Rate,Important PDs,Days in Study,Rate,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.pd, rawplus.dm",Important,2016-12-01
-cou0005,1.5.0,Country,LB,G3 or Higher Lab Abnormality Rate,G3+ Abnormal Lab Samples,Total Lab Samples,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.lb, rawplus.dm","Treatment emergent, Grade >= 3",2016-12-01
-cou0006,1.5.0,Country,SDSC,Study Discontinuation Rate,Subjects Discontinued - Study,Total Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.studcomp, rawplus.dm","",2016-12-01
-cou0007,1.5.0,Country,TDSC,Treatment Discontinuation Rate,Subjects Discontinued - Treatment,Total Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.sdrgcomp, rawplus.dm","",2016-12-01
-cou0008,1.5.0,Country,QRY,Query Rate,Queries,Total Data Points,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.dm, edc.queries, edc.data_change_rate","",2016-12-01
-cou0009,1.5.0,Country,OQRY,Outstanding Query Rate,Queries Open > 30 Days,Total Queries,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.dm, edc.queries","",2016-12-01
-cou0010,1.5.0,Country,ODAT,Outstanding Data Entry Rate,Data Pages Entered > 10 Days,Total Data Pages,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.dm, edc.data_entry_lag","",2016-12-01
-cou0011,1.5.0,Country,CDAT,Data Change Rate,Data Points with 1+ Change,Total Data Points,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.dm, edc.data_change_rate","",2016-12-01
-cou0012,1.5.0,Country,SF,Screen Failure Rate,Screen Failures,Total Screened,Percent,Normal Approximation (Percent),Adjusted Z-Score ,rawplus.enroll,"",2016-12-01
-qtl0004,1.5.0,Study,IPD,Important PD Percent,Participants with 1+ Important PD,Enrolled Participants,Rate,Poisson Test,Poisson Confidence Interval - Lower Bound,"rawplus.pd, rawplus.dm",Important,2016-12-01
-qtl0006,1.5.0,Study,SDSC,Study Discontinuation Rate,Subjects Discontinued - Study,Total Subjects,Percent,Binomial Test,Binomial Confidence Interval - Lower Bound,"rawplus.studcomp, rawplus.dm","",2016-12-01
+"workflowid","gsm_version","group","abbreviation","metric","numerator","denominator","outcome","model","score","data_inputs","data_filters","gsm_analysis_date"
+"kri0001","1.6.0","Site","AE","AE Reporting Rate","Treatment-emergent AEs","Days on Treatment","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.ae, rawplus.dm","TreatmentEmergent",2023-04-18
+"kri0002","1.6.0","Site","SAE","SAE Reporting Rate","Treatment-emergent SAEs","Days on Treatment","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.ae, rawplus.dm","Serious, TreatmentEmergent",2023-04-18
+"kri0003","1.6.0","Site","PD","Non-important PD Rate","Non-important PDs","Days in Study","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","ctms.protdev, rawplus.dm","Non-Important",2023-04-18
+"kri0004","1.6.0","Site","IPD","Important PD Rate","Important PDs","Days in Study","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","ctms.protdev, rawplus.dm","Important",2023-04-18
+"kri0005","1.6.0","Site","LB","G3+ Lab Abnormality Rate","G3+ Abnormal Lab Samples","Total Lab Samples","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.lb, rawplus.dm","Treatment emergent, Grade >= 3",2023-04-18
+"kri0006","1.6.0","Site","SDSC","Study Discontinuation Rate","Subjects Discontinued - Study","Enrolled Subjects","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.studcomp, rawplus.dm","",2023-04-18
+"kri0007","1.6.0","Site","TDSC","Treatment Discontinuation Rate","Subjects Discontinued - Treatment","Enrolled Subjects","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.sdrgcomp, rawplus.dm","",2023-04-18
+"kri0008","1.6.0","Site","QRY","Query Rate","Queries","Total Data Points","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.dm, edc.queries, edc.data_points","",2023-04-18
+"kri0009","1.6.0","Site","OQRY","Outstanding Query Rate","Queries Open > 30 Days","Total Queries","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.dm, edc.queries","",2023-04-18
+"kri0010","1.6.0","Site","ODAT","Outstanding Data Entry Rate","Data Pages Entered > 10 Days","Total Data Pages","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.dm, edc.data_pages","",2023-04-18
+"kri0011","1.6.0","Site","CDAT","Data Change Rate","Data Points with 1+ Change","Total Data Points","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.dm, edc.data_points","",2023-04-18
+"kri0012","1.6.0","Site","SF","Screen Failure Rate","Screen Failures","Screened Subjects","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.enroll","",2023-04-18
+"cou0001","1.6.0","Country","AE","AE Reporting Rate","Treatment-emergent AEs","Days on Treatment","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.ae, rawplus.dm","TreatmentEmergent",2023-04-18
+"cou0002","1.6.0","Country","SAE","SAE Reporting Rate","Treatment-emergent SAEs","Days on Treatment","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.ae, rawplus.dm","Serious, TreatmentEmergent",2023-04-18
+"cou0003","1.6.0","Country","PD","Non-important PD Rate","Non-important PDs","Days in Study","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","ctms.protdev, rawplus.dm","Non-Important",2023-04-18
+"cou0004","1.6.0","Country","IPD","Important PD Rate","Important PDs","Days in Study","Rate","Normal Approximation (Percent)","Adjusted Z-Score ","ctms.protdev, rawplus.dm","Important",2023-04-18
+"cou0005","1.6.0","Country","LB","G3 or Higher Lab Abnormality Rate","G3+ Abnormal Lab Samples","Total Lab Samples","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.lb, rawplus.dm","Treatment emergent, Grade >= 3",2023-04-18
+"cou0006","1.6.0","Country","SDSC","Study Discontinuation Rate","Subjects Discontinued - Study","Enrolled Subjects","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.studcomp, rawplus.dm","",2023-04-18
+"cou0007","1.6.0","Country","TDSC","Treatment Discontinuation Rate","Subjects Discontinued - Treatment","Enrolled Subjects","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.sdrgcomp, rawplus.dm","",2023-04-18
+"cou0008","1.6.0","Country","QRY","Query Rate","Queries","Total Data Points","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.dm, edc.queries, edc.data_points","",2023-04-18
+"cou0009","1.6.0","Country","OQRY","Outstanding Query Rate","Queries Open > 30 Days","Total Queries","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.dm, edc.queries","",2023-04-18
+"cou0010","1.6.0","Country","ODAT","Outstanding Data Entry Rate","Data Pages Entered > 10 Days","Total Data Pages","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.dm, edc.data_pages","",2023-04-18
+"cou0011","1.6.0","Country","CDAT","Data Change Rate","Data Points with 1+ Change","Total Data Points","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.dm, edc.data_points","",2023-04-18
+"cou0012","1.6.0","Country","SF","Screen Failure Rate","Screen Failures","Screened Subjects","Percent","Normal Approximation (Percent)","Adjusted Z-Score ","rawplus.enroll","",2023-04-18
+"qtl0004","1.6.0","Study","IPD","Important PD Percent","Participants with 1+ Important PD","Enrolled Subjects","Percent","Binomial Test","Binomial Confidence Interval - Lower Bound","ctms.protdev, rawplus.dm","Important",2023-04-18
+"qtl0006","1.6.0","Study","SDSC","Study Discontinuation Rate","Subjects Discontinued - Study","Enrolled Subjects","Percent","Binomial Test","Binomial Confidence Interval - Lower Bound","rawplus.studcomp, rawplus.dm","",2023-04-18
