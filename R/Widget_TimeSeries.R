@@ -5,10 +5,9 @@
 #' @description
 #' A widget that displays a time-series plot based on longitudinal snapshots using `{gsm}`.
 #'
-#' @param kri `character` selected `workflowid` for a single KRI.
-#' @param raw_results `data.frame` the stacked output of `Make_Snapshot()$lSnapshot$results_summary`, containing a minimum of two unique values for `gsm_analysis_date`.
-#' @param raw_workflow `data.frame` the output of `Make_Snapshot()$lSnapshot$meta_workflow`.
-#' @param raw_param `data.frame` the stacked output of `Make_Snapshot()$lSnapshot$meta_param`.
+#' @param results `data.frame` the stacked output of `Make_Snapshot()$lSnapshot$results_summary`, containing a minimum of two unique values for `gsm_analysis_date`.
+#' @param workflow `data.frame` the output of `Make_Snapshot()$lSnapshot$meta_workflow`.
+#' @param parameters `data.frame` the stacked output of `Make_Snapshot()$lSnapshot$meta_param`.
 #' @param selectedGroupIDs `character` group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
 #' @param width `numeric` width of widget.
 #' @param height `numeric` height of widget.
@@ -20,27 +19,16 @@
 #' @importFrom shiny HTML
 #'
 #' @export
-Widget_TimeSeries <- function(kri,
-                       raw_results,
-                       raw_workflow,
-                       raw_param,
-                       selectedGroupIDs = NULL,
-                       width = NULL,
-                       height = NULL,
-                       elementId = NULL,
-                       addSiteSelect = TRUE) {
-
-  results <- raw_results %>%
-    dplyr::filter(.data$workflowid == kri) # contains the string kri
-
-  workflow <- raw_workflow %>%
-    dplyr::filter(.data$workflowid == kri) %>%
-    dplyr::mutate(selectedGroupIDs = selectedGroupIDs)
-
-  parameters <- raw_param %>%
-    dplyr::filter(.data$workflowid == kri)
-
-
+Widget_TimeSeries <- function(
+    results,
+    workflow,
+    parameters,
+    selectedGroupIDs = NULL,
+    width = NULL,
+    height = NULL,
+    elementId = NULL,
+    addSiteSelect = TRUE
+) {
   # forward options using x
   x <- list(
     results = results,
@@ -51,7 +39,10 @@ Widget_TimeSeries <- function(kri,
   )
 
   # get unique sites
-  uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))
+  if (all(grepl('^[0-9]$', results$groupid)))
+    uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))
+  else
+    uniqueSiteSelections <- sort(unique(results$groupid))
 
   # create standalone timeseries widget
   htmlwidgets::createWidget(
