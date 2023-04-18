@@ -106,6 +106,7 @@ Widget_BarChart <- function(
   height = NULL,
   elementId = NULL
 ) {
+
   results <- results %>%
     dplyr::mutate(across(everything(), as.character)) %>%
     dplyr::rename_with(tolower)

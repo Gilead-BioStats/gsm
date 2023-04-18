@@ -16,8 +16,8 @@
 #' @param strAnalysisDate `character` date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: `YYYY-MM-DD`.
 #' @param bUpdateParams `logical` if `TRUE`, configurable parameters found in `lMeta$config_param` will overwrite the default values in `lMeta$meta_params`. Default: `FALSE`.
 #' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
-#' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
+#' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`.
 #'
 #' @includeRmd ./man/md/Make_Snapshot.md
 #'
@@ -79,7 +79,6 @@ bUpdateParams = FALSE,
 cPath = NULL,
 bQuiet = TRUE,
 bFlowchart = FALSE
-
 ) {
   # add gsm_analysis_date to all outputs except meta_
   # -- if date is provided, it should be the date that the data was pulled/wrangled.
@@ -359,5 +358,11 @@ bFlowchart = FALSE
     purrr::iwalk(lSnapshot, ~ utils::write.csv(.x, file = paste0(cPath, "/", .y, ".csv"), row.names = FALSE))
   }
 
-  return(lSnapshot)
+  return(
+    list(
+      lSnapshot = lSnapshot,
+      lStudyAssessResults = lResults
+    )
+  )
+
 }

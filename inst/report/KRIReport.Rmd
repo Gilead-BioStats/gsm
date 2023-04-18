@@ -10,6 +10,7 @@ output:
     css: styles.css
 params:
     assessment: NA
+    status_study: NA
 ---
 
 ```{r, echo=FALSE}
@@ -33,7 +34,7 @@ assessment <- params$assessment[
   grep("kri", names(params$assessment))
 ]
 
-overview_table <- Overview_Table(assessment) 
+overview_table <- Overview_Table(assessment)
 
 overview_raw_table <- Overview_Table(assessment, bInteractive = FALSE)
 
@@ -44,7 +45,7 @@ amber_kris <- overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
 summary_table <- map(assessment, function(kri) {
   if (kri$bStatus) {
     dfSummary <- kri$lResults$lData$dfSummary
-    
+
     if (nrow(dfSummary) > 0 &
         any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
       dfSummary %>%
@@ -57,11 +58,11 @@ summary_table <- map(assessment, function(kri) {
     } else {
       htmltools::p("Nothing flagged for this KRI.")
     }
-    
+
   } else {
     htmltools::strong("Workflow failed.")
   }
-  
+
 })
 
 ## StudyID
@@ -80,11 +81,38 @@ study_id <- purrr::map(assessment, function(kri) {
 title: "`r study_id` Assessment Overview"
 ---
 
+<div class = 'overall-site-select'
+    id = 'overall-site-select'
+    title = 'Selected site will be highlighted in all charts for all KRIs.'>
+
+</div>
+
+
+```{r, echo=FALSE, results='asis'}
+## metadata report if longitudinal data is provided
+if (exists('status_study', where = params) && !is.null(params$status_study)) {
+  study_status_table <- params$status_study %>% 
+    #filter(
+    #  .data$gsm_analysis_date == max(.data$gsm_analysis_date)
+    #) %>%
+    t() %>% 
+    as.data.frame() %>% 
+    rownames_to_column() %>% 
+    rename(Parameter = rowname, Value = V1) 
+  
+  print(htmltools::h2("Study Status"))
+  print(htmltools::tagList(DT::datatable(study_status_table)))
+}
+```
+
+
 ## Study Overview
+
 <div class="flag-container">
   <div class="flag flag-red">`r red_kris` Red KRIs</div>
   <div class="flag flag-amber">`r amber_kris` Amber KRIs</div>
 </div>
+
 
 <div class="gsm-overview-table">
 ```{r echo=FALSE, warning=FALSE}
@@ -93,12 +121,6 @@ overview_table
 </div>
 
 ## Results
-
-<div
-    class = 'overall-site-select'
-    id = 'overall-site-select'
-    title = 'Selected site will be highlighted in all charts for all KRIs.'
-></div>
 
 ```{r, echo=FALSE, results='asis'}
 for (i in seq_along(assessment)) {
@@ -116,17 +138,18 @@ for (i in seq_along(assessment)) {
         cat("#### Summary Charts {.tabset} \n")
         
         charts <- assessment[[i]]$lResults$lCharts[
-            names(assessment[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS")
+            names(assessment[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousJS")
         ]
         
         for (j in seq_along(charts)) {
             chart_key <- names(charts)[j]
             chart <- charts[[ chart_key ]]
             chart_name <- switch(
-            chart_key,
-            scatterJS = "Scatter Plot",
-            barScoreJS = "Bar Chart (KRI Score)",
-            barMetricJS = "Bar Chart (KRI Metric)"
+                chart_key,
+                scatterJS = "Scatter Plot",
+                barScoreJS = "Bar Chart (KRI Score)",
+                barMetricJS = "Bar Chart (KRI Metric)",
+                timeSeriesContinuousJS = "Time Series (Continuous)"
             )
 
             ##### chart tab /
@@ -165,6 +188,8 @@ for (i in seq_along(assessment)) {
 }
 ```
 
+
+
 ## Error Log
 
 ```{r echo = FALSE}
@@ -183,10 +208,9 @@ error_table <- error$dfSummary %>%
 DT::datatable(error_table)
 ```
 
+
 ```{js, file='../utils-0.0.1/overallSiteDropdown.js', echo=FALSE}
 ```
 
 ```{js, file='../utils-0.0.1/dragOverallSiteDropdown.js', echo=FALSE}
-
 ```
-

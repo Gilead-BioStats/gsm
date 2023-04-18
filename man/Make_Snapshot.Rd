@@ -45,9 +45,9 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 
 \item{cPath}{\code{character} a character string indicating a working directory to save .csv files; the output of the snapshot.}
 
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 
-\item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}}
+\item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}.}
 }
 \value{
 \code{list} \code{lSnapshot}, a named list with a data.frame for each component of the {gsm} data model.

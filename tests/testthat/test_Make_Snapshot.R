@@ -59,15 +59,19 @@ test_that("output is generated as expected", {
   }
 
   expect_true(is.list(snapshot))
+  expect_true(is.list(snapshot$lSnapshot))
+  expect_true(is.list(snapshot$lStudyAssessResults))
   expect_snapshot(names(snapshot))
-  expect_equal(sort(names(snapshot$status_study)), sort(specColumns("status_study")))
-  expect_equal(sort(names(snapshot$status_site)), sort(specColumns("status_site")))
-  expect_equal(sort(names(snapshot$status_workflow)), sort(specColumns("status_workflow")))
-  expect_equal(sort(names(snapshot$status_param)), sort(specColumns("status_param")))
-  expect_equal(sort(names(snapshot$results_summary)), sort(specColumns("results_summary")))
-  expect_equal(sort(names(snapshot$results_bounds)), sort(specColumns("results_bounds")))
-  expect_equal(sort(names(snapshot$meta_workflow)), sort(specColumns("meta_workflow")))
-  expect_equal(sort(names(snapshot$meta_param)), sort(specColumns("meta_param")))
+  expect_snapshot(names(snapshot$lSnapshot))
+  expect_snapshot(names(snapshot$lStudyAssessResults))
+  expect_equal(sort(names(snapshot$lSnapshot$status_study)), sort(specColumns("status_study")))
+  expect_equal(sort(names(snapshot$lSnapshot$status_site)), sort(specColumns("status_site")))
+  expect_equal(sort(names(snapshot$lSnapshot$status_workflow)), sort(specColumns("status_workflow")))
+  expect_equal(sort(names(snapshot$lSnapshot$status_param)), sort(specColumns("status_param")))
+  expect_equal(sort(names(snapshot$lSnapshot$results_summary)), sort(specColumns("results_summary")))
+  expect_equal(sort(names(snapshot$lSnapshot$results_bounds)), sort(specColumns("results_bounds")))
+  expect_equal(sort(names(snapshot$lSnapshot$meta_workflow)), sort(specColumns("meta_workflow")))
+  expect_equal(sort(names(snapshot$lSnapshot$meta_param)), sort(specColumns("meta_param")))
 })
 
 ################################################################################################################
@@ -269,7 +273,7 @@ test_that("valid gsm_analysis_date is passed to output", {
   )
 
   expect_equal(
-    unique(result$results_summary$gsm_analysis_date),
+    unique(result$lSnapshot$results_summary$gsm_analysis_date),
     as.Date("2023-02-15")
   )
 })
@@ -282,7 +286,7 @@ test_that("invalid date input returns the current date", {
   )
 
   expect_equal(
-    unique(result$results_summary$gsm_analysis_date),
+    unique(result$lSnapshot$results_summary$gsm_analysis_date),
     Sys.Date()
   )
 })
@@ -294,7 +298,9 @@ test_that("NULL date input returns the current date", {
   )
 
   expect_equal(
-    unique(result$results_summary$gsm_analysis_date),
+    unique(result$lSnapshot$results_summary$gsm_analysis_date),
     Sys.Date()
   )
 })
+
+

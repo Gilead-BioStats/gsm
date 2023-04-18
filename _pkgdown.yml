@@ -57,6 +57,12 @@ reference:
       - RunQTL
       - SaveQTL
 
+   - title: Longitudinal
+     desc: Utility functions to analyze longitudinal/trend data.
+   - contents:
+      - MakeTimeSeriesLongitudinal
+      - MakeTrendData
+
    - title: Utility
      desc: Utility functions for use within the Data Pipeline
    - contents:
