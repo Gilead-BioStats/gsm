@@ -1,6 +1,6 @@
 #' Create longitudinal snapshot from results_summary.
 #'
-#' @param cDirectory `character` Path to longitudinal data folders.
+#' @param cPath `character` Path to longitudinal data folders.
 #' @param lSnapshot `list` Optional. Pass the output of [gsm::Make_Snapshot()] to be appended to historical results.
 #'
 #' @return `data.frame` containing longitudinal snapshots of `{gsm}` analyses.
@@ -10,21 +10,21 @@
 #' \dontrun{
 #' sim <- clindata::run_simulation(n_sites = 20, n_subjects = 250)
 #' dir <- here::here("simulation", "study-20_sites-250_subjects")
-#' results_summary_over_time <- StackSnapshots(dir = dir)
+#' results_summary_over_time <- StackSnapshots(cPath = dir)
 #' }
 #'
 #' @importFrom purrr map_df
 #'
 #' @export
-StackSnapshots <- function(cDirectory, lSnapshot = NULL) {
+StackSnapshots <- function(cPath, lSnapshot = NULL) {
     stopifnot(
-        '[ cDirectory ] does not exist.' = file.exists(cDirectory)
+        '[ cPath ] does not exist.' = file.exists(cPath)
     )
 
-    snapshots <- list.dirs(cDirectory, recursive = FALSE)
+    snapshots <- list.dirs(cPath, recursive = FALSE)
 
     stopifnot(
-        '[ cDirectory ] contains no folders.' = length(snapshots) > 0
+        '[ cPath ] contains no folders.' = length(snapshots) > 0
     )
 
     gsm_tables <- c(
@@ -61,7 +61,7 @@ StackSnapshots <- function(cDirectory, lSnapshot = NULL) {
 
                         return(data)
                     } else {
-                        cli::cli_alert_warning('[ {gsm_table} ] not found in [ {cDirectory}/{snapshot} ].')
+                        cli::cli_alert_warning('[ {gsm_table} ] not found in [ {cPath}/{snapshot} ].')
 
                         return(NULL)
                     }

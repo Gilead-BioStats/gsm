@@ -4,10 +4,10 @@
 \alias{StackSnapshots}
 \title{Create longitudinal snapshot from results_summary.}
 \usage{
-StackSnapshots(cDirectory, lSnapshot = NULL)
+StackSnapshots(cPath, lSnapshot = NULL)
 }
 \arguments{
-\item{cDirectory}{\code{character} Path to longitudinal data folders.}
+\item{cPath}{\code{character} Path to longitudinal data folders.}
 
 \item{lSnapshot}{\code{list} Optional. Pass the output of \code{\link[=Make_Snapshot]{Make_Snapshot()}} to be appended to historical results.}
 }
@@ -22,7 +22,7 @@ Create longitudinal snapshot from results_summary.
 \dontrun{
 sim <- clindata::run_simulation(n_sites = 20, n_subjects = 250)
 dir <- here::here("simulation", "study-20_sites-250_subjects")
-results_summary_over_time <- StackSnapshots(dir = dir)
+results_summary_over_time <- StackSnapshots(cPath = dir)
 }
 
 }
