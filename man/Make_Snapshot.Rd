@@ -24,7 +24,6 @@ Make_Snapshot(
   lAssessments = NULL,
   strAnalysisDate = NULL,
   bUpdateParams = FALSE,
-  cPath = NULL,
   bQuiet = TRUE,
   bFlowchart = FALSE
 )
@@ -42,8 +41,6 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \item{strAnalysisDate}{\code{character} date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: \code{YYYY-MM-DD}.}
 
 \item{bUpdateParams}{\code{logical} if \code{TRUE}, configurable parameters found in \code{lMeta$config_param} will overwrite the default values in \code{lMeta$meta_params}. Default: \code{FALSE}.}
-
-\item{cPath}{\code{character} a character string indicating a working directory to save .csv files; the output of the snapshot.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 

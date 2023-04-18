@@ -15,7 +15,6 @@
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
 #' @param strAnalysisDate `character` date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: `YYYY-MM-DD`.
 #' @param bUpdateParams `logical` if `TRUE`, configurable parameters found in `lMeta$config_param` will overwrite the default values in `lMeta$meta_params`. Default: `FALSE`.
-#' @param cPath `character` a character string indicating a working directory to save .csv files; the output of the snapshot.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`.
 #'
@@ -76,7 +75,6 @@ lMapping = c(
 lAssessments = NULL,
 strAnalysisDate = NULL,
 bUpdateParams = FALSE,
-cPath = NULL,
 bQuiet = TRUE,
 bFlowchart = FALSE
 ) {
@@ -353,10 +351,10 @@ bFlowchart = FALSE
 
   # save lSnapshot ----------------------------------------------------------
 
-  if (!is.null(cPath)) {
-    # write each snapshot item to location
-    purrr::iwalk(lSnapshot, ~ utils::write.csv(.x, file = paste0(cPath, "/", .y, ".csv"), row.names = FALSE))
-  }
+  # if (!is.null(cPath)) {
+  #   # write each snapshot item to location
+  #   purrr::iwalk(lSnapshot, ~ utils::write.csv(.x, file = paste0(cPath, "/", .y, ".csv"), row.names = FALSE))
+  # }
 
   return(
     list(
