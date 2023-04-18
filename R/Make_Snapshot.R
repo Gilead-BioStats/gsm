@@ -348,14 +348,6 @@ bFlowchart = FALSE
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
-
-  # save lSnapshot ----------------------------------------------------------
-
-  # if (!is.null(cPath)) {
-  #   # write each snapshot item to location
-  #   purrr::iwalk(lSnapshot, ~ utils::write.csv(.x, file = paste0(cPath, "/", .y, ".csv"), row.names = FALSE))
-  # }
-
   return(
     list(
       lSnapshot = lSnapshot,
