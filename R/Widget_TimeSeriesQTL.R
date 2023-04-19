@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Time Series QTL
 #'
 #' A Time Series graphic for qtl data
@@ -61,6 +63,8 @@ Widget_TimeSeriesQTL <- function(qtl,
   )
 }
 
+#' `r lifecycle::badge("experimental")`
+#'
 #' Shiny bindings for timeSeriesQTL
 #'
 #' Output and render functions for using timeSeriesQTL within Shiny
@@ -82,6 +86,8 @@ Widget_TimeSeriesQTLOutput <- function(outputId, width = "100%", height = "400px
   htmlwidgets::shinyWidgetOutput(outputId, "Widget_TimeSeriesQTL", width, height, package = "gsm")
 }
 
+#' `r lifecycle::badge("experimental")`
+#'
 #' @rdname timeSeriesQTL-shiny
 #' @export
 renderWidget_TimeSeriesQTL <- function(expr, env = parent.frame(), quoted = FALSE) {

@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Attach longitudinal content to snapshot
 #'
 #' Attach stacked, longitudinal snapshot data and time series widgets to output of

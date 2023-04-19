@@ -77,6 +77,8 @@ Widget_TimeSeries <- function(
     )
 }
 
+#' `r lifecycle::badge("experimental")`
+#'
 #' Shiny bindings for Widget_TimeSeries
 #'
 #' Output and render functions for using Widget_TimeSeries within Shiny
@@ -98,6 +100,8 @@ Widget_TimeSeriesOutput <- function(outputId, width = "100%", height = "400px") 
   htmlwidgets::shinyWidgetOutput(outputId, "Widget_TimeSeries", width, height, package = "gsm")
 }
 
+#' `r lifecycle::badge("experimental")`
+#'
 #' @rdname Widget_TimeSeries-shiny
 #' @export
 renderWidget_TimeSeries <- function(expr, env = parent.frame(), quoted = FALSE) {

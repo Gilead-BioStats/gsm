@@ -2,7 +2,7 @@
 % Please edit documentation in R/Augment_Snapshot.R
 \name{Augment_Snapshot}
 \alias{Augment_Snapshot}
-\title{Attach longitudinal content to snapshot}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Augment_Snapshot(lSnapshot, cPath, bAppendTimeSeriesCharts = TRUE)
 }
@@ -17,6 +17,9 @@ Augment_Snapshot(lSnapshot, cPath, bAppendTimeSeriesCharts = TRUE)
 \code{list} The output of \code{\link[=Make_Snapshot]{Make_Snapshot()}} with longitudinal data and widgets appended.
 }
 \description{
+Attach longitudinal content to snapshot
+}
+\details{
 Attach stacked, longitudinal snapshot data and time series widgets to output of
 \code{\link[=Make_Snapshot]{Make_Snapshot()}}.
 }
@@ -26,9 +29,9 @@ Attach stacked, longitudinal snapshot data and time series widgets to output of
 study_path <- here::here("data-raw/AA-AA-000-0000")
 
 # Output current snapshot to dated folder within study folder.
-#snapshot_path <- paste(study_path, Sys.Date(), sep = '/'); dir.create(snapshot_path)
+# snapshot_path <- paste(study_path, Sys.Date(), sep = '/'); dir.create(snapshot_path)
 snapshot <- Make_Snapshot(
-  #cPath = snapshot_path
+  # cPath = snapshot_path
 )
 
 augmented_snapshot <- Augment_Snapshot(

@@ -25,6 +25,6 @@ valid_workflow <- is_workflow_valid(workflow[[2]])
 library(dplyr)
 library(purrr)
 valid_workflow_all <- workflow \%>\%
-  purrr::map(~is_workflow_valid(.) \%>\% purrr::pluck('bStatus'))
+  purrr::map(~ is_workflow_valid(.) \%>\% purrr::pluck("bStatus"))
 
 }

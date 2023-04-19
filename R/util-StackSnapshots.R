@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("experimental")`
+#'
 #' Create longitudinal snapshot from results_summary.
 #'
 #' @param cPath `character` Path to longitudinal data folders.
