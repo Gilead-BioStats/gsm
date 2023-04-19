@@ -206,22 +206,7 @@ test_that("Custom lAssessments and lMapping works together as intended", {
   expect_snapshot(snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping_edited, lAssessments = lAssessments_edited))
 })
 
-################################################################################################################
 
-test_that("cPath works as intended", {
-  tmpdir <- tempdir()
-  snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments, cPath = tmpdir)
-
-  all_files <- list.files(tmpdir)
-
-  expected_files <- gsm::rbm_data_spec %>%
-    filter(System == "Gismo") %>%
-    mutate(Table = paste0(Table, ".csv")) %>%
-    pull(Table) %>%
-    unique()
-
-  expect_true(all(expected_files %in% all_files))
-})
 
 ################################################################################################################
 

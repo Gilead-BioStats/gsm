@@ -60,8 +60,9 @@ reference:
    - title: Longitudinal
      desc: Utility functions to analyze longitudinal/trend data.
    - contents:
-      - MakeTimeSeriesLongitudinal
-      - MakeTrendData
+      - StackSnapshots
+      - Save_Snapshot
+      - Augment_Snapshot
 
    - title: Utility
      desc: Utility functions for use within the Data Pipeline
