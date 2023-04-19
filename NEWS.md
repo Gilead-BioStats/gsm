@@ -1,3 +1,17 @@
+# gsm v1.7.0
+
+This release includes updates to `Make_Snapshot()` and adds associated functions for managing longitudinal data.
+
+### `Make_Snapshot()` Updates
+- `cPath` and the ability to save `.csv` files is now removed in favor of a new function `Save_Snapshot()`.
+- `Make_Snapshot()` now returns two lists: `lSnapshot` and `lStudyAssessResults`.
+  - `lSnapshot` is the same list that was returned from `Make_Snapshot()` previously.
+  - `lStudyAssessResults` is the output of `Study_Assess()` to be used for reporting and post-hoc analysis.
+
+### Longitudinal Functions
+- `Augment_Snapshot()` has been added, which appends a list to the output of `Make_Snapshot()` with longitudinal/time-series data and widgets appended to each workflow.
+- `Save_Snapshot()` has been added, which saves the output of `Make_Snapshot()[["lSnapshot"]]` as separate `.csv` files, and saves the entire output of `Make_Snapshot()` as an `.rds` file.
+
 # gsm v1.6.0
 
 This release includes significant qualification testing updates, improvements to reporting, updates to default variable names, and updates to mappings and workflows.
