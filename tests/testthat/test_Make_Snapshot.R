@@ -287,5 +287,3 @@ test_that("NULL date input returns the current date", {
     Sys.Date()
   )
 })
-
-

@@ -8,9 +8,9 @@ makeTestData <- function(data) {
     mutate(
       subjectname = substr(subjectname, 0, 4),
       subjectname = case_when(subjectname == "0001" ~ "0003",
-                              subjectname == "0002" ~ "0496",
-                              subjectname == "0004" ~ "1350",
-                              .default = subjectname
+        subjectname == "0002" ~ "0496",
+        subjectname == "0004" ~ "1350",
+        .default = subjectname
       )
     )
 }

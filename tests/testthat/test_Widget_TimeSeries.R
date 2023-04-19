@@ -19,4 +19,3 @@ test_that("multiplication works", {
 #   test2$lStudyAssessResults$longitudinal$params,
 #   test2$lStudyAssessResults$longitudinal$results_analysis
 # )
-

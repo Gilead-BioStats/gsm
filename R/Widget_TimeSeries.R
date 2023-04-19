@@ -20,14 +20,14 @@
 #'
 #' @export
 Widget_TimeSeries <- function(
-    results,
-    workflow,
-    parameters,
-    selectedGroupIDs = NULL,
-    width = NULL,
-    height = NULL,
-    elementId = NULL,
-    addSiteSelect = TRUE
+  results,
+  workflow,
+  parameters,
+  selectedGroupIDs = NULL,
+  width = NULL,
+  height = NULL,
+  elementId = NULL,
+  addSiteSelect = TRUE
 ) {
   # forward options using x
   x <- list(
@@ -39,39 +39,42 @@ Widget_TimeSeries <- function(
   )
 
   # get unique sites
-  if (all(grepl('^[0-9]$', results$groupid)))
+  if (all(grepl("^[0-9]$", results$groupid))) {
     uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))
-  else
+  } else {
     uniqueSiteSelections <- sort(unique(results$groupid))
+  }
 
   # create standalone timeseries widget
   htmlwidgets::createWidget(
-        name = 'Widget_TimeSeries',
-        x,
-        width = width,
-        height = height,
-        package = 'gsm',
-        elementId = elementId
+    name = "Widget_TimeSeries",
+    x,
+    width = width,
+    height = height,
+    package = "gsm",
+    elementId = elementId
   ) %>%
     htmlwidgets::prependContent(
-      htmltools::tags$div(class = "select-group-container",
+      htmltools::tags$div(
+        class = "select-group-container",
         htmltools::tags$label("Highlighted Site:"),
-        htmltools::tags$select(class = "site-select",
-                               purrr::map(c('None', uniqueSiteSelections),
-                                          ~shiny::HTML(paste0(
-                                            "<option value='",
-                                            .x,
-                                            "'",
-                                            ifelse(.x == selectedGroupIDs, 'selected', ''),
-                                            ">",
-                                            .x,
-                                            "</option>"
-                                          ))
-                               )
+        htmltools::tags$select(
+          class = "site-select",
+          purrr::map(
+            c("None", uniqueSiteSelections),
+            ~ shiny::HTML(paste0(
+              "<option value='",
+              .x,
+              "'",
+              ifelse(.x == selectedGroupIDs, "selected", ""),
+              ">",
+              .x,
+              "</option>"
+            ))
+          )
         )
       )
     )
-
 }
 
 #' Shiny bindings for Widget_TimeSeries
@@ -91,14 +94,15 @@ Widget_TimeSeries <- function(
 #' @name Widget_TimeSeries-shiny
 #'
 #' @export
-Widget_TimeSeriesOutput <- function(outputId, width = '100%', height = '400px'){
-  htmlwidgets::shinyWidgetOutput(outputId, 'Widget_TimeSeries', width, height, package = 'gsm')
+Widget_TimeSeriesOutput <- function(outputId, width = "100%", height = "400px") {
+  htmlwidgets::shinyWidgetOutput(outputId, "Widget_TimeSeries", width, height, package = "gsm")
 }
 
 #' @rdname Widget_TimeSeries-shiny
 #' @export
 renderWidget_TimeSeries <- function(expr, env = parent.frame(), quoted = FALSE) {
-  if (!quoted) { expr <- substitute(expr) } # force quoted
+  if (!quoted) {
+    expr <- substitute(expr)
+  } # force quoted
   htmlwidgets::shinyRenderWidget(expr, Widget_TimeSeriesOutput, env, quoted = TRUE)
 }
-

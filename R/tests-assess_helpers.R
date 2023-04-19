@@ -2,7 +2,6 @@ test_valid_output_assess <- function(
   assess_function,
   dfInput
 ) {
-
   output <- assess_function(dfInput = dfInput)
 
   testthat::expect_true(is.list(output))

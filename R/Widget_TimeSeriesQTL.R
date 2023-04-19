@@ -16,15 +16,14 @@
 #'
 #' @export
 Widget_TimeSeriesQTL <- function(qtl,
-                          raw_results,
-                          raw_workflow,
-                          raw_param,
-                          raw_analysis,
-                          selectedGroupIDs = NULL,
-                          width = NULL,
-                          height = NULL,
-                          elementId = NULL) {
-
+  raw_results,
+  raw_workflow,
+  raw_param,
+  raw_analysis,
+  selectedGroupIDs = NULL,
+  width = NULL,
+  height = NULL,
+  elementId = NULL) {
   results <- raw_results %>%
     dplyr::filter(.data$workflowid == qtl) # contains the string qtl
 
@@ -39,7 +38,7 @@ Widget_TimeSeriesQTL <- function(qtl,
     dplyr::filter(.data$workflowid == qtl)
 
   if (is.null(selectedGroupIDs)) {
-    selectedGroupIDs <- 'None'
+    selectedGroupIDs <- "None"
   }
 
   # forward options using x
@@ -53,14 +52,13 @@ Widget_TimeSeriesQTL <- function(qtl,
 
   # create standalone timeseries widget
   htmlwidgets::createWidget(
-    name = 'Widget_TimeSeriesQTL',
+    name = "Widget_TimeSeriesQTL",
     x,
     width = width,
     height = height,
-    package = 'gsm',
+    package = "gsm",
     elementId = elementId
   )
-
 }
 
 #' Shiny bindings for timeSeriesQTL
@@ -80,13 +78,15 @@ Widget_TimeSeriesQTL <- function(qtl,
 #' @name timeSeriesQTL-shiny
 #'
 #' @export
-Widget_TimeSeriesQTLOutput <- function(outputId, width = '100%', height = '400px'){
-  htmlwidgets::shinyWidgetOutput(outputId, 'Widget_TimeSeriesQTL', width, height, package = 'gsm')
+Widget_TimeSeriesQTLOutput <- function(outputId, width = "100%", height = "400px") {
+  htmlwidgets::shinyWidgetOutput(outputId, "Widget_TimeSeriesQTL", width, height, package = "gsm")
 }
 
 #' @rdname timeSeriesQTL-shiny
 #' @export
 renderWidget_TimeSeriesQTL <- function(expr, env = parent.frame(), quoted = FALSE) {
-  if (!quoted) { expr <- substitute(expr) } # force quoted
+  if (!quoted) {
+    expr <- substitute(expr)
+  } # force quoted
   htmlwidgets::shinyRenderWidget(expr, Widget_TimeSeriesQTLOutput, env, quoted = TRUE)
 }
