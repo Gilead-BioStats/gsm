@@ -16,9 +16,7 @@
 #'
 #' # Output current snapshot to dated folder within study folder.
 #' # snapshot_path <- paste(study_path, Sys.Date(), sep = '/'); dir.create(snapshot_path)
-#' snapshot <- Make_Snapshot(
-#'   # cPath = snapshot_path
-#' )
+#' snapshot <- Make_Snapshot()
 #'
 #' augmented_snapshot <- Augment_Snapshot(
 #'   lSnapshot = snapshot,

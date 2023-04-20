@@ -6,7 +6,7 @@
 #' Check that the output created from [gsm::Make_Snapshot()] returns all expected tables and columns within tables as defined by the
 #' data model ([gsm::rbm_data_spec]).
 #'
-#' @param snapshot `list` List returned from running [gsm::Make_Snapshot()].
+#' @param snapshot `list` List (`snapshot$lSnapshot) returned from running [gsm::Make_Snapshot()].
 #'
 #' @return `list` Named list including:
 #' - `expected_tables` `data.frame` with columns `in_snapshot`, `expected_gismo`, and `status`.
@@ -17,7 +17,7 @@
 #' @examples
 #' \dontrun{
 #' snapshot <- Make_Snapshot()
-#' check_snapshot <- CheckSnapshotInputs(snapshot)
+#' check_snapshot <- CheckSnapshotInputs(snapshot$lSnapshot)
 #' }
 #'
 #' @importFrom purrr map_int imap_dfr

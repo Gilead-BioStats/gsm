@@ -12,6 +12,10 @@ This release includes updates to `Make_Snapshot()` and adds associated functions
 - `Augment_Snapshot()` has been added, which appends a list to the output of `Make_Snapshot()` with longitudinal/time-series data and widgets appended to each workflow.
 - `Save_Snapshot()` has been added, which saves the output of `Make_Snapshot()[["lSnapshot"]]` as separate `.csv` files, and saves the entire output of `Make_Snapshot()` as an `.rds` file.
 
+### New Widgets
+- Two new widgets have been added and are considered experimental for this release: `Widget_TimeSeries()` and `Widget_TimeSeriesQTL()`.
+- `Widget_TimeSeries()` plots will be appended to each workflow's `lCharts` object after running `Augment_Snapshot()`.
+
 # gsm v1.6.0
 
 This release includes significant qualification testing updates, improvements to reporting, updates to default variable names, and updates to mappings and workflows.
@@ -54,7 +58,7 @@ This minor release updates the following:
 
 # gsm v1.4.0
 
-This release introduces five new KRIs, the inclusion of interactive widgets ported over from the `rbm-viz` Javascript library, reporting updates, and various bug fixes and utility functions. Major changes are noted below!
+This release introduces five new KRIs, the inclusion of interactive widgets ported over from the `rbm-viz` JavaScript library, reporting updates, and various bug fixes and utility functions. Major changes are noted below!
 
 ### Mapping/Assessment Functions for new KRIs
 - `DataChg_Map_Raw` & `DataChg_Assess`: Evaluates rate of reported data point with >1 changes.
