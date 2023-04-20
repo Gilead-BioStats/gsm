@@ -13,8 +13,30 @@
 #'
 #' @examples
 #' \dontrun{
-#' lWorkflow <- Study_Assess()
-#' Study_Report(lWorkflow, lMeta = list(study = "my study name"))
+#' # Using `Study_Assess()`
+#' study <- Study_Assess()
+#' Study_Report(study)
+#'
+#' # Adding metadata for a single snapshot
+#' one_snapshot <- Make_Snapshot()
+#' Study_Report(
+#'   lAssessments = one_snapshot$lStudyAssessResults,
+#'   dfStudy = one_snapshot$lSnapshot$status_study
+#'   )
+#'
+#' # Longitudinal Data
+#' snapshot <- Make_Snapshot()
+#'
+#' longitudinal <- Augment_Snapshot(
+#'   snapshot,
+#'   here::here('data-raw', 'AA-AA-000-0000')
+#'   )
+#'
+#' Study_Report(
+#'   lAssessments = longitudinal$lStudyAssessResults,
+#'   dfStudy = longitudinal$lSnapshot$status_study
+#'   )
+#'
 #' }
 #'
 #' @importFrom rmarkdown render
