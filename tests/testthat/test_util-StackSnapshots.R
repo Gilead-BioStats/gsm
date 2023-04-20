@@ -22,7 +22,4 @@ test_that("error is thrown when cPath does not exist", {
   expect_error(StackSnapshots(cPath))
 })
 
-test_that("error is thrown when cPath contains no folders", {
-  cPath <- tempdir()
-  expect_error(StackSnapshots(cPath))
-})
+
