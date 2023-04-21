@@ -109,7 +109,7 @@ if (exists('status_study', where = params) && !is.null(params$status_study)) {
     DT::datatable(study_status_table, rownames = FALSE)
     ))
  
-#  
+#  add analysis date if dfStudy metadata is provided
 gsm_analysis_date <- study_status_table %>% 
   filter(Parameter == "gsm_analysis_date") %>% 
   pull("Value")
