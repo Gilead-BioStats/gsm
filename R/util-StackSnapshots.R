@@ -109,7 +109,7 @@ StackSnapshots <- function(cPath, lSnapshot = NULL) {
   longitudinal_data$parameters <- longitudinal_data$meta_param %>%
     left_join(
       longitudinal_data$status_param,
-      by = join_by("workflowid", "gsm_version", "param", "index", "gsm_analysis_date", "snapshot_date")
+      by = join_by("workflowid", "param", "index", "gsm_analysis_date", "snapshot_date")
     ) %>%
     select(-c("default", "configurable"))
 
