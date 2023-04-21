@@ -59,7 +59,8 @@ Widget_TimeSeries <- function(
         class = "select-group-container",
         htmltools::tags$label("Highlighted Site:"),
         htmltools::tags$select(
-          class = "site-select",
+          class = "site-select--time-series",
+          id = glue::glue('site-select--time-series_{workflow$workflowid}'),
           purrr::map(
             c("None", uniqueSiteSelections),
             ~ shiny::HTML(paste0(
