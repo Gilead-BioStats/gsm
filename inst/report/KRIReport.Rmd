@@ -102,10 +102,12 @@ if (exists('status_study', where = params) && !is.null(params$status_study)) {
     t() %>% 
     as.data.frame() %>% 
     rownames_to_column() %>% 
-    rename(Parameter = rowname, Value = V1) 
+    setNames(c("Parameter", "Value")) 
   
   print(htmltools::h2("Study Status"))
-  print(htmltools::tagList(DT::datatable(study_status_table)))
+  print(htmltools::tagList(
+    DT::datatable(study_status_table, rownames = FALSE)
+    ))
  
 #  
 gsm_analysis_date <- study_status_table %>% 
