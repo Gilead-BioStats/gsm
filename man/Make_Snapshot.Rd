@@ -24,7 +24,6 @@ Make_Snapshot(
   lAssessments = NULL,
   strAnalysisDate = NULL,
   bUpdateParams = FALSE,
-  cPath = NULL,
   bQuiet = TRUE,
   bFlowchart = FALSE
 )
@@ -43,11 +42,9 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 
 \item{bUpdateParams}{\code{logical} if \code{TRUE}, configurable parameters found in \code{lMeta$config_param} will overwrite the default values in \code{lMeta$meta_params}. Default: \code{FALSE}.}
 
-\item{cPath}{\code{character} a character string indicating a working directory to save .csv files; the output of the snapshot.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
-
-\item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}}
+\item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}.}
 }
 \value{
 \code{list} \code{lSnapshot}, a named list with a data.frame for each component of the {gsm} data model.

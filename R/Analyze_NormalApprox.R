@@ -60,7 +60,7 @@ Analyze_NormalApprox <- function(
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
     "One or more of these columns not found: GroupID, Denominator, Numerator, Metric" =
-    all(c("GroupID", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
+      all(c("GroupID", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
     "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]])),
     "strType is not 'binary' or 'rate'" = strType %in% c("binary", "rate")
   )

@@ -1,14 +1,14 @@
 # all workflow types
-snapshot_all <- Make_Snapshot(lAssessments = MakeWorkflowList(strNames = c("kri0001", "qtl0004", "cou0006")))
+snapshot_all <- Make_Snapshot(lAssessments = MakeWorkflowList(strNames = c("kri0001", "qtl0004", "cou0006")))[[1]]
 
 # qtls only
-snapshot_qtl <- Make_Snapshot(lAssessments = MakeWorkflowList(strNames = c("qtl0004", "qtl0006")))
+snapshot_qtl <- Make_Snapshot(lAssessments = MakeWorkflowList(strNames = c("qtl0004", "qtl0006")))[[1]]
 
 # kris only
-snapshot_kri <- Make_Snapshot(lAssessments = MakeWorkflowList(strNames = c("kri0005", "kri0006")))
+snapshot_kri <- Make_Snapshot(lAssessments = MakeWorkflowList(strNames = c("kri0005", "kri0006")))[[1]]
 
 # countries only
-snapshot_cou <- Make_Snapshot(lAssessments = MakeWorkflowList(strNames = c("cou0002", "cou0003")))
+snapshot_cou <- Make_Snapshot(lAssessments = MakeWorkflowList(strNames = c("cou0002", "cou0003")))[[1]]
 
 test_that("output for all workflow types is created as expected", {
   check_all <- CheckSnapshotInputs(snapshot_all)
