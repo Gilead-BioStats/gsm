@@ -2,7 +2,7 @@
 % Please edit documentation in R/Widget_TimeSeriesQTL.R
 \name{Widget_TimeSeriesQTL}
 \alias{Widget_TimeSeriesQTL}
-\title{Time Series QTL}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Widget_TimeSeriesQTL(
   qtl,
@@ -36,5 +36,8 @@ Widget_TimeSeriesQTL(
 \item{elementId}{id of widget, automatically generated if not supplied}
 }
 \description{
+Time Series QTL
+}
+\details{
 A Time Series graphic for qtl data
 }

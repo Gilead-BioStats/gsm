@@ -354,5 +354,4 @@ bFlowchart = FALSE
       lStudyAssessResults = lResults
     )
   )
-
 }

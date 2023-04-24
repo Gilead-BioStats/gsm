@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-StackSnapshots.R
 \name{StackSnapshots}
 \alias{StackSnapshots}
-\title{Create longitudinal snapshot from results_summary.}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 StackSnapshots(cPath, lSnapshot = NULL)
 }
@@ -18,7 +18,6 @@ StackSnapshots(cPath, lSnapshot = NULL)
 Create longitudinal snapshot from results_summary.
 }
 \examples{
-
 \dontrun{
 sim <- clindata::run_simulation(n_sites = 20, n_subjects = 250)
 dir <- here::here("simulation", "study-20_sites-250_subjects")

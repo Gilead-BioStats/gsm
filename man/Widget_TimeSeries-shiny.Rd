@@ -4,7 +4,7 @@
 \alias{Widget_TimeSeries-shiny}
 \alias{Widget_TimeSeriesOutput}
 \alias{renderWidget_TimeSeries}
-\title{Shiny bindings for Widget_TimeSeries}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Widget_TimeSeriesOutput(outputId, width = "100\%", height = "400px")
 
@@ -25,6 +25,9 @@ string and have \code{'px'} appended.}
 is useful if you want to save an expression in a variable.}
 }
 \description{
+Shiny bindings for Widget_TimeSeries
+}
+\details{
 Output and render functions for using Widget_TimeSeries within Shiny
 applications and interactive Rmd documents.
 }

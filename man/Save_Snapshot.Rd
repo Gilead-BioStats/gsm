@@ -2,7 +2,7 @@
 % Please edit documentation in R/Save_Snapshot.R
 \name{Save_Snapshot}
 \alias{Save_Snapshot}
-\title{Save Snapshot}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Save_Snapshot(lSnapshot, cPath, bCreateDefaultFolder = FALSE, bQuiet = TRUE)
 }
@@ -21,12 +21,14 @@ Save_Snapshot(lSnapshot, cPath, bCreateDefaultFolder = FALSE, bQuiet = TRUE)
 \description{
 Save the output of \code{\link[=Make_Snapshot]{Make_Snapshot()}} or \code{\link[=Augment_Snapshot]{Augment_Snapshot()}}.
 }
+\details{
+Save Snapshot
+}
 \examples{
 \dontrun{
 
 snapshot <- Make_Snapshot()
 Save_Snapshot(lSnapshot = snapshot, cPath = here::here("data"))
-
 }
 
 }

@@ -1,6 +1,5 @@
 ---
 subtitle: "Generated with the Gilead Statistical Monitoring {gsm} package"
-date: "Report Generated on `r format(Sys.time(), '%B %d, %Y')`"
 output:
   html_document:
     toc: true
@@ -30,12 +29,15 @@ library(gsm)
 library(tidyverse)
 library(DT)
 
+# Study_Assess() output - KRIs only
 assessment <- params$assessment[
   grep("kri", names(params$assessment))
 ]
 
+# Overview Table - HTML object
 overview_table <- Overview_Table(assessment)
 
+# Overview Table - data.frame/raw data
 overview_raw_table <- Overview_Table(assessment, bInteractive = FALSE)
 
 red_kris <- overview_raw_table %>% pull(`Red KRIs`) %>% sum()
@@ -89,6 +91,8 @@ title: "`r study_id` Assessment Overview"
 
 
 ```{r, echo=FALSE, results='asis'}
+
+
 ## metadata report if longitudinal data is provided
 if (exists('status_study', where = params) && !is.null(params$status_study)) {
   study_status_table <- params$status_study %>% 
@@ -98,10 +102,25 @@ if (exists('status_study', where = params) && !is.null(params$status_study)) {
     t() %>% 
     as.data.frame() %>% 
     rownames_to_column() %>% 
-    rename(Parameter = rowname, Value = V1) 
+    setNames(c("Parameter", "Value")) 
   
   print(htmltools::h2("Study Status"))
-  print(htmltools::tagList(DT::datatable(study_status_table)))
+  print(htmltools::tagList(
+    DT::datatable(study_status_table, rownames = FALSE)
+    ))
+ 
+#  add analysis date if dfStudy metadata is provided
+gsm_analysis_date <- study_status_table %>% 
+  filter(Parameter == "gsm_analysis_date") %>% 
+  pull("Value")
+
+ glue::glue(
+'
+---
+date: "Snapshot Date: {gsm_analysis_date}"
+---
+')
+ 
 }
 ```
 

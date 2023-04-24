@@ -142,5 +142,3 @@ test_logical_parameters <- function(map_function, dfs) {
     all(names(map_function(dfs = dfs, bReturnChecks = TRUE)) == c("df", "lChecks"))
   )
 }
-
-

@@ -25,13 +25,12 @@ test_that("Read_Mapping and yaml::read_yaml create identical lists for combined 
   expect_equal(
     sort(names(Read_Mapping(c("rawplus", "ctms")))),
     sort(names(c(rawplus, ctms)))
-    )
+  )
 
   expect_equal(
     sort(names(Read_Mapping())),
     sort(names(c(rawplus, ctms, edc, adam)))
   )
-
 })
 
 
