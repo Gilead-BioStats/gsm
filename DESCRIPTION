@@ -39,7 +39,6 @@ Imports:
     purrr,
     rmarkdown,
     rstudioapi,
-    shiny,
     stringr,
     tibble,
     tidyr,

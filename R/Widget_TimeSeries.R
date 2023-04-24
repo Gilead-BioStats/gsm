@@ -16,7 +16,6 @@
 #'
 #' @import htmlwidgets
 #' @import htmltools
-#' @importFrom shiny HTML
 #'
 #' @export
 Widget_TimeSeries <- function(
@@ -63,7 +62,7 @@ Widget_TimeSeries <- function(
           id = glue::glue('site-select--time-series_{workflow$workflowid}'),
           purrr::map(
             c("None", uniqueSiteSelections),
-            ~ shiny::HTML(paste0(
+            ~ htmltools::HTML(paste0(
               "<option value='",
               .x,
               "'",
