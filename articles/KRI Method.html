@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.0</span>
       </span>
     </div>
 
@@ -481,7 +481,8 @@ using standard methods in the <code>stats</code> package by fitting a
 <code><a href="https://generics.r-lib.org/reference/augment.html" class="external-link">broom::augment</a></code>.</p>
 <p>Let <span class="math inline">\(Y_1, ..., Y_N\)</span> be independent
 random variables with <span class="math inline">\(Y_i \sim
-Pisson(\mu_i)\)</span> denoting the number of events observed from <span class="math inline">\(n_i\)</span> for the <span class="math inline">\(i\)</span>th observation following Poisson
+Poisson(\mu_i)\)</span> denoting the number of events observed from
+<span class="math inline">\(n_i\)</span> for the <span class="math inline">\(i\)</span>th observation following Poisson
 distribution. Then <span class="math inline">\(E(Y_i)=\mu_i=n_ie^{x_i\beta}\)</span>. Thus,the
 log-linear generalized linear model (Poisson regression) is <span class="math display">\[
 \log{\mu_i}=\log{n_i}+x_i\beta \quad Y_i \sim Poisson(\mu_i)
@@ -557,7 +558,7 @@ mixture model (zero-inflated Poisson model) may be required.</p></li>
 </ol>
 </div>
 <div class="section level4">
-<h4 id="recommondation">Recommondation<a class="anchor" aria-label="anchor" href="#recommondation"></a>
+<h4 id="recommendation-2">Recommendation<a class="anchor" aria-label="anchor" href="#recommendation-2"></a>
 </h4>
 <p>Use this method when Poisson assumptions hold.</p>
 </div>

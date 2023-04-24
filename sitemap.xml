@@ -73,6 +73,9 @@
     <loc>/reference/Analyze_QTL.html</loc>
   </url>
   <url>
+    <loc>/reference/Augment_Snapshot.html</loc>
+  </url>
+  <url>
     <loc>/reference/CheckClindataMeta.html</loc>
   </url>
   <url>
@@ -211,10 +214,16 @@
     <loc>/reference/SaveQTL.html</loc>
   </url>
   <url>
+    <loc>/reference/Save_Snapshot.html</loc>
+  </url>
+  <url>
     <loc>/reference/Screening_Assess.html</loc>
   </url>
   <url>
     <loc>/reference/Screening_Map_Raw.html</loc>
+  </url>
+  <url>
+    <loc>/reference/StackSnapshots.html</loc>
   </url>
   <url>
     <loc>/reference/Study_Assess.html</loc>
@@ -262,6 +271,15 @@
     <loc>/reference/Widget_ScatterPlot.html</loc>
   </url>
   <url>
+    <loc>/reference/Widget_TimeSeries-shiny.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Widget_TimeSeries.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Widget_TimeSeriesQTL.html</loc>
+  </url>
+  <url>
     <loc>/reference/generate_md_table.html</loc>
   </url>
   <url>
@@ -305,5 +323,8 @@
   </url>
   <url>
     <loc>/reference/tidyeval.html</loc>
+  </url>
+  <url>
+    <loc>/reference/timeSeriesQTL-shiny.html</loc>
   </url>
 </urlset>

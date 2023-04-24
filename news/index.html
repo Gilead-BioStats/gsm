@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.0</span>
       </span>
     </div>
 
@@ -76,6 +76,36 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.7.0" id="gsm-v170">gsm v1.7.0<a class="anchor" aria-label="anchor" href="#gsm-v170"></a></h2>
+<p>This release includes updates to <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> and adds associated functions for managing longitudinal data.</p>
+<div class="section level4">
+<h4 id="make_snapshot-updates-1-7-0">
+<code>Make_Snapshot()</code> Updates<a class="anchor" aria-label="anchor" href="#make_snapshot-updates-1-7-0"></a></h4>
+<ul><li>
+<code>cPath</code> and the ability to save <code>.csv</code> files is now removed in favor of a new function <code><a href="../reference/Save_Snapshot.html">Save_Snapshot()</a></code>.</li>
+<li>
+<code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> now returns two lists: <code>lSnapshot</code> and <code>lStudyAssessResults</code>.
+<ul><li>
+<code>lSnapshot</code> is the same list that was returned from <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> previously.</li>
+<li>
+<code>lStudyAssessResults</code> is the output of <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> to be used for reporting and post-hoc analysis.</li>
+</ul></li>
+</ul></div>
+<div class="section level4">
+<h4 id="longitudinal-functions-1-7-0">Longitudinal Functions<a class="anchor" aria-label="anchor" href="#longitudinal-functions-1-7-0"></a></h4>
+<ul><li>
+<code><a href="../reference/Augment_Snapshot.html">Augment_Snapshot()</a></code> has been added, which appends a list to the output of <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> with longitudinal/time-series data and widgets appended to each workflow.</li>
+<li>
+<code><a href="../reference/Save_Snapshot.html">Save_Snapshot()</a></code> has been added, which saves the output of <code>Make_Snapshot()[["lSnapshot"]]</code> as separate <code>.csv</code> files, and saves the entire output of <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> as an <code>.rds</code> file.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="new-widgets-1-7-0">New Widgets<a class="anchor" aria-label="anchor" href="#new-widgets-1-7-0"></a></h4>
+<ul><li>Two new widgets have been added and are considered experimental for this release: <code><a href="../reference/Widget_TimeSeries.html">Widget_TimeSeries()</a></code> and <code><a href="../reference/Widget_TimeSeriesQTL.html">Widget_TimeSeriesQTL()</a></code>.</li>
+<li>
+<code><a href="../reference/Widget_TimeSeries.html">Widget_TimeSeries()</a></code> plots will be appended to each workflow’s <code>lCharts</code> object after running <code><a href="../reference/Augment_Snapshot.html">Augment_Snapshot()</a></code>.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.6.0" id="gsm-v160">gsm v1.6.0<a class="anchor" aria-label="anchor" href="#gsm-v160"></a></h2>
 <p>This release includes significant qualification testing updates, improvements to reporting, updates to default variable names, and updates to mappings and workflows.</p>
 <div class="section level4">
@@ -123,7 +153,7 @@
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.0" id="gsm-v140">gsm v1.4.0<a class="anchor" aria-label="anchor" href="#gsm-v140"></a></h2>
-<p>This release introduces five new KRIs, the inclusion of interactive widgets ported over from the <code>rbm-viz</code> Javascript library, reporting updates, and various bug fixes and utility functions. Major changes are noted below!</p>
+<p>This release introduces five new KRIs, the inclusion of interactive widgets ported over from the <code>rbm-viz</code> JavaScript library, reporting updates, and various bug fixes and utility functions. Major changes are noted below!</p>
 <div class="section level4">
 <h4 id="mappingassessment-functions-for-new-kris-1-4-0">Mapping/Assessment Functions for new KRIs<a class="anchor" aria-label="anchor" href="#mappingassessment-functions-for-new-kris-1-4-0"></a></h4>
 <ul><li>

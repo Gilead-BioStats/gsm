@@ -19,7 +19,7 @@ Appendix 2 - Data Model Specifications"><!-- mathjax --><script src="https://cdn
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.0</span>
       </span>
     </div>
 
@@ -105,7 +105,6 @@ Appendix 2 - Data Model Specifications</p>
 <span>  lAssessments <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  strAnalysisDate <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bUpdateParams <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  cPath <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  bFlowchart <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -138,16 +137,12 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 <dd><p><code>logical</code> if <code>TRUE</code>, configurable parameters found in <code>lMeta$config_param</code> will overwrite the default values in <code>lMeta$meta_params</code>. Default: <code>FALSE</code>.</p></dd>
 
 
-<dt>cPath</dt>
-<dd><p><code>character</code> a character string indicating a working directory to save .csv files; the output of the snapshot.</p></dd>
-
-
 <dt>bQuiet</dt>
-<dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code></p></dd>
+<dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code>.</p></dd>
 
 
 <dt>bFlowchart</dt>
-<dd><p><code>logical</code> Create flowchart to show data pipeline? Default: <code>FALSE</code></p></dd>
+<dd><p><code>logical</code> Create flowchart to show data pipeline? Default: <code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div id="value">

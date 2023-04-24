@@ -18,7 +18,7 @@ data model (rbm_data_spec)."><!-- mathjax --><script src="https://cdnjs.cloudfla
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.0</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ data model (<a href="rbm_data_spec.html">rbm_data_spec</a>).</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>snapshot</dt>
-<dd><p><code>list</code> List returned from running <code><a href="Make_Snapshot.html">Make_Snapshot()</a></code>.</p></dd>
+<dd><p><code>list</code> List (`snapshot$lSnapshot) returned from running <code><a href="Make_Snapshot.html">Make_Snapshot()</a></code>.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -110,7 +110,7 @@ data model (<a href="rbm_data_spec.html">rbm_data_spec</a>).</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">snapshot</span> <span class="op">&lt;-</span> <span class="fu"><a href="Make_Snapshot.html">Make_Snapshot</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">check_snapshot</span> <span class="op">&lt;-</span> <span class="fu">CheckSnapshotInputs</span><span class="op">(</span><span class="va">snapshot</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">check_snapshot</span> <span class="op">&lt;-</span> <span class="fu">CheckSnapshotInputs</span><span class="op">(</span><span class="va">snapshot</span><span class="op">$</span><span class="va">lSnapshot</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
