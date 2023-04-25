@@ -21,6 +21,7 @@ Widget_TimeSeriesQTL <- function(qtl,
   raw_results,
   raw_workflow,
   raw_param,
+  raw_param_status,
   raw_analysis,
   selectedGroupIDs = NULL,
   width = NULL,
@@ -39,6 +40,9 @@ Widget_TimeSeriesQTL <- function(qtl,
   analysis <- raw_analysis %>%
     dplyr::filter(.data$workflowid == qtl)
 
+  status_param <- raw_param_status %>%
+    dplyr::filter(.data$workflowid == qtl)
+
   if (is.null(selectedGroupIDs)) {
     selectedGroupIDs <- "None"
   }
@@ -49,6 +53,7 @@ Widget_TimeSeriesQTL <- function(qtl,
     workflow = workflow,
     parameters = parameters,
     analysis = analysis,
+    status_param = status_param,
     selectedGroupIDs = c(as.character(selectedGroupIDs))
   )
 

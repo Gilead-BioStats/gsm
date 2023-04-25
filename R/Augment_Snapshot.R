@@ -59,6 +59,8 @@ Augment_Snapshot <- function(
           parameters = parameters
         )
 
+        browser()
+
         return(result)
       })
   }
