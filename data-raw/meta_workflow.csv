@@ -1,8 +1,8 @@
 workflowid,gsm_version,group,abbreviation,metric,numerator,denominator,outcome,model,score,data_inputs,data_filters
-kri0001,1.7.0,Site,AE,AE Reporting Rate,AEs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm",
-kri0002,1.7.0,Site,SAE,SAE Reporting Rate,SAEs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm",Serious
-kri0003,1.7.0,Site,PD,Non-important PD Rate,Non-important PDs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"ctms.protdev, rawplus.dm",Non-Important
-kri0004,1.7.0,Site,IPD,Important PD Rate,Important PDs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"ctms.protdev, rawplus.dm",Important
+kri0001,1.7.0,Site,AE,AE Reporting Rate,AEs,Days on Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm",
+kri0002,1.7.0,Site,SAE,SAE Reporting Rate,SAEs,Days on Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm",Serious
+kri0003,1.7.0,Site,PD,Non-important PD Rate,Non-important PDs,Days on Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"ctms.protdev, rawplus.dm",Non-Important
+kri0004,1.7.0,Site,IPD,Important PD Rate,Important PDs,Days on Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"ctms.protdev, rawplus.dm",Important
 kri0005,1.7.0,Site,LB,G3+ Lab Abnormality Rate,G3+ Abnormal Lab Samples,Total Lab Samples,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.lb, rawplus.dm",Grade >= 3
 kri0006,1.7.0,Site,SDSC,Study Discontinuation Rate,Subjects Discontinued - Study,Enrolled Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.studcomp, rawplus.dm",
 kri0007,1.7.0,Site,TDSC,Treatment Discontinuation Rate,Subjects Discontinued - Treatment,Enrolled Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.sdrgcomp, rawplus.dm",
@@ -11,10 +11,10 @@ kri0009,1.7.0,Site,OQRY,Outstanding Query Rate,Queries Open > 30 Days,Total Quer
 kri0010,1.7.0,Site,ODAT,Outstanding Data Entry Rate,Data Pages Entered > 10 Days,Total Data Pages,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.dm, edc.data_pages",
 kri0011,1.7.0,Site,CDAT,Data Change Rate,Data Points with 1+ Change,Total Data Points,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.dm, edc.data_points",
 kri0012,1.7.0,Site,SF,Screen Failure Rate,Screen Failures,Screened Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,rawplus.enroll,
-cou0001,1.7.0,Country,AE,AE Reporting Rate,AEs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm",
-cou0002,1.7.0,Country,SAE,SAE Reporting Rate,SAEs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm",Serious
-cou0003,1.7.0,Country,PD,Non-important PD Rate,Non-important PDs,Days in Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"ctms.protdev, rawplus.dm",Non-Important
-cou0004,1.7.0,Country,IPD,Important PD Rate,Important PDs,Days in Study,Rate,Normal Approximation (Percent),Adjusted Z-Score ,"ctms.protdev, rawplus.dm",Important
+cou0001,1.7.0,Country,AE,AE Reporting Rate,AEs,Days on Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm",
+cou0002,1.7.0,Country,SAE,SAE Reporting Rate,SAEs,Days on Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"rawplus.ae, rawplus.dm",Serious
+cou0003,1.7.0,Country,PD,Non-important PD Rate,Non-important PDs,Days on Study,Rate,Normal Approximation (Rate),Adjusted Z-Score ,"ctms.protdev, rawplus.dm",Non-Important
+cou0004,1.7.0,Country,IPD,Important PD Rate,Important PDs,Days on Study,Rate,Normal Approximation (Percent),Adjusted Z-Score ,"ctms.protdev, rawplus.dm",Important
 cou0005,1.7.0,Country,LB,G3 or Higher Lab Abnormality Rate,G3+ Abnormal Lab Samples,Total Lab Samples,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.lb, rawplus.dm",Grade >= 3
 cou0006,1.7.0,Country,SDSC,Study Discontinuation Rate,Subjects Discontinued - Study,Enrolled Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.studcomp, rawplus.dm",
 cou0007,1.7.0,Country,TDSC,Treatment Discontinuation Rate,Subjects Discontinued - Treatment,Enrolled Subjects,Percent,Normal Approximation (Percent),Adjusted Z-Score ,"rawplus.sdrgcomp, rawplus.dm",

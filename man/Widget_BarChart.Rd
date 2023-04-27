@@ -104,7 +104,7 @@ dfConfig <- MakeDfConfig(
   strAbbreviation = "AE",
   strMetric = "Adverse Event Rate",
   strNumerator = "Adverse Events",
-  strDenominator = "Days in Study",
+  strDenominator = "Days on Study",
   vThreshold = c(-3, -2, 2, 3)
 )
 

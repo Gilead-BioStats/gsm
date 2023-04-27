@@ -203,7 +203,7 @@ AE_Assess <- function(
       strAbbreviation = "AE",
       strMetric = "Adverse Event Rate",
       strNumerator = "Adverse Events",
-      strDenominator = "Days in Study",
+      strDenominator = "Days on Study",
       vThreshold = vThreshold
     )
 
