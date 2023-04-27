@@ -25,7 +25,7 @@
 #'   #   strAbbreviation = "AE",
 #'   #   strMetric = "AE Reporting (Rate)",
 #'   #   strNumerator = "AEs",
-#'   #   strDenominator = "Days on Treatment",
+#'   #   strDenominator = "Days in Study",
 #'   #   vThreshold = vThreshold
 #' )
 #' }

@@ -83,7 +83,7 @@
 #'   strAbbreviation = "AE",
 #'   strMetric = "Adverse Event Rate",
 #'   strNumerator = "Adverse Events",
-#'   strDenominator = "Days on Treatment",
+#'   strDenominator = "Days in Study",
 #'   vThreshold = c(-3, -2, 2, 3)
 #' )
 #'
