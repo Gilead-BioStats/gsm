@@ -20,8 +20,9 @@ test_that("output is created as expected", {
   expect_true(ae_step$lChecks$status)
   expect_true("data.frame" %in% class(ae_step$df))
   expect_equal(names(ae_step), c("df", "lChecks"))
-  expect_equal(names(ae_step$df), c("subjid", "treatmentemergent", "aetoxgr", "aeser"))
-  expect_equal(names(ae_step$lChecks), c("dfAE", "status"))
+  expect_equal(names(ae_step$df), c("SubjectID", "SiteID", "StudyID", "CountryID", "CustomGroupID",
+                                    "Exposure", "Count", "Rate"))
+  expect_equal(names(ae_step$lChecks), c("dfAE", "dfSUBJ", "status", "mapping", "spec"))
 })
 
 # incorrect inputs throw errors -------------------------------------------
