@@ -2,7 +2,7 @@
 
 This release reflects a change in Adverse Event (AE) and Labs (LB) KRIs. 
 
-The standard workflow for these KRIs (kri0001, kri0002, and kri0005) are no longer filtered for Treatment Emergence.
+The standard workflow for these KRIs (kri0001, kri0002, and kri0005) are no longer filtered for Treatment Emergent events.
 
 # gsm v1.7.0
 
