@@ -47,7 +47,7 @@
       
       -- Initializing `cou0001` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 4: `FilterDomain` --
+      -- Workflow Step 1 of 3: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -61,20 +61,7 @@
       v `FilterDomain()` Successful
       Saving dfSUBJ to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `treatmentemergent %in% c("Y")`.
-      v Filtered on `treatmentemergent %in% c("Y")` to drop 1 rows from 50 to 49 rows.
-      v `FilterDomain()` Successful
-      Saving dfAE to `lWorkflow$lData`
-      
-      -- Workflow Step 3 of 4: `AE_Map_Raw` --
+      -- Workflow Step 2 of 3: `AE_Map_Raw` --
       
       Preparing parameters for `AE_Map_Raw()` ...
       Calling `AE_Map_Raw()` ...
@@ -93,7 +80,7 @@
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
-      -- Workflow Step 4 of 4: `AE_Assess` --
+      -- Workflow Step 3 of 3: `AE_Assess` --
       
       Preparing parameters for `AE_Assess()` ...
       Calling `AE_Assess()` ...
@@ -108,7 +95,7 @@
       v `Transform_Rate()` returned output with 3 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      > nStep was not provided. Setting default step to 78.136
+      > nStep was not provided. Setting default step to 81.816
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 

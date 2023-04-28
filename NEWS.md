@@ -1,3 +1,9 @@
+# gsm v1.7.1
+
+This release reflects a change in Adverse Event (AE) and Labs (LB) KRIs. 
+
+The standard workflow for these KRIs (kri0001, kri0002, and kri0005) are no longer filtered for Treatment Emergent events.
+
 # gsm v1.7.0
 
 This release includes updates to `Make_Snapshot()` and adds associated functions for managing longitudinal data.

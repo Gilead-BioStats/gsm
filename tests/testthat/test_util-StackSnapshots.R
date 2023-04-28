@@ -21,5 +21,3 @@ test_that("error is thrown when cPath does not exist", {
   cPath <- "path/to/nonexistent/folder"
   expect_error(StackSnapshots(cPath))
 })
-
-

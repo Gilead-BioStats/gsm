@@ -193,7 +193,7 @@ PD_Assess_Binary <- function(
         strAbbreviation = "PD",
         strMetric = "Protocol Deviation Rate",
         strNumerator = "Protocol Deviations",
-        strDenominator = "Days in Study",
+        strDenominator = "Days on Study",
         vThreshold = vThreshold
       )
 
