@@ -19,22 +19,10 @@
         bQuiet = TRUE
       )
       
-      #--- cou0001:FilterDomain ---
-      
-      dfAE <- FilterDomain(
-        df = dfAE,
-        strDomain = "dfAE",
-        lMapping = lMapping,
-        strColParam = lMapping[["dfAE"]][["strTreatmentEmergentCol"]],
-        strValParam = lMapping[["dfAE"]][["strTreatmentEmergentVal"]],
-        bReturnChecks = FALSE,
-        bQuiet = TRUE
-      )
-      
       #--- cou0001:AE_Map_Raw ---
       
       dfInput <- AE_Map_Raw(
-        dfs = list(dfAE = dfAE, dfSUBJ = lData[["dfSUBJ"]]),
+        dfs = list(dfAE = lData[["dfAE"]], dfSUBJ = dfSUBJ),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -59,18 +47,6 @@
         lMapping = lMapping,
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
-        bReturnChecks = FALSE,
-        bQuiet = TRUE
-      )
-      
-      #--- cou0002:FilterDomain ---
-      
-      dfAE <- FilterDomain(
-        df = dfAE,
-        strDomain = "dfAE",
-        lMapping = lMapping,
-        strColParam = lMapping[["dfAE"]][["strTreatmentEmergentCol"]],
-        strValParam = lMapping[["dfAE"]][["strTreatmentEmergentVal"]],
         bReturnChecks = FALSE,
         bQuiet = TRUE
       )
@@ -207,22 +183,10 @@
         bQuiet = TRUE
       )
       
-      #--- cou0005:FilterDomain ---
-      
-      dfLB <- FilterDomain(
-        df = dfLB,
-        strDomain = "dfLB",
-        lMapping = lMapping,
-        strColParam = lMapping[["dfLB"]][["strTreatmentEmergentCol"]],
-        strValParam = lMapping[["dfLB"]][["strTreatmentEmergentVal"]],
-        bReturnChecks = FALSE,
-        bQuiet = TRUE
-      )
-      
       #--- cou0005:LB_Map_Raw ---
       
       dfInput <- LB_Map_Raw(
-        dfs = list(dfSUBJ = lData[["dfSUBJ"]], dfLB = dfLB),
+        dfs = list(dfSUBJ = dfSUBJ, dfLB = lData[["dfLB"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -475,22 +439,10 @@
         bQuiet = TRUE
       )
       
-      #--- kri0001:FilterDomain ---
-      
-      dfAE <- FilterDomain(
-        df = dfAE,
-        strDomain = "dfAE",
-        lMapping = lMapping,
-        strColParam = lMapping[["dfAE"]][["strTreatmentEmergentCol"]],
-        strValParam = lMapping[["dfAE"]][["strTreatmentEmergentVal"]],
-        bReturnChecks = FALSE,
-        bQuiet = TRUE
-      )
-      
       #--- kri0001:AE_Map_Raw ---
       
       dfInput <- AE_Map_Raw(
-        dfs = list(dfAE = dfAE, dfSUBJ = lData[["dfSUBJ"]]),
+        dfs = list(dfAE = lData[["dfAE"]], dfSUBJ = dfSUBJ),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -515,18 +467,6 @@
         lMapping = lMapping,
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
-        bReturnChecks = FALSE,
-        bQuiet = TRUE
-      )
-      
-      #--- kri0002:FilterDomain ---
-      
-      dfAE <- FilterDomain(
-        df = dfAE,
-        strDomain = "dfAE",
-        lMapping = lMapping,
-        strColParam = lMapping[["dfAE"]][["strTreatmentEmergentCol"]],
-        strValParam = lMapping[["dfAE"]][["strTreatmentEmergentVal"]],
         bReturnChecks = FALSE,
         bQuiet = TRUE
       )
@@ -663,22 +603,10 @@
         bQuiet = TRUE
       )
       
-      #--- kri0005:FilterDomain ---
-      
-      dfLB <- FilterDomain(
-        df = dfLB,
-        strDomain = "dfLB",
-        lMapping = lMapping,
-        strColParam = lMapping[["dfLB"]][["strTreatmentEmergentCol"]],
-        strValParam = lMapping[["dfLB"]][["strTreatmentEmergentVal"]],
-        bReturnChecks = FALSE,
-        bQuiet = TRUE
-      )
-      
       #--- kri0005:LB_Map_Raw ---
       
       dfInput <- LB_Map_Raw(
-        dfs = list(dfSUBJ = lData[["dfSUBJ"]], dfLB = dfLB),
+        dfs = list(dfSUBJ = dfSUBJ, dfLB = lData[["dfLB"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE

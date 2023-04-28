@@ -112,58 +112,36 @@
       
       $cou0001[[2]]
       $cou0001[[2]]$name
-      [1] "FilterDomain"
+      [1] "AE_Map_Raw"
       
       $cou0001[[2]]$inputs
-      [1] "dfAE"
+      [1] "dfAE"   "dfSUBJ"
       
       $cou0001[[2]]$output
-      [1] "dfAE"
-      
-      $cou0001[[2]]$params
-      $cou0001[[2]]$params$strDomain
-      [1] "dfAE"
-      
-      $cou0001[[2]]$params$strColParam
-      [1] "strTreatmentEmergentCol"
-      
-      $cou0001[[2]]$params$strValParam
-      [1] "strTreatmentEmergentVal"
-      
+      [1] "dfInput"
       
       
       $cou0001[[3]]
       $cou0001[[3]]$name
-      [1] "AE_Map_Raw"
-      
-      $cou0001[[3]]$inputs
-      [1] "dfAE"   "dfSUBJ"
-      
-      $cou0001[[3]]$output
-      [1] "dfInput"
-      
-      
-      $cou0001[[4]]
-      $cou0001[[4]]$name
       [1] "AE_Assess"
       
-      $cou0001[[4]]$inputs
+      $cou0001[[3]]$inputs
       [1] "dfInput"
       
-      $cou0001[[4]]$output
+      $cou0001[[3]]$output
       [1] "lResults"
       
-      $cou0001[[4]]$params
-      $cou0001[[4]]$params$strGroup
+      $cou0001[[3]]$params
+      $cou0001[[3]]$params$strGroup
       [1] "Country"
       
-      $cou0001[[4]]$params$vThreshold
+      $cou0001[[3]]$params$vThreshold
       NULL
       
-      $cou0001[[4]]$params$strMethod
+      $cou0001[[3]]$params$strMethod
       [1] "NormalApprox"
       
-      $cou0001[[4]]$params$nMinDenominator
+      $cou0001[[3]]$params$nMinDenominator
       [1] 30
       
       
@@ -207,67 +185,45 @@
       [1] "dfAE"
       
       $cou0002[[2]]$params$strColParam
-      [1] "strTreatmentEmergentCol"
+      [1] "strSeriousCol"
       
       $cou0002[[2]]$params$strValParam
-      [1] "strTreatmentEmergentVal"
+      [1] "strSeriousVal"
       
       
       
       $cou0002[[3]]
       $cou0002[[3]]$name
-      [1] "FilterDomain"
+      [1] "AE_Map_Raw"
       
       $cou0002[[3]]$inputs
-      [1] "dfAE"
+      [1] "dfAE"   "dfSUBJ"
       
       $cou0002[[3]]$output
-      [1] "dfAE"
-      
-      $cou0002[[3]]$params
-      $cou0002[[3]]$params$strDomain
-      [1] "dfAE"
-      
-      $cou0002[[3]]$params$strColParam
-      [1] "strSeriousCol"
-      
-      $cou0002[[3]]$params$strValParam
-      [1] "strSeriousVal"
-      
+      [1] "dfInput"
       
       
       $cou0002[[4]]
       $cou0002[[4]]$name
-      [1] "AE_Map_Raw"
-      
-      $cou0002[[4]]$inputs
-      [1] "dfAE"   "dfSUBJ"
-      
-      $cou0002[[4]]$output
-      [1] "dfInput"
-      
-      
-      $cou0002[[5]]
-      $cou0002[[5]]$name
       [1] "AE_Assess"
       
-      $cou0002[[5]]$inputs
+      $cou0002[[4]]$inputs
       [1] "dfInput"
       
-      $cou0002[[5]]$output
+      $cou0002[[4]]$output
       [1] "lResults"
       
-      $cou0002[[5]]$params
-      $cou0002[[5]]$params$strGroup
+      $cou0002[[4]]$params
+      $cou0002[[4]]$params$strGroup
       [1] "Country"
       
-      $cou0002[[5]]$params$vThreshold
+      $cou0002[[4]]$params$vThreshold
       NULL
       
-      $cou0002[[5]]$params$strMethod
+      $cou0002[[4]]$params$strMethod
       [1] "NormalApprox"
       
-      $cou0002[[5]]$params$nMinDenominator
+      $cou0002[[4]]$params$nMinDenominator
       [1] 30
       
       
@@ -462,58 +418,36 @@
       
       $cou0005[[2]]
       $cou0005[[2]]$name
-      [1] "FilterDomain"
+      [1] "LB_Map_Raw"
       
       $cou0005[[2]]$inputs
-      [1] "dfLB"
+      [1] "dfSUBJ" "dfLB"  
       
       $cou0005[[2]]$output
-      [1] "dfLB"
-      
-      $cou0005[[2]]$params
-      $cou0005[[2]]$params$strDomain
-      [1] "dfLB"
-      
-      $cou0005[[2]]$params$strColParam
-      [1] "strTreatmentEmergentCol"
-      
-      $cou0005[[2]]$params$strValParam
-      [1] "strTreatmentEmergentVal"
-      
+      [1] "dfInput"
       
       
       $cou0005[[3]]
       $cou0005[[3]]$name
-      [1] "LB_Map_Raw"
-      
-      $cou0005[[3]]$inputs
-      [1] "dfSUBJ" "dfLB"  
-      
-      $cou0005[[3]]$output
-      [1] "dfInput"
-      
-      
-      $cou0005[[4]]
-      $cou0005[[4]]$name
       [1] "LB_Assess"
       
-      $cou0005[[4]]$inputs
+      $cou0005[[3]]$inputs
       [1] "dfInput"
       
-      $cou0005[[4]]$output
+      $cou0005[[3]]$output
       [1] "lResults"
       
-      $cou0005[[4]]$params
-      $cou0005[[4]]$params$strGroup
+      $cou0005[[3]]$params
+      $cou0005[[3]]$params$strGroup
       [1] "Country"
       
-      $cou0005[[4]]$params$vThreshold
+      $cou0005[[3]]$params$vThreshold
       NULL
       
-      $cou0005[[4]]$params$strMethod
+      $cou0005[[3]]$params$strMethod
       [1] "NormalApprox"
       
-      $cou0005[[4]]$params$nMinDenominator
+      $cou0005[[3]]$params$nMinDenominator
       [1] 30
       
       
@@ -984,58 +918,36 @@
       
       $kri0001[[2]]
       $kri0001[[2]]$name
-      [1] "FilterDomain"
+      [1] "AE_Map_Raw"
       
       $kri0001[[2]]$inputs
-      [1] "dfAE"
+      [1] "dfAE"   "dfSUBJ"
       
       $kri0001[[2]]$output
-      [1] "dfAE"
-      
-      $kri0001[[2]]$params
-      $kri0001[[2]]$params$strDomain
-      [1] "dfAE"
-      
-      $kri0001[[2]]$params$strColParam
-      [1] "strTreatmentEmergentCol"
-      
-      $kri0001[[2]]$params$strValParam
-      [1] "strTreatmentEmergentVal"
-      
+      [1] "dfInput"
       
       
       $kri0001[[3]]
       $kri0001[[3]]$name
-      [1] "AE_Map_Raw"
-      
-      $kri0001[[3]]$inputs
-      [1] "dfAE"   "dfSUBJ"
-      
-      $kri0001[[3]]$output
-      [1] "dfInput"
-      
-      
-      $kri0001[[4]]
-      $kri0001[[4]]$name
       [1] "AE_Assess"
       
-      $kri0001[[4]]$inputs
+      $kri0001[[3]]$inputs
       [1] "dfInput"
       
-      $kri0001[[4]]$output
+      $kri0001[[3]]$output
       [1] "lResults"
       
-      $kri0001[[4]]$params
-      $kri0001[[4]]$params$strGroup
+      $kri0001[[3]]$params
+      $kri0001[[3]]$params$strGroup
       [1] "Site"
       
-      $kri0001[[4]]$params$vThreshold
+      $kri0001[[3]]$params$vThreshold
       NULL
       
-      $kri0001[[4]]$params$strMethod
+      $kri0001[[3]]$params$strMethod
       [1] "NormalApprox"
       
-      $kri0001[[4]]$params$nMinDenominator
+      $kri0001[[3]]$params$nMinDenominator
       [1] 30
       
       
@@ -1079,67 +991,45 @@
       [1] "dfAE"
       
       $kri0002[[2]]$params$strColParam
-      [1] "strTreatmentEmergentCol"
+      [1] "strSeriousCol"
       
       $kri0002[[2]]$params$strValParam
-      [1] "strTreatmentEmergentVal"
+      [1] "strSeriousVal"
       
       
       
       $kri0002[[3]]
       $kri0002[[3]]$name
-      [1] "FilterDomain"
+      [1] "AE_Map_Raw"
       
       $kri0002[[3]]$inputs
-      [1] "dfAE"
+      [1] "dfAE"   "dfSUBJ"
       
       $kri0002[[3]]$output
-      [1] "dfAE"
-      
-      $kri0002[[3]]$params
-      $kri0002[[3]]$params$strDomain
-      [1] "dfAE"
-      
-      $kri0002[[3]]$params$strColParam
-      [1] "strSeriousCol"
-      
-      $kri0002[[3]]$params$strValParam
-      [1] "strSeriousVal"
-      
+      [1] "dfInput"
       
       
       $kri0002[[4]]
       $kri0002[[4]]$name
-      [1] "AE_Map_Raw"
-      
-      $kri0002[[4]]$inputs
-      [1] "dfAE"   "dfSUBJ"
-      
-      $kri0002[[4]]$output
-      [1] "dfInput"
-      
-      
-      $kri0002[[5]]
-      $kri0002[[5]]$name
       [1] "AE_Assess"
       
-      $kri0002[[5]]$inputs
+      $kri0002[[4]]$inputs
       [1] "dfInput"
       
-      $kri0002[[5]]$output
+      $kri0002[[4]]$output
       [1] "lResults"
       
-      $kri0002[[5]]$params
-      $kri0002[[5]]$params$strGroup
+      $kri0002[[4]]$params
+      $kri0002[[4]]$params$strGroup
       [1] "Site"
       
-      $kri0002[[5]]$params$vThreshold
+      $kri0002[[4]]$params$vThreshold
       NULL
       
-      $kri0002[[5]]$params$strMethod
+      $kri0002[[4]]$params$strMethod
       [1] "NormalApprox"
       
-      $kri0002[[5]]$params$nMinDenominator
+      $kri0002[[4]]$params$nMinDenominator
       [1] 30
       
       
@@ -1334,58 +1224,36 @@
       
       $kri0005[[2]]
       $kri0005[[2]]$name
-      [1] "FilterDomain"
+      [1] "LB_Map_Raw"
       
       $kri0005[[2]]$inputs
-      [1] "dfLB"
+      [1] "dfSUBJ" "dfLB"  
       
       $kri0005[[2]]$output
-      [1] "dfLB"
-      
-      $kri0005[[2]]$params
-      $kri0005[[2]]$params$strDomain
-      [1] "dfLB"
-      
-      $kri0005[[2]]$params$strColParam
-      [1] "strTreatmentEmergentCol"
-      
-      $kri0005[[2]]$params$strValParam
-      [1] "strTreatmentEmergentVal"
-      
+      [1] "dfInput"
       
       
       $kri0005[[3]]
       $kri0005[[3]]$name
-      [1] "LB_Map_Raw"
-      
-      $kri0005[[3]]$inputs
-      [1] "dfSUBJ" "dfLB"  
-      
-      $kri0005[[3]]$output
-      [1] "dfInput"
-      
-      
-      $kri0005[[4]]
-      $kri0005[[4]]$name
       [1] "LB_Assess"
       
-      $kri0005[[4]]$inputs
+      $kri0005[[3]]$inputs
       [1] "dfInput"
       
-      $kri0005[[4]]$output
+      $kri0005[[3]]$output
       [1] "lResults"
       
-      $kri0005[[4]]$params
-      $kri0005[[4]]$params$strGroup
+      $kri0005[[3]]$params
+      $kri0005[[3]]$params$strGroup
       [1] "Site"
       
-      $kri0005[[4]]$params$vThreshold
+      $kri0005[[3]]$params$vThreshold
       NULL
       
-      $kri0005[[4]]$params$strMethod
+      $kri0005[[3]]$params$strMethod
       [1] "NormalApprox"
       
-      $kri0005[[4]]$params$nMinDenominator
+      $kri0005[[3]]$params$nMinDenominator
       [1] 30
       
       
