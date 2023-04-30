@@ -22,7 +22,6 @@ StackSnapshots <- function(cPath, lSnapshot = NULL) {
     "[ cPath ] does not exist." = file.exists(cPath)
   )
 
-print(list.dirs(cPath))
   snapshots <- list.dirs(cPath) %>%
       # require YYYY-MM-DD naming convention of snapshot directories
       .[grepl('/\\d{4}-\\d{2}-\\d{2}$', .)]
