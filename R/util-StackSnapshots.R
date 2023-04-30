@@ -22,10 +22,13 @@ StackSnapshots <- function(cPath, lSnapshot = NULL) {
     "[ cPath ] does not exist." = file.exists(cPath)
   )
 
-  snapshots <- list.dirs(cPath, recursive = FALSE)
+print(list.dirs(cPath))
+  snapshots <- list.dirs(cPath) %>%
+      # require YYYY-MM-DD naming convention of snapshot directories
+      .[grepl('/\\d{4}-\\d{2}-\\d{2}$', .)]
 
   stopifnot(
-    "[ cPath ] contains no folders." = length(snapshots) > 0
+    "[ cPath ] contains no dated folders formatted YYYY-MM-DD." = length(snapshots) > 0
   )
 
   gsm_tables <- c(
