@@ -264,7 +264,7 @@ bFlowchart = FALSE
 
   # results_summary ---------------------------------------------------------
   results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%
-    purrr::discard(is.null) %>%
+    purrr::discard(~is.null(.x) | .x$lChecks$status == FALSE) %>%
     purrr::imap_dfr(~ .x$lData$dfSummary %>%
       mutate(
         KRIID = .y,
