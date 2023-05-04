@@ -14,7 +14,7 @@ test_that("Raw+ Adverse Event data can be mapped correctly to create an analysis
     StudyID = lMapping$dfSUBJ$strStudyCol,
     CountryID = lMapping$dfSUBJ$strCountryCol,
     CustomGroupID = lMapping$dfSUBJ$strCustomGroupCol,
-    Exposure = lMapping$dfSUBJ$strTimeOnTreatmentCol,
+    Exposure = lMapping$dfSUBJ$strTimeOnStudyCol,
     "Count",
     "Rate"
   )
@@ -37,9 +37,9 @@ test_that("Raw+ Adverse Event data can be mapped correctly to create an analysis
   expected <- full_join(dm_raw, ae_raw, by = "subjid") %>%
     mutate(
       Count = replace_na(Count, 0),
-      Rate = as.numeric(Count) / !!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol)
+      Rate = as.numeric(Count) / !!sym(lMapping$dfSUBJ$strTimeOnStudyCol)
     ) %>%
-    filter(!(!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol) == 0) & !is.na(!!sym(lMapping$dfSUBJ$strTimeOnTreatmentCol))) %>% # remove subjects that were not treated (i.e., had 0 or NA days of treatment)
+    filter(!(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol) == 0) & !is.na(!!sym(lMapping$dfSUBJ$strTimeOnStudyCol))) %>% # remove subjects that were not treated (i.e., had 0 or NA days of treatment)
     arrange(!!sym(lMapping$dfSUBJ$strIDCol)) %>%
     select(all_of(cols))
 

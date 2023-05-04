@@ -83,58 +83,36 @@
       
       [[2]]
       [[2]]$name
-      [1] "FilterDomain"
+      [1] "AE_Map_Raw"
       
       [[2]]$inputs
-      [1] "dfAE"
+      [1] "dfAE"   "dfSUBJ"
       
       [[2]]$output
-      [1] "dfAE"
-      
-      [[2]]$params
-      [[2]]$params$strDomain
-      [1] "dfAE"
-      
-      [[2]]$params$strColParam
-      [1] "strTreatmentEmergentCol"
-      
-      [[2]]$params$strValParam
-      [1] "strTreatmentEmergentVal"
-      
+      [1] "dfInput"
       
       
       [[3]]
       [[3]]$name
-      [1] "AE_Map_Raw"
-      
-      [[3]]$inputs
-      [1] "dfAE"   "dfSUBJ"
-      
-      [[3]]$output
-      [1] "dfInput"
-      
-      
-      [[4]]
-      [[4]]$name
       [1] "AE_Assess"
       
-      [[4]]$inputs
+      [[3]]$inputs
       [1] "dfInput"
       
-      [[4]]$output
+      [[3]]$output
       [1] "lResults"
       
-      [[4]]$params
-      [[4]]$params$strGroup
+      [[3]]$params
+      [[3]]$params$strGroup
       [1] "Site"
       
-      [[4]]$params$vThreshold
+      [[3]]$params$vThreshold
       NULL
       
-      [[4]]$params$strMethod
+      [[3]]$params$strMethod
       [1] "NormalApprox"
       
-      [[4]]$params$nMinDenominator
+      [[3]]$params$nMinDenominator
       [1] 30
       
       
@@ -168,36 +146,36 @@
       #   subject_nsv <chr>, instanceid_nsv <dbl>, folder_nsv <chr>, ...
       
       $dfAE
-      # A tibble: 49 x 4
+      # A tibble: 50 x 4
          subjid treatmentemergent aetoxgr aeser
          <chr>  <chr>             <chr>   <chr>
-       1 0496   Y                 MILD    N    
-       2 0496   Y                 MILD    N    
-       3 1350   Y                 MILD    N    
-       4 1350   Y                 MILD    N    
-       5 1350   Y                 MILD    N    
-       6 1350   Y                 MILD    N    
-       7 1350   Y                 MILD    N    
-       8 1350   Y                 MILD    N    
-       9 1350   Y                 MILD    N    
-      10 0539   Y                 MILD    N    
-      # i 39 more rows
+       1 0496   "Y"               MILD    N    
+       2 0496   "Y"               MILD    N    
+       3 1350   "Y"               MILD    N    
+       4 1350   "Y"               MILD    N    
+       5 1350   "Y"               MILD    N    
+       6 1350   "Y"               MILD    N    
+       7 1350   "Y"               MILD    N    
+       8 1350   "Y"               MILD    N    
+       9 1350   ""                MILD    N    
+      10 1350   "Y"               MILD    N    
+      # i 40 more rows
       
       $dfInput
-      # A tibble: 1,298 x 8
+      # A tibble: 1,301 x 8
          SubjectID SiteID StudyID       CountryID CustomGroupID Exposure Count    Rate
          <chr>     <chr>  <chr>         <chr>     <chr>            <dbl> <int>   <dbl>
-       1 0001      86     AA-AA-000-00~ US        0X035              678     0 0      
-       2 0002      76     AA-AA-000-00~ US        0X104               13     0 0      
-       3 0003      166    AA-AA-000-00~ US        0X102              857     5 0.00583
-       4 0004      8      AA-AA-000-00~ US        0X154              757     0 0      
-       5 0005      104    AA-AA-000-00~ US        0X140              771     0 0      
-       6 0007      29     AA-AA-000-00~ Japan     0X116              672     0 0      
-       7 0008      28     AA-AA-000-00~ US        0X103              203     0 0      
-       8 0009      15     AA-AA-000-00~ China     0X039             1009     0 0      
-       9 0010      122    AA-AA-000-00~ China     0X018              687     0 0      
-      10 0011      143    AA-AA-000-00~ US        0X153              674     0 0      
-      # i 1,288 more rows
+       1 0001      86     AA-AA-000-00~ US        0X035              730     0 0      
+       2 0002      76     AA-AA-000-00~ US        0X104               50     0 0      
+       3 0003      166    AA-AA-000-00~ US        0X102              901     5 0.00555
+       4 0004      8      AA-AA-000-00~ US        0X154              785     0 0      
+       5 0005      104    AA-AA-000-00~ US        0X140              802     0 0      
+       6 0007      29     AA-AA-000-00~ Japan     0X116              715     0 0      
+       7 0008      28     AA-AA-000-00~ US        0X103              235     0 0      
+       8 0009      15     AA-AA-000-00~ China     0X039             1041     0 0      
+       9 0010      122    AA-AA-000-00~ China     0X018              727     0 0      
+      10 0011      143    AA-AA-000-00~ US        0X153              698     0 0      
+      # i 1,291 more rows
       
 
 ---
@@ -292,93 +270,6 @@
       [1] TRUE
       
       
-      $FilterDomain
-      $FilterDomain$dfAE
-      $FilterDomain$dfAE$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if
-      $FilterDomain$dfAE$tests_if$is_data_frame
-      $FilterDomain$dfAE$tests_if$is_data_frame$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$is_data_frame$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$has_required_params
-      $FilterDomain$dfAE$tests_if$has_required_params$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$has_required_params$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$spec_is_list
-      $FilterDomain$dfAE$tests_if$spec_is_list$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$spec_is_list$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$mapping_is_list
-      $FilterDomain$dfAE$tests_if$mapping_is_list$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$mapping_is_list$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$mappings_are_character
-      $FilterDomain$dfAE$tests_if$mappings_are_character$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$mappings_are_character$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$has_expected_columns
-      $FilterDomain$dfAE$tests_if$has_expected_columns$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$has_expected_columns$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$columns_have_na
-      $FilterDomain$dfAE$tests_if$columns_have_na$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$columns_have_na$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$columns_have_empty_values
-      $FilterDomain$dfAE$tests_if$columns_have_empty_values$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$columns_have_empty_values$warning
-      [1] NA
-      
-      
-      $FilterDomain$dfAE$tests_if$cols_are_unique
-      $FilterDomain$dfAE$tests_if$cols_are_unique$status
-      [1] TRUE
-      
-      $FilterDomain$dfAE$tests_if$cols_are_unique$warning
-      [1] NA
-      
-      
-      
-      $FilterDomain$dfAE$dim
-      [1] 50  4
-      
-      
-      $FilterDomain$status
-      [1] TRUE
-      
-      
       $AE_Map_Raw
       $AE_Map_Raw$dfAE
       $AE_Map_Raw$dfAE$status
@@ -459,7 +350,7 @@
       
       
       $AE_Map_Raw$dfAE$dim
-      [1] 49  4
+      [1] 50  4
       
       
       $AE_Map_Raw$dfSUBJ
@@ -1051,7 +942,7 @@
       
       
       $AE_Assess$dfInput$dim
-      [1] 1298    8
+      [1] 1301    8
       
       
       $AE_Assess$status
@@ -1147,7 +1038,7 @@
       
       -- Initializing `kri0001` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 4: `FilterDomain` --
+      -- Workflow Step 1 of 3: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -1161,21 +1052,7 @@
       v `FilterDomain()` Successful
       Saving dfSUBJ to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `treatmentemergent %in% c("Y")`.
-      v Filtered on `treatmentemergent %in% c("Y")` to drop 0 rows from 10 to 10 rows.
-      i NOTE: No rows dropped.
-      v `FilterDomain()` Successful
-      Saving dfAE to `lWorkflow$lData`
-      
-      -- Workflow Step 3 of 4: `AE_Map_Raw` --
+      -- Workflow Step 2 of 3: `AE_Map_Raw` --
       
       Preparing parameters for `AE_Map_Raw()` ...
       Calling `AE_Map_Raw()` ...
@@ -1194,7 +1071,7 @@
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
-      -- Workflow Step 4 of 4: `AE_Assess` --
+      -- Workflow Step 3 of 3: `AE_Assess` --
       
       Preparing parameters for `AE_Assess()` ...
       Calling `AE_Assess()` ...
@@ -1209,10 +1086,10 @@
       v `Transform_Rate()` returned output with 10 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      > nStep was not provided. Setting default step to 3.984
+      > nStep was not provided. Setting default step to 3.964
       v `Analyze_NormalApprox()` returned output with 10 rows.
       v `Flag_NormalApprox()` returned output with 10 rows.
-      i 1 Site(s) have insufficient sample size due to KRI denominator less than 30. 
+      i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
       These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 10 rows.
       v Created 2 scatter plots.

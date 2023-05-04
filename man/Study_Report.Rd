@@ -4,10 +4,12 @@
 \alias{Study_Report}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
-Study_Report(lAssessments, strOutpath = NULL)
+Study_Report(lAssessments, dfStudy = NULL, strOutpath = NULL)
 }
 \arguments{
 \item{lAssessments}{\code{list} The results of multiple assessments run using \code{Study_Assess}.}
+
+\item{dfStudy}{\code{data.frame} A data.frame containing site status metadata. Typically output from \code{Make_Snapshot()$lSnapshot$status_study}}
 
 \item{strOutpath}{\code{character} File path; location where the report will be saved.}
 }
@@ -22,8 +24,29 @@ Create HTML summary report using the results of \code{Study_Assess}, including t
 }
 \examples{
 \dontrun{
-lWorkflow <- Study_Assess()
-Study_Report(lWorkflow, lMeta = list(study = "my study name"))
+# Using `Study_Assess()`
+study <- Study_Assess()
+Study_Report(study)
+
+# Adding metadata for a single snapshot
+one_snapshot <- Make_Snapshot()
+Study_Report(
+  lAssessments = one_snapshot$lStudyAssessResults,
+  dfStudy = one_snapshot$lSnapshot$status_study
+)
+
+# Longitudinal Data
+snapshot <- Make_Snapshot()
+
+longitudinal <- Augment_Snapshot(
+  snapshot,
+  here::here("data-raw", "AA-AA-000-0000")
+)
+
+Study_Report(
+  lAssessments = longitudinal$lStudyAssessResults,
+  dfStudy = longitudinal$lSnapshot$status_study
+)
 }
 
 }

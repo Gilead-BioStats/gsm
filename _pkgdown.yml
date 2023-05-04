@@ -57,6 +57,13 @@ reference:
       - RunQTL
       - SaveQTL
 
+   - title: Longitudinal
+     desc: Utility functions to analyze longitudinal/trend data.
+   - contents:
+      - StackSnapshots
+      - Save_Snapshot
+      - Augment_Snapshot
+
    - title: Utility
      desc: Utility functions for use within the Data Pipeline
    - contents:

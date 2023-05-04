@@ -56,7 +56,7 @@ const addSiteSelect = function(el, results, instance) {
     // add event listener to dropdown that updates chart
     siteSelect.addEventListener('change', event => {
         instance.data.config.selectedGroupIDs = event.target.value; // site
-        instance.helpers.updateConfig(instance, instance.data.config);
+        instance.helpers.updateConfig(instance, instance.data.config, instance.data._thresholds_);
     });
 
     return siteSelect;

@@ -1,0 +1,125 @@
+#' `r lifecycle::badge("experimental")`
+#'
+#' Create longitudinal snapshot from results_summary.
+#'
+#' @param cPath `character` Path to longitudinal data folders.
+#' @param lSnapshot `list` Optional. Pass the output of [gsm::Make_Snapshot()] to be appended to historical results.
+#'
+#' @return `data.frame` containing longitudinal snapshots of `{gsm}` analyses.
+#'
+#' @examples
+#' \dontrun{
+#' sim <- clindata::run_simulation(n_sites = 20, n_subjects = 250)
+#' dir <- here::here("simulation", "study-20_sites-250_subjects")
+#' results_summary_over_time <- StackSnapshots(cPath = dir)
+#' }
+#'
+#' @importFrom purrr map_df
+#'
+#' @export
+StackSnapshots <- function(cPath, lSnapshot = NULL) {
+  stopifnot(
+    "[ cPath ] does not exist." = file.exists(cPath)
+  )
+
+  snapshots <- list.dirs(cPath, recursive = FALSE)
+
+  stopifnot(
+    "[ cPath ] contains no folders." = length(snapshots) > 0
+  )
+
+  gsm_tables <- c(
+    "meta_param",
+    "meta_workflow",
+    "results_analysis",
+    "results_summary",
+    "status_param",
+    "status_site",
+    "status_study",
+    "status_workflow"
+  )
+
+  # iterate over tables
+  longitudinal_data <- gsm_tables %>%
+    map(function(gsm_table) {
+      # iterate over snapshots
+      gsm_data <- snapshots %>%
+        purrr::map_dfr(function(snapshot) {
+          # if table exists read it in
+          file_path <- glue::glue("{snapshot}/{gsm_table}.csv")
+
+          if (file.exists(file_path)) {
+            data <- file_path %>%
+              read.csv(
+                colClasses = "character"
+              ) %>%
+              mutate(
+                gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d"),
+                snapshot_date = .data$gsm_analysis_date
+              )
+
+            return(data)
+          } else {
+            cli::cli_alert_warning("[ {gsm_table} ] not found in [ {cPath}/{snapshot} ].")
+
+            return(NULL)
+          }
+        })
+
+      return(gsm_data)
+    }) %>%
+    rlang::set_names(gsm_tables)
+
+  # append recent data ------------------------------------------------------
+  if (!is.null(lSnapshot)) {
+    common_tables <- intersect(
+      names(longitudinal_data),
+      names(lSnapshot$lSnapshot)
+    )
+
+    for (common_table in common_tables) {
+      # coerce column types in longitudinal data to match column types in snapshot data
+      common_columns <- intersect(
+        names(longitudinal_data[[common_table]]),
+        names(lSnapshot$lSnapshot[[common_table]])
+      )
+
+      for (common_column in common_columns) {
+        expected_class <- class(lSnapshot$lSnapshot[[common_table]][[common_column]])[1]
+        detected_class <- class(longitudinal_data[[common_table]][[common_column]])[1]
+
+        if (expected_class != detected_class) {
+          longitudinal_data[[common_table]][[common_column]] <- match.fun(paste0("as.", expected_class))(
+            longitudinal_data[[common_table]][[common_column]]
+          )
+        }
+      }
+
+      longitudinal_data[[common_table]] <- longitudinal_data[[common_table]] %>%
+        bind_rows(
+          lSnapshot$lSnapshot[[common_table]] %>%
+            mutate(
+              snapshot_date = .data$gsm_analysis_date
+            )
+        )
+    }
+  }
+
+  # make parameters -------------------------------------------------------------
+  longitudinal_data$parameters <- longitudinal_data$meta_param %>%
+    left_join(
+      longitudinal_data$status_param,
+      by = join_by("workflowid", "param", "index", "gsm_analysis_date", "snapshot_date")
+    ) %>%
+    select(-c("default", "configurable"))
+
+  # only keep latest workflow metadata
+  if ("meta_workflow" %in% names(longitudinal_data)) {
+    longitudinal_data$meta_workflow <- longitudinal_data$meta_workflow %>%
+      filter(
+        .data$gsm_analysis_date == max(.data$gsm_analysis_date)
+      )
+  }
+
+  return(longitudinal_data)
+}

@@ -3,9 +3,26 @@
     Code
       names(snapshot)
     Output
+      [1] "lSnapshot"           "lStudyAssessResults"
+
+---
+
+    Code
+      names(snapshot$lSnapshot)
+    Output
       [1] "status_study"     "status_site"      "status_workflow"  "status_param"    
       [5] "results_summary"  "results_analysis" "results_bounds"   "meta_workflow"   
       [9] "meta_param"      
+
+---
+
+    Code
+      names(snapshot$lStudyAssessResults)
+    Output
+       [1] "cou0001" "cou0002" "cou0003" "cou0004" "cou0005" "cou0006" "cou0007"
+       [8] "cou0008" "cou0009" "cou0010" "cou0011" "cou0012" "kri0001" "kri0002"
+      [15] "kri0003" "kri0004" "kri0005" "kri0006" "kri0007" "kri0008" "kri0009"
+      [22] "kri0010" "kri0011" "kri0012" "qtl0004" "qtl0006"
 
 # input data is structured as expected
 
@@ -30,7 +47,7 @@
       
       -- Initializing `cou0001` assessment -------------------------------------------
       
-      -- Workflow Step 1 of 4: `FilterDomain` --
+      -- Workflow Step 1 of 3: `FilterDomain` --
       
       Preparing parameters for `FilterDomain()` ...
       Calling `FilterDomain()` ...
@@ -44,20 +61,7 @@
       v `FilterDomain()` Successful
       Saving dfSUBJ to `lWorkflow$lData`
       
-      -- Workflow Step 2 of 4: `FilterDomain` --
-      
-      Preparing parameters for `FilterDomain()` ...
-      Calling `FilterDomain()` ...
-      
-      -- Checking Input Data for `FilterDomain()` --
-      
-      v No issues found for dfAE domain
-      Filtering on `treatmentemergent %in% c("Y")`.
-      v Filtered on `treatmentemergent %in% c("Y")` to drop 1 rows from 50 to 49 rows.
-      v `FilterDomain()` Successful
-      Saving dfAE to `lWorkflow$lData`
-      
-      -- Workflow Step 3 of 4: `AE_Map_Raw` --
+      -- Workflow Step 2 of 3: `AE_Map_Raw` --
       
       Preparing parameters for `AE_Map_Raw()` ...
       Calling `AE_Map_Raw()` ...
@@ -76,7 +80,7 @@
       v `AE_Map_Raw()` Successful
       Saving dfInput to `lWorkflow$lData`
       
-      -- Workflow Step 4 of 4: `AE_Assess` --
+      -- Workflow Step 3 of 3: `AE_Assess` --
       
       Preparing parameters for `AE_Assess()` ...
       Calling `AE_Assess()` ...
@@ -91,7 +95,7 @@
       v `Transform_Rate()` returned output with 3 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      > nStep was not provided. Setting default step to 78.136
+      > nStep was not provided. Setting default step to 81.816
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 

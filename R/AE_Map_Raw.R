@@ -81,7 +81,7 @@ AE_Map_Raw <- function(
             CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
           )
         ),
-        Exposure = lMapping[["dfSUBJ"]][["strTimeOnTreatmentCol"]]
+        Exposure = lMapping[["dfSUBJ"]][["strTimeOnStudyCol"]]
       )
 
     # Create Subject Level AE Counts and merge dfSUBJ

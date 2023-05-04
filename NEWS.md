@@ -1,3 +1,27 @@
+# gsm v1.7.1
+
+This release reflects a change in Adverse Event (AE) and Labs (LB) KRIs. 
+
+The standard workflow for these KRIs (kri0001, kri0002, and kri0005) are no longer filtered for Treatment Emergent events.
+
+# gsm v1.7.0
+
+This release includes updates to `Make_Snapshot()` and adds associated functions for managing longitudinal data.
+
+### `Make_Snapshot()` Updates
+- `cPath` and the ability to save `.csv` files is now removed in favor of a new function `Save_Snapshot()`.
+- `Make_Snapshot()` now returns two lists: `lSnapshot` and `lStudyAssessResults`.
+  - `lSnapshot` is the same list that was returned from `Make_Snapshot()` previously.
+  - `lStudyAssessResults` is the output of `Study_Assess()` to be used for reporting and post-hoc analysis.
+
+### Longitudinal Functions
+- `Augment_Snapshot()` has been added, which appends a list to the output of `Make_Snapshot()` with longitudinal/time-series data and widgets appended to each workflow.
+- `Save_Snapshot()` has been added, which saves the output of `Make_Snapshot()[["lSnapshot"]]` as separate `.csv` files, and saves the entire output of `Make_Snapshot()` as an `.rds` file.
+
+### New Widgets
+- Two new widgets have been added and are considered experimental for this release: `Widget_TimeSeries()` and `Widget_TimeSeriesQTL()`.
+- `Widget_TimeSeries()` plots will be appended to each workflow's `lCharts` object after running `Augment_Snapshot()`.
+
 # gsm v1.6.0
 
 This release includes significant qualification testing updates, improvements to reporting, updates to default variable names, and updates to mappings and workflows.
@@ -40,7 +64,7 @@ This minor release updates the following:
 
 # gsm v1.4.0
 
-This release introduces five new KRIs, the inclusion of interactive widgets ported over from the `rbm-viz` Javascript library, reporting updates, and various bug fixes and utility functions. Major changes are noted below!
+This release introduces five new KRIs, the inclusion of interactive widgets ported over from the `rbm-viz` JavaScript library, reporting updates, and various bug fixes and utility functions. Major changes are noted below!
 
 ### Mapping/Assessment Functions for new KRIs
 - `DataChg_Map_Raw` & `DataChg_Assess`: Evaluates rate of reported data point with >1 changes.

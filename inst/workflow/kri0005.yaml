@@ -6,13 +6,6 @@ steps:
       strDomain: dfSUBJ
       strColParam: strEnrollCol
       strValParam: strEnrollVal
-  - name: FilterDomain
-    inputs: dfLB
-    output: dfLB
-    params:
-      strDomain: dfLB
-      strColParam: strTreatmentEmergentCol
-      strValParam: strTreatmentEmergentVal
   - name: LB_Map_Raw
     inputs:
       - dfSUBJ

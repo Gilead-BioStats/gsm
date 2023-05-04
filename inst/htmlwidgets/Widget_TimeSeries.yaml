@@ -1,0 +1,5 @@
+dependencies:
+  - name: rbmviz
+    version: 1.0.6
+    src: 'rbm-viz-1.0.6'
+    script: 'rbm-viz.js'

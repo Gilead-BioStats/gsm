@@ -15,7 +15,7 @@
 #' library(dplyr)
 #' library(purrr)
 #' valid_workflow_all <- workflow %>%
-#'   purrr::map(~is_workflow_valid(.) %>% purrr::pluck('bStatus'))
+#'   purrr::map(~ is_workflow_valid(.) %>% purrr::pluck("bStatus"))
 #'
 #' @return `list` with `TRUE`/`FALSE` status for each workflow.
 #'

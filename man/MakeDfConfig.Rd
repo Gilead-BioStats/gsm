@@ -48,7 +48,7 @@ dfConfig <- MakeDfConfig(
   #   strAbbreviation = "AE",
   #   strMetric = "AE Reporting (Rate)",
   #   strNumerator = "AEs",
-  #   strDenominator = "Days on Treatment",
+  #   strDenominator = "Days on Study",
   #   vThreshold = vThreshold
 )
 }

@@ -7,7 +7,7 @@
 CheckSnapshotInputs(snapshot)
 }
 \arguments{
-\item{snapshot}{\code{list} List returned from running \code{\link[=Make_Snapshot]{Make_Snapshot()}}.}
+\item{snapshot}{\code{list} List (`snapshot$lSnapshot) returned from running \code{\link[=Make_Snapshot]{Make_Snapshot()}}.}
 }
 \value{
 \code{list} Named list including:
@@ -28,7 +28,7 @@ Check Snapshot Inputs
 \examples{
 \dontrun{
 snapshot <- Make_Snapshot()
-check_snapshot <- CheckSnapshotInputs(snapshot)
+check_snapshot <- CheckSnapshotInputs(snapshot$lSnapshot)
 }
 
 }
