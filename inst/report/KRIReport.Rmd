@@ -95,18 +95,46 @@ title: "`r study_id` Assessment Overview"
 
 ## metadata report if longitudinal data is provided
 if (exists('status_study', where = params) && !is.null(params$status_study)) {
+  
+  paramDescription <- gsm::rbm_data_spec %>% 
+    filter(
+      Table == "status_study"
+    ) %>% 
+    rename(
+      Parameter = Column
+    )
+  
   study_status_table <- params$status_study %>% 
-    #filter(
-    #  .data$gsm_analysis_date == max(.data$gsm_analysis_date)
-    #) %>%
     t() %>% 
-    as.data.frame() %>% 
-    rownames_to_column() %>% 
-    setNames(c("Parameter", "Value")) 
+  as.data.frame() %>% 
+  rownames_to_column() %>% 
+  setNames(c("Parameter", "Value")) %>% 
+  mutate(
+    Value = prettyNum(Value, drop0trailing = TRUE)
+  ) %>% 
+  left_join(
+    paramDescription,
+    by = join_by(Parameter)
+  ) %>% 
+  select(
+    Parameter = Description,
+    Value
+  )
   
   print(htmltools::h2("Study Status"))
   print(htmltools::tagList(
-    DT::datatable(study_status_table, rownames = FALSE)
+gt::gt(study_status_table, id = "study_table") %>% 
+  gt::tab_options(
+    table.font.size = 14,
+    table.font.names = c("Roboto", "sans-serif"),
+    data_row.padding = gt::px(5),
+    column_labels.font.weight = "bold"
+  ) %>% 
+  gt::opt_css(css = "
+              #study_table .gt_table {
+                border-top: none
+              }
+              ") # this doesn't work
     ))
  
 #  add analysis date if dfStudy metadata is provided
