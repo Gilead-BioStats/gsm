@@ -105,3 +105,7 @@ button.btn-show-report:hover {
 #tocify-header0 {
   display: none;
 }
+
+tbody.gt_table_body tr:hover:nth-child(odd) {
+  background: #f9f9f9;
+}
