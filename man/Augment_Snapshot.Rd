@@ -33,7 +33,7 @@ Attach stacked, longitudinal snapshot data and time series widgets to output of
 \examples{
 \dontrun{
 # Path to study
-study_path <- here::here("data-raw/AA-AA-000-0000")
+study_path <- system.file("snapshots", "AA-AA-000-0000", package = "gsm")
 
 # Output current snapshot to dated folder within study folder.
 # snapshot_path <- paste(study_path, Sys.Date(), sep = '/'); dir.create(snapshot_path)
