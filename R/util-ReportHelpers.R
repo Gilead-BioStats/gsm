@@ -50,7 +50,7 @@ MakeStudyStatusTable <- function(status_study) {
     ) %>%
     left_join(
       paramDescription,
-      by = join_by(.data$Parameter)
+      by = join_by("Parameter")
     ) %>%
     select(
       "Parameter" = "Description",
