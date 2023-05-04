@@ -4,12 +4,19 @@
 \alias{Augment_Snapshot}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
-Augment_Snapshot(lSnapshot, cPath, bAppendTimeSeriesCharts = TRUE)
+Augment_Snapshot(
+  lSnapshot,
+  cPath,
+  vFolderNames = NULL,
+  bAppendTimeSeriesCharts = TRUE
+)
 }
 \arguments{
 \item{lSnapshot}{\code{list} The output of \code{\link[=Make_Snapshot]{Make_Snapshot()}} where \code{bReturnStudyObject = TRUE}.}
 
 \item{cPath}{\code{character} Path to longitudinal snapshots, returned by \code{\link[=Make_Snapshot]{Make_Snapshot()}}.}
+
+\item{vFolderNames}{\code{vector} Name(s) of folder(s) found within \code{cPath} to use. Any folders not specified will not be used in the augment.}
 
 \item{bAppendTimeSeriesCharts}{\code{logical} Append time series charts to KRIs? Default: \code{TRUE}.}
 }

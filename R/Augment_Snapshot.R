@@ -7,6 +7,7 @@
 #'
 #' @param lSnapshot `list` The output of [gsm::Make_Snapshot()] where `bReturnStudyObject = TRUE`.
 #' @param cPath `character` Path to longitudinal snapshots, returned by [gsm::Make_Snapshot()].
+#' @param vFolderNames `vector` Name(s) of folder(s) found within `cPath` to use. Any folders not specified will not be used in the augment.
 #' @param bAppendTimeSeriesCharts `logical` Append time series charts to KRIs? Default: `TRUE`.
 #'
 #' @examples
@@ -30,10 +31,12 @@
 Augment_Snapshot <- function(
   lSnapshot,
   cPath,
+  vFolderNames = NULL,
   bAppendTimeSeriesCharts = TRUE
 ) {
+
   # TODO: alternatively accept the output of StackSnapshots?
-  stackedSnapshots <- StackSnapshots(cPath, lSnapshot)
+  stackedSnapshots <- StackSnapshots(cPath, lSnapshot, vFolderNames)
 
   if (bAppendTimeSeriesCharts) {
     lSnapshot$lStudyAssessResults <- lSnapshot$lStudyAssessResults %>%

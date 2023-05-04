@@ -4,6 +4,7 @@
 #'
 #' @param cPath `character` Path to longitudinal data folders.
 #' @param lSnapshot `list` Optional. Pass the output of [gsm::Make_Snapshot()] to be appended to historical results.
+#' @param vFolderNames `vector` Name(s) of folder(s) found within `cPath` to use. Any folders not specified will not be used in the augment.
 #'
 #' @return `data.frame` containing longitudinal snapshots of `{gsm}` analyses.
 #'
@@ -17,16 +18,35 @@
 #' @importFrom purrr map_df
 #'
 #' @export
-StackSnapshots <- function(cPath, lSnapshot = NULL) {
+StackSnapshots <- function(
+    cPath,
+    lSnapshot = NULL,
+    vFolderNames = NULL) {
+
   stopifnot(
     "[ cPath ] does not exist." = file.exists(cPath)
   )
 
   snapshots <- list.dirs(cPath, recursive = FALSE)
 
+  # subset snapshot folders if specified ------------------------------------
+
+  if (!is.null(vFolderNames)) {
+
+    folders_not_found <- vFolderNames[!vFolderNames %in% basename(snapshots)]
+
+    if (length(folders_not_found) > 0) {
+      cli::cli_alert_danger("{length(folders_not_found)} folder{?s} not found! Missing: {.strong `{folders_not_found}`}")
+    }
+
+    snapshots <- snapshots[basename(snapshots) %in% vFolderNames]
+  }
+
   stopifnot(
     "[ cPath ] contains no folders." = length(snapshots) > 0
   )
+
+
 
   gsm_tables <- c(
     "meta_param",
