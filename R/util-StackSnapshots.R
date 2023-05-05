@@ -92,10 +92,15 @@ StackSnapshots <- function(
 
   # append recent data ------------------------------------------------------
   if (!is.null(lSnapshot)) {
+
     common_tables <- intersect(
       names(longitudinal_data),
       names(lSnapshot$lSnapshot)
     )
+
+    if (length(common_tables) < length(gsm_tables)) {
+      cli::cli_alert_warning("[ Table{?s} {setdiff(gsm_tables, common_tables)} ] not found in [ {.code lSnapshot} ]")
+    }
 
     for (common_table in common_tables) {
       # coerce column types in longitudinal data to match column types in snapshot data
