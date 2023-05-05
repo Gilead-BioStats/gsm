@@ -231,7 +231,8 @@ bFlowchart = FALSE
     lMapping = lMapping,
     lAssessments = lAssessments,
     bQuiet = bQuiet
-  )
+  ) %>%
+    UpdateLabels(lMeta$meta_workflow)
 
   # grab boolean status of each workflow
   parseStatus <- purrr::imap(lResults, function(x, y) tibble(workflowid = y, status = x$bStatus)) %>%
