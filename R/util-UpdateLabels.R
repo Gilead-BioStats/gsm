@@ -96,5 +96,5 @@ AssignLabelsJS <- function(lPlot, strWorkflowID, dfWorkflow) {
 
 SubsetMetaWorkflow <- function(dfWorkflow, strWorkflowID) {
   dfWorkflow %>%
-    filter(workflowid == strWorkflowID)
+    filter(.data$workflowid == strWorkflowID)
 }
