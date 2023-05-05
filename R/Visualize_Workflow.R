@@ -23,7 +23,6 @@
 #'
 #' @return A flowchart of type `grViz`/`htmlwidget`.
 #'
-#' @importFrom DiagrammeR create_node_df create_graph render_graph
 #' @importFrom utils head
 #' @import purrr
 #'
