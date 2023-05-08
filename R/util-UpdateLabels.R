@@ -20,6 +20,12 @@
 #'
 #' @export
 UpdateLabels <- function(lStudyAssessResults, dfMetaWorkflow) {
+
+  stopifnot(
+    "[ lStudyAssessResults ] must be a list." = is.list(lStudyAssessResults),
+    "[ dfMetaWorkflow ] must be a data.frame" = is.data.frame(dfMetaWorkflow)
+  )
+
   study <- lStudyAssessResults %>%
     purrr::map(~ {
 
