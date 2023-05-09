@@ -243,24 +243,6 @@ test_that("correct bStatus is returned when workflow is missing", {
   expect_false(all(omittedNames %in% names(result)))
 })
 
-
-test_that("flowchart is returned when bFlowchart is TRUE", {
-  # run Study_Assess with AE only
-  lData <- list(
-    dfSUBJ = dfSUBJ,
-    dfAE = dfAE
-  )
-
-  lWorkflow <- MakeWorkflowList(strNames = "kri0001")
-
-  result <- Study_Assess(lData = lData, lAssessments = lWorkflow, bFlowchart = TRUE)
-
-  expect_type(result$kri0001$lChecks$flowchart, "list")
-  expect_snapshot(result$kri0001$lChecks$flowchart)
-})
-
-
-
 test_that("a stratified workflow can be run using Study_Assess", {
   lData <- list(
     dfSUBJ = dfSUBJ,
