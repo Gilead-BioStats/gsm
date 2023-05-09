@@ -223,7 +223,6 @@ The following sections include various examples of supporting functions and stat
 
 -   `Visualize_Scatter`: Creates scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached. This plot is only created when statistical method is **not** defined as `identity`.
 -   `Visualize_Score`: Provides a standard visualization for Score or KRI
--   `Visualize_Workflow`: Provides a flowchart with a high-level overview of the data pipeline for a given assessment
 
 ### What Statistical Models Are Available For Each Assessment?
 

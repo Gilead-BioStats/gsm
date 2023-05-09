@@ -100,11 +100,5 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE, bFlowchart = 
     lWorkflow$bStatus <- FALSE
   }
 
-  if (bFlowchart) {
-    lWorkflow$lChecks$flowchart <- gsm::Visualize_Workflow(list(temp_name = lWorkflow)) %>%
-      purrr::set_names(nm = lWorkflow$name)
-    if (!bQuiet) cli::cli_alert_success("{.fn Visualize_Workflow} created a flowchart.")
-  }
-
   return(lWorkflow)
 }
