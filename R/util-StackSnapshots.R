@@ -62,7 +62,7 @@ StackSnapshots <- function(cPath, lSnapshot = NULL) {
 
             return(data)
           } else {
-            cli::cli_alert_warning("[ {gsm_table} ] not found in [ {cPath}/{snapshot} ].")
+            cli::cli_alert_warning("[ {gsm_table} ] not found in [ {snapshot} ].")
 
             return(NULL)
           }
