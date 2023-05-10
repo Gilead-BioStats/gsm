@@ -1097,11 +1097,3 @@
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
 
-# flowchart is returned when bFlowchart is TRUE
-
-    Code
-      result$kri0001$lChecks$flowchart
-    Output
-      $kri0001
-      
-
