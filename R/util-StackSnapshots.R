@@ -15,6 +15,7 @@
 #' }
 #'
 #' @importFrom purrr map_df
+#' @importFrom stats na.omit
 #'
 #' @export
 StackSnapshots <- function(cPath, lSnapshot = NULL) {
@@ -107,6 +108,7 @@ StackSnapshots <- function(cPath, lSnapshot = NULL) {
     }
   }
 
+
   # make parameters -------------------------------------------------------------
   longitudinal_data$parameters <- longitudinal_data$meta_param %>%
     left_join(
@@ -114,6 +116,32 @@ StackSnapshots <- function(cPath, lSnapshot = NULL) {
       by = join_by("workflowid", "param", "index", "gsm_analysis_date", "snapshot_date")
     ) %>%
     select(-c("default", "configurable"))
+
+  # check if gsm_versions are mismatched
+  if (any(c("gsm_version.x", "gsm_version.y") %in% names(longitudinal_data$parameters))) {
+
+    # parse the version to a numeric representation
+    # -- e.g., "v1.6.0" becomes 160, "v1.7.1" becomes 171
+    # -- in the `parameters` data.frame, default to the most recent {gsm} version
+    gsm_most_recent <- ifelse(
+      get_numeric_version(longitudinal_data$parameters$gsm_version.x) >= get_numeric_version(longitudinal_data$parameters$gsm_version.y),
+      unique(stats::na.omit(
+        longitudinal_data$parameters$gsm_version.x
+      )),
+      unique(stats::na.omit(
+        longitudinal_data$parameters$gsm_version.y
+      ))
+    )
+
+    longitudinal_data$parameters <- longitudinal_data$parameters %>%
+      mutate(
+        gsm_version = gsm_most_recent
+      ) %>%
+      select(
+        -c("gsm_version.x", "gsm_version.y")
+      )
+
+  }
 
   # only keep latest workflow metadata
   if ("meta_workflow" %in% names(longitudinal_data)) {
@@ -127,4 +155,9 @@ StackSnapshots <- function(cPath, lSnapshot = NULL) {
 
 
   return(longitudinal_data)
+}
+
+
+get_numeric_version <- function(strVersion) {
+  unique(as.numeric(paste(as.numeric(strsplit(stats::na.omit(strVersion), "\\.")[[1]]), collapse = '')))
 }
