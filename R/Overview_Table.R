@@ -148,11 +148,10 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
         table.$('td').each(function(){
           var $td = $(this);
           var title = $td.html();
-    // Check if the <td> element has a <title> attribute
+          // Check if the <td> element has a <title> attribute
           if ($td.attr('title')) {
             this.setAttribute('title', title);
           }
-
         })
       }",
       .open = "{{"
