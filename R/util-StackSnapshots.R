@@ -27,7 +27,9 @@ StackSnapshots <- function(
     "[ cPath ] does not exist." = file.exists(cPath)
   )
 
-  snapshots <- list.dirs(cPath, recursive = FALSE)
+  snapshots <- list.dirs(cPath, recursive = FALSE) %>%
+      # require YYYY-MM-DD naming convention of snapshot directories
+      .[grepl('/\\d{4}-\\d{2}-\\d{2}$', .)]
 
   # subset snapshot folders if specified ------------------------------------
 
@@ -43,7 +45,7 @@ StackSnapshots <- function(
   }
 
   stopifnot(
-    "[ cPath ] contains no folders." = length(snapshots) > 0
+    "[ cPath ] contains no dated folders formatted YYYY-MM-DD." = length(snapshots) > 0
   )
 
 
@@ -80,7 +82,7 @@ StackSnapshots <- function(
 
             return(data)
           } else {
-            cli::cli_alert_warning("[ {gsm_table} ] not found in [ {cPath}/{snapshot} ].")
+            cli::cli_alert_warning("[ {gsm_table} ] not found in [ {snapshot} ].")
 
             return(NULL)
           }
