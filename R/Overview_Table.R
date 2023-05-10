@@ -142,18 +142,22 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
 
     # enable tooltips for cells
     tooltipCallback <- glue::glue(
-      "
-      function(settings) {
-        var table=settings.oInstance.api();
-        table.$('td').each(function(){
-          var $td = $(this);
-          var title = $td.html();
-          // Check if the <td> element has a <title> attribute
-          if ($td.attr('title')) {
-            this.setAttribute('title', title);
-          }
-        })
-      }",
+    "
+    function updateTableTitles(settings) {
+      var table = settings.oInstance.api();
+      var tdElements = table.getElementsByTagName('td');
+
+      for (var i = 0; i < tdElements.length; i++) {
+        var td = tdElements[i];
+        var title = td.innerHTML;
+
+        // Check if the <td> element has a title attribute
+        if (td.hasAttribute('title')) {
+          td.setAttribute('title', title);
+        }
+      }
+    }
+    ",
       .open = "{{"
     )
 
