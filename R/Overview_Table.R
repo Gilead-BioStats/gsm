@@ -27,9 +27,20 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     purrr::map(function(kri) {
       name <- kri$name
 
+      kri_labels <- assign_tooltip_labels(name)
+
       kri$lResults$lData$dfSummary %>%
         mutate(across(where(is.numeric), function(x) round(x, digits = 3))) %>%
         imap_dfr(function(x, y) {
+
+          if (y == "Numerator") {
+            y <- kri_labels$numerator
+          }
+
+          if (y == "Denominator") {
+            y <- kri_labels$denominator
+          }
+
           paste0(y, ": ", x)
         }) %>%
         rowwise() %>%
@@ -144,14 +155,13 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     tooltipCallback <- glue::glue(
     "
     function updateTableTitles(settings) {
-      var table = settings.oInstance.api();
+      var table = document.querySelector('.tbl-rbqm-study-overview')
       var tdElements = table.getElementsByTagName('td');
 
       for (var i = 0; i < tdElements.length; i++) {
         var td = tdElements[i];
         var title = td.innerHTML;
 
-        // Check if the <td> element has a title attribute
         if (td.hasAttribute('title')) {
           td.setAttribute('title', title);
         }
@@ -168,17 +178,30 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
                     }))) %>%
       arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`)) %>%
       DT::datatable(
-        options = list(
-          initComplete = JS(tooltipCallback),
-          columnDefs = list(list(
-            className = "dt-center",
-            targets = 0:(n_headers - 1)
-          )),
-          headerCallback = JS(headerCallback)
-        ),
-        rownames = FALSE
-      )
+        class = "tbl-rbqm-study-overview",
+          options = list(
+            initComplete = JS(tooltipCallback),
+            columnDefs = list(list(
+              className = "dt-center",
+              targets = 0:(n_headers - 1)
+            )),
+            headerCallback = JS(headerCallback)
+          ),
+          rownames = FALSE
+        )
   }
 
   return(overview_table)
+}
+
+assign_tooltip_labels <- function(name) {
+  cur_kri <- gsm::meta_workflow %>%
+    filter(workflowid == name)
+
+  return(
+    list(
+      numerator = cur_kri$numerator,
+      denominator = cur_kri$denominator
+    )
+  )
 }

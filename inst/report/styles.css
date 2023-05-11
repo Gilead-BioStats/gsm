@@ -105,3 +105,9 @@ button.btn-show-report:hover {
 #tocify-header0 {
   display: none;
 }
+
+
+/* Site Summary Table -- change cursor to cue to user that tooltip is available */
+td.dt-center > svg {
+  cursor: pointer;
+}
