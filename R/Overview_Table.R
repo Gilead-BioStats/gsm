@@ -27,18 +27,23 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     purrr::map(function(kri) {
       name <- kri$name
 
+      # driven by gsm::meta_workflow
+      # if custom workflowids are used, custom labels will not be added
+      # TODO: can possibly refine to be driven by custom meta_workflow, but will need some refactoring
       kri_labels <- assign_tooltip_labels(name)
 
       kri$lResults$lData$dfSummary %>%
         mutate(across(where(is.numeric), function(x) round(x, digits = 3))) %>%
         imap_dfr(function(x, y) {
 
-          if (y == "Numerator") {
-            y <- kri_labels$numerator
-          }
+          if (!is.null(kri_labels)) {
+            if (y == "Numerator") {
+              y <- kri_labels$numerator
+            }
 
-          if (y == "Denominator") {
-            y <- kri_labels$denominator
+            if (y == "Denominator") {
+              y <- kri_labels$denominator
+            }
           }
 
           paste0(y, ": ", x)
@@ -198,10 +203,15 @@ assign_tooltip_labels <- function(name) {
   cur_kri <- gsm::meta_workflow %>%
     filter(workflowid == name)
 
-  return(
-    list(
-      numerator = cur_kri$numerator,
-      denominator = cur_kri$denominator
+  if (nrow(cur_kri) > 0) {
+    return(
+      list(
+        numerator = cur_kri$numerator,
+        denominator = cur_kri$denominator
+      )
     )
-  )
+  } else {
+    return(NULL)
+  }
+
 }
