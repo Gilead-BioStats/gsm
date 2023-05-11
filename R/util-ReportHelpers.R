@@ -82,7 +82,13 @@ MakeStudyStatusTable <- function(status_study) {
     gt::gt(id = "study_table_hide") %>%
     add_table_theme()
 
-  show_details_button <- htmltools::tags$button(HTML(paste0(fontawesome::fa('circle-info')), 'More Details'), class = 'btn-show-details')
+  toggle_switch <- glue::glue('<label class="toggle">
+  <input class="toggle-checkbox btn-show-details" type="checkbox">
+  <div class="toggle-switch"></div>
+  <span class="toggle-label">Show Details</span>
+</label>')
+  show_details_button <- HTML(toggle_switch)
+
 
   print(htmltools::h2("Study Status"))
   print(htmltools::tagList(show_details_button))
