@@ -6,6 +6,10 @@ MakeStudyStatusTable <- function(status_study) {
 
   parameterArrangeOrder <- c(
     "Unique Study ID",
+    "Protocol title",
+    "Protocol nickname",
+    "Sites (Enrolled / Planned)",
+    "Participants (Enrolled / Planned)",
     "Date that snapshot was created",
     "Risk-based monitoring flag",
     "Study Status",
@@ -13,16 +17,10 @@ MakeStudyStatusTable <- function(status_study) {
     "Phase",
     "Therapeutic Area",
     "Indication",
-    "Protocol title",
-    "Protocol nickname",
     "Protocol type",
     "Protocol row ID",
     "Protocol product number",
-    "# of planned sites",
-    "# of enrolled sites",
     "# of enrolled sites from GILDA",
-    "# of planned participants",
-    "# of enrolled participants",
     "# of enrolled participants from GILDA",
     "First-patient first visit date",
     "Estimated first-patient first visit date from GILDA",
@@ -40,6 +38,11 @@ MakeStudyStatusTable <- function(status_study) {
       "Parameter" = "Column"
     )
 
+
+
+  sites <- paste0(status_study$enrolled_sites, " / ", status_study$planned_sites)
+  participants <- paste0(status_study$enrolled_participants, " / ", status_study$planned_participants)
+
   study_status_table <- status_study %>%
     t() %>%
     as.data.frame() %>%
@@ -55,24 +58,36 @@ MakeStudyStatusTable <- function(status_study) {
     select(
       "Parameter" = "Description",
       "Value"
+    ) %>%
+    add_row(
+      Parameter = "Sites (Enrolled / Planned)",
+      Value = sites
+    ) %>%
+    add_row(
+      Parameter = "Participants (Enrolled / Planned)",
+      Value = participants
+    ) %>%
+    filter(
+      Parameter %in% parameterArrangeOrder
     )
 
-  print(htmltools::h2("Study Status"))
-  print(htmltools::tagList(
-    study_status_table %>%
-      gt::gt(id = "study_table") %>%
-      gt::tab_options(
-        table.width = "80%",
-        table.font.size = 14,
-        table.font.names = c("Roboto", "sans-serif"),
-        table.border.top.style = "hidden",
-        table.border.bottom.style = "hidden",
-        data_row.padding = gt::px(5),
-        column_labels.font.weight = "bold"
-      ) %>%
-      gt::opt_row_striping()
+  study_status_table <- arrange(study_status_table, match(study_status_table$Parameter, parameterArrangeOrder))
 
-  ))
+  show_table <- study_status_table %>%
+    slice(1:5) %>%
+    gt::gt(id = "study_table") %>%
+    add_table_theme()
+
+  hide_table <- study_status_table %>%
+    gt::gt(id = "study_table_hide") %>%
+    add_table_theme()
+
+  show_details_button <- htmltools::tags$button(HTML(paste0(fontawesome::fa('circle-info')), 'More Details'), class = 'btn-show-details')
+
+  print(htmltools::h2("Study Status"))
+  print(htmltools::tagList(show_details_button))
+  print(htmltools::tagList(show_table))
+  print(htmltools::tagList(hide_table))
 }
 
 
@@ -102,4 +117,23 @@ MakeSummaryTable <- function(assessment) {
     }
 
   })
+}
+
+
+add_table_theme <- function(x) {
+  x %>%
+    gt::tab_options(
+      table.width = "80%",
+      table.font.size = 14,
+      table.font.names = c("Roboto", "sans-serif"),
+      table.border.top.style = "hidden",
+      table.border.bottom.style = "hidden",
+      data_row.padding = gt::px(5),
+      column_labels.font.weight = "bold"
+    ) %>%
+    gt::cols_width(
+      Parameter ~ gt::pct(60),
+      Value ~ gt::pct(40)
+    ) %>%
+    gt::opt_row_striping()
 }

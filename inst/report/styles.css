@@ -109,3 +109,8 @@ button.btn-show-report:hover {
 tbody.gt_table_body tr:hover:nth-child(odd) {
   background: #f9f9f9;
 }
+
+
+div#study_table_hide {
+    display: none;
+}
