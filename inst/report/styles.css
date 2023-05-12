@@ -106,6 +106,12 @@ button.btn-show-report:hover {
   display: none;
 }
 
+
+/* Site Summary Table -- change cursor to cue to user that tooltip is available */
+td.dt-center > svg {
+  cursor: pointer;
+}
+
 tbody.gt_table_body tr:hover:nth-child(odd) {
   background: #f9f9f9;
 }
@@ -125,7 +131,6 @@ div#study_table_hide {
   box-sizing: border-box;
 }
 
-
 .toggle {
   cursor: pointer;
   display: inline-block;
@@ -141,9 +146,11 @@ div#study_table_hide {
   vertical-align: middle;
   transition: background 0.25s;
 }
+
 .toggle-switch:before, .toggle-switch:after {
   content: "";
 }
+
 .toggle-switch:before {
   display: block;
   background: linear-gradient(to bottom, #fff 0%, #eee 100%);
@@ -156,13 +163,16 @@ div#study_table_hide {
   left: 4px;
   transition: left 0.25s;
 }
+
 .toggle:hover .toggle-switch:before {
   background: linear-gradient(to bottom, #fff 0%, #fff 100%);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
 }
+
 .toggle-checkbox:checked + .toggle-switch {
   background: var(--blue-button-color);
 }
+
 .toggle-checkbox:checked + .toggle-switch:before {
   left: 30px;
 }
