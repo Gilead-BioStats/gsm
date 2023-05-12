@@ -52,7 +52,6 @@ Study_Report <- function(
   }
 
   projectTemplate <- system.file("report", "KRIReport.Rmd", package = "gsm")
-
   rmarkdown::render(
     projectTemplate,
     output_file = strOutpath,
