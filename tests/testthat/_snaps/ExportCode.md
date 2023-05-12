@@ -291,10 +291,22 @@
         bQuiet = TRUE
       )
       
+      #--- cou0008:FilterDomain ---
+      
+      dfQUERY <- FilterDomain(
+        df = dfQUERY,
+        strDomain = "dfQUERY",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfQUERY"]][["strStatusCol"]],
+        strValParam = lMapping[["dfQUERY"]][["strStatusVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- cou0008:QueryRate_Map_Raw ---
       
       dfInput <- QueryRate_Map_Raw(
-        dfs = list(dfSUBJ = dfSUBJ, dfQUERY = lData[["dfQUERY"]], dfDATACHG = lData[["dfDATACHG"]]),
+        dfs = list(dfSUBJ = lData[["dfSUBJ"]], dfQUERY = dfQUERY, dfDATACHG = lData[["dfDATACHG"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -323,10 +335,22 @@
         bQuiet = TRUE
       )
       
+      #--- cou0009:FilterDomain ---
+      
+      dfQUERY <- FilterDomain(
+        df = dfQUERY,
+        strDomain = "dfQUERY",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfQUERY"]][["strStatusCol"]],
+        strValParam = lMapping[["dfQUERY"]][["strStatusVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- cou0009:QueryAge_Map_Raw ---
       
       dfInput <- QueryAge_Map_Raw(
-        dfs = list(dfSUBJ = dfSUBJ, dfQUERY = lData[["dfQUERY"]]),
+        dfs = list(dfSUBJ = lData[["dfSUBJ"]], dfQUERY = dfQUERY),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -711,10 +735,22 @@
         bQuiet = TRUE
       )
       
+      #--- kri0008:FilterDomain ---
+      
+      dfQUERY <- FilterDomain(
+        df = dfQUERY,
+        strDomain = "dfQUERY",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfQUERY"]][["strStatusCol"]],
+        strValParam = lMapping[["dfQUERY"]][["strStatusVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- kri0008:QueryRate_Map_Raw ---
       
       dfInput <- QueryRate_Map_Raw(
-        dfs = list(dfSUBJ = dfSUBJ, dfQUERY = lData[["dfQUERY"]], dfDATACHG = lData[["dfDATACHG"]]),
+        dfs = list(dfSUBJ = lData[["dfSUBJ"]], dfQUERY = dfQUERY, dfDATACHG = lData[["dfDATACHG"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -743,10 +779,22 @@
         bQuiet = TRUE
       )
       
+      #--- kri0009:FilterDomain ---
+      
+      dfQUERY <- FilterDomain(
+        df = dfQUERY,
+        strDomain = "dfQUERY",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfQUERY"]][["strStatusCol"]],
+        strValParam = lMapping[["dfQUERY"]][["strStatusVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- kri0009:QueryAge_Map_Raw ---
       
       dfInput <- QueryAge_Map_Raw(
-        dfs = list(dfSUBJ = dfSUBJ, dfQUERY = lData[["dfQUERY"]]),
+        dfs = list(dfSUBJ = lData[["dfSUBJ"]], dfQUERY = dfQUERY),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
