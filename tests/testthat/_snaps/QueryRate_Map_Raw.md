@@ -97,7 +97,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strIDCol", "strVisitCol", "strFormCol", "strFieldCol", "strLogNumberCol", "strDataPointIDCol", "strStatusCol", "strCreationDateCol", "strAnswerDateCol", "strResolutionDateCol", "strMarkingGroupCol", "strQueryAgeCol"]
+              "value": ["strStudyCol", "strIDCol", "strVisitCol", "strFormCol", "strFieldCol", "strLogNumberCol", "strDataPointIDCol", "strStatusCol", "strStatusVal", "strCreationDateCol", "strAnswerDateCol", "strResolutionDateCol", "strMarkingGroupCol", "strQueryAgeCol"]
             }
           },
           "value": [
@@ -140,6 +140,11 @@
               "type": "character",
               "attributes": {},
               "value": ["querystatus"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Open", "Answered", "Closed"]
             },
             {
               "type": "character",

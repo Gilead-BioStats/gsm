@@ -548,6 +548,9 @@
       $AE_Map_Raw$mapping$dfQUERY$strStatusCol
       [1] "querystatus"
       
+      $AE_Map_Raw$mapping$dfQUERY$strStatusVal
+      [1] "Open"     "Answered" "Closed"  
+      
       $AE_Map_Raw$mapping$dfQUERY$strCreationDateCol
       [1] "created"
       

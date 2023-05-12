@@ -47,6 +47,7 @@ Suggests:
     clindata,
     covr,
     devtools,
+    DiagrammeR,
     kableExtra,
     pander,
     safetyData,
