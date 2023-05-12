@@ -40,7 +40,7 @@ snapshot <- Make_Snapshot()
 
 longitudinal <- Augment_Snapshot(
   snapshot,
-  here::here("data-raw", "AA-AA-000-0000")
+  system.file("snapshots", "AA-AA-000-0000", package = "gsm")
 )
 
 Study_Report(

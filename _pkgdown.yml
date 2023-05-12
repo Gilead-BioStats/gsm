@@ -15,6 +15,7 @@ reference:
       - starts_with("Widget_")
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
+      - UpdateLabels
 
    - title: Map
      desc: Generate input data from multiple clinical data standards (generally Raw+ or SDTM-)
