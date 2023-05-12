@@ -47,8 +47,6 @@ lAssessments <- MakeWorkflowList()
 
 snapshot <- Make_Snapshot(lData = lData)
 
-
-
 ################################################################################################################
 
 test_that("output is generated as expected", {
@@ -59,6 +57,7 @@ test_that("output is generated as expected", {
   }
 
   expect_true(is.list(snapshot))
+  expect_true('Date' %in% class(snapshot$lSnapshotDate))
   expect_true(is.list(snapshot$lSnapshot))
   expect_true(is.list(snapshot$lStudyAssessResults))
   expect_snapshot(names(snapshot))

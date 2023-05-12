@@ -112,6 +112,9 @@
       $dfQUERY$strStatusCol
       [1] "querystatus"
       
+      $dfQUERY$strStatusVal
+      [1] "Open"     "Answered" "Closed"  
+      
       $dfQUERY$strCreationDateCol
       [1] "created"
       

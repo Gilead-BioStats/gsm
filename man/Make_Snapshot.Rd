@@ -16,11 +16,7 @@ Make_Snapshot(
     filter(.data$phase == "Blinded Study Drug Completion"), dfDATACHG =
     clindata::edc_data_points, dfDATAENT = clindata::edc_data_pages, dfQUERY =
     clindata::edc_queries, dfENROLL = clindata::rawplus_enroll),
-  lMapping = c(yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
-    "gsm")), yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package =
-    "gsm")), yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
-    "gsm")), yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package =
-    "gsm"))),
+  lMapping = Read_Mapping(),
   lAssessments = NULL,
   strAnalysisDate = NULL,
   bUpdateParams = FALSE,

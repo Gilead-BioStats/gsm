@@ -4,6 +4,7 @@
 #'
 #' @param cPath `character` Path to longitudinal data folders.
 #' @param lSnapshot `list` Optional. Pass the output of [gsm::Make_Snapshot()] to be appended to historical results.
+#' @param vFolderNames `vector` Name(s) of folder(s) found within `cPath` to use. Any folders not specified will not be used in the augment.
 #'
 #' @return `data.frame` containing longitudinal snapshots of `{gsm}` analyses.
 #'
@@ -18,18 +19,36 @@
 #' @importFrom stats na.omit
 #'
 #' @export
-StackSnapshots <- function(cPath, lSnapshot = NULL) {
+StackSnapshots <- function(
+    cPath,
+    lSnapshot = NULL,
+    vFolderNames = NULL
+) {
   stopifnot(
     "[ cPath ] does not exist." = file.exists(cPath)
   )
 
+  # Capture list of YYYY-MM-DD-formatted snapshot directoreis.
   snapshots <- list.dirs(cPath, recursive = FALSE) %>%
-      # require YYYY-MM-DD naming convention of snapshot directories
       .[grepl('/\\d{4}-\\d{2}-\\d{2}$', .)]
+
+  # subset snapshot folders if specified ------------------------------------
+  if (!is.null(vFolderNames)) {
+
+    folders_not_found <- vFolderNames[!vFolderNames %in% basename(snapshots)]
+
+    if (length(folders_not_found) > 0) {
+      cli::cli_alert_danger("{length(folders_not_found)} folder{?s} not found! Missing: {.strong `{folders_not_found}`}")
+    }
+
+    snapshots <- snapshots[basename(snapshots) %in% vFolderNames]
+  }
 
   stopifnot(
     "[ cPath ] contains no dated folders formatted YYYY-MM-DD." = length(snapshots) > 0
   )
+
+
 
   gsm_tables <- c(
     "meta_param",
@@ -75,10 +94,15 @@ StackSnapshots <- function(cPath, lSnapshot = NULL) {
 
   # append recent data ------------------------------------------------------
   if (!is.null(lSnapshot)) {
+
     common_tables <- intersect(
       names(longitudinal_data),
       names(lSnapshot$lSnapshot)
     )
+
+    if (length(common_tables) < length(gsm_tables)) {
+      cli::cli_alert_warning("[ Table{?s} {setdiff(gsm_tables, common_tables)} ] not found in [ {.code lSnapshot} ]")
+    }
 
     for (common_table in common_tables) {
       # coerce column types in longitudinal data to match column types in snapshot data

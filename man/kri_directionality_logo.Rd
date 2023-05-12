@@ -4,10 +4,12 @@
 \alias{kri_directionality_logo}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
-kri_directionality_logo(flag_value)
+kri_directionality_logo(flag_value, title = NULL)
 }
 \arguments{
 \item{flag_value}{\code{numeric} Value between -2 and 2.}
+
+\item{title}{\code{character} Data that will be passed to the \if{html}{\out{<title>}} tag.}
 }
 \description{
 Reporting utility function to create fontawesome directionality logos within \code{DT::datatable()}
