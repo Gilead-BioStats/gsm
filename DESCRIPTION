@@ -21,7 +21,6 @@ Encoding: UTF-8
 Imports:
     broom,
     cli,
-    DiagrammeR,
     dplyr,
     DT,
     fontawesome (>= 0.2.2),
