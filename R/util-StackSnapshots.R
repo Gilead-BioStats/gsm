@@ -21,18 +21,17 @@
 StackSnapshots <- function(
     cPath,
     lSnapshot = NULL,
-    vFolderNames = NULL) {
-
+    vFolderNames = NULL
+) {
   stopifnot(
     "[ cPath ] does not exist." = file.exists(cPath)
   )
 
+  # Capture list of YYYY-MM-DD-formatted snapshot directoreis.
   snapshots <- list.dirs(cPath, recursive = FALSE) %>%
-      # require YYYY-MM-DD naming convention of snapshot directories
       .[grepl('/\\d{4}-\\d{2}-\\d{2}$', .)]
 
   # subset snapshot folders if specified ------------------------------------
-
   if (!is.null(vFolderNames)) {
 
     folders_not_found <- vFolderNames[!vFolderNames %in% basename(snapshots)]
