@@ -6,6 +6,13 @@ steps:
       strDomain: dfSUBJ
       strColParam: strEnrollCol
       strValParam: strEnrollVal
+  - name: FilterDomain
+    inputs: dfQUERY
+    output: dfQUERY
+    params:
+      strDomain: dfQUERY
+      strColParam: strStatusCol
+      strValParam: strStatusVal
   - name: QueryRate_Map_Raw
     inputs:
       - dfSUBJ

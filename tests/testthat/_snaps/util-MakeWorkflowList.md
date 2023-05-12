@@ -630,36 +630,58 @@
       
       $cou0008[[2]]
       $cou0008[[2]]$name
-      [1] "QueryRate_Map_Raw"
+      [1] "FilterDomain"
       
       $cou0008[[2]]$inputs
-      [1] "dfSUBJ"    "dfQUERY"   "dfDATACHG"
+      [1] "dfQUERY"
       
       $cou0008[[2]]$output
-      [1] "dfInput"
+      [1] "dfQUERY"
+      
+      $cou0008[[2]]$params
+      $cou0008[[2]]$params$strDomain
+      [1] "dfQUERY"
+      
+      $cou0008[[2]]$params$strColParam
+      [1] "strStatusCol"
+      
+      $cou0008[[2]]$params$strValParam
+      [1] "strStatusVal"
+      
       
       
       $cou0008[[3]]
       $cou0008[[3]]$name
-      [1] "QueryRate_Assess"
+      [1] "QueryRate_Map_Raw"
       
       $cou0008[[3]]$inputs
-      [1] "dfInput"
+      [1] "dfSUBJ"    "dfQUERY"   "dfDATACHG"
       
       $cou0008[[3]]$output
+      [1] "dfInput"
+      
+      
+      $cou0008[[4]]
+      $cou0008[[4]]$name
+      [1] "QueryRate_Assess"
+      
+      $cou0008[[4]]$inputs
+      [1] "dfInput"
+      
+      $cou0008[[4]]$output
       [1] "lResults"
       
-      $cou0008[[3]]$params
-      $cou0008[[3]]$params$strGroup
+      $cou0008[[4]]$params
+      $cou0008[[4]]$params$strGroup
       [1] "Country"
       
-      $cou0008[[3]]$params$vThreshold
+      $cou0008[[4]]$params$vThreshold
       NULL
       
-      $cou0008[[3]]$params$strMethod
+      $cou0008[[4]]$params$strMethod
       [1] "NormalApprox"
       
-      $cou0008[[3]]$params$nMinDenominator
+      $cou0008[[4]]$params$nMinDenominator
       [1] 30
       
       
@@ -690,41 +712,63 @@
       
       $cou0009[[2]]
       $cou0009[[2]]$name
-      [1] "QueryAge_Map_Raw"
+      [1] "FilterDomain"
       
       $cou0009[[2]]$inputs
-      [1] "dfSUBJ"  "dfQUERY"
+      [1] "dfQUERY"
       
       $cou0009[[2]]$output
-      [1] "dfInput"
+      [1] "dfQUERY"
       
       $cou0009[[2]]$params
-      $cou0009[[2]]$params$nMaxQueryAge
-      [1] 30
+      $cou0009[[2]]$params$strDomain
+      [1] "dfQUERY"
+      
+      $cou0009[[2]]$params$strColParam
+      [1] "strStatusCol"
+      
+      $cou0009[[2]]$params$strValParam
+      [1] "strStatusVal"
       
       
       
       $cou0009[[3]]
       $cou0009[[3]]$name
-      [1] "QueryAge_Assess"
+      [1] "QueryAge_Map_Raw"
       
       $cou0009[[3]]$inputs
-      [1] "dfInput"
+      [1] "dfSUBJ"  "dfQUERY"
       
       $cou0009[[3]]$output
-      [1] "lResults"
+      [1] "dfInput"
       
       $cou0009[[3]]$params
-      $cou0009[[3]]$params$strGroup
+      $cou0009[[3]]$params$nMaxQueryAge
+      [1] 30
+      
+      
+      
+      $cou0009[[4]]
+      $cou0009[[4]]$name
+      [1] "QueryAge_Assess"
+      
+      $cou0009[[4]]$inputs
+      [1] "dfInput"
+      
+      $cou0009[[4]]$output
+      [1] "lResults"
+      
+      $cou0009[[4]]$params
+      $cou0009[[4]]$params$strGroup
       [1] "Country"
       
-      $cou0009[[3]]$params$vThreshold
+      $cou0009[[4]]$params$vThreshold
       NULL
       
-      $cou0009[[3]]$params$strMethod
+      $cou0009[[4]]$params$strMethod
       [1] "NormalApprox"
       
-      $cou0009[[3]]$params$nMinDenominator
+      $cou0009[[4]]$params$nMinDenominator
       [1] 30
       
       
@@ -1436,36 +1480,58 @@
       
       $kri0008[[2]]
       $kri0008[[2]]$name
-      [1] "QueryRate_Map_Raw"
+      [1] "FilterDomain"
       
       $kri0008[[2]]$inputs
-      [1] "dfSUBJ"    "dfQUERY"   "dfDATACHG"
+      [1] "dfQUERY"
       
       $kri0008[[2]]$output
-      [1] "dfInput"
+      [1] "dfQUERY"
+      
+      $kri0008[[2]]$params
+      $kri0008[[2]]$params$strDomain
+      [1] "dfQUERY"
+      
+      $kri0008[[2]]$params$strColParam
+      [1] "strStatusCol"
+      
+      $kri0008[[2]]$params$strValParam
+      [1] "strStatusVal"
+      
       
       
       $kri0008[[3]]
       $kri0008[[3]]$name
-      [1] "QueryRate_Assess"
+      [1] "QueryRate_Map_Raw"
       
       $kri0008[[3]]$inputs
-      [1] "dfInput"
+      [1] "dfSUBJ"    "dfQUERY"   "dfDATACHG"
       
       $kri0008[[3]]$output
+      [1] "dfInput"
+      
+      
+      $kri0008[[4]]
+      $kri0008[[4]]$name
+      [1] "QueryRate_Assess"
+      
+      $kri0008[[4]]$inputs
+      [1] "dfInput"
+      
+      $kri0008[[4]]$output
       [1] "lResults"
       
-      $kri0008[[3]]$params
-      $kri0008[[3]]$params$strGroup
+      $kri0008[[4]]$params
+      $kri0008[[4]]$params$strGroup
       [1] "Site"
       
-      $kri0008[[3]]$params$vThreshold
+      $kri0008[[4]]$params$vThreshold
       NULL
       
-      $kri0008[[3]]$params$strMethod
+      $kri0008[[4]]$params$strMethod
       [1] "NormalApprox"
       
-      $kri0008[[3]]$params$nMinDenominator
+      $kri0008[[4]]$params$nMinDenominator
       [1] 30
       
       
@@ -1496,41 +1562,63 @@
       
       $kri0009[[2]]
       $kri0009[[2]]$name
-      [1] "QueryAge_Map_Raw"
+      [1] "FilterDomain"
       
       $kri0009[[2]]$inputs
-      [1] "dfSUBJ"  "dfQUERY"
+      [1] "dfQUERY"
       
       $kri0009[[2]]$output
-      [1] "dfInput"
+      [1] "dfQUERY"
       
       $kri0009[[2]]$params
-      $kri0009[[2]]$params$nMaxQueryAge
-      [1] 30
+      $kri0009[[2]]$params$strDomain
+      [1] "dfQUERY"
+      
+      $kri0009[[2]]$params$strColParam
+      [1] "strStatusCol"
+      
+      $kri0009[[2]]$params$strValParam
+      [1] "strStatusVal"
       
       
       
       $kri0009[[3]]
       $kri0009[[3]]$name
-      [1] "QueryAge_Assess"
+      [1] "QueryAge_Map_Raw"
       
       $kri0009[[3]]$inputs
-      [1] "dfInput"
+      [1] "dfSUBJ"  "dfQUERY"
       
       $kri0009[[3]]$output
-      [1] "lResults"
+      [1] "dfInput"
       
       $kri0009[[3]]$params
-      $kri0009[[3]]$params$strGroup
+      $kri0009[[3]]$params$nMaxQueryAge
+      [1] 30
+      
+      
+      
+      $kri0009[[4]]
+      $kri0009[[4]]$name
+      [1] "QueryAge_Assess"
+      
+      $kri0009[[4]]$inputs
+      [1] "dfInput"
+      
+      $kri0009[[4]]$output
+      [1] "lResults"
+      
+      $kri0009[[4]]$params
+      $kri0009[[4]]$params$strGroup
       [1] "Site"
       
-      $kri0009[[3]]$params$vThreshold
+      $kri0009[[4]]$params$vThreshold
       NULL
       
-      $kri0009[[3]]$params$strMethod
+      $kri0009[[4]]$params$strMethod
       [1] "NormalApprox"
       
-      $kri0009[[3]]$params$nMinDenominator
+      $kri0009[[4]]$params$nMinDenominator
       [1] 30
       
       
