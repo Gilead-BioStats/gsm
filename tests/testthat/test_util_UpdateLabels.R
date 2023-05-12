@@ -87,6 +87,35 @@ result <- Study_Assess(
   lAssessments = lAssessments
 )
 
+test_that("labels were updated correctly", {
+
+  update <- UpdateLabels(result, gsm::meta_workflow)
+
+  # test a single workflow labels
+  kri <- update$kri0001
+
+  scatter <- kri$lResults$lCharts$scatterJS
+  barscore <- kri$lResults$lCharts$scatterJS
+  barmetric <- kri$lResults$lCharts$scatterJS
+
+
+  # expected values
+  abb <- gsm::meta_workflow %>% filter(workflowid == "kri0001") %>% pull(abbreviation)
+  num <- gsm::meta_workflow %>% filter(workflowid == "kri0001") %>% pull(numerator)
+  denom <- gsm::meta_workflow %>% filter(workflowid == "kri0001") %>% pull(denominator)
+
+  expect_equal(scatter$x$workflow$abbreviation, abb)
+  expect_equal(barscore$x$workflow$abbreviation, abb)
+  expect_equal(barmetric$x$workflow$abbreviation, abb)
+
+  expect_equal(scatter$x$workflow$numerator, num)
+  expect_equal(barscore$x$workflow$numerator, num)
+  expect_equal(barmetric$x$workflow$numerator, num)
+
+  expect_equal(scatter$x$workflow$denominator, denom)
+  expect_equal(barscore$x$workflow$denominator, denom)
+  expect_equal(barmetric$x$workflow$denominator, denom)
+  })
 
 test_that("UpdateLabels runs without error", {
 
