@@ -182,6 +182,3 @@ StackSnapshots <- function(
 }
 
 
-get_numeric_version <- function(strVersion) {
-  unique(as.numeric(paste(as.numeric(strsplit(stats::na.omit(strVersion), "\\.")[[1]]), collapse = '')))
-}
