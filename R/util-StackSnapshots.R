@@ -148,7 +148,7 @@ StackSnapshots <- function(
     # -- e.g., "v1.6.0" becomes 160, "v1.7.1" becomes 171
     # -- in the `parameters` data.frame, default to the most recent {gsm} version
     gsm_most_recent <- ifelse(
-      get_numeric_version(longitudinal_data$parameters$gsm_version.x) >= get_numeric_version(longitudinal_data$parameters$gsm_version.y),
+      utils::compareVersion(longitudinal_data$parameters$gsm_version.x, longitudinal_data$parameters$gsm_version.y) == 1,
       unique(stats::na.omit(
         longitudinal_data$parameters$gsm_version.x
       )),
