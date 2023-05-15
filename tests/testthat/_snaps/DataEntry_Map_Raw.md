@@ -179,7 +179,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["visitdat_date"]
+              "value": ["visit_date"]
             },
             {
               "type": "character",

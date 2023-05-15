@@ -21,7 +21,7 @@ dfDATAENT: # one record per data page
   strIDCol: subjectname
   strVisitCol: visit
   strFormCol: formoid
-  strVisitDateCol: visitdat_date
+  strVisitDateCol: visit_date
   strEntryDateCol: min_entereddate
   strDataEntryLagCol: data_entry_lag
 dfDATACHG: # one record per data point

@@ -69,16 +69,16 @@
       
       $dfPD
       $dfPD$strIDCol
-      [1] "SubjectEnrollmentNumber"
+      [1] "subjectenrollmentnumber"
       
       $dfPD$strDateCol
-      [1] "DeviationDate"
+      [1] "deviationdate"
       
       $dfPD$strCategoryCol
-      [1] "GileadCategory"
+      [1] "gileadcategory"
       
       $dfPD$strImportantCol
-      [1] "DeemedImportant"
+      [1] "deemedimportant"
       
       $dfPD$strImportantVal
       [1] "Yes"
@@ -145,7 +145,7 @@
       [1] "formoid"
       
       $dfDATAENT$strVisitDateCol
-      [1] "visitdat_date"
+      [1] "visit_date"
       
       $dfDATAENT$strEntryDateCol
       [1] "min_entereddate"

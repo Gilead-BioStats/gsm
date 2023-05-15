@@ -185,7 +185,7 @@ dfLB <- tibble::tribble(
 )
 
 dfPD <- tibble::tribble(
-  ~SubjectEnrollmentNumber, ~GileadCategory, ~DeemedImportant,
+  ~subjectenrollmentnumber, ~gileadcategory, ~deemedimportant,
   "0001", "OTHER", "No",
   "0003", "OTHER", "Yes",
   "0003", "OTHER TREATMENT COMPLIANCE ISSUE", "No",
@@ -1959,7 +1959,7 @@ dfAE_expanded <- tibble::tribble(
 )
 
 dfPD_expanded <- tibble::tribble(
-  ~SubjectEnrollmentNumber, ~GileadCategory, ~DeemedImportant,
+  ~subjectenrollmentnumber, ~gileadcategory, ~deemedimportant,
   "0496", "OTHER", "No",
   "1350", "OTHER", "No",
   "1350", "OTHER", "No",
