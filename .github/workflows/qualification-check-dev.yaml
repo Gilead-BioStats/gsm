@@ -42,6 +42,7 @@ jobs:
       - name: install packages
         shell: Rscript {0}
         run: |
+          install.packages("rlang")
           install.packages("devtools")
           devtools::install('../clindata')
           devtools::install(dependencies=TRUE)
