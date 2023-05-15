@@ -1,7 +1,7 @@
 dfPD:
-  strIDCol: SubjectEnrollmentNumber
-  strDateCol: DeviationDate
-  strCategoryCol: GileadCategory
-  strImportantCol: DeemedImportant
+  strIDCol: subjectenrollmentnumber
+  strDateCol: deviationdate
+  strCategoryCol: gileadcategory
+  strImportantCol: deemedimportant
   strImportantVal: "Yes"
   strNonImportantVal: "No"
