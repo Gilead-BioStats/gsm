@@ -46,7 +46,7 @@ test_that("Stratified output is returned", {
     names(stratifiedOutput$lResults$chart$facet$params$facets)
   )
   expect_equal(
-    nrow(output$lResults$lData$dfSummary) * length(unique(output$lData$dfPD$GileadCategory)),
+    nrow(output$lResults$lData$dfSummary) * length(unique(output$lData$dfPD$gileadcategory)),
     nrow(stratifiedOutput$lResults$dfSummary)
   )
 })

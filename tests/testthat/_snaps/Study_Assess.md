@@ -505,16 +505,16 @@
       
       $AE_Map_Raw$mapping$dfPD
       $AE_Map_Raw$mapping$dfPD$strIDCol
-      [1] "SubjectEnrollmentNumber"
+      [1] "subjectenrollmentnumber"
       
       $AE_Map_Raw$mapping$dfPD$strDateCol
-      [1] "DeviationDate"
+      [1] "deviationdate"
       
       $AE_Map_Raw$mapping$dfPD$strCategoryCol
-      [1] "GileadCategory"
+      [1] "gileadcategory"
       
       $AE_Map_Raw$mapping$dfPD$strImportantCol
-      [1] "DeemedImportant"
+      [1] "deemedimportant"
       
       $AE_Map_Raw$mapping$dfPD$strImportantVal
       [1] "Yes"
@@ -581,7 +581,7 @@
       [1] "formoid"
       
       $AE_Map_Raw$mapping$dfDATAENT$strVisitDateCol
-      [1] "visitdat_date"
+      [1] "visit_date"
       
       $AE_Map_Raw$mapping$dfDATAENT$strEntryDateCol
       [1] "min_entereddate"
