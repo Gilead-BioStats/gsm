@@ -150,12 +150,12 @@ StackSnapshots <- function(
 
     # some rows contain NA since they aren't always fully joined to previous metadata
 
-    # longitudinal data can > 2 versions of gsm
+    # longitudinal data can > 2 versions of of gsm
     versions_x <- unique(longitudinal_data$parameters$gsm_version.x) %>% stats::na.omit()
     versions_y <- unique(longitudinal_data$parameters$gsm_version.y) %>% stats::na.omit()
 
     # find the max version
-    # -- 'package version' is a class in R that allows for numeric comparision using semantic versioning
+    # -- 'package version' is a class in R that allows for numeric comparison using semantic versioning
     latest_version <- max(base::as.package_version(c(versions_x, versions_y)))
 
     # -- get other_versions for cli output
