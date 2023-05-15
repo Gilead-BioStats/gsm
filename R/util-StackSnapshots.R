@@ -15,8 +15,10 @@
 #' results_summary_over_time <- StackSnapshots(cPath = dir)
 #' }
 #'
+#' @importFrom cli cli_li cli_alert_warning
 #' @importFrom purrr map_df
 #' @importFrom stats na.omit
+#' @importFrom utils compareVersion
 #'
 #' @export
 StackSnapshots <- function(
@@ -27,6 +29,8 @@ StackSnapshots <- function(
   stopifnot(
     "[ cPath ] does not exist." = file.exists(cPath)
   )
+
+
 
   # Capture list of YYYY-MM-DD-formatted snapshot directoreis.
   snapshots <- list.dirs(cPath, recursive = FALSE) %>%
@@ -144,26 +148,30 @@ StackSnapshots <- function(
   # check if gsm_versions are mismatched
   if (any(c("gsm_version.x", "gsm_version.y") %in% names(longitudinal_data$parameters))) {
 
-    # parse the version to a numeric representation
-    # -- e.g., "v1.6.0" becomes 160, "v1.7.1" becomes 171
-    # -- in the `parameters` data.frame, default to the most recent {gsm} version
-    gsm_most_recent <- ifelse(
-      utils::compareVersion(longitudinal_data$parameters$gsm_version.x, longitudinal_data$parameters$gsm_version.y) == 1,
-      unique(stats::na.omit(
-        longitudinal_data$parameters$gsm_version.x
-      )),
-      unique(stats::na.omit(
-        longitudinal_data$parameters$gsm_version.y
-      ))
-    )
+    # some rows contain NA since they aren't always fully joined to previous metadata
+
+    # longitudinal data can > 2 versions of gsm
+    versions_x <- unique(longitudinal_data$parameters$gsm_version.x) %>% stats::na.omit()
+    versions_y <- unique(longitudinal_data$parameters$gsm_version.y) %>% stats::na.omit()
+
+    # find the max version
+    # -- 'package version' is a class in R that allows for numeric comparision using semantic versioning
+    latest_version <- max(base::as.package_version(c(versions_x, versions_y)))
+
+    # -- get other_versions for cli output
+    other_versions <- sort(unique(c(versions_x, versions_y)[!c(versions_x, versions_y) %in% as.character(latest_version)]))
 
     longitudinal_data$parameters <- longitudinal_data$parameters %>%
       mutate(
-        gsm_version = gsm_most_recent
+        gsm_version = as.character(latest_version) # need to convert back to character from package.version
       ) %>%
       select(
         -c("gsm_version.x", "gsm_version.y")
       )
+
+    cli::cli_alert_warning("{.fun StackSnapshot} detected multiple versions of {.pkg gsm} in snapshot history.")
+    cli::cli_li("Using latest version {.code {latest_version}} in the longitudinal data added to snapshot.")
+    cli::cli_li("Also detected version{?s} {.code {other_versions}}.")
 
   }
 
