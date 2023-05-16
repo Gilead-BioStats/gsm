@@ -33,7 +33,7 @@ test_that("Raw+ Protocol Deviation data can be mapped correctly to create an ana
   dm_raw <- dm_raw_orig
 
   # join DM and PD data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, pd_raw, by = c("subjid" = "SubjectEnrollmentNumber")) %>%
+  expected <- full_join(dm_raw, pd_raw, by = c("subjid" = "subjectenrollmentnumber")) %>%
     group_by_at(lMapping$dfSUBJ$strIDCol) %>%
     mutate(
       Count = replace_na(Count, 0),
