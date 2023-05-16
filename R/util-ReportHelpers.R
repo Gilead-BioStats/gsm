@@ -1,9 +1,7 @@
-
 #' Create Status Study table in KRIReport.Rmd
 #' @param status_study `data.frame` from `params` within `KRIReport.Rmd`
 #' @noRd
 MakeStudyStatusTable <- function(status_study) {
-
   parameterArrangeOrder <- c(
     "Unique Study ID",
     "Protocol title",
@@ -106,22 +104,24 @@ MakeSummaryTable <- function(assessment) {
       dfSummary <- kri$lResults$lData$dfSummary
 
       if (nrow(dfSummary) > 0 &
-          any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
+        any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
         dfSummary %>%
           filter(Flag != 0) %>%
           arrange(desc(abs(Flag))) %>%
-          mutate(FlagDirectionality = map(Flag, kri_directionality_logo),
-                 across(where(is.numeric),
-                        ~ round(.x, 3))) %>%
+          mutate(
+            FlagDirectionality = map(Flag, kri_directionality_logo),
+            across(
+              where(is.numeric),
+              ~ round(.x, 3)
+            )
+          ) %>%
           DT::datatable()
       } else {
         htmltools::p("Nothing flagged for this KRI.")
       }
-
     } else {
       htmltools::strong("Workflow failed.")
     }
-
   })
 }
 

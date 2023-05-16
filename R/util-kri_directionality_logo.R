@@ -19,7 +19,7 @@ kri_directionality_logo <- function(flag_value, title = NULL) {
   }
 
   if (flag_value == -1) {
-    a <- fontawesome::fa("angle-down", fill = "#FEAA02",  title = title) # yellow
+    a <- fontawesome::fa("angle-down", fill = "#FEAA02", title = title) # yellow
   }
 
   if (flag_value == 0) {

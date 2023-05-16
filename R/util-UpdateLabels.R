@@ -20,7 +20,6 @@
 #'
 #' @export
 UpdateLabels <- function(lStudyAssessResults, dfMetaWorkflow) {
-
   stopifnot(
     "[ lStudyAssessResults ] must be a list." = is.list(lStudyAssessResults),
     "[ dfMetaWorkflow ] must be a data.frame" = is.data.frame(dfMetaWorkflow)
@@ -28,12 +27,11 @@ UpdateLabels <- function(lStudyAssessResults, dfMetaWorkflow) {
 
   study <- lStudyAssessResults %>%
     purrr::map(~ {
-
       # get the name of the workflow -- this should match dfMetaWorkflow$workflowid to allow for subsetting
       workflowid <- .x$name
 
 
-  # modify {rbm-viz} charts -------------------------------------------------
+      # modify {rbm-viz} charts -------------------------------------------------
 
       # extract JavaScript charts created with {rbm-viz}, since they need to be modified
       # in a different way than {ggplot2} charts
@@ -50,7 +48,7 @@ UpdateLabels <- function(lStudyAssessResults, dfMetaWorkflow) {
       .x$lResults$lCharts[grep("JS", names(.x$lResults$lCharts))] <- js_charts_updated
 
 
-  # modify {ggplot2} charts -------------------------------------------------
+      # modify {ggplot2} charts -------------------------------------------------
 
       # use the inverse `grep()` as above to select all plots that do not have "JS" in them
       ggplot2_charts <- .x$lResults$lCharts[!names(.x$lResults$lCharts) %in% names(js_charts)]
@@ -104,5 +102,3 @@ SubsetMetaWorkflow <- function(dfWorkflow, strWorkflowID) {
   dfWorkflow %>%
     filter(.data$workflowid == strWorkflowID)
 }
-
-

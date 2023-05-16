@@ -7,9 +7,9 @@ makeTestData <- function(data) {
     mutate(
       subjectname = substr(subjectname, 0, 4),
       subjectname = case_when(subjectname == "0001" ~ "0003",
-                              subjectname == "0002" ~ "0496",
-                              subjectname == "0004" ~ "1350",
-                              .default = subjectname
+        subjectname == "0002" ~ "0496",
+        subjectname == "0004" ~ "1350",
+        .default = subjectname
       )
     )
 }
@@ -48,35 +48,36 @@ lAssessments <- MakeWorkflowList()
 
 snapshot <- Make_Snapshot(lData = lData)
 
-cPath <- system.file('snapshots', 'AA-AA-000-0000', package = "gsm")
+cPath <- system.file("snapshots", "AA-AA-000-0000", package = "gsm")
 
-expected_data <- c("meta_param", "meta_workflow", "results_analysis", "results_summary",
-                   "status_param", "status_site", "status_study", "status_workflow",
-                   "parameters")
+expected_data <- c(
+  "meta_param", "meta_workflow", "results_analysis", "results_summary",
+  "status_param", "status_site", "status_study", "status_workflow",
+  "parameters"
+)
 
 test_that("all expected datasets are present in stacked data", {
-
-
-
   stacked_data <- StackSnapshots(cPath = cPath)
 
   expect_true(all(expected_data %in% names(stacked_data)))
   expect_type(stacked_data, "list")
-
 })
 
 test_that("all expected datasets are present in stacked data with new snapshot appended", {
-
   stacked_data <- StackSnapshots(cPath = cPath, lSnapshot = snapshot)
   expect_true(all(expected_data %in% names(stacked_data)))
   expect_type(stacked_data, "list")
 
   all_snapshot_dates <- stacked_data %>%
-    map( ~ {.x$snapshot_date %>% unique()}) %>%
-    {do.call("c", .)} %>% unique()
+    map(~ {
+      .x$snapshot_date %>% unique()
+    }) %>%
+    {
+      do.call("c", .)
+    } %>%
+    unique()
 
   expect_true(Sys.Date() %in% all_snapshot_dates)
-
 })
 
 
@@ -86,10 +87,8 @@ test_that("error is thrown when cPath does not exist", {
 })
 
 test_that("message is thrown when expected data is missing", {
-
   defunct_snapshot <- snapshot
   defunct_snapshot$lSnapshot <- snapshot$lSnapshot[names(snapshot$lSnapshot) %in% c("results_summary", "results_analysis")]
 
   expect_snapshot(defunct_stacked_data <- StackSnapshots(cPath = cPath, lSnapshot = defunct_snapshot))
-
 })

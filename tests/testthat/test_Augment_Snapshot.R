@@ -7,9 +7,9 @@ makeTestData <- function(data) {
     mutate(
       subjectname = substr(subjectname, 0, 4),
       subjectname = case_when(subjectname == "0001" ~ "0003",
-                              subjectname == "0002" ~ "0496",
-                              subjectname == "0004" ~ "1350",
-                              .default = subjectname
+        subjectname == "0002" ~ "0496",
+        subjectname == "0004" ~ "1350",
+        .default = subjectname
       )
     )
 }
@@ -56,37 +56,37 @@ test_that("Augment_Snapshot fails when data is missing", {
 
 
 test_that("Augment_Snapshot runs without error when correct data is provided", {
-  expect_message(augment <- Augment_Snapshot(snapshot, system.file('snapshots', 'AA-AA-000-0000', package = "gsm")))
+  expect_message(augment <- Augment_Snapshot(snapshot, system.file("snapshots", "AA-AA-000-0000", package = "gsm")))
 
   contains_timeseries <- augment$lStudyAssessResults %>%
-    map_lgl(~{
-      'timeSeriesContinuousJS' %in% names( .x$lResults$lCharts )
+    map_lgl(~ {
+      "timeSeriesContinuousJS" %in% names(.x$lResults$lCharts)
     })
 
   contains_longitudinal_dataset <- augment$lStudyAssessResults %>%
-    map_lgl(~{
-      'dfSummaryLongitudinal' %in% names( .x$lResults$lData )
+    map_lgl(~ {
+      "dfSummaryLongitudinal" %in% names(.x$lResults$lData)
     })
 
   expect_true(all(contains_timeseries))
   expect_true(all(contains_longitudinal_dataset))
-
 })
 
 
 test_that("Augment_Snapshot correctly subsets folders specified in vFolderNames", {
   augment <- Augment_Snapshot(
     lSnapshot = snapshot,
-    cPath = system.file('snapshots', 'AA-AA-000-0000', package = "gsm"), vFolderNames = c("2016-12-01", "2018-12-01")
+    cPath = system.file("snapshots", "AA-AA-000-0000", package = "gsm"), vFolderNames = c("2016-12-01", "2018-12-01")
   )
 
   dates_used_in_augment <- map(augment$lStackedSnapshots, ~ {
     .x$snapshot_date %>% unique()
   }) %>%
-    {do.call("c", .)} %>%
+    {
+      do.call("c", .)
+    } %>%
     unique()
 
   expect_true(all(as.Date(c("2016-12-01", "2018-12-01")) %in% dates_used_in_augment))
   expect_true(all(!as.Date(c("2015-12-01", "2017-12-01", "2019-12-01")) %in% dates_used_in_augment))
-
 })
