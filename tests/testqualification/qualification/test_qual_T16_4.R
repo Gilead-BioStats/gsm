@@ -2,7 +2,7 @@ test_that("A subset of Raw+ Protocol Deviation data can be mapped correctly to c
   ########### gsm mapping ###########
   subset <- FilterData(
     dfInput = clindata::ctms_protdev,
-    strCol = "DeemedImportant",
+    strCol = "deemedimportant",
     anyVal = "Yes"
   ) # filtering only for important PDs
 
@@ -46,7 +46,7 @@ test_that("A subset of Raw+ Protocol Deviation data can be mapped correctly to c
   dm_raw <- dm_raw_orig
 
   # join DM and PD data - full_join() to keep records from both data frames
-  expected <- full_join(dm_raw, pd_raw, by = c("subjid" = "SubjectEnrollmentNumber")) %>%
+  expected <- full_join(dm_raw, pd_raw, by = c("subjid" = "subjectenrollmentnumber")) %>%
     mutate(
       Count = replace_na(Count, 0),
       Rate = as.numeric(Count) / !!sym(lMapping$dfSUBJ$strTimeOnStudyCol)

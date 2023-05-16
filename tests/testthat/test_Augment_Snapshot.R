@@ -56,7 +56,7 @@ test_that("Augment_Snapshot fails when data is missing", {
 
 
 test_that("Augment_Snapshot runs without error when correct data is provided", {
-  expect_silent(augment <- Augment_Snapshot(snapshot, system.file('snapshots', 'AA-AA-000-0000', package = "gsm")))
+  expect_message(augment <- Augment_Snapshot(snapshot, system.file('snapshots', 'AA-AA-000-0000', package = "gsm")))
 
   contains_timeseries <- augment$lStudyAssessResults %>%
     map_lgl(~{
