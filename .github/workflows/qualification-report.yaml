@@ -47,6 +47,19 @@ jobs:
         shell: Rscript {0}
 
 
+      - name: modify github.ref
+        id: modify_ref
+        run: |
+          if [[ "${{ github.ref }}" != v* ]]; then
+            export MODIFIED_REF="stage-${{ github.ref }}"
+          echo "::set-output name=modified_ref::${MODIFIED_REF}"
+            else
+          echo "::set-output name=modified_ref::${{ github.ref }}"
+            fi
+
+
+
+
       # Upload the qulafication report to the release
       - name: Upload report to release
         if: success()
@@ -55,5 +68,5 @@ jobs:
           file: ./Qualification.pdf
           asset_name: qualification-report.pdf
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref }}
+          tag: ${{ steps.modify_ref.outputs.modified_ref }}
           overwrite: false

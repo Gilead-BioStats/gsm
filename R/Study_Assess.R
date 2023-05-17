@@ -70,16 +70,14 @@ Study_Assess <- function(
               lWorkflow,
               lData = lData,
               lMapping = lMapping,
-              bQuiet = bQuiet,
-              bFlowchart = bFlowchart
+              bQuiet = bQuiet
             )
           } else {
             RunWorkflow(
               lWorkflow,
               lData = lData,
               lMapping = lMapping,
-              bQuiet = bQuiet,
-              bFlowchart = bFlowchart
+              bQuiet = bQuiet
             )
           }
         })

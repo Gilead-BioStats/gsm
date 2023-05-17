@@ -60,8 +60,7 @@ RunStratifiedWorkflow <- function(
     lWorkflow,
     lData,
     lMapping,
-    bQuiet = bQuiet,
-    bFlowchart = bFlowchart
+    bQuiet = bQuiet
   )
 
   if (

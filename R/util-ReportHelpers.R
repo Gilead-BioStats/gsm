@@ -28,6 +28,14 @@ MakeStudyStatusTable <- function(status_study) {
     "Estimated last-patient last visit date from GILDA"
   )
 
+  # if longitudinal snapshot is used, select the most recent row
+  if (nrow(status_study) > 1) {
+    status_study <- status_study %>%
+      filter(
+        snapshot_date == max(snapshot_date)
+      )
+  }
+
   paramDescription <- gsm::rbm_data_spec %>%
     filter(
       .data$Table == "status_study"
