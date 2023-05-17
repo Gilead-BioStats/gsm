@@ -21,7 +21,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r@v2
         with:
-          r-version: '4.1.3'
+          r-version: '4.0.5'
           use-public-rspm: true
 
       - uses: r-lib/actions/setup-pandoc@v2
@@ -35,19 +35,12 @@ jobs:
           cd clindata
           cd ../gsm
 
-      - name: Debug Information
-        run: |
-          echo "R version: $(R --version)"
-          echo "List files in the specified path: $(ls -l /home/runner/work/_temp/Library/rlang/libs/)"
-          echo "Ref: ${{ github.ref }}"
-
-
       - name: install packages
         shell: Rscript {0}
         run: |
-          install.packages("devtools", dependencies = TRUE, verbose = TRUE)
+          install.packages("devtools")
           devtools::install('../clindata')
-          devtools::install(dependencies = TRUE)
+          devtools::install(dependencies=TRUE)
 
       - name: build vignette
         run: tools::buildVignette("./vignettes/articles/Qualification.Rmd")
