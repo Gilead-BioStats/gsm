@@ -35,18 +35,16 @@ jobs:
           cd clindata
           cd ../gsm
 
-      - name: cache packages
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('DESCRIPTION') }}
-          restore-keys: |
-            ${{ runner.os }}-r-${{ matrix.config.r }}-
+      - name: Debug Information
+        run: |
+          echo "R version: $(R --version)"
+          echo "List files in the specified path: $(ls -l /home/runner/work/_temp/Library/rlang/libs/)"
+
 
       - name: install packages
         shell: Rscript {0}
         run: |
-          install.packages("devtools", dependencies = TRUE)
+          install.packages("devtools", dependencies = TRUE, verbose = TRUE)
           devtools::install('../clindata')
           devtools::install(dependencies = TRUE)
 
