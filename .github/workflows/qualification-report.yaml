@@ -46,9 +46,9 @@ jobs:
       - name: install packages
         shell: Rscript {0}
         run: |
-          install.packages("devtools")
+          install.packages("devtools", dependencies = TRUE)
           devtools::install('../clindata')
-          devtools::install(dependencies=TRUE)
+          devtools::install(dependencies = TRUE)
 
       - name: build vignette
         run: tools::buildVignette("./vignettes/articles/Qualification.Rmd")
