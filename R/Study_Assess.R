@@ -9,7 +9,6 @@
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
-#' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`
 #'
 #' @examples
 #' \dontrun{
@@ -30,8 +29,7 @@ Study_Assess <- function(
   lData = NULL,
   lMapping = NULL,
   lAssessments = NULL,
-  bQuiet = TRUE,
-  bFlowchart = FALSE
+  bQuiet = TRUE
 ) {
   #### --- load defaults --- ###
   # lData from clindata

@@ -4,13 +4,7 @@
 \alias{Study_Assess}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
-Study_Assess(
-  lData = NULL,
-  lMapping = NULL,
-  lAssessments = NULL,
-  bQuiet = TRUE,
-  bFlowchart = FALSE
-)
+Study_Assess(lData = NULL, lMapping = NULL, lAssessments = NULL, bQuiet = TRUE)
 }
 \arguments{
 \item{lData}{\code{list} a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
@@ -20,8 +14,6 @@ Study_Assess(
 \item{lAssessments}{\code{list} a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
-
-\item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}}
 }
 \value{
 \code{list} of assessments containing status information and results.

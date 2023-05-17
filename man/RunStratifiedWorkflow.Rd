@@ -4,13 +4,7 @@
 \alias{RunStratifiedWorkflow}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
-RunStratifiedWorkflow(
-  lWorkflow,
-  lData,
-  lMapping,
-  bQuiet = TRUE,
-  bFlowchart = FALSE
-)
+RunStratifiedWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE)
 }
 \arguments{
 \item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.
@@ -23,8 +17,6 @@ specified in \code{lMapping} and \code{lAssessments}, which are generally based 
 \item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
-
-\item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}}
 }
 \value{
 \code{list} with \code{group}, \code{steps}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{lWorkflowChecks} and \code{lResults} added based on the results of the execution of
