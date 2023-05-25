@@ -47,19 +47,7 @@ jobs:
         shell: Rscript {0}
 
 
-      - name: modify github.ref
-        id: modify_ref
-        run: |
-          if [[ "${{ github.ref }}" == refs/* ]]; then
-            MODIFIED_REF="${{ github.ref#refs/ }}"
-          else
-            MODIFIED_REF="${{ github.ref }}"
-          fi
-
-          echo "::set-output name=modified_ref::${MODIFIED_REF}"
-
-
-      # Upload the qualification report to the release
+      # Upload the qulafication report to the release
       - name: Upload report to release
         if: success()
         uses: svenstaro/upload-release-action@v2
@@ -67,5 +55,5 @@ jobs:
           file: ./Qualification.pdf
           asset_name: qualification-report.pdf
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.modify_ref.outputs.modified_ref }}
+          tag: ${{ github.ref }}
           overwrite: false
