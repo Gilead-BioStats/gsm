@@ -202,7 +202,7 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
 
 assign_tooltip_labels <- function(name) {
   cur_kri <- gsm::meta_workflow %>%
-    filter(workflowid == name)
+    filter(.data$workflowid == name)
 
   if (nrow(cur_kri) > 0) {
     return(
