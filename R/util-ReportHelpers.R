@@ -115,7 +115,7 @@ MakeSummaryTable <- function(assessment) {
         any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
         dfSummary %>%
           filter(.data$Flag != 0) %>%
-          arrange(desc(abs(Flag))) %>%
+          arrange(desc(abs(.data$Flag))) %>%
           mutate(
             FlagDirectionality = map(.data$Flag, kri_directionality_logo),
             across(
