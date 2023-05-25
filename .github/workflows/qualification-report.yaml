@@ -51,7 +51,7 @@ jobs:
         run: |
           TAG_NAME=$(echo "${{ github.ref }}" | sed 's/^refs\///')
           echo "tag_name=${TAG_NAME}" >> $GITHUB_OUTPUT
-          echo "GITHUB_REF=${TAG_NAME}" >> $GITHUB_OUTPUT
+          echo "GITHUB_REF=${TAG_NAME}" >> $GITHUB_REF
           echo env.GITHUB_REF
 
       # Upload the qulafication report to the release
