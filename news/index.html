@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.2</span>
       </span>
     </div>
 
@@ -75,6 +75,32 @@
       <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.7.2" id="gsm-v172">gsm v1.7.2<a class="anchor" aria-label="anchor" href="#gsm-v172"></a></h2>
+<p>This release includes updates to KRIs, longitudinal snapshot methods, and reporting.</p>
+<div class="section level4">
+<h4 id="kri-changes-1-7-2">KRI Changes<a class="anchor" aria-label="anchor" href="#kri-changes-1-7-2"></a></h4>
+<ul><li>KRIs (kri0008 and kri0009) have added a filter step on the <code>querystatus</code> column, containing values <code>Open, Answered, or Closed</code>.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="longitudinal-snapshot-1-7-2">Longitudinal Snapshot<a class="anchor" aria-label="anchor" href="#longitudinal-snapshot-1-7-2"></a></h4>
+<ul><li>
+<code><a href="../reference/StackSnapshots.html">StackSnapshots()</a></code> has been updated to only recognize folders that are named with <code>YYYY-MM-DD</code> format.</li>
+<li>
+<code><a href="../reference/StackSnapshots.html">StackSnapshots()</a></code> no longer includes multiple <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> versions in the <code>parameters</code> data.frame. The default behavior is to now detect the most recent version of <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>, and throw an informative warning if more than one version is detected.</li>
+<li>
+<code>AugmentSnapshot()</code> has been updated so that snapshot folders can be specified.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="reporting-1-7-2">Reporting<a class="anchor" aria-label="anchor" href="#reporting-1-7-2"></a></h4>
+<ul><li>Hover tooltips have been added to the study overview table, showing metrics for each site for a given KRI.</li>
+<li>Study status table has been reformatted to show fewer rows of data, with a toggle button to show full details.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="other-1-7-2">Other<a class="anchor" aria-label="anchor" href="#other-1-7-2"></a></h4>
+<ul><li>Flowcharts have been deprecated. Plan to incorporate flowchart(s) either up or down-stream of <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.1" id="gsm-v171">gsm v1.7.1<a class="anchor" aria-label="anchor" href="#gsm-v171"></a></h2>
 <p>This release reflects a change in Adverse Event (AE) and Labs (LB) KRIs.</p>
@@ -208,7 +234,7 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.0" id="gsm-v110">gsm v1.1.0<a class="anchor" aria-label="anchor" href="#gsm-v110"></a></h2>
 <p>This release includes qualified functionality for Lab Abnormality and Disposition Assessments.</p>
-<p>Additionally, updates include: - Mapping functions include custom grouping functionality by columns for <code>SiteID</code>, <code>StudyID</code>, or <code>Region</code>/<code>CustomGroupID</code>. This allows for Study (QTL) and Site (KRI) assessments to be run. - <code><a href="../reference/Analyze_Identity.html">Analyze_Identity()</a></code> allows for nominal and statistical assessments for all Assess functions. - New utility functions <code><a href="../reference/MakeStratifiedAssessment.html">MakeStratifiedAssessment()</a></code> and <code><a href="../reference/ConsolidateStrata.html">ConsolidateStrata()</a></code> allow for stratified assessments to be run. - <code><a href="../reference/Visualize_Score.html">Visualize_Score()</a></code> provides a standard visualization for Score or KRI. - <code><a href="../reference/Visualize_Workflow.html">Visualize_Workflow()</a></code> provides a flowchart with a high-level overview of the data pipeline for a given assessment.</p>
+<p>Additionally, updates include: - Mapping functions include custom grouping functionality by columns for <code>SiteID</code>, <code>StudyID</code>, or <code>Region</code>/<code>CustomGroupID</code>. This allows for Study (QTL) and Site (KRI) assessments to be run. - <code><a href="../reference/Analyze_Identity.html">Analyze_Identity()</a></code> allows for nominal and statistical assessments for all Assess functions. - New utility functions <code><a href="../reference/MakeStratifiedAssessment.html">MakeStratifiedAssessment()</a></code> and <code><a href="../reference/ConsolidateStrata.html">ConsolidateStrata()</a></code> allow for stratified assessments to be run. - <code><a href="../reference/Visualize_Score.html">Visualize_Score()</a></code> provides a standard visualization for Score or KRI. - <code>Visualize_Workflow()</code> provides a flowchart with a high-level overview of the data pipeline for a given assessment.</p>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.1" id="gsm-v101">gsm v1.0.1<a class="anchor" aria-label="anchor" href="#gsm-v101"></a></h2>

@@ -19,7 +19,7 @@ Appendix 2 - Data Model Specifications"><!-- mathjax --><script src="https://cdn
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.2</span>
       </span>
     </div>
 
@@ -97,16 +97,11 @@ Appendix 2 - Data Model Specifications</p>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">phase</span> <span class="op">==</span> <span class="st">"Blinded Study Drug Completion"</span><span class="op">)</span>, dfDATACHG <span class="op">=</span></span>
 <span>    <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/edc_data_points.html" class="external-link">edc_data_points</a></span>, dfDATAENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/edc_data_pages.html" class="external-link">edc_data_pages</a></span>, dfQUERY <span class="op">=</span></span>
 <span>    <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/edc_queries.html" class="external-link">edc_queries</a></span>, dfENROLL <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_enroll</span><span class="op">)</span>,</span>
-<span>  lMapping <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_rawplus.yaml"</span>, package <span class="op">=</span></span>
-<span>    <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span>, <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_ctms.yaml"</span>, package <span class="op">=</span></span>
-<span>    <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span>, <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_edc.yaml"</span>, package <span class="op">=</span></span>
-<span>    <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span>, <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_adam.yaml"</span>, package <span class="op">=</span></span>
-<span>    <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  lMapping <span class="op">=</span> <span class="fu"><a href="Read_Mapping.html">Read_Mapping</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  lAssessments <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  strAnalysisDate <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bUpdateParams <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  bFlowchart <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -139,10 +134,6 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 
 <dt>bQuiet</dt>
 <dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code>.</p></dd>
-
-
-<dt>bFlowchart</dt>
-<dd><p><code>logical</code> Create flowchart to show data pipeline? Default: <code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div id="value">

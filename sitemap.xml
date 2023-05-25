@@ -247,6 +247,9 @@
     <loc>/reference/UpdateGSMVersion.html</loc>
   </url>
   <url>
+    <loc>/reference/UpdateLabels.html</loc>
+  </url>
+  <url>
     <loc>/reference/UpdateParams.html</loc>
   </url>
   <url>
@@ -254,9 +257,6 @@
   </url>
   <url>
     <loc>/reference/Visualize_Score.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Visualize_Workflow.html</loc>
   </url>
   <url>
     <loc>/reference/Widget_BarChart-shiny.html</loc>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.2</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">StackSnapshots</span><span class="op">(</span><span class="va">cPath</span>, lSnapshot <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">StackSnapshots</span><span class="op">(</span><span class="va">cPath</span>, lSnapshot <span class="op">=</span> <span class="cn">NULL</span>, vFolderNames <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -92,6 +92,10 @@
 
 <dt>lSnapshot</dt>
 <dd><p><code>list</code> Optional. Pass the output of <code><a href="Make_Snapshot.html">Make_Snapshot()</a></code> to be appended to historical results.</p></dd>
+
+
+<dt>vFolderNames</dt>
+<dd><p><code>vector</code> Name(s) of folder(s) found within <code>cPath</code> to use. Any folders not specified will not be used in the augment.</p></dd>
 
 </dl></div>
     <div id="value">
