@@ -46,10 +46,13 @@ jobs:
         run: tools::buildVignette("./vignettes/articles/Qualification.Rmd")
         shell: Rscript {0}
 
-      - name: Modify tag name
+      - name: Modify tag name to remove refs/ and set variable
         id: modify_tag
-        run: echo "::set-output name=tag_name::$(echo '${{ github.ref }}' | sed 's/^refs\///')"
-
+        run: |
+          TAG_NAME=$(echo "${{ github.ref }}" | sed 's/^refs\///')
+          echo "tag_name=${TAG_NAME}" >> $GITHUB_OUTPUT
+          echo "GITHUB_REF=${TAG_NAME}" >> $GITHUB_OUTPUT
+          echo env.GITHUB_REF
 
       # Upload the qulafication report to the release
       - name: Upload report to release
@@ -59,5 +62,5 @@ jobs:
           file: ./Qualification.pdf
           asset_name: qualification-report.pdf
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref }}
+          tag: ${{ env.GITHUB_REF }}
           overwrite: false
