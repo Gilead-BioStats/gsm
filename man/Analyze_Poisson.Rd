@@ -19,6 +19,9 @@ Poisson Analysis - Site Residuals.
 }
 \details{
 Fits a Poisson model to site-level data and adds columns capturing Residual and Predicted Count for each site.
+
+More information can be found in \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/KRI\%20Method.html#the-poisson-regression-method}{The Poisson Regression Method}
+of the KRI Method vignette.
 }
 \section{Statistical Methods}{
 

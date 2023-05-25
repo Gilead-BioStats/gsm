@@ -1,6 +1,6 @@
 Package: gsm
 Title: Gilead Statistical Monitoring
-Version: 1.7.1
+Version: 1.7.2
 Authors@R: c(
     person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", email="jwildfire@gmail.com", role = c("aut")),
@@ -21,7 +21,6 @@ Encoding: UTF-8
 Imports:
     broom,
     cli,
-    DiagrammeR,
     dplyr,
     DT,
     fontawesome (>= 0.2.2),
@@ -48,6 +47,7 @@ Suggests:
     clindata,
     covr,
     devtools,
+    DiagrammeR,
     kableExtra,
     pander,
     safetyData,

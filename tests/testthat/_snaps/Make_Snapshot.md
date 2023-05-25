@@ -3,7 +3,7 @@
     Code
       names(snapshot)
     Output
-      [1] "lSnapshot"           "lStudyAssessResults"
+      [1] "lSnapshotDate"       "lSnapshot"           "lStudyAssessResults"
 
 ---
 

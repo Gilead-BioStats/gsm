@@ -5,6 +5,9 @@
 #' @details
 #' Used in the data pipeline between `Transform` and `Flag` to rename KRI and Score columns.
 #'
+#' More information can be found in [The Identity Method](https://silver-potato-cfe8c2fb.pages.github.io/articles/KRI%20Method.html#the-identity-method)
+#' of the KRI Method vignette.
+#'
 #' @section Data Specification:
 #'
 #' The input data (`dfTransformed`) for `Analyze_Identity` is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:

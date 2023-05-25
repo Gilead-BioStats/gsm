@@ -31,12 +31,13 @@ jobs:
           cd clindata
           cd ../gsm
 
+
       - name: install packages
         shell: Rscript {0}
         run: |
           install.packages("devtools")
-          devtools::install('../clindata')
           devtools::install(dependencies=TRUE)
+          devtools::install('../clindata')
 
       - name: run qualification tests
         run: try(source(here::here("tests", "testqualification", "test_qualification.R")), silent = TRUE)

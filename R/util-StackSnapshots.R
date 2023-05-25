@@ -4,6 +4,7 @@
 #'
 #' @param cPath `character` Path to longitudinal data folders.
 #' @param lSnapshot `list` Optional. Pass the output of [gsm::Make_Snapshot()] to be appended to historical results.
+#' @param vFolderNames `vector` Name(s) of folder(s) found within `cPath` to use. Any folders not specified will not be used in the augment.
 #'
 #' @return `data.frame` containing longitudinal snapshots of `{gsm}` analyses.
 #'
@@ -14,19 +15,43 @@
 #' results_summary_over_time <- StackSnapshots(cPath = dir)
 #' }
 #'
+#' @importFrom cli cli_li cli_alert_warning
 #' @importFrom purrr map_df
+#' @importFrom stats na.omit
+#' @importFrom utils compareVersion
 #'
 #' @export
-StackSnapshots <- function(cPath, lSnapshot = NULL) {
+StackSnapshots <- function(
+  cPath,
+  lSnapshot = NULL,
+  vFolderNames = NULL
+) {
   stopifnot(
     "[ cPath ] does not exist." = file.exists(cPath)
   )
 
+
+
+  # Capture list of YYYY-MM-DD-formatted snapshot directoreis.
   snapshots <- list.dirs(cPath, recursive = FALSE)
+    snapshots <- snapshots[grepl("/\\d{4}-\\d{2}-\\d{2}$", snapshots)]
+
+  # subset snapshot folders if specified ------------------------------------
+  if (!is.null(vFolderNames)) {
+    folders_not_found <- vFolderNames[!vFolderNames %in% basename(snapshots)]
+
+    if (length(folders_not_found) > 0) {
+      cli::cli_alert_danger("{length(folders_not_found)} folder{?s} not found! Missing: {.strong `{folders_not_found}`}")
+    }
+
+    snapshots <- snapshots[basename(snapshots) %in% vFolderNames]
+  }
 
   stopifnot(
-    "[ cPath ] contains no folders." = length(snapshots) > 0
+    "[ cPath ] contains no dated folders formatted YYYY-MM-DD." = length(snapshots) > 0
   )
+
+
 
   gsm_tables <- c(
     "meta_param",
@@ -60,7 +85,7 @@ StackSnapshots <- function(cPath, lSnapshot = NULL) {
 
             return(data)
           } else {
-            cli::cli_alert_warning("[ {gsm_table} ] not found in [ {cPath}/{snapshot} ].")
+            cli::cli_alert_warning("[ {gsm_table} ] not found in [ {snapshot} ].")
 
             return(NULL)
           }
@@ -76,6 +101,10 @@ StackSnapshots <- function(cPath, lSnapshot = NULL) {
       names(longitudinal_data),
       names(lSnapshot$lSnapshot)
     )
+
+    if (length(common_tables) < length(gsm_tables)) {
+      cli::cli_alert_warning("[ Table{?s} {setdiff(gsm_tables, common_tables)} ] not found in [ {.code lSnapshot} ]")
+    }
 
     for (common_table in common_tables) {
       # coerce column types in longitudinal data to match column types in snapshot data
@@ -105,6 +134,7 @@ StackSnapshots <- function(cPath, lSnapshot = NULL) {
     }
   }
 
+
   # make parameters -------------------------------------------------------------
   longitudinal_data$parameters <- longitudinal_data$meta_param %>%
     left_join(
@@ -113,6 +143,34 @@ StackSnapshots <- function(cPath, lSnapshot = NULL) {
     ) %>%
     select(-c("default", "configurable"))
 
+  # check if gsm_versions are mismatched
+  if (any(c("gsm_version.x", "gsm_version.y") %in% names(longitudinal_data$parameters))) {
+    # some rows contain NA since they aren't always fully joined to previous metadata
+
+    # longitudinal data can > 2 versions of of gsm
+    versions_x <- unique(longitudinal_data$parameters$gsm_version.x) %>% stats::na.omit()
+    versions_y <- unique(longitudinal_data$parameters$gsm_version.y) %>% stats::na.omit()
+
+    # find the max version
+    # -- 'package version' is a class in R that allows for numeric comparison using semantic versioning
+    latest_version <- max(base::as.package_version(c(versions_x, versions_y)))
+
+    # -- get other_versions for cli output
+    other_versions <- sort(unique(c(versions_x, versions_y)[!c(versions_x, versions_y) %in% as.character(latest_version)]))
+
+    longitudinal_data$parameters <- longitudinal_data$parameters %>%
+      mutate(
+        gsm_version = as.character(latest_version) # need to convert back to character from package.version
+      ) %>%
+      select(
+        -c("gsm_version.x", "gsm_version.y")
+      )
+
+    cli::cli_alert_warning("{.fun StackSnapshot} detected multiple versions of {.pkg gsm} in snapshot history.")
+    cli::cli_li("Using latest version {.code {latest_version}} in the longitudinal data added to snapshot.")
+    cli::cli_li("Also detected version{?s} {.code {other_versions}}.")
+  }
+
   # only keep latest workflow metadata
   if ("meta_workflow" %in% names(longitudinal_data)) {
     longitudinal_data$meta_workflow <- longitudinal_data$meta_workflow %>%
@@ -120,6 +178,9 @@ StackSnapshots <- function(cPath, lSnapshot = NULL) {
         .data$gsm_analysis_date == max(.data$gsm_analysis_date)
       )
   }
+
+
+
 
   return(longitudinal_data)
 }

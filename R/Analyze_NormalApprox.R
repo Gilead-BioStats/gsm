@@ -5,6 +5,8 @@
 #' @details
 #' Creates analysis results data for percentage/rate data using funnel plot method with normal approximation.
 #'
+#' More information can be found in [The Normal Approximation Method](https://silver-potato-cfe8c2fb.pages.github.io/articles/KRI%20Method.html#the-normal-approximation-method)
+#' of the KRI Method vignette.
 #'
 #' @section Statistical Methods:
 #' This function applies funnel plots using asymptotic limits based on the normal approximation of a binomial distribution for

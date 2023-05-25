@@ -5,6 +5,9 @@
 #' @details
 #' Fits a Poisson model to site-level data and adds columns capturing Residual and Predicted Count for each site.
 #'
+#' More information can be found in [The Poisson Regression Method](https://silver-potato-cfe8c2fb.pages.github.io/articles/KRI%20Method.html#the-poisson-regression-method)
+#' of the KRI Method vignette.
+#'
 #' @section Statistical Methods:
 #'
 #' This function fits a Poisson model to site-level data and then calculates residuals for each site.

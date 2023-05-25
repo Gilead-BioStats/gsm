@@ -16,16 +16,11 @@ Make_Snapshot(
     filter(.data$phase == "Blinded Study Drug Completion"), dfDATACHG =
     clindata::edc_data_points, dfDATAENT = clindata::edc_data_pages, dfQUERY =
     clindata::edc_queries, dfENROLL = clindata::rawplus_enroll),
-  lMapping = c(yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package =
-    "gsm")), yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package =
-    "gsm")), yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package =
-    "gsm")), yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package =
-    "gsm"))),
+  lMapping = Read_Mapping(),
   lAssessments = NULL,
   strAnalysisDate = NULL,
   bUpdateParams = FALSE,
-  bQuiet = TRUE,
-  bFlowchart = FALSE
+  bQuiet = TRUE
 )
 }
 \arguments{
@@ -43,8 +38,6 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \item{bUpdateParams}{\code{logical} if \code{TRUE}, configurable parameters found in \code{lMeta$config_param} will overwrite the default values in \code{lMeta$meta_params}. Default: \code{FALSE}.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
-
-\item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}.}
 }
 \value{
 \code{list} \code{lSnapshot}, a named list with a data.frame for each component of the {gsm} data model.

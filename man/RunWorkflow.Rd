@@ -4,7 +4,7 @@
 \alias{RunWorkflow}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
-RunWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE, bFlowchart = FALSE)
+RunWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE)
 }
 \arguments{
 \item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
@@ -14,8 +14,6 @@ RunWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE, bFlowchart = FALSE)
 \item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
-
-\item{bFlowchart}{\code{logical} Create flowchart to show data pipeline? Default: \code{FALSE}}
 }
 \value{
 \code{list} containing objects named: \code{steps}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{lWorkflowChecks}, and \code{lResults}.

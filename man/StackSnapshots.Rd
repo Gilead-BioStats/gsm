@@ -4,12 +4,14 @@
 \alias{StackSnapshots}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
-StackSnapshots(cPath, lSnapshot = NULL)
+StackSnapshots(cPath, lSnapshot = NULL, vFolderNames = NULL)
 }
 \arguments{
 \item{cPath}{\code{character} Path to longitudinal data folders.}
 
 \item{lSnapshot}{\code{list} Optional. Pass the output of \code{\link[=Make_Snapshot]{Make_Snapshot()}} to be appended to historical results.}
+
+\item{vFolderNames}{\code{vector} Name(s) of folder(s) found within \code{cPath} to use. Any folders not specified will not be used in the augment.}
 }
 \value{
 \code{data.frame} containing longitudinal snapshots of \code{{gsm}} analyses.

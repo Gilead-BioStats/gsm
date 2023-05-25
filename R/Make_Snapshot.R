@@ -16,7 +16,6 @@
 #' @param strAnalysisDate `character` date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: `YYYY-MM-DD`.
 #' @param bUpdateParams `logical` if `TRUE`, configurable parameters found in `lMeta$config_param` will overwrite the default values in `lMeta$meta_params`. Default: `FALSE`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
-#' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`.
 #'
 #' @includeRmd ./man/md/Make_Snapshot.md
 #'
@@ -44,39 +43,35 @@
 #' @importFrom yaml read_yaml
 #'
 #' @export
-Make_Snapshot <- function(lMeta = list(
-  config_param = clindata::config_param,
-  config_workflow = clindata::config_workflow,
-  meta_params = gsm::meta_param,
-  meta_site = clindata::ctms_site,
-  meta_study = clindata::ctms_study,
-  meta_workflow = gsm::meta_workflow
-),
-lData = list(
-  dfSUBJ = clindata::rawplus_dm,
-  dfAE = clindata::rawplus_ae,
-  dfPD = clindata::ctms_protdev,
-  dfCONSENT = clindata::rawplus_consent,
-  dfIE = clindata::rawplus_ie,
-  dfLB = clindata::rawplus_lb,
-  dfSTUDCOMP = clindata::rawplus_studcomp,
-  dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$phase == "Blinded Study Drug Completion"),
-  dfDATACHG = clindata::edc_data_points,
-  dfDATAENT = clindata::edc_data_pages,
-  dfQUERY = clindata::edc_queries,
-  dfENROLL = clindata::rawplus_enroll
-),
-lMapping = c(
-  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-  yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm")),
-  yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
-  yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
-),
-lAssessments = NULL,
-strAnalysisDate = NULL,
-bUpdateParams = FALSE,
-bQuiet = TRUE,
-bFlowchart = FALSE
+Make_Snapshot <- function(
+  lMeta = list(
+    config_param = clindata::config_param,
+    config_workflow = clindata::config_workflow,
+    meta_params = gsm::meta_param,
+    meta_site = clindata::ctms_site,
+    meta_study = clindata::ctms_study,
+    meta_workflow = gsm::meta_workflow
+  ),
+  lData = list(
+    dfSUBJ = clindata::rawplus_dm,
+    dfAE = clindata::rawplus_ae,
+    dfPD = clindata::ctms_protdev,
+    dfCONSENT = clindata::rawplus_consent,
+    dfIE = clindata::rawplus_ie,
+    dfLB = clindata::rawplus_lb,
+    dfSTUDCOMP = clindata::rawplus_studcomp,
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>%
+      filter(.data$phase == "Blinded Study Drug Completion"),
+    dfDATACHG = clindata::edc_data_points,
+    dfDATAENT = clindata::edc_data_pages,
+    dfQUERY = clindata::edc_queries,
+    dfENROLL = clindata::rawplus_enroll
+  ),
+  lMapping = Read_Mapping(),
+  lAssessments = NULL,
+  strAnalysisDate = NULL,
+  bUpdateParams = FALSE,
+  bQuiet = TRUE
 ) {
   # add gsm_analysis_date to all outputs except meta_
   # -- if date is provided, it should be the date that the data was pulled/wrangled.
@@ -86,7 +81,7 @@ bFlowchart = FALSE
 
   if (!is.null(strAnalysisDate)) {
     # date validation check
-    date_is_valid <- try(as.Date(strAnalysisDate))
+    date_is_valid <- try(as.Date(strAnalysisDate), silent = TRUE)
 
     if (!"try-error" %in% class(date_is_valid) && !is.na(date_is_valid)) {
       gsm_analysis_date <- as.Date(strAnalysisDate)
@@ -231,7 +226,8 @@ bFlowchart = FALSE
     lMapping = lMapping,
     lAssessments = lAssessments,
     bQuiet = bQuiet
-  )
+  ) %>%
+    UpdateLabels(lMeta$meta_workflow)
 
   # grab boolean status of each workflow
   parseStatus <- purrr::imap(lResults, function(x, y) tibble(workflowid = y, status = x$bStatus)) %>%
@@ -264,7 +260,8 @@ bFlowchart = FALSE
 
   # results_summary ---------------------------------------------------------
   results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%
-    purrr::discard(is.null) %>%
+    purrr::discard(~ is.null(.x)) %>%
+    purrr::discard(~ .x$lChecks$status == FALSE) %>%
     purrr::imap_dfr(~ .x$lData$dfSummary %>%
       mutate(
         KRIID = .y,
@@ -350,6 +347,7 @@ bFlowchart = FALSE
 
   return(
     list(
+      lSnapshotDate = gsm_analysis_date,
       lSnapshot = lSnapshot,
       lStudyAssessResults = lResults
     )
