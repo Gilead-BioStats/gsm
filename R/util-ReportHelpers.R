@@ -32,7 +32,7 @@ MakeStudyStatusTable <- function(status_study) {
   if (nrow(status_study) > 1) {
     status_study <- status_study %>%
       filter(
-        snapshot_date == max(snapshot_date)
+        .data$snapshot_date == max(.data$snapshot_date)
       )
   }
 
