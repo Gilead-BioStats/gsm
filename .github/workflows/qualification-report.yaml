@@ -50,17 +50,16 @@ jobs:
       - name: modify github.ref
         id: modify_ref
         run: |
-          if [[ "${{ github.ref }}" != v* ]]; then
-            export MODIFIED_REF="stage-${{ github.ref }}"
+          if [[ "${{ github.ref }}" == refs/* ]]; then
+            MODIFIED_REF="${{ github.ref#refs/ }}"
+          else
+            MODIFIED_REF="${{ github.ref }}"
+          fi
+
           echo "::set-output name=modified_ref::${MODIFIED_REF}"
-            else
-          echo "::set-output name=modified_ref::${{ github.ref }}"
-            fi
 
 
-
-
-      # Upload the qulafication report to the release
+      # Upload the qualification report to the release
       - name: Upload report to release
         if: success()
         uses: svenstaro/upload-release-action@v2
