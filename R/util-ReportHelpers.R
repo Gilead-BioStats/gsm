@@ -1,9 +1,7 @@
-
 #' Create Status Study table in KRIReport.Rmd
 #' @param status_study `data.frame` from `params` within `KRIReport.Rmd`
 #' @noRd
 MakeStudyStatusTable <- function(status_study) {
-
   parameterArrangeOrder <- c(
     "Unique Study ID",
     "Protocol title",
@@ -29,6 +27,14 @@ MakeStudyStatusTable <- function(status_study) {
     "Last-patient last visit date",
     "Estimated last-patient last visit date from GILDA"
   )
+
+  # if longitudinal snapshot is used, select the most recent row
+  if (nrow(status_study) > 1) {
+    status_study <- status_study %>%
+      filter(
+        .data$snapshot_date == max(.data$snapshot_date)
+      )
+  }
 
   paramDescription <- gsm::rbm_data_spec %>%
     filter(
@@ -68,7 +74,7 @@ MakeStudyStatusTable <- function(status_study) {
       Value = participants
     ) %>%
     filter(
-      Parameter %in% parameterArrangeOrder
+      .data$Parameter %in% parameterArrangeOrder
     )
 
   study_status_table <- arrange(study_status_table, match(study_status_table$Parameter, parameterArrangeOrder))
@@ -106,22 +112,24 @@ MakeSummaryTable <- function(assessment) {
       dfSummary <- kri$lResults$lData$dfSummary
 
       if (nrow(dfSummary) > 0 &
-          any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
+        any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
         dfSummary %>%
-          filter(Flag != 0) %>%
-          arrange(desc(abs(Flag))) %>%
-          mutate(FlagDirectionality = map(Flag, kri_directionality_logo),
-                 across(where(is.numeric),
-                        ~ round(.x, 3))) %>%
+          filter(.data$Flag != 0) %>%
+          arrange(desc(abs(.data$Flag))) %>%
+          mutate(
+            FlagDirectionality = map(.data$Flag, kri_directionality_logo),
+            across(
+              where(is.numeric),
+              ~ round(.x, 3)
+            )
+          ) %>%
           DT::datatable()
       } else {
         htmltools::p("Nothing flagged for this KRI.")
       }
-
     } else {
       htmltools::strong("Workflow failed.")
     }
-
   })
 }
 

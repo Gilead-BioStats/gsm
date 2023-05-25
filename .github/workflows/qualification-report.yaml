@@ -63,5 +63,5 @@ jobs:
           file: ./Qualification.pdf
           asset_name: qualification-report.pdf
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref }}
+          tag: ${{ github.ref_name }}
           overwrite: false

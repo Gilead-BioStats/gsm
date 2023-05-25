@@ -22,9 +22,9 @@
 #'
 #' @export
 StackSnapshots <- function(
-    cPath,
-    lSnapshot = NULL,
-    vFolderNames = NULL
+  cPath,
+  lSnapshot = NULL,
+  vFolderNames = NULL
 ) {
   stopifnot(
     "[ cPath ] does not exist." = file.exists(cPath)
@@ -33,12 +33,11 @@ StackSnapshots <- function(
 
 
   # Capture list of YYYY-MM-DD-formatted snapshot directoreis.
-  snapshots <- list.dirs(cPath, recursive = FALSE) %>%
-      .[grepl('/\\d{4}-\\d{2}-\\d{2}$', .)]
+  snapshots <- list.dirs(cPath, recursive = FALSE)
+    snapshots <- snapshots[grepl("/\\d{4}-\\d{2}-\\d{2}$", snapshots)]
 
   # subset snapshot folders if specified ------------------------------------
   if (!is.null(vFolderNames)) {
-
     folders_not_found <- vFolderNames[!vFolderNames %in% basename(snapshots)]
 
     if (length(folders_not_found) > 0) {
@@ -98,7 +97,6 @@ StackSnapshots <- function(
 
   # append recent data ------------------------------------------------------
   if (!is.null(lSnapshot)) {
-
     common_tables <- intersect(
       names(longitudinal_data),
       names(lSnapshot$lSnapshot)
@@ -147,7 +145,6 @@ StackSnapshots <- function(
 
   # check if gsm_versions are mismatched
   if (any(c("gsm_version.x", "gsm_version.y") %in% names(longitudinal_data$parameters))) {
-
     # some rows contain NA since they aren't always fully joined to previous metadata
 
     # longitudinal data can > 2 versions of of gsm
@@ -172,7 +169,6 @@ StackSnapshots <- function(
     cli::cli_alert_warning("{.fun StackSnapshot} detected multiple versions of {.pkg gsm} in snapshot history.")
     cli::cli_li("Using latest version {.code {latest_version}} in the longitudinal data added to snapshot.")
     cli::cli_li("Also detected version{?s} {.code {other_versions}}.")
-
   }
 
   # only keep latest workflow metadata
@@ -188,5 +184,3 @@ StackSnapshots <- function(
 
   return(longitudinal_data)
 }
-
-

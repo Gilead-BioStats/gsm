@@ -10,7 +10,6 @@
 #' @param lData `list` A named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
-#' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`
 #'
 #' @return `list` containing objects named: `steps`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `lWorkflowChecks`, and `lResults`.
 #'
@@ -43,7 +42,7 @@
 #'
 #' @export
 
-RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE, bFlowchart = FALSE) {
+RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` assessment"))
 
   vDataDomains <- purrr::map(lWorkflow$steps, function(x) {

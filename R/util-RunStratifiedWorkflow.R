@@ -13,7 +13,6 @@
 #' `X_Map_Raw`.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
-#' @param bFlowchart `logical` Create flowchart to show data pipeline? Default: `FALSE`
 #'
 #' @return `list` with `group`, `steps`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `lWorkflowChecks` and `lResults` added based on the results of the execution of
 #' `lWorkflow$workflow`.
@@ -53,8 +52,7 @@ RunStratifiedWorkflow <- function(
   lWorkflow,
   lData,
   lMapping,
-  bQuiet = TRUE,
-  bFlowchart = FALSE
+  bQuiet = TRUE
 ) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` workflow"))
 
@@ -62,8 +60,7 @@ RunStratifiedWorkflow <- function(
     lWorkflow,
     lData,
     lMapping,
-    bQuiet = bQuiet,
-    bFlowchart = bFlowchart
+    bQuiet = bQuiet
   )
 
   if (

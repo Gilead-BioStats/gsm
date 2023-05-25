@@ -1,3 +1,22 @@
+# gsm v1.7.2
+
+This release includes updates to KRIs, longitudinal snapshot methods, and reporting.
+
+### KRI Changes
+- KRIs (kri0008 and kri0009) have added a filter step on the `querystatus` column, containing values `Open, Answered, or Closed`.
+
+### Longitudinal Snapshot
+- `StackSnapshots()` has been updated to only recognize folders that are named with `YYYY-MM-DD` format.
+- `StackSnapshots()` no longer includes multiple `{gsm}` versions in the `parameters` data.frame. The default behavior is to now detect the most recent version of `{gsm}`, and throw an informative warning if more than one version is detected.
+- `AugmentSnapshot()` has been updated so that snapshot folders can be specified.
+
+### Reporting
+- Hover tooltips have been added to the study overview table, showing metrics for each site for a given KRI.
+- Study status table has been reformatted to show fewer rows of data, with a toggle button to show full details.
+
+### Other
+- Flowcharts have been deprecated. Plan to incorporate flowchart(s) either up or down-stream of `{gsm}`.
+
 # gsm v1.7.1
 
 This release reflects a change in Adverse Event (AE) and Labs (LB) KRIs. 

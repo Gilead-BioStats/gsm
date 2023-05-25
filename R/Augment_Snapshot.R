@@ -34,7 +34,6 @@ Augment_Snapshot <- function(
   vFolderNames = NULL,
   bAppendTimeSeriesCharts = TRUE
 ) {
-
   # TODO: alternatively accept the output of StackSnapshots?
   stackedSnapshots <- StackSnapshots(cPath, lSnapshot, vFolderNames)
 

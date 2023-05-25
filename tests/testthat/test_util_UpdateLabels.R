@@ -14,9 +14,9 @@ makeTestData <- function(data, max_rows = 300) {
     mutate(
       subjectname = substr(subjectname, 0, 4),
       subjectname = case_when(subjectname == "0001" ~ "0003",
-                              subjectname == "0002" ~ "0496",
-                              subjectname == "0004" ~ "1350",
-                              .default = subjectname
+        subjectname == "0002" ~ "0496",
+        subjectname == "0004" ~ "1350",
+        .default = subjectname
       )
     )
 }
@@ -88,7 +88,6 @@ result <- Study_Assess(
 )
 
 test_that("labels were updated correctly", {
-
   update <- UpdateLabels(result, gsm::meta_workflow)
 
   # test a single workflow labels
@@ -100,9 +99,15 @@ test_that("labels were updated correctly", {
 
 
   # expected values
-  abb <- gsm::meta_workflow %>% filter(workflowid == "kri0001") %>% pull(abbreviation)
-  num <- gsm::meta_workflow %>% filter(workflowid == "kri0001") %>% pull(numerator)
-  denom <- gsm::meta_workflow %>% filter(workflowid == "kri0001") %>% pull(denominator)
+  abb <- gsm::meta_workflow %>%
+    filter(workflowid == "kri0001") %>%
+    pull(abbreviation)
+  num <- gsm::meta_workflow %>%
+    filter(workflowid == "kri0001") %>%
+    pull(numerator)
+  denom <- gsm::meta_workflow %>%
+    filter(workflowid == "kri0001") %>%
+    pull(denominator)
 
   expect_equal(scatter$x$workflow$abbreviation, abb)
   expect_equal(barscore$x$workflow$abbreviation, abb)
@@ -115,16 +120,13 @@ test_that("labels were updated correctly", {
   expect_equal(scatter$x$workflow$denominator, denom)
   expect_equal(barscore$x$workflow$denominator, denom)
   expect_equal(barmetric$x$workflow$denominator, denom)
-  })
+})
 
 test_that("UpdateLabels runs without error", {
-
   expect_silent(update <- UpdateLabels(result, gsm::meta_workflow))
-
 })
 
 test_that("UpdateLabels runs if there are no {rbm-viz} or {ggplot2} plots", {
-
   no_js <- map(result, ~ {
     .x$lResults$lCharts <- .x$lResults$lCharts[-grep("JS$", names(.x$lResults$lCharts))]
     return(.x)
@@ -137,5 +139,4 @@ test_that("UpdateLabels runs if there are no {rbm-viz} or {ggplot2} plots", {
 
   expect_silent(update <- UpdateLabels(no_js, gsm::meta_workflow))
   expect_silent(update <- UpdateLabels(no_ggplot, gsm::meta_workflow))
-
 })

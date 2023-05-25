@@ -35,7 +35,6 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
       kri$lResults$lData$dfSummary %>%
         mutate(across(where(is.numeric), function(x) round(x, digits = 3))) %>%
         imap_dfr(function(x, y) {
-
           if (!is.null(kri_labels)) {
             if (y == "Numerator") {
               y <- kri_labels$numerator
@@ -153,12 +152,12 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
         }
       }
     ",
-    .open = "{{"
+      .open = "{{"
     )
 
     # enable tooltips for cells
     tooltipCallback <- glue::glue(
-    "
+      "
     function updateTableTitles(settings) {
       var table = document.querySelector('.tbl-rbqm-study-overview')
       var tdElements = table.getElementsByTagName('td');
@@ -177,23 +176,25 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     )
 
     overview_table <- overview_table %>%
-      mutate(across(-c("Site":"Amber KRIs"),
-                    ~ purrr::imap(.x, function(value, index) {
-                      kri_directionality_logo(value, title = reference_table[[cur_column()]][[index]])
-                    }))) %>%
+      mutate(across(
+        -c("Site":"Amber KRIs"),
+        ~ purrr::imap(.x, function(value, index) {
+          kri_directionality_logo(value, title = reference_table[[cur_column()]][[index]])
+        })
+      )) %>%
       arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`)) %>%
       DT::datatable(
         class = "tbl-rbqm-study-overview",
-          options = list(
-            initComplete = JS(tooltipCallback),
-            columnDefs = list(list(
-              className = "dt-center",
-              targets = 0:(n_headers - 1)
-            )),
-            headerCallback = JS(headerCallback)
-          ),
-          rownames = FALSE
-        )
+        options = list(
+          initComplete = JS(tooltipCallback),
+          columnDefs = list(list(
+            className = "dt-center",
+            targets = 0:(n_headers - 1)
+          )),
+          headerCallback = JS(headerCallback)
+        ),
+        rownames = FALSE
+      )
   }
 
   return(overview_table)
@@ -201,7 +202,7 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
 
 assign_tooltip_labels <- function(name) {
   cur_kri <- gsm::meta_workflow %>%
-    filter(workflowid == name)
+    filter(.data$workflowid == name)
 
   if (nrow(cur_kri) > 0) {
     return(
@@ -213,5 +214,4 @@ assign_tooltip_labels <- function(name) {
   } else {
     return(NULL)
   }
-
 }
