@@ -117,7 +117,7 @@ MakeSummaryTable <- function(assessment) {
           filter(Flag != 0) %>%
           arrange(desc(abs(Flag))) %>%
           mutate(
-            FlagDirectionality = map(Flag, kri_directionality_logo),
+            FlagDirectionality = map(.data$Flag, kri_directionality_logo),
             across(
               where(is.numeric),
               ~ round(.x, 3)
