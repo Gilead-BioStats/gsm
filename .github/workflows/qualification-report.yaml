@@ -46,6 +46,10 @@ jobs:
         run: tools::buildVignette("./vignettes/articles/Qualification.Rmd")
         shell: Rscript {0}
 
+      - name: Modify tag name
+        id: modify_tag
+        run: echo "::set-output name=tag_name::$(echo '${{ github.ref }}' | sed 's/^refs\///')"
+
 
       # Upload the qulafication report to the release
       - name: Upload report to release
