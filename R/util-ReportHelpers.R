@@ -74,7 +74,7 @@ MakeStudyStatusTable <- function(status_study) {
       Value = participants
     ) %>%
     filter(
-      Parameter %in% parameterArrangeOrder
+      .data$Parameter %in% parameterArrangeOrder
     )
 
   study_status_table <- arrange(study_status_table, match(study_status_table$Parameter, parameterArrangeOrder))
