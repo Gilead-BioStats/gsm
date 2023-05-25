@@ -33,7 +33,7 @@ StackSnapshots <- function(
 
 
   # Capture list of YYYY-MM-DD-formatted snapshot directoreis.
-  snapshots <- list.dirs(cPath, recursive = FALSE) %>%
+  snapshots <- list.dirs(cPath, recursive = FALSE)
     snapshots <- snapshots[grepl("/\\d{4}-\\d{2}-\\d{2}$", snapshots)]
 
   # subset snapshot folders if specified ------------------------------------
