@@ -97,42 +97,42 @@ Gismo,meta_param,index,Parameter index
 Gismo,meta_param,default,Default value for parameter at index
 Gismo,meta_param,configurable,Is parameter configurable?
 Gismo,meta_param,gsm_analysis_date,Date that snapshot was created
-GSM,meta_study,PROTOCOL_ROW_ID,Protocol row ID
-GSM,meta_study,PROTOCOL_NUMBER,Protocol number
-GSM,meta_study,PROTOCOL_TITLE,Protocol title
-GSM,meta_study,NICKNAME,Protocol nickname
-GSM,meta_study,PROTOCOL_TYPE,Protocol type
-GSM,meta_study,PHASE,Phase
-GSM,meta_study,NUM_PLAN_SITE,# of planned sites from CTMS
-GSM,meta_study,NUM_SITE_ACTL,# of enrolled sites from CTMS
-GSM,meta_study,EST_FPFV,Estimated first-patient first visit date
-GSM,meta_study,ACT_FPFV,First-patient first visit date
-GSM,meta_study,EST_LPFV,Estimated last-patient first visit date
-GSM,meta_study,ACT_LPFV,Last-patient first visit date
-GSM,meta_study,EST_LPLV,Estimated last-patient last visit date
-GSM,meta_study,ACT_LPLV,Last-patient last visit date
-GSM,meta_study,STATUS,Study Status
-GSM,meta_study,NUM_PLAN_SUBJ,# of planned participants from CTMS
-GSM,meta_study,NUM_ENROLLED_SUBJ_M,# of enrolled participants from CTMS
-GSM,meta_study,PROTOCOL_INDICATION,Indication
-GSM,meta_study,PRODUCT,Product
-GSM,meta_study,THERAPEUTIC_AREA,Therapeutic Area
-GSM,meta_study,PROTOCOL_PRODUCT_NUMBER,Protocol product number
-GSM,meta_study,X_RBM_FLG,Risk-based monitoring flag
-GSM,meta_site,PROTOCOL_ROW_ID,Protocol row ID
-GSM,meta_site,SITE_NUM,Unique Site ID
-GSM,meta_site,SITE_ROW_ID,Site row ID
-GSM,meta_site,PROTOCOL,Unique Study ID
-GSM,meta_site,PI_NUMBER,Principal investigator number
-GSM,meta_site,PI_LAST_NAME,Principal investigator last name
-GSM,meta_site,PI_FIRST_NAME,Principal investigator first name
-GSM,meta_site,SITE_STATUS,Site Status
-GSM,meta_site,IS_SATELLITE,Is site a satellite location?
-GSM,meta_site,ACCOUNT,Institution Name
-GSM,meta_site,SITE_ACTIVE_DT,Site Activation Date
-GSM,meta_site,CITY,City
-GSM,meta_site,STATE,State
-GSM,meta_site,COUNTRY,Country
+GSM,meta_study,protocol_row_id,Protocol row ID
+GSM,meta_study,protocol_number,Protocol number
+GSM,meta_study,protocol_title,Protocol title
+GSM,meta_study,nickname,Protocol nickname
+GSM,meta_study,protocol_type,Protocol type
+GSM,meta_study,phase,Phase
+GSM,meta_study,num_plan_site,# of planned sites from CTMS
+GSM,meta_study,num_site_actl,# of enrolled sites from CTMS
+GSM,meta_study,est_fpfv,Estimated first-patient first visit date
+GSM,meta_study,act_fpfv,First-patient first visit date
+GSM,meta_study,est_lpfv,Estimated last-patient first visit date
+GSM,meta_study,act_lpfv,Last-patient first visit date
+GSM,meta_study,est_lplv,Estimated last-patient last visit date
+GSM,meta_study,act_lplv,Last-patient last visit date
+GSM,meta_study,status,Study Status
+GSM,meta_study,num_plan_subj,# of planned participants from CTMS
+GSM,meta_study,num_enrolled_subj_m,# of enrolled participants from CTMS
+GSM,meta_study,protocol_indication,Indication
+GSM,meta_study,product,Product
+GSM,meta_study,therapeutic_area,Therapeutic Area
+GSM,meta_study,protocol_product_number,Protocol product number
+GSM,meta_study,x_rmb_flg,Risk-based monitoring flag
+GSM,meta_site,protocol_row_id,Protocol row ID
+GSM,meta_site,site_num,Unique Site ID
+GSM,meta_site,site_row_id,Site row ID
+GSM,meta_site,protocol,Unique Study ID
+GSM,meta_site,pi_number,Principal investigator number
+GSM,meta_site,pi_last_name,Principal investigator last name
+GSM,meta_site,pi_first_name,Principal investigator first name
+GSM,meta_site,site_status,Site Status
+GSM,meta_site,is_satellite,Is site a satellite location?
+GSM,meta_site,account,Institution Name
+GSM,meta_site,site_active_dt,Site Activation Date
+GSM,meta_site,city,City
+GSM,meta_site,state,State
+GSM,meta_site,country,Country
 GSM,config_workflow,studyid,Unique Study ID
 GSM,config_workflow,workflowid,Unique Workflow ID
 GSM,config_workflow,gsm_version,GSM version of workflow
