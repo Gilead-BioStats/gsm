@@ -118,7 +118,7 @@ GSM,meta_study,protocol_indication,Indication
 GSM,meta_study,product,Product
 GSM,meta_study,therapeutic_area,Therapeutic Area
 GSM,meta_study,protocol_product_number,Protocol product number
-GSM,meta_study,x_rmb_flg,Risk-based monitoring flag
+GSM,meta_study,x_rbm_flg,Risk-based monitoring flag
 GSM,meta_site,protocol_row_id,Protocol row ID
 GSM,meta_site,site_num,Unique Site ID
 GSM,meta_site,site_row_id,Site row ID
