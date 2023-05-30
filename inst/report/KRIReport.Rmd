@@ -13,13 +13,7 @@ params:
 ---
 
 ```{r, echo=FALSE}
-htmltools::img(
-  src = knitr::image_uri("gilead.png"), 
-  alt = 'logo', 
-  style = 'position:absolute; top:0; right:0; padding:10px;', 
-  width = "125px", 
-  height = "50px"
-)
+AddGileadLogo()
 ```
 
 ---
@@ -34,28 +28,17 @@ assessment <- params$assessment[
   grep("kri", names(params$assessment))
 ]
 
-# Overview Table - HTML object
-overview_table <- Overview_Table(assessment)
-
 # Overview Table - data.frame/raw data
 overview_raw_table <- Overview_Table(assessment, bInteractive = FALSE)
 
+# Pull the number of KRIs (red or amber) and sum
+# -- displays red/yellow boxes at top of report
 red_kris <- overview_raw_table %>% pull(`Red KRIs`) %>% sum()
 amber_kris <- overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
 
-# turn into a function
-summary_table <- MakeSummaryTable(assessment)
 
 ## StudyID
-study_id <- purrr::map(assessment, function(kri) {
-    if (kri$bStatus) {
-      return(kri$lData$dfInput$StudyID %>% unique())
-    } 
-  }) %>% 
-    discard(is.null) %>% 
-    as.character() %>% 
-    unique()
-
+study_id <- ExtractStudyId(assessment)
 ```
 
 ---
@@ -65,7 +48,6 @@ title: "`r study_id` Assessment Overview"
 <div class = 'overall-site-select'
     id = 'overall-site-select'
     title = 'Selected site will be highlighted in all charts for all KRIs.'>
-
 </div>
 
 
@@ -98,11 +80,15 @@ date: "Snapshot Date: {params$status_study$gsm_analysis_date}"
 
 <div class="gsm-overview-table">
 ```{r echo=FALSE, warning=FALSE}
-overview_table
+Overview_Table(assessment)
 ```
 </div>
 
 ## Results
+```{r, echo=FALSE}
+summary_table <- MakeSummaryTable(assessment)
+```
+
 
 ```{r, echo=FALSE, results='asis'}
 for (i in seq_along(assessment)) {
@@ -175,19 +161,7 @@ for (i in seq_along(assessment)) {
 ## Error Log
 
 ```{r echo = FALSE}
-error <- Study_AssessmentReport(assessment)
-
-error_table <- error$dfSummary %>% 
-  arrange(desc(notes), assessment) %>% 
-  rename(
-    "Assessment" = "assessment",
-    "Step" = "step",
-    "Check" = "check",
-    "Domain" = "domain",
-    "Notes" = "notes"
-  )
-
-DT::datatable(error_table)
+MakeErrorLogTable(assessment)
 ```
 
 

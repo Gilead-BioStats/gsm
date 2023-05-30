@@ -151,3 +151,41 @@ add_table_theme <- function(x) {
     ) %>%
     gt::opt_row_striping()
 }
+
+
+AddGileadLogo <- function() {
+  htmltools::img(
+    src = knitr::image_uri("gilead.png"),
+    alt = 'logo',
+    style = 'position:absolute; top:0; right:0; padding:10px;',
+    width = "125px",
+    height = "50px"
+  )
+}
+
+ExtractStudyId <- function(data) {
+  purrr::map(data, function(kri) {
+    if (kri$bStatus) {
+      return(kri$lData$dfInput$StudyID %>% unique())
+    }
+  }) %>%
+    discard(is.null) %>%
+    as.character() %>%
+    unique()
+}
+
+MakeErrorLogTable <- function(data) {
+  error <- Study_AssessmentReport(data)
+
+  error_table <- error$dfSummary %>%
+    arrange(desc(notes), assessment) %>%
+    rename(
+      "Assessment" = "assessment",
+      "Step" = "step",
+      "Check" = "check",
+      "Domain" = "domain",
+      "Notes" = "notes"
+    )
+
+  DT::datatable(error_table)
+}
