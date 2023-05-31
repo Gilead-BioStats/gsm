@@ -100,36 +100,36 @@ Make_Snapshot <- function(
   status_study <- lMeta$meta_study %>%
     select(
       # study name/ID
-      "studyid" = "PROTOCOL_NUMBER",
-      "title" = "PROTOCOL_TITLE",
-      "nickname" = "NICKNAME",
+      "studyid" = protocol_number,
+      "title" = protocol_title,
+      "nickname",
 
       # enrollment
-      "planned_sites" = "NUM_PLAN_SITE",
-      "enrolled_sites_ctms" = "NUM_SITE_ACTL",
-      "planned_participants" = "NUM_PLAN_SUBJ",
-      "enrolled_participants_ctms" = "NUM_ENROLLED_SUBJ_M",
+      "planned_sites" = num_plan_site,
+      "enrolled_sites_ctms" = num_site_actl,
+      "planned_participants" = num_plan_subj,
+      "enrolled_participants_ctms" = num_enrolled_subj_m,
 
       # milestones
-      "fpfv" = "ACT_FPFV",
-      "lpfv" = "ACT_LPFV",
-      "lplv" = "ACT_LPLV",
+      "fpfv" = act_fpfv,
+      "lpfv" = act_lpfv,
+      "lplv" = act_lplv,
 
       # study characteristics
-      "ta" = "THERAPEUTIC_AREA",
-      "indication" = "PROTOCOL_INDICATION",
-      "phase" = "PHASE",
-      "status" = "STATUS",
-      "rbm_flag" = "X_RBM_FLG",
+      "ta" = therapeutic_area,
+      "indication" = protocol_indication,
+      "phase",
+      "status",
+      "rbm_flag" = x_rbm_flg,
 
       # miscellany
-      "product" = "PRODUCT",
-      "protocol_type" = "PROTOCOL_TYPE",
-      "protocol_row_id" = "PROTOCOL_ROW_ID",
-      "est_fpfv" = "EST_FPFV",
-      "est_lpfv" = "EST_LPFV",
-      "est_lplv" = "EST_LPLV",
-      "protocol_product_number" = "PROTOCOL_PRODUCT_NUMBER",
+      "product",
+      "protocol_type",
+      "protocol_row_id",
+      "est_fpfv",
+      "est_lpfv",
+      "est_lplv",
+      "protocol_product_number",
       everything()
     ) %>%
     rename_with(tolower)
@@ -137,18 +137,18 @@ Make_Snapshot <- function(
   # ctms_site / meta_site:
   status_site <- lMeta$meta_site %>%
     mutate(
-      siteid = as.character(.data$SITE_NUM),
-      invname = paste0(.data$PI_LAST_NAME, ", ", .data$PI_FIRST_NAME)
+      siteid = as.character(.data$site_num),
+      invname = paste0(.data$pi_last_name, ", ", .data$pi_first_name)
     ) %>%
     select(
-      "studyid" = "PROTOCOL",
+      "studyid" = protocol,
       "siteid",
-      "institution" = "ACCOUNT",
-      "status" = "SITE_STATUS",
-      "start_date" = "SITE_ACTIVE_DT",
-      "city" = "CITY",
-      "state" = "STATE",
-      "country" = "COUNTRY",
+      "institution" = account,
+      "status" = site_status,
+      "start_date" = site_active_dt,
+      "city",
+      "state",
+      "country",
       "invname",
       everything()
     ) %>%
