@@ -199,7 +199,10 @@ test_that("Custom lAssessments and lMapping works together as intended", {
   lAssessments_edited$kri0001$name <- "aetoxgr"
   lAssessments_edited$kri0001$path <- file.path(system.file("/testpath/ae_assessment_moderate.yaml", package = "gsm"))
 
-  lMapping_edited <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+  lMapping_edited <- c(
+    yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
+    yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm"))
+  )
   lMapping_edited$dfAE$strGradeCol <- "MODERATE"
 
   expect_snapshot(snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping_edited, lAssessments = lAssessments_edited))
