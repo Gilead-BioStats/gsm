@@ -5,3 +5,43 @@ dfPD:
   strImportantCol: deemedimportant
   strImportantVal: "Yes"
   strNonImportantVal: "No"
+dfSTUDY:
+  strProtocolRowID: protocol_row_id
+  strProtocolNum: protocol_number
+  strProtocolTitle: protocol_title
+  strStudyNickname: nickname
+  strProtocolType: protocol_type
+  strStudyPhase: phase
+  strNumPlannedSites: num_plan_site
+  strNumActualSites: num_site_actl
+  strEstFirstPatientFirstVisit: est_fpfv
+  strActualFirstPatientFirstVisit: act_fpfv
+  strEstLastPatientLastVisit: est_lplv
+  strActualLastPatientLastVisit: act_lplv
+  strEstLastPatientFirstVisit: est_lpfv
+  strActualLastPatientFirstVisit: act_lpfv
+  strSiteStatus: status
+  strNumPlannedSubjs: num_plan_subj
+  strNumEnrolledSubjs: num_enrolled_subj_m
+  strProtocolIndication: protocol_indication
+  strProduct: product
+  strTherapeuticArea: therapeutic_area
+  strProtocolProductNum: protocol_product_number
+  strRBMFlag: x_rbm_flg
+  strRBMFlagInclude: "Y"
+  strRBMFlagExclude: "N"
+dfSITE:
+  strProtocolRowID: protocol_row_id
+  strSiteNum: site_num
+  strSiteRowID: site_row_id
+  strProtocolID: protocol
+  strPINum: pi_number
+  strPILastName: pi_last_name
+  strPIFirstName: pi_first_name
+  strSiteStatus: site_status
+  strSatellite: is_satellite
+  strAccount: account
+  strSiteActivationDate: site_active_dt
+  strSiteCity: city
+  strSiteState: state
+  strSiteCountry: country
