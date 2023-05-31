@@ -87,6 +87,124 @@
       [1] "No"
       
       
+      $dfSTUDY
+      $dfSTUDY$strProtocolRowID
+      [1] "protocol_row_id"
+      
+      $dfSTUDY$strProtocolNum
+      [1] "protocol_number"
+      
+      $dfSTUDY$strProtocolTitle
+      [1] "protocol_title"
+      
+      $dfSTUDY$strStudyNickname
+      [1] "nickname"
+      
+      $dfSTUDY$strProtocolType
+      [1] "protocol_type"
+      
+      $dfSTUDY$strStudyPhase
+      [1] "phase"
+      
+      $dfSTUDY$strNumPlannedSites
+      [1] "num_plan_site"
+      
+      $dfSTUDY$strNumActualSites
+      [1] "num_site_actl"
+      
+      $dfSTUDY$strEstFirstPatientFirstVisit
+      [1] "est_fpfv"
+      
+      $dfSTUDY$strActualFirstPatientFirstVisit
+      [1] "act_fpfv"
+      
+      $dfSTUDY$strEstLastPatientLastVisit
+      [1] "est_lplv"
+      
+      $dfSTUDY$strActualLastPatientLastVisit
+      [1] "act_lplv"
+      
+      $dfSTUDY$strEstLastPatientFirstVisit
+      [1] "est_lpfv"
+      
+      $dfSTUDY$strActualLastPatientFirstVisit
+      [1] "act_lpfv"
+      
+      $dfSTUDY$strSiteStatus
+      [1] "status"
+      
+      $dfSTUDY$strNumPlannedSubjs
+      [1] "num_plan_subj"
+      
+      $dfSTUDY$strNumEnrolledSubjs
+      [1] "num_enrolled_subj_m"
+      
+      $dfSTUDY$strProtocolIndication
+      [1] "protocol_indication"
+      
+      $dfSTUDY$strProduct
+      [1] "product"
+      
+      $dfSTUDY$strTherapeuticArea
+      [1] "therapeutic_area"
+      
+      $dfSTUDY$strProtocolProductNum
+      [1] "protocol_product_number"
+      
+      $dfSTUDY$strRBMFlag
+      [1] "x_rbm_flg"
+      
+      $dfSTUDY$strRBMFlagInclude
+      [1] "Y"
+      
+      $dfSTUDY$strRBMFlagExclude
+      [1] "N"
+      
+      
+      $dfSITE
+      $dfSITE$strProtocolRowID
+      [1] "protocol_row_id"
+      
+      $dfSITE$strSiteNum
+      [1] "site_num"
+      
+      $dfSITE$strSiteRowID
+      [1] "site_row_id"
+      
+      $dfSITE$strProtocolID
+      [1] "protocol"
+      
+      $dfSITE$strPINum
+      [1] "pi_number"
+      
+      $dfSITE$strPILastName
+      [1] "pi_last_name"
+      
+      $dfSITE$strPIFirstName
+      [1] "pi_first_name"
+      
+      $dfSITE$strSiteStatus
+      [1] "site_status"
+      
+      $dfSITE$strSatellite
+      [1] "is_satellite"
+      
+      $dfSITE$strAccount
+      [1] "account"
+      
+      $dfSITE$strSiteActivationDate
+      [1] "site_active_dt"
+      
+      $dfSITE$strSiteCity
+      [1] "city"
+      
+      $dfSITE$strSiteState
+      [1] "state"
+      
+      $dfSITE$strSiteCountry
+      [1] "country"
+      
+      
       $dfQUERY
       $dfQUERY$strStudyCol
       [1] "protocolname"

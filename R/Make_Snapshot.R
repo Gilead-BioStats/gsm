@@ -100,36 +100,36 @@ Make_Snapshot <- function(
   status_study <- lMeta$meta_study %>%
     select(
       # study name/ID
-      "studyid" = "protocol_number",
-      "title" = "protocol_title",
-      "nickname",
+      "studyid" = lMapping$dfSTUDY[["strProtocolNum"]],
+      "title" = lMapping$dfSTUDY[["strProtocolTitle"]],
+      "nickname" = lMapping$dfSTUDY[["strStudyNickname"]],
 
       # enrollment
-      "planned_sites" = "num_plan_site",
-      "enrolled_sites_ctms" = "num_site_actl",
-      "planned_participants" = "num_plan_subj",
-      "enrolled_participants_ctms" = "num_enrolled_subj_m",
+      "planned_sites" = lMapping$dfSTUDY[["strNumPlannedSites"]],
+      "enrolled_sites_ctms" = lMapping$dfSTUDY[["strNumActualSites"]],
+      "planned_participants" = lMapping$dfSTUDY[["strNumPlannedSubjs"]],
+      "enrolled_participants_ctms" = lMapping$dfSTUDY[["strNumEnrolledSubjs"]],
 
       # milestones
-      "fpfv" = "act_fpfv",
-      "lpfv" = "act_lpfv",
-      "lplv" = "act_lplv",
+      "fpfv" = lMapping$dfSTUDY[["strActualFirstPatientFirstVisit"]],
+      "lpfv" = lMapping$dfSTUDY[["strActualLastPatientFirstVisit"]],
+      "lplv" = lMapping$dfSTUDY[["strActualLastPatientLastVisit"]],
 
       # study characteristics
-      "ta" = "therapeutic_area",
-      "indication" = "protocol_indication",
-      "phase",
-      "status",
-      "rbm_flag" = "x_rbm_flg",
+      "ta" = lMapping$dfSTUDY[["strTherapeuticArea"]],
+      "indication" = lMapping$dfSTUDY[["strProtocolIndication"]],
+      "phase" = lMapping$dfSTUDY[["strStudyPhase"]],
+      "status" = lMapping$dfSTUDY[["strSiteStatus"]],
+      "rbm_flag" = lMapping$dfSTUDY[["strRBMFlag"]],
 
       # miscellany
-      "product",
-      "protocol_type",
-      "protocol_row_id",
-      "est_fpfv",
-      "est_lpfv",
-      "est_lplv",
-      "protocol_product_number",
+      "product" = lMapping$dfSTUDY[["strProduct"]],
+      "protocol_type" = lMapping$dfSTUDY[["strProtocolType"]],
+      "protocol_row_id" = lMapping$dfSTUDY[["strProtocolRowID"]],
+      "est_fpfv" = lMapping$dfSTUDY[["strEstFirstPatientFirstVisit"]],
+      "est_lpfv" = lMapping$dfSTUDY[["strEstLastPatientFirstVisit"]],
+      "est_lplv" = lMapping$dfSTUDY[["strEstLastPatientLastVisit"]],
+      "protocol_product_number" = lMapping$dfSTUDY[["strProtocolProductNum"]],
       everything()
     ) %>%
     rename_with(tolower)
@@ -141,14 +141,14 @@ Make_Snapshot <- function(
       invname = paste0(.data$pi_last_name, ", ", .data$pi_first_name)
     ) %>%
     select(
-      "studyid" = "protocol",
+      "studyid" = lMapping$dfSITE[["strProtocolID"]],
       "siteid",
-      "institution" = "account",
-      "status" = "site_status",
-      "start_date" = "site_active_dt",
-      "city",
-      "state",
-      "country",
+      "institution" = lMapping$dfSITE[["strAccount"]],
+      "status" = lMapping$dfSITE[["strSiteStatus"]],
+      "start_date" = lMapping$dfSITE[["strSiteActivationDate"]],
+      "city" = lMapping$dfSITE[["strSiteCity"]],
+      "state" = lMapping$dfSITE[["strSiteState"]],
+      "country" = lMapping$dfSITE[["strSiteCountry"]],
       "invname",
       everything()
     ) %>%
