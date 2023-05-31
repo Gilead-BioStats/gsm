@@ -412,7 +412,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["1", "2", "3", "4"]
+              "value": ["0", "1", "2", "3", "4"]
             },
             {
               "type": "character",

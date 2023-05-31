@@ -365,7 +365,7 @@
       [1] "toxgrg_nsv"
       
       $dfLB$strGradeAnyVal
-      [1] "1" "2" "3" "4"
+      [1] "0" "1" "2" "3" "4"
       
       $dfLB$strGradeHighVal
       [1] "3" "4"

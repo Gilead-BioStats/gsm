@@ -100,27 +100,27 @@ Make_Snapshot <- function(
   status_study <- lMeta$meta_study %>%
     select(
       # study name/ID
-      "studyid" = protocol_number,
-      "title" = protocol_title,
+      "studyid" = "protocol_number",
+      "title" = "protocol_title",
       "nickname",
 
       # enrollment
-      "planned_sites" = num_plan_site,
-      "enrolled_sites_ctms" = num_site_actl,
-      "planned_participants" = num_plan_subj,
-      "enrolled_participants_ctms" = num_enrolled_subj_m,
+      "planned_sites" = "num_plan_site",
+      "enrolled_sites_ctms" = "num_site_actl",
+      "planned_participants" = "num_plan_subj",
+      "enrolled_participants_ctms" = "num_enrolled_subj_m",
 
       # milestones
-      "fpfv" = act_fpfv,
-      "lpfv" = act_lpfv,
-      "lplv" = act_lplv,
+      "fpfv" = "act_fpfv",
+      "lpfv" = "act_lpfv",
+      "lplv" = "act_lplv",
 
       # study characteristics
-      "ta" = therapeutic_area,
-      "indication" = protocol_indication,
+      "ta" = "therapeutic_area",
+      "indication" = "protocol_indication",
       "phase",
       "status",
-      "rbm_flag" = x_rbm_flg,
+      "rbm_flag" = "x_rbm_flg",
 
       # miscellany
       "product",
@@ -141,11 +141,11 @@ Make_Snapshot <- function(
       invname = paste0(.data$pi_last_name, ", ", .data$pi_first_name)
     ) %>%
     select(
-      "studyid" = protocol,
+      "studyid" = "protocol",
       "siteid",
-      "institution" = account,
-      "status" = site_status,
-      "start_date" = site_active_dt,
+      "institution" = "account",
+      "status" = "site_status",
+      "start_date" = "site_active_dt",
       "city",
       "state",
       "country",

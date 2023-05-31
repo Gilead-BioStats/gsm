@@ -183,10 +183,22 @@
         bQuiet = TRUE
       )
       
+      #--- cou0005:FilterDomain ---
+      
+      dfLB <- FilterDomain(
+        df = dfLB,
+        strDomain = "dfLB",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfLB"]][["strGradeCol"]],
+        strValParam = lMapping[["dfLB"]][["strGradeAnyVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- cou0005:LB_Map_Raw ---
       
       dfInput <- LB_Map_Raw(
-        dfs = list(dfSUBJ = dfSUBJ, dfLB = lData[["dfLB"]]),
+        dfs = list(dfSUBJ = lData[["dfSUBJ"]], dfLB = dfLB),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
@@ -627,10 +639,22 @@
         bQuiet = TRUE
       )
       
+      #--- kri0005:FilterDomain ---
+      
+      dfLB <- FilterDomain(
+        df = dfLB,
+        strDomain = "dfLB",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfLB"]][["strGradeCol"]],
+        strValParam = lMapping[["dfLB"]][["strGradeAnyVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE
+      )
+      
       #--- kri0005:LB_Map_Raw ---
       
       dfInput <- LB_Map_Raw(
-        dfs = list(dfSUBJ = dfSUBJ, dfLB = lData[["dfLB"]]),
+        dfs = list(dfSUBJ = lData[["dfSUBJ"]], dfLB = dfLB),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
