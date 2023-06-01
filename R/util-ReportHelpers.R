@@ -1,6 +1,7 @@
 #' Create Status Study table in KRIReport.Rmd
 #' @param status_study `data.frame` from `params` within `KRIReport.Rmd`
-#' @noRd
+#' @export
+#' @keywords internal
 MakeStudyStatusTable <- function(status_study) {
   parameterArrangeOrder <- c(
     "Unique Study ID",
@@ -46,8 +47,8 @@ MakeStudyStatusTable <- function(status_study) {
 
 
 
-  sites <- paste0(status_study$enrolled_sites, " / ", status_study$planned_sites)
-  participants <- paste0(status_study$enrolled_participants, " / ", status_study$planned_participants)
+  sites <- paste0(round(status_study$enrolled_sites), " / ", round(status_study$planned_sites))
+  participants <- paste0(round(status_study$enrolled_participants), " / ", round(status_study$planned_participants))
 
   study_status_table <- status_study %>%
     t() %>%
@@ -105,7 +106,8 @@ MakeStudyStatusTable <- function(status_study) {
 
 #' Create Summary table in KRIReport.Rmd for each KRI
 #' @param assessment `data.frame` from `params` within `KRIReport.Rmd`
-#' @noRd
+#' @export
+#' @keywords internal
 MakeSummaryTable <- function(assessment) {
   map(assessment, function(kri) {
     if (kri$bStatus) {
@@ -133,7 +135,10 @@ MakeSummaryTable <- function(assessment) {
   })
 }
 
-
+#' Add a standard theme to a `gt` table.
+#' @param x `data.frame` A data.frame that will be converted to a `gt` table.
+#' @export
+#' @keywords internal
 add_table_theme <- function(x) {
   x %>%
     gt::tab_options(

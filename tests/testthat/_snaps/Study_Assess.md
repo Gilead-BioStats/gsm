@@ -919,7 +919,7 @@
       [1] "toxgrg_nsv"
       
       $AE_Map_Raw$mapping$dfLB$strGradeAnyVal
-      [1] "1" "2" "3" "4"
+      [1] "0" "1" "2" "3" "4"
       
       $AE_Map_Raw$mapping$dfLB$strGradeHighVal
       [1] "3" "4"
