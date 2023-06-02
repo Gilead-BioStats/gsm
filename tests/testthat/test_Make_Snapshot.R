@@ -228,6 +228,7 @@ test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
     meta_study = clindata::ctms_study,
     meta_workflow = gsm::meta_workflow
   )
+
   expect_silent(
     Make_Snapshot(
       lMeta = lMeta_edited,

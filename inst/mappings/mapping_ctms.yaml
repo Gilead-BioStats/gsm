@@ -1,3 +1,39 @@
+dfSTUDY:
+  strStudyCol: protocol_number
+  strTitleCol: protocol_title
+  strNicknameCol: nickname
+  strTypeCol: protocol_type
+  strPhaseCol: phase
+  strPlannedSitesCol: num_plan_site
+  strActualSitesCol: num_site_actl
+  strPlannedSubjectsCol: num_plan_subj
+  strActualSubjectsCol: num_enrolled_subj_m
+  strEstFirstPatientFirstVisitCol: est_fpfv
+  strActFirstPatientFirstVisitCol: act_fpfv
+  strEstLastPatientFirstVisitCol: est_lpfv
+  strActLastPatientFirstVisitCol: act_lpfv
+  strEstLastPatientLastVisitCol: est_lplv
+  strActLastPatientLastVisitCol: act_lplv
+  strStatusCol: status
+  strIndicationCol: protocol_indication
+  strProductCol: product
+  strTherapeuticAreaCol: therapeutic_area
+  strRBMFlagCol: x_rbm_flg
+  strRBMFlagIncludeVal: "Y"
+  strRBMFlagExcludeVal: "N"
+dfSITE:
+  strStudyCol: protocol
+  strSiteCol: site_num
+  strPICol: pi_number
+  strPILastNameCol: pi_last_name
+  strPIFirstNameCol: pi_first_name
+  strStatusCol: site_status
+  strSatelliteCol: is_satellite
+  strAccountCol: account
+  strActivationDateCol: site_active_dt
+  strCityCol: city
+  strStateCol: state
+  strCountryCol: country
 dfPD:
   strIDCol: subjectenrollmentnumber
   strDateCol: deviationdate
@@ -5,43 +41,3 @@ dfPD:
   strImportantCol: deemedimportant
   strImportantVal: "Yes"
   strNonImportantVal: "No"
-dfSTUDY:
-  strProtocolRowID: protocol_row_id
-  strProtocolNum: protocol_number
-  strProtocolTitle: protocol_title
-  strStudyNickname: nickname
-  strProtocolType: protocol_type
-  strStudyPhase: phase
-  strNumPlannedSites: num_plan_site
-  strNumActualSites: num_site_actl
-  strEstFirstPatientFirstVisit: est_fpfv
-  strActualFirstPatientFirstVisit: act_fpfv
-  strEstLastPatientLastVisit: est_lplv
-  strActualLastPatientLastVisit: act_lplv
-  strEstLastPatientFirstVisit: est_lpfv
-  strActualLastPatientFirstVisit: act_lpfv
-  strSiteStatus: status
-  strNumPlannedSubjs: num_plan_subj
-  strNumEnrolledSubjs: num_enrolled_subj_m
-  strProtocolIndication: protocol_indication
-  strProduct: product
-  strTherapeuticArea: therapeutic_area
-  strProtocolProductNum: protocol_product_number
-  strRBMFlag: x_rbm_flg
-  strRBMFlagInclude: "Y"
-  strRBMFlagExclude: "N"
-dfSITE:
-  strProtocolRowID: protocol_row_id
-  strSiteNum: site_num
-  strSiteRowID: site_row_id
-  strProtocolID: protocol
-  strPINum: pi_number
-  strPILastName: pi_last_name
-  strPIFirstName: pi_first_name
-  strSiteStatus: site_status
-  strSatellite: is_satellite
-  strAccount: account
-  strSiteActivationDate: site_active_dt
-  strSiteCity: city
-  strSiteState: state
-  strSiteCountry: country

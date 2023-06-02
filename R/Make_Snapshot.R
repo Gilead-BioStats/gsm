@@ -73,12 +73,9 @@ Make_Snapshot <- function(
   bUpdateParams = FALSE,
   bQuiet = TRUE
 ) {
-  # add gsm_analysis_date to all outputs except meta_
+  # add gsm_analysis_date to all outputs except {gsm} metadata
   # -- if date is provided, it should be the date that the data was pulled/wrangled.
   # -- if date is NOT provided, it will default to the date that the analysis was run.
-
-
-
   if (!is.null(strAnalysisDate)) {
     # date validation check
     date_is_valid <- try(as.Date(strAnalysisDate), silent = TRUE)
@@ -97,118 +94,28 @@ Make_Snapshot <- function(
   # rename GILDA to expected gsm variable names -----------------------------
 
   # ctms_study / meta_study:
-  status_study <- lMeta$meta_study %>%
-    select(
-      # study name/ID
-      "studyid" = lMapping$dfSTUDY[["strProtocolNum"]],
-      "title" = lMapping$dfSTUDY[["strProtocolTitle"]],
-      "nickname" = lMapping$dfSTUDY[["strStudyNickname"]],
-
-      # enrollment
-      "planned_sites" = lMapping$dfSTUDY[["strNumPlannedSites"]],
-      "enrolled_sites_ctms" = lMapping$dfSTUDY[["strNumActualSites"]],
-      "planned_participants" = lMapping$dfSTUDY[["strNumPlannedSubjs"]],
-      "enrolled_participants_ctms" = lMapping$dfSTUDY[["strNumEnrolledSubjs"]],
-
-      # milestones
-      "fpfv" = lMapping$dfSTUDY[["strActualFirstPatientFirstVisit"]],
-      "lpfv" = lMapping$dfSTUDY[["strActualLastPatientFirstVisit"]],
-      "lplv" = lMapping$dfSTUDY[["strActualLastPatientLastVisit"]],
-
-      # study characteristics
-      "ta" = lMapping$dfSTUDY[["strTherapeuticArea"]],
-      "indication" = lMapping$dfSTUDY[["strProtocolIndication"]],
-      "phase" = lMapping$dfSTUDY[["strStudyPhase"]],
-      "status" = lMapping$dfSTUDY[["strSiteStatus"]],
-      "rbm_flag" = lMapping$dfSTUDY[["strRBMFlag"]],
-
-      # miscellany
-      "product" = lMapping$dfSTUDY[["strProduct"]],
-      "protocol_type" = lMapping$dfSTUDY[["strProtocolType"]],
-      "protocol_row_id" = lMapping$dfSTUDY[["strProtocolRowID"]],
-      "est_fpfv" = lMapping$dfSTUDY[["strEstFirstPatientFirstVisit"]],
-      "est_lpfv" = lMapping$dfSTUDY[["strEstLastPatientFirstVisit"]],
-      "est_lplv" = lMapping$dfSTUDY[["strEstLastPatientLastVisit"]],
-      "protocol_product_number" = lMapping$dfSTUDY[["strProtocolProductNum"]],
-      everything()
-    ) %>%
-    rename_with(tolower)
+  status_study <- Study_Map_Raw(
+    dfs = list(
+        dfSTUDY = lMeta$meta_study,
+        dfSUBJ = lData$dfSUBJ
+    ),
+    lMapping = lMapping,
+    dfConfig = lMeta$config_param
+  )
 
   # ctms_site / meta_site:
-  status_site <- lMeta$meta_site %>%
-    mutate(
-      siteid = as.character(.data$site_num),
-      invname = paste0(.data$pi_last_name, ", ", .data$pi_first_name)
-    ) %>%
-    select(
-      "studyid" = lMapping$dfSITE[["strProtocolID"]],
-      "siteid",
-      "institution" = lMapping$dfSITE[["strAccount"]],
-      "status" = lMapping$dfSITE[["strSiteStatus"]],
-      "start_date" = lMapping$dfSITE[["strSiteActivationDate"]],
-      "city" = lMapping$dfSITE[["strSiteCity"]],
-      "state" = lMapping$dfSITE[["strSiteState"]],
-      "country" = lMapping$dfSITE[["strSiteCountry"]],
-      "invname",
-      everything()
-    ) %>%
-    rename_with(tolower)
-
-  # status_study ------------------------------------------------------------
-  if (!("enrolled_participants" %in% colnames(status_study))) {
-    status_study$enrolled_participants <- gsm::Get_Enrolled(
-      dfSUBJ = lData$dfSUBJ,
-      dfConfig = lMeta$config_param,
-      lMapping = lMapping,
-      strUnit = "participant",
-      strBy = "study"
-    )
-  }
-
-  if (!("enrolled_sites" %in% colnames(status_study))) {
-    status_study$enrolled_sites <- gsm::Get_Enrolled(
-      dfSUBJ = lData$dfSUBJ,
-      dfConfig = lMeta$config_param,
-      lMapping = lMapping,
-      strUnit = "site",
-      strBy = "study"
-    )
-  }
-
-  # status_site -------------------------------------------------------------
-  if (!("enrolled_participants" %in% colnames(status_site))) {
-    status_site_count <- gsm::Get_Enrolled(
-      dfSUBJ = lData$dfSUBJ,
-      dfConfig = lMeta$config_param,
-      lMapping = lMapping,
-      strUnit = "participant",
-      strBy = "site"
-    )
-
-    status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID"))
-  }
-
-  # reorder columns
-  status_study <- status_study %>%
-    select(
-      "studyid",
-      "enrolled_sites",
-      "enrolled_participants",
-      "planned_sites",
-      "planned_participants",
-      everything()
-    )
-
-  status_site <- status_site %>%
-    relocate("enrolled_participants", .after = "status")
-
+  status_site <- Site_Map_Raw(
+    dfs = list(
+        dfSITE = lMeta$meta_site,
+        dfSUBJ = lData$dfSUBJ
+    ),
+    lMapping = lMapping,
+    dfConfig = lMeta$config_param
+  )
 
   # run Study_Assess() ------------------------------------------------------
   # Make a list of assessments
   # Need to update this to use the relevant items from lMeta (meta_workflow, meta_params, config_workflow and config_params)
-
-
-
   if (is.null(lAssessments)) {
     # if assessment list is not passed in, derive workflow from `lMeta$config_workflow`
     lAssessments <- gsm::MakeWorkflowList(strNames = c(unique(lMeta$config_workflow$workflowid)))
