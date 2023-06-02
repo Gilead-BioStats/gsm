@@ -65,7 +65,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfPD", "dfSTUDY", "dfSITE", "dfSUBJ", "dfAE", "dfIE", "dfCONSENT", "dfSTUDCOMP", "dfSDRGCOMP", "dfLB", "dfENROLL"]
+          "value": ["dfSTUDY", "dfSITE", "dfPD", "dfSUBJ", "dfAE", "dfIE", "dfCONSENT", "dfSTUDCOMP", "dfSDRGCOMP", "dfLB", "dfENROLL"]
         }
       },
       "value": [
@@ -75,57 +75,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strDateCol", "strCategoryCol", "strImportantCol", "strImportantVal", "strNonImportantVal"]
+              "value": ["strStudyCol", "strTitleCol", "strNicknameCol", "strTypeCol", "strPhaseCol", "strPlannedSitesCol", "strActualSitesCol", "strPlannedSubjectsCol", "strActualSubjectsCol", "strEstFirstPatientFirstVisitCol", "strActFirstPatientFirstVisitCol", "strEstLastPatientFirstVisitCol", "strActLastPatientFirstVisitCol", "strEstLastPatientLastVisitCol", "strActLastPatientLastVisitCol", "strStatusCol", "strIndicationCol", "strProductCol", "strTherapeuticAreaCol", "strRBMFlagCol", "strRBMFlagIncludeVal", "strRBMFlagExcludeVal"]
             }
           },
           "value": [
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["subjectenrollmentnumber"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["deviationdate"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["gileadcategory"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["deemedimportant"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["Yes"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["No"]
-            }
-          ]
-        },
-        {
-          "type": "list",
-          "attributes": {
-            "names": {
-              "type": "character",
-              "attributes": {},
-              "value": ["strProtocolRowID", "strProtocolNum", "strProtocolTitle", "strStudyNickname", "strProtocolType", "strStudyPhase", "strNumPlannedSites", "strNumActualSites", "strEstFirstPatientFirstVisit", "strActualFirstPatientFirstVisit", "strEstLastPatientLastVisit", "strActualLastPatientLastVisit", "strEstLastPatientFirstVisit", "strActualLastPatientFirstVisit", "strSiteStatus", "strNumPlannedSubjs", "strNumEnrolledSubjs", "strProtocolIndication", "strProduct", "strTherapeuticArea", "strProtocolProductNum", "strRBMFlag", "strRBMFlagInclude", "strRBMFlagExclude"]
-            }
-          },
-          "value": [
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["protocol_row_id"]
-            },
             {
               "type": "character",
               "attributes": {},
@@ -164,22 +117,22 @@
             {
               "type": "character",
               "attributes": {},
+              "value": ["num_plan_subj"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["num_enrolled_subj_m"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
               "value": ["est_fpfv"]
             },
             {
               "type": "character",
               "attributes": {},
               "value": ["act_fpfv"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["est_lplv"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["act_lplv"]
             },
             {
               "type": "character",
@@ -194,17 +147,17 @@
             {
               "type": "character",
               "attributes": {},
+              "value": ["est_lplv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["act_lplv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
               "value": ["status"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["num_plan_subj"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["num_enrolled_subj_m"]
             },
             {
               "type": "character",
@@ -220,11 +173,6 @@
               "type": "character",
               "attributes": {},
               "value": ["therapeutic_area"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["protocol_product_number"]
             },
             {
               "type": "character",
@@ -249,29 +197,19 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strProtocolRowID", "strSiteNum", "strSiteRowID", "strProtocolID", "strPINum", "strPILastName", "strPIFirstName", "strSiteStatus", "strSatellite", "strAccount", "strSiteActivationDate", "strSiteCity", "strSiteState", "strSiteCountry"]
+              "value": ["strStudyCol", "strSiteCol", "strPICol", "strPILastNameCol", "strPIFirstNameCol", "strStatusCol", "strSatelliteCol", "strAccountCol", "strActivationDateCol", "strCityCol", "strStateCol", "strCountryCol"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
-              "value": ["protocol_row_id"]
+              "value": ["protocol"]
             },
             {
               "type": "character",
               "attributes": {},
               "value": ["site_num"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["site_row_id"]
-            },
-            {
-              "type": "character",
-              "attributes": {},
-              "value": ["protocol"]
             },
             {
               "type": "character",
@@ -322,6 +260,48 @@
               "type": "character",
               "attributes": {},
               "value": ["country"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strIDCol", "strDateCol", "strCategoryCol", "strImportantCol", "strImportantVal", "strNonImportantVal"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["subjectenrollmentnumber"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["deviationdate"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["gileadcategory"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["deemedimportant"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Yes"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["No"]
             }
           ]
         },
