@@ -503,6 +503,112 @@
       [1] "Yes"
       
       
+      $AE_Map_Raw$mapping$dfSTUDY
+      $AE_Map_Raw$mapping$dfSTUDY$strStudyCol
+      [1] "protocol_number"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strTitleCol
+      [1] "protocol_title"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strNicknameCol
+      [1] "nickname"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strTypeCol
+      [1] "protocol_type"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strPhaseCol
+      [1] "phase"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strPlannedSitesCol
+      [1] "num_plan_site"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strActualSitesCol
+      [1] "num_site_actl"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strPlannedSubjectsCol
+      [1] "num_plan_subj"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strActualSubjectsCol
+      [1] "num_enrolled_subj_m"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strEstFirstPatientFirstVisitCol
+      [1] "est_fpfv"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strActFirstPatientFirstVisitCol
+      [1] "act_fpfv"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strEstLastPatientFirstVisitCol
+      [1] "est_lpfv"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strActLastPatientFirstVisitCol
+      [1] "act_lpfv"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strEstLastPatientLastVisitCol
+      [1] "est_lplv"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strActLastPatientLastVisitCol
+      [1] "act_lplv"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strStatusCol
+      [1] "status"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strIndicationCol
+      [1] "protocol_indication"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strProductCol
+      [1] "product"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strTherapeuticAreaCol
+      [1] "therapeutic_area"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagCol
+      [1] "x_rbm_flg"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagIncludeVal
+      [1] "Y"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagExcludeVal
+      [1] "N"
+      
+      
+      $AE_Map_Raw$mapping$dfSITE
+      $AE_Map_Raw$mapping$dfSITE$strStudyCol
+      [1] "protocol"
+      
+      $AE_Map_Raw$mapping$dfSITE$strSiteCol
+      [1] "site_num"
+      
+      $AE_Map_Raw$mapping$dfSITE$strPICol
+      [1] "pi_number"
+      
+      $AE_Map_Raw$mapping$dfSITE$strPILastNameCol
+      [1] "pi_last_name"
+      
+      $AE_Map_Raw$mapping$dfSITE$strPIFirstNameCol
+      [1] "pi_first_name"
+      
+      $AE_Map_Raw$mapping$dfSITE$strStatusCol
+      [1] "site_status"
+      
+      $AE_Map_Raw$mapping$dfSITE$strSatelliteCol
+      [1] "is_satellite"
+      
+      $AE_Map_Raw$mapping$dfSITE$strAccountCol
+      [1] "account"
+      
+      $AE_Map_Raw$mapping$dfSITE$strActivationDateCol
+      [1] "site_active_dt"
+      
+      $AE_Map_Raw$mapping$dfSITE$strCityCol
+      [1] "city"
+      
+      $AE_Map_Raw$mapping$dfSITE$strStateCol
+      [1] "state"
+      
+      $AE_Map_Raw$mapping$dfSITE$strCountryCol
+      [1] "country"
+      
+      
       $AE_Map_Raw$mapping$dfPD
       $AE_Map_Raw$mapping$dfPD$strIDCol
       [1] "subjectenrollmentnumber"
@@ -521,124 +627,6 @@
       
       $AE_Map_Raw$mapping$dfPD$strNonImportantVal
       [1] "No"
-      
-      
-      $AE_Map_Raw$mapping$dfSTUDY
-      $AE_Map_Raw$mapping$dfSTUDY$strProtocolRowID
-      [1] "protocol_row_id"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strProtocolNum
-      [1] "protocol_number"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strProtocolTitle
-      [1] "protocol_title"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strStudyNickname
-      [1] "nickname"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strProtocolType
-      [1] "protocol_type"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strStudyPhase
-      [1] "phase"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strNumPlannedSites
-      [1] "num_plan_site"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strNumActualSites
-      [1] "num_site_actl"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strEstFirstPatientFirstVisit
-      [1] "est_fpfv"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strActualFirstPatientFirstVisit
-      [1] "act_fpfv"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strEstLastPatientLastVisit
-      [1] "est_lplv"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strActualLastPatientLastVisit
-      [1] "act_lplv"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strEstLastPatientFirstVisit
-      [1] "est_lpfv"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strActualLastPatientFirstVisit
-      [1] "act_lpfv"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strSiteStatus
-      [1] "status"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strNumPlannedSubjs
-      [1] "num_plan_subj"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strNumEnrolledSubjs
-      [1] "num_enrolled_subj_m"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strProtocolIndication
-      [1] "protocol_indication"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strProduct
-      [1] "product"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strTherapeuticArea
-      [1] "therapeutic_area"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strProtocolProductNum
-      [1] "protocol_product_number"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strRBMFlag
-      [1] "x_rbm_flg"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagInclude
-      [1] "Y"
-      
-      $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagExclude
-      [1] "N"
-      
-      
-      $AE_Map_Raw$mapping$dfSITE
-      $AE_Map_Raw$mapping$dfSITE$strProtocolRowID
-      [1] "protocol_row_id"
-      
-      $AE_Map_Raw$mapping$dfSITE$strSiteNum
-      [1] "site_num"
-      
-      $AE_Map_Raw$mapping$dfSITE$strSiteRowID
-      [1] "site_row_id"
-      
-      $AE_Map_Raw$mapping$dfSITE$strProtocolID
-      [1] "protocol"
-      
-      $AE_Map_Raw$mapping$dfSITE$strPINum
-      [1] "pi_number"
-      
-      $AE_Map_Raw$mapping$dfSITE$strPILastName
-      [1] "pi_last_name"
-      
-      $AE_Map_Raw$mapping$dfSITE$strPIFirstName
-      [1] "pi_first_name"
-      
-      $AE_Map_Raw$mapping$dfSITE$strSiteStatus
-      [1] "site_status"
-      
-      $AE_Map_Raw$mapping$dfSITE$strSatellite
-      [1] "is_satellite"
-      
-      $AE_Map_Raw$mapping$dfSITE$strAccount
-      [1] "account"
-      
-      $AE_Map_Raw$mapping$dfSITE$strSiteActivationDate
-      [1] "site_active_dt"
-      
-      $AE_Map_Raw$mapping$dfSITE$strSiteCity
-      [1] "city"
-      
-      $AE_Map_Raw$mapping$dfSITE$strSiteState
-      [1] "state"
-      
-      $AE_Map_Raw$mapping$dfSITE$strSiteCountry
-      [1] "country"
       
       
       $AE_Map_Raw$mapping$dfQUERY
