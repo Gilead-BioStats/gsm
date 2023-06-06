@@ -156,7 +156,7 @@ qualification_analyze_normalapprox <- function(dfTransformed, strType) {
     scored <- dfTransformed %>%
       mutate(
         OverallMetric = sum(Numerator) / sum(Denominator),
-        z_0 = ifelse(OverallMetric == 0 | OverallMetric == 1,
+        z_0 = ifelse(OverallMetric == 0,
           0,
           ((Metric - OverallMetric) /
             sqrt(OverallMetric / Denominator))
