@@ -56,7 +56,7 @@ MakeStudyStatusTable <- function(status_study) {
     tibble::rownames_to_column() %>%
     setNames(c("Parameter", "Value")) %>%
     mutate(
-      Value = prettyNum(.data$Value, drop0trailing = TRUE)
+      Value = ifelse(is.na(Value), Value, prettyNum(.data$Value, drop0trailing = TRUE))
     ) %>%
     left_join(
       paramDescription,
