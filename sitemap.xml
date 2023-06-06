@@ -157,6 +157,12 @@
     <loc>/reference/MakeStratifiedAssessment.html</loc>
   </url>
   <url>
+    <loc>/reference/MakeStudyStatusTable.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeSummaryTable.html</loc>
+  </url>
+  <url>
     <loc>/reference/MakeWorkflowList.html</loc>
   </url>
   <url>
@@ -223,6 +229,9 @@
     <loc>/reference/Screening_Map_Raw.html</loc>
   </url>
   <url>
+    <loc>/reference/Site_Map_Raw.html</loc>
+  </url>
+  <url>
     <loc>/reference/StackSnapshots.html</loc>
   </url>
   <url>
@@ -230,6 +239,9 @@
   </url>
   <url>
     <loc>/reference/Study_AssessmentReport.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Study_Map_Raw.html</loc>
   </url>
   <url>
     <loc>/reference/Study_Report.html</loc>
@@ -278,6 +290,9 @@
   </url>
   <url>
     <loc>/reference/Widget_TimeSeriesQTL.html</loc>
+  </url>
+  <url>
+    <loc>/reference/add_table_theme.html</loc>
   </url>
   <url>
     <loc>/reference/generate_md_table.html</loc>

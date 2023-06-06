@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
       </span>
     </div>
 
@@ -256,13 +256,19 @@ a double of the approperatenesss of the constructed limits.</p>
 <p>A way of handling this issue is to allow over-dispersion in the
 normal approximation. A multiplicative over-dispersion adjustment was
 implemented in our approach.</p>
-<p>We created an over-dispersion parameter <span class="math inline">\(\phi\)</span> as an average of the calculated
-z-score from previous step: <span class="math inline">\(\phi=\frac{1}{m}\sum_{i=1}^m z_i^2\)</span>.
-Then:</p>
-<p>For binary outcome, the over-dispersion adjusted variance is <span class="math inline">\(V'(Y|\theta_0)=\phi\frac{\hat{p}(1-\hat{p})}{n_i}\)</span>.</p>
-<p>For rate outcome, the over-dispersion adjusted variance is <span class="math inline">\(V'(Y|\theta_0)=\phi\frac{\hat{\lambda}}{T_i}\)</span>.</p>
-<p>Therefore, after the over-dispersion adjustment, the adjusted z-score
-for site <span class="math inline">\(i\)</span> is: <span class="math display">\[z_i=\frac{y_i-\theta_0}{\phi\sqrt{V'(Y|\theta_0)}}.\]</span></p>
+<p>Suppose a sample of <span class="math inline">\(m\)</span> units are
+to be <strong>in-control</strong>, the over-dispersion factor <span class="math inline">\(\phi\)</span> can be estimated as the mean squared
+z-scores, i.e., <span class="math inline">\(\hat\phi =
+\frac{1}{m}\sum_{i=1}^m z_i^2\)</span>. For binary outcome, the
+over-dispersion adjusted variance is <span class="math inline">\(V'(Y_i|\phi,
+p)=\phi\frac{{p}(1-p)}{n_i}\)</span>. For rate outcome, the
+over-dispersion adjusted variance is <span class="math inline">\(V'(Y_i|\phi,
+\lambda)=\phi\frac{\lambda}{T_i}\)</span>. Therefore, after the
+over-dispersion adjustment, the adjusted z-scores for site <span class="math inline">\(i\)</span> are <span class="math inline">\(z_i =
+\frac{\hat{p}_i - \hat{p}}{\sqrt{\hat\phi
+\frac{{\hat{p}}(1-\hat{p})}{n_i}}}\)</span>, <span class="math inline">\(z_i = \frac{\hat{\lambda}_i -
+\hat{\lambda}}{\sqrt{\hat\phi \frac{\hat\lambda}{T_i}}}\)</span>,
+respectively.</p>
 <p>Reference: Spiegelhalter, David J. <strong>Funnel plots for comparing
 institutional performance.</strong> <em>Statistics in medicine</em> 24.8
 (2005): 1185-1202.</p>
