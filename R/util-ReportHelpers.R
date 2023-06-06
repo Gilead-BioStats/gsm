@@ -1,7 +1,11 @@
 #' Create Status Study table in KRIReport.Rmd
 #' @param status_study `data.frame` from `params` within `KRIReport.Rmd`
-#' @noRd
+#' @export
+#' @keywords internal
 MakeStudyStatusTable <- function(status_study) {
+
+  # -- this vector is used to define a custom sort order for the
+  #    Study Status Table in KRIReport.Rmd
   parameterArrangeOrder <- c(
     "Unique Study ID",
     "Protocol title",
@@ -28,7 +32,8 @@ MakeStudyStatusTable <- function(status_study) {
     "Estimated last-patient last visit date from GILDA"
   )
 
-  # if longitudinal snapshot is used, select the most recent row
+  # -- if a longitudinal snapshot is provided, select the most recent row
+  #    of study metadata
   if (nrow(status_study) > 1) {
     status_study <- status_study %>%
       filter(
@@ -36,6 +41,9 @@ MakeStudyStatusTable <- function(status_study) {
       )
   }
 
+  # -- this table defines the expected parameters found in `study_status`
+  #    this table then serves as a lookup table to give meaningful descriptions to the parameters
+  #    e.g., `fpfv` is modified for the table as `First-patient first visit date`.
   paramDescription <- gsm::rbm_data_spec %>%
     filter(
       .data$Table == "status_study"
@@ -46,17 +54,22 @@ MakeStudyStatusTable <- function(status_study) {
 
 
 
-  sites <- paste0(status_study$enrolled_sites, " / ", status_study$planned_sites)
-  participants <- paste0(status_study$enrolled_participants, " / ", status_study$planned_participants)
+  # -- the `sites` and `participants` variables below are used to show a nicely-formatted version of (# Enrolled / # Planned)
+  #    these values were being formatted with a lot of trailing zeroes, so they are rounded here before pasting as a character vector
+  sites <- paste0(round(as.numeric(status_study$enrolled_sites)), " / ", round(as.numeric(status_study$planned_sites)))
+  participants <- paste0(round(as.numeric(status_study$enrolled_participants)), " / ", round(as.numeric(status_study$planned_participants)))
+
 
   study_status_table <- status_study %>%
     t() %>%
     as.data.frame() %>%
     tibble::rownames_to_column() %>%
     setNames(c("Parameter", "Value")) %>%
+    rowwise() %>%
     mutate(
-      Value = prettyNum(.data$Value, drop0trailing = TRUE)
+      Value = ifelse(is.na(Value), Value, prettyNum(.data$Value, drop0trailing = TRUE))
     ) %>%
+    ungroup() %>%
     left_join(
       paramDescription,
       by = join_by("Parameter")
@@ -105,7 +118,8 @@ MakeStudyStatusTable <- function(status_study) {
 
 #' Create Summary table in KRIReport.Rmd for each KRI
 #' @param assessment `data.frame` from `params` within `KRIReport.Rmd`
-#' @noRd
+#' @export
+#' @keywords internal
 MakeSummaryTable <- function(assessment) {
   map(assessment, function(kri) {
     if (kri$bStatus) {
@@ -133,7 +147,10 @@ MakeSummaryTable <- function(assessment) {
   })
 }
 
-
+#' Add a standard theme to a `gt` table.
+#' @param x `data.frame` A data.frame that will be converted to a `gt` table.
+#' @export
+#' @keywords internal
 add_table_theme <- function(x) {
   x %>%
     gt::tab_options(

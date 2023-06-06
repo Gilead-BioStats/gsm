@@ -6,6 +6,13 @@ steps:
       strDomain: dfSUBJ
       strColParam: strEnrollCol
       strValParam: strEnrollVal
+  - name: FilterDomain
+    inputs: dfLB
+    output: dfLB
+    params:
+      strDomain: dfLB
+      strColParam: strGradeCol
+      strValParam: strGradeAnyVal
   - name: LB_Map_Raw
     inputs:
       - dfSUBJ

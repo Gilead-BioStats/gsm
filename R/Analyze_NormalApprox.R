@@ -88,7 +88,7 @@ Analyze_NormalApprox <- function(
     dfScore <- dfTransformed %>%
       mutate(
         vMu = sum(.data$Numerator) / sum(.data$Denominator),
-        z_0 = ifelse(.data$vMu == 0 | .data$vMu == 1,
+        z_0 = ifelse(.data$vMu == 0,
           0,
           (.data$Metric - .data$vMu) /
             sqrt(.data$vMu / .data$Denominator)

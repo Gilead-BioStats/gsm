@@ -1,3 +1,9 @@
+# gsm v1.7.3
+
+The driver of this release is a bugfix to resolve unexported reporting functions. 
+
+Additionally, updates were made to add a dynamic mapping option for CTMS metadata, as well as an adjustment to workflows `kri0005` and `cou0005` to add a filtering step.
+
 # gsm v1.7.2
 
 This release includes updates to KRIs, longitudinal snapshot methods, and reporting.

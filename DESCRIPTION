@@ -1,6 +1,6 @@
 Package: gsm
 Title: Gilead Statistical Monitoring
-Version: 1.7.2
+Version: 1.7.3
 Authors@R: c(
     person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", email="jwildfire@gmail.com", role = c("aut")),

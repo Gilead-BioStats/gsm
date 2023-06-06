@@ -81,13 +81,10 @@ The standard normal approximation method described above assumes the null distri
 
 A way of handling this issue is to allow over-dispersion in the normal approximation. A multiplicative over-dispersion adjustment was implemented in our approach. 
 
-We created an over-dispersion parameter $\phi$ as an average of the calculated z-score from previous step: $\phi=\frac{1}{m}\sum_{i=1}^m z_i^2$. Then:
-
-For binary outcome, the over-dispersion adjusted variance is $V'(Y|\theta_0)=\phi\frac{\hat{p}(1-\hat{p})}{n_i}$.
-
-For rate outcome, the over-dispersion adjusted variance is $V'(Y|\theta_0)=\phi\frac{\hat{\lambda}}{T_i}$.
-
-Therefore, after the over-dispersion adjustment, the adjusted z-score for site $i$ is: $$z_i=\frac{y_i-\theta_0}{\phi\sqrt{V'(Y|\theta_0)}}.$$
+Suppose a sample of $m$ units are to be **in-control**, the over-dispersion factor $\phi$ can be estimated as the mean squared z-scores, i.e., $\hat\phi = \frac{1}{m}\sum_{i=1}^m z_i^2$. 
+For binary outcome, the over-dispersion adjusted variance is $V'(Y_i|\phi, p)=\phi\frac{{p}(1-p)}{n_i}$. 
+For rate outcome, the over-dispersion adjusted variance is $V'(Y_i|\phi, \lambda)=\phi\frac{\lambda}{T_i}$. 
+Therefore, after the over-dispersion adjustment, the adjusted z-scores for site $i$ are $z_i = \frac{\hat{p}_i - \hat{p}}{\sqrt{\hat\phi \frac{{\hat{p}}(1-\hat{p})}{n_i}}}$, $z_i = \frac{\hat{\lambda}_i - \hat{\lambda}}{\sqrt{\hat\phi \frac{\hat\lambda}{T_i}}}$, respectively.
 
 Reference: Spiegelhalter, David J. **Funnel plots for comparing institutional performance.** *Statistics in medicine* 24.8 (2005): 1185-1202.
 

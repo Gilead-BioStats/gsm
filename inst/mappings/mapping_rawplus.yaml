@@ -66,6 +66,7 @@ dfLB:
   strAlertCol: alertsimplified
   strGradeCol: toxgrg_nsv
   strGradeAnyVal:
+    - "0"
     - "1"
     - "2"
     - "3"

@@ -503,6 +503,112 @@
       [1] "Yes"
       
       
+      $AE_Map_Raw$mapping$dfSTUDY
+      $AE_Map_Raw$mapping$dfSTUDY$strStudyCol
+      [1] "protocol_number"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strTitleCol
+      [1] "protocol_title"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strNicknameCol
+      [1] "nickname"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strTypeCol
+      [1] "protocol_type"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strPhaseCol
+      [1] "phase"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strPlannedSitesCol
+      [1] "num_plan_site"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strActualSitesCol
+      [1] "num_site_actl"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strPlannedSubjectsCol
+      [1] "num_plan_subj"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strActualSubjectsCol
+      [1] "num_enrolled_subj_m"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strEstFirstPatientFirstVisitCol
+      [1] "est_fpfv"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strActFirstPatientFirstVisitCol
+      [1] "act_fpfv"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strEstLastPatientFirstVisitCol
+      [1] "est_lpfv"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strActLastPatientFirstVisitCol
+      [1] "act_lpfv"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strEstLastPatientLastVisitCol
+      [1] "est_lplv"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strActLastPatientLastVisitCol
+      [1] "act_lplv"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strStatusCol
+      [1] "status"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strIndicationCol
+      [1] "protocol_indication"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strProductCol
+      [1] "product"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strTherapeuticAreaCol
+      [1] "therapeutic_area"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagCol
+      [1] "x_rbm_flg"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagIncludeVal
+      [1] "Y"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagExcludeVal
+      [1] "N"
+      
+      
+      $AE_Map_Raw$mapping$dfSITE
+      $AE_Map_Raw$mapping$dfSITE$strStudyCol
+      [1] "protocol"
+      
+      $AE_Map_Raw$mapping$dfSITE$strSiteCol
+      [1] "site_num"
+      
+      $AE_Map_Raw$mapping$dfSITE$strPICol
+      [1] "pi_number"
+      
+      $AE_Map_Raw$mapping$dfSITE$strPILastNameCol
+      [1] "pi_last_name"
+      
+      $AE_Map_Raw$mapping$dfSITE$strPIFirstNameCol
+      [1] "pi_first_name"
+      
+      $AE_Map_Raw$mapping$dfSITE$strStatusCol
+      [1] "site_status"
+      
+      $AE_Map_Raw$mapping$dfSITE$strSatelliteCol
+      [1] "is_satellite"
+      
+      $AE_Map_Raw$mapping$dfSITE$strAccountCol
+      [1] "account"
+      
+      $AE_Map_Raw$mapping$dfSITE$strActivationDateCol
+      [1] "site_active_dt"
+      
+      $AE_Map_Raw$mapping$dfSITE$strCityCol
+      [1] "city"
+      
+      $AE_Map_Raw$mapping$dfSITE$strStateCol
+      [1] "state"
+      
+      $AE_Map_Raw$mapping$dfSITE$strCountryCol
+      [1] "country"
+      
+      
       $AE_Map_Raw$mapping$dfPD
       $AE_Map_Raw$mapping$dfPD$strIDCol
       [1] "subjectenrollmentnumber"
@@ -801,7 +907,7 @@
       [1] "toxgrg_nsv"
       
       $AE_Map_Raw$mapping$dfLB$strGradeAnyVal
-      [1] "1" "2" "3" "4"
+      [1] "0" "1" "2" "3" "4"
       
       $AE_Map_Raw$mapping$dfLB$strGradeHighVal
       [1] "3" "4"

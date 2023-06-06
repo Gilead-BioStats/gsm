@@ -65,10 +65,204 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["dfPD", "dfSUBJ", "dfAE", "dfIE", "dfCONSENT", "dfSTUDCOMP", "dfSDRGCOMP", "dfLB", "dfENROLL"]
+          "value": ["dfSTUDY", "dfSITE", "dfPD", "dfSUBJ", "dfAE", "dfIE", "dfCONSENT", "dfSTUDCOMP", "dfSDRGCOMP", "dfLB", "dfENROLL"]
         }
       },
       "value": [
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strStudyCol", "strTitleCol", "strNicknameCol", "strTypeCol", "strPhaseCol", "strPlannedSitesCol", "strActualSitesCol", "strPlannedSubjectsCol", "strActualSubjectsCol", "strEstFirstPatientFirstVisitCol", "strActFirstPatientFirstVisitCol", "strEstLastPatientFirstVisitCol", "strActLastPatientFirstVisitCol", "strEstLastPatientLastVisitCol", "strActLastPatientLastVisitCol", "strStatusCol", "strIndicationCol", "strProductCol", "strTherapeuticAreaCol", "strRBMFlagCol", "strRBMFlagIncludeVal", "strRBMFlagExcludeVal"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["protocol_number"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["protocol_title"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["nickname"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["protocol_type"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["phase"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["num_plan_site"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["num_site_actl"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["num_plan_subj"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["num_enrolled_subj_m"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["est_fpfv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["act_fpfv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["est_lpfv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["act_lpfv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["est_lplv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["act_lplv"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["status"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["protocol_indication"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["product"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["therapeutic_area"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["x_rbm_flg"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Y"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["N"]
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["strStudyCol", "strSiteCol", "strPICol", "strPILastNameCol", "strPIFirstNameCol", "strStatusCol", "strSatelliteCol", "strAccountCol", "strActivationDateCol", "strCityCol", "strStateCol", "strCountryCol"]
+            }
+          },
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["protocol"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["site_num"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["pi_number"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["pi_last_name"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["pi_first_name"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["site_status"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["is_satellite"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["account"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["site_active_dt"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["city"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["state"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["country"]
+            }
+          ]
+        },
         {
           "type": "list",
           "attributes": {
@@ -476,7 +670,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["1", "2", "3", "4"]
+              "value": ["0", "1", "2", "3", "4"]
             },
             {
               "type": "character",

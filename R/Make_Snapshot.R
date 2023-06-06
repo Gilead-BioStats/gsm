@@ -73,12 +73,9 @@ Make_Snapshot <- function(
   bUpdateParams = FALSE,
   bQuiet = TRUE
 ) {
-  # add gsm_analysis_date to all outputs except meta_
+  # add gsm_analysis_date to all outputs except {gsm} metadata
   # -- if date is provided, it should be the date that the data was pulled/wrangled.
   # -- if date is NOT provided, it will default to the date that the analysis was run.
-
-
-
   if (!is.null(strAnalysisDate)) {
     # date validation check
     date_is_valid <- try(as.Date(strAnalysisDate), silent = TRUE)
@@ -97,118 +94,28 @@ Make_Snapshot <- function(
   # rename GILDA to expected gsm variable names -----------------------------
 
   # ctms_study / meta_study:
-  status_study <- lMeta$meta_study %>%
-    select(
-      # study name/ID
-      "studyid" = "PROTOCOL_NUMBER",
-      "title" = "PROTOCOL_TITLE",
-      "nickname" = "NICKNAME",
-
-      # enrollment
-      "planned_sites" = "NUM_PLAN_SITE",
-      "enrolled_sites_ctms" = "NUM_SITE_ACTL",
-      "planned_participants" = "NUM_PLAN_SUBJ",
-      "enrolled_participants_ctms" = "NUM_ENROLLED_SUBJ_M",
-
-      # milestones
-      "fpfv" = "ACT_FPFV",
-      "lpfv" = "ACT_LPFV",
-      "lplv" = "ACT_LPLV",
-
-      # study characteristics
-      "ta" = "THERAPEUTIC_AREA",
-      "indication" = "PROTOCOL_INDICATION",
-      "phase" = "PHASE",
-      "status" = "STATUS",
-      "rbm_flag" = "X_RBM_FLG",
-
-      # miscellany
-      "product" = "PRODUCT",
-      "protocol_type" = "PROTOCOL_TYPE",
-      "protocol_row_id" = "PROTOCOL_ROW_ID",
-      "est_fpfv" = "EST_FPFV",
-      "est_lpfv" = "EST_LPFV",
-      "est_lplv" = "EST_LPLV",
-      "protocol_product_number" = "PROTOCOL_PRODUCT_NUMBER",
-      everything()
-    ) %>%
-    rename_with(tolower)
+  status_study <- Study_Map_Raw(
+    dfs = list(
+        dfSTUDY = lMeta$meta_study,
+        dfSUBJ = lData$dfSUBJ
+    ),
+    lMapping = lMapping,
+    dfConfig = lMeta$config_param
+  )
 
   # ctms_site / meta_site:
-  status_site <- lMeta$meta_site %>%
-    mutate(
-      siteid = as.character(.data$SITE_NUM),
-      invname = paste0(.data$PI_LAST_NAME, ", ", .data$PI_FIRST_NAME)
-    ) %>%
-    select(
-      "studyid" = "PROTOCOL",
-      "siteid",
-      "institution" = "ACCOUNT",
-      "status" = "SITE_STATUS",
-      "start_date" = "SITE_ACTIVE_DT",
-      "city" = "CITY",
-      "state" = "STATE",
-      "country" = "COUNTRY",
-      "invname",
-      everything()
-    ) %>%
-    rename_with(tolower)
-
-  # status_study ------------------------------------------------------------
-  if (!("enrolled_participants" %in% colnames(status_study))) {
-    status_study$enrolled_participants <- gsm::Get_Enrolled(
-      dfSUBJ = lData$dfSUBJ,
-      dfConfig = lMeta$config_param,
-      lMapping = lMapping,
-      strUnit = "participant",
-      strBy = "study"
-    )
-  }
-
-  if (!("enrolled_sites" %in% colnames(status_study))) {
-    status_study$enrolled_sites <- gsm::Get_Enrolled(
-      dfSUBJ = lData$dfSUBJ,
-      dfConfig = lMeta$config_param,
-      lMapping = lMapping,
-      strUnit = "site",
-      strBy = "study"
-    )
-  }
-
-  # status_site -------------------------------------------------------------
-  if (!("enrolled_participants" %in% colnames(status_site))) {
-    status_site_count <- gsm::Get_Enrolled(
-      dfSUBJ = lData$dfSUBJ,
-      dfConfig = lMeta$config_param,
-      lMapping = lMapping,
-      strUnit = "participant",
-      strBy = "site"
-    )
-
-    status_site <- left_join(status_site, status_site_count, by = c("siteid" = "SiteID"))
-  }
-
-  # reorder columns
-  status_study <- status_study %>%
-    select(
-      "studyid",
-      "enrolled_sites",
-      "enrolled_participants",
-      "planned_sites",
-      "planned_participants",
-      everything()
-    )
-
-  status_site <- status_site %>%
-    relocate("enrolled_participants", .after = "status")
-
+  status_site <- Site_Map_Raw(
+    dfs = list(
+        dfSITE = lMeta$meta_site,
+        dfSUBJ = lData$dfSUBJ
+    ),
+    lMapping = lMapping,
+    dfConfig = lMeta$config_param
+  )
 
   # run Study_Assess() ------------------------------------------------------
   # Make a list of assessments
   # Need to update this to use the relevant items from lMeta (meta_workflow, meta_params, config_workflow and config_params)
-
-
-
   if (is.null(lAssessments)) {
     # if assessment list is not passed in, derive workflow from `lMeta$config_workflow`
     lAssessments <- gsm::MakeWorkflowList(strNames = c(unique(lMeta$config_workflow$workflowid)))

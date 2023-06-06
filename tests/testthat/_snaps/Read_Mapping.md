@@ -67,6 +67,112 @@
       [1] "Yes"
       
       
+      $dfSTUDY
+      $dfSTUDY$strStudyCol
+      [1] "protocol_number"
+      
+      $dfSTUDY$strTitleCol
+      [1] "protocol_title"
+      
+      $dfSTUDY$strNicknameCol
+      [1] "nickname"
+      
+      $dfSTUDY$strTypeCol
+      [1] "protocol_type"
+      
+      $dfSTUDY$strPhaseCol
+      [1] "phase"
+      
+      $dfSTUDY$strPlannedSitesCol
+      [1] "num_plan_site"
+      
+      $dfSTUDY$strActualSitesCol
+      [1] "num_site_actl"
+      
+      $dfSTUDY$strPlannedSubjectsCol
+      [1] "num_plan_subj"
+      
+      $dfSTUDY$strActualSubjectsCol
+      [1] "num_enrolled_subj_m"
+      
+      $dfSTUDY$strEstFirstPatientFirstVisitCol
+      [1] "est_fpfv"
+      
+      $dfSTUDY$strActFirstPatientFirstVisitCol
+      [1] "act_fpfv"
+      
+      $dfSTUDY$strEstLastPatientFirstVisitCol
+      [1] "est_lpfv"
+      
+      $dfSTUDY$strActLastPatientFirstVisitCol
+      [1] "act_lpfv"
+      
+      $dfSTUDY$strEstLastPatientLastVisitCol
+      [1] "est_lplv"
+      
+      $dfSTUDY$strActLastPatientLastVisitCol
+      [1] "act_lplv"
+      
+      $dfSTUDY$strStatusCol
+      [1] "status"
+      
+      $dfSTUDY$strIndicationCol
+      [1] "protocol_indication"
+      
+      $dfSTUDY$strProductCol
+      [1] "product"
+      
+      $dfSTUDY$strTherapeuticAreaCol
+      [1] "therapeutic_area"
+      
+      $dfSTUDY$strRBMFlagCol
+      [1] "x_rbm_flg"
+      
+      $dfSTUDY$strRBMFlagIncludeVal
+      [1] "Y"
+      
+      $dfSTUDY$strRBMFlagExcludeVal
+      [1] "N"
+      
+      
+      $dfSITE
+      $dfSITE$strStudyCol
+      [1] "protocol"
+      
+      $dfSITE$strSiteCol
+      [1] "site_num"
+      
+      $dfSITE$strPICol
+      [1] "pi_number"
+      
+      $dfSITE$strPILastNameCol
+      [1] "pi_last_name"
+      
+      $dfSITE$strPIFirstNameCol
+      [1] "pi_first_name"
+      
+      $dfSITE$strStatusCol
+      [1] "site_status"
+      
+      $dfSITE$strSatelliteCol
+      [1] "is_satellite"
+      
+      $dfSITE$strAccountCol
+      [1] "account"
+      
+      $dfSITE$strActivationDateCol
+      [1] "site_active_dt"
+      
+      $dfSITE$strCityCol
+      [1] "city"
+      
+      $dfSITE$strStateCol
+      [1] "state"
+      
+      $dfSITE$strCountryCol
+      [1] "country"
+      
+      
       $dfPD
       $dfPD$strIDCol
       [1] "subjectenrollmentnumber"
@@ -365,7 +471,7 @@
       [1] "toxgrg_nsv"
       
       $dfLB$strGradeAnyVal
-      [1] "1" "2" "3" "4"
+      [1] "0" "1" "2" "3" "4"
       
       $dfLB$strGradeHighVal
       [1] "3" "4"

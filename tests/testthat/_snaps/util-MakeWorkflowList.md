@@ -418,36 +418,58 @@
       
       $cou0005[[2]]
       $cou0005[[2]]$name
-      [1] "LB_Map_Raw"
+      [1] "FilterDomain"
       
       $cou0005[[2]]$inputs
-      [1] "dfSUBJ" "dfLB"  
+      [1] "dfLB"
       
       $cou0005[[2]]$output
-      [1] "dfInput"
+      [1] "dfLB"
+      
+      $cou0005[[2]]$params
+      $cou0005[[2]]$params$strDomain
+      [1] "dfLB"
+      
+      $cou0005[[2]]$params$strColParam
+      [1] "strGradeCol"
+      
+      $cou0005[[2]]$params$strValParam
+      [1] "strGradeAnyVal"
+      
       
       
       $cou0005[[3]]
       $cou0005[[3]]$name
-      [1] "LB_Assess"
+      [1] "LB_Map_Raw"
       
       $cou0005[[3]]$inputs
-      [1] "dfInput"
+      [1] "dfSUBJ" "dfLB"  
       
       $cou0005[[3]]$output
+      [1] "dfInput"
+      
+      
+      $cou0005[[4]]
+      $cou0005[[4]]$name
+      [1] "LB_Assess"
+      
+      $cou0005[[4]]$inputs
+      [1] "dfInput"
+      
+      $cou0005[[4]]$output
       [1] "lResults"
       
-      $cou0005[[3]]$params
-      $cou0005[[3]]$params$strGroup
+      $cou0005[[4]]$params
+      $cou0005[[4]]$params$strGroup
       [1] "Country"
       
-      $cou0005[[3]]$params$vThreshold
+      $cou0005[[4]]$params$vThreshold
       NULL
       
-      $cou0005[[3]]$params$strMethod
+      $cou0005[[4]]$params$strMethod
       [1] "NormalApprox"
       
-      $cou0005[[3]]$params$nMinDenominator
+      $cou0005[[4]]$params$nMinDenominator
       [1] 30
       
       
@@ -1268,36 +1290,58 @@
       
       $kri0005[[2]]
       $kri0005[[2]]$name
-      [1] "LB_Map_Raw"
+      [1] "FilterDomain"
       
       $kri0005[[2]]$inputs
-      [1] "dfSUBJ" "dfLB"  
+      [1] "dfLB"
       
       $kri0005[[2]]$output
-      [1] "dfInput"
+      [1] "dfLB"
+      
+      $kri0005[[2]]$params
+      $kri0005[[2]]$params$strDomain
+      [1] "dfLB"
+      
+      $kri0005[[2]]$params$strColParam
+      [1] "strGradeCol"
+      
+      $kri0005[[2]]$params$strValParam
+      [1] "strGradeAnyVal"
+      
       
       
       $kri0005[[3]]
       $kri0005[[3]]$name
-      [1] "LB_Assess"
+      [1] "LB_Map_Raw"
       
       $kri0005[[3]]$inputs
-      [1] "dfInput"
+      [1] "dfSUBJ" "dfLB"  
       
       $kri0005[[3]]$output
+      [1] "dfInput"
+      
+      
+      $kri0005[[4]]
+      $kri0005[[4]]$name
+      [1] "LB_Assess"
+      
+      $kri0005[[4]]$inputs
+      [1] "dfInput"
+      
+      $kri0005[[4]]$output
       [1] "lResults"
       
-      $kri0005[[3]]$params
-      $kri0005[[3]]$params$strGroup
+      $kri0005[[4]]$params
+      $kri0005[[4]]$params$strGroup
       [1] "Site"
       
-      $kri0005[[3]]$params$vThreshold
+      $kri0005[[4]]$params$vThreshold
       NULL
       
-      $kri0005[[3]]$params$strMethod
+      $kri0005[[4]]$params$strMethod
       [1] "NormalApprox"
       
-      $kri0005[[3]]$params$nMinDenominator
+      $kri0005[[4]]$params$nMinDenominator
       [1] 30
       
       
