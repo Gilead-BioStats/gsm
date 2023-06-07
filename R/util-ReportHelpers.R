@@ -67,7 +67,11 @@ MakeStudyStatusTable <- function(status_study) {
     setNames(c("Parameter", "Value")) %>%
     rowwise() %>%
     mutate(
-      Value = ifelse(is.na(Value), Value, prettyNum(.data$Value, drop0trailing = TRUE))
+      Value = ifelse(
+        is.na(.data$Value),
+        .data$Value,
+        prettyNum(.data$Value, drop0trailing = TRUE)
+        )
     ) %>%
     ungroup() %>%
     left_join(
