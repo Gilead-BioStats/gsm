@@ -20,6 +20,7 @@
 #'
 #' @export
 Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = TRUE) {
+
   study <- lAssessments[grep("kri", names(lAssessments))]
 
   study <- keep(study, function(x) x$bStatus == TRUE)
@@ -127,18 +128,49 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
       purrr::set_names(dfStudySiteCtms$site_num) %>%
       purrr::imap(function(site_data, site_number) {
 
-        info <- glue::glue("PI Number: {site_data$pi_number}
-                     PI Name: {site_data$pi_first_name} {site_data$pi_last_name}
-                     Site Status: {site_data$site_status}
-                     Site Active Date: {site_data$site_active_dt}
-                     Satellite: {site_data$is_satellite}
-                     Location: {site_data$city}, {site_data$state}, {site_data$country}")
 
-        info <- glue::glue("PI Number: {site_data$pi_number}")
+        site_data_variables_to_pull <- c(
+          "pi_number",
+          "pi_first_name",
+          "pi_last_name",
+          "site_status",
+          "site_active_dt",
+          "is_satellite",
+          "city",
+          "state",
+          "country"
+        )
+
+        site_data_variables_to_rename <- c(
+          "PI Number",
+          "PI First Name",
+          "PI Last Name",
+          "Site Status",
+          "Site Active Date",
+          "Satellite",
+          "City",
+          "State",
+          "Country"
+        )
+
+
+        tooltip_site_data <- Filter(length, site_data[names(site_data) %in% site_data_variables_to_pull]) %>%
+          bind_rows() %>%
+          mutate(across(everything(), ~as.character(.))) %>%
+          rename(any_of(setNames(site_data_variables_to_pull, site_data_variables_to_rename))) %>%
+          pivot_longer(everything()) %>%
+          mutate(
+            string = glue::glue("{name}: {value}", sep = "\n")
+          ) %>%
+          summarise(
+            string = paste(string, collapse = "\n")
+          ) %>%
+          pull(string)
+
 
         return(
           list(
-            info = info
+            info = tooltip_site_data
           )
         )
 
@@ -180,40 +212,33 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
     n_headers <- ncol(overview_table)
     kri_index <- n_headers - length(study)
 
-
-
     # Add tooltips to column headers.
     headerCallback <- glue::glue(
       "
-      function(thead, data, start, end, display) {
-        var tooltips = ['{{paste(names(metric_lookup), collapse = \"', '\")}'];
-        for (var i={{kri_index}; i<{{n_headers}; i++) {
-          $('th:eq('+i+')', thead).attr('title', tooltips[i-{{kri_index}]);
-        }
+    function(thead, data, start, end, display) {
+      var tooltips = ['{{paste(names(metric_lookup), collapse = \"', '\")}'];
+      for (var i={{kri_index}; i<{{n_headers}; i++) {
+        $('th:eq('+i+')', thead).attr('title', tooltips[i-{{kri_index}]);
       }
+    }
     ",
-      .open = "{{"
+    .open = "{{"
     )
 
-    # enable tooltips for cells
-    tooltipCallback <- glue::glue(
-      "
-      function(settings) {
-        var table = settings.oInstance.api();
-        var tdElements = table.table().container().querySelectorAll('td');
-        for (var i = 0; i < tdElements.length; i++) {
-          tdElements[i].addEventListener('mouseover', function() {
-            var cellData = this.innerText;
-            var title = document.createElement('title');
-            title.innerText = 'Site Status: ' + cellData;
-            this.setAttribute('title', title.innerText);
-          });
-        }
-      }
+    # Enable tooltips for cells
+    tooltipCallback <- "
+    function(settings) {
+      var table = settings.oInstance.api();
+      var tdElements = table.table().container().querySelectorAll('td');
 
-    ",
-      .open = "{{"
-    )
+      tdElements.forEach(function(td) {
+        var titleElement = td.querySelector('title');
+        if (titleElement) {
+          td.setAttribute('title', titleElement.innerHTML);
+        }
+      });
+    }
+  "
 
     overview_table <- overview_table %>%
       mutate(across(
@@ -226,7 +251,12 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
         across(
           "Site",
           ~ purrr::imap(.x, function(value, index) {
-            paste0(value, htmltools::tags$title(site_status_tooltip_hover_info[[index]]$info))
+            HTML(
+              paste0(
+                htmltools::htmlEscape(value),
+                htmltools::tags$title(site_status_tooltip_hover_info[[index]]$info)
+                )
+              )
           })
         )
       ) %>%
@@ -234,12 +264,12 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
       DT::datatable(
         class = "tbl-rbqm-study-overview",
         options = list(
-          initComplete = JS(tooltipCallback),
           columnDefs = list(list(
             className = "dt-center",
             targets = 0:(n_headers - 1)
           )),
-          headerCallback = JS(headerCallback)
+          headerCallback = JS(headerCallback),
+          initComplete = JS(tooltipCallback)
         ),
         rownames = FALSE,
         escape = FALSE
