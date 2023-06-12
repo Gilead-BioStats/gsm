@@ -2,7 +2,8 @@
 #'
 #' Overview Table - Create summary of red and amber KRIs for a study.
 #'
-#' @param lAssessments `list` The output of running [gsm::Study_Assess()]
+#' @param lAssessments `list` The output of running [gsm::Study_Assess()].
+#' @param dfStudySiteCtms `data.frame`
 #' @param bInteractive `logical` Display interactive widget? Default: `TRUE`.
 #'
 #' @importFrom DT datatable
@@ -18,7 +19,7 @@
 #' }
 #'
 #' @export
-Overview_Table <- function(lAssessments, bInteractive = TRUE) {
+Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = TRUE) {
   study <- lAssessments[grep("kri", names(lAssessments))]
 
   study <- keep(study, function(x) x$bStatus == TRUE)
@@ -106,6 +107,45 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     ) %>%
     arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`))
 
+
+  # if study_site data.frame is passed through from CTMS.
+  # add `Active` column
+  if (!is.null(dfStudySiteCtms)) {
+    overview_table <- overview_table %>%
+      left_join(
+        dfStudySiteCtms %>% select("siteid", "Status" = "status"),
+        by = c("Site" = "siteid")
+      ) %>%
+      select(
+        "Site",
+        "Status",
+        everything()
+      )
+
+    site_status_tooltip_hover_info <- dfStudySiteCtms %>%
+      purrr::transpose() %>%
+      purrr::set_names(dfStudySiteCtms$site_num) %>%
+      purrr::imap(function(site_data, site_number) {
+
+        info <- glue::glue("PI Number: {site_data$pi_number}
+                     PI Name: {site_data$pi_first_name} {site_data$pi_last_name}
+                     Site Status: {site_data$site_status}
+                     Site Active Date: {site_data$site_active_dt}
+                     Satellite: {site_data$is_satellite}
+                     Location: {site_data$city}, {site_data$state}, {site_data$country}")
+
+        info <- glue::glue("PI Number: {site_data$pi_number}")
+
+        return(
+          list(
+            info = info
+          )
+        )
+
+      })
+
+  }
+
   abbreviation_lookup <- as_tibble(names(overview_table)) %>%
     left_join(gsm::meta_workflow, by = c("value" = "workflowid")) %>%
     select("abbreviation", "value") %>%
@@ -158,19 +198,19 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
     # enable tooltips for cells
     tooltipCallback <- glue::glue(
       "
-    function updateTableTitles(settings) {
-      var table = document.querySelector('.tbl-rbqm-study-overview')
-      var tdElements = table.getElementsByTagName('td');
-
-      for (var i = 0; i < tdElements.length; i++) {
-        var td = tdElements[i];
-        var title = td.innerHTML;
-
-        if (td.hasAttribute('title')) {
-          td.setAttribute('title', title);
+      function(settings) {
+        var table = settings.oInstance.api();
+        var tdElements = table.table().container().querySelectorAll('td');
+        for (var i = 0; i < tdElements.length; i++) {
+          tdElements[i].addEventListener('mouseover', function() {
+            var cellData = this.innerText;
+            var title = document.createElement('title');
+            title.innerText = 'Site Status: ' + cellData;
+            this.setAttribute('title', title.innerText);
+          });
         }
       }
-    }
+
     ",
       .open = "{{"
     )
@@ -182,6 +222,14 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
           kri_directionality_logo(value, title = reference_table[[cur_column()]][[index]])
         })
       )) %>%
+      mutate(
+        across(
+          "Site",
+          ~ purrr::imap(.x, function(value, index) {
+            paste0(value, htmltools::tags$title(site_status_tooltip_hover_info[[index]]$info))
+          })
+        )
+      ) %>%
       arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`)) %>%
       DT::datatable(
         class = "tbl-rbqm-study-overview",
@@ -193,7 +241,8 @@ Overview_Table <- function(lAssessments, bInteractive = TRUE) {
           )),
           headerCallback = JS(headerCallback)
         ),
-        rownames = FALSE
+        rownames = FALSE,
+        escape = FALSE
       )
   }
 
@@ -215,3 +264,5 @@ assign_tooltip_labels <- function(name) {
     return(NULL)
   }
 }
+
+
