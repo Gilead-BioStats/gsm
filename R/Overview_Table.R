@@ -163,9 +163,9 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
             string = glue::glue("{name}: {value}", sep = "\n")
           ) %>%
           summarise(
-            string = paste(string, collapse = "\n")
+            string = paste(.data$string, collapse = "\n")
           ) %>%
-          pull(string)
+          pull(.data$string)
 
 
         return(
@@ -246,20 +246,24 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
         ~ purrr::imap(.x, function(value, index) {
           kri_directionality_logo(value, title = reference_table[[cur_column()]][[index]])
         })
-      )) %>%
-      mutate(
-        across(
-          "Site",
-          ~ purrr::imap(.x, function(value, index) {
-            HTML(
-              paste0(
-                htmltools::htmlEscape(value),
-                htmltools::tags$title(site_status_tooltip_hover_info[[index]]$info)
+      ))
+
+    if (!is.null(dfStudySiteCtms)) {
+      overview_table <- overview_table %>%
+        mutate(
+          across(
+            "Site",
+            ~ purrr::imap(.x, function(value, index) {
+                paste0(
+                  value,
+                  htmltools::tags$title(site_status_tooltip_hover_info[[index]]$info)
                 )
-              )
-          })
+            })
+          )
         )
-      ) %>%
+    }
+
+    overview_table <- overview_table %>%
       arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`)) %>%
       DT::datatable(
         class = "tbl-rbqm-study-overview",
