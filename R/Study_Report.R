@@ -45,6 +45,7 @@
 Study_Report <- function(
   lAssessments,
   dfStudy = NULL,
+  dfSite = NULL,
   strOutpath = NULL
 ) {
   if (is.null(strOutpath)) {
@@ -57,7 +58,8 @@ Study_Report <- function(
     output_file = strOutpath,
     params = list(
       assessment = lAssessments,
-      status_study = dfStudy
+      status_study = dfStudy,
+      status_site = dfSite
     ),
     envir = new.env(parent = globalenv())
   )

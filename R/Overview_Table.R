@@ -21,6 +21,7 @@
 #' @export
 Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = TRUE) {
 
+
   study <- lAssessments[grep("kri", names(lAssessments))]
 
   study <- keep(study, function(x) x$bStatus == TRUE)

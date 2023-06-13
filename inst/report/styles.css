@@ -108,7 +108,7 @@ button.btn-show-report:hover {
 
 
 /* Site Summary Table -- change cursor to cue to user that tooltip is available */
-td.dt-center > svg {
+td[title] {
   cursor: pointer;
 }
 

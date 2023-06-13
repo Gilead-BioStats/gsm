@@ -10,6 +10,7 @@ output:
 params:
     assessment: NA
     status_study: NA
+    status_site: NA
 ---
 
 ```{r, echo=FALSE}
@@ -35,10 +36,17 @@ assessment <- params$assessment[
 ]
 
 # Overview Table - HTML object
-overview_table <- Overview_Table(assessment)
+overview_table <- Overview_Table(
+  lAssessments = assessment, 
+  dfStudySiteCtms =  params$status_site
+  )
 
 # Overview Table - data.frame/raw data
-overview_raw_table <- Overview_Table(assessment, bInteractive = FALSE)
+overview_raw_table <- Overview_Table(
+  lAssessments = assessment, 
+  dfStudySiteCtms =  params$status_site, 
+  bInteractive = FALSE
+  )
 
 red_kris <- overview_raw_table %>% pull(`Red KRIs`) %>% sum()
 amber_kris <- overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
