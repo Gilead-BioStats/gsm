@@ -4,7 +4,7 @@
 \alias{Study_Report}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
-Study_Report(lAssessments, dfStudy = NULL, strOutpath = NULL)
+Study_Report(lAssessments, dfStudy = NULL, dfSite = NULL, strOutpath = NULL)
 }
 \arguments{
 \item{lAssessments}{\code{list} The results of multiple assessments run using \code{Study_Assess}.}
