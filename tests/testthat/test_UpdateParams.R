@@ -1,6 +1,6 @@
 lWorkflow <- MakeWorkflowList(strNames = c("kri0001", "kri0002", "kri0003"))
 
-dfConfig <- clindata::config_param
+dfConfig <- gsm::config_param
 
 dfMeta <- gsm::meta_param
 
