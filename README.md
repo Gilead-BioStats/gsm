@@ -4,7 +4,7 @@
 
 <!-- badges: end -->
 
-# Gilead Statistical Monitoring {gsm} R package
+# Good Statistical Monitoring {gsm} R package
 
 The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This README provides a high-level overview of {gsm}; see the [package website](silver-potato-cfe8c2fb.pages.github.io/) for additional details.
 
