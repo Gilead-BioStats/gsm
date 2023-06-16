@@ -20,7 +20,6 @@
 #'
 #' @export
 Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = TRUE) {
-
   study <- lAssessments[grep("kri", names(lAssessments))]
 
   study <- keep(study, function(x) x$bStatus == TRUE)
@@ -108,7 +107,6 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
     ) %>%
     arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`))
 
-
   # if study_site data.frame is passed through from CTMS.
   # add `Active` column
   if (!is.null(dfStudySiteCtms)) {
@@ -133,7 +131,7 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
           "pi_number",
           "pi_first_name",
           "pi_last_name",
-          "site_status",
+          "status",
           "site_active_dt",
           "is_satellite",
           "city",
@@ -153,7 +151,6 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
           "Country"
         )
 
-
         tooltip_site_data <- Filter(length, site_data[names(site_data) %in% site_data_variables_to_pull]) %>%
           bind_rows() %>%
           mutate(across(everything(), ~as.character(.))) %>%
@@ -167,7 +164,6 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
           ) %>%
           pull(.data$string)
 
-
         return(
           list(
             info = tooltip_site_data
@@ -175,7 +171,6 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
         )
 
       })
-
   }
 
   abbreviation_lookup <- as_tibble(names(overview_table)) %>%
@@ -239,7 +234,6 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
       });
     }
   "
-
     overview_table <- overview_table %>%
       mutate(across(
         -c("Site":"Amber KRIs"),

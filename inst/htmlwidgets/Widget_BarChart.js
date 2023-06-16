@@ -19,7 +19,11 @@ HTMLWidgets.widget({
                             ? 'None'
                             : d.groupid;
                         siteSelect.value = instance.data.config.selectedGroupIDs;
-                        instance.helpers.updateConfig(instance, instance.data.config);
+                        instance.helpers.updateConfig(
+                            instance,
+                            instance.data.config,
+                            instance.data._thresholds_
+                        );
                     };
 
                 // threshold annotations

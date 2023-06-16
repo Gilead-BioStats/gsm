@@ -14,6 +14,8 @@ HTMLWidgets.widget({
             // Update site dropdown.
             const siteDropdown = document
                 .getElementById(`site-select--time-series_${workflow.workflowid}`)
+            console.log(`site-select--time-series_${workflow.workflowid}`);
+            console.log(d.groupid);
             siteDropdown.value = d.groupid;
 
             // Update chart (closure allows access to `instance` prior to initialization).
