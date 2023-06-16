@@ -38,13 +38,13 @@ assessment <- params$assessment[
 # Overview Table - HTML object
 overview_table <- Overview_Table(
   lAssessments = assessment, 
-  dfStudySiteCtms =  params$status_site
+  dfSite =  params$status_site
 )
 
 # Overview Table - data.frame/raw data
 overview_raw_table <- Overview_Table(
   lAssessments = assessment, 
-  dfStudySiteCtms =  params$status_site, 
+  dfSite =  params$status_site, 
   bInteractive = FALSE
 )
 

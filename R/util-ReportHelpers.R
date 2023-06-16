@@ -1,8 +1,8 @@
 #' Create Status Study table in KRIReport.Rmd
-#' @param status_study `data.frame` from `params` within `KRIReport.Rmd`
+#' @param dfStudy `data.frame` from `params` within `KRIReport.Rmd`
 #' @export
 #' @keywords internal
-MakeStudyStatusTable <- function(dfStudyStatus) {
+MakeStudyStatusTable <- function(dfStudy) {
 
   # -- this vector is used to define a custom sort order for the
   #    Study Status Table in KRIReport.Rmd
@@ -34,8 +34,8 @@ MakeStudyStatusTable <- function(dfStudyStatus) {
 
   # -- if a longitudinal snapshot is provided, select the most recent row
   #    of study metadata
-  if (nrow(status_study) > 1) {
-    status_study <- status_study %>%
+  if (nrow(dfStudy) > 1) {
+    dfStudy <- dfStudy %>%
       filter(
         .data$snapshot_date == max(.data$snapshot_date)
       )
@@ -56,11 +56,11 @@ MakeStudyStatusTable <- function(dfStudyStatus) {
 
   # -- the `sites` and `participants` variables below are used to show a nicely-formatted version of (# Enrolled / # Planned)
   #    these values were being formatted with a lot of trailing zeroes, so they are rounded here before pasting as a character vector
-  sites <- paste0(round(as.numeric(status_study$enrolled_sites)), " / ", round(as.numeric(status_study$planned_sites)))
-  participants <- paste0(round(as.numeric(status_study$enrolled_participants)), " / ", round(as.numeric(status_study$planned_participants)))
+  sites <- paste0(round(as.numeric(dfStudy$enrolled_sites)), " / ", round(as.numeric(dfStudy$planned_sites)))
+  participants <- paste0(round(as.numeric(dfStudy$enrolled_participants)), " / ", round(as.numeric(dfStudy$planned_participants)))
 
 
-  study_status_table <- status_study %>%
+  study_status_table <- dfStudy %>%
     t() %>%
     as.data.frame() %>%
     tibble::rownames_to_column() %>%
@@ -146,7 +146,7 @@ MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
           ) %>%
           arrange(desc(abs(.data$Score))) %>%
           mutate(
-            FlagDirectionality = map(.data$Flag, kri_directionality_logo),
+            Flag = map(.data$Flag, kri_directionality_logo),
             across(
               where(is.numeric),
               ~ round(.x, 3)
@@ -156,8 +156,8 @@ MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
             any_of(c(
                 'Site' = 'GroupID',
                 'Country' = 'country',
-                'Site Status' = 'status',
-                '# Subjects' = 'enrolled_participants'
+                'Status' = 'status',
+                'Subjects' = 'enrolled_participants'
             )),
             everything()
           ) %>%
@@ -216,7 +216,12 @@ MakeKRIGlossary <- function(
 
     workflows %>%
         DT::datatable(
+            class = 'compact',
             options = list(
+                columnDefs = list(list(
+                    className = "dt-center",
+                    targets = 0:(ncol(workflows) - 1)
+                )),
                 paging = FALSE,
                 searching = FALSE
             ),
