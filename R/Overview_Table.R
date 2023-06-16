@@ -112,11 +112,12 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
   if (!is.null(dfStudySiteCtms)) {
     overview_table <- overview_table %>%
       left_join(
-        dfStudySiteCtms %>% select("siteid", "Status" = "status"),
+        dfStudySiteCtms %>% select("siteid", 'Country' = 'country', "Status" = "status"),
         by = c("Site" = "siteid")
       ) %>%
       select(
         "Site",
+        'Country',
         "Status",
         everything()
       )
@@ -195,13 +196,15 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
     arrange(.data$Site)
 
 
+  # TODO: this could disagree with `status_site$enrolled_participants`
   # Add # of subjects to overview table.
   dfSUBJ <- study[[1]]$lData$dfSUBJ
   overview_table[["# Subjects"]] <- overview_table$Site %>%
     map_int(~ dfSUBJ %>%
       filter(.data$siteid == .x) %>%
       nrow())
-  overview_table <- relocate(overview_table, "# Subjects", .after = "Site")
+  if (Status
+  overview_table <- relocate(overview_table, "# Subjects", .after = "")
 
   if (bInteractive) {
     n_headers <- ncol(overview_table)

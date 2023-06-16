@@ -2,7 +2,7 @@
 #' @param status_study `data.frame` from `params` within `KRIReport.Rmd`
 #' @export
 #' @keywords internal
-MakeStudyStatusTable <- function(status_study) {
+MakeStudyStatusTable <- function(dfStudyStatus) {
 
   # -- this vector is used to define a custom sort order for the
   #    Study Status Table in KRIReport.Rmd
@@ -121,19 +121,30 @@ MakeStudyStatusTable <- function(status_study) {
 
 
 #' Create Summary table in KRIReport.Rmd for each KRI
-#' @param assessment `data.frame` from `params` within `KRIReport.Rmd`
+#' @param lAssessment `list` List of KRI assessments from `params` within `KRIReport.Rmd`.
+#' @param dfSite `data.frame` Optional site-level metadata.
 #' @export
 #' @keywords internal
-MakeSummaryTable <- function(assessment) {
-  map(assessment, function(kri) {
+MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
+  map(lAssessment, function(kri) {
     if (kri$bStatus) {
       dfSummary <- kri$lResults$lData$dfSummary
+
+      if (!is.null(dfSite)) {
+        dfSummary <- dfSummary %>%
+          left_join(
+            dfSite %>% select(siteid, country, status, enrolled_participants),
+            c('GroupID' = 'siteid')
+          )
+      }
 
       if (nrow(dfSummary) > 0 &
         any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
         dfSummary %>%
-          filter(.data$Flag != 0) %>%
-          arrange(desc(abs(.data$Flag))) %>%
+          filter(
+            .data$Flag != 0
+          ) %>%
+          arrange(desc(abs(.data$Score))) %>%
           mutate(
             FlagDirectionality = map(.data$Flag, kri_directionality_logo),
             across(
@@ -141,7 +152,18 @@ MakeSummaryTable <- function(assessment) {
               ~ round(.x, 3)
             )
           ) %>%
-          DT::datatable()
+          select(
+            any_of(c(
+                'Site' = 'GroupID',
+                'Country' = 'country',
+                'Site Status' = 'status',
+                '# Subjects' = 'enrolled_participants'
+            )),
+            everything()
+          ) %>%
+          DT::datatable(
+              rownames = FALSE
+          )
       } else {
         htmltools::p("Nothing flagged for this KRI.")
       }
@@ -171,4 +193,33 @@ add_table_theme <- function(x) {
       Value ~ gt::pct(40)
     ) %>%
     gt::opt_row_striping()
+}
+
+#' Create KRI metadata table in KRIReport.Rmd
+#' @param dfMetaWorkflow `data.frame` Workflow metadata from `params` within `KRIReport.Rmd`
+#' @export
+#' @keywords internal
+MakeKRIGlossary <- function(
+    strWorkflowIDs = NULL,
+    dfMetaWorkflow = gsm::meta_workflow
+) {
+    workflows <- dfMetaWorkflow %>%
+        filter(
+            .data$workflowid %in% strWorkflowIDs
+        ) %>%
+        rename_with(~
+            .x %>%
+                gsub('_|(?=id)', ' ', ., perl = TRUE) %>%
+                gsub('(^.| .)', '\\U\\1', ., perl = TRUE) %>%
+                gsub('(gsm|id)', '\\U\\1', ., ignore.case = TRUE, perl = TRUE)
+        )
+
+    workflows %>%
+        DT::datatable(
+            options = list(
+                paging = FALSE,
+                searching = FALSE
+            ),
+            rownames = FALSE
+        )
 }

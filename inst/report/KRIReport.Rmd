@@ -39,20 +39,23 @@ assessment <- params$assessment[
 overview_table <- Overview_Table(
   lAssessments = assessment, 
   dfStudySiteCtms =  params$status_site
-  )
+)
 
 # Overview Table - data.frame/raw data
 overview_raw_table <- Overview_Table(
   lAssessments = assessment, 
   dfStudySiteCtms =  params$status_site, 
   bInteractive = FALSE
-  )
+)
 
 red_kris <- overview_raw_table %>% pull(`Red KRIs`) %>% sum()
 amber_kris <- overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
 
-# turn into a function
-summary_table <- MakeSummaryTable(assessment)
+# Generate listing of flagged KRIs.
+summary_table <- MakeSummaryTable(
+  assessment,
+  params$status_site
+)
 
 ## StudyID
 study_id <- purrr::map(assessment, function(kri) {
@@ -109,6 +112,7 @@ date: "Snapshot Date: {params$status_study$gsm_analysis_date}"
 overview_table
 ```
 </div>
+
 
 ## Results
 
@@ -178,6 +182,14 @@ for (i in seq_along(assessment)) {
 }
 ```
 
+
+## KRI Glossary
+
+```{r echo = FALSE}
+MakeKRIGlossary(
+    names(assessment)
+)
+```
 
 
 ## Error Log
