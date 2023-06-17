@@ -4,10 +4,12 @@
 \alias{Overview_Table}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
-Overview_Table(lAssessments, bInteractive = TRUE)
+Overview_Table(lAssessments, dfStudySiteCtms = NULL, bInteractive = TRUE)
 }
 \arguments{
-\item{lAssessments}{\code{list} The output of running \code{\link[=Study_Assess]{Study_Assess()}}}
+\item{lAssessments}{\code{list} The output of running \code{\link[=Study_Assess]{Study_Assess()}}.}
+
+\item{dfStudySiteCtms}{\code{data.frame}}
 
 \item{bInteractive}{\code{logical} Display interactive widget? Default: \code{TRUE}.}
 }
