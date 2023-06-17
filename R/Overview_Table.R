@@ -3,7 +3,7 @@
 #' Overview Table - Create summary of red and amber KRIs for a study.
 #'
 #' @param lAssessments `list` The output of running [gsm::Study_Assess()].
-#' @param dfStudySiteCtms `data.frame`
+#' @param dfSite `data.frame`
 #' @param bInteractive `logical` Display interactive widget? Default: `TRUE`.
 #'
 #' @importFrom DT datatable
@@ -19,8 +19,7 @@
 #' }
 #'
 #' @export
-Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = TRUE) {
-
+Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
   study <- lAssessments[grep("kri", names(lAssessments))]
 
   study <- keep(study, function(x) x$bStatus == TRUE)
@@ -67,11 +66,11 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
     }) %>%
     ungroup() %>%
     mutate(
-      "# Subjects" = 0
+      "Subjects" = 0
     ) %>%
     select(
       "Site" = "GroupID",
-      "# Subjects",
+      "Subjects",
       "Red KRIs",
       "Amber KRIs",
       everything()
@@ -108,24 +107,24 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
     ) %>%
     arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`))
 
-
   # if study_site data.frame is passed through from CTMS.
   # add `Active` column
-  if (!is.null(dfStudySiteCtms)) {
+  if (!is.null(dfSite)) {
     overview_table <- overview_table %>%
       left_join(
-        dfStudySiteCtms %>% select("siteid", "Status" = "status"),
+        dfSite %>% select("siteid", 'Country' = 'country', "Status" = "status"),
         by = c("Site" = "siteid")
       ) %>%
       select(
         "Site",
+        'Country',
         "Status",
         everything()
       )
 
-    site_status_tooltip_hover_info <- dfStudySiteCtms %>%
+    site_status_tooltip_hover_info <- dfSite %>%
       purrr::transpose() %>%
-      purrr::set_names(dfStudySiteCtms$site_num) %>%
+      purrr::set_names(dfSite$site_num) %>%
       purrr::imap(function(site_data, site_number) {
 
 
@@ -133,7 +132,7 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
           "pi_number",
           "pi_first_name",
           "pi_last_name",
-          "site_status",
+          "status",
           "site_active_dt",
           "is_satellite",
           "city",
@@ -153,7 +152,6 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
           "Country"
         )
 
-
         tooltip_site_data <- Filter(length, site_data[names(site_data) %in% site_data_variables_to_pull]) %>%
           bind_rows() %>%
           mutate(across(everything(), ~as.character(.))) %>%
@@ -167,7 +165,6 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
           ) %>%
           pull(.data$string)
 
-
         return(
           list(
             info = tooltip_site_data
@@ -175,7 +172,6 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
         )
 
       })
-
   }
 
   abbreviation_lookup <- as_tibble(names(overview_table)) %>%
@@ -200,13 +196,19 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
     arrange(.data$Site)
 
 
+  # TODO: this could disagree with `status_site$enrolled_participants`
   # Add # of subjects to overview table.
   dfSUBJ <- study[[1]]$lData$dfSUBJ
-  overview_table[["# Subjects"]] <- overview_table$Site %>%
+  overview_table[["Subjects"]] <- overview_table$Site %>%
     map_int(~ dfSUBJ %>%
       filter(.data$siteid == .x) %>%
       nrow())
-  overview_table <- relocate(overview_table, "# Subjects", .after = "Site")
+
+  overview_table <- relocate(
+      overview_table,
+      "Subjects",
+      .before = "Red KRIs"
+  )
 
   if (bInteractive) {
     n_headers <- ncol(overview_table)
@@ -239,7 +241,6 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
       });
     }
   "
-
     overview_table <- overview_table %>%
       mutate(across(
         -c("Site":"Amber KRIs"),
@@ -248,7 +249,7 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
         })
       ))
 
-    if (!is.null(dfStudySiteCtms)) {
+    if (!is.null(dfSite)) {
       overview_table <- overview_table %>%
         mutate(
           across(
@@ -266,7 +267,7 @@ Overview_Table <- function(lAssessments, dfStudySiteCtms = NULL, bInteractive = 
     overview_table <- overview_table %>%
       arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`)) %>%
       DT::datatable(
-        class = "tbl-rbqm-study-overview",
+        class = "compact tbl-rbqm-study-overview",
         options = list(
           columnDefs = list(list(
             className = "dt-center",

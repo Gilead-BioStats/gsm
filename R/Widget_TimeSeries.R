@@ -59,7 +59,7 @@ Widget_TimeSeries <- function(
         htmltools::tags$label("Highlighted Site:"),
         htmltools::tags$select(
           class = "site-select--time-series",
-          id = glue::glue("site-select--time-series_{workflow$workflowid}"),
+          id = glue::glue("site-select--time-series_{unique(workflow$workflowid)}"),
           purrr::map(
             c("None", uniqueSiteSelections),
             ~ htmltools::HTML(paste0(
