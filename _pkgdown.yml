@@ -96,6 +96,8 @@ reference:
    - title: Data
      desc: Metadata used to create workflows
    - contents:
+      - config_param
+      - config_workflow
       - input_data_schema
       - meta_param
       - meta_workflow

@@ -7,7 +7,7 @@
 Study_Map_Raw(
   dfs = list(dfSTUDY = clindata::ctms_study, dfSUBJ = clindata::rawplus_dm),
   lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
-  dfConfig = clindata::config_param
+  dfConfig = gsm::config_param
 )
 }
 \arguments{
