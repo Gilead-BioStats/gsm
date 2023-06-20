@@ -133,7 +133,7 @@ MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
       if (!is.null(dfSite)) {
         dfSummary <- dfSummary %>%
           left_join(
-            dfSite %>% select(siteid, country, status, enrolled_participants),
+            dfSite %>% select("siteid", "country", "status", "enrolled_participants"),
             c('GroupID' = 'siteid')
           )
       }

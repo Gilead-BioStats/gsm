@@ -169,7 +169,17 @@ accepting any such warranty or additional liability.
 
 _END OF TERMS AND CONDITIONS_
 
-    Copyright 2023 Gilead Sciences. All rights reserved.
+### APPENDIX: How to apply the Apache License to your work
+
+To apply the Apache License to your work, attach the following boilerplate
+notice, with the fields enclosed by brackets `[]` replaced with your own
+identifying information. (Don't include the brackets!) The text should be
+enclosed in the appropriate comment syntax for the file format. We also
+recommend that a file or class name and description of purpose be included on
+the same “printed page” as the copyright notice for easier identification within
+third-party archives.
+
+    Copyright 2023 Gilead Sciences
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
