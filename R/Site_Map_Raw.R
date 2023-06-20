@@ -12,7 +12,7 @@ Site_Map_Raw <- function(
     dfSUBJ = clindata::rawplus_dm
   ),
   lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
-  dfConfig = clindata::config_param
+  dfConfig = gsm::config_param
 ) {
   status_site <- dfs$dfSITE %>%
     mutate(

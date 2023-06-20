@@ -45,8 +45,8 @@
 #' @export
 Make_Snapshot <- function(
   lMeta = list(
-    config_param = clindata::config_param,
-    config_workflow = clindata::config_workflow,
+    config_param = gsm::config_param,
+    config_workflow = gsm::config_workflow,
     meta_params = gsm::meta_param,
     meta_site = clindata::ctms_site,
     meta_study = clindata::ctms_study,

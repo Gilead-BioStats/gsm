@@ -16,8 +16,8 @@ test_that("FALSE ci_check returns null", {
 
 test_that("mismatch returns warning", {
   config <- list(
-    config_param = clindata::config_param %>% mutate(gsm_version = "1.2.3"),
-    config_workflow = clindata::config_workflow
+    config_param = gsm::config_param %>% mutate(gsm_version = "1.2.3"),
+    config_workflow = gsm::config_workflow
   )
 
   expect_message(

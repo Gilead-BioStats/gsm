@@ -29,7 +29,7 @@ Get_Enrolled Calculated enrolled participants or sites.
 \examples{
 enrolled <- Get_Enrolled(
   dfSUBJ = clindata::rawplus_dm,
-  dfConfig = clindata::config_param,
+  dfConfig = gsm::config_param,
   lMapping = yaml::read_yaml(
     system.file("mappings",
       "mapping_rawplus.yaml",

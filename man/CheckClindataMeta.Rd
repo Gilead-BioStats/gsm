@@ -5,8 +5,7 @@
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 CheckClindataMeta(
-  config = list(config_param = clindata::config_param, config_workflow =
-    clindata::config_workflow),
+  config = list(config_param = gsm::config_param, config_workflow = gsm::config_workflow),
   ci_check = FALSE
 )
 }

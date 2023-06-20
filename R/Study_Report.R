@@ -6,7 +6,8 @@
 #' Create HTML summary report using the results of `Study_Assess`, including tables, charts, and error checking.
 #'
 #' @param lAssessments `list` The results of multiple assessments run using `Study_Assess`.
-#' @param dfStudy `data.frame` A data.frame containing site status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_study`
+#' @param dfStudy `data.frame` A data.frame containing study status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_study`
+#' @param dfSite `data.frame` A data.frame containing site status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_site`
 #' @param strOutpath `character` File path; location where the report will be saved.
 #'
 #' @return HTML report of study data.
@@ -45,6 +46,7 @@
 Study_Report <- function(
   lAssessments,
   dfStudy = NULL,
+  dfSite = NULL,
   strOutpath = NULL
 ) {
   if (is.null(strOutpath)) {
@@ -57,7 +59,8 @@ Study_Report <- function(
     output_file = strOutpath,
     params = list(
       assessment = lAssessments,
-      status_study = dfStudy
+      status_study = dfStudy,
+      status_site = dfSite
     ),
     envir = new.env(parent = globalenv())
   )

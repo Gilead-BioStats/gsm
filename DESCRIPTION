@@ -16,7 +16,7 @@ Authors@R: c(
 URL: https://github.com/Gilead-BioStats/gsm
 BugReports: https://github.com/Gilead-BioStats/gsm/issues
 Description: The Good Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring.
-License: file LICENSE
+License: Apache License (>= 2)
 Encoding: UTF-8
 Imports:
     broom,
