@@ -24,6 +24,9 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
 
   study <- keep(study, function(x) x$bStatus == TRUE)
 
+
+# create reference table --------------------------------------------------
+
   reference_table <- study %>%
     purrr::map(function(kri) {
       name <- kri$name
@@ -79,6 +82,8 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
 
 
 
+
+# create overview table ---------------------------------------------------
 
   overview_table <- study %>%
     purrr::map(function(kri) {
@@ -186,14 +191,31 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
     stats::na.omit() %>%
     tibble::deframe()
 
+  hovertext_lookup <- tibble::enframe(abbreviation_lookup) %>%
+    mutate(
+      name = paste0(name, "_hovertext")
+    ) %>%
+    tibble::deframe()
+
+
+
   # Rename columns from KRI name to KRI abbreviation.
   overview_table <- overview_table %>%
     rename(any_of(abbreviation_lookup)) %>%
     arrange(.data$Site)
 
   reference_table <- reference_table %>%
-    rename(any_of(abbreviation_lookup)) %>%
-    arrange(.data$Site)
+    rename(any_of(hovertext_lookup)) %>%
+    select(
+      "Site",
+      ends_with("_hovertext")
+    )
+
+  overview_table <- left_join(
+    overview_table,
+    reference_table,
+    by = "Site"
+  )
 
 
   # TODO: this could disagree with `status_site$enrolled_participants`
@@ -243,9 +265,9 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
   "
     overview_table <- overview_table %>%
       mutate(across(
-        -c("Site":"Amber KRIs"),
+        names(abbreviation_lookup),
         ~ purrr::imap(.x, function(value, index) {
-          kri_directionality_logo(value, title = reference_table[[cur_column()]][[index]])
+          kri_directionality_logo(value, title = overview_table[[paste0(cur_column(), "_hovertext")]][[index]])
         })
       ))
 
