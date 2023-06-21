@@ -31,11 +31,12 @@ MakeWorkflowList <- function(
   strPackage = "gsm",
   bRecursive = FALSE
 ) {
+
   stopifnot(
     '[ strPath ] must be specified.' = !is.null(strPath)
   )
 
-  if (!is.null(strPackage)) {
+  if (strPackage == "gsm") {
     path <- system.file(strPath, package = strPackage)
   } else {
     path <- strPath
