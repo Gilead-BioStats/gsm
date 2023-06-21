@@ -20,8 +20,13 @@
 #'
 #' @export
 Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
+
+  # only keep KRIs in the table
+  # -- excludes COU (country)
+  # -- excludes QTL
   study <- lAssessments[grep("kri", names(lAssessments))]
 
+  # only keep KRIs that were successfully run
   study <- keep(study, function(x) x$bStatus == TRUE)
 
 
@@ -179,30 +184,26 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
       })
   }
 
-  abbreviation_lookup <- as_tibble(names(overview_table)) %>%
-    left_join(gsm::meta_workflow, by = c("value" = "workflowid")) %>%
-    select("abbreviation", "value") %>%
-    stats::na.omit() %>%
-    tibble::deframe()
 
-  metric_lookup <- as_tibble(names(overview_table)) %>%
-    left_join(gsm::meta_workflow, by = c("value" = "workflowid")) %>%
-    select("metric", "value") %>%
-    stats::na.omit() %>%
-    tibble::deframe()
+
+
+# create lookup tables ----------------------------------------------------
+
+  abbreviation_lookup <- create_lookup_table(
+    table = overview_table,
+    select_columns = c("abbreviation", "value")
+    )
+
+  metric_lookup <- create_lookup_table(
+    table = overview_table,
+    select_columns = c("metric", "value")
+    )
 
   hovertext_lookup <- tibble::enframe(abbreviation_lookup) %>%
     mutate(
       name = paste0(name, "_hovertext")
     ) %>%
     tibble::deframe()
-
-
-
-  # Rename columns from KRI name to KRI abbreviation.
-  overview_table <- overview_table %>%
-    rename(any_of(abbreviation_lookup)) %>%
-    arrange(.data$Site)
 
   reference_table <- reference_table %>%
     rename(any_of(hovertext_lookup)) %>%
@@ -211,16 +212,21 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
       ends_with("_hovertext")
     )
 
-  overview_table <- left_join(
-    overview_table,
-    reference_table,
-    by = "Site"
-  )
+  # Rename columns from KRI name to KRI abbreviation.
+  overview_table <- overview_table %>%
+    rename(any_of(abbreviation_lookup)) %>%
+    arrange(.data$Site) %>%
+    left_join(
+      reference_table,
+      by = "Site"
+    )
+
 
 
   # TODO: this could disagree with `status_site$enrolled_participants`
   # Add # of subjects to overview table.
   dfSUBJ <- study[[1]]$lData$dfSUBJ
+
   overview_table[["Subjects"]] <- overview_table$Site %>%
     map_int(~ dfSUBJ %>%
       filter(.data$siteid == .x) %>%
@@ -232,8 +238,11 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
       .before = "Red KRIs"
   )
 
+
+# HTML table --------------------------------------------------------------
+
   if (bInteractive) {
-    n_headers <- ncol(overview_table)
+    n_headers <- ncol(overview_table %>% select(-ends_with("_hovertext")))
     kri_index <- n_headers - length(study)
 
     # Add tooltips to column headers.
@@ -263,6 +272,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
       });
     }
   "
+    # add hovertext to KRI signals
     overview_table <- overview_table %>%
       mutate(across(
         names(abbreviation_lookup),
@@ -277,9 +287,10 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
           across(
             "Site",
             ~ purrr::imap(.x, function(value, index) {
+              # add hovertext containing site information to Site rows
                 paste0(
                   value,
-                  htmltools::tags$title(site_status_tooltip_hover_info[[index]]$info)
+                  htmltools::tags$title(site_status_tooltip_hover_info[[value]]$info)
                 )
             })
           )
@@ -288,6 +299,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
 
     overview_table <- overview_table %>%
       arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`)) %>%
+      select(-ends_with("_hovertext")) %>%
       DT::datatable(
         class = "compact tbl-rbqm-study-overview",
         options = list(
@@ -301,6 +313,9 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
         rownames = FALSE,
         escape = FALSE
       )
+  } else {
+    overview_table <- overview_table %>%
+      select(-ends_with("_hovertext"))
   }
 
   return(overview_table)
@@ -322,4 +337,12 @@ assign_tooltip_labels <- function(name) {
   }
 }
 
+
+create_lookup_table <- function(table, select_columns) {
+  as_tibble(names(table)) %>%
+    left_join(gsm::meta_workflow, by = c("value" = "workflowid")) %>%
+    select(all_of(select_columns)) %>%
+    stats::na.omit() %>%
+    tibble::deframe()
+}
 
