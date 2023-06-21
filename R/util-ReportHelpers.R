@@ -1,8 +1,8 @@
 #' Create Status Study table in KRIReport.Rmd
-#' @param status_study `data.frame` from `params` within `KRIReport.Rmd`
+#' @param dfStudy `data.frame` from `params` within `KRIReport.Rmd`
 #' @export
 #' @keywords internal
-MakeStudyStatusTable <- function(status_study) {
+MakeStudyStatusTable <- function(dfStudy) {
 
   # -- this vector is used to define a custom sort order for the
   #    Study Status Table in KRIReport.Rmd
@@ -34,8 +34,8 @@ MakeStudyStatusTable <- function(status_study) {
 
   # -- if a longitudinal snapshot is provided, select the most recent row
   #    of study metadata
-  if (nrow(status_study) > 1) {
-    status_study <- status_study %>%
+  if (nrow(dfStudy) > 1) {
+    dfStudy <- dfStudy %>%
       filter(
         .data$snapshot_date == max(.data$snapshot_date)
       )
@@ -56,18 +56,22 @@ MakeStudyStatusTable <- function(status_study) {
 
   # -- the `sites` and `participants` variables below are used to show a nicely-formatted version of (# Enrolled / # Planned)
   #    these values were being formatted with a lot of trailing zeroes, so they are rounded here before pasting as a character vector
-  sites <- paste0(round(as.numeric(status_study$enrolled_sites)), " / ", round(as.numeric(status_study$planned_sites)))
-  participants <- paste0(round(as.numeric(status_study$enrolled_participants)), " / ", round(as.numeric(status_study$planned_participants)))
+  sites <- paste0(round(as.numeric(dfStudy$enrolled_sites)), " / ", round(as.numeric(dfStudy$planned_sites)))
+  participants <- paste0(round(as.numeric(dfStudy$enrolled_participants)), " / ", round(as.numeric(dfStudy$planned_participants)))
 
 
-  study_status_table <- status_study %>%
+  study_status_table <- dfStudy %>%
     t() %>%
     as.data.frame() %>%
     tibble::rownames_to_column() %>%
     setNames(c("Parameter", "Value")) %>%
     rowwise() %>%
     mutate(
-      Value = ifelse(is.na(Value), Value, prettyNum(.data$Value, drop0trailing = TRUE))
+      Value = ifelse(
+        is.na(.data$Value),
+        .data$Value,
+        prettyNum(.data$Value, drop0trailing = TRUE)
+        )
     ) %>%
     ungroup() %>%
     left_join(
@@ -117,27 +121,49 @@ MakeStudyStatusTable <- function(status_study) {
 
 
 #' Create Summary table in KRIReport.Rmd for each KRI
-#' @param assessment `data.frame` from `params` within `KRIReport.Rmd`
+#' @param lAssessment `list` List of KRI assessments from `params` within `KRIReport.Rmd`.
+#' @param dfSite `data.frame` Optional site-level metadata.
 #' @export
 #' @keywords internal
-MakeSummaryTable <- function(assessment) {
-  map(assessment, function(kri) {
+MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
+  map(lAssessment, function(kri) {
     if (kri$bStatus) {
       dfSummary <- kri$lResults$lData$dfSummary
+
+      if (!is.null(dfSite)) {
+        dfSummary <- dfSummary %>%
+          left_join(
+            dfSite %>% select(siteid, country, status, enrolled_participants),
+            c('GroupID' = 'siteid')
+          )
+      }
 
       if (nrow(dfSummary) > 0 &
         any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
         dfSummary %>%
-          filter(.data$Flag != 0) %>%
-          arrange(desc(abs(.data$Flag))) %>%
+          filter(
+            .data$Flag != 0
+          ) %>%
+          arrange(desc(abs(.data$Score))) %>%
           mutate(
-            FlagDirectionality = map(.data$Flag, kri_directionality_logo),
+            Flag = map(.data$Flag, kri_directionality_logo),
             across(
               where(is.numeric),
               ~ round(.x, 3)
             )
           ) %>%
-          DT::datatable()
+          select(
+            any_of(c(
+                'Site' = 'GroupID',
+                'Country' = 'country',
+                'Status' = 'status',
+                'Subjects' = 'enrolled_participants'
+            )),
+            everything()
+          ) %>%
+          DT::datatable(
+              rownames = FALSE
+          )
       } else {
         htmltools::p("Nothing flagged for this KRI.")
       }
@@ -167,4 +193,38 @@ add_table_theme <- function(x) {
       Value ~ gt::pct(40)
     ) %>%
     gt::opt_row_striping()
+}
+
+#' Create KRI metadata table in KRIReport.Rmd
+#' @param dfMetaWorkflow `data.frame` Workflow metadata from `params` within `KRIReport.Rmd`
+#' @export
+#' @keywords internal
+MakeKRIGlossary <- function(
+    strWorkflowIDs = NULL,
+    dfMetaWorkflow = gsm::meta_workflow
+) {
+    workflows <- dfMetaWorkflow %>%
+        filter(
+            .data$workflowid %in% strWorkflowIDs
+        ) %>%
+        rename_with(~
+            .x %>%
+                gsub('_|(?=id)', ' ', ., perl = TRUE) %>%
+                gsub('(^.| .)', '\\U\\1', ., perl = TRUE) %>%
+                gsub('(gsm|id)', '\\U\\1', ., ignore.case = TRUE, perl = TRUE)
+        )
+
+    workflows %>%
+        DT::datatable(
+            class = 'compact',
+            options = list(
+                columnDefs = list(list(
+                    className = "dt-center",
+                    targets = 0:(ncol(workflows) - 1)
+                )),
+                paging = FALSE,
+                searching = FALSE
+            ),
+            rownames = FALSE
+        )
 }

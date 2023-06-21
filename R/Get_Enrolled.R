@@ -17,7 +17,7 @@
 #' @examples
 #' enrolled <- Get_Enrolled(
 #'   dfSUBJ = clindata::rawplus_dm,
-#'   dfConfig = clindata::config_param,
+#'   dfConfig = gsm::config_param,
 #'   lMapping = yaml::read_yaml(
 #'     system.file("mappings",
 #'       "mapping_rawplus.yaml",
@@ -36,13 +36,18 @@ Get_Enrolled <- function(dfSUBJ, dfConfig, lMapping, strUnit, strBy) {
     "dfSUBJ is not a data.frame" = is.data.frame(dfSUBJ),
     "dfConfig is not a data.frame" = is.data.frame(dfConfig),
     "strUnit is not `participant` or `site`" = strUnit %in% c("participant", "site"),
-    "strBy is not `study` or `site`" = strBy %in% c("study", "site")
+    "strBy is not `study` or `site`" = strBy %in% c("study", "site"),
+    "lMapping does not contain strEnrollCol" = "strEnrollCol" %in% names(lMapping$dfSUBJ),
+    "lMapping does not contain strEnrollVal" = "strEnrollVal" %in% names(lMapping$dfSUBJ)
   )
 
   studyid <- unique(dfConfig$studyid)
 
   dm <- dfSUBJ %>%
-    filter(.data[[lMapping$dfSUBJ$strStudyCol]] == studyid)
+    filter(
+      .data[[lMapping$dfSUBJ$strStudyCol]] == studyid &
+      .data[[lMapping$dfSUBJ$strEnrollCol]] == lMapping$dfSUBJ$strEnrollVal
+      )
 
   if (strUnit == "participant" & strBy == "study") {
     enrolled <- dm %>%

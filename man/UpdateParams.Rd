@@ -9,7 +9,7 @@ UpdateParams(lWorkflow, dfConfig, dfMeta)
 \arguments{
 \item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
 
-\item{dfConfig}{\code{data.frame} Configuration parameters data.frame; \code{clindata::config_param}}
+\item{dfConfig}{\code{data.frame} Configuration parameters data.frame; \code{gsm::config_param}}
 
 \item{dfMeta}{\code{data.frame} Metadata parameters data.frame; \code{gsm::meta_param}}
 }

@@ -5,10 +5,9 @@
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Make_Snapshot(
-  lMeta = list(config_param = clindata::config_param, config_workflow =
-    clindata::config_workflow, meta_params = gsm::meta_param, meta_site =
-    clindata::ctms_site, meta_study = clindata::ctms_study, meta_workflow =
-    gsm::meta_workflow),
+  lMeta = list(config_param = gsm::config_param, config_workflow = gsm::config_workflow,
+    meta_params = gsm::meta_param, meta_site = clindata::ctms_site, meta_study =
+    clindata::ctms_study, meta_workflow = gsm::meta_workflow),
   lData = list(dfSUBJ = clindata::rawplus_dm, dfAE = clindata::rawplus_ae, dfPD =
     clindata::ctms_protdev, dfCONSENT = clindata::rawplus_consent, dfIE =
     clindata::rawplus_ie, dfLB = clindata::rawplus_lb, dfSTUDCOMP =
