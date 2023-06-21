@@ -14,20 +14,20 @@ MakeWorkflowList(
 \arguments{
 \item{strNames}{\verb{array of character} List of workflows to include. NULL (the default) includes all workflows in the specified locations.}
 
-\item{strPath}{\code{character} The location of assessment YAML files. If package is specified, function will look in \verb{/inst} folder.}
+\item{strPath}{\code{character} The location of workflow YAML files. If package is specified, function will look in \verb{/inst} folder.}
 
 \item{strPackage}{\code{character} The name of the package with assessments.}
 
 \item{bRecursive}{\code{logical} Find files in nested folders? Default FALSE.}
 }
 \value{
-\code{list} A list of assessments with workflow and parameter metadata.
+\code{list} A list of workflows with workflow and parameter metadata.
 }
 \description{
-Load assessments from a package/directory.
+Load workflows from a package/directory.
 }
 \details{
-\code{MakeWorkflowList()} is a utility function that creates a workflow mapping for assessments used in \code{\link[=Study_Assess]{Study_Assess()}}.
+\code{MakeWorkflowList()} is a utility function that creates a list of workflows for use in \code{\link[=Study_Assess]{Study_Assess()}}.
 }
 \examples{
 workflow <- MakeWorkflowList(strPath = "workflow", strPackage = "gsm")

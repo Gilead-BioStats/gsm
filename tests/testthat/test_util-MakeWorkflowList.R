@@ -1,6 +1,6 @@
 lMeta <- list(
-  config_param = gsm::config_param,
-  config_workflow = gsm::config_workflow,
+  config_param = clindata::config_param,
+  config_workflow = clindata::config_workflow,
   meta_params = gsm::meta_param,
   meta_site = clindata::ctms_site,
   meta_study = clindata::ctms_study,
@@ -42,19 +42,14 @@ test_that("invalid data returns list NULL elements", {
 
 
   ### strPath - testing strPath equal to non-existent/incorrect location of assessment YAML files
-  strPath_edited <- "beyonce"
-  wf_list <- MakeWorkflowList(strNames = strNames, strPath = strPath_edited, strPackage = strPackage, bRecursive = bRecursive)
-  expect_true(is.list(wf_list))
-  expect_snapshot(length(wf_list))
-
+  expect_error(
+    MakeWorkflowList(strNames = strNames, strPath = "beyonce", strPackage = strPackage, bRecursive = bRecursive)
+  )
 
   ### strPackage - testing strPackage equal to non-existent/incorrect package name
-  strPackage_edited <- "piper"
-  wf_list <- MakeWorkflowList(strNames = strNames, strPath = strPath, strPackage = strPackage_edited, bRecursive = bRecursive)
-  expect_true(is.list(wf_list))
-  expect_snapshot(length(wf_list))
-
-
+  expect_error(
+    MakeWorkflowList(strNames = strNames, strPath = strPath, strPackage = "piper", bRecursive = bRecursive)
+  )
 
   ### bRecursive
   wf_list <- MakeWorkflowList(bRecursive = TRUE, strNames = "aeGrade")$aeGrade
