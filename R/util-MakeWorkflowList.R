@@ -42,8 +42,9 @@ MakeWorkflowList <- function(
     path <- strPath
   }
 
+
   stopifnot(
-    '[ strPath ] must exist.' = dir.exists(path)
+    '[ strPath ] must exist.' = dir.exists(paste0(getwd(), "/", strPath))
   )
 
   yaml_files <- list.files(
