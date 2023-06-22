@@ -4,10 +4,12 @@
 \alias{MakeSummaryTable}
 \title{Create Summary table in KRIReport.Rmd for each KRI}
 \usage{
-MakeSummaryTable(assessment)
+MakeSummaryTable(lAssessment, dfSite = NULL)
 }
 \arguments{
-\item{assessment}{\code{data.frame} from \code{params} within \code{KRIReport.Rmd}}
+\item{lAssessment}{\code{list} List of KRI assessments from \code{params} within \code{KRIReport.Rmd}.}
+
+\item{dfSite}{\code{data.frame} Optional site-level metadata.}
 }
 \description{
 Create Summary table in KRIReport.Rmd for each KRI
