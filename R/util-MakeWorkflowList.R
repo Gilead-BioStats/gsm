@@ -22,31 +22,31 @@
 #' @importFrom purrr map map_chr keep set_names
 #' @importFrom utils hasName
 #' @importFrom yaml read_yaml
+#' @importFrom tools file_path_sans_ext
 #'
 #' @export
 
 MakeWorkflowList <- function(
   strNames = NULL,
-  strPath = "workflow",
-  strPackage = "gsm",
+  strPath = NULL,
   bRecursive = FALSE
 ) {
 
-  stopifnot(
-    '[ strPath ] must be specified.' = !is.null(strPath)
-  )
-
-  if (strPackage == "gsm") {
-    path <- system.file(strPath, package = strPackage)
+  # if `strPath` is not specified, default to reading `inst/workflow` from {gsm}.
+  if (is.null(strPath)) {
+    path <- system.file("workflow", package = "gsm")
   } else {
+
+  # if `strPath` is specified, set as `path` and check that the full filepath exists.
     path <- strPath
+
+    stopifnot(
+      '[ strPath ] must exist.' = dir.exists(paste0(getwd(), "/", strPath))
+    )
+
   }
 
-
-  stopifnot(
-    '[ strPath ] must exist.' = dir.exists(paste0(getwd(), "/", strPath))
-  )
-
+  # list all files to loop through to build the workflow list.
   yaml_files <- list.files(
     path,
     pattern = "\\.yaml$",
@@ -54,19 +54,20 @@ MakeWorkflowList <- function(
     recursive = bRecursive
   )
 
-  # copied from tools package
-  file_path_sans_ext <- function(x) {
-    sub("([^.]+)\\.[[:alnum:]]+$", "\\1", x)
-  }
 
   workflows <- yaml_files %>%
     purrr::map(function(yaml_file) {
+      # read the individual YAML file
       workflow <- yaml::read_yaml(yaml_file)
+
+      # set the `path` for logging purposes
       workflow$path <- yaml_file
 
+      # each workflow step should have a name attribute
+      # extract the name for logging/debugging purposes
       if (!utils::hasName(workflow, "name")) {
         workflow$name <- workflow$path %>%
-          file_path_sans_ext() %>%
+          tools::file_path_sans_ext() %>%
           basename()
       }
 
@@ -74,6 +75,8 @@ MakeWorkflowList <- function(
     }) %>%
     stats::setNames(purrr::map_chr(., ~.x$name))
 
+  # if `strNames` is not null, subset the workflow list to only include
+  # files that match the character vector (`strNames`)
   if (!is.null(strNames)) {
     not_found <- strNames[!strNames %in% names(workflows)]
 
@@ -81,7 +84,8 @@ MakeWorkflowList <- function(
       cli::cli_alert_warning("{.val {not_found}} {?is/are} not {?a /}supported workflow{?/s}! Check the output of {.fn MakeWorkflowList} for NULL values.")
 
       workflows <- c(
-        vector(mode = "list", length = length(not_found)) %>% purrr::set_names(nm = not_found),
+        vector(mode = "list", length = length(not_found)) %>%
+          purrr::set_names(nm = not_found),
         purrr::keep(workflows, names(workflows) %in% strNames)
       )
     } else {
