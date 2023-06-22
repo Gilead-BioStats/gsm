@@ -76,8 +76,10 @@ Running multiple assessments simultaneously for a single study is a common use c
 
 To see a sample report, simply run:
 
-    results <- Study_Assess()
-    Study_Report(results)
+```         
+results <- Study_Assess()
+Study_Report(results)
+```
 
 Additional examples are provided in the [Cookbook Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Cookbook-Vignette).
 
@@ -99,18 +101,20 @@ Each input data specification lists the data domains required for the function a
 
 The specification for the AE mapping function (`inst/specs/AE_Map_Raw.yaml`) is shown below:
 
-    dfAE:
-      vRequired:
-        - strIDCol
-    dfSUBJ:
-      vRequired:
-        - strIDCol
-        - strSiteCol
-        - strTimeOnTreatmentCol
-      vUniqueCols:
-        - strIDCol
-      vNACols:
-        - strTimeOnTreatmentCol
+```         
+dfAE:
+  vRequired:
+    - strIDCol
+dfSUBJ:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+    - strTimeOnTreatmentCol
+  vUniqueCols:
+    - strIDCol
+  vNACols:
+    - strTimeOnTreatmentCol
+```
 
 ## Data Mappings Metadata
 
@@ -147,34 +151,36 @@ The `lAssessment` object is a named list of metadata defining how each assessmen
 
 For example, the default workflow for the AE assessment (`inst/workflow/kri0001.yaml`) is shown below:
 
-    workflow:
-      - name: FilterDomain
-        inputs: dfAE
-        output: dfAE
-        params:
-          strDomain: dfAE
-          strColParam: strTreatmentEmergentCol
-          strValParam: strTreatmentEmergentVal
-      - name: FilterDomain
-        inputs: dfAE
-        output: dfAE
-        params:
-          strDomain: dfAE
-          strColParam: strSeriousCol
-          strValParam: strNonSeriousVal
-      - name: AE_Map_Raw
-        inputs: 
-          - dfAE
-          - dfSUBJ
-        output: dfInput
-      - name: AE_Assess
-        inputs: dfInput
-        output: lResults
-        params:
-          strGroup: "Site"
-          vThreshold: null
-          strMethod: "poisson"
-          
+```         
+workflow:
+  - name: FilterDomain
+    inputs: dfAE
+    output: dfAE
+    params:
+      strDomain: dfAE
+      strColParam: strTreatmentEmergentCol
+      strValParam: strTreatmentEmergentVal
+  - name: FilterDomain
+    inputs: dfAE
+    output: dfAE
+    params:
+      strDomain: dfAE
+      strColParam: strSeriousCol
+      strValParam: strNonSeriousVal
+  - name: AE_Map_Raw
+    inputs: 
+      - dfAE
+      - dfSUBJ
+    output: dfInput
+  - name: AE_Assess
+    inputs: dfInput
+    output: lResults
+    params:
+      strGroup: "Site"
+      vThreshold: null
+      strMethod: "poisson"
+      
+```
 
 # Appendix 2 - Data Model Specifications
 
