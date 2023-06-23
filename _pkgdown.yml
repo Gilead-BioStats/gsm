@@ -48,6 +48,8 @@ reference:
       - Study_Report
       - Study_AssessmentReport
       - Overview_Table
+      - Overview_Table_Country
+      - Country_Report
       - rank_chg
       - kri_directionality_logo
 
