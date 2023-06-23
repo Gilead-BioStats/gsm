@@ -4,33 +4,27 @@
 \alias{MakeWorkflowList}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
-MakeWorkflowList(
-  strNames = NULL,
-  strPath = "workflow",
-  strPackage = "gsm",
-  bRecursive = FALSE
-)
+MakeWorkflowList(strNames = NULL, strPath = NULL, bRecursive = FALSE)
 }
 \arguments{
 \item{strNames}{\verb{array of character} List of workflows to include. NULL (the default) includes all workflows in the specified locations.}
 
-\item{strPath}{\code{character} The location of assessment YAML files. If package is specified, function will look in \verb{/inst} folder.}
-
-\item{strPackage}{\code{character} The name of the package with assessments.}
+\item{strPath}{\code{character} The location of workflow YAML files. If package is specified, function will look in \verb{/inst} folder.}
 
 \item{bRecursive}{\code{logical} Find files in nested folders? Default FALSE.}
 }
 \value{
-\code{list} A list of assessments with workflow and parameter metadata.
+\code{list} A list of workflows with workflow and parameter metadata.
 }
 \description{
-Load assessments from a package/directory.
+Load workflows from a package/directory.
 }
 \details{
-\code{MakeWorkflowList()} is a utility function that creates a workflow mapping for assessments used in \code{\link[=Study_Assess]{Study_Assess()}}.
+\code{MakeWorkflowList()} is a utility function that creates a list of workflows for use in \code{\link[=Study_Assess]{Study_Assess()}}.
 }
 \examples{
-workflow <- MakeWorkflowList(strPath = "workflow", strPackage = "gsm")
+# use default
+workflow <- MakeWorkflowList()
 
 # get specific workflow files
 workflow <- MakeWorkflowList(strNames = c("kri0001", "kri0005", "cou0003"))

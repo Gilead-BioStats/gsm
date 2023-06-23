@@ -1,5 +1,5 @@
 Package: gsm
-Title: Gilead Statistical Monitoring
+Title: Good Statistical Monitoring
 Version: 1.7.3
 Authors@R: c(
     person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
@@ -15,7 +15,7 @@ Authors@R: c(
     )
 URL: https://github.com/Gilead-BioStats/gsm
 BugReports: https://github.com/Gilead-BioStats/gsm/issues
-Description: The Gilead Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring.
+Description: The Good Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring.
 License: Apache License (>= 2)
 Encoding: UTF-8
 Imports:
