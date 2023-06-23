@@ -208,7 +208,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
 
   hovertext_lookup <- tibble::enframe(abbreviation_lookup) %>%
     mutate(
-      name = paste0(name, "_hovertext")
+      name = paste0(.data$name, "_hovertext")
     ) %>%
     tibble::deframe()
 
@@ -288,20 +288,27 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
         })
       ))
 
+    # if CTMS data exists...
     if (!is.null(dfSite)) {
-      overview_table <- overview_table %>%
-        mutate(
-          across(
-            "Site",
-            ~ purrr::imap(.x, function(value, index) {
-              # add hovertext containing site information to Site rows
+
+      # ... and `Country` and `Status` columns were correctly merged
+      if (all(c("Country", "Status") %in% names(overview_table))) {
+
+        # assign hovertext to `Site` column
+        overview_table <- overview_table %>%
+          mutate(
+            across(
+              "Site",
+              ~ purrr::imap(.x, function(value, index) {
+                # add hovertext containing site information to Site rows
                 paste0(
                   value,
                   htmltools::tags$title(site_status_tooltip_hover_info[[value]]$info)
                 )
-            })
+              })
+            )
           )
-        )
+      }
     }
 
     overview_table <- overview_table %>%
@@ -357,12 +364,15 @@ create_lookup_table <- function(table, select_columns) {
 drop_column_with_several_na <- function(table, column) {
 
   if (sum(is.na(table[[column]])) > nrow(table)/2 ) {
+
+    cli::cli_alert_info("Detected error during CTMS data merging: {sum(is.na(table[[column]]))} `NA` rows found.")
+    cli::cli_alert_info("Dropping `{column}` column from table and proceeding...")
+
     table <- table %>%
       select(
         -.data[[column]]
       )
-    cli::cli_alert_info("Detected error during CTMS data merging: {sum(is.na(table[[column]]))} `NA` rows found.")
-    cli::cli_alert_info("Dropping `{column}` column from table and proceeding...")
+
   }
 
   return(table)
