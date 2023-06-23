@@ -132,6 +132,13 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
         everything()
       )
 
+    # `Country` and `Status` columns are joined on siteid
+    # -- CTMS data does not have a standard derivation for siteid yet
+    # -- this ensures that columns will not be passed through with all NA
+    # -- current (arbitrary) limit is to drop column if >50% of rows are NA
+    overview_table <- drop_column_with_several_na(overview_table, "Country")
+    overview_table <- drop_column_with_several_na(overview_table, "Status")
+
     site_status_tooltip_hover_info <- dfSite %>%
       purrr::transpose() %>%
       purrr::set_names(dfSite$site_num) %>%
@@ -247,7 +254,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
 
     # Add tooltips to column headers.
     headerCallback <- glue::glue(
-      "
+    "
     function(thead, data, start, end, display) {
       var tooltips = ['{{paste(names(metric_lookup), collapse = \"', '\")}'];
       for (var i={{kri_index}; i<{{n_headers}; i++) {
@@ -346,3 +353,17 @@ create_lookup_table <- function(table, select_columns) {
     tibble::deframe()
 }
 
+
+drop_column_with_several_na <- function(table, column) {
+
+  if (sum(is.na(table[[column]])) > nrow(table)/2 ) {
+    table <- table %>%
+      select(
+        -.data[[column]]
+      )
+    cli::cli_alert_info("Detected error during CTMS data merging: {sum(is.na(table[[column]]))} `NA` rows found.")
+    cli::cli_alert_info("Dropping `{column}` column from table and proceeding...")
+  }
+
+  return(table)
+}
