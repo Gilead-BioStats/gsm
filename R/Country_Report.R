@@ -14,6 +14,7 @@
 #' # Using `Study_Assess()`
 #' study <- Study_Assess()
 #' Country_Report(study)
+#' }
 #'
 #' @importFrom rmarkdown render
 #'

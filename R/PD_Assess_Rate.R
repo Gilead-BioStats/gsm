@@ -211,7 +211,8 @@ PD_Assess_Rate <- function(
           results = lData$dfSummary,
           workflow = dfConfig,
           bounds = bounds,
-          elementId = "pdAssessScatter"
+          elementId = "pdAssessScatter",
+          siteSelectLabelValue = strGroup
         )
 
         if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
@@ -224,14 +225,16 @@ PD_Assess_Rate <- function(
         results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "metric",
-        elementId = "pdAssessMetric"
+        elementId = "pdAssessMetric",
+        siteSelectLabelValue = strGroup
       )
 
       lCharts$barScoreJS <- gsm::Widget_BarChart(
         results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "score",
-        elementId = "pdAssessScore"
+        elementId = "pdAssessScore",
+        siteSelectLabelValue = strGroup
       )
 
       if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")

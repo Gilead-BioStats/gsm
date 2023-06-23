@@ -211,7 +211,8 @@ Disp_Assess <- function(
           results = lData$dfSummary,
           workflow = dfConfig,
           bounds = bounds,
-          elementId = "dispAssessScatter"
+          elementId = "dispAssessScatter",
+          siteSelectLabelValue = strGroup
         )
         if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
       }
@@ -226,14 +227,16 @@ Disp_Assess <- function(
         results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "metric",
-        elementId = "dispAssessMetric"
+        elementId = "dispAssessMetric",
+        siteSelectLabelValue = strGroup
       )
 
       lCharts$barScoreJS <- gsm::Widget_BarChart(
         results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "score",
-        elementId = "dispAssessScore"
+        elementId = "dispAssessScore",
+        siteSelectLabelValue = strGroup
       )
 
       if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")

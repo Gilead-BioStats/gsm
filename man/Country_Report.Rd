@@ -20,3 +20,11 @@ Country Report
 \details{
 Create country-level HTML summary report using the results of \code{Study_Assess}, including tables, charts, and error checking.
 }
+\examples{
+\dontrun{
+# Using `Study_Assess()`
+study <- Study_Assess()
+Country_Report(study)
+}
+
+}
