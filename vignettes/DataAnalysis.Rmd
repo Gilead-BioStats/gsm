@@ -36,7 +36,7 @@ This vignette walks users through the mechanics of the `Assess()` functions with
 
 The `Assess()` functions provide data frames, visualizations, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the workflow of the `Assess()` functions.
 
-![](data-analysis.PNG){width=100%}
+![](data-analysis.PNG){width="100%"}
 
 All of these functions will run automatically and sequentially when a user calls upon a given `Assess()` function.
 
@@ -246,4 +246,4 @@ The following sections include various examples of supporting functions and stat
 -   Optionally, other statistical methods include: **Poisson**, **Fisher**, and **Identity**.
 
 
-![](data-analysis-combined.PNG){width=100%}
+![](data-analysis-combined.PNG){width="100%"}

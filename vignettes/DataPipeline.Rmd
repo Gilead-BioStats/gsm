@@ -83,7 +83,6 @@ results <- Study_Assess()
 Study_Report(results)
 ```
 
-
 Additional examples are provided in the [Cookbook Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Cookbook-Vignette).
 
 # Appendix 1 - Metadata Technical Specifications {#Appendix-1-Metadata-Technical-Specifications}
@@ -104,18 +103,20 @@ Each input data specification lists the data domains required for the function a
 
 The specification for the AE mapping function (`inst/specs/AE_Map_Raw.yaml`) is shown below:
 
-    dfAE:
-      vRequired:
-        - strIDCol
-    dfSUBJ:
-      vRequired:
-        - strIDCol
-        - strSiteCol
-        - strTimeOnTreatmentCol
-      vUniqueCols:
-        - strIDCol
-      vNACols:
-        - strTimeOnTreatmentCol
+```         
+dfAE:
+  vRequired:
+    - strIDCol
+dfSUBJ:
+  vRequired:
+    - strIDCol
+    - strSiteCol
+    - strTimeOnTreatmentCol
+  vUniqueCols:
+    - strIDCol
+  vNACols:
+    - strTimeOnTreatmentCol
+```
 
 ## Data Mappings Metadata
 
@@ -175,8 +176,6 @@ steps:
       strMethod: "NormalApprox"
       nMinDenominator: 30
 ```
-
-          
 
 # Appendix 2 - Data Model Specifications
 
