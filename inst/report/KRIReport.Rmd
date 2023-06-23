@@ -1,5 +1,5 @@
 ---
-subtitle: "Generated with the Gilead Statistical Monitoring {gsm} package"
+subtitle: "Generated with the Good Statistical Monitoring {gsm} package"
 output:
   html_document:
     toc: true
@@ -12,16 +12,6 @@ params:
     status_study: NA
     status_site: NA
 ---
-
-```{r, echo=FALSE}
-htmltools::img(
-  src = knitr::image_uri("gilead.png"), 
-  alt = 'logo', 
-  style = 'position:absolute; top:0; right:0; padding:10px;', 
-  width = "125px", 
-  height = "50px"
-)
-```
 
 ---
 
@@ -85,16 +75,19 @@ title: "`r study_id` Assessment Overview"
 
 ## metadata report if longitudinal data is provided
 if (exists('status_study', where = params) && !is.null(params$status_study)) {
-  
-MakeStudyStatusTable(params$status_study)
-  
- glue::glue(
-'
----
-date: "Snapshot Date: {params$status_study$gsm_analysis_date}"
----
-')
- 
+  MakeStudyStatusTable(params$status_study)
+
+  if ("gsm_analysis_date" %in% names(params$status_study))
+    snapshot_date <- params$status_study$gsm_analysis_date
+  else
+    snapshot_date <- Sys.Date()
+
+  glue::glue(
+  '
+  ---
+  date: "Snapshot Date: {snapshot_date}"
+  ---
+  ') 
 }
 ```
 

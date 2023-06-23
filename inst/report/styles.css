@@ -2,8 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400');
 
 :root {
-  --gilead-red: #c51f3f;
-  --gilead-gray: #9D9D9D;
+  --good-red: #c51f3f;
+  --good-gray: #9D9D9D;
   --blue-button-color: #3C587F;
   --default: 'Roboto', sans-serif;
 }
@@ -16,7 +16,7 @@ body {
 
 /* SIDEBAR */
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
-  background-color: var(--gilead-gray);
+  background-color: var(--good-gray);
   border-color: white;
 }
 /* SIDEBAR */
@@ -38,8 +38,8 @@ body {
 }
 
 button.btn-show-report:hover {
-    background-color: var(--gilead-gray);
-    border-color: var(--gilead-gray);
+    background-color: var(--good-gray);
+    border-color: var(--good-gray);
 }
 /* BUTTON: SHOW REPORT */
 
@@ -65,7 +65,7 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
   right: 32px;
   background-color: var(--blue-button-color);
   color: white;
-  border: 2px solid var(--gilead-gray);
+  border: 2px solid var(--good-gray);
   border-radius: 4px;
   padding: 4px;
   text-align: center;

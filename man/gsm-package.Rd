@@ -4,9 +4,9 @@
 \name{gsm-package}
 \alias{gsm}
 \alias{gsm-package}
-\title{gsm: Gilead Statistical Monitoring}
+\title{gsm: Good Statistical Monitoring}
 \description{
-The Gilead Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring.
+The Good Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring.
 }
 \seealso{
 Useful links:
