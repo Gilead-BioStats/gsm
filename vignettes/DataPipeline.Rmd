@@ -185,8 +185,8 @@ steps:
 Input data for `{gsm}` is pulled from several systems. The data sources for `{gsm}` are:
 
 -   **Clinical Data:** Study-level clinical data across multiple data domains saved in the Raw+ format *(detailed specification in future releases)*
--   **Operational Data:** Study-level operational data including operational metadata from Rave and adjudicated Protocol Deviation data from the PD database *(detailed specification in future releases)*
--   **CTMS Data:** Study-level and site-level metadata from Gilda
+-   **Operational Data:** Study-level operational data including operational metadata from EDC and adjudicated Protocol Deviation data *(detailed specification in future releases)*
+-   **CTMS Data:** Study-level and site-level metadata from CTMS
 -   **Metric Data:** Systems Metric and Parameter Definitions (saved directly in `{gsm}`) and Study-Specific Metric Specification data (imported from RACT)
 -   **Scheduling Data:** Study-Specific Custom Snapshot Schedule Data
 
