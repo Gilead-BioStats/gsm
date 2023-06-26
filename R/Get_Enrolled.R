@@ -46,8 +46,8 @@ Get_Enrolled <- function(dfSUBJ, dfConfig, lMapping, strUnit, strBy) {
   dm <- dfSUBJ %>%
     filter(
       .data[[lMapping$dfSUBJ$strStudyCol]] == studyid &
-      .data[[lMapping$dfSUBJ$strEnrollCol]] == lMapping$dfSUBJ$strEnrollVal
-      )
+        .data[[lMapping$dfSUBJ$strEnrollCol]] == lMapping$dfSUBJ$strEnrollVal
+    )
 
   if (strUnit == "participant" & strBy == "study") {
     enrolled <- dm %>%
