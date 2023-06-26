@@ -31,19 +31,16 @@ MakeWorkflowList <- function(
   strPath = NULL,
   bRecursive = FALSE
 ) {
-
-  # if `strPath` is not specified, default to reading `inst/workflow` from {gsm}.
   if (is.null(strPath)) {
+    # if `strPath` is not specified, default to reading `inst/workflow` from {gsm}.
     path <- system.file("workflow", package = "gsm")
   } else {
-
-  # if `strPath` is specified, set as `path` and check that the full filepath exists.
-    path <- strPath
-
+    # if `strPath` is specified, set as `path` and check that the full filepath exists.
     stopifnot(
-      '[ strPath ] must exist.' = dir.exists(paste0(getwd(), "/", strPath))
+      '[ strPath ] must exist.' = dir.exists(strPath)
     )
 
+    path <- tools::file_path_as_absolute(strPath)
   }
 
   # list all files to loop through to build the workflow list.
@@ -53,7 +50,6 @@ MakeWorkflowList <- function(
     full.names = TRUE,
     recursive = bRecursive
   )
-
 
   workflows <- yaml_files %>%
     purrr::map(function(yaml_file) {
