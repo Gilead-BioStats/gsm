@@ -13,8 +13,6 @@ params:
     status_site: NA
 ---
 
----
-
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
 library(tidyverse)

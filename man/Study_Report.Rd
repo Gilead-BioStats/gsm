@@ -4,7 +4,13 @@
 \alias{Study_Report}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
-Study_Report(lAssessments, dfStudy = NULL, dfSite = NULL, strOutpath = NULL)
+Study_Report(
+  lAssessments,
+  dfStudy = NULL,
+  dfSite = NULL,
+  strOutpath = NULL,
+  strReportType = "site"
+)
 }
 \arguments{
 \item{lAssessments}{\code{list} The results of multiple assessments run using \code{Study_Assess}.}
@@ -14,6 +20,12 @@ Study_Report(lAssessments, dfStudy = NULL, dfSite = NULL, strOutpath = NULL)
 \item{dfSite}{\code{data.frame} A data.frame containing site status metadata. Typically output from \code{Make_Snapshot()$lSnapshot$status_site}}
 
 \item{strOutpath}{\code{character} File path; location where the report will be saved.}
+
+\item{strReportType}{\code{character} The type of report to be generated. Valid values:
+\itemize{
+\item \code{"site"} for site-level KRI summary (default)
+\item \code{"country"} for country-level KRI summary
+}}
 }
 \value{
 HTML report of study data.
@@ -29,6 +41,7 @@ Create HTML summary report using the results of \code{Study_Assess}, including t
 # Using `Study_Assess()`
 study <- Study_Assess()
 Study_Report(study)
+Study_Report(study, strReportType = "country")
 
 # Adding metadata for a single snapshot
 one_snapshot <- Make_Snapshot()

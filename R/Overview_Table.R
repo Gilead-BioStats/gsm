@@ -4,6 +4,9 @@
 #'
 #' @param lAssessments `list` The output of running [gsm::Study_Assess()].
 #' @param dfSite `data.frame`
+#' @param strReportType `character` The type of report to be generated. Valid values:
+#'   - `"site"` for site-level KRI summary (default)
+#'   - `"country"` for country-level KRI summary
 #' @param bInteractive `logical` Display interactive widget? Default: `TRUE`.
 #'
 #' @importFrom DT datatable
@@ -16,11 +19,28 @@
 #' \dontrun{
 #' lAssessments <- Study_Assess()
 #' Overview_Table(lAssessments)
+#' Overview_Table(lAssessments, strReportType = "country")
 #' }
 #'
 #' @export
-Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
-  study <- lAssessments[grep("kri", names(lAssessments))]
+Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", bInteractive = TRUE) {
+
+  # input check
+  stopifnot(
+    "strReportType is not 'site' or 'country'" = strReportType %in% c("site", "country"),
+    "strReportType must be length 1" = length(strReportType) == 1
+  )
+
+  # set filtering value for lAssessments
+  if (strReportType == "site") {
+    grep_value <- "kri"
+  }
+
+  if (strReportType == "country") {
+    grep_value <- "cou"
+  }
+
+  study <- lAssessments[grep(grep_value, names(lAssessments))]
 
   study <- keep(study, function(x) x$bStatus == TRUE)
 
@@ -50,7 +70,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
         }) %>%
         rowwise() %>%
         tidyr::unite("summary", sep = "\n", remove = FALSE) %>%
-        mutate(GroupID = as.character(as.numeric(gsub("[^0-9.]", "", .data$GroupID)))) %>%
+        mutate(GroupID = as.character(gsub("GroupID: ", "", .data$GroupID))) %>%
         select("GroupID", "summary") %>%
         rename(!!name := summary)
     }) %>%
