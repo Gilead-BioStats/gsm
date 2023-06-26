@@ -37,4 +37,6 @@ UpdateGSMVersion <- function(version = NULL) {
 
   source(here::here("data-raw", "meta_param.R"))
   source(here::here("data-raw", "meta_workflow.R"))
+  source(here::here("data-raw", "config_param.R"))
+  source(here::here("data-raw", "config_workflow.R"))
 }
