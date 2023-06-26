@@ -20,9 +20,17 @@
 #'
 #' @export
 Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
+
+  # only keep KRIs in the table
+  # -- excludes COU (country)
+  # -- excludes QTL
   study <- lAssessments[grep("kri", names(lAssessments))]
 
+  # only keep KRIs that were successfully run
   study <- keep(study, function(x) x$bStatus == TRUE)
+
+
+# create reference table --------------------------------------------------
 
   reference_table <- study %>%
     purrr::map(function(kri) {
@@ -80,6 +88,8 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
 
 
 
+# create overview table ---------------------------------------------------
+
   overview_table <- study %>%
     purrr::map(function(kri) {
       name <- kri$name
@@ -121,6 +131,13 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
         "Status",
         everything()
       )
+
+    # `Country` and `Status` columns are joined on siteid
+    # -- CTMS data does not have a standard derivation for siteid yet
+    # -- this ensures that columns will not be passed through with all NA
+    # -- current (arbitrary) limit is to drop column if >50% of rows are NA
+    overview_table <- drop_column_with_several_na(overview_table, "Country")
+    overview_table <- drop_column_with_several_na(overview_table, "Status")
 
     site_status_tooltip_hover_info <- dfSite %>%
       purrr::transpose() %>%
@@ -174,31 +191,49 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
       })
   }
 
-  abbreviation_lookup <- as_tibble(names(overview_table)) %>%
-    left_join(gsm::meta_workflow, by = c("value" = "workflowid")) %>%
-    select("abbreviation", "value") %>%
-    stats::na.omit() %>%
+
+
+
+# create lookup tables ----------------------------------------------------
+
+  abbreviation_lookup <- create_lookup_table(
+    table = overview_table,
+    select_columns = c("abbreviation", "value")
+    )
+
+  metric_lookup <- create_lookup_table(
+    table = overview_table,
+    select_columns = c("metric", "value")
+    )
+
+  hovertext_lookup <- tibble::enframe(abbreviation_lookup) %>%
+    mutate(
+      name = paste0(.data$name, "_hovertext")
+    ) %>%
     tibble::deframe()
 
-  metric_lookup <- as_tibble(names(overview_table)) %>%
-    left_join(gsm::meta_workflow, by = c("value" = "workflowid")) %>%
-    select("metric", "value") %>%
-    stats::na.omit() %>%
-    tibble::deframe()
+  reference_table <- reference_table %>%
+    rename(any_of(hovertext_lookup)) %>%
+    select(
+      "Site",
+      ends_with("_hovertext")
+    )
 
   # Rename columns from KRI name to KRI abbreviation.
   overview_table <- overview_table %>%
     rename(any_of(abbreviation_lookup)) %>%
-    arrange(.data$Site)
+    arrange(.data$Site) %>%
+    left_join(
+      reference_table,
+      by = "Site"
+    )
 
-  reference_table <- reference_table %>%
-    rename(any_of(abbreviation_lookup)) %>%
-    arrange(.data$Site)
 
 
   # TODO: this could disagree with `status_site$enrolled_participants`
   # Add # of subjects to overview table.
   dfSUBJ <- study[[1]]$lData$dfSUBJ
+
   overview_table[["Subjects"]] <- overview_table$Site %>%
     map_int(~ dfSUBJ %>%
       filter(.data$siteid == .x) %>%
@@ -210,13 +245,16 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
       .before = "Red KRIs"
   )
 
+
+# HTML table --------------------------------------------------------------
+
   if (bInteractive) {
-    n_headers <- ncol(overview_table)
+    n_headers <- ncol(overview_table %>% select(-ends_with("_hovertext")))
     kri_index <- n_headers - length(study)
 
     # Add tooltips to column headers.
     headerCallback <- glue::glue(
-      "
+    "
     function(thead, data, start, end, display) {
       var tooltips = ['{{paste(names(metric_lookup), collapse = \"', '\")}'];
       for (var i={{kri_index}; i<{{n_headers}; i++) {
@@ -241,31 +279,41 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
       });
     }
   "
+    # add hovertext to KRI signals
     overview_table <- overview_table %>%
       mutate(across(
-        -c("Site":"Amber KRIs"),
+        names(abbreviation_lookup),
         ~ purrr::imap(.x, function(value, index) {
-          kri_directionality_logo(value, title = reference_table[[cur_column()]][[index]])
+          kri_directionality_logo(value, title = overview_table[[paste0(cur_column(), "_hovertext")]][[index]])
         })
       ))
 
+    # if CTMS data exists...
     if (!is.null(dfSite)) {
-      overview_table <- overview_table %>%
-        mutate(
-          across(
-            "Site",
-            ~ purrr::imap(.x, function(value, index) {
+
+      # ... and `Country` and `Status` columns were correctly merged
+      if (all(c("Country", "Status") %in% names(overview_table))) {
+
+        # assign hovertext to `Site` column
+        overview_table <- overview_table %>%
+          mutate(
+            across(
+              "Site",
+              ~ purrr::imap(.x, function(value, index) {
+                # add hovertext containing site information to Site rows
                 paste0(
                   value,
-                  htmltools::tags$title(site_status_tooltip_hover_info[[index]]$info)
+                  htmltools::tags$title(site_status_tooltip_hover_info[[value]]$info)
                 )
-            })
+              })
+            )
           )
-        )
+      }
     }
 
     overview_table <- overview_table %>%
       arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`)) %>%
+      select(-ends_with("_hovertext")) %>%
       DT::datatable(
         class = "compact tbl-rbqm-study-overview",
         options = list(
@@ -279,6 +327,9 @@ Overview_Table <- function(lAssessments, dfSite = NULL, bInteractive = TRUE) {
         rownames = FALSE,
         escape = FALSE
       )
+  } else {
+    overview_table <- overview_table %>%
+      select(-ends_with("_hovertext"))
   }
 
   return(overview_table)
@@ -301,3 +352,28 @@ assign_tooltip_labels <- function(name) {
 }
 
 
+create_lookup_table <- function(table, select_columns) {
+  as_tibble(names(table)) %>%
+    left_join(gsm::meta_workflow, by = c("value" = "workflowid")) %>%
+    select(all_of(select_columns)) %>%
+    stats::na.omit() %>%
+    tibble::deframe()
+}
+
+
+drop_column_with_several_na <- function(table, column) {
+
+  if (sum(is.na(table[[column]])) > nrow(table)/2 ) {
+
+    cli::cli_alert_info("Detected error during CTMS data merging: {sum(is.na(table[[column]]))} `NA` rows found.")
+    cli::cli_alert_info("Dropping `{column}` column from table and proceeding...")
+
+    table <- table %>%
+      select(
+        -.data[[column]]
+      )
+
+  }
+
+  return(table)
+}
