@@ -49,6 +49,7 @@
 #' @param width width of widget, full screen by default
 #' @param height height of widget, calculated based on width
 #' @param elementId ID of container HTML element
+#' @param siteSelectLabelValue Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.
 #'
 #' @import htmlwidgets
 #'
@@ -104,7 +105,8 @@ Widget_BarChart <- function(
   addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
-  elementId = NULL
+  elementId = NULL,
+  siteSelectLabelValue = NULL
 ) {
   results <- results %>%
     dplyr::mutate(across(everything(), as.character)) %>%
@@ -114,6 +116,10 @@ Widget_BarChart <- function(
     elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
   }
 
+  if (!is.null(siteSelectLabelValue)) {
+    siteSelectLabelValue <- paste0("Highlighted ", siteSelectLabelValue, ": ")
+  }
+
   # forward options using x
   x <- list(
     results = results,
@@ -121,7 +127,8 @@ Widget_BarChart <- function(
     threshold = threshold,
     yaxis = yaxis,
     selectedGroupIDs = as.character(selectedGroupIDs),
-    addSiteSelect = addSiteSelect
+    addSiteSelect = addSiteSelect,
+    siteSelectLabelValue = siteSelectLabelValue
   )
 
   # create widget

@@ -47,6 +47,7 @@
 #' @param width width of widget, full screen by default
 #' @param height height of widget, calculated based on width
 #' @param elementId ID of container HTML element
+#' @param siteSelectLabelValue Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.
 #'
 #' @import htmlwidgets
 #'
@@ -106,7 +107,8 @@ Widget_ScatterPlot <- function(
   addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
-  elementId = NULL
+  elementId = NULL,
+  siteSelectLabelValue = NULL
 ) {
   results <- results %>%
     dplyr::rename_with(tolower)
@@ -119,13 +121,18 @@ Widget_ScatterPlot <- function(
     elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
   }
 
+  if (!is.null(siteSelectLabelValue)) {
+    siteSelectLabelValue <- paste0("Highlighted ", siteSelectLabelValue, ": ")
+  }
+
   # forward options using x
   x <- list(
     results = results,
     workflow = workflow,
     bounds = bounds,
     selectedGroupIDs = as.character(selectedGroupIDs),
-    addSiteSelect = addSiteSelect
+    addSiteSelect = addSiteSelect,
+    siteSelectLabelValue = siteSelectLabelValue
   )
 
   # create widget

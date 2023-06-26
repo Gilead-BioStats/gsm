@@ -45,6 +45,7 @@ reference:
    - title: Reporting
      desc: Creates summary tables and HTML objects to create a report
    - contents:
+      - Country_Report
       - Study_Report
       - Study_AssessmentReport
       - Overview_Table

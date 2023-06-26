@@ -190,7 +190,8 @@ DataEntry_Assess <- function(
         results = lData$dfSummary,
         workflow = dfConfig,
         bounds = lData$dfBounds,
-        elementId = "dataEntryAssessScatter"
+        elementId = "dataEntryAssessScatter",
+        siteSelectLabelValue = strGroup
       )
 
       if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
@@ -203,14 +204,16 @@ DataEntry_Assess <- function(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "metric",
-      elementId = "dataEntryAssessMetric"
+      elementId = "dataEntryAssessMetric",
+      siteSelectLabelValue = strGroup
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "score",
-      elementId = "dataEntryAssessScore"
+      elementId = "dataEntryAssessScore",
+      siteSelectLabelValue = strGroup
     )
 
     if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")

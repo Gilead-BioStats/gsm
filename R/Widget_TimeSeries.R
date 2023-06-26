@@ -13,6 +13,7 @@
 #' @param height `numeric` height of widget.
 #' @param elementId `character` ID of container HTML element.
 #' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
+#' @param siteSelectLabelValue Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.
 #'
 #' @import htmlwidgets
 #' @import htmltools
@@ -26,8 +27,23 @@ Widget_TimeSeries <- function(
   width = NULL,
   height = NULL,
   elementId = NULL,
-  addSiteSelect = TRUE
+  addSiteSelect = TRUE,
+  siteSelectLabelValue = NULL
 ) {
+
+
+  # get unique sites
+  if (all(grepl("^[0-9]$", results$groupid))) {
+    uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))
+  } else {
+    uniqueSiteSelections <- sort(unique(results$groupid))
+  }
+
+  if (!is.null(siteSelectLabelValue)) {
+    siteSelectLabelValue <- paste0("Highlighted ", siteSelectLabelValue, ": ")
+  }
+
+
   # forward options using x
   x <- list(
     results = results,
@@ -36,13 +52,6 @@ Widget_TimeSeries <- function(
     addSiteSelect = addSiteSelect,
     selectedGroupIDs = c(as.character(selectedGroupIDs))
   )
-
-  # get unique sites
-  if (all(grepl("^[0-9]$", results$groupid))) {
-    uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))
-  } else {
-    uniqueSiteSelections <- sort(unique(results$groupid))
-  }
 
   # create standalone timeseries widget
   htmlwidgets::createWidget(
@@ -56,7 +65,7 @@ Widget_TimeSeries <- function(
     htmlwidgets::prependContent(
       htmltools::tags$div(
         class = "select-group-container",
-        htmltools::tags$label("Highlighted Site:"),
+        htmltools::tags$label(siteSelectLabelValue),
         htmltools::tags$select(
           class = "site-select--time-series",
           id = glue::glue("site-select--time-series_{unique(workflow$workflowid)}"),

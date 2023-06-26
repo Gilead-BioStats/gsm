@@ -128,14 +128,16 @@ IE_Assess <- function(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "metric",
-      elementId = "ieAssessMetric"
+      elementId = "ieAssessMetric",
+      siteSelectLabelValue = strGroup
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "score",
-      elementId = "ieAssessScore"
+      elementId = "ieAssessScore",
+      siteSelectLabelValue = strGroup
     )
 
     if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} bar chart{?s}.")

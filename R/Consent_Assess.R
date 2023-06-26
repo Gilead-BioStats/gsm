@@ -126,14 +126,16 @@ Consent_Assess <- function(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "metric",
-      elementId = "consentAssessMetric"
+      elementId = "consentAssessMetric",
+      siteSelectLabelValue = strGroup
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "score",
-      elementId = "consentAssessScore"
+      elementId = "consentAssessScore",
+      siteSelectLabelValue = strGroup
     )
 
     if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} bar chart{?s}.")
