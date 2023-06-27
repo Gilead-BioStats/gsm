@@ -66,15 +66,6 @@ Consent Assessment
 
 The Consent Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag sites with consent issues. Additional details regarding the data pipeline and statistical methods are described below.
 }
-\section{Data specification}{
-\tabular{lllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
-   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
-   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
-   dfInput \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \cr
-}
-}
-
 \examples{
 dfInput <- Consent_Map_Raw()
 consent_assessment <- Consent_Assess(dfInput)

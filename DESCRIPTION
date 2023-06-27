@@ -9,7 +9,7 @@ Authors@R: c(
     person("Douglas", "Sanders", role = c("aut")),
     person("Spencer", "Childress", email = "spencer.childress@gilead.com", role = c("aut"), comment = c(ORCID = "0000-0001-6877-8511")),
     person("Li", "Ge", role = c("aut")),
-    person("Wang", "Zhongkai", email="zhongkai.wang6@gilead.com", role = c("aut"), comment = c(ORCID = "0000-0002-1883-2265")),
+    person("Zhongkai", "Wang", email="zhongkai.wang6@gilead.com", role = c("aut"), comment = c(ORCID = "0000-0002-1883-2265")),
     person("Colleen", "McLaughlin", email="colleen.mclaughlin@atorusresearch.com", role = c("aut")),
     person("Chelsea", "Dickens", email="chelsea.dickens@atorusresearch.com", role = c("aut")),
     person("Maya", "Gans", email="maya.gans@atorusresearch.com", role = c("aut"))
