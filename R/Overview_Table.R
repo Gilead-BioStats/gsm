@@ -329,7 +329,14 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
 
     overview_table <- overview_table %>%
       arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`)) %>%
-      select(-ends_with("_hovertext")) %>%
+      select(-ends_with("_hovertext"))
+
+    if (strReportType == "country") {
+      overview_table <- overview_table %>%
+        rename("Country" = "Site")
+    }
+
+    overview_table <- overview_table %>%
       DT::datatable(
         class = "compact tbl-rbqm-study-overview",
         options = list(
@@ -346,6 +353,12 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
   } else {
     overview_table <- overview_table %>%
       select(-ends_with("_hovertext"))
+
+    if (strReportType == "country") {
+      overview_table <- overview_table %>%
+        rename("Country" = "Site")
+    }
+
   }
 
   return(overview_table)
