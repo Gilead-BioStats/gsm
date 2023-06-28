@@ -23,6 +23,12 @@ dfSUBJ <- tibble::tribble(
   "AA-AA-000-0000", "166", "0003", 901L, 857L, "2008-08-26", "Japan", "0X999", "Y"
 ) %>% dplyr::mutate(subject_nsv = subjid)
 
+dfSTUDY <- tibble::tribble(
+  ~protocol_row_id, ~protocol_number, ~protocol_title, ~nickname, ~protocol_type, ~phase, ~num_plan_site, ~num_site_actl, ~est_fpfv, ~act_fpfv, ~est_lplv, ~act_lplv,             ~est_lpfv,~act_lpfv, ~status, ~num_plan_subj, ~num_enrolled_subj_m, ~protocol_indication, ~product, ~therapeutic_area, ~protocol_product_number, ~x_rbm_flg,
+  "1-1G9113", "AA-AA-000-0000", "Protocol Title", "Protocol Nickname", "Investigator Sponsored", "P3", 190L, 176L, "2003-01-01 00:00:00", "2003-01-01 00:00:00", "2021-06-01 00:00:00", "2021-06-01 00:00:00", "2020-06-01 00:00:00", "2020-06-01 00:00:00", "Active", 1300L, 1301L, "Protocol Indication", "Product", "Therapeutic Area", 123L, "Y"
+)
+
+
 dfENROLL <- tibble::tribble(
   ~studyid, ~siteid, ~subjid, ~enroll_dt, ~enrollyn, ~sfreas, ~country, ~invid,
   "AA-AA-000-0000", "86", "0001", "2008-09-10", "US", "0X012", "Y", "0X001",
