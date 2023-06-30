@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Study_Report</span><span class="op">(</span><span class="va">lAssessments</span>, dfStudy <span class="op">=</span> <span class="cn">NULL</span>, strOutpath <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Study_Report</span><span class="op">(</span><span class="va">lAssessments</span>, dfStudy <span class="op">=</span> <span class="cn">NULL</span>, dfSite <span class="op">=</span> <span class="cn">NULL</span>, strOutpath <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -91,7 +91,11 @@
 
 
 <dt>dfStudy</dt>
-<dd><p><code>data.frame</code> A data.frame containing site status metadata. Typically output from <code>Make_Snapshot()$lSnapshot$status_study</code></p></dd>
+<dd><p><code>data.frame</code> A data.frame containing study status metadata. Typically output from <code>Make_Snapshot()$lSnapshot$status_study</code></p></dd>
+
+
+<dt>dfSite</dt>
+<dd><p><code>data.frame</code> A data.frame containing site status metadata. Typically output from <code>Make_Snapshot()$lSnapshot$status_site</code></p></dd>
 
 
 <dt>strOutpath</dt>
@@ -147,7 +151,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown">

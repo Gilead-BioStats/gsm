@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
       </span>
     </div>
 
@@ -110,10 +110,12 @@
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>This vignette contains a series of examples showing how to run
-analysis workflows for the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> package using sample data
-from <code>{clindata}</code>. <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> leverages Key Risk
-Indicators (KRIs) and thresholds to conduct study-level and site-level
-Risk Based Monitoring for clinical trials.</p>
+analysis workflows for the Good Statistical Monitoring
+<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> package using sample data from
+<code>{clindata}</code>.</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> leverages Key Risk Indicators (KRIs) and
+thresholds to conduct study-level and site-level Risk Based Monitoring
+for clinical trials.</p>
 <p>For more information on the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> package see the <a href="https://silver-potato-cfe8c2fb.pages.github.io/" class="external-link">package
 homepage</a>. The <a href="https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette" class="external-link">Data
 Pipeline Vignette</a> provides additional technical details including
@@ -153,7 +155,7 @@ functions that support the analysis workflows.</p>
 </h3>
 <p>All assessments can be run as standalone workflow that creates useful
 data summaries and visualizations. <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> is configured to
-accept Raw+ data by default, and that data standard is used here.</p>
+accept rawplus data by default, and that data standard is used here.</p>
 <p>Running a single assessment is a 2-step process. We will use the
 Adverse Event (AE) workflow as an example:</p>
 <ol style="list-style-type: decimal">
@@ -165,7 +167,6 @@ assessment (e.g., <code>dfInput &lt;- AE_Map_Raw()</code>)</li>
 <p>Putting these steps together looks like this:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">safetyData</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Map domain-level data to the input data standard for the selected assessment.</span></span>
@@ -192,7 +193,7 @@ each nested function involved in this workflow. The image below is a
 high-level summary:</p>
 <p><img src="data-analysis.PNG"></p>
 <p>As in Example 1, we will use the AE workflow for this example.</p>
-<p>Start by creating <code>dfInput</code> using sample Raw+ data from
+<p>Start by creating <code>dfInput</code> using sample rawplus data from
 <code>{clindata}</code>. Note that <code><a href="../reference/AE_Map_Raw.html">AE_Map_Raw()</a></code> requires
 two specific datasets from <code>{clindata}</code>, which include a
 subject-level demographics/exposure dataset (<code>dfSUBJ</code>) and a
@@ -217,50 +218,57 @@ column.</p>
 <code class="sourceCode R"><span><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Transform_Rate.html">Transform_Rate</a></span><span class="op">(</span></span>
 <span>  <span class="va">dfInput</span>,</span>
 <span>  strNumeratorCol <span class="op">=</span> <span class="st">"Count"</span>,</span>
-<span>  strDenominatorCol <span class="op">=</span> <span class="st">"Exposure"</span><span class="op">)</span></span></code></pre></div>
+<span>  strDenominatorCol <span class="op">=</span> <span class="st">"Exposure"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p>The third step is to analyze the transformed data. Certain
 assessments support multiple statistical models/<code>Analyze()</code>
 functions, so the user needs to specify certain parameters for the
-intended analysis to run. We use a poisson regression in this
-example.</p>
+intended analysis to run. We use the normal approximation method in this
+example (the default method for all standard KRIs).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Analyze_Poisson.html">Analyze_Poisson</a></span><span class="op">(</span><span class="va">dfTransformed</span><span class="op">)</span></span></code></pre></div>
-<p>After analyzing the transformed data, we want to flag sites based on
-at least one statistical threshold. Similar to the previous step,
-multiple flag functions exist to support the assessment functions. The
-<code><a href="../reference/Flag_Poisson.html">Flag_Poisson()</a></code> function is one of several options for the
-AE assessment, and has default thresholds of
-<code>c(-7, -5, 5, 7)</code>. If a site falls outside of the (-5, 5)
-range, it is considered to be “At Risk” and will be assigned a value of
--1 or 1. If a site falls outside of the (-7, 7) range, it is considered
-“Flagged” and will be assigned a value of -2 or 2. Both are considered
-to be outliers, but “Flagged” sites are more extreme outliers.</p>
+<code class="sourceCode R"><span><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Analyze_NormalApprox.html">Analyze_NormalApprox</a></span><span class="op">(</span><span class="va">dfTransformed</span><span class="op">)</span></span></code></pre></div>
+<p>After analyzing the transformed data, we will flag sites based on at
+least one statistical threshold. Similar to the previous step, multiple
+flag functions exist to support the assessment functions. The
+<code><a href="../reference/Flag_NormalApprox.html">Flag_NormalApprox()</a></code> function is one of several options for
+the AE assessment, and has default thresholds of
+<code>c(-3, -2, 2, 3)</code>.</p>
+<ul>
+<li>If a site falls outside of the (-2, 2) range, it is considered to be
+“Amber” and will be assigned a value of -1 or 1.</li>
+<li>If a site falls outside of the (-3, 3) range, it is considered “Red”
+and will be assigned a value of -2 or 2.</li>
+</ul>
+<p>Both are considered to be outliers, but “Red” sites are more extreme
+outliers.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Flag_Poisson.html">Flag_Poisson</a></span><span class="op">(</span><span class="va">dfAnalyzed</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">7</span>, <span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Flag_NormalApprox.html">Flag_NormalApprox</a></span><span class="op">(</span><span class="va">dfAnalyzed</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Next, we will summarize the flagged data. The
 <code><a href="../reference/Summarize.html">Summarize()</a></code> function will only keep the most relevant
 columns from <code>dfFlagged</code> for a given assessment.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfSummary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Summarize.html">Summarize</a></span><span class="op">(</span><span class="va">dfFlagged</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, we will create a chart that helps to identify/visualize
-flagged sites. When using a Poisson model, we can create upper and lower
-bounds using the <code><a href="../reference/Analyze_Poisson_PredictBounds.html">Analyze_Poisson_PredictBounds()</a></code> function.
-Using the bounds we create and the flagged data frame, we can create a
-scatter plot. Any sites that are plotted outside of the bounds will be
+flagged sites. When using the normal approximation method, we can create
+upper and lower bounds using the
+<code><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds()</a></code> function.</p>
+<p>Using the bounds we create and the flagged data frame, we can create
+a scatter plot. Any sites that are plotted outside of the bounds will be
 yellow or red. Yellow points indicate “At Risk” sites, and red points
 indicate “Flagged” sites.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Analyze_Poisson_PredictBounds.html">Analyze_Poisson_PredictBounds</a></span><span class="op">(</span><span class="va">dfTransformed</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds</a></span><span class="op">(</span><span class="va">dfTransformed</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Visualize_Scatter.html">Visualize_Scatter</a></span><span class="op">(</span><span class="va">dfFlagged</span>, <span class="va">dfBounds</span><span class="op">)</span></span></code></pre></div>
 <p>Reviewing this step-by-step example will allow the user to better
 understand each intermediate function that runs within an
 <code>Assess()</code> function during KRI derivation. <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>
 allows the user to generate the same results in Example 1 and Example 2,
-with additional error-checking and metadata. For reference, the code
-from Example 1 is repeated below:</p>
+with additional error-checking and metadata, and interactive data
+visualizations. For reference, the code from Example 1 is repeated
+below:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Map_Raw.html">AE_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">ae_assessment_poisson</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span>, strMethod <span class="op">=</span> <span class="st">"Poisson"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">ae_assessment</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3---running-multiple-assessments-using-standard-data">Example 3 - Running Multiple Assessments Using Standard Data<a class="anchor" aria-label="anchor" href="#example-3---running-multiple-assessments-using-standard-data"></a>
@@ -269,14 +277,14 @@ from Example 1 is repeated below:</p>
 focusing solely on AEs.</p>
 <p>Running multiple assessments in <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> is made possible
 by the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> function. By default,
-<code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> uses sample Raw+ data from
+<code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> uses sample rawplus data from
 <code>{clindata}</code> that is hard-coded to the <code>lData</code>
-parameter. Users can also provide their own Raw+ input data to the
+parameter. Users can also provide their own rawplus input data to the
 <code>lData</code> parameter.</p>
 <div class="section level4">
 <h4 id="using-sample-data-from-clindata">Using Sample Data from <code>{clindata}</code><a class="anchor" aria-label="anchor" href="#using-sample-data-from-clindata"></a>
 </h4>
-<p>To run multiple assessments using the sample Raw+ data from
+<p>To run multiple assessments using the sample rawplus data from
 <code>{clindata}</code>, the user can run the following:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
@@ -288,12 +296,12 @@ parameter. Users can also provide their own Raw+ input data to the
 <div class="section level4">
 <h4 id="using-user-provided-raw-data">Using User-Provided Raw+ Data<a class="anchor" aria-label="anchor" href="#using-user-provided-raw-data"></a>
 </h4>
-<p>User-provided Raw+ data will likely come from Raw+ case report data.
-The example below illustrates that a user can pass a named list of Raw+
-data to the <code>lData</code> parameter. It is important to note that
-<code>lData</code> expects a <em>named</em> list. To see a list of
-default data frame names, run
-<code>yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))</code>.</p>
+<p>User-provided rawplus data will likely come from rawplus case report
+data. The example below illustrates that a user can pass a named list of
+rawplus data to the <code>lData</code> parameter.</p>
+<p>It is important to note that <code>lData</code> expects a
+<em>named</em> list. To see a list of default data frame names, run
+<code>gsm::Read_Mapping(strDomain = "rawplus")</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
@@ -326,21 +334,46 @@ default data frame names, run
 alerting the user to success, warnings, or errors with the workflow.</p>
 </div>
 </div>
+<div class="section level3">
+<h3 id="example-4---creating-a-snapshot">Example 4 - Creating a Snapshot<a class="anchor" aria-label="anchor" href="#example-4---creating-a-snapshot"></a>
+</h3>
+<p>The <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> function is a wrapper around
+<code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>, but differs in that it provides aggregated
+metadata to supplement the analyses run via <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>.
+This includes study and site-level CTMS data, as well as workflow and
+configuration metadata, that is used in downstream applications such as
+reporting, Shiny apps, and more.</p>
+<p>To create a snapshot using the default inputs from <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>
+and <code>{clindata}</code>, simply run the following:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
+<span><span class="va">snapshot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Make_Snapshot.html">Make_Snapshot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>The <code>snapshot</code> object contains three elements: -
+<code>lSnapshotDate</code>: The date that the snapshot was created. Can
+be provided as an argument to <code>strAnalysisDate</code>, or if no
+date is provided, the current date is used. - <code>lSnapshot</code>:
+List of aggregated analysis results and metadata. -
+<code>lStudyAssessResults</code>: Output of
+<code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="reporting">Reporting<a class="anchor" aria-label="anchor" href="#reporting"></a>
 </h2>
 <div class="section level3">
-<h3 id="example-4---creating-an-assessment-overview-report-for-multiple-assessments">Example 4 - Creating an Assessment Overview Report for Multiple
-Assessments<a class="anchor" aria-label="anchor" href="#example-4---creating-an-assessment-overview-report-for-multiple-assessments"></a>
+<h3 id="example-5---creating-an-assessment-overview-report-for-multiple-assessments">Example 5 - Creating an Assessment Overview Report for Multiple
+Assessments<a class="anchor" aria-label="anchor" href="#example-5---creating-an-assessment-overview-report-for-multiple-assessments"></a>
 </h3>
+<div class="section level4">
+<h4 id="standard-report-via-study_assess">Standard Report via <code>Study_Assess()</code><a class="anchor" aria-label="anchor" href="#standard-report-via-study_assess"></a>
+</h4>
 <p>The <code><a href="../reference/Study_Report.html">Study_Report()</a></code> function creates the
 <strong>Assessment Overview Report</strong>, which is an HTML document
 that contains tables, visualizations, and error logging for all
 assessments run in the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> workflow.</p>
 <p>Let’s create a report using sample data from
 <code>{clindata}</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
 <span></span>
@@ -352,15 +385,35 @@ directory. If you would like the report saved in a different location,
 you can set an output directory using the <code>strOutpath</code>
 argument in the <code><a href="../reference/Study_Report.html">Study_Report()</a></code> function.</p>
 </div>
+<div class="section level4">
+<h4 id="enhanced-report-via-make_snapshot">Enhanced Report via <code>Make_Snapshot()</code><a class="anchor" aria-label="anchor" href="#enhanced-report-via-make_snapshot"></a>
+</h4>
+<p>The <code><a href="../reference/Study_Report.html">Study_Report()</a></code> function also takes on optional
+arguments (<code>dfSite</code> and <code>dfStudy</code>) that are used
+to provide site and study-level reporting. This includes study-level
+CTMS data displayed in a summary table at the top of the report, and an
+enhanced <strong>Study Overview</strong> table.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">snapshot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Make_Snapshot.html">Make_Snapshot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/Study_Report.html">Study_Report</a></span><span class="op">(</span></span>
+<span>  lAssessments <span class="op">=</span> <span class="va">snapshot</span><span class="op">$</span><span class="va">lStudyAssessResults</span>,</span>
+<span>  dfSite <span class="op">=</span> <span class="va">snapshot</span><span class="op">$</span><span class="va">lSnapshot</span><span class="op">$</span><span class="va">status_site</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
+</div>
+</div>
 <div class="section level3">
-<h3 id="example-5---viewing-the-error-checking-report">Example 5 - Viewing the Error Checking Report<a class="anchor" aria-label="anchor" href="#example-5---viewing-the-error-checking-report"></a>
+<h3 id="example-6---viewing-the-error-checking-report">Example 6 - Viewing the Error Checking Report<a class="anchor" aria-label="anchor" href="#example-6---viewing-the-error-checking-report"></a>
 </h3>
 <p>The <strong>Assessment Overview Report</strong> contains a Data Check
 Summary table in the appendix, which can be helpful for troubleshooting
 issues with input data provided to <code>lData</code> in
 <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code>.</p>
 <p>To view the report directly as an object in your IDE, run:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
 <span></span>
@@ -376,18 +429,20 @@ issues with input data provided to <code>lData</code> in
 visualization whether run individually or within the
 <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> workflow. For example, the scatter plot for
 the AE assessment can be viewed by calling
-<code>AE_Assess(dfInput)$chart</code>.</p>
+<code>AE_Assess(dfInput)$lCharts$scatter</code>.</p>
 <div class="section level3">
-<h3 id="example-6---creating-a-scatter-plot">Example 6 - Creating a Scatter Plot<a class="anchor" aria-label="anchor" href="#example-6---creating-a-scatter-plot"></a>
+<h3 id="example-7---creating-a-scatter-plot">Example 7 - Creating a Scatter Plot<a class="anchor" aria-label="anchor" href="#example-7---creating-a-scatter-plot"></a>
 </h3>
-<p>Currently, <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> creates scatter plots for Adverse Event
-and Protocol Deviation assessments. In some cases, a user may want to
-produce a visualization separately to make additional
-customizations.</p>
-<p>Below is an example of this that uses the default Poisson statistical
-model for <code><a href="../reference/AE_Assess.html">AE_Assess()</a></code> and Raw+ data from
+<p><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> creates static and interactive charts using
+<a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> and a custom JavaScript charting library
+<code>{rbm-viz}</code>.</p>
+<p>Customizing interactive JavaScript widgets will be covered in a
+separate vignette.</p>
+<p>Below is an example of creating a static <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>
+scatter plot that uses the default normal approximation method for
+<code><a href="../reference/AE_Assess.html">AE_Assess()</a></code> and rawplus data from
 <code>{clindata}</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
 <span></span>
@@ -398,9 +453,9 @@ model for <code><a href="../reference/AE_Assess.html">AE_Assess()</a></code> and
 <span><span class="va">ae_assessment</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Assess.html">AE_Assess</a></span><span class="op">(</span><span class="va">dfInput</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Create threshold boundaries </span></span>
-<span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Analyze_Poisson_PredictBounds.html">Analyze_Poisson_PredictBounds</a></span><span class="op">(</span></span>
+<span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds</a></span><span class="op">(</span></span>
 <span>  dfTransformed <span class="op">=</span> <span class="va">ae_assessment</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfTransformed</span>,</span>
-<span>  vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span>  vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Create the visualization</span></span>
@@ -423,7 +478,7 @@ assessments.</p>
 <p>Let’s take a look at a few examples of editing YAML files for a
 custom workflow below.</p>
 <div class="section level3">
-<h3 id="example-7---adding-a-filtering-step">Example 7 - Adding a Filtering Step<a class="anchor" aria-label="anchor" href="#example-7---adding-a-filtering-step"></a>
+<h3 id="example-8---adding-a-filtering-step">Example 8 - Adding a Filtering Step<a class="anchor" aria-label="anchor" href="#example-8---adding-a-filtering-step"></a>
 </h3>
 <p>There are filter steps in the default specification for the AE
 Assessment, but we want to add an additional filter. Let’s add a step
@@ -514,7 +569,7 @@ custom YAML file is stored.</li>
 <li>Add the value to sort <code>strTypeCol</code> on.</li>
 <li>Run the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> workflow.</li>
 </ol>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vubiostat/r-yaml/" class="external-link">yaml</a></span><span class="op">)</span></span>
@@ -532,7 +587,7 @@ custom YAML file is stored.</li>
 <span><span class="va">lAssessmentsCustom</span><span class="op">$</span><span class="va">kri0001</span><span class="op">$</span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## 5. Read in default data set mappings from `{clindata}`</span></span>
-<span><span class="va">lMappingCustom</span> <span class="op">&lt;-</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"mappings"</span>, <span class="st">"mapping_rawplus.yaml"</span>, package <span class="op">=</span> <span class="st">"gsm"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">lMappingCustom</span> <span class="op">&lt;-</span> <span class="fu">gsm</span><span class="fu">::</span><span class="fu"><a href="../reference/Read_Mapping.html">Read_Mapping</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## 6. Add strTypeVal, i.e., the value for strTypeCol to filter on</span></span>
 <span><span class="va">lMappingCustom</span><span class="op">$</span><span class="va">dfAE</span><span class="op">$</span><span class="va">strGradeCol</span> <span class="op">&lt;-</span> <span class="st">"MODERATE"</span></span>
@@ -555,7 +610,7 @@ custom YAML file is stored.</li>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown">

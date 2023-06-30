@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
       </span>
     </div>
 
@@ -306,15 +306,10 @@ following steps and pushing updates to the <code>release</code> branch:
 <li>Confirm that the version in the <code>DESCRIPTION</code> file is up
 to date.
 <ul>
-<li><p><strong>After</strong> the version in the
-<code>DESCRIPTION</code> file is updated, run
-<code><a href="../reference/UpdateGSMVersion.html">gsm::UpdateGSMVersion()</a></code> to update metadata that includes
-the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> version number.</p></li>
-<li><p>After running <code><a href="../reference/UpdateGSMVersion.html">gsm::UpdateGSMVersion()</a></code>, run
-<code><a href="../reference/CheckClindataMeta.html">gsm::CheckClindataMeta()</a></code> to make sure that the versions in
-<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> and <code>{clindata}</code> are in sync. If not, open
-a PR in <code>{clindata}</code> to update any metadata that includes
-<code>gsm_version</code>.</p></li>
+<li>
+<strong>After</strong> the version in the <code>DESCRIPTION</code>
+file is updated, run <code><a href="../reference/UpdateGSMVersion.html">gsm::UpdateGSMVersion()</a></code> to update
+metadata that includes the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> version number.</li>
 </ul>
 </li>
 <li>Run <code>styler</code> using the script from the <a href="#style-guide">style guide</a> above (or by running
@@ -324,18 +319,8 @@ revisions/additions in the release. Keep any information from previous
 releases to maintain traceability through versions.</li>
 <li>Ensure that the qualification specifications spreadsheet is
 up-to-date and accurate. If there have been any changes/updates to
-qualification tests:
-<ul>
-<li><p>Download the latest version of
-<code>gsm_qualification_status.xlsx</code> from the Teams/OneDrive
-repository.</p></li>
-<li><p>Save the <code>Specs - batch 1</code> sheet as a
-<code>.csv</code> file named
-<code>qualification_specs.csv</code>.</p></li>
-<li><p>Upload <code>qualification_specs.csv</code> to the
-<code>~/inst/qualification/</code> directory.</p></li>
-</ul>
-</li>
+qualification tests, reach out to the qualification developer to update
+any necessary files.</li>
 <li>If applicable, review <code>README.md</code> and relevant vignettes
 to make sure updates are accurately described.</li>
 <li>Ensure all unit tests are passing.</li>
@@ -733,7 +718,7 @@ release is correct.</li>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown">

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
       </span>
     </div>
 
@@ -81,13 +81,17 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeSummaryTable</span><span class="op">(</span><span class="va">assessment</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeSummaryTable</span><span class="op">(</span><span class="va">lAssessment</span>, dfSite <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>assessment</dt>
-<dd><p><code>data.frame</code> from <code>params</code> within <code>KRIReport.Rmd</code></p></dd>
+    <dl><dt>lAssessment</dt>
+<dd><p><code>list</code> List of KRI assessments from <code>params</code> within <code>KRIReport.Rmd</code>.</p></dd>
+
+
+<dt>dfSite</dt>
+<dd><p><code>data.frame</code> Optional site-level metadata.</p></dd>
 
 </dl></div>
 
@@ -99,7 +103,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown">

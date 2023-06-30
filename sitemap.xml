@@ -4,7 +4,7 @@
     <loc>/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>/LICENSE.html</loc>
   </url>
   <url>
     <loc>/articles/ContributorGuidelines.html</loc>
@@ -154,6 +154,9 @@
     <loc>/reference/MakeDfConfig.html</loc>
   </url>
   <url>
+    <loc>/reference/MakeKRIGlossary.html</loc>
+  </url>
+  <url>
     <loc>/reference/MakeStratifiedAssessment.html</loc>
   </url>
   <url>
@@ -293,6 +296,12 @@
   </url>
   <url>
     <loc>/reference/add_table_theme.html</loc>
+  </url>
+  <url>
+    <loc>/reference/config_param.html</loc>
+  </url>
+  <url>
+    <loc>/reference/config_workflow.html</loc>
   </url>
   <url>
     <loc>/reference/generate_md_table.html</loc>

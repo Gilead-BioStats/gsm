@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
       </span>
     </div>
 
@@ -161,27 +161,6 @@ of the column. Default: package-defined Screening Assessment mapping.</p></dd>
 <p>The Screen Failure Assessment uses the standard <a href="https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html" class="external-link">GSM data pipeline</a> to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.</p>
     </div>
-    <div id="data-specification">
-    <h2>Data specification</h2>
-    
-<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfInput</td><td>strIDCol</td><td>SubjectID</td><td>TRUE</td><td>TRUE</td></tr><tr><td>dfInput</td><td>strCountCol</td><td>Count</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfInput</td><td>strGroupCol</td><td>SiteID</td><td>TRUE</td><td>FALSE</td></tr></table></div>
-    <div id="statistical-assumptions">
-    <h2>Statistical assumptions</h2>
-    <p>The default function <code>Analyze_NormalApprox</code> applies funnel plots using
-asymptotic limits based on normal approximation of binomial distribution
-for the binary outcome, or normal approximation of Poisson distribution
-for the rate outcome with volume (the sample sizes or total exposure of
-the sites) to assess data quality and safety.</p>
-<p>Alternatively, the Fisher’s exact test, or percentage value (identity)
-is used to generate estimates and p-values for each site (as specified
-with the <code>strMethod</code> parameter). Those outputs are then used to flag
-possible outliers using the thresholds specified in <code>vThreshold</code>. In the
-Fisher’s exact test, sites with $p&lt;0.05$ are flagged as 1 by default.</p>
-<p>See <code><a href="Analyze_NormalApprox.html">Analyze_NormalApprox()</a></code> or
-<code><a href="Analyze_Fisher.html">Analyze_Fisher()</a></code> or
-<code><a href="Analyze_Identity.html">Analyze_Identity()</a></code> for additional
-details about the statistical methods and their assumptions.</p>
-    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
@@ -200,7 +179,7 @@ details about the statistical methods and their assumptions.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown">

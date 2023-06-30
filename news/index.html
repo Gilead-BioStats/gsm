@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
       </span>
     </div>
 
@@ -75,6 +75,37 @@
       <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.7.4" id="gsm-v174">gsm v1.7.4<a class="anchor" aria-label="anchor" href="#gsm-v174"></a></h2>
+<p>This release includes updates to prepare for an open-source release, minor bug fixes, and reporting updates.</p>
+<div class="section level4">
+<h4 id="open-source-preparation-1-7-4">Open-source Preparation<a class="anchor" aria-label="anchor" href="#open-source-preparation-1-7-4"></a></h4>
+<ul><li>Officially changes name to <em>Good Statistical Monitoring</em>.</li>
+<li>Adds Apache License Version 2.0</li>
+</ul></div>
+<div class="section level4">
+<h4 id="bug-fixes-1-7-4">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-7-4"></a></h4>
+<ul><li>
+<code><a href="../reference/Get_Enrolled.html">Get_Enrolled()</a></code> was slightly modified to filter the demographic dataset for patients who are enrolled.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="reporting-1-7-4">Reporting<a class="anchor" aria-label="anchor" href="#reporting-1-7-4"></a></h4>
+<ul><li>
+<code><a href="../reference/Overview_Table.html">Overview_Table()</a></code> now takes on additional optional parameters to display Site/Study-level data.</li>
+<li>
+<code><a href="../reference/MakeKRIGlossary.html">MakeKRIGlossary()</a></code> adds a glossary to the report of KRI metadata.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="metadata-1-7-4">Metadata<a class="anchor" aria-label="anchor" href="#metadata-1-7-4"></a></h4>
+<ul><li>Adds <code><a href="../reference/Site_Map_Raw.html">Site_Map_Raw()</a></code> and <code><a href="../reference/Study_Map_Raw.html">Study_Map_Raw()</a></code> to map and aggregate study and site-level data that is defined with mappings.</li>
+<li>Configuration datasets were copied from <code>{clindata}</code> to <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>: <code>config_param</code> and <code>config_workflow</code>.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="utility-functions-1-7-4">Utility Functions<a class="anchor" aria-label="anchor" href="#utility-functions-1-7-4"></a></h4>
+<ul><li>
+<code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code> was slightly refactored so that it can be used across libraries/repositories.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.3" id="gsm-v173">gsm v1.7.3<a class="anchor" aria-label="anchor" href="#gsm-v173"></a></h2>
 <p>The driver of this release is a bugfix to resolve unexported reporting functions.</p>
@@ -287,7 +318,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown">
