@@ -11,7 +11,7 @@ This release includes updates to prepare for an open-source release, minor bug f
 
 ### Reporting
 - `Overview_Table()` now takes on additional optional parameters to display Site/Study-level data.
-- `MakeKRIGlossary()` was added to the report to 
+- `MakeKRIGlossary()` adds a glossary to the report of KRI metadata.
 
 ### Metadata 
 - Adds `Site_Map_Raw()` and `Study_Map_Raw()` to map and aggregate study and site-level data that is defined with mappings.
