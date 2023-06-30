@@ -1902,7 +1902,10 @@ dfSUBJ_expanded <- tibble::tribble(
   "AA-AA-000-0000", "139", "0479", 720, 679, "2011-08-08", "US", "0X052",
   "AA-AA-000-0000", "75", "0305", 708, 672, "2017-07-11", "China", "0X027",
   "AA-AA-000-0000", "5", "1099", 755, 755, "2015-08-11", "US", "0X167"
-) %>% dplyr::mutate(subject_nsv = subjid)
+) %>% dplyr::mutate(
+  subject_nsv = subjid,
+  enrollyn = "Y"
+)
 
 dfAE_expanded <- tibble::tribble(
   ~subjid, ~treatmentemergent, ~aetoxgr, ~aeser,

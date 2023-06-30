@@ -1,5 +1,5 @@
 ---
-subtitle: "Generated with the Gilead Statistical Monitoring {gsm} package"
+subtitle: "Generated with the Good Statistical Monitoring {gsm} package"
 output:
   html_document:
     toc: true
@@ -10,17 +10,8 @@ output:
 params:
     assessment: NA
     status_study: NA
+    status_site: NA
 ---
-
-```{r, echo=FALSE}
-htmltools::img(
-  src = knitr::image_uri("gilead.png"), 
-  alt = 'logo', 
-  style = 'position:absolute; top:0; right:0; padding:10px;', 
-  width = "125px", 
-  height = "50px"
-)
-```
 
 ---
 
@@ -35,16 +26,26 @@ assessment <- params$assessment[
 ]
 
 # Overview Table - HTML object
-overview_table <- Overview_Table(assessment)
+overview_table <- Overview_Table(
+  lAssessments = assessment, 
+  dfSite =  params$status_site
+)
 
 # Overview Table - data.frame/raw data
-overview_raw_table <- Overview_Table(assessment, bInteractive = FALSE)
+overview_raw_table <- Overview_Table(
+  lAssessments = assessment, 
+  dfSite =  params$status_site, 
+  bInteractive = FALSE
+)
 
 red_kris <- overview_raw_table %>% pull(`Red KRIs`) %>% sum()
 amber_kris <- overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
 
-# turn into a function
-summary_table <- MakeSummaryTable(assessment)
+# Generate listing of flagged KRIs.
+summary_table <- MakeSummaryTable(
+  assessment,
+  params$status_site
+)
 
 ## StudyID
 study_id <- purrr::map(assessment, function(kri) {
@@ -74,16 +75,19 @@ title: "`r study_id` Assessment Overview"
 
 ## metadata report if longitudinal data is provided
 if (exists('status_study', where = params) && !is.null(params$status_study)) {
-  
-MakeStudyStatusTable(params$status_study)
-  
- glue::glue(
-'
----
-date: "Snapshot Date: {params$status_study$gsm_analysis_date}"
----
-')
- 
+  MakeStudyStatusTable(params$status_study)
+
+  if ("gsm_analysis_date" %in% names(params$status_study))
+    snapshot_date <- params$status_study$gsm_analysis_date
+  else
+    snapshot_date <- Sys.Date()
+
+  glue::glue(
+  '
+  ---
+  date: "Snapshot Date: {snapshot_date}"
+  ---
+  ') 
 }
 ```
 
@@ -101,6 +105,7 @@ date: "Snapshot Date: {params$status_study$gsm_analysis_date}"
 overview_table
 ```
 </div>
+
 
 ## Results
 
@@ -170,6 +175,14 @@ for (i in seq_along(assessment)) {
 }
 ```
 
+
+## KRI Glossary
+
+```{r echo = FALSE}
+MakeKRIGlossary(
+    names(assessment)
+)
+```
 
 
 ## Error Log

@@ -17,7 +17,9 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-This vignette contains a series of examples showing how to run analysis workflows for the `{gsm}` package using sample data from `{clindata}`. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
+This vignette contains a series of examples showing how to run analysis workflows for the Good Statistical Monitoring `{gsm}` package using sample data from `{clindata}`. 
+
+`{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
 
 For more information on the `{gsm}` package see the [package homepage](https://silver-potato-cfe8c2fb.pages.github.io/). The [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette) provides additional technical details including data specifications and handling of metadata. The [Data Analysis Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Analysis-Vignette) provides detailed information about the nested functions that support the analysis workflows.
 
@@ -52,7 +54,7 @@ devtools::install_github("Gilead-BioStats/gsm", ref = "dev")
 
 ## Example 1 - Running a Single Assessment on Standard Data
 
-All assessments can be run as standalone workflow that creates useful data summaries and visualizations. `{gsm}` is configured to accept Raw+ data by default, and that data standard is used here. 
+All assessments can be run as standalone workflow that creates useful data summaries and visualizations. `{gsm}` is configured to accept rawplus data by default, and that data standard is used here. 
 
 Running a single assessment is a 2-step process. We will use the Adverse Event (AE) workflow as an example:
 
@@ -63,7 +65,6 @@ Putting these steps together looks like this:
 
 ```{r eval = FALSE, include = TRUE}
 library(clindata)
-library(safetyData)
 library(gsm)
 
 ## Map domain-level data to the input data standard for the selected assessment.
@@ -86,7 +87,7 @@ Let's look at an illustrative example of everything that happens behind the scen
 
 As in Example 1, we will use the AE workflow for this example.
 
-Start by creating `dfInput` using sample Raw+ data from `{clindata}`. Note that `AE_Map_Raw()` requires two specific datasets from `{clindata}`, which include a subject-level demographics/exposure dataset (`dfSUBJ`) and a domain-level dataset (`dfAE`) that records every adverse event per subject.
+Start by creating `dfInput` using sample rawplus data from `{clindata}`. Note that `AE_Map_Raw()` requires two specific datasets from `{clindata}`, which include a subject-level demographics/exposure dataset (`dfSUBJ`) and a domain-level dataset (`dfAE`) that records every adverse event per subject.
 
 ```{r eval = FALSE, include = TRUE}
 dfInput <- AE_Map_Raw(
@@ -103,19 +104,25 @@ The second step is to transform `dfInput` into site-level summary data, which is
 dfTransformed <- Transform_Rate(
   dfInput,
   strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure")
+  strDenominatorCol = "Exposure"
+  )
 ```
 
-The third step is to analyze the transformed data. Certain assessments support multiple statistical models/`Analyze()` functions, so the user needs to specify certain parameters for the intended analysis to run. We use a poisson regression in this example.
+The third step is to analyze the transformed data. Certain assessments support multiple statistical models/`Analyze()` functions, so the user needs to specify certain parameters for the intended analysis to run. We use the normal approximation method in this example (the default method for all standard KRIs).
 
 ```{r eval = FALSE, include = TRUE}
-dfAnalyzed <- Analyze_Poisson(dfTransformed)
+dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
 ```
 
-After analyzing the transformed data, we want to flag sites based on at least one statistical threshold. Similar to the previous step, multiple flag functions exist to support the assessment functions. The `Flag_Poisson()` function is one of several options for the AE assessment, and has default thresholds of `c(-7, -5, 5, 7)`. If a site falls outside of the (-5, 5) range, it is considered to be "At Risk" and will be assigned a value of -1 or 1. If a site falls outside of the (-7, 7) range, it is considered "Flagged" and will be assigned a value of -2 or 2. Both are considered to be outliers, but "Flagged" sites are more extreme outliers.
+After analyzing the transformed data, we will flag sites based on at least one statistical threshold. Similar to the previous step, multiple flag functions exist to support the assessment functions. The `Flag_NormalApprox()` function is one of several options for the AE assessment, and has default thresholds of `c(-3, -2, 2, 3)`. 
+
+- If a site falls outside of the (-2, 2) range, it is considered to be "Amber" and will be assigned a value of -1 or 1. 
+- If a site falls outside of the (-3, 3) range, it is considered "Red" and will be assigned a value of -2 or 2. 
+
+Both are considered to be outliers, but "Red" sites are more extreme outliers.
 
 ```{r eval = FALSE, include = TRUE}
-dfFlagged <- Flag_Poisson(dfAnalyzed, vThreshold = c(-7, -5, 5, 7))
+dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 ```
 
 Next, we will summarize the flagged data. The `Summarize()` function will only keep the most relevant columns from `dfFlagged` for a given assessment.
@@ -124,29 +131,32 @@ Next, we will summarize the flagged data. The `Summarize()` function will only k
 dfSummary <- Summarize(dfFlagged)
 ```
 
-Finally, we will create a chart that helps to identify/visualize flagged sites. When using a Poisson model, we can create upper and lower bounds using the `Analyze_Poisson_PredictBounds()` function. Using the bounds we create and the flagged data frame, we can create a scatter plot. Any sites that are plotted outside of the bounds will be yellow or red. Yellow points indicate "At Risk" sites, and red points indicate "Flagged" sites.
+Finally, we will create a chart that helps to identify/visualize flagged sites. When using the normal approximation method, we can create upper and lower bounds using the `Analyze_NormalApprox_PredictBounds()` function. 
+
+Using the bounds we create and the flagged data frame, we can create a scatter plot. Any sites that are plotted outside of the bounds will be yellow or red. Yellow points indicate "At Risk" sites, and red points indicate "Flagged" sites.
 
 ```{r eval = FALSE, include = TRUE}
-dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, vThreshold = c(-5, 5))
+dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, vThreshold = c(-3, -2, 2, 3))
 chart <- Visualize_Scatter(dfFlagged, dfBounds)
 ```
 
-Reviewing this step-by-step example will allow the user to better understand each intermediate function that runs within an `Assess()` function during KRI derivation. `{gsm}` allows the user to generate the same results in Example 1 and Example 2, with additional error-checking and metadata. For reference, the code from Example 1 is repeated below:
+
+Reviewing this step-by-step example will allow the user to better understand each intermediate function that runs within an `Assess()` function during KRI derivation. `{gsm}` allows the user to generate the same results in Example 1 and Example 2, with additional error-checking and metadata, and interactive data visualizations. For reference, the code from Example 1 is repeated below:
 
 ```{r eval = FALSE, include = TRUE}
 dfInput <- AE_Map_Raw()
-ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "Poisson")
+ae_assessment <- AE_Assess(dfInput)
 ```
 
 ## Example 3 - Running Multiple Assessments Using Standard Data
 
 Let's take a look at running multiple assessments at once, instead of focusing solely on AEs.
 
-Running multiple assessments in `{gsm}` is made possible by the `Study_Assess()` function. By default, `Study_Assess()` uses sample Raw+ data from `{clindata}` that is hard-coded to the `lData` parameter. Users can also provide their own Raw+ input data to the `lData` parameter.
+Running multiple assessments in `{gsm}` is made possible by the `Study_Assess()` function. By default, `Study_Assess()` uses sample rawplus data from `{clindata}` that is hard-coded to the `lData` parameter. Users can also provide their own rawplus input data to the `lData` parameter.
 
 ### Using Sample Data from `{clindata}`
 
-To run multiple assessments using the sample Raw+ data from `{clindata}`, the user can run the following:
+To run multiple assessments using the sample rawplus data from `{clindata}`, the user can run the following:
 
 ```{r eval = FALSE, include = TRUE}
 library(gsm)
@@ -158,7 +168,9 @@ multiple_assessments <- Study_Assess()
 
 ### Using User-Provided Raw+ Data
 
-User-provided Raw+ data will likely come from Raw+ case report data. The example below illustrates that a user can pass a named list of Raw+ data to the `lData` parameter. It is important to note that `lData` expects a *named* list. To see a list of default data frame names, run `yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))`.
+User-provided rawplus data will likely come from rawplus case report data. The example below illustrates that a user can pass a named list of rawplus data to the `lData` parameter. 
+
+It is important to note that `lData` expects a *named* list. To see a list of default data frame names, run `gsm::Read_Mapping(strDomain = "rawplus")`.
 
 ```{r eval = FALSE, include = TRUE}
 library(gsm)
@@ -192,10 +204,28 @@ multiple_assessments <- Study_Assess(lData = assessment_data)
 
 Note that `Study_Assess()` provides verbose console output alerting the user to success, warnings, or errors with the workflow.
 
+## Example 4 - Creating a Snapshot
+
+The `Make_Snapshot()` function is a wrapper around `Study_Assess()`, but differs in that it provides aggregated metadata to supplement the analyses run via `Study_Assess()`. This includes study and site-level CTMS data, as well as workflow and configuration metadata, that is used in downstream applications such as reporting, Shiny apps, and more.
+
+To create a snapshot using the default inputs from `{gsm}` and `{clindata}`, simply run the following:
+
+```{r eval = FALSE, include = TRUE}
+library(gsm)
+snapshot <- Make_Snapshot()
+```
+
+The `snapshot` object contains three elements:
+- `lSnapshotDate`: The date that the snapshot was created. Can be provided as an argument to `strAnalysisDate`, or if no date is provided, the current date is used.
+- `lSnapshot`: List of aggregated analysis results and metadata.
+- `lStudyAssessResults`: Output of `Study_Assess()`.
+
 
 # Reporting
 
-## Example 4 - Creating an Assessment Overview Report for Multiple Assessments
+## Example 5 - Creating an Assessment Overview Report for Multiple Assessments
+
+### Standard Report via `Study_Assess()`
 
 The `Study_Report()` function creates the **Assessment Overview Report**, which is an HTML document that contains tables, visualizations, and error logging for all assessments run in the `Study_Assess()` workflow.
 
@@ -212,7 +242,24 @@ Study_Report(lAssessments = multiple_assessments)
 
 The report will render and be saved to your current working directory. If you would like the report saved in a different location, you can set an output directory using the `strOutpath` argument in the `Study_Report()` function.
 
-## Example 5 - Viewing the Error Checking Report
+
+### Enhanced Report via `Make_Snapshot()`
+
+The `Study_Report()` function also takes on optional arguments (`dfSite` and `dfStudy`) that are used to provide site and study-level reporting. This includes study-level CTMS data displayed in a summary table at the top of the report, and an enhanced **Study Overview** table. 
+
+```{r eval = FALSE, include = TRUE}
+library(gsm)
+library(clindata)
+
+snapshot <- Make_Snapshot()
+
+Study_Report(
+  lAssessments = snapshot$lStudyAssessResults,
+  dfSite = snapshot$lSnapshot$status_site
+    )
+```
+
+## Example 6 - Viewing the Error Checking Report
 
 The **Assessment Overview Report** contains a Data Check Summary table in the appendix, which can be helpful for troubleshooting issues with input data provided to `lData` in `Study_Assess()`.
 
@@ -229,13 +276,15 @@ Study_AssessmentReport(lAssessments = multiple_assessments, bViewReport = TRUE)
 
 # Visualizations
 
-By default, all `Assess()` functions return a visualization whether run individually or within the `Study_Assess()` workflow. For example, the scatter plot for the AE assessment can be viewed by calling `AE_Assess(dfInput)$chart`.
+By default, all `Assess()` functions return a visualization whether run individually or within the `Study_Assess()` workflow. For example, the scatter plot for the AE assessment can be viewed by calling `AE_Assess(dfInput)$lCharts$scatter`.
 
-## Example 6 - Creating a Scatter Plot
+## Example 7 - Creating a Scatter Plot
 
-Currently, `{gsm}` creates scatter plots for Adverse Event and Protocol Deviation assessments. In some cases, a user may want to produce a visualization separately to make additional customizations.
+`{gsm}` creates static and interactive charts using `{ggplot2}` and a custom JavaScript charting library `{rbm-viz}`. 
 
-Below is an example of this that uses the default Poisson statistical model for `AE_Assess()` and Raw+ data from `{clindata}`:
+Customizing interactive JavaScript widgets will be covered in a separate vignette.
+
+Below is an example of creating a static `{ggplot2}` scatter plot that uses the default normal approximation method for `AE_Assess()` and rawplus data from `{clindata}`:
 
 ```{r eval = FALSE, include = TRUE}
 library(gsm)
@@ -248,9 +297,9 @@ dfInput <- AE_Map_Raw()
 ae_assessment <- AE_Assess(dfInput)
 
 ## Create threshold boundaries 
-dfBounds <- Analyze_Poisson_PredictBounds(
+dfBounds <- Analyze_NormalApprox_PredictBounds(
   dfTransformed = ae_assessment$lData$dfTransformed,
-  vThreshold = c(-5, 5)
+  vThreshold = c(-3, -2, 2, 3)
   )
 
 ## Create the visualization
@@ -268,7 +317,7 @@ In some cases, the user might want to configure their own mappings, which can be
 
 Let's take a look at a few examples of editing YAML files for a custom workflow below.
 
-## Example 7 - Adding a Filtering Step
+## Example 8 - Adding a Filtering Step
 
 There are filter steps in the default specification for the AE Assessment, but we want to add an additional filter. Let's add a step that filters the `dfAE` data frame so all values of `aetoxgr == "MODERATE"` (i.e., we select for AEs with a moderate toxicity grade):
 
@@ -369,7 +418,7 @@ lAssessmentsCustom$kri0001$name <- "aetoxgr"
 lAssessmentsCustom$kri0001$path <- getwd()
 
 ## 5. Read in default data set mappings from `{clindata}`
-lMappingCustom <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
+lMappingCustom <- gsm::Read_Mapping()
 
 ## 6. Add strTypeVal, i.e., the value for strTypeCol to filter on
 lMappingCustom$dfAE$strGradeCol <- "MODERATE"

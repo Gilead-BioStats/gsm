@@ -7,7 +7,7 @@
 Site_Map_Raw(
   dfs = list(dfSITE = clindata::ctms_site, dfSUBJ = clindata::rawplus_dm),
   lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
-  dfConfig = clindata::config_param
+  dfConfig = gsm::config_param
 )
 }
 \arguments{

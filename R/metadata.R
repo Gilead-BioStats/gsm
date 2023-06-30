@@ -67,3 +67,17 @@
 #'   \item{GSM_Column_Key}{Column key as it is referred to in mapping.}
 #'   }
 "input_data_schema"
+
+
+#' @title Configuration Parameters
+#' @description Configuration Parameters (param) data CTMS data
+#' @format a data frame with 124 rows and 6 columns
+#' @source ./data-raw/config/param.csv
+"config_param"
+
+
+#' @title Configuration Workflow
+#' @description Configuration Workflow (workflow) data CTMS data
+#' @format a data frame with 26 rows and 4 columns
+#' @source ./data-raw/config/workflow.csv
+"config_workflow"

@@ -12,7 +12,7 @@ Study_Map_Raw <- function(
     dfSUBJ = clindata::rawplus_dm
   ),
   lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
-  dfConfig = clindata::config_param
+  dfConfig = gsm::config_param
 ) {
   status_study <- dfs$dfSTUDY %>%
     select(
@@ -29,11 +29,11 @@ Study_Map_Raw <- function(
 
       # milestones
       "est_fpfv" = lMapping$dfSTUDY[["strEstFirstPatientFirstVisitCol"]],
-          "fpfv" = lMapping$dfSTUDY[["strActFirstPatientFirstVisitCol"]],
+      "fpfv" = lMapping$dfSTUDY[["strActFirstPatientFirstVisitCol"]],
       "est_lpfv" = lMapping$dfSTUDY[["strEstLastPatientFirstVisitCol"]],
-          "lpfv" = lMapping$dfSTUDY[["strActLastPatientFirstVisitCol"]],
+      "lpfv" = lMapping$dfSTUDY[["strActLastPatientFirstVisitCol"]],
       "est_lplv" = lMapping$dfSTUDY[["strEstLastPatientLastVisitCol"]],
-          "lplv" = lMapping$dfSTUDY[["strActLastPatientLastVisitCol"]],
+      "lplv" = lMapping$dfSTUDY[["strActLastPatientLastVisitCol"]],
 
       # study characteristics
       "ta" = lMapping$dfSTUDY[["strTherapeuticAreaCol"]],

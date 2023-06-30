@@ -1,24 +1,23 @@
-let detailButton = document.querySelector('.btn-show-details')
-let hidden = false;
+const detailButton = document.querySelector('.btn-show-details');
 
-detailButton.addEventListener('click', function() {
+if (detailButton !== null) {
+    let hidden = false;
 
-    console.log('click')
+    detailButton.addEventListener('click', function() {
+        const shownTable = document.querySelector('#study_table');
+        const hiddenTable = document.querySelector('#study_table_hide');
+        const toggleLabel = document.querySelector('.toggle-label')
 
-    let shownTable = document.querySelector('#study_table');
-    let hiddenTable = document.querySelector('#study_table_hide');
-    let toggleLabel = document.querySelector('.toggle-label')
-
-    if (!hidden) {
-      shownTable.style.display = 'none';
-      hiddenTable.style.display = 'block';
-      toggleLabel.innerHTML = 'Hide Details';
-      hidden = true;
-    } else {
-      shownTable.style.display = 'block';
-      hiddenTable.style.display = 'none';
-      toggleLabel.innerHTML = 'Show Details';
-      hidden = false;
-    }
-
-})
+        if (!hidden) {
+            shownTable.style.display = 'none';
+            hiddenTable.style.display = 'block';
+            toggleLabel.innerHTML = 'Hide Details';
+            hidden = true;
+        } else {
+            shownTable.style.display = 'block';
+            hiddenTable.style.display = 'none';
+            toggleLabel.innerHTML = 'Show Details';
+            hidden = false;
+        }
+    })
+}

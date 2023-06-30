@@ -4,10 +4,10 @@
 \alias{MakeStudyStatusTable}
 \title{Create Status Study table in KRIReport.Rmd}
 \usage{
-MakeStudyStatusTable(status_study)
+MakeStudyStatusTable(dfStudy)
 }
 \arguments{
-\item{status_study}{\code{data.frame} from \code{params} within \code{KRIReport.Rmd}}
+\item{dfStudy}{\code{data.frame} from \code{params} within \code{KRIReport.Rmd}}
 }
 \description{
 Create Status Study table in KRIReport.Rmd

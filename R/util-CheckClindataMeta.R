@@ -20,8 +20,8 @@
 #' @export
 CheckClindataMeta <- function(
   config = list(
-    config_param = clindata::config_param,
-    config_workflow = clindata::config_workflow
+    config_param = gsm::config_param,
+    config_workflow = gsm::config_workflow
   ),
   ci_check = FALSE
 ) {

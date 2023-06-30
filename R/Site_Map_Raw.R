@@ -12,17 +12,17 @@ Site_Map_Raw <- function(
     dfSUBJ = clindata::rawplus_dm
   ),
   lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
-  dfConfig = clindata::config_param
+  dfConfig = gsm::config_param
 ) {
   status_site <- dfs$dfSITE %>%
     mutate(
       siteid = as.character(
-        .data[[ lMapping$dfSITE[["strSiteCol"]] ]]
+        .data[[lMapping$dfSITE[["strSiteCol"]]]]
       ),
       invname = paste0(
-        .data[[ lMapping$dfSITE[["strPILastNameCol"]] ]],
+        .data[[lMapping$dfSITE[["strPILastNameCol"]]]],
         ", ",
-        .data[[ lMapping$dfSITE[["strPIFirstNameCol"]] ]]
+        .data[[lMapping$dfSITE[["strPIFirstNameCol"]]]]
       )
     ) %>%
     select(
