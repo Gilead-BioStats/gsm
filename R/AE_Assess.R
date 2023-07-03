@@ -219,7 +219,8 @@ AE_Assess <- function(
         results = lData$dfSummary,
         workflow = dfConfig,
         bounds = lData$dfBounds,
-        elementId = "aeAssessScatter"
+        elementId = "aeAssessScatter",
+        siteSelectLabelValue = strGroup
       )
       if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
     }
@@ -233,14 +234,16 @@ AE_Assess <- function(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "metric",
-      elementId = "aeAssessMetric"
+      elementId = "aeAssessMetric",
+      siteSelectLabel = strGroup
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "score",
-      elementId = "aeAssessScore"
+      elementId = "aeAssessScore",
+      siteSelectLabelValue = strGroup
     )
 
 

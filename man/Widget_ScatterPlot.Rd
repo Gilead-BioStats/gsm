@@ -12,7 +12,8 @@ Widget_ScatterPlot(
   addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
-  elementId = NULL
+  elementId = NULL,
+  siteSelectLabelValue = NULL
 )
 }
 \arguments{
@@ -61,6 +62,8 @@ Widget_ScatterPlot(
 \item{height}{height of widget, calculated based on width}
 
 \item{elementId}{ID of container HTML element}
+
+\item{siteSelectLabelValue}{Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.}
 }
 \description{
 A widget that displays a group-level scatter plot based on the output of a KRI analysis.
