@@ -37,7 +37,7 @@ MakeWorkflowList <- function(
   } else {
     # if `strPath` is specified, set as `path` and check that the full filepath exists.
     stopifnot(
-      '[ strPath ] must exist.' = dir.exists(strPath)
+      "[ strPath ] must exist." = dir.exists(strPath)
     )
 
     path <- tools::file_path_as_absolute(strPath)
@@ -69,7 +69,7 @@ MakeWorkflowList <- function(
 
       return(workflow)
     }) %>%
-    stats::setNames(purrr::map_chr(., ~.x$name))
+    stats::setNames(purrr::map_chr(., ~ .x$name))
 
   # if `strNames` is not null, subset the workflow list to only include
   # files that match the character vector (`strNames`)

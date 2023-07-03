@@ -1,3 +1,25 @@
+# gsm v1.7.4
+
+This release includes updates to prepare for an open-source release, minor bug fixes, and reporting updates. 
+
+### Open-source Preparation
+- Officially changes name to *Good Statistical Monitoring*.
+- Adds Apache License Version 2.0
+
+### Bug Fixes
+- `Get_Enrolled()` was slightly modified to filter the demographic dataset for patients who are enrolled.
+
+### Reporting
+- `Overview_Table()` now takes on additional optional parameters to display Site/Study-level data.
+- `MakeKRIGlossary()` adds a glossary to the report of KRI metadata.
+
+### Metadata 
+- Adds `Site_Map_Raw()` and `Study_Map_Raw()` to map and aggregate study and site-level data that is defined with mappings.
+- Configuration datasets were copied from `{clindata}` to `{gsm}`: `config_param` and `config_workflow`. 
+
+### Utility Functions
+- `MakeWorkflowList()` was slightly refactored so that it can be used across libraries/repositories. 
+
 # gsm v1.7.3
 
 The driver of this release is a bugfix to resolve unexported reporting functions. 

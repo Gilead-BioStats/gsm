@@ -47,16 +47,6 @@ formatted input data to \code{\link[=QueryRate_Assess]{QueryRate_Assess()}}. Thi
 (derived from \code{dfDATACHG}) to subject-level data (from \code{dfSUBJ}). Note that the function can generate data summaries for specific types of
 queries by passing filtered query data to \code{dfQUERY}.
 }
-\section{Data specification}{
-\tabular{lllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
-   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
-   dfSUBJ \tab strEDCIDCol \tab subject_nsv \tab TRUE \tab TRUE \cr
-   dfDATACHG \tab strIDCol \tab subjectname \tab TRUE \tab FALSE \cr
-   dfDATACHG \tab strNChangesCol \tab n_changes \tab TRUE \tab FALSE \cr
-}
-}
-
 \examples{
 # Run with defaults.
 dfInput <- QueryRate_Map_Raw()

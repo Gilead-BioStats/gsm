@@ -22,11 +22,12 @@ Useful links:
 Authors:
 \itemize{
   \item Jeremy Wildfire \email{jwildfire@gmail.com}
-  \item Matt Roumaya \email{Matt.Roumaya@atorusresearch.com}
+  \item Matt Roumaya \email{Matt.Roumaya@atorusresearch.com} (\href{https://orcid.org/0000-0002-8009-2771}{ORCID})
   \item Nathan Kosiba \email{Nathan.Kosiba@atorusresearch.com}
   \item Douglas Sanders
-  \item Spencer Childress \email{spencer.childress@gilead.com}
+  \item Spencer Childress \email{spencer.childress@gilead.com} (\href{https://orcid.org/0000-0001-6877-8511}{ORCID})
   \item Li Ge
+  \item Zhongkai Wang \email{zhongkai.wang6@gilead.com} (\href{https://orcid.org/0000-0002-1883-2265}{ORCID})
   \item Colleen McLaughlin \email{colleen.mclaughlin@atorusresearch.com}
   \item Chelsea Dickens \email{chelsea.dickens@atorusresearch.com}
   \item Maya Gans \email{maya.gans@atorusresearch.com}
