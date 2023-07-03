@@ -23,6 +23,20 @@ dfSUBJ <- tibble::tribble(
   "AA-AA-000-0000", "166", "0003", 901L, 857L, "2008-08-26", "Japan", "0X999", "Y"
 ) %>% dplyr::mutate(subject_nsv = subjid)
 
+dfSTUDY <- tibble::tribble(
+  ~protocol_row_id, ~protocol_number, ~protocol_title, ~nickname, ~protocol_type, ~phase, ~num_plan_site, ~num_site_actl, ~est_fpfv, ~act_fpfv, ~est_lplv, ~act_lplv,             ~est_lpfv,~act_lpfv, ~status, ~num_plan_subj, ~num_enrolled_subj_m, ~protocol_indication, ~product, ~therapeutic_area, ~protocol_product_number, ~x_rbm_flg,
+  "1-1G9113", "AA-AA-000-0000", "Protocol Title", "Protocol Nickname", "Investigator Sponsored", "P3", 190L, 176L, "2003-01-01 00:00:00", "2003-01-01 00:00:00", "2021-06-01 00:00:00", "2021-06-01 00:00:00", "2020-06-01 00:00:00", "2020-06-01 00:00:00", "Active", 1300L, 1301L, "Protocol Indication", "Product", "Therapeutic Area", 123L, "Y"
+)
+
+dfSITE <- tibble::tribble(
+  ~protocol_row_id, ~site_num,     ~site_row_id,        ~protocol, ~pi_number, ~pi_last_name, ~pi_first_name, ~site_status, ~is_satellite,                ~account, ~site_active_dt,    ~city,    ~state, ~country,
+  "1-1G9113",       10L, "123-1234-0X126", "AA-AA-000-0000",    "0X126",      "Torres",        "Ariel",     "Active",         FALSE, "city 1 Medical Center",    "2004-01-31", "city 1", "state 1",  "China",
+  "1-1G9113",      100L, "123-1234-X060X", "AA-AA-000-0000",    "X060X",    "Spangler",     "Cheyenne",     "Active",         FALSE, "city 1 Medical Center",    "2011-09-29", "city 1", "state 1",  "Japan",
+  "1-1G9113",      101L, "123-1234-0X174", "AA-AA-000-0000",    "0X174",   "Broughton",   "Macallyson",     "Active",         FALSE, "city 1 Medical Center",    "2006-03-03", "city 1", "state 1",     "US"
+)
+
+
+
 dfENROLL <- tibble::tribble(
   ~studyid, ~siteid, ~subjid, ~enroll_dt, ~enrollyn, ~sfreas, ~country, ~invid,
   "AA-AA-000-0000", "86", "0001", "2008-09-10", "US", "0X012", "Y", "0X001",
@@ -1902,8 +1916,10 @@ dfSUBJ_expanded <- tibble::tribble(
   "AA-AA-000-0000", "139", "0479", 720, 679, "2011-08-08", "US", "0X052",
   "AA-AA-000-0000", "75", "0305", 708, 672, "2017-07-11", "China", "0X027",
   "AA-AA-000-0000", "5", "1099", 755, 755, "2015-08-11", "US", "0X167"
-) %>% dplyr::mutate(subject_nsv = subjid,
-                    enrollyn = "Y")
+) %>% dplyr::mutate(
+  subject_nsv = subjid,
+  enrollyn = "Y"
+)
 
 dfAE_expanded <- tibble::tribble(
   ~subjid, ~treatmentemergent, ~aetoxgr, ~aeser,

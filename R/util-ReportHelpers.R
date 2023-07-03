@@ -3,7 +3,6 @@
 #' @export
 #' @keywords internal
 MakeStudyStatusTable <- function(dfStudy) {
-
   # -- this vector is used to define a custom sort order for the
   #    Study Status Table in KRIReport.Rmd
   parameterArrangeOrder <- c(
@@ -71,7 +70,7 @@ MakeStudyStatusTable <- function(dfStudy) {
         is.na(.data$Value),
         .data$Value,
         prettyNum(.data$Value, drop0trailing = TRUE)
-        )
+      )
     ) %>%
     ungroup() %>%
     left_join(
@@ -134,7 +133,7 @@ MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
         dfSummary <- dfSummary %>%
           left_join(
             dfSite %>% select("siteid", "country", "status", "enrolled_participants"),
-            c('GroupID' = 'siteid')
+            c("GroupID" = "siteid")
           )
       }
 
@@ -154,15 +153,15 @@ MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
           ) %>%
           select(
             any_of(c(
-                'Site' = 'GroupID',
-                'Country' = 'country',
-                'Status' = 'status',
-                'Subjects' = 'enrolled_participants'
+              "Site" = "GroupID",
+              "Country" = "country",
+              "Status" = "status",
+              "Subjects" = "enrolled_participants"
             )),
             everything()
           ) %>%
           DT::datatable(
-              rownames = FALSE
+            rownames = FALSE
           )
       } else {
         htmltools::p("Nothing flagged for this KRI.")
@@ -200,31 +199,30 @@ add_table_theme <- function(x) {
 #' @export
 #' @keywords internal
 MakeKRIGlossary <- function(
-    strWorkflowIDs = NULL,
-    dfMetaWorkflow = gsm::meta_workflow
+  strWorkflowIDs = NULL,
+  dfMetaWorkflow = gsm::meta_workflow
 ) {
-    workflows <- dfMetaWorkflow %>%
-        filter(
-            .data$workflowid %in% strWorkflowIDs
-        ) %>%
-        rename_with(~
-            .x %>%
-                gsub('_|(?=id)', ' ', ., perl = TRUE) %>%
-                gsub('(^.| .)', '\\U\\1', ., perl = TRUE) %>%
-                gsub('(gsm|id)', '\\U\\1', ., ignore.case = TRUE, perl = TRUE)
-        )
+  workflows <- dfMetaWorkflow %>%
+    filter(
+      .data$workflowid %in% strWorkflowIDs
+    ) %>%
+    rename_with(~
+      .x %>%
+        gsub("_|(?=id)", " ", ., perl = TRUE) %>%
+        gsub("(^.| .)", "\\U\\1", ., perl = TRUE) %>%
+        gsub("(gsm|id)", "\\U\\1", ., ignore.case = TRUE, perl = TRUE))
 
-    workflows %>%
-        DT::datatable(
-            class = 'compact',
-            options = list(
-                columnDefs = list(list(
-                    className = "dt-center",
-                    targets = 0:(ncol(workflows) - 1)
-                )),
-                paging = FALSE,
-                searching = FALSE
-            ),
-            rownames = FALSE
-        )
+  workflows %>%
+    DT::datatable(
+      class = "compact",
+      options = list(
+        columnDefs = list(list(
+          className = "dt-center",
+          targets = 0:(ncol(workflows) - 1)
+        )),
+        paging = FALSE,
+        searching = FALSE
+      ),
+      rownames = FALSE
+    )
 }

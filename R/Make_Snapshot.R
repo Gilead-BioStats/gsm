@@ -96,8 +96,8 @@ Make_Snapshot <- function(
   # ctms_study / meta_study:
   status_study <- Study_Map_Raw(
     dfs = list(
-        dfSTUDY = lMeta$meta_study,
-        dfSUBJ = lData$dfSUBJ
+      dfSTUDY = lMeta$meta_study,
+      dfSUBJ = lData$dfSUBJ
     ),
     lMapping = lMapping,
     dfConfig = lMeta$config_param
@@ -106,8 +106,8 @@ Make_Snapshot <- function(
   # ctms_site / meta_site:
   status_site <- Site_Map_Raw(
     dfs = list(
-        dfSITE = lMeta$meta_site,
-        dfSUBJ = lData$dfSUBJ
+      dfSITE = lMeta$meta_site,
+      dfSUBJ = lData$dfSUBJ
     ),
     lMapping = lMapping,
     dfConfig = lMeta$config_param

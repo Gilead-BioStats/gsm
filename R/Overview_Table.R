@@ -46,7 +46,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
   study <- keep(study, function(x) x$bStatus == TRUE)
 
 
-# create reference table --------------------------------------------------
+  # create reference table --------------------------------------------------
 
   reference_table <- study %>%
     purrr::map(function(kri) {
@@ -104,7 +104,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
 
 
 
-# create overview table ---------------------------------------------------
+  # create overview table ---------------------------------------------------
 
   overview_table <- study %>%
     purrr::map(function(kri) {
@@ -138,12 +138,12 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
   if (!is.null(dfSite)) {
     overview_table <- overview_table %>%
       left_join(
-        dfSite %>% select("siteid", 'Country' = 'country', "Status" = "status"),
+        dfSite %>% select("siteid", "Country" = "country", "Status" = "status"),
         by = c("Site" = "siteid")
       ) %>%
       select(
         "Site",
-        'Country',
+        "Country",
         "Status",
         everything()
       )
@@ -159,8 +159,6 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
       purrr::transpose() %>%
       purrr::set_names(dfSite$site_num) %>%
       purrr::imap(function(site_data, site_number) {
-
-
         site_data_variables_to_pull <- c(
           "pi_number",
           "pi_first_name",
@@ -187,7 +185,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
 
         tooltip_site_data <- Filter(length, site_data[names(site_data) %in% site_data_variables_to_pull]) %>%
           bind_rows() %>%
-          mutate(across(everything(), ~as.character(.))) %>%
+          mutate(across(everything(), ~ as.character(.))) %>%
           rename(any_of(setNames(site_data_variables_to_pull, site_data_variables_to_rename))) %>%
           pivot_longer(everything()) %>%
           mutate(
@@ -203,24 +201,23 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
             info = tooltip_site_data
           )
         )
-
       })
   }
 
 
 
 
-# create lookup tables ----------------------------------------------------
+  # create lookup tables ----------------------------------------------------
 
   abbreviation_lookup <- create_lookup_table(
     table = overview_table,
     select_columns = c("abbreviation", "value")
-    )
+  )
 
   metric_lookup <- create_lookup_table(
     table = overview_table,
     select_columns = c("metric", "value")
-    )
+  )
 
   hovertext_lookup <- tibble::enframe(abbreviation_lookup) %>%
     mutate(
@@ -256,13 +253,13 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
       nrow())
 
   overview_table <- relocate(
-      overview_table,
-      "Subjects",
-      .before = "Red KRIs"
+    overview_table,
+    "Subjects",
+    .before = "Red KRIs"
   )
 
 
-# HTML table --------------------------------------------------------------
+  # HTML table --------------------------------------------------------------
 
   if (bInteractive) {
     n_headers <- ncol(overview_table %>% select(-ends_with("_hovertext")))
@@ -270,7 +267,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
 
     # Add tooltips to column headers.
     headerCallback <- glue::glue(
-    "
+      "
     function(thead, data, start, end, display) {
       var tooltips = ['{{paste(names(metric_lookup), collapse = \"', '\")}'];
       for (var i={{kri_index}; i<{{n_headers}; i++) {
@@ -278,7 +275,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
       }
     }
     ",
-    .open = "{{"
+      .open = "{{"
     )
 
     # Enable tooltips for cells
@@ -306,10 +303,8 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
 
     # if CTMS data exists...
     if (!is.null(dfSite)) {
-
       # ... and `Country` and `Status` columns were correctly merged
       if (all(c("Country", "Status") %in% names(overview_table))) {
-
         # assign hovertext to `Site` column
         overview_table <- overview_table %>%
           mutate(
@@ -391,9 +386,7 @@ create_lookup_table <- function(table, select_columns) {
 
 
 drop_column_with_several_na <- function(table, column) {
-
-  if (sum(is.na(table[[column]])) > nrow(table)/2 ) {
-
+  if (sum(is.na(table[[column]])) > nrow(table) / 2) {
     cli::cli_alert_info("Detected error during CTMS data merging: {sum(is.na(table[[column]]))} `NA` rows found.")
     cli::cli_alert_info("Dropping `{column}` column from table and proceeding...")
 
@@ -401,7 +394,6 @@ drop_column_with_several_na <- function(table, column) {
       select(
         -.data[[column]]
       )
-
   }
 
   return(table)
