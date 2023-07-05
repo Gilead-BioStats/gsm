@@ -75,6 +75,34 @@ Screen Failure Assessment
 The Screen Failure Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }
+\section{Data specification}{
+\tabular{lllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
+   dfInput \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \cr
+}
+}
+
+\section{Statistical assumptions}{
+The default function \code{Analyze_NormalApprox} applies funnel plots using
+asymptotic limits based on normal approximation of binomial distribution
+for the binary outcome, or normal approximation of Poisson distribution
+for the rate outcome with volume (the sample sizes or total exposure of
+the sites) to assess data quality and safety.
+
+Alternatively, the Fisher’s exact test, or percentage value (identity)
+is used to generate estimates and p-values for each site (as specified
+with the \code{strMethod} parameter). Those outputs are then used to flag
+possible outliers using the thresholds specified in \code{vThreshold}. In the
+Fisher’s exact test, sites with $p<0.05$ are flagged as 1 by default.
+
+See \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}} or
+\code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or
+\code{\link[=Analyze_Identity]{Analyze_Identity()}} for additional
+details about the statistical methods and their assumptions.
+}
+
 \examples{
 dfInput <- Screening_Map_Raw()
 Screening_assessment_NormalApprox <- Screening_Assess(dfInput, strMethod = "NormalApprox")

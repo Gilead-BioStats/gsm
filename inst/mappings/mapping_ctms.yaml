@@ -19,6 +19,8 @@ dfSTUDY:
   strProductCol: product
   strTherapeuticAreaCol: therapeutic_area
   strRBMFlagCol: x_rbm_flg
+  strRBMFlagIncludeCol: x_rbm_flg
+  strRBMFlagExcludeCol: x_rbm_flg
   strRBMFlagIncludeVal: "Y"
   strRBMFlagExcludeVal: "N"
 dfSITE:
@@ -40,4 +42,5 @@ dfPD:
   strCategoryCol: gileadcategory
   strImportantCol: deemedimportant
   strImportantVal: "Yes"
+  strNonImportantCol: deemedimportant
   strNonImportantVal: "No"

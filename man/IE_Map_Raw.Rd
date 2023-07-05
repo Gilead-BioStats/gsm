@@ -46,6 +46,17 @@ Inclusion/Exclusion Assessment - Raw Mapping
 subject-level data (from \code{dfSUBJ}). Note that the function can generate data summaries for
 specific types of IE criteria by passing filtered IE data to \code{dfIE}.
 }
+\section{Data specification}{
+\tabular{lllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
+   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \cr
+   dfIE \tab strIDCol \tab subjid \tab TRUE \tab FALSE \cr
+   dfIE \tab strCategoryCol \tab iecat \tab TRUE \tab FALSE \cr
+   dfIE \tab strResultCol \tab ieorres \tab TRUE \tab FALSE \cr
+}
+}
+
 \examples{
 # Run with defaults.
 dfInput <- IE_Map_Raw()

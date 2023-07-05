@@ -564,6 +564,12 @@
       $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagCol
       [1] "x_rbm_flg"
       
+      $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagIncludeCol
+      [1] "x_rbm_flg"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagExcludeCol
+      [1] "x_rbm_flg"
+      
       $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagIncludeVal
       [1] "Y"
       
@@ -624,6 +630,9 @@
       
       $AE_Map_Raw$mapping$dfPD$strImportantVal
       [1] "Yes"
+      
+      $AE_Map_Raw$mapping$dfPD$strNonImportantCol
+      [1] "deemedimportant"
       
       $AE_Map_Raw$mapping$dfPD$strNonImportantVal
       [1] "No"
@@ -784,6 +793,9 @@
       
       $AE_Map_Raw$mapping$dfAE$strSeriousVal
       [1] "Y"
+      
+      $AE_Map_Raw$mapping$dfAE$strNonSeriousCol
+      [1] "aeser"
       
       $AE_Map_Raw$mapping$dfAE$strNonSeriousVal
       [1] "N"

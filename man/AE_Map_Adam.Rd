@@ -45,6 +45,17 @@ input data to \code{\link[=AE_Assess]{AE_Assess()}}. This function creates an in
 data (from \code{dfADSL}). Note that the function can generate data summaries for specific types of
 AEs by passing filtered AE data to \code{dfADAE}.
 }
+\section{Data specification}{
+\tabular{lllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
+   dfADSL \tab strIDCol \tab USUBJID \tab TRUE \tab TRUE \cr
+   dfADSL \tab strSiteCol \tab SITEID \tab TRUE \tab FALSE \cr
+   dfADSL \tab strStartCol \tab TRTSDT \tab TRUE \tab FALSE \cr
+   dfADSL \tab strEndCol \tab TRTEDT \tab TRUE \tab FALSE \cr
+   dfADAE \tab strIDCol \tab USUBJID \tab TRUE \tab FALSE \cr
+}
+}
+
 \examples{
 # Run with defaults
 dfInput <- AE_Map_Adam()
