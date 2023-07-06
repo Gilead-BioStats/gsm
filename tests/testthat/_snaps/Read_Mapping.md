@@ -128,6 +128,12 @@
       $dfSTUDY$strRBMFlagCol
       [1] "x_rbm_flg"
       
+      $dfSTUDY$strRBMFlagIncludeCol
+      [1] "x_rbm_flg"
+      
+      $dfSTUDY$strRBMFlagExcludeCol
+      [1] "x_rbm_flg"
+      
       $dfSTUDY$strRBMFlagIncludeVal
       [1] "Y"
       
@@ -188,6 +194,9 @@
       
       $dfPD$strImportantVal
       [1] "Yes"
+      
+      $dfPD$strNonImportantCol
+      [1] "deemedimportant"
       
       $dfPD$strNonImportantVal
       [1] "No"
@@ -348,6 +357,9 @@
       
       $dfAE$strSeriousVal
       [1] "Y"
+      
+      $dfAE$strNonSeriousCol
+      [1] "aeser"
       
       $dfAE$strNonSeriousVal
       [1] "N"

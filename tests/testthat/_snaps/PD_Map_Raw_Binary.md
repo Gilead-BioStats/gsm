@@ -75,7 +75,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strStudyCol", "strTitleCol", "strNicknameCol", "strTypeCol", "strPhaseCol", "strPlannedSitesCol", "strActualSitesCol", "strPlannedSubjectsCol", "strActualSubjectsCol", "strEstFirstPatientFirstVisitCol", "strActFirstPatientFirstVisitCol", "strEstLastPatientFirstVisitCol", "strActLastPatientFirstVisitCol", "strEstLastPatientLastVisitCol", "strActLastPatientLastVisitCol", "strStatusCol", "strIndicationCol", "strProductCol", "strTherapeuticAreaCol", "strRBMFlagCol", "strRBMFlagIncludeVal", "strRBMFlagExcludeVal"]
+              "value": ["strStudyCol", "strTitleCol", "strNicknameCol", "strTypeCol", "strPhaseCol", "strPlannedSitesCol", "strActualSitesCol", "strPlannedSubjectsCol", "strActualSubjectsCol", "strEstFirstPatientFirstVisitCol", "strActFirstPatientFirstVisitCol", "strEstLastPatientFirstVisitCol", "strActLastPatientFirstVisitCol", "strEstLastPatientLastVisitCol", "strActLastPatientLastVisitCol", "strStatusCol", "strIndicationCol", "strProductCol", "strTherapeuticAreaCol", "strRBMFlagCol", "strRBMFlagIncludeCol", "strRBMFlagExcludeCol", "strRBMFlagIncludeVal", "strRBMFlagExcludeVal"]
             }
           },
           "value": [
@@ -182,6 +182,16 @@
             {
               "type": "character",
               "attributes": {},
+              "value": ["x_rbm_flg"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["x_rbm_flg"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
               "value": ["Y"]
             },
             {
@@ -269,7 +279,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strDateCol", "strCategoryCol", "strImportantCol", "strImportantVal", "strNonImportantVal"]
+              "value": ["strIDCol", "strDateCol", "strCategoryCol", "strImportantCol", "strImportantVal", "strNonImportantCol", "strNonImportantVal"]
             }
           },
           "value": [
@@ -297,6 +307,11 @@
               "type": "character",
               "attributes": {},
               "value": ["Yes"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["deemedimportant"]
             },
             {
               "type": "character",
@@ -393,7 +408,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strStartDateCol", "strEndDateCol", "strSeriousCol", "strSeriousVal", "strNonSeriousVal", "strGradeCol", "strPTCol", "strSOCCol", "strTreatmentEmergentCol", "strTreatmentEmergentVal"]
+              "value": ["strIDCol", "strStartDateCol", "strEndDateCol", "strSeriousCol", "strSeriousVal", "strNonSeriousCol", "strNonSeriousVal", "strGradeCol", "strPTCol", "strSOCCol", "strTreatmentEmergentCol", "strTreatmentEmergentVal"]
             }
           },
           "value": [
@@ -421,6 +436,11 @@
               "type": "character",
               "attributes": {},
               "value": ["Y"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["aeser"]
             },
             {
               "type": "character",

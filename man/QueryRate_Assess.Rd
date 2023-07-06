@@ -74,6 +74,33 @@ Query Rate Assessment
 The Query Rate Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }
+\section{Data specification}{
+\tabular{llll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \cr
+   dfInput \tab strGroupCol \tab SiteID \tab TRUE \cr
+}
+}
+
+\section{Statistical assumptions}{
+The default function \code{Analyze_NormalApprox} applies funnel plots using
+asymptotic limits based on normal approximation of binomial distribution
+for the binary outcome, or normal approximation of Poisson distribution
+for the rate outcome with volume (the sample sizes or total exposure of
+the sites) to assess data quality and safety.
+
+Alternatively, a Poisson model is used to generate estimates and
+p-values for each site (as specified with the \code{strMethod} parameter).
+Those model outputs are then used to flag possible outliers using the
+thresholds specified in \code{vThreshold}. Sites with an estimate less than
+-5 are flagged as -1 and greater than 5 are flagged as 1 by default.
+
+See \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}} or
+\code{\link[=Analyze_Poisson]{Analyze_Poisson()}} for additional
+details about the statistical methods and their assumptions.
+}
+
 \examples{
 dfInput <- QueryRate_Map_Raw() \%>\% na.omit()
 

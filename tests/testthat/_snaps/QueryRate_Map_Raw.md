@@ -365,7 +365,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strStartDateCol", "strEndDateCol", "strSeriousCol", "strSeriousVal", "strNonSeriousVal", "strGradeCol", "strPTCol", "strSOCCol", "strTreatmentEmergentCol", "strTreatmentEmergentVal"]
+              "value": ["strIDCol", "strStartDateCol", "strEndDateCol", "strSeriousCol", "strSeriousVal", "strNonSeriousCol", "strNonSeriousVal", "strGradeCol", "strPTCol", "strSOCCol", "strTreatmentEmergentCol", "strTreatmentEmergentVal"]
             }
           },
           "value": [
@@ -393,6 +393,11 @@
               "type": "character",
               "attributes": {},
               "value": ["Y"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["aeser"]
             },
             {
               "type": "character",

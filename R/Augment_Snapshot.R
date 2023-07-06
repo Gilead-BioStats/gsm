@@ -45,7 +45,7 @@ Augment_Snapshot <- function(
 
         siteSelectLabelValue <- lSnapshot$lSnapshot$meta_workflow %>%
           filter(.data$workflowid == this_workflow_id) %>%
-          pull(group)
+          pull(.data$group)
 
         result$lResults$lData$dfSummaryLongitudinal <- stackedSnapshots$results_summary %>%
           dplyr::filter(
