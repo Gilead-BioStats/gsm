@@ -11,13 +11,14 @@
 #' @param strColParam `character` Domain in `lMapping` that references the column to filter on.
 #' @param strValParam `character` Domain in `lMapping` that references the value to filter on.
 #' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`.
+#' @param bRemoveVal `logical` Include the ability to subset on a value or its complement? Default: `FALSE`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @examples
 #' lMapping <- list(dfAE = list(
 #'   strIDCol = "SubjectID", strTreatmentEmergentCol = "AE_TE_FLAG",
 #'   strTreatmentEmergentVal = TRUE, strGradeCol = "AE_GRADE",
-#'   strSeriousCol = "AE_SERIOUS", strSeriousVal = "Yes"
+#'   strSeriousCol = "aeser", strSeriousVal = "Y"
 #' ))
 #'
 #' te_ae <- FilterDomain(
@@ -36,13 +37,14 @@
 #' @export
 
 FilterDomain <- function(
-  df,
-  strDomain,
-  lMapping,
-  strColParam,
-  strValParam,
-  bReturnChecks = FALSE,
-  bQuiet = TRUE
+    df,
+    strDomain,
+    lMapping,
+    strColParam,
+    strValParam,
+    bReturnChecks = FALSE,
+    bQuiet = TRUE,
+    bRemoveVal = FALSE  # New argument to determine whether to include or exclude values
 ) {
   if (!bQuiet) cli::cli_h2("Checking Input Data for {.fn FilterDomain}")
   lSpec <- list(vRequired = c(strColParam, strValParam), vNACols = strColParam)
@@ -62,16 +64,22 @@ FilterDomain <- function(
     vals <- lMapping[[strDomain]][[strValParam]]
     if (!bQuiet) cli::cli_text("Filtering on `{col} %in% c(\"{paste(vals, collapse = '\", \"')}\")`.")
 
-    oldRows <- nrow(df)
-    df <- df[df[[col]] %in% vals, ]
-    newRows <- nrow(df)
+    if (!bRemoveVal) {
+      # Include the specified values
+      df <- df[df[[col]] %in% vals, ]
+    } else {
+      # Exclude the specified values
+      df <- df[!(df[[col]] %in% vals), ]
+    }
+
     if (!bQuiet) {
+      oldRows <- nrow(df)
+      newRows <- nrow(df)
       cli::cli_alert_success("Filtered on `{col} %in% c(\"{paste(vals, sep = '\", \"')}\")` to drop {oldRows-newRows} rows from {oldRows} to {newRows} rows.")
       if (newRows == 0) cli::cli_alert_warning("WARNING: Filtered data has 0 rows.")
       if (newRows == oldRows) cli::cli_alert_info("NOTE: No rows dropped.")
     }
   }
-
 
   if (bReturnChecks) {
     return(list(df = df, lChecks = checks))
