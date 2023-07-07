@@ -44,7 +44,7 @@ FilterDomain <- function(
     strValParam,
     bReturnChecks = FALSE,
     bQuiet = TRUE,
-    bRemoveVal = FALSE  # New argument to determine whether to include or exclude values
+    bRemoveVal = FALSE
 ) {
   if (!bQuiet) cli::cli_h2("Checking Input Data for {.fn FilterDomain}")
   lSpec <- list(vRequired = c(strColParam, strValParam), vNACols = strColParam)
@@ -65,10 +65,8 @@ FilterDomain <- function(
     if (!bQuiet) cli::cli_text("Filtering on `{col} %in% c(\"{paste(vals, collapse = '\", \"')}\")`.")
 
     if (!bRemoveVal) {
-      # Include the specified values
       df <- df[df[[col]] %in% vals, ]
     } else {
-      # Exclude the specified values
       df <- df[!(df[[col]] %in% vals), ]
     }
 
