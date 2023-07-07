@@ -76,6 +76,12 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
   cursor: grab;
 }
 
+/* font color for drop-down */
+
+.dataTables_wrapper .dataTables_length select {
+  color: var(--good-red);
+}
+
 
 
 .overall-site-select select,

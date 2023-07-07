@@ -331,20 +331,47 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
         rename("Country" = "Site")
     }
 
+    # find the index of the first occurance of `Amber KRIs` == 0 & `Red KRIs` == 0
+    # -- this happens after the table is sorted (descending) on these columns
+    # -- this will only show the sites with flagged KRIs in the table, with a "show all" option
+    first_all_zero_kri_flag_row <- which(overview_table$`Amber KRIs` == 0 & overview_table$`Red KRIs` == 0)[1] - 1
+
+    # caption to show number of flagged out of total
+    group_type_for_caption <- ifelse(strReportType == "country", "countries", "sites")
+
+    # calculate and format the percentage of flagged sites of the total
+    percentage_of_flagged_sites <- sprintf("%0.1f%%", first_all_zero_kri_flag_row / nrow(overview_table) * 100)
+
+    # construct the caption with this format:
+    # -- 'X' of 'Y' 'GROUP's flagged. (Z% of total).
+    overview_table_flagged_caption <- glue::glue("{first_all_zero_kri_flag_row} of {nrow(overview_table)} {group_type_for_caption} flagged ({percentage_of_flagged_sites} of total).")
+
+    # HTML/JS options for DT
     overview_table <- overview_table %>%
       DT::datatable(
         class = "compact tbl-rbqm-study-overview",
-        options = list(
-          columnDefs = list(list(
-            className = "dt-center",
-            targets = 0:(n_headers - 1)
-          )),
-          headerCallback = JS(headerCallback),
-          initComplete = JS(tooltipCallback)
-        ),
         rownames = FALSE,
-        escape = FALSE
+        escape = FALSE,
+        caption = overview_table_flagged_caption,
+        options = list(
+          columnDefs = list(
+            list(
+              className = "dt-center",
+              targets = 0:(n_headers - 1)
+              )
+            ),
+          headerCallback = JS(headerCallback),
+          initComplete = JS(tooltipCallback),
+          pageLength = first_all_zero_kri_flag_row,
+          info = FALSE,
+          lengthMenu = list(
+            c(first_all_zero_kri_flag_row, -1),
+            c("Flagged", "All")
+          ),
+          dom = '<"top"lf>rt'
+        )
       )
+
   } else {
     overview_table <- overview_table %>%
       select(-ends_with("_hovertext"))
