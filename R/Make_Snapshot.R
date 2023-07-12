@@ -73,26 +73,8 @@ Make_Snapshot <- function(
   bUpdateParams = FALSE,
   bQuiet = TRUE
 ) {
-  # add gsm_analysis_date to all outputs except {gsm} metadata
-  # -- if date is provided, it should be the date that the data was pulled/wrangled.
-  # -- if date is NOT provided, it will default to the date that the analysis was run.
-  if (!is.null(strAnalysisDate)) {
-    # date validation check
-    date_is_valid <- try(as.Date(strAnalysisDate), silent = TRUE)
 
-    if (!"try-error" %in% class(date_is_valid) && !is.na(date_is_valid)) {
-      gsm_analysis_date <- as.Date(strAnalysisDate)
-    } else {
-      if (!bQuiet) cli::cli_alert_warning("strAnalysisDate does not seem to be in format YYYY-MM-DD. Defaulting to current date of {Sys.Date()}")
-      gsm_analysis_date <- Sys.Date()
-    }
-  } else {
-    gsm_analysis_date <- Sys.Date()
-  }
-
-
-  # rename GILDA to expected gsm variable names -----------------------------
-
+# rename GILDA to expected gsm variable names -----------------------------
   # ctms_study / meta_study:
   status_study <- Study_Map_Raw(
     dfs = list(
@@ -135,25 +117,6 @@ Make_Snapshot <- function(
     bQuiet = bQuiet
   ) %>%
     UpdateLabels(lMeta$meta_workflow)
-
-  # grab boolean status of each workflow
-  parseStatus <- purrr::imap(lResults, function(x, y) tibble(workflowid = y, status = x$bStatus)) %>%
-    bind_rows()
-
-  # join boolean status column to status_workflow
-  # `lMeta$config_workflow` represents intended workflow to be run
-  # `parseStatus` represents the actual results - workflowid + `x$bStatus`
-  # if `workflowid` is not found in the results, that means it was not run.
-  status_workflow <- lMeta$config_workflow %>%
-    full_join(parseStatus, by = "workflowid") %>%
-    mutate(status = ifelse(is.na(.data$status), FALSE, .data$status))
-
-  # parse warnings from is_mapping_valid to create an informative "notes" column
-  warnings <- ParseWarnings(lResults)
-
-  status_workflow <- status_workflow %>%
-    left_join(warnings, by = c("workflowid", "status"))
-
 
   # status_param ------------------------------------------------------------
   status_param <- lMeta$config_param
@@ -236,12 +199,17 @@ Make_Snapshot <- function(
   }
 
 
-  # create lSnapshot --------------------------------------------------------
+  # create analysis date ----------------------------------------------------
+  gsm_analysis_date <- MakeAnalysisDate(
+    strAnalysisDate = strAnalysisDate,
+    bQuiet = bQuiet
+  )
 
+  # create lSnapshot --------------------------------------------------------
   lSnapshot <- list(
     status_study = status_study,
     status_site = status_site,
-    status_workflow = status_workflow,
+    status_workflow = MakeStatusWorkflow(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
     status_param = status_param,
     results_summary = results_summary,
     results_analysis = results_analysis,
@@ -251,6 +219,10 @@ Make_Snapshot <- function(
   ) %>%
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
+
+
+
+
 
   return(
     list(
