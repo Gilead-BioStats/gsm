@@ -121,28 +121,11 @@ Make_Snapshot <- function(
   # results_analysis ---------------------------------------------------------
 
   hasQTL <- grep("qtl", names(lResults))
-  results_analysis <- NULL
 
   if (length(hasQTL) > 0) {
-    results_analysis <-
-      purrr::imap_dfr(lResults[hasQTL], function(qtl, qtl_name) {
-        if (qtl$bStatus) {
-          qtl$lResults$lData$dfAnalyzed %>%
-            select(
-              "GroupID",
-              "LowCI",
-              "Estimate",
-              "UpCI",
-              "Score"
-            ) %>%
-            mutate(workflowid = qtl_name) %>%
-            tidyr::pivot_longer(-c("GroupID", "workflowid")) %>%
-            rename(
-              param = "name",
-              studyid = "GroupID"
-            )
-        }
-      })
+    results_analysis <- MakeResultsAnalysis(lResults)
+  } else {
+    results_analysis <- NULL
   }
 
 
@@ -189,9 +172,6 @@ Make_Snapshot <- function(
   ) %>%
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
-
-
-
 
 
   return(
