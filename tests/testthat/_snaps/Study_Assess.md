@@ -1167,8 +1167,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfSUBJ domain
-      Filtering on `enrollyn %in% c("Y")`.
-      v Filtered on `enrollyn %in% c("Y")` to drop 0 rows from 10 to 10 rows.
+      Filtering on `enrollyn %in% c("Y")` to retain rows.
+      v Filtered on `enrollyn %in% c("Y")` to retain 10 rows from 10.
       i NOTE: No rows dropped.
       v `FilterDomain()` Successful
       Saving dfSUBJ to `lWorkflow$lData`
