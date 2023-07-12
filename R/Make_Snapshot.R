@@ -118,36 +118,6 @@ Make_Snapshot <- function(
   ) %>%
     UpdateLabels(lMeta$meta_workflow)
 
-  # status_param ------------------------------------------------------------
-  status_param <- lMeta$config_param
-
-  # meta_workflow -----------------------------------------------------------
-  meta_workflow <- lMeta$meta_workflow
-
-  # meta_param --------------------------------------------------------------
-  meta_param <- lMeta$meta_params
-
-
-  # results_summary ---------------------------------------------------------
-  results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%
-    purrr::discard(~ is.null(.x)) %>%
-    purrr::discard(~ .x$lChecks$status == FALSE) %>%
-    purrr::imap_dfr(~ .x$lData$dfSummary %>%
-      mutate(
-        KRIID = .y,
-        StudyID = unique(lMeta$config_workflow$studyid)
-      )) %>%
-    select(
-      studyid = "StudyID",
-      workflowid = "KRIID",
-      groupid = "GroupID",
-      numerator = "Numerator",
-      denominator = "Denominator",
-      metric = "Metric",
-      score = "Score",
-      flag = "Flag"
-    )
-
   # results_analysis ---------------------------------------------------------
 
   hasQTL <- grep("qtl", names(lResults))
@@ -210,12 +180,12 @@ Make_Snapshot <- function(
     status_study = status_study,
     status_site = status_site,
     status_workflow = MakeStatusWorkflow(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
-    status_param = status_param,
-    results_summary = results_summary,
+    status_param = lMeta$config_param,
+    results_summary = MakeResultsSummary(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
     results_analysis = results_analysis,
     results_bounds = results_bounds,
-    meta_workflow = meta_workflow,
-    meta_param = meta_param
+    meta_workflow = lMeta$meta_workflow,
+    meta_param = lMeta$meta_params
   ) %>%
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))

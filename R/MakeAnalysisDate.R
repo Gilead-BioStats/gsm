@@ -3,12 +3,15 @@
 #' @param strAnalysisDate `character` Date that analysis was run. Formatted as YYYY-MM-DD.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @export
 #'
 #' @examples
 #' analysis_date <- MakeAnalysisDate()
 #'
-#' @return
+#' @return `Date` A date in the format `YYYY-MM-DD`.
+#'
+#' @importFrom cli cli_alert_warning
+#'
+#' @export
 MakeAnalysisDate <- function(strAnalysisDate = NULL, bQuiet = FALSE) {
 
   # add gsm_analysis_date to all outputs except {gsm} metadata
