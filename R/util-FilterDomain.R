@@ -62,7 +62,18 @@ FilterDomain <- function(
   if (check$status) {
     col <- lMapping[[strDomain]][[strColParam]]
     vals <- lMapping[[strDomain]][[strValParam]]
-    if (!bQuiet) cli::cli_text("Filtering on `{col} %in% c(\"{paste(vals, collapse = '\", \"')}\")`.")
+
+    if (!bQuiet) {
+      if (bRemoveVal) {
+        filterMessage <- paste0("Filtering on `{col} %in% c(\"", paste(vals, collapse = "\", \""), "\")` to remove rows.")
+      } else {
+        filterMessage <- paste0("Filtering on `{col} %in% c(\"", paste(vals, collapse = "\", \""), "\")` to retain rows.")
+      }
+
+      cli::cli_text(filterMessage)
+    }
+
+    oldRows <- nrow(df)
 
     if (!bRemoveVal) {
       df <- df[df[[col]] %in% vals, ]
@@ -71,9 +82,16 @@ FilterDomain <- function(
     }
 
     if (!bQuiet) {
-      oldRows <- nrow(df)
       newRows <- nrow(df)
-      cli::cli_alert_success("Filtered on `{col} %in% c(\"{paste(vals, sep = '\", \"')}\")` to drop {oldRows-newRows} rows from {oldRows} to {newRows} rows.")
+
+      if (bRemoveVal) {
+        message <- paste0("Filtered on `{col} %in% c(\"", paste(vals, sep = "\", \""), "\")` to drop ", oldRows - newRows, " rows from ", oldRows, " to ", newRows, " rows.")
+      } else {
+        message <- paste0("Filtered on `{col} %in% c(\"", paste(vals, sep = "\", \""), "\")` to retain ", newRows, " rows from ", oldRows, ".")
+      }
+
+      cli::cli_alert_success(message)
+
       if (newRows == 0) cli::cli_alert_warning("WARNING: Filtered data has 0 rows.")
       if (newRows == oldRows) cli::cli_alert_info("NOTE: No rows dropped.")
     }
