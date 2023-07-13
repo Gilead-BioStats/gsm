@@ -80,6 +80,7 @@ reference:
       -  MakeDfConfig
       -  MakeResultsAnalysis
       -  MakeResultsBounds
+      -  MakeResultsSummary
       -  MakeStatusWorkflow
       -  MakeStratifiedAssessment
       -  MakeWorkflowList
