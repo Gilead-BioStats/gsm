@@ -78,6 +78,8 @@ reference:
       -  Get_Enrolled
       -  MakeAnalysisDate
       -  MakeDfConfig
+      -  MakeResultsAnalysis
+      -  MakeResultsBounds
       -  MakeStatusWorkflow
       -  MakeStratifiedAssessment
       -  MakeWorkflowList

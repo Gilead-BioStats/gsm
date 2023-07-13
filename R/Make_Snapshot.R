@@ -74,8 +74,36 @@ Make_Snapshot <- function(
   bQuiet = TRUE
 ) {
 
-# rename GILDA to expected gsm variable names -----------------------------
-  # ctms_study / meta_study:
+# default `lAssessments` --------------------------------------------------
+  if (is.null(lAssessments)) {
+    # if assessment list is not passed in, derive workflow from `lMeta$config_workflow`
+    lAssessments <- gsm::MakeWorkflowList(strNames = c(unique(lMeta$config_workflow$workflowid)))
+  }
+
+# update parameters -------------------------------------------------------
+  if (bUpdateParams) {
+    # TODO: Add vignette about updating values
+    lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
+  }
+
+# run Study_Assess() ------------------------------------------------------
+  lResults <- gsm::Study_Assess(
+    lData = lData,
+    lMapping = lMapping,
+    lAssessments = lAssessments,
+    bQuiet = bQuiet
+  ) %>%
+    UpdateLabels(lMeta$meta_workflow)
+
+# results_analysis --------------------------------------------------------
+  # -- check if any workflows in `lResults` start with "qtl"
+  if (length(grep("qtl", names(lResults))) > 0) {
+    results_analysis <- MakeResultsAnalysis(lResults)
+  } else {
+    results_analysis <- NULL
+  }
+
+# map ctms data -----------------------------------------------------------
   status_study <- Study_Map_Raw(
     dfs = list(
       dfSTUDY = lMeta$meta_study,
@@ -95,70 +123,14 @@ Make_Snapshot <- function(
     dfConfig = lMeta$config_param
   )
 
-  # run Study_Assess() ------------------------------------------------------
-  # Make a list of assessments
-  # Need to update this to use the relevant items from lMeta (meta_workflow, meta_params, config_workflow and config_params)
-  if (is.null(lAssessments)) {
-    # if assessment list is not passed in, derive workflow from `lMeta$config_workflow`
-    lAssessments <- gsm::MakeWorkflowList(strNames = c(unique(lMeta$config_workflow$workflowid)))
-  }
 
-  # update parameters
-  if (bUpdateParams) {
-    # TODO: Add vignette about updating values
-    lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
-  }
-
-  # Run Study Assessment
-  lResults <- gsm::Study_Assess(
-    lData = lData,
-    lMapping = lMapping,
-    lAssessments = lAssessments,
-    bQuiet = bQuiet
-  ) %>%
-    UpdateLabels(lMeta$meta_workflow)
-
-  # results_analysis ---------------------------------------------------------
-
-  hasQTL <- grep("qtl", names(lResults))
-
-  if (length(hasQTL) > 0) {
-    results_analysis <- MakeResultsAnalysis(lResults)
-  } else {
-    results_analysis <- NULL
-  }
-
-
-  # results_bounds ----------------------------------------------------------
-  results_bounds <- lResults %>%
-    purrr::map(~ .x$lResults$lData$dfBounds) %>%
-    purrr::discard(is.null)
-
-  if (length(results_bounds) > 0) {
-    results_bounds <- results_bounds %>%
-      purrr::imap_dfr(~ .x %>% mutate(workflowid = .y)) %>%
-      mutate(studyid = unique(lMeta$config_workflow$studyid)) %>% # not sure if this is a correct assumption
-      select(
-        "studyid",
-        "workflowid",
-        "threshold" = "Threshold",
-        "numerator" = "Numerator",
-        "denominator" = "Denominator",
-        "log_denominator" = "LogDenominator"
-      )
-  } else {
-    results_bounds <- results_bounds %>%
-      as_tibble()
-  }
-
-
-  # create analysis date ----------------------------------------------------
+# create `gsm_analysis_date` ----------------------------------------------
   gsm_analysis_date <- MakeAnalysisDate(
     strAnalysisDate = strAnalysisDate,
     bQuiet = bQuiet
   )
 
-  # create lSnapshot --------------------------------------------------------
+# create lSnapshot --------------------------------------------------------
   lSnapshot <- list(
     status_study = status_study,
     status_site = status_site,
@@ -166,19 +138,19 @@ Make_Snapshot <- function(
     status_param = lMeta$config_param,
     results_summary = MakeResultsSummary(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
     results_analysis = results_analysis,
-    results_bounds = results_bounds,
+    results_bounds = MakeResultsBounds(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
     meta_workflow = lMeta$meta_workflow,
     meta_param = lMeta$meta_params
   ) %>%
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
-
-  return(
-    list(
-      lSnapshotDate = gsm_analysis_date,
-      lSnapshot = lSnapshot,
-      lStudyAssessResults = lResults
-    )
+# return snapshot ---------------------------------------------------------
+  snapshot <- list(
+    lSnapshotDate = gsm_analysis_date,
+    lSnapshot = lSnapshot,
+    lStudyAssessResults = lResults
   )
+
+  return(snapshot)
 }
