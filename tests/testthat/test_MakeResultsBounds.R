@@ -7,7 +7,7 @@ test_that("results_bounds is created as intended", {
     dfConfigWorkflow = gsm::config_workflow
   )
 
-  expect_equal(class(results_bounds), "data.frame")
+  expect_true("data.frame" %in% class(results_bounds))
   expect_snapshot(names(results_bounds))
 
 })
