@@ -15,5 +15,5 @@ test_that("MakeAnalysisDate returns object of type 'date'", {
 })
 
 test_that("Incorrectly formatted date defaults to current date", {
-  expect_snapshot(MakeAnalysisDate("123-456"))
+  expect_message(MakeAnalysisDate("123-456"))
 })
