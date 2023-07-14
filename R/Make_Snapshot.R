@@ -68,23 +68,11 @@ Make_Snapshot <- function(
     dfENROLL = clindata::rawplus_enroll
   ),
   lMapping = Read_Mapping(),
-  lAssessments = NULL,
+  lAssessments = MakeWorkflowList(lMeta = lMeta),
   strAnalysisDate = NULL,
   bUpdateParams = FALSE,
   bQuiet = TRUE
 ) {
-
-# default `lAssessments` --------------------------------------------------
-  if (is.null(lAssessments)) {
-    # if assessment list is not passed in, derive workflow from `lMeta$config_workflow`
-    lAssessments <- gsm::MakeWorkflowList(strNames = c(unique(lMeta$config_workflow$workflowid)))
-  }
-
-# update parameters -------------------------------------------------------
-  if (bUpdateParams) {
-    # TODO: Add vignette about updating values
-    lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
-  }
 
 # run Study_Assess() ------------------------------------------------------
   lResults <- gsm::Study_Assess(
