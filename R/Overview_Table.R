@@ -287,9 +287,11 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
           ),
           headerCallback = JS(headerCallback),
           initComplete = JS(tooltipCallback),
+          pageLength = end_of_red_kris,
           info = FALSE
         )
       )
+
 
 
 
