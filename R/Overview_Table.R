@@ -344,7 +344,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
 
     # construct the caption with this format:
     # -- 'X' of 'Y' 'GROUP's flagged. (Z% of total).
-    overview_table_flagged_caption <- glue::glue("{first_all_zero_kri_flag_row} of {nrow(overview_table)} {group_type_for_caption} flagged ({percentage_of_flagged_sites} of total).")
+    overview_table_flagged_caption <- glue::glue("{first_all_zero_kri_flag_row} of {nrow(overview_table)} {group_type_for_caption} with at least one red or amber KRI ({percentage_of_flagged_sites} of total).")
 
     # HTML/JS options for DT
     overview_table <- overview_table %>%
