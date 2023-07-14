@@ -334,17 +334,19 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
     # find the index of the first occurance of `Amber KRIs` == 0 & `Red KRIs` == 0
     # -- this happens after the table is sorted (descending) on these columns
     # -- this will only show the sites with flagged KRIs in the table, with a "show all" option
-    first_all_zero_kri_flag_row <- which(overview_table$`Amber KRIs` == 0 & overview_table$`Red KRIs` == 0)[1] - 1
+
+    end_of_red_kris <- which(overview_table$`Red KRIs` == 0)[1] - 1
+    end_of_red_and_amber_kris <- which(overview_table$`Amber KRIs` == 0 & overview_table$`Red KRIs` == 0)[1] - 1
 
     # caption to show number of flagged out of total
     group_type_for_caption <- ifelse(strReportType == "country", "countries", "sites")
 
     # calculate and format the percentage of flagged sites of the total
-    percentage_of_flagged_sites <- sprintf("%0.1f%%", first_all_zero_kri_flag_row / nrow(overview_table) * 100)
+    percentage_of_flagged_sites <- sprintf("%0.1f%%", end_of_red_and_amber_kris / nrow(overview_table) * 100)
 
     # construct the caption with this format:
     # -- 'X' of 'Y' 'GROUP's flagged. (Z% of total).
-    overview_table_flagged_caption <- glue::glue("{first_all_zero_kri_flag_row} of {nrow(overview_table)} {group_type_for_caption} with at least one red or amber KRI ({percentage_of_flagged_sites} of total).")
+    overview_table_flagged_caption <- glue::glue("{end_of_red_and_amber_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one red or amber KRI ({percentage_of_flagged_sites} of total).")
 
     # HTML/JS options for DT
     overview_table <- overview_table %>%
@@ -362,11 +364,11 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
             ),
           headerCallback = JS(headerCallback),
           initComplete = JS(tooltipCallback),
-          pageLength = first_all_zero_kri_flag_row,
+          pageLength = end_of_red_kris,
           info = FALSE,
           lengthMenu = list(
-            c(first_all_zero_kri_flag_row, -1),
-            c("Flagged", "All")
+            c(end_of_red_kris, end_of_red_and_amber_kris, -1),
+            c("Red", "Red & Amber", "All")
           ),
           dom = '<"top"lf>rt'
         )
