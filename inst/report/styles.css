@@ -78,7 +78,7 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
 
 /* font color for drop-down */
 
-.dataTables_wrapper .dataTables_length select {
+.gsm-overview-table .dataTables_wrapper .dataTables_length select {
   color: var(--good-red);
 }
 
