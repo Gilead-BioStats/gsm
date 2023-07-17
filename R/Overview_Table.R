@@ -35,10 +35,12 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
 # filter based on report type ---------------------------------------------
   if (strReportType == "site") {
     grep_value <- "kri"
+    table_dropdown_label <- "Sites"
   }
 
   if (strReportType == "country") {
     grep_value <- "cou"
+    table_dropdown_label <- "Countries"
   }
 
   study <- lAssessments[grep(grep_value, names(lAssessments))]
@@ -50,10 +52,8 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
   # create reference table --------------------------------------------------
   reference_table <- make_reference_table(study)
 
-
   # create overview table ---------------------------------------------------
   overview_table <- make_overview_table(study)
-
 
   # add `Active` column if CTMS data exists ---------------------------------
   # if study_site data.frame is passed through from CTMS.
@@ -208,6 +208,16 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
       });
     }
   "
+
+    testCallback <- glue::glue("
+    function() {
+      let entireMenu = document.querySelector('.dataTables_length')
+      let menuLabel = entireMenu.querySelector('label')
+
+      console.log(menuLabel)
+    }
+    ", .open = "{{", .close = "}}")
+
     # add hovertext to KRI signals
     overview_table <- overview_table %>%
       mutate(across(
@@ -275,6 +285,9 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
           position = 'top', clear = FALSE
         ),
         options = list(
+          language = list(
+            lengthMenu = paste0("Showing _MENU_", table_dropdown_label)
+          ),
           columnDefs = list(
             list(
               className = "dt-center",
@@ -286,14 +299,16 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
             )
           ),
           headerCallback = JS(headerCallback),
-          initComplete = JS(tooltipCallback),
+          initComplete = JS(testCallback),
           pageLength = end_of_red_kris,
+          lengthMenu = list(
+            c(end_of_red_kris, end_of_red_and_amber_kris, -1),
+            c("Red", "Red & Amber", "All")
+          ),
+          dom = '<"top"lf>rt',
           info = FALSE
         )
       )
-
-
-
 
 
   } else {
