@@ -274,6 +274,20 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
     # -- 'X' of 'Y' 'GROUP's flagged. (Z% of total).
     overview_table_flagged_caption <- glue::glue("{end_of_red_and_amber_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one red or amber KRI ({percentage_of_flagged_sites} of total).")
 
+
+    # let's just show all countries in the drop-down for now
+    # countries will probably have less flagged KRIs and are easier to sort/read through
+    if (strReportType == "country") {
+      lengthMenuOptions <- NULL
+
+    } else {
+      lengthMenuOptions <- list(
+        c(end_of_red_kris, end_of_red_and_amber_kris, -1),
+        c("Red", "Red & Amber", "All")
+      )
+    }
+
+
     # HTML/JS options for DT
     overview_table <- overview_table %>%
       DT::datatable(
@@ -300,11 +314,8 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
           ),
           headerCallback = JS(headerCallback),
           initComplete = JS(testCallback),
-          pageLength = end_of_red_kris,
-          lengthMenu = list(
-            c(end_of_red_kris, end_of_red_and_amber_kris, -1),
-            c("Red", "Red & Amber", "All")
-          ),
+          pageLength = ifelse(strReportType == "site", end_of_red_kris, nrow(overview_table)),
+          lengthMenu = lengthMenuOptions,
           dom = '<"top"lf>rt',
           info = FALSE
         )
