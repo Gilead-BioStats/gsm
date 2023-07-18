@@ -1,9 +1,17 @@
 get_timeline <- function(study, n_breaks = 10, x_axis_label_format = "%b\n%Y"){
+  packages <- c("ggalt", "tidyverse")
+  is.installed <- packages %in% .packages(all.available = TRUE)
+  if(any(!is.installed)){
+    assertthat::assert_that(all(is.installed), msg = "`ggalt` and `tidyverse` packages required to run. Please install packages to continue")
+  } else{
+    invisible(lapply(packages, library, character.only = TRUE, verbose = FALSE))
+  }
+
 # function to extract date columns
 is.convertible.to.date <- function(x) !is.na(as.Date(as.character(x), tz = 'UTC', format = '%Y-%m-%d'))
 
 # pull date columns and adjust label positions (case_when wasn't working for mutating disp for some reason)
-d <- data %>%
+d <- study %>%
      select_if(is.convertible.to.date(.)) %>%
      pivot_longer(everything(), names_to = "activity", values_to = "date") %>%
      mutate(date = as.Date(date)) %>%
@@ -28,28 +36,31 @@ empty <- function()(theme(plot.background = element_rect(fill = "white"),
                           axis.ticks.y = element_blank(),
                           axis.line = element_blank(),
                           axis.ticks.x = element_blank(),
-                          axis.text.x = element_text(size = 10, vjust = 70, face = "bold")))
+                          axis.text.x = element_text(size = 10, vjust = 65, face = "bold")))
 
 # Generate Plot
 ggplot(d, aes(date, disp)) +
     geom_lollipop(point.size = 1,
                   aes(color = as.factor(date))) +
-    geom_segment(aes(x = min(date) - months(1), xend = max(date) + (as.numeric(max(date) - min(date)) *.1),
+    geom_segment(aes(x = min(date) - (as.numeric(max(date) - min(date)) *.1), xend = max(date) + (as.numeric(max(date) - min(date)) *.1),
                      y = 0, yend = 0, alpha = .5),
                  linewidth = 2,
                  color = "dodgerblue",
-                 arrow = grid::arrow(length = unit(0.1, "inches")),
-                 lineend = "round") +
+                 arrow = grid::arrow(length = unit(0.1, "inches"), type = "closed"),
+                 lineend = "butt") +
     geom_point(aes(x = min(date) - months(1), y = 0), size = 2) +
     scale_x_date(date_labels = x_axis_label_format,
                  breaks = breaks,
                  expand = c(.2, -.2)) +
-    geom_text(aes(x = date, y = disp, label = paste0(activity, '\n', "(", date, ")")), d = d,
+    geom_text(aes(x = date, y = disp, label = paste0(activity, '\n', "(", date, ")"), fontface = "bold"),
               hjust = 0, size = 3) +
-    ggtitle(data$protocol_title,
+    ggtitle(study$protocol_title,
             subtitle = paste0("Date generated: " , Sys.Date())) +
     expand_limits(y = c(1.35,-1.2)) +
     empty()
 }
+
+
+
 
 
