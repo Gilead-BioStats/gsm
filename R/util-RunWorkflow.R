@@ -43,6 +43,7 @@
 #' @export
 
 RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
+
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` assessment"))
 
   vDataDomains <- purrr::map(lWorkflow$steps, function(x) {
@@ -98,6 +99,7 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
     if (!bQuiet) cli::cli_alert_warning("Workflow not found for {lWorkflow$name} assessment - Skipping remaining steps")
     lWorkflow$bStatus <- FALSE
   }
+
 
   return(lWorkflow)
 }

@@ -5,10 +5,12 @@
 #' @description
 #' Attempts to run one or more assessments (`lAssessments`) using shared data (`lData`) and metadata (`lMapping`). By default, the sample `rawplus` data from the {clindata} package is used, and all assessments defined in `inst/workflow` are evaluated. Individual assessments are run using `gsm::RunAssessment()`
 #'
-#' @param lData `list` a named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
+#' @param lData `list` A named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
-#' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
+#' @param lAssessments `list` A named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#' @param lLogOutput `list` A named list with values for `bLogOutput`: `TRUE` or `FALSE`, indicating if console output should be diverted to a log file; `strFileName` (optional), indicating the
+#' file name or file path without an extension, where log file will be saved.
 #'
 #' @examples
 #' \dontrun{
@@ -29,8 +31,14 @@ Study_Assess <- function(
   lData = NULL,
   lMapping = NULL,
   lAssessments = NULL,
-  bQuiet = TRUE
+  bQuiet = TRUE,
+  lLogOutput = list(bLogOutput = FALSE, strFileName = NULL)
 ) {
+
+  if (lLogOutput$bLogOutput) {
+    Log(strFileName = lLogOutput$strFileName)
+  }
+
   #### --- load defaults --- ###
   # lData from clindata
   if (is.null(lData)) {
@@ -90,5 +98,11 @@ Study_Assess <- function(
     lAssessments <- NULL
   }
 
+
+  if (lLogOutput$bLogOutput) {
+    Unlog()
+  }
+
   return(lAssessments)
+
 }
