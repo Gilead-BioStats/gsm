@@ -11,9 +11,9 @@
 Log <- function(strFileName = NULL) {
 
   if (is.null(strFileName)) {
-    strFileName <- paste0("gsm_log_", make.names(Sys.time()), ".txt")
+    strFileName <- paste0("gsm_log_", make.names(Sys.time()), ".log")
   } else {
-    strFileName <- paste0(strFileName, ".txt")
+    strFileName <- paste0(strFileName, ".log")
   }
 
   con <- file(strFileName)
