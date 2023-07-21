@@ -56,12 +56,12 @@ Site_Map_Raw <- function(
     select(all_of(
         gsm::rbm_data_spec %>%
             filter(
-                System == 'Gismo',
-                Table == 'status_site',
-                Column != 'gsm_analysis_date'
+                .data$System == 'Gismo',
+                .data$Table == 'status_site',
+                .data$Column != 'gsm_analysis_date'
             ) %>%
-            arrange(Order) %>%
-            pull(Column)
+            arrange(.data$Order) %>%
+            pull(.data$Column)
     ))
 
   return(status_site)
