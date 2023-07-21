@@ -83,5 +83,6 @@ Study_Map_Raw <- function(
             pull(.data$Column)
     ))
 
+
   return(status_study)
 }
