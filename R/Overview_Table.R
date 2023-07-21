@@ -268,11 +268,15 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
     group_type_for_caption <- ifelse(strReportType == "country", "countries", "sites")
 
     # calculate and format the percentage of flagged sites of the total
-    percentage_of_flagged_sites <- sprintf("%0.1f%%", end_of_red_and_amber_kris / nrow(overview_table) * 100)
+    percentage_red <- sprintf("%0.1f%%", end_of_red_kris / nrow(overview_table) * 100)
+    percentage_red_amber <- sprintf("%0.1f%%", end_of_red_and_amber_kris / nrow(overview_table) * 100)
 
     # construct the caption with this format:
     # -- 'X' of 'Y' 'GROUP's flagged. (Z% of total).
-    overview_table_flagged_caption <- glue::glue("{end_of_red_and_amber_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one red or amber KRI ({percentage_of_flagged_sites} of total).")
+    overview_table_flagged_caption <- glue::glue("
+        {end_of_red_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one red KRI ({percentage_red} of total).<br>
+        {end_of_red_and_amber_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one red or amber KRI ({percentage_red_amber} of total).
+    ")
 
 
     # let's just show all countries in the drop-down for now
@@ -294,13 +298,13 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
         class = "compact tbl-rbqm-study-overview",
         rownames = FALSE,
         escape = FALSE,
-        caption = overview_table_flagged_caption,
-        filter = list(
-          position = 'top', clear = FALSE
-        ),
+        caption = HTML(overview_table_flagged_caption),
+        #filter = list(
+        #  position = 'top', clear = FALSE
+        #),
         options = list(
           language = list(
-            lengthMenu = paste0("Showing _MENU_", table_dropdown_label)
+            lengthMenu = paste0("Showing _MENU_ ", table_dropdown_label)
           ),
           columnDefs = list(
             list(
