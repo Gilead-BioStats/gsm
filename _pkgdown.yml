@@ -76,7 +76,12 @@ reference:
       -  FilterData
       -  FilterDomain
       -  Get_Enrolled
+      -  MakeAnalysisDate
       -  MakeDfConfig
+      -  MakeResultsAnalysis
+      -  MakeResultsBounds
+      -  MakeResultsSummary
+      -  MakeStatusWorkflow
       -  MakeStratifiedAssessment
       -  MakeWorkflowList
       -  Make_Snapshot
