@@ -79,6 +79,7 @@ Study_Map_Raw <- function(
                 Table == 'status_study',
                 Column != 'gsm_analysis_date'
             ) %>%
+            arrange(Order) %>%
             pull(Column)
     ))
 

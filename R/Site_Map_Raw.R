@@ -60,6 +60,7 @@ Site_Map_Raw <- function(
                 Table == 'status_site',
                 Column != 'gsm_analysis_date'
             ) %>%
+            arrange(Order) %>%
             pull(Column)
     ))
 
