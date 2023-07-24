@@ -308,10 +308,6 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
               className = "dt-center",
               targets = 0:(n_headers - 1),
               orderable = FALSE
-            ),
-            list(
-              targets = 4:(n_headers - 1),
-              searchable = FALSE
             )
           ),
           headerCallback = JS(headerCallback),
