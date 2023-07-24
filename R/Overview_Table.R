@@ -275,7 +275,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
     # -- 'X' of 'Y' 'GROUP's flagged. (Z% of total).
     overview_table_flagged_caption <- glue::glue("
         {end_of_red_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one <strong>red</strong> KRI ({percentage_red} of total).<br>
-        {end_of_red_and_amber_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one <strong>red or amber<strong> KRI ({percentage_red_amber} of total).
+        {end_of_red_and_amber_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one <strong>red or amber</strong> KRI ({percentage_red_amber} of total).
     ")
 
 
