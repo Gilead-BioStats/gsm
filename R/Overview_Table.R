@@ -274,8 +274,8 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
     # construct the caption with this format:
     # -- 'X' of 'Y' 'GROUP's flagged. (Z% of total).
     overview_table_flagged_caption <- glue::glue("
-        {end_of_red_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one red KRI ({percentage_red} of total).<br>
-        {end_of_red_and_amber_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one red or amber KRI ({percentage_red_amber} of total).
+        {end_of_red_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one <strong>red</strong> KRI ({percentage_red} of total).<br>
+        {end_of_red_and_amber_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one <strong>red or amber<strong> KRI ({percentage_red_amber} of total).
     ")
 
 
@@ -299,9 +299,6 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
         rownames = FALSE,
         escape = FALSE,
         caption = HTML(overview_table_flagged_caption),
-        #filter = list(
-        #  position = 'top', clear = FALSE
-        #),
         options = list(
           language = list(
             lengthMenu = paste0("Showing _MENU_ ", table_dropdown_label)
@@ -309,7 +306,8 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
           columnDefs = list(
             list(
               className = "dt-center",
-              targets = 0:(n_headers - 1)
+              targets = 0:(n_headers - 1),
+              orderable = FALSE
             ),
             list(
               targets = 4:(n_headers - 1),
@@ -320,7 +318,8 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
           initComplete = JS(testCallback),
           pageLength = ifelse(strReportType == "site", end_of_red_kris, nrow(overview_table)),
           lengthMenu = lengthMenuOptions,
-          dom = '<"top"lf>rt',
+          searching = FALSE,
+          dom = 'lf',
           info = FALSE
         )
       )
