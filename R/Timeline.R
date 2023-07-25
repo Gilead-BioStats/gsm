@@ -7,27 +7,25 @@
 #' @return `plot` interactive timeline plot.
 #'
 #' @examples
-#' get_timeline(clindata::ctms_study)
+#' Make_Timeline(clindata::ctms_study)
 #'
 #' @import ggplot2
 #' @import dplyr
 #' @importFrom gggenes geom_gene_arrow
-#' @importFrom ggiraph geom_point_interactive
-#' @importFrom ggiraph girafe
+#' @importFrom ggiraph geom_point_interactive girafe
 #' @importFrom tidyr pivot_longer
-#' @importFrom tidyselect everything
 #'
 #' @export
 
 
-get_timeline <- function(study, n_breaks = 10, date_format = "%b\n%Y"){
+Make_Timeline <- function(study, n_breaks = 10, date_format = "%b\n%Y"){
 # function to extract date columns
 is.convertible.to.date <- function(x) !is.na(as.Date(as.character(x), tz = 'UTC', format = '%Y-%m-%d'))
 
 # pull date columns and adjust label positions (case_when wasn't working for mutating disp for some reason)
 d <- study %>%
   select_if(is.convertible.to.date(.)) %>%
-  pivot_longer(everything(), names_to = "activity", values_to = "date") %>%
+  tidyr::pivot_longer(everything(), names_to = "activity", values_to = "date") %>%
   mutate(date = as.Date(date),
          estimate = grepl("est", activity),
          disp = case_when(grepl("\n", date_format) & estimate ~ 3.75,
@@ -66,13 +64,13 @@ a <- ggplot(d, aes(date, disp))+
                   limits = c(min(d$date) - (as.numeric(max(d$date) - min(d$date)) *.1),
                              max(d$date) + (as.numeric(max(d$date) - min(d$date)) *.1)),
                   expand = c(.15, -.15)) +
-     geom_gene_arrow(aes(xmin = min(date) - (as.numeric(max(date) - min(date)) *.1),
+     gggenes::geom_gene_arrow(aes(xmin = min(date) - (as.numeric(max(date) - min(date)) *.1),
                          xmax = max(date) + (as.numeric(max(date) - min(date)) *.1),
                          y = 0),
                      color = "dodgerblue",
                      arrowhead_height = unit(15, "mm"),
                      arrow_body_height = unit(ifelse(grepl("\n", date_format), 10, 7), "mm")) +
-     geom_point_interactive(aes(color = label,
+     ggiraph::geom_point_interactive(aes(color = label,
                                 shape = estimate,
                                 tooltip = paste0(activity, "\n", "(", date, ")"),
                                 data_id = date),
@@ -86,7 +84,7 @@ a <- ggplot(d, aes(date, disp))+
                                  title.position = "top")) +
      empty()
 
-girafe(ggobj = a)
+ggiraph::girafe(ggobj = a)
 
 }
 
