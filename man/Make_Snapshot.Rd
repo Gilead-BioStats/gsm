@@ -16,7 +16,7 @@ Make_Snapshot(
     clindata::edc_data_points, dfDATAENT = clindata::edc_data_pages, dfQUERY =
     clindata::edc_queries, dfENROLL = clindata::rawplus_enroll),
   lMapping = Read_Mapping(),
-  lAssessments = NULL,
+  lAssessments = MakeWorkflowList(lMeta = lMeta),
   strAnalysisDate = NULL,
   bUpdateParams = FALSE,
   bQuiet = TRUE

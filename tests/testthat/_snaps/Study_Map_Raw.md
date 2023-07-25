@@ -831,10 +831,10 @@
         <chr>                   <int>                 <int>         <int>
       1 AA-AA-000-0000              3                     4           190
       # i 20 more variables: planned_participants <int>, title <chr>, nickname <chr>,
-      #   enrolled_sites_ctms <int>, enrolled_participants_ctms <int>,
-      #   est_fpfv <chr>, fpfv <chr>, est_lpfv <chr>, lpfv <chr>, est_lplv <chr>,
-      #   lplv <chr>, ta <chr>, indication <chr>, phase <chr>, status <chr>,
-      #   rbm_flag <chr>, product <chr>, protocol_type <chr>, protocol_row_id <chr>,
+      #   enrolled_sites_ctms <int>, enrolled_participants_ctms <int>, fpfv <chr>,
+      #   lpfv <chr>, lplv <chr>, ta <chr>, indication <chr>, phase <chr>,
+      #   status <chr>, rbm_flag <chr>, product <chr>, protocol_type <chr>,
+      #   protocol_row_id <chr>, est_fpfv <chr>, est_lpfv <chr>, est_lplv <chr>,
       #   protocol_product_number <int>
 
 # invalid mapping throws error
