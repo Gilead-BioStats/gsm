@@ -50,7 +50,7 @@ empty <- function()(theme(plot.background = element_rect(fill = "white"),
                           legend.background = element_rect(linetype = 1, linewidth = .35, color = "black"),
                           legend.text = element_text(size = 8),
                           legend.title = element_blank(),
-                          legend.margin = margin(t = 0, r = 1, b = 1, l = 1, unit = "mm"),
+                          legend.margin = margin(t = 0, r = 1.5, b = 1.5, l = 1.5, unit = "mm"),
                           axis.title = element_blank(),
                           axis.text.y = element_blank(),
                           axis.ticks.y = element_blank(),
@@ -87,6 +87,5 @@ a <- ggplot(d, aes(date, disp))+
 ggiraph::girafe(ggobj = a)
 
 }
-
 
 
