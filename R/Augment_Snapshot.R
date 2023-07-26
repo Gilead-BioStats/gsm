@@ -64,7 +64,7 @@ Augment_Snapshot <- function(
       setNames(basename(snapshot_directories))
 
     lSnapshot$lStudyAssessResults <- update_kris_in_list(kris_to_update)
-    browser()
+
   }
 
   if (bAppendTimeSeriesCharts) {
