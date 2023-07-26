@@ -164,9 +164,21 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
   # Add # of subjects to overview table.
   dfSUBJ <- study[[1]]$lData$dfSUBJ
 
+  # extract strGroup(s) from all [[kri]]$steps$params$strGroup,
+  # and then get unique group description
+  strGroup <- study %>%
+    purrr::map(pluck, "steps") %>%
+    purrr::map(~{
+      .x %>%
+        purrr::map(pluck, "params", "strGroup") %>%
+        purrr::discard(is.null)
+    }) %>%
+    unlist() %>%
+    unique()
+
   overview_table[["Subjects"]] <- overview_table$Site %>%
     map_int(~ dfSUBJ %>%
-      filter(.data$siteid == .x) %>%
+      filter(!!strGroup == .x) %>%
       nrow())
 
   overview_table <- relocate(
