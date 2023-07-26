@@ -1,0 +1,2 @@
+"workflowid","gsm_version","group","abbreviation","metric","numerator","denominator","outcome","model","score","data_inputs","data_filters","gsm_analysis_date"
+"kri0001","1.7.4","Site","AE","AE Reporting Rate","AEs","Days on Study","Rate","Normal Approximation (Rate)","Adjusted Z-Score ","rawplus.ae, rawplus.dm","",2016-11-01
