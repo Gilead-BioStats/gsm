@@ -61,8 +61,8 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
   if (!is.null(dfSite)) {
     overview_table <- overview_table %>%
       left_join(
-        dfSite %>% select("siteid", "Country" = "country", "Status" = "status"),
-        by = c("Site" = "siteid")
+        dfSite %>% select("site_num", "Country" = "country", "Status" = "site_status"),
+        by = c("Site" = "site_num")
       ) %>%
       select(
         "Site",
@@ -164,21 +164,9 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
   # Add # of subjects to overview table.
   dfSUBJ <- study[[1]]$lData$dfSUBJ
 
-  # extract strGroup(s) from all [[kri]]$steps$params$strGroup,
-  # and then get unique group description
-  strGroup <- study %>%
-    purrr::map(pluck, "steps") %>%
-    purrr::map(~{
-      .x %>%
-        purrr::map(pluck, "params", "strGroup") %>%
-        purrr::discard(is.null)
-    }) %>%
-    unlist() %>%
-    unique()
-
   overview_table[["Subjects"]] <- overview_table$Site %>%
     map_int(~ dfSUBJ %>%
-      filter(!!strGroup == .x) %>%
+      filter(.data$siteid == .x) %>%
       nrow())
 
   overview_table <- relocate(
@@ -208,9 +196,9 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
 
     # Enable tooltips for cells
     tooltipCallback <- "
-    function(settings) {
-      var table = settings.oInstance.api();
-      var tdElements = table.table().container().querySelectorAll('td');
+    function() {
+      let overviewTable = document.querySelector('.tbl-rbqm-study-overview')
+      let tdElements = overviewTable.querySelectorAll('td')
 
       tdElements.forEach(function(td) {
         var titleElement = td.querySelector('title');
@@ -220,15 +208,6 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
       });
     }
   "
-
-    testCallback <- glue::glue("
-    function() {
-      let entireMenu = document.querySelector('.dataTables_length')
-      let menuLabel = entireMenu.querySelector('label')
-
-      console.log(menuLabel)
-    }
-    ", .open = "{{", .close = "}}")
 
     # add hovertext to KRI signals
     overview_table <- overview_table %>%
@@ -323,7 +302,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
             )
           ),
           headerCallback = JS(headerCallback),
-          initComplete = JS(testCallback),
+          drawCallback = JS(tooltipCallback),
           pageLength = ifelse(strReportType == "site", end_of_red_kris, nrow(overview_table)),
           lengthMenu = lengthMenuOptions,
           searching = FALSE,
