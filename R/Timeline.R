@@ -42,14 +42,14 @@ breaks <- pretty(seq(min(d$date), max(d$date), by = "day"), n_breaks)
 # Define blank plot theme
 empty <- function()(theme(plot.background = element_rect(fill = "white"),
                           panel.background = element_rect(fill = "white"),
-                          legend.position = c(0.5, 0.45),
+                          legend.position = c(0.5, 0.425),
                           legend.key = element_rect(fill = "white"),
                           legend.text.align = 0,
                           legend.direction = "horizontal",
                           # legend.background = element_rect(linetype = 1, linewidth = .35, color = "black"),
                           legend.text = element_text(size = 8),
-                          legend.title = element_blank(),
-                          legend.margin = margin(t = 0, r = 1.5, b = 1.5, l = 1.5, unit = "mm"),
+                          # legend.title = element_blank(),
+                          legend.margin = margin(t = 1, r = 1, b = 1, l = 1, unit = "mm"),
                           legend.box.background = element_rect(fill = "white", color = "black"),
                           legend.spacing.y = unit(0,"cm"),
                           axis.title = element_blank(),
@@ -78,7 +78,11 @@ a <- ggplot(d, aes(date, disp))+
    annotate(geom = "text", x = breaks, y = 0, label = format(breaks, format = date_format), size = 3, fontface = 2) +
    expand_limits(y = c(30,-50)) +
    guides(alpha = "none",
-          color = guide_legend(ncol = 3)) +
+          shape = guide_legend(title.position = "top"),
+          color = guide_legend(ncol = 3,
+                               title.position = "top")) +
+  labs(shape = "Shape",
+       color = "Color") +
    empty()
 
 ggiraph::girafe(ggobj = a)
