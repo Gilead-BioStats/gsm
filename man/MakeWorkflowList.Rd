@@ -4,7 +4,12 @@
 \alias{MakeWorkflowList}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
-MakeWorkflowList(strNames = NULL, strPath = NULL, bRecursive = FALSE)
+MakeWorkflowList(
+  strNames = NULL,
+  strPath = NULL,
+  bRecursive = FALSE,
+  lMeta = NULL
+)
 }
 \arguments{
 \item{strNames}{\verb{array of character} List of workflows to include. NULL (the default) includes all workflows in the specified locations.}
@@ -12,6 +17,9 @@ MakeWorkflowList(strNames = NULL, strPath = NULL, bRecursive = FALSE)
 \item{strPath}{\code{character} The location of workflow YAML files. If package is specified, function will look in \verb{/inst} folder.}
 
 \item{bRecursive}{\code{logical} Find files in nested folders? Default FALSE.}
+
+\item{lMeta}{\code{list} a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
+See the Data Model Vignette - Appendix 2 - Data Model Specifications for detailed specifications.}
 }
 \value{
 \code{list} A list of workflows with workflow and parameter metadata.
