@@ -72,14 +72,17 @@ Study_Map_Raw <- function(
 
   # reorder columns
   status_study <- status_study %>%
-    select(
-      "studyid",
-      "enrolled_sites",
-      "enrolled_participants",
-      "planned_sites",
-      "planned_participants",
-      everything()
-    )
+    select(all_of(
+        gsm::rbm_data_spec %>%
+            filter(
+                .data$System == 'Gismo',
+                .data$Table == 'status_study',
+                .data$Column != 'gsm_analysis_date'
+            ) %>%
+            arrange(.data$Order) %>%
+            pull(.data$Column)
+    ))
+
 
   return(status_study)
 }

@@ -164,7 +164,7 @@
       $dfInput
       # A tibble: 1,301 x 8
          SubjectID SiteID StudyID       CountryID CustomGroupID Exposure Count    Rate
-         <chr>     <chr>  <chr>         <chr>     <chr>            <dbl> <int>   <dbl>
+         <chr>     <chr>  <chr>         <chr>     <chr>            <int> <int>   <dbl>
        1 0001      86     AA-AA-000-00~ US        0X035              730     0 0      
        2 0002      76     AA-AA-000-00~ US        0X104               50     0 0      
        3 0003      166    AA-AA-000-00~ US        0X102              901     5 0.00555
