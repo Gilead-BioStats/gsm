@@ -9,7 +9,8 @@ Study_Assess(
   lMapping = NULL,
   lAssessments = NULL,
   bQuiet = TRUE,
-  lLogOutput = list(bLogOutput = FALSE, strFileName = NULL)
+  bLogOutput = FALSE,
+  strLogFileName = NULL
 )
 }
 \arguments{
@@ -21,8 +22,9 @@ Study_Assess(
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 
-\item{lLogOutput}{\code{list} A named list with values for \code{bLogOutput}: \code{TRUE} or \code{FALSE}, indicating if console output should be diverted to a log file; \code{strFileName} (optional), indicating the
-file name or file path without an extension, where log file will be saved.}
+\item{bLogOutput}{\code{logical} Send console output to log file? Default: \code{FALSE}. Note: Setting \code{bQuiet = FALSE} is recommended if logging your output.}
+
+\item{strLogFileName}{\code{character} File name for log file.}
 }
 \value{
 \code{list} of assessments containing status information and results.

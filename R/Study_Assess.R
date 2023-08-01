@@ -9,8 +9,8 @@
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param lAssessments `list` A named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
-#' @param lLogOutput `list` A named list with values for `bLogOutput`: `TRUE` or `FALSE`, indicating if console output should be diverted to a log file; `strFileName` (optional), indicating the
-#' file name or file path without an extension, where log file will be saved.
+#' @param bLogOutput `logical` Send console output to log file? Default: `FALSE`. Note: Setting `bQuiet = FALSE` is recommended if logging your output.
+#' @param strLogFileName `character` File name for log file.
 #'
 #' @examples
 #' \dontrun{
@@ -32,13 +32,14 @@ Study_Assess <- function(
   lMapping = NULL,
   lAssessments = NULL,
   bQuiet = TRUE,
-  lLogOutput = list(bLogOutput = FALSE, strFileName = NULL)
+  bLogOutput = FALSE,
+  strLogFileName = NULL
 ) {
 
-  if (lLogOutput$bLogOutput) {
+  if (bLogOutput) {
 
     # divert output to .log file
-    Log(strFileName = lLogOutput$strFileName)
+    Log(strFileName = strLogFileName)
 
     on.exit({
       Unlog()
