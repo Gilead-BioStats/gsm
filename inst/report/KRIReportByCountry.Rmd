@@ -26,12 +26,14 @@ assessment <- params$assessment[
 # Overview Table - HTML object
 overview_table <- Overview_Table(
   lAssessments = assessment, 
+  dfSite =  params$status_site,
   strReportType = "country"
 )
 
 # Overview Table - data.frame/raw data
 overview_raw_table <- Overview_Table(
   lAssessments = assessment, 
+  dfSite =  params$status_site,
   strReportType = "country",
   bInteractive = FALSE
 )

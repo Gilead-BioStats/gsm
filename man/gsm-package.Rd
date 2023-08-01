@@ -31,6 +31,7 @@ Authors:
   \item Colleen McLaughlin \email{colleen.mclaughlin@atorusresearch.com}
   \item Chelsea Dickens \email{chelsea.dickens@atorusresearch.com}
   \item Maya Gans \email{maya.gans@atorusresearch.com}
+  \item Jacob Anderson \email{jacob.anderson@atorusresearch.com}
 }
 
 }

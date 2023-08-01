@@ -32,7 +32,7 @@ dt <- function(data){
 
 # Introduction
 
-This vignette walks users through the mechanics of the `Assess()` functions within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials. 
+This vignette walks users through the mechanics of the `Assess()` functions within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
 
 The `Assess()` functions provide data frames, visualizations, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the workflow of the `Assess()` functions.
 
@@ -111,7 +111,7 @@ dt(dfTransformed) %>%
 
 ### 3. Create `dfAnalyzed`
 
-The data frame `dfAnalyzed` is derived from `dfTransformed` using an `Analyze()` function, which incorporates a specific statistical model. The resulting `dfAnalyzed` data frame will contain site-level analysis results data. The normal approximation method is the default statistical model for AE data, so the analysis pipeline automatically runs `Analyze_NormalApprox()`. 
+The data frame `dfAnalyzed` is derived from `dfTransformed` using an `Analyze()` function, which incorporates a specific statistical model. The resulting `dfAnalyzed` data frame will contain site-level analysis results data. The normal approximation method is the default statistical model for AE data, so the analysis pipeline automatically runs `Analyze_NormalApprox()`.
 
 Using our example AE data, `dfAnalyzed` contains the following columns:
 
@@ -136,7 +136,7 @@ dt(dfAnalyzed) %>%
 
 ### 4. Create `dfFlagged`
 
-The data frame `dfFlagged` is derived from `dfAnalyzed` using a `Flag()` function. The resulting `dfFlagged` data frame will contain site-level analysis results data with flagging incorporated based on a pre-specified statistical threshold to highlight possible outliers. 
+The data frame `dfFlagged` is derived from `dfAnalyzed` using a `Flag()` function. The resulting `dfFlagged` data frame will contain site-level analysis results data with flagging incorporated based on a pre-specified statistical threshold to highlight possible outliers.
 
 The default flagging function for the normal approximation method is `Flag_NormalApprox()` and the default threshold is (-3, -2, 2, 3). Using our example AE data, `dfFlagged` contains the following columns:
 
@@ -244,6 +244,5 @@ The following sections include various examples of supporting functions and stat
 
 -   By default, all assessments use the normal approximation method.
 -   Optionally, other statistical methods include: **Poisson**, **Fisher**, and **Identity**.
-
 
 ![](data-analysis-combined.PNG){width="100%"}
