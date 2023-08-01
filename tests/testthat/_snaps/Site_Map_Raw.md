@@ -827,14 +827,14 @@
       tryCatch(Site_Map_Raw(dfs = dfs_edited), error = conditionMessage)
     Output
       # A tibble: 3 x 17
-        studyid siteid institution status enrolled_participants start_date city  state
-        <chr>   <chr>  <chr>       <chr>                  <int> <chr>      <chr> <chr>
-      1 AA-AA-~ 10     city 1 Med~ Active                    NA 2004-01-31 city~ stat~
-      2 AA-AA-~ 100    city 1 Med~ Active                    NA 2011-09-29 city~ stat~
-      3 AA-AA-~ 101    city 1 Med~ Active                    NA 2006-03-03 city~ stat~
-      # i 9 more variables: country <chr>, invname <chr>, protocol_row_id <chr>,
-      #   site_num <int>, site_row_id <chr>, pi_number <chr>, pi_last_name <chr>,
-      #   pi_first_name <chr>, is_satellite <lgl>
+        studyid  siteid institution site_status enrolled_participants start_date city 
+        <chr>    <chr>  <chr>       <chr>                       <int> <chr>      <chr>
+      1 AA-AA-0~ 10     city 1 Med~ Active                         NA 2004-01-31 city~
+      2 AA-AA-0~ 100    city 1 Med~ Active                         NA 2011-09-29 city~
+      3 AA-AA-0~ 101    city 1 Med~ Active                         NA 2006-03-03 city~
+      # i 10 more variables: state <chr>, country <chr>, invname <chr>,
+      #   protocol_row_id <chr>, site_num <int>, site_row_id <chr>, pi_number <chr>,
+      #   pi_last_name <chr>, pi_first_name <chr>, is_satellite <lgl>
 
 # invalid mapping throws error
 

@@ -27,7 +27,7 @@
 "Gismo","status_site","studyid","Unique Study ID",1
 "Gismo","status_site","siteid","Unique Site ID",2
 "Gismo","status_site","institution","Institution Name",3
-"Gismo","status_site","status","Site Status",4
+"Gismo","status_site","site_status","Site Status",4
 "Gismo","status_site","enrolled_participants","# of enrolled participants",5
 "Gismo","status_site","start_date","Site Activation Date",6
 "Gismo","status_site","city","City",7
