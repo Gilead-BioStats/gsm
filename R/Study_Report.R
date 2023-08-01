@@ -71,10 +71,9 @@ Study_Report <- function(
 
   # set Rmd template
   if (strReportType == "site") {
-    projectTemplate <- system.file("report", "KRIReport.Rmd", package = "gsm")
-
+    projectTemplate <- system.file("report", "KRIReportBySite.Rmd", package = "gsm")
   } else if (strReportType == "country") {
-    projectTemplate <- system.file("report", "CountryReport.Rmd", package = "gsm")
+    projectTemplate <- system.file("report", "KRIReportByCountry.Rmd", package = "gsm")
   }
 
   # render
