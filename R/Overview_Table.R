@@ -23,7 +23,12 @@
 #' }
 #'
 #' @export
-Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", bInteractive = TRUE) {
+Overview_Table <- function(
+    lAssessments = Study_Assess(),
+    dfSite = Site_Map_Raw(),
+    strReportType = "site",
+    bInteractive = TRUE
+) {
 
   # input check
   stopifnot(
@@ -245,19 +250,31 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
 
   # TODO: this could disagree with `status_site$enrolled_participants`
   # Add # of subjects to overview table.
-  dfSUBJ <- study[[1]]$lData$dfSUBJ
+  if (!is.null(dfSite)) {
+    if ('enrolled_participants' %in% names(dfSite)) {
+        if (strReportType == 'site') {
+            overview_table[["Subjects"]] <- overview_table$Site %>%
+                map_int(~ dfSite %>%
+                    filter(.data$siteid == .x) %>%
+                    pull(.data$enrolled_participants)
+                )
+        } else {
+            dfCountry <- Country_Map_Raw(dfSite)
 
-  overview_table[["Subjects"]] <- overview_table$Site %>%
-    map_int(~ dfSUBJ %>%
-      filter(.data$siteid == .x) %>%
-      nrow())
+            overview_table[["Subjects"]] <- overview_table$Site %>%
+                map_int(~ dfCountry %>%
+                    filter(.data$country == .x) %>%
+                    pull(.data$enrolled_participants)
+                )
+        }
 
-  overview_table <- relocate(
-    overview_table,
-    "Subjects",
-    .before = "Red KRIs"
-  )
-
+        overview_table <- relocate(
+            overview_table,
+            "Subjects",
+            .before = "Red KRIs"
+        )
+    }
+  }
 
   # HTML table --------------------------------------------------------------
 

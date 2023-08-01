@@ -46,6 +46,7 @@
 #'   \item{Table}{Name of the table/data source created by `gsm::Make_Snapshot()`}
 #'   \item{Column}{Name of the column in the table}
 #'   \item{Description}{Description of `Column`}
+#'   \item{Order}{Order columns should appear in for standard export}
 #'   }
 #' @source \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
 "rbm_data_spec"

@@ -8,6 +8,8 @@
 #' @param strNames `array of character` List of workflows to include. NULL (the default) includes all workflows in the specified locations.
 #' @param strPath `character` The location of workflow YAML files. If package is specified, function will look in `/inst` folder.
 #' @param bRecursive `logical` Find files in nested folders? Default FALSE.
+#' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
+#' See the Data Model Vignette - Appendix 2 - Data Model Specifications for detailed specifications.
 #'
 #' @examples
 #' # use default
@@ -29,7 +31,8 @@
 MakeWorkflowList <- function(
   strNames = NULL,
   strPath = NULL,
-  bRecursive = FALSE
+  bRecursive = FALSE,
+  lMeta = NULL
 ) {
   if (is.null(strPath)) {
     # if `strPath` is not specified, default to reading `inst/workflow` from {gsm}.
@@ -88,6 +91,47 @@ MakeWorkflowList <- function(
       workflows <- purrr::keep(workflows, names(workflows) %in% strNames)
     }
   }
+
+
+  # subset workflows based on `lMeta$config_workflow` -----------------------
+  # -- the logic is that if a column in `lMeta$config_workflow$active` == FALSE,
+  # -- then the workflow is filtered out. e.g., `kri0003` would be removed using
+  # -- the sample data below
+  # -------------------------------------------------------------------------
+  # studyid           workflowid    gsm_version active
+  # AA-AA-000-0000    kri0001       1.7.4       TRUE
+  # AA-AA-000-0000    kri0002       1.7.4       TRUE
+  # AA-AA-000-0000    kri0003       1.7.4       FALSE
+  # -------------------------------------------------------------------------
+  if (!is.null(lMeta)) {
+    # TODO: add logging if `lMeta` is detected?
+
+    if (exists("config_workflow", where = lMeta)) {
+
+      # get active workflow vector from `config_workflow`
+      active_workflows <- lMeta$config_workflow %>%
+        filter(.data$active) %>%
+        pull(.data$workflowid)
+
+      # subset list based on workflow names that are found in `active_workflows`
+      workflows <- workflows[names(workflows) %in% active_workflows]
+
+    }
+
+    if (exists("config_param", where = lMeta) && exists("meta_params", where = lMeta)) {
+
+      # TODO: with this new design, UpdateParams() should get a good review
+      # We've never used UpdateParams() in production and it uses a very ugly looking loop :(
+      workflows <- UpdateParams(
+        lWorkflow = workflows,
+        dfConfig = lMeta$config_param,
+        dfMeta = lMeta$meta_params
+        )
+
+    }
+
+  }
+
 
   return(workflows)
 }
