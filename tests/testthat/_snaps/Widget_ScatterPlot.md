@@ -1,5 +1,8 @@
 # chart structure has not changed
 
     Code
-      chart
+      names(chart)
+    Output
+      [1] "x"             "width"         "height"        "sizingPolicy" 
+      [5] "dependencies"  "elementId"     "preRenderHook" "jsHooks"      
 
