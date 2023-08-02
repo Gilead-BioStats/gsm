@@ -121,7 +121,7 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
 
 /* Site Summary Table -- change cursor to cue to user that tooltip is available */
 td[title] {
-  cursor: pointer;
+  cursor: help;
 }
 
 tbody.gt_table_body tr:hover:nth-child(odd) {
