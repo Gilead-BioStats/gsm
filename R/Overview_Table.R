@@ -66,7 +66,7 @@ Overview_Table <- function(
   if (!is.null(dfSite)) {
     overview_table <- overview_table %>%
       left_join(
-        dfSite %>% select("site_num", "Country" = "country", "Status" = "site_status"),
+        dfSite %>% select("site_num", "Country" = "country", "Status" = "status"),
         by = c("Site" = "site_num")
       ) %>%
       select(

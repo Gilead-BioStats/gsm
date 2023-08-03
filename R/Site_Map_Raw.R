@@ -29,7 +29,7 @@ Site_Map_Raw <- function(
       "studyid" = lMapping$dfSITE[["strStudyCol"]],
       "siteid",
       "institution" = lMapping$dfSITE[["strAccountCol"]],
-      "site_status" = lMapping$dfSITE[["strStatusCol"]],
+      "status" = lMapping$dfSITE[["strStatusCol"]],
       "start_date" = lMapping$dfSITE[["strActivationDateCol"]],
       "city" = lMapping$dfSITE[["strCityCol"]],
       "state" = lMapping$dfSITE[["strStateCol"]],
