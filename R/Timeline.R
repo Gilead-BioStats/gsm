@@ -46,9 +46,7 @@ empty <- function()(theme(plot.background = element_rect(fill = "white"),
                           legend.key = element_rect(fill = "white"),
                           legend.text.align = 0,
                           legend.direction = "horizontal",
-                          # legend.background = element_rect(linetype = 1, linewidth = .35, color = "black"),
                           legend.text = element_text(size = 8),
-                          # legend.title = element_blank(),
                           legend.margin = margin(t = 1, r = 1, b = 1, l = 1, unit = "mm"),
                           legend.box.background = element_rect(fill = "white", color = "black"),
                           legend.spacing.y = unit(0,"cm"),
@@ -71,18 +69,23 @@ a <- ggplot(d, aes(date, disp))+
                    color = "dodgerblue",
                    arrowhead_height = unit(15, "mm"),
                    arrow_body_height = unit(ifelse(grepl("\n", date_format), 10, 7), "mm")) +
-  ggiraph::geom_point_interactive(aes(color = label,
-                                      shape = estimate),
-                                  size = 3) +
+   ggiraph::geom_point_interactive(aes(color = label,
+                                       shape = estimate),
+                                   size = 3) +
    scale_shape_manual(values = c(19, 1), labels = c("Actual", "Estimated")) +
-   annotate(geom = "text", x = breaks, y = 0, label = format(breaks, format = date_format), size = 3, fontface = 2) +
+   annotate(geom = "text",
+            x = breaks,
+            y = 0,
+            label = format(breaks, format = date_format),
+            size = 3,
+            fontface = 2) +
    expand_limits(y = c(30,-50)) +
    guides(alpha = "none",
           shape = guide_legend(title.position = "top"),
           color = guide_legend(ncol = 3,
                                title.position = "top")) +
-  labs(shape = "Shape",
-       color = "Color") +
+   labs(shape = "Shape",
+        color = "Color") +
    empty()
 
 ggiraph::girafe(ggobj = a)

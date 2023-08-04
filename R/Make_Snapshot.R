@@ -256,7 +256,11 @@ Make_Snapshot <- function(
     list(
       lSnapshotDate = gsm_analysis_date,
       lSnapshot = lSnapshot,
-      lStudyAssessResults = lResults
+      lStudyAssessResults = lResults,
+      lInputs = list(lMeta = lMeta,
+                     lData = lData,
+                     lMapping = lMapping,
+                     lAssessments = lAssessments)
     )
   )
 }
