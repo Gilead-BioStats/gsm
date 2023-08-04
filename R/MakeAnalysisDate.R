@@ -13,7 +13,6 @@
 #'
 #' @export
 MakeAnalysisDate <- function(strAnalysisDate = NULL, bQuiet = FALSE) {
-
   # add gsm_analysis_date to all outputs except {gsm} metadata
   # -- if date is provided, it should be the date that the data was pulled/wrangled.
   # -- if date is NOT provided, it will default to the date that the analysis was run.
@@ -32,8 +31,4 @@ MakeAnalysisDate <- function(strAnalysisDate = NULL, bQuiet = FALSE) {
   }
 
   return(gsm_analysis_date)
-
 }
-
-
-

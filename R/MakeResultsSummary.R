@@ -16,15 +16,14 @@
 #'
 #' @export
 MakeResultsSummary <- function(lResults, dfConfigWorkflow) {
-
   results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%
-    purrr::discard( ~ is.null(.x)) %>%
-    purrr::discard( ~ .x$lChecks$status == FALSE) %>%
-    purrr::imap_dfr( ~ .x$lData$dfSummary %>%
-                       mutate(
-                         KRIID = .y,
-                         StudyID = unique(dfConfigWorkflow$studyid)
-                       )) %>%
+    purrr::discard(~ is.null(.x)) %>%
+    purrr::discard(~ .x$lChecks$status == FALSE) %>%
+    purrr::imap_dfr(~ .x$lData$dfSummary %>%
+      mutate(
+        KRIID = .y,
+        StudyID = unique(dfConfigWorkflow$studyid)
+      )) %>%
     select(
       studyid = "StudyID",
       workflowid = "KRIID",
@@ -37,6 +36,4 @@ MakeResultsSummary <- function(lResults, dfConfigWorkflow) {
     )
 
   return(results_summary)
-
 }
-

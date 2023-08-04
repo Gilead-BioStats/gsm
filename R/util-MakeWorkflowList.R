@@ -107,7 +107,6 @@ MakeWorkflowList <- function(
     # TODO: add logging if `lMeta` is detected?
 
     if (exists("config_workflow", where = lMeta)) {
-
       # get active workflow vector from `config_workflow`
       active_workflows <- lMeta$config_workflow %>%
         filter(.data$active) %>%
@@ -115,21 +114,17 @@ MakeWorkflowList <- function(
 
       # subset list based on workflow names that are found in `active_workflows`
       workflows <- workflows[names(workflows) %in% active_workflows]
-
     }
 
     if (exists("config_param", where = lMeta) && exists("meta_params", where = lMeta)) {
-
       # TODO: with this new design, UpdateParams() should get a good review
       # We've never used UpdateParams() in production and it uses a very ugly looking loop :(
       workflows <- UpdateParams(
         lWorkflow = workflows,
         dfConfig = lMeta$config_param,
         dfMeta = lMeta$meta_params
-        )
-
+      )
     }
-
   }
 
 

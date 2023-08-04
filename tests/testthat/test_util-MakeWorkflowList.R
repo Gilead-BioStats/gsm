@@ -57,7 +57,6 @@ test_that("invalid data returns list NULL elements", {
 
 
 test_that("if lMeta is detected, only active workflows are kept", {
-
   lMeta <- list(
     config_param = gsm::config_param,
     config_workflow = gsm::config_workflow,
@@ -76,12 +75,10 @@ test_that("if lMeta is detected, only active workflows are kept", {
 
   expect_length(workflow, 1)
   expect_equal(names(workflow), "kri0001")
-
 })
 
 
 test_that("if lMeta is detected, UpdateParams works as intended", {
-
   # lMeta$meta_params:  contains default parameters
   # lMeta$config_param: contains custom parameters
 
@@ -110,6 +107,4 @@ test_that("if lMeta is detected, UpdateParams works as intended", {
 
   expect_length(thresholds, 26)
   expect_snapshot(thresholds)
-
-
 })

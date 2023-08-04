@@ -18,8 +18,7 @@
 #'
 #' @export
 MakeStatusWorkflow <- function(lResults, dfConfigWorkflow) {
-
-# extract bStatus and create data.frame -----------------------------------
+  # extract bStatus and create data.frame -----------------------------------
   workflow_parse_status <- purrr::imap(lResults, function(status, workflowid) {
     tibble(
       status = status$bStatus,
@@ -29,14 +28,15 @@ MakeStatusWorkflow <- function(lResults, dfConfigWorkflow) {
     bind_rows()
 
 
-# extract warnings from results -------------------------------------------
+  # extract warnings from results -------------------------------------------
   workflow_parse_warnings <- ParseWarnings(lResults)
 
 
-# combine extracted status and warnings -----------------------------------
+  # combine extracted status and warnings -----------------------------------
   status_workflow <- dfConfigWorkflow %>%
     full_join(
-      workflow_parse_status, by = "workflowid"
+      workflow_parse_status,
+      by = "workflowid"
     ) %>%
     mutate(
       status = ifelse(
@@ -46,10 +46,10 @@ MakeStatusWorkflow <- function(lResults, dfConfigWorkflow) {
       )
     ) %>%
     left_join(
-      workflow_parse_warnings, by = c("workflowid", "status")
+      workflow_parse_warnings,
+      by = c("workflowid", "status")
     )
 
 
   return(status_workflow)
-
 }

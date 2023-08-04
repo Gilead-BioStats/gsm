@@ -7,7 +7,7 @@ test_that("status_workflow is created as expected", {
   expect_equal(
     class(status_workflow),
     "data.frame"
-    )
+  )
 
   expect_snapshot(names(status_workflow))
 })
@@ -32,5 +32,4 @@ test_that("correct bStatus is captured", {
     pull(status)
 
   expect_false(all(fails))
-
 })

@@ -37,14 +37,14 @@
 #' @export
 
 FilterDomain <- function(
-    df,
-    strDomain,
-    lMapping,
-    strColParam,
-    strValParam,
-    bReturnChecks = FALSE,
-    bQuiet = TRUE,
-    bRemoveVal = FALSE
+  df,
+  strDomain,
+  lMapping,
+  strColParam,
+  strValParam,
+  bReturnChecks = FALSE,
+  bQuiet = TRUE,
+  bRemoveVal = FALSE
 ) {
   if (!bQuiet) cli::cli_h2("Checking Input Data for {.fn FilterDomain}")
   lSpec <- list(vRequired = c(strColParam, strValParam), vNACols = strColParam)
