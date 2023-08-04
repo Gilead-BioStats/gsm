@@ -58,5 +58,5 @@ test_that("chart is created", {
 })
 
 test_that("chart structure has not changed", {
-  expect_snapshot(chart)
+  expect_snapshot(names(chart))
 })

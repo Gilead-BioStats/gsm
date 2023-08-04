@@ -4,16 +4,27 @@
 \alias{Study_Assess}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
-Study_Assess(lData = NULL, lMapping = NULL, lAssessments = NULL, bQuiet = TRUE)
+Study_Assess(
+  lData = NULL,
+  lMapping = NULL,
+  lAssessments = NULL,
+  bQuiet = TRUE,
+  bLogOutput = FALSE,
+  strLogFileName = NULL
+)
 }
 \arguments{
-\item{lData}{\code{list} a named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
+\item{lData}{\code{list} A named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
 \item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
 
-\item{lAssessments}{\code{list} a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
+\item{lAssessments}{\code{list} A named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+
+\item{bLogOutput}{\code{logical} Send console output to log file? Default: \code{FALSE}. Note: Setting \code{bQuiet = FALSE} is recommended if logging your output.}
+
+\item{strLogFileName}{\code{character} File name for log file.}
 }
 \value{
 \code{list} of assessments containing status information and results.

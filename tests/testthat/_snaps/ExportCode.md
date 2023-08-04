@@ -16,7 +16,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0001:AE_Map_Raw ---
@@ -48,7 +49,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0002:FilterDomain ---
@@ -60,7 +62,8 @@
         strColParam = lMapping[["dfAE"]][["strSeriousCol"]],
         strValParam = lMapping[["dfAE"]][["strSeriousVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0002:AE_Map_Raw ---
@@ -92,7 +95,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0003:FilterDomain ---
@@ -104,7 +108,8 @@
         strColParam = lMapping[["dfPD"]][["strImportantCol"]],
         strValParam = lMapping[["dfPD"]][["strNonImportantVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0003:PD_Map_Raw_Rate ---
@@ -136,7 +141,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0004:FilterDomain ---
@@ -148,7 +154,8 @@
         strColParam = lMapping[["dfPD"]][["strImportantCol"]],
         strValParam = lMapping[["dfPD"]][["strImportantVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0004:PD_Map_Raw_Rate ---
@@ -180,7 +187,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0005:FilterDomain ---
@@ -192,7 +200,8 @@
         strColParam = lMapping[["dfLB"]][["strGradeCol"]],
         strValParam = lMapping[["dfLB"]][["strGradeAnyVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0005:LB_Map_Raw ---
@@ -224,7 +233,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0006:Disp_Map_Raw ---
@@ -256,7 +266,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0007:FilterDomain ---
@@ -268,7 +279,8 @@
         strColParam = lMapping[["dfSDRGCOMP"]][["strTreatmentPhaseCol"]],
         strValParam = lMapping[["dfSDRGCOMP"]][["strTreatmentPhaseVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0007:Disp_Map_Raw ---
@@ -300,7 +312,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0008:FilterDomain ---
@@ -312,7 +325,8 @@
         strColParam = lMapping[["dfQUERY"]][["strStatusCol"]],
         strValParam = lMapping[["dfQUERY"]][["strStatusVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0008:QueryRate_Map_Raw ---
@@ -344,7 +358,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0009:FilterDomain ---
@@ -356,7 +371,8 @@
         strColParam = lMapping[["dfQUERY"]][["strStatusCol"]],
         strValParam = lMapping[["dfQUERY"]][["strStatusVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0009:QueryAge_Map_Raw ---
@@ -388,7 +404,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0010:DataEntry_Map_Raw ---
@@ -420,7 +437,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- cou0011:DataChg_Map_Raw ---
@@ -472,7 +490,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0001:AE_Map_Raw ---
@@ -504,7 +523,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0002:FilterDomain ---
@@ -516,7 +536,8 @@
         strColParam = lMapping[["dfAE"]][["strSeriousCol"]],
         strValParam = lMapping[["dfAE"]][["strSeriousVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0002:AE_Map_Raw ---
@@ -548,7 +569,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0003:FilterDomain ---
@@ -560,7 +582,8 @@
         strColParam = lMapping[["dfPD"]][["strImportantCol"]],
         strValParam = lMapping[["dfPD"]][["strNonImportantVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0003:PD_Map_Raw_Rate ---
@@ -592,7 +615,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0004:FilterDomain ---
@@ -604,7 +628,8 @@
         strColParam = lMapping[["dfPD"]][["strImportantCol"]],
         strValParam = lMapping[["dfPD"]][["strImportantVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0004:PD_Map_Raw_Rate ---
@@ -636,7 +661,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0005:FilterDomain ---
@@ -648,7 +674,8 @@
         strColParam = lMapping[["dfLB"]][["strGradeCol"]],
         strValParam = lMapping[["dfLB"]][["strGradeAnyVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0005:LB_Map_Raw ---
@@ -680,7 +707,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0006:Disp_Map_Raw ---
@@ -712,7 +740,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0007:FilterDomain ---
@@ -724,7 +753,8 @@
         strColParam = lMapping[["dfSDRGCOMP"]][["strTreatmentPhaseCol"]],
         strValParam = lMapping[["dfSDRGCOMP"]][["strTreatmentPhaseVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0007:Disp_Map_Raw ---
@@ -756,7 +786,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0008:FilterDomain ---
@@ -768,7 +799,8 @@
         strColParam = lMapping[["dfQUERY"]][["strStatusCol"]],
         strValParam = lMapping[["dfQUERY"]][["strStatusVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0008:QueryRate_Map_Raw ---
@@ -800,7 +832,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0009:FilterDomain ---
@@ -812,7 +845,8 @@
         strColParam = lMapping[["dfQUERY"]][["strStatusCol"]],
         strValParam = lMapping[["dfQUERY"]][["strStatusVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0009:QueryAge_Map_Raw ---
@@ -844,7 +878,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0010:DataEntry_Map_Raw ---
@@ -876,7 +911,8 @@
         strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
         strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- kri0011:DataChg_Map_Raw ---
@@ -928,7 +964,8 @@
         strColParam = lMapping[["dfPD"]][["strImportantCol"]],
         strValParam = lMapping[["dfPD"]][["strImportantVal"]],
         bReturnChecks = FALSE,
-        bQuiet = TRUE
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
       )
       
       #--- qtl0004:PD_Map_Raw_Binary ---
