@@ -1837,55 +1837,77 @@
       [1] "FilterDomain"
       
       $qtl0004[[1]]$inputs
-      [1] "dfPD"
+      [1] "dfSUBJ"
       
       $qtl0004[[1]]$output
-      [1] "dfPD"
+      [1] "dfSUBJ"
       
       $qtl0004[[1]]$params
       $qtl0004[[1]]$params$strDomain
-      [1] "dfPD"
+      [1] "dfSUBJ"
       
       $qtl0004[[1]]$params$strColParam
-      [1] "strImportantCol"
+      [1] "strEnrollCol"
       
       $qtl0004[[1]]$params$strValParam
-      [1] "strImportantVal"
+      [1] "strEnrollVal"
       
       
       
       $qtl0004[[2]]
       $qtl0004[[2]]$name
-      [1] "PD_Map_Raw_Binary"
+      [1] "FilterDomain"
       
       $qtl0004[[2]]$inputs
-      [1] "dfPD"   "dfSUBJ"
+      [1] "dfPD"
       
       $qtl0004[[2]]$output
-      [1] "dfInput"
+      [1] "dfPD"
+      
+      $qtl0004[[2]]$params
+      $qtl0004[[2]]$params$strDomain
+      [1] "dfPD"
+      
+      $qtl0004[[2]]$params$strColParam
+      [1] "strImportantCol"
+      
+      $qtl0004[[2]]$params$strValParam
+      [1] "strImportantVal"
+      
       
       
       $qtl0004[[3]]
       $qtl0004[[3]]$name
-      [1] "PD_Assess_Binary"
+      [1] "PD_Map_Raw_Binary"
       
       $qtl0004[[3]]$inputs
-      [1] "dfInput"
+      [1] "dfPD"   "dfSUBJ"
       
       $qtl0004[[3]]$output
+      [1] "dfInput"
+      
+      
+      $qtl0004[[4]]
+      $qtl0004[[4]]$name
+      [1] "PD_Assess_Binary"
+      
+      $qtl0004[[4]]$inputs
+      [1] "dfInput"
+      
+      $qtl0004[[4]]$output
       [1] "lResults"
       
-      $qtl0004[[3]]$params
-      $qtl0004[[3]]$params$strGroup
+      $qtl0004[[4]]$params
+      $qtl0004[[4]]$params$strGroup
       [1] "Study"
       
-      $qtl0004[[3]]$params$vThreshold
+      $qtl0004[[4]]$params$vThreshold
       NULL
       
-      $qtl0004[[3]]$params$strMethod
+      $qtl0004[[4]]$params$strMethod
       [1] "QTL"
       
-      $qtl0004[[3]]$params$nConfLevel
+      $qtl0004[[4]]$params$nConfLevel
       [1] 0.95
       
       
@@ -1894,41 +1916,63 @@
       $qtl0006
       $qtl0006[[1]]
       $qtl0006[[1]]$name
-      [1] "Disp_Map_Raw"
+      [1] "FilterDomain"
       
       $qtl0006[[1]]$inputs
-      [1] "dfSUBJ"     "dfSTUDCOMP"
+      [1] "dfSUBJ"
       
       $qtl0006[[1]]$output
-      [1] "dfInput"
+      [1] "dfSUBJ"
       
       $qtl0006[[1]]$params
-      $qtl0006[[1]]$params$strContext
-      [1] "Study"
+      $qtl0006[[1]]$params$strDomain
+      [1] "dfSUBJ"
+      
+      $qtl0006[[1]]$params$strColParam
+      [1] "strEnrollCol"
+      
+      $qtl0006[[1]]$params$strValParam
+      [1] "strEnrollVal"
       
       
       
       $qtl0006[[2]]
       $qtl0006[[2]]$name
-      [1] "Disp_Assess"
+      [1] "Disp_Map_Raw"
       
       $qtl0006[[2]]$inputs
-      [1] "dfInput"
+      [1] "dfSUBJ"     "dfSTUDCOMP"
       
       $qtl0006[[2]]$output
-      [1] "lResults"
+      [1] "dfInput"
       
       $qtl0006[[2]]$params
-      $qtl0006[[2]]$params$strGroup
+      $qtl0006[[2]]$params$strContext
       [1] "Study"
       
-      $qtl0006[[2]]$params$vThreshold
+      
+      
+      $qtl0006[[3]]
+      $qtl0006[[3]]$name
+      [1] "Disp_Assess"
+      
+      $qtl0006[[3]]$inputs
+      [1] "dfInput"
+      
+      $qtl0006[[3]]$output
+      [1] "lResults"
+      
+      $qtl0006[[3]]$params
+      $qtl0006[[3]]$params$strGroup
+      [1] "Study"
+      
+      $qtl0006[[3]]$params$vThreshold
       NULL
       
-      $qtl0006[[2]]$params$strMethod
+      $qtl0006[[3]]$params$strMethod
       [1] "QTL"
       
-      $qtl0006[[2]]$params$nConfLevel
+      $qtl0006[[3]]$params$nConfLevel
       [1] 0.95
       
       
