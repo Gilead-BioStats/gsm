@@ -957,8 +957,21 @@
       # START OF qtl0004
       #--- qtl0004:FilterDomain ---
       
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
+      )
+      
+      #--- qtl0004:FilterDomain ---
+      
       dfPD <- FilterDomain(
-        df = lData[["dfPD"]],
+        df = dfPD,
         strDomain = "dfPD",
         lMapping = lMapping,
         strColParam = lMapping[["dfPD"]][["strImportantCol"]],
@@ -988,10 +1001,23 @@
       )
       
       # START OF qtl0006
+      #--- qtl0006:FilterDomain ---
+      
+      dfSUBJ <- FilterDomain(
+        df = lData[["dfSUBJ"]],
+        strDomain = "dfSUBJ",
+        lMapping = lMapping,
+        strColParam = lMapping[["dfSUBJ"]][["strEnrollCol"]],
+        strValParam = lMapping[["dfSUBJ"]][["strEnrollVal"]],
+        bReturnChecks = FALSE,
+        bQuiet = TRUE,
+        bRemoveVal = FALSE
+      )
+      
       #--- qtl0006:Disp_Map_Raw ---
       
       dfInput <- Disp_Map_Raw(
-        dfs = list(lData[["dfSUBJ"]], lData[["dfSTUDCOMP"]]),
+        dfs = list(dfSUBJ = dfSUBJ, dfSTUDCOMP = lData[["dfSTUDCOMP"]]),
         lMapping = lMapping,
         bReturnChecks = FALSE,
         bQuiet = TRUE
