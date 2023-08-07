@@ -7,6 +7,13 @@ This release includes updates to prepare for an open-source release, reporting u
 ### Reporting
 - `Overview_Table()` removes pagination in favor of a drop-down selector for all *red* KRIs, *red & amber* KRIS, and *all* sites/countries/<<group>>.
 - `Make_Timeline()` adds a visualization to show key events from CTMS data. This is slated to be included in standard reporting via `Study_Report()` in `v1.8.1`.
+- A new country report is available for use, but has not been thoroughly tested. 
+
+### `Make_Snapshot()` Refactor
+- New functions have been created so that the internals of `Make_Snapshot()` are more modularized.
+
+### Logging
+- `Study_Assess()` gains a new parameter `bLogOutput`, which will divert console output to a `.log` file.
 
 
 
