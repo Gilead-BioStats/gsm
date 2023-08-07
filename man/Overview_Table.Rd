@@ -5,8 +5,8 @@
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Overview_Table(
-  lAssessments,
-  dfSite = NULL,
+  lAssessments = Study_Assess(),
+  dfSite = Site_Map_Raw(),
   strReportType = "site",
   bInteractive = TRUE
 )

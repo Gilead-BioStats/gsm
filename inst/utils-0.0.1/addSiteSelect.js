@@ -19,7 +19,6 @@ const addSiteSelect = function(el, results, instance, siteSelectLabelValue) {
     siteSelectContainer.style.top = 0;
     siteSelectContainer.style.left = 0;
 
-    console.log(results)
     // add dropdown label
     const siteSelectLabel = document.createElement('span');
     siteSelectLabel.innerHTML = siteSelectLabelValue;

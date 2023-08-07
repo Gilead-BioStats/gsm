@@ -23,7 +23,12 @@
 #' }
 #'
 #' @export
-Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", bInteractive = TRUE) {
+Overview_Table <- function(
+    lAssessments = Study_Assess(),
+    dfSite = Site_Map_Raw(),
+    strReportType = "site",
+    bInteractive = TRUE
+) {
 
   # input check
   stopifnot(
@@ -31,13 +36,16 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
     "strReportType must be length 1" = length(strReportType) == 1
   )
 
-  # set filtering value for lAssessments
+
+# filter based on report type ---------------------------------------------
   if (strReportType == "site") {
     grep_value <- "kri"
+    table_dropdown_label <- "Sites"
   }
 
   if (strReportType == "country") {
     grep_value <- "cou"
+    table_dropdown_label <- "Countries"
   }
 
   study <- lAssessments[grep(grep_value, names(lAssessments))]
@@ -47,99 +55,19 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
 
 
   # create reference table --------------------------------------------------
-
-  reference_table <- study %>%
-    purrr::map(function(kri) {
-      name <- kri$name
-
-      # driven by gsm::meta_workflow
-      # if custom workflowids are used, custom labels will not be added
-      # TODO: can possibly refine to be driven by custom meta_workflow, but will need some refactoring
-      kri_labels <- assign_tooltip_labels(name)
-
-      kri$lResults$lData$dfSummary %>%
-        mutate(across(where(is.numeric), function(x) round(x, digits = 3))) %>%
-        imap_dfr(function(x, y) {
-          if (!is.null(kri_labels)) {
-            if (y == "Numerator") {
-              y <- kri_labels$numerator
-            }
-
-            if (y == "Denominator") {
-              y <- kri_labels$denominator
-            }
-          }
-
-          paste0(y, ": ", x)
-        }) %>%
-        rowwise() %>%
-        tidyr::unite("summary", sep = "\n", remove = FALSE) %>%
-        mutate(GroupID = as.character(gsub("GroupID: ", "", .data$GroupID))) %>%
-        select("GroupID", "summary") %>%
-        rename(!!name := summary)
-    }) %>%
-    purrr::reduce(left_join, by = "GroupID") %>%
-    rowwise() %>%
-    mutate("Red KRIs" = {
-      x <- c_across(-"GroupID")
-      sum(x %in% c(2, -2))
-    }) %>%
-    mutate("Amber KRIs" = {
-      x <- c_across(-c("GroupID", "Red KRIs"))
-      sum(x %in% c(1, -1))
-    }) %>%
-    ungroup() %>%
-    mutate(
-      "Subjects" = 0
-    ) %>%
-    select(
-      "Site" = "GroupID",
-      "Subjects",
-      "Red KRIs",
-      "Amber KRIs",
-      everything()
-    ) %>%
-    arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`))
-
-
-
+  reference_table <- make_reference_table(study)
 
   # create overview table ---------------------------------------------------
+  overview_table <- make_overview_table(study)
 
-  overview_table <- study %>%
-    purrr::map(function(kri) {
-      name <- kri$name
-
-      kri$lResults$lData$dfSummary %>%
-        select("GroupID", "Flag") %>%
-        rename(!!name := Flag)
-    }) %>%
-    purrr::reduce(left_join, by = "GroupID") %>%
-    rowwise() %>%
-    mutate("Red KRIs" = {
-      x <- c_across(-"GroupID")
-      sum(x %in% c(2, -2))
-    }) %>%
-    mutate("Amber KRIs" = {
-      x <- c_across(-c("GroupID", "Red KRIs"))
-      sum(x %in% c(1, -1))
-    }) %>%
-    ungroup() %>%
-    select(
-      "Site" = "GroupID",
-      "Red KRIs",
-      "Amber KRIs",
-      everything()
-    ) %>%
-    arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`))
-
+  # add `Active` column if CTMS data exists ---------------------------------
   # if study_site data.frame is passed through from CTMS.
   # add `Active` column
   if (!is.null(dfSite)) {
     overview_table <- overview_table %>%
       left_join(
-        dfSite %>% select("siteid", "Country" = "country", "Status" = "status"),
-        by = c("Site" = "siteid")
+        dfSite %>% select("site_num", "Country" = "country", "Status" = "status"),
+        by = c("Site" = "site_num")
       ) %>%
       select(
         "Site",
@@ -204,11 +132,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
       })
   }
 
-
-
-
   # create lookup tables ----------------------------------------------------
-
   abbreviation_lookup <- create_lookup_table(
     table = overview_table,
     select_columns = c("abbreviation", "value")
@@ -241,26 +165,35 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
       by = "Site"
     )
 
-
-
   # TODO: this could disagree with `status_site$enrolled_participants`
   # Add # of subjects to overview table.
-  dfSUBJ <- study[[1]]$lData$dfSUBJ
+  if (!is.null(dfSite)) {
+    if ('enrolled_participants' %in% names(dfSite)) {
+        if (strReportType == 'site') {
+            overview_table[["Subjects"]] <- overview_table$Site %>%
+                map_int(~ dfSite %>%
+                    filter(.data$siteid == .x) %>%
+                    pull(.data$enrolled_participants)
+                )
+        } else {
+            dfCountry <- Country_Map_Raw(dfSite)
 
-  overview_table[["Subjects"]] <- overview_table$Site %>%
-    map_int(~ dfSUBJ %>%
-      filter(.data$siteid == .x) %>%
-      nrow())
+            overview_table[["Subjects"]] <- overview_table$Site %>%
+                map_int(~ dfCountry %>%
+                    filter(.data$country == .x) %>%
+                    pull(.data$enrolled_participants)
+                )
+        }
 
-  overview_table <- relocate(
-    overview_table,
-    "Subjects",
-    .before = "Red KRIs"
-  )
-
+        overview_table <- relocate(
+            overview_table,
+            "Subjects",
+            .before = "Red KRIs"
+        )
+    }
+  }
 
   # HTML table --------------------------------------------------------------
-
   if (bInteractive) {
     n_headers <- ncol(overview_table %>% select(-ends_with("_hovertext")))
     kri_index <- n_headers - length(study)
@@ -280,9 +213,9 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
 
     # Enable tooltips for cells
     tooltipCallback <- "
-    function(settings) {
-      var table = settings.oInstance.api();
-      var tdElements = table.table().container().querySelectorAll('td');
+    function() {
+      let overviewTable = document.querySelector('.tbl-rbqm-study-overview')
+      let tdElements = overviewTable.querySelectorAll('td')
 
       tdElements.forEach(function(td) {
         var titleElement = td.querySelector('title');
@@ -292,6 +225,7 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
       });
     }
   "
+
     # add hovertext to KRI signals
     overview_table <- overview_table %>%
       mutate(across(
@@ -331,20 +265,70 @@ Overview_Table <- function(lAssessments, dfSite = NULL, strReportType = "site", 
         rename("Country" = "Site")
     }
 
+    # find the index of the first occurance of `Amber KRIs` == 0 & `Red KRIs` == 0
+    # -- this happens after the table is sorted (descending) on these columns
+    # -- this will only show the sites with flagged KRIs in the table, with a "show all" option
+
+    end_of_red_kris <- which(overview_table$`Red KRIs` == 0)[1] - 1
+    end_of_red_and_amber_kris <- which(overview_table$`Amber KRIs` == 0 & overview_table$`Red KRIs` == 0)[1] - 1
+
+    # caption to show number of flagged out of total
+    group_type_for_caption <- ifelse(strReportType == "country", "countries", "sites")
+
+    # calculate and format the percentage of flagged sites of the total
+    percentage_red <- sprintf("%0.1f%%", end_of_red_kris / nrow(overview_table) * 100)
+    percentage_red_amber <- sprintf("%0.1f%%", end_of_red_and_amber_kris / nrow(overview_table) * 100)
+
+    # construct the caption with this format:
+    # -- 'X' of 'Y' 'GROUP's flagged. (Z% of total).
+    overview_table_flagged_caption <- glue::glue("
+        {end_of_red_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one <strong>red</strong> KRI ({percentage_red} of total).<br>
+        {end_of_red_and_amber_kris} of {nrow(overview_table)} {group_type_for_caption} with at least one <strong>red or amber</strong> KRI ({percentage_red_amber} of total).
+    ")
+
+
+    # let's just show all countries in the drop-down for now
+    # countries will probably have less flagged KRIs and are easier to sort/read through
+    if (strReportType == "country") {
+      lengthMenuOptions <- NULL
+
+    } else {
+      lengthMenuOptions <- list(
+        c(end_of_red_kris, end_of_red_and_amber_kris, -1),
+        c("Red", "Red & Amber", "All")
+      )
+    }
+
+
+    # HTML/JS options for DT
     overview_table <- overview_table %>%
       DT::datatable(
         class = "compact tbl-rbqm-study-overview",
-        options = list(
-          columnDefs = list(list(
-            className = "dt-center",
-            targets = 0:(n_headers - 1)
-          )),
-          headerCallback = JS(headerCallback),
-          initComplete = JS(tooltipCallback)
-        ),
         rownames = FALSE,
-        escape = FALSE
+        escape = FALSE,
+        caption = HTML(overview_table_flagged_caption),
+        options = list(
+          language = list(
+            lengthMenu = paste0("Showing _MENU_ ", table_dropdown_label)
+          ),
+          columnDefs = list(
+            list(
+              className = "dt-center",
+              targets = 0:(n_headers - 1),
+              orderable = FALSE
+            )
+          ),
+          headerCallback = JS(headerCallback),
+          drawCallback = JS(tooltipCallback),
+          pageLength = ifelse(strReportType == "site", end_of_red_kris, nrow(overview_table)),
+          lengthMenu = lengthMenuOptions,
+          searching = FALSE,
+          dom = 'lf',
+          info = FALSE
+        )
       )
+
+
   } else {
     overview_table <- overview_table %>%
       select(-ends_with("_hovertext"))
@@ -398,3 +382,95 @@ drop_column_with_several_na <- function(table, column) {
 
   return(table)
 }
+
+
+make_reference_table <- function(study) {
+
+  reference_table <- study %>%
+    purrr::map(function(kri) {
+      name <- kri$name
+
+      # driven by gsm::meta_workflow
+      # if custom workflowids are used, custom labels will not be added
+      # TODO: can possibly refine to be driven by custom meta_workflow, but will need some refactoring
+      kri_labels <- assign_tooltip_labels(name)
+
+      kri$lResults$lData$dfSummary %>%
+        mutate(across(where(is.numeric), function(x) round(x, digits = 3))) %>%
+        imap_dfr(function(x, y) {
+          if (!is.null(kri_labels)) {
+            if (y == "Numerator") {
+              y <- kri_labels$numerator
+            }
+
+            if (y == "Denominator") {
+              y <- kri_labels$denominator
+            }
+          }
+
+          paste0(y, ": ", x)
+        }) %>%
+        rowwise() %>%
+        tidyr::unite("summary", sep = "\n", remove = FALSE) %>%
+        mutate(GroupID = as.character(gsub("GroupID: ", "", .data$GroupID))) %>%
+        select("GroupID", "summary") %>%
+        rename(!!name := summary)
+    }) %>%
+    purrr::reduce(left_join, by = "GroupID") %>%
+    rowwise() %>%
+    mutate("Red KRIs" = {
+      x <- c_across(-"GroupID")
+      sum(x %in% c(2, -2))
+    }) %>%
+    mutate("Amber KRIs" = {
+      x <- c_across(-c("GroupID", "Red KRIs"))
+      sum(x %in% c(1, -1))
+    }) %>%
+    ungroup() %>%
+    mutate(
+      "Subjects" = 0
+    ) %>%
+    select(
+      "Site" = "GroupID",
+      "Subjects",
+      "Red KRIs",
+      "Amber KRIs",
+      everything()
+    ) %>%
+    arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`))
+
+  return(reference_table)
+}
+
+make_overview_table <- function(study) {
+  overview_table <- study %>%
+    purrr::map(function(kri) {
+      name <- kri$name
+
+      kri$lResults$lData$dfSummary %>%
+        select("GroupID", "Flag") %>%
+        rename(!!name := Flag)
+    }) %>%
+    purrr::reduce(left_join, by = "GroupID") %>%
+    rowwise() %>%
+    mutate("Red KRIs" = {
+      x <- c_across(-"GroupID")
+      sum(x %in% c(2, -2))
+    }) %>%
+    mutate("Amber KRIs" = {
+      x <- c_across(-c("GroupID", "Red KRIs"))
+      sum(x %in% c(1, -1))
+    }) %>%
+    ungroup() %>%
+    select(
+      "Site" = "GroupID",
+      "Red KRIs",
+      "Amber KRIs",
+      everything()
+    ) %>%
+    arrange(desc(.data$`Red KRIs`), desc(.data$`Amber KRIs`))
+
+  return(overview_table)
+}
+
+
