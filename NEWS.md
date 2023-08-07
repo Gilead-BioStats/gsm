@@ -1,3 +1,15 @@
+# gsm v1.8.0
+
+This is potentially the first open-source release for `{gsm}`! 🥳
+
+This release includes updates to prepare for an open-source release, reporting updates, a minor `Make_Snapshot()` refactor to make it more modular, and minor utility function and metadata updates. 
+
+### Reporting
+- `Overview_Table()` removes pagination in favor of a drop-down selector for all *red* KRIs, *red & amber* KRIS, and *all* sites/countries/<<group>>.
+- `Make_Timeline()` adds a visualization to show key events from CTMS data. This is slated to be included in standard reporting via `Study_Report()` in `v1.8.1`.
+
+
+
 # gsm v1.7.4
 
 This release includes updates to prepare for an open-source release, minor bug fixes, and reporting updates. 
