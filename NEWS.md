@@ -119,7 +119,7 @@ This release includes changes to Protocol Deviation mapping and analysis, signif
 
 ### Reporting
 - New feature added to the output of `Study_Report()` to highlight an individual site/group in any given visualization.
-- New feature added to the output of `Study_Report()` to hightlight an individual site/group across all visualizations.
+- New feature added to the output of `Study_Report()` to highlight an individual site/group across all visualizations.
 
 # gsm v1.4.1
 
@@ -152,7 +152,7 @@ This release introduces five new KRIs, the inclusion of interactive widgets port
 
 # gsm v1.3.2
 
-This minor release includes updates to the data model that is passed to Gismo via `Make_Snapshot()`
+This minor release includes updates to the data model that is passed to a web application framework via `Make_Snapshot()`
 - All CTMS metadata is passed through via `lMeta$status_study` and `lMeta$status_site`
 - `config_schedule`/`status_schedule` are removed as inputs/outputs to `Make_Snapshot()`
 
