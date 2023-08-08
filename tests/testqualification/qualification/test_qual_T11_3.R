@@ -1,4 +1,4 @@
-test_that("Raw+ Adverse Event data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the number of Adverse Events and days of treatment exposure per subject.", {
+test_that("rawplus Adverse Event data can be mapped correctly to create an analysis-ready input dataset which accurately calculates the number of Adverse Events and days of treatment exposure per subject.", {
   ########### gsm mapping ###########
   observed <- gsm::AE_Map_Raw()
 

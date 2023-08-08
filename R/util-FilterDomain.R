@@ -10,7 +10,7 @@
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param strColParam `character` Domain in `lMapping` that references the column to filter on.
 #' @param strValParam `character` Domain in `lMapping` that references the value to filter on.
-#' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`.
+#' @param bReturnChecks `logical` Return input checks from `is_mapping_valid()`? Default: `FALSE`.
 #' @param bRemoveVal `logical` Include the ability to subset on a value or its complement? Default: `FALSE`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'

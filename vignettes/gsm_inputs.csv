@@ -1,5 +1,5 @@
 Table Source,Table Name,Structure,Description,Sample Data Equivalent
-Raw+,{various}*,{various}*,Data for clinical KRIs/QTLs,*
+rawplus,{various}*,{various}*,Data for clinical KRIs/QTLs,*
 RAVE,{various}*,{various}*,Data for operational KRIs/QTLs,*
 CTMS,meta_study,Study,Study metadata,clindata::ctms_study
 CTMS,meta_site,Study/Site,Site metadata,clindata::ctms_site

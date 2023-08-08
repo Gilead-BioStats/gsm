@@ -1,4 +1,4 @@
-test_that("Raw+ Labs data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and abnormal lab data with one record per subject, omitting subjects with no reported lab values.", {
+test_that("rawplus Labs data can be mapped correctly to create an analysis-ready input dataset that has properly merged demographics and abnormal lab data with one record per subject, omitting subjects with no reported lab values.", {
   ########### gsm mapping ###########
   observed <- gsm::LB_Map_Raw()
 

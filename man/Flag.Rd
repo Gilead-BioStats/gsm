@@ -7,7 +7,7 @@
 Flag(dfAnalyzed, strColumn = "Score", vThreshold = NULL, strValueColumn = NULL)
 }
 \arguments{
-\item{dfAnalyzed}{\code{data.frame} A data.frame where flags should be added.}
+\item{dfAnalyzed}{\code{data.frame} where flags should be added.}
 
 \item{strColumn}{\code{character} Name of the column to use for thresholding. Default: \code{"Score"}}
 

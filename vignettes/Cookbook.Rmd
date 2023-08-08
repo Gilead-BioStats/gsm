@@ -68,7 +68,7 @@ library(clindata)
 library(gsm)
 
 ## Map domain-level data to the input data standard for the selected assessment.
-## In this case, we are making dfInput from Raw+ clinical data
+## In this case, we are making dfInput from rawplus clinical data
 dfInput <- AE_Map_Raw()
 
 ## Run the assessment with the appropriate statistical model.
@@ -166,7 +166,7 @@ library(safetyData)
 multiple_assessments <- Study_Assess()
 ```
 
-### Using User-Provided Raw+ Data
+### Using User-Provided rawplus Data
 
 User-provided rawplus data will likely come from rawplus case report data. The example below illustrates that a user can pass a named list of rawplus data to the `lData` parameter. 
 
@@ -183,7 +183,7 @@ dfAE <- clindata::rawplus_ae %>%
     aetoxgr != "MILD"
   )
 
-## Specify Raw+ data domains
+## Specify rawplus data domains
 dfSUBJ <- clindata::rawplus_dm
 dfIE <- clindata::rawplus_ie
 dfPD <- clindata::ctms_protdev
@@ -396,7 +396,7 @@ After setting up the custom YAML mapping, there are a few more steps a user must
 2.  Overwrite `lAssessmentsCustom$kri0001` with the custom YAML file (`ae_assessment_moderate.yaml`).
 3.  Add a name value to the custom assessment list.
 4.  Add a relative path to the custom assessment list, to show where the custom YAML file is stored.
-5.  Read in the default Raw+ mappings from `{clindata}`.
+5.  Read in the default rawplus mappings from `{clindata}`.
 6.  Add the value to sort `strTypeCol` on.
 7.  Run the `Study_Assess()` workflow.
 
