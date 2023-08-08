@@ -45,7 +45,7 @@
 #'
 #' @param yaxis either \code{'score'} or \code{'metric'}
 #' @param selectedGroupIDs group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
-#' @param addSiteSelect add a dropdown to highlight sites?
+#' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
 #' @param width width of widget, full screen by default
 #' @param height height of widget, calculated based on width
 #' @param elementId ID of container HTML element

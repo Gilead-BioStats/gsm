@@ -1,4 +1,4 @@
-test_that("Raw+ Adverse Event data can be mapped correctly to create an analysis-ready input dataset that has all required columns in the default Raw+ mapping specifications.", {
+test_that("rawplus Adverse Event data can be mapped correctly to create an analysis-ready input dataset that has all required columns in the default rawplus mapping specifications.", {
   ########### gsm mapping ###########
   observed <- gsm::AE_Map_Raw()
 

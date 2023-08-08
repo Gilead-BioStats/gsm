@@ -26,7 +26,7 @@
 #' The following column is considered optional:
 #' - `strValueColumn` - A column to be used for the sign/directionality of the flagging
 #'
-#' @param dfAnalyzed `data.frame` A data.frame where flags should be added.
+#' @param dfAnalyzed `data.frame` where flags should be added.
 #' @param strColumn `character` Name of the column to use for thresholding. Default: `"Score"`
 #' @param vThreshold `numeric` Vector of 2 numeric values representing lower and upper threshold values. All
 #' values in `strColumn` are compared to `vThreshold` using strict comparisons. Values less than

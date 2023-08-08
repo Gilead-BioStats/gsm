@@ -26,7 +26,7 @@ FilterDomain(
 
 \item{strValParam}{\code{character} Domain in \code{lMapping} that references the value to filter on.}
 
-\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}.}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid()}? Default: \code{FALSE}.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 

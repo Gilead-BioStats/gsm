@@ -14,7 +14,7 @@ ExportCode(
 )
 }
 \arguments{
-\item{lData}{\code{list} Raw+ data to use as inputs.}
+\item{lData}{\code{list} rawplus data to use as inputs.}
 
 \item{lMapping}{\code{list} Standard mapping provided for \code{\link[=FilterDomain]{FilterDomain()}} and \verb{*_Map_Raw()} functions.}
 

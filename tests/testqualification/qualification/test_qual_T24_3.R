@@ -1,4 +1,4 @@
-test_that("Raw+ Protocol Deviation data can be mapped correctly to create an analysis-ready input dataset, which accurately indicates if there are Protocol Deviations associated with each subject (0 = no associated Protocol Deviations, 1 = associated Protocol Deviations).", {
+test_that("rawplus Protocol Deviation data can be mapped correctly to create an analysis-ready input dataset, which accurately indicates if there are Protocol Deviations associated with each subject (0 = no associated Protocol Deviations, 1 = associated Protocol Deviations).", {
   ########### gsm mapping ###########
   observed <- gsm::PD_Map_Raw_Binary()
 
