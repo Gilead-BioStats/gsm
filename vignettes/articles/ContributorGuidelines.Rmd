@@ -73,11 +73,6 @@ Code developers for `{gsm}` use the [tidyverse style guide](https://style.tidyve
     styler::style_dir('R', transformers = double_indent_style)
     styler::style_dir('tests', recursive = TRUE, transformers = double_indent_style)
 
-Instead of copying/pasting the code above, a wrapper function in `{gutil}` can be used by running:
-
-    devtools::install_github('Gilead-BioStats/gutil')
-    gutil::style_code()
-
 # Appendix 1 - Detailed Workflows
 
 ## `fix` Branch Workflow {#fix-branch-workflow}
