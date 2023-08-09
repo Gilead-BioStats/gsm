@@ -7,7 +7,7 @@
 #'
 #' @details
 #' This function flags sites based on the funnel plot with normal approximation analysis result as part of
-#' the [GSM data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
+#' the [GSM data pipeline](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html).
 #'
 #' @section Data Specification:
 #' \code{Flag_NormalApprox} is designed to support the input data (`dfAnalyzed`) from \code{Analyze_NormalApprox} function.

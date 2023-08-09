@@ -5,7 +5,7 @@
 #' @description
 #' `Make_Snapshot()` ingests data from a variety of sources, and runs KRIs and/or QTLs based on the `list` provided in `lAssessments`.
 #'
-#' For more context about the inputs and outputs of `Make_Snapshot()`, refer to the [GSM Data Pipeline Vignette](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html), specifically
+#' For more context about the inputs and outputs of `Make_Snapshot()`, refer to the [GSM Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html), specifically
 #' Appendix 2 - Data Model Specifications
 #'
 #' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study.

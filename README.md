@@ -6,7 +6,7 @@
 
 # Good Statistical Monitoring {gsm} R package
 
-The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This README provides a high-level overview of {gsm}; see the [package website](silver-potato-cfe8c2fb.pages.github.io/) for additional details.
+The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This README provides a high-level overview of {gsm}; see the [package website](https://gilead-biostats.github.io/gsm/) for additional details.
 
 # Background 
 
@@ -43,7 +43,7 @@ All {gsm} assessments use a standardized 6 step data pipeline:
 5.  **Flag** - Uses `analyzed` data and numeric `thresholds` to create `flagged` data.
 6.  **Summarize** - Selects key columns from `flagged` data to create `summary` data.
 
-To learn more about {gsm}'s data pipeline, visit the [Data Pipeline Vignette](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
+To learn more about {gsm}'s data pipeline, visit the [Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html).
 
 # Quality Control
 
@@ -62,4 +62,4 @@ Since {gsm} is designed for use in a [GCP](https://en.wikipedia.org/wiki/Good_cl
 - **Regression Testing** - Extensive QC and testing is done before each release. 
 - **Code Formatting** - Code is formatted with {styler} before each release. 
  
-Additional detail, including links to functional documentation and vignettes, is available in the [package website](https://silver-potato-cfe8c2fb.pages.github.io/).
+Additional detail, including links to functional documentation and vignettes, is available in the [package website](https://gilead-biostats.github.io/gsm/).

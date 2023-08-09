@@ -22,7 +22,7 @@ Identity Analysis.
 \details{
 Used in the data pipeline between \code{Transform} and \code{Flag} to rename KRI and Score columns.
 
-More information can be found in \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/KRI\%20Method.html#the-identity-method}{The Identity Method}
+More information can be found in \href{https://gilead-biostats.github.io/gsm/articles/KRI\%20Method.html#the-identity-method}{The Identity Method}
 of the KRI Method vignette.
 }
 \section{Data Specification}{

@@ -33,7 +33,7 @@ method is used.
 Flag
 
 This function provides a generalized framework for flagging sites as part of the
-\href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
+\href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.
 }
 \section{Data Specification}{
 

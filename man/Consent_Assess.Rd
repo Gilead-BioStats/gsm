@@ -64,7 +64,7 @@ Evaluates sites where subject consent was:
 \details{
 Consent Assessment
 
-The Consent Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag sites with consent issues. Additional details regarding the data pipeline and statistical methods are described below.
+The Consent Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag sites with consent issues. Additional details regarding the data pipeline and statistical methods are described below.
 }
 \section{Data specification}{
 \tabular{lllll}{

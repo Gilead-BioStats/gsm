@@ -61,9 +61,7 @@ Make_Timeline <- function(study, n_breaks = 10, date_format = "%b\n%Y") {
         legend.key = element_rect(fill = "white"),
         legend.text.align = 0,
         legend.direction = "horizontal",
-        # legend.background = element_rect(linetype = 1, linewidth = .35, color = "black"),
         legend.text = element_text(size = 8),
-        # legend.title = element_blank(),
         legend.margin = margin(
           t = 1,
           r = 1,
@@ -83,7 +81,7 @@ Make_Timeline <- function(study, n_breaks = 10, date_format = "%b\n%Y") {
     }
 
     # Generate Plot
-    a <- ggplot(d, aes(date, disp)) +
+    a <- ggplot(d, aes_string(d$date, d$disp)) +
       scale_x_date(
         date_labels = date_format,
         limits = c(
@@ -104,8 +102,8 @@ Make_Timeline <- function(study, n_breaks = 10, date_format = "%b\n%Y") {
       ) +
       ggiraph::geom_point_interactive(
         aes(
-          color = label,
-          shape = estimate
+          color = .data$label,
+          shape = .data$estimate
         ),
         size = 3
       ) +
