@@ -133,12 +133,19 @@ Make_Snapshot <- function(
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
+
+    snapshot <- list(
+      lSnapshotDate = gsm_analysis_date,
+      lSnapshot = lSnapshot,
+      lStudyAssessResults = lResults,
+      lInputs = list(lMeta = lMeta,
+                     lData = lData,
+                     lMapping = lMapping,
+                     lAssessments = lAssessments)
+    )
+
 # return snapshot ---------------------------------------------------------
-  snapshot <- list(
-    lSnapshotDate = gsm_analysis_date,
-    lSnapshot = lSnapshot,
-    lStudyAssessResults = lResults
-  )
+
 
   return(snapshot)
 }
