@@ -84,7 +84,6 @@ Test cases for `{gsm}` are written using the standard `testthat` workflow. A sin
 ```{r}
 spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R", full.names = TRUE)
 spec_list <- spec_list[-1]
-# spec_list <- spec_list[1:15]
 
 scrape <- map_df(spec_list, function(x) {
     testResultsRaw <- testthat::test_file(x, reporter = testthat::ListReporter, package = "gsm") %>% 
@@ -112,7 +111,7 @@ testResultsIndividual <- left_join(scrape, funcs, by = "Tests") %>%
   arrange(`Function Name`) %>%
   select(-Function)
 
-scrape_new <-left_join(scrape, funcs, by = "Tests") 
+scrape_new <- left_join(scrape, funcs, by = "Tests") 
 
 knitr::kable(testResultsIndividual, booktabs = TRUE, longtable = TRUE) %>%
   kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),

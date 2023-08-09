@@ -48,7 +48,7 @@ For the purposes of this documentation, we will evaluate the input(s) and output
 
 ## Case Study - Step-by-Step Adverse Event KRI
 
-We will use sample clinical data from the `{clindata}` package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`, using the normal approximation method.
+We will use sample clinical data from the [`{clindata}`](https://github.com/Gilead-BioStats/clindata) package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`, using the normal approximation method.
 
 Additional statistical methods and supporting functions are explored in [Appendix 1](#appendix-1).
 
@@ -242,7 +242,7 @@ The following sections include various examples of supporting functions and stat
 
 ### What Statistical Models Are Available For Each Assessment?
 
--   By default, all assessments use the normal approximation method.
--   Optionally, other statistical methods include: **Poisson**, **Fisher**, and **Identity**.
+-   By default, all assessments use the [normal approximation](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-normal-approximation-method) method.
+-   Optionally, other statistical methods include: [**Poisson**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-poisson-regression-method), [**Fisher's Exact**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-fishers-exact-method), and [**Identity**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-identity-method).
 
 ![](data-analysis-combined.PNG){width="100%"}
