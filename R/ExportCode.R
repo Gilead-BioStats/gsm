@@ -35,6 +35,7 @@
 #' @importFrom glue glue glue_collapse
 #' @importFrom purrr map imap flatten
 #' @importFrom stringr str_detect
+#' @importFrom styler style_text
 #'
 #' @export
 ExportCode <- function(lData,

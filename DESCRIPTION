@@ -44,6 +44,7 @@ Imports:
     rmarkdown,
     rstudioapi,
     stringr,
+    styler,
     tibble,
     tidyr,
     yaml,
