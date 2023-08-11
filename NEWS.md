@@ -1,6 +1,6 @@
 # gsm v1.8.0
 
-This is potentially the first open-source release for `{gsm}`! 🥳
+This is the first open-source release for `{gsm}`! 🥳
 
 This release includes updates to prepare for an open-source release, reporting updates, a minor `Make_Snapshot()` refactor to make it more modular, and minor utility function and metadata updates. 
 
