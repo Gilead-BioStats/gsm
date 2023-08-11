@@ -12,6 +12,7 @@
 #' @param strReportType `character` The type of report to be generated. Valid values:
 #'   - `"site"` for site-level KRI summary (default)
 #'   - `"country"` for country-level KRI summary
+#'   - `"QTL"` for QTL summary
 #'
 #' @return HTML report of study data.
 #'
@@ -57,7 +58,7 @@ Study_Report <- function(
 
   # input check
   stopifnot(
-    "strReportType is not 'site' or 'country'" = strReportType %in% c("site", "country"),
+    "strReportType is not 'site' or 'country' or 'QTL'" = strReportType %in% c("site", "country", "QTL"),
     "strReportType must be length 1" = length(strReportType) == 1
   )
 
@@ -67,6 +68,9 @@ Study_Report <- function(
 
   } else if (is.null(strOutpath) & strReportType == "country") {
     strOutpath <- paste0(getwd(), "/gsm_country_report.html")
+
+  } else if (is.null(strOutpath) & strReportType == "QTL") {
+    strOutpath <- paste0(getwd(), "/gsm_QTL_report.html")
   }
 
   # set Rmd template
@@ -74,6 +78,8 @@ Study_Report <- function(
     projectTemplate <- system.file("report", "KRIReportBySite.Rmd", package = "gsm")
   } else if (strReportType == "country") {
     projectTemplate <- system.file("report", "KRIReportByCountry.Rmd", package = "gsm")
+  } else if (strReportType == "QTL") {
+    projectTemplate <- system.file("report", "KRIReportByQTL.Rmd", package = "gsm")
   }
 
   # render

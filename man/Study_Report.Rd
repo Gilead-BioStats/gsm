@@ -25,6 +25,7 @@ Study_Report(
 \itemize{
 \item \code{"site"} for site-level KRI summary (default)
 \item \code{"country"} for country-level KRI summary
+\item \code{"QTL"} for QTL summary
 }}
 }
 \value{
