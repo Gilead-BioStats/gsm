@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
       </span>
     </div>
 
@@ -81,7 +81,12 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeWorkflowList</span><span class="op">(</span>strNames <span class="op">=</span> <span class="cn">NULL</span>, strPath <span class="op">=</span> <span class="cn">NULL</span>, bRecursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeWorkflowList</span><span class="op">(</span></span>
+<span>  strNames <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  strPath <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bRecursive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  lMeta <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,6 +101,11 @@
 
 <dt>bRecursive</dt>
 <dd><p><code>logical</code> Find files in nested folders? Default FALSE.</p></dd>
+
+
+<dt>lMeta</dt>
+<dd><p><code>list</code> a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
+See the Data Model Vignette - Appendix 2 - Data Model Specifications for detailed specifications.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -127,7 +137,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson.</p>
 </div>
 
 <div class="pkgdown">

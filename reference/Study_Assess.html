@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
       </span>
     </div>
 
@@ -81,13 +81,20 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Study_Assess</span><span class="op">(</span>lData <span class="op">=</span> <span class="cn">NULL</span>, lMapping <span class="op">=</span> <span class="cn">NULL</span>, lAssessments <span class="op">=</span> <span class="cn">NULL</span>, bQuiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Study_Assess</span><span class="op">(</span></span>
+<span>  lData <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lMapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lAssessments <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bLogOutput <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  strLogFileName <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>lData</dt>
-<dd><p><code>list</code> a named list of domain level data frames. Names should match the values specified in <code>lMapping</code> and <code>lAssessments</code>, which are generally based on the expected inputs from <code>X_Map_Raw</code>.</p></dd>
+<dd><p><code>list</code> A named list of domain level data frames. Names should match the values specified in <code>lMapping</code> and <code>lAssessments</code>, which are generally based on the expected inputs from <code>X_Map_Raw</code>.</p></dd>
 
 
 <dt>lMapping</dt>
@@ -95,11 +102,19 @@
 
 
 <dt>lAssessments</dt>
-<dd><p><code>list</code> a named list of metadata defining how each assessment should be run. By default, <code><a href="MakeWorkflowList.html">MakeWorkflowList()</a></code> imports YAML specifications from <code>inst/workflow</code>.</p></dd>
+<dd><p><code>list</code> A named list of metadata defining how each assessment should be run. By default, <code><a href="MakeWorkflowList.html">MakeWorkflowList()</a></code> imports YAML specifications from <code>inst/workflow</code>.</p></dd>
 
 
 <dt>bQuiet</dt>
 <dd><p><code>logical</code> Suppress warning messages? Default: <code>TRUE</code></p></dd>
+
+
+<dt>bLogOutput</dt>
+<dd><p><code>logical</code> Send console output to log file? Default: <code>FALSE</code>. Note: Setting <code>bQuiet = FALSE</code> is recommended if logging your output.</p></dd>
+
+
+<dt>strLogFileName</dt>
+<dd><p><code>character</code> File name for log file.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -129,7 +144,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson.</p>
 </div>
 
 <div class="pkgdown">

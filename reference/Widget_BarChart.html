@@ -18,7 +18,7 @@ Bar charts are provided by default in any Assess function, and are suffixed with
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
       </span>
     </div>
 
@@ -92,7 +92,8 @@ Bar charts are provided by default in any Assess function, and are suffixed with
 <span>  addSiteSelect <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  elementId <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  elementId <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  siteSelectLabelValue <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -144,7 +145,7 @@ Bar charts are provided by default in any Assess function, and are suffixed with
 
 
 <dt>addSiteSelect</dt>
-<dd><p>add a dropdown to highlight sites?</p></dd>
+<dd><p><code>logical</code> add a dropdown to highlight sites? Default: <code>TRUE</code>.</p></dd>
 
 
 <dt>width</dt>
@@ -157,6 +158,10 @@ Bar charts are provided by default in any Assess function, and are suffixed with
 
 <dt>elementId</dt>
 <dd><p>ID of container HTML element</p></dd>
+
+
+<dt>siteSelectLabelValue</dt>
+<dd><p>Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted siteSelectLabelValue: '.</p></dd>
 
 </dl></div>
     <div id="details">
@@ -217,7 +222,7 @@ Bar charts are provided by default in any Assess function, and are suffixed with
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson.</p>
 </div>
 
 <div class="pkgdown">

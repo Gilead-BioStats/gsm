@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
       </span>
     </div>
 
@@ -75,6 +75,29 @@
       <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.8.0" id="gsm-v180">gsm v1.8.0<a class="anchor" aria-label="anchor" href="#gsm-v180"></a></h2>
+<p>This is the first open-source release for <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>! 🥳</p>
+<p>This release includes updates to prepare for an open-source release, reporting updates, a minor <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> refactor to make it more modular, and minor utility function and metadata updates.</p>
+<div class="section level4">
+<h4 id="reporting-1-8-0">Reporting<a class="anchor" aria-label="anchor" href="#reporting-1-8-0"></a></h4>
+<ul><li>
+<code><a href="../reference/Overview_Table.html">Overview_Table()</a></code> removes pagination in favor of a drop-down selector for all <em>red</em> KRIs, <em>red &amp; amber</em> KRIS, and <em>all</em> sites/countries/&lt;<group>&gt;.</group></li>
+<li>
+<code><a href="../reference/Make_Timeline.html">Make_Timeline()</a></code> adds a visualization to show key events from CTMS data. This is slated to be included in standard reporting via <code><a href="../reference/Study_Report.html">Study_Report()</a></code> in <code>v1.8.1</code>.</li>
+<li>A new country report is available for use, but has not been thoroughly tested.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="make_snapshot-refactor-1-8-0">
+<code>Make_Snapshot()</code> Refactor<a class="anchor" aria-label="anchor" href="#make_snapshot-refactor-1-8-0"></a></h4>
+<ul><li>New functions have been created so that the internals of <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> are more modularized.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="logging-1-8-0">Logging<a class="anchor" aria-label="anchor" href="#logging-1-8-0"></a></h4>
+<ul><li>
+<code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> gains a new parameter <code>bLogOutput</code>, which will divert console output to a <code>.log</code> file.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.4" id="gsm-v174">gsm v1.7.4<a class="anchor" aria-label="anchor" href="#gsm-v174"></a></h2>
 <p>This release includes updates to prepare for an open-source release, minor bug fixes, and reporting updates.</p>
@@ -211,7 +234,7 @@
 <div class="section level4">
 <h4 id="reporting-1-5-0">Reporting<a class="anchor" aria-label="anchor" href="#reporting-1-5-0"></a></h4>
 <ul><li>New feature added to the output of <code><a href="../reference/Study_Report.html">Study_Report()</a></code> to highlight an individual site/group in any given visualization.</li>
-<li>New feature added to the output of <code><a href="../reference/Study_Report.html">Study_Report()</a></code> to hightlight an individual site/group across all visualizations.</li>
+<li>New feature added to the output of <code><a href="../reference/Study_Report.html">Study_Report()</a></code> to highlight an individual site/group across all visualizations.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -247,7 +270,7 @@
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.2" id="gsm-v132">gsm v1.3.2<a class="anchor" aria-label="anchor" href="#gsm-v132"></a></h2>
-<p>This minor release includes updates to the data model that is passed to Gismo via <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> - All CTMS metadata is passed through via <code>lMeta$status_study</code> and <code>lMeta$status_site</code> - <code>config_schedule</code>/<code>status_schedule</code> are removed as inputs/outputs to <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code></p>
+<p>This minor release includes updates to the data model that is passed to a web application framework via <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> - All CTMS metadata is passed through via <code>lMeta$status_study</code> and <code>lMeta$status_site</code> - <code>config_schedule</code>/<code>status_schedule</code> are removed as inputs/outputs to <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code></p>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.1" id="gsm-v131">gsm v1.3.1<a class="anchor" aria-label="anchor" href="#gsm-v131"></a></h2>
@@ -318,7 +341,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson.</p>
 </div>
 
 <div class="pkgdown">

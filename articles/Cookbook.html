@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
       </span>
     </div>
 
@@ -111,15 +111,14 @@
 </h2>
 <p>This vignette contains a series of examples showing how to run
 analysis workflows for the Good Statistical Monitoring
-<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> package using sample data from
-<code>{clindata}</code>.</p>
+<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> package using sample data from <a href="https://github.com/Gilead-BioStats/clindata" class="external-link"><code>{clindata}</code></a>.</p>
 <p><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> leverages Key Risk Indicators (KRIs) and
 thresholds to conduct study-level and site-level Risk Based Monitoring
 for clinical trials.</p>
-<p>For more information on the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> package see the <a href="https://silver-potato-cfe8c2fb.pages.github.io/" class="external-link">package
-homepage</a>. The <a href="https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette" class="external-link">Data
+<p>For more information on the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> package see the <a href="https://gilead-biostats.github.io/gsm/" class="external-link">package homepage</a>. The
+<a href="https://gilead-biostats.github.io/gsm/articles/DataPipeline.html" class="external-link">Data
 Pipeline Vignette</a> provides additional technical details including
-data specifications and handling of metadata. The <a href="https://github.com/Gilead-BioStats/gsm/wiki/Data-Analysis-Vignette" class="external-link">Data
+data specifications and handling of metadata. The <a href="https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html" class="external-link">Data
 Analysis Vignette</a> provides detailed information about the nested
 functions that support the analysis workflows.</p>
 <div class="section level3">
@@ -170,7 +169,7 @@ assessment (e.g., <code>dfInput &lt;- AE_Map_Raw()</code>)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Map domain-level data to the input data standard for the selected assessment.</span></span>
-<span><span class="co">## In this case, we are making dfInput from Raw+ clinical data</span></span>
+<span><span class="co">## In this case, we are making dfInput from rawplus clinical data</span></span>
 <span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Map_Raw.html">AE_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Run the assessment with the appropriate statistical model.</span></span>
@@ -187,7 +186,7 @@ Data<a class="anchor" aria-label="anchor" href="#example-2---running-a-single-as
 </h3>
 <p>Let’s look at an illustrative example of everything that happens
 behind the scenes when running an individual <code>Assess()</code>
-function. It may be helpful to reference this example alongside the <a href="https://silver-potato-cfe8c2fb.pages.github.io/articles/DataAnalysis.html" class="external-link">Data
+function. It may be helpful to reference this example alongside the <a href="https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html" class="external-link">Data
 Analysis Vignette</a>, which goes into significantly more detail about
 each nested function involved in this workflow. The image below is a
 high-level summary:</p>
@@ -289,19 +288,18 @@ parameter. Users can also provide their own rawplus input data to the
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">safetyData</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
-<h4 id="using-user-provided-raw-data">Using User-Provided Raw+ Data<a class="anchor" aria-label="anchor" href="#using-user-provided-raw-data"></a>
+<h4 id="using-user-provided-rawplus-data">Using User-Provided rawplus Data<a class="anchor" aria-label="anchor" href="#using-user-provided-rawplus-data"></a>
 </h4>
 <p>User-provided rawplus data will likely come from rawplus case report
 data. The example below illustrates that a user can pass a named list of
 rawplus data to the <code>lData</code> parameter.</p>
 <p>It is important to note that <code>lData</code> expects a
 <em>named</em> list. To see a list of default data frame names, run
-<code>gsm::Read_Mapping(strDomain = "rawplus")</code>.</p>
+<code>names(gsm::Read_Mapping())</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
@@ -313,7 +311,7 @@ rawplus data to the <code>lData</code> parameter.</p>
 <span>    <span class="va">aetoxgr</span> <span class="op">!=</span> <span class="st">"MILD"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="co">## Specify Raw+ data domains</span></span>
+<span><span class="co">## Specify rawplus data domains</span></span>
 <span><span class="va">dfSUBJ</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span></span>
 <span><span class="va">dfIE</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ie</span></span>
 <span><span class="va">dfPD</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/ctms_protdev.html" class="external-link">ctms_protdev</a></span></span>
@@ -401,8 +399,9 @@ enhanced <strong>Study Overview</strong> table.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/Study_Report.html">Study_Report</a></span><span class="op">(</span></span>
 <span>  lAssessments <span class="op">=</span> <span class="va">snapshot</span><span class="op">$</span><span class="va">lStudyAssessResults</span>,</span>
-<span>  dfSite <span class="op">=</span> <span class="va">snapshot</span><span class="op">$</span><span class="va">lSnapshot</span><span class="op">$</span><span class="va">status_site</span></span>
-<span>    <span class="op">)</span></span></code></pre></div>
+<span>  dfSite <span class="op">=</span> <span class="va">snapshot</span><span class="op">$</span><span class="va">lSnapshot</span><span class="op">$</span><span class="va">status_site</span>, </span>
+<span>  dfStudy <span class="op">=</span> <span class="va">snapshot</span><span class="op">$</span><span class="va">lSnapshot</span><span class="op">$</span><span class="va">status_study</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -468,7 +467,7 @@ scatter plot that uses the default normal approximation method for
 <div class="section level2">
 <h2 id="custom-mappingyaml-specifications">Custom Mapping/YAML Specifications<a class="anchor" aria-label="anchor" href="#custom-mappingyaml-specifications"></a>
 </h2>
-<p>As mentioned in Appendix 1 of the <a href="https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette##Appendix-1-Metadata-Technical-Specifications" class="external-link">Data
+<p>As mentioned in Appendix 1 of the <a href="https://gilead-biostats.github.io/gsm/articles/DataPipeline.html#Appendix-1-Metadata-Technical-Specifications" class="external-link">Data
 Pipeline Vignette</a>, <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> triggers a workflow
 that uses pre-defined YAML specifications that organize all of the
 required metadata for a given assessment or set of assessments.</p>
@@ -565,7 +564,8 @@ YAML file (<code>ae_assessment_moderate.yaml</code>).</li>
 <li>Add a name value to the custom assessment list.</li>
 <li>Add a relative path to the custom assessment list, to show where the
 custom YAML file is stored.</li>
-<li>Read in the default Raw+ mappings from <code>{clindata}</code>.</li>
+<li>Read in the default rawplus mappings from
+<code>{clindata}</code>.</li>
 <li>Add the value to sort <code>strTypeCol</code> on.</li>
 <li>Run the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> workflow.</li>
 </ol>
@@ -610,7 +610,7 @@ custom YAML file is stored.</li>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+<p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson.</p>
 </div>
 
 <div class="pkgdown">

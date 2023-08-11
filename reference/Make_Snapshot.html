@@ -19,7 +19,7 @@ Appendix 2 - Data Model Specifications"><!-- mathjax --><script src="https://cdn
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@ Appendix 2 - Data Model Specifications"><!-- mathjax --><script src="https://cdn
 
     <div class="ref-description">
     <p><code>Make_Snapshot()</code> ingests data from a variety of sources, and runs KRIs and/or QTLs based on the <code>list</code> provided in <code>lAssessments</code>.</p>
-<p>For more context about the inputs and outputs of <code>Make_Snapshot()</code>, refer to the <a href="https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html" class="external-link">GSM Data Pipeline Vignette</a>, specifically
+<p>For more context about the inputs and outputs of <code>Make_Snapshot()</code>, refer to the <a href="https://gilead-biostats.github.io/gsm/articles/DataPipeline.html" class="external-link">GSM Data Pipeline Vignette</a>, specifically
 Appendix 2 - Data Model Specifications</p>
     </div>
 
@@ -97,7 +97,7 @@ Appendix 2 - Data Model Specifications</p>
 <span>    <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/edc_data_points.html" class="external-link">edc_data_points</a></span>, dfDATAENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/edc_data_pages.html" class="external-link">edc_data_pages</a></span>, dfQUERY <span class="op">=</span></span>
 <span>    <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/edc_queries.html" class="external-link">edc_queries</a></span>, dfENROLL <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_enroll</span><span class="op">)</span>,</span>
 <span>  lMapping <span class="op">=</span> <span class="fu"><a href="Read_Mapping.html">Read_Mapping</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  lAssessments <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lAssessments <span class="op">=</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>lMeta <span class="op">=</span> <span class="va">lMeta</span><span class="op">)</span>,</span>
 <span>  strAnalysisDate <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bUpdateParams <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -155,6 +155,110 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
     <h2>Details</h2>
     <p>Make Snapshot - create and export data model.</p>
     </div>
+    <div id="return-data-model-description">
+    <h2>Return - Data Model Description</h2>
+    <p>A named <code>list</code> of data.frames:</p><ul><li><p><code>status_study</code>, with columns:</p><ul><li><p><code>studyid</code> - Unique Study ID</p></li>
+<li><p><code>enrolled_sites</code> - # of enrolled sites</p></li>
+<li><p><code>enrolled_participants</code> - # of enrolled participants</p></li>
+<li><p><code>planned_sites</code> - # of planned sites</p></li>
+<li><p><code>planned_participants</code> - # of planned participants</p></li>
+<li><p><code>title</code> - Protocol title</p></li>
+<li><p><code>nickname</code> - Protocol nickname</p></li>
+<li><p><code>enrolled_sites_ctms</code> - # of enrolled sites (ctms)</p></li>
+<li><p><code>enrolled_participants_ctms</code> - # of enrolled participants (ctms)</p></li>
+<li><p><code>fpfv</code> - First-patient first visit date</p></li>
+<li><p><code>lpfv</code> - Last-patient first visit date</p></li>
+<li><p><code>lplv</code> - Last-patient last visit date</p></li>
+<li><p><code>ta</code> - Therapeutic Area</p></li>
+<li><p><code>indication</code> - Indication</p></li>
+<li><p><code>phase</code> - Phase</p></li>
+<li><p><code>status</code> - Study Status</p></li>
+<li><p><code>rbm_flag</code> - Risk-based monitoring flag</p></li>
+<li><p><code>product</code> - Product</p></li>
+<li><p><code>protocol_type</code> - Protocol type</p></li>
+<li><p><code>protocol_row_id</code> - Protocol row ID</p></li>
+<li><p><code>est_fpfv</code> - Estimated first-patient first visit date</p></li>
+<li><p><code>est_lpfv</code> - Estimated last-patient first visit date</p></li>
+<li><p><code>est_lplv</code> - Estimated last-patient last visit date</p></li>
+<li><p><code>protocol_product_number</code> - Protocol product number</p></li>
+<li><p><code>gsm_analysis_date</code> - Date that <code>Make_Snapshot</code> was run</p></li>
+</ul></li>
+<li><p><code>status_site</code>, with columns:</p><ul><li><p><code>studyid</code> - Unique Study ID</p></li>
+<li><p><code>siteid</code> - Unique Site ID</p></li>
+<li><p><code>institution</code> - Institution Name</p></li>
+<li><p><code>status</code> - Site Status</p></li>
+<li><p><code>enrolled_participants</code> - # of enrolled participants</p></li>
+<li><p><code>start_date</code> - Site Activation Date</p></li>
+<li><p><code>city</code> - City</p></li>
+<li><p><code>state</code> - State</p></li>
+<li><p><code>country</code> - Country</p></li>
+<li><p><code>invname</code> - Investigator name</p></li>
+<li><p><code>protocol_row_id</code> - Protocol Row ID</p></li>
+<li><p><code>site_num</code> - Site number</p></li>
+<li><p><code>site_row_id</code> - Site Row ID</p></li>
+<li><p><code>pi_number</code> - Principal Investigator Number</p></li>
+<li><p><code>pi_last_name</code>- Principal Investigator Last Name</p></li>
+<li><p><code>pi_first_name</code> - Principal Investigator First Name</p></li>
+<li><p><code>is_satellite</code> - Is location a satellite campus/site?</p></li>
+<li><p><code>gsm_analysis_date</code> - Date that <code>Make_Snapshot</code> was run</p></li>
+</ul></li>
+<li><p><code>status_workflow</code>, with columns:</p><ul><li><p><code>studyid</code> - Unique Study ID</p></li>
+<li><p><code>workflowid</code> - Unique Workflow ID</p></li>
+<li><p><code>gsm_version</code> - GSM version of workflow</p></li>
+<li><p><code>active</code> - Is workflow active?</p></li>
+<li><p><code>status</code> - Did workflow run?</p></li>
+<li><p><code>notes</code> - Status notes</p></li>
+<li><p><code>gsm_analysis_date</code> - Date that <code>Make_Snapshot</code> was run</p></li>
+</ul></li>
+<li><p><code>status_param</code>, with columns:</p><ul><li><p><code>study_id</code> - Unique Study ID</p></li>
+<li><p><code>workflowid</code> - Unique Workflow ID</p></li>
+<li><p><code>gsm_version</code> - GSM version of workflow</p></li>
+<li><p><code>param</code> - Parameter name</p></li>
+<li><p><code>index</code> - Index value for parameter</p></li>
+<li><p><code>value</code> - Value for parameter at index</p></li>
+<li><p><code>gsm_analysis_date</code> - Date that <code>Make_Snapshot</code> was run</p></li>
+</ul></li>
+<li><p><code>results_summary</code>, with columns:</p><ul><li><p><code>studyid</code> - Unique Study ID</p></li>
+<li><p><code>workflowid</code> - Unique Workflow ID</p></li>
+<li><p><code>groupid</code> - Unique Group ID (e.g. SiteID for KRI workflows)</p></li>
+<li><p><code>numerator</code> - Metric numerator</p></li>
+<li><p><code>denominator</code> - Metric denominator</p></li>
+<li><p><code>metric</code> - Metric value</p></li>
+<li><p><code>score</code> - Statistical Score</p></li>
+<li><p><code>flag</code> - Flag</p></li>
+<li><p><code>gsm_analysis_date</code> - Date that <code>Make_Snapshot</code> was run</p></li>
+</ul></li>
+<li><p><code>results_bounds</code>, with columns:</p><ul><li><p><code>studyid</code> - Unique Study ID</p></li>
+<li><p><code>workflowid</code> - Unique Workflow ID</p></li>
+<li><p><code>threshold</code> - Threshold</p></li>
+<li><p><code>numerator</code> - Y value</p></li>
+<li><p><code>denominator</code> - X value</p></li>
+<li><p><code>log_denominator</code> - Log X value</p></li>
+<li><p><code>gsm_analysis_date</code> - Date that <code>Make_Snapshot</code> was run</p></li>
+</ul></li>
+<li><p><code>meta_workflow</code>, with columns:</p><ul><li><p><code>workflowid</code> - Unique Workflow ID</p></li>
+<li><p><code>gsm_version</code> - GSM Version of workflow</p></li>
+<li><p><code>group</code> - Group for workflow - Site, Country, Region, or Study</p></li>
+<li><p><code>abbreviation</code> - Abbreviation for KRI/assessment</p></li>
+<li><p><code>metric</code> - Metric Label</p></li>
+<li><p><code>numerator</code> - Numerator Label</p></li>
+<li><p><code>denominator</code> - Denominator Label</p></li>
+<li><p><code>outcome</code> - Metric Outcome Type (e.g. rate)</p></li>
+<li><p><code>model</code> - Statistical Model used to create score</p></li>
+<li><p><code>score</code> - Score Label</p></li>
+<li><p><code>data_inputs</code> - Data inputs for workflow</p></li>
+<li><p><code>data_filters</code> - Filters applied in workflow</p></li>
+<li><p><code>gsm_analysis_date</code> - Date that <code>Make_Snapshot</code> was run</p></li>
+</ul></li>
+<li><p><code>meta_param</code>, with columns:</p><ul><li><p><code>workflowid</code> - Unique Workflow ID</p></li>
+<li><p><code>gsm_version</code> - GSM version of workflow</p></li>
+<li><p><code>param</code> - Parameter name</p></li>
+<li><p><code>index</code> - Parameter index</p></li>
+<li><p><code>default</code> - Default value for parameter at index</p></li>
+<li><p><code>configurable</code> - Is parameter configurable?</p></li>
+<li><p><code>gsm_analysis_date</code> - Date that <code>Make_Snapshot</code> was run</p></li>
+</ul></li>
+</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
@@ -173,7 +277,7 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson.</p>
 </div>
 
 <div class="pkgdown">

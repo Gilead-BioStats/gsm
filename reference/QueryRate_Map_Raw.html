@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
       </span>
     </div>
 
@@ -131,6 +131,10 @@ formatted input data to <code><a href="QueryRate_Assess.html">QueryRate_Assess()
 (derived from <code>dfDATACHG</code>) to subject-level data (from <code>dfSUBJ</code>). Note that the function can generate data summaries for specific types of
 queries by passing filtered query data to <code>dfQUERY</code>.</p>
     </div>
+    <div id="data-specification">
+    <h2>Data specification</h2>
+    
+<table class="table table"><tr><td><strong>Domain</strong></td><td><strong>Column Key</strong></td><td><strong>Default Value</strong></td><td><strong>Required?</strong></td><td><strong>Require Unique Values?</strong></td></tr><tr><td>dfSUBJ</td><td>strSiteCol</td><td>siteid</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfSUBJ</td><td>strEDCIDCol</td><td>subject_nsv</td><td>TRUE</td><td>TRUE</td></tr><tr><td>dfDATACHG</td><td>strIDCol</td><td>subjectname</td><td>TRUE</td><td>FALSE</td></tr><tr><td>dfDATACHG</td><td>strNChangesCol</td><td>n_changes</td><td>TRUE</td><td>FALSE</td></tr></table></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
@@ -159,7 +163,7 @@ queries by passing filtered query data to <code>dfQUERY</code>.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p></p><p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson.</p>
 </div>
 
 <div class="pkgdown">

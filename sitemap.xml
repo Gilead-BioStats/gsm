@@ -94,6 +94,9 @@
     <loc>/reference/ConsolidateStrata.html</loc>
   </url>
   <url>
+    <loc>/reference/Country_Map_Raw.html</loc>
+  </url>
+  <url>
     <loc>/reference/DataChg_Assess.html</loc>
   </url>
   <url>
@@ -151,10 +154,28 @@
     <loc>/reference/LB_Map_Raw.html</loc>
   </url>
   <url>
+    <loc>/reference/Log.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeAnalysisDate.html</loc>
+  </url>
+  <url>
     <loc>/reference/MakeDfConfig.html</loc>
   </url>
   <url>
     <loc>/reference/MakeKRIGlossary.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeResultsAnalysis.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeResultsBounds.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeResultsSummary.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeStatusWorkflow.html</loc>
   </url>
   <url>
     <loc>/reference/MakeStratifiedAssessment.html</loc>
@@ -170,6 +191,9 @@
   </url>
   <url>
     <loc>/reference/Make_Snapshot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Make_Timeline.html</loc>
   </url>
   <url>
     <loc>/reference/MergeSubjects.html</loc>
@@ -257,6 +281,9 @@
   </url>
   <url>
     <loc>/reference/Transform_Rate.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Unlog.html</loc>
   </url>
   <url>
     <loc>/reference/UpdateGSMVersion.html</loc>
