@@ -39,7 +39,7 @@ dfSITE:
 dfPD:
   strIDCol: subjectenrollmentnumber
   strDateCol: deviationdate
-  strCategoryCol: gileadcategory
+  strCategoryCol: companycategory
   strImportantCol: deemedimportant
   strImportantVal: "Yes"
   strNonImportantCol: deemedimportant
