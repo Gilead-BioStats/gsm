@@ -30,6 +30,8 @@ Imports:
     fs,
     glue,
     gt,
+    gggenes,
+    ggiraph,
     ggplot2,
     gggenes,
     ggiraph,
