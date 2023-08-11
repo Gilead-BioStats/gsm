@@ -31,8 +31,6 @@ Imports:
     glue,
     gt,
     ggplot2,
-    gggenes,
-    ggiraph,
     htmlwidgets,
     htmltools,
     here,
@@ -54,15 +52,17 @@ Suggests:
     covr,
     devtools,
     DiagrammeR,
+    gggenes,
+    ggiraph,
     kableExtra,
     pander,
-    safetyData,
-    testthat (>= 3.0.0),
-    usethis,
-    tools,
     pkgdown,
     riskmetric,
-    roxygen2
+    roxygen2,
+    safetyData,
+    testthat (>= 3.0.0),
+    tools,
+    usethis
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
