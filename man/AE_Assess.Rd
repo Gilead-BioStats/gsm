@@ -28,7 +28,7 @@ for a nominal assessment (\code{strMethod = "Identity"}).}
 \item \code{"Identity"}
 }}
 
-\item{lMapping}{Column metadata with structure \code{domain$key}, where \code{key} contains the name
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column. Default: package-defined Adverse Event Assessment mapping.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"}, \code{"Country"}, and \code{"CustomGroup"}.
@@ -71,7 +71,7 @@ Evaluates Adverse Event (AE) rates to identify sites that may be over- or under-
 \details{
 Adverse Event Assessment
 
-The AE Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
+The AE Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }
 \section{Data specification}{

@@ -5,7 +5,7 @@
 #' @description
 #' `Make_Snapshot()` ingests data from a variety of sources, and runs KRIs and/or QTLs based on the `list` provided in `lAssessments`.
 #'
-#' For more context about the inputs and outputs of `Make_Snapshot()`, refer to the [GSM Data Pipeline Vignette](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html), specifically
+#' For more context about the inputs and outputs of `Make_Snapshot()`, refer to the [GSM Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html), specifically
 #' Appendix 2 - Data Model Specifications
 #'
 #' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
@@ -73,8 +73,7 @@ Make_Snapshot <- function(
   bUpdateParams = FALSE,
   bQuiet = TRUE
 ) {
-
-# run Study_Assess() ------------------------------------------------------
+  # run Study_Assess() ------------------------------------------------------
   lResults <- gsm::Study_Assess(
     lData = lData,
     lMapping = lMapping,
@@ -83,7 +82,7 @@ Make_Snapshot <- function(
   ) %>%
     UpdateLabels(lMeta$meta_workflow)
 
-# results_analysis --------------------------------------------------------
+  # results_analysis --------------------------------------------------------
   # -- check if any workflows in `lResults` start with "qtl"
   if (length(grep("qtl", names(lResults))) > 0) {
     results_analysis <- MakeResultsAnalysis(lResults)
@@ -91,7 +90,7 @@ Make_Snapshot <- function(
     results_analysis <- NULL
   }
 
-# map ctms data -----------------------------------------------------------
+  # map ctms data -----------------------------------------------------------
   status_study <- Study_Map_Raw(
     dfs = list(
       dfSTUDY = lMeta$meta_study,
@@ -112,13 +111,13 @@ Make_Snapshot <- function(
   )
 
 
-# create `gsm_analysis_date` ----------------------------------------------
+  # create `gsm_analysis_date` ----------------------------------------------
   gsm_analysis_date <- MakeAnalysisDate(
     strAnalysisDate = strAnalysisDate,
     bQuiet = bQuiet
   )
 
-# create lSnapshot --------------------------------------------------------
+  # create lSnapshot --------------------------------------------------------
   lSnapshot <- list(
     status_study = status_study,
     status_site = status_site,
@@ -133,7 +132,7 @@ Make_Snapshot <- function(
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
-
+  # return snapshot ---------------------------------------------------------
     snapshot <- list(
       lSnapshotDate = gsm_analysis_date,
       lSnapshot = lSnapshot,
@@ -145,7 +144,6 @@ Make_Snapshot <- function(
     )
 
 # return snapshot ---------------------------------------------------------
-
 
   return(snapshot)
 }

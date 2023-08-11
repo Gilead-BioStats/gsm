@@ -15,10 +15,8 @@
 #'
 #' @export
 MakeResultsBounds <- function(lResults, dfConfigWorkflow) {
-
-
-# extract dfBounds data.frame ---------------------------------------------
-# -- discard `dfBounds` if it is NULL
+  # extract dfBounds data.frame ---------------------------------------------
+  # -- discard `dfBounds` if it is NULL
   results_bounds <- lResults %>%
     purrr::map(~ .x$lResults$lData$dfBounds) %>%
     purrr::discard(is.null)
@@ -42,5 +40,4 @@ MakeResultsBounds <- function(lResults, dfConfigWorkflow) {
   }
 
   return(results_bounds)
-
 }

@@ -59,7 +59,7 @@ Widget_BarChart(
 
 \item{selectedGroupIDs}{group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
 
-\item{addSiteSelect}{add a dropdown to highlight sites?}
+\item{addSiteSelect}{\code{logical} add a dropdown to highlight sites? Default: \code{TRUE}.}
 
 \item{width}{width of widget, full screen by default}
 

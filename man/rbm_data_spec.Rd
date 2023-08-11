@@ -15,7 +15,7 @@ A data frame with 125 rows and 4 variables.
 }
 }
 \source{
-\url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
+\url{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}
 }
 \usage{
 rbm_data_spec

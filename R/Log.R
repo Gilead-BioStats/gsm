@@ -9,7 +9,6 @@
 #'
 #' @export
 Log <- function(strFileName = NULL) {
-
   if (is.null(strFileName)) {
     strFileName <- paste0("gsm_log_", make.names(Sys.time()), ".log")
   } else {
@@ -27,5 +26,4 @@ Log <- function(strFileName = NULL) {
   print(paste0("Time: ", Sys.time()))
   print(sessionInfo())
   cli::cli_h1("END SESSION INFO")
-
 }

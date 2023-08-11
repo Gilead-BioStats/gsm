@@ -35,16 +35,13 @@ Study_Assess <- function(
   bLogOutput = FALSE,
   strLogFileName = NULL
 ) {
-
   if (bLogOutput) {
-
     # divert output to .log file
     Log(strFileName = strLogFileName)
 
     on.exit({
       Unlog()
     })
-
   }
 
   #### --- load defaults --- ###
@@ -110,5 +107,4 @@ Study_Assess <- function(
 
 
   return(lAssessments)
-
 }

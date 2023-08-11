@@ -30,8 +30,6 @@ Widget_TimeSeries <- function(
   addSiteSelect = TRUE,
   siteSelectLabelValue = NULL
 ) {
-
-
   # get unique sites
   if (all(grepl("^[0-9]$", results$groupid))) {
     uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))

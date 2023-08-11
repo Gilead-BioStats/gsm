@@ -24,12 +24,11 @@
 #'
 #' @export
 Overview_Table <- function(
-    lAssessments = Study_Assess(),
-    dfSite = Site_Map_Raw(),
-    strReportType = "site",
-    bInteractive = TRUE
+  lAssessments = Study_Assess(),
+  dfSite = Site_Map_Raw(),
+  strReportType = "site",
+  bInteractive = TRUE
 ) {
-
   # input check
   stopifnot(
     "strReportType is not 'site' or 'country'" = strReportType %in% c("site", "country"),
@@ -37,7 +36,7 @@ Overview_Table <- function(
   )
 
 
-# filter based on report type ---------------------------------------------
+  # filter based on report type ---------------------------------------------
   if (strReportType == "site") {
     grep_value <- "kri"
     table_dropdown_label <- "Sites"
@@ -168,28 +167,26 @@ Overview_Table <- function(
   # TODO: this could disagree with `status_site$enrolled_participants`
   # Add # of subjects to overview table.
   if (!is.null(dfSite)) {
-    if ('enrolled_participants' %in% names(dfSite)) {
-        if (strReportType == 'site') {
-            overview_table[["Subjects"]] <- overview_table$Site %>%
-                map_int(~ dfSite %>%
-                    filter(.data$siteid == .x) %>%
-                    pull(.data$enrolled_participants)
-                )
-        } else {
-            dfCountry <- Country_Map_Raw(dfSite)
+    if ("enrolled_participants" %in% names(dfSite)) {
+      if (strReportType == "site") {
+        overview_table[["Subjects"]] <- overview_table$Site %>%
+          map_int(~ dfSite %>%
+            filter(.data$siteid == .x) %>%
+            pull(.data$enrolled_participants))
+      } else {
+        dfCountry <- Country_Map_Raw(dfSite)
 
-            overview_table[["Subjects"]] <- overview_table$Site %>%
-                map_int(~ dfCountry %>%
-                    filter(.data$country == .x) %>%
-                    pull(.data$enrolled_participants)
-                )
-        }
+        overview_table[["Subjects"]] <- overview_table$Site %>%
+          map_int(~ dfCountry %>%
+            filter(.data$country == .x) %>%
+            pull(.data$enrolled_participants))
+      }
 
-        overview_table <- relocate(
-            overview_table,
-            "Subjects",
-            .before = "Red KRIs"
-        )
+      overview_table <- relocate(
+        overview_table,
+        "Subjects",
+        .before = "Red KRIs"
+      )
     }
   }
 
@@ -291,7 +288,6 @@ Overview_Table <- function(
     # countries will probably have less flagged KRIs and are easier to sort/read through
     if (strReportType == "country") {
       lengthMenuOptions <- NULL
-
     } else {
       lengthMenuOptions <- list(
         c(end_of_red_kris, end_of_red_and_amber_kris, -1),
@@ -323,12 +319,10 @@ Overview_Table <- function(
           pageLength = ifelse(strReportType == "site", end_of_red_kris, nrow(overview_table)),
           lengthMenu = lengthMenuOptions,
           searching = FALSE,
-          dom = 'lf',
+          dom = "lf",
           info = FALSE
         )
       )
-
-
   } else {
     overview_table <- overview_table %>%
       select(-ends_with("_hovertext"))
@@ -337,7 +331,6 @@ Overview_Table <- function(
       overview_table <- overview_table %>%
         rename("Country" = "Site")
     }
-
   }
 
   return(overview_table)
@@ -385,7 +378,6 @@ drop_column_with_several_na <- function(table, column) {
 
 
 make_reference_table <- function(study) {
-
   reference_table <- study %>%
     purrr::map(function(kri) {
       name <- kri$name
@@ -472,5 +464,3 @@ make_overview_table <- function(study) {
 
   return(overview_table)
 }
-
-

@@ -72,7 +72,7 @@ Evaluates disposition rate (DISP) on mapped subject-level dataset to identify si
 \details{
 Disposition Assessment
 
-The Disposition Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
+The Disposition Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }
 \section{Data specification}{

@@ -69,7 +69,7 @@ Evaluates rate of reported Data Entry Lag >10 days.
 \details{
 Data Entry Lag Assessment
 
-The Data Entry Lag Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
+The Data Entry Lag Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }
 \section{Data specification}{

@@ -179,8 +179,5 @@ StackSnapshots <- function(
       )
   }
 
-
-
-
   return(longitudinal_data)
 }

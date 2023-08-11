@@ -7,7 +7,7 @@
 #'
 #' @details
 #' The Protocol Deviation Assessment uses the standard [GSM data pipeline](
-#'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
+#'   https://gilead-biostats.github.io/gsm/articles/DataPipeline.html
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
 #'

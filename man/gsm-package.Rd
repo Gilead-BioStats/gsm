@@ -34,5 +34,10 @@ Authors:
   \item Jacob Anderson \email{jacob.anderson@atorusresearch.com}
 }
 
+Other contributors:
+\itemize{
+  \item Gilead Sciences [copyright holder]
+}
+
 }
 \keyword{internal}

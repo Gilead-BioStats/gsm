@@ -10,8 +10,8 @@
 #' @param dfInput `data.frame` A data.frame to be filtered, likely within a mapping function.
 #' @param strCol `character` Domain in `lMapping` that references the column to filter on.
 #' @param anyVal `character` Domain in `lMapping` that references the value to filter on.
-#' @param bReturnChecks `logical` Return input checks from `is_mapping_valid`? Default: `FALSE`
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
+#' @param bReturnChecks `logical` Return input checks from `is_mapping_valid()`? Default: `FALSE`.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @examples
 #'

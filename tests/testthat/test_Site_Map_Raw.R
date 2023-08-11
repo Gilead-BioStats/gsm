@@ -23,13 +23,13 @@ test_that("valid output is returned", {
 
   expect_true(is.data.frame(output))
   expect_true(
-      all(
-          names(output) == as.character(
-              gsm::rbm_data_spec$Column[
-                  gsm::rbm_data_spec$Table == "status_site" & gsm::rbm_data_spec$Column != "gsm_analysis_date"
-              ]
-          )
+    all(
+      names(output) == as.character(
+        gsm::rbm_data_spec$Column[
+          gsm::rbm_data_spec$Table == "status_site" & gsm::rbm_data_spec$Column != "gsm_analysis_date"
+        ]
       )
+    )
   )
   expect_true(all(unique(unlist(lapply(output, class))) %in% c("character", "integer", "logical")))
 })

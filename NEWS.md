@@ -1,3 +1,22 @@
+# gsm v1.8.0
+
+This is the first open-source release for `{gsm}`! 🥳
+
+This release includes updates to prepare for an open-source release, reporting updates, a minor `Make_Snapshot()` refactor to make it more modular, and minor utility function and metadata updates. 
+
+### Reporting
+- `Overview_Table()` removes pagination in favor of a drop-down selector for all *red* KRIs, *red & amber* KRIS, and *all* sites/countries/<<group>>.
+- `Make_Timeline()` adds a visualization to show key events from CTMS data. This is slated to be included in standard reporting via `Study_Report()` in `v1.8.1`.
+- A new country report is available for use, but has not been thoroughly tested. 
+
+### `Make_Snapshot()` Refactor
+- New functions have been created so that the internals of `Make_Snapshot()` are more modularized.
+
+### Logging
+- `Study_Assess()` gains a new parameter `bLogOutput`, which will divert console output to a `.log` file.
+
+
+
 # gsm v1.7.4
 
 This release includes updates to prepare for an open-source release, minor bug fixes, and reporting updates. 
@@ -100,7 +119,7 @@ This release includes changes to Protocol Deviation mapping and analysis, signif
 
 ### Reporting
 - New feature added to the output of `Study_Report()` to highlight an individual site/group in any given visualization.
-- New feature added to the output of `Study_Report()` to hightlight an individual site/group across all visualizations.
+- New feature added to the output of `Study_Report()` to highlight an individual site/group across all visualizations.
 
 # gsm v1.4.1
 
@@ -133,7 +152,7 @@ This release introduces five new KRIs, the inclusion of interactive widgets port
 
 # gsm v1.3.2
 
-This minor release includes updates to the data model that is passed to Gismo via `Make_Snapshot()`
+This minor release includes updates to the data model that is passed to a web application framework via `Make_Snapshot()`
 - All CTMS metadata is passed through via `lMeta$status_study` and `lMeta$status_site`
 - `config_schedule`/`status_schedule` are removed as inputs/outputs to `Make_Snapshot()`
 
