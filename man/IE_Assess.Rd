@@ -57,10 +57,19 @@ Evaluates sites exhibiting aberrant or excessive rates of unmet or missing inclu
 \details{
 Inclusion/Exclusion Assessment
 
-The Inclusion/Exclusion Assessment uses the standard \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline} to flag sites with IE issues. This assessment detects sites with excessive rates of unmet or
+The Inclusion/Exclusion Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag sites with IE issues. This assessment detects sites with excessive rates of unmet or
 missing IE criteria, as defined by \code{nThreshold}. The count returned in the summary represents the
 number of subjects at a given site with at least one unmet or missing IE criterion.
 }
+\section{Data specification}{
+\tabular{lllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \cr
+   dfInput \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \cr
+}
+}
+
 \examples{
 dfInput <- IE_Map_Raw()
 ie_assessment <- IE_Assess(dfInput)

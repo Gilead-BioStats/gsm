@@ -13,7 +13,8 @@ Widget_BarChart(
   addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
-  elementId = NULL
+  elementId = NULL,
+  siteSelectLabelValue = NULL
 )
 }
 \arguments{
@@ -58,13 +59,15 @@ Widget_BarChart(
 
 \item{selectedGroupIDs}{group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
 
-\item{addSiteSelect}{add a dropdown to highlight sites?}
+\item{addSiteSelect}{\code{logical} add a dropdown to highlight sites? Default: \code{TRUE}.}
 
 \item{width}{width of widget, full screen by default}
 
 \item{height}{height of widget, calculated based on width}
 
 \item{elementId}{ID of container HTML element}
+
+\item{siteSelectLabelValue}{Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.}
 }
 \description{
 A widget that displays a group-level bar chart based on the output of a KRI analysis.

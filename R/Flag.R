@@ -8,7 +8,7 @@
 #'
 #' @details
 #' This function provides a generalized framework for flagging sites as part of the
-#' [GSM data pipeline](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html).
+#' [GSM data pipeline](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html).
 #'
 #' @section Data Specification:
 #' \code{Flag} is designed to support the input data (`dfAnalyzed`) from the `Analyze_Identity()`
@@ -26,7 +26,7 @@
 #' The following column is considered optional:
 #' - `strValueColumn` - A column to be used for the sign/directionality of the flagging
 #'
-#' @param dfAnalyzed `data.frame` A data.frame where flags should be added.
+#' @param dfAnalyzed `data.frame` where flags should be added.
 #' @param strColumn `character` Name of the column to use for thresholding. Default: `"Score"`
 #' @param vThreshold `numeric` Vector of 2 numeric values representing lower and upper threshold values. All
 #' values in `strColumn` are compared to `vThreshold` using strict comparisons. Values less than

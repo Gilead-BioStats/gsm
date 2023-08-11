@@ -9,10 +9,8 @@ output:
     css: styles.css
 params:
     assessment: NA
-    status_study: NA
-    status_site: NA
----
-
+    status_study: NULL
+    status_site: NULL
 ---
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
@@ -20,21 +18,23 @@ library(gsm)
 library(tidyverse)
 library(DT)
 
-# Study_Assess() output - KRIs only
+# Study_Assess() output - country metrics only
 assessment <- params$assessment[
-  grep("kri", names(params$assessment))
+  grep("cou", names(params$assessment))
 ]
 
 # Overview Table - HTML object
 overview_table <- Overview_Table(
   lAssessments = assessment, 
-  dfSite =  params$status_site
+  dfSite = params$status_site,
+  strReportType = "country"
 )
 
 # Overview Table - data.frame/raw data
 overview_raw_table <- Overview_Table(
   lAssessments = assessment, 
-  dfSite =  params$status_site, 
+  dfSite = params$status_site,
+  strReportType = "country",
   bInteractive = FALSE
 )
 
@@ -43,8 +43,7 @@ amber_kris <- overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
 
 # Generate listing of flagged KRIs.
 summary_table <- MakeSummaryTable(
-  assessment,
-  params$status_site
+  assessment
 )
 
 ## StudyID
@@ -63,33 +62,11 @@ study_id <- purrr::map(assessment, function(kri) {
 title: "`r study_id` Assessment Overview"
 ---
 
-<div class = 'overall-site-select'
-    id = 'overall-site-select'
-    title = 'Selected site will be highlighted in all charts for all KRIs.'>
+<div class = 'overall-country-select'
+    id = 'overall-country-select'
+    title = 'Selected country will be highlighted in all charts for all KRIs.'>
 
 </div>
-
-
-```{r, echo=FALSE, results='asis'}
-
-
-## metadata report if longitudinal data is provided
-if (exists('status_study', where = params) && !is.null(params$status_study)) {
-  MakeStudyStatusTable(params$status_study)
-
-  if ("gsm_analysis_date" %in% names(params$status_study))
-    snapshot_date <- params$status_study$gsm_analysis_date
-  else
-    snapshot_date <- Sys.Date()
-
-  glue::glue(
-  '
-  ---
-  date: "Snapshot Date: {snapshot_date}"
-  ---
-  ') 
-}
-```
 
 
 ## Study Overview

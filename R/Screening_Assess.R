@@ -7,7 +7,7 @@
 #'
 #' @details
 #' The Screen Failure Assessment uses the standard [GSM data pipeline](
-#'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
+#'   https://gilead-biostats.github.io/gsm/articles/DataPipeline.html
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
 #'
@@ -207,7 +207,8 @@ Screening_Assess <- function(
           results = lData$dfSummary,
           workflow = dfConfig,
           bounds = bounds,
-          elementId = "screeningAssessScatter"
+          elementId = "screeningAssessScatter",
+          siteSelectLabelValue = strGroup
         )
         if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
       }
@@ -222,14 +223,16 @@ Screening_Assess <- function(
         results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "metric",
-        elementId = "screeningAssessMetric"
+        elementId = "screeningAssessMetric",
+        siteSelectLabelValue = strGroup
       )
 
       lCharts$barScoreJS <- gsm::Widget_BarChart(
         results = lData$dfSummary,
         workflow = dfConfig,
         yaxis = "score",
-        elementId = "screeningAssessScore"
+        elementId = "screeningAssessScore",
+        siteSelectLabelValue = strGroup
       )
 
       if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")

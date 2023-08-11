@@ -8,7 +8,7 @@
 #'
 #' @details
 #' The AE Assessment uses the standard [GSM data pipeline](
-#'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
+#'   https://gilead-biostats.github.io/gsm/articles/DataPipeline.html
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
 #'
@@ -20,7 +20,7 @@
 #'   - `"NormalApprox"` (default)
 #'   - `"Poisson"`
 #'   - `"Identity"`
-#' @param lMapping Column metadata with structure `domain$key`, where `key` contains the name
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Adverse Event Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
@@ -219,7 +219,8 @@ AE_Assess <- function(
         results = lData$dfSummary,
         workflow = dfConfig,
         bounds = lData$dfBounds,
-        elementId = "aeAssessScatter"
+        elementId = "aeAssessScatter",
+        siteSelectLabelValue = strGroup
       )
       if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
     }
@@ -233,14 +234,16 @@ AE_Assess <- function(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "metric",
-      elementId = "aeAssessMetric"
+      elementId = "aeAssessMetric",
+      siteSelectLabel = strGroup
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "score",
-      elementId = "aeAssessScore"
+      elementId = "aeAssessScore",
+      siteSelectLabelValue = strGroup
     )
 
 

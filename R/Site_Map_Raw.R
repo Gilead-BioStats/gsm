@@ -53,7 +53,16 @@ Site_Map_Raw <- function(
   }
 
   status_site <- status_site %>%
-    relocate("enrolled_participants", .after = "status")
+    select(all_of(
+      gsm::rbm_data_spec %>%
+        filter(
+          .data$System == "Gismo",
+          .data$Table == "status_site",
+          .data$Column != "gsm_analysis_date"
+        ) %>%
+        arrange(.data$Order) %>%
+        pull(.data$Column)
+    ))
 
   return(status_site)
 }

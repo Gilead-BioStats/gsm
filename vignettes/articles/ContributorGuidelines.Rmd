@@ -73,11 +73,6 @@ Code developers for `{gsm}` use the [tidyverse style guide](https://style.tidyve
     styler::style_dir('R', transformers = double_indent_style)
     styler::style_dir('tests', recursive = TRUE, transformers = double_indent_style)
 
-Instead of copying/pasting the code above, a wrapper function in `{gutil}` can be used by running:
-
-    devtools::install_github('Gilead-BioStats/gutil')
-    gutil::style_code()
-
 # Appendix 1 - Detailed Workflows
 
 ## `fix` Branch Workflow {#fix-branch-workflow}
@@ -225,6 +220,6 @@ GitHub Actions are used in `{gsm}` to automate processes and ensure all code and
     -   Basic R CMD check which can be run using `rcmdcheck::rcmdcheck()`
     -   Provides an additional check for the ability to build the `pkgdown` reference index and ensure that all functions are documented correctly. The check will also run all qualification tests to ensure that the release is fully qualified. This check will run on `ubuntu-latest` and on R versions 4.0.5 and 4.1.3. Additionally, it will be run on the latest R release version on `windows-latest`, `macOS-latest`, and `ubuntu-latest`.
 -   `pkgdown`:
-    -   Builds the [pkgdown site](https://silver-potato-cfe8c2fb.pages.github.io/) for `{gsm}`.
+    -   Builds the [pkgdown site](https://gilead-biostats.github.io/gsm/) for `{gsm}`.
 -   Qualification Report (`qualification-report`):
     -   Builds the qualification vignette as an attached artifact to the Pull Request. This should be reviewed by the Pull Request Owner for completeness and correctness to ensure that the artifact added to the release is correct.

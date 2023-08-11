@@ -1,6 +1,6 @@
 Package: gsm
 Title: Good Statistical Monitoring
-Version: 1.7.4
+Version: 1.8.0
 Authors@R: c(
     person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", email="jwildfire@gmail.com", role = c("aut")),
@@ -12,7 +12,9 @@ Authors@R: c(
     person("Zhongkai", "Wang", email="zhongkai.wang6@gilead.com", role = c("aut"), comment = c(ORCID = "0000-0002-1883-2265")),
     person("Colleen", "McLaughlin", email="colleen.mclaughlin@atorusresearch.com", role = c("aut")),
     person("Chelsea", "Dickens", email="chelsea.dickens@atorusresearch.com", role = c("aut")),
-    person("Maya", "Gans", email="maya.gans@atorusresearch.com", role = c("aut"))
+    person("Maya", "Gans", email="maya.gans@atorusresearch.com", role = c("aut")),
+    person("Jacob", "Anderson", email="jacob.anderson@atorusresearch.com", role = c("aut")),
+    person(given = "Gilead Sciences", role = "cph")
     )
 URL: https://github.com/Gilead-BioStats/gsm
 BugReports: https://github.com/Gilead-BioStats/gsm/issues
@@ -28,6 +30,8 @@ Imports:
     fs,
     glue,
     gt,
+    gggenes,
+    ggiraph,
     ggplot2,
     htmlwidgets,
     htmltools,
@@ -40,6 +44,7 @@ Imports:
     rmarkdown,
     rstudioapi,
     stringr,
+    styler,
     tibble,
     tidyr,
     yaml,
@@ -51,14 +56,13 @@ Suggests:
     DiagrammeR,
     kableExtra,
     pander,
-    safetyData,
-    testthat (>= 3.0.0),
-    usethis,
-    tools,
     pkgdown,
     riskmetric,
     roxygen2,
-    styler
+    safetyData,
+    testthat (>= 3.0.0),
+    tools,
+    usethis
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

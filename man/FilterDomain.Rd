@@ -11,7 +11,8 @@ FilterDomain(
   strColParam,
   strValParam,
   bReturnChecks = FALSE,
-  bQuiet = TRUE
+  bQuiet = TRUE,
+  bRemoveVal = FALSE
 )
 }
 \arguments{
@@ -25,9 +26,11 @@ FilterDomain(
 
 \item{strValParam}{\code{character} Domain in \code{lMapping} that references the value to filter on.}
 
-\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}.}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid()}? Default: \code{FALSE}.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
+
+\item{bRemoveVal}{\code{logical} Include the ability to subset on a value or its complement? Default: \code{FALSE}.}
 }
 \value{
 \code{data.frame} Data frame provided as \code{df} and filtered on \code{strColParam} == \code{strValParam}.
@@ -43,7 +46,7 @@ Subset a data frame given a mapping.
 lMapping <- list(dfAE = list(
   strIDCol = "SubjectID", strTreatmentEmergentCol = "AE_TE_FLAG",
   strTreatmentEmergentVal = TRUE, strGradeCol = "AE_GRADE",
-  strSeriousCol = "AE_SERIOUS", strSeriousVal = "Yes"
+  strSeriousCol = "aeser", strSeriousVal = "Y"
 ))
 
 te_ae <- FilterDomain(

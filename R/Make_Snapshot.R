@@ -5,7 +5,7 @@
 #' @description
 #' `Make_Snapshot()` ingests data from a variety of sources, and runs KRIs and/or QTLs based on the `list` provided in `lAssessments`.
 #'
-#' For more context about the inputs and outputs of `Make_Snapshot()`, refer to the [GSM Data Pipeline Vignette](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html), specifically
+#' For more context about the inputs and outputs of `Make_Snapshot()`, refer to the [GSM Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html), specifically
 #' Appendix 2 - Data Model Specifications
 #'
 #' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
@@ -68,32 +68,29 @@ Make_Snapshot <- function(
     dfENROLL = clindata::rawplus_enroll
   ),
   lMapping = Read_Mapping(),
-  lAssessments = NULL,
+  lAssessments = MakeWorkflowList(lMeta = lMeta),
   strAnalysisDate = NULL,
   bUpdateParams = FALSE,
   bQuiet = TRUE
 ) {
-  # add gsm_analysis_date to all outputs except {gsm} metadata
-  # -- if date is provided, it should be the date that the data was pulled/wrangled.
-  # -- if date is NOT provided, it will default to the date that the analysis was run.
-  if (!is.null(strAnalysisDate)) {
-    # date validation check
-    date_is_valid <- try(as.Date(strAnalysisDate), silent = TRUE)
+  # run Study_Assess() ------------------------------------------------------
+  lResults <- gsm::Study_Assess(
+    lData = lData,
+    lMapping = lMapping,
+    lAssessments = lAssessments,
+    bQuiet = bQuiet
+  ) %>%
+    UpdateLabels(lMeta$meta_workflow)
 
-    if (!"try-error" %in% class(date_is_valid) && !is.na(date_is_valid)) {
-      gsm_analysis_date <- as.Date(strAnalysisDate)
-    } else {
-      if (!bQuiet) cli::cli_alert_warning("strAnalysisDate does not seem to be in format YYYY-MM-DD. Defaulting to current date of {Sys.Date()}")
-      gsm_analysis_date <- Sys.Date()
-    }
+  # results_analysis --------------------------------------------------------
+  # -- check if any workflows in `lResults` start with "qtl"
+  if (length(grep("qtl", names(lResults))) > 0) {
+    results_analysis <- MakeResultsAnalysis(lResults)
   } else {
-    gsm_analysis_date <- Sys.Date()
+    results_analysis <- NULL
   }
 
-
-  # rename GILDA to expected gsm variable names -----------------------------
-
-  # ctms_study / meta_study:
+  # map ctms data -----------------------------------------------------------
   status_study <- Study_Map_Raw(
     dfs = list(
       dfSTUDY = lMeta$meta_study,
@@ -113,150 +110,40 @@ Make_Snapshot <- function(
     dfConfig = lMeta$config_param
   )
 
-  # run Study_Assess() ------------------------------------------------------
-  # Make a list of assessments
-  # Need to update this to use the relevant items from lMeta (meta_workflow, meta_params, config_workflow and config_params)
-  if (is.null(lAssessments)) {
-    # if assessment list is not passed in, derive workflow from `lMeta$config_workflow`
-    lAssessments <- gsm::MakeWorkflowList(strNames = c(unique(lMeta$config_workflow$workflowid)))
-  }
 
-  # update parameters
-  if (bUpdateParams) {
-    # TODO: Add vignette about updating values
-    lAssessments <- UpdateParams(lAssessments, lMeta$config_param, lMeta$meta_params)
-  }
-
-  # Run Study Assessment
-  lResults <- gsm::Study_Assess(
-    lData = lData,
-    lMapping = lMapping,
-    lAssessments = lAssessments,
+  # create `gsm_analysis_date` ----------------------------------------------
+  gsm_analysis_date <- MakeAnalysisDate(
+    strAnalysisDate = strAnalysisDate,
     bQuiet = bQuiet
-  ) %>%
-    UpdateLabels(lMeta$meta_workflow)
-
-  # grab boolean status of each workflow
-  parseStatus <- purrr::imap(lResults, function(x, y) tibble(workflowid = y, status = x$bStatus)) %>%
-    bind_rows()
-
-  # join boolean status column to status_workflow
-  # `lMeta$config_workflow` represents intended workflow to be run
-  # `parseStatus` represents the actual results - workflowid + `x$bStatus`
-  # if `workflowid` is not found in the results, that means it was not run.
-  status_workflow <- lMeta$config_workflow %>%
-    full_join(parseStatus, by = "workflowid") %>%
-    mutate(status = ifelse(is.na(.data$status), FALSE, .data$status))
-
-  # parse warnings from is_mapping_valid to create an informative "notes" column
-  warnings <- ParseWarnings(lResults)
-
-  status_workflow <- status_workflow %>%
-    left_join(warnings, by = c("workflowid", "status"))
-
-
-  # status_param ------------------------------------------------------------
-  status_param <- lMeta$config_param
-
-  # meta_workflow -----------------------------------------------------------
-  meta_workflow <- lMeta$meta_workflow
-
-  # meta_param --------------------------------------------------------------
-  meta_param <- lMeta$meta_params
-
-
-  # results_summary ---------------------------------------------------------
-  results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%
-    purrr::discard(~ is.null(.x)) %>%
-    purrr::discard(~ .x$lChecks$status == FALSE) %>%
-    purrr::imap_dfr(~ .x$lData$dfSummary %>%
-      mutate(
-        KRIID = .y,
-        StudyID = unique(lMeta$config_workflow$studyid)
-      )) %>%
-    select(
-      studyid = "StudyID",
-      workflowid = "KRIID",
-      groupid = "GroupID",
-      numerator = "Numerator",
-      denominator = "Denominator",
-      metric = "Metric",
-      score = "Score",
-      flag = "Flag"
-    )
-
-  # results_analysis ---------------------------------------------------------
-
-  hasQTL <- grep("qtl", names(lResults))
-  results_analysis <- NULL
-
-  if (length(hasQTL) > 0) {
-    results_analysis <-
-      purrr::imap_dfr(lResults[hasQTL], function(qtl, qtl_name) {
-        if (qtl$bStatus) {
-          qtl$lResults$lData$dfAnalyzed %>%
-            select(
-              "GroupID",
-              "LowCI",
-              "Estimate",
-              "UpCI",
-              "Score"
-            ) %>%
-            mutate(workflowid = qtl_name) %>%
-            tidyr::pivot_longer(-c("GroupID", "workflowid")) %>%
-            rename(
-              param = "name",
-              studyid = "GroupID"
-            )
-        }
-      })
-  }
-
-
-  # results_bounds ----------------------------------------------------------
-  results_bounds <- lResults %>%
-    purrr::map(~ .x$lResults$lData$dfBounds) %>%
-    purrr::discard(is.null)
-
-  if (length(results_bounds) > 0) {
-    results_bounds <- results_bounds %>%
-      purrr::imap_dfr(~ .x %>% mutate(workflowid = .y)) %>%
-      mutate(studyid = unique(lMeta$config_workflow$studyid)) %>% # not sure if this is a correct assumption
-      select(
-        "studyid",
-        "workflowid",
-        "threshold" = "Threshold",
-        "numerator" = "Numerator",
-        "denominator" = "Denominator",
-        "log_denominator" = "LogDenominator"
-      )
-  } else {
-    results_bounds <- results_bounds %>%
-      as_tibble()
-  }
-
+  )
 
   # create lSnapshot --------------------------------------------------------
-
   lSnapshot <- list(
     status_study = status_study,
     status_site = status_site,
-    status_workflow = status_workflow,
-    status_param = status_param,
-    results_summary = results_summary,
+    status_workflow = MakeStatusWorkflow(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
+    status_param = lMeta$config_param,
+    results_summary = MakeResultsSummary(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
     results_analysis = results_analysis,
-    results_bounds = results_bounds,
-    meta_workflow = meta_workflow,
-    meta_param = meta_param
+    results_bounds = MakeResultsBounds(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
+    meta_workflow = lMeta$meta_workflow,
+    meta_param = lMeta$meta_params
   ) %>%
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
-  return(
-    list(
+  # return snapshot ---------------------------------------------------------
+    snapshot <- list(
       lSnapshotDate = gsm_analysis_date,
       lSnapshot = lSnapshot,
-      lStudyAssessResults = lResults
+      lStudyAssessResults = lResults,
+      lInputs = list(lMeta = lMeta,
+                     lData = lData,
+                     lMapping = lMapping,
+                     lAssessments = lAssessments)
     )
-  )
+
+# return snapshot ---------------------------------------------------------
+
+  return(snapshot)
 }

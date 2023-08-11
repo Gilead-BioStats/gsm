@@ -4,12 +4,23 @@
 \alias{Overview_Table}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
-Overview_Table(lAssessments, dfSite = NULL, bInteractive = TRUE)
+Overview_Table(
+  lAssessments = Study_Assess(),
+  dfSite = Site_Map_Raw(),
+  strReportType = "site",
+  bInteractive = TRUE
+)
 }
 \arguments{
 \item{lAssessments}{\code{list} The output of running \code{\link[=Study_Assess]{Study_Assess()}}.}
 
 \item{dfSite}{\code{data.frame}}
+
+\item{strReportType}{\code{character} The type of report to be generated. Valid values:
+\itemize{
+\item \code{"site"} for site-level KRI summary (default)
+\item \code{"country"} for country-level KRI summary
+}}
 
 \item{bInteractive}{\code{logical} Display interactive widget? Default: \code{TRUE}.}
 }
@@ -20,6 +31,7 @@ Overview Table - Create summary of red and amber KRIs for a study.
 \dontrun{
 lAssessments <- Study_Assess()
 Overview_Table(lAssessments)
+Overview_Table(lAssessments, strReportType = "country")
 }
 
 }

@@ -31,7 +31,7 @@ Widget_TimeSeriesQTL(
 
 \item{width}{the width of the widget}
 
-\item{height}{the hight of the widget}
+\item{height}{the height of the widget}
 
 \item{elementId}{id of widget, automatically generated if not supplied}
 }

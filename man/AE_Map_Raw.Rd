@@ -46,6 +46,16 @@ input data to \code{\link[=AE_Assess]{AE_Assess()}}. This function creates an in
 data (from \code{dfSUBJ}). Note that the function can generate data summaries for specific types of
 AEs by passing filtered AE data to \code{dfAE}.
 }
+\section{Data specification}{
+\tabular{llllll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \tab \strong{Accept NA/Empty Values?} \cr
+   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \tab FALSE \cr
+   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \tab FALSE \cr
+   dfSUBJ \tab strTimeOnTreatmentCol \tab timeontreatment \tab TRUE \tab FALSE \tab TRUE \cr
+   dfAE \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
+}
+}
+
 \examples{
 # Run with defaults.
 dfInput <- AE_Map_Raw()

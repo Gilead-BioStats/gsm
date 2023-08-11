@@ -11,7 +11,7 @@
 #' @param raw_analysis TODO
 #' @param selectedGroupIDs TODO
 #' @param width the width of the widget
-#' @param height the hight of the widget
+#' @param height the height of the widget
 #' @param elementId id of widget, automatically generated if not supplied
 #'
 #' @import htmlwidgets

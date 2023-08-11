@@ -16,9 +16,10 @@ reference:
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
       - UpdateLabels
+      - Make_Timeline
 
    - title: Map
-     desc: Generate input data from multiple clinical data standards (generally Raw+ or SDTM-)
+     desc: Generate input data from multiple clinical data standards (generally rawplus or SDTM-)
    - contents:
       - matches("*_Map_*")
 
@@ -76,7 +77,12 @@ reference:
       -  FilterData
       -  FilterDomain
       -  Get_Enrolled
+      -  MakeAnalysisDate
       -  MakeDfConfig
+      -  MakeResultsAnalysis
+      -  MakeResultsBounds
+      -  MakeResultsSummary
+      -  MakeStatusWorkflow
       -  MakeStratifiedAssessment
       -  MakeWorkflowList
       -  Make_Snapshot

@@ -56,7 +56,7 @@ The image above provides an overview of the default KRI assessment pipeline. The
 4.  `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag()` function.
 5.  `dfSummary`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function.
 
-Each assessment has an `Assess()` function that sequentially executes all 4 of the supporting functions and returns a list of datasets and visualizations. The 4 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`. An additional dataset, called `dfBounds`, is generated only when a supported statistical model is being used. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Analysis-Vignette).
+Each assessment has an `Assess()` function that sequentially executes all 4 of the supporting functions and returns a list of datasets and visualizations. The 4 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`. An additional dataset, called `dfBounds`, is generated only when a supported statistical model is being used. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html).
 
 Note that each step in this data pipeline can be customized based on the requirements for a specific KRI. The graphic below shows three such workflows.
 
@@ -83,7 +83,7 @@ results <- Study_Assess()
 Study_Report(results)
 ```
 
-Additional examples are provided in the [Cookbook Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Cookbook-Vignette).
+Additional examples are provided in the [Cookbook Vignette](https://gilead-biostats.github.io/gsm/articles/Cookbook.html).
 
 # Appendix 1 - Metadata Technical Specifications {#Appendix-1-Metadata-Technical-Specifications}
 
@@ -137,7 +137,7 @@ list(
 )
 ```
 
-Note that `Study_Assess()` is designed to share a `mapping` object across multiple assessments. The default mapping is saved as a YAML file (`inst/mappings/mapping_rawplus.yaml`). However, users can also create a custom mapping object for their use cases by making a custom YAML file, or by creating or modifying a `list` like that returned by `gsm::Read_Mapping()`.
+Note that `Study_Assess()` is designed to share a `mapping` object across multiple assessments. The default mapping is saved as a [YAML file](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/mappings/mapping_rawplus.yaml). However, users can also create a custom mapping object for their use cases by making a custom YAML file, or by creating or modifying a `list` like that returned by `gsm::Read_Mapping()`.
 
 ## Assessment Workflow Metadata
 
@@ -183,7 +183,7 @@ steps:
 
 Input data for `{gsm}` is pulled from several systems. The data sources for `{gsm}` are:
 
--   **Clinical Data:** Study-level clinical data across multiple data domains saved in the Raw+ format *(detailed specification in future releases)*
+-   **Clinical Data:** Study-level clinical data across multiple data domains saved in the rawplus format *(detailed specification in future releases)*
 -   **Operational Data:** Study-level operational data including operational metadata from EDC and adjudicated Protocol Deviation data *(detailed specification in future releases)*
 -   **CTMS Data:** Study-level and site-level metadata from CTMS
 -   **Metric Data:** Systems Metric and Parameter Definitions (saved directly in `{gsm}`) and Study-Specific Metric Specification data (imported from RACT)

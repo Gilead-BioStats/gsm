@@ -17,7 +17,7 @@
 #'   \item{data_inputs}{Description of one or more data inputs needed to create the `dfInput` data.frame that is passed to the assessment function.}
 #'   \item{data_filters}{Description of parameters to use to filter when creating input data (`dfInput`)}
 #' }
-#' @source \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
+#' @source \url{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}
 "meta_workflow"
 
 #' Workflow Parameterization Metadata
@@ -33,7 +33,7 @@
 #'   \item{default}{Default parameter.}
 #'   \item{configurable}{Boolean denoting whether the parameter can be configured to use a different argument.}
 #'   }
-#' @source \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
+#' @source \url{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}
 "meta_param"
 
 #' RBM Data Specification
@@ -46,8 +46,9 @@
 #'   \item{Table}{Name of the table/data source created by `gsm::Make_Snapshot()`}
 #'   \item{Column}{Name of the column in the table}
 #'   \item{Description}{Description of `Column`}
+#'   \item{Order}{Order columns should appear in for standard export}
 #'   }
-#' @source \url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
+#' @source \url{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}
 "rbm_data_spec"
 
 

@@ -7,7 +7,7 @@
 #'
 #' @details
 #' The Lab Abnormality Assessment uses the standard [GSM data pipeline](
-#'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
+#'   https://gilead-biostats.github.io/gsm/articles/DataPipeline.html
 #' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
 #' methods are described below.
 #'
@@ -192,7 +192,8 @@ LB_Assess <- function(
         results = lData$dfSummary,
         workflow = dfConfig,
         bounds = lData$dfBounds,
-        elementId = "lbAssessScatter"
+        elementId = "lbAssessScatter",
+        siteSelectLabelValue = strGroup
       )
 
       if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
@@ -205,14 +206,16 @@ LB_Assess <- function(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "metric",
-      elementId = "lbAssessMetric"
+      elementId = "lbAssessMetric",
+      siteSelectLabelValue = strGroup
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "score",
-      elementId = "lbAssessScore"
+      elementId = "lbAssessScore",
+      siteSelectLabelValue = strGroup
     )
 
     if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")

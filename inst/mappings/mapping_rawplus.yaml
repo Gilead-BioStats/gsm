@@ -19,6 +19,7 @@ dfAE:
   strEndDateCol: aeen_dt
   strSeriousCol: aeser
   strSeriousVal: "Y"
+  strNonSeriousCol: aeser
   strNonSeriousVal: "N"
   strGradeCol: aetoxgr
   strPTCol: mdrpt_nsv

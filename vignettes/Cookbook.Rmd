@@ -17,11 +17,11 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-This vignette contains a series of examples showing how to run analysis workflows for the Good Statistical Monitoring `{gsm}` package using sample data from `{clindata}`. 
+This vignette contains a series of examples showing how to run analysis workflows for the Good Statistical Monitoring `{gsm}` package using sample data from [`{clindata}`](https://github.com/Gilead-BioStats/clindata). 
 
 `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
 
-For more information on the `{gsm}` package see the [package homepage](https://silver-potato-cfe8c2fb.pages.github.io/). The [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette) provides additional technical details including data specifications and handling of metadata. The [Data Analysis Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Analysis-Vignette) provides detailed information about the nested functions that support the analysis workflows.
+For more information on the `{gsm}` package see the [package homepage](https://gilead-biostats.github.io/gsm/). The [Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html) provides additional technical details including data specifications and handling of metadata. The [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html) provides detailed information about the nested functions that support the analysis workflows.
 
 ## Setup and Installation
 
@@ -68,7 +68,7 @@ library(clindata)
 library(gsm)
 
 ## Map domain-level data to the input data standard for the selected assessment.
-## In this case, we are making dfInput from Raw+ clinical data
+## In this case, we are making dfInput from rawplus clinical data
 dfInput <- AE_Map_Raw()
 
 ## Run the assessment with the appropriate statistical model.
@@ -81,7 +81,7 @@ Each assessment has representative examples in the help files. The example above
 
 ## Example 2 - Running a Single Assessment Step-by-Step Using Standard Data
 
-Let's look at an illustrative example of everything that happens behind the scenes when running an individual `Assess()` function. It may be helpful to reference this example alongside the [Data Analysis Vignette](https://silver-potato-cfe8c2fb.pages.github.io/articles/DataAnalysis.html), which goes into significantly more detail about each nested function involved in this workflow. The image below is a high-level summary:
+Let's look at an illustrative example of everything that happens behind the scenes when running an individual `Assess()` function. It may be helpful to reference this example alongside the [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html), which goes into significantly more detail about each nested function involved in this workflow. The image below is a high-level summary:
 
 ![](data-analysis.PNG)
 
@@ -161,16 +161,15 @@ To run multiple assessments using the sample rawplus data from `{clindata}`, the
 ```{r eval = FALSE, include = TRUE}
 library(gsm)
 library(clindata)
-library(safetyData)
 
 multiple_assessments <- Study_Assess()
 ```
 
-### Using User-Provided Raw+ Data
+### Using User-Provided rawplus Data
 
 User-provided rawplus data will likely come from rawplus case report data. The example below illustrates that a user can pass a named list of rawplus data to the `lData` parameter. 
 
-It is important to note that `lData` expects a *named* list. To see a list of default data frame names, run `gsm::Read_Mapping(strDomain = "rawplus")`.
+It is important to note that `lData` expects a *named* list. To see a list of default data frame names, run `names(gsm::Read_Mapping())`.
 
 ```{r eval = FALSE, include = TRUE}
 library(gsm)
@@ -183,7 +182,7 @@ dfAE <- clindata::rawplus_ae %>%
     aetoxgr != "MILD"
   )
 
-## Specify Raw+ data domains
+## Specify rawplus data domains
 dfSUBJ <- clindata::rawplus_dm
 dfIE <- clindata::rawplus_ie
 dfPD <- clindata::ctms_protdev
@@ -255,8 +254,9 @@ snapshot <- Make_Snapshot()
 
 Study_Report(
   lAssessments = snapshot$lStudyAssessResults,
-  dfSite = snapshot$lSnapshot$status_site
-    )
+  dfSite = snapshot$lSnapshot$status_site, 
+  dfStudy = snapshot$lSnapshot$status_study
+  )
 ```
 
 ## Example 6 - Viewing the Error Checking Report
@@ -311,7 +311,7 @@ Visualize_Scatter(
 
 # Custom Mapping/YAML Specifications
 
-As mentioned in Appendix 1 of the [Data Pipeline Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Data-Pipeline-Vignette##Appendix-1-Metadata-Technical-Specifications), `Study_Assess()` triggers a workflow that uses pre-defined YAML specifications that organize all of the required metadata for a given assessment or set of assessments.
+As mentioned in Appendix 1 of the [Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html#Appendix-1-Metadata-Technical-Specifications), `Study_Assess()` triggers a workflow that uses pre-defined YAML specifications that organize all of the required metadata for a given assessment or set of assessments.
 
 In some cases, the user might want to configure their own mappings, which can be done by providing custom YAML mappings for one or more assessments.
 
@@ -396,7 +396,7 @@ After setting up the custom YAML mapping, there are a few more steps a user must
 2.  Overwrite `lAssessmentsCustom$kri0001` with the custom YAML file (`ae_assessment_moderate.yaml`).
 3.  Add a name value to the custom assessment list.
 4.  Add a relative path to the custom assessment list, to show where the custom YAML file is stored.
-5.  Read in the default Raw+ mappings from `{clindata}`.
+5.  Read in the default rawplus mappings from `{clindata}`.
 6.  Add the value to sort `strTypeCol` on.
 7.  Run the `Study_Assess()` workflow.
 

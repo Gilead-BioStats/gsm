@@ -3,7 +3,7 @@
 #' Export gsm analysis script using Data, Mapping, and Workflow
 #'
 #'
-#' @param lData `list` Raw+ data to use as inputs.
+#' @param lData `list` rawplus data to use as inputs.
 #' @param lMapping `list` Standard mapping provided for [gsm::FilterDomain()] and `*_Map_Raw()` functions.
 #' @param lAssessments `list` The result of running [gsm::MakeWorkflowList()], or a custom workflow.
 #' @param bInsertText `logical` Should code be inserted into a new .R file? Default: `TRUE`.
@@ -35,6 +35,7 @@
 #' @importFrom glue glue glue_collapse
 #' @importFrom purrr map imap flatten
 #' @importFrom stringr str_detect
+#' @importFrom styler style_text
 #'
 #' @export
 ExportCode <- function(lData,

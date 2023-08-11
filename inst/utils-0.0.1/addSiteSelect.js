@@ -7,7 +7,7 @@
  *
  * @returns {Node} HTML select element
  */
-const addSiteSelect = function(el, results, instance) {
+const addSiteSelect = function(el, results, instance, siteSelectLabelValue) {
     el.style.position = 'relative';
 
     // add container in which to place dropdown
@@ -21,7 +21,7 @@ const addSiteSelect = function(el, results, instance) {
 
     // add dropdown label
     const siteSelectLabel = document.createElement('span');
-    siteSelectLabel.innerHTML = 'Highlighted Site ';
+    siteSelectLabel.innerHTML = siteSelectLabelValue;
     siteSelectContainer.appendChild(siteSelectLabel)
 
     // add dropdown

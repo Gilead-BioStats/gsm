@@ -7,7 +7,7 @@
 Flag(dfAnalyzed, strColumn = "Score", vThreshold = NULL, strValueColumn = NULL)
 }
 \arguments{
-\item{dfAnalyzed}{\code{data.frame} A data.frame where flags should be added.}
+\item{dfAnalyzed}{\code{data.frame} where flags should be added.}
 
 \item{strColumn}{\code{character} Name of the column to use for thresholding. Default: \code{"Score"}}
 
@@ -33,7 +33,7 @@ method is used.
 Flag
 
 This function provides a generalized framework for flagging sites as part of the
-\href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
+\href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.
 }
 \section{Data Specification}{
 

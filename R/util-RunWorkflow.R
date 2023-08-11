@@ -99,5 +99,6 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
     lWorkflow$bStatus <- FALSE
   }
 
+
   return(lWorkflow)
 }

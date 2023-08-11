@@ -9,6 +9,9 @@
 #' @param dfStudy `data.frame` A data.frame containing study status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_study`
 #' @param dfSite `data.frame` A data.frame containing site status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_site`
 #' @param strOutpath `character` File path; location where the report will be saved.
+#' @param strReportType `character` The type of report to be generated. Valid values:
+#'   - `"site"` for site-level KRI summary (default)
+#'   - `"country"` for country-level KRI summary
 #'
 #' @return HTML report of study data.
 #'
@@ -17,6 +20,7 @@
 #' # Using `Study_Assess()`
 #' study <- Study_Assess()
 #' Study_Report(study)
+#' Study_Report(study, strReportType = "country")
 #'
 #' # Adding metadata for a single snapshot
 #' one_snapshot <- Make_Snapshot()
@@ -47,13 +51,30 @@ Study_Report <- function(
   lAssessments,
   dfStudy = NULL,
   dfSite = NULL,
-  strOutpath = NULL
+  strOutpath = NULL,
+  strReportType = "site"
 ) {
-  if (is.null(strOutpath)) {
-    strOutpath <- paste0(getwd(), "/gsm_report.html")
+  # input check
+  stopifnot(
+    "strReportType is not 'site' or 'country'" = strReportType %in% c("site", "country"),
+    "strReportType must be length 1" = length(strReportType) == 1
+  )
+
+  # set output path
+  if (is.null(strOutpath) & strReportType == "site") {
+    strOutpath <- paste0(getwd(), "/gsm_site_report.html")
+  } else if (is.null(strOutpath) & strReportType == "country") {
+    strOutpath <- paste0(getwd(), "/gsm_country_report.html")
   }
 
-  projectTemplate <- system.file("report", "KRIReport.Rmd", package = "gsm")
+  # set Rmd template
+  if (strReportType == "site") {
+    projectTemplate <- system.file("report", "KRIReportBySite.Rmd", package = "gsm")
+  } else if (strReportType == "country") {
+    projectTemplate <- system.file("report", "KRIReportByCountry.Rmd", package = "gsm")
+  }
+
+  # render
   rmarkdown::render(
     projectTemplate,
     output_file = strOutpath,

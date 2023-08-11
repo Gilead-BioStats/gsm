@@ -1,5 +1,7 @@
 library(dplyr)
 
+
+# dfAE --------------------------------------------------------------------
 dfAE <- tibble::tribble(
   ~subjid, ~treatmentemergent, ~aetoxgr, ~aeser,
   "0001", "Y", "MILD", "N",
@@ -16,6 +18,8 @@ dfAE <- tibble::tribble(
   "0003", "Y", "MODERATE", "Y"
 )
 
+
+# dfSUBJ ------------------------------------------------------------------
 dfSUBJ <- tibble::tribble(
   ~studyid, ~siteid, ~subjid, ~timeonstudy, ~timeontreatment, ~firstparticipantdate, ~country, ~invid, ~enrollyn,
   "AA-AA-000-0000", "86", "0001", 730L, 678L, "2008-09-10", "US", "0X012", "Y",
@@ -23,6 +27,24 @@ dfSUBJ <- tibble::tribble(
   "AA-AA-000-0000", "166", "0003", 901L, 857L, "2008-08-26", "Japan", "0X999", "Y"
 ) %>% dplyr::mutate(subject_nsv = subjid)
 
+
+# dfSTUDY -----------------------------------------------------------------
+dfSTUDY <- tibble::tribble(
+  ~protocol_row_id, ~protocol_number, ~protocol_title, ~nickname, ~protocol_type, ~phase, ~num_plan_site, ~num_site_actl, ~est_fpfv, ~act_fpfv, ~est_lplv, ~act_lplv, ~est_lpfv, ~act_lpfv, ~status, ~num_plan_subj, ~num_enrolled_subj_m, ~protocol_indication, ~product, ~therapeutic_area, ~protocol_product_number, ~x_rbm_flg,
+  "1-1G9113", "AA-AA-000-0000", "Protocol Title", "Protocol Nickname", "Investigator Sponsored", "P3", 190L, 176L, "2003-01-01 00:00:00", "2003-01-01 00:00:00", "2021-06-01 00:00:00", "2021-06-01 00:00:00", "2020-06-01 00:00:00", "2020-06-01 00:00:00", "Active", 1300L, 1301L, "Protocol Indication", "Product", "Therapeutic Area", 123L, "Y"
+)
+
+
+# dfSITE ------------------------------------------------------------------
+dfSITE <- tibble::tribble(
+  ~protocol_row_id, ~site_num, ~site_row_id, ~protocol, ~pi_number, ~pi_last_name, ~pi_first_name, ~site_status, ~is_satellite, ~account, ~site_active_dt, ~city, ~state, ~country,
+  "1-1G9113", 10L, "123-1234-0X126", "AA-AA-000-0000", "0X126", "Torres", "Ariel", "Active", FALSE, "city 1 Medical Center", "2004-01-31", "city 1", "state 1", "China",
+  "1-1G9113", 100L, "123-1234-X060X", "AA-AA-000-0000", "X060X", "Spangler", "Cheyenne", "Active", FALSE, "city 1 Medical Center", "2011-09-29", "city 1", "state 1", "Japan",
+  "1-1G9113", 101L, "123-1234-0X174", "AA-AA-000-0000", "0X174", "Broughton", "Macallyson", "Active", FALSE, "city 1 Medical Center", "2006-03-03", "city 1", "state 1", "US"
+)
+
+
+# dfENROLL ----------------------------------------------------------------
 dfENROLL <- tibble::tribble(
   ~studyid, ~siteid, ~subjid, ~enroll_dt, ~enrollyn, ~sfreas, ~country, ~invid,
   "AA-AA-000-0000", "86", "0001", "2008-09-10", "US", "0X012", "Y", "0X001",
@@ -30,6 +52,8 @@ dfENROLL <- tibble::tribble(
   "AA-AA-000-0000", "166", "0003", "2008-08-26", "Japan", "0X999", "Y", "0X001"
 ) %>% mutate(subjectid = subjid)
 
+
+# dfLB --------------------------------------------------------------------
 dfLB <- tibble::tribble(
   ~subjid, ~visnam, ~visnum, ~battrnam, ~lbtstnam, ~siresn, ~treatmentemergent, ~toxgrg_nsv,
   "0001", "Screening", -10, "CHEMISTRY PANEL", "ALT (SGPT)", 59, NA, "1",
@@ -184,6 +208,8 @@ dfLB <- tibble::tribble(
   "0003", "Baseline/Day 1", 1, "CHEMISTRY PANEL", "Serum Potassium", 4.09999990463257, "Y", "0"
 )
 
+
+# dfPD --------------------------------------------------------------------
 dfPD <- tibble::tribble(
   ~subjectenrollmentnumber, ~gileadcategory, ~deemedimportant,
   "0001", "OTHER", "No",
@@ -192,6 +218,8 @@ dfPD <- tibble::tribble(
   "0003", "OTHER TREATMENT COMPLIANCE ISSUE", "No"
 )
 
+
+# dfCONSENT ---------------------------------------------------------------
 dfCONSENT <- tibble::tribble(
   ~subjid, ~conscat, ~consyn, ~consdt,
   "0001", "MAINCONSENT", "Y", NA,
@@ -199,17 +227,23 @@ dfCONSENT <- tibble::tribble(
   "0003", "MAINCONSENT", "Y", "13217"
 )
 
+
+# dfSTUDCOMP --------------------------------------------------------------
 dfSTUDCOMP <- tibble::tribble(
   ~subjid, ~compreas, ~compyn,
   "0002", "WITHDRAWAL BY SUBJECT", "N"
 )
 
+
+# dfSDRGCOMP --------------------------------------------------------------
 dfSDRGCOMP <- tibble::tribble(
   ~subjid, ~phase, ~sdrgreas, ~sdrgyn,
   "0002", "Blinded Study Drug Completion", "out of bound:Withdrew Consent*", "N",
   "0003", "Blinded Study Drug Completion", NA, "Y"
 )
 
+
+# dfIE --------------------------------------------------------------------
 dfIE <- tibble::tribble(
   ~subjid, ~iecat, ~ieorres, ~tiver,
   "0001", "INCL", 0, "A2",
@@ -285,10 +319,8 @@ dfIE <- tibble::tribble(
   "0003", "INCL", 1, "A1"
 )
 
-# dfADSL <- safetyData::adam_adsl %>%
-#   select(USUBJID, SITEID, TRTSDT, TRTEDT) %>%
-#   head(4)
 
+# dfADSL ------------------------------------------------------------------
 dfADSL <- data.frame(
   stringsAsFactors = FALSE,
   USUBJID = c(
@@ -300,6 +332,8 @@ dfADSL <- data.frame(
   TRTEDT = as.Date(c("2014-07-02", "2012-09-01", "2014-01-14", "2014-03-31"))
 )
 
+
+# dfADAE ------------------------------------------------------------------
 dfADAE <- data.frame(
   USUBJID = c(
     "01-701-1015", "01-701-1015", "01-701-1023", "01-701-1023",
@@ -308,6 +342,8 @@ dfADAE <- data.frame(
   )
 )
 
+
+# lData -------------------------------------------------------------------
 lData <- list(
   dfSUBJ = dfSUBJ,
   dfAE = dfAE,

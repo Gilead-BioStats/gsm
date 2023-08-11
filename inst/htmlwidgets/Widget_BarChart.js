@@ -40,7 +40,7 @@ HTMLWidgets.widget({
                 // add dropdown that highlights sites
                 let siteSelect;
                 if (x.addSiteSelect)
-                    siteSelect = addSiteSelect(el, results, instance);
+                    siteSelect = addSiteSelect(el, results, instance, x.siteSelectLabelValue);
             },
             resize: function(width, height) {
             }

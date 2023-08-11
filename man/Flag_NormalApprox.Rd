@@ -22,7 +22,7 @@ Add columns flagging sites that represent possible statistical outliers.
 Flag_NormalApprox
 
 This function flags sites based on the funnel plot with normal approximation analysis result as part of
-the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM data pipeline}.
+the \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.
 }
 \section{Data Specification}{
 

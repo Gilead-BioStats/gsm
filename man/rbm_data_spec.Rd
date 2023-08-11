@@ -11,10 +11,11 @@ A data frame with 125 rows and 4 variables.
 \item{Table}{Name of the table/data source created by \code{gsm::Make_Snapshot()}}
 \item{Column}{Name of the column in the table}
 \item{Description}{Description of \code{Column}}
+\item{Order}{Order columns should appear in for standard export}
 }
 }
 \source{
-\url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
+\url{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}
 }
 \usage{
 rbm_data_spec

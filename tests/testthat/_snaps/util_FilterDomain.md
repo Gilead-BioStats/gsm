@@ -22,8 +22,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `treatmentemergent %in% c("Y")`.
-      v Filtered on `treatmentemergent %in% c("Y")` to drop 0 rows from 0 to 0 rows.
+      Filtering on `treatmentemergent %in% c("Y")` to retain rows.
+      v Filtered on `treatmentemergent %in% c("Y")` to retain 0 rows from 0.
       ! WARNING: Filtered data has 0 rows.
       i NOTE: No rows dropped.
     Output
@@ -124,8 +124,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfAE domain
-      Filtering on `treatmentemergent %in% c("Y")`.
-      v Filtered on `treatmentemergent %in% c("Y")` to drop 0 rows from 12 to 12 rows.
+      Filtering on `treatmentemergent %in% c("Y")` to retain rows.
+      v Filtered on `treatmentemergent %in% c("Y")` to retain 12 rows from 12.
       i NOTE: No rows dropped.
     Output
       # A tibble: 12 x 4

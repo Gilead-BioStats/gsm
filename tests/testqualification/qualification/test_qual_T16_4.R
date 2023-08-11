@@ -1,4 +1,4 @@
-test_that("A subset of Raw+ Protocol Deviation data can be mapped correctly to create an analysis-ready input dataset.", {
+test_that("A subset of rawplus Protocol Deviation data can be mapped correctly to create an analysis-ready input dataset.", {
   ########### gsm mapping ###########
   subset <- FilterData(
     dfInput = clindata::ctms_protdev,

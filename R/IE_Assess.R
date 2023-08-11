@@ -7,7 +7,7 @@
 #'
 #' @details
 #' The Inclusion/Exclusion Assessment uses the standard [GSM data pipeline](
-#'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
+#'   https://gilead-biostats.github.io/gsm/articles/DataPipeline.html
 #' ) to flag sites with IE issues. This assessment detects sites with excessive rates of unmet or
 #' missing IE criteria, as defined by `nThreshold`. The count returned in the summary represents the
 #' number of subjects at a given site with at least one unmet or missing IE criterion.
@@ -128,14 +128,16 @@ IE_Assess <- function(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "metric",
-      elementId = "ieAssessMetric"
+      elementId = "ieAssessMetric",
+      siteSelectLabelValue = strGroup
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
       results = lData$dfSummary,
       workflow = dfConfig,
       yaxis = "score",
-      elementId = "ieAssessScore"
+      elementId = "ieAssessScore",
+      siteSelectLabelValue = strGroup
     )
 
     if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} bar chart{?s}.")

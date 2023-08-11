@@ -164,7 +164,7 @@
       $dfInput
       # A tibble: 1,301 x 8
          SubjectID SiteID StudyID       CountryID CustomGroupID Exposure Count    Rate
-         <chr>     <chr>  <chr>         <chr>     <chr>            <dbl> <int>   <dbl>
+         <chr>     <chr>  <chr>         <chr>     <chr>            <int> <int>   <dbl>
        1 0001      86     AA-AA-000-00~ US        0X035              730     0 0      
        2 0002      76     AA-AA-000-00~ US        0X104               50     0 0      
        3 0003      166    AA-AA-000-00~ US        0X102              901     5 0.00555
@@ -564,6 +564,12 @@
       $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagCol
       [1] "x_rbm_flg"
       
+      $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagIncludeCol
+      [1] "x_rbm_flg"
+      
+      $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagExcludeCol
+      [1] "x_rbm_flg"
+      
       $AE_Map_Raw$mapping$dfSTUDY$strRBMFlagIncludeVal
       [1] "Y"
       
@@ -624,6 +630,9 @@
       
       $AE_Map_Raw$mapping$dfPD$strImportantVal
       [1] "Yes"
+      
+      $AE_Map_Raw$mapping$dfPD$strNonImportantCol
+      [1] "deemedimportant"
       
       $AE_Map_Raw$mapping$dfPD$strNonImportantVal
       [1] "No"
@@ -784,6 +793,9 @@
       
       $AE_Map_Raw$mapping$dfAE$strSeriousVal
       [1] "Y"
+      
+      $AE_Map_Raw$mapping$dfAE$strNonSeriousCol
+      [1] "aeser"
       
       $AE_Map_Raw$mapping$dfAE$strNonSeriousVal
       [1] "N"
@@ -1155,8 +1167,8 @@
       -- Checking Input Data for `FilterDomain()` --
       
       v No issues found for dfSUBJ domain
-      Filtering on `enrollyn %in% c("Y")`.
-      v Filtered on `enrollyn %in% c("Y")` to drop 0 rows from 10 to 10 rows.
+      Filtering on `enrollyn %in% c("Y")` to retain rows.
+      v Filtered on `enrollyn %in% c("Y")` to retain 10 rows from 10.
       i NOTE: No rows dropped.
       v `FilterDomain()` Successful
       Saving dfSUBJ to `lWorkflow$lData`

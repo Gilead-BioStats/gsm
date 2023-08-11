@@ -13,9 +13,9 @@ FilterData(dfInput, strCol, anyVal, bReturnChecks = FALSE, bQuiet = TRUE)
 
 \item{anyVal}{\code{character} Domain in \code{lMapping} that references the value to filter on.}
 
-\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid}? Default: \code{FALSE}}
+\item{bReturnChecks}{\code{logical} Return input checks from \code{is_mapping_valid()}? Default: \code{FALSE}.}
 
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 }
 \value{
 \code{data.frame} Data frame provided as \code{dfInput} and filtered on \code{strCol} == \code{anyVal}.
