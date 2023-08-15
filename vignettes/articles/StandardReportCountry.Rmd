@@ -1,10 +1,10 @@
 ---
-title: "Site Report Example"
+title: "Country Report Example"
 date: 'Date: `r Sys.Date()`'
 output:
   rmarkdown::html_vignette
 vignette: >
- %\\VignetteIndexEntry{Site Report Example} 
+ %\\VignetteIndexEntry{Country Report Example} 
  %\\VignetteEncoding{UTF-8}
  %\\VignetteEngine{knitr::rmarkdown}
 ---
@@ -14,7 +14,7 @@ This report can be created using sample data from [`{clindata}`](https://github.
 ```
 study <- gsm::Study_Assess()
 
-Study_Report(study)
+Study_Report(study, strReportType = "country")
 ```
 
 ---
@@ -36,4 +36,4 @@ iframe {
 </style>
 
 
-<iframe src="../../inst/report_examples/gsm_site_report.html" data-external="1"></iframe>
+<iframe src="../../inst/report_examples/gsm_country_report.html" data-external="1"></iframe>
