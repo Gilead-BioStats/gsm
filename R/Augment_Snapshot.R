@@ -32,7 +32,8 @@ Augment_Snapshot <- function(
   lSnapshot,
   cPath,
   vFolderNames = NULL,
-  bAppendTimeSeriesCharts = TRUE
+  bAppendTimeSeriesCharts = TRUE,
+  bAppendLongitudinalResults = TRUE
 ) {
   # TODO: alternatively accept the output of StackSnapshots?
   stackedSnapshots <- StackSnapshots(cPath, lSnapshot, vFolderNames)
@@ -71,6 +72,28 @@ Augment_Snapshot <- function(
 
         return(result)
       })
+  }
+
+  if (bAppendLongitudinalResults) {
+    tests <- stackedSnapshots$results_summary %>%
+      mutate(current = case_when(snapshot_date == lSnapshot$lSnapshotDate ~ TRUE,
+                                 TRUE ~ FALSE))
+
+    max_dates <- stackedSnapshots$results_summary %>%
+      group_by(studyid, workflowid) %>%
+      summarise(snapshot_date = max(snapshot_date)) %>%
+      mutate(current = case_when(snapshot_date == lSnapshot$lSnapshotDate ~ TRUE,
+                                 TRUE ~ FALSE))
+
+    if(any(!max_dates$current)){
+      dropped <- filter(max_dates, !current)
+      for(i in 1:length(dropped$workflowid)){
+        lSnapshot$lStudyAssessResults[[dropped$workflowid[i]]] <- stackedSnapshots$results_summary %>%
+                                                                  filter(workflowid == dropped$workflowid[i],
+                                                                         snapshot_date == dropped$snapshot_date[i],
+                                                                         studyid == dropped$studyid[i])
+      }
+    }
   }
 
   lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots

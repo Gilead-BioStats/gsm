@@ -19,8 +19,10 @@ library(tidyverse)
 library(DT)
 
 # Study_Assess() output - KRIs only
-assessment <- params$assessment[
-  grep("kri", names(params$assessment))
+active <- params$assessment[!sapply(params$assessment, is.data.frame)]
+dropped <- params$assessment[sapply(params$assessment, is.data.frame)]
+assessment <- active[
+  grep("kri", names(active))
 ]
 
 # Overview Table - HTML object
@@ -61,12 +63,8 @@ study_id <- purrr::map(assessment, function(kri) {
 title: "`r study_id` Assessment Overview"
 ---
 
-<div class = 'overall-site-select'
-    id = 'overall-site-select'
-    title = 'Selected site will be highlighted in all charts for all KRIs.'>
-
-</div>
-
+::: {#overall-site-select .overall-site-select title="Selected site will be highlighted in all charts for all KRIs."}
+:::
 
 ```{r, echo=FALSE, results='asis'}
 
@@ -89,21 +87,23 @@ if (exists('status_study', where = params) && !is.null(params$status_study)) {
 }
 ```
 
-
 ## Study Overview
 
-<div class="flag-container">
-  <div class="flag flag-red">`r red_kris` Red KRIs</div>
-  <div class="flag flag-amber">`r amber_kris` Amber KRIs</div>
-</div>
+::: flag-container
+::: {.flag .flag-red}
+`r red_kris` Red KRIs
+:::
 
+::: {.flag .flag-amber}
+`r amber_kris` Amber KRIs
+:::
+:::
 
-<div class="gsm-overview-table">
+::: gsm-overview-table
 ```{r echo=FALSE, warning=FALSE}
 overview_table
 ```
-</div>
-
+:::
 
 ## Results
 
@@ -173,15 +173,40 @@ for (i in seq_along(assessment)) {
 }
 ```
 
-
 ## KRI Glossary
 
 ```{r echo = FALSE}
 MakeKRIGlossary(
-    names(assessment)
+    names(assessment),
+    names(dropped)[grep("kri", dropped)]
 )
 ```
 
+`r if(length(dropped) > 0){"## Lastest Deactivated KRI's"}`
+
+```{r, eval=length(dropped) > 0, echo = FALSE}
+drped <- do.call(bind_rows, dropped)
+if(nrow(drped) > 0){
+  drped %>%
+     `colnames<-`(toTitleCase(colnames(.))) %>%
+     select(-Gsm_analysis_date) %>%
+     rename("Site" = "Groupid") %>%
+     filter(Flag != 0) %>%
+     arrange(desc(abs(.data$Score))) %>%
+     mutate(
+       Flag = map(.data$Flag, kri_directionality_logo),
+       across(
+         where(is.numeric),
+         ~ round(.x, 3)
+       )) %>%
+     DT::datatable(
+       rownames = FALSE
+     )
+} else {
+  htmltools::p("No KRI's dropped.")
+}
+
+```
 
 ## Error Log
 
@@ -200,7 +225,6 @@ error_table <- error$dfSummary %>%
 
 DT::datatable(error_table)
 ```
-
 
 ```{js, file='../utils-0.0.1/overallSiteDropdown.js', echo=FALSE}
 ```

@@ -125,7 +125,8 @@ MakeStudyStatusTable <- function(dfStudy) {
 #' @export
 #' @keywords internal
 MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
-  map(lAssessment, function(kri) {
+  active <- lAssessments[!sapply(lAssessments, is.data.frame)]
+  map(active, function(kri) {
     if (kri$bStatus) {
       dfSummary <- kri$lResults$lData$dfSummary
 
@@ -199,20 +200,25 @@ add_table_theme <- function(x) {
 #' @export
 #' @keywords internal
 MakeKRIGlossary <- function(
-  strWorkflowIDs = NULL,
-  dfMetaWorkflow = gsm::meta_workflow
+    strWorkflowIDs = NULL,
+    strDroppedWorkflowIDs = NULL,
+    dfMetaWorkflow = gsm::meta_workflow
 ) {
   workflows <- dfMetaWorkflow %>%
     filter(
-      .data$workflowid %in% strWorkflowIDs
+      .data$workflowid %in% c(strWorkflowIDs, strDroppedWorkflowIDs)
     ) %>%
     rename_with(~
-      .x %>%
-        gsub("_|(?=id)", " ", ., perl = TRUE) %>%
-        gsub("(^.| .)", "\\U\\1", ., perl = TRUE) %>%
-        gsub("(gsm|id)", "\\U\\1", ., ignore.case = TRUE, perl = TRUE))
+                  .x %>%
+                  gsub("_|(?=id)", " ", ., perl = TRUE) %>%
+                  gsub("(^.| .)", "\\U\\1", ., perl = TRUE) %>%
+                  gsub("(gsm|id)", "\\U\\1", ., ignore.case = TRUE, perl = TRUE))
 
   workflows %>%
+    {if(!is.null(strDroppedWorkflowIDs)) mutate(., Status = case_when(`Workflow ID` %in% strWorkflowIDs ~ "Active",
+                                                                      `Workflow ID` %in% strDroppedWorkflowIDs ~ paste0("Deactivated\n",
+                                                                                                                        unique(dropped$kri0001$snapshot_date))),
+                                                .before = `GSM Version`) else .} %>%
     DT::datatable(
       class = "compact",
       options = list(
@@ -226,3 +232,4 @@ MakeKRIGlossary <- function(
       rownames = FALSE
     )
 }
+
