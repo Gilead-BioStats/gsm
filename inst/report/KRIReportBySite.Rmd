@@ -29,7 +29,8 @@ assessment <- active[
 overview_table <- Overview_Table(
   lAssessments = assessment, 
   dfSite =  params$status_site
-)
+) %>%
+{if(length(dropped > 0)) htmltools::withTags(table(tableFooter(paste0(length(dropped), "KRI's dropped in report")))) else .}
 
 # Overview Table - data.frame/raw data
 overview_raw_table <- Overview_Table(
@@ -182,7 +183,7 @@ MakeKRIGlossary(
 )
 ```
 
-`r if(length(dropped) > 0){"## Lastest Deactivated KRI's"}`
+`r if(length(dropped) > 0){"## Deactivated KRIs - Flagged Sites"}`
 
 ```{r, eval=length(dropped) > 0, echo = FALSE}
 drped <- do.call(bind_rows, dropped)
@@ -203,7 +204,7 @@ if(nrow(drped) > 0){
        rownames = FALSE
      )
 } else {
-  htmltools::p("No KRI's dropped.")
+  htmltools::p("No KRI's flagged.")
 }
 
 ```

@@ -8,7 +8,8 @@ Augment_Snapshot(
   lSnapshot,
   cPath,
   vFolderNames = NULL,
-  bAppendTimeSeriesCharts = TRUE
+  bAppendTimeSeriesCharts = TRUE,
+  bAppendLongitudinalResults = TRUE
 )
 }
 \arguments{
