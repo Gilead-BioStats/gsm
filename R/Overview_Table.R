@@ -382,7 +382,6 @@ drop_column_with_several_na <- function(table, column) {
 
   return(table)
 }
-study <- clindata::ctms_study
 
 make_reference_table <- function(study) {
 

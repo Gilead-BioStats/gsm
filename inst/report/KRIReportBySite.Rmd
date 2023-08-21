@@ -29,8 +29,8 @@ assessment <- active[
 overview_table <- Overview_Table(
   lAssessments = assessment, 
   dfSite =  params$status_site
-) %>%
-{if(length(dropped > 0)) htmltools::withTags(table(tableFooter(paste0(length(dropped), "KRI's dropped in report")))) else .}
+) #%>%
+# {if(length(dropped) > 0) htmltools::withTags(table(tableFooter(paste0(length(dropped), "KRI's dropped in report")))) else .}
 
 # Overview Table - data.frame/raw data
 overview_raw_table <- Overview_Table(
@@ -104,6 +104,8 @@ if (exists('status_study', where = params) && !is.null(params$status_study)) {
 ```{r echo=FALSE, warning=FALSE}
 overview_table
 ```
+`r glue::glue("{length(dropped)} {ifelse(length(dropped) == 1, 'KRI', 'KRIs')} dropped in Report see [KRI Glossary]")`
+
 :::
 
 ## Results
@@ -176,10 +178,10 @@ for (i in seq_along(assessment)) {
 
 ## KRI Glossary
 
-```{r echo = FALSE}
+```{r, echo = FALSE}
 MakeKRIGlossary(
     names(assessment),
-    names(dropped)[grep("kri", dropped)]
+    dropped[grep("kri", dropped)]
 )
 ```
 

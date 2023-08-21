@@ -125,7 +125,7 @@ MakeStudyStatusTable <- function(dfStudy) {
 #' @export
 #' @keywords internal
 MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
-  active <- lAssessments[!sapply(lAssessments, is.data.frame)]
+  active <- lAssessment[!sapply(lAssessment, is.data.frame)]
   map(active, function(kri) {
     if (kri$bStatus) {
       dfSummary <- kri$lResults$lData$dfSummary
@@ -200,10 +200,11 @@ add_table_theme <- function(x) {
 #' @export
 #' @keywords internal
 MakeKRIGlossary <- function(
-    strWorkflowIDs = NULL,
-    strDroppedWorkflowIDs = NULL,
+    strWorkflowIDs = "kri0002",
+    DroppedWorkflowIDs = "kri0001",
     dfMetaWorkflow = gsm::meta_workflow
 ) {
+  strDroppedWorkflowIDs <- names(DroppedWorkflowIDs)
   workflows <- dfMetaWorkflow %>%
     filter(
       .data$workflowid %in% c(strWorkflowIDs, strDroppedWorkflowIDs)
@@ -212,13 +213,15 @@ MakeKRIGlossary <- function(
                   .x %>%
                   gsub("_|(?=id)", " ", ., perl = TRUE) %>%
                   gsub("(^.| .)", "\\U\\1", ., perl = TRUE) %>%
-                  gsub("(gsm|id)", "\\U\\1", ., ignore.case = TRUE, perl = TRUE))
+                  gsub("(gsm|id)", "\\U\\1", ., ignore.case = TRUE, perl = TRUE)) %>%
+    left_join(do.call(bind_rows, DroppedWorkflowIDs) %>% distinct(workflowid, snapshot_date), by = c(`Workflow ID` = "workflowid"))
 
   workflows %>%
     {if(!is.null(strDroppedWorkflowIDs)) mutate(., Status = case_when(`Workflow ID` %in% strWorkflowIDs ~ "Active",
-                                                                      `Workflow ID` %in% strDroppedWorkflowIDs ~ paste0("Deactivated\n",
-                                                                                                                        unique(dropped$kri0001$snapshot_date))),
+                                                                      `Workflow ID` %in% strDroppedWorkflowIDs ~
+                                                                        paste0("Deactivated\n", snapshot_date)),
                                                 .before = `GSM Version`) else .} %>%
+    select(-snapshot_date) %>%
     DT::datatable(
       class = "compact",
       options = list(
