@@ -53,7 +53,7 @@ Suggests:
     clindata,
     covr,
     devtools,
-    DiagrammeR,
+    httr,
     kableExtra,
     pander,
     pkgdown,
