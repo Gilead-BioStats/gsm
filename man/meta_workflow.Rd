@@ -22,7 +22,7 @@ A data frame with 8 rows and 12 variables:
 }
 }
 \source{
-\url{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}
+\url{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}
 }
 \usage{
 meta_workflow

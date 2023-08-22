@@ -55,7 +55,7 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \description{
 \code{Make_Snapshot()} ingests data from a variety of sources, and runs KRIs and/or QTLs based on the \code{list} provided in \code{lAssessments}.
 
-For more context about the inputs and outputs of \code{Make_Snapshot()}, refer to the \href{https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html}{GSM Data Pipeline Vignette}, specifically
+For more context about the inputs and outputs of \code{Make_Snapshot()}, refer to the \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM Data Pipeline Vignette}, specifically
 Appendix 2 - Data Model Specifications
 }
 \details{

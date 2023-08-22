@@ -41,7 +41,6 @@ Augment_Snapshot <- function(
   if (bAppendTimeSeriesCharts) {
     lSnapshot$lStudyAssessResults <- lSnapshot$lStudyAssessResults %>%
       purrr::imap(function(result, workflowid) {
-
         this_workflow_id <- workflowid
 
         siteSelectLabelValue <- lSnapshot$lSnapshot$meta_workflow %>%

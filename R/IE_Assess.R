@@ -7,7 +7,7 @@
 #'
 #' @details
 #' The Inclusion/Exclusion Assessment uses the standard [GSM data pipeline](
-#'   https://silver-potato-cfe8c2fb.pages.github.io/articles/DataPipeline.html
+#'   https://gilead-biostats.github.io/gsm/articles/DataPipeline.html
 #' ) to flag sites with IE issues. This assessment detects sites with excessive rates of unmet or
 #' missing IE criteria, as defined by `nThreshold`. The count returned in the summary represents the
 #' number of subjects at a given site with at least one unmet or missing IE criterion.

@@ -55,7 +55,6 @@ Study_Report <- function(
   strOutpath = NULL,
   strReportType = "site"
 ) {
-
   # input check
   stopifnot(
     "strReportType is not 'site' or 'country' or 'QTL'" = strReportType %in% c("site", "country", "QTL"),
@@ -65,7 +64,6 @@ Study_Report <- function(
   # set output path
   if (is.null(strOutpath) & strReportType == "site") {
     strOutpath <- paste0(getwd(), "/gsm_site_report.html")
-
   } else if (is.null(strOutpath) & strReportType == "country") {
     strOutpath <- paste0(getwd(), "/gsm_country_report.html")
 

@@ -5,7 +5,7 @@
 #' @details
 #' Analyzes count data using the Fisher's exact test.
 #'
-#' More information can be found in [The Fisher's Exact Method Section](https://silver-potato-cfe8c2fb.pages.github.io/articles/KRI%20Method.html#the-fishers-exact-method)
+#' More information can be found in [The Fisher's Exact Method Section](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-fishers-exact-method)
 #' of the KRI Method vignette.
 #'
 #' @section Statistical Methods:
