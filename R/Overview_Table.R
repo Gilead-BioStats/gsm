@@ -170,16 +170,30 @@ Overview_Table <- function(
     if ("enrolled_participants" %in% names(dfSite)) {
       if (strReportType == "site") {
         overview_table[["Subjects"]] <- overview_table$Site %>%
-          map_int(~ dfSite %>%
-            filter(.data$siteid == .x) %>%
-            pull(.data$enrolled_participants))
-      } else {
+          map_int(~ {
+
+            if (.x %in% dfSite$siteid) {
+              dfSite %>%
+                filter(.data$siteid == .x) %>%
+                pull(.data$enrolled_participants)
+            } else {
+              return(NA)
+            }
+
+
+      })} else {
         dfCountry <- Country_Map_Raw(dfSite)
 
         overview_table[["Subjects"]] <- overview_table$Site %>%
-          map_int(~ dfCountry %>%
+          map_int(~ {
+            if (.x %in% dfCountry$country) {
+            dfCountry %>%
             filter(.data$country == .x) %>%
-            pull(.data$enrolled_participants))
+            pull(.data$enrolled_participants)
+            } else {
+              return(NA)
+            }
+        })
       }
 
       overview_table <- relocate(
