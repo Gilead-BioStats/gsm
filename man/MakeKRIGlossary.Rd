@@ -5,13 +5,17 @@
 \title{Create KRI metadata table in KRIReport.Rmd}
 \usage{
 MakeKRIGlossary(
+  dfMetaWorkflow = gsm::meta_workflow,
   strWorkflowIDs = NULL,
-  strDroppedWorkflowIDs = NULL,
-  dfMetaWorkflow = gsm::meta_workflow
+  DroppedWorkflowIDs = NULL
 )
 }
 \arguments{
 \item{dfMetaWorkflow}{\code{data.frame} Workflow metadata from \code{params} within \code{KRIReport.Rmd}}
+
+\item{strWorkflowIDs}{todo...}
+
+\item{DroppedWorkflowIDs}{todo...}
 }
 \description{
 Create KRI metadata table in KRIReport.Rmd

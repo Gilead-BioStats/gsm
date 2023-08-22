@@ -20,6 +20,8 @@ Augment_Snapshot(
 \item{vFolderNames}{\code{vector} Name(s) of folder(s) found within \code{cPath} to use. Any folders not specified will not be used in the augment.}
 
 \item{bAppendTimeSeriesCharts}{\code{logical} Append time series charts to KRIs? Default: \code{TRUE}.}
+
+\item{bAppendLongitudinalResults}{\code{logical} Append time series/longitudinal data from \code{results_summary}? Default: \code{TRUE}.}
 }
 \value{
 \code{list} The output of \code{\link[=Make_Snapshot]{Make_Snapshot()}} with longitudinal data and widgets appended.
