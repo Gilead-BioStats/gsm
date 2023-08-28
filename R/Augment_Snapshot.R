@@ -9,6 +9,7 @@
 #' @param cPath `character` Path to longitudinal snapshots, returned by [gsm::Make_Snapshot()].
 #' @param vFolderNames `vector` Name(s) of folder(s) found within `cPath` to use. Any folders not specified will not be used in the augment.
 #' @param bAppendTimeSeriesCharts `logical` Append time series charts to KRIs? Default: `TRUE`.
+#' @param bAppendLongitudinalResults `logical` Append time series/longitudinal data from `results_summary`? Default: `TRUE`.
 #'
 #' @examples
 #' \dontrun{
@@ -79,18 +80,20 @@ Augment_Snapshot <- function(
                                  TRUE ~ FALSE))
 
     max_dates <- stackedSnapshots$results_summary %>%
-      group_by(studyid, workflowid) %>%
-      summarise(snapshot_date = max(snapshot_date)) %>%
-      mutate(current = case_when(snapshot_date == lSnapshot$lSnapshotDate ~ TRUE,
+      group_by(.data$studyid, .data$workflowid) %>%
+      summarise(snapshot_date = max(.data$snapshot_date)) %>%
+      mutate(current = case_when(.data$snapshot_date == lSnapshot$lSnapshotDate ~ TRUE,
                                  TRUE ~ FALSE))
 
     if(any(!max_dates$current)){
-      dropped <- filter(max_dates, !current)
+      dropped <- max_dates %>%
+        filter(!.data$current)
       for(i in 1:length(dropped$workflowid)){
+        browser()
         lSnapshot$lStudyAssessResults[[dropped$workflowid[i]]] <- stackedSnapshots$results_summary %>%
-                                                                  filter(workflowid == dropped$workflowid[i],
-                                                                         snapshot_date == dropped$snapshot_date[i],
-                                                                         studyid == dropped$studyid[i])
+                                                                  filter(.data$workflowid == dropped$workflowid[i],
+                                                                         .data$snapshot_date == dropped$snapshot_date[i],
+                                                                         .data$studyid == dropped$studyid[i])
       }
     }
   }
