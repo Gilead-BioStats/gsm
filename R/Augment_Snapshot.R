@@ -84,7 +84,6 @@ Augment_Snapshot <- function(
       dropped <- max_dates %>%
         filter(!.data$current)
       for(i in 1:length(dropped$workflowid)){
-        browser()
         lSnapshot$lStudyAssessResults[[dropped$workflowid[i]]] <- stackedSnapshots$results_summary %>%
                                                                   filter(.data$workflowid == dropped$workflowid[i],
                                                                          .data$snapshot_date == dropped$snapshot_date[i],

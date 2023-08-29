@@ -180,8 +180,8 @@ for (i in seq_along(assessment)) {
 
 ```{r, echo = FALSE}
 MakeKRIGlossary(
-    names(assessment),
-    dropped[grep("kri", dropped)]
+  strWorkflowIDs = names(assessment), 
+  DroppedWorkflowIDs = dropped[grep("kri", dropped)]
 )
 ```
 
