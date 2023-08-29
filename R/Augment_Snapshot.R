@@ -75,15 +75,10 @@ Augment_Snapshot <- function(
   }
 
   if (bAppendLongitudinalResults) {
-    tests <- stackedSnapshots$results_summary %>%
-      mutate(current = case_when(snapshot_date == lSnapshot$lSnapshotDate ~ TRUE,
-                                 TRUE ~ FALSE))
-
     max_dates <- stackedSnapshots$results_summary %>%
       group_by(.data$studyid, .data$workflowid) %>%
       summarise(snapshot_date = max(.data$snapshot_date)) %>%
-      mutate(current = case_when(.data$snapshot_date == lSnapshot$lSnapshotDate ~ TRUE,
-                                 TRUE ~ FALSE))
+      mutate(current = ifelse(.data$snapshot_date == lSnapshot$lSnapshotDate, TRUE, FALSE))
 
     if(any(!max_dates$current)){
       dropped <- max_dates %>%
