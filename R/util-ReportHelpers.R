@@ -216,19 +216,21 @@ MakeKRIGlossary <- function(
                   gsub("_|(?=id)", " ", ., perl = TRUE) %>%
                   gsub("(^.| .)", "\\U\\1", ., perl = TRUE) %>%
                   gsub("(gsm|id)", "\\U\\1", ., ignore.case = TRUE, perl = TRUE)) %>%
-                  left_join(do.call(bind_rows, DroppedWorkflowIDs) %>%
-                              distinct(
-                                .data$workflowid, .data$snapshot_date
-                                ),
-                            by = c(`Workflow ID` = "workflowid")
-                            )
+    {if(length(strDroppedWorkflowIDs) != 0)
+      left_join(do.call(bind_rows, DroppedWorkflowIDs) %>%
+                  distinct(
+                    .data$workflowid, .data$snapshot_date
+                  ),
+                by = c(`Workflow ID` = "workflowid"))
+     else . }
 
   workflows %>%
-    {if(!is.null(strDroppedWorkflowIDs)) mutate(., Status = case_when(`Workflow ID` %in% strWorkflowIDs ~ "Active",
-                                                                      `Workflow ID` %in% strDroppedWorkflowIDs ~
-                                                                        paste0("Deactivated\n", snapshot_date)),
-                                                .before = .data[["GSM Version"]]) else .} %>%
-    select(-"snapshot_date") %>%
+    {if(length(strDroppedWorkflowIDs) != 0)
+      mutate(., Status = case_when(`Workflow ID` %in% strWorkflowIDs ~ "Active",
+                                   `Workflow ID` %in% strDroppedWorkflowIDs ~ paste0("Deactivated\n", snapshot_date)),
+                .before = .data[["GSM Version"]]) %>%
+      select(-"snapshot_date")
+     else .} %>%
     DT::datatable(
       class = "compact",
       options = list(
