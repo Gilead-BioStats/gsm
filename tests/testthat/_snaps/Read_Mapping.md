@@ -187,7 +187,7 @@
       [1] "deviationdate"
       
       $dfPD$strCategoryCol
-      [1] "gileadcategory"
+      [1] "companycategory"
       
       $dfPD$strImportantCol
       [1] "deemedimportant"
