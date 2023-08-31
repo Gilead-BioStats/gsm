@@ -75,19 +75,51 @@ Augment_Snapshot <- function(
   }
 
   if (bAppendLongitudinalResults) {
-    max_dates <- stackedSnapshots$results_summary %>%
-      group_by(.data$studyid, .data$workflowid) %>%
-      summarise(snapshot_date = max(.data$snapshot_date)) %>%
-      mutate(current = ifelse(.data$snapshot_date == lSnapshot$lSnapshotDate, TRUE, FALSE))
+    snapshot_date <- list.files(cPath)
+    snapshot_directory_names <- paste0(cPath, snapshot_date)
 
-    if(any(!max_dates$current)){
-      dropped <- max_dates %>%
-        filter(!.data$current)
-      for(i in 1:length(dropped$workflowid)){
-        lSnapshot$lStudyAssessResults[[dropped$workflowid[i]]] <- stackedSnapshots$results_summary %>%
-                                                                  filter(.data$workflowid == dropped$workflowid[i],
-                                                                         .data$snapshot_date == dropped$snapshot_date[i],
-                                                                         .data$studyid == dropped$studyid[i])
+    ## get current status
+    is_current <- snapshot_directory_names %>%
+      purrr::set_names(snapshot_date) %>%
+      purrr::map_df(., function(snap) {
+        snapshot <- read.csv(paste0(snap, "/results_summary.csv")) %>%
+          distinct(workflowid) %>%
+          mutate()
+      }, .id = "snapshot_date") %>%
+      group_by(workflowid) %>%
+      summarise(latest = max(as.Date(snapshot_date), na.rm = TRUE),
+                .groups = "drop") %>%
+      mutate(is_current = latest == max(latest))
+
+    old_workflows <- is_current %>%
+      filter(!is_current) %>%
+      split(.$latest) %>%
+      map(., . %>% pull(.data$workflowid))
+
+    ## pull object into snapshot
+    old_snapshots <- list()
+    for(latest in is_current %>%
+                  filter(!.data$is_current) %>%
+                  pull(.data$latest) %>%
+                  as.character()){
+      old_snapshots[[latest]] <- readRDS(paste0(study_dir, "/", latest, "/snapshot.rds"))
+    }
+
+    ## Set active status
+    for(kri in names(lSnapshot$lStudyAssessResults)){
+      lSnapshot$lStudyAssessResults[[kri]][["bActive"]] <- TRUE
+    }
+
+    for(dates in names(old_snapshots)){
+      for(kri in names(old_snapshots[[dates]]$lStudyAssessResults)){
+        old_snapshots[[dates]]$lStudyAssessResults[[kri]][["bActive"]] <- FALSE
+      }
+    }
+
+    ## Transfer old snaps to current snap
+    for(old_date in names(old_workflows)){
+      for(kri in old_workflows[[old_date]]){
+        lSnapshot$lStudyAssessResults[[kri]] <- old_snapshots[[old_date]]$lStudyAssessResults[[kri]]
       }
     }
   }
