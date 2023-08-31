@@ -102,7 +102,7 @@ Augment_Snapshot <- function(
                   filter(!.data$is_current) %>%
                   pull(.data$latest) %>%
                   as.character()){
-      old_snapshots[[latest]] <- readRDS(paste0(study_dir, "/", latest, "/snapshot.rds"))
+      old_snapshots[[latest]] <- readRDS(paste0(cPath, latest, "/snapshot.rds"))
     }
 
     ## Set active status
