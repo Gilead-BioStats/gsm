@@ -122,6 +122,8 @@ Augment_Snapshot <- function(
         lSnapshot$lStudyAssessResults[[kri]] <- old_snapshots[[old_date]]$lStudyAssessResults[[kri]]
       }
     }
+    lSnapshot[["lStatus"]] <- is_current %>%
+                              `colnames<-`(c("Workflow ID", "Latest Snapshot", "Currently Active"))
   }
 
   lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots

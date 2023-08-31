@@ -50,6 +50,7 @@
 
 Study_Report <- function(
   lAssessments,
+  lStatus = NULL,
   dfStudy = NULL,
   dfSite = NULL,
   strOutpath = NULL,
@@ -87,7 +88,8 @@ Study_Report <- function(
     params = list(
       assessment = lAssessments,
       status_study = dfStudy,
-      status_site = dfSite
+      status_site = dfSite,
+      status_snap = lStatus
     ),
     envir = new.env(parent = globalenv())
   )

@@ -11,6 +11,7 @@ params:
     assessment: NA
     status_study: NA
     status_site: NA
+    status_snap: NA
 ---
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
@@ -19,18 +20,33 @@ library(tidyverse)
 library(DT)
 
 # Study_Assess() output - KRIs only
-active <- params$assessment[!sapply(params$assessment, is.data.frame)]
-dropped <- params$assessment[sapply(params$assessment, is.data.frame)]
+active <- params$assessment[map_df(params$assessment, function(status){
+                              status[["bActive"]] == TRUE
+                            }) %>%
+                              pivot_longer(everything()) %>%
+                              filter(value) %>%
+                              pull(name)]
+
+dropped <- params$assessment[map_df(params$assessment, function(status){
+                              status[["bActive"]] == FALSE
+                            }) %>%
+                              pivot_longer(everything()) %>%
+                              filter(value) %>%
+                              pull(name)]
+
 assessment <- active[
   grep("kri", names(active))
+]
+
+dropped_assessment <- dropped[
+  grep("kri", names(dropped))
 ]
 
 # Overview Table - HTML object
 overview_table <- Overview_Table(
   lAssessments = assessment, 
   dfSite =  params$status_site
-) #%>%
-# {if(length(dropped) > 0) htmltools::withTags(table(tableFooter(paste0(length(dropped), "KRI's dropped in report")))) else .}
+) 
 
 # Overview Table - data.frame/raw data
 overview_raw_table <- Overview_Table(
@@ -45,6 +61,11 @@ amber_kris <- overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
 # Generate listing of flagged KRIs.
 summary_table <- MakeSummaryTable(
   assessment,
+  params$status_site
+)
+
+dropped_summary_table <- MakeSummaryTable(
+  dropped_assessment,
   params$status_site
 )
 
@@ -180,35 +201,9 @@ for (i in seq_along(assessment)) {
 
 ```{r, echo = FALSE}
 MakeKRIGlossary(
-  strWorkflowIDs = names(assessment), 
-  DroppedWorkflowIDs = dropped[grep("kri", dropped)]
+  strWorkflowIDs = names(assessment),
+  lStatus = params$status_snap
 )
-```
-
-`r if(length(dropped) > 0){"## Deactivated KRIs - Flagged Sites"}`
-
-```{r, eval=length(dropped) > 0, echo = FALSE}
-drped <- do.call(bind_rows, dropped)
-if(nrow(drped) > 0){
-  drped %>%
-     `colnames<-`(toTitleCase(colnames(.))) %>%
-     select(-Gsm_analysis_date) %>%
-     rename("Site" = "Groupid") %>%
-     filter(Flag != 0) %>%
-     arrange(desc(abs(.data$Score))) %>%
-     mutate(
-       Flag = map(.data$Flag, kri_directionality_logo),
-       across(
-         where(is.numeric),
-         ~ round(.x, 3)
-       )) %>%
-     DT::datatable(
-       rownames = FALSE
-     )
-} else {
-  htmltools::p("No KRI's flagged.")
-}
-
 ```
 
 ## Error Log
@@ -228,6 +223,79 @@ error_table <- error$dfSummary %>%
 
 DT::datatable(error_table)
 ```
+
+## Inactive KRI's
+<details>
+  <summary>Click for Information</summary>
+```{r, echo=FALSE, results='asis'}
+for (i in seq_along(dropped_assessment)) {
+  kri_key <- names(dropped_assessment)[i]
+  kri <- dropped_assessment[[ kri_key ]]
+
+  title <- gsm::meta_workflow %>% 
+    filter(workflowid == kri_key) %>% 
+    pull(metric)
+
+  ### KRI section /
+    print(htmltools::h3(title))
+
+    #### charts tabset /
+        cat("#### Summary Charts {.tabset} \n")
+        
+        charts <- dropped_assessment[[i]]$lResults$lCharts[
+            names(dropped_assessment[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousJS")
+        ]
+        
+        for (j in seq_along(charts)) {
+            chart_key <- names(charts)[j]
+            chart <- charts[[ chart_key ]]
+            chart_name <- switch(
+                chart_key,
+                scatterJS = "Scatter Plot",
+                barScoreJS = "Bar Chart (KRI Score)",
+                barMetricJS = "Bar Chart (KRI Metric)",
+                timeSeriesContinuousJS = "Time Series (Continuous)"
+            )
+
+            ##### chart tab /
+                chart_header <- paste('#####', chart_name, '\n')
+
+                cat(chart_header)
+                
+                # need to initialize JS dependencies within loop in order to print correctly
+                # see here: https://github.com/rstudio/rmarkdown/issues/1877#issuecomment-678996452
+                purrr::map(
+                charts,
+                ~.x %>%
+                    knitr::knit_print() %>%
+                    attr('knit_meta') %>%
+                    knitr::knit_meta_add() %>%
+                    invisible()
+                )
+            
+                # Display chart.
+                cat(paste0("<div class =", chart_key, ">"))
+                cat(knitr::knit_print(htmltools::tagList(chart)))
+                cat("</div>")
+            ##### / chart tab
+        }
+        
+        cat("#### {-} \n")
+    #### / charts tabset
+
+    #### table /
+        if (!is.null(dropped_summary_table[[dropped_assessment[[i]]$name]])) {
+            print(htmltools::h4("Summary Table"))
+            print(htmltools::tagList(dropped_summary_table[[dropped_assessment[[i]]$name]]))
+        }
+    #### / table
+  ### / KRI section
+}
+if(length(dropped_assessment) == 0){
+  cat("No Inactive KRI's")
+}
+```
+</details> 
 
 ```{js, file='../utils-0.0.1/overallSiteDropdown.js', echo=FALSE}
 ```

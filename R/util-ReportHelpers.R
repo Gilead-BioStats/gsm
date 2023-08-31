@@ -204,33 +204,36 @@ add_table_theme <- function(x) {
 MakeKRIGlossary <- function(
     dfMetaWorkflow = gsm::meta_workflow,
     strWorkflowIDs = NULL,
-    DroppedWorkflowIDs = NULL
+    lStatus = NULL
 ) {
-  strDroppedWorkflowIDs <- names(DroppedWorkflowIDs)
+  if(length(lStatus) != 0){
+    strDroppedWorkflowIDs <- lStatus %>%
+                             filter(!.data$`Currently Active`) %>%
+                             pull(.data$`Workflow ID`)
+    combo_strWorkflowIDs <- c(strWorkflowIDs, strDroppedWorkflowIDs)
+  } else {
+    combo_strWorkflowIDs <- strWorkflowIDs
+  }
   workflows <- dfMetaWorkflow %>%
     filter(
-      .data$workflowid %in% c(strWorkflowIDs, strDroppedWorkflowIDs)
+      .data$workflowid %in% combo_strWorkflowIDs
     ) %>%
     rename_with(~
                   .x %>%
                   gsub("_|(?=id)", " ", ., perl = TRUE) %>%
                   gsub("(^.| .)", "\\U\\1", ., perl = TRUE) %>%
-                  gsub("(gsm|id)", "\\U\\1", ., ignore.case = TRUE, perl = TRUE)) %>%
-    {if(length(strDroppedWorkflowIDs) != 0)
-      left_join(do.call(bind_rows, DroppedWorkflowIDs) %>%
-                  distinct(
-                    .data$workflowid, .data$snapshot_date
-                  ),
-                by = c(`Workflow ID` = "workflowid"))
-     else . }
+                  gsub("(gsm|id)", "\\U\\1", ., ignore.case = TRUE, perl = TRUE))
+
 
   workflows %>%
-    {if(length(strDroppedWorkflowIDs) != 0)
-      mutate(., Status = case_when(`Workflow ID` %in% strWorkflowIDs ~ "Active",
-                                   `Workflow ID` %in% strDroppedWorkflowIDs ~ paste0("Deactivated\n", snapshot_date)),
-                .before = .data[["GSM Version"]]) %>%
-      select(-"snapshot_date")
-     else .} %>%
+    {if(length(lStatus) != 0)
+    left_join(., lStatus %>%
+                select(`Workflow ID`, `Latest Snapshot`),
+              by = "Workflow ID") %>%
+    mutate(Status = case_when(.data$`Workflow ID` %in% strWorkflowIDs ~ "Active",
+                              .data$`Workflow ID` %in% strDroppedWorkflowIDs ~ paste0("Deactivated\n", .data$`Latest Snapshot`)),
+           .before = .data[["GSM Version"]]) %>%
+    select(-.data$`Latest Snapshot`) else .} %>%
     DT::datatable(
       class = "compact",
       options = list(
@@ -244,4 +247,11 @@ MakeKRIGlossary <- function(
       rownames = FALSE
     )
 }
+
+
+
+
+
+
+
 
