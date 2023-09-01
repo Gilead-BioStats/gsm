@@ -8,6 +8,7 @@
 
 The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This README provides a high-level overview of {gsm}; see the [package website](https://gilead-biostats.github.io/gsm/) for additional details.
 
+
 # Background 
 
 The {gsm} package performs risk assessments primarily focused on detecting differences in quality at the site-level. "High quality" is defined as the absence of errors that matter. We interpret this as focusing on detecting potential issues related to critical data or process across the major risk categories of safety, efficacy, disposition, treatment, and general quality, where each category consists of one or more risk assessment(s). Each risk assessment will analyze the data to flag sites with potential issues and provide a visualization to help the user understand the issue. Some relevant references are provided below. 
@@ -44,6 +45,26 @@ All {gsm} assessments use a standardized 6 step data pipeline:
 6.  **Summarize** - Selects key columns from `flagged` data to create `summary` data.
 
 To learn more about {gsm}'s data pipeline, visit the [Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html).
+
+# Reporting
+
+Detailed RMarkdown/HTML reporting is built into `{gsm}`, and provides a detailed overview of all risk assessments for a given trial.
+
+Reports for a sample trial run with [`{clindata}`](url) are provided below:
+- [Site Report]
+- [Country Report]
+
+### Overview Table/Heatmap:
+
+<center>
+![](man/figures/gsm_report_screenshot_1.png)
+</center>
+
+### Assessment Overview for Adverse Events
+
+<center>
+![](man/figures/gsm_report_screenshot_2.png)
+</center>
 
 # Quality Control
 

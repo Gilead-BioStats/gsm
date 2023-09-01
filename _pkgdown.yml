@@ -8,12 +8,12 @@ navbar:
     right: [search, github]
   components:
     Reports:
-      text: Reports
+      text: Sample Reports
       menu:
       - text: Site Report
-        href: articles/StandardReportSite.html
+        href: reports/StandardReportSite.html
       - text: Country Report
-        href: articles/StandardReportCountry.html
+        href: reports/StandardReportCountry.html
     articles:
       text: Articles
       menu:

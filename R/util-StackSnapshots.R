@@ -80,7 +80,7 @@ StackSnapshots <- function(
               ) %>%
               mutate(
                 gsm_analysis_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d"),
-                snapshot_date = .data$gsm_analysis_date
+                snapshot_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d")
               )
 
             return(data)
@@ -128,7 +128,7 @@ StackSnapshots <- function(
         bind_rows(
           lSnapshot$lSnapshot[[common_table]] %>%
             mutate(
-              snapshot_date = .data$gsm_analysis_date
+              snapshot_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d")
             )
         )
     }
