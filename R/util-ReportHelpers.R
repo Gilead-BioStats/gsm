@@ -197,8 +197,8 @@ add_table_theme <- function(x) {
 
 #' Create KRI metadata table in KRIReport.Rmd
 #' @param dfMetaWorkflow `data.frame` Workflow metadata from `params` within `KRIReport.Rmd`
-#' @param strWorkflowIDs todo...
-#' @param DroppedWorkflowIDs todo...
+#' @param strWorkflowIDs `string` a string of KRI names to display in output
+#' @param lStatus `data.frame` the KRI status output using `Augment_Snapshot`
 #' @export
 #' @keywords internal
 MakeKRIGlossary <- function(

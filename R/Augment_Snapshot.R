@@ -75,8 +75,9 @@ Augment_Snapshot <- function(
   }
 
   if (bAppendLongitudinalResults) {
-    snapshot_date <- list.files(cPath)
-    snapshot_directory_names <- paste0(cPath, snapshot_date)
+    nPath <- ifelse(grepl("$\\/", cPath), cPath, paste0(cPath, "/"))
+    snapshot_date <- list.files(nPath)
+    snapshot_directory_names <- paste0(nPath, snapshot_date)
 
     ## get current status
     is_current <- snapshot_directory_names %>%
@@ -102,7 +103,7 @@ Augment_Snapshot <- function(
                   filter(!.data$is_current) %>%
                   pull(.data$latest) %>%
                   as.character()){
-      old_snapshots[[latest]] <- readRDS(paste0(cPath, latest, "/snapshot.rds"))
+      old_snapshots[[latest]] <- readRDS(paste0(nPath, latest, "/snapshot.rds"))
     }
 
     ## Set active status

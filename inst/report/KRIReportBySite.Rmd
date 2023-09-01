@@ -20,6 +20,11 @@ library(tidyverse)
 library(DT)
 
 # Study_Assess() output - KRIs only
+any_dropped <- map(params$assessment, function(names){
+  "bActive" %in% names(names)  
+}) %>% unlist(.data) %>% any()
+
+if(any_dropped){
 active <- params$assessment[map_df(params$assessment, function(status){
                               status[["bActive"]] == TRUE
                             }) %>%
@@ -41,6 +46,13 @@ assessment <- active[
 dropped_assessment <- dropped[
   grep("kri", names(dropped))
 ]
+} else {
+  assessment <- params$assessment[
+  grep("kri", names(params$assessment))
+]
+}
+
+
 
 # Overview Table - HTML object
 overview_table <- Overview_Table(
@@ -64,10 +76,12 @@ summary_table <- MakeSummaryTable(
   params$status_site
 )
 
+if(any_dropped){
 dropped_summary_table <- MakeSummaryTable(
   dropped_assessment,
   params$status_site
 )
+}
 
 ## StudyID
 study_id <- purrr::map(assessment, function(kri) {
@@ -125,7 +139,8 @@ if (exists('status_study', where = params) && !is.null(params$status_study)) {
 ```{r echo=FALSE, warning=FALSE}
 overview_table
 ```
-`r glue::glue("{length(dropped)} {ifelse(length(dropped) == 1, 'KRI', 'KRIs')} dropped in Report see [KRI Glossary]")`
+
+`r if(any_dropped){glue::glue("{length(dropped)} {ifelse(length(dropped) == 1, 'KRI', 'KRIs')} dropped in Report see [KRI Glossary]")}`
 
 :::
 
@@ -202,7 +217,7 @@ for (i in seq_along(assessment)) {
 ```{r, echo = FALSE}
 MakeKRIGlossary(
   strWorkflowIDs = names(assessment),
-  lStatus = params$status_snap
+  lStatus = params[["status_snap"]]
 )
 ```
 
@@ -224,10 +239,9 @@ error_table <- error$dfSummary %>%
 DT::datatable(error_table)
 ```
 
-## Inactive KRI's
-<details>
-  <summary>Click for Information</summary>
-```{r, echo=FALSE, results='asis'}
+`r if(any_dropped){"## Inactive KRI's"}`
+
+```{r, echo=FALSE, results='asis', eval=any_dropped}
 for (i in seq_along(dropped_assessment)) {
   kri_key <- names(dropped_assessment)[i]
   kri <- dropped_assessment[[ kri_key ]]
@@ -295,7 +309,7 @@ if(length(dropped_assessment) == 0){
   cat("No Inactive KRI's")
 }
 ```
-</details> 
+
 
 ```{js, file='../utils-0.0.1/overallSiteDropdown.js', echo=FALSE}
 ```
