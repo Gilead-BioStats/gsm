@@ -51,7 +51,9 @@ To learn more about {gsm}'s data pipeline, visit the [Data Pipeline Vignette](ht
 Detailed RMarkdown/HTML reporting is built into `{gsm}`, and provides a detailed overview of all risk assessments for a given trial.
 
 Reports for a sample trial run with [`{clindata}`](https://github.com/Gilead-BioStats/clindata) are provided below:
+
 - [Site Report](https://gilead-biostats.github.io/gsm/reports/StandardReportSite.html)
+
 - [Country Report](https://gilead-biostats.github.io/gsm/reports/StandardReportCountry.html)
 
 ### Overview Table/Heatmap:
