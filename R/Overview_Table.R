@@ -64,9 +64,17 @@ Overview_Table <- function(
   # add `Active` column
   if (!is.null(dfSite)) {
     overview_table <- overview_table %>%
+      mutate(
+        Site = as.character(.data$Site)
+      ) %>%
       left_join(
-        dfSite %>% select("site_num", "Country" = "country", "Status" = "status"),
+
+        dfSite %>%
+          mutate(site_num = as.character(.data$site_num)) %>%
+          select("site_num", "Country" = "country", "Status" = "status"),
+
         by = c("Site" = "site_num")
+
       ) %>%
       select(
         "Site",
