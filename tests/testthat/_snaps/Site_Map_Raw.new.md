@@ -773,14 +773,14 @@
 # invalid data throw errors
 
     Code
-      tryCatch(Study_Map_Raw(dfs = purrr::imap(dfs, ~ list())), error = conditionMessage)
+      tryCatch(Site_Map_Raw(dfs = purrr::imap(dfs, ~ list())), error = conditionMessage)
     Output
-      [1] "`select()` doesn't handle lists."
+      [1] "no applicable method for 'mutate' applied to an object of class \"list\""
 
 ---
 
     Code
-      tryCatch(Study_Map_Raw(dfs = purrr::imap(dfs, ~ if (.y == "dfSUBJ") list()
+      tryCatch(Site_Map_Raw(dfs = purrr::imap(dfs, ~ if (.y == "dfSUBJ") list()
       else .x)), error = conditionMessage)
     Output
       [1] "dfSUBJ is not a data.frame"
@@ -788,68 +788,67 @@
 ---
 
     Code
-      tryCatch(Study_Map_Raw(dfs = purrr::imap(dfs, ~ if (.y %in% map_domain) list()
+      tryCatch(Site_Map_Raw(dfs = purrr::imap(dfs, ~ if (.y %in% map_domain) list()
        else .x)), error = conditionMessage)
     Output
-      [1] "`select()` doesn't handle lists."
+      [1] "no applicable method for 'mutate' applied to an object of class \"list\""
 
 ---
 
     Code
-      tryCatch(Study_Map_Raw(dfs = purrr::imap(dfs, ~"Hi Mom")), error = conditionMessage)
+      tryCatch(Site_Map_Raw(dfs = purrr::imap(dfs, ~"Hi Mom")), error = conditionMessage)
     Output
-      [1] "no applicable method for 'select' applied to an object of class \"character\""
+      [1] "no applicable method for 'mutate' applied to an object of class \"character\""
 
 ---
 
     Code
-      tryCatch(Study_Map_Raw(dfs = purrr::imap(dfs, ~9999)), error = conditionMessage)
+      tryCatch(Site_Map_Raw(dfs = purrr::imap(dfs, ~9999)), error = conditionMessage)
     Output
-      [1] "no applicable method for 'select' applied to an object of class \"c('double', 'numeric')\""
+      [1] "no applicable method for 'mutate' applied to an object of class \"c('double', 'numeric')\""
 
 ---
 
     Code
-      tryCatch(Study_Map_Raw(dfs = purrr::imap(dfs, ~TRUE)), error = conditionMessage)
+      tryCatch(Site_Map_Raw(dfs = purrr::imap(dfs, ~TRUE)), error = conditionMessage)
     Output
-      [1] "no applicable method for 'select' applied to an object of class \"logical\""
+      [1] "no applicable method for 'mutate' applied to an object of class \"logical\""
 
 ---
 
     Code
-      tryCatch(Study_Map_Raw(dfs = purrr::imap(dfs, ~.x), lMapping = list()), error = conditionMessage)
+      tryCatch(Site_Map_Raw(dfs = purrr::imap(dfs, ~.x), lMapping = list()), error = conditionMessage)
     Output
-      [1] "lMapping does not contain strEnrollCol"
+      [1] "i In argument: `siteid = as.character(.data[[NULL]])`.\nCaused by error in `.data[[NULL]]`:\n! Must subset the data pronoun with a string, not `NULL`."
 
 ---
 
     Code
-      tryCatch(Study_Map_Raw(dfs = dfs_edited), error = conditionMessage)
+      tryCatch(Site_Map_Raw(dfs = dfs_edited), error = conditionMessage)
     Output
-      # A tibble: 1 x 24
-        studyid        enrolled_sites enrolled_participants planned_sites
-        <chr>                   <int>                 <int>         <int>
-      1 AA-AA-000-0000              3                     4           190
-      # i 20 more variables: planned_participants <int>, title <chr>, nickname <chr>,
-      #   enrolled_sites_ctms <int>, enrolled_participants_ctms <int>, fpfv <chr>,
-      #   lpfv <chr>, lplv <chr>, ta <chr>, indication <chr>, phase <chr>,
-      #   status <chr>, rbm_flag <chr>, product <chr>, protocol_type <chr>,
-      #   protocol_row_id <chr>, est_fpfv <chr>, est_lpfv <chr>, est_lplv <chr>,
-      #   protocol_product_number <int>
+      # A tibble: 3 x 17
+        studyid siteid institution status enrolled_participants start_date city  state
+        <chr>   <chr>  <chr>       <chr>                  <int> <chr>      <chr> <chr>
+      1 AA-AA-~ 10     city 1 Med~ Active                    NA 2004-01-31 city~ stat~
+      2 AA-AA-~ 100    city 1 Med~ Active                    NA 2011-09-29 city~ stat~
+      3 AA-AA-~ 101    city 1 Med~ Active                    NA 2006-03-03 city~ stat~
+      # i 9 more variables: country <chr>, invname <chr>, protocol_row_id <chr>,
+      #   site_num <int>, site_row_id <chr>, pi_number <chr>, pi_last_name <chr>,
+      #   pi_first_name <chr>, is_satellite <lgl>
 
 # invalid mapping throws error
 
     Code
-      tryCatch(Study_Map_Raw(dfs = dfs, lMapping = input_mapping_edited, dfConfig = input_config),
+      tryCatch(Site_Map_Raw(dfs = dfs, lMapping = input_mapping_edited, dfConfig = input_config),
       error = conditionMessage)
     Output
-      [1] "Can't subset columns that don't exist.\nx Column `Sadie` doesn't exist."
+      [1] "i In argument: `siteid = as.character(.data[[\"Sadie\"]])`.\nCaused by error in `.data[[\"Sadie\"]]`:\n! Column `Sadie` not found in `.data`."
 
 # missing column throws error
 
     Code
-      tryCatch(Study_Map_Raw(dfs = dfs_edited, lMapping = input_mapping, dfConfig = input_config),
+      tryCatch(Site_Map_Raw(dfs = dfs_edited, lMapping = input_mapping, dfConfig = input_config),
       error = conditionMessage)
     Output
-      [1] "Can't subset columns that don't exist.\nx Column `protocol_number` doesn't exist."
+      [1] "i In argument: `siteid = as.character(.data[[\"site_num\"]])`.\nCaused by error in `.data[[\"site_num\"]]`:\n! Column `site_num` not found in `.data`."
 
