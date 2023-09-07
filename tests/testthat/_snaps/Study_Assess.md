@@ -623,7 +623,7 @@
       [1] "deviationdate"
       
       $AE_Map_Raw$mapping$dfPD$strCategoryCol
-      [1] "gileadcategory"
+      [1] "companycategory"
       
       $AE_Map_Raw$mapping$dfPD$strImportantCol
       [1] "deemedimportant"

@@ -296,7 +296,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["gileadcategory"]
+              "value": ["companycategory"]
             },
             {
               "type": "character",
