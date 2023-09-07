@@ -33,15 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
@@ -71,6 +68,24 @@
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
     </li>
   </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sample Reports
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../reports/StandardReportSite.html">Site Report</a>
+    </li>
+    <li>
+      <a href="../reports/StandardReportCountry.html">Country Report</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -135,7 +150,7 @@ functions that support the analysis workflows.</p>
 <span></span>
 <span><span class="co">## Install and load sample raw data</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Gilead-BioStats/clindata"</span>, ref <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Install and load sample CDISC-compliant SDTM and ADaM data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'safetyData'</span><span class="op">)</span></span>
@@ -165,7 +180,7 @@ assessment (e.g., <code>dfInput &lt;- AE_Map_Raw()</code>)</li>
 </ol>
 <p>Putting these steps together looks like this:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Map domain-level data to the input data standard for the selected assessment.</span></span>
@@ -193,16 +208,16 @@ high-level summary:</p>
 <p><img src="data-analysis.PNG"></p>
 <p>As in Example 1, we will use the AE workflow for this example.</p>
 <p>Start by creating <code>dfInput</code> using sample rawplus data from
-<code>{clindata}</code>. Note that <code><a href="../reference/AE_Map_Raw.html">AE_Map_Raw()</a></code> requires
-two specific datasets from <code>{clindata}</code>, which include a
+<a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a>. Note that <code><a href="../reference/AE_Map_Raw.html">AE_Map_Raw()</a></code> requires
+two specific datasets from <a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a>, which include a
 subject-level demographics/exposure dataset (<code>dfSUBJ</code>) and a
 domain-level dataset (<code>dfAE</code>) that records every adverse
 event per subject.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Map_Raw.html">AE_Map_Raw</a></span><span class="op">(</span></span>
 <span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span>
-<span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span></span>
+<span>    dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span>
+<span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The second step is to transform <code>dfInput</code> into site-level
@@ -277,17 +292,17 @@ focusing solely on AEs.</p>
 <p>Running multiple assessments in <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> is made possible
 by the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> function. By default,
 <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> uses sample rawplus data from
-<code>{clindata}</code> that is hard-coded to the <code>lData</code>
+<a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a> that is hard-coded to the <code>lData</code>
 parameter. Users can also provide their own rawplus input data to the
 <code>lData</code> parameter.</p>
 <div class="section level4">
 <h4 id="using-sample-data-from-clindata">Using Sample Data from <code>{clindata}</code><a class="anchor" aria-label="anchor" href="#using-sample-data-from-clindata"></a>
 </h4>
 <p>To run multiple assessments using the sample rawplus data from
-<code>{clindata}</code>, the user can run the following:</p>
+<a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a>, the user can run the following:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -302,20 +317,20 @@ rawplus data to the <code>lData</code> parameter.</p>
 <code>names(gsm::Read_Mapping())</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Include AE data where aetoxgr (Standard Toxicity Grade) is not "MILD"</span></span>
-<span><span class="va">dfAE</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">rawplus_ae</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">dfAE</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
 <span>    <span class="va">aetoxgr</span> <span class="op">!=</span> <span class="st">"MILD"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Specify rawplus data domains</span></span>
-<span><span class="va">dfSUBJ</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span></span>
-<span><span class="va">dfIE</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ie</span></span>
-<span><span class="va">dfPD</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/ctms_protdev.html" class="external-link">ctms_protdev</a></span></span>
-<span><span class="va">dfCONSENT</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span></span>
+<span><span class="va">dfSUBJ</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span></span>
+<span><span class="va">dfIE</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ie.html" class="external-link">rawplus_ie</a></span></span>
+<span><span class="va">dfPD</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_protdev.html" class="external-link">ctms_protdev</a></span></span>
+<span><span class="va">dfCONSENT</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_consent.html" class="external-link">rawplus_consent</a></span></span>
 <span></span>
 <span><span class="co">## Create named list of assessment data</span></span>
 <span><span class="va">assessment_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -342,7 +357,7 @@ This includes study and site-level CTMS data, as well as workflow and
 configuration metadata, that is used in downstream applications such as
 reporting, Shiny apps, and more.</p>
 <p>To create a snapshot using the default inputs from <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>
-and <code>{clindata}</code>, simply run the following:</p>
+and <a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a>, simply run the following:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span><span class="va">snapshot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Make_Snapshot.html">Make_Snapshot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -370,10 +385,10 @@ Assessments<a class="anchor" aria-label="anchor" href="#example-5---creating-an-
 that contains tables, visualizations, and error logging for all
 assessments run in the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> workflow.</p>
 <p>Let’s create a report using sample data from
-<code>{clindata}</code>:</p>
+<a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a>:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -393,7 +408,7 @@ CTMS data displayed in a summary table at the top of the report, and an
 enhanced <strong>Study Overview</strong> table.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">snapshot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Make_Snapshot.html">Make_Snapshot</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -414,7 +429,7 @@ issues with input data provided to <code>lData</code> in
 <p>To view the report directly as an object in your IDE, run:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -440,10 +455,10 @@ separate vignette.</p>
 <p>Below is an example of creating a static <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>
 scatter plot that uses the default normal approximation method for
 <code><a href="../reference/AE_Assess.html">AE_Assess()</a></code> and rawplus data from
-<code>{clindata}</code>:</p>
+<a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a>:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Map domain-level data to the input data standard for the selected assessment</span></span>
 <span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AE_Map_Raw.html">AE_Map_Raw</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -565,13 +580,13 @@ YAML file (<code>ae_assessment_moderate.yaml</code>).</li>
 <li>Add a relative path to the custom assessment list, to show where the
 custom YAML file is stored.</li>
 <li>Read in the default rawplus mappings from
-<code>{clindata}</code>.</li>
+<a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a>.</li>
 <li>Add the value to sort <code>strTypeCol</code> on.</li>
 <li>Run the <code><a href="../reference/Study_Assess.html">Study_Assess()</a></code> workflow.</li>
 </ol>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">clindata</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vubiostat/r-yaml/" class="external-link">yaml</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## 1. Read in default workflow mapping</span></span>

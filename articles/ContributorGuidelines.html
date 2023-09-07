@@ -33,15 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
@@ -71,6 +68,24 @@
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
     </li>
   </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sample Reports
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../reports/StandardReportSite.html">Site Report</a>
+    </li>
+    <li>
+      <a href="../reports/StandardReportCountry.html">Country Report</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -294,6 +309,8 @@ after the above requirements are fulfilled. The user who merges the
 <li>The <code>release</code> branch should be named according to the
 version of <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> being released (e.g.,
 <code>release-v1.2.0</code>) using <a href="https://semver.org/" class="external-link">semantic versioning</a>.</li>
+<li>If a release branch is already created, make sure that it is synced
+with the current <code>dev</code> branch.</li>
 </ul>
 </li>
 <li>Release Owner prepares the release for QC by performing the

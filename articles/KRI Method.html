@@ -33,15 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
@@ -71,6 +68,24 @@
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
     </li>
   </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sample Reports
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../reports/StandardReportSite.html">Site Report</a>
+    </li>
+    <li>
+      <a href="../reports/StandardReportCountry.html">Country Report</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -176,9 +191,9 @@ proportion at the <span class="math inline">\(i\)</span> th site.
 Monitoring tools focus on testing the null hypothesis of consistency of
 the true site-level proportion across multiple sites. Specifically, the
 null hypothesis states that the site-level proportion of the binary
-outcome is constant across the sites, that is, <span class="math inline">\(H_0: p_1 = \dots = p_m = p\)</span>, where <span class="math inline">\(p\)</span> is the common proportion. This
-commonproportion can be estimated as <span class="math inline">\(\hat{p}
-= \frac{1}{n}\sum_{i=1}^m\sum_{j=1}^{n_i}X_{ij}\)</span>.</p>
+outcome is constant across the sites, that is, <span class="math inline">\(H_0: p_1 = \dots = p_m = p\)</span>, where <span class="math inline">\(p\)</span> is the common proportion. This common
+proportion can be estimated as <span class="math inline">\(\hat{p} =
+\frac{1}{n}\sum_{i=1}^m\sum_{j=1}^{n_i}X_{ij}\)</span>.</p>
 <p>The control limits are computed using confidence limits based on an
 asymptotic normal approximation. A 95% confidence interval is obtained
 if the significance level <span class="math inline">\(\alpha=0.05\)</span>. Let <span class="math inline">\(X_i=\sum_{j=1}^{n_i}X_{ij}\)</span> represent the

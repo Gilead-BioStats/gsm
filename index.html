@@ -33,15 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="reference/index.html">Reference</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
@@ -71,6 +68,24 @@
       <a href="articles/QualificationWorkflow.html">Qualification Workflow</a>
     </li>
   </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sample Reports
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="reports/StandardReportSite.html">Site Report</a>
+    </li>
+    <li>
+      <a href="reports/StandardReportCountry.html">Country Report</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li>
   <a href="news/index.html">Changelog</a>
@@ -152,6 +167,30 @@
 <strong>Summarize</strong> - Selects key columns from <code>flagged</code> data to create <code>summary</code> data.</li>
 </ol>
 <p>To learn more about {gsm}’s data pipeline, visit the <a href="https://gilead-biostats.github.io/gsm/articles/DataPipeline.html" class="external-link">Data Pipeline Vignette</a>.</p>
+</div>
+<div class="section level1">
+<h1 id="reporting">Reporting<a class="anchor" aria-label="anchor" href="#reporting"></a>
+</h1>
+<p>Detailed RMarkdown/HTML reporting is built into <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>, and provides a detailed overview of all risk assessments for a given trial.</p>
+<p>Reports for a sample trial run with <a href="https://github.com/Gilead-BioStats/clindata" class="external-link"><code>{clindata}</code></a> are provided below:</p>
+<ul>
+<li><p><a href="https://gilead-biostats.github.io/gsm/reports/StandardReportSite.html" class="external-link">Site Report</a></p></li>
+<li><p><a href="https://gilead-biostats.github.io/gsm/reports/StandardReportCountry.html" class="external-link">Country Report</a></p></li>
+</ul>
+<div class="section level3">
+<h3 id="overview-tableheatmap">Overview Table/Heatmap:<a class="anchor" aria-label="anchor" href="#overview-tableheatmap"></a>
+</h3>
+<center>
+<img src="reference/figures/gsm_report_screenshot_1.png">
+</center>
+</div>
+<div class="section level3">
+<h3 id="assessment-overview-for-adverse-events">Assessment Overview for Adverse Events<a class="anchor" aria-label="anchor" href="#assessment-overview-for-adverse-events"></a>
+</h3>
+<center>
+<img src="reference/figures/gsm_report_screenshot_2.png">
+</center>
+</div>
 </div>
 <div class="section level1">
 <h1 id="quality-control">Quality Control<a class="anchor" aria-label="anchor" href="#quality-control"></a>

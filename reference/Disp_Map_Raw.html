@@ -18,15 +18,12 @@ input data to Disp_Assess()."><!-- mathjax --><script src="https://cdnjs.cloudfl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav"><li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
+      <ul class="nav navbar-nav"><li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
@@ -54,6 +51,22 @@ input data to Disp_Assess()."><!-- mathjax --><script src="https://cdnjs.cloudfl
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
     </li>
   </ul></li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sample Reports
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu"><li>
+      <a href="../reports/StandardReportSite.html">Site Report</a>
+    </li>
+    <li>
+      <a href="../reports/StandardReportCountry.html">Country Report</a>
+    </li>
+  </ul></li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -84,8 +97,8 @@ input data to <code><a href="Disp_Assess.html">Disp_Assess()</a></code>.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Disp_Map_Raw</span><span class="op">(</span></span>
-<span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span>, dfSTUDCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_studcomp.html" class="external-link">rawplus_studcomp</a></span>,</span>
-<span>    dfSDRGCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_sdrgcomp.html" class="external-link">rawplus_sdrgcomp</a></span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">phase</span> <span class="op">==</span></span>
+<span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>, dfSTUDCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_studcomp.html" class="external-link">rawplus_studcomp</a></span>,</span>
+<span>    dfSDRGCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_sdrgcomp.html" class="external-link">rawplus_sdrgcomp</a></span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">phase</span> <span class="op">==</span></span>
 <span>    <span class="st">"Blinded Study Drug Completion"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  lMapping <span class="op">=</span> <span class="fu">gsm</span><span class="fu">::</span><span class="fu"><a href="Read_Mapping.html">Read_Mapping</a></span><span class="op">(</span><span class="st">"rawplus"</span><span class="op">)</span>,</span>
 <span>  strContext <span class="op">=</span> <span class="st">"Study"</span>,</span>
@@ -97,9 +110,9 @@ input data to <code><a href="Disp_Assess.html">Disp_Assess()</a></code>.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dfs</dt>
-<dd><p><code>list</code> Input data frames:</p><ul><li><p><code>dfSTUDCOMP</code>: <code>data.frame</code> Subject-level study disposition data with one record per discontinuation reason. Default: <code><a href="https://rdrr.io/pkg/clindata/man/rawplus_studcomp.html" class="external-link">clindata::rawplus_studcomp</a></code></p></li>
-<li><p><code>dfSDRGCOMP</code>: <code>data.frame</code> Subject-level treatment disposition data with one record per discontinuation reason. Default: <code><a href="https://rdrr.io/pkg/clindata/man/rawplus_sdrgcomp.html" class="external-link">clindata::rawplus_sdrgcomp</a></code></p></li>
-<li><p><code>dfSUBJ</code>: <code>data.frame</code> Subject-level data with one record per participant.Default: <code><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">clindata::rawplus_dm</a></code></p></li>
+<dd><p><code>list</code> Input data frames:</p><ul><li><p><code>dfSTUDCOMP</code>: <code>data.frame</code> Subject-level study disposition data with one record per discontinuation reason. Default: <code><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_studcomp.html" class="external-link">clindata::rawplus_studcomp</a></code></p></li>
+<li><p><code>dfSDRGCOMP</code>: <code>data.frame</code> Subject-level treatment disposition data with one record per discontinuation reason. Default: <code><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_sdrgcomp.html" class="external-link">clindata::rawplus_sdrgcomp</a></code></p></li>
+<li><p><code>dfSUBJ</code>: <code>data.frame</code> Subject-level data with one record per participant.Default: <code><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">clindata::rawplus_dm</a></code></p></li>
 </ul></dd>
 
 

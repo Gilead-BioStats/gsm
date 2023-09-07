@@ -17,15 +17,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav"><li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
+      <ul class="nav navbar-nav"><li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
@@ -53,6 +50,22 @@
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
     </li>
   </ul></li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sample Reports
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu"><li>
+      <a href="../reports/StandardReportSite.html">Site Report</a>
+    </li>
+    <li>
+      <a href="../reports/StandardReportCountry.html">Country Report</a>
+    </li>
+  </ul></li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -75,6 +88,10 @@
       <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.8.1" id="gsm-v181">gsm v1.8.1<a class="anchor" aria-label="anchor" href="#gsm-v181"></a></h2>
+<p>This minor release includes hosting sample reports on the <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a> website.</p>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.8.0" id="gsm-v180">gsm v1.8.0<a class="anchor" aria-label="anchor" href="#gsm-v180"></a></h2>
 <p>This is the first open-source release for <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>! 🥳</p>
@@ -121,7 +138,7 @@
 <div class="section level4">
 <h4 id="metadata-1-7-4">Metadata<a class="anchor" aria-label="anchor" href="#metadata-1-7-4"></a></h4>
 <ul><li>Adds <code><a href="../reference/Site_Map_Raw.html">Site_Map_Raw()</a></code> and <code><a href="../reference/Study_Map_Raw.html">Study_Map_Raw()</a></code> to map and aggregate study and site-level data that is defined with mappings.</li>
-<li>Configuration datasets were copied from <code>{clindata}</code> to <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>: <code>config_param</code> and <code>config_workflow</code>.</li>
+<li>Configuration datasets were copied from <a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a> to <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>: <code>config_param</code> and <code>config_workflow</code>.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="utility-functions-1-7-4">Utility Functions<a class="anchor" aria-label="anchor" href="#utility-functions-1-7-4"></a></h4>
@@ -312,7 +329,7 @@
 <h2 class="page-header" data-toc-text="0.4.0" id="gsm-v040">gsm v0.4.0<a class="anchor" aria-label="anchor" href="#gsm-v040"></a></h2>
 <p>This release includes a refactor to the gsm data workflow in preparation for a v1 release. Updates include:</p>
 <ul><li>
-<code>*_Map_Raw()</code> functions have default input parameters from <code>{clindata}</code>
+<code>*_Map_Raw()</code> functions have default input parameters from <a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a>
 </li>
 <li>
 <code>*_Map_Raw()</code> and <code>*_Assess()</code> functions now have options for verbose workflow commenting (when <code>bQuiet == FALSE</code>), and an option to return an error log (<code>bReturnChecks == TRUE</code>)</li>

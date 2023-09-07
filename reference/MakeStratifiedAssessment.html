@@ -23,15 +23,12 @@ one with assessment results for mild AEs, one for moderate, one for severe, and 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav"><li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
+      <ul class="nav navbar-nav"><li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
@@ -59,6 +56,22 @@ one with assessment results for mild AEs, one for moderate, one for severe, and 
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
     </li>
   </ul></li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sample Reports
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu"><li>
+      <a href="../reports/StandardReportSite.html">Site Report</a>
+    </li>
+    <li>
+      <a href="../reports/StandardReportCountry.html">Country Report</a>
+    </li>
+  </ul></li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -133,8 +146,8 @@ For this example using default data, <code><a href="MakeWorkflowList.html">MakeW
 <span class="r-in"><span><span class="co"># Adverse events by grade</span></span></span>
 <span class="r-in"><span><span class="va">StratifiedAE</span> <span class="op">&lt;-</span> <span class="fu">MakeStratifiedAssessment</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  lData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
-<span class="r-in"><span>    dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">rawplus_ae</a></span></span></span>
+<span class="r-in"><span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
+<span class="r-in"><span>    dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span></span></span>
 <span class="r-in"><span>  <span class="op">)</span>,</span></span>
 <span class="r-in"><span>  lMapping <span class="op">=</span> <span class="va">lMapping</span>,</span></span>
 <span class="r-in"><span>  lWorkflow <span class="op">=</span> <span class="va">lWorkflowList</span><span class="op">$</span><span class="va">aeGrade</span></span></span>
@@ -144,8 +157,8 @@ For this example using default data, <code><a href="MakeWorkflowList.html">MakeW
 <span class="r-in"><span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.x</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>      lData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>        dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
-<span class="r-in"><span>        dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_ae.html" class="external-link">rawplus_ae</a></span></span></span>
+<span class="r-in"><span>        dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
+<span class="r-in"><span>        dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span></span></span>
 <span class="r-in"><span>      <span class="op">)</span>,</span></span>
 <span class="r-in"><span>      lMapping <span class="op">=</span> <span class="va">lMapping</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span><span class="op">)</span></span></span>
@@ -153,8 +166,8 @@ For this example using default data, <code><a href="MakeWorkflowList.html">MakeW
 <span class="r-in"><span><span class="co"># Protocol deviations by PD category</span></span></span>
 <span class="r-in"><span><span class="va">StratifiedPD</span> <span class="op">&lt;-</span> <span class="fu">MakeStratifiedAssessment</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  lData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
-<span class="r-in"><span>    dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/ctms_protdev.html" class="external-link">ctms_protdev</a></span></span></span>
+<span class="r-in"><span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
+<span class="r-in"><span>    dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_protdev.html" class="external-link">ctms_protdev</a></span></span></span>
 <span class="r-in"><span>  <span class="op">)</span>,</span></span>
 <span class="r-in"><span>  lMapping <span class="op">=</span> <span class="va">lMapping</span>,</span></span>
 <span class="r-in"><span>  lWorkflow <span class="op">=</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">pdCategory</span></span></span>
@@ -164,8 +177,8 @@ For this example using default data, <code><a href="MakeWorkflowList.html">MakeW
 <span class="r-in"><span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.x</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>      lData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>        dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
-<span class="r-in"><span>        dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/ctms_protdev.html" class="external-link">ctms_protdev</a></span></span></span>
+<span class="r-in"><span>        dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
+<span class="r-in"><span>        dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_protdev.html" class="external-link">ctms_protdev</a></span></span></span>
 <span class="r-in"><span>      <span class="op">)</span>,</span></span>
 <span class="r-in"><span>      lMapping <span class="op">=</span> <span class="va">lMapping</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span><span class="op">)</span></span></span>
@@ -173,8 +186,8 @@ For this example using default data, <code><a href="MakeWorkflowList.html">MakeW
 <span class="r-in"><span><span class="co"># Labs by lab category</span></span></span>
 <span class="r-in"><span><span class="va">StratifiedLB</span> <span class="op">&lt;-</span> <span class="fu">MakeStratifiedAssessment</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  lData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
-<span class="r-in"><span>    dfLB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_lb.html" class="external-link">rawplus_lb</a></span></span></span>
+<span class="r-in"><span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
+<span class="r-in"><span>    dfLB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_lb.html" class="external-link">rawplus_lb</a></span></span></span>
 <span class="r-in"><span>  <span class="op">)</span>,</span></span>
 <span class="r-in"><span>  lMapping <span class="op">=</span> <span class="va">lMapping</span>,</span></span>
 <span class="r-in"><span>  lWorkflow <span class="op">=</span> <span class="va">lAssessmentList</span><span class="op">$</span><span class="va">lbCategory</span></span></span>
@@ -184,8 +197,8 @@ For this example using default data, <code><a href="MakeWorkflowList.html">MakeW
 <span class="r-in"><span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.x</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>      lData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>        dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
-<span class="r-in"><span>        dfLB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/clindata/man/rawplus_lb.html" class="external-link">rawplus_lb</a></span></span></span>
+<span class="r-in"><span>        dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
+<span class="r-in"><span>        dfLB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_lb.html" class="external-link">rawplus_lb</a></span></span></span>
 <span class="r-in"><span>      <span class="op">)</span>,</span></span>
 <span class="r-in"><span>      lMapping <span class="op">=</span> <span class="va">lMapping</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span><span class="op">)</span></span></span>

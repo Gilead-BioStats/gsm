@@ -33,15 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
@@ -72,6 +69,24 @@
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sample Reports
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../reports/StandardReportSite.html">Site Report</a>
+    </li>
+    <li>
+      <a href="../reports/StandardReportCountry.html">Country Report</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -101,7 +116,7 @@
 Package</h1>
             
             <h4 data-toc-skip class="date">Report Run Date:
-2023-08-11</h4>
+2023-09-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/vignettes/articles/Qualification.Rmd" class="external-link"><code>vignettes/articles/Qualification.Rmd</code></a></small>
       <div class="hidden name"><code>Qualification.Rmd</code></div>
@@ -5996,7 +6011,7 @@ R/MakeStatusWorkflow.R
 R/Overview_Table.R
 </td>
 <td style="text-align:left;">
-93.87 %
+92.05 %
 </td>
 </tr>
 <tr>
@@ -6460,7 +6475,7 @@ R/Widget_TimeSeriesQTL.R
 Total Coverage
 </td>
 <td style="text-align:left;">
-87.40 %
+87.32 %
 </td>
 </tr>
 </tbody>
@@ -6485,11 +6500,11 @@ Total Coverage
 <p><strong>attached base packages:</strong> <em>stats</em>,
 <em>graphics</em>, <em>grDevices</em>, <em>utils</em>,
 <em>datasets</em>, <em>methods</em> and <em>base</em></p>
-<p><strong>other attached packages:</strong> <em>gsm(v.1.8.0)</em>,
-<em>testthat(v.3.1.10)</em>, <em>riskmetric(v.0.2.2)</em>,
+<p><strong>other attached packages:</strong> <em>gsm(v.1.8.1)</em>,
+<em>testthat(v.3.1.10)</em>, <em>riskmetric(v.0.2.3)</em>,
 <em>stringr(v.1.5.0)</em>, <em>gh(v.1.4.0)</em>,
 <em>pander(v.0.6.5)</em>, <em>purrr(v.1.0.2)</em>,
-<em>dplyr(v.1.1.2)</em> and <em>knitr(v.1.43)</em></p>
+<em>dplyr(v.1.1.3)</em> and <em>knitr(v.1.43)</em></p>
 <p><strong>loaded via a namespace (and not attached):</strong>
 <em>remotes(v.2.4.2.1)</em>, <em>rlang(v.1.1.1)</em>,
 <em>magrittr(v.2.0.3)</em>, <em>cranlogs(v.2.1.1)</em>,
@@ -6498,56 +6513,51 @@ Total Coverage
 <em>rvest(v.1.0.3)</em>, <em>profvis(v.0.3.8)</em>,
 <em>pkgconfig(v.2.0.3)</em>, <em>crayon(v.1.5.2)</em>,
 <em>fastmap(v.1.1.1)</em>, <em>backports(v.1.4.1)</em>,
-<em>ellipsis(v.0.3.2)</em>, <em>fontawesome(v.0.5.1)</em>,
+<em>ellipsis(v.0.3.2)</em>, <em>fontawesome(v.0.5.2)</em>,
 <em>utf8(v.1.2.3)</em>, <em>promises(v.1.2.1)</em>,
-<em>rmarkdown(v.2.23)</em>, <em>tzdb(v.0.4.0)</em>,
-<em>ggfittext(v.0.10.0)</em>, <em>sessioninfo(v.1.2.2)</em>,
-<em>ps(v.1.7.5)</em>, <em>ragg(v.1.2.5)</em>, <em>waldo(v.0.5.1)</em>,
-<em>bit(v.4.0.5)</em>, <em>xfun(v.0.40)</em>, <em>cachem(v.1.0.8)</em>,
-<em>covr(v.3.6.2)</em>, <em>clindata(v.0.15.0)</em>,
-<em>jsonlite(v.1.8.7)</em>, <em>highr(v.0.10)</em>,
-<em>later(v.1.3.1)</em>, <em>gggenes(v.0.5.0)</em>,
-<em>styler(v.1.10.1)</em>, <em>tictoc(v.1.2)</em>,
-<em>uuid(v.1.1-0)</em>, <em>broom(v.1.0.5)</em>,
+<em>rmarkdown(v.2.24)</em>, <em>ggfittext(v.0.10.1)</em>,
+<em>sessioninfo(v.1.2.2)</em>, <em>ps(v.1.7.5)</em>,
+<em>ragg(v.1.2.5)</em>, <em>waldo(v.0.5.1)</em>, <em>xfun(v.0.40)</em>,
+<em>cachem(v.1.0.8)</em>, <em>covr(v.3.6.2)</em>,
+<em>clindata(v.0.15.0)</em>, <em>jsonlite(v.1.8.7)</em>,
+<em>highr(v.0.10)</em>, <em>later(v.1.3.1)</em>,
+<em>gggenes(v.0.5.1)</em>, <em>styler(v.1.10.2)</em>,
+<em>uuid(v.1.1-1)</em>, <em>broom(v.1.0.5)</em>,
 <em>prettyunits(v.1.1.1)</em>, <em>R6(v.2.5.1)</em>,
 <em>bslib(v.0.5.1)</em>, <em>stringi(v.1.7.12)</em>,
-<em>pkgload(v.1.3.2.1)</em>, <em>lubridate(v.1.9.2)</em>,
-<em>brio(v.1.1.3)</em>, <em>jquerylib(v.0.1.4)</em>,
-<em>assertthat(v.0.2.1)</em>, <em>Rcpp(v.1.0.11)</em>,
+<em>pkgload(v.1.3.2.1)</em>, <em>brio(v.1.1.3)</em>,
+<em>jquerylib(v.0.1.4)</em>, <em>Rcpp(v.1.0.11)</em>,
 <em>usethis(v.2.2.2)</em>, <em>triebeard(v.0.4.1)</em>,
-<em>R.utils(v.2.12.2)</em>, <em>readr(v.2.1.4)</em>,
-<em>timechange(v.0.2.0)</em>, <em>httpuv(v.1.6.11)</em>,
+<em>R.utils(v.2.12.2)</em>, <em>httpuv(v.1.6.11)</em>,
 <em>R.cache(v.0.16.0)</em>, <em>tidyselect(v.1.2.0)</em>,
 <em>rstudioapi(v.0.15.0)</em>, <em>yaml(v.2.3.7)</em>,
-<em>miniUI(v.0.1.1.1)</em>, <em>curl(v.5.0.1)</em>,
+<em>miniUI(v.0.1.1.1)</em>, <em>curl(v.5.0.2)</em>,
 <em>processx(v.3.8.2)</em>, <em>pkgbuild(v.1.4.2)</em>,
-<em>tibble(v.3.2.1)</em>, <em>shiny(v.1.7.4.1)</em>,
+<em>tibble(v.3.2.1)</em>, <em>shiny(v.1.7.5)</em>,
 <em>withr(v.2.5.0)</em>, <em>evaluate(v.0.21)</em>,
 <em>desc(v.1.4.2)</em>, <em>RcppParallel(v.5.1.7)</em>,
 <em>urlchecker(v.1.0.1)</em>, <em>lamW(v.2.2.0)</em>,
 <em>xml2(v.1.3.5)</em>, <em>pillar(v.1.9.0)</em>,
-<em>BiocManager(v.1.30.22)</em>, <em>DT(v.0.28)</em>,
+<em>BiocManager(v.1.30.22)</em>, <em>DT(v.0.29)</em>,
 <em>rex(v.1.2.1)</em>, <em>generics(v.0.1.3)</em>,
-<em>rprojroot(v.2.0.3)</em>, <em>hms(v.1.1.3)</em>,
-<em>ggplot2(v.3.4.2)</em>, <em>munsell(v.0.5.0)</em>,
-<em>scales(v.1.2.1)</em>, <em>xtable(v.1.8-4)</em>,
-<em>glue(v.1.6.2)</em>, <em>lazyeval(v.0.2.2)</em>,
-<em>tools(v.4.3.1)</em>, <em>data.table(v.1.14.8)</em>,
+<em>rprojroot(v.2.0.3)</em>, <em>ggplot2(v.3.4.3)</em>,
+<em>munsell(v.0.5.0)</em>, <em>scales(v.1.2.1)</em>,
+<em>xtable(v.1.8-4)</em>, <em>glue(v.1.6.2)</em>,
+<em>lazyeval(v.0.2.2)</em>, <em>tools(v.4.3.1)</em>,
 <em>webshot(v.0.5.5)</em>, <em>ggiraph(v.0.8.7)</em>,
 <em>fs(v.1.6.3)</em>, <em>grid(v.4.3.1)</em>, <em>tidyr(v.1.3.0)</em>,
 <em>urltools(v.1.7.3)</em>, <em>devtools(v.2.4.5)</em>,
 <em>colorspace(v.2.1-0)</em>, <em>cli(v.3.6.1)</em>,
 <em>kableExtra(v.1.3.4)</em>, <em>textshaping(v.0.3.6)</em>,
 <em>fansi(v.1.0.4)</em>, <em>viridisLite(v.0.4.2)</em>,
-<em>svglite(v.2.1.1)</em>, <em>arrow(v.12.0.1.1)</em>,
-<em>gt(v.0.9.0)</em>, <em>gtable(v.0.3.3)</em>,
-<em>R.methodsS3(v.1.8.2)</em>, <em>sass(v.0.4.7)</em>,
-<em>digest(v.0.6.33)</em>, <em>htmlwidgets(v.1.6.2)</em>,
-<em>memoise(v.2.0.1)</em>, <em>htmltools(v.0.5.6)</em>,
-<em>pkgdown(v.2.0.7)</em>, <em>R.oo(v.1.25.0)</em>,
-<em>lifecycle(v.1.0.3)</em>, <em>httr(v.1.4.6)</em>,
-<em>here(v.1.0.1)</em>, <em>mime(v.0.12)</em> and
-<em>bit64(v.4.0.5)</em></p>
+<em>svglite(v.2.1.1)</em>, <em>gt(v.0.9.0)</em>,
+<em>gtable(v.0.3.4)</em>, <em>R.methodsS3(v.1.8.2)</em>,
+<em>sass(v.0.4.7)</em>, <em>digest(v.0.6.33)</em>,
+<em>htmlwidgets(v.1.6.2)</em>, <em>memoise(v.2.0.1)</em>,
+<em>htmltools(v.0.5.6)</em>, <em>pkgdown(v.2.0.7)</em>,
+<em>R.oo(v.1.25.0)</em>, <em>lifecycle(v.1.0.3)</em>,
+<em>httr(v.1.4.7)</em>, <em>here(v.1.0.1)</em> and
+<em>mime(v.0.12)</em></p>
 <div style="page-break-after: always;"></div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -6580,7 +6590,7 @@ broom
 1.0.5
 </td>
 <td style="text-align:left;">
-0.319
+0.316
 </td>
 </tr>
 <tr>
@@ -6599,10 +6609,10 @@ cli
 dplyr
 </td>
 <td style="text-align:left;">
-1.1.2
+1.1.3
 </td>
 <td style="text-align:left;">
-0.390
+0.395
 </td>
 </tr>
 <tr>
@@ -6610,10 +6620,10 @@ dplyr
 DT
 </td>
 <td style="text-align:left;">
-0.28
+0.29
 </td>
 <td style="text-align:left;">
-0.417
+0.412
 </td>
 </tr>
 <tr>
@@ -6621,10 +6631,10 @@ DT
 fontawesome
 </td>
 <td style="text-align:left;">
-0.5.1
+0.5.2
 </td>
 <td style="text-align:left;">
-0.341
+0.336
 </td>
 </tr>
 <tr>
@@ -6657,7 +6667,7 @@ gt
 0.9.0
 </td>
 <td style="text-align:left;">
-0.442
+0.450
 </td>
 </tr>
 <tr>
@@ -6665,10 +6675,10 @@ gt
 gggenes
 </td>
 <td style="text-align:left;">
-0.5.0
+0.5.1
 </td>
 <td style="text-align:left;">
-0.413
+0.412
 </td>
 </tr>
 <tr>
@@ -6679,7 +6689,7 @@ ggiraph
 0.8.7
 </td>
 <td style="text-align:left;">
-0.486
+0.475
 </td>
 </tr>
 <tr>
@@ -6687,10 +6697,10 @@ ggiraph
 ggplot2
 </td>
 <td style="text-align:left;">
-3.4.2
+3.4.3
 </td>
 <td style="text-align:left;">
-0.390
+0.387
 </td>
 </tr>
 <tr>
@@ -6712,7 +6722,7 @@ htmltools
 0.5.6
 </td>
 <td style="text-align:left;">
-0.404
+0.412
 </td>
 </tr>
 <tr>
@@ -6734,7 +6744,7 @@ knitr
 1.43
 </td>
 <td style="text-align:left;">
-0.483
+0.458
 </td>
 </tr>
 <tr>
@@ -6778,7 +6788,7 @@ purrr
 1.0.2
 </td>
 <td style="text-align:left;">
-0.362
+0.372
 </td>
 </tr>
 <tr>
@@ -6786,7 +6796,7 @@ purrr
 rmarkdown
 </td>
 <td style="text-align:left;">
-2.23
+2.24
 </td>
 <td style="text-align:left;">
 0.376
@@ -6800,7 +6810,7 @@ rstudioapi
 0.15.0
 </td>
 <td style="text-align:left;">
-0.336
+0.334
 </td>
 </tr>
 <tr>
@@ -6811,7 +6821,7 @@ stringr
 1.5.0
 </td>
 <td style="text-align:left;">
-0.357
+0.361
 </td>
 </tr>
 <tr>
@@ -6819,10 +6829,10 @@ stringr
 styler
 </td>
 <td style="text-align:left;">
-1.10.1
+1.10.2
 </td>
 <td style="text-align:left;">
-0.361
+0.357
 </td>
 </tr>
 <tr>
@@ -6833,7 +6843,7 @@ tibble
 3.2.1
 </td>
 <td style="text-align:left;">
-0.358
+0.360
 </td>
 </tr>
 <tr>
@@ -6844,7 +6854,7 @@ tidyr
 1.3.0
 </td>
 <td style="text-align:left;">
-0.395
+0.394
 </td>
 </tr>
 <tr>
@@ -6877,6 +6887,163 @@ rlang
 <div class="section level2">
 <h2 id="pull-request-history">Pull Request History<a class="anchor" aria-label="anchor" href="#pull-request-history"></a>
 </h2>
+<div class="section level4">
+<h4 id="pull-request-1292-tweak-pr">Pull Request 1292: tweak PR<a class="anchor" aria-label="anchor" href="#pull-request-1292-tweak-pr"></a>
+</h4>
+<p>Merging fix-1260-tweaks into fix-1260</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1292" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1292</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-08-22 21:07:50</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1290-fix-1288---missing-values-in-dfsite">Pull Request 1290: Fix #1288 - Missing values in
+<code>dfSITE</code><a class="anchor" aria-label="anchor" href="#pull-request-1290-fix-1288---missing-values-in-dfsite"></a>
+</h4>
+<p>Merging fix-1288 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1290" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1290</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-08-21 21:30:40</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1285-add-hosted-reports-as-vignettes">Pull Request 1285: Add hosted reports as vignettes<a class="anchor" aria-label="anchor" href="#pull-request-1285-add-hosted-reports-as-vignettes"></a>
+</h4>
+<p>Merging fix-1276 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1285" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1285</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-08-15 19:37:15</td>
+<td align="center">jwildfire samussiah</td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1284-release-v1-8-1">Pull Request 1284: Release v1.8.1<a class="anchor" aria-label="anchor" href="#pull-request-1284-release-v1-8-1"></a>
+</h4>
+<p>Merging release-v1.8.1-rc1 into main</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1284" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1284</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-08-14 19:33:18</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1283-fix-1282">Pull Request 1283: Fix 1282<a class="anchor" aria-label="anchor" href="#pull-request-1283-fix-1282"></a>
+</h4>
+<p>Merging fix-1282 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1283" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1283</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-08-11 21:41:10</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1281-sync-main-and-dev">Pull Request 1281: Sync <code>main</code> and <code>dev</code><a class="anchor" aria-label="anchor" href="#pull-request-1281-sync-main-and-dev"></a>
+</h4>
+<p>Merging main into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1281" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1281</a></p>
+<table style="width:89%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="29%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2023-08-11 20:57:00</td>
+<td align="center">andersonjake1988 collleenmclaughlin</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
 <div class="section level4">
 <h4 id="pull-request-1279-fix-bug-in-country_map_raw--">Pull Request 1279: Fix bug in <code>Country_Map_Raw</code> .<a class="anchor" aria-label="anchor" href="#pull-request-1279-fix-bug-in-country_map_raw--"></a>
 </h4>
@@ -9298,163 +9465,6 @@ Tests<a class="anchor" aria-label="anchor" href="#pull-request-1072-fix-1052---u
 <td align="center">mattroumaya</td>
 <td align="center">2023-02-07 21:52:21</td>
 <td align="center">jwildfire samussiah</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1059-fix-1057---pd_map_raw-qual--tests-updates">Pull Request 1059: Fix 1057 - PD_Map_Raw() Qual. Tests Updates<a class="anchor" aria-label="anchor" href="#pull-request-1059-fix-1057---pd_map_raw-qual--tests-updates"></a>
-</h4>
-<p>Merging fix-1057 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1059" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1059</a></p>
-<table style="width:86%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2023-02-02 22:35:08</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1056-fix-1049-update-non-serious-ae-kri-to-include-all-aes">Pull Request 1056: Fix-1049: Update non-serious AE KRI to include
-all AEs<a class="anchor" aria-label="anchor" href="#pull-request-1056-fix-1049-update-non-serious-ae-kri-to-include-all-aes"></a>
-</h4>
-<p>Merging fix-1049 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1056" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1056</a></p>
-<table style="width:79%;" class="table">
-<colgroup>
-<col width="22%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">Zhongkai-Wang</td>
-<td align="center">2023-02-02 16:27:28</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1055-release-v1-5-0">Pull Request 1055: Release v1.5.0<a class="anchor" aria-label="anchor" href="#pull-request-1055-release-v1-5-0"></a>
-</h4>
-<p>Merging release-v1.5.0 into main</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1055" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1055</a></p>
-<table style="width:82%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="22%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2023-02-01 22:29:19</td>
-<td align="center">samussiah Zhongkai-Wang</td>
-<td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1054-fix-929---util-filterdomain-qual--tests">Pull Request 1054: Fix 929 - util-FilterDomain() Qual. Tests<a class="anchor" aria-label="anchor" href="#pull-request-1054-fix-929---util-filterdomain-qual--tests"></a>
-</h4>
-<p>Merging fix-929 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1054" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1054</a></p>
-<table style="width:86%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2023-02-01 20:40:59</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1051-fix-935---util-mergesubjects-qual--test">Pull Request 1051: Fix 935 - util-MergeSubjects() Qual. Test<a class="anchor" aria-label="anchor" href="#pull-request-1051-fix-935---util-mergesubjects-qual--test"></a>
-</h4>
-<p>Merging fix-935 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1051" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1051</a></p>
-<table style="width:86%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2023-02-01 19:40:33</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1048-fix-932---get_enrolled-qual--tests">Pull Request 1048: Fix 932 - Get_Enrolled() Qual. Tests<a class="anchor" aria-label="anchor" href="#pull-request-1048-fix-932---get_enrolled-qual--tests"></a>
-</h4>
-<p>Merging fix-932 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1048" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1048</a></p>
-<table style="width:86%;" class="table">
-<colgroup>
-<col width="29%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">collleenmclaughlin</td>
-<td align="center">2023-02-01 18:00:11</td>
-<td align="center"></td>
 <td align="center">APPROVED</td>
 </tr></tbody>
 </table>
