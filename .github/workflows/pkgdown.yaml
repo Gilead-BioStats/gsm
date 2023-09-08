@@ -64,12 +64,20 @@ jobs:
           git checkout -b temp-report
           git add StandardReportCountry.html
           git commit -m "add reports"
+          git remote set-branches --add origin temp-report
+          git push -u origin temp-report
 
       # - name: Deploy package
       #   run: |
       #     git config --local user.email "actions@github.com"
       #     git config --local user.name "GitHub Actions"
       #     Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+
+      - name: Checkout gh-pages actions
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: temp-report
 
       - name: Checkout gh-pages actions
         uses: actions/checkout@v2
@@ -87,6 +95,5 @@ jobs:
           git add StandardReportCountry.html
           git commit -m "Add HTML"
           git push origin gh-pages
-          git branch -D temp-report
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
