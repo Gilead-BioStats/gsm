@@ -90,10 +90,11 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git fetch
-          git checkout temp-report -- StandardReportCountry.html
+          git checkout origin/temp-report -- StandardReportCountry.html
           git checkout gh-pages
           git add StandardReportCountry.html
           git commit -m "Add HTML"
           git push origin gh-pages
+          git push origin --d temp-report
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
