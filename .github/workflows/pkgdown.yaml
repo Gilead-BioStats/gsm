@@ -47,13 +47,15 @@ jobs:
           git config --local user.name "GitHub Actions"
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
 
-      - name: Copy static HTML to docs
+      - name: Create and checkout gh-pages branch
         run: |
+          git fetch origin gh-pages:refs/remotes/origin/gh-pages
           git checkout gh-pages
-          git pull origin gh-pages
           git checkout main -- vignettes/StandardReportSite.html
           mkdir -p docs
           mv vignettes/StandardReportSite.html docs/
           git add docs/StandardReportSite.html
-          git commit -m "add html"
+          git commit -m "Add HTML file"
           git push origin gh-pages
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
