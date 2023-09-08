@@ -65,7 +65,7 @@ jobs:
           git add StandardReportCountry.html
           git commit -m "add reports"
           git remote set-branches --add origin temp-report
-          git pull origin temp-report
+          git pull --ff-only origin temp-report
           git push -u origin temp-report
 
       # - name: Deploy package
