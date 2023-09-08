@@ -1,7 +1,8 @@
 on:
   push:
-    branches:
-      - main
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
 
 name: pkgdown
 
@@ -16,32 +17,47 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
 
-      - uses: actions/checkout@v2
-
-      - uses: r-lib/actions/setup-r@v2
+      - name: Actions setup
+        uses: actions/checkout@v2
         with:
-          use-public-rspm: true
+          fetch-depth: 0
+          ref: release-v1.8.1-rc3
 
-      - uses: r-lib/actions/setup-pandoc@v2
+      # - uses: r-lib/actions/setup-r@v2
+      #   with:
+      #     use-public-rspm: true
+      #
+      # - uses: r-lib/actions/setup-pandoc@v2
+      #
+      # - uses: r-lib/actions/setup-tinytex@v2
+      #
+      # - name: Clone clindata
+      #   run: |
+      #     cd ..
+      #     git clone git@github.com:Gilead-BioStats/clindata.git
+      #     cd clindata
+      #     cd ../gsm
+      #
+      # - name: install packages
+      #   shell: Rscript {0}
+      #   run: |
+      #     install.packages("devtools")
+      #     devtools::install('../clindata')
+      #     devtools::install(dependencies=TRUE)
+      #
+      # - name: Deploy package
+      #   run: |
+      #     git config --local user.email "actions@github.com"
+      #     git config --local user.name "GitHub Actions"
+      #     Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
 
-      - uses: r-lib/actions/setup-tinytex@v2
-
-      - name: Clone clindata
-        run: |
-          cd ..
-          git clone git@github.com:Gilead-BioStats/clindata.git
-          cd clindata
-          cd ../gsm
-
-      - name: install packages
-        shell: Rscript {0}
-        run: |
-          install.packages("devtools")
-          devtools::install('../clindata')
-          devtools::install(dependencies=TRUE)
-
-      - name: Deploy package
+      - name: Create and checkout gh-pages branch
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+          git add StandardReportSite.html
+          git commit -m "Add HTML"
+          git push origin gh-pages
+
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
