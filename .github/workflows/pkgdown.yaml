@@ -1,7 +1,6 @@
 on:
   push:
-    branches:
-      - main
+    branches: [main, dev]
 
 name: pkgdown
 
@@ -26,22 +25,26 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
 
-      - name: Clone clindata
-        run: |
-          cd ..
-          git clone git@github.com:Gilead-BioStats/clindata.git
-          cd clindata
-          cd ../gsm
+      # - name: Clone clindata
+      #   run: |
+      #     cd ..
+      #     git clone git@github.com:Gilead-BioStats/clindata.git
+      #     cd clindata
+      #     cd ../gsm
+      #
+      # - name: install packages
+      #   shell: Rscript {0}
+      #   run: |
+      #     install.packages("devtools")
+      #     devtools::install('../clindata')
+      #     devtools::install(dependencies=TRUE)
 
-      - name: install packages
-        shell: Rscript {0}
+      - name: copy HTML to docs
         run: |
-          install.packages("devtools")
-          devtools::install('../clindata')
-          devtools::install(dependencies=TRUE)
+          ls
 
-      - name: Deploy package
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+      # - name: Deploy package
+      #   run: |
+      #     git config --local user.email "actions@github.com"
+      #     git config --local user.name "GitHub Actions"
+      #     Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
