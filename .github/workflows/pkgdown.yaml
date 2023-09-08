@@ -55,9 +55,8 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          mkdir -p docs
-          mv vignettes/StandardReportSite.html docs/
-          git add docs/StandardReportSite.html
+          mv vignettes/StandardReportSite.html/*
+          git add StandardReportSite.html
           git commit -m "Add HTML"
           git push origin gh-pages
 
