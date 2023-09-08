@@ -51,13 +51,13 @@ jobs:
           git config --local user.name "GitHub Actions"
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
 
-      - name: Actions setup
+      - name: Checkout gh-pages actions
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
           ref: gh-pages
 
-      - name: Create and checkout gh-pages branch
+      - name: checkout gh-pages branch and commit HTML files
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
