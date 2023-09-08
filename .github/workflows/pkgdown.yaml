@@ -96,6 +96,6 @@ jobs:
           git add StandardReportCountry.html
           git commit -m "Add HTML"
           git push origin gh-pages
-          git push origin --d temp-report
+          git push origin --delete temp-report
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
