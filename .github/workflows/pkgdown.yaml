@@ -49,6 +49,8 @@ jobs:
 
       - name: Create and checkout gh-pages branch
         run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
           git fetch origin gh-pages:refs/remotes/origin/gh-pages
           git checkout gh-pages
           git checkout main -- vignettes/StandardReportSite.html
