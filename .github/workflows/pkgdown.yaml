@@ -43,6 +43,7 @@ jobs:
         run: |
           install.packages("devtools")
           install.packages("fs")
+          install.packages("tidyverse")
           devtools::install('../clindata')
           devtools::install(dependencies=TRUE)
 
