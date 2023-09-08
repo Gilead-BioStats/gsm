@@ -44,7 +44,7 @@ Overview_Table <- function(
 
   if (strReportType == "country") {
     grep_value <- "cou"
-    table_dropdown_label <- "Countries"
+    table_dropdown_label <- "Flags"
   }
 
   study <- lAssessments[grep(grep_value, names(lAssessments))]
@@ -327,7 +327,8 @@ Overview_Table <- function(
         caption = HTML(overview_table_flagged_caption),
         options = list(
           language = list(
-            lengthMenu = paste0(if(strReportType == "site"){"Sites with _MENU_ "} else {"Countries with _MENU_ "}, table_dropdown_label)
+            lengthMenu = paste0(if(strReportType == "site"){"Sites with _MENU_ "}
+                                else if(strReportType == "country"){"Countries with _MENU_ "}, table_dropdown_label)
           ),
           columnDefs = list(
             list(
