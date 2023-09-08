@@ -31,23 +31,27 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
 
-      - name: Clone clindata
+      - name: clone clindata
         run: |
           cd ..
           git clone git@github.com:Gilead-BioStats/clindata.git
           cd clindata
           cd ../gsm
 
-      - name: install packages
+      - name: install packages and generate sample reports
         shell: Rscript {0}
         run: |
           install.packages("devtools")
-          install.packages("fs")
           install.packages("tidyverse")
           devtools::install('../clindata')
           devtools::install(dependencies=TRUE)
 
           snapshot <- gsm::Make_Snapshot()
+
+          aug_snap <- gsm::Augment_Snapshot(
+            lSnapshot = snapshot,
+            cPath = system.file("snapshots", "AA-AA-000-0000", package = "gsm")
+          )
 
           gsm::Study_Report(
             lAssessments = snapshot$lStudyAssessResults,
@@ -57,7 +61,14 @@ jobs:
             strOutpath = here::here("StandardReportCountry.html")
           )
 
-      - name: create temp branch
+          gsm::Study_Report(
+            lAssessments = aug_snap$lStudyAssessResults,
+            dfStudy = aug_snap$lSnapshot$status_study,
+            dfSite = snapshot$lSnapshot$status_site,
+            strOutpath = here::here("StandardReportSite.html")
+          )
+
+      - name: create temp-report branch and set remote
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
@@ -74,19 +85,19 @@ jobs:
       #     git config --local user.name "GitHub Actions"
       #     Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
 
-      - name: Checkout gh-pages actions
+      - name: Checkout temp-report branch
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
           ref: temp-report
 
-      - name: Checkout gh-pages actions
+      - name: Checkout gh-pages branch
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
           ref: gh-pages
 
-      - name: checkout gh-pages branch and commit HTML files
+      - name: checkout gh-pages branch and commit sample reports; delete upstream temp-report branch
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
