@@ -65,6 +65,12 @@ jobs:
           git add StandardReportCountry.html
           git commit -m "add reports"
 
+      - name: Checkout gh-pages actions
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: temp-report
+
       # - name: Deploy package
       #   run: |
       #     git config --local user.email "actions@github.com"
