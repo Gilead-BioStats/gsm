@@ -61,11 +61,11 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
+          git push origin --d temp-report
           git checkout -b temp-report
           git add StandardReportCountry.html
           git commit -m "add reports"
           git remote set-branches --add origin temp-report
-          git pull --ff-only origin temp-report
           git push -u origin temp-report
 
       # - name: Deploy package
