@@ -55,7 +55,10 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git branch
+          mv vignettes/StandardReportSite.html
+          git add docs/StandardReportSite.html
+          git commit -m "Add HTML"
+          git push origin gh-pages
 
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
