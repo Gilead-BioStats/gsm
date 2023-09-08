@@ -68,11 +68,16 @@ jobs:
             strOutpath = here::here("StandardReportSite.html")
           )
 
+      - name: delete temp-report branch if it exists
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git push origin --delete temp-report || true
+
       - name: create temp-report branch and set remote
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git push origin --delete temp-report
           git checkout -b temp-report
           git add StandardReportCountry.html
           git commit -m "add reports"
