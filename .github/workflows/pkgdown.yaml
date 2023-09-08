@@ -51,7 +51,8 @@ jobs:
         run: |
           git checkout gh-pages
           git pull origin gh-pages
-          git checkout release-v1.8.1-rc3 -- vignettes/StandardReportSite.html
+          git checkout main -- vignettes/StandardReportSite.html
+          mkdir -p docs
           mv vignettes/StandardReportSite.html docs/
           git add docs/StandardReportSite.html
           git commit -m "add html"
