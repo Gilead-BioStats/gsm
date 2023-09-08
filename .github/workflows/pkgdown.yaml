@@ -1,8 +1,7 @@
 on:
   push:
-    branches: [main, dev]
-  pull_request:
-    branches: [main, dev]
+    branches:
+      - main
 
 name: pkgdown
 
@@ -27,26 +26,32 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
 
-      # - name: Clone clindata
-      #   run: |
-      #     cd ..
-      #     git clone git@github.com:Gilead-BioStats/clindata.git
-      #     cd clindata
-      #     cd ../gsm
-      #
-      # - name: install packages
-      #   shell: Rscript {0}
-      #   run: |
-      #     install.packages("devtools")
-      #     devtools::install('../clindata')
-      #     devtools::install(dependencies=TRUE)
-
-      - name: copy HTML to docs
+      - name: Clone clindata
         run: |
-          ls
+          cd ..
+          git clone git@github.com:Gilead-BioStats/clindata.git
+          cd clindata
+          cd ../gsm
 
-      # - name: Deploy package
-      #   run: |
-      #     git config --local user.email "actions@github.com"
-      #     git config --local user.name "GitHub Actions"
-      #     Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+      - name: install packages
+        shell: Rscript {0}
+        run: |
+          install.packages("devtools")
+          devtools::install('../clindata')
+          devtools::install(dependencies=TRUE)
+
+      - name: Deploy package
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+
+      - name: Copy static HTML to docs
+        run: |
+          git checkout gh-pages
+          git pull origin gh-pages
+          git checkout release-v1.8.1-rc3 -- vignettes/StandardReportSite.html
+          mv vignettes/StandardReportSite.html docs/
+          git add docs/StandardReportSite.html
+          git commit -m "add html"
+          git push origin gh-pages
