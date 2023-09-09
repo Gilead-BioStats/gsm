@@ -52,7 +52,6 @@ Overview_Table <- function(
   # only keep KRIs that were successfully run
   study <- keep(study, function(x) x$bStatus == TRUE)
 
-
   # create reference table --------------------------------------------------
   reference_table <- make_reference_table(study)
 
@@ -70,7 +69,7 @@ Overview_Table <- function(
       left_join(
 
         dfSite %>%
-          mutate(site_num = as.character(.data$site_num)) %>%
+          mutate(site_num = as.character(.data[[Read_Mapping()$dfSITE$strSiteCol]])) %>%
           select("site_num", "Country" = "country", "Status" = "status"),
 
         by = c("Site" = "site_num")
@@ -327,8 +326,8 @@ Overview_Table <- function(
         caption = HTML(overview_table_flagged_caption),
         options = list(
           language = list(
-            lengthMenu = paste0(if(strReportType == "site"){"Sites with _MENU_ "}
-                                else if(strReportType == "country"){"Countries with _MENU_ "}, table_dropdown_label)
+            lengthMenu = paste0(if(strReportType == "site"){"Sites Containing _MENU_ "}
+                                else if(strReportType == "country"){"Countries Containing _MENU_ "}, table_dropdown_label)
           ),
           columnDefs = list(
             list(
