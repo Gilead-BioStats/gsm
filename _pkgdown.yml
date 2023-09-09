@@ -11,9 +11,9 @@ navbar:
       text: Sample Reports
       menu:
       - text: Site Report
-        href: articles/StandardReportSite.html
+        href: StandardReportSite.html
       - text: Country Report
-        href: articles/StandardReportCountry.html
+        href: StandardReportCountry.html
     articles:
       text: Articles
       menu:
