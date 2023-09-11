@@ -46,8 +46,8 @@ Overview_Table <- function(
     grep_value <- "cou"
     table_dropdown_label <- "Flags"
   }
-
-  study <- lAssessments[grep(grep_value, names(lAssessments))]
+  active <- names(lAssessments[!sapply(lAssessments, is.data.frame)])
+  study <- lAssessments[grep(grep_value, active)]
 
   # only keep KRIs that were successfully run
   study <- keep(study, function(x) x$bStatus == TRUE)
@@ -67,13 +67,10 @@ Overview_Table <- function(
         Site = as.character(.data$Site)
       ) %>%
       left_join(
-
         dfSite %>%
           mutate(site_num = as.character(.data[[Read_Mapping()$dfSITE$strSiteCol]])) %>%
           select("site_num", "Country" = "country", "Status" = "status"),
-
         by = c("Site" = "site_num")
-
       ) %>%
       select(
         "Site",
@@ -178,7 +175,6 @@ Overview_Table <- function(
       if (strReportType == "site") {
         overview_table[["Subjects"]] <- overview_table$Site %>%
           map_int(~ {
-
             if (.x %in% dfSite$siteid) {
               dfSite %>%
                 filter(.data$siteid == .x) %>%
@@ -186,21 +182,20 @@ Overview_Table <- function(
             } else {
               return(NA)
             }
-
-
-      })} else {
+          })
+      } else {
         dfCountry <- Country_Map_Raw(dfSite)
 
         overview_table[["Subjects"]] <- overview_table$Site %>%
           map_int(~ {
             if (.x %in% dfCountry$country) {
-            dfCountry %>%
-            filter(.data$country == .x) %>%
-            pull(.data$enrolled_participants)
+              dfCountry %>%
+                filter(.data$country == .x) %>%
+                pull(.data$enrolled_participants)
             } else {
               return(NA)
             }
-        })
+          })
       }
 
       overview_table <- relocate(
@@ -397,7 +392,6 @@ drop_column_with_several_na <- function(table, column) {
 
   return(table)
 }
-
 
 make_reference_table <- function(study) {
   reference_table <- study %>%

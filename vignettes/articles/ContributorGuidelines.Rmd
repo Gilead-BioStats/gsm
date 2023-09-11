@@ -99,6 +99,7 @@ Code developers for `{gsm}` use the [tidyverse style guide](https://style.tidyve
 
 1.  Release Owner creates `release` branch from `dev` branch.
     -   The `release` branch should be named according to the version of `{gsm}` being released (e.g., `release-v1.2.0`) using [semantic versioning](https://semver.org/).
+    -   If a release branch is already created, make sure that it is synced with the current `dev` branch.
 2.  Release Owner prepares the release for QC by performing the following steps and pushing updates to the `release` branch:
     -   Confirm that the version in the `DESCRIPTION` file is up to date.
         -   **After** the version in the `DESCRIPTION` file is updated, run `gsm::UpdateGSMVersion()` to update metadata that includes the `{gsm}` version number.
