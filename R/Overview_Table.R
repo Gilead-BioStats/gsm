@@ -46,8 +46,8 @@ Overview_Table <- function(
     grep_value <- "cou"
     table_dropdown_label <- "Countries"
   }
-
-  study <- lAssessments[grep(grep_value, names(lAssessments))]
+  active <- names(lAssessments[!sapply(lAssessments, is.data.frame)])
+  study <- lAssessments[grep(grep_value, active)]
 
   # only keep KRIs that were successfully run
   study <- keep(study, function(x) x$bStatus == TRUE)
@@ -392,7 +392,6 @@ drop_column_with_several_na <- function(table, column) {
 
   return(table)
 }
-
 
 make_reference_table <- function(study) {
   reference_table <- study %>%

@@ -1,0 +1,63 @@
+---
+subtitle: "Generated with the Good Statistical Monitoring {gsm} package"
+output:
+  html_document:
+    toc: true
+    toc_float:
+       collapsed: false
+       smooth_scroll: true
+    css: styles.css
+params:
+    assessment: NA
+    status_study: NULL
+    status_site: NULL
+---
+
+```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
+library(gsm)
+library(tidyverse)
+library(DT)
+
+# Study_Assess() output - QTL metrics only
+assessment <- params$assessment[
+  grep("qtl", names(params$assessment), ignore.case = TRUE)]
+
+
+## StudyID
+study_id <- purrr::map(assessment, function(kri) {
+    if (kri$bStatus) {
+      return(kri$lData$dfInput$StudyID %>% unique())
+    } 
+  }) %>% 
+    discard(is.null) %>% 
+    as.character() %>% 
+    unique()
+
+```
+
+---
+title: "`r study_id` Assessment Overview"
+---
+
+<div class = 'overall-country-select'
+    id = 'overall-country-select'
+    title = 'Selected country will be highlighted in all charts for all KRIs.'>
+
+</div>
+
+
+## Results
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+#combine qtl lData$lSummary
+purrr::imap_dfr(assessment, function(data, index) {
+  data$lResults$lData$dfSummary %>% 
+    mutate(
+      workflowid = index
+    ) %>% 
+    select(
+      workflowid, everything()
+      )
+}) %>% 
+  DT::datatable()
+```

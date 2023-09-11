@@ -5,13 +5,14 @@
 #'
 #' Create HTML summary report using the results of `Study_Assess`, including tables, charts, and error checking.
 #'
-#' @param lAssessments `list` The results of multiple assessments run using `Study_Assess`.
+#' @param lSnapshot `list` The results of multiple assessments run using `Study_Assess`, `Make_Snapshot`, or `Augment_Snapshot`.
 #' @param dfStudy `data.frame` A data.frame containing study status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_study`
 #' @param dfSite `data.frame` A data.frame containing site status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_site`
 #' @param strOutpath `character` File path; location where the report will be saved.
 #' @param strReportType `character` The type of report to be generated. Valid values:
 #'   - `"site"` for site-level KRI summary (default)
 #'   - `"country"` for country-level KRI summary
+#'   - `"QTL"` for QTL summary
 #'
 #' @return HTML report of study data.
 #'
@@ -38,7 +39,7 @@
 #' )
 #'
 #' Study_Report(
-#'   lAssessments = longitudinal$lStudyAssessResults,
+#'   lSnapshot = longitudinal,
 #'   dfStudy = longitudinal$lSnapshot$status_study
 #' )
 #' }
@@ -48,15 +49,17 @@
 #' @export
 
 Study_Report <- function(
-  lAssessments,
+  lSnapshot,
   dfStudy = NULL,
   dfSite = NULL,
   strOutpath = NULL,
   strReportType = "site"
 ) {
   # input check
+  lAssessments <- if("lStudyAssessResults" %in% names(lSnapshot)){lSnapshot$lStudyAssessResults} else {lSnapshot}
+  lStatus <- if("lStatus" %in% names(lSnapshot)){lSnapshot$lStatus} else {NULL}
   stopifnot(
-    "strReportType is not 'site' or 'country'" = strReportType %in% c("site", "country"),
+    "strReportType is not 'site' or 'country' or 'QTL'" = strReportType %in% c("site", "country", "QTL"),
     "strReportType must be length 1" = length(strReportType) == 1
   )
 
@@ -65,6 +68,9 @@ Study_Report <- function(
     strOutpath <- paste0(getwd(), "/gsm_site_report.html")
   } else if (is.null(strOutpath) & strReportType == "country") {
     strOutpath <- paste0(getwd(), "/gsm_country_report.html")
+
+  } else if (is.null(strOutpath) & strReportType == "QTL") {
+    strOutpath <- paste0(getwd(), "/gsm_QTL_report.html")
   }
 
   # set Rmd template
@@ -72,6 +78,8 @@ Study_Report <- function(
     projectTemplate <- system.file("report", "KRIReportBySite.Rmd", package = "gsm")
   } else if (strReportType == "country") {
     projectTemplate <- system.file("report", "KRIReportByCountry.Rmd", package = "gsm")
+  } else if (strReportType == "QTL") {
+    projectTemplate <- system.file("report", "KRIReportByQTL.Rmd", package = "gsm")
   }
 
   # render
@@ -81,8 +89,11 @@ Study_Report <- function(
     params = list(
       assessment = lAssessments,
       status_study = dfStudy,
-      status_site = dfSite
+      status_site = dfSite,
+      status_snap = lStatus
     ),
     envir = new.env(parent = globalenv())
   )
 }
+
+
