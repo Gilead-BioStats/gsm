@@ -16,7 +16,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
 
-      - uses: actions/checkout@v2
+      - name: Actions setup
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: release-v1.8.1-rc4
 
       - uses: r-lib/actions/setup-r@v2
         with:
@@ -26,22 +30,87 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
 
-      - name: Clone clindata
+      - name: clone clindata
         run: |
           cd ..
           git clone git@github.com:Gilead-BioStats/clindata.git
           cd clindata
           cd ../gsm
 
-      - name: install packages
+      - name: install packages and generate sample reports
         shell: Rscript {0}
         run: |
           install.packages("devtools")
+          install.packages("tidyverse")
           devtools::install('../clindata')
           devtools::install(dependencies=TRUE)
+
+          snapshot <- gsm::Make_Snapshot()
+
+          aug_snap <- gsm::Augment_Snapshot(
+            lSnapshot = snapshot,
+            cPath = system.file("snapshots", "AA-AA-000-0000", package = "gsm")
+          )
+
+          gsm::Study_Report(
+            lAssessments = snapshot$lStudyAssessResults,
+            dfStudy = snapshot$lSnapshot$status_study,
+            dfSite = snapshot$lSnapshot$status_site,
+            strReportType = "country",
+            strOutpath = here::here("StandardReportCountry.html")
+          )
+
+          gsm::Study_Report(
+            lAssessments = aug_snap$lStudyAssessResults,
+            dfStudy = aug_snap$lSnapshot$status_study,
+            dfSite = snapshot$lSnapshot$status_site,
+            strOutpath = here::here("StandardReportSite.html")
+          )
+
+      - name: delete temp-report branch if it exists
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git push origin --delete temp-report || true
+
+      - name: create temp-report branch and set remote
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git checkout -b temp-report
+          git add StandardReportCountry.html
+          git commit -m "add reports"
+          git remote set-branches --add origin temp-report
+          git push -u origin temp-report
 
       - name: Deploy package
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+
+      - name: Checkout temp-report branch
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: temp-report
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: gh-pages
+
+      - name: checkout gh-pages branch and commit sample reports; delete upstream temp-report branch
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git fetch
+          git checkout origin/temp-report -- StandardReportCountry.html
+          git checkout gh-pages
+          git add StandardReportCountry.html
+          git commit -m "Add HTML"
+          git push origin gh-pages
+          git push origin --delete temp-report
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
