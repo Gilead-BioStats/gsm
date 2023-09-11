@@ -64,8 +64,13 @@ Overview_Table <- function(
   # add `Active` column
   if (!is.null(dfSite)) {
     overview_table <- overview_table %>%
+      mutate(
+        Site = as.character(.data$Site)
+      ) %>%
       left_join(
-        dfSite %>% select("site_num", "Country" = "country", "Status" = "status"),
+        dfSite %>%
+          mutate(site_num = as.character(.data$site_num)) %>%
+          select("site_num", "Country" = "country", "Status" = "status"),
         by = c("Site" = "site_num")
       ) %>%
       select(
@@ -171,7 +176,6 @@ Overview_Table <- function(
       if (strReportType == "site") {
         overview_table[["Subjects"]] <- overview_table$Site %>%
           map_int(~ {
-
             if (.x %in% dfSite$siteid) {
               dfSite %>%
                 filter(.data$siteid == .x) %>%
@@ -179,21 +183,20 @@ Overview_Table <- function(
             } else {
               return(NA)
             }
-
-
-      })} else {
+          })
+      } else {
         dfCountry <- Country_Map_Raw(dfSite)
 
         overview_table[["Subjects"]] <- overview_table$Site %>%
           map_int(~ {
             if (.x %in% dfCountry$country) {
-            dfCountry %>%
-            filter(.data$country == .x) %>%
-            pull(.data$enrolled_participants)
+              dfCountry %>%
+                filter(.data$country == .x) %>%
+                pull(.data$enrolled_participants)
             } else {
               return(NA)
             }
-        })
+          })
       }
 
       overview_table <- relocate(
