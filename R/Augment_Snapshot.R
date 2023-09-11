@@ -37,6 +37,8 @@ Augment_Snapshot <- function(
   # TODO: alternatively accept the output of StackSnapshots?
   stackedSnapshots <- StackSnapshots(cPath, lSnapshot, vFolderNames)
 
+  browser()
+
   if (bAppendTimeSeriesCharts) {
     lSnapshot$lStudyAssessResults <- lSnapshot$lStudyAssessResults %>%
       purrr::imap(function(result, workflowid) {
