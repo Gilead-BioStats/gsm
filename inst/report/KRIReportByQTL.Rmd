@@ -11,6 +11,7 @@ params:
     assessment: NA
     status_study: NULL
     status_site: NULL
+    status_snap: NA
 ---
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
