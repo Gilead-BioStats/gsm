@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          ref: release-v1.8.1-rc4
+          ref: main
 
       - uses: r-lib/actions/setup-r@v2
         with:
@@ -53,7 +53,7 @@ jobs:
           )
 
           gsm::Study_Report(
-            lAssessments = snapshot$lStudyAssessResults,
+            lSnapshot = snapshot,
             dfStudy = snapshot$lSnapshot$status_study,
             dfSite = snapshot$lSnapshot$status_site,
             strReportType = "country",
@@ -61,7 +61,7 @@ jobs:
           )
 
           gsm::Study_Report(
-            lAssessments = aug_snap$lStudyAssessResults,
+            lSnapshot = aug_snap,
             dfStudy = aug_snap$lSnapshot$status_study,
             dfSite = snapshot$lSnapshot$status_site,
             strOutpath = here::here("StandardReportSite.html")
@@ -79,6 +79,7 @@ jobs:
           git config --local user.name "GitHub Actions"
           git checkout -b temp-report
           git add StandardReportCountry.html
+          git add StandardReportSite.html
           git commit -m "add reports"
           git remote set-branches --add origin temp-report
           git push -u origin temp-report

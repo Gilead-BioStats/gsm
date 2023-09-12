@@ -2,7 +2,7 @@
 % Please edit documentation in R/Country_Map_Raw.R
 \name{Country_Map_Raw}
 \alias{Country_Map_Raw}
-\title{Count Participants by Country}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Country_Map_Raw(dfSite = Site_Map_Raw())
 }

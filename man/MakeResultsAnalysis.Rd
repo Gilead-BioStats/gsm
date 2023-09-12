@@ -2,7 +2,7 @@
 % Please edit documentation in R/MakeResultsAnalysis.R
 \name{MakeResultsAnalysis}
 \alias{MakeResultsAnalysis}
-\title{Make \code{results_analysis}}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 MakeResultsAnalysis(lResults)
 }
