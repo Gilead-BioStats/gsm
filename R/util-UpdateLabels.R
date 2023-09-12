@@ -1,3 +1,5 @@
+#' lifecycle::badge("stable")
+#'
 #' Update visualization labels based on metadata.
 #'
 #' @description
