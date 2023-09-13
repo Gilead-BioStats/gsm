@@ -93,12 +93,6 @@ study_id <- purrr::map(assessment, function(kri) {
     as.character() %>% 
     unique()
 
-## Subjects
-status_study_exists <- !is.null(params$status_study)
-
-if (status_study_exists ) {
-  subjects <- params$status_study[[Read_Mapping()[["dfSTUDY"]][["strActualSubjectsCol"]]]]
-}
 
 ```
 
@@ -113,8 +107,18 @@ title: "`r study_id` Assessment Overview"
 
 
 ## metadata report if longitudinal data is provided
-if (exists('status_study', where = params) && !is.null(params$status_study)) {
+
+status_study_exists <- exists('status_study', where = params) && !is.null(params$status_study)
+
+if (status_study_exists) {
+  
+  # Make Study Status table
   MakeStudyStatusTable(params$status_study)
+  
+  # pull number of actual subjects
+  subjects <- purrr::map(assessment, ~length(.$lData$dfSUBJ[[Read_Mapping()$dfSUBJ$strIDCol]])) %>%
+   unlist() %>%
+   max()
 
   if ("gsm_analysis_date" %in% names(params$status_study))
     snapshot_date <- params$status_study$gsm_analysis_date
@@ -151,7 +155,7 @@ overview_table
 
 :::
 
-```{r, echo=FALSE, results = 'asis', warning=FALSE, eval=status_study_exists }
+```{r, echo=FALSE, results = 'asis', warning=TRUE, eval = status_study_exists}
 cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across 
 {length(unique(overview_raw_table$Site))} sites. {red_kris} Site-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites as shown in the Study Overview Table above\n
   - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites have at least one red KRI\n
