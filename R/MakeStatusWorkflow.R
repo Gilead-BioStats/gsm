@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Make `status_workflow`
 #'
 #' @param lResults `list` List returned from [gsm::Study_Assess()].

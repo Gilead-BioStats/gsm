@@ -23,9 +23,9 @@ Study_Report(
 
 \item{strReportType}{\code{character} The type of report to be generated. Valid values:
 \itemize{
-\item \code{"site"} for site-level KRI summary (default)
-\item \code{"country"} for country-level KRI summary
-\item \code{"QTL"} for QTL summary
+\item \code{"site"} for site-level KRI summary (default). The site-level report is stable and is under active development.
+\item \code{"country"} for country-level KRI summary. The country-level report is stable and is under active development.
+\item \code{"QTL"} for QTL summary. The QTL report is in early draft mode and is under active development.
 }}
 }
 \value{

@@ -11,7 +11,7 @@ params:
     assessment: NA
     status_study: NULL
     status_site: NULL
-    status_snap: NA
+    status_snap: NULL
 ---
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
@@ -158,7 +158,8 @@ for (i in seq_along(assessment)) {
 
 ```{r echo = FALSE}
 MakeKRIGlossary(
-    strWorkflowIDs = names(assessment)
+  strWorkflowIDs = names(assessment),
+  lStatus = params[["status_snap"]]
 )
 ```
 

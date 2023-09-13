@@ -1,3 +1,5 @@
+#' `r lifecycle::badge("stable")`
+#'
 #' Make Analysis Date
 #'
 #' @param strAnalysisDate `character` Date that analysis was run. Formatted as YYYY-MM-DD.
