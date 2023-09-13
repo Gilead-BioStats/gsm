@@ -151,7 +151,7 @@ overview_table
 
 :::
 
-```{r, echo=FALSE, results = 'asis', warning=FALSE}
+```{r, echo=FALSE, results = 'asis', warning=FALSE, eval=status_study_exists }
 cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across 
 {length(unique(overview_raw_table$Site))} sites. {red_kris} Site-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites as shown in the Study Overview Table above\n
   - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites have at least one red KRI\n
