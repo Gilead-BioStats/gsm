@@ -94,9 +94,11 @@ study_id <- purrr::map(assessment, function(kri) {
     unique()
 
 ## Subjects
-subjects <- purrr::map(assessment, ~length(.$lData$dfSUBJ[[Read_Mapping()$dfSUBJ$strIDCol]])) %>%
- unlist() %>%
- max()
+status_study_exists <- !is.null(params$status_study)
+
+if (status_study_exists ) {
+  subjects <- params$status_study[[Read_Mapping()[["dfSTUDY"]][["strActualSubjectsCol"]]]]
+}
 
 ```
 
