@@ -322,7 +322,7 @@ Overview_Table <- function(
         options = list(
           language = list(
             lengthMenu = paste0(if(strReportType == "site"){"Sites Containing _MENU_ "}
-                                else if(strReportType == "country"){"Countries Containing _MENU_ "}, table_dropdown_label)
+                                else if(strReportType == "country"){"View _MENU_  Countries"}, table_dropdown_label)
           ),
           columnDefs = list(
             list(
