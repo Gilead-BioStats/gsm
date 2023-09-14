@@ -2,9 +2,12 @@
 % Please edit documentation in R/Make_Snapshot.R
 \name{Make_Snapshot}
 \alias{Make_Snapshot}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Make Snapshot}
 \usage{
 Make_Snapshot(
+  lAssessment,
+  lSnapshotPrevious = NULL,
+  strAnalysisDate = NULL,
   lMeta = list(config_param = gsm::config_param, config_workflow = gsm::config_workflow,
     meta_params = gsm::meta_param, meta_site = clindata::ctms_site, meta_study =
     clindata::ctms_study, meta_workflow = gsm::meta_workflow),
@@ -16,175 +19,27 @@ Make_Snapshot(
     clindata::edc_data_points, dfDATAENT = clindata::edc_data_pages, dfQUERY =
     clindata::edc_queries, dfENROLL = clindata::rawplus_enroll),
   lMapping = Read_Mapping(),
-  lAssessments = MakeWorkflowList(lMeta = lMeta),
-  strAnalysisDate = NULL,
-  bQuiet = TRUE
+  lAssessments = MakeWorkflowList(lMeta = lMeta)
 )
 }
 \arguments{
-\item{lMeta}{\code{list} a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
-See the Data Model Vignette - Appendix 2 - Data Model Specifications for detailed specifications.}
+\item{lAssessment}{\code{list}}
 
-\item{lData}{\code{list} a named list of domain-level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
+\item{lSnapshotPrevious}{\code{list}}
 
-\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name of the column. Default: package-defined mapping for raw+.}
+\item{lMeta}{\code{list}}
 
-\item{lAssessments}{\code{list} a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
-
-\item{strAnalysisDate}{\code{character} date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: \code{YYYY-MM-DD}.}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
+\item{lData}{\code{list}}
 }
 \value{
-\code{list} \code{lSnapshot}, a named list with a data.frame for each component of the {gsm} data model.
-\itemize{
-\item \code{status_study}
-\item \code{status_site}
-\item \code{status_workflow}
-\item \code{status_param}
-\item \code{results_summary}
-\item \code{results_analysis}
-\item \code{results_bounds}
-\item \code{meta_workflow}
-\item \code{meta_param}
-}
+\code{list}
 }
 \description{
-\code{Make_Snapshot()} ingests data from a variety of sources, and runs KRIs and/or QTLs based on the \code{list} provided in \code{lAssessments}.
-
-For more context about the inputs and outputs of \code{Make_Snapshot()}, refer to the \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM Data Pipeline Vignette}, specifically
-Appendix 2 - Data Model Specifications
+Make Snapshot
 }
-\details{
-Make Snapshot - create and export data model.
-}
-\section{Return - Data Model Description}{
-A named \code{list} of data.frames:
-\itemize{
-\item \code{status_study}, with columns:
-\itemize{
-\item \code{studyid} - Unique Study ID
-\item \code{enrolled_sites} - # of enrolled sites
-\item \code{enrolled_participants} - # of enrolled participants
-\item \code{planned_sites} - # of planned sites
-\item \code{planned_participants} - # of planned participants
-\item \code{title} - Protocol title
-\item \code{nickname} - Protocol nickname
-\item \code{enrolled_sites_ctms} - # of enrolled sites (ctms)
-\item \code{enrolled_participants_ctms} - # of enrolled participants (ctms)
-\item \code{fpfv} - First-patient first visit date
-\item \code{lpfv} - Last-patient first visit date
-\item \code{lplv} - Last-patient last visit date
-\item \code{ta} - Therapeutic Area
-\item \code{indication} - Indication
-\item \code{phase} - Phase
-\item \code{status} - Study Status
-\item \code{rbm_flag} - Risk-based monitoring flag
-\item \code{product} - Product
-\item \code{protocol_type} - Protocol type
-\item \code{protocol_row_id} - Protocol row ID
-\item \code{est_fpfv} - Estimated first-patient first visit date
-\item \code{est_lpfv} - Estimated last-patient first visit date
-\item \code{est_lplv} - Estimated last-patient last visit date
-\item \code{protocol_product_number} - Protocol product number
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
-}
-\item \code{status_site}, with columns:
-\itemize{
-\item \code{studyid} - Unique Study ID
-\item \code{siteid} - Unique Site ID
-\item \code{institution} - Institution Name
-\item \code{status} - Site Status
-\item \code{enrolled_participants} - # of enrolled participants
-\item \code{start_date} - Site Activation Date
-\item \code{city} - City
-\item \code{state} - State
-\item \code{country} - Country
-\item \code{invname} - Investigator name
-\item \code{protocol_row_id} - Protocol Row ID
-\item \code{site_num} - Site number
-\item \code{site_row_id} - Site Row ID
-\item \code{pi_number} - Principal Investigator Number
-\item \code{pi_last_name}- Principal Investigator Last Name
-\item \code{pi_first_name} - Principal Investigator First Name
-\item \code{is_satellite} - Is location a satellite campus/site?
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
-}
-\item \code{status_workflow}, with columns:
-\itemize{
-\item \code{studyid} - Unique Study ID
-\item \code{workflowid} - Unique Workflow ID
-\item \code{gsm_version} - GSM version of workflow
-\item \code{active} - Is workflow active?
-\item \code{status} - Did workflow run?
-\item \code{notes} - Status notes
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
-}
-\item \code{status_param}, with columns:
-\itemize{
-\item \code{study_id} - Unique Study ID
-\item \code{workflowid} - Unique Workflow ID
-\item \code{gsm_version} - GSM version of workflow
-\item \code{param} - Parameter name
-\item \code{index} - Index value for parameter
-\item \code{value} - Value for parameter at index
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
-}
-\item \code{results_summary}, with columns:
-\itemize{
-\item \code{studyid} - Unique Study ID
-\item \code{workflowid} - Unique Workflow ID
-\item \code{groupid} - Unique Group ID (e.g. SiteID for KRI workflows)
-\item \code{numerator} - Metric numerator
-\item \code{denominator} - Metric denominator
-\item \code{metric} - Metric value
-\item \code{score} - Statistical Score
-\item \code{flag} - Flag
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
-}
-\item \code{results_bounds}, with columns:
-\itemize{
-\item \code{studyid} - Unique Study ID
-\item \code{workflowid} - Unique Workflow ID
-\item \code{threshold} - Threshold
-\item \code{numerator} - Y value
-\item \code{denominator} - X value
-\item \code{log_denominator} - Log X value
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
-}
-\item \code{meta_workflow}, with columns:
-\itemize{
-\item \code{workflowid} - Unique Workflow ID
-\item \code{gsm_version} - GSM Version of workflow
-\item \code{group} - Group for workflow - Site, Country, Region, or Study
-\item \code{abbreviation} - Abbreviation for KRI/assessment
-\item \code{metric} - Metric Label
-\item \code{numerator} - Numerator Label
-\item \code{denominator} - Denominator Label
-\item \code{outcome} - Metric Outcome Type (e.g. rate)
-\item \code{model} - Statistical Model used to create score
-\item \code{score} - Score Label
-\item \code{data_inputs} - Data inputs for workflow
-\item \code{data_filters} - Filters applied in workflow
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
-}
-\item \code{meta_param}, with columns:
-\itemize{
-\item \code{workflowid} - Unique Workflow ID
-\item \code{gsm_version} - GSM version of workflow
-\item \code{param} - Parameter name
-\item \code{index} - Parameter index
-\item \code{default} - Default value for parameter at index
-\item \code{configurable} - Is parameter configurable?
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
-}
-}
-}
-
 \examples{
-# run with default testing data
 \dontrun{
-snapshot <- Make_Snapshot()
+lSnapshot <- Make_Snapshot()
 }
 
 }

@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Make `results_analysis`
+#' Make `results_analysis_log`
 #'
 #' @param lResults `list` List returned from [gsm::Study_Assess()].
 #'
@@ -9,14 +9,14 @@
 #' @examples
 #' \dontrun{
 #' study <- Study_Assess()
-#' results_analysis <- MakeResultsAnalysis(study)
+#' results_analysis <- MakeResultsAnalysisLog(study)
 #' }
 #'
 #' @importFrom purrr imap_dfr
 #' @importFrom tidyr pivot_longer
 #'
 #' @export
-MakeResultsAnalysis <- function(lResults) {
+MakeResultsAnalysisLog <- function(lResults) {
   results_analysis <- purrr::imap_dfr(lResults[grep("qtl", names(lResults))], function(qtl, qtl_name) {
     if (qtl$bStatus) {
       qtl$lResults$lData$dfAnalyzed %>%
@@ -36,5 +36,16 @@ MakeResultsAnalysis <- function(lResults) {
     }
   })
 
-  return(results_analysis)
+  if (nrow(results_analysis) > 0) {
+    return(results_analysis)
+  } else {
+    return(
+      dplyr::tibble(
+        studyid = character(),
+        workflowid = character(),
+        param = character(),
+        value = double()
+      )
+    )
+  }
 }

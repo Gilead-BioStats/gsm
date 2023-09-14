@@ -1,6 +1,6 @@
 #' `r lifecycle::badge("stable")`
 #'
-#' Make `results_bounds`
+#' Make `results_bounds_log`
 #'
 #' @param lResults `list` List returned from [gsm::Study_Assess()].
 #' @param dfConfigWorkflow `data.frame` Workflow configuration data.
@@ -10,13 +10,13 @@
 #' @examples
 #' \dontrun{
 #' study <- Study_Assess()
-#' results_bounds <- MakeResultsBounds(lResults = study, dfConfigWorkflow = gsm::config_workflow)
+#' results_bounds <- MakeResultsBoundsLog(lResults = study)
 #' }
 #'
 #' @importFrom purrr discard imap_dfr map
 #'
 #' @export
-MakeResultsBounds <- function(lResults, dfConfigWorkflow) {
+MakeResultsBoundsLog <- function(lResults) {
   # extract dfBounds data.frame ---------------------------------------------
   # -- discard `dfBounds` if it is NULL
   results_bounds <- lResults %>%
@@ -27,9 +27,7 @@ MakeResultsBounds <- function(lResults, dfConfigWorkflow) {
   if (length(results_bounds) > 0) {
     results_bounds <- results_bounds %>%
       purrr::imap_dfr(~ .x %>% mutate(workflowid = .y)) %>%
-      mutate(studyid = unique(dfConfigWorkflow$studyid)) %>%
       select(
-        "studyid",
         "workflowid",
         "threshold" = "Threshold",
         "numerator" = "Numerator",
