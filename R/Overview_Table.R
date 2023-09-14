@@ -44,7 +44,7 @@ Overview_Table <- function(
 
   if (strReportType == "country") {
     grep_value <- "cou"
-    table_dropdown_label <- "Flags"
+    table_dropdown_label <- NULL
   }
   active <- names(lAssessments[!sapply(lAssessments, is.data.frame)])
   study <- lAssessments[grep(grep_value, active)]
