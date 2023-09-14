@@ -56,8 +56,16 @@ Study_Report <- function(
   strReportType = "site"
 ) {
   # input check
-  lAssessments <- if("lStudyAssessResults" %in% names(lSnapshot)){lSnapshot$lStudyAssessResults} else {lSnapshot}
-  lStatus <- if("lStatus" %in% names(lSnapshot)){lSnapshot$lStatus} else {NULL}
+  lAssessments <- if ("lStudyAssessResults" %in% names(lSnapshot)) {
+    lSnapshot$lStudyAssessResults
+  } else {
+    lSnapshot
+  }
+  lStatus <- if ("lStatus" %in% names(lSnapshot)) {
+    lSnapshot$lStatus
+  } else {
+    NULL
+  }
   stopifnot(
     "strReportType is not 'site' or 'country' or 'QTL'" = strReportType %in% c("site", "country", "QTL"),
     "strReportType must be length 1" = length(strReportType) == 1
@@ -68,7 +76,6 @@ Study_Report <- function(
     strOutpath <- paste0(getwd(), "/gsm_site_report.html")
   } else if (is.null(strOutpath) & strReportType == "country") {
     strOutpath <- paste0(getwd(), "/gsm_country_report.html")
-
   } else if (is.null(strOutpath) & strReportType == "QTL") {
     strOutpath <- paste0(getwd(), "/gsm_QTL_report.html")
   }
@@ -95,5 +102,3 @@ Study_Report <- function(
     envir = new.env(parent = globalenv())
   )
 }
-
-
