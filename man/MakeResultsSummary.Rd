@@ -2,7 +2,7 @@
 % Please edit documentation in R/MakeResultsSummary.R
 \name{MakeResultsSummary}
 \alias{MakeResultsSummary}
-\title{Make \code{results_summary}}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 MakeResultsSummary(lResults, dfConfigWorkflow)
 }

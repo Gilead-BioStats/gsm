@@ -10,9 +10,9 @@
 #' @param dfSite `data.frame` A data.frame containing site status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_site`
 #' @param strOutpath `character` File path; location where the report will be saved.
 #' @param strReportType `character` The type of report to be generated. Valid values:
-#'   - `"site"` for site-level KRI summary (default)
-#'   - `"country"` for country-level KRI summary
-#'   - `"QTL"` for QTL summary
+#'   - `"site"` for site-level KRI summary (default). The site-level report is stable and is under active development.
+#'   - `"country"` for country-level KRI summary. The country-level report is stable and is under active development.
+#'   - `"QTL"` for QTL summary. The QTL report is in early draft mode and is under active development.
 #'
 #' @return HTML report of study data.
 #'

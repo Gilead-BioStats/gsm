@@ -158,9 +158,9 @@ for (i in seq_along(assessment)) {
 
 ```{r echo = FALSE}
 MakeKRIGlossary(
-    strWorkflowIDs = names(assessment),
-    lStatus = params[["status_snap"]]
-)
+  strWorkflowIDs = names(assessment),
+  lStatus = params[["status_snap"]]
+  )
 ```
 
 

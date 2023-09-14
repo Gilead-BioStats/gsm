@@ -2,7 +2,7 @@
 % Please edit documentation in R/Timeline.R
 \name{Make_Timeline}
 \alias{Make_Timeline}
-\title{Create interactive timeline for study data}
+\title{lifecycle::badge("stable")}
 \usage{
 Make_Timeline(study, n_breaks = 10, date_format = "\%b\\n\%Y")
 }
