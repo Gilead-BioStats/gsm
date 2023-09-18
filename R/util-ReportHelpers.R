@@ -229,7 +229,7 @@ MakeKRIGlossary <- function(
     {
       if (length(lStatus) != 0) {
         left_join(., lStatus %>%
-          select(`Workflow ID`, `Latest Snapshot`),
+          select(.data$`Workflow ID`, .data$`Latest Snapshot`),
         by = "Workflow ID"
         ) %>%
           mutate(

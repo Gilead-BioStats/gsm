@@ -84,10 +84,10 @@ Augment_Snapshot <- function(
       purrr::set_names(snapshot_date) %>%
       purrr::map_df(., function(snap) {
         snapshot <- read.csv(paste0(snap, "/results_summary.csv")) %>%
-          distinct(workflowid) %>%
+          distinct(.data$workflowid) %>%
           mutate()
       }, .id = "snapshot_date") %>%
-      group_by(workflowid) %>%
+      group_by(.data$workflowid) %>%
       summarise(
         latest = max(as.Date(snapshot_date), na.rm = TRUE),
         .groups = "drop"
