@@ -47,7 +47,7 @@ Study_Report(study, strReportType = "country")
 # Adding metadata for a single snapshot
 one_snapshot <- Make_Snapshot()
 Study_Report(
-  lAssessments = one_snapshot$lStudyAssessResults,
+  lSnapshot = one_snapshot,
   dfStudy = one_snapshot$lSnapshot$status_study
 )
 

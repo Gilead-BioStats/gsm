@@ -58,8 +58,15 @@ Study_Report <- function(
   # input check
   lAssessments <- if("lStudyAssessResults" %in% names(lSnapshot)){lSnapshot$lStudyAssessResults} else {lSnapshot}
   lStatus <- if("lStatus" %in% names(lSnapshot)){lSnapshot$lStatus} else {NULL}
-  dfStudy <- if("status_study" %in% names(lSnapshot$lSnapshot)){lSnapshot$lSnapshot$status_study} else {NULL}
-  dfSite <- if("status_site" %in% names(lSnapshot$lSnapshot)){lSnapshot$lSnapshot$status_site} else {NULL}
+
+  if (is.null(dfStudy)) {
+    dfStudy <- if("status_study" %in% names(lSnapshot$lSnapshot)){lSnapshot$lSnapshot$status_study} else {NULL}
+  }
+
+  if (is.null(dfSite)) {
+    dfSite <- if("status_site" %in% names(lSnapshot$lSnapshot)){lSnapshot$lSnapshot$status_site} else {NULL}
+  }
+
   stopifnot(
     "strReportType is not 'site' or 'country' or 'QTL'" = strReportType %in% c("site", "country", "QTL"),
     "strReportType must be length 1" = length(strReportType) == 1
