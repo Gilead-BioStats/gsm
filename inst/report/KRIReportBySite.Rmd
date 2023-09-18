@@ -93,6 +93,7 @@ study_id <- purrr::map(assessment, function(kri) {
     as.character() %>% 
     unique()
 
+
 ```
 
 ---
@@ -103,12 +104,11 @@ title: "`r study_id` Assessment Overview"
 :::
 
 ```{r, echo=FALSE, results='asis'}
-
-
 ## metadata report if longitudinal data is provided
-if (exists('status_study', where = params) && !is.null(params$status_study)) {
+status_study_exists <- exists('status_study', where = params) && !is.null(params$status_study)
+if (status_study_exists) {
   MakeStudyStatusTable(params$status_study)
-
+  subjects <- params$status_study[["enrolled_participants_ctms"]]
   if ("gsm_analysis_date" %in% names(params$status_study))
     snapshot_date <- params$status_study$gsm_analysis_date
   else
@@ -143,6 +143,14 @@ overview_table
 `r if(any_dropped){glue::glue("{length(dropped)} {ifelse(length(dropped) == 1, 'KRI', 'KRIs')} dropped in Report see [KRI Glossary]")}`
 
 :::
+
+```{r, echo=FALSE, results = 'asis', eval=status_study_exists}
+cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across
+{length(unique(overview_raw_table$Site))} sites. {red_kris} Site-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites as shown in the Study Overview Table above\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites have at least one red KRI\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0 | .data$`Amber KRIs` != 0) %>% nrow()} sites have at least one red or amber KRI\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` == 0 & .data$`Amber KRIs` == 0) %>% nrow()} sites have neither red nor amber KRIs and are not shown"), sep = "\n")
+```
 
 ## Results
 
@@ -217,7 +225,7 @@ for (i in seq_along(assessment)) {
 ```{r, echo = FALSE}
 MakeKRIGlossary(
   strWorkflowIDs = names(assessment),
-  lStatus = params[["status_snap"]]
+  lStatus = params$status_snap
 )
 ```
 
