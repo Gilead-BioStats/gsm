@@ -11,6 +11,7 @@ params:
     assessment: NA
     status_study: NA
     status_site: NA
+    status_snap: NA
 ---
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
@@ -19,15 +20,45 @@ library(tidyverse)
 library(DT)
 
 # Study_Assess() output - KRIs only
-assessment <- params$assessment[
+any_dropped <- map(params$assessment, function(names){
+  "bActive" %in% names(names)  
+}) %>% unlist(.data) %>% any()
+
+if(any_dropped){
+active <- params$assessment[map_df(params$assessment, function(status){
+                              status[["bActive"]] == TRUE
+                            }) %>%
+                              pivot_longer(everything()) %>%
+                              filter(value) %>%
+                              pull(name)]
+
+dropped <- params$assessment[map_df(params$assessment, function(status){
+                              status[["bActive"]] == FALSE
+                            }) %>%
+                              pivot_longer(everything()) %>%
+                              filter(value) %>%
+                              pull(name)]
+
+assessment <- active[
+  grep("kri", names(active))
+]
+
+dropped_assessment <- dropped[
+  grep("kri", names(dropped))
+]
+} else {
+  assessment <- params$assessment[
   grep("kri", names(params$assessment))
 ]
+}
+
+
 
 # Overview Table - HTML object
 overview_table <- Overview_Table(
   lAssessments = assessment, 
   dfSite =  params$status_site
-)
+) 
 
 # Overview Table - data.frame/raw data
 overview_raw_table <- Overview_Table(
@@ -45,6 +76,13 @@ summary_table <- MakeSummaryTable(
   params$status_site
 )
 
+if(any_dropped){
+dropped_summary_table <- MakeSummaryTable(
+  dropped_assessment,
+  params$status_site
+)
+}
+
 ## StudyID
 study_id <- purrr::map(assessment, function(kri) {
     if (kri$bStatus) {
@@ -55,26 +93,22 @@ study_id <- purrr::map(assessment, function(kri) {
     as.character() %>% 
     unique()
 
+
 ```
 
 ---
 title: "`r study_id` Assessment Overview"
 ---
 
-<div class = 'overall-site-select'
-    id = 'overall-site-select'
-    title = 'Selected site will be highlighted in all charts for all KRIs.'>
-
-</div>
-
+::: {#overall-site-select .overall-site-select title="Selected site will be highlighted in all charts for all KRIs."}
+:::
 
 ```{r, echo=FALSE, results='asis'}
-
-
 ## metadata report if longitudinal data is provided
-if (exists('status_study', where = params) && !is.null(params$status_study)) {
+status_study_exists <- exists('status_study', where = params) && !is.null(params$status_study)
+if (status_study_exists) {
   MakeStudyStatusTable(params$status_study)
-
+  subjects <- params$status_study[["enrolled_participants_ctms"]]
   if ("gsm_analysis_date" %in% names(params$status_study))
     snapshot_date <- params$status_study$gsm_analysis_date
   else
@@ -89,21 +123,34 @@ if (exists('status_study', where = params) && !is.null(params$status_study)) {
 }
 ```
 
-
 ## Study Overview
 
-<div class="flag-container">
-  <div class="flag flag-red">`r red_kris` Red KRIs</div>
-  <div class="flag flag-amber">`r amber_kris` Amber KRIs</div>
-</div>
+::: flag-container
+::: {.flag .flag-red}
+`r red_kris` Red KRIs
+:::
 
+::: {.flag .flag-amber}
+`r amber_kris` Amber KRIs
+:::
+:::
 
-<div class="gsm-overview-table">
+::: gsm-overview-table
 ```{r echo=FALSE, warning=FALSE}
 overview_table
 ```
-</div>
 
+`r if(any_dropped){glue::glue("{length(dropped)} {ifelse(length(dropped) == 1, 'KRI', 'KRIs')} dropped in Report see [KRI Glossary]")}`
+
+:::
+
+```{r, echo=FALSE, results = 'asis', eval=status_study_exists}
+cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across
+{length(unique(overview_raw_table$Site))} sites. {red_kris} Site-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites as shown in the Study Overview Table above\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites have at least one red KRI\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0 | .data$`Amber KRIs` != 0) %>% nrow()} sites have at least one red or amber KRI\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` == 0 & .data$`Amber KRIs` == 0) %>% nrow()} sites have neither red nor amber KRIs and are not shown"), sep = "\n")
+```
 
 ## Results
 
@@ -173,15 +220,14 @@ for (i in seq_along(assessment)) {
 }
 ```
 
-
 ## KRI Glossary
 
-```{r echo = FALSE}
+```{r, echo = FALSE}
 MakeKRIGlossary(
-    names(assessment)
+  strWorkflowIDs = names(assessment),
+  lStatus = params$status_snap
 )
 ```
-
 
 ## Error Log
 
@@ -199,6 +245,77 @@ error_table <- error$dfSummary %>%
   )
 
 DT::datatable(error_table)
+```
+
+`r if(any_dropped){"## Inactive KRI's"}`
+
+```{r, echo=FALSE, results='asis', eval=any_dropped}
+for (i in seq_along(dropped_assessment)) {
+  kri_key <- names(dropped_assessment)[i]
+  kri <- dropped_assessment[[ kri_key ]]
+
+  title <- gsm::meta_workflow %>% 
+    filter(workflowid == kri_key) %>% 
+    pull(metric)
+
+  ### KRI section /
+    print(htmltools::h3(title))
+
+    #### charts tabset /
+        cat("#### Summary Charts {.tabset} \n")
+        
+        charts <- dropped_assessment[[i]]$lResults$lCharts[
+            names(dropped_assessment[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousJS")
+        ]
+        
+        for (j in seq_along(charts)) {
+            chart_key <- names(charts)[j]
+            chart <- charts[[ chart_key ]]
+            chart_name <- switch(
+                chart_key,
+                scatterJS = "Scatter Plot",
+                barScoreJS = "Bar Chart (KRI Score)",
+                barMetricJS = "Bar Chart (KRI Metric)",
+                timeSeriesContinuousJS = "Time Series (Continuous)"
+            )
+
+            ##### chart tab /
+                chart_header <- paste('#####', chart_name, '\n')
+
+                cat(chart_header)
+                
+                # need to initialize JS dependencies within loop in order to print correctly
+                # see here: https://github.com/rstudio/rmarkdown/issues/1877#issuecomment-678996452
+                purrr::map(
+                charts,
+                ~.x %>%
+                    knitr::knit_print() %>%
+                    attr('knit_meta') %>%
+                    knitr::knit_meta_add() %>%
+                    invisible()
+                )
+            
+                # Display chart.
+                cat(paste0("<div class =", chart_key, ">"))
+                cat(knitr::knit_print(htmltools::tagList(chart)))
+                cat("</div>")
+            ##### / chart tab
+        }
+        
+        cat("#### {-} \n")
+    #### / charts tabset
+
+    #### table /
+        if (!is.null(dropped_summary_table[[dropped_assessment[[i]]$name]])) {
+            print(htmltools::h4("Summary Table"))
+            print(htmltools::tagList(dropped_summary_table[[dropped_assessment[[i]]$name]]))
+        }
+    #### / table
+  ### / KRI section
+}
+if(length(dropped_assessment) == 0){
+  cat("No Inactive KRI's")
+}
 ```
 
 

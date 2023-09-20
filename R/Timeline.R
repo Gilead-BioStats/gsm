@@ -1,3 +1,5 @@
+#' lifecycle::badge("stable")
+#'
 #' Create interactive timeline for study data
 #'
 #' @param study the table containing study data of interest

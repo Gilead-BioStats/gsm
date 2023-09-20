@@ -6,7 +6,15 @@
 
 # Good Statistical Monitoring {gsm} R package
 
-The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This README provides a high-level overview of {gsm}; see the [package website](https://gilead-biostats.github.io/gsm/) for additional details.
+The {gsm} package provides a standardized Risk Based Quality Monitoring (RBQM) framework for clinical trials that pairs a flexible data pipeline with robust reports like the one shown below.  
+
+<center> 
+ 
+![](man/figures/gsm_report_screenshot_1.png)
+
+</center>
+
+This README provides a high-level overview of {gsm}; see the [package website](https://gilead-biostats.github.io/gsm/) for additional details.
 
 
 # Background 
@@ -48,25 +56,20 @@ To learn more about {gsm}'s data pipeline, visit the [Data Pipeline Vignette](ht
 
 # Reporting
 
-Detailed RMarkdown/HTML reporting is built into `{gsm}`, and provides a detailed overview of all risk assessments for a given trial.
-
-Reports for a sample trial run with [`{clindata}`](https://github.com/Gilead-BioStats/clindata) are provided below:
-
-- [Site Report](https://gilead-biostats.github.io/gsm/reports/StandardReportSite.html)
-
-- [Country Report](https://gilead-biostats.github.io/gsm/reports/StandardReportCountry.html)
-
-### Overview Table/Heatmap:
+Detailed RMarkdown/HTML reporting is built into `{gsm}`, and provides a detailed overview of all risk assessments for a given trial. For example, an AE risk assessment looks like this: 
 
 <center>
-![](man/figures/gsm_report_screenshot_1.png)
-</center>
-
-### Assessment Overview for Adverse Events
-
-<center>
+ 
 ![](man/figures/gsm_report_screenshot_2.png)
+
 </center>
+
+Full reports for a sample trial run with [`{clindata}`](https://github.com/Gilead-BioStats/clindata) are provided below:
+
+- [Site Report](https://gilead-biostats.github.io/gsm/StandardReportSite.html)
+- [Country Report](https://gilead-biostats.github.io/gsm/StandardReportCountry.html)
+
+
 
 # Quality Control
 

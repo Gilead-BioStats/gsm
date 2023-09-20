@@ -39,19 +39,18 @@ Overview_Table <- function(
   # filter based on report type ---------------------------------------------
   if (strReportType == "site") {
     grep_value <- "kri"
-    table_dropdown_label <- "Sites"
+    table_dropdown_label <- "Flags"
   }
 
   if (strReportType == "country") {
     grep_value <- "cou"
-    table_dropdown_label <- "Countries"
+    table_dropdown_label <- NULL
   }
-
-  study <- lAssessments[grep(grep_value, names(lAssessments))]
+  active <- names(lAssessments[!sapply(lAssessments, is.data.frame)])
+  study <- lAssessments[grep(grep_value, active)]
 
   # only keep KRIs that were successfully run
   study <- keep(study, function(x) x$bStatus == TRUE)
-
 
   # create reference table --------------------------------------------------
   reference_table <- make_reference_table(study)
@@ -69,7 +68,7 @@ Overview_Table <- function(
       ) %>%
       left_join(
         dfSite %>%
-          mutate(site_num = as.character(.data$site_num)) %>%
+          mutate(site_num = as.character(.data[[Read_Mapping()$dfSITE$strSiteCol]])) %>%
           select("site_num", "Country" = "country", "Status" = "status"),
         by = c("Site" = "site_num")
       ) %>%
@@ -322,7 +321,8 @@ Overview_Table <- function(
         caption = HTML(overview_table_flagged_caption),
         options = list(
           language = list(
-            lengthMenu = paste0("Showing _MENU_ ", table_dropdown_label)
+            lengthMenu = paste0(if(strReportType == "site"){"Sites Containing _MENU_ "}
+                                else if(strReportType == "country"){"View _MENU_  Countries"}, table_dropdown_label)
           ),
           columnDefs = list(
             list(
@@ -392,7 +392,6 @@ drop_column_with_several_na <- function(table, column) {
 
   return(table)
 }
-
 
 make_reference_table <- function(study) {
   reference_table <- study %>%

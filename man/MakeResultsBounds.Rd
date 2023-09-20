@@ -2,7 +2,7 @@
 % Please edit documentation in R/MakeResultsBounds.R
 \name{MakeResultsBounds}
 \alias{MakeResultsBounds}
-\title{Make \code{results_bounds}}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 MakeResultsBounds(lResults, dfConfigWorkflow)
 }

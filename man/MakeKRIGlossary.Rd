@@ -4,10 +4,18 @@
 \alias{MakeKRIGlossary}
 \title{Create KRI metadata table in KRIReport.Rmd}
 \usage{
-MakeKRIGlossary(strWorkflowIDs = NULL, dfMetaWorkflow = gsm::meta_workflow)
+MakeKRIGlossary(
+  dfMetaWorkflow = gsm::meta_workflow,
+  strWorkflowIDs = NULL,
+  lStatus = NULL
+)
 }
 \arguments{
 \item{dfMetaWorkflow}{\code{data.frame} Workflow metadata from \code{params} within \code{KRIReport.Rmd}}
+
+\item{strWorkflowIDs}{\code{string} a string of KRI names to display in output}
+
+\item{lStatus}{\code{data.frame} the KRI status output using \code{Augment_Snapshot}}
 }
 \description{
 Create KRI metadata table in KRIReport.Rmd

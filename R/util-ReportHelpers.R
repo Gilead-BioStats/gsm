@@ -125,7 +125,8 @@ MakeStudyStatusTable <- function(dfStudy) {
 #' @export
 #' @keywords internal
 MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
-  map(lAssessment, function(kri) {
+  active <- lAssessment[!sapply(lAssessment, is.data.frame)]
+  map(active, function(kri) {
     if (kri$bStatus) {
       dfSummary <- kri$lResults$lData$dfSummary
 
@@ -196,15 +197,26 @@ add_table_theme <- function(x) {
 
 #' Create KRI metadata table in KRIReport.Rmd
 #' @param dfMetaWorkflow `data.frame` Workflow metadata from `params` within `KRIReport.Rmd`
+#' @param strWorkflowIDs `string` a string of KRI names to display in output
+#' @param lStatus `data.frame` the KRI status output using `Augment_Snapshot`
 #' @export
 #' @keywords internal
 MakeKRIGlossary <- function(
+  dfMetaWorkflow = gsm::meta_workflow,
   strWorkflowIDs = NULL,
-  dfMetaWorkflow = gsm::meta_workflow
+  lStatus = NULL
 ) {
+  if (length(lStatus) != 0) {
+    strDroppedWorkflowIDs <- lStatus %>%
+      filter(!.data$`Currently Active`) %>%
+      pull(.data$`Workflow ID`)
+    combo_strWorkflowIDs <- c(strWorkflowIDs, strDroppedWorkflowIDs)
+  } else {
+    combo_strWorkflowIDs <- strWorkflowIDs
+  }
   workflows <- dfMetaWorkflow %>%
     filter(
-      .data$workflowid %in% strWorkflowIDs
+      .data$workflowid %in% combo_strWorkflowIDs
     ) %>%
     rename_with(~
       .x %>%
@@ -212,7 +224,26 @@ MakeKRIGlossary <- function(
         gsub("(^.| .)", "\\U\\1", ., perl = TRUE) %>%
         gsub("(gsm|id)", "\\U\\1", ., ignore.case = TRUE, perl = TRUE))
 
+
   workflows %>%
+    {
+      if (length(lStatus) != 0) {
+        left_join(., lStatus %>%
+          select(.data$`Workflow ID`, .data$`Latest Snapshot`),
+        by = "Workflow ID"
+        ) %>%
+          mutate(
+            Status = case_when(
+              .data$`Workflow ID` %in% strWorkflowIDs ~ "Active",
+              .data$`Workflow ID` %in% strDroppedWorkflowIDs ~ paste0("Deactivated\n", .data$`Latest Snapshot`)
+            ),
+            .before = .data[["GSM Version"]]
+          ) %>%
+          select(-.data$`Latest Snapshot`)
+      } else {
+        .
+      }
+    } %>%
     DT::datatable(
       class = "compact",
       options = list(

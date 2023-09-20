@@ -25,7 +25,8 @@ lData <- list(
   dfLB = clindata::rawplus_lb %>% filter(subjid %in% dfSUBJ_expanded$subjid) %>% slice(1:2000),
   dfDATACHG = makeTestData(clindata::edc_data_points),
   dfDATAENT = makeTestData(clindata::edc_data_pages),
-  dfQUERY = makeTestData(clindata::edc_queries)
+  dfQUERY = makeTestData(clindata::edc_queries),
+  dfENROLL = dfENROLL
 )
 
 lMapping <- c(
@@ -56,7 +57,7 @@ test_that("Augment_Snapshot fails when data is missing", {
 
 
 test_that("Augment_Snapshot runs without error when correct data is provided", {
-  expect_message(augment <- Augment_Snapshot(snapshot, system.file("snapshots", "AA-AA-000-0000", package = "gsm")))
+  expect_message(augment <- Augment_Snapshot(snapshot, cPath = system.file("snapshots", "AA-AA-000-0000", package = "gsm")))
 
   contains_timeseries <- augment$lStudyAssessResults %>%
     map_lgl(~ {

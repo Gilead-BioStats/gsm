@@ -1,6 +1,6 @@
 Package: gsm
 Title: Good Statistical Monitoring
-Version: 1.8.1
+Version: 1.8.2
 Authors@R: c(
     person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", email="jwildfire@gmail.com", role = c("aut")),

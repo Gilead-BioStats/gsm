@@ -9,6 +9,7 @@
 #' @param cPath `character` Path to longitudinal snapshots, returned by [gsm::Make_Snapshot()].
 #' @param vFolderNames `vector` Name(s) of folder(s) found within `cPath` to use. Any folders not specified will not be used in the augment.
 #' @param bAppendTimeSeriesCharts `logical` Append time series charts to KRIs? Default: `TRUE`.
+#' @param bAppendLongitudinalResults `logical` Append time series/longitudinal data from `results_summary`? Default: `TRUE`.
 #'
 #' @examples
 #' \dontrun{
@@ -32,7 +33,8 @@ Augment_Snapshot <- function(
   lSnapshot,
   cPath,
   vFolderNames = NULL,
-  bAppendTimeSeriesCharts = TRUE
+  bAppendTimeSeriesCharts = TRUE,
+  bAppendLongitudinalResults = TRUE
 ) {
   # TODO: alternatively accept the output of StackSnapshots?
   stackedSnapshots <- StackSnapshots(cPath, lSnapshot, vFolderNames)
@@ -70,6 +72,61 @@ Augment_Snapshot <- function(
 
         return(result)
       })
+  }
+
+  if (bAppendLongitudinalResults) {
+    nPath <- ifelse(grepl("$\\/", cPath), cPath, paste0(cPath, "/"))
+    snapshot_date <- list.files(nPath)
+    snapshot_directory_names <- paste0(nPath, snapshot_date)
+
+    ## get current status
+    is_current <- snapshot_directory_names %>%
+      purrr::set_names(snapshot_date) %>%
+      purrr::map_df(., function(snap) {
+        snapshot <- read.csv(paste0(snap, "/results_summary.csv")) %>%
+          distinct(.data$workflowid) %>%
+          mutate()
+      }, .id = "snapshot_date") %>%
+      group_by(.data$workflowid) %>%
+      summarise(
+        latest = max(as.Date(snapshot_date), na.rm = TRUE),
+        .groups = "drop"
+      ) %>%
+      mutate(is_current = latest == max(latest))
+
+    old_workflows <- is_current %>%
+      filter(!is_current) %>%
+      split(.$latest) %>%
+      map(., . %>% pull(.data$workflowid))
+
+    ## pull object into snapshot
+    old_snapshots <- list()
+    for (latest in is_current %>%
+      filter(!.data$is_current) %>%
+      pull(.data$latest) %>%
+      as.character()) {
+      old_snapshots[[latest]] <- readRDS(paste0(nPath, latest, "/snapshot.rds"))
+    }
+
+    ## Set active status
+    for (kri in names(lSnapshot$lStudyAssessResults)) {
+      lSnapshot$lStudyAssessResults[[kri]][["bActive"]] <- TRUE
+    }
+
+    for (dates in names(old_snapshots)) {
+      for (kri in names(old_snapshots[[dates]]$lStudyAssessResults)) {
+        old_snapshots[[dates]]$lStudyAssessResults[[kri]][["bActive"]] <- FALSE
+      }
+    }
+
+    ## Transfer old snaps to current snap
+    for (old_date in names(old_workflows)) {
+      for (kri in old_workflows[[old_date]]) {
+        lSnapshot$lStudyAssessResults[[kri]] <- old_snapshots[[old_date]]$lStudyAssessResults[[kri]]
+      }
+    }
+    lSnapshot[["lStatus"]] <- is_current %>%
+      `colnames<-`(c("Workflow ID", "Latest Snapshot", "Currently Active"))
   }
 
   lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots

@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-UpdateLabels.R
 \name{UpdateLabels}
 \alias{UpdateLabels}
-\title{Update visualization labels based on metadata.}
+\title{lifecycle::badge("stable")}
 \usage{
 UpdateLabels(lStudyAssessResults, dfMetaWorkflow)
 }
@@ -17,6 +17,9 @@ UpdateLabels(lStudyAssessResults, dfMetaWorkflow)
 \description{
 If visualizations are created outside of a standard snapshot (e.g., \code{\link[=Make_Snapshot]{Make_Snapshot()}}), there is not enough descriptive metadata to assign
 meaningful labels. \code{UpdateLabels} updates labels for JavaScript visualizations (from \code{rbm-viz}) using metadata provided by \code{dfMetaWorkflow.}
+}
+\details{
+Update visualization labels based on metadata.
 }
 \examples{
 \dontrun{
