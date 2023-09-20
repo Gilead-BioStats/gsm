@@ -19,7 +19,7 @@ Appendix 2 - Data Model Specifications"><!-- mathjax --><script src="https://cdn
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.2</span>
       </span>
     </div>
 
@@ -103,16 +103,15 @@ Appendix 2 - Data Model Specifications</p>
 <span>    meta_params <span class="op">=</span> <span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="meta_param.html">meta_param</a></span>, meta_site <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span>, meta_study <span class="op">=</span></span>
 <span>    <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_study.html" class="external-link">ctms_study</a></span>, meta_workflow <span class="op">=</span> <span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="meta_workflow.html">meta_workflow</a></span><span class="op">)</span>,</span>
 <span>  lData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>, dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span>, dfPD <span class="op">=</span></span>
-<span>    <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_protdev.html" class="external-link">ctms_protdev</a></span>, dfCONSENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_consent.html" class="external-link">rawplus_consent</a></span>, dfIE <span class="op">=</span></span>
-<span>    <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ie.html" class="external-link">rawplus_ie</a></span>, dfLB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_lb.html" class="external-link">rawplus_lb</a></span>, dfSTUDCOMP <span class="op">=</span></span>
+<span>    <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_protdev.html" class="external-link">ctms_protdev</a></span>, dfCONSENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span>, dfIE <span class="op">=</span></span>
+<span>    <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ie</span>, dfLB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_lb.html" class="external-link">rawplus_lb</a></span>, dfSTUDCOMP <span class="op">=</span></span>
 <span>    <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_studcomp.html" class="external-link">rawplus_studcomp</a></span>, dfSDRGCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_sdrgcomp.html" class="external-link">rawplus_sdrgcomp</a></span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">phase</span> <span class="op">==</span> <span class="st">"Blinded Study Drug Completion"</span><span class="op">)</span>, dfDATACHG <span class="op">=</span></span>
 <span>    <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_data_points.html" class="external-link">edc_data_points</a></span>, dfDATAENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_data_pages.html" class="external-link">edc_data_pages</a></span>, dfQUERY <span class="op">=</span></span>
-<span>    <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_queries.html" class="external-link">edc_queries</a></span>, dfENROLL <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_enroll.html" class="external-link">rawplus_enroll</a></span><span class="op">)</span>,</span>
+<span>    <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_queries.html" class="external-link">edc_queries</a></span>, dfENROLL <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_enroll</span><span class="op">)</span>,</span>
 <span>  lMapping <span class="op">=</span> <span class="fu"><a href="Read_Mapping.html">Read_Mapping</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  lAssessments <span class="op">=</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>lMeta <span class="op">=</span> <span class="va">lMeta</span><span class="op">)</span>,</span>
 <span>  strAnalysisDate <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  bUpdateParams <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -138,10 +137,6 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 
 <dt>strAnalysisDate</dt>
 <dd><p><code>character</code> date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: <code>YYYY-MM-DD</code>.</p></dd>
-
-
-<dt>bUpdateParams</dt>
-<dd><p><code>logical</code> if <code>TRUE</code>, configurable parameters found in <code>lMeta$config_param</code> will overwrite the default values in <code>lMeta$meta_params</code>. Default: <code>FALSE</code>.</p></dd>
 
 
 <dt>bQuiet</dt>

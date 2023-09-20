@@ -18,7 +18,7 @@ input data to IE_Assess()."><!-- mathjax --><script src="https://cdnjs.cloudflar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.2</span>
       </span>
     </div>
 
@@ -97,7 +97,7 @@ input data to <code><a href="IE_Assess.html">IE_Assess()</a></code>.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">IE_Map_Raw</span><span class="op">(</span></span>
-<span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>, dfIE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ie.html" class="external-link">rawplus_ie</a></span><span class="op">)</span>,</span>
+<span>  dfs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>, dfIE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ie</span><span class="op">)</span>,</span>
 <span>  lMapping <span class="op">=</span> <span class="fu">gsm</span><span class="fu">::</span><span class="fu"><a href="Read_Mapping.html">Read_Mapping</a></span><span class="op">(</span><span class="st">"rawplus"</span><span class="op">)</span>,</span>
 <span>  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  bQuiet <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -107,7 +107,7 @@ input data to <code><a href="IE_Assess.html">IE_Assess()</a></code>.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dfs</dt>
-<dd><p><code>list</code> Input data frames:</p><ul><li><p><code>dfIE</code>: <code>data.frame</code> Criterion-level data with one record subject per criterion. Default: <code><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ie.html" class="external-link">clindata::rawplus_ie</a></code></p></li>
+<dd><p><code>list</code> Input data frames:</p><ul><li><p><code>dfIE</code>: <code>data.frame</code> Criterion-level data with one record subject per criterion. Default: <code>clindata::rawplus_ie</code></p></li>
 <li><p><code>dfSUBJ</code>: <code>data.frame</code> Subject-level data with one record per subject. Default: <code><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">clindata::rawplus_dm</a></code></p></li>
 </ul></dd>
 

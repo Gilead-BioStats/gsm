@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.2</span>
       </span>
     </div>
 
@@ -116,7 +116,11 @@
 <div class="section level1">
 <div class="page-header"><h1 id="good-statistical-monitoring-gsm-r-package">Good Statistical Monitoring {gsm} R package<a class="anchor" aria-label="anchor" href="#good-statistical-monitoring-gsm-r-package"></a>
 </h1></div>
-<p>The {gsm} package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Monitoring (RBM) for clinical trials. This README provides a high-level overview of {gsm}; see the <a href="https://gilead-biostats.github.io/gsm/" class="external-link">package website</a> for additional details.</p>
+<p>The {gsm} package provides a standardized Risk Based Quality Monitoring (RBQM) framework for clinical trials that pairs a flexible data pipeline with robust reports like the one shown below.</p>
+<center>
+<p><img src="reference/figures/gsm_report_screenshot_1.png"></p>
+</center>
+<p>This README provides a high-level overview of {gsm}; see the <a href="https://gilead-biostats.github.io/gsm/" class="external-link">package website</a> for additional details.</p>
 </div>
 <div class="section level1">
 <h1 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
@@ -171,26 +175,15 @@
 <div class="section level1">
 <h1 id="reporting">Reporting<a class="anchor" aria-label="anchor" href="#reporting"></a>
 </h1>
-<p>Detailed RMarkdown/HTML reporting is built into <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>, and provides a detailed overview of all risk assessments for a given trial.</p>
-<p>Reports for a sample trial run with <a href="https://github.com/Gilead-BioStats/clindata" class="external-link"><code>{clindata}</code></a> are provided below:</p>
+<p>Detailed RMarkdown/HTML reporting is built into <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>, and provides a detailed overview of all risk assessments for a given trial. For example, an AE risk assessment looks like this:</p>
+<center>
+<p><img src="reference/figures/gsm_report_screenshot_2.png"></p>
+</center>
+<p>Full reports for a sample trial run with <a href="https://github.com/Gilead-BioStats/clindata" class="external-link"><code>{clindata}</code></a> are provided below:</p>
 <ul>
-<li><p><a href="https://gilead-biostats.github.io/gsm/reports/StandardReportSite.html" class="external-link">Site Report</a></p></li>
-<li><p><a href="https://gilead-biostats.github.io/gsm/reports/StandardReportCountry.html" class="external-link">Country Report</a></p></li>
+<li><a href="https://gilead-biostats.github.io/gsm/StandardReportSite.html" class="external-link">Site Report</a></li>
+<li><a href="https://gilead-biostats.github.io/gsm/StandardReportCountry.html" class="external-link">Country Report</a></li>
 </ul>
-<div class="section level3">
-<h3 id="overview-tableheatmap">Overview Table/Heatmap:<a class="anchor" aria-label="anchor" href="#overview-tableheatmap"></a>
-</h3>
-<center>
-<img src="reference/figures/gsm_report_screenshot_1.png">
-</center>
-</div>
-<div class="section level3">
-<h3 id="assessment-overview-for-adverse-events">Assessment Overview for Adverse Events<a class="anchor" aria-label="anchor" href="#assessment-overview-for-adverse-events"></a>
-</h3>
-<center>
-<img src="reference/figures/gsm_report_screenshot_2.png">
-</center>
-</div>
 </div>
 <div class="section level1">
 <h1 id="quality-control">Quality Control<a class="anchor" aria-label="anchor" href="#quality-control"></a>

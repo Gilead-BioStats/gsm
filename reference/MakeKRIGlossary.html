@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.2</span>
       </span>
     </div>
 
@@ -94,13 +94,25 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeKRIGlossary</span><span class="op">(</span>strWorkflowIDs <span class="op">=</span> <span class="cn">NULL</span>, dfMetaWorkflow <span class="op">=</span> <span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="meta_workflow.html">meta_workflow</a></span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeKRIGlossary</span><span class="op">(</span></span>
+<span>  dfMetaWorkflow <span class="op">=</span> <span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="meta_workflow.html">meta_workflow</a></span>,</span>
+<span>  strWorkflowIDs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lStatus <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dfMetaWorkflow</dt>
 <dd><p><code>data.frame</code> Workflow metadata from <code>params</code> within <code>KRIReport.Rmd</code></p></dd>
+
+
+<dt>strWorkflowIDs</dt>
+<dd><p><code>string</code> a string of KRI names to display in output</p></dd>
+
+
+<dt>lStatus</dt>
+<dd><p><code>data.frame</code> the KRI status output using <code>Augment_Snapshot</code></p></dd>
 
 </dl></div>
 
