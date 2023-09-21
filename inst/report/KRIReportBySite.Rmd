@@ -124,6 +124,17 @@ if (status_study_exists) {
 }
 ```
 
+## Timeline
+<details>
+  <summary>Click to expand</summary>
+  
+```{r, echo=FALSE}
+Make_Timeline(params$status_study)
+
+```
+
+</details>
+
 ## Study Overview
 
 ::: flag-container
