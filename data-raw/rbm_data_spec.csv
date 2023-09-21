@@ -1,163 +1,261 @@
-"System","Table","Column","Description","Order"
-"Gismo","status_study","studyid","Unique Study ID",1
-"Gismo","status_study","enrolled_sites","# of enrolled sites",2
-"Gismo","status_study","enrolled_participants","# of enrolled participants",3
-"Gismo","status_study","planned_sites","# of planned sites",4
-"Gismo","status_study","planned_participants","# of planned participants",5
-"Gismo","status_study","title","Protocol title",6
-"Gismo","status_study","nickname","Protocol nickname",7
-"Gismo","status_study","enrolled_sites_ctms","# of enrolled sites from GILDA",8
-"Gismo","status_study","enrolled_participants_ctms","# of enrolled participants from GILDA",9
-"Gismo","status_study","fpfv","First-patient first visit date",10
-"Gismo","status_study","lpfv","Last-patient first visit date",11
-"Gismo","status_study","lplv","Last-patient last visit date",12
-"Gismo","status_study","ta","Therapeutic Area",13
-"Gismo","status_study","indication","Indication",14
-"Gismo","status_study","phase","Phase",15
-"Gismo","status_study","status","Study Status",16
-"Gismo","status_study","rbm_flag","Risk-based monitoring flag",17
-"Gismo","status_study","product","Product",18
-"Gismo","status_study","protocol_type","Protocol type",19
-"Gismo","status_study","protocol_row_id","Protocol row ID",20
-"Gismo","status_study","est_fpfv","Estimated first-patient first visit date from GILDA",21
-"Gismo","status_study","est_lpfv","Estimated last-patient first visit date from GILDA",22
-"Gismo","status_study","est_lplv","Estimated last-patient last visit date from GILDA",23
-"Gismo","status_study","protocol_product_number","Protocol product number",24
-"Gismo","status_study","gsm_analysis_date","Date that snapshot was created",25
-"Gismo","status_site","studyid","Unique Study ID",1
-"Gismo","status_site","siteid","Unique Site ID",2
-"Gismo","status_site","institution","Institution Name",3
-"Gismo","status_site","status","Site Status",4
-"Gismo","status_site","enrolled_participants","# of enrolled participants",5
-"Gismo","status_site","start_date","Site Activation Date",6
-"Gismo","status_site","city","City",7
-"Gismo","status_site","state","State",8
-"Gismo","status_site","country","Country",9
-"Gismo","status_site","invname","Investigator name",10
-"Gismo","status_site","protocol_row_id","Protocol row ID",11
-"Gismo","status_site","site_num","Site number",12
-"Gismo","status_site","site_row_id","Site row ID",13
-"Gismo","status_site","pi_number","Principal investigator number",14
-"Gismo","status_site","pi_last_name","Principal investigator last name",15
-"Gismo","status_site","pi_first_name","Principal investigator first name",16
-"Gismo","status_site","is_satellite","Is site a satellite location?",17
-"Gismo","status_site","gsm_analysis_date","Date that snapshot was created",18
-"Gismo","status_workflow","studyid","Unique Study ID",1
-"Gismo","status_workflow","workflowid","Unique Workflow ID",2
-"Gismo","status_workflow","gsm_version","GSM version of workflow",3
-"Gismo","status_workflow","active","Is workflow active?",4
-"Gismo","status_workflow","status","Did workflow run?",5
-"Gismo","status_workflow","notes","Status notes",6
-"Gismo","status_workflow","gsm_analysis_date","Date that snapshot was created",7
-"Gismo","status_param","studyid","Unique Study ID",1
-"Gismo","status_param","workflowid","Unique Workflow ID",2
-"Gismo","status_param","gsm_version","GSM version of workflow",3
-"Gismo","status_param","param","Parameter name",4
-"Gismo","status_param","index","Index value for parameter",5
-"Gismo","status_param","value","Value for parameter at index",6
-"Gismo","status_param","gsm_analysis_date","Date that snapshot was created",7
-"Gismo","results_summary","studyid","Unique Study ID",1
-"Gismo","results_summary","workflowid","Unique Workflow ID",2
-"Gismo","results_summary","groupid","Unique Group ID (e.g. SiteID for KRI workflows)",3
-"Gismo","results_summary","numerator","Metric numerator",4
-"Gismo","results_summary","denominator","Metric denominator",5
-"Gismo","results_summary","metric","Metric value",6
-"Gismo","results_summary","score","Statistical Score",7
-"Gismo","results_summary","flag","Flag",8
-"Gismo","results_summary","gsm_analysis_date","Date that snapshot was created",9
-"Gismo","results_analysis","studyid","Unique Study ID",1
-"Gismo","results_analysis","workflowid","Unique Workflow ID",2
-"Gismo","results_analysis","param","Parameter name",3
-"Gismo","results_analysis","value","Value for parameter",4
-"Gismo","results_analysis","gsm_analysis_date","Date that snapshot was created",5
-"Gismo","results_bounds","studyid","Unique Study ID",1
-"Gismo","results_bounds","workflowid","Unique Workflow ID",2
-"Gismo","results_bounds","threshold","Threshold",3
-"Gismo","results_bounds","numerator","y value",4
-"Gismo","results_bounds","denominator","x value",5
-"Gismo","results_bounds","log_denominator","Log X value",6
-"Gismo","results_bounds","gsm_analysis_date","Date that snapshot was created",7
-"Gismo","meta_workflow","workflowid","Unique Workflow ID",1
-"Gismo","meta_workflow","gsm_version","GSM Version of workflow",2
-"Gismo","meta_workflow","group","Group for workflow - Site, Country, Region or Study",3
-"Gismo","meta_workflow","abbreviation","Workflow Abbreviation (max 3-letters)",4
-"Gismo","meta_workflow","metric","Metric Label",5
-"Gismo","meta_workflow","numerator","Numerator Label",6
-"Gismo","meta_workflow","denominator","Denominator Label",7
-"Gismo","meta_workflow","outcome","Metric Outcome Type (e.g. rate)",8
-"Gismo","meta_workflow","model","Statistical Model used to create score",9
-"Gismo","meta_workflow","score","Score Label",10
-"Gismo","meta_workflow","data_inputs","Data inputs for workflow",11
-"Gismo","meta_workflow","data_filters","Filters applied in workflow",12
-"Gismo","meta_workflow","gsm_analysis_date","Date that snapshot was created",13
-"Gismo","meta_param","workflowid","Unique Workflow ID",1
-"Gismo","meta_param","gsm_version","GSM version of workflow",2
-"Gismo","meta_param","param","Parameter name",3
-"Gismo","meta_param","index","Parameter index",4
-"Gismo","meta_param","default","Default value for parameter at index",5
-"Gismo","meta_param","configurable","Is parameter configurable?",6
-"Gismo","meta_param","gsm_analysis_date","Date that snapshot was created",7
-"GSM","meta_study","protocol_row_id","Protocol row ID",1
-"GSM","meta_study","protocol_number","Protocol number",2
-"GSM","meta_study","protocol_title","Protocol title",3
-"GSM","meta_study","nickname","Protocol nickname",4
-"GSM","meta_study","protocol_type","Protocol type",5
-"GSM","meta_study","phase","Phase",6
-"GSM","meta_study","num_plan_site","# of planned sites from CTMS",7
-"GSM","meta_study","num_site_actl","# of enrolled sites from CTMS",8
-"GSM","meta_study","est_fpfv","Estimated first-patient first visit date",9
-"GSM","meta_study","act_fpfv","First-patient first visit date",10
-"GSM","meta_study","est_lpfv","Estimated last-patient first visit date",11
-"GSM","meta_study","act_lpfv","Last-patient first visit date",12
-"GSM","meta_study","est_lplv","Estimated last-patient last visit date",13
-"GSM","meta_study","act_lplv","Last-patient last visit date",14
-"GSM","meta_study","status","Study Status",15
-"GSM","meta_study","num_plan_subj","# of planned participants from CTMS",16
-"GSM","meta_study","num_enrolled_subj_m","# of enrolled participants from CTMS",17
-"GSM","meta_study","protocol_indication","Indication",18
-"GSM","meta_study","product","Product",19
-"GSM","meta_study","therapeutic_area","Therapeutic Area",20
-"GSM","meta_study","protocol_product_number","Protocol product number",21
-"GSM","meta_study","x_rbm_flg","Risk-based monitoring flag",22
-"GSM","meta_site","protocol_row_id","Protocol row ID",1
-"GSM","meta_site","site_num","Unique Site ID",2
-"GSM","meta_site","site_row_id","Site row ID",3
-"GSM","meta_site","protocol","Unique Study ID",4
-"GSM","meta_site","pi_number","Principal investigator number",5
-"GSM","meta_site","pi_last_name","Principal investigator last name",6
-"GSM","meta_site","pi_first_name","Principal investigator first name",7
-"GSM","meta_site","site_status","Site Status",8
-"GSM","meta_site","is_satellite","Is site a satellite location?",9
-"GSM","meta_site","account","Institution Name",10
-"GSM","meta_site","site_active_dt","Site Activation Date",11
-"GSM","meta_site","city","City",12
-"GSM","meta_site","state","State",13
-"GSM","meta_site","country","Country",14
-"GSM","config_workflow","studyid","Unique Study ID",1
-"GSM","config_workflow","workflowid","Unique Workflow ID",2
-"GSM","config_workflow","gsm_version","GSM version of workflow",3
-"GSM","config_workflow","active","Is workflow active?",4
-"GSM","config_param","studyid","Unique Study ID",1
-"GSM","config_param","workflowid","Unique Workflow ID",2
-"GSM","config_param","gsm_version","GSM version of workflow",3
-"GSM","config_param","param","Parameter name",4
-"GSM","config_param","index","Index value for parameter",5
-"GSM","config_param","value","Value for parameter at index",6
-"GSM","meta_workflow","workflowid","Unique Workflow ID",1
-"GSM","meta_workflow","abbreviation","Workflow Abbreviation (max 3-letters)",2
-"GSM","meta_workflow","gsm_version","GSM Version of workflow",3
-"GSM","meta_workflow","group","Group for workflow - Site, Country, Region or Study",4
-"GSM","meta_workflow","metric","Metric Label",5
-"GSM","meta_workflow","numerator","Numerator Label",6
-"GSM","meta_workflow","denominator","Denominator Label",7
-"GSM","meta_workflow","outcome","Metric Outcome Type (e.g. rate)",8
-"GSM","meta_workflow","model","Statistical Model used to create score",9
-"GSM","meta_workflow","score","Score Label",10
-"GSM","meta_workflow","data_inputs","Data inputs for workflow",11
-"GSM","meta_workflow","data_filters","Filters applied in workflow",12
-"GSM","meta_param","workflowid","Unique Workflow ID",1
-"GSM","meta_param","gsm_version","GSM version of workflow",2
-"GSM","meta_param","param","Parameter name",3
-"GSM","meta_param","index","Parameter index",4
-"GSM","meta_param","default","Default value for parameter at index",5
-"GSM","meta_param","configurable","Is parameter configurable?",6
+"","System","Table","Column","Description","Order"
+"1","Gismo","status_study","studyid","Unique Study ID",1
+"2","Gismo","status_study","enrolled_sites","# of enrolled sites",2
+"3","Gismo","status_study","enrolled_participants","# of enrolled participants",3
+"4","Gismo","status_study","planned_sites","# of planned sites",4
+"5","Gismo","status_study","planned_participants","# of planned participants",5
+"6","Gismo","status_study","title","Protocol title",6
+"7","Gismo","status_study","nickname","Protocol nickname",7
+"8","Gismo","status_study","enrolled_sites_ctms","# of enrolled sites from GILDA",8
+"9","Gismo","status_study","enrolled_participants_ctms","# of enrolled participants from GILDA",9
+"10","Gismo","status_study","fpfv","First-patient first visit date",10
+"11","Gismo","status_study","lpfv","Last-patient first visit date",11
+"12","Gismo","status_study","lplv","Last-patient last visit date",12
+"13","Gismo","status_study","ta","Therapeutic Area",13
+"14","Gismo","status_study","indication","Indication",14
+"15","Gismo","status_study","phase","Phase",15
+"16","Gismo","status_study","status","Study Status",16
+"17","Gismo","status_study","rbm_flag","Risk-based monitoring flag",17
+"18","Gismo","status_study","product","Product",18
+"19","Gismo","status_study","protocol_type","Protocol type",19
+"20","Gismo","status_study","protocol_row_id","Protocol row ID",20
+"21","Gismo","status_study","est_fpfv","Estimated first-patient first visit date from GILDA",21
+"22","Gismo","status_study","est_lpfv","Estimated last-patient first visit date from GILDA",22
+"23","Gismo","status_study","est_lplv","Estimated last-patient last visit date from GILDA",23
+"24","Gismo","status_study","protocol_product_number","Protocol product number",24
+"25","Gismo","status_study","gsm_analysis_date","Date that snapshot was created",25
+"26","Gismo","status_site","studyid","Unique Study ID",1
+"27","Gismo","status_site","siteid","Unique Site ID",2
+"28","Gismo","status_site","institution","Institution Name",3
+"29","Gismo","status_site","status","Site Status",4
+"30","Gismo","status_site","enrolled_participants","# of enrolled participants",5
+"31","Gismo","status_site","start_date","Site Activation Date",6
+"32","Gismo","status_site","city","City",7
+"33","Gismo","status_site","state","State",8
+"34","Gismo","status_site","country","Country",9
+"35","Gismo","status_site","invname","Investigator name",10
+"36","Gismo","status_site","protocol_row_id","Protocol row ID",11
+"37","Gismo","status_site","site_num","Site number",12
+"38","Gismo","status_site","site_row_id","Site row ID",13
+"39","Gismo","status_site","pi_number","Principal investigator number",14
+"40","Gismo","status_site","pi_last_name","Principal investigator last name",15
+"41","Gismo","status_site","pi_first_name","Principal investigator first name",16
+"42","Gismo","status_site","is_satellite","Is site a satellite location?",17
+"43","Gismo","status_site","gsm_analysis_date","Date that snapshot was created",18
+"44","Gismo","status_workflow","studyid","Unique Study ID",1
+"45","Gismo","status_workflow","workflowid","Unique Workflow ID",2
+"46","Gismo","status_workflow","gsm_version","GSM version of workflow",3
+"47","Gismo","status_workflow","active","Is workflow active?",4
+"48","Gismo","status_workflow","status","Did workflow run?",5
+"49","Gismo","status_workflow","notes","Status notes",6
+"50","Gismo","status_workflow","gsm_analysis_date","Date that snapshot was created",7
+"51","Gismo","status_param","studyid","Unique Study ID",1
+"52","Gismo","status_param","workflowid","Unique Workflow ID",2
+"53","Gismo","status_param","gsm_version","GSM version of workflow",3
+"54","Gismo","status_param","param","Parameter name",4
+"55","Gismo","status_param","index","Index value for parameter",5
+"56","Gismo","status_param","value","Value for parameter at index",6
+"57","Gismo","status_param","gsm_analysis_date","Date that snapshot was created",7
+"58","Gismo","results_summary","studyid","Unique Study ID",1
+"59","Gismo","results_summary","workflowid","Unique Workflow ID",2
+"60","Gismo","results_summary","groupid","Unique Group ID (e.g. SiteID for KRI workflows)",3
+"61","Gismo","results_summary","numerator","Metric numerator",4
+"62","Gismo","results_summary","denominator","Metric denominator",5
+"63","Gismo","results_summary","metric","Metric value",6
+"64","Gismo","results_summary","score","Statistical Score",7
+"65","Gismo","results_summary","flag","Flag",8
+"66","Gismo","results_summary","gsm_analysis_date","Date that snapshot was created",9
+"67","Gismo","results_analysis","studyid","Unique Study ID",1
+"68","Gismo","results_analysis","workflowid","Unique Workflow ID",2
+"69","Gismo","results_analysis","param","Parameter name",3
+"70","Gismo","results_analysis","value","Value for parameter",4
+"71","Gismo","results_analysis","gsm_analysis_date","Date that snapshot was created",5
+"72","Gismo","results_bounds","studyid","Unique Study ID",1
+"73","Gismo","results_bounds","workflowid","Unique Workflow ID",2
+"74","Gismo","results_bounds","threshold","Threshold",3
+"75","Gismo","results_bounds","numerator","y value",4
+"76","Gismo","results_bounds","denominator","x value",5
+"77","Gismo","results_bounds","log_denominator","Log X value",6
+"78","Gismo","results_bounds","gsm_analysis_date","Date that snapshot was created",7
+"79","Gismo","meta_workflow","workflowid","Unique Workflow ID",1
+"80","Gismo","meta_workflow","gsm_version","GSM Version of workflow",2
+"81","Gismo","meta_workflow","group","Group for workflow - Site, Country, Region or Study",3
+"82","Gismo","meta_workflow","abbreviation","Workflow Abbreviation (max 3-letters)",4
+"83","Gismo","meta_workflow","metric","Metric Label",5
+"84","Gismo","meta_workflow","numerator","Numerator Label",6
+"85","Gismo","meta_workflow","denominator","Denominator Label",7
+"86","Gismo","meta_workflow","outcome","Metric Outcome Type (e.g. rate)",8
+"87","Gismo","meta_workflow","model","Statistical Model used to create score",9
+"88","Gismo","meta_workflow","score","Score Label",10
+"89","Gismo","meta_workflow","data_inputs","Data inputs for workflow",11
+"90","Gismo","meta_workflow","data_filters","Filters applied in workflow",12
+"91","Gismo","meta_workflow","gsm_analysis_date","Date that snapshot was created",13
+"92","Gismo","meta_param","workflowid","Unique Workflow ID",1
+"93","Gismo","meta_param","gsm_version","GSM version of workflow",2
+"94","Gismo","meta_param","param","Parameter name",3
+"95","Gismo","meta_param","index","Parameter index",4
+"96","Gismo","meta_param","default","Default value for parameter at index",5
+"97","Gismo","meta_param","configurable","Is parameter configurable?",6
+"98","Gismo","meta_param","gsm_analysis_date","Date that snapshot was created",7
+"99","Gismo","status_study_log","studyid","Unique Study ID - longitudinal",1
+"100","Gismo","status_study_log","enrolled_sites","# of enrolled sites - longitudinal",2
+"101","Gismo","status_study_log","enrolled_participants","# of enrolled participants - longitudinal",3
+"102","Gismo","status_study_log","planned_sites","# of planned sites - longitudinal",4
+"103","Gismo","status_study_log","planned_participants","# of planned participants - longitudinal",5
+"104","Gismo","status_study_log","title","Protocol title - longitudinal",6
+"105","Gismo","status_study_log","nickname","Protocol nickname - longitudinal",7
+"106","Gismo","status_study_log","enrolled_sites_ctms","# of enrolled sites from GILDA - longitudinal",8
+"107","Gismo","status_study_log","enrolled_participants_ctms","# of enrolled participants from GILDA - longitudinal",9
+"108","Gismo","status_study_log","fpfv","First-patient first visit date - longitudinal",10
+"109","Gismo","status_study_log","lpfv","Last-patient first visit date - longitudinal",11
+"110","Gismo","status_study_log","lplv","Last-patient last visit date - longitudinal",12
+"111","Gismo","status_study_log","ta","Therapeutic Area - longitudinal",13
+"112","Gismo","status_study_log","indication","Indication - longitudinal",14
+"113","Gismo","status_study_log","phase","Phase - longitudinal",15
+"114","Gismo","status_study_log","status","Study Status - longitudinal",16
+"115","Gismo","status_study_log","rbm_flag","Risk-based monitoring flag - longitudinal",17
+"116","Gismo","status_study_log","product","Product - longitudinal",18
+"117","Gismo","status_study_log","protocol_type","Protocol type - longitudinal",19
+"118","Gismo","status_study_log","protocol_row_id","Protocol row ID - longitudinal",20
+"119","Gismo","status_study_log","est_fpfv","Estimated first-patient first visit date from GILDA - longitudinal",21
+"120","Gismo","status_study_log","est_lpfv","Estimated last-patient first visit date from GILDA - longitudinal",22
+"121","Gismo","status_study_log","est_lplv","Estimated last-patient last visit date from GILDA - longitudinal",23
+"122","Gismo","status_study_log","protocol_product_number","Protocol product number - longitudinal",24
+"123","Gismo","status_study_log","gsm_analysis_date","Date that snapshot was created - longitudinal",25
+"124","Gismo","status_site_log","studyid","Unique Study ID - longitudinal",1
+"125","Gismo","status_site_log","siteid","Unique Site ID - longitudinal",2
+"126","Gismo","status_site_log","institution","Institution Name - longitudinal",3
+"127","Gismo","status_site_log","status","Site Status - longitudinal",4
+"128","Gismo","status_site_log","enrolled_participants","# of enrolled participants - longitudinal",5
+"129","Gismo","status_site_log","start_date","Site Activation Date - longitudinal",6
+"130","Gismo","status_site_log","city","City - longitudinal",7
+"131","Gismo","status_site_log","state","State - longitudinal",8
+"132","Gismo","status_site_log","country","Country - longitudinal",9
+"133","Gismo","status_site_log","invname","Investigator name - longitudinal",10
+"134","Gismo","status_site_log","protocol_row_id","Protocol row ID - longitudinal",11
+"135","Gismo","status_site_log","site_num","Site number - longitudinal",12
+"136","Gismo","status_site_log","site_row_id","Site row ID - longitudinal",13
+"137","Gismo","status_site_log","pi_number","Principal investigator number - longitudinal",14
+"138","Gismo","status_site_log","pi_last_name","Principal investigator last name - longitudinal",15
+"139","Gismo","status_site_log","pi_first_name","Principal investigator first name - longitudinal",16
+"140","Gismo","status_site_log","is_satellite","Is site a satellite location? - longitudinal",17
+"141","Gismo","status_site_log","gsm_analysis_date","Date that snapshot was created - longitudinal",18
+"142","Gismo","status_workflow_log","studyid","Unique Study ID - longitudinal",1
+"143","Gismo","status_workflow_log","workflowid","Unique Workflow ID - longitudinal",2
+"144","Gismo","status_workflow_log","gsm_version","GSM version of workflow - longitudinal",3
+"145","Gismo","status_workflow_log","active","Is workflow active? - longitudinal",4
+"146","Gismo","status_workflow_log","status","Did workflow run? - longitudinal",5
+"147","Gismo","status_workflow_log","notes","Status notes - longitudinal",6
+"148","Gismo","status_workflow_log","gsm_analysis_date","Date that snapshot was created - longitudinal",7
+"149","Gismo","status_param_log","studyid","Unique Study ID - longitudinal",1
+"150","Gismo","status_param_log","workflowid","Unique Workflow ID - longitudinal",2
+"151","Gismo","status_param_log","gsm_version","GSM version of workflow - longitudinal",3
+"152","Gismo","status_param_log","param","Parameter name - longitudinal",4
+"153","Gismo","status_param_log","index","Index value for parameter - longitudinal",5
+"154","Gismo","status_param_log","value","Value for parameter at index - longitudinal",6
+"155","Gismo","status_param_log","gsm_analysis_date","Date that snapshot was created - longitudinal",7
+"156","Gismo","results_summary_log","studyid","Unique Study ID - longitudinal",1
+"157","Gismo","results_summary_log","workflowid","Unique Workflow ID - longitudinal",2
+"158","Gismo","results_summary_log","groupid","Unique Group ID (e.g. SiteID for KRI workflows) - longitudinal",3
+"159","Gismo","results_summary_log","numerator","Metric numerator - longitudinal",4
+"160","Gismo","results_summary_log","denominator","Metric denominator - longitudinal",5
+"161","Gismo","results_summary_log","metric","Metric value - longitudinal",6
+"162","Gismo","results_summary_log","score","Statistical Score - longitudinal",7
+"163","Gismo","results_summary_log","flag","Flag - longitudinal",8
+"164","Gismo","results_summary_log","gsm_analysis_date","Date that snapshot was created - longitudinal",9
+"165","Gismo","results_analysis_log","studyid","Unique Study ID - longitudinal",1
+"166","Gismo","results_analysis_log","workflowid","Unique Workflow ID - longitudinal",2
+"167","Gismo","results_analysis_log","param","Parameter name - longitudinal",3
+"168","Gismo","results_analysis_log","value","Value for parameter - longitudinal",4
+"169","Gismo","results_analysis_log","gsm_analysis_date","Date that snapshot was created - longitudinal",5
+"170","Gismo","results_bounds_log","studyid","Unique Study ID - longitudinal",1
+"171","Gismo","results_bounds_log","workflowid","Unique Workflow ID - longitudinal",2
+"172","Gismo","results_bounds_log","threshold","Threshold - longitudinal",3
+"173","Gismo","results_bounds_log","numerator","y value - longitudinal",4
+"174","Gismo","results_bounds_log","denominator","x value - longitudinal",5
+"175","Gismo","results_bounds_log","log_denominator","Log X value - longitudinal",6
+"176","Gismo","results_bounds_log","gsm_analysis_date","Date that snapshot was created - longitudinal",7
+"177","Gismo","meta_workflow_log","workflowid","Unique Workflow ID - longitudinal",1
+"178","Gismo","meta_workflow_log","gsm_version","GSM Version of workflow - longitudinal",2
+"179","Gismo","meta_workflow_log","group","Group for workflow - Site, Country, Region or Study - longitudinal",3
+"180","Gismo","meta_workflow_log","abbreviation","Workflow Abbreviation (max 3-letters) - longitudinal",4
+"181","Gismo","meta_workflow_log","metric","Metric Label - longitudinal",5
+"182","Gismo","meta_workflow_log","numerator","Numerator Label - longitudinal",6
+"183","Gismo","meta_workflow_log","denominator","Denominator Label - longitudinal",7
+"184","Gismo","meta_workflow_log","outcome","Metric Outcome Type (e.g. rate) - longitudinal",8
+"185","Gismo","meta_workflow_log","model","Statistical Model used to create score - longitudinal",9
+"186","Gismo","meta_workflow_log","score","Score Label - longitudinal",10
+"187","Gismo","meta_workflow_log","data_inputs","Data inputs for workflow - longitudinal",11
+"188","Gismo","meta_workflow_log","data_filters","Filters applied in workflow - longitudinal",12
+"189","Gismo","meta_workflow_log","gsm_analysis_date","Date that snapshot was created - longitudinal",13
+"190","Gismo","meta_param_log","workflowid","Unique Workflow ID - longitudinal",1
+"191","Gismo","meta_param_log","gsm_version","GSM version of workflow - longitudinal",2
+"192","Gismo","meta_param_log","param","Parameter name - longitudinal",3
+"193","Gismo","meta_param_log","index","Parameter index - longitudinal",4
+"194","Gismo","meta_param_log","default","Default value for parameter at index - longitudinal",5
+"195","Gismo","meta_param_log","configurable","Is parameter configurable? - longitudinal",6
+"196","Gismo","meta_param_log","gsm_analysis_date","Date that snapshot was created - longitudinal",7
+"197","GSM","meta_study","protocol_row_id","Protocol row ID",1
+"198","GSM","meta_study","protocol_number","Protocol number",2
+"199","GSM","meta_study","protocol_title","Protocol title",3
+"200","GSM","meta_study","nickname","Protocol nickname",4
+"201","GSM","meta_study","protocol_type","Protocol type",5
+"202","GSM","meta_study","phase","Phase",6
+"203","GSM","meta_study","num_plan_site","# of planned sites from CTMS",7
+"204","GSM","meta_study","num_site_actl","# of enrolled sites from CTMS",8
+"205","GSM","meta_study","est_fpfv","Estimated first-patient first visit date",9
+"206","GSM","meta_study","act_fpfv","First-patient first visit date",10
+"207","GSM","meta_study","est_lpfv","Estimated last-patient first visit date",11
+"208","GSM","meta_study","act_lpfv","Last-patient first visit date",12
+"209","GSM","meta_study","est_lplv","Estimated last-patient last visit date",13
+"210","GSM","meta_study","act_lplv","Last-patient last visit date",14
+"211","GSM","meta_study","status","Study Status",15
+"212","GSM","meta_study","num_plan_subj","# of planned participants from CTMS",16
+"213","GSM","meta_study","num_enrolled_subj_m","# of enrolled participants from CTMS",17
+"214","GSM","meta_study","protocol_indication","Indication",18
+"215","GSM","meta_study","product","Product",19
+"216","GSM","meta_study","therapeutic_area","Therapeutic Area",20
+"217","GSM","meta_study","protocol_product_number","Protocol product number",21
+"218","GSM","meta_study","x_rbm_flg","Risk-based monitoring flag",22
+"219","GSM","meta_site","protocol_row_id","Protocol row ID",1
+"220","GSM","meta_site","site_num","Unique Site ID",2
+"221","GSM","meta_site","site_row_id","Site row ID",3
+"222","GSM","meta_site","protocol","Unique Study ID",4
+"223","GSM","meta_site","pi_number","Principal investigator number",5
+"224","GSM","meta_site","pi_last_name","Principal investigator last name",6
+"225","GSM","meta_site","pi_first_name","Principal investigator first name",7
+"226","GSM","meta_site","site_status","Site Status",8
+"227","GSM","meta_site","is_satellite","Is site a satellite location?",9
+"228","GSM","meta_site","account","Institution Name",10
+"229","GSM","meta_site","site_active_dt","Site Activation Date",11
+"230","GSM","meta_site","city","City",12
+"231","GSM","meta_site","state","State",13
+"232","GSM","meta_site","country","Country",14
+"233","GSM","config_workflow","studyid","Unique Study ID",1
+"234","GSM","config_workflow","workflowid","Unique Workflow ID",2
+"235","GSM","config_workflow","gsm_version","GSM version of workflow",3
+"236","GSM","config_workflow","active","Is workflow active?",4
+"237","GSM","config_param","studyid","Unique Study ID",1
+"238","GSM","config_param","workflowid","Unique Workflow ID",2
+"239","GSM","config_param","gsm_version","GSM version of workflow",3
+"240","GSM","config_param","param","Parameter name",4
+"241","GSM","config_param","index","Index value for parameter",5
+"242","GSM","config_param","value","Value for parameter at index",6
+"243","GSM","meta_workflow","workflowid","Unique Workflow ID",1
+"244","GSM","meta_workflow","abbreviation","Workflow Abbreviation (max 3-letters)",2
+"245","GSM","meta_workflow","gsm_version","GSM Version of workflow",3
+"246","GSM","meta_workflow","group","Group for workflow - Site, Country, Region or Study",4
+"247","GSM","meta_workflow","metric","Metric Label",5
+"248","GSM","meta_workflow","numerator","Numerator Label",6
+"249","GSM","meta_workflow","denominator","Denominator Label",7
+"250","GSM","meta_workflow","outcome","Metric Outcome Type (e.g. rate)",8
+"251","GSM","meta_workflow","model","Statistical Model used to create score",9
+"252","GSM","meta_workflow","score","Score Label",10
+"253","GSM","meta_workflow","data_inputs","Data inputs for workflow",11
+"254","GSM","meta_workflow","data_filters","Filters applied in workflow",12
+"255","GSM","meta_param","workflowid","Unique Workflow ID",1
+"256","GSM","meta_param","gsm_version","GSM version of workflow",2
+"257","GSM","meta_param","param","Parameter name",3
+"258","GSM","meta_param","index","Parameter index",4
+"259","GSM","meta_param","default","Default value for parameter at index",5
+"260","GSM","meta_param","configurable","Is parameter configurable?",6
