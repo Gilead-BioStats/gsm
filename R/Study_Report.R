@@ -78,7 +78,6 @@ Study_Report <- function(
 
   } else if (is.null(strOutpath) & strReportType == "country") {
     strOutpath <- paste0(getwd(), "/gsm_country_report.html")
-
   } else if (is.null(strOutpath) & strReportType == "QTL") {
     strOutpath <- paste0(getwd(), "/gsm_QTL_report.html")
   }
@@ -105,5 +104,3 @@ Study_Report <- function(
     envir = new.env(parent = globalenv())
   )
 }
-
-
