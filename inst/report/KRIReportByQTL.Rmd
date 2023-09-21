@@ -19,7 +19,6 @@ params:
 library(gsm)
 library(tidyverse)
 library(DT)
-options(digits=2)
 
 # Study_Assess() output - QTL metrics only
 assessment <- params$assessment[
