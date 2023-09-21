@@ -58,6 +58,7 @@ Study_Report <- function(
   # input check
   lAssessments <- if("lStudyAssessResults" %in% names(lSnapshot)){lSnapshot$lStudyAssessResults} else {lSnapshot}
   lStatus <- if("lStatus" %in% names(lSnapshot)){lSnapshot$lStatus} else {NULL}
+  lLongitudinal <- if(exists("lStackedSnapshots", where = lSnapshot)){lSnapshot$lStackedSnapshots} else {NULL}
 
   if (is.null(dfStudy)) {
     dfStudy <- if("status_study" %in% names(lSnapshot$lSnapshot)){lSnapshot$lSnapshot$status_study} else {NULL}
@@ -100,7 +101,8 @@ Study_Report <- function(
       assessment = lAssessments,
       status_study = dfStudy,
       status_site = dfSite,
-      status_snap = lStatus
+      status_snap = lStatus,
+      longitudinal = lLongitudinal
     ),
     envir = new.env(parent = globalenv())
   )

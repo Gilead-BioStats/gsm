@@ -12,6 +12,7 @@ params:
     status_study: NA
     status_site: NA
     status_snap: NA
+    longitudinal: NULL
 ---
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
