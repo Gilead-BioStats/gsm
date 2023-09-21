@@ -91,8 +91,7 @@ Make_Snapshot <- function(
                                    workflowid = NA,
                                    param = NA,
                                    value = NA,
-                                   gsm_analysis_date = NA,
-                                   snapshot_date = NA)
+                                   gsm_analysis_date = NA)
   }
 
   # map ctms data -----------------------------------------------------------
