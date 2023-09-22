@@ -69,6 +69,17 @@ date: "Snapshot Date: {snapshot_date}"
 
 ```
 
+## Timeline
+<details>
+  <summary>Click to expand</summary>
+  
+```{r, echo=FALSE}
+Make_Timeline(params$status_study)
+
+```
+
+</details>
+
 ## Analysis Results
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
