@@ -85,7 +85,11 @@ Make_Snapshot <- function(
   if (length(grep("qtl", names(lResults))) > 0) {
     results_analysis <- MakeResultsAnalysis(lResults)
   } else {
-    results_analysis <- NULL
+    results_analysis <- data.frame(studyid = NA,
+                                   workflowid = NA,
+                                   param = NA,
+                                   value = NA,
+                                   gsm_analysis_date = NA)
   }
 
   # map ctms data -----------------------------------------------------------
