@@ -111,13 +111,11 @@ MakeStudyStatusTable <- function(dfStudy) {
 </label>')
   show_details_button <- HTML(toggle_switch)
 
-
   print(htmltools::h2("Study Status"))
   print(htmltools::tagList(show_details_button))
   print(htmltools::tagList(show_table))
   print(htmltools::tagList(hide_table))
 }
-
 
 #' Create Summary table in KRIReport.Rmd for each KRI
 #' @param lAssessment `list` List of KRI assessments from `params` within `KRIReport.Rmd`.
@@ -257,3 +255,112 @@ MakeKRIGlossary <- function(
       rownames = FALSE
     )
 }
+
+#' Create Study Results table for Report
+#' @param assessment `list` a snapshot list containing the parameters to assess
+#' @param summary_table `data.frame` a summary table created from `MakeSummayTable`
+#' @export
+#' @keywords internal
+MakeResultsTable <- function(assessment, summary_table){
+  for (i in seq_along(assessment)) {
+    kri_key <- names(assessment)[i]
+    kri <- assessment[[ kri_key ]]
+
+    title <- gsm::meta_workflow %>%
+      filter(workflowid == kri_key) %>%
+      pull(metric)
+
+    ### KRI section /
+    print(htmltools::h3(title))
+
+    #### charts tabset /
+    cat("#### Summary Charts {.tabset} \n")
+
+    charts <- assessment[[i]]$lResults$lCharts[
+      names(assessment[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousJS")
+    ]
+
+    for (j in seq_along(charts)) {
+      chart_key <- names(charts)[j]
+      chart <- charts[[ chart_key ]]
+      chart_name <- switch(
+        chart_key,
+        scatterJS = "Scatter Plot",
+        barScoreJS = "Bar Chart (KRI Score)",
+        barMetricJS = "Bar Chart (KRI Metric)",
+        timeSeriesContinuousJS = "Time Series (Continuous)"
+      )
+
+      ##### chart tab /
+      chart_header <- paste('#####', chart_name, '\n')
+
+      cat(chart_header)
+
+      # need to initialize JS dependencies within loop in order to print correctly
+      # see here: https://github.com/rstudio/rmarkdown/issues/1877#issuecomment-678996452
+      purrr::map(
+        charts,
+        ~.x %>%
+          knitr::knit_print() %>%
+          attr('knit_meta') %>%
+          knitr::knit_meta_add() %>%
+          invisible()
+      )
+
+      # Display chart.
+      cat(paste0("<div class =", chart_key, ">"))
+      cat(knitr::knit_print(htmltools::tagList(chart)))
+      cat("</div>")
+      ##### / chart tab
+    }
+
+    cat("#### {-} \n")
+    #### / charts tabset
+
+    #### table /
+    if (!is.null(summary_table[[assessment[[i]]$name]])) {
+      print(htmltools::h4("Summary Table"))
+      print(htmltools::tagList(summary_table[[assessment[[i]]$name]]))
+    }
+    #### / table
+    ### / KRI section
+  }
+}
+
+#' Create Study Results table for Report
+#' @param assessment `list` a snapshot list containing the parameters to assess
+#' @param strType `string` a string defining what report to define: "kri", "cou", or "qtl"
+#' @export
+#' @keywords internal
+AssessStatus <- function(assessment, strType){
+  any_dropped <- map(assessment, function(names){
+    "bActive" %in% names(names)
+  }) %>% unlist(.data) %>% any()
+
+  if(any_dropped){
+    active <- assessment[map_df(assessment, function(status){
+      status[["bActive"]] == TRUE
+    }) %>%
+      pivot_longer(everything()) %>%
+      filter(value) %>%
+      pull(name)]
+
+    dropped <- assessment[map_df(assessment, function(status){
+      status[["bActive"]] == FALSE
+    }) %>%
+      pivot_longer(everything()) %>%
+      filter(value) %>%
+      pull(name)]
+
+    output <- list(active = active[grep(strType, names(active))],
+                   dropped = dropped[grep(strType, names(dropped))])
+
+  } else {
+    output <- assessment[
+      grep(strType, names(assessment))
+    ]
+  }
+  return(output)
+}
+
+

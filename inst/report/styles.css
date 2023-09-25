@@ -199,3 +199,8 @@ div#study_table_hide {
   position: relative;
   top: 2px;
 }
+
+#timeline {
+  display: none;
+}
+
