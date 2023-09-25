@@ -363,4 +363,110 @@ AssessStatus <- function(assessment, strType){
   return(output)
 }
 
+#' Create Study Results table for Report
+#' @param assessment `list` a snapshot list containing the parameters to assess
+#' @param dfSite `data.frame` Site-level metadata containing within `params$status_site` of report
+#' @export
+#' @keywords internal
+MakeReportSetup <- function(assessment, dfSite, strType){
+  type <- if(strType == "cou"){"country"} else if(strType == "kri"){"site"}
+  ## create output list
+  output <- list()
 
+  ## Study_Assess() output - KRIs only
+  input <- AssessStatus(assessment, strType = strType)
+  output$active <- if("active" %in% names(input)) {input$active} else {input}
+  output$dropped <- if("dropped" %in% names(input)) {input$dropped} else {NULL}
+
+  ## Overview Table - HTML object
+  output$overview_table <- Overview_Table(
+    lAssessments = output$active,
+    dfSite =  params$status_site,
+    strReportType = type,
+  )
+
+  ## Overview Table - data.frame/raw data
+  output$overview_raw_table <- Overview_Table(
+    lAssessments = output$active,
+    dfSite =  params$status_site,
+    strReportType = type,
+    bInteractive = FALSE
+  )
+
+  output$red_kris <- output$overview_raw_table %>% pull(`Red KRIs`) %>% sum()
+  output$amber_kris <- output$overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
+
+  ## Generate listing of flagged KRIs.
+  output$summary_table <- MakeSummaryTable(
+    output$active,
+    params$status_site
+  )
+
+  if(!is.null(output$dropped)){
+    output$dropped_summary_table <- MakeSummaryTable(
+      output$dropped,
+      params$status_site
+    )
+  }
+
+  ## StudyID
+  output$study_id <- purrr::map(output$active, function(kri) {
+    if (kri$bStatus) {
+      return(kri$lData$dfInput$StudyID %>% unique())
+    }
+  }) %>%
+    discard(is.null) %>%
+    as.character() %>%
+    unique()
+
+  ## return output
+  return(output)
+}
+
+#' Create message describing study summary for Report
+#' @param report `string` type of report being run
+#' @param study_id `string` a string representing the study id
+#' @param snapshot_date `string` a string representing snapshot date
+#' @param subjects `string` a string or number containing the count of total subjects
+#' @param overview_raw_table `data.frame` raw overview table output with `Overview_Table(bInteractive = FALSE)`
+#' @param red_kris `string` a string or number containing the count of red flags in kri's
+#' @export
+#' @keywords internal
+MakeOverviewMessage <- function(report, study_id, snapshot_date, subjects, overview_raw_table, red_kris){
+  if(report == "site"){
+  cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across
+{length(unique(overview_raw_table$Site))} sites. {red_kris} Site-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites as shown in the Study Overview Table above\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites have at least one red KRI\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0 | .data$`Amber KRIs` != 0) %>% nrow()} sites have at least one red or amber KRI\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` == 0 & .data$`Amber KRIs` == 0) %>% nrow()} sites have neither red nor amber KRIs and are not shown"), sep = "\n")
+  } else if(report == "country"){
+    cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across
+{length(unique(overview_raw_table$Country))} countries. {red_kris} Country-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries as shown in the Study Overview Table above\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries have at least one red KRI\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0 | .data$`Amber KRIs` != 0) %>% nrow()} countries have at least one red or amber KRI\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` == 0 & .data$`Amber KRIs` == 0) %>% nrow()} countries have neither red nor amber KRIs and are not shown"), sep = "\n")
+  }
+}
+
+#' Extrapolate study snapshot date and number of patients in study
+#' @param status_study `df` a dataframe containing status of study pulled from `params$status_study` in report
+#' @export
+#' @keywords internal
+GetSnapshotDate <- function(status_study){
+  output <- list()
+  output$subjects <- status_study[["enrolled_participants_ctms"]]
+  if ("gsm_analysis_date" %in% names(params$status_study))
+    output$snapshot_date <- status_study$gsm_analysis_date
+  else
+    output$snapshot_date <- Sys.Date()
+
+  cat(glue::glue(
+    '\n
+    ---
+    date: "Snapshot Date: {output$snapshot_date}"
+    ---
+    \n
+    '))
+
+  return(output)
+}

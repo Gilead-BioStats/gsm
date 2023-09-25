@@ -20,54 +20,16 @@ library(gsm)
 library(tidyverse)
 library(DT)
 
-# Study_Assess() output - country metrics only
-assessment <- AssessStatus(params$assessment, strType = "cou")
-active <- if("active" %in% names(assessment)) {assessment$active} else {assessment}
-dropped <- if("dropped" %in% names(assessment)) {assessment$dropped} else {NULL}
-
-# Overview Table - HTML object
-overview_table <- Overview_Table(
-  lAssessments = active, 
+setup <- MakeReportSetup(
+  assessment = params$assessment, 
   dfSite = params$status_site,
-  strReportType = "country"
+  strType = "cou"
 )
-
-# Overview Table - data.frame/raw data
-overview_raw_table <- Overview_Table(
-  lAssessments = active, 
-  dfSite = params$status_site,
-  strReportType = "country",
-  bInteractive = FALSE
-)
-
-red_kris <- overview_raw_table %>% pull(`Red KRIs`) %>% sum()
-amber_kris <- overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
-
-# Generate listing of flagged KRIs.
-summary_table <- MakeSummaryTable(
- active
-)
-
-if(!is.null(dropped)){
-  dropped_summary_table <- MakeSummaryTable(
-    dropped
-  )
-}
-
-## StudyID
-study_id <- purrr::map(active, function(kri) {
-    if (kri$bStatus) {
-      return(kri$lData$dfInput$StudyID %>% unique())
-    } 
-  }) %>% 
-    discard(is.null) %>% 
-    as.character() %>% 
-    unique()
 
 ```
 
 ---
-title: "`r study_id` Assessment Overview"
+title: "`r setup$study_id` Assessment Overview"
 ---
 
 <div class = 'overall-country-select'
@@ -80,19 +42,7 @@ title: "`r study_id` Assessment Overview"
 ## metadata report if longitudinal data is provided
 status_study_exists <- exists('status_study', where = params) && !is.null(params$status_study)
 if (status_study_exists) {
-  subjects <- params$status_study[["enrolled_participants_ctms"]]
-  if ("gsm_analysis_date" %in% names(params$status_study))
-    snapshot_date <- params$status_study$gsm_analysis_date
-  else
-    snapshot_date <- Sys.Date()
-
-  glue::glue(
-  '
-  ---
-  date: "Snapshot Date: {snapshot_date}"
-  ---
-  ') 
-
+  date <- GetSnapshotDate(params$status_study)
 }
 ```
 
@@ -104,31 +54,34 @@ Make_Timeline(params$status_study)
 ## Study Overview
 
 <div class="flag-container">
-  <div class="flag flag-red">`r red_kris` Red KRIs</div>
-  <div class="flag flag-amber">`r amber_kris` Amber KRIs</div>
+  <div class="flag flag-red">`r setup$red_kris` Red KRIs</div>
+  <div class="flag flag-amber">`r setup$amber_kris` Amber KRIs</div>
 </div>
 
 
 <div class="gsm-overview-table">
 ```{r echo=FALSE, warning=FALSE}
-overview_table
+setup$overview_table
 ```
 </div>
 
 ```{r, echo=FALSE, results = 'asis', warning=TRUE, eval = status_study_exists}
-cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across 
-{length(unique(overview_raw_table$Country))} countries. {red_kris} Country-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries as shown in the Study Overview Table above\n
-  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries have at least one red KRI\n
-  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0 | .data$`Amber KRIs` != 0) %>% nrow()} countries have at least one red or amber KRI\n
-  - {overview_raw_table %>% filter(.data$`Red KRIs` == 0 & .data$`Amber KRIs` == 0) %>% nrow()} countries have neither red nor amber KRIs and are not shown"), sep = "\n")
+MakeOverviewMessage(
+  report = "country",
+  study_id = setup$study_id,
+  snapshot_date = date$snapshot_date, 
+  subjects = date$subjects, 
+  overview_raw_table = setup$overview_raw_table, 
+  red_kris = setup$red_kris
+)
 ```
 
 ## Results
 
 ```{r, echo=FALSE, results='asis'}
 MakeResultsTable(
-  active,
-  summary_table
+  setup$active,
+  setup$summary_table
 )
 ```
 
@@ -137,7 +90,7 @@ MakeResultsTable(
 
 ```{r echo = FALSE}
 MakeKRIGlossary(
-  strWorkflowIDs = names(active),
+  strWorkflowIDs = names(setup$active),
   lStatus = params$status_snap
 )
 ```
@@ -146,7 +99,7 @@ MakeKRIGlossary(
 ## Error Log
 
 ```{r echo = FALSE}
-error <- Study_AssessmentReport(active)
+error <- Study_AssessmentReport(setup$active)
 
 error_table <- error$dfSummary %>% 
   arrange(desc(notes), assessment) %>% 
@@ -161,12 +114,14 @@ error_table <- error$dfSummary %>%
 DT::datatable(error_table)
 ```
 
-`r if(!is.null(dropped)){"## Inactive KRI's"}`
+`r if(!is.null(setup$dropped)){"## Inactive KRI's"}`
 
-```{r, echo=FALSE, results='asis', eval=!is.null(dropped)}
-MakeResultsTable(dropped,
-                 dropped_summary_table)
-if(length(dropped) == 0){
+```{r, echo=FALSE, results='asis', eval=!is.null(setup$dropped)}
+if(length(setup$dropped) > 0){
+MakeResultsTable(setup$dropped,
+                 setup$dropped_summary_table)
+}
+if(length(setup$dropped) == 0){
   cat("No Inactive KRI's")
 }
 ```
