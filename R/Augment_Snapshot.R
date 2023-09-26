@@ -84,8 +84,7 @@ Augment_Snapshot <- function(
       purrr::set_names(snapshot_date) %>%
       purrr::map_df(., function(snap) {
         snapshot <- read.csv(paste0(snap, "/results_summary.csv")) %>%
-          distinct(.data$workflowid) %>%
-          mutate()
+          distinct(.data$workflowid)
       }, .id = "snapshot_date") %>%
       group_by(.data$workflowid) %>%
       summarise(

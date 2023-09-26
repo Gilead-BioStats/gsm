@@ -12,6 +12,7 @@ params:
     status_study: NULL
     status_site: NULL
     status_snap: NULL
+    longitudinal: NULL
 ---
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
@@ -46,12 +47,34 @@ title: "`r study_id` Assessment Overview"
 
 </div>
 
+```{r, echo=FALSE, results='asis'}
+## metadata report if longitudinal data is provided
+status_study_exists <- exists('status_study', where = params) && !is.null(params$status_study)
+if (status_study_exists) {
+  subjects <- params$status_study[["enrolled_participants_ctms"]]
+  if ("gsm_analysis_date" %in% names(params$status_study))
+    snapshot_date <- params$status_study$gsm_analysis_date
+  else
+    snapshot_date <- Sys.Date()
 
-## Results
+  glue::glue(
+  '
+  ---
+  date: "Snapshot Date: {snapshot_date}"
+  ---
+  ') 
+}
+```
+
+```{r, echo=FALSE, results='asis', eval=status_study_exists}
+MakeStudyStatusTable(params$status_study)
+Make_Timeline(params$status_study)
+```
+
+## Analysis Results
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-#combine qtl lData$lSummary
-purrr::imap_dfr(assessment, function(data, index) {
+results_summary <- purrr::imap_dfr(assessment, function(data, index) {
   data$lResults$lData$dfSummary %>% 
     mutate(
       workflowid = index
@@ -59,6 +82,56 @@ purrr::imap_dfr(assessment, function(data, index) {
     select(
       workflowid, everything()
       )
-}) %>% 
-  DT::datatable()
+})
+
+#combine qtl lData$dfAnalyzed
+results_analysis <- purrr::imap_dfr(assessment, function(data, index) {
+  data$lResults$lData$dfAnalyzed %>% 
+    mutate(
+      workflowid = index
+    ) %>% 
+    select(
+      workflowid, everything()
+      )
+}) %>%
+  left_join(results_summary) %>%
+  select(-GroupID)
+
+results_analysis[sapply(results_analysis, is.numeric)] <- round(results_analysis[sapply(results_analysis, is.numeric)], digits = 2)
+
+DT::datatable(results_analysis)
+
 ```
+
+## History {.tabset}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+history <- params$longitudinal$results_analysis %>% 
+    pivot_wider(names_from = param,
+                values_from = value) %>%
+    left_join(params$longitudinal$results_summary %>%
+                select(workflowid, snapshot_date, flag)) %>%
+    select(-studyid, -gsm_analysis_date) %>%
+    split(., .$workflowid) %>%
+    map(., ~select(., -workflowid))
+
+for (i in names(history)){
+  cat(glue("### {i}",  "\n"))
+  cat("\n")
+  print(kable(history[[i]])) 
+  cat("\n")
+}
+
+
+```
+
+## QTL Glossary
+
+```{r, echo = FALSE}
+MakeKRIGlossary(
+  strWorkflowIDs = names(assessment),
+  lStatus = params$status_snap
+)
+```
+
+
