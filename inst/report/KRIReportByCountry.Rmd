@@ -12,6 +12,7 @@ params:
     status_study: NULL
     status_site: NULL
     status_snap: NULL
+    longitudinal: NULL
 ---
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
@@ -19,48 +20,16 @@ library(gsm)
 library(tidyverse)
 library(DT)
 
-# Study_Assess() output - country metrics only
-assessment <- params$assessment[
-  grep("cou", names(params$assessment))
-]
-
-# Overview Table - HTML object
-overview_table <- Overview_Table(
-  lAssessments = assessment, 
+setup <- MakeReportSetup(
+  assessment = params$assessment, 
   dfSite = params$status_site,
-  strReportType = "country"
+  strType = "cou"
 )
-
-# Overview Table - data.frame/raw data
-overview_raw_table <- Overview_Table(
-  lAssessments = assessment, 
-  dfSite = params$status_site,
-  strReportType = "country",
-  bInteractive = FALSE
-)
-
-red_kris <- overview_raw_table %>% pull(`Red KRIs`) %>% sum()
-amber_kris <- overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
-
-# Generate listing of flagged KRIs.
-summary_table <- MakeSummaryTable(
-  assessment
-)
-
-## StudyID
-study_id <- purrr::map(assessment, function(kri) {
-    if (kri$bStatus) {
-      return(kri$lData$dfInput$StudyID %>% unique())
-    } 
-  }) %>% 
-    discard(is.null) %>% 
-    as.character() %>% 
-    unique()
 
 ```
 
 ---
-title: "`r study_id` Assessment Overview"
+title: "`r setup$study_id` Assessment Overview"
 ---
 
 <div class = 'overall-country-select'
@@ -73,110 +42,47 @@ title: "`r study_id` Assessment Overview"
 ## metadata report if longitudinal data is provided
 status_study_exists <- exists('status_study', where = params) && !is.null(params$status_study)
 if (status_study_exists) {
-  MakeStudyStatusTable(params$status_study)
-  subjects <- params$status_study[["enrolled_participants_ctms"]]
-  if ("gsm_analysis_date" %in% names(params$status_study))
-    snapshot_date <- params$status_study$gsm_analysis_date
-  else
-    snapshot_date <- Sys.Date()
-
-  glue::glue(
-  '
-  ---
-  date: "Snapshot Date: {snapshot_date}"
-  ---
-  ') 
+  date <- GetSnapshotDate(params$status_study)
 }
+```
+
+```{r, echo=FALSE, results='asis', eval=status_study_exists}
+MakeStudyStatusTable(params$status_study)
+Make_Timeline(params$status_study)
 ```
 
 ## Study Overview
 
 <div class="flag-container">
-  <div class="flag flag-red">`r red_kris` Red KRIs</div>
-  <div class="flag flag-amber">`r amber_kris` Amber KRIs</div>
+  <div class="flag flag-red">`r setup$red_kris` Red KRIs</div>
+  <div class="flag flag-amber">`r setup$amber_kris` Amber KRIs</div>
 </div>
 
 
 <div class="gsm-overview-table">
 ```{r echo=FALSE, warning=FALSE}
-overview_table
+setup$overview_table
 ```
 </div>
 
 ```{r, echo=FALSE, results = 'asis', warning=TRUE, eval = status_study_exists}
-cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across 
-{length(unique(overview_raw_table$Country))} countries. {red_kris} Country-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries as shown in the Study Overview Table above\n
-  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries have at least one red KRI\n
-  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0 | .data$`Amber KRIs` != 0) %>% nrow()} countries have at least one red or amber KRI\n
-  - {overview_raw_table %>% filter(.data$`Red KRIs` == 0 & .data$`Amber KRIs` == 0) %>% nrow()} countries have neither red nor amber KRIs and are not shown"), sep = "\n")
+MakeOverviewMessage(
+  report = "country",
+  study_id = setup$study_id,
+  snapshot_date = date$snapshot_date, 
+  subjects = date$subjects, 
+  overview_raw_table = setup$overview_raw_table, 
+  red_kris = setup$red_kris
+)
 ```
 
 ## Results
 
 ```{r, echo=FALSE, results='asis'}
-for (i in seq_along(assessment)) {
-  kri_key <- names(assessment)[i]
-  kri <- assessment[[ kri_key ]]
-
-  title <- gsm::meta_workflow %>% 
-    filter(workflowid == kri_key) %>% 
-    pull(metric)
-
-  ### KRI section /
-    print(htmltools::h3(title))
-
-    #### charts tabset /
-        cat("#### Summary Charts {.tabset} \n")
-        
-        charts <- assessment[[i]]$lResults$lCharts[
-            names(assessment[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousJS")
-        ]
-        
-        for (j in seq_along(charts)) {
-            chart_key <- names(charts)[j]
-            chart <- charts[[ chart_key ]]
-            chart_name <- switch(
-                chart_key,
-                scatterJS = "Scatter Plot",
-                barScoreJS = "Bar Chart (KRI Score)",
-                barMetricJS = "Bar Chart (KRI Metric)",
-                timeSeriesContinuousJS = "Time Series (Continuous)"
-            )
-
-            ##### chart tab /
-                chart_header <- paste('#####', chart_name, '\n')
-
-                cat(chart_header)
-                
-                # need to initialize JS dependencies within loop in order to print correctly
-                # see here: https://github.com/rstudio/rmarkdown/issues/1877#issuecomment-678996452
-                purrr::map(
-                charts,
-                ~.x %>%
-                    knitr::knit_print() %>%
-                    attr('knit_meta') %>%
-                    knitr::knit_meta_add() %>%
-                    invisible()
-                )
-            
-                # Display chart.
-                cat(paste0("<div class =", chart_key, ">"))
-                cat(knitr::knit_print(htmltools::tagList(chart)))
-                cat("</div>")
-            ##### / chart tab
-        }
-        
-        cat("#### {-} \n")
-    #### / charts tabset
-
-    #### table /
-        if (!is.null(summary_table[[assessment[[i]]$name]])) {
-            print(htmltools::h4("Summary Table"))
-            print(htmltools::tagList(summary_table[[assessment[[i]]$name]]))
-        }
-    #### / table
-  ### / KRI section
-}
+MakeResultsTable(
+  setup$active,
+  setup$summary_table
+)
 ```
 
 
@@ -184,8 +90,8 @@ for (i in seq_along(assessment)) {
 
 ```{r echo = FALSE}
 MakeKRIGlossary(
-  strWorkflowIDs = names(assessment),
-  lStatus = params[["status_snap"]]
+  strWorkflowIDs = names(setup$active),
+  lStatus = params$status_snap
 )
 ```
 
@@ -193,21 +99,20 @@ MakeKRIGlossary(
 ## Error Log
 
 ```{r echo = FALSE}
-error <- Study_AssessmentReport(assessment)
-
-error_table <- error$dfSummary %>% 
-  arrange(desc(notes), assessment) %>% 
-  rename(
-    "Assessment" = "assessment",
-    "Step" = "step",
-    "Check" = "check",
-    "Domain" = "domain",
-    "Notes" = "notes"
-  )
-
-DT::datatable(error_table)
+MakeErrorLog(setup$active)
 ```
 
+`r if(!is.null(setup$dropped)){"## Inactive KRI's"}`
+
+```{r, echo=FALSE, results='asis', eval=!is.null(setup$dropped)}
+if(length(setup$dropped) > 0){
+MakeResultsTable(setup$dropped,
+                 setup$dropped_summary_table)
+}
+if(length(setup$dropped) == 0){
+  cat("No Inactive KRI's")
+}
+```
 
 ```{js, file='../utils-0.0.1/overallSiteDropdown.js', echo=FALSE}
 ```

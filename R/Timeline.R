@@ -105,7 +105,9 @@ Make_Timeline <- function(study, n_breaks = 10, date_format = "%b\n%Y") {
       ggiraph::geom_point_interactive(
         aes(
           color = .data$label,
-          shape = .data$estimate
+          shape = .data$estimate,
+          data_id = "timeline"
+
         ),
         size = 3
       ) +
@@ -126,7 +128,7 @@ Make_Timeline <- function(study, n_breaks = 10, date_format = "%b\n%Y") {
       ) +
       empty()
 
-    return(ggiraph::girafe(ggobj = a))
+    return(ggiraph::girafe(ggobj = a, canvas_id = "timeline"))
   } else {
     cli::cli_alert_warning("Could not detect any columns in date format.")
   }
