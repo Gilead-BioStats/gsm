@@ -29,7 +29,7 @@ Widget_TimeSeriesQTL <- function(qtl,
 
   results <- raw_results %>%
     dplyr::filter(.data$workflowid == qtl) %>%
-    mutate(snapshot_date = gsm_analysis_date)# contains the string qtl
+    mutate(snapshot_date = .data$gsm_analysis_date)# contains the string qtl
 
   workflow <- raw_workflow %>%
     dplyr::filter(.data$workflowid == qtl) %>%
@@ -38,7 +38,7 @@ Widget_TimeSeriesQTL <- function(qtl,
   parameters <- raw_param %>%
     dplyr::filter(.data$workflowid == qtl) %>%
     mutate(value = NA,
-           snapshot_date = gsm_analysis_date)
+           snapshot_date = .data$gsm_analysis_date)
 
   analysis <- raw_analysis %>%
     dplyr::filter(.data$workflowid == qtl)
