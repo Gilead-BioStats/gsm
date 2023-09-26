@@ -100,19 +100,7 @@ MakeKRIGlossary(
 ## Error Log
 
 ```{r echo = FALSE}
-error <- Study_AssessmentReport(setup$active)
-
-error_table <- error$dfSummary %>% 
-  arrange(desc(notes), assessment) %>% 
-  rename(
-    "Assessment" = "assessment",
-    "Step" = "step",
-    "Check" = "check",
-    "Domain" = "domain",
-    "Notes" = "notes"
-  )
-
-DT::datatable(error_table)
+MakeErrorLog(setup$active)
 ```
 
 `r if(!is.null(setup$dropped)){"## Inactive KRI's"}`

@@ -381,14 +381,14 @@ MakeReportSetup <- function(assessment, dfSite, strType){
   ## Overview Table - HTML object
   output$overview_table <- Overview_Table(
     lAssessments = output$active,
-    dfSite =  params$status_site,
+    dfSite =  dfSite,
     strReportType = type,
   )
 
   ## Overview Table - data.frame/raw data
   output$overview_raw_table <- Overview_Table(
     lAssessments = output$active,
-    dfSite =  params$status_site,
+    dfSite =  dfSite,
     strReportType = type,
     bInteractive = FALSE
   )
@@ -399,13 +399,13 @@ MakeReportSetup <- function(assessment, dfSite, strType){
   ## Generate listing of flagged KRIs.
   output$summary_table <- MakeSummaryTable(
     output$active,
-    params$status_site
+    dfSite
   )
 
   if(!is.null(output$dropped)){
     output$dropped_summary_table <- MakeSummaryTable(
       output$dropped,
-      params$status_site
+      dfSite
     )
   }
 
@@ -455,7 +455,7 @@ MakeOverviewMessage <- function(report, study_id, snapshot_date, subjects, overv
 GetSnapshotDate <- function(status_study){
   output <- list()
   output$subjects <- status_study[["enrolled_participants_ctms"]]
-  if ("gsm_analysis_date" %in% names(params$status_study))
+  if ("gsm_analysis_date" %in% names(status_study))
     output$snapshot_date <- status_study$gsm_analysis_date
   else
     output$snapshot_date <- Sys.Date()
@@ -470,3 +470,45 @@ GetSnapshotDate <- function(status_study){
 
   return(output)
 }
+
+#' Extrapolate study snapshot date and number of patients in study
+#' @param data `list` a list containing active assessments
+#' @export
+#' @keywords internal
+MakeErrorLog <- function(data){
+  error <- Study_AssessmentReport(data)
+
+  error_table <- error$dfSummary %>%
+    arrange(desc(notes), assessment) %>%
+    rename(
+      "Assessment" = "assessment",
+      "Step" = "step",
+      "Check" = "check",
+      "Domain" = "domain",
+      "Notes" = "notes"
+    )
+
+  return(DT::datatable(error_table))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
