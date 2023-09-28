@@ -21,6 +21,8 @@ HTMLWidgets.widget({
 
         console.log(analysis)
 
+        console.log(analysis)
+
         const instance = rbmViz.default.timeSeries(
             el,
             results,

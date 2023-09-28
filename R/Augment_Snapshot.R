@@ -42,7 +42,7 @@ Augment_Snapshot <- function(
   if (bAppendTimeSeriesCharts) {
     lSnapshot$lStudyAssessResults <- lSnapshot$lStudyAssessResults %>%
       purrr::imap(function(result, workflowid) {
-        this_workflow_id <- workflowid
+        this_workflow_id <- result$name
 
         siteSelectLabelValue <- lSnapshot$lSnapshot$meta_workflow %>%
           filter(.data$workflowid == this_workflow_id) %>%
@@ -50,25 +50,37 @@ Augment_Snapshot <- function(
 
         result$lResults$lData$dfSummaryLongitudinal <- stackedSnapshots$results_summary %>%
           dplyr::filter(
-            .data$workflowid == !!workflowid
+            .data$workflowid == this_workflow_id
           )
 
         workflow <- stackedSnapshots$meta_workflow %>%
           dplyr::filter(
-            .data$workflowid == !!workflowid
+            .data$workflowid == this_workflow_id
           )
 
         parameters <- stackedSnapshots$parameters %>%
           dplyr::filter(
-            .data$workflowid == !!workflowid
+            .data$workflowid == this_workflow_id
           )
 
-        result$lResults$lCharts[["timeSeriesContinuousJS"]] <- Widget_TimeSeries(
-          results = result$lResults$lData$dfSummaryLongitudinal,
-          workflow = workflow,
-          parameters = parameters,
-          siteSelectLabelValue = siteSelectLabelValue
-        )
+        if(!grepl("qtl", result$name)){
+          result$lResults$lCharts[["timeSeriesContinuousJS"]] <- Widget_TimeSeries(
+            results = result$lResults$lData$dfSummaryLongitudinal,
+            workflow = workflow,
+            parameters = parameters,
+            siteSelectLabelValue = siteSelectLabelValue
+          )
+        }
+
+        if(grepl("qtl", result$name)){
+          result$lResults$lCharts[["timeSeriesContinuousJS"]] <- Widget_TimeSeriesQTL(
+            qtl = this_workflow_id,
+            raw_results = stackedSnapshots$results_summary,
+            raw_workflow = stackedSnapshots$meta_workflow,
+            raw_param = stackedSnapshots$meta_param,
+            raw_analysis = stackedSnapshots$results_analysis
+          )
+        }
 
         return(result)
       })

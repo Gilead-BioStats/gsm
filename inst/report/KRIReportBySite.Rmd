@@ -17,7 +17,6 @@ params:
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
-library(tidyverse)
 library(DT)
 
 setup <- MakeReportSetup(
