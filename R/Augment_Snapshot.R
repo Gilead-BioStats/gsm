@@ -71,15 +71,17 @@ Augment_Snapshot <- function(
             siteSelectLabelValue = siteSelectLabelValue
           )
         }
-        result$lResults$lCharts$timeSeriesContinuousJS
+
         if(grepl("qtl", result$name)){
           result$lResults$lCharts[["timeSeriesContinuousJS"]] <- Widget_TimeSeriesQTL(
+            qtl = this_workflow_id,
             raw_results = result$lResults$lData$dfSummaryLongitudinal,
             raw_workflow = workflow,
             raw_param = parameters,
             raw_analysis = result$lResults$lData$dfAnalyzed
           )
         }
+
         return(result)
       })
   }

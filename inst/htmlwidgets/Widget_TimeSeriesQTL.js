@@ -19,6 +19,8 @@ HTMLWidgets.widget({
         parameters = HTMLWidgets.dataframeToD3(x.parameters)
         analysis = HTMLWidgets.dataframeToD3(x.parameters)
 
+        console.log(analysis)
+
         const instance = rbmViz.default.timeSeries(
             el,
             results,
