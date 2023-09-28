@@ -26,6 +26,7 @@ Widget_TimeSeriesQTL <- function(qtl,
   width = NULL,
   height = NULL,
   elementId = NULL) {
+
   results <- raw_results %>%
     dplyr::filter(.data$workflowid == qtl) %>%
     mutate(snapshot_date = .data$gsm_analysis_date) # contains the string qtl

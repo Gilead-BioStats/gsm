@@ -17,7 +17,9 @@ HTMLWidgets.widget({
         workflow.selectedGroupIDs = x.selectedGroupIDs
         workflow.y = 'metric';
         parameters = HTMLWidgets.dataframeToD3(x.parameters)
-        analysis = HTMLWidgets.dataframeToD3(x.parameters)
+        analysis = HTMLWidgets.dataframeToD3(x.analysis)
+
+        console.log(analysis)
 
         console.log(analysis)
 
