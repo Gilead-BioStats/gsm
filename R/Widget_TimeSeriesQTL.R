@@ -27,17 +27,17 @@ Widget_TimeSeriesQTL <- function(qtl,
   height = NULL,
   elementId = NULL) {
   results <- raw_results %>%
-    dplyr::filter(.data$workflowid == qtl) # contains the string qtl
+    dplyr::filter(grepl("qtl", .data$workflowid)) # contains the string qtl
 
   workflow <- raw_workflow %>%
-    dplyr::filter(.data$workflowid == qtl) %>%
+    dplyr::filter(grepl("qtl", .data$workflowid)) %>%
     dplyr::mutate(selectedGroupIDs = selectedGroupIDs)
 
   parameters <- raw_param %>%
-    dplyr::filter(.data$workflowid == qtl)
+    dplyr::filter(grepl("qtl", .data$workflowid))
 
-  analysis <- raw_analysis %>%
-    dplyr::filter(.data$workflowid == qtl)
+  analysis <- raw_analysis #%>%
+  #   dplyr::filter(grepl("qtl", .data$workflowid))
 
   if (is.null(selectedGroupIDs)) {
     selectedGroupIDs <- "None"

@@ -58,7 +58,7 @@ Study_Report <- function(
   # input check
   lAssessments <- if("lStudyAssessResults" %in% names(lSnapshot)){lSnapshot$lStudyAssessResults} else {lSnapshot}
   lStatus <- if("lStatus" %in% names(lSnapshot)){lSnapshot$lStatus} else {NULL}
-  lLongitudinal <- if(exists("lStackedSnapshots", where = lSnapshot)){lSnapshot$lStackedSnapshots} else {NULL}
+  lLongitudinal <- if("lStackedSnapshots" %in% names(lSnapshot)){lSnapshot$lStackedSnapshots} else {NULL}
 
   if (is.null(dfStudy)) {
     dfStudy <- if("status_study" %in% names(lSnapshot$lSnapshot)){lSnapshot$lSnapshot$status_study} else {NULL}
@@ -79,6 +79,7 @@ Study_Report <- function(
 
   } else if (is.null(strOutpath) & strReportType == "country") {
     strOutpath <- paste0(getwd(), "/gsm_country_report.html")
+
   } else if (is.null(strOutpath) & strReportType == "QTL") {
     strOutpath <- paste0(getwd(), "/gsm_QTL_report.html")
   }

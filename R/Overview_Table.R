@@ -31,7 +31,7 @@ Overview_Table <- function(
 ) {
   # input check
   stopifnot(
-    "strReportType is not 'site' or 'country'" = strReportType %in% c("site", "country"),
+    "strReportType is not 'site', 'country', or 'QTL'" = strReportType %in% c("site", "country", "QTL"),
     "strReportType must be length 1" = length(strReportType) == 1
   )
 
@@ -46,8 +46,13 @@ Overview_Table <- function(
     grep_value <- "cou"
     table_dropdown_label <- NULL
   }
-  active <- names(lAssessments[!sapply(lAssessments, is.data.frame)])
-  study <- lAssessments[grep(grep_value, active)]
+
+  if (strReportType == "QTL") {
+    grep_value <- "qtl"
+    table_dropdown_label <- NULL
+  }
+
+  study <- lAssessments[grep(grep_value, names(lAssessments))]
 
   # only keep KRIs that were successfully run
   study <- keep(study, function(x) x$bStatus == TRUE)
@@ -183,7 +188,7 @@ Overview_Table <- function(
               return(NA)
             }
           })
-      } else {
+      } else if (strReportType == "country") {
         dfCountry <- Country_Map_Raw(dfSite)
 
         overview_table[["Subjects"]] <- overview_table$Site %>%
@@ -196,6 +201,8 @@ Overview_Table <- function(
               return(NA)
             }
           })
+      } else if (strReportType == "QTL") {
+        overview_table[["Subjects"]] <- sum(dfSite$enrolled_participants)
       }
 
       overview_table <- relocate(
@@ -348,6 +355,11 @@ Overview_Table <- function(
       overview_table <- overview_table %>%
         rename("Country" = "Site")
     }
+
+    if (strReportType == "QTL") {
+      overview_table <- overview_table %>%
+        rename("Study" = "Site")
+    }
   }
 
   return(overview_table)
@@ -428,11 +440,11 @@ make_reference_table <- function(study) {
     rowwise() %>%
     mutate("Red KRIs" = {
       x <- c_across(-"GroupID")
-      sum(x %in% c(2, -2))
+      sum(grepl("*Flag: 2|*Flag: -2", x))
     }) %>%
     mutate("Amber KRIs" = {
       x <- c_across(-c("GroupID", "Red KRIs"))
-      sum(x %in% c(1, -1))
+      sum(grepl("*Flag: 1|*Flag: -1", x))
     }) %>%
     ungroup() %>%
     mutate(

@@ -17,7 +17,6 @@ params:
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
-library(tidyverse)
 library(DT)
 
 # Study_Assess() output - QTL metrics only
@@ -103,12 +102,19 @@ DT::datatable(results_analysis)
 
 ```
 
-## History {.tabset}
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r echo=FALSE, results='asis'}
+summary_table <- MakeSummaryTable(assessment, dfSite = params$status_site)
+MakeResultsTable(assessment, summary_table)
+```
+
+
+`r if(!is.null(params$longitudinal)){"## History {.tabset}"}`
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis', eval=!is.null(params$longitudinal)}
 history <- params$longitudinal$results_analysis %>% 
-    pivot_wider(names_from = param,
-                values_from = value) %>%
+    tidyr::pivot_wider(names_from = param,
+                       values_from = value) %>%
     left_join(params$longitudinal$results_summary %>%
                 select(workflowid, snapshot_date, flag)) %>%
     select(-studyid, -gsm_analysis_date) %>%
