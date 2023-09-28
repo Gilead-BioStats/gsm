@@ -75,10 +75,10 @@ Augment_Snapshot <- function(
         if(grepl("qtl", result$name)){
           result$lResults$lCharts[["timeSeriesContinuousJS"]] <- Widget_TimeSeriesQTL(
             qtl = this_workflow_id,
-            raw_results = result$lResults$lData$dfSummaryLongitudinal,
-            raw_workflow = workflow,
-            raw_param = parameters,
-            raw_analysis = result$lResults$lData$dfAnalyzed
+            raw_results = stackedSnapshots$results_summary,
+            raw_workflow = stackedSnapshots$meta_workflow,
+            raw_param = stackedSnapshots$meta_param,
+            raw_analysis = stackedSnapshots$results_analysis
           )
         }
 
