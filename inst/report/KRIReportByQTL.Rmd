@@ -20,60 +20,36 @@ library(gsm)
 library(DT)
 
 # Study_Assess() output - QTL metrics only
-assessment <- params$assessment[
-  grep("qtl", names(params$assessment), ignore.case = TRUE)]
+setup <- MakeReportSetup(
+  assessment = params$assessment, 
+  dfSite = params$status_site,
+  strType = "qtl"
+)
 
-
-## StudyID
-study_id <- purrr::map(assessment, function(kri) {
-    if (kri$bStatus) {
-      return(kri$lData$dfInput$StudyID %>% unique())
-    } 
-  }) %>% 
-    discard(is.null) %>% 
-    as.character() %>% 
-    unique()
 
 ```
 
 ---
-title: "`r study_id` Assessment Overview"
+title: "`r setup$study_id` Assessment Overview"
 ---
-
-<div class = 'overall-country-select'
-    id = 'overall-country-select'
-    title = 'Selected country will be highlighted in all charts for all KRIs.'>
-
-</div>
 
 ```{r, echo=FALSE, results='asis'}
 ## metadata report if longitudinal data is provided
 status_study_exists <- exists('status_study', where = params) && !is.null(params$status_study)
 if (status_study_exists) {
-  subjects <- params$status_study[["enrolled_participants_ctms"]]
-  if ("gsm_analysis_date" %in% names(params$status_study))
-    snapshot_date <- params$status_study$gsm_analysis_date
-  else
-    snapshot_date <- Sys.Date()
-
-  glue::glue(
-  '
-  ---
-  date: "Snapshot Date: {snapshot_date}"
-  ---
-  ') 
+  date <- GetSnapshotDate(params$status_study)
 }
 ```
 
-```{r, echo=FALSE, results='asis', eval=status_study_exists}
-MakeStudyStatusTable(params$status_study)
-Make_Timeline(params$status_study)
+```{r, echo=FALSE, results='asis', eval=status_study_exists, fig.height=2}
+MakeStudyStatusTable(dfStudy = params$status_study, longitudinal = params$longitudinal)
+Make_Timeline(params$longitudinal, params$status_study)
 ```
 
 ## Analysis Results
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-results_summary <- purrr::imap_dfr(assessment, function(data, index) {
+results_summary <- purrr::imap_dfr(setup$active, function(data, index) {
   data$lResults$lData$dfSummary %>% 
     mutate(
       workflowid = index
@@ -84,7 +60,7 @@ results_summary <- purrr::imap_dfr(assessment, function(data, index) {
 })
 
 #combine qtl lData$dfAnalyzed
-results_analysis <- purrr::imap_dfr(assessment, function(data, index) {
+results_analysis <- purrr::imap_dfr(setup$active, function(data, index) {
   data$lResults$lData$dfAnalyzed %>% 
     mutate(
       workflowid = index
@@ -104,8 +80,8 @@ DT::datatable(results_analysis)
 
 
 ```{r echo=FALSE, results='asis', eval=!is.null(params$longitudinal)}
-summary_table <- MakeSummaryTable(assessment, dfSite = params$status_site)
-MakeResultsTable(assessment, summary_table)
+summary_table <- MakeSummaryTable(setup$active, dfSite = params$status_site)
+MakeResultsTable(setup$active, summary_table)
 ```
 
 
@@ -135,7 +111,7 @@ for (i in names(history)){
 
 ```{r, echo = FALSE}
 MakeKRIGlossary(
-  strWorkflowIDs = names(assessment),
+  strWorkflowIDs = names(setup$active),
   lStatus = params$status_snap
 )
 ```
