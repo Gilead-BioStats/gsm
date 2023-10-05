@@ -19,7 +19,7 @@
 #'
 #' @export
 
-Make_Timeline <- function(longitudinal = NULL, status_study, n_breaks = 10, date_format = "%b\n%Y", bInteractive = FALSE) {
+Make_Timeline <- function(longitudinal = NULL, status_study, n_breaks = 10, date_format = "%b\n%Y", bInteractive = TRUE) {
   history <- length(longitudinal) > 0
 
   if(history) {
@@ -113,15 +113,21 @@ Make_Timeline <- function(longitudinal = NULL, status_study, n_breaks = 10, date
         arrowhead_height = unit(15, "mm"),
         arrow_body_height = unit(ifelse(grepl("\n", date_format), 10, 7), "mm")
       ) +
+      {if(bInteractive)
       ggiraph::geom_point_interactive(
         aes(
           color = .data$label,
           shape = .data$estimate,
-          data_id = "timeline"
-
+          data_id = .data$date,
+          tooltip = paste0(.data$label, "\n", .data$date)
         ),
         size = 2
-      ) +
+      ) else
+        geom_point(
+          aes(
+            color = .data$label,
+            shape = .data$estimate
+            ))} +
       scale_shape_manual(values = c(19, 1), labels = c("Actual", "Estimated")) +
       annotate(geom = "text", x = breaks, y = 0, label = format(breaks, format = date_format), size = 3, fontface = 2) +
       expand_limits(y = c(5, -25)) +
