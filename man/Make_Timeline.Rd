@@ -4,14 +4,24 @@
 \alias{Make_Timeline}
 \title{lifecycle::badge("stable")}
 \usage{
-Make_Timeline(study, n_breaks = 10, date_format = "\%b\\n\%Y")
+Make_Timeline(
+  longitudinal = NULL,
+  status_study,
+  n_breaks = 10,
+  date_format = "\%b\\n\%Y",
+  bInteractive = TRUE
+)
 }
 \arguments{
-\item{study}{the table containing study data of interest}
+\item{longitudinal}{optional argument for supplying longitudinal snapshot information}
+
+\item{status_study}{the table containing study data of interest}
 
 \item{n_breaks}{the number of breaks to include in the x-axis. NOTE pretty breaks are used to assign break locations and may give more or less that the number of breaks specified.}
 
 \item{date_format}{The format to apply to the x-axis labels}
+
+\item{bInteractive}{logical argument to make plot interactive or not.}
 }
 \value{
 \code{plot} interactive timeline plot.

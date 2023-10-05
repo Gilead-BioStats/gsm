@@ -1,5 +1,6 @@
 #' Create Status Study table in KRIReport.Rmd
 #' @param dfStudy `data.frame` from `params` within `KRIReport.Rmd`
+#' @param longitudinal `data.frame` optional argument for longitudinal study information
 #' @export
 #' @keywords internal
 MakeStudyStatusTable <- function(dfStudy, longitudinal = NULL) {

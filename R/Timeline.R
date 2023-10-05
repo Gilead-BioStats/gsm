@@ -2,9 +2,11 @@
 #'
 #' Create interactive timeline for study data
 #'
+#' @param longitudinal optional argument for supplying longitudinal snapshot information
 #' @param status_study the table containing study data of interest
 #' @param n_breaks the number of breaks to include in the x-axis. NOTE pretty breaks are used to assign break locations and may give more or less that the number of breaks specified.
 #' @param date_format The format to apply to the x-axis labels
+#' @param bInteractive logical argument to make plot interactive or not.
 #'
 #' @return `plot` interactive timeline plot.
 #'
