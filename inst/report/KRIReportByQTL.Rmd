@@ -8,7 +8,7 @@ output:
        smooth_scroll: true
     css: styles.css
 params:
-    assessment: NA
+    assessment: NULL
     status_study: NULL
     status_site: NULL
     status_snap: NULL
@@ -26,12 +26,12 @@ setup <- MakeReportSetup(
   strType = "qtl"
 )
 
-
 ```
 
 ---
 title: "`r setup$study_id` Assessment Overview"
 ---
+
 
 ```{r, echo=FALSE, results='asis'}
 ## metadata report if longitudinal data is provided
@@ -39,11 +39,13 @@ status_study_exists <- exists('status_study', where = params) && !is.null(params
 if (status_study_exists) {
   date <- GetSnapshotDate(params$status_study)
 }
+
 ```
+
 
 ```{r, echo=FALSE, results='asis', eval=status_study_exists, fig.height=2}
 MakeStudyStatusTable(dfStudy = params$status_study, longitudinal = params$longitudinal)
-Make_Timeline(params$longitudinal, params$status_study)
+Make_Timeline(longitudinal = params$longitudinal, status_study = params$status_study)
 ```
 
 ## Analysis Results
@@ -117,3 +119,5 @@ MakeKRIGlossary(
 ```
 
 
+```{js, file='../utils-0.0.1/showMetaTableDetails.js', echo=FALSE}
+```
