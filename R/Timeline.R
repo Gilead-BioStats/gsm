@@ -11,7 +11,7 @@
 #' @return `plot` interactive timeline plot.
 #'
 #' @examples
-#' Make_Timeline(clindata::ctms_study)
+#' Make_Timeline(status_study = clindata::ctms_study)
 #'
 #' @import ggplot2
 #' @import dplyr
@@ -21,7 +21,7 @@
 #'
 #' @export
 
-Make_Timeline <- function(longitudinal = NULL, status_study, n_breaks = 10, date_format = "%b\n%Y", bInteractive = TRUE) {
+Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date_format = "%b\n%Y", bInteractive = TRUE) {
   history <- length(longitudinal) > 0
 
   if(history) {

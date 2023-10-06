@@ -30,6 +30,6 @@ Make_Timeline(
 Create interactive timeline for study data
 }
 \examples{
-Make_Timeline(clindata::ctms_study)
+Make_Timeline(status_study = clindata::ctms_study)
 
 }
