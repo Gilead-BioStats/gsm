@@ -108,8 +108,10 @@ jobs:
           git config --local user.name "GitHub Actions"
           git fetch
           git checkout origin/temp-report -- StandardReportCountry.html
+          git checkout origin/temp-report -- StandardReportSite.html
           git checkout gh-pages
           git add StandardReportCountry.html
+          git add StandardReportSite.html
           git commit -m "Add HTML"
           git push origin gh-pages
           git push origin --delete temp-report
