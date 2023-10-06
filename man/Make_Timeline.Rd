@@ -5,17 +5,17 @@
 \title{lifecycle::badge("stable")}
 \usage{
 Make_Timeline(
-  longitudinal = NULL,
   status_study,
+  longitudinal = NULL,
   n_breaks = 10,
   date_format = "\%b\\n\%Y",
   bInteractive = TRUE
 )
 }
 \arguments{
-\item{longitudinal}{optional argument for supplying longitudinal snapshot information}
-
 \item{status_study}{the table containing study data of interest}
+
+\item{longitudinal}{optional argument for supplying longitudinal snapshot information}
 
 \item{n_breaks}{the number of breaks to include in the x-axis. NOTE pretty breaks are used to assign break locations and may give more or less that the number of breaks specified.}
 
