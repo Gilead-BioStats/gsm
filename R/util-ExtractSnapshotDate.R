@@ -23,7 +23,7 @@ ExtractSnapshotDate <- function(snapshot_paths){
 
   output <- purrr::map(snapshot_paths, ~paste0(., "/", acceptable_files)) %>%
     purrr::set_names(stringr::str_extract(snapshot_paths, "([^/]+$)")) %>%
-    map(., ~read.csv(.[file.exists(.)][1], , nrows=1) %>%
+    map(., ~read.csv(.[file.exists(.)][1], nrows=1) %>%
           pull(gsm_analysis_date)) %>%
     tibble::as_tibble() %>%
     t() %>%
