@@ -4,10 +4,7 @@
 #'
 #' @return `data.frame` a data.frame containing the foldername and the associated snapshot date.
 #'
-#' @import dplyr
-#' @importFrom purrr map, set_names
-#' @importFrom stringr str_extract
-#' @importFrom tibble set_names, rownames_to_column
+#' @importFrom tibble rownames_to_column
 #'
 #' @export
 ExtractSnapshotDate <- function(snapshot_paths){
