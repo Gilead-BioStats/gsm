@@ -48,7 +48,7 @@ lAssessments <- MakeWorkflowList()
 
 snapshot <- Make_Snapshot(lData = lData)
 
-cPath <- system.file("snapshots", "AA-AA-000-0000", package = "gsm")
+cPath <- system.file("data-longitudinal", "AA-AA-000-0000", package = "clindata")
 
 expected_data <- c(
   "meta_param", "meta_workflow", "results_analysis", "results_summary",

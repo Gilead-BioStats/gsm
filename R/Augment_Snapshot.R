@@ -14,7 +14,7 @@
 #' @examples
 #' \dontrun{
 #' # Path to study
-#' study_path <- system.file("snapshots", "AA-AA-000-0000", package = "gsm")
+#' study_path <- system.file("data-longitudinal", "AA-AA-000-0000", package = "clindata")
 #'
 #' # Output current snapshot to dated folder within study folder.
 #' # snapshot_path <- paste(study_path, Sys.Date(), sep = '/'); dir.create(snapshot_path)
