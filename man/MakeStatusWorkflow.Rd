@@ -2,7 +2,7 @@
 % Please edit documentation in R/MakeStatusWorkflow.R
 \name{MakeStatusWorkflow}
 \alias{MakeStatusWorkflow}
-\title{Make \code{status_workflow}}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 MakeStatusWorkflow(lResults, dfConfigWorkflow)
 }

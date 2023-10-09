@@ -5,7 +5,7 @@
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Study_Report(
-  lAssessments,
+  lSnapshot,
   dfStudy = NULL,
   dfSite = NULL,
   strOutpath = NULL,
@@ -13,7 +13,7 @@ Study_Report(
 )
 }
 \arguments{
-\item{lAssessments}{\code{list} The results of multiple assessments run using \code{Study_Assess}.}
+\item{lSnapshot}{\code{list} The results of multiple assessments run using \code{Study_Assess}, \code{Make_Snapshot}, or \code{Augment_Snapshot}.}
 
 \item{dfStudy}{\code{data.frame} A data.frame containing study status metadata. Typically output from \code{Make_Snapshot()$lSnapshot$status_study}}
 
@@ -23,8 +23,9 @@ Study_Report(
 
 \item{strReportType}{\code{character} The type of report to be generated. Valid values:
 \itemize{
-\item \code{"site"} for site-level KRI summary (default)
-\item \code{"country"} for country-level KRI summary
+\item \code{"site"} for site-level KRI summary (default). The site-level report is stable and is under active development.
+\item \code{"country"} for country-level KRI summary. The country-level report is stable and is under active development.
+\item \code{"QTL"} for QTL summary. The QTL report is in early draft mode and is under active development.
 }}
 }
 \value{
@@ -46,7 +47,7 @@ Study_Report(study, strReportType = "country")
 # Adding metadata for a single snapshot
 one_snapshot <- Make_Snapshot()
 Study_Report(
-  lAssessments = one_snapshot$lStudyAssessResults,
+  lSnapshot = one_snapshot,
   dfStudy = one_snapshot$lSnapshot$status_study
 )
 
@@ -59,7 +60,7 @@ longitudinal <- Augment_Snapshot(
 )
 
 Study_Report(
-  lAssessments = longitudinal$lStudyAssessResults,
+  lSnapshot = longitudinal,
   dfStudy = longitudinal$lSnapshot$status_study
 )
 }

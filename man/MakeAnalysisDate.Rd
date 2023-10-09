@@ -2,7 +2,7 @@
 % Please edit documentation in R/MakeAnalysisDate.R
 \name{MakeAnalysisDate}
 \alias{MakeAnalysisDate}
-\title{Make Analysis Date}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 MakeAnalysisDate(strAnalysisDate = NULL, bQuiet = FALSE)
 }

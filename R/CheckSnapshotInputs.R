@@ -54,10 +54,6 @@ CheckSnapshotInputs <- function(snapshot) {
     hasQTL <- FALSE
   }
 
-  if (!hasQTL) {
-    gismo_input$results_analysis <- NULL
-  }
-
   # expected tables for gismo input
   expected_gismo <- tibble(tables = sort(names(gismo_input)))
 
@@ -103,8 +99,6 @@ CheckSnapshotInputs <- function(snapshot) {
 
   columns_status <- all(expected_columns$status)
   # return ------------------------------------------------------------------
-
-
   all_checks <- list(
     expected_tables = expected_tables,
     expected_columns = expected_columns,

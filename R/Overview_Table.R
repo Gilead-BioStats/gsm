@@ -24,14 +24,14 @@
 #'
 #' @export
 Overview_Table <- function(
-  lAssessments = Study_Assess(),
-  dfSite = Site_Map_Raw(),
-  strReportType = "site",
-  bInteractive = TRUE
+    lAssessments = Study_Assess(),
+    dfSite = Site_Map_Raw(),
+    strReportType = "site",
+    bInteractive = TRUE
 ) {
   # input check
   stopifnot(
-    "strReportType is not 'site' or 'country'" = strReportType %in% c("site", "country"),
+    "strReportType is not 'site', 'country', or 'QTL'" = strReportType %in% c("site", "country", "QTL", "qtl"),
     "strReportType must be length 1" = length(strReportType) == 1
   )
 
@@ -39,19 +39,23 @@ Overview_Table <- function(
   # filter based on report type ---------------------------------------------
   if (strReportType == "site") {
     grep_value <- "kri"
-    table_dropdown_label <- "Sites"
+    table_dropdown_label <- "Flags"
   }
 
   if (strReportType == "country") {
     grep_value <- "cou"
-    table_dropdown_label <- "Countries"
+    table_dropdown_label <- NULL
+  }
+
+  if (strReportType %in% c("QTL", "qtl")) {
+    grep_value <- "qtl"
+    table_dropdown_label <- NULL
   }
 
   study <- lAssessments[grep(grep_value, names(lAssessments))]
 
   # only keep KRIs that were successfully run
   study <- keep(study, function(x) x$bStatus == TRUE)
-
 
   # create reference table --------------------------------------------------
   reference_table <- make_reference_table(study)
@@ -64,8 +68,13 @@ Overview_Table <- function(
   # add `Active` column
   if (!is.null(dfSite)) {
     overview_table <- overview_table %>%
+      mutate(
+        Site = as.character(.data$Site)
+      ) %>%
       left_join(
-        dfSite %>% select("site_num", "Country" = "country", "Status" = "status"),
+        dfSite %>%
+          mutate(site_num = as.character(.data[[Read_Mapping()$dfSITE$strSiteCol]])) %>%
+          select("site_num", "Country" = "country", "Status" = "status"),
         by = c("Site" = "site_num")
       ) %>%
       select(
@@ -171,7 +180,6 @@ Overview_Table <- function(
       if (strReportType == "site") {
         overview_table[["Subjects"]] <- overview_table$Site %>%
           map_int(~ {
-
             if (.x %in% dfSite$siteid) {
               dfSite %>%
                 filter(.data$siteid == .x) %>%
@@ -179,21 +187,22 @@ Overview_Table <- function(
             } else {
               return(NA)
             }
-
-
-      })} else {
+          })
+      } else if (strReportType == "country") {
         dfCountry <- Country_Map_Raw(dfSite)
 
         overview_table[["Subjects"]] <- overview_table$Site %>%
           map_int(~ {
             if (.x %in% dfCountry$country) {
-            dfCountry %>%
-            filter(.data$country == .x) %>%
-            pull(.data$enrolled_participants)
+              dfCountry %>%
+                filter(.data$country == .x) %>%
+                pull(.data$enrolled_participants)
             } else {
               return(NA)
             }
-        })
+          })
+      } else if (strReportType %in% c("QTL", "qtl")) {
+        overview_table[["Subjects"]] <- sum(dfSite$enrolled_participants, na.rm = TRUE)
       }
 
       overview_table <- relocate(
@@ -219,7 +228,7 @@ Overview_Table <- function(
       }
     }
     ",
-      .open = "{{"
+    .open = "{{"
     )
 
     # Enable tooltips for cells
@@ -300,7 +309,7 @@ Overview_Table <- function(
 
     # let's just show all countries in the drop-down for now
     # countries will probably have less flagged KRIs and are easier to sort/read through
-    if (strReportType == "country") {
+    if (strReportType %in% c("country", "qtl", "QTL")) {
       lengthMenuOptions <- NULL
     } else {
       lengthMenuOptions <- list(
@@ -319,7 +328,8 @@ Overview_Table <- function(
         caption = HTML(overview_table_flagged_caption),
         options = list(
           language = list(
-            lengthMenu = paste0("Showing _MENU_ ", table_dropdown_label)
+            lengthMenu = paste0(if(strReportType == "site"){"Sites Containing _MENU_ "}
+                                else if(strReportType == "country"){"View _MENU_  Countries"}, table_dropdown_label)
           ),
           columnDefs = list(
             list(
@@ -344,6 +354,11 @@ Overview_Table <- function(
     if (strReportType == "country") {
       overview_table <- overview_table %>%
         rename("Country" = "Site")
+    }
+
+    if (strReportType == "QTL") {
+      overview_table <- overview_table %>%
+        rename("Study" = "Site")
     }
   }
 
@@ -390,7 +405,6 @@ drop_column_with_several_na <- function(table, column) {
   return(table)
 }
 
-
 make_reference_table <- function(study) {
   reference_table <- study %>%
     purrr::map(function(kri) {
@@ -426,11 +440,11 @@ make_reference_table <- function(study) {
     rowwise() %>%
     mutate("Red KRIs" = {
       x <- c_across(-"GroupID")
-      sum(x %in% c(2, -2))
+      sum(grepl("*Flag: 2|*Flag: -2", x), na.rm = TRUE)
     }) %>%
     mutate("Amber KRIs" = {
       x <- c_across(-c("GroupID", "Red KRIs"))
-      sum(x %in% c(1, -1))
+      sum(grepl("*Flag: 1|*Flag: -1", x), na.rm = TRUE)
     }) %>%
     ungroup() %>%
     mutate(

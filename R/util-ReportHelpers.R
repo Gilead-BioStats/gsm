@@ -1,8 +1,9 @@
 #' Create Status Study table in KRIReport.Rmd
 #' @param dfStudy `data.frame` from `params` within `KRIReport.Rmd`
+#' @param longitudinal `data.frame` optional argument for longitudinal study information
 #' @export
 #' @keywords internal
-MakeStudyStatusTable <- function(dfStudy) {
+MakeStudyStatusTable <- function(dfStudy, longitudinal = NULL) {
   # -- this vector is used to define a custom sort order for the
   #    Study Status Table in KRIReport.Rmd
   parameterArrangeOrder <- c(
@@ -28,7 +29,9 @@ MakeStudyStatusTable <- function(dfStudy) {
     "Last-patient first visit date",
     "Estimated last-patient first visit date from GILDA",
     "Last-patient last visit date",
-    "Estimated last-patient last visit date from GILDA"
+    "Estimated last-patient last visit date from GILDA",
+    "Average snapshot interval",
+    "Median snapshot interval"
   )
 
   # -- if a longitudinal snapshot is provided, select the most recent row
@@ -57,9 +60,17 @@ MakeStudyStatusTable <- function(dfStudy) {
   #    these values were being formatted with a lot of trailing zeroes, so they are rounded here before pasting as a character vector
   sites <- paste0(round(as.numeric(dfStudy$enrolled_sites)), " / ", round(as.numeric(dfStudy$planned_sites)))
   participants <- paste0(round(as.numeric(dfStudy$enrolled_participants)), " / ", round(as.numeric(dfStudy$planned_participants)))
+  if(!is.null(longitudinal)) {
+    snap_stats <- longitudinal$status_study %>%
+      reframe(
+        "Average snapshot interval" = mean(difftime(snapshot_date, lag(snapshot_date)), na.rm = TRUE),
+        "Median snapshot interval" = median(difftime(snapshot_date, lag(snapshot_date)), na.rm = TRUE)
+      )
+  }
 
 
   study_status_table <- dfStudy %>%
+    {if(!is.null(longitudinal)) cbind(., snap_stats) else .} %>%
     t() %>%
     as.data.frame() %>%
     tibble::rownames_to_column() %>%
@@ -77,6 +88,7 @@ MakeStudyStatusTable <- function(dfStudy) {
       paramDescription,
       by = join_by("Parameter")
     ) %>%
+    mutate(Description = ifelse(is.na(.data$Description), Parameter, Description)) %>%
     select(
       "Parameter" = "Description",
       "Value"
@@ -111,13 +123,11 @@ MakeStudyStatusTable <- function(dfStudy) {
 </label>')
   show_details_button <- HTML(toggle_switch)
 
-
   print(htmltools::h2("Study Status"))
   print(htmltools::tagList(show_details_button))
   print(htmltools::tagList(show_table))
   print(htmltools::tagList(hide_table))
 }
-
 
 #' Create Summary table in KRIReport.Rmd for each KRI
 #' @param lAssessment `list` List of KRI assessments from `params` within `KRIReport.Rmd`.
@@ -125,7 +135,8 @@ MakeStudyStatusTable <- function(dfStudy) {
 #' @export
 #' @keywords internal
 MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
-  map(lAssessment, function(kri) {
+  active <- lAssessment[!sapply(lAssessment, is.data.frame)]
+  map(active, function(kri) {
     if (kri$bStatus) {
       dfSummary <- kri$lResults$lData$dfSummary
 
@@ -196,15 +207,26 @@ add_table_theme <- function(x) {
 
 #' Create KRI metadata table in KRIReport.Rmd
 #' @param dfMetaWorkflow `data.frame` Workflow metadata from `params` within `KRIReport.Rmd`
+#' @param strWorkflowIDs `string` a string of KRI names to display in output
+#' @param lStatus `data.frame` the KRI status output using `Augment_Snapshot`
 #' @export
 #' @keywords internal
 MakeKRIGlossary <- function(
+  dfMetaWorkflow = gsm::meta_workflow,
   strWorkflowIDs = NULL,
-  dfMetaWorkflow = gsm::meta_workflow
+  lStatus = NULL
 ) {
+  if (length(lStatus) != 0) {
+    strDroppedWorkflowIDs <- lStatus %>%
+      filter(!.data$`Currently Active`) %>%
+      pull(.data$`Workflow ID`)
+    combo_strWorkflowIDs <- c(strWorkflowIDs, strDroppedWorkflowIDs)
+  } else {
+    combo_strWorkflowIDs <- strWorkflowIDs
+  }
   workflows <- dfMetaWorkflow %>%
     filter(
-      .data$workflowid %in% strWorkflowIDs
+      .data$workflowid %in% combo_strWorkflowIDs
     ) %>%
     rename_with(~
       .x %>%
@@ -212,7 +234,26 @@ MakeKRIGlossary <- function(
         gsub("(^.| .)", "\\U\\1", ., perl = TRUE) %>%
         gsub("(gsm|id)", "\\U\\1", ., ignore.case = TRUE, perl = TRUE))
 
+
   workflows %>%
+    {
+      if (length(lStatus) != 0) {
+        left_join(., lStatus %>%
+          select(.data$`Workflow ID`, .data$`Latest Snapshot`),
+        by = "Workflow ID"
+        ) %>%
+          mutate(
+            Status = case_when(
+              .data$`Workflow ID` %in% strWorkflowIDs ~ "Active",
+              .data$`Workflow ID` %in% strDroppedWorkflowIDs ~ paste0("Deactivated\n", .data$`Latest Snapshot`)
+            ),
+            .before = .data[["GSM Version"]]
+          ) %>%
+          select(-.data$`Latest Snapshot`)
+      } else {
+        .
+      }
+    } %>%
     DT::datatable(
       class = "compact",
       options = list(
@@ -226,3 +267,266 @@ MakeKRIGlossary <- function(
       rownames = FALSE
     )
 }
+
+#' Create Study Results table for Report
+#' @param assessment `list` a snapshot list containing the parameters to assess
+#' @param summary_table `data.frame` a summary table created from `MakeSummayTable`
+#' @export
+#' @keywords internal
+MakeResultsTable <- function(assessment, summary_table){
+  for (i in seq_along(assessment)) {
+    kri_key <- names(assessment)[i]
+    kri <- assessment[[ kri_key ]]
+
+    title <- gsm::meta_workflow %>%
+      filter(workflowid == kri_key) %>%
+      pull(metric)
+
+    ### KRI section /
+    print(htmltools::h3(title))
+
+    #### charts tabset /
+    cat("#### Summary Charts {.tabset} \n")
+
+    charts <- assessment[[i]]$lResults$lCharts[
+      names(assessment[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousJS")
+    ]
+
+    for (j in seq_along(charts)) {
+      chart_key <- names(charts)[j]
+      chart <- charts[[ chart_key ]]
+      chart_name <- switch(
+        chart_key,
+        scatterJS = "Scatter Plot",
+        barScoreJS = "Bar Chart (KRI Score)",
+        barMetricJS = "Bar Chart (KRI Metric)",
+        timeSeriesContinuousJS = "Time Series (Continuous)"
+      )
+
+      ##### chart tab /
+      chart_header <- paste('#####', chart_name, '\n')
+
+      cat(chart_header)
+
+      # need to initialize JS dependencies within loop in order to print correctly
+      # see here: https://github.com/rstudio/rmarkdown/issues/1877#issuecomment-678996452
+      purrr::map(
+        charts,
+        ~.x %>%
+          knitr::knit_print() %>%
+          attr('knit_meta') %>%
+          knitr::knit_meta_add() %>%
+          invisible()
+      )
+
+      # Display chart.
+      cat(paste0("<div class =", chart_key, ">"))
+      cat(knitr::knit_print(htmltools::tagList(chart)))
+      cat("</div>")
+      ##### / chart tab
+    }
+
+    cat("#### {-} \n")
+    #### / charts tabset
+
+    #### table /
+    if (!is.null(summary_table[[assessment[[i]]$name]])) {
+      print(htmltools::h4("Summary Table"))
+      print(htmltools::tagList(summary_table[[assessment[[i]]$name]]))
+    }
+    #### / table
+    ### / KRI section
+  }
+}
+
+#' Create Study Results table for Report
+#' @param assessment `list` a snapshot list containing the parameters to assess
+#' @param strType `string` a string defining what report to define: "kri", "cou", or "qtl"
+#' @export
+#' @keywords internal
+AssessStatus <- function(assessment, strType){
+  any_dropped <- map(assessment, function(names){
+    "bActive" %in% names(names)
+  }) %>% unlist(.data) %>% any()
+
+  if(any_dropped){
+    active <- assessment[map_df(assessment, function(status){
+      status[["bActive"]] == TRUE
+    }) %>%
+      pivot_longer(everything()) %>%
+      filter(value) %>%
+      pull(name)]
+
+    dropped <- assessment[map_df(assessment, function(status){
+      status[["bActive"]] == FALSE
+    }) %>%
+      pivot_longer(everything()) %>%
+      filter(value) %>%
+      pull(name)]
+
+    output <- list(active = active[grep(strType, names(active))],
+                   dropped = dropped[grep(strType, names(dropped))])
+
+  } else {
+    output <- assessment[
+      grep(strType, names(assessment))
+    ]
+  }
+  return(output)
+}
+
+#' Create Study Results table for Report
+#' @param assessment `list` a snapshot list containing the parameters to assess
+#' @param dfSite `data.frame` Site-level metadata containing within `params$status_site` of report
+#' @export
+#' @keywords internal
+MakeReportSetup <- function(assessment, dfSite, strType){
+  type <- if(strType == "cou"){
+        "country"
+    } else if(strType == "kri"){
+        "site"
+    } else if(tolower(strType) == "qtl"){
+        "qtl"
+    }
+  ## create output list
+  output <- list()
+
+  ## Study_Assess() output - KRIs only
+  input <- AssessStatus(assessment, strType = strType)
+  output$active <- if("active" %in% names(input)) {input$active} else {input}
+  output$dropped <- if("dropped" %in% names(input)) {input$dropped} else {NULL}
+
+  ## Overview Table - HTML object
+  output$overview_table <- Overview_Table(
+    lAssessments = output$active,
+    dfSite =  dfSite,
+    strReportType = type,
+  )
+
+  ## Overview Table - data.frame/raw data
+  output$overview_raw_table <- Overview_Table(
+    lAssessments = output$active,
+    dfSite =  dfSite,
+    strReportType = type,
+    bInteractive = FALSE
+  )
+
+  output$red_kris <- output$overview_raw_table %>% pull(`Red KRIs`) %>% sum()
+  output$amber_kris <- output$overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
+
+  ## Generate listing of flagged KRIs.
+  output$summary_table <- MakeSummaryTable(
+    output$active,
+    dfSite
+  )
+
+  if(!is.null(output$dropped)){
+    output$dropped_summary_table <- MakeSummaryTable(
+      output$dropped,
+      dfSite
+    )
+  }
+
+  ## StudyID
+  output$study_id <- purrr::map(output$active, function(kri) {
+    if (kri$bStatus) {
+      return(kri$lData$dfInput$StudyID %>% unique())
+    }
+  }) %>%
+    discard(is.null) %>%
+    as.character() %>%
+    unique()
+
+  ## return output
+  return(output)
+}
+
+#' Create message describing study summary for Report
+#' @param report `string` type of report being run
+#' @param study_id `string` a string representing the study id
+#' @param snapshot_date `string` a string representing snapshot date
+#' @param subjects `string` a string or number containing the count of total subjects
+#' @param overview_raw_table `data.frame` raw overview table output with `Overview_Table(bInteractive = FALSE)`
+#' @param red_kris `string` a string or number containing the count of red flags in kri's
+#' @export
+#' @keywords internal
+MakeOverviewMessage <- function(report, study_id, snapshot_date, subjects, overview_raw_table, red_kris){
+  if(report == "site"){
+  cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across
+{length(unique(overview_raw_table$Site))} sites. {red_kris} Site-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites as shown in the Study Overview Table above\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites have at least one red KRI\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0 | .data$`Amber KRIs` != 0) %>% nrow()} sites have at least one red or amber KRI\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` == 0 & .data$`Amber KRIs` == 0) %>% nrow()} sites have neither red nor amber KRIs and are not shown"), sep = "\n")
+  } else if(report == "country"){
+    cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across
+{length(unique(overview_raw_table$Country))} countries. {red_kris} Country-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries as shown in the Study Overview Table above\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries have at least one red KRI\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` != 0 | .data$`Amber KRIs` != 0) %>% nrow()} countries have at least one red or amber KRI\n
+  - {overview_raw_table %>% filter(.data$`Red KRIs` == 0 & .data$`Amber KRIs` == 0) %>% nrow()} countries have neither red nor amber KRIs and are not shown"), sep = "\n")
+  }
+}
+
+#' Extrapolate study snapshot date and number of patients in study
+#' @param status_study `df` a dataframe containing status of study pulled from `params$status_study` in report
+#' @export
+#' @keywords internal
+GetSnapshotDate <- function(status_study){
+  output <- list()
+  output$subjects <- status_study[["enrolled_participants_ctms"]]
+  if ("gsm_analysis_date" %in% names(status_study))
+    output$snapshot_date <- status_study$gsm_analysis_date
+  else
+    output$snapshot_date <- Sys.Date()
+
+  cat(glue::glue(
+    '\n
+    ---
+    date: "Snapshot Date: {output$snapshot_date}"
+    ---
+    \n
+    '))
+
+  return(output)
+}
+
+#' Extrapolate study snapshot date and number of patients in study
+#' @param data `list` a list containing active assessments
+#' @export
+#' @keywords internal
+MakeErrorLog <- function(data){
+  error <- Study_AssessmentReport(data)
+
+  error_table <- error$dfSummary %>%
+    arrange(desc(notes), assessment) %>%
+    rename(
+      "Assessment" = "assessment",
+      "Step" = "step",
+      "Check" = "check",
+      "Domain" = "domain",
+      "Notes" = "notes"
+    )
+
+  return(DT::datatable(error_table))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,123 @@
+---
+subtitle: "Generated with the Good Statistical Monitoring {gsm} package"
+output:
+  html_document:
+    toc: true
+    toc_float:
+       collapsed: false
+       smooth_scroll: true
+    css: styles.css
+params:
+    assessment: NULL
+    status_study: NULL
+    status_site: NULL
+    status_snap: NULL
+    longitudinal: NULL
+---
+
+```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
+library(gsm)
+library(DT)
+
+# Study_Assess() output - QTL metrics only
+setup <- MakeReportSetup(
+  assessment = params$assessment, 
+  dfSite = params$status_site,
+  strType = "qtl"
+)
+
+```
+
+---
+title: "`r setup$study_id` Assessment Overview"
+---
+
+
+```{r, echo=FALSE, results='asis'}
+## metadata report if longitudinal data is provided
+status_study_exists <- exists('status_study', where = params) && !is.null(params$status_study)
+if (status_study_exists) {
+  date <- GetSnapshotDate(params$status_study)
+}
+
+```
+
+
+```{r, echo=FALSE, results='asis', eval=status_study_exists, fig.height=2}
+MakeStudyStatusTable(dfStudy = params$status_study, longitudinal = params$longitudinal)
+Make_Timeline(longitudinal = params$longitudinal, status_study = params$status_study)
+```
+
+## Analysis Results
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+results_summary <- purrr::imap_dfr(setup$active, function(data, index) {
+  data$lResults$lData$dfSummary %>% 
+    mutate(
+      workflowid = index
+    ) %>% 
+    select(
+      workflowid, everything()
+      )
+})
+
+#combine qtl lData$dfAnalyzed
+results_analysis <- purrr::imap_dfr(setup$active, function(data, index) {
+  data$lResults$lData$dfAnalyzed %>% 
+    mutate(
+      workflowid = index
+    ) %>% 
+    select(
+      workflowid, everything()
+      )
+}) %>%
+  left_join(results_summary) %>%
+  select(-GroupID)
+
+results_analysis[sapply(results_analysis, is.numeric)] <- round(results_analysis[sapply(results_analysis, is.numeric)], digits = 2)
+
+DT::datatable(results_analysis)
+
+```
+
+
+```{r echo=FALSE, results='asis', eval=!is.null(params$longitudinal)}
+summary_table <- MakeSummaryTable(setup$active, dfSite = params$status_site)
+MakeResultsTable(setup$active, summary_table)
+```
+
+
+`r if(!is.null(params$longitudinal)){"## History {.tabset}"}`
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis', eval=!is.null(params$longitudinal)}
+history <- params$longitudinal$results_analysis %>% 
+    tidyr::pivot_wider(names_from = param,
+                       values_from = value) %>%
+    left_join(params$longitudinal$results_summary %>%
+                select(workflowid, snapshot_date, flag)) %>%
+    select(-studyid, -gsm_analysis_date) %>%
+    split(., .$workflowid) %>%
+    map(., ~select(., -workflowid))
+
+for (i in names(history)){
+  cat(glue("### {i}",  "\n"))
+  cat("\n")
+  print(kable(history[[i]])) 
+  cat("\n")
+}
+
+
+```
+
+## QTL Glossary
+
+```{r, echo = FALSE}
+MakeKRIGlossary(
+  strWorkflowIDs = names(setup$active),
+  lStatus = params$status_snap
+)
+```
+
+
+```{js, file='../utils-0.0.1/showMetaTableDetails.js', echo=FALSE}
+```

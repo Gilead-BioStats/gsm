@@ -1,3 +1,13 @@
+# gsm v1.8.2
+
+This release provides various improvements and updates to reporting. 
+
+
+# gsm v1.8.1
+
+This minor release includes hosting sample reports on the `{pkgdown}` website. 
+
+
 # gsm v1.8.0
 
 This is the first open-source release for `{gsm}`! 🥳

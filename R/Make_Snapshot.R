@@ -14,7 +14,6 @@
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for raw+.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
 #' @param strAnalysisDate `character` date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: `YYYY-MM-DD`.
-#' @param bUpdateParams `logical` if `TRUE`, configurable parameters found in `lMeta$config_param` will overwrite the default values in `lMeta$meta_params`. Default: `FALSE`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @includeRmd ./man/md/Make_Snapshot.md
@@ -70,7 +69,6 @@ Make_Snapshot <- function(
   lMapping = Read_Mapping(),
   lAssessments = MakeWorkflowList(lMeta = lMeta),
   strAnalysisDate = NULL,
-  bUpdateParams = FALSE,
   bQuiet = TRUE
 ) {
   # run Study_Assess() ------------------------------------------------------
@@ -87,7 +85,11 @@ Make_Snapshot <- function(
   if (length(grep("qtl", names(lResults))) > 0) {
     results_analysis <- MakeResultsAnalysis(lResults)
   } else {
-    results_analysis <- NULL
+    results_analysis <- data.frame(studyid = NA,
+                                   workflowid = NA,
+                                   param = NA,
+                                   value = NA,
+                                   gsm_analysis_date = NA)
   }
 
   # map ctms data -----------------------------------------------------------
@@ -133,17 +135,19 @@ Make_Snapshot <- function(
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
   # return snapshot ---------------------------------------------------------
-    snapshot <- list(
-      lSnapshotDate = gsm_analysis_date,
-      lSnapshot = lSnapshot,
-      lStudyAssessResults = lResults,
-      lInputs = list(lMeta = lMeta,
-                     lData = lData,
-                     lMapping = lMapping,
-                     lAssessments = lAssessments)
+  snapshot <- list(
+    lSnapshotDate = gsm_analysis_date,
+    lSnapshot = lSnapshot,
+    lStudyAssessResults = lResults,
+    lInputs = list(
+      lMeta = lMeta,
+      lData = lData,
+      lMapping = lMapping,
+      lAssessments = lAssessments
     )
+  )
 
-# return snapshot ---------------------------------------------------------
+  # return snapshot ---------------------------------------------------------
 
   return(snapshot)
 }
