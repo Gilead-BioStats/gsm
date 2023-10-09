@@ -87,36 +87,34 @@ Augment_Snapshot <- function(
   }
 
   if (bAppendLongitudinalResults) {
-    nPath <- ifelse(grepl("$\\/", cPath), cPath, paste0(cPath, "/"))
-    snapshot_date <- list.files(nPath)
-    snapshot_directory_names <- paste0(nPath, snapshot_date)
+    snapshots <- ExtractDirectoryPaths(cPath, file = "snapshot.rds")
+    snapshot_dates <- ExtractSnapshotDate(snapshots)
 
     ## get current status
-    is_current <- snapshot_directory_names %>%
-      purrr::set_names(snapshot_date) %>%
-      purrr::map_df(., function(snap) {
-        snapshot <- read.csv(paste0(snap, "/results_summary.csv")) %>%
-          distinct(.data$workflowid)
-      }, .id = "snapshot_date") %>%
-      group_by(.data$workflowid) %>%
+    status <- stackedSnapshots$results_summary %>%
+      select(.data$snapshot_date, .data$workflowid) %>%
+      filter(.data$snapshot_date %in% snapshot_dates$snapshot_date) %>%
+      distinct() %>%
+      group_by(workflowid) %>%
       summarise(
         latest = max(as.Date(snapshot_date), na.rm = TRUE),
         .groups = "drop"
       ) %>%
-      mutate(is_current = latest == max(latest))
+      mutate(is_current = latest == max(latest)) %>%
+      left_join(snapshot_dates, by = c("latest" = "snapshot_date"))
 
-    old_workflows <- is_current %>%
+    ## get old workflowids
+    old_workflows <- status %>%
       filter(!is_current) %>%
       split(.$latest) %>%
       map(., . %>% pull(.data$workflowid))
 
     ## pull object into snapshot
     old_snapshots <- list()
-    for (latest in is_current %>%
-      filter(!.data$is_current) %>%
-      pull(.data$latest) %>%
-      as.character()) {
-      old_snapshots[[latest]] <- readRDS(paste0(nPath, latest, "/snapshot.rds"))
+    for (i in 1:(status %>% filter(!.data$is_current) %>% nrow())) {
+      old_date <- status[i,"latest"] %>% pull() %>% as.character()
+      old_file_path <- paste0(snapshots[grepl(status[i,"foldername"], snapshots)], "/snapshot.rds")
+      old_snapshots[[old_date]] <- readRDS(file = old_file_path)
     }
 
     ## Set active status
