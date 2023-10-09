@@ -24,14 +24,14 @@
 #'
 #' @export
 Overview_Table <- function(
-  lAssessments = Study_Assess(),
-  dfSite = Site_Map_Raw(),
-  strReportType = "site",
-  bInteractive = TRUE
+    lAssessments = Study_Assess(),
+    dfSite = Site_Map_Raw(),
+    strReportType = "site",
+    bInteractive = TRUE
 ) {
   # input check
   stopifnot(
-    "strReportType is not 'site', 'country', or 'QTL'" = strReportType %in% c("site", "country", "QTL"),
+    "strReportType is not 'site', 'country', or 'QTL'" = strReportType %in% c("site", "country", "QTL", "qtl"),
     "strReportType must be length 1" = length(strReportType) == 1
   )
 
@@ -47,7 +47,7 @@ Overview_Table <- function(
     table_dropdown_label <- NULL
   }
 
-  if (strReportType == "QTL") {
+  if (strReportType %in% c("QTL", "qtl")) {
     grep_value <- "qtl"
     table_dropdown_label <- NULL
   }
@@ -201,8 +201,8 @@ Overview_Table <- function(
               return(NA)
             }
           })
-      } else if (strReportType == "QTL") {
-        overview_table[["Subjects"]] <- sum(dfSite$enrolled_participants)
+      } else if (strReportType %in% c("QTL", "qtl")) {
+        overview_table[["Subjects"]] <- sum(dfSite$enrolled_participants, na.rm = TRUE)
       }
 
       overview_table <- relocate(
@@ -228,7 +228,7 @@ Overview_Table <- function(
       }
     }
     ",
-      .open = "{{"
+    .open = "{{"
     )
 
     # Enable tooltips for cells
@@ -309,7 +309,7 @@ Overview_Table <- function(
 
     # let's just show all countries in the drop-down for now
     # countries will probably have less flagged KRIs and are easier to sort/read through
-    if (strReportType == "country") {
+    if (strReportType %in% c("country", "qtl", "QTL")) {
       lengthMenuOptions <- NULL
     } else {
       lengthMenuOptions <- list(
@@ -440,11 +440,11 @@ make_reference_table <- function(study) {
     rowwise() %>%
     mutate("Red KRIs" = {
       x <- c_across(-"GroupID")
-      sum(grepl("*Flag: 2|*Flag: -2", x))
+      sum(grepl("*Flag: 2|*Flag: -2", x), na.rm = TRUE)
     }) %>%
     mutate("Amber KRIs" = {
       x <- c_across(-c("GroupID", "Red KRIs"))
-      sum(grepl("*Flag: 1|*Flag: -1", x))
+      sum(grepl("*Flag: 1|*Flag: -1", x), na.rm = TRUE)
     }) %>%
     ungroup() %>%
     mutate(

@@ -45,9 +45,9 @@ if (status_study_exists) {
 }
 ```
 
-```{r, echo=FALSE, results='asis', eval=status_study_exists}
-MakeStudyStatusTable(params$status_study)
-Make_Timeline(params$status_study)
+```{r, echo=FALSE, results='asis', eval=status_study_exists, fig.height=2}
+MakeStudyStatusTable(dfStudy = params$status_study, longitudinal = params$longitudinal)
+Make_Timeline(status_study = params$status_study, longitudinal = params$longitudinal)
 ```
 
 ## Study Overview
