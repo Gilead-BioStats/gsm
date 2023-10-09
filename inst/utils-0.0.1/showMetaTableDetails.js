@@ -8,7 +8,6 @@ if (detailButton !== null) {
         const hiddenTable = document.querySelector('#study_table_hide');
         const hiddenPlot = document.querySelector("#timeline");
         const toggleLabel = document.querySelector('.toggle-label');
-        hiddenPlot.style.display = "none";
 
         if (!hidden) {
             shownTable.style.display = 'none';

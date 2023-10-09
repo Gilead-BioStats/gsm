@@ -1,8 +1,9 @@
 #' Create Status Study table in KRIReport.Rmd
 #' @param dfStudy `data.frame` from `params` within `KRIReport.Rmd`
+#' @param longitudinal `data.frame` optional argument for longitudinal study information
 #' @export
 #' @keywords internal
-MakeStudyStatusTable <- function(dfStudy) {
+MakeStudyStatusTable <- function(dfStudy, longitudinal = NULL) {
   # -- this vector is used to define a custom sort order for the
   #    Study Status Table in KRIReport.Rmd
   parameterArrangeOrder <- c(
@@ -28,7 +29,9 @@ MakeStudyStatusTable <- function(dfStudy) {
     "Last-patient first visit date",
     "Estimated last-patient first visit date from GILDA",
     "Last-patient last visit date",
-    "Estimated last-patient last visit date from GILDA"
+    "Estimated last-patient last visit date from GILDA",
+    "Average snapshot interval",
+    "Median snapshot interval"
   )
 
   # -- if a longitudinal snapshot is provided, select the most recent row
@@ -57,9 +60,17 @@ MakeStudyStatusTable <- function(dfStudy) {
   #    these values were being formatted with a lot of trailing zeroes, so they are rounded here before pasting as a character vector
   sites <- paste0(round(as.numeric(dfStudy$enrolled_sites)), " / ", round(as.numeric(dfStudy$planned_sites)))
   participants <- paste0(round(as.numeric(dfStudy$enrolled_participants)), " / ", round(as.numeric(dfStudy$planned_participants)))
+  if(!is.null(longitudinal)) {
+    snap_stats <- longitudinal$status_study %>%
+      reframe(
+        "Average snapshot interval" = mean(difftime(snapshot_date, lag(snapshot_date)), na.rm = TRUE),
+        "Median snapshot interval" = median(difftime(snapshot_date, lag(snapshot_date)), na.rm = TRUE)
+      )
+  }
 
 
   study_status_table <- dfStudy %>%
+    {if(!is.null(longitudinal)) cbind(., snap_stats) else .} %>%
     t() %>%
     as.data.frame() %>%
     tibble::rownames_to_column() %>%
@@ -77,6 +88,7 @@ MakeStudyStatusTable <- function(dfStudy) {
       paramDescription,
       by = join_by("Parameter")
     ) %>%
+    mutate(Description = ifelse(is.na(.data$Description), Parameter, Description)) %>%
     select(
       "Parameter" = "Description",
       "Value"
@@ -369,7 +381,13 @@ AssessStatus <- function(assessment, strType){
 #' @export
 #' @keywords internal
 MakeReportSetup <- function(assessment, dfSite, strType){
-  type <- if(strType == "cou"){"country"} else if(strType == "kri"){"site"}
+  type <- if(strType == "cou"){
+        "country"
+    } else if(strType == "kri"){
+        "site"
+    } else if(tolower(strType) == "qtl"){
+        "qtl"
+    }
   ## create output list
   output <- list()
 
