@@ -17,3 +17,4 @@ ExtractDirectoryPaths(cPath, file)
 \description{
 Extract a vector of directory paths that contain a specified file name.
 }
+\keyword{internal}

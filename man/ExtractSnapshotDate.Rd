@@ -15,3 +15,4 @@ ExtractSnapshotDate(snapshot_paths)
 \description{
 Extract the snapshot dates of snapshot directories.
 }
+\keyword{internal}
