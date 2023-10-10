@@ -5,6 +5,8 @@
 #'
 #' @return `vector` containing paths to directories that contain the file of interest.
 #'
+#' @keywords internal
+#'
 #' @export
 ExtractDirectoryPaths <- function(cPath, file) {
   directories <- list.dirs(cPath, recursive = FALSE)

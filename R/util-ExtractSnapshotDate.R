@@ -6,6 +6,8 @@
 #'
 #' @importFrom tibble rownames_to_column
 #'
+#' @keywords internal
+#'
 #' @export
 ExtractSnapshotDate <- function(snapshot_paths){
   acceptable_files <- c("meta_param.csv",
