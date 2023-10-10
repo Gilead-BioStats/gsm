@@ -63,8 +63,8 @@ MakeStudyStatusTable <- function(dfStudy, longitudinal = NULL) {
   if(!is.null(longitudinal)) {
     snap_stats <- longitudinal$status_study %>%
       reframe(
-        "Average snapshot interval" = mean(difftime(snapshot_date, lag(snapshot_date)), na.rm = TRUE),
-        "Median snapshot interval" = median(difftime(snapshot_date, lag(snapshot_date)), na.rm = TRUE)
+        "Average snapshot interval" = mean(difftime(.data$snapshot_date, lag(.data$snapshot_date)), na.rm = TRUE),
+        "Median snapshot interval" = median(difftime(.data$snapshot_date, lag(.data$snapshot_date)), na.rm = TRUE)
       )
   }
 
@@ -88,7 +88,7 @@ MakeStudyStatusTable <- function(dfStudy, longitudinal = NULL) {
       paramDescription,
       by = join_by("Parameter")
     ) %>%
-    mutate(Description = ifelse(is.na(.data$Description), Parameter, Description)) %>%
+    mutate(Description = ifelse(is.na(.data$Description), .data$Parameter, .data$Description)) %>%
     select(
       "Parameter" = "Description",
       "Value"
@@ -279,8 +279,8 @@ MakeResultsTable <- function(assessment, summary_table){
     kri <- assessment[[ kri_key ]]
 
     title <- gsm::meta_workflow %>%
-      filter(workflowid == kri_key) %>%
-      pull(metric)
+      filter(.data$workflowid == kri_key) %>%
+      pull(.data$metric)
 
     ### KRI section /
     print(htmltools::h3(title))
@@ -354,15 +354,15 @@ AssessStatus <- function(assessment, strType){
       status[["bActive"]] == TRUE
     }) %>%
       pivot_longer(everything()) %>%
-      filter(value) %>%
-      pull(name)]
+      filter(.data$value) %>%
+      pull(.data$name)]
 
     dropped <- assessment[map_df(assessment, function(status){
       status[["bActive"]] == FALSE
     }) %>%
       pivot_longer(everything()) %>%
-      filter(value) %>%
-      pull(name)]
+      filter(.data$value) %>%
+      pull(.data$name)]
 
     output <- list(active = active[grep(strType, names(active))],
                    dropped = dropped[grep(strType, names(dropped))])
@@ -411,8 +411,8 @@ MakeReportSetup <- function(assessment, dfSite, strType){
     bInteractive = FALSE
   )
 
-  output$red_kris <- output$overview_raw_table %>% pull(`Red KRIs`) %>% sum()
-  output$amber_kris <- output$overview_raw_table %>% pull(`Amber KRIs`) %>% sum()
+  output$red_kris <- output$overview_raw_table %>% pull(.data[["Red KRIs"]]) %>% sum()
+  output$amber_kris <- output$overview_raw_table %>% pull(.data[["Amber KRIs"]]) %>% sum()
 
   ## Generate listing of flagged KRIs.
   output$summary_table <- MakeSummaryTable(
@@ -497,7 +497,7 @@ MakeErrorLog <- function(data){
   error <- Study_AssessmentReport(data)
 
   error_table <- error$dfSummary %>%
-    arrange(desc(notes), assessment) %>%
+    arrange(desc(.data$notes), .data$assessment) %>%
     rename(
       "Assessment" = "assessment",
       "Step" = "step",

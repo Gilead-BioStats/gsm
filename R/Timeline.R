@@ -26,14 +26,14 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
 
   if(history) {
     snapshots <- longitudinal$status_study %>%
-      select(date = snapshot_date) %>%
+      select(date = "snapshot_date") %>%
       mutate(.before = date,
              activity = "Snapshot") %>%
       as_tibble()
   }
 
   d <- status_study %>%
-    {if(history) select(., -gsm_analysis_date) else .} %>%
+    {if(history) select(., -"gsm_analysis_date") else .} %>%
     mutate(across(
       everything(),
       ~ as.Date(as.character(.), tz = "UTC", format = "%Y-%m-%d")

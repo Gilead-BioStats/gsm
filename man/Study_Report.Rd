@@ -56,7 +56,7 @@ snapshot <- Make_Snapshot()
 
 longitudinal <- Augment_Snapshot(
   snapshot,
-  system.file("snapshots", "AA-AA-000-0000", package = "gsm")
+  system.file("data-longitudinal", "AA-AA-000-0000", package = "clindata")
 )
 
 Study_Report(
