@@ -109,33 +109,36 @@ Augment_Snapshot <- function(
       split(.$latest) %>%
       map(., . %>% pull(.data$workflowid))
 
-    ## pull object into snapshot
-    old_snapshots <- list()
-    for (i in 1:(status %>% filter(!.data$is_current) %>% nrow())) {
-      old_date <- status[i,"latest"] %>% pull() %>% as.character()
-      old_file_path <- paste0(snapshots[grepl(status[i,"foldername"], snapshots)], "/snapshot.rds")
-      old_snapshots[[old_date]] <- readRDS(file = old_file_path)
-    }
-
     ## Set active status
     for (kri in names(lSnapshot$lStudyAssessResults)) {
       lSnapshot$lStudyAssessResults[[kri]][["bActive"]] <- TRUE
     }
 
-    for (dates in names(old_snapshots)) {
-      for (kri in names(old_snapshots[[dates]]$lStudyAssessResults)) {
-        old_snapshots[[dates]]$lStudyAssessResults[[kri]][["bActive"]] <- FALSE
+    ## pull object into snapshot
+    if(length(old_workflows) != 0){
+      old_snapshots <- list()
+      for (i in 1:(status %>% filter(!.data$is_current) %>% nrow())) {
+        old_date <- status[i,"latest"] %>% pull() %>% as.character()
+        old_file_path <- paste0(snapshots[grepl(status[i,"foldername"], snapshots)], "/snapshot.rds")
+        old_snapshots[[old_date]] <- readRDS(file = old_file_path)
+      }
+
+      for (dates in names(old_snapshots)) {
+        for (kri in names(old_snapshots[[dates]]$lStudyAssessResults)) {
+          old_snapshots[[dates]]$lStudyAssessResults[[kri]][["bActive"]] <- FALSE
+        }
+      }
+
+      ## Transfer old snaps to current snap
+      for (old_date in names(old_workflows)) {
+        for (kri in old_workflows[[old_date]]) {
+          lSnapshot$lStudyAssessResults[[kri]] <- old_snapshots[[old_date]]$lStudyAssessResults[[kri]]
+        }
       }
     }
 
-    ## Transfer old snaps to current snap
-    for (old_date in names(old_workflows)) {
-      for (kri in old_workflows[[old_date]]) {
-        lSnapshot$lStudyAssessResults[[kri]] <- old_snapshots[[old_date]]$lStudyAssessResults[[kri]]
-      }
-    }
-    lSnapshot[["lStatus"]] <- is_current %>%
-      `colnames<-`(c("Workflow ID", "Latest Snapshot", "Currently Active"))
+    lSnapshot[["lStatus"]] <- status %>%
+      `colnames<-`(c("Workflow ID", "Latest Snapshot", "Currently Active", "Folder Name"))
   }
 
   lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots
