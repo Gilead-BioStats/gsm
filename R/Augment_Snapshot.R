@@ -39,112 +39,120 @@ Augment_Snapshot <- function(
   # TODO: alternatively accept the output of StackSnapshots?
   stackedSnapshots <- StackSnapshots(cPath, lSnapshot, vFolderNames)
 
-  if (bAppendTimeSeriesCharts) {
-    lSnapshot$lStudyAssessResults <- lSnapshot$lStudyAssessResults %>%
-      purrr::imap(function(result, workflowid) {
-        this_workflow_id <- result$name
 
-        siteSelectLabelValue <- lSnapshot$lSnapshot$meta_workflow %>%
-          filter(.data$workflowid == this_workflow_id) %>%
-          pull(.data$group)
+  if (!is.null(stackedSnapshots)) {
+    if (bAppendTimeSeriesCharts) {
+      lSnapshot$lStudyAssessResults <- lSnapshot$lStudyAssessResults %>%
+        purrr::imap(function(result, workflowid) {
+          this_workflow_id <- result$name
 
-        result$lResults$lData$dfSummaryLongitudinal <- stackedSnapshots$results_summary %>%
-          dplyr::filter(
-            .data$workflowid == this_workflow_id
-          )
+          siteSelectLabelValue <- lSnapshot$lSnapshot$meta_workflow %>%
+            filter(.data$workflowid == this_workflow_id) %>%
+            pull(.data$group)
 
-        workflow <- stackedSnapshots$meta_workflow %>%
-          dplyr::filter(
-            .data$workflowid == this_workflow_id
-          )
+          result$lResults$lData$dfSummaryLongitudinal <- stackedSnapshots$results_summary %>%
+            dplyr::filter(
+              .data$workflowid == this_workflow_id
+            )
 
-        parameters <- stackedSnapshots$parameters %>%
-          dplyr::filter(
-            .data$workflowid == this_workflow_id
-          )
+          workflow <- stackedSnapshots$meta_workflow %>%
+            dplyr::filter(
+              .data$workflowid == this_workflow_id
+            )
 
-        if(!grepl("qtl", result$name)){
-          result$lResults$lCharts[["timeSeriesContinuousJS"]] <- Widget_TimeSeries(
-            results = result$lResults$lData$dfSummaryLongitudinal,
-            workflow = workflow,
-            parameters = parameters,
-            siteSelectLabelValue = siteSelectLabelValue
-          )
-        }
+          parameters <- stackedSnapshots$parameters %>%
+            dplyr::filter(
+              .data$workflowid == this_workflow_id
+            )
 
-        if(grepl("qtl", result$name)){
-          result$lResults$lCharts[["timeSeriesContinuousJS"]] <- Widget_TimeSeriesQTL(
-            qtl = this_workflow_id,
-            raw_results = stackedSnapshots$results_summary,
-            raw_workflow = stackedSnapshots$meta_workflow,
-            raw_param = stackedSnapshots$meta_param,
-            raw_analysis = stackedSnapshots$results_analysis
-          )
-        }
+          if(!grepl("qtl", result$name)){
+            result$lResults$lCharts[["timeSeriesContinuousJS"]] <- Widget_TimeSeries(
+              results = result$lResults$lData$dfSummaryLongitudinal,
+              workflow = workflow,
+              parameters = parameters,
+              siteSelectLabelValue = siteSelectLabelValue
+            )
+          }
 
-        return(result)
-      })
-  }
+          if(grepl("qtl", result$name)){
+            result$lResults$lCharts[["timeSeriesContinuousJS"]] <- Widget_TimeSeriesQTL(
+              qtl = this_workflow_id,
+              raw_results = stackedSnapshots$results_summary,
+              raw_workflow = stackedSnapshots$meta_workflow,
+              raw_param = stackedSnapshots$meta_param,
+              raw_analysis = stackedSnapshots$results_analysis
+            )
+          }
 
-  if (bAppendLongitudinalResults) {
-    snapshots <- ExtractDirectoryPaths(cPath, file = "snapshot.rds")
-    snapshot_dates <- ExtractSnapshotDate(snapshots)
-
-    ## get current status
-    status <- stackedSnapshots$results_summary %>%
-      select(.data$snapshot_date, .data$workflowid) %>%
-      filter(.data$snapshot_date %in% snapshot_dates$snapshot_date) %>%
-      distinct() %>%
-      group_by(workflowid) %>%
-      summarise(
-        latest = max(as.Date(snapshot_date), na.rm = TRUE),
-        .groups = "drop"
-      ) %>%
-      mutate(is_current = latest == max(latest)) %>%
-      left_join(snapshot_dates, by = c("latest" = "snapshot_date"))
-
-    ## get old workflowids
-    old_workflows <- status %>%
-      filter(!is_current) %>%
-      split(.$latest) %>%
-      map(., . %>% pull(.data$workflowid))
-
-    ## Set active status
-    for (kri in names(lSnapshot$lStudyAssessResults)) {
-      lSnapshot$lStudyAssessResults[[kri]][["bActive"]] <- TRUE
+          return(result)
+        })
     }
 
-    ## pull object into snapshot
-    if(length(old_workflows) != 0){
-      old_snapshots <- list()
-      for (i in 1:(status %>% filter(!.data$is_current) %>% nrow())) {
-        old_date <- status[i,"latest"] %>% pull() %>% as.character()
-        old_file_path <- paste0(snapshots[grepl(status[i,"foldername"], snapshots)], "/snapshot.rds")
-        old_snapshots[[old_date]] <- readRDS(file = old_file_path)
+    if (bAppendLongitudinalResults) {
+      snapshots <- ExtractDirectoryPaths(cPath, file = "snapshot.rds")
+      snapshot_dates <- ExtractSnapshotDate(snapshots)
+
+      ## get current status
+      status <- stackedSnapshots$results_summary %>%
+        select(.data$snapshot_date, .data$workflowid) %>%
+        filter(.data$snapshot_date %in% snapshot_dates$snapshot_date) %>%
+        distinct() %>%
+        group_by(workflowid) %>%
+        summarise(
+          latest = max(as.Date(snapshot_date), na.rm = TRUE),
+          .groups = "drop"
+        ) %>%
+        mutate(is_current = latest == max(latest)) %>%
+        left_join(snapshot_dates, by = c("latest" = "snapshot_date"))
+
+      ## get old workflowids
+      old_workflows <- status %>%
+        filter(!is_current) %>%
+        split(.$latest) %>%
+        map(., . %>% pull(.data$workflowid))
+
+      ## Set active status
+      for (kri in names(lSnapshot$lStudyAssessResults)) {
+        lSnapshot$lStudyAssessResults[[kri]][["bActive"]] <- TRUE
       }
 
-      for (dates in names(old_snapshots)) {
-        for (kri in names(old_snapshots[[dates]]$lStudyAssessResults)) {
-          old_snapshots[[dates]]$lStudyAssessResults[[kri]][["bActive"]] <- FALSE
+      ## pull object into snapshot
+      if(length(old_workflows) != 0){
+        old_snapshots <- list()
+        for (i in 1:(status %>% filter(!.data$is_current) %>% nrow())) {
+          old_date <- status[i,"latest"] %>% pull() %>% as.character()
+          old_file_path <- paste0(snapshots[grepl(status[i,"foldername"], snapshots)], "/snapshot.rds")
+          old_snapshots[[old_date]] <- readRDS(file = old_file_path)
+        }
+
+        for (dates in names(old_snapshots)) {
+          for (kri in names(old_snapshots[[dates]]$lStudyAssessResults)) {
+            old_snapshots[[dates]]$lStudyAssessResults[[kri]][["bActive"]] <- FALSE
+          }
+        }
+
+        ## Transfer old snaps to current snap
+        for (old_date in names(old_workflows)) {
+          for (kri in old_workflows[[old_date]]) {
+            lSnapshot$lStudyAssessResults[[kri]] <- old_snapshots[[old_date]]$lStudyAssessResults[[kri]]
+          }
         }
       }
 
-      ## Transfer old snaps to current snap
-      for (old_date in names(old_workflows)) {
-        for (kri in old_workflows[[old_date]]) {
-          lSnapshot$lStudyAssessResults[[kri]] <- old_snapshots[[old_date]]$lStudyAssessResults[[kri]]
-        }
-      }
+      lSnapshot[["lStatus"]] <- status %>%
+        rename("Workflow ID" = "workflowid",
+               "Latest Snapshot" = "latest",
+               "Currently Active" = "is_current",
+               "Folder Name" = "foldername")
     }
 
-    lSnapshot[["lStatus"]] <- status %>%
-      rename("Workflow ID" = "workflowid",
-             "Latest Snapshot" = "latest",
-             "Currently Active" = "is_current",
-             "Folder Name" = "foldername")
+    lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots
+
+    return(lSnapshot)
+  } else {
+    cli::cli_alert_warning(
+      " [{.fn Augment_Snapshot} not run.] "
+    )
+    return(NULL)
   }
-
-  lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots
-
-  return(lSnapshot)
 }
