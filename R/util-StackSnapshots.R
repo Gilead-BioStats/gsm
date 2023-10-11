@@ -48,7 +48,7 @@ StackSnapshots <- function(
 
   if (length(snapshots) == 0) {
     cli::cli_alert_warning(
-      " [{cPath} only contains the most recent snapshot. {.fn Augment_Snapshot} not run.] "
+      " [{cPath} only contains the most recent snapshot. {.fn StackSnapshots} not run.] "
     )
     return(NULL)
   }
