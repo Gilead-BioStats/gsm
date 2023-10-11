@@ -46,8 +46,8 @@ StackSnapshots <- function(
     snapshots <- snapshots[basename(snapshots) %in% vFolderNames]
   }
 
-  stopifnot(
-    "[ cPath ] contains no dated folders formatted YYYY-MM-DD." = length(snapshots) > 0
+  stop(
+    "[ cPath ] detected only one snapshot, or the directory contains no dated folders formatted YYYY-MM-DD." = length(snapshots) > 0
   )
 
 
