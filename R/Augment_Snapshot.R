@@ -142,7 +142,7 @@ Augment_Snapshot <- function(
              "Latest Snapshot" = "latest",
              "Currently Active" = "is_current",
              "Folder Name" = "foldername")
-  }?rename
+  }
 
   lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots
 
