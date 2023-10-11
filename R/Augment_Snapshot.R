@@ -138,8 +138,11 @@ Augment_Snapshot <- function(
     }
 
     lSnapshot[["lStatus"]] <- status %>%
-      `colnames<-`(c("Workflow ID", "Latest Snapshot", "Currently Active", "Folder Name"))
-  }
+      rename("Workflow ID" = "workflowid",
+             "Latest Snapshot" = "latest",
+             "Currently Active" = "is_current",
+             "Folder Name" = "foldername")
+  }?rename
 
   lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots
 
