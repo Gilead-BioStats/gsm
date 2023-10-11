@@ -26,10 +26,10 @@ StackSnapshots <- function(
   lSnapshot = NULL,
   vFolderNames = NULL
 ) {
+
   stopifnot(
     "[ cPath ] does not exist." = file.exists(cPath)
   )
-
 
 
   # Capture list of YYYY-MM-DD-formatted snapshot directoreis.
@@ -46,11 +46,12 @@ StackSnapshots <- function(
     snapshots <- snapshots[basename(snapshots) %in% vFolderNames]
   }
 
-  stop(
-    "[ cPath ] detected only one snapshot, or the directory contains no dated folders formatted YYYY-MM-DD." = length(snapshots) > 0
-  )
-
-
+  if (length(snapshots) == 0) {
+    cli::cli_alert_warning(
+      " [{cPath} only contains the most recent snapshot. {.fn Augment_Snapshot} not run.] "
+    )
+    return(NULL)
+  }
 
   gsm_tables <- c(
     "meta_param",
