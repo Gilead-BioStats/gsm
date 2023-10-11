@@ -63,7 +63,7 @@ Augment_Snapshot <- function(
             .data$workflowid == this_workflow_id
           )
 
-        if(!grepl("qtl", result$name)){
+        if (!grepl("qtl", result$name)) {
           result$lResults$lCharts[["timeSeriesContinuousJS"]] <- Widget_TimeSeries(
             results = result$lResults$lData$dfSummaryLongitudinal,
             workflow = workflow,
@@ -72,7 +72,7 @@ Augment_Snapshot <- function(
           )
         }
 
-        if(grepl("qtl", result$name)){
+        if (grepl("qtl", result$name)) {
           result$lResults$lCharts[["timeSeriesContinuousJS"]] <- Widget_TimeSeriesQTL(
             qtl = this_workflow_id,
             raw_results = stackedSnapshots$results_summary,

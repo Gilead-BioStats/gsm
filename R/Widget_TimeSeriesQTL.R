@@ -26,21 +26,22 @@ Widget_TimeSeriesQTL <- function(qtl,
   width = NULL,
   height = NULL,
   elementId = NULL) {
-
   results <- raw_results %>%
     dplyr::filter(.data$workflowid == qtl) %>%
     mutate(snapshot_date = .data$gsm_analysis_date) # contains the string qtl
 
   workflow <- raw_workflow %>%
-    dplyr::filter(.data$workflowid == qtl)  %>%
+    dplyr::filter(.data$workflowid == qtl) %>%
     dplyr::mutate(selectedGroupIDs = selectedGroupIDs)
 
   parameters <- raw_param %>%
     dplyr::filter(.data$workflowid == qtl) %>%
-    mutate(value = NA,
-           snapshot_date = .data$gsm_analysis_date)
+    mutate(
+      value = NA,
+      snapshot_date = .data$gsm_analysis_date
+    )
 
-  analysis <- raw_analysis #%>%
+  analysis <- raw_analysis # %>%
   #   dplyr::filter(grepl("qtl", .data$workflowid))
 
   if (is.null(selectedGroupIDs)) {

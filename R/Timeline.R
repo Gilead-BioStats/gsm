@@ -24,16 +24,20 @@
 Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date_format = "%b\n%Y", bInteractive = TRUE) {
   history <- length(longitudinal) > 0
 
-  if(history) {
+  if (history) {
     snapshots <- longitudinal$status_study %>%
       select(date = "snapshot_date") %>%
-      mutate(.before = date,
-             activity = "Snapshot") %>%
+      mutate(
+        .before = date,
+        activity = "Snapshot"
+      ) %>%
       as_tibble()
   }
 
   d <- status_study %>%
-    {if(history) select(., -"gsm_analysis_date") else .} %>%
+    {
+      if (history) select(., -"gsm_analysis_date") else .
+    } %>%
     mutate(across(
       everything(),
       ~ as.Date(as.character(.), tz = "UTC", format = "%Y-%m-%d")
@@ -43,7 +47,9 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
   if (ncol(d) > 1) {
     d <- d %>%
       tidyr::pivot_longer(everything(), names_to = "activity", values_to = "date") %>%
-      {if(history) bind_rows(., snapshots) else .} %>%
+      {
+        if (history) bind_rows(., snapshots) else .
+      } %>%
       mutate(
         date = as.Date(.data$date),
         estimate = grepl("est", .data$activity),
@@ -115,21 +121,26 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
         arrowhead_height = unit(15, "mm"),
         arrow_body_height = unit(ifelse(grepl("\n", date_format), 10, 7), "mm")
       ) +
-      {if(bInteractive)
-      ggiraph::geom_point_interactive(
-        aes(
-          color = .data$label,
-          shape = .data$estimate,
-          data_id = .data$date,
-          tooltip = paste0(.data$label, "\n", .data$date)
-        ),
-        size = 2
-      ) else
-        geom_point(
-          aes(
-            color = .data$label,
-            shape = .data$estimate
-            ))} +
+      {
+        if (bInteractive) {
+          ggiraph::geom_point_interactive(
+            aes(
+              color = .data$label,
+              shape = .data$estimate,
+              data_id = .data$date,
+              tooltip = paste0(.data$label, "\n", .data$date)
+            ),
+            size = 2
+          )
+        } else {
+          geom_point(
+            aes(
+              color = .data$label,
+              shape = .data$estimate
+            )
+          )
+        }
+      } +
       scale_shape_manual(values = c(19, 1), labels = c("Actual", "Estimated")) +
       annotate(geom = "text", x = breaks, y = 0, label = format(breaks, format = date_format), size = 3, fontface = 2) +
       expand_limits(y = c(5, -25)) +

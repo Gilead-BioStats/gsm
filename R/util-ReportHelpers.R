@@ -60,7 +60,7 @@ MakeStudyStatusTable <- function(dfStudy, longitudinal = NULL) {
   #    these values were being formatted with a lot of trailing zeroes, so they are rounded here before pasting as a character vector
   sites <- paste0(round(as.numeric(dfStudy$enrolled_sites)), " / ", round(as.numeric(dfStudy$planned_sites)))
   participants <- paste0(round(as.numeric(dfStudy$enrolled_participants)), " / ", round(as.numeric(dfStudy$planned_participants)))
-  if(!is.null(longitudinal)) {
+  if (!is.null(longitudinal)) {
     snap_stats <- longitudinal$status_study %>%
       reframe(
         "Average snapshot interval" = mean(difftime(.data$snapshot_date, lag(.data$snapshot_date)), na.rm = TRUE),
@@ -70,7 +70,9 @@ MakeStudyStatusTable <- function(dfStudy, longitudinal = NULL) {
 
 
   study_status_table <- dfStudy %>%
-    {if(!is.null(longitudinal)) cbind(., snap_stats) else .} %>%
+    {
+      if (!is.null(longitudinal)) cbind(., snap_stats) else .
+    } %>%
     t() %>%
     as.data.frame() %>%
     tibble::rownames_to_column() %>%
@@ -273,10 +275,10 @@ MakeKRIGlossary <- function(
 #' @param summary_table `data.frame` a summary table created from `MakeSummayTable`
 #' @export
 #' @keywords internal
-MakeResultsTable <- function(assessment, summary_table){
+MakeResultsTable <- function(assessment, summary_table) {
   for (i in seq_along(assessment)) {
     kri_key <- names(assessment)[i]
-    kri <- assessment[[ kri_key ]]
+    kri <- assessment[[kri_key]]
 
     title <- gsm::meta_workflow %>%
       filter(.data$workflowid == kri_key) %>%
@@ -294,9 +296,8 @@ MakeResultsTable <- function(assessment, summary_table){
 
     for (j in seq_along(charts)) {
       chart_key <- names(charts)[j]
-      chart <- charts[[ chart_key ]]
-      chart_name <- switch(
-        chart_key,
+      chart <- charts[[chart_key]]
+      chart_name <- switch(chart_key,
         scatterJS = "Scatter Plot",
         barScoreJS = "Bar Chart (KRI Score)",
         barMetricJS = "Bar Chart (KRI Metric)",
@@ -304,7 +305,7 @@ MakeResultsTable <- function(assessment, summary_table){
       )
 
       ##### chart tab /
-      chart_header <- paste('#####', chart_name, '\n')
+      chart_header <- paste("#####", chart_name, "\n")
 
       cat(chart_header)
 
@@ -312,9 +313,9 @@ MakeResultsTable <- function(assessment, summary_table){
       # see here: https://github.com/rstudio/rmarkdown/issues/1877#issuecomment-678996452
       purrr::map(
         charts,
-        ~.x %>%
+        ~ .x %>%
           knitr::knit_print() %>%
-          attr('knit_meta') %>%
+          attr("knit_meta") %>%
           knitr::knit_meta_add() %>%
           invisible()
       )
@@ -344,29 +345,32 @@ MakeResultsTable <- function(assessment, summary_table){
 #' @param strType `string` a string defining what report to define: "kri", "cou", or "qtl"
 #' @export
 #' @keywords internal
-AssessStatus <- function(assessment, strType){
-  any_dropped <- map(assessment, function(names){
+AssessStatus <- function(assessment, strType) {
+  any_dropped <- map(assessment, function(names) {
     "bActive" %in% names(names)
-  }) %>% unlist(.data) %>% any()
+  }) %>%
+    unlist(.data) %>%
+    any()
 
-  if(any_dropped){
-    active <- assessment[map_df(assessment, function(status){
+  if (any_dropped) {
+    active <- assessment[map_df(assessment, function(status) {
       status[["bActive"]] == TRUE
     }) %>%
       pivot_longer(everything()) %>%
       filter(.data$value) %>%
       pull(.data$name)]
 
-    dropped <- assessment[map_df(assessment, function(status){
+    dropped <- assessment[map_df(assessment, function(status) {
       status[["bActive"]] == FALSE
     }) %>%
       pivot_longer(everything()) %>%
       filter(.data$value) %>%
       pull(.data$name)]
 
-    output <- list(active = active[grep(strType, names(active))],
-                   dropped = dropped[grep(strType, names(dropped))])
-
+    output <- list(
+      active = active[grep(strType, names(active))],
+      dropped = dropped[grep(strType, names(dropped))]
+    )
   } else {
     output <- assessment[
       grep(strType, names(assessment))
@@ -380,39 +384,51 @@ AssessStatus <- function(assessment, strType){
 #' @param dfSite `data.frame` Site-level metadata containing within `params$status_site` of report
 #' @export
 #' @keywords internal
-MakeReportSetup <- function(assessment, dfSite, strType){
-  type <- if(strType == "cou"){
-        "country"
-    } else if(strType == "kri"){
-        "site"
-    } else if(tolower(strType) == "qtl"){
-        "qtl"
-    }
+MakeReportSetup <- function(assessment, dfSite, strType) {
+  type <- if (strType == "cou") {
+    "country"
+  } else if (strType == "kri") {
+    "site"
+  } else if (tolower(strType) == "qtl") {
+    "qtl"
+  }
   ## create output list
   output <- list()
 
   ## Study_Assess() output - KRIs only
   input <- AssessStatus(assessment, strType = strType)
-  output$active <- if("active" %in% names(input)) {input$active} else {input}
-  output$dropped <- if("dropped" %in% names(input)) {input$dropped} else {NULL}
+  output$active <- if ("active" %in% names(input)) {
+    input$active
+  } else {
+    input
+  }
+  output$dropped <- if ("dropped" %in% names(input)) {
+    input$dropped
+  } else {
+    NULL
+  }
 
   ## Overview Table - HTML object
   output$overview_table <- Overview_Table(
     lAssessments = output$active,
-    dfSite =  dfSite,
+    dfSite = dfSite,
     strReportType = type,
   )
 
   ## Overview Table - data.frame/raw data
   output$overview_raw_table <- Overview_Table(
     lAssessments = output$active,
-    dfSite =  dfSite,
+    dfSite = dfSite,
     strReportType = type,
     bInteractive = FALSE
   )
 
-  output$red_kris <- output$overview_raw_table %>% pull(.data[["Red KRIs"]]) %>% sum()
-  output$amber_kris <- output$overview_raw_table %>% pull(.data[["Amber KRIs"]]) %>% sum()
+  output$red_kris <- output$overview_raw_table %>%
+    pull(.data[["Red KRIs"]]) %>%
+    sum()
+  output$amber_kris <- output$overview_raw_table %>%
+    pull(.data[["Amber KRIs"]]) %>%
+    sum()
 
   ## Generate listing of flagged KRIs.
   output$summary_table <- MakeSummaryTable(
@@ -420,7 +436,7 @@ MakeReportSetup <- function(assessment, dfSite, strType){
     dfSite
   )
 
-  if(!is.null(output$dropped)){
+  if (!is.null(output$dropped)) {
     output$dropped_summary_table <- MakeSummaryTable(
       output$dropped,
       dfSite
@@ -450,14 +466,14 @@ MakeReportSetup <- function(assessment, dfSite, strType){
 #' @param red_kris `string` a string or number containing the count of red flags in kri's
 #' @export
 #' @keywords internal
-MakeOverviewMessage <- function(report, study_id, snapshot_date, subjects, overview_raw_table, red_kris){
-  if(report == "site"){
-  cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across
+MakeOverviewMessage <- function(report, study_id, snapshot_date, subjects, overview_raw_table, red_kris) {
+  if (report == "site") {
+    cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across
 {length(unique(overview_raw_table$Site))} sites. {red_kris} Site-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites as shown in the Study Overview Table above\n
   - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites have at least one red KRI\n
   - {overview_raw_table %>% filter(.data$`Red KRIs` != 0 | .data$`Amber KRIs` != 0) %>% nrow()} sites have at least one red or amber KRI\n
   - {overview_raw_table %>% filter(.data$`Red KRIs` == 0 & .data$`Amber KRIs` == 0) %>% nrow()} sites have neither red nor amber KRIs and are not shown"), sep = "\n")
-  } else if(report == "country"){
+  } else if (report == "country") {
     cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across
 {length(unique(overview_raw_table$Country))} countries. {red_kris} Country-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries as shown in the Study Overview Table above\n
   - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries have at least one red KRI\n
@@ -470,13 +486,14 @@ MakeOverviewMessage <- function(report, study_id, snapshot_date, subjects, overv
 #' @param status_study `df` a dataframe containing status of study pulled from `params$status_study` in report
 #' @export
 #' @keywords internal
-GetSnapshotDate <- function(status_study){
+GetSnapshotDate <- function(status_study) {
   output <- list()
   output$subjects <- status_study[["enrolled_participants_ctms"]]
-  if ("gsm_analysis_date" %in% names(status_study))
+  if ("gsm_analysis_date" %in% names(status_study)) {
     output$snapshot_date <- status_study$gsm_analysis_date
-  else
+  } else {
     output$snapshot_date <- Sys.Date()
+  }
 
   cat(glue::glue(
     '\n
@@ -484,7 +501,8 @@ GetSnapshotDate <- function(status_study){
     date: "Snapshot Date: {output$snapshot_date}"
     ---
     \n
-    '))
+    '
+  ))
 
   return(output)
 }
@@ -493,7 +511,7 @@ GetSnapshotDate <- function(status_study){
 #' @param data `list` a list containing active assessments
 #' @export
 #' @keywords internal
-MakeErrorLog <- function(data){
+MakeErrorLog <- function(data) {
   error <- Study_AssessmentReport(data)
 
   error_table <- error$dfSummary %>%
@@ -508,25 +526,3 @@ MakeErrorLog <- function(data){
 
   return(DT::datatable(error_table))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
