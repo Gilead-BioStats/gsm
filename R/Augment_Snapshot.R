@@ -38,9 +38,7 @@ Augment_Snapshot <- function(
 ) {
   # TODO: alternatively accept the output of StackSnapshots?
   stackedSnapshots <- StackSnapshots(cPath, lSnapshot, vFolderNames)
-
-
-  if (!is.null(stackedSnapshots)) {
+  if(!is.null(stackedSnapshots)){
     if (bAppendTimeSeriesCharts) {
       lSnapshot$lStudyAssessResults <- lSnapshot$lStudyAssessResults %>%
         purrr::imap(function(result, workflowid) {
@@ -89,7 +87,7 @@ Augment_Snapshot <- function(
     }
 
     if (bAppendLongitudinalResults) {
-      snapshots <- ExtractDirectoryPaths(cPath, file = "snapshot.rds")
+      snapshots <- ExtractDirectoryPaths(cPath, file = "snapshot.rds", include.partial.match = FALSE, verbose = FALSE)
       snapshot_dates <- ExtractSnapshotDate(snapshots)
 
       ## get current status
@@ -147,16 +145,19 @@ Augment_Snapshot <- function(
     }
 
     lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots
-
-  } else {
+  } else if(is.null(stackedSnapshots)){
 
     lSnapshot[["lStackedSnapshots"]] <- lSnapshot$lSnapshot %>%
       purrr::map(
         ~.x %>%
           mutate(
             snapshot_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d")
-            )
-        )
+          )
+      )
+
+    return(lSnapshot)
+
+  } else {
+    stop("Unexpected error occurred in the StackedSnapshot output")
   }
-  return(lSnapshot)
 }
