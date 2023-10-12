@@ -185,6 +185,6 @@ StackSnapshots <- function(
     return(longitudinal_data)
   } else {
     cli::cli_alert_warning("[ cPath ] contains no additional snapshot folders to derive longinitudinal data. Original snapshot is returned instead.")
-    return(lSnapshot)
+    return(NULL)
   }
 }

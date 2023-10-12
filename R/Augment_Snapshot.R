@@ -38,23 +38,7 @@ Augment_Snapshot <- function(
 ) {
   # TODO: alternatively accept the output of StackSnapshots?
   stackedSnapshots <- StackSnapshots(cPath, lSnapshot, vFolderNames)
-
-  single_snap <- c("lSnapshotDate",
-                   "lSnapshot",
-                   "lStudyAssessResults",
-                   "lInputs")
-
-  long_snap <- c("meta_param",
-                 "meta_workflow",
-                 "results_analysis",
-                 "results_summary",
-                 "status_param",
-                 "status_site",
-                 "status_study",
-                 "status_workflow",
-                 "parameters")
-
-  if(all(names(stackedSnapshots) %in% long_snap)){
+  if(!is.null(stackedSnapshots)){
     if (bAppendTimeSeriesCharts) {
       lSnapshot$lStudyAssessResults <- lSnapshot$lStudyAssessResults %>%
         purrr::imap(function(result, workflowid) {
@@ -161,9 +145,9 @@ Augment_Snapshot <- function(
     }
 
     lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots
-  } else if(all(names(snapshot) %in% single_snap)){
+  } else if(is.null(stackedSnapshots)){
     return(lSnapshot)
   } else {
-    stop("Unexpected error occurred in the names of StackedSnapshot output")
+    stop("Unexpected error occurred in the StackedSnapshot output")
   }
 }
