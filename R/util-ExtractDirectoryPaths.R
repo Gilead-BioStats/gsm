@@ -2,6 +2,7 @@
 #'
 #' @param cPath `character` Path to longitudinal data folders.
 #' @param file `character` File name that must be in the folders to qualify for selection
+#' @param include.partial.match `logical` TRUE = include directory path if any files of interest are found, FALSE = only include directories that contain all files of interest.
 #'
 #' @return `vector` containing paths to directories that contain the file of interest.
 #'
