@@ -145,6 +145,7 @@ Augment_Snapshot <- function(
     }
 
     lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots
+    return(lSnapshot)
   } else if(is.null(stackedSnapshots)){
     return(lSnapshot)
   } else {
