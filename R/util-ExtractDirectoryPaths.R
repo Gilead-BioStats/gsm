@@ -8,11 +8,36 @@
 #' @keywords internal
 #'
 #' @export
-ExtractDirectoryPaths <- function(cPath, file) {
+ExtractDirectoryPaths <- function(cPath, file, include.partial.match = FALSE) {
   directories <- list.dirs(cPath, recursive = FALSE)
   has_file <- vector()
+  part <- vector()
   for(i in 1:length(directories)){
-    has_file[i] <- file %in% list.files(directories[i])
+    if(!include.partial.match){
+      has_file[i] <- all(file %in% list.files(directories[i]))
+    } else if(include.partial.match){
+      has_file[i] <- any(file %in% list.files(directories[i]))
+    }
   }
-  return(directories[has_file])
+  present <- directories[has_file]
+  missing <- directories[!has_file]
+
+  if(!include.partial.match & length(missing) > 0){
+    mess <- glue::glue("\n Some or all files of interest missing within: {str_flatten(paste0('`', stringr::str_extract(missing, '([^/]+$)'), '`'), collapse = ', ')}")
+    warning(mess)
+  }
+
+  if(include.partial.match & length(missing) > 0){
+    mess <- glue::glue("All files of interest missing within {str_flatten(paste0('`', stringr::str_extract(missing, '([^/]+$)'), '`'), collapse = ', ')}")
+    warning(mess)
+    for(i in 1:length(present)){
+      part[i] <- any(!file %in% list.files(present[i]))
+    }
+    for(i in present[part]){
+      mess2 <- glue::glue("`{stringr::str_extract(i, '([^/]+$)')}` missing files: {str_flatten(paste0('`', file[!file %in% list.files(i)], '`'), collapse = ', ')}")
+      warning(mess2)
+    }
+
+  }
+  return(present)
 }
