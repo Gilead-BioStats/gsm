@@ -4,7 +4,12 @@
 \alias{ExtractDirectoryPaths}
 \title{Extract a vector of directory paths that contain a specified file name.}
 \usage{
-ExtractDirectoryPaths(cPath, file, include.partial.match = FALSE)
+ExtractDirectoryPaths(
+  cPath,
+  file,
+  include.partial.match = TRUE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{cPath}{\code{character} Path to longitudinal data folders.}
@@ -12,6 +17,8 @@ ExtractDirectoryPaths(cPath, file, include.partial.match = FALSE)
 \item{file}{\code{character} File name that must be in the folders to qualify for selection}
 
 \item{include.partial.match}{\code{logical} TRUE = include directory path if any files of interest are found, FALSE = only include directories that contain all files of interest.}
+
+\item{verbose}{\code{logical} TRUE = display warnings, FALSE = don't display warnings}
 }
 \value{
 \code{vector} containing paths to directories that contain the file of interest.

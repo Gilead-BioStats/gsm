@@ -87,7 +87,7 @@ Augment_Snapshot <- function(
   }
 
   if (bAppendLongitudinalResults) {
-    snapshots <- ExtractDirectoryPaths(cPath, file = "snapshot.rds")
+    snapshots <- ExtractDirectoryPaths(cPath, file = "snapshot.rds", verbose = FALSE)
     snapshot_dates <- ExtractSnapshotDate(snapshots)
 
     ## get current status
