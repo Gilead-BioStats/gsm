@@ -30,11 +30,11 @@
 #'
 #' @export
 Augment_Snapshot <- function(
-  lSnapshot,
-  cPath,
-  vFolderNames = NULL,
-  bAppendTimeSeriesCharts = TRUE,
-  bAppendLongitudinalResults = TRUE
+    lSnapshot,
+    cPath,
+    vFolderNames = NULL,
+    bAppendTimeSeriesCharts = TRUE,
+    bAppendLongitudinalResults = TRUE
 ) {
   # TODO: alternatively accept the output of StackSnapshots?
   stackedSnapshots <- StackSnapshots(cPath, lSnapshot, vFolderNames)
@@ -148,11 +148,8 @@ Augment_Snapshot <- function(
 
     lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots
 
-    return(lSnapshot)
   } else {
-    cli::cli_alert_warning(
-      " [{.fn Augment_Snapshot} not run.] "
-    )
-    return(NULL)
+    lSnapshot[["lStackedSnapshots"]] <- lSnapshot$lSnapshot
   }
+  return(lSnapshot)
 }
