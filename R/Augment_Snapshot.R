@@ -149,7 +149,14 @@ Augment_Snapshot <- function(
     lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots
 
   } else {
-    lSnapshot[["lStackedSnapshots"]] <- lSnapshot$lSnapshot
+
+    lSnapshot[["lStackedSnapshots"]] <- lSnapshot$lSnapshot %>%
+      purrr::map(
+        ~.x %>%
+          mutate(
+            snapshot_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d")
+            )
+        )
   }
   return(lSnapshot)
 }
