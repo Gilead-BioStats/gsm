@@ -92,7 +92,7 @@ Augment_Snapshot <- function(
 
       ## get current status
       status <- stackedSnapshots$results_summary %>%
-        select(.data$snapshot_date, .data$workflowid) %>%
+        select("snapshot_date", "workflowid") %>%
         filter(.data$snapshot_date %in% snapshot_dates$snapshot_date) %>%
         distinct() %>%
         group_by(workflowid) %>%
