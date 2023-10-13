@@ -1,0 +1,66 @@
+{
+    "total_sites_count": 1,
+    "numerator": "SAEs",
+    "denominator": "Days on Study",
+    "workflow_details": {
+        "group": "Site",
+        "model": "Normal Approximation (Rate)",
+        "score": "Adjusted Z-Score",
+        "metric": "SAE Reporting Rate",
+        "outcome": "Rate",
+        "numerator": "SAEs",
+        "workflowid": "kri0002",
+        "data_inputs": "rawplus.ae, rawplus.dm",
+        "denominator": "Days on Study",
+        "gsm_version": "1.7.4",
+        "data_filters": "Serious"
+    },
+    "site_details": [
+        {
+            "SAEs": 2.0,
+            "country": "US",
+            "site_id": "171",
+            "kri_score": 3.6,
+            "flag_details": {
+                "flag_value": 2,
+                "no_of_consequetive_loads": 2
+            },
+            "Days on Study": 715.0,
+            "site_id_details": {
+                "city": "city 1",
+                "state": "state 1",
+                "country": "US",
+                "site_id": "171",
+                "site_name": "city 1 Medical Center",
+                "site_status": "Active"
+            },
+            "enrolled_subjects": 1,
+            "site_investigator": "Nguyen, Abdul Wadood",
+            "sparkline_details": [
+                {
+                    "flag": "2",
+                    "score": "3.6",
+                    "metric": "0.003",
+                    "groupid": "171",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "2.00",
+                    "workflowid": "kri0002",
+                    "denominator": "715.00",
+                    "snapshot_date": "2017-11-01"
+                },
+                {
+                    "flag": "2",
+                    "score": "3.6",
+                    "metric": "0.003",
+                    "groupid": "171",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "2.00",
+                    "workflowid": "kri0002",
+                    "denominator": "715.00",
+                    "snapshot_date": "2018-11-01"
+                }
+            ],
+            "selected_snapshot_kri_value": 0.003
+        }
+    ]
+}

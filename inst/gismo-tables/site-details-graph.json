@@ -1,0 +1,4723 @@
+{
+    "data": [
+        {
+            "n": 1,
+            "groupid": "10",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "100",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "101",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "102",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "103",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "104",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "105",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "106",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "107",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "109",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "11",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "111",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "112",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "113",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "114",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "115",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "116",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "118",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "119",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "12",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "120",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "121",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "122",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "123",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "124",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "126",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "127",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "128",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "129",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "13",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "130",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "131",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "132",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "133",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "134",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "135",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "136",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "137",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "138",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "139",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "14",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "140",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "141",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "142",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "143",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "144",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "145",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "146",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "147",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "148",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "149",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "15",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "150",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 1,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 1,
+            "groupid": "151",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "152",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "153",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "154",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 1,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 1,
+            "groupid": "155",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "156",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "157",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "158",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "159",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "16",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "160",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "161",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "162",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "163",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "164",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "165",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "166",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "167",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "168",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "17",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "170",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "171",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "172",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "173",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "174",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "175",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "176",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "177",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "178",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "179",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "18",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "180",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "181",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "182",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "183",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "184",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "185",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "186",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "187",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "188",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "189",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "19",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "190",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "20",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "22",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "23",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "25",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 1,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 1,
+            "groupid": "26",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "27",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "28",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "29",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "3",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "30",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "31",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "32",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "33",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "34",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "35",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "36",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "38",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "39",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "4",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "40",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "41",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "42",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "43",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 1,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 1,
+            "groupid": "44",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "45",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "46",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "47",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "48",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "49",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "5",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "50",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "51",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "52",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "53",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "54",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "55",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "56",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "57",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "58",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "59",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "6",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "60",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "61",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "62",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "63",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "64",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "65",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "66",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "67",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "68",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "69",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "7",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "70",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "71",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "72",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "73",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "75",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "76",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "77",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "8",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "80",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "81",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "82",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "83",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 1,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 1,
+            "groupid": "84",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "85",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "86",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "87",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "89",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "9",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "91",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 1,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 1,
+            "groupid": "92",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "94",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "96",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "97",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "98",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2016-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "10",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "100",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "101",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "102",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "103",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "104",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "105",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "106",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "107",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "109",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "11",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "110",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "111",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "112",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "113",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "114",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "115",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "116",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "117",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "118",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "119",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "12",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "120",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "121",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "122",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "123",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "124",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "126",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "127",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "128",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "129",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "13",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "130",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "131",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "132",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "133",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "134",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "135",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "136",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "137",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "138",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "139",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "14",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "140",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "141",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "142",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "143",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "144",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "145",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "146",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "147",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "148",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "149",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "15",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "150",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 1,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 2,
+            "groupid": "151",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "152",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "153",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "154",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 2,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 2
+        },
+        {
+            "n": 2,
+            "groupid": "155",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "156",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "157",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "158",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "159",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "16",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "160",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "161",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "162",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "163",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "164",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "165",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 1,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 2,
+            "groupid": "166",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "167",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "168",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "17",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "170",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "171",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 1,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 2,
+            "groupid": "172",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "173",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "174",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "175",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "176",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "177",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "178",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "179",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 1,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 2,
+            "groupid": "18",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "180",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "181",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "182",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "183",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "184",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "185",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "186",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "187",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "188",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "189",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "19",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "190",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "20",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "22",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "23",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "25",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 1,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 2,
+            "groupid": "26",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "27",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "28",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 1,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 2,
+            "groupid": "29",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "3",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "30",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "31",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "32",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "33",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "34",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "35",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "36",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "38",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "39",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "4",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "40",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "41",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "42",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "43",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 1,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 2,
+            "groupid": "44",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "45",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "46",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "47",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "48",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "49",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "5",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "50",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "51",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "52",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "53",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "54",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "55",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "56",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "57",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "58",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "59",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "6",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "60",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "61",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "62",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "63",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "64",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "65",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "66",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "67",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "68",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "69",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "7",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "70",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "71",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "72",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "73",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "75",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "76",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "77",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "78",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "8",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "80",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "81",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "82",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "83",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 1,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 2,
+            "groupid": "84",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "85",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "86",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "87",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "89",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "9",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "91",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 1,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 2,
+            "groupid": "92",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "94",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "96",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "97",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "98",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 2,
+            "groupid": "99",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2017-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "10",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "100",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "101",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "102",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "103",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "104",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "105",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "106",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "107",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "109",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "11",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "110",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "111",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "112",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "113",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "114",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "115",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "116",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "117",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "118",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "119",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "12",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "120",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "121",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "122",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "123",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "124",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "126",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "127",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "128",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "129",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "13",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "130",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "131",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "132",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "133",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "134",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "135",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "136",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "137",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "138",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "139",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "14",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "140",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "141",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "142",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "143",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "144",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "145",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "146",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "147",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "148",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "149",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "15",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "150",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "151",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "152",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "153",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "154",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 1,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 1,
+            "groupid": "155",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "156",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "157",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "158",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "159",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "16",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "160",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "161",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "162",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "163",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "164",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "165",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 1,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 1,
+            "groupid": "166",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "167",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "168",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "17",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "170",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "171",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 1,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 1,
+            "groupid": "172",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "173",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "174",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "175",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "176",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "177",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "178",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "179",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 1,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 1,
+            "groupid": "18",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "180",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "181",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "182",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "183",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "184",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "185",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "186",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "187",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "188",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "189",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "19",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "190",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "20",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "22",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "23",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "25",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "26",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "27",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "28",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 1,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 1
+        },
+        {
+            "n": 1,
+            "groupid": "29",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "3",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "30",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "31",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "32",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "33",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "34",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "35",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "36",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "38",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "39",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "4",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "40",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "41",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "42",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "43",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "44",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "45",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "46",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "47",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "48",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "49",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "5",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "50",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "51",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "52",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "53",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "54",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "55",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "56",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "57",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "58",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "59",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "6",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "60",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "61",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "62",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "63",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "64",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "65",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "66",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "67",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "68",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "69",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "7",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "70",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "71",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "72",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "73",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "75",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "76",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "77",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "78",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "8",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "80",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "81",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "82",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "83",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "84",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "85",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "86",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "87",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "89",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "9",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "91",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "92",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "94",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "96",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "97",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "98",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        },
+        {
+            "n": 1,
+            "groupid": "99",
+            "studyid": "AA-AA-000-0000",
+            "n_at_risk": 0,
+            "n_flagged": 0,
+            "snapshot_date": "2018-11-01",
+            "n_at_risk_or_flagged": 0
+        }
+    ],
+    "workflow": {
+        "selectedGroupIDs": "171"
+    }
+}

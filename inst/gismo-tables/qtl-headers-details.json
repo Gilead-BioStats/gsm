@@ -1,0 +1,32 @@
+[
+    {
+        "qtl_name": "Study Discontinuation Rate",
+        "qtl_id": "qtl0006",
+        "base_metric": "Subjects Discontinued - Study/Enrolled Subjects",
+        "numerator_name": "Subjects Discontinued - Study",
+        "numerator_value": 87.0,
+        "denominator_name": "Enrolled Subjects",
+        "denominator_value": 1301.0,
+        "qtl_value": 0.067,
+        "qtl_limit": 0.2,
+        "within_threshold": 0,
+        "analysis": [
+            {
+                "param": "Score",
+                "value": 0.054
+            },
+            {
+                "param": "Estimate",
+                "value": 0.067
+            },
+            {
+                "param": "LowCI",
+                "value": 0.054
+            },
+            {
+                "param": "UpCI",
+                "value": 0.082
+            }
+        ]
+    }
+]
