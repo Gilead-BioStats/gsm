@@ -22,9 +22,9 @@
 #'
 #' @export
 StackSnapshots <- function(
-  cPath,
-  lSnapshot = NULL,
-  vFolderNames = NULL
+    cPath,
+    lSnapshot = NULL,
+    vFolderNames = NULL
 ) {
   stopifnot(
     "[ cPath ] does not exist." = file.exists(cPath)

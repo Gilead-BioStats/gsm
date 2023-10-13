@@ -30,11 +30,11 @@
 #'
 #' @export
 Augment_Snapshot <- function(
-  lSnapshot,
-  cPath,
-  vFolderNames = NULL,
-  bAppendTimeSeriesCharts = TRUE,
-  bAppendLongitudinalResults = TRUE
+    lSnapshot,
+    cPath,
+    vFolderNames = NULL,
+    bAppendTimeSeriesCharts = TRUE,
+    bAppendLongitudinalResults = TRUE
 ) {
   # TODO: alternatively accept the output of StackSnapshots?
   stackedSnapshots <- StackSnapshots(cPath, lSnapshot, vFolderNames)
@@ -147,8 +147,16 @@ Augment_Snapshot <- function(
     lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots
     return(lSnapshot)
   } else if(is.null(stackedSnapshots)){
-    lSnapshot[["lStackedSnapshots"]] <- lSnapshot
+    lSnapshot[["lStackedSnapshots"]] <- lSnapshot$lSnapshot %>%
+      purrr::map(
+        ~.x %>%
+          mutate(
+            snapshot_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d")
+          )
+      )
+
     return(lSnapshot)
+
   } else {
     stop("Unexpected error occurred in the StackedSnapshot output")
   }
