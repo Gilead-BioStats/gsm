@@ -77,7 +77,7 @@ test_that("Augment_Snapshot runs without error when correct data is provided", {
 test_that("Augment_Snapshot correctly subsets folders specified in vFolderNames", {
   augment <- Augment_Snapshot(
     lSnapshot = snapshot,
-    cPath = system.file("snapshots", "AA-AA-000-0000", package = "gsm"), vFolderNames = c("2016-12-01", "2018-12-01")
+    cPath = system.file("data-longitudinal", "AA-AA-000-0000", package = "clindata"), vFolderNames = c("2016-12-01", "2018-12-01")
   )
 
   dates_used_in_augment <- map(augment$lStackedSnapshots, ~ {

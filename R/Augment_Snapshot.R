@@ -145,8 +145,8 @@ Augment_Snapshot <- function(
     }
 
     lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots
+    return(lSnapshot)
   } else if(is.null(stackedSnapshots)){
-
     lSnapshot[["lStackedSnapshots"]] <- lSnapshot$lSnapshot %>%
       purrr::map(
         ~.x %>%
