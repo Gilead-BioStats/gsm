@@ -51,7 +51,7 @@ AEs by passing filtered AE data to \code{dfAE}.
    \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \tab \strong{Accept NA/Empty Values?} \cr
    dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \tab FALSE \cr
    dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \tab FALSE \cr
-   dfSUBJ \tab strTimeOnTreatmentCol \tab timeontreatment \tab TRUE \tab FALSE \tab TRUE \cr
+   dfSUBJ \tab strTimeOnStudyCol \tab timeonstudy \tab TRUE \tab FALSE \tab TRUE \cr
    dfAE \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
 }
 }
