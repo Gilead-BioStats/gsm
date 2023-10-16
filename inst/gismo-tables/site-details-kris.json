@@ -1,0 +1,53 @@
+{
+    "kri_details": [
+        {
+            "kri_id": "kri0002",
+            "kri_name": "SAE Reporting Rate",
+            "flag_value": 2,
+            "meta_numerator": "SAEs",
+            "sparkline_data": [
+                {
+                    "flag": "2",
+                    "score": "3.6",
+                    "metric": "0.003",
+                    "groupid": "171",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "2.00",
+                    "workflowid": "kri0002",
+                    "denominator": "715.00",
+                    "snapshot_date": "2017-11-01"
+                },
+                {
+                    "flag": "2",
+                    "score": "3.6",
+                    "metric": "0.003",
+                    "groupid": "171",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "2.00",
+                    "workflowid": "kri0002",
+                    "denominator": "715.00",
+                    "snapshot_date": "2018-11-01"
+                }
+            ],
+            "meta_denominator": "Days on Study",
+            "no_of_consecutive_loads": 2,
+            "selected_snapshot_kri_value": 0.003
+        }
+    ],
+    "workflow": {
+        "kri0002": {
+            "group": "Site",
+            "model": "Normal Approximation (Rate)",
+            "score": "Adjusted Z-Score",
+            "metric": "SAE Reporting Rate",
+            "outcome": "Rate",
+            "numerator": "SAEs",
+            "workflowid": "kri0002",
+            "data_inputs": "rawplus.ae, rawplus.dm",
+            "denominator": "Days on Study",
+            "gsm_version": "1.7.4",
+            "data_filters": "Serious"
+        }
+    },
+    "total_kri_count": 1
+}

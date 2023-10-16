@@ -1,45 +1,27 @@
 HTMLWidgets.widget({
-
   name: 'Widget_TimeSeriesQTL',
-
   type: 'output',
-
   factory: function(el, width, height) {
-
-    // TODO: define shared variables for this instance
-
     return {
-
       renderValue: function(x) {
-
-        results = HTMLWidgets.dataframeToD3(x.results)
-        workflow = HTMLWidgets.dataframeToD3(x.workflow)[0]
+        console.log(x)
+        const results = HTMLWidgets.dataframeToD3(x.results);
+        const workflow = HTMLWidgets.dataframeToD3(x.workflow)[0];
         workflow.selectedGroupIDs = x.selectedGroupIDs
         workflow.y = 'metric';
-        parameters = HTMLWidgets.dataframeToD3(x.parameters)
-        analysis = HTMLWidgets.dataframeToD3(x.analysis)
-
-        console.log(analysis)
-
-        console.log(analysis)
+        const parameters = HTMLWidgets.dataframeToD3(x.parameters)
+        const analysis = HTMLWidgets.dataframeToD3(x.analysis)
 
         const instance = rbmViz.default.timeSeries(
-            el,
-            results,
-            workflow,
-            parameters,
-            analysis
+          el,
+          results,
+          workflow,
+          parameters,
+          analysis
         );
-
-
       },
-
       resize: function(width, height) {
-
-        // TODO: code to re-render the widget with a new size
-
       }
-
     };
   }
 });

@@ -1,0 +1,46 @@
+{
+    "kri_details": [
+        {
+            "kri_id": "kri0002",
+            "kri_name": "SAE Reporting Rate",
+            "kri_description": "SAEs/Days on Study",
+            "num_of_sites_flagged": 2,
+            "num_of_sites_at_risk": 3,
+            "selected_snapshot_kri_value": 5,
+            "workflow_details": {
+                "workflowid": "kri0002",
+                "gsm_version": "1.7.4",
+                "group": "Site",
+                "metric": "SAE Reporting Rate",
+                "numerator": "SAEs",
+                "denominator": "Days on Study",
+                "outcome": "Rate",
+                "model": "Normal Approximation (Rate)",
+                "score": "Adjusted Z-Score",
+                "data_inputs": "rawplus.ae, rawplus.dm",
+                "data_filters": "Serious"
+            },
+            "sparkline_details": [
+                {
+                    "studyid": "AA-AA-000-0000",
+                    "workflowid": "kri0002",
+                    "n_flagged": 2,
+                    "n_at_risk": 3,
+                    "n_at_risk_or_flagged": 5,
+                    "n": 176,
+                    "snapshot_date": "2017-11-01"
+                },
+                {
+                    "studyid": "AA-AA-000-0000",
+                    "workflowid": "kri0002",
+                    "n_flagged": 2,
+                    "n_at_risk": 3,
+                    "n_at_risk_or_flagged": 5,
+                    "n": 176,
+                    "snapshot_date": "2018-11-01"
+                }
+            ]
+        }
+    ],
+    "total_kri_count": 1
+}

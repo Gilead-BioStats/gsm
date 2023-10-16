@@ -1,0 +1,147 @@
+{
+    "data": [
+        {
+            "flag": 0,
+            "score": "0.1",
+            "metric": "0.064",
+            "groupid": "AA-AA-000-0000",
+            "studyid": "AA-AA-000-0000",
+            "numerator": "83.00",
+            "workflowid": "qtl0006",
+            "denominator": "1298.00",
+            "snapshot_date": "2017-11-01",
+            "gsm_analysis_date": "2017-11-01"
+        },
+        {
+            "flag": 0,
+            "score": "0.1",
+            "metric": "0.067",
+            "groupid": "AA-AA-000-0000",
+            "studyid": "AA-AA-000-0000",
+            "numerator": "87.00",
+            "workflowid": "qtl0006",
+            "denominator": "1301.00",
+            "snapshot_date": "2018-11-01",
+            "gsm_analysis_date": "2018-11-01"
+        }
+    ],
+    "workflow": {
+        "group": "Study",
+        "model": "Binomial Test",
+        "score": "Binomial Confidence Interval - Lower Bound",
+        "metric": "Study Discontinuation Rate",
+        "outcome": "Percent",
+        "numerator": "Subjects Discontinued - Study",
+        "workflowid": "qtl0006",
+        "data_inputs": "rawplus.studcomp, rawplus.dm",
+        "denominator": "Enrolled Subjects",
+        "gsm_version": "1.7.4",
+        "abbreviation": "SDSC",
+        "data_filters": null,
+        "gsm_analysis_date": "2018-11-01"
+    },
+    "thresholds": [
+        {
+            "index": null,
+            "param": "strGroup",
+            "value": "Study",
+            "workflowid": "qtl0006",
+            "gsm_version": "1.7.4",
+            "configurable": "false",
+            "gsm_analysis_date": "2018-11-01"
+        },
+        {
+            "index": null,
+            "param": "strMethod",
+            "value": "qtl",
+            "workflowid": "qtl0006",
+            "gsm_version": "1.7.4",
+            "configurable": "false",
+            "gsm_analysis_date": "2018-11-01"
+        },
+        {
+            "index": null,
+            "param": "strOutcome",
+            "value": "rate",
+            "workflowid": "qtl0006",
+            "gsm_version": "1.7.4",
+            "configurable": "false",
+            "gsm_analysis_date": "2018-11-01"
+        },
+        {
+            "index": "1",
+            "param": "vThreshold",
+            "value": "0.2",
+            "workflowid": "qtl0006",
+            "gsm_version": "1.7.4",
+            "configurable": "true",
+            "gsm_analysis_date": "2018-11-01"
+        }
+    ],
+    "analysis": [
+        {
+            "param": "LowCI",
+            "value": "0.051",
+            "studyid": "AA-AA-000-0000",
+            "workflowid": "qtl0006",
+            "snapshot_date": "2017-11-01",
+            "gsm_analysis_date": "2017-11-01"
+        },
+        {
+            "param": "Score",
+            "value": "0.051",
+            "studyid": "AA-AA-000-0000",
+            "workflowid": "qtl0006",
+            "snapshot_date": "2017-11-01",
+            "gsm_analysis_date": "2017-11-01"
+        },
+        {
+            "param": "Estimate",
+            "value": "0.064",
+            "studyid": "AA-AA-000-0000",
+            "workflowid": "qtl0006",
+            "snapshot_date": "2017-11-01",
+            "gsm_analysis_date": "2017-11-01"
+        },
+        {
+            "param": "UpCI",
+            "value": "0.079",
+            "studyid": "AA-AA-000-0000",
+            "workflowid": "qtl0006",
+            "snapshot_date": "2017-11-01",
+            "gsm_analysis_date": "2017-11-01"
+        },
+        {
+            "param": "UpCI",
+            "value": "0.082",
+            "studyid": "AA-AA-000-0000",
+            "workflowid": "qtl0006",
+            "snapshot_date": "2018-11-01",
+            "gsm_analysis_date": "2018-11-01"
+        },
+        {
+            "param": "Estimate",
+            "value": "0.067",
+            "studyid": "AA-AA-000-0000",
+            "workflowid": "qtl0006",
+            "snapshot_date": "2018-11-01",
+            "gsm_analysis_date": "2018-11-01"
+        },
+        {
+            "param": "LowCI",
+            "value": "0.054",
+            "studyid": "AA-AA-000-0000",
+            "workflowid": "qtl0006",
+            "snapshot_date": "2018-11-01",
+            "gsm_analysis_date": "2018-11-01"
+        },
+        {
+            "param": "Score",
+            "value": "0.054",
+            "studyid": "AA-AA-000-0000",
+            "workflowid": "qtl0006",
+            "snapshot_date": "2018-11-01",
+            "gsm_analysis_date": "2018-11-01"
+        }
+    ]
+}
