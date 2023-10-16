@@ -4,7 +4,6 @@ HTMLWidgets.widget({
   factory: function(el, width, height) {
     return {
       renderValue: function(x) {
-        console.log(x)
         const results = HTMLWidgets.dataframeToD3(x.results);
         const workflow = HTMLWidgets.dataframeToD3(x.workflow)[0];
         workflow.selectedGroupIDs = x.selectedGroupIDs
