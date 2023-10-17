@@ -1,0 +1,244 @@
+{
+    "site_grid_details": [
+        {
+            "site_id": "171",
+            "site_id_details": {
+                "city": "city 1",
+                "state": "state 1",
+                "country": "US",
+                "site_name": "city 1 Medical Center",
+                "site_status": "Active"
+            },
+            "subject_enrolled": 1,
+            "site_investigator": "Nguyen, Abdul Wadood",
+            "flagged_kri": 1,
+            "at_risk_kri": 0,
+            "kri_column_details": [
+                {
+                    "kri0002": {
+                        "no_of_consecutive_loads": 2,
+                        "flag_value": 2,
+                        "selected_snapshot_kri_value": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "site_id": "28",
+            "site_id_details": {
+                "city": "city 1",
+                "state": "state 1",
+                "country": "US",
+                "site_name": "city 1 Medical Center",
+                "site_status": "Active"
+            },
+            "subject_enrolled": 5,
+            "site_investigator": "al-Mona, Andrew",
+            "flagged_kri": 1,
+            "at_risk_kri": 0,
+            "kri_column_details": [
+                {
+                    "kri0002": {
+                        "no_of_consecutive_loads": 2,
+                        "flag_value": 2,
+                        "selected_snapshot_kri_value": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "site_id": "154",
+            "site_id_details": {
+                "city": "city 1",
+                "state": "state 1",
+                "country": "Japan",
+                "site_name": "city 1 Medical Center",
+                "site_status": "Active"
+            },
+            "subject_enrolled": 1,
+            "site_investigator": "el-Attar, Kristie",
+            "flagged_kri": 0,
+            "at_risk_kri": 1,
+            "kri_column_details": [
+                {
+                    "kri0002": {
+                        "no_of_consecutive_loads": 0,
+                        "flag_value": 1,
+                        "selected_snapshot_kri_value": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "site_id": "165",
+            "site_id_details": {
+                "city": "city 1",
+                "state": "state 1",
+                "country": "Japan",
+                "site_name": "city 1 Medical Center",
+                "site_status": "Active"
+            },
+            "subject_enrolled": 1,
+            "site_investigator": "Tran, Briana",
+            "flagged_kri": 0,
+            "at_risk_kri": 1,
+            "kri_column_details": [
+                {
+                    "kri0002": {
+                        "no_of_consecutive_loads": 0,
+                        "flag_value": 1,
+                        "selected_snapshot_kri_value": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "site_id": "179",
+            "site_id_details": {
+                "city": "city 1",
+                "state": "state 1",
+                "country": "US",
+                "site_name": "city 1 Medical Center",
+                "site_status": "Active"
+            },
+            "subject_enrolled": 4,
+            "site_investigator": "Lee, Omar",
+            "flagged_kri": 0,
+            "at_risk_kri": 1,
+            "kri_column_details": [
+                {
+                    "kri0002": {
+                        "no_of_consecutive_loads": 0,
+                        "flag_value": 1,
+                        "selected_snapshot_kri_value": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "site_id": "10",
+            "site_id_details": {
+                "city": "city 1",
+                "state": "state 1",
+                "country": "China",
+                "site_name": "city 1 Medical Center",
+                "site_status": "Active"
+            },
+            "subject_enrolled": 20,
+            "site_investigator": "Torres, Ariel",
+            "flagged_kri": 0,
+            "at_risk_kri": 0,
+            "kri_column_details": [
+                {
+                    "kri0002": {
+                        "no_of_consecutive_loads": 0,
+                        "flag_value": 0,
+                        "selected_snapshot_kri_value": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "site_id": "100",
+            "site_id_details": {
+                "city": "city 1",
+                "state": "state 1",
+                "country": "Japan",
+                "site_name": "city 1 Medical Center",
+                "site_status": "Active"
+            },
+            "subject_enrolled": 2,
+            "site_investigator": "Spangler, Cheyenne",
+            "flagged_kri": 0,
+            "at_risk_kri": 0,
+            "kri_column_details": [
+                {
+                    "kri0002": {
+                        "no_of_consecutive_loads": 0,
+                        "flag_value": 0,
+                        "selected_snapshot_kri_value": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "site_id": "101",
+            "site_id_details": {
+                "city": "city 1",
+                "state": "state 1",
+                "country": "US",
+                "site_name": "city 1 Medical Center",
+                "site_status": "Active"
+            },
+            "subject_enrolled": 3,
+            "site_investigator": "Broughton, Macallyson",
+            "flagged_kri": 0,
+            "at_risk_kri": 0,
+            "kri_column_details": [
+                {
+                    "kri0002": {
+                        "no_of_consecutive_loads": 0,
+                        "flag_value": 0,
+                        "selected_snapshot_kri_value": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "site_id": "102",
+            "site_id_details": {
+                "city": "city 1",
+                "state": "state 1",
+                "country": "US",
+                "site_name": "city 1 Medical Center",
+                "site_status": "Active"
+            },
+            "subject_enrolled": 3,
+            "site_investigator": "Lester, Asa",
+            "flagged_kri": 0,
+            "at_risk_kri": 0,
+            "kri_column_details": [
+                {
+                    "kri0002": {
+                        "no_of_consecutive_loads": 0,
+                        "flag_value": 0,
+                        "selected_snapshot_kri_value": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "site_id": "103",
+            "site_id_details": {
+                "city": "city 1",
+                "state": "state 1",
+                "country": "Japan",
+                "site_name": "city 1 Medical Center",
+                "site_status": "Active"
+            },
+            "subject_enrolled": 4,
+            "site_investigator": "Salazar, Manaal",
+            "flagged_kri": 0,
+            "at_risk_kri": 0,
+            "kri_column_details": [
+                {
+                    "kri0002": {
+                        "no_of_consecutive_loads": 0,
+                        "flag_value": 0,
+                        "selected_snapshot_kri_value": 0.0
+                    }
+                }
+            ]
+        }
+    ],
+    "all_kris_list": [
+        {
+            "kri_id": "kri0002",
+            "kri_name": "Sae Reporting Rate",
+            "kri_acronym": "SAE"
+        }
+    ],
+    "filtered_sites_count": 176,
+    "selected_snapshot_date": "2018-11-01",
+    "total_sites_count": 176
+}

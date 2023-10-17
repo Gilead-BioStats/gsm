@@ -77,7 +77,7 @@ Augment_Snapshot <- function(
               qtl = this_workflow_id,
               raw_results = stackedSnapshots$results_summary,
               raw_workflow = stackedSnapshots$meta_workflow,
-              raw_param = stackedSnapshots$meta_param,
+              raw_param = parameters,
               raw_analysis = stackedSnapshots$results_analysis
             )
           }
