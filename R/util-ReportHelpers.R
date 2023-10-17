@@ -3,7 +3,7 @@
 #' @param longitudinal `data.frame` optional argument for longitudinal study information
 #' @export
 #' @keywords internal
-MakeStudyStatusTable <- function(dfStudy, longitudinal = NULL) {
+MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NULL) {
   # -- this vector is used to define a custom sort order for the
   #    Study Status Table in KRIReport.Rmd
   parameterArrangeOrder <- c(
@@ -54,12 +54,11 @@ MakeStudyStatusTable <- function(dfStudy, longitudinal = NULL) {
       "Parameter" = "Column"
     )
 
-
-
   # -- the `sites` and `participants` variables below are used to show a nicely-formatted version of (# Enrolled / # Planned)
   #    these values were being formatted with a lot of trailing zeroes, so they are rounded here before pasting as a character vector
-  sites <- paste0(round(as.numeric(dfStudy$enrolled_sites)), " / ", round(as.numeric(dfStudy$planned_sites)))
-  participants <- paste0(round(as.numeric(dfStudy$enrolled_participants)), " / ", round(as.numeric(dfStudy$planned_participants)))
+  sites <- paste0(nrow(overview_raw_table), " / ", round(as.numeric(dfStudy$planned_sites)))
+  participants <- paste0(round(sum(as.numeric(overview_raw_table$Subjects))), " / ", round(as.numeric(dfStudy$planned_participants)))
+
   if (!is.null(longitudinal)) {
     snap_stats <- longitudinal$status_study %>%
       reframe(
@@ -385,12 +384,12 @@ AssessStatus <- function(assessment, strType) {
 #' @export
 #' @keywords internal
 MakeReportSetup <- function(assessment, dfSite, strType) {
-  type <- if (strType == "cou") {
-    "country"
+  if (strType == "cou") {
+    type <- "country"
   } else if (strType == "kri") {
-    "site"
+    type <- "site"
   } else if (tolower(strType) == "qtl") {
-    "qtl"
+    type <- "qtl"
   }
   ## create output list
   output <- list()
@@ -466,16 +465,16 @@ MakeReportSetup <- function(assessment, dfSite, strType) {
 #' @param red_kris `string` a string or number containing the count of red flags in kri's
 #' @export
 #' @keywords internal
-MakeOverviewMessage <- function(report, study_id, snapshot_date, subjects, overview_raw_table, red_kris) {
+MakeOverviewMessage <- function(report, status_study, overview_raw_table, red_kris) {
   if (report == "site") {
-    cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across
-{length(unique(overview_raw_table$Site))} sites. {red_kris} Site-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites as shown in the Study Overview Table above\n
+    cat(glue::glue("As of {status_study$gsm_analysis_date}, {status_study$studyid} has {round(sum(as.numeric(overview_raw_table$Subjects)))} participants enrolled across
+{nrow(overview_raw_table)} sites. {red_kris} Site-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites as shown in the Study Overview Table above\n
   - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites have at least one red KRI\n
   - {overview_raw_table %>% filter(.data$`Red KRIs` != 0 | .data$`Amber KRIs` != 0) %>% nrow()} sites have at least one red or amber KRI\n
   - {overview_raw_table %>% filter(.data$`Red KRIs` == 0 & .data$`Amber KRIs` == 0) %>% nrow()} sites have neither red nor amber KRIs and are not shown"), sep = "\n")
   } else if (report == "country") {
-    cat(glue::glue("As of {snapshot_date}, {study_id} has {subjects} participants enrolled across
-{length(unique(overview_raw_table$Country))} countries. {red_kris} Country-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries as shown in the Study Overview Table above\n
+    cat(glue::glue("As of {status_study$gsm_analysis_date}, {status_study$studyid} has {round(sum(as.numeric(overview_raw_table$Subjects)))} participants enrolled across
+{nrow(overview_raw_table)} countries. {red_kris} Country-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries as shown in the Study Overview Table above\n
   - {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries have at least one red KRI\n
   - {overview_raw_table %>% filter(.data$`Red KRIs` != 0 | .data$`Amber KRIs` != 0) %>% nrow()} countries have at least one red or amber KRI\n
   - {overview_raw_table %>% filter(.data$`Red KRIs` == 0 & .data$`Amber KRIs` == 0) %>% nrow()} countries have neither red nor amber KRIs and are not shown"), sep = "\n")
