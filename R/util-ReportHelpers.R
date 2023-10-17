@@ -1,5 +1,6 @@
 #' Create Status Study table in KRIReport.Rmd
 #' @param dfStudy `data.frame` from `params` within `KRIReport.Rmd`
+#' @param overview_raw_table `data.frame` non interactive output of `Overview_Table()` for the relevant report.
 #' @param longitudinal `data.frame` optional argument for longitudinal study information
 #' @export
 #' @keywords internal
@@ -458,10 +459,8 @@ MakeReportSetup <- function(assessment, dfSite, strType) {
 
 #' Create message describing study summary for Report
 #' @param report `string` type of report being run
-#' @param study_id `string` a string representing the study id
-#' @param snapshot_date `string` a string representing snapshot date
-#' @param subjects `string` a string or number containing the count of total subjects
-#' @param overview_raw_table `data.frame` raw overview table output with `Overview_Table(bInteractive = FALSE)`
+#' @param status_study `data.frame` the snapshot status study output created with `Make_Snapshot()$lSnapshot$status_study`
+#' @param overview_raw_table `data.frame` non interactive output of `Overview_Table()` for the relevant report.
 #' @param red_kris `string` a string or number containing the count of red flags in kri's
 #' @export
 #' @keywords internal
