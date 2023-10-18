@@ -1,0 +1,279 @@
+{
+    "data": {
+        "10": {
+            "kri0002": [
+                {
+                    "flag": "0",
+                    "score": "-0.4",
+                    "metric": "0.000",
+                    "groupid": "10",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "1.00",
+                    "workflowid": "kri0002",
+                    "denominator": "13774.00",
+                    "snapshot_date": "2017-11-01"
+                },
+                {
+                    "flag": "0",
+                    "score": "-0.4",
+                    "metric": "0.000",
+                    "groupid": "10",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "1.00",
+                    "workflowid": "kri0002",
+                    "denominator": "13774.00",
+                    "snapshot_date": "2018-11-01"
+                }
+            ]
+        },
+        "28": {
+            "kri0002": [
+                {
+                    "flag": "2",
+                    "score": "10.2",
+                    "metric": "0.004",
+                    "groupid": "28",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "10.00",
+                    "workflowid": "kri0002",
+                    "denominator": "2286.00",
+                    "snapshot_date": "2017-11-01"
+                },
+                {
+                    "flag": "2",
+                    "score": "10.1",
+                    "metric": "0.004",
+                    "groupid": "28",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "10.00",
+                    "workflowid": "kri0002",
+                    "denominator": "2286.00",
+                    "snapshot_date": "2018-11-01"
+                }
+            ]
+        },
+        "100": {
+            "kri0002": [
+                {
+                    "flag": "0",
+                    "score": "-0.3",
+                    "metric": "0.000",
+                    "groupid": "100",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "0.00",
+                    "workflowid": "kri0002",
+                    "denominator": "1425.00",
+                    "snapshot_date": "2017-11-01"
+                },
+                {
+                    "flag": "0",
+                    "score": "-0.3",
+                    "metric": "0.000",
+                    "groupid": "100",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "0.00",
+                    "workflowid": "kri0002",
+                    "denominator": "1425.00",
+                    "snapshot_date": "2018-11-01"
+                }
+            ]
+        },
+        "101": {
+            "kri0002": [
+                {
+                    "flag": "0",
+                    "score": "-0.3",
+                    "metric": "0.000",
+                    "groupid": "101",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "0.00",
+                    "workflowid": "kri0002",
+                    "denominator": "2358.00",
+                    "snapshot_date": "2017-11-01"
+                },
+                {
+                    "flag": "0",
+                    "score": "-0.3",
+                    "metric": "0.000",
+                    "groupid": "101",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "0.00",
+                    "workflowid": "kri0002",
+                    "denominator": "2358.00",
+                    "snapshot_date": "2018-11-01"
+                }
+            ]
+        },
+        "102": {
+            "kri0002": [
+                {
+                    "flag": "0",
+                    "score": "-0.3",
+                    "metric": "0.000",
+                    "groupid": "102",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "0.00",
+                    "workflowid": "kri0002",
+                    "denominator": "2455.00",
+                    "snapshot_date": "2017-11-01"
+                },
+                {
+                    "flag": "0",
+                    "score": "-0.3",
+                    "metric": "0.000",
+                    "groupid": "102",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "0.00",
+                    "workflowid": "kri0002",
+                    "denominator": "2455.00",
+                    "snapshot_date": "2018-11-01"
+                }
+            ]
+        },
+        "103": {
+            "kri0002": [
+                {
+                    "flag": "0",
+                    "score": "0.5",
+                    "metric": "0.000",
+                    "groupid": "103",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "1.00",
+                    "workflowid": "kri0002",
+                    "denominator": "3256.00",
+                    "snapshot_date": "2017-11-01"
+                },
+                {
+                    "flag": "0",
+                    "score": "0.5",
+                    "metric": "0.000",
+                    "groupid": "103",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "1.00",
+                    "workflowid": "kri0002",
+                    "denominator": "3256.00",
+                    "snapshot_date": "2018-11-01"
+                }
+            ]
+        },
+        "154": {
+            "kri0002": [
+                {
+                    "flag": "1",
+                    "score": "2.2",
+                    "metric": "0.002",
+                    "groupid": "154",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "1.00",
+                    "workflowid": "kri0002",
+                    "denominator": "475.00",
+                    "snapshot_date": "2017-11-01"
+                },
+                {
+                    "flag": "1",
+                    "score": "2.1",
+                    "metric": "0.002",
+                    "groupid": "154",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "1.00",
+                    "workflowid": "kri0002",
+                    "denominator": "475.00",
+                    "snapshot_date": "2018-11-01"
+                }
+            ]
+        },
+        "165": {
+            "kri0002": [
+                {
+                    "flag": "1",
+                    "score": "2.3",
+                    "metric": "0.002",
+                    "groupid": "165",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "1.00",
+                    "workflowid": "kri0002",
+                    "denominator": "441.00",
+                    "snapshot_date": "2017-11-01"
+                },
+                {
+                    "flag": "1",
+                    "score": "2.2",
+                    "metric": "0.002",
+                    "groupid": "165",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "1.00",
+                    "workflowid": "kri0002",
+                    "denominator": "441.00",
+                    "snapshot_date": "2018-11-01"
+                }
+            ]
+        },
+        "171": {
+            "kri0002": [
+                {
+                    "flag": "2",
+                    "score": "3.6",
+                    "metric": "0.003",
+                    "groupid": "171",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "2.00",
+                    "workflowid": "kri0002",
+                    "denominator": "715.00",
+                    "snapshot_date": "2017-11-01"
+                },
+                {
+                    "flag": "2",
+                    "score": "3.6",
+                    "metric": "0.003",
+                    "groupid": "171",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "2.00",
+                    "workflowid": "kri0002",
+                    "denominator": "715.00",
+                    "snapshot_date": "2018-11-01"
+                }
+            ]
+        },
+        "179": {
+            "kri0002": [
+                {
+                    "flag": "1",
+                    "score": "2.2",
+                    "metric": "0.001",
+                    "groupid": "179",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "3.00",
+                    "workflowid": "kri0002",
+                    "denominator": "3387.00",
+                    "snapshot_date": "2017-11-01"
+                },
+                {
+                    "flag": "1",
+                    "score": "2.2",
+                    "metric": "0.001",
+                    "groupid": "179",
+                    "studyid": "AA-AA-000-0000",
+                    "numerator": "3.00",
+                    "workflowid": "kri0002",
+                    "denominator": "3387.00",
+                    "snapshot_date": "2018-11-01"
+                }
+            ]
+        }
+    },
+    "workflow": {
+        "kri0002": {
+            "group": "Site",
+            "model": "Normal Approximation (Rate)",
+            "score": "Adjusted Z-Score",
+            "metric": "SAE Reporting Rate",
+            "outcome": "Rate",
+            "numerator": "SAEs",
+            "workflowid": "kri0002",
+            "data_inputs": "rawplus.ae, rawplus.dm",
+            "denominator": "Days on Study",
+            "gsm_version": "1.7.4",
+            "data_filters": "Serious"
+        }
+    }
+}

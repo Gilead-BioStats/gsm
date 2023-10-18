@@ -1,20 +1,21 @@
 Package: gsm
 Title: Good Statistical Monitoring
-Version: 1.8.2
-Authors@R: c(
-    person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
-    person("Jeremy", "Wildfire", email="jwildfire@gmail.com", role = c("aut")),
-    person("Matt", "Roumaya", email = "Matt.Roumaya@atorusresearch.com", role = c("aut"), comment = c(ORCID = "0000-0002-8009-2771")),
-    person("Nathan", "Kosiba", email="Nathan.Kosiba@atorusresearch.com", role = c("aut")),
-    person("Douglas", "Sanders", role = c("aut")),
-    person("Spencer", "Childress", email = "spencer.childress@gilead.com", role = c("aut"), comment = c(ORCID = "0000-0001-6877-8511")),
-    person("Li", "Ge", role = c("aut")),
-    person("Zhongkai", "Wang", email="zhongkai.wang6@gilead.com", role = c("aut"), comment = c(ORCID = "0000-0002-1883-2265")),
-    person("Colleen", "McLaughlin", email="colleen.mclaughlin@atorusresearch.com", role = c("aut")),
-    person("Chelsea", "Dickens", email="chelsea.dickens@atorusresearch.com", role = c("aut")),
-    person("Maya", "Gans", email="maya.gans@atorusresearch.com", role = c("aut")),
-    person("Jacob", "Anderson", email="jacob.anderson@atorusresearch.com", role = c("aut")),
-    person(given = "Gilead Sciences", role = "cph")
+Version: 1.8.3
+Authors@R:
+    c(
+        person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
+        person("Jeremy", "Wildfire", email="jwildfire@gmail.com", role = c("aut")),
+        person("Matt", "Roumaya", email = "Matt.Roumaya@atorusresearch.com", role = c("aut"), comment = c(ORCID = "0000-0002-8009-2771")),
+        person("Nathan", "Kosiba", email="Nathan.Kosiba@atorusresearch.com", role = c("aut")),
+        person("Douglas", "Sanders", role = c("aut")),
+        person("Spencer", "Childress", email = "spencer.childress@gilead.com", role = c("aut"), comment = c(ORCID = "0000-0001-6877-8511")),
+        person("Li", "Ge", role = c("aut")),
+        person("Zhongkai", "Wang", email="zhongkai.wang6@gilead.com", role = c("aut"), comment = c(ORCID = "0000-0002-1883-2265")),
+        person("Colleen", "McLaughlin", email="colleen.mclaughlin@atorusresearch.com", role = c("aut")),
+        person("Chelsea", "Dickens", email="chelsea.dickens@atorusresearch.com", role = c("aut")),
+        person("Maya", "Gans", email="maya.gans@atorusresearch.com", role = c("aut")),
+        person("Jacob", "Anderson", email="jacob.anderson@atorusresearch.com", role = c("aut")),
+        person(given = "Gilead Sciences", role = "cph")
     )
 URL: https://github.com/Gilead-BioStats/gsm
 BugReports: https://github.com/Gilead-BioStats/gsm/issues
@@ -53,7 +54,7 @@ Suggests:
     clindata,
     covr,
     devtools,
-    DiagrammeR,
+    httr,
     kableExtra,
     pander,
     pkgdown,

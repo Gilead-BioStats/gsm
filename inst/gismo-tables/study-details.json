@@ -1,0 +1,125 @@
+{
+    "total_study_count": 124,
+    "study_details": [
+        {
+            "fpfv": "2003-01-01",
+            "status": "Active",
+            "product": "Protocol Nickname",
+            "fav_flag": true,
+            "study_id": "AA-AA-000-0000",
+            "study_age": "20Y 7M 8D",
+            "indication": "Protocol Indication",
+            "protocol_title": "Protocol Title",
+            "next_snapshot_date": null,
+            "latest_snapshot_date": "2018-11-01",
+            "protocol_title_details": {
+                "lpfv": "2020-06-01",
+                "lplv": "2021-06-01",
+                "phase": "P3",
+                "therapeutic_area": "Therapeutic Area"
+            },
+            "enrolling_sites_details": {
+                "flagged_kri": 2,
+                "planned_sites": 190,
+                "enrolling_sites": 176,
+                "enrolled_subjects": 1301
+            }
+        },
+        {
+            "fpfv": "2003-01-01",
+            "status": "Active",
+            "product": "Protocol Nickname",
+            "fav_flag": false,
+            "study_id": "study-3_sites-1000_subjects",
+            "study_age": "20Y 1M 20D",
+            "indication": "Protocol Indication",
+            "protocol_title": "Protocol Title",
+            "next_snapshot_date": null,
+            "latest_snapshot_date": "2023-02-07",
+            "protocol_title_details": {
+                "lpfv": "2020-06-01",
+                "lplv": "2021-06-01",
+                "phase": "P3",
+                "therapeutic_area": "Therapeutic Area"
+            },
+            "enrolling_sites_details": {
+                "flagged_kri": 0,
+                "planned_sites": 3,
+                "enrolling_sites": 3,
+                "enrolled_subjects": 1000
+            }
+        },
+        {
+            "fpfv": "2003-01-01",
+            "status": "Active",
+            "product": "Protocol Nickname",
+            "fav_flag": false,
+            "study_id": "study-3_sites-100_subjects",
+            "study_age": "20Y 1M 20D",
+            "indication": "Protocol Indication",
+            "protocol_title": "Protocol Title",
+            "next_snapshot_date": null,
+            "latest_snapshot_date": "2023-02-07",
+            "protocol_title_details": {
+                "lpfv": "2020-06-01",
+                "lplv": "2021-06-01",
+                "phase": "P3",
+                "therapeutic_area": "Therapeutic Area"
+            },
+            "enrolling_sites_details": {
+                "flagged_kri": 0,
+                "planned_sites": 3,
+                "enrolling_sites": 3,
+                "enrolled_subjects": 100
+            }
+        },
+        {
+            "fpfv": "2003-01-01",
+            "status": "Active",
+            "product": "Protocol Nickname",
+            "fav_flag": false,
+            "study_id": "study-3_sites-150_subjects",
+            "study_age": "20Y 1M 20D",
+            "indication": "Protocol Indication",
+            "protocol_title": "Protocol Title",
+            "next_snapshot_date": null,
+            "latest_snapshot_date": "2023-02-07",
+            "protocol_title_details": {
+                "lpfv": "2020-06-01",
+                "lplv": "2021-06-01",
+                "phase": "P3",
+                "therapeutic_area": "Therapeutic Area"
+            },
+            "enrolling_sites_details": {
+                "flagged_kri": 0,
+                "planned_sites": 3,
+                "enrolling_sites": 3,
+                "enrolled_subjects": 150
+            }
+        },
+        {
+            "fpfv": "2003-01-01",
+            "status": "Active",
+            "product": "Protocol Nickname",
+            "fav_flag": false,
+            "study_id": "study-3_sites-200_subjects",
+            "study_age": "20Y 1M 20D",
+            "indication": "Protocol Indication",
+            "protocol_title": "Protocol Title",
+            "next_snapshot_date": null,
+            "latest_snapshot_date": "2023-02-07",
+            "protocol_title_details": {
+                "lpfv": "2020-06-01",
+                "lplv": "2021-06-01",
+                "phase": "P3",
+                "therapeutic_area": "Therapeutic Area"
+            },
+            "enrolling_sites_details": {
+                "flagged_kri": 0,
+                "planned_sites": 3,
+                "enrolling_sites": 3,
+                "enrolled_subjects": 200
+            }
+        }
+    ]
+}

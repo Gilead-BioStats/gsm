@@ -40,7 +40,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strSiteCol", "strTimeOnTreatmentCol"]
+              "value": ["strIDCol", "strSiteCol", "strTimeOnStudyCol"]
             },
             {
               "type": "character",
@@ -50,7 +50,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["strTimeOnTreatmentCol"]
+              "value": ["strTimeOnStudyCol"]
             }
           ]
         }
@@ -646,7 +646,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, timeontreatment
+      x the following columns not found in df: subjid, siteid, timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -665,7 +665,7 @@
       -- Checking Input Data for `AE_Map_Raw()` --
       
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, timeontreatment
+      x the following columns not found in df: subjid, siteid, timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -707,7 +707,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, timeontreatment
+      x the following columns not found in df: subjid, siteid, timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -730,7 +730,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, timeontreatment
+      x the following columns not found in df: subjid, siteid, timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -753,7 +753,7 @@
       x Empty Value check not run
       x Unique Column Check not run
       x df is not a data.frame()
-      x the following columns not found in df: subjid, siteid, timeontreatment
+      x the following columns not found in df: subjid, siteid, timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run
@@ -773,7 +773,7 @@
       x "mapping" does not contain required parameters: strIDCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
-      x "mapping" does not contain required parameters: strIDCol, strSiteCol, strTimeOnTreatmentCol
+      x "mapping" does not contain required parameters: strIDCol, strSiteCol, strTimeOnStudyCol
       x mapping is not a list()
       x Non-character column names found in mapping: 
       ! Issues found for `AE_Map_Raw()`
@@ -854,7 +854,7 @@
       
       -- Checking Input Data for `AE_Map_Raw()` --
       
-      x the following columns not found in df: timeontreatment
+      x the following columns not found in df: timeonstudy
       x NA check not run
       x Empty Value check not run
       x Unique Column Check not run

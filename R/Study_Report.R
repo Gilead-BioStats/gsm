@@ -35,7 +35,7 @@
 #'
 #' longitudinal <- Augment_Snapshot(
 #'   snapshot,
-#'   system.file("snapshots", "AA-AA-000-0000", package = "gsm")
+#'   system.file("data-longitudinal", "AA-AA-000-0000", package = "clindata")
 #' )
 #'
 #' Study_Report(
@@ -56,15 +56,36 @@ Study_Report <- function(
   strReportType = "site"
 ) {
   # input check
-  lAssessments <- if("lStudyAssessResults" %in% names(lSnapshot)){lSnapshot$lStudyAssessResults} else {lSnapshot}
-  lStatus <- if("lStatus" %in% names(lSnapshot)){lSnapshot$lStatus} else {NULL}
+  lAssessments <- if ("lStudyAssessResults" %in% names(lSnapshot)) {
+    lSnapshot$lStudyAssessResults
+  } else {
+    lSnapshot
+  }
+  lStatus <- if ("lStatus" %in% names(lSnapshot)) {
+    lSnapshot$lStatus
+  } else {
+    NULL
+  }
+  lLongitudinal <- if ("lStackedSnapshots" %in% names(lSnapshot)) {
+    lSnapshot$lStackedSnapshots
+  } else {
+    NULL
+  }
 
   if (is.null(dfStudy)) {
-    dfStudy <- if("status_study" %in% names(lSnapshot$lSnapshot)){lSnapshot$lSnapshot$status_study} else {NULL}
+    dfStudy <- if ("status_study" %in% names(lSnapshot$lSnapshot)) {
+      lSnapshot$lSnapshot$status_study
+    } else {
+      NULL
+    }
   }
 
   if (is.null(dfSite)) {
-    dfSite <- if("status_site" %in% names(lSnapshot$lSnapshot)){lSnapshot$lSnapshot$status_site} else {NULL}
+    dfSite <- if ("status_site" %in% names(lSnapshot$lSnapshot)) {
+      lSnapshot$lSnapshot$status_site
+    } else {
+      NULL
+    }
   }
 
   stopifnot(
@@ -75,7 +96,6 @@ Study_Report <- function(
   # set output path
   if (is.null(strOutpath) & strReportType == "site") {
     strOutpath <- paste0(getwd(), "/gsm_site_report.html")
-
   } else if (is.null(strOutpath) & strReportType == "country") {
     strOutpath <- paste0(getwd(), "/gsm_country_report.html")
   } else if (is.null(strOutpath) & strReportType == "QTL") {
@@ -99,7 +119,8 @@ Study_Report <- function(
       assessment = lAssessments,
       status_study = dfStudy,
       status_site = dfSite,
-      status_snap = lStatus
+      status_snap = lStatus,
+      longitudinal = lLongitudinal
     ),
     envir = new.env(parent = globalenv())
   )

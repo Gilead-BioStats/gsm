@@ -1,0 +1,10 @@
+{
+    "selected_kri_columns": [
+        "kri0002"
+    ],
+    "selected_additional_columns": [
+        "enrolledSubjects",
+        "flaggedKri",
+        "riskKri"
+    ]
+}

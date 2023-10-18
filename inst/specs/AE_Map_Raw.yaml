@@ -5,8 +5,8 @@ dfSUBJ:
   vRequired:
     - strIDCol
     - strSiteCol
-    - strTimeOnTreatmentCol
+    - strTimeOnStudyCol
   vUniqueCols:
     - strIDCol
   vNACols:
-    - strTimeOnTreatmentCol
+    - strTimeOnStudyCol

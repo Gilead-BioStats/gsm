@@ -972,13 +972,13 @@
       
       $AE_Map_Raw$spec$dfSUBJ
       $AE_Map_Raw$spec$dfSUBJ$vRequired
-      [1] "strIDCol"              "strSiteCol"            "strTimeOnTreatmentCol"
+      [1] "strIDCol"          "strSiteCol"        "strTimeOnStudyCol"
       
       $AE_Map_Raw$spec$dfSUBJ$vUniqueCols
       [1] "strIDCol"
       
       $AE_Map_Raw$spec$dfSUBJ$vNACols
-      [1] "strTimeOnTreatmentCol"
+      [1] "strTimeOnStudyCol"
       
       
       
