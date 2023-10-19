@@ -1,6 +1,9 @@
 #' Create Study Results table for Report
+#'
 #' @param lResults `list` the output of `Study_Assess()` containing results of kri analysis
+#'
 #' @export
+#'
 #' @keywords internal
 Flags_by_site <- function(lResults){
   output <- lResults[grep("kri", names(lResults))] %>%
@@ -23,5 +26,24 @@ Flags_by_site <- function(lResults){
 }
 
 
-
+#' Create Study Results table for Report
+#'
+#' @param fpfv `date` the date of the first patient visit of the study
+#' @param snapshot_date `date` the date of the snapshot to derive the period of time from the fpfv
+#'
+#' @importFrom lubridate as.period
+#' @importFrom lubridate interval
+#' @importFrom stringr str_replace
+#'
+#' @export
+#'
+#' @keywords internal
+ExtractStudyAge <- function(fpfv, snapshot_date) {
+  raw_span <- lubridate::as.period(lubridate::interval(fpfv, snapshot_date), unit = "years")
+  output <- raw_span %>%
+    str_extract(".+d") %>%
+    stringr::str_replace(pattern = "y", replacement = " years ") %>%
+    stringr::str_replace(pattern = "m", replacement = " months ") %>%
+    stringr::str_replace(pattern = "d", replacement = " days")
+}
 

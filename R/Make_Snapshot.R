@@ -150,6 +150,37 @@ Make_Snapshot <- function(
     replace_na(replace = list("num_of_at_risk_kris" = 0, "num_of_flagged_kris" = 0))
 
 
+  # create `rpt_study_details` -----------------------------------------------
+  rpt_study_details <- status_study %>%
+    mutate(snapshot_date = gsm_analysis_date,
+           num_of_sites_flagged = Flags_by_site(lResults) %>% filter(!is.na(num_of_at_risk_kris)) %>% nrow(),
+           enrolling_sites_with_flagged_kris = 0,
+           study_age = ExtractStudyAge(fpfv, snapshot_date),
+           pt_cycle_id = as.character(NA),
+           pt_data_dt = as.character(NA)) %>%
+    select("study_id" = "studyid",
+           "snapshot_date",
+           "protocol_title" = "title",
+           "therapeutic_area" = "ta",
+           "indication",
+           "phase",
+           "product",
+           "enrolled_sites",
+           "enrolled_participants",
+           "planned_sites",
+           "planned_participants",
+           "study_status" = "status",
+           "fpfv",
+           "lpfv",
+           "lplv",
+           "study_age",
+           "num_of_sites_flagged",
+           "enrolling_sites_with_flagged_kris",
+           "pt_cycle_id",
+           "pt_data_dt"
+    )
+
+
   # create lSnapshot --------------------------------------------------------
   lSnapshot <- list(
     status_study = status_study,
@@ -161,7 +192,8 @@ Make_Snapshot <- function(
     results_bounds = MakeResultsBounds(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
     meta_workflow = lMeta$meta_workflow,
     meta_param = lMeta$meta_params,
-    rpt_site_details = rpt_site_details
+    rpt_site_details = rpt_site_details,
+    rpt_study_details = rpt_study_details
   ) %>%
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
