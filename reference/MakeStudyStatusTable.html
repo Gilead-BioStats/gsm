@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8.3</span>
       </span>
     </div>
 
@@ -94,13 +94,21 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeStudyStatusTable</span><span class="op">(</span><span class="va">dfStudy</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeStudyStatusTable</span><span class="op">(</span><span class="va">dfStudy</span>, <span class="va">overview_raw_table</span>, longitudinal <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dfStudy</dt>
 <dd><p><code>data.frame</code> from <code>params</code> within <code>KRIReport.Rmd</code></p></dd>
+
+
+<dt>overview_raw_table</dt>
+<dd><p><code>data.frame</code> non interactive output of <code><a href="Overview_Table.html">Overview_Table()</a></code> for the relevant report.</p></dd>
+
+
+<dt>longitudinal</dt>
+<dd><p><code>data.frame</code> optional argument for longitudinal study information</p></dd>
 
 </dl></div>
 

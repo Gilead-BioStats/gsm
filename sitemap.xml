@@ -73,6 +73,9 @@
     <loc>/reference/Analyze_QTL.html</loc>
   </url>
   <url>
+    <loc>/reference/AssessStatus.html</loc>
+  </url>
+  <url>
     <loc>/reference/Augment_Snapshot.html</loc>
   </url>
   <url>
@@ -118,6 +121,12 @@
     <loc>/reference/ExportCode.html</loc>
   </url>
   <url>
+    <loc>/reference/ExtractDirectoryPaths.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ExtractSnapshotDate.html</loc>
+  </url>
+  <url>
     <loc>/reference/FilterData.html</loc>
   </url>
   <url>
@@ -137,6 +146,9 @@
   </url>
   <url>
     <loc>/reference/Flag_QTL.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GetSnapshotDate.html</loc>
   </url>
   <url>
     <loc>/reference/Get_Enrolled.html</loc>
@@ -163,7 +175,16 @@
     <loc>/reference/MakeDfConfig.html</loc>
   </url>
   <url>
+    <loc>/reference/MakeErrorLog.html</loc>
+  </url>
+  <url>
     <loc>/reference/MakeKRIGlossary.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeOverviewMessage.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeReportSetup.html</loc>
   </url>
   <url>
     <loc>/reference/MakeResultsAnalysis.html</loc>
@@ -173,6 +194,9 @@
   </url>
   <url>
     <loc>/reference/MakeResultsSummary.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeResultsTable.html</loc>
   </url>
   <url>
     <loc>/reference/MakeStatusWorkflow.html</loc>
