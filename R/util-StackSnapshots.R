@@ -34,17 +34,19 @@ StackSnapshots <- function(
 
   # Capture list of YYYY-MM-DD-formatted snapshot directoreis.
   snapshots <- ExtractDirectoryPaths(cPath,
-                                     file = c("meta_param.csv",
-                                              "meta_workflow.csv",
-                                              "results_analysis.csv",
-                                              "results_summary.csv",
-                                              "status_param.csv",
-                                              "status_site.csv",
-                                              "status_study.csv",
-                                              "status_workflow.csv"),
-                                     verbose = FALSE
+    file = c(
+      "meta_param.csv",
+      "meta_workflow.csv",
+      "results_analysis.csv",
+      "results_summary.csv",
+      "status_param.csv",
+      "status_site.csv",
+      "status_study.csv",
+      "status_workflow.csv"
+    ),
+    verbose = FALSE
   )
-  if(length(snapshots) > 0){
+  if (length(snapshots) > 0) {
     # subset snapshot folders if specified ------------------------------------
     if (!is.null(vFolderNames)) {
       folders_not_found <- vFolderNames[!vFolderNames %in% basename(snapshots)]

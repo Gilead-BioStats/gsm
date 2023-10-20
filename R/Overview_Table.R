@@ -24,10 +24,10 @@
 #'
 #' @export
 Overview_Table <- function(
-    lAssessments = Study_Assess(),
-    dfSite = Site_Map_Raw(),
-    strReportType = "site",
-    bInteractive = TRUE
+  lAssessments = Study_Assess(),
+  dfSite = Site_Map_Raw(),
+  strReportType = "site",
+  bInteractive = TRUE
 ) {
   # input check
   stopifnot(
@@ -228,7 +228,7 @@ Overview_Table <- function(
       }
     }
     ",
-    .open = "{{"
+      .open = "{{"
     )
 
     # Enable tooltips for cells
@@ -328,8 +328,11 @@ Overview_Table <- function(
         caption = HTML(overview_table_flagged_caption),
         options = list(
           language = list(
-            lengthMenu = paste0(if(strReportType == "site"){"Sites Containing _MENU_ "}
-                                else if(strReportType == "country"){"View _MENU_  Countries"}, table_dropdown_label)
+            lengthMenu = paste0(if (strReportType == "site") {
+              "Sites Containing _MENU_ "
+            } else if (strReportType == "country") {
+              "View _MENU_  Countries"
+            }, table_dropdown_label)
           ),
           columnDefs = list(
             list(

@@ -43,7 +43,7 @@ if (status_study_exists) {
 ```
 
 ```{r, echo=FALSE, results='asis', eval=status_study_exists, fig.height=2}
-MakeStudyStatusTable(dfStudy = params$status_study, longitudinal = params$longitudinal)
+MakeStudyStatusTable(dfStudy = params$status_study, overview_raw_table = setup$overview_raw_table, longitudinal = params$longitudinal)
 Make_Timeline(status_study = params$status_study, longitudinal = params$longitudinal)
 ```
 
@@ -71,9 +71,7 @@ setup$overview_table
 ```{r, echo=FALSE, results = 'asis', eval=status_study_exists}
 MakeOverviewMessage(
   report = "site",
-  study_id = setup$study_id,
-  snapshot_date = date$snapshot_date, 
-  subjects = date$subjects, 
+  status_study = params$status_study,
   overview_raw_table = setup$overview_raw_table, 
   red_kris = setup$red_kris
 )

@@ -77,7 +77,7 @@ For rate outcome, $\sqrt{V(Y|\theta_0)}=\sqrt{\frac{\hat{\lambda}}{T_i}}$.
 
 ### Over-dispersion adjustment
 
-The standard normal approximation method described above assumes the null distribution fully expresses the variability of the sites in-control, but in many situations this assumption will not hold. In the situation that there is a presence of greater variability than expected, majority of the sites will fall outside the specified limits, leading to a double of the approperatenesss of the constructed limits.
+The standard normal approximation method described above assumes the null distribution fully expresses the variability of the sites in-control, but in many situations this assumption will not hold. In the situation that there is a presence of greater variability than expected, majority of the sites will fall outside the specified limits, leading to a double of the appropriateness of the constructed limits.
 
 A way of handling this issue is to allow over-dispersion in the normal approximation. A multiplicative over-dispersion adjustment was implemented in our approach. 
 

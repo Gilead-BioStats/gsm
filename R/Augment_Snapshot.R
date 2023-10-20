@@ -38,7 +38,7 @@ Augment_Snapshot <- function(
 ) {
   # TODO: alternatively accept the output of StackSnapshots?
   stackedSnapshots <- StackSnapshots(cPath, lSnapshot, vFolderNames)
-  if(!is.null(stackedSnapshots)){
+  if (!is.null(stackedSnapshots)) {
     if (bAppendTimeSeriesCharts) {
       lSnapshot$lStudyAssessResults <- lSnapshot$lStudyAssessResults %>%
         purrr::imap(function(result, workflowid) {
@@ -63,7 +63,7 @@ Augment_Snapshot <- function(
               .data$workflowid == this_workflow_id
             )
 
-          if(!grepl("qtl", result$name)){
+          if (!grepl("qtl", result$name)) {
             result$lResults$lCharts[["timeSeriesContinuousJS"]] <- Widget_TimeSeries(
               results = result$lResults$lData$dfSummaryLongitudinal,
               workflow = workflow,
@@ -72,12 +72,12 @@ Augment_Snapshot <- function(
             )
           }
 
-          if(grepl("qtl", result$name)){
+          if (grepl("qtl", result$name)) {
             result$lResults$lCharts[["timeSeriesContinuousJS"]] <- Widget_TimeSeriesQTL(
               qtl = this_workflow_id,
               raw_results = stackedSnapshots$results_summary,
               raw_workflow = stackedSnapshots$meta_workflow,
-              raw_param = stackedSnapshots$meta_param,
+              raw_param = parameters,
               raw_analysis = stackedSnapshots$results_analysis
             )
           }
@@ -92,7 +92,7 @@ Augment_Snapshot <- function(
 
       ## get current status
       status <- stackedSnapshots$results_summary %>%
-        select(.data$snapshot_date, .data$workflowid) %>%
+        select("snapshot_date", "workflowid") %>%
         filter(.data$snapshot_date %in% snapshot_dates$snapshot_date) %>%
         distinct() %>%
         group_by(workflowid) %>%
@@ -115,11 +115,13 @@ Augment_Snapshot <- function(
       }
 
       ## pull object into snapshot
-      if(length(old_workflows) != 0){
+      if (length(old_workflows) != 0) {
         old_snapshots <- list()
         for (i in 1:(status %>% filter(!.data$is_current) %>% nrow())) {
-          old_date <- status[i,"latest"] %>% pull() %>% as.character()
-          old_file_path <- paste0(snapshots[grepl(status[i,"foldername"], snapshots)], "/snapshot.rds")
+          old_date <- status[i, "latest"] %>%
+            pull() %>%
+            as.character()
+          old_file_path <- paste0(snapshots[grepl(status[i, "foldername"], snapshots)], "/snapshot.rds")
           old_snapshots[[old_date]] <- readRDS(file = old_file_path)
         }
 
@@ -138,16 +140,25 @@ Augment_Snapshot <- function(
       }
 
       lSnapshot[["lStatus"]] <- status %>%
-        rename("Workflow ID" = "workflowid",
-               "Latest Snapshot" = "latest",
-               "Currently Active" = "is_current",
-               "Folder Name" = "foldername")
+        rename(
+          "Workflow ID" = "workflowid",
+          "Latest Snapshot" = "latest",
+          "Currently Active" = "is_current",
+          "Folder Name" = "foldername"
+        )
     }
 
     lSnapshot[["lStackedSnapshots"]] <- stackedSnapshots
     return(lSnapshot)
-  } else if(is.null(stackedSnapshots)){
-    lSnapshot[["lStackedSnapshots"]] <- lSnapshot
+  } else if (is.null(stackedSnapshots)) {
+    lSnapshot[["lStackedSnapshots"]] <- lSnapshot %>%
+      purrr::map(
+        ~ .x %>%
+          mutate(
+            snapshot_date = as.Date(.data$gsm_analysis_date, "%Y-%m-%d")
+          )
+      )
+
     return(lSnapshot)
   } else {
     stop("Unexpected error occurred in the StackedSnapshot output")
