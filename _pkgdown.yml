@@ -89,6 +89,7 @@ reference:
       - Analyze_QTL
       - RunQTL
       - SaveQTL
+      - MakeRptQtlDetails
 
    - title: Longitudinal
      desc: Utility functions to analyze longitudinal/trend data.

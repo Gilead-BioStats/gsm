@@ -180,7 +180,6 @@ Make_Snapshot <- function(
            "pt_data_dt"
     )
 
-
   # create lSnapshot --------------------------------------------------------
   lSnapshot <- list(
     status_study = status_study,
@@ -193,7 +192,8 @@ Make_Snapshot <- function(
     meta_workflow = lMeta$meta_workflow,
     meta_param = lMeta$meta_params,
     rpt_site_details = rpt_site_details,
-    rpt_study_details = rpt_study_details
+    rpt_study_details = rpt_study_details,
+    rpt_qtl_details = MakeRptQtlDetails(lResults = lResults, dfMetaWorkflow = lMeta$meta_workflow, dfConfigParam = lMeta$config_param, gsm_analysis_date = gsm_analysis_date)
   ) %>%
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
