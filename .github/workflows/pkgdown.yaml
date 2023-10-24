@@ -49,7 +49,7 @@ jobs:
 
           aug_snap <- gsm::Augment_Snapshot(
             lSnapshot = snapshot,
-            cPath = system.file("snapshots", "AA-AA-000-0000", package = "gsm")
+            cPath = system.file("data-longitudinal", "AA-AA-000-0000", package = "clindata")
           )
 
           gsm::Study_Report(
