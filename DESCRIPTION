@@ -23,6 +23,7 @@ Description: The Good Statistical Monitoring or {gsm} R package provides a frame
 License: Apache License (>= 2)
 Encoding: UTF-8
 Imports:
+    arrow,
     broom,
     cli,
     dplyr,
