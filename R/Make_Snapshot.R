@@ -121,35 +121,6 @@ Make_Snapshot <- function(
     bQuiet = bQuiet
   )
 
-
-  # create `rpt_site_details` -----------------------------------------------
-  rpt_site_details <- status_site %>%
-    left_join(Flags_by_site(lResults), by = "siteid") %>%
-    mutate(snapshot_date = gsm_analysis_date,
-           region = "Other",
-           planned_participants = as.numeric(NA),
-           pt_cycle_id = as.character(NA),
-           pt_data_dt = as.character(NA)) %>%
-    select("study_id" = "studyid",
-           "snapshot_date",
-           "site_id" = "siteid",
-           "site_nm" = "site_num",
-           "site_status" = "status",
-           "investigator_nm" = "invname",
-           "site_country" = "country",
-           "site_state" = "state",
-           "site_city" = "city",
-           "region",
-           "enrolled_participants",
-           "planned_participants",
-           "num_of_at_risk_kris",
-           "num_of_flagged_kris",
-           "pt_cycle_id",
-           "pt_data_dt"
-    ) %>%
-    replace_na(replace = list("num_of_at_risk_kris" = 0, "num_of_flagged_kris" = 0))
-
-
   # create lSnapshot --------------------------------------------------------
   lSnapshot <- list(
     status_study = status_study,
@@ -161,7 +132,8 @@ Make_Snapshot <- function(
     results_bounds = MakeResultsBounds(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
     meta_workflow = lMeta$meta_workflow,
     meta_param = lMeta$meta_params,
-    rpt_site_details = rpt_site_details
+    rpt_site_details = MakeRptSiteDetails(lResults = lResults, status_site = status_site),
+    rpt_study_details = MakeRptStudyDetails(lResults = lResults, status_study = status_study)
   ) %>%
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
