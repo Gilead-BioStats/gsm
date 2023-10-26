@@ -4,12 +4,14 @@
 \alias{MakeRptStudyDetails}
 \title{Create rpt_study_details output for \code{Make_Snapshot()}}
 \usage{
-MakeRptStudyDetails(lResults, status_study)
+MakeRptStudyDetails(lResults, status_study, gsm_analysis_date)
 }
 \arguments{
 \item{lResults}{\code{list} the output from \code{Study_Assess()}}
 
 \item{status_study}{\code{data.frame} the output from \code{Site_Map_Raw()}}
+
+\item{gsm_analysis_date}{\code{string} the gsm analysis date calculated in \code{Make_Snapshot()}}
 }
 \description{
 Create rpt_study_details output for \code{Make_Snapshot()}
