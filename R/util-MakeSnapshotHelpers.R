@@ -201,3 +201,56 @@ MakeRptStudyDetails <- function(lResults, status_study, gsm_analysis_date) {
     )
 }
 
+
+#' Create rpt_kri_detail output for `Make_Snapshot()`
+#'
+#' @param lResults `list` the output from `Study_Assess()`
+#' @param status_study `data.frame` the output from `Site_Map_Raw()`
+#' @param meta_workflow `string` the meta_workflow stated in lMeta argument of `Make_Snapshot()`
+#' @param gsm_analysis_date `string` the gsm analysis date calculated in `Make_Snapshot()`
+#'
+#' @export
+#'
+#' @keywords internal
+MakeRptKRIDetail <- function(lResults, status_site, meta_workflow, gsm_analysis_date) {
+  types <- unique(gsub("[[:digit:]]", "", names(lResults)))
+  results <- ExtractFlags(lResults, group = "kri")
+  if(!"kri" %in% types){
+    cli::cli_alert_warning("lResults argument in `MakeRptKRIDetail()` didn't contain any KRI's with site level results, `num_of_sites_flagged` will be reported as zero")
+    num_of_sites_flagged <- 0
+  }
+  meta_workflow %>%
+    left_join(results, by = c("workflowid" = "kri_id")) %>%
+    replace_na(replace = list("num_of_sites_at_risk" = 0, "num_of_sites_flagged" = 0)) %>%
+    mutate(snapshot_date = gsm_analysis_date,
+           study_id = unique(status_site$studyid),
+           kri_description = paste(numerator, denominator, sep = " / "),
+           base_metric = paste(numerator, denominator, sep = " / "),
+           total_num_of_sites = n_distinct(status_site$siteid),
+           num_of_sites_flagged = num_of_sites_flagged,
+           pt_cycle_id = as.character(NA),
+           pt_data_dt = as.character(NA)) %>%
+    select("study_id",
+           "snapshot_date",
+           "kri_id" = "workflowid",
+           "kri_name" = "metric",
+           "kri_acronym" = "abbreviation",
+           "kri_description",
+           "base_metric",
+           "meta_numerator" = "numerator",
+           "meta_denominator" = "denominator",
+           "num_of_sites_at_risk",
+           "num_of_sites_flagged",
+           "meta_outcome" = "outcome",
+           "meta_model" = "model",
+           "meta_score" = "score",
+           "meta_data_inputs" = "data_inputs",
+           "meta_data_filters" = "data_filters",
+           "meta_gsm_version" = "gsm_version",
+           "meta_group" = "group",
+           "total_num_of_sites",
+           "pt_cycle_id",
+           "pt_data_dt"
+    )
+}
+
