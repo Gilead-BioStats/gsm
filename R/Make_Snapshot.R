@@ -32,6 +32,7 @@
 #' - `rpt_study_details`
 #' - `rpt_kri_detail`
 #' - `rpt_kri_site_details`
+#' - `rpt_kri_bounds_details`
 #'
 #' @examples
 #' # run with default testing data
@@ -149,7 +150,8 @@ Make_Snapshot <- function(
     rpt_site_details = MakeRptSiteDetails(lResults, status_site, gsm_analysis_date),
     rpt_study_details = MakeRptStudyDetails(lResults = lResults, status_study = status_study, gsm_analysis_date = gsm_analysis_date),
     rpt_kri_detail = MakeRptKRIDetail(lResults, status_site, lMeta$meta_workflow, gsm_analysis_date),
-    rpt_kri_site_details = MakeRptKRISiteDetail(lResults, status_site, lMeta$meta_workflow, lMeta$meta_params, gsm_analysis_date)
+    rpt_kri_site_details = MakeRptKRISiteDetail(lResults, status_site, lMeta$meta_workflow, lMeta$meta_params, gsm_analysis_date),
+    rpt_kri_bounds_details = MakeRptKRIBoundsDetails(lResults, lMeta$config_param, gsm_analysis_date)
   ) %>%
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
