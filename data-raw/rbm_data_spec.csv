@@ -157,6 +157,28 @@
 "Gismo","rpt_kri_detail","pt_cycle_id","Cycle ID",20
 "Gismo","rpt_kri_detail","pt_data_dt","Data date",21
 "Gismo","rpt_kri_detail","gsm_analysis_date","Date that snapshot was created",22
+"Gismo","rpt_kri_site_details","study_id","Unique Study ID",1
+"Gismo","rpt_kri_site_details","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_kri_site_details","site_id","Unique Site ID",3
+"Gismo","rpt_kri_site_details","kri_id","Unique KRI ID",4
+"Gismo","rpt_kri_site_details","kri_value","KRI value",5
+"Gismo","rpt_kri_site_details","kri_score","KRI score based on value",6
+"Gismo","rpt_kri_site_details","numerator","Numerator used to calculate metric",7
+"Gismo","rpt_kri_site_details","denominator","Denominator used to calculate metric",8
+"Gismo","rpt_kri_site_details","flag_value","Flag value reported based on score",9
+"Gismo","rpt_kri_site_details","no_of_consecutive_loads","The number of times the site KRI has been continuously flagged",10
+"Gismo","rpt_kri_site_details","upper_threshold","Value from status_param when index = 3",11
+"Gismo","rpt_kri_site_details","lower_threshold","Value from status_param when index = 2",12
+"Gismo","rpt_kri_site_details","bottom_lower_threshold","Value from status_param when index = 1",13
+"Gismo","rpt_kri_site_details","top_upper_threshold","Value from status_param when index = 4",14
+"Gismo","rpt_kri_site_details","kri_name","Name of KRI", 15
+"Gismo","rpt_kri_site_details","country_aggregate","Country aggregate",16
+"Gismo","rpt_kri_site_details","study_aggregate","Study aggregate",17
+"Gismo","rpt_kri_site_details","meta_numerator","Description of Numerator",18
+"Gismo","rpt_kri_site_details","meta_denominator","Description of Denominator",19
+"Gismo","rpt_kri_site_details","pt_cycle_id","Cycle ID",20
+"Gismo","rpt_kri_site_details","pt_data_dt","Data ID",21
+"Gismo","rpt_kri_site_details","gsm_analysis_date","Date that snapshot was created",22
 "GSM","meta_study","protocol_row_id","Protocol row ID",1
 "GSM","meta_study","protocol_number","Protocol number",2
 "GSM","meta_study","protocol_title","Protocol title",3
@@ -281,4 +303,26 @@
 "GSM","rpt_kri_detail","pt_cycle_id","Cycle ID",20
 "GSM","rpt_kri_detail","pt_data_dt","Data date",21
 "GSM","rpt_kri_detail","gsm_analysis_date","Date that snapshot was created",22
+"GSM","rpt_kri_site_details","study_id","Unique Study ID",1
+"GSM","rpt_kri_site_details","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_kri_site_details","site_id","Unique Site ID",3
+"GSM","rpt_kri_site_details","kri_id","Unique KRI ID",4
+"GSM","rpt_kri_site_details","kri_value","KRI value",5
+"GSM","rpt_kri_site_details","kri_score","KRI score based on value",6
+"GSM","rpt_kri_site_details","numerator","Numerator used to calculate metric",7
+"GSM","rpt_kri_site_details","denominator","Denominator used to calculate metric",8
+"GSM","rpt_kri_site_details","flag_value","Flag value reported based on score",9
+"GSM","rpt_kri_site_details","no_of_consecutive_loads","The number of times the site KRI has been continuously flagged",10
+"GSM","rpt_kri_site_details","upper_threshold","Value from status_param when index = 3",11
+"GSM","rpt_kri_site_details","lower_threshold","Value from status_param when index = 2",12
+"GSM","rpt_kri_site_details","bottom_lower_threshold","Value from status_param when index = 1",13
+"GSM","rpt_kri_site_details","top_upper_threshold","Value from status_param when index = 4",14
+"GSM","rpt_kri_site_details","kri_name","Name of KRI", 15
+"GSM","rpt_kri_site_details","country_aggregate","Country aggregate",16
+"GSM","rpt_kri_site_details","study_aggregate","Study aggregate",17
+"GSM","rpt_kri_site_details","meta_numerator","Description of Numerator",18
+"GSM","rpt_kri_site_details","meta_denominator","Description of Denominator",19
+"GSM","rpt_kri_site_details","pt_cycle_id","Cycle ID",20
+"GSM","rpt_kri_site_details","pt_data_dt","Data ID",21
+"GSM","rpt_kri_site_details","gsm_analysis_date","Date that snapshot was created",22
 
