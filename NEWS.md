@@ -1,3 +1,7 @@
+# gsm v1.8.3
+this release functionalizes reporting and builds out the QTL report options while adding a timeline visualization to all reports. 
+bugfixes were applied to `Augment_Snapshot()` and `StackSnapshots()` to account for folders not formatted in date format. 
+
 # gsm v1.8.2
 
 This release provides various improvements and updates to reporting. 
