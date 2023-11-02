@@ -95,17 +95,17 @@ Augment_Snapshot <- function(
         select("snapshot_date", "workflowid") %>%
         filter(.data$snapshot_date %in% snapshot_dates$snapshot_date) %>%
         distinct() %>%
-        group_by(workflowid) %>%
+        group_by(.data$workflowid) %>%
         summarise(
-          latest = max(as.Date(snapshot_date), na.rm = TRUE),
+          latest = max(as.Date(.data$snapshot_date), na.rm = TRUE),
           .groups = "drop"
         ) %>%
-        mutate(is_current = latest == max(latest)) %>%
+        mutate(is_current = .data$latest == max(.data$latest)) %>%
         left_join(snapshot_dates, by = c("latest" = "snapshot_date"))
 
       ## get old workflowids
       old_workflows <- status %>%
-        filter(!is_current) %>%
+        filter(!.data$is_current) %>%
         split(.$latest) %>%
         map(., . %>% pull(.data$workflowid))
 
