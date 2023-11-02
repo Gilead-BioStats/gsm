@@ -39,7 +39,7 @@ ExtractFlags <- function(lResults, group){
   }
   if(group == "site"){
     results <- filter(data, str_detect(kri, "kri"))
-    if(length(results) == 0) {
+    if(nrow(results) == 0) {
       cli::cli_alert_warning("lResults argument in `ExtractFlags()` didn't contain any KRI's with site level results, unable to group by 'site'
                              Returning results for `kri` groups instead")
       results <- data
