@@ -142,7 +142,7 @@ Make_Snapshot <- function(
     results_bounds = MakeResultsBounds(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
     meta_workflow = lMeta$meta_workflow,
     meta_param = lMeta$meta_params,
-    rpt_site_details = MakeRptSiteDetails(lResults, status_site, gsm_analysis_date),
+    rpt_site_details = MakeRptSiteDetails(lResults = lResults, status_site = status_site, gsm_analysis_date = gsm_analysis_date),
     rpt_study_details = MakeRptStudyDetails(lResults = lResults, status_study = status_study, gsm_analysis_date = gsm_analysis_date)
   ) %>%
     purrr::keep(~ !is.null(.x)) %>%
