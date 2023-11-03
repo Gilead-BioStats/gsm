@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-MakeSnapshotHelpers.R
 \name{ExtractFlags}
 \alias{ExtractFlags}
-\title{Creates a data frame of flags associated with sites or kris}
+\title{Extract flag counts by site or KRI}
 \usage{
 ExtractFlags(lResults, group)
 }
@@ -12,6 +12,6 @@ ExtractFlags(lResults, group)
 \item{group}{\code{character} a character field to specify what to use to group flags by. options = "site", "kri"}
 }
 \description{
-Creates a data frame of flags associated with sites or kris
+Extract flag counts by site or KRI
 }
 \keyword{internal}
