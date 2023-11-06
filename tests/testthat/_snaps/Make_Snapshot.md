@@ -114,7 +114,8 @@
       v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
-      ! lResults argument in `MakeRptSiteDetails()` didn't contain any KRI's with site level results, returning blank data frame
+      ! lResults argument in `MakeRptSiteDetails()` didn't contain any KRI's with site level results,
+      `num_of_at_risk_kris` and `num_of_flagged_kris` will not be representative of site
       ! lResults argument in `MakeRptStudyDetails()` didn't contain any KRI's with site level results, `num_of_sites_flagged` will be reported as zero
       ! lResults argument in `MakeRptKRIDetail()` didn't contain any KRI's with site level results, `num_of_sites_flagged` will be reported as zero
 
