@@ -97,6 +97,44 @@
 "Gismo","meta_param","default","Default value for parameter at index",5
 "Gismo","meta_param","configurable","Is parameter configurable?",6
 "Gismo","meta_param","gsm_analysis_date","Date that snapshot was created",7
+"Gismo","rpt_site_details","study_id","Unique Study ID",1
+"Gismo","rpt_site_details","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_site_details","site_id","Unique Site ID",3
+"Gismo","rpt_site_details","site_nm","Name of site",4
+"Gismo","rpt_site_details","site_status","Status of site",5
+"Gismo","rpt_site_details","investigator_nm","Investigator's name",6
+"Gismo","rpt_site_details","site_country","Country site is located",7
+"Gismo","rpt_site_details","site_state","State site is located",8
+"Gismo","rpt_site_details","site_city","City site is located",9
+"Gismo","rpt_site_details","region","Region of site",10
+"Gismo","rpt_site_details","enrolled_participants","Enrolled participants",11
+"Gismo","rpt_site_details","planned_participants","Planned participants",12
+"Gismo","rpt_site_details","num_of_at_risk_kris","Total number of amber flags per KRI",13
+"Gismo","rpt_site_details","num_of_flagged_kris","Total number of red flags per KRI",14
+"Gismo","rpt_site_details","pt_cycle_id","Cycle ID",15
+"Gismo","rpt_site_details","pt_data_dt","Data ID",16
+"Gismo","rpt_site_details","gsm_analysis_date","Date that snapshot was created",17
+"Gismo","rpt_study_details","study_id","Unique Study ID",1
+"Gismo","rpt_study_details","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_study_details","protocol_title","Title of protocol",3
+"Gismo","rpt_study_details","therapeutic_area","Area of therapy",4
+"Gismo","rpt_study_details","indication","Protocol indication",5
+"Gismo","rpt_study_details","phase","Phase of study",6
+"Gismo","rpt_study_details","product","Name of product",7
+"Gismo","rpt_study_details","enrolled_sites","Sites enrolled in study",8
+"Gismo","rpt_study_details","enrolled_participants","Participants enrolled in study",9
+"Gismo","rpt_study_details","planned_sites","Total planned sites for study",10
+"Gismo","rpt_study_details","planned_participants","Total planned participants for study",11
+"Gismo","rpt_study_details","study_status","Status of the study",12
+"Gismo","rpt_study_details","fpfv","First patient first visit",13
+"Gismo","rpt_study_details","lpfv","Last patient first visit",14
+"Gismo","rpt_study_details","lplv","Last patient last visit",15
+"Gismo","rpt_study_details","study_age","Total age of the study in YMD",16
+"Gismo","rpt_study_details","num_of_sites_flagged","Total number of sites with red flags",17
+"Gismo","rpt_study_details","enrolling_sites_with_flagged_kris","Enrolled sites with flagged kris",18
+"Gismo","rpt_study_details","pt_cycle_id","Cycle ID",19
+"Gismo","rpt_study_details","pt_data_dt","Data ID",20
+"Gismo","rpt_study_details","gsm_analysis_date","Date that snapshot was created",21
 "GSM","meta_study","protocol_row_id","Protocol row ID",1
 "GSM","meta_study","protocol_number","Protocol number",2
 "GSM","meta_study","protocol_title","Protocol title",3
@@ -161,3 +199,42 @@
 "GSM","meta_param","index","Parameter index",4
 "GSM","meta_param","default","Default value for parameter at index",5
 "GSM","meta_param","configurable","Is parameter configurable?",6
+"GSM","rpt_site_details","study_id","Unique Study ID",1
+"GSM","rpt_site_details","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_site_details","site_id","Unique Site ID",3
+"GSM","rpt_site_details","site_nm","Name of site",4
+"GSM","rpt_site_details","site_status","Status of site",5
+"GSM","rpt_site_details","investigator_nm","Investigator's name",6
+"GSM","rpt_site_details","site_country","Country site is located",7
+"GSM","rpt_site_details","site_state","State site is located",8
+"GSM","rpt_site_details","site_city","City site is located",9
+"GSM","rpt_site_details","region","Region of site",10
+"GSM","rpt_site_details","enrolled_participants","Enrolled participants",11
+"GSM","rpt_site_details","planned_participants","Planned participants",12
+"GSM","rpt_site_details","num_of_at_risk_kris","Total number of amber flags per KRI",13
+"GSM","rpt_site_details","num_of_flagged_kris","Total number of red flags per KRI",14
+"GSM","rpt_site_details","pt_cycle_id","Cycle ID",15
+"GSM","rpt_site_details","pt_data_dt","Data ID",16
+"GSM","rpt_site_details","gsm_analysis_date","Date that snapshot was created",17
+"GSM","rpt_study_details","study_id","Unique Study ID",1
+"GSM","rpt_study_details","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_study_details","protocol_title","Title of protocol",3
+"GSM","rpt_study_details","therapeutic_area","Area of therapy",4
+"GSM","rpt_study_details","indication","Protocol indication",5
+"GSM","rpt_study_details","phase","Phase of study",6
+"GSM","rpt_study_details","product","Name of product",7
+"GSM","rpt_study_details","enrolled_sites","Sites enrolled in study",8
+"GSM","rpt_study_details","enrolled_participants","Participants enrolled in study",9
+"GSM","rpt_study_details","planned_sites","Total planned sites for study",10
+"GSM","rpt_study_details","planned_participants","Total planned participants for study",11
+"GSM","rpt_study_details","study_status","Status of the study",12
+"GSM","rpt_study_details","fpfv","First patient first visit",13
+"GSM","rpt_study_details","lpfv","Last patient first visit",14
+"GSM","rpt_study_details","lplv","Last patient last visit",15
+"GSM","rpt_study_details","study_age","Total age of the study in YMD",16
+"GSM","rpt_study_details","num_of_sites_flagged","Total number of sites with red flags",17
+"GSM","rpt_study_details","enrolling_sites_with_flagged_kris","Enrolled sites with flagged kris",18
+"GSM","rpt_study_details","pt_cycle_id","Cycle ID",19
+"GSM","rpt_study_details","pt_data_dt","Data ID",20
+"GSM","rpt_study_details","gsm_analysis_date","Date that snapshot was created",21
+

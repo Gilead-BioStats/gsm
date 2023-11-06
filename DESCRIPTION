@@ -41,6 +41,7 @@ Imports:
     knitr,
     lamW,
     lifecycle (>= 1.0.1),
+    lubridate,
     magrittr,
     purrr,
     rmarkdown,
