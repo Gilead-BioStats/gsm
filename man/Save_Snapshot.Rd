@@ -4,7 +4,13 @@
 \alias{Save_Snapshot}
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
-Save_Snapshot(lSnapshot, cPath, bCreateDefaultFolder = FALSE, bQuiet = TRUE)
+Save_Snapshot(
+  lSnapshot,
+  cPath,
+  bCreateDefaultFolder = FALSE,
+  bQuiet = TRUE,
+  strFileFormat = "parquet"
+)
 }
 \arguments{
 \item{lSnapshot}{\code{list} the output of \code{\link[=Make_Snapshot]{Make_Snapshot()}} or \code{\link[=Augment_Snapshot]{Augment_Snapshot()}}.}
@@ -14,6 +20,8 @@ Save_Snapshot(lSnapshot, cPath, bCreateDefaultFolder = FALSE, bQuiet = TRUE)
 \item{bCreateDefaultFolder}{\code{logical} default: \code{FALSE}. If \code{TRUE}, creates a new folder in the \code{cPath} directory with the current date (YYYY-MM-DD).}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+
+\item{strFileFormat}{\code{character} The file format used to save all flat files. Default: \code{parquet}. Valid options: \code{parquet} or \code{csv}.}
 }
 \value{
 \code{.csv} files and \code{.rds} file saved to a specified directory.
