@@ -33,38 +33,28 @@ CompileResultsSummary <- function(lResults){
 #'
 #' @keywords internal
 ExtractFlags <- function(lResults, group){
-  data <- CompileResultsSummary(lResults)
   if(!group %in% c("site", "kri")){
     stop("`group` argument must be either 'site' or 'kri'")
   }
+
+  data <- CompileResultsSummary(lResults)
+
   if(group == "site"){
-    results <- filter(data, str_detect(kri, "kri"))
-    if(length(results) == 0) {
-      cli::cli_alert_warning("lResults argument in `ExtractFlags()` didn't contain any KRI's with site level results, unable to group by 'site'
-                             Returning results for `kri` groups instead")
-      results <- data
-    }
-  } else {
-    results <- data
+    grouping_variable <- "GroupID"
+    cols_to_select <- c("siteid" = "GroupID", "num_of_at_risk_kris" = "amber", "num_of_flagged_kris" = "red")
+  } else if(group == "kri") {
+    grouping_variable <- "kri"
+    cols_to_select <- c("kri_id" = "kri", "num_of_sites_at_risk" = "amber", "num_of_sites_flagged" = "red")
   }
-  output <- results %>%
-    {if(group == "site") {group_by(., GroupID, flag_color)} else .} %>%
-    {if(group == "kri") {group_by(., kri, flag_color)} else .} %>%
+
+  data %>%
+    group_by(.data[[grouping_variable]], flag_color) %>%
     summarise(n_flags = n(), .groups = "drop") %>%
     filter(flag_color %in% c("red", "amber")) %>%
     tidyr::pivot_wider(names_from = "flag_color", values_from = "n_flags") %>%
-    {if(!"amber" %in% names(.)) tibble::add_column(., "amber" = NA) else .} %>%
-    {if(!"red" %in% names(.)) tibble::add_column(., "red" = NA) else .} %>%
-    {if(group == "site") {select(.,"siteid" = "GroupID",
-                                 "num_of_at_risk_kris" = "amber",
-                                 "num_of_flagged_kris" = "red")}
-      else .} %>%
-    {if(group == "kri") {select(., "kri_id" = "kri",
-                                "num_of_sites_at_risk" = "amber",
-                                "num_of_sites_flagged" = "red")}
-      else .}
-
-  return(output)
+    {if(!"amber" %in% names(.)) tibble::add_column(., "amber" = as.numeric(NA)) else .} %>%
+    {if(!"red" %in% names(.)) tibble::add_column(., "red" = as.numeric(NA)) else .} %>%
+    select(all_of(cols_to_select))
 }
 
 
@@ -102,53 +92,35 @@ ExtractStudyAge <- function(fpfv, snapshot_date) {
 MakeRptSiteDetails <- function(lResults, status_site, gsm_analysis_date) {
   types <- unique(gsub("[[:digit:]]", "", names(lResults)))
   results <- ExtractFlags(lResults, group = "site")
-  if(nrow(results) == 0){
-    cli::cli_alert_warning("lResults argument in `MakeRptSiteDetails()` didn't contain any KRI's with site level results, returning blank data frame")
-    output <- data.frame("study_id" = NA,
-                         "snapshot_date" = NA,
-                         "site_id" = NA,
-                         "site_nm" = NA,
-                         "site_status" = NA,
-                         "investigator_nm" = NA,
-                         "site_country" = NA,
-                         "site_state" = NA,
-                         "site_city" = NA,
-                         "region" = NA,
-                         "enrolled_participants" = NA,
-                         "planned_participants" = NA,
-                         "num_of_at_risk_kris" = NA,
-                         "num_of_flagged_kris" = NA,
-                         "pt_cycle_id" = NA,
-                         "pt_data_dt" = NA)
+  if(!"kri" %in% types){
+    cli::cli_alert_warning("lResults argument in `MakeRptSiteDetails()` didn't contain any KRI's with site level results,
+                           `num_of_at_risk_kris` and `num_of_flagged_kris` will not be representative of site")
   }
-  if("kri" %in% types){
-    output <- status_site %>%
-      left_join(results, by = "siteid") %>%
-      mutate(snapshot_date = gsm_analysis_date,
-             region = "Other",
-             planned_participants = as.numeric(NA),
-             pt_cycle_id = as.character(NA),
-             pt_data_dt = as.character(NA)) %>%
-      select("study_id" = "studyid",
-             "snapshot_date",
-             "site_id" = "siteid",
-             "site_nm" = "site_num",
-             "site_status" = "status",
-             "investigator_nm" = "invname",
-             "site_country" = "country",
-             "site_state" = "state",
-             "site_city" = "city",
-             "region",
-             "enrolled_participants",
-             "planned_participants",
-             "num_of_at_risk_kris",
-             "num_of_flagged_kris",
-             "pt_cycle_id",
-             "pt_data_dt"
-      ) %>%
-      replace_na(replace = list("num_of_at_risk_kris" = 0, "num_of_flagged_kris" = 0))
-  }
-  return(output)
+  status_site %>%
+    left_join(results, by = "siteid") %>%
+    mutate(snapshot_date = gsm_analysis_date,
+           region = "Other",
+           planned_participants = as.numeric(NA),
+           pt_cycle_id = as.character(NA),
+           pt_data_dt = as.character(NA)) %>%
+    select("study_id" = "studyid",
+           "snapshot_date",
+           "site_id" = "siteid",
+           "site_nm" = "site_num",
+           "site_status" = "status",
+           "investigator_nm" = "invname",
+           "site_country" = "country",
+           "site_state" = "state",
+           "site_city" = "city",
+           "region",
+           "enrolled_participants",
+           "planned_participants",
+           "num_of_at_risk_kris",
+           "num_of_flagged_kris",
+           "pt_cycle_id",
+           "pt_data_dt"
+    ) %>%
+    replace_na(replace = list("num_of_at_risk_kris" = 0, "num_of_flagged_kris" = 0))
 }
 
 
