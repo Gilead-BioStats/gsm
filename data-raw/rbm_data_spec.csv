@@ -1,284 +1,300 @@
-"System","Table","Column","Description","Order"
-"Gismo","status_study","studyid","Unique Study ID",1
-"Gismo","status_study","enrolled_sites","# of enrolled sites",2
-"Gismo","status_study","enrolled_participants","# of enrolled participants",3
-"Gismo","status_study","planned_sites","# of planned sites",4
-"Gismo","status_study","planned_participants","# of planned participants",5
-"Gismo","status_study","title","Protocol title",6
-"Gismo","status_study","nickname","Protocol nickname",7
-"Gismo","status_study","enrolled_sites_ctms","# of enrolled sites from GILDA",8
-"Gismo","status_study","enrolled_participants_ctms","# of enrolled participants from GILDA",9
-"Gismo","status_study","fpfv","First-patient first visit date",10
-"Gismo","status_study","lpfv","Last-patient first visit date",11
-"Gismo","status_study","lplv","Last-patient last visit date",12
-"Gismo","status_study","ta","Therapeutic Area",13
-"Gismo","status_study","indication","Indication",14
-"Gismo","status_study","phase","Phase",15
-"Gismo","status_study","status","Study Status",16
-"Gismo","status_study","rbm_flag","Risk-based monitoring flag",17
-"Gismo","status_study","product","Product",18
-"Gismo","status_study","protocol_type","Protocol type",19
-"Gismo","status_study","protocol_row_id","Protocol row ID",20
-"Gismo","status_study","est_fpfv","Estimated first-patient first visit date from GILDA",21
-"Gismo","status_study","est_lpfv","Estimated last-patient first visit date from GILDA",22
-"Gismo","status_study","est_lplv","Estimated last-patient last visit date from GILDA",23
-"Gismo","status_study","protocol_product_number","Protocol product number",24
-"Gismo","status_study","gsm_analysis_date","Date that snapshot was created",25
-"Gismo","status_site","studyid","Unique Study ID",1
-"Gismo","status_site","siteid","Unique Site ID",2
-"Gismo","status_site","institution","Institution Name",3
-"Gismo","status_site","status","Site Status",4
-"Gismo","status_site","enrolled_participants","# of enrolled participants",5
-"Gismo","status_site","start_date","Site Activation Date",6
-"Gismo","status_site","city","City",7
-"Gismo","status_site","state","State",8
-"Gismo","status_site","country","Country",9
-"Gismo","status_site","invname","Investigator name",10
-"Gismo","status_site","protocol_row_id","Protocol row ID",11
-"Gismo","status_site","site_num","Site number",12
-"Gismo","status_site","site_row_id","Site row ID",13
-"Gismo","status_site","pi_number","Principal investigator number",14
-"Gismo","status_site","pi_last_name","Principal investigator last name",15
-"Gismo","status_site","pi_first_name","Principal investigator first name",16
-"Gismo","status_site","is_satellite","Is site a satellite location?",17
-"Gismo","status_site","gsm_analysis_date","Date that snapshot was created",18
-"Gismo","status_workflow","studyid","Unique Study ID",1
-"Gismo","status_workflow","workflowid","Unique Workflow ID",2
-"Gismo","status_workflow","gsm_version","GSM version of workflow",3
-"Gismo","status_workflow","active","Is workflow active?",4
-"Gismo","status_workflow","status","Did workflow run?",5
-"Gismo","status_workflow","notes","Status notes",6
-"Gismo","status_workflow","gsm_analysis_date","Date that snapshot was created",7
-"Gismo","status_param","studyid","Unique Study ID",1
-"Gismo","status_param","workflowid","Unique Workflow ID",2
-"Gismo","status_param","gsm_version","GSM version of workflow",3
-"Gismo","status_param","param","Parameter name",4
-"Gismo","status_param","index","Index value for parameter",5
-"Gismo","status_param","value","Value for parameter at index",6
-"Gismo","status_param","gsm_analysis_date","Date that snapshot was created",7
-"Gismo","results_summary","studyid","Unique Study ID",1
-"Gismo","results_summary","workflowid","Unique Workflow ID",2
-"Gismo","results_summary","groupid","Unique Group ID (e.g. SiteID for KRI workflows)",3
-"Gismo","results_summary","numerator","Metric numerator",4
-"Gismo","results_summary","denominator","Metric denominator",5
-"Gismo","results_summary","metric","Metric value",6
-"Gismo","results_summary","score","Statistical Score",7
-"Gismo","results_summary","flag","Flag",8
-"Gismo","results_summary","gsm_analysis_date","Date that snapshot was created",9
-"Gismo","results_analysis","studyid","Unique Study ID",1
-"Gismo","results_analysis","workflowid","Unique Workflow ID",2
-"Gismo","results_analysis","param","Parameter name",3
-"Gismo","results_analysis","value","Value for parameter",4
-"Gismo","results_analysis","gsm_analysis_date","Date that snapshot was created",5
-"Gismo","results_bounds","studyid","Unique Study ID",1
-"Gismo","results_bounds","workflowid","Unique Workflow ID",2
-"Gismo","results_bounds","threshold","Threshold",3
-"Gismo","results_bounds","numerator","y value",4
-"Gismo","results_bounds","denominator","x value",5
-"Gismo","results_bounds","log_denominator","Log X value",6
-"Gismo","results_bounds","gsm_analysis_date","Date that snapshot was created",7
-"Gismo","meta_workflow","workflowid","Unique Workflow ID",1
-"Gismo","meta_workflow","gsm_version","GSM Version of workflow",2
-"Gismo","meta_workflow","group","Group for workflow - Site, Country, Region or Study",3
-"Gismo","meta_workflow","abbreviation","Workflow Abbreviation (max 3-letters)",4
-"Gismo","meta_workflow","metric","Metric Label",5
-"Gismo","meta_workflow","numerator","Numerator Label",6
-"Gismo","meta_workflow","denominator","Denominator Label",7
-"Gismo","meta_workflow","outcome","Metric Outcome Type (e.g. rate)",8
-"Gismo","meta_workflow","model","Statistical Model used to create score",9
-"Gismo","meta_workflow","score","Score Label",10
-"Gismo","meta_workflow","data_inputs","Data inputs for workflow",11
-"Gismo","meta_workflow","data_filters","Filters applied in workflow",12
-"Gismo","meta_workflow","gsm_analysis_date","Date that snapshot was created",13
-"Gismo","meta_param","workflowid","Unique Workflow ID",1
-"Gismo","meta_param","gsm_version","GSM version of workflow",2
-"Gismo","meta_param","param","Parameter name",3
-"Gismo","meta_param","index","Parameter index",4
-"Gismo","meta_param","default","Default value for parameter at index",5
-"Gismo","meta_param","configurable","Is parameter configurable?",6
-"Gismo","meta_param","gsm_analysis_date","Date that snapshot was created",7
-"Gismo","rpt_site_details","study_id","Unique Study ID",1
-"Gismo","rpt_site_details","snapshot_date","Date that snapshot was created",2
-"Gismo","rpt_site_details","site_id","Unique Site ID",3
-"Gismo","rpt_site_details","site_nm","Name of site",4
-"Gismo","rpt_site_details","site_status","Status of site",5
-"Gismo","rpt_site_details","investigator_nm","Investigator's name",6
-"Gismo","rpt_site_details","site_country","Country site is located",7
-"Gismo","rpt_site_details","site_state","State site is located",8
-"Gismo","rpt_site_details","site_city","City site is located",9
-"Gismo","rpt_site_details","region","Region of site",10
-"Gismo","rpt_site_details","enrolled_participants","Enrolled participants",11
-"Gismo","rpt_site_details","planned_participants","Planned participants",12
-"Gismo","rpt_site_details","num_of_at_risk_kris","Total number of amber flags per KRI",13
-"Gismo","rpt_site_details","num_of_flagged_kris","Total number of red flags per KRI",14
-"Gismo","rpt_site_details","pt_cycle_id","Cycle ID",15
-"Gismo","rpt_site_details","pt_data_dt","Data ID",16
-"Gismo","rpt_site_details","gsm_analysis_date","Date that snapshot was created",17
-"Gismo","rpt_study_details","study_id","Unique Study ID",1
-"Gismo","rpt_study_details","snapshot_date","Date that snapshot was created",2
-"Gismo","rpt_study_details","protocol_title","Title of protocol",3
-"Gismo","rpt_study_details","therapeutic_area","Area of therapy",4
-"Gismo","rpt_study_details","indication","Protocol indication",5
-"Gismo","rpt_study_details","phase","Phase of study",6
-"Gismo","rpt_study_details","product","Name of product",7
-"Gismo","rpt_study_details","enrolled_sites","Sites enrolled in study",8
-"Gismo","rpt_study_details","enrolled_participants","Participants enrolled in study",9
-"Gismo","rpt_study_details","planned_sites","Total planned sites for study",10
-"Gismo","rpt_study_details","planned_participants","Total planned participants for study",11
-"Gismo","rpt_study_details","study_status","Status of the study",12
-"Gismo","rpt_study_details","fpfv","First patient first visit",13
-"Gismo","rpt_study_details","lpfv","Last patient first visit",14
-"Gismo","rpt_study_details","lplv","Last patient last visit",15
-"Gismo","rpt_study_details","study_age","Total age of the study in YMD",16
-"Gismo","rpt_study_details","num_of_sites_flagged","Total number of sites with red flags",17
-"Gismo","rpt_study_details","enrolling_sites_with_flagged_kris","Enrolled sites with flagged kris",18
-"Gismo","rpt_study_details","pt_cycle_id","Cycle ID",19
-"Gismo","rpt_study_details","pt_data_dt","Data ID",20
-"Gismo","rpt_study_details","gsm_analysis_date","Date that snapshot was created",21
-"Gismo","rpt_kri_detail","study_id","Name of study",1
-"Gismo","rpt_kri_detail","snapshot_date","Date that snapshot was created",2
-"Gismo","rpt_kri_detail","kri_id","Unique KRI",3
-"Gismo","rpt_kri_detail","kri_name","Name of the KRI",4
-"Gismo","rpt_kri_detail","kri_acronym","KRI abbreviation",5
-"Gismo","rpt_kri_detail","kri_description","KRI Description",6
-"Gismo","rpt_kri_detail","base_metric","Numerator over denominator",7
-"Gismo","rpt_kri_detail","meta_numerator","Meta workflow numerator",8
-"Gismo","rpt_kri_detail","meta_denominator","Meta workflow denominator",9
-"Gismo","rpt_kri_detail","num_of_sites_at_risk","Total number of grouped sites with amber flags",10
-"Gismo","rpt_kri_detail","num_of_sites_flagged","Total number of grouped sites with red flags",11
-"Gismo","rpt_kri_detail","meta_outcome","The units output in the outcome of the KRI",12
-"Gismo","rpt_kri_detail","meta_model","The method of calculating the score for the KRI",13
-"Gismo","rpt_kri_detail","meta_score","The type of score used for the KRI",14
-"Gismo","rpt_kri_detail","meta_data_inputs","Data used as inputs",15
-"Gismo","rpt_kri_detail","meta_data_filters","Data filtering parameters",16
-"Gismo","rpt_kri_detail","meta_gsm_version","version of gsm used for analysis",17
-"Gismo","rpt_kri_detail","meta_group","group targeted by KRI",18
-"Gismo","rpt_kri_detail","total_num_of_sites","Total number of sites in study",19
-"Gismo","rpt_kri_detail","pt_cycle_id","Cycle ID",20
-"Gismo","rpt_kri_detail","pt_data_dt","Data date",21
-"Gismo","rpt_kri_detail","gsm_analysis_date","Date that snapshot was created",22
-"GSM","meta_study","protocol_row_id","Protocol row ID",1
-"GSM","meta_study","protocol_number","Protocol number",2
-"GSM","meta_study","protocol_title","Protocol title",3
-"GSM","meta_study","nickname","Protocol nickname",4
-"GSM","meta_study","protocol_type","Protocol type",5
-"GSM","meta_study","phase","Phase",6
-"GSM","meta_study","num_plan_site","# of planned sites from CTMS",7
-"GSM","meta_study","num_site_actl","# of enrolled sites from CTMS",8
-"GSM","meta_study","est_fpfv","Estimated first-patient first visit date",9
-"GSM","meta_study","act_fpfv","First-patient first visit date",10
-"GSM","meta_study","est_lpfv","Estimated last-patient first visit date",11
-"GSM","meta_study","act_lpfv","Last-patient first visit date",12
-"GSM","meta_study","est_lplv","Estimated last-patient last visit date",13
-"GSM","meta_study","act_lplv","Last-patient last visit date",14
-"GSM","meta_study","status","Study Status",15
-"GSM","meta_study","num_plan_subj","# of planned participants from CTMS",16
-"GSM","meta_study","num_enrolled_subj_m","# of enrolled participants from CTMS",17
-"GSM","meta_study","protocol_indication","Indication",18
-"GSM","meta_study","product","Product",19
-"GSM","meta_study","therapeutic_area","Therapeutic Area",20
-"GSM","meta_study","protocol_product_number","Protocol product number",21
-"GSM","meta_study","x_rbm_flg","Risk-based monitoring flag",22
-"GSM","meta_site","protocol_row_id","Protocol row ID",1
-"GSM","meta_site","site_num","Unique Site ID",2
-"GSM","meta_site","site_row_id","Site row ID",3
-"GSM","meta_site","protocol","Unique Study ID",4
-"GSM","meta_site","pi_number","Principal investigator number",5
-"GSM","meta_site","pi_last_name","Principal investigator last name",6
-"GSM","meta_site","pi_first_name","Principal investigator first name",7
-"GSM","meta_site","site_status","Site Status",8
-"GSM","meta_site","is_satellite","Is site a satellite location?",9
-"GSM","meta_site","account","Institution Name",10
-"GSM","meta_site","site_active_dt","Site Activation Date",11
-"GSM","meta_site","city","City",12
-"GSM","meta_site","state","State",13
-"GSM","meta_site","country","Country",14
-"GSM","config_workflow","studyid","Unique Study ID",1
-"GSM","config_workflow","workflowid","Unique Workflow ID",2
-"GSM","config_workflow","gsm_version","GSM version of workflow",3
-"GSM","config_workflow","active","Is workflow active?",4
-"GSM","config_param","studyid","Unique Study ID",1
-"GSM","config_param","workflowid","Unique Workflow ID",2
-"GSM","config_param","gsm_version","GSM version of workflow",3
-"GSM","config_param","param","Parameter name",4
-"GSM","config_param","index","Index value for parameter",5
-"GSM","config_param","value","Value for parameter at index",6
-"GSM","meta_workflow","workflowid","Unique Workflow ID",1
-"GSM","meta_workflow","abbreviation","Workflow Abbreviation (max 3-letters)",2
-"GSM","meta_workflow","gsm_version","GSM Version of workflow",3
-"GSM","meta_workflow","group","Group for workflow - Site, Country, Region or Study",4
-"GSM","meta_workflow","metric","Metric Label",5
-"GSM","meta_workflow","numerator","Numerator Label",6
-"GSM","meta_workflow","denominator","Denominator Label",7
-"GSM","meta_workflow","outcome","Metric Outcome Type (e.g. rate)",8
-"GSM","meta_workflow","model","Statistical Model used to create score",9
-"GSM","meta_workflow","score","Score Label",10
-"GSM","meta_workflow","data_inputs","Data inputs for workflow",11
-"GSM","meta_workflow","data_filters","Filters applied in workflow",12
-"GSM","meta_param","workflowid","Unique Workflow ID",1
-"GSM","meta_param","gsm_version","GSM version of workflow",2
-"GSM","meta_param","param","Parameter name",3
-"GSM","meta_param","index","Parameter index",4
-"GSM","meta_param","default","Default value for parameter at index",5
-"GSM","meta_param","configurable","Is parameter configurable?",6
-"GSM","rpt_site_details","study_id","Unique Study ID",1
-"GSM","rpt_site_details","snapshot_date","Date that snapshot was created",2
-"GSM","rpt_site_details","site_id","Unique Site ID",3
-"GSM","rpt_site_details","site_nm","Name of site",4
-"GSM","rpt_site_details","site_status","Status of site",5
-"GSM","rpt_site_details","investigator_nm","Investigator's name",6
-"GSM","rpt_site_details","site_country","Country site is located",7
-"GSM","rpt_site_details","site_state","State site is located",8
-"GSM","rpt_site_details","site_city","City site is located",9
-"GSM","rpt_site_details","region","Region of site",10
-"GSM","rpt_site_details","enrolled_participants","Enrolled participants",11
-"GSM","rpt_site_details","planned_participants","Planned participants",12
-"GSM","rpt_site_details","num_of_at_risk_kris","Total number of amber flags per KRI",13
-"GSM","rpt_site_details","num_of_flagged_kris","Total number of red flags per KRI",14
-"GSM","rpt_site_details","pt_cycle_id","Cycle ID",15
-"GSM","rpt_site_details","pt_data_dt","Data ID",16
-"GSM","rpt_site_details","gsm_analysis_date","Date that snapshot was created",17
-"GSM","rpt_study_details","study_id","Unique Study ID",1
-"GSM","rpt_study_details","snapshot_date","Date that snapshot was created",2
-"GSM","rpt_study_details","protocol_title","Title of protocol",3
-"GSM","rpt_study_details","therapeutic_area","Area of therapy",4
-"GSM","rpt_study_details","indication","Protocol indication",5
-"GSM","rpt_study_details","phase","Phase of study",6
-"GSM","rpt_study_details","product","Name of product",7
-"GSM","rpt_study_details","enrolled_sites","Sites enrolled in study",8
-"GSM","rpt_study_details","enrolled_participants","Participants enrolled in study",9
-"GSM","rpt_study_details","planned_sites","Total planned sites for study",10
-"GSM","rpt_study_details","planned_participants","Total planned participants for study",11
-"GSM","rpt_study_details","study_status","Status of the study",12
-"GSM","rpt_study_details","fpfv","First patient first visit",13
-"GSM","rpt_study_details","lpfv","Last patient first visit",14
-"GSM","rpt_study_details","lplv","Last patient last visit",15
-"GSM","rpt_study_details","study_age","Total age of the study in YMD",16
-"GSM","rpt_study_details","num_of_sites_flagged","Total number of sites with red flags",17
-"GSM","rpt_study_details","enrolling_sites_with_flagged_kris","Enrolled sites with flagged kris",18
-"GSM","rpt_study_details","pt_cycle_id","Cycle ID",19
-"GSM","rpt_study_details","pt_data_dt","Data date",20
-"GSM","rpt_study_details","gsm_analysis_date","Date that snapshot was created",21
-"GSM","rpt_kri_detail","study_id","Name of study",1
-"GSM","rpt_kri_detail","snapshot_date","Date that snapshot was created",2
-"GSM","rpt_kri_detail","kri_id","Unique KRI",3
-"GSM","rpt_kri_detail","kri_name","Name of the KRI",4
-"GSM","rpt_kri_detail","kri_acronym","KRI abbreviation",5
-"GSM","rpt_kri_detail","kri_description","KRI Description",6
-"GSM","rpt_kri_detail","base_metric","Numerator over denominator",7
-"GSM","rpt_kri_detail","meta_numerator","Meta workflow numerator",8
-"GSM","rpt_kri_detail","meta_denominator","Meta workflow denominator",9
-"GSM","rpt_kri_detail","num_of_sites_at_risk","Total number of grouped sites with amber flags",10
-"GSM","rpt_kri_detail","num_of_sites_flagged","Total number of grouped sites with red flags",11
-"GSM","rpt_kri_detail","meta_outcome","The units output in the outcome of the KRI",12
-"GSM","rpt_kri_detail","meta_model","The method of calculating the score for the KRI",13
-"GSM","rpt_kri_detail","meta_score","The type of score used for the KRI",14
-"GSM","rpt_kri_detail","meta_data_inputs","Data used as inputs",15
-"GSM","rpt_kri_detail","meta_data_filters","Data filtering parameters",16
-"GSM","rpt_kri_detail","meta_gsm_version","version of gsm used for analysis",17
-"GSM","rpt_kri_detail","meta_group","group targeted by KRI",18
-"GSM","rpt_kri_detail","total_num_of_sites","Total number of sites in study",19
-"GSM","rpt_kri_detail","pt_cycle_id","Cycle ID",20
-"GSM","rpt_kri_detail","pt_data_dt","Data date",21
-"GSM","rpt_kri_detail","gsm_analysis_date","Date that snapshot was created",22
-
+System,Table,Column,Description,Order
+Gismo,status_study,studyid,Unique Study ID,1
+Gismo,status_study,enrolled_sites,# of enrolled sites,2
+Gismo,status_study,enrolled_participants,# of enrolled participants,3
+Gismo,status_study,planned_sites,# of planned sites,4
+Gismo,status_study,planned_participants,# of planned participants,5
+Gismo,status_study,title,Protocol title,6
+Gismo,status_study,nickname,Protocol nickname,7
+Gismo,status_study,enrolled_sites_ctms,# of enrolled sites from GILDA,8
+Gismo,status_study,enrolled_participants_ctms,# of enrolled participants from GILDA,9
+Gismo,status_study,fpfv,First-patient first visit date,10
+Gismo,status_study,lpfv,Last-patient first visit date,11
+Gismo,status_study,lplv,Last-patient last visit date,12
+Gismo,status_study,ta,Therapeutic Area,13
+Gismo,status_study,indication,Indication,14
+Gismo,status_study,phase,Phase,15
+Gismo,status_study,status,Study Status,16
+Gismo,status_study,rbm_flag,Risk-based monitoring flag,17
+Gismo,status_study,product,Product,18
+Gismo,status_study,protocol_type,Protocol type,19
+Gismo,status_study,protocol_row_id,Protocol row ID,20
+Gismo,status_study,est_fpfv,Estimated first-patient first visit date from GILDA,21
+Gismo,status_study,est_lpfv,Estimated last-patient first visit date from GILDA,22
+Gismo,status_study,est_lplv,Estimated last-patient last visit date from GILDA,23
+Gismo,status_study,protocol_product_number,Protocol product number,24
+Gismo,status_study,gsm_analysis_date,Date that snapshot was created,25
+Gismo,status_site,studyid,Unique Study ID,1
+Gismo,status_site,siteid,Unique Site ID,2
+Gismo,status_site,institution,Institution Name,3
+Gismo,status_site,status,Site Status,4
+Gismo,status_site,enrolled_participants,# of enrolled participants,5
+Gismo,status_site,start_date,Site Activation Date,6
+Gismo,status_site,city,City,7
+Gismo,status_site,state,State,8
+Gismo,status_site,country,Country,9
+Gismo,status_site,invname,Investigator name,10
+Gismo,status_site,protocol_row_id,Protocol row ID,11
+Gismo,status_site,site_num,Site number,12
+Gismo,status_site,site_row_id,Site row ID,13
+Gismo,status_site,pi_number,Principal investigator number,14
+Gismo,status_site,pi_last_name,Principal investigator last name,15
+Gismo,status_site,pi_first_name,Principal investigator first name,16
+Gismo,status_site,is_satellite,Is site a satellite location?,17
+Gismo,status_site,gsm_analysis_date,Date that snapshot was created,18
+Gismo,status_workflow,studyid,Unique Study ID,1
+Gismo,status_workflow,workflowid,Unique Workflow ID,2
+Gismo,status_workflow,gsm_version,GSM version of workflow,3
+Gismo,status_workflow,active,Is workflow active?,4
+Gismo,status_workflow,status,Did workflow run?,5
+Gismo,status_workflow,notes,Status notes,6
+Gismo,status_workflow,gsm_analysis_date,Date that snapshot was created,7
+Gismo,status_param,studyid,Unique Study ID,1
+Gismo,status_param,workflowid,Unique Workflow ID,2
+Gismo,status_param,gsm_version,GSM version of workflow,3
+Gismo,status_param,param,Parameter name,4
+Gismo,status_param,index,Index value for parameter,5
+Gismo,status_param,value,Value for parameter at index,6
+Gismo,status_param,gsm_analysis_date,Date that snapshot was created,7
+Gismo,results_summary,studyid,Unique Study ID,1
+Gismo,results_summary,workflowid,Unique Workflow ID,2
+Gismo,results_summary,groupid,Unique Group ID (e.g. SiteID for KRI workflows),3
+Gismo,results_summary,numerator,Metric numerator,4
+Gismo,results_summary,denominator,Metric denominator,5
+Gismo,results_summary,metric,Metric value,6
+Gismo,results_summary,score,Statistical Score,7
+Gismo,results_summary,flag,Flag,8
+Gismo,results_summary,gsm_analysis_date,Date that snapshot was created,9
+Gismo,results_analysis,studyid,Unique Study ID,1
+Gismo,results_analysis,workflowid,Unique Workflow ID,2
+Gismo,results_analysis,param,Parameter name,3
+Gismo,results_analysis,value,Value for parameter,4
+Gismo,results_analysis,gsm_analysis_date,Date that snapshot was created,5
+Gismo,results_bounds,studyid,Unique Study ID,1
+Gismo,results_bounds,workflowid,Unique Workflow ID,2
+Gismo,results_bounds,threshold,Threshold,3
+Gismo,results_bounds,numerator,y value,4
+Gismo,results_bounds,denominator,x value,5
+Gismo,results_bounds,log_denominator,Log X value,6
+Gismo,results_bounds,gsm_analysis_date,Date that snapshot was created,7
+Gismo,meta_workflow,workflowid,Unique Workflow ID,1
+Gismo,meta_workflow,gsm_version,GSM Version of workflow,2
+Gismo,meta_workflow,group,"Group for workflow - Site, Country, Region or Study",3
+Gismo,meta_workflow,abbreviation,Workflow Abbreviation (max 3-letters),4
+Gismo,meta_workflow,metric,Metric Label,5
+Gismo,meta_workflow,numerator,Numerator Label,6
+Gismo,meta_workflow,denominator,Denominator Label,7
+Gismo,meta_workflow,outcome,Metric Outcome Type (e.g. rate),8
+Gismo,meta_workflow,model,Statistical Model used to create score,9
+Gismo,meta_workflow,score,Score Label,10
+Gismo,meta_workflow,data_inputs,Data inputs for workflow,11
+Gismo,meta_workflow,data_filters,Filters applied in workflow,12
+Gismo,meta_workflow,gsm_analysis_date,Date that snapshot was created,13
+Gismo,meta_param,workflowid,Unique Workflow ID,1
+Gismo,meta_param,gsm_version,GSM version of workflow,2
+Gismo,meta_param,param,Parameter name,3
+Gismo,meta_param,index,Parameter index,4
+Gismo,meta_param,default,Default value for parameter at index,5
+Gismo,meta_param,configurable,Is parameter configurable?,6
+Gismo,meta_param,gsm_analysis_date,Date that snapshot was created,7
+Gismo,rpt_site_details,study_id,Unique Study ID,1
+Gismo,rpt_site_details,snapshot_date,Date that snapshot was created,2
+Gismo,rpt_site_details,site_id,Unique Site ID,3
+Gismo,rpt_site_details,site_nm,Name of site,4
+Gismo,rpt_site_details,site_status,Status of site,5
+Gismo,rpt_site_details,investigator_nm,Investigator's name,6
+Gismo,rpt_site_details,site_country,Country site is located,7
+Gismo,rpt_site_details,site_state,State site is located,8
+Gismo,rpt_site_details,site_city,City site is located,9
+Gismo,rpt_site_details,region,Region of site,10
+Gismo,rpt_site_details,enrolled_participants,Enrolled participants,11
+Gismo,rpt_site_details,planned_participants,Planned participants,12
+Gismo,rpt_site_details,num_of_at_risk_kris,Total number of amber flags per KRI,13
+Gismo,rpt_site_details,num_of_flagged_kris,Total number of red flags per KRI,14
+Gismo,rpt_site_details,pt_cycle_id,Cycle ID,15
+Gismo,rpt_site_details,pt_data_dt,Data ID,16
+Gismo,rpt_site_details,gsm_analysis_date,Date that snapshot was created,17
+Gismo,rpt_study_details,study_id,Unique Study ID,1
+Gismo,rpt_study_details,snapshot_date,Date that snapshot was created,2
+Gismo,rpt_study_details,protocol_title,Title of protocol,3
+Gismo,rpt_study_details,therapeutic_area,Area of therapy,4
+Gismo,rpt_study_details,indication,Protocol indication,5
+Gismo,rpt_study_details,phase,Phase of study,6
+Gismo,rpt_study_details,product,Name of product,7
+Gismo,rpt_study_details,enrolled_sites,Sites enrolled in study,8
+Gismo,rpt_study_details,enrolled_participants,Participants enrolled in study,9
+Gismo,rpt_study_details,planned_sites,Total planned sites for study,10
+Gismo,rpt_study_details,planned_participants,Total planned participants for study,11
+Gismo,rpt_study_details,study_status,Status of the study,12
+Gismo,rpt_study_details,fpfv,First patient first visit,13
+Gismo,rpt_study_details,lpfv,Last patient first visit,14
+Gismo,rpt_study_details,lplv,Last patient last visit,15
+Gismo,rpt_study_details,study_age,Total age of the study in YMD,16
+Gismo,rpt_study_details,num_of_sites_flagged,Total number of sites with red flags,17
+Gismo,rpt_study_details,enrolling_sites_with_flagged_kris,Enrolled sites with flagged kris,18
+Gismo,rpt_study_details,pt_cycle_id,Cycle ID,19
+Gismo,rpt_study_details,pt_data_dt,Data ID,20
+Gismo,rpt_study_details,gsm_analysis_date,Date that snapshot was created,21
+Gismo,rpt_kri_detail,study_id,Name of study,1
+Gismo,rpt_kri_detail,snapshot_date,Date that snapshot was created,2
+Gismo,rpt_kri_detail,kri_id,Unique KRI,3
+Gismo,rpt_kri_detail,kri_name,Name of the KRI,4
+Gismo,rpt_kri_detail,kri_acronym,KRI abbreviation,5
+Gismo,rpt_kri_detail,kri_description,KRI Description,6
+Gismo,rpt_kri_detail,base_metric,Numerator over denominator,7
+Gismo,rpt_kri_detail,meta_numerator,Meta workflow numerator,8
+Gismo,rpt_kri_detail,meta_denominator,Meta workflow denominator,9
+Gismo,rpt_kri_detail,num_of_sites_at_risk,Total number of grouped sites with amber flags,10
+Gismo,rpt_kri_detail,num_of_sites_flagged,Total number of grouped sites with red flags,11
+Gismo,rpt_kri_detail,meta_outcome,The units output in the outcome of the KRI,12
+Gismo,rpt_kri_detail,meta_model,The method of calculating the score for the KRI,13
+Gismo,rpt_kri_detail,meta_score,The type of score used for the KRI,14
+Gismo,rpt_kri_detail,meta_data_inputs,Data used as inputs,15
+Gismo,rpt_kri_detail,meta_data_filters,Data filtering parameters,16
+Gismo,rpt_kri_detail,meta_gsm_version,version of gsm used for analysis,17
+Gismo,rpt_kri_detail,meta_group,group targeted by KRI,18
+Gismo,rpt_kri_detail,total_num_of_sites,Total number of sites in study,19
+Gismo,rpt_kri_detail,pt_cycle_id,Cycle ID,20
+Gismo,rpt_kri_detail,pt_data_dt,Data date,21
+Gismo,rpt_kri_detail,gsm_analysis_date,Date that snapshot was created,22
+Gismo,rpt_qtl_details,abbreviation,Abbreviation,1
+Gismo,rpt_qtl_details,base_metric,Base metric,2
+Gismo,rpt_qtl_details,denominator_name,Denominator name,3
+Gismo,rpt_qtl_details,gsm_analysis_date,Analysis date,4
+Gismo,rpt_qtl_details,meta_data_filters,Meta workflow data filters,5
+Gismo,rpt_qtl_details,meta_data_inputs,Meta workflow data inputs,6
+Gismo,rpt_qtl_details,meta_group,Meta workflow group,7
+Gismo,rpt_qtl_details,meta_model,Meta workflow model,8
+Gismo,rpt_qtl_details,meta_outcome,Meta workflow outcome,9
+Gismo,rpt_qtl_details,meta_score,Meta workflow score,10
+Gismo,rpt_qtl_details,numerator_name,Numerator name,11
+Gismo,rpt_qtl_details,pt_cycle_id,Cycle ID,12
+Gismo,rpt_qtl_details,pt_data_dt,Data date?,13
+Gismo,rpt_qtl_details,qtl_id,QTL ID,14
+Gismo,rpt_qtl_details,qtl_name,QTL Name,15
+Gismo,rpt_qtl_details,snapshot_date,Snapshot date,16
+Gismo,rpt_qtl_details,threshold,Threshold,17
+GSM,meta_study,protocol_row_id,Protocol row ID,1
+GSM,meta_study,protocol_number,Protocol number,2
+GSM,meta_study,protocol_title,Protocol title,3
+GSM,meta_study,nickname,Protocol nickname,4
+GSM,meta_study,protocol_type,Protocol type,5
+GSM,meta_study,phase,Phase,6
+GSM,meta_study,num_plan_site,# of planned sites from CTMS,7
+GSM,meta_study,num_site_actl,# of enrolled sites from CTMS,8
+GSM,meta_study,est_fpfv,Estimated first-patient first visit date,9
+GSM,meta_study,act_fpfv,First-patient first visit date,10
+GSM,meta_study,est_lpfv,Estimated last-patient first visit date,11
+GSM,meta_study,act_lpfv,Last-patient first visit date,12
+GSM,meta_study,est_lplv,Estimated last-patient last visit date,13
+GSM,meta_study,act_lplv,Last-patient last visit date,14
+GSM,meta_study,status,Study Status,15
+GSM,meta_study,num_plan_subj,# of planned participants from CTMS,16
+GSM,meta_study,num_enrolled_subj_m,# of enrolled participants from CTMS,17
+GSM,meta_study,protocol_indication,Indication,18
+GSM,meta_study,product,Product,19
+GSM,meta_study,therapeutic_area,Therapeutic Area,20
+GSM,meta_study,protocol_product_number,Protocol product number,21
+GSM,meta_study,x_rbm_flg,Risk-based monitoring flag,22
+GSM,meta_site,protocol_row_id,Protocol row ID,1
+GSM,meta_site,site_num,Unique Site ID,2
+GSM,meta_site,site_row_id,Site row ID,3
+GSM,meta_site,protocol,Unique Study ID,4
+GSM,meta_site,pi_number,Principal investigator number,5
+GSM,meta_site,pi_last_name,Principal investigator last name,6
+GSM,meta_site,pi_first_name,Principal investigator first name,7
+GSM,meta_site,site_status,Site Status,8
+GSM,meta_site,is_satellite,Is site a satellite location?,9
+GSM,meta_site,account,Institution Name,10
+GSM,meta_site,site_active_dt,Site Activation Date,11
+GSM,meta_site,city,City,12
+GSM,meta_site,state,State,13
+GSM,meta_site,country,Country,14
+GSM,config_workflow,studyid,Unique Study ID,1
+GSM,config_workflow,workflowid,Unique Workflow ID,2
+GSM,config_workflow,gsm_version,GSM version of workflow,3
+GSM,config_workflow,active,Is workflow active?,4
+GSM,config_param,studyid,Unique Study ID,1
+GSM,config_param,workflowid,Unique Workflow ID,2
+GSM,config_param,gsm_version,GSM version of workflow,3
+GSM,config_param,param,Parameter name,4
+GSM,config_param,index,Index value for parameter,5
+GSM,config_param,value,Value for parameter at index,6
+GSM,meta_workflow,workflowid,Unique Workflow ID,1
+GSM,meta_workflow,abbreviation,Workflow Abbreviation (max 3-letters),2
+GSM,meta_workflow,gsm_version,GSM Version of workflow,3
+GSM,meta_workflow,group,"Group for workflow - Site, Country, Region or Study",4
+GSM,meta_workflow,metric,Metric Label,5
+GSM,meta_workflow,numerator,Numerator Label,6
+GSM,meta_workflow,denominator,Denominator Label,7
+GSM,meta_workflow,outcome,Metric Outcome Type (e.g. rate),8
+GSM,meta_workflow,model,Statistical Model used to create score,9
+GSM,meta_workflow,score,Score Label,10
+GSM,meta_workflow,data_inputs,Data inputs for workflow,11
+GSM,meta_workflow,data_filters,Filters applied in workflow,12
+GSM,meta_param,workflowid,Unique Workflow ID,1
+GSM,meta_param,gsm_version,GSM version of workflow,2
+GSM,meta_param,param,Parameter name,3
+GSM,meta_param,index,Parameter index,4
+GSM,meta_param,default,Default value for parameter at index,5
+GSM,meta_param,configurable,Is parameter configurable?,6
+GSM,rpt_site_details,study_id,Unique Study ID,1
+GSM,rpt_site_details,snapshot_date,Date that snapshot was created,2
+GSM,rpt_site_details,site_id,Unique Site ID,3
+GSM,rpt_site_details,site_nm,Name of site,4
+GSM,rpt_site_details,site_status,Status of site,5
+GSM,rpt_site_details,investigator_nm,Investigator's name,6
+GSM,rpt_site_details,site_country,Country site is located,7
+GSM,rpt_site_details,site_state,State site is located,8
+GSM,rpt_site_details,site_city,City site is located,9
+GSM,rpt_site_details,region,Region of site,10
+GSM,rpt_site_details,enrolled_participants,Enrolled participants,11
+GSM,rpt_site_details,planned_participants,Planned participants,12
+GSM,rpt_site_details,num_of_at_risk_kris,Total number of amber flags per KRI,13
+GSM,rpt_site_details,num_of_flagged_kris,Total number of red flags per KRI,14
+GSM,rpt_site_details,pt_cycle_id,Cycle ID,15
+GSM,rpt_site_details,pt_data_dt,Data ID,16
+GSM,rpt_site_details,gsm_analysis_date,Date that snapshot was created,17
+GSM,rpt_study_details,study_id,Unique Study ID,1
+GSM,rpt_study_details,snapshot_date,Date that snapshot was created,2
+GSM,rpt_study_details,protocol_title,Title of protocol,3
+GSM,rpt_study_details,therapeutic_area,Area of therapy,4
+GSM,rpt_study_details,indication,Protocol indication,5
+GSM,rpt_study_details,phase,Phase of study,6
+GSM,rpt_study_details,product,Name of product,7
+GSM,rpt_study_details,enrolled_sites,Sites enrolled in study,8
+GSM,rpt_study_details,enrolled_participants,Participants enrolled in study,9
+GSM,rpt_study_details,planned_sites,Total planned sites for study,10
+GSM,rpt_study_details,planned_participants,Total planned participants for study,11
+GSM,rpt_study_details,study_status,Status of the study,12
+GSM,rpt_study_details,fpfv,First patient first visit,13
+GSM,rpt_study_details,lpfv,Last patient first visit,14
+GSM,rpt_study_details,lplv,Last patient last visit,15
+GSM,rpt_study_details,study_age,Total age of the study in YMD,16
+GSM,rpt_study_details,num_of_sites_flagged,Total number of sites with red flags,17
+GSM,rpt_study_details,enrolling_sites_with_flagged_kris,Enrolled sites with flagged kris,18
+GSM,rpt_study_details,pt_cycle_id,Cycle ID,19
+GSM,rpt_study_details,pt_data_dt,Data date,20
+GSM,rpt_study_details,gsm_analysis_date,Date that snapshot was created,21
+GSM,rpt_kri_detail,study_id,Name of study,1
+GSM,rpt_kri_detail,snapshot_date,Date that snapshot was created,2
+GSM,rpt_kri_detail,kri_id,Unique KRI,3
+GSM,rpt_kri_detail,kri_name,Name of the KRI,4
+GSM,rpt_kri_detail,kri_acronym,KRI abbreviation,5
+GSM,rpt_kri_detail,kri_description,KRI Description,6
+GSM,rpt_kri_detail,base_metric,Numerator over denominator,7
+GSM,rpt_kri_detail,meta_numerator,Meta workflow numerator,8
+GSM,rpt_kri_detail,meta_denominator,Meta workflow denominator,9
+GSM,rpt_kri_detail,num_of_sites_at_risk,Total number of grouped sites with amber flags,10
+GSM,rpt_kri_detail,num_of_sites_flagged,Total number of grouped sites with red flags,11
+GSM,rpt_kri_detail,meta_outcome,The units output in the outcome of the KRI,12
+GSM,rpt_kri_detail,meta_model,The method of calculating the score for the KRI,13
+GSM,rpt_kri_detail,meta_score,The type of score used for the KRI,14
+GSM,rpt_kri_detail,meta_data_inputs,Data used as inputs,15
+GSM,rpt_kri_detail,meta_data_filters,Data filtering parameters,16
+GSM,rpt_kri_detail,meta_gsm_version,version of gsm used for analysis,17
+GSM,rpt_kri_detail,meta_group,group targeted by KRI,18
+GSM,rpt_kri_detail,total_num_of_sites,Total number of sites in study,19
+GSM,rpt_kri_detail,pt_cycle_id,Cycle ID,20
+GSM,rpt_kri_detail,pt_data_dt,Data date,21
+GSM,rpt_kri_detail,gsm_analysis_date,Date that snapshot was created,22
