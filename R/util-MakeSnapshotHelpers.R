@@ -8,6 +8,7 @@
 #'
 #' @keywords internal
 CompileResultsSummary <- function(lResults){
+
   output <- lResults %>%
     purrr::map_df(., function(kri) {
       bind_rows(kri$lResults$lData$dfSummary)
@@ -177,7 +178,7 @@ MakeRptStudyDetails <- function(lResults, status_study, gsm_analysis_date) {
 #' Create rpt_kri_detail output for `Make_Snapshot()`
 #'
 #' @param lResults `list` the output from `Study_Assess()`
-#' @param status_study `data.frame` the output from `Site_Map_Raw()`
+#' @param status_site `data.frame` the output from `Site_Map_Raw()`
 #' @param meta_workflow `string` the meta_workflow stated in lMeta argument of `Make_Snapshot()`
 #' @param gsm_analysis_date `string` the gsm analysis date calculated in `Make_Snapshot()`
 #'
@@ -224,6 +225,109 @@ MakeRptKRIDetail <- function(lResults, status_site, meta_workflow, gsm_analysis_
            "pt_cycle_id",
            "pt_data_dt"
     )
+}
+
+
+#' Create rpt_kri_site_detail output for `Make_Snapshot()`
+#'
+#' @param lResults `list` the output from `Study_Assess()`
+#' @param status_site `data.frame` the output from `Site_Map_Raw()`
+#' @param meta_workflow `string` the meta_workflow stated in lMeta argument of `Make_Snapshot()`
+#' @param meta_param `string` the meta_param stated in lMeta argument of `Make_Snapshot()`
+#' @param gsm_analysis_date `string` the gsm analysis date calculated in `Make_Snapshot()`
+#'
+#' @export
+#'
+#' @keywords internal
+MakeRptKRISiteDetail <- function(lResults, status_site, meta_workflow, meta_param = NULL, gsm_analysis_date) {
+  if(is.null(meta_param)){
+    meta_param <- gsm::meta_param
+  }
+  thresholds <- meta_param %>%
+    filter(.data$param == "vThreshold") %>%
+    tidyr::pivot_wider(names_from = "index", values_from = "default") %>%
+    select("kri" = "workflowid",
+           "bottom_lower_threshold" = "1",
+           "lower_threshold" = "2",
+           "upper_threshold" = "3",
+           "top_upper_threshold" = "4") %>%
+    mutate(across("bottom_lower_threshold":"top_upper_threshold", as.numeric))
+
+  CompileResultsSummary(lResults) %>%
+    left_join(meta_workflow, by = c("kri" = "workflowid")) %>%
+    left_join(thresholds, by = "kri") %>%
+    left_join(status_site, by = c("GroupID" = "siteid")) %>%
+    mutate("study_id" = unique(status_site$studyid),
+           "snapshot_date" = gsm_analysis_date,
+           "no_of_consecutive_loads" = as.numeric(NA),
+           "country_aggregate" = NA,
+           "study_aggregate" = NA,
+           "pt_cycle_id" = as.character(NA),
+           "pt_data_dt" = as.character(NA)
+    ) %>%
+    select("study_id",
+           "snapshot_date",
+           "site_id" = "GroupID",
+           "kri_id" = "kri",
+           "kri_value" = "Metric",
+           "kri_score" = "Score",
+           "numerator" = "Numerator",
+           "denominator" = "Denominator",
+           "flag_value" = "Flag",
+           "no_of_consecutive_loads",
+           "upper_threshold",
+           "lower_threshold",
+           "bottom_lower_threshold",
+           "top_upper_threshold",
+           "kri_name" = "metric",
+           "country_aggregate",
+           "study_aggregate",
+           "meta_numerator" = "numerator",
+           "meta_denominator" = "denominator",
+           "pt_cycle_id",
+           "pt_data_dt"
+    )
+}
+
+#' Create rpt_kri_bounds_details output for `Make_Snapshot()`
+#'
+#' @param lResults `list` the output from `Study_Assess()`
+#' @param config_workflow `data.frame` configuration workflow in lMeta argument of `Make_Snapshot()`
+#' @param gsm_analysis_date `string` Date of snapshot
+#'
+#' @export
+#'
+#' @keywords internal
+MakeRptKRIBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date){
+  bounds <- MakeResultsBounds(lResults = lResults, dfConfigWorkflow = config_workflow)
+  if(length(bounds) > 0) {
+    bounds %>%
+    mutate("snapshot_date" = gsm_analysis_date,
+           "pt_cycle_id" = as.character(NA),
+           "pt_data_dt" = as.character(NA)
+    ) %>%
+    select("study_id" = "studyid",
+           "snapshot_date",
+           "kri_id" = "workflowid",
+           "threshold",
+           "numerator",
+           "denominator",
+           "log_denominator",
+           "pt_cycle_id",
+           "pt_data_dt"
+    )
+  } else {
+    cli::cli_alert_warning("lResults argument in `MakeRptKRIBoundsDetails` contains no bounds results for `qtl` only reports, returning blank data frame")
+    data.frame("study_id" = NA,
+               "snapshot_date" = NA,
+               "kri_id" = NA,
+               "threshold" = NA,
+               "numerator" = NA,
+               "denominator" = NA,
+               "log_denominator" = NA,
+               "pt_cycle_id" = NA,
+               "pt_data_dt" = NA)
+  }
 }
 
 
