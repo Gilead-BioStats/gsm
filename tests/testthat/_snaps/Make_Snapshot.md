@@ -18,7 +18,8 @@
        [9] "meta_param"              "rpt_site_details"       
       [11] "rpt_study_details"       "rpt_kri_detail"         
       [13] "rpt_kri_site_details"    "rpt_kri_bounds_details" 
-      [15] "rpt_qtl_threshold_param" "rpt_qtl_analysis"       
+      [15] "rpt_qtl_threshold_param" "rpt_kri_threshold_param"
+      [17] "rpt_qtl_analysis"       
 
 ---
 
