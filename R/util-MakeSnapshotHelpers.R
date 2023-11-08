@@ -49,9 +49,9 @@ ExtractFlags <- function(lResults, group){
   }
 
   data %>%
-    group_by(.data[[grouping_variable]], flag_color) %>%
+    group_by(.data[[grouping_variable]], .data$flag_color) %>%
     summarise(n_flags = n(), .groups = "drop") %>%
-    filter(flag_color %in% c("red", "amber")) %>%
+    filter(.data$flag_color %in% c("red", "amber")) %>%
     tidyr::pivot_wider(names_from = "flag_color", values_from = "n_flags") %>%
     {if(!"amber" %in% names(.)) tibble::add_column(., "amber" = as.numeric(NA)) else .} %>%
     {if(!"red" %in% names(.)) tibble::add_column(., "red" = as.numeric(NA)) else .} %>%
@@ -148,7 +148,7 @@ MakeRptStudyDetails <- function(lResults, status_study, gsm_analysis_date) {
     mutate(snapshot_date = gsm_analysis_date,
            num_of_sites_flagged = num_of_sites_flagged,
            enrolling_sites_with_flagged_kris = 0,
-           study_age = ExtractStudyAge(fpfv, snapshot_date),
+           study_age = ExtractStudyAge(.data$fpfv, .data$snapshot_date),
            pt_cycle_id = NA_character_,
            pt_data_dt = NA_character_) %>%
     select("study_id" = "studyid",
@@ -197,8 +197,8 @@ MakeRptKRIDetail <- function(lResults, status_site, meta_workflow, gsm_analysis_
     replace_na(replace = list("num_of_sites_at_risk" = 0, "num_of_sites_flagged" = 0)) %>%
     mutate(snapshot_date = gsm_analysis_date,
            study_id = unique(status_site$studyid),
-           kri_description = paste(numerator, denominator, sep = " / "),
-           base_metric = paste(numerator, denominator, sep = " / "),
+           kri_description = paste(.data$numerator, .data$denominator, sep = " / "),
+           base_metric = paste(.data$numerator, .data$denominator, sep = " / "),
            total_num_of_sites = n_distinct(status_site$siteid),
            num_of_sites_flagged = num_of_sites_flagged,
            pt_cycle_id = NA_character_,

@@ -50,7 +50,9 @@
 "Gismo","status_workflow","active","Is workflow active?",4
 "Gismo","status_workflow","status","Did workflow run?",5
 "Gismo","status_workflow","notes","Status notes",6
-"Gismo","status_workflow","gsm_analysis_date","Date that snapshot was created",7
+"Gismo","status_workflow","amber_flags","Number of sites with amber flags per KRI",7
+"Gismo","status_workflow","red_flags","Number of sites with red flags per KRI",8
+"Gismo","status_workflow","gsm_analysis_date","Date that snapshot was created",9
 "Gismo","status_param","studyid","Unique Study ID",1
 "Gismo","status_param","workflowid","Unique Workflow ID",2
 "Gismo","status_param","gsm_version","GSM version of workflow",3
