@@ -47,6 +47,10 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \item \code{results_bounds}
 \item \code{meta_workflow}
 \item \code{meta_param}
+\item \code{rpt_site_details}
+\item \code{rpt_study_details}
+\item \code{rpt_kri_detail}
+\item \code{rpt_kri_site_details}
 }
 }
 \description{
