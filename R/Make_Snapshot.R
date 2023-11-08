@@ -117,7 +117,10 @@ Make_Snapshot <- function(
     ),
     lMapping = lMapping,
     dfConfig = lMeta$config_param
-  )
+  ) %>%
+    left_join(ExtractFlags(lResults, group = "site"), by = "siteid") %>%
+    rename("amber_flags" = "num_of_at_risk_kris",
+           "red_flags" = "num_of_flagged_kris")
 
 
   # create `gsm_analysis_date` ----------------------------------------------

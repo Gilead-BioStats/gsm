@@ -8,6 +8,7 @@
 #'
 #' @keywords internal
 CompileResultsSummary <- function(lResults){
+
   output <- lResults %>%
     purrr::map_df(., function(kri) {
       bind_rows(kri$lResults$lData$dfSummary)
