@@ -11,11 +11,11 @@
     Code
       names(snapshot$lSnapshot)
     Output
-       [1] "status_study"         "status_site"          "status_workflow"     
-       [4] "status_param"         "results_summary"      "results_analysis"    
-       [7] "results_bounds"       "meta_workflow"        "meta_param"          
-      [10] "rpt_site_details"     "rpt_study_details"    "rpt_kri_detail"      
-      [13] "rpt_kri_site_details"
+       [1] "status_study"           "status_site"            "status_workflow"       
+       [4] "status_param"           "results_summary"        "results_analysis"      
+       [7] "results_bounds"         "meta_workflow"          "meta_param"            
+      [10] "rpt_site_details"       "rpt_study_details"      "rpt_kri_detail"        
+      [13] "rpt_kri_site_details"   "rpt_kri_bounds_details"
 
 ---
 

@@ -288,3 +288,45 @@ MakeRptKRISiteDetail <- function(lResults, status_site, meta_workflow, meta_para
     )
 }
 
+#' Create rpt_kri_bounds_details output for `Make_Snapshot()`
+#'
+#' @param lResults `list` the output from `Study_Assess()`
+#' @param config_workflow `data.frame` configuration workflow in lMeta argument of `Make_Snapshot()`
+#' @param gsm_analysis_date `string` Date of snapshot
+#'
+#' @export
+#'
+#' @keywords internal
+MakeRptKRIBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date){
+  bounds <- MakeResultsBounds(lResults = lResults, dfConfigWorkflow = config_workflow)
+  if(length(bounds) > 0) {
+    bounds %>%
+    mutate("snapshot_date" = gsm_analysis_date,
+           "pt_cycle_id" = as.character(NA),
+           "pt_data_dt" = as.character(NA)
+    ) %>%
+    select("study_id" = "studyid",
+           "snapshot_date",
+           "kri_id" = "workflowid",
+           "threshold",
+           "numerator",
+           "denominator",
+           "log_denominator",
+           "pt_cycle_id",
+           "pt_data_dt"
+    )
+  } else {
+    cli::cli_alert_warning("lResults argument in `MakeRptKRIBoundsDetails` contains no bounds results for `qtl` only reports, returning blank data frame")
+    data.frame("study_id" = NA,
+               "snapshot_date" = NA,
+               "kri_id" = NA,
+               "threshold" = NA,
+               "numerator" = NA,
+               "denominator" = NA,
+               "log_denominator" = NA,
+               "pt_cycle_id" = NA,
+               "pt_data_dt" = NA)
+  }
+}
+
+
