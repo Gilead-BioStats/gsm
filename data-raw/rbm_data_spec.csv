@@ -191,6 +191,36 @@
 "Gismo","rpt_kri_bounds_details","pt_cycle_id","Log transformed denominator",8
 "Gismo","rpt_kri_bounds_details","pt_data_dt","Cycle ID",9
 "Gismo","rpt_kri_bounds_details","gsm_analysis_date","Data ID",10
+"Gismo","rpt_qtl_threshold_param","study_id","Unique Study ID",1
+"Gismo","rpt_qtl_threshold_param","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_qtl_threshold_param","qtl_id","Unique QTL ID",3
+"Gismo","rpt_qtl_threshold_param","gsm_version","version of gsm used for analysis",4
+"Gismo","rpt_qtl_threshold_param","param","Parameter used for QTL",5
+"Gismo","rpt_qtl_threshold_param","index_n","Index used for threshold values",6
+"Gismo","rpt_qtl_threshold_param","default_s","Default values for parameters",7
+"Gismo","rpt_qtl_threshold_param","configurable","Logical field indicating if parameter can be configured",8
+"Gismo","rpt_qtl_threshold_param","pt_cycle_id","Cycle ID",9
+"Gismo","rpt_qtl_threshold_param","pt_data_dt","Data ID",10
+"Gismo","rpt_qtl_threshold_param","gsm_analysis_date","Date that snapshot was created",11
+"Gismo","rpt_kri_threshold_param","study_id","Unique Study ID",1
+"Gismo","rpt_kri_threshold_param","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_kri_threshold_param","kri_id","Unique KRI ID",3
+"Gismo","rpt_kri_threshold_param","gsm_version","version of gsm used for analysis",4
+"Gismo","rpt_kri_threshold_param","param","Parameter used for QTL",5
+"Gismo","rpt_kri_threshold_param","index_n","Index used for threshold values",6
+"Gismo","rpt_kri_threshold_param","default_s","Default values for parameters",7
+"Gismo","rpt_kri_threshold_param","configurable","Logical field indicating if parameter can be configured",8
+"Gismo","rpt_kri_threshold_param","pt_cycle_id","Cycle ID",9
+"Gismo","rpt_kri_threshold_param","pt_data_dt","Data ID",10
+"Gismo","rpt_kri_threshold_param","gsm_analysis_date","Date that snapshot was created",11
+"Gismo","rpt_qtl_analysis","study_id","Unique Study ID",1
+"Gismo","rpt_qtl_analysis","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_qtl_analysis","qtl_id","Unique QTL ID",3
+"Gismo","rpt_qtl_analysis","param","Parameter used for QTL",4
+"Gismo","rpt_qtl_analysis","qtl_value","Score for the QTL",5
+"Gismo","rpt_qtl_analysis","pt_cycle_id","Cycle ID",6
+"Gismo","rpt_qtl_analysis","pt_data_dt","Data ID",7
+"Gismo","rpt_qtl_analysis","gsm_analysis_date","Date that snapshot was created",8
 "GSM","meta_study","protocol_row_id","Protocol row ID",1
 "GSM","meta_study","protocol_number","Protocol number",2
 "GSM","meta_study","protocol_title","Protocol title",3
@@ -347,3 +377,34 @@
 "GSM","rpt_kri_bounds_details","pt_cycle_id","Log transformed denominator",8
 "GSM","rpt_kri_bounds_details","pt_data_dt","Cycle ID",9
 "GSM","rpt_kri_bounds_details","gsm_analysis_date","Data ID",10
+"GSM","rpt_qtl_threshold_param","study_id","Unique Study ID",1
+"GSM","rpt_qtl_threshold_param","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_qtl_threshold_param","qtl_id","Unique QTL ID",3
+"GSM","rpt_qtl_threshold_param","gsm_version","version of gsm used for analysis",4
+"GSM","rpt_qtl_threshold_param","param","Parameter used for QTL",5
+"GSM","rpt_qtl_threshold_param","index_n","Index used for threshold values",6
+"GSM","rpt_qtl_threshold_param","default_s","Default values for parameters",7
+"GSM","rpt_qtl_threshold_param","configurable","Logical field indicating if parameter can be configured",8
+"GSM","rpt_qtl_threshold_param","pt_cycle_id","Cycle ID",9
+"GSM","rpt_qtl_threshold_param","pt_data_dt","Data ID",10
+"GSM","rpt_qtl_threshold_param","gsm_analysis_date","Date that snapshot was created",11
+"GSM","rpt_kri_threshold_param","study_id","Unique Study ID",1
+"GSM","rpt_kri_threshold_param","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_kri_threshold_param","kri_id","Unique KRI ID",3
+"GSM","rpt_kri_threshold_param","gsm_version","version of gsm used for analysis",4
+"GSM","rpt_kri_threshold_param","param","Parameter used for QTL",5
+"GSM","rpt_kri_threshold_param","index_n","Index used for threshold values",6
+"GSM","rpt_kri_threshold_param","default_s","Default values for parameters",7
+"GSM","rpt_kri_threshold_param","configurable","Logical field indicating if parameter can be configured",8
+"GSM","rpt_kri_threshold_param","pt_cycle_id","Cycle ID",9
+"GSM","rpt_kri_threshold_param","pt_data_dt","Data ID",10
+"GSM","rpt_kri_threshold_param","gsm_analysis_date","Date that snapshot was created",11
+"GSM","rpt_qtl_analysis","study_id","Unique Study ID",1
+"GSM","rpt_qtl_analysis","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_qtl_analysis","qtl_id","Unique QTL ID",3
+"GSM","rpt_qtl_analysis","param","Parameter used for QTL",4
+"GSM","rpt_qtl_analysis","qtl_value","Score for the QTL",5
+"GSM","rpt_qtl_analysis","pt_cycle_id","Cycle ID",6
+"GSM","rpt_qtl_analysis","pt_data_dt","Data ID",7
+"GSM","rpt_qtl_analysis","gsm_analysis_date","Date that snapshot was created",8
+

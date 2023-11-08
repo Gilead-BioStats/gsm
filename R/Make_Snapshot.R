@@ -33,6 +33,7 @@
 #' - `rpt_kri_detail`
 #' - `rpt_kri_site_details`
 #' - `rpt_kri_bounds_details`
+#' - `rpt_qtl_threshold_param`
 #'
 #' @examples
 #' # run with default testing data
@@ -154,7 +155,10 @@ Make_Snapshot <- function(
     rpt_study_details = MakeRptStudyDetails(lResults = lResults, status_study = status_study, gsm_analysis_date = gsm_analysis_date),
     rpt_kri_detail = MakeRptKRIDetail(lResults, status_site, lMeta$meta_workflow, gsm_analysis_date),
     rpt_kri_site_details = MakeRptKRISiteDetail(lResults, status_site, lMeta$meta_workflow, lMeta$meta_params, gsm_analysis_date),
-    rpt_kri_bounds_details = MakeRptKRIBoundsDetails(lResults, lMeta$config_param, gsm_analysis_date)
+    rpt_kri_bounds_details = MakeRptKRIBoundsDetails(lResults, lMeta$config_param, gsm_analysis_date),
+    rpt_qtl_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "qtl"),
+    rpt_kri_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "kri"),
+    rpt_qtl_analysis = MakeRptQtlAnalysis(lResults, lMeta$config_param, gsm_analysis_date)
   ) %>%
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
