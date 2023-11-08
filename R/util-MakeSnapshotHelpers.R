@@ -244,7 +244,7 @@ MakeRptKRISiteDetail <- function(lResults, status_site, meta_workflow, meta_para
   }
   thresholds <- meta_param %>%
     filter(.data$param == "vThreshold") %>%
-    pivot_wider(names_from = "index", values_from = "default") %>%
+    tidyr::pivot_wider(names_from = "index", values_from = "default") %>%
     select("kri" = "workflowid",
            "bottom_lower_threshold" = "1",
            "lower_threshold" = "2",
@@ -287,7 +287,6 @@ MakeRptKRISiteDetail <- function(lResults, status_site, meta_workflow, meta_para
            "pt_data_dt"
     )
 }
-
 
 #' Create rpt_kri_bounds_details output for `Make_Snapshot()`
 #'
