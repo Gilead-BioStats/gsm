@@ -58,7 +58,7 @@ Site_Map_Raw <- function(
         filter(
           .data$System == "Gismo",
           .data$Table == "status_site",
-          .data$Column != "gsm_analysis_date"
+          !.data$Column %in% c("gsm_analysis_date", "amber_flags", "red_flags")
         ) %>%
         arrange(.data$Order) %>%
         pull(.data$Column)

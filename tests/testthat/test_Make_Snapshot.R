@@ -101,10 +101,9 @@ test_that("input data is structured as expected", {
 
 test_that("invalid data throw errors", {
   ### lMeta - testing lMeta equal to character string and missing config_param
-  expect_error(Make_Snapshot("Hi")[["lMeta"]])
+  expect_error(Make_Snapshot("Hi"))
 
   lMeta_edited <- list(
-    config_schedule = clindata::config_schedule,
     config_workflow = gsm::config_workflow,
     meta_params = gsm::meta_param,
     meta_site = clindata::ctms_site,
@@ -112,10 +111,6 @@ test_that("invalid data throw errors", {
     meta_workflow = gsm::meta_workflow
   )
   expect_error(Make_Snapshot(lMeta = lMeta_edited, lData = lData, lMapping = lMapping, lAssessments = lAssessments))
-
-
-  ### lData - testing lData equal to character string and missing dfSUBJ
-  expect_error(Make_Snapshot("Hola")[["lData"]])
 
   lData_edited <- list(
     dfAE = dfAE_expanded,
@@ -129,22 +124,19 @@ test_that("invalid data throw errors", {
   expect_error(Make_Snapshot(lMeta = lMeta, lData = lData_edited, lMapping = lMapping, lAssessments = lAssessments))
 
 
-  ### lMapping - testing lMapping equal to character string and with mislabeled siteID in dfSUBJ
-  expect_error(Make_Snapshot("Bonjour")[["lMapping"]])
-
   lMapping_edited <- lMapping
   lMapping_edited$dfSUBJ$strSiteCol <- "cupcakes"
   expect_error(Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping_edited, lAssessments = lAssessments))
-
-
-  ### lAssessments - testing lAssessments equal to character string and with invalid YAML specs
-  expect_error(Make_Snapshot("Ciao")[["lAssessments"]])
 
   lAssessments_edited <- list(
     yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
   )
-  expect_error(Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments_edited))
+  expect_error(
+    expect_warning(
+      Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments_edited)
+      )
+  )
 })
 
 ################################################################################################################
