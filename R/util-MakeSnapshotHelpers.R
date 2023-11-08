@@ -244,7 +244,7 @@ MakeRptKRISiteDetail <- function(lResults, status_site, meta_workflow, meta_para
   }
   thresholds <- meta_param %>%
     filter(.data$param == "vThreshold") %>%
-    pivot_wider(names_from = "index", values_from = "default") %>%
+    tidyr::pivot_wider(names_from = "index", values_from = "default") %>%
     select("kri" = "workflowid",
            "bottom_lower_threshold" = "1",
            "lower_threshold" = "2",
@@ -288,7 +288,6 @@ MakeRptKRISiteDetail <- function(lResults, status_site, meta_workflow, meta_para
     )
 }
 
-
 #' Create rpt_kri_bounds_details output for `Make_Snapshot()`
 #'
 #' @param lResults `list` the output from `Study_Assess()`
@@ -329,6 +328,7 @@ MakeRptKRIBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date
                "pt_data_dt" = NA)
   }
 }
+
 
 #' Create rpt_qtl_threshold_param output for `Make_Snapshot()`
 #'
@@ -444,4 +444,5 @@ MakeRptQtlAnalysis <- function(lResults, status_param, gsm_analysis_date){
            "pt_data_dt")
 
 }
+
 
