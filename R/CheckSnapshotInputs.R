@@ -96,7 +96,14 @@ CheckSnapshotInputs <- function(snapshot) {
       status = ifelse(.data$status == 0, TRUE, FALSE)
     ) %>%
     ungroup()
-expected_columns %>% filter(!status)
+
+  if (!hasQTL) {
+    expected_columns <- expected_columns %>%
+      filter(
+        !stringr::str_detect(.data$gismo_table, "qtl")
+        )
+  }
+
   columns_status <- all(expected_columns$status)
   # return ------------------------------------------------------------------
   all_checks <- list(

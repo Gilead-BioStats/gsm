@@ -11,6 +11,8 @@ MakeRptQtlDetails(lResults, dfMetaWorkflow, dfConfigParam, gsm_analysis_date)
 
 \item{dfMetaWorkflow}{\code{data.frame} Workflow metadata. See \link{meta_workflow}.}
 
+\item{dfConfigParam}{\code{data.frame} Workflow configuration parameters.}
+
 \item{gsm_analysis_date}{\code{date} Date that \code{{gsm}} snapshot was run.}
 }
 \description{

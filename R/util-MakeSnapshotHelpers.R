@@ -85,6 +85,7 @@ ExtractStudyAge <- function(fpfv, snapshot_date) {
 #'
 #' @param lResults `list` List returned from [gsm::Study_Assess()].
 #' @param dfMetaWorkflow `data.frame` Workflow metadata. See [gsm::meta_workflow].
+#' @param dfConfigParam `data.frame` Workflow configuration parameters.
 #' @param gsm_analysis_date `date` Date that `{gsm}` snapshot was run.
 #'
 #' @import purrr
