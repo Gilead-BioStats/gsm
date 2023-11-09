@@ -330,3 +330,113 @@ MakeRptKRIBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date
   }
 }
 
+#' Create rpt_qtl_threshold_param output for `Make_Snapshot()`
+#'
+#' @param meta_param `data.frame` the meta_param defined in lMeta argument of `Make_Snapshot()` Default: gsm::meta_param
+#' @param status_param `data.frame` the config_param defined in lMeta argument of `Make_Snapshot()`
+#' @param gsm_analysis_date `string` Date of snapshot
+#'
+#' @export
+#'
+#' @keywords internal
+MakeRptQTLThresholdParam <- function(meta_param, status_param, gsm_analysis_date, verbose = FALSE){
+  if( is.null(meta_param) & is.null(status_param) ) {
+    if(verbose) {cli::cli_alert_warning("No `meta_param` or `status_param` found, returning blank data frame.")}
+    data.frame("study_id" = NA,
+               "snapshot_date" = NA,
+               "qtl_id" = NA,
+               "gsm_version" = NA,
+               "param" = NA,
+               "index_n" = NA,
+               "default_s" = NA,
+               "configurable" = NA,
+               "pt_cycle_id" = NA,
+               "pt_data_dt" = NA)
+  }
+  if( is.null(meta_param) & !is.null(status_param) ) {
+    if(verbose) {cli::cli_alert_warning("`MakeRptQTLThresholdParam()` is missing meta_param, status_param will be used to define defaults")}
+    status_param %>%
+      filter(grepl("qtl", workflowid)) %>%
+      mutate("study_id" = Study_Map_Raw()[["studyid"]],
+             "snapshot_date" = gsm_analysis_date,
+             "configurable" = NA,
+             "pt_cycle_id" = as.character(NA),
+             "pt_data_dt" = as.character(NA)) %>%
+      select("study_id" = "studyid",
+             "snapshot_date",
+             "qtl_id" = "workflowid",
+             "gsm_version",
+             "param",
+             "index_n" = "index",
+             "default_s" = "value",
+             "configurable",
+             "pt_cycle_id",
+             "pt_data_dt")
+  } else if( is.null(status_param) & !is.null(meta_param) ) {
+    if(verbose) {cli::cli_alert_warning("`MakeRptQTLThresholdParam()` is missing status_param, meta_param will be used to define defaults")}
+    meta_param %>%
+      filter(grepl("qtl", workflowid)) %>%
+      mutate("study_id" = Study_Map_Raw()[["studyid"]],
+             "snapshot_date" = gsm_analysis_date,
+             "pt_cycle_id" = as.character(NA),
+             "pt_data_dt" = as.character(NA)) %>%
+      select("study_id",
+             "snapshot_date",
+             "qtl_id" = "workflowid",
+             "gsm_version",
+             "param",
+             "index_n" = "index",
+             "default_s" = "default",
+             "configurable",
+             "pt_cycle_id",
+             "pt_data_dt")
+  } else {
+  meta_param %>%
+    filter(grepl("qtl", workflowid)) %>%
+    left_join(status_param, by = c("workflowid", "gsm_version", "param", "index")) %>%
+    mutate("default_s" = case_when(is.na(index) | (!is.na(index) & is.na(value)) ~ default,
+                                   !is.na(index) & !is.na(value) ~ value),
+           "study_id" = unique(status_param$studyid),
+           "snapshot_date" = gsm_analysis_date,
+           "pt_cycle_id" = as.character(NA),
+           "pt_data_dt" = as.character(NA)) %>%
+    select("study_id",
+           "snapshot_date",
+           "qtl_id" = "workflowid",
+           "gsm_version",
+           "param",
+           "index_n" = "index",
+           "default_s",
+           "configurable",
+           "pt_cycle_id",
+           "pt_data_dt")
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
