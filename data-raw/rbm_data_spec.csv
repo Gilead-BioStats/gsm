@@ -139,6 +139,30 @@
 "Gismo","rpt_study_details","pt_cycle_id","Cycle ID",19
 "Gismo","rpt_study_details","pt_data_dt","Data ID",20
 "Gismo","rpt_study_details","gsm_analysis_date","Date that snapshot was created",21
+"Gismo","rpt_qtl_details","study_id","Unique Study ID",1
+"Gismo","rpt_qtl_details","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_qtl_details","qtl_id","Unique QTL ID",3
+"Gismo","rpt_qtl_details","qtl_name","QTL name",4
+"Gismo","rpt_qtl_details","numerator_name","Name of the numerator used to calculate metric",5
+"Gismo","rpt_qtl_details","denominator_name","Name of the denominator used to calculate metric",6
+"Gismo","rpt_qtl_details","qtl_value","QTL numerical metric",7
+"Gismo","rpt_qtl_details","base_metric","Name of numerator over name of denominator",8
+"Gismo","rpt_qtl_details","numerator_value","numerator numerical metric",9
+"Gismo","rpt_qtl_details","denominator_value","denominator numerical metric",10
+"Gismo","rpt_qtl_details","qtl_score","QTL statistical score",11
+"Gismo","rpt_qtl_details","qtl_flag","QTL flag value",12
+"Gismo","rpt_qtl_details","threshold","Thershold used to determine score",13
+"Gismo","rpt_qtl_details","abbreviation","Abbreviated QTL name",14
+"Gismo","rpt_qtl_details","meta_outcome","Units representing outcome",15
+"Gismo","rpt_qtl_details","meta_model","Model used for evaluation",16
+"Gismo","rpt_qtl_details","meta_score","Statistical score used",17
+"Gismo","rpt_qtl_details","meta_data_inputs","Data used as inputs for the model",18
+"Gismo","rpt_qtl_details","meta_data_filters","Filters applied to data inputs",19
+"Gismo","rpt_qtl_details","meta_gsm_version","gsm version used for analysis",20
+"Gismo","rpt_qtl_details","meta_group","The grouping used for the analysis",21
+"Gismo","rpt_qtl_details","pt_cycle_id","Cycle ID",22
+"Gismo","rpt_qtl_details","pt_data_dt","Data ID",23
+"Gismo","rpt_qtl_details","gsm_analysis_date","Date that snapshot was created",24
 "Gismo","rpt_kri_detail","study_id","Name of study",1
 "Gismo","rpt_kri_detail","snapshot_date","Date that snapshot was created",2
 "Gismo","rpt_kri_detail","kri_id","Unique KRI",3
@@ -325,6 +349,30 @@
 "GSM","rpt_study_details","pt_cycle_id","Cycle ID",19
 "GSM","rpt_study_details","pt_data_dt","Data date",20
 "GSM","rpt_study_details","gsm_analysis_date","Date that snapshot was created",21
+"GSM","rpt_qtl_details","study_id","Unique Study ID",1
+"GSM","rpt_qtl_details","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_qtl_details","qtl_id","Unique QTL ID",3
+"GSM","rpt_qtl_details","qtl_name","QTL name",4
+"GSM","rpt_qtl_details","numerator_name","Name of the numerator used to calculate metric",5
+"GSM","rpt_qtl_details","denominator_name","Name of the denominator used to calculate metric",6
+"GSM","rpt_qtl_details","qtl_value","QTL numerical metric",7
+"GSM","rpt_qtl_details","base_metric","Name of numerator over name of denominator",8
+"GSM","rpt_qtl_details","numerator_value","numerator numerical metric",9
+"GSM","rpt_qtl_details","denominator_value","denominator numerical metric",10
+"GSM","rpt_qtl_details","qtl_score","QTL statistical score",11
+"GSM","rpt_qtl_details","qtl_flag","QTL flag value",12
+"GSM","rpt_qtl_details","threshold","Thershold used to determine score",13
+"GSM","rpt_qtl_details","abbreviation","Abbreviated QTL name",14
+"GSM","rpt_qtl_details","meta_outcome","Units representing outcome",15
+"GSM","rpt_qtl_details","meta_model","Model used for evaluation",16
+"GSM","rpt_qtl_details","meta_score","Statistical score used",17
+"GSM","rpt_qtl_details","meta_data_inputs","Data used as inputs for the model",18
+"GSM","rpt_qtl_details","meta_data_filters","Filters applied to data inputs",19
+"GSM","rpt_qtl_details","meta_gsm_version","gsm version used for analysis",20
+"GSM","rpt_qtl_details","meta_group","The grouping used for the analysis",21
+"GSM","rpt_qtl_details","pt_cycle_id","Cycle ID",22
+"GSM","rpt_qtl_details","pt_data_dt","Data ID",23
+"GSM","rpt_qtl_details","gsm_analysis_date","Date that snapshot was created",24
 "GSM","rpt_kri_detail","study_id","Name of study",1
 "GSM","rpt_kri_detail","snapshot_date","Date that snapshot was created",2
 "GSM","rpt_kri_detail","kri_id","Unique KRI",3

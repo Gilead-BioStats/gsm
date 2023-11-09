@@ -157,6 +157,7 @@ Make_Snapshot <- function(
     meta_param = lMeta$meta_params,
     rpt_site_details = MakeRptSiteDetails(lResults = lResults, status_site = status_site, gsm_analysis_date = gsm_analysis_date),
     rpt_study_details = MakeRptStudyDetails(lResults = lResults, status_study = status_study, gsm_analysis_date = gsm_analysis_date),
+    rpt_qtl_details = MakeRptQtlDetails(lResults = lResults, dfMetaWorkflow = lMeta$meta_workflow, dfConfigParam = lMeta$config_param, gsm_analysis_date = gsm_analysis_date),
     rpt_kri_detail = MakeRptKRIDetail(lResults, status_site, lMeta$meta_workflow, gsm_analysis_date),
     rpt_kri_site_details = MakeRptKRISiteDetail(lResults, status_site, lMeta$meta_workflow, lMeta$meta_params, gsm_analysis_date),
     rpt_kri_bounds_details = MakeRptKRIBoundsDetails(lResults, lMeta$config_param, gsm_analysis_date),

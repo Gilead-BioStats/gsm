@@ -81,6 +81,96 @@ ExtractStudyAge <- function(fpfv, snapshot_date) {
 }
 
 
+#' Make QTL Details Table
+#'
+#' @param lResults `list` List returned from [gsm::Study_Assess()].
+#' @param dfMetaWorkflow `data.frame` Workflow metadata. See [gsm::meta_workflow].
+#' @param dfConfigParam `data.frame` Workflow configuration parameters.
+#' @param gsm_analysis_date `date` Date that `{gsm}` snapshot was run.
+#'
+#' @import purrr
+#' @importFrom cli cli_alert_warning
+#' @export
+MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analysis_date) {
+  qtl_present <- any(grepl("qtl", names(lResults)))
+  if(!qtl_present){
+    cli::cli_alert_warning("lResults argument in `MakeRptQtlDetails()` didn't contain any QTL's, returning blank data frame.")
+    qtl_results <- data.frame("study_id" = NA_character_,
+                              "snapshot_date" = as.Date(NA),
+                              "qtl_id" = NA_character_,
+                              "qtl_name" = NA_character_,
+                              "numerator_name" = NA_character_,
+                              "denominator_name" = NA_character_,
+                              "qtl_value" = NA_integer_,
+                              "base_metric" = NA_character_,
+                              "numerator_value" = NA_integer_,
+                              "denominator_value" = NA_integer_,
+                              "qtl_score" = NA_integer_,
+                              "qtl_flag" = NA_integer_,
+                              "threshold" = NA_integer_,
+                              "abbreviation" = NA_character_,
+                              "meta_outcome" = NA_character_,
+                              "meta_model" = NA_character_,
+                              "meta_score" = NA_character_,
+                              "meta_data_inputs" = NA_character_,
+                              "meta_data_filters" = NA_character_,
+                              "meta_gsm_version" = NA_character_,
+                              "meta_group" = NA_character_,
+                              "pt_cycle_id" = NA_character_,
+                              "pt_data_dt" = NA_character_)
+  } else {
+    qtl_results <- lResults %>%
+      purrr::keep_at(substring(names(.), 1, 3) == 'qtl') %>%
+      purrr::map(~ .x[["lResults"]]) %>%
+      purrr::discard(~ is.null(.x)) %>%
+      purrr::discard(~ .x$lChecks$status == FALSE) %>%
+      purrr::imap_dfr(function(df_summary, qtl_name) {
+
+        meta_workflow_for_this_qtl <- dfMetaWorkflow %>%
+          filter(
+            .data$workflowid == qtl_name
+          )
+
+        # TODO: check if this logic is correct
+        threshold_for_this_qtl <- dfConfigParam %>%
+          filter(
+            .data$workflowid == qtl_name & .data$param == "vThreshold"
+          ) %>%
+          pull(.data$value) %>%
+          as.numeric()
+
+        rpt_qtl_details <- dplyr::tibble(
+          study_id = df_summary$lData$dfSummary$GroupID,
+          snapshot_date = gsm_analysis_date,
+          qtl_id = qtl_name,
+          qtl_name = meta_workflow_for_this_qtl$metric,
+          numerator_name = meta_workflow_for_this_qtl$numerator,
+          denominator_name = meta_workflow_for_this_qtl$denominator,
+          qtl_value = df_summary$lData$dfSummary$Metric,
+          base_metric = paste0(numerator_name, " / ", denominator_name),
+          numerator_value = df_summary$lData$dfSummary$Numerator,
+          denominator_value = df_summary$lData$dfSummary$Denominator,
+          qtl_score = df_summary$lData$dfSummary$Score,
+          qtl_flag = df_summary$lData$dfSummary$Flag,
+          threshold = threshold_for_this_qtl,
+          abbreviation = meta_workflow_for_this_qtl$abbreviation,
+          meta_outcome = meta_workflow_for_this_qtl$outcome,
+          meta_model = meta_workflow_for_this_qtl$model,
+          meta_score = meta_workflow_for_this_qtl$score,
+          meta_data_inputs = meta_workflow_for_this_qtl$data_inputs,
+          meta_data_filters = meta_workflow_for_this_qtl$data_filters,
+          meta_gsm_version = meta_workflow_for_this_qtl$gsm_version,
+          meta_group = meta_workflow_for_this_qtl$group,
+          pt_cycle_id = NA_character_,
+          pt_data_dt = NA_character_
+        )
+      })
+  }
+return(qtl_results)
+
+}
+
+
 #' Create rpt_site_details output for `Make_Snapshot()`
 #'
 #' @param lResults `list` the output from `Study_Assess()`
@@ -348,7 +438,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
   if( is.null(meta_param) & is.null(status_param) ) {
     if(verbose) {cli::cli_alert_warning("No `meta_param` or `status_param` found, returning blank data frame.")}
     data.frame("study_id" = NA_character_,
-               "snapshot_date" = NA_Date_,
+               "snapshot_date" = as.Date(NA),
                "workflowid" = NA_character_,
                "gsm_version" = NA_character_,
                "param" = NA_character_,
