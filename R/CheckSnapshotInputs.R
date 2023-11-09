@@ -96,7 +96,7 @@ CheckSnapshotInputs <- function(snapshot) {
       status = ifelse(.data$status == 0, TRUE, FALSE)
     ) %>%
     ungroup()
-
+expected_columns %>% filter(!status)
   columns_status <- all(expected_columns$status)
   # return ------------------------------------------------------------------
   all_checks <- list(

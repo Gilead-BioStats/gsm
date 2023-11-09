@@ -27,7 +27,7 @@ ExtractSnapshotDate <- function(snapshot_paths) {
     purrr::imap(., ~ read.csv(.[file.exists(.)][1], nrows = 1) %>%
       mutate(foldername = .y)) %>%
     bind_rows() %>%
-    mutate(snapshot_date = as.Date(gsm_analysis_date)) %>%
+    mutate(snapshot_date = as.Date(.data$gsm_analysis_date)) %>%
     select("foldername", "snapshot_date")
 
   return(output)
