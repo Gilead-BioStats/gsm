@@ -330,7 +330,6 @@ MakeRptKRIBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date
   }
 }
 
-
 #' Create rpt_qtl_threshold_param output for `Make_Snapshot()`
 #'
 #' @param meta_param `data.frame` the meta_param defined in lMeta argument of `Make_Snapshot()` Default: gsm::meta_param
@@ -421,7 +420,6 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
     rename_at("workflowid", ~paste0(type, "_id"))
   }
 }
-
 
 #' Create rpt_qtl_analysis output for `Make_Snapshot()`
 #'

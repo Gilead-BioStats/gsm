@@ -132,11 +132,13 @@ test_that("invalid data throw errors", {
     yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
   )
+
   expect_error(
     expect_warning(
       Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments_edited)
       )
   )
+
 })
 
 ################################################################################################################
