@@ -139,7 +139,11 @@ Make_Snapshot <- function(
   lSnapshot <- list(
     status_study = status_study,
     status_site = status_site,
-    status_workflow = MakeStatusWorkflow(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
+    status_workflow = MakeStatusWorkflow(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow) %>%
+      left_join(ExtractFlags(lResults, group = "kri"), by = c("workflowid" = "kri_id")) %>%
+      rename("amber_flags" = "num_of_sites_at_risk",
+             "red_flags" = "num_of_sites_flagged") %>%
+      replace_na(replace = list("amber_flags" = 0, "red_flags" = 0)),
     status_param = lMeta$config_param,
     results_summary = MakeResultsSummary(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
     results_analysis = results_analysis,
