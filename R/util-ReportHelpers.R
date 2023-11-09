@@ -57,7 +57,7 @@ MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NUL
 
   # -- the `sites` and `participants` variables below are used to show a nicely-formatted version of (# Enrolled / # Planned)
   #    these values were being formatted with a lot of trailing zeroes, so they are rounded here before pasting as a character vector
-  sites <- paste0(nrow(overview_raw_table), " / ", round(as.numeric(dfStudy$planned_sites)))
+  sites <- paste0(round(as.numeric(dfStudy$enrolled_sites)), " / ", round(as.numeric(dfStudy$planned_sites)))
   participants <- paste0(round(sum(as.numeric(overview_raw_table$Subjects))), " / ", round(as.numeric(dfStudy$planned_participants)))
 
   if (!is.null(longitudinal)) {
