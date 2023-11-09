@@ -89,7 +89,7 @@ ExtractStudyAge <- function(fpfv, snapshot_date) {
 #' @param gsm_analysis_date `date` Date that `{gsm}` snapshot was run.
 #'
 #' @import purrr
-#'
+#' @importFrom cli cli_alert_warning
 #' @export
 MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analysis_date) {
   qtl_present <- any(grepl("qtl", names(lResults)))
