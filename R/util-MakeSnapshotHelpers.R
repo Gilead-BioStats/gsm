@@ -97,7 +97,7 @@ MakeRptSiteDetails <- function(lResults, status_site, gsm_analysis_date) {
                            `num_of_at_risk_kris` and `num_of_flagged_kris` will not be representative of site")
   }
   status_site %>%
-    left_join(results, by = "siteid") %>%
+    left_join(results, by = "siteid", relationship = "many-to-many") %>%
     mutate(snapshot_date = gsm_analysis_date,
            region = "Other",
            planned_participants = as.numeric(NA),
@@ -192,7 +192,7 @@ MakeRptKRIDetail <- function(lResults, status_site, meta_workflow, gsm_analysis_
     num_of_sites_flagged <- 0
   }
   meta_workflow %>%
-    left_join(results, by = c("workflowid" = "kri_id")) %>%
+    left_join(results, by = c("workflowid" = "kri_id"), relationship = "many-to-many") %>%
     replace_na(replace = list("num_of_sites_at_risk" = 0, "num_of_sites_flagged" = 0)) %>%
     mutate(snapshot_date = gsm_analysis_date,
            study_id = unique(status_site$studyid),
@@ -253,9 +253,9 @@ MakeRptKRISiteDetail <- function(lResults, status_site, meta_workflow, meta_para
     mutate(across("bottom_lower_threshold":"top_upper_threshold", as.numeric))
 
   CompileResultsSummary(lResults) %>%
-    left_join(meta_workflow, by = c("kri" = "workflowid")) %>%
-    left_join(thresholds, by = "kri") %>%
-    left_join(status_site, by = c("GroupID" = "siteid")) %>%
+    left_join(meta_workflow, by = c("kri" = "workflowid"), relationship = "many-to-many") %>%
+    left_join(thresholds, by = "kri", relationship = "many-to-many") %>%
+    left_join(status_site, by = c("GroupID" = "siteid"), relationship = "many-to-many") %>%
     mutate("study_id" = unique(status_site$studyid),
            "snapshot_date" = gsm_analysis_date,
            "no_of_consecutive_loads" = as.numeric(NA),
@@ -393,7 +393,7 @@ MakeRptQTLThresholdParam <- function(meta_param, status_param, gsm_analysis_date
   } else {
   meta_param %>%
     filter(grepl("qtl", workflowid)) %>%
-    left_join(status_param, by = c("workflowid", "gsm_version", "param", "index")) %>%
+    left_join(status_param, by = c("workflowid", "gsm_version", "param", "index"), relationship = "many-to-many") %>%
     mutate("default_s" = case_when(is.na(index) | (!is.na(index) & is.na(value)) ~ default,
                                    !is.na(index) & !is.na(value) ~ value),
            "study_id" = unique(status_param$studyid),
@@ -413,30 +413,35 @@ MakeRptQTLThresholdParam <- function(meta_param, status_param, gsm_analysis_date
   }
 }
 
+#' Create rpt_qtl_analysis output for `Make_Snapshot()`
+#'
+#' @param lResults `list` the output from `Study_Assess()`
+#' @param status_param `data.frame` configuration parameters defined in lMeta argument of `Make_Snapshot()`
+#' @param gsm_analysis_date `string` Date of snapshot
+#'
+#' @importFrom purrr map_df
+#'
+#' @export
+#'
+#' @keywords internal
+MakeRptQtlAnalysis <- function(lResults, status_param, gsm_analysis_date){
+  analysis <- map_df(lResults, function(qtl){
+    qtl$lResults$lData$dfAnalyzed
+  }, .id = "qtl_id")
 
+  analysis %>%
+    left_join(status_param, by = c("qtl_id" = "workflowid"), relationship = "many-to-many") %>%
+    mutate("snapshot_date" = gsm_analysis_date,
+           "pt_cycle_id" = NA_character_,
+           "pt_data_dt" = NA_character_) %>%
+    select("study_id" = "GroupID",
+           "snapshot_date",
+           "qtl_id",
+           "param",
+           "qtl_value" = "Score",
+           "pt_cycle_id",
+           "pt_data_dt")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
