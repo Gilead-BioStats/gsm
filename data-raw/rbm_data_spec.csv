@@ -457,5 +457,3 @@
 "GSM","rpt_qtl_analysis","pt_cycle_id","Cycle ID",6
 "GSM","rpt_qtl_analysis","pt_data_dt","Data ID",7
 "GSM","rpt_qtl_analysis","gsm_analysis_date","Date that snapshot was created",8
-
-
