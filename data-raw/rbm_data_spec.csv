@@ -183,6 +183,16 @@
 "Gismo","rpt_kri_site_details","pt_cycle_id","Cycle ID",20
 "Gismo","rpt_kri_site_details","pt_data_dt","Data ID",21
 "Gismo","rpt_kri_site_details","gsm_analysis_date","Date that snapshot was created",22
+"Gismo","rpt_kri_bounds_details","study_id","Unique Study ID",1
+"Gismo","rpt_kri_bounds_details","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_kri_bounds_details","kri_id","Unique KRI ID",3
+"Gismo","rpt_kri_bounds_details","threshold","KRI value",4
+"Gismo","rpt_kri_bounds_details","numerator","Threshold",5
+"Gismo","rpt_kri_bounds_details","denominator","Numerator used to calculate metric",6
+"Gismo","rpt_kri_bounds_details","log_denominator","Denominator used to calculate metric",7
+"Gismo","rpt_kri_bounds_details","pt_cycle_id","Log transformed denominator",8
+"Gismo","rpt_kri_bounds_details","pt_data_dt","Cycle ID",9
+"Gismo","rpt_kri_bounds_details","gsm_analysis_date","Data ID",10
 "GSM","meta_study","protocol_row_id","Protocol row ID",1
 "GSM","meta_study","protocol_number","Protocol number",2
 "GSM","meta_study","protocol_title","Protocol title",3
@@ -329,3 +339,13 @@
 "GSM","rpt_kri_site_details","pt_cycle_id","Cycle ID",20
 "GSM","rpt_kri_site_details","pt_data_dt","Data ID",21
 "GSM","rpt_kri_site_details","gsm_analysis_date","Date that snapshot was created",22
+"GSM","rpt_kri_bounds_details","study_id","Unique Study ID",1
+"GSM","rpt_kri_bounds_details","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_kri_bounds_details","kri_id","Unique KRI ID",3
+"GSM","rpt_kri_bounds_details","threshold","KRI value",4
+"GSM","rpt_kri_bounds_details","numerator","Threshold",5
+"GSM","rpt_kri_bounds_details","denominator","Numerator used to calculate metric",6
+"GSM","rpt_kri_bounds_details","log_denominator","Denominator used to calculate metric",7
+"GSM","rpt_kri_bounds_details","pt_cycle_id","Log transformed denominator",8
+"GSM","rpt_kri_bounds_details","pt_data_dt","Cycle ID",9
+"GSM","rpt_kri_bounds_details","gsm_analysis_date","Data ID",10
