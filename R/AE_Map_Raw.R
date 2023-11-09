@@ -42,9 +42,9 @@
 #' @export
 
 AE_Map_Raw <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfAE = clindata::rawplus_ae
+  dfs = UseClindata(
+    "dfSUBJ" = "clindata::rawplus_dm",
+    "dfAE" = "clindata::rawplus_ae"
   ),
   lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,

@@ -64,6 +64,8 @@ Suggests:
     testthat (>= 3.0.0),
     tools,
     usethis
+Remotes:
+    clindata=Gilead-BioStats/clindata
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
