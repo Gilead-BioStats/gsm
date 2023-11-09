@@ -335,28 +335,35 @@ MakeRptKRIBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date
 #' @param meta_param `data.frame` the meta_param defined in lMeta argument of `Make_Snapshot()` Default: gsm::meta_param
 #' @param status_param `data.frame` the config_param defined in lMeta argument of `Make_Snapshot()`
 #' @param gsm_analysis_date `string` Date of snapshot
+#' @param type `string` type of threshold to output
+#' @param verbose `logical` whether or not to display function messages
 #'
 #' @export
 #'
 #' @keywords internal
-MakeRptQTLThresholdParam <- function(meta_param, status_param, gsm_analysis_date, verbose = FALSE){
+MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, type, verbose = FALSE){
+  if(!type %in% c("kri", "qtl")){
+    stop("`type` must be either 'kri' or 'qtl'")
+  }
+  ID <- paste0(type, "_id")
   if( is.null(meta_param) & is.null(status_param) ) {
     if(verbose) {cli::cli_alert_warning("No `meta_param` or `status_param` found, returning blank data frame.")}
     data.frame("study_id" = NA,
                "snapshot_date" = NA,
-               "qtl_id" = NA,
+               "workflowid" = NA,
                "gsm_version" = NA,
                "param" = NA,
                "index_n" = NA,
                "default_s" = NA,
                "configurable" = NA,
                "pt_cycle_id" = NA,
-               "pt_data_dt" = NA)
+               "pt_data_dt" = NA) %>%
+      rename_at("workflowid", ~paste0(type, "_id"))
   }
   if( is.null(meta_param) & !is.null(status_param) ) {
     if(verbose) {cli::cli_alert_warning("`MakeRptQTLThresholdParam()` is missing meta_param, status_param will be used to define defaults")}
     status_param %>%
-      filter(grepl("qtl", workflowid)) %>%
+      filter(grepl(type, .data$workflowid)) %>%
       mutate("study_id" = Study_Map_Raw()[["studyid"]],
              "snapshot_date" = gsm_analysis_date,
              "configurable" = NA,
@@ -364,35 +371,37 @@ MakeRptQTLThresholdParam <- function(meta_param, status_param, gsm_analysis_date
              "pt_data_dt" = as.character(NA)) %>%
       select("study_id" = "studyid",
              "snapshot_date",
-             "qtl_id" = "workflowid",
+             "workflowid",
              "gsm_version",
              "param",
              "index_n" = "index",
              "default_s" = "value",
              "configurable",
              "pt_cycle_id",
-             "pt_data_dt")
+             "pt_data_dt")%>%
+      rename_at("workflowid", ~paste0(type, "_id"))
   } else if( is.null(status_param) & !is.null(meta_param) ) {
     if(verbose) {cli::cli_alert_warning("`MakeRptQTLThresholdParam()` is missing status_param, meta_param will be used to define defaults")}
     meta_param %>%
-      filter(grepl("qtl", workflowid)) %>%
+      filter(grepl(type, .data$workflowid)) %>%
       mutate("study_id" = Study_Map_Raw()[["studyid"]],
              "snapshot_date" = gsm_analysis_date,
              "pt_cycle_id" = as.character(NA),
              "pt_data_dt" = as.character(NA)) %>%
       select("study_id",
              "snapshot_date",
-             "qtl_id" = "workflowid",
+             "workflowid",
              "gsm_version",
              "param",
              "index_n" = "index",
              "default_s" = "default",
              "configurable",
              "pt_cycle_id",
-             "pt_data_dt")
+             "pt_data_dt")%>%
+      rename_at("workflowid", ~paste0(type, "_id"))
   } else {
   meta_param %>%
-    filter(grepl("qtl", workflowid)) %>%
+    filter(grepl(type, .data$workflowid)) %>%
     left_join(status_param, by = c("workflowid", "gsm_version", "param", "index"), relationship = "many-to-many") %>%
     mutate("default_s" = case_when(is.na(index) | (!is.na(index) & is.na(value)) ~ default,
                                    !is.na(index) & !is.na(value) ~ value),
@@ -402,14 +411,15 @@ MakeRptQTLThresholdParam <- function(meta_param, status_param, gsm_analysis_date
            "pt_data_dt" = as.character(NA)) %>%
     select("study_id",
            "snapshot_date",
-           "qtl_id" = "workflowid",
+           "workflowid",
            "gsm_version",
            "param",
            "index_n" = "index",
            "default_s",
            "configurable",
            "pt_cycle_id",
-           "pt_data_dt")
+           "pt_data_dt")%>%
+    rename_at("workflowid", ~paste0(type, "_id"))
   }
 }
 
