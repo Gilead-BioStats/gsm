@@ -96,7 +96,7 @@ MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analy
   if(!qtl_present){
     cli::cli_alert_warning("lResults argument in `MakeRptQtlDetails()` didn't contain any QTL's, returning blank data frame.")
     qtl_results <- data.frame("study_id" = NA_character_,
-                              "snapshot_date" = as.Date(NA),
+                              "snapshot_date" = gsm_analysis_date,
                               "qtl_id" = NA_character_,
                               "qtl_name" = NA_character_,
                               "numerator_name" = NA_character_,
@@ -275,7 +275,7 @@ MakeRptStudyDetails <- function(lResults, status_study, gsm_analysis_date) {
 #' @export
 #'
 #' @keywords internal
-MakeRptKRIDetail <- function(lResults, status_site, meta_workflow, gsm_analysis_date) {
+MakeRptKriDetails <- function(lResults, status_site, meta_workflow, gsm_analysis_date) {
   types <- unique(gsub("[[:digit:]]", "", names(lResults)))
   results <- ExtractFlags(lResults, group = "kri")
   if(!"kri" %in% types){
@@ -329,7 +329,7 @@ MakeRptKRIDetail <- function(lResults, status_site, meta_workflow, gsm_analysis_
 #' @export
 #'
 #' @keywords internal
-MakeRptKRISiteDetail <- function(lResults, status_site, meta_workflow, meta_param = NULL, gsm_analysis_date) {
+MakeRptSiteKriDetails <- function(lResults, status_site, meta_workflow, meta_param = NULL, gsm_analysis_date) {
   if(is.null(meta_param)){
     meta_param <- gsm::meta_param
   }
@@ -388,7 +388,7 @@ MakeRptKRISiteDetail <- function(lResults, status_site, meta_workflow, meta_para
 #' @export
 #'
 #' @keywords internal
-MakeRptKRIBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date){
+MakeRptKriBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date){
   bounds <- MakeResultsBounds(lResults = lResults, dfConfigWorkflow = config_workflow)
   if(length(bounds) > 0) {
     bounds %>%
@@ -438,7 +438,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
   if( is.null(meta_param) & is.null(status_param) ) {
     if(verbose) {cli::cli_alert_warning("No `meta_param` or `status_param` found, returning blank data frame.")}
     data.frame("study_id" = NA_character_,
-               "snapshot_date" = as.Date(NA),
+               "snapshot_date" = gsm_analysis_date,
                "workflowid" = NA_character_,
                "gsm_version" = NA_character_,
                "param" = NA_character_,

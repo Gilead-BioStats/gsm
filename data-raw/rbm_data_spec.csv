@@ -163,50 +163,50 @@
 "Gismo","rpt_qtl_details","pt_cycle_id","Cycle ID",22
 "Gismo","rpt_qtl_details","pt_data_dt","Data ID",23
 "Gismo","rpt_qtl_details","gsm_analysis_date","Date that snapshot was created",24
-"Gismo","rpt_kri_detail","study_id","Name of study",1
-"Gismo","rpt_kri_detail","snapshot_date","Date that snapshot was created",2
-"Gismo","rpt_kri_detail","kri_id","Unique KRI",3
-"Gismo","rpt_kri_detail","kri_name","Name of the KRI",4
-"Gismo","rpt_kri_detail","kri_acronym","KRI abbreviation",5
-"Gismo","rpt_kri_detail","kri_description","KRI Description",6
-"Gismo","rpt_kri_detail","base_metric","Numerator over denominator",7
-"Gismo","rpt_kri_detail","meta_numerator","Meta workflow numerator",8
-"Gismo","rpt_kri_detail","meta_denominator","Meta workflow denominator",9
-"Gismo","rpt_kri_detail","num_of_sites_at_risk","Total number of grouped sites with amber flags",10
-"Gismo","rpt_kri_detail","num_of_sites_flagged","Total number of grouped sites with red flags",11
-"Gismo","rpt_kri_detail","meta_outcome","The units output in the outcome of the KRI",12
-"Gismo","rpt_kri_detail","meta_model","The method of calculating the score for the KRI",13
-"Gismo","rpt_kri_detail","meta_score","The type of score used for the KRI",14
-"Gismo","rpt_kri_detail","meta_data_inputs","Data used as inputs",15
-"Gismo","rpt_kri_detail","meta_data_filters","Data filtering parameters",16
-"Gismo","rpt_kri_detail","meta_gsm_version","version of gsm used for analysis",17
-"Gismo","rpt_kri_detail","meta_group","group targeted by KRI",18
-"Gismo","rpt_kri_detail","total_num_of_sites","Total number of sites in study",19
-"Gismo","rpt_kri_detail","pt_cycle_id","Cycle ID",20
-"Gismo","rpt_kri_detail","pt_data_dt","Data date",21
-"Gismo","rpt_kri_detail","gsm_analysis_date","Date that snapshot was created",22
-"Gismo","rpt_kri_site_details","study_id","Unique Study ID",1
-"Gismo","rpt_kri_site_details","snapshot_date","Date that snapshot was created",2
-"Gismo","rpt_kri_site_details","site_id","Unique Site ID",3
-"Gismo","rpt_kri_site_details","kri_id","Unique KRI ID",4
-"Gismo","rpt_kri_site_details","kri_value","KRI value",5
-"Gismo","rpt_kri_site_details","kri_score","KRI score based on value",6
-"Gismo","rpt_kri_site_details","numerator","Numerator used to calculate metric",7
-"Gismo","rpt_kri_site_details","denominator","Denominator used to calculate metric",8
-"Gismo","rpt_kri_site_details","flag_value","Flag value reported based on score",9
-"Gismo","rpt_kri_site_details","no_of_consecutive_loads","The number of times the site KRI has been continuously flagged",10
-"Gismo","rpt_kri_site_details","upper_threshold","Value from status_param when index = 3",11
-"Gismo","rpt_kri_site_details","lower_threshold","Value from status_param when index = 2",12
-"Gismo","rpt_kri_site_details","bottom_lower_threshold","Value from status_param when index = 1",13
-"Gismo","rpt_kri_site_details","top_upper_threshold","Value from status_param when index = 4",14
-"Gismo","rpt_kri_site_details","kri_name","Name of KRI", 15
-"Gismo","rpt_kri_site_details","country_aggregate","Country aggregate",16
-"Gismo","rpt_kri_site_details","study_aggregate","Study aggregate",17
-"Gismo","rpt_kri_site_details","meta_numerator","Description of Numerator",18
-"Gismo","rpt_kri_site_details","meta_denominator","Description of Denominator",19
-"Gismo","rpt_kri_site_details","pt_cycle_id","Cycle ID",20
-"Gismo","rpt_kri_site_details","pt_data_dt","Data ID",21
-"Gismo","rpt_kri_site_details","gsm_analysis_date","Date that snapshot was created",22
+"Gismo","rpt_kri_details","study_id","Name of study",1
+"Gismo","rpt_kri_details","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_kri_details","kri_id","Unique KRI",3
+"Gismo","rpt_kri_details","kri_name","Name of the KRI",4
+"Gismo","rpt_kri_details","kri_acronym","KRI abbreviation",5
+"Gismo","rpt_kri_details","kri_description","KRI Description",6
+"Gismo","rpt_kri_details","base_metric","Numerator over denominator",7
+"Gismo","rpt_kri_details","meta_numerator","Meta workflow numerator",8
+"Gismo","rpt_kri_details","meta_denominator","Meta workflow denominator",9
+"Gismo","rpt_kri_details","num_of_sites_at_risk","Total number of grouped sites with amber flags",10
+"Gismo","rpt_kri_details","num_of_sites_flagged","Total number of grouped sites with red flags",11
+"Gismo","rpt_kri_details","meta_outcome","The units output in the outcome of the KRI",12
+"Gismo","rpt_kri_details","meta_model","The method of calculating the score for the KRI",13
+"Gismo","rpt_kri_details","meta_score","The type of score used for the KRI",14
+"Gismo","rpt_kri_details","meta_data_inputs","Data used as inputs",15
+"Gismo","rpt_kri_details","meta_data_filters","Data filtering parameters",16
+"Gismo","rpt_kri_details","meta_gsm_version","version of gsm used for analysis",17
+"Gismo","rpt_kri_details","meta_group","group targeted by KRI",18
+"Gismo","rpt_kri_details","total_num_of_sites","Total number of sites in study",19
+"Gismo","rpt_kri_details","pt_cycle_id","Cycle ID",20
+"Gismo","rpt_kri_details","pt_data_dt","Data date",21
+"Gismo","rpt_kri_details","gsm_analysis_date","Date that snapshot was created",22
+"Gismo","rpt_site_kri_details","study_id","Unique Study ID",1
+"Gismo","rpt_site_kri_details","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_site_kri_details","site_id","Unique Site ID",3
+"Gismo","rpt_site_kri_details","kri_id","Unique KRI ID",4
+"Gismo","rpt_site_kri_details","kri_value","KRI value",5
+"Gismo","rpt_site_kri_details","kri_score","KRI score based on value",6
+"Gismo","rpt_site_kri_details","numerator","Numerator used to calculate metric",7
+"Gismo","rpt_site_kri_details","denominator","Denominator used to calculate metric",8
+"Gismo","rpt_site_kri_details","flag_value","Flag value reported based on score",9
+"Gismo","rpt_site_kri_details","no_of_consecutive_loads","The number of times the site KRI has been continuously flagged",10
+"Gismo","rpt_site_kri_details","upper_threshold","Value from status_param when index = 3",11
+"Gismo","rpt_site_kri_details","lower_threshold","Value from status_param when index = 2",12
+"Gismo","rpt_site_kri_details","bottom_lower_threshold","Value from status_param when index = 1",13
+"Gismo","rpt_site_kri_details","top_upper_threshold","Value from status_param when index = 4",14
+"Gismo","rpt_site_kri_details","kri_name","Name of KRI", 15
+"Gismo","rpt_site_kri_details","country_aggregate","Country aggregate",16
+"Gismo","rpt_site_kri_details","study_aggregate","Study aggregate",17
+"Gismo","rpt_site_kri_details","meta_numerator","Description of Numerator",18
+"Gismo","rpt_site_kri_details","meta_denominator","Description of Denominator",19
+"Gismo","rpt_site_kri_details","pt_cycle_id","Cycle ID",20
+"Gismo","rpt_site_kri_details","pt_data_dt","Data ID",21
+"Gismo","rpt_site_kri_details","gsm_analysis_date","Date that snapshot was created",22
 "Gismo","rpt_kri_bounds_details","study_id","Unique Study ID",1
 "Gismo","rpt_kri_bounds_details","snapshot_date","Date that snapshot was created",2
 "Gismo","rpt_kri_bounds_details","kri_id","Unique KRI ID",3
@@ -373,50 +373,50 @@
 "GSM","rpt_qtl_details","pt_cycle_id","Cycle ID",22
 "GSM","rpt_qtl_details","pt_data_dt","Data ID",23
 "GSM","rpt_qtl_details","gsm_analysis_date","Date that snapshot was created",24
-"GSM","rpt_kri_detail","study_id","Name of study",1
-"GSM","rpt_kri_detail","snapshot_date","Date that snapshot was created",2
-"GSM","rpt_kri_detail","kri_id","Unique KRI",3
-"GSM","rpt_kri_detail","kri_name","Name of the KRI",4
-"GSM","rpt_kri_detail","kri_acronym","KRI abbreviation",5
-"GSM","rpt_kri_detail","kri_description","KRI Description",6
-"GSM","rpt_kri_detail","base_metric","Numerator over denominator",7
-"GSM","rpt_kri_detail","meta_numerator","Meta workflow numerator",8
-"GSM","rpt_kri_detail","meta_denominator","Meta workflow denominator",9
-"GSM","rpt_kri_detail","num_of_sites_at_risk","Total number of grouped sites with amber flags",10
-"GSM","rpt_kri_detail","num_of_sites_flagged","Total number of grouped sites with red flags",11
-"GSM","rpt_kri_detail","meta_outcome","The units output in the outcome of the KRI",12
-"GSM","rpt_kri_detail","meta_model","The method of calculating the score for the KRI",13
-"GSM","rpt_kri_detail","meta_score","The type of score used for the KRI",14
-"GSM","rpt_kri_detail","meta_data_inputs","Data used as inputs",15
-"GSM","rpt_kri_detail","meta_data_filters","Data filtering parameters",16
-"GSM","rpt_kri_detail","meta_gsm_version","version of gsm used for analysis",17
-"GSM","rpt_kri_detail","meta_group","group targeted by KRI",18
-"GSM","rpt_kri_detail","total_num_of_sites","Total number of sites in study",19
-"GSM","rpt_kri_detail","pt_cycle_id","Cycle ID",20
-"GSM","rpt_kri_detail","pt_data_dt","Data date",21
-"GSM","rpt_kri_detail","gsm_analysis_date","Date that snapshot was created",22
-"GSM","rpt_kri_site_details","study_id","Unique Study ID",1
-"GSM","rpt_kri_site_details","snapshot_date","Date that snapshot was created",2
-"GSM","rpt_kri_site_details","site_id","Unique Site ID",3
-"GSM","rpt_kri_site_details","kri_id","Unique KRI ID",4
-"GSM","rpt_kri_site_details","kri_value","KRI value",5
-"GSM","rpt_kri_site_details","kri_score","KRI score based on value",6
-"GSM","rpt_kri_site_details","numerator","Numerator used to calculate metric",7
-"GSM","rpt_kri_site_details","denominator","Denominator used to calculate metric",8
-"GSM","rpt_kri_site_details","flag_value","Flag value reported based on score",9
-"GSM","rpt_kri_site_details","no_of_consecutive_loads","The number of times the site KRI has been continuously flagged",10
-"GSM","rpt_kri_site_details","upper_threshold","Value from status_param when index = 3",11
-"GSM","rpt_kri_site_details","lower_threshold","Value from status_param when index = 2",12
-"GSM","rpt_kri_site_details","bottom_lower_threshold","Value from status_param when index = 1",13
-"GSM","rpt_kri_site_details","top_upper_threshold","Value from status_param when index = 4",14
-"GSM","rpt_kri_site_details","kri_name","Name of KRI", 15
-"GSM","rpt_kri_site_details","country_aggregate","Country aggregate",16
-"GSM","rpt_kri_site_details","study_aggregate","Study aggregate",17
-"GSM","rpt_kri_site_details","meta_numerator","Description of Numerator",18
-"GSM","rpt_kri_site_details","meta_denominator","Description of Denominator",19
-"GSM","rpt_kri_site_details","pt_cycle_id","Cycle ID",20
-"GSM","rpt_kri_site_details","pt_data_dt","Data ID",21
-"GSM","rpt_kri_site_details","gsm_analysis_date","Date that snapshot was created",22
+"GSM","rpt_kri_details","study_id","Name of study",1
+"GSM","rpt_kri_details","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_kri_details","kri_id","Unique KRI",3
+"GSM","rpt_kri_details","kri_name","Name of the KRI",4
+"GSM","rpt_kri_details","kri_acronym","KRI abbreviation",5
+"GSM","rpt_kri_details","kri_description","KRI Description",6
+"GSM","rpt_kri_details","base_metric","Numerator over denominator",7
+"GSM","rpt_kri_details","meta_numerator","Meta workflow numerator",8
+"GSM","rpt_kri_details","meta_denominator","Meta workflow denominator",9
+"GSM","rpt_kri_details","num_of_sites_at_risk","Total number of grouped sites with amber flags",10
+"GSM","rpt_kri_details","num_of_sites_flagged","Total number of grouped sites with red flags",11
+"GSM","rpt_kri_details","meta_outcome","The units output in the outcome of the KRI",12
+"GSM","rpt_kri_details","meta_model","The method of calculating the score for the KRI",13
+"GSM","rpt_kri_details","meta_score","The type of score used for the KRI",14
+"GSM","rpt_kri_details","meta_data_inputs","Data used as inputs",15
+"GSM","rpt_kri_details","meta_data_filters","Data filtering parameters",16
+"GSM","rpt_kri_details","meta_gsm_version","version of gsm used for analysis",17
+"GSM","rpt_kri_details","meta_group","group targeted by KRI",18
+"GSM","rpt_kri_details","total_num_of_sites","Total number of sites in study",19
+"GSM","rpt_kri_details","pt_cycle_id","Cycle ID",20
+"GSM","rpt_kri_details","pt_data_dt","Data date",21
+"GSM","rpt_kri_details","gsm_analysis_date","Date that snapshot was created",22
+"GSM","rpt_site_kri_details","study_id","Unique Study ID",1
+"GSM","rpt_site_kri_details","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_site_kri_details","site_id","Unique Site ID",3
+"GSM","rpt_site_kri_details","kri_id","Unique KRI ID",4
+"GSM","rpt_site_kri_details","kri_value","KRI value",5
+"GSM","rpt_site_kri_details","kri_score","KRI score based on value",6
+"GSM","rpt_site_kri_details","numerator","Numerator used to calculate metric",7
+"GSM","rpt_site_kri_details","denominator","Denominator used to calculate metric",8
+"GSM","rpt_site_kri_details","flag_value","Flag value reported based on score",9
+"GSM","rpt_site_kri_details","no_of_consecutive_loads","The number of times the site KRI has been continuously flagged",10
+"GSM","rpt_site_kri_details","upper_threshold","Value from status_param when index = 3",11
+"GSM","rpt_site_kri_details","lower_threshold","Value from status_param when index = 2",12
+"GSM","rpt_site_kri_details","bottom_lower_threshold","Value from status_param when index = 1",13
+"GSM","rpt_site_kri_details","top_upper_threshold","Value from status_param when index = 4",14
+"GSM","rpt_site_kri_details","kri_name","Name of KRI", 15
+"GSM","rpt_site_kri_details","country_aggregate","Country aggregate",16
+"GSM","rpt_site_kri_details","study_aggregate","Study aggregate",17
+"GSM","rpt_site_kri_details","meta_numerator","Description of Numerator",18
+"GSM","rpt_site_kri_details","meta_denominator","Description of Denominator",19
+"GSM","rpt_site_kri_details","pt_cycle_id","Cycle ID",20
+"GSM","rpt_site_kri_details","pt_data_dt","Data ID",21
+"GSM","rpt_site_kri_details","gsm_analysis_date","Date that snapshot was created",22
 "GSM","rpt_kri_bounds_details","study_id","Unique Study ID",1
 "GSM","rpt_kri_bounds_details","snapshot_date","Date that snapshot was created",2
 "GSM","rpt_kri_bounds_details","kri_id","Unique KRI ID",3
