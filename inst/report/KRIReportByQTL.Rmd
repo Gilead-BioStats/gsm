@@ -48,20 +48,17 @@ MakeStudyStatusTable(dfStudy = params$status_study, overview_raw_table = setup$o
 Make_Timeline(longitudinal = params$longitudinal, status_study = params$status_study)
 ```
 
-## Analysis Results
+## Summary Results
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # combine qtl summary results
 results_summary <- qtl_summary(setup$active)
 
 # combine qtl lData$dfAnalyzed
-results_analysis <- qtl_results(setup$active)
+results_analysis <- qtl_analysis(setup$active, results_summary)
 
-# round all numeric columns
-results_analysis[sapply(results_analysis, is.numeric)] <- round(results_analysis[sapply(results_analysis, is.numeric)], digits = 2)
-
+# output table
 DT::datatable(results_analysis)
-
 ```
 
 

@@ -546,35 +546,30 @@ MakeErrorLog <- function(data) {
 #' @export
 #' @keywords internal
 qtl_summary <- function(lAssessments){
-  purrr::imap_dfr(lAssessments, function(data, index) {
-    data$lResults$lData$dfSummary %>%
-      mutate(
-        workflowid = index
-      ) %>%
-      select(
-        workflowid, everything()
-      )
-  })
+  purrr::map_df(lAssessments, function(data) {
+      data$lResults$lData$dfSummary %>%
+        bind_rows()
+  }, .id = "workflowid")
 }
 
 
 #' Compile QTL analysis results into data frame
 #' @param lAssessments `list` a list containing active assessments
+#' @param results_summary compiled results summary from `qtl_summary()`
 #' @importFrom purrr imap_dfr
 #' @export
 #' @keywords internal
-qtl_results <- function(lAssessments){
-  purrr::imap_dfr(lAssessments, function(data, index) {
-    data$lResults$lData$dfAnalyzed %>%
-      mutate(
-        workflowid = index
-      ) %>%
-      select(
-        workflowid, everything()
-      )
-  }) %>%
-    left_join(results_summary) %>%
-    select(-GroupID)
+qtl_analysis <- function(lAssessments, results_summary){
+  output <- purrr::map_df(lAssessments, function(data) {
+      data$lResults$lData$dfAnalyzed %>%
+        bind_rows()
+    }, .id = "workflowid") %>%
+      left_join(results_summary) %>%
+      rename_with(toTitleCase)
+
+  output[sapply(output, is.numeric)] <- round(output[sapply(output, is.numeric)], digits = 2)
+
+  return(output)
 }
 
 
