@@ -49,10 +49,13 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \item \code{meta_param}
 \item \code{rpt_site_details}
 \item \code{rpt_study_details}
-\item \code{rpt_kri_detail}
-\item \code{rpt_kri_site_details}
+\item \code{rpt_kri_details}
+\item \code{rpt_qtl_details}
+\item \code{rpt_site_kri_details}
 \item \code{rpt_kri_bounds_details}
 \item \code{rpt_qtl_threshold_param}
+\item \code{rpt_kri_threshold_param}
+\item \code{rpt_qtl_analysis}
 }
 }
 \description{
