@@ -124,4 +124,5 @@
       ! lResults argument in `MakeRptStudyDetails()` didn't contain any KRI's with site level results, `num_of_sites_flagged` will be reported as zero
       ! lResults argument in `MakeRptQtlDetails()` didn't contain any QTL's, returning blank data frame.
       ! lResults argument in `MakeRptKRIDetail()` didn't contain any KRI's with site level results, `num_of_sites_flagged` will be reported as zero
+      ! lResults argument in `MakeRptQtlAnalysis` is missing qtl workflows, a blank data frame will be returned
 
