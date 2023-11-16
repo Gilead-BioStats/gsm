@@ -53,8 +53,8 @@ ExtractFlags <- function(lResults, group){
     summarise(n_flags = n(), .groups = "drop") %>%
     filter(.data$flag_color %in% c("red", "amber")) %>%
     tidyr::pivot_wider(names_from = "flag_color", values_from = "n_flags") %>%
-    {if(!"amber" %in% names(.)) tibble::add_column(., "amber" = as.numeric(NA)) else .} %>%
-    {if(!"red" %in% names(.)) tibble::add_column(., "red" = as.numeric(NA)) else .} %>%
+    {if(!"amber" %in% names(.)) tibble::add_column(., "amber" = as.integer(NA)) else .} %>%
+    {if(!"red" %in% names(.)) tibble::add_column(., "red" = as.integer(NA)) else .} %>%
     select(all_of(cols_to_select))
 }
 
@@ -101,13 +101,13 @@ MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analy
                               "qtl_name" = NA_character_,
                               "numerator_name" = NA_character_,
                               "denominator_name" = NA_character_,
-                              "qtl_value" = NA_integer_,
+                              "qtl_value" = as.double(NA),
                               "base_metric" = NA_character_,
-                              "numerator_value" = NA_integer_,
-                              "denominator_value" = NA_integer_,
-                              "qtl_score" = NA_integer_,
+                              "numerator_value" = as.double(NA),
+                              "denominator_value" = as.double(NA),
+                              "qtl_score" = as.double(NA),
                               "qtl_flag" = NA_integer_,
-                              "threshold" = NA_integer_,
+                              "threshold" = as.double(NA),
                               "abbreviation" = NA_character_,
                               "meta_outcome" = NA_character_,
                               "meta_model" = NA_character_,
@@ -151,7 +151,7 @@ MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analy
           numerator_value = df_summary$lData$dfSummary$Numerator,
           denominator_value = df_summary$lData$dfSummary$Denominator,
           qtl_score = df_summary$lData$dfSummary$Score,
-          qtl_flag = df_summary$lData$dfSummary$Flag,
+          qtl_flag = as.integer(df_summary$lData$dfSummary$Flag),
           threshold = threshold_for_this_qtl,
           abbreviation = meta_workflow_for_this_qtl$abbreviation,
           meta_outcome = meta_workflow_for_this_qtl$outcome,
@@ -211,7 +211,7 @@ MakeRptSiteDetails <- function(lResults, status_site, gsm_analysis_date) {
            "pt_cycle_id",
            "pt_data_dt"
     ) %>%
-    replace_na(replace = list("num_of_at_risk_kris" = 0, "num_of_flagged_kris" = 0))
+    replace_na(replace = list("num_of_at_risk_kris" = as.integer(0), "num_of_flagged_kris" = as.integer(0)))
 }
 
 
@@ -229,7 +229,7 @@ MakeRptStudyDetails <- function(lResults, status_study, gsm_analysis_date) {
   results <- ExtractFlags(lResults, group = "kri")
   if(!"kri" %in% types){
     cli::cli_alert_warning("lResults argument in `MakeRptStudyDetails()` didn't contain any KRI's with site level results, `num_of_sites_flagged` will be reported as zero")
-    num_of_sites_flagged <- 0
+    num_of_sites_flagged <- as.integer(0)
   }
   if("kri" %in% types){
     num_of_sites_flagged <-  results %>% filter(!is.na(num_of_sites_flagged)) %>% nrow()
@@ -237,7 +237,7 @@ MakeRptStudyDetails <- function(lResults, status_study, gsm_analysis_date) {
   status_study %>%
     mutate(snapshot_date = gsm_analysis_date,
            num_of_sites_flagged = num_of_sites_flagged,
-           enrolling_sites_with_flagged_kris = 0,
+           enrolling_sites_with_flagged_kris = as.integer(0),
            study_age = ExtractStudyAge(.data$fpfv, .data$snapshot_date),
            pt_cycle_id = NA_character_,
            pt_data_dt = NA_character_) %>%
@@ -280,7 +280,7 @@ MakeRptKriDetails <- function(lResults, status_site, meta_workflow, gsm_analysis
   results <- ExtractFlags(lResults, group = "kri")
   if(!"kri" %in% types){
     cli::cli_alert_warning("lResults argument in `MakeRptKRIDetail()` didn't contain any KRI's with site level results, `num_of_sites_flagged` will be reported as zero")
-    num_of_sites_flagged <- 0
+    num_of_sites_flagged <- integer(0)
   }
   meta_workflow %>%
     left_join(results, by = c("workflowid" = "kri_id"), relationship = "many-to-many") %>%
@@ -341,7 +341,7 @@ MakeRptSiteKriDetails <- function(lResults, status_site, meta_workflow, meta_par
            "lower_threshold" = "2",
            "upper_threshold" = "3",
            "top_upper_threshold" = "4") %>%
-    mutate(across("bottom_lower_threshold":"top_upper_threshold", as.numeric))
+    mutate(across("bottom_lower_threshold":"top_upper_threshold", as.double))
 
   CompileResultsSummary(lResults) %>%
     left_join(meta_workflow, by = c("kri" = "workflowid"), relationship = "many-to-many") %>%
@@ -349,9 +349,9 @@ MakeRptSiteKriDetails <- function(lResults, status_site, meta_workflow, meta_par
     left_join(status_site, by = c("GroupID" = "siteid"), relationship = "many-to-many") %>%
     mutate("study_id" = unique(status_site$studyid),
            "snapshot_date" = gsm_analysis_date,
-           "no_of_consecutive_loads" = as.numeric(NA),
-           "country_aggregate" = NA,
-           "study_aggregate" = NA,
+           "no_of_consecutive_loads" = as.integer(NA),
+           "country_aggregate" = as.double(NA),
+           "study_aggregate" = as.double(NA),
            "pt_cycle_id" = NA_character_,
            "pt_data_dt" = NA_character_
     ) %>%
@@ -376,7 +376,8 @@ MakeRptSiteKriDetails <- function(lResults, status_site, meta_workflow, meta_par
            "meta_denominator" = "denominator",
            "pt_cycle_id",
            "pt_data_dt"
-    )
+    ) %>%
+    mutate(across(c("flag_value", "no_of_consecutive_loads"), as.integer))
 }
 
 #' Create rpt_kri_bounds_details output for `Make_Snapshot()`
@@ -408,15 +409,15 @@ MakeRptKriBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date
     )
   } else {
     cli::cli_alert_warning("lResults argument in `MakeRptKRIBoundsDetails` contains no bounds results for `qtl` only reports, returning blank data frame")
-    data.frame("study_id" = NA,
-               "snapshot_date" = NA,
-               "kri_id" = NA,
-               "threshold" = NA,
-               "numerator" = NA,
-               "denominator" = NA,
-               "log_denominator" = NA,
-               "pt_cycle_id" = NA,
-               "pt_data_dt" = NA)
+    data.frame("study_id" = NA_character_,
+               "snapshot_date" = gsm_analysis_date,
+               "kri_id" = NA_character_,
+               "threshold" = as.double(NA),
+               "numerator" = as.double(NA),
+               "denominator" = as.double(NA),
+               "log_denominator" = as.double(NA),
+               "pt_cycle_id" = NA_character_,
+               "pt_data_dt" = NA_character_)
   }
 }
 
@@ -523,23 +524,36 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
 #'
 #' @keywords internal
 MakeRptQtlAnalysis <- function(lResults, status_param, gsm_analysis_date){
-  analysis <- purrr::map_df(lResults, function(qtl){
-    qtl$lResults$lData$dfAnalyzed
-  }, .id = "qtl_id")
+  types <- unique(gsub("[[:digit:]]", "", names(lResults)))
+  if(!"qtl" %in% types){
+    cli::cli_alert_warning("lResults argument in `MakeRptQtlAnalysis` is missing qtl workflows, a blank data frame will be returned")
+    output <- data.frame("study_id" = NA_character_,
+                         "snapshot_date"= as.Date(NA),
+                         "qtl_id" = NA_character_,
+                         "param" = NA_character_,
+                         "qtl_value" = as.double(NA),
+                         "pt_cycle_id" = NA_character_,
+                         "pt_data_dt" = NA_character_)
+  } else {
+    analysis <- purrr::map_df(lResults[grepl("qtl", names(lResults))], function(qtl){
+      qtl$lResults$lData$dfAnalyzed
+    }, .id = "qtl_id")
 
-  analysis %>%
-    left_join(status_param, by = c("qtl_id" = "workflowid"), relationship = "many-to-many") %>%
-    mutate("snapshot_date" = gsm_analysis_date,
-           "pt_cycle_id" = NA_character_,
-           "pt_data_dt" = NA_character_) %>%
-    select("study_id" = "GroupID",
-           "snapshot_date",
-           "qtl_id",
-           "param",
-           "qtl_value" = "Score",
-           "pt_cycle_id",
-           "pt_data_dt")
+    output <- analysis %>%
+      left_join(status_param, by = c("qtl_id" = "workflowid"), relationship = "many-to-many") %>%
+      mutate("snapshot_date" = gsm_analysis_date,
+             "pt_cycle_id" = NA_character_,
+             "pt_data_dt" = NA_character_) %>%
+      select("study_id" = "GroupID",
+             "snapshot_date",
+             "qtl_id",
+             "param",
+             "qtl_value" = "Score",
+             "pt_cycle_id",
+             "pt_data_dt")
+  }
 
+  return(output)
 }
 
 
