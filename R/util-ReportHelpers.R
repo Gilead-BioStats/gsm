@@ -2,6 +2,9 @@
 #' @param dfStudy `data.frame` from `params` within `KRIReport.Rmd`
 #' @param overview_raw_table `data.frame` non interactive output of `Overview_Table()` for the relevant report.
 #' @param longitudinal `data.frame` optional argument for longitudinal study information
+#' @import htmltools
+#' @importFrom tibble rownames_to_column
+#' @importFrom gt gt
 #' @export
 #' @keywords internal
 MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NULL) {
@@ -134,6 +137,9 @@ MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NUL
 #' Create Summary table in KRIReport.Rmd for each KRI
 #' @param lAssessment `list` List of KRI assessments from `params` within `KRIReport.Rmd`.
 #' @param dfSite `data.frame` Optional site-level metadata.
+#' @importFrom htmltools p
+#' @importFrom htmltools strong
+#' @importFrom DT datatable
 #' @export
 #' @keywords internal
 MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
@@ -187,6 +193,7 @@ MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
 
 #' Add a standard theme to a `gt` table.
 #' @param x `data.frame` A data.frame that will be converted to a `gt` table.
+#' @import gt
 #' @export
 #' @keywords internal
 add_table_theme <- function(x) {
@@ -211,6 +218,7 @@ add_table_theme <- function(x) {
 #' @param dfMetaWorkflow `data.frame` Workflow metadata from `params` within `KRIReport.Rmd`
 #' @param strWorkflowIDs `string` a string of KRI names to display in output
 #' @param lStatus `data.frame` the KRI status output using `Augment_Snapshot`
+#' @importFrom DT datatable
 #' @export
 #' @keywords internal
 MakeKRIGlossary <- function(
@@ -273,6 +281,9 @@ MakeKRIGlossary <- function(
 #' Create Study Results table for Report
 #' @param assessment `list` a snapshot list containing the parameters to assess
 #' @param summary_table `data.frame` a summary table created from `MakeSummayTable`
+#' @import htmltools
+#' @import knitr
+#' @importFrom purrr map
 #' @export
 #' @keywords internal
 MakeResultsTable <- function(assessment, summary_table) {
@@ -382,6 +393,7 @@ AssessStatus <- function(assessment, strType) {
 #' Create Study Results table for Report
 #' @param assessment `list` a snapshot list containing the parameters to assess
 #' @param dfSite `data.frame` Site-level metadata containing within `params$status_site` of report
+#' @importFrom purrr map
 #' @export
 #' @keywords internal
 MakeReportSetup <- function(assessment, dfSite, strType) {
@@ -462,6 +474,7 @@ MakeReportSetup <- function(assessment, dfSite, strType) {
 #' @param status_study `data.frame` the snapshot status study output created with `Make_Snapshot()$lSnapshot$status_study`
 #' @param overview_raw_table `data.frame` non interactive output of `Overview_Table()` for the relevant report.
 #' @param red_kris `string` a string or number containing the count of red flags in kri's
+#' @importFrom glue glue
 #' @export
 #' @keywords internal
 MakeOverviewMessage <- function(report, status_study, overview_raw_table, red_kris) {
@@ -482,6 +495,7 @@ MakeOverviewMessage <- function(report, status_study, overview_raw_table, red_kr
 
 #' Extrapolate study snapshot date and number of patients in study
 #' @param status_study `df` a dataframe containing status of study pulled from `params$status_study` in report
+#' @importFrom glue glue
 #' @export
 #' @keywords internal
 GetSnapshotDate <- function(status_study) {
@@ -524,3 +538,38 @@ MakeErrorLog <- function(data) {
 
   return(DT::datatable(error_table))
 }
+
+
+#' Compile QTL summary results into data frame
+#' @param lAssessments `list` a list containing active assessments
+#' @importFrom purrr imap_dfr
+#' @export
+#' @keywords internal
+qtl_summary <- function(lAssessments){
+  purrr::map_df(lAssessments, function(data) {
+      data$lResults$lData$dfSummary %>%
+        bind_rows()
+  }, .id = "workflowid")
+}
+
+
+#' Compile QTL analysis results into data frame
+#' @param lAssessments `list` a list containing active assessments
+#' @param results_summary compiled results summary from `qtl_summary()`
+#' @importFrom purrr imap_dfr
+#' @export
+#' @keywords internal
+qtl_analysis <- function(lAssessments, results_summary){
+  output <- purrr::map_df(lAssessments, function(data) {
+      data$lResults$lData$dfAnalyzed %>%
+        bind_rows()
+    }, .id = "workflowid") %>%
+      left_join(results_summary) %>%
+      rename_with(toTitleCase)
+
+  output[sapply(output, is.numeric)] <- round(output[sapply(output, is.numeric)], digits = 2)
+
+  return(output)
+}
+
+
