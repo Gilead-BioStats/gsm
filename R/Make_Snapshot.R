@@ -13,6 +13,8 @@
 #' @param lData `list` a named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for raw+.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
+#' @param lPrevSnapshot `list` optional argument for the previous snapshot run to track longitudinal data,
+#' @param append_files `vector` a vector or log files to append, defaults to all log files from `lPrevSnapshot` argument
 #' @param strAnalysisDate `character` date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: `YYYY-MM-DD`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
@@ -52,33 +54,35 @@
 #'
 #' @export
 Make_Snapshot <- function(
-  lMeta = list(
-    config_param = gsm::config_param,
-    config_workflow = gsm::config_workflow,
-    meta_params = gsm::meta_param,
-    meta_site = clindata::ctms_site,
-    meta_study = clindata::ctms_study,
-    meta_workflow = gsm::meta_workflow
-  ),
-  lData = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfAE = clindata::rawplus_ae,
-    dfPD = clindata::ctms_protdev,
-    dfCONSENT = clindata::rawplus_consent,
-    dfIE = clindata::rawplus_ie,
-    dfLB = clindata::rawplus_lb,
-    dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>%
-      filter(.data$phase == "Blinded Study Drug Completion"),
-    dfDATACHG = clindata::edc_data_points,
-    dfDATAENT = clindata::edc_data_pages,
-    dfQUERY = clindata::edc_queries,
-    dfENROLL = clindata::rawplus_enroll
-  ),
-  lMapping = Read_Mapping(),
-  lAssessments = MakeWorkflowList(lMeta = lMeta),
-  strAnalysisDate = NULL,
-  bQuiet = TRUE
+    lMeta = list(
+      config_param = gsm::config_param,
+      config_workflow = gsm::config_workflow,
+      meta_params = gsm::meta_param,
+      meta_site = clindata::ctms_site,
+      meta_study = clindata::ctms_study,
+      meta_workflow = gsm::meta_workflow
+    ),
+    lData = list(
+      dfSUBJ = clindata::rawplus_dm,
+      dfAE = clindata::rawplus_ae,
+      dfPD = clindata::ctms_protdev,
+      dfCONSENT = clindata::rawplus_consent,
+      dfIE = clindata::rawplus_ie,
+      dfLB = clindata::rawplus_lb,
+      dfSTUDCOMP = clindata::rawplus_studcomp,
+      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>%
+        filter(.data$phase == "Blinded Study Drug Completion"),
+      dfDATACHG = clindata::edc_data_points,
+      dfDATAENT = clindata::edc_data_pages,
+      dfQUERY = clindata::edc_queries,
+      dfENROLL = clindata::rawplus_enroll
+    ),
+    lMapping = Read_Mapping(),
+    lAssessments = MakeWorkflowList(lMeta = lMeta),
+    lPrevSnapshot = NULL,
+    append_files = names(lPrevSnapshot$lSnapshot),
+    strAnalysisDate = NULL,
+    bQuiet = TRUE
 ) {
   # run Study_Assess() ------------------------------------------------------
   lResults <- gsm::Study_Assess(
@@ -171,20 +175,25 @@ Make_Snapshot <- function(
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
-  # return snapshot ---------------------------------------------------------
+  # create `lStackedSnapshots` ----------------------------------------------
+  lStackedSnapshots = AppendLogs(lPrevSnapshot, lSnapshot, append_files)
+
+  # build output ---------------------------------------------------------------
   snapshot <- list(
+    dfStatus = MakeWorkflowStatus(lStackedSnapshots),
     lSnapshotDate = gsm_analysis_date,
     lSnapshot = lSnapshot,
-    lStudyAssessResults = lResults,
+    lStudyAssessResults = AppendDroppedWorkflows(lPrevSnapshot, lResults),
     lInputs = list(
       lMeta = lMeta,
       lData = lData,
       lMapping = lMapping,
       lAssessments = lAssessments
-    )
+    ),
+    lStackedSnapshots = lStackedSnapshots
   )
 
-  # return snapshot ---------------------------------------------------------
+  # return snapshot ------------------------------------------------------------
 
   return(snapshot)
 }

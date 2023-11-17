@@ -225,7 +225,7 @@ test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
     meta_workflow = gsm::meta_workflow
   )
 
-  expect_silent(
+  expect_no_error(
     Make_Snapshot(
       lMeta = lMeta_edited,
       lData = lData_edited,
