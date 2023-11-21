@@ -24,13 +24,11 @@ The 'UseClindata' function takes an optional argument 'lDomains' and performs th
 }
 }
 \examples{
-# Example 1: Calling the function without any arguments
-UseClindata()
-# Output: Error message indicating that the 'clindata' package must be installed
-
-# Example 2: Calling the function with a list of domains
-domains <- c("domain1", "domain2", "domain3")
-UseClindata(domains)
-# Output: A list containing the results of evaluating each domain using 'eval(parse(text = .x))'
+dfs <- UseClindata(
+  list(
+    "dfSUBJ" = "clindata::rawplus_dm",
+    "dfAE" = "clindata::rawplus_ae"
+  )
+)
 
 }

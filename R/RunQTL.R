@@ -19,11 +19,10 @@
 #'
 #' @export
 RunQTL <- function(
-  strName = NULL,
-  lWorkflow = NULL,
-  lData = NULL,
-  lMapping = NULL
-) {
+    strName = NULL,
+    lWorkflow = NULL,
+    lData = NULL,
+    lMapping = NULL) {
   bothNull <- is.null(strName) & is.null(lWorkflow)
 
   stopifnot(
@@ -39,15 +38,17 @@ RunQTL <- function(
   }
 
   if (is.null(lData)) {
-    lData <- list(
-      dfSUBJ = clindata::rawplus_dm,
-      dfAE = clindata::rawplus_ae,
-      dfPD = clindata::ctms_protdev,
-      dfCONSENT = clindata::rawplus_consent,
-      dfIE = clindata::rawplus_ie,
-      dfLB = clindata::rawplus_lb,
-      dfSTUDCOMP = clindata::rawplus_studcomp,
-      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$phase == "Blinded Study Drug Completion")
+    lData <- gsm::UseClindata(
+      list(
+        "dfSUBJ" = "clindata::rawplus_dm",
+        "dfAE" = "clindata::rawplus_ae",
+        "dfPD" = "clindata::ctms_protdev",
+        "dfCONSENT" = "clindata::rawplus_consent",
+        "dfIE" = "clindata::rawplus_ie",
+        "dfLB" = "clindata::rawplus_lb",
+        "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+        "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion')"
+      )
     )
   }
 

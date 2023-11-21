@@ -28,13 +28,12 @@
 #' @export
 
 Study_Assess <- function(
-  lData = NULL,
-  lMapping = NULL,
-  lAssessments = NULL,
-  bQuiet = TRUE,
-  bLogOutput = FALSE,
-  strLogFileName = NULL
-) {
+    lData = NULL,
+    lMapping = NULL,
+    lAssessments = NULL,
+    bQuiet = TRUE,
+    bLogOutput = FALSE,
+    strLogFileName = NULL) {
   if (bLogOutput) {
     # divert output to .log file
     Log(strFileName = strLogFileName)
@@ -47,19 +46,21 @@ Study_Assess <- function(
   #### --- load defaults --- ###
   # lData from clindata
   if (is.null(lData)) {
-    lData <- list(
-      dfSUBJ = clindata::rawplus_dm,
-      dfAE = clindata::rawplus_ae,
-      dfPD = clindata::ctms_protdev,
-      dfCONSENT = clindata::rawplus_consent,
-      dfIE = clindata::rawplus_ie,
-      dfLB = clindata::rawplus_lb,
-      dfSTUDCOMP = clindata::rawplus_studcomp,
-      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% filter(.data$phase == "Blinded Study Drug Completion"),
-      dfDATACHG = clindata::edc_data_points,
-      dfDATAENT = clindata::edc_data_pages,
-      dfQUERY = clindata::edc_queries,
-      dfENROLL = clindata::rawplus_enroll
+    lData <- gsm::UseClindata(
+      list(
+        "dfSUBJ" = "clindata::rawplus_dm",
+        "dfAE" = "clindata::rawplus_ae",
+        "dfPD" = "clindata::ctms_protdev",
+        "dfCONSENT" = "clindata::rawplus_consent",
+        "dfIE" = "clindata::rawplus_ie",
+        "dfLB" = "clindata::rawplus_lb",
+        "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+        "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
+        "dfDATACHG" = "clindata::edc_data_points",
+        "dfDATAENT" = "clindata::edc_data_pages",
+        "dfQUERY" = "clindata::edc_queries",
+        "dfENROLL" = "clindata::rawplus_enroll"
+      )
     )
   }
 
