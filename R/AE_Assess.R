@@ -68,14 +68,13 @@
 #' @export
 
 AE_Assess <- function(
-  dfInput,
-  vThreshold = NULL,
-  strMethod = "NormalApprox",
-  lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
-  strGroup = "Site",
-  nMinDenominator = NULL,
-  bQuiet = TRUE
-) {
+    dfInput,
+    vThreshold = NULL,
+    strMethod = "NormalApprox",
+    lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
+    strGroup = "Site",
+    nMinDenominator = NULL,
+    bQuiet = TRUE) {
   # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'NormalApprox', 'Poisson' or 'Identity'" = strMethod %in% c("NormalApprox", "Poisson", "Identity"),
@@ -208,7 +207,6 @@ AE_Assess <- function(
     )
 
 
-
     # scatter plots -----------------------------------------------------------
     if (strMethod != "Identity") {
       lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
@@ -253,7 +251,6 @@ AE_Assess <- function(
     # return data -------------------------------------------------------------
     return(list(
       lData = lData,
-      lCharts = lCharts,
       lChecks = lChecks
     ))
   }
