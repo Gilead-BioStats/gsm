@@ -48,36 +48,17 @@ MakeStudyStatusTable(dfStudy = params$status_study, overview_raw_table = setup$o
 Make_Timeline(longitudinal = params$longitudinal, status_study = params$status_study)
 ```
 
-## Analysis Results
+## Summary Results
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-results_summary <- purrr::imap_dfr(setup$active, function(data, index) {
-  data$lResults$lData$dfSummary %>% 
-    mutate(
-      workflowid = index
-    ) %>% 
-    select(
-      workflowid, everything()
-      )
-})
+# combine qtl summary results
+results_summary <- qtl_summary(setup$active)
 
-#combine qtl lData$dfAnalyzed
-results_analysis <- purrr::imap_dfr(setup$active, function(data, index) {
-  data$lResults$lData$dfAnalyzed %>% 
-    mutate(
-      workflowid = index
-    ) %>% 
-    select(
-      workflowid, everything()
-      )
-}) %>%
-  left_join(results_summary) %>%
-  select(-GroupID)
+# combine qtl lData$dfAnalyzed
+results_analysis <- qtl_analysis(setup$active, results_summary)
 
-results_analysis[sapply(results_analysis, is.numeric)] <- round(results_analysis[sapply(results_analysis, is.numeric)], digits = 2)
-
+# output table
 DT::datatable(results_analysis)
-
 ```
 
 
@@ -86,28 +67,6 @@ summary_table <- MakeSummaryTable(setup$active, dfSite = params$status_site)
 MakeResultsTable(setup$active, summary_table)
 ```
 
-
-`r if(!is.null(params$longitudinal)){"## History {.tabset}"}`
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis', eval=!is.null(params$longitudinal)}
-history <- params$longitudinal$results_analysis %>% 
-    tidyr::pivot_wider(names_from = param,
-                       values_from = value) %>%
-    left_join(params$longitudinal$results_summary %>%
-                select(workflowid, snapshot_date, flag)) %>%
-    select(-studyid, -gsm_analysis_date) %>%
-    split(., .$workflowid) %>%
-    map(., ~select(., -workflowid))
-
-for (i in names(history)){
-  cat(glue("### {i}",  "\n"))
-  cat("\n")
-  print(kable(history[[i]])) 
-  cat("\n")
-}
-
-
-```
 
 ## QTL Glossary
 

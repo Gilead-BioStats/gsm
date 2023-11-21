@@ -52,10 +52,15 @@ Make_Timeline(status_study = params$status_study, longitudinal = params$longitud
 
 ## Study Overview
 
-<div class="flag-container">
-  <div class="flag flag-red">`r setup$red_kris` Red KRIs</div>
-  <div class="flag flag-amber">`r setup$amber_kris` Amber KRIs</div>
-</div>
+::: flag-container
+::: {.flag .flag-red}
+<div> `r setup$red_kris` Red KRIs </div>
+:::
+
+::: {.flag .flag-amber}
+<div> `r setup$amber_kris` Amber KRIs </div>
+:::
+:::
 
 
 <div class="gsm-overview-table">

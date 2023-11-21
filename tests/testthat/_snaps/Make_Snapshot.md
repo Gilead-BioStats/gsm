@@ -11,9 +11,15 @@
     Code
       names(snapshot$lSnapshot)
     Output
-      [1] "status_study"     "status_site"      "status_workflow"  "status_param"    
-      [5] "results_summary"  "results_analysis" "results_bounds"   "meta_workflow"   
-      [9] "meta_param"      
+       [1] "status_study"            "status_site"            
+       [3] "status_workflow"         "status_param"           
+       [5] "results_summary"         "results_analysis"       
+       [7] "results_bounds"          "meta_workflow"          
+       [9] "meta_param"              "rpt_site_details"       
+      [11] "rpt_study_details"       "rpt_qtl_details"        
+      [13] "rpt_kri_details"         "rpt_site_kri_details"   
+      [15] "rpt_kri_bounds_details"  "rpt_qtl_threshold_param"
+      [17] "rpt_kri_threshold_param" "rpt_qtl_analysis"       
 
 ---
 
@@ -113,4 +119,10 @@
       v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
+      ! lResults argument in `MakeRptSiteDetails()` didn't contain any KRI's with site level results,
+      `num_of_at_risk_kris` and `num_of_flagged_kris` will not be representative of site
+      ! lResults argument in `MakeRptStudyDetails()` didn't contain any KRI's with site level results, `num_of_sites_flagged` will be reported as zero
+      ! lResults argument in `MakeRptQtlDetails()` didn't contain any QTL's, returning blank data frame.
+      ! lResults argument in `MakeRptKRIDetail()` didn't contain any KRI's with site level results, `num_of_sites_flagged` will be reported as zero
+      ! lResults argument in `MakeRptQtlAnalysis` is missing qtl workflows, a blank data frame will be returned
 

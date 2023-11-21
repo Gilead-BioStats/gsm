@@ -28,6 +28,15 @@
 #' - `results_bounds`
 #' - `meta_workflow`
 #' - `meta_param`
+#' - `rpt_site_details`
+#' - `rpt_study_details`
+#' - `rpt_kri_details`
+#' - `rpt_qtl_details`
+#' - `rpt_site_kri_details`
+#' - `rpt_kri_bounds_details`
+#' - `rpt_qtl_threshold_param`
+#' - `rpt_kri_threshold_param`
+#' - `rpt_qtl_analysis`
 #'
 #' @examples
 #' # run with default testing data
@@ -112,8 +121,21 @@ Make_Snapshot <- function(
     ),
     lMapping = lMapping,
     dfConfig = lMeta$config_param
+  ) %>%
+    left_join(ExtractFlags(lResults, group = "site"), by = "siteid") %>%
+    rename("amber_flags" = "num_of_at_risk_kris",
+           "red_flags" = "num_of_flagged_kris")
+
+
+  # create `gsm_analysis_date` ----------------------------------------------
+  gsm_analysis_date <- MakeAnalysisDate(
+    strAnalysisDate = strAnalysisDate,
+    bQuiet = bQuiet
   )
 
+  # create `results_summary` ----------------------------------------------
+
+  results_summary <- MakeResultsSummary(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow)
 
   # create `gsm_analysis_date` ----------------------------------------------
   gsm_analysis_date <- MakeAnalysisDate(
@@ -125,13 +147,26 @@ Make_Snapshot <- function(
   lSnapshot <- list(
     status_study = status_study,
     status_site = status_site,
-    status_workflow = MakeStatusWorkflow(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
+    status_workflow = MakeStatusWorkflow(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow) %>%
+      left_join(ExtractFlags(lResults, group = "kri"), by = c("workflowid" = "kri_id")) %>%
+      rename("amber_flags" = "num_of_sites_at_risk",
+             "red_flags" = "num_of_sites_flagged") %>%
+      replace_na(replace = list("amber_flags" = 0, "red_flags" = 0)),
     status_param = lMeta$config_param,
     results_summary = MakeResultsSummary(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
     results_analysis = results_analysis,
     results_bounds = MakeResultsBounds(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
     meta_workflow = lMeta$meta_workflow,
-    meta_param = lMeta$meta_params
+    meta_param = lMeta$meta_params,
+    rpt_site_details = MakeRptSiteDetails(lResults = lResults, status_site = status_site, gsm_analysis_date = gsm_analysis_date),
+    rpt_study_details = MakeRptStudyDetails(lResults = lResults, status_study = status_study, gsm_analysis_date = gsm_analysis_date),
+    rpt_qtl_details = MakeRptQtlDetails(lResults = lResults, dfMetaWorkflow = lMeta$meta_workflow, dfConfigParam = lMeta$config_param, gsm_analysis_date = gsm_analysis_date),
+    rpt_kri_details = MakeRptKriDetails(lResults, status_site, lMeta$meta_workflow, gsm_analysis_date),
+    rpt_site_kri_details = MakeRptSiteKriDetails(lResults, status_site, lMeta$meta_workflow, lMeta$meta_params, gsm_analysis_date),
+    rpt_kri_bounds_details = MakeRptKriBoundsDetails(lResults, lMeta$config_param, gsm_analysis_date),
+    rpt_qtl_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "qtl"),
+    rpt_kri_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "kri"),
+    rpt_qtl_analysis = MakeRptQtlAnalysis(lResults, lMeta$config_param, gsm_analysis_date)
   ) %>%
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))

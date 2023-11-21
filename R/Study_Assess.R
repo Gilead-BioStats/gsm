@@ -74,7 +74,7 @@ Study_Assess <- function(
   }
 
   if (exists("dfSUBJ", where = lData)) {
-    if (nrow(lData$dfSUBJ > 0)) {
+    if (nrow(lData$dfSUBJ) > 0) {
       ### --- Attempt to run each assessment --- ###
       lAssessments <- lAssessments %>%
         purrr::map(function(lWorkflow) {
@@ -102,9 +102,6 @@ Study_Assess <- function(
     if (!bQuiet) cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
     lAssessments <- NULL
   }
-
-
-
 
   return(lAssessments)
 }

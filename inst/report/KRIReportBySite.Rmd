@@ -51,11 +51,11 @@ Make_Timeline(status_study = params$status_study, longitudinal = params$longitud
 
 ::: flag-container
 ::: {.flag .flag-red}
-`r setup$red_kris` Red KRIs
+<div> `r setup$red_kris` Red KRIs </div>
 :::
 
 ::: {.flag .flag-amber}
-`r setup$amber_kris` Amber KRIs
+<div> `r setup$amber_kris` Amber KRIs </div>
 :::
 :::
 
