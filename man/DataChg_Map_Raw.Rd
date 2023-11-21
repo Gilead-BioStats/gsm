@@ -5,7 +5,8 @@
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 DataChg_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDATACHG = clindata::edc_data_points),
+  dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfDATACHG =
+    "clindata::edc_data_points")),
   lMapping = gsm::Read_Mapping(c("rawplus", "edc")),
   bReturnChecks = FALSE,
   bQuiet = TRUE

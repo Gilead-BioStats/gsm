@@ -5,7 +5,8 @@
 \title{Map input site data to expected structure.}
 \usage{
 Site_Map_Raw(
-  dfs = list(dfSITE = clindata::ctms_site, dfSUBJ = clindata::rawplus_dm),
+  dfs = gsm::UseClindata(list(dfSITE = "clindata::ctms_site", dfSUBJ =
+    "clindata::rawplus_dm")),
   lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
   dfConfig = gsm::config_param
 )

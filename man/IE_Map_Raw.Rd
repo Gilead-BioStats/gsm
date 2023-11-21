@@ -5,7 +5,8 @@
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 IE_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfIE = clindata::rawplus_ie),
+  dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfIE =
+    "clindata::rawplus_ie")),
   lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
   bQuiet = TRUE

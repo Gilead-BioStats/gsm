@@ -5,9 +5,9 @@
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Disp_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\% filter(.data$phase ==
-    "Blinded Study Drug Completion")),
+  dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfSTUDCOMP =
+    "clindata::rawplus_studcomp", dfSDRGCOMP =
+    "clindata::rawplus_sdrgcomp \%>\% filter(.data$phase == 'Blinded Study Drug Completion')")),
   lMapping = gsm::Read_Mapping("rawplus"),
   strContext = "Study",
   bReturnChecks = FALSE,

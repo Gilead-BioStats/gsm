@@ -2,13 +2,35 @@
 % Please edit documentation in R/util-clindata.R
 \name{UseClindata}
 \alias{UseClindata}
-\title{Use clindata.}
+\title{UseClindata Function}
 \usage{
 UseClindata(lDomains = NULL)
 }
 \arguments{
-\item{lDomains}{\code{list}}
+\item{lDomains}{(optional) A list of domains to be evaluated.}
+}
+\value{
+clindata_list A list containing the results of evaluating each domain using 'eval(parse(text = .x))'.
 }
 \description{
-Use clindata.
+The 'UseClindata' function takes an optional argument 'lDomains' and performs the following steps:
+}
+\details{
+\enumerate{
+\item Checks if the 'clindata' package is installed using 'requireNamespace'.
+\item If the package is not installed, aborts with an error message using 'cli::cli_abort'.
+\item If the package is installed, evaluates each element in 'lDomains' using 'eval(parse(text = .x))' and stores the results in 'clindata_list'.
+\item Returns 'clindata_list'.
+}
+}
+\examples{
+# Example 1: Calling the function without any arguments
+UseClindata()
+# Output: Error message indicating that the 'clindata' package must be installed
+
+# Example 2: Calling the function with a list of domains
+domains <- c("domain1", "domain2", "domain3")
+UseClindata(domains)
+# Output: A list containing the results of evaluating each domain using 'eval(parse(text = .x))'
+
 }

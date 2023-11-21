@@ -5,7 +5,8 @@
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 QueryAge_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries),
+  dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfQUERY =
+    "clindata::edc_queries")),
   lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
   nMaxQueryAge = 30,
   bReturnChecks = FALSE,

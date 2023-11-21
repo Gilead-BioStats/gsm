@@ -5,7 +5,8 @@
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 Consent_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfCONSENT = clindata::rawplus_consent),
+  dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfCONSENT =
+    "clindata::rawplus_consent")),
   lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
   bQuiet = TRUE

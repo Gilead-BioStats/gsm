@@ -5,7 +5,7 @@
 \title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 Screening_Map_Raw(
-  dfs = list(dfENROLL = clindata::rawplus_enroll),
+  dfs = gsm::UseClindata(list(dfENROLL = "clindata::rawplus_enroll")),
   lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
   bQuiet = TRUE
