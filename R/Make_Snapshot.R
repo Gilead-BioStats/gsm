@@ -52,34 +52,33 @@
 #'
 #' @export
 Make_Snapshot <- function(
-  lMeta = list(
-    config_param = gsm::config_param,
-    config_workflow = gsm::config_workflow,
-    meta_params = gsm::meta_param,
-    meta_site = clindata::ctms_site,
-    meta_study = clindata::ctms_study,
-    meta_workflow = gsm::meta_workflow
-  ),
-  lData = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfAE = clindata::rawplus_ae,
-    dfPD = clindata::ctms_protdev,
-    dfCONSENT = clindata::rawplus_consent,
-    dfIE = clindata::rawplus_ie,
-    dfLB = clindata::rawplus_lb,
-    dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>%
-      filter(.data$phase == "Blinded Study Drug Completion"),
-    dfDATACHG = clindata::edc_data_points,
-    dfDATAENT = clindata::edc_data_pages,
-    dfQUERY = clindata::edc_queries,
-    dfENROLL = clindata::rawplus_enroll
-  ),
-  lMapping = Read_Mapping(),
-  lAssessments = MakeWorkflowList(lMeta = lMeta),
-  strAnalysisDate = NULL,
-  bQuiet = TRUE
-) {
+    lMeta = list(
+      config_param = gsm::config_param,
+      config_workflow = gsm::config_workflow,
+      meta_params = gsm::meta_param,
+      meta_site = clindata::ctms_site,
+      meta_study = clindata::ctms_study,
+      meta_workflow = gsm::meta_workflow
+    ),
+    lData = list(
+      dfSUBJ = clindata::rawplus_dm,
+      dfAE = clindata::rawplus_ae,
+      dfPD = clindata::ctms_protdev,
+      dfCONSENT = clindata::rawplus_consent,
+      dfIE = clindata::rawplus_ie,
+      dfLB = clindata::rawplus_lb,
+      dfSTUDCOMP = clindata::rawplus_studcomp,
+      dfSDRGCOMP = clindata::rawplus_sdrgcomp %>%
+        filter(.data$phase == "Blinded Study Drug Completion"),
+      dfDATACHG = clindata::edc_data_points,
+      dfDATAENT = clindata::edc_data_pages,
+      dfQUERY = clindata::edc_queries,
+      dfENROLL = clindata::rawplus_enroll
+    ),
+    lMapping = Read_Mapping(),
+    lAssessments = MakeWorkflowList(lMeta = lMeta),
+    strAnalysisDate = NULL,
+    bQuiet = TRUE) {
   # run Study_Assess() ------------------------------------------------------
   lResults <- gsm::Study_Assess(
     lData = lData,
@@ -123,8 +122,10 @@ Make_Snapshot <- function(
     dfConfig = lMeta$config_param
   ) %>%
     left_join(ExtractFlags(lResults, group = "site"), by = "siteid") %>%
-    rename("amber_flags" = "num_of_at_risk_kris",
-           "red_flags" = "num_of_flagged_kris")
+    rename(
+      "amber_flags" = "num_of_at_risk_kris",
+      "red_flags" = "num_of_flagged_kris"
+    )
 
 
   # create `gsm_analysis_date` ----------------------------------------------
@@ -149,8 +150,10 @@ Make_Snapshot <- function(
     status_site = status_site,
     status_workflow = MakeStatusWorkflow(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow) %>%
       left_join(ExtractFlags(lResults, group = "kri"), by = c("workflowid" = "kri_id")) %>%
-      rename("amber_flags" = "num_of_sites_at_risk",
-             "red_flags" = "num_of_sites_flagged") %>%
+      rename(
+        "amber_flags" = "num_of_sites_at_risk",
+        "red_flags" = "num_of_sites_flagged"
+      ) %>%
       replace_na(replace = list("amber_flags" = 0, "red_flags" = 0)),
     status_param = lMeta$config_param,
     results_summary = MakeResultsSummary(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
@@ -160,6 +163,7 @@ Make_Snapshot <- function(
     meta_param = lMeta$meta_params,
     rpt_site_details = MakeRptSiteDetails(lResults = lResults, status_site = status_site, gsm_analysis_date = gsm_analysis_date),
     rpt_study_details = MakeRptStudyDetails(lResults = lResults, status_study = status_study, gsm_analysis_date = gsm_analysis_date),
+    rpt_study_snapshot = MakeRptStudySnapshot(lMeta = lMeta, gsm_analysis_date = gsm_analysis_date),
     rpt_qtl_details = MakeRptQtlDetails(lResults = lResults, dfMetaWorkflow = lMeta$meta_workflow, dfConfigParam = lMeta$config_param, gsm_analysis_date = gsm_analysis_date),
     rpt_kri_details = MakeRptKriDetails(lResults, status_site, lMeta$meta_workflow, gsm_analysis_date),
     rpt_site_kri_details = MakeRptSiteKriDetails(lResults, status_site, lMeta$meta_workflow, lMeta$meta_params, gsm_analysis_date),
