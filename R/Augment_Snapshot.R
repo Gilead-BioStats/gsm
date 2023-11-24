@@ -44,7 +44,7 @@ Augment_Snapshot <- function(
         purrr::imap(function(result, workflowid) {
           this_workflow_id <- result$name
 
-          siteSelectLabelValue <- lSnapshot$lSnapshot$meta_workflow %>%
+          siteSelectLabelValue <- lSnapshot$lInputs$lMeta$meta_workflow %>%
             filter(.data$workflowid == this_workflow_id) %>%
             pull(.data$group)
 
