@@ -51,13 +51,12 @@
 #' @export
 
 Consent_Assess <- function(
-  dfInput,
-  nThreshold = 0.5,
-  lMapping = yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm")),
-  strGroup = "Site",
-  nMinDenominator = NULL,
-  bQuiet = TRUE
-) {
+    dfInput,
+    nThreshold = 0.5,
+    lMapping = yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm")),
+    strGroup = "Site",
+    nMinDenominator = NULL,
+    bQuiet = TRUE) {
   # data checking -----------------------------------------------------------
   stopifnot(
     "nThreshold must be numeric" = is.numeric(nThreshold),
@@ -109,7 +108,7 @@ Consent_Assess <- function(
     # visualizations ----------------------------------------------------------
     lCharts <- list()
 
-    dfConfig <- MakeDfConfig(
+    lData$dfConfig <- MakeDfConfig(
       strMethod = "Identity",
       strGroup = strGroup,
       strAbbreviation = "CONSENT",
@@ -119,32 +118,18 @@ Consent_Assess <- function(
       vThreshold = nThreshold
     )
 
-    lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = nThreshold)
+    lCharts <- MakeKRICharts(lData = lData)
 
-    lCharts$barMetricJS <- gsm::Widget_BarChart(
-      results = lData$dfSummary,
-      workflow = dfConfig,
-      yaxis = "metric",
-      elementId = "consentAssessMetric",
-      siteSelectLabelValue = strGroup
-    )
 
-    lCharts$barScoreJS <- gsm::Widget_BarChart(
-      results = lData$dfSummary,
-      workflow = dfConfig,
-      yaxis = "score",
-      elementId = "consentAssessScore",
-      siteSelectLabelValue = strGroup
-    )
-
-    if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} bar chart{?s}.")
+    if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} chart{?s}.")
 
     # return data -------------------------------------------------------------
-    return(list(
-      lData = lData,
-      lCharts = lCharts,
-      lChecks = lChecks
-    ))
+    return(
+      list(
+        lData = lData,
+        lCharts = lCharts,
+        lChecks = lChecks
+      )
+    )
   }
 }

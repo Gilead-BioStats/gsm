@@ -58,14 +58,13 @@
 #' @export
 
 DataChg_Assess <- function(
-  dfInput,
-  vThreshold = NULL,
-  strMethod = "NormalApprox",
-  lMapping = yaml::read_yaml(system.file("mappings", "DataChg_Assess.yaml", package = "gsm")),
-  strGroup = "Site",
-  nMinDenominator = NULL,
-  bQuiet = TRUE
-) {
+    dfInput,
+    vThreshold = NULL,
+    strMethod = "NormalApprox",
+    lMapping = yaml::read_yaml(system.file("mappings", "DataChg_Assess.yaml", package = "gsm")),
+    strGroup = "Site",
+    nMinDenominator = NULL,
+    bQuiet = TRUE) {
   # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'NormalApprox', 'Fisher' or 'Identity'" = strMethod %in% c("NormalApprox", "Fisher", "Identity"),
@@ -173,7 +172,7 @@ DataChg_Assess <- function(
 
     # rbm-viz setup -----------------------------------------------------------
 
-    dfConfig <- MakeDfConfig(
+    lData$dfConfig <- MakeDfConfig(
       strMethod = strMethod,
       strGroup = strGroup,
       strAbbreviation = "CDAT",
@@ -183,40 +182,9 @@ DataChg_Assess <- function(
       vThreshold = vThreshold
     )
 
-    if (strMethod != "Identity") {
-      lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+    lCharts <- MakeKRICharts(lData = lData)
 
-      lCharts$scatterJS <- gsm::Widget_ScatterPlot(
-        results = lData$dfSummary,
-        workflow = dfConfig,
-        bounds = lData$dfBounds,
-        elementId = "dataChgAssessScatter",
-        siteSelectLabelValue = strGroup
-      )
-
-      if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
-    }
-
-    lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
-
-    lCharts$barMetricJS <- gsm::Widget_BarChart(
-      results = lData$dfFlagged,
-      workflow = dfConfig,
-      yaxis = "metric",
-      elementId = "dataChgAssessMetric",
-      siteSelectLabelValue = strGroup
-    )
-
-    lCharts$barScoreJS <- gsm::Widget_BarChart(
-      results = lData$dfFlagged,
-      workflow = dfConfig,
-      yaxis = "score",
-      elementId = "dataChgAssessScore",
-      siteSelectLabelValue = strGroup
-    )
-
-    if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
+    if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} chart{?s}.")
 
 
 

@@ -196,7 +196,7 @@ AE_Assess <- function(
 
     # rbm-viz setup -----------------------------------------------------------
 
-    dfConfig <- MakeDfConfig(
+    lData$dfConfig <- MakeDfConfig(
       strMethod = strMethod,
       strGroup = strGroup,
       strAbbreviation = "AE",
@@ -206,52 +206,16 @@ AE_Assess <- function(
       vThreshold = vThreshold
     )
 
+    lCharts <- MakeKRICharts(lData = lData)
 
-    # scatter plots -----------------------------------------------------------
-    if (strMethod != "Identity") {
-      lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+    if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} chart{?s}.")
 
-
-      # rbm-viz charts ----------------------------------------------------------
-      lCharts$scatterJS <- gsm::Widget_ScatterPlot(
-        results = lData$dfSummary,
-        workflow = dfConfig,
-        bounds = lData$dfBounds,
-        elementId = "aeAssessScatter",
-        siteSelectLabelValue = strGroup
+    return(
+      list(
+        lData = lData,
+        lChecks = lChecks,
+        lCharts = lCharts
       )
-      if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
-    }
-
-
-    # bar charts --------------------------------------------------------------
-    lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
-
-    lCharts$barMetricJS <- gsm::Widget_BarChart(
-      results = lData$dfSummary,
-      workflow = dfConfig,
-      yaxis = "metric",
-      elementId = "aeAssessMetric",
-      siteSelectLabel = strGroup
     )
-
-    lCharts$barScoreJS <- gsm::Widget_BarChart(
-      results = lData$dfSummary,
-      workflow = dfConfig,
-      yaxis = "score",
-      elementId = "aeAssessScore",
-      siteSelectLabelValue = strGroup
-    )
-
-
-    if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
-
-
-    # return data -------------------------------------------------------------
-    return(list(
-      lData = lData,
-      lChecks = lChecks
-    ))
   }
 }
