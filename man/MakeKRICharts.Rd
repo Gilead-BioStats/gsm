@@ -4,12 +4,10 @@
 \alias{MakeKRICharts}
 \title{MakeKRICharts Function}
 \usage{
-MakeKRICharts(lData = NULL, dfConfig = NULL)
+MakeKRICharts(lData = NULL)
 }
 \arguments{
 \item{lData}{A list containing two data frames - dfSummary and dfBounds.}
-
-\item{dfConfig}{A data frame containing configuration information for the charts.}
 }
 \value{
 A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.

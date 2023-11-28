@@ -20,6 +20,7 @@
 #'   of the column. Default: package-defined Consent Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
+#' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -56,6 +57,7 @@ Consent_Assess <- function(
     lMapping = yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm")),
     strGroup = "Site",
     nMinDenominator = NULL,
+    bMakeCharts = FALSE,
     bQuiet = TRUE) {
   # data checking -----------------------------------------------------------
   stopifnot(
@@ -106,30 +108,31 @@ Consent_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
-    lCharts <- list()
-
-    lData$dfConfig <- MakeDfConfig(
-      strMethod = "Identity",
-      strGroup = strGroup,
-      strAbbreviation = "CONSENT",
-      strMetric = "Consent Issues",
-      strNumerator = "Consent Issues",
-      strDenominator = "",
-      vThreshold = nThreshold
+    lOutput <- list(
+      lData = lData,
+      lChecks = lChecks
     )
 
-    lCharts <- MakeKRICharts(lData = lData)
+    if (bMakeCharts) {
+      lData$dfConfig <- MakeDfConfig(
+        strMethod = "Identity",
+        strGroup = strGroup,
+        strAbbreviation = "CONSENT",
+        strMetric = "Consent Issues",
+        strNumerator = "Consent Issues",
+        strDenominator = "",
+        vThreshold = nThreshold
+      )
+
+      lOutput$lCharts <- MakeKRICharts(lData = lData)
+
+      if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
+    }
 
 
-    if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} chart{?s}.")
+
 
     # return data -------------------------------------------------------------
-    return(
-      list(
-        lData = lData,
-        lCharts = lCharts,
-        lChecks = lChecks
-      )
-    )
+    return(lOutput)
   }
 }

@@ -25,6 +25,7 @@
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
+#' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -74,6 +75,7 @@ AE_Assess <- function(
     lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
     strGroup = "Site",
     nMinDenominator = NULL,
+    bMakeCharts = FALSE,
     bQuiet = TRUE) {
   # data checking -----------------------------------------------------------
   stopifnot(
@@ -188,34 +190,31 @@ AE_Assess <- function(
 
 
     # visualizations ----------------------------------------------------------
-    lCharts <- list()
-
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-
-
-    # rbm-viz setup -----------------------------------------------------------
-
-    lData$dfConfig <- MakeDfConfig(
-      strMethod = strMethod,
-      strGroup = strGroup,
-      strAbbreviation = "AE",
-      strMetric = "Adverse Event Rate",
-      strNumerator = "Adverse Events",
-      strDenominator = "Days on Study",
-      vThreshold = vThreshold
+    lOutput <- list(
+      lData = lData,
+      lChecks = lChecks
     )
 
-    lCharts <- MakeKRICharts(lData = lData)
-
-    if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} chart{?s}.")
-
-    return(
-      list(
-        lData = lData,
-        lChecks = lChecks,
-        lCharts = lCharts
+    if (bMakeCharts) {
+      lData$dfConfig <- MakeDfConfig(
+        strMethod = strMethod,
+        strGroup = strGroup,
+        strAbbreviation = "AE",
+        strMetric = "Adverse Event Rate",
+        strNumerator = "Adverse Events",
+        strDenominator = "Days on Study",
+        vThreshold = vThreshold
       )
-    )
+
+      lOutput$lCharts <- MakeKRICharts(lData = lData)
+
+      if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
+    }
+
+
+
+    return(lOutput)
   }
 }

@@ -39,12 +39,20 @@
     Code
       subsetGroupCols(site)
     Output
-      # A tibble: 3 x 1
-        GroupID
-        <chr>  
-      1 166    
-      2 86     
-      3 76     
+      # A tibble: 40 x 1
+         GroupID
+         <chr>  
+       1 128    
+       2 75     
+       3 56     
+       4 122    
+       5 80     
+       6 91     
+       7 162    
+       8 78     
+       9 44     
+      10 43     
+      # i 30 more rows
 
 ---
 
@@ -64,39 +72,46 @@
       # A tibble: 3 x 1
         GroupID
         <chr>  
-      1 Japan  
+      1 China  
       2 US     
-      3 China  
+      3 Japan  
 
 ---
 
     Code
       subsetGroupCols(customGroup)
     Output
-      # A tibble: 3 x 1
-        GroupID
-        <chr>  
-      1 0X999  
-      2 0X012  
-      3 0X201  
+      # A tibble: 40 x 1
+         GroupID
+         <chr>  
+       1 0X149  
+       2 0X027  
+       3 0X014  
+       4 0X018  
+       5 0X097  
+       6 0X175  
+       7 0X002  
+       8 0X049  
+       9 0X108  
+      10 0X159  
+      # i 30 more rows
 
 # invalid data throw errors
 
-    strMethod is not 'NormalApprox', 'Fisher' or 'Identity'
+    strMethod is not 'NormalApprox', 'Poisson' or 'Identity'
 
 ---
 
-    strMethod is not 'NormalApprox', 'Fisher' or 'Identity'
+    strMethod is not 'NormalApprox', 'Poisson' or 'Identity'
 
 ---
 
-    strMethod is not 'NormalApprox', 'Fisher' or 'Identity'
+    strMethod must be length 1
 
 ---
 
-    i In argument: `Metric = +...`.
-    Caused by error in `.data$Threshold * sqrt(.data$phi * .data$vMu * (1 - .data$vMu) / .data$
-        Denominator)`:
+    i In argument: `Metric = .data$vMu + .data$Threshold * sqrt(.data$phi * .data$vMu/.data$Denominator)`.
+    Caused by error in `.data$Threshold * sqrt(.data$phi * .data$vMu / .data$Denominator)`:
     ! non-numeric argument to binary operator
 
 ---
@@ -116,18 +131,18 @@
       assessOutput <- assess_function(dfInput = dfInput, bQuiet = FALSE)
     Message
       
-      -- Checking Input Data for `DataEntry_Assess()` --
+      -- Checking Input Data for `AE_Assess()` --
       
-      v No issues found for `DataEntry_Assess()`
+      v No issues found for `AE_Assess()`
       
-      -- Initializing `DataEntry_Assess()` --
+      -- Initializing `AE_Assess()` --
       
-      Input data has 3 rows.
-      v `Transform_Rate()` returned output with 3 rows.
+      Input data has 50 rows.
+      v `Transform_Rate()` returned output with 40 rows.
       `OverallMetric`, `Factor`, and `Score` columns created from normal
       approximation.
-      > nStep was not provided. Setting default step to 0.684
-      v `Analyze_NormalApprox()` returned output with 3 rows.
-      v `Flag_NormalApprox()` returned output with 3 rows.
-      v `Summarize()` returned output with 3 rows.
+      > nStep was not provided. Setting default step to 5.648
+      v `Analyze_NormalApprox()` returned output with 40 rows.
+      v `Flag_NormalApprox()` returned output with 40 rows.
+      v `Summarize()` returned output with 40 rows.
 
