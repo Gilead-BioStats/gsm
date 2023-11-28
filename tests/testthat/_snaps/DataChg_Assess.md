@@ -11,15 +11,15 @@
       names(output$lData)
     Output
       [1] "dfTransformed" "dfAnalyzed"    "dfBounds"      "dfFlagged"    
-      [5] "dfSummary"    
+      [5] "dfSummary"     "dfConfig"     
 
 ---
 
     Code
       names(output$lCharts)
     Output
-      [1] "scatter"     "scatterJS"   "barMetric"   "barScore"    "barMetricJS"
-      [6] "barScoreJS" 
+      [1] "scatterJS"   "scatter"     "barMetricJS" "barScoreJS"  "barMetric"  
+      [6] "barScore"   
 
 ---
 
@@ -109,7 +109,7 @@
     Code
       names(Identity$lCharts)
     Output
-      [1] "barMetric"   "barScore"    "barMetricJS" "barScoreJS" 
+      [1] "barMetricJS" "barScoreJS"  "barMetric"   "barScore"   
 
 # bQuiet works as intended
 
@@ -131,6 +131,5 @@
       v `Analyze_NormalApprox()` returned output with 3 rows.
       v `Flag_NormalApprox()` returned output with 3 rows.
       v `Summarize()` returned output with 3 rows.
-      v Created 2 scatter plots.
-      v Created 4 bar charts.
+      v Created 6 charts.
 

@@ -115,8 +115,7 @@
       i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
       These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 3 rows.
-      v Created 2 scatter plots.
-      v Created 4 bar charts.
+      v Created 6 charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       ! lResults argument in `MakeRptSiteDetails()` didn't contain any KRI's with site level results,
