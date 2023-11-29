@@ -153,7 +153,7 @@ MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analy
           numerator_name = meta_workflow_for_this_qtl$numerator,
           denominator_name = meta_workflow_for_this_qtl$denominator,
           qtl_value = df_summary$lData$dfSummary$Metric,
-          base_metric = paste0(numerator_name, " / ", denominator_name),
+          base_metric = paste0(.data$numerator_name, " / ", .data$denominator_name),
           numerator_value = df_summary$lData$dfSummary$Numerator,
           denominator_value = df_summary$lData$dfSummary$Denominator,
           qtl_score = df_summary$lData$dfSummary$Score,
@@ -604,6 +604,131 @@ MakeRptQtlAnalysis <- function(lResults, status_param, gsm_analysis_date) {
   return(output)
 }
 
+
+#' Augment the previous lSnapshot classes to be inline with the current lSnapshot classes
+#'
+#' @param lPrevSnapshot `list` the previous Snapshot object
+#' @param lSnapshot `list` the current Snapshot object
+#'
+#' @import dplyr
+#' @importFrom purrr map_df
+#'
+#' @return Augmented previous snapshot object
+#'
+#' @export
+#'
+#' @keywords internal
+Match_Class <- function(lPrevSnapshot, lSnapshot) {
+  if (is.null(lPrevSnapshot)) {
+    return(lSnapshot)
+  } else {
+    prev_snapshot_classes <- purrr::map_df(lPrevSnapshot$lSnapshot, GetClass, .id = "file")
+    curr_snapshot_classes <- purrr::map_df(lSnapshot, GetClass, .id = "file")
+
+    unmatched_data_class <- left_join(prev_snapshot_classes, curr_snapshot_classes, by = c("file", "column"), relationship = "many-to-many") %>%
+      filter(.data$class.x != .data$class.y)
+
+    if (nrow(unmatched_data_class) > 0) {
+      for (i in 1:nrow(unmatched_data_class)) {
+        File <- unmatched_data_class$file[i]
+
+        lPrevSnapshot$lSnapshot[[File]] <- lPrevSnapshot$lSnapshot[[File]] %>%
+          mutate(across(unmatched_data_class$column[i], get(paste0("as.", unmatched_data_class$class.y[i]))))
+      }
+    }
+  }
+  return(lPrevSnapshot)
+}
+
+
+#' Appends the previous snapshot logs to the current snapshot logs
+#'
+#' @param lPrevSnapshot `list` the previous Snapshot object
+#' @param lSnapshot `list` the current Snapshot object
+#' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
+#'
+#' @importFrom dplyr bind_rows
+#' @importFrom cli cli_alert_warning
+#'
+#' @return Appended lSnapshot object
+#'
+#' @export
+#'
+#' @keywords internal
+AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot)) {
+  if (is.null(lPrevSnapshot)) {
+    cli::cli_alert_warning("`lPrevSnapshot` argument of `AppendLogs` is NULL `lStackedSnapshots` will only contain original lSnapshot logs")
+    return(lSnapshot)
+  } else {
+    prev_snap_fixed <- Match_Class(lPrevSnapshot, lSnapshot)
+    appendedlogs <- list()
+    for (i in files) {
+      appendedlogs[[i]] <- dplyr::bind_rows(prev_snap_fixed$lSnapshot[[i]], lSnapshot[[i]])
+    }
+    return(appendedlogs)
+  }
+}
+
+#' Appends the previous snapshot logs to the current snapshot logs
+#'
+#' @param prev_lSnapshot `list` the previous Snapshot object
+#' @param lSnapshot `list` the current Snapshot object
+#' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
+#'
+#' @importFrom dplyr bind_rows
+#'
+#' @return Appended lSnapshot object
+#'
+#' @export
+#'
+#' @keywords internal
+MakeWorkflowStatus <- function(lStackedSnapshots) {
+  lStackedSnapshots$results_summary %>%
+    distinct(.data$gsm_analysis_date, .data$workflowid) %>%
+    group_by(.data$workflowid) %>%
+    summarise(
+      latest = max(as.Date(.data$gsm_analysis_date), na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    mutate(is_current = .data$latest == max(.data$latest)) %>%
+    rename(
+      "Workflow ID" = "workflowid",
+      "Most Recent Snapshot" = "latest",
+      "Currently Active" = "is_current"
+    )
+}
+
+
+#' Appends the previous snapshot lStudyAssessResults to the current snapshot lStudyAssessResults
+#'
+#' @param lPrevSnapshot `list` the previous Snapshot object
+#' @param lResults `list` the current lResults created in `Make_Snapshot`
+#'
+#' @return Appended lSnapshot object
+#'
+#' @export
+#'
+#' @keywords internal
+AppendDroppedWorkflows <- function(lPrevSnapshot, lResults) {
+  for (workflowid in names(lResults)) {
+    lResults[[workflowid]][["bActive"]] <- TRUE
+  }
+
+  if (is.null(lPrevSnapshot)) {
+    return(lResults)
+  } else {
+    dropped_workflows <- setdiff(names(lPrevSnapshot$lStudyAssessResults), names(lResults))
+
+    if (length(dropped_workflows) > 0) {
+      for (workflowid in dropped_workflows) {
+        lResults[[workflowid]] <- lPrevSnapshot$lStudyAssessResults[[workflowid]]
+        lResults[[workflowid]][["bActive"]] <- FALSE
+      }
+    }
+  }
+
+  return(lResults)
+}
 
 #' MakeRptStudySnapshot
 #'

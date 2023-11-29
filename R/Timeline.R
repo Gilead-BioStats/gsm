@@ -26,7 +26,7 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
 
   if (history) {
     snapshots <- longitudinal$status_study %>%
-      select(date = "snapshot_date") %>%
+      select(date = "gsm_analysis_date") %>%
       mutate(
         .before = date,
         activity = "Snapshot"

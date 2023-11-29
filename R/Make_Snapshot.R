@@ -13,6 +13,8 @@
 #' @param lData `list` a named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for raw+.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
+#' @param lPrevSnapshot `list` optional argument for the previous snapshot run to track longitudinal data,
+#' @param append_files `vector` a vector or log files to append, defaults to all log files from `lPrevSnapshot` argument
 #' @param strAnalysisDate `character` date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: `YYYY-MM-DD`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
@@ -77,8 +79,19 @@ Make_Snapshot <- function(
     ),
     lMapping = Read_Mapping(),
     lAssessments = MakeWorkflowList(lMeta = lMeta),
+    lPrevSnapshot = NULL,
+    append_files = names(lPrevSnapshot$lSnapshot),
     strAnalysisDate = NULL,
-    bQuiet = TRUE) {
+    bQuiet = TRUE
+) {
+
+  # create `gsm_analysis_date` ----------------------------------------------
+  gsm_analysis_date <- MakeAnalysisDate(
+    strAnalysisDate = strAnalysisDate,
+    bQuiet = bQuiet
+  )
+
+
   # run Study_Assess() ------------------------------------------------------
   lResults <- gsm::Study_Assess(
     lData = lData,
@@ -128,11 +141,7 @@ Make_Snapshot <- function(
     )
 
 
-  # create `gsm_analysis_date` ----------------------------------------------
-  gsm_analysis_date <- MakeAnalysisDate(
-    strAnalysisDate = strAnalysisDate,
-    bQuiet = bQuiet
-  )
+
 
   # create `results_summary` ----------------------------------------------
 
@@ -175,20 +184,25 @@ Make_Snapshot <- function(
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
-  # return snapshot ---------------------------------------------------------
+  # create `lStackedSnapshots` ----------------------------------------------
+  lStackedSnapshots = AppendLogs(lPrevSnapshot, lSnapshot, append_files)
+
+  # build output ---------------------------------------------------------------
   snapshot <- list(
+    dfStatus = MakeWorkflowStatus(lStackedSnapshots),
     lSnapshotDate = gsm_analysis_date,
     lSnapshot = lSnapshot,
-    lStudyAssessResults = lResults,
+    lStudyAssessResults = AppendDroppedWorkflows(lPrevSnapshot, lResults),
     lInputs = list(
       lMeta = lMeta,
       lData = lData,
       lMapping = lMapping,
       lAssessments = lAssessments
-    )
+    ),
+    lStackedSnapshots = lStackedSnapshots
   )
 
-  # return snapshot ---------------------------------------------------------
+  # return snapshot ------------------------------------------------------------
 
   return(snapshot)
 }
