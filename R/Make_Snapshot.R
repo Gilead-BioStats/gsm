@@ -84,6 +84,13 @@ Make_Snapshot <- function(
     strAnalysisDate = NULL,
     bQuiet = TRUE
 ) {
+
+  # create `gsm_analysis_date` ----------------------------------------------
+  gsm_analysis_date <- MakeAnalysisDate(
+    strAnalysisDate = strAnalysisDate,
+    bQuiet = bQuiet
+  )
+
   # run Study_Assess() ------------------------------------------------------
   lResults <- gsm::Study_Assess(
     lData = lData,
@@ -131,11 +138,7 @@ Make_Snapshot <- function(
            "red_flags" = "num_of_flagged_kris")
 
 
-  # create `gsm_analysis_date` ----------------------------------------------
-  gsm_analysis_date <- MakeAnalysisDate(
-    strAnalysisDate = strAnalysisDate,
-    bQuiet = bQuiet
-  )
+
 
   # create `results_summary` ----------------------------------------------
 

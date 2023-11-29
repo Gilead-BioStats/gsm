@@ -66,8 +66,8 @@ MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NUL
   if (!is.null(longitudinal)) {
     snap_stats <- longitudinal$status_study %>%
       reframe(
-        "Average snapshot interval" = mean(difftime(.data$snapshot_date, lag(.data$snapshot_date)), na.rm = TRUE),
-        "Median snapshot interval" = median(difftime(.data$snapshot_date, lag(.data$snapshot_date)), na.rm = TRUE)
+        "Average snapshot interval" = mean(difftime(.data$gsm_analysis_date, lag(.data$gsm_analysis_date)), na.rm = TRUE),
+        "Median snapshot interval" = median(difftime(.data$gsm_analysis_date, lag(.data$gsm_analysis_date)), na.rm = TRUE)
       )
   }
 
