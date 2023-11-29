@@ -73,9 +73,8 @@ Overview_Table <- function(
       ) %>%
       left_join(
         dfSite %>%
-          mutate(site_num = as.character(.data[[Read_Mapping()$dfSITE$strSiteCol]])) %>%
-          select("site_num", "Country" = "country", "Status" = "status"),
-        by = c("Site" = "site_num")
+          select("siteid", "Country" = "country", "Status" = "status"),
+        by = c("Site" = "siteid")
       ) %>%
       select(
         "Site",
@@ -93,7 +92,7 @@ Overview_Table <- function(
 
     site_status_tooltip_hover_info <- dfSite %>%
       purrr::transpose() %>%
-      purrr::set_names(dfSite$site_num) %>%
+      purrr::set_names(dfSite$siteid) %>%
       purrr::imap(function(site_data, site_number) {
         site_data_variables_to_pull <- c(
           "pi_number",

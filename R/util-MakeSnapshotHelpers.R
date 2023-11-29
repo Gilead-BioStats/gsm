@@ -729,3 +729,28 @@ AppendDroppedWorkflows <- function(lPrevSnapshot, lResults) {
 
   return(lResults)
 }
+
+#' MakeRptStudySnapshot
+#'
+#' The function MakeRptStudySnapshot takes two inputs, lMeta and strAnalysisDate, and returns a data frame as output.
+#'
+#' @param lMeta A list containing metadata information about the study.
+#' @param strAnalysisDate A string representing the analysis date.
+#'
+#' @return A data frame with columns study_id, snapshot_date, is_latest, next_snapshot_date, pt_cycle_id, and pt_data_dt.
+#'
+#'
+#' @export
+#' @keywords internal
+MakeRptStudySnapshot <- function(lMeta, gsm_analysis_date) {
+  output <- data.frame(
+    study_id = unique(lMeta$meta_study$protocol_number),
+    snapshot_date = gsm_analysis_date,
+    is_latest = TRUE,
+    next_snapshot_date = NA_character_,
+    pt_cycle_id = NA_character_,
+    pt_data_dt = NA_character_
+  )
+
+  return(output)
+}

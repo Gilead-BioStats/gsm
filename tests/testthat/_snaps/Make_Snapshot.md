@@ -16,10 +16,11 @@
        [5] "results_summary"         "results_analysis"       
        [7] "results_bounds"          "meta_workflow"          
        [9] "meta_param"              "rpt_site_details"       
-      [11] "rpt_study_details"       "rpt_qtl_details"        
-      [13] "rpt_kri_details"         "rpt_site_kri_details"   
-      [15] "rpt_kri_bounds_details"  "rpt_qtl_threshold_param"
-      [17] "rpt_kri_threshold_param" "rpt_qtl_analysis"       
+      [11] "rpt_study_details"       "rpt_study_snapshot"     
+      [13] "rpt_qtl_details"         "rpt_kri_details"        
+      [15] "rpt_site_kri_details"    "rpt_kri_bounds_details" 
+      [17] "rpt_qtl_threshold_param" "rpt_kri_threshold_param"
+      [19] "rpt_qtl_analysis"       
 
 ---
 
