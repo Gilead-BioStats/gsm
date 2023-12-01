@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Time-Series Continuous Plot
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' A widget that displays a time-series plot based on longitudinal snapshots using `{gsm}`.
@@ -84,9 +84,9 @@ Widget_TimeSeries <- function(
     )
 }
 
-#' `r lifecycle::badge("experimental")`
-#'
 #' Shiny bindings for Widget_TimeSeries
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' Output and render functions for using Widget_TimeSeries within Shiny
 #' applications and interactive Rmd documents.
@@ -107,8 +107,7 @@ Widget_TimeSeriesOutput <- function(outputId, width = "100%", height = "400px") 
   htmlwidgets::shinyWidgetOutput(outputId, "Widget_TimeSeries", width, height, package = "gsm")
 }
 
-#' `r lifecycle::badge("experimental")`
-#'
+
 #' @rdname Widget_TimeSeries-shiny
 #' @export
 renderWidget_TimeSeries <- function(expr, env = parent.frame(), quoted = FALSE) {

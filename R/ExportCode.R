@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
+#' Export gsm analysis script using Data, Mapping, and Workflow.
 #'
-#' Export gsm analysis script using Data, Mapping, and Workflow
+#' `r lifecycle::badge("experimental")`
 #'
 #'
 #' @param lData `list` rawplus data to use as inputs.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Make_Snapshot.R
 \name{Make_Snapshot}
 \alias{Make_Snapshot}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Make Snapshot - create and export data model.}
 \usage{
 Make_Snapshot(
   lMeta = list(config_param = gsm::config_param, config_workflow = gsm::config_workflow,
@@ -71,7 +71,7 @@ For more context about the inputs and outputs of \code{Make_Snapshot()}, refer t
 Appendix 2 - Data Model Specifications
 }
 \details{
-Make Snapshot - create and export data model.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \section{Return - Data Model Description}{
 A named \code{list} of data.frames:

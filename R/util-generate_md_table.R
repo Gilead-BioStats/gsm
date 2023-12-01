@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Generate Markdown Table
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Combine data mapping and specification, and then output as markdown table.

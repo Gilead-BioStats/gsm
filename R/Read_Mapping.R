@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Read Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Read default mapping files from `inst/mappings`.

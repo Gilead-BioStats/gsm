@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Group-level visualization of scores.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @param dfSummary `data.frame` returned by [gsm::Summarize()]
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to NULL.

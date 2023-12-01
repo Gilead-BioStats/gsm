@@ -2,7 +2,7 @@
 % Please edit documentation in R/Widget_ScatterPlot.R
 \name{Widget_ScatterPlot}
 \alias{Widget_ScatterPlot}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{KRI Scatter Plot}
 \usage{
 Widget_ScatterPlot(
   results,
@@ -70,7 +70,7 @@ A widget that displays a group-level scatter plot based on the output of a KRI a
 Scatter plots are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an \code{htmlwidget} ported from the \code{rbm-viz} JavaScript library.
 }
 \details{
-KRI Scatter Plot
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 ae <- AE_Map_Raw()

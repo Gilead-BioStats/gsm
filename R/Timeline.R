@@ -1,6 +1,6 @@
-#' lifecycle::badge("stable")
-#'
 #' Create interactive timeline for study data
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @param status_study the table containing study data of interest
 #' @param longitudinal optional argument for supplying longitudinal snapshot information

@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Inclusion/Exclusion Assessment
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Evaluates sites exhibiting aberrant or excessive rates of unmet or missing inclusion/exclusion (IE) criteria.

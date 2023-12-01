@@ -2,7 +2,7 @@
 % Please edit documentation in R/IE_Assess.R
 \name{IE_Assess}
 \alias{IE_Assess}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Inclusion/Exclusion Assessment}
 \usage{
 IE_Assess(
   dfInput,
@@ -55,7 +55,7 @@ of the column. Default: package-defined Inclusion/Exclusion Assessment mapping.}
 Evaluates sites exhibiting aberrant or excessive rates of unmet or missing inclusion/exclusion (IE) criteria.
 }
 \details{
-Inclusion/Exclusion Assessment
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The Inclusion/Exclusion Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag sites with IE issues. This assessment detects sites with excessive rates of unmet or
 missing IE criteria, as defined by \code{nThreshold}. The count returned in the summary represents the

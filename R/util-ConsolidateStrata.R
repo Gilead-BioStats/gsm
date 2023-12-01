@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Consolidate stratified assessment outputs.
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' Consolidates multiple stratified assessment outputs by stacking the data frames returned by an

@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' KRI Bar Chart
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' A widget that displays a group-level bar chart based on the output of a KRI analysis.
@@ -142,9 +142,9 @@ Widget_BarChart <- function(
   )
 }
 
-#' `r lifecycle::badge("stable")`
-#'
 #' Shiny bindings for Widget_BarChart
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' Output and render functions for using barChart within Shiny
 #' applications and interactive Rmd documents.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Screening_Assess.R
 \name{Screening_Assess}
 \alias{Screening_Assess}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Screen Failure Assessment}
 \usage{
 Screening_Assess(
   dfInput,
@@ -70,7 +70,7 @@ of the column. Default: package-defined Screening Assessment mapping.}
 Evaluates screen failure (SF) rate on a mapped subject-level dataset to identify sites that may be over- or under-reporting screen failures.
 }
 \details{
-Screen Failure Assessment
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The Screen Failure Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.

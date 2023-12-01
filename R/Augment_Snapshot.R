@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Attach longitudinal content to snapshot
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' Attach stacked, longitudinal snapshot data and time series widgets to output of
 #' [gsm::Make_Snapshot()].

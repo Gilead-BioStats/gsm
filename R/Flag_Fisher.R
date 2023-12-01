@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Flag_Fisher
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Add columns flagging sites that represent possible statistical outliers when the Fisher's Exact Test is used.

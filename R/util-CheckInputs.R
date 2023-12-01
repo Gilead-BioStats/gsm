@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Check mapping inputs.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' `CheckInputs()` uses a mapping and specification to recursively run the `{gsm}` function `is_mapping_valid()` on data domains for a given assessment.

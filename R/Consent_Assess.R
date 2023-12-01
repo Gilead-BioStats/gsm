@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Consent Assessment
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Evaluates sites where subject consent was:

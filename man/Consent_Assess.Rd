@@ -2,7 +2,7 @@
 % Please edit documentation in R/Consent_Assess.R
 \name{Consent_Assess}
 \alias{Consent_Assess}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Consent Assessment}
 \usage{
 Consent_Assess(
   dfInput,
@@ -62,7 +62,7 @@ Evaluates sites where subject consent was:
 }
 }
 \details{
-Consent Assessment
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The Consent Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag sites with consent issues. Additional details regarding the data pipeline and statistical methods are described below.
 }

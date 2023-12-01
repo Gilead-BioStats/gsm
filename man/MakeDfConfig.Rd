@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-MakeDfConfig.R
 \name{MakeDfConfig}
 \alias{MakeDfConfig}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Make dfConfig for use in {rbm-viz}.}
 \usage{
 MakeDfConfig(
   strMethod,
@@ -38,7 +38,7 @@ MakeDfConfig(
 The output of \code{MakeDfConfig} is used as a configuration dataset for a \code{{rbm-viz}} htmlwidget.
 }
 \details{
-Make dfConfig for use in {rbm-viz}.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 \dontrun{

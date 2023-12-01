@@ -2,7 +2,7 @@
 % Please edit documentation in R/MakeResultsAnalysis.R
 \name{MakeResultsAnalysis}
 \alias{MakeResultsAnalysis}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Make \code{results_analysis}}
 \usage{
 MakeResultsAnalysis(lResults)
 }
@@ -13,7 +13,7 @@ MakeResultsAnalysis(lResults)
 \code{data.frame} QTL results stacked data from \code{\link[=Study_Assess]{Study_Assess()}}
 }
 \description{
-Make \code{results_analysis}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 \dontrun{

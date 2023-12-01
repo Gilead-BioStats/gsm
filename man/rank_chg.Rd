@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-rank_chg.R
 \name{rank_chg}
 \alias{rank_chg}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Report helper functions used to create fontawesome status icons for the report that is generated with \link{Study_Report}.}
 \usage{
 rank_chg(status)
 }
@@ -15,5 +15,5 @@ rank_chg(status)
 Adopted from https://themockup.blog/posts/2020-10-31-embedding-custom-features-in-gt-tables/.
 }
 \details{
-Report helper functions used to create fontawesome status icons for the report that is generated with \link{Study_Report}.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_Identity.R
 \name{Analyze_Identity}
 \alias{Analyze_Identity}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Identity Analysis.}
 \usage{
 Analyze_Identity(dfTransformed, strValueCol = "Metric", bQuiet = TRUE)
 }
@@ -17,7 +17,7 @@ Analyze_Identity(dfTransformed, strValueCol = "Metric", bQuiet = TRUE)
 \code{data.frame} with one row per site with columns: GroupID, TotalCount, Metric, and Score.
 }
 \description{
-Identity Analysis.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
 Used in the data pipeline between \code{Transform} and \code{Flag} to rename KRI and Score columns.

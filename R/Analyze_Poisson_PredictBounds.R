@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Poisson Analysis - Predicted Boundaries.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @details
 #'

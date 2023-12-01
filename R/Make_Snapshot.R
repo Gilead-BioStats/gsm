@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Make Snapshot - create and export data model.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' `Make_Snapshot()` ingests data from a variety of sources, and runs KRIs and/or QTLs based on the `list` provided in `lAssessments`.

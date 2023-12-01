@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Consent Assessment - Raw Mapping
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #'
 #' @description

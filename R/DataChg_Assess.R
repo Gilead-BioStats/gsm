@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Data Change Rate Assessment
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Evaluates rate of reported data point with >1 changes.

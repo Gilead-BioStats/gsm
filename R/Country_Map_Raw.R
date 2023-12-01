@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Count Participants by Country
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @param dfSite `data.frame` Data frame returned by [gsm::Site_Map_Raw()].
 #'

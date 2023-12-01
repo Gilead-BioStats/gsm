@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Flag QTL
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' This function flags a study-level QTL metric by comparing the mean and lower confidence bound for the metric to a single threshold.

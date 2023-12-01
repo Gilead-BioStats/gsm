@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Lab Abnormality Assessment
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Evaluates rate of reported Lab Abnormalities (LB).

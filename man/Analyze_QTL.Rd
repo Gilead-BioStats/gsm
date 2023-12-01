@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_QTL.R
 \name{Analyze_QTL}
 \alias{Analyze_QTL}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{QTL Analysis for Binary and Rate Outcomes.}
 \usage{
 Analyze_QTL(
   dfTransformed,
@@ -24,7 +24,7 @@ Analyze_QTL(
 \code{data.frame} with one row with columns: GroupID, Numerator, Denominator, Metric, Method, ConfLevel, Estimate, LowCI, UpCI and Score.
 }
 \description{
-QTL Analysis for Binary and Rate Outcomes.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
 Creates confidence intervals for the observed proportion of participants for the event of interest. Uses the exact binomial (\code{stats::binom.test}) or poisson test (\code{stats::poisson.test}).

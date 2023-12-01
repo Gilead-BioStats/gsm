@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Data Entry Lag Assessment
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Evaluates rate of reported Data Entry Lag >10 days.

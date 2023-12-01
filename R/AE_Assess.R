@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Adverse Event Assessment
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Evaluates Adverse Event (AE) rates to identify sites that may be over- or under-reporting AEs.

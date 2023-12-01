@@ -2,7 +2,7 @@
 % Please edit documentation in R/Timeline.R
 \name{Make_Timeline}
 \alias{Make_Timeline}
-\title{lifecycle::badge("stable")}
+\title{Create interactive timeline for study data}
 \usage{
 Make_Timeline(
   status_study,
@@ -27,7 +27,7 @@ Make_Timeline(
 \code{plot} interactive timeline plot.
 }
 \description{
-Create interactive timeline for study data
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 Make_Timeline(status_study = clindata::ctms_study)

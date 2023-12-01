@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Make `status_workflow`
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @param lResults `list` List returned from [gsm::Study_Assess()].
 #' @param dfConfigWorkflow `data.frame` Workflow configuration data.
