@@ -8,6 +8,7 @@
 #' @param lMapping A mapping object used for data checking.
 #' @param strGroup The grouping variable used for analysis.
 #' @param nMinDenominator The minimum denominator value for calculating summary statistics.
+#' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
 #' @param bQuiet A logical value indicating whether to display progress messages.
 #'
 #' @return A list containing the transformed data, analyzed data, flagged data, summary data, and charts.
@@ -37,17 +38,9 @@ LB_Assess <- function(
     lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
     strGroup = "Site",
     nMinDenominator = NULL,
+    bMakeCharts = FALSE,
     bQuiet = TRUE) {
-  # function code
-}
-LB_Assess <- function(
-    dfInput,
-    vThreshold = NULL,
-    strMethod = "NormalApprox",
-    lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
-    strGroup = "Site",
-    nMinDenominator = NULL,
-    bQuiet = TRUE) {
+
   # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'NormalApprox', 'Fisher' or 'Identity'" = strMethod %in% c("NormalApprox", "Fisher", "Identity"),
@@ -149,66 +142,36 @@ LB_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
-    lCharts <- list()
-
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-    dfConfig <- MakeDfConfig(
-      strMethod = strMethod,
-      strGroup = strGroup,
-      strAbbreviation = "LB",
-      strMetric = "Lab Abnormality Rate",
-      strNumerator = "Abnormal Lab Samples",
-      strDenominator = "Total Lab Samples",
-      vThreshold = vThreshold
-    )
-
-
-
-    if (strMethod != "Identity") {
-      lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-
-
-      # rbm-viz charts ----------------------------------------------------------
-      lCharts$scatterJS <- gsm::Widget_ScatterPlot(
-        results = lData$dfSummary,
-        workflow = dfConfig,
-        bounds = lData$dfBounds,
-        elementId = "lbAssessScatter",
-        siteSelectLabelValue = strGroup
+    if (bMakeCharts) {
+      lData$dfConfig <- MakeDfConfig(
+        strMethod = strMethod,
+        strGroup = strGroup,
+        strAbbreviation = "LB",
+        strMetric = "Lab Abnormality Rate",
+        strNumerator = "Abnormal Lab Samples",
+        strDenominator = "Total Lab Samples",
+        vThreshold = vThreshold
       )
 
-      if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
+      lOutput <- list(
+        lData = lData,
+        lChecks = lChecks,
+        lCharts = MakeKRICharts(lData = lData)
+      )
+
+      if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
+    } else {
+
+      lOutput <- list(
+        lData = lData,
+        lChecks = lChecks
+      )
+
     }
 
-    lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
-
-    lCharts$barMetricJS <- gsm::Widget_BarChart(
-      results = lData$dfSummary,
-      workflow = dfConfig,
-      yaxis = "metric",
-      elementId = "lbAssessMetric",
-      siteSelectLabelValue = strGroup
-    )
-
-    lCharts$barScoreJS <- gsm::Widget_BarChart(
-      results = lData$dfSummary,
-      workflow = dfConfig,
-      yaxis = "score",
-      elementId = "lbAssessScore",
-      siteSelectLabelValue = strGroup
-    )
-
-    if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
-
-
-
     # return data -------------------------------------------------------------
-    return(list(
-      lData = lData,
-      lCharts = lCharts,
-      lChecks = lChecks
-    ))
+    return(lOutput)
   }
 }

@@ -108,11 +108,6 @@ Consent_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
-    lOutput <- list(
-      lData = lData,
-      lChecks = lChecks
-    )
-
     if (bMakeCharts) {
       lData$dfConfig <- MakeDfConfig(
         strMethod = "Identity",
@@ -124,12 +119,21 @@ Consent_Assess <- function(
         vThreshold = nThreshold
       )
 
-      lOutput$lCharts <- MakeKRICharts(lData = lData)
+      lOutput <- list(
+        lData = lData,
+        lChecks = lChecks,
+        lCharts = MakeKRICharts(lData = lData)
+      )
 
       if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
+    } else {
+
+      lOutput <- list(
+        lData = lData,
+        lChecks = lChecks
+      )
+
     }
-
-
 
 
     # return data -------------------------------------------------------------

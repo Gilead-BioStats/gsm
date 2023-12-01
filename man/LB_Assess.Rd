@@ -11,6 +11,7 @@ LB_Assess(
   lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   nMinDenominator = NULL,
+  bMakeCharts = FALSE,
   bQuiet = TRUE
 )
 }
@@ -26,6 +27,8 @@ LB_Assess(
 \item{strGroup}{The grouping variable used for analysis.}
 
 \item{nMinDenominator}{The minimum denominator value for calculating summary statistics.}
+
+\item{bMakeCharts}{\code{logical} Boolean value indicating whether to create charts.}
 
 \item{bQuiet}{A logical value indicating whether to display progress messages.}
 }

@@ -22,6 +22,7 @@
 #'   of the column. Default: package-defined Labs Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
+#' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -64,6 +65,7 @@ DataChg_Assess <- function(
     lMapping = yaml::read_yaml(system.file("mappings", "DataChg_Assess.yaml", package = "gsm")),
     strGroup = "Site",
     nMinDenominator = NULL,
+    bMakeCharts = FALSE,
     bQuiet = TRUE) {
   # data checking -----------------------------------------------------------
   stopifnot(
@@ -166,33 +168,36 @@ DataChg_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
-    lCharts <- list()
-
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-    # rbm-viz setup -----------------------------------------------------------
+    if (bMakeCharts) {
+      lData$dfConfig <- MakeDfConfig(
+        strMethod = strMethod,
+        strGroup = strGroup,
+        strAbbreviation = "CDAT",
+        strMetric = "Data Change Rate",
+        strNumerator = "Data Points with 1+ Change",
+        strDenominator = "Total Data Points",
+        vThreshold = vThreshold
+      )
 
-    lData$dfConfig <- MakeDfConfig(
-      strMethod = strMethod,
-      strGroup = strGroup,
-      strAbbreviation = "CDAT",
-      strMetric = "Data Change Rate",
-      strNumerator = "Data Points with 1+ Change",
-      strDenominator = "Total Data Points",
-      vThreshold = vThreshold
-    )
+      lOutput <- list(
+        lData = lData,
+        lChecks = lChecks,
+        lCharts = MakeKRICharts(lData = lData)
+      )
 
-    lCharts <- MakeKRICharts(lData = lData)
+      if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} chart{?s}.")
+    } else {
 
-    if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} chart{?s}.")
+      lOutput <- list(
+        lData = lData,
+        lChecks = lChecks
+      )
 
-
+    }
 
     # return data -------------------------------------------------------------
-    return(list(
-      lData = lData,
-      lCharts = lCharts,
-      lChecks = lChecks
-    ))
+    return(lOutput)
   }
 }

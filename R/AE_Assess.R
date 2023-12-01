@@ -192,11 +192,6 @@ AE_Assess <- function(
     # visualizations ----------------------------------------------------------
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-    lOutput <- list(
-      lData = lData,
-      lChecks = lChecks
-    )
-
     if (bMakeCharts) {
       lData$dfConfig <- MakeDfConfig(
         strMethod = strMethod,
@@ -208,13 +203,24 @@ AE_Assess <- function(
         vThreshold = vThreshold
       )
 
-      lOutput$lCharts <- MakeKRICharts(lData = lData)
+      lOutput <- list(
+        lData = lData,
+        lChecks = lChecks,
+        lCharts = MakeKRICharts(lData = lData)
+      )
 
       if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
+    } else {
+
+      lOutput <- list(
+        lData = lData,
+        lChecks = lChecks
+      )
+
     }
 
 
-
+    # return data -------------------------------------------------------------
     return(lOutput)
   }
 }
