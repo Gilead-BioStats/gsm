@@ -7,8 +7,6 @@
 #' @return A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.
 #'
 #'
-#' @import gsm
-#'
 #' @export
 MakeKRICharts <- function(lData = NULL) {
     lCharts <- list()

@@ -2,7 +2,7 @@
 % Please edit documentation in R/LB_Assess.R
 \name{LB_Assess}
 \alias{LB_Assess}
-\title{LB_Assess Function}
+\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
 \usage{
 LB_Assess(
   dfInput,
@@ -16,43 +16,96 @@ LB_Assess(
 )
 }
 \arguments{
-\item{dfInput}{The input data frame containing the data to be assessed.}
+\item{dfInput}{\code{data.frame} Input data, a data frame with one record per lab record.}
 
-\item{vThreshold}{The threshold values used for flagging abnormality.}
+\item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 or 4 that defaults to \code{c(-3, -2, 2, 3)} for a Normal Approximation (\code{strMethod = "NormalApprox"}),
+\code{c(.01, .05)} for Fisher's exact test (\code{strMethod = "Fisher"}), and \code{c(3.491, 5.172)} for a nominal assessment (\code{strMethod = "Identity"}).}
 
-\item{strMethod}{The method used for analysis, which can be "NormalApprox", "Fisher", or "Identity".}
+\item{strMethod}{\code{character} Statistical method. Valid values:
+\itemize{
+\item \code{"NormalApprox"} (default)
+\item \code{"Fisher"}
+\item \code{"Identity"}
+}}
 
-\item{lMapping}{A mapping object used for data checking.}
+\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
+of the column. Default: package-defined Labs Assessment mapping.}
 
-\item{strGroup}{The grouping variable used for analysis.}
+\item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"}, \code{"Country"}, and \code{"CustomGroup"}.}
 
-\item{nMinDenominator}{The minimum denominator value for calculating summary statistics.}
+\item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
 
 \item{bMakeCharts}{\code{logical} Boolean value indicating whether to create charts.}
 
-\item{bQuiet}{A logical value indicating whether to display progress messages.}
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-A list containing the transformed data, analyzed data, flagged data, summary data, and charts.
+\code{list} \code{lData}, a named list with:
+\itemize{
+\item each data frame in the data pipeline
+\itemize{
+\item \code{dfTransformed}, returned by \code{\link[=Transform_Rate]{Transform_Rate()}}
+\item \code{dfAnalyzed}, returned by \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}}, \code{\link[=Analyze_Fisher]{Analyze_Fisher()}}, or \code{\link[=Analyze_Identity]{Analyze_Identity()}}
+\item \code{dfFlagged}, returned by \code{\link[=Flag_NormalApprox]{Flag_NormalApprox()}}, \code{\link[=Flag_Fisher]{Flag_Fisher()}}, or \code{\link[=Flag]{Flag()}}
+\item \code{dfSummary}, returned by \code{\link[=Summarize]{Summarize()}}
+\item \code{dfBounds}, returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} when \code{strMethod == "NormalApprox"}
+}
+\item \code{list} \code{lCharts}, a named list with:
+\itemize{
+\item \code{scatter}, a ggplot2 object returned by \code{\link[=Visualize_Scatter]{Visualize_Scatter()}} only when strMethod != "Identity"
+\item \code{barMetric}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}}
+\item \code{barScore}, a ggplot2 object returned by \code{\link[=Visualize_Score]{Visualize_Score()}}
+}
+\item \code{list} \code{lChecks}, a named list with:
+\itemize{
+\item \code{dfInput}, a named list returned by \code{\link[=is_mapping_valid]{is_mapping_valid()}}
+\item \code{status}, a boolean returned by \code{\link[=is_mapping_valid]{is_mapping_valid()}}
+\item \code{mapping}, a named list that is provided as an argument to the \code{lMapping} parameter in \code{\link[=LB_Assess]{LB_Assess()}}
+\item \code{spec}, a named list used to define variable specifications
+}
+}
 }
 \description{
-The LB_Assess function performs an assessment on a given input data frame. It checks the validity of the input parameters, sets thresholds and flagging parameters based on the chosen method, and then runs the assessment using the specified method. It returns a list containing the transformed data, analyzed data, flagged data, summary data, and charts.
+Evaluates rate of reported Lab Abnormalities (LB).
 }
+\details{
+Lab Abnormality Assessment
+
+The Lab Abnormality Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
+methods are described below.
+}
+\section{Data specification}{
+\tabular{llll}{
+   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \cr
+   dfInput \tab strIDCol \tab SubjectID \tab TRUE \cr
+   dfInput \tab strCountCol \tab Count \tab TRUE \cr
+   dfInput \tab strGroupCol \tab SiteID \tab TRUE \cr
+}
+}
+
+\section{Statistical assumptions}{
+The default function \code{Analyze_NormalApprox} applies funnel plots using
+asymptotic limits based on normal approximation of binomial distribution
+for the binary outcome, or normal approximation of Poisson distribution
+for the rate outcome with volume (the sample sizes or total exposure of
+the sites) to assess data quality and safety.
+
+Alternatively, the Fisher’s exact test, or percentage value (identity)
+is used to generate estimates and p-values for each site (as specified
+with the \code{strMethod} parameter). Those outputs are then used to flag
+possible outliers using the thresholds specified in \code{vThreshold}. In the
+Fisher’s exact test, sites with $p<0.05$ are flagged as 1 by default.
+
+See \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}} or
+\code{\link[=Analyze_Fisher]{Analyze_Fisher()}} or
+\code{\link[=Analyze_Identity]{Analyze_Identity()}} for additional
+details about the statistical methods and their assumptions.
+}
+
 \examples{
-df <- data.frame(
-  Site = c("A", "A", "B", "B"),
-  Count = c(10, 5, 8, 4),
-  Total = c(100, 200, 150, 300)
-)
-
-result <- LB_Assess(df, vThreshold = c(-2, 2), strMethod = "NormalApprox", strGroup = "Site")
-
-print(result$lData$dfTransformed)
-print(result$lData$dfAnalyzed)
-print(result$lData$dfFlagged)
-print(result$lData$dfSummary)
-print(result$lCharts$scatter)
-print(result$lCharts$barMetric)
-print(result$lCharts$barScore)
+dfInput <- LB_Map_Raw()
+lb_assessment_NormalApprox <- LB_Assess(dfInput, strMethod = "NormalApprox")
+lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "Fisher")
+lb_assessment_identity <- LB_Assess(dfInput, strMethod = "Identity")
 
 }

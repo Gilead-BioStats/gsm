@@ -1,34 +1,60 @@
-#' LB_Assess Function
+#' `r lifecycle::badge("stable")`
 #'
-#' The LB_Assess function performs an assessment on a given input data frame. It checks the validity of the input parameters, sets thresholds and flagging parameters based on the chosen method, and then runs the assessment using the specified method. It returns a list containing the transformed data, analyzed data, flagged data, summary data, and charts.
+#' Lab Abnormality Assessment
 #'
-#' @param dfInput The input data frame containing the data to be assessed.
-#' @param vThreshold The threshold values used for flagging abnormality.
-#' @param strMethod The method used for analysis, which can be "NormalApprox", "Fisher", or "Identity".
-#' @param lMapping A mapping object used for data checking.
-#' @param strGroup The grouping variable used for analysis.
-#' @param nMinDenominator The minimum denominator value for calculating summary statistics.
+#' @description
+#' Evaluates rate of reported Lab Abnormalities (LB).
+#'
+#' @details
+#' The Lab Abnormality Assessment uses the standard [GSM data pipeline](
+#'   https://gilead-biostats.github.io/gsm/articles/DataPipeline.html
+#' ) to flag possible outliers. Additional details regarding the data pipeline and statistical
+#' methods are described below.
+#'
+#' @param dfInput `data.frame` Input data, a data frame with one record per lab record.
+#' @param vThreshold `numeric` Threshold specification, a vector of length 2 or 4 that defaults to `c(-3, -2, 2, 3)` for a Normal Approximation (`strMethod = "NormalApprox"`),
+#' `c(.01, .05)` for Fisher's exact test (`strMethod = "Fisher"`), and `c(3.491, 5.172)` for a nominal assessment (`strMethod = "Identity"`).
+#' @param strMethod `character` Statistical method. Valid values:
+#'   - `"NormalApprox"` (default)
+#'   - `"Fisher"`
+#'   - `"Identity"`
+#' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
+#'   of the column. Default: package-defined Labs Assessment mapping.
+#' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
+#' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
-#' @param bQuiet A logical value indicating whether to display progress messages.
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @return A list containing the transformed data, analyzed data, flagged data, summary data, and charts.
+#' @return `list` `lData`, a named list with:
+#' - each data frame in the data pipeline
+#'   - `dfTransformed`, returned by [gsm::Transform_Rate()]
+#'   - `dfAnalyzed`, returned by [gsm::Analyze_NormalApprox()], [gsm::Analyze_Fisher()], or [gsm::Analyze_Identity()]
+#'   - `dfFlagged`, returned by [gsm::Flag_NormalApprox()], [gsm::Flag_Fisher()], or [gsm::Flag()]
+#'   - `dfSummary`, returned by [gsm::Summarize()]
+#'   - `dfBounds`, returned by [gsm::Analyze_NormalApprox_PredictBounds()] when `strMethod == "NormalApprox"`
+#' - `list` `lCharts`, a named list with:
+#'   - `scatter`, a ggplot2 object returned by [gsm::Visualize_Scatter()] only when strMethod != "Identity"
+#'   - `barMetric`, a ggplot2 object returned by [gsm::Visualize_Score()]
+#'   - `barScore`, a ggplot2 object returned by [gsm::Visualize_Score()]
+#' - `list` `lChecks`, a named list with:
+#'   - `dfInput`, a named list returned by [gsm::is_mapping_valid()]
+#'   - `status`, a boolean returned by [gsm::is_mapping_valid()]
+#'   - `mapping`, a named list that is provided as an argument to the `lMapping` parameter in [gsm::LB_Assess()]
+#'   - `spec`, a named list used to define variable specifications
+#'
+#' @includeRmd ./man/md/LB_Assess.md
+#' @includeRmd ./man/md/analyze_percent.md
 #'
 #' @examples
-#' df <- data.frame(
-#'   Site = c("A", "A", "B", "B"),
-#'   Count = c(10, 5, 8, 4),
-#'   Total = c(100, 200, 150, 300)
-#' )
+#' dfInput <- LB_Map_Raw()
+#' lb_assessment_NormalApprox <- LB_Assess(dfInput, strMethod = "NormalApprox")
+#' lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "Fisher")
+#' lb_assessment_identity <- LB_Assess(dfInput, strMethod = "Identity")
 #'
-#' result <- LB_Assess(df, vThreshold = c(-2, 2), strMethod = "NormalApprox", strGroup = "Site")
-#'
-#' print(result$lData$dfTransformed)
-#' print(result$lData$dfAnalyzed)
-#' print(result$lData$dfFlagged)
-#' print(result$lData$dfSummary)
-#' print(result$lCharts$scatter)
-#' print(result$lCharts$barMetric)
-#' print(result$lCharts$barScore)
+#' @importFrom cli cli_alert_success cli_alert_warning cli_h2 cli_text
+#' @importFrom yaml read_yaml
+#' @importFrom glue glue
+#' @importFrom tools toTitleCase
 #'
 #' @export
 LB_Assess <- function(
