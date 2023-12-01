@@ -11,24 +11,11 @@
     Code
       names(snapshot$lSnapshot)
     Output
-<<<<<<< HEAD
        [1] "rpt_site_details"        "rpt_study_details"      
        [3] "rpt_qtl_details"         "rpt_kri_details"        
        [5] "rpt_site_kri_details"    "rpt_kri_bounds_details" 
        [7] "rpt_qtl_threshold_param" "rpt_kri_threshold_param"
        [9] "rpt_qtl_analysis"        "status_workflow"        
-=======
-       [1] "status_study"            "status_site"            
-       [3] "status_workflow"         "status_param"           
-       [5] "results_summary"         "results_analysis"       
-       [7] "results_bounds"          "meta_workflow"          
-       [9] "meta_param"              "rpt_site_details"       
-      [11] "rpt_study_details"       "rpt_study_snapshot"     
-      [13] "rpt_qtl_details"         "rpt_kri_details"        
-      [15] "rpt_site_kri_details"    "rpt_kri_bounds_details" 
-      [17] "rpt_qtl_threshold_param" "rpt_kri_threshold_param"
-      [19] "rpt_qtl_analysis"       
->>>>>>> origin/dev
 
 ---
 
