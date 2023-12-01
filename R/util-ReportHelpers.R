@@ -66,8 +66,8 @@ MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NUL
   if (!is.null(longitudinal)) {
     snap_stats <- longitudinal$status_study %>%
       reframe(
-        "Average snapshot interval" = mean(difftime(.data$snapshot_date, lag(.data$snapshot_date)), na.rm = TRUE),
-        "Median snapshot interval" = median(difftime(.data$snapshot_date, lag(.data$snapshot_date)), na.rm = TRUE)
+        "Average snapshot interval" = mean(difftime(.data$gsm_analysis_date, lag(.data$gsm_analysis_date)), na.rm = TRUE),
+        "Median snapshot interval" = median(difftime(.data$gsm_analysis_date, lag(.data$gsm_analysis_date)), na.rm = TRUE)
       )
   }
 
@@ -222,10 +222,9 @@ add_table_theme <- function(x) {
 #' @export
 #' @keywords internal
 MakeKRIGlossary <- function(
-  dfMetaWorkflow = gsm::meta_workflow,
-  strWorkflowIDs = NULL,
-  lStatus = NULL
-) {
+    dfMetaWorkflow = gsm::meta_workflow,
+    strWorkflowIDs = NULL,
+    lStatus = NULL) {
   if (length(lStatus) != 0) {
     strDroppedWorkflowIDs <- lStatus %>%
       filter(!.data$`Currently Active`) %>%
@@ -545,10 +544,10 @@ MakeErrorLog <- function(data) {
 #' @importFrom purrr imap_dfr
 #' @export
 #' @keywords internal
-qtl_summary <- function(lAssessments){
+qtl_summary <- function(lAssessments) {
   purrr::map_df(lAssessments, function(data) {
-      data$lResults$lData$dfSummary %>%
-        bind_rows()
+    data$lResults$lData$dfSummary %>%
+      bind_rows()
   }, .id = "workflowid")
 }
 
@@ -559,17 +558,15 @@ qtl_summary <- function(lAssessments){
 #' @importFrom purrr imap_dfr
 #' @export
 #' @keywords internal
-qtl_analysis <- function(lAssessments, results_summary){
+qtl_analysis <- function(lAssessments, results_summary) {
   output <- purrr::map_df(lAssessments, function(data) {
-      data$lResults$lData$dfAnalyzed %>%
-        bind_rows()
-    }, .id = "workflowid") %>%
-      left_join(results_summary) %>%
-      rename_with(toTitleCase)
+    data$lResults$lData$dfAnalyzed %>%
+      bind_rows()
+  }, .id = "workflowid") %>%
+    left_join(results_summary) %>%
+    rename_with(toTitleCase)
 
   output[sapply(output, is.numeric)] <- round(output[sapply(output, is.numeric)], digits = 2)
 
   return(output)
 }
-
-
