@@ -626,7 +626,7 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
     curr_snapshot_classes <- purrr::map_df(lSnapshot, GetClass, .id = "file")
 
     unmatched_data_class <- left_join(prev_snapshot_classes, curr_snapshot_classes, by = c("file", "column"), relationship = "many-to-many") %>%
-      filter(class.x != class.y)
+      filter(.data$class.x != .data$class.y)
 
     if (nrow(unmatched_data_class) > 0) {
       for(i in 1:nrow(unmatched_data_class)){
