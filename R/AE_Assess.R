@@ -184,10 +184,14 @@ AE_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
 
 
-    # dfSummary ---------------------------------------------------------------
+    # dfSummary + output object ---------------------------------------------------------------
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
+    lOutput <- list(
+      lData = lData,
+      lChecks = lChecks
+    )
 
     # visualizations ----------------------------------------------------------
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
@@ -202,23 +206,11 @@ AE_Assess <- function(
         strDenominator = "Days on Study",
         vThreshold = vThreshold
       )
-
-      lOutput <- list(
-        lData = lData,
-        lChecks = lChecks,
-        lCharts = MakeKRICharts(lData = lData)
-      )
-
+      
+      lOutput$lCharts <- MakeKRICharts(lData = lData)
+      
       if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
-    } else {
-
-      lOutput <- list(
-        lData = lData,
-        lChecks = lChecks
-      )
-
-    }
-
+    } 
 
     # return data -------------------------------------------------------------
     return(lOutput)
