@@ -108,32 +108,25 @@ IE_Assess <- function(
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
+    lData$dfConfig <- MakeDfConfig(
+      strMethod = "Identity",
+      strGroup = strGroup,
+      strAbbreviation = "IE",
+      strMetric = "Inclusion/Exclusion Issues",
+      strNumerator = "Inclusion/Exclusion Issues",
+      strDenominator = "",
+      vThreshold = nThreshold
+    )
+
+    lOutput <- list(
+      lData = lData,
+      lChecks = lChecks
+    )
+
     # visualizations ----------------------------------------------------------
     if (bMakeCharts) {
-      lData$dfConfig <- MakeDfConfig(
-        strMethod = "Identity",
-        strGroup = strGroup,
-        strAbbreviation = "IE",
-        strMetric = "Inclusion/Exclusion Issues",
-        strNumerator = "Inclusion/Exclusion Issues",
-        strDenominator = "",
-        vThreshold = nThreshold
-      )
-
-      lOutput <- list(
-        lData = lData,
-        lChecks = lChecks,
-        lCharts = MakeKRICharts(lData = lData)
-      )
-
+      lOutput$lCharts <- MakeKRICharts(lData = lData)
       if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
-    } else {
-
-      lOutput <- list(
-        lData = lData,
-        lChecks = lChecks
-      )
-
     }
 
 
