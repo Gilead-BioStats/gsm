@@ -45,6 +45,9 @@ test_that("Given an appropriate subset of Data Change Rate data, the assessment 
     "dfSummary" = t7_5_summary
   )
 
+  # remove metadata that is not part of qualification
+  test7_5$lData$dfConfig <- NULL
+
   # compare results
   expect_equal(test7_5$lData, t7_5)
 })

@@ -53,5 +53,5 @@ test_that("Given appropriate Data Entry Lag data, the assessment function correc
   )
 
   # compare results
-  expect_equal(test8_12$lData[names(test8_12$lData) != "dfBounds"], t8_12)
+  expect_equal(test8_12$lData[!names(test8_12$lData) %in% c("dfBounds", "dfConfig")], t8_12)
 })
