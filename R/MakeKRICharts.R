@@ -9,6 +9,7 @@
 #'
 #' @export
 MakeKRICharts <- function(lData = NULL) {
+
     lCharts <- list()
 
     if (tolower(lData$dfConfig$model) != "identity") {

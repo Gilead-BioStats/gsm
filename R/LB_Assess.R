@@ -170,31 +170,24 @@ LB_Assess <- function(
     # visualizations ----------------------------------------------------------
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
+    lData$dfConfig <- MakeDfConfig(
+      strMethod = strMethod,
+      strGroup = strGroup,
+      strAbbreviation = "LB",
+      strMetric = "Lab Abnormality Rate",
+      strNumerator = "Abnormal Lab Samples",
+      strDenominator = "Total Lab Samples",
+      vThreshold = vThreshold
+    )
+
+    lOutput <- list(
+      lData = lData,
+      lChecks = lChecks
+    )
+
     if (bMakeCharts) {
-      lData$dfConfig <- MakeDfConfig(
-        strMethod = strMethod,
-        strGroup = strGroup,
-        strAbbreviation = "LB",
-        strMetric = "Lab Abnormality Rate",
-        strNumerator = "Abnormal Lab Samples",
-        strDenominator = "Total Lab Samples",
-        vThreshold = vThreshold
-      )
-
-      lOutput <- list(
-        lData = lData,
-        lChecks = lChecks,
-        lCharts = MakeKRICharts(lData = lData)
-      )
-
+      lOutput$lCharts <- MakeKRICharts(lData = lData)
       if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
-    } else {
-
-      lOutput <- list(
-        lData = lData,
-        lChecks = lChecks
-      )
-
     }
 
     # return data -------------------------------------------------------------

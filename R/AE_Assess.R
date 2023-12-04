@@ -196,21 +196,20 @@ AE_Assess <- function(
     # visualizations ----------------------------------------------------------
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
+    lData$dfConfig <- MakeDfConfig(
+      strMethod = strMethod,
+      strGroup = strGroup,
+      strAbbreviation = "AE",
+      strMetric = "Adverse Event Rate",
+      strNumerator = "Adverse Events",
+      strDenominator = "Days on Study",
+      vThreshold = vThreshold
+    )
+
     if (bMakeCharts) {
-      lData$dfConfig <- MakeDfConfig(
-        strMethod = strMethod,
-        strGroup = strGroup,
-        strAbbreviation = "AE",
-        strMetric = "Adverse Event Rate",
-        strNumerator = "Adverse Events",
-        strDenominator = "Days on Study",
-        vThreshold = vThreshold
-      )
-      
       lOutput$lCharts <- MakeKRICharts(lData = lData)
-      
       if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
-    } 
+    }
 
     # return data -------------------------------------------------------------
     return(lOutput)

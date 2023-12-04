@@ -56,7 +56,7 @@ test_that("Stratified output is returned", {
   expect_true(is.list(lConsolidatedOutput))
   expect_equal(
     c(
-      "chart", "dfAnalyzed", "dfBounds", "dfConfig", "dfFlagged", "dfSummary",
+      "chart", "dfAnalyzed", "dfBounds", "dfFlagged", "dfSummary",
       "dfTransformed", "lCharts", "lChecks", "lData"
     ),
     names(lConsolidatedOutput$lResults) %>% sort()

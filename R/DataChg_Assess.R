@@ -170,30 +170,27 @@ DataChg_Assess <- function(
     # visualizations ----------------------------------------------------------
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
+    lData$dfConfig <- MakeDfConfig(
+      strMethod = strMethod,
+      strGroup = strGroup,
+      strAbbreviation = "CDAT",
+      strMetric = "Data Change Rate",
+      strNumerator = "Data Points with 1+ Change",
+      strDenominator = "Total Data Points",
+      vThreshold = vThreshold
+    )
+
+    lOutput <- list(
+      lData = lData,
+      lChecks = lChecks
+    )
+
     if (bMakeCharts) {
-      lData$dfConfig <- MakeDfConfig(
-        strMethod = strMethod,
-        strGroup = strGroup,
-        strAbbreviation = "CDAT",
-        strMetric = "Data Change Rate",
-        strNumerator = "Data Points with 1+ Change",
-        strDenominator = "Total Data Points",
-        vThreshold = vThreshold
-      )
-
-      lOutput <- list(
-        lData = lData,
-        lChecks = lChecks,
-        lCharts = MakeKRICharts(lData = lData)
-      )
-
+      lOutput$lCharts <- MakeKRICharts(lData = lData)
       if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} chart{?s}.")
     } else {
 
-      lOutput <- list(
-        lData = lData,
-        lChecks = lChecks
-      )
+
 
     }
 
