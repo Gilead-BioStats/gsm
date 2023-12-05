@@ -42,6 +42,9 @@ test_that("Given an appropriate subset of Labs data, the assessment function cor
     "dfSummary" = t6_4_summary
   )
 
+  # remove metadata that is not part of qualification
+  test6_4$lData$dfConfig <- NULL
+
   # compare results
   expect_equal(test6_4$lData, t6_4)
 })

@@ -55,6 +55,9 @@ test_that("Given appropriate Query Rate data, the assessment function correctly 
     "dfSummary" = t10_11_summary
   )
 
+  # remove metadata that is not part of qualification
+  test10_11$lData$dfConfig <- NULL
+
   # compare results
   expect_equal(test10_11$lData, t10_11)
 })

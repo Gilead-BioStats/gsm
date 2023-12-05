@@ -44,5 +44,5 @@ test_that("Given an appropriate subset of Query Rate data, the assessment functi
   )
 
   # compare results
-  expect_equal(test10_7$lData[names(test10_7$lData) != "dfBounds"], t10_7)
+  expect_equal(test10_7$lData[!names(test10_7$lData) %in% c("dfBounds", "dfConfig")], t10_7)
 })

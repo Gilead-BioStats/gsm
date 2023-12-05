@@ -18,6 +18,7 @@
 #'   of the column. Default: package-defined Inclusion/Exclusion Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
+#' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -55,6 +56,7 @@ IE_Assess <- function(
   lMapping = yaml::read_yaml(system.file("mappings", "IE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   nMinDenominator = NULL,
+  bMakeCharts = FALSE,
   bQuiet = TRUE
 ) {
   # data checking -----------------------------------------------------------
@@ -106,10 +108,7 @@ IE_Assess <- function(
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
-    # visualizations ----------------------------------------------------------
-    lCharts <- list()
-
-    dfConfig <- MakeDfConfig(
+    lData$dfConfig <- MakeDfConfig(
       strMethod = "Identity",
       strGroup = strGroup,
       strAbbreviation = "IE",
@@ -119,34 +118,20 @@ IE_Assess <- function(
       vThreshold = nThreshold
     )
 
-
-
-    lCharts$barMetric <- Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
-    lCharts$barScore <- Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = nThreshold)
-
-    lCharts$barMetricJS <- gsm::Widget_BarChart(
-      results = lData$dfSummary,
-      workflow = dfConfig,
-      yaxis = "metric",
-      elementId = "ieAssessMetric",
-      siteSelectLabelValue = strGroup
+    lOutput <- list(
+      lData = lData,
+      lChecks = lChecks
     )
 
-    lCharts$barScoreJS <- gsm::Widget_BarChart(
-      results = lData$dfSummary,
-      workflow = dfConfig,
-      yaxis = "score",
-      elementId = "ieAssessScore",
-      siteSelectLabelValue = strGroup
-    )
+    # visualizations ----------------------------------------------------------
+    if (bMakeCharts) {
+      lOutput$lCharts <- MakeKRICharts(lData = lData)
+      if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
+    }
 
-    if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} bar chart{?s}.")
+
 
     # return data -------------------------------------------------------------
-    return(list(
-      lData = lData,
-      lCharts = lCharts,
-      lChecks = lChecks
-    ))
+    return(lOutput)
   }
 }
