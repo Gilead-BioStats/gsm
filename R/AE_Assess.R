@@ -188,14 +188,6 @@ AE_Assess <- function(
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
-    lOutput <- list(
-      lData = lData,
-      lChecks = lChecks
-    )
-
-    # visualizations ----------------------------------------------------------
-    if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
-
     lData$dfConfig <- MakeDfConfig(
       strMethod = strMethod,
       strGroup = strGroup,
@@ -205,6 +197,14 @@ AE_Assess <- function(
       strDenominator = "Days on Study",
       vThreshold = vThreshold
     )
+
+    lOutput <- list(
+      lData = lData,
+      lChecks = lChecks
+    )
+
+    # visualizations ----------------------------------------------------------
+    if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
     if (bMakeCharts) {
       lOutput$lCharts <- MakeKRICharts(lData = lData)
