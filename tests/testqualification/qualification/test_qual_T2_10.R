@@ -50,5 +50,5 @@ test_that("Given appropriate Protocol Deviation data, the assessment function co
 
   # compare results
   # remove bounds dataframe for now
-  expect_equal(test2_10$lData[names(test2_10$lData) != "dfBounds"], t2_10)
+  expect_equal(test2_10$lData[!names(test2_10$lData) %in% c("dfBounds", "dfConfig")], t2_10)
 })

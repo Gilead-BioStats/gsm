@@ -47,6 +47,9 @@ test_that("Given appropriate  Inclusion/Exclusion data, the assessment function 
     "dfSummary" = t3_1_summary
   )
 
+  # remove metadata that is not part of qualification
+  test3_1$lData$dfConfig <- NULL
+
   # compare results
   expect_equal(test3_1$lData, t3_1)
 })

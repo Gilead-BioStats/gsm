@@ -25,6 +25,7 @@
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
+#' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -68,14 +69,14 @@
 #' @export
 
 AE_Assess <- function(
-  dfInput,
-  vThreshold = NULL,
-  strMethod = "NormalApprox",
-  lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
-  strGroup = "Site",
-  nMinDenominator = NULL,
-  bQuiet = TRUE
-) {
+    dfInput,
+    vThreshold = NULL,
+    strMethod = "NormalApprox",
+    lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
+    strGroup = "Site",
+    nMinDenominator = NULL,
+    bMakeCharts = FALSE,
+    bQuiet = TRUE) {
   # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'NormalApprox', 'Poisson' or 'Identity'" = strMethod %in% c("NormalApprox", "Poisson", "Identity"),
@@ -183,21 +184,11 @@ AE_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn {flag_function_name}} returned output with {nrow(lData$dfFlagged)} rows.")
 
 
-    # dfSummary ---------------------------------------------------------------
+    # dfSummary + output object ---------------------------------------------------------------
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
-
-    # visualizations ----------------------------------------------------------
-    lCharts <- list()
-
-    if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
-
-
-
-    # rbm-viz setup -----------------------------------------------------------
-
-    dfConfig <- MakeDfConfig(
+    lData$dfConfig <- MakeDfConfig(
       strMethod = strMethod,
       strGroup = strGroup,
       strAbbreviation = "AE",
@@ -207,54 +198,20 @@ AE_Assess <- function(
       vThreshold = vThreshold
     )
 
+    lOutput <- list(
+      lData = lData,
+      lChecks = lChecks
+    )
 
+    # visualizations ----------------------------------------------------------
+    if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-    # scatter plots -----------------------------------------------------------
-    if (strMethod != "Identity") {
-      lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-
-
-      # rbm-viz charts ----------------------------------------------------------
-      lCharts$scatterJS <- gsm::Widget_ScatterPlot(
-        results = lData$dfSummary,
-        workflow = dfConfig,
-        bounds = lData$dfBounds,
-        elementId = "aeAssessScatter",
-        siteSelectLabelValue = strGroup
-      )
-      if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
+    if (bMakeCharts) {
+      lOutput$lCharts <- MakeKRICharts(lData = lData)
+      if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
     }
 
-
-    # bar charts --------------------------------------------------------------
-    lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
-
-    lCharts$barMetricJS <- gsm::Widget_BarChart(
-      results = lData$dfSummary,
-      workflow = dfConfig,
-      yaxis = "metric",
-      elementId = "aeAssessMetric",
-      siteSelectLabel = strGroup
-    )
-
-    lCharts$barScoreJS <- gsm::Widget_BarChart(
-      results = lData$dfSummary,
-      workflow = dfConfig,
-      yaxis = "score",
-      elementId = "aeAssessScore",
-      siteSelectLabelValue = strGroup
-    )
-
-
-    if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
-
-
     # return data -------------------------------------------------------------
-    return(list(
-      lData = lData,
-      lCharts = lCharts,
-      lChecks = lChecks
-    ))
+    return(lOutput)
   }
 }

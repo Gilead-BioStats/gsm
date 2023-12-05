@@ -37,6 +37,9 @@ test_that("Given appropriate Disposition data, the assessment function correctly
     "dfSummary" = t5_3_summary
   )
 
+  # remove metadata that is not part of qualification
+  test5_3$lData$dfConfig <- NULL
+
   # compare results
   expect_equal(test5_3$lData, t5_3)
 })

@@ -53,5 +53,5 @@ test_that("Given appropriate Query Age data, the assessment function correctly p
   )
 
   # compare results
-  expect_equal(test9_12$lData[names(test9_12$lData) != "dfBounds"], t9_12)
+  expect_equal(test9_12$lData[!names(test9_12$lData) %in% c("dfBounds", "dfConfig")], t9_12)
 })

@@ -3,7 +3,7 @@
     Code
       names(output)
     Output
-      [1] "lData"   "lCharts" "lChecks"
+      [1] "lData"   "lChecks"
 
 ---
 
@@ -11,13 +11,14 @@
       names(output$lData)
     Output
       [1] "dfTransformed" "dfAnalyzed"    "dfFlagged"     "dfSummary"    
+      [5] "dfConfig"     
 
 ---
 
     Code
       names(output$lCharts)
     Output
-      [1] "barMetric"   "barScore"    "barMetricJS" "barScoreJS" 
+      NULL
 
 ---
 
@@ -114,5 +115,4 @@
       i No analysis function used. `dfTransformed` copied directly to `dfAnalyzed`.
       v `Flag()` returned output with 40 rows.
       v `Summarize()` returned output with 40 rows.
-      v Created 4 bar charts.
 
