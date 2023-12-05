@@ -16,6 +16,7 @@
 #' @param lPrevSnapshot `list` optional argument for the previous snapshot run to track longitudinal data,
 #' @param append_files `vector` a vector or log files to append, defaults to all log files from `lPrevSnapshot` argument
 #' @param strAnalysisDate `character` date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: `YYYY-MM-DD`.
+#' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @includeRmd ./man/md/Make_Snapshot.md
@@ -82,6 +83,7 @@ Make_Snapshot <- function(
     lPrevSnapshot = NULL,
     append_files = names(lPrevSnapshot$lSnapshot),
     strAnalysisDate = NULL,
+    bMakeCharts = TRUE,
     bQuiet = TRUE
 ) {
 
@@ -187,12 +189,28 @@ Make_Snapshot <- function(
   # create `lStackedSnapshots` ----------------------------------------------
   lStackedSnapshots = AppendLogs(lPrevSnapshot, lSnapshot, append_files)
 
+  # create lCharts ----------------------------------------------------------
+
+ # browser()
+
+  if (bMakeCharts) {
+    lCharts <- purrr::map(lResults, function(x) {
+
+      if (!grepl("qtl", x$name)) {
+        MakeKRICharts(lData = x$lResults$lData)
+      }
+
+    }) %>%
+      purrr::discard(is.null)
+  }
+
   # build output ---------------------------------------------------------------
   snapshot <- list(
     dfStatus = MakeWorkflowStatus(lStackedSnapshots),
     lSnapshotDate = gsm_analysis_date,
     lSnapshot = lSnapshot,
     lStudyAssessResults = AppendDroppedWorkflows(lPrevSnapshot, lResults),
+    lCharts = lCharts,
     lInputs = list(
       lMeta = lMeta,
       lData = lData,
