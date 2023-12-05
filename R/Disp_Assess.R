@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Disposition Assessment
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Evaluates disposition rate (DISP) on mapped subject-level dataset to identify sites that may be over- or under-reporting patient discontinuations.

@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Check gsm_version in clindata metadata.
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @param config `list` Named list of metadata to check from the `{clindata}` package.
 #' @param ci_check `logical` If `TRUE`, return data.frame with results of the version check. If `FALSE` (default), only console messages are returned.

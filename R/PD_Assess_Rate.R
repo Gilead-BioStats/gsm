@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Protocol Deviation Assessment (Rate)
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Evaluates Protocol Deviation (PD) rates to identify sites that may be over- or under-reporting PDs.

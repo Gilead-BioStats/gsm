@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Run a stratified workflow via workflow YAML specification.
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' Attempts to run a stratified workflow (`lWorkflow`) using shared data (`lData`) and metadata (`lMapping`).

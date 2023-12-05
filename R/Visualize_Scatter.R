@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Group-level visualization of group-level results
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @param dfSummary `data.frame` returned by [gsm::Summarize()]
 #' @param dfBounds `data.frame` data.frame giving prediction bounds for range of denominator in dfSummary.

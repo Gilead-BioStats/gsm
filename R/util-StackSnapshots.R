@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Create longitudinal snapshot from results_summary.
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @param cPath `character` Path to longitudinal data folders.
 #' @param lSnapshot `list` Optional. Pass the output of [gsm::Make_Snapshot()] to be appended to historical results.

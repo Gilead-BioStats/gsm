@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Load workflows from a package/directory.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @details
 #' `MakeWorkflowList()` is a utility function that creates a list of workflows for use in [gsm::Study_Assess()].

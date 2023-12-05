@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Poisson Analysis - Site Residuals.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @details
 #' Fits a Poisson model to site-level data and adds columns capturing Residual and Predicted Count for each site.

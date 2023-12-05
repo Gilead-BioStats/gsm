@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Check Snapshot Inputs
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' Check that the output created from [gsm::Make_Snapshot()] returns all expected tables and columns within tables as defined by the

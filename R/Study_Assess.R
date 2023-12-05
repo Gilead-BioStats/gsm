@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Run Multiple Assessments on a Study
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Attempts to run one or more assessments (`lAssessments`) using shared data (`lData`) and metadata (`lMapping`). By default, the sample `rawplus` data from the {clindata} package is used, and all assessments defined in `inst/workflow` are evaluated. Individual assessments are run using `gsm::RunAssessment()`

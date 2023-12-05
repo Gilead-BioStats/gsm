@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-UpdateGSMVersion.R
 \name{UpdateGSMVersion}
 \alias{UpdateGSMVersion}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Update GSM Version (\code{gsm_version} column) in metadata for \link{meta_param} and \link{meta_workflow}.}
 \usage{
 UpdateGSMVersion(version = NULL)
 }
@@ -16,7 +16,7 @@ Updated metadata. Currently \link{meta_param} and \link{meta_workflow}.
 Automatically updates metadata that relies on the current \code{{gsm}} version. Exported \code{{gsm}} data, as well as raw \code{.csv} files are updated.
 }
 \details{
-Update GSM Version (\code{gsm_version} column) in metadata for \link{meta_param} and \link{meta_workflow}.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 \dontrun{

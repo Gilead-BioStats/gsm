@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Adverse Event Assessment - ADaM Mapping
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' Convert analysis adverse event (AE) data, by default ADaM data, to formatted input data to

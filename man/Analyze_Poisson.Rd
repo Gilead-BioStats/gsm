@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_Poisson.R
 \name{Analyze_Poisson}
 \alias{Analyze_Poisson}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Poisson Analysis - Site Residuals.}
 \usage{
 Analyze_Poisson(dfTransformed, bQuiet = TRUE)
 }
@@ -15,7 +15,7 @@ Analyze_Poisson(dfTransformed, bQuiet = TRUE)
 \code{data.frame} with one row per site with columns: GroupID, Numerator, Denominator, Metric, Score, and PredictedCount.
 }
 \description{
-Poisson Analysis - Site Residuals.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
 Fits a Poisson model to site-level data and adds columns capturing Residual and Predicted Count for each site.

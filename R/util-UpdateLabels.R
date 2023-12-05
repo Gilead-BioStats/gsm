@@ -1,6 +1,6 @@
-#' lifecycle::badge("stable")
-#'
 #' Update visualization labels based on metadata.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' If visualizations are created outside of a standard snapshot (e.g., [gsm::Make_Snapshot()]), there is not enough descriptive metadata to assign

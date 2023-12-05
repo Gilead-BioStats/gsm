@@ -2,7 +2,7 @@
 % Please edit documentation in R/Augment_Snapshot.R
 \name{Augment_Snapshot}
 \alias{Augment_Snapshot}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Attach longitudinal content to snapshot}
 \usage{
 Augment_Snapshot(
   lSnapshot,
@@ -27,7 +27,7 @@ Augment_Snapshot(
 \code{list} The output of \code{\link[=Make_Snapshot]{Make_Snapshot()}} with longitudinal data and widgets appended.
 }
 \description{
-Attach longitudinal content to snapshot
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \details{
 Attach stacked, longitudinal snapshot data and time series widgets to output of

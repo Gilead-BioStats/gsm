@@ -2,7 +2,7 @@
 % Please edit documentation in R/QueryRate_Assess.R
 \name{QueryRate_Assess}
 \alias{QueryRate_Assess}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Query Rate Assessment}
 \usage{
 QueryRate_Assess(
   dfInput,
@@ -72,7 +72,7 @@ when \code{strMethod == "NormalApprox"} or \code{strMethod == "Poisson"}. \code{
 Evaluates query rates to identify sites that may be over- or under-reporting queries.
 }
 \details{
-Query Rate Assessment
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The Query Rate Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.

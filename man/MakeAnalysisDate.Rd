@@ -2,7 +2,7 @@
 % Please edit documentation in R/MakeAnalysisDate.R
 \name{MakeAnalysisDate}
 \alias{MakeAnalysisDate}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Make Analysis Date}
 \usage{
 MakeAnalysisDate(strAnalysisDate = NULL, bQuiet = FALSE)
 }
@@ -15,7 +15,7 @@ MakeAnalysisDate(strAnalysisDate = NULL, bQuiet = FALSE)
 \code{Date} A date in the format \code{YYYY-MM-DD}.
 }
 \description{
-Make Analysis Date
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 analysis_date <- MakeAnalysisDate()

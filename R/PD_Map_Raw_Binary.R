@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Protocol Deviation Assessment (Binary Outcome) - Raw Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Convert raw protocol deviation (PD) data, typically processed case report form data, to formatted

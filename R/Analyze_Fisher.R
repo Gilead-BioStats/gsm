@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Fisher's Exact Test Analysis.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @details
 #' Analyzes count data using the Fisher's exact test.

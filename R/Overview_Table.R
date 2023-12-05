@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Overview Table - Create summary of red and amber KRIs for a study.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @param lAssessments `list` The output of running [gsm::Study_Assess()].
 #' @param dfSite `data.frame`

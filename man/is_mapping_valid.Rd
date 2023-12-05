@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-is_mapping_valid.R
 \name{is_mapping_valid}
 \alias{is_mapping_valid}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Check that a data frame contains columns and fields specified in mapping.}
 \usage{
 is_mapping_valid(df, mapping, spec, bQuiet = TRUE)
 }
@@ -29,7 +29,7 @@ a list containing checks and a \code{status} and \code{warning} (if check does n
 a pre-defined, or user-defined mapping and specification.
 }
 \details{
-Check that a data frame contains columns and fields specified in mapping.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 subj_mapping <- list(

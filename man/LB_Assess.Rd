@@ -2,7 +2,7 @@
 % Please edit documentation in R/LB_Assess.R
 \name{LB_Assess}
 \alias{LB_Assess}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Lab Abnormality Assessment}
 \usage{
 LB_Assess(
   dfInput,
@@ -69,7 +69,7 @@ of the column. Default: package-defined Labs Assessment mapping.}
 Evaluates rate of reported Lab Abnormalities (LB).
 }
 \details{
-Lab Abnormality Assessment
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The Lab Abnormality Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
