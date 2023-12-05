@@ -138,18 +138,31 @@ Make_Snapshot <- function(
     replace_na(replace = list("amber_flags" = 0, "red_flags" = 0))
 
   # create `lStackedSnapshots` ----------------------------------------------
-  lStackedSnapshots = AppendLogs(lPrevSnapshot, lSnapshot, append_files)
+  lStackedSnapshots <- AppendLogs(lPrevSnapshot, lSnapshot, append_files)
 
 
   # create lCharts ----------------------------------------------------------
 
- # browser()
+
 
   if (bMakeCharts) {
     lCharts <- purrr::map(lResults, function(x) {
 
       if (!grepl("qtl", x$name)) {
         MakeKRICharts(lData = x$lResults$lData)
+      } else {
+
+        browser()
+
+        # this will be a function eventually
+        list(
+          timeseriesQtl = Widget_TimeSeriesQTL(qtl = x$name,
+                                               raw_results = lStackedSnapshots$rpt_site_kri_details,
+                                               raw_workflow = lStackedSnapshots$rpt_kri_details,
+                                               raw_param = lStackedSnapshots$rpt_kri_threshold_param,
+                                               raw_analysis = lStackedSnapshots$rpt_qtl_analysis)
+        )
+
       }
 
     }) %>%
