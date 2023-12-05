@@ -43,6 +43,9 @@ test_that("Given an appropriate subset of Protocol Deviation data, the assessmen
     "dfSummary" = t23_5_summary
   )
 
+  # remove metadata that is not part of qualification
+  test23_5$lData$dfConfig <- NULL
+
   # compare results
   expect_equal(test23_5$lData, t23_5)
 })

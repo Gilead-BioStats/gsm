@@ -51,6 +51,9 @@ test_that("Given appropriate Adverse Event data, the assessment function correct
     "dfSummary" = t1_11_summary
   )
 
+  # remove metadata that is not part of qualification
+  test1_11$lData$dfConfig <- NULL
+
   # compare results
   expect_equal(test1_11$lData, t1_11)
 })

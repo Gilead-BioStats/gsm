@@ -13,6 +13,7 @@ Screening_Assess(
   strGroup = "Site",
   nMinDenominator = NULL,
   nConfLevel = NULL,
+  bMakeCharts = FALSE,
   bQuiet = TRUE
 )
 }
@@ -37,6 +38,8 @@ of the column. Default: package-defined Screening Assessment mapping.}
 \item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
 
 \item{nConfLevel}{\code{numeric} Confidence level for QTL analysis.}
+
+\item{bMakeCharts}{\code{logical} Boolean value indicating whether to create charts.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }

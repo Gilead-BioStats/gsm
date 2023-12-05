@@ -55,6 +55,9 @@ test_that("Given an appropriate subset of Consent data, the assessment function 
     "dfSummary" = t4_2_summary
   )
 
+  # remove metadata that is not part of qualification
+  test4_2$lData$dfConfig <- NULL
+
   # compare results
   expect_equal(test4_2$lData, t4_2)
 })

@@ -11,6 +11,7 @@ AE_Assess(
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
   strGroup = "Site",
   nMinDenominator = NULL,
+  bMakeCharts = FALSE,
   bQuiet = TRUE
 )
 }
@@ -35,6 +36,8 @@ of the column. Default: package-defined Adverse Event Assessment mapping.}
 Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
 
 \item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
+
+\item{bMakeCharts}{\code{logical} Boolean value indicating whether to create charts.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }

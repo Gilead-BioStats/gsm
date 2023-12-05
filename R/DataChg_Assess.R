@@ -22,6 +22,7 @@
 #'   of the column. Default: package-defined Labs Assessment mapping.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
+#' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -58,14 +59,14 @@
 #' @export
 
 DataChg_Assess <- function(
-  dfInput,
-  vThreshold = NULL,
-  strMethod = "NormalApprox",
-  lMapping = yaml::read_yaml(system.file("mappings", "DataChg_Assess.yaml", package = "gsm")),
-  strGroup = "Site",
-  nMinDenominator = NULL,
-  bQuiet = TRUE
-) {
+    dfInput,
+    vThreshold = NULL,
+    strMethod = "NormalApprox",
+    lMapping = yaml::read_yaml(system.file("mappings", "DataChg_Assess.yaml", package = "gsm")),
+    strGroup = "Site",
+    nMinDenominator = NULL,
+    bMakeCharts = FALSE,
+    bQuiet = TRUE) {
   # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'NormalApprox', 'Fisher' or 'Identity'" = strMethod %in% c("NormalApprox", "Fisher", "Identity"),
@@ -167,13 +168,9 @@ DataChg_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
-    lCharts <- list()
-
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-    # rbm-viz setup -----------------------------------------------------------
-
-    dfConfig <- MakeDfConfig(
+    lData$dfConfig <- MakeDfConfig(
       strMethod = strMethod,
       strGroup = strGroup,
       strAbbreviation = "CDAT",
@@ -183,48 +180,21 @@ DataChg_Assess <- function(
       vThreshold = vThreshold
     )
 
-    if (strMethod != "Identity") {
-      lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
+    lOutput <- list(
+      lData = lData,
+      lChecks = lChecks
+    )
 
-      lCharts$scatterJS <- gsm::Widget_ScatterPlot(
-        results = lData$dfSummary,
-        workflow = dfConfig,
-        bounds = lData$dfBounds,
-        elementId = "dataChgAssessScatter",
-        siteSelectLabelValue = strGroup
-      )
+    if (bMakeCharts) {
+      lOutput$lCharts <- MakeKRICharts(lData = lData)
+      if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} chart{?s}.")
+    } else {
 
-      if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
+
+
     }
 
-    lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
-
-    lCharts$barMetricJS <- gsm::Widget_BarChart(
-      results = lData$dfFlagged,
-      workflow = dfConfig,
-      yaxis = "metric",
-      elementId = "dataChgAssessMetric",
-      siteSelectLabelValue = strGroup
-    )
-
-    lCharts$barScoreJS <- gsm::Widget_BarChart(
-      results = lData$dfFlagged,
-      workflow = dfConfig,
-      yaxis = "score",
-      elementId = "dataChgAssessScore",
-      siteSelectLabelValue = strGroup
-    )
-
-    if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
-
-
-
     # return data -------------------------------------------------------------
-    return(list(
-      lData = lData,
-      lCharts = lCharts,
-      lChecks = lChecks
-    ))
+    return(lOutput)
   }
 }

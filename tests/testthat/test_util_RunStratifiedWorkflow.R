@@ -4,7 +4,9 @@ workflows <- MakeWorkflowList(bRecursive = TRUE, strNames = c("pdCategory", "kri
 workflow <- workflows$kri0004
 workflow$steps[[1]] <- NULL # remove filtering to mimic standard PD_Map_Raw_Rate() %>% PD_Assess_Rate()
 workflow$steps[[1]] <- NULL
+workflow$steps[[2]]$params$bMakeCharts <- TRUE
 stratifiedWorkflow <- workflows$pdCategory
+stratifiedWorkflow$steps[[2]]$params$bMakeCharts <- TRUE
 
 data <- list(
   dfSUBJ = dfSUBJ,
@@ -38,8 +40,8 @@ test_that("Structure of stratified output matches structure of standard output",
 test_that("Stratified output is returned", {
   expect_true(is.list(stratifiedOutput))
   expect_equal(
-    c("chart", "dfAnalyzed", "dfBounds", "dfFlagged", "dfSummary", "dfTransformed", "lCharts", "lChecks", "lData"),
-    names(stratifiedOutput$lResults) %>% sort()
+    names(stratifiedOutput$lResults) %>% sort(),
+    c("chart", "dfAnalyzed", "dfBounds", "dfConfig", "dfFlagged", "dfSummary", "dfTransformed", "lCharts", "lChecks", "lData")
   )
   expect_equal(
     "stratum",

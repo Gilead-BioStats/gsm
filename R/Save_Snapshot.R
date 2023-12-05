@@ -41,17 +41,17 @@ Save_Snapshot <- function(lSnapshot, cPath, bCreateDefaultFolder = FALSE, bQuiet
     full_path <- cPath
   }
 
-  if (!bQuiet) cli::cli_alert_info("Saving { length(lSnapshot$lSnapshot) } snapshots to { .file { cPath } }")
+  if (!bQuiet) cli::cli_alert_info("Saving { length(lSnapshot$lSnapshot) } snapshots to { cPath }")
 
-  if (strFileFormat == "csv") {
-    purrr::iwalk(lSnapshot$lSnapshot, ~ utils::write.csv(.x, file = paste0(full_path, "/", .y, ".csv"), row.names = FALSE))
-  }
+  switch(strFileFormat,
+    csv = {
+      purrr::iwalk(lSnapshot$lSnapshot, ~ utils::write.csv(.x, file = paste0(full_path, "/", .y, ".csv"), row.names = FALSE))
+    },
+    parquet = {
+      purrr::iwalk(lSnapshot$lSnapshot, ~ arrow::write_parquet(x = .x, sink = paste0(full_path, "/", .y, ".parquet")))
+    }
+  )
 
-  if (strFileFormat == "parquet") {
-    purrr::iwalk(lSnapshot$lSnapshot, ~ arrow::write_parquet(x = .x, sink = paste0(full_path, "/", .y, ".parquet")))
-  }
-
-  if (!bQuiet) cli::cli_alert_info("Saving snapshot object as { .file snapshot.rds } to { .file { cPath } }")
+  if (!bQuiet) cli::cli_alert_info("Saving snapshot object as {.file snapshot.rds} to { cPath }")
   saveRDS(lSnapshot, file = paste0(full_path, "/snapshot.rds"), compress = TRUE)
 }
-

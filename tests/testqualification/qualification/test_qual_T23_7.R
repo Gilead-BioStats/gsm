@@ -39,5 +39,5 @@ test_that("Given an appropriate subset of Protocol Deviation data, the assessmen
 
   # compare results
   # remove bounds dataframe for now
-  expect_equal(test23_7$lData[names(test23_7$lData) != "dfBounds"], t23_7)
+  expect_equal(test23_7$lData[!names(test23_7$lData) %in% c("dfBounds", "dfConfig")], t23_7)
 })

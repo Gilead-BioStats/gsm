@@ -36,6 +36,7 @@
         strMethod = "NormalApprox",
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -82,6 +83,7 @@
         strMethod = "NormalApprox",
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -128,6 +130,7 @@
         strMethod = "NormalApprox",
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -174,6 +177,7 @@
         strMethod = "NormalApprox",
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -220,6 +224,7 @@
         strMethod = "NormalApprox",
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -253,6 +258,7 @@
         strMethod = "NormalApprox",
         strGroup = "Country",
         nMinDenominator = 3,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -299,6 +305,7 @@
         strMethod = "NormalApprox",
         strGroup = "Country",
         nMinDenominator = 3,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -345,6 +352,7 @@
         strMethod = "NormalApprox",
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -391,6 +399,7 @@
         strMethod = "NormalApprox",
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -424,6 +433,7 @@
         strMethod = "NormalApprox",
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -457,6 +467,7 @@
         strMethod = "NormalApprox",
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -477,6 +488,7 @@
         strMethod = "NormalApprox",
         strGroup = "Country",
         nMinDenominator = 3,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -510,6 +522,7 @@
         strMethod = "NormalApprox",
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -556,6 +569,7 @@
         strMethod = "NormalApprox",
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -602,6 +616,7 @@
         strMethod = "NormalApprox",
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -648,6 +663,7 @@
         strMethod = "NormalApprox",
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -694,6 +710,7 @@
         strMethod = "NormalApprox",
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -727,6 +744,7 @@
         strMethod = "NormalApprox",
         strGroup = "Site",
         nMinDenominator = 3,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -773,6 +791,7 @@
         strMethod = "NormalApprox",
         strGroup = "Site",
         nMinDenominator = 3,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -819,6 +838,7 @@
         strMethod = "NormalApprox",
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -865,6 +885,7 @@
         strMethod = "NormalApprox",
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -898,6 +919,7 @@
         strMethod = "NormalApprox",
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -931,6 +953,7 @@
         strMethod = "NormalApprox",
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -951,6 +974,7 @@
         strMethod = "NormalApprox",
         strGroup = "Site",
         nMinDenominator = 3,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -997,6 +1021,7 @@
         strMethod = "QTL",
         strGroup = "Study",
         nConfLevel = 0.95,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -1030,6 +1055,7 @@
         strMethod = "QTL",
         strGroup = "Study",
         nConfLevel = 0.95,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
 

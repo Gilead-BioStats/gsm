@@ -45,6 +45,9 @@ test_that("Given an appropriate subset of Query Age data, the assessment functio
     "dfSummary" = t9_5_summary
   )
 
+  # remove metadata that is not part of qualification
+  test9_5$lData$dfConfig <- NULL
+
   # compare results
   expect_equal(test9_5$lData, t9_5)
 })
