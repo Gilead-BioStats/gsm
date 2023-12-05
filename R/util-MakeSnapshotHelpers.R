@@ -618,8 +618,8 @@ MakeRptQtlAnalysis <- function(lResults, status_param, gsm_analysis_date) {
 #' @export
 #'
 #' @keywords internal
-Match_Class <- function(lPrevSnapshot, lSnapshot) {
-  if (is.null(lPrevSnapshot)) {
+Match_Class <- function(lPrevSnapshot, lSnapshot){
+  if(is.null(lPrevSnapshot)){
     return(lSnapshot)
   } else {
     prev_snapshot_classes <- purrr::map_df(lPrevSnapshot$lSnapshot, GetClass, .id = "file")
@@ -629,45 +629,47 @@ Match_Class <- function(lPrevSnapshot, lSnapshot) {
       filter(.data$class.x != .data$class.y)
 
     if (nrow(unmatched_data_class) > 0) {
-      for (i in 1:nrow(unmatched_data_class)) {
+      for(i in 1:nrow(unmatched_data_class)){
         File <- unmatched_data_class$file[i]
 
         lPrevSnapshot$lSnapshot[[File]] <- lPrevSnapshot$lSnapshot[[File]] %>%
           mutate(across(unmatched_data_class$column[i], get(paste0("as.", unmatched_data_class$class.y[i]))))
       }
+    } else {
+      return(lPrevSnapshot)
     }
   }
   return(lPrevSnapshot)
 }
 
 
-#' Appends the previous snapshot logs to the current snapshot logs
-#'
-#' @param lPrevSnapshot `list` the previous Snapshot object
-#' @param lSnapshot `list` the current Snapshot object
-#' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
-#'
-#' @importFrom dplyr bind_rows
-#' @importFrom cli cli_alert_warning
-#'
-#' @return Appended lSnapshot object
-#'
-#' @export
-#'
-#' @keywords internal
-AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot)) {
-  if (is.null(lPrevSnapshot)) {
-    cli::cli_alert_warning("`lPrevSnapshot` argument of `AppendLogs` is NULL `lStackedSnapshots` will only contain original lSnapshot logs")
-    return(lSnapshot)
-  } else {
-    prev_snap_fixed <- Match_Class(lPrevSnapshot, lSnapshot)
-    appendedlogs <- list()
-    for (i in files) {
-      appendedlogs[[i]] <- dplyr::bind_rows(prev_snap_fixed$lSnapshot[[i]], lSnapshot[[i]])
+  #' Appends the previous snapshot logs to the current snapshot logs
+  #'
+  #' @param lPrevSnapshot `list` the previous Snapshot object
+  #' @param lSnapshot `list` the current Snapshot object
+  #' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
+  #'
+  #' @importFrom dplyr bind_rows
+  #' @importFrom cli cli_alert_warning
+  #'
+  #' @return Appended lSnapshot object
+  #'
+  #' @export
+  #'
+  #' @keywords internal
+  AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot)){
+    if(is.null(lPrevSnapshot)){
+      cli::cli_alert_warning("`lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs")
+      return(lSnapshot)
+    } else {
+      prev_snap_fixed <- Match_Class(lPrevSnapshot, lSnapshot)
+      appendedlogs <- list()
+      for(i in files[files %in% names(lSnapshot)]){
+        appendedlogs[[i]] <- dplyr::bind_rows(prev_snap_fixed$lSnapshot[[i]], lSnapshot[[i]])
+      }
+      return(appendedlogs)
     }
-    return(appendedlogs)
   }
-}
 
 #' Appends the previous snapshot logs to the current snapshot logs
 #'
@@ -682,20 +684,19 @@ AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSn
 #' @export
 #'
 #' @keywords internal
-MakeWorkflowStatus <- function(lStackedSnapshots) {
-  lStackedSnapshots$results_summary %>%
-    distinct(.data$gsm_analysis_date, .data$workflowid) %>%
-    group_by(.data$workflowid) %>%
-    summarise(
-      latest = max(as.Date(.data$gsm_analysis_date), na.rm = TRUE),
-      .groups = "drop"
-    ) %>%
-    mutate(is_current = .data$latest == max(.data$latest)) %>%
-    rename(
-      "Workflow ID" = "workflowid",
-      "Most Recent Snapshot" = "latest",
-      "Currently Active" = "is_current"
-    )
+
+MakeWorkflowHistory <- function(lStackedSnapshots){
+  if("rpt_site_kri_details" %in% names(lStackedSnapshots)){
+    lStackedSnapshots$rpt_site_kri_details %>%
+      distinct(.data$snapshot_date, .data$kri_id) %>%
+      group_by(.data$kri_id) %>%
+      summarise(
+        latest_active_status = max(as.Date(.data$snapshot_date), na.rm = TRUE),
+        .groups = "drop"
+      )
+  } else {
+   cli::cli_alert_warning("`latest_active_status` in `status_workflow` can't be determined. 'rpt_site_kri_details' missing from `lPrevSnapshot` or `append_files` argument")
+  }
 }
 
 

@@ -40,7 +40,7 @@ test_that("output for country-only worklow is created as expected", {
 
 test_that("missing tables are caught", {
   snapshot_missing <- snapshot_all
-  snapshot_missing$results_summary <- NULL
+  snapshot_missing$rpt_site_kri_details <- NULL
   check_missing <- CheckSnapshotInputs(snapshot_missing)
 
   expect_false(check_missing$bStatus)
@@ -49,7 +49,7 @@ test_that("missing tables are caught", {
 
 test_that("missing columns are caught", {
   columns_missing <- snapshot_all
-  columns_missing$meta_param$index <- NULL
+  columns_missing$rpt_site_kri_details$site_id <- NULL
 
   check_missing_columns <- CheckSnapshotInputs(columns_missing)
   expect_false(check_missing_columns$bStatus)
